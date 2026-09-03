@@ -18,11 +18,7 @@ def _json_bytes(value: Any) -> bytes:
 
 
 def planning_client_js() -> str:
-    base = Path(__file__).with_name("flight_planning.js").read_text(encoding="utf-8")
-    shim = Path(__file__).with_name("flight_planning_pixel_nav.js")
-    if shim.exists():
-        base += "\n" + shim.read_text(encoding="utf-8") + "\n"
-    return base
+    return Path(__file__).with_name("flight_planning.js").read_text(encoding="utf-8")
 
 
 def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) -> None:
@@ -37,11 +33,7 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
     old_post = getattr(handler, "do_POST", None)
 
     def _log(event: str, **fields: Any) -> None:
-        row = {
-            "utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "event": event,
-            **fields,
-        }
+        row = {"utc": datetime.now(timezone.utc).isoformat(timespec="seconds"), "event": event, **fields}
         try:
             handler.flight_planning_log_path.parent.mkdir(parents=True, exist_ok=True)
             with handler.flight_planning_log_path.open("a", encoding="utf-8") as f:
@@ -97,12 +89,7 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
         job_id = "fp-" + uuid.uuid4().hex[:12]
         _set_job(status="RUNNING", job_id=job_id, state=None, error=None)
         _log("discover_accepted", job_id=job_id, destination=destination, priority=priority)
-        t = threading.Thread(
-            target=_run_discovery_job,
-            args=(job_id, destination, priority),
-            name=f"loom-flight-plan-{job_id}",
-            daemon=True,
-        )
+        t = threading.Thread(target=_run_discovery_job, args=(job_id, destination, priority), name=f"loom-flight-plan-{job_id}", daemon=True)
         t.start()
         return _job_snapshot(), 202
 
@@ -115,12 +102,7 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
         if path == "/flight-planning/status.json":
             return _send_json(self, _job_snapshot())
         if path == "/flight-planning/health.json":
-            return _send_json(self, {
-                "ok": True,
-                "planning": self.flight_planning_session.state().to_dict(),
-                "job": _job_snapshot(),
-                "log_path": str(handler.flight_planning_log_path),
-            })
+            return _send_json(self, {"ok": True, "planning": self.flight_planning_session.state().to_dict(), "job": _job_snapshot(), "log_path": str(handler.flight_planning_log_path)})
         if path in ("/flight-planning/discover.json", "/flight-planning/discover-start"):
             q = parse_qs(parsed.query)
             destination = (q.get("destination") or [""])[0]
@@ -155,21 +137,13 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
                 raise GISFlightPlanningError("request body must be a JSON object")
             session = self.flight_planning_session
             if path == "/flight-planning/discover":
-                destination = body.get("destination")
-                priority = body.get("priority") or "BALANCED"
-                prefer = str(self.headers.get("Prefer") or "").lower()
-                if "respond-async" in prefer:
-                    state, status = _start_discovery(destination, priority)
-                    return _send_json(self, state, status=status)
-                state = session.discover(destination, priority)
+                state = session.discover(body.get("destination"), body.get("priority") or "BALANCED")
             elif path == "/flight-planning/preview":
                 state = session.preview(body.get("route_id"))
-                if state.preview_overlay is not None:
-                    handler.navigation_overlay_json = _json_bytes(state.preview_overlay)
+                if state.preview_overlay is not None: handler.navigation_overlay_json = _json_bytes(state.preview_overlay)
             elif path == "/flight-planning/commit":
                 state = session.commit(body.get("route_id"))
-                if state.preview_overlay is not None:
-                    handler.navigation_overlay_json = _json_bytes(state.preview_overlay)
+                if state.preview_overlay is not None: handler.navigation_overlay_json = _json_bytes(state.preview_overlay)
             elif path == "/flight-planning/execute":
                 state = session.execute()
                 executed = state.last_execution or {}
@@ -189,18 +163,10 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
             code = getattr(exc, "code", None)
             detail = str(code) if code not in (None, "") else str(exc) or "legacy Navigator exited"
             _log("http_post_systemexit", path=path, error=detail)
-            return _send_json(self, {
-                "error": f"Navigator acquisition exited: {detail}",
-                "kind": "LEGACY_SYSTEM_EXIT",
-                "path": path,
-            }, status=502)
+            return _send_json(self, {"error": f"Navigator acquisition exited: {detail}", "kind": "LEGACY_SYSTEM_EXIT", "path": path}, status=502)
         except BaseException as exc:
             _log("http_post_failure", path=path, error=f"{type(exc).__name__}: {exc}", traceback=traceback.format_exc())
-            return _send_json(self, {
-                "error": f"{type(exc).__name__}: {exc}",
-                "kind": "SERVER_FAILURE",
-                "path": path,
-            }, status=500)
+            return _send_json(self, {"error": f"{type(exc).__name__}: {exc}", "kind": "SERVER_FAILURE", "path": path}, status=500)
 
     handler.do_GET = do_GET
     handler.do_POST = do_POST
