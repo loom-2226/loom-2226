@@ -1,3 +1,4 @@
+import copy
 import sys
 from pathlib import Path
 import tempfile
@@ -7,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from loom.navigation.contracts import ContractError, NavigationContext, NavigationRequest, RouteCandidate
-from loom.navigation.service import LegacyNavigationService, NavigationServiceError
+from loom.navigation.service import LegacyNavigationService
 
 
 class FakeSequenceH:
@@ -21,10 +22,26 @@ class FakeSequenceH:
             "flight": {
                 "flight_id": "F-TEST",
                 "final_epoch_utc": "2226-01-02T00:00:00Z",
-                "legs": [{"kind": "DIRECT"}],
+                "mass_ledger": {
+                    "final_remass_t": 244.5,
+                    "final_wet_mass_t": 994.5,
+                    "total_remass_used_t": 5.5,
+                },
+                "legs": [
+                    {
+                        "kind": "DIRECT",
+                        "arrival": {"target_state_source_units": "KM-S"},
+                    }
+                ],
             }
         }
-        return runtime, {"ok": True}, "<html></html>", {"pass": True}, {"stable": True}
+        return (
+            runtime,
+            {"ok": True},
+            "<html></html>",
+            {"pass": True},
+            {"stable": True, "canonical_runtime_sha256": "runtime-hash"},
+        )
 
     def build_canonical_dependency_index(self, acquisition, cache):
         return {"time_axis": ["2226-01-01T00:00:00Z"], "opaque": acquisition}, {"axis": "PASS"}
@@ -44,6 +61,20 @@ class FakeCore:
                 "arrival_remass_t": 244.5,
             }
         ]
+
+    def _deepcopy(self, value):
+        return copy.deepcopy(value)
+
+    def _validate_state(self, state):
+        if "revision" not in state:
+            raise RuntimeError("revision missing")
+
+    def _stamp_state(self, state, revision):
+        out = copy.deepcopy(state)
+        out["revision"] = revision
+        out["state_id"] = f"S{revision}"
+        out["state_sha256"] = f"hash-{revision}"
+        return out
 
 
 class ContractsTest(unittest.TestCase):
@@ -66,8 +97,11 @@ class LegacyServiceTest(unittest.TestCase):
         self.ctx = NavigationContext(
             campaign_state={
                 "epoch_utc": "2226-01-01T00:00:00Z",
+                "revision": 1,
                 "state_id": "S1",
                 "state_sha256": "abc",
+                "location_token": "CERES",
+                "status": "DOCKED",
                 "ship": {"wet_mass_t": 1000.0, "remass_t": 250.0},
             },
             acquisition="ACQ",
@@ -96,14 +130,22 @@ class LegacyServiceTest(unittest.TestCase):
 
     def test_ephemeris_snapshot_delegates_to_sequence_h_canonical_index(self):
         snap = self.service.get_ephemeris(self.ctx)
-        self.assertEqual(snap.epoch, "2226-01-01T00:00:00Z")
-        self.assertEqual(snap.provider, "LEGACY_SEQUENCE_H_CANONICAL")
+        self.assertEqual(snap.epoch_utc, "2226-01-01T00:00:00Z")
+        self.assertEqual(snap.payload["provider"], "LEGACY_SEQUENCE_H_CANONICAL")
         self.assertEqual(snap.payload["axis_validation"], {"axis": "PASS"})
         self.assertEqual(snap.payload["canonical_dependency_index"]["opaque"], "ACQ")
 
-    def test_execution_not_duplicated(self):
-        with self.assertRaises(NavigationServiceError):
-            self.service.execute_flight(None)
+    def test_execute_flight_returns_arrival_without_mutating_campaign_context(self):
+        original = copy.deepcopy(dict(self.ctx.campaign_state))
+        plan = self.service.plan_flight(NavigationRequest("CERES", "MARS"), self.ctx)
+        result = self.service.execute_flight(plan, self.ctx)
+        self.assertEqual(result.status, "ARRIVED_HOLD")
+        self.assertEqual(result.final_state["location_token"], "MARS")
+        self.assertEqual(result.final_state["epoch_utc"], "2226-01-02T00:00:00Z")
+        self.assertEqual(result.final_state["ship"]["remass_t"], 244.5)
+        self.assertEqual(result.final_state["last_flight"]["runtime_sha256"], "runtime-hash")
+        self.assertEqual(result.payload["persistence_owner"], "CAMPAIGN")
+        self.assertEqual(dict(self.ctx.campaign_state), original)
 
 
 if __name__ == "__main__":
