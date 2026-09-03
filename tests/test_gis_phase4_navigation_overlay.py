@@ -32,6 +32,12 @@ class GISPhase4NavigationOverlayTest(unittest.TestCase):
                     start_epoch="2226-01-01T00:20:00Z",
                     end_epoch="2226-01-01T01:40:00Z",
                     end_position={"values": [1.0e8, 2.0e8, 3.0e6]},
+                    geometry={
+                        "mode": "AUTHORITATIVE_SEQUENCE_B_MIXED_GEOMETRY",
+                        "coordinate_frame": "J2000_ECLIPTIC",
+                        "semantics": "RELATIONAL DISPLACEMENT / NOT ORDINARY-SPACE OCCUPANCY",
+                        "ordinary_space_occupancy": False,
+                    },
                     phase="METRIC_TRANSIT",
                     payload={"velocity_memory_km_s": [1.0, 2.0, 3.0]},
                 ),
@@ -39,6 +45,11 @@ class GISPhase4NavigationOverlayTest(unittest.TestCase):
                     type="TERMINAL_BURN",
                     start_epoch="2226-01-01T01:40:00Z",
                     end_epoch="2226-01-01T02:00:00Z",
+                    geometry={
+                        "points": [[1.0e8, 2.0e8, 3.0e6], [1.1e8, 2.1e8, 3.1e6], [1.2e8, 2.2e8, 3.2e6]],
+                        "authority": "PYTHON_AUTHORED_SEQUENCE_B",
+                        "ordinary_space_occupancy": True,
+                    },
                     phase="TERMINAL_BURN",
                     payload={"dv_km_s": 12.5, "initial_accel_g": 0.05, "final_accel_g": 0.2},
                 ),
@@ -50,6 +61,17 @@ class GISPhase4NavigationOverlayTest(unittest.TestCase):
             ),
             current_vehicle_state={"location_token": "CERES", "epoch_utc": "2226-01-01T00:00:00Z"},
             arrival_state={"location": "MARS", "epoch_utc": "2226-01-01T02:00:00Z"},
+            payload={
+                "trajectory": {
+                    "authority": "PYTHON_AUTHORED_SEQUENCE_B",
+                    "sample_count": 3,
+                    "samples": [
+                        {"sample_index": 0, "position_semantics_code": 0, "relational_progress": 0.0},
+                        {"sample_index": 1, "position_semantics_code": 1, "ordinary_pos_x_km": 1.1e8, "ordinary_pos_y_km": 2.1e8, "ordinary_pos_z_km": 3.1e6},
+                        {"sample_index": 2, "position_semantics_code": 1, "ordinary_pos_x_km": 1.2e8, "ordinary_pos_y_km": 2.2e8, "ordinary_pos_z_km": 3.2e6},
+                    ],
+                }
+            },
         )
 
     def test_overlay_contract_and_controls(self):
@@ -68,34 +90,25 @@ class GISPhase4NavigationOverlayTest(unittest.TestCase):
         self.assertEqual(rendered.segments[0].style["stroke"], "#bda5ff")
         self.assertNotIn("style", src.segments[0].payload)
 
-    def test_unsampled_route_does_not_invent_polyline(self):
+    def test_metric_route_does_not_invent_polyline(self):
         rendered = route_to_gis(self.route())
         metric = rendered.segments[0]
         self.assertEqual(metric.geometry_points_j2000_ecliptic_km, ())
-        self.assertEqual(metric.geometry_authority, "AUTHORITATIVE_PHASE_ANCHORS_ONLY")
+        self.assertFalse(metric.geometry_semantics["ordinary_space_occupancy"])
         collapse = [a for a in rendered.anchors if a.anchor_type == "METRIC_COLLAPSE"]
         self.assertEqual(len(collapse), 1)
         self.assertEqual(collapse[0].position_j2000_ecliptic_km, (1.0e8, 2.0e8, 3.0e6))
 
     def test_sampled_geometry_is_passed_through_not_recomputed(self):
-        src = self.route()
-        sampled = RouteLayerSegmentV1(
-            type="COAST",
-            start_epoch="2226-01-01T00:00:00Z",
-            end_epoch="2226-01-01T00:10:00Z",
-            geometry={"points": [[1, 2, 3], [4, 5, 6], [7, 8, 9]]},
-            phase="COAST",
+        rendered = route_to_gis(self.route())
+        terminal = rendered.segments[1]
+        self.assertEqual(terminal.geometry_authority, "PYTHON_AUTHORED_SEQUENCE_B")
+        self.assertEqual(
+            terminal.geometry_points_j2000_ecliptic_km,
+            ((1.0e8, 2.0e8, 3.0e6), (1.1e8, 2.1e8, 3.1e6), (1.2e8, 2.2e8, 3.2e6)),
         )
-        src2 = LoomRouteLayerV1(
-            route_id=src.route_id, flight_id=src.flight_id, origin=src.origin, destination=src.destination,
-            departure_epoch=src.departure_epoch, arrival_epoch=src.arrival_epoch, strategy=src.strategy,
-            status=src.status, segments=(sampled,), waypoints=src.waypoints, bodies=src.bodies,
-            maneuvers=src.maneuvers, current_vehicle_state=src.current_vehicle_state,
-            arrival_state=src.arrival_state, payload=src.payload,
-        )
-        rendered = route_to_gis(src2)
-        self.assertEqual(rendered.segments[0].geometry_authority, "AUTHORITATIVE_SAMPLED_GEOMETRY")
-        self.assertEqual(rendered.segments[0].geometry_points_j2000_ecliptic_km, ((1.0,2.0,3.0),(4.0,5.0,6.0),(7.0,8.0,9.0)))
+        self.assertEqual(rendered.trajectory["sample_count"], 3)
+        self.assertEqual(len(rendered.trajectory["samples"]), 3)
 
     def test_phase_engineering_values_are_preserved(self):
         rendered = route_to_gis(self.route())
@@ -114,8 +127,19 @@ class GISPhase4NavigationOverlayTest(unittest.TestCase):
         self.assertEqual(overlay.historical_routes[0].current_vehicle_state["location_token"], "CERES")
         self.assertEqual(overlay.current_vehicle_state["location_token"], "MARS")
         js = client_extension_js()
-        self.assertIn("navDrawVehicle(navOverlay.current_vehicle_state||{})", js)
-        self.assertNotIn("const state=route.current_vehicle_state", js)
+        self.assertIn("navDrawVehicle(navOverlay.current_vehicle_state||{})", "".join(js.split()))
+
+    def test_browser_camera_contract_uses_authoritative_route_envelope(self):
+        js = client_extension_js()
+        normalized = "".join(js.split())
+        self.assertIn("functionnavRouteWorldVectors(route)", normalized)
+        self.assertIn("geometry_semantics?.ordinary_space_occupancy!==false", normalized)
+        self.assertIn("functionnavRouteNeedsFit(route)", normalized)
+        self.assertIn("functionfitNavigationRoute(route)", normalized)
+        self.assertIn("functionmaybeAutoFitNavigationRoute()", normalized)
+        self.assertIn("FITROUTE", normalized)
+        self.assertIn("sessionStorage.getItem('loomNavAutoFitRoute')", normalized)
+        self.assertIn("if(alpha>=.75)", normalized)
 
     def test_empty_overlay_is_valid(self):
         overlay = build_navigation_overlay()
