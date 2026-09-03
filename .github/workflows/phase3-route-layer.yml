@@ -1,0 +1,41 @@
+name: LOOM Phase 3 Route Layer
+
+on:
+  push:
+    branches:
+      - feature/gis-navigator-convergence
+    paths:
+      - 'src/loom/navigation/**'
+      - 'tests/test_navigation_phase3_route_layer.py'
+      - 'tools/phase3_route_layer_qualify.py'
+      - 'tools/phase2_gate_a_qualify.py'
+      - '.github/workflows/phase3-route-layer.yml'
+  workflow_dispatch:
+
+jobs:
+  frozen-route-layer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install frozen Navigator provider dependency
+        run: python -m pip install --disable-pip-version-check requests
+      - name: Run route-layer unit tests
+        run: python -m unittest tests.test_navigation_phase3_route_layer -v
+      - name: Download frozen Pixel pre-clean runtime archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download v0.1.0-runtime-baseline --pattern 'LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip' --dir frozen
+      - name: Extract frozen runtime
+        run: |
+          mkdir -p frozen/runtime
+          unzip -q frozen/LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip -d frozen/runtime
+      - name: Qualify LOOM_ROUTE_LAYER_V1 against frozen flight
+        env:
+          LOOM_HOME: ${{ github.workspace }}/frozen/runtime
+        run: python tools/phase3_route_layer_qualify.py frozen/runtime
