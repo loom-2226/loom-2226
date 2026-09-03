@@ -26,6 +26,9 @@ class FakeSequenceH:
         }
         return runtime, {"ok": True}, "<html></html>", {"pass": True}, {"stable": True}
 
+    def build_canonical_dependency_index(self, acquisition, cache):
+        return {"time_axis": ["2226-01-01T00:00:00Z"], "opaque": acquisition}, {"axis": "PASS"}
+
 
 class FakeCore:
     def _load_core(self, internal):
@@ -90,6 +93,13 @@ class LegacyServiceTest(unittest.TestCase):
         plan = self.service.plan_flight(req, self.ctx)
         self.assertEqual(plan.flight_id, "F-TEST")
         self.assertEqual(plan.payload["runtime"]["flight"]["legs"][0]["kind"], "DIRECT")
+
+    def test_ephemeris_snapshot_delegates_to_sequence_h_canonical_index(self):
+        snap = self.service.get_ephemeris(self.ctx)
+        self.assertEqual(snap.epoch, "2226-01-01T00:00:00Z")
+        self.assertEqual(snap.provider, "LEGACY_SEQUENCE_H_CANONICAL")
+        self.assertEqual(snap.payload["axis_validation"], {"axis": "PASS"})
+        self.assertEqual(snap.payload["canonical_dependency_index"]["opaque"], "ACQ")
 
     def test_execution_not_duplicated(self):
         with self.assertRaises(NavigationServiceError):
