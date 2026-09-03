@@ -1,65 +1,64 @@
 # LOOM 2226 — Navigator Phase 2 Extraction Map v1.0
 
-**Status:** Active implementation map for Phase 2 of the GIS / Navigator Convergence Architecture and Work Plan v1.0.  
+**Status:** COMPLETE — Gate A PASS  
+**Governing plan:** `LOOM_2226_GIS_Navigator_Convergence_Architecture_and_Work_Plan_v1.0.md`  
 **Branch:** `feature/gis-navigator-convergence`  
+**Qualification head:** `e74a5c1bdd94c89c6f9a704fb559d17024e4d6d7`  
 **Date:** 2026-09-03
 
 ## 1. Objective
 
-Extract a stable navigation-domain boundary without changing authoritative Navigator behavior.
+Phase 2 extracted a stable navigation-domain boundary without changing authoritative Navigator physics or campaign authority.
 
-The frozen `src/loom_navigator_core.py` remains the authoritative implementation during this phase. New modules must delegate to it rather than reproduce physics, state transitions or deterministic flight calculations.
+The frozen `src/loom_navigator_core.py` and its embedded Sequence-H implementation remain the authoritative numerical implementation. The new `src/loom/navigation/` package adapts, validates, types and exposes that implementation; it does not reproduce the physics.
 
-## 2. Observed current decomposition
+**Gate A is closed.** The extracted service path reproduces a frozen completed flight's canonical runtime hash and exact post-flight campaign state, while the frozen MVP, K1 and CIVSTATE regression suites remain PASS.
+
+## 2. Resulting decomposition
 
 ### DOMAIN LOGIC
 
-Observed authoritative navigation behavior includes:
+Authoritative navigation behavior remains in the frozen implementation:
 
-- the embedded Sequence-H module loaded by `_load_core(...)` with an embedded SHA-256 integrity check;
+- Sequence-H loading through `_load_core(...)`, including its embedded integrity check;
 - mission validation / normalization through `validate_and_normalize_mission(...)`;
-- canonical dependency / route-row processing inside Sequence H;
-- direct candidate generation through outer-core `_candidate_plans(...)`;
+- canonical dependency and route-row processing;
+- route candidate generation through outer-core `_candidate_plans(...)`;
 - final deterministic flight solving through `target_determinism_gate(...)`;
-- physics and ephemeris calculations reached through the embedded Sequence-H implementation.
+- underlying physics and ephemeris calculations.
 
-These remain authoritative and are not reimplemented in the extraction layer.
+The extraction layer delegates to these functions rather than recreating them.
 
 ### STATE / PERSISTENCE
 
-The outer Navigator currently owns campaign-state reconciliation, backup/state files, compressed history, flight commit/arrival records and replay support. Observed examples include `HistoryLedger`, campaign setup, state stamping, replay, mass/remass reconciliation and state advancement.
+Campaign persistence remains outside the navigation domain service in Phase 2.
 
-This responsibility remains in the legacy outer core during the first extraction slice.
+The outer Navigator still owns:
 
-### PRESENTATION
+- campaign state files and backups;
+- `HistoryLedger` records and replay history;
+- atomic persistence;
+- job/cargo/reward lifecycle;
+- committed campaign epoch and location authority.
 
-The legacy runtime still produces browser HTML/report artifacts and terminal-formatted candidate/flight output. These are explicitly not part of the new navigation-domain authority.
+`execute_flight(...)` is now extracted only as a **pure authoritative arrival-state result**. It performs no state-file write and no ledger append. The returned result explicitly identifies persistence ownership as `CAMPAIGN`. Integration of that result into the authoritative campaign transaction belongs to Phase 6.
 
-### USER INTERACTION
+### PRESENTATION / USER INTERACTION
 
-Interactive terminal prompts, candidate selection, commit confirmation and main-loop orchestration remain in the legacy outer core. They are not copied into domain services.
+Legacy browser HTML, terminal formatting, prompts, candidate selection and commit confirmation remain in the legacy application during Phase 2. They are not navigation-domain authority and are intentionally not copied into the service package.
 
-### QUALIFICATION / TEST
+## 3. Canonical navigation boundary
 
-The frozen runtime exposes:
+`src/loom/navigation/` now contains:
 
-- `_mvp_self_test()`;
-- `_k1_self_test()`;
-- `_civstate_self_test(...)`.
+- `contracts.py` — canonical typed contracts;
+- `service.py` — `LegacyNavigationService` facade;
+- `ephemeris.py` — read-only Sequence-H canonical ephemeris/dependency adapter;
+- `execution.py` — non-persisting authoritative arrival-state adapter.
 
-Those remain the authoritative legacy regression oracles while new service-boundary unit tests are added under `tests/`.
+### Canonical contracts
 
-### LEGACY
-
-The monolithic outer application, embedded Sequence-H packaging and browser renderer are retained unchanged until later convergence gates. Their presence during Phase 2 is intentional.
-
-## 3. New canonical boundary
-
-Phase 2 now introduces `src/loom/navigation/`.
-
-### Contracts
-
-`contracts.py` defines the first canonical typed objects required by the governing convergence plan:
+The Phase-2 boundary exposes:
 
 - `NavigationRequest`
 - `NavigationContext`
@@ -70,68 +69,123 @@ Phase 2 now introduces `src/loom/navigation/`.
 - `TrajectorySegment`
 - `ArrivalState`
 
-During extraction each contract preserves the complete legacy result in an opaque `payload`. Stable fields are promoted and validated, but legacy payloads are not discarded or silently rewritten.
+Stable fields are promoted and validated while the complete legacy data remains available in opaque `payload` fields during the transition. No unknown physics-bearing legacy data is silently discarded.
 
-### Service facade
+### Service operations
 
-`LegacyNavigationService` is a behavior-preserving anti-corruption layer over the frozen core.
+`LegacyNavigationService` now implements the required Phase-2 interface:
 
-Implemented service operations:
+- `discover_routes(...)` → frozen `_candidate_plans(...)`;
+- `plan_flight(...)` → discovery plus deterministic compilation;
+- `compile_flight(...)` → frozen Sequence-H `target_determinism_gate(...)`;
+- `execute_flight(...)` → pure arrival-state transition using frozen state helpers, with no persistence;
+- `get_ephemeris(...)` → Sequence-H `build_canonical_dependency_index(...)`, with no independent provider/physics implementation;
+- `get_flight_geometry(...)` → authoritative compiled runtime geometry without recalculation.
 
-- `discover_routes(...)` delegates to existing `_candidate_plans(...)`;
-- `plan_flight(...)` composes discovery and deterministic compilation;
-- `compile_flight(...)` delegates to existing `target_determinism_gate(...)`;
-- `get_flight_geometry(...)` exposes authoritative runtime flight geometry without recalculation.
+`src/loom_navigator.py` exposes `load_navigation_service()` while preserving existing CLI and self-test behavior.
 
-Explicitly not yet extracted:
+## 4. Ephemeris qualification architecture
 
-- `execute_flight(...)` — campaign execution/persistence remains in the outer Navigator;
-- `get_ephemeris(...)` — provider extraction remains pending.
+Because the ChatGPT execution environment is not the production ephemeris acquisition host, GitHub Actions now provides an independent internet-connected qualification path.
 
-Both fail closed rather than inventing duplicate authority.
+`LOOM Ephemeris Provider Qualification` reaches NASA/JPL Horizons and normalizes fixed-epoch provider data without becoming runtime authority.
 
-`src/loom_navigator.py` now exposes `load_navigation_service()` while preserving its existing command-line and self-test behavior.
+Qualified fixed epoch: `2226-08-22 00:00`
 
-## 4. Authority invariants
+Qualified targets include:
 
-1. No new module performs flight physics.
-2. No new module independently changes campaign state.
-3. Candidate discovery remains `_candidate_plans(...)` from the frozen core.
-4. Final solving remains `target_determinism_gate(...)` from Sequence H.
-5. The service layer may validate, adapt, type and expose results; it may not alter authoritative numeric outputs.
-6. Legacy dictionaries are retained losslessly inside canonical contract payloads during the extraction transition.
-7. Unsupported extractions fail closed.
+- Ceres (`1;`);
+- Mars (`499`);
+- Neptune system barycenter (`8`).
 
-## 5. Qualification status
+Neptune system barycenter is intentionally used for the outer-system qualification semantics rather than forcing Neptune body center.
 
-Local Phase-2 unit suite executed before commit:
+Provider identification: `NASA/JPL Horizons API`, version `1.2`.
 
-```text
-5 tests
-PASS
-```
+Normalized provider-probe artifact SHA-256:
 
-Coverage includes:
+`7b9192f8f515d56459de8fcf8f98686a0f3beec531e9b6e96e21e92b1f9f6d57`
 
-- request-to-legacy mission adaptation;
-- UTC contract validation;
-- route-discovery delegation;
-- deterministic-plan delegation;
-- fail-closed campaign execution boundary.
+This provider workflow is a qualification/acquisition facility only. Runtime navigation continues to consume its authoritative local content-addressed ephemeris cache.
 
-This does **not** replace the frozen Navigator MVP/K1/CIVSTATE regression suites.
+## 5. Gate A qualification evidence
 
-## 6. Remaining work to Gate A
+Gate A is implemented by `.github/workflows/phase2-gate-a.yml` and `tools/phase2_gate_a_qualify.py`.
 
-Gate A is not declared yet.
+The workflow downloads the frozen Pixel pre-clean runtime from release `v0.1.0-runtime-baseline`. Because that archive contains duplicate historical copies of some artifacts, the qualifier binds history, Sequence-H cache and the locked B1 package as one **coherent runtime bundle** from the same runtime root. It never mixes identically named files from separate archived copies.
 
-Required next slices:
+Qualified coherent bundle:
 
-1. extract the ephemeris/provider interface behind the canonical service;
-2. separate campaign execution from terminal interaction without duplicating state authority;
-3. add integration tests that call the real frozen core through `load_navigation_service()`;
-4. compare authoritative route and final-flight outputs against frozen golden fixtures;
-5. rerun MVP, K1 and CIVSTATE self-tests plus the new service integration suite;
-6. declare Gate A only when service-path and legacy-path outputs are identical for qualified fixtures.
+`LOOM_TEST/`
 
-Until then, the old Navigator remains the production execution surface and qualification oracle.
+Frozen replay:
+
+- flight ID: `F000001`;
+- route: `CERES -> MARS`;
+- all 34 Sequence-H ephemeris dependencies: `CACHE_HIT`;
+- ephemeris mode: `FROZEN_OFFLINE_ONLY`;
+- provider-filled entries: `0`.
+
+The extracted service reproduced the frozen deterministic runtime exactly:
+
+`c834998cc9b8016dcbf5f0e200db781cb1d2f5dc9245c091a8f205dea280107b`
+
+The extracted `execute_flight(...)` result also reproduced the exact frozen `FLIGHT_ARRIVED.state_after_snapshot`, whose state SHA-256 is:
+
+`31b3b27f887b2d55ecb46e58411a987cec4168a84e5179e766282947a5a7b7b0`
+
+The same Gate A run passed the frozen legacy regression oracles:
+
+- MVP state transactions — PASS;
+- MVP job loop — PASS;
+- MVP mass accounting — PASS;
+- MVP save/reload — PASS;
+- MVP history chain — PASS;
+- MVP menu parser — PASS;
+- MVP preflight job guard — PASS;
+- MVP cargo cap gate — PASS;
+- MVP recovery unload — PASS;
+- MVP reward sanity cap — PASS;
+- MVP history atomic write — PASS;
+- MVP history backup recovery — PASS;
+- MVP invalid guards — PASS;
+- K1 J-provider contract — PASS;
+- K1 live-binding guard — PASS;
+- K1 execution guard — PASS;
+- CIVSTATE locked hash — PASS;
+- CIVSTATE schema `1.2-runtime` — PASS;
+- CIVSTATE token bindings — PASS;
+- CIVSTATE place context — PASS;
+- CIVSTATE route context — PASS;
+- CIVSTATE read-only behavior — PASS.
+
+At qualification head `e74a5c1bdd94c89c6f9a704fb559d17024e4d6d7`, all three branch workflows completed successfully:
+
+1. `LOOM Python Regression` — PASS;
+2. `LOOM Ephemeris Provider Qualification` — PASS;
+3. `LOOM Phase 2 Gate A` — PASS.
+
+## 6. Authority invariants after Phase 2
+
+1. No extracted module independently performs flight physics.
+2. Candidate discovery remains the frozen `_candidate_plans(...)` implementation.
+3. Final solving remains frozen Sequence-H `target_determinism_gate(...)`.
+4. Ephemeris exposure remains a read-only adapter over Sequence-H canonical dependency truth.
+5. Navigation execution can return the authoritative arrival transition, but cannot persist it.
+6. Campaign state files, history, jobs, rewards and committed epoch/location remain campaign authority until Phase 6.
+7. Presentation remains outside navigation-domain authority.
+8. The frozen Navigator core remains retained as the numerical implementation and regression oracle through later convergence gates.
+
+## 7. Gate A verdict
+
+**PASS — Phase 2 complete.**
+
+The Navigator brain now has a stable reusable service boundary with typed contracts, route discovery, deterministic planning, ephemeris exposure, geometry exposure and non-persisting execution. Frozen legacy behavior has been reproduced at both the deterministic runtime and exact post-flight state levels.
+
+No legacy renderer or campaign persistence path is retired by this gate.
+
+## 8. Next phase
+
+Proceed to **Phase 3 — define the GIS ↔ Navigation data contract**.
+
+The next governing deliverable is `LOOM_ROUTE_LAYER_V1`, which must carry navigation truth into GIS without leaking rendering instructions or duplicating physics. Phase 3 should formalize route identity, trajectory segments, positions/epochs, maneuver markers, vehicle state and arrival state while preserving the authority boundary proven by Gate A.
