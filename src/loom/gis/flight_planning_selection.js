@@ -1,6 +1,8 @@
 (() => {
 'use strict';
 
+window.LOOM_FLIGHT_DESTINATION_RESOLVER='MVP_V1';
+
 function fpSelectedEntityDescriptor(){
   try{
     if(typeof scene==='undefined'||!scene||typeof selectedEntityId==='undefined'||!selectedEntityId)return null;
@@ -35,6 +37,11 @@ function fpPlannerStatus(text){
   if(status)status.textContent=text;
 }
 
+function fpPlannerDestination(text){
+  const destination=document.querySelector('#flightPlanningPanel .fpDestination');
+  if(destination&&text)destination.textContent=text;
+}
+
 function fpPanelDestination(){
   const el=document.querySelector('#flightPlanningPanel .fpDestination');
   const text=String(el?.textContent||'').trim().toUpperCase();
@@ -44,6 +51,7 @@ function fpPanelDestination(){
 
 function fpStartResolvedDiscovery(token,label){
   const button=document.querySelector('#flightPlanningPanel .fpDiscover');
+  fpPlannerDestination(token);
   if(button){
     button.disabled=true;
     button.textContent=`OPENING ROUTE SEARCH · ${token}`;
@@ -64,6 +72,7 @@ async function fpResolveSelectedAndDiscover(){
     if(!capability?.selectable||!capability?.route_token){
       const who=capability?.display_name||entity.display_name||entity.name||entity.entity_id||'SELECTION';
       const why=capability?.reason||'not a Navigator route endpoint';
+      fpPlannerDestination(who);
       fpPlannerStatus(`NAVIGATION UNAVAILABLE · ${who} · ${why}`);
       if(button){
         button.disabled=true;
@@ -89,9 +98,9 @@ async function fpAuthoritativeDiscoverClick(event){
   const entity=fpSelectedEntityDescriptor();
   if(!entity)return;
 
-  // If the panel destination is a known explicit picker choice that does not
-  // correspond to the currently selected map entity, leave it to the base
-  // planner. Map-derived destinations must always resolve through Navigator.
+  // Explicit picker values are already canonical Navigator choices. Any
+  // destination derived from the selected map/Atlas entity must cross the
+  // authoritative resolver before discovery; raw GIS IDs must never leak.
   const panelDest=fpPanelDestination();
   const selectedId=String(entity.entity_id||'').toUpperCase();
   const selectedName=String(entity.name||entity.display_name||'').trim().toUpperCase().replace(/\s+/g,'_');
@@ -107,10 +116,11 @@ async function fpAuthoritativeDiscoverClick(event){
 
 function fpOwnDiscoverButton(){
   const button=document.querySelector('#flightPlanningPanel .fpDiscover');
-  if(!button||button.dataset.loomAuthoritativeResolve==='1')return;
-  button.dataset.loomAuthoritativeResolve='1';
-  const legacy=button.onclick;
-  button.onclick=async event=>{
+  if(!button)return;
+  const current=button.onclick;
+  if(button.dataset.loomAuthoritativeResolve==='1'&&current?.loomAuthoritativeResolve===true)return;
+  const legacy=current;
+  const owned=async event=>{
     const label=String(button.textContent||'').trim().toUpperCase();
     if(label.startsWith('DISCOVER ROUTES')||label.startsWith('PLAN FLIGHT HERE')){
       const entity=fpSelectedEntityDescriptor();
@@ -123,12 +133,15 @@ function fpOwnDiscoverButton(){
     }
     if(typeof legacy==='function')return legacy.call(button,event);
   };
+  owned.loomAuthoritativeResolve=true;
+  button.dataset.loomAuthoritativeResolve='1';
+  button.onclick=owned;
 }
 
 function fpInstallAuthoritativeSelection(){
   fpOwnDiscoverButton();
   const observer=new MutationObserver(()=>fpOwnDiscoverButton());
-  observer.observe(document.documentElement,{childList:true,subtree:true});
+  observer.observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
   document.addEventListener('click',fpAuthoritativeDiscoverClick,true);
 }
 
