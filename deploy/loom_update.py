@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""LOOM 2226 updater/bootstrap v0.2.
+"""LOOM 2226 updater/bootstrap v0.3.
 
-Fetches the release manifest and canonical artifacts from the private LOOM GitHub
-repository, verifies SHA-256, installs atomically, preserves mutable runtime state,
-and supports validation/status-only operation on Android and Windows.
+Fetches a pinned release manifest and canonical artifacts from the private LOOM
+GitHub repository. Repository artifacts and GitHub Release assets are supported.
+All payloads are SHA-256 verified before atomic installation. Mutable runtime
+state is preserved.
 
 Authentication is local-only. Set LOOM_GITHUB_TOKEN in the environment or place
 a token in ~/.loom_github_token. Never commit a token to the repository.
@@ -25,7 +26,8 @@ from urllib.request import Request, urlopen
 OWNER = "loom-2226"
 REPO = "loom-2226"
 DEFAULT_REF = "staging/initial-baseline"
-API_ROOT = f"https://api.github.com/repos/{OWNER}/{REPO}/contents"
+CONTENTS_API = f"https://api.github.com/repos/{OWNER}/{REPO}/contents"
+RELEASE_ASSET_API = f"https://api.github.com/repos/{OWNER}/{REPO}/releases/assets"
 ANDROID_ROOT = Path("/storage/emulated/0/Documents/LOOM")
 WINDOWS_ROOT = Path.home() / "Documents" / "LOOM"
 MANIFEST_PATH = "manifests/release_manifest.json"
@@ -78,19 +80,40 @@ def token() -> str:
     )
 
 
-def github_request_bytes(path: str, ref: str) -> bytes:
-    url = f"{API_ROOT}/{path}?ref={ref}"
+def github_bytes(url: str, accept: str) -> bytes:
     req = Request(
         url,
         headers={
             "Authorization": f"Bearer {token()}",
-            "Accept": "application/vnd.github.raw+json",
+            "Accept": accept,
             "X-GitHub-Api-Version": "2022-11-28",
-            "User-Agent": "LOOM-2226-Updater/0.2",
+            "User-Agent": "LOOM-2226-Updater/0.3",
         },
     )
-    with urlopen(req, timeout=180) as response:
+    with urlopen(req, timeout=900) as response:
         return response.read()
+
+
+def github_contents_bytes(path: str, ref: str) -> bytes:
+    return github_bytes(
+        f"{CONTENTS_API}/{path}?ref={ref}",
+        "application/vnd.github.raw+json",
+    )
+
+
+def github_artifact_bytes(artifact: dict, ref: str) -> bytes:
+    source = artifact.get("source", "repository")
+    if source == "repository":
+        return github_contents_bytes(artifact["path"], ref)
+    if source == "release_asset":
+        asset_id = artifact.get("asset_id")
+        if not isinstance(asset_id, int):
+            raise RuntimeError(f"Release asset missing numeric asset_id: {artifact['path']}")
+        return github_bytes(
+            f"{RELEASE_ASSET_API}/{asset_id}",
+            "application/octet-stream",
+        )
+    raise RuntimeError(f"Unknown artifact source {source!r}: {artifact['path']}")
 
 
 def target_for(root: Path, artifact: dict) -> Path:
@@ -112,7 +135,11 @@ def atomic_write(target: Path, data: bytes, backup_root: Path | None = None) -> 
         os.fsync(tf.fileno())
     try:
         if target.exists() and backup_root is not None:
-            rel = target.name if target.parent.name not in {"src", "data"} else f"{target.parent.name}/{target.name}"
+            rel = (
+                target.name
+                if target.parent.name not in {"src", "data"}
+                else f"{target.parent.name}/{target.name}"
+            )
             backup = backup_root / rel
             backup.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(target, backup)
@@ -122,14 +149,33 @@ def atomic_write(target: Path, data: bytes, backup_root: Path | None = None) -> 
             tmp.unlink(missing_ok=True)
 
 
-def load_manifest(fetcher: Callable[[str, str], bytes], ref: str) -> dict:
-    raw = fetcher(MANIFEST_PATH, ref)
-    manifest = json.loads(raw.decode("utf-8"))
-    if not isinstance(manifest.get("artifacts"), list):
+def validate_manifest(manifest: dict) -> None:
+    artifacts = manifest.get("artifacts")
+    if not isinstance(artifacts, list):
         raise RuntimeError("Release manifest is missing artifacts list")
+    for artifact in artifacts:
+        for key in ("path", "install_group", "required"):
+            if key not in artifact:
+                raise RuntimeError(f"Artifact missing {key}: {artifact}")
+        source = artifact.get("source", "repository")
+        if source not in {"repository", "release_asset"}:
+            raise RuntimeError(f"Unknown artifact source {source!r}")
+        if source == "release_asset" and not isinstance(artifact.get("asset_id"), int):
+            raise RuntimeError(f"Release asset missing numeric asset_id: {artifact['path']}")
+        expected_size = artifact.get("size_bytes")
+        if expected_size is not None and (not isinstance(expected_size, int) or expected_size < 0):
+            raise RuntimeError(f"Invalid size_bytes for {artifact['path']}")
+
+
+def load_manifest(ref: str) -> dict:
+    raw = github_contents_bytes(MANIFEST_PATH, ref)
+    manifest = json.loads(raw.decode("utf-8"))
+    validate_manifest(manifest)
     source_ref = manifest.get("source_ref")
     if source_ref and source_ref != ref:
-        raise RuntimeError(f"Manifest source_ref={source_ref!r} does not match requested ref={ref!r}")
+        raise RuntimeError(
+            f"Manifest source_ref={source_ref!r} does not match requested ref={ref!r}"
+        )
     return manifest
 
 
@@ -145,14 +191,24 @@ def validate_local(root: Path, manifest: dict) -> list[ArtifactResult]:
         if not target.exists():
             results.append(ArtifactResult(artifact["path"], str(target), "MISSING", expected, None))
             continue
+        expected_size = artifact.get("size_bytes")
+        if expected_size is not None and target.stat().st_size != expected_size:
+            actual = sha256_file(target)
+            results.append(ArtifactResult(artifact["path"], str(target), "MISMATCH", expected, actual))
+            continue
         actual = sha256_file(target)
         state = "OK" if actual == expected else "MISMATCH"
         results.append(ArtifactResult(artifact["path"], str(target), state, expected, actual))
     return results
 
 
-def install_release(root: Path, manifest: dict, ref: str,
-                    fetcher: Callable[[str, str], bytes], dry_run: bool = False) -> list[ArtifactResult]:
+def install_release(
+    root: Path,
+    manifest: dict,
+    ref: str,
+    artifact_fetcher: Callable[[dict, str], bytes] = github_artifact_bytes,
+    dry_run: bool = False,
+) -> list[ArtifactResult]:
     release_id = manifest["release_id"]
     backup_root = root / ".loom_backups" / release_id
     results: list[ArtifactResult] = []
@@ -166,18 +222,31 @@ def install_release(root: Path, manifest: dict, ref: str,
             results.append(ArtifactResult(artifact["path"], str(target), state, None, None))
             continue
 
-        payload = fetcher(artifact["path"], ref)
+        if target.exists():
+            expected_size = artifact.get("size_bytes")
+            size_ok = expected_size is None or target.stat().st_size == expected_size
+            if size_ok and sha256_file(target) == expected:
+                results.append(
+                    ArtifactResult(artifact["path"], str(target), "UNCHANGED", expected, expected)
+                )
+                continue
+
+        payload = artifact_fetcher(artifact, ref)
+        expected_size = artifact.get("size_bytes")
+        if expected_size is not None and len(payload) != expected_size:
+            raise RuntimeError(
+                f"SIZE MISMATCH for {artifact['path']}\n"
+                f"expected={expected_size}\nactual={len(payload)}"
+            )
         actual = sha256_bytes(payload)
         if actual != expected:
             raise RuntimeError(
                 f"HASH MISMATCH for {artifact['path']}\nexpected={expected}\nactual={actual}"
             )
+
         if not dry_run:
-            if target.exists() and sha256_file(target) == expected:
-                state = "UNCHANGED"
-            else:
-                atomic_write(target, payload, backup_root=backup_root)
-                state = "INSTALLED"
+            atomic_write(target, payload, backup_root=backup_root)
+            state = "INSTALLED"
         else:
             state = "DRY_RUN_OK"
         results.append(ArtifactResult(artifact["path"], str(target), state, expected, actual))
@@ -190,7 +259,9 @@ def install_release(root: Path, manifest: dict, ref: str,
             "source_ref": ref,
             "artifacts": [r.__dict__ for r in results],
         }
-        (root / INSTALL_STATE).write_text(json.dumps(install_state, indent=2) + "\n", encoding="utf-8")
+        (root / INSTALL_STATE).write_text(
+            json.dumps(install_state, indent=2) + "\n", encoding="utf-8"
+        )
     return results
 
 
@@ -212,10 +283,14 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     return p.parse_args(argv)
 
 
-def main(argv: list[str] | None = None, fetcher: Callable[[str, str], bytes] = github_request_bytes) -> int:
+def main(
+    argv: list[str] | None = None,
+    manifest_loader: Callable[[str], dict] = load_manifest,
+    artifact_fetcher: Callable[[dict, str], bytes] = github_artifact_bytes,
+) -> int:
     args = parse_args(argv)
     root = platform_root(args.root)
-    manifest = load_manifest(fetcher, args.ref)
+    manifest = manifest_loader(args.ref)
     print(f"LOOM ROOT: {root}")
     print(f"SOURCE REF: {args.ref}")
     print(f"RELEASE: {manifest['release_id']} ({manifest['release_state']})")
@@ -225,7 +300,9 @@ def main(argv: list[str] | None = None, fetcher: Callable[[str, str], bytes] = g
         print_results(results)
         return 2 if has_blockers(results) else 0
 
-    results = install_release(root, manifest, args.ref, fetcher, dry_run=args.dry_run)
+    results = install_release(
+        root, manifest, args.ref, artifact_fetcher=artifact_fetcher, dry_run=args.dry_run
+    )
     print_results(results)
     if has_blockers(results):
         print("\nNOT RELEASE-COMPLETE: one or more required artifacts are pending or invalid.")
