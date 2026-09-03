@@ -37,9 +37,6 @@ def sha256_obj(obj) -> str:
 def horizons_url(command: str, epoch: str) -> str:
     start = datetime.strptime(epoch, "%Y-%m-%d %H:%M")
     stop = start + timedelta(hours=1)
-    # Horizons API accepts ordinary query values; urlencode supplies escaping.
-    # Avoid embedding shell-style quote characters in the actual parameter
-    # values because those are not part of the JSON API contract.
     params = {
         "format": "json",
         "COMMAND": command,
@@ -47,8 +44,10 @@ def horizons_url(command: str, epoch: str) -> str:
         "MAKE_EPHEM": "YES",
         "EPHEM_TYPE": "VECTORS",
         "CENTER": "500@10",
-        "START_TIME": f"{start:%Y-%m-%d %H:%M}",
-        "STOP_TIME": f"{stop:%Y-%m-%d %H:%M}",
+        # Horizons execution-control grammar requires quoted calendar strings
+        # because they contain a space between date and time.
+        "START_TIME": f"'{start:%Y-%m-%d %H:%M}'",
+        "STOP_TIME": f"'{stop:%Y-%m-%d %H:%M}'",
         "STEP_SIZE": "1h",
         "OUT_UNITS": "KM-S",
         "REF_PLANE": "ECLIPTIC",
