@@ -2,12 +2,16 @@
 
 Phase 3 establishes a versioned, display-agnostic handoff from authoritative
 Navigator truth to GIS. This module performs no flight math. It promotes stable
-semantic fields from a solved FlightPlan and retains the complete source payload
-for provenance while centralizing legacy-key adaptation in one place.
+semantic fields from a solved FlightPlan and retains source payloads for
+provenance while centralizing legacy-key adaptation in one place.
+
+RC6.1 does not expose a sampled trajectory polyline. The V1 adapter therefore
+publishes only authoritative phase anchors and engineering state. Consumers may
+render those truths, but must not interpolate or invent flight physics.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from typing import Any, Iterable, Mapping
 import hashlib
@@ -16,6 +20,7 @@ import json
 from .contracts import FlightPlan, NavigationContext
 
 ROUTE_LAYER_VERSION = "LOOM_ROUTE_LAYER_V1"
+GEOMETRY_MODE = "AUTHORITATIVE_PHASE_ANCHORS_ONLY"
 
 
 class RouteLayerError(ValueError):
@@ -76,6 +81,7 @@ class RouteLayerSegmentV1:
         object.__setattr__(self, "type", _text(self.type, "segment.type"))
         object.__setattr__(self, "start_epoch", _utc(self.start_epoch, "segment.start_epoch"))
         object.__setattr__(self, "end_epoch", _utc(self.end_epoch, "segment.end_epoch"))
+        object.__setattr__(self, "phase", _text(self.phase, "segment.phase", optional=True))
         for name in ("start_position", "end_position", "geometry", "velocity", "acceleration", "payload"):
             object.__setattr__(self, name, _mapping(getattr(self, name)))
 
@@ -169,8 +175,8 @@ class LegacyRouteLayerAdapter:
         arrival_state = self._arrival_state(plan, flight)
         segments = self._segments(flight)
         waypoints = self._mapping_list(_first(flight, ("waypoints", "route_waypoints"), []))
-        maneuvers = self._mapping_list(_first(flight, ("maneuvers", "events", "maneuver_markers"), []))
-        bodies = self._body_refs(candidate.origin, candidate.destination, packed)
+        maneuvers = self._maneuvers(flight)
+        bodies = self._body_refs(candidate.origin, candidate.destination)
 
         status = candidate.status or "PLANNED"
         prior_flight = _mapping(current_state.get("last_flight")) if current_state else {}
@@ -194,6 +200,9 @@ class LegacyRouteLayerAdapter:
             arrival_state=arrival_state,
             payload={
                 "source": "AUTHORITATIVE_NAVIGATOR_SERVICE",
+                "geometry_mode": GEOMETRY_MODE,
+                "runtime_model": flight.get("model"),
+                "model_status": flight.get("model_status"),
                 "runtime_flight": flight,
                 "determinism": _mapping(packed.get("determinism")),
             },
@@ -207,14 +216,85 @@ class LegacyRouteLayerAdapter:
         for leg in raw_legs:
             if not isinstance(leg, Mapping):
                 continue
+            if isinstance(leg.get("metric_segment"), Mapping) or isinstance(leg.get("terminal_burn"), Mapping):
+                out.extend(self._sequence_h_segments(leg))
+                continue
             nested = _first(leg, ("phases", "segments"))
             rows = nested if isinstance(nested, (list, tuple)) and nested else [leg]
             for row in rows:
                 if isinstance(row, Mapping):
-                    out.append(self._segment(row, leg))
+                    out.append(self._generic_segment(row, leg))
         return tuple(out)
 
-    def _segment(self, row: Mapping[str, Any], parent: Mapping[str, Any]) -> RouteLayerSegmentV1:
+    def _sequence_h_segments(self, leg: Mapping[str, Any]) -> tuple[RouteLayerSegmentV1, ...]:
+        metric = _mapping(leg.get("metric_segment"))
+        terminal = _mapping(leg.get("terminal_burn"))
+        arrival = _mapping(leg.get("arrival"))
+        velocity_memory = _mapping(leg.get("ordinary_velocity_memory"))
+        checkpoints = self._mapping_list(leg.get("engineering_checkpoints"))
+        collapse_epoch = metric.get("collapse_epoch_utc")
+        collapse_position = metric.get("collapse_position_km_j2000_ecliptic")
+        collapse_anchor = self._position_anchor(collapse_position)
+        out: list[RouteLayerSegmentV1] = []
+
+        if metric:
+            out.append(RouteLayerSegmentV1(
+                type="METRIC",
+                start_epoch=leg.get("departure_epoch_utc"),
+                end_epoch=collapse_epoch,
+                end_position=collapse_anchor,
+                geometry={
+                    "mode": GEOMETRY_MODE,
+                    "coordinate_frame": "J2000_ECLIPTIC",
+                    "collapse_position_km": list(collapse_position) if isinstance(collapse_position, (list, tuple)) else collapse_position,
+                } if collapse_position is not None else {"mode": GEOMETRY_MODE},
+                velocity=velocity_memory,
+                acceleration={"engineering_checkpoints": list(checkpoints)} if checkpoints else {},
+                phase=str(metric.get("semantics") or leg.get("metric_mode") or "METRIC_TRANSIT"),
+                payload={
+                    "leg_id": leg.get("leg_id"),
+                    "metric_mode": leg.get("metric_mode"),
+                    "metric_segment": metric,
+                    "ordinary_velocity_memory": velocity_memory,
+                    "engineering_checkpoints": list(checkpoints),
+                },
+            ))
+
+        if terminal:
+            terminal_velocity = {
+                key: terminal[key]
+                for key in ("delta_v_km_s", "delta_v_vec_km_s", "dv_hat", "ve_km_s")
+                if terminal.get(key) is not None
+            }
+            if velocity_memory:
+                terminal_velocity["ordinary_velocity_memory"] = velocity_memory
+            terminal_acceleration = {
+                key: terminal[key]
+                for key in ("initial_accel_g", "final_accel_g", "thrust_N", "thrust_MN")
+                if terminal.get(key) is not None
+            }
+            out.append(RouteLayerSegmentV1(
+                type="TERMINAL_BURN",
+                start_epoch=collapse_epoch,
+                end_epoch=arrival.get("epoch_utc"),
+                start_position=collapse_anchor,
+                geometry={"mode": GEOMETRY_MODE},
+                velocity=terminal_velocity,
+                acceleration=terminal_acceleration,
+                phase="ARRIVAL_ACQUISITION",
+                payload={
+                    "leg_id": leg.get("leg_id"),
+                    "torch_mode": leg.get("torch_mode"),
+                    "terminal_burn": terminal,
+                    "arrival": arrival,
+                },
+            ))
+
+        if not out:
+            out.append(self._generic_segment(leg, leg))
+        return tuple(out)
+
+    def _generic_segment(self, row: Mapping[str, Any], parent: Mapping[str, Any]) -> RouteLayerSegmentV1:
         merged = dict(parent)
         merged.update(row)
         values = {name: _first(merged, aliases) for name, aliases in self.SEGMENT_ALIASES.items()}
@@ -231,6 +311,45 @@ class LegacyRouteLayerAdapter:
             phase=str(values["phase"]) if values["phase"] is not None else None,
             payload=dict(row),
         )
+
+    def _maneuvers(self, flight: Mapping[str, Any]) -> tuple[Mapping[str, Any], ...]:
+        explicit = self._mapping_list(_first(flight, ("maneuvers", "events", "maneuver_markers"), []))
+        if explicit:
+            return explicit
+        out: list[Mapping[str, Any]] = []
+        for leg in flight.get("legs") or []:
+            if not isinstance(leg, Mapping):
+                continue
+            metric = _mapping(leg.get("metric_segment"))
+            terminal = _mapping(leg.get("terminal_burn"))
+            arrival = _mapping(leg.get("arrival"))
+            if metric.get("collapse_epoch_utc") is not None:
+                out.append({
+                    "type": "METRIC_COLLAPSE",
+                    "leg_id": leg.get("leg_id"),
+                    "epoch_utc": metric.get("collapse_epoch_utc"),
+                    "position_km_j2000_ecliptic": metric.get("collapse_position_km_j2000_ecliptic"),
+                    "metric_mode": leg.get("metric_mode"),
+                })
+            if terminal:
+                out.append({
+                    "type": "TERMINAL_BURN",
+                    "leg_id": leg.get("leg_id"),
+                    "arrival_epoch_utc": arrival.get("epoch_utc"),
+                    "burn_s": terminal.get("burn_s"),
+                    "delta_v_km_s": terminal.get("delta_v_km_s"),
+                    "remass_used_t": terminal.get("remass_used_t"),
+                    "torch_mode": leg.get("torch_mode"),
+                })
+        return tuple(out)
+
+    @staticmethod
+    def _position_anchor(value: Any) -> dict[str, Any]:
+        if isinstance(value, (list, tuple)):
+            return {"coordinate_frame": "J2000_ECLIPTIC", "position_km": list(value)}
+        if value is None:
+            return {}
+        return {"coordinate_frame": "J2000_ECLIPTIC", "position_km": value}
 
     @staticmethod
     def _as_mapping(value: Any) -> dict[str, Any]:
@@ -267,8 +386,10 @@ class LegacyRouteLayerAdapter:
         return {k: v for k, v in out.items() if v is not None}
 
     @staticmethod
-    def _body_refs(origin: str, destination: str, packed: Mapping[str, Any]) -> tuple[RouteLayerBodyV1, ...]:
-        refs = [RouteLayerBodyV1(origin, role="ORIGIN"), RouteLayerBodyV1(destination, role="DESTINATION")]
+    def _body_refs(origin: str, destination: str) -> tuple[RouteLayerBodyV1, ...]:
         if origin == destination:
-            refs = [RouteLayerBodyV1(origin, role="ORIGIN_DESTINATION")]
-        return tuple(refs)
+            return (RouteLayerBodyV1(origin, role="ORIGIN_DESTINATION"),)
+        return (
+            RouteLayerBodyV1(origin, role="ORIGIN"),
+            RouteLayerBodyV1(destination, role="DESTINATION"),
+        )
