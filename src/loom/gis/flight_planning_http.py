@@ -21,6 +21,7 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
     """Install read-only planning endpoints and the Phase-5 browser controller."""
     handler = gis_module.SolarHandler
     handler.flight_planning_session = session
+    handler.flight_planning_base_overlay_json = bytes(getattr(handler, "navigation_overlay_json", b"{}"))
     old_get = handler.do_GET
     old_post = getattr(handler, "do_POST", None)
 
@@ -57,6 +58,7 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
                     handler.navigation_overlay_json = _json_bytes(state.preview_overlay)
             elif path == "/flight-planning/cancel":
                 state = session.cancel()
+                handler.navigation_overlay_json = handler.flight_planning_base_overlay_json
             else:
                 return self._send(404, "text/plain; charset=utf-8", b"not found")
             return _send_state(self, state)
