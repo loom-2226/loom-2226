@@ -12,8 +12,16 @@ from typing import Any, Mapping
 import hashlib
 import json
 
-from .contracts import EphemerisSnapshot, FlightPlan, NavigationContext, NavigationRequest, RouteCandidate
+from .contracts import (
+    EphemerisSnapshot,
+    FlightExecutionResult,
+    FlightPlan,
+    NavigationContext,
+    NavigationRequest,
+    RouteCandidate,
+)
 from .ephemeris import LegacySequenceHEphemerisProvider
+from .execution import LegacyFlightExecutionAdapter
 
 
 class NavigationServiceError(RuntimeError):
@@ -104,12 +112,30 @@ class LegacyNavigationService:
                 "remass_t": (state.get("ship") or {}).get("remass_t"),
             }
         runtime, payloads, html, validation, determinism = gate(normalized, acq, cache, b1)
+
+        # Preserve the legacy plan summary/hash when the frozen outer core exposes
+        # those helpers. This is metadata only; the deterministic solve above is
+        # still the sole physics authority.
+        plan_summary = None
+        plan_sha = None
+        summarize = getattr(self.core, "_plan_summary", None)
+        canon = getattr(self.core, "_canon", None)
+        sha_bytes = getattr(self.core, "_sha_bytes", None)
+        if callable(summarize) and callable(canon) and callable(sha_bytes) and state:
+            plan_summary = summarize(
+                nav, state, cp, request.origin, request.destination, request.priority
+            )
+            plan_sha = sha_bytes(canon(plan_summary))
+
         packed = {
             "runtime": runtime,
             "payloads": payloads,
             "html": html,
             "validation": validation,
             "determinism": determinism,
+            "plan_summary": plan_summary,
+            "plan_sha256": plan_sha,
+            "request": request.to_legacy_mission(),
         }
         flight = (runtime or {}).get("flight", {})
         fid = str(flight.get("flight_id") or _stable_id("flight", {"candidate": candidate.route_id, "runtime": runtime}))
@@ -125,11 +151,17 @@ class LegacyNavigationService:
             raise NavigationServiceError(f"candidate_index out of range: {candidate_index}") from exc
         return self.compile_flight(request, candidate, context)
 
-    def execute_flight(self, *_: Any, **__: Any) -> None:
-        raise NavigationServiceError(
-            "campaign execution remains in the legacy outer Navigator during Phase 2; "
-            "it is not duplicated in the service layer"
-        )
+    def execute_flight(self, plan: FlightPlan, context: NavigationContext) -> FlightExecutionResult:
+        """Return the authoritative arrival transition without persisting campaign state.
+
+        Phase 2 extracts navigation execution from CLI interaction. Campaign
+        persistence/history remains the campaign authority and is integrated in
+        Phase 6; this operation therefore never writes files or ledger records.
+        """
+        try:
+            return LegacyFlightExecutionAdapter(self.core).execute(plan, context)
+        except RuntimeError as exc:
+            raise NavigationServiceError(str(exc)) from exc
 
     def get_ephemeris(self, context: NavigationContext, epoch: str | None = None) -> EphemerisSnapshot:
         """Expose Sequence H canonical ephemeris/dependency truth without recalculation."""
