@@ -16,70 +16,19 @@ from loom.navigation import NavigationContext, LegacyNavigationService
 import loom_navigator
 from phase2_gate_a_qualify import discover_runtime_bundles, history_records, newest_completed_flight, make_request_and_candidate
 
-KEY_HINTS = ("traj", "path", "position", "checkpoint", "sample", "state", "vector", "geometry", "timeline", "interpol")
 
-
-def short(value, limit=5000):
-    return json.dumps(value, default=str, sort_keys=True)[:limit]
-
-
-def walk(value, prefix="", depth=0):
-    if depth > 9:
-        return
-    if isinstance(value, Mapping):
-        for key, child in value.items():
-            p = f"{prefix}.{key}" if prefix else str(key)
-            low = str(key).lower()
-            if any(h in low for h in KEY_HINTS):
-                kind = type(child).__name__
-                size = len(child) if isinstance(child, (Mapping, Sequence)) and not isinstance(child, (str, bytes, bytearray)) else None
-                print(f"FIELD {p} type={kind} size={size}")
-                if isinstance(child, (list, tuple)) and child:
-                    print("  SAMPLE", short(child[:3], 2400))
-                elif isinstance(child, Mapping):
-                    print("  MAP", short(child, 4000))
-            walk(child, p, depth + 1)
-    elif isinstance(value, (list, tuple)):
-        for i, child in enumerate(value[:12]):
-            walk(child, f"{prefix}[{i}]", depth + 1)
-
-
-def unpack_metadata(value):
+def unpack_payload(value):
     if not isinstance(value, (bytes, bytearray)) or len(value) < 4:
-        return None
+        raise TypeError("packed flight payload required")
     n = struct.unpack_from("<I", value, 0)[0]
-    if n <= 0 or 4 + n > len(value):
-        return None
-    try:
-        return json.loads(bytes(value[4:4+n]).decode("utf-8"))
-    except Exception as exc:
-        print("PACKED METADATA PARSE ERROR", repr(exc), "length", n)
-        return None
-
-
-def describe(value, prefix="flightSolutionsPayload", depth=0):
-    if depth > 6:
-        return
-    if isinstance(value, Mapping):
-        print(f"SCHEMA {prefix} MAP keys={sorted(map(str, value.keys()))}")
-        for key, child in value.items():
-            describe(child, f"{prefix}.{key}", depth + 1)
-    elif isinstance(value, (list, tuple)):
-        print(f"SCHEMA {prefix} LIST count={len(value)}")
-        if value:
-            print(f"SAMPLE {prefix}[0] {short(value[0], 7000)}")
-            describe(value[0], f"{prefix}[0]", depth + 1)
-    else:
-        print(f"SCHEMA {prefix} {type(value).__name__}={str(value)[:350]}")
+    meta = json.loads(bytes(value[4:4+n]).decode("utf-8"))
+    return meta, bytes(value[4+n:])
 
 
 def main() -> int:
     root = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path.cwd()
     service = LegacyNavigationService(loom_navigator.load_core())
-    bundles = discover_runtime_bundles(root)
-    if not bundles:
-        raise RuntimeError("no frozen runtime bundle")
-    bundle = bundles[0]
+    bundle = discover_runtime_bundles(root)[0]
     rows = history_records(bundle.history)
     commit, _arrived = newest_completed_flight(rows)
     replay = commit["details"]["replay"]
@@ -92,32 +41,26 @@ def main() -> int:
     request, candidate = make_request_and_candidate(commit, normalized, mission, state)
     context = NavigationContext(campaign_state=state, acquisition=acquisition, cache_dir=bundle.cache, b1_package=bundle.b1, runtime_root=bundle.root)
     plan = service.compile_flight(request, candidate, context)
-    packed = dict(plan.payload)
-    payloads = packed.get("payloads") or {}
-    print("=== TOP LEVEL ===")
-    print("PAYLOAD KEYS", sorted(packed.keys()))
-    print("RUNTIME KEYS", sorted((packed.get("runtime") or {}).keys()))
-    print("PAYLOADS TYPE", type(payloads).__name__)
-    if isinstance(payloads, Mapping):
-        print("PAYLOADS KEYS", sorted(map(str, payloads.keys())))
-        flight_payload = payloads.get("flightSolutionsPayload")
-        print("=== FLIGHT SOLUTIONS PACKED METADATA ===")
-        meta = unpack_metadata(flight_payload)
-        if meta is None:
-            print("PACKED METADATA unavailable")
-        else:
-            describe(meta, "flightSolutionsMetadata")
-            print("=== TIMELINE/GEOMETRY FIELDS IN METADATA ===")
-            walk(meta, "flightSolutionsMetadata")
-    print("=== RUNTIME FLIGHT TRAJECTORY CAPABILITY PROBE ===")
-    walk(packed)
-    validation = packed.get("validation") or {}
-    seq_b = validation.get("sequence_b") or {}
-    print("=== SEQUENCE B AUTHORITY ===")
-    print(short(seq_b.get("authority"), 5000))
-    print("=== SEQUENCE B PAYLOAD AUDITS ===")
-    print(short(seq_b.get("payload_audits"), 12000))
-    print("=== END PROBE ===")
+    payload = plan.payload["payloads"]["flightSolutionsPayload"]
+    meta, binary = unpack_payload(payload)
+    sol = meta["route_plans"]["L1"]["solutions"]["HARD|CRUISE"]
+    print("CODEC", meta["_flight_binary_codec"])
+    print("TIMELINE", json.dumps({k:v for k,v in sol["timeline"].items() if k not in {"local_screen_by_projection","local_screen_by_view","local_depth_by_view","solar_screen_by_projection","solar_screen_by_view"}}, sort_keys=True)[:6000])
+    table = meta["_flight_binary_blocks"][sol["timeline"]["samples"]["$bin"]]
+    print("TABLE rows", table["rows"], "cols", table["cols"])
+    fields = meta["timeline_contract"]["field_index"]
+    inverse = {v:k for k,v in fields.items()}
+    for idx in range(min(39, len(table["columns"]))):
+        desc = table["columns"][idx]
+        print("COLUMN", idx, inverse.get(idx), json.dumps(desc, sort_keys=True))
+        series = desc.get("series") if isinstance(desc, dict) else None
+        if series:
+            off = series["data_offset"]; size = series["data_bytes"]
+            print("  DATA_HEX", binary[off:off+min(size,48)].hex())
+            if series.get("presence_bytes"):
+                po=series["presence_offset"]; ps=series["presence_bytes"]
+                print("  PRESENCE_HEX", binary[po:po+ps].hex())
+    print("VALIDATION", json.dumps(plan.payload["validation"]["sequence_b"]["payload_audits"][3]["timeline_validation"], sort_keys=True))
     return 0
 
 
