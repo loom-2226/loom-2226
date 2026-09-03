@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import struct
 import sys
 from pathlib import Path
 from collections.abc import Mapping, Sequence
@@ -43,8 +44,21 @@ def walk(value, prefix="", depth=0):
             walk(child, f"{prefix}[{i}]", depth + 1)
 
 
+def unpack_metadata(value):
+    if not isinstance(value, (bytes, bytearray)) or len(value) < 4:
+        return None
+    n = struct.unpack_from("<I", value, 0)[0]
+    if n <= 0 or 4 + n > len(value):
+        return None
+    try:
+        return json.loads(bytes(value[4:4+n]).decode("utf-8"))
+    except Exception as exc:
+        print("PACKED METADATA PARSE ERROR", repr(exc), "length", n)
+        return None
+
+
 def describe(value, prefix="flightSolutionsPayload", depth=0):
-    if depth > 5:
+    if depth > 6:
         return
     if isinstance(value, Mapping):
         print(f"SCHEMA {prefix} MAP keys={sorted(map(str, value.keys()))}")
@@ -56,7 +70,7 @@ def describe(value, prefix="flightSolutionsPayload", depth=0):
             print(f"SAMPLE {prefix}[0] {short(value[0], 7000)}")
             describe(value[0], f"{prefix}[0]", depth + 1)
     else:
-        print(f"SCHEMA {prefix} {type(value).__name__}={str(value)[:250]}")
+        print(f"SCHEMA {prefix} {type(value).__name__}={str(value)[:350]}")
 
 
 def main() -> int:
@@ -86,8 +100,15 @@ def main() -> int:
     print("PAYLOADS TYPE", type(payloads).__name__)
     if isinstance(payloads, Mapping):
         print("PAYLOADS KEYS", sorted(map(str, payloads.keys())))
-        print("=== FLIGHT SOLUTIONS PAYLOAD SCHEMA ===")
-        describe(payloads.get("flightSolutionsPayload"))
+        flight_payload = payloads.get("flightSolutionsPayload")
+        print("=== FLIGHT SOLUTIONS PACKED METADATA ===")
+        meta = unpack_metadata(flight_payload)
+        if meta is None:
+            print("PACKED METADATA unavailable")
+        else:
+            describe(meta, "flightSolutionsMetadata")
+            print("=== TIMELINE/GEOMETRY FIELDS IN METADATA ===")
+            walk(meta, "flightSolutionsMetadata")
     print("=== RUNTIME FLIGHT TRAJECTORY CAPABILITY PROBE ===")
     walk(packed)
     validation = packed.get("validation") or {}
