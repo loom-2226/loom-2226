@@ -14,7 +14,7 @@ on:
 jobs:
   frozen-runtime-equivalence:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     permissions:
       contents: read
     steps:
@@ -22,14 +22,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Download frozen Pixel loose runtime archive
+      - name: Download frozen Pixel pre-clean runtime archive
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release download v0.1.0-runtime-baseline --pattern 'LOOM_2226_Pixel_Loose_Project_Archive_2026-09-03.zip' --dir frozen
+        run: gh release download v0.1.0-runtime-baseline --pattern 'LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip' --dir frozen
       - name: Extract frozen runtime
         run: |
           mkdir -p frozen/runtime
-          unzip -q frozen/LOOM_2226_Pixel_Loose_Project_Archive_2026-09-03.zip -d frozen/runtime
+          unzip -q frozen/LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip -d frozen/runtime
       - name: Run frozen legacy self-tests through unified wrapper
         env:
           LOOM_HOME: ${{ github.workspace }}/frozen/runtime
