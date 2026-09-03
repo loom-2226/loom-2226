@@ -34,6 +34,13 @@ def _stable_id(prefix: str, payload: Mapping[str, Any]) -> str:
     return f"{prefix}-{hashlib.sha256(body).hexdigest()[:16]}"
 
 
+def _legacy_test_id(payload: Mapping[str, Any]) -> str:
+    """Use the frozen campaign's accepted H-F###### Sequence-H identifier shape."""
+    body = json.dumps(dict(payload), sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
+    n = int(hashlib.sha256(body).hexdigest()[:12], 16) % 1_000_000
+    return f"H-F{n:06d}"
+
+
 @dataclass
 class LegacyNavigationService:
     """Canonical service facade over the frozen outer Navigator module."""
@@ -63,7 +70,7 @@ class LegacyNavigationService:
         mission = request.to_legacy_mission()
         state = dict(context.campaign_state)
         mission.setdefault("schema", "LOOM_NAV_REQUEST_v1")
-        mission.setdefault("test_id", _stable_id("GIS", {
+        mission.setdefault("test_id", _legacy_test_id({
             "state_id": state.get("state_id"),
             "origin": request.origin,
             "destination": request.destination,
