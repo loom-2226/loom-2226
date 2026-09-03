@@ -2,7 +2,10 @@ import importlib.util
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
 from pathlib import Path
+from unittest.mock import patch
 
 UPDATER = Path(__file__).resolve().parents[1] / "deploy" / "loom_update.py"
 spec = importlib.util.spec_from_file_location("loom_update", UPDATER)
@@ -102,6 +105,49 @@ class LoomUpdateTests(unittest.TestCase):
         manifest["artifacts"] = self.artifacts[:-1] + [bad]
         with self.assertRaisesRegex(RuntimeError, "asset_id"):
             loom_update.validate_manifest(manifest)
+
+    def test_progress_line_with_known_total(self):
+        line = loom_update._progress_line("data/media.sqlite3", 50, 100)
+        self.assertIn("50.0%", line)
+        self.assertIn("data/media.sqlite3", line)
+
+    def test_progress_line_without_total(self):
+        line = loom_update._progress_line("data/media.sqlite3", 1024 * 1024, None)
+        self.assertIn("1.0 MiB", line)
+        self.assertNotIn("%", line)
+
+    def test_streaming_download_progress_and_payload_integrity(self):
+        payload = b"abcdefghij"
+
+        class FakeResponse:
+            headers = {"Content-Length": str(len(payload))}
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                return False
+            def read(self, n):
+                if not hasattr(self, "_pos"):
+                    self._pos = 0
+                if self._pos >= len(payload):
+                    return b""
+                chunk = payload[self._pos:self._pos + 3]
+                self._pos += len(chunk)
+                return chunk
+
+        out = StringIO()
+        with patch.object(loom_update, "urlopen", return_value=FakeResponse()), \
+             patch.object(loom_update, "token", return_value="test-token"), \
+             patch.object(loom_update, "PROGRESS_THRESHOLD_BYTES", 1), \
+             redirect_stdout(out):
+            actual = loom_update.github_bytes(
+                "https://example.invalid/test",
+                "application/octet-stream",
+                label="data/media.sqlite3",
+                expected_size=len(payload),
+            )
+        self.assertEqual(actual, payload)
+        self.assertIn("100.0%", out.getvalue())
+        self.assertIn("data/media.sqlite3", out.getvalue())
 
 
 if __name__ == "__main__":
