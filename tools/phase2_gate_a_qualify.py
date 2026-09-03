@@ -32,19 +32,35 @@ def find_one(root: Path, names: tuple[str, ...]) -> Path:
 
 
 def find_sequence_h_cache(root: Path) -> Path:
-    """Find the preserved content-addressed Sequence-H cache, not any generic cache dir."""
-    counts: Counter[Path] = Counter()
+    """Find the preserved Sequence-H cache root above its ephemeris hash shards."""
+    named = [p for p in root.rglob("LOOM_Navigator_Cache_v1") if p.is_dir()]
+    if named:
+        # Prefer the instance containing the greatest number of content-addressed files.
+        scored = []
+        for cache in named:
+            n = sum(1 for p in cache.rglob("*") if p.is_file() and HEX64.match(p.name))
+            scored.append((n, cache))
+        scored.sort(reverse=True, key=lambda item: item[0])
+        for n, cache in scored:
+            print(f"CACHE ROOT CANDIDATE: {n:5d}  {cache}")
+        if scored[0][0] > 0:
+            print("SELECTED CACHE ROOT:", scored[0][1])
+            return scored[0][1]
+
+    # Fallback: infer root from sharded ephemeris files.
+    roots: Counter[Path] = Counter()
     for p in root.rglob("*"):
-        if p.is_file() and HEX64.match(p.name):
-            counts[p.parent] += 1
-    if not counts:
+        if not (p.is_file() and HEX64.match(p.name)):
+            continue
+        parts = p.parts
+        if "ephemeris" in parts:
+            i = parts.index("ephemeris")
+            if i > 0:
+                roots[Path(*parts[:i])] += 1
+    if not roots:
         raise RuntimeError("no content-addressed Sequence-H cache found in frozen runtime")
-    ranked = counts.most_common()
-    cache, count = ranked[0]
-    print("CACHE CANDIDATES:")
-    for path, n in ranked[:10]:
-        print(f"  {n:5d}  {path}")
-    print("SELECTED CACHE:", cache, "entries=", count)
+    cache, count = roots.most_common(1)[0]
+    print("INFERRED CACHE ROOT:", cache, "entries=", count)
     return cache
 
 
