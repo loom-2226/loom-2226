@@ -10,6 +10,7 @@ on:
       - 'src/loom_gis.py'
       - 'tests/test_gis_phase4_navigation_overlay.py'
       - 'tools/phase4_gis_navigation_qualify.py'
+      - 'tools/phase6_trajectory_probe.py'
       - 'tools/phase2_gate_a_qualify.py'
       - 'docs/architecture/LOOM_2226_GIS_Phase4_Navigation_Rendering_v1.0.md'
       - '.github/workflows/phase4-gis-navigation.yml'
@@ -46,6 +47,10 @@ jobs:
         env:
           LOOM_HOME: ${{ github.workspace }}/frozen/runtime
         run: python tools/phase4_gis_navigation_qualify.py frozen/runtime --route-out frozen/phase4_route.json
+      - name: Probe authoritative trajectory payload
+        env:
+          LOOM_HOME: ${{ github.workspace }}/frozen/runtime
+        run: python tools/phase6_trajectory_probe.py frozen/runtime
       - name: Select locked frozen CIVSTATE
         run: |
           CIVSTATE="$(python - <<'PY'
