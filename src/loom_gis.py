@@ -119,7 +119,12 @@ def main(argv=None) -> int:
             print("FLIGHT PLAN   unavailable · no coherent Navigator campaign runtime found")
 
     if args.nav_overlay_info:
-        out = {"navigation_overlay": overlay.to_dict(), "flight_planning": planning.state().to_dict() if planning else None}
+        # Preserve the Phase-4 diagnostic contract when planning is explicitly
+        # disabled; Phase-5-aware callers receive the combined diagnostic.
+        if args.no_flight_planning:
+            out = overlay.to_dict()
+        else:
+            out = {"navigation_overlay": overlay.to_dict(), "flight_planning": planning.state().to_dict() if planning else None}
         print(json.dumps(out, indent=2))
         return 0
 
