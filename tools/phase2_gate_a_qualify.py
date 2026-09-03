@@ -4,8 +4,11 @@
 The qualifier never invents a mission. It locates the frozen campaign history,
 selects the newest completed flight, reconstructs its replay request and
 campaign departure state, then reruns the deterministic solve through the new
-LegacyNavigationService facade. The resulting canonical runtime SHA must equal
-the SHA recorded by the frozen FLIGHT_ARRIVED ledger entry.
+LegacyNavigationService facade. Preserved content-addressed ephemeris cache
+entries are authoritative and never refreshed; if the archive omitted an entry,
+GitHub may fill only the missing request from the same authoritative provider.
+The resulting canonical runtime SHA must equal the SHA recorded by the frozen
+FLIGHT_ARRIVED ledger entry.
 """
 from __future__ import annotations
 
@@ -32,10 +35,8 @@ def find_one(root: Path, names: tuple[str, ...]) -> Path:
 
 
 def find_sequence_h_cache(root: Path) -> Path:
-    """Find the preserved Sequence-H cache root above its ephemeris hash shards."""
     named = [p for p in root.rglob("LOOM_Navigator_Cache_v1") if p.is_dir()]
     if named:
-        # Prefer the instance containing the greatest number of content-addressed files.
         scored = []
         for cache in named:
             n = sum(1 for p in cache.rglob("*") if p.is_file() and HEX64.match(p.name))
@@ -46,8 +47,6 @@ def find_sequence_h_cache(root: Path) -> Path:
         if scored[0][0] > 0:
             print("SELECTED CACHE ROOT:", scored[0][1])
             return scored[0][1]
-
-    # Fallback: infer root from sharded ephemeris files.
     roots: Counter[Path] = Counter()
     for p in root.rglob("*"):
         if not (p.is_file() and HEX64.match(p.name)):
@@ -81,6 +80,27 @@ def newest_completed_flight(rows: list[dict]):
     raise RuntimeError("no completed flight pair found in frozen history")
 
 
+def acquisition_with_missing_fill(nav, normalized, cache: Path):
+    before = {p.resolve() for p in cache.rglob("*") if p.is_file()}
+    try:
+        acq = nav.run_acquisition(normalized, cache, offline=True, refresh=False)
+        print("EPHEMERIS ACQUISITION: frozen cache complete")
+        return acq, []
+    except Exception as exc:
+        if "offline cache miss" not in str(exc):
+            raise
+        print("EPHEMERIS ACQUISITION: frozen cache incomplete")
+        print("FIRST CACHE MISS:", exc)
+        print("FILL POLICY: provider access enabled, refresh=False; preserved entries are not replaced")
+        acq = nav.run_acquisition(normalized, cache, offline=False, refresh=False)
+        after = {p.resolve() for p in cache.rglob("*") if p.is_file()}
+        added = sorted(after - before)
+        print("CACHE ENTRIES ADDED:", len(added))
+        for p in added:
+            print("  +", p.relative_to(cache))
+        return acq, added
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("runtime_root")
@@ -101,7 +121,7 @@ def main() -> int:
     nav = service._sequence_h(NavigationContext(campaign_state=state, runtime_root=root))
 
     normalized = nav.validate_and_normalize_mission(mission)
-    acquisition = nav.run_acquisition(normalized, cache, offline=True, refresh=False)
+    acquisition, added = acquisition_with_missing_fill(nav, normalized, cache)
 
     route = normalized["route"]
     requested = dict(normalized.get("requested_modes") or mission.get("requested_modes") or {})
@@ -120,12 +140,13 @@ def main() -> int:
     got = plan.payload["determinism"]["canonical_runtime_sha256"]
     expected = arrived["details"]["runtime_sha256"]
     if got != expected:
-        raise RuntimeError(f"Gate A runtime hash mismatch: expected={expected} got={got}")
+        raise RuntimeError(f"Gate A runtime hash mismatch: expected={expected} got={got}; filled_entries={len(added)}")
 
     print("PHASE2_GATE_A_REPLAY=PASS")
     print("flight_id=", commit.get("flight_id"))
     print("route=", route)
     print("runtime_sha256=", got)
+    print("provider_filled_entries=", len(added))
     print("history=", hist)
     print("cache=", cache)
     print("b1=", b1)
