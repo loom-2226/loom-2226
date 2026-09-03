@@ -25,7 +25,7 @@ from urllib.request import Request, urlopen
 
 OWNER = "loom-2226"
 REPO = "loom-2226"
-DEFAULT_REF = "staging/initial-baseline"
+DEFAULT_REF = "main"
 CONTENTS_API = f"https://api.github.com/repos/{OWNER}/{REPO}/contents"
 RELEASE_ASSET_API = f"https://api.github.com/repos/{OWNER}/{REPO}/releases/assets"
 ANDROID_ROOT = Path("/storage/emulated/0/Documents/LOOM")
