@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 """LOOM 2226 JPL Horizons provider probe.
 
-Purpose
--------
-Run on an internet-connected qualification host (not inside the LOOM runtime)
-and acquire authoritative JPL Horizons vectors for fixed LOOM epochs. The
-script does not perform navigation physics and is not a runtime ephemeris
-provider. It emits a deterministic normalized JSON artifact plus SHA-256 so
-provider reachability and source data can be independently qualified.
+Runs only on an internet-connected qualification host. It acquires fixed-epoch
+JPL Horizons vectors, normalizes them, and emits hashes. It performs no LOOM
+flight physics and does not become runtime ephemeris authority.
 """
 from __future__ import annotations
 
@@ -18,12 +14,13 @@ import io
 import json
 import urllib.parse
 import urllib.request
+from datetime import datetime, timedelta
 from pathlib import Path
 
 API = "https://ssd.jpl.nasa.gov/api/horizons.api"
 DEFAULT_EPOCH = "2226-08-22 00:00"
 TARGETS = {
-    "CERES": "1;",      # asteroid 1 Ceres
+    "CERES": "1;",
     "MARS": "499",
     "NEPTUNE": "899",
 }
@@ -38,27 +35,27 @@ def sha256_obj(obj) -> str:
 
 
 def horizons_url(command: str, epoch: str) -> str:
-    # One-hour interval with one-hour step yields a compact, machine-readable
-    # vector table while retaining the exact request parameters in the output.
-    from datetime import datetime, timedelta
     start = datetime.strptime(epoch, "%Y-%m-%d %H:%M")
     stop = start + timedelta(hours=1)
+    # Horizons API accepts ordinary query values; urlencode supplies escaping.
+    # Avoid embedding shell-style quote characters in the actual parameter
+    # values because those are not part of the JSON API contract.
     params = {
         "format": "json",
-        "COMMAND": f"'{command}'",
-        "OBJ_DATA": "'YES'",
-        "MAKE_EPHEM": "'YES'",
-        "EPHEM_TYPE": "'VECTORS'",
-        "CENTER": "'500@10'",
-        "START_TIME": f"'{start:%Y-%m-%d %H:%M}'",
-        "STOP_TIME": f"'{stop:%Y-%m-%d %H:%M}'",
-        "STEP_SIZE": "'1 h'",
-        "OUT_UNITS": "'KM-S'",
-        "REF_PLANE": "'ECLIPTIC'",
-        "REF_SYSTEM": "'ICRF'",
-        "VEC_TABLE": "'2'",
-        "CSV_FORMAT": "'YES'",
-        "VEC_CORR": "'NONE'",
+        "COMMAND": command,
+        "OBJ_DATA": "YES",
+        "MAKE_EPHEM": "YES",
+        "EPHEM_TYPE": "VECTORS",
+        "CENTER": "500@10",
+        "START_TIME": f"{start:%Y-%m-%d %H:%M}",
+        "STOP_TIME": f"{stop:%Y-%m-%d %H:%M}",
+        "STEP_SIZE": "1h",
+        "OUT_UNITS": "KM-S",
+        "REF_PLANE": "ECLIPTIC",
+        "REF_SYSTEM": "ICRF",
+        "VEC_TABLE": "2",
+        "CSV_FORMAT": "YES",
+        "VEC_CORR": "NONE",
     }
     return API + "?" + urllib.parse.urlencode(params)
 
@@ -75,14 +72,13 @@ def parse_horizons_result(payload_text: str) -> dict:
     if not isinstance(result, str):
         raise RuntimeError("Horizons response missing textual result")
     if "$$SOE" not in result or "$$EOE" not in result:
-        raise RuntimeError("Horizons response contains no vector table")
+        excerpt = result.replace("\n", " ")[:1200]
+        raise RuntimeError(f"Horizons response contains no vector table: {excerpt}")
     body = result.split("$$SOE", 1)[1].split("$$EOE", 1)[0].strip()
     rows = list(csv.reader(io.StringIO(body)))
     rows = [[cell.strip() for cell in row] for row in rows if row]
     if not rows:
         raise RuntimeError("Horizons vector table is empty")
-
-    # VEC_TABLE=2 CSV columns begin with JD/calendar then X,Y,Z,VX,VY,VZ.
     row = rows[0]
     if len(row) < 8:
         raise RuntimeError(f"Unexpected Horizons vector row width: {len(row)}")
@@ -90,7 +86,6 @@ def parse_horizons_result(payload_text: str) -> dict:
         x, y, z, vx, vy, vz = map(float, row[2:8])
     except ValueError as exc:
         raise RuntimeError(f"Unable to parse Horizons vector row: {row}") from exc
-
     return {
         "provider": "JPL_HORIZONS",
         "provider_signature": payload.get("signature", {}),
@@ -122,15 +117,9 @@ def main() -> int:
     ap.add_argument("--epoch", default=DEFAULT_EPOCH)
     ap.add_argument("--output", default="artifacts/horizons_provider_probe.json")
     args = ap.parse_args()
-
     records = [acquire(name, command, args.epoch) for name, command in TARGETS.items()]
-    artifact = {
-        "schema": "LOOM_HORIZONS_PROVIDER_PROBE_V1",
-        "epoch": args.epoch,
-        "records": records,
-    }
+    artifact = {"schema": "LOOM_HORIZONS_PROVIDER_PROBE_V1", "epoch": args.epoch, "records": records}
     artifact["artifact_sha256"] = sha256_obj({k: v for k, v in artifact.items() if k != "artifact_sha256"})
-
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n", encoding="utf-8")
