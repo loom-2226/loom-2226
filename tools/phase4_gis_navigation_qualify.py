@@ -96,7 +96,7 @@ def launcher_smoke(layer):
     route_path = td / "route.json"
     route_path.write_text(json.dumps(layer.to_dict(), indent=2) + "\n", encoding="utf-8")
     proc = subprocess.run(
-        [sys.executable, str(REPO / "src" / "loom_gis.py"), "--nav-route", str(route_path), "--nav-overlay-info"],
+        [sys.executable, str(REPO / "src" / "loom_gis.py"), "--nav-route", str(route_path), "--nav-overlay-info", "--no-flight-planning"],
         cwd=str(REPO), text=True, capture_output=True, check=False,
     )
     if proc.returncode != 0:
