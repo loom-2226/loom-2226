@@ -36,12 +36,12 @@ class LegacySequenceHEphemerisProvider:
         # Consumers that need body-specific rows continue to use the opaque payload
         # until Phase 3 defines the typed GIS/navigation route-layer contract.
         payload = {
+            "provider": "LEGACY_SEQUENCE_H_CANONICAL",
             "canonical_dependency_index": canonical,
             "axis_validation": validation,
         }
         return EphemerisSnapshot(
-            epoch=resolved_epoch,
-            provider="LEGACY_SEQUENCE_H_CANONICAL",
+            epoch_utc=resolved_epoch,
             bodies={},
             payload=payload,
         )
