@@ -119,12 +119,16 @@ def launcher_smoke(layer):
     if len((active.get("trajectory") or {}).get("samples") or []) != 100:
         raise RuntimeError("launcher dropped authoritative trajectory timeline")
     js = (REPO / "src" / "loom" / "gis" / "navigation_overlay.js").read_text(encoding="utf-8")
-    for token in ("ACTIVE", "ALTS", "PHASES", "MANEUVERS", "HISTORY", "TRAFFIC", "/navigation-overlay.json"):
+    # Backend overlay controls are contract-tested above. Browser smoke checks the
+    # current mobile interaction surface rather than retired literal button labels.
+    for token in ("ACTIVE", "PHASES", "HISTORY", "/navigation-overlay.json", "PLAY ROUTE", "METRIC · RELATIONAL", "NAV", "ATLAS"):
         if token not in js:
-            raise RuntimeError(f"GIS renderer missing required control/endpoint token: {token}")
+            raise RuntimeError(f"GIS renderer missing required runtime token: {token}")
     normalized_js = "".join(js.split())
     if "if(pts.length>=2)navDrawPolyline(pts,seg.style,alpha);" not in normalized_js:
         raise RuntimeError("GIS renderer no longer gates physical polylines on authoritative sampled geometry")
+    if "ordinary_space_occupancy!==false" not in normalized_js:
+        raise RuntimeError("GIS renderer no longer gates relational Metric display on explicit non-occupancy semantics")
 
 
 def main() -> int:
