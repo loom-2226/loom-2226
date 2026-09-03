@@ -53,6 +53,32 @@ class LegacyNavigationService:
             raise NavigationServiceError(f"{name} is required for this legacy operation")
         return value
 
+    def prepare_context(
+        self,
+        request: NavigationRequest,
+        context: NavigationContext,
+        *,
+        offline: bool = False,
+        refresh: bool = False,
+    ) -> NavigationContext:
+        """Prepare Sequence-H acquisition for planning without leaking provider logic into GIS."""
+        nav = self._sequence_h(context)
+        normalize = getattr(nav, "validate_and_normalize_mission", None)
+        acquire = getattr(nav, "run_acquisition", None)
+        if not callable(normalize) or not callable(acquire):
+            raise NavigationServiceError("legacy acquisition capability is unavailable")
+        cache = self._require(context.cache_dir, "cache_dir")
+        normalized = normalize(request.to_legacy_mission())
+        acquisition = acquire(normalized, cache, offline=offline, refresh=refresh)
+        return NavigationContext(
+            campaign_state=context.campaign_state,
+            acquisition=acquisition,
+            cache_dir=context.cache_dir,
+            b1_package=context.b1_package,
+            runtime_root=context.runtime_root,
+            payload=context.payload,
+        )
+
     def discover_routes(self, request: NavigationRequest, context: NavigationContext) -> tuple[RouteCandidate, ...]:
         nav = self._sequence_h(context)
         normalize = getattr(nav, "validate_and_normalize_mission", None)
