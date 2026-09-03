@@ -11,6 +11,7 @@ on:
       - 'tests/test_gis_phase5_flight_planning.py'
       - 'tools/phase5_gis_flight_planning_qualify.py'
       - 'tools/phase2_gate_a_qualify.py'
+      - 'docs/architecture/LOOM_2226_GIS_Phase5_Flight_Planning_v1.0.md'
       - '.github/workflows/phase5-gis-flight-planning.yml'
   workflow_dispatch:
 
@@ -47,3 +48,100 @@ jobs:
         env:
           LOOM_HOME: ${{ github.workspace }}/frozen/runtime/LOOM_TEST
         run: python tools/phase5_gis_flight_planning_qualify.py frozen/runtime
+      - name: Select locked frozen CIVSTATE
+        run: |
+          CIVSTATE="$(python - <<'PY'
+          from pathlib import Path
+          import hashlib, sys
+          expected='9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560'
+          for p in Path('frozen/runtime').rglob('LOOM_2226_CIVSTATE.sqlite3'):
+              got=hashlib.sha256(p.read_bytes()).hexdigest()
+              print(f'CANDIDATE {got} {p}', file=sys.stderr)
+              if got==expected:
+                  print(p)
+                  break
+          PY
+          )"
+          test -n "$CIVSTATE"
+          echo "CIVSTATE=$CIVSTATE" >> "$GITHUB_ENV"
+      - name: Hash campaign state before HTTP smoke
+        run: |
+          STATE=frozen/runtime/LOOM_TEST/LOOM_STATE_V1.json
+          test -f "$STATE"
+          sha256sum "$STATE" | awk '{print $1}' > phase5_state_before.sha
+          cat phase5_state_before.sha
+      - name: Start converged GIS with Phase 5 planning
+        env:
+          LOOM_HOME: ${{ github.workspace }}/frozen/runtime/LOOM_TEST
+        run: |
+          python src/loom_gis.py \
+            --nav-runtime-root frozen/runtime/LOOM_TEST \
+            --nav-planning-offline \
+            --demo \
+            --civ-db "$CIVSTATE" \
+            --no-browser \
+            --host 127.0.0.1 \
+            --port 8767 > phase5_server.log 2>&1 &
+          echo "SERVER_PID=$!" >> "$GITHUB_ENV"
+          python - <<'PY'
+          import time, urllib.request
+          url='http://127.0.0.1:8767/healthz'
+          last=None
+          for _ in range(120):
+              try:
+                  with urllib.request.urlopen(url, timeout=1) as r:
+                      if r.status == 200:
+                          print('PHASE5 GIS SERVER READY')
+                          raise SystemExit(0)
+              except Exception as exc:
+                  last=exc; time.sleep(.25)
+          raise SystemExit(f'GIS server did not become ready: {last}')
+          PY
+      - name: Exercise live planning HTTP workflow
+        run: |
+          python - <<'PY'
+          import json, urllib.request
+          base='http://127.0.0.1:8767'
+          def get(path):
+              with urllib.request.urlopen(base+path, timeout=10) as r: return json.load(r)
+          def post(path, body):
+              data=json.dumps(body).encode()
+              req=urllib.request.Request(base+path,data=data,headers={'Content-Type':'application/json'},method='POST')
+              with urllib.request.urlopen(req, timeout=60) as r: return json.load(r)
+          state=get('/flight-planning.json')
+          assert state['contract']=='LOOM_GIS_FLIGHT_PLANNING_V1', state
+          origin=state['origin']; destination='MARS' if origin!='MARS' else 'CERES'
+          discovered=post('/flight-planning/discover',{'destination':destination,'priority':'BALANCED'})
+          assert discovered['candidates'], discovered
+          selectable=[c for c in discovered['candidates'] if c['summary'].get('selectable')]
+          assert selectable, discovered
+          rid=selectable[0]['route_id']
+          preview=post('/flight-planning/preview',{'route_id':rid})
+          assert preview['preview_route_id']==rid
+          nav=get('/navigation-overlay.json')
+          assert nav['contract']=='LOOM_GIS_NAVIGATION_OVERLAY_V1'
+          assert nav['active_route']['origin']==origin and nav['active_route']['destination']==destination
+          committed=post('/flight-planning/commit',{'route_id':rid})
+          assert committed['committed_route_id']==rid
+          cancelled=post('/flight-planning/cancel',{})
+          assert cancelled['preview_route_id'] is None and cancelled['committed_route_id'] is None
+          nav2=get('/navigation-overlay.json')
+          assert nav2['active_route'] is None, nav2
+          with urllib.request.urlopen(base+'/app.js', timeout=10) as r: js=r.read().decode()
+          assert 'LOOM_PHASE5_FLIGHT_PLANNING' in js and '/flight-planning/discover' in js
+          print('LIVE PHASE5 HTTP DISCOVER PASS', origin, '->', destination, len(discovered['candidates']))
+          print('LIVE PHASE5 HTTP PREVIEW PASS', rid)
+          print('LIVE PHASE5 HTTP COMMIT/CANCEL PASS')
+          print('LIVE PHASE5 APP.JS PASS')
+          PY
+      - name: Verify campaign state unchanged
+        run: |
+          STATE=frozen/runtime/LOOM_TEST/LOOM_STATE_V1.json
+          sha256sum "$STATE" | awk '{print $1}' > phase5_state_after.sha
+          diff -u phase5_state_before.sha phase5_state_after.sha
+          echo "LIVE PHASE5 CAMPAIGN MUTATION NONE"
+      - name: Stop converged GIS server
+        if: always()
+        run: |
+          if [ -n "${SERVER_PID:-}" ]; then kill "$SERVER_PID" 2>/dev/null || true; fi
+          cat phase5_server.log 2>/dev/null || true
