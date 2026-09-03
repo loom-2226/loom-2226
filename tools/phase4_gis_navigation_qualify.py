@@ -110,8 +110,11 @@ def launcher_smoke(layer):
     for token in ("ACTIVE", "ALTS", "PHASES", "MANEUVERS", "HISTORY", "TRAFFIC", "/navigation-overlay.json"):
         if token not in js:
             raise RuntimeError(f"GIS renderer missing required control/endpoint token: {token}")
-    if "interpol" in js.lower() and "do not connect" not in js.lower():
-        raise RuntimeError("GIS renderer appears to interpolate without explicit prohibition")
+    # Continuous line rendering must remain gated on already-sampled authoritative
+    # geometry. This checks executable behavior rather than brittle comment text.
+    normalized_js = "".join(js.split())
+    if "if(pts.length>=2)navDrawPolyline(pts,seg.style,alpha);" not in normalized_js:
+        raise RuntimeError("GIS renderer no longer gates polylines on authoritative sampled geometry")
 
 
 def main() -> int:
