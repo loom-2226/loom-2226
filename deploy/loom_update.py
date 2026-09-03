@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""LOOM 2226 updater/bootstrap v0.3.
+"""LOOM 2226 updater/bootstrap v0.4.
 
 Fetches a pinned release manifest and canonical artifacts from the private LOOM
 GitHub repository. Repository artifacts and GitHub Release assets are supported.
@@ -32,6 +32,8 @@ ANDROID_ROOT = Path("/storage/emulated/0/Documents/LOOM")
 WINDOWS_ROOT = Path.home() / "Documents" / "LOOM"
 MANIFEST_PATH = "manifests/release_manifest.json"
 INSTALL_STATE = ".loom_install_state.json"
+DOWNLOAD_CHUNK_BYTES = 1024 * 1024
+PROGRESS_THRESHOLD_BYTES = 8 * 1024 * 1024
 
 
 @dataclass(frozen=True)
@@ -80,18 +82,69 @@ def token() -> str:
     )
 
 
-def github_bytes(url: str, accept: str) -> bytes:
+def _format_bytes(n: int) -> str:
+    value = float(n)
+    for unit in ("B", "KiB", "MiB", "GiB"):
+        if value < 1024 or unit == "GiB":
+            return f"{value:.0f} {unit}" if unit == "B" else f"{value:.1f} {unit}"
+        value /= 1024
+    return f"{n} B"
+
+
+def _progress_line(label: str, downloaded: int, total: int | None) -> str:
+    if total and total > 0:
+        pct = min(100.0, downloaded * 100.0 / total)
+        return f"DOWNLOADING      {label}  {pct:5.1f}%  {_format_bytes(downloaded)} / {_format_bytes(total)}"
+    return f"DOWNLOADING      {label}  {_format_bytes(downloaded)}"
+
+
+def github_bytes(
+    url: str,
+    accept: str,
+    *,
+    label: str | None = None,
+    expected_size: int | None = None,
+) -> bytes:
     req = Request(
         url,
         headers={
             "Authorization": f"Bearer {token()}",
             "Accept": accept,
             "X-GitHub-Api-Version": "2022-11-28",
-            "User-Agent": "LOOM-2226-Updater/0.3",
+            "User-Agent": "LOOM-2226-Updater/0.4",
         },
     )
     with urlopen(req, timeout=900) as response:
-        return response.read()
+        header_size = response.headers.get("Content-Length")
+        total = expected_size
+        if total is None and header_size:
+            try:
+                total = int(header_size)
+            except ValueError:
+                total = None
+
+        show_progress = bool(label) and (total is None or total >= PROGRESS_THRESHOLD_BYTES)
+        payload = bytearray()
+        last_bucket = -1
+
+        while True:
+            chunk = response.read(DOWNLOAD_CHUNK_BYTES)
+            if not chunk:
+                break
+            payload.extend(chunk)
+            if show_progress:
+                downloaded = len(payload)
+                if total and total > 0:
+                    bucket = int(downloaded * 20 / total)
+                else:
+                    bucket = downloaded // (8 * 1024 * 1024)
+                if bucket != last_bucket:
+                    print("\r" + _progress_line(label or "payload", downloaded, total), end="", flush=True)
+                    last_bucket = bucket
+
+        if show_progress:
+            print("\r" + _progress_line(label or "payload", len(payload), total), flush=True)
+        return bytes(payload)
 
 
 def github_contents_bytes(path: str, ref: str) -> bytes:
@@ -103,8 +156,15 @@ def github_contents_bytes(path: str, ref: str) -> bytes:
 
 def github_artifact_bytes(artifact: dict, ref: str) -> bytes:
     source = artifact.get("source", "repository")
+    label = artifact["path"]
+    expected_size = artifact.get("size_bytes")
     if source == "repository":
-        return github_contents_bytes(artifact["path"], ref)
+        return github_bytes(
+            f"{CONTENTS_API}/{artifact['path']}?ref={ref}",
+            "application/vnd.github.raw+json",
+            label=label,
+            expected_size=expected_size,
+        )
     if source == "release_asset":
         asset_id = artifact.get("asset_id")
         if not isinstance(asset_id, int):
@@ -112,6 +172,8 @@ def github_artifact_bytes(artifact: dict, ref: str) -> bytes:
         return github_bytes(
             f"{RELEASE_ASSET_API}/{asset_id}",
             "application/octet-stream",
+            label=label,
+            expected_size=expected_size,
         )
     raise RuntimeError(f"Unknown artifact source {source!r}: {artifact['path']}")
 
@@ -217,6 +279,7 @@ def install_release(
         expected = artifact.get("sha256")
         required = bool(artifact.get("required"))
         target = target_for(root, artifact)
+        print(f"CHECKING         {artifact['path']}")
         if not expected:
             state = "PENDING_REQUIRED" if required else "PENDING_OPTIONAL"
             results.append(ArtifactResult(artifact["path"], str(target), state, None, None))
@@ -225,12 +288,15 @@ def install_release(
         if target.exists():
             expected_size = artifact.get("size_bytes")
             size_ok = expected_size is None or target.stat().st_size == expected_size
-            if size_ok and sha256_file(target) == expected:
-                results.append(
-                    ArtifactResult(artifact["path"], str(target), "UNCHANGED", expected, expected)
-                )
-                continue
+            if size_ok:
+                print(f"VERIFYING        {artifact['path']}")
+                if sha256_file(target) == expected:
+                    results.append(
+                        ArtifactResult(artifact["path"], str(target), "UNCHANGED", expected, expected)
+                    )
+                    continue
 
+        print(f"FETCHING         {artifact['path']}")
         payload = artifact_fetcher(artifact, ref)
         expected_size = artifact.get("size_bytes")
         if expected_size is not None and len(payload) != expected_size:
@@ -238,6 +304,7 @@ def install_release(
                 f"SIZE MISMATCH for {artifact['path']}\n"
                 f"expected={expected_size}\nactual={len(payload)}"
             )
+        print(f"VERIFYING        {artifact['path']}")
         actual = sha256_bytes(payload)
         if actual != expected:
             raise RuntimeError(
