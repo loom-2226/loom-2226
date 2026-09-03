@@ -89,7 +89,6 @@ def _decode_series(desc: Mapping[str, Any], binary: bytes) -> list[float | None]
             current = base + delta_q / scale
         else:
             current += delta_q / scale
-        # Preserve integer-looking code/index series exactly enough for callers.
         values[index] = current
     return values
 
@@ -158,6 +157,16 @@ class PackedFlightSolutions:
         desc = blocks[block_id]
         if not isinstance(desc, Mapping):
             raise FlightPayloadDecodeError("binary block descriptor malformed")
+        if desc.get("kind") == "matrix":
+            axes = desc.get("axes")
+            rows = int(desc.get("rows", 0))
+            cols = int(desc.get("cols", 0))
+            if not isinstance(axes, list) or len(axes) != cols:
+                raise FlightPayloadDecodeError("matrix axes/column count mismatch")
+            decoded = [_decode_series(axis, self.binary) for axis in axes]
+            if any(len(axis) != rows for axis in decoded):
+                raise FlightPayloadDecodeError("decoded matrix row count mismatch")
+            return [[decoded[c][r] for c in range(cols)] for r in range(rows)]
         if "columns" in desc:
             columns = desc.get("columns")
             rows = int(desc.get("rows", 0))
