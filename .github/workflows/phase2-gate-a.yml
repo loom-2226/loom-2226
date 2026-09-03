@@ -1,0 +1,42 @@
+name: LOOM Phase 2 Gate A
+
+on:
+  push:
+    branches:
+      - feature/gis-navigator-convergence
+    paths:
+      - 'src/loom/navigation/**'
+      - 'src/loom_navigator.py'
+      - 'tools/phase2_gate_a_qualify.py'
+      - '.github/workflows/phase2-gate-a.yml'
+  workflow_dispatch:
+
+jobs:
+  frozen-runtime-equivalence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download frozen Pixel loose runtime archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download v0.1.0-runtime-baseline --pattern 'LOOM_2226_Pixel_Loose_Project_Archive_2026-09-03.zip' --dir frozen
+      - name: Extract frozen runtime
+        run: |
+          mkdir -p frozen/runtime
+          unzip -q frozen/LOOM_2226_Pixel_Loose_Project_Archive_2026-09-03.zip -d frozen/runtime
+      - name: Run frozen legacy self-tests through unified wrapper
+        env:
+          LOOM_HOME: ${{ github.workspace }}/frozen/runtime
+        run: |
+          python src/loom_navigator.py --mvp-self-test
+          python src/loom_navigator.py --k1-self-test
+      - name: Run Gate A replay equivalence
+        env:
+          LOOM_HOME: ${{ github.workspace }}/frozen/runtime
+        run: python tools/phase2_gate_a_qualify.py frozen/runtime
