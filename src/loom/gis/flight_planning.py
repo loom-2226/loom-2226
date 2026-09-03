@@ -14,6 +14,7 @@ import hashlib
 import json
 
 from loom.navigation import NavigationContext, NavigationRequest, RouteCandidate
+from loom.navigation.trajectory_payload import promote_sequence_b_payload
 from .navigation_overlay import build_navigation_overlay
 
 GIS_FLIGHT_PLANNING_VERSION = "LOOM_GIS_FLIGHT_PLANNING_V1"
@@ -159,6 +160,7 @@ class GISFlightPlanningSession:
         plan = self._plans.get(candidate.route_id)
         if plan is None:
             plan = self.service.compile_flight(self._request, candidate, self.context)
+            plan = promote_sequence_b_payload(plan)
             self._plans[candidate.route_id] = plan
         layer = self.service.get_route_layer(plan, self.context)
         self.preview_route_id = candidate.route_id
