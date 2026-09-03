@@ -32,13 +32,21 @@ jobs:
         run: |
           mkdir -p frozen/runtime
           unzip -q frozen/LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip -d frozen/runtime
-      - name: Run frozen legacy self-tests through unified wrapper
+      - name: Run frozen legacy MVP/K1 self-tests
         env:
           LOOM_HOME: ${{ github.workspace }}/frozen/runtime
         run: |
           python src/loom_navigator.py --mvp-self-test
           python src/loom_navigator.py --k1-self-test
-      - name: Run Gate A replay equivalence
+      - name: Run frozen CIVSTATE self-test
+        env:
+          LOOM_HOME: ${{ github.workspace }}/frozen/runtime
+        run: |
+          CIVSTATE="$(find frozen/runtime -type f -name 'LOOM_2226_CIVSTATE.sqlite3' -print -quit)"
+          test -n "$CIVSTATE"
+          echo "CIVSTATE=$CIVSTATE"
+          python src/loom_navigator.py --civstate-self-test "$CIVSTATE"
+      - name: Run Gate A replay and execution-state equivalence
         env:
           LOOM_HOME: ${{ github.workspace }}/frozen/runtime
         run: python tools/phase2_gate_a_qualify.py frozen/runtime
