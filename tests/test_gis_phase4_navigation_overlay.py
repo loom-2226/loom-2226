@@ -9,6 +9,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from loom.gis.navigation_overlay import (
     GIS_NAV_OVERLAY_VERSION,
     build_navigation_overlay,
+    client_extension_js,
     route_to_gis,
 )
 from loom.navigation import LoomRouteLayerV1, RouteLayerBodyV1, RouteLayerSegmentV1
@@ -55,6 +56,7 @@ class GISPhase4NavigationOverlayTest(unittest.TestCase):
         overlay = build_navigation_overlay(self.route())
         self.assertEqual(overlay.contract, GIS_NAV_OVERLAY_VERSION)
         self.assertIsNotNone(overlay.active_route)
+        self.assertEqual(overlay.current_vehicle_state["location_token"], "CERES")
         self.assertIn("ACTIVE_ROUTE", overlay.controls)
         self.assertIn("TRAFFIC_CIVSTATE", overlay.controls)
 
@@ -102,12 +104,25 @@ class GISPhase4NavigationOverlayTest(unittest.TestCase):
         self.assertEqual(terminal.engineering["initial_accel_g"], 0.05)
         self.assertEqual(terminal.engineering["final_accel_g"], 0.2)
 
+    def test_historical_overlay_uses_explicit_live_campaign_vehicle_state(self):
+        overlay = build_navigation_overlay(
+            historical_routes=(self.route(),),
+            current_vehicle_state={"location_token": "MARS", "revision": 5},
+        )
+        self.assertIsNone(overlay.active_route)
+        self.assertEqual(overlay.historical_routes[0].role, "HISTORICAL")
+        self.assertEqual(overlay.historical_routes[0].current_vehicle_state["location_token"], "CERES")
+        self.assertEqual(overlay.current_vehicle_state["location_token"], "MARS")
+        js = client_extension_js()
+        self.assertIn("navDrawVehicle(navOverlay.current_vehicle_state||{})", js)
+        self.assertNotIn("const state=route.current_vehicle_state", js)
+
     def test_empty_overlay_is_valid(self):
         overlay = build_navigation_overlay()
         self.assertIsNone(overlay.active_route)
         self.assertEqual(overlay.alternate_routes, ())
         self.assertEqual(overlay.historical_routes, ())
+        self.assertEqual(overlay.current_vehicle_state, {})
 
 
-if __name__ == "__main__":
-    unittest.main()
+if __name__ == "__main__": unittest.main()
