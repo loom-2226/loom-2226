@@ -66,6 +66,17 @@ def _planning_runtime_root(explicit: Path | None = None) -> Path | None:
     return None
 
 
+def _install_unified_context_drawer() -> None:
+    """Install the shared NAV/ATLAS shell without changing Navigator or Atlas truth."""
+    script_path = SRC / "loom" / "gis" / "flight_planning_unified_drawer.js"
+    if not script_path.is_file():
+        return
+    marker = "/* LOOM_UNIFIED_NAV_ATLAS_DRAWER_V1 */"
+    if marker in solar_gis.CLIENT_JS:
+        return
+    solar_gis.CLIENT_JS += "\n" + marker + "\n" + script_path.read_text(encoding="utf-8") + "\n"
+
+
 def _install_planning_and_execution(runtime_root: Path, *, offline: bool) -> GISFlightPlanningSession:
     state_path = runtime_root / "LOOM_STATE_V1.json"
     cache = runtime_root / "LOOM_Navigator_Cache_v1"
@@ -94,6 +105,7 @@ def _install_planning_and_execution(runtime_root: Path, *, offline: bool) -> GIS
         campaign_execution_service=campaign,
     )
     install_flight_planning(solar_gis, session)
+    _install_unified_context_drawer()
     return session
 
 
