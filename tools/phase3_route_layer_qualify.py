@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import argparse
 import copy
-import json
 import sys
 from pathlib import Path
 
@@ -85,11 +84,30 @@ def qualify_bundle(service, bundle):
         raise RuntimeError("route-layer departure epoch is not canonical campaign epoch")
 
     flight = service.get_flight_geometry(plan)
+    print("AUTHORITATIVE_FLIGHT_KEYS=", sorted(flight.keys()))
+    for i, leg in enumerate(flight.get("legs") or []):
+        if isinstance(leg, dict):
+            print(f"AUTHORITATIVE_LEG_{i}_KEYS=", sorted(leg.keys()))
+            for key, value in sorted(leg.items()):
+                if isinstance(value, dict):
+                    print(f"AUTHORITATIVE_LEG_{i}_{key}_KEYS=", sorted(value.keys()))
+                elif isinstance(value, list):
+                    child = value[0] if value else None
+                    child_keys = sorted(child.keys()) if isinstance(child, dict) else None
+                    print(f"AUTHORITATIVE_LEG_{i}_{key}=LIST len={len(value)} child_keys={child_keys}")
+
     expected_arrival = flight.get("final_epoch_utc") or flight.get("arrival_epoch_utc")
     if expected_arrival and layer.arrival_epoch != expected_arrival:
         raise RuntimeError("route-layer arrival epoch differs from authoritative runtime")
     if not layer.segments:
         raise RuntimeError("route-layer exposes no authoritative flight segments")
+    for i, seg in enumerate(layer.segments):
+        print(
+            f"ROUTE_SEGMENT_{i}=type:{seg.type} phase:{seg.phase} "
+            f"geometry:{bool(seg.geometry)} start_position:{bool(seg.start_position)} "
+            f"end_position:{bool(seg.end_position)} velocity:{bool(seg.velocity)} "
+            f"acceleration:{bool(seg.acceleration)} payload_keys:{sorted(seg.payload.keys())}"
+        )
     if layer.current_vehicle_state != state:
         raise RuntimeError("route-layer current_vehicle_state differs from departure snapshot")
     if layer.arrival_state.get("location") != normalized["route"][1]:
