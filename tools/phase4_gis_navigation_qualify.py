@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Functional qualification for Phase 4 GIS navigation rendering.
+"""Functional qualification for Phase 4/6 GIS navigation rendering.
 
-Uses the same frozen, offline Ceres->Mars flight as Gate A / Phase 3, converts
-its authoritative route layer into GIS-owned render primitives, and proves the
-GIS adapter neither mutates campaign state nor fabricates unavailable geometry.
+Uses the frozen offline Ceres->Mars flight, converts its authoritative route
+layer into GIS render primitives, and proves the GIS adapter neither mutates
+campaign state nor invents ordinary-space occupancy during Metric transport.
 """
 from __future__ import annotations
 
@@ -37,11 +37,8 @@ def solve_frozen_layer(service, bundle):
     acquisition = nav.run_acquisition(normalized, bundle.cache, offline=True, refresh=False)
     request, candidate = make_request_and_candidate(commit, normalized, mission, state)
     context = NavigationContext(
-        campaign_state=state,
-        acquisition=acquisition,
-        cache_dir=bundle.cache,
-        b1_package=bundle.b1,
-        runtime_root=bundle.root,
+        campaign_state=state, acquisition=acquisition, cache_dir=bundle.cache,
+        b1_package=bundle.b1, runtime_root=bundle.root,
     )
     before = copy.deepcopy(dict(context.campaign_state))
     plan = service.compile_flight(request, candidate, context)
@@ -74,8 +71,20 @@ def qualify_layer(layer):
     terminal = [s for s in route.segments if s.type == "TERMINAL_BURN"]
     if not metric or not terminal:
         raise RuntimeError("GIS overlay omitted authoritative metric/terminal phases")
-    if any(s.geometry_points_j2000_ecliptic_km for s in route.segments):
-        raise RuntimeError("GIS adapter invented sampled geometry for frozen RC6.1 route")
+    if metric[0].geometry_points_j2000_ecliptic_km:
+        raise RuntimeError("GIS invented ordinary-space Metric trajectory")
+    if metric[0].geometry_semantics.get("ordinary_space_occupancy") is not False:
+        raise RuntimeError("Metric segment lost relational-only semantics")
+    if "NOT ORDINARY-SPACE OCCUPANCY" not in str(metric[0].geometry_semantics.get("semantics", "")):
+        raise RuntimeError("Metric segment lacks explicit non-occupancy warning")
+    if len(terminal[0].geometry_points_j2000_ecliptic_km) < 2:
+        raise RuntimeError("GIS omitted Navigator-authored terminal 3D samples")
+    if terminal[0].geometry_authority != "PYTHON_AUTHORED_SEQUENCE_B":
+        raise RuntimeError("terminal samples lost Python authority provenance")
+    if terminal[0].geometry_semantics.get("ordinary_space_occupancy") is not True:
+        raise RuntimeError("terminal trajectory lost ordinary-space semantics")
+    if len(route.trajectory.get("samples") or []) != 100:
+        raise RuntimeError("GIS route omitted authoritative 100-sample Sequence-B timeline")
     if not any(a.anchor_type == "METRIC_COLLAPSE" for a in route.anchors):
         raise RuntimeError("GIS overlay omitted authoritative metric collapse anchor")
     if not metric[0].style or not terminal[0].style:
@@ -104,17 +113,18 @@ def launcher_smoke(layer):
     decoded = json.loads(proc.stdout)
     if decoded.get("contract") != GIS_NAV_OVERLAY_VERSION:
         raise RuntimeError("loom_gis launcher emitted wrong navigation contract")
-    if decoded.get("active_route", {}).get("source_sha256") != layer.sha256():
+    active = decoded.get("active_route", {})
+    if active.get("source_sha256") != layer.sha256():
         raise RuntimeError("loom_gis launcher changed active route source identity")
+    if len((active.get("trajectory") or {}).get("samples") or []) != 100:
+        raise RuntimeError("launcher dropped authoritative trajectory timeline")
     js = (REPO / "src" / "loom" / "gis" / "navigation_overlay.js").read_text(encoding="utf-8")
     for token in ("ACTIVE", "ALTS", "PHASES", "MANEUVERS", "HISTORY", "TRAFFIC", "/navigation-overlay.json"):
         if token not in js:
             raise RuntimeError(f"GIS renderer missing required control/endpoint token: {token}")
-    # Continuous line rendering must remain gated on already-sampled authoritative
-    # geometry. This checks executable behavior rather than brittle comment text.
     normalized_js = "".join(js.split())
     if "if(pts.length>=2)navDrawPolyline(pts,seg.style,alpha);" not in normalized_js:
-        raise RuntimeError("GIS renderer no longer gates polylines on authoritative sampled geometry")
+        raise RuntimeError("GIS renderer no longer gates physical polylines on authoritative sampled geometry")
 
 
 def main() -> int:
@@ -145,6 +155,7 @@ def main() -> int:
         args.route_out.write_text(json.dumps(layer.to_dict(), indent=2) + "\n", encoding="utf-8")
         print("route_fixture=", args.route_out)
     route = overlay.active_route
+    terminal = next(x for x in route.segments if x.type == "TERMINAL_BURN")
     print("PHASE4_GIS_NAVIGATION=PASS")
     print("EPHEMERIS_MODE=FROZEN_OFFLINE_ONLY")
     print("GIS_CONTRACT=", overlay.contract)
@@ -152,8 +163,10 @@ def main() -> int:
     print("flight_id=", route.flight_id)
     print("route=", [route.origin, route.destination])
     print("segment_types=", [x.type for x in route.segments])
-    print("geometry_mode=AUTHORITATIVE_PHASE_ANCHORS_ONLY")
-    print("sampled_track=NOT_INVENTED")
+    print("geometry_mode=AUTHORITATIVE_SEQUENCE_B_MIXED_GEOMETRY")
+    print("metric_geometry=RELATIONAL_NOT_ORDINARY_OCCUPANCY")
+    print("terminal_3d_samples=", len(terminal.geometry_points_j2000_ecliptic_km))
+    print("timeline_samples=", len(route.trajectory.get("samples") or []))
     print("controls=", list(overlay.controls))
     print("runtime_sha256=", runtime_sha)
     print("route_layer_sha256=", layer.sha256())
