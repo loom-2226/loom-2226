@@ -7,8 +7,10 @@ functions that remain authoritative while exposing typed downstream contracts.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
+from zoneinfo import ZoneInfo
 import hashlib
 import json
 
@@ -39,6 +41,27 @@ def _legacy_test_id(payload: Mapping[str, Any]) -> str:
     body = json.dumps(dict(payload), sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
     n = int(hashlib.sha256(body).hexdigest()[:12], 16) % 1_000_000
     return f"H-F{n:06d}"
+
+
+def _melbourne_local_fallback(epoch_utc: str) -> str:
+    """Standards-only fallback when legacy CLI glue is unavailable.
+
+    Real RC6.1 continues to use its own helper. This exists so extracted domain
+    services and tests do not depend on unrelated outer-CLI formatting code.
+    """
+    text = str(epoch_utc).strip()
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+    try:
+        dt = datetime.fromisoformat(text)
+    except ValueError as exc:
+        raise NavigationServiceError(f"invalid campaign epoch_utc: {epoch_utc}") from exc
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    else:
+        dt = dt.astimezone(timezone.utc)
+    local = dt.astimezone(ZoneInfo("Australia/Melbourne"))
+    return local.isoformat(timespec="seconds")
 
 
 @dataclass
@@ -81,10 +104,9 @@ class LegacyNavigationService:
             if not epoch_utc:
                 raise NavigationServiceError("campaign epoch_utc is required to build a Navigator mission")
             local_for_utc = getattr(self.core, "_melbourne_local_for_utc", None)
-            if not callable(local_for_utc):
-                raise NavigationServiceError("legacy Navigator local-epoch adapter is unavailable")
+            local_text = local_for_utc(nav, epoch_utc) if callable(local_for_utc) else _melbourne_local_fallback(epoch_utc)
             mission["epoch"] = {
-                "local": local_for_utc(nav, epoch_utc),
+                "local": local_text,
                 "timezone": "Australia/Melbourne",
             }
         mission.setdefault("ship", "WAYFARER_BASELINE")
