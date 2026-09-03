@@ -48,13 +48,30 @@ jobs:
         env:
           LOOM_HOME: ${{ github.workspace }}/frozen/runtime/LOOM_TEST
         run: python tools/phase5_gis_flight_planning_qualify.py frozen/runtime
+      - name: Prepare coherent HTTP smoke runtime
+        run: |
+          cp -a frozen/runtime/LOOM_TEST frozen/phase5_http_runtime
+          python - <<'PY'
+          from pathlib import Path
+          import json, sys
+          sys.path.insert(0, 'tools')
+          from phase2_gate_a_qualify import history_records, newest_completed_flight
+          root=Path('frozen/phase5_http_runtime')
+          rows=history_records(root/'LOOM_CAMPAIGN_HISTORY.jsonl.gz')
+          commit,_=newest_completed_flight(rows)
+          state=dict(commit['details']['replay']['departure_state_snapshot'])
+          (root/'LOOM_STATE_V1.json').write_text(json.dumps(state,indent=2,sort_keys=True)+'\n',encoding='utf-8')
+          print('HTTP SMOKE STATE',state.get('state_id'),state.get('epoch_utc'),state.get('location_token'))
+          assert state.get('location_token')=='CERES'
+          PY
       - name: Select locked frozen CIVSTATE
         run: |
           CIVSTATE="$(python - <<'PY'
           from pathlib import Path
           import hashlib, sys
           expected='9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560'
-          for p in Path('frozen/runtime').rglob('LOOM_2226_CIVSTATE.sqlite3'):
+          root=Path('frozen/phase5_http_runtime')
+          for p in root.rglob('LOOM_2226_CIVSTATE.sqlite3'):
               got=hashlib.sha256(p.read_bytes()).hexdigest()
               print(f'CANDIDATE {got} {p}', file=sys.stderr)
               if got==expected:
@@ -66,16 +83,16 @@ jobs:
           echo "CIVSTATE=$CIVSTATE" >> "$GITHUB_ENV"
       - name: Hash campaign state before HTTP smoke
         run: |
-          STATE=frozen/runtime/LOOM_TEST/LOOM_STATE_V1.json
+          STATE=frozen/phase5_http_runtime/LOOM_STATE_V1.json
           test -f "$STATE"
           sha256sum "$STATE" | awk '{print $1}' > phase5_state_before.sha
           cat phase5_state_before.sha
       - name: Start converged GIS with Phase 5 planning
         env:
-          LOOM_HOME: ${{ github.workspace }}/frozen/runtime/LOOM_TEST
+          LOOM_HOME: ${{ github.workspace }}/frozen/phase5_http_runtime
         run: |
           python src/loom_gis.py \
-            --nav-runtime-root frozen/runtime/LOOM_TEST \
+            --nav-runtime-root frozen/phase5_http_runtime \
             --nav-planning-offline \
             --demo \
             --civ-db "$CIVSTATE" \
@@ -110,7 +127,8 @@ jobs:
               with urllib.request.urlopen(req, timeout=60) as r: return json.load(r)
           state=get('/flight-planning.json')
           assert state['contract']=='LOOM_GIS_FLIGHT_PLANNING_V1', state
-          origin=state['origin']; destination='MARS' if origin!='MARS' else 'CERES'
+          assert state['origin']=='CERES', state
+          destination='MARS'
           discovered=post('/flight-planning/discover',{'destination':destination,'priority':'BALANCED'})
           assert discovered['candidates'], discovered
           selectable=[c for c in discovered['candidates'] if c['summary'].get('selectable')]
@@ -120,7 +138,7 @@ jobs:
           assert preview['preview_route_id']==rid
           nav=get('/navigation-overlay.json')
           assert nav['contract']=='LOOM_GIS_NAVIGATION_OVERLAY_V1'
-          assert nav['active_route']['origin']==origin and nav['active_route']['destination']==destination
+          assert nav['active_route']['origin']=='CERES' and nav['active_route']['destination']=='MARS'
           committed=post('/flight-planning/commit',{'route_id':rid})
           assert committed['committed_route_id']==rid
           cancelled=post('/flight-planning/cancel',{})
@@ -129,14 +147,14 @@ jobs:
           assert nav2['active_route'] is None, nav2
           with urllib.request.urlopen(base+'/app.js', timeout=10) as r: js=r.read().decode()
           assert 'LOOM_PHASE5_FLIGHT_PLANNING' in js and '/flight-planning/discover' in js
-          print('LIVE PHASE5 HTTP DISCOVER PASS', origin, '->', destination, len(discovered['candidates']))
-          print('LIVE PHASE5 HTTP PREVIEW PASS', rid)
+          print('LIVE PHASE5 HTTP DISCOVER PASS CERES -> MARS',len(discovered['candidates']))
+          print('LIVE PHASE5 HTTP PREVIEW PASS',rid)
           print('LIVE PHASE5 HTTP COMMIT/CANCEL PASS')
           print('LIVE PHASE5 APP.JS PASS')
           PY
       - name: Verify campaign state unchanged
         run: |
-          STATE=frozen/runtime/LOOM_TEST/LOOM_STATE_V1.json
+          STATE=frozen/phase5_http_runtime/LOOM_STATE_V1.json
           sha256sum "$STATE" | awk '{print $1}' > phase5_state_after.sha
           diff -u phase5_state_before.sha phase5_state_after.sha
           echo "LIVE PHASE5 CAMPAIGN MUTATION NONE"
