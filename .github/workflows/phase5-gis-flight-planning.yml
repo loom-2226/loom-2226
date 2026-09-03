@@ -20,6 +20,8 @@ jobs:
     timeout-minutes: 25
     permissions:
       contents: read
+    env:
+      PYTHONPATH: ${{ github.workspace }}/src
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
