@@ -1,8 +1,8 @@
 """Behavior-preserving adapter from canonical navigation services to Navigator RC6.1.
 
-No physics is implemented here. This module only validates the service boundary,
+No physics is implemented here. This module validates service boundaries,
 normalizes canonical requests and delegates to the frozen legacy Navigator
-functions that remain authoritative during Phase 2.
+functions that remain authoritative while exposing typed downstream contracts.
 """
 from __future__ import annotations
 
@@ -22,6 +22,7 @@ from .contracts import (
 )
 from .ephemeris import LegacySequenceHEphemerisProvider
 from .execution import LegacyFlightExecutionAdapter
+from .route_layer import LegacyRouteLayerAdapter, LoomRouteLayerV1
 
 
 class NavigationServiceError(RuntimeError):
@@ -106,9 +107,6 @@ class LegacyNavigationService:
         summarize = getattr(self.core, "_plan_summary", None)
         canon = getattr(self.core, "_canon", None)
         sha_bytes = getattr(self.core, "_sha_bytes", None)
-        # _plan_summary expects the complete legacy discovery candidate, including
-        # the solved `leg`. Replay/golden fixtures may intentionally carry only
-        # the selected modes; do not synthesize missing candidate internals.
         if (
             callable(summarize)
             and callable(canon)
@@ -161,3 +159,7 @@ class LegacyNavigationService:
     def get_flight_geometry(self, plan: FlightPlan) -> Mapping[str, Any]:
         runtime = dict(plan.payload).get("runtime") or {}
         return dict((runtime or {}).get("flight") or {})
+
+    def get_route_layer(self, plan: FlightPlan, context: NavigationContext | None = None) -> LoomRouteLayerV1:
+        """Expose solved Navigator truth through the display-agnostic GIS V1 contract."""
+        return LegacyRouteLayerAdapter().build(plan, context)
