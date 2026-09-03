@@ -9,6 +9,7 @@ on:
       - 'tests/test_navigation_phase3_route_layer.py'
       - 'tools/phase3_route_layer_qualify.py'
       - 'tools/phase2_gate_a_qualify.py'
+      - '.github/workflows/phase2-gate-a.yml'
       - '.github/workflows/phase3-route-layer.yml'
   workflow_dispatch:
 
