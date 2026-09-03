@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import unittest
 
-from loom.gis.flight_planning import GISFlightPlanningError, GISFlightPlanningSession
+from loom.gis.flight_planning import GISFlightPlanningError, GISFlightPlanningSession, _candidate_summary
 from loom.navigation import NavigationContext, RouteCandidate, FlightPlan
 from loom.navigation.route_layer import LoomRouteLayerV1, RouteLayerBodyV1, RouteLayerSegmentV1
 
@@ -76,6 +76,27 @@ class Phase5PlanningTest(unittest.TestCase):
         self.assertEqual(out.candidates[0].summary["duration_minutes"],720.0)
         self.assertEqual(out.candidates[0].summary["remass_t"],4.5)
         self.assertEqual(dict(self.session.context.campaign_state),self.original)
+
+    def test_live_direct_candidate_seconds_are_normalized_without_fake_quality_values(self):
+        candidate=RouteCandidate(
+            route_id="LIVE1",origin="MARS",destination="CERES",
+            departure_epoch="2226-09-03T00:00:00Z",arrival_epoch="2226-09-03T08:00:00Z",
+            strategy="HARD/CRUISE",
+            payload={
+                "metric":"HARD","torch":"CRUISE","total_s":28800.0,
+                "remass_used_t":11.886,"arrival_remass_t":220.114,
+                "thermal":"SUSTAINABLE","leg":{"arrival":{"total_nav_time_s":28800.0}},
+            },
+        )
+        summary=_candidate_summary(candidate)
+        self.assertEqual(summary["duration_minutes"],480.0)
+        self.assertEqual(summary["remass_t"],11.886)
+        self.assertEqual(summary["metric_mode"],"HARD")
+        self.assertEqual(summary["torch_mode"],"CRUISE")
+        self.assertEqual(summary["thermal_posture"],"SUSTAINABLE")
+        self.assertEqual(summary["arrival_remass_t"],220.114)
+        self.assertIsNone(summary["holonomy"])
+        self.assertIsNone(summary["confidence"])
 
     def test_preview_compiles_and_emits_phase4_overlay(self):
         self.session.discover("MARS")

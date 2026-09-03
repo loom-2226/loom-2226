@@ -34,6 +34,26 @@ def _first(payload: Mapping[str, Any], *keys: str) -> Any:
     return None
 
 
+def _minutes(source: Mapping[str, Any]) -> Any:
+    """Return authoritative duration in minutes without inventing a value.
+
+    Current RC6.1 direct-navigation candidate rows expose ``total_s``. Older
+    fixtures and future adapters may already expose minute-valued aliases. GIS
+    normalizes presentation units here, at the adapter seam, rather than asking
+    browser code to understand Navigator's legacy payload grammar.
+    """
+    direct = _first(source, "total_minutes", "duration_minutes", "elapsed_minutes", "flight_minutes")
+    if direct is not None:
+        return direct
+    seconds = _first(source, "total_s", "duration_s", "elapsed_s", "flight_s")
+    if seconds is None:
+        return None
+    try:
+        return float(seconds) / 60.0
+    except (TypeError, ValueError):
+        return None
+
+
 def _candidate_summary(candidate: RouteCandidate) -> dict[str, Any]:
     p = dict(candidate.payload)
     leg = p.get("leg") if isinstance(p.get("leg"), Mapping) else {}
@@ -47,12 +67,14 @@ def _candidate_summary(candidate: RouteCandidate) -> dict[str, Any]:
         "departure_epoch": candidate.departure_epoch,
         "arrival_epoch": candidate.arrival_epoch,
         "strategy": candidate.strategy,
-        "duration_minutes": _first(source, "total_minutes", "duration_minutes", "elapsed_minutes", "flight_minutes"),
+        "duration_minutes": _minutes(source),
         "remass_t": _first(source, "stage_remass_t", "remass_t", "remass_used_t", "total_remass_t"),
         "holonomy": _first(source, "holonomy", "H", "holonomy_cost"),
         "confidence": _first(source, "confidence", "C_M", "mission_confidence"),
         "metric_mode": _first(source, "metric", "metric_mode"),
         "torch_mode": _first(source, "torch", "torch_mode"),
+        "thermal_posture": _first(source, "thermal", "thermal_posture"),
+        "arrival_remass_t": _first(source, "arrival_remass_t", "final_remass_t"),
         "selectable": bool(source.get("selectable", True)),
     }
 
