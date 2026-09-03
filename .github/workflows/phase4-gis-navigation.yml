@@ -11,6 +11,7 @@ on:
       - 'tests/test_gis_phase4_navigation_overlay.py'
       - 'tools/phase4_gis_navigation_qualify.py'
       - 'tools/phase2_gate_a_qualify.py'
+      - 'docs/architecture/LOOM_2226_GIS_Phase4_Navigation_Rendering_v1.0.md'
       - '.github/workflows/phase4-gis-navigation.yml'
   workflow_dispatch:
 
@@ -29,6 +30,8 @@ jobs:
         run: python -m pip install --disable-pip-version-check requests
       - name: Compile Phase 4 Python
         run: python -m py_compile src/loom_gis.py src/loom/gis/*.py
+      - name: Syntax-check Phase 4 browser renderer
+        run: node --check src/loom/gis/navigation_overlay.js
       - name: Run Phase 4 unit tests
         run: python -m unittest tests.test_gis_phase4_navigation_overlay -v
       - name: Download frozen Pixel pre-clean runtime archive
@@ -42,4 +45,70 @@ jobs:
       - name: Qualify GIS rendering against frozen flight
         env:
           LOOM_HOME: ${{ github.workspace }}/frozen/runtime
-        run: python tools/phase4_gis_navigation_qualify.py frozen/runtime
+        run: python tools/phase4_gis_navigation_qualify.py frozen/runtime --route-out frozen/phase4_route.json
+      - name: Select locked frozen CIVSTATE
+        run: |
+          CIVSTATE="$(python - <<'PY'
+          from pathlib import Path
+          import hashlib, sys
+          expected='9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560'
+          for p in Path('frozen/runtime').rglob('LOOM_2226_CIVSTATE.sqlite3'):
+              got=hashlib.sha256(p.read_bytes()).hexdigest()
+              print(f'CANDIDATE {got} {p}', file=sys.stderr)
+              if got==expected:
+                  print(p)
+                  break
+          PY
+          )"
+          test -n "$CIVSTATE"
+          echo "CIVSTATE=$CIVSTATE" >> "$GITHUB_ENV"
+          echo "SELECTED CIVSTATE=$CIVSTATE"
+      - name: Start converged GIS server with frozen route
+        run: |
+          python src/loom_gis.py \
+            --nav-route frozen/phase4_route.json \
+            --demo \
+            --civ-db "$CIVSTATE" \
+            --no-browser \
+            --host 127.0.0.1 \
+            --port 8766 > phase4_server.log 2>&1 &
+          echo "SERVER_PID=$!" >> "$GITHUB_ENV"
+          python - <<'PY'
+          import time, urllib.request
+          url='http://127.0.0.1:8766/healthz'
+          last=None
+          for _ in range(80):
+              try:
+                  with urllib.request.urlopen(url, timeout=1) as r:
+                      if r.status == 200:
+                          print('GIS SERVER READY')
+                          raise SystemExit(0)
+              except Exception as exc:
+                  last=exc
+                  time.sleep(.25)
+          raise SystemExit(f'GIS server did not become ready: {last}')
+          PY
+      - name: Smoke live navigation endpoint and browser bundle
+        run: |
+          python - <<'PY'
+          import json, urllib.request
+          with urllib.request.urlopen('http://127.0.0.1:8766/navigation-overlay.json', timeout=5) as r:
+              nav=json.load(r)
+          assert nav['contract']=='LOOM_GIS_NAVIGATION_OVERLAY_V1', nav.get('contract')
+          active=nav.get('active_route') or {}
+          assert active.get('source_contract')=='LOOM_ROUTE_LAYER_V1', active
+          assert active.get('origin')=='CERES' and active.get('destination')=='MARS', active
+          assert [s.get('type') for s in active.get('segments',[])]==['METRIC','TERMINAL_BURN']
+          with urllib.request.urlopen('http://127.0.0.1:8766/app.js', timeout=5) as r:
+              js=r.read().decode('utf-8')
+          assert 'LOOM_PHASE4_NAVIGATION_OVERLAY' in js
+          assert '/navigation-overlay.json' in js
+          assert 'drawNavigationOverlay' in js
+          print('LIVE GIS NAV ENDPOINT PASS')
+          print('LIVE GIS APP.JS EXTENSION PASS')
+          PY
+      - name: Stop converged GIS server
+        if: always()
+        run: |
+          if [ -n "${SERVER_PID:-}" ]; then kill "$SERVER_PID" 2>/dev/null || true; fi
+          cat phase4_server.log 2>/dev/null || true
