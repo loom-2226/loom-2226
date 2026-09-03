@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Runtime-local LOOM state
+LOOM_STATE*.json
+LOOM_STATE*.bak
+LOOM_HISTORY*.jsonl*
+LOOM_Navigator_Cache_v1/
+*.html
+*.log
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,16 +1,19 @@
-## Hi there 👋
+# LOOM 2226
 
-<!--
-**loom-2226/loom-2226** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Private source, canon, data, validation, and deployment repository for LOOM 2226.
 
-Here are some ideas to get you started:
+The repository is being established from the validated 2026-09-03 runtime baseline.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+Current top-level areas:
+
+- `src/` — executable Navigator and Solar GIS source
+- `data/` — canonical runtime databases small enough for ordinary Git distribution
+- `deploy/` — Android/Windows updater and deployment tooling
+- `tests/` — deployment and runtime regression tests
+- `manifests/` — pinned hashes, schema locks, release provenance, and baseline records
+
+Large binary runtime assets, including `LOOM_2226_media.sqlite3`, are distributed through GitHub Releases and pinned in the release manifest by asset ID, byte size, and SHA-256.
+
+Mutable campaign state, history, caches, generated reports, and local credentials are not canonical repository content and must not be overwritten by normal updates.
+
+The next repository expansion will ingest the authoritative LOOM canon, engineering, simulation, research, and governance source corpus under explicit version control.
