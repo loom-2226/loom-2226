@@ -1,0 +1,47 @@
+name: LOOM Phase 5 GIS Flight Planning
+
+on:
+  push:
+    branches:
+      - feature/gis-navigator-convergence
+    paths:
+      - 'src/loom/gis/**'
+      - 'src/loom/navigation/**'
+      - 'src/loom_gis.py'
+      - 'tests/test_gis_phase5_flight_planning.py'
+      - 'tools/phase5_gis_flight_planning_qualify.py'
+      - 'tools/phase2_gate_a_qualify.py'
+      - '.github/workflows/phase5-gis-flight-planning.yml'
+  workflow_dispatch:
+
+jobs:
+  frozen-flight-planning:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Navigator provider dependency
+        run: python -m pip install --disable-pip-version-check requests
+      - name: Compile Phase 5 Python
+        run: python -m py_compile src/loom_gis.py src/loom/gis/*.py src/loom/navigation/*.py
+      - name: Syntax-check Phase 5 browser planner
+        run: node --check src/loom/gis/flight_planning.js
+      - name: Run Phase 5 unit tests
+        run: python -m unittest tests.test_gis_phase5_flight_planning -v
+      - name: Download frozen Pixel pre-clean runtime archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download v0.1.0-runtime-baseline --pattern 'LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip' --dir frozen
+      - name: Extract frozen runtime
+        run: |
+          mkdir -p frozen/runtime
+          unzip -q frozen/LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip -d frozen/runtime
+      - name: Qualify real GIS planning against frozen Navigator
+        env:
+          LOOM_HOME: ${{ github.workspace }}/frozen/runtime/LOOM_TEST
+        run: python tools/phase5_gis_flight_planning_qualify.py frozen/runtime
