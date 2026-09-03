@@ -44,13 +44,15 @@ jobs:
           selection=Path('src/loom/gis/flight_planning_selection.js').read_text()
           http=Path('src/loom/gis/flight_planning_http.py').read_text()
           drawer=Path('src/loom/gis/flight_planning_unified_drawer.js').read_text()
+          launcher=Path('src/loom_gis.py').read_text()
           assert "return '—'" in planning or "return '—';" in planning
           assert '/flight-planning/resolve' in selection
           assert "LOOM_FLIGHT_DESTINATION_RESOLVER='MVP_V1'" in selection
           assert 'NAVIGATION UNAVAILABLE' in selection
           assert '/flight-planning/resolve' in http
           assert 'NAVIGATOR_VALIDATE_AND_NORMALIZE_MISSION' in http
-          assert 'LOOM_UNIFIED_NAV_ATLAS_DRAWER' in drawer
+          assert 'NAV' in drawer and 'ATLAS' in drawer
+          assert 'LOOM_UNIFIED_NAV_ATLAS_DRAWER_V1' in launcher
           print('PHASE6 MVP SOURCE CONTRACT PASS')
           PY
       - name: Run focused regression suite
