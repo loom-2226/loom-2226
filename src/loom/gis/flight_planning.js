@@ -20,7 +20,7 @@ async function postPlanning(action,body={}){
   try{
     const r=await fetch('/flight-planning/'+action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),cache:'no-store'});
     const x=await r.json();if(!r.ok)throw new Error(x.error||`HTTP ${r.status}`);planning=x;
-    if(planning.preview_overlay)window.dispatchEvent(new CustomEvent('loom-navigation-overlay',{detail:planning.preview_overlay}));
+    if(action==='preview'||action==='commit'||action==='cancel'){window.location.reload();return x}
     renderPlanning();return x;
   }catch(err){console.warn('LOOM flight planning',err);const s=document.querySelector('#flightPlanningPanel .fpStatus');if(s)s.textContent='ERROR · '+err.message;return null}
   finally{busy=false;renderPlanning()}
