@@ -41,19 +41,28 @@ def _mapping(value: Mapping[str, Any] | None) -> dict[str, Any]:
 
 def _vector3(value: Any) -> list[float] | None:
     if isinstance(value, Mapping):
-        if isinstance(value.get("values"), (list, tuple)):
-            value = value["values"]
-        elif all(k in value for k in ("x", "y", "z")):
-            value = [value["x"], value["y"], value["z"]]
+        for key in (
+            "values",
+            "position_km",
+            "position_km_j2000_ecliptic",
+            "collapse_position_km",
+            "collapse_position_km_j2000_ecliptic",
+        ):
+            candidate = value.get(key)
+            if isinstance(candidate, (list, tuple)):
+                value = candidate
+                break
         else:
-            return None
+            if all(k in value for k in ("x", "y", "z")):
+                value = [value["x"], value["y"], value["z"]]
+            else:
+                return None
     if not isinstance(value, (list, tuple)) or len(value) < 3:
         return None
     try:
-        out = [float(value[0]), float(value[1]), float(value[2])]
+        return [float(value[0]), float(value[1]), float(value[2])]
     except (TypeError, ValueError):
         return None
-    return out
 
 
 @dataclass(frozen=True)
@@ -133,7 +142,23 @@ class GISNavigationOverlayV1:
 
 def _segment_engineering(seg: Any) -> dict[str, Any]:
     payload = _mapping(getattr(seg, "payload", None))
-    keys = (
+    velocity = _mapping(getattr(seg, "velocity", None))
+    acceleration = _mapping(getattr(seg, "acceleration", None))
+    geometry = _mapping(getattr(seg, "geometry", None))
+    out: dict[str, Any] = {}
+    aliases = {
+        "delta_v_km_s": (velocity, "delta_v_km_s"),
+        "dv_km_s": (payload, "dv_km_s"),
+        "initial_accel_g": (acceleration, "initial_accel_g"),
+        "final_accel_g": (acceleration, "final_accel_g"),
+        "acceleration_g": (acceleration, "acceleration_g"),
+        "velocity_memory_km_s": (velocity, "velocity_memory_km_s"),
+        "engineering_checkpoints": (geometry, "engineering_checkpoints"),
+    }
+    for name, (source, key) in aliases.items():
+        if key in source:
+            out[name] = source[key]
+    for key in (
         "dv_km_s",
         "delta_v_km_s",
         "initial_accel_g",
@@ -141,8 +166,10 @@ def _segment_engineering(seg: Any) -> dict[str, Any]:
         "acceleration_g",
         "velocity_memory_km_s",
         "engineering_checkpoints",
-    )
-    return {k: payload[k] for k in keys if k in payload}
+    ):
+        if key in payload and key not in out:
+            out[key] = payload[key]
+    return out
 
 
 def _render_segment(seg: Any) -> GISRouteSegmentRenderV1:
