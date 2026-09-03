@@ -1,0 +1,45 @@
+name: LOOM Phase 4 GIS Navigation
+
+on:
+  push:
+    branches:
+      - feature/gis-navigator-convergence
+    paths:
+      - 'src/loom/gis/**'
+      - 'src/loom/navigation/**'
+      - 'src/loom_gis.py'
+      - 'tests/test_gis_phase4_navigation_overlay.py'
+      - 'tools/phase4_gis_navigation_qualify.py'
+      - 'tools/phase2_gate_a_qualify.py'
+      - '.github/workflows/phase4-gis-navigation.yml'
+  workflow_dispatch:
+
+jobs:
+  frozen-gis-navigation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install frozen Navigator provider dependency
+        run: python -m pip install --disable-pip-version-check requests
+      - name: Compile Phase 4 Python
+        run: python -m py_compile src/loom_gis.py src/loom/gis/*.py
+      - name: Run Phase 4 unit tests
+        run: python -m unittest tests.test_gis_phase4_navigation_overlay -v
+      - name: Download frozen Pixel pre-clean runtime archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download v0.1.0-runtime-baseline --pattern 'LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip' --dir frozen
+      - name: Extract frozen runtime
+        run: |
+          mkdir -p frozen/runtime
+          unzip -q frozen/LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip -d frozen/runtime
+      - name: Qualify GIS rendering against frozen flight
+        env:
+          LOOM_HOME: ${{ github.workspace }}/frozen/runtime
+        run: python tools/phase4_gis_navigation_qualify.py frozen/runtime
