@@ -4,22 +4,33 @@
 The qualifier never invents a mission. It locates the frozen campaign history,
 selects the newest completed flight, reconstructs its replay request and
 campaign departure state, then reruns the deterministic solve through the new
-LegacyNavigationService facade. Preserved content-addressed ephemeris cache
-entries are authoritative and never refreshed; if the archive omitted an entry,
-GitHub may fill only the missing request from the same authoritative provider.
-The resulting canonical runtime SHA must equal the SHA recorded by the frozen
-FLIGHT_ARRIVED ledger entry.
+LegacyNavigationService facade.
+
+When an archive contains duplicate Sequence-H cache roots, the qualifier selects
+one by actual offline replay success, never by directory naming alone. Preserved
+cache entries are never refreshed. Only if no frozen cache can satisfy the
+recorded mission may the final candidate cache fill missing requests from the
+same authoritative provider with refresh=False.
+
+Gate A requires both:
+1. the service-path canonical runtime SHA equals the frozen FLIGHT_ARRIVED SHA;
+2. the extracted non-persisting execute_flight() arrival state equals the exact
+   frozen state_after_snapshot recorded by the history ledger.
 """
 from __future__ import annotations
 
 import argparse, gzip, json, re, sys
-from collections import Counter
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
 
-from loom.navigation.contracts import NavigationContext, NavigationRequest, RouteCandidate
+from loom.navigation.contracts import (
+    FlightPlan,
+    NavigationContext,
+    NavigationRequest,
+    RouteCandidate,
+)
 from loom.navigation.service import LegacyNavigationService
 import loom_navigator
 
@@ -34,33 +45,20 @@ def find_one(root: Path, names: tuple[str, ...]) -> Path:
     raise RuntimeError(f"missing required runtime artifact: {names}")
 
 
-def find_sequence_h_cache(root: Path) -> Path:
+def sequence_h_cache_candidates(root: Path) -> list[Path]:
     named = [p for p in root.rglob("LOOM_Navigator_Cache_v1") if p.is_dir()]
-    if named:
-        scored = []
-        for cache in named:
-            n = sum(1 for p in cache.rglob("*") if p.is_file() and HEX64.match(p.name))
+    scored: list[tuple[int, Path]] = []
+    for cache in named:
+        n = sum(1 for p in cache.rglob("*") if p.is_file() and HEX64.match(p.name))
+        if n:
             scored.append((n, cache))
-        scored.sort(reverse=True, key=lambda item: item[0])
-        for n, cache in scored:
-            print(f"CACHE ROOT CANDIDATE: {n:5d}  {cache}")
-        if scored[0][0] > 0:
-            print("SELECTED CACHE ROOT:", scored[0][1])
-            return scored[0][1]
-    roots: Counter[Path] = Counter()
-    for p in root.rglob("*"):
-        if not (p.is_file() and HEX64.match(p.name)):
-            continue
-        parts = p.parts
-        if "ephemeris" in parts:
-            i = parts.index("ephemeris")
-            if i > 0:
-                roots[Path(*parts[:i])] += 1
-    if not roots:
+    scored.sort(key=lambda item: (-item[0], str(item[1])))
+    if not scored:
         raise RuntimeError("no content-addressed Sequence-H cache found in frozen runtime")
-    cache, count = roots.most_common(1)[0]
-    print("INFERRED CACHE ROOT:", cache, "entries=", count)
-    return cache
+    print("CACHE ROOT CANDIDATES:")
+    for n, cache in scored:
+        print(f"  {n:5d}  {cache}")
+    return [cache for _, cache in scored]
 
 
 def history_records(path: Path) -> list[dict]:
@@ -80,25 +78,37 @@ def newest_completed_flight(rows: list[dict]):
     raise RuntimeError("no completed flight pair found in frozen history")
 
 
-def acquisition_with_missing_fill(nav, normalized, cache: Path):
+def select_acquisition(nav, normalized, caches: list[Path]):
+    """Prefer a cache that can replay the whole mission completely offline."""
+    misses: list[tuple[Path, Exception]] = []
+    for cache in caches:
+        try:
+            acq = nav.run_acquisition(normalized, cache, offline=True, refresh=False)
+            print("SELECTED CACHE ROOT:", cache)
+            print("EPHEMERIS ACQUISITION: frozen cache complete")
+            return acq, cache, []
+        except Exception as exc:
+            if "offline cache miss" not in str(exc):
+                raise
+            misses.append((cache, exc))
+            print("CACHE REJECTED (offline miss):", cache)
+            print("  ", exc)
+
+    # Conservative fallback for an incompletely archived cache: fill only missing
+    # requests, never refresh any preserved entry. Gate A reports the exact count.
+    cache, first_miss = misses[0]
     before = {p.resolve() for p in cache.rglob("*") if p.is_file()}
-    try:
-        acq = nav.run_acquisition(normalized, cache, offline=True, refresh=False)
-        print("EPHEMERIS ACQUISITION: frozen cache complete")
-        return acq, []
-    except Exception as exc:
-        if "offline cache miss" not in str(exc):
-            raise
-        print("EPHEMERIS ACQUISITION: frozen cache incomplete")
-        print("FIRST CACHE MISS:", exc)
-        print("FILL POLICY: provider access enabled, refresh=False; preserved entries are not replaced")
-        acq = nav.run_acquisition(normalized, cache, offline=False, refresh=False)
-        after = {p.resolve() for p in cache.rglob("*") if p.is_file()}
-        added = sorted(after - before)
-        print("CACHE ENTRIES ADDED:", len(added))
-        for p in added:
-            print("  +", p.relative_to(cache))
-        return acq, added
+    print("NO FROZEN CACHE ROOT SATISFIED FULL REPLAY")
+    print("FALLBACK CACHE:", cache)
+    print("FIRST CACHE MISS:", first_miss)
+    print("FILL POLICY: provider access enabled, refresh=False; preserved entries are not replaced")
+    acq = nav.run_acquisition(normalized, cache, offline=False, refresh=False)
+    after = {p.resolve() for p in cache.rglob("*") if p.is_file()}
+    added = sorted(after - before)
+    print("CACHE ENTRIES ADDED:", len(added))
+    for p in added:
+        print("  +", p.relative_to(cache))
+    return acq, cache, added
 
 
 def main() -> int:
@@ -109,7 +119,7 @@ def main() -> int:
 
     hist = find_one(root, ("LOOM_CAMPAIGN_HISTORY.jsonl.gz", "LOOM_CAMPAIGN_HISTORY.jsonl"))
     b1 = find_one(root, ("LOOM_Navigator_Visual_Design_B1_LOCKED_Package_v1.0.zip",))
-    cache = find_sequence_h_cache(root)
+    caches = sequence_h_cache_candidates(root)
     rows = history_records(hist)
     commit, arrived = newest_completed_flight(rows)
     replay = commit["details"]["replay"]
@@ -118,34 +128,71 @@ def main() -> int:
 
     core = loom_navigator.load_core()
     service = LegacyNavigationService(core)
-    nav = service._sequence_h(NavigationContext(campaign_state=state, runtime_root=root))
+    base_context = NavigationContext(campaign_state=state, runtime_root=root)
+    nav = service._sequence_h(base_context)
 
     normalized = nav.validate_and_normalize_mission(mission)
-    acquisition, added = acquisition_with_missing_fill(nav, normalized, cache)
+    acquisition, cache, added = select_acquisition(nav, normalized, caches)
 
     route = normalized["route"]
     requested = dict(normalized.get("requested_modes") or mission.get("requested_modes") or {})
     candidate = RouteCandidate(
         route_id=str(commit.get("flight_id") or "frozen-replay"),
-        origin=route[0], destination=route[1],
+        origin=route[0],
+        destination=route[1],
         departure_epoch=state.get("epoch_utc"),
         payload={"metric": requested.get("metric"), "torch": requested.get("torch")},
     )
     req = NavigationRequest(route[0], route[1], requested_modes=requested, payload=mission)
     ctx = NavigationContext(
-        campaign_state=state, acquisition=acquisition, cache_dir=cache,
-        b1_package=b1, runtime_root=root,
+        campaign_state=state,
+        acquisition=acquisition,
+        cache_dir=cache,
+        b1_package=b1,
+        runtime_root=root,
     )
+
     plan = service.compile_flight(req, candidate, ctx)
-    got = plan.payload["determinism"]["canonical_runtime_sha256"]
-    expected = arrived["details"]["runtime_sha256"]
-    if got != expected:
-        raise RuntimeError(f"Gate A runtime hash mismatch: expected={expected} got={got}; filled_entries={len(added)}")
+    got_runtime_sha = plan.payload["determinism"]["canonical_runtime_sha256"]
+    expected_runtime_sha = arrived["details"]["runtime_sha256"]
+    if got_runtime_sha != expected_runtime_sha:
+        raise RuntimeError(
+            "Gate A runtime hash mismatch: "
+            f"expected={expected_runtime_sha} got={got_runtime_sha}; filled_entries={len(added)}"
+        )
+
+    expected_state = arrived.get("state_after_snapshot")
+    if not isinstance(expected_state, dict):
+        raise RuntimeError("frozen FLIGHT_ARRIVED record has no state_after_snapshot")
+
+    # Replay the frozen committed identity and plan hash. compile_flight is a pure
+    # solver and does not allocate the campaign ledger's flight ID; that identity
+    # belongs to the recorded FLIGHT_COMMITTED event.
+    replay_payload = dict(plan.payload)
+    replay_payload["plan_sha256"] = commit["details"].get("plan_sha256")
+    replay_plan = FlightPlan(
+        flight_id=str(commit["flight_id"]),
+        candidate=plan.candidate,
+        segments=plan.segments,
+        arrival_state=plan.arrival_state,
+        payload=replay_payload,
+    )
+    execution = service.execute_flight(replay_plan, ctx)
+    got_state = dict(execution.final_state)
+    if got_state != expected_state:
+        canon = getattr(core, "_canon")
+        sha_bytes = getattr(core, "_sha_bytes")
+        raise RuntimeError(
+            "Gate A execution-state mismatch: "
+            f"expected_sha={sha_bytes(canon(expected_state))} got_sha={sha_bytes(canon(got_state))}"
+        )
 
     print("PHASE2_GATE_A_REPLAY=PASS")
+    print("PHASE2_GATE_A_EXECUTION_STATE=PASS")
     print("flight_id=", commit.get("flight_id"))
     print("route=", route)
-    print("runtime_sha256=", got)
+    print("runtime_sha256=", got_runtime_sha)
+    print("arrival_state_sha256=", expected_state.get("state_sha256"))
     print("provider_filled_entries=", len(added))
     print("history=", hist)
     print("cache=", cache)
