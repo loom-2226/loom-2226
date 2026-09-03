@@ -100,22 +100,26 @@ Minimum execution fields include flight identity, state IDs/revisions, origin/de
 
 ## 7. Gate C qualification
 
-Gate C requires a real frozen Navigator flight, not mocks alone.
+Gate C requires real frozen Navigator infrastructure, not mocks alone. Two related but distinct checks are deliberately kept separate:
 
-The automated qualifier:
+- **Gate A** remains the byte-for-byte frozen physics oracle. The Phase-6 workflow reruns Gate A first and requires the recorded frozen runtime SHA to reproduce exactly.
+- **Gate C** exercises a new GIS-originated planning request. Because its request identity/provenance envelope is newly generated, its whole canonical runtime SHA is a run artifact and is not required to equal the historical replay SHA. Its runtime SHA must instead remain internally consistent through Navigator execution, campaign persistence and `last_flight` provenance.
+
+The Gate-C qualifier:
 
 1. downloads the frozen Pixel pre-clean runtime archive;
-2. derives the preserved Ceres departure snapshot from authoritative campaign history;
-3. creates an isolated transactional runtime;
-4. runs real offline Sequence-H route discovery from the archived cache;
-5. previews and commits through `GISFlightPlanningSession`;
-6. executes via extracted Navigator service;
-7. persists via campaign service;
-8. verifies the state file and GIS session agree;
-9. verifies revision increments exactly once;
-10. verifies one and only one `FLIGHT_ARRIVED` record;
-11. verifies the runtime SHA remains the frozen physics oracle;
-12. rejects duplicate execution after arrival.
+2. reruns Gate A and proves the frozen physics oracle independently;
+3. derives the preserved Ceres departure snapshot from authoritative campaign history;
+4. creates an isolated transactional runtime;
+5. runs real offline Sequence-H route discovery from the archived cache;
+6. previews and commits through `GISFlightPlanningSession`;
+7. executes via extracted Navigator service;
+8. persists via campaign service;
+9. verifies the state file and GIS session agree;
+10. verifies revision increments exactly once;
+11. verifies one and only one `FLIGHT_ARRIVED` record;
+12. verifies runtime provenance survives unchanged from the new Gate-C solve into the persisted campaign record;
+13. rejects duplicate execution after arrival.
 
 The live HTTP Gate-C smoke performs the same `discover -> preview -> commit -> execute` sequence against the running converged GIS server and verifies the historical overlay and persisted campaign files.
 
@@ -124,13 +128,14 @@ The live HTTP Gate-C smoke performs the same `discover -> preview -> commit -> e
 **PASS only when all are true:**
 
 - Python unit regression remains green;
-- prior Gate A / Phase 3 / Phase 4 / Phase 5 qualifications remain green;
+- the frozen Gate-A byte oracle still reproduces exactly;
+- prior Phase 3 / Phase 4 / Phase 5 qualifications remain green;
 - Phase-6 unit tests pass;
-- real frozen Ceres->Mars execution passes;
+- real frozen-infrastructure Ceres->Mars execution passes;
 - live GIS HTTP execution passes;
 - canonical state advances exactly once;
 - exactly one `FLIGHT_ARRIVED` record is created;
 - duplicate execute is rejected;
-- frozen Navigator runtime SHA is unchanged.
+- Gate-C runtime provenance is preserved across Navigator -> campaign persistence.
 
 When these conditions hold, Gate C — Operational Convergence — is closed.

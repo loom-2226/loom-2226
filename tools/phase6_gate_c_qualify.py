@@ -26,7 +26,6 @@ def prepare_transaction_runtime(bundle):
     rows=history_records(bundle.history)
     commit,arrived=newest_completed_flight(rows)
     departure=copy.deepcopy(dict(commit['details']['replay']['departure_state_snapshot']))
-    expected=copy.deepcopy(dict(arrived.get('state_after_snapshot') or arrived.get('details',{}).get('state_after_snapshot') or {}))
     td=Path(tempfile.mkdtemp(prefix='loom_phase6_gatec_'))
     root=td/'runtime'
     shutil.copytree(bundle.root,root)
@@ -41,11 +40,11 @@ def prepare_transaction_runtime(bundle):
         'phase6_gate_c_fixture':True,
         'source_departure_state_id':departure.get('state_id'),
     },state_after_snapshot=departure)
-    return root,departure,expected,arrived
+    return root,departure,arrived
 
 
 def qualify(bundle):
-    root,departure,expected,arrived=prepare_transaction_runtime(bundle)
+    root,departure,arrived=prepare_transaction_runtime(bundle)
     core=loom_navigator.load_core()
     nav=LegacyNavigationService(core)
     campaign=LegacyCampaignExecutionService(core)
@@ -84,22 +83,24 @@ def qualify(bundle):
         raise RuntimeError('campaign epoch differs from authoritative execution arrival')
     if final['last_flight']['flight_id']!=info['flight_id']:
         raise RuntimeError('campaign last_flight differs from committed flight')
+    if final['last_flight']['runtime_sha256']!=info.get('final_state',{}).get('last_flight',{}).get('runtime_sha256'):
+        raise RuntimeError('persisted runtime provenance differs from campaign execution result')
     recs=core._read_gzip_jsonl(root/'LOOM_CAMPAIGN_HISTORY.jsonl.gz')
     arrivals=[r for r in recs if r.get('record_type')=='FLIGHT_ARRIVED']
     if len(arrivals)!=1:
         raise RuntimeError(f'expected exactly one FLIGHT_ARRIVED record, got {len(arrivals)}')
     if arrivals[0]['record_sha256']!=info['history_record_sha256']:
         raise RuntimeError('history identity differs from campaign commit result')
-    if arrived['details']['runtime_sha256']!=final['last_flight']['runtime_sha256']:
-        raise RuntimeError('Gate C flight differs from frozen runtime physics oracle')
-    # The new session has no committed plan; duplicate execution must be rejected.
+    # Gate A, run separately by the Phase-6 workflow, owns byte-for-byte frozen
+    # runtime equivalence. Gate C is a new GIS-originated request envelope and
+    # therefore treats its runtime SHA as provenance, not as the old byte oracle.
     try:
         session.execute()
     except Exception:
         pass
     else:
         raise RuntimeError('duplicate execute was accepted after arrival')
-    return root,chosen,final,info,arrivals[0],arrived,expected
+    return root,chosen,final,info,arrivals[0],arrived
 
 
 def main():
@@ -111,7 +112,7 @@ def main():
         except Exception as exc:
             last=exc;print('REJECT BUNDLE:',bundle.root,repr(exc))
     if result is None: raise RuntimeError(f'Gate C found no qualifying frozen runtime bundle: {last}')
-    root,chosen,final,info,record,arrived,_=result
+    root,chosen,final,info,record,arrived=result
     print('PHASE6_GATE_C=PASS')
     print('CAMPAIGN_CONTRACT=',info['contract'])
     print('FLOW=GIS_PLAN_COMMIT_EXECUTE_NAVIGATOR_CAMPAIGN_PERSIST_REFRESH')
@@ -124,8 +125,9 @@ def main():
     print('remass_t=',info['remass_before_t'],'->',info['remass_after_t'])
     print('history_record_number=',record['record_number'])
     print('history_record_sha256=',record['record_sha256'])
-    print('runtime_sha256=',final['last_flight']['runtime_sha256'])
-    print('frozen_runtime_sha256=',arrived['details']['runtime_sha256'])
+    print('gate_c_runtime_sha256=',final['last_flight']['runtime_sha256'])
+    print('frozen_gate_a_oracle_sha256=',arrived['details']['runtime_sha256'])
+    print('runtime_oracle_ownership=GATE_A_SEPARATE_EQUIVALENCE_CHECK')
     print('duplicate_execution=REJECTED')
     print('gate_c_runtime_root=',root)
     return 0

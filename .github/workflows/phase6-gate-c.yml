@@ -45,6 +45,8 @@ jobs:
         run: |
           mkdir -p frozen/runtime
           unzip -q frozen/LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip -d frozen/runtime
+      - name: Reprove frozen Navigator Gate A oracle
+        run: python tools/phase2_gate_a_qualify.py frozen/runtime
       - name: Qualify Gate C against real frozen Navigator
         run: python tools/phase6_gate_c_qualify.py frozen/runtime
       - name: Prepare coherent live Gate C runtime
