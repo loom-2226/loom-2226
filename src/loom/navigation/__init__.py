@@ -10,6 +10,14 @@ from .contracts import (
     RouteCandidate,
     TrajectorySegment,
 )
+from .route_layer import (
+    LegacyRouteLayerAdapter,
+    LoomRouteLayerV1,
+    RouteLayerBodyV1,
+    RouteLayerError,
+    RouteLayerSegmentV1,
+    ROUTE_LAYER_VERSION,
+)
 from .service import LegacyNavigationService, NavigationServiceError
 
 __all__ = [
@@ -21,6 +29,12 @@ __all__ = [
     "NavigationRequest",
     "RouteCandidate",
     "TrajectorySegment",
+    "LegacyRouteLayerAdapter",
+    "LoomRouteLayerV1",
+    "RouteLayerBodyV1",
+    "RouteLayerError",
+    "RouteLayerSegmentV1",
+    "ROUTE_LAYER_VERSION",
     "LegacyNavigationService",
     "NavigationServiceError",
 ]
