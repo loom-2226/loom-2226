@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 import json
+import traceback
 
 from .flight_planning import GISFlightPlanningError, GISFlightPlanningSession
 
@@ -68,8 +69,32 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
             return _send_state(self, state)
         except (GISFlightPlanningError, ValueError, KeyError) as exc:
             return self._send(400, "application/json; charset=utf-8", _json_bytes({"error": str(exc)}))
-        except Exception as exc:
-            return self._send(500, "application/json; charset=utf-8", _json_bytes({"error": f"{type(exc).__name__}: {exc}"}))
+        except SystemExit as exc:
+            # Frozen Sequence-H still contains CLI-era acquisition paths that may
+            # raise SystemExit. In a ThreadingHTTPServer request thread that used
+            # to terminate the request without a response, which Chrome surfaced
+            # only as "Failed to fetch". Convert it to a diagnostic HTTP response
+            # while keeping the GIS server alive.
+            code = getattr(exc, "code", None)
+            detail = str(code) if code not in (None, "") else str(exc) or "legacy Navigator exited"
+            print(f"FLIGHT PLAN SYSTEMEXIT · {path} · {detail}")
+            return self._send(502, "application/json; charset=utf-8", _json_bytes({
+                "error": f"Navigator acquisition exited: {detail}",
+                "kind": "LEGACY_SYSTEM_EXIT",
+                "path": path,
+            }))
+        except BaseException as exc:
+            # Do not allow any legacy request-thread failure to disappear as a
+            # browser network error. KeyboardInterrupt remains meaningful only on
+            # the main server thread; here it is safer to report and preserve the
+            # running local GIS for diagnosis.
+            print(f"FLIGHT PLAN FAILURE · {path} · {type(exc).__name__}: {exc}")
+            traceback.print_exc()
+            return self._send(500, "application/json; charset=utf-8", _json_bytes({
+                "error": f"{type(exc).__name__}: {exc}",
+                "kind": "SERVER_FAILURE",
+                "path": path,
+            }))
 
     handler.do_GET = do_GET
     handler.do_POST = do_POST
