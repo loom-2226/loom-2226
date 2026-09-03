@@ -52,6 +52,13 @@ def load_core():
     return module
 
 
+def load_navigation_service():
+    """Return the canonical Phase-2 service facade over the frozen Navigator core."""
+    from loom.navigation.service import LegacyNavigationService
+
+    return LegacyNavigationService(load_core())
+
+
 def main() -> int:
     core = load_core()
     if "--runtime-root" in sys.argv:
