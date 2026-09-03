@@ -20,7 +20,6 @@ from loom.navigation import LoomRouteLayerV1, ROUTE_LAYER_VERSION
 
 GIS_NAV_OVERLAY_VERSION = "LOOM_GIS_NAVIGATION_OVERLAY_V1"
 
-# Presentation belongs here, not in Navigator contracts.
 _PHASE_STYLE = {
     "TORCH": {"stroke": "#e2a85f", "dash": [], "width": 2.2},
     "METRIC": {"stroke": "#bda5ff", "dash": [6, 5], "width": 2.2},
@@ -42,11 +41,8 @@ def _mapping(value: Mapping[str, Any] | None) -> dict[str, Any]:
 def _vector3(value: Any) -> list[float] | None:
     if isinstance(value, Mapping):
         for key in (
-            "values",
-            "position_km",
-            "position_km_j2000_ecliptic",
-            "collapse_position_km",
-            "collapse_position_km_j2000_ecliptic",
+            "values", "position_km", "position_km_j2000_ecliptic",
+            "collapse_position_km", "collapse_position_km_j2000_ecliptic",
         ):
             candidate = value.get(key)
             if isinstance(candidate, (list, tuple)):
@@ -73,9 +69,7 @@ class GISRouteAnchorV1:
     body_id: str | None = None
     label: str | None = None
     payload: Mapping[str, Any] = field(default_factory=dict)
-
-    def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+    def to_dict(self) -> dict[str, Any]: return asdict(self)
 
 
 @dataclass(frozen=True)
@@ -90,9 +84,7 @@ class GISRouteSegmentRenderV1:
     geometry_authority: str
     style: Mapping[str, Any]
     engineering: Mapping[str, Any] = field(default_factory=dict)
-
-    def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+    def to_dict(self) -> dict[str, Any]: return asdict(self)
 
 
 @dataclass(frozen=True)
@@ -113,9 +105,7 @@ class GISRouteRenderV1:
     source_contract: str
     source_sha256: str
     role: str = "ACTIVE"
-
-    def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+    def to_dict(self) -> dict[str, Any]: return asdict(self)
 
 
 @dataclass(frozen=True)
@@ -123,19 +113,13 @@ class GISNavigationOverlayV1:
     active_route: GISRouteRenderV1 | None = None
     alternate_routes: tuple[GISRouteRenderV1, ...] = ()
     historical_routes: tuple[GISRouteRenderV1, ...] = ()
+    current_vehicle_state: Mapping[str, Any] = field(default_factory=dict)
     contract: str = GIS_NAV_OVERLAY_VERSION
     controls: tuple[str, ...] = (
-        "ACTIVE_ROUTE",
-        "ALTERNATE_ROUTES",
-        "FLIGHT_PHASES",
-        "MANEUVERS",
-        "HISTORICAL_TRACKS",
-        "TRAFFIC_CIVSTATE",
+        "ACTIVE_ROUTE", "ALTERNATE_ROUTES", "FLIGHT_PHASES", "MANEUVERS",
+        "HISTORICAL_TRACKS", "TRAFFIC_CIVSTATE",
     )
-
-    def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
-
+    def to_dict(self) -> dict[str, Any]: return asdict(self)
     def json_bytes(self) -> bytes:
         return (json.dumps(self.to_dict(), separators=(",", ":"), sort_keys=True) + "\n").encode("utf-8")
 
@@ -147,55 +131,33 @@ def _segment_engineering(seg: Any) -> dict[str, Any]:
     geometry = _mapping(getattr(seg, "geometry", None))
     out: dict[str, Any] = {}
     aliases = {
-        "delta_v_km_s": (velocity, "delta_v_km_s"),
-        "dv_km_s": (payload, "dv_km_s"),
-        "initial_accel_g": (acceleration, "initial_accel_g"),
-        "final_accel_g": (acceleration, "final_accel_g"),
-        "acceleration_g": (acceleration, "acceleration_g"),
-        "velocity_memory_km_s": (velocity, "velocity_memory_km_s"),
+        "delta_v_km_s": (velocity, "delta_v_km_s"), "dv_km_s": (payload, "dv_km_s"),
+        "initial_accel_g": (acceleration, "initial_accel_g"), "final_accel_g": (acceleration, "final_accel_g"),
+        "acceleration_g": (acceleration, "acceleration_g"), "velocity_memory_km_s": (velocity, "velocity_memory_km_s"),
         "engineering_checkpoints": (geometry, "engineering_checkpoints"),
     }
     for name, (source, key) in aliases.items():
-        if key in source:
-            out[name] = source[key]
-    for key in (
-        "dv_km_s",
-        "delta_v_km_s",
-        "initial_accel_g",
-        "final_accel_g",
-        "acceleration_g",
-        "velocity_memory_km_s",
-        "engineering_checkpoints",
-    ):
-        if key in payload and key not in out:
-            out[key] = payload[key]
+        if key in source: out[name] = source[key]
+    for key in ("dv_km_s", "delta_v_km_s", "initial_accel_g", "final_accel_g", "acceleration_g", "velocity_memory_km_s", "engineering_checkpoints"):
+        if key in payload and key not in out: out[key] = payload[key]
     return out
 
 
 def _render_segment(seg: Any) -> GISRouteSegmentRenderV1:
     seg_type = str(getattr(seg, "type", None) or "UNSPECIFIED").upper()
-    start = _vector3(getattr(seg, "start_position", None))
-    end = _vector3(getattr(seg, "end_position", None))
-    geom = _mapping(getattr(seg, "geometry", None))
-    raw_points = geom.get("points") or geom.get("values") or []
+    start = _vector3(getattr(seg, "start_position", None)); end = _vector3(getattr(seg, "end_position", None))
+    geom = _mapping(getattr(seg, "geometry", None)); raw_points = geom.get("points") or geom.get("values") or []
     points: list[tuple[float, float, float]] = []
     if isinstance(raw_points, (list, tuple)):
         for raw in raw_points:
             v = _vector3(raw)
-            if v is not None:
-                points.append(tuple(v))
+            if v is not None: points.append(tuple(v))
     authority = "AUTHORITATIVE_SAMPLED_GEOMETRY" if len(points) >= 2 else "AUTHORITATIVE_PHASE_ANCHORS_ONLY"
     return GISRouteSegmentRenderV1(
-        type=seg_type,
-        phase=getattr(seg, "phase", None),
-        start_epoch=getattr(seg, "start_epoch", None),
-        end_epoch=getattr(seg, "end_epoch", None),
-        start_position_j2000_ecliptic_km=tuple(start) if start else None,
-        end_position_j2000_ecliptic_km=tuple(end) if end else None,
-        geometry_points_j2000_ecliptic_km=tuple(points),
-        geometry_authority=authority,
-        style=dict(_PHASE_STYLE.get(seg_type, _PHASE_STYLE["UNSPECIFIED"])),
-        engineering=_segment_engineering(seg),
+        type=seg_type, phase=getattr(seg, "phase", None), start_epoch=getattr(seg, "start_epoch", None),
+        end_epoch=getattr(seg, "end_epoch", None), start_position_j2000_ecliptic_km=tuple(start) if start else None,
+        end_position_j2000_ecliptic_km=tuple(end) if end else None, geometry_points_j2000_ecliptic_km=tuple(points),
+        geometry_authority=authority, style=dict(_PHASE_STYLE.get(seg_type, _PHASE_STYLE["UNSPECIFIED"])), engineering=_segment_engineering(seg),
     )
 
 
@@ -211,29 +173,16 @@ def route_to_gis(route: LoomRouteLayerV1, *, role: str = "ACTIVE") -> GISRouteRe
         if seg.type == "METRIC":
             p = seg.end_position_j2000_ecliptic_km or seg.start_position_j2000_ecliptic_km
             epoch = seg.end_epoch or seg.start_epoch
-            if p is not None:
-                anchors.append(GISRouteAnchorV1("METRIC_COLLAPSE", epoch, p, label="METRIC COLLAPSE"))
+            if p is not None: anchors.append(GISRouteAnchorV1("METRIC_COLLAPSE", epoch, p, label="METRIC COLLAPSE"))
         elif seg.type == "TERMINAL_BURN":
             p = seg.start_position_j2000_ecliptic_km or seg.end_position_j2000_ecliptic_km
-            if p is not None:
-                anchors.append(GISRouteAnchorV1("TERMINAL_BURN", seg.start_epoch, p, label="TERMINAL BURN"))
+            if p is not None: anchors.append(GISRouteAnchorV1("TERMINAL_BURN", seg.start_epoch, p, label="TERMINAL BURN"))
     return GISRouteRenderV1(
-        route_id=route.route_id,
-        flight_id=route.flight_id,
-        origin=route.origin,
-        destination=route.destination,
-        departure_epoch=route.departure_epoch,
-        arrival_epoch=route.arrival_epoch,
-        strategy=route.strategy,
-        status=route.status,
-        segments=segments,
-        anchors=tuple(anchors),
-        maneuvers=tuple(dict(x) for x in route.maneuvers),
-        current_vehicle_state=dict(route.current_vehicle_state),
-        arrival_state=dict(route.arrival_state),
-        source_contract=route.contract,
-        source_sha256=route.sha256(),
-        role=role,
+        route_id=route.route_id, flight_id=route.flight_id, origin=route.origin, destination=route.destination,
+        departure_epoch=route.departure_epoch, arrival_epoch=route.arrival_epoch, strategy=route.strategy, status=route.status,
+        segments=segments, anchors=tuple(anchors), maneuvers=tuple(dict(x) for x in route.maneuvers),
+        current_vehicle_state=dict(route.current_vehicle_state), arrival_state=dict(route.arrival_state),
+        source_contract=route.contract, source_sha256=route.sha256(), role=role,
     )
 
 
@@ -241,37 +190,31 @@ def build_navigation_overlay(
     active_route: LoomRouteLayerV1 | None = None,
     alternate_routes: Iterable[LoomRouteLayerV1] = (),
     historical_routes: Iterable[LoomRouteLayerV1] = (),
+    *,
+    current_vehicle_state: Mapping[str, Any] | None = None,
 ) -> GISNavigationOverlayV1:
+    live_state = dict(current_vehicle_state or {})
+    if not live_state and active_route is not None:
+        live_state = dict(active_route.current_vehicle_state)
     return GISNavigationOverlayV1(
         active_route=route_to_gis(active_route, role="ACTIVE") if active_route is not None else None,
         alternate_routes=tuple(route_to_gis(x, role="ALTERNATE") for x in alternate_routes),
         historical_routes=tuple(route_to_gis(x, role="HISTORICAL") for x in historical_routes),
+        current_vehicle_state=live_state,
     )
 
 
 def route_layer_from_dict(data: Mapping[str, Any]) -> LoomRouteLayerV1:
-    """Hydrate a V1 route layer without duplicating Navigator adaptation rules."""
     from loom.navigation import RouteLayerBodyV1, RouteLayerSegmentV1
-
     if data.get("contract") != ROUTE_LAYER_VERSION:
         raise GISNavigationOverlayError(f"route JSON must be {ROUTE_LAYER_VERSION}")
     return LoomRouteLayerV1(
-        route_id=data["route_id"],
-        flight_id=data["flight_id"],
-        origin=data["origin"],
-        destination=data["destination"],
-        departure_epoch=data.get("departure_epoch"),
-        arrival_epoch=data.get("arrival_epoch"),
-        strategy=data.get("strategy"),
-        status=data.get("status") or "PLANNED",
-        segments=tuple(RouteLayerSegmentV1(**x) for x in data.get("segments") or []),
-        waypoints=tuple(data.get("waypoints") or []),
-        bodies=tuple(RouteLayerBodyV1(**x) for x in data.get("bodies") or []),
-        maneuvers=tuple(data.get("maneuvers") or []),
-        current_vehicle_state=data.get("current_vehicle_state") or {},
-        arrival_state=data.get("arrival_state") or {},
-        payload=data.get("payload") or {},
-        contract=data.get("contract"),
+        route_id=data["route_id"], flight_id=data["flight_id"], origin=data["origin"], destination=data["destination"],
+        departure_epoch=data.get("departure_epoch"), arrival_epoch=data.get("arrival_epoch"), strategy=data.get("strategy"),
+        status=data.get("status") or "PLANNED", segments=tuple(RouteLayerSegmentV1(**x) for x in data.get("segments") or []),
+        waypoints=tuple(data.get("waypoints") or []), bodies=tuple(RouteLayerBodyV1(**x) for x in data.get("bodies") or []),
+        maneuvers=tuple(data.get("maneuvers") or []), current_vehicle_state=data.get("current_vehicle_state") or {},
+        arrival_state=data.get("arrival_state") or {}, payload=data.get("payload") or {}, contract=data.get("contract"),
     )
 
 
@@ -284,21 +227,13 @@ def client_extension_js() -> str:
 
 
 def install_navigation_overlay(gis_module: Any, overlay: GISNavigationOverlayV1) -> None:
-    """Add Phase-4 endpoint + renderer to the frozen GIS module at runtime.
-
-    The existing GIS source file is not edited. The extension owns presentation
-    and only reads the route-layer payload.
-    """
     handler = gis_module.SolarHandler
     handler.navigation_overlay_json = overlay.json_bytes()
     old_get = handler.do_GET
-
     def do_GET(self):
         if urlparse(self.path).path == "/navigation-overlay.json":
-            self._send(200, "application/json; charset=utf-8", self.navigation_overlay_json)
-            return
+            self._send(200, "application/json; charset=utf-8", self.navigation_overlay_json); return
         return old_get(self)
-
     handler.do_GET = do_GET
     marker = "/* LOOM_PHASE4_NAVIGATION_OVERLAY */"
     if marker not in gis_module.CLIENT_JS:
