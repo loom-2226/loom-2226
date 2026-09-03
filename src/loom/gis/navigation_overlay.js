@@ -8,6 +8,8 @@ const TOKEN_TO_ENTITY={
 };
 let navOverlay=null;
 const navVisible={active:true,alternates:true,phases:true,maneuvers:true,history:true};
+let hudMode=(localStorage.getItem('loomHudMode')||'NAV').toUpperCase()==='ATLAS'?'ATLAS':'NAV';
+let navPlaybackRouteId=null,navPlaybackIndex=null,navPlaybackTimer=null;
 
 function navEntity(token){
   if(!scene||!scene.entities)return null;
@@ -26,11 +28,58 @@ function navStroke(style,alpha=1){ctx.strokeStyle=style?.stroke||`rgba(190,205,2
 function navPoint(p,r,stroke,fill='rgba(8,12,18,.92)'){if(!p)return;ctx.save();ctx.setLineDash([]);ctx.lineWidth=1.5;ctx.strokeStyle=stroke;ctx.fillStyle=fill;ctx.beginPath();ctx.arc(p.x,p.y,r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.restore()}
 function navDiamond(p,r,stroke){if(!p)return;ctx.save();ctx.setLineDash([]);ctx.lineWidth=1.4;ctx.strokeStyle=stroke;ctx.fillStyle='rgba(8,12,18,.92)';ctx.beginPath();ctx.moveTo(p.x,p.y-r);ctx.lineTo(p.x+r,p.y);ctx.lineTo(p.x,p.y+r);ctx.lineTo(p.x-r,p.y);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore()}
 function navDrawPolyline(points,style,alpha=1){if(!Array.isArray(points)||points.length<2||viewMode!=='SOLAR'||scaleMode!=='TRUE')return;const screen=points.map(navKmScreen).filter(Boolean);if(screen.length<2)return;ctx.save();ctx.globalAlpha=alpha;navStroke(style,alpha);ctx.beginPath();screen.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();ctx.restore()}
+function navShip(p,{relational=false,alpha=1}={}){
+  if(!p)return;
+  ctx.save();ctx.globalAlpha=alpha;ctx.translate(p.x,p.y);ctx.setLineDash(relational?[3,3]:[]);ctx.strokeStyle=relational?'#bda5ff':'#ffffff';ctx.fillStyle=relational?'rgba(189,165,255,.18)':'rgba(255,255,255,.16)';ctx.lineWidth=1.8;
+  ctx.beginPath();ctx.moveTo(0,-10);ctx.lineTo(7,8);ctx.lineTo(0,5);ctx.lineTo(-7,8);ctx.closePath();ctx.fill();ctx.stroke();
+  if(relational){ctx.beginPath();ctx.arc(0,0,14,0,Math.PI*2);ctx.stroke()}
+  ctx.restore();
+}
 function navDrawVehicle(state){
   const shipToken=state?.location_token||state?.location;
   if(!shipToken)return;
-  const sp=navEntityScreen(shipToken);if(!sp)return;
-  ctx.save();ctx.strokeStyle='#ffffff';ctx.lineWidth=1.5;ctx.setLineDash([]);ctx.beginPath();ctx.arc(sp.x,sp.y,9,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.moveTo(sp.x-12,sp.y);ctx.lineTo(sp.x+12,sp.y);ctx.moveTo(sp.x,sp.y-12);ctx.lineTo(sp.x,sp.y+12);ctx.stroke();ctx.restore();
+  navShip(navEntityScreen(shipToken));
+}
+function navMetricEnd(route){
+  const seg=(route?.segments||[]).find(s=>s.type==='METRIC');
+  return seg?.end_position_j2000_ecliptic_km?navKmScreen(seg.end_position_j2000_ecliptic_km):null;
+}
+function navDrawRelationalMetric(route,seg,alpha=1){
+  if(!route||!seg||seg.geometry_semantics?.ordinary_space_occupancy!==false)return;
+  const a=navEntityScreen(route.origin),b=seg.end_position_j2000_ecliptic_km?navKmScreen(seg.end_position_j2000_ecliptic_km):null;
+  if(!a||!b)return;
+  ctx.save();ctx.globalAlpha=Math.min(.9,alpha);ctx.strokeStyle=seg.style?.stroke||'#bda5ff';ctx.lineWidth=2;ctx.setLineDash([7,6]);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+  const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;ctx.setLineDash([]);ctx.fillStyle='rgba(189,165,255,.92)';ctx.font='700 8px ui-monospace,SFMono-Regular,Menlo,monospace';ctx.textAlign='center';ctx.fillText('METRIC · RELATIONAL',mx,my-6);ctx.restore();
+}
+function navPlaybackRoute(){
+  if(!navPlaybackRouteId)return null;
+  const routes=[navOverlay?.active_route,...(navOverlay?.alternate_routes||[]),...(navOverlay?.historical_routes||[])].filter(Boolean);
+  return routes.find(r=>r.route_id===navPlaybackRouteId)||null;
+}
+function navPlaybackScreen(route,index){
+  const samples=route?.trajectory?.samples||[];if(!samples.length)return null;
+  const i=Math.max(0,Math.min(samples.length-1,Number(index)||0)),s=samples[i];
+  const xyz=[s.ordinary_pos_x_km,s.ordinary_pos_y_km,s.ordinary_pos_z_km];
+  if(xyz.every(v=>v!==null&&v!==undefined))return {p:navKmScreen(xyz.map(Number)),relational:false,sample:s};
+  if(Number(s.position_semantics_code)===0){
+    const a=navEntityScreen(route.origin),b=navMetricEnd(route);if(!a||!b)return null;
+    const q=Math.max(0,Math.min(1,Number(s.relational_progress)||0));
+    return {p:{x:a.x+(b.x-a.x)*q,y:a.y+(b.y-a.y)*q},relational:true,sample:s};
+  }
+  return null;
+}
+function navDrawPlayback(){
+  const route=navPlaybackRoute();if(!route||navPlaybackIndex===null)return false;
+  const hit=navPlaybackScreen(route,navPlaybackIndex);if(!hit||!hit.p)return false;
+  navShip(hit.p,{relational:hit.relational});return true;
+}
+function stopNavPlayback(){if(navPlaybackTimer){clearInterval(navPlaybackTimer);navPlaybackTimer=null}navPlaybackIndex=null;navPlaybackRouteId=null;scheduleDraw();refreshNavPanel()}
+function startNavPlayback(route){
+  if(!route?.trajectory?.samples?.length)return;
+  if(navPlaybackTimer)clearInterval(navPlaybackTimer);
+  navPlaybackRouteId=route.route_id;navPlaybackIndex=0;
+  navPlaybackTimer=setInterval(()=>{const r=navPlaybackRoute();const n=r?.trajectory?.samples?.length||0;if(!n||navPlaybackIndex>=n-1){clearInterval(navPlaybackTimer);navPlaybackTimer=null;refreshNavPanel();return}navPlaybackIndex++;scheduleDraw();refreshNavPanel()},90);
+  scheduleDraw();refreshNavPanel();
 }
 function navDrawRoute(route,alpha=1){
   if(!route)return;
@@ -40,6 +89,7 @@ function navDrawRoute(route,alpha=1){
     for(const seg of route.segments||[]){
       const pts=seg.geometry_points_j2000_ecliptic_km||[];
       if(pts.length>=2)navDrawPolyline(pts,seg.style,alpha);
+      if(seg.type==='METRIC')navDrawRelationalMetric(route,seg,alpha);
       const sp=navKmScreen(seg.start_position_j2000_ecliptic_km),ep=navKmScreen(seg.end_position_j2000_ecliptic_km);
       if(sp)navDiamond(sp,4,seg.style?.stroke||'#bda5ff');
       if(ep)navDiamond(ep,4,seg.style?.stroke||'#bda5ff');
@@ -55,34 +105,78 @@ function navDrawRoute(route,alpha=1){
 }
 function drawNavigationOverlay(){
   if(!navOverlay||!scene)return;
-  if(navVisible.history)for(const r of navOverlay.historical_routes||[])navDrawRoute(r,.28);
+  if(navVisible.history)for(const r of navOverlay.historical_routes||[])navDrawRoute(r,.32);
   if(navVisible.alternates)for(const r of navOverlay.alternate_routes||[])navDrawRoute(r,.42);
   if(navVisible.active&&navOverlay.active_route)navDrawRoute(navOverlay.active_route,1);
-  navDrawVehicle(navOverlay.current_vehicle_state||{});
+  if(!navDrawPlayback())navDrawVehicle(navOverlay.current_vehicle_state||{});
 }
 
 function escNav(v){return String(v??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]))}
-function navGeometryLabel(route){const segs=route?.segments||[];const sampled=segs.filter(s=>(s.geometry_points_j2000_ecliptic_km||[]).length>=2).length;return sampled?`${sampled}/${segs.length} sampled phases`:'AUTHORITATIVE PHASE ANCHORS ONLY'}
+function navGeometryLabel(route){
+  const segs=route?.segments||[],sampled=segs.filter(s=>(s.geometry_points_j2000_ecliptic_km||[]).length>=2).length,timeline=route?.trajectory?.samples?.length||0;
+  if(timeline)return `${timeline} NAVIGATOR SAMPLES · ${sampled} ORDINARY 3D PHASE${sampled===1?'':'S'}`;
+  return sampled?`${sampled}/${segs.length} SAMPLED PHASES`:'AUTHORITATIVE PHASE ANCHORS ONLY';
+}
+function ensureNavIntel(){
+  let sheet=document.getElementById('navIntelSheet');if(sheet)return sheet;
+  sheet=document.createElement('div');sheet.id='navIntelSheet';sheet.hidden=true;sheet.innerHTML='<div class="navIntelHead"><b>NAVIGATION DETAILS</b><button type="button" class="navIntelClose">CLOSE</button></div><div class="navIntelContent"></div>';document.body.appendChild(sheet);sheet.querySelector('.navIntelClose').onclick=()=>{sheet.hidden=true};return sheet;
+}
 function showNavigationIntel(route){
-  if(!route)return;
-  const drawer=document.getElementById('atlasDrawer'),label=document.getElementById('atlasHandleLabel'),content=document.getElementById('atlasContent');if(!drawer||!label||!content)return;
-  label.textContent='NAVIGATION · '+route.origin+' → '+route.destination;
-  const phases=(route.segments||[]).map(s=>`<div class="atlasCard"><h3>${escNav(s.type)}</h3><div class="atlasKV"><div><b>PHASE</b></div><div>${escNav(s.phase||'—')}</div><div><b>START</b></div><div>${escNav(s.start_epoch||'—')}</div><div><b>END</b></div><div>${escNav(s.end_epoch||'—')}</div><div><b>GEOMETRY</b></div><div>${escNav(s.geometry_authority)}</div></div></div>`).join('');
-  content.innerHTML=`<div class="ahead"><div><h2>${escNav(route.origin)} → ${escNav(route.destination)}</h2><div class="status">${escNav(route.status)} · ${escNav(route.strategy||'—')}</div></div></div><div class="soWhat"><div class="soWhatLabel">NAVIGATOR AUTHORITY</div><div class="soWhatText">GIS is rendering LOOM_ROUTE_LAYER_V1. It does not calculate or interpolate flight physics.</div></div><div class="atlasCard"><h3>FLIGHT</h3><div class="atlasKV"><div><b>FLIGHT ID</b></div><div>${escNav(route.flight_id)}</div><div><b>DEPARTURE</b></div><div>${escNav(route.departure_epoch||'—')}</div><div><b>ARRIVAL</b></div><div>${escNav(route.arrival_epoch||'—')}</div><div><b>GEOMETRY</b></div><div>${escNav(navGeometryLabel(route))}</div><div><b>SOURCE SHA</b></div><div>${escNav(String(route.source_sha256||'').slice(0,16))}…</div></div></div>${phases}`;
-  drawer.classList.add('open');
+  if(!route)return;setHudMode('NAV');
+  const sheet=ensureNavIntel(),content=sheet.querySelector('.navIntelContent');
+  const phases=(route.segments||[]).map(s=>`<div class="navIntelCard"><b>${escNav(s.type)}</b><span>${escNav(s.phase||'—')}</span><span>${escNav(s.geometry_authority)}</span><span>${escNav(s.geometry_semantics?.semantics||'')}</span></div>`).join('');
+  content.innerHTML=`<div class="navIntelRoute"><strong>${escNav(route.origin)} → ${escNav(route.destination)}</strong><span>${escNav(route.status)} · ${escNav(route.strategy||'—')}</span><span>${escNav(navGeometryLabel(route))}</span></div><div class="navIntelNote">METRIC = relational displacement, not ordinary-space occupancy. Solid/cyan track = Navigator-authored ordinary 3D trajectory.</div>${phases}`;
+  sheet.hidden=false;
 }
 function navButton(label,key){const b=document.createElement('button');b.type='button';b.textContent=label;b.className='navPhaseBtn active';b.addEventListener('click',()=>{navVisible[key]=!navVisible[key];b.classList.toggle('active',navVisible[key]);scheduleDraw()});return b}
+function primaryRoute(){return navOverlay?.active_route||(navOverlay?.historical_routes||[]).slice(-1)[0]||null}
+function refreshNavPanel(){
+  const p=document.getElementById('navOverlayPanel');if(!p)return;const route=primaryRoute(),slot=p.querySelector('.navRouteSlot'),meta=p.querySelector('.navMeta'),play=p.querySelector('.navPlay');
+  if(slot){slot.innerHTML='';if(route){const b=document.createElement('button');b.className='navRoute';b.textContent=`${route.origin} → ${route.destination}`;b.onclick=()=>showNavigationIntel(route);slot.appendChild(b)}else slot.textContent='NO ROUTE'}
+  if(meta)meta.textContent=route?navGeometryLabel(route):'Navigator ready';
+  if(play){play.hidden=!route?.trajectory?.samples?.length;play.textContent=navPlaybackTimer?'STOP':'PLAY ROUTE';play.onclick=()=>navPlaybackTimer?stopNavPlayback():startNavPlayback(route)}
+}
 function installNavPanel(){
   if(document.getElementById('navOverlayPanel'))return;
-  const style=document.createElement('style');style.textContent=`#navOverlayPanel{position:fixed;right:max(10px,env(safe-area-inset-right));top:86px;z-index:13;width:min(270px,72vw);background:rgba(10,14,20,.90);border:1px solid rgba(150,165,185,.28);border-radius:11px;padding:7px;backdrop-filter:blur(8px);font:9px ui-monospace,SFMono-Regular,Menlo,monospace;color:#aeb9c8}#navOverlayPanel .navTitle{font-weight:850;letter-spacing:.09em;color:#d9e4f2;margin:1px 2px 6px}#navOverlayPanel .navRoute{width:100%;text-align:left;min-width:0;padding:7px;font:800 9px ui-monospace,SFMono-Regular,Menlo,monospace}#navOverlayPanel .navMeta{color:#7f8b9c;margin:5px 2px;line-height:1.35}#navOverlayPanel .navBtns{display:flex;gap:4px;flex-wrap:wrap}.navPhaseBtn{min-width:0;padding:5px 6px;font-size:8px}`;document.head.appendChild(style);
-  const p=document.createElement('div');p.id='navOverlayPanel';p.innerHTML='<div class="navTitle">NAVIGATION</div><div class="navRouteSlot"></div><div class="navMeta"></div><div class="navBtns"></div>';document.body.appendChild(p);
-  const slot=p.querySelector('.navRouteSlot'),meta=p.querySelector('.navMeta'),btns=p.querySelector('.navBtns');
-  const primary=navOverlay?.active_route||(navOverlay?.historical_routes||[]).slice(-1)[0];
-  if(primary){const b=document.createElement('button');b.className='navRoute';b.textContent=`${primary.role||'ROUTE'} · ${primary.origin} → ${primary.destination}`;b.addEventListener('click',()=>showNavigationIntel(primary));slot.appendChild(b);meta.textContent=navGeometryLabel(primary)}else{slot.textContent='NO ROUTE';meta.textContent='Navigator route layer available; no route supplied.'}
-  btns.append(navButton('ACTIVE','active'),navButton('ALTS','alternates'),navButton('PHASES','phases'),navButton('MANEUVERS','maneuvers'),navButton('HISTORY','history'));
-  const traffic=document.createElement('button');traffic.type='button';traffic.textContent='TRAFFIC';traffic.className='navPhaseBtn '+(trafficLayerActive?'active':'');traffic.addEventListener('click',()=>{trafficLayerActive=!trafficLayerActive;traffic.classList.toggle('active',trafficLayerActive);rebuildTrafficRollups();scheduleDraw()});btns.appendChild(traffic);
+  const p=document.createElement('div');p.id='navOverlayPanel';p.innerHTML='<div class="navTitle">NAV</div><div class="navRouteSlot"></div><div class="navMeta"></div><div class="navBtns"></div><button type="button" class="navPlay">PLAY ROUTE</button>';document.body.appendChild(p);
+  const btns=p.querySelector('.navBtns');btns.append(navButton('ACTIVE','active'),navButton('PHASES','phases'),navButton('HISTORY','history'));
+  refreshNavPanel();
 }
+function installHudStyles(){
+  if(document.getElementById('loomNavAtlasStyles'))return;
+  const style=document.createElement('style');style.id='loomNavAtlasStyles';style.textContent=`
+#loomModeTabs{position:fixed;z-index:31;left:max(8px,env(safe-area-inset-left));top:78px;display:flex;padding:3px;border:1px solid rgba(150,165,185,.35);border-radius:10px;background:rgba(7,11,17,.94);backdrop-filter:blur(10px);box-shadow:0 6px 20px rgba(0,0,0,.28)}
+#loomModeTabs button{min-width:58px;padding:7px 10px;font:850 9px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;opacity:.58}#loomModeTabs button.active{opacity:1;border-color:rgba(99,214,229,.65);color:#e7f4ff}
+#navOverlayPanel{position:fixed;right:max(8px,env(safe-area-inset-right));top:78px;z-index:13;width:min(205px,48vw);background:rgba(10,14,20,.90);border:1px solid rgba(150,165,185,.28);border-radius:10px;padding:6px;backdrop-filter:blur(8px);font:8px ui-monospace,SFMono-Regular,Menlo,monospace;color:#aeb9c8}
+#navOverlayPanel .navTitle{display:none}#navOverlayPanel .navRoute{width:100%;text-align:left;padding:6px;font:800 8px ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#navOverlayPanel .navMeta{color:#7f8b9c;margin:4px 2px;line-height:1.25}#navOverlayPanel .navBtns{display:flex;gap:3px}.navPhaseBtn,#navOverlayPanel .navPlay{min-width:0;padding:4px 5px;font-size:7px}#navOverlayPanel .navPlay{width:100%;margin-top:4px}
+#navIntelSheet{position:fixed;z-index:29;left:8px;right:8px;bottom:max(64px,env(safe-area-inset-bottom));max-height:42vh;overflow:auto;background:rgba(8,12,18,.97);border:1px solid rgba(99,214,229,.38);border-radius:12px;padding:8px;font:8px ui-monospace,SFMono-Regular,Menlo,monospace;color:#acbacb;backdrop-filter:blur(10px)}.navIntelHead{display:flex;align-items:center;justify-content:space-between}.navIntelHead button{font-size:7px;padding:4px 6px}.navIntelRoute{display:grid;gap:3px;margin:7px 0;color:#dbe7f4}.navIntelNote{padding:6px;border-left:2px solid #bda5ff;color:#9caac0}.navIntelCard{display:grid;grid-template-columns:90px 1fr;gap:3px 7px;padding:6px 0;border-top:1px solid rgba(150,165,185,.12)}
+#atlasDrawer{position:relative}#atlasDrawer .loomAtlasClose{position:absolute;z-index:5;right:8px;top:8px;padding:4px 7px;font:850 8px ui-monospace,SFMono-Regular,Menlo,monospace}#atlasDrawer.loom-atlas-closed{display:none!important}
+body.loom-nav-mode #atlasDrawer{display:none!important}body.loom-atlas-mode #flightPlanningPanel,body.loom-atlas-mode #flightPlanningRestore,body.loom-atlas-mode #navOverlayPanel,body.loom-atlas-mode #navIntelSheet{display:none!important}
+@media(max-width:700px){
+  #flightPlanningPanel{left:8px!important;right:8px!important;top:auto!important;bottom:max(62px,env(safe-area-inset-bottom))!important;width:auto!important;max-height:40vh!important;padding:7px!important;border-radius:12px!important}
+  #flightPlanningPanel .fpCandidates{max-height:18vh!important}
+  #flightPlanningRestore{left:8px!important;top:auto!important;bottom:max(68px,env(safe-area-inset-bottom))!important}
+  #navOverlayPanel{top:118px;width:min(190px,48vw)}
+  #atlasDrawer{left:8px!important;right:8px!important;bottom:max(58px,env(safe-area-inset-bottom))!important;max-height:52vh!important}
+}
+`;document.head.appendChild(style);
+}
+function installAtlasClose(){
+  const drawer=document.getElementById('atlasDrawer');if(!drawer||drawer.querySelector('.loomAtlasClose'))return;
+  const b=document.createElement('button');b.type='button';b.className='loomAtlasClose';b.textContent='×';b.title='Close Atlas';b.onclick=e=>{e.stopPropagation();drawer.classList.add('loom-atlas-closed');try{if(typeof setAtlasExpanded==='function')setAtlasExpanded(false);if(typeof setAtlasOpen==='function')setAtlasOpen(false)}catch(_err){drawer.classList.remove('open','expanded')}};drawer.appendChild(b);
+}
+function installModeTabs(){
+  if(document.getElementById('loomModeTabs'))return;
+  const tabs=document.createElement('div');tabs.id='loomModeTabs';tabs.innerHTML='<button type="button" data-mode="NAV">NAV</button><button type="button" data-mode="ATLAS">ATLAS</button>';document.body.appendChild(tabs);tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>setHudMode(b.dataset.mode));
+}
+function setHudMode(mode){
+  hudMode=String(mode||'NAV').toUpperCase()==='ATLAS'?'ATLAS':'NAV';localStorage.setItem('loomHudMode',hudMode);document.body.classList.toggle('loom-nav-mode',hudMode==='NAV');document.body.classList.toggle('loom-atlas-mode',hudMode==='ATLAS');
+  document.querySelectorAll('#loomModeTabs button').forEach(b=>b.classList.toggle('active',b.dataset.mode===hudMode));
+  const drawer=document.getElementById('atlasDrawer');if(hudMode==='ATLAS'&&drawer){drawer.classList.remove('loom-atlas-closed');try{if(typeof setAtlasOpen==='function')setAtlasOpen(true)}catch(_err){drawer.classList.add('open')}}
+  if(hudMode==='NAV'&&drawer){try{if(typeof setAtlasExpanded==='function')setAtlasExpanded(false)}catch(_err){}}
+}
+function installHudModes(){installHudStyles();installModeTabs();installAtlasClose();setHudMode(hudMode);document.addEventListener('click',e=>{if(e.target?.closest?.('.fpAtlasPlanHere')){localStorage.setItem('loomHudMode','NAV')}},true)}
 
 const baseDrawNow=drawNow;drawNow=function(){baseDrawNow();drawNavigationOverlay()};
-fetch('/navigation-overlay.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}).then(x=>{if(x.contract!==OVERLAY_SCHEMA)throw new Error(`unsupported navigation overlay ${x.contract}`);navOverlay=x;installNavPanel();scheduleDraw()}).catch(err=>{console.warn('LOOM navigation overlay unavailable',err)});
+fetch('/navigation-overlay.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}).then(x=>{if(x.contract!==OVERLAY_SCHEMA)throw new Error(`unsupported navigation overlay ${x.contract}`);navOverlay=x;installHudModes();installNavPanel();scheduleDraw()}).catch(err=>{console.warn('LOOM navigation overlay unavailable',err);installHudModes()});
 })();
