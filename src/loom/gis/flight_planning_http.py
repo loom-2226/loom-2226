@@ -4,7 +4,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs, urlencode
 import json
 import threading
 import traceback
@@ -18,7 +18,11 @@ def _json_bytes(value: Any) -> bytes:
 
 
 def planning_client_js() -> str:
-    return Path(__file__).with_name("flight_planning.js").read_text(encoding="utf-8")
+    base = Path(__file__).with_name("flight_planning.js").read_text(encoding="utf-8")
+    shim = Path(__file__).with_name("flight_planning_pixel_nav.js")
+    if shim.exists():
+        base += "\n" + shim.read_text(encoding="utf-8") + "\n"
+    return base
 
 
 def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) -> None:
@@ -50,6 +54,16 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
 
     def _send_state(self, state, status=200):
         return _send_json(self, state.to_dict(), status=status)
+
+    def _redirect(self, location: str, status: int = 303):
+        body = ("redirecting to " + location + "\n").encode("utf-8")
+        self.send_response(status)
+        self.send_header("Location", location)
+        self.send_header("Content-Type", "text/plain; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(body)
 
     def _job_snapshot():
         with handler.flight_planning_job_lock:
@@ -95,7 +109,7 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
     def do_GET(self):
         parsed = urlparse(self.path)
         path = parsed.path
-        _log("http_get", path=path)
+        _log("http_get", path=path, query=parsed.query)
         if path == "/flight-planning.json":
             return _send_state(self, self.flight_planning_session.state())
         if path == "/flight-planning/status.json":
@@ -107,13 +121,22 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
                 "job": _job_snapshot(),
                 "log_path": str(handler.flight_planning_log_path),
             })
-        if path == "/flight-planning/discover.json":
+        if path in ("/flight-planning/discover.json", "/flight-planning/discover-start"):
             q = parse_qs(parsed.query)
             destination = (q.get("destination") or [""])[0]
             priority = (q.get("priority") or ["BALANCED"])[0]
             if not destination:
+                if path == "/flight-planning/discover-start":
+                    return _redirect(self, "/?fp_error=destination_required")
                 return _send_json(self, {"error": "destination is required"}, status=400)
             state, status = _start_discovery(destination, priority)
+            if path == "/flight-planning/discover-start":
+                if status == 202:
+                    job_id = str(state.get("job_id") or "")
+                    _log("discover_nav_redirect", job_id=job_id, destination=destination)
+                    return _redirect(self, "/?" + urlencode({"fp_job": job_id, "fp_destination": destination}))
+                job_id = str(state.get("job_id") or "")
+                return _redirect(self, "/?" + urlencode({"fp_job": job_id, "fp_busy": "1"}))
             return _send_json(self, state, status=status)
         return old_get(self)
 
