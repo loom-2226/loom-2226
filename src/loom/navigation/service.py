@@ -12,7 +12,8 @@ from typing import Any, Mapping
 import hashlib
 import json
 
-from .contracts import FlightPlan, NavigationContext, NavigationRequest, RouteCandidate
+from .contracts import EphemerisSnapshot, FlightPlan, NavigationContext, NavigationRequest, RouteCandidate
+from .ephemeris import LegacySequenceHEphemerisProvider
 
 
 class NavigationServiceError(RuntimeError):
@@ -130,10 +131,14 @@ class LegacyNavigationService:
             "it is not duplicated in the service layer"
         )
 
-    def get_ephemeris(self, *_: Any, **__: Any) -> None:
-        raise NavigationServiceError(
-            "ephemeris extraction is pending; the legacy Sequence-H provider remains authoritative"
-        )
+    def get_ephemeris(self, context: NavigationContext, epoch: str | None = None) -> EphemerisSnapshot:
+        """Expose Sequence H canonical ephemeris/dependency truth without recalculation."""
+        nav = self._sequence_h(context)
+        provider = LegacySequenceHEphemerisProvider(nav)
+        try:
+            return provider.snapshot(context, epoch=epoch)
+        except RuntimeError as exc:
+            raise NavigationServiceError(str(exc)) from exc
 
     def get_flight_geometry(self, plan: FlightPlan) -> Mapping[str, Any]:
         runtime = dict(plan.payload).get("runtime") or {}
