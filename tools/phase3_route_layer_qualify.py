@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import json
 import sys
 from pathlib import Path
 
@@ -29,26 +30,35 @@ def assert_display_agnostic(value, path="route"):
             assert_display_agnostic(child, f"{path}[{i}]")
 
 
+def print_shape(value, prefix, depth=0, limit=4):
+    if depth > limit:
+        return
+    if isinstance(value, dict):
+        print(f"{prefix}_KEYS=", sorted(value.keys()))
+        for key, child in sorted(value.items()):
+            if isinstance(child, (dict, list, tuple)):
+                print_shape(child, f"{prefix}_{key}", depth+1, limit)
+    elif isinstance(value, (list, tuple)):
+        first=value[0] if value else None
+        print(f"{prefix}=LIST len={len(value)} child_type={type(first).__name__ if first is not None else None} child_keys={sorted(first.keys()) if isinstance(first,dict) else None}")
+        if first is not None and isinstance(first, (dict,list,tuple)):
+            print_shape(first, f"{prefix}_0", depth+1, limit)
+
+
 def summarize_payloads(value):
     if not isinstance(value, dict):
-        print("PAYLOADS_TYPE=", type(value).__name__)
-        return
+        print("PAYLOADS_TYPE=", type(value).__name__); return
     print("PAYLOADS_KEYS=", sorted(value.keys()))
     for key, child in sorted(value.items()):
         print(f"PAYLOAD_{key}_TYPE=", type(child).__name__)
-        if isinstance(child, dict):
-            print(f"PAYLOAD_{key}_KEYS=", sorted(child.keys()))
-            for k2, v2 in sorted(child.items()):
-                if isinstance(v2, dict): print(f"PAYLOAD_{key}_{k2}_KEYS=", sorted(v2.keys()))
-                elif isinstance(v2, (list, tuple)):
-                    first=v2[0] if v2 else None
-                    print(f"PAYLOAD_{key}_{k2}=LIST len={len(v2)} child_type={type(first).__name__ if first is not None else None} child_keys={sorted(first.keys()) if isinstance(first,dict) else None}")
-        elif isinstance(child, (list, tuple)):
-            first=child[0] if child else None
-            print(f"PAYLOAD_{key}=LIST len={len(child)} child_type={type(first).__name__ if first is not None else None} child_keys={sorted(first.keys()) if isinstance(first,dict) else None}")
-        elif hasattr(child, "keys"):
-            try: print(f"PAYLOAD_{key}_KEYS_LIKE=", sorted(child.keys()))
-            except Exception: pass
+        if isinstance(child, bytes):
+            try:
+                decoded=json.loads(child.decode("utf-8"))
+            except Exception as exc:
+                print(f"PAYLOAD_{key}_DECODE_ERROR=", repr(exc)); continue
+            print_shape(decoded, f"DECODED_{key}")
+        else:
+            print_shape(child, f"PAYLOAD_{key}")
 
 
 def qualify_bundle(service, bundle):
