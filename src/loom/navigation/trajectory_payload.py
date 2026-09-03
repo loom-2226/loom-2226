@@ -56,8 +56,6 @@ def find_sequence_b_payload(value: Any, *, _depth: int = 0, _seen: set[int] | No
     _seen.add(oid)
 
     if isinstance(value, Mapping):
-        # Prefer semantically likely fields, but correctness comes from the
-        # payload header validation rather than the key name.
         preferred = (
             "flightSolutionsPayload",
             "flight_solutions_payload",
@@ -84,6 +82,50 @@ def find_sequence_b_payload(value: Any, *, _depth: int = 0, _seen: set[int] | No
             if found is not None:
                 return found
     return None
+
+
+def sequence_b_payload_probe(value: Any, *, max_items: int = 24) -> tuple[str, ...]:
+    """Return a compact, non-content diagnostic of likely payload containers.
+
+    This is intentionally metadata-only: path, Python type, and collection/byte
+    length. It exists to qualify live frozen-Navigator boundary shapes without
+    dumping binary payload contents or teaching GIS legacy payload vocabulary.
+    """
+    rows: list[str] = []
+    seen: set[int] = set()
+
+    def walk(node: Any, path: str, depth: int) -> None:
+        if len(rows) >= max_items or depth > _MAX_DEPTH:
+            return
+        raw = _bytes_candidate(node)
+        if raw is not None:
+            validity = "SEQUENCE_B" if find_sequence_b_payload(raw) is not None else "bytes"
+            rows.append(f"{path}:{type(node).__name__}[{len(raw)}]:{validity}")
+            return
+        oid = id(node)
+        if oid in seen:
+            return
+        seen.add(oid)
+        if isinstance(node, Mapping):
+            rows.append(f"{path}:mapping[{len(node)}] keys={','.join(str(k) for k in list(node.keys())[:12])}")
+            for key, child in node.items():
+                name = str(key)
+                lowered = name.lower()
+                if any(term in lowered for term in ("flight", "solution", "payload", "trajectory", "runtime", "artifact", "binary")):
+                    walk(child, f"{path}.{name}", depth + 1)
+            return
+        if isinstance(node, Sequence) and not isinstance(node, (str, bytes, bytearray, memoryview)):
+            rows.append(f"{path}:{type(node).__name__}[{len(node)}]")
+            for index, child in enumerate(node[:8]):
+                walk(child, f"{path}[{index}]", depth + 1)
+            return
+        if isinstance(node, str):
+            rows.append(f"{path}:str[{len(node)}]")
+        elif node is not None:
+            rows.append(f"{path}:{type(node).__name__}")
+
+    walk(value, "$", 0)
+    return tuple(rows)
 
 
 def promote_sequence_b_payload(plan: FlightPlan) -> FlightPlan:
