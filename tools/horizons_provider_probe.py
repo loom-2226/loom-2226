@@ -22,7 +22,9 @@ DEFAULT_EPOCH = "2226-08-22 00:00"
 TARGETS = {
     "CERES": "1;",
     "MARS": "499",
-    "NEPTUNE": "899",
+    # LOOM's qualified outer-system destination is Neptune-system barycentric
+    # capture, so use the system barycenter rather than Neptune body center.
+    "NEPTUNE_SYSTEM_BARYCENTER": "8",
 }
 
 
@@ -44,8 +46,6 @@ def horizons_url(command: str, epoch: str) -> str:
         "MAKE_EPHEM": "YES",
         "EPHEM_TYPE": "VECTORS",
         "CENTER": "500@10",
-        # Horizons execution-control grammar requires quoted calendar strings
-        # because they contain a space between date and time.
         "START_TIME": f"'{start:%Y-%m-%d %H:%M}'",
         "STOP_TIME": f"'{stop:%Y-%m-%d %H:%M}'",
         "STEP_SIZE": "1h",
