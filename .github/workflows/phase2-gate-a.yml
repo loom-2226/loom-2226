@@ -42,9 +42,20 @@ jobs:
         env:
           LOOM_HOME: ${{ github.workspace }}/frozen/runtime
         run: |
-          CIVSTATE="$(find frozen/runtime -type f -name 'LOOM_2226_CIVSTATE.sqlite3' -print -quit)"
+          CIVSTATE="$(python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          expected='9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560'
+          for p in Path('frozen/runtime').rglob('LOOM_2226_CIVSTATE.sqlite3'):
+              got=hashlib.sha256(p.read_bytes()).hexdigest()
+              print(f'CANDIDATE {got} {p}', file=__import__('sys').stderr)
+              if got==expected:
+                  print(p)
+                  break
+          PY
+          )"
           test -n "$CIVSTATE"
-          echo "CIVSTATE=$CIVSTATE"
+          echo "SELECTED CIVSTATE=$CIVSTATE"
           python src/loom_navigator.py --civstate-self-test "$CIVSTATE"
       - name: Run Gate A replay and execution-state equivalence
         env:
