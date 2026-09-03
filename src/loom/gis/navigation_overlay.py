@@ -4,9 +4,9 @@ This module is deliberately display-side. It consumes authoritative navigation
 truth and emits GIS render primitives plus GIS-owned symbology. It performs no
 flight planning, propagation, interpolation, campaign writes, or ephemeris work.
 
-RC6.1 currently exposes authoritative phase anchors rather than a sampled
-trajectory polyline. The adapter therefore marks geometry availability
-explicitly and never fabricates intermediate trajectory points.
+Phase 6 may receive Python-authored Sequence-B ordinary-space samples. Those
+samples are passed through exactly. Metric transport remains explicitly
+relational and is never presented as ordinary-space occupancy.
 """
 from __future__ import annotations
 
@@ -84,6 +84,7 @@ class GISRouteSegmentRenderV1:
     geometry_authority: str
     style: Mapping[str, Any]
     engineering: Mapping[str, Any] = field(default_factory=dict)
+    geometry_semantics: Mapping[str, Any] = field(default_factory=dict)
     def to_dict(self) -> dict[str, Any]: return asdict(self)
 
 
@@ -105,6 +106,7 @@ class GISRouteRenderV1:
     source_contract: str
     source_sha256: str
     role: str = "ACTIVE"
+    trajectory: Mapping[str, Any] = field(default_factory=dict)
     def to_dict(self) -> dict[str, Any]: return asdict(self)
 
 
@@ -152,12 +154,18 @@ def _render_segment(seg: Any) -> GISRouteSegmentRenderV1:
         for raw in raw_points:
             v = _vector3(raw)
             if v is not None: points.append(tuple(v))
-    authority = "AUTHORITATIVE_SAMPLED_GEOMETRY" if len(points) >= 2 else "AUTHORITATIVE_PHASE_ANCHORS_ONLY"
+    authority = str(geom.get("authority") or ("AUTHORITATIVE_SAMPLED_GEOMETRY" if len(points) >= 2 else "AUTHORITATIVE_PHASE_ANCHORS_ONLY"))
+    semantics = {
+        key: geom[key]
+        for key in ("mode", "coordinate_frame", "semantics", "ordinary_space_occupancy")
+        if key in geom
+    }
     return GISRouteSegmentRenderV1(
         type=seg_type, phase=getattr(seg, "phase", None), start_epoch=getattr(seg, "start_epoch", None),
         end_epoch=getattr(seg, "end_epoch", None), start_position_j2000_ecliptic_km=tuple(start) if start else None,
         end_position_j2000_ecliptic_km=tuple(end) if end else None, geometry_points_j2000_ecliptic_km=tuple(points),
-        geometry_authority=authority, style=dict(_PHASE_STYLE.get(seg_type, _PHASE_STYLE["UNSPECIFIED"])), engineering=_segment_engineering(seg),
+        geometry_authority=authority, style=dict(_PHASE_STYLE.get(seg_type, _PHASE_STYLE["UNSPECIFIED"])),
+        engineering=_segment_engineering(seg), geometry_semantics=semantics,
     )
 
 
@@ -177,12 +185,14 @@ def route_to_gis(route: LoomRouteLayerV1, *, role: str = "ACTIVE") -> GISRouteRe
         elif seg.type == "TERMINAL_BURN":
             p = seg.start_position_j2000_ecliptic_km or seg.end_position_j2000_ecliptic_km
             if p is not None: anchors.append(GISRouteAnchorV1("TERMINAL_BURN", seg.start_epoch, p, label="TERMINAL BURN"))
+    route_payload = _mapping(route.payload)
+    trajectory = _mapping(route_payload.get("trajectory"))
     return GISRouteRenderV1(
         route_id=route.route_id, flight_id=route.flight_id, origin=route.origin, destination=route.destination,
         departure_epoch=route.departure_epoch, arrival_epoch=route.arrival_epoch, strategy=route.strategy, status=route.status,
         segments=segments, anchors=tuple(anchors), maneuvers=tuple(dict(x) for x in route.maneuvers),
         current_vehicle_state=dict(route.current_vehicle_state), arrival_state=dict(route.arrival_state),
-        source_contract=route.contract, source_sha256=route.sha256(), role=role,
+        source_contract=route.contract, source_sha256=route.sha256(), role=role, trajectory=trajectory,
     )
 
 
