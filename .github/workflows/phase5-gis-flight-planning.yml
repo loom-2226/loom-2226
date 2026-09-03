@@ -146,7 +146,7 @@ jobs:
           nav2=get('/navigation-overlay.json')
           assert nav2['active_route'] is None, nav2
           with urllib.request.urlopen(base+'/app.js', timeout=10) as r: js=r.read().decode()
-          assert 'LOOM_PHASE5_FLIGHT_PLANNING' in js and '/flight-planning/discover' in js
+          assert 'LOOM_PHASE5_FLIGHT_PLANNING' in js and '/flight-planning/' in js and "postPlanning('discover'" in js
           print('LIVE PHASE5 HTTP DISCOVER PASS CERES -> MARS',len(discovered['candidates']))
           print('LIVE PHASE5 HTTP PREVIEW PASS',rid)
           print('LIVE PHASE5 HTTP COMMIT/CANCEL PASS')
