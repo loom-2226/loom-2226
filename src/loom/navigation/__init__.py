@@ -11,6 +11,7 @@ from .contracts import (
     TrajectorySegment,
 )
 from .route_layer import (
+    GEOMETRY_MODE,
     LegacyRouteLayerAdapter,
     LoomRouteLayerV1,
     RouteLayerBodyV1,
@@ -29,6 +30,7 @@ __all__ = [
     "NavigationRequest",
     "RouteCandidate",
     "TrajectorySegment",
+    "GEOMETRY_MODE",
     "LegacyRouteLayerAdapter",
     "LoomRouteLayerV1",
     "RouteLayerBodyV1",
