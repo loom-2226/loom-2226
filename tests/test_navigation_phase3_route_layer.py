@@ -8,6 +8,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from loom.navigation import (
     FlightPlan,
+    GEOMETRY_MODE,
     LegacyRouteLayerAdapter,
     LoomRouteLayerV1,
     NavigationContext,
@@ -19,6 +20,7 @@ from loom.navigation import (
 
 class RouteLayerV1Test(unittest.TestCase):
     def setUp(self):
+        self.collapse = [123.0, 456.0, 789.0]
         self.candidate = RouteCandidate(
             route_id="R1",
             origin="CERES",
@@ -29,34 +31,58 @@ class RouteLayerV1Test(unittest.TestCase):
             payload={"metric": "EXPEDITE", "torch": "PRECISION_COLLAPSE"},
         )
         self.runtime_flight = {
-            "flight_id": "F1",
             "final_epoch_utc": "2226-01-02T00:00:00Z",
+            "model": "NAV-V1-A",
+            "model_status": "QUALIFIED",
             "mass_ledger": {"final_remass_t": 244.5, "final_wet_mass_t": 994.5},
             "legs": [
                 {
-                    "kind": "DIRECT",
-                    "phases": [
+                    "leg_id": "L1",
+                    "origin_id": "CERES",
+                    "destination_id": "MARS",
+                    "departure_epoch_utc": "2226-01-01T00:00:00Z",
+                    "metric_mode": "EXPEDITE",
+                    "torch_mode": "PRECISION_COLLAPSE",
+                    "metric_segment": {
+                        "beta_c": 0.42,
+                        "collapse_epoch_utc": "2226-01-01T23:30:00Z",
+                        "collapse_position_km_j2000_ecliptic": self.collapse,
+                        "distance_km": 123456.0,
+                        "duration_s": 84600.0,
+                        "ramp_s": 120.0,
+                        "semantics": "PRECISION_COLLAPSE",
+                    },
+                    "ordinary_velocity_memory": {
+                        "collapse_velocity_km_s": [1.0, 2.0, 3.0],
+                        "acquisition_velocity_km_s": [0.1, 0.2, 0.3],
+                        "frame": "J2000_ECLIPTIC",
+                        "status": "VALID",
+                    },
+                    "engineering_checkpoints": [
                         {
-                            "type": "TORCH",
-                            "phase": "DEPARTURE_TORCH",
-                            "start_epoch_utc": "2226-01-01T00:00:00Z",
-                            "end_epoch_utc": "2226-01-01T01:00:00Z",
-                            "start_position_km": [1.0, 2.0, 3.0],
-                            "end_position_km": [4.0, 5.0, 6.0],
-                            "acceleration_g": 0.05,
-                        },
-                        {
-                            "type": "METRIC",
-                            "phase": "METRIC_TRANSIT",
-                            "start_epoch_utc": "2226-01-01T01:00:00Z",
-                            "end_epoch_utc": "2226-01-01T23:00:00Z",
-                            "trajectory": {"frame": "BARYCENTRIC", "points": [[4, 5, 6], [7, 8, 9]]},
-                        },
+                            "fraction": 0.5,
+                            "epoch_utc": "2226-01-01T12:00:00Z",
+                            "accel_g": 0.05,
+                            "wet_mass_t": 997.0,
+                        }
                     ],
+                    "terminal_burn": {
+                        "burn_s": 1800.0,
+                        "delta_v_km_s": 4.25,
+                        "delta_v_vec_km_s": [4.0, 1.0, 0.5],
+                        "initial_accel_g": 0.03,
+                        "final_accel_g": 0.02,
+                        "remass_used_t": 5.5,
+                        "thrust_MN": 2.1,
+                    },
+                    "arrival": {
+                        "epoch_utc": "2226-01-02T00:00:00Z",
+                        "ship_position_residual_km": 0.0,
+                        "ship_velocity_residual_km_s": 0.0,
+                        "total_nav_time_s": 86400.0,
+                    },
                 }
             ],
-            "waypoints": [{"body_id": "CERES"}, {"body_id": "MARS"}],
-            "maneuvers": [{"type": "ARRIVAL_ACQUISITION", "epoch_utc": "2226-01-02T00:00:00Z"}],
         }
         self.plan = FlightPlan(
             flight_id="F1",
@@ -71,6 +97,7 @@ class RouteLayerV1Test(unittest.TestCase):
                 "epoch_utc": "2226-01-01T00:00:00Z",
                 "location_token": "CERES",
                 "status": "DOCKED",
+                "last_flight": None,
                 "ship": {"wet_mass_t": 1000.0, "remass_t": 250.0},
             }
         )
@@ -85,26 +112,57 @@ class RouteLayerV1Test(unittest.TestCase):
         self.assertEqual(layer.departure_epoch, "2226-01-01T00:00:00Z")
         self.assertEqual(layer.arrival_epoch, "2226-01-02T00:00:00Z")
         self.assertEqual(layer.strategy, "EXPEDITE/PRECISION_COLLAPSE")
-        self.assertEqual(len(layer.segments), 2)
-        self.assertEqual(len(layer.waypoints), 2)
+        self.assertEqual([s.type for s in layer.segments], ["METRIC", "TERMINAL_BURN"])
+        self.assertEqual(len(layer.waypoints), 0)
         self.assertEqual([b.role for b in layer.bodies], ["ORIGIN", "DESTINATION"])
-        self.assertEqual(len(layer.maneuvers), 1)
+        self.assertEqual([m["type"] for m in layer.maneuvers], ["METRIC_COLLAPSE", "TERMINAL_BURN"])
         self.assertEqual(layer.current_vehicle_state["location_token"], "CERES")
         self.assertEqual(layer.arrival_state["location"], "MARS")
+        self.assertEqual(layer.payload["geometry_mode"], GEOMETRY_MODE)
 
-    def test_segment_promotes_physics_without_recalculating(self):
+    def test_metric_segment_promotes_authoritative_collapse_anchor(self):
         layer = LegacyRouteLayerAdapter().build(self.plan, self.context)
-        torch = layer.segments[0]
-        self.assertEqual(torch.type, "TORCH")
-        self.assertEqual(torch.phase, "DEPARTURE_TORCH")
-        self.assertEqual(torch.start_position, {"values": [1.0, 2.0, 3.0]})
-        self.assertEqual(torch.end_position, {"values": [4.0, 5.0, 6.0]})
-        self.assertEqual(torch.acceleration, {"value": 0.05})
-        self.assertEqual(torch.payload["acceleration_g"], 0.05)
+        metric = layer.segments[0]
+        self.assertEqual(metric.type, "METRIC")
+        self.assertEqual(metric.start_epoch, "2226-01-01T00:00:00Z")
+        self.assertEqual(metric.end_epoch, "2226-01-01T23:30:00Z")
+        self.assertEqual(metric.end_position["coordinate_frame"], "J2000_ECLIPTIC")
+        self.assertEqual(metric.end_position["position_km"], self.collapse)
+        self.assertEqual(metric.geometry["mode"], GEOMETRY_MODE)
+        self.assertEqual(metric.geometry["collapse_position_km"], self.collapse)
+        self.assertEqual(metric.velocity["collapse_velocity_km_s"], [1.0, 2.0, 3.0])
+        self.assertEqual(metric.acceleration["engineering_checkpoints"][0]["accel_g"], 0.05)
+        self.assertEqual(metric.payload["metric_segment"]["beta_c"], 0.42)
+
+    def test_terminal_burn_preserves_dv_and_acceleration(self):
+        layer = LegacyRouteLayerAdapter().build(self.plan, self.context)
+        terminal = layer.segments[1]
+        self.assertEqual(terminal.type, "TERMINAL_BURN")
+        self.assertEqual(terminal.phase, "ARRIVAL_ACQUISITION")
+        self.assertEqual(terminal.start_epoch, "2226-01-01T23:30:00Z")
+        self.assertEqual(terminal.end_epoch, "2226-01-02T00:00:00Z")
+        self.assertEqual(terminal.start_position["position_km"], self.collapse)
+        self.assertEqual(terminal.velocity["delta_v_km_s"], 4.25)
+        self.assertEqual(terminal.acceleration["initial_accel_g"], 0.03)
+        self.assertEqual(terminal.acceleration["final_accel_g"], 0.02)
+        self.assertEqual(terminal.payload["terminal_burn"]["remass_used_t"], 5.5)
+
+    def test_no_sampled_track_is_invented(self):
+        layer = LegacyRouteLayerAdapter().build(self.plan, self.context)
+        for segment in layer.segments:
+            self.assertNotIn("points", segment.geometry)
+            self.assertNotIn("polyline", segment.geometry)
+            self.assertNotIn("sampled_track", segment.geometry)
+        self.assertEqual(layer.payload["geometry_mode"], "AUTHORITATIVE_PHASE_ANCHORS_ONLY")
+
+    def test_null_prior_flight_is_valid_departure_state(self):
+        layer = LegacyRouteLayerAdapter().build(self.plan, self.context)
+        self.assertEqual(layer.status, "PLANNED")
+        self.assertIsNone(layer.current_vehicle_state["last_flight"])
 
     def test_contract_is_display_agnostic(self):
         layer = LegacyRouteLayerAdapter().build(self.plan, self.context).to_dict()
-        forbidden = {"color", "colour", "icon", "stroke", "fill", "opacity", "line_width", "symbol", "css"}
+        forbidden = {"color", "colour", "icon", "stroke", "fill", "opacity", "line_width", "symbol", "css", "style", "symbology"}
 
         def walk(value):
             if isinstance(value, dict):
