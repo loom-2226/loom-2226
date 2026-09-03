@@ -1,0 +1,65 @@
+name: LOOM Phase 6 MVP Closure
+
+on:
+  push:
+    branches:
+      - feature/gis-navigator-convergence
+    paths:
+      - 'src/loom/gis/**'
+      - 'src/loom/navigation/**'
+      - 'src/loom/campaign/**'
+      - 'src/loom_gis.py'
+      - 'tests/**'
+      - 'docs/architecture/LOOM_2226_Phase6_MVP_Closure_Plan_v1.0.md'
+      - '.github/workflows/phase6-mvp-closure.yml'
+  workflow_dispatch:
+
+jobs:
+  mvp-contract:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      PYTHONPATH: ${{ github.workspace }}/src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install provider dependency
+        run: python -m pip install --disable-pip-version-check requests
+      - name: Compile converged Python
+        run: python -m py_compile src/loom_gis.py src/loom/gis/*.py src/loom/navigation/*.py src/loom/campaign/*.py
+      - name: Syntax-check shared browser modules
+        run: |
+          node --check src/loom/gis/flight_planning.js
+          node --check src/loom/gis/flight_planning_selection.js
+          node --check src/loom/gis/flight_planning_unified_drawer.js
+          node --check src/loom/gis/navigation_overlay.js
+      - name: Verify MVP UI/source invariants
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          planning=Path('src/loom/gis/flight_planning.js').read_text()
+          selection=Path('src/loom/gis/flight_planning_selection.js').read_text()
+          http=Path('src/loom/gis/flight_planning_http.py').read_text()
+          drawer=Path('src/loom/gis/flight_planning_unified_drawer.js').read_text()
+          assert "return '—'" in planning or "return '—';" in planning
+          assert '/flight-planning/resolve' in selection
+          assert "LOOM_FLIGHT_DESTINATION_RESOLVER='MVP_V1'" in selection
+          assert 'NAVIGATION UNAVAILABLE' in selection
+          assert '/flight-planning/resolve' in http
+          assert 'NAVIGATOR_VALIDATE_AND_NORMALIZE_MISSION' in http
+          assert 'LOOM_UNIFIED_NAV_ATLAS_DRAWER' in drawer
+          print('PHASE6 MVP SOURCE CONTRACT PASS')
+          PY
+      - name: Run focused regression suite
+        run: |
+          python -m unittest \
+            tests.test_navigation_phase2 \
+            tests.test_navigation_phase3_route_layer \
+            tests.test_gis_phase4_navigation_overlay \
+            tests.test_gis_phase5_flight_planning \
+            tests.test_gis_phase6_campaign_execution \
+            tests.test_sequence_b_payload_promotion \
+            -v
