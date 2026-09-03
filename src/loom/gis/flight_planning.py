@@ -14,7 +14,7 @@ import hashlib
 import json
 
 from loom.navigation import NavigationContext, NavigationRequest, RouteCandidate
-from loom.navigation.trajectory_payload import promote_sequence_b_payload
+from loom.navigation.trajectory_payload import find_sequence_b_payload, promote_sequence_b_payload, sequence_b_payload_probe
 from .navigation_overlay import build_navigation_overlay
 
 GIS_FLIGHT_PLANNING_VERSION = "LOOM_GIS_FLIGHT_PLANNING_V1"
@@ -161,6 +161,12 @@ class GISFlightPlanningSession:
         if plan is None:
             plan = self.service.compile_flight(self._request, candidate, self.context)
             plan = promote_sequence_b_payload(plan)
+            if find_sequence_b_payload(plan.payload) is None:
+                print("NAV TRAJECTORY  Sequence-B payload absent after live determinism gate")
+                for row in sequence_b_payload_probe(plan.payload):
+                    print("NAV PAYLOAD     ", row)
+            else:
+                print("NAV TRAJECTORY  Sequence-B payload available")
             self._plans[candidate.route_id] = plan
         layer = self.service.get_route_layer(plan, self.context)
         self.preview_route_id = candidate.route_id
