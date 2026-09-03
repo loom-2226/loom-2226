@@ -91,7 +91,7 @@ def qualify_layer(layer):
     return overlay
 
 
-def launcher_smoke(layer, overlay):
+def launcher_smoke(layer):
     td = Path(tempfile.mkdtemp(prefix="loom_phase4_"))
     route_path = td / "route.json"
     route_path.write_text(json.dumps(layer.to_dict(), indent=2) + "\n", encoding="utf-8")
@@ -117,6 +117,7 @@ def launcher_smoke(layer, overlay):
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("runtime_root")
+    ap.add_argument("--route-out", type=Path)
     args = ap.parse_args()
     root = Path(args.runtime_root).resolve()
     service = LegacyNavigationService(loom_navigator.load_core())
@@ -126,7 +127,7 @@ def main() -> int:
         try:
             layer, runtime_sha = solve_frozen_layer(service, bundle)
             overlay = qualify_layer(layer)
-            launcher_smoke(layer, overlay)
+            launcher_smoke(layer)
             result = (bundle, layer, overlay, runtime_sha)
             break
         except Exception as exc:
@@ -136,6 +137,10 @@ def main() -> int:
         raise RuntimeError(f"Phase 4 found no qualifying frozen runtime bundle: {last_error}")
 
     bundle, layer, overlay, runtime_sha = result
+    if args.route_out:
+        args.route_out.parent.mkdir(parents=True, exist_ok=True)
+        args.route_out.write_text(json.dumps(layer.to_dict(), indent=2) + "\n", encoding="utf-8")
+        print("route_fixture=", args.route_out)
     route = overlay.active_route
     print("PHASE4_GIS_NAVIGATION=PASS")
     print("EPHEMERIS_MODE=FROZEN_OFFLINE_ONLY")
