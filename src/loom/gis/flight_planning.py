@@ -88,9 +88,10 @@ class GISPlanningStateV1:
 class GISFlightPlanningSession:
     """Ephemeral planning session over one immutable campaign-state snapshot."""
 
-    def __init__(self, navigation_service: Any, context: NavigationContext):
+    def __init__(self, navigation_service: Any, context: NavigationContext, *, offline: bool = False):
         self.service = navigation_service
         self.context = context
+        self.offline = bool(offline)
         self._campaign_before = copy.deepcopy(dict(context.campaign_state))
         origin = str(self._campaign_before.get("location_token") or "").strip()
         if not origin:
@@ -137,6 +138,7 @@ class GISFlightPlanningSession:
         self.destination = destination
         self.priority = str(priority or "BALANCED").upper()
         self._request = NavigationRequest(origin=self.origin, destination=destination, priority=self.priority)
+        self.context = self.service.prepare_context(self._request, self.context, offline=self.offline, refresh=False)
         rows = self.service.discover_routes(self._request, self.context)
         self._candidates = {c.route_id: c for c in rows}
         self._plans.clear()
