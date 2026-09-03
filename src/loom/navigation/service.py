@@ -35,12 +35,7 @@ def _stable_id(prefix: str, payload: Mapping[str, Any]) -> str:
 
 @dataclass
 class LegacyNavigationService:
-    """Canonical service facade over the frozen outer Navigator module.
-
-    The outer module is ``loom_navigator_core.py``. Its embedded Sequence-H
-    module is loaded through the outer module's own ``_load_core`` routine, so
-    its existing hash check and authoritative implementation are preserved.
-    """
+    """Canonical service facade over the frozen outer Navigator module."""
 
     core: Any
 
@@ -58,7 +53,6 @@ class LegacyNavigationService:
         return value
 
     def discover_routes(self, request: NavigationRequest, context: NavigationContext) -> tuple[RouteCandidate, ...]:
-        """Delegate authoritative route discovery to RC6.1 ``_candidate_plans``."""
         nav = self._sequence_h(context)
         normalize = getattr(nav, "validate_and_normalize_mission", None)
         discover = getattr(self.core, "_candidate_plans", None)
@@ -84,13 +78,7 @@ class LegacyNavigationService:
             ))
         return tuple(out)
 
-    def compile_flight(
-        self,
-        request: NavigationRequest,
-        candidate: RouteCandidate,
-        context: NavigationContext,
-    ) -> FlightPlan:
-        """Run the existing deterministic final solve for a selected candidate."""
+    def compile_flight(self, request: NavigationRequest, candidate: RouteCandidate, context: NavigationContext) -> FlightPlan:
         nav = self._sequence_h(context)
         normalize = getattr(nav, "validate_and_normalize_mission", None)
         gate = getattr(nav, "target_determinism_gate", None)
@@ -113,18 +101,22 @@ class LegacyNavigationService:
             }
         runtime, payloads, html, validation, determinism = gate(normalized, acq, cache, b1)
 
-        # Preserve the legacy plan summary/hash when the frozen outer core exposes
-        # those helpers. This is metadata only; the deterministic solve above is
-        # still the sole physics authority.
         plan_summary = None
         plan_sha = None
         summarize = getattr(self.core, "_plan_summary", None)
         canon = getattr(self.core, "_canon", None)
         sha_bytes = getattr(self.core, "_sha_bytes", None)
-        if callable(summarize) and callable(canon) and callable(sha_bytes) and state:
-            plan_summary = summarize(
-                nav, state, cp, request.origin, request.destination, request.priority
-            )
+        # _plan_summary expects the complete legacy discovery candidate, including
+        # the solved `leg`. Replay/golden fixtures may intentionally carry only
+        # the selected modes; do not synthesize missing candidate internals.
+        if (
+            callable(summarize)
+            and callable(canon)
+            and callable(sha_bytes)
+            and state
+            and isinstance(cp.get("leg"), Mapping)
+        ):
+            plan_summary = summarize(nav, state, cp, request.origin, request.destination, request.priority)
             plan_sha = sha_bytes(canon(plan_summary))
 
         packed = {
@@ -152,19 +144,13 @@ class LegacyNavigationService:
         return self.compile_flight(request, candidate, context)
 
     def execute_flight(self, plan: FlightPlan, context: NavigationContext) -> FlightExecutionResult:
-        """Return the authoritative arrival transition without persisting campaign state.
-
-        Phase 2 extracts navigation execution from CLI interaction. Campaign
-        persistence/history remains the campaign authority and is integrated in
-        Phase 6; this operation therefore never writes files or ledger records.
-        """
+        """Return the authoritative arrival transition without persisting campaign state."""
         try:
             return LegacyFlightExecutionAdapter(self.core).execute(plan, context)
         except RuntimeError as exc:
             raise NavigationServiceError(str(exc)) from exc
 
     def get_ephemeris(self, context: NavigationContext, epoch: str | None = None) -> EphemerisSnapshot:
-        """Expose Sequence H canonical ephemeris/dependency truth without recalculation."""
         nav = self._sequence_h(context)
         provider = LegacySequenceHEphemerisProvider(nav)
         try:
