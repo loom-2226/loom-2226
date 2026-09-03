@@ -5,9 +5,10 @@ Navigator truth to GIS. This module performs no flight math. It promotes stable
 semantic fields from a solved FlightPlan and retains source payloads for
 provenance while centralizing legacy-key adaptation in one place.
 
-RC6.1 does not expose a sampled trajectory polyline. The V1 adapter therefore
-publishes only authoritative phase anchors and engineering state. Consumers may
-render those truths, but must not interpolate or invent flight physics.
+Phase 6 promotes Navigator's Python-authored Sequence-B timeline. Ordinary 3D
+positions are published only where Navigator defines ordinary-space occupancy.
+Metric transport remains explicitly relational; consumers must not invent an
+ordinary-space path through that phase.
 """
 from __future__ import annotations
 
@@ -18,9 +19,12 @@ import hashlib
 import json
 
 from .contracts import FlightPlan, NavigationContext
+from .flight_payload import FlightPayloadDecodeError, decode_flight_solutions
 
 ROUTE_LAYER_VERSION = "LOOM_ROUTE_LAYER_V1"
-GEOMETRY_MODE = "AUTHORITATIVE_PHASE_ANCHORS_ONLY"
+ANCHOR_GEOMETRY_MODE = "AUTHORITATIVE_PHASE_ANCHORS_ONLY"
+SEQUENCE_B_GEOMETRY_MODE = "AUTHORITATIVE_SEQUENCE_B_MIXED_GEOMETRY"
+GEOMETRY_MODE = ANCHOR_GEOMETRY_MODE  # backwards-compatible import
 
 
 class RouteLayerError(ValueError):
@@ -173,7 +177,8 @@ class LegacyRouteLayerAdapter:
 
         current_state = dict(context.campaign_state) if context is not None else {}
         arrival_state = self._arrival_state(plan, flight)
-        segments = self._segments(flight)
+        trajectory = self._sequence_b_trajectory(packed, flight)
+        segments = self._segments(flight, trajectory)
         waypoints = self._mapping_list(_first(flight, ("waypoints", "route_waypoints"), []))
         maneuvers = self._maneuvers(flight)
         bodies = self._body_refs(candidate.origin, candidate.destination)
@@ -182,6 +187,18 @@ class LegacyRouteLayerAdapter:
         prior_flight = _mapping(current_state.get("last_flight")) if current_state else {}
         if prior_flight.get("flight_id") == plan.flight_id:
             status = str(current_state.get("status") or "EXECUTED")
+
+        geometry_mode = SEQUENCE_B_GEOMETRY_MODE if trajectory else ANCHOR_GEOMETRY_MODE
+        payload: dict[str, Any] = {
+            "source": "AUTHORITATIVE_NAVIGATOR_SERVICE",
+            "geometry_mode": geometry_mode,
+            "runtime_model": flight.get("model"),
+            "model_status": flight.get("model_status"),
+            "runtime_flight": flight,
+            "determinism": _mapping(packed.get("determinism")),
+        }
+        if trajectory:
+            payload["trajectory"] = trajectory
 
         return LoomRouteLayerV1(
             route_id=candidate.route_id,
@@ -198,17 +215,78 @@ class LegacyRouteLayerAdapter:
             maneuvers=maneuvers,
             current_vehicle_state=current_state,
             arrival_state=arrival_state,
-            payload={
-                "source": "AUTHORITATIVE_NAVIGATOR_SERVICE",
-                "geometry_mode": GEOMETRY_MODE,
-                "runtime_model": flight.get("model"),
-                "model_status": flight.get("model_status"),
-                "runtime_flight": flight,
-                "determinism": _mapping(packed.get("determinism")),
-            },
+            payload=payload,
         )
 
-    def _segments(self, flight: Mapping[str, Any]) -> tuple[RouteLayerSegmentV1, ...]:
+    def _sequence_b_trajectory(self, packed: Mapping[str, Any], flight: Mapping[str, Any]) -> dict[str, Any] | None:
+        payloads = packed.get("payloads")
+        if not isinstance(payloads, Mapping):
+            return None
+        raw = payloads.get("flightSolutionsPayload")
+        if not isinstance(raw, (bytes, bytearray)):
+            return None
+        legs = flight.get("legs") or []
+        leg = legs[0] if isinstance(legs, (list, tuple)) and legs and isinstance(legs[0], Mapping) else {}
+        route_plan_id = leg.get("route_plan_id") or flight.get("route_plan_id")
+        metric_mode = leg.get("metric_mode")
+        torch_mode = leg.get("torch_mode")
+        solution_key = f"{metric_mode}|{torch_mode}" if metric_mode and torch_mode else None
+        try:
+            decoded = decode_flight_solutions(raw)
+            solution = decoded.select_solution(route_plan_id=route_plan_id, solution_key=solution_key)
+            rows = decoded.timeline_rows(solution)
+        except FlightPayloadDecodeError as exc:
+            raise RouteLayerError(f"authoritative Sequence-B trajectory decode failed: {exc}") from exc
+
+        samples: list[dict[str, Any]] = []
+        ordinary_points: list[list[float]] = []
+        for row in rows:
+            sample = {
+                key: row.get(key)
+                for key in (
+                    "sample_index", "flight_t_s", "epoch_utc", "phase_code", "phase_progress",
+                    "eta_s", "position_semantics_code", "relational_progress", "ordinary_state_kind_code",
+                    "ordinary_pos_x_km", "ordinary_pos_y_km", "ordinary_pos_z_km",
+                    "ordinary_vel_x_km_s", "ordinary_vel_y_km_s", "ordinary_vel_z_km_s",
+                    "ordinary_speed_km_s", "ordinary_accel_g", "target_range_km", "target_delta_v_km_s",
+                    "metric_state_code", "metric_beta_current", "torch_state_code", "wet_mass_t",
+                    "remass_remaining_t", "thermal_state_code",
+                )
+            }
+            samples.append(sample)
+            xyz = (row.get("ordinary_pos_x_km"), row.get("ordinary_pos_y_km"), row.get("ordinary_pos_z_km"))
+            if all(value is not None for value in xyz):
+                ordinary_points.append([float(xyz[0]), float(xyz[1]), float(xyz[2])])
+
+        geometry = solution.get("geometry") if isinstance(solution, Mapping) else None
+        metric_semantics = "RELATIONAL DISPLACEMENT / NOT ORDINARY-SPACE OCCUPANCY"
+        torch_semantics = "PYTHON-AUTHORED ORDINARY TRAJECTORY"
+        if isinstance(geometry, Mapping):
+            solar_3d = geometry.get("solar_3d")
+            if isinstance(solar_3d, Mapping):
+                nav = solar_3d.get("NAV")
+                oblique = nav.get("OBLIQUE") if isinstance(nav, Mapping) else None
+                if isinstance(oblique, Mapping):
+                    metric_semantics = str(oblique.get("metric_semantics") or metric_semantics)
+                    torch_semantics = str(oblique.get("torch_semantics") or torch_semantics)
+
+        timeline = solution.get("timeline") if isinstance(solution, Mapping) else None
+        events = list(timeline.get("events") or []) if isinstance(timeline, Mapping) else []
+        return {
+            "authority": "PYTHON_AUTHORED_SEQUENCE_B",
+            "renderer_rule": decoded.metadata.get("renderer_rule") or "INDEX_ONLY_NO_INFERENCE",
+            "coordinate_frame": "J2000_ECLIPTIC",
+            "sample_count": len(samples),
+            "samples": samples,
+            "ordinary_points_j2000_ecliptic_km": ordinary_points,
+            "metric_semantics": metric_semantics,
+            "ordinary_semantics": torch_semantics,
+            "events": events,
+            "route_plan_id": route_plan_id,
+            "solution_key": solution_key,
+        }
+
+    def _segments(self, flight: Mapping[str, Any], trajectory: Mapping[str, Any] | None = None) -> tuple[RouteLayerSegmentV1, ...]:
         raw_legs = _first(flight, ("legs", "segments"), [])
         if not isinstance(raw_legs, (list, tuple)):
             return ()
@@ -217,7 +295,7 @@ class LegacyRouteLayerAdapter:
             if not isinstance(leg, Mapping):
                 continue
             if isinstance(leg.get("metric_segment"), Mapping) or isinstance(leg.get("terminal_burn"), Mapping):
-                out.extend(self._sequence_h_segments(leg))
+                out.extend(self._sequence_h_segments(leg, trajectory))
                 continue
             nested = _first(leg, ("phases", "segments"))
             rows = nested if isinstance(nested, (list, tuple)) and nested else [leg]
@@ -226,7 +304,7 @@ class LegacyRouteLayerAdapter:
                     out.append(self._generic_segment(row, leg))
         return tuple(out)
 
-    def _sequence_h_segments(self, leg: Mapping[str, Any]) -> tuple[RouteLayerSegmentV1, ...]:
+    def _sequence_h_segments(self, leg: Mapping[str, Any], trajectory: Mapping[str, Any] | None = None) -> tuple[RouteLayerSegmentV1, ...]:
         metric = _mapping(leg.get("metric_segment"))
         terminal = _mapping(leg.get("terminal_burn"))
         arrival = _mapping(leg.get("arrival"))
@@ -235,19 +313,24 @@ class LegacyRouteLayerAdapter:
         collapse_epoch = metric.get("collapse_epoch_utc")
         collapse_position = metric.get("collapse_position_km_j2000_ecliptic")
         collapse_anchor = self._position_anchor(collapse_position)
+        geometry_mode = SEQUENCE_B_GEOMETRY_MODE if trajectory else ANCHOR_GEOMETRY_MODE
         out: list[RouteLayerSegmentV1] = []
 
         if metric:
+            metric_geometry: dict[str, Any] = {
+                "mode": geometry_mode,
+                "coordinate_frame": "J2000_ECLIPTIC",
+                "semantics": (trajectory or {}).get("metric_semantics", "RELATIONAL DISPLACEMENT / NOT ORDINARY-SPACE OCCUPANCY"),
+                "ordinary_space_occupancy": False,
+            }
+            if collapse_position is not None:
+                metric_geometry["collapse_position_km"] = list(collapse_position) if isinstance(collapse_position, (list, tuple)) else collapse_position
             out.append(RouteLayerSegmentV1(
                 type="METRIC",
                 start_epoch=leg.get("departure_epoch_utc"),
                 end_epoch=collapse_epoch,
                 end_position=collapse_anchor,
-                geometry={
-                    "mode": GEOMETRY_MODE,
-                    "coordinate_frame": "J2000_ECLIPTIC",
-                    "collapse_position_km": list(collapse_position) if isinstance(collapse_position, (list, tuple)) else collapse_position,
-                } if collapse_position is not None else {"mode": GEOMETRY_MODE},
+                geometry=metric_geometry,
                 velocity=velocity_memory,
                 acceleration={"engineering_checkpoints": list(checkpoints)} if checkpoints else {},
                 phase=str(metric.get("semantics") or leg.get("metric_mode") or "METRIC_TRANSIT"),
@@ -273,12 +356,22 @@ class LegacyRouteLayerAdapter:
                 for key in ("initial_accel_g", "final_accel_g", "thrust_N", "thrust_MN")
                 if terminal.get(key) is not None
             }
+            points = list((trajectory or {}).get("ordinary_points_j2000_ecliptic_km") or [])
+            terminal_geometry: dict[str, Any] = {
+                "mode": geometry_mode,
+                "coordinate_frame": "J2000_ECLIPTIC",
+                "semantics": (trajectory or {}).get("ordinary_semantics", "ORDINARY_HELIOCENTRIC"),
+                "ordinary_space_occupancy": True,
+            }
+            if points:
+                terminal_geometry["points"] = points
+                terminal_geometry["authority"] = "PYTHON_AUTHORED_SEQUENCE_B"
             out.append(RouteLayerSegmentV1(
                 type="TERMINAL_BURN",
                 start_epoch=collapse_epoch,
                 end_epoch=arrival.get("epoch_utc"),
                 start_position=collapse_anchor,
-                geometry={"mode": GEOMETRY_MODE},
+                geometry=terminal_geometry,
                 velocity=terminal_velocity,
                 acceleration=terminal_acceleration,
                 phase="ARRIVAL_ACQUISITION",
