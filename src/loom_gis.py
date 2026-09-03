@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""LOOM converged GIS launcher — Phase 5.
+"""LOOM converged GIS launcher — Phase 6.
 
-Runs the known-good Solar GIS with Navigator route rendering and optional
-read-only flight-planning interaction. Navigator remains authoritative for all
-planning calculations; Phase 5 never executes or persists a flight.
+Runs the known-good Solar GIS with Navigator route planning and canonical
+campaign execution. Navigator owns flight truth; campaign services own
+persistence; GIS owns interaction and presentation.
 """
 from __future__ import annotations
 
@@ -19,6 +19,7 @@ if str(SRC) not in sys.path:
 
 import loom_solar_gis as solar_gis
 import loom_navigator
+from loom.campaign import LegacyCampaignExecutionService
 from loom.gis import build_navigation_overlay, install_navigation_overlay
 from loom.gis.navigation_overlay import load_route_layer
 from loom.gis.flight_planning import GISFlightPlanningSession
@@ -65,7 +66,7 @@ def _planning_runtime_root(explicit: Path | None = None) -> Path | None:
     return None
 
 
-def _install_phase5_planning(runtime_root: Path, *, offline: bool) -> GISFlightPlanningSession:
+def _install_planning_and_execution(runtime_root: Path, *, offline: bool) -> GISFlightPlanningSession:
     state_path = runtime_root / "LOOM_STATE_V1.json"
     cache = runtime_root / "LOOM_Navigator_Cache_v1"
     b1_matches = sorted(runtime_root.glob("LOOM_Navigator_Visual_Design_B1_LOCKED_Package*.zip"))
@@ -77,14 +78,21 @@ def _install_phase5_planning(runtime_root: Path, *, offline: bool) -> GISFlightP
         raise RuntimeError(f"locked B1 package not found under {runtime_root}")
     state = json.loads(state_path.read_text(encoding="utf-8"))
     os.environ["LOOM_HOME"] = str(runtime_root)
-    service = LegacyNavigationService(loom_navigator.load_core())
+    core = loom_navigator.load_core()
+    service = LegacyNavigationService(core)
+    campaign = LegacyCampaignExecutionService(core)
     context = NavigationContext(
         campaign_state=state,
         cache_dir=cache,
         b1_package=b1_matches[0],
         runtime_root=runtime_root,
     )
-    session = GISFlightPlanningSession(service, context, offline=offline)
+    session = GISFlightPlanningSession(
+        service,
+        context,
+        offline=offline,
+        campaign_execution_service=campaign,
+    )
     install_flight_planning(solar_gis, session)
     return session
 
@@ -112,15 +120,13 @@ def main(argv=None) -> int:
         runtime_root = _planning_runtime_root(args.nav_runtime_root)
         if runtime_root:
             try:
-                planning = _install_phase5_planning(runtime_root, offline=args.nav_planning_offline)
+                planning = _install_planning_and_execution(runtime_root, offline=args.nav_planning_offline)
             except Exception as exc:
                 print("FLIGHT PLAN   unavailable ·", f"{type(exc).__name__}: {exc}")
         else:
             print("FLIGHT PLAN   unavailable · no coherent Navigator campaign runtime found")
 
     if args.nav_overlay_info:
-        # Preserve the Phase-4 diagnostic contract when planning is explicitly
-        # disabled; Phase-5-aware callers receive the combined diagnostic.
         if args.no_flight_planning:
             out = overlay.to_dict()
         else:
@@ -136,7 +142,9 @@ def main(argv=None) -> int:
         print("NAV ROUTE     none supplied · GIS navigation controls remain available")
     print("NAV OVERLAY  ", overlay.contract)
     if planning:
-        print("FLIGHT PLAN  ", planning.state().contract, "· origin", planning.origin, "·", "OFFLINE" if planning.offline else "CACHE/PROVIDER")
+        state = planning.state()
+        print("FLIGHT PLAN  ", state.contract, "· origin", planning.origin, "·", "OFFLINE" if planning.offline else "CACHE/PROVIDER")
+        print("CAMPAIGN EXEC", "ENABLED" if state.execution_available else "DISABLED")
     return solar_gis.main(rest)
 
 

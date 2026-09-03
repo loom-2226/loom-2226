@@ -1,9 +1,9 @@
-"""Phase 5 GIS flight-planning orchestration.
+"""GIS flight planning and Phase-6 campaign execution orchestration.
 
-GIS owns interaction and comparison. Navigator remains the sole authority for
-route discovery and flight compilation. Phase 5 may lock a selected plan in an
-in-memory planning session, but it never persists campaign state or executes a
-flight; those operations belong to Phase 6.
+GIS owns interaction and comparison. Navigator remains sole authority for route
+planning and flight calculations. Campaign services remain sole persistence
+authority. A planning COMMIT locks a choice; EXECUTE performs the separate,
+explicit campaign transition.
 """
 from __future__ import annotations
 
@@ -35,7 +35,6 @@ def _first(payload: Mapping[str, Any], *keys: str) -> Any:
 
 
 def _candidate_summary(candidate: RouteCandidate) -> dict[str, Any]:
-    """Promote comparison fields without calculating new physics."""
     p = dict(candidate.payload)
     leg = p.get("leg") if isinstance(p.get("leg"), Mapping) else {}
     source = dict(p)
@@ -79,6 +78,8 @@ class GISPlanningStateV1:
     committed_route_id: str | None = None
     preview_overlay: Mapping[str, Any] | None = None
     campaign_state_sha256: str | None = None
+    execution_available: bool = False
+    last_execution: Mapping[str, Any] | None = None
     contract: str = GIS_FLIGHT_PLANNING_VERSION
 
     def to_dict(self) -> dict[str, Any]:
@@ -86,12 +87,24 @@ class GISPlanningStateV1:
 
 
 class GISFlightPlanningSession:
-    """Ephemeral planning session over one immutable campaign-state snapshot."""
+    """Planning session bound to one canonical campaign snapshot at a time."""
 
-    def __init__(self, navigation_service: Any, context: NavigationContext, *, offline: bool = False):
+    def __init__(
+        self,
+        navigation_service: Any,
+        context: NavigationContext,
+        *,
+        offline: bool = False,
+        campaign_execution_service: Any | None = None,
+    ):
         self.service = navigation_service
-        self.context = context
+        self.campaign_execution_service = campaign_execution_service
         self.offline = bool(offline)
+        self.last_execution: Mapping[str, Any] | None = None
+        self._bind_context(context)
+
+    def _bind_context(self, context: NavigationContext) -> None:
+        self.context = context
         self._campaign_before = copy.deepcopy(dict(context.campaign_state))
         origin = str(self._campaign_before.get("location_token") or "").strip()
         if not origin:
@@ -105,7 +118,11 @@ class GISFlightPlanningSession:
         self.preview_route_id: str | None = None
         self.committed_route_id: str | None = None
         self.preview_overlay: Mapping[str, Any] | None = None
-        seed = {"state": self._campaign_before.get("state_id"), "origin": origin}
+        seed = {
+            "state": self._campaign_before.get("state_id"),
+            "revision": self._campaign_before.get("revision"),
+            "origin": origin,
+        }
         self.session_id = "plan-" + hashlib.sha256(_stable_json(seed)).hexdigest()[:16]
         self.campaign_state_sha256 = hashlib.sha256(_stable_json(self._campaign_before)).hexdigest()
 
@@ -127,6 +144,8 @@ class GISFlightPlanningSession:
             committed_route_id=self.committed_route_id,
             preview_overlay=self.preview_overlay,
             campaign_state_sha256=self.campaign_state_sha256,
+            execution_available=self.campaign_execution_service is not None,
+            last_execution=self.last_execution,
         )
 
     def discover(self, destination: str, priority: str = "BALANCED") -> GISPlanningStateV1:
@@ -145,6 +164,7 @@ class GISFlightPlanningSession:
         self.preview_route_id = None
         self.committed_route_id = None
         self.preview_overlay = None
+        self.last_execution = None
         self._assert_read_only()
         return self.state()
 
@@ -161,14 +181,12 @@ class GISFlightPlanningSession:
             plan = self.service.compile_flight(self._request, candidate, self.context)
             self._plans[candidate.route_id] = plan
         layer = self.service.get_route_layer(plan, self.context)
-        overlay = build_navigation_overlay(layer)
         self.preview_route_id = candidate.route_id
-        self.preview_overlay = overlay.to_dict()
+        self.preview_overlay = build_navigation_overlay(layer).to_dict()
         self._assert_read_only()
         return self.state()
 
     def commit(self, route_id: str | None = None) -> GISPlanningStateV1:
-        """Lock planning choice only. No campaign write or execution occurs."""
         selected = str(route_id or self.preview_route_id or "")
         if not selected or selected not in self._candidates:
             raise GISFlightPlanningError("preview/select a valid route before commit")
@@ -176,6 +194,32 @@ class GISFlightPlanningSession:
             self.preview(selected)
         self.committed_route_id = selected
         self._assert_read_only()
+        return self.state()
+
+    def execute(self) -> GISPlanningStateV1:
+        if self.campaign_execution_service is None:
+            raise GISFlightPlanningError("campaign execution is unavailable in this runtime")
+        plan = self.committed_plan()
+        if plan is None or self.committed_route_id is None:
+            raise GISFlightPlanningError("commit a route before execute")
+        # Navigator calculates; campaign service persists. GIS does neither.
+        execution = self.service.execute_flight(plan, self.context)
+        layer = self.service.get_route_layer(plan, self.context)
+        committed = self.campaign_execution_service.commit_flight(plan, execution, self.context)
+        history_overlay = build_navigation_overlay(historical_routes=(layer,)).to_dict()
+        summary = committed.to_dict()
+        summary["navigation_status"] = execution.status
+        summary["historical_overlay"] = history_overlay
+        new_context = NavigationContext(
+            campaign_state=copy.deepcopy(dict(committed.final_state)),
+            acquisition=None,
+            cache_dir=self.context.cache_dir,
+            b1_package=self.context.b1_package,
+            runtime_root=self.context.runtime_root,
+            payload=self.context.payload,
+        )
+        self._bind_context(new_context)
+        self.last_execution = summary
         return self.state()
 
     def cancel(self) -> GISPlanningStateV1:

@@ -1,0 +1,180 @@
+name: LOOM Phase 6 Gate C Campaign Execution
+
+on:
+  push:
+    branches:
+      - feature/gis-navigator-convergence
+    paths:
+      - 'src/loom/campaign/**'
+      - 'src/loom/gis/**'
+      - 'src/loom/navigation/**'
+      - 'src/loom_gis.py'
+      - 'tests/test_gis_phase6_campaign_execution.py'
+      - 'tools/phase6_gate_c_qualify.py'
+      - 'tools/phase2_gate_a_qualify.py'
+      - 'docs/architecture/LOOM_2226_GIS_Phase6_Campaign_Execution_v1.0.md'
+      - '.github/workflows/phase6-gate-c.yml'
+  workflow_dispatch:
+
+jobs:
+  gate-c-operational-convergence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      PYTHONPATH: ${{ github.workspace }}/src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Navigator provider dependency
+        run: python -m pip install --disable-pip-version-check requests
+      - name: Compile Phase 6 Python
+        run: python -m py_compile src/loom_gis.py src/loom/campaign/*.py src/loom/gis/*.py src/loom/navigation/*.py tools/phase6_gate_c_qualify.py
+      - name: Syntax-check Phase 6 browser controller
+        run: node --check src/loom/gis/flight_planning.js
+      - name: Run Phase 6 unit tests
+        run: python -m unittest tests.test_gis_phase6_campaign_execution -v
+      - name: Download frozen Pixel pre-clean runtime archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download v0.1.0-runtime-baseline --pattern 'LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip' --dir frozen
+      - name: Extract frozen runtime
+        run: |
+          mkdir -p frozen/runtime
+          unzip -q frozen/LOOM_2226_Pixel_PreClean_Runtime_Archive_2026-09-03.zip -d frozen/runtime
+      - name: Qualify Gate C against real frozen Navigator
+        run: python tools/phase6_gate_c_qualify.py frozen/runtime
+      - name: Prepare coherent live Gate C runtime
+        run: |
+          cp -a frozen/runtime/LOOM_TEST frozen/phase6_http_runtime
+          python - <<'PY'
+          from pathlib import Path
+          import json, sys
+          sys.path.insert(0,'src'); sys.path.insert(0,'tools')
+          import loom_navigator
+          from phase2_gate_a_qualify import history_records,newest_completed_flight
+          root=Path('frozen/phase6_http_runtime')
+          rows=history_records(root/'LOOM_CAMPAIGN_HISTORY.jsonl.gz')
+          commit,_=newest_completed_flight(rows)
+          state=dict(commit['details']['replay']['departure_state_snapshot'])
+          for p in root.glob('LOOM_CAMPAIGN_HISTORY.jsonl.gz*'):
+              if p.is_file(): p.unlink()
+          for p in (root/'LOOM_STATE_V1.json',root/'LOOM_STATE_V1.bak'):
+              if p.exists(): p.unlink()
+          core=loom_navigator.load_core()
+          core._atomic_save(root/'LOOM_STATE_V1.json',root/'LOOM_STATE_V1.bak',state)
+          ledger=core.HistoryLedger(root,state)
+          ledger.append('CAMPAIGN_MIGRATED',None,state,{'phase6_http_fixture':True},state_after_snapshot=state)
+          print('HTTP GATE C STATE',state['state_id'],state['epoch_utc'],state['location_token'],state['revision'])
+          assert state['location_token']=='CERES'
+          PY
+      - name: Select locked frozen CIVSTATE
+        run: |
+          CIVSTATE="$(python - <<'PY'
+          from pathlib import Path
+          import hashlib, sys
+          expected='9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560'
+          root=Path('frozen/phase6_http_runtime')
+          for p in root.rglob('LOOM_2226_CIVSTATE.sqlite3'):
+              got=hashlib.sha256(p.read_bytes()).hexdigest()
+              print(f'CANDIDATE {got} {p}',file=sys.stderr)
+              if got==expected:
+                  print(p); break
+          PY
+          )"
+          test -n "$CIVSTATE"
+          echo "CIVSTATE=$CIVSTATE" >> "$GITHUB_ENV"
+      - name: Capture pre-execution authority
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('frozen/phase6_http_runtime')
+          s=json.loads((root/'LOOM_STATE_V1.json').read_text())
+          Path('phase6_before.json').write_text(json.dumps({'state_id':s['state_id'],'revision':s['revision'],'epoch':s['epoch_utc'],'location':s['location_token'],'remass':s['ship']['remass_t']}))
+          PY
+      - name: Start converged GIS with Gate C execution
+        env:
+          LOOM_HOME: ${{ github.workspace }}/frozen/phase6_http_runtime
+        run: |
+          python src/loom_gis.py \
+            --nav-runtime-root frozen/phase6_http_runtime \
+            --nav-planning-offline \
+            --demo \
+            --civ-db "$CIVSTATE" \
+            --no-browser \
+            --host 127.0.0.1 \
+            --port 8768 > phase6_server.log 2>&1 &
+          echo "SERVER_PID=$!" >> "$GITHUB_ENV"
+          python - <<'PY'
+          import time,urllib.request
+          last=None
+          for _ in range(120):
+              try:
+                  with urllib.request.urlopen('http://127.0.0.1:8768/healthz',timeout=1) as r:
+                      if r.status==200: print('PHASE6 GIS SERVER READY'); raise SystemExit(0)
+              except Exception as exc: last=exc;time.sleep(.25)
+          raise SystemExit(f'GIS server did not become ready: {last}')
+          PY
+      - name: Exercise live GIS plan commit execute arrival
+        run: |
+          python - <<'PY'
+          import json,urllib.request
+          base='http://127.0.0.1:8768'
+          def get(path):
+              with urllib.request.urlopen(base+path,timeout=10) as r:return json.load(r)
+          def post(path,body):
+              req=urllib.request.Request(base+path,data=json.dumps(body).encode(),headers={'Content-Type':'application/json'},method='POST')
+              with urllib.request.urlopen(req,timeout=90) as r:return json.load(r)
+          initial=get('/flight-planning.json')
+          assert initial['origin']=='CERES' and initial['execution_available'] is True,initial
+          discovered=post('/flight-planning/discover',{'destination':'MARS','priority':'BALANCED'})
+          selectable=[c for c in discovered['candidates'] if c['summary'].get('selectable')]
+          assert selectable
+          rid=selectable[0]['route_id']
+          post('/flight-planning/preview',{'route_id':rid})
+          committed=post('/flight-planning/commit',{'route_id':rid})
+          assert committed['committed_route_id']==rid
+          arrived=post('/flight-planning/execute',{})
+          assert arrived['origin']=='MARS',arrived
+          assert arrived['committed_route_id'] is None and not arrived['candidates']
+          ex=arrived['last_execution']; assert ex['contract']=='LOOM_CAMPAIGN_EXECUTION_V1'
+          nav=get('/navigation-overlay.json')
+          assert nav['active_route'] is None and len(nav['historical_routes'])==1,nav
+          try:
+              post('/flight-planning/execute',{})
+          except urllib.error.HTTPError as exc:
+              assert exc.code==400
+          else:
+              raise AssertionError('duplicate execute unexpectedly succeeded')
+          with urllib.request.urlopen(base+'/app.js',timeout=10) as r:js=r.read().decode()
+          assert 'LOOM_PHASE6_CAMPAIGN_EXECUTION' in js and "postPlanning('execute'" in js
+          print('LIVE GATE C PASS',rid,ex['flight_id'],ex['revision_before'],'->',ex['revision_after'])
+          PY
+      - name: Verify one authoritative campaign transition
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,gzip
+          root=Path('frozen/phase6_http_runtime')
+          before=json.loads(Path('phase6_before.json').read_text())
+          after=json.loads((root/'LOOM_STATE_V1.json').read_text())
+          assert after['location_token']=='MARS'
+          assert after['revision']==before['revision']+1
+          assert after['epoch_utc']!=before['epoch']
+          assert after['ship']['remass_t']<before['remass']
+          with gzip.open(root/'LOOM_CAMPAIGN_HISTORY.jsonl.gz','rt',encoding='utf-8') as f: rows=[json.loads(x) for x in f if x.strip()]
+          arrivals=[x for x in rows if x.get('record_type')=='FLIGHT_ARRIVED']
+          assert len(arrivals)==1,arrivals
+          assert arrivals[0]['flight_id']==after['last_flight']['flight_id']
+          print('CANONICAL STATE ADVANCED ONCE')
+          print('FLIGHT_ARRIVED RECORDS',len(arrivals))
+          PY
+      - name: Stop converged GIS server
+        if: always()
+        run: |
+          if [ -n "${SERVER_PID:-}" ]; then kill "$SERVER_PID" 2>/dev/null || true; fi
+          cat phase6_server.log 2>/dev/null || true

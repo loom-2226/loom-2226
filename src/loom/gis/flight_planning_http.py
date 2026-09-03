@@ -1,4 +1,4 @@
-"""HTTP bridge for the Phase 5 GIS flight-planning session."""
+"""HTTP bridge for GIS flight planning and Phase-6 campaign execution."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -18,7 +18,6 @@ def planning_client_js() -> str:
 
 
 def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) -> None:
-    """Install read-only planning endpoints and the Phase-5 browser controller."""
     handler = gis_module.SolarHandler
     handler.flight_planning_session = session
     handler.flight_planning_base_overlay_json = bytes(getattr(handler, "navigation_overlay_json", b"{}"))
@@ -56,6 +55,11 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
                 state = session.commit(body.get("route_id"))
                 if state.preview_overlay is not None:
                     handler.navigation_overlay_json = _json_bytes(state.preview_overlay)
+            elif path == "/flight-planning/execute":
+                state = session.execute()
+                executed = state.last_execution or {}
+                overlay = executed.get("historical_overlay") if isinstance(executed, dict) else None
+                handler.navigation_overlay_json = _json_bytes(overlay) if overlay else handler.flight_planning_base_overlay_json
             elif path == "/flight-planning/cancel":
                 state = session.cancel()
                 handler.navigation_overlay_json = handler.flight_planning_base_overlay_json
@@ -69,6 +73,7 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
 
     handler.do_GET = do_GET
     handler.do_POST = do_POST
-    marker = "/* LOOM_PHASE5_FLIGHT_PLANNING */"
-    if marker not in gis_module.CLIENT_JS:
+    # Keep the Phase-5 marker for backward qualification while adding the Gate-C marker.
+    marker = "/* LOOM_PHASE5_FLIGHT_PLANNING */\n/* LOOM_PHASE6_CAMPAIGN_EXECUTION */"
+    if "LOOM_PHASE5_FLIGHT_PLANNING" not in gis_module.CLIENT_JS:
         gis_module.CLIENT_JS += "\n" + marker + "\n" + planning_client_js() + "\n"
