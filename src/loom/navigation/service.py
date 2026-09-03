@@ -53,6 +53,42 @@ class LegacyNavigationService:
             raise NavigationServiceError(f"{name} is required for this legacy operation")
         return value
 
+    def _legacy_mission(self, request: NavigationRequest, context: NavigationContext, nav: Any) -> dict[str, Any]:
+        """Adapt a canonical request to the frozen RC6.1 mission envelope.
+
+        Existing replay/import payloads retain their supplied envelope fields.
+        New GIS-originated requests receive the exact defaults used by the
+        frozen campaign workflow; GIS itself never knows this legacy grammar.
+        """
+        mission = request.to_legacy_mission()
+        state = dict(context.campaign_state)
+        mission.setdefault("schema", "LOOM_NAV_REQUEST_v1")
+        mission.setdefault("test_id", _stable_id("GIS", {
+            "state_id": state.get("state_id"),
+            "origin": request.origin,
+            "destination": request.destination,
+            "priority": request.priority,
+        }))
+        if "epoch" not in mission:
+            epoch_utc = state.get("epoch_utc")
+            if not epoch_utc:
+                raise NavigationServiceError("campaign epoch_utc is required to build a Navigator mission")
+            local_for_utc = getattr(self.core, "_melbourne_local_for_utc", None)
+            if not callable(local_for_utc):
+                raise NavigationServiceError("legacy Navigator local-epoch adapter is unavailable")
+            mission["epoch"] = {
+                "local": local_for_utc(nav, epoch_utc),
+                "timezone": "Australia/Melbourne",
+            }
+        mission.setdefault("ship", "WAYFARER_BASELINE")
+        if not mission.get("requested_modes"):
+            mission["requested_modes"] = {"metric": "FAST", "torch": "CRUISE"}
+        mission.setdefault(
+            "notes",
+            "GIS Phase 5 planning request; persistent campaign state inherited from LOOM_STATE_V1.",
+        )
+        return mission
+
     def prepare_context(
         self,
         request: NavigationRequest,
@@ -68,7 +104,8 @@ class LegacyNavigationService:
         if not callable(normalize) or not callable(acquire):
             raise NavigationServiceError("legacy acquisition capability is unavailable")
         cache = self._require(context.cache_dir, "cache_dir")
-        normalized = normalize(request.to_legacy_mission())
+        mission = self._legacy_mission(request, context, nav)
+        normalized = normalize(mission)
         acquisition = acquire(normalized, cache, offline=offline, refresh=refresh)
         return NavigationContext(
             campaign_state=context.campaign_state,
@@ -87,7 +124,7 @@ class LegacyNavigationService:
             raise NavigationServiceError("legacy route-discovery capability is unavailable")
         acq = self._require(context.acquisition, "acquisition")
         cache = self._require(context.cache_dir, "cache_dir")
-        normalized = normalize(request.to_legacy_mission())
+        normalized = normalize(self._legacy_mission(request, context, nav))
         rows = discover(nav, normalized, acq, cache, dict(context.campaign_state), request.priority)
         out: list[RouteCandidate] = []
         for index, row in enumerate(rows):
@@ -114,7 +151,7 @@ class LegacyNavigationService:
         acq = self._require(context.acquisition, "acquisition")
         cache = self._require(context.cache_dir, "cache_dir")
         b1 = self._require(context.b1_package, "b1_package")
-        mission = request.to_legacy_mission()
+        mission = self._legacy_mission(request, context, nav)
         cp = dict(candidate.payload)
         mission["requested_modes"] = {"metric": cp.get("metric"), "torch": cp.get("torch")}
         normalized = normalize(mission)
@@ -151,7 +188,7 @@ class LegacyNavigationService:
             "determinism": determinism,
             "plan_summary": plan_summary,
             "plan_sha256": plan_sha,
-            "request": request.to_legacy_mission(),
+            "request": mission,
         }
         flight = (runtime or {}).get("flight", {})
         fid = str(flight.get("flight_id") or _stable_id("flight", {"candidate": candidate.route_id, "runtime": runtime}))
