@@ -9,7 +9,8 @@ the SHA recorded by the frozen FLIGHT_ARRIVED ledger entry.
 """
 from __future__ import annotations
 
-import argparse, gzip, json, os, sys
+import argparse, gzip, json, re, sys
+from collections import Counter
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -18,6 +19,8 @@ sys.path.insert(0, str(REPO / "src"))
 from loom.navigation.contracts import NavigationContext, NavigationRequest, RouteCandidate
 from loom.navigation.service import LegacyNavigationService
 import loom_navigator
+
+HEX64 = re.compile(r"^[0-9a-fA-F]{64}(?:\..+)?$")
 
 
 def find_one(root: Path, names: tuple[str, ...]) -> Path:
@@ -28,10 +31,26 @@ def find_one(root: Path, names: tuple[str, ...]) -> Path:
     raise RuntimeError(f"missing required runtime artifact: {names}")
 
 
+def find_sequence_h_cache(root: Path) -> Path:
+    """Find the preserved content-addressed Sequence-H cache, not any generic cache dir."""
+    counts: Counter[Path] = Counter()
+    for p in root.rglob("*"):
+        if p.is_file() and HEX64.match(p.name):
+            counts[p.parent] += 1
+    if not counts:
+        raise RuntimeError("no content-addressed Sequence-H cache found in frozen runtime")
+    ranked = counts.most_common()
+    cache, count = ranked[0]
+    print("CACHE CANDIDATES:")
+    for path, n in ranked[:10]:
+        print(f"  {n:5d}  {path}")
+    print("SELECTED CACHE:", cache, "entries=", count)
+    return cache
+
+
 def history_records(path: Path) -> list[dict]:
     opener = gzip.open if path.suffix == ".gz" else open
-    mode = "rt"
-    with opener(path, mode, encoding="utf-8") as fh:
+    with opener(path, "rt", encoding="utf-8") as fh:
         return [json.loads(line) for line in fh if line.strip()]
 
 
@@ -54,6 +73,7 @@ def main() -> int:
 
     hist = find_one(root, ("LOOM_CAMPAIGN_HISTORY.jsonl.gz", "LOOM_CAMPAIGN_HISTORY.jsonl"))
     b1 = find_one(root, ("LOOM_Navigator_Visual_Design_B1_LOCKED_Package_v1.0.zip",))
+    cache = find_sequence_h_cache(root)
     rows = history_records(hist)
     commit, arrived = newest_completed_flight(rows)
     replay = commit["details"]["replay"]
@@ -64,8 +84,6 @@ def main() -> int:
     service = LegacyNavigationService(core)
     nav = service._sequence_h(NavigationContext(campaign_state=state, runtime_root=root))
 
-    cache_candidates = [p for p in root.rglob("*") if p.is_dir() and "cache" in p.name.lower()]
-    cache = cache_candidates[0] if cache_candidates else root
     normalized = nav.validate_and_normalize_mission(mission)
     acquisition = nav.run_acquisition(normalized, cache, offline=True, refresh=False)
 
