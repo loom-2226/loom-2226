@@ -8,6 +8,7 @@ on:
       - 'src/loom/navigation/**'
       - 'src/loom_navigator.py'
       - 'tools/phase2_gate_a_qualify.py'
+      - 'docs/architecture/LOOM_2226_Navigator_Phase3_Route_Layer_v1.0.md'
       - '.github/workflows/phase2-gate-a.yml'
   workflow_dispatch:
 
