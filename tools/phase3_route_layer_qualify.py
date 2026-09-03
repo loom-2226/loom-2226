@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""Qualify LOOM_ROUTE_LAYER_V1 against the frozen Pixel runtime.
-
-This test re-solves the same coherent frozen flight used by Gate A, entirely
-from archived Sequence-H ephemeris, then builds the GIS-facing route contract.
-It proves the adapter preserves route identity, authoritative epochs/state and
-determinism without mutating campaign state or introducing display semantics.
-"""
+"""Qualify LOOM_ROUTE_LAYER_V1 against the frozen Pixel runtime."""
 from __future__ import annotations
 
 import argparse
@@ -43,6 +37,21 @@ def assert_display_agnostic(value, path="route"):
             assert_display_agnostic(child, f"{path}[{i}]")
 
 
+def summarize_shape(value, prefix="PAYLOADS", depth=0, max_depth=3):
+    if depth > max_depth:
+        return
+    if isinstance(value, dict):
+        print(f"{prefix}_KEYS=", sorted(value.keys()))
+        for key, child in sorted(value.items()):
+            if isinstance(child, (dict, list, tuple)):
+                summarize_shape(child, f"{prefix}_{key}", depth + 1, max_depth)
+    elif isinstance(value, (list, tuple)):
+        child = value[0] if value else None
+        print(f"{prefix}=LIST len={len(value)} child_type={type(child).__name__ if child is not None else None}")
+        if child is not None:
+            summarize_shape(child, f"{prefix}_0", depth + 1, max_depth)
+
+
 def qualify_bundle(service, bundle):
     rows = history_records(bundle.history)
     commit, arrived = newest_completed_flight(rows)
@@ -69,6 +78,7 @@ def qualify_bundle(service, bundle):
     )
     before = copy.deepcopy(dict(context.campaign_state))
     plan = service.compile_flight(request, candidate, context)
+    summarize_shape(plan.payload.get("payloads"))
     layer = service.get_route_layer(plan, context)
     after = dict(context.campaign_state)
 
