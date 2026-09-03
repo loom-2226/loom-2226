@@ -1,5 +1,6 @@
 (() => {
 'use strict';
+/* LOOM_PHASE6_MVP_CLOSURE_RC1 */
 
 window.LOOM_FLIGHT_DESTINATION_RESOLVER='MVP_V1';
 
