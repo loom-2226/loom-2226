@@ -142,8 +142,6 @@ class LoomRouteLayerV1:
 class LegacyRouteLayerAdapter:
     """Read-only anti-corruption adapter from solved Navigator output to GIS V1."""
 
-    # All legacy field aliases are intentionally centralized here. New Navigator
-    # schemas should update this seam instead of teaching every GIS consumer keys.
     SEGMENT_ALIASES = {
         "type": ("type", "kind", "segment_type", "mode"),
         "start_epoch": ("start_epoch", "start_epoch_utc", "departure_epoch_utc"),
@@ -175,7 +173,8 @@ class LegacyRouteLayerAdapter:
         bodies = self._body_refs(candidate.origin, candidate.destination, packed)
 
         status = candidate.status or "PLANNED"
-        if current_state and current_state.get("last_flight", {}).get("flight_id") == plan.flight_id:
+        prior_flight = _mapping(current_state.get("last_flight")) if current_state else {}
+        if prior_flight.get("flight_id") == plan.flight_id:
             status = str(current_state.get("status") or "EXECUTED")
 
         return LoomRouteLayerV1(
