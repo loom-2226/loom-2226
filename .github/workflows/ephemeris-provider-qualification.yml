@@ -1,0 +1,48 @@
+name: LOOM Ephemeris Provider Qualification
+
+on:
+  push:
+    branches:
+      - feature/gis-navigator-convergence
+    paths:
+      - 'tools/horizons_provider_probe.py'
+      - 'tests/test_horizons_provider_probe.py'
+      - '.github/workflows/ephemeris-provider-qualification.yml'
+  workflow_dispatch:
+
+jobs:
+  horizons-provider:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run provider probe unit tests
+        run: python -m unittest tests.test_horizons_provider_probe -v
+
+      - name: Acquire JPL Horizons vectors at LOOM qualification epoch
+        run: python tools/horizons_provider_probe.py --epoch '2226-08-22 00:00' --output artifacts/horizons_provider_probe.json
+
+      - name: Show artifact hash
+        run: python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('artifacts/horizons_provider_probe.json')
+          d=json.loads(p.read_text())
+          print('LOOM_HORIZONS_PROVIDER_PROBE_V1')
+          print('artifact_sha256=', d['artifact_sha256'])
+          for r in d['records']:
+              print(r['target'], r['record_sha256'], r['position_km'], r['velocity_km_s'])
+          PY
+
+      - name: Upload normalized provider artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: loom-horizons-provider-probe
+          path: artifacts/horizons_provider_probe.json
+          if-no-files-found: error
+          retention-days: 30
