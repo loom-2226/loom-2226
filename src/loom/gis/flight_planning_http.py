@@ -10,6 +10,7 @@ import threading
 import traceback
 import uuid
 
+from loom.navigation import NavigationRequest
 from .flight_planning import GISFlightPlanningError, GISFlightPlanningSession
 
 
@@ -18,7 +19,9 @@ def _json_bytes(value: Any) -> bytes:
 
 
 def planning_client_js() -> str:
-    return Path(__file__).with_name("flight_planning.js").read_text(encoding="utf-8")
+    base = Path(__file__).with_name("flight_planning.js").read_text(encoding="utf-8")
+    selection = Path(__file__).with_name("flight_planning_selection.js").read_text(encoding="utf-8")
+    return base + "\n" + selection
 
 
 def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) -> None:
@@ -76,6 +79,97 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
         with handler.flight_planning_job_lock:
             handler.flight_planning_job.update(updates)
             return dict(handler.flight_planning_job)
+
+    def _normalized_destination(normalized: Any, fallback: str) -> str:
+        if isinstance(normalized, dict):
+            for key in ("destination", "dest", "destination_token"):
+                value = normalized.get(key)
+                if value:
+                    return str(value)
+            for container_key in ("route", "mission"):
+                container = normalized.get(container_key)
+                if isinstance(container, dict):
+                    for key in ("destination", "dest", "destination_token"):
+                        value = container.get(key)
+                        if value:
+                            return str(value)
+        return fallback
+
+    def _resolve_destination(entity: Any) -> dict[str, Any]:
+        if not isinstance(entity, dict):
+            raise GISFlightPlanningError("entity descriptor is required")
+        display_name = str(entity.get("display_name") or entity.get("name") or entity.get("entity_id") or "SELECTION").strip()
+        raw_candidates = [
+            entity.get("navigation_token"),
+            entity.get("route_token"),
+            entity.get("navigator_token"),
+            entity.get("canonical_token"),
+            entity.get("body_token"),
+            entity.get("name"),
+            entity.get("display_name"),
+            entity.get("parent_entity_id") if str(entity.get("entity_class") or "").upper() == "INFRASTRUCTURE" else None,
+            entity.get("entity_id"),
+        ]
+        candidates: list[str] = []
+        seen: set[str] = set()
+        for value in raw_candidates:
+            text = str(value or "").strip()
+            if not text:
+                continue
+            variants = [text, text.upper().replace(" ", "_")]
+            for variant in variants:
+                if variant and variant not in seen:
+                    seen.add(variant)
+                    candidates.append(variant)
+
+        nav_service = handler.flight_planning_session.service
+        context = handler.flight_planning_session.context
+        nav = nav_service._sequence_h(context)
+        normalize = getattr(nav, "validate_and_normalize_mission", None)
+        if not callable(normalize):
+            raise GISFlightPlanningError("Navigator route-token validation is unavailable")
+
+        errors: list[str] = []
+        for candidate in candidates:
+            if candidate == handler.flight_planning_session.origin:
+                return {
+                    "selectable": False,
+                    "route_token": candidate,
+                    "display_name": display_name,
+                    "reason": "already at this location",
+                    "entity_id": entity.get("entity_id"),
+                }
+            request = NavigationRequest(
+                origin=handler.flight_planning_session.origin,
+                destination=candidate,
+                priority="BALANCED",
+            )
+            try:
+                mission = nav_service._legacy_mission(request, context, nav)
+                normalized = normalize(mission)
+                token = _normalized_destination(normalized, candidate)
+                return {
+                    "selectable": True,
+                    "route_token": token,
+                    "display_name": display_name,
+                    "entity_id": entity.get("entity_id"),
+                    "resolved_from": candidate,
+                    "authority": "NAVIGATOR_VALIDATE_AND_NORMALIZE_MISSION",
+                }
+            except BaseException as exc:
+                if isinstance(exc, (KeyboardInterrupt, GeneratorExit)):
+                    raise
+                errors.append(f"{candidate}: {type(exc).__name__}: {exc}")
+
+        _log("destination_unavailable", entity_id=entity.get("entity_id"), display_name=display_name, candidates=candidates, errors=errors[-4:])
+        return {
+            "selectable": False,
+            "route_token": None,
+            "display_name": display_name,
+            "entity_id": entity.get("entity_id"),
+            "reason": "not a Navigator route endpoint",
+            "authority": "NAVIGATOR_VALIDATE_AND_NORMALIZE_MISSION",
+        }
 
     def _run_discovery_job(job_id: str, destination: str, priority: str):
         _log("discover_job_start", job_id=job_id, destination=destination, priority=priority)
@@ -147,6 +241,10 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
             if not isinstance(body, dict):
                 raise GISFlightPlanningError("request body must be a JSON object")
             session = self.flight_planning_session
+            if path == "/flight-planning/resolve":
+                capability = _resolve_destination(body.get("entity"))
+                _log("destination_resolved", entity_id=capability.get("entity_id"), selectable=capability.get("selectable"), route_token=capability.get("route_token"))
+                return _send_json(self, capability)
             if path == "/flight-planning/discover":
                 state = session.discover(body.get("destination"), body.get("priority") or "BALANCED")
             elif path == "/flight-planning/preview":
