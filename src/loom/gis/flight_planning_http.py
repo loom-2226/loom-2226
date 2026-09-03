@@ -28,7 +28,16 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
     handler.flight_planning_job_lock = threading.Lock()
     handler.flight_planning_job = {"status": "IDLE", "job_id": None, "state": None, "error": None}
     runtime_root = Path(getattr(session.context, "runtime_root", None) or Path.cwd())
-    handler.flight_planning_log_path = runtime_root / "LOOM_PHASE6_HTTP.log"
+    run_stamp = datetime.now().astimezone().strftime("%Y%m%d_%H%M%S")
+    handler.flight_planning_log_path = runtime_root / f"LOOM_PHASE6_HTTP_{run_stamp}.log"
+    latest_pointer = runtime_root / "LOOM_PHASE6_LATEST.txt"
+    try:
+        latest_pointer.write_text(
+            f"HTTP_LOG={handler.flight_planning_log_path.name}\n",
+            encoding="utf-8",
+        )
+    except Exception:
+        pass
     old_get = handler.do_GET
     old_post = getattr(handler, "do_POST", None)
 
@@ -40,6 +49,8 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
                 f.write(json.dumps(row, separators=(",", ":"), default=str) + "\n")
         except Exception:
             pass
+
+    _log("flight_planning_installed", log_path=str(handler.flight_planning_log_path), runtime_root=str(runtime_root))
 
     def _send_json(self, value, status=200):
         return self._send(status, "application/json; charset=utf-8", _json_bytes(value))
