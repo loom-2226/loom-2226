@@ -1,10 +1,47 @@
 (() => {
 'use strict';
 
+const MAJOR_ENTITY_TO_TOKEN={ME:'MERCURY',VE:'VENUS',EA:'EARTH',LU:'LUNA',MA:'MARS',CER:'CERES',JU:'JUPITER_SYSTEM',SA:'SATURN_SYSTEM',UR:'URANUS_SYSTEM',NE:'NEPTUNE_SYSTEM',PL:'PLUTO_SYSTEM'};
+const MAJOR_NAME_TO_TOKEN={MERCURY:'MERCURY',VENUS:'VENUS',EARTH:'EARTH',MOON:'LUNA',LUNA:'LUNA',MARS:'MARS',CERES:'CERES',JUPITER:'JUPITER_SYSTEM',SATURN:'SATURN_SYSTEM',URANUS:'URANUS_SYSTEM',NEPTUNE:'NEPTUNE_SYSTEM',PLUTO:'PLUTO_SYSTEM'};
+
+function cleanToken(value){
+  const s=String(value||'').trim().toUpperCase();
+  if(!s)return null;
+  return MAJOR_NAME_TO_TOKEN[s]||s.replace(/\s+/g,'_');
+}
+
+function selectedEntityRouteToken(){
+  try{
+    if(typeof scene==='undefined'||!scene||typeof selectedEntityId==='undefined'||!selectedEntityId)return null;
+    const e=(scene.entities||[]).find(x=>x.entity_id===selectedEntityId);
+    if(!e)return null;
+    if(MAJOR_ENTITY_TO_TOKEN[e.entity_id])return MAJOR_ENTITY_TO_TOKEN[e.entity_id];
+    for(const key of ['navigation_token','navigator_token','route_token','canonical_token','body_token']){
+      const v=cleanToken(e[key]);
+      if(v)return v;
+    }
+    if(e.entity_class==='INFRASTRUCTURE'){
+      const parent=cleanToken(e.parent_entity_id);
+      if(parent)return MAJOR_ENTITY_TO_TOKEN[parent]||parent;
+    }
+    for(const key of ['name','display_name','label','canonical_name']){
+      const v=cleanToken(e[key]);
+      if(v)return v;
+    }
+  }catch(_err){}
+  const selected=document.querySelector('#selected .selname');
+  return cleanToken(selected?.textContent||'');
+}
+
 function destinationFromPanel() {
   const el = document.querySelector('#flightPlanningPanel .fpDestination');
-  const text = String(el?.textContent || '').trim().toUpperCase();
-  if (!text || text === 'SELECT ON MAP' || text === '—') return null;
+  const text = cleanToken(el?.textContent || '');
+  if (!text || text === 'SELECT_ON_MAP' || text === '—') return null;
+  const selected=selectedEntityRouteToken();
+  // GIS entity IDs such as DAV are display/database identifiers, not necessarily
+  // Navigator route tokens. When the panel destination came from the current map
+  // selection, prefer the entity's authoritative navigation/name token.
+  if(selected && text!==selected && !Object.values(MAJOR_NAME_TO_TOKEN).includes(text))return selected;
   return text;
 }
 
