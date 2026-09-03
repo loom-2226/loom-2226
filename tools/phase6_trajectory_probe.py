@@ -43,6 +43,22 @@ def walk(value, prefix="", depth=0):
             walk(child, f"{prefix}[{i}]", depth + 1)
 
 
+def describe(value, prefix="flightSolutionsPayload", depth=0):
+    if depth > 5:
+        return
+    if isinstance(value, Mapping):
+        print(f"SCHEMA {prefix} MAP keys={sorted(map(str, value.keys()))}")
+        for key, child in value.items():
+            describe(child, f"{prefix}.{key}", depth + 1)
+    elif isinstance(value, (list, tuple)):
+        print(f"SCHEMA {prefix} LIST count={len(value)}")
+        if value:
+            print(f"SAMPLE {prefix}[0] {short(value[0], 7000)}")
+            describe(value[0], f"{prefix}[0]", depth + 1)
+    else:
+        print(f"SCHEMA {prefix} {type(value).__name__}={str(value)[:250]}")
+
+
 def main() -> int:
     root = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path.cwd()
     service = LegacyNavigationService(loom_navigator.load_core())
@@ -63,22 +79,18 @@ def main() -> int:
     context = NavigationContext(campaign_state=state, acquisition=acquisition, cache_dir=bundle.cache, b1_package=bundle.b1, runtime_root=bundle.root)
     plan = service.compile_flight(request, candidate, context)
     packed = dict(plan.payload)
+    payloads = packed.get("payloads") or {}
     print("=== TOP LEVEL ===")
     print("PAYLOAD KEYS", sorted(packed.keys()))
     print("RUNTIME KEYS", sorted((packed.get("runtime") or {}).keys()))
-    print("PAYLOADS TYPE", type(packed.get("payloads")).__name__)
-    if isinstance(packed.get("payloads"), Mapping):
-        print("PAYLOADS KEYS", sorted(map(str, packed["payloads"].keys())))
-    elif isinstance(packed.get("payloads"), (list, tuple)):
-        print("PAYLOADS COUNT", len(packed["payloads"]))
-        for i, row in enumerate(packed["payloads"][:10]):
-            print(f"PAYLOAD[{i}]", short(row, 3500))
+    print("PAYLOADS TYPE", type(payloads).__name__)
+    if isinstance(payloads, Mapping):
+        print("PAYLOADS KEYS", sorted(map(str, payloads.keys())))
+        print("=== FLIGHT SOLUTIONS PAYLOAD SCHEMA ===")
+        describe(payloads.get("flightSolutionsPayload"))
     print("=== RUNTIME FLIGHT TRAJECTORY CAPABILITY PROBE ===")
     walk(packed)
     validation = packed.get("validation") or {}
-    seq_a = validation.get("sequence_a") or {}
-    print("=== SEQUENCE A INTERPOLATION ===")
-    print(short(seq_a.get("interpolation"), 10000))
     seq_b = validation.get("sequence_b") or {}
     print("=== SEQUENCE B AUTHORITY ===")
     print(short(seq_b.get("authority"), 5000))
