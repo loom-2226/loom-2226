@@ -1,0 +1,21 @@
+name: LOOM Python Regression
+
+on:
+  push:
+    branches:
+      - main
+      - feature/gis-navigator-convergence
+  pull_request:
+
+jobs:
+  unit-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile production Python
+        run: python -m compileall -q src deploy
+      - name: Run unit regression suite
+        run: python -m unittest discover -s tests -v
