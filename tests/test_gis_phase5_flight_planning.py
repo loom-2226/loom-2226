@@ -58,11 +58,17 @@ class FakeNavigationService:
         )
 
 
-class FakeNavigatorRegistry:
+class FakeOuterNavigatorCore:
+    """Matches the physical adapter shape: endpoint registry lives on outer core."""
     CIVSTATE_TOKEN_ENTITY={
         "MERCURY":"ME","VENUS":"VE","EARTH":"EA","LUNA":"LU","MARS":"MA","CERES":"CER",
         "JUPITER_SYSTEM":"JU","SATURN_SYSTEM":"SA","URANUS_SYSTEM":"UR","NEPTUNE_SYSTEM":"NE","PLUTO_SYSTEM":"PL",
     }
+
+
+class FakeSequenceHModule:
+    """Intentionally has no CIVSTATE_TOKEN_ENTITY, like the dynamically loaded runtime module."""
+    pass
 
 
 class Phase5PlanningTest(unittest.TestCase):
@@ -136,12 +142,16 @@ class Phase5PlanningTest(unittest.TestCase):
         self.assertIsNone(self.session._request)
         self.assertIsNone(self.session.committed_plan())
 
-    def test_navigator_endpoint_registry_accepts_only_declared_endpoints(self):
-        nav=FakeNavigatorRegistry()
-        self.assertEqual(_canonical_navigation_endpoint(nav,["Ceres","CER"]),("CERES","Ceres"))
-        self.assertEqual(_canonical_navigation_endpoint(nav,["JU"]),("JUPITER_SYSTEM","JU"))
-        self.assertEqual(_canonical_navigation_endpoint(nav,["Vesta","VST"]),(None,None))
-        self.assertEqual(_canonical_navigation_endpoint(nav,["Psyche","PSY"]),(None,None))
+    def test_outer_navigator_registry_accepts_only_declared_endpoints(self):
+        core=FakeOuterNavigatorCore()
+        self.assertEqual(_canonical_navigation_endpoint(core,["Ceres","CER"]),("CERES","Ceres"))
+        self.assertEqual(_canonical_navigation_endpoint(core,["JU"]),("JUPITER_SYSTEM","JU"))
+        self.assertEqual(_canonical_navigation_endpoint(core,["Vesta","VST"]),(None,None))
+        self.assertEqual(_canonical_navigation_endpoint(core,["Psyche","PSY"]),(None,None))
+
+    def test_sequence_h_is_not_endpoint_registry_authority(self):
+        with self.assertRaisesRegex(GISFlightPlanningError,"endpoint registry is unavailable"):
+            _canonical_navigation_endpoint(FakeSequenceHModule(),["Ceres","CER"])
 
     def test_invalid_destination_and_route_fail_closed(self):
         with self.assertRaises(GISFlightPlanningError): self.session.discover("CERES")
