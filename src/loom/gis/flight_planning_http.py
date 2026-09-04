@@ -23,14 +23,16 @@ def planning_client_js() -> str:
     return base + "\n" + selection
 
 
-def _canonical_navigation_endpoint(nav: Any, candidates: Iterable[str]) -> tuple[str | None, str | None]:
+def _canonical_navigation_endpoint(registry_owner: Any, candidates: Iterable[str]) -> tuple[str | None, str | None]:
     """Resolve a GIS selection only against Navigator's declared endpoint registry.
 
     Mission normalization validates shape/aliases but does not prove that an arbitrary
-    celestial body is a supported route endpoint.  The Navigator core's
-    CIVSTATE_TOKEN_ENTITY mapping is the authoritative MVP endpoint registry.
+    celestial body is a supported route endpoint. The outer frozen Navigator core's
+    CIVSTATE_TOKEN_ENTITY mapping is the authoritative MVP endpoint registry. Sequence-H
+    is intentionally not used as the registry owner because the loaded Sequence-H module
+    does not expose this outer-core mapping in the physical runtime.
     """
-    registry = getattr(nav, "CIVSTATE_TOKEN_ENTITY", None)
+    registry = getattr(registry_owner, "CIVSTATE_TOKEN_ENTITY", None)
     if not isinstance(registry, Mapping) or not registry:
         raise GISFlightPlanningError("Navigator endpoint registry is unavailable")
 
@@ -141,9 +143,10 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
                     candidates.append(variant)
 
         nav_service = handler.flight_planning_session.service
-        context = handler.flight_planning_session.context
-        nav = nav_service._sequence_h(context)
-        token, resolved_from = _canonical_navigation_endpoint(nav, candidates)
+        # Endpoint authority belongs to the outer frozen Navigator core. Do not ask
+        # Sequence-H for CIVSTATE_TOKEN_ENTITY; the physical runtime does not expose
+        # that outer-core registry on the dynamically loaded Sequence-H module.
+        token, resolved_from = _canonical_navigation_endpoint(nav_service.core, candidates)
 
         if token is None:
             _log("destination_unavailable", entity_id=entity.get("entity_id"), display_name=display_name, candidates=candidates)
@@ -259,30 +262,18 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
                 if state.preview_overlay is not None: handler.navigation_overlay_json = _json_bytes(state.preview_overlay)
             elif path == "/flight-planning/execute":
                 state = session.execute()
-                executed = state.last_execution or {}
-                overlay = executed.get("historical_overlay") if isinstance(executed, dict) else None
-                handler.navigation_overlay_json = _json_bytes(overlay) if overlay else handler.flight_planning_base_overlay_json
+                hist = ((state.last_execution or {}).get("historical_overlay") if state.last_execution else None)
+                handler.navigation_overlay_json = _json_bytes(hist) if hist else handler.flight_planning_base_overlay_json
             elif path == "/flight-planning/cancel":
                 state = session.cancel()
                 handler.navigation_overlay_json = handler.flight_planning_base_overlay_json
             else:
-                return self._send(404, "text/plain; charset=utf-8", b"not found")
-            _log("http_post_complete", path=path)
+                return _send_json(self, {"error": "unknown flight-planning endpoint"}, status=404)
+            _log("planning_action_complete", path=path, state=state.to_dict())
             return _send_state(self, state)
-        except (GISFlightPlanningError, ValueError, KeyError) as exc:
-            _log("http_post_error", path=path, error=str(exc))
-            return _send_json(self, {"error": str(exc)}, status=400)
-        except SystemExit as exc:
-            code = getattr(exc, "code", None)
-            detail = str(code) if code not in (None, "") else str(exc) or "legacy Navigator exited"
-            _log("http_post_systemexit", path=path, error=detail)
-            return _send_json(self, {"error": f"Navigator acquisition exited: {detail}", "kind": "LEGACY_SYSTEM_EXIT", "path": path}, status=502)
-        except BaseException as exc:
-            _log("http_post_failure", path=path, error=f"{type(exc).__name__}: {exc}", traceback=traceback.format_exc())
-            return _send_json(self, {"error": f"{type(exc).__name__}: {exc}", "kind": "SERVER_FAILURE", "path": path}, status=500)
+        except (GISFlightPlanningError, ValueError, KeyError, RuntimeError) as exc:
+            _log("planning_action_error", path=path, error=f"{type(exc).__name__}: {exc}", traceback=traceback.format_exc())
+            return _send_json(self, {"error": f"{type(exc).__name__}: {exc}"}, status=400)
 
     handler.do_GET = do_GET
     handler.do_POST = do_POST
-    marker = "/* LOOM_PHASE5_FLIGHT_PLANNING */\n/* LOOM_PHASE6_CAMPAIGN_EXECUTION */"
-    if "LOOM_PHASE5_FLIGHT_PLANNING" not in gis_module.CLIENT_JS:
-        gis_module.CLIENT_JS += "\n" + marker + "\n" + planning_client_js() + "\n"
