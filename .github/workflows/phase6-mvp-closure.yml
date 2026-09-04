@@ -50,7 +50,8 @@ jobs:
           assert "LOOM_FLIGHT_DESTINATION_RESOLVER='MVP_V1'" in selection
           assert 'NAVIGATION UNAVAILABLE' in selection
           assert '/flight-planning/resolve' in http
-          assert 'NAVIGATOR_VALIDATE_AND_NORMALIZE_MISSION' in http
+          assert 'NAVIGATOR_CIVSTATE_TOKEN_ENTITY' in http
+          assert '_canonical_navigation_endpoint' in http
           assert 'NAV' in drawer and 'ATLAS' in drawer
           assert 'LOOM_UNIFIED_NAV_ATLAS_DRAWER_V1' in launcher
           print('PHASE6 MVP SOURCE CONTRACT PASS')
