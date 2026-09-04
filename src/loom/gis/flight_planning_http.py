@@ -143,9 +143,6 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
                     candidates.append(variant)
 
         nav_service = handler.flight_planning_session.service
-        # Endpoint authority belongs to the outer frozen Navigator core. Do not ask
-        # Sequence-H for CIVSTATE_TOKEN_ENTITY; the physical runtime does not expose
-        # that outer-core registry on the dynamically loaded Sequence-H module.
         token, resolved_from = _canonical_navigation_endpoint(nav_service.core, candidates)
 
         if token is None:
@@ -277,3 +274,6 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
 
     handler.do_GET = do_GET
     handler.do_POST = do_POST
+    marker = "/* LOOM_PHASE5_FLIGHT_PLANNING */\n/* LOOM_PHASE6_CAMPAIGN_EXECUTION */"
+    if "LOOM_PHASE5_FLIGHT_PLANNING" not in gis_module.CLIENT_JS:
+        gis_module.CLIENT_JS += "\n" + marker + "\n" + planning_client_js() + "\n"
