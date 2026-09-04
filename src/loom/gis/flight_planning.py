@@ -206,8 +206,16 @@ class GISFlightPlanningSession:
         return self.state()
 
     def cancel(self) -> GISPlanningStateV1:
-        self.preview_route_id = None; self.committed_route_id = None; self.preview_overlay = None
-        self._assert_read_only(); return self.state()
+        self.destination = None
+        self.priority = "BALANCED"
+        self._request = None
+        self._candidates.clear()
+        self._plans.clear()
+        self.preview_route_id = None
+        self.committed_route_id = None
+        self.preview_overlay = None
+        self._assert_read_only()
+        return self.state()
 
     def committed_plan(self) -> Any | None:
         return self._plans.get(self.committed_route_id) if self.committed_route_id else None
