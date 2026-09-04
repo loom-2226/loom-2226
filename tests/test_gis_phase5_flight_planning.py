@@ -4,6 +4,7 @@ import copy
 import unittest
 
 from loom.gis.flight_planning import GISFlightPlanningError, GISFlightPlanningSession, _candidate_summary
+from loom.gis.flight_planning_http import _canonical_navigation_endpoint
 from loom.navigation import NavigationContext, RouteCandidate, FlightPlan
 from loom.navigation.route_layer import LoomRouteLayerV1, RouteLayerBodyV1, RouteLayerSegmentV1
 
@@ -55,6 +56,13 @@ class FakeNavigationService:
             current_vehicle_state=context.campaign_state,
             arrival_state={"location":c.destination,"epoch_utc":c.arrival_epoch},
         )
+
+
+class FakeNavigatorRegistry:
+    CIVSTATE_TOKEN_ENTITY={
+        "MERCURY":"ME","VENUS":"VE","EARTH":"EA","LUNA":"LU","MARS":"MA","CERES":"CER",
+        "JUPITER_SYSTEM":"JU","SATURN_SYSTEM":"SA","URANUS_SYSTEM":"UR","NEPTUNE_SYSTEM":"NE","PLUTO_SYSTEM":"PL",
+    }
 
 
 class Phase5PlanningTest(unittest.TestCase):
@@ -115,13 +123,25 @@ class Phase5PlanningTest(unittest.TestCase):
         self.assertIsNotNone(self.session.committed_plan())
         self.assertEqual(dict(self.session.context.campaign_state),self.original)
 
-    def test_cancel_clears_preview_and_commit(self):
+    def test_cancel_resets_entire_planning_session(self):
         self.session.discover("MARS")
         self.session.commit("R1")
         out=self.session.cancel()
+        self.assertIsNone(out.destination)
+        self.assertEqual(out.priority,"BALANCED")
+        self.assertEqual(len(out.candidates),0)
         self.assertIsNone(out.preview_route_id)
         self.assertIsNone(out.committed_route_id)
         self.assertIsNone(out.preview_overlay)
+        self.assertIsNone(self.session._request)
+        self.assertIsNone(self.session.committed_plan())
+
+    def test_navigator_endpoint_registry_accepts_only_declared_endpoints(self):
+        nav=FakeNavigatorRegistry()
+        self.assertEqual(_canonical_navigation_endpoint(nav,["Ceres","CER"]),("CERES","Ceres"))
+        self.assertEqual(_canonical_navigation_endpoint(nav,["JU"]),("JUPITER_SYSTEM","JU"))
+        self.assertEqual(_canonical_navigation_endpoint(nav,["Vesta","VST"]),(None,None))
+        self.assertEqual(_canonical_navigation_endpoint(nav,["Psyche","PSY"]),(None,None))
 
     def test_invalid_destination_and_route_fail_closed(self):
         with self.assertRaises(GISFlightPlanningError): self.session.discover("CERES")
