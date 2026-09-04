@@ -3,14 +3,13 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping, Iterable
 from urllib.parse import urlparse, parse_qs, urlencode
 import json
 import threading
 import traceback
 import uuid
 
-from loom.navigation import NavigationRequest
 from .flight_planning import GISFlightPlanningError, GISFlightPlanningSession
 
 
@@ -22,6 +21,40 @@ def planning_client_js() -> str:
     base = Path(__file__).with_name("flight_planning.js").read_text(encoding="utf-8")
     selection = Path(__file__).with_name("flight_planning_selection.js").read_text(encoding="utf-8")
     return base + "\n" + selection
+
+
+def _canonical_navigation_endpoint(nav: Any, candidates: Iterable[str]) -> tuple[str | None, str | None]:
+    """Resolve a GIS selection only against Navigator's declared endpoint registry.
+
+    Mission normalization validates shape/aliases but does not prove that an arbitrary
+    celestial body is a supported route endpoint.  The Navigator core's
+    CIVSTATE_TOKEN_ENTITY mapping is the authoritative MVP endpoint registry.
+    """
+    registry = getattr(nav, "CIVSTATE_TOKEN_ENTITY", None)
+    if not isinstance(registry, Mapping) or not registry:
+        raise GISFlightPlanningError("Navigator endpoint registry is unavailable")
+
+    token_lookup: dict[str, str] = {}
+    entity_lookup: dict[str, str] = {}
+    for raw_token, raw_entity in registry.items():
+        token = str(raw_token or "").strip().upper()
+        entity_id = str(raw_entity or "").strip().upper()
+        if not token:
+            continue
+        token_lookup[token] = token
+        if entity_id:
+            entity_lookup[entity_id] = token
+
+    for candidate in candidates:
+        raw = str(candidate or "").strip()
+        if not raw:
+            continue
+        key = raw.upper().replace(" ", "_")
+        if key in token_lookup:
+            return token_lookup[key], raw
+        if key in entity_lookup:
+            return entity_lookup[key], raw
+    return None, None
 
 
 def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) -> None:
@@ -80,21 +113,6 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
             handler.flight_planning_job.update(updates)
             return dict(handler.flight_planning_job)
 
-    def _normalized_destination(normalized: Any, fallback: str) -> str:
-        if isinstance(normalized, dict):
-            for key in ("destination", "dest", "destination_token"):
-                value = normalized.get(key)
-                if value:
-                    return str(value)
-            for container_key in ("route", "mission"):
-                container = normalized.get(container_key)
-                if isinstance(container, dict):
-                    for key in ("destination", "dest", "destination_token"):
-                        value = container.get(key)
-                        if value:
-                            return str(value)
-        return fallback
-
     def _resolve_destination(entity: Any) -> dict[str, Any]:
         if not isinstance(entity, dict):
             raise GISFlightPlanningError("entity descriptor is required")
@@ -125,50 +143,36 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
         nav_service = handler.flight_planning_session.service
         context = handler.flight_planning_session.context
         nav = nav_service._sequence_h(context)
-        normalize = getattr(nav, "validate_and_normalize_mission", None)
-        if not callable(normalize):
-            raise GISFlightPlanningError("Navigator route-token validation is unavailable")
+        token, resolved_from = _canonical_navigation_endpoint(nav, candidates)
 
-        errors: list[str] = []
-        for candidate in candidates:
-            if candidate == handler.flight_planning_session.origin:
-                return {
-                    "selectable": False,
-                    "route_token": candidate,
-                    "display_name": display_name,
-                    "reason": "already at this location",
-                    "entity_id": entity.get("entity_id"),
-                }
-            request = NavigationRequest(
-                origin=handler.flight_planning_session.origin,
-                destination=candidate,
-                priority="BALANCED",
-            )
-            try:
-                mission = nav_service._legacy_mission(request, context, nav)
-                normalized = normalize(mission)
-                token = _normalized_destination(normalized, candidate)
-                return {
-                    "selectable": True,
-                    "route_token": token,
-                    "display_name": display_name,
-                    "entity_id": entity.get("entity_id"),
-                    "resolved_from": candidate,
-                    "authority": "NAVIGATOR_VALIDATE_AND_NORMALIZE_MISSION",
-                }
-            except BaseException as exc:
-                if isinstance(exc, (KeyboardInterrupt, GeneratorExit)):
-                    raise
-                errors.append(f"{candidate}: {type(exc).__name__}: {exc}")
+        if token is None:
+            _log("destination_unavailable", entity_id=entity.get("entity_id"), display_name=display_name, candidates=candidates)
+            return {
+                "selectable": False,
+                "route_token": None,
+                "display_name": display_name,
+                "entity_id": entity.get("entity_id"),
+                "reason": "not a Navigator route endpoint",
+                "authority": "NAVIGATOR_CIVSTATE_TOKEN_ENTITY",
+            }
 
-        _log("destination_unavailable", entity_id=entity.get("entity_id"), display_name=display_name, candidates=candidates, errors=errors[-4:])
+        if token == handler.flight_planning_session.origin:
+            return {
+                "selectable": False,
+                "route_token": token,
+                "display_name": display_name,
+                "reason": "already at this location",
+                "entity_id": entity.get("entity_id"),
+                "authority": "NAVIGATOR_CIVSTATE_TOKEN_ENTITY",
+            }
+
         return {
-            "selectable": False,
-            "route_token": None,
+            "selectable": True,
+            "route_token": token,
             "display_name": display_name,
             "entity_id": entity.get("entity_id"),
-            "reason": "not a Navigator route endpoint",
-            "authority": "NAVIGATOR_VALIDATE_AND_NORMALIZE_MISSION",
+            "resolved_from": resolved_from,
+            "authority": "NAVIGATOR_CIVSTATE_TOKEN_ENTITY",
         }
 
     def _run_discovery_job(job_id: str, destination: str, priority: str):
