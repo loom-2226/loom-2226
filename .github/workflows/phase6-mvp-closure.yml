@@ -47,7 +47,10 @@ jobs:
           launcher=Path('src/loom_gis.py').read_text()
           assert "return '—'" in planning or "return '—';" in planning
           assert '/flight-planning/resolve' in selection
-          assert "LOOM_FLIGHT_DESTINATION_RESOLVER='MVP_V1'" in selection
+          assert "LOOM_FLIGHT_DESTINATION_RESOLVER='MVP_V2_WINDOW_CAPTURE'" in selection
+          assert 'LOOM_PHASE6_MVP_DESTINATION_GUARD_V2' in selection
+          assert "window.addEventListener('click',fpCaptureDestinationClick,true)" in selection
+          assert '!CANONICAL_ENDPOINTS.has(panelDest)' in selection
           assert 'NAVIGATION UNAVAILABLE' in selection
           assert '/flight-planning/resolve' in http
           assert 'NAVIGATOR_CIVSTATE_TOKEN_ENTITY' in http
@@ -64,5 +67,6 @@ jobs:
             tests.test_gis_phase4_navigation_overlay \
             tests.test_gis_phase5_flight_planning \
             tests.test_gis_phase6_campaign_execution \
+            tests.test_gis_phase6_client_destination_guard \
             tests.test_sequence_b_payload_promotion \
             -v
