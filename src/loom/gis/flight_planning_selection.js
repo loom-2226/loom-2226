@@ -1,8 +1,13 @@
 (() => {
 'use strict';
-/* LOOM_PHASE6_MVP_CLOSURE_RC1 */
+/* LOOM_PHASE6_MVP_DESTINATION_GUARD_V2 */
 
-window.LOOM_FLIGHT_DESTINATION_RESOLVER='MVP_V1';
+window.LOOM_FLIGHT_DESTINATION_RESOLVER='MVP_V2_WINDOW_CAPTURE';
+
+const CANONICAL_ENDPOINTS=new Set([
+  'MERCURY','VENUS','EARTH','LUNA','MARS','CERES',
+  'JUPITER_SYSTEM','SATURN_SYSTEM','URANUS_SYSTEM','NEPTUNE_SYSTEM','PLUTO_SYSTEM'
+]);
 
 function fpSelectedEntityDescriptor(){
   try{
@@ -20,8 +25,28 @@ function fpSelectedEntityDescriptor(){
   }catch(_err){return null;}
 }
 
+function fpPanelDestination(){
+  const el=document.querySelector('#flightPlanningPanel .fpDestination');
+  const text=String(el?.textContent||'').trim().toUpperCase();
+  if(!text||text==='SELECT ON MAP'||text==='—')return null;
+  return text;
+}
+
+function fpPlannerStatus(text){
+  const status=document.querySelector('#flightPlanningPanel .fpStatus');
+  if(status)status.textContent=text;
+}
+
+function fpPlannerDestination(text){
+  const destination=document.querySelector('#flightPlanningPanel .fpDestination');
+  if(destination)destination.textContent=text||'SELECT ON MAP';
+}
+
+function fpDiscoverButton(){
+  return document.querySelector('#flightPlanningPanel .fpDiscover');
+}
+
 async function fpResolveEntity(entity){
-  if(!entity)return null;
   const response=await fetch('/flight-planning/resolve',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -33,122 +58,78 @@ async function fpResolveEntity(entity){
   return data;
 }
 
-function fpPlannerStatus(text){
-  const status=document.querySelector('#flightPlanningPanel .fpStatus');
-  if(status)status.textContent=text;
+function fpFallbackDescriptor(raw){
+  const token=String(raw||'').trim();
+  if(!token)return null;
+  return {entity_id:token,name:token,display_name:token};
 }
 
-function fpPlannerDestination(text){
-  const destination=document.querySelector('#flightPlanningPanel .fpDestination');
-  if(destination&&text)destination.textContent=text;
-}
-
-function fpPanelDestination(){
-  const el=document.querySelector('#flightPlanningPanel .fpDestination');
-  const text=String(el?.textContent||'').trim().toUpperCase();
-  if(!text||text==='SELECT ON MAP'||text==='—')return null;
-  return text;
-}
-
-function fpStartResolvedDiscovery(token,label){
-  const button=document.querySelector('#flightPlanningPanel .fpDiscover');
+function fpStartCanonicalDiscovery(token,label){
+  const button=fpDiscoverButton();
   fpPlannerDestination(token);
+  fpPlannerStatus(`STARTING NAVIGATOR · ${label||token}`);
   if(button){
     button.disabled=true;
     button.textContent=`OPENING ROUTE SEARCH · ${token}`;
   }
-  fpPlannerStatus(`STARTING NAVIGATOR · ${label||token}`);
   const q=new URLSearchParams({destination:token,priority:'BALANCED',ts:String(Date.now())});
   window.location.assign('/flight-planning/discover-start?'+q.toString());
 }
 
-async function fpResolveSelectedAndDiscover(){
-  const entity=fpSelectedEntityDescriptor();
-  if(!entity)return false;
-  const button=document.querySelector('#flightPlanningPanel .fpDiscover');
+async function fpResolveAndRoute(entity){
+  const button=fpDiscoverButton();
+  const who=entity?.display_name||entity?.name||entity?.entity_id||'SELECTION';
   if(button)button.disabled=true;
-  fpPlannerStatus(`CHECKING NAVIGATION · ${entity.display_name||entity.name||entity.entity_id||'SELECTION'}`);
+  fpPlannerStatus(`CHECKING NAVIGATION · ${who}`);
   try{
     const capability=await fpResolveEntity(entity);
     if(!capability?.selectable||!capability?.route_token){
-      const who=capability?.display_name||entity.display_name||entity.name||entity.entity_id||'SELECTION';
-      const why=capability?.reason||'not a Navigator route endpoint';
-      fpPlannerDestination(who);
-      fpPlannerStatus(`NAVIGATION UNAVAILABLE · ${who} · ${why}`);
+      const label=capability?.display_name||who;
+      const reason=capability?.reason||'not a Navigator route endpoint';
+      fpPlannerDestination(label);
+      fpPlannerStatus(`NAVIGATION UNAVAILABLE · ${label} · ${reason}`);
       if(button){
         button.disabled=true;
         button.textContent='NAVIGATION UNAVAILABLE';
       }
-      return true;
+      return;
     }
-    fpStartResolvedDiscovery(capability.route_token,capability.display_name||entity.display_name||entity.name);
-    return true;
+    fpStartCanonicalDiscovery(capability.route_token,capability.display_name||who);
   }catch(err){
     fpPlannerStatus(`NAVIGATION CHECK FAILED · ${String(err?.message||err)}`);
     if(button)button.disabled=false;
-    return true;
   }
 }
 
-async function fpAuthoritativeDiscoverClick(event){
+/*
+ * Base flight_planning.js still owns the generic UI and explicit canonical
+ * body picker. This guard owns only map/Atlas-derived and otherwise raw
+ * destinations. Capture at window level so no legacy button handler can
+ * navigate to discover-start before the authoritative resolver runs.
+ */
+function fpCaptureDestinationClick(event){
   const target=event.target?.closest?.('#flightPlanningPanel .fpDiscover, .fpAtlasPlanHere');
   if(!target)return;
+
   const label=String(target.textContent||'').trim().toUpperCase();
   if(label.startsWith('TAP DESTINATION')||label.startsWith('SELECT DESTINATION'))return;
 
-  const entity=fpSelectedEntityDescriptor();
-  if(!entity)return;
-
-  // Explicit picker values are already canonical Navigator choices. Any
-  // destination derived from the selected map/Atlas entity must cross the
-  // authoritative resolver before discovery; raw GIS IDs must never leak.
   const panelDest=fpPanelDestination();
-  const selectedId=String(entity.entity_id||'').toUpperCase();
-  const selectedName=String(entity.name||entity.display_name||'').trim().toUpperCase().replace(/\s+/g,'_');
-  const buttonLabel=label;
-  const appearsMapDerived=!panelDest||panelDest===selectedId||panelDest===selectedName||buttonLabel.startsWith('PLAN FLIGHT HERE')||buttonLabel.includes(selectedId)||buttonLabel.includes(selectedName);
-  if(!appearsMapDerived)return;
+  const isAtlasAction=target.classList?.contains('fpAtlasPlanHere');
+  const explicitlyRaw=!!panelDest&&!CANONICAL_ENDPOINTS.has(panelDest);
+  const mapAction=label.startsWith('PLAN FLIGHT HERE');
+
+  /* Canonical BODY picker choices are allowed to use the base direct path. */
+  if(!isAtlasAction&&!explicitlyRaw&&!mapAction)return;
+
+  const entity=fpSelectedEntityDescriptor()||fpFallbackDescriptor(panelDest);
+  if(!entity)return;
 
   event.preventDefault();
   event.stopPropagation();
   event.stopImmediatePropagation();
-  await fpResolveSelectedAndDiscover();
+  void fpResolveAndRoute(entity);
 }
 
-function fpOwnDiscoverButton(){
-  const button=document.querySelector('#flightPlanningPanel .fpDiscover');
-  if(!button)return;
-  const current=button.onclick;
-  if(button.dataset.loomAuthoritativeResolve==='1'&&current?.loomAuthoritativeResolve===true)return;
-  const legacy=current;
-  const owned=async event=>{
-    const label=String(button.textContent||'').trim().toUpperCase();
-    if(label.startsWith('DISCOVER ROUTES')||label.startsWith('PLAN FLIGHT HERE')){
-      const entity=fpSelectedEntityDescriptor();
-      if(entity){
-        event?.preventDefault?.();
-        event?.stopPropagation?.();
-        await fpResolveSelectedAndDiscover();
-        return;
-      }
-    }
-    if(typeof legacy==='function')return legacy.call(button,event);
-  };
-  owned.loomAuthoritativeResolve=true;
-  button.dataset.loomAuthoritativeResolve='1';
-  button.onclick=owned;
-}
-
-function fpInstallAuthoritativeSelection(){
-  fpOwnDiscoverButton();
-  const observer=new MutationObserver(()=>fpOwnDiscoverButton());
-  observer.observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
-  document.addEventListener('click',fpAuthoritativeDiscoverClick,true);
-}
-
-if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded',fpInstallAuthoritativeSelection,{once:true});
-}else{
-  fpInstallAuthoritativeSelection();
-}
+window.addEventListener('click',fpCaptureDestinationClick,true);
 })();
