@@ -19,8 +19,14 @@ def install_spatial_state_endpoint(
     campaign_epoch_utc: str | None,
     epoch_source: str,
 ) -> None:
-    """Add one read-only endpoint without changing legacy scene-generation authority."""
+    """Add/update one read-only endpoint without changing scene-generation authority."""
     handler = solar_gis_module.SolarHandler
+    handler._loom_spatial_source = source
+    handler._loom_spatial_scene_epoch_utc = scene_epoch_utc
+    handler._loom_spatial_campaign_revision = campaign_revision
+    handler._loom_spatial_campaign_epoch_utc = campaign_epoch_utc
+    handler._loom_spatial_epoch_source = epoch_source
+
     marker = "_loom_spatial_endpoint_installed"
     if getattr(handler, marker, False):
         return
@@ -31,11 +37,11 @@ def install_spatial_state_endpoint(
         path = urlparse(self.path).path
         if path == SPATIAL_ENDPOINT:
             try:
-                payload = source.snapshot(
-                    scene_epoch_utc,
-                    campaign_revision=campaign_revision,
-                    campaign_epoch_utc=campaign_epoch_utc,
-                    epoch_source=epoch_source,
+                payload = type(self)._loom_spatial_source.snapshot(
+                    type(self)._loom_spatial_scene_epoch_utc,
+                    campaign_revision=type(self)._loom_spatial_campaign_revision,
+                    campaign_epoch_utc=type(self)._loom_spatial_campaign_epoch_utc,
+                    epoch_source=type(self)._loom_spatial_epoch_source,
                 )
                 body = (json.dumps(payload, separators=(",", ":")) + "\n").encode("utf-8")
                 self._send(200, "application/json; charset=utf-8", body)
