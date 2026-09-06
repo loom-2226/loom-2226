@@ -1,60 +1,43 @@
 {
   "product": "LOOM 2226",
-  "release_state": "release",
-  "release_id": "initial-baseline-2026-09-03",
-  "source_ref": "main",
+  "release_state": "staging",
+  "release_id": "runtime-observability-converged-2026-09-06",
+  "source_ref": "feature/runtime-observability-foundation",
   "civstate_schema": "1.2-runtime",
   "artifacts": [
-    {
-      "path": "src/LOOM_Navigator_MVP_v1.0_RC6.1_CIVSTATE_Launch_ANDROID.py",
-      "sha256": "d2cdf9baa38ca314e7eb0ecb0cf5e746d0e39c13e77e1a3f41b1093c6a59200b",
-      "size_bytes": 181942,
-      "source": "repository",
-      "install_group": "code",
-      "required": true
-    },
-    {
-      "path": "src/LOOM_Solar_GIS_v0.12.9_RC8_Draggable_Graph_Nodes.py",
-      "sha256": "73812ccf8e71d913798e8e3ebb25d64937ba4491e5540d09e5b7e80f646d4f0a",
-      "size_bytes": 553713,
-      "source": "repository",
-      "install_group": "code",
-      "required": true
-    },
-    {
-      "path": "data/LOOM_2226.sqlite3",
-      "sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
-      "size_bytes": 4882432,
-      "source": "repository",
-      "install_group": "canonical_data",
-      "required": true
-    },
-    {
-      "path": "data/LOOM_2226_CIVSTATE.sqlite3",
-      "sha256": "9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560",
-      "size_bytes": 8093696,
-      "source": "repository",
-      "install_group": "canonical_data",
-      "required": true
-    },
-    {
-      "path": "data/LOOM_2226_media.sqlite3",
-      "sha256": "286873428afbf30b91bdb2e71b55146ed5979873cfd6af69579c121b724eb038",
-      "size_bytes": 473837568,
-      "source": "release_asset",
-      "asset_id": 542245032,
-      "release_id": 381754456,
-      "release_tag": "v0.1.0-runtime-baseline",
-      "install_group": "media",
-      "required": true
-    }
+    {"path":"src/loom_gis.py","git_blob_sha1":"3017b984930bb6ada65adf42c45a233b2f05ff44","size_bytes":7017,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom_navigator.py","git_blob_sha1":"99d09fa13f3c13e420b1e280f48a6acfe65c3f5a","size_bytes":2493,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom_navigator_core.py","git_blob_sha1":"7327d0bd5b6673fc4b2029c12aeb22422b7203ff","size_bytes":181942,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom_solar_gis.py","git_blob_sha1":"c54054669699e0540e4fd43104ebc9b5e665a456","size_bytes":553713,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom_doctor.py","git_blob_sha1":"27c115fb59f042ea7a7548dd3c85c7b3da370fb2","size_bytes":1154,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/__init__.py","git_blob_sha1":"a6246399780ebe1872a0b86d93920523435a06f1","size_bytes":37,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/runtime.py","git_blob_sha1":"81cb61f11f8dff6d5a76bed29f183cb07509bc95","size_bytes":3777,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/runtime_diagnostics.py","git_blob_sha1":"d8546022cd48f0993f6704a66b042cc4e13abb69","size_bytes":5175,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/runtime_trace.py","git_blob_sha1":"f71609873509478176de6661fa3574911970df41","size_bytes":1512,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/campaign/__init__.py","git_blob_sha1":"150818798e2a1cc9a016a54379585cf44492973c","size_bytes":333,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/campaign/execution.py","git_blob_sha1":"54c34ae58b2d599491c9f69eeb8e5959b6f0512b","size_bytes":8622,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/campaign/reconciliation.py","git_blob_sha1":"36572aba3f19009a0f8e334834a5cc638d023c9e","size_bytes":4813,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/campaign/shadow_ledger.py","git_blob_sha1":"1e2247e6ef9de1e8dc28cd800abedb008b958801","size_bytes":5163,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/gis/__init__.py","git_blob_sha1":"93eaafb139a1f44f2bfd710f420cf76c3435947d","size_bytes":390,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/gis/flight_planning.py","git_blob_sha1":"b2f4511660b281c10df35aa37f038d431180eb44","size_bytes":11260,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/gis/flight_planning_http.py","git_blob_sha1":"855e85db23155c6c9abe1ebfc53adec9dc94e32c","size_bytes":13210,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/gis/navigation_overlay.py","git_blob_sha1":"2e89192b79df3b1dcf087290e3f764c5c414ef55","size_bytes":11670,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/gis/flight_planning.js","git_blob_sha1":"ddd053568d7b79f6f07153ef4a51ce923d04e054","size_bytes":17463,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/gis/flight_planning_pixel_nav.js","git_blob_sha1":"6a7a2fb30da4967b38b5bc0288022e1d4ad8d60b","size_bytes":5199,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/gis/flight_planning_selection.js","git_blob_sha1":"4b4155186e3b96fa91e1f68c6edab42f244d87dc","size_bytes":4842,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/gis/flight_planning_unified_drawer.js","git_blob_sha1":"2bfa1e7ac9fefb49ed65a6fb48b91baffb465982","size_bytes":7761,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/gis/navigation_overlay.js","git_blob_sha1":"19c558eb466fc374cac4f88dcd129106b0b53f15","size_bytes":21118,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/navigation/__init__.py","git_blob_sha1":"08befc930577beada5ed78e6972568dd52081dc7","size_bytes":966,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/navigation/contracts.py","git_blob_sha1":"7465ffd2c8a5cf439d59e7fb0a6362dbb2af3917","size_bytes":6244,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/navigation/ephemeris.py","git_blob_sha1":"8aacfcc2b4f823bdace1b23edaff772f6c31ef44","size_bytes":1890,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/navigation/execution.py","git_blob_sha1":"157fe2a1a0eaa6c194a142699ff36613be9e2e4f","size_bytes":3945,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/navigation/flight_payload.py","git_blob_sha1":"e1a6b4492ae3d2c5769e5318d65225b89cb30b2a","size_bytes":9700,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/navigation/route_layer.py","git_blob_sha1":"94eeccb77206bcb8d43e8da87a0d0b34b0d851a3","size_bytes":22751,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/navigation/service.py","git_blob_sha1":"667b0e13495d086fabe844419cae77c49e4f2c86","size_bytes":11841,"source":"repository","install_group":"code","required":true},
+    {"path":"src/loom/navigation/trajectory_payload.py","git_blob_sha1":"0a28273d69b403f8ca22143e0a1c7c17c17a2ca9","size_bytes":5826,"source":"repository","install_group":"code","required":true},
+    {"path":"data/LOOM_2226.sqlite3","sha256":"e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde","size_bytes":4882432,"source":"repository","install_group":"canonical_data","required":true},
+    {"path":"data/LOOM_2226_CIVSTATE.sqlite3","sha256":"9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560","size_bytes":8093696,"source":"repository","install_group":"canonical_data","required":true},
+    {"path":"data/LOOM_2226_media.sqlite3","sha256":"286873428afbf30b91bdb2e71b55146ed5979873cfd6af69579c121b724eb038","size_bytes":473837568,"source":"release_asset","asset_id":542245032,"release_id":381754456,"release_tag":"v0.1.0-runtime-baseline","install_group":"media","required":true}
   ],
-  "preserve_local": [
-    "LOOM_STATE_V1.json",
-    "LOOM_STATE_V1.bak",
-    "LOOM_CAMPAIGN_HISTORY.jsonl.gz",
-    "LOOM_Navigator_Browser_Report.json",
-    "LOOM_Navigator_Current.html",
-    "ephemeris_cache"
-  ]
+  "preserve_local": ["LOOM_STATE_V1.json","LOOM_STATE_V1.bak","LOOM_CAMPAIGN_HISTORY.jsonl.gz","LOOM_CAMPAIGN_DEV.sqlite3","LOOM_Navigator_Browser_Report.json","LOOM_Navigator_Current.html","ephemeris_cache","logs"]
 }
