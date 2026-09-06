@@ -56,6 +56,7 @@ Three-squad/current+historical convergence is a **research-priority signal, not 
 - `CONVERGENCE_PRIORITY_MODEL_v1.0.md` — weighted convergence + strategic value + LOOM-WSJF.
 - `SCALED_AGILE_OPERATING_MODEL_v1.0.md` — lightweight PI/WIP/dependency model.
 - `SQUAD_ARCHITECTURE_v1.1.md` — current roster/ancestry/bridge/case model.
+- `SQUAD_CURRENT_CONTRIBUTIONS_AND_FUTURE_CONSTRUCTION_v1.0.md` — plain-language member-by-member map of what each current squad/bridge already contributes to LOOM and what we could legitimately build from it later; includes explicit non-endorsement disclaimer and source-boundary rule.
 - `CURRENT_LOOM_LINEAGE_AUDIT_v1.0.md` + supplement — canon/mechanics attribution audit.
 - `research_corpus/CONTRIBUTOR_WEIGHT_REGISTER_v1.0.md` — LOOM Utility Weights for current and historical contributors.
 - `research_corpus/MANIFEST_v1.3.md` — active research-corpus navigation index.
