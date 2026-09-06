@@ -12,7 +12,7 @@ A subsequent independent review correctly identified a remaining methodological 
 
 There is an additional implementation-level limitation that must be explicit before anyone uses the word *equilibrium*: the recovered curvature action uses a sampled curvature estimator based on global `random.sample`. With `curvature_sample_edges=20`, repeated evaluations of the same graph need not return the same action. The existing chain therefore does **not** sample a rigorously fixed deterministic Boltzmann target in the ordinary Metropolis sense.
 
-This work package does not silently repair that historical/reconstructed behavior. It measures the behavior we actually used.
+This work package does not silently repair that historical/reconstructed behavior. It measures the behavior we actually used. It **does not establish** equilibrium, detailed-balance sampling of a fixed target, or a thermodynamic phase.
 
 ## 2. Frozen experiment
 
