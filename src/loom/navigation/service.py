@@ -13,6 +13,7 @@ from typing import Any, Mapping
 from zoneinfo import ZoneInfo
 import hashlib
 import json
+import re
 
 from .contracts import (
     EphemerisSnapshot,
@@ -62,6 +63,67 @@ def _melbourne_local_fallback(epoch_utc: str) -> str:
         dt = dt.astimezone(timezone.utc)
     local = dt.astimezone(ZoneInfo("Australia/Melbourne"))
     return local.isoformat(timespec="seconds")
+
+
+_DIRECT_COVERAGE_PATTERNS = (
+    re.compile(r"No ephemeris for target .* after A\.D\.", re.IGNORECASE),
+    re.compile(r"No ephemeris for target .* before A\.D\.", re.IGNORECASE),
+)
+
+
+def _looks_like_direct_coverage_unavailable(exc: BaseException) -> bool:
+    """Recognize only an explicit provider no-vector coverage statement.
+
+    Sequence-H already distinguishes genuine direct-vector coverage gaps from
+    network, HTTP, parsing, cache, and configuration failures. Some Horizons
+    responses currently escape as a generic WorkflowError containing the exact
+    no-ephemeris message instead of DirectCoverageUnavailable. This predicate is
+    intentionally narrow so transport/cache failures still fail closed.
+    """
+    text = str(exc)
+    return any(pattern.search(text) for pattern in _DIRECT_COVERAGE_PATTERNS)
+
+
+def _run_acquisition_with_coverage_normalization(
+    nav: Any,
+    normalized: Mapping[str, Any],
+    cache: Path,
+    *,
+    offline: bool,
+    refresh: bool,
+) -> dict[str, Any]:
+    """Run the frozen acquisition policy while repairing one exception mismatch.
+
+    The embedded core's run_acquisition already parks DirectCoverageUnavailable
+    for LOCAL dependencies and re-raises it for BASE dependencies. We therefore
+    do not change dependency scope or authority policy here. We only translate a
+    provider exception carrying the exact Horizons no-coverage message into the
+    exception type the frozen policy already handles, then restore the module
+    function immediately after the acquisition call.
+    """
+    acquire = getattr(nav, "run_acquisition", None)
+    fetch = getattr(nav, "fetch_or_cache", None)
+    direct_exc = getattr(nav, "DirectCoverageUnavailable", None)
+    if not callable(acquire) or not callable(fetch) or not isinstance(direct_exc, type):
+        if not callable(acquire):
+            raise NavigationServiceError("legacy acquisition capability is unavailable")
+        return acquire(dict(normalized), cache, offline=offline, refresh=refresh)
+
+    def normalized_fetch(*args: Any, **kwargs: Any):
+        try:
+            return fetch(*args, **kwargs)
+        except direct_exc:
+            raise
+        except Exception as exc:
+            if _looks_like_direct_coverage_unavailable(exc):
+                raise direct_exc(str(exc)) from exc
+            raise
+
+    setattr(nav, "fetch_or_cache", normalized_fetch)
+    try:
+        return acquire(dict(normalized), cache, offline=offline, refresh=refresh)
+    finally:
+        setattr(nav, "fetch_or_cache", fetch)
 
 
 @dataclass
@@ -135,7 +197,13 @@ class LegacyNavigationService:
         cache = self._require(context.cache_dir, "cache_dir")
         mission = self._legacy_mission(request, context, nav)
         normalized = normalize(mission)
-        acquisition = acquire(normalized, cache, offline=offline, refresh=refresh)
+        acquisition = _run_acquisition_with_coverage_normalization(
+            nav,
+            normalized,
+            cache,
+            offline=offline,
+            refresh=refresh,
+        )
         return NavigationContext(
             campaign_state=context.campaign_state,
             acquisition=acquisition,
