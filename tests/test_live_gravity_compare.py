@@ -64,22 +64,24 @@ class LiveGravityCompareTests(unittest.TestCase):
                     _ordinary_row(0,'2226-06-15T00:00:00Z',149597870.7+20000,0.0),
                     _ordinary_row(1,'2226-06-15T00:01:00Z',149597870.7+20000,1786.8),
                     _ordinary_row(2,'2226-06-15T00:02:00Z',149597870.7+20000,3573.6),
+                    _ordinary_row(3,'2226-06-15T00:03:00Z',149597870.7+20000,5360.4),
+                    _ordinary_row(4,'2226-06-15T00:04:00Z',149597870.7+20000,7147.2),
                 ]
             }
             out=compare_live_route_trajectory(trajectory,db,max_step_s=20)
         self.assertEqual(out['contract'],'LOOM_NAV_PHYSICS_V2_LIVE_GRAVITY_COMPARE_V1')
         self.assertEqual(out['authority'],'DIAGNOSTIC_SHADOW_ONLY_NOT_ROUTE_AUTHORITY')
-        self.assertEqual(out['report']['sample_count'],3)
+        self.assertEqual(out['report']['sample_count'],5)
         self.assertGreater(out['report']['terminal_position_error_km'],0)
         self.assertFalse(out['qualification']['campaign_mutation'])
         self.assertEqual(out['qualification']['display_fallbacks'],'REJECTED')
 
         d2f=out['characterization']
         self.assertEqual(d2f['contract'],'LOOM_NAV_PHYSICS_V2_D2F_CHARACTERIZATION_V1')
-        self.assertEqual(d2f['duration_s'],120.0)
-        self.assertEqual(len(d2f['error_profile']),3)
+        self.assertEqual(d2f['duration_s'],240.0)
+        self.assertEqual(len(d2f['error_profile']),5)
         self.assertEqual(d2f['error_profile'][0]['elapsed_s'],0.0)
-        self.assertEqual(d2f['error_profile'][-1]['elapsed_s'],120.0)
+        self.assertEqual(d2f['error_profile'][-1]['elapsed_s'],240.0)
         self.assertGreater(d2f['position_error_growth_km_per_min'],0)
         self.assertGreater(d2f['velocity_error_growth_m_s_per_min'],0)
         self.assertGreaterEqual(d2f['position_error_non_decreasing_fraction'],0.0)
@@ -88,6 +90,26 @@ class LiveGravityCompareTests(unittest.TestCase):
         self.assertLessEqual(d2f['velocity_error_non_decreasing_fraction'],1.0)
         self.assertIsInstance(d2f['dominant_gravity_source_counts'],dict)
         self.assertIsNone(d2f['reference_cutoff_penetration_km'])
+
+        d2g=out['segmented_characterization']
+        self.assertEqual(d2g['contract'],'LOOM_NAV_PHYSICS_V2_D2G_SEGMENTED_CHARACTERIZATION_V1')
+        self.assertEqual(d2g['authority'],'DIAGNOSTIC_CHARACTERIZATION_ONLY_NOT_ROUTE_AUTHORITY')
+        self.assertEqual(d2g['status'],'OK')
+        self.assertEqual(d2g['segmentation_basis'],'QUALIFIED_ORDINARY_ELAPSED_FRACTION_NEAREST_EXISTING_SAMPLE')
+        self.assertEqual(d2g['phase_semantics'],'WINDOW_LABELS_ONLY_NOT_INFERRED_SEQUENCE_B_CONTROL_PHASES')
+        self.assertEqual(d2g['boundary_sample_index'],3)
+        self.assertAlmostEqual(d2g['actual_boundary_fraction'],0.75)
+        self.assertEqual([s['name'] for s in d2g['segments']],['CRUISE_WINDOW','TERMINAL_APPROACH_WINDOW'])
+        cruise,approach=d2g['segments']
+        self.assertEqual(cruise['sample_count'],4)
+        self.assertEqual(approach['sample_count'],2)
+        self.assertEqual(cruise['end_epoch_utc'],approach['start_epoch_utc'])
+        self.assertGreaterEqual(approach['position_error_delta_km'],0.0)
+        self.assertGreaterEqual(approach['velocity_error_delta_m_s'],0.0)
+        self.assertGreaterEqual(d2g['terminal_window_position_error_fraction_of_final'],0.0)
+        self.assertLessEqual(d2g['terminal_window_position_error_fraction_of_final'],1.0)
+        self.assertGreaterEqual(d2g['terminal_window_velocity_error_fraction_of_final'],0.0)
+        self.assertLessEqual(d2g['terminal_window_velocity_error_fraction_of_final'],1.0)
 
 
 if __name__ == '__main__':

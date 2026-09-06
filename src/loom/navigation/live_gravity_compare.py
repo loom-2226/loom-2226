@@ -10,6 +10,12 @@ summaries, dominant-source counts, and body-radius cutoff penetration depth. It
 does not alter the shadow integrator, route choice, guidance, campaign state, or
 Navigator authority.
 
+D2g adds segmented characterization over the already-qualified ordinary-space
+shadow report. It splits the sampled ordinary interval at the sample nearest 75%
+of elapsed time, reports an early/cruise window and a terminal/approach window,
+and measures how much of the accumulated endpoint divergence is added in the
+terminal window. These are diagnostic time windows, not inferred control phases.
+
 The comparison is intentionally fail-closed. Renderer/display fallbacks are not
 accepted as physics. Reference samples that enter a gravitating body's recorded
 mean radius are excluded from the shadow interval because a point-mass field is
@@ -43,6 +49,7 @@ from .gravity_shadow import (
 )
 
 LIVE_GRAVITY_COMPARE_CONTRACT = "LOOM_NAV_PHYSICS_V2_LIVE_GRAVITY_COMPARE_V1"
+D2G_SEGMENTED_CHARACTERIZATION_CONTRACT = "LOOM_NAV_PHYSICS_V2_D2G_SEGMENTED_CHARACTERIZATION_V1"
 
 
 class LiveGravityCompareError(RuntimeError):
@@ -279,6 +286,106 @@ def _characterize_report(report: Any, cutoff: Mapping[str,Any]) -> dict[str,Any]
     return out
 
 
+def _segment_stats(name: str, rows: tuple[Any, ...], t0: datetime, total_duration_s: float) -> dict[str,Any]:
+    start = rows[0]
+    end = rows[-1]
+    start_elapsed_s = (_epoch(start.epoch_utc) - t0).total_seconds()
+    end_elapsed_s = (_epoch(end.epoch_utc) - t0).total_seconds()
+    duration_s = max(0.0, end_elapsed_s - start_elapsed_s)
+    intervals = max(0, len(rows)-1)
+    pos_non_decreasing = 0
+    vel_non_decreasing = 0
+    dominant_counts: dict[str,int] = {}
+    for i, row in enumerate(rows):
+        if row.dominant_gravity_source:
+            dominant_counts[row.dominant_gravity_source] = dominant_counts.get(row.dominant_gravity_source, 0) + 1
+        if i:
+            if row.position_error_km + 1e-12 >= rows[i-1].position_error_km:
+                pos_non_decreasing += 1
+            if row.velocity_error_km_s + 1e-15 >= rows[i-1].velocity_error_km_s:
+                vel_non_decreasing += 1
+    pos_delta = end.position_error_km - start.position_error_km
+    vel_delta_km_s = end.velocity_error_km_s - start.velocity_error_km_s
+    duration_min = duration_s / 60.0
+    return {
+        "name": name,
+        "start_epoch_utc": start.epoch_utc,
+        "end_epoch_utc": end.epoch_utc,
+        "start_elapsed_fraction": start_elapsed_s / total_duration_s if total_duration_s > 0.0 else None,
+        "end_elapsed_fraction": end_elapsed_s / total_duration_s if total_duration_s > 0.0 else None,
+        "duration_s": duration_s,
+        "sample_count": len(rows),
+        "start_position_error_km": start.position_error_km,
+        "end_position_error_km": end.position_error_km,
+        "position_error_delta_km": pos_delta,
+        "max_position_error_km": max(row.position_error_km for row in rows),
+        "start_velocity_error_m_s": start.velocity_error_km_s * 1000.0,
+        "end_velocity_error_m_s": end.velocity_error_km_s * 1000.0,
+        "velocity_error_delta_m_s": vel_delta_km_s * 1000.0,
+        "max_velocity_error_m_s": max(row.velocity_error_km_s for row in rows) * 1000.0,
+        "position_error_delta_growth_km_per_min": pos_delta / duration_min if duration_min > 0.0 else None,
+        "velocity_error_delta_growth_m_s_per_min": vel_delta_km_s * 1000.0 / duration_min if duration_min > 0.0 else None,
+        "position_error_non_decreasing_fraction": pos_non_decreasing / intervals if intervals else None,
+        "velocity_error_non_decreasing_fraction": vel_non_decreasing / intervals if intervals else None,
+        "dominant_gravity_source_counts": dict(sorted(dominant_counts.items())),
+    }
+
+
+def _segment_characterization(report: Any, *, boundary_fraction: float = 0.75) -> dict[str,Any]:
+    """Characterize early-vs-terminal divergence without changing propagation.
+
+    The boundary is the existing report sample nearest 75% of qualified ordinary
+    elapsed time. Both windows share that boundary sample so there is no gap and
+    terminal-window deltas are measured from the boundary state. Labels describe
+    diagnostic windows only; they do not assert that Sequence-B encoded a distinct
+    cruise or approach control phase at that instant.
+    """
+    rows = tuple(report.samples)
+    t0 = _epoch(report.start_epoch_utc)
+    total_duration_s = (_epoch(report.end_epoch_utc) - t0).total_seconds()
+    out: dict[str,Any] = {
+        "contract": D2G_SEGMENTED_CHARACTERIZATION_CONTRACT,
+        "authority": "DIAGNOSTIC_CHARACTERIZATION_ONLY_NOT_ROUTE_AUTHORITY",
+        "segmentation_basis": "QUALIFIED_ORDINARY_ELAPSED_FRACTION_NEAREST_EXISTING_SAMPLE",
+        "requested_boundary_fraction": boundary_fraction,
+        "phase_semantics": "WINDOW_LABELS_ONLY_NOT_INFERRED_SEQUENCE_B_CONTROL_PHASES",
+        "status": "OK",
+    }
+    if len(rows) < 3 or total_duration_s <= 0.0:
+        out.update({
+            "status": "INSUFFICIENT_SAMPLES",
+            "sample_count": len(rows),
+            "duration_s": total_duration_s,
+            "segments": [],
+        })
+        return out
+
+    elapsed = [(_epoch(row.epoch_utc) - t0).total_seconds() for row in rows]
+    fractions = [value / total_duration_s for value in elapsed]
+    boundary_index = min(range(1, len(rows)-1), key=lambda i: abs(fractions[i] - boundary_fraction))
+    early_rows = rows[:boundary_index+1]
+    terminal_rows = rows[boundary_index:]
+    early = _segment_stats("CRUISE_WINDOW", early_rows, t0, total_duration_s)
+    terminal = _segment_stats("TERMINAL_APPROACH_WINDOW", terminal_rows, t0, total_duration_s)
+    terminal_position = float(report.terminal_position_error_km)
+    terminal_velocity_m_s = float(report.terminal_velocity_error_km_s) * 1000.0
+    out.update({
+        "sample_count": len(rows),
+        "duration_s": total_duration_s,
+        "boundary_sample_index": boundary_index,
+        "boundary_epoch_utc": rows[boundary_index].epoch_utc,
+        "actual_boundary_fraction": fractions[boundary_index],
+        "segments": [early, terminal],
+        "terminal_window_position_error_fraction_of_final": (
+            terminal["position_error_delta_km"] / terminal_position if terminal_position > 0.0 else None
+        ),
+        "terminal_window_velocity_error_fraction_of_final": (
+            terminal["velocity_error_delta_m_s"] / terminal_velocity_m_s if terminal_velocity_m_s > 0.0 else None
+        ),
+    })
+    return out
+
+
 def compare_live_route_trajectory(
     trajectory: Mapping[str,Any], db_path: Path | str, *, max_step_s: float=30.0,
     minimum_acceleration_km_s2: float=1e-12,
@@ -305,6 +412,7 @@ def compare_live_route_trajectory(
         "field": field.diagnostics(),
         "report": asdict(report),
         "characterization": _characterize_report(report, cutoff),
+        "segmented_characterization": _segment_characterization(report),
         "qualification": {
             "campaign_mutation": False,
             "route_mutation": False,
