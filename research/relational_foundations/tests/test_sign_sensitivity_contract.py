@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ast
+import re
 import unittest
 from pathlib import Path
 
@@ -36,9 +37,12 @@ class SignSensitivityContractTests(unittest.TestCase):
 
     def test_audit_and_protocol_mark_new_sign_as_experimental(self):
         audit = AUDIT.read_text(encoding="utf-8")
-        protocol = PROTOCOL.read_text(encoding="utf-8")
+        protocol = PROTOCOL.read_text(encoding="utf-8").lower()
+        # Normalize Markdown emphasis so prose formatting does not break the semantic contract.
+        protocol_plain = re.sub(r"[*_`]", "", protocol)
         self.assertIn("new experimental action convention", audit)
-        self.assertIn("not historical reproduction", protocol.lower())
+        self.assertIn("not historical reproduction", protocol_plain)
+        self.assertIn("new hypothesis", protocol_plain)
 
 
 if __name__ == "__main__":
