@@ -53,6 +53,14 @@ class RuntimeCutoverContractTest(unittest.TestCase):
         self.assertEqual(expected['data_root'], '/storage/emulated/0/Documents/LOOM/data')
         self.assertEqual(expected['campaign_root'], '/storage/emulated/0/Documents/LOOM/campaign')
 
+    def test_split_root_gis_binds_navigator_runtime_to_app_and_cache_tree(self):
+        source = (ROOT / 'src/loom_gis.py').read_text(encoding='utf-8')
+        self.assertIn('return app_root / "LOOM_Navigator_Internal_SequenceH", cache_root / "LOOM_Navigator_Cache_v1"', source)
+        self.assertIn('cache_root = app_root.parent / "cache"', source)
+        self.assertIn('runtime_root=app_root', source)
+        self.assertNotIn('sequence_h = campaign_root / "LOOM_Navigator_Internal_SequenceH"', source)
+        self.assertNotIn('runtime_root=campaign_root', source)
+
 
 if __name__ == '__main__':
     unittest.main()
