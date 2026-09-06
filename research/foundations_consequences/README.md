@@ -54,7 +54,7 @@ Three-squad convergence is a **research-priority signal, not an evidence multipl
 - `SQUAD_ARCHITECTURE_v1.1.md` — governing roster/ancestry/bridge/case model.
 - `CURRENT_LOOM_LINEAGE_AUDIT_v1.0.md` — canon/mechanics attribution audit.
 - `CURRENT_LOOM_LINEAGE_AUDIT_SUPPLEMENT_v1.0.md` — Rabbit Hole, Ship Operations and further audit findings.
-- `research_corpus/MANIFEST_v1.1.md` — corpus index; where any stale pointer remains inside that historical file, the active README and v1.1 governance below take precedence.
+- `research_corpus/MANIFEST_v1.2.md` — current corpus navigation index.
 - `research_corpus/ADULTS_WITH_RED_PENS_DOSSIER_v1.0.md`
 - `research_corpus/RESPECTABLY_UNSUPERVISED_DOSSIER_v1.0.md`
 - `research_corpus/FREAKS_WITH_CLIPBOARDS_DOSSIER_v1.0.md`
