@@ -29,6 +29,15 @@ def _install_identity(app_root):
         item.update(release_id=raw.get("release_id"),release_state=raw.get("release_state"),source_ref=raw.get("source_ref"),recorded_app_root=raw.get("app_root"),recorded_data_root=raw.get("data_root"))
     except (OSError,UnicodeError,json.JSONDecodeError,ValueError) as exc:item["error"]=f"{type(exc).__name__}: {exc}"
     return item
+def _campaign_state_identity(path):
+    item=_file_identity(path); item.update(revision=None,state_id=None,error=None)
+    if not path.is_file():return item
+    try:
+        raw=json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(raw,dict):raise ValueError("campaign state is not a JSON object")
+        item["revision"]=raw.get("revision"); item["state_id"]=raw.get("state_id") or raw.get("id")
+    except (OSError,UnicodeError,json.JSONDecodeError,ValueError) as exc:item["error"]=f"{type(exc).__name__}: {exc}"
+    return item
 def _shadow_sql_identity(path):
     item=_file_identity(path); item.update(contract=None,flight_commit_count=None,min_revision=None,max_revision=None,integrity_check=None,error=None)
     if not path.is_file():return item
@@ -46,15 +55,17 @@ def collect_runtime_manifest(*,roots=None):
             path=root/name
             if str(path) in seen:continue
             seen.add(str(path)); item=_file_identity(path); item.update(root=root_name,name=name); databases.append(item)
-    campaign_state=_file_identity(campaign/"LOOM_STATE_V1.json")
-    if not campaign_state["exists"] and campaign!=app:campaign_state=_file_identity(app/"LOOM_STATE_V1.json"); campaign_state["compatibility_fallback"]=True
+    campaign_state=_campaign_state_identity(campaign/"LOOM_STATE_V1.json")
+    if not campaign_state["exists"] and campaign!=app:campaign_state=_campaign_state_identity(app/"LOOM_STATE_V1.json"); campaign_state["compatibility_fallback"]=True
+    history_path=campaign/"LOOM_CAMPAIGN_HISTORY.jsonl.gz"; campaign_history=_file_identity(history_path)
+    if not campaign_history["exists"] and campaign!=app:campaign_history=_file_identity(app/"LOOM_CAMPAIGN_HISTORY.jsonl.gz"); campaign_history["compatibility_fallback"]=True
     trace_path=campaign/"logs"/"loom-trace.jsonl"; shadow_path=campaign/"LOOM_CAMPAIGN_DEV.sqlite3"; cache_path=app/"LOOM_Navigator_Cache_v1"
-    return {"contract":CONTRACT,"runtime":{"platform":platform.platform(),"python":sys.version.split()[0],"executable":sys.executable,"cwd":str(Path.cwd().resolve())},"deployment":{"install_state":_install_identity(app),"app_git_head":_git_head(app)},"roots":roots.to_dict(),"environment":{key:os.environ.get(key) for key in ("LOOM_APP_ROOT","LOOM_DATA_ROOT","LOOM_CAMPAIGN_ROOT","LOOM_HOME")},"source":{"loom_gis":_file_identity(app/"src"/"loom_gis.py"),"runtime":_file_identity(app/"src"/"loom"/"runtime.py")},"databases":databases,"campaign":{"state":campaign_state,"navigator_cache":{"path":str(cache_path),"exists":cache_path.exists(),"root":"app_root"},"shadow_sql":_shadow_sql_identity(shadow_path)},"observability":{"trace":_file_identity(trace_path)}}
+    return {"contract":CONTRACT,"runtime":{"platform":platform.platform(),"python":sys.version.split()[0],"executable":sys.executable,"cwd":str(Path.cwd().resolve())},"deployment":{"install_state":_install_identity(app),"app_git_head":_git_head(app)},"roots":roots.to_dict(),"environment":{key:os.environ.get(key) for key in ("LOOM_APP_ROOT","LOOM_DATA_ROOT","LOOM_CAMPAIGN_ROOT","LOOM_HOME")},"source":{"loom_gis":_file_identity(app/"src"/"loom_gis.py"),"runtime":_file_identity(app/"src"/"loom"/"runtime.py")},"databases":databases,"campaign":{"state":campaign_state,"history":campaign_history,"navigator_cache":{"path":str(cache_path),"exists":cache_path.exists(),"root":"app_root"},"shadow_sql":_shadow_sql_identity(shadow_path)},"observability":{"trace":_file_identity(trace_path)}}
 def render_runtime_audit(manifest):
     roots,runtime=manifest["roots"],manifest["runtime"]; deployment=manifest.get("deployment",{}); install=deployment.get("install_state",{}); lines=["LOOM RUNTIME AUDIT","==================",f"Contract      {manifest['contract']}",f"Platform      {runtime['platform']}",f"Python        {runtime['python']}",f"App Git head  {deployment.get('app_git_head') or 'unavailable'}",f"Release       {install.get('release_id') or 'unavailable'}",f"APP ROOT      {roots['app_root']} [{roots['app_source']}]",f"DATA ROOT     {roots['data_root']} [{roots['data_source']}]",f"CAMPAIGN ROOT {roots['campaign_root']} [{roots['campaign_source']}]","","DATABASES"]
     for db in manifest["databases"]:
         status="PRESENT" if db["exists"] else "missing"; digest=db["sha256"][:12] if db["sha256"] else "-"; lines.append(f"{status:7} {db['root']:9} {db['name']} sha256={digest} path={db['path']}")
-    state=manifest["campaign"]["state"]; shadow=manifest["campaign"]["shadow_sql"]; trace=manifest["observability"]["trace"]
+    state=manifest["campaign"]["state"]; history=manifest["campaign"]["history"]; shadow=manifest["campaign"]["shadow_sql"]; trace=manifest["observability"]["trace"]
     shadow_detail=f"rows={shadow['flight_commit_count']} revisions={shadow['min_revision']}..{shadow['max_revision']} integrity={shadow['integrity_check']}" if shadow["exists"] and not shadow["error"] else (shadow["error"] or "-")
-    lines.extend(["",f"CAMPAIGN STATE {'PRESENT' if state['exists'] else 'missing'} {state['path']}",f"SHADOW SQL     {'PRESENT' if shadow['exists'] else 'missing'} {shadow['path']} {shadow_detail}",f"TRACE          {'PRESENT' if trace['exists'] else 'missing'} {trace['path']}"]); return "\n".join(lines)+"\n"
+    lines.extend(["",f"CAMPAIGN STATE {'PRESENT' if state['exists'] else 'missing'} {state['path']} revision={state.get('revision')}",f"CAMPAIGN HIST  {'PRESENT' if history['exists'] else 'missing'} {history['path']}",f"SHADOW SQL     {'PRESENT' if shadow['exists'] else 'missing'} {shadow['path']} {shadow_detail}",f"TRACE          {'PRESENT' if trace['exists'] else 'missing'} {trace['path']}"]); return "\n".join(lines)+"\n"
 def manifest_json(manifest):return json.dumps(manifest,indent=2,sort_keys=True)+"\n"
