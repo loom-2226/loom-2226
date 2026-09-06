@@ -6,103 +6,87 @@ authority. A planning COMMIT locks a choice; EXECUTE performs the separate,
 explicit campaign transition.
 """
 from __future__ import annotations
-
 from dataclasses import asdict, dataclass, field
 from typing import Any, Mapping
-import copy
-import hashlib
-import json
-
+import copy, hashlib, json
 from loom.navigation import NavigationContext, NavigationRequest, RouteCandidate
 from loom.navigation.trajectory_payload import find_sequence_b_payload, promote_sequence_b_payload, sequence_b_payload_probe
+from loom.campaign.shadow_ledger import CampaignShadowLedger
+from loom.runtime import resolve_runtime_roots
 from .navigation_overlay import build_navigation_overlay
-
-GIS_FLIGHT_PLANNING_VERSION = "LOOM_GIS_FLIGHT_PLANNING_V1"
-
-class GISFlightPlanningError(RuntimeError): pass
-
-def _stable_json(value: Any) -> bytes: return json.dumps(value, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
-def _first(payload: Mapping[str, Any], *keys: str) -> Any:
+GIS_FLIGHT_PLANNING_VERSION="LOOM_GIS_FLIGHT_PLANNING_V1"
+class GISFlightPlanningError(RuntimeError):pass
+def _stable_json(value):return json.dumps(value,sort_keys=True,separators=(",",":"),default=str).encode()
+def _first(payload,*keys):
     for key in keys:
-        if key in payload and payload[key] is not None: return payload[key]
-    return None
-
-def _minutes(source: Mapping[str, Any]) -> Any:
-    direct = _first(source, "total_minutes", "duration_minutes", "elapsed_minutes", "flight_minutes")
-    if direct is not None: return direct
-    seconds = _first(source, "total_s", "duration_s", "elapsed_s", "flight_s")
-    if seconds is None: return None
-    try: return float(seconds) / 60.0
-    except (TypeError, ValueError): return None
-
-def _candidate_summary(candidate: RouteCandidate) -> dict[str, Any]:
+        if key in payload and payload[key] is not None:return payload[key]
+def _minutes(source):
+    direct=_first(source,"total_minutes","duration_minutes","elapsed_minutes","flight_minutes")
+    if direct is not None:return direct
+    seconds=_first(source,"total_s","duration_s","elapsed_s","flight_s")
+    if seconds is None:return None
+    try:return float(seconds)/60.0
+    except (TypeError,ValueError):return None
+def _candidate_summary(candidate):
     p=dict(candidate.payload); leg=p.get("leg") if isinstance(p.get("leg"),Mapping) else {}; source=dict(p)
-    for k,v in dict(leg).items(): source.setdefault(k,v)
+    for k,v in dict(leg).items():source.setdefault(k,v)
     return {"route_id":candidate.route_id,"origin":candidate.origin,"destination":candidate.destination,"departure_epoch":candidate.departure_epoch,"arrival_epoch":candidate.arrival_epoch,"strategy":candidate.strategy,"duration_minutes":_minutes(source),"remass_t":_first(source,"stage_remass_t","remass_t","remass_used_t","total_remass_t"),"holonomy":_first(source,"holonomy","H","holonomy_cost"),"confidence":_first(source,"confidence","C_M","mission_confidence"),"metric_mode":_first(source,"metric","metric_mode"),"torch_mode":_first(source,"torch","torch_mode"),"thermal_posture":_first(source,"thermal","thermal_posture"),"arrival_remass_t":_first(source,"arrival_remass_t","final_remass_t"),"selectable":bool(source.get("selectable",True))}
-
 @dataclass(frozen=True)
 class GISPlanningCandidateV1:
     route_id:str; summary:Mapping[str,Any]; source_payload:Mapping[str,Any]=field(default_factory=dict)
-    def to_dict(self): return asdict(self)
-
+    def to_dict(self):return asdict(self)
 @dataclass(frozen=True)
 class GISPlanningStateV1:
     session_id:str; origin:str; destination:str|None; priority:str; candidates:tuple[GISPlanningCandidateV1,...]=(); preview_route_id:str|None=None; committed_route_id:str|None=None; preview_overlay:Mapping[str,Any]|None=None; campaign_state_sha256:str|None=None; execution_available:bool=False; last_execution:Mapping[str,Any]|None=None; contract:str=GIS_FLIGHT_PLANNING_VERSION
-    def to_dict(self): return asdict(self)
-
+    def to_dict(self):return asdict(self)
 class GISFlightPlanningSession:
-    def __init__(self,navigation_service:Any,context:NavigationContext,*,offline:bool=False,campaign_execution_service:Any|None=None):
-        self.service=navigation_service; self.campaign_execution_service=campaign_execution_service; self.offline=bool(offline); self.last_execution=None; self.trace=None; self.trace_id=None; self._bind_context(context)
-    def bind_trace(self, trace:Any, trace_id:str|None) -> None: self.trace=trace; self.trace_id=trace_id
-    def _emit(self,event_type:str,**fields:Any)->None:
-        if self.trace is not None and self.trace_id:
-            self.trace.emit(event_type,trace_id=self.trace_id,subsystem="gis.flight_planning.session",session_id=self.session_id,**fields)
+    def __init__(self,navigation_service,context,*,offline=False,campaign_execution_service=None):self.service=navigation_service; self.campaign_execution_service=campaign_execution_service; self.offline=bool(offline); self.last_execution=None; self.trace=None; self.trace_id=None; self._bind_context(context)
+    def bind_trace(self,trace,trace_id):self.trace=trace; self.trace_id=trace_id
+    def _emit(self,event_type,**fields):
+        if self.trace is not None and self.trace_id:self.trace.emit(event_type,trace_id=self.trace_id,subsystem="gis.flight_planning.session",session_id=self.session_id,**fields)
     def _bind_context(self,context):
         self.context=context; self._campaign_before=copy.deepcopy(dict(context.campaign_state)); origin=str(self._campaign_before.get("location_token") or "").strip()
-        if not origin: raise GISFlightPlanningError("campaign state has no location_token")
-        self.origin=origin; self.destination=None; self.priority="BALANCED"; self._request=None; self._candidates={}; self._plans={}; self.preview_route_id=None; self.committed_route_id=None; self.preview_overlay=None
-        seed={"state":self._campaign_before.get("state_id"),"revision":self._campaign_before.get("revision"),"origin":origin}; self.session_id="plan-"+hashlib.sha256(_stable_json(seed)).hexdigest()[:16]; self.campaign_state_sha256=hashlib.sha256(_stable_json(self._campaign_before)).hexdigest()
+        if not origin:raise GISFlightPlanningError("campaign state has no location_token")
+        self.origin=origin; self.destination=None; self.priority="BALANCED"; self._request=None; self._candidates={}; self._plans={}; self.preview_route_id=None; self.committed_route_id=None; self.preview_overlay=None; seed={"state":self._campaign_before.get("state_id"),"revision":self._campaign_before.get("revision"),"origin":origin}; self.session_id="plan-"+hashlib.sha256(_stable_json(seed)).hexdigest()[:16]; self.campaign_state_sha256=hashlib.sha256(_stable_json(self._campaign_before)).hexdigest()
     def _assert_read_only(self):
-        if dict(self.context.campaign_state)!=self._campaign_before: raise GISFlightPlanningError("planning mutated canonical campaign state")
-    def state(self):
-        return GISPlanningStateV1(session_id=self.session_id,origin=self.origin,destination=self.destination,priority=self.priority,candidates=tuple(GISPlanningCandidateV1(c.route_id,_candidate_summary(c),dict(c.payload)) for c in self._candidates.values()),preview_route_id=self.preview_route_id,committed_route_id=self.committed_route_id,preview_overlay=self.preview_overlay,campaign_state_sha256=self.campaign_state_sha256,execution_available=self.campaign_execution_service is not None,last_execution=self.last_execution)
+        if dict(self.context.campaign_state)!=self._campaign_before:raise GISFlightPlanningError("planning mutated canonical campaign state")
+    def state(self):return GISPlanningStateV1(session_id=self.session_id,origin=self.origin,destination=self.destination,priority=self.priority,candidates=tuple(GISPlanningCandidateV1(c.route_id,_candidate_summary(c),dict(c.payload)) for c in self._candidates.values()),preview_route_id=self.preview_route_id,committed_route_id=self.committed_route_id,preview_overlay=self.preview_overlay,campaign_state_sha256=self.campaign_state_sha256,execution_available=self.campaign_execution_service is not None,last_execution=self.last_execution)
     def discover(self,destination,priority="BALANCED"):
         destination=str(destination or "").strip()
-        if not destination: raise GISFlightPlanningError("destination is required")
-        if destination==self.origin: raise GISFlightPlanningError("destination must differ from origin")
+        if not destination:raise GISFlightPlanningError("destination is required")
+        if destination==self.origin:raise GISFlightPlanningError("destination must differ from origin")
         self.destination=destination; self.priority=str(priority or "BALANCED").upper(); self._request=NavigationRequest(origin=self.origin,destination=destination,priority=self.priority); self.context=self.service.prepare_context(self._request,self.context,offline=self.offline,refresh=False); rows=self.service.discover_routes(self._request,self.context); self._candidates={c.route_id:c for c in rows}; self._plans.clear(); self.preview_route_id=None; self.committed_route_id=None; self.preview_overlay=None; self.last_execution=None; self._assert_read_only(); return self.state()
     def preview(self,route_id):
-        if self._request is None: raise GISFlightPlanningError("discover routes before preview")
+        if self._request is None:raise GISFlightPlanningError("discover routes before preview")
         candidate=self._candidates.get(str(route_id))
-        if candidate is None: raise GISFlightPlanningError(f"unknown route_id: {route_id}")
-        if not _candidate_summary(candidate)["selectable"]: raise GISFlightPlanningError(f"route is not selectable: {route_id}")
+        if candidate is None:raise GISFlightPlanningError(f"unknown route_id: {route_id}")
+        if not _candidate_summary(candidate)["selectable"]:raise GISFlightPlanningError(f"route is not selectable: {route_id}")
         plan=self._plans.get(candidate.route_id)
         if plan is None:
             plan=self.service.compile_flight(self._request,candidate,self.context); plan=promote_sequence_b_payload(plan)
             if find_sequence_b_payload(plan.payload) is None:
                 print("NAV TRAJECTORY  Sequence-B payload absent after live determinism gate")
-                for row in sequence_b_payload_probe(plan.payload): print("NAV PAYLOAD     ",row)
-            else: print("NAV TRAJECTORY  Sequence-B payload available")
+                for row in sequence_b_payload_probe(plan.payload):print("NAV PAYLOAD     ",row)
+            else:print("NAV TRAJECTORY  Sequence-B payload available")
             self._plans[candidate.route_id]=plan
         layer=self.service.get_route_layer(plan,self.context); self.preview_route_id=candidate.route_id; self.preview_overlay=build_navigation_overlay(layer).to_dict(); self._assert_read_only(); return self.state()
     def commit(self,route_id=None):
         selected=str(route_id or self.preview_route_id or "")
-        if not selected or selected not in self._candidates: raise GISFlightPlanningError("preview/select a valid route before commit")
-        if self.preview_route_id!=selected: self.preview(selected)
+        if not selected or selected not in self._candidates:raise GISFlightPlanningError("preview/select a valid route before commit")
+        if self.preview_route_id!=selected:self.preview(selected)
         self.committed_route_id=selected; self._assert_read_only(); return self.state()
     def execute(self):
-        if self.campaign_execution_service is None: raise GISFlightPlanningError("campaign execution is unavailable in this runtime")
+        if self.campaign_execution_service is None:raise GISFlightPlanningError("campaign execution is unavailable in this runtime")
         plan=self.committed_plan()
-        if plan is None or self.committed_route_id is None: raise GISFlightPlanningError("commit a route before execute")
+        if plan is None or self.committed_route_id is None:raise GISFlightPlanningError("commit a route before execute")
         self._emit("navigator.execute.started",flight_id=plan.flight_id,route_id=self.committed_route_id,origin=self.origin,destination=self.destination,campaign_revision=self._campaign_before.get("revision"),campaign_state_sha256=self.campaign_state_sha256)
-        execution=self.service.execute_flight(plan,self.context)
-        self._emit("navigator.arrival.computed",flight_id=plan.flight_id,status=execution.status,state_after_id=dict(execution.final_state).get("state_id"),revision_after=dict(execution.final_state).get("revision"),arrival_epoch_utc=dict(execution.final_state).get("epoch_utc"))
-        layer=self.service.get_route_layer(plan,self.context)
-        self._emit("campaign.commit.started",flight_id=plan.flight_id,state_before_id=self._campaign_before.get("state_id"),revision_before=self._campaign_before.get("revision"))
-        committed=self.campaign_execution_service.commit_flight(plan,execution,self.context)
-        self._emit("campaign.commit.completed",flight_id=plan.flight_id,state_before_id=committed.state_before_id,state_after_id=committed.state_after_id,revision_before=committed.revision_before,revision_after=committed.revision_after,history_record_number=committed.history_record_number,history_record_sha256=committed.history_record_sha256,state_path=committed.state_path,history_path=committed.history_path)
-        history_overlay=build_navigation_overlay(historical_routes=(layer,),current_vehicle_state=committed.final_state).to_dict(); summary=committed.to_dict(); summary["navigation_status"]=execution.status; summary["historical_overlay"]=history_overlay
-        new_context=NavigationContext(campaign_state=copy.deepcopy(dict(committed.final_state)),acquisition=None,cache_dir=self.context.cache_dir,b1_package=self.context.b1_package,runtime_root=self.context.runtime_root,payload=self.context.payload); self._bind_context(new_context); self.last_execution=summary; self._emit("campaign.rebound",flight_id=plan.flight_id,state_after_id=committed.state_after_id,revision_after=committed.revision_after,location_token=committed.destination); return self.state()
-    def cancel(self):
-        self.destination=None; self.priority="BALANCED"; self._request=None; self._candidates.clear(); self._plans.clear(); self.preview_route_id=None; self.committed_route_id=None; self.preview_overlay=None; self._assert_read_only(); return self.state()
-    def committed_plan(self): return self._plans.get(self.committed_route_id) if self.committed_route_id else None
+        execution=self.service.execute_flight(plan,self.context); self._emit("navigator.arrival.computed",flight_id=plan.flight_id,status=execution.status,state_after_id=dict(execution.final_state).get("state_id"),revision_after=dict(execution.final_state).get("revision"),arrival_epoch_utc=dict(execution.final_state).get("epoch_utc")); layer=self.service.get_route_layer(plan,self.context); self._emit("campaign.commit.started",flight_id=plan.flight_id,state_before_id=self._campaign_before.get("state_id"),revision_before=self._campaign_before.get("revision")); committed=self.campaign_execution_service.commit_flight(plan,execution,self.context); self._emit("campaign.commit.completed",flight_id=plan.flight_id,state_before_id=committed.state_before_id,state_after_id=committed.state_after_id,revision_before=committed.revision_before,revision_after=committed.revision_after,history_record_number=committed.history_record_number,history_record_sha256=committed.history_record_sha256,state_path=committed.state_path,history_path=committed.history_path)
+        # Shadow SQL is strictly post-authority and best-effort. Canonical JSON/history
+        # has already committed successfully before this block can run.
+        try:
+            roots=resolve_runtime_roots(); shadow=CampaignShadowLedger(roots.campaign_root); shadow.mirror_commit(committed); reconciliation=shadow.reconcile_commit(committed); self._emit("campaign.shadow_sql.mirrored",flight_id=plan.flight_id,db_path=str(shadow.path),reconciliation=reconciliation)
+        except Exception as exc:
+            reconciliation={"status":"ERROR","match":False,"error":f"{type(exc).__name__}: {exc}"}; self._emit("campaign.shadow_sql.failed",flight_id=plan.flight_id,error=reconciliation["error"])
+        history_overlay=build_navigation_overlay(historical_routes=(layer,),current_vehicle_state=committed.final_state).to_dict(); summary=committed.to_dict(); summary["navigation_status"]=execution.status; summary["historical_overlay"]=history_overlay; summary["shadow_sql"]=reconciliation; new_context=NavigationContext(campaign_state=copy.deepcopy(dict(committed.final_state)),acquisition=None,cache_dir=self.context.cache_dir,b1_package=self.context.b1_package,runtime_root=self.context.runtime_root,payload=self.context.payload); self._bind_context(new_context); self.last_execution=summary; self._emit("campaign.rebound",flight_id=plan.flight_id,state_after_id=committed.state_after_id,revision_after=committed.revision_after,location_token=committed.destination); return self.state()
+    def cancel(self):self.destination=None; self.priority="BALANCED"; self._request=None; self._candidates.clear(); self._plans.clear(); self.preview_route_id=None; self.committed_route_id=None; self.preview_overlay=None; self._assert_read_only(); return self.state()
+    def committed_plan(self):return self._plans.get(self.committed_route_id) if self.committed_route_id else None
