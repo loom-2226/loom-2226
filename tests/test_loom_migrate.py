@@ -25,9 +25,16 @@ class LoomMigrateTest(unittest.TestCase):
    self.assertEqual((target/"runtime/src/app.py").read_text(),"different")
  def test_activate_requires_valid_stage_and_writes_only_contract(self):
   with TemporaryDirectory() as td:
-   source=Path(td)/"old"; target=Path(td)/"new"; source.mkdir(); self.seed(source); plan=m.audit(source,target)
+   source=Path(td)/"old"; target=Path(td)/"new"; source.mkdir(); self.seed(source)
+   (source/"src"/"loom_gis.py").write_text("gis")
+   (source/"src"/"loom_navigator.py").write_text("nav")
+   plan=m.audit(source,target)
    with self.assertRaisesRegex(RuntimeError,"not fully staged"):m.activate(plan)
-   m.stage(plan); contract=m.activate(plan); payload=json.loads(contract.read_text()); self.assertEqual(payload["contract"],m.ROOT_CONTRACT); self.assertEqual(payload["LOOM_APP_ROOT"],str((target/"runtime").resolve())); self.assertEqual(payload["LOOM_DATA_ROOT"],str((target/"data").resolve())); self.assertEqual(payload["LOOM_CAMPAIGN_ROOT"],str((target/"campaign").resolve())); self.assertTrue(source.exists())
+   m.stage(plan)
+   (target/"data").mkdir(parents=True,exist_ok=True)
+   (target/"data"/"LOOM_2226.sqlite3").write_bytes(b"world")
+   (target/"data"/"LOOM_2226_CIVSTATE.sqlite3").write_bytes(b"civ")
+   contract=m.activate(plan); payload=json.loads(contract.read_text()); self.assertEqual(payload["contract"],m.ROOT_CONTRACT); self.assertEqual(payload["LOOM_APP_ROOT"],str((target/"runtime").resolve())); self.assertEqual(payload["LOOM_DATA_ROOT"],str((target/"data").resolve())); self.assertEqual(payload["LOOM_CAMPAIGN_ROOT"],str((target/"campaign").resolve())); self.assertTrue(source.exists())
  def test_pixel_audited_artifacts_have_explicit_destinations(self):
   cases={
    "LOOM_CAMPAIGN_HISTORY.jsonl.gz.bak":("backup","backups/campaign/LOOM_CAMPAIGN_HISTORY.jsonl.gz.bak"),
