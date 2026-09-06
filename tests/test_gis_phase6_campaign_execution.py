@@ -75,5 +75,22 @@ class Phase6CampaignExecutionTest(unittest.TestCase):
                     LegacyCampaignExecutionService(_Core()).commit_flight(plan,execution,NavigationContext(planned,runtime_root=app))
             self.assertFalse((campaign/'LOOM_CAMPAIGN_HISTORY.jsonl.gz').exists())
 
+    def test_backward_campaign_time_is_rejected_before_any_write(self):
+        with tempfile.TemporaryDirectory() as td:
+            base=Path(td); app=base/'runtime'; campaign=base/'campaign'; app.mkdir(); campaign.mkdir()
+            before=_state(4,'CERES','2226-08-02T00:00:00Z','S4',250.0)
+            (campaign/'LOOM_STATE_V1.json').write_text(json.dumps(before),encoding='utf-8')
+            candidate=RouteCandidate('r1','CERES','MARS')
+            plan=FlightPlan('F1',candidate,payload={'runtime':{},'determinism':{'canonical_runtime_sha256':'runsha'},'html':'','plan_sha256':'plansha'})
+            after=_state(5,'MARS','2226-08-01T23:59:59Z','S5',240.0)
+            after['last_flight']={'flight_id':'F1','departure_state_id':'S4','runtime_sha256':'runsha','committed_plan_sha256':'plansha'}
+            execution=FlightExecutionResult('F1','ARRIVED_HOLD',after,{'persistence_owner':'CAMPAIGN'})
+            with patch.dict('os.environ',{'LOOM_APP_ROOT':str(app),'LOOM_CAMPAIGN_ROOT':str(campaign)},clear=True):
+                with self.assertRaisesRegex(CampaignExecutionError,'cannot move backward'):
+                    LegacyCampaignExecutionService(_Core()).commit_flight(plan,execution,NavigationContext(before,runtime_root=app))
+            self.assertEqual(json.loads((campaign/'LOOM_STATE_V1.json').read_text()),before)
+            self.assertFalse((campaign/'LOOM_CAMPAIGN_HISTORY.jsonl.gz').exists())
+            self.assertFalse((campaign/'LOOM_STATE_V1.bak').exists())
+
 
 if __name__=='__main__': unittest.main()
