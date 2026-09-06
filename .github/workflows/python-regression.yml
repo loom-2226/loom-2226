@@ -7,6 +7,7 @@ on:
       - feature/gis-navigator-convergence
       - feature/runtime-observability-foundation
       - integration/runtime-devops-convergence-2026-09-06
+      - planning/navigator-gis-hud-next-phase-2026-09-06
   pull_request:
   workflow_dispatch:
 
@@ -14,7 +15,7 @@ jobs:
   unit-regression:
     runs-on: ubuntu-latest
     env:
-      PYTHONPATH: ${{ github.workspace }}/src
+      PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}/deploy
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
