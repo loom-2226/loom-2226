@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""LOOM converged GIS launcher — Phase 6.
+"""LOOM converged GIS launcher — Phase 6 / Stage C spatial convergence.
 
 Runs the known-good Solar GIS with Navigator route planning and canonical
 campaign execution. Runtime roots are resolved once; no filesystem archaeology
 or cwd probing is used to discover campaign authority.
+
+Stage C rule: unless an explicit ``--epoch`` query override is supplied, the
+live GIS scene is evaluated at the canonical campaign clock epoch. The browser
+therefore cannot quietly drift onto the Solar GIS legacy fixture date.
 """
 from __future__ import annotations
 
@@ -20,6 +24,7 @@ if str(SRC) not in sys.path:
 import loom_solar_gis as solar_gis
 import loom_navigator
 from loom.campaign import LegacyCampaignExecutionService
+from loom.campaign.clock import LegacyCampaignClockService
 from loom.gis import build_navigation_overlay, install_navigation_overlay
 from loom.gis.navigation_overlay import load_route_layer
 from loom.gis.flight_planning import GISFlightPlanningSession
@@ -107,6 +112,33 @@ def _install_planning_and_execution(roots: RuntimeRoots, *, offline: bool) -> GI
     return session
 
 
+def _has_epoch_argument(args: list[str]) -> bool:
+    """Return whether the delegated Solar GIS argv contains an explicit epoch."""
+    for index, arg in enumerate(args):
+        if arg == "--epoch":
+            return index + 1 < len(args)
+        if arg.startswith("--epoch="):
+            return True
+    return False
+
+
+def _bind_live_scene_epoch(rest: list[str], roots: RuntimeRoots) -> tuple[list[str], str, str]:
+    """Bind live scene time to campaign authority unless caller requested query time.
+
+    Returns ``(argv, epoch, source)``. An explicit epoch is a non-authoritative
+    simulation/query cursor; omission means the canonical campaign epoch.
+    """
+    delegated = list(rest)
+    if _has_epoch_argument(delegated):
+        if "--epoch" in delegated:
+            epoch = delegated[delegated.index("--epoch") + 1]
+        else:
+            epoch = next(arg.split("=", 1)[1] for arg in delegated if arg.startswith("--epoch="))
+        return delegated, str(epoch), "EXPLICIT_QUERY"
+    clock = LegacyCampaignClockService(roots.campaign_root).now()
+    return ["--epoch", clock.epoch_utc, *delegated], clock.epoch_utc, "CAMPAIGN_CLOCK"
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(add_help=False)
     ap.add_argument("--nav-route", type=Path)
@@ -123,6 +155,7 @@ def main(argv=None) -> int:
 
     roots = resolve_runtime_roots(app_root=args.nav_runtime_root)
     export_runtime_environment(roots)
+    rest, scene_epoch, scene_epoch_source = _bind_live_scene_epoch(list(rest), roots)
 
     active_path = args.nav_route or _default_active_route(roots)
     active = load_route_layer(active_path) if active_path else None
@@ -144,12 +177,14 @@ def main(argv=None) -> int:
         else:
             out = {"navigation_overlay": overlay.to_dict(), "flight_planning": planning.state().to_dict() if planning else None}
         out["runtime_roots"] = roots.to_dict()
+        out["scene_epoch"] = {"epoch_utc": scene_epoch, "source": scene_epoch_source}
         print(json.dumps(out, indent=2))
         return 0
 
     print("APP ROOT     ", roots.app_root, f"[{roots.app_source}]")
     print("DATA ROOT    ", roots.data_root, f"[{roots.data_source}]")
     print("CAMPAIGN ROOT", roots.campaign_root, f"[{roots.campaign_source}]")
+    print("SCENE EPOCH  ", scene_epoch, f"[{scene_epoch_source}]")
     if active_path:
         print("NAV ROUTE    ", active_path)
         print("NAV CONTRACT ", active.contract)
