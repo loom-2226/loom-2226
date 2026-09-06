@@ -191,6 +191,21 @@ def r3_null() -> int:
     return 0
 
 
+def r4_isolate() -> int:
+    if dependency_status() != 0:
+        return 2
+    from .r4_term_isolation import run_r4
+
+    payload = run_r4()
+    payload["git_sha"] = git_sha()
+    DEFAULT_OUTPUT.mkdir(parents=True, exist_ok=True)
+    out = DEFAULT_OUTPUT / "r4_recovered_term_isolation.json"
+    out.write_text(json.dumps(payload, indent=2, default=str) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2, default=str))
+    print("OUTPUT:", out)
+    return 0
+
+
 def run_tests() -> int:
     return subprocess.call([
         sys.executable, "-m", "unittest", "discover",
@@ -200,7 +215,7 @@ def run_tests() -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="loomrf", description="LOOM relational-foundations research operations")
-    parser.add_argument("command", choices=["status", "validate", "deps", "test", "smoke", "controls", "rqo1-smoke", "r3-null"])
+    parser.add_argument("command", choices=["status", "validate", "deps", "test", "smoke", "controls", "rqo1-smoke", "r3-null", "r4-isolate"])
     args = parser.parse_args(argv)
     return {
         "status": status,
@@ -211,6 +226,7 @@ def main(argv: list[str] | None = None) -> int:
         "controls": controls,
         "rqo1-smoke": rqo1_smoke,
         "r3-null": r3_null,
+        "r4-isolate": r4_isolate,
     }[args.command]()
 
 
