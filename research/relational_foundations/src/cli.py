@@ -216,6 +216,20 @@ def sign_test() -> int:
     return 0
 
 
+def sign_scale() -> int:
+    if dependency_status() != 0:
+        return 2
+    from .corrected_sign_scaling import run_corrected_sign_scaling
+    payload = run_corrected_sign_scaling()
+    payload["git_sha"] = git_sha()
+    DEFAULT_OUTPUT.mkdir(parents=True, exist_ok=True)
+    out = DEFAULT_OUTPUT / "rqo1_corrected_sign_scaling.json"
+    out.write_text(json.dumps(payload, indent=2, default=str) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2, default=str))
+    print("OUTPUT:", out)
+    return 0
+
+
 def run_tests() -> int:
     return subprocess.call([
         sys.executable, "-m", "unittest", "discover",
@@ -225,7 +239,7 @@ def run_tests() -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="loomrf", description="LOOM relational-foundations research operations")
-    parser.add_argument("command", choices=["status", "validate", "deps", "test", "smoke", "controls", "rqo1-smoke", "r3-null", "r4-isolate", "sign-test"])
+    parser.add_argument("command", choices=["status", "validate", "deps", "test", "smoke", "controls", "rqo1-smoke", "r3-null", "r4-isolate", "sign-test", "sign-scale"])
     args = parser.parse_args(argv)
     return {
         "status": status,
@@ -238,6 +252,7 @@ def main(argv: list[str] | None = None) -> int:
         "r3-null": r3_null,
         "r4-isolate": r4_isolate,
         "sign-test": sign_test,
+        "sign-scale": sign_scale,
     }[args.command]()
 
 
