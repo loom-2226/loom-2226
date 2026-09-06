@@ -55,18 +55,26 @@ def _install_unified_context_drawer() -> None:
     solar_gis.CLIENT_JS += "\n" + marker + "\n" + script_path.read_text(encoding="utf-8") + "\n"
 
 
-def _install_planning_and_execution(roots: RuntimeRoots, *, offline: bool) -> GISFlightPlanningSession:
-    """Bind Phase-6 planning to explicit APP and CAMPAIGN authorities.
+def _navigator_runtime_paths(roots: RuntimeRoots) -> tuple[Path, Path]:
+    """Return explicit Sequence-H and Navigator cache locations for the root topology.
 
-    The current accepted Pixel layout has CAMPAIGN_ROOT == APP_ROOT, so this
-    preserves Phase-6 behavior exactly. The distinction is explicit here so a
-    later migration cannot silently fall back to cwd or another guessed tree.
+    Legacy/combined layouts keep both under APP_ROOT. The migrated split layout
+    keeps Sequence-H under APP_ROOT and cache under the sibling LOOM/cache tree.
     """
+    app_root = roots.app_root
+    if roots.campaign_root == app_root:
+        cache_root = app_root
+    else:
+        cache_root = app_root.parent / "cache"
+    return app_root / "LOOM_Navigator_Internal_SequenceH", cache_root / "LOOM_Navigator_Cache_v1"
+
+
+def _install_planning_and_execution(roots: RuntimeRoots, *, offline: bool) -> GISFlightPlanningSession:
+    """Bind Phase-6 planning to explicit APP and CAMPAIGN authorities."""
     app_root = roots.app_root
     campaign_root = roots.campaign_root
     state_path = campaign_root / "LOOM_STATE_V1.json"
-    sequence_h = campaign_root / "LOOM_Navigator_Internal_SequenceH"
-    cache = app_root / "LOOM_Navigator_Cache_v1"
+    sequence_h, cache = _navigator_runtime_paths(roots)
     b1_matches = sorted(app_root.glob("LOOM_Navigator_Visual_Design_B1_LOCKED_Package*.zip"))
 
     if not state_path.is_file():
@@ -86,7 +94,7 @@ def _install_planning_and_execution(roots: RuntimeRoots, *, offline: bool) -> GI
         campaign_state=state,
         cache_dir=cache,
         b1_package=b1_matches[0],
-        runtime_root=campaign_root,
+        runtime_root=app_root,
     )
     session = GISFlightPlanningSession(
         service,
