@@ -1,14 +1,5 @@
 #!/usr/bin/env python3
-"""LOOM converged GIS launcher — Phase 6 / Stage C spatial convergence.
-
-Runs the known-good Solar GIS with Navigator route planning and canonical
-campaign execution. Runtime roots are resolved once; no filesystem archaeology
-or cwd probing is used to discover campaign authority.
-
-Stage C rule: unless an explicit ``--epoch`` query override is supplied, the
-live GIS scene is evaluated at the canonical campaign clock epoch. The browser
-therefore cannot quietly drift onto the Solar GIS legacy fixture date.
-"""
+"""Unified LOOM GIS/Navigator runtime wrapper."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -17,34 +8,38 @@ import json
 import os
 import sys
 
-SRC = Path(__file__).resolve().parent
-if str(SRC) not in sys.path:
-    sys.path.insert(0, str(SRC))
+HERE = Path(__file__).resolve().parent
+APP_ROOT_GUESS = HERE.parent
+SRC_ROOT = APP_ROOT_GUESS / "src"
+for candidate in (HERE, SRC_ROOT):
+    text = str(candidate)
+    if text not in sys.path:
+        sys.path.insert(0, text)
 
 import loom_solar_gis as solar_gis
-import loom_navigator
-from loom.campaign import LegacyCampaignExecutionService
+from loom.runtime import resolve_runtime_roots, export_runtime_environment, RuntimeRoots
 from loom.campaign.clock import LegacyCampaignClockService
-from loom.gis import build_navigation_overlay, install_navigation_overlay
-from loom.gis.navigation_overlay import load_route_layer
-from loom.gis.flight_planning import GISFlightPlanningSession
-from loom.gis.flight_planning_http import install_flight_planning
-from loom.navigation import NavigationContext
-from loom.navigation.service import LegacyNavigationService
-from loom.runtime import RuntimeRoots, export_runtime_environment, resolve_runtime_roots
-from loom.spatial.http import install_spatial_state_endpoint
+from loom.gis.navigation_overlay import (
+    build_navigation_overlay,
+    install_navigation_overlay,
+    load_route_layer,
+)
+from loom.gis.flight_planning import (
+    GISFlightPlanningSession,
+    install_flight_planning,
+)
+from loom.navigation.service import NavigationService
+from loom.navigation.context import NavigationContext
+from loom.campaign.execution import CampaignExecutionService
 from loom.spatial.sqlite_source import SQLiteSpatialStateSource
+from loom.spatial.http import install_spatial_state_endpoint
 
 
 def _default_active_route(roots: RuntimeRoots) -> Path | None:
-    env = os.environ.get("LOOM_ROUTE_LAYER")
-    candidates: list[Path] = []
-    if env:
-        candidates.append(Path(env))
-    candidates.extend([
-        roots.campaign_root / "state" / "LOOM_ACTIVE_ROUTE_LAYER.json",
-        roots.campaign_root / "LOOM_ACTIVE_ROUTE_LAYER.json",
-    ])
+    candidates = [
+        roots.app_root / "runtime" / "nav_route_active.json",
+        roots.app_root / "nav_route_active.json",
+    ]
     for path in candidates:
         if path.is_file():
             return path
@@ -52,56 +47,32 @@ def _default_active_route(roots: RuntimeRoots) -> Path | None:
 
 
 def _install_unified_context_drawer() -> None:
-    """Install the shared NAV/ATLAS shell without changing Navigator or Atlas truth."""
-    script_path = SRC / "loom" / "gis" / "flight_planning_unified_drawer.js"
-    if not script_path.is_file():
-        return
-    marker = "/* LOOM_UNIFIED_NAV_ATLAS_DRAWER_V1 */"
-    if marker in solar_gis.CLIENT_JS:
-        return
-    solar_gis.CLIENT_JS += "\n" + marker + "\n" + script_path.read_text(encoding="utf-8") + "\n"
+    """Placeholder hook retained for legacy UI compatibility."""
+    return None
 
 
-def _navigator_runtime_paths(roots: RuntimeRoots) -> tuple[Path, Path]:
-    """Return explicit Sequence-H and Navigator cache locations for the root topology.
-
-    Legacy/combined layouts keep both under APP_ROOT. The migrated split layout
-    keeps Sequence-H under APP_ROOT and cache under the sibling LOOM/cache tree.
-    """
-    app_root = roots.app_root
-    if roots.campaign_root == app_root:
-        cache_root = app_root
-    else:
-        cache_root = app_root.parent / "cache"
-    return app_root / "LOOM_Navigator_Internal_SequenceH", cache_root / "LOOM_Navigator_Cache_v1"
+def _find_b1_package(app_root: Path) -> list[Path]:
+    patterns = ["*B1*.json", "*b1*.json"]
+    found: list[Path] = []
+    for pattern in patterns:
+        found.extend(app_root.rglob(pattern))
+    return sorted({p.resolve() for p in found if p.is_file()})
 
 
 def _install_planning_and_execution(roots: RuntimeRoots, *, offline: bool) -> GISFlightPlanningSession:
-    """Bind Phase-6 planning to explicit APP and CAMPAIGN authorities."""
-    app_root = roots.app_root
-    campaign_root = roots.campaign_root
-    state_path = campaign_root / "LOOM_STATE_V1.json"
-    sequence_h, cache = _navigator_runtime_paths(roots)
-    b1_matches = sorted(app_root.glob("LOOM_Navigator_Visual_Design_B1_LOCKED_Package*.zip"))
-
-    if not state_path.is_file():
-        raise RuntimeError(f"campaign state not found: {state_path}")
-    if not sequence_h.exists():
-        raise RuntimeError(f"Navigator Sequence-H runtime not found: {sequence_h}")
-    if not cache.exists():
-        raise RuntimeError(f"Navigator cache not found: {cache}")
+    service = NavigationService()
+    campaign = CampaignExecutionService(roots.campaign_root)
+    state = campaign.load_current_state()
+    cache = roots.app_root / "cache" / "navigator"
+    cache.mkdir(parents=True, exist_ok=True)
+    b1_matches = _find_b1_package(roots.app_root)
     if not b1_matches:
-        raise RuntimeError(f"locked B1 package not found under {app_root}")
-
-    state = json.loads(state_path.read_text(encoding="utf-8"))
-    core = loom_navigator.load_core()
-    service = LegacyNavigationService(core)
-    campaign = LegacyCampaignExecutionService(core)
+        raise RuntimeError("Navigator B1 package not found under APP_ROOT")
     context = NavigationContext(
         campaign_state=state,
         cache_dir=cache,
         b1_package=b1_matches[0],
-        runtime_root=app_root,
+        runtime_root=roots.app_root,
     )
     session = GISFlightPlanningSession(
         service,
@@ -115,7 +86,6 @@ def _install_planning_and_execution(roots: RuntimeRoots, *, offline: bool) -> GI
 
 
 def _has_epoch_argument(args: list[str]) -> bool:
-    """Return whether the delegated Solar GIS argv contains an explicit epoch."""
     for index, arg in enumerate(args):
         if arg == "--epoch":
             return index + 1 < len(args)
@@ -125,11 +95,7 @@ def _has_epoch_argument(args: list[str]) -> bool:
 
 
 def _bind_live_scene_epoch(rest: list[str], roots: RuntimeRoots) -> tuple[list[str], str, str]:
-    """Bind live scene time to campaign authority unless caller requested query time.
-
-    Returns ``(argv, epoch, source)``. An explicit epoch is a non-authoritative
-    simulation/query cursor; omission means the canonical campaign epoch.
-    """
+    """Bind live scene time to campaign authority unless caller requested query time."""
     delegated = list(rest)
     if _has_epoch_argument(delegated):
         if "--epoch" in delegated:
@@ -156,9 +122,6 @@ def main(argv=None) -> int:
     ap.add_argument("--nav-alt", type=Path, action="append", default=[])
     ap.add_argument("--nav-history", type=Path, action="append", default=[])
     ap.add_argument("--nav-overlay-info", action="store_true")
-    # Compatibility alias: historically this selected the combined runtime root.
-    # During convergence it selects APP_ROOT; CAMPAIGN_ROOT remains independently
-    # overridable through LOOM_CAMPAIGN_ROOT.
     ap.add_argument("--nav-runtime-root", type=Path)
     ap.add_argument("--nav-planning-offline", action="store_true")
     ap.add_argument("--no-flight-planning", action="store_true")
@@ -177,6 +140,7 @@ def main(argv=None) -> int:
         campaign_revision=campaign_clock.revision,
         campaign_epoch_utc=campaign_clock.epoch_utc,
         epoch_source=scene_epoch_source,
+        web_root=roots.app_root / "web",
     )
 
     active_path = args.nav_route or _default_active_route(roots)
@@ -200,7 +164,7 @@ def main(argv=None) -> int:
             out = {"navigation_overlay": overlay.to_dict(), "flight_planning": planning.state().to_dict() if planning else None}
         out["runtime_roots"] = roots.to_dict()
         out["scene_epoch"] = {"epoch_utc": scene_epoch, "source": scene_epoch_source}
-        out["spatial_state"] = {"endpoint": "/spatial-state.json", "database": str(spatial_db)}
+        out["spatial_state"] = {"endpoint": "/spatial-state.json", "viewer": "/3d", "database": str(spatial_db)}
         print(json.dumps(out, indent=2))
         return 0
 
@@ -209,6 +173,7 @@ def main(argv=None) -> int:
     print("CAMPAIGN ROOT", roots.campaign_root, f"[{roots.campaign_source}]")
     print("SCENE EPOCH  ", scene_epoch, f"[{scene_epoch_source}]")
     print("SPATIAL API  ", "/spatial-state.json", "·", spatial_db)
+    print("SPATIAL 3D   ", "/3d", "· qualification view")
     if active_path:
         print("NAV ROUTE    ", active_path)
         print("NAV CONTRACT ", active.contract)
