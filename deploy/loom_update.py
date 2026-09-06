@@ -34,7 +34,7 @@ def expected_digest(a):
  return None,None
 def actual_digest_bytes(data,kind):return sha256_bytes(data) if kind=="sha256" else git_blob_sha1_bytes(data)
 def actual_digest_file(path,kind):return sha256_file(path) if kind=="sha256" else git_blob_sha1_file(path)
-def _is_android(env):return bool(env.get("ANDROID_ROOT") or env.get("TERMUX_VERSION")) or Path("/storage/emulated/0").exists()
+def _is_android(env):return bool(env.get("ANDROID_ROOT") or env.get("TERMUX_VERSION"))
 def platform_roots(app_explicit=None,data_explicit=None,environ=None):
  env=os.environ if environ is None else environ; legacy=str(env.get("LOOM_HOME","")).strip(); app_value=app_explicit or str(env.get("LOOM_APP_ROOT","")).strip() or legacy; android=_is_android(env); app=Path(app_value).expanduser() if app_value else (ANDROID_APP_ROOT if android else WINDOWS_APP_ROOT); data_value=data_explicit or str(env.get("LOOM_DATA_ROOT","")).strip(); data=Path(data_value).expanduser() if data_value else (ANDROID_DATA_ROOT if android else app/"data"); return InstallRoots(app.resolve(),data.resolve())
 def platform_root(explicit=None):return platform_roots(app_explicit=explicit).app_root
