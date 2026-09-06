@@ -58,9 +58,12 @@ Three-squad/current+historical convergence is a **research-priority signal, not 
 - `SQUAD_ARCHITECTURE_v1.1.md` — current roster/ancestry/bridge/case model.
 - `CURRENT_LOOM_LINEAGE_AUDIT_v1.0.md` + supplement — canon/mechanics attribution audit.
 - `research_corpus/CONTRIBUTOR_WEIGHT_REGISTER_v1.0.md` — LOOM Utility Weights for current and historical contributors.
-- `research_corpus/MANIFEST_v1.2.md` — research corpus index; successor manifest should point at v0.4 artifacts.
+- `research_corpus/MANIFEST_v1.3.md` — active research-corpus navigation index.
 - current/ancestral squad dossiers under `research_corpus/`.
 - `schemas/work_item.schema.json` and isolated `src/` / `tests/`.
+
+Repository-wide squad/convergence discovery index:
+`../../docs/LOOM_FOUNDATIONS_SQUAD_INDEX_v1.2.md`
 
 Repository-wide attribution policy:
 `../../governance/LOOM_INTELLECTUAL_ANCESTRY_AND_ATTRIBUTION_POLICY_v1.1.md`
