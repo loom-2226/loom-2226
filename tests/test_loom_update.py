@@ -26,6 +26,10 @@ class LoomUpdateTests(unittest.TestCase):
    base=Path(td); roots=loom_update.platform_roots(environ={"LOOM_APP_ROOT":str(base/"app"),"LOOM_DATA_ROOT":str(base/"data"),"LOOM_HOME":str(base/"legacy")}); self.assertEqual(roots.app_root,(base/"app").resolve()); self.assertEqual(roots.data_root,(base/"data").resolve()); legacy=loom_update.platform_roots(environ={"LOOM_HOME":str(base/"legacy")}); self.assertEqual(legacy.app_root,(base/"legacy").resolve()); self.assertEqual(legacy.data_root,(base/"legacy"/"data").resolve())
  def test_injected_android_environment_selects_audited_roots(self):
   roots=loom_update.platform_roots(environ={"ANDROID_ROOT":"/system"}); self.assertEqual(roots.app_root,loom_update.ANDROID_APP_ROOT.resolve()); self.assertEqual(roots.data_root,loom_update.ANDROID_DATA_ROOT.resolve())
+ def test_empty_injected_environment_does_not_probe_android_filesystem(self):
+  with patch.object(loom_update.Path,"exists",side_effect=AssertionError("filesystem probe leaked into root resolution")):
+   roots=loom_update.platform_roots(environ={})
+  self.assertEqual(roots.app_root,loom_update.WINDOWS_APP_ROOT.resolve()); self.assertEqual(roots.data_root,(loom_update.WINDOWS_APP_ROOT/"data").resolve())
  def test_backup_on_replacement(self):
   with tempfile.TemporaryDirectory() as td:
    root=Path(td)/"LOOM"; (root/"src").mkdir(parents=True); (root/"src/nav.py").write_bytes(b"old"); loom_update.install_release(root,self.manifest,"test-ref",artifact_fetcher=self.fetch); self.assertEqual((root/".loom_backups/test/src/nav.py").read_bytes(),b"old")
