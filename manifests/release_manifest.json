@@ -4,7 +4,7 @@
   "release_state": "staging",
   "release_id": "runtime-devops-convergence-2026-09-06",
   "source_ref": "integration/runtime-devops-convergence-2026-09-06",
-  "artifact_freeze_base": "650008af3b02890da8d89e671abe7fd2d0eded8e",
+  "artifact_freeze_base": "b1ae89dba709df989a3e35743e89c294b9538816",
   "authority": {
     "application_root": "LOOM_APP_ROOT",
     "data_root": "LOOM_DATA_ROOT",
@@ -39,7 +39,7 @@
     {"path":"src/loom/gis/flight_planning_unified_drawer.js","install_group":"code","source":"repository","required":true,"git_blob_sha1":"2bfa1e7ac9fefb49ed65a6fb48b91baffb465982","size_bytes":7761},
     {"path":"src/loom/navigation/service.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"667b0e13495d086fabe844419cae77c49e4f2c86","size_bytes":11841},
     {"path":"deploy/loom_update.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"f6ec3c377c27befddef193fd72186453f8986646","size_bytes":12034},
-    {"path":"deploy/android/launch_gis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"d93d763fc21b21a91510db5d1de1cb2a11548307","size_bytes":1188},
+    {"path":"deploy/android/launch_gis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"1bd0108c5a9f7d82f8f3b487cef03b482801df35","size_bytes":1483},
     {"path":"deploy/android/launch_navigator.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"bcebce3647de4eaba651763e59422689180175f4","size_bytes":966},
     {"path":"deploy/windows/launch_gis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"55e54fc6ffabd79e87b92a7aaba3ada8dac5317c","size_bytes":1036},
     {"path":"deploy/windows/launch_navigator.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"d4d20cd571e94fbcd14be4cf3d0a8eba3bc319cd","size_bytes":814},
@@ -56,6 +56,7 @@
   "notes": [
     "Staging authority manifest with runtime artifacts cryptographically pinned to the qualified artifact freeze base.",
     "Flight-planning client and unified-drawer assets are explicit updater artifacts so Pixel deployment closes the Phase-6 UI dependency chain.",
+    "Android GIS planning defaults to provider-backed acquisition; LOOM_NAV_PLANNING_OFFLINE explicitly enables cache-only qualification mode.",
     "Campaign state/history/shadow SQL are never updater install targets.",
     "Repository canonical-data artifact paths are explicit and resolve under LOOM_DATA_ROOT by basename.",
     "Wayfarer engineering and source assets remain outside runtime deployment authority."
