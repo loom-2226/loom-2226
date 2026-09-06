@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""LOOM 2226 updater/bootstrap v0.7-convergence.
+"""LOOM 2226 updater/bootstrap v0.8-convergence.
 
-Installs application/code and canonical reference data into explicit roots.
-Mutable campaign state is outside updater authority and is never an installation
-target. This convergence version preserves the physically audited Pixel layout:
-APP=/Download/LOOM_TEST and DATA=/Documents/LOOM/data until migration activation.
+Installs immutable application artifacts and canonical reference data into explicit
+roots. Mutable campaign state is outside updater authority and is never an
+installation target. Android defaults reflect the qualified post-migration layout.
 """
 from __future__ import annotations
 from dataclasses import dataclass
@@ -13,7 +12,7 @@ import argparse,hashlib,json,os,shutil,sys,tempfile
 from urllib.request import Request,urlopen
 OWNER="loom-2226"; REPO="loom-2226"; DEFAULT_REF="main"
 CONTENTS_API=f"https://api.github.com/repos/{OWNER}/{REPO}/contents"; RELEASE_ASSET_API=f"https://api.github.com/repos/{OWNER}/{REPO}/releases/assets"
-ANDROID_APP_ROOT=Path("/storage/emulated/0/Download/LOOM_TEST"); ANDROID_DATA_ROOT=Path("/storage/emulated/0/Documents/LOOM/data")
+ANDROID_ROOT=Path("/storage/emulated/0/Documents/LOOM"); ANDROID_APP_ROOT=ANDROID_ROOT/"runtime"; ANDROID_DATA_ROOT=ANDROID_ROOT/"data"
 WINDOWS_APP_ROOT=Path.home()/"Documents"/"LOOM"; MANIFEST_PATH="manifests/release_manifest.json"; INSTALL_STATE=".loom_install_state.json"; DOWNLOAD_CHUNK_BYTES=1024*1024; PROGRESS_THRESHOLD_BYTES=8*1024*1024
 @dataclass(frozen=True)
 class InstallRoots: app_root:Path; data_root:Path
@@ -53,7 +52,7 @@ def _progress_line(label,downloaded,total):
  if total and total>0:return f"DOWNLOADING      {label}  {min(100.0,downloaded*100.0/total):5.1f}%  {_format_bytes(downloaded)} / {_format_bytes(total)}"
  return f"DOWNLOADING      {label}  {_format_bytes(downloaded)}"
 def github_bytes(url,accept,*,label=None,expected_size=None):
- req=Request(url,headers={"Authorization":f"Bearer {token()}","Accept":accept,"X-GitHub-Api-Version":"2022-11-28","User-Agent":"LOOM-2226-Updater/0.7-convergence"})
+ req=Request(url,headers={"Authorization":f"Bearer {token()}","Accept":accept,"X-GitHub-Api-Version":"2022-11-28","User-Agent":"LOOM-2226-Updater/0.8-convergence"})
  with urlopen(req,timeout=900) as response:
   total=expected_size
   if total is None and response.headers.get("Content-Length"):
@@ -84,7 +83,7 @@ def _coerce_roots(roots):
 def target_for(roots,a):
  roots=_coerce_roots(roots); src=Path(a["path"]); group=a["install_group"]
  if group=="code":
-  if not src.parts or src.parts[0]!="src" or ".." in src.parts:raise ValueError(f"Unsafe code artifact path: {a['path']}")
+  if not src.parts or src.parts[0] not in {"src","deploy"} or ".." in src.parts:raise ValueError(f"Unsafe code artifact path: {a['path']}")
   return roots.app_root/src
  if group in {"canonical_data","media"}:
   if src.name!=str(src).split("/")[-1]:raise ValueError(f"Unsafe data artifact path: {a['path']}")
