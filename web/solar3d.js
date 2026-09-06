@@ -15,7 +15,7 @@ const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER
 const loc={pos:gl.getAttribLocation(program,'aPos'),color:gl.getAttribLocation(program,'aColor'),size:gl.getAttribLocation(program,'aSize'),mvp:gl.getUniformLocation(program,'uMVP')};
 const buffers={pos:gl.createBuffer(),color:gl.createBuffer(),size:gl.createBuffer()};
 
-let snapshot=null, states=[], center=[0,0,0], yaw=.55, pitch=.38, zoom=2.7, scale=1, positions=[], colors=[], sizes=[];
+let snapshot=null, states=[], center=[0,0,0], focusId='SOL', yaw=.55, pitch=.38, zoom=2.7, scale=1, positions=[], colors=[], sizes=[];
 const byId=new Map();
 
 function resize(){const d=Math.min(devicePixelRatio||1,2);const w=Math.floor(canvas.clientWidth*d),h=Math.floor(canvas.clientHeight*d);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}}
@@ -26,11 +26,21 @@ function rotX(a){const c=Math.cos(a),s=Math.sin(a);return new Float32Array([1,0,
 function rotY(a){const c=Math.cos(a),s=Math.sin(a);return new Float32Array([c,0,-s,0,0,1,0,0,s,0,c,0,0,0,0,1]);}
 function currentMVP(){const aspect=canvas.width/canvas.height;return mul(perspective(Math.PI/3,aspect,.05,100),mul(translate(-zoom),mul(rotX(pitch),rotY(yaw))));}
 function project(p,m){const x=p[0],y=p[1],z=p[2];const cx=m[0]*x+m[4]*y+m[8]*z+m[12],cy=m[1]*x+m[5]*y+m[9]*z+m[13],cw=m[3]*x+m[7]*y+m[11]*z+m[15];if(cw<=0)return null;return [(cx/cw*.5+.5)*canvas.clientWidth,(1-(cy/cw*.5+.5))*canvas.clientHeight];}
-function rebuild(){if(!states.length)return;const rel=states.map(s=>[s.position_km[0]-center[0],s.position_km[1]-center[1],s.position_km[2]-center[2]]);let max=1;for(const p of rel)max=Math.max(max,Math.hypot(...p));scale=1/max;positions=[];colors=[];sizes=[];for(let i=0;i<states.length;i++){const s=states[i],p=rel[i];positions.push(p[0]*scale,p[1]*scale,p[2]*scale);const infra=s.payload?.state_class==='INFRASTRUCTURE';if(s.navigation_grade){colors.push(.70,.86,.77);}else if(infra){colors.push(.62,.72,.88);}else{colors.push(.85,.74,.45);}sizes.push(infra?5:9);}
- bind(buffers.pos,loc.pos,3,new Float32Array(positions));bind(buffers.color,loc.color,3,new Float32Array(colors));bind(buffers.size,loc.size,1,new Float32Array(sizes));statusEl.textContent=`${states.length} states · ${snapshot.counts.navigation_grade} nav-grade\nscale ${max.toExponential(2)} km → 1 unit`;}
+function distanceFromCenter(s){const p=s.position_km;return Math.hypot(p[0]-center[0],p[1]-center[1],p[2]-center[2]);}
+function framingStates(){
+ if(focusId==='SOL'){
+  const celestial=states.filter(s=>s.payload?.state_class==='CELESTIAL');
+  return celestial.length?celestial:states;
+ }
+ const local=states.filter(s=>s.entity_id===focusId||s.payload?.center_entity_id===focusId);
+ return local.length>1?local:[byId.get(focusId)].filter(Boolean);
+}
+function frameRadiusKm(){let radius=1;for(const s of framingStates())radius=Math.max(radius,distanceFromCenter(s));return radius;}
+function rebuild(){if(!states.length)return;const rel=states.map(s=>[s.position_km[0]-center[0],s.position_km[1]-center[1],s.position_km[2]-center[2]]);const frameRadius=frameRadiusKm();scale=1/frameRadius;positions=[];colors=[];sizes=[];for(let i=0;i<states.length;i++){const s=states[i],p=rel[i];positions.push(p[0]*scale,p[1]*scale,p[2]*scale);const infra=s.payload?.state_class==='INFRASTRUCTURE';if(s.navigation_grade){colors.push(.70,.86,.77);}else if(infra){colors.push(.62,.72,.88);}else{colors.push(.85,.74,.45);}sizes.push(infra?5:9);}
+ bind(buffers.pos,loc.pos,3,new Float32Array(positions));bind(buffers.color,loc.color,3,new Float32Array(colors));bind(buffers.size,loc.size,1,new Float32Array(sizes));statusEl.textContent=`${states.length} states · ${snapshot.counts.navigation_grade} nav-grade\n${focusId==='SOL'?'SYSTEM':focusId} frame ${frameRadius.toExponential(2)} km → 1 unit`;}
 function bind(buf,attr,n,data){gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);gl.enableVertexAttribArray(attr);gl.vertexAttribPointer(attr,n,gl.FLOAT,false,0,0);}
 function draw(){resize();gl.clearColor(.02,.03,.05,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.useProgram(program);gl.uniformMatrix4fv(loc.mvp,false,currentMVP());gl.drawArrays(gl.POINTS,0,states.length);requestAnimationFrame(draw);}
-function setCenter(id){const s=byId.get(id);center=s?s.position_km.slice():[0,0,0];zoom=2.7;rebuild();}
+function setCenter(id){const s=byId.get(id);focusId=id;center=s?s.position_km.slice():[0,0,0];zoom=2.7;rebuild();}
 function inspect(index){const s=states[index];if(!s)return;const p=s.position_km,v=s.velocity_km_s,infra=s.payload?.state_class==='INFRASTRUCTURE';info.innerHTML=`<h2>${esc(s.payload?.name||s.entity_id)}</h2><div class="grid"><b>ID</b><span>${esc(s.entity_id)}</span><b>CLASS</b><span>${esc(s.payload?.state_class||'—')}</span><b>NAV</b><span class="${s.navigation_grade?'navgood':'navbad'}">${s.navigation_grade?'NAVIGATION GRADE':'PROVISIONAL / FALLBACK'}</span><b>POSITION km</b><span>${p.map(x=>x.toFixed(1)).join(', ')}</span><b>VELOCITY km/s</b><span>${v.map(x=>x.toFixed(4)).join(', ')}</span><b>SOURCE</b><span>${esc(s.provenance?.state_source||'—')}</span>${infra?`<b>CENTER</b><span>${esc(s.payload?.center_entity_id||'—')}</span><b>VALIDITY</b><span>${esc(s.payload?.validity_status||'—')}</span>`:''}</div>`;}
 function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
@@ -47,6 +57,6 @@ document.getElementById('system').onclick=()=>setCenter('SOL');
 document.getElementById('ceres').onclick=()=>setCenter('CER');
 document.getElementById('reset').onclick=()=>{yaw=.55;pitch=.38;zoom=2.7;};
 
-fetch('/spatial-state.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json();}).then(data=>{snapshot=data;states=data.states||[];for(const s of states)byId.set(s.entity_id,s);epochEl.textContent=data.epoch_utc;frameEl.textContent=data.reference_frame;rebuild();}).catch(err=>{statusEl.textContent='SPATIAL LOAD FAILED\n'+err;});
+fetch('/spatial-state.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json();}).then(data=>{snapshot=data;states=data.states||[];for(const s of states)byId.set(s.entity_id,s);epochEl.textContent=data.epoch_utc;frameEl.textContent=data.reference_frame;setCenter('SOL');}).catch(err=>{statusEl.textContent='SPATIAL LOAD FAILED\n'+err;});
 requestAnimationFrame(draw);
 })();
