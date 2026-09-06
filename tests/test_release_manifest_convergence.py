@@ -2,8 +2,9 @@ from pathlib import Path
 import json
 import unittest
 import importlib.util
+import sys
 ROOT=Path(__file__).parents[1]; MANIFEST=ROOT/"manifests"/"release_manifest.json"
-UPDATER=ROOT/"deploy"/"loom_update.py"; spec=importlib.util.spec_from_file_location("loom_update_manifest_test",UPDATER); updater=importlib.util.module_from_spec(spec); spec.loader.exec_module(updater)
+UPDATER=ROOT/"deploy"/"loom_update.py"; spec=importlib.util.spec_from_file_location("loom_update_manifest_test",UPDATER); updater=importlib.util.module_from_spec(spec); sys.modules["loom_update_manifest_test"]=updater; spec.loader.exec_module(updater)
 class ReleaseManifestConvergenceTest(unittest.TestCase):
  @classmethod
  def setUpClass(cls):cls.manifest=json.loads(MANIFEST.read_text(encoding="utf-8"))
