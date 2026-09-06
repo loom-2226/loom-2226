@@ -42,4 +42,19 @@ class ActivationGateTest(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError,'not fully staged and validated'):
                 m.activate(plan)
 
+    def test_activate_allows_live_log_and_cache_drift(self):
+        with tempfile.TemporaryDirectory() as td:
+            base=Path(td); source=base/'source'; target=base/'target'; source.mkdir()
+            (source/'src').mkdir(); (source/'src/loom_gis.py').write_text('gis'); (source/'src/loom_navigator.py').write_text('nav')
+            (source/'LOOM_STATE_V1.json').write_text('{"revision":1}'); (source/'LOOM_CAMPAIGN_HISTORY.jsonl.gz').write_bytes(b'history')
+            (source/'logs').mkdir(); (source/'logs/runtime.log').write_text('before')
+            (source/'LOOM_Navigator_Cache_v1').mkdir(); (source/'LOOM_Navigator_Cache_v1/cache.json').write_text('before')
+            plan=m.audit(source,target); m.stage(plan)
+            (target/'logs/runtime.log').write_text('after')
+            (target/'cache/LOOM_Navigator_Cache_v1/cache.json').write_text('after')
+            (target/'data').mkdir(parents=True,exist_ok=True); (target/'data/LOOM_2226.sqlite3').write_bytes(b'world'); (target/'data/LOOM_2226_CIVSTATE.sqlite3').write_bytes(b'civ')
+            result=m.activate(plan)
+            self.assertTrue(result['validation']['valid'])
+            self.assertEqual(set(result['validation']['excluded_classes']),{'application','cache','logs'})
+
 if __name__=='__main__':unittest.main()
