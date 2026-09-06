@@ -34,7 +34,7 @@ class LoomMigrateTest(unittest.TestCase):
    (target/"data").mkdir(parents=True,exist_ok=True)
    (target/"data"/"LOOM_2226.sqlite3").write_bytes(b"world")
    (target/"data"/"LOOM_2226_CIVSTATE.sqlite3").write_bytes(b"civ")
-   contract=m.activate(plan); payload=json.loads(contract.read_text()); self.assertEqual(payload["contract"],m.ROOT_CONTRACT); self.assertEqual(payload["LOOM_APP_ROOT"],str((target/"runtime").resolve())); self.assertEqual(payload["LOOM_DATA_ROOT"],str((target/"data").resolve())); self.assertEqual(payload["LOOM_CAMPAIGN_ROOT"],str((target/"campaign").resolve())); self.assertTrue(source.exists())
+   result=m.activate(plan); self.assertEqual(result["contract"],m.CONTRACT); roots=result["roots"]; self.assertEqual(roots["contract"],m.ACTIVATION_CONTRACT); self.assertEqual(roots["app_root"],str((target/"runtime").resolve())); self.assertEqual(roots["data_root"],str((target/"data").resolve())); self.assertEqual(roots["campaign_root"],str((target/"campaign").resolve())); activation=Path(result["activation_file"]); self.assertTrue(activation.is_file()); self.assertEqual(json.loads(activation.read_text()),roots); self.assertTrue(source.exists())
  def test_pixel_audited_artifacts_have_explicit_destinations(self):
   cases={
    "LOOM_CAMPAIGN_HISTORY.jsonl.gz.bak":("backup","backups/campaign/LOOM_CAMPAIGN_HISTORY.jsonl.gz.bak"),
