@@ -12,42 +12,45 @@
     "phase6_behavior": "preserve_frozen_acceptance"
   },
   "runtime_files": [
-    "src/loom_gis.py",
-    "src/loom_navigator.py",
-    "src/loom_doctor.py",
-    "src/loom/runtime.py",
-    "src/loom/runtime_diagnostics.py",
-    "src/loom/runtime_trace.py",
-    "src/loom/campaign/execution.py",
-    "src/loom/campaign/reconciliation.py",
-    "src/loom/campaign/shadow_ledger.py",
-    "src/loom/gis/flight_planning.py",
-    "src/loom/gis/flight_planning_http.py",
-    "src/loom/navigation/service.py",
-    "deploy/loom_update.py",
-    "deploy/android/launch_gis.py",
-    "deploy/android/launch_navigator.py",
-    "deploy/windows/launch_gis.py",
-    "deploy/windows/launch_navigator.py"
+    "src/loom_gis.py", "src/loom_navigator.py", "src/loom_doctor.py", "src/loom/runtime.py",
+    "src/loom/runtime_diagnostics.py", "src/loom/runtime_trace.py", "src/loom/campaign/execution.py",
+    "src/loom/campaign/reconciliation.py", "src/loom/campaign/shadow_ledger.py",
+    "src/loom/gis/flight_planning.py", "src/loom/gis/flight_planning_http.py",
+    "src/loom/navigation/service.py", "deploy/loom_update.py", "deploy/android/launch_gis.py",
+    "deploy/android/launch_navigator.py", "deploy/windows/launch_gis.py", "deploy/windows/launch_navigator.py"
+  ],
+  "artifacts": [
+    {"path":"src/loom_gis.py","install_group":"code","source":"repository","required":true},
+    {"path":"src/loom_navigator.py","install_group":"code","source":"repository","required":true},
+    {"path":"src/loom_doctor.py","install_group":"code","source":"repository","required":true},
+    {"path":"src/loom/runtime.py","install_group":"code","source":"repository","required":true},
+    {"path":"src/loom/runtime_diagnostics.py","install_group":"code","source":"repository","required":true},
+    {"path":"src/loom/runtime_trace.py","install_group":"code","source":"repository","required":true},
+    {"path":"src/loom/campaign/execution.py","install_group":"code","source":"repository","required":true},
+    {"path":"src/loom/campaign/reconciliation.py","install_group":"code","source":"repository","required":true},
+    {"path":"src/loom/campaign/shadow_ledger.py","install_group":"code","source":"repository","required":true},
+    {"path":"src/loom/gis/flight_planning.py","install_group":"code","source":"repository","required":true},
+    {"path":"src/loom/gis/flight_planning_http.py","install_group":"code","source":"repository","required":true},
+    {"path":"src/loom/navigation/service.py","install_group":"code","source":"repository","required":true},
+    {"path":"deploy/loom_update.py","install_group":"code","source":"repository","required":true},
+    {"path":"deploy/android/launch_gis.py","install_group":"code","source":"repository","required":true},
+    {"path":"deploy/android/launch_navigator.py","install_group":"code","source":"repository","required":true},
+    {"path":"deploy/windows/launch_gis.py","install_group":"code","source":"repository","required":true},
+    {"path":"deploy/windows/launch_navigator.py","install_group":"code","source":"repository","required":true},
+    {"path":"LOOM_2226.sqlite3","install_group":"canonical_data","source":"repository","required":true,"sha256":"e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde","size_bytes":4882432},
+    {"path":"LOOM_2226_CIVSTATE.sqlite3","install_group":"canonical_data","source":"repository","required":true,"sha256":"9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560","size_bytes":8093696},
+    {"path":"LOOM_2226_media.sqlite3","install_group":"media","source":"release_asset","asset_id":542245032,"required":true,"sha256":"286873428afbf30b91bdb2e71b55146ed5979873cfd6af69579c121b724eb038","size_bytes":473837568}
   ],
   "canonical_data": [
     {"path":"data/LOOM_2226.sqlite3","sha256":"e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde","size_bytes":4882432},
     {"path":"data/LOOM_2226_CIVSTATE.sqlite3","sha256":"9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560","size_bytes":8093696},
     {"path":"data/LOOM_2226_media.sqlite3","sha256":"286873428afbf30b91bdb2e71b55146ed5979873cfd6af69579c121b724eb038","size_bytes":473837568}
   ],
-  "preserve_local": [
-    "LOOM_STATE_V1.json",
-    "LOOM_STATE_V1.bak",
-    "LOOM_CAMPAIGN_HISTORY.jsonl.gz",
-    "LOOM_CAMPAIGN_DEV.sqlite3",
-    "logs/",
-    "LOOM_Navigator_Cache_v1/",
-    "ephemeris_cache/",
-    "inventory/"
-  ],
+  "preserve_local": ["LOOM_STATE_V1.json","LOOM_STATE_V1.bak","LOOM_CAMPAIGN_HISTORY.jsonl.gz","LOOM_CAMPAIGN_DEV.sqlite3","logs/","LOOM_Navigator_Cache_v1/","ephemeris_cache/","inventory/"],
   "notes": [
-    "Staging authority manifest. Runtime artifact digests are frozen only after final qualification.",
+    "Staging authority manifest. Runtime artifact digests are intentionally pending until immutable release freeze.",
     "Campaign state/history/shadow SQL are never updater install targets.",
+    "Updater treats required runtime artifacts without digests as PENDING_REQUIRED and will not declare release complete.",
     "Wayfarer engineering and source assets remain outside runtime deployment authority."
   ]
 }
