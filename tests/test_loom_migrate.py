@@ -28,4 +28,21 @@ class LoomMigrateTest(unittest.TestCase):
    source=Path(td)/"old"; target=Path(td)/"new"; source.mkdir(); self.seed(source); plan=m.audit(source,target)
    with self.assertRaisesRegex(RuntimeError,"not fully staged"):m.activate(plan)
    m.stage(plan); contract=m.activate(plan); payload=json.loads(contract.read_text()); self.assertEqual(payload["contract"],m.ROOT_CONTRACT); self.assertEqual(payload["LOOM_APP_ROOT"],str((target/"runtime").resolve())); self.assertEqual(payload["LOOM_DATA_ROOT"],str((target/"data").resolve())); self.assertEqual(payload["LOOM_CAMPAIGN_ROOT"],str((target/"campaign").resolve())); self.assertTrue(source.exists())
+ def test_pixel_audited_artifacts_have_explicit_destinations(self):
+  cases={
+   "LOOM_CAMPAIGN_HISTORY.jsonl.gz.bak":("backup","backups/campaign/LOOM_CAMPAIGN_HISTORY.jsonl.gz.bak"),
+   "LOOM_Navigator_Visual_Design_B1_LOCKED_Package_v1.0.zip":("application","runtime/LOOM_Navigator_Visual_Design_B1_LOCKED_Package_v1.0.zip"),
+   "LOOM_PHASE6_HTTP_20260903_215857.log":("logs","logs/LOOM_PHASE6_HTTP_20260903_215857.log"),
+   "LOOM_PHASE6_LATEST.txt":("logs","logs/LOOM_PHASE6_LATEST.txt"),
+   "LOOM_Navigator_Current.html":("generated","cache/generated/LOOM_Navigator_Current.html"),
+   "LOOM_PHONE_RUNTIME_AUDIT.txt":("audit","audit/legacy/LOOM_PHONE_RUNTIME_AUDIT.txt"),
+   "LOOM_Navigator_Browser_Report.json":("audit","audit/legacy/LOOM_Navigator_Browser_Report.json"),
+   "LOOM_KNOWLEDGE_RELATIONSHIPS_DIFF.txt":("audit","audit/legacy/LOOM_KNOWLEDGE_RELATIONSHIPS_DIFF.txt"),
+   "LOOM_Android_Phase6_Convergence_Sync.py":("audit","audit/legacy/LOOM_Android_Phase6_Convergence_Sync.py"),
+   "LOOM_SequenceH_Core.py":("application","runtime/LOOM_SequenceH_Core.py"),
+  }
+  for raw,expected in cases.items():self.assertEqual(m.classify(Path(raw)),expected,raw)
+ def test_bytecode_is_not_migrated_and_legacy_backups_are_preserved(self):
+  self.assertEqual(m.classify(Path("src/__pycache__/x.cpython-313.pyc")),("generated",None))
+  self.assertEqual(m.classify(Path(".loom_backups/phase6/src/x.py")),("backup","backups/legacy_runtime/phase6/src/x.py"))
 if __name__=="__main__":unittest.main()
