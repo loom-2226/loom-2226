@@ -12,6 +12,13 @@ LOOM_Navigator_Cache_v1/
 *.html
 *.log
 
+# Local credentials / auth
+.loom_github_token
+*.pem
+*.key
+.env
+.env.*
+
 # Wayfarer geometry runtime/cache
 data/wayfarer_geometry.sqlite3
 geometry/wayfarer_geometry.json
