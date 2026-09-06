@@ -472,6 +472,24 @@ PROPULSION-RELEVANT EXPENDABLES
 
 Every burn updates current wet mass and remass. Reaction-mass expenditure is recalculated from **current** mass state and the applicable propulsion model. A flat “remass per flight” is planning shorthand only, never chained-flight authority.
 
+## 13.2 Reference courier schematic / thermal packaging baseline — CANON
+
+The current reference-courier schematic uses **four major deployable radiator assemblies in quadrature**, aligned structurally with the four-longeron / four-major-tank architecture. This supersedes the provisional six-radiator visual-design baseline.
+
+```text
+PRIMARY STRUCTURAL GRAMMAR
+4 axial longerons
+4 major working-fluid / remass tanks in quadrature
+4 major deployable radiator assemblies in quadrature
+1 axial primary fusion-torch / magnetic-nozzle system
+```
+
+Each major radiator assembly may be subdivided into multiple independently isolated panels and coolant loops. Loss of one panel does not automatically imply loss of the complete assembly. Cross-connects, bypasses and degraded operating modes remain valid engineering provisions.
+
+The **radiator count is now locked at four for the reference courier**, but final panel dimensions, folding topology, temperature zoning, loop allocation and total effective emitting area remain subject to detailed thermal/packaging closure. The certified metric table in §5 remains the governing performance requirement: **719 m² at 900 K is the HARD-mode equivalent area, not a mandate that the complete ship thermal system equal 719 m² or that all four assemblies operate at one temperature.**
+
+Schematic rule: major radiator roots shall remain mechanically legible, attached to the primary structure through a dedicated thermal-manifold / load-transfer region, and shall not be represented as solar arrays, decorative fins or additional propulsion surfaces.
+
 # 14. Torch card
 
 | Mode | Exhaust velocity | Ideal full-remass Δv |
