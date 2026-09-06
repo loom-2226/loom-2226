@@ -10,7 +10,10 @@ from pathlib import Path
 
 from wayfarer_geometry import init_db, write_geometry
 
-THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.min.js"
+# Use the classic non-module build for maximum Android/embedded-browser compatibility.
+# Three r149 still ships the global THREE build used by web/viewer.js.
+THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"
+THREE_RELATIVE_PATH = Path("web") / "three" / "three.min.js"
 
 
 def repo_root() -> Path:
@@ -18,7 +21,7 @@ def repo_root() -> Path:
 
 
 def ensure_three(root: Path, allow_download: bool = True) -> tuple[bool, str]:
-    target = root / "web" / "three" / "three.module.min.js"
+    target = root / THREE_RELATIVE_PATH
     if target.exists() and target.stat().st_size > 100_000:
         return True, f"THREE.JS          {target}"
     if not allow_download:
@@ -84,8 +87,10 @@ def main() -> None:
     if not v["overall_pass"]:
         raise SystemExit(2)
 
-    _, msg = ensure_three(root, allow_download=not args.no_three_download)
+    ok, msg = ensure_three(root, allow_download=not args.no_three_download)
     print(msg)
+    if not ok:
+        raise SystemExit(3)
     if args.build_only:
         return
 
