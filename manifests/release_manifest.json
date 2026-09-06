@@ -1,7 +1,7 @@
 {
   "product": "LOOM 2226",
   "release_state": "release",
-  "release_id": "pixel-runtime-inventory-v1.0-2026-09-06",
+  "release_id": "media-termux-launch-v1.0-2026-09-06",
   "source_ref": "main",
   "civstate_schema": "1.2-runtime",
   "artifacts": [
@@ -31,10 +31,18 @@
     },
     {
       "path": "src/launch_media_library.py",
-      "sha256": "d88b4ddebc4ca4b6b126b1e0adf5f637c89d3e109a75b200c6bf110f7af54b99",
-      "size_bytes": 335,
+      "sha256": "a121b6a3051c42561c164b52694b84b659c4d11271eb8ebf269312712c7a3ac8",
+      "size_bytes": 289,
       "source": "repository",
       "install_group": "code",
+      "required": true
+    },
+    {
+      "path": "deploy/android/loommedia",
+      "sha256": "82f82865f318b0584a30c9fb30b99a5537da03dfb50318a2ca6b0d2d74ace135",
+      "size_bytes": 200,
+      "source": "repository",
+      "install_group": "launcher",
       "required": true
     },
     {
