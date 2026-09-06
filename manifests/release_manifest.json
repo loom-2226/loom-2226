@@ -4,7 +4,7 @@
   "release_state": "staging",
   "release_id": "runtime-devops-convergence-2026-09-06",
   "source_ref": "integration/runtime-devops-convergence-2026-09-06",
-  "artifact_freeze_base": "f3ff95a4b2aa0e567488e33fd2578f351bafc675",
+  "artifact_freeze_base": "650008af3b02890da8d89e671abe7fd2d0eded8e",
   "authority": {
     "application_root": "LOOM_APP_ROOT",
     "data_root": "LOOM_DATA_ROOT",
@@ -17,11 +17,13 @@
     "src/loom/runtime_diagnostics.py", "src/loom/runtime_trace.py", "src/loom/campaign/execution.py",
     "src/loom/campaign/reconciliation.py", "src/loom/campaign/shadow_ledger.py",
     "src/loom/gis/flight_planning.py", "src/loom/gis/flight_planning_http.py",
-    "src/loom/navigation/service.py", "deploy/loom_update.py", "deploy/android/launch_gis.py",
-    "deploy/android/launch_navigator.py", "deploy/windows/launch_gis.py", "deploy/windows/launch_navigator.py"
+    "src/loom/gis/flight_planning.js", "src/loom/gis/flight_planning_selection.js",
+    "src/loom/gis/flight_planning_unified_drawer.js", "src/loom/navigation/service.py",
+    "deploy/loom_update.py", "deploy/android/launch_gis.py", "deploy/android/launch_navigator.py",
+    "deploy/windows/launch_gis.py", "deploy/windows/launch_navigator.py"
   ],
   "artifacts": [
-    {"path":"src/loom_gis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"481f51388d7abbeec1ebcdf066237503c6f75d4b","size_bytes":6535},
+    {"path":"src/loom_gis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"46fd8aff6b6e5971a7d480cc730733b51840cb83","size_bytes":6815},
     {"path":"src/loom_navigator.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"99d09fa13f3c13e420b1e280f48a6acfe65c3f5a","size_bytes":2493},
     {"path":"src/loom_doctor.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"27c115fb59f042ea7a7548dd3c85c7b3da370fb2","size_bytes":1154},
     {"path":"src/loom/runtime.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"613c61fecbcd7a22bce45eb0092662c93dd764c6","size_bytes":3709},
@@ -32,6 +34,9 @@
     {"path":"src/loom/campaign/shadow_ledger.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"1e2247e6ef9de1e8dc28cd800abedb008b958801","size_bytes":5163},
     {"path":"src/loom/gis/flight_planning.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"b2f4511660b281c10df35aa37f038d431180eb44","size_bytes":11260},
     {"path":"src/loom/gis/flight_planning_http.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"c67b9ec8db1cd08c1e04fad5c5a9a5ca3e9241fd","size_bytes":13338},
+    {"path":"src/loom/gis/flight_planning.js","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ddd053568d7b79f6f07153ef4a51ce923d04e054","size_bytes":17463},
+    {"path":"src/loom/gis/flight_planning_selection.js","install_group":"code","source":"repository","required":true,"git_blob_sha1":"4b4155186e3b96fa91e1f68c6edab42f244d87dc","size_bytes":4842},
+    {"path":"src/loom/gis/flight_planning_unified_drawer.js","install_group":"code","source":"repository","required":true,"git_blob_sha1":"2bfa1e7ac9fefb49ed65a6fb48b91baffb465982","size_bytes":7761},
     {"path":"src/loom/navigation/service.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"667b0e13495d086fabe844419cae77c49e4f2c86","size_bytes":11841},
     {"path":"deploy/loom_update.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"f6ec3c377c27befddef193fd72186453f8986646","size_bytes":12034},
     {"path":"deploy/android/launch_gis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"d93d763fc21b21a91510db5d1de1cb2a11548307","size_bytes":1188},
@@ -50,6 +55,7 @@
   "preserve_local": ["LOOM_STATE_V1.json","LOOM_STATE_V1.bak","LOOM_CAMPAIGN_HISTORY.jsonl.gz","LOOM_CAMPAIGN_DEV.sqlite3","logs/","LOOM_Navigator_Cache_v1/","ephemeris_cache/","inventory/"],
   "notes": [
     "Staging authority manifest with runtime artifacts cryptographically pinned to the qualified artifact freeze base.",
+    "Flight-planning client and unified-drawer assets are explicit updater artifacts so Pixel deployment closes the Phase-6 UI dependency chain.",
     "Campaign state/history/shadow SQL are never updater install targets.",
     "Repository canonical-data artifact paths are explicit and resolve under LOOM_DATA_ROOT by basename.",
     "Wayfarer engineering and source assets remain outside runtime deployment authority."
