@@ -74,10 +74,11 @@ def stage(plan):
  return validation|{'staged_files':len(results),'staged_results':results,'validation':validation}
 def activate(plan):
  if plan.get('unknown_count'):raise RuntimeError('cannot activate with unknown files')
- # Application files are intentionally allowed to differ from the legacy source after
- # the qualified updater deploys the converged runtime into target/runtime. All other
- # migrated mutable/supporting material must still match the staged source hashes.
- validation=validate(plan,exclude_classes={'application'})
+ # Application files may differ after qualified deployment. Logs and caches are live,
+ # non-authoritative runtime products and may continue changing while the retained
+ # legacy runtime remains available during cutover. Campaign, backup, and audit
+ # preservation material remains hash-checked.
+ validation=validate(plan,exclude_classes={'application','logs','cache'})
  if not validation['valid']:raise RuntimeError('migration is not fully staged and validated')
  target=Path(plan['target_root']); roots={'contract':ACTIVATION_CONTRACT,'app_root':str((target/'runtime').resolve()),'data_root':str((target/'data').resolve()),'campaign_root':str((target/'campaign').resolve()),'source_root_retained':plan['source_root']}
  required=[Path(roots['app_root'])/'src'/name for name in ('loom_gis.py','loom_navigator.py')]
