@@ -12,6 +12,9 @@ class LoomUpdateTests(unittest.TestCase):
  def test_complete_install_validate_and_unchanged(self):
   with tempfile.TemporaryDirectory() as td:
    root=Path(td)/"LOOM"; rc=loom_update.main(["update","--root",str(root),"--ref","test-ref"],self.load_manifest,self.fetch); self.assertEqual(rc,0); self.assertEqual((root/"src/nav.py").read_bytes(),self.nav); self.assertEqual((root/"data/media.sqlite3").read_bytes(),self.media); self.assertTrue((root/loom_update.INSTALL_STATE).exists()); self.assertTrue(all(r.state=="OK" for r in loom_update.validate_local(root,self.manifest))); self.assertTrue(all(r.state=="UNCHANGED" for r in loom_update.install_release(root,self.manifest,"test-ref",artifact_fetcher=self.fetch)))
+ def test_nested_code_path_and_git_blob_digest(self):
+  with tempfile.TemporaryDirectory() as td:
+   payload=b"nested-runtime"; a={"path":"src/loom/gis/runtime_piece.py","git_blob_sha1":loom_update.git_blob_sha1_bytes(payload),"size_bytes":len(payload),"source":"repository","install_group":"code","required":True}; roots=loom_update.InstallRoots(Path(td)/"app",Path(td)/"data"); loom_update.install_release(roots,{"release_id":"nested","artifacts":[a]},"ref",artifact_fetcher=lambda artifact,ref:payload); target=roots.app_root/"src/loom/gis/runtime_piece.py"; self.assertEqual(target.read_bytes(),payload); self.assertEqual(loom_update.validate_local(roots,{"artifacts":[a]})[0].state,"OK")
  def test_separate_app_and_data_roots(self):
   with tempfile.TemporaryDirectory() as td:
    app=Path(td)/"app"; data=Path(td)/"canonical"; roots=loom_update.InstallRoots(app,data); loom_update.install_release(roots,self.manifest,"test-ref",artifact_fetcher=self.fetch); self.assertEqual((app/"src/nav.py").read_bytes(),self.nav); self.assertEqual((data/"world.sqlite3").read_bytes(),self.world); self.assertFalse((app/"data/world.sqlite3").exists())
@@ -23,17 +26,18 @@ class LoomUpdateTests(unittest.TestCase):
    base=Path(td); roots=loom_update.platform_roots(environ={"LOOM_APP_ROOT":str(base/"app"),"LOOM_DATA_ROOT":str(base/"data"),"LOOM_HOME":str(base/"legacy")}); self.assertEqual(roots.app_root,(base/"app").resolve()); self.assertEqual(roots.data_root,(base/"data").resolve()); legacy=loom_update.platform_roots(environ={"LOOM_HOME":str(base/"legacy")}); self.assertEqual(legacy.app_root,(base/"legacy").resolve()); self.assertEqual(legacy.data_root,(base/"legacy"/"data").resolve())
  def test_backup_on_replacement(self):
   with tempfile.TemporaryDirectory() as td:
-   root=Path(td)/"LOOM"; (root/"src").mkdir(parents=True); (root/"src/nav.py").write_bytes(b"old"); loom_update.install_release(root,self.manifest,"test-ref",artifact_fetcher=self.fetch); self.assertEqual((root/".loom_backups/test/nav.py").read_bytes(),b"old")
+   root=Path(td)/"LOOM"; (root/"src").mkdir(parents=True); (root/"src/nav.py").write_bytes(b"old"); loom_update.install_release(root,self.manifest,"test-ref",artifact_fetcher=self.fetch); self.assertEqual((root/".loom_backups/test/src/nav.py").read_bytes(),b"old")
  def test_hash_mismatch_fails_closed(self):
   with tempfile.TemporaryDirectory() as td:
    def bad(a,ref):return b"evil" if a["path"]=="src/nav.py" else self.fetch(a,ref)
-   with self.assertRaisesRegex(RuntimeError,"SIZE MISMATCH|HASH MISMATCH"):loom_update.install_release(Path(td)/"LOOM",self.manifest,"test-ref",artifact_fetcher=bad)
+   with self.assertRaisesRegex(RuntimeError,"SIZE MISMATCH|DIGEST MISMATCH"):loom_update.install_release(Path(td)/"LOOM",self.manifest,"test-ref",artifact_fetcher=bad)
  def test_release_asset_requires_id(self):
   bad=dict(self.artifacts[-1]); bad.pop("asset_id"); m=dict(self.manifest); m["artifacts"]=self.artifacts[:-1]+[bad]
   with self.assertRaisesRegex(RuntimeError,"asset_id"):loom_update.validate_manifest(m)
  def test_manifest_rejects_campaign_install_group(self):
-  m={"artifacts":[{"path":"LOOM_STATE_V1.json","install_group":"campaign","required":True}]}
-  with self.assertRaisesRegex(RuntimeError,"Unknown install_group"):loom_update.validate_manifest(m)
+  with self.assertRaisesRegex(RuntimeError,"Unknown install_group"):loom_update.validate_manifest({"artifacts":[{"path":"LOOM_STATE_V1.json","install_group":"campaign","required":True}]})
+ def test_manifest_rejects_multiple_digests(self):
+  with self.assertRaisesRegex(RuntimeError,"multiple digests"):loom_update.validate_manifest({"artifacts":[{"path":"src/x.py","install_group":"code","required":True,"sha256":"a","git_blob_sha1":"b"}]})
  def test_progress_line_with_known_total(self):self.assertIn("50.0%",loom_update._progress_line("data/media.sqlite3",50,100))
  def test_progress_line_without_total(self):self.assertNotIn("%",loom_update._progress_line("data/media.sqlite3",1024*1024,None))
  def test_streaming_download_progress_and_payload_integrity(self):
