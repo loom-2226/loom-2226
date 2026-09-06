@@ -89,6 +89,17 @@ class SpatialHTTPViewerTest(unittest.TestCase):
         self.assertIn("scale=1/frameRadius", js)
         self.assertIn("p[0]-center[0]", js)
 
+    def test_checked_in_viewer_renders_only_authoritative_sequence_b_ordinary_path(self):
+        root = Path(__file__).resolve().parents[1]
+        js = (root / "web" / "solar3d.js").read_text(encoding="utf-8")
+        self.assertIn("/navigation-overlay.json", js)
+        self.assertIn("ordinary_points_j2000_ecliptic_km", js)
+        self.assertIn("trajectory?.authority", js)
+        self.assertIn("gl.LINE_STRIP", js)
+        self.assertIn("uPointMode", js)
+        self.assertNotIn("bezier", js.lower())
+        self.assertNotIn("spline", js.lower())
+
 
 if __name__ == "__main__":
     unittest.main()
