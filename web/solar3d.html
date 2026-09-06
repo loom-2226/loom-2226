@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
+<title>LOOM Spatial 3D</title>
+<style>
+:root{color-scheme:dark;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#05080d;color:#d8e0ea}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#05080d}body{touch-action:none}
+#app{position:fixed;inset:0}canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hud{position:absolute;z-index:2;background:#08101acc;border:1px solid #344255;border-radius:14px;backdrop-filter:blur(8px);box-shadow:0 8px 24px #0007}
+#top{left:12px;right:12px;top:12px;padding:10px 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#title{font-weight:800;letter-spacing:.12em}.muted{color:#8d9aaa;font-size:11px}.pill{border:1px solid #46576d;border-radius:999px;padding:4px 8px;font-size:11px}
+button{font:inherit;color:#d8e0ea;background:#111a27;border:1px solid #46576d;border-radius:999px;padding:7px 10px}button:active{background:#263448}
+#info{left:12px;right:12px;bottom:12px;padding:10px 12px;max-height:34vh;overflow:auto;font-size:12px;line-height:1.5}
+#info h2{font-size:14px;margin:0 0 5px}.grid{display:grid;grid-template-columns:auto 1fr;gap:3px 10px}.grid b{color:#8d9aaa;font-weight:500}.navgood{color:#b8d7c1}.navbad{color:#d7c79c}
+#status{position:absolute;right:14px;top:86px;font-size:11px;color:#8d9aaa;text-align:right;pointer-events:none}
+@media(min-width:800px){#top{right:auto;max-width:720px}#info{right:auto;width:420px}}
+</style>
+</head>
+<body><div id="app">
+<canvas id="gl"></canvas>
+<div id="top" class="hud"><span id="title">LOOM · SPATIAL 3D</span><span id="epoch" class="pill">loading…</span><span id="frame" class="pill">—</span><button id="system">SYSTEM</button><button id="ceres">CERES</button><button id="reset">RESET</button></div>
+<div id="status">fetching spatial state…</div>
+<div id="info" class="hud"><h2>3D QUALIFICATION VIEW</h2><div>Drag to rotate · pinch or wheel to zoom · tap an object to inspect.</div></div>
+</div>
+<script src="/3d.js"></script></body>
+</html>
