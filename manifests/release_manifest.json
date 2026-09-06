@@ -4,7 +4,7 @@
   "release_state": "staging",
   "release_id": "runtime-devops-convergence-2026-09-06",
   "source_ref": "integration/runtime-devops-convergence-2026-09-06",
-  "artifact_freeze_base": "ac6f72e2d3a1e2a2a6a3d7fec1d846b7b58862b4",
+  "artifact_freeze_base": "bf53b1ee0b659b85fd4427bce4c5003a86938d1a",
   "authority": {
     "application_root": "LOOM_APP_ROOT",
     "data_root": "LOOM_DATA_ROOT",
@@ -13,21 +13,23 @@
     "phase6_behavior": "preserve_frozen_acceptance"
   },
   "runtime_files": [
-    "src/loom_gis.py", "src/loom_navigator.py", "src/loom_doctor.py", "src/loom/runtime.py",
-    "src/loom/runtime_diagnostics.py", "src/loom/runtime_trace.py", "src/loom/campaign/execution.py",
+    "src/loom_gis.py", "src/loom_navigator.py", "src/loom_doctor.py", "src/loom_debug_bundle.py", "src/loom_media_library.py",
+    "src/loom/runtime.py", "src/loom/runtime_diagnostics.py", "src/loom/runtime_trace.py", "src/loom/campaign/execution.py",
     "src/loom/campaign/reconciliation.py", "src/loom/campaign/shadow_ledger.py",
     "src/loom/gis/flight_planning.py", "src/loom/gis/flight_planning_http.py",
     "src/loom/gis/flight_planning.js", "src/loom/gis/flight_planning_selection.js",
     "src/loom/gis/flight_planning_unified_drawer.js", "src/loom/navigation/service.py",
-    "deploy/loom_update.py", "deploy/android/launch_gis.py", "deploy/android/launch_navigator.py",
-    "deploy/windows/launch_gis.py", "deploy/windows/launch_navigator.py"
+    "deploy/loom_update.py", "deploy/android/launch_gis.py", "deploy/android/launch_navigator.py", "deploy/android/launch_media_library.py",
+    "deploy/windows/launch_gis.py", "deploy/windows/launch_navigator.py", "deploy/windows/launch_media_library.py"
   ],
   "artifacts": [
     {"path":"src/loom_gis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"46fd8aff6b6e5971a7d480cc730733b51840cb83","size_bytes":6815},
     {"path":"src/loom_navigator.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"99d09fa13f3c13e420b1e280f48a6acfe65c3f5a","size_bytes":2493},
     {"path":"src/loom_doctor.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"27c115fb59f042ea7a7548dd3c85c7b3da370fb2","size_bytes":1154},
+    {"path":"src/loom_debug_bundle.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"06e00474c6c097e35fb29e036e28d52946e1f112","size_bytes":4468},
+    {"path":"src/loom_media_library.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"51bef8d0c8bec7aeb391f589873ce393bd7b0b9b","size_bytes":12103},
     {"path":"src/loom/runtime.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"613c61fecbcd7a22bce45eb0092662c93dd764c6","size_bytes":3709},
-    {"path":"src/loom/runtime_diagnostics.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"f496dd4abaf228c3a327a09b78bc80728a5058da","size_bytes":7173},
+    {"path":"src/loom/runtime_diagnostics.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5755e041e995732f5b67fce8e5708b6d8e3f0b7d","size_bytes":8107},
     {"path":"src/loom/runtime_trace.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"f71609873509478176de6661fa3574911970df41","size_bytes":1512},
     {"path":"src/loom/campaign/execution.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5222fbc2b59d543b5e98bcd12f5f8134472fcb33","size_bytes":8821},
     {"path":"src/loom/campaign/reconciliation.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"36572aba3f19009a0f8e334834a5cc638d023c9e","size_bytes":4813},
@@ -41,8 +43,10 @@
     {"path":"deploy/loom_update.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"f6ec3c377c27befddef193fd72186453f8986646","size_bytes":12034},
     {"path":"deploy/android/launch_gis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"1bd0108c5a9f7d82f8f3b487cef03b482801df35","size_bytes":1483},
     {"path":"deploy/android/launch_navigator.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"bcebce3647de4eaba651763e59422689180175f4","size_bytes":966},
+    {"path":"deploy/android/launch_media_library.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"a94a119e58182c448e2d2f4c1369ef36b797001a","size_bytes":880},
     {"path":"deploy/windows/launch_gis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"55e54fc6ffabd79e87b92a7aaba3ada8dac5317c","size_bytes":1036},
     {"path":"deploy/windows/launch_navigator.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"d4d20cd571e94fbcd14be4cf3d0a8eba3bc319cd","size_bytes":814},
+    {"path":"deploy/windows/launch_media_library.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"a73fbf8f5d824bd1e8f08446f7ae177696bc1784","size_bytes":796},
     {"path":"data/LOOM_2226.sqlite3","install_group":"canonical_data","source":"repository","required":true,"sha256":"e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde","size_bytes":4882432},
     {"path":"data/LOOM_2226_CIVSTATE.sqlite3","install_group":"canonical_data","source":"repository","required":true,"sha256":"9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560","size_bytes":8093696},
     {"path":"LOOM_2226_media.sqlite3","install_group":"media","source":"release_asset","asset_id":542245032,"required":true,"sha256":"286873428afbf30b91bdb2e71b55146ed5979873cfd6af69579c121b724eb038","size_bytes":473837568}
@@ -54,10 +58,11 @@
   ],
   "preserve_local": ["LOOM_STATE_V1.json","LOOM_STATE_V1.bak","LOOM_CAMPAIGN_HISTORY.jsonl.gz","LOOM_CAMPAIGN_DEV.sqlite3","logs/","LOOM_Navigator_Cache_v1/","ephemeris_cache/","inventory/"],
   "notes": [
-    "Staging authority manifest with runtime artifacts cryptographically pinned to the qualified artifact freeze base.",
+    "Runtime artifacts are pinned to the green artifact freeze base for reproducible updater deployment.",
     "Flight-planning client and unified-drawer assets are explicit updater artifacts so Pixel deployment closes the Phase-6 UI dependency chain.",
     "Android GIS planning defaults to provider-backed acquisition; LOOM_NAV_PLANNING_OFFLINE explicitly enables cache-only qualification mode.",
-    "Campaign persistence binds state/history to LOOM_CAMPAIGN_ROOT while loading Sequence-H from LOOM_APP_ROOT.",
+    "The one-shot debug bundle captures diagnostics, deployment identity, campaign summary, activation roots, and bounded log/trace tails without modifying runtime authority.",
+    "Media/canon launchers use APP for code and DATA for SQLite on Android and Windows.",
     "Campaign state/history/shadow SQL are never updater install targets.",
     "Repository canonical-data artifact paths are explicit and resolve under LOOM_DATA_ROOT by basename.",
     "Wayfarer engineering and source assets remain outside runtime deployment authority."
