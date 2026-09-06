@@ -9,13 +9,15 @@ const gl = canvas.getContext('webgl', {antialias:true, alpha:false});
 if(!gl){statusEl.textContent='WebGL unavailable';return;}
 
 const vs=`attribute vec3 aPos;attribute vec3 aColor;attribute float aSize;uniform mat4 uMVP;varying vec3 vColor;void main(){gl_Position=uMVP*vec4(aPos,1.0);gl_PointSize=aSize;vColor=aColor;}`;
-const fs=`precision mediump float;varying vec3 vColor;void main(){vec2 p=gl_PointCoord*2.0-1.0;if(dot(p,p)>1.0)discard;gl_FragColor=vec4(vColor,1.0);}`;
+const fs=`precision mediump float;varying vec3 vColor;void main(){vec2 p=gl_PointCoord*2.0-1.0;if(gl_PointCoord.x>0.0&&dot(p,p)>1.0)discard;gl_FragColor=vec4(vColor,1.0);}`;
 function shader(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;}
 const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vs));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));gl.useProgram(program);
 const loc={pos:gl.getAttribLocation(program,'aPos'),color:gl.getAttribLocation(program,'aColor'),size:gl.getAttribLocation(program,'aSize'),mvp:gl.getUniformLocation(program,'uMVP')};
 const buffers={pos:gl.createBuffer(),color:gl.createBuffer(),size:gl.createBuffer()};
+const routeBuffers={pos:gl.createBuffer(),color:gl.createBuffer(),size:gl.createBuffer()};
 
 let snapshot=null, states=[], center=[0,0,0], focusId='SOL', yaw=.55, pitch=.38, zoom=2.7, scale=1, positions=[], colors=[], sizes=[];
+let routeOverlay=null, routePointsKm=[], routePositions=[], routeColors=[], routeSizes=[], routeId=null, routeAuthority=null;
 const byId=new Map();
 
 function resize(){const d=Math.min(devicePixelRatio||1,2);const w=Math.floor(canvas.clientWidth*d),h=Math.floor(canvas.clientHeight*d);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}}
@@ -37,9 +39,16 @@ function framingStates(){
 }
 function frameRadiusKm(){let radius=1;for(const s of framingStates())radius=Math.max(radius,distanceFromCenter(s));return radius;}
 function rebuild(){if(!states.length)return;const rel=states.map(s=>[s.position_km[0]-center[0],s.position_km[1]-center[1],s.position_km[2]-center[2]]);const frameRadius=frameRadiusKm();scale=1/frameRadius;positions=[];colors=[];sizes=[];for(let i=0;i<states.length;i++){const s=states[i],p=rel[i];positions.push(p[0]*scale,p[1]*scale,p[2]*scale);const infra=s.payload?.state_class==='INFRASTRUCTURE';if(s.navigation_grade){colors.push(.70,.86,.77);}else if(infra){colors.push(.62,.72,.88);}else{colors.push(.85,.74,.45);}sizes.push(infra?5:9);}
- bind(buffers.pos,loc.pos,3,new Float32Array(positions));bind(buffers.color,loc.color,3,new Float32Array(colors));bind(buffers.size,loc.size,1,new Float32Array(sizes));statusEl.textContent=`${states.length} states · ${snapshot.counts.navigation_grade} nav-grade\n${focusId==='SOL'?'SYSTEM':focusId} frame ${frameRadius.toExponential(2)} km → 1 unit`;}
+ bind(buffers.pos,loc.pos,3,new Float32Array(positions));bind(buffers.color,loc.color,3,new Float32Array(colors));bind(buffers.size,loc.size,1,new Float32Array(sizes));rebuildRoute();updateStatus(frameRadius);}
+function updateStatus(frameRadius=frameRadiusKm()){
+ const routeText=routeId?`\nroute ${routeId} · ${routePointsKm.length} ordinary-space samples`:'\nno active trajectory';
+ statusEl.textContent=`${states.length} states · ${snapshot?.counts?.navigation_grade||0} nav-grade\n${focusId==='SOL'?'SYSTEM':focusId} frame ${frameRadius.toExponential(2)} km → 1 unit${routeText}`;
+}
+function rebuildRoute(){routePositions=[];routeColors=[];routeSizes=[];if(!routePointsKm.length)return;for(const p of routePointsKm){routePositions.push((p[0]-center[0])*scale,(p[1]-center[1])*scale,(p[2]-center[2])*scale);routeColors.push(.35,.88,1.0);routeSizes.push(1);}
+ bind(routeBuffers.pos,loc.pos,3,new Float32Array(routePositions));bind(routeBuffers.color,loc.color,3,new Float32Array(routeColors));bind(routeBuffers.size,loc.size,1,new Float32Array(routeSizes));}
 function bind(buf,attr,n,data){gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);gl.enableVertexAttribArray(attr);gl.vertexAttribPointer(attr,n,gl.FLOAT,false,0,0);}
-function draw(){resize();gl.clearColor(.02,.03,.05,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.useProgram(program);gl.uniformMatrix4fv(loc.mvp,false,currentMVP());gl.drawArrays(gl.POINTS,0,states.length);requestAnimationFrame(draw);}
+function useBuffers(set){bind(set.pos,loc.pos,3,set===buffers?new Float32Array(positions):new Float32Array(routePositions));bind(set.color,loc.color,3,set===buffers?new Float32Array(colors):new Float32Array(routeColors));bind(set.size,loc.size,1,set===buffers?new Float32Array(sizes):new Float32Array(routeSizes));}
+function draw(){resize();gl.clearColor(.02,.03,.05,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.useProgram(program);gl.uniformMatrix4fv(loc.mvp,false,currentMVP());if(routePositions.length>=6){useBuffers(routeBuffers);gl.lineWidth(2);gl.drawArrays(gl.LINE_STRIP,0,routePositions.length/3);}useBuffers(buffers);gl.drawArrays(gl.POINTS,0,states.length);requestAnimationFrame(draw);}
 function setCenter(id){const s=byId.get(id);focusId=id;center=s?s.position_km.slice():[0,0,0];zoom=2.7;rebuild();}
 function inspect(index){const s=states[index];if(!s)return;const p=s.position_km,v=s.velocity_km_s,infra=s.payload?.state_class==='INFRASTRUCTURE';info.innerHTML=`<h2>${esc(s.payload?.name||s.entity_id)}</h2><div class="grid"><b>ID</b><span>${esc(s.entity_id)}</span><b>CLASS</b><span>${esc(s.payload?.state_class||'—')}</span><b>NAV</b><span class="${s.navigation_grade?'navgood':'navbad'}">${s.navigation_grade?'NAVIGATION GRADE':'PROVISIONAL / FALLBACK'}</span><b>POSITION km</b><span>${p.map(x=>x.toFixed(1)).join(', ')}</span><b>VELOCITY km/s</b><span>${v.map(x=>x.toFixed(4)).join(', ')}</span><b>SOURCE</b><span>${esc(s.provenance?.state_source||'—')}</span>${infra?`<b>CENTER</b><span>${esc(s.payload?.center_entity_id||'—')}</span><b>VALIDITY</b><span>${esc(s.payload?.validity_status||'—')}</span>`:''}</div>`;}
 function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -57,6 +66,8 @@ document.getElementById('system').onclick=()=>setCenter('SOL');
 document.getElementById('ceres').onclick=()=>setCenter('CER');
 document.getElementById('reset').onclick=()=>{yaw=.55;pitch=.38;zoom=2.7;};
 
-fetch('/spatial-state.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json();}).then(data=>{snapshot=data;states=data.states||[];for(const s of states)byId.set(s.entity_id,s);epochEl.textContent=data.epoch_utc;frameEl.textContent=data.reference_frame;setCenter('SOL');}).catch(err=>{statusEl.textContent='SPATIAL LOAD FAILED\n'+err;});
+function applyOverlay(data){routeOverlay=data;const active=data?.active_route||null;const trajectory=active?.trajectory||{};const points=trajectory?.ordinary_points_j2000_ecliptic_km;routeId=active?.route_id||null;routeAuthority=trajectory?.authority||null;routePointsKm=Array.isArray(points)?points.filter(p=>Array.isArray(p)&&p.length>=3&&p.every(Number.isFinite)):[];rebuildRoute();updateStatus();}
+function loadOverlay(){fetch('/navigation-overlay.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json();}).then(applyOverlay).catch(()=>{});}
+fetch('/spatial-state.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json();}).then(data=>{snapshot=data;states=data.states||[];for(const s of states)byId.set(s.entity_id,s);epochEl.textContent=data.epoch_utc;frameEl.textContent=data.reference_frame;setCenter('SOL');loadOverlay();setInterval(loadOverlay,1000);}).catch(err=>{statusEl.textContent='SPATIAL LOAD FAILED\n'+err;});
 requestAnimationFrame(draw);
 })();
