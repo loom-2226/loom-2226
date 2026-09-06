@@ -26,10 +26,17 @@ env.update({
     "LOOM_HOME": str(APP),
 })
 
-raise SystemExit(subprocess.call([
+argv = [
     sys.executable, str(GIS),
     "--db", str(DB),
     "--civ-db", str(CIV),
     "--nav-runtime-root", str(APP),
-    "--nav-planning-offline",
-], env=env))
+]
+
+# Provider-backed acquisition is the Android default. Cache-only planning is
+# available explicitly for deterministic/offline qualification runs.
+offline = str(os.environ.get("LOOM_NAV_PLANNING_OFFLINE") or "").strip().lower()
+if offline in {"1", "true", "yes", "on"}:
+    argv.append("--nav-planning-offline")
+
+raise SystemExit(subprocess.call(argv, env=env))
