@@ -149,12 +149,10 @@ def rqo1_smoke() -> int:
     if dependency_status() != 0:
         return 2
     from .rqo1_reconstruction import pass_fail_verdict, run_scan
-
     declared_cells = [(0.0, 0.0), (0.0, 0.5)]
     results = []
     for alpha, beta in declared_cells:
-        results.extend(run_scan(N=40, avg_degree=4, n_steps=30,
-                                alphas=[alpha], betas=[beta], seeds=[2226]))
+        results.extend(run_scan(N=40, avg_degree=4, n_steps=30, alphas=[alpha], betas=[beta], seeds=[2226]))
     verdict = pass_fail_verdict(results)
     payload = {
         "kind": "rqo1_protocol_class_smoke_reconstruction",
@@ -180,7 +178,6 @@ def r3_null() -> int:
     if dependency_status() != 0:
         return 2
     from .r3_null_scaling import run_r3
-
     payload = run_r3()
     payload["git_sha"] = git_sha()
     DEFAULT_OUTPUT.mkdir(parents=True, exist_ok=True)
@@ -195,11 +192,24 @@ def r4_isolate() -> int:
     if dependency_status() != 0:
         return 2
     from .r4_term_isolation import run_r4
-
     payload = run_r4()
     payload["git_sha"] = git_sha()
     DEFAULT_OUTPUT.mkdir(parents=True, exist_ok=True)
     out = DEFAULT_OUTPUT / "r4_recovered_term_isolation.json"
+    out.write_text(json.dumps(payload, indent=2, default=str) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2, default=str))
+    print("OUTPUT:", out)
+    return 0
+
+
+def sign_test() -> int:
+    if dependency_status() != 0:
+        return 2
+    from .sign_sensitivity import run_sign_test
+    payload = run_sign_test()
+    payload["git_sha"] = git_sha()
+    DEFAULT_OUTPUT.mkdir(parents=True, exist_ok=True)
+    out = DEFAULT_OUTPUT / "rqo1_curvature_sign_sensitivity.json"
     out.write_text(json.dumps(payload, indent=2, default=str) + "\n", encoding="utf-8")
     print(json.dumps(payload, indent=2, default=str))
     print("OUTPUT:", out)
@@ -215,7 +225,7 @@ def run_tests() -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="loomrf", description="LOOM relational-foundations research operations")
-    parser.add_argument("command", choices=["status", "validate", "deps", "test", "smoke", "controls", "rqo1-smoke", "r3-null", "r4-isolate"])
+    parser.add_argument("command", choices=["status", "validate", "deps", "test", "smoke", "controls", "rqo1-smoke", "r3-null", "r4-isolate", "sign-test"])
     args = parser.parse_args(argv)
     return {
         "status": status,
@@ -227,6 +237,7 @@ def main(argv: list[str] | None = None) -> int:
         "rqo1-smoke": rqo1_smoke,
         "r3-null": r3_null,
         "r4-isolate": r4_isolate,
+        "sign-test": sign_test,
     }[args.command]()
 
 
