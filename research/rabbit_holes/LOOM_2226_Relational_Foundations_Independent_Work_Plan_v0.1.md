@@ -1,31 +1,49 @@
-# LOOM 2226 — Relational Foundations Independent Work Plan v0.2
+# LOOM 2226 — Relational Foundations Independent Work Plan v0.3
 
-**Date:** 6 September 2026  
+**Date:** 7 September 2026  
 **Status:** EXPLORATORY RESEARCH WORK PLAN — NON-CANON — NON-RUNTIME  
 **Owner lane:** `research/rabbit_holes/`  
-**Primary rule:** This workstream must not alter, import into, depend on, or block the Navigator / Solar GIS / runtime delivery workstream.
+**Primary rule:** This workstream must not alter, import into, depend on, or block the Navigator / Solar GIS / runtime delivery workstream.  
+**Current research posture:** preserve Relational Topography as the leading LOOM foundations research hypothesis, but treat every claimed step from toy relational dynamics to LOOM physics as independently falsifiable and non-promotional until earned.
 
 ---
 
 ## 1. Purpose
 
-Reopen the smallest scientifically useful part of the Relational Foundations rabbit hole:
+The Relational Foundations program asks a deliberately narrow first question before it is allowed to ask the larger LOOM questions:
 
 > Can a dynamical relational system with no supplied ordinary spatial coordinates develop robust locality, effective dimension, and reconstructible geometric structure without those results being smuggled in by the model design?
 
-This is not a project to prove LOOM physics, derive a metric drive, explain UAP/ghosts/synchronicity, or solve quantum gravity. It is a bounded computational falsification program intended to answer a narrower question: whether a clean toy model can make a map from relationships.
+The larger long-horizon question is now sharpened to:
 
-The expected result is failure or ambiguity. That is acceptable. A useful outcome is a reproducible negative result that identifies which assumption supplied or prevented geometric emergence.
+> Can a coordinate-free relational dynamics generate robust locality and geometric order without target geometry being supplied by construction, and can the same underlying relational structure eventually support physically inequivalent embeddings, controllable transitions, and a globally acyclic causal order?
 
-**v0.2 change:** recovered project-history artifacts show that this experiment was already partially implemented on 28 August 2026. The immediate work therefore begins with historical reproduction and audit, not a clean-room rewrite.
+These are **research questions, not canon claims**. The first is the immediate computational target. The second defines the distant ladder of evidence that would be required before the research could materially constrain the fictional M1/M2 architecture.
+
+This program is not a project to prove LOOM physics, derive a metric drive from contemporary physics, explain high-strangeness claims, or solve quantum gravity. It is a bounded computational and mathematical falsification program. A reproducible negative result is a valid success if it tells us which assumption supplied or prevented geometric emergence.
+
+### v0.3 reason for revision
+
+Version 0.3 incorporates four developments since the previous work-plan revision:
+
+1. the recovered RQO-1 program was audited, reconstructed, and subjected to null, ablation, sign, and finite-trajectory qualification work;
+2. the historical curvature action was found to contain both a **sign mismatch in its interpretation** and a **stochastic sampled-action implementation**, materially limiting equilibrium claims;
+3. the corrected-sign curvature program nevertheless produced a small but directionally persistent locality-like shift through 10N proposals, while remaining far from the historical locality gate and becoming increasingly sticky;
+4. an independent Claude review and subsequent adversarial discussion proposed three potentially valuable foundations refinements — a gauge/moduli-space route for possible M1/M2 unification, a structural causal-order route for chronology, and Group Field Theory/tensor-condensate mathematics as a possible graduation framework — while also confirming that no standard alternative transport picture currently offers an obviously cleaner LOOM architecture.
+
+The practical consequence is **not** to abandon the current graph program and **not** to promote Relational Topography. Instead, the program is split more sharply into:
+
+- a cheap, hostile **graph falsification track**;
+- a separate **foundations track** for M1/M2 and chronology mathematics;
+- a clearly gated **graduation track** to richer pregeometric frameworks only if the toy program earns it.
 
 ---
 
-## 2. Authority and non-interference boundary
+## 2. Authority, canon, engineering, and research boundaries
 
 ### 2.1 Governing source hierarchy
 
-The current repository authority map and frozen v2.4 canon remain untouched. The relevant governing sources are:
+The current repository authority map and frozen v2.4 canon remain untouched. Governing authority includes:
 
 - `governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md`
 - `canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md`
@@ -34,276 +52,590 @@ The current repository authority map and frozen v2.4 canon remain untouched. The
 - `canon/current/LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md`
 - `canon/current/LOOM_2226_Core_Mechanics_v0.5.md`
 
-The following are research companions, not canon authority:
+Research companions include:
 
 - `research/technical_papers/LOOM_2226_Technical_Paper_Series_Complete_v1.0.pdf`
 - `research/rabbit_holes/LOOM_2226_Rabbit_Hole_Priority_Table_v1.3.md`
-- `LOOM_2226_Relational_Foundations_Research_Hypotheses_v0.2.pdf` in the project research archive / source corpus.
-- `research/relational_foundations/HISTORICAL_RECONSTRUCTION_v0.1.md` — recovered research-history synthesis; not canon.
+- `LOOM_2226_Relational_Foundations_Research_Hypotheses_v0.2.pdf` in the research source corpus
+- `research/relational_foundations/HISTORICAL_RECONSTRUCTION_v0.1.md`
+- the RQO-1 protocols, reconstruction, null-scaling, sign-sensitivity, convergence, matter-preregistration, and instrumentation artifacts under `research/relational_foundations/`
 
-The Technical Paper Series deliberately fixes M1 and M2 as fictional postulates while requiring ordinary GR/QFT/conservation matching where applicable. The relational-foundations hypothesis work explicitly treats the deeper parent model as exploratory and says locality/dimensionality must survive actual failure gates rather than be assumed.
+The authority hierarchy remains:
 
-### 2.2 Runtime firewall
+`GOVERNING CANON > DERIVED CANON > declared PROVISIONAL MODEL > declared TEST FIXTURE > RESEARCH OPEN`.
+
+No result in this work plan changes that hierarchy.
+
+### 2.2 Connection to the foundational physics paper
+
+The Technical Paper Series is the conceptual parent of this research program, but is not routine runtime authority. Its key discipline is preserved here:
+
+- contemporary physics does **not** predict LOOM;
+- M1 and M2 remain fictional physical permissions unless a later foundations program genuinely derives a more economical parent structure;
+- ordinary GR/QFT/thermodynamics/conservation must be recovered in the low-energy / inactive-relational limit;
+- identity preservation, non-duplication, global composability, conservation, and chronology are load-bearing constraints rather than decorative language;
+- the deeper pregeometric action is research ancestry, not established physics;
+- every arrow in the sequence from relational degrees of freedom to geometry, causal structure, continuum physics, autonomous domains, M1, and M2 must have an explicit stop/failure gate.
+
+The work plan therefore preserves the Technical Paper epistemic stack:
+
+- **E** — established physics or mathematics;
+- **A** — analogy / mathematical ancestry;
+- **P** — fictional postulate;
+- **C** — constitutive closure / canon calibration;
+- **D** — derived result;
+- **O** — open problem.
+
+No research result may silently migrate from A/O into P/C/D.
+
+### 2.3 Connection to governing physics/engineering canon
+
+CANON II v2.4 states the foundational engineering rule:
+
+> **Physics generates engineering. Engineering may refine calibration, hardware and certification without adding a third miracle.**
+
+That rule is binding on this research plan. The governing propulsion distinction remains:
+
+- **TORCH** — ordinary momentum exchange;
+- **METRIC** — continuous subluminal relational/metric transport;
+- **LOOM** — discontinuous interstellar relational re-embedding.
+
+The current research may investigate possible mathematical ancestry for the relational sector, but it may not rewrite the certified engineering stack, machine constants, Mc-299m/NRE calibration, metric speed card, environmental certification architecture, flight procedure, or ship state model.
+
+In particular:
+
+- FTL Metric remains a hard kill;
+- Loom remains the sole FTL mechanism;
+- Loom is route translation / relational re-embedding, not a hidden traversed corridor;
+- no research result may add a separate free-energy, free-momentum, braking, inertia-cancellation, or chronology mechanism;
+- engineering may not be used to tune the research action toward already-known ship performance.
+
+### 2.4 Connection to hidden topology and Core Mechanics
+
+CANON III v2.4 keeps the hidden Loom graph as objective GM/model topology and explicitly forbids narrative need from adding, deleting, or upgrading hidden edges. The research program therefore may **not fit to the hidden Loom graph**. Any emergent graph/topology produced here is a toy-model research object only.
+
+Core Mechanics v0.5 also separates observation, solution, formation, commit, transition, relaxation, emergence, and reacquisition. Research outputs must not collapse these operational phases into one speculative physical variable.
+
+Chronology remains operationally tracked through distinct records of **SHIP MET**, **EXT EPOCH**, and **CAUSAL OFFSET** where a discrepancy is established. A research hypothesis about deeper causal order does not authorize the runtime to normalize away such discrepancies or to invent a selectable temporal-navigation capability.
+
+### 2.5 Runtime firewall
 
 This branch of work SHALL NOT:
 
-- edit anything under `src/`, `web/`, `deploy/`, `data/`, `geometry/`, or `tests/` used by Navigator/GIS/runtime;
-- edit `engineering/current/` Navigator, HUD, Solar GIS, runtime or delivery baselines;
+- edit anything under production `src/`, `web/`, `deploy/`, `data/`, `geometry/`, or runtime `tests/`;
 - edit current canon or governance files;
+- edit Navigator/HUD/Solar GIS/runtime architecture baselines;
 - modify CORE, MEDIA, CIVSTATE, campaign/save/history SQLite files;
 - import Navigator or GIS modules;
 - call Navigator endpoints or consume Navigator route payloads;
 - add dependencies to the production/runtime Python environment;
-- change repository release hashes for Navigator/GIS artifacts;
+- change release hashes for runtime artifacts;
 - make Navigator/GIS CI depend on research tests;
-- block a Navigator/GIS release because the research branch fails.
+- block a Navigator/GIS release because research fails.
 
-The Navigator and GIS workstream remains authoritative for route geometry, ephemerides, flight execution, campaign state and visualization according to its existing architecture. This research workstream has no runtime authority.
+### 2.6 Physical/canon firewall
 
-### 2.3 Physical/canon firewall
-
-Research results SHALL NOT silently promote, demote or retune:
+Research results SHALL NOT silently promote, demote, or retune:
 
 - M1: degenerate physical embedding;
 - M2: controllable relational susceptibility;
+- the two-miracle accounting rule;
+- chronology limits;
 - the hidden Loom graph;
-- certified metric operating modes;
-- Loom translation behavior;
-- Mc-299m engineering calibration;
+- Metric or Loom operating behavior;
+- Mc-299m/NRE engineering calibration;
 - courier mass/power/thermal values;
-- 2226 world/economic/civilizational state.
+- world/history/economic/civilizational state.
 
-If a toy model fails, canon does not fail. If a toy model succeeds, canon is not thereby proved.
-
----
-
-## 3. Historical state recovered before restart
-
-The project file archive contains three important prior artifacts:
-
-- `LOOM_2226_Relational_Foundations_Research_Hypotheses_v0.2.pdf`;
-- `RQO-1_protocol.md`;
-- `rqo1_experiment.py`.
-
-The preserved history establishes:
-
-1. **AUIF v1** tested relation-first finite-degree graphs and produced random-regular / expander-like states rather than useful locality — project shorthand: **expander soup**.
-2. Adding short-cycle terms could produce more local-looking states, but created a target-leakage problem: rewarding the desired geometric diagnostic is not the same as deriving geometry.
-3. Adding an internal-clock constraint improved Lorentzian-looking propagation / causal structure but did not derive GR, QFT or realistic matter.
-4. The project correctly stopped instead of retuning indefinitely.
-5. On 28 August, **RQO-1** was then implemented as a more disciplined rerun using random-regular graphs, degree-preserving Metropolis rewiring, an Ollivier-Ricci + triangle action, multiple seeds, spectral/volume-growth diagnostics and an explicit broad-phase gate.
-6. The recovered protocol records only a **tiny smoke-test FAIL** (`N≈40`, two trial cells, ~30 MCMC steps) and explicitly states that this was not a scientific verdict.
-7. No recovered artifact yet proves that the intended full RQO-1 scan was executed to completion.
-
-Therefore this plan must reproduce and audit the historical experiment before inventing a new one.
+If a toy model fails, canon does not automatically fail. If a toy model succeeds, canon is not thereby proved.
 
 ---
 
-## 4. Research question and preregistered success criteria
+## 3. Current research state as of 7 September 2026
 
-### 4.1 Primary question
+### 3.1 Historical RQO-1 lessons retained
 
-Given a finite set of relational degrees of freedom with no assigned ordinary coordinates, can a physically motivated local minimum / ordered phase emerge whose large-scale observables are consistent with a stable low-dimensional geometry?
+Recovered and reconstructed project history establishes:
 
-### 4.2 Minimum success criteria
+1. relation-first finite-degree graph ensembles naturally tended toward random-regular / expander-like behavior — project shorthand: **expander soup**;
+2. short-cycle reward terms could make graphs look more local but created an answer-smuggling problem;
+3. an internal simulation clock could create Lorentzian-looking diagnostics but did not derive GR/QFT and risked relabeling numerical update order as physical time;
+4. the historical RQO-1 action used Ollivier-Ricci curvature and triangle terms with degree-preserving connected double-edge swaps;
+5. the historical `+alpha * curvature_sum` convention was described as though positive alpha rewarded positive curvature, but under energy minimization it actually favored lower/more-negative curvature;
+6. the historical sampled curvature diagnostic also contained a scaling issue at small N;
+7. the recovered historical smoke test was scientifically insufficient and is not a verdict on RQO-1.
 
-A run is only "interesting" if all of the following are demonstrated without post-hoc retuning to a target answer:
+### 3.2 Corrected-sign program
 
-1. **No supplied embedding:** no x/y/z or target manifold is used in the dynamics.
-2. **Emergent locality:** graph neighborhoods become stable and non-expander-like over a sustained regime.
-3. **Dimension signal:** at least two independent estimators converge toward a stable effective dimension over a meaningful scale window.
-4. **Robustness:** the result survives multiple random seeds and a declared perturbation family.
-5. **Nontriviality:** shuffled/null models do not produce the same signal at comparable frequency.
-6. **No hidden answer:** ablation shows that removal of any explicit locality-promoting term does not simply reveal that geometry was put in by hand.
+The corrected-sign experimental action was separated from historical reproduction:
 
-### 4.3 Stronger, later criteria
+`S_C = -alpha * curvature_sum`
 
-Do not pursue these until the minimum gate passes:
+This is a **new experimental convention**, not a silent repair of historical code.
 
-- Lorentzian/causal structure;
-- emergent internal clock/order;
-- reconstructible effective metric;
-- continuum-limit behavior;
-- GR-like infrared dynamics;
-- QFT-like propagation;
-- non-injective reconstruction relevant to M1;
-- controlled relational perturbation relevant to M2.
+Across the bounded qualification program, corrected curvature produced a small but directionally consistent shift toward:
 
----
+- slightly larger `avg_shortest_path / log(N)`;
+- smaller normalized-Laplacian spectral gap;
 
-## 5. Phase plan
+relative to both the historical sign convention and, more weakly, the random-regular null.
 
-### Phase 0 — RF-WP0: Historical reproduction and audit
+The effect remained far below the historical provisional `1.3 * log(N)` path gate.
 
-**Goal:** establish exactly what was previously implemented, what actually ran, and where the earlier work stopped before writing replacement theory code.
+### 3.3 PR #17 convergence result and methodological limitation
 
-Preserve and audit the recovered 28 August artifacts.
+The longer-trajectory convergence qualification at N=80, degree 4, seeds 2226–2228, T=1, corrected alpha=1, checkpoints 2N/5N/10N showed:
 
-Required tasks:
+- the directional locality-like effect persisted at all checkpoints;
+- the corrected-minus-null path/logN difference grew from roughly +0.0042 at 2N to +0.0121 at 10N;
+- the corrected spectral gap remained below null at all checkpoints;
+- the mean corrected acceptance fraction fell from about 0.085 at 2N to 0.035 at 10N;
+- action autocorrelation was very high where defined;
+- no seed crossed the historical path gate.
 
-- recover the full historical `RQO-1_protocol.md` and `rqo1_experiment.py` source into the research lane without modifying their scientific logic;
-- record source hashes and original timestamps where available;
-- reproduce the historical smoke test with the recovered code;
-- establish a standalone dependency/environment manifest;
-- add research-local unit tests for graph invariants, curvature helper behavior, dimension diagnostics and deterministic seed handling;
-- identify implementation bugs separately from theoretical/model defects;
-- reproduce the original `alpha/beta` grid and seed policy;
-- run increasing-N null ensembles to measure the actual finite-size distribution of expander diagnostics;
-- replace or justify the provisional `1.3 × log(N)` cutoff using empirical null-ensemble statistics and/or a defensible graph-theoretic criterion;
-- explicitly run null, curvature-only, triangle-only and curvature+triangle ablations;
-- determine whether any recovered result supports a scientific PASS, FAIL, or only INCONCLUSIVE.
+However, code audit established that `curvature_sum(..., max_edges=20)` uses random edge sampling on each action evaluation. Therefore the sampled action is **not a deterministic function of graph state**. The recovered/corrected sampled-action chain cannot currently be treated as ordinary Metropolis sampling of a fixed Boltzmann target.
 
-**Critical rule:** do not modify the action to improve results during RF-WP0. Reproduction first.
+The permitted conclusion is therefore narrow:
 
-**Exit artifact:** `RF_WP0_HISTORICAL_REPRODUCTION_REPORT_v0.1.md` with one of:
+> **A small corrected-curvature directional effect is stable over longer sampled-action trajectories. This does not establish equilibrium, a thermodynamic phase, or detailed-balance sampling of a deterministic target.**
 
-- `HISTORICAL RESULT REPRODUCED`;
-- `HISTORICAL IMPLEMENTATION DEFECT FOUND`;
-- `HISTORICAL EVIDENCE INSUFFICIENT / INCONCLUSIVE`.
+PR #17 is merged to `main` at `7c482f807c1592c46e328a90695d4ea824144ac9` after Pixel/Termux validation and 25/25 research tests passed.
 
-Only after this report is accepted may Phase 1 begin.
+### 3.4 Matter-induced locality preregistration
 
-### Phase 1 — Freeze the new experiment contract
+The separate matter-action work package remains preregistered and on hold pending closure of the curvature-comparator methodology.
 
-**Goal:** prevent us from moving the goalposts after seeing output.
+Its field-theory-motivated candidate is:
 
-Create only research-local artifacts:
+`S_phi = 1/2 phi^T L phi`
 
-- `research/relational_foundations/README.md`
-- `research/relational_foundations/EXPERIMENT_CONTRACT_v0.1.md`
-- `research/relational_foundations/config/`
-- `research/relational_foundations/notebooks_or_reports/`
-- `research/relational_foundations/src/`
-- `research/relational_foundations/tests/`
+with Gaussian integration giving:
 
-Before any **new** simulation logic is committed, freeze:
+`Z_phi[G] ∝ (det' L_G)^(-1/2)`
 
-- graph/state definition;
-- allowed dynamics;
-- observables;
-- null models;
-- seed policy;
-- pass/fail thresholds;
-- forbidden post-hoc tuning rules.
+and effective matter action:
 
-The new contract must explicitly state what is inherited unchanged from historical RQO-1 and what is being replaced, with reasons.
+`Gamma_matter[G] = +1/2 log det' L_G`.
 
-**Exit:** experiment contract reviewed against Paper I, Relational Foundations Hypotheses v0.2, and RF-WP0 findings.
+By Kirchhoff:
 
-### Phase 2 — Baseline nulls
+`det' L_G = N * tau(G)`
 
-**Goal:** know what meaningless graphs look like under our metrics.
+so the matter term has a real and dangerous failure mode: minimizing it can favor fewer spanning trees, bottlenecks, modular/barbell-like structures, or fragility rather than genuine locality.
 
-Implement standalone generators for:
-
-- Erdős-Rényi-like random graphs;
-- random regular graphs;
-- preferential-attachment graphs;
-- small-world controls;
-- explicitly geometric graphs used only as positive controls, never as candidate dynamics.
-
-Measure:
-
-- degree distribution;
-- clustering;
-- path-length distribution;
-- expansion/conductance proxies;
-- spectral gap;
-- graph curvature proxy if justified;
-- random-walk return probability;
-- spectral dimension estimate;
-- local neighborhood growth dimension.
-
-**Exit:** metrics correctly distinguish obvious random/non-geometric controls from explicit geometric positive controls.
-
-### Phase 3 — Minimal relational dynamics A
-
-**Goal:** test whether the simplest defensible dynamics produce ordered locality without coordinates.
-
-Start deliberately small. Candidate state:
-
-`W_t = (Gamma_t, Phi_t, Q_t)`
-
-where `Gamma_t` is a dynamical relation graph, `Phi_t` optional node/edge state, and `Q_t` conserved bookkeeping if the chosen dynamics require it.
-
-Rules must be local in relational state, not local in hidden Euclidean coordinates.
-
-Run fixed parameter grids selected before results are inspected.
-
-**Kill condition:** no robust locality/dimension signal across the preregistered grid.
-
-If killed, document why and stop. Do not add complexity in the same phase.
-
-### Phase 4 — Minimal relational dynamics B
-
-**Only if Phase 3 produces a legitimate near miss or partial signal.**
-
-Test one additional dynamical family motivated by published pregeometry / graphity / causal / quantum-information analogues. One family per work package; no soup model.
-
-Required comparison:
-
-- baseline dynamics;
-- added term/dynamics;
-- ablation;
-- null ensemble.
-
-**Kill condition:** geometry appears only when the new term is equivalent to explicitly imposing locality or target dimension.
-
-### Phase 5 — Emergent ordering/time probe
-
-**Only after a stable geometric phase exists.**
-
-Test whether an internal monotone ordering variable or relational clock can be defined from the system itself rather than using simulation step number as physical time.
-
-The external numerical step remains bookkeeping. It must not be silently relabeled as emergent physical time.
-
-**Exit:** either a defensible internal-order observable exists, or the result is recorded as an explicit failure.
-
-### Phase 6 — Reconstruction probe
-
-**Only after Phases 3/4 and 5 pass.**
-
-Ask whether relational observables permit reconstruction of an effective metric/geometry and whether the reconstruction is unique.
-
-This is the earliest phase that may touch the M1-adjacent question of non-injective reconstruction.
-
-A non-unique reconstruction is not automatically M1. It is only a candidate mathematical ancestry requiring further work.
-
-### Phase 7 — Decision gate
-
-Produce one concise decision memo:
-
-- **STOP:** no robust emergence; archive code/results and do not expand the workstream.
-- **REVISE ONCE:** a specific tractable defect is identified with one justified follow-up experiment.
-- **CONTINUE:** robust emergent locality/dimension survives ablation/null/seed tests and warrants a second research plan.
-
-No automatic Phase 8 exists.
+For that reason Stage A includes explicit pathology diagnostics rather than treating path length or spectral gap alone as sufficient evidence.
 
 ---
 
-## 6. Testing and reproducibility standard
+## 4. Independent Claude review and adversarial refinement
 
-This research lane inherits the project discipline that code releases receive tests before use, but it remains isolated from production regression.
+### 4.1 Why the review matters — and what it does not mean
+
+Claude was explicitly invited to discard Relational Topography if a better physical architecture existed. It did not. Instead it recommended retaining the top-level relational-topography idea while tightening its mathematical ancestry and separating the cheap graph toy from a possible richer parent framework.
+
+That outcome is meaningful for **research-selection confidence**, because the review was not framed as a defense exercise. It surveyed standard alternatives including traversable wormholes, Alcubierre-type warp, ER=EPR-style transport, braneworld shortcuts, causal-set structures, and GFT/tensor approaches.
+
+The review does **not** constitute independent empirical evidence for LOOM physics. Multiple language models reasoning over overlapping physics literature are not multiple laboratories. The correct update is:
+
+- confidence that Relational Topography is a **good current LOOM research hypothesis** increases;
+- confidence that Relational Topography is **true physics** barely changes.
+
+### 4.2 Claude proposal A — gauge connection / moduli-space unification
+
+Claude proposed a genuine gauge connection on the deeper relational state space:
+
+`A_R`
+
+with curvature:
+
+`F_R = dA_R + A_R ∧ A_R`
+
+and a flat-vacuum moduli space:
+
+`M_flat = {A_R : F_R = 0} / G`.
+
+Under this framing:
+
+- M1-adjacent structure would arise if the physically meaningful relational sector admits multiple gauge-inequivalent vacua / embeddings;
+- M2-adjacent control would arise if matter carrying the relevant relational coupling can bias finite-action transitions among those vacua;
+- the existing schematic Euclidean transition action and `Gamma ~ exp(-B)` rate gain a clearer instanton/bounce ancestry rather than being treated as an isolated phenomenological formula;
+- gauge-invariant observables, holonomy, Wilson-loop-like structure, and moduli-space topology offer concrete mathematical tools for distinguishing protected identity from external embedding data.
+
+This is adopted as a **research refinement**, not a canon rewrite.
+
+Crucially, it does **not yet reduce the miracle count**. A gauge sector with a nontrivial moduli space does not automatically imply controllable matter-driven transitions. Miracle reduction is earned only if one microscopic theory jointly yields both:
+
+1. physically relevant embedding degeneracy / non-injective reconstruction;
+2. finite-action, finite-authority matter controllability of transitions.
+
+If the matter coupling has to be postulated independently with exactly the desired behavior, M1 and M2 remain separate fictional permissions.
+
+### 4.3 Claude proposal B — causal-set-style chronology structure
+
+Claude proposed replacing the current chronology IOU with a causal-set-flavored partial-order structure, arguing that an acyclic partial order structurally excludes closed causal loops.
+
+The useful part is retained, but the original claim was too strong.
+
+LOOM chronology is not solved merely because the relational edge relation is acyclic. Ordinary spacetime propagation and Loom transitions can each be individually acyclic while their **combined transitive closure** contains a cycle.
+
+The stronger research target is therefore:
+
+`prec_phys = TC(prec_g ∪ prec_R)`
+
+with the requirement:
+
+`x not prec_phys x` for all physically admissible events x.
+
+The foundations question becomes:
+
+> Can ordinary Lorentzian causal propagation and every admissible relational transition embed in one global acyclic order that is generated or preserved by the parent theory?
+
+If this is genuinely derived, candidate-M3 chronology censorship may disappear. If it must be imposed independently, the third-miracle problem remains.
+
+Claude also suggested checking whether current undirected Stage-A graphs are compatible with “some” partial order. That suggestion is **rejected for Stage A** because any undirected graph can be given an arbitrary acyclic orientation by imposing a vertex ranking. Such a post-hoc orientation would not be physical evidence. Causal-order work belongs in a later directed/ordered relational model where orientation is generated or dynamically preserved rather than assigned after the fact.
+
+### 4.4 Claude proposal C — Group Field Theory / tensor condensates
+
+Claude recommended Group Field Theory (GFT) / tensor-condensate mathematics as the eventual parent framework if the toy graph program earns graduation.
+
+This is accepted as a **candidate graduation framework**, not as the next experiment and not as a canon ancestry claim.
+
+The attraction is methodological:
+
+- the current degree-regular NetworkX graph program is a deliberately crude falsification tool;
+- GFT/tensor models are actual pregeometric many-body frameworks in which collective geometric behavior can be studied with field-theoretic machinery;
+- they are better suited than “just scale the graph to 10,000 nodes” for eventual continuum, universality, condensate, and coarse-graining questions.
+
+One Claude inference is explicitly rejected as too fast: many microscopic states mapping to the same coarse macrostate is **not automatically M1**. Ordinary statistical coarse-graining is non-injective everywhere. M1 requires the much stronger property that one protected physical subsystem identity can persist across physically inequivalent external embeddings. Any GFT/tensor ancestry must still earn that distinction.
+
+### 4.5 Claude proposal D — standard transport alternatives
+
+The review found no clean replacement that obviously improves the miracle budget:
+
+- traversable wormholes import exotic stress-energy / stability / controllability problems and conflict with the no-hidden-corridor design;
+- FTL Alcubierre-type warp remains excluded by governing canon and imports its own exotic-stress-energy burden;
+- ER=EPR-style ideas do not supply controllable traversable transport without additional assumptions and do not remove the M2-equivalent control problem;
+- causal sets provide causal structure but not by themselves a transport shortcut;
+- braneworld/bulk-shortcut mathematics is a valuable analogy for `d_metric != d_deeper`, but simply relocates the unexplained questions to “why can matter access the bulk?” and “why does the bulk contain useful shortcuts?”;
+- GFT/tensor models are better interpreted as possible parent mathematics for relational topography than as a competing transport mechanism.
+
+The result is not “Relational Topography is true.” The result is:
+
+> Relational Topography remains the best current LOOM research architecture because it combines canon fit, mathematical ancestry, minimal extra conceptual machinery, and the ability to fail cleanly under toy-model tests.
+
+---
+
+## 5. Revised research architecture
+
+The program now has three explicitly separated tracks.
+
+### Track A — graph falsification engine
+
+Purpose: cheaply test whether relation-first local dynamics can move away from generic expander behavior without target geometry being supplied.
+
+This track is intentionally small, reproducible, and easy to kill.
+
+It is **not** a candidate fundamental theory.
+
+### Track B — foundations mathematics
+
+Purpose: separately sharpen the deeper questions that the Technical Paper leaves open:
+
+- can a single relational gauge sector jointly support M1-like degeneracy and M2-like controllability?
+- can protected identity be defined through a nontrivial algebraic/gauge-invariant structure rather than ordinary coarse-graining?
+- can all ordinary and relational causal propagation be embedded in one global acyclic order?
+- can the existing schematic transition-action language be given a disciplined instanton/moduli-space ancestry without pretending contemporary QFT predicts LOOM?
+
+This track is conceptual/mathematical until a concrete model is justified.
+
+### Track C — graduation framework
+
+Purpose: identify the next microscopic language **only if** Track A either:
+
+- produces robust locality worth explaining; or
+- fails in a way that can be specifically attributed to limitations of fixed-degree undirected graph ensembles.
+
+GFT/tensor-condensate approaches are a leading candidate, but not an entitlement. A failure diagnosis must be written before graduation.
+
+---
+
+## 6. Revised phase plan
+
+### Phase 0 — historical reproduction and audit — substantially complete
+
+The historical RQO-1 source, null behavior, sign convention, implementation limitations, and recovered smoke-test status have been audited. Historical code remains preserved rather than silently rewritten.
+
+Outstanding historical work should be done only where it materially changes interpretation of the current program.
+
+### Phase 1 — deterministic corrected-curvature control — NEXT
+
+**Goal:** determine whether the corrected-curvature directional effect survives when the action is a deterministic function of graph state.
+
+Run one bounded control using full/all-edge curvature rather than the 20-edge random sample.
+
+Frozen principles:
+
+- no new action term;
+- no matter term;
+- no coefficient sweep chosen after viewing output;
+- no change to historical reconstruction;
+- preserve matched null;
+- preserve fixed-degree connected rewiring;
+- preserve research-local reproducibility and tests;
+- classify trajectory behavior separately from equilibrium behavior.
+
+Primary question:
+
+> Does the corrected-sign locality-like shift persist under a deterministic curvature energy suitable for ordinary Metropolis interpretation?
+
+Possible outcomes:
+
+- **PERSISTS under deterministic action** — corrected curvature may be used as a legitimate baseline comparator in Stage A, subject to mixing/equilibration caution;
+- **DOES NOT PERSIST** — demote corrected curvature as a baseline and record the prior effect as specific to sampled-action dynamics;
+- **COMPUTATIONALLY INTRACTABLE / MIXING FAILURE** — do not invent a success claim; revise only if the limitation is technically specific and preregistered.
+
+No result from this phase is a locality-phase PASS by itself.
+
+### Phase 2 — matter-determinant Stage A
+
+**Goal:** test one physically motivated field-theoretic action family without answer-smuggling.
+
+Frozen cells:
+
+- `NULL`: `S_0 = 0`
+- `CORRECTED_CURVATURE`: `S_C = -1.0 * curvature_sum` if Phase 1 qualifies it as comparator
+- `MATTER_ONLY`: `S_M = +1.0 * Gamma_matter`
+- `COMBINED`: `S_CM = -1.0 * curvature_sum + 1.0 * Gamma_matter`
+
+No coefficient scan in Stage A.
+
+Required diagnostics include:
+
+- average path and path/logN;
+- normalized-Laplacian gap;
+- diameter;
+- clustering and triangle count;
+- connectivity / damage sensitivity;
+- exact/validated log-det and spanning-tree relation;
+- conductance/Cheeger-style bottleneck estimate with method documented;
+- edge-betweenness concentration;
+- node-betweenness concentration;
+- low-mode eigenvector localization/IPR where cheap;
+- action components and acceptance statistics.
+
+Interpretation rules:
+
+- gap reduction is not independent evidence when the action itself contains a spectral functional;
+- bridges/articulation alone are insufficient in fixed degree 4;
+- a multi-edge sparse cut / barbell-like structure counts as pathology even when literal bridges are absent;
+- the historical 1.3 path/log gate is reference only, not a new success threshold;
+- no partial-order/DAG diagnostic is added to this undirected Stage-A experiment.
+
+Stage-A classification remains:
+
+- `NO DIRECTIONAL EFFECT`
+- `DIRECTIONAL EFFECT WITH BOTTLENECK PATHOLOGY`
+- `DIRECTIONAL EFFECT WITHOUT OBVIOUS BOTTLENECK PATHOLOGY`
+
+Only the third earns scaling. None is an RQO-1 / emergent-geometry PASS.
+
+### Phase 3 — formal graph-program stop/go gate
+
+This phase is mandatory. It exists to prevent endless action tuning.
+
+If Stage A produces robust, pathology-free directional structure, perform only a preregistered scaling test sufficient to determine whether the signal strengthens, stabilizes, or disappears with N.
+
+If Stage A again produces only tiny shifts, inconsistent seeds, or bottleneck/crumpled structure:
+
+1. **freeze the current graph-action search**;
+2. write a `GRAPH_ANSATZ_FAILURE_DIAGNOSIS` before adding any new microscopic family;
+3. classify the failure as primarily:
+   - implementation/mixing;
+   - fixed-degree undirected ensemble limitation;
+   - action-family limitation;
+   - finite-size limitation with evidence;
+   - deeper evidence against generic relation-first locality emergence;
+   - unresolved.
+
+The graph program may not graduate merely because we like Relational Topography.
+
+### Phase 4 — one justified alternate microscopic family OR graduation
+
+Only after Phase 3.
+
+Two possible branches:
+
+**4A — one additional cheap microscopic family**  
+Allowed only if the failure diagnosis identifies one specific, tractable limitation and one principled alternative can test it without target geometry.
+
+**4B — graduation to richer pregeometry**  
+Allowed only if the diagnosis explains why a GFT/tensor/related framework contains specific structure missing from the graph ansatz and why that structure addresses the observed failure rather than simply adding tunable freedom.
+
+No “GFT next because graph failed” automatic rule exists.
+
+### Phase 5 — robust locality and dimension gate
+
+Only after a legitimate ordered/non-expander phase exists.
+
+Require:
+
+- stable locality across seeds and declared perturbations;
+- empirical null separation;
+- at least two genuinely different effective-dimension estimators;
+- finite-size drift analysis;
+- a meaningful scaling window rather than one-number dimension claims;
+- pathology veto survival.
+
+Do not hardcode a target dimension.
+
+### Phase 6 — emergent order / chronology foundations gate
+
+Only after robust geometric order.
+
+The numerical MCMC step is never physical time.
+
+The research target is stronger than the previous `q_R = const` heuristic:
+
+> identify whether the physical model supplies an internally defined relational order compatible with both ordinary causal propagation and admissible relational transitions such that the combined transitive closure is acyclic.
+
+A causal-set-style partial order may be used as mathematical ancestry, but only if orientation/order is generated or preserved by the physical model rather than assigned post hoc.
+
+Success here would support — but not automatically prove — retirement of candidate-M3 chronology censorship.
+
+### Phase 7 — reconstruction and protected-identity gate
+
+Ask whether relational observables reconstruct an effective geometry and whether the reconstruction map is non-injective in a physically meaningful way.
+
+The test must distinguish:
+
+- ordinary gauge redundancy;
+- ordinary statistical coarse-graining;
+- representational non-uniqueness;
+
+from the stronger M1-adjacent requirement:
+
+- one protected physical subsystem identity;
+- multiple physically inequivalent external embeddings;
+- acceptable information/leakage behavior;
+- finite-action accessibility if dynamics is claimed.
+
+Candidate mathematical tools include gauge-invariant observable algebras, holonomy/Wilson-loop-like observables, representation structure, correlation/entanglement invariants, and reconstruction-map analysis.
+
+### Phase 8 — M1/M2 unification gate
+
+Investigate the gauge/moduli-space hypothesis only after earlier gates justify it.
+
+Research hypothesis:
+
+> M1 and M2 may be descendants of one relational gauge sector rather than two unrelated fictional permissions.
+
+A genuine reduction requires one microscopic framework to establish both:
+
+- a physically relevant moduli/reconstruction degeneracy;
+- finite, matter-coupled controllability of transitions across that structure.
+
+If either requires an independent ad hoc permission, the two-miracle accounting remains.
+
+### Phase 9 — continuum / IR gate
+
+Only after all prior gates.
+
+Questions include:
+
+- continuum/universality behavior;
+- Lorentzian effective structure;
+- acceptable local relativistic propagation;
+- ordinary GR/QFT/thermodynamic recovery in the inactive-relational limit;
+- absence of hidden free-energy, free-momentum, or chronology channels.
+
+No claim to derive Einstein gravity, the Standard Model, or real matter is allowed from a small graph/GFT toy result without an actual derivation.
+
+### Phase 10 — foundations decision memo
+
+Produce one explicit verdict:
+
+- **STOP** — no robust emergence or no defensible bridge to the required physics;
+- **REVISE ONCE** — one specific defect with one preregistered follow-up;
+- **CONTINUE** — robust evidence earns a new work plan;
+- **M1/M2 REMAIN FICTIONAL CLOSURE** — deeper program may still be scientifically interesting but has not reduced the canon miracle budget.
+
+No automatic Phase 11 exists.
+
+---
+
+## 7. Revised hypothesis mapping
+
+The existing H0–H13 sequence remains historical research context. v0.3 adds three refinements without silently replacing the source hypothesis paper.
+
+### H5* — global causal-order compatibility
+
+Replace the weak target “a causal orientation may be conserved/superselected” with the stronger research question:
+
+> Do ordinary and relational causal processes embed in one global acyclic order whose transitive closure remains cycle-free under all physically admissible transitions?
+
+This is an O/A research refinement, not canon promotion.
+
+### H6/10* — gauge/moduli-space unification candidate
+
+Sharpen the joint M1/M2 question:
+
+> Can a single relational gauge sector with nontrivial physically meaningful moduli support both protected embedding degeneracy and matter-coupled finite-action controllability?
+
+This is a candidate ancestry, not a claim that contemporary gauge theory predicts LOOM.
+
+### Graduation hypothesis — GFT/tensor condensates
+
+Treat GFT/tensor-condensate mathematics as one candidate next-level framework if and only if the graph-program diagnosis justifies richer many-body/pregeometric structure.
+
+It is not part of the Stage-A action and does not alter current canon.
+
+---
+
+## 8. Success, failure, and anti-goalpost rules
+
+A result is only scientifically interesting if it survives the following discipline:
+
+1. no supplied x/y/z coordinates or target manifold in candidate dynamics;
+2. no direct reward for the diagnostic used to declare success unless independently justified and explicitly discounted as non-independent evidence;
+3. null distributions are measured rather than assumed;
+4. seeds and parameter families are frozen before inspection;
+5. pathology diagnostics are frozen before inspection;
+6. finite-size behavior is reported rather than hidden;
+7. mixing/equilibration limitations are stated explicitly;
+8. a stochastic action is not called a deterministic equilibrium energy;
+9. a graph effect is not promoted to geometry, dimension, continuum physics, M1, or M2 without passing each intermediate gate;
+10. failure of one microscopic ansatz does not automatically kill canon, but repeated principled failures must be allowed to count against the broader research hypothesis.
+
+The most important anti-goalpost rule added in v0.3 is:
+
+> **A failed graph ansatz must receive a written failure diagnosis before the program may move to GFT, tensor models, causal sets, or another richer framework.**
+
+---
+
+## 9. Testing and reproducibility standard
 
 Every research release must include:
 
-- deterministic seed capture;
+- deterministic seed capture where the method is deterministic;
+- explicit reporting of stochastic estimator use where it is not;
 - environment/dependency manifest;
 - unit tests for graph/state invariants and observables;
-- functional test for a short deterministic simulation;
+- functional test for a short deterministic simulation or explicitly documented stochastic contract;
 - null-model regression tests;
 - config snapshot for every published result;
-- machine-readable output tables;
-- hash/provenance record for any promoted research result;
+- machine-readable output tables/JSON;
+- hash/provenance record for promoted research results;
 - no generated chart without underlying data export.
 
-For substantive changes, run unit + functional research tests before publication. Full Navigator/GIS end-to-end regression is **not required** because this workstream must not touch those systems. If a change ever creates a reason to run Navigator/GIS regression, that is evidence the isolation boundary has been violated and the change should be redesigned.
+For substantive research changes, run unit + functional research tests before publication. Full Navigator/GIS end-to-end regression is not required and should not become required; if it does, the research/runtime isolation boundary has been violated.
+
+Pixel/Termux remains a valid qualification environment for this research lane when dependencies are supported. Qualification output must record Python/platform/dependency status and the Git SHA used.
 
 ---
 
-## 7. Repository isolation design
+## 10. Repository isolation design
 
-Preferred future layout:
+Preferred layout remains:
 
 ```text
 research/
@@ -312,8 +644,7 @@ research/
   relational_foundations/
     HISTORICAL_RECONSTRUCTION_v0.1.md
     README.md
-    EXPERIMENT_CONTRACT_v0.1.md
-    historical/
+    protocols...
     config/
     src/
     tests/
@@ -321,116 +652,113 @@ research/
     reports/
 ```
 
-Research code must be runnable independently, for example:
+Research code must remain runnable independently of Navigator/GIS and must not require production SQLite state, campaign state, local GIS servers, production Android deploy roots, or runtime environment variables.
 
-```text
-python -m research.relational_foundations.src.run_experiment --config <research-config>
-```
-
-It must not require:
-
-- `LOOM_2226.sqlite3`;
-- `LOOM_2226_media.sqlite3`;
-- `LOOM_2226_CIVSTATE.sqlite3`;
-- a Navigator campaign state;
-- a GIS local server;
-- Android deployment paths;
-- production runtime environment variables.
-
-Production launchers must never discover or execute the research package automatically.
+Historical reconstruction files must remain immutable unless a correction is explicitly versioned as a new research artifact.
 
 ---
 
-## 8. Branch and merge discipline
+## 11. Branch and merge discipline
 
-Use a dedicated branch naming family for implementation work:
+Use branch naming family:
 
 `research/relational-foundations-*`
 
-Do not develop this work on a Navigator/GIS feature branch.
+Pull requests should touch only `research/relational_foundations/` plus, when necessary, this plan or the rabbit-hole register.
 
-Pull requests should touch only `research/relational_foundations/` plus, when necessary, this plan or the rabbit-hole register. A PR that modifies production/runtime paths must be split before review.
-
-Merges into `main` are allowed only when:
+Merges into `main` require:
 
 - research-local tests pass;
-- no production files changed;
+- no production/runtime files changed;
 - no current canon/governance files changed;
-- result status is clearly `NON-CANON / NON-RUNTIME`;
-- any scientific claim is traceable to either an external source, a declared analogy, or a reproducible project result.
+- result status clearly `NON-CANON / NON-RUNTIME`;
+- scientific claims traceable to established mathematics, declared analogy, fictional postulate, or reproducible project result;
+- negative results and methodological defects preserved rather than rewritten away.
 
 ---
 
-## 9. Explicitly out of scope
+## 12. Explicitly out of scope / hard research kills
 
-The following are prohibited in the first research cycle:
+The following remain prohibited or non-evidentiary in this cycle:
 
-- Kevin/Nicole synchronicity as evidence;
-- UAP reports as calibration data;
-- ghosts, psi, anomalous cognition or consciousness as a physical control mechanism;
-- retrocausality claims;
-- ER=EPR as a destination mechanism;
-- quantum teleportation as Loom transport;
-- wormhole/hyperspace reinterpretation of the Loom;
-- fitting to the existing hidden Loom graph;
+- synchronicity or personal anecdote as calibration evidence;
+- UAP, apparitional, psi, anomalous-cognition, psychedelic, or consciousness claims as M2 evidence/control mechanism;
+- fitting to the hidden Loom graph;
 - fitting to Navigator route times;
-- fitting to Mc-299m or courier engineering constants;
-- updating LOOM canon from a toy-model result.
-
-If later mathematics independently predicts a discriminating anomalous signature, a separate evidence plan may be proposed. It may not be back-filled into this work package.
-
----
-
-## 10. First executable work package: RF-WP0
-
-**Title:** Reproduce before reinventing.
-
-**Scope:** historical recovery, reproduction and audit only.
-
-**Deliverables:**
-
-1. recovered RQO-1 source preserved under `research/relational_foundations/historical/`;
-2. source provenance and hashes;
-3. standalone environment manifest;
-4. deterministic smoke-test reproduction;
-5. research-local unit and functional tests around recovered implementation;
-6. increasing-N null calibration;
-7. null / curvature-only / triangle-only / combined ablation matrix;
-8. scientific status memo: REPRODUCED / DEFECT / INCONCLUSIVE.
-
-**Budget rule:** keep RF-WP0 computationally cheap enough to run locally on ordinary desktop hardware. Do not escalate compute until the recovered implementation has been validated.
-
-**Do not begin a new action family automatically.**
+- fitting to Mc-299m, ship mass, speed, or engineering constants;
+- wormhole/hyperspace reinterpretation of Loom;
+- FTL Metric;
+- ER=EPR as a destination mechanism;
+- quantum teleportation as ship transport;
+- duplication or destructive reconstruction;
+- free energy/momentum/braking;
+- arbitrary hidden-route editing;
+- target dimension inserted into the action;
+- direct path/gap/diameter/community/modularity/resistance optimization used as a disguised answer;
+- simulation step relabeled as physical time;
+- a causal order assigned post hoc and then claimed as emergent chronology protection;
+- GFT/tensor complexity added merely because the graph result is disappointing;
+- canon promotion from a toy-model result.
 
 ---
 
-## 11. Relationship to existing rabbit-hole priorities
+## 13. Immediate execution order
 
-This plan is a narrow sub-work-package under the existing deep-theory seam represented by RH-024, not a replacement for the ranked Rabbit-Hole Priority Table.
+The near-term sequence is now frozen as:
 
-It does not displace higher-priority LOOM engineering, simulation, Navigator, GIS, CIVSTATE, Wayfarer, or gameplay work. Its value comes specifically from being cheap, isolated, and easy to stop.
+1. **deterministic/full-curvature corrected-sign control**;
+2. review comparator status;
+3. **matter-determinant Stage A** under the existing preregistration/instrumentation rules;
+4. mandatory graph-program stop/go diagnosis;
+5. only then choose scaling, one justified alternate microscopic family, or a richer graduation framework.
 
-Recommended project posture:
-
-- Navigator/GIS/runtime: continue on their existing delivery path;
-- relational-foundations work: opportunistic side-lab only;
-- canon: frozen unless separately and explicitly amended;
-- research success: earns another research question, not canon promotion.
+The foundations-mathematics track may proceed in parallel as reading, theorem/model formulation, and hypothesis sharpening, but it must not alter the preregistered Stage-A action or success criteria.
 
 ---
 
-## 12. Final decision rule
+## 14. Current executive verdict
 
-The project should bother with relational foundations only while each step buys a sharper test.
+Relational Topography remains the leading LOOM foundations research hypothesis **not because the project is committed to it, but because it currently has the best combination of**:
 
-The immediate question is no longer simply "can relationships make a map?"
+- compatibility with governing canon and engineering constraints;
+- credible mathematical ancestry without claiming established support for LOOM itself;
+- a route to potentially unify rather than proliferate fictional assumptions;
+- compatibility with identity-preserving, non-corridor, non-duplication Loom translation;
+- explicit chronology and conservation failure tests;
+- and, most importantly, the ability to fail cleanly under inexpensive experiments.
 
-It is:
+The independent Claude review materially strengthened the case that the research question is well posed and that no obvious standard alternative currently dominates it. It did **not** materially strengthen the claim that the underlying physics is real.
 
-> **What exactly did the earlier model demonstrate, can we reproduce it, and can we distinguish a real failure of the relational hypothesis from a failure of implementation, scale, diagnostics, or an action that smuggled in the desired answer?**
+Accordingly, the program will continue — but with stricter gates, stronger failure accounting, and a harder separation between:
 
-If reproduction fails because the historical implementation was defective, fix only the defect and rerun.
+`toy graph result -> relational geometry -> continuum physics -> protected identity -> controllable transitions -> LOOM`.
 
-If reproduction confirms expander soup under principled tests, preserve the negative result and stop or revise once.
+Every arrow must be earned.
 
-If a broad non-expander finite-dimensional phase survives proper nulls and ablations, attack it harder before claiming anything.
+---
+
+## 15. Next work package
+
+**Title:** Deterministic Corrected-Curvature Comparator Qualification  
+**Status:** NEXT / PREREGISTER BEFORE EXECUTION
+
+**Question:** Does the corrected-sign locality-like effect persist when curvature energy is evaluated deterministically over the graph rather than through the recovered 20-edge stochastic action estimator?
+
+**Why now:** PR #17 established longer-trajectory persistence but simultaneously demonstrated that the sampled-action implementation cannot support ordinary equilibrium claims. Stage A should not use corrected curvature as an equilibrium comparator until this methodological debt is closed.
+
+**Required deliverables:**
+
+- frozen protocol;
+- deterministic action implementation isolated from historical reconstruction;
+- matched null;
+- research-local unit + functional tests;
+- Pixel/Termux qualification if computationally practical;
+- machine-readable result;
+- explicit comparator verdict;
+- no matter action until verdict reviewed.
+
+**Stop condition:** if deterministic full-curvature evaluation is computationally impractical at the preregistered scale, record that limitation and reduce scale only by an explicitly documented protocol amendment made before viewing comparative scientific output.
+
+---
+
+**End of v0.3 work plan.**
