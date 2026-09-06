@@ -15,8 +15,8 @@ CAMPAIGN_FILES={"LOOM_STATE_V1.json","LOOM_STATE_V1.bak","LOOM_CAMPAIGN_HISTORY.
 APP_DIRS={"src","deploy","manifests","web","docs"}
 CACHE_DIRS={"LOOM_Navigator_Cache_v1","ephemeris_cache"}
 SKIP_DIRS={"data","inventory",".git"}
-APP_FILES={".loom_install_state.json","LOOM_Navigator_Visual_Design_B1_LOCKED_Package_v1.0.zip"}
-AUDIT_FILES={"LOOM_PHONE_RUNTIME_AUDIT.txt","LOOM_Navigator_Browser_Report.json","LOOM_KNOWLEDGE_RELATIONSHIPS_DIFF.txt","LOOM_Android_Phase6_Convergence_Sync.py"}
+APP_FILES={".loom_install_state.json","LOOM_Navigator_Visual_Design_B1_LOCKED_Package_v1.0.zip","loom_update.py"}
+AUDIT_FILES={"LOOM_PHONE_RUNTIME_AUDIT.txt","LOOM_Navigator_Browser_Report.json","LOOM_KNOWLEDGE_RELATIONSHIPS_DIFF.txt","LOOM_Android_Phase6_Convergence_Sync.py","LOOM_WORLD_DB_DIVERGENCE_AUDIT.txt","LOOM_WORLD_DB_LOGICAL_DIFF_AUDIT.txt"}
 GENERATED_FILES={"LOOM_Navigator_Current.html"}
 
 @dataclass(frozen=True)
