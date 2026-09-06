@@ -14,6 +14,13 @@ from .gravity import (
     acceleration_from_source,
     evaluate_gravity,
 )
+from .celestial_state import (
+    CANONICAL_FRAME as CANONICAL_CELESTIAL_FRAME,
+    CelestialStateError,
+    HybridCelestialStateService,
+    ParentCentricOrbitModel,
+    propagate_parent_centric,
+)
 from .runtime import SpatialRuntime, SpatialRuntimeError
 
 __all__ = [
@@ -28,6 +35,11 @@ __all__ = [
     "GravitySource",
     "acceleration_from_source",
     "evaluate_gravity",
+    "CANONICAL_CELESTIAL_FRAME",
+    "CelestialStateError",
+    "HybridCelestialStateService",
+    "ParentCentricOrbitModel",
+    "propagate_parent_centric",
     "SpatialRuntime",
     "SpatialRuntimeError",
 ]
