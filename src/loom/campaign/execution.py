@@ -15,6 +15,7 @@ import os
 
 from loom.navigation import FlightExecutionResult, FlightPlan, NavigationContext
 from loom.runtime import resolve_runtime_roots
+from .clock import CampaignClockError, clock_from_state, validate_clock_advance
 
 CAMPAIGN_EXECUTION_VERSION = "LOOM_CAMPAIGN_EXECUTION_V1"
 
@@ -128,6 +129,13 @@ class LegacyCampaignExecutionService:
 
         arrival = copy.deepcopy(dict(execution.final_state))
         validate(arrival)
+        try:
+            before_clock = clock_from_state(current)
+            after_clock = clock_from_state(arrival)
+            validate_clock_advance(before_clock, after_clock)
+        except CampaignClockError as exc:
+            raise CampaignExecutionError(f"invalid campaign clock transition: {exc}") from exc
+
         try:
             revision_before = int(current["revision"])
             revision_after = int(arrival["revision"])
