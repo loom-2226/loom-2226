@@ -30,12 +30,13 @@ def _install_identity(app_root):
     except (OSError,UnicodeError,json.JSONDecodeError,ValueError) as exc:item["error"]=f"{type(exc).__name__}: {exc}"
     return item
 def _campaign_state_identity(path):
-    item=_file_identity(path); item.update(revision=None,state_id=None,error=None)
+    item=_file_identity(path); item.update(revision=None,state_id=None,location_token=None,epoch_utc=None,last_flight_id=None,error=None)
     if not path.is_file():return item
     try:
         raw=json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(raw,dict):raise ValueError("campaign state is not a JSON object")
-        item["revision"]=raw.get("revision"); item["state_id"]=raw.get("state_id") or raw.get("id")
+        last=raw.get("last_flight") if isinstance(raw.get("last_flight"),dict) else {}
+        item["revision"]=raw.get("revision"); item["state_id"]=raw.get("state_id") or raw.get("id"); item["location_token"]=raw.get("location_token"); item["epoch_utc"]=raw.get("epoch_utc"); item["last_flight_id"]=last.get("flight_id")
     except (OSError,UnicodeError,json.JSONDecodeError,ValueError) as exc:item["error"]=f"{type(exc).__name__}: {exc}"
     return item
 def _shadow_sql_identity(path):
@@ -48,6 +49,11 @@ def _shadow_sql_identity(path):
         item.update(contract=meta[0] if meta else None,flight_commit_count=int(counts[0]),min_revision=counts[1],max_revision=counts[2],integrity_check=integrity[0] if integrity else None)
     except (sqlite3.Error,OSError,ValueError) as exc:item["error"]=f"{type(exc).__name__}: {exc}"
     return item
+def _navigator_cache_path(app,campaign):
+    # Legacy combined layout keeps cache under APP. The migrated split topology
+    # keeps cache in the sibling LOOM/cache tree, matching loom_gis.py.
+    root=app if campaign==app else app.parent/"cache"
+    return root/"LOOM_Navigator_Cache_v1",("app_root" if campaign==app else "cache_root")
 def collect_runtime_manifest(*,roots=None):
     roots=roots or resolve_runtime_roots(); app,data,campaign=roots.app_root,roots.data_root,roots.campaign_root; db_names=("LOOM_2226.sqlite3","LOOM_2226_media.sqlite3","LOOM_2226_CIVSTATE.sqlite3"); databases=[]; seen=set()
     for root_name,root in (("data_root",data),("app_data",app/"data")):
@@ -59,13 +65,13 @@ def collect_runtime_manifest(*,roots=None):
     if not campaign_state["exists"] and campaign!=app:campaign_state=_campaign_state_identity(app/"LOOM_STATE_V1.json"); campaign_state["compatibility_fallback"]=True
     history_path=campaign/"LOOM_CAMPAIGN_HISTORY.jsonl.gz"; campaign_history=_file_identity(history_path)
     if not campaign_history["exists"] and campaign!=app:campaign_history=_file_identity(app/"LOOM_CAMPAIGN_HISTORY.jsonl.gz"); campaign_history["compatibility_fallback"]=True
-    trace_path=campaign/"logs"/"loom-trace.jsonl"; shadow_path=campaign/"LOOM_CAMPAIGN_DEV.sqlite3"; cache_path=app/"LOOM_Navigator_Cache_v1"
-    return {"contract":CONTRACT,"runtime":{"platform":platform.platform(),"python":sys.version.split()[0],"executable":sys.executable,"cwd":str(Path.cwd().resolve())},"deployment":{"install_state":_install_identity(app),"app_git_head":_git_head(app)},"roots":roots.to_dict(),"environment":{key:os.environ.get(key) for key in ("LOOM_APP_ROOT","LOOM_DATA_ROOT","LOOM_CAMPAIGN_ROOT","LOOM_HOME")},"source":{"loom_gis":_file_identity(app/"src"/"loom_gis.py"),"runtime":_file_identity(app/"src"/"loom"/"runtime.py")},"databases":databases,"campaign":{"state":campaign_state,"history":campaign_history,"navigator_cache":{"path":str(cache_path),"exists":cache_path.exists(),"root":"app_root"},"shadow_sql":_shadow_sql_identity(shadow_path)},"observability":{"trace":_file_identity(trace_path)}}
+    trace_path=campaign/"logs"/"loom-trace.jsonl"; shadow_path=campaign/"LOOM_CAMPAIGN_DEV.sqlite3"; cache_path,cache_root_name=_navigator_cache_path(app,campaign)
+    return {"contract":CONTRACT,"runtime":{"platform":platform.platform(),"python":sys.version.split()[0],"executable":sys.executable,"cwd":str(Path.cwd().resolve())},"deployment":{"install_state":_install_identity(app),"app_git_head":_git_head(app)},"roots":roots.to_dict(),"environment":{key:os.environ.get(key) for key in ("LOOM_APP_ROOT","LOOM_DATA_ROOT","LOOM_CAMPAIGN_ROOT","LOOM_HOME","LOOM_NAV_PLANNING_OFFLINE")},"source":{"loom_gis":_file_identity(app/"src"/"loom_gis.py"),"runtime":_file_identity(app/"src"/"loom"/"runtime.py"),"campaign_execution":_file_identity(app/"src"/"loom"/"campaign"/"execution.py")},"databases":databases,"campaign":{"state":campaign_state,"history":campaign_history,"navigator_cache":{"path":str(cache_path),"exists":cache_path.exists(),"root":cache_root_name},"shadow_sql":_shadow_sql_identity(shadow_path)},"observability":{"trace":_file_identity(trace_path)}}
 def render_runtime_audit(manifest):
     roots,runtime=manifest["roots"],manifest["runtime"]; deployment=manifest.get("deployment",{}); install=deployment.get("install_state",{}); lines=["LOOM RUNTIME AUDIT","==================",f"Contract      {manifest['contract']}",f"Platform      {runtime['platform']}",f"Python        {runtime['python']}",f"App Git head  {deployment.get('app_git_head') or 'unavailable'}",f"Release       {install.get('release_id') or 'unavailable'}",f"APP ROOT      {roots['app_root']} [{roots['app_source']}]",f"DATA ROOT     {roots['data_root']} [{roots['data_source']}]",f"CAMPAIGN ROOT {roots['campaign_root']} [{roots['campaign_source']}]","","DATABASES"]
     for db in manifest["databases"]:
         status="PRESENT" if db["exists"] else "missing"; digest=db["sha256"][:12] if db["sha256"] else "-"; lines.append(f"{status:7} {db['root']:9} {db['name']} sha256={digest} path={db['path']}")
-    state=manifest["campaign"]["state"]; history=manifest["campaign"]["history"]; shadow=manifest["campaign"]["shadow_sql"]; trace=manifest["observability"]["trace"]
+    state=manifest["campaign"]["state"]; history=manifest["campaign"]["history"]; shadow=manifest["campaign"]["shadow_sql"]; trace=manifest["observability"]["trace"]; cache=manifest["campaign"]["navigator_cache"]
     shadow_detail=f"rows={shadow['flight_commit_count']} revisions={shadow['min_revision']}..{shadow['max_revision']} integrity={shadow['integrity_check']}" if shadow["exists"] and not shadow["error"] else (shadow["error"] or "-")
-    lines.extend(["",f"CAMPAIGN STATE {'PRESENT' if state['exists'] else 'missing'} {state['path']} revision={state.get('revision')}",f"CAMPAIGN HIST  {'PRESENT' if history['exists'] else 'missing'} {history['path']}",f"SHADOW SQL     {'PRESENT' if shadow['exists'] else 'missing'} {shadow['path']} {shadow_detail}",f"TRACE          {'PRESENT' if trace['exists'] else 'missing'} {trace['path']}"]); return "\n".join(lines)+"\n"
+    lines.extend(["",f"CAMPAIGN STATE {'PRESENT' if state['exists'] else 'missing'} {state['path']} revision={state.get('revision')} location={state.get('location_token')}",f"CAMPAIGN HIST  {'PRESENT' if history['exists'] else 'missing'} {history['path']}",f"NAV CACHE      {'PRESENT' if cache['exists'] else 'missing'} {cache['path']} [{cache['root']}]",f"SHADOW SQL     {'PRESENT' if shadow['exists'] else 'missing'} {shadow['path']} {shadow_detail}",f"TRACE          {'PRESENT' if trace['exists'] else 'missing'} {trace['path']}"]); return "\n".join(lines)+"\n"
 def manifest_json(manifest):return json.dumps(manifest,indent=2,sort_keys=True)+"\n"
