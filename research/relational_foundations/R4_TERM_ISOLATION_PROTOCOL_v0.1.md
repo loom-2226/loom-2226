@@ -56,13 +56,12 @@ A cell is a **provisional non-expander candidate** only when every seed for that
 
 R4 does not declare an RQO-1 PASS even if a cell crosses. Any candidate must survive R5 increasing-N, longer-chain, multi-seed robustness and diagnostic cross-checks.
 
-R4 outcomes are interpreted as:
+Because this qualification is only `N=40`, two seeds, and 30 steps, ordinary stochastic differences from the null are reported descriptively but are **not** labeled a demonstrated term effect. The classifier therefore has only two scientific categories:
 
-1. **NO TERM EFFECT** — no cell materially separates from the null and no cell crosses the historical gate.
-2. **TERM EFFECT, STILL EXPANDER-LIKE** — one or more terms shift diagnostics but no cell crosses the gate across seeds.
-3. **PROVISIONAL CANDIDATE** — at least one cell crosses the historical gate across all R4 seeds; proceed to R5 without changing the action.
+1. **NO GATE CROSSING** — no non-null cell crosses the historical non-expander gate across all seeds. Deltas remain descriptive only.
+2. **PROVISIONAL CANDIDATE** — at least one cell crosses the historical gate across all R4 seeds; freeze that recovered cell and proceed to R5 without changing the action.
 
-The classifier reports the observed category but does not invent a new numerical effect-size threshold.
+No new effect-size threshold is invented in R4.
 
 ## Hard stop
 
