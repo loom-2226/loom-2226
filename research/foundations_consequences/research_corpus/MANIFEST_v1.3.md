@@ -12,6 +12,7 @@
 - `../CONVERGENCE_PRIORITY_MODEL_v1.0.md` — strategic value, weighted convergence and LOOM-WSJF.
 - `../SCALED_AGILE_OPERATING_MODEL_v1.0.md` — PI, WIP, dependency and inspect/adapt rules.
 - `../SQUAD_ARCHITECTURE_v1.1.md` — current roster/ancestry/bridge/case model.
+- `../SQUAD_CURRENT_CONTRIBUTIONS_AND_FUTURE_CONSTRUCTION_v1.0.md` — member-by-member current contribution and plausible future construction; includes explicit statement that no listed person is represented as endorsing, reviewing, agreeing with, or even knowing about LOOM.
 - `CONTRIBUTOR_WEIGHT_REGISTER_v1.0.md` — LOOM Utility Weights for current and historical contributors.
 - `../CURRENT_LOOM_LINEAGE_AUDIT_v1.0.md` + supplement — current LOOM attribution/citation audit.
 
