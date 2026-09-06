@@ -1,5 +1,6 @@
 from pathlib import Path
 import importlib.util
+import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,7 +11,11 @@ def load_module(path, name):
     spec = importlib.util.spec_from_file_location(name, ROOT / path)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
-    spec.loader.exec_module(module)
+    sys.modules[name] = module
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.modules.pop(name, None)
     return module
 
 
@@ -37,15 +42,13 @@ class RuntimeCutoverContractTest(unittest.TestCase):
 
     def test_migration_activation_contract_matches_launchers(self):
         migrate = load_module('deploy/loom_migrate.py', 'loom_migrate_cutover_test')
-        with self.subTest('contract'):
-            self.assertEqual(migrate.ACTIVATION_CONTRACT, 'LOOM_RUNTIME_ROOTS_ACTIVATION_V1')
+        self.assertEqual(migrate.ACTIVATION_CONTRACT, 'LOOM_RUNTIME_ROOTS_ACTIVATION_V1')
         target = ANDROID
         expected = {
             'app_root': str((target / 'runtime').resolve()),
             'data_root': str((target / 'data').resolve()),
             'campaign_root': str((target / 'campaign').resolve()),
         }
-        # The activation record is declarative; launchers use these same defaults.
         self.assertEqual(expected['app_root'], '/storage/emulated/0/Documents/LOOM/runtime')
         self.assertEqual(expected['data_root'], '/storage/emulated/0/Documents/LOOM/data')
         self.assertEqual(expected['campaign_root'], '/storage/emulated/0/Documents/LOOM/campaign')
