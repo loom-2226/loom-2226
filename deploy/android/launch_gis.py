@@ -81,4 +81,11 @@ def _wait_and_open(url: str, timeout_s: float = 20.0) -> None:
 if _browser_enabled():
     threading.Thread(target=_wait_and_open, args=(GIS_URL,), name="loom-browser-open", daemon=True).start()
 
-raise SystemExit(subprocess.call(argv, env=env))
+try:
+    raise SystemExit(subprocess.call(argv, env=env))
+except KeyboardInterrupt:
+    # Ctrl+C is the normal interactive Termux shutdown path. The GIS child sees
+    # the same terminal interrupt; suppress the wrapper traceback and return the
+    # conventional shell interrupt status instead.
+    print("\nLOOM stopped.")
+    raise SystemExit(130)
