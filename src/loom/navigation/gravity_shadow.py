@@ -27,6 +27,9 @@ class GravityShadowError(RuntimeError):
     pass
 
 
+REFERENCE_EPOCH_NORMALIZATION_CONTRACT = "LOOM_NAV_D2F2_REFERENCE_EPOCH_CANONICALIZATION_V1"
+
+
 def _dt(value: str) -> datetime:
     text = str(value).strip()
     probe = text[:-1] + "+00:00" if text.endswith("Z") else text
@@ -124,41 +127,43 @@ def _same_state(a: OrdinaryTrajectorySample, b: OrdinaryTrajectorySample, *, abs
     )
 
 
-def _normalize_duplicate_epochs(samples: list[OrdinaryTrajectorySample]) -> list[OrdinaryTrajectorySample]:
-    """Collapse duplicate-epoch samples only when their ordinary state agrees.
+def _canonicalize_reference_epochs(samples: Iterable[OrdinaryTrajectorySample]) -> tuple[OrdinaryTrajectorySample, ...]:
+    """Return one unambiguous ordinary state per physical UTC instant.
 
-    Sequence-B may emit a repeated terminal arrival sample at the same epoch.
-    That is harmless for shadow integration if position and velocity are the
-    same. Any same-epoch state disagreement remains ambiguous and fails closed.
-    The later duplicate is retained so terminal sample provenance/index wins.
+    Sequence-B can emit multiple terminal records for the same instant. Epochs
+    are parsed first, so spelling differences such as Z versus +00:00 cannot
+    evade duplicate detection. Equivalent duplicates collapse to the later
+    sample index/provenance; conflicting same-instant states fail closed.
     """
-    if not samples:
-        return []
-    normalized: list[OrdinaryTrajectorySample] = [samples[0]]
-    for sample in samples[1:]:
-        previous = normalized[-1]
-        if _dt(sample.epoch_utc) != _dt(previous.epoch_utc):
-            normalized.append(sample)
+    by_epoch: dict[datetime, OrdinaryTrajectorySample] = {}
+    for sample in samples:
+        key = _dt(sample.epoch_utc)
+        previous = by_epoch.get(key)
+        if previous is None:
+            by_epoch[key] = sample
             continue
         if not _same_state(previous, sample):
             raise GravityShadowError(
                 "duplicate ordinary-space sample epoch has conflicting position/velocity state"
             )
-        normalized[-1] = sample
-    return normalized
+        prev_index = previous.sample_index if previous.sample_index is not None else -1
+        sample_index = sample.sample_index if sample.sample_index is not None else -1
+        if sample_index >= prev_index:
+            by_epoch[key] = sample
+    return tuple(by_epoch[key] for key in sorted(by_epoch))
 
 
 def ordinary_samples_from_route_trajectory(trajectory: Mapping[str, Any]) -> tuple[OrdinaryTrajectorySample, ...]:
     """Extract only Sequence-B samples with complete ordinary-space state.
 
     Metric/relational samples with no ordinary occupancy are ignored. No position
-    or velocity is inferred for them. Exact duplicate-epoch ordinary states are
-    collapsed; conflicting duplicate epochs are rejected.
+    or velocity is inferred for them. Same-instant equivalent ordinary states are
+    canonicalized before monotonicity is checked; conflicting duplicates fail closed.
     """
     rows = trajectory.get("samples")
     if not isinstance(rows, (list, tuple)):
         raise GravityShadowError("trajectory.samples is required")
-    out: list[OrdinaryTrajectorySample] = []
+    extracted: list[OrdinaryTrajectorySample] = []
     for row in rows:
         if not isinstance(row, Mapping):
             continue
@@ -167,7 +172,7 @@ def ordinary_samples_from_route_trajectory(trajectory: Mapping[str, Any]) -> tup
         vel = (row.get("ordinary_vel_x_km_s"), row.get("ordinary_vel_y_km_s"), row.get("ordinary_vel_z_km_s"))
         if epoch is None or any(v is None for v in xyz) or any(v is None for v in vel):
             continue
-        out.append(OrdinaryTrajectorySample(
+        extracted.append(OrdinaryTrajectorySample(
             epoch_utc=str(epoch),
             position_km=_vec3(xyz, "ordinary position"),
             velocity_km_s=_vec3(vel, "ordinary velocity"),
@@ -175,14 +180,13 @@ def ordinary_samples_from_route_trajectory(trajectory: Mapping[str, Any]) -> tup
             phase_code=row.get("phase_code"),
             payload={"ordinary_accel_g": row.get("ordinary_accel_g"), "torch_state_code": row.get("torch_state_code")},
         ))
-    out.sort(key=lambda s: (_dt(s.epoch_utc), s.sample_index if s.sample_index is not None else -1))
-    out = _normalize_duplicate_epochs(out)
+    out = _canonicalize_reference_epochs(extracted)
     if len(out) < 2:
         raise GravityShadowError("at least two complete ordinary-space samples are required")
     for a, b in zip(out, out[1:]):
         if _dt(b.epoch_utc) <= _dt(a.epoch_utc):
             raise GravityShadowError("ordinary-space sample epochs must be strictly increasing")
-    return tuple(out)
+    return out
 
 
 def _command_acceleration(a: OrdinaryTrajectorySample, b: OrdinaryTrajectorySample) -> tuple[float, float, float]:
@@ -227,7 +231,7 @@ def compare_gravity_shadow(
     held constant; gravity is evaluated at every RK4 substage using the shadow
     state and substage epoch.
     """
-    samples = tuple(reference_samples)
+    samples = _canonicalize_reference_epochs(reference_samples)
     if len(samples) < 2:
         raise GravityShadowError("at least two reference samples are required")
     step_limit = float(max_step_s)
@@ -292,6 +296,7 @@ def compare_gravity_shadow(
         samples=tuple(out),
         qualification={
             "authority": "SHADOW_ONLY_NOT_ROUTE_AUTHORITY",
+            "reference_epoch_normalization": REFERENCE_EPOCH_NORMALIZATION_CONTRACT,
             "control_replay": "INTERVAL_AVERAGE_V1_VELOCITY_DELTA",
             "gravity": "CALLER_SUPPLIED_TIME_VARYING_FIELD",
             "integrator": "RK4",
