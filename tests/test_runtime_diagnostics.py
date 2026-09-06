@@ -18,9 +18,11 @@ class RuntimeDiagnosticsTest(unittest.TestCase):
         with TemporaryDirectory() as tmp:
             app=Path(tmp)/"app"; app.mkdir(); install={"release_id":"release-1","release_state":"qualified","source_ref":"v1.0","app_root":str(app),"data_root":str(Path(tmp)/"data")}; (app/".loom_install_state.json").write_text(json.dumps(install))
             deployment=collect_runtime_manifest(roots=resolve_runtime_roots(app_root=app,data_root=Path(tmp)/"data",campaign_root=app))["deployment"]; self.assertEqual(deployment["install_state"]["release_id"],"release-1"); self.assertEqual(deployment["install_state"]["source_ref"],"v1.0"); self.assertIsNotNone(deployment["install_state"]["sha256"])
-    def test_navigator_cache_is_application_asset_not_campaign_authority(self):
+    def test_navigator_cache_uses_split_cache_root_not_campaign_authority(self):
         with TemporaryDirectory() as tmp:
-            app=Path(tmp)/"app"; campaign=Path(tmp)/"campaign"; app.mkdir(); campaign.mkdir(); (app/"LOOM_Navigator_Cache_v1").mkdir(); cache=collect_runtime_manifest(roots=resolve_runtime_roots(app_root=app,data_root=Path(tmp)/"data",campaign_root=campaign))["campaign"]["navigator_cache"]; self.assertTrue(cache["exists"]); self.assertEqual(cache["root"],"app_root"); self.assertEqual(cache["path"],str(app/"LOOM_Navigator_Cache_v1"))
+            root=Path(tmp); app=root/"runtime"; campaign=root/"campaign"; cache_path=root/"cache"/"LOOM_Navigator_Cache_v1"; app.mkdir(); campaign.mkdir(); cache_path.mkdir(parents=True)
+            cache=collect_runtime_manifest(roots=resolve_runtime_roots(app_root=app,data_root=root/"data",campaign_root=campaign))["campaign"]["navigator_cache"]
+            self.assertTrue(cache["exists"]); self.assertEqual(cache["root"],"cache_root"); self.assertEqual(cache["path"],str(cache_path))
     def test_shadow_sql_diagnostics_are_read_only_and_report_integrity(self):
         with TemporaryDirectory() as tmp:
             root=Path(tmp); ledger=CampaignShadowLedger(root); commit=CampaignFlightCommitV1(flight_id="F1",state_before_id="S1",state_after_id="S2",revision_before=1,revision_after=2,origin="CERES",destination="MARS",departure_epoch_utc="2226-01-01T00:00:00Z",arrival_epoch_utc="2226-01-02T00:00:00Z",remass_before_t=250,remass_after_t=245,state_path="state",history_path="history",history_record_number=1,history_record_sha256="abc",final_state={"revision":2}); ledger.mirror_commit(commit); before_bytes=ledger.path.read_bytes(); before_stat=ledger.path.stat()
