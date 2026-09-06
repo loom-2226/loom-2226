@@ -55,6 +55,12 @@ class SQLiteSpatialStateSource:
         epoch = normalize_epoch_seconds(epoch_utc)
         out: list[SpatialState] = []
         with self._connect() as conn:
+            # `states` is the legacy scene/cache table and may contain derived
+            # infrastructure copies as well as celestial ephemeris rows. A
+            # first-class `spatial_states` row at the same epoch therefore takes
+            # precedence for classification and provenance. Do not infer entity
+            # role from identifiers or from which renderer table happens to contain
+            # a copy.
             celestial = conn.execute(
                 """
                 SELECT s.entity_id,e.name,s.x_au,s.y_au,s.z_au,
@@ -62,6 +68,10 @@ class SQLiteSpatialStateSource:
                 FROM states s
                 JOIN entities e ON e.entity_id=s.entity_id
                 WHERE s.epoch_utc=? AND s.reference_frame='J2000' AND s.reference_plane='ECLIPTIC'
+                  AND NOT EXISTS (
+                      SELECT 1 FROM spatial_states p
+                      WHERE p.entity_id=s.entity_id AND p.epoch_utc=s.epoch_utc
+                  )
                 ORDER BY s.entity_id
                 """,
                 (epoch,),
@@ -90,10 +100,7 @@ class SQLiteSpatialStateSource:
                 """,
                 (epoch,),
             ).fetchall()
-            existing = {state.entity_id for state in out}
             for row in infrastructure:
-                if row["entity_id"] in existing:
-                    continue
                 out.append(SpatialState(
                     entity_id=row["entity_id"],
                     epoch_utc=epoch,
@@ -113,7 +120,7 @@ class SQLiteSpatialStateSource:
                         "validity_status": row["validity_status"],
                     },
                 ))
-        return tuple(out)
+        return tuple(sorted(out, key=lambda state: state.entity_id))
 
     def snapshot(
         self,
