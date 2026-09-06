@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LOOM Foundations & Consequences Work Item",
+  "type": "object",
+  "required": ["id", "title", "lane", "state", "epistemic_class", "epistemic_hazard", "scores"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[ASXFD][0-9]+([.][0-9]+)?$"},
+    "title": {"type": "string", "minLength": 3},
+    "lane": {"enum": ["EMPIRICAL_MATHEMATICAL", "SPECULATIVE_SYNTHETIC", "CIVILIZATIONAL_FICTIONAL", "ADVERSARIAL_WILD"]},
+    "state": {"enum": ["SEED", "PROBE", "RABBIT_HOLE", "PROGRAM_CANDIDATE", "QUALIFICATION", "PROMOTION_CANDIDATE", "RETIRED", "GHOST"]},
+    "epistemic_class": {"enum": ["E", "A", "P", "C", "D", "O"]},
+    "epistemic_hazard": {"enum": ["LOW", "MEDIUM", "HIGH", "EXTREME"]},
+    "scores": {
+      "type": "object",
+      "required": ["scientific_leverage", "speculative_reach", "canon_leverage", "world_yield", "play_yield", "rabbit_hole_joy"],
+      "additionalProperties": false,
+      "properties": {
+        "scientific_leverage": {"type": "integer", "minimum": 0, "maximum": 5},
+        "speculative_reach": {"type": "integer", "minimum": 0, "maximum": 5},
+        "canon_leverage": {"type": "integer", "minimum": 0, "maximum": 5},
+        "world_yield": {"type": "integer", "minimum": 0, "maximum": 5},
+        "play_yield": {"type": "integer", "minimum": 0, "maximum": 5},
+        "rabbit_hole_joy": {"type": "integer", "minimum": 0, "maximum": 5}
+      }
+    },
+    "sources": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "depends_on": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "question": {"type": "string"},
+    "promotion_gate": {"type": "string"},
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": false
+}
