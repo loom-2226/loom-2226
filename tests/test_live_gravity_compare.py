@@ -31,7 +31,8 @@ def test_live_compare_core_backed_shadow(tmp_path: Path):
             {'sample_index':0,'epoch_utc':'2226-06-15T00:00:00Z','ordinary_pos_x_km':149597870.7+20000,'ordinary_pos_y_km':0,'ordinary_pos_z_km':0,'ordinary_vel_x_km_s':0,'ordinary_vel_y_km_s':29.78,'ordinary_vel_z_km_s':0},
             {'sample_index':1,'epoch_utc':'2226-06-15T00:01:00Z','ordinary_pos_x_km':149597870.7+20000,'ordinary_pos_y_km':1786.8,'ordinary_pos_z_km':0,'ordinary_vel_x_km_s':0,'ordinary_vel_y_km_s':29.78,'ordinary_vel_z_km_s':0},
             {'sample_index':2,'epoch_utc':'2226-06-15T00:02:00Z','ordinary_pos_x_km':149597870.7+20000,'ordinary_pos_y_km':3573.6,'ordinary_pos_z_km':0,'ordinary_vel_x_km_s':0,'ordinary_vel_y_km_s':29.78,'ordinary_vel_z_km_s':0},
-        ]}
+        ]
+    }
     out=compare_live_route_trajectory(trajectory,db,max_step_s=20)
     assert out['contract']=='LOOM_NAV_PHYSICS_V2_LIVE_GRAVITY_COMPARE_V1'
     assert out['authority']=='DIAGNOSTIC_SHADOW_ONLY_NOT_ROUTE_AUTHORITY'
@@ -39,3 +40,16 @@ def test_live_compare_core_backed_shadow(tmp_path: Path):
     assert out['report']['terminal_position_error_km']>0
     assert out['qualification']['campaign_mutation'] is False
     assert out['qualification']['display_fallbacks']=='REJECTED'
+
+    d2f=out['characterization']
+    assert d2f['contract']=='LOOM_NAV_PHYSICS_V2_D2F_CHARACTERIZATION_V1'
+    assert d2f['duration_s']==120.0
+    assert len(d2f['error_profile'])==3
+    assert d2f['error_profile'][0]['elapsed_s']==0.0
+    assert d2f['error_profile'][-1]['elapsed_s']==120.0
+    assert d2f['position_error_growth_km_per_min']>0
+    assert d2f['velocity_error_growth_m_s_per_min']>0
+    assert 0.0 <= d2f['position_error_non_decreasing_fraction'] <= 1.0
+    assert 0.0 <= d2f['velocity_error_non_decreasing_fraction'] <= 1.0
+    assert isinstance(d2f['dominant_gravity_source_counts'],dict)
+    assert d2f['reference_cutoff_penetration_km'] is None
