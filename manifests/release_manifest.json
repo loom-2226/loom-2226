@@ -1,7 +1,7 @@
 {
   "product": "LOOM 2226",
   "release_state": "release",
-  "release_id": "media-library-2026-09-06",
+  "release_id": "media-canon-browser-v1.2-2026-09-06",
   "source_ref": "main",
   "civstate_schema": "1.2-runtime",
   "artifacts": [
@@ -23,8 +23,8 @@
     },
     {
       "path": "src/loom_media_library.py",
-      "sha256": "bf597e54a9ca986432a1c29a231909e75fed655b2017d98853b92f746d12ed51",
-      "size_bytes": 5397,
+      "sha256": "5ed3eb64809d01fb0fb6336663809517f8363dcceacab25ae0ecc5818de87dfe",
+      "size_bytes": 12103,
       "source": "repository",
       "install_group": "code",
       "required": true
