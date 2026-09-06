@@ -31,7 +31,9 @@ FORBIDDEN_IMPORT_PREFIXES = ("src", "deploy", "web", "geometry", "engineering")
 def git_sha() -> str:
     try:
         return subprocess.check_output(
-            ["git", "-C", str(REPO), "rev-parse", "HEAD"], text=True
+            ["git", "-C", str(REPO), "rev-parse", "HEAD"],
+            text=True,
+            stderr=subprocess.DEVNULL,
         ).strip()
     except Exception:
         return "UNKNOWN"
