@@ -29,7 +29,7 @@ class ReleaseManifestConvergenceTest(unittest.TestCase):
         data={Path(x["path"]).name for x in self.manifest["canonical_data"]}
         self.assertTrue(forbidden.isdisjoint(runtime|data))
         preserved={Path(p.rstrip("/")).name for p in self.manifest["preserve_local"]}
-        self.assertTrue(forbidden.issubset(preserved))
+        self.assertTrue(forbidden.issubset(preserved), (forbidden,preserved))
 
     def test_canonical_data_matches_frozen_pixel_baseline(self):
         expected={
