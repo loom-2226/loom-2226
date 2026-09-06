@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import importlib.util
 import json
 import os
 import platform
@@ -23,9 +24,11 @@ REQUIRED = [
     LANE / "README.md",
     LANE / "HISTORICAL_RECONSTRUCTION_v0.1.md",
     LANE / "RQO1_RECOVERY_PROTOCOL_v0.1.md",
+    LANE / "RQO1_HISTORICAL_SOURCE_NOTE_v0.1.md",
     LANE / "TERMUX_DEVOPS_WORKFLOW_v0.1.md",
 ]
 FORBIDDEN_IMPORT_PREFIXES = ("src", "deploy", "web", "geometry", "engineering")
+RQO1_DEPS = ("networkx", "numpy", "scipy")
 
 
 def git_sha() -> str:
@@ -53,6 +56,20 @@ def status() -> int:
     return 0
 
 
+def dependency_status() -> int:
+    found = {name: importlib.util.find_spec(name) is not None for name in RQO1_DEPS}
+    payload = {
+        "kind": "rqo1_dependency_status",
+        "python": sys.version.split()[0],
+        "platform": platform.platform(),
+        "dependencies": found,
+        "requirements": str((LANE / "requirements-rqo1.txt").relative_to(REPO)),
+        "ready": all(found.values()),
+    }
+    print(json.dumps(payload, indent=2))
+    return 0 if payload["ready"] else 2
+
+
 def _imports(path: Path) -> list[str]:
     tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
     names: list[str] = []
@@ -68,9 +85,7 @@ def validate() -> int:
     failures: list[str] = []
     for path in REQUIRED:
         if not path.exists():
-            failures.append(
-                f"missing required research artifact: {path.relative_to(REPO)}"
-            )
+            failures.append(f"missing required research artifact: {path.relative_to(REPO)}")
     for py in (LANE / "src").rglob("*.py"):
         try:
             imports = _imports(py)
@@ -79,9 +94,7 @@ def validate() -> int:
             continue
         for name in imports:
             if name.startswith(FORBIDDEN_IMPORT_PREFIXES):
-                failures.append(
-                    f"forbidden production/runtime import {name!r} in {py.relative_to(REPO)}"
-                )
+                failures.append(f"forbidden production/runtime import {name!r} in {py.relative_to(REPO)}")
     if failures:
         print("LOOM RF VALIDATION: FAIL")
         for item in failures:
@@ -93,8 +106,6 @@ def validate() -> int:
 
 
 def infrastructure_smoke() -> int:
-    # Deliberately NOT the historical RQO-1 physics run. This verifies deterministic
-    # research execution, provenance and output handling using only the stdlib.
     seed = 2226
     n = 12
     edges = [(i, (i + 1) % n) for i in range(n)]
@@ -120,32 +131,73 @@ def infrastructure_smoke() -> int:
     return 0 if result["degree_sum"] == 2 * result["edges"] else 1
 
 
+def controls() -> int:
+    if dependency_status() != 0:
+        return 2
+    from .diagnostic_controls import qualify_controls
+    payload = qualify_controls(n=100, degree=4, seed=2226)
+    payload["git_sha"] = git_sha()
+    DEFAULT_OUTPUT.mkdir(parents=True, exist_ok=True)
+    out = DEFAULT_OUTPUT / "diagnostic_controls.json"
+    out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2))
+    print("OUTPUT:", out)
+    return 0 if payload["passed"] else 1
+
+
+def rqo1_smoke() -> int:
+    if dependency_status() != 0:
+        return 2
+    from .rqo1_reconstruction import pass_fail_verdict, run_scan
+
+    # Protocol-class reconstruction only. The surviving protocol specifies N≈40,
+    # two cells and 30 steps, but does not identify the exact historical two cells.
+    # We therefore use two declared cells rather than inventing historical values.
+    declared_cells = [(0.0, 0.0), (0.0, 0.5)]
+    results = []
+    for alpha, beta in declared_cells:
+        results.extend(run_scan(N=40, avg_degree=4, n_steps=30,
+                                alphas=[alpha], betas=[beta], seeds=[2226]))
+    verdict = pass_fail_verdict(results)
+    payload = {
+        "kind": "rqo1_protocol_class_smoke_reconstruction",
+        "historical_exact_cells_known": False,
+        "declared_reconstruction_cells": declared_cells,
+        "N": 40,
+        "avg_degree": 4,
+        "n_steps": 30,
+        "seeds": [2226],
+        "results": results,
+        "verdict": verdict,
+        "git_sha": git_sha(),
+    }
+    DEFAULT_OUTPUT.mkdir(parents=True, exist_ok=True)
+    out = DEFAULT_OUTPUT / "rqo1_smoke_reconstruction.json"
+    out.write_text(json.dumps(payload, indent=2, default=str) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2, default=str))
+    print("OUTPUT:", out)
+    return 0
+
+
 def run_tests() -> int:
-    return subprocess.call(
-        [
-            sys.executable,
-            "-m",
-            "unittest",
-            "discover",
-            "-s",
-            str(LANE / "tests"),
-            "-p",
-            "test_*.py",
-        ]
-    )
+    return subprocess.call([
+        sys.executable, "-m", "unittest", "discover",
+        "-s", str(LANE / "tests"), "-p", "test_*.py"
+    ])
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
-        prog="loomrf", description="LOOM relational-foundations research operations"
-    )
-    parser.add_argument("command", choices=["status", "validate", "test", "smoke"])
+    parser = argparse.ArgumentParser(prog="loomrf", description="LOOM relational-foundations research operations")
+    parser.add_argument("command", choices=["status", "validate", "deps", "test", "smoke", "controls", "rqo1-smoke"])
     args = parser.parse_args(argv)
     return {
         "status": status,
         "validate": validate,
+        "deps": dependency_status,
         "test": run_tests,
         "smoke": infrastructure_smoke,
+        "controls": controls,
+        "rqo1-smoke": rqo1_smoke,
     }[args.command]()
 
 
