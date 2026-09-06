@@ -14,8 +14,10 @@ ROOT_CONTRACT="LOOM_RUNTIME_ROOTS_ACTIVATION_V1"
 CAMPAIGN_FILES={"LOOM_STATE_V1.json","LOOM_STATE_V1.bak","LOOM_CAMPAIGN_HISTORY.jsonl.gz","LOOM_CAMPAIGN_DEV.sqlite3"}
 APP_DIRS={"src","deploy","manifests","web","docs"}
 CACHE_DIRS={"LOOM_Navigator_Cache_v1","ephemeris_cache"}
-SKIP_DIRS={"data","inventory",".git",".loom_backups"}
-APP_FILES={".loom_install_state.json"}
+SKIP_DIRS={"data","inventory",".git"}
+APP_FILES={".loom_install_state.json","LOOM_Navigator_Visual_Design_B1_LOCKED_Package_v1.0.zip"}
+AUDIT_FILES={"LOOM_PHONE_RUNTIME_AUDIT.txt","LOOM_Navigator_Browser_Report.json","LOOM_KNOWLEDGE_RELATIONSHIPS_DIFF.txt","LOOM_Android_Phase6_Convergence_Sync.py"}
+GENERATED_FILES={"LOOM_Navigator_Current.html"}
 
 @dataclass(frozen=True)
 class Item:
@@ -29,11 +31,24 @@ def sha256(path:Path)->str:
 
 def classify(rel:Path)->tuple[str,str|None]:
     top=rel.parts[0]
+    name=rel.name
+    # Generated Python bytecode is never runtime authority; source remains retained.
+    if "__pycache__" in rel.parts or name.endswith((".pyc",".pyo")):
+        return "generated",None
     if top in CAMPAIGN_FILES:return "campaign",str(Path("campaign")/rel)
+    if top=="LOOM_CAMPAIGN_HISTORY.jsonl.gz.bak":return "backup",str(Path("backups")/"campaign"/top)
+    if top==".loom_backups":return "backup",str(Path("backups")/"legacy_runtime"/Path(*rel.parts[1:]))
     if top=="logs":return "logs",str(Path("logs")/Path(*rel.parts[1:]))
+    if top.startswith("LOOM_PHASE6_") and (top.endswith(".log") or top=="LOOM_PHASE6_LATEST.txt"):
+        return "logs",str(Path("logs")/top)
     if top in CACHE_DIRS:return "cache",str(Path("cache")/rel)
+    if top in GENERATED_FILES:return "generated",str(Path("cache")/"generated"/top)
+    if top in AUDIT_FILES:return "audit",str(Path("audit")/"legacy"/top)
     if top in SKIP_DIRS:return "preserve_existing",None
     if top in APP_DIRS or top in APP_FILES:return "application",str(Path("runtime")/rel)
+    # Phase-6 SequenceH artifacts are application dependencies. Keep source/package,
+    # but the bytecode exclusion above still wins.
+    if "SequenceH" in top or "SEQUENCEH" in top.upper():return "application",str(Path("runtime")/rel)
     return "unknown",None
 
 def audit(source:Path,target:Path)->dict:
@@ -56,19 +71,22 @@ def _copy_verified(item:dict):
     finally:
         if temp.exists():temp.unlink()
 
+def _migrates(item:dict)->bool:
+    return item["classification"] not in {"preserve_existing","generated"}
+
 def stage(plan:dict)->dict:
     if plan.get("contract")!=CONTRACT:raise RuntimeError("unsupported migration contract")
     if plan.get("unknown_count"):raise RuntimeError(f"UNKNOWN FILES BLOCK STAGE: {plan['unknown_count']}")
     copied=0
     for item in plan["items"]:
-        if item["classification"]=="preserve_existing":continue
+        if not _migrates(item):continue
         _copy_verified(item); copied+=1
     return validate(plan)|{"staged_files":copied}
 
 def validate(plan:dict)->dict:
     failures=[]; checked=0
     for item in plan["items"]:
-        if item["classification"]=="preserve_existing":continue
+        if not _migrates(item):continue
         checked+=1; dst=Path(item["target"])
         if not dst.is_file() or sha256(dst)!=item["sha256"]:failures.append(str(dst))
     return {"contract":CONTRACT,"checked_files":checked,"valid":not failures,"failures":failures}
