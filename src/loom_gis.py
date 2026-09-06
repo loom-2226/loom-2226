@@ -1,0 +1,160 @@
+#!/usr/bin/env python3
+"""LOOM converged GIS launcher — Phase 6.
+
+Runs the known-good Solar GIS with Navigator route planning and canonical
+campaign execution. Runtime roots are resolved once; no filesystem archaeology
+or cwd probing is used to discover campaign authority.
+"""
+from __future__ import annotations
+
+from pathlib import Path
+import argparse
+import json
+import os
+import sys
+
+SRC = Path(__file__).resolve().parent
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+import loom_solar_gis as solar_gis
+import loom_navigator
+from loom.campaign import LegacyCampaignExecutionService
+from loom.gis import build_navigation_overlay, install_navigation_overlay
+from loom.gis.navigation_overlay import load_route_layer
+from loom.gis.flight_planning import GISFlightPlanningSession
+from loom.gis.flight_planning_http import install_flight_planning
+from loom.navigation import NavigationContext
+from loom.navigation.service import LegacyNavigationService
+from loom.runtime import RuntimeRoots, export_runtime_environment, resolve_runtime_roots
+
+
+def _default_active_route(roots: RuntimeRoots) -> Path | None:
+    env = os.environ.get("LOOM_ROUTE_LAYER")
+    candidates: list[Path] = []
+    if env:
+        candidates.append(Path(env))
+    candidates.extend([
+        roots.campaign_root / "state" / "LOOM_ACTIVE_ROUTE_LAYER.json",
+        roots.campaign_root / "LOOM_ACTIVE_ROUTE_LAYER.json",
+    ])
+    for path in candidates:
+        if path.is_file():
+            return path
+    return None
+
+
+def _install_unified_context_drawer() -> None:
+    """Install the shared NAV/ATLAS shell without changing Navigator or Atlas truth."""
+    script_path = SRC / "loom" / "gis" / "flight_planning_unified_drawer.js"
+    if not script_path.is_file():
+        return
+    marker = "/* LOOM_UNIFIED_NAV_ATLAS_DRAWER_V1 */"
+    if marker in solar_gis.CLIENT_JS:
+        return
+    solar_gis.CLIENT_JS += "\n" + marker + "\n" + script_path.read_text(encoding="utf-8") + "\n"
+
+
+def _install_planning_and_execution(roots: RuntimeRoots, *, offline: bool) -> GISFlightPlanningSession:
+    """Bind Phase-6 planning to explicit APP and CAMPAIGN authorities.
+
+    The current accepted Pixel layout has CAMPAIGN_ROOT == APP_ROOT, so this
+    preserves Phase-6 behavior exactly. The distinction is explicit here so a
+    later migration cannot silently fall back to cwd or another guessed tree.
+    """
+    app_root = roots.app_root
+    campaign_root = roots.campaign_root
+    state_path = campaign_root / "LOOM_STATE_V1.json"
+    sequence_h = campaign_root / "LOOM_Navigator_Internal_SequenceH"
+    cache = app_root / "LOOM_Navigator_Cache_v1"
+    b1_matches = sorted(app_root.glob("LOOM_Navigator_Visual_Design_B1_LOCKED_Package*.zip"))
+
+    if not state_path.is_file():
+        raise RuntimeError(f"campaign state not found: {state_path}")
+    if not sequence_h.exists():
+        raise RuntimeError(f"Navigator Sequence-H runtime not found: {sequence_h}")
+    if not cache.exists():
+        raise RuntimeError(f"Navigator cache not found: {cache}")
+    if not b1_matches:
+        raise RuntimeError(f"locked B1 package not found under {app_root}")
+
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    core = loom_navigator.load_core()
+    service = LegacyNavigationService(core)
+    campaign = LegacyCampaignExecutionService(core)
+    context = NavigationContext(
+        campaign_state=state,
+        cache_dir=cache,
+        b1_package=b1_matches[0],
+        runtime_root=campaign_root,
+    )
+    session = GISFlightPlanningSession(
+        service,
+        context,
+        offline=offline,
+        campaign_execution_service=campaign,
+    )
+    install_flight_planning(solar_gis, session)
+    _install_unified_context_drawer()
+    return session
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(add_help=False)
+    ap.add_argument("--nav-route", type=Path)
+    ap.add_argument("--nav-alt", type=Path, action="append", default=[])
+    ap.add_argument("--nav-history", type=Path, action="append", default=[])
+    ap.add_argument("--nav-overlay-info", action="store_true")
+    # Compatibility alias: historically this selected the combined runtime root.
+    # During convergence it selects APP_ROOT; CAMPAIGN_ROOT remains independently
+    # overridable through LOOM_CAMPAIGN_ROOT.
+    ap.add_argument("--nav-runtime-root", type=Path)
+    ap.add_argument("--nav-planning-offline", action="store_true")
+    ap.add_argument("--no-flight-planning", action="store_true")
+    args, rest = ap.parse_known_args(argv)
+
+    roots = resolve_runtime_roots(app_root=args.nav_runtime_root)
+    export_runtime_environment(roots)
+
+    active_path = args.nav_route or _default_active_route(roots)
+    active = load_route_layer(active_path) if active_path else None
+    alternates = [load_route_layer(p) for p in args.nav_alt]
+    history = [load_route_layer(p) for p in args.nav_history]
+    overlay = build_navigation_overlay(active, alternates, history)
+    install_navigation_overlay(solar_gis, overlay)
+
+    planning = None
+    if not args.no_flight_planning:
+        try:
+            planning = _install_planning_and_execution(roots, offline=args.nav_planning_offline)
+        except Exception as exc:
+            print("FLIGHT PLAN   unavailable ·", f"{type(exc).__name__}: {exc}")
+
+    if args.nav_overlay_info:
+        if args.no_flight_planning:
+            out = overlay.to_dict()
+        else:
+            out = {"navigation_overlay": overlay.to_dict(), "flight_planning": planning.state().to_dict() if planning else None}
+        out["runtime_roots"] = roots.to_dict()
+        print(json.dumps(out, indent=2))
+        return 0
+
+    print("APP ROOT     ", roots.app_root, f"[{roots.app_source}]")
+    print("DATA ROOT    ", roots.data_root, f"[{roots.data_source}]")
+    print("CAMPAIGN ROOT", roots.campaign_root, f"[{roots.campaign_source}]")
+    if active_path:
+        print("NAV ROUTE    ", active_path)
+        print("NAV CONTRACT ", active.contract)
+        print("NAV ROUTE SHA", active.sha256())
+    else:
+        print("NAV ROUTE     none supplied · GIS navigation controls remain available")
+    print("NAV OVERLAY  ", overlay.contract)
+    if planning:
+        state = planning.state()
+        print("FLIGHT PLAN  ", state.contract, "· origin", planning.origin, "·", "OFFLINE" if planning.offline else "CACHE/PROVIDER")
+        print("CAMPAIGN EXEC", "ENABLED" if state.execution_available else "DISABLED")
+    return solar_gis.main(rest)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
