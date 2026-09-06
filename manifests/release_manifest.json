@@ -1,7 +1,7 @@
 {
   "product": "LOOM 2226",
   "release_state": "release",
-  "release_id": "initial-baseline-2026-09-03",
+  "release_id": "media-library-2026-09-06",
   "source_ref": "main",
   "civstate_schema": "1.2-runtime",
   "artifacts": [
@@ -17,6 +17,22 @@
       "path": "src/LOOM_Solar_GIS_v0.12.9_RC8_Draggable_Graph_Nodes.py",
       "sha256": "73812ccf8e71d913798e8e3ebb25d64937ba4491e5540d09e5b7e80f646d4f0a",
       "size_bytes": 553713,
+      "source": "repository",
+      "install_group": "code",
+      "required": true
+    },
+    {
+      "path": "src/loom_media_library.py",
+      "sha256": "bf597e54a9ca986432a1c29a231909e75fed655b2017d98853b92f746d12ed51",
+      "size_bytes": 5397,
+      "source": "repository",
+      "install_group": "code",
+      "required": true
+    },
+    {
+      "path": "src/launch_media_library.py",
+      "sha256": "d88b4ddebc4ca4b6b126b1e0adf5f637c89d3e109a75b200c6bf110f7af54b99",
+      "size_bytes": 335,
       "source": "repository",
       "install_group": "code",
       "required": true
