@@ -15,6 +15,9 @@ class LoomUpdateTests(unittest.TestCase):
  def test_nested_code_path_and_git_blob_digest(self):
   with tempfile.TemporaryDirectory() as td:
    payload=b"nested-runtime"; a={"path":"src/loom/gis/runtime_piece.py","git_blob_sha1":loom_update.git_blob_sha1_bytes(payload),"size_bytes":len(payload),"source":"repository","install_group":"code","required":True}; roots=loom_update.InstallRoots(Path(td)/"app",Path(td)/"data"); loom_update.install_release(roots,{"release_id":"nested","artifacts":[a]},"ref",artifact_fetcher=lambda artifact,ref:payload); target=roots.app_root/"src/loom/gis/runtime_piece.py"; self.assertEqual(target.read_bytes(),payload); self.assertEqual(loom_update.validate_local(roots,{"artifacts":[a]})[0].state,"OK")
+ def test_deploy_code_artifact_is_allowed_under_app_root(self):
+  with tempfile.TemporaryDirectory() as td:
+   payload=b"launcher"; a={"path":"deploy/android/launch_gis.py","sha256":loom_update.sha256_bytes(payload),"size_bytes":len(payload),"source":"repository","install_group":"code","required":True}; roots=loom_update.InstallRoots(Path(td)/"app",Path(td)/"data"); loom_update.install_release(roots,{"release_id":"deploy","artifacts":[a]},"ref",artifact_fetcher=lambda artifact,ref:payload); self.assertEqual((roots.app_root/"deploy/android/launch_gis.py").read_bytes(),payload)
  def test_separate_app_and_data_roots(self):
   with tempfile.TemporaryDirectory() as td:
    app=Path(td)/"app"; data=Path(td)/"canonical"; roots=loom_update.InstallRoots(app,data); loom_update.install_release(roots,self.manifest,"test-ref",artifact_fetcher=self.fetch); self.assertEqual((app/"src/nav.py").read_bytes(),self.nav); self.assertEqual((data/"world.sqlite3").read_bytes(),self.world); self.assertFalse((app/"data/world.sqlite3").exists())
@@ -24,8 +27,8 @@ class LoomUpdateTests(unittest.TestCase):
  def test_root_environment_precedence_and_legacy_compatibility(self):
   with tempfile.TemporaryDirectory() as td:
    base=Path(td); roots=loom_update.platform_roots(environ={"LOOM_APP_ROOT":str(base/"app"),"LOOM_DATA_ROOT":str(base/"data"),"LOOM_HOME":str(base/"legacy")}); self.assertEqual(roots.app_root,(base/"app").resolve()); self.assertEqual(roots.data_root,(base/"data").resolve()); legacy=loom_update.platform_roots(environ={"LOOM_HOME":str(base/"legacy")}); self.assertEqual(legacy.app_root,(base/"legacy").resolve()); self.assertEqual(legacy.data_root,(base/"legacy"/"data").resolve())
- def test_injected_android_environment_selects_audited_roots(self):
-  roots=loom_update.platform_roots(environ={"ANDROID_ROOT":"/system"}); self.assertEqual(roots.app_root,loom_update.ANDROID_APP_ROOT.resolve()); self.assertEqual(roots.data_root,loom_update.ANDROID_DATA_ROOT.resolve())
+ def test_injected_android_environment_selects_migrated_roots(self):
+  roots=loom_update.platform_roots(environ={"ANDROID_ROOT":"/system"}); self.assertEqual(roots.app_root,loom_update.ANDROID_APP_ROOT.resolve()); self.assertEqual(roots.app_root,(loom_update.ANDROID_ROOT/"runtime").resolve()); self.assertEqual(roots.data_root,(loom_update.ANDROID_ROOT/"data").resolve())
  def test_empty_injected_environment_does_not_probe_android_filesystem(self):
   with patch.object(loom_update.Path,"exists",side_effect=AssertionError("filesystem probe leaked into root resolution")):
    roots=loom_update.platform_roots(environ={})
