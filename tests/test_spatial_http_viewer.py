@@ -74,6 +74,12 @@ class SpatialHTTPViewerTest(unittest.TestCase):
         self.assertNotIn("fetch('/commit", js)
         self.assertNotIn("fetch('/execute", js)
 
+    def test_checked_in_viewer_uses_webgl_column_major_matrix_layout(self):
+        root = Path(__file__).resolve().parents[1]
+        js = (root / "web" / "solar3d.js").read_text(encoding="utf-8")
+        self.assertIn("o[c*4+r]", js)
+        self.assertNotIn("o[c+r*4]", js)
+
 
 if __name__ == "__main__":
     unittest.main()
