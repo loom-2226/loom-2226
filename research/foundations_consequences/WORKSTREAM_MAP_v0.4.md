@@ -15,10 +15,13 @@ This program remains isolated from Navigator/GIS/runtime, simulation/economic pr
 ## Cross-cutting infrastructure
 
 - `SQUAD_ARCHITECTURE_v1.1.md` — live roster / ancestry / bridge / case model.
+- `SQUAD_CURRENT_CONTRIBUTIONS_AND_FUTURE_CONSTRUCTION_v1.0.md` — member-by-member current LOOM contribution and plausible future construction, with explicit non-endorsement disclaimer.
 - `CONVERGENCE_PRIORITY_MODEL_v1.0.md` — weighted convergence and strategic scoring.
 - `SCALED_AGILE_OPERATING_MODEL_v1.0.md` — PI/WIP/dependency process.
 - `research_corpus/CONTRIBUTOR_WEIGHT_REGISTER_v1.0.md` — LOOM Utility Weights.
 - `CURRENT_LOOM_LINEAGE_AUDIT_v1.0.md` + supplement — attribution gaps and current-canon mapping.
+
+**Usage rule:** before activating or materially reshaping any stream, consult the member-contribution register to identify (a) which squad/current members already shape the question, (b) what future construction is legitimate to explore, and (c) where the source boundary prevents LOOM from claiming endorsement or evidence not actually supplied by the source.
 
 # ACTIVE WIP
 
