@@ -4,6 +4,7 @@ from pathlib import Path
 import os
 import subprocess
 import sys
+import threading
 import time
 from urllib.request import urlopen
 
@@ -48,24 +49,7 @@ def _browser_enabled() -> bool:
     return value not in {"1", "true", "yes", "on"}
 
 
-def _wait_until_ready(process: subprocess.Popen, url: str, timeout_s: float = 20.0) -> bool:
-    deadline = time.monotonic() + timeout_s
-    while time.monotonic() < deadline:
-        if process.poll() is not None:
-            return False
-        try:
-            with urlopen(url, timeout=0.5) as response:
-                if 200 <= int(getattr(response, "status", 200)) < 500:
-                    return True
-        except Exception:
-            pass
-        time.sleep(0.2)
-    return False
-
-
 def _open_browser(url: str) -> None:
-    # Termux includes termux-open-url in normal installations. Android's am
-    # command is a safe fallback if the helper is unavailable.
     try:
         subprocess.Popen(["termux-open-url", url], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         return
@@ -79,7 +63,22 @@ def _open_browser(url: str) -> None:
         print(f"LOOM browser auto-open unavailable; open {url}", file=sys.stderr)
 
 
-process = subprocess.Popen(argv, env=env)
-if _browser_enabled() and _wait_until_ready(process, GIS_URL):
-    _open_browser(GIS_URL)
-raise SystemExit(process.wait())
+def _wait_and_open(url: str, timeout_s: float = 20.0) -> None:
+    deadline = time.monotonic() + timeout_s
+    while time.monotonic() < deadline:
+        try:
+            with urlopen(url, timeout=0.5) as response:
+                if 200 <= int(getattr(response, "status", 200)) < 500:
+                    _open_browser(url)
+                    return
+        except Exception:
+            pass
+        time.sleep(0.2)
+
+
+# Keep the established blocking subprocess.call launcher contract. Browser launch
+# happens independently only after the localhost server answers.
+if _browser_enabled():
+    threading.Thread(target=_wait_and_open, args=(GIS_URL,), name="loom-browser-open", daemon=True).start()
+
+raise SystemExit(subprocess.call(argv, env=env))
