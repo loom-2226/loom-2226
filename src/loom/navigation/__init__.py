@@ -10,6 +10,14 @@ from .contracts import (
     RouteCandidate,
     TrajectorySegment,
 )
+from .gravity_shadow import (
+    GravityShadowError,
+    GravityShadowReport,
+    GravityShadowSample,
+    OrdinaryTrajectorySample,
+    compare_gravity_shadow,
+    ordinary_samples_from_route_trajectory,
+)
 from .route_layer import (
     GEOMETRY_MODE,
     LegacyRouteLayerAdapter,
@@ -30,6 +38,12 @@ __all__ = [
     "NavigationRequest",
     "RouteCandidate",
     "TrajectorySegment",
+    "GravityShadowError",
+    "GravityShadowReport",
+    "GravityShadowSample",
+    "OrdinaryTrajectorySample",
+    "compare_gravity_shadow",
+    "ordinary_samples_from_route_trajectory",
     "GEOMETRY_MODE",
     "LegacyRouteLayerAdapter",
     "LoomRouteLayerV1",
