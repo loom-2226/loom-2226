@@ -9,7 +9,7 @@ class ReleaseManifestConvergenceTest(unittest.TestCase):
  @classmethod
  def setUpClass(cls):cls.manifest=json.loads(MANIFEST.read_text(encoding="utf-8"))
  def test_manifest_is_staging_convergence_authority(self):
-  m=self.manifest; self.assertEqual(m["format"],"LOOM_RELEASE_MANIFEST_V2"); self.assertEqual(m["release_state"],"staging"); self.assertEqual(m["source_ref"],"integration/runtime-devops-convergence-2026-09-06"); self.assertEqual(m["authority"]["campaign_policy"],"preserve_local_never_install"); self.assertEqual(m["artifact_freeze_base"],"ac6f72e2d3a1e2a2a6a3d7fec1d846b7b58862b4")
+  m=self.manifest; self.assertEqual(m["format"],"LOOM_RELEASE_MANIFEST_V2"); self.assertEqual(m["release_state"],"staging"); self.assertEqual(m["source_ref"],"integration/runtime-devops-convergence-2026-09-06"); self.assertEqual(m["authority"]["campaign_policy"],"preserve_local_never_install"); self.assertEqual(m["artifact_freeze_base"],"bf53b1ee0b659b85fd4427bce4c5003a86938d1a")
  def test_manifest_is_updater_compatible(self):
   updater.validate_manifest(self.manifest)
  def test_runtime_files_exist_are_updater_artifacts_and_are_pinned(self):
@@ -18,6 +18,8 @@ class ReleaseManifestConvergenceTest(unittest.TestCase):
    self.assertTrue((ROOT/path).is_file(),path); self.assertIn(path,artifacts); self.assertEqual(artifacts[path]["install_group"],"code"); self.assertTrue(artifacts[path]["required"]); self.assertIn("git_blob_sha1",artifacts[path]); self.assertEqual(len(artifacts[path]["git_blob_sha1"]),40); self.assertGreater(artifacts[path]["size_bytes"],0)
  def test_phase6_planner_client_dependencies_are_explicit_runtime_artifacts(self):
   required={"src/loom/gis/flight_planning.js","src/loom/gis/flight_planning_selection.js","src/loom/gis/flight_planning_unified_drawer.js"}; runtime=set(self.manifest["runtime_files"]); artifacts={a["path"] for a in self.manifest["artifacts"]}; self.assertTrue(required.issubset(runtime)); self.assertTrue(required.issubset(artifacts))
+ def test_devops_debug_and_media_surface_is_explicit_and_pinned(self):
+  required={"src/loom_debug_bundle.py","src/loom_media_library.py","deploy/android/launch_media_library.py","deploy/windows/launch_media_library.py"}; runtime=set(self.manifest["runtime_files"]); artifacts={a["path"]:a for a in self.manifest["artifacts"]}; self.assertTrue(required.issubset(runtime)); self.assertTrue(required.issubset(artifacts)); self.assertEqual(artifacts["src/loom/runtime_diagnostics.py"]["git_blob_sha1"],"5755e041e995732f5b67fce8e5708b6d8e3f0b7d"); self.assertEqual(artifacts["src/loom/runtime_diagnostics.py"]["size_bytes"],8107)
  def test_split_root_gis_artifact_matches_qualified_fix(self):
   artifact={a["path"]:a for a in self.manifest["artifacts"]}["src/loom_gis.py"]; self.assertEqual(artifact["git_blob_sha1"],"46fd8aff6b6e5971a7d480cc730733b51840cb83"); self.assertEqual(artifact["size_bytes"],6815)
  def test_android_gis_launcher_artifact_matches_provider_backed_default(self):
