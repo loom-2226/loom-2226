@@ -30,6 +30,11 @@ class SpatialSQLiteSourceTest(unittest.TestCase):
             conn.execute("INSERT INTO states VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", (
                 'EARTH','2226-06-15T09:59:34Z','J2000','ECLIPTIC',1.0,2.0,3.0,0.1,0.2,0.3,'JPL_HORIZONS',1
             ))
+            # Renderer/cache duplication: infrastructure may also appear in `states`.
+            # The first-class `spatial_states` record must win classification and values.
+            conn.execute("INSERT INTO states VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", (
+                'NODE:ONE','2226-06-15T09:59:34Z','J2000','ECLIPTIC',9.0,9.0,9.0,9.0,9.0,9.0,'DERIVED_CACHE_COPY',0
+            ))
             conn.execute("INSERT INTO spatial_states VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
                 'NODE:ONE','2226-06-15T09:59:34Z','EARTH','J2000/ECLIPTIC',10.0,20.0,30.0,1.0,2.0,3.0,
                 'DERIVED_PLACEMENT_MODEL','M1',0,'PROVISIONAL'
@@ -59,6 +64,8 @@ class SpatialSQLiteSourceTest(unittest.TestCase):
             node = next(row for row in snapshot['states'] if row['entity_id'] == 'NODE:ONE')
             self.assertEqual(tuple(node['position_km']), (10.0, 20.0, 30.0))
             self.assertFalse(node['navigation_grade'])
+            self.assertEqual(node['payload']['state_class'], 'INFRASTRUCTURE')
+            self.assertEqual(node['provenance']['store'], 'spatial_states')
             self.assertEqual(path.read_bytes(), before)
 
 
