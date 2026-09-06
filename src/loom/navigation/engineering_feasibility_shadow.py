@@ -185,7 +185,7 @@ def evaluate_engineering_feasibility_shadow(
 
     samples_out: list[dict[str, Any]] = []
     previous_corr = (0.0, 0.0, 0.0)
-    max_reconstructed_correction = 0.0
+    max_reconstructed_nonterminal_correction = 0.0
     for index, sample in enumerate(guidance_samples):
         if not isinstance(sample, Mapping):
             raise EngineeringFeasibilityError("guidance sample must be a mapping")
@@ -202,20 +202,22 @@ def evaluate_engineering_feasibility_shadow(
             raise EngineeringFeasibilityError("invalid Sequence-B mass/acceleration telemetry")
 
         corr = _guidance_correction_vector(sample, final_epoch, limit)
+        if index < len(guidance_samples) - 1:
+            max_reconstructed_nonterminal_correction = max(max_reconstructed_nonterminal_correction, _norm(corr))
         if index == len(guidance_samples) - 1:
             terminal_corr_mag = float(sample.get("guidance_correction_km_s2", 0.0) or 0.0)
             if terminal_corr_mag > 0.0 and _norm(previous_corr) > 0.0:
                 corr = _scale(_unit(previous_corr, "previous guidance correction"), terminal_corr_mag)
         if _norm(corr) > 0.0:
             previous_corr = corr
-        max_reconstructed_correction = max(max_reconstructed_correction, _norm(corr))
 
         baseline_accel = _scale(dv_hat, ordinary_accel_g * G0_KM_S2)
         required_accel = _add(baseline_accel, corr)
         required_mag = _norm(required_accel)
-        available_accel = thrust_n / (wet_mass_t * 1e6) / 1000.0
+        mass_kg = wet_mass_t * 1000.0
+        available_accel = (thrust_n / mass_kg) / 1000.0
         margin = available_accel - required_mag
-        required_thrust_n = required_mag * wet_mass_t * 1e6 * 1000.0
+        required_thrust_n = required_mag * 1000.0 * mass_kg
         required_mdot = required_thrust_n / (ve_km_s * 1000.0)
         samples_out.append({
             "epoch_utc": str(sample["epoch_utc"]),
@@ -274,8 +276,8 @@ def evaluate_engineering_feasibility_shadow(
         "maximum_sampled_required_thrust_accel_km_s2": max_required,
         "maximum_sampled_steering_angle_deg": max_steering,
         "d2h_peak_guidance_correction_km_s2": d2h_peak_corr,
-        "maximum_reconstructed_sample_guidance_correction_km_s2": max_reconstructed_correction,
-        "between_sample_peak_correction_open": d2h_peak_corr > max_reconstructed_correction + 1e-12,
+        "maximum_reconstructed_nonterminal_sample_guidance_correction_km_s2": max_reconstructed_nonterminal_correction,
+        "between_sample_peak_correction_open": d2h_peak_corr > max_reconstructed_nonterminal_correction + 1e-12,
         "minimum_available_thrust_accel_km_s2": min_available,
         "conservative_peak_required_accel_upper_bound_km_s2": conservative_peak_upper,
         "conservative_peak_upper_bound_within_mode_envelope": conservative_peak_upper <= min_available + 1e-12,
