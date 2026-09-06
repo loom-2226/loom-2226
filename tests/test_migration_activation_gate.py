@@ -27,4 +27,19 @@ class ActivationGateTest(unittest.TestCase):
             self.assertEqual(len(result['required_files_verified']),6)
             self.assertTrue((target/'audit/runtime_roots.json').exists())
 
+    def test_activate_allows_qualified_application_replacement_but_not_campaign_drift(self):
+        with tempfile.TemporaryDirectory() as td:
+            base=Path(td); source=base/'source'; target=base/'target'; source.mkdir()
+            (source/'src').mkdir(); (source/'src/loom_gis.py').write_text('legacy gis'); (source/'src/loom_navigator.py').write_text('legacy nav')
+            (source/'LOOM_STATE_V1.json').write_text('{"revision":1}'); (source/'LOOM_CAMPAIGN_HISTORY.jsonl.gz').write_bytes(b'history')
+            plan=m.audit(source,target); m.stage(plan)
+            (target/'runtime/src/loom_gis.py').write_text('qualified converged gis')
+            (target/'runtime/src/loom_navigator.py').write_text('qualified converged nav')
+            (target/'data').mkdir(parents=True,exist_ok=True); (target/'data/LOOM_2226.sqlite3').write_bytes(b'world'); (target/'data/LOOM_2226_CIVSTATE.sqlite3').write_bytes(b'civ')
+            result=m.activate(plan)
+            self.assertTrue(result['validation']['valid']); self.assertIn('application',result['validation']['excluded_classes']); self.assertEqual(result['validation']['skipped_files'],2)
+            (target/'campaign/LOOM_STATE_V1.json').write_text('{"revision":2}')
+            with self.assertRaisesRegex(RuntimeError,'not fully staged and validated'):
+                m.activate(plan)
+
 if __name__=='__main__':unittest.main()
