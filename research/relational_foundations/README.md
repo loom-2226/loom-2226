@@ -14,34 +14,41 @@ Governing canon remains under `canon/current/` and `governance/current/`. The cu
 - `../rabbit_holes/LOOM_2226_Relational_Foundations_Independent_Work_Plan_v0.1.md` — governing work plan for this research lane.
 - `HISTORICAL_RECONSTRUCTION_v0.1.md` — reconstruction of the earlier AUIF / RQO-1 work and its known failure state.
 - `RQO1_RECOVERY_PROTOCOL_v0.1.md` — protocol for reproducing the earlier experiment before new model design.
+- `RQO1_HISTORICAL_SOURCE_NOTE_v0.1.md` — source-grounded recovery note for the surviving 28 Aug 2026 RQO-1 implementation/protocol.
 - `TERMUX_DEVOPS_WORKFLOW_v0.1.md` — Android/Termux execution and GitHub workflow, isolated from production Navigator/GIS runtime.
 
-## Current implementation checkpoint
-
-RF-WP0 now has an isolated command surface under `src/`, `tests/`, and `ops/`.
+## Command surface
 
 From the repository root:
 
 ```bash
 python -m research.relational_foundations.src.cli status
 python -m research.relational_foundations.src.cli validate
+python -m research.relational_foundations.src.cli deps
 python -m research.relational_foundations.src.cli test
 python -m research.relational_foundations.src.cli smoke
+python -m research.relational_foundations.src.cli controls
+python -m research.relational_foundations.src.cli rqo1-smoke
 ```
 
-On Termux, after making the launcher executable:
+On Termux use the tracked launcher through `bash`; this avoids changing its executable bit and dirtying the Git worktree:
 
 ```bash
-chmod +x research/relational_foundations/ops/loomrf
-research/relational_foundations/ops/loomrf status
-research/relational_foundations/ops/loomrf validate
-research/relational_foundations/ops/loomrf test
-research/relational_foundations/ops/loomrf smoke
+bash research/relational_foundations/ops/loomrf status
+bash research/relational_foundations/ops/loomrf validate
+bash research/relational_foundations/ops/loomrf deps
+bash research/relational_foundations/ops/loomrf test
+bash research/relational_foundations/ops/loomrf controls
+bash research/relational_foundations/ops/loomrf rqo1-smoke
 ```
 
-The current `smoke` command is intentionally an **infrastructure smoke test only**. It is explicitly not a reconstruction of historical RQO-1 physics. Historical reproduction remains the next scientific task.
+The numerical RQO-1 stack is research-local in `requirements-rqo1.txt`. Do not install it into the Navigator/GIS production environment.
 
-Default research output is separate from production runtime state:
+`smoke` remains infrastructure-only. `rqo1-smoke` is a **protocol-class reconstruction**, not a claim to reproduce the exact historical two-cell run: the surviving protocol specifies approximately N=40, two cells, and 30 steps, but does not identify those exact two cells. The reconstruction declares its substitute cells in output instead of inventing history.
+
+`controls` qualifies the measurement layer against obvious graph classes before candidate dynamics are trusted.
+
+Default research output remains separate from production runtime state:
 
 - Termux/Android: `/storage/emulated/0/Documents/LOOM_RESEARCH/relational_foundations`
 - Desktop: `~/Documents/LOOM_RESEARCH/relational_foundations`
@@ -50,9 +57,9 @@ Override with `LOOM_RF_OUTPUT` when needed.
 
 ## Recovered historical status
 
-The project previously attempted a coordinate-free relational graph model. The meaningful prior negative result was the AUIF-era observation that generic finite-degree relational graphs tended toward expander-like, nonlocal structure rather than manifold-like locality. Short-cycle terms could improve locality but risk hard-coding the desired answer. A later RQO-1 implementation added more explicit diagnostics and Metropolis rewiring but the only known execution was a small smoke test, not a scientifically decisive run.
+The project previously attempted a coordinate-free relational graph model. The meaningful prior negative result was the AUIF-era observation that generic finite-degree relational graphs tended toward expander-like, nonlocal structure rather than manifold-like locality. Short-cycle terms could improve locality but risk hard-coding the desired answer. A later RQO-1 implementation used random-regular baselines, degree-preserving Metropolis rewiring, Ollivier-Ricci curvature, triangle terms, spectral dimension, volume-growth dimension, and a provisional broad-phase gate. Its documented small smoke execution was not a scientifically decisive run.
 
-The present workstream therefore begins with reproduction, not invention.
+The present workstream therefore begins with reproduction and diagnostic qualification, not invention.
 
 ## Source-preservation rule
 
