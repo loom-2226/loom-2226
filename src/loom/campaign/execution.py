@@ -14,6 +14,7 @@ import json
 import os
 
 from loom.navigation import FlightExecutionResult, FlightPlan, NavigationContext
+from loom.runtime import resolve_runtime_roots
 
 CAMPAIGN_EXECUTION_VERSION = "LOOM_CAMPAIGN_EXECUTION_V1"
 
@@ -86,16 +87,23 @@ class LegacyCampaignExecutionService:
         execution: FlightExecutionResult,
         context: NavigationContext,
     ) -> CampaignFlightCommitV1:
-        root = Path(context.runtime_root or "").expanduser().resolve()
-        if not root.exists():
-            raise CampaignExecutionError("campaign runtime_root is required for persistent execution")
+        # Split-root runtime contract: Navigator code lives under APP while
+        # canonical campaign state/history live under CAMPAIGN.  The legacy
+        # single-root assumption is invalid after runtime cutover.
+        roots = resolve_runtime_roots(app_root=context.runtime_root or None)
+        app_root = Path(roots.app_root).expanduser().resolve()
+        campaign_root = Path(roots.campaign_root).expanduser().resolve()
+        if not app_root.exists():
+            raise CampaignExecutionError("application root is required for persistent execution")
+        if not campaign_root.exists():
+            raise CampaignExecutionError("campaign root is required for persistent execution")
 
         state_file = str(getattr(self.core, "STATE_FILE", "LOOM_STATE_V1.json"))
         backup_file = str(getattr(self.core, "BACKUP_FILE", "LOOM_STATE_V1.bak"))
         history_file = str(getattr(self.core, "HISTORY_FILE", "LOOM_CAMPAIGN_HISTORY.jsonl.gz"))
-        state_path = root / state_file
-        backup_path = root / backup_file
-        history_path = root / history_file
+        state_path = campaign_root / state_file
+        backup_path = campaign_root / backup_file
+        history_path = campaign_root / history_file
         if not state_path.is_file():
             raise CampaignExecutionError(f"canonical campaign state not found: {state_path}")
 
@@ -105,8 +113,6 @@ class LegacyCampaignExecutionService:
         validate(current)
         validate(expected)
 
-        # Strong stale-plan guard: the plan may execute only against the exact
-        # state snapshot from which it was discovered and compiled.
         if current != expected:
             raise CampaignExecutionError(
                 "campaign state changed after planning; rediscover and recommit the flight"
@@ -150,18 +156,16 @@ class LegacyCampaignExecutionService:
         outcome_summary = self._require("_outcome_summary")
         ledger_type = self._require("HistoryLedger")
         atomic_save = self._require("_atomic_save")
-        nav = load_core(root / "LOOM_Navigator_Internal_SequenceH")
+        nav = load_core(app_root / "LOOM_Navigator_Internal_SequenceH")
         outcome = outcome_summary(
             nav, runtime, determinism, html, current, arrival, plan.flight_id, plan_sha
         )
 
-        # Preserve primaries so a failure between history and state replacement
-        # can be rolled back to the exact pre-commit authority snapshot.
         state_before_bytes = state_path.read_bytes()
         history_before_bytes = history_path.read_bytes() if history_path.exists() else None
         record = None
         try:
-            ledger = ledger_type(root, current)
+            ledger = ledger_type(campaign_root, current)
             record = ledger.append(
                 "FLIGHT_ARRIVED",
                 current,
@@ -173,7 +177,6 @@ class LegacyCampaignExecutionService:
             )
             atomic_save(state_path, backup_path, arrival)
             ledger.state = arrival
-            # Read-back validation is part of the commit, not a later smoke test.
             persisted = _read_json(state_path)
             validate(persisted)
             if persisted != arrival:
