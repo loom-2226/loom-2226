@@ -4,9 +4,11 @@ from pathlib import Path
 import os
 import runpy
 
-APP = Path(os.environ.get("LOOM_APP_ROOT") or os.environ.get("LOOM_HOME") or "/storage/emulated/0/Download/LOOM_TEST").expanduser().resolve()
-DATA = Path(os.environ.get("LOOM_DATA_ROOT") or "/storage/emulated/0/Documents/LOOM/data").expanduser().resolve()
-CAMPAIGN = Path(os.environ.get("LOOM_CAMPAIGN_ROOT") or APP).expanduser().resolve()
+# Post-migration Android defaults. Explicit environment roots always win.
+LOOM_ROOT = Path("/storage/emulated/0/Documents/LOOM")
+APP = Path(os.environ.get("LOOM_APP_ROOT") or os.environ.get("LOOM_HOME") or str(LOOM_ROOT / "runtime")).expanduser().resolve()
+DATA = Path(os.environ.get("LOOM_DATA_ROOT") or str(LOOM_ROOT / "data")).expanduser().resolve()
+CAMPAIGN = Path(os.environ.get("LOOM_CAMPAIGN_ROOT") or str(LOOM_ROOT / "campaign")).expanduser().resolve()
 
 os.environ["LOOM_APP_ROOT"] = str(APP)
 os.environ["LOOM_DATA_ROOT"] = str(DATA)
