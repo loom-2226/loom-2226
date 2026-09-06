@@ -20,15 +20,24 @@ def _git_head(app_root):
     try:proc=subprocess.run(["git","-C",str(app_root),"rev-parse","HEAD"],capture_output=True,text=True,timeout=2,check=False)
     except (OSError,subprocess.SubprocessError):return None
     value=proc.stdout.strip(); return value if proc.returncode==0 and value else None
+def _install_identity(app_root):
+    path=app_root/".loom_install_state.json"; item=_file_identity(path); item.update(release_id=None,release_state=None,source_ref=None,recorded_app_root=None,recorded_data_root=None,error=None)
+    if not path.is_file():return item
+    try:
+        raw=json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(raw,dict):raise ValueError("install state is not a JSON object")
+        item.update(release_id=raw.get("release_id"),release_state=raw.get("release_state"),source_ref=raw.get("source_ref"),recorded_app_root=raw.get("app_root"),recorded_data_root=raw.get("data_root"))
+    except (OSError,UnicodeError,json.JSONDecodeError,ValueError) as exc:item["error"]=f"{type(exc).__name__}: {exc}"
+    return item
 def _shadow_sql_identity(path):
     item=_file_identity(path); item.update(contract=None,flight_commit_count=None,min_revision=None,max_revision=None,integrity_check=None,error=None)
     if not path.is_file():return item
     try:
-        uri=f"file:{path.as_posix()}?mode=ro"
+        uri=path.resolve().as_uri()+"?mode=ro"
         with sqlite3.connect(uri,uri=True) as conn:
             meta=conn.execute("SELECT value FROM campaign_shadow_meta WHERE key='contract'").fetchone(); counts=conn.execute("SELECT COUNT(*),MIN(revision_after),MAX(revision_after) FROM campaign_flight_commits").fetchone(); integrity=conn.execute("PRAGMA integrity_check").fetchone()
         item.update(contract=meta[0] if meta else None,flight_commit_count=int(counts[0]),min_revision=counts[1],max_revision=counts[2],integrity_check=integrity[0] if integrity else None)
-    except (sqlite3.Error,OSError) as exc:item["error"]=f"{type(exc).__name__}: {exc}"
+    except (sqlite3.Error,OSError,ValueError) as exc:item["error"]=f"{type(exc).__name__}: {exc}"
     return item
 def collect_runtime_manifest(*,roots=None):
     roots=roots or resolve_runtime_roots(); app,data,campaign=roots.app_root,roots.data_root,roots.campaign_root; db_names=("LOOM_2226.sqlite3","LOOM_2226_media.sqlite3","LOOM_2226_CIVSTATE.sqlite3"); databases=[]; seen=set()
@@ -39,10 +48,10 @@ def collect_runtime_manifest(*,roots=None):
             seen.add(str(path)); item=_file_identity(path); item.update(root=root_name,name=name); databases.append(item)
     campaign_state=_file_identity(campaign/"LOOM_STATE_V1.json")
     if not campaign_state["exists"] and campaign!=app:campaign_state=_file_identity(app/"LOOM_STATE_V1.json"); campaign_state["compatibility_fallback"]=True
-    trace_path=campaign/"logs"/"loom-trace.jsonl"; shadow_path=campaign/"LOOM_CAMPAIGN_DEV.sqlite3"
-    return {"contract":CONTRACT,"runtime":{"platform":platform.platform(),"python":sys.version.split()[0],"executable":sys.executable,"cwd":str(Path.cwd().resolve()),"git_head":_git_head(app)},"roots":roots.to_dict(),"environment":{key:os.environ.get(key) for key in ("LOOM_APP_ROOT","LOOM_DATA_ROOT","LOOM_CAMPAIGN_ROOT","LOOM_HOME")},"source":{"loom_gis":_file_identity(app/"src"/"loom_gis.py"),"runtime":_file_identity(app/"src"/"loom"/"runtime.py")},"databases":databases,"campaign":{"state":campaign_state,"navigator_cache":{"path":str(campaign/"LOOM_Navigator_Cache_v1"),"exists":(campaign/"LOOM_Navigator_Cache_v1").exists()},"shadow_sql":_shadow_sql_identity(shadow_path)},"observability":{"trace":_file_identity(trace_path)}}
+    trace_path=campaign/"logs"/"loom-trace.jsonl"; shadow_path=campaign/"LOOM_CAMPAIGN_DEV.sqlite3"; cache_path=app/"LOOM_Navigator_Cache_v1"
+    return {"contract":CONTRACT,"runtime":{"platform":platform.platform(),"python":sys.version.split()[0],"executable":sys.executable,"cwd":str(Path.cwd().resolve())},"deployment":{"install_state":_install_identity(app),"app_git_head":_git_head(app)},"roots":roots.to_dict(),"environment":{key:os.environ.get(key) for key in ("LOOM_APP_ROOT","LOOM_DATA_ROOT","LOOM_CAMPAIGN_ROOT","LOOM_HOME")},"source":{"loom_gis":_file_identity(app/"src"/"loom_gis.py"),"runtime":_file_identity(app/"src"/"loom"/"runtime.py")},"databases":databases,"campaign":{"state":campaign_state,"navigator_cache":{"path":str(cache_path),"exists":cache_path.exists(),"root":"app_root"},"shadow_sql":_shadow_sql_identity(shadow_path)},"observability":{"trace":_file_identity(trace_path)}}
 def render_runtime_audit(manifest):
-    roots,runtime=manifest["roots"],manifest["runtime"]; lines=["LOOM RUNTIME AUDIT","==================",f"Contract      {manifest['contract']}",f"Platform      {runtime['platform']}",f"Python        {runtime['python']}",f"Git head      {runtime['git_head'] or 'unavailable'}",f"APP ROOT      {roots['app_root']} [{roots['app_source']}]",f"DATA ROOT     {roots['data_root']} [{roots['data_source']}]",f"CAMPAIGN ROOT {roots['campaign_root']} [{roots['campaign_source']}]","","DATABASES"]
+    roots,runtime=manifest["roots"],manifest["runtime"]; deployment=manifest.get("deployment",{}); install=deployment.get("install_state",{}); lines=["LOOM RUNTIME AUDIT","==================",f"Contract      {manifest['contract']}",f"Platform      {runtime['platform']}",f"Python        {runtime['python']}",f"App Git head  {deployment.get('app_git_head') or 'unavailable'}",f"Release       {install.get('release_id') or 'unavailable'}",f"APP ROOT      {roots['app_root']} [{roots['app_source']}]",f"DATA ROOT     {roots['data_root']} [{roots['data_source']}]",f"CAMPAIGN ROOT {roots['campaign_root']} [{roots['campaign_source']}]","","DATABASES"]
     for db in manifest["databases"]:
         status="PRESENT" if db["exists"] else "missing"; digest=db["sha256"][:12] if db["sha256"] else "-"; lines.append(f"{status:7} {db['root']:9} {db['name']} sha256={digest} path={db['path']}")
     state=manifest["campaign"]["state"]; shadow=manifest["campaign"]["shadow_sql"]; trace=manifest["observability"]["trace"]
