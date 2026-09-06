@@ -21,6 +21,11 @@ from .celestial_state import (
     ParentCentricOrbitModel,
     propagate_parent_centric,
 )
+from .sqlite_celestial_catalog import (
+    SQLiteCelestialCatalog,
+    SQLiteCelestialCatalogError,
+    osculating_elements_from_state,
+)
 from .runtime import SpatialRuntime, SpatialRuntimeError
 
 __all__ = [
@@ -40,6 +45,9 @@ __all__ = [
     "HybridCelestialStateService",
     "ParentCentricOrbitModel",
     "propagate_parent_centric",
+    "SQLiteCelestialCatalog",
+    "SQLiteCelestialCatalogError",
+    "osculating_elements_from_state",
     "SpatialRuntime",
     "SpatialRuntimeError",
 ]
