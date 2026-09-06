@@ -2,6 +2,7 @@ extends Node3D
 
 var model_root: Node3D
 var camera: Camera3D
+var status_label: Label
 var yaw := 0.55
 var pitch := 0.45
 var distance := 85.0
@@ -26,36 +27,48 @@ func _build_environment() -> void:
     add_child(camera)
 
     var key := DirectionalLight3D.new()
+    key.name = "KeyLight"
     key.rotation_degrees = Vector3(-35.0, -35.0, 0.0)
     key.light_energy = 2.2
     add_child(key)
 
     var fill := DirectionalLight3D.new()
+    fill.name = "FillLight"
     fill.rotation_degrees = Vector3(25.0, 145.0, 0.0)
     fill.light_energy = 0.65
     add_child(fill)
 
     var ui := CanvasLayer.new()
+    ui.name = "HUD"
     add_child(ui)
-    var label := Label.new()
-    label.name = "Status"
-    label.position = Vector2(18.0, 18.0)
-    label.text = "LOOM WAYFARER — GODOT ANDROID GLB TEST"
-    ui.add_child(label)
+
+    status_label = Label.new()
+    status_label.name = "Status"
+    status_label.position = Vector2(18.0, 18.0)
+    status_label.text = "LOOM WAYFARER — GODOT ANDROID GLB TEST"
+    ui.add_child(status_label)
 
 func _load_wayfarer() -> void:
     var path := "res://wayfarer.glb"
-    var status := get_node("CanvasLayer/Status") as Label
-    if not ResourceLoader.exists(path):
-        status.text += "\nMissing wayfarer.glb — generate it from LOOM geometry JSON first."
+    if status_label == null:
+        push_error("Wayfarer HUD status label was not initialized")
         return
-    var packed := load(path) as PackedScene
+    if not ResourceLoader.exists(path):
+        status_label.text += "\nMissing wayfarer.glb — generate it from LOOM geometry JSON first."
+        return
+    var resource := ResourceLoader.load(path)
+    var packed := resource as PackedScene
     if packed == null:
-        status.text += "\nGLB import failed."
+        status_label.text += "\nGLB import failed: resource is not a PackedScene."
+        push_error("wayfarer.glb did not import as PackedScene")
         return
     var instance := packed.instantiate()
+    if instance == null:
+        status_label.text += "\nGLB instantiate failed."
+        push_error("wayfarer.glb PackedScene instantiate returned null")
+        return
     model_root.add_child(instance)
-    status.text += "\nGLB loaded. Drag to orbit. Pinch/wheel to zoom."
+    status_label.text += "\nGLB loaded. Drag to orbit. Pinch/wheel to zoom."
 
 func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventScreenTouch:
@@ -84,6 +97,8 @@ func _unhandled_input(event: InputEvent) -> void:
         _update_camera()
 
 func _update_camera() -> void:
+    if camera == null:
+        return
     var cp := cos(pitch)
     var pos := Vector3(
         target.x + distance * cp * cos(yaw),
