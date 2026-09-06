@@ -1,14 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import os
-import subprocess
-import sys
-
-ROOT = Path(os.environ.get("LOOM_HOME", str(Path.home() / "Documents" / "LOOM")))
-APP = ROOT / "src" / "loom_media_library.py"
-DB = ROOT / "data" / "LOOM_2226.sqlite3"
-MEDIA = ROOT / "data" / "LOOM_2226_media.sqlite3"
-for p in (APP, DB, MEDIA):
-    if not p.exists():
-        raise SystemExit(f"LOOM file missing: {p}")
-raise SystemExit(subprocess.call([sys.executable, str(APP), "--root", str(ROOT)]))
+import os,runpy
+root=Path(os.environ.get('LOOM_HOME',str(Path.home()/'Documents'/'LOOM')))
+os.environ['LOOM_HOME']=str(root)
+runpy.run_path(str(root/'src'/'loom_media_library.py'),run_name='__main__')
