@@ -56,19 +56,17 @@ class RuntimeRootsTest(unittest.TestCase):
             self.assertEqual(roots.campaign_root, root.resolve())
             self.assertFalse((root / "data").exists())
 
-    def test_injected_android_environment_selects_audited_data_authority(self):
+    def test_injected_android_environment_selects_migrated_authority(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
-            roots = resolve_runtime_roots(
-                env={"ANDROID_ROOT": "/system"}, cwd=root
-            )
-            self.assertEqual(
-                roots.data_root,
-                Path("/storage/emulated/0/Documents/LOOM/data").resolve(),
-            )
+            roots = resolve_runtime_roots(env={"ANDROID_ROOT": "/system"}, cwd=root)
+            base = Path("/storage/emulated/0/Documents/LOOM")
+            self.assertEqual(roots.app_root, (base / "runtime").resolve())
+            self.assertEqual(roots.data_root, (base / "data").resolve())
+            self.assertEqual(roots.campaign_root, (base / "campaign").resolve())
+            self.assertEqual(roots.app_source, "default:android-runtime")
             self.assertEqual(roots.data_source, "default:android-documents")
-            self.assertEqual(roots.app_root, root.resolve())
-            self.assertEqual(roots.campaign_root, root.resolve())
+            self.assertEqual(roots.campaign_source, "default:android-campaign")
 
     def test_empty_injected_environment_does_not_leak_process_android_state(self):
         with tempfile.TemporaryDirectory() as td:
