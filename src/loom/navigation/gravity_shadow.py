@@ -117,11 +117,43 @@ class GravityShadowReport:
 GravityEvaluator = Callable[[tuple[float, float, float], str], GravityEvaluation]
 
 
+def _same_state(a: OrdinaryTrajectorySample, b: OrdinaryTrajectorySample, *, abs_tol: float = 1e-9) -> bool:
+    return (
+        all(math.isclose(x, y, rel_tol=0.0, abs_tol=abs_tol) for x, y in zip(a.position_km, b.position_km))
+        and all(math.isclose(x, y, rel_tol=0.0, abs_tol=abs_tol) for x, y in zip(a.velocity_km_s, b.velocity_km_s))
+    )
+
+
+def _normalize_duplicate_epochs(samples: list[OrdinaryTrajectorySample]) -> list[OrdinaryTrajectorySample]:
+    """Collapse duplicate-epoch samples only when their ordinary state agrees.
+
+    Sequence-B may emit a repeated terminal arrival sample at the same epoch.
+    That is harmless for shadow integration if position and velocity are the
+    same. Any same-epoch state disagreement remains ambiguous and fails closed.
+    The later duplicate is retained so terminal sample provenance/index wins.
+    """
+    if not samples:
+        return []
+    normalized: list[OrdinaryTrajectorySample] = [samples[0]]
+    for sample in samples[1:]:
+        previous = normalized[-1]
+        if _dt(sample.epoch_utc) != _dt(previous.epoch_utc):
+            normalized.append(sample)
+            continue
+        if not _same_state(previous, sample):
+            raise GravityShadowError(
+                "duplicate ordinary-space sample epoch has conflicting position/velocity state"
+            )
+        normalized[-1] = sample
+    return normalized
+
+
 def ordinary_samples_from_route_trajectory(trajectory: Mapping[str, Any]) -> tuple[OrdinaryTrajectorySample, ...]:
     """Extract only Sequence-B samples with complete ordinary-space state.
 
     Metric/relational samples with no ordinary occupancy are ignored. No position
-    or velocity is inferred for them.
+    or velocity is inferred for them. Exact duplicate-epoch ordinary states are
+    collapsed; conflicting duplicate epochs are rejected.
     """
     rows = trajectory.get("samples")
     if not isinstance(rows, (list, tuple)):
@@ -143,7 +175,8 @@ def ordinary_samples_from_route_trajectory(trajectory: Mapping[str, Any]) -> tup
             phase_code=row.get("phase_code"),
             payload={"ordinary_accel_g": row.get("ordinary_accel_g"), "torch_state_code": row.get("torch_state_code")},
         ))
-    out.sort(key=lambda s: _dt(s.epoch_utc))
+    out.sort(key=lambda s: (_dt(s.epoch_utc), s.sample_index if s.sample_index is not None else -1))
+    out = _normalize_duplicate_epochs(out)
     if len(out) < 2:
         raise GravityShadowError("at least two complete ordinary-space samples are required")
     for a, b in zip(out, out[1:]):
@@ -172,21 +205,9 @@ def _rk4_step(
         return v, _add(commanded_accel, ge.total_acceleration_km_s2)
 
     k1p, k1v = deriv(position, velocity, epoch)
-    k2p, k2v = deriv(
-        _add(position, _scale(k1p, 0.5 * dt_s)),
-        _add(velocity, _scale(k1v, 0.5 * dt_s)),
-        epoch + timedelta(seconds=0.5 * dt_s),
-    )
-    k3p, k3v = deriv(
-        _add(position, _scale(k2p, 0.5 * dt_s)),
-        _add(velocity, _scale(k2v, 0.5 * dt_s)),
-        epoch + timedelta(seconds=0.5 * dt_s),
-    )
-    k4p, k4v = deriv(
-        _add(position, _scale(k3p, dt_s)),
-        _add(velocity, _scale(k3v, dt_s)),
-        epoch + timedelta(seconds=dt_s),
-    )
+    k2p, k2v = deriv(_add(position, _scale(k1p, 0.5 * dt_s)), _add(velocity, _scale(k1v, 0.5 * dt_s)), epoch + timedelta(seconds=0.5 * dt_s))
+    k3p, k3v = deriv(_add(position, _scale(k2p, 0.5 * dt_s)), _add(velocity, _scale(k2v, 0.5 * dt_s)), epoch + timedelta(seconds=0.5 * dt_s))
+    k4p, k4v = deriv(_add(position, _scale(k3p, dt_s)), _add(velocity, _scale(k3v, dt_s)), epoch + timedelta(seconds=dt_s))
     weighted_p = _scale(_add(_add(k1p, _scale(k2p, 2.0)), _add(_scale(k3p, 2.0), k4p)), dt_s / 6.0)
     weighted_v = _scale(_add(_add(k1v, _scale(k2v, 2.0)), _add(_scale(k3v, 2.0), k4v)), dt_s / 6.0)
     return _add(position, weighted_p), _add(velocity, weighted_v)
