@@ -4,6 +4,8 @@ from pathlib import Path
 import os
 import subprocess
 import sys
+import time
+from urllib.request import urlopen
 
 # Post-migration Android defaults. Explicit environment roots always win.
 LOOM_ROOT = Path("/storage/emulated/0/Documents/LOOM")
@@ -13,6 +15,7 @@ CAMPAIGN = Path(os.environ.get("LOOM_CAMPAIGN_ROOT") or str(LOOM_ROOT / "campaig
 GIS = APP / "src" / "loom_gis.py"
 DB = DATA / "LOOM_2226.sqlite3"
 CIV = DATA / "LOOM_2226_CIVSTATE.sqlite3"
+GIS_URL = str(os.environ.get("LOOM_GIS_URL") or "http://127.0.0.1:8766")
 
 for p in (GIS, DB, CIV):
     if not p.exists():
@@ -39,4 +42,44 @@ offline = str(os.environ.get("LOOM_NAV_PLANNING_OFFLINE") or "").strip().lower()
 if offline in {"1", "true", "yes", "on"}:
     argv.append("--nav-planning-offline")
 
-raise SystemExit(subprocess.call(argv, env=env))
+
+def _browser_enabled() -> bool:
+    value = str(os.environ.get("LOOM_NO_BROWSER") or "").strip().lower()
+    return value not in {"1", "true", "yes", "on"}
+
+
+def _wait_until_ready(process: subprocess.Popen, url: str, timeout_s: float = 20.0) -> bool:
+    deadline = time.monotonic() + timeout_s
+    while time.monotonic() < deadline:
+        if process.poll() is not None:
+            return False
+        try:
+            with urlopen(url, timeout=0.5) as response:
+                if 200 <= int(getattr(response, "status", 200)) < 500:
+                    return True
+        except Exception:
+            pass
+        time.sleep(0.2)
+    return False
+
+
+def _open_browser(url: str) -> None:
+    # Termux includes termux-open-url in normal installations. Android's am
+    # command is a safe fallback if the helper is unavailable.
+    try:
+        subprocess.Popen(["termux-open-url", url], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return
+    except OSError:
+        pass
+    try:
+        subprocess.Popen([
+            "/system/bin/am", "start", "-a", "android.intent.action.VIEW", "-d", url
+        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except OSError:
+        print(f"LOOM browser auto-open unavailable; open {url}", file=sys.stderr)
+
+
+process = subprocess.Popen(argv, env=env)
+if _browser_enabled() and _wait_until_ready(process, GIS_URL):
+    _open_browser(GIS_URL)
+raise SystemExit(process.wait())
