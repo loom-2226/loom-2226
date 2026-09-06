@@ -1,6 +1,8 @@
+import io
 import runpy
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
@@ -40,6 +42,16 @@ class GISLauncherTests(unittest.TestCase):
         self.assertEqual(env["LOOM_DATA_ROOT"],str((ANDROID_ROOT/"data").resolve()))
         self.assertEqual(env["LOOM_CAMPAIGN_ROOT"],str((ANDROID_ROOT/"campaign").resolve()))
         self.assertNotIn("--nav-planning-offline",argv)
+
+    def test_android_ctrl_c_exits_cleanly_without_traceback(self):
+        out = io.StringIO()
+        env = {"LOOM_NO_BROWSER":"1"}
+        with patch.dict("os.environ", env, clear=True), patch("pathlib.Path.exists", return_value=True), patch("subprocess.call", side_effect=KeyboardInterrupt):
+            with redirect_stdout(out), self.assertRaises(SystemExit) as raised:
+                runpy.run_path(str(ROOT / "deploy/android/launch_gis.py"), run_name="__main__")
+        self.assertEqual(raised.exception.code, 130)
+        self.assertIn("LOOM stopped.", out.getvalue())
+        self.assertNotIn("Traceback", out.getvalue())
 
     def test_windows_launcher_honors_explicit_campaign_root(self):
         app="/tmp/loom-app"; data="/tmp/loom-data"; campaign="/tmp/loom-campaign"
