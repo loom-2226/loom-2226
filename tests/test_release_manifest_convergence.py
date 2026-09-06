@@ -9,7 +9,7 @@ class ReleaseManifestConvergenceTest(unittest.TestCase):
  @classmethod
  def setUpClass(cls):cls.manifest=json.loads(MANIFEST.read_text(encoding="utf-8"))
  def test_manifest_is_staging_convergence_authority(self):
-  m=self.manifest; self.assertEqual(m["format"],"LOOM_RELEASE_MANIFEST_V2"); self.assertEqual(m["release_state"],"staging"); self.assertEqual(m["source_ref"],"integration/runtime-devops-convergence-2026-09-06"); self.assertEqual(m["authority"]["campaign_policy"],"preserve_local_never_install"); self.assertEqual(m["artifact_freeze_base"],"b1ae89dba709df989a3e35743e89c294b9538816")
+  m=self.manifest; self.assertEqual(m["format"],"LOOM_RELEASE_MANIFEST_V2"); self.assertEqual(m["release_state"],"staging"); self.assertEqual(m["source_ref"],"integration/runtime-devops-convergence-2026-09-06"); self.assertEqual(m["authority"]["campaign_policy"],"preserve_local_never_install"); self.assertEqual(m["artifact_freeze_base"],"ac6f72e2d3a1e2a2a6a3d7fec1d846b7b58862b4")
  def test_manifest_is_updater_compatible(self):
   updater.validate_manifest(self.manifest)
  def test_runtime_files_exist_are_updater_artifacts_and_are_pinned(self):
@@ -22,6 +22,8 @@ class ReleaseManifestConvergenceTest(unittest.TestCase):
   artifact={a["path"]:a for a in self.manifest["artifacts"]}["src/loom_gis.py"]; self.assertEqual(artifact["git_blob_sha1"],"46fd8aff6b6e5971a7d480cc730733b51840cb83"); self.assertEqual(artifact["size_bytes"],6815)
  def test_android_gis_launcher_artifact_matches_provider_backed_default(self):
   artifact={a["path"]:a for a in self.manifest["artifacts"]}["deploy/android/launch_gis.py"]; self.assertEqual(artifact["git_blob_sha1"],"1bd0108c5a9f7d82f8f3b487cef03b482801df35"); self.assertEqual(artifact["size_bytes"],1483)
+ def test_campaign_execution_artifact_matches_split_root_fix(self):
+  artifact={a["path"]:a for a in self.manifest["artifacts"]}["src/loom/campaign/execution.py"]; self.assertEqual(artifact["git_blob_sha1"],"5222fbc2b59d543b5e98bcd12f5f8134472fcb33"); self.assertEqual(artifact["size_bytes"],8821)
  def test_campaign_authority_is_preserved_and_never_installable(self):
   m=self.manifest; forbidden={"LOOM_STATE_V1.json","LOOM_STATE_V1.bak","LOOM_CAMPAIGN_HISTORY.jsonl.gz","LOOM_CAMPAIGN_DEV.sqlite3"}; artifact_paths={a["path"] for a in m["artifacts"]}; self.assertTrue(forbidden.isdisjoint(artifact_paths)); self.assertTrue(forbidden.issubset(set(m["preserve_local"]))); self.assertNotIn("campaign",{a["install_group"] for a in m["artifacts"]})
  def test_canonical_data_matches_frozen_pixel_baseline(self):
