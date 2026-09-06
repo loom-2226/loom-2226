@@ -22,6 +22,9 @@ LOOM_Navigator_Cache_v1/
 # Wayfarer geometry runtime/cache
 data/wayfarer_geometry.sqlite3
 geometry/wayfarer_geometry.json
+geometry/*.glb
+android/godot_wayfarer/wayfarer.glb
+android/godot_wayfarer/.godot/
 web/three/three.module.min.js
 web/three/three.min.js
 
