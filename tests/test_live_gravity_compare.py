@@ -2,8 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import sqlite3
-
-import pytest
+import unittest
 
 from loom.navigation.gravity_shadow import GravityShadowError, ordinary_samples_from_route_trajectory
 from loom.navigation.live_gravity_compare import compare_live_route_trajectory
@@ -33,56 +32,63 @@ def _ordinary_row(index: int, epoch: str, x: float, y: float, vx: float = 0.0, v
     }
 
 
-def test_duplicate_terminal_epoch_same_state_collapses_to_later_sample():
-    x=149597870.7+20000
-    trajectory={'samples':[
-        _ordinary_row(98,'2226-06-15T00:00:00Z',x,0.0),
-        _ordinary_row(99,'2226-06-15T00:01:00Z',x,1786.8),
-        _ordinary_row(100,'2226-06-15T00:01:00Z',x,1786.8),
-    ]}
-    samples=ordinary_samples_from_route_trajectory(trajectory)
-    assert len(samples)==2
-    assert samples[-1].sample_index==100
+class LiveGravityCompareTests(unittest.TestCase):
+    def test_duplicate_terminal_epoch_same_state_collapses_to_later_sample(self):
+        x=149597870.7+20000
+        trajectory={'samples':[
+            _ordinary_row(98,'2226-06-15T00:00:00Z',x,0.0),
+            _ordinary_row(99,'2226-06-15T00:01:00Z',x,1786.8),
+            _ordinary_row(100,'2226-06-15T00:01:00Z',x,1786.8),
+        ]}
+        samples=ordinary_samples_from_route_trajectory(trajectory)
+        self.assertEqual(len(samples),2)
+        self.assertEqual(samples[-1].sample_index,100)
+
+    def test_duplicate_epoch_conflicting_state_fails_closed(self):
+        x=149597870.7+20000
+        trajectory={'samples':[
+            _ordinary_row(98,'2226-06-15T00:00:00Z',x,0.0),
+            _ordinary_row(99,'2226-06-15T00:01:00Z',x,1786.8),
+            _ordinary_row(100,'2226-06-15T00:01:00Z',x,1787.8),
+        ]}
+        with self.assertRaisesRegex(GravityShadowError,'conflicting position/velocity'):
+            ordinary_samples_from_route_trajectory(trajectory)
+
+    def test_live_compare_core_backed_shadow(self):
+        from tempfile import TemporaryDirectory
+        with TemporaryDirectory() as td:
+            db=Path(td)/'LOOM_2226.sqlite3'; _db(db)
+            trajectory={
+                'authority':'PYTHON_AUTHORED_SEQUENCE_B','coordinate_frame':'J2000_ECLIPTIC','route_plan_id':'R1','solution_key':'X',
+                'samples':[
+                    _ordinary_row(0,'2226-06-15T00:00:00Z',149597870.7+20000,0.0),
+                    _ordinary_row(1,'2226-06-15T00:01:00Z',149597870.7+20000,1786.8),
+                    _ordinary_row(2,'2226-06-15T00:02:00Z',149597870.7+20000,3573.6),
+                ]
+            }
+            out=compare_live_route_trajectory(trajectory,db,max_step_s=20)
+        self.assertEqual(out['contract'],'LOOM_NAV_PHYSICS_V2_LIVE_GRAVITY_COMPARE_V1')
+        self.assertEqual(out['authority'],'DIAGNOSTIC_SHADOW_ONLY_NOT_ROUTE_AUTHORITY')
+        self.assertEqual(out['report']['sample_count'],3)
+        self.assertGreater(out['report']['terminal_position_error_km'],0)
+        self.assertFalse(out['qualification']['campaign_mutation'])
+        self.assertEqual(out['qualification']['display_fallbacks'],'REJECTED')
+
+        d2f=out['characterization']
+        self.assertEqual(d2f['contract'],'LOOM_NAV_PHYSICS_V2_D2F_CHARACTERIZATION_V1')
+        self.assertEqual(d2f['duration_s'],120.0)
+        self.assertEqual(len(d2f['error_profile']),3)
+        self.assertEqual(d2f['error_profile'][0]['elapsed_s'],0.0)
+        self.assertEqual(d2f['error_profile'][-1]['elapsed_s'],120.0)
+        self.assertGreater(d2f['position_error_growth_km_per_min'],0)
+        self.assertGreater(d2f['velocity_error_growth_m_s_per_min'],0)
+        self.assertGreaterEqual(d2f['position_error_non_decreasing_fraction'],0.0)
+        self.assertLessEqual(d2f['position_error_non_decreasing_fraction'],1.0)
+        self.assertGreaterEqual(d2f['velocity_error_non_decreasing_fraction'],0.0)
+        self.assertLessEqual(d2f['velocity_error_non_decreasing_fraction'],1.0)
+        self.assertIsInstance(d2f['dominant_gravity_source_counts'],dict)
+        self.assertIsNone(d2f['reference_cutoff_penetration_km'])
 
 
-def test_duplicate_epoch_conflicting_state_fails_closed():
-    x=149597870.7+20000
-    trajectory={'samples':[
-        _ordinary_row(98,'2226-06-15T00:00:00Z',x,0.0),
-        _ordinary_row(99,'2226-06-15T00:01:00Z',x,1786.8),
-        _ordinary_row(100,'2226-06-15T00:01:00Z',x,1787.8),
-    ]}
-    with pytest.raises(GravityShadowError, match='conflicting position/velocity'):
-        ordinary_samples_from_route_trajectory(trajectory)
-
-
-def test_live_compare_core_backed_shadow(tmp_path: Path):
-    db=tmp_path/'LOOM_2226.sqlite3'; _db(db)
-    trajectory={
-        'authority':'PYTHON_AUTHORED_SEQUENCE_B','coordinate_frame':'J2000_ECLIPTIC','route_plan_id':'R1','solution_key':'X',
-        'samples':[
-            _ordinary_row(0,'2226-06-15T00:00:00Z',149597870.7+20000,0.0),
-            _ordinary_row(1,'2226-06-15T00:01:00Z',149597870.7+20000,1786.8),
-            _ordinary_row(2,'2226-06-15T00:02:00Z',149597870.7+20000,3573.6),
-        ]
-    }
-    out=compare_live_route_trajectory(trajectory,db,max_step_s=20)
-    assert out['contract']=='LOOM_NAV_PHYSICS_V2_LIVE_GRAVITY_COMPARE_V1'
-    assert out['authority']=='DIAGNOSTIC_SHADOW_ONLY_NOT_ROUTE_AUTHORITY'
-    assert out['report']['sample_count']==3
-    assert out['report']['terminal_position_error_km']>0
-    assert out['qualification']['campaign_mutation'] is False
-    assert out['qualification']['display_fallbacks']=='REJECTED'
-
-    d2f=out['characterization']
-    assert d2f['contract']=='LOOM_NAV_PHYSICS_V2_D2F_CHARACTERIZATION_V1'
-    assert d2f['duration_s']==120.0
-    assert len(d2f['error_profile'])==3
-    assert d2f['error_profile'][0]['elapsed_s']==0.0
-    assert d2f['error_profile'][-1]['elapsed_s']==120.0
-    assert d2f['position_error_growth_km_per_min']>0
-    assert d2f['velocity_error_growth_m_s_per_min']>0
-    assert 0.0 <= d2f['position_error_non_decreasing_fraction'] <= 1.0
-    assert 0.0 <= d2f['velocity_error_non_decreasing_fraction'] <= 1.0
-    assert isinstance(d2f['dominant_gravity_source_counts'],dict)
-    assert d2f['reference_cutoff_penetration_km'] is None
+if __name__ == '__main__':
+    unittest.main()
