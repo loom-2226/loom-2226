@@ -39,6 +39,9 @@ class LoomMigrateTest(unittest.TestCase):
    "LOOM_Navigator_Browser_Report.json":("audit","audit/legacy/LOOM_Navigator_Browser_Report.json"),
    "LOOM_KNOWLEDGE_RELATIONSHIPS_DIFF.txt":("audit","audit/legacy/LOOM_KNOWLEDGE_RELATIONSHIPS_DIFF.txt"),
    "LOOM_Android_Phase6_Convergence_Sync.py":("audit","audit/legacy/LOOM_Android_Phase6_Convergence_Sync.py"),
+   "LOOM_WORLD_DB_DIVERGENCE_AUDIT.txt":("audit","audit/legacy/LOOM_WORLD_DB_DIVERGENCE_AUDIT.txt"),
+   "LOOM_WORLD_DB_LOGICAL_DIFF_AUDIT.txt":("audit","audit/legacy/LOOM_WORLD_DB_LOGICAL_DIFF_AUDIT.txt"),
+   "loom_update.py":("application","runtime/loom_update.py"),
    "LOOM_SequenceH_Core.py":("application","runtime/LOOM_SequenceH_Core.py"),
   }
   for raw,expected in cases.items():self.assertEqual(m.classify(Path(raw)),expected,raw)
