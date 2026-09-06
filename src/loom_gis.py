@@ -26,6 +26,7 @@ from loom.gis.flight_planning import GISFlightPlanningSession
 from loom.gis.flight_planning_http import install_flight_planning
 from loom.navigation import NavigationContext
 from loom.navigation.service import LegacyNavigationService
+from loom.runtime import RuntimeRoots, export_runtime_environment, resolve_runtime_roots
 
 
 def _default_active_route() -> Path | None:
@@ -45,10 +46,13 @@ def _default_active_route() -> Path | None:
     return None
 
 
-def _planning_runtime_root(explicit: Path | None = None) -> Path | None:
+def _planning_runtime_root(explicit: Path | None = None, *, roots: RuntimeRoots | None = None) -> Path | None:
     candidates: list[Path] = []
     if explicit:
         candidates.append(explicit)
+    if roots:
+        # During compatibility migration campaign state may still live at APP_ROOT.
+        candidates.extend([roots.campaign_root, roots.app_root])
     if os.environ.get("LOOM_HOME"):
         candidates.append(Path(os.environ["LOOM_HOME"]))
     candidates.extend([Path.cwd(), Path.cwd() / "LOOM_TEST", Path("/storage/emulated/0/Download/LOOM_TEST")])
@@ -120,6 +124,9 @@ def main(argv=None) -> int:
     ap.add_argument("--no-flight-planning", action="store_true")
     args, rest = ap.parse_known_args(argv)
 
+    roots = resolve_runtime_roots(app_root=args.nav_runtime_root)
+    export_runtime_environment(roots)
+
     active_path = args.nav_route or _default_active_route()
     active = load_route_layer(active_path) if active_path else None
     alternates = [load_route_layer(p) for p in args.nav_alt]
@@ -129,7 +136,7 @@ def main(argv=None) -> int:
 
     planning = None
     if not args.no_flight_planning:
-        runtime_root = _planning_runtime_root(args.nav_runtime_root)
+        runtime_root = _planning_runtime_root(args.nav_runtime_root, roots=roots)
         if runtime_root:
             try:
                 planning = _install_planning_and_execution(runtime_root, offline=args.nav_planning_offline)
@@ -143,9 +150,13 @@ def main(argv=None) -> int:
             out = overlay.to_dict()
         else:
             out = {"navigation_overlay": overlay.to_dict(), "flight_planning": planning.state().to_dict() if planning else None}
+        out["runtime_roots"] = roots.to_dict()
         print(json.dumps(out, indent=2))
         return 0
 
+    print("APP ROOT     ", roots.app_root, f"[{roots.app_source}]")
+    print("DATA ROOT    ", roots.data_root, f"[{roots.data_source}]")
+    print("CAMPAIGN ROOT", roots.campaign_root, f"[{roots.campaign_source}]")
     if active_path:
         print("NAV ROUTE    ", active_path)
         print("NAV CONTRACT ", active.contract)
