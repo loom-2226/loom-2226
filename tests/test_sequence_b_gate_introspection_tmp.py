@@ -10,18 +10,16 @@ class SequenceBGateIntrospectionTemporaryTest(unittest.TestCase):
         with TemporaryDirectory() as td:
             nav = core._load_core(Path(td) / 'seqh')
             names = (
-                '_all_dependency_rows',
-                '_build_local_geometry_models',
-                '_route_rows_from_ep_aux',
-                'compile_ephemeris_payload',
-                'compile_route_payload',
-                'compile_flight_payload',
-                'compile_local_route_payload',
+                '_build_leg_timeline',
+                '_plan_geometry',
+                '_route_local_offset_state',
+                '_timeline_contract',
+                '_route_parent_system_id',
             )
-            print('\n=== SEQUENCE-B DEPENDENCY CONSUMERS ===')
+            print('\n=== ROUTE-SCOPED FLIGHT BUNDLE REQUIREMENTS ===')
             for name in names:
-                value = getattr(nav, name, None)
                 print(f'--- {name} ---')
+                value = getattr(nav, name, None)
                 if not callable(value):
                     print('NOT CALLABLE')
                     continue
