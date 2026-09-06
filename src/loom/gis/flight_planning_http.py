@@ -10,6 +10,8 @@ import threading
 import traceback
 import uuid
 
+from loom.runtime import resolve_runtime_roots
+from loom.runtime_diagnostics import collect_runtime_manifest
 from .flight_planning import GISFlightPlanningError, GISFlightPlanningSession
 
 
@@ -24,18 +26,10 @@ def planning_client_js() -> str:
 
 
 def _canonical_navigation_endpoint(registry_owner: Any, candidates: Iterable[str]) -> tuple[str | None, str | None]:
-    """Resolve a GIS selection only against Navigator's declared endpoint registry.
-
-    Mission normalization validates shape/aliases but does not prove that an arbitrary
-    celestial body is a supported route endpoint. The outer frozen Navigator core's
-    CIVSTATE_TOKEN_ENTITY mapping is the authoritative MVP endpoint registry. Sequence-H
-    is intentionally not used as the registry owner because the loaded Sequence-H module
-    does not expose this outer-core mapping in the physical runtime.
-    """
+    """Resolve a GIS selection only against Navigator's declared endpoint registry."""
     registry = getattr(registry_owner, "CIVSTATE_TOKEN_ENTITY", None)
     if not isinstance(registry, Mapping) or not registry:
         raise GISFlightPlanningError("Navigator endpoint registry is unavailable")
-
     token_lookup: dict[str, str] = {}
     entity_lookup: dict[str, str] = {}
     for raw_token, raw_entity in registry.items():
@@ -46,7 +40,6 @@ def _canonical_navigation_endpoint(registry_owner: Any, candidates: Iterable[str
         token_lookup[token] = token
         if entity_id:
             entity_lookup[entity_id] = token
-
     for candidate in candidates:
         raw = str(candidate or "").strip()
         if not raw:
@@ -70,10 +63,7 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
     handler.flight_planning_log_path = runtime_root / f"LOOM_PHASE6_HTTP_{run_stamp}.log"
     latest_pointer = runtime_root / "LOOM_PHASE6_LATEST.txt"
     try:
-        latest_pointer.write_text(
-            f"HTTP_LOG={handler.flight_planning_log_path.name}\n",
-            encoding="utf-8",
-        )
+        latest_pointer.write_text(f"HTTP_LOG={handler.flight_planning_log_path.name}\n", encoding="utf-8")
     except Exception:
         pass
     old_get = handler.do_GET
@@ -119,61 +109,25 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
         if not isinstance(entity, dict):
             raise GISFlightPlanningError("entity descriptor is required")
         display_name = str(entity.get("display_name") or entity.get("name") or entity.get("entity_id") or "SELECTION").strip()
-        raw_candidates = [
-            entity.get("navigation_token"),
-            entity.get("route_token"),
-            entity.get("navigator_token"),
-            entity.get("canonical_token"),
-            entity.get("body_token"),
-            entity.get("name"),
-            entity.get("display_name"),
-            entity.get("parent_entity_id") if str(entity.get("entity_class") or "").upper() == "INFRASTRUCTURE" else None,
-            entity.get("entity_id"),
-        ]
+        raw_candidates = [entity.get("navigation_token"), entity.get("route_token"), entity.get("navigator_token"), entity.get("canonical_token"), entity.get("body_token"), entity.get("name"), entity.get("display_name"), entity.get("parent_entity_id") if str(entity.get("entity_class") or "").upper() == "INFRASTRUCTURE" else None, entity.get("entity_id")]
         candidates: list[str] = []
         seen: set[str] = set()
         for value in raw_candidates:
             text = str(value or "").strip()
             if not text:
                 continue
-            variants = [text, text.upper().replace(" ", "_")]
-            for variant in variants:
+            for variant in [text, text.upper().replace(" ", "_")]:
                 if variant and variant not in seen:
                     seen.add(variant)
                     candidates.append(variant)
-
         nav_service = handler.flight_planning_session.service
         token, resolved_from = _canonical_navigation_endpoint(nav_service.core, candidates)
-
         if token is None:
             _log("destination_unavailable", entity_id=entity.get("entity_id"), display_name=display_name, candidates=candidates)
-            return {
-                "selectable": False,
-                "route_token": None,
-                "display_name": display_name,
-                "entity_id": entity.get("entity_id"),
-                "reason": "not a Navigator route endpoint",
-                "authority": "NAVIGATOR_CIVSTATE_TOKEN_ENTITY",
-            }
-
+            return {"selectable": False, "route_token": None, "display_name": display_name, "entity_id": entity.get("entity_id"), "reason": "not a Navigator route endpoint", "authority": "NAVIGATOR_CIVSTATE_TOKEN_ENTITY"}
         if token == handler.flight_planning_session.origin:
-            return {
-                "selectable": False,
-                "route_token": token,
-                "display_name": display_name,
-                "reason": "already at this location",
-                "entity_id": entity.get("entity_id"),
-                "authority": "NAVIGATOR_CIVSTATE_TOKEN_ENTITY",
-            }
-
-        return {
-            "selectable": True,
-            "route_token": token,
-            "display_name": display_name,
-            "entity_id": entity.get("entity_id"),
-            "resolved_from": resolved_from,
-            "authority": "NAVIGATOR_CIVSTATE_TOKEN_ENTITY",
-        }
+            return {"selectable": False, "route_token": token, "display_name": display_name, "reason": "already at this location", "entity_id": entity.get("entity_id"), "authority": "NAVIGATOR_CIVSTATE_TOKEN_ENTITY"}
+        return {"selectable": True, "route_token": token, "display_name": display_name, "entity_id": entity.get("entity_id"), "resolved_from": resolved_from, "authority": "NAVIGATOR_CIVSTATE_TOKEN_ENTITY"}
 
     def _run_discovery_job(job_id: str, destination: str, priority: str):
         _log("discover_job_start", job_id=job_id, destination=destination, priority=priority)
@@ -206,6 +160,19 @@ def install_flight_planning(gis_module: Any, session: GISFlightPlanningSession) 
         parsed = urlparse(self.path)
         path = parsed.path
         _log("http_get", path=path, query=parsed.query)
+        if path == "/diagnostics":
+            client = str(self.client_address[0] if self.client_address else "")
+            if client not in ("127.0.0.1", "::1", "localhost"):
+                _log("diagnostics_denied", client=client)
+                return _send_json(self, {"error": "diagnostics is localhost-only"}, status=403)
+            roots = resolve_runtime_roots(app_root=runtime_root)
+            manifest = collect_runtime_manifest(roots=roots)
+            manifest["live_process"] = {
+                "flight_planning": self.flight_planning_session.state().to_dict(),
+                "job": _job_snapshot(),
+                "http_log": str(handler.flight_planning_log_path),
+            }
+            return _send_json(self, manifest)
         if path == "/flight-planning.json":
             return _send_state(self, self.flight_planning_session.state())
         if path == "/flight-planning/status.json":
