@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
+import ast
 import json
 import os
 import platform
@@ -11,29 +11,30 @@ from pathlib import Path
 
 LANE = Path(__file__).resolve().parents[1]
 REPO = LANE.parents[1]
-DEFAULT_OUTPUT = Path(os.environ.get("LOOM_RF_OUTPUT", "/storage/emulated/0/Documents/LOOM_RESEARCH/relational_foundations" if "com.termux" in os.environ.get("PREFIX", "") else str(Path.home() / "Documents" / "LOOM_RESEARCH" / "relational_foundations")))
+DEFAULT_OUTPUT = Path(
+    os.environ.get(
+        "LOOM_RF_OUTPUT",
+        "/storage/emulated/0/Documents/LOOM_RESEARCH/relational_foundations"
+        if "com.termux" in os.environ.get("PREFIX", "")
+        else str(Path.home() / "Documents" / "LOOM_RESEARCH" / "relational_foundations"),
+    )
+)
 REQUIRED = [
     LANE / "README.md",
     LANE / "HISTORICAL_RECONSTRUCTION_v0.1.md",
     LANE / "RQO1_RECOVERY_PROTOCOL_v0.1.md",
     LANE / "TERMUX_DEVOPS_WORKFLOW_v0.1.md",
 ]
-FORBIDDEN_IMPORT_TOKENS = ("src.LOOM", "LOOM_2226.sqlite3", "launch_gis", "launch_navigator")
+FORBIDDEN_IMPORT_PREFIXES = ("src", "deploy", "web", "geometry", "engineering")
 
 
 def git_sha() -> str:
     try:
-        return subprocess.check_output(["git", "-C", str(REPO), "rev-parse", "HEAD"], text=True).strip()
+        return subprocess.check_output(
+            ["git", "-C", str(REPO), "rev-parse", "HEAD"], text=True
+        ).strip()
     except Exception:
         return "UNKNOWN"
-
-
-def sha256(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(1024 * 1024), b""):
-            h.update(chunk)
-    return h.hexdigest()
 
 
 def status() -> int:
@@ -50,23 +51,42 @@ def status() -> int:
     return 0
 
 
+def _imports(path: Path) -> list[str]:
+    tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    names: list[str] = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            names.extend(alias.name for alias in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            names.append(node.module)
+    return names
+
+
 def validate() -> int:
     failures: list[str] = []
     for path in REQUIRED:
         if not path.exists():
-            failures.append(f"missing required research artifact: {path.relative_to(REPO)}")
+            failures.append(
+                f"missing required research artifact: {path.relative_to(REPO)}"
+            )
     for py in (LANE / "src").rglob("*.py"):
-        text = py.read_text(encoding="utf-8")
-        for token in FORBIDDEN_IMPORT_TOKENS:
-            if token in text:
-                failures.append(f"forbidden production/runtime dependency token {token!r} in {py.relative_to(REPO)}")
+        try:
+            imports = _imports(py)
+        except SyntaxError as exc:
+            failures.append(f"syntax error in {py.relative_to(REPO)}: {exc}")
+            continue
+        for name in imports:
+            if name.startswith(FORBIDDEN_IMPORT_PREFIXES):
+                failures.append(
+                    f"forbidden production/runtime import {name!r} in {py.relative_to(REPO)}"
+                )
     if failures:
         print("LOOM RF VALIDATION: FAIL")
         for item in failures:
             print(" -", item)
         return 1
     print("LOOM RF VALIDATION: PASS")
-    print("Research lane is structurally isolated from Navigator/GIS runtime dependencies.")
+    print("Research lane is structurally isolated from Navigator/GIS runtime imports.")
     return 0
 
 
@@ -99,11 +119,24 @@ def infrastructure_smoke() -> int:
 
 
 def run_tests() -> int:
-    return subprocess.call([sys.executable, "-m", "unittest", "discover", "-s", str(LANE / "tests"), "-p", "test_*.py"])
+    return subprocess.call(
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            str(LANE / "tests"),
+            "-p",
+            "test_*.py",
+        ]
+    )
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="loomrf", description="LOOM relational-foundations research operations")
+    parser = argparse.ArgumentParser(
+        prog="loomrf", description="LOOM relational-foundations research operations"
+    )
     parser.add_argument("command", choices=["status", "validate", "test", "smoke"])
     args = parser.parse_args(argv)
     return {
