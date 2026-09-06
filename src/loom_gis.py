@@ -32,6 +32,8 @@ from loom.gis.flight_planning_http import install_flight_planning
 from loom.navigation import NavigationContext
 from loom.navigation.service import LegacyNavigationService
 from loom.runtime import RuntimeRoots, export_runtime_environment, resolve_runtime_roots
+from loom.spatial.http import install_spatial_state_endpoint
+from loom.spatial.sqlite_source import SQLiteSpatialStateSource
 
 
 def _default_active_route(roots: RuntimeRoots) -> Path | None:
@@ -139,6 +141,15 @@ def _bind_live_scene_epoch(rest: list[str], roots: RuntimeRoots) -> tuple[list[s
     return ["--epoch", clock.epoch_utc, *delegated], clock.epoch_utc, "CAMPAIGN_CLOCK"
 
 
+def _option_value(args: list[str], name: str) -> str | None:
+    for index, arg in enumerate(args):
+        if arg == name and index + 1 < len(args):
+            return args[index + 1]
+        if arg.startswith(name + "="):
+            return arg.split("=", 1)[1]
+    return None
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(add_help=False)
     ap.add_argument("--nav-route", type=Path)
@@ -156,6 +167,17 @@ def main(argv=None) -> int:
     roots = resolve_runtime_roots(app_root=args.nav_runtime_root)
     export_runtime_environment(roots)
     rest, scene_epoch, scene_epoch_source = _bind_live_scene_epoch(list(rest), roots)
+    campaign_clock = LegacyCampaignClockService(roots.campaign_root).now()
+
+    spatial_db = Path(_option_value(rest, "--db") or (roots.data_root / "LOOM_2226.sqlite3")).expanduser().resolve()
+    install_spatial_state_endpoint(
+        solar_gis,
+        source=SQLiteSpatialStateSource(spatial_db),
+        scene_epoch_utc=scene_epoch,
+        campaign_revision=campaign_clock.revision,
+        campaign_epoch_utc=campaign_clock.epoch_utc,
+        epoch_source=scene_epoch_source,
+    )
 
     active_path = args.nav_route or _default_active_route(roots)
     active = load_route_layer(active_path) if active_path else None
@@ -178,6 +200,7 @@ def main(argv=None) -> int:
             out = {"navigation_overlay": overlay.to_dict(), "flight_planning": planning.state().to_dict() if planning else None}
         out["runtime_roots"] = roots.to_dict()
         out["scene_epoch"] = {"epoch_utc": scene_epoch, "source": scene_epoch_source}
+        out["spatial_state"] = {"endpoint": "/spatial-state.json", "database": str(spatial_db)}
         print(json.dumps(out, indent=2))
         return 0
 
@@ -185,6 +208,7 @@ def main(argv=None) -> int:
     print("DATA ROOT    ", roots.data_root, f"[{roots.data_source}]")
     print("CAMPAIGN ROOT", roots.campaign_root, f"[{roots.campaign_source}]")
     print("SCENE EPOCH  ", scene_epoch, f"[{scene_epoch_source}]")
+    print("SPATIAL API  ", "/spatial-state.json", "·", spatial_db)
     if active_path:
         print("NAV ROUTE    ", active_path)
         print("NAV CONTRACT ", active.contract)
