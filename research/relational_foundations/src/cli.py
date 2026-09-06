@@ -150,9 +150,6 @@ def rqo1_smoke() -> int:
         return 2
     from .rqo1_reconstruction import pass_fail_verdict, run_scan
 
-    # Protocol-class reconstruction only. The surviving protocol specifies N≈40,
-    # two cells and 30 steps, but does not identify the exact historical two cells.
-    # We therefore use two declared cells rather than inventing historical values.
     declared_cells = [(0.0, 0.0), (0.0, 0.5)]
     results = []
     for alpha, beta in declared_cells:
@@ -179,6 +176,21 @@ def rqo1_smoke() -> int:
     return 0
 
 
+def r3_null() -> int:
+    if dependency_status() != 0:
+        return 2
+    from .r3_null_scaling import run_r3
+
+    payload = run_r3()
+    payload["git_sha"] = git_sha()
+    DEFAULT_OUTPUT.mkdir(parents=True, exist_ok=True)
+    out = DEFAULT_OUTPUT / "r3_auif_null_increasing_n.json"
+    out.write_text(json.dumps(payload, indent=2, default=str) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2, default=str))
+    print("OUTPUT:", out)
+    return 0
+
+
 def run_tests() -> int:
     return subprocess.call([
         sys.executable, "-m", "unittest", "discover",
@@ -188,7 +200,7 @@ def run_tests() -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="loomrf", description="LOOM relational-foundations research operations")
-    parser.add_argument("command", choices=["status", "validate", "deps", "test", "smoke", "controls", "rqo1-smoke"])
+    parser.add_argument("command", choices=["status", "validate", "deps", "test", "smoke", "controls", "rqo1-smoke", "r3-null"])
     args = parser.parse_args(argv)
     return {
         "status": status,
@@ -198,6 +210,7 @@ def main(argv: list[str] | None = None) -> int:
         "smoke": infrastructure_smoke,
         "controls": controls,
         "rqo1-smoke": rqo1_smoke,
+        "r3-null": r3_null,
     }[args.command]()
 
 
