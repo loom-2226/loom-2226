@@ -12,6 +12,9 @@ from loom.navigation.service import (
 
 
 class _Request:
+    def key(self):
+        return "coverage-normalization-test"
+
     def canonical(self):
         return {"command": "501", "center": "@5", "start": "2226-06-15", "stop": "2226-06-16"}
 
@@ -58,7 +61,7 @@ class CoverageNormalizationEmbeddedSequenceHFunctionalTest(unittest.TestCase):
                     nav,
                     {"test_id":"T","epoch_utc":"2226-06-15T00:00:00Z"},
                     Path(td) / "cache",
-                    offline=False,
+                    offline=True,
                     refresh=False,
                 )
                 self.assertEqual(result["direct_unavailable"], 1)
@@ -83,7 +86,7 @@ class CoverageNormalizationEmbeddedSequenceHFunctionalTest(unittest.TestCase):
                         nav,
                         {"test_id":"T","epoch_utc":"2226-06-15T00:00:00Z"},
                         Path(td) / "cache",
-                        offline=False,
+                        offline=True,
                         refresh=False,
                     )
             finally:
@@ -103,7 +106,7 @@ class CoverageNormalizationEmbeddedSequenceHFunctionalTest(unittest.TestCase):
                         nav,
                         {"test_id":"T","epoch_utc":"2226-06-15T00:00:00Z"},
                         Path(td) / "cache",
-                        offline=False,
+                        offline=True,
                         refresh=False,
                     )
             finally:
