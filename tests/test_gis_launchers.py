@@ -25,7 +25,11 @@ class GISLauncherTests(unittest.TestCase):
         self.assertIn(str(Path(data).resolve()/"LOOM_2226_CIVSTATE.sqlite3"),argv)
         self.assertEqual(env["LOOM_CAMPAIGN_ROOT"],str(Path(campaign).resolve()))
         self.assertEqual(env["LOOM_HOME"],str(Path(app).resolve()))
-        self.assertIn("--nav-planning-offline",argv)
+        self.assertNotIn("--nav-planning-offline",argv)
+
+    def test_android_offline_planning_is_explicit_opt_in(self):
+        result=self._run_launcher("deploy/android/launch_gis.py", {"LOOM_NAV_PLANNING_OFFLINE":"1"})
+        self.assertIn("--nav-planning-offline",result["argv"])
 
     def test_android_defaults_to_staged_runtime_roots(self):
         result=self._run_launcher("deploy/android/launch_gis.py", {})
@@ -35,6 +39,7 @@ class GISLauncherTests(unittest.TestCase):
         self.assertEqual(env["LOOM_APP_ROOT"],str((ANDROID_ROOT/"runtime").resolve()))
         self.assertEqual(env["LOOM_DATA_ROOT"],str((ANDROID_ROOT/"data").resolve()))
         self.assertEqual(env["LOOM_CAMPAIGN_ROOT"],str((ANDROID_ROOT/"campaign").resolve()))
+        self.assertNotIn("--nav-planning-offline",argv)
 
     def test_windows_launcher_honors_explicit_campaign_root(self):
         app="/tmp/loom-app"; data="/tmp/loom-data"; campaign="/tmp/loom-campaign"
