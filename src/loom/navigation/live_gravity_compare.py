@@ -5,6 +5,11 @@ Navigator route authority. Major bodies are propagated from the nearest genuine
 heliocentric navigation-grade state as Sun-centric osculating two-body models;
 moons are propagated from genuine parent-centric navigation-grade anchors.
 
+D2f adds characterization only: elapsed-time error profiles, simple growth
+summaries, dominant-source counts, and body-radius cutoff penetration depth. It
+does not alter the shadow integrator, route choice, guidance, campaign state, or
+Navigator authority.
+
 The comparison is intentionally fail-closed. Renderer/display fallbacks are not
 accepted as physics. Reference samples that enter a gravitating body's recorded
 mean radius are excluded from the shadow interval because a point-mass field is
@@ -227,6 +232,53 @@ class SQLiteDynamicGravityField:
         }
 
 
+def _characterize_report(report: Any, cutoff: Mapping[str,Any]) -> dict[str,Any]:
+    """Produce D2f comparison diagnostics without changing the D2e solution."""
+    rows = tuple(report.samples)
+    t0 = _epoch(report.start_epoch_utc)
+    profile: list[dict[str,Any]] = []
+    dominant_counts: dict[str,int] = {}
+    pos_non_decreasing = 0
+    vel_non_decreasing = 0
+    for i, row in enumerate(rows):
+        elapsed_s = (_epoch(row.epoch_utc) - t0).total_seconds()
+        profile.append({
+            "elapsed_s": elapsed_s,
+            "epoch_utc": row.epoch_utc,
+            "position_error_km": row.position_error_km,
+            "velocity_error_km_s": row.velocity_error_km_s,
+            "gravity_magnitude_km_s2": row.gravity_magnitude_km_s2,
+            "dominant_gravity_source": row.dominant_gravity_source,
+        })
+        if row.dominant_gravity_source:
+            dominant_counts[row.dominant_gravity_source] = dominant_counts.get(row.dominant_gravity_source, 0) + 1
+        if i:
+            if row.position_error_km + 1e-12 >= rows[i-1].position_error_km:
+                pos_non_decreasing += 1
+            if row.velocity_error_km_s + 1e-15 >= rows[i-1].velocity_error_km_s:
+                vel_non_decreasing += 1
+    duration_s = (_epoch(report.end_epoch_utc) - t0).total_seconds()
+    intervals = max(0, len(rows)-1)
+    duration_min = duration_s / 60.0
+    out: dict[str,Any] = {
+        "contract": "LOOM_NAV_PHYSICS_V2_D2F_CHARACTERIZATION_V1",
+        "duration_s": duration_s,
+        "position_error_growth_km_per_min": report.terminal_position_error_km / duration_min if duration_min > 0.0 else None,
+        "velocity_error_growth_m_s_per_min": report.terminal_velocity_error_km_s * 1000.0 / duration_min if duration_min > 0.0 else None,
+        "position_error_non_decreasing_fraction": pos_non_decreasing / intervals if intervals else None,
+        "velocity_error_non_decreasing_fraction": vel_non_decreasing / intervals if intervals else None,
+        "dominant_gravity_source_counts": dict(sorted(dominant_counts.items())),
+        "error_profile": profile,
+    }
+    if cutoff.get("applied"):
+        radius = float(cutoff["mean_radius_km"])
+        separation = float(cutoff["reference_separation_km"])
+        out["reference_cutoff_penetration_km"] = max(0.0, radius-separation)
+    else:
+        out["reference_cutoff_penetration_km"] = None
+    return out
+
+
 def compare_live_route_trajectory(
     trajectory: Mapping[str,Any], db_path: Path | str, *, max_step_s: float=30.0,
     minimum_acceleration_km_s2: float=1e-12,
@@ -252,6 +304,7 @@ def compare_live_route_trajectory(
         "reference_cutoff": cutoff,
         "field": field.diagnostics(),
         "report": asdict(report),
+        "characterization": _characterize_report(report, cutoff),
         "qualification": {
             "campaign_mutation": False,
             "route_mutation": False,
