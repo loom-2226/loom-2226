@@ -1,4 +1,4 @@
-# LOOM 2226 — Relational Foundations Independent Work Plan v0.1
+# LOOM 2226 — Relational Foundations Independent Work Plan v0.2
 
 **Date:** 6 September 2026  
 **Status:** EXPLORATORY RESEARCH WORK PLAN — NON-CANON — NON-RUNTIME  
@@ -16,6 +16,8 @@ Reopen the smallest scientifically useful part of the Relational Foundations rab
 This is not a project to prove LOOM physics, derive a metric drive, explain UAP/ghosts/synchronicity, or solve quantum gravity. It is a bounded computational falsification program intended to answer a narrower question: whether a clean toy model can make a map from relationships.
 
 The expected result is failure or ambiguity. That is acceptable. A useful outcome is a reproducible negative result that identifies which assumption supplied or prevented geometric emergence.
+
+**v0.2 change:** recovered project-history artifacts show that this experiment was already partially implemented on 28 August 2026. The immediate work therefore begins with historical reproduction and audit, not a clean-room rewrite.
 
 ---
 
@@ -37,6 +39,7 @@ The following are research companions, not canon authority:
 - `research/technical_papers/LOOM_2226_Technical_Paper_Series_Complete_v1.0.pdf`
 - `research/rabbit_holes/LOOM_2226_Rabbit_Hole_Priority_Table_v1.3.md`
 - `LOOM_2226_Relational_Foundations_Research_Hypotheses_v0.2.pdf` in the project research archive / source corpus.
+- `research/relational_foundations/HISTORICAL_RECONSTRUCTION_v0.1.md` — recovered research-history synthesis; not canon.
 
 The Technical Paper Series deliberately fixes M1 and M2 as fictional postulates while requiring ordinary GR/QFT/conservation matching where applicable. The relational-foundations hypothesis work explicitly treats the deeper parent model as exploratory and says locality/dimensionality must survive actual failure gates rather than be assumed.
 
@@ -74,18 +77,25 @@ If a toy model fails, canon does not fail. If a toy model succeeds, canon is not
 
 ---
 
-## 3. Why this work is worth doing now
+## 3. Historical state recovered before restart
 
-The current project already contains the right stopping rules:
+The project file archive contains three important prior artifacts:
 
-1. Relational/emergent-spacetime ideas are legitimate scientific ancestry but do not derive LOOM technology.
-2. The earlier microscopic rabbit hole demonstrated that locality does not emerge for free.
-3. Short-cycle/locality-promoting terms can accidentally hard-code the answer.
-4. An internal clock can improve causal structure without deriving GR.
-5. The correct response to a failed foundational model is to stop rather than hide the failure under additional assumptions.
-6. The Rabbit-Hole Priority Table already identifies the M1/M2 parent-theory seam as a real but low-closure-readiness deep-theory target; this plan narrows that target to the cheapest discriminating experiment.
+- `LOOM_2226_Relational_Foundations_Research_Hypotheses_v0.2.pdf`;
+- `RQO-1_protocol.md`;
+- `rqo1_experiment.py`.
 
-This work therefore adds no new miracle. It tests whether the existing relational intuition has any computational legs before more theory is built on top of it.
+The preserved history establishes:
+
+1. **AUIF v1** tested relation-first finite-degree graphs and produced random-regular / expander-like states rather than useful locality — project shorthand: **expander soup**.
+2. Adding short-cycle terms could produce more local-looking states, but created a target-leakage problem: rewarding the desired geometric diagnostic is not the same as deriving geometry.
+3. Adding an internal-clock constraint improved Lorentzian-looking propagation / causal structure but did not derive GR, QFT or realistic matter.
+4. The project correctly stopped instead of retuning indefinitely.
+5. On 28 August, **RQO-1** was then implemented as a more disciplined rerun using random-regular graphs, degree-preserving Metropolis rewiring, an Ollivier-Ricci + triangle action, multiple seeds, spectral/volume-growth diagnostics and an explicit broad-phase gate.
+6. The recovered protocol records only a **tiny smoke-test FAIL** (`N≈40`, two trial cells, ~30 MCMC steps) and explicitly states that this was not a scientific verdict.
+7. No recovered artifact yet proves that the intended full RQO-1 scan was executed to completion.
+
+Therefore this plan must reproduce and audit the historical experiment before inventing a new one.
 
 ---
 
@@ -123,7 +133,37 @@ Do not pursue these until the minimum gate passes:
 
 ## 5. Phase plan
 
-### Phase 0 — Freeze the experiment contract
+### Phase 0 — RF-WP0: Historical reproduction and audit
+
+**Goal:** establish exactly what was previously implemented, what actually ran, and where the earlier work stopped before writing replacement theory code.
+
+Preserve and audit the recovered 28 August artifacts.
+
+Required tasks:
+
+- recover the full historical `RQO-1_protocol.md` and `rqo1_experiment.py` source into the research lane without modifying their scientific logic;
+- record source hashes and original timestamps where available;
+- reproduce the historical smoke test with the recovered code;
+- establish a standalone dependency/environment manifest;
+- add research-local unit tests for graph invariants, curvature helper behavior, dimension diagnostics and deterministic seed handling;
+- identify implementation bugs separately from theoretical/model defects;
+- reproduce the original `alpha/beta` grid and seed policy;
+- run increasing-N null ensembles to measure the actual finite-size distribution of expander diagnostics;
+- replace or justify the provisional `1.3 × log(N)` cutoff using empirical null-ensemble statistics and/or a defensible graph-theoretic criterion;
+- explicitly run null, curvature-only, triangle-only and curvature+triangle ablations;
+- determine whether any recovered result supports a scientific PASS, FAIL, or only INCONCLUSIVE.
+
+**Critical rule:** do not modify the action to improve results during RF-WP0. Reproduction first.
+
+**Exit artifact:** `RF_WP0_HISTORICAL_REPRODUCTION_REPORT_v0.1.md` with one of:
+
+- `HISTORICAL RESULT REPRODUCED`;
+- `HISTORICAL IMPLEMENTATION DEFECT FOUND`;
+- `HISTORICAL EVIDENCE INSUFFICIENT / INCONCLUSIVE`.
+
+Only after this report is accepted may Phase 1 begin.
+
+### Phase 1 — Freeze the new experiment contract
 
 **Goal:** prevent us from moving the goalposts after seeing output.
 
@@ -136,7 +176,7 @@ Create only research-local artifacts:
 - `research/relational_foundations/src/`
 - `research/relational_foundations/tests/`
 
-Before any simulation code is committed, freeze:
+Before any **new** simulation logic is committed, freeze:
 
 - graph/state definition;
 - allowed dynamics;
@@ -146,9 +186,11 @@ Before any simulation code is committed, freeze:
 - pass/fail thresholds;
 - forbidden post-hoc tuning rules.
 
-**Exit:** experiment contract reviewed against Paper I and Relational Foundations Hypotheses v0.2.
+The new contract must explicitly state what is inherited unchanged from historical RQO-1 and what is being replaced, with reasons.
 
-### Phase 1 — Baseline nulls
+**Exit:** experiment contract reviewed against Paper I, Relational Foundations Hypotheses v0.2, and RF-WP0 findings.
+
+### Phase 2 — Baseline nulls
 
 **Goal:** know what meaningless graphs look like under our metrics.
 
@@ -174,7 +216,7 @@ Measure:
 
 **Exit:** metrics correctly distinguish obvious random/non-geometric controls from explicit geometric positive controls.
 
-### Phase 2 — Minimal relational dynamics A
+### Phase 3 — Minimal relational dynamics A
 
 **Goal:** test whether the simplest defensible dynamics produce ordered locality without coordinates.
 
@@ -192,9 +234,9 @@ Run fixed parameter grids selected before results are inspected.
 
 If killed, document why and stop. Do not add complexity in the same phase.
 
-### Phase 3 — Minimal relational dynamics B
+### Phase 4 — Minimal relational dynamics B
 
-**Only if Phase 2 produces a legitimate near miss or partial signal.**
+**Only if Phase 3 produces a legitimate near miss or partial signal.**
 
 Test one additional dynamical family motivated by published pregeometry / graphity / causal / quantum-information analogues. One family per work package; no soup model.
 
@@ -207,7 +249,7 @@ Required comparison:
 
 **Kill condition:** geometry appears only when the new term is equivalent to explicitly imposing locality or target dimension.
 
-### Phase 4 — Emergent ordering/time probe
+### Phase 5 — Emergent ordering/time probe
 
 **Only after a stable geometric phase exists.**
 
@@ -217,9 +259,9 @@ The external numerical step remains bookkeeping. It must not be silently relabel
 
 **Exit:** either a defensible internal-order observable exists, or the result is recorded as an explicit failure.
 
-### Phase 5 — Reconstruction probe
+### Phase 6 — Reconstruction probe
 
-**Only after Phases 2/3 and 4 pass.**
+**Only after Phases 3/4 and 5 pass.**
 
 Ask whether relational observables permit reconstruction of an effective metric/geometry and whether the reconstruction is unique.
 
@@ -227,7 +269,7 @@ This is the earliest phase that may touch the M1-adjacent question of non-inject
 
 A non-unique reconstruction is not automatically M1. It is only a candidate mathematical ancestry requiring further work.
 
-### Phase 6 — Decision gate
+### Phase 7 — Decision gate
 
 Produce one concise decision memo:
 
@@ -235,7 +277,7 @@ Produce one concise decision memo:
 - **REVISE ONCE:** a specific tractable defect is identified with one justified follow-up experiment.
 - **CONTINUE:** robust emergent locality/dimension survives ablation/null/seed tests and warrants a second research plan.
 
-No automatic Phase 7 exists.
+No automatic Phase 8 exists.
 
 ---
 
@@ -268,8 +310,10 @@ research/
   rabbit_holes/
     LOOM_2226_Relational_Foundations_Independent_Work_Plan_v0.1.md
   relational_foundations/
+    HISTORICAL_RECONSTRUCTION_v0.1.md
     README.md
     EXPERIMENT_CONTRACT_v0.1.md
+    historical/
     config/
     src/
     tests/
@@ -337,26 +381,26 @@ If later mathematics independently predicts a discriminating anomalous signature
 
 ---
 
-## 10. First executable work package: RF-WP1
+## 10. First executable work package: RF-WP0
 
-**Title:** Can relationships make a map?
+**Title:** Reproduce before reinventing.
 
-**Scope:** Phases 0–2 only.
+**Scope:** historical recovery, reproduction and audit only.
 
 **Deliverables:**
 
-1. experiment contract;
-2. standalone research package skeleton;
-3. null/positive-control graph suite;
-4. dimension/locality observable suite;
-5. one minimal coordinate-free relational dynamics family;
-6. deterministic parameter-grid runner;
-7. seed/null/ablation report;
-8. STOP / REVISE ONCE / CONTINUE decision memo.
+1. recovered RQO-1 source preserved under `research/relational_foundations/historical/`;
+2. source provenance and hashes;
+3. standalone environment manifest;
+4. deterministic smoke-test reproduction;
+5. research-local unit and functional tests around recovered implementation;
+6. increasing-N null calibration;
+7. null / curvature-only / triangle-only / combined ablation matrix;
+8. scientific status memo: REPRODUCED / DEFECT / INCONCLUSIVE.
 
-**Budget rule:** keep RF-WP1 computationally cheap enough to run locally on ordinary desktop hardware. Optimize for falsification and interpretability, not scale.
+**Budget rule:** keep RF-WP0 computationally cheap enough to run locally on ordinary desktop hardware. Do not escalate compute until the recovered implementation has been validated.
 
-**Do not begin RF-WP2 automatically.**
+**Do not begin a new action family automatically.**
 
 ---
 
@@ -379,12 +423,14 @@ Recommended project posture:
 
 The project should bother with relational foundations only while each step buys a sharper test.
 
-The first question is not "is LOOM real?"
+The immediate question is no longer simply "can relationships make a map?"
 
 It is:
 
-> **If we remove the map and supply only relations plus dynamics, does a map appear robustly enough that we cannot dismiss it as an artifact of our assumptions?**
+> **What exactly did the earlier model demonstrate, can we reproduce it, and can we distinguish a real failure of the relational hypothesis from a failure of implementation, scale, diagnostics, or an action that smuggled in the desired answer?**
 
-If not, stop.
+If reproduction fails because the historical implementation was defective, fix only the defect and rerun.
 
-If yes, attack the result harder.
+If reproduction confirms expander soup under principled tests, preserve the negative result and stop or revise once.
+
+If a broad non-expander finite-dimensional phase survives proper nulls and ablations, attack it harder before claiming anything.
