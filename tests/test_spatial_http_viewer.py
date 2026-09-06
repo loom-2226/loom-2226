@@ -80,6 +80,15 @@ class SpatialHTTPViewerTest(unittest.TestCase):
         self.assertIn("o[c*4+r]", js)
         self.assertNotIn("o[c+r*4]", js)
 
+    def test_checked_in_viewer_frames_system_and_local_scope_without_rewriting_xyz(self):
+        root = Path(__file__).resolve().parents[1]
+        js = (root / "web" / "solar3d.js").read_text(encoding="utf-8")
+        self.assertIn("function framingStates()", js)
+        self.assertIn("state_class==='CELESTIAL'", js)
+        self.assertIn("center_entity_id===focusId", js)
+        self.assertIn("scale=1/frameRadius", js)
+        self.assertIn("p[0]-center[0]", js)
+
 
 if __name__ == "__main__":
     unittest.main()
