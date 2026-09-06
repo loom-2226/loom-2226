@@ -1,0 +1,7 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+LOOM_ROOT="${LOOM_HOME:-/storage/emulated/0/Documents/LOOM}"
+export LOOM_HOME="$LOOM_ROOT"
+
+exec python "$LOOM_ROOT/src/launch_media_library.py" "$@"
