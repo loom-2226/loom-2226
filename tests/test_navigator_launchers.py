@@ -5,6 +5,7 @@ import runpy
 import unittest
 
 REAL_RUN_PATH = runpy.run_path
+ANDROID_ROOT = Path("/storage/emulated/0/Documents/LOOM")
 
 class NavigatorLauncherRootsTest(unittest.TestCase):
     def _run(self, script, env):
@@ -27,9 +28,12 @@ class NavigatorLauncherRootsTest(unittest.TestCase):
         self.assertEqual(result["env"]["LOOM_HOME"], str(Path("/tmp/app").resolve()))
         self.assertEqual(result["env"]["LOOM_DATA_DIR"], str(Path("/tmp/data").resolve()))
 
-    def test_android_campaign_defaults_to_app(self):
-        result = self._run("deploy/android/launch_navigator.py", {"LOOM_APP_ROOT":"/tmp/app","LOOM_DATA_ROOT":"/tmp/data"})
-        self.assertEqual(result["env"]["LOOM_CAMPAIGN_ROOT"], str(Path("/tmp/app").resolve()))
+    def test_android_defaults_to_staged_runtime_roots(self):
+        result = self._run("deploy/android/launch_navigator.py", {})
+        self.assertEqual(result["path"], str((ANDROID_ROOT/"runtime/src/loom_navigator.py").resolve()))
+        self.assertEqual(result["env"]["LOOM_APP_ROOT"], str((ANDROID_ROOT/"runtime").resolve()))
+        self.assertEqual(result["env"]["LOOM_DATA_ROOT"], str((ANDROID_ROOT/"data").resolve()))
+        self.assertEqual(result["env"]["LOOM_CAMPAIGN_ROOT"], str((ANDROID_ROOT/"campaign").resolve()))
 
     def test_windows_honors_explicit_roots(self):
         result = self._run("deploy/windows/launch_navigator.py", {"LOOM_APP_ROOT":"/tmp/winapp","LOOM_DATA_ROOT":"/tmp/windata","LOOM_CAMPAIGN_ROOT":"/tmp/wincampaign"})
