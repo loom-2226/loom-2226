@@ -96,30 +96,17 @@ def classify_term_isolation(results: List[Dict], threshold: float = 1.3) -> Dict
             ),
         })
 
-    non_null_deltas = [
-        abs(float(s["delta_path_over_logN_vs_null"]))
-        for s in summaries
-        if s["family"] != "null"
-    ]
-    any_observed_shift = any(delta > 0.0 for delta in non_null_deltas)
-
     if candidate_cells:
         category = "PROVISIONAL CANDIDATE"
         interpretation = (
             "At least one recovered action cell crosses the historical path gate across all R4 seeds. "
             "Freeze that cell and test it at R5; this is not an RQO-1 PASS."
         )
-    elif any_observed_shift:
-        category = "TERM EFFECT, STILL EXPANDER-LIKE"
-        interpretation = (
-            "Recovered terms change the measured graph diagnostics relative to the null, but no action cell "
-            "crosses the historical non-expander gate across all R4 seeds."
-        )
     else:
-        category = "NO TERM EFFECT"
+        category = "NO GATE CROSSING"
         interpretation = (
-            "No non-null cell separates numerically from the null in the recorded path-ratio statistic, "
-            "and no cell crosses the historical gate."
+            "No recovered action cell crosses the historical non-expander path gate across all R4 seeds. "
+            "Reported deltas are descriptive only at this smoke scale and must not be treated as a demonstrated term effect."
         )
 
     return {
