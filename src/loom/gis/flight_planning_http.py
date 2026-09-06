@@ -2,13 +2,13 @@
 from __future__ import annotations
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping, Iterable
+from typing import Mapping
 from urllib.parse import urlparse, parse_qs, urlencode
 import json, threading, traceback, uuid
 from loom.runtime import resolve_runtime_roots
 from loom.runtime_diagnostics import collect_runtime_manifest
 from loom.runtime_trace import RuntimeTrace
-from .flight_planning import GISFlightPlanningError, GISFlightPlanningSession
+from .flight_planning import GISFlightPlanningError
 
 def _json_bytes(value): return (json.dumps(value,separators=(",",":"),default=str)+"\n").encode("utf-8")
 def planning_client_js(): return Path(__file__).with_name("flight_planning.js").read_text(encoding="utf-8")+"\n"+Path(__file__).with_name("flight_planning_selection.js").read_text(encoding="utf-8")
@@ -78,11 +78,14 @@ def install_flight_planning(gis_module,session):
         if current.get("status")=="RUNNING":return current,409
         job_id="fp-"+uuid.uuid4().hex[:12]; trace_id=handler.runtime_trace.new_trace_id("flight"); handler.active_trace_id=trace_id; session.bind_trace(handler.runtime_trace,trace_id); _set_job(status="RUNNING",job_id=job_id,state=None,error=None,trace_id=trace_id); _trace("discover.accepted",trace_id,job_id=job_id,destination=destination,priority=priority); _log("discover_accepted",job_id=job_id,destination=destination,priority=priority,trace_id=trace_id); threading.Thread(target=_run_discovery_job,args=(job_id,destination,priority,trace_id),name=f"loom-flight-plan-{job_id}",daemon=True).start(); return _job_snapshot(),202
     def do_GET(self):
-        parsed=urlparse(self.path); path=parsed.path; _log("http_get",path=path,query=parsed.query)
+        parsed=urlparse(self.path); path=parsed.path
+        # Diagnostics is deliberately handled before ordinary HTTP logging/tracing.
+        # Reading diagnostics must not create or append any runtime artifact.
         if path=="/diagnostics":
             client=str(self.client_address[0] if self.client_address else "")
             if client not in ("127.0.0.1","::1","localhost"):return _send_json(self,{"error":"diagnostics is localhost-only"},403)
             manifest=collect_runtime_manifest(roots=roots); manifest["live_process"]={"flight_planning":session.state().to_dict(),"job":_job_snapshot(),"http_log":str(handler.flight_planning_log_path),"trace_log":str(handler.runtime_trace.path),"active_trace_id":handler.active_trace_id}; return _send_json(self,manifest)
+        _log("http_get",path=path,query=parsed.query)
         if path=="/flight-planning.json":return _send_state(self,session.state())
         if path=="/flight-planning/status.json":return _send_json(self,_job_snapshot())
         if path=="/flight-planning/health.json":return _send_json(self,{"ok":True,"planning":session.state().to_dict(),"job":_job_snapshot(),"log_path":str(handler.flight_planning_log_path),"trace_id":handler.active_trace_id})
