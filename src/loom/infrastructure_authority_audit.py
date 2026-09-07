@@ -13,18 +13,19 @@ import sqlite3
 
 MATRIX_CONTRACT = "LOOM_F_PA_INFRASTRUCTURE_AUTHORITY_MATRIX_V1"
 
+# Exact governed WORLD frame-family vocabulary observed by the F-PA audit.
 _CURRENT_INERTIAL_METHOD_FAMILIES = {
-    "PARENT_CENTERED_INERTIAL",
-    "HELIOCENTRIC_INERTIAL",
+    "HELIOCENTRIC_ECLIPJ2000",
+    "PARENT_EQUATORIAL_INERTIAL",
+    "PARENT_LOCAL_INERTIAL",
+    "PARENT_POLAR_INERTIAL",
+    "SYSTEM_BARYCENTRIC_INERTIAL",
 }
-_BODY_FIXED_UNSUPPORTED_FAMILIES = {
-    "BODY_FIXED",
-    "ATMOSPHERIC_BODY_FIXED",
-    "SURFACE_BODY_FIXED",
-}
-_SPECIAL_METHOD_FAMILIES = {
-    "CR3BP_ROTATING",
-    "LOCAL_ORBITAL",
+_ROTATING_OR_BODY_FIXED_UNSUPPORTED_FAMILIES = {
+    "PARENT_BODY_FIXED",
+    "EARTH_MOON_ROTATING",
+    "SUN_EARTH_ROTATING",
+    "PLUTO_CHARON_ROTATING",
 }
 
 
@@ -47,25 +48,28 @@ def _complete(values: list[Any]) -> bool:
     return all(value is not None for value in values)
 
 
-def _runtime_usability(*, frame_family: Any, state_complete: bool, state_nav: bool | None) -> str:
-    """Classify compatibility with the currently authorized frame method.
+def _frame_method_compatibility(frame_family: Any) -> str:
+    """Classify declared frame against the currently authorized transform method.
 
-    This is deliberately not a re-grading of the stored state. In particular,
-    inertial-family rows are only marked as compatible with the current frame
-    method; this function does not claim arbitrary-epoch resolvability.
+    This is independent of navigation grade. A frame may be method-compatible
+    while its stored state remains non-navigation-grade and therefore unusable
+    for operational Navigator authority.
     """
     family = str(frame_family or "").strip().upper()
+    if family in _CURRENT_INERTIAL_METHOD_FAMILIES:
+        return "CURRENT_TRANSLATION_ONLY_INERTIAL_METHOD_COMPATIBLE"
+    if family in _ROTATING_OR_BODY_FIXED_UNSUPPORTED_FAMILIES:
+        return "ROTATING_OR_BODY_FIXED_METHOD_UNSUPPORTED"
+    return "UNCLASSIFIED_FRAME_METHOD"
+
+
+def _navigation_readiness(*, state_complete: bool, state_nav: bool | None) -> str:
+    """Classify simulator navigation readiness without conflating frame support."""
     if not state_complete:
         return "MISSING_STATE"
     if state_nav is not True:
         return "NON_NAVIGATION_GRADE_REDERIVATION_REQUIRED"
-    if family in _CURRENT_INERTIAL_METHOD_FAMILIES:
-        return "CURRENT_INERTIAL_FRAME_METHOD_COMPATIBLE"
-    if family in _BODY_FIXED_UNSUPPORTED_FAMILIES:
-        return "STORED_NAV_GRADE_BODY_FIXED_FRAME_UNSUPPORTED"
-    if family in _SPECIAL_METHOD_FAMILIES:
-        return "SPECIAL_MODEL_QUALIFICATION_REQUIRED"
-    return "UNCLASSIFIED_FRAME_METHOD"
+    return "NAVIGATION_GRADE_REQUIRES_FULL_RUNTIME_QUALIFICATION"
 
 
 def infrastructure_authority_matrix(world_path: Path | str) -> dict[str, Any]:
@@ -109,13 +113,18 @@ def infrastructure_authority_matrix(world_path: Path | str) -> dict[str, Any]:
     matrix: list[dict[str, Any]] = []
     for raw in rows:
         r = dict(raw)
-        state_complete = _complete([r.get("x_km"),r.get("y_km"),r.get("z_km"),r.get("vx_km_s"),r.get("vy_km_s"),r.get("vz_km_s")])
-        kepler_complete = _complete([
-            r.get("semi_major_axis_km"),r.get("eccentricity"),r.get("inclination_deg"),
-            r.get("raan_deg"),r.get("arg_periapsis_deg"),r.get("mean_anomaly_deg"),
-            r.get("orbit_epoch_utc"),r.get("orbit_reference_frame"),
+        state_complete = _complete([
+            r.get("x_km"), r.get("y_km"), r.get("z_km"),
+            r.get("vx_km_s"), r.get("vy_km_s"), r.get("vz_km_s"),
         ])
-        amplitude_present = any(r.get(k) is not None for k in ("amplitude_x_km","amplitude_y_km","amplitude_z_km"))
+        kepler_complete = _complete([
+            r.get("semi_major_axis_km"), r.get("eccentricity"), r.get("inclination_deg"),
+            r.get("raan_deg"), r.get("arg_periapsis_deg"), r.get("mean_anomaly_deg"),
+            r.get("orbit_epoch_utc"), r.get("orbit_reference_frame"),
+        ])
+        amplitude_present = any(
+            r.get(k) is not None for k in ("amplitude_x_km", "amplitude_y_km", "amplitude_z_km")
+        )
         state_nav = _truth(r.get("state_navigation_grade"))
         location_nav = _truth(r.get("location_navigation_grade"))
         orbit_nav = _truth(r.get("orbit_navigation_grade"))
@@ -130,11 +139,8 @@ def infrastructure_authority_matrix(world_path: Path | str) -> dict[str, Any]:
             state_authority = "MISSING"
             spatial_derivability = "UNDERDETERMINED"
 
-        runtime_usability = _runtime_usability(
-            frame_family=r.get("frame_family"),
-            state_complete=state_complete,
-            state_nav=state_nav,
-        )
+        frame_method = _frame_method_compatibility(r.get("frame_family"))
+        nav_readiness = _navigation_readiness(state_complete=state_complete, state_nav=state_nav)
 
         matrix.append({
             **r,
@@ -146,7 +152,10 @@ def infrastructure_authority_matrix(world_path: Path | str) -> dict[str, Any]:
             "state_navigation_grade_bool": state_nav,
             "structured_state_authority": state_authority,
             "spatial_derivability_initial": spatial_derivability,
-            "runtime_frame_usability": runtime_usability,
+            "runtime_frame_method_compatibility": frame_method,
+            "simulator_navigation_readiness": nav_readiness,
+            # Compatibility alias retained for audit consumers created earlier in F-PA.
+            "runtime_frame_usability": nav_readiness,
             "surface_coordinates_structured": False,
             "docking_transition_geometry_structured": False,
         })
@@ -167,6 +176,8 @@ def infrastructure_authority_matrix(world_path: Path | str) -> dict[str, Any]:
         "state_validity_status": counts("validity_status"),
         "state_authority": counts("structured_state_authority"),
         "spatial_derivability_initial": counts("spatial_derivability_initial"),
+        "runtime_frame_method_compatibility": counts("runtime_frame_method_compatibility"),
+        "simulator_navigation_readiness": counts("simulator_navigation_readiness"),
         "runtime_frame_usability": counts("runtime_frame_usability"),
         "state_6d_complete": counts("state_6d_complete"),
         "keplerian_orbit_definition_complete": counts("keplerian_orbit_definition_complete"),
