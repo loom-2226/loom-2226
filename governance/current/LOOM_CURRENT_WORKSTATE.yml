@@ -1,4 +1,4 @@
-version: '1.7'
+version: '1.8'
 status: ADOPTION_PAUSE
 captured_date: '2026-09-07'
 repository: loom-2226/loom-2226
@@ -11,15 +11,15 @@ step11_policy_pr: 25
 
 adoption:
   sprint: governance/adoption/LOOM_GOVERNANCE_ADOPTION_SPRINT_v1.0.md
-  completed_steps: [1,2,3,4,5,6,7,8,9,10,11,12]
-  current_step: 13
-  current_step_name: Configure and test LOOM ChatGPT Project bootstrap
+  completed_steps: [1,2,3,4,5,6,7,8,9,10,11,12,13]
+  current_step: 14
+  current_step_name: Resume LOOM from registered states
   step11_state: COMPLETE_VERIFIED
   step12_state: COMPLETE_VERIFIED
-  step13_state: OPEN_EXPLICIT_GITHUB_BOOTSTRAP_PASS_FIVE_TESTS_REMAIN
+  step13_state: COMPLETE_VERIFIED
   development_paused: true
   physics_execution_paused: true
-  restart_gate_reached: false
+  restart_gate_reached: true
 
 governance_baseline_promotion:
   baseline: Governance Baseline v1.0
@@ -111,8 +111,10 @@ session_bootstrap:
   explicit_entry_control_qualified: true
   explicit_entry_attempt: 3
   explicit_entry_result: PASS
-  fresh_chat_acceptance_test_complete: false
-  remaining_step13_tests: [T13_02, T13_03, T13_04, T13_05, T13_06]
+  fresh_chat_acceptance_test_complete: true
+  adversarial_gating_tests_passed: 6
+  remaining_step13_tests: []
+  step13_acceptance_result: PASS
   acceptance_matrix: governance/validation/STEP13_CHATGPT_PROJECT_BOOTSTRAP_ACCEPTANCE_v1.0.yml
 
 github_entry:
@@ -183,7 +185,7 @@ mutation_policy_until_restart:
     - .github/** governance material
     - manifests/current/** governance compatibility metadata
     - step13 ChatGPT Project bootstrap configuration/testing records
-  still_forbidden_until_step14:
+  still_forbidden_until_step14_execution:
     - canon content changes unrelated to governance adoption
     - navigator/gis functional development
     - production runtime functional development
@@ -211,10 +213,13 @@ step13:
   audit: governance/adoption/STEP13_CHATGPT_PROJECT_BOOTSTRAP_AUDIT_2026-09-07.md
   acceptance_matrix: governance/validation/STEP13_CHATGPT_PROJECT_BOOTSTRAP_ACCEPTANCE_v1.0.yml
   context_free_attempts: [FAIL, FAIL]
+  context_free_status: NEGATIVE_CONTROL_NOT_SUPPORTED_STARTUP_PATH
   explicit_github_bootstrap: PASS
-  remaining_gating_tests: 5
-  status: OPEN
+  gating_tests_passed: 6
+  remaining_gating_tests: 0
+  result: PASS
+  status: COMPLETE_VERIFIED
 
 next_step:
-  id: 13
-  name: Complete remaining ChatGPT Project adversarial bootstrap tests
+  id: 14
+  name: Resume LOOM from registered states
