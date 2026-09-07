@@ -1,0 +1,93 @@
+version: '1.0'
+status: PENDING_OWNER_ADMIN_ACTIVATION
+repository: loom-2226/loom-2226
+target_branch: main
+owner_authority: Kevin
+assurance_agent: WALTER
+required_check_context: loom-gate
+
+purpose: >-
+  Minimal protection for the authoritative integrated trunk. Protect the promotion
+  boundary without imposing workflow rules on research, planning, feature,
+  integration, release, media, or 3D workstream branches.
+
+required:
+  pull_request_before_merge: true
+  required_status_checks:
+    - loom-gate
+  require_conversation_resolution: true
+  allow_force_pushes: false
+  allow_branch_deletion: false
+
+intentionally_not_required:
+  minimum_human_approvals: 0
+  code_owner_approval: false
+  signed_commits: false
+  branch_must_be_up_to_date_before_merge: false
+  linear_history: false
+  deployment_success: false
+  protection_on_non_main_workstreams: false
+
+rationale:
+  single_human_owner: true
+  preserve_frozen_and_long_lived_workstreams: true
+  avoid_artificial_rebase_pressure: true
+  one_stable_governance_check: true
+  expensive_scientific_qualification_not_hosted_ci: true
+
+loom_gate:
+  policy: governance/current/LOOM_GATE_POLICY.yml
+  target_mode: ENFORCE
+  hard_rules_enabled:
+    - LG001_CHANGE_CLASS
+    - LG002_FROZEN_PR19_SHA
+    - LG003_FROZEN_PR16_SHA
+    - LG004_CANON_CLASS
+    - LG005_CANON_CCR_ID
+    - LG006_CANON_CCR_APPROVAL
+    - LG007_CONTROL_FILE_PARSE
+    - LG014_AGENT_REGISTRY_PARSE
+    - LG015_AGENT_CREATION_GATE_DETERMINISTIC_SUBSET
+    - LG017_RELEASE_JSON_PARSE
+  advisory_rules_remain_nonblocking:
+    - LG008_RELEASE_COMPATIBILITY_COUPLING
+    - LG009_DOWNSTREAM_IMPACT_DECLARATION
+    - LG010_MIXED_CANON_ENGINEERING
+    - LG011_RESEARCH_CANON_MIX
+    - LG012_DATA_MIGRATION_RECOVERY
+    - LG013_VENDOR_DEPENDENCY_ASSURANCE
+    - LG016_PERSONA_AUTHORITY_SEPARATION
+    - LG018_CANON_LIFECYCLE_AUTHORITY
+
+activation:
+  connector_can_apply_admin_setting: false
+  reason: GITHUB_APP_LACKS_REPOSITORY_ADMINISTRATION_PERMISSION
+  rulesets_observed_before_activation: 0
+  owner_manual_activation_required: true
+  complete_only_after_verified_active: true
+
+verification_required_after_activation:
+  - main_reports_protected_or_active_main_ruleset_exists
+  - pull_request_requirement_active
+  - required_check_loom_gate_active
+  - conversation_resolution_active
+  - force_push_disabled
+  - deletion_disabled
+  - no_second_human_approval_requirement
+  - no_up_to_date_requirement
+
+scope_boundary:
+  protected_branches:
+    - main
+  explicitly_not_protected_by_step11:
+    - research/*
+    - planning/*
+    - feature/*
+    - integration/*
+    - release/*
+    - workstream/*
+    - archive/*
+
+restart_effect:
+  step11_completion_restarts_development: false
+  remaining_steps_before_restart: [12,13,14]
