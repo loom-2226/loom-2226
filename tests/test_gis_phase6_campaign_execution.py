@@ -31,7 +31,8 @@ class _Core:
     @classmethod
     def _load_core(cls,path): cls.loaded_core_path=Path(path); return object()
     @staticmethod
-    def _outcome_summary(*args): return {'ok':True}
+    def _outcome_summary(nav,runtime,determinism,*args):
+        return {'ok':True,'runtime_sha256':determinism['canonical_runtime_sha256']}
     @staticmethod
     def _atomic_save(path,bak,state):
         if path.exists(): bak.write_bytes(path.read_bytes())
@@ -61,6 +62,21 @@ class Phase6CampaignExecutionTest(unittest.TestCase):
             self.assertTrue((campaign/'LOOM_STATE_V1.bak').exists())
             self.assertEqual(result.history_record_sha256,'abc123')
             self.assertEqual(_Core.loaded_core_path,app/'LOOM_Navigator_Internal_SequenceH')
+
+    def test_route_scoped_runtime_digest_alias_reaches_legacy_outcome_summary(self):
+        with tempfile.TemporaryDirectory() as td:
+            base=Path(td); app=base/'runtime'; campaign=base/'campaign'; app.mkdir(); campaign.mkdir()
+            before=_state(); (campaign/'LOOM_STATE_V1.json').write_text(json.dumps(before),encoding='utf-8')
+            candidate=RouteCandidate('r1','CERES','MARS',payload={})
+            plan=FlightPlan('F1',candidate,payload={'runtime':{},'determinism':{'runtime_sha256':'runsha'},'html':'','plan_sha256':'plansha'})
+            after=_state(5,'MARS','2226-08-02T00:00:00Z','S5',240.0)
+            after['last_flight']={'flight_id':'F1','departure_state_id':'S4','runtime_sha256':'runsha','committed_plan_sha256':'plansha'}
+            execution=FlightExecutionResult('F1','ARRIVED_HOLD',after,{'persistence_owner':'CAMPAIGN'})
+            context=NavigationContext(before,runtime_root=app)
+            with patch.dict('os.environ',{'LOOM_APP_ROOT':str(app),'LOOM_CAMPAIGN_ROOT':str(campaign)},clear=True):
+                result=LegacyCampaignExecutionService(_Core()).commit_flight(plan,execution,context)
+            self.assertEqual(result.revision_after,5)
+            self.assertEqual(json.loads((campaign/'LOOM_STATE_V1.json').read_text()),after)
 
     def test_stale_planning_snapshot_is_rejected_before_write(self):
         with tempfile.TemporaryDirectory() as td:

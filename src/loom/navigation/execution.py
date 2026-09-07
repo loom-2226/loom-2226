@@ -8,9 +8,35 @@ Those campaign responsibilities remain in the outer Navigator until Phase 6.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Mapping
 
 from .contracts import FlightExecutionResult, FlightPlan, NavigationContext
+
+
+def canonical_runtime_sha256(determinism: Mapping[str, Any] | None) -> str | None:
+    """Return the canonical runtime digest across accepted determinism envelopes.
+
+    The frozen Navigator determinism gate uses ``canonical_runtime_sha256``.
+    The route-scoped Sequence-B fallback, introduced later as an adapter around
+    that frozen authority, historically emitted the equivalent digest under
+    ``runtime_sha256``.  Consumers must not care which compatibility envelope
+    produced the same authoritative runtime bytes.
+    """
+    payload = dict(determinism or {})
+    value = payload.get("canonical_runtime_sha256")
+    if value is None:
+        value = payload.get("runtime_sha256")
+    return str(value) if value is not None else None
+
+
+def normalize_legacy_determinism(determinism: Mapping[str, Any] | None) -> dict[str, Any]:
+    """Adapt accepted determinism envelopes to the frozen legacy consumer shape."""
+    payload = dict(determinism or {})
+    if payload.get("canonical_runtime_sha256") is None:
+        runtime_sha = payload.get("runtime_sha256")
+        if runtime_sha is not None:
+            payload["canonical_runtime_sha256"] = runtime_sha
+    return payload
 
 
 @dataclass
@@ -55,7 +81,7 @@ class LegacyFlightExecutionAdapter:
         metric = candidate.get("metric")
         torch = candidate.get("torch")
         plan_sha = packed.get("plan_sha256")
-        runtime_sha = determinism.get("canonical_runtime_sha256")
+        runtime_sha = canonical_runtime_sha256(determinism)
 
         arrival = deep_copy(state)
         arrival["epoch_utc"] = final_epoch

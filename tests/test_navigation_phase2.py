@@ -147,6 +147,13 @@ class LegacyServiceTest(unittest.TestCase):
         self.assertEqual(result.payload["persistence_owner"], "CAMPAIGN")
         self.assertEqual(dict(self.ctx.campaign_state), original)
 
+    def test_execute_accepts_route_scoped_runtime_digest_alias(self):
+        plan = self.service.plan_flight(NavigationRequest("CERES", "MARS"), self.ctx)
+        plan.payload["determinism"] = {"runtime_sha256": "route-scoped-hash"}
+        result = self.service.execute_flight(plan, self.ctx)
+        self.assertEqual(result.final_state["last_flight"]["runtime_sha256"], "route-scoped-hash")
+        self.assertEqual(result.payload["runtime_sha256"], "route-scoped-hash")
+
 
 if __name__ == "__main__":
     unittest.main()
