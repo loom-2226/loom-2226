@@ -233,7 +233,10 @@ def load_route_layer(path: str | Path) -> LoomRouteLayerV1:
 
 
 def client_extension_js() -> str:
-    return Path(__file__).with_name("navigation_overlay.js").read_text(encoding="utf-8")
+    root = Path(__file__).parent
+    base = root.joinpath("navigation_overlay.js").read_text(encoding="utf-8")
+    stage_f = root.joinpath("navigation_stage_f.js").read_text(encoding="utf-8")
+    return base + "\n/* LOOM_STAGE_F_INTEGRATED_GIS_3D */\n" + stage_f
 
 
 def install_navigation_overlay(gis_module: Any, overlay: GISNavigationOverlayV1) -> None:
