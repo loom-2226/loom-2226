@@ -1,19 +1,29 @@
-version: '1.1'
+version: '1.2'
 status: ADOPTION_PAUSE
 captured_date: '2026-09-07'
 repository: loom-2226/loom-2226
-main_sha: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
+main_sha_at_adoption_start: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
 governance_branch: governance/repository-control-baseline-v1
 governance_pr: 24
 
 adoption:
   sprint: governance/adoption/LOOM_GOVERNANCE_ADOPTION_SPRINT_v1.0.md
-  completed_steps: [1,2,3,4,5,6,7,8,9]
-  current_step: 10
-  current_step_name: Establish Governance Baseline v1.0 on main
+  completed_steps: [1,2,3,4,5,6,7,8,9,10]
+  current_step: 11
+  current_step_name: Protect main only
   development_paused: true
   physics_execution_paused: true
   restart_gate_reached: false
+
+governance_baseline_promotion:
+  baseline: Governance Baseline v1.0
+  promotion_pr: 24
+  source_branch: governance/repository-control-baseline-v1
+  target_branch: main
+  step10_audit: governance/adoption/STEP10_GOVERNANCE_BASELINE_PROMOTION_AUDIT_2026-09-07.md
+  state_in_this_commit: PROMOTION_READY_BECOMES_AUTHORITATIVE_ON_PR24_MERGE
+  enforcement_enabled_by_step10: false
+  next_required_action_after_merge: STEP11_MAIN_PROTECTION
 
 active_wip_before_pause:
   scientific_execution:
@@ -54,6 +64,19 @@ paused_game_workstreams:
     captured_commit: 0aeebdb4476a6574e93dc09834242fba54f6a109
     recovery_ref: archive/pre-governance-2026-09-07-media
 
+foundations_program:
+  pr: 20
+  branch: research/reviewer-constellation-cross-reference
+  sha: 74120daed077f7e0401b4e348dc0620df9d9b844
+  state: PAUSED_FOR_GOVERNANCE_RETAIN_OPEN_DRAFT
+  merge_during_step10: false
+  branch_mutation_during_step10: false
+  resume_requires:
+    - governance_baseline_authoritative
+    - step12_governance_sync_or_review_as_applicable
+    - pr19_disposition
+    - current_wip_reload
+
 session_bootstrap:
   entrypoint: LOOM_START_HERE.md
   root_agent_contract: AGENTS.md
@@ -77,6 +100,7 @@ github_entry:
   legacy_advisory_workflow_retired: true
   step9_validated_gate_run: 34076675181
   step9_validated_gate_result: PASS
+  step10_final_exact_head_gate_required: true
 
 historical_validation:
   status: PASS
@@ -157,26 +181,26 @@ wip_limits:
   slots: [T0_SCIENTIFIC_EXECUTION, T1_SCIENCE_DISCOVERY, T1_WORLD_SIMULATION, BOUNDED_ENABLER]
   fifth_stream_requires_displacement: true
 
-mutation_policy_during_adoption:
-  allowed:
+mutation_policy_until_restart:
+  allowed_during_adoption:
     - governance/**
     - LOOM_START_HERE.md
     - AGENTS.md
     - scoped AGENTS.md
     - .github/** governance material
     - manifests/current/** governance compatibility metadata
-  forbidden:
-    - canon content changes
-    - navigator/gis behavior changes
-    - production runtime changes
-    - sqlite bytes/schema changes
-    - media behavior/assets changes
-    - launcher/updater-root changes
-    - wayfarer geometry/3d changes
+  still_forbidden_until_step14:
+    - canon content changes unrelated to governance adoption
+    - navigator/gis development
+    - production runtime development
+    - sqlite bytes/schema development
+    - media behavior/assets development
+    - launcher/updater-root development
+    - wayfarer geometry/3d development
     - physics execution/tuning
     - pr19 mutation
     - pr16 mutation
 
 next_step:
-  id: 10
-  name: Establish Governance Baseline v1.0 on main
+  id: 11
+  name: Protect main only
