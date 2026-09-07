@@ -12,8 +12,9 @@ adoption:
     - 1
     - 2
     - 3
-  current_step: 4
-  current_step_name: OpenAI/Codex bootstrap files
+    - 4
+  current_step: 5
+  current_step_name: GitHub PR templates, issue forms and advisory workflow structure
   development_paused: true
   physics_execution_paused: true
   restart_gate_reached: false
@@ -68,6 +69,15 @@ paused_game_workstreams:
     captured_commit: 0aeebdb4476a6574e93dc09834242fba54f6a109
     recovery_ref: archive/pre-governance-2026-09-07-media
 
+session_bootstrap:
+  entrypoint: LOOM_START_HERE.md
+  root_agent_contract: AGENTS.md
+  machine_protocol: governance/current/LOOM_SESSION_BOOTSTRAP.yml
+  chatgpt_project_instruction: governance/current/LOOM_CHATGPT_PROJECT_BOOTSTRAP_v1.0.md
+  scoped_agent_rules_established: true
+  project_instruction_installed: false
+  project_instruction_install_step: 13
+
 assurance:
   walter:
     role: Executive Director, Continuous Assurance
@@ -78,6 +88,7 @@ assurance:
     deterministic_hard_gate_implementation: false
     llm_advisory_layer_implementation: false
     personality_grounded_in_real_walter_history: true
+    evolution_policy: MAY_EVOLVE_THROUGH_GOVERNED_AUDITABLE_CHANGES_AS_LATER_STEPS_REVEAL_BETTER_ASSURANCE_DESIGN
     personality_contract: governance/roles/WALTER_CONTINUOUS_ASSURANCE_ROLE_v1.0.md
     agent_spec: governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md
 
@@ -93,11 +104,11 @@ wip_limits:
 mutation_policy_during_adoption:
   allowed:
     - governance/**
-    - future LOOM_START_HERE.md
-    - future AGENTS.md
-    - future scoped AGENTS.md
-    - future .github/** governance material
-    - future manifests/current/** governance compatibility metadata
+    - LOOM_START_HERE.md
+    - AGENTS.md
+    - scoped AGENTS.md
+    - .github/** governance material
+    - manifests/current/** governance compatibility metadata
   forbidden:
     - canon content changes
     - navigator/gis behavior changes
@@ -111,5 +122,5 @@ mutation_policy_during_adoption:
     - pr16 mutation
 
 next_step:
-  id: 4
-  name: OpenAI/Codex bootstrap files
+  id: 5
+  name: GitHub PR templates, issue forms and advisory workflow structure
