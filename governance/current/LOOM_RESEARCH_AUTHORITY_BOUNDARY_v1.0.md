@@ -56,9 +56,25 @@ Research Lab outputs do not self-promote.
 
 Normal direction is:
 
-`Research Lab research -> explicit disposition/promotion packet -> upstream LOOM decision -> CCR/canon or other governed upstream action as applicable`.
+`Research Lab research -> explicit disposition packet -> upstream LOOM decision -> CCR/canon or other governed upstream action as applicable`.
 
 A Lab result cannot edit canon, engineering, runtime or data by implication.
+
+## Standard Lab-to-LOOM handoff
+
+The governing upstream intake contract is:
+
+`governance/current/LOOM_LAB_RESEARCH_DISPOSITION_INTAKE_v1.0.md`
+
+The standard Lab packet is defined in the Research Lab at:
+
+`shared/disposition/LAB_TO_LOOM_DISPOSITION_PACKET_TEMPLATE.yml`
+
+A completed packet is a request for upstream disposition only. It must preserve source-project evidentiary status, exact provenance, qualification state, limitations, negative results, unresolved results, bridge state, requested upstream action, dependencies, and explicit `does_not_establish` boundaries.
+
+Canon-facing packets may request `OPEN_CCR_INTAKE`; they do not constitute or approve a CCR. Engineering/runtime/data-facing packets likewise authorize nothing until upstream creates and governs the appropriate work item.
+
+Upstream may reject, defer, return for qualification, archive, accept only as nonauthoritative input, or authorize a separate governed intake object.
 
 ## Cross-project evidence
 
