@@ -1,0 +1,56 @@
+version: '1.0'
+status: GOVERNING
+class: governance
+source_system: loom-2226/loom-research-lab
+packet_template: shared/disposition/LAB_TO_LOOM_DISPOSITION_PACKET_TEMPLATE.yml
+required_fields:
+  - exact_source_repository
+  - exact_source_head
+  - registered_project_id
+  - project_manifest
+  - exact_source_artifacts_and_provenance
+  - source_project_evidence_status
+  - qualification_state
+  - preregistration_state
+  - result_verdict
+  - limitations
+  - negative_results
+  - unresolved_results
+  - claim_evidence_classes
+  - cross_project_bridge_state
+  - no_combined_cross_project_evidentiary_weight
+  - requested_upstream_action
+  - affected_upstream_surfaces
+  - provenance_gaps
+  - review_status
+  - does_not_establish
+  - lab_non_self_promotion_attestation
+permitted_requested_actions:
+  - NO_UPSTREAM_ACTION
+  - ARCHIVE_AS_RESEARCH_RECORD
+  - REQUEST_MORE_RESEARCH
+  - REQUEST_INDEPENDENT_REVIEW
+  - OPEN_CCR_INTAKE
+  - OPEN_ENGINEERING_INTAKE
+  - OPEN_RUNTIME_DATA_INTAKE
+  - OPEN_GOVERNANCE_INTAKE
+upstream_disposition_states:
+  - REJECTED
+  - DEFERRED
+  - RETURNED_FOR_QUALIFICATION
+  - ARCHIVED_AS_RESEARCH_RECORD
+  - ACCEPTED_AS_NONAUTHORITATIVE_INPUT
+  - CCR_INTAKE_AUTHORIZED
+  - ENGINEERING_INTAKE_AUTHORIZED
+  - RUNTIME_DATA_INTAKE_AUTHORIZED
+  - GOVERNANCE_INTAKE_AUTHORIZED
+invariants:
+  packet_is_request_not_approval: true
+  lab_research_self_promotes: false
+  negative_results_are_first_class: true
+  unresolved_results_are_first_class: true
+  source_project_evidence_status_must_be_preserved: true
+  cross_project_evidence_combination_default: forbidden
+  convergence_raises_priority_not_truth: true
+  canon_requires_separate_ccr_lifecycle: true
+  engineering_runtime_data_require_separate_governed_work_items: true
