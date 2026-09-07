@@ -9,154 +9,156 @@ This document records results produced from the exact GitHub PR checkout by the 
 
 GitHub documentary authority applies. Chat/model memory is not a source of record.
 
+Latest qualifying evidence for this revision is GitHub Actions run `34157614045` at feature-branch commit `d111c19859e97cd65e9c649dda9676f2b8440a55`. The unit regression suite completed **326 tests, PASS**.
+
+## Correction to earlier F-PA-2 interpretation
+
+An earlier version of this document incorrectly reported 104 infrastructure rows as navigation-grade and used frame-family labels that do not match the exact governed WORLD database. The exact row-level Git-backed audit supersedes those statements.
+
+**Correct result: none of the 127 infrastructure spatial records are currently navigation-grade.**
+
+The 127 stored XYZ+VXYZ records are engineering reference states. They are useful structured constraints and 3D reference geometry, but they are not yet authoritative flight-navigation states.
+
 ## Exact aggregate findings
 
-The governed WORLD database contains **127 infrastructure nodes** and the row-level audit resolves one joined physical-authority record for every node.
+### Core authority result
 
-### Facility class
+- infrastructure nodes: **127**
+- complete stored XYZ + VXYZ states: **127 / 127**
+- `entity_location_models.position_authority = ENGINEERING_REFERENCE`: **127 / 127**
+- location `navigation_grade = false`: **127 / 127**
+- orbit `navigation_grade = false`: **127 / 127**
+- stored-state `navigation_grade = false`: **127 / 127**
+- F-PA state authority: `AUTHORITATIVE_NON_NAVIGATION_GRADE`: **127 / 127**
+- initial spatial derivability: `CONSTRAINED_DESIGN_REQUIRED`: **127 / 127**
+- current simulator navigation readiness: `NON_NAVIGATION_GRADE_REDERIVATION_REQUIRED`: **127 / 127**
 
-- `ORBITAL`: 109
-- `SURFACE`: 15
-- `SOLAR`: 3
+No existing infrastructure vector may therefore be promoted into Navigator endpoint authority merely because it is present in `spatial_states`.
 
-### Geometry kind
+### Frame families
 
-- `parent_centered_orbit`: 85
-- `heliocentric_orbit`: 23
-- `rotating_operational_region`: 10
-- `halo_orbit`: 4
-- `atmospheric_operational_region`: 2
-- `relay_shell`: 2
-- `surface_region`: 1
+Exact WORLD values are:
 
-### Frame family
+- `PARENT_BODY_FIXED`: 53
+- `PARENT_LOCAL_INERTIAL`: 32
+- `HELIOCENTRIC_ECLIPJ2000`: 14
+- `SYSTEM_BARYCENTRIC_INERTIAL`: 12
+- `PARENT_EQUATORIAL_INERTIAL`: 6
+- `EARTH_MOON_ROTATING`: 5
+- `PARENT_POLAR_INERTIAL`: 2
+- `SUN_EARTH_ROTATING`: 2
+- `PLUTO_CHARON_ROTATING`: 1
 
-- `PARENT_CENTERED_INERTIAL`: 85
-- `HELIOCENTRIC_INERTIAL`: 23
-- `BODY_FIXED`: 10
-- `CR3BP_ROTATING`: 4
-- `ATMOSPHERIC_BODY_FIXED`: 2
-- `LOCAL_ORBITAL`: 2
-- `SURFACE_BODY_FIXED`: 1
+These labels are the SQL authority vocabulary for this audit. No alternate remembered frame vocabulary is to be substituted.
 
-### Position / epistemic authority
+### Geometry kinds
 
-`entity_location_models.position_authority`:
+- `POINT`: 59
+- `POINT_OR_REGION`: 48
+- `POINT_OR_VOLUME`: 10
+- `POINT_OR_ARC`: 7
+- `REGION`: 3
 
-- `CANON_DIRECT`: 39
-- `DERIVED_QUALIFIED`: 88
+### Precision classes
 
-`orbit_geometry_models.epistemic_status`:
+- `ROLE_CONSTRAINED`: 58
+- `BODY_CONSTRAINED`: 50
+- `MODEL_CONSTRAINED`: 10
+- `REGION_CONSTRAINED`: 6
+- `PARENT_CONSTRAINED`: 3
 
-- `CANON_DIRECT`: 39
-- `DERIVED_QUALIFIED`: 88
+### Epistemic status
 
-`spatial_states.validity_status`:
+All 127 orbit/location models are explicitly engineering-derived:
 
-- `CANON_DIRECT`: 39
-- `DERIVED_QUALIFIED`: 88
+- `ENGINEERING_DERIVED_CLASSIFICATION`: 56
+- `ENGINEERING_DERIVED_FROM_CANON_ROLE`: 48
+- `ENGINEERING_DERIVED_HELIOCENTRIC_REFERENCE`: 15
+- `ENGINEERING_DERIVED_LINEARIZED_CR3BP_REFERENCE`: 7
+- `ENGINEERING_DERIVED_BINARY_REFERENCE`: 1
 
-### Precision class
+This is consistent with the navigation-grade=false result and is a major F-PA finding: the existing layer is a disciplined reference/placement layer, not silently qualified operational navigation truth.
 
-- `HIGH`: 72
-- `MEDIUM`: 48
-- `LOW`: 7
+### Orbit/state completeness
 
-### Orbit family
+- complete classical Keplerian definition: **64 / 127**
+- incomplete/non-classical/regional definition: **63 / 127**
+- `SURFACE_FIXED` orbit-family rows: **51**
+- stored state validity `BODY_FIXED_PROVISIONAL`: **53**
+- stored state validity `ORBIT_GEOMETRY_MODEL_3D`: **71**
+- stored state validity `KUIPER_REGION_REFERENCE`: **3**
 
-- `CIRCULAR_PARENT_CENTERED`: 85
-- `HELIOCENTRIC_CIRCULAR`: 23
-- `ROTATING_CYLINDER_REGION`: 10
-- `CR3BP_HALO_APPROX`: 4
-- `ATMOSPHERIC_OPERATIONAL_REGION`: 2
-- `RELAY_ORBIT_SHELL`: 2
-- `SURFACE_REFERENCE`: 1
+## Ground / surface infrastructure result
 
-### State completeness
+Ground infrastructure is included in the 127-row reference layer, but it is **not navigation-grade surface geography**.
 
-- complete stored XYZ + VXYZ state: **127 / 127**
-- complete classical Keplerian definition: **111 / 127**
-- non-Keplerian / region / shell representation: **16 / 127**
-- transport-hub extension rows: **12**
+The strongest direct evidence is:
 
-### Existing navigation-grade flags
+- `PARENT_BODY_FIXED`: **53** rows;
+- those rows remain non-navigation-grade;
+- `BODY_FIXED_PROVISIONAL`: **53** stored-state rows;
+- the exact WORLD/CIVSTATE schema scan finds **no structured latitude/longitude/elevation field family**.
 
-The location, orbit and stored-state layers agree in aggregate:
+Examples include Earth surface spaceports, Mars surface ports, lunar ports, Ceres surface/in-body facilities, Mercury surface facilities, and numerous moon/asteroid/KBO surface or in-body installations.
 
-- navigation-grade true: **104**
-- navigation-grade false: **23**
+A provisional body-fixed XYZ reference at one epoch is not a substitute for a governed geodetic site definition. Navigation-grade surface authority still requires, where applicable:
 
-The initial audit therefore classifies the stored 6D states as:
-
-- `AUTHORITATIVE_NAVIGATION_GRADE`: 104
-- `AUTHORITATIVE_NON_NAVIGATION_GRADE`: 23
-
-and initial spatial derivability as:
-
-- `DETERMINATE_FROM_EXISTING_AUTHORITY`: 104
-- `CONSTRAINED_DESIGN_REQUIRED`: 23
-- `UNDERDETERMINED`: 0
-
-These labels describe the existing SQL flags and state completeness. They are **not yet the final simulator-usable qualification**.
-
-## Critical qualification caveat — stored navigation grade is not yet runtime usability
-
-`src/loom/spatial/frames.py` currently authorizes translation-only inertial frame transforms and explicitly rejects non-inertial / rotating / body-fixed transforms until an authoritative orientation model is promoted.
-
-Therefore F-PA must not interpret all 104 stored `navigation_grade=1` infrastructure states as immediately usable navigation truth at arbitrary game epoch.
-
-The following frame families require explicit runtime-method qualification before simulator promotion:
-
-- `BODY_FIXED`: 10
-- `ATMOSPHERIC_BODY_FIXED`: 2
-- `SURFACE_BODY_FIXED`: 1
-- `CR3BP_ROTATING`: 4
-- `LOCAL_ORBITAL`: 2
-
-The inertial families are structurally closer to current runtime support:
-
-- `PARENT_CENTERED_INERTIAL`: 85
-- `HELIOCENTRIC_INERTIAL`: 23
-
-Even these must retain their existing source, model, validity, precision and navigation-grade metadata; no row is regraded merely because its frame family is supported.
-
-## Surface-location result
-
-The 15 `SURFACE` nodes do have stored physical-state/model records, but the exact SQL inventory contains no structured latitude/longitude/elevation field family.
-
-Some surface entries are represented by body-fixed or rotating operational regions rather than a unique geodetic point. A complete stored 6D vector at one epoch therefore does **not** substitute for navigation-grade surface geography at arbitrary epoch.
-
-Required future surface authority remains:
-
-- body-fixed latitude / longitude;
-- elevation or explicit reference-surface semantics;
+- parent body;
 - named body-fixed frame;
-- authoritative body orientation / rotation model;
-- epoch transform into inertial 3D state;
-- local-level frame for landing / surface-relative operations;
-- provenance and uncertainty / precision status.
+- latitude / longitude or body-shape equivalent;
+- elevation / datum or explicit reference-surface semantics;
+- authoritative body orientation/rotation model;
+- body-fixed → inertial transform at arbitrary supported epoch;
+- local-level frame for landing/surface operations;
+- provenance, uncertainty and qualification metadata.
 
-No such values are to be inferred merely from the existing stored XYZ row.
+No missing geodetic values are to be reverse-engineered from provisional reference XYZ and silently promoted.
+
+## Runtime frame-method result
+
+`src/loom/spatial/frames.py` currently authorizes translation-only inertial transforms and rejects rotating/body-fixed transforms until authoritative orientation models are introduced.
+
+F-PA therefore separates two questions:
+
+1. **Is the stored infrastructure state navigation-grade?** Currently no, for all 127 rows.
+2. **Could the declared frame family be handled by the current transform method if the state were later qualified?** This requires a separate frame-method compatibility classification using the exact SQL frame vocabulary.
+
+The navigation-grade failure takes precedence today: all 127 require qualification/re-derivation before operational Navigator use regardless of frame family.
+
+## Traffic-hub linkage caveat
+
+The exact base schema contains `transport_hubs` with **12 rows**, but the current infrastructure matrix join on `transport_hubs.entity_id = infrastructure_nodes.entity_id` produced **0 matched extension rows**.
+
+Therefore F-PA must audit the actual linkage semantics before claiming transport-hub traffic metadata applies directly to particular infrastructure nodes. The 12-row table remains real repository data; its relationship to the 127-node infrastructure registry is not yet demonstrated by this join.
 
 ## Docking / rendezvous result
 
 The exact SQL inventory contains no structured docking, rendezvous, approach, keep-out or transition-point geometry family.
 
-Therefore station position/orbit authority and docking/approach authority must remain separate. Existing station 6D state does not imply a rendezvous gate, approach corridor, hold point or docking-port state.
+Station position/orbit authority and docking/approach authority therefore remain separate. Even after an infrastructure orbit is qualified, that alone will not create a rendezvous gate, approach corridor, hold point or docking-port state.
 
-## F-PA-2 next qualification split
+## SQL-first derivation consequence
 
-The next audit step is to classify every node into **runtime usability**, separate from the SQL `navigation_grade` flag:
+For all 127 infrastructure nodes the next physical-authority path is:
 
-- `RUNTIME_RESOLVABLE_NOW`
-- `STORED_NAV_GRADE_FRAME_UNSUPPORTED`
-- `SPECIAL_MODEL_QUALIFICATION_REQUIRED`
-- `NON_NAVIGATION_GRADE_REDERIVATION_REQUIRED`
+```text
+existing engineering reference SQL
+        ↓
+referenced derivation / placement model
+        ↓
+frozen Git canon constraints where needed
+        ↓
+NASA/JPL/NAIF/IDSS method where applicable
+        ↓
+candidate physical state / surface geography / orbit
+        ↓
+qualification
+        ↓
+governed SQL promotion
+```
 
-The split must be determined from the exact row's frame family, geometry kind, source/derivation model, epoch semantics, validity status and current spatial-runtime capabilities.
-
-Only after that split should F-PA consult frozen text canon for unresolved physical constraints or use NASA/JPL/NAIF/IDSS methodology to derive missing authority.
+Existing engineering references are constraints and evidence, not discardable placeholders. But they also do not become navigation truth without qualification.
 
 ## No-promotion rule
 
-This audit changes no WORLD/CIVSTATE values and promotes no coordinates/orbits. Existing SQL remains untouched. Any new surface geography, frame model, orbital re-derivation, station transition geometry or docking/landing authority requires a separate governed derivation and qualification step.
+This audit changes no WORLD/CIVSTATE values and promotes no coordinates/orbits. Any new surface geography, frame model, orbital re-derivation, station transition geometry, docking/landing authority or traffic regime requires a separate governed derivation and qualification step.
