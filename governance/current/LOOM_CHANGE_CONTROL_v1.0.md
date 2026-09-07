@@ -44,17 +44,34 @@ Research does not directly rewrite canon.
 
 ### 3.2 Canon Change Request (CCR)
 
-Required for material canon change.
+Material canon change requires the formal repository lifecycle under `governance/changes/`.
 
-CCR statuses:
+Durable CCR authority is the machine-readable record plus `CCR_REGISTRY.yml`, not the chat or GitHub issue alone.
+
+CCR IDs use `CCR-YYYY-NNNN` and are never reused.
+
+Statuses:
 
 - `PROPOSED`
 - `UNDER_REVIEW`
 - `APPROVED_FOR_IMPLEMENTATION`
 - `REJECTED`
 - `DEFERRED`
-- `SUPERSEDED`
 - `IMPLEMENTED`
+- `SUPERSEDED`
+
+`APPROVED_FOR_IMPLEMENTATION` authorizes a controlled `class:canon` PR. It does **not** itself make the content governing canon.
+
+`IMPLEMENTED` is recorded only after the authorized change lands on authoritative `main` and required authority/baseline/hash/validation obligations are complete.
+
+Approval changes authority disposition; it does not retroactively upgrade the source's evidentiary status.
+
+Formal files:
+
+- `governance/changes/README.md`
+- `governance/changes/CCR_REGISTRY.yml`
+- `governance/changes/CCR_SCHEMA_v1.0.yml`
+- `governance/changes/CCR_TEMPLATE_v1.0.yml`
 
 ### 3.3 Engineering change
 
@@ -81,6 +98,8 @@ If the target is frozen/preregistered:
 - existing SHA/design/verdict record remains unchanged;
 - a new experiment must state what it changes and why.
 
+A CCR that materially relies on an undispositioned frozen/preregistered result may be created but may not advance to `APPROVED_FOR_IMPLEMENTATION`.
+
 ## 5. Dependency invalidation
 
 A material upstream change must classify each known downstream component as:
@@ -96,16 +115,22 @@ The change may not simply state 'no impact' without checking declared dependenci
 
 ## 6. Canon promotion
 
-A canon promotion requires:
+A canon implementation requires:
 
-1. CCR approved;
-2. exact affected governing files identified;
-3. amendment/supersession relationship explicit;
-4. downstream dependencies classified;
-5. baseline/authority manifest update planned;
-6. hash/validation update planned;
-7. required engineering/runtime follow-ons opened or explicitly deferred;
-8. WALTER assurance completed at required level.
+1. exact registered CCR ID(s);
+2. CCR status `APPROVED_FOR_IMPLEMENTATION`;
+3. exact affected governing files identified;
+4. amendment/supersession relationship explicit;
+5. downstream dependencies classified against the component map;
+6. baseline/authority manifest update planned;
+7. hash/validation update planned;
+8. compatibility update assessed;
+9. required engineering/runtime follow-ons opened or explicitly deferred;
+10. WALTER assurance completed at required level.
+
+After merge to authoritative `main`, the CCR is updated to `IMPLEMENTED` with the implementation PR/commit and completed obligations.
+
+If implementation materially exceeds the approved CCR scope, stop and return to change control rather than stretching the old approval.
 
 ## 7. Exception / override record
 
@@ -156,6 +181,8 @@ They may:
 
 The original finding remains auditable.
 
+For canon promotion WALTER may verify CCR existence/registration/status deterministically. During governance adoption this remains advisory; later it is a candidate hard gate.
+
 ## 9. Chat/session behavior
 
 A chat may explore freely.
@@ -185,4 +212,6 @@ Change control must never erase inconvenient history.
 - superseded files remain archived;
 - frozen SHA history remains immutable;
 - old release hashes remain old release hashes;
-- exceptions are additive records, not rewrites.
+- exceptions are additive records, not rewrites;
+- proposal approval does not retroactively upgrade evidentiary status;
+- `APPROVED_FOR_IMPLEMENTATION` is not rewritten to pretend the canon was already governing before implementation.
