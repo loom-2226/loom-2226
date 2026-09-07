@@ -1,0 +1,149 @@
+version: '1.0'
+status: STEP8_OBSERVE_MODE_PENDING_HISTORICAL_VALIDATION
+gate_name: loom-gate
+owner_agent: WALTER
+purpose: >-
+  Single always-running deterministic governance status intended to become the
+  required main-promotion check after historical validation and baseline merge.
+
+modes:
+  current: OBSERVE
+  allowed:
+    - OBSERVE
+    - ENFORCE
+  observe_behavior: report_candidate_blocks_and_watches_but_exit_success
+  enforce_behavior: fail_only_rules_marked_HARD_AFTER_VALIDATION
+
+finding_levels:
+  - PASS
+  - WATCH
+  - CANDIDATE_BLOCK
+  - BLOCK
+
+rules:
+  LG001_CHANGE_CLASS:
+    description: Substantive PR declares one recognizable primary LOOM change class.
+    current_level: WATCH
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: true
+
+  LG002_FROZEN_PR19_SHA:
+    description: Frozen PR #19 branch must remain at its registered preregistered SHA.
+    current_level: CANDIDATE_BLOCK
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: true
+    exception_allowed: false
+
+  LG003_FROZEN_PR16_SHA:
+    description: PR #16 preregistered/on-hold branch must remain at its registered SHA until formally superseded.
+    current_level: CANDIDATE_BLOCK
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: true
+    exception_allowed: false
+
+  LG004_CANON_CLASS:
+    description: Current canon mutation requires class:canon.
+    current_level: CANDIDATE_BLOCK
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: true
+
+  LG005_CANON_CCR_ID:
+    description: Current canon mutation requires exact registered CCR-YYYY-NNNN identifier.
+    current_level: CANDIDATE_BLOCK
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: true
+
+  LG006_CANON_CCR_APPROVAL:
+    description: Cited CCR must have durable record and APPROVED_FOR_IMPLEMENTATION status before canon implementation.
+    current_level: CANDIDATE_BLOCK
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: true
+
+  LG007_CONTROL_FILE_PARSE:
+    description: Required governance, dependency, compatibility, agent and CCR machine files must parse.
+    current_level: CANDIDATE_BLOCK
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: true
+
+  LG008_RELEASE_COMPATIBILITY_COUPLING:
+    description: Release-manifest change must review/update LOOM compatibility manifest.
+    current_level: WATCH
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: true
+
+  LG009_DOWNSTREAM_IMPACT_DECLARATION:
+    description: Load-bearing changes require downstream dependency/impact classification.
+    current_level: WATCH
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: true
+
+  LG010_MIXED_CANON_ENGINEERING:
+    description: Canon plus engineering/geometry in one PR requires explicit sequencing review.
+    current_level: WATCH
+    target_after_step9: ADVISORY
+    deterministic: true
+
+  LG011_RESEARCH_CANON_MIX:
+    description: Research plus current canon in one PR is suspicious and requires explicit promotion separation rationale.
+    current_level: WATCH
+    target_after_step9: ADVISORY
+    deterministic: true
+
+  LG012_DATA_MIGRATION_RECOVERY:
+    description: SQLite/schema/migration change requires migration/compatibility/recovery declaration.
+    current_level: WATCH
+    target_after_step9: ADVISORY_UNTIL_PATH_MODEL_MATURE
+    deterministic: true
+
+  LG013_VENDOR_DEPENDENCY_ASSURANCE:
+    description: Dependency definition change requires vendor/dependency/license/lock-in assurance note.
+    current_level: WATCH
+    target_after_step9: ADVISORY
+    deterministic: true
+
+  LG014_AGENT_REGISTRY_PARSE:
+    description: Autonomous-agent registry must parse and active-agent count must match declared active entries.
+    current_level: CANDIDATE_BLOCK
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: true
+
+  LG015_AGENT_CREATION_GATE:
+    description: New ACTIVE autonomous agent requires registry entry and explicit governance-class declaration referencing agent creation review.
+    current_level: WATCH
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: partly
+    note: Semantic distinct-objective judgment remains human/WALTER advisory; registry/approval presence is deterministic.
+
+  LG016_PERSONA_AUTHORITY_SEPARATION:
+    description: Persona binding may not be the source of technical permissions or evidentiary weight.
+    current_level: WATCH
+    target_after_step9: ADVISORY
+    deterministic: partly
+
+  LG017_RELEASE_JSON_PARSE:
+    description: Current release manifest must parse as JSON when present.
+    current_level: CANDIDATE_BLOCK
+    target_after_step9: HARD_AFTER_VALIDATION
+    deterministic: true
+
+hard_gate_promotion_rule:
+  requirements:
+    - deterministic
+    - historical_fixtures_pass
+    - false_positive_rate_acceptable
+    - remediation_is_clear
+    - does_not_break_grandfathered_workstreams
+    - Kevin_approves_enforcement
+  before_requirements_met: OBSERVE_ONLY
+
+llm_policy:
+  loom_gate_uses_llm_for_hard_result: false
+  llm_may_add_separate_advisory_findings_later: true
+  llm_advisory_may_change_deterministic_result: false
+
+required_check_future:
+  context_name: loom-gate
+  make_required_on_main_only_after:
+    - Step9 historical validation complete
+    - PR24 governance baseline merged
+    - Step11 main protection activation
