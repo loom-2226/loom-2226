@@ -27,12 +27,9 @@ def _q(name: str) -> str:
 
 
 def _tables(conn: sqlite3.Connection) -> list[str]:
-    return [
-        str(r[0])
-        for r in conn.execute(
-            "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"
-        )
-    ]
+    return [str(r[0]) for r in conn.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"
+    )]
 
 
 def _columns(conn: sqlite3.Connection, table: str) -> list[str]:
@@ -48,7 +45,6 @@ def _classify_table(name: str, columns: list[str]) -> tuple[str, list[str]]:
     n = name.lower()
     cols = {c.lower() for c in columns}
     joined = " ".join(sorted(cols))
-
     cache_tokens = ("cache", "refresh", "materialized", "search_index")
     physical_tokens = (
         "x_km", "y_km", "z_km", "vx_km_s", "vy_km_s", "vz_km_s",
@@ -61,7 +57,10 @@ def _classify_table(name: str, columns: list[str]) -> tuple[str, list[str]]:
         "authority", "commercial", "ownership", "organization", "policy", "regime",
         "capacity", "employment", "trade", "mobility", "security", "governance",
     )
-    linkage_tokens = ("entity_id", "node_id", "organization_id", "authority_id", "source_id")
+    linkage_tokens = (
+        "entity_id", "node_id", "navigator_entity_id", "navigator_node_id",
+        "organization_id", "authority_id", "source_id",
+    )
 
     reasons: list[str] = []
     if any(tok in n or tok in joined for tok in cache_tokens):
@@ -100,12 +99,15 @@ def civstate_boundary_audit(world_path: Path | str, civstate_path: Path | str) -
         hub_cols = _columns(w, "transport_hubs")
         infra_entity_ids = set(_distinct_nonnull(w, "infrastructure_nodes", "entity_id"))
         infra_node_ids = set(_distinct_nonnull(w, "infrastructure_nodes", "node_id"))
+        infra_systems = set(_distinct_nonnull(w, "infrastructure_nodes", "system"))
+        infra_parent_bodies = set(_distinct_nonnull(w, "infrastructure_nodes", "parent_body"))
         hub_entity_ids = set(_distinct_nonnull(w, "transport_hubs", "entity_id"))
 
         hub_entity_to_infra_entity = sorted(hub_entity_ids & infra_entity_ids)
         hub_entity_to_node_id = sorted(hub_entity_ids & infra_node_ids)
+        hub_entity_to_system = sorted(hub_entity_ids & infra_systems)
+        hub_entity_to_parent_body = sorted(hub_entity_ids & infra_parent_bodies)
 
-        # Compare all transport_hubs text/id-like columns to infrastructure identity domains.
         hub_identity_matches: dict[str, dict[str, list[str]]] = {}
         for col in hub_cols:
             lc = col.lower()
@@ -114,10 +116,14 @@ def civstate_boundary_audit(world_path: Path | str, civstate_path: Path | str) -
             vals = set(_distinct_nonnull(w, "transport_hubs", col))
             matches_entity = sorted(vals & infra_entity_ids)
             matches_node = sorted(vals & infra_node_ids)
-            if matches_entity or matches_node:
+            matches_system = sorted(vals & infra_systems)
+            matches_parent = sorted(vals & infra_parent_bodies)
+            if matches_entity or matches_node or matches_system or matches_parent:
                 hub_identity_matches[col] = {
                     "matches_infrastructure_entity_id": matches_entity,
                     "matches_infrastructure_node_id": matches_node,
+                    "matches_infrastructure_system": matches_system,
+                    "matches_infrastructure_parent_body": matches_parent,
                 }
 
         table_rows: list[dict[str, Any]] = []
@@ -132,25 +138,37 @@ def civstate_boundary_audit(world_path: Path | str, civstate_path: Path | str) -
                 "classification_reasons": reasons,
             })
 
-        # Exact cross-db identity-domain overlap, where CIVSTATE exposes entity_id/node_id.
         cross_db_identity: list[dict[str, Any]] = []
         for row in table_rows:
             table = str(row["table"])
             cols = set(str(x) for x in row["columns"])
             item: dict[str, Any] = {"table": table}
             meaningful = False
-            if "entity_id" in cols:
-                vals = set(_distinct_nonnull(c, table, "entity_id"))
-                item["entity_id_distinct"] = len(vals)
-                item["entity_id_matches_world_infrastructure"] = len(vals & infra_entity_ids)
-                meaningful = True
-            if "node_id" in cols:
-                vals = set(_distinct_nonnull(c, table, "node_id"))
-                item["node_id_distinct"] = len(vals)
-                item["node_id_matches_world_infrastructure"] = len(vals & infra_node_ids)
-                meaningful = True
+            for col, target, label in (
+                ("entity_id", infra_entity_ids, "entity_id"),
+                ("node_id", infra_node_ids, "node_id"),
+                ("navigator_entity_id", infra_entity_ids, "navigator_entity_id"),
+                ("navigator_node_id", infra_node_ids, "navigator_node_id"),
+            ):
+                if col in cols:
+                    vals = set(_distinct_nonnull(c, table, col))
+                    item[f"{label}_distinct"] = len(vals)
+                    item[f"{label}_matches_world_infrastructure"] = len(vals & target)
+                    meaningful = True
             if meaningful:
                 cross_db_identity.append(item)
+
+        civ_subject_linkage: dict[str, Any] = {}
+        if "civ_subject" in _tables(c):
+            cols = set(_columns(c, "civ_subject"))
+            if "navigator_entity_id" in cols:
+                vals = set(_distinct_nonnull(c, "civ_subject", "navigator_entity_id"))
+                civ_subject_linkage["navigator_entity_id_distinct"] = len(vals)
+                civ_subject_linkage["navigator_entity_id_matches_world_infrastructure"] = len(vals & infra_entity_ids)
+            if "navigator_node_id" in cols:
+                vals = set(_distinct_nonnull(c, "civ_subject", "navigator_node_id"))
+                civ_subject_linkage["navigator_node_id_distinct"] = len(vals)
+                civ_subject_linkage["navigator_node_id_matches_world_infrastructure"] = len(vals & infra_node_ids)
 
     classification_counts = dict(sorted(Counter(r["boundary_classification"] for r in table_rows).items()))
     return {
@@ -165,8 +183,11 @@ def civstate_boundary_audit(world_path: Path | str, civstate_path: Path | str) -
             "entity_ids": sorted(hub_entity_ids),
             "direct_entity_id_matches_infrastructure_entity_id": hub_entity_to_infra_entity,
             "direct_entity_id_matches_infrastructure_node_id": hub_entity_to_node_id,
+            "entity_id_matches_infrastructure_system": hub_entity_to_system,
+            "entity_id_matches_infrastructure_parent_body": hub_entity_to_parent_body,
             "identity_column_matches": hub_identity_matches,
             "infrastructure_identity_columns": infra_cols,
         },
+        "civ_subject_linkage": civ_subject_linkage,
         "cross_db_identity": cross_db_identity,
     }
