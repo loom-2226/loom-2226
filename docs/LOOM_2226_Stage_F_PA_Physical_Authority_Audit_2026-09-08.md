@@ -70,11 +70,23 @@ Every relevant source/table/model is to be classified as one of:
 - `MISSING`
 - `DEPRECATED_OR_SHADOW`
 
-## 2. GitHub-authoritative initial findings
+## 2. GitHub-authoritative findings
 
 ### 2.1 WORLD data artifacts
 
-The governed repository contains `data/LOOM_2226.sqlite3` and `data/LOOM_2226_CIVSTATE.sqlite3`. Binary SQLite content cannot be promoted by inference from filenames; schema/content findings require either repository code that explicitly queries the tables or a reproducible audit of the exact Git blob.
+The governed repository contains `data/LOOM_2226.sqlite3` and `data/LOOM_2226_CIVSTATE.sqlite3`. Exact contents are now audited in GitHub Actions from the checked-out PR merge ref using `src/loom/physical_authority_audit.py` and `tests/test_physical_authority_audit.py`.
+
+Exact PR-head audit evidence at commit `895e43e14ed6a80992e7f27eebb610f9016f791a`, Actions run `34156400760`:
+
+- WORLD SHA-256: `e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde`
+- WORLD size: `4,882,432` bytes
+- WORLD tables: `42`
+- CIVSTATE SHA-256: `9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560`
+- CIVSTATE size: `8,093,696` bytes
+- CIVSTATE tables: `53`
+- Unit regression: `325` tests, PASS
+
+This exact Git checkout supersedes any older chat-recalled CIVSTATE size/table count.
 
 ### 2.2 Shared spatial state
 
@@ -86,9 +98,21 @@ Initial classification:
 - stored state with navigation grade false/absent: `AUTHORITATIVE_NON_NAVIGATION_GRADE` or lower according to provenance;
 - renderer/display placement is not navigation authority merely because it has XYZ.
 
+Exact WORLD inventory confirms `spatial_states` has `127` rows with:
+
+`entity_id, epoch_utc, center_entity_id, reference_frame, units, x_km, y_km, z_km, vx_km_s, vy_km_s, vz_km_s, state_source, model_id, navigation_grade, validity_status`.
+
+This means all 127 infrastructure entities already have a stored 6D-state-shaped record, but **row presence alone does not establish navigation authority**. F-PA-2 must inspect per-row source/model/grade/validity before using those states for flight.
+
 ### 2.3 Celestial ephemeris and propagated states
 
 `src/loom/spatial/sqlite_celestial_catalog.py` explicitly permits exact J2000/ECLIPTIC navigation-grade states directly. Where direct moon coverage is absent, it may derive a parent-centric two-body osculating model only from a genuine navigation-grade ephemeris anchor and parent GM. The propagated result explicitly carries `unmodeled_perturbations=True` and `navigation_qualification=PROPAGATED_NOT_DIRECT`. Display-only circular-period fallbacks are explicitly prohibited from physics authority.
+
+Exact WORLD inventory confirms:
+
+- `ephemeris_states`: `48` rows with explicit epoch, center, frame/plane, units, XYZ, VXYZ, source, status and `navigation_grade`;
+- `celestial_dynamics`: `48` rows with gravity parent, Horizons identifiers, reference orbit radius/period, GM, mean radius, SOI/Hill radius, atmosphere class, metadata status and source;
+- `orbit_snapshots`: `20` rows.
 
 Classification:
 
@@ -96,18 +120,62 @@ Classification:
 - two-body state propagated from genuine anchor: `DERIVED_QUALIFIED`, not equivalent to direct navigation-grade telemetry;
 - display circular fallback: `APPROXIMATE_PRESENTATION_ONLY` and prohibited from physical promotion.
 
-### 2.4 Reference frames
+### 2.4 Infrastructure location/orbit authority already present
+
+Exact WORLD inventory confirms the following important existing structures:
+
+`infrastructure_nodes` — `127` rows, including identity, system, parent body, traffic/facility type, commercial regime, civil/administrative/security authority, source and entity/region/parent links.
+
+`entity_location_models` — `127` rows with:
+
+`entity_id, model_id, parent_entity_id, center_entity_id, frame_family, geometry_kind, precision_class, position_authority, navigation_grade, parameter_json, assumption_json, valid_from, valid_until`.
+
+`orbit_geometry_models` — `127` rows with:
+
+`entity_id, orbit_family, parent_entity_id, secondary_entity_id, reference_frame, reference_plane, epoch_utc, semi_major_axis_km, eccentricity, inclination_deg, raan_deg, arg_periapsis_deg, mean_anomaly_deg, period_s, amplitude_x_km, amplitude_y_km, amplitude_z_km, parameter_json, assumption_json, navigation_grade, epistemic_status, source_id, derivation_model_id, notes`.
+
+`placement_models` — `28` rows.
+
+This materially changes the audit posture: the repository already contains a complete 127-row location/orbit modeling layer. The next task is **not to invent station orbits from scratch**. It is to classify every existing model/value by source, epistemic status, navigation grade and derivation quality, then determine which are promotable, require re-derivation, or remain presentation-only.
+
+### 2.5 Surface-location authority gap
+
+The exact schema scan found **no latitude/longitude/elevation field family anywhere in WORLD or CIVSTATE**.
+
+Therefore, for current F-PA purposes:
+
+- exact surface geographic coordinates are `MISSING` as structured SQL authority;
+- existing 127-row generic spatial/orbit placement must not be treated as a substitute for body-fixed surface geography;
+- surface nodes require SQL-first classification, then Git canon constraints where SQL is insufficient, then NASA/JPL/NAIF body-fixed derivation and governed promotion.
+
+### 2.6 Reference frames and body orientation
 
 `src/loom/spatial/frames.py` currently authorizes translation-only inertial transforms. It explicitly rejects rotating/body-fixed transforms until an authoritative orientation model is introduced.
+
+The schema token scan found rotation/orientation-related fields only in broad existing tables such as `celestial_properties`, `infrastructure_engineering_profiles`, and `infrastructure_physical_properties`. That token hit is **not evidence of a qualified body-orientation transform model**. Row/schema inspection is still required.
 
 Classification:
 
 - existing inertial translation frame transforms: `DERIVED_QUALIFIED` within their declared contract;
-- body-fixed rotation/orientation transforms: `MISSING` for the simulator target.
+- body-fixed rotation/orientation transforms: `MISSING` for the simulator target until an authoritative model is demonstrated and qualified.
 
-This is a direct blocker for navigation-grade surface infrastructure, lat/lon/elevation resolution, landing corridors, rotating-body local scenes and surface-relative telemetry.
+This remains a direct blocker for navigation-grade surface infrastructure, lat/lon/elevation resolution, landing corridors, rotating-body local scenes and surface-relative telemetry.
 
-### 2.5 Gravity
+### 2.7 Traffic authority structures
+
+Exact WORLD inventory found traffic-related fields/tables in `entity_transport_profiles`, `infrastructure_nodes`, `region_mobility`, `transport_hubs`, and `transport_links`.
+
+`transport_hubs` currently has `12` rows with traffic classes, Loom access, shipyard/repair capability, certification standard/coefficient references, traffic-control authority, roadstead, physical certification model, OD/capacity model, validity and provenance.
+
+This is a strong seed for future body traffic regimes, but **no current evidence yet shows a full authorized-orbit / approach-corridor / clearance-law model**. That remains to be demonstrated or designed.
+
+### 2.8 Docking/rendezvous authority gap
+
+The exact schema scan found **no docking/rendezvous/approach/keep-out/transition field family in WORLD or CIVSTATE**.
+
+Therefore structured docking/rendezvous transition geometry is currently `MISSING` unless a governed non-SQL model is found later in the repository.
+
+### 2.9 Gravity
 
 `src/loom/spatial/gravity.py` computes deterministic Newtonian point-mass acceleration from explicit celestial `SpatialState` inputs and supplied GM. It explicitly does not own ephemeris generation, trajectory integration or collision geometry and does not promote source states to navigation grade.
 
@@ -117,7 +185,7 @@ Classification:
 - body harmonics/non-spherical gravity: `MISSING` in this primitive;
 - atmosphere/drag/SRP/terrain collision: outside this primitive and must be separately inventoried.
 
-### 2.6 Campaign persistence
+### 2.10 Campaign persistence
 
 `src/loom/campaign/shadow_ledger.py` explicitly declares JSON state and RC6.1 history ledger canonical. `LOOM_CAMPAIGN_DEV.sqlite3` is a non-authoritative best-effort mirror used for diagnostics/reconciliation/later migration.
 
@@ -127,13 +195,13 @@ Classification:
 - `LOOM_CAMPAIGN_DEV.sqlite3`: `DEPRECATED_OR_SHADOW` for authority purposes (active diagnostic shadow, not deprecated code);
 - canonical campaign SQLite simulator state: `MISSING` pending governed promotion.
 
-## 3. Confirmed simulator gaps from code authority
+## 3. Confirmed simulator gaps from Git/code authority
 
-The following are already confirmed gaps without inventing database content:
+The following are confirmed without inventing database content:
 
-1. authoritative rotating/body-fixed frame model;
-2. navigation-grade surface coordinate resolution from body-fixed geography to inertial 6D state;
-3. body-specific standard/authorized orbit regime and traffic-law model;
+1. qualified rotating/body-fixed frame model;
+2. structured navigation-grade surface latitude/longitude/elevation authority;
+3. body-specific standard/authorized orbit regime and traffic-law model beyond current traffic metadata;
 4. station transition/rendezvous gates and docking approach geometry;
 5. surface entry/deorbit/terminal approach transition geometry;
 6. complete vehicle true-state dynamics loop;
@@ -146,17 +214,7 @@ The following are already confirmed gaps without inventing database content:
 
 ### F-PA-1 — Exact WORLD SQLite inventory
 
-Audit the exact Git blob for:
-
-- schema version and all tables/views;
-- row counts;
-- `entities` and celestial hierarchy;
-- `states`, `ephemeris_states`, `spatial_states`;
-- `celestial_properties`, `celestial_dynamics`;
-- `entity_location_models`, `placement_models`, `orbit_geometry_models`, `orbit_snapshots`;
-- infrastructure tables and engineering/physical profiles;
-- provenance/source/authority tables;
-- any existing surface coordinate, orientation, atmosphere, shape, terrain, orbit-law, traffic or docking fields.
+**Status: BASE INVENTORY COMPLETE.** Exact Git-backed schema, row counts, hashes and broad feature presence are now reproducibly audited by CI. Remaining F-PA-1 work is targeted row-level classification of the physical-model tables rather than basic discovery.
 
 ### F-PA-2 — Infrastructure physical-authority matrix
 
