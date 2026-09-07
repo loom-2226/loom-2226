@@ -1,18 +1,19 @@
-version: '1.1'
-status: STEP14_RESTART_EXECUTED_ON_PROTECTED_MAIN_MERGE
+version: '1.2'
+status: STEP14_RESTART_ACTIVE_VERIFIED
 captured_date: '2026-09-07'
 repository: loom-2226/loom-2226
 authoritative_governance_branch: main
 governance_main_sha_used_for_sync: 356f4fd2c3b6d9dc897787a2c3cc6b90d41d375d
 main_step12_merge_sha: 626e3ce1470abbe3ce8a24624b87c230c32570b4
 step14_restart_parent_main_sha: 5bf46d987ac0c91f4b6ebffe26e6cdf5a4354cb9
+step14_main_merge_sha: 889fc89b4c1609b3852b98948f77d1fb8f4fe193
 
 principle: >-
   Grandfathered workstreams were not rebased or merged with main merely to adopt
   governance. Mutable paused workstreams received one sidecar governance marker.
   Immutable/frozen research and retained release baselines received review-only
   disposition. Recovery refs remain the byte-exact pre-governance anchors.
-  Step 14 reopens eligible lanes from the registered heads without adding functional
+  Step 14 reopened eligible lanes from the registered heads without adding functional
   commits to those workstreams.
 
 synced_workstreams:
@@ -142,6 +143,7 @@ step12_acceptance:
 
 step14_restart:
   audit: governance/adoption/STEP14_RESUME_LOOM_AUDIT_2026-09-07.md
+  main_merge_sha: 889fc89b4c1609b3852b98948f77d1fb8f4fe193
   registered_game_heads_reverified: true
   registered_game_heads_drift_detected: false
   workstream_branch_commits_added_by_restart: 0
@@ -152,3 +154,4 @@ step14_restart:
   release_baselines_touched: false
   non_governance_functional_changes: 0
   normal_governed_development_reopened: true
+  result: COMPLETE_VERIFIED
