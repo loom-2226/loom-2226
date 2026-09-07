@@ -14,8 +14,9 @@ adoption:
     - 3
     - 4
     - 5
-  current_step: 6
-  current_step_name: Dependency graph and compatibility model
+    - 6
+  current_step: 7
+  current_step_name: Canon Change Request record mechanism and lifecycle
   development_paused: true
   physics_execution_paused: true
   restart_gate_reached: false
@@ -76,6 +77,7 @@ session_bootstrap:
   machine_protocol: governance/current/LOOM_SESSION_BOOTSTRAP.yml
   chatgpt_project_instruction: governance/current/LOOM_CHATGPT_PROJECT_BOOTSTRAP_v1.0.md
   scoped_agent_rules_established: true
+  dependency_context_conditional_load: true
   project_instruction_installed: false
   project_instruction_install_step: 13
 
@@ -95,6 +97,19 @@ github_entry:
   advisory_only: true
   required_status_check: false
 
+dependency_and_compatibility:
+  component_map: governance/dependencies/component-map.yml
+  policy: governance/dependencies/DEPENDENCY_AND_COMPATIBILITY_POLICY_v1.0.md
+  compatibility_manifest: manifests/current/LOOM_COMPATIBILITY.yml
+  absence_means_independent: false
+  unregistered_dependency_state: UNKNOWN_UNREGISTERED
+  release_manifest_requires_compatibility_review: true
+  historical_validation_transfer_by_assumption_allowed: false
+  known_gaps:
+    python_runtime_version: NOT_PINNED_BY_CURRENT_RELEASE_MANIFEST
+    threejs_version: NOT_RECORDED_IN_CURRENT_WAYFARER_MANIFEST
+  gaps_activate_new_wip_during_adoption: false
+
 assurance:
   walter:
     role: Executive Director, Continuous Assurance
@@ -108,6 +123,9 @@ assurance:
     evolution_policy: MAY_EVOLVE_THROUGH_GOVERNED_AUDITABLE_CHANGES_AS_LATER_STEPS_REVEAL_BETTER_ASSURANCE_DESIGN
     personality_contract: governance/roles/WALTER_CONTINUOUS_ASSURANCE_ROLE_v1.0.md
     agent_spec: governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md
+    pack_inventory_extension: governance/agents/WALTER_PACK_INVENTORY_EXTENSION_v1.0.md
+    pack_inventory_machine_backed: true
+    dependency_absence_treated_as_safe_independence: false
 
 wip_limits:
   max_substantive_streams: 4
@@ -139,5 +157,5 @@ mutation_policy_during_adoption:
     - pr16 mutation
 
 next_step:
-  id: 6
-  name: Dependency graph and compatibility model
+  id: 7
+  name: Canon Change Request record mechanism and lifecycle
