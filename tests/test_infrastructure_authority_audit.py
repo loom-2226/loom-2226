@@ -34,8 +34,8 @@ class InfrastructureAuthorityAuditTests(unittest.TestCase):
         self.assertEqual(summary["simulator_navigation_readiness"], {"NON_NAVIGATION_GRADE_REDERIVATION_REQUIRED": 127})
 
         # Frame-method compatibility is a separate question from navigation grade.
-        # 119 rows use declared inertial frame families compatible with the current
-        # translation-only method; 8 use rotating/body-fixed families that require
+        # 66 rows use declared inertial frame families compatible with the current
+        # translation-only method; 61 use rotating/body-fixed families that require
         # additional transform authority. This does not promote any row to nav grade.
         self.assertEqual(
             summary["runtime_frame_method_compatibility"],
