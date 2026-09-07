@@ -1,16 +1,18 @@
-version: '1.2'
+version: '1.3'
 status: ADOPTION_PAUSE
 captured_date: '2026-09-07'
 repository: loom-2226/loom-2226
 main_sha_at_adoption_start: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
-governance_branch: governance/repository-control-baseline-v1
-governance_pr: 24
+main_governance_baseline_sha: 605b8cd3ea00c94ac78437b90f5e85fd841a085b
+governance_baseline_pr: 24
+step11_branch: governance/main-protection-step11
 
 adoption:
   sprint: governance/adoption/LOOM_GOVERNANCE_ADOPTION_SPRINT_v1.0.md
   completed_steps: [1,2,3,4,5,6,7,8,9,10]
   current_step: 11
   current_step_name: Protect main only
+  step11_state: PENDING_OWNER_ADMIN_ACTIVATION
   development_paused: true
   physics_execution_paused: true
   restart_gate_reached: false
@@ -18,12 +20,10 @@ adoption:
 governance_baseline_promotion:
   baseline: Governance Baseline v1.0
   promotion_pr: 24
-  source_branch: governance/repository-control-baseline-v1
   target_branch: main
-  step10_audit: governance/adoption/STEP10_GOVERNANCE_BASELINE_PROMOTION_AUDIT_2026-09-07.md
-  state_in_this_commit: PROMOTION_READY_BECOMES_AUTHORITATIVE_ON_PR24_MERGE
-  enforcement_enabled_by_step10: false
-  next_required_action_after_merge: STEP11_MAIN_PROTECTION
+  merge_sha: 605b8cd3ea00c94ac78437b90f5e85fd841a085b
+  state: AUTHORITATIVE_ON_MAIN
+  next_required_action: STEP11_MAIN_PROTECTION
 
 active_wip_before_pause:
   scientific_execution:
@@ -95,12 +95,14 @@ github_entry:
   blank_issues_enabled: false
   stable_gate_workflow: .github/workflows/loom-gate.yml
   stable_gate_context: loom-gate
-  gate_mode: OBSERVE
-  required_status_check: false
+  gate_mode: ENFORCE
+  deterministic_hard_blocking_policy_enabled: true
+  required_status_check_on_main: false
+  main_protection_policy: governance/current/LOOM_MAIN_PROTECTION_POLICY.yml
+  main_protection_state: PENDING_OWNER_ADMIN_ACTIVATION
+  connector_admin_write_available: false
   legacy_advisory_workflow_retired: true
-  step9_validated_gate_run: 34076675181
   step9_validated_gate_result: PASS
-  step10_final_exact_head_gate_required: true
 
 historical_validation:
   status: PASS
@@ -109,7 +111,8 @@ historical_validation:
   real_fixtures: 12
   hard_ready_rule_count: 10
   advisory_or_rework_rule_count: 8
-  enforcement_enabled: false
+  deterministic_enforcement_policy_enabled: true
+  github_required_check_enabled: false
   false_positive_fixed:
     - CANON_PATH_ONLY_AIRLOCK_PR3_R100
   premature_hardening_prevented:
@@ -165,12 +168,13 @@ assurance:
   walter:
     role: Executive Director, Continuous Assurance
     tag: '#LOOMSAFE'
-    architecture_status: AUTONOMOUS_AGENT_LOOM_GATE_STEP9_VALIDATED_OBSERVE_MODE
+    architecture_status: AUTONOMOUS_AGENT_LOOM_GATE_ENFORCE_POLICY_PENDING_MAIN_REQUIRED_CHECK
     creation_review: governance/agents/reviews/AGENT_CREATION_REVIEW_WALTER_v1.0.md
     gate_policy: governance/current/LOOM_GATE_POLICY.yml
     gate_context: loom-gate
-    gate_mode: OBSERVE
-    hard_blocking_enabled: false
+    gate_mode: ENFORCE
+    deterministic_hard_blocking_enabled: true
+    github_required_check_enabled: false
     historical_validation_complete: true
     llm_advisory_layer_implementation: false
     personality_grounded_in_real_walter_history: true
@@ -201,6 +205,15 @@ mutation_policy_until_restart:
     - pr19 mutation
     - pr16 mutation
 
+step11:
+  audit: governance/adoption/STEP11_MAIN_PROTECTION_AUDIT_2026-09-07.md
+  policy: governance/current/LOOM_MAIN_PROTECTION_POLICY.yml
+  target_branch: main
+  owner_activation_required: true
+  connector_admin_write_available: false
+  protection_verified: false
+  completion_blocked_until_verified: true
+
 next_step:
   id: 11
-  name: Protect main only
+  name: Protect main only — owner admin activation and verification
