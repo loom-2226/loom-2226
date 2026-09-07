@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Inspect authority, freeze, dependency and scope signals
+      - name: Inspect authority, freeze, dependency, CCR and scope signals
         shell: bash
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -56,8 +56,39 @@ jobs:
             if ! grep -q 'class:canon' <<<"${PR_BODY:-}"; then
               warn "Current canon changed without a declared class:canon signal. Canon promotion requires explicit authority/change control."
             fi
-            if ! grep -Eqi 'CCR|Canon Change Request' <<<"${PR_BODY:-}"; then
-              warn "Current canon changed but no CCR reference was detected in the PR body."
+
+            ccr_ids="$(grep -Eo 'CCR-[0-9]{4}-[0-9]{4}' <<<"${PR_BODY:-}" | sort -u || true)"
+            if [[ -z "$ccr_ids" ]]; then
+              warn "Current canon changed but no exact CCR-YYYY-NNNN identifier was detected in the PR body."
+            elif [[ ! -f governance/changes/CCR_REGISTRY.yml ]]; then
+              warn "Current canon changed but the CCR registry is unavailable."
+            else
+              while IFS= read -r ccr_id; do
+                [[ -z "$ccr_id" ]] && continue
+                entry="$(ruby -ryaml -e '
+                  registry = YAML.safe_load(File.read(ARGV[0]), aliases: true)
+                  id = ARGV[1]
+                  record = Array(registry["records"]).find { |x| x["id"] == id }
+                  exit 2 unless record
+                  puts [record["path"], record["status"]].join("|")
+                ' governance/changes/CCR_REGISTRY.yml "$ccr_id" 2>/dev/null || true)"
+
+                if [[ -z "$entry" ]]; then
+                  warn "Canon PR cites $ccr_id but it is not registered in governance/changes/CCR_REGISTRY.yml."
+                  continue
+                fi
+
+                record_path="${entry%%|*}"
+                record_status="${entry#*|}"
+
+                if [[ ! -f "$record_path" ]]; then
+                  warn "Canon PR cites registered $ccr_id but its durable record file is missing: $record_path."
+                fi
+
+                if [[ "$record_status" != "APPROVED_FOR_IMPLEMENTATION" ]]; then
+                  warn "Canon PR cites $ccr_id with registry status $record_status; controlled canon implementation requires APPROVED_FOR_IMPLEMENTATION."
+                fi
+              done <<< "$ccr_ids"
             fi
           fi
 
@@ -122,6 +153,32 @@ jobs:
               warn "LOOM compatibility manifest is not valid YAML."
             fi
           fi
+
+          for ccr_control in governance/changes/CCR_REGISTRY.yml governance/changes/CCR_SCHEMA_v1.0.yml governance/changes/CCR_TEMPLATE_v1.0.yml; do
+            if [[ ! -f "$ccr_control" ]]; then
+              warn "CCR control file is unavailable: $ccr_control."
+            elif ! ruby -e 'require "yaml"; YAML.safe_load(File.read(ARGV[0]), aliases: true)' "$ccr_control"; then
+              warn "CCR control file is not valid YAML: $ccr_control."
+            fi
+          done
+
+          shopt -s nullglob
+          for ccr_file in governance/changes/CCR-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-*.yml; do
+            ccr_id="$(basename "$ccr_file" | grep -Eo '^CCR-[0-9]{4}-[0-9]{4}' || true)"
+            yaml_id="$(ruby -ryaml -e 'x = YAML.safe_load(File.read(ARGV[0]), aliases: true); puts x["id"]' "$ccr_file" 2>/dev/null || true)"
+            if [[ -z "$ccr_id" || "$yaml_id" != "$ccr_id" ]]; then
+              warn "CCR record filename/record ID mismatch: $ccr_file declares ${yaml_id:-<missing>}."
+            fi
+
+            if [[ -f governance/changes/CCR_REGISTRY.yml ]] && ! ruby -ryaml -e '
+              registry = YAML.safe_load(File.read(ARGV[0]), aliases: true)
+              id = ARGV[1]
+              exit(Array(registry["records"]).any? { |x| x["id"] == id } ? 0 : 1)
+            ' governance/changes/CCR_REGISTRY.yml "$ccr_id"; then
+              warn "CCR record exists but is not indexed in CCR_REGISTRY.yml: $ccr_id."
+            fi
+          done
+          shopt -u nullglob
 
           if [[ -f manifests/release_manifest.json ]]; then
             if ! python -c 'import json; json.load(open("manifests/release_manifest.json", encoding="utf-8"))'; then
