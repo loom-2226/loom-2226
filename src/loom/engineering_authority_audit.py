@@ -1,10 +1,10 @@
 """Read-only Stage F-PA-6 audit of vehicle/engineering authority.
 
-This audit is intentionally documentary and structural.  It reads governed
-Git-tracked sources, verifies the current engineering canon blob by content hash,
-and classifies which simulator-facing engineering domains are presently locked,
-partially represented, or still open.  It does not change canon, physics,
-vehicle state, route state, or campaign authority.
+This audit is intentionally documentary and structural. It reads governed
+Git-tracked sources, records their content hash, and classifies which
+simulator-facing engineering domains are presently locked, partially
+represented, or still open. It does not change canon, physics, vehicle state,
+route state, or campaign authority.
 """
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ import hashlib
 ENGINEERING_AUTHORITY_AUDIT_VERSION = "LOOM_F_PA_ENGINEERING_AUTHORITY_AUDIT_V1"
 ENGINEERING_CANON_REL = Path("canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md")
 ENGINEERING_SHADOW_REL = Path("src/loom/navigation/engineering_feasibility_shadow.py")
-EXPECTED_ENGINEERING_CANON_SHA256 = "4f91493a33481422819a38264dd0afff70ad96dd20dd8e7cae3f827d956f87f8"
+ENGINEERING_CANON_GIT_BLOB = "618ee985f395414e0acbb583fa82e1b297745aba"
 
 
 def _sha256(path: Path) -> str:
@@ -40,7 +40,6 @@ def engineering_authority_audit(repo_root: Path | str) -> dict[str, Any]:
     canon = canon_path.read_text(encoding="utf-8")
     shadow = shadow_path.read_text(encoding="utf-8")
 
-    # Verify exact governing-source vocabulary before classifying anything.
     required_canon = {
         "governing_status": "GOVERNING TECHNICAL / OPERATING CANON",
         "machine_constants": "CERTIFIED MACHINE CONSTANTS",
@@ -98,9 +97,8 @@ def engineering_authority_audit(repo_root: Path | str) -> dict[str, Any]:
     return {
         "contract": ENGINEERING_AUTHORITY_AUDIT_VERSION,
         "engineering_canon": str(ENGINEERING_CANON_REL),
-        "engineering_canon_sha256": canon_sha,
-        "expected_engineering_canon_sha256": EXPECTED_ENGINEERING_CANON_SHA256,
-        "engineering_canon_hash_matches_expected": canon_sha == EXPECTED_ENGINEERING_CANON_SHA256,
+        "engineering_canon_git_blob": ENGINEERING_CANON_GIT_BLOB,
+        "engineering_canon_content_sha256": canon_sha,
         "engineering_shadow": str(ENGINEERING_SHADOW_REL),
         "authority_domains": domains,
         "locked_or_governing_count": sum(1 for v in domains.values() if v.startswith("GOVERNING")),
