@@ -1,0 +1,94 @@
+name: LOOM Governance Exception
+description: Request a recorded exception/override where governance explicitly permits one.
+title: "GEX: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        An exception permits a future action where policy allows it. It does **not** rewrite history, failed tests, frozen SHAs, provenance, or prior findings.
+
+  - type: input
+    id: finding
+    attributes:
+      label: Finding / rule being overridden
+      placeholder: WAF issue, governance rule, or exact policy reference
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why is proceeding justified despite the identified risk/control?
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence known / evidence missing
+      description: Be explicit about what is known, uncertain, or unavailable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risk accepted
+      description: State the concrete failure modes being accepted.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope / time limit
+      description: Define the narrowest affected workstream, PR, release, files, and expiry/closure point.
+    validations:
+      required: true
+
+  - type: textarea
+    id: components
+    attributes:
+      label: Affected components / dependencies
+    validations:
+      required: true
+
+  - type: textarea
+    id: recovery
+    attributes:
+      label: Recovery / monitoring condition
+      description: State rollback, monitoring, follow-up tests, or containment required while the exception is active.
+    validations:
+      required: true
+
+  - type: textarea
+    id: closure
+    attributes:
+      label: Closure criteria
+      description: What ends this exception and returns the system to normal governance?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Underlying finding class
+      options:
+        - REVIEW_REQUIRED
+        - HOLD
+        - BLOCK — only if the specific rule exposes a formal exception path
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: integrity
+    attributes:
+      label: Exception integrity
+      options:
+        - label: I understand this exception is additive and will not alter the historical finding/test/hash/frozen record.
+          required: true
+        - label: A chat message alone is not an exception approval.
+          required: true
+        - label: Non-overridable rules remain non-overridable even if this issue exists.
+          required: true
