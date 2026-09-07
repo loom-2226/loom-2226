@@ -144,10 +144,13 @@ class GISPhase4NavigationOverlayTest(unittest.TestCase):
     def test_stage_f_3d_route_is_integrated_into_existing_gis(self):
         js = client_extension_js()
         normalized = "".join(js.split())
-        self.assertIn("LOOM_STAGE_F_INTEGRATED_GIS_3D_V1", normalized)
+        self.assertIn("LOOM_STAGE_F_INTEGRATED_GIS_3D_V2", normalized)
         self.assertIn("3DROUTE", normalized)
-        self.assertIn("document.getElementById('obl')", normalized)
-        self.assertIn("panel.querySelector('.navFit')", normalized)
+        self.assertIn("ORDINARY", normalized)
+        self.assertIn("ordinaryRouteSegments(route)", normalized)
+        self.assertIn("ordinary_space_occupancy===false", normalized)
+        self.assertIn("METRICPHASEEXCLUDED", normalized)
+        self.assertIn("AUTHORITATIVEXYZSAMPLES", normalized)
         self.assertNotIn("location.href='/3d'", normalized)
         self.assertNotIn('location.href="/3d"', normalized)
 
@@ -159,4 +162,5 @@ class GISPhase4NavigationOverlayTest(unittest.TestCase):
         self.assertEqual(overlay.current_vehicle_state, {})
 
 
-if __name__ == "__main__": unittest.main()
+if __name__ == "__main__":
+    unittest.main()
