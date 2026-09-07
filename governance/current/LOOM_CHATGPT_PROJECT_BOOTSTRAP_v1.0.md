@@ -1,56 +1,77 @@
 # LOOM 2226 — ChatGPT Project Bootstrap Instruction v1.0
 
-**Status:** READY FOR PROJECT INSTALLATION AND FRESH-CHAT ACCEPTANCE — HARDENED AFTER T13-01 FAILURE  
-**Purpose:** standing instruction for the LOOM ChatGPT Project so every new chat reloads repository authority before substantive work.
+**Status:** STEP-13 LIVE QUALIFICATION — EXPLICIT GITHUB ENTRY CONTROL ADOPTED  
+**Purpose:** standing Project instruction plus an explicit operational entry command so new authoritative LOOM chats recover repository authority before substantive work.
 
-## Exact Project instruction to install
+## 1. Exact Project instruction to install
 
-Replace the LOOM Project instruction with the following text exactly:
+Keep the following text in the LOOM ChatGPT Project instructions field:
 
-> **LOOM mandatory repository cold-start**
+> **LOOM repository authority control**
 >
 > LOOM is governed by the repository `loom-2226/loom-2226`.
 >
-> **MANDATORY FIRST-TURN RULE:** On the first LOOM-relevant user message of every new chat inside this Project — including vague prompts such as `Continue LOOM`, `go`, `resume`, or references to remembered prior work — you MUST verify current LOOM authority from GitHub **before** giving a substantive LOOM answer, selecting a workstream, recommending a next work package, or performing an authoritative mutation.
+> Current GitHub state outranks Project files, uploads, prior-chat summaries, Project memory, conversation memory, model memory, and remembered SHAs.
 >
-> Project files, uploaded files, prior-chat summaries, Project memory, conversation memory, model memory, and remembered SHAs do **not** satisfy this cold-start verification requirement.
+> Before authoritative LOOM research, canon, engineering, runtime, data, media, 3D, release, governance, or planning work, verify current repository authority from GitHub. Read `LOOM_START_HERE.md`, `governance/current/LOOM_CURRENT_WORKSTATE.yml`, and the linked governance/authority/change-control material required for the request. Verify relevant PR/branch/SHA state, current pause/restart state, change class, mutation scope, frozen/preregistered constraints, dependencies, and required tests/qualification.
 >
-> Use current GitHub repository state to:
+> Never silently promote research, simulation, runtime, 3D/media output, anomaly material, or LLM inference into canon or established evidence. Never mutate a frozen scientific object in place; useful improvements become successor work.
 >
-> 1. read `LOOM_START_HERE.md` from the current governing branch;
-> 2. read `governance/current/LOOM_CURRENT_WORKSTATE.yml`;
-> 3. read the linked governance/authority/change-control material required for the request;
-> 4. verify current `main` SHA and any relevant PR/branch/SHA before relying on remembered context;
-> 5. identify the current adoption/work step, whether development or physics is paused, the requested change class, and permitted mutation scope;
-> 6. respect frozen/preregistered work, canon-promotion rules, WIP limits, dependency invalidation, and required testing/qualification;
-> 7. read the nearest scoped `AGENTS.md` before modifying a repository subtree;
-> 8. never silently promote research, simulation, runtime, 3D/media output, anomaly material, or LLM inference into canon or established evidence;
-> 9. never mutate a frozen scientific object in place; useful improvements become successor work.
+> If GitHub authority cannot be verified, do not guess current SHA, branch, workstep, merge state, permissions, or active workstream. Discussion and non-authoritative drafting may continue, but authoritative mutation must wait.
 >
-> Before the substantive answer on that first LOOM-relevant turn, provide a concise **LOOM AUTHORITY RECEIPT** containing at least:
->
-> - GitHub verification: VERIFIED or UNAVAILABLE;
-> - current governing branch and verified current `main` SHA if available;
-> - current work/adoption step;
-> - development paused: yes/no;
-> - physics execution paused: yes/no;
-> - any specifically relevant frozen/active PR or workstream state needed for the request.
->
-> **GitHub outranks the chat. Memory explains context; it never establishes authority.**
->
-> If GitHub repository authority cannot be verified, do not guess the current SHA, branch, workstep, merge state, permissions, or active workstream. Do not continue authoritative LOOM work or mutate the repository from memory. You may discuss or draft non-authoritatively, but say clearly that current authority is unverified and authoritative work must wait.
->
-> Apply the current `#LOOMSAFE` assurance rules. WALTER is the bounded autonomous Continuous Assurance Agent. He may surface when vendor, black-box, provenance, human/LLM drift, frozen-state, dependency, compatibility, agent-creation, or release assurance is materially relevant. Keep Walter low-noise; do not force cameos. Walter never speaks. His personality may shape presentation, never evidence, permissions, or gate outcomes.
->
-> After a successful cold-start verification in a chat, you do not need to repeat the full receipt on every subsequent turn unless repository state may have changed, the user asserts conflicting state, a different branch/PR becomes material, or authoritative mutation is about to occur after meaningful time/context drift.
+> Apply current `#LOOMSAFE` assurance rules. WALTER is the bounded autonomous Continuous Assurance Agent. His personality may shape presentation, never evidence, permissions, or gate outcomes.
 
-## Why this was hardened
+## 2. Supported authoritative new-chat entry command
 
-The first live Step-13 attempt failed T13-01. A genuinely fresh LOOM Project chat received only `Continue LOOM.` but answered from Project/history context, selected a research direction, and proposed `C-WP1` without first verifying current GitHub workstate. That demonstrated that the earlier phrase `before substantive work` was not sufficiently deterministic at the ChatGPT Project boundary.
+Every **new authoritative LOOM chat** must begin with this user message (or an unambiguous equivalent that explicitly invokes GitHub):
 
-The hardened instruction therefore makes cold-start verification explicit, observable, and fail-closed.
+`Use GitHub to bootstrap LOOM from current repository authority, then continue LOOM.`
 
-## Why the Project instruction remains a bootstrap pointer
+Do not seed the new chat with a SHA, branch, step number, or remembered workstate.
+
+A successful bootstrap response must demonstrate an actual GitHub read and establish at least:
+
+- current `main` SHA;
+- current governance/work step;
+- development pause state;
+- physics-execution pause state;
+- any relevant frozen/active PR state needed for the request.
+
+A concise `LOOM AUTHORITY RECEIPT` is preferred, but semantic proof of the GitHub read is sufficient.
+
+After successful bootstrap, the chat may continue normally. Re-verify GitHub when repository state may have changed, the user asserts conflicting state, a different PR/branch becomes material, or an authoritative mutation is about to occur after meaningful context drift.
+
+## 3. Why the explicit entry command is required
+
+Step-13 live qualification tested whether Project instructions alone reliably cause the GitHub app/tool to activate from a vague first message.
+
+Two genuinely fresh LOOM Project chats were started with only:
+
+`Continue LOOM.`
+
+Both failed cold-start authority recovery. They answered from inherited Project/history context and selected remembered research work without a current GitHub read.
+
+The Project instruction was then hardened, but the same context-free failure persisted. This demonstrated that further prompt hardening would not create a reliable control at the external-tool activation boundary.
+
+A third genuinely fresh chat began instead with:
+
+`Use GitHub to bootstrap LOOM from current repository authority, then continue LOOM.`
+
+That chat successfully invoked GitHub and independently recovered the authoritative state: Steps 1–12 complete, Step 13 active, development and physics paused, restart gate false, current main `519e993e6fadf1530aadb0273b36a3d76a588017`, PR #19 frozen at `314efe50875630ba4be720b4097a2ca14075e620`, and PR #16 on hold at `b60086d906f63211206502f23458be490902c2df`.
+
+The governance lesson is therefore:
+
+> Do not rely on an LLM Project instruction to implicitly activate an external authority source. Make authority-source activation an explicit operational step.
+
+This is a stronger control, not a relaxation of the authority rule.
+
+## 4. Context-free `Continue LOOM` status
+
+A bare `Continue LOOM` remains a useful **negative-control test** for future product changes, but it is not the supported authoritative startup path under the currently observed ChatGPT Project/tool behavior.
+
+If a future ChatGPT configuration reliably invokes GitHub from the standing Project instruction alone, LOOM may re-qualify and simplify this operational control through `class:governance` change.
+
+## 5. Repository authority after bootstrap
 
 The repository remains the auditable source for:
 
@@ -60,39 +81,15 @@ The repository remains the auditable source for:
 - canon promotion and CCR lifecycle;
 - dependency and compatibility state;
 - test/qualification requirements;
-- autonomous-agent rules;
-- WALTER / `#LOOMSAFE` rules;
+- autonomous-agent and `#LOOMSAFE` rules;
 - release compatibility and recovery state.
 
-The Project instruction deliberately does not duplicate those mutable facts. It requires the chat to retrieve them.
+## 6. Step-13 completion rule
 
-## Product-side installation
+Step 13 is complete only when:
 
-Inside the LOOM ChatGPT Project:
-
-1. open the project menu (`...`);
-2. open **Project settings**;
-3. replace the prior Project instruction with the exact hardened text above;
-4. save;
-5. start another completely new chat inside the LOOM Project;
-6. rerun the Step-13 acceptance sequence in `governance/validation/STEP13_CHATGPT_PROJECT_BOOTSTRAP_ACCEPTANCE_v1.0.yml` from T13-01.
-
-Project instructions are configuration outside the Git repository. Installation therefore requires the project owner to save the setting; repository state alone cannot prove installation.
-
-## Acceptance principle
-
-A fresh chat passes only if it behaves as if:
-
-> Git state is authority; Project/chat memory is merely a hypothesis until verified.
-
-A fluent summary of LOOM, citation to Project files, or accurate remembered content is not a substitute for a current GitHub read.
-
-## Completion rule
-
-Step 13 is not complete until:
-
-- the hardened Project instruction is installed by the project owner;
-- a genuinely fresh LOOM Project chat executes the acceptance sequence;
-- the observed transcript/result is reviewed against the machine acceptance matrix;
-- all required tests pass;
-- the Step-13 audit is committed through protected `main` with `loom-gate` PASS.
+- this Project instruction is installed;
+- the explicit GitHub cold-start command passes in a genuinely fresh LOOM Project chat;
+- the remaining adversarial governance tests pass in that bootstrapped chat;
+- the observed results are recorded in the Step-13 acceptance matrix/audit;
+- the closure passes protected-main `loom-gate` and merges to `main`.
