@@ -178,6 +178,14 @@ The exact schema scan found no structured docking, rendezvous, approach, keep-ou
 
 Canonical richer simulator-state SQL persistence remains a future governed promotion rather than current authority.
 
+### 2.13 Navigator / trajectory telemetry authority
+
+F-PA-5 establishes that the Sequence-B route adapter currently promotes **25 exact sample fields** covering time/phase metadata, ordinary XYZ+VXYZ where ordinary-space occupancy exists, relational metric semantics, scalar speed/acceleration/target metrics, wet mass/remass, propulsion state codes and a qualitative thermal state code.
+
+`trajectory_solution_adapter.py` promotes `SpatialState` only from complete ordinary XYZ+VXYZ samples. `trajectory_time_state.py` returns exact source samples unchanged, marks between-sample linear interpolation non-navigation-grade, and refuses extrapolation. `trajectory_visual_sampling.py` is explicitly visualization-only. Metric transit therefore remains relational with no invented ordinary-space path.
+
+The present trajectory telemetry boundary is strong enough to carry authoritative ordinary 6D trajectory truth where Sequence-B provides it, but it is not a complete simulator-state or avionics telemetry surface. Missing fields include acceleration vector, attitude/angular rate, thrust/control vectors, mass-flow rate, quantitative thermal/power state, target-relative vectors, covariance/uncertainty, sensors, estimated-navigation state, guidance/control state, docking/proximity state and traffic-clearance state.
+
 ## 3. Confirmed simulator gaps
 
 1. qualified rotating/body-fixed orientation/frame model;
@@ -212,7 +220,7 @@ Inventory exact persisted mutable state versus missing translational/attitude st
 
 ### F-PA-5 — Navigator/trajectory authority audit
 
-Map current trajectory packet fields to simulator needs, especially ordinary XYZ/velocity coverage on both sides of metric transit, acceleration semantics, propulsion state, remass, thermal, target range/delta-v and provenance/qualification.
+**CORE TELEMETRY COVERAGE AUDIT COMPLETE.** Exact Sequence-B sample surface, E1/E2/E3 authority boundaries, ordinary-vs-relational semantics and simulator telemetry gaps are recorded in `docs/LOOM_2226_Stage_F_PA_5_Navigator_Trajectory_Authority_Audit_2026-09-08.md` and `src/loom/navigator_trajectory_authority_audit.py`.
 
 ### F-PA-6 — Engineering authority audit
 
