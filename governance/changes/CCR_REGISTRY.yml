@@ -1,0 +1,26 @@
+version: '1.0'
+status: DRAFT_PENDING_PR24_MERGE
+id_format: CCR-YYYY-NNNN
+
+allocation:
+  current_year: 2026
+  next_sequence: 1
+  ids_are_never_reused: true
+
+allowed_statuses:
+  - PROPOSED
+  - UNDER_REVIEW
+  - APPROVED_FOR_IMPLEMENTATION
+  - REJECTED
+  - DEFERRED
+  - IMPLEMENTED
+  - SUPERSEDED
+
+promotion_rules:
+  approved_status_required_before_canon_implementation: APPROVED_FOR_IMPLEMENTATION
+  approved_means_governing_canon: false
+  implemented_requires_authoritative_main_merge: true
+  implemented_requires_baseline_authority_hash_validation_completion: true
+  frozen_unqualified_source_may_be_approved: false
+
+records: []

@@ -1,0 +1,264 @@
+name: LOOM Gate
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  loom-gate:
+    name: loom-gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: WALTER deterministic governance inspection
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          HEAD_REF: ${{ github.head_ref }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -u
+
+          changed="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" || true)"
+          watches=0
+          candidate_blocks=0
+
+          watch() {
+            watches=$((watches + 1))
+            echo "::warning::WATCH $1"
+            printf -- '- WATCH: %s\n' "$1" >> "$GITHUB_STEP_SUMMARY"
+          }
+
+          candidate_block() {
+            candidate_blocks=$((candidate_blocks + 1))
+            echo "::warning::CANDIDATE_BLOCK $1"
+            printf -- '- CANDIDATE_BLOCK: %s\n' "$1" >> "$GITHUB_STEP_SUMMARY"
+          }
+
+          gate_mode="OBSERVE"
+          if [[ -f governance/current/LOOM_GATE_POLICY.yml ]]; then
+            parsed_mode="$(ruby -ryaml -e 'x=YAML.safe_load(File.read(ARGV[0]), aliases: true); puts x.dig("modes","current")' governance/current/LOOM_GATE_POLICY.yml 2>/dev/null || true)"
+            [[ -n "$parsed_mode" ]] && gate_mode="$parsed_mode"
+          fi
+
+          # Step-9 canon classifier: exact 100% renames are lifecycle/authority moves,
+          # not canon-content mutations. Any other current-canon change is content/authority
+          # mutation and enters the CCR airlock.
+          canon_content_mutation=0
+          canon_lifecycle_move=0
+          while IFS=$'\t' read -r status path_a path_b; do
+            [[ -z "${status:-}" ]] && continue
+            path_b="${path_b:-}"
+            if [[ "$path_a" == canon/current/* || "$path_b" == canon/current/* ]]; then
+              if [[ "$status" == "R100" ]]; then
+                canon_lifecycle_move=1
+              else
+                canon_content_mutation=1
+              fi
+            fi
+          done < <(git diff --name-status -M100% "$BASE_SHA" "$HEAD_SHA" || true)
+
+          {
+            echo "## WALTER / loom-gate"
+            echo
+            echo "**Mode:** \`$gate_mode\`"
+            echo "**Head:** \`$HEAD_REF\`"
+            echo "**Base SHA:** \`$BASE_SHA\`"
+            echo "**Head SHA:** \`$HEAD_SHA\`"
+            echo
+            echo "**Canon content mutation:** \`$canon_content_mutation\`"
+            echo "**Canon exact-rename lifecycle movement:** \`$canon_lifecycle_move\`"
+            echo
+            if [[ "$gate_mode" == "OBSERVE" ]]; then
+              echo "Validated hard candidates are reported but cannot fail the PR until explicit enforcement approval."
+              echo
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # LG001 — primary change class. Step 9 promotes this to hard-candidate
+          # for governance-era PRs; pre-governance history is grandfathered evidence only.
+          if [[ -z "${PR_BODY:-}" ]] || ! grep -Eq 'class:(research|canon|engineering|runtime|data|asset-media|governance)' <<<"$PR_BODY"; then
+            candidate_block "LG001: no recognizable LOOM primary change class found in the PR body."
+          fi
+
+          # LG002 / LG003 — frozen/preregistered branch identities
+          if [[ "$HEAD_REF" == "research/relational-foundations-deterministic-curvature" && "$HEAD_SHA" != "314efe50875630ba4be720b4097a2ca14075e620" ]]; then
+            candidate_block "LG002: frozen PR #19 moved away from preregistered SHA 314efe50875630ba4be720b4097a2ca14075e620."
+          fi
+          if [[ "$HEAD_REF" == "research/relational-foundations-matter-induced-prereg" && "$HEAD_SHA" != "b60086d906f63211206502f23458be490902c2df" ]]; then
+            candidate_block "LG003: PR #16 preregistered/on-hold branch moved away from recorded SHA b60086d906f63211206502f23458be490902c2df."
+          fi
+
+          # LG004 / LG005 / LG006 — canon CONTENT airlock.
+          # Exact byte-preserving R100 lifecycle moves do not enter the CCR airlock.
+          if [[ "$canon_content_mutation" -eq 1 ]]; then
+            grep -q 'class:canon' <<<"${PR_BODY:-}" || candidate_block "LG004: current canon content/authority mutated without class:canon."
+            ccr_ids="$(grep -Eo 'CCR-[0-9]{4}-[0-9]{4}' <<<"${PR_BODY:-}" | sort -u || true)"
+            if [[ -z "$ccr_ids" ]]; then
+              candidate_block "LG005: current canon content/authority mutated without an exact CCR-YYYY-NNNN identifier."
+            elif [[ ! -f governance/changes/CCR_REGISTRY.yml ]]; then
+              candidate_block "LG005: current canon changed but CCR_REGISTRY.yml is unavailable."
+            else
+              while IFS= read -r ccr_id; do
+                [[ -z "$ccr_id" ]] && continue
+                entry="$(ruby -ryaml -e '
+                  registry=YAML.safe_load(File.read(ARGV[0]), aliases: true)
+                  record=Array(registry["records"]).find { |x| x["id"] == ARGV[1] }
+                  exit 2 unless record
+                  puts [record["path"],record["status"]].join("|")
+                ' governance/changes/CCR_REGISTRY.yml "$ccr_id" 2>/dev/null || true)"
+                if [[ -z "$entry" ]]; then
+                  candidate_block "LG005: canon PR cites unregistered $ccr_id."
+                  continue
+                fi
+                record_path="${entry%%|*}"
+                record_status="${entry#*|}"
+                [[ -f "$record_path" ]] || candidate_block "LG006: registered $ccr_id durable record is missing: $record_path."
+                [[ "$record_status" == "APPROVED_FOR_IMPLEMENTATION" ]] || candidate_block "LG006: $ccr_id status is $record_status; canon implementation requires APPROVED_FOR_IMPLEMENTATION."
+              done <<< "$ccr_ids"
+            fi
+          fi
+
+          # LG018 — exact byte-preserving current-canon lifecycle movement.
+          # This is not a CCR content mutation, but movement into/out of current authority
+          # still needs explicit governance/canon lifecycle rationale. Advisory until the
+          # baseline/authority-update marker is structured enough to harden.
+          if [[ "$canon_lifecycle_move" -eq 1 && "$canon_content_mutation" -eq 0 ]]; then
+            if ! grep -Eq 'class:(governance|canon)' <<<"${PR_BODY:-}" || ! grep -Eqi 'authority|baseline|lifecycle|byte-preserv|rename' <<<"${PR_BODY:-}"; then
+              watch "LG018: byte-preserving current-canon lifecycle movement lacks explicit governance/canon authority-lifecycle rationale."
+            fi
+          fi
+
+          # Advisory authority/dependency signals
+          if grep -Eq '^(geometry/|engineering/)' <<<"$changed" && grep -q '^canon/current/' <<<"$changed"; then
+            watch "LG010: canon and engineering/geometry changed in one PR; explicit sequencing review is required."
+          fi
+          if grep -q '^research/' <<<"$changed" && grep -q '^canon/current/' <<<"$changed"; then
+            watch "LG011: research and current canon changed together; verify explicit promotion separation."
+          fi
+          if grep -Eq '^(data/.*\.sqlite3|data/.*migration|data/.*schema)' <<<"$changed" && ! grep -Eqi 'schema|migration|compatib|rollback|recovery' <<<"${PR_BODY:-}"; then
+            watch "LG012: SQLite/schema/migration path changed without migration/compatibility/recovery language."
+          fi
+          if grep -Eq '(^|/)(requirements[^/]*\.txt|pyproject\.toml|poetry\.lock|Pipfile|package-lock\.json|package\.json)$' <<<"$changed" && ! grep -Eqi 'vendor|dependency|license|lock-in|provider|package' <<<"${PR_BODY:-}"; then
+            watch "LG013: dependency definition changed without vendor/dependency assurance language."
+          fi
+          if grep -Eq '^(canon/current/|engineering/current/|src/|data/|geometry/|deploy/|manifests/release_manifest\.json)' <<<"$changed" && ! grep -Eqi 'UNCHANGED_COMPATIBLE|REVIEW_REQUIRED|REVALIDATION_REQUIRED|MIGRATION_REQUIRED|BLOCKED_PENDING_UPSTREAM|SUPERSEDED|downstream|dependency impact|dependencies' <<<"${PR_BODY:-}"; then
+            watch "LG009: load-bearing component changed without downstream dependency/impact classification."
+          fi
+          if grep -q '^manifests/release_manifest\.json$' <<<"$changed" && ! grep -q '^manifests/current/LOOM_COMPATIBILITY\.yml$' <<<"$changed" && ! grep -Eqi 'UNCHANGED_COMPATIBLE|REVIEW_REQUIRED|REVALIDATION_REQUIRED|MIGRATION_REQUIRED|BLOCKED_PENDING_UPSTREAM|SUPERSEDED|compatibility impact' <<<"${PR_BODY:-}"; then
+            watch "LG008: release manifest changed without compatibility-manifest change or explicit compatibility disposition."
+          fi
+
+          # LG007 / LG017 — machine-control parse integrity
+          yaml_controls=(
+            governance/current/LOOM_GATE_POLICY.yml
+            governance/current/LOOM_AUTHORITY_MODEL.yml
+            governance/current/LOOM_CURRENT_WORKSTATE.yml
+            governance/current/LOOM_SESSION_BOOTSTRAP.yml
+            governance/dependencies/component-map.yml
+            manifests/current/LOOM_COMPATIBILITY.yml
+            governance/changes/CCR_REGISTRY.yml
+            governance/changes/CCR_SCHEMA_v1.0.yml
+            governance/changes/CCR_TEMPLATE_v1.0.yml
+            governance/agents/AGENT_REGISTRY.yml
+          )
+          for control in "${yaml_controls[@]}"; do
+            if [[ ! -f "$control" ]]; then
+              candidate_block "LG007: required control file missing: $control."
+            elif ! ruby -e 'require "yaml"; YAML.safe_load(File.read(ARGV[0]), aliases: true)' "$control"; then
+              candidate_block "LG007: required control file is invalid YAML: $control."
+            fi
+          done
+          if [[ -f manifests/release_manifest.json ]] && ! python -c 'import json; json.load(open("manifests/release_manifest.json", encoding="utf-8"))'; then
+            candidate_block "LG017: current release manifest is invalid JSON."
+          fi
+
+          # CCR durable-record consistency
+          shopt -s nullglob
+          for ccr_file in governance/changes/CCR-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-*.yml; do
+            ccr_id="$(basename "$ccr_file" | grep -Eo '^CCR-[0-9]{4}-[0-9]{4}' || true)"
+            yaml_id="$(ruby -ryaml -e 'x=YAML.safe_load(File.read(ARGV[0]), aliases: true); puts x["id"]' "$ccr_file" 2>/dev/null || true)"
+            [[ -n "$ccr_id" && "$yaml_id" == "$ccr_id" ]] || candidate_block "LG007: CCR filename/record ID mismatch: $ccr_file declares ${yaml_id:-<missing>}."
+            if [[ -f governance/changes/CCR_REGISTRY.yml ]] && ! ruby -ryaml -e 'registry=YAML.safe_load(File.read(ARGV[0]), aliases: true); exit(Array(registry["records"]).any? { |x| x["id"] == ARGV[1] } ? 0 : 1)' governance/changes/CCR_REGISTRY.yml "$ccr_id"; then
+              candidate_block "LG007: CCR record exists but is not indexed: $ccr_id."
+            fi
+          done
+          shopt -u nullglob
+
+          # LG014 / LG015 / LG016 — autonomous-agent integrity.
+          # Durable registry-linked creation review is authoritative; PR prose is explanatory only.
+          if [[ -f governance/agents/AGENT_REGISTRY.yml ]]; then
+            registry_check="$(ruby -ryaml -e '
+              x=YAML.safe_load(File.read(ARGV[0]), aliases: true)
+              declared=x.dig("count","active_autonomous_agents").to_i
+              active_entries=(x["agents"] || {}).select { |_k,v| v["status"].to_s.start_with?("ACTIVE") }
+              bad_persona=active_entries.any? { |_k,v| v.dig("persona_binding","bound") == true && v.dig("persona_binding","technical_permissions_derived_from_persona") != false }
+              missing_review=active_entries.any? { |_k,v| v.dig("creation_review","status") != "APPROVED" || v.dig("creation_review","path").to_s.empty? }
+              puts [declared,active_entries.length,bad_persona ? 1 : 0,missing_review ? 1 : 0].join("|")
+            ' governance/agents/AGENT_REGISTRY.yml 2>/dev/null || true)"
+            if [[ -z "$registry_check" ]]; then
+              candidate_block "LG014: autonomous-agent registry could not be evaluated."
+            else
+              declared_agents="${registry_check%%|*}"
+              rest="${registry_check#*|}"
+              active_agents="${rest%%|*}"
+              rest="${rest#*|}"
+              bad_persona="${rest%%|*}"
+              missing_review="${rest##*|}"
+              [[ "$declared_agents" == "$active_agents" ]] || candidate_block "LG014: declared active-agent count ($declared_agents) does not match ACTIVE registry entries ($active_agents)."
+              [[ "$bad_persona" == "0" ]] || watch "LG016: a persona-bound agent appears to derive technical permissions from persona."
+              [[ "$missing_review" == "0" ]] || candidate_block "LG015: one or more ACTIVE autonomous agents lack an APPROVED creation review in the registry."
+
+              while IFS='|' read -r agent_id review_path; do
+                [[ -z "$agent_id" ]] && continue
+                [[ -n "$review_path" && -f "$review_path" ]] || candidate_block "LG015: ACTIVE agent $agent_id has missing creation-review file: ${review_path:-<missing>}"
+              done < <(ruby -ryaml -e '
+                x=YAML.safe_load(File.read(ARGV[0]), aliases: true)
+                (x["agents"] || {}).each do |id,v|
+                  next unless v["status"].to_s.start_with?("ACTIVE")
+                  puts [id,v.dig("creation_review","path")].join("|")
+                end
+              ' governance/agents/AGENT_REGISTRY.yml 2>/dev/null || true)
+            fi
+          fi
+
+          if grep -q '^governance/agents/AGENT_REGISTRY.yml$' <<<"$changed"; then
+            base_active="$(git show "$BASE_SHA:governance/agents/AGENT_REGISTRY.yml" 2>/dev/null | ruby -ryaml -e 'x=YAML.safe_load(STDIN.read, aliases: true); puts((x.dig("count","active_autonomous_agents") || 0).to_i)' 2>/dev/null || echo 0)"
+            head_active="$(ruby -ryaml -e 'x=YAML.safe_load(File.read(ARGV[0]), aliases: true); puts((x.dig("count","active_autonomous_agents") || 0).to_i)' governance/agents/AGENT_REGISTRY.yml 2>/dev/null || echo 0)"
+            if [[ "$head_active" =~ ^[0-9]+$ && "$base_active" =~ ^[0-9]+$ && "$head_active" -gt "$base_active" ]] && ! grep -q 'class:governance' <<<"${PR_BODY:-}"; then
+              candidate_block "LG015: activating a new autonomous agent requires class:governance."
+            fi
+          fi
+
+          {
+            echo
+            echo "### Result"
+            echo
+            echo "WATCH findings: **$watches**"
+            echo "Candidate hard-gate findings: **$candidate_blocks**"
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "$gate_mode" == "ENFORCE" && "$candidate_blocks" -gt 0 ]]; then
+            echo "**Result: BLOCK**" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          if [[ "$candidate_blocks" -gt 0 ]]; then
+            echo "**Result: CANDIDATE_BLOCK (observe mode — not enforced)**" >> "$GITHUB_STEP_SUMMARY"
+          elif [[ "$watches" -gt 0 ]]; then
+            echo "**Result: WATCH**" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "**Result: PASS**" >> "$GITHUB_STEP_SUMMARY"
+            echo >> "$GITHUB_STEP_SUMMARY"
+            echo "Walter completes the circuit and lies down somewhere inconvenient." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit 0

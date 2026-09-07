@@ -1,0 +1,138 @@
+version: '1.0'
+status: DRAFT_PENDING_PR24_MERGE
+purpose: Fresh-session authority recovery for ChatGPT, Codex and other agents
+
+entrypoint: LOOM_START_HERE.md
+
+required_reads:
+  - governance/current/LOOM_CURRENT_WORKSTATE.yml
+  - governance/current/LOOM_GOVERNANCE_BASELINE_v1.0.md
+  - governance/current/LOOM_AUTHORITY_MODEL.yml
+  - governance/current/LOOM_CHANGE_CONTROL_v1.0.md
+  - AGENTS.md
+
+conditional_reads:
+  canon_change_or_promotion:
+    when_change_classes:
+      - class:canon
+    when_paths_include:
+      - canon/current/**
+    read:
+      - governance/changes/README.md
+      - governance/changes/CCR_REGISTRY.yml
+      - governance/changes/CCR_SCHEMA_v1.0.yml
+      - governance/changes/CCR_TEMPLATE_v1.0.yml
+      - governance/dependencies/component-map.yml
+      - manifests/current/LOOM_COMPATIBILITY.yml
+      - canon/AGENTS.md
+  load_bearing_or_release_change:
+    when_change_classes:
+      - class:canon
+      - class:engineering
+      - class:runtime
+      - class:data
+      - class:asset-media
+    when_paths_include:
+      - canon/current/**
+      - engineering/current/**
+      - src/**
+      - data/**
+      - geometry/**
+      - deploy/**
+      - manifests/release_manifest.json
+      - manifests/current/**
+    read:
+      - governance/dependencies/component-map.yml
+      - governance/dependencies/DEPENDENCY_AND_COMPATIBILITY_POLICY_v1.0.md
+      - manifests/current/LOOM_COMPATIBILITY.yml
+  autonomous_agent_or_persona_change:
+    when_change_classes:
+      - class:governance
+    when_paths_include:
+      - governance/agents/**
+      - .github/workflows/loom-gate.yml
+    read:
+      - governance/agents/AGENT_REGISTRY.yml
+      - governance/agents/AUTONOMOUS_AGENT_CREATION_POLICY_v1.0.md
+      - governance/agents/PERSONA_BINDING_POLICY_v1.0.md
+      - governance/current/LOOM_GATE_POLICY.yml
+      - governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md
+  walter_pack_inventory:
+    when_assurance_relevant: true
+    read:
+      - governance/agents/WALTER_PACK_INVENTORY_EXTENSION_v1.0.md
+
+session_sequence:
+  - VERIFY_REPOSITORY_ACCESS
+  - LOAD_CURRENT_WORKSTATE
+  - VERIFY_RELEVANT_PR_BRANCH_SHA
+  - IDENTIFY_CHANGE_CLASS
+  - IDENTIFY_PERMITTED_MUTATION_SCOPE
+  - CHECK_FROZEN_PREREGISTERED_STATE
+  - LOAD_CCR_AIRLOCK_CONTEXT_FOR_CANON_WORK
+  - LOAD_DEPENDENCY_COMPATIBILITY_CONTEXT_WHEN_REQUIRED
+  - LOAD_AGENT_CREATION_AND_PERSONA_CONTEXT_WHEN_REQUIRED
+  - CHECK_DEPENDENCY_INVALIDATION
+  - DETERMINE_TEST_QUALIFICATION_CLASS
+  - DETERMINE_CCR_EXCEPTION_REQUIREMENT
+  - APPLY_NEAREST_SCOPED_AGENTS_MD
+  - EXECUTE_OR_DISCUSS_WITHIN_SCOPE
+
+memory_policy:
+  may_explain_context: true
+  may_establish_authority: false
+  conflict_resolution: VERIFIED_GITHUB_STATE_WINS
+
+repository_unavailable_policy:
+  discussion_allowed: true
+  brainstorming_allowed: true
+  non_authoritative_drafting_allowed: true
+  authoritative_mutation_allowed: false
+
+major_work_package_confirmation:
+  recommended: true
+  fields:
+    - governance_baseline
+    - relevant_main_or_workstream_sha
+    - active_or_paused_work_item
+    - frozen_constraints
+    - requested_change_class
+    - permitted_mutation_scope
+    - registered_downstream_dependencies
+    - compatibility_manifest_state
+    - exact_ccr_id_when_canon_change
+    - ccr_registry_status_when_canon_change
+    - autonomous_agent_registry_state_when_agent_work
+    - persona_binding_state_when_persona_work
+
+walter:
+  load_role_on_bootstrap: true
+  role_file: governance/roles/WALTER_CONTINUOUS_ASSURANCE_ROLE_v1.0.md
+  agent_file: governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md
+  pack_inventory_extension: governance/agents/WALTER_PACK_INVENTORY_EXTENSION_v1.0.md
+  component_map: governance/dependencies/component-map.yml
+  compatibility_manifest: manifests/current/LOOM_COMPATIBILITY.yml
+  ccr_registry: governance/changes/CCR_REGISTRY.yml
+  autonomous_agent_registry: governance/agents/AGENT_REGISTRY.yml
+  gate_policy: governance/current/LOOM_GATE_POLICY.yml
+  default_visibility: LOW_NOISE
+  cameo_only_when_assurance_relevant: true
+  speech_allowed: false
+  personality_can_change_gate_result: false
+  deterministic_hard_gate_only: true
+  missing_dependency_edge_means_independent: false
+  canon_promotion_requires_registered_approved_ccr: true
+  may_create_other_agents: false
+  agent_creation_review_scope: ROLE_DUPLICATION_VENDOR_PERMISSION_INDEPENDENCE_PERSONA_CREEP
+
+scoped_agent_rules:
+  canon: canon/AGENTS.md
+  characters: characters/AGENTS.md
+  engineering: engineering/AGENTS.md
+  relational_foundations: research/relational_foundations/AGENTS.md
+  foundations_consequences: research/foundations_consequences/AGENTS.md
+  runtime_source: src/AGENTS.md
+  data: data/AGENTS.md
+  deployment: deploy/AGENTS.md
+  geometry_3d: geometry/AGENTS.md
+  manifests: manifests/AGENTS.md

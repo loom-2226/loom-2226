@@ -1,0 +1,140 @@
+schema_version: '1.0'
+record_type: CANON_CHANGE_REQUEST
+id_pattern: '^CCR-[0-9]{4}-[0-9]{4}$'
+file_pattern: '^governance/changes/CCR-[0-9]{4}-[0-9]{4}-[a-z0-9-]+\.yml$'
+
+required_top_level_fields:
+  - schema_version
+  - record_type
+  - id
+  - title
+  - status
+  - proposal_revision
+  - created_date
+  - updated_date
+  - origin
+  - proposal
+  - frozen_research
+  - downstream_impact
+  - baseline_obligations
+  - validation
+  - assurance
+  - implementation
+  - decision
+  - supersession
+  - history
+
+statuses:
+  - PROPOSED
+  - UNDER_REVIEW
+  - APPROVED_FOR_IMPLEMENTATION
+  - REJECTED
+  - DEFERRED
+  - IMPLEMENTED
+  - SUPERSEDED
+
+source_types:
+  - EXTERNAL_KNOWLEDGE
+  - RESEARCH_FINDING
+  - SIMULATION_RESULT
+  - ENGINEERING_FINDING
+  - RUNTIME_FINDING
+  - DATA_FINDING
+  - ASSET_3D_FINDING
+  - FICTIONAL_DESIGN_DECISION
+  - CONTINUITY_CORRECTION
+  - MIXED
+
+evidentiary_statuses:
+  - ESTABLISHED_EXTERNAL_KNOWLEDGE
+  - MATHEMATICAL_ENGINEERING_DERIVATION
+  - SIMULATION_RESULT
+  - RESEARCH_RESULT
+  - RESEARCH_HYPOTHESIS
+  - FICTIONAL_POSTULATE_OR_DESIGN
+  - CONTINUITY_CORRECTION
+  - MIXED_EXPLAINED
+
+authority_relationship_types:
+  - IN_PLACE_NEW_VERSION_SUPERSEDING_PRIOR
+  - SCOPED_GOVERNING_AMENDMENT
+  - NEW_GOVERNING_SOURCE
+  - RETIREMENT_FROM_GOVERNING_SET
+
+downstream_states:
+  - UNCHANGED_COMPATIBLE
+  - REVIEW_REQUIRED
+  - REVALIDATION_REQUIRED
+  - MIGRATION_REQUIRED
+  - BLOCKED_PENDING_UPSTREAM
+  - SUPERSEDED
+
+assurance_statuses:
+  - NOT_RUN
+  - PASS
+  - WATCH
+  - REVIEW_REQUIRED
+  - HOLD
+  - BLOCK
+
+transition_rules:
+  PROPOSED:
+    allowed_next:
+      - UNDER_REVIEW
+      - DEFERRED
+      - REJECTED
+  UNDER_REVIEW:
+    allowed_next:
+      - APPROVED_FOR_IMPLEMENTATION
+      - DEFERRED
+      - REJECTED
+  APPROVED_FOR_IMPLEMENTATION:
+    allowed_next:
+      - IMPLEMENTED
+      - DEFERRED
+      - SUPERSEDED
+  DEFERRED:
+    allowed_next:
+      - UNDER_REVIEW
+      - REJECTED
+      - SUPERSEDED
+  REJECTED:
+    allowed_next:
+      - SUPERSEDED
+  IMPLEMENTED:
+    allowed_next:
+      - SUPERSEDED
+  SUPERSEDED:
+    allowed_next: []
+
+approval_requirements:
+  status: APPROVED_FOR_IMPLEMENTATION
+  must_have:
+    - decision.decision_date
+    - decision.rationale
+    - decision.disposition
+    - proposal.affected_governing_sources
+    - downstream_impact.component_map_reviewed=true
+    - assurance.status
+  frozen_source_rule: >-
+    A relied-on frozen/preregistered source must already have a disposition under its
+    frozen gate. Otherwise approval is forbidden and the CCR must remain non-approved.
+
+implementation_requirements:
+  status: IMPLEMENTED
+  must_have:
+    - implementation.implementation_pr
+    - implementation.merged_commit
+    - implementation.implemented_date
+    - implementation.changed_governing_sources
+    - baseline obligations completed as required
+  authoritative_target: main
+  rule: >-
+    APPROVED_FOR_IMPLEMENTATION is permission to implement. It is not itself canon.
+    IMPLEMENTED is recorded only after the authoritative canon implementation lands.
+
+historical_integrity:
+  ids_reused: false
+  delete_rejected_records: false
+  erase_history: false
+  retroactively_upgrade_evidence_status: false

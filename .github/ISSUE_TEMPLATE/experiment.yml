@@ -1,0 +1,128 @@
+name: LOOM Scientific Experiment
+description: Propose or register a scientific/research experiment, ablation, comparator, or qualification run.
+title: "EXP: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is for **research-class** work. A preregistration/freeze becomes an audit object. Improvements after freeze become successor experiments.
+
+  - type: input
+    id: workstream
+    attributes:
+      label: Research workstream
+      placeholder: e.g. S1 Geometrogenesis
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Scientific question / discriminator
+      description: What specific question can this experiment answer, constrain, kill, or leave inconclusive?
+    validations:
+      required: true
+
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Hypothesis / expected classifications
+      description: Include null or competing outcomes where relevant.
+    validations:
+      required: true
+
+  - type: textarea
+    id: design
+    attributes:
+      label: Fixed design
+      description: Parameters, sample sizes, seeds, chains, controls, comparators, environment, and other fixed elements.
+    validations:
+      required: true
+
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics / observables
+      description: Identify diagnostics and explicitly state which may not enter the action/objective.
+    validations:
+      required: true
+
+  - type: textarea
+    id: gate
+    attributes:
+      label: Qualification gate and verdicts
+      description: State mixing/convergence/quality gates and the exact allowed result classifications.
+    validations:
+      required: true
+
+  - type: textarea
+    id: kill
+    attributes:
+      label: Kill / stop conditions
+      description: What outcome stops tuning, changes substrate, or marks the experiment inconclusive?
+    validations:
+      required: true
+
+  - type: textarea
+    id: provenance
+    attributes:
+      label: Method/source provenance
+      description: Cite mathematical/empirical ancestry, implementation sources, and any external datasets/models.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: canon
+    attributes:
+      label: Canon status
+      options:
+        - Research only — cannot alter canon
+        - May raise a future canon finding/CCR, but this experiment does not promote canon
+    validations:
+      required: true
+
+  - type: dropdown
+    id: freeze
+    attributes:
+      label: Freeze intent
+      options:
+        - Design discussion only — not frozen
+        - Preregistration candidate
+        - Ready to freeze at an exact SHA after implementation/tests
+        - Successor to an existing frozen experiment
+    validations:
+      required: true
+
+  - type: input
+    id: predecessor
+    attributes:
+      label: Frozen predecessor / prerequisite
+      placeholder: PR/SHA or N/A
+
+  - type: textarea
+    id: tests
+    attributes:
+      label: Implementation tests before freeze/run
+      description: State unit/functional/determinism/regression requirements separately from the scientific run.
+    validations:
+      required: true
+
+  - type: textarea
+    id: execution
+    attributes:
+      label: Qualification execution environment
+      description: Device/runtime/commands/output path expected for the actual frozen run.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: firewall
+    attributes:
+      label: Research firewall
+      options:
+        - label: No runtime, Navigator, SQLite, hidden topology, M1/M2/M3, or canon parameter will be calibrated from this experiment unless a later approved promotion explicitly permits it.
+          required: true
+        - label: A visually/qualitatively favorable result is not a PASS unless the preregistered gate says so.
+          required: true
+        - label: After freeze I will not improve this experiment in place; improvements become successor work.
+          required: true

@@ -1,0 +1,146 @@
+name: LOOM Canon Change Request
+description: Propose a material change, amendment, supersession, or promotion into governing canon.
+title: "CCR proposal: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is the **intake/discussion surface** for a Canon Change Request.
+
+        It does **not** make the proposed change governing by itself.
+
+        If the request enters the formal repository lifecycle, allocate the next ID from `governance/changes/CCR_REGISTRY.yml` and create a durable record from `governance/changes/CCR_TEMPLATE_v1.0.yml`.
+
+        `APPROVED_FOR_IMPLEMENTATION` authorizes a controlled canon PR. Canon becomes governing only after that implementation lands on authoritative `main` with required baseline/authority/hash/validation updates complete.
+
+  - type: input
+    id: source
+    attributes:
+      label: Source / originating finding
+      placeholder: issue, PR, experiment, engineering finding, runtime finding, or design decision
+    validations:
+      required: true
+
+  - type: dropdown
+    id: source_status
+    attributes:
+      label: Evidentiary / derivation status
+      options:
+        - Established external knowledge
+        - Mathematical/engineering derivation
+        - Simulation result
+        - Research result
+        - Research hypothesis
+        - Fictional design decision / postulate
+        - Continuity correction
+        - Mixed — explain below
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for canon change
+    validations:
+      required: true
+
+  - type: textarea
+    id: claims
+    attributes:
+      label: Claims added / modified / retired
+      description: Be explicit about the governing statements that would change.
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected_canon
+    attributes:
+      label: Affected governing canon sources
+      description: Exact files/sections, including parent and amendment relationships.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: relationship
+    attributes:
+      label: Proposed authority relationship
+      options:
+        - In-place new version superseding prior governing file
+        - Scoped governing amendment to parent
+        - New governing source
+        - Retirement/removal from current governing set
+        - Not yet determined
+    validations:
+      required: true
+
+  - type: textarea
+    id: non_scope
+    attributes:
+      label: Explicit non-scope
+      description: What this request does not authorize or change.
+    validations:
+      required: true
+
+  - type: textarea
+    id: downstream
+    attributes:
+      label: Downstream technical dependencies
+      description: Review the registered component map. Include engineering, Navigator/GIS, runtime, SQLite/data, 3D/geometry, media/browser, deployment/release, tests as relevant.
+    validations:
+      required: true
+
+  - type: textarea
+    id: invalidation
+    attributes:
+      label: Invalidation / revalidation classification
+      description: For each known dependent use UNCHANGED_COMPATIBLE, REVIEW_REQUIRED, REVALIDATION_REQUIRED, MIGRATION_REQUIRED, BLOCKED_PENDING_UPSTREAM, or SUPERSEDED.
+    validations:
+      required: true
+
+  - type: textarea
+    id: baseline
+    attributes:
+      label: Baseline / manifest / hash updates required
+      description: State how active authority manifest, canon baseline manifest, file hashes, validation report, compatibility metadata and archives must change.
+    validations:
+      required: true
+
+  - type: textarea
+    id: tests
+    attributes:
+      label: Required validation / qualification
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frozen_source
+    attributes:
+      label: Does this depend on frozen/preregistered research?
+      options:
+        - No
+        - Yes — result is already dispositioned under its frozen gate
+        - Yes — result not yet qualified; CCR must remain deferred/non-approved
+    validations:
+      required: true
+
+  - type: textarea
+    id: walter
+    attributes:
+      label: #LOOMSAFE assurance concerns
+      description: Vendor, black-box, provenance, drift, dependency, frozen-state, or release concerns that need review.
+
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: CCR acknowledgement
+      options:
+        - label: This issue is not the durable CCR authority record; the repository CCR YAML/registry control the formal lifecycle.
+          required: true
+        - label: APPROVED_FOR_IMPLEMENTATION does not itself make the proposed content governing canon.
+          required: true
+        - label: Research/simulation/runtime output has not been silently promoted to canon.
+          required: true
+        - label: Approval will not retroactively upgrade the proposal's evidentiary status.
+          required: true
+        - label: Superseded governing material will remain auditable rather than being silently deleted.
+          required: true

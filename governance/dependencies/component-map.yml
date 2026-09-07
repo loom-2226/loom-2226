@@ -1,0 +1,457 @@
+version: '1.0'
+status: DRAFT_PENDING_PR24_MERGE
+purpose: >-
+  Machine-readable coarse-grained dependency and authority-impact map for LOOM.
+  This map is used to identify downstream review/revalidation obligations. Absence
+  of an edge means UNREGISTERED/UNKNOWN, not proven independence.
+
+semantics:
+  direction: upstream_to_downstream
+  authority_does_not_flow_upstream_automatically: true
+  runtime_findings_may_challenge_canon: true
+  runtime_findings_may_rewrite_canon_automatically: false
+  unregistered_dependency_means_independent: false
+  edge_confidence_values:
+    - ESTABLISHED
+    - REGISTERED_COARSE
+    - PROVISIONAL
+  impact_states:
+    - UNCHANGED_COMPATIBLE
+    - REVIEW_REQUIRED
+    - REVALIDATION_REQUIRED
+    - MIGRATION_REQUIRED
+    - BLOCKED_PENDING_UPSTREAM
+    - SUPERSEDED
+
+components:
+  governance_control:
+    tier: GOVERNANCE
+    paths:
+      - governance/**
+      - .github/**
+      - AGENTS.md
+      - LOOM_START_HERE.md
+    authority: PROCESS_CONTROL
+
+  canon_baseline_v2_4:
+    tier: CANON_REGISTRY
+    paths:
+      - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
+      - governance/current/LOOM_2226_Baseline_File_Hashes_v2.4.md
+      - governance/current/LOOM_2226_Canon_v2.4_Validation_Report.md
+    authority: GOVERNING_CANON_BASELINE_REGISTRY
+
+  canon_i_world_history:
+    tier: CANON
+    paths:
+      - canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
+    authority: GOVERNING
+
+  canon_ii_engineering_ships:
+    tier: CANON
+    paths:
+      - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+    authority: GOVERNING
+
+  canon_ii_wayfarer_amendment:
+    tier: CANON
+    paths:
+      - canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md
+    authority: SCOPED_GOVERNING_AMENDMENT
+    parent: canon_ii_engineering_ships
+    baseline_registration_state: RECONCILIATION_REQUIRED_AT_NEXT_CANON_BASELINE_UPDATE
+
+  canon_iii_authority_gm:
+    tier: CANON
+    paths:
+      - canon/current/LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.4.md
+    authority: GOVERNING
+
+  solar_atlas:
+    tier: CANON
+    paths:
+      - canon/current/LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md
+    authority: GOVERNING
+
+  core_mechanics:
+    tier: CANON
+    paths:
+      - canon/current/LOOM_2226_Core_Mechanics_v0.5.md
+    authority: GOVERNING
+
+  character_companions:
+    tier: CHARACTER_COMPANION
+    paths:
+      - characters/current/**
+    authority: CURRENT_COMPANION_MATERIAL
+
+  runtime_architecture:
+    tier: ENGINEERING
+    paths:
+      - engineering/current/LOOM_2226_Integrated_Runtime_Architecture_and_Delivery_Workflow_v1.0.md
+      - engineering/current/LOOM_2226_Integrated_HUD_Navigator_Architecture_and_Work_Plan_v1.0.md
+    authority: SOFTWARE_DELIVERY_BASELINE_NOT_FICTION_CANON
+
+  wayfarer_engineering:
+    tier: ENGINEERING
+    paths:
+      - engineering/current/LOOM_2226_Wayfarer_3D_Geometry_and_Physical_Packaging_Plan_v0.1.md
+      - engineering/current/LOOM_2226_Wayfarer_Phase_3_Implementation_v0.1.md
+      - engineering/current/LOOM_2226_Wayfarer_Project_State_and_Pixel_Handoff_v0.2.md
+      - engineering/current/LOOM_2226_Wayfarer_Canon_Candidate_Specification_v0.1.md
+    authority: ENGINEERING_INTERPRETATION
+
+  wayfarer_geometry_authority:
+    tier: ENGINEERING_DATA
+    paths:
+      - geometry/wayfarer_geometry_seed.sql
+      - src/wayfarer_geometry.py
+      - src/wayfarer_geometry_server.py
+    authority: GEOMETRY_PARAMETER_AND_COMPILER_AUTHORITY
+
+  wayfarer_geometry_derived:
+    tier: DERIVED_ASSET
+    paths:
+      - geometry/wayfarer_geometry.json
+    authority: DERIVED_REGENERABLE
+
+  wayfarer_viewer:
+    tier: PRESENTATION
+    paths:
+      - web/index.html
+      - web/viewer.js
+      - web/three/three.min.js
+    authority: PRESENTATION_ONLY
+
+  wayfarer_blender_builder:
+    tier: ASSET_GENERATOR
+    paths:
+      - src/wayfarer_blender_builder.py
+    authority: DERIVED_3D_BUILDER
+
+  runtime_campaign_core:
+    tier: RUNTIME
+    paths:
+      - src/**
+    authority: PYTHON_MUTABLE_CAMPAIGN_AUTHORITY_WITHIN_RUNTIME_CONTRACT
+    note: >-
+      Path scope is intentionally broad in v1 because runtime source is not yet fully
+      component-tagged. More specific source ownership may be added later without
+      changing the authority direction.
+
+  navigator:
+    tier: RUNTIME
+    paths:
+      - src/LOOM_Navigator_MVP_v1.0_RC6.1_CIVSTATE_Launch_ANDROID.py
+      - src/loom_navigator_core.py
+    authority: PRESERVED_NUMERICAL_NAVIGATION_AUTHORITY
+
+  solar_gis:
+    tier: RUNTIME
+    paths:
+      - src/LOOM_Solar_GIS_v0.12.9_RC8_Draggable_Graph_Nodes.py
+    authority: GIS_PRESENTATION_ANALYSIS_RUNTIME
+
+  media_library:
+    tier: RUNTIME
+    paths:
+      - src/loom_media_library.py
+      - src/launch_media_library.py
+    authority: MEDIA_BROWSER_RUNTIME
+
+  runtime_inventory:
+    tier: RUNTIME
+    paths:
+      - src/loom_runtime_inventory.py
+    authority: RUNTIME_INVENTORY_TOOL
+
+  world_db:
+    tier: DATA
+    paths:
+      - data/LOOM_2226.sqlite3
+    authority: BASELINE_RUNTIME_WORLD_DATA
+
+  civstate_db:
+    tier: DATA
+    paths:
+      - data/LOOM_2226_CIVSTATE.sqlite3
+    authority: NAVIGATOR_CIVSTATE_DATA
+    schema_id: LOOM_2226_CIVSTATE
+    schema_version: 1.2-runtime
+
+  media_db:
+    tier: DATA_ASSET
+    paths:
+      - data/LOOM_2226_media.sqlite3
+    authority: MEDIA_PAYLOAD
+    distribution: GITHUB_RELEASE_ASSET
+
+  updater:
+    tier: DEPLOYMENT
+    paths:
+      - deploy/loom_update.py
+    authority: INSTALL_VALIDATE_PRESERVE_LOCAL_STATE
+
+  android_launchers:
+    tier: DEPLOYMENT
+    paths:
+      - deploy/android/**
+    authority: PLATFORM_LAUNCH_SURFACE
+
+  windows_launchers:
+    tier: DEPLOYMENT
+    paths:
+      - deploy/windows/**
+    authority: PLATFORM_LAUNCH_SURFACE
+
+  release_manifest:
+    tier: RELEASE_MANIFEST
+    paths:
+      - manifests/release_manifest.json
+    authority: CURRENT_DISTRIBUTION_ARTIFACT_SET
+
+  compatibility_manifest:
+    tier: GOVERNANCE_MANIFEST
+    paths:
+      - manifests/current/LOOM_COMPATIBILITY.yml
+    authority: DECLARED_CROSS_COMPONENT_COMPATIBILITY
+
+  runtime_release:
+    tier: RELEASE
+    references:
+      - tag:v0.1.0-runtime-baseline
+      - release_id:381754456
+    authority: DISTRIBUTABLE_BASELINE
+
+  rf_research:
+    tier: RESEARCH
+    paths:
+      - research/relational_foundations/**
+    authority: NON_CANON_RESEARCH
+
+  foundations_consequences:
+    tier: RESEARCH
+    paths:
+      - research/foundations_consequences/**
+    authority: NON_CANON_RESEARCH_AND_FICTION_DEVELOPMENT
+
+  external_github_distribution:
+    tier: EXTERNAL_VENDOR
+    provider: GitHub
+    authority: DISTRIBUTION_AND_REPOSITORY_HOST_NOT_LOOM_CONTENT_AUTHORITY
+
+  external_threejs_runtime:
+    tier: EXTERNAL_VENDOR
+    provider: Three.js
+    paths:
+      - web/three/three.min.js
+    authority: THIRD_PARTY_VIEWER_RUNTIME_DEPENDENCY
+    version_registration_state: NOT_RECORDED_IN_CURRENT_WAYFARER_MANIFEST
+
+edges:
+  - from: canon_baseline_v2_4
+    to: canon_i_world_history
+    type: REGISTERS
+    confidence: ESTABLISHED
+  - from: canon_baseline_v2_4
+    to: canon_ii_engineering_ships
+    type: REGISTERS
+    confidence: ESTABLISHED
+  - from: canon_baseline_v2_4
+    to: canon_iii_authority_gm
+    type: REGISTERS
+    confidence: ESTABLISHED
+  - from: canon_baseline_v2_4
+    to: solar_atlas
+    type: REGISTERS
+    confidence: ESTABLISHED
+  - from: canon_baseline_v2_4
+    to: core_mechanics
+    type: REGISTERS
+    confidence: ESTABLISHED
+
+  - from: canon_ii_engineering_ships
+    to: canon_ii_wayfarer_amendment
+    type: PARENT_OF_SCOPED_AMENDMENT
+    confidence: ESTABLISHED
+  - from: canon_ii_engineering_ships
+    to: wayfarer_engineering
+    type: GOVERNS
+    confidence: ESTABLISHED
+  - from: canon_ii_wayfarer_amendment
+    to: wayfarer_engineering
+    type: GOVERNS_DECLARED_SCOPE
+    confidence: ESTABLISHED
+  - from: wayfarer_engineering
+    to: wayfarer_geometry_authority
+    type: CONSTRAINS
+    confidence: ESTABLISHED
+  - from: wayfarer_geometry_authority
+    to: wayfarer_geometry_derived
+    type: GENERATES
+    confidence: ESTABLISHED
+  - from: wayfarer_geometry_authority
+    to: wayfarer_blender_builder
+    type: FEEDS
+    confidence: REGISTERED_COARSE
+  - from: wayfarer_geometry_derived
+    to: wayfarer_viewer
+    type: RENDERS
+    confidence: ESTABLISHED
+  - from: external_threejs_runtime
+    to: wayfarer_viewer
+    type: RUNTIME_DEPENDENCY
+    confidence: ESTABLISHED
+
+  - from: canon_i_world_history
+    to: runtime_campaign_core
+    type: SETTING_CONSTRAINT
+    confidence: REGISTERED_COARSE
+  - from: canon_ii_engineering_ships
+    to: runtime_campaign_core
+    type: PHYSICAL_OPERATION_CONSTRAINT
+    confidence: REGISTERED_COARSE
+  - from: canon_iii_authority_gm
+    to: runtime_campaign_core
+    type: TRUTH_AND_AUTHORITY_CONSTRAINT
+    confidence: ESTABLISHED
+  - from: core_mechanics
+    to: runtime_campaign_core
+    type: GAME_MECHANICS_CONSTRAINT
+    confidence: ESTABLISHED
+  - from: runtime_architecture
+    to: runtime_campaign_core
+    type: SOFTWARE_ARCHITECTURE_CONSTRAINT
+    confidence: ESTABLISHED
+  - from: world_db
+    to: runtime_campaign_core
+    type: DATA_INPUT
+    confidence: REGISTERED_COARSE
+  - from: civstate_db
+    to: runtime_campaign_core
+    type: DATA_INPUT
+    confidence: REGISTERED_COARSE
+
+  - from: canon_ii_engineering_ships
+    to: navigator
+    type: PHYSICS_AND_SHIP_CONSTRAINT
+    confidence: REGISTERED_COARSE
+  - from: solar_atlas
+    to: navigator
+    type: SOLAR_GEOGRAPHY_CONSTRAINT
+    confidence: REGISTERED_COARSE
+  - from: core_mechanics
+    to: navigator
+    type: OPERATIONAL_RULE_CONSTRAINT
+    confidence: REGISTERED_COARSE
+  - from: runtime_architecture
+    to: navigator
+    type: INTEGRATION_CONTRACT
+    confidence: ESTABLISHED
+  - from: civstate_db
+    to: navigator
+    type: REQUIRED_DATA_INPUT
+    confidence: ESTABLISHED
+  - from: world_db
+    to: navigator
+    type: WORLD_DATA_INPUT
+    confidence: REGISTERED_COARSE
+
+  - from: world_db
+    to: solar_gis
+    type: WORLD_DATA_INPUT
+    confidence: REGISTERED_COARSE
+  - from: media_db
+    to: media_library
+    type: REQUIRED_DATA_INPUT
+    confidence: ESTABLISHED
+
+  - from: navigator
+    to: release_manifest
+    type: PACKAGED_ARTIFACT
+    confidence: ESTABLISHED
+  - from: solar_gis
+    to: release_manifest
+    type: PACKAGED_ARTIFACT
+    confidence: ESTABLISHED
+  - from: media_library
+    to: release_manifest
+    type: PACKAGED_ARTIFACT
+    confidence: ESTABLISHED
+  - from: runtime_inventory
+    to: release_manifest
+    type: PACKAGED_ARTIFACT
+    confidence: ESTABLISHED
+  - from: world_db
+    to: release_manifest
+    type: PACKAGED_ARTIFACT
+    confidence: ESTABLISHED
+  - from: civstate_db
+    to: release_manifest
+    type: PACKAGED_ARTIFACT
+    confidence: ESTABLISHED
+  - from: media_db
+    to: release_manifest
+    type: PACKAGED_RELEASE_ASSET
+    confidence: ESTABLISHED
+
+  - from: release_manifest
+    to: updater
+    type: INSTALLATION_CONTRACT
+    confidence: ESTABLISHED
+  - from: updater
+    to: android_launchers
+    type: PLATFORM_DELIVERY_SUPPORT
+    confidence: REGISTERED_COARSE
+  - from: updater
+    to: windows_launchers
+    type: PLATFORM_DELIVERY_SUPPORT
+    confidence: REGISTERED_COARSE
+  - from: release_manifest
+    to: compatibility_manifest
+    type: CURRENT_ARTIFACT_INPUT
+    confidence: ESTABLISHED
+  - from: compatibility_manifest
+    to: runtime_release
+    type: DECLARES_COMPATIBILITY_FOR
+    confidence: REGISTERED_COARSE
+  - from: external_github_distribution
+    to: runtime_release
+    type: HOSTS_RELEASE_AND_REPOSITORY_ARTIFACTS
+    confidence: ESTABLISHED
+
+  - from: rf_research
+    to: canon_baseline_v2_4
+    type: MAY_PROPOSE_CHANGE_ONLY_VIA_CCR
+    confidence: ESTABLISHED
+    authority_flow: NONE_WITHOUT_PROMOTION
+  - from: foundations_consequences
+    to: canon_baseline_v2_4
+    type: MAY_PROPOSE_CHANGE_ONLY_VIA_CCR
+    confidence: ESTABLISHED
+    authority_flow: NONE_WITHOUT_PROMOTION
+
+impact_defaults:
+  CANON_REGISTRY:
+    downstream_default: REVIEW_REQUIRED
+  CANON:
+    downstream_default: REVIEW_REQUIRED
+  ENGINEERING:
+    downstream_default: REVIEW_REQUIRED
+  ENGINEERING_DATA:
+    downstream_default: REVALIDATION_REQUIRED
+  RUNTIME:
+    downstream_default: REVALIDATION_REQUIRED
+  DATA:
+    downstream_default: REVALIDATION_REQUIRED
+  DATA_ASSET:
+    downstream_default: REVALIDATION_REQUIRED
+  DEPLOYMENT:
+    downstream_default: REVALIDATION_REQUIRED
+  RELEASE_MANIFEST:
+    downstream_default: REVALIDATION_REQUIRED
+  PRESENTATION:
+    downstream_default: UNCHANGED_COMPATIBLE
+  RESEARCH:
+    downstream_default: UNCHANGED_COMPATIBLE
+    note: research has no automatic canon/runtime authority

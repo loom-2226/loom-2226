@@ -1,0 +1,99 @@
+name: WALTER / #LOOMSAFE Assurance Finding
+description: Record a vendor, black-box, drift, provenance, freeze, dependency, or release assurance finding.
+title: "WAF: "
+body:
+  - type: dropdown
+    id: module
+    attributes:
+      label: Assurance module
+      options:
+        - WALTER.VENDOR
+        - WALTER.BLACKBOX
+        - WALTER.DRIFT
+        - WALTER.PROVENANCE
+        - WALTER.RELEASE
+        - Multiple — explain below
+    validations:
+      required: true
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: Finding class
+      options:
+        - WATCH
+        - REVIEW_REQUIRED
+        - HOLD
+        - BLOCK
+    validations:
+      required: true
+
+  - type: textarea
+    id: trigger
+    attributes:
+      label: Trigger / observed state
+      description: State the event, diff, dependency, source, or repository state that caused the finding.
+    validations:
+      required: true
+
+  - type: textarea
+    id: rule
+    attributes:
+      label: Governing rule / assurance basis
+      description: Cite the deterministic rule when one exists. If this is interpretive/LLM-assisted, say so explicitly.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence / provenance
+      description: Exact paths, SHAs, hashes, tests, vendor documentation, or source chain supporting the finding.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: basis
+    attributes:
+      label: Finding basis
+      options:
+        - Deterministic machine-verifiable rule
+        - Missing required evidence/declaration
+        - LLM-assisted interpretive advisory
+        - Human assurance review
+        - Mixed — explain below
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Potential impact / affected pack members
+      description: Identify affected workstreams, dependencies, release state, canon, data, or research objects.
+    validations:
+      required: true
+
+  - type: textarea
+    id: remediation
+    attributes:
+      label: Recommended remediation / evidence needed
+    validations:
+      required: true
+
+  - type: input
+    id: exception
+    attributes:
+      label: Exception ID if risk is formally accepted
+      placeholder: GEX-YYYY-NNNN or N/A
+
+  - type: checkboxes
+    id: integrity
+    attributes:
+      label: Finding integrity
+      options:
+        - label: This finding records what was observed; it does not convert suspicion into fact.
+          required: true
+        - label: An LLM-assisted finding is advisory unless a separate deterministic governance rule establishes HOLD/BLOCK authority.
+          required: true
+        - label: Remediation or override will be additive; the original finding will remain auditable.
+          required: true

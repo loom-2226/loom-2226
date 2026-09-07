@@ -1,0 +1,88 @@
+name: LOOM Governance Change
+description: Propose a change to repository policy, assurance, bootstrap, automation, WIP, change control, or release governance.
+title: "GOV: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Governance problem / failure mode
+      description: What behavior, ambiguity, drift, cost, or control gap are we trying to fix?
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_rule
+    attributes:
+      label: Current rule / contract
+      description: Cite the current governance/agent/workstate rule if one exists.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+
+  - type: dropdown
+    id: enforcement
+    attributes:
+      label: Proposed enforcement level
+      options:
+        - Documentation / guidance only
+        - Advisory automated check
+        - HOLD-capable check
+        - Deterministic hard gate
+        - Exception/override mechanism
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope / affected workstreams
+      description: Which repository areas, workflows, agents, or promotion boundaries are affected?
+    validations:
+      required: true
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks / false-positive / friction analysis
+      description: How could this control break legitimate work, increase cost, or create governance theater?
+    validations:
+      required: true
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: Which historical LOOM examples should prove the rule works before enforcement?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: walter
+    attributes:
+      label: WALTER impact
+      options:
+        - None
+        - Evolves WALTER presentation/personality only
+        - Evolves WALTER advisory detection
+        - Evolves deterministic WALTER gate
+        - Evolves vendor/black-box assurance
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Governance constraints
+      options:
+        - label: This governance change will not be used to smuggle substantive canon/runtime changes into a process PR.
+          required: true
+        - label: New blocking controls will be validated in advisory mode first unless an existing hard safety invariant already requires immediate enforcement.
+          required: true
+        - label: Existing grandfathered workstreams will not be reorganized merely for aesthetic consistency.
+          required: true

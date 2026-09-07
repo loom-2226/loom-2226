@@ -1,0 +1,156 @@
+name: LOOM Work Item
+description: Propose scoped engineering, runtime, data, asset/media, research-discovery, or planning work.
+title: "WORK: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **GitHub outranks the chat.** Check `LOOM_START_HERE.md` and current workstate before activating new work.
+
+  - type: dropdown
+    id: change_class
+    attributes:
+      label: Primary change class
+      options:
+        - class:research
+        - class:engineering
+        - class:runtime
+        - class:data
+        - class:asset-media
+        - class:governance
+    validations:
+      required: true
+
+  - type: input
+    id: workstream
+    attributes:
+      label: Workstream / program
+      placeholder: e.g. Navigator/GIS/HUD, S4, F2, P1, Wayfarer 3D
+    validations:
+      required: true
+
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Purpose / decision sought
+      description: State the problem, decision, or outcome. Do not describe implementation first.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Intended mutation scope
+      description: Name the components/paths that may change.
+    validations:
+      required: true
+
+  - type: textarea
+    id: nonscope
+    attributes:
+      label: Explicit non-scope
+      description: Name adjacent systems that must not change as part of this work.
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Upstream / downstream dependencies
+      description: Identify known authorities, inputs and downstream systems likely to require review/revalidation.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: canon_impact
+    attributes:
+      label: Canon impact
+      options:
+        - None
+        - May raise a canon finding only
+        - Material canon change likely — CCR required before promotion
+    validations:
+      required: true
+
+  - type: dropdown
+    id: runtime_impact
+    attributes:
+      label: Runtime / SQLite / deployment impact
+      options:
+        - None
+        - Runtime behavior
+        - Data/schema/migration
+        - Deployment/launcher/updater
+        - Release/compatibility
+        - Multiple — explain in dependencies
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frozen
+    attributes:
+      label: Frozen or preregistered work affected?
+      options:
+        - No
+        - Successor work only; frozen object remains untouched
+        - Yes — governance review required before mutation
+    validations:
+      required: true
+
+  - type: dropdown
+    id: wip
+    attributes:
+      label: WIP disposition
+      description: New substantive work must fit the current workstate/WIP policy.
+      options:
+        - Existing active slot
+        - Bounded subtask within active work
+        - Backlog / not active yet
+        - Proposed displacement/preemption — explain below
+    validations:
+      required: true
+
+  - type: textarea
+    id: wip_notes
+    attributes:
+      label: WIP / displacement notes
+      description: Required when proposing a new active stream or displacement.
+
+  - type: dropdown
+    id: vendor_ai
+    attributes:
+      label: External vendor / AI / black-box dependency?
+      options:
+        - No
+        - Yes — WALTER.VENDOR / WALTER.BLACKBOX review required
+        - Unknown — investigate before implementation
+    validations:
+      required: true
+
+  - type: textarea
+    id: test_plan
+    attributes:
+      label: Expected test / qualification class
+      placeholder: documentation only; unit; unit + functional; E2E; scientific qualification; other
+    validations:
+      required: true
+
+  - type: textarea
+    id: recovery
+    attributes:
+      label: Recovery / rollback concept
+      description: State likely recovery point/rollback method or why it is not applicable.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Governance acknowledgement
+      options:
+        - label: I checked current workstate rather than relying only on chat memory.
+          required: true
+        - label: This issue does not itself promote research/runtime output into canon.
+          required: true
+        - label: I will not mutate a frozen experiment in place to implement an improvement.
+          required: true

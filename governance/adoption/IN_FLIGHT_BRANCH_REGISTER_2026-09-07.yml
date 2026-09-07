@@ -1,0 +1,218 @@
+version: 1.0
+captured_date: '2026-09-07'
+status: STEP_1_COMPLETE
+purpose: >-
+  Recovery and freeze register for the LOOM Governance Adoption Sprint. This file
+  records authoritative and in-flight recovery points before any repository-control
+  implementation. It does not promote, merge, rebase, reinterpret, or modify any
+  game, research, canon, runtime, data, media, release, or 3D content.
+
+adoption_pause:
+  active: true
+  rule: >-
+    No gameplay development, physics execution, runtime migration, media change,
+    3D change, canon change, schema change, launcher change, updater-root change,
+    or release promotion until the governance adoption sprint reaches its explicit
+    restart gate.
+  branch_deletion_forbidden: true
+  force_update_of_recovery_refs_forbidden: true
+  existing_workstreams_grandfathered: true
+
+repository:
+  name: loom-2226/loom-2226
+  default_branch: main
+  main:
+    sha: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
+    protected_at_capture: false
+    recovery_ref: archive/pre-governance-2026-09-07-main
+    mutation_during_adoption: forbidden
+  repository_rulesets_at_capture: none
+
+open_research_and_governance_prs:
+  pr_19_s1_deterministic_curvature:
+    pr: 19
+    state: open
+    draft: true
+    branch: research/relational-foundations-deterministic-curvature
+    head_sha: 314efe50875630ba4be720b4097a2ca14075e620
+    base: main
+    base_sha: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
+    recovery_ref: archive/pre-governance-2026-09-07-pr19-s1
+    classification: FROZEN_SCIENTIFIC_QUALIFICATION
+    mutation_allowed: false
+    execution_allowed_during_adoption: false
+
+  pr_16_stage_a_matter_preregistration:
+    pr: 16
+    state: open
+    draft: true
+    branch: research/relational-foundations-matter-induced-prereg
+    head_sha: b60086d906f63211206502f23458be490902c2df
+    base: main
+    base_sha: a5b45b37ae9173e3316a75837feba28c03e5434f
+    recovery_ref: archive/pre-governance-2026-09-07-pr16-stage-a
+    classification: PREREGISTERED_ON_HOLD
+    mutation_allowed: false
+    execution_allowed_during_adoption: false
+
+  pr_20_foundations_and_consequences:
+    pr: 20
+    state: open
+    draft: true
+    branch: research/reviewer-constellation-cross-reference
+    captured_head_sha: 2c239a0d67ad356814108f9f3eddf7edbd6539fc
+    base: main
+    base_sha: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
+    recovery_ref: archive/pre-governance-2026-09-07-pr20-foundations
+    classification: PRE_GOVERNANCE_FOUNDATIONS_AND_ADOPTION_HOST
+
+in_flight_game_and_runtime_workstreams:
+  navigator_gis_hud:
+    branch: planning/navigator-gis-hud-next-phase-2026-09-06
+    head_sha: c664c1a66b68e8354295cc2b3b36ff3007e1276a
+    recovery_ref: archive/pre-governance-2026-09-07-navigator
+    state: PAUSED_FOR_GOVERNANCE
+    mutation_allowed_during_adoption: false
+    known_recent_children:
+      d2g: dd2a52a2138719156d8c5926194be2b7f040cf50
+      d2h: 1a08e295e4ea319ea5ab911927a792a5bc37628b
+      d2i: ed3e02d90af9d5a6e901c49fec85fd1caa84dabb
+    grandfathered_subsystem_ci: true
+
+  runtime_devops_integration:
+    branch: integration/runtime-devops-convergence-2026-09-06
+    head_sha: 43fc7cd92a71e0460e551bcc2d6a717ccac796ca
+    recovery_ref: archive/pre-governance-2026-09-07-runtime-devops
+    state: PAUSED_FOR_GOVERNANCE
+    mutation_allowed_during_adoption: false
+
+  phase6_converged_release_branch:
+    branch: release/phase6-converged-mvp-2026-09-06
+    head_sha: 0e4fd69b984ed8ae3ef35e285fe8a54fc199a141
+    recovery_ref: archive/pre-governance-2026-09-07-phase6-release
+    state: RETAINED_RELEASE_BASELINE
+    mutation_allowed_during_adoption: false
+
+  pixel_runtime_post_migration:
+    branch: release/pixel-runtime-post-migration-2026-09-06
+    head_sha: f41c22d256ad5a9228cccf71607e0dd7a35ef930
+    recovery_ref: archive/pre-governance-2026-09-07-pixel-runtime
+    state: RETAINED_PIXEL_RECOVERY_BASELINE
+    mutation_allowed_during_adoption: false
+
+  wayfarer_3d:
+    branch: workstream/wayfarer-3d
+    head_sha: 062bb0a2bfd718305dc0cf92dba9e61bab909d2d
+    recovery_ref: archive/pre-governance-2026-09-07-wayfarer-3d
+    state: PAUSED_FOR_GOVERNANCE
+    mutation_allowed_during_adoption: false
+    recovery_manifest: manifests/LOOM_2226_Wayfarer_Project_File_Manifest_2026-09-06.md
+
+  media_lineage:
+    latest_observed_media_commit_at_capture: 0aeebdb4476a6574e93dc09834242fba54f6a109
+    recovery_ref: archive/pre-governance-2026-09-07-media
+    state: PAUSED_FOR_GOVERNANCE
+    mutation_allowed_during_adoption: false
+    rule: code history and deployed media database are separate provenance objects
+
+existing_release_baseline:
+  tag: v0.1.0-runtime-baseline
+  tag_commit_sha: 97faaab2514835c8f45aee13f5ec6c2ff1b1cc4e
+  recovery_ref: archive/pre-governance-2026-09-07-release-tag-source
+  release_name: LOOM 2226 Runtime Baseline v0.1.0
+  release_id: 381754456
+  release_immutable_at_capture: false
+  media_asset:
+    name: LOOM_2226_media.sqlite3
+    asset_id: 542245032
+    size_bytes: 473837568
+    sha256: 286873428afbf30b91bdb2e71b55146ed5979873cfd6af69579c121b724eb038
+
+main_release_manifest:
+  path: manifests/release_manifest.json
+  blob_sha: 06c4ff091611fca86daa1b7f2fe9bebdbda9d15b
+  release_id: media-termux-launch-v1.0-2026-09-06
+  release_state: release
+  source_ref: main
+  civstate_schema: 1.2-runtime
+  canonical_and_release_data:
+    world_db:
+      path: data/LOOM_2226.sqlite3
+      size_bytes: 4882432
+      sha256: e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde
+      source: repository
+    civstate_db:
+      path: data/LOOM_2226_CIVSTATE.sqlite3
+      size_bytes: 8093696
+      sha256: 9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560
+      source: repository
+    media_db:
+      path: data/LOOM_2226_media.sqlite3
+      size_bytes: 473837568
+      sha256: 286873428afbf30b91bdb2e71b55146ed5979873cfd6af69579c121b724eb038
+      source: release_asset
+      release_tag: v0.1.0-runtime-baseline
+
+runtime_path_assumptions_at_capture:
+  updater:
+    path: deploy/loom_update.py
+    blob_sha: 11b2b6617f6763e41b658ca8f006c2b872991e60
+  android:
+    launch_gis.py: c914d71e8315ebaad3eee221eb94fa17bc4d9f1b
+    launch_navigator.py: 56fd02fef6a975d59d1df506ccb972af62939ef4
+    launch_media_library.py: 938f9e2cdc72c79215eee66eeac4f3ad59299760
+    loommedia: a57bdba7ee918a7b12a01dcd16fb23a429e14efd
+  windows:
+    launch_gis.py: b6db9846b8652ab76e8de2c4df523564a30f0f71
+    launch_navigator.py: ea4fd57dac48a9ca4eb7164165516abc489a3cc6
+    launch_media_library.py: 6325d4701193ee361cbeb115cc98d0f6c41af663
+  freeze_rule: >-
+    These paths and launcher semantics are recorded, not normalized. Governance
+    adoption must not move, rename, or alter them merely to create a cleaner layout.
+
+canon_and_authority_observations:
+  baseline_authority_map: governance/AUTHORITY.md
+  wayfarer_parent_canon: canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+  wayfarer_governing_amendment:
+    path: canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md
+    blob_sha: 0f995c554ae03def093c738590102ed7ef8dd416
+    status_in_file: GOVERNING_SCHEMATIC_PHYSICAL_PACKAGING_AMENDMENT
+  reconciliation_item_for_step_3: >-
+    Governance Baseline v1.0 must explicitly define how governing amendments participate
+    in the authority map, baseline manifest, hashing, supersession, and downstream
+    dependency invalidation.
+
+recovery_ref_policy:
+  type: archive_branch_refs
+  intended_semantics: immutable_recovery_anchor
+  rule: >-
+    archive/pre-governance-2026-09-07-* refs must never be advanced or force-moved.
+
+step_1_acceptance:
+  main_recovery_point_recorded: true
+  pr19_exact_frozen_head_recorded: true
+  pr16_preregistration_recorded: true
+  pr20_governance_host_recorded: true
+  navigator_recovery_point_recorded: true
+  runtime_recovery_point_recorded: true
+  release_recovery_points_recorded: true
+  pixel_recovery_point_recorded: true
+  media_release_digest_recorded: true
+  wayfarer_3d_recovery_point_recorded: true
+  android_and_windows_launcher_paths_recorded: true
+  database_digests_recorded: true
+  canon_amendment_reconciliation_item_recorded: true
+  functional_source_changed: false
+  canon_changed: false
+  database_bytes_changed: false
+  experiment_code_changed: false
+
+step_2:
+  branch: governance/repository-control-baseline-v1
+  exact_base_sha: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
+  status: CREATED
+  functional_mutation_allowed: false
+
+next_step:
+  id: 3
+  name: Establish repository constitution and authority/change-control rules
