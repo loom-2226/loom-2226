@@ -1,25 +1,30 @@
-version: '1.8'
-status: ADOPTION_PAUSE
+version: '1.9'
+status: NORMAL_GOVERNED_OPERATIONS
 captured_date: '2026-09-07'
 repository: loom-2226/loom-2226
 main_sha_at_adoption_start: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
 main_governance_baseline_sha: 605b8cd3ea00c94ac78437b90f5e85fd841a085b
 main_step11_policy_sha: 07ad87106b5fd8b11c9dedd51fa1cb551117776f
 main_step12_merge_sha: 626e3ce1470abbe3ce8a24624b87c230c32570b4
+main_step13_merge_sha: 5bf46d987ac0c91f4b6ebffe26e6cdf5a4354cb9
 governance_baseline_pr: 24
 step11_policy_pr: 25
+step13_pr: 29
 
 adoption:
   sprint: governance/adoption/LOOM_GOVERNANCE_ADOPTION_SPRINT_v1.0.md
-  completed_steps: [1,2,3,4,5,6,7,8,9,10,11,12,13]
+  completed_steps: [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
   current_step: 14
-  current_step_name: Resume LOOM from registered states
+  current_step_name: Governance adoption complete — normal governed operations resumed
   step11_state: COMPLETE_VERIFIED
   step12_state: COMPLETE_VERIFIED
   step13_state: COMPLETE_VERIFIED
-  development_paused: true
-  physics_execution_paused: true
+  step14_state: COMPLETE_ON_PROTECTED_MAIN_MERGE
+  governance_adoption_complete: true
+  development_paused: false
+  physics_execution_paused: false
   restart_gate_reached: true
+  restart_executed: true
 
 governance_baseline_promotion:
   baseline: Governance Baseline v1.0
@@ -41,12 +46,37 @@ active_wip_before_pause:
   world_design: {id: F2, name: Synthetic Identity and Personhood, state: ACTIVE_BEFORE_PAUSE}
   enabler: {id: P1, name: Anomaly Registry and Evidence Taxonomy, state: ACTIVE_BEFORE_PAUSE}
 
+post_restart_wip:
+  scientific_execution:
+    id: S1
+    name: Geometrogenesis deterministic curvature qualification
+    pr: 19
+    branch: research/relational-foundations-deterministic-curvature
+    sha: 314efe50875630ba4be720b4097a2ca14075e620
+    state: QUALIFICATION_EXECUTION_AUTHORIZED_EXACT_FROZEN_HEAD
+    execution_allowed: true
+    mutation_allowed: false
+    next_action: PIXEL_TERMUX_REPOSITORY_REGRESSION_THEN_FROZEN_SCIENTIFIC_RUNNER
+  scientific_discovery:
+    id: S4
+    name: Identity and Protected Observables
+    state: RESERVED_PRE_PAUSE_WIP_AWAITING_PR19_DISPOSITION_AND_WIP_RELOAD
+  world_design:
+    id: F2
+    name: Synthetic Identity and Personhood
+    state: RESERVED_PRE_PAUSE_WIP_AWAITING_PR19_DISPOSITION_AND_WIP_RELOAD
+  enabler:
+    id: P1
+    name: Anomaly Registry and Evidence Taxonomy
+    state: RESERVED_PRE_PAUSE_WIP_AWAITING_PR19_DISPOSITION_AND_WIP_RELOAD
+  fifth_stream_allowed_without_displacement: false
+
 blocked_or_waiting:
   stage_a_matter:
     pr: 16
     branch: research/relational-foundations-matter-induced-prereg
     sha: b60086d906f63211206502f23458be490902c2df
-    state: PREREGISTERED_ON_HOLD_STEP12_REVIEWED_NO_MUTATION
+    state: PREREGISTERED_ON_HOLD_STEP14_NO_MUTATION
   p4_cross_domain_correlation: {state: BLOCKED}
   s5_matter_information_control: {state: BLOCKED}
 
@@ -58,7 +88,7 @@ paused_game_workstreams:
     recovery_ref: archive/pre-governance-2026-09-07-navigator
     sync_marker: governance/workstream-sync/NAVIGATOR_GIS_HUD_STEP12.yml
     functional_state: UNCHANGED
-    state: GOVERNANCE_SYNCED_PAUSED_UNTIL_STEP14
+    historical_state: GOVERNANCE_SYNCED_PAUSED_UNTIL_STEP14
   runtime_devops:
     branch: integration/runtime-devops-convergence-2026-09-06
     pre_governance_head_sha: 43fc7cd92a71e0460e551bcc2d6a717ccac796ca
@@ -66,7 +96,7 @@ paused_game_workstreams:
     recovery_ref: archive/pre-governance-2026-09-07-runtime-devops
     sync_marker: governance/workstream-sync/RUNTIME_DEVOPS_STEP12.yml
     functional_state: UNCHANGED
-    state: GOVERNANCE_SYNCED_PAUSED_UNTIL_STEP14
+    historical_state: GOVERNANCE_SYNCED_PAUSED_UNTIL_STEP14
   wayfarer_3d:
     branch: workstream/wayfarer-3d
     pre_governance_head_sha: 062bb0a2bfd718305dc0cf92dba9e61bab909d2d
@@ -74,7 +104,7 @@ paused_game_workstreams:
     recovery_ref: archive/pre-governance-2026-09-07-wayfarer-3d
     sync_marker: governance/workstream-sync/WAYFARER_3D_STEP12.yml
     functional_state: UNCHANGED
-    state: GOVERNANCE_SYNCED_PAUSED_UNTIL_STEP14
+    historical_state: GOVERNANCE_SYNCED_PAUSED_UNTIL_STEP14
   media:
     captured_commit: 0aeebdb4476a6574e93dc09834242fba54f6a109
     recovery_ref: archive/pre-governance-2026-09-07-media
@@ -82,14 +112,35 @@ paused_game_workstreams:
     captured_commit_is_ancestor_of_main: true
     step12_sync_mode: INHERITS_MAIN_GOVERNANCE_NO_BRANCH_MUTATION
     functional_state: UNCHANGED
-    state: STEP12_REVIEWED_PAUSED_UNTIL_STEP14
+    historical_state: STEP12_REVIEWED_PAUSED_UNTIL_STEP14
+
+game_workstreams_after_restart:
+  navigator_gis_hud:
+    branch: planning/navigator-gis-hud-next-phase-2026-09-06
+    restart_head_sha: 450d4fb445fc10e61fabbeb85bb11e3e80e1bcbf
+    head_reverified_before_restart: true
+    state: REOPENED_FOR_NORMAL_GOVERNED_DEVELOPMENT
+  runtime_devops:
+    branch: integration/runtime-devops-convergence-2026-09-06
+    restart_head_sha: dbf822f0568f29d1065812ee58012eea8e42f391
+    head_reverified_before_restart: true
+    state: REOPENED_FOR_NORMAL_GOVERNED_DEVELOPMENT
+  wayfarer_3d:
+    branch: workstream/wayfarer-3d
+    restart_head_sha: 6015a56fde8614e92fa356ee4a1c46d45a79ad09
+    head_reverified_before_restart: true
+    state: REOPENED_FOR_NORMAL_GOVERNED_DEVELOPMENT
+  media:
+    restart_mode: INHERITS_MAIN_GOVERNANCE_NO_DEDICATED_BRANCH_INVENTED
+    state: REOPENED_FOR_NORMAL_GOVERNED_DEVELOPMENT
 
 foundations_program:
   pr: 20
   branch: research/reviewer-constellation-cross-reference
   sha: 74120daed077f7e0401b4e348dc0620df9d9b844
-  state: PAUSED_FOR_GOVERNANCE_STEP12_REVIEWED_RETAIN_OPEN_DRAFT
+  state: OPEN_DRAFT_STEP14_STILL_BRANCH_PAUSED_PENDING_PR19_DISPOSITION
   branch_mutated_by_step12: false
+  branch_mutated_by_step14: false
   step12_requirement_satisfied: true
   resume_requires:
     - pr19_disposition
@@ -176,8 +227,9 @@ wip_limits:
   slots: [T0_SCIENTIFIC_EXECUTION, T1_SCIENCE_DISCOVERY, T1_WORLD_SIMULATION, BOUNDED_ENABLER]
   fifth_stream_requires_displacement: true
 
-mutation_policy_until_restart:
-  allowed_during_adoption:
+adoption_pause_policy:
+  status: RETIRED_BY_STEP14
+  historical_allowed_during_adoption:
     - governance/**
     - LOOM_START_HERE.md
     - AGENTS.md
@@ -185,7 +237,7 @@ mutation_policy_until_restart:
     - .github/** governance material
     - manifests/current/** governance compatibility metadata
     - step13 ChatGPT Project bootstrap configuration/testing records
-  still_forbidden_until_step14_execution:
+  historical_forbidden_until_step14_execution:
     - canon content changes unrelated to governance adoption
     - navigator/gis functional development
     - production runtime functional development
@@ -196,6 +248,17 @@ mutation_policy_until_restart:
     - physics execution/tuning
     - pr19 mutation
     - pr16 mutation
+
+normal_operations:
+  status: ACTIVE_ON_STEP14_MERGE
+  change_class_required: true
+  scoped_agents_required: true
+  dependency_and_compatibility_rules_active: true
+  ccr_rules_active: true
+  loom_gate_required_on_main: true
+  preregistration_and_freeze_rules_active: true
+  functional_work_requires_normal_scoped_tests: true
+  scientific_execution_requires_preregistered_qualification: true
 
 step11:
   status: COMPLETE
@@ -220,6 +283,15 @@ step13:
   result: PASS
   status: COMPLETE_VERIFIED
 
+step14:
+  audit: governance/adoption/STEP14_RESUME_LOOM_AUDIT_2026-09-07.md
+  restart_main_parent_sha: 5bf46d987ac0c91f4b6ebffe26e6cdf5a4354cb9
+  registered_game_heads_reverified: true
+  pr19_frozen_head_reverified: true
+  pr20_head_reverified: true
+  non_governance_functional_changes: 0
+  result: COMPLETE_ON_PROTECTED_MAIN_MERGE
+
 next_step:
-  id: 14
-  name: Resume LOOM from registered states
+  id: NORMAL_OPERATIONS
+  name: Governed LOOM execution from registered states

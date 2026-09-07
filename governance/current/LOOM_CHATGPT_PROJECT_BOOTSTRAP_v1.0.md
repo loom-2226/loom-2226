@@ -1,6 +1,6 @@
 # LOOM 2226 — ChatGPT Project Bootstrap Instruction v1.0
 
-**Status:** STEP-13 QUALIFIED — EXPLICIT GITHUB ENTRY CONTROL REQUIRED  
+**Status:** QUALIFIED / OPERATIONAL — EXPLICIT GITHUB ENTRY CONTROL REQUIRED  
 **Purpose:** standing Project guidance plus the qualified operational entry command for new authoritative LOOM chats.
 
 ## 1. Standing LOOM Project instruction
@@ -28,9 +28,9 @@ Do not seed the chat with a SHA, branch, step number, or remembered workstate.
 A successful bootstrap must demonstrate an actual current GitHub read and establish at least:
 
 - current `main` SHA;
-- current governance/work step;
-- development pause state;
-- physics-execution pause state;
+- current governance/work state;
+- development pause/resume state;
+- physics-execution pause/resume state;
 - relevant frozen/active PR state needed for the request.
 
 A concise authority receipt is preferred but semantic proof of the GitHub read is sufficient.
@@ -83,7 +83,7 @@ A future ChatGPT configuration may re-qualify and simplify this control through 
 
 The repository remains the auditable source for:
 
-- current workstate and adoption/restart state;
+- current workstate and operating state;
 - active, paused, and frozen refs;
 - authority/change classes;
 - canon promotion and CCR lifecycle;
@@ -92,11 +92,13 @@ The repository remains the auditable source for:
 - autonomous-agent and `#LOOMSAFE` rules;
 - release compatibility and recovery state.
 
-## 7. Step-13 result
+## 7. Qualification result
 
 Project standing instruction installed: **YES**.  
 Explicit GitHub cold-start qualified: **PASS**.  
 Adversarial gating tests: **6/6 PASS**.  
 Step-13 acceptance: **COMPLETE / VERIFIED**.
 
-Protected-main promotion through required `loom-gate` remains the final repository boundary before Step 14 becomes authoritative.
+Step 14 closes the temporary adoption pause; the authoritative current restart/operating state is always read from:
+
+`governance/current/LOOM_CURRENT_WORKSTATE.yml`.
