@@ -45,6 +45,18 @@ conditional_reads:
       - governance/dependencies/component-map.yml
       - governance/dependencies/DEPENDENCY_AND_COMPATIBILITY_POLICY_v1.0.md
       - manifests/current/LOOM_COMPATIBILITY.yml
+  autonomous_agent_or_persona_change:
+    when_change_classes:
+      - class:governance
+    when_paths_include:
+      - governance/agents/**
+      - .github/workflows/loom-gate.yml
+    read:
+      - governance/agents/AGENT_REGISTRY.yml
+      - governance/agents/AUTONOMOUS_AGENT_CREATION_POLICY_v1.0.md
+      - governance/agents/PERSONA_BINDING_POLICY_v1.0.md
+      - governance/current/LOOM_GATE_POLICY.yml
+      - governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md
   walter_pack_inventory:
     when_assurance_relevant: true
     read:
@@ -59,6 +71,7 @@ session_sequence:
   - CHECK_FROZEN_PREREGISTERED_STATE
   - LOAD_CCR_AIRLOCK_CONTEXT_FOR_CANON_WORK
   - LOAD_DEPENDENCY_COMPATIBILITY_CONTEXT_WHEN_REQUIRED
+  - LOAD_AGENT_CREATION_AND_PERSONA_CONTEXT_WHEN_REQUIRED
   - CHECK_DEPENDENCY_INVALIDATION
   - DETERMINE_TEST_QUALIFICATION_CLASS
   - DETERMINE_CCR_EXCEPTION_REQUIREMENT
@@ -89,6 +102,8 @@ major_work_package_confirmation:
     - compatibility_manifest_state
     - exact_ccr_id_when_canon_change
     - ccr_registry_status_when_canon_change
+    - autonomous_agent_registry_state_when_agent_work
+    - persona_binding_state_when_persona_work
 
 walter:
   load_role_on_bootstrap: true
@@ -98,6 +113,8 @@ walter:
   component_map: governance/dependencies/component-map.yml
   compatibility_manifest: manifests/current/LOOM_COMPATIBILITY.yml
   ccr_registry: governance/changes/CCR_REGISTRY.yml
+  autonomous_agent_registry: governance/agents/AGENT_REGISTRY.yml
+  gate_policy: governance/current/LOOM_GATE_POLICY.yml
   default_visibility: LOW_NOISE
   cameo_only_when_assurance_relevant: true
   speech_allowed: false
@@ -105,6 +122,8 @@ walter:
   deterministic_hard_gate_only: true
   missing_dependency_edge_means_independent: false
   canon_promotion_requires_registered_approved_ccr: true
+  may_create_other_agents: false
+  agent_creation_review_scope: ROLE_DUPLICATION_VENDOR_PERMISSION_INDEPENDENCE_PERSONA_CREEP
 
 scoped_agent_rules:
   canon: canon/AGENTS.md
