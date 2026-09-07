@@ -1,0 +1,127 @@
+name: LOOM Canon Change Request
+description: Propose a material change, amendment, supersession, or promotion into governing canon.
+title: "CCR: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A CCR proposes canon change. It does **not** make the change governing by itself.
+
+  - type: input
+    id: source
+    attributes:
+      label: Source / originating finding
+      placeholder: issue, PR, experiment, engineering finding, or narrative decision
+    validations:
+      required: true
+
+  - type: dropdown
+    id: source_status
+    attributes:
+      label: Evidentiary / derivation status
+      options:
+        - Established external knowledge
+        - Mathematical/engineering derivation
+        - Simulation result
+        - Research hypothesis/result
+        - Fictional design decision
+        - Continuity correction
+        - Mixed — explain below
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for canon change
+    validations:
+      required: true
+
+  - type: textarea
+    id: claims
+    attributes:
+      label: Claims added / modified / retired
+      description: Be explicit about the governing statements that would change.
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected_canon
+    attributes:
+      label: Affected governing canon sources
+      description: Exact files/sections, including parent and amendment relationships.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: relationship
+    attributes:
+      label: Proposed authority relationship
+      options:
+        - In-place new version superseding prior governing file
+        - Scoped governing amendment to parent
+        - New governing source
+        - Retirement/removal from current governing set
+        - Not yet determined
+    validations:
+      required: true
+
+  - type: textarea
+    id: downstream
+    attributes:
+      label: Downstream technical dependencies
+      description: Engineering, Navigator/GIS, runtime, SQLite/data, 3D/geometry, media/browser, release, tests.
+    validations:
+      required: true
+
+  - type: textarea
+    id: invalidation
+    attributes:
+      label: Invalidation / revalidation classification
+      description: For each known dependent use UNCHANGED_COMPATIBLE, REVIEW_REQUIRED, REVALIDATION_REQUIRED, MIGRATION_REQUIRED, BLOCKED_PENDING_UPSTREAM, or SUPERSEDED.
+    validations:
+      required: true
+
+  - type: textarea
+    id: baseline
+    attributes:
+      label: Baseline / manifest / hash updates required
+      description: State how active authority manifest, file hashes, validation report, compatibility metadata and archives must change.
+    validations:
+      required: true
+
+  - type: textarea
+    id: tests
+    attributes:
+      label: Required validation / qualification
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frozen_source
+    attributes:
+      label: Does this depend on frozen/preregistered research?
+      options:
+        - No
+        - Yes — result is already dispositioned under its frozen gate
+        - Yes — result not yet qualified; CCR must remain deferred
+    validations:
+      required: true
+
+  - type: textarea
+    id: walter
+    attributes:
+      label: #LOOMSAFE assurance concerns
+      description: Vendor, black-box, provenance, drift, dependency, or release concerns that need review.
+
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: CCR acknowledgement
+      options:
+        - label: This request does not make the proposed claims governing until the approved canon implementation and baseline updates are completed.
+          required: true
+        - label: Research/simulation/runtime output has not been silently promoted to canon.
+          required: true
+        - label: Superseded governing material will remain auditable rather than being silently deleted.
+          required: true
