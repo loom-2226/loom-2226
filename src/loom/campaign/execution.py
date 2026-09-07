@@ -14,6 +14,7 @@ import json
 import os
 
 from loom.navigation import FlightExecutionResult, FlightPlan, NavigationContext
+from loom.navigation.execution import canonical_runtime_sha256, normalize_legacy_determinism
 from loom.runtime import resolve_runtime_roots
 from .clock import CampaignClockError, clock_from_state, validate_clock_advance
 
@@ -156,7 +157,7 @@ class LegacyCampaignExecutionService:
         determinism = packed.get("determinism") or {}
         html = packed.get("html") or ""
         plan_sha = packed.get("plan_sha256")
-        runtime_sha = determinism.get("canonical_runtime_sha256")
+        runtime_sha = canonical_runtime_sha256(determinism)
         if last.get("runtime_sha256") != runtime_sha or last.get("committed_plan_sha256") != plan_sha:
             raise CampaignExecutionError("arrival provenance differs from the committed Navigator plan")
 
@@ -165,8 +166,9 @@ class LegacyCampaignExecutionService:
         ledger_type = self._require("HistoryLedger")
         atomic_save = self._require("_atomic_save")
         nav = load_core(app_root / "LOOM_Navigator_Internal_SequenceH")
+        legacy_determinism = normalize_legacy_determinism(determinism)
         outcome = outcome_summary(
-            nav, runtime, determinism, html, current, arrival, plan.flight_id, plan_sha
+            nav, runtime, legacy_determinism, html, current, arrival, plan.flight_id, plan_sha
         )
 
         state_before_bytes = state_path.read_bytes()
