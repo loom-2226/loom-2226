@@ -86,11 +86,19 @@ Every substantive future PR SHALL identify one primary change class:
 
 Mixed-authority PRs are exceptional and require an explicit promotion/change record explaining why separation is impossible or harmful.
 
-## 4. Session governance — every new LOOM chat must bootstrap from GitHub
+## 4. Session governance — every new authoritative LOOM chat must bootstrap from GitHub
 
-The LOOM ChatGPT Project SHALL contain a short standing instruction whose purpose is to bootstrap every new chat from repository authority rather than relying on remembered conversation state.
+The LOOM ChatGPT Project SHALL contain a short standing instruction whose purpose is to direct sessions to repository authority rather than remembered conversation state.
 
-Recommended project-instruction text:
+Under the ChatGPT Project/tool-routing behavior qualified in Step 13, the standing instruction alone is **not** treated as a reliable guarantee that the external GitHub tool will auto-activate from a vague first message.
+
+Therefore every new **authoritative** LOOM chat SHALL begin with an explicit GitHub bootstrap request, currently qualified as:
+
+`Use GitHub to bootstrap LOOM from current repository authority, then continue LOOM.`
+
+A bare `Continue LOOM` remains a negative-control test for future product requalification, not the supported authoritative startup path under the currently observed product behavior.
+
+The standing Project instruction SHALL still enforce these rules after tool activation:
 
 > **LOOM repository authority bootstrap**
 >
@@ -169,7 +177,11 @@ Apply governance metadata/checking through small governance-only syncs to Naviga
 
 ### STEP 13 — Configure and test LOOM ChatGPT Project bootstrap
 
-Install the short Project instruction and test a completely new chat against stale SHA, direct canon-edit, frozen-experiment mutation and context-free “continue LOOM” scenarios. Adoption is not finished unless the new chat reloads Git authority correctly.
+Install the short Project instruction and qualify a completely new authoritative chat against stale SHA, direct canon-edit, frozen-experiment mutation, black-box dependency, and repository-unavailable scenarios.
+
+**Live qualification amendment — 7 September 2026:** two fresh chats started with bare `Continue LOOM` failed to invoke GitHub and instead continued from Project/history context, including after Project-instruction hardening. A third fresh chat explicitly invoked GitHub and successfully recovered authority, then passed the adversarial governance suite. The accepted operational control is therefore explicit GitHub activation at new authoritative-chat entry. The two context-free failures remain preserved as negative-control evidence and may be requalified if product behavior changes.
+
+Adoption is not finished unless the qualified startup path reloads Git authority correctly and the adversarial governance tests pass.
 
 ### STEP 14 — Resume LOOM
 
@@ -198,4 +210,6 @@ Governance adoption closes only when:
 2. existing game/runtime launch paths remain stable;
 3. GitHub can identify authority violations and downstream dependencies;
 4. `main` cannot be changed casually;
-5. a brand-new LOOM ChatGPT Project chat knows its first job is to recover current authority from GitHub rather than improvise from memory.
+5. a brand-new authoritative LOOM ChatGPT Project chat explicitly activates GitHub, recovers current repository authority before substantive continuation, and then respects that authority under adversarial prompts.
+
+The earlier context-free `Continue LOOM` expectation is retained as a future product negative control, not as the qualified operational startup mechanism under the current tool-routing behavior.
