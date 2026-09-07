@@ -1,0 +1,233 @@
+version: '1.0'
+status: STEP9_HISTORICAL_VALIDATION
+captured_date: '2026-09-07'
+repository: loom-2226/loom-2226
+purpose: >-
+  Acceptance fixtures for validating loom-gate against real LOOM history before
+  deterministic governance findings may become merge-blocking.
+
+validation_principles:
+  - real_historical_work_is_evidence_not_retroactive_noncompliance
+  - pre_governance_prs_may_lack_change_class_and_structured_impact_tokens
+  - grandfathering_does_not_make_old_patterns_repeatable_after_governance
+  - if_a_rule_misclassifies_legitimate_work_fix_the_rule_not_the_work
+  - authority_boundary_and_byte_identity_are_more_important_than_path_name_alone
+
+frozen_reference:
+  main_sha: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
+  pr19_sha: 314efe50875630ba4be720b4097a2ca14075e620
+  pr16_sha: b60086d906f63211206502f23458be490902c2df
+
+fixtures:
+  - id: F01_PR19_FROZEN_RESEARCH
+    source: PR-19
+    head_sha: 314efe50875630ba4be720b4097a2ca14075e620
+    class_inferred_from_history: research
+    historical_role: frozen_preregistered_scientific_qualification
+    expected:
+      frozen_identity: PASS
+      research_canon_firewall: PASS
+      runtime_data_mutation: NONE
+    validates: [LG002, LG011]
+
+  - id: F02_PR16_PREREGISTERED_HOLD
+    source: PR-16
+    head_sha: b60086d906f63211206502f23458be490902c2df
+    class_inferred_from_history: research
+    historical_role: preregistered_design_on_hold
+    expected:
+      frozen_identity: PASS
+      execution_before_upstream_gate: PROHIBITED
+      canon_mutation: NONE
+    validates: [LG003, LG011]
+
+  - id: F03_NAV_D2G
+    source: PR-21
+    head_sha: dd2a52a2138719156d8c5926194be2b7f040cf50
+    class_inferred_from_history: engineering
+    historical_role: diagnostic_only_segmented_gravity_characterization
+    expected:
+      authority_promotion: NONE
+      route_campaign_guidance_remass_mutation: NONE
+      test_evidence: PRESENT
+    validates: [LG009, LG010]
+
+  - id: F04_NAV_D2H
+    source: PR-22
+    head_sha: 1a08e295e4ea319ea5ab911927a792a5bc37628b
+    class_inferred_from_history: engineering
+    historical_role: non_authoritative_guidance_shadow
+    expected:
+      authority_promotion: NONE
+      propulsion_certification_claim: EXPLICITLY_REFUSED
+      sqlite_functional_regression: PRESENT
+    validates: [LG009, LG010, LG012]
+
+  - id: F05_NAV_D2I
+    source: PR-23
+    head_sha: ed3e02d90af9d5a6e901c49fec85fd1caa84dabb
+    class_inferred_from_history: engineering
+    historical_role: non_authoritative_thrust_remass_feasibility_shadow
+    expected:
+      invented_gimbal_or_thermal_certification: NONE
+      overall_status_without_missing_certification: OPEN
+      missing_engineering_behavior: FAIL_CLOSED
+    validates: [LG009, LG010]
+
+  - id: F06_GIS_NAV_RUNTIME_CONVERGENCE
+    source: PR-6
+    head_sha: a5f110a1371fc3cd2cc4ab7330b3b09cb4cabf17
+    class_inferred_from_history: runtime
+    historical_role: cross_platform_source_convergence
+    changed_families: [src, deploy]
+    expected:
+      frozen_core_bytes: UNCHANGED
+      database_manifest_physics_canon_change: NONE
+      pixel_qualification: PASS
+    validates: [LG009]
+
+  - id: F07_UPDATER_PROGRESS
+    source: PR-5
+    head_sha: 95af2c044ec610f57c61078d769b5f1054cc71ef
+    class_inferred_from_history: runtime
+    historical_role: deployment_ux_change
+    expected:
+      manifest_semantics: UNCHANGED
+      hash_verification: PRESERVED
+      atomic_install_and_backups: PRESERVED
+      unit_functional_tests: PASS
+    validates: [LG008, LG009, LG013]
+
+  - id: F08_RUNTIME_DB_HASH_CORRECTION
+    source: PR-4
+    head_sha: b2fd515b70e971a8590cba514a5436560f52521c
+    class_inferred_from_history: runtime
+    historical_role: release_metadata_hash_correction
+    expected:
+      sqlite_bytes_changed: false
+      release_manifest_changed: true
+      provenance_note: PRESENT
+      compatibility_change_required: false
+    validates: [LG008, LG009, LG012, LG017]
+
+  - id: F09_MEDIA_TERMUX_RELEASE
+    source: COMMIT-0aeebdb4476a6574e93dc09834242fba54f6a109
+    class_inferred_from_history: asset-media
+    historical_role: media_launcher_and_release_manifest_update
+    expected:
+      release_manifest_changed: true
+      compatibility_file_cochange_intrinsically_required: false
+      media_release_metadata: CONTROLLED
+    validates: [LG008, LG009, LG017]
+
+  - id: F10_WAYFARER_3D_ISOLATION
+    source: COMMIT-062bb0a2bfd718305dc0cf92dba9e61bab909d2d
+    class_inferred_from_history: asset-media
+    historical_role: isolated_wayfarer_3d_workstream_contract
+    expected:
+      generated_mesh_authority: PROPOSAL_ONLY
+      deterministic_parameter_authority: PRESERVED
+      navigator_gis_branch_mixing: PROHIBITED
+    validates: [LG009, LG010, LG016]
+
+  - id: F11_CANON_LIFECYCLE_CLEANUP
+    source: PR-3
+    head_sha: 64762f63a3e04bba1b24afd8c179263dad73e1ea
+    class_inferred_from_history: governance
+    historical_role: byte_preserving_authority_and_lifecycle_reorganization
+    observed:
+      governing_canon_files_moved_to_canon_current: 5
+      governing_canon_rename_similarity: R100
+      governing_canon_line_additions: 0
+      governing_canon_line_deletions: 0
+      authority_index_added: true
+    expected:
+      canon_content_ccr_required: false
+      authority_lifecycle_review_required: true
+    validates: [LG004, LG005, LG006, LG018]
+
+  - id: F12_INITIAL_ORGANIZED_BASELINE
+    source: PR-2
+    head_sha: 5389f29a11fd620ddc9831c64c4ce73826b790bf
+    class_inferred_from_history: governance
+    historical_role: genesis_baseline_promotion
+    grandfathering: NONREPEATABLE_GENESIS_EVENT
+    observed:
+      sqlite_world_added: true
+      sqlite_civstate_added: true
+      release_manifest_added: true
+      canon_corpus_added: true
+      runtime_sources_added: true
+      validation_evidence: PRESENT
+    expected_future_equivalent:
+      single_mixed_uncontrolled_pr: NOT_ALLOWED
+      structured_change_classes_and_compatibility_required: true
+    validates: [LG001, LG008, LG009, LG012, LG017]
+
+known_historical_misclassification_findings:
+  canon_path_only_airlock:
+    old_behavior: WOULD_TREAT_ANY_CANON_CURRENT_PATH_CHANGE_AS_CONTENT_MUTATION
+    false_positive_fixture: F11_CANON_LIFECYCLE_CLEANUP
+    disposition: FIXED_STEP9_WITH_R100_CONTENT_AWARE_CLASSIFIER
+
+  release_manifest_requires_compatibility_file_cochange:
+    old_behavior: WOULD_WARN_WHEN_RELEASE_MANIFEST_CHANGED_WITHOUT_COMPATIBILITY_FILE_CHANGE
+    legitimate_non_cochange_fixtures: [F08_RUNTIME_DB_HASH_CORRECTION, F09_MEDIA_TERMUX_RELEASE]
+    disposition: REWORKED_TO_ALLOW_EXPLICIT_COMPATIBILITY_DISPOSITION_AND_REMAINS_ADVISORY
+
+  free_text_downstream_impact:
+    old_behavior: RELIES_ON_KEYWORD_MATCHING_IN_PRE_GOVERNANCE_PR_BODY
+    issue: PRE_GOVERNANCE_BODIES_ARE_SEMANTICALLY_GOOD_BUT_NOT_STRUCTURED
+    disposition: REMAINS_ADVISORY_UNTIL_STRUCTURED_METADATA_IS_PROVEN
+
+rule_dispositions_after_step9:
+  LG001_CHANGE_CLASS: HARD_READY_PENDING_ENFORCEMENT
+  LG002_FROZEN_PR19_SHA: HARD_READY_PENDING_ENFORCEMENT
+  LG003_FROZEN_PR16_SHA: HARD_READY_PENDING_ENFORCEMENT
+  LG004_CANON_CLASS: HARD_READY_FOR_CONTENT_MUTATION_PENDING_ENFORCEMENT
+  LG005_CANON_CCR_ID: HARD_READY_FOR_CONTENT_MUTATION_PENDING_ENFORCEMENT
+  LG006_CANON_CCR_APPROVAL: HARD_READY_FOR_CONTENT_MUTATION_PENDING_ENFORCEMENT
+  LG007_CONTROL_FILE_PARSE: HARD_READY_PENDING_ENFORCEMENT
+  LG008_RELEASE_COMPATIBILITY_COUPLING: ADVISORY_REWORKED
+  LG009_DOWNSTREAM_IMPACT_DECLARATION: ADVISORY_PENDING_STRUCTURED_METADATA
+  LG010_MIXED_CANON_ENGINEERING: ADVISORY
+  LG011_RESEARCH_CANON_MIX: ADVISORY
+  LG012_DATA_MIGRATION_RECOVERY: ADVISORY_PENDING_PATH_MODEL
+  LG013_VENDOR_DEPENDENCY_ASSURANCE: ADVISORY
+  LG014_AGENT_REGISTRY_PARSE: HARD_READY_PENDING_ENFORCEMENT
+  LG015_AGENT_CREATION_GATE: HARD_READY_DETERMINISTIC_SUBSET_PENDING_ENFORCEMENT
+  LG016_PERSONA_AUTHORITY_SEPARATION: ADVISORY
+  LG017_RELEASE_JSON_PARSE: HARD_READY_PENDING_ENFORCEMENT
+  LG018_CANON_LIFECYCLE_AUTHORITY: ADVISORY_PENDING_STRUCTURED_BASELINE_MARKER
+
+counterfactual_negative_controls_from_real_state:
+  - id: N01_MOVE_PR19_HEAD
+    based_on: F01_PR19_FROZEN_RESEARCH
+    expected_rule: LG002
+    expected: CANDIDATE_BLOCK
+  - id: N02_MOVE_PR16_HEAD
+    based_on: F02_PR16_PREREGISTERED_HOLD
+    expected_rule: LG003
+    expected: CANDIDATE_BLOCK
+  - id: N03_EDIT_CURRENT_CANON_WITHOUT_CCR
+    based_on: F11_CANON_LIFECYCLE_CLEANUP
+    mutation: ANY_NON_R100_CURRENT_CANON_CHANGE
+    expected_rules: [LG004, LG005]
+    expected: CANDIDATE_BLOCK
+  - id: N04_BREAK_CONTROL_YAML
+    based_on: CURRENT_GOVERNANCE_BRANCH
+    expected_rule: LG007
+    expected: CANDIDATE_BLOCK
+  - id: N05_ACTIVE_AGENT_WITHOUT_APPROVED_REVIEW
+    based_on: WALTER_CREATION_REVIEW
+    expected_rule: LG015
+    expected: CANDIDATE_BLOCK
+  - id: N06_INVALID_RELEASE_JSON
+    based_on: CURRENT_RELEASE_MANIFEST
+    expected_rule: LG017
+    expected: CANDIDATE_BLOCK
+
+enforcement:
+  enabled_now: false
+  reason: STEP9_CLASSIFIES_RULES_BUT_EXPLICIT_ENFORCEMENT_APPROVAL_AND_MAIN_PROTECTION_OCCUR_LATER
+  mode: OBSERVE
