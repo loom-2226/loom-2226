@@ -38,7 +38,7 @@ The following remain forbidden until their own controlled work resumes:
 
 ## Step-1 records carried forward
 
-The dedicated governance branch now contains its own copies of:
+The dedicated governance branch contains its own copies of:
 
 - `governance/adoption/LOOM_GOVERNANCE_ADOPTION_SPRINT_v1.0.md`
 - `governance/adoption/IN_FLIGHT_BRANCH_REGISTER_2026-09-07.yml`
@@ -48,23 +48,14 @@ PR #20 and its archive recovery ref remain preserved as historical/pre-governanc
 
 ## Walter assurance role
 
-The governance branch establishes:
+The governance branch establishes WALTER as the `#LOOMSAFE` bounded autonomous Continuous Assurance Agent, rooted in the established real-Walter and LOOM-Walter personality/behavior lineages.
 
-`governance/roles/WALTER_CONTINUOUS_ASSURANCE_ROLE_v1.0.md`
+Formal files:
 
-Walter is the governance-layer **Executive Director, Continuous Assurance — Vendor, Model & Drift Assurance**, tagged `#LOOMSAFE`.
+- `governance/roles/WALTER_CONTINUOUS_ASSURANCE_ROLE_v1.0.md`
+- `governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md`
 
-This is explicitly a governance persona, not a canon rewrite.
-
-Walter personifies several assurance views without multiplying evidence or authority:
-
-- `WALTER.VENDOR` — commercial/vendor management;
-- `WALTER.BLACKBOX` — opaque model/service assurance;
-- `WALTER.DRIFT` — human + LLM drift control;
-- `WALTER.PROVENANCE` — source/lineage assurance;
-- `WALTER.RELEASE` — baseline/recovery assurance.
-
-Walter remains nonverbal. In chats Sol may occasionally narrate his posture/behavior when an assurance condition is genuinely relevant. He may draw attention to risk; he is never an oracle.
+Actual event-triggered GitHub automation is deferred to Step 8; the autonomy/authority design is complete in Step 3.
 
 ## Step-2 acceptance
 
@@ -77,6 +68,12 @@ Walter remains nonverbal. In chats Sol may occasionally narrate his posture/beha
 - PR #19 changed: **NO**;
 - PR #16 changed: **NO**.
 
+## Current sprint state
+
+Step 3 is complete. See:
+
+`governance/adoption/STEP3_CONSTITUTION_AND_WALTER_AUTONOMY_AUDIT_2026-09-07.md`
+
 ## Next permitted action
 
-**Step 3 only:** define the LOOM authority hierarchy, change classes, promotion model, amendment/supersession rules, dependency invalidation, frozen-experiment rules, testing/qualification classes, current-workstate contract, and formal exception/override behavior.
+**Step 4 only:** establish `LOOM_START_HERE.md`, root `AGENTS.md`, scoped agent instructions and the OpenAI/Codex session-bootstrap contract.
