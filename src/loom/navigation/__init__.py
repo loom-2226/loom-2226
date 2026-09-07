@@ -33,6 +33,12 @@ from .trajectory_solution_adapter import (
     trajectory_solution_from_flight_plan,
     trajectory_solution_from_route_layer,
 )
+from .trajectory_time_state import (
+    TRAJECTORY_TIME_STATE_VERSION,
+    TrajectoryTimeStateError,
+    TrajectoryTimeStateV1,
+    evaluate_trajectory_at_epoch,
+)
 from .service import LegacyNavigationService, NavigationServiceError
 
 __all__ = [
@@ -61,6 +67,10 @@ __all__ = [
     "TrajectoryPacketAdapterError",
     "trajectory_solution_from_flight_plan",
     "trajectory_solution_from_route_layer",
+    "TRAJECTORY_TIME_STATE_VERSION",
+    "TrajectoryTimeStateError",
+    "TrajectoryTimeStateV1",
+    "evaluate_trajectory_at_epoch",
     "LegacyNavigationService",
     "NavigationServiceError",
 ]
