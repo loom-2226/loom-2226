@@ -1,14 +1,14 @@
 # LOOM 2226 — Governance Adoption Sprint v1.0
 
-**Status:** ACTIVE ADOPTION WORKPLAN — NON-CANON — NON-RUNTIME  
+**Status:** COMPLETE — GOVERNANCE ADOPTION CLOSED AT STEP 14  
 **Date:** 7 September 2026  
-**Purpose:** establish repository-level authority, change control, dependency discipline, and automatic LOOM-session bootstrap without destabilizing in-flight game development or frozen scientific work.
+**Purpose:** establish repository-level authority, change control, dependency discipline, and safe LOOM-session bootstrap without destabilizing in-flight game development or frozen scientific work.
 
 ## 0. Sprint decision
 
-Kevin has paused new development and physics execution while this governance adoption sprint is completed.
+Kevin paused new development and physics execution while this governance adoption sprint was completed.
 
-This pause is deliberate and temporary. The sprint SHALL NOT reorganize, rewrite, rebase, or otherwise disturb in-flight Navigator/GIS/HUD, media-library, runtime/deployment, SQLite, Wayfarer-3D, canon, or frozen relational-foundations work.
+The pause was deliberate and temporary. The sprint did not reorganize, rewrite, rebase, or otherwise disturb in-flight Navigator/GIS/HUD, media-library, runtime/deployment, SQLite, Wayfarer-3D, canon, or frozen relational-foundations work.
 
 ### Requirement Zero
 
@@ -30,9 +30,11 @@ ChatGPT project context, prior chats, user memory, local files, and Sol's recoll
 
 ## 1. Adoption baseline
 
-Step 1 captured exact recovery points and the current deployment/data topology. Existing workstreams are grandfathered and paused. The dedicated governance implementation branch is `governance/repository-control-baseline-v1`, created from frozen `main` SHA `36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7`.
+Step 1 captured exact recovery points and the deployment/data topology before governance mutation. Existing workstreams were grandfathered and paused. The dedicated governance implementation branch was `governance/repository-control-baseline-v1`, created from frozen `main` SHA `36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7`.
 
 The detailed machine register is `governance/adoption/IN_FLIGHT_BRANCH_REGISTER_2026-09-07.yml`.
+
+Those pre-governance recovery refs remain immutable historical anchors after Step 14.
 
 ## 2. End-state authority model
 
@@ -88,9 +90,9 @@ Mixed-authority PRs are exceptional and require an explicit promotion/change rec
 
 ## 4. Session governance — every new authoritative LOOM chat must bootstrap from GitHub
 
-The LOOM ChatGPT Project SHALL contain a short standing instruction whose purpose is to direct sessions to repository authority rather than remembered conversation state.
+The LOOM ChatGPT Project contains a standing instruction whose purpose is to direct sessions to repository authority rather than remembered conversation state.
 
-Under the ChatGPT Project/tool-routing behavior qualified in Step 13, the standing instruction alone is **not** treated as a reliable guarantee that the external GitHub tool will auto-activate from a vague first message.
+Step-13 live qualification established that the standing instruction alone is **not** a reliable guarantee that the external GitHub tool will auto-activate from a vague first message.
 
 Therefore every new **authoritative** LOOM chat SHALL begin with an explicit GitHub bootstrap request, currently qualified as:
 
@@ -98,7 +100,7 @@ Therefore every new **authoritative** LOOM chat SHALL begin with an explicit Git
 
 A bare `Continue LOOM` remains a negative-control test for future product requalification, not the supported authoritative startup path under the currently observed product behavior.
 
-The standing Project instruction SHALL still enforce these rules after tool activation:
+The standing Project instruction still enforces these rules after tool activation:
 
 > **LOOM repository authority bootstrap**
 >
@@ -114,7 +116,7 @@ The standing Project instruction SHALL still enforce these rules after tool acti
 >
 > If remembered context conflicts with GitHub, GitHub wins. If repository authority cannot be verified, discussion may continue, but authoritative mutation must wait until current state is verified.
 
-### Repository bootstrap files to establish
+### Repository bootstrap files
 
 - `/LOOM_START_HERE.md`
 - `/AGENTS.md`
@@ -129,87 +131,113 @@ The standing Project instruction SHALL still enforce these rules after tool acti
 
 > **Memory explains context. It never establishes authority.**
 
-## 5. Governance Adoption Sprint — remaining execution sequence
+## 5. Governance Adoption Sprint — completed execution sequence
+
+### STEP 1 — Inventory and freeze
+
+Captured exact repository, workstream, release, data and scientific recovery points before governance mutation.
 
 ### STEP 2 — Dedicated governance implementation branch
 
-Create `governance/repository-control-baseline-v1` from frozen `main`. Only governance/control-plane material may change there during adoption.
+Created the governance implementation branch from the frozen pre-adoption `main` state.
 
 ### STEP 3 — Repository constitution and authority/change-control rules
 
-Define authority hierarchy, change classes, promotion rules, grandfathering, freeze/preregistration rules, evidence/canon firewall, dependency invalidation, testing/qualification classes, release/baseline principles, research WIP/preemption, and the relationship between GitHub, ChatGPT Project instructions, local state and release assets.
+Established authority hierarchy, change classes, promotion rules, grandfathering, freeze/preregistration rules, evidence/canon firewall, dependency invalidation, testing/qualification classes, release/baseline principles and WIP/preemption rules.
 
 ### STEP 4 — OpenAI/Codex bootstrap
 
-Add `LOOM_START_HERE.md`, root `AGENTS.md`, and scoped nested instructions. A fresh session must be able to recover current LOOM authority safely from Git alone.
+Added `LOOM_START_HERE.md`, root `AGENTS.md`, scoped nested instructions and machine bootstrap controls.
 
 ### STEP 5 — `.github/` templates and issue forms
 
-Add PR template, work-item form, experiment form, Canon Change Request form, defect form, governance form, and the initial policy/CI workflow structure. CI remains advisory initially.
+Added PR template, work-item forms and initial policy/CI control plane.
 
 ### STEP 6 — Dependency graph and compatibility model
 
-Encode machine-readable component dependencies and runtime/canon/schema/release compatibility.
+Encoded machine-readable component dependencies and runtime/canon/schema/release compatibility.
 
 ### STEP 7 — Canon Change Request mechanism
 
-Create numbered CCR records with source, claims, affected canon, engineering, runtime/data, 3D/media, required revalidation, supersession and disposition.
+Established durable numbered CCR records and lifecycle.
 
-### STEP 8 — `loom-gate` advisory mode
+### STEP 8 — `loom-gate`
 
-One stable top-level policy status inspects change class, authority boundaries, freeze state, schema/compatibility, tests, dependencies and promotion rules. Expensive scientific qualification remains local, not hosted CI.
+Established one stable top-level governance status. It began advisory and was later promoted to deterministic hard enforcement for the historically validated rule subset.
 
 ### STEP 9 — Validate against real LOOM history
 
-Use PR #19, PR #16, Navigator D2g/D2h/D2i, GIS/runtime convergence, media/updater, Wayfarer 3D, canon and SQLite changes as acceptance fixtures. If governance misclassifies legitimate existing work, fix governance rather than rewriting working software.
+Validated governance against 12 real historical fixtures and fixed false positives rather than rewriting valid existing work.
 
 ### STEP 10 — Establish Governance Baseline v1.0 on `main`
 
-Close bootstrap planning cleanly, disposition PR #20 as appropriate, and merge the dedicated governance baseline through its own controlled PR.
+Promoted the governance baseline through protected repository process.
 
 ### STEP 11 — Protect `main` only
 
-Initially require PRs, `loom-gate`, resolved conversations, no force push and no branch deletion. Do not initially require second-human approval, signed commits, or branch-up-to-date rules.
+Activated the `LOOM main protection v1` ruleset requiring PRs, `loom-gate`, resolved conversations, no force push and no branch deletion, without initially imposing unnecessary human-approval or up-to-date requirements.
 
 ### STEP 12 — Governance sync to active workstreams
 
-Apply governance metadata/checking through small governance-only syncs to Navigator/GIS/HUD, runtime/devops, media and Wayfarer 3D. PR #19 is excluded and remains frozen.
+Applied governance-only sidecar sync markers to mutable Navigator/GIS/HUD, runtime/devops and Wayfarer-3D workstreams. Media remained inherited from `main`. PR #19, PR #16 and immutable release baselines were not mutated.
 
 ### STEP 13 — Configure and test LOOM ChatGPT Project bootstrap
 
-Install the short Project instruction and qualify a completely new authoritative chat against stale SHA, direct canon-edit, frozen-experiment mutation, black-box dependency, and repository-unavailable scenarios.
+Installed the Project instruction and live-qualified the authoritative startup path.
 
-**Live qualification amendment — 7 September 2026:** two fresh chats started with bare `Continue LOOM` failed to invoke GitHub and instead continued from Project/history context, including after Project-instruction hardening. A third fresh chat explicitly invoked GitHub and successfully recovered authority, then passed the adversarial governance suite. The accepted operational control is therefore explicit GitHub activation at new authoritative-chat entry. The two context-free failures remain preserved as negative-control evidence and may be requalified if product behavior changes.
+**Live qualification finding:** two fresh chats started with bare `Continue LOOM` failed to invoke GitHub and instead continued from Project/history context, including after Project-instruction hardening. A third fresh chat explicitly invoked GitHub and successfully recovered authority, then passed the adversarial governance suite.
 
-Adoption is not finished unless the qualified startup path reloads Git authority correctly and the adversarial governance tests pass.
+The accepted operational control is explicit GitHub activation at new authoritative-chat entry. The two context-free failures remain preserved as negative-control evidence and may be requalified if product behavior changes.
 
 ### STEP 14 — Resume LOOM
 
-Resume physics from PR #19 exact frozen state and game work from registered workstream heads only after governance acceptance passes.
+Step 14 reverified the registered restart heads and closed the temporary adoption pause through protected `main`.
 
-## 6. Stability contract during adoption
+Scientific execution resumes from PR #19 exact frozen head:
 
-Until restart:
+`314efe50875630ba4be720b4097a2ca14075e620`
 
-- no runtime path moves;
-- no launcher changes;
-- no updater-root changes;
-- no SQLite moves/schema changes;
-- no media relocation or media behavior changes;
-- no 3D relocation or geometry changes;
-- no Navigator behavior changes;
-- no canon edits;
-- no physics execution/tuning;
-- no PR #19 rebase/amendment.
+Execution is authorized; mutation remains forbidden until the preregistered qualification is dispositioned.
 
-## 7. Acceptance condition
+Game work is reopened from the registered Step-12 heads:
 
-Governance adoption closes only when:
+- Navigator/GIS/HUD: `450d4fb445fc10e61fabbeb85bb11e3e80e1bcbf`;
+- Runtime/DevOps: `dbf822f0568f29d1065812ee58012eea8e42f391`;
+- Wayfarer 3D: `6015a56fde8614e92fa356ee4a1c46d45a79ad09`;
+- Media: inherits current `main` governance; no branch was invented.
+
+PR #16 remains preregistered/on hold. PR #20 remains branch-paused until PR #19 disposition and a current WIP reload, as already registered.
+
+The authoritative Step-14 restart record is:
+
+`governance/adoption/STEP14_RESUME_LOOM_AUDIT_2026-09-07.md`
+
+## 6. Stability contract achieved
+
+During adoption:
+
+- no runtime path moved;
+- no launcher behavior changed;
+- no updater root moved;
+- no SQLite bytes/schema changed;
+- no media asset behavior changed;
+- no Wayfarer geometry changed;
+- no Navigator functional behavior changed;
+- no canon content changed;
+- no physics execution/tuning occurred;
+- PR #19 was not rebased or amended.
+
+After Step 14, normal governed changes may proceed through the relevant change class, scoped agent rules, dependency/compatibility requirements, scientific qualification, CCR lifecycle and protected-main promotion rules.
+
+## 7. Acceptance condition — SATISFIED ON STEP-14 PROTECTED-MAIN MERGE
+
+Governance adoption closes when:
 
 1. frozen scientific work remains byte-identical;
 2. existing game/runtime launch paths remain stable;
-3. GitHub can identify authority violations and downstream dependencies;
+3. GitHub identifies authority violations and downstream dependencies;
 4. `main` cannot be changed casually;
-5. a brand-new authoritative LOOM ChatGPT Project chat explicitly activates GitHub, recovers current repository authority before substantive continuation, and then respects that authority under adversarial prompts.
+5. a new authoritative LOOM ChatGPT Project chat explicitly activates GitHub, recovers current repository authority before substantive continuation, and respects that authority under adversarial prompts;
+6. registered restart heads are reverified before reopening normal operations.
 
-The earlier context-free `Continue LOOM` expectation is retained as a future product negative control, not as the qualified operational startup mechanism under the current tool-routing behavior.
+The authoritative current state remains `governance/current/LOOM_CURRENT_WORKSTATE.yml`.
