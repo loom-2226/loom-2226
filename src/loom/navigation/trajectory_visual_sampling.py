@@ -88,8 +88,33 @@ class TrajectoryVisualSampleSetV1:
         return len(self.samples) - self.ordinary_sample_count
 
 
+def _add_range(
+    epochs: set[datetime],
+    start: datetime,
+    end: datetime,
+    step_seconds: float,
+    max_samples: int,
+) -> None:
+    epochs.add(start)
+    epochs.add(end)
+    cursor = start
+    step = timedelta(seconds=step_seconds)
+    while cursor < end:
+        next_cursor = min(cursor + step, end)
+        if next_cursor <= cursor:
+            raise TrajectoryVisualSamplingError("sampling cursor failed to advance")
+        epochs.add(next_cursor)
+        if len(epochs) > max_samples:
+            raise TrajectoryVisualSamplingError("adaptive sampling exceeded max_samples")
+        cursor = next_cursor
+
+
 def _segment_epochs(solution: TrajectorySolution, config: TrajectoryVisualSamplingConfig) -> tuple[datetime, ...]:
+    if not solution.segments:
+        raise TrajectoryVisualSamplingError("trajectory must contain at least one segment")
+
     epochs: set[datetime] = set()
+    window = timedelta(seconds=config.dense_window_seconds)
     for segment in solution.segments:
         start = _instant(segment.start_epoch, "segment start_epoch")
         end = _instant(segment.end_epoch, "segment end_epoch")
@@ -103,22 +128,36 @@ def _segment_epochs(solution: TrajectorySolution, config: TrajectoryVisualSampli
             if start <= instant <= end:
                 epochs.add(instant)
 
-        cursor = start
-        while cursor < end:
-            from_start = (cursor - start).total_seconds()
-            to_end = (end - cursor).total_seconds()
-            dense = (
-                from_start < config.dense_window_seconds
-                or to_end <= config.dense_window_seconds
+        start_dense_end = min(start + window, end)
+        end_dense_start = max(end - window, start_dense_end)
+
+        if start < start_dense_end:
+            _add_range(
+                epochs,
+                start,
+                start_dense_end,
+                config.dense_step_seconds,
+                config.max_samples,
             )
-            step = config.dense_step_seconds if dense else config.cruise_step_seconds
-            next_cursor = min(cursor + timedelta(seconds=step), end)
-            if next_cursor <= cursor:
-                raise TrajectoryVisualSamplingError("sampling cursor failed to advance")
-            epochs.add(next_cursor)
-            if len(epochs) > config.max_samples:
-                raise TrajectoryVisualSamplingError("adaptive sampling exceeded max_samples")
-            cursor = next_cursor
+        if start_dense_end < end_dense_start:
+            _add_range(
+                epochs,
+                start_dense_end,
+                end_dense_start,
+                config.cruise_step_seconds,
+                config.max_samples,
+            )
+        if end_dense_start < end:
+            _add_range(
+                epochs,
+                end_dense_start,
+                end,
+                config.dense_step_seconds,
+                config.max_samples,
+            )
+
+        if len(epochs) > config.max_samples:
+            raise TrajectoryVisualSamplingError("adaptive sampling exceeded max_samples")
 
     departure = _instant(solution.departure_epoch, "departure_epoch")
     arrival = _instant(solution.arrival_epoch, "arrival_epoch")
