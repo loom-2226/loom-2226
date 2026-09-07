@@ -1,0 +1,138 @@
+version: '1.0'
+status: DRAFT_PENDING_PR24_MERGE
+purpose: Registry of true autonomous LOOM technical agents and reserved candidate roles.
+
+technical_definition:
+  autonomous_agent_requires_all:
+    - may_activate_without_a_new_human_prompt_on_registered_triggers
+    - observes_registered_state_or_events
+    - evaluates_state_against_a_persistent_bounded_objective_or_policy
+    - selects_from_an_allowed_response_set
+    - may_take_bounded_registered_actions_or_emit_durable_findings
+    - preserves_auditable_identity_scope_and_authority_boundaries
+  exclusions:
+    - deterministic_script_without_persistent_agent_objective
+    - passive_library_or_runtime_component
+    - llm_invoked_only_by_direct_user_prompt
+    - intellectual_review_persona_without_execution
+    - submodule_or_sensor_of_an_existing_agent
+
+count:
+  active_autonomous_agents: 1
+  near_term_target_max: 3
+  deferred_possible_total: 4
+  warning_threshold: 5
+  rule: NEW_AGENT_REQUIRES_AGENT_CREATION_GATE
+
+agents:
+  WALTER:
+    status: ACTIVE_ADVISORY
+    technical_role: CONTINUOUS_ASSURANCE
+    objective: >-
+      Independently inspect authority, provenance, dependency, vendor/model,
+      drift, freeze and release transitions so confidence or convenience cannot
+      become authority without the required repository evidence and gates.
+    trigger_model: EVENT_DRIVEN
+    current_execution:
+      github_pr_workflow: true
+      deterministic_checks: true
+      llm_advisory_layer: false
+      hard_blocking_enabled: false
+    allowed_actions:
+      - inspect
+      - compare
+      - classify
+      - emit_advisory_findings
+      - represent_future_deterministic_gate
+    prohibited_actions:
+      - modify_canon
+      - modify_frozen_research
+      - merge_pr
+      - delete_or_move_branch
+      - change_project_priority
+      - alter_production_data
+      - purchase_vendor_service
+      - treat_llm_judgment_as_evidence
+    modules:
+      - WALTER.VENDOR
+      - WALTER.BLACKBOX
+      - WALTER.DRIFT
+      - WALTER.PROVENANCE
+      - WALTER.RELEASE
+    modules_count_as_agents: false
+    persona_binding:
+      bound: true
+      persona_id: WALTER
+      source_contract: governance/roles/WALTER_CONTINUOUS_ASSURANCE_ROLE_v1.0.md
+      technical_permissions_derived_from_persona: false
+
+candidate_roles:
+  RESEARCH_QUALIFICATION:
+    status: RESERVED_NOT_ACTIVE
+    need_signal: >-
+      Activate only when LOOM has recurring frozen scientific qualifications
+      where independent preregistration/environment/verdict custody is valuable.
+    distinct_objective: >-
+      Preserve experiment identity, execute or supervise exact qualification
+      protocol, bind artifacts to frozen inputs, and mechanically apply
+      preregistered verdict rules without interpreting scientific meaning.
+    must_remain_independent_of:
+      - experiment_authoring_agent
+      - post_result_interpretation
+    expected_horizon: NEAR_TERM_AFTER_GOVERNANCE
+    persona_binding: UNASSIGNED
+
+  RELEASE_OPERATOR:
+    status: RESERVED_NOT_ACTIVE
+    need_signal: >-
+      Activate when repeatable cross-platform release promotion becomes frequent
+      enough to justify unattended packaging/hash/compatibility custody.
+    distinct_objective: >-
+      Convert an already-authorized source state into reproducible release
+      candidates, execute required packaging/tests/hashes, and refuse promotion
+      when declared inputs do not match.
+    must_not_decide:
+      - what_features_should_ship
+      - canon_policy
+      - scientific_interpretation
+    expected_horizon: NEAR_TERM_AFTER_GOVERNANCE
+    persona_binding: UNASSIGNED
+
+  RUNTIME_SIMULATION_STEWARD:
+    status: DEFERRED_CANDIDATE
+    need_signal: >-
+      Consider only when persistent campaign/simulation state advances often
+      enough to require autonomous state-transition custody between human sessions.
+    distinct_objective: >-
+      Apply already-governed runtime transition rules to authoritative GM/runtime
+      state while preserving event provenance, replayability and actor-belief
+      separation.
+    activation_now: NOT_JUSTIFIED
+    expected_horizon: LATER_IF_SIMULATION_BECOMES_CONTINUOUS
+    persona_binding: UNASSIGNED
+
+creation_gate:
+  required_questions:
+    - does_the_role_have_a_distinct_persistent_objective
+    - does_it_need_independent_triggering_or_state
+    - can_existing_agent_module_or_deterministic_workflow_do_it_cleanly
+    - is_independence_from_an_existing_agent_material_to_assurance
+    - what_state_data_permissions_and_external_services_does_it_use
+    - what_actions_can_it_take_without_human_confirmation
+    - what_deterministic_kill_or_hold_conditions_exist
+    - how_is_its_output_audited_and_replayed
+    - what_is_the_cost_vendor_and_lock_in_exposure
+    - what_persona_if_any_is_bound_and_can_it_be_removed_without_changing_authority
+  default_if_unclear: DO_NOT_CREATE_AGENT
+  preference_order:
+    - deterministic_workflow
+    - module_of_existing_agent
+    - autonomous_agent_only_if_distinct_objective_requires_it
+
+persona_policy:
+  personas_are_optional: true
+  personalities_may_be_added_later: true
+  personality_requires_separate_governed_binding: true
+  personality_may_change_technical_authority: false
+  personality_may_change_evidentiary_weight: false
+  unbinding_personality_must_leave_technical_agent_operationally_equivalent: true
