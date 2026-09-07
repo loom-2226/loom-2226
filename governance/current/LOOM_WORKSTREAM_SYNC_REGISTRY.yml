@@ -1,0 +1,125 @@
+version: '1.0'
+status: STEP12_COMPLETE_PENDING_MAIN_MERGE
+captured_date: '2026-09-07'
+repository: loom-2226/loom-2226
+authoritative_governance_branch: main
+governance_main_sha_used_for_sync: 356f4fd2c3b6d9dc897787a2c3cc6b90d41d375d
+
+principle: >-
+  Grandfathered workstreams are not rebased or merged with main merely to adopt
+  governance. Mutable paused workstreams receive a single sidecar governance marker.
+  Immutable/frozen research and retained release baselines receive review-only
+  disposition. Recovery refs remain the byte-exact pre-governance anchors.
+
+synced_workstreams:
+  navigator_gis_hud:
+    branch: planning/navigator-gis-hud-next-phase-2026-09-06
+    pre_sync_head_sha: c664c1a66b68e8354295cc2b3b36ff3007e1276a
+    step12_sync_head_sha: 450d4fb445fc10e61fabbeb85bb11e3e80e1bcbf
+    recovery_ref: archive/pre-governance-2026-09-07-navigator
+    recovery_ref_sha_verified: c664c1a66b68e8354295cc2b3b36ff3007e1276a
+    marker: governance/workstream-sync/NAVIGATOR_GIS_HUD_STEP12.yml
+    compare_result:
+      commits_added: 1
+      changed_paths:
+        - governance/workstream-sync/NAVIGATOR_GIS_HUD_STEP12.yml
+      non_governance_paths_changed: false
+    functional_state: UNCHANGED
+    status: GOVERNANCE_SYNC_APPLIED_PAUSED_UNTIL_STEP14
+
+  runtime_devops:
+    branch: integration/runtime-devops-convergence-2026-09-06
+    pre_sync_head_sha: 43fc7cd92a71e0460e551bcc2d6a717ccac796ca
+    step12_sync_head_sha: dbf822f0568f29d1065812ee58012eea8e42f391
+    recovery_ref: archive/pre-governance-2026-09-07-runtime-devops
+    recovery_ref_sha_verified: 43fc7cd92a71e0460e551bcc2d6a717ccac796ca
+    marker: governance/workstream-sync/RUNTIME_DEVOPS_STEP12.yml
+    compare_result:
+      commits_added: 1
+      changed_paths:
+        - governance/workstream-sync/RUNTIME_DEVOPS_STEP12.yml
+      non_governance_paths_changed: false
+    functional_state: UNCHANGED
+    status: GOVERNANCE_SYNC_APPLIED_PAUSED_UNTIL_STEP14
+
+  wayfarer_3d:
+    branch: workstream/wayfarer-3d
+    pre_sync_head_sha: 062bb0a2bfd718305dc0cf92dba9e61bab909d2d
+    step12_sync_head_sha: 6015a56fde8614e92fa356ee4a1c46d45a79ad09
+    recovery_ref: archive/pre-governance-2026-09-07-wayfarer-3d
+    recovery_ref_sha_verified: 062bb0a2bfd718305dc0cf92dba9e61bab909d2d
+    marker: governance/workstream-sync/WAYFARER_3D_STEP12.yml
+    compare_result:
+      commits_added: 1
+      changed_paths:
+        - governance/workstream-sync/WAYFARER_3D_STEP12.yml
+      non_governance_paths_changed: false
+    functional_state: UNCHANGED
+    status: GOVERNANCE_SYNC_APPLIED_PAUSED_UNTIL_STEP14
+
+review_only_workstreams:
+  media:
+    captured_lineage_commit: 0aeebdb4476a6574e93dc09834242fba54f6a109
+    recovery_ref: archive/pre-governance-2026-09-07-media
+    active_dedicated_media_branch_found: false
+    lineage_relation_to_main:
+      commit_is_ancestor_of_main: true
+      compare_base: 0aeebdb4476a6574e93dc09834242fba54f6a109
+      compare_head: 356f4fd2c3b6d9dc897787a2c3cc6b90d41d375d
+      ahead_by: 153
+      behind_by: 0
+    governance_sync_mode: INHERITS_MAIN_GOVERNANCE_NO_BRANCH_MUTATION
+    release_asset_remains_separate_provenance_object: true
+    functional_state: UNCHANGED
+
+  foundations_program_pr20:
+    pr: 20
+    branch: research/reviewer-constellation-cross-reference
+    head_sha: 74120daed077f7e0401b4e348dc0620df9d9b844
+    state: OPEN_DRAFT_PAUSED
+    governance_sync_mode: REVIEW_ONLY_NO_BRANCH_MUTATION
+    reason: >-
+      Research program remains grandfathered and paused; it already contains early
+      adoption/governance context and must not be rebased or mixed into Step 12.
+    step12_requirement_satisfied: true
+    resume_still_requires:
+      - PR19 disposition under preregistered qualification
+      - current WIP reload from main governance
+
+  pr16_matter_preregistration:
+    pr: 16
+    branch: research/relational-foundations-matter-induced-prereg
+    head_sha: b60086d906f63211206502f23458be490902c2df
+    state: PREREGISTERED_ON_HOLD
+    governance_sync_mode: REVIEW_ONLY_NO_MUTATION
+    mutation_allowed: false
+
+excluded_frozen_work:
+  pr19_deterministic_curvature:
+    pr: 19
+    branch: research/relational-foundations-deterministic-curvature
+    frozen_sha: 314efe50875630ba4be720b4097a2ca14075e620
+    governance_sync_mode: EXCLUDED_NO_FILE_NO_COMMIT_NO_REBASE_NO_METADATA_MUTATION
+    mutation_allowed: false
+    reason: FROZEN_SCIENTIFIC_QUALIFICATION
+
+retained_release_baselines:
+  phase6_converged:
+    branch: release/phase6-converged-mvp-2026-09-06
+    sha: 0e4fd69b984ed8ae3ef35e285fe8a54fc199a141
+    governance_sync_mode: REVIEW_ONLY_IMMUTABLE_BASELINE
+  pixel_runtime_post_migration:
+    branch: release/pixel-runtime-post-migration-2026-09-06
+    sha: f41c22d256ad5a9228cccf71607e0dd7a35ef930
+    governance_sync_mode: REVIEW_ONLY_IMMUTABLE_BASELINE
+
+step12_acceptance:
+  mutable_workstreams_sidecar_synced: 3
+  mutable_workstreams_non_governance_path_changes: 0
+  media_branch_invented: false
+  pr19_touched: false
+  pr16_touched: false
+  release_baselines_touched: false
+  recovery_refs_moved: false
+  functional_tests_required: false
+  reason_no_functional_tests: GOVERNANCE_YAML_AND_BOOTSTRAP_TEXT_ONLY
