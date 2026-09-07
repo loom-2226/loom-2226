@@ -1,4 +1,4 @@
-version: '1.5'
+version: '1.6'
 status: ADOPTION_PAUSE
 captured_date: '2026-09-07'
 repository: loom-2226/loom-2226
@@ -16,6 +16,7 @@ adoption:
   current_step_name: Configure and test LOOM ChatGPT Project bootstrap
   step11_state: COMPLETE_VERIFIED
   step12_state: COMPLETE_VERIFIED
+  step13_state: OPEN_RETRY_REQUIRED_AFTER_T13_01_FAILURE
   development_paused: true
   physics_execution_paused: true
   restart_gate_reached: false
@@ -106,9 +107,13 @@ session_bootstrap:
   ccr_context_conditional_load: true
   autonomous_agent_context_conditional_load: true
   grandfathered_workstream_context_conditional_load: true
-  project_instruction_installed: false
-  project_instruction_install_step: 13
+  project_instruction_initial_install_attempted: true
+  initial_fresh_chat_acceptance_result: FAIL_T13_01
+  hardened_project_instruction_ready: true
+  hardened_project_instruction_installed: false
   fresh_chat_acceptance_test_complete: false
+  acceptance_matrix: governance/validation/STEP13_CHATGPT_PROJECT_BOOTSTRAP_ACCEPTANCE_v1.0.yml
+  required_cold_start_receipt: true
 
 github_entry:
   pr_template: .github/PULL_REQUEST_TEMPLATE.md
@@ -253,6 +258,14 @@ step12:
   excluded_frozen_work: [PR19]
   non_governance_functional_changes: 0
   recovery_refs_moved: false
+
+step13:
+  pr: 29
+  audit: governance/adoption/STEP13_CHATGPT_PROJECT_BOOTSTRAP_AUDIT_2026-09-07.md
+  acceptance_matrix: governance/validation/STEP13_CHATGPT_PROJECT_BOOTSTRAP_ACCEPTANCE_v1.0.yml
+  initial_attempt: FAIL_T13_01_CONTEXT_FREE_CONTINUE
+  hardened_retry_required: true
+  status: OPEN
 
 next_step:
   id: 13
