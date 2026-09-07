@@ -6,13 +6,15 @@ This file is the root operating contract for ChatGPT, Codex and other agentic to
 
 Before substantive work:
 
-1. read `LOOM_START_HERE.md`;
-2. read `governance/current/LOOM_CURRENT_WORKSTATE.yml`;
+1. read `LOOM_START_HERE.md` from authoritative `main`;
+2. read `governance/current/LOOM_CURRENT_WORKSTATE.yml` from authoritative `main`;
 3. read the current governance/authority/change-control files linked there;
 4. verify relevant branch/PR state;
-5. read the nearest scoped `AGENTS.md` for the target subtree.
+5. read the nearest scoped `AGENTS.md` for the target subtree when present.
 
 If remembered context conflicts with verified Git state, Git wins.
+
+Grandfathered workstream branches may not contain the full governance corpus. A branch-local Step-12 sync marker is an audit pointer, not a vendored authority copy. Always reload current governance from `main` before authoritative mutation.
 
 ## Authority
 
@@ -127,11 +129,13 @@ WALTER is low-noise by design. His personality may shape presentation, never evi
 
 ## loom-gate
 
-`loom-gate` is the single future required deterministic governance status for promotion to `main`.
+`loom-gate` is the single required deterministic governance status for promotion to protected `main`.
 
-During governance adoption it runs in `OBSERVE` mode: candidate hard-gate violations are reported but cannot fail the PR.
+Its historically validated deterministic rule subset is in `ENFORCE` mode. Candidate-block violations fail the check. Rules that Step 9 classified as advisory/rework remain WATCH-only.
 
-Do not switch it to enforcement or make it required on `main` before the historical-validation and protection steps explicitly authorize that transition.
+No LLM judgment participates in a hard `loom-gate` result.
+
+Do not weaken, bypass, or expand hard-gate semantics without an explicit `class:governance` change and the required validation/approval.
 
 ## Failure mode
 

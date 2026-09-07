@@ -8,7 +8,7 @@ If you are a human, ChatGPT, Codex, another LLM, or any future agent entering th
 
 ## 1. Load current governance first
 
-Read, in this order:
+Read, in this order from authoritative `main`:
 
 1. `governance/current/LOOM_CURRENT_WORKSTATE.yml`
 2. `governance/current/LOOM_GOVERNANCE_BASELINE_v1.0.md`
@@ -17,6 +17,8 @@ Read, in this order:
 5. `AGENTS.md`
 
 Then read the nearest scoped `AGENTS.md` for any subtree you intend to modify.
+
+For grandfathered workstream branches, a branch-local `governance/workstream-sync/*_STEP12.yml` marker records that governance was reviewed. It is **not** a local copy of governing policy. Always reload current governance from `main` before authoritative mutation.
 
 ## 2. Before substantive work
 
@@ -32,19 +34,17 @@ Verify:
 
 Do not assume a workstream is active merely because it appears in an old conversation.
 
-## 3. Current adoption state
+## 3. Current governance/adoption state
 
-Governance adoption is currently in progress on:
+Governance Baseline v1.0 is authoritative on protected `main`.
 
-`governance/repository-control-baseline-v1`
+The repository's exact current state is defined by:
 
-Draft governance PR:
+`governance/current/LOOM_CURRENT_WORKSTATE.yml`
 
-`#24 — Governance: establish LOOM repository control baseline v1`
+Do not hard-code an adoption branch, PR number, current step, gate mode, or workstream head from this document. Read the workstate and relevant Git refs every session.
 
-The authoritative current workstate file states which adoption step is active and which workstreams remain paused.
-
-Until the explicit restart gate is reached, do not resume game development or physics execution from memory.
+Until `restart_gate_reached: true`, do not resume game development or physics execution from memory.
 
 ## 4. Critical scientific freeze
 
@@ -57,6 +57,8 @@ Exact frozen SHA:
 Do not rebase, merge `main` into it, refactor, optimize, tune, change diagnostics, or alter verdict rules.
 
 A useful improvement becomes a successor experiment.
+
+PR #16 is preregistered/on hold at the exact SHA recorded in current workstate and must likewise not be casually rebased or mutated.
 
 ## 5. Authority direction
 
@@ -91,7 +93,7 @@ Read when assurance is relevant:
 
 WALTER may activate on vendor, black-box, provenance, drift, frozen-state, dependency or release concerns.
 
-He is deterministic-first and LLM-second. He may hard-block only where an explicit deterministic governance rule fails.
+He is deterministic-first and LLM-second. His deterministic historically validated `loom-gate` rules may block protected-main promotion when an explicit rule fails; advisory/interpretive findings do not become hard evidence by personality or model judgment.
 
 He does not speak.
 

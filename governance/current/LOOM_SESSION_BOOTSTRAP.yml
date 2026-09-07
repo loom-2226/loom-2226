@@ -1,8 +1,10 @@
-version: '1.0'
-status: DRAFT_PENDING_PR24_MERGE
+version: '1.1'
+status: ACTIVE_GOVERNING
 purpose: Fresh-session authority recovery for ChatGPT, Codex and other agents
 
 entrypoint: LOOM_START_HERE.md
+
+authoritative_branch: main
 
 required_reads:
   - governance/current/LOOM_CURRENT_WORKSTATE.yml
@@ -12,6 +14,22 @@ required_reads:
   - AGENTS.md
 
 conditional_reads:
+  grandfathered_workstream_branch:
+    when_branch_families:
+      - planning/**
+      - integration/**
+      - workstream/**
+      - release/**
+      - research/**
+    read_from_main:
+      - governance/current/LOOM_WORKSTREAM_SYNC_REGISTRY.yml
+      - governance/current/LOOM_GATE_POLICY.yml
+      - governance/dependencies/component-map.yml
+      - manifests/current/LOOM_COMPATIBILITY.yml
+    rule: >-
+      Branch-local Step-12 sync markers are audit pointers only. They never replace
+      current governance on main.
+
   canon_change_or_promotion:
     when_change_classes:
       - class:canon
@@ -25,6 +43,7 @@ conditional_reads:
       - governance/dependencies/component-map.yml
       - manifests/current/LOOM_COMPATIBILITY.yml
       - canon/AGENTS.md
+
   load_bearing_or_release_change:
     when_change_classes:
       - class:canon
@@ -45,6 +64,7 @@ conditional_reads:
       - governance/dependencies/component-map.yml
       - governance/dependencies/DEPENDENCY_AND_COMPATIBILITY_POLICY_v1.0.md
       - manifests/current/LOOM_COMPATIBILITY.yml
+
   autonomous_agent_or_persona_change:
     when_change_classes:
       - class:governance
@@ -57,6 +77,7 @@ conditional_reads:
       - governance/agents/PERSONA_BINDING_POLICY_v1.0.md
       - governance/current/LOOM_GATE_POLICY.yml
       - governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md
+
   walter_pack_inventory:
     when_assurance_relevant: true
     read:
@@ -64,11 +85,12 @@ conditional_reads:
 
 session_sequence:
   - VERIFY_REPOSITORY_ACCESS
-  - LOAD_CURRENT_WORKSTATE
+  - LOAD_CURRENT_WORKSTATE_FROM_MAIN
   - VERIFY_RELEVANT_PR_BRANCH_SHA
   - IDENTIFY_CHANGE_CLASS
   - IDENTIFY_PERMITTED_MUTATION_SCOPE
   - CHECK_FROZEN_PREREGISTERED_STATE
+  - LOAD_WORKSTREAM_SYNC_CONTEXT_WHEN_RELEVANT
   - LOAD_CCR_AIRLOCK_CONTEXT_FOR_CANON_WORK
   - LOAD_DEPENDENCY_COMPATIBILITY_CONTEXT_WHEN_REQUIRED
   - LOAD_AGENT_CREATION_AND_PERSONA_CONTEXT_WHEN_REQUIRED
@@ -124,6 +146,12 @@ walter:
   canon_promotion_requires_registered_approved_ccr: true
   may_create_other_agents: false
   agent_creation_review_scope: ROLE_DUPLICATION_VENDOR_PERMISSION_INDEPENDENCE_PERSONA_CREEP
+
+loom_gate:
+  context: loom-gate
+  mode_source: governance/current/LOOM_GATE_POLICY.yml
+  protected_main_required: true
+  hard_result_uses_llm: false
 
 scoped_agent_rules:
   canon: canon/AGENTS.md
