@@ -193,11 +193,15 @@ jobs:
               x=YAML.safe_load(File.read(ARGV[0]), aliases: true)
               declared=x.dig("count","active_autonomous_agents").to_i
               agents=x["agents"] || {}
-              active=agents.count { |_k,v| v["status"].to_s.start_with?("ACTIVE") }
-              bad_persona=agents.any? do |_k,v|
+              active_entries=agents.select { |_k,v| v["status"].to_s.start_with?("ACTIVE") }
+              active=active_entries.length
+              bad_persona=active_entries.any? do |_k,v|
                 v.dig("persona_binding","bound") == true && v.dig("persona_binding","technical_permissions_derived_from_persona") != false
               end
-              puts [declared,active,bad_persona ? 1 : 0].join("|")
+              missing_review=active_entries.any? do |_k,v|
+                v.dig("creation_review","status") != "APPROVED" || v.dig("creation_review","path").to_s.empty?
+              end
+              puts [declared,active,bad_persona ? 1 : 0,missing_review ? 1 : 0].join("|")
             ' governance/agents/AGENT_REGISTRY.yml 2>/dev/null || true)"
             if [[ -z "$registry_check" ]]; then
               candidate_block "LG014: autonomous-agent registry could not be evaluated."
@@ -205,9 +209,23 @@ jobs:
               declared_agents="${registry_check%%|*}"
               rest="${registry_check#*|}"
               active_agents="${rest%%|*}"
-              bad_persona="${rest##*|}"
+              rest="${rest#*|}"
+              bad_persona="${rest%%|*}"
+              missing_review="${rest##*|}"
               [[ "$declared_agents" == "$active_agents" ]] || candidate_block "LG014: declared active-agent count ($declared_agents) does not match ACTIVE registry entries ($active_agents)."
               [[ "$bad_persona" == "0" ]] || watch "LG016: a persona-bound agent appears to derive technical permissions from persona."
+              [[ "$missing_review" == "0" ]] || candidate_block "LG015: one or more ACTIVE autonomous agents lack an APPROVED creation review in the registry."
+
+              while IFS='|' read -r agent_id review_path; do
+                [[ -z "$agent_id" ]] && continue
+                [[ -n "$review_path" && -f "$review_path" ]] || candidate_block "LG015: ACTIVE agent $agent_id has missing creation-review file: ${review_path:-<missing>}"
+              done < <(ruby -ryaml -e '
+                x=YAML.safe_load(File.read(ARGV[0]), aliases: true)
+                (x["agents"] || {}).each do |id,v|
+                  next unless v["status"].to_s.start_with?("ACTIVE")
+                  puts [id,v.dig("creation_review","path")].join("|")
+                end
+              ' governance/agents/AGENT_REGISTRY.yml 2>/dev/null || true)
             fi
           fi
 
