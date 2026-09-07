@@ -8,15 +8,7 @@ governance_pr: 24
 
 adoption:
   sprint: governance/adoption/LOOM_GOVERNANCE_ADOPTION_SPRINT_v1.0.md
-  completed_steps:
-    - 1
-    - 2
-    - 3
-    - 4
-    - 5
-    - 6
-    - 7
-    - 8
+  completed_steps: [1,2,3,4,5,6,7,8]
   current_step: 9
   current_step_name: Historical validation against real LOOM workstreams
   development_paused: true
@@ -32,18 +24,9 @@ active_wip_before_pause:
     sha: 314efe50875630ba4be720b4097a2ca14075e620
     state: FROZEN_QUALIFICATION_PAUSED_FOR_GOVERNANCE
     mutation_allowed: false
-  scientific_discovery:
-    id: S4
-    name: Identity and Protected Observables
-    state: ACTIVE_BEFORE_PAUSE
-  world_design:
-    id: F2
-    name: Synthetic Identity and Personhood
-    state: ACTIVE_BEFORE_PAUSE
-  enabler:
-    id: P1
-    name: Anomaly Registry and Evidence Taxonomy
-    state: ACTIVE_BEFORE_PAUSE
+  scientific_discovery: {id: S4, name: Identity and Protected Observables, state: ACTIVE_BEFORE_PAUSE}
+  world_design: {id: F2, name: Synthetic Identity and Personhood, state: ACTIVE_BEFORE_PAUSE}
+  enabler: {id: P1, name: Anomaly Registry and Evidence Taxonomy, state: ACTIVE_BEFORE_PAUSE}
 
 blocked_or_waiting:
   stage_a_matter:
@@ -51,10 +34,8 @@ blocked_or_waiting:
     branch: research/relational-foundations-matter-induced-prereg
     sha: b60086d906f63211206502f23458be490902c2df
     state: PREREGISTERED_ON_HOLD
-  p4_cross_domain_correlation:
-    state: BLOCKED
-  s5_matter_information_control:
-    state: BLOCKED
+  p4_cross_domain_correlation: {state: BLOCKED}
+  s5_matter_information_control: {state: BLOCKED}
 
 paused_game_workstreams:
   navigator_gis_hud:
@@ -87,20 +68,13 @@ session_bootstrap:
 
 github_entry:
   pr_template: .github/PULL_REQUEST_TEMPLATE.md
-  issue_forms:
-    - .github/ISSUE_TEMPLATE/work_item.yml
-    - .github/ISSUE_TEMPLATE/experiment.yml
-    - .github/ISSUE_TEMPLATE/canon_change.yml
-    - .github/ISSUE_TEMPLATE/defect.yml
-    - .github/ISSUE_TEMPLATE/governance.yml
-    - .github/ISSUE_TEMPLATE/assurance_finding.yml
-    - .github/ISSUE_TEMPLATE/exception.yml
+  issue_forms_enabled: true
   blank_issues_enabled: false
-  legacy_advisory_workflow: .github/workflows/loom-governance-advisory.yml
   stable_gate_workflow: .github/workflows/loom-gate.yml
   stable_gate_context: loom-gate
   gate_mode: OBSERVE
   required_status_check: false
+  legacy_advisory_workflow_pending_retirement: .github/workflows/loom-governance-advisory.yml
 
 canon_change_control:
   lifecycle: governance/changes/README.md
@@ -126,21 +100,16 @@ dependency_and_compatibility:
   known_gaps:
     python_runtime_version: NOT_PINNED_BY_CURRENT_RELEASE_MANIFEST
     threejs_version: NOT_RECORDED_IN_CURRENT_WAYFARER_MANIFEST
-  gaps_activate_new_wip_during_adoption: false
 
 autonomous_agents:
   registry: governance/agents/AGENT_REGISTRY.yml
   creation_policy: governance/agents/AUTONOMOUS_AGENT_CREATION_POLICY_v1.0.md
   persona_policy: governance/agents/PERSONA_BINDING_POLICY_v1.0.md
   active_count: 1
-  active:
-    - WALTER
+  active: [WALTER]
   near_term_target_max: 3
-  reserved_not_active:
-    - RESEARCH_QUALIFICATION
-    - RELEASE_OPERATOR
-  deferred_candidate:
-    - RUNTIME_SIMULATION_STEWARD
+  reserved_not_active: [RESEARCH_QUALIFICATION, RELEASE_OPERATOR]
+  deferred_candidate: [RUNTIME_SIMULATION_STEWARD]
   new_agent_requires_creation_gate: true
   persona_can_be_added_later: true
   persona_can_change_authority: false
@@ -151,32 +120,18 @@ assurance:
     tag: '#LOOMSAFE'
     architecture_status: AUTONOMOUS_AGENT_LOOM_GATE_OBSERVE_MODE_LIVE
     creation_review: governance/agents/reviews/AGENT_CREATION_REVIEW_WALTER_v1.0.md
-    autonomous_activation_policy_defined: true
-    deterministic_gate_workflow_live: true
     gate_policy: governance/current/LOOM_GATE_POLICY.yml
     gate_context: loom-gate
     gate_mode: OBSERVE
     hard_blocking_enabled: false
     historical_validation_required_before_enforcement: true
     llm_advisory_layer_implementation: false
-    ccr_airlock_checks_live: true
-    agent_registry_checks_live: true
     personality_grounded_in_real_walter_history: true
-    evolution_policy: MAY_EVOLVE_THROUGH_GOVERNED_AUDITABLE_CHANGES_AS_LATER_STEPS_REVEAL_BETTER_ASSURANCE_DESIGN
-    personality_contract: governance/roles/WALTER_CONTINUOUS_ASSURANCE_ROLE_v1.0.md
-    agent_spec: governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md
-    pack_inventory_extension: governance/agents/WALTER_PACK_INVENTORY_EXTENSION_v1.0.md
-    pack_inventory_machine_backed: true
-    dependency_absence_treated_as_safe_independence: false
     may_create_or_approve_other_agents: false
 
 wip_limits:
   max_substantive_streams: 4
-  slots:
-    - T0_SCIENTIFIC_EXECUTION
-    - T1_SCIENCE_DISCOVERY
-    - T1_WORLD_SIMULATION
-    - BOUNDED_ENABLER
+  slots: [T0_SCIENTIFIC_EXECUTION, T1_SCIENCE_DISCOVERY, T1_WORLD_SIMULATION, BOUNDED_ENABLER]
   fifth_stream_requires_displacement: true
 
 mutation_policy_during_adoption:
