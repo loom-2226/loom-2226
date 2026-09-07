@@ -1,9 +1,10 @@
 version: '1.0'
-status: STEP12_COMPLETE_PENDING_MAIN_MERGE
+status: STEP12_COMPLETE_VERIFIED
 captured_date: '2026-09-07'
 repository: loom-2226/loom-2226
 authoritative_governance_branch: main
 governance_main_sha_used_for_sync: 356f4fd2c3b6d9dc897787a2c3cc6b90d41d375d
+main_step12_merge_sha: 626e3ce1470abbe3ce8a24624b87c230c32570b4
 
 principle: >-
   Grandfathered workstreams are not rebased or merged with main merely to adopt
@@ -114,6 +115,7 @@ retained_release_baselines:
     governance_sync_mode: REVIEW_ONLY_IMMUTABLE_BASELINE
 
 step12_acceptance:
+  protected_main_merge_complete: true
   mutable_workstreams_sidecar_synced: 3
   mutable_workstreams_non_governance_path_changes: 0
   media_branch_invented: false
