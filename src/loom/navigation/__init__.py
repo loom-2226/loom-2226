@@ -27,6 +27,12 @@ from .route_layer import (
     RouteLayerSegmentV1,
     ROUTE_LAYER_VERSION,
 )
+from .trajectory_solution_adapter import (
+    TRAJECTORY_PACKET_ADAPTER_VERSION,
+    TrajectoryPacketAdapterError,
+    trajectory_solution_from_flight_plan,
+    trajectory_solution_from_route_layer,
+)
 from .service import LegacyNavigationService, NavigationServiceError
 
 __all__ = [
@@ -51,6 +57,10 @@ __all__ = [
     "RouteLayerError",
     "RouteLayerSegmentV1",
     "ROUTE_LAYER_VERSION",
+    "TRAJECTORY_PACKET_ADAPTER_VERSION",
+    "TrajectoryPacketAdapterError",
+    "trajectory_solution_from_flight_plan",
+    "trajectory_solution_from_route_layer",
     "LegacyNavigationService",
     "NavigationServiceError",
 ]
