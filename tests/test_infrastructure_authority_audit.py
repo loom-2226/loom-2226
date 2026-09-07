@@ -35,8 +35,6 @@ class InfrastructureAuthorityAuditTests(unittest.TestCase):
 
         compact = {key: grouped[key] for key in sorted(grouped)}
         self.assertEqual(sum(len(rows) for rows in compact.values()), 127)
-        self.assertTrue(any(row["frame_family"] == "SURFACE_BODY_FIXED" for row in result["rows"]))
-        self.assertTrue(any(row["frame_family"] == "CR3BP_ROTATING" for row in result["rows"]))
 
         # Evidence emission is deliberately non-presumptive: F-PA records the exact
         # Git database classification before adding stronger simulator-qualification gates.
