@@ -10,6 +10,54 @@ All findings in this audit must be supported by live GitHub repository artifacts
 
 This stage is audit/classification first. It does not invent or promote physical constants, surface coordinates, station orbits, traffic rules, transition geometry, or campaign authority.
 
+### 0.1 SQL-first physical derivation authority
+
+For spatial-authority work, the source chain is explicitly:
+
+```text
+1. EXISTING WORLD / CIVSTATE SQL
+        ↓
+2. GOVERNED MODEL / DERIVED DATA REFERENCED BY SQL
+        ↓
+3. FROZEN TEXT CANON FROM LIVE GITHUB — only to constrain unresolved SQL gaps
+        ↓
+4. NASA / JPL / NAIF / IDSS methods and standards — derivation methodology, not setting authority
+        ↓
+5. CANDIDATE DERIVED PHYSICAL STATE
+        ↓
+6. QUALIFICATION / REVIEW
+        ↓
+7. GOVERNED PROMOTION BACK INTO STRUCTURED SQL AUTHORITY
+```
+
+Rules:
+
+- Existing SQL is the first structured source for an entity's physical class, parent, location model, orbit/placement model, spatial state, provenance, traffic/authority relationships and engineering metadata.
+- If SQL references another governed model or dataset, follow that chain before consulting prose canon.
+- Frozen text canon is a secondary constraint source for fields that SQL does not determine. Text canon does not override a populated SQL physical value silently.
+- NASA/JPL/NAIF/IDSS standards define how a physically valid state, frame, orbit, rendezvous condition, docking geometry or surface frame is represented/derived; they do not independently choose fictional 2226 coordinates or orbital elements.
+- Derived physical values remain candidate/derived authority until qualified and promoted through governed repository change.
+- The simulator-facing authoritative result should be structured in SQL or a governed referenced physical model, not left only in prose.
+- If SQL and frozen text canon conflict, **stop and reconcile the conflict explicitly**. Do not silently prefer SQL, prose, or whichever value produces a cleaner simulation.
+- If neither SQL nor canon constrains a unique physical result, classify the missing geometry as design-required or underdetermined rather than fabricating it.
+
+Each infrastructure-node audit must therefore include:
+
+- `PRIMARY_STRUCTURED_SOURCE`
+- `REFERENCED_MODEL_SOURCE`
+- `TEXT_CANON_CONSTRAINT`
+- `SOURCE_CONFLICT_STATUS`
+- `SPATIAL_DERIVABILITY`
+- `DERIVATION_STANDARD_OR_METHOD`
+- `QUALIFICATION_STATUS`
+- `PROMOTION_TARGET`
+
+`SPATIAL_DERIVABILITY` uses:
+
+- `DETERMINATE_FROM_EXISTING_AUTHORITY`
+- `CONSTRAINED_DESIGN_REQUIRED`
+- `UNDERDETERMINED`
+
 ## 1. Audit classification
 
 Every relevant source/table/model is to be classified as one of:
@@ -124,6 +172,14 @@ For every infrastructure node classify:
 - navigation grade?;
 - docking/landing metadata?;
 - traffic authority/regime?;
+- `PRIMARY_STRUCTURED_SOURCE`;
+- `REFERENCED_MODEL_SOURCE`;
+- `TEXT_CANON_CONSTRAINT`;
+- `SOURCE_CONFLICT_STATUS`;
+- `SPATIAL_DERIVABILITY`;
+- `DERIVATION_STANDARD_OR_METHOD`;
+- `QUALIFICATION_STATUS`;
+- `PROMOTION_TARGET`;
 - resulting F-PA classification.
 
 No missing coordinates or orbital elements may be fabricated to complete the matrix.
@@ -156,6 +212,8 @@ Stage F-PA is complete only when repository evidence supports:
 6. explicit list of fields/models requiring new governed authority;
 7. proposed schema/service changes separated from audit facts;
 8. no display approximation silently promoted to physics;
-9. no new canon values invented merely to make the simulator visually complete.
+9. no new canon values invented merely to make the simulator visually complete;
+10. SQL-first derivation provenance captured for every promoted spatial result;
+11. all SQL↔text-canon conflicts explicitly reconciled before promotion.
 
 Only after this gate should a schema migration or bulk physical-data enrichment be proposed.
