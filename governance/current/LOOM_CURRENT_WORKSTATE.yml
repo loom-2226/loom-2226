@@ -1,4 +1,4 @@
-version: '1.4'
+version: '1.5'
 status: ADOPTION_PAUSE
 captured_date: '2026-09-07'
 repository: loom-2226/loom-2226
@@ -10,10 +10,11 @@ step11_policy_pr: 25
 
 adoption:
   sprint: governance/adoption/LOOM_GOVERNANCE_ADOPTION_SPRINT_v1.0.md
-  completed_steps: [1,2,3,4,5,6,7,8,9,10,11]
-  current_step: 12
-  current_step_name: Governance sync/review of preserved active workstreams
+  completed_steps: [1,2,3,4,5,6,7,8,9,10,11,12]
+  current_step: 13
+  current_step_name: Configure and test LOOM ChatGPT Project bootstrap
   step11_state: COMPLETE_VERIFIED
+  step12_state: COMPLETE_PENDING_THIS_PR_MERGE
   development_paused: true
   physics_execution_paused: true
   restart_gate_reached: false
@@ -43,51 +44,70 @@ blocked_or_waiting:
     pr: 16
     branch: research/relational-foundations-matter-induced-prereg
     sha: b60086d906f63211206502f23458be490902c2df
-    state: PREREGISTERED_ON_HOLD
+    state: PREREGISTERED_ON_HOLD_STEP12_REVIEWED_NO_MUTATION
   p4_cross_domain_correlation: {state: BLOCKED}
   s5_matter_information_control: {state: BLOCKED}
 
 paused_game_workstreams:
   navigator_gis_hud:
     branch: planning/navigator-gis-hud-next-phase-2026-09-06
-    sha: c664c1a66b68e8354295cc2b3b36ff3007e1276a
+    pre_governance_head_sha: c664c1a66b68e8354295cc2b3b36ff3007e1276a
+    step12_governance_sync_head_sha: 450d4fb445fc10e61fabbeb85bb11e3e80e1bcbf
     recovery_ref: archive/pre-governance-2026-09-07-navigator
+    sync_marker: governance/workstream-sync/NAVIGATOR_GIS_HUD_STEP12.yml
+    functional_state: UNCHANGED
+    state: GOVERNANCE_SYNCED_PAUSED_UNTIL_STEP14
   runtime_devops:
     branch: integration/runtime-devops-convergence-2026-09-06
-    sha: 43fc7cd92a71e0460e551bcc2d6a717ccac796ca
+    pre_governance_head_sha: 43fc7cd92a71e0460e551bcc2d6a717ccac796ca
+    step12_governance_sync_head_sha: dbf822f0568f29d1065812ee58012eea8e42f391
     recovery_ref: archive/pre-governance-2026-09-07-runtime-devops
+    sync_marker: governance/workstream-sync/RUNTIME_DEVOPS_STEP12.yml
+    functional_state: UNCHANGED
+    state: GOVERNANCE_SYNCED_PAUSED_UNTIL_STEP14
   wayfarer_3d:
     branch: workstream/wayfarer-3d
-    sha: 062bb0a2bfd718305dc0cf92dba9e61bab909d2d
+    pre_governance_head_sha: 062bb0a2bfd718305dc0cf92dba9e61bab909d2d
+    step12_governance_sync_head_sha: 6015a56fde8614e92fa356ee4a1c46d45a79ad09
     recovery_ref: archive/pre-governance-2026-09-07-wayfarer-3d
+    sync_marker: governance/workstream-sync/WAYFARER_3D_STEP12.yml
+    functional_state: UNCHANGED
+    state: GOVERNANCE_SYNCED_PAUSED_UNTIL_STEP14
   media:
     captured_commit: 0aeebdb4476a6574e93dc09834242fba54f6a109
     recovery_ref: archive/pre-governance-2026-09-07-media
+    dedicated_active_media_branch: false
+    captured_commit_is_ancestor_of_main: true
+    step12_sync_mode: INHERITS_MAIN_GOVERNANCE_NO_BRANCH_MUTATION
+    functional_state: UNCHANGED
+    state: STEP12_REVIEWED_PAUSED_UNTIL_STEP14
 
 foundations_program:
   pr: 20
   branch: research/reviewer-constellation-cross-reference
   sha: 74120daed077f7e0401b4e348dc0620df9d9b844
-  state: PAUSED_FOR_GOVERNANCE_RETAIN_OPEN_DRAFT
-  merge_during_step10: false
-  branch_mutation_during_step10: false
+  state: PAUSED_FOR_GOVERNANCE_STEP12_REVIEWED_RETAIN_OPEN_DRAFT
+  branch_mutated_by_step12: false
+  step12_requirement_satisfied: true
   resume_requires:
-    - governance_baseline_authoritative
-    - step12_governance_sync_or_review_as_applicable
     - pr19_disposition
-    - current_wip_reload
+    - current_wip_reload_from_main_governance
 
 session_bootstrap:
   entrypoint: LOOM_START_HERE.md
   root_agent_contract: AGENTS.md
   machine_protocol: governance/current/LOOM_SESSION_BOOTSTRAP.yml
+  workstream_sync_registry: governance/current/LOOM_WORKSTREAM_SYNC_REGISTRY.yml
   chatgpt_project_instruction: governance/current/LOOM_CHATGPT_PROJECT_BOOTSTRAP_v1.0.md
   scoped_agent_rules_established: true
+  machine_protocol_active: true
   dependency_context_conditional_load: true
   ccr_context_conditional_load: true
   autonomous_agent_context_conditional_load: true
+  grandfathered_workstream_context_conditional_load: true
   project_instruction_installed: false
   project_instruction_install_step: 13
+  fresh_chat_acceptance_test_complete: false
 
 github_entry:
   pr_template: .github/PULL_REQUEST_TEMPLATE.md
@@ -200,7 +220,7 @@ mutation_policy_until_restart:
     - scoped AGENTS.md
     - .github/** governance material
     - manifests/current/** governance compatibility metadata
-    - step12 governance-only metadata/sync records on preserved workstreams
+    - step13 ChatGPT Project bootstrap configuration/testing records
   still_forbidden_until_step14:
     - canon content changes unrelated to governance adoption
     - navigator/gis functional development
@@ -222,6 +242,16 @@ step11:
   protection_verified: true
   status: COMPLETE
 
+step12:
+  registry: governance/current/LOOM_WORKSTREAM_SYNC_REGISTRY.yml
+  audit: governance/adoption/STEP12_WORKSTREAM_GOVERNANCE_SYNC_AUDIT_2026-09-07.md
+  status: COMPLETE_PENDING_THIS_PR_MERGE
+  sidecar_synced_workstreams: [NAVIGATOR_GIS_HUD, RUNTIME_DEVOPS, WAYFARER_3D]
+  review_only_workstreams: [MEDIA, FOUNDATIONS_PR20, PR16, RETAINED_RELEASE_BASELINES]
+  excluded_frozen_work: [PR19]
+  non_governance_functional_changes: 0
+  recovery_refs_moved: false
+
 next_step:
-  id: 12
-  name: Governance sync/review of preserved active workstreams
+  id: 13
+  name: Configure and test LOOM ChatGPT Project bootstrap
