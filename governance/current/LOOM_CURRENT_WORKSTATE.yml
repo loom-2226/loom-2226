@@ -1,4 +1,4 @@
-version: '1.9'
+version: '2.0'
 status: NORMAL_GOVERNED_OPERATIONS
 captured_date: '2026-09-07'
 repository: loom-2226/loom-2226
@@ -7,9 +7,11 @@ main_governance_baseline_sha: 605b8cd3ea00c94ac78437b90f5e85fd841a085b
 main_step11_policy_sha: 07ad87106b5fd8b11c9dedd51fa1cb551117776f
 main_step12_merge_sha: 626e3ce1470abbe3ce8a24624b87c230c32570b4
 main_step13_merge_sha: 5bf46d987ac0c91f4b6ebffe26e6cdf5a4354cb9
+main_step14_merge_sha: 889fc89b4c1609b3852b98948f77d1fb8f4fe193
 governance_baseline_pr: 24
 step11_policy_pr: 25
 step13_pr: 29
+step14_pr: 30
 
 adoption:
   sprint: governance/adoption/LOOM_GOVERNANCE_ADOPTION_SPRINT_v1.0.md
@@ -19,7 +21,7 @@ adoption:
   step11_state: COMPLETE_VERIFIED
   step12_state: COMPLETE_VERIFIED
   step13_state: COMPLETE_VERIFIED
-  step14_state: COMPLETE_ON_PROTECTED_MAIN_MERGE
+  step14_state: COMPLETE_VERIFIED
   governance_adoption_complete: true
   development_paused: false
   physics_execution_paused: false
@@ -250,7 +252,7 @@ adoption_pause_policy:
     - pr16 mutation
 
 normal_operations:
-  status: ACTIVE_ON_STEP14_MERGE
+  status: ACTIVE_VERIFIED
   change_class_required: true
   scoped_agents_required: true
   dependency_and_compatibility_rules_active: true
@@ -284,13 +286,16 @@ step13:
   status: COMPLETE_VERIFIED
 
 step14:
+  pr: 30
   audit: governance/adoption/STEP14_RESUME_LOOM_AUDIT_2026-09-07.md
   restart_main_parent_sha: 5bf46d987ac0c91f4b6ebffe26e6cdf5a4354cb9
+  main_merge_sha: 889fc89b4c1609b3852b98948f77d1fb8f4fe193
   registered_game_heads_reverified: true
   pr19_frozen_head_reverified: true
+  pr16_head_reverified: true
   pr20_head_reverified: true
   non_governance_functional_changes: 0
-  result: COMPLETE_ON_PROTECTED_MAIN_MERGE
+  result: COMPLETE_VERIFIED
 
 next_step:
   id: NORMAL_OPERATIONS
