@@ -9,13 +9,13 @@ Parent authority: `docs/LOOM_2226_Portable_Ship_Simulation_Qualification_Work_Pl
 
 This decision is subordinate to the live GitHub governing plan. Mandatory acceptance remains external to the LLM, Pixel-local after setup, offline-capable, deterministic, and code-judged. Navigator/GIS/HUD physics-dependent work remains frozen until the ship-common qualification gate passes. `loompy` remains RESERVED / NOT IMPLEMENTED.
 
-No SHIPCLASSES schema decision is authorized by this document. The Pixel seam must pass first.
+No SHIPCLASSES schema decision is authorized by this document. Phase 1 establishes the portable simulator-role architecture and Pixel feasibility only.
 
 ## 2. Phase 1 decision summary
 
-Recommended role assignment:
+Frozen Phase 1 role assignment after successful Pixel proof:
 
-- `PORTABLE_QUALIFICATION_KERNEL`: **small LOOM-owned NumPy 6DOF kernel, fixed-step deterministic integrator, qualified against analytic and frozen hostile-reference vectors.** This designation is CONDITIONAL until the supplied proof runs successfully on the Pixel itself.
+- `PORTABLE_QUALIFICATION_KERNEL`: **small LOOM-owned NumPy 6DOF kernel, fixed-step deterministic integrator, qualified against analytic and frozen hostile-reference vectors.** Pixel feasibility was demonstrated on 2026-09-08 with repeated deterministic PASS, including an offline rerun.
 - `SPACECRAFT_HOSTILE_REFERENCE`: **Basilisk**.
 - `NASA_DEEP_REFERENCE`: **NASA JEOD + Trick**.
 - `ASTRODYNAMICS_REFERENCE`: **Tudat/TudatPy**.
@@ -50,7 +50,7 @@ Scoring: 5 = strong fit, 1 = poor fit for this specific role. Scores are enginee
 
 SimuPy Flight is deliberately built around NASA/NESC 6DOF verification cases. Its README states that the equations of motion are expressed through SimuPy, use SciPy numerical integration wrappers, and use SymPy/code generation; it ships implemented NESC atmospheric test cases and corresponding reference data. This makes it unusually valuable as a published 6DOF reference and harness source.
 
-The same dependency chain is a Pixel risk: SciPy's compiled numerical stack and generated/symbolic dependencies are substantially more fragile on Android/Pydroid than NumPy alone. Therefore SimuPy Flight should remain a preferred NESC/reference-vector source even if its full package is not admitted to the Pixel runtime.
+The same dependency chain is a Pixel risk: SciPy's compiled numerical stack and generated/symbolic dependencies are substantially more fragile on Android than NumPy alone. Therefore SimuPy Flight should remain a preferred NESC/reference-vector source even if its full package is not admitted to the Pixel runtime.
 
 License: NASA Open Source Agreement 1.3.
 
@@ -180,15 +180,54 @@ Local non-Pixel dry-run evidence on 2026-09-08:
 - two repeated local runs produced identical JSON and CSV hashes;
 - local result: PASS.
 
-This is **not** the governing Pixel result. Phase 1 remains OPEN until the same artifact is executed on the user's Pixel, preferably once online/installed and then again with network disabled, and both runs produce numerical PASS with deterministic outputs.
+### 6.1 Governing Pixel execution evidence — 2026-09-08
 
-## 7. Required Pixel execution
+The exact Phase 1 artifact was copied into the Pixel Git/source working tree at:
 
-From a repository checkout containing this branch:
+`/storage/emulated/0/Download/LOOM_TEST/qualification/phase1/verify_pixel_6dof.py`
+
+It was executed from Termux on the Pixel with:
+
+- platform: `Android-17-aarch64-64bit-ELF`;
+- machine: `aarch64`;
+- Python: `3.13.13`;
+- NumPy: `2.4.4`.
+
+Run 1 completed with network available and code-reported:
+
+`LOOM_PIXEL_6DOF_PROOF: PASS`
+
+The unchanged artifact was then rerun after Wi-Fi and mobile data were disabled. Run 2 also completed with:
+
+`LOOM_PIXEL_6DOF_PROOF: PASS`
+
+Both Pixel runs produced identical output hashes:
+
+- `pixel_6dof_result.json` SHA-256: `e1d09f46d3e34d4272ddaebb8bf848e99fc09dba8f4b0b3e62f0a916d3cd54ef`
+- `pixel_6dof_trace.csv` SHA-256: `ea7efa949d789f366f6817ddd12a791ec12c814fea0255596136c5ebc200af40`
+
+Both runs also reported identical governing numerical evidence:
+
+- `numpy_import = true`;
+- `zero_force_inertial = true`;
+- `custom_force_moment_callback = true`;
+- `quaternion_norm = true`;
+- `deterministic_fixed_step = true`;
+- zero-force max absolute error: `0.0`;
+- injected-wrench max absolute error: `5.483563603192465e-11`;
+- quaternion norm error: `0.0`;
+- result schema: `loom.pixel_6dof_proof.v0.1`;
+- status: `PASS`.
+
+This satisfies the Phase 1 Pixel proof requirements for local scientific-Python loading, compatible portable execution, deterministic inertial propagation, custom force/moment injection, local JSON/CSV output, offline repeatability, and numerical code-determined PASS/FAIL.
+
+## 7. Pixel execution procedure retained for regression
+
+From the Pixel Git/source working root:
 
 ```text
-cd qualification/phase1
-python verify_pixel_6dof.py
+cd /storage/emulated/0/Download/LOOM_TEST
+python qualification/phase1/verify_pixel_6dof.py
 ```
 
 Expected terminal marker:
@@ -204,34 +243,28 @@ qualification/phase1/output/pixel_6dof_result.json
 qualification/phase1/output/pixel_6dof_trace.csv
 ```
 
-For the offline-repeat gate:
-
-1. run once with dependencies already installed;
-2. disable network connectivity;
-3. run again unchanged;
-4. retain both console results or generated output hashes;
-5. require code-reported PASS both times.
+The Pixel proof should remain reproducible as a regression seam after subsequent Phase 2+ work.
 
 ## 8. Phase 1 gate status
 
-Current status: **OPEN — AWAITING PIXEL EXECUTION.**
+Current status: **PASSED — PIXEL FEASIBILITY AND SIMULATOR-ROLE DECISION FROZEN ON FEATURE BRANCH.**
 
 Completed:
 - live GitHub governance bootstrap;
 - external simulator/reference comparison;
-- role recommendations;
-- smallest practical portable proof artifact;
-- local dry-run and deterministic repeat check.
+- role designation;
+- minimal portable proof artifact;
+- local dry-run and deterministic repeat check;
+- actual Pixel/Termux execution;
+- offline Pixel rerun with the unchanged artifact;
+- identical Pixel output hashes across both runs;
+- numerical code-reported PASS on both runs;
+- freeze of the Phase 1 simulator-role decision.
 
-Not yet completed:
-- actual Pixel/Pydroid execution;
-- offline Pixel rerun;
-- governance freeze of the simulator-role decision after Pixel evidence.
+Phase 1 authorizes progression to **Phase 2 — Generic ship physical contract** under the governing work plan.
 
-Therefore:
+It does **not** authorize implementation of a production SHIPCLASSES database yet. Phase 2 must derive and version the generic physical contract first, and Phase 3 then prototypes the Wayfarer-only ship-class SQLite non-destructively.
 
-**Do not design `LOOM_2226_SHIPCLASSES.sqlite3` around any simulator API yet.**
-
-**Navigator/GIS/HUD physics-dependent implementation remains hard frozen.**
+**Navigator/GIS/HUD physics-dependent implementation remains hard frozen until the full Navigator-resumption exit gate is satisfied.**
 
 **No merge is authorized by this document.**
