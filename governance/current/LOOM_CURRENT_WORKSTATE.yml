@@ -5,6 +5,7 @@ repository: loom-2226/loom-2226
 main_sha_at_adoption_start: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
 main_governance_baseline_sha: 605b8cd3ea00c94ac78437b90f5e85fd841a085b
 main_step11_policy_sha: 07ad87106b5fd8b11c9dedd51fa1cb551117776f
+main_step12_merge_sha: 626e3ce1470abbe3ce8a24624b87c230c32570b4
 governance_baseline_pr: 24
 step11_policy_pr: 25
 
@@ -14,7 +15,7 @@ adoption:
   current_step: 13
   current_step_name: Configure and test LOOM ChatGPT Project bootstrap
   step11_state: COMPLETE_VERIFIED
-  step12_state: COMPLETE_PENDING_THIS_PR_MERGE
+  step12_state: COMPLETE_VERIFIED
   development_paused: true
   physics_execution_paused: true
   restart_gate_reached: false
@@ -245,7 +246,8 @@ step11:
 step12:
   registry: governance/current/LOOM_WORKSTREAM_SYNC_REGISTRY.yml
   audit: governance/adoption/STEP12_WORKSTREAM_GOVERNANCE_SYNC_AUDIT_2026-09-07.md
-  status: COMPLETE_PENDING_THIS_PR_MERGE
+  status: COMPLETE_VERIFIED
+  main_merge_sha: 626e3ce1470abbe3ce8a24624b87c230c32570b4
   sidecar_synced_workstreams: [NAVIGATOR_GIS_HUD, RUNTIME_DEVOPS, WAYFARER_3D]
   review_only_workstreams: [MEDIA, FOUNDATIONS_PR20, PR16, RETAINED_RELEASE_BASELINES]
   excluded_frozen_work: [PR19]
