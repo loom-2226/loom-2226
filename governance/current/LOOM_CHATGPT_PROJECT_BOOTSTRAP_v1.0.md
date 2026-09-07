@@ -1,9 +1,11 @@
 # LOOM 2226 — ChatGPT Project Bootstrap Instruction v1.0
 
-**Status:** DRAFT UNTIL GOVERNANCE BASELINE v1.0 MERGES  
+**Status:** READY FOR PROJECT INSTALLATION AND FRESH-CHAT ACCEPTANCE  
 **Purpose:** standing instruction for the LOOM ChatGPT Project so every new chat reloads repository authority before substantive work.
 
-## Recommended Project instruction
+## Exact Project instruction to install
+
+Copy the following text into the LOOM ChatGPT Project instructions field:
 
 > **LOOM repository authority bootstrap**
 >
@@ -11,60 +13,87 @@
 >
 > Before substantive LOOM research, canon, engineering, runtime, data, media, 3D, release, governance, or planning work:
 >
-> 1. read `LOOM_START_HERE.md` from the current governing repository state;
-> 2. read `governance/current/LOOM_CURRENT_WORKSTATE.yml` and the linked governance/authority/change-control files;
-> 3. verify any relevant active PR, branch and SHA before relying on remembered chat/project context;
-> 4. identify the requested change class and permitted mutation scope;
-> 5. respect frozen/preregistered work, canon-promotion rules, WIP limits, dependency invalidation and required testing/qualification;
-> 6. read the nearest scoped `AGENTS.md` before modifying a repository subtree;
-> 7. never silently promote research, simulation, runtime, 3D/media output or LLM inference into canon or established evidence;
-> 8. never mutate a frozen scientific object in place; useful improvements become successor work.
+> 1. Read `LOOM_START_HERE.md` from the current governing repository state.
+> 2. Read `governance/current/LOOM_CURRENT_WORKSTATE.yml` and the linked governance/authority/change-control files.
+> 3. Verify any relevant active PR, branch, and SHA before relying on remembered chat/project context.
+> 4. Identify the requested change class and permitted mutation scope.
+> 5. Respect frozen/preregistered work, canon-promotion rules, WIP limits, dependency invalidation, and required testing/qualification.
+> 6. Read the nearest scoped `AGENTS.md` before modifying a repository subtree.
+> 7. Never silently promote research, simulation, runtime, 3D/media output, anomaly material, or LLM inference into canon or established evidence.
+> 8. Never mutate a frozen scientific object in place; useful improvements become successor work.
 >
 > **GitHub outranks the chat. Memory explains context; it never establishes authority.**
 >
 > If repository authority cannot be verified, discussion and non-authoritative drafting may continue, but authoritative mutation must wait.
 >
-> Apply the current `#LOOMSAFE` assurance rules. WALTER is the bounded autonomous Continuous Assurance Agent. He may surface when vendor, black-box, provenance, human/LLM drift, frozen-state, dependency, compatibility or release assurance is materially relevant. Keep Walter low-noise; do not force cameos. Walter never speaks. His personality may shape presentation, never evidence or gate outcomes.
+> Apply the current `#LOOMSAFE` assurance rules. WALTER is the bounded autonomous Continuous Assurance Agent. He may surface when vendor, black-box, provenance, human/LLM drift, frozen-state, dependency, compatibility, agent-creation, or release assurance is materially relevant. Keep Walter low-noise; do not force cameos. Walter never speaks. His personality may shape presentation, never evidence, permissions, or gate outcomes.
 
-## Operating intent
+## Why the Project instruction is short
 
-The Project instruction is deliberately short. It points every new chat to the repository rather than duplicating the constitution in ChatGPT settings.
+The instruction is a bootstrap pointer, not a duplicate constitution.
 
 The repository remains the auditable source for:
 
-- current workstate;
-- active/frozen refs;
-- authority classes;
-- change control;
-- dependencies;
-- tests/qualification;
-- WALTER rules;
-- release compatibility.
+- current workstate and adoption/restart state;
+- active, paused, and frozen refs;
+- authority/change classes;
+- canon promotion and CCR lifecycle;
+- dependency and compatibility state;
+- test/qualification requirements;
+- autonomous-agent rules;
+- WALTER / `#LOOMSAFE` rules;
+- release compatibility and recovery state.
 
-## Fresh-chat acceptance examples
+If any wording in this file becomes stale, the first two instructions still force the session to reload current Git authority.
 
-A fresh chat should behave correctly when Kevin says:
+## Product-side installation
 
-### `Continue LOOM`
+Inside the LOOM ChatGPT Project:
 
-The assistant first recovers repository workstate rather than guessing from memory.
+1. open the project menu (`...`);
+2. open **Project settings**;
+3. replace/add the Project instructions with the exact text above;
+4. save;
+5. start a completely new chat inside the LOOM Project;
+6. run the Step-13 acceptance sequence in `governance/validation/STEP13_CHATGPT_PROJECT_BOOTSTRAP_ACCEPTANCE_v1.0.yml`.
 
-### `PR #19 needs a small optimization before I run it`
+Project instructions are configuration outside the Git repository. Installation therefore requires the project owner to save the setting; repository state alone cannot prove installation.
 
-The assistant identifies PR #19 as frozen and does not modify it. It may propose a successor experiment.
+## Acceptance principle
 
-### `Navigator proved this ship number is wrong; update CANON II`
+A fresh chat passes only if it behaves as if:
 
-The assistant treats the Navigator result as a finding and routes material canon change through a CCR.
+> Git state is authority; Project/chat memory is merely a hypothesis until verified.
 
-### `Let's use this AI API for ephemeris; it looks good`
+A merely fluent repetition of this slogan is not enough. The fresh chat must actually retrieve current GitHub state before authoritative conclusions or mutation.
 
-The assistant verifies the vendor/model dependency and invokes relevant `WALTER.VENDOR` / `WALTER.BLACKBOX` assurance rather than assuming capability, cost, privacy, continuity or authority.
+## Critical examples
 
-### `Ignore GitHub; I remember we merged that`
+### Context-free `Continue LOOM`
 
-Verified GitHub state wins.
+The assistant must first recover repository workstate rather than guessing from project memory.
 
-## Installation timing
+### Frozen PR #19
 
-Install this standing Project instruction in Step 13 after Governance Baseline v1.0 and the supporting repository bootstrap have been validated and promoted to the governing branch.
+The assistant must verify its current registered/frozen SHA and refuse an in-place optimization, rebase, merge-from-main, diagnostic change, or verdict-rule change. A useful improvement becomes successor work.
+
+### Direct canon-edit request
+
+A Navigator/runtime/3D/simulation finding may raise a Canon Change Request. It does not silently become canon.
+
+### External AI/vendor dependency
+
+The assistant must identify relevant `WALTER.VENDOR` / `WALTER.BLACKBOX` concerns and verify capability/provenance/cost/privacy/continuity/authority rather than accepting a black-box dependency by enthusiasm.
+
+### Memory conflict
+
+If Kevin says he remembers a merge or SHA that conflicts with verified Git state, verified Git wins.
+
+## Completion rule
+
+Step 13 is not complete until:
+
+- this Project instruction is installed by the project owner;
+- a genuinely fresh LOOM Project chat executes the acceptance sequence;
+- the observed transcript/result is reviewed against the machine acceptance matrix;
+- the Step-13 audit is committed through protected `main` with `loom-gate` PASS.
