@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import defaultdict
 from pathlib import Path
 import json
 import unittest
@@ -18,8 +19,29 @@ class InfrastructureAuthorityAuditTests(unittest.TestCase):
         self.assertTrue(all("node_id" in row and "entity_id" in row for row in result["rows"]))
         self.assertTrue(all(row["surface_coordinates_structured"] is False for row in result["rows"]))
         self.assertTrue(all(row["docking_transition_geometry_structured"] is False for row in result["rows"]))
+
+        grouped: dict[str, list[dict[str, str]]] = defaultdict(list)
+        for row in result["rows"]:
+            grouped[row["runtime_frame_usability"]].append(
+                {
+                    "node_id": str(row["node_id"]),
+                    "node_name": str(row["node_name"]),
+                    "facility_type": str(row["facility_type"]),
+                    "frame_family": str(row["frame_family"]),
+                    "geometry_kind": str(row["geometry_kind"]),
+                    "navigation_grade": str(row["state_navigation_grade_bool"]),
+                }
+            )
+
+        compact = {key: grouped[key] for key in sorted(grouped)}
+        self.assertEqual(sum(len(rows) for rows in compact.values()), 127)
+        self.assertGreater(len(compact.get("CURRENT_INERTIAL_FRAME_METHOD_COMPATIBLE", [])), 0)
+        self.assertGreater(len(compact.get("STORED_NAV_GRADE_BODY_FIXED_FRAME_UNSUPPORTED", [])), 0)
+        self.assertTrue(any(row["frame_family"] == "SURFACE_BODY_FIXED" for row in result["rows"]))
+        self.assertTrue(any(row["frame_family"] == "CR3BP_ROTATING" for row in result["rows"]))
+
         print("F_PA_INFRASTRUCTURE_MATRIX_SUMMARY=" + json.dumps(result["summary"], sort_keys=True))
-        print("F_PA_INFRASTRUCTURE_MATRIX_ROWS=" + json.dumps(result["rows"], sort_keys=True, separators=(",", ":")))
+        print("F_PA_RUNTIME_USABILITY_GROUPS=" + json.dumps(compact, sort_keys=True, separators=(",", ":")))
 
 
 if __name__ == "__main__":
