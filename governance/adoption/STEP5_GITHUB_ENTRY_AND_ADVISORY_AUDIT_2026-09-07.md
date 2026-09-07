@@ -74,17 +74,19 @@ The workflow always exits `0` and cannot block a merge in Step 5.
 
 This is deliberate. Historical validation and false-positive review must occur before any check earns HOLD/BLOCK authority.
 
-## First live run
+## Live acceptance runs
 
-The workflow executed successfully on PR #24 during Step 5.
+The workflow executed repeatedly on PR #24 during Step 5.
 
-Observed findings:
+Observed results:
 
-1. The job completed successfully and the inspection script ran.
-2. It emitted the expected advisory warning that PR #24 did not yet contain a recognizable primary change-class token because PR #24 predates the new PR contract.
+1. The first job completed successfully and the inspection script ran.
+2. It emitted the expected advisory warning that PR #24 did not yet contain a recognizable primary change-class token because PR #24 predated the new PR contract.
 3. No canon/freeze/data/release authority violation was reported.
-4. The initial YAML job name `WALTER / #LOOMSAFE advisory` was parsed by YAML as `WALTER /` because the unquoted `#` started a comment. The job still ran correctly. This presentation bug was fixed by quoting the job name.
-5. The initial run used `actions/checkout@v4`, which emitted GitHub's current Node-20 deprecation warning. The workflow was updated to `actions/checkout@v5`, which uses the Node-24 runtime supported by current hosted runners.
+4. The initial YAML job name `WALTER / #LOOMSAFE advisory` was parsed as `WALTER /` because the unquoted `#` started a YAML comment. The job still ran correctly. This presentation bug was fixed by quoting the job name.
+5. The initial run used `actions/checkout@v4`, which emitted GitHub's Node-20 deprecation warning. The workflow was updated to `actions/checkout@v5`.
+6. A subsequent run confirmed the full job name `WALTER / #LOOMSAFE advisory` and `actions/checkout@v5` executed successfully.
+7. PR #24 was then updated to declare `class:governance`. The edited-body run completed successfully with **zero advisory warnings**.
 
 This is a useful proof of the advisory-first model: even governance itself gets tested by the real platform before it earns enforcement authority.
 
@@ -115,7 +117,7 @@ No gameplay, Navigator/GIS/HUD, runtime behavior, SQLite bytes/schema, media ass
 
 ## Acceptance result
 
-**PASS.** Structured repository entry contracts exist and the first autonomous WALTER advisory workflow executed successfully without blocking the PR.
+**PASS.** Structured repository entry contracts exist, the first autonomous WALTER advisory workflow executed successfully, its platform issues were corrected, and the final governed PR-body run completed with zero advisory findings.
 
 ## Next permitted action
 
