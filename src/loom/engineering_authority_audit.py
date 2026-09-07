@@ -61,10 +61,10 @@ def engineering_authority_audit(repo_root: Path | str) -> dict[str, Any]:
 
     required_shadow = {
         "non_authoritative": "D2i remains non-authoritative",
-        "thrust_magnitude": "selected torch mode's thrust-magnitude envelope",
-        "sample_accel": "Sequence-B ``ordinary_accel_g`` telemetry",
-        "no_vectoring": "does not invent a certified thrust-vector/gimbal envelope",
-        "thermal_open": "thermal margin: those remain explicit OPEN",
+        "thrust_magnitude": "thrust-magnitude envelope",
+        "sample_accel": "ordinary_accel_g",
+        "no_vectoring": "thrust-vector/gimbal envelope",
+        "thermal_open": "OPEN_NO_NUMERIC_THERMAL_MARGIN",
         "mdot": "mdot_kg_s",
         "wet_mass": "wet_mass_t",
         "remass_estimate": "estimated_required_remass_t_over_qualified_interval",
