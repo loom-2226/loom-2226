@@ -1,7 +1,7 @@
 # LOOM 2226 — Governance Adoption Step 8 Audit
 
 **Date:** 7 September 2026  
-**Status:** STEP 8 COMPLETE SUBJECT TO FINAL LIVE ZERO-FINDING RUN  
+**Status:** STEP 8 COMPLETE — FINAL LIVE ZERO-FINDING RUN PENDING PR-CONTRACT UPDATE  
 **Branch:** `governance/repository-control-baseline-v1`  
 **PR:** #24
 
@@ -20,15 +20,11 @@ Formal files:
 - `governance/agents/PERSONA_BINDING_POLICY_v1.0.md`
 - `governance/agents/reviews/AGENT_CREATION_REVIEW_WALTER_v1.0.md`
 
-### Technical definition
-
 A true LOOM autonomous agent must be independently triggerable, observe registered state, evaluate it against a persistent bounded objective, select an allowed response, take bounded registered action/create durable findings, and preserve auditable identity/scope/authority.
 
 Scripts, passive runtime components, directly prompted chats, intellectual reviewer personas and submodules do not count as separate agents.
 
-### Current topology
-
-Active autonomous agents: **1** — WALTER / Continuous Assurance / `ACTIVE_ADVISORY`.
+Current active autonomous agents: **1 — WALTER**.
 
 Reserved but not active: Research Qualification and Release Operator.
 
@@ -36,21 +32,25 @@ Deferred candidate: Runtime / Simulation Steward.
 
 Near-term target maximum is three top-level agents. A fifth top-level autonomous agent is a governance smell requiring explicit architecture review.
 
-### Agent Creation Gate
+## Agent Creation Gate
 
 New autonomous agents require a distinct persistent objective, independent triggering/state need, proof that deterministic workflow or an existing-agent module is insufficient, explicit permissions/prohibitions, audit/replay semantics, vendor/cost/privacy review, shutdown behavior, `class:governance`, and Kevin approval.
 
 Default when unclear: **do not create the agent**.
 
-Walter's first-agent creation review is durable and APPROVED in `governance/agents/reviews/AGENT_CREATION_REVIEW_WALTER_v1.0.md`. The active registry entry points directly to it. WALTER may inspect future agent creation/expansion but may not approve his own authority increase or create/activate another autonomous agent.
+Walter's initial creation review is APPROVED at `governance/agents/reviews/AGENT_CREATION_REVIEW_WALTER_v1.0.md`. His active registry entry points directly to it. `loom-gate` checks that every ACTIVE autonomous agent has an approved registry-linked creation review whose durable file exists.
+
+WALTER may inspect future agent creation or expansion but may not approve his own authority increase or create/activate another autonomous agent.
 
 ## Persona architecture
 
-Technical role comes first; persona comes second. Future agents may be bound later to established LOOM characters, real-life behavioral lineages, new governance-only personalities, or no personality.
+Technical role comes first; persona comes second.
 
-A persona must be reversible: removing it leaves technical objective, triggers, permissions, gates and evidentiary behavior unchanged. Personality may improve presentation and salience; it may not change evidence, permissions, scientific thresholds, canon eligibility or hard-gate outcomes.
+Future agents may later receive an established LOOM character, real-life behavioral lineage, new governance-only personality, or no personality.
 
-## loom-gate architecture
+A persona must be removable without changing technical objective, triggers, permissions, gates or evidentiary behavior. Personality may improve presentation and salience; it may not change evidence, permissions, scientific thresholds, canon eligibility or hard-gate outcomes.
+
+## loom-gate
 
 Created `.github/workflows/loom-gate.yml` and `governance/current/LOOM_GATE_POLICY.yml`.
 
@@ -60,7 +60,7 @@ Current mode: `OBSERVE`.
 
 OBSERVE reports WATCH/CANDIDATE_BLOCK but exits successfully. Step 9 determines which deterministic rules earn enforcement.
 
-Candidate hard-gate families include frozen SHA integrity, canon CCR airlock, machine-control parse integrity, release JSON parse integrity, autonomous-agent registry consistency, approved creation-review presence for ACTIVE agents, and `class:governance` when activating a new autonomous agent.
+Candidate hard-gate families include frozen SHA integrity, canon CCR airlock, machine-control parse integrity, release JSON parse integrity, autonomous-agent registry consistency, approved creation-review presence for ACTIVE agents, and `class:governance` when activating a new agent.
 
 Advisory-by-design families include mixed-authority review, vendor/dependency assurance, immature SQLite path semantics and persona-authority semantic review.
 
@@ -70,11 +70,11 @@ Advisory-by-design families include mixed-authority review, vendor/dependency as
 
 Root `AGENTS.md` and `LOOM_SESSION_BOOTSTRAP.yml` conditionally load agent registry/creation/persona/gate policy when autonomous-agent or persona work is proposed.
 
-## Live-run finding during implementation
+## Self-governance finding
 
 The first `loom-gate` run correctly noticed that PR #24 introduced active-agent count zero -> one without explicitly recording the Agent Creation Gate review in the PR contract.
 
-The rule was not weakened. A durable Walter creation review was created and registry-linked. PR #24 must explicitly cite that review before final Step-8 acceptance.
+The rule was not weakened. A durable Walter creation review was created and registry-linked. PR #24 must cite it before final Step-8 acceptance.
 
 ## Legacy workflow disposition
 
@@ -82,7 +82,7 @@ After a clean `loom-gate` run, retire the older `LOOM Governance Advisory` workf
 
 ## Acceptance
 
-Step 8 closes when `loom-gate` runs in OBSERVE mode with zero findings for PR #24, all machine manifests parse, WALTER has an approved durable creation review, PR #24 cites the Agent Creation Gate review, the old duplicate advisory workflow is retired, and frozen `main`/PR #19 remain unchanged.
+Step 8 closes when `loom-gate` runs in OBSERVE mode with zero findings for PR #24, all machine manifests parse, WALTER has an approved durable creation review, PR #24 cites the Agent Creation Gate review, the duplicate advisory workflow is retired, and frozen `main`/PR #19 remain unchanged.
 
 ## Next permitted action
 
