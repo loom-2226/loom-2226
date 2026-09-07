@@ -73,8 +73,10 @@ github_entry:
   stable_gate_workflow: .github/workflows/loom-gate.yml
   stable_gate_context: loom-gate
   gate_mode: OBSERVE
+  gate_live_zero_finding_run: 34075198947
+  gate_live_zero_finding_result: PASS
   required_status_check: false
-  legacy_advisory_workflow_pending_retirement: .github/workflows/loom-governance-advisory.yml
+  legacy_advisory_workflow_retired: true
 
 canon_change_control:
   lifecycle: governance/changes/README.md
