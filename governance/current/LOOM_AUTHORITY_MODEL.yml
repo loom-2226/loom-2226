@@ -1,0 +1,115 @@
+version: '1.0'
+status: DRAFT_PENDING_PR24_MERGE
+repository: loom-2226/loom-2226
+constitutional_source: governance/current/LOOM_GOVERNANCE_BASELINE_v1.0.md
+
+principles:
+  repository_over_chat: true
+  memory_establishes_authority: false
+  research_auto_promotes_canon: false
+  runtime_auto_promotes_canon: false
+  generated_assets_auto_promote_authority: false
+
+roles:
+  kevin:
+    role: PROJECT_INTENT_AUTHORITY
+    may_set_priority: true
+    may_rewrite_history: false
+  sol_openai_agents:
+    role: INTEGRATOR_ARCHITECT_IMPLEMENTER
+    mutation_scope_requires_work_item: true
+    remembered_context_is_authority: false
+  walter:
+    role: AUTONOMOUS_CONTINUOUS_ASSURANCE
+    tag: '#LOOMSAFE'
+    specification: governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md
+    autonomous_activation: true
+    autonomous_mutation: false
+    deterministic_hard_gate_only: true
+    llm_findings_advisory_by_default: true
+
+promotion_chain:
+  - EXTERNAL_ESTABLISHED_KNOWLEDGE
+  - RESEARCH_SIMULATION_DERIVATION
+  - CANON_CHANGE_REQUEST
+  - CANON
+  - ENGINEERING
+  - RUNTIME_DATA_3D_MEDIA
+  - RELEASE
+
+authority_classes:
+  canon:
+    paths:
+      - canon/current/**
+    rule: governing only when recognized by active baseline/authority registry or scoped governing amendment
+  research:
+    paths:
+      - research/**
+    rule: non-canon unless explicitly promoted
+  engineering:
+    paths:
+      - engineering/**
+    rule: subordinate technical interpretation/closure; may raise canon findings
+  runtime:
+    paths:
+      - src/**
+      - tools/**
+      - deploy/**
+    rule: implements authority; execution does not override canon
+  data:
+    paths:
+      - data/**
+    rule: runtime/data authority only within declared domain; not canon by storage
+  asset_media_3d:
+    paths:
+      - geometry/**
+      - web/**
+      - media/**
+    rule: derived/representational unless explicitly designated authoritative by canon/engineering
+  governance:
+    paths:
+      - governance/**
+      - .github/**
+      - AGENTS.md
+      - LOOM_START_HERE.md
+    rule: controls process/authority; cannot promote substantive canon by implication
+
+change_classes:
+  - class:research
+  - class:canon
+  - class:engineering
+  - class:runtime
+  - class:data
+  - class:asset-media
+  - class:governance
+
+canon_amendments:
+  scoped_amendment_rule:
+    parent_required: true
+    explicit_scope_required: true
+    outside_scope_parent_remains_governing: true
+    active_registry_listing_required: true
+    downstream_combined_authority_reference_required: true
+  existing_wayfarer_v2_4a:
+    parent: canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+    amendment: canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md
+    effective_relationship: SCOPED_GOVERNING_AMENDMENT
+    baseline_management_state: RECONCILIATION_REQUIRED_AT_NEXT_CANON_BASELINE_UPDATE
+    adoption_action: RECORD_ONLY_NO_CANON_EDIT
+
+frozen_research:
+  pr_19:
+    ref: research/relational-foundations-deterministic-curvature
+    sha: 314efe50875630ba4be720b4097a2ca14075e620
+    state: FROZEN_SCIENTIFIC_QUALIFICATION
+    mutation_allowed: false
+  pr_16:
+    ref: research/relational-foundations-matter-induced-prereg
+    sha: b60086d906f63211206502f23458be490902c2df
+    state: PREREGISTERED_ON_HOLD
+    mutation_allowed: false
+
+exceptions:
+  silent_chat_override_allowed: false
+  record_required_for_material_exception: true
+  history_rewrite_allowed: false
