@@ -13,6 +13,20 @@ import sqlite3
 
 MATRIX_CONTRACT = "LOOM_F_PA_INFRASTRUCTURE_AUTHORITY_MATRIX_V1"
 
+_CURRENT_INERTIAL_METHOD_FAMILIES = {
+    "PARENT_CENTERED_INERTIAL",
+    "HELIOCENTRIC_INERTIAL",
+}
+_BODY_FIXED_UNSUPPORTED_FAMILIES = {
+    "BODY_FIXED",
+    "ATMOSPHERIC_BODY_FIXED",
+    "SURFACE_BODY_FIXED",
+}
+_SPECIAL_METHOD_FAMILIES = {
+    "CR3BP_ROTATING",
+    "LOCAL_ORBITAL",
+}
+
 
 def _connect(path: Path) -> sqlite3.Connection:
     if not path.is_file():
@@ -31,6 +45,27 @@ def _truth(value: Any) -> bool | None:
 
 def _complete(values: list[Any]) -> bool:
     return all(value is not None for value in values)
+
+
+def _runtime_usability(*, frame_family: Any, state_complete: bool, state_nav: bool | None) -> str:
+    """Classify compatibility with the currently authorized frame method.
+
+    This is deliberately not a re-grading of the stored state. In particular,
+    inertial-family rows are only marked as compatible with the current frame
+    method; this function does not claim arbitrary-epoch resolvability.
+    """
+    family = str(frame_family or "").strip().upper()
+    if not state_complete:
+        return "MISSING_STATE"
+    if state_nav is not True:
+        return "NON_NAVIGATION_GRADE_REDERIVATION_REQUIRED"
+    if family in _CURRENT_INERTIAL_METHOD_FAMILIES:
+        return "CURRENT_INERTIAL_FRAME_METHOD_COMPATIBLE"
+    if family in _BODY_FIXED_UNSUPPORTED_FAMILIES:
+        return "STORED_NAV_GRADE_BODY_FIXED_FRAME_UNSUPPORTED"
+    if family in _SPECIAL_METHOD_FAMILIES:
+        return "SPECIAL_MODEL_QUALIFICATION_REQUIRED"
+    return "UNCLASSIFIED_FRAME_METHOD"
 
 
 def infrastructure_authority_matrix(world_path: Path | str) -> dict[str, Any]:
@@ -95,6 +130,12 @@ def infrastructure_authority_matrix(world_path: Path | str) -> dict[str, Any]:
             state_authority = "MISSING"
             spatial_derivability = "UNDERDETERMINED"
 
+        runtime_usability = _runtime_usability(
+            frame_family=r.get("frame_family"),
+            state_complete=state_complete,
+            state_nav=state_nav,
+        )
+
         matrix.append({
             **r,
             "state_6d_complete": state_complete,
@@ -105,6 +146,7 @@ def infrastructure_authority_matrix(world_path: Path | str) -> dict[str, Any]:
             "state_navigation_grade_bool": state_nav,
             "structured_state_authority": state_authority,
             "spatial_derivability_initial": spatial_derivability,
+            "runtime_frame_usability": runtime_usability,
             "surface_coordinates_structured": False,
             "docking_transition_geometry_structured": False,
         })
@@ -125,6 +167,7 @@ def infrastructure_authority_matrix(world_path: Path | str) -> dict[str, Any]:
         "state_validity_status": counts("validity_status"),
         "state_authority": counts("structured_state_authority"),
         "spatial_derivability_initial": counts("spatial_derivability_initial"),
+        "runtime_frame_usability": counts("runtime_frame_usability"),
         "state_6d_complete": counts("state_6d_complete"),
         "keplerian_orbit_definition_complete": counts("keplerian_orbit_definition_complete"),
         "location_navigation_grade": counts("location_navigation_grade_bool"),
