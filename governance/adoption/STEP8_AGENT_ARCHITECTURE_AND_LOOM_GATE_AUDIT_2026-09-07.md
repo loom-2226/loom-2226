@@ -51,9 +51,11 @@ Default when unclear: **do not create the agent**.
 
 ### Walter initial review
 
-Walter's first-agent creation review is now durable and APPROVED in:
+Walter's first-agent creation review is durable and APPROVED in:
 
 `governance/agents/reviews/AGENT_CREATION_REVIEW_WALTER_v1.0.md`
+
+The active WALTER registry entry now points directly to that review. `loom-gate` checks that every ACTIVE autonomous agent has an approved registry-linked creation review whose durable file actually exists.
 
 WALTER may inspect future agent creation or expansion but may not approve his own authority increase or create/activate another autonomous agent.
 
@@ -125,7 +127,7 @@ Root `AGENTS.md` and `LOOM_SESSION_BOOTSTRAP.yml` now conditionally load agent r
 
 The first `loom-gate` run correctly noticed that PR #24 introduced the registry with active-agent count moving from zero on frozen `main` to one on the governance branch, but PR #24 had not yet explicitly recorded the Agent Creation Gate review.
 
-This was treated as a valid self-governance finding. The rule was not weakened. A durable Walter creation review was created and the PR contract is being updated to cite it.
+This was treated as a valid self-governance finding. The rule was not weakened. A durable Walter creation review was created, registry-linked, and the PR contract is being updated to cite it.
 
 ## Legacy workflow disposition
 
