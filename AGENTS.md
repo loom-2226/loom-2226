@@ -8,9 +8,10 @@ Before substantive work:
 
 1. read `LOOM_START_HERE.md` from authoritative `main`;
 2. read `governance/current/LOOM_CURRENT_WORKSTATE.yml` from authoritative `main`;
-3. read the current governance/authority/change-control files linked there;
-4. verify relevant branch/PR state;
-5. read the nearest scoped `AGENTS.md` for the target subtree when present.
+3. read `governance/current/LOOM_RESEARCH_AUTHORITY_BOUNDARY_v1.0.md`;
+4. read the current governance/authority/change-control files linked there;
+5. verify relevant branch/PR state;
+6. read the nearest scoped `AGENTS.md` for the target subtree when present.
 
 If remembered context conflicts with verified Git state, Git wins.
 
@@ -19,10 +20,23 @@ Grandfathered workstream branches may not contain the full governance corpus. A 
 ## Authority
 
 - `canon/current/**` is governing only as registered by the active canon baseline/authority model or a scoped governing amendment.
-- `research/**` is non-canon unless explicitly promoted.
+- historical `research/**` in this repository is non-canon and is not standing authority for new active research.
+- active research responsibility belongs in `loom-2226/loom-research-lab` under its registered project manifests.
 - `engineering/**` is subordinate technical interpretation/closure.
 - runtime/data/3D/media implement or represent governing sources; they do not silently override canon.
 - governance controls process; governance text does not promote substantive canon by implication.
+
+## Research authority boundary
+
+`governance/current/LOOM_RESEARCH_AUTHORITY_BOUNDARY_v1.0.md` governs repository responsibility for research.
+
+Main LOOM retains canon, engineering, runtime, data, release, governance, historical research objects, frozen/preregistered scientific objects, and all promotion/disposition authority affecting LOOM.
+
+Active successor research belongs in `loom-2226/loom-research-lab`.
+
+Where older workstate or historical research text describes migrated S4/F2/P1/PR #20 work as resumable upstream WIP, the research-authority boundary supersedes that interpretation. Historical state remains preserved; successor active research does not resume here.
+
+PR #19 and PR #16 remain exact upstream frozen/preregistered scientific objects. Do not mutate them; successor experiments belong in the Research Lab.
 
 ## Change class
 
@@ -50,7 +64,7 @@ PR #16 is preregistered/on hold at:
 
 `b60086d906f63211206502f23458be490902c2df`
 
-Improvements become successor work.
+Improvements become successor work in the Research Lab.
 
 ## Tests
 
@@ -71,13 +85,15 @@ Do not substitute generic CI for a designated scientific qualification run.
 
 ## WIP discipline
 
-The active research portfolio has at most four substantive slots. A new substantive stream requires displacement, completion, or approved preemption.
+Active research WIP is governed in the Research Lab. Do not create a new upstream research branch as a way to bypass Lab project governance.
+
+Main-repository WIP remains subject to current upstream governance for canon, engineering, runtime, data, asset/media, release, and governance work.
 
 Do not convert curiosity into active WIP by opening a branch first and explaining later.
 
 ## Canon promotion
 
-Research, simulation, engineering, Navigator, 3D or media findings may raise a Canon Change Request.
+Research Lab findings, simulation, engineering, Navigator, 3D or media findings may raise a Canon Change Request or other governed disposition packet as applicable.
 
 They do not edit current canon as a side effect.
 
