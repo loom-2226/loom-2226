@@ -79,6 +79,36 @@ Research, simulation, engineering, Navigator, 3D or media findings may raise a C
 
 They do not edit current canon as a side effect.
 
+## Autonomous agents
+
+True autonomous technical agents are governed by:
+
+- `governance/agents/AGENT_REGISTRY.yml`
+- `governance/agents/AUTONOMOUS_AGENT_CREATION_POLICY_v1.0.md`
+- `governance/agents/PERSONA_BINDING_POLICY_v1.0.md`
+
+Current active autonomous agent count is intentionally small. Do not create a new top-level autonomous agent merely because a workflow, checker or personality would be useful.
+
+Preference order:
+
+1. deterministic workflow;
+2. module of an existing agent;
+3. new autonomous agent only when a distinct persistent objective and independent triggering/state genuinely require it.
+
+Activating a new autonomous agent requires `class:governance`, an Agent Creation Gate review, explicit Kevin approval, bounded permissions, audit/replay semantics and registry update.
+
+Reserved candidate roles are not active agents merely because they appear in the registry.
+
+## Personas
+
+A technical autonomous agent may optionally receive a character/personality binding later.
+
+Technical role comes first. Persona comes second.
+
+A persona may shape presentation, salience and interaction style. It may not change permissions, evidence, scientific thresholds, canon promotion eligibility or hard-gate outcomes.
+
+A valid persona must be removable while leaving the underlying technical agent operationally equivalent.
+
 ## WALTER / #LOOMSAFE
 
 WALTER is the bounded autonomous Continuous Assurance Agent defined under `governance/agents/`.
@@ -90,9 +120,18 @@ Expect WALTER scrutiny when work involves:
 - stale context or scope drift;
 - source/provenance ambiguity;
 - frozen-state risk;
-- release/recovery/compatibility boundaries.
+- release/recovery/compatibility boundaries;
+- creation or expansion of autonomous agents.
 
 WALTER is low-noise by design. His personality may shape presentation, never evidence.
+
+## loom-gate
+
+`loom-gate` is the single future required deterministic governance status for promotion to `main`.
+
+During governance adoption it runs in `OBSERVE` mode: candidate hard-gate violations are reported but cannot fail the PR.
+
+Do not switch it to enforcement or make it required on `main` before the historical-validation and protection steps explicitly authorize that transition.
 
 ## Failure mode
 
