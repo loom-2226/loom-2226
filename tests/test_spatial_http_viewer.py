@@ -119,7 +119,8 @@ class SpatialHTTPViewerTest(unittest.TestCase):
         self.assertIn("translate3(pan[0],pan[1],-zoom)", js)
         self.assertIn("e.shiftKey||e.button===2", js)
         self.assertIn("gesture.type==='pan'", js)
-        self.assertIn("gesture.type==='pinch'", js)
+        self.assertIn("gesture.type!=='pinch'", js)
+        self.assertIn("type:'pinch'", js)
         self.assertIn("addEventListener('wheel'", js)
 
     def test_stage_f_never_bridges_explicit_relational_metric_geometry(self):
