@@ -1,0 +1,222 @@
+version: '1.0'
+status: DRAFT_PENDING_PR24_MERGE
+captured_date: '2026-09-07'
+repository: loom-2226/loom-2226
+purpose: >-
+  Declare the currently observed compatibility set across canon, engineering,
+  runtime code, baseline databases, media payload, deployment surfaces and release
+  artifacts. This file does not alter any component; it records compatibility and
+  known gaps for validation and release control.
+
+source_state:
+  captured_main_sha: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
+  governance_pr: 24
+  governance_branch: governance/repository-control-baseline-v1
+  governance_baseline_state: DRAFT
+
+canon:
+  baseline_id: v2.4
+  baseline_manifest: governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
+  baseline_manifest_blob_sha: 47f559206301bf546cfb77e59d32eebaf9f4f2bb
+  authority_index: governance/AUTHORITY.md
+  active_sources:
+    - path: canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
+      version: v2.4
+    - path: canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+      version: v2.4
+    - path: canon/current/LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.4.md
+      version: v2.4
+    - path: canon/current/LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md
+      version: v3.2
+    - path: canon/current/LOOM_2226_Core_Mechanics_v0.5.md
+      version: v0.5
+  scoped_amendments:
+    - path: canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md
+      version: v2.4a
+      parent: canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+      status: EFFECTIVE_SCOPED_GOVERNING_AMENDMENT
+      baseline_registration: RECONCILIATION_REQUIRED_AT_NEXT_CANON_BASELINE_UPDATE
+
+engineering:
+  runtime_architecture:
+    path: engineering/current/LOOM_2226_Integrated_Runtime_Architecture_and_Delivery_Workflow_v1.0.md
+    version: v1.0
+    status: PROJECT_DESIGN_DELIVERY_BASELINE_NOT_FICTION_CANON
+  navigator_architecture:
+    path: engineering/current/LOOM_2226_Integrated_HUD_Navigator_Architecture_and_Work_Plan_v1.0.md
+    version: v1.0
+    status: PROJECT_DESIGN_DELIVERY_BASELINE_NOT_FICTION_CANON
+  wayfarer_recovery_manifest:
+    path: manifests/LOOM_2226_Wayfarer_Project_File_Manifest_2026-09-06.md
+    blob_sha: de57ea9fa66dbe5718ff93b02605775d73ec093e
+
+runtime_release:
+  release_manifest:
+    path: manifests/release_manifest.json
+    blob_sha: 06c4ff091611fca86daa1b7f2fe9bebdbda9d15b
+    release_id: media-termux-launch-v1.0-2026-09-06
+    release_state: release
+    source_ref: main
+  historical_release_tag:
+    tag: v0.1.0-runtime-baseline
+    release_id: 381754456
+    tag_source_commit: 97faaab2514835c8f45aee13f5ec6c2ff1b1cc4e
+    note: >-
+      This retained release tag is a historical distribution baseline. It is not
+      silently substituted for the current release-manifest artifact set.
+
+runtime_artifacts:
+  navigator:
+    path: src/LOOM_Navigator_MVP_v1.0_RC6.1_CIVSTATE_Launch_ANDROID.py
+    sha256: d2cdf9baa38ca314e7eb0ecb0cf5e746d0e39c13e77e1a3f41b1093c6a59200b
+    required: true
+    compatibility:
+      civstate_schema: 1.2-runtime
+      civstate_sha256: 9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560
+  solar_gis:
+    path: src/LOOM_Solar_GIS_v0.12.9_RC8_Draggable_Graph_Nodes.py
+    sha256: 73812ccf8e71d913798e8e3ebb25d64937ba4491e5540d09e5b7e80f646d4f0a
+    required: true
+  media_library:
+    path: src/loom_media_library.py
+    sha256: 5ed3eb64809d01fb0fb6336663809517f8363dcceacab25ae0ecc5818de87dfe
+    required: true
+  media_launcher_source:
+    path: src/launch_media_library.py
+    sha256: a121b6a3051c42561c164b52694b84b659c4d11271eb8ebf269312712c7a3ac8
+    required: true
+  runtime_inventory:
+    path: src/loom_runtime_inventory.py
+    sha256: e2070e4f3f5ddd63dfaccf4d47af0d0386a99f7ed8c2199bbb2f4e9981ca353b
+    required: true
+
+baseline_data:
+  world_db:
+    path: data/LOOM_2226.sqlite3
+    sha256: e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde
+    size_bytes: 4882432
+    source: repository
+    compatibility_status: CURRENT_RELEASE_MANIFEST
+  civstate_db:
+    path: data/LOOM_2226_CIVSTATE.sqlite3
+    schema_id: LOOM_2226_CIVSTATE
+    schema_version: 1.2-runtime
+    sha256: 9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560
+    size_bytes: 8093696
+    source: repository
+    compatibility_status: LOCKED_BY_NAVIGATOR_CURRENT_RELEASE
+  media_db:
+    path: data/LOOM_2226_media.sqlite3
+    sha256: 286873428afbf30b91bdb2e71b55146ed5979873cfd6af69579c121b724eb038
+    size_bytes: 473837568
+    source: release_asset
+    asset_id: 542245032
+    release_id: 381754456
+    release_tag: v0.1.0-runtime-baseline
+    compatibility_status: CURRENT_RELEASE_MANIFEST
+
+historical_validation_lineage:
+  initial_runtime_candidate:
+    path: manifests/INITIAL_BASELINE.md
+    blob_sha: fa3e0297ffe1f0454774c46c5139aa2a7b9535cb
+    validation_date: '2026-09-03'
+    status: HISTORICAL_STAGING_RELEASE_CANDIDATE
+    world_db_sha256_then: ff5b1b6c4e971844847cdfe5b1c6da7a0e4081984b043e7c655345ad7a1a8267
+    current_world_db_sha256: e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde
+    interpretation: >-
+      The initial candidate and current release manifest describe different world-DB
+      payload hashes. Preserve both as lineage. Do not claim the historical candidate
+      validated the later world-DB bytes unless a separate validation record proves it.
+
+wayfarer_3d:
+  paused_workstream:
+    branch: workstream/wayfarer-3d
+    recovery_sha: 062bb0a2bfd718305dc0cf92dba9e61bab909d2d
+    recovery_ref: archive/pre-governance-2026-09-07-wayfarer-3d
+  governing_sources:
+    - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+    - canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md
+  engineering_sources:
+    - engineering/current/LOOM_2226_Wayfarer_3D_Geometry_and_Physical_Packaging_Plan_v0.1.md
+    - engineering/current/LOOM_2226_Wayfarer_Phase_3_Implementation_v0.1.md
+    - engineering/current/LOOM_2226_Wayfarer_Project_State_and_Pixel_Handoff_v0.2.md
+    - engineering/current/LOOM_2226_Wayfarer_Canon_Candidate_Specification_v0.1.md
+  geometry_authority:
+    - geometry/wayfarer_geometry_seed.sql
+    - src/wayfarer_geometry.py
+    - src/wayfarer_geometry_server.py
+  derived_output:
+    - geometry/wayfarer_geometry.json
+  viewer:
+    - web/index.html
+    - web/viewer.js
+  blender_builder:
+    - src/wayfarer_blender_builder.py
+  third_party_runtime:
+    path: web/three/three.min.js
+    provider: Three.js
+    version_pin: NOT_RECORDED_IN_CURRENT_WAYFARER_MANIFEST
+    assurance_state: WATCH_FOR_FUTURE_PRODUCTION_3D_RELEASE
+
+deployment:
+  updater:
+    path: deploy/loom_update.py
+    git_blob_sha: 11b2b6617f6763e41b658ca8f006c2b872991e60
+    behavior: FETCH_VALIDATE_HASH_BACKUP_ATOMIC_INSTALL_WHERE_PRACTICAL_PRESERVE_LOCAL_STATE
+  default_roots:
+    android: /storage/emulated/0/Documents/LOOM
+    windows: ~/Documents/LOOM
+  android_launchers:
+    launch_gis_py_blob: c914d71e8315ebaad3eee221eb94fa17bc4d9f1b
+    launch_navigator_py_blob: 56fd02fef6a975d59d1df506ccb972af62939ef4
+    launch_media_library_py_blob: 938f9e2cdc72c79215eee66eeac4f3ad59299760
+    loommedia_blob: a57bdba7ee918a7b12a01dcd16fb23a429e14efd
+  windows_launchers:
+    launch_gis_py_blob: b6db9846b8652ab76e8de2c4df523564a30f0f71
+    launch_navigator_py_blob: ea4fd57dac48a9ca4eb7164165516abc489a3cc6
+    launch_media_library_py_blob: 6325d4701193ee361cbeb115cc98d0f6c41af663
+  preserved_local_state:
+    - LOOM_STATE_V1.json
+    - LOOM_STATE_V1.bak
+    - LOOM_CAMPAIGN_HISTORY.jsonl.gz
+    - LOOM_Navigator_Browser_Report.json
+    - LOOM_Navigator_Current.html
+    - ephemeris_cache
+    - inventory
+
+platform_and_vendor_gaps:
+  python_runtime_version:
+    state: NOT_PINNED_BY_CURRENT_RELEASE_MANIFEST
+    impact: >-
+      Record as a compatibility gap; do not infer incompatibility. Pin/test when a
+      future production release requires interpreter-level reproducibility.
+  threejs_version:
+    state: NOT_RECORDED_IN_CURRENT_WAYFARER_MANIFEST
+    impact: >-
+      Known viewer dependency gap. Does not change authoritative geometry; resolve
+      before treating a future 3D viewer bundle as a fully reproducible release.
+  github_distribution:
+    provider: GitHub
+    role: repository_and_release_asset_host
+    content_authority: false
+    credentials: DEVICE_LOCAL_NOT_COMMITTED
+
+compatibility_rules:
+  current_runtime_requires_exact_artifact_hashes: true
+  current_navigator_requires_civstate_schema: 1.2-runtime
+  current_navigator_requires_civstate_exact_sha256: true
+  mutable_local_campaign_state_preserved_on_update: true
+  media_payload_may_be_release_asset_not_git_blob: true
+  generated_wayfarer_json_is_source_authority: false
+  runtime_or_3d_finding_may_rewrite_canon_automatically: false
+  release_manifest_change_requires_compatibility_review: true
+  upstream_authority_change_requires_downstream_classification: true
+
+compatibility_state_values:
+  - COMPATIBLE
+  - REVIEW_REQUIRED
+  - REVALIDATION_REQUIRED
+  - MIGRATION_REQUIRED
+  - BLOCKED
+  - SUPERSEDED
+  - UNKNOWN_UNREGISTERED
