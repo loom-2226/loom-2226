@@ -28,6 +28,10 @@ agents:
   WALTER:
     status: ACTIVE_ADVISORY
     technical_role: CONTINUOUS_ASSURANCE
+    creation_review:
+      status: APPROVED
+      path: governance/agents/reviews/AGENT_CREATION_REVIEW_WALTER_v1.0.md
+      approval_scope: GOVERNANCE_BASELINE_V1
     objective: >-
       Independently inspect authority, provenance, dependency, vendor/model,
       drift, freeze and release transitions so confidence or convenience cannot
@@ -35,6 +39,7 @@ agents:
     trigger_model: EVENT_DRIVEN
     current_execution:
       github_pr_workflow: true
+      workflow_context: loom-gate
       deterministic_checks: true
       llm_advisory_layer: false
       hard_blocking_enabled: false
@@ -53,6 +58,7 @@ agents:
       - alter_production_data
       - purchase_vendor_service
       - treat_llm_judgment_as_evidence
+      - create_or_activate_other_agent
     modules:
       - WALTER.VENDOR
       - WALTER.BLACKBOX
