@@ -1,0 +1,110 @@
+version: '1.0'
+status: ADOPTION_PAUSE
+captured_date: '2026-09-07'
+repository: loom-2226/loom-2226
+main_sha: 36c21d1d13bcb441316bdb8b6f944b8a1cc2cba7
+governance_branch: governance/repository-control-baseline-v1
+governance_pr: 24
+
+adoption:
+  sprint: governance/adoption/LOOM_GOVERNANCE_ADOPTION_SPRINT_v1.0.md
+  current_step: 3
+  current_step_name: Repository constitution and authority/change-control rules
+  development_paused: true
+  physics_execution_paused: true
+  restart_gate_reached: false
+
+active_wip_before_pause:
+  scientific_execution:
+    id: S1
+    name: Geometrogenesis deterministic curvature qualification
+    pr: 19
+    branch: research/relational-foundations-deterministic-curvature
+    sha: 314efe50875630ba4be720b4097a2ca14075e620
+    state: FROZEN_QUALIFICATION_PAUSED_FOR_GOVERNANCE
+    mutation_allowed: false
+  scientific_discovery:
+    id: S4
+    name: Identity and Protected Observables
+    state: ACTIVE_BEFORE_PAUSE
+  world_design:
+    id: F2
+    name: Synthetic Identity and Personhood
+    state: ACTIVE_BEFORE_PAUSE
+  enabler:
+    id: P1
+    name: Anomaly Registry and Evidence Taxonomy
+    state: ACTIVE_BEFORE_PAUSE
+
+blocked_or_waiting:
+  stage_a_matter:
+    pr: 16
+    branch: research/relational-foundations-matter-induced-prereg
+    sha: b60086d906f63211206502f23458be490902c2df
+    state: PREREGISTERED_ON_HOLD
+  p4_cross_domain_correlation:
+    state: BLOCKED
+  s5_matter_information_control:
+    state: BLOCKED
+
+paused_game_workstreams:
+  navigator_gis_hud:
+    branch: planning/navigator-gis-hud-next-phase-2026-09-06
+    sha: c664c1a66b68e8354295cc2b3b36ff3007e1276a
+    recovery_ref: archive/pre-governance-2026-09-07-navigator
+  runtime_devops:
+    branch: integration/runtime-devops-convergence-2026-09-06
+    sha: 43fc7cd92a71e0460e551bcc2d6a717ccac796ca
+    recovery_ref: archive/pre-governance-2026-09-07-runtime-devops
+  wayfarer_3d:
+    branch: workstream/wayfarer-3d
+    sha: 062bb0a2bfd718305dc0cf92dba9e61bab909d2d
+    recovery_ref: archive/pre-governance-2026-09-07-wayfarer-3d
+  media:
+    captured_commit: 0aeebdb4476a6574e93dc09834242fba54f6a109
+    recovery_ref: archive/pre-governance-2026-09-07-media
+
+assurance:
+  walter:
+    role: Executive Director, Continuous Assurance
+    tag: '#LOOMSAFE'
+    architecture_status: AUTONOMOUS_AGENT_DESIGNED_PENDING_STEP8_AUTOMATION
+    autonomous_activation_policy_defined: true
+    actual_github_workflow_implementation: false
+    deterministic_hard_gate_implementation: false
+    llm_advisory_layer_implementation: false
+    personality_contract: governance/roles/WALTER_CONTINUOUS_ASSURANCE_ROLE_v1.0.md
+    agent_spec: governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md
+
+wip_limits:
+  max_substantive_streams: 4
+  slots:
+    - T0_SCIENTIFIC_EXECUTION
+    - T1_SCIENCE_DISCOVERY
+    - T1_WORLD_SIMULATION
+    - BOUNDED_ENABLER
+  fifth_stream_requires_displacement: true
+
+mutation_policy_during_adoption:
+  allowed:
+    - governance/**
+    - future LOOM_START_HERE.md
+    - future AGENTS.md
+    - future scoped AGENTS.md
+    - future .github/** governance material
+    - future manifests/current/** governance compatibility metadata
+  forbidden:
+    - canon content changes
+    - navigator/gis behavior changes
+    - production runtime changes
+    - sqlite bytes/schema changes
+    - media behavior/assets changes
+    - launcher/updater-root changes
+    - wayfarer geometry/3d changes
+    - physics execution/tuning
+    - pr19 mutation
+    - pr16 mutation
+
+next_step_after_step3:
+  id: 4
+  name: OpenAI/Codex bootstrap files
