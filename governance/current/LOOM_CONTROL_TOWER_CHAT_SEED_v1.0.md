@@ -1,5 +1,7 @@
 # LOOM 2226 — CONTROL TOWER / PRODUCT AUTHORITY CHAT SEED v1.0
 
+Classification: `class:governance`
+
 ## Purpose
 Operate LOOM product, canon, world, engineering, runtime, data, Navigator/GIS, release and repository governance from the authoritative upstream repository without reactivating retired research workspaces.
 
