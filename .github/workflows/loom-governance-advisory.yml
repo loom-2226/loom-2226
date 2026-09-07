@@ -109,10 +109,24 @@ jobs:
 
           if [[ ! -f governance/dependencies/component-map.yml ]]; then
             warn "Dependency component map is unavailable in this PR checkout; downstream Pack Inventory cannot be machine-backed."
+          else
+            if ! ruby -e 'require "yaml"; YAML.safe_load(File.read(ARGV[0]), aliases: true)' governance/dependencies/component-map.yml; then
+              warn "Dependency component map is not valid YAML."
+            fi
           fi
 
           if [[ ! -f manifests/current/LOOM_COMPATIBILITY.yml ]]; then
             warn "LOOM compatibility manifest is unavailable in this PR checkout."
+          else
+            if ! ruby -e 'require "yaml"; YAML.safe_load(File.read(ARGV[0]), aliases: true)' manifests/current/LOOM_COMPATIBILITY.yml; then
+              warn "LOOM compatibility manifest is not valid YAML."
+            fi
+          fi
+
+          if [[ -f manifests/release_manifest.json ]]; then
+            if ! python -c 'import json; json.load(open("manifests/release_manifest.json", encoding="utf-8"))'; then
+              warn "Current release manifest is not valid JSON."
+            fi
           fi
 
           {
