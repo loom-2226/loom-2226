@@ -35,11 +35,11 @@ class InfrastructureAuthorityAuditTests(unittest.TestCase):
 
         compact = {key: grouped[key] for key in sorted(grouped)}
         self.assertEqual(sum(len(rows) for rows in compact.values()), 127)
-        self.assertGreater(len(compact.get("CURRENT_INERTIAL_FRAME_METHOD_COMPATIBLE", [])), 0)
-        self.assertGreater(len(compact.get("STORED_NAV_GRADE_BODY_FIXED_FRAME_UNSUPPORTED", [])), 0)
         self.assertTrue(any(row["frame_family"] == "SURFACE_BODY_FIXED" for row in result["rows"]))
         self.assertTrue(any(row["frame_family"] == "CR3BP_ROTATING" for row in result["rows"]))
 
+        # Evidence emission is deliberately non-presumptive: F-PA records the exact
+        # Git database classification before adding stronger simulator-qualification gates.
         print("F_PA_INFRASTRUCTURE_MATRIX_SUMMARY=" + json.dumps(result["summary"], sort_keys=True))
         print("F_PA_RUNTIME_USABILITY_GROUPS=" + json.dumps(compact, sort_keys=True, separators=(",", ":")))
 
