@@ -1,0 +1,112 @@
+name: LOOM Defect / Inconsistency
+description: Report a bug, broken contract, authority mismatch, data inconsistency, regression, or recovery problem.
+title: "DEFECT: "
+body:
+  - type: dropdown
+    id: defect_class
+    attributes:
+      label: Defect domain
+      options:
+        - Navigator / GIS / HUD
+        - Runtime / source
+        - Data / SQLite / schema
+        - Deployment / updater / launcher
+        - Media / browser
+        - Wayfarer 3D / geometry
+        - Engineering / closure
+        - Canon / continuity inconsistency
+        - Research implementation / methodology
+        - Governance / automation
+        - Vendor / AI / black-box dependency
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior / inconsistency
+      description: What actually happened? Include exact messages, values, or conflicting sources where possible.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior / governing contract
+      description: Identify the source, test, manifest, canon/engineering rule, or prior qualified behavior that establishes the expectation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction / evidence
+      description: Steps, device/platform, commands, screenshots, logs, hashes, or source citations.
+    validations:
+      required: true
+
+  - type: input
+    id: ref
+    attributes:
+      label: Relevant branch / SHA / release
+      placeholder: exact ref if known
+    validations:
+      required: true
+
+  - type: dropdown
+    id: authority
+    attributes:
+      label: Does this defect imply a canon/authority conflict?
+      options:
+        - No
+        - Possibly — raise a finding; do not edit canon yet
+        - Yes — CCR review likely required
+        - Unknown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: regression
+    attributes:
+      label: Known regression from a previously working/qualified state?
+      options:
+        - No / unknown
+        - Yes — recovery point identified below
+    validations:
+      required: true
+
+  - type: textarea
+    id: recovery
+    attributes:
+      label: Known-good recovery point / containment
+      description: State rollback/ref/SHA/release or safe containment if known.
+
+  - type: dropdown
+    id: frozen
+    attributes:
+      label: Frozen/preregistered research involved?
+      options:
+        - No
+        - Yes — defect is in frozen object; do not patch it in place without governance disposition
+    validations:
+      required: true
+
+  - type: dropdown
+    id: vendor
+    attributes:
+      label: External vendor / model / API involved?
+      options:
+        - No
+        - Yes — WALTER.VENDOR / WALTER.BLACKBOX review needed
+        - Unknown
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact / affected dependents
+      description: Identify runtime, data, canon, engineering, 3D, media, release, or research consequences.
+    validations:
+      required: true
