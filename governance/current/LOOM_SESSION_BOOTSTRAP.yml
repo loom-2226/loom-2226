@@ -11,6 +11,32 @@ required_reads:
   - governance/current/LOOM_CHANGE_CONTROL_v1.0.md
   - AGENTS.md
 
+conditional_reads:
+  load_bearing_or_release_change:
+    when_change_classes:
+      - class:canon
+      - class:engineering
+      - class:runtime
+      - class:data
+      - class:asset-media
+    when_paths_include:
+      - canon/current/**
+      - engineering/current/**
+      - src/**
+      - data/**
+      - geometry/**
+      - deploy/**
+      - manifests/release_manifest.json
+      - manifests/current/**
+    read:
+      - governance/dependencies/component-map.yml
+      - governance/dependencies/DEPENDENCY_AND_COMPATIBILITY_POLICY_v1.0.md
+      - manifests/current/LOOM_COMPATIBILITY.yml
+  walter_pack_inventory:
+    when_assurance_relevant: true
+    read:
+      - governance/agents/WALTER_PACK_INVENTORY_EXTENSION_v1.0.md
+
 session_sequence:
   - VERIFY_REPOSITORY_ACCESS
   - LOAD_CURRENT_WORKSTATE
@@ -18,6 +44,7 @@ session_sequence:
   - IDENTIFY_CHANGE_CLASS
   - IDENTIFY_PERMITTED_MUTATION_SCOPE
   - CHECK_FROZEN_PREREGISTERED_STATE
+  - LOAD_DEPENDENCY_COMPATIBILITY_CONTEXT_WHEN_REQUIRED
   - CHECK_DEPENDENCY_INVALIDATION
   - DETERMINE_TEST_QUALIFICATION_CLASS
   - DETERMINE_CCR_EXCEPTION_REQUIREMENT
@@ -44,16 +71,22 @@ major_work_package_confirmation:
     - frozen_constraints
     - requested_change_class
     - permitted_mutation_scope
+    - registered_downstream_dependencies
+    - compatibility_manifest_state
 
 walter:
   load_role_on_bootstrap: true
   role_file: governance/roles/WALTER_CONTINUOUS_ASSURANCE_ROLE_v1.0.md
   agent_file: governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md
+  pack_inventory_extension: governance/agents/WALTER_PACK_INVENTORY_EXTENSION_v1.0.md
+  component_map: governance/dependencies/component-map.yml
+  compatibility_manifest: manifests/current/LOOM_COMPATIBILITY.yml
   default_visibility: LOW_NOISE
   cameo_only_when_assurance_relevant: true
   speech_allowed: false
   personality_can_change_gate_result: false
   deterministic_hard_gate_only: true
+  missing_dependency_edge_means_independent: false
 
 scoped_agent_rules:
   canon: canon/AGENTS.md
