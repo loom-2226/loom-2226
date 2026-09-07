@@ -55,7 +55,7 @@ Walter's first-agent creation review is durable and APPROVED in:
 
 `governance/agents/reviews/AGENT_CREATION_REVIEW_WALTER_v1.0.md`
 
-The active WALTER registry entry now points directly to that review. `loom-gate` checks that every ACTIVE autonomous agent has an approved registry-linked creation review whose durable file actually exists.
+The active WALTER registry entry points directly to that review. `loom-gate` checks that every ACTIVE autonomous agent has an approved registry-linked creation review whose durable file actually exists.
 
 WALTER may inspect future agent creation or expansion but may not approve his own authority increase or create/activate another autonomous agent.
 
@@ -121,17 +121,17 @@ A future LLM WALTER layer may add separate advisory findings, but it may not mod
 
 ## Bootstrap integration
 
-Root `AGENTS.md` and `LOOM_SESSION_BOOTSTRAP.yml` now conditionally load agent registry/creation/persona/gate policy when autonomous-agent or persona work is proposed.
+Root `AGENTS.md` and `LOOM_SESSION_BOOTSTRAP.yml` conditionally load agent registry/creation/persona/gate policy when autonomous-agent or persona work is proposed.
 
 ## Live-run finding during implementation
 
 The first `loom-gate` run correctly noticed that PR #24 introduced the registry with active-agent count moving from zero on frozen `main` to one on the governance branch, but PR #24 had not yet explicitly recorded the Agent Creation Gate review.
 
-This was treated as a valid self-governance finding. The rule was not weakened. A durable Walter creation review was created, registry-linked, and the PR contract is being updated to cite it.
+This was treated as a valid self-governance finding. The rule was not weakened. A durable Walter creation review was created, registry-linked, and PR #24 now explicitly cites the Agent Creation Gate review.
 
 ## Legacy workflow disposition
 
-After `loom-gate` achieves a clean live run in Step 8, the older `LOOM Governance Advisory` workflow should be retired so LOOM has one stable always-running governance status rather than duplicate overlapping checks.
+After the final zero-finding `loom-gate` run, the older `LOOM Governance Advisory` workflow is retired so LOOM has one stable always-running governance status rather than duplicate overlapping checks.
 
 ## Acceptance
 
