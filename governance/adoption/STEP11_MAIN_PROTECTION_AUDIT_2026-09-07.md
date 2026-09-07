@@ -1,93 +1,71 @@
 # LOOM 2226 — Governance Adoption Step 11 Audit
 
 **Date:** 7 September 2026  
-**Status:** STEP 11 IMPLEMENTATION PREPARED — OWNER ADMIN ACTIVATION PENDING  
+**Status:** STEP 11 COMPLETE — MAIN PROTECTION ACTIVE AND VERIFIED  
 **Target:** `main` only  
-**Protection contract:** `governance/current/LOOM_MAIN_PROTECTION_POLICY.yml`
+**Protection contract:** `governance/current/LOOM_MAIN_PROTECTION_POLICY.yml`  
+**Ruleset:** `LOOM main protection v1` (`22419925`)
 
 ## Purpose
 
 Apply the minimum repository protection necessary to make `main` a controlled promotion boundary without constraining frozen research, long-lived workstreams, planning branches, release branches or local development unnecessarily.
 
-## Pre-activation observations
+## Activation history
 
-- Governance Baseline v1.0 is authoritative on `main` at merge commit `605b8cd3ea00c94ac78437b90f5e85fd841a085b`.
-- Repository rulesets observed through the connected GitHub integration: none.
-- `main` was observed unprotected immediately after Step 10.
-- The connected GitHub App can mutate repository content/PRs but does **not** have repository administration permission for branch-protection writes; the branch-protection endpoint returns `403 Resource not accessible by integration`.
+After Governance Baseline v1.0 became authoritative on `main`, the connected GitHub App was unable to write repository administration/branch-protection settings. Kevin therefore activated the approved ruleset manually through GitHub administration.
 
-This is a connector permission boundary, not a governance failure. Step 11 cannot be declared complete until the owner activates the policy through GitHub administration and the resulting state is verified.
+The resulting repository ruleset was then read back through GitHub and verified against the machine policy.
 
-## Approved Step-11 protection contract
+## Verified active contract
 
-Protect **only** `main`.
+GitHub reports an **active** branch ruleset named `LOOM main protection v1` targeting exactly:
 
-Required:
+`refs/heads/main`
 
-- changes enter `main` through a pull request;
-- status context `loom-gate` is required;
-- PR conversations must be resolved before merge;
-- force pushes are disabled;
-- deletion of `main` is disabled.
+Verified rules:
 
-Intentionally **not** required:
+- branch deletion restricted;
+- non-fast-forward / force-push blocked;
+- pull request required before merge;
+- required approving reviews = **0**;
+- no CODEOWNERS review requirement;
+- no last-push approval requirement;
+- conversation resolution required;
+- no additional unattributed-Copilot approval requirement;
+- allowed merge methods: merge, squash, rebase;
+- required status check: `loom-gate`;
+- strict/up-to-date status-check policy = **false**;
+- no bypass actors;
+- current user cannot bypass the ruleset.
 
-- second-human approval;
-- CODEOWNERS approval;
-- signed commits;
-- branch-up-to-date requirement;
-- linear-history requirement;
-- successful deployments;
-- protection on research/planning/feature/integration/release/workstream/archive branches.
+## Governance result
 
-This preserves the frozen-science model: a long-lived or preregistered branch is never forced to absorb new `main` merely to satisfy repository administration aesthetics.
+**PASS.** The active GitHub repository state matches `LOOM_MAIN_PROTECTION_POLICY.yml`.
 
-## `loom-gate` enforcement decision
+No second-human approval, signed-commit, linear-history, deployment, or branch-up-to-date requirement was accidentally introduced.
 
-Kevin's explicit `go step 11` authorizes activation of the ten Step-9 historically validated deterministic hard-rule families when the protection boundary is activated.
+No non-`main` branch is targeted by this Step-11 ruleset.
 
-The eight Step-9 advisory/rework rules remain nonblocking.
+## `loom-gate`
 
-No LLM judgment participates in a hard gate.
+The deterministic gate is already in `ENFORCE` mode for the ten Step-9 historically validated hard-rule families.
 
-## Owner activation checklist
+The eight Step-9 advisory/rework rules remain WATCH-only.
 
-In GitHub repository settings, create/enable a rule targeting branch `main` with the semantics in `LOOM_MAIN_PROTECTION_POLICY.yml`:
-
-1. require pull requests before merge;
-2. required status check: `loom-gate`;
-3. require conversation resolution;
-4. block force pushes;
-5. block branch deletion;
-6. required approvals: **0** / do not require a second reviewer;
-7. do not require CODEOWNERS approval;
-8. do not require signed commits;
-9. do not require branches to be up to date before merge;
-10. do not target any non-`main` branch.
-
-The exact GitHub UI may expose these semantics through a repository ruleset or classic branch protection depending on account/repository configuration. The semantics above are authoritative; UI wording is not.
-
-## Verification gate
-
-After owner activation, Step 11 is complete only if repository state confirms:
-
-- `main` is protected or an active ruleset targets `main`;
-- PR-before-merge is active;
-- `loom-gate` is required;
-- conversation resolution is active;
-- force push and deletion are disabled;
-- no second-human approval requirement was accidentally enabled;
-- no up-to-date/rebase requirement was accidentally enabled;
-- no non-main workstream received Step-11 protection.
+No LLM judgment participates in a hard result.
 
 ## Functional impact
 
 None.
 
-This step changes governance/control-plane settings only. It does not modify canon content, Navigator/GIS, production runtime, SQLite bytes/schema, media, launchers, Wayfarer 3D or frozen scientific source.
+No canon content, Navigator/GIS behavior, production runtime, SQLite bytes/schema, media, launchers, Wayfarer 3D, PR #19 experiment source, or PR #16 preregistration changed in Step 11.
 
-## Current disposition
+## Disposition
 
-**PENDING OWNER ADMIN ACTIVATION.**
+**STEP 11 CLOSED.**
 
-Development and physics execution remain paused. Steps 12–14 do not begin until Step 11 activation is verified.
+The next permitted adoption action is:
+
+**Step 12 — governance sync/review of preserved active workstreams.**
+
+Development and physics execution remain paused until Step 14.
