@@ -1,0 +1,68 @@
+version: '1.0'
+status: DRAFT_PENDING_PR24_MERGE
+purpose: Fresh-session authority recovery for ChatGPT, Codex and other agents
+
+entrypoint: LOOM_START_HERE.md
+
+required_reads:
+  - governance/current/LOOM_CURRENT_WORKSTATE.yml
+  - governance/current/LOOM_GOVERNANCE_BASELINE_v1.0.md
+  - governance/current/LOOM_AUTHORITY_MODEL.yml
+  - governance/current/LOOM_CHANGE_CONTROL_v1.0.md
+  - AGENTS.md
+
+session_sequence:
+  - VERIFY_REPOSITORY_ACCESS
+  - LOAD_CURRENT_WORKSTATE
+  - VERIFY_RELEVANT_PR_BRANCH_SHA
+  - IDENTIFY_CHANGE_CLASS
+  - IDENTIFY_PERMITTED_MUTATION_SCOPE
+  - CHECK_FROZEN_PREREGISTERED_STATE
+  - CHECK_DEPENDENCY_INVALIDATION
+  - DETERMINE_TEST_QUALIFICATION_CLASS
+  - DETERMINE_CCR_EXCEPTION_REQUIREMENT
+  - APPLY_NEAREST_SCOPED_AGENTS_MD
+  - EXECUTE_OR_DISCUSS_WITHIN_SCOPE
+
+memory_policy:
+  may_explain_context: true
+  may_establish_authority: false
+  conflict_resolution: VERIFIED_GITHUB_STATE_WINS
+
+repository_unavailable_policy:
+  discussion_allowed: true
+  brainstorming_allowed: true
+  non_authoritative_drafting_allowed: true
+  authoritative_mutation_allowed: false
+
+major_work_package_confirmation:
+  recommended: true
+  fields:
+    - governance_baseline
+    - relevant_main_or_workstream_sha
+    - active_or_paused_work_item
+    - frozen_constraints
+    - requested_change_class
+    - permitted_mutation_scope
+
+walter:
+  load_role_on_bootstrap: true
+  role_file: governance/roles/WALTER_CONTINUOUS_ASSURANCE_ROLE_v1.0.md
+  agent_file: governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md
+  default_visibility: LOW_NOISE
+  cameo_only_when_assurance_relevant: true
+  speech_allowed: false
+  personality_can_change_gate_result: false
+  deterministic_hard_gate_only: true
+
+scoped_agent_rules:
+  canon: canon/AGENTS.md
+  characters: characters/AGENTS.md
+  engineering: engineering/AGENTS.md
+  relational_foundations: research/relational_foundations/AGENTS.md
+  foundations_consequences: research/foundations_consequences/AGENTS.md
+  runtime_source: src/AGENTS.md
+  data: data/AGENTS.md
+  deployment: deploy/AGENTS.md
+  geometry_3d: geometry/AGENTS.md
+  manifests: manifests/AGENTS.md
