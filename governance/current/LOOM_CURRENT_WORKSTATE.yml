@@ -13,8 +13,9 @@ adoption:
     - 2
     - 3
     - 4
-  current_step: 5
-  current_step_name: GitHub PR templates, issue forms and advisory workflow structure
+    - 5
+  current_step: 6
+  current_step_name: Dependency graph and compatibility model
   development_paused: true
   physics_execution_paused: true
   restart_gate_reached: false
@@ -78,13 +79,29 @@ session_bootstrap:
   project_instruction_installed: false
   project_instruction_install_step: 13
 
+github_entry:
+  pr_template: .github/PULL_REQUEST_TEMPLATE.md
+  issue_forms:
+    - .github/ISSUE_TEMPLATE/work_item.yml
+    - .github/ISSUE_TEMPLATE/experiment.yml
+    - .github/ISSUE_TEMPLATE/canon_change.yml
+    - .github/ISSUE_TEMPLATE/defect.yml
+    - .github/ISSUE_TEMPLATE/governance.yml
+    - .github/ISSUE_TEMPLATE/assurance_finding.yml
+    - .github/ISSUE_TEMPLATE/exception.yml
+  blank_issues_enabled: false
+  advisory_workflow: .github/workflows/loom-governance-advisory.yml
+  advisory_workflow_live_run_passed: true
+  advisory_only: true
+  required_status_check: false
+
 assurance:
   walter:
     role: Executive Director, Continuous Assurance
     tag: '#LOOMSAFE'
-    architecture_status: AUTONOMOUS_AGENT_DESIGNED_PENDING_STEP8_AUTOMATION
+    architecture_status: AUTONOMOUS_AGENT_ADVISORY_WORKFLOW_LIVE_PENDING_STEP8_EXPANSION
     autonomous_activation_policy_defined: true
-    actual_github_workflow_implementation: false
+    github_pr_advisory_implementation: true
     deterministic_hard_gate_implementation: false
     llm_advisory_layer_implementation: false
     personality_grounded_in_real_walter_history: true
@@ -122,5 +139,5 @@ mutation_policy_during_adoption:
     - pr16 mutation
 
 next_step:
-  id: 5
-  name: GitHub PR templates, issue forms and advisory workflow structure
+  id: 6
+  name: Dependency graph and compatibility model
