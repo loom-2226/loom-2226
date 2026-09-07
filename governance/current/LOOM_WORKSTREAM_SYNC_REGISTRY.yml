@@ -1,22 +1,26 @@
-version: '1.0'
-status: STEP12_COMPLETE_VERIFIED
+version: '1.1'
+status: STEP14_RESTART_EXECUTED_ON_PROTECTED_MAIN_MERGE
 captured_date: '2026-09-07'
 repository: loom-2226/loom-2226
 authoritative_governance_branch: main
 governance_main_sha_used_for_sync: 356f4fd2c3b6d9dc897787a2c3cc6b90d41d375d
 main_step12_merge_sha: 626e3ce1470abbe3ce8a24624b87c230c32570b4
+step14_restart_parent_main_sha: 5bf46d987ac0c91f4b6ebffe26e6cdf5a4354cb9
 
 principle: >-
-  Grandfathered workstreams are not rebased or merged with main merely to adopt
-  governance. Mutable paused workstreams receive a single sidecar governance marker.
-  Immutable/frozen research and retained release baselines receive review-only
+  Grandfathered workstreams were not rebased or merged with main merely to adopt
+  governance. Mutable paused workstreams received one sidecar governance marker.
+  Immutable/frozen research and retained release baselines received review-only
   disposition. Recovery refs remain the byte-exact pre-governance anchors.
+  Step 14 reopens eligible lanes from the registered heads without adding functional
+  commits to those workstreams.
 
 synced_workstreams:
   navigator_gis_hud:
     branch: planning/navigator-gis-hud-next-phase-2026-09-06
     pre_sync_head_sha: c664c1a66b68e8354295cc2b3b36ff3007e1276a
     step12_sync_head_sha: 450d4fb445fc10e61fabbeb85bb11e3e80e1bcbf
+    step14_reverified_head_sha: 450d4fb445fc10e61fabbeb85bb11e3e80e1bcbf
     recovery_ref: archive/pre-governance-2026-09-07-navigator
     recovery_ref_sha_verified: c664c1a66b68e8354295cc2b3b36ff3007e1276a
     marker: governance/workstream-sync/NAVIGATOR_GIS_HUD_STEP12.yml
@@ -26,12 +30,14 @@ synced_workstreams:
         - governance/workstream-sync/NAVIGATOR_GIS_HUD_STEP12.yml
       non_governance_paths_changed: false
     functional_state: UNCHANGED
-    status: GOVERNANCE_SYNC_APPLIED_PAUSED_UNTIL_STEP14
+    step12_status: GOVERNANCE_SYNC_APPLIED_PAUSED_UNTIL_STEP14
+    step14_status: REOPENED_FOR_NORMAL_GOVERNED_DEVELOPMENT
 
   runtime_devops:
     branch: integration/runtime-devops-convergence-2026-09-06
     pre_sync_head_sha: 43fc7cd92a71e0460e551bcc2d6a717ccac796ca
     step12_sync_head_sha: dbf822f0568f29d1065812ee58012eea8e42f391
+    step14_reverified_head_sha: dbf822f0568f29d1065812ee58012eea8e42f391
     recovery_ref: archive/pre-governance-2026-09-07-runtime-devops
     recovery_ref_sha_verified: 43fc7cd92a71e0460e551bcc2d6a717ccac796ca
     marker: governance/workstream-sync/RUNTIME_DEVOPS_STEP12.yml
@@ -41,12 +47,14 @@ synced_workstreams:
         - governance/workstream-sync/RUNTIME_DEVOPS_STEP12.yml
       non_governance_paths_changed: false
     functional_state: UNCHANGED
-    status: GOVERNANCE_SYNC_APPLIED_PAUSED_UNTIL_STEP14
+    step12_status: GOVERNANCE_SYNC_APPLIED_PAUSED_UNTIL_STEP14
+    step14_status: REOPENED_FOR_NORMAL_GOVERNED_DEVELOPMENT
 
   wayfarer_3d:
     branch: workstream/wayfarer-3d
     pre_sync_head_sha: 062bb0a2bfd718305dc0cf92dba9e61bab909d2d
     step12_sync_head_sha: 6015a56fde8614e92fa356ee4a1c46d45a79ad09
+    step14_reverified_head_sha: 6015a56fde8614e92fa356ee4a1c46d45a79ad09
     recovery_ref: archive/pre-governance-2026-09-07-wayfarer-3d
     recovery_ref_sha_verified: 062bb0a2bfd718305dc0cf92dba9e61bab909d2d
     marker: governance/workstream-sync/WAYFARER_3D_STEP12.yml
@@ -56,7 +64,8 @@ synced_workstreams:
         - governance/workstream-sync/WAYFARER_3D_STEP12.yml
       non_governance_paths_changed: false
     functional_state: UNCHANGED
-    status: GOVERNANCE_SYNC_APPLIED_PAUSED_UNTIL_STEP14
+    step12_status: GOVERNANCE_SYNC_APPLIED_PAUSED_UNTIL_STEP14
+    step14_status: REOPENED_FOR_NORMAL_GOVERNED_DEVELOPMENT
 
 review_only_workstreams:
   media:
@@ -72,17 +81,19 @@ review_only_workstreams:
     governance_sync_mode: INHERITS_MAIN_GOVERNANCE_NO_BRANCH_MUTATION
     release_asset_remains_separate_provenance_object: true
     functional_state: UNCHANGED
+    step14_status: REOPENED_INHERITS_MAIN_GOVERNANCE_NO_BRANCH_INVENTED
 
   foundations_program_pr20:
     pr: 20
     branch: research/reviewer-constellation-cross-reference
     head_sha: 74120daed077f7e0401b4e348dc0620df9d9b844
-    state: OPEN_DRAFT_PAUSED
+    step14_reverified_head_sha: 74120daed077f7e0401b4e348dc0620df9d9b844
+    state: OPEN_DRAFT_STILL_BRANCH_PAUSED_PENDING_PR19_DISPOSITION
     governance_sync_mode: REVIEW_ONLY_NO_BRANCH_MUTATION
     reason: >-
-      Research program remains grandfathered and paused; it already contains early
-      adoption/governance context and must not be rebased or mixed into Step 12.
-    step12_requirement_satisfied: true
+      Step 14 reopens LOOM globally but PR20 keeps its own registered resume conditions.
+      Its branch remains unchanged until PR19 is dispositioned under the exact
+      preregistered qualification and current WIP is reloaded from main governance.
     resume_still_requires:
       - PR19 disposition under preregistered qualification
       - current WIP reload from main governance
@@ -91,7 +102,7 @@ review_only_workstreams:
     pr: 16
     branch: research/relational-foundations-matter-induced-prereg
     head_sha: b60086d906f63211206502f23458be490902c2df
-    state: PREREGISTERED_ON_HOLD
+    state: PREREGISTERED_ON_HOLD_STEP14_NO_MUTATION
     governance_sync_mode: REVIEW_ONLY_NO_MUTATION
     mutation_allowed: false
 
@@ -100,8 +111,11 @@ excluded_frozen_work:
     pr: 19
     branch: research/relational-foundations-deterministic-curvature
     frozen_sha: 314efe50875630ba4be720b4097a2ca14075e620
+    step14_execution_state: QUALIFICATION_EXECUTION_AUTHORIZED_EXACT_FROZEN_HEAD
     governance_sync_mode: EXCLUDED_NO_FILE_NO_COMMIT_NO_REBASE_NO_METADATA_MUTATION
+    execution_allowed: true
     mutation_allowed: false
+    next_action: PIXEL_TERMUX_REPOSITORY_REGRESSION_THEN_FROZEN_SCIENTIFIC_RUNNER
     reason: FROZEN_SCIENTIFIC_QUALIFICATION
 
 retained_release_baselines:
@@ -125,3 +139,16 @@ step12_acceptance:
   recovery_refs_moved: false
   functional_tests_required: false
   reason_no_functional_tests: GOVERNANCE_YAML_AND_BOOTSTRAP_TEXT_ONLY
+
+step14_restart:
+  audit: governance/adoption/STEP14_RESUME_LOOM_AUDIT_2026-09-07.md
+  registered_game_heads_reverified: true
+  registered_game_heads_drift_detected: false
+  workstream_branch_commits_added_by_restart: 0
+  recovery_refs_moved: false
+  pr19_branch_mutated: false
+  pr16_branch_mutated: false
+  pr20_branch_mutated: false
+  release_baselines_touched: false
+  non_governance_functional_changes: 0
+  normal_governed_development_reopened: true
