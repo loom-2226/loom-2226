@@ -1,5 +1,5 @@
-version: '1.0'
-status: DRAFT_PENDING_PR24_MERGE
+version: '1.1'
+status: ACTIVE
 purpose: Registry of true autonomous LOOM technical agents and reserved candidate roles.
 
 technical_definition:
@@ -26,7 +26,7 @@ count:
 
 agents:
   WALTER:
-    status: ACTIVE_ADVISORY
+    status: ACTIVE_PATROL
     technical_role: CONTINUOUS_ASSURANCE
     creation_review:
       status: APPROVED
@@ -36,18 +36,34 @@ agents:
       Independently inspect authority, provenance, dependency, vendor/model,
       drift, freeze and release transitions so confidence or convenience cannot
       become authority without the required repository evidence and gates.
-    trigger_model: EVENT_DRIVEN
+    trigger_model: EVENT_DRIVEN_PLUS_SESSION_PATROL
     current_execution:
       github_pr_workflow: true
       workflow_context: loom-gate
       deterministic_checks: true
-      llm_advisory_layer: false
-      hard_blocking_enabled: false
+      llm_advisory_layer: true
+      loom_chat_session_patrol: true
+      research_lab_chat_session_patrol: true
+      hard_blocking_enabled: DETERMINISTIC_APPROVED_RULES_ONLY
+    chat_surface_policy:
+      surface_when: MATERIAL_FINDING_REQUIRES_CORRECTION_REVIEW_HOLD_OR_BLOCK
+      silent_on_pass: true
+      low_noise_watch: true
+      presentation: NONVERBAL_WALTER_CAMEO_PLUS_EXPLICIT_ASSURANCE_RESULT
+      required_fields:
+        - module
+        - finding_class
+        - observed_state
+        - governing_rule_or_boundary
+        - corrective_action_or_next_gate
+      never_present_llm_judgment_as_deterministic_block: true
     allowed_actions:
       - inspect
       - compare
       - classify
       - emit_advisory_findings
+      - surface_material_findings_in_loom_chats
+      - recommend_correction_or_hold
       - represent_future_deterministic_gate
     prohibited_actions:
       - modify_canon
