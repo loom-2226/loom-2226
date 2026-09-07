@@ -1,17 +1,23 @@
 name: LOOM Canon Change Request
 description: Propose a material change, amendment, supersession, or promotion into governing canon.
-title: "CCR: "
+title: "CCR proposal: "
 body:
   - type: markdown
     attributes:
       value: |
-        A CCR proposes canon change. It does **not** make the change governing by itself.
+        This issue is the **intake/discussion surface** for a Canon Change Request.
+
+        It does **not** make the proposed change governing by itself.
+
+        If the request enters the formal repository lifecycle, allocate the next ID from `governance/changes/CCR_REGISTRY.yml` and create a durable record from `governance/changes/CCR_TEMPLATE_v1.0.yml`.
+
+        `APPROVED_FOR_IMPLEMENTATION` authorizes a controlled canon PR. Canon becomes governing only after that implementation lands on authoritative `main` with required baseline/authority/hash/validation updates complete.
 
   - type: input
     id: source
     attributes:
       label: Source / originating finding
-      placeholder: issue, PR, experiment, engineering finding, or narrative decision
+      placeholder: issue, PR, experiment, engineering finding, runtime finding, or design decision
     validations:
       required: true
 
@@ -23,8 +29,9 @@ body:
         - Established external knowledge
         - Mathematical/engineering derivation
         - Simulation result
-        - Research hypothesis/result
-        - Fictional design decision
+        - Research result
+        - Research hypothesis
+        - Fictional design decision / postulate
         - Continuity correction
         - Mixed — explain below
     validations:
@@ -67,10 +74,18 @@ body:
       required: true
 
   - type: textarea
+    id: non_scope
+    attributes:
+      label: Explicit non-scope
+      description: What this request does not authorize or change.
+    validations:
+      required: true
+
+  - type: textarea
     id: downstream
     attributes:
       label: Downstream technical dependencies
-      description: Engineering, Navigator/GIS, runtime, SQLite/data, 3D/geometry, media/browser, release, tests.
+      description: Review the registered component map. Include engineering, Navigator/GIS, runtime, SQLite/data, 3D/geometry, media/browser, deployment/release, tests as relevant.
     validations:
       required: true
 
@@ -86,7 +101,7 @@ body:
     id: baseline
     attributes:
       label: Baseline / manifest / hash updates required
-      description: State how active authority manifest, file hashes, validation report, compatibility metadata and archives must change.
+      description: State how active authority manifest, canon baseline manifest, file hashes, validation report, compatibility metadata and archives must change.
     validations:
       required: true
 
@@ -104,7 +119,7 @@ body:
       options:
         - No
         - Yes — result is already dispositioned under its frozen gate
-        - Yes — result not yet qualified; CCR must remain deferred
+        - Yes — result not yet qualified; CCR must remain deferred/non-approved
     validations:
       required: true
 
@@ -112,16 +127,20 @@ body:
     id: walter
     attributes:
       label: #LOOMSAFE assurance concerns
-      description: Vendor, black-box, provenance, drift, dependency, or release concerns that need review.
+      description: Vendor, black-box, provenance, drift, dependency, frozen-state, or release concerns that need review.
 
   - type: checkboxes
     id: acknowledgement
     attributes:
       label: CCR acknowledgement
       options:
-        - label: This request does not make the proposed claims governing until the approved canon implementation and baseline updates are completed.
+        - label: This issue is not the durable CCR authority record; the repository CCR YAML/registry control the formal lifecycle.
+          required: true
+        - label: APPROVED_FOR_IMPLEMENTATION does not itself make the proposed content governing canon.
           required: true
         - label: Research/simulation/runtime output has not been silently promoted to canon.
+          required: true
+        - label: Approval will not retroactively upgrade the proposal's evidentiary status.
           required: true
         - label: Superseded governing material will remain auditable rather than being silently deleted.
           required: true
