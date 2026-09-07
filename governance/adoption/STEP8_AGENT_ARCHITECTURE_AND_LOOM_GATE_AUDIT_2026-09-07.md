@@ -127,7 +127,7 @@ Root `AGENTS.md` and `LOOM_SESSION_BOOTSTRAP.yml` conditionally load agent regis
 
 The first `loom-gate` run correctly noticed that PR #24 introduced the registry with active-agent count moving from zero on frozen `main` to one on the governance branch, but PR #24 had not yet explicitly recorded the Agent Creation Gate review.
 
-This was treated as a valid self-governance finding. The rule was not weakened. A durable Walter creation review was created, registry-linked, and PR #24 now explicitly cites the Agent Creation Gate review.
+This was treated as a valid self-governance finding. The rule was not weakened. A durable Walter creation review was created, registry-linked, and the PR contract is now required to cite it before final Step-8 acceptance.
 
 ## Legacy workflow disposition
 
