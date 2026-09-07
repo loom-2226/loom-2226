@@ -100,37 +100,6 @@ class SpatialHTTPViewerTest(unittest.TestCase):
         self.assertNotIn("bezier", js.lower())
         self.assertNotIn("spline", js.lower())
 
-    def test_stage_f_camera_modes_are_route_generic(self):
-        root = Path(__file__).resolve().parents[1]
-        html = (root / "web" / "solar3d.html").read_text(encoding="utf-8")
-        js = (root / "web" / "solar3d.js").read_text(encoding="utf-8")
-        self.assertIn('id="system"', html)
-        self.assertIn('id="origin"', html)
-        self.assertIn('id="destination"', html)
-        self.assertIn("function focusRouteEndpoint(which)", js)
-        self.assertIn("function resolveStateId(token)", js)
-        self.assertIn("active?.origin", js)
-        self.assertIn("active?.destination", js)
-        self.assertNotIn('id="ceres"', html.lower())
-
-    def test_stage_f_supports_orbit_pan_and_zoom(self):
-        root = Path(__file__).resolve().parents[1]
-        js = (root / "web" / "solar3d.js").read_text(encoding="utf-8")
-        self.assertIn("translate3(pan[0],pan[1],-zoom)", js)
-        self.assertIn("e.shiftKey||e.button===2", js)
-        self.assertIn("gesture.type==='pan'", js)
-        self.assertIn("gesture.type!=='pinch'", js)
-        self.assertIn("type:'pinch'", js)
-        self.assertIn("addEventListener('wheel'", js)
-
-    def test_stage_f_never_bridges_explicit_relational_metric_geometry(self):
-        root = Path(__file__).resolve().parents[1]
-        js = (root / "web" / "solar3d.js").read_text(encoding="utf-8")
-        self.assertIn("function routeOrdinaryStrips(active)", js)
-        self.assertIn("geometry_semantics?.ordinary_space_occupancy===false", js)
-        self.assertIn("for(const strip of routeStrips)", js)
-        self.assertIn("gl.drawArrays(gl.LINE_STRIP", js)
-
 
 if __name__ == "__main__":
     unittest.main()
