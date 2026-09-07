@@ -50,6 +50,23 @@ jobs:
             [[ -n "$parsed_mode" ]] && gate_mode="$parsed_mode"
           fi
 
+          # Step-9 canon classifier: exact 100% renames are lifecycle/authority moves,
+          # not canon-content mutations. Any other current-canon change is content/authority
+          # mutation and enters the CCR airlock.
+          canon_content_mutation=0
+          canon_lifecycle_move=0
+          while IFS=$'\t' read -r status path_a path_b; do
+            [[ -z "${status:-}" ]] && continue
+            path_b="${path_b:-}"
+            if [[ "$path_a" == canon/current/* || "$path_b" == canon/current/* ]]; then
+              if [[ "$status" == "R100" ]]; then
+                canon_lifecycle_move=1
+              else
+                canon_content_mutation=1
+              fi
+            fi
+          done < <(git diff --name-status -M100% "$BASE_SHA" "$HEAD_SHA" || true)
+
           {
             echo "## WALTER / loom-gate"
             echo
@@ -58,15 +75,19 @@ jobs:
             echo "**Base SHA:** \`$BASE_SHA\`"
             echo "**Head SHA:** \`$HEAD_SHA\`"
             echo
+            echo "**Canon content mutation:** \`$canon_content_mutation\`"
+            echo "**Canon exact-rename lifecycle movement:** \`$canon_lifecycle_move\`"
+            echo
             if [[ "$gate_mode" == "OBSERVE" ]]; then
-              echo "Candidate hard gates are reported but cannot fail the PR until historical validation and explicit enforcement approval."
+              echo "Validated hard candidates are reported but cannot fail the PR until explicit enforcement approval."
               echo
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
-          # LG001 — primary change class
+          # LG001 — primary change class. Step 9 promotes this to hard-candidate
+          # for governance-era PRs; pre-governance history is grandfathered evidence only.
           if [[ -z "${PR_BODY:-}" ]] || ! grep -Eq 'class:(research|canon|engineering|runtime|data|asset-media|governance)' <<<"$PR_BODY"; then
-            watch "LG001: no recognizable LOOM primary change class found in the PR body. Grandfathered PRs may legitimately predate the template."
+            candidate_block "LG001: no recognizable LOOM primary change class found in the PR body."
           fi
 
           # LG002 / LG003 — frozen/preregistered branch identities
@@ -77,12 +98,13 @@ jobs:
             candidate_block "LG003: PR #16 preregistered/on-hold branch moved away from recorded SHA b60086d906f63211206502f23458be490902c2df."
           fi
 
-          # LG004 / LG005 / LG006 — canon airlock
-          if grep -q '^canon/current/' <<<"$changed"; then
-            grep -q 'class:canon' <<<"${PR_BODY:-}" || candidate_block "LG004: current canon changed without class:canon."
+          # LG004 / LG005 / LG006 — canon CONTENT airlock.
+          # Exact byte-preserving R100 lifecycle moves do not enter the CCR airlock.
+          if [[ "$canon_content_mutation" -eq 1 ]]; then
+            grep -q 'class:canon' <<<"${PR_BODY:-}" || candidate_block "LG004: current canon content/authority mutated without class:canon."
             ccr_ids="$(grep -Eo 'CCR-[0-9]{4}-[0-9]{4}' <<<"${PR_BODY:-}" | sort -u || true)"
             if [[ -z "$ccr_ids" ]]; then
-              candidate_block "LG005: current canon changed without an exact CCR-YYYY-NNNN identifier."
+              candidate_block "LG005: current canon content/authority mutated without an exact CCR-YYYY-NNNN identifier."
             elif [[ ! -f governance/changes/CCR_REGISTRY.yml ]]; then
               candidate_block "LG005: current canon changed but CCR_REGISTRY.yml is unavailable."
             else
@@ -106,6 +128,16 @@ jobs:
             fi
           fi
 
+          # LG018 — exact byte-preserving current-canon lifecycle movement.
+          # This is not a CCR content mutation, but movement into/out of current authority
+          # still needs explicit governance/canon lifecycle rationale. Advisory until the
+          # baseline/authority-update marker is structured enough to harden.
+          if [[ "$canon_lifecycle_move" -eq 1 && "$canon_content_mutation" -eq 0 ]]; then
+            if ! grep -Eq 'class:(governance|canon)' <<<"${PR_BODY:-}" || ! grep -Eqi 'authority|baseline|lifecycle|byte-preserv|rename' <<<"${PR_BODY:-}"; then
+              watch "LG018: byte-preserving current-canon lifecycle movement lacks explicit governance/canon authority-lifecycle rationale."
+            fi
+          fi
+
           # Advisory authority/dependency signals
           if grep -Eq '^(geometry/|engineering/)' <<<"$changed" && grep -q '^canon/current/' <<<"$changed"; then
             watch "LG010: canon and engineering/geometry changed in one PR; explicit sequencing review is required."
@@ -122,8 +154,8 @@ jobs:
           if grep -Eq '^(canon/current/|engineering/current/|src/|data/|geometry/|deploy/|manifests/release_manifest\.json)' <<<"$changed" && ! grep -Eqi 'UNCHANGED_COMPATIBLE|REVIEW_REQUIRED|REVALIDATION_REQUIRED|MIGRATION_REQUIRED|BLOCKED_PENDING_UPSTREAM|SUPERSEDED|downstream|dependency impact|dependencies' <<<"${PR_BODY:-}"; then
             watch "LG009: load-bearing component changed without downstream dependency/impact classification."
           fi
-          if grep -q '^manifests/release_manifest\.json$' <<<"$changed" && ! grep -q '^manifests/current/LOOM_COMPATIBILITY\.yml$' <<<"$changed"; then
-            watch "LG008: release manifest changed without matching LOOM compatibility-manifest review/update."
+          if grep -q '^manifests/release_manifest\.json$' <<<"$changed" && ! grep -q '^manifests/current/LOOM_COMPATIBILITY\.yml$' <<<"$changed" && ! grep -Eqi 'UNCHANGED_COMPATIBLE|REVIEW_REQUIRED|REVALIDATION_REQUIRED|MIGRATION_REQUIRED|BLOCKED_PENDING_UPSTREAM|SUPERSEDED|compatibility impact' <<<"${PR_BODY:-}"; then
+            watch "LG008: release manifest changed without compatibility-manifest change or explicit compatibility disposition."
           fi
 
           # LG007 / LG017 — machine-control parse integrity
