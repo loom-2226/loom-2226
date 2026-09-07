@@ -50,6 +50,18 @@ Where older governance/workstate text describes S4, F2, P1, PR #20, or other mig
 
 PR #19 and PR #16 are exceptions only in the sense that their exact frozen/preregistered upstream objects remain governed upstream objects. Any successor experiment or theory change belongs in the Lab.
 
+## Upstream research retirement
+
+The governing retirement registry is:
+
+`governance/current/LOOM_UPSTREAM_RESEARCH_RETIREMENT_v1.0.yml`
+
+The `research/**` tree is retained as historical/reference material and as a host for exact frozen/preregistered upstream objects. It is not an active successor-research workspace.
+
+`research/README.md` and `research/AGENTS.md` are the human/agent front doors for that retired surface.
+
+Retirement does not delete historical files, rewrite failed/null/inconclusive results, alter evidence status, or mutate frozen/preregistered objects.
+
 ## Promotion direction
 
 Research Lab outputs do not self-promote.
