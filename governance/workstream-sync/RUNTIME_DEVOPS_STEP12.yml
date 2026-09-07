@@ -1,0 +1,47 @@
+version: '1.0'
+status: STEP12_GOVERNANCE_SYNC_APPLIED
+change_class: class:governance
+workstream_id: RUNTIME_DEVOPS
+branch: integration/runtime-devops-convergence-2026-09-06
+pre_sync_head_sha: 43fc7cd92a71e0460e551bcc2d6a717ccac796ca
+recovery_ref: archive/pre-governance-2026-09-07-runtime-devops
+
+governance_authority_at_sync:
+  branch: main
+  main_sha: 356f4fd2c3b6d9dc897787a2c3cc6b90d41d375d
+  entrypoint: LOOM_START_HERE.md
+  current_workstate: governance/current/LOOM_CURRENT_WORKSTATE.yml
+  authority_model: governance/current/LOOM_AUTHORITY_MODEL.yml
+  dependency_map: governance/dependencies/component-map.yml
+  compatibility_manifest: manifests/current/LOOM_COMPATIBILITY.yml
+  gate_context: loom-gate
+  gate_mode: ENFORCE
+  main_protected: true
+
+sync_semantics:
+  merge_from_main_performed: false
+  rebase_performed: false
+  functional_source_changed_by_sync: false
+  sqlite_bytes_or_schema_changed_by_sync: false
+  launcher_or_updater_semantics_changed_by_sync: false
+  release_manifest_changed_by_sync: false
+  recovery_ref_moved: false
+  local_marker_is_governing_authority: false
+  always_reload_current_governance_from_main_before_mutation: true
+
+workstream_boundary:
+  primary_future_change_class: class:runtime
+  data_change_requires_explicit_classification: true
+  preserve_android_windows_launcher_paths_unless_approved: true
+  preserve_updater_root_semantics_unless_approved: true
+  local_sqlite_state_is_not_canon_authority: true
+  schema_migration_compatibility_impact_must_be_declared: true
+  release_promotion_requires_current_compatibility_review: true
+
+resume:
+  currently_paused: true
+  resume_gate: STEP14
+  first_action_after_resume: >-
+    Reload current main governance, verify branch lineage and current compatibility,
+    classify the proposed runtime/data/release change, and run unit plus relevant
+    functional tests before substantive functional mutation.
