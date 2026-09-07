@@ -1,4 +1,4 @@
-version: '1.5'
+version: '1.8'
 status: ADOPTION_PAUSE
 captured_date: '2026-09-07'
 repository: loom-2226/loom-2226
@@ -11,14 +11,15 @@ step11_policy_pr: 25
 
 adoption:
   sprint: governance/adoption/LOOM_GOVERNANCE_ADOPTION_SPRINT_v1.0.md
-  completed_steps: [1,2,3,4,5,6,7,8,9,10,11,12]
-  current_step: 13
-  current_step_name: Configure and test LOOM ChatGPT Project bootstrap
+  completed_steps: [1,2,3,4,5,6,7,8,9,10,11,12,13]
+  current_step: 14
+  current_step_name: Resume LOOM from registered states
   step11_state: COMPLETE_VERIFIED
   step12_state: COMPLETE_VERIFIED
+  step13_state: COMPLETE_VERIFIED
   development_paused: true
   physics_execution_paused: true
-  restart_gate_reached: false
+  restart_gate_reached: true
 
 governance_baseline_promotion:
   baseline: Governance Baseline v1.0
@@ -102,13 +103,19 @@ session_bootstrap:
   chatgpt_project_instruction: governance/current/LOOM_CHATGPT_PROJECT_BOOTSTRAP_v1.0.md
   scoped_agent_rules_established: true
   machine_protocol_active: true
-  dependency_context_conditional_load: true
-  ccr_context_conditional_load: true
-  autonomous_agent_context_conditional_load: true
-  grandfathered_workstream_context_conditional_load: true
-  project_instruction_installed: false
-  project_instruction_install_step: 13
-  fresh_chat_acceptance_test_complete: false
+  project_instruction_installed: true
+  context_free_github_auto_activation_qualified: false
+  context_free_negative_control_attempts: 2
+  supported_authoritative_new_chat_entry: EXPLICIT_GITHUB_BOOTSTRAP
+  explicit_entry_command: Use GitHub to bootstrap LOOM from current repository authority, then continue LOOM.
+  explicit_entry_control_qualified: true
+  explicit_entry_attempt: 3
+  explicit_entry_result: PASS
+  fresh_chat_acceptance_test_complete: true
+  adversarial_gating_tests_passed: 6
+  remaining_step13_tests: []
+  step13_acceptance_result: PASS
+  acceptance_matrix: governance/validation/STEP13_CHATGPT_PROJECT_BOOTSTRAP_ACCEPTANCE_v1.0.yml
 
 github_entry:
   pr_template: .github/PULL_REQUEST_TEMPLATE.md
@@ -129,41 +136,16 @@ github_entry:
   require_conversation_resolution: true
   allow_force_pushes: false
   allow_main_deletion: false
-  legacy_advisory_workflow_retired: true
-  step9_validated_gate_result: PASS
-
-historical_validation:
-  status: PASS
-  fixture_matrix: governance/validation/STEP9_HISTORICAL_FIXTURE_MATRIX_2026-09-07.yml
-  report: governance/validation/STEP9_HISTORICAL_VALIDATION_REPORT_2026-09-07.md
-  real_fixtures: 12
-  hard_ready_rule_count: 10
-  advisory_or_rework_rule_count: 8
-  deterministic_enforcement_policy_enabled: true
-  github_required_check_enabled: true
-  false_positive_fixed:
-    - CANON_PATH_ONLY_AIRLOCK_PR3_R100
-  premature_hardening_prevented:
-    - LG008_RELEASE_COMPATIBILITY_COUPLING
-    - LG009_DOWNSTREAM_IMPACT_DECLARATION
-    - LG012_DATA_MIGRATION_RECOVERY
-  canon_classifier:
-    exact_R100_current_canon_move: AUTHORITY_LIFECYCLE_NOT_CONTENT_MUTATION
-    non_R100_current_canon_change: CCR_AIRLOCK
-  genesis_baseline_pr2: GRANDFATHERED_NONREPEATABLE
 
 canon_change_control:
   lifecycle: governance/changes/README.md
   registry: governance/changes/CCR_REGISTRY.yml
-  schema: governance/changes/CCR_SCHEMA_v1.0.yml
-  template: governance/changes/CCR_TEMPLATE_v1.0.yml
   id_format: CCR-YYYY-NNNN
   live_records: 0
   next_sequence_2026: 1
   approved_status_means_governing_canon: false
   implementation_requires_main_merge_and_baseline_completion: true
   unqualified_frozen_source_may_be_approved: false
-  evidentiary_status_upgraded_by_canon_approval: false
 
 dependency_and_compatibility:
   component_map: governance/dependencies/component-map.yml
@@ -171,41 +153,22 @@ dependency_and_compatibility:
   compatibility_manifest: manifests/current/LOOM_COMPATIBILITY.yml
   absence_means_independent: false
   unregistered_dependency_state: UNKNOWN_UNREGISTERED
-  release_manifest_requires_compatibility_review: true
-  release_manifest_requires_compatibility_file_cochange: false
-  explicit_compatibility_disposition_allowed: true
-  historical_validation_transfer_by_assumption_allowed: false
   known_gaps:
     python_runtime_version: NOT_PINNED_BY_CURRENT_RELEASE_MANIFEST
     threejs_version: NOT_RECORDED_IN_CURRENT_WAYFARER_MANIFEST
 
 autonomous_agents:
   registry: governance/agents/AGENT_REGISTRY.yml
-  creation_policy: governance/agents/AUTONOMOUS_AGENT_CREATION_POLICY_v1.0.md
-  persona_policy: governance/agents/PERSONA_BINDING_POLICY_v1.0.md
   active_count: 1
   active: [WALTER]
-  near_term_target_max: 3
   reserved_not_active: [RESEARCH_QUALIFICATION, RELEASE_OPERATOR]
   deferred_candidate: [RUNTIME_SIMULATION_STEWARD]
-  new_agent_requires_creation_gate: true
-  persona_can_be_added_later: true
-  persona_can_change_authority: false
 
 assurance:
   walter:
     role: Executive Director, Continuous Assurance
     tag: '#LOOMSAFE'
-    architecture_status: AUTONOMOUS_AGENT_LOOM_GATE_ENFORCED_ON_PROTECTED_MAIN
-    creation_review: governance/agents/reviews/AGENT_CREATION_REVIEW_WALTER_v1.0.md
-    gate_policy: governance/current/LOOM_GATE_POLICY.yml
-    gate_context: loom-gate
     gate_mode: ENFORCE
-    deterministic_hard_blocking_enabled: true
-    github_required_check_enabled: true
-    historical_validation_complete: true
-    llm_advisory_layer_implementation: false
-    personality_grounded_in_real_walter_history: true
     may_create_or_approve_other_agents: false
 
 wip_limits:
@@ -222,7 +185,7 @@ mutation_policy_until_restart:
     - .github/** governance material
     - manifests/current/** governance compatibility metadata
     - step13 ChatGPT Project bootstrap configuration/testing records
-  still_forbidden_until_step14:
+  still_forbidden_until_step14_execution:
     - canon content changes unrelated to governance adoption
     - navigator/gis functional development
     - production runtime functional development
@@ -235,25 +198,28 @@ mutation_policy_until_restart:
     - pr16 mutation
 
 step11:
-  audit: governance/adoption/STEP11_MAIN_PROTECTION_AUDIT_2026-09-07.md
-  policy: governance/current/LOOM_MAIN_PROTECTION_POLICY.yml
-  target_branch: main
+  status: COMPLETE
   ruleset_id: 22419925
   ruleset_name: LOOM main protection v1
-  protection_verified: true
-  status: COMPLETE
 
 step12:
-  registry: governance/current/LOOM_WORKSTREAM_SYNC_REGISTRY.yml
-  audit: governance/adoption/STEP12_WORKSTREAM_GOVERNANCE_SYNC_AUDIT_2026-09-07.md
   status: COMPLETE_VERIFIED
   main_merge_sha: 626e3ce1470abbe3ce8a24624b87c230c32570b4
-  sidecar_synced_workstreams: [NAVIGATOR_GIS_HUD, RUNTIME_DEVOPS, WAYFARER_3D]
-  review_only_workstreams: [MEDIA, FOUNDATIONS_PR20, PR16, RETAINED_RELEASE_BASELINES]
-  excluded_frozen_work: [PR19]
   non_governance_functional_changes: 0
   recovery_refs_moved: false
 
+step13:
+  pr: 29
+  audit: governance/adoption/STEP13_CHATGPT_PROJECT_BOOTSTRAP_AUDIT_2026-09-07.md
+  acceptance_matrix: governance/validation/STEP13_CHATGPT_PROJECT_BOOTSTRAP_ACCEPTANCE_v1.0.yml
+  context_free_attempts: [FAIL, FAIL]
+  context_free_status: NEGATIVE_CONTROL_NOT_SUPPORTED_STARTUP_PATH
+  explicit_github_bootstrap: PASS
+  gating_tests_passed: 6
+  remaining_gating_tests: 0
+  result: PASS
+  status: COMPLETE_VERIFIED
+
 next_step:
-  id: 13
-  name: Configure and test LOOM ChatGPT Project bootstrap
+  id: 14
+  name: Resume LOOM from registered states
