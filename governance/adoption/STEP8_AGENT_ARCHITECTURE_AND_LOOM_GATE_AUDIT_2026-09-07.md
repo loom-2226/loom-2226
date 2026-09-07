@@ -1,7 +1,7 @@
 # LOOM 2226 — Governance Adoption Step 8 Audit
 
 **Date:** 7 September 2026  
-**Status:** IMPLEMENTED — FINAL LIVE ACCEPTANCE IN PROGRESS  
+**Status:** PASS — STEP 8 COMPLETE  
 **Branch:** `governance/repository-control-baseline-v1`  
 **PR:** #24
 
@@ -9,7 +9,7 @@
 
 Establish the optimized autonomous-agent topology, preserve the ability to bind personalities later without authority drift, and establish one stable deterministic future required status: `loom-gate`.
 
-No game, physics, canon, runtime, SQLite, media, launcher or 3D functional behavior is changed by this step.
+No game, physics, canon, runtime, SQLite, media, launcher or 3D functional behavior was changed by this step.
 
 ## Autonomous-agent topology
 
@@ -49,14 +49,10 @@ Personality may improve presentation and salience. It may not alter evidence, pe
 
 ## loom-gate
 
-Created:
-
-- `.github/workflows/loom-gate.yml`
-- `governance/current/LOOM_GATE_POLICY.yml`
-
-Stable future required-check context: `loom-gate`.
-
-Current mode: `OBSERVE`.
+Stable check: `.github/workflows/loom-gate.yml`  
+Policy: `governance/current/LOOM_GATE_POLICY.yml`  
+Stable future required-check context: `loom-gate`  
+Current mode: `OBSERVE`
 
 In OBSERVE mode WATCH/CANDIDATE_BLOCK findings are visible but cannot fail the PR. Step 9 historical validation must occur before any rule earns enforcement.
 
@@ -66,29 +62,44 @@ Advisory families include mixed-authority review, vendor/dependency assurance, i
 
 `loom-gate` uses no LLM judgment for hard results.
 
-## Step-8 self-governance finding
+## Self-governance finding and resolution
 
 The first live gate noticed the initial active-agent transition from zero on frozen `main` to WALTER=1 before a durable creation review had been wired into the registry. The rule was not weakened. The creation review was created, approved and registry-linked.
 
 The design was then improved so the durable review/registry is the authority; a magic phrase in PR prose is not. This better follows **GitHub outranks the chat**.
 
-## Legacy workflow
+## Final live acceptance
 
-Once the final live `loom-gate` run is clean, `.github/workflows/loom-governance-advisory.yml` is retired. `loom-gate` becomes the single governance status surface.
+After the agent-review fix, `loom-gate` ran cleanly in OBSERVE mode.
+
+After retiring the duplicate legacy advisory workflow, GitHub Actions run `34075198947` again completed with:
+
+- workflow: `LOOM Gate`;
+- job/context: `loom-gate`;
+- mode: `OBSERVE`;
+- WATCH findings: **0**;
+- candidate hard-gate findings: **0**;
+- conclusion: **PASS / success**;
+- no parallel legacy governance-advisory workflow on that commit.
+
+`.github/workflows/loom-governance-advisory.yml` is retired. LOOM now has one governance status surface.
 
 ## Audit-note recovery
 
-During final Step-8 housekeeping Sol accidentally replaced this audit document with a placeholder while attempting a PR-metadata edit. No functional/control/frozen source was affected. The audit file was restored immediately from the existing recorded Step-8 state. This recovery event is retained here rather than hidden.
+During final Step-8 housekeeping Sol accidentally replaced this audit document with a placeholder while attempting a PR-metadata edit. No functional/control/frozen source was affected. The audit file was restored immediately from the recorded Step-8 state. The recovery event is retained here rather than hidden.
 
-## Acceptance
+## Acceptance result
 
-Step 8 passes when:
+**PASS.**
 
-1. `loom-gate` runs in OBSERVE mode with zero findings for the governance baseline;
-2. machine manifests parse;
-3. WALTER has an approved durable creation review;
-4. the duplicate legacy workflow is retired;
-5. frozen `main` and PR #19 remain unchanged.
+- optimized technical-agent topology recorded;
+- Agent Creation Gate established;
+- future persona binding explicitly allowed and authority-separated;
+- WALTER creation review approved and registry-linked;
+- `loom-gate` live and deterministic-first;
+- `loom-gate` remains safely non-blocking pending Step 9;
+- duplicate workflow retired;
+- final live run produced zero findings.
 
 ## Next permitted action
 
