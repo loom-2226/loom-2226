@@ -138,3 +138,49 @@ Not authorized at this freeze:
 Exact-head CI for the accepted pre-documentation integration head `06635d124b5f9573a77390baea02eb6760a04e05` passed the Python regression suite.
 
 This document records the accepted runtime/DevOps baseline for subsequent Navigator/GIS work.
+
+## 9. Queued next Runtime / DevOps project — Pixel zero-friction hardening
+
+**Status:** QUEUED / DEFERRED WHILE NAVIGATOR-GIS DEVELOPMENT CONTINUES  
+**Priority gate:** Return to this project before HUD work at the latest.  
+**Branch policy:** Keep this work queued on the existing Runtime / DevOps workstream. Do not create a new project, branch, or active WIP lane merely to hold it.
+
+The accepted runtime is technically credible and in active use, but Pixel operation still requires too much manual Termux command/output relay and the installed `/storage/emulated/0/Documents/LOOM` tree has not yet been byte-enumerated and classified after real use. The next Runtime / DevOps project is therefore an operational-hardening pass rather than new runtime functionality.
+
+### 9.1 Runtime inventory and filesystem hygiene
+
+Add a read-only Pixel runtime inventory facility that enumerates the installed LOOM roots and classifies files/directories as:
+
+- `MANIFEST_INSTALL`
+- `PRESERVED_STATE`
+- `CACHE`
+- `BACKUP`
+- `KNOWN_RUNTIME_OUTPUT`
+- `OBSOLETE`
+- `UNKNOWN`
+
+The first pass is strictly observational. **No automatic or manual deletion is authorized by this project definition.** Inventory output should include bounded useful metadata such as path, size, classification and SHA-256 where appropriate, while explicitly excluding secrets and unnecessary cache/media duplication.
+
+Use the inventory to determine whether `/Documents/LOOM` is accumulating stale migration/development artifacts or whether the apparent file volume is entirely explained by the accepted split-root runtime topology.
+
+### 9.2 One-command Pixel operation
+
+Reduce routine Termux choreography behind one stable operator entry point capable of orchestrating the normal sequence, conceptually:
+
+`update -> validate -> doctor -> launch`
+
+The implementation must preserve the existing APP/DATA/CAMPAIGN/CACHE authority boundaries and existing Android/Windows compatibility contracts. Do not collapse the Git/source checkout and installed runtime merely for convenience.
+
+### 9.3 Diagnostic handoff instead of transcript relay
+
+Make the existing bounded `loom_debug_bundle.py` capability the standard diagnostic handoff so normal troubleshooting does not require repeated copying of large Termux transcripts into chat.
+
+The bundle/health capture should expose enough deployment identity, root selection, manifest state, runtime diagnostics, relevant inventory summary, process/service state and bounded logs/traces to diagnose ordinary failures without collecting arbitrary phone storage, credentials, tokens or unrelated personal files.
+
+Automatic GitHub publishing remains a separate decision and is not implied by this queued project.
+
+### 9.4 Success condition
+
+This project is complete when routine Pixel use no longer requires the user to understand or manually coordinate the internal split-root topology for ordinary update/validation/launch operations, and when the contents of `/Documents/LOOM` can be mechanically explained as expected runtime payload/state or explicitly flagged for review.
+
+The desired outcome is not fewer files by fiat. It is a runtime whose filesystem and operational behavior are **understood, inspectable, reproducible and low-friction**.
