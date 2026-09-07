@@ -1,140 +1,186 @@
-version: '1.0'
-status: STEP8_OBSERVE_MODE_PENDING_HISTORICAL_VALIDATION
+version: '1.1'
+status: STEP9_HISTORICALLY_VALIDATED_OBSERVE_MODE
 gate_name: loom-gate
 owner_agent: WALTER
+historical_fixture_matrix: governance/validation/STEP9_HISTORICAL_FIXTURE_MATRIX_2026-09-07.yml
+historical_validation_report: governance/validation/STEP9_HISTORICAL_VALIDATION_REPORT_2026-09-07.md
+
 purpose: >-
-  Single always-running deterministic governance status intended to become the
-  required main-promotion check after historical validation and baseline merge.
+  Single always-running deterministic governance status. Step 9 has classified
+  which findings are safe hard-gate candidates and which must remain advisory.
+  Blocking is not enabled until explicit later enforcement/protection approval.
 
 modes:
   current: OBSERVE
-  allowed:
-    - OBSERVE
-    - ENFORCE
+  allowed: [OBSERVE, ENFORCE]
   observe_behavior: report_candidate_blocks_and_watches_but_exit_success
-  enforce_behavior: fail_only_rules_marked_HARD_AFTER_VALIDATION
+  enforce_behavior: fail_on_candidate_blocks_only_after_explicit_activation
 
-finding_levels:
-  - PASS
-  - WATCH
-  - CANDIDATE_BLOCK
-  - BLOCK
+finding_levels: [PASS, WATCH, CANDIDATE_BLOCK, BLOCK]
 
 rules:
   LG001_CHANGE_CLASS:
-    description: Substantive PR declares one recognizable primary LOOM change class.
-    current_level: WATCH
-    target_after_step9: HARD_AFTER_VALIDATION
+    description: Governance-era substantive PR declares one recognizable primary LOOM change class.
+    current_level: CANDIDATE_BLOCK
+    step9_disposition: HARD_READY_PENDING_ENFORCEMENT
     deterministic: true
+    grandfathering: PRE_GOVERNANCE_HISTORY_NOT_RETROACTIVELY_NONCOMPLIANT
 
   LG002_FROZEN_PR19_SHA:
-    description: Frozen PR #19 branch must remain at its registered preregistered SHA.
+    description: Frozen PR #19 branch remains at registered preregistered SHA.
     current_level: CANDIDATE_BLOCK
-    target_after_step9: HARD_AFTER_VALIDATION
+    step9_disposition: HARD_READY_PENDING_ENFORCEMENT
     deterministic: true
     exception_allowed: false
 
   LG003_FROZEN_PR16_SHA:
-    description: PR #16 preregistered/on-hold branch must remain at its registered SHA until formally superseded.
+    description: PR #16 preregistered/on-hold branch remains at registered SHA until formally superseded.
     current_level: CANDIDATE_BLOCK
-    target_after_step9: HARD_AFTER_VALIDATION
+    step9_disposition: HARD_READY_PENDING_ENFORCEMENT
     deterministic: true
     exception_allowed: false
 
   LG004_CANON_CLASS:
-    description: Current canon mutation requires class:canon.
+    description: Non-R100 current-canon content/authority mutation requires class:canon.
     current_level: CANDIDATE_BLOCK
-    target_after_step9: HARD_AFTER_VALIDATION
+    step9_disposition: HARD_READY_PENDING_ENFORCEMENT
     deterministic: true
+    classifier: NON_R100_CURRENT_CANON_CHANGE
 
   LG005_CANON_CCR_ID:
-    description: Current canon mutation requires exact registered CCR-YYYY-NNNN identifier.
+    description: Non-R100 current-canon content/authority mutation requires exact registered CCR-YYYY-NNNN identifier.
     current_level: CANDIDATE_BLOCK
-    target_after_step9: HARD_AFTER_VALIDATION
+    step9_disposition: HARD_READY_PENDING_ENFORCEMENT
     deterministic: true
 
   LG006_CANON_CCR_APPROVAL:
-    description: Cited CCR must have durable record and APPROVED_FOR_IMPLEMENTATION status before canon implementation.
+    description: Cited CCR has durable record and APPROVED_FOR_IMPLEMENTATION before canon implementation.
     current_level: CANDIDATE_BLOCK
-    target_after_step9: HARD_AFTER_VALIDATION
+    step9_disposition: HARD_READY_PENDING_ENFORCEMENT
     deterministic: true
 
   LG007_CONTROL_FILE_PARSE:
-    description: Required governance, dependency, compatibility, agent and CCR machine files must parse.
+    description: Required governance/dependency/compatibility/agent/CCR machine files parse.
     current_level: CANDIDATE_BLOCK
-    target_after_step9: HARD_AFTER_VALIDATION
+    step9_disposition: HARD_READY_PENDING_ENFORCEMENT
     deterministic: true
 
   LG008_RELEASE_COMPATIBILITY_COUPLING:
-    description: Release-manifest change must review/update LOOM compatibility manifest.
+    description: Release-manifest change receives explicit compatibility disposition or compatibility-manifest update.
     current_level: WATCH
-    target_after_step9: HARD_AFTER_VALIDATION
+    step9_disposition: ADVISORY_REWORKED
     deterministic: true
+    reason: FILE_COCHANGE_ONLY_RULE_PRODUCED_LEGITIMATE_FALSE_POSITIVE_RISK
 
   LG009_DOWNSTREAM_IMPACT_DECLARATION:
-    description: Load-bearing changes require downstream dependency/impact classification.
+    description: Load-bearing changes receive downstream dependency/impact classification.
     current_level: WATCH
-    target_after_step9: HARD_AFTER_VALIDATION
-    deterministic: true
+    step9_disposition: ADVISORY_PENDING_STRUCTURED_METADATA
+    deterministic: partly
+    reason: PRE_GOVERNANCE_FREE_TEXT_IS_SEMANTICALLY_GOOD_BUT_NOT_RELIABLY_MACHINE_CLASSIFIABLE
 
   LG010_MIXED_CANON_ENGINEERING:
-    description: Canon plus engineering/geometry in one PR requires explicit sequencing review.
+    description: Canon plus engineering/geometry in one PR receives explicit sequencing review.
     current_level: WATCH
-    target_after_step9: ADVISORY
+    step9_disposition: ADVISORY
     deterministic: true
 
   LG011_RESEARCH_CANON_MIX:
-    description: Research plus current canon in one PR is suspicious and requires explicit promotion separation rationale.
+    description: Research plus current canon in one PR receives explicit promotion-separation rationale.
     current_level: WATCH
-    target_after_step9: ADVISORY
+    step9_disposition: ADVISORY
     deterministic: true
 
   LG012_DATA_MIGRATION_RECOVERY:
-    description: SQLite/schema/migration change requires migration/compatibility/recovery declaration.
+    description: SQLite/schema/migration change receives migration/compatibility/recovery review.
     current_level: WATCH
-    target_after_step9: ADVISORY_UNTIL_PATH_MODEL_MATURE
-    deterministic: true
+    step9_disposition: ADVISORY_PENDING_PATH_MODEL
+    deterministic: partly
+    reason: SQLITE_PATH_ALONE_CANNOT_DISTINGUISH_BYTES_SCHEMA_METADATA_DERIVED_OR_LOCAL_STATE
 
   LG013_VENDOR_DEPENDENCY_ASSURANCE:
-    description: Dependency definition change requires vendor/dependency/license/lock-in assurance note.
+    description: Dependency-definition change receives vendor/dependency/license/lock-in assurance review.
     current_level: WATCH
-    target_after_step9: ADVISORY
-    deterministic: true
+    step9_disposition: ADVISORY
+    deterministic: partly
 
   LG014_AGENT_REGISTRY_PARSE:
-    description: Autonomous-agent registry must parse and active-agent count must match declared active entries.
+    description: Autonomous-agent registry parses and ACTIVE count matches ACTIVE entries.
     current_level: CANDIDATE_BLOCK
-    target_after_step9: HARD_AFTER_VALIDATION
+    step9_disposition: HARD_READY_PENDING_ENFORCEMENT
     deterministic: true
 
   LG015_AGENT_CREATION_GATE:
-    description: New ACTIVE autonomous agent requires registry entry and explicit governance-class declaration referencing agent creation review.
-    current_level: WATCH
-    target_after_step9: HARD_AFTER_VALIDATION
+    description: ACTIVE agent has approved durable creation review; active-count increase requires class:governance.
+    current_level: CANDIDATE_BLOCK
+    step9_disposition: HARD_READY_DETERMINISTIC_SUBSET_PENDING_ENFORCEMENT
     deterministic: partly
-    note: Semantic distinct-objective judgment remains human/WALTER advisory; registry/approval presence is deterministic.
+    hard_subset:
+      - registry_entry_present
+      - active_count_consistent
+      - creation_review_status_APPROVED
+      - creation_review_file_present
+      - active_count_increase_requires_class_governance
+    advisory_subset:
+      - distinct_objective_justification
+      - independence_need
+      - whether_existing_module_is_sufficient
 
   LG016_PERSONA_AUTHORITY_SEPARATION:
-    description: Persona binding may not be the source of technical permissions or evidentiary weight.
+    description: Persona binding is never source of technical permissions or evidentiary weight.
     current_level: WATCH
-    target_after_step9: ADVISORY
+    step9_disposition: ADVISORY
     deterministic: partly
 
   LG017_RELEASE_JSON_PARSE:
-    description: Current release manifest must parse as JSON when present.
+    description: Current release manifest parses as JSON when present.
     current_level: CANDIDATE_BLOCK
-    target_after_step9: HARD_AFTER_VALIDATION
+    step9_disposition: HARD_READY_PENDING_ENFORCEMENT
     deterministic: true
 
-hard_gate_promotion_rule:
-  requirements:
-    - deterministic
-    - historical_fixtures_pass
-    - false_positive_rate_acceptable
-    - remediation_is_clear
-    - does_not_break_grandfathered_workstreams
-    - Kevin_approves_enforcement
-  before_requirements_met: OBSERVE_ONLY
+  LG018_CANON_LIFECYCLE_AUTHORITY:
+    description: Exact R100 current-canon lifecycle movement receives explicit governance/canon authority-lifecycle rationale.
+    current_level: WATCH
+    step9_disposition: ADVISORY_PENDING_STRUCTURED_BASELINE_MARKER
+    deterministic: partly
+    note: R100_BYTE_PRESERVING_MOVE_IS_NOT_CANON_CONTENT_MUTATION
+
+step9_summary:
+  hard_ready_rules:
+    - LG001
+    - LG002
+    - LG003
+    - LG004
+    - LG005
+    - LG006
+    - LG007
+    - LG014
+    - LG015_DETERMINISTIC_SUBSET
+    - LG017
+  advisory_or_rework_rules:
+    - LG008
+    - LG009
+    - LG010
+    - LG011
+    - LG012
+    - LG013
+    - LG016
+    - LG018
+  known_false_positive_fixed:
+    rule_family: CANON_PATH_ONLY_AIRLOCK
+    fixture: PR-3
+    fix: R100_EXACT_RENAME_CLASSIFIER
+  known_premature_hardening_prevented:
+    - LG008
+    - LG009
+    - LG012
+
+hard_gate_activation_requirements:
+  - step9_historical_validation_complete
+  - current_loom_gate_live_run_clean
+  - governance_baseline_merged_to_main
+  - explicit_owner_enforcement_approval
+  - main_protection_step_reached
 
 llm_policy:
   loom_gate_uses_llm_for_hard_result: false
@@ -144,6 +190,6 @@ llm_policy:
 required_check_future:
   context_name: loom-gate
   make_required_on_main_only_after:
-    - Step9 historical validation complete
-    - PR24 governance baseline merged
-    - Step11 main protection activation
+    - governance_baseline_merged
+    - explicit_enforcement_approval
+    - Step11_main_protection_activation
