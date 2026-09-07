@@ -2,38 +2,44 @@
 
 Applies to `research/foundations_consequences/**`.
 
-## Portfolio discipline
+## Retirement status
 
-This program uses hard WIP limits:
+This upstream subtree is a **historical Foundations & Consequences corpus and provenance surface**.
 
-1. one T0 scientific execution/qualification;
-2. one T1 science/discovery stream;
-3. one T1 fiction/world/simulation stream;
-4. one bounded enabler.
+Active FC research belongs in `loom-2226/loom-research-lab/projects/foundations_consequences`.
 
-A fifth substantive stream requires explicit displacement, completion, or approved preemption.
+The old upstream portfolio, WIP model, convergence model, reviewer/squad planning and anomaly-enabler planning are not active authority here.
 
-Do not convert an interesting idea into active WIP merely by creating files or branches.
+Do not resume S1/S4/F2/P1 or create new FC WIP in this upstream subtree.
+
+## Historical source object
+
+PR #20 exact historical migration source:
+
+`74120daed077f7e0401b4e348dc0620df9d9b844`
+
+Its Git identity remains upstream for provenance. Its active successor program is lab-native.
+
+Historical program documents may be cited as historical objects. They do not override the Lab FC manifest, work plan, M3 disposition ledger, reciprocal authority boundary or Lab-to-LOOM disposition path.
 
 ## Epistemic discipline
 
 - ideas may move freely; evidentiary status may not;
 - convergence raises priority, not truth;
-- current reviewers/squads are intellectual review constructs, not claimed collaborators/endorsers;
+- reviewers/squads are intellectual review constructs, not collaborators or endorsers;
 - living/historical contributors must be credited only for what their work actually supports;
-- anomaly/phenomenology lanes do not calibrate fictional physics;
-- failed futures and dead ends belong in GHOST/history, not deletion.
+- anomaly/phenomenology material does not calibrate fictional or foundational physics;
+- cross-project evidentiary weight may not be combined by juxtaposition;
+- failed futures and dead ends remain history, not deletion.
 
-## Current paused state
+## Squad continuity
 
-During Governance Adoption, the pre-pause active set remains S1 / S4 / F2 / P1 but substantive work is paused until the restart gate.
+The historical identities **Adults With Red Pens**, **Respectably Unsupervised**, and **Freaks With Clipboards** remain preserved here as provenance. Current use, roster evolution, cited-work development, hypotheses and consequence work belong in Lab FC.
 
-Check `governance/current/LOOM_CURRENT_WORKSTATE.yml` before resuming or reprioritizing.
+Inclusion never implies endorsement, participation, knowledge of LOOM, agreement, or independent validation.
 
-## Cross-squad output
+## New work and return path
 
-Squad convergence may increase research priority. It may not be counted as independent empirical confirmation unless provenance/method independence is actually established.
+If a historical FC artifact suggests new work, route it to Lab FC or another registered Lab project with explicit bridge governance where required.
 
-## WALTER
-
-WALTER may flag scope drift, WIP inflation, black-box reasoning or provenance contamination. His findings do not create scientific evidence.
+If Lab work later matters to LOOM, use the standardized Lab -> LOOM disposition packet. This subtree cannot self-promote to canon, engineering, runtime, data, release, or upstream governance.
