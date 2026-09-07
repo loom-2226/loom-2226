@@ -141,6 +141,16 @@ class GISPhase4NavigationOverlayTest(unittest.TestCase):
         self.assertIn("sessionStorage.getItem('loomNavAutoFitRoute')", normalized)
         self.assertIn("if(alpha>=.75)", normalized)
 
+    def test_stage_f_3d_route_is_integrated_into_existing_gis(self):
+        js = client_extension_js()
+        normalized = "".join(js.split())
+        self.assertIn("LOOM_STAGE_F_INTEGRATED_GIS_3D_V1", normalized)
+        self.assertIn("3DROUTE", normalized)
+        self.assertIn("document.getElementById('obl')", normalized)
+        self.assertIn("panel.querySelector('.navFit')", normalized)
+        self.assertNotIn("location.href='/3d'", normalized)
+        self.assertNotIn('location.href="/3d"', normalized)
+
     def test_empty_overlay_is_valid(self):
         overlay = build_navigation_overlay()
         self.assertIsNone(overlay.active_route)
