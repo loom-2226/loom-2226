@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Inspect authority, freeze and scope signals
+      - name: Inspect authority, freeze, dependency and scope signals
         shell: bash
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -93,6 +93,26 @@ jobs:
 
           if grep -Eq '^(research/)' <<<"$changed" && grep -q '^canon/current/' <<<"$changed"; then
             warn "Research and current canon changed together. Research findings may propose canon changes but may not silently promote themselves."
+          fi
+
+          if grep -Eq '^(canon/current/|engineering/current/|src/|data/|geometry/|deploy/|manifests/release_manifest\.json)' <<<"$changed"; then
+            if ! grep -Eqi 'UNCHANGED_COMPATIBLE|REVIEW_REQUIRED|REVALIDATION_REQUIRED|MIGRATION_REQUIRED|BLOCKED_PENDING_UPSTREAM|SUPERSEDED|downstream|dependency impact|dependencies' <<<"${PR_BODY:-}"; then
+              warn "A load-bearing component changed without an obvious downstream dependency/impact classification in the PR body."
+            fi
+          fi
+
+          if grep -q '^manifests/release_manifest\.json$' <<<"$changed"; then
+            if ! grep -q '^manifests/current/LOOM_COMPATIBILITY\.yml$' <<<"$changed"; then
+              warn "Release manifest changed without a matching LOOM compatibility-manifest change. Review whether compatibility metadata must be updated."
+            fi
+          fi
+
+          if [[ ! -f governance/dependencies/component-map.yml ]]; then
+            warn "Dependency component map is unavailable in this PR checkout; downstream Pack Inventory cannot be machine-backed."
+          fi
+
+          if [[ ! -f manifests/current/LOOM_COMPATIBILITY.yml ]]; then
+            warn "LOOM compatibility manifest is unavailable in this PR checkout."
           fi
 
           {
