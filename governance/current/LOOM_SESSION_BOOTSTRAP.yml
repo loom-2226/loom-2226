@@ -12,6 +12,19 @@ required_reads:
   - AGENTS.md
 
 conditional_reads:
+  canon_change_or_promotion:
+    when_change_classes:
+      - class:canon
+    when_paths_include:
+      - canon/current/**
+    read:
+      - governance/changes/README.md
+      - governance/changes/CCR_REGISTRY.yml
+      - governance/changes/CCR_SCHEMA_v1.0.yml
+      - governance/changes/CCR_TEMPLATE_v1.0.yml
+      - governance/dependencies/component-map.yml
+      - manifests/current/LOOM_COMPATIBILITY.yml
+      - canon/AGENTS.md
   load_bearing_or_release_change:
     when_change_classes:
       - class:canon
@@ -44,6 +57,7 @@ session_sequence:
   - IDENTIFY_CHANGE_CLASS
   - IDENTIFY_PERMITTED_MUTATION_SCOPE
   - CHECK_FROZEN_PREREGISTERED_STATE
+  - LOAD_CCR_AIRLOCK_CONTEXT_FOR_CANON_WORK
   - LOAD_DEPENDENCY_COMPATIBILITY_CONTEXT_WHEN_REQUIRED
   - CHECK_DEPENDENCY_INVALIDATION
   - DETERMINE_TEST_QUALIFICATION_CLASS
@@ -73,6 +87,8 @@ major_work_package_confirmation:
     - permitted_mutation_scope
     - registered_downstream_dependencies
     - compatibility_manifest_state
+    - exact_ccr_id_when_canon_change
+    - ccr_registry_status_when_canon_change
 
 walter:
   load_role_on_bootstrap: true
@@ -81,12 +97,14 @@ walter:
   pack_inventory_extension: governance/agents/WALTER_PACK_INVENTORY_EXTENSION_v1.0.md
   component_map: governance/dependencies/component-map.yml
   compatibility_manifest: manifests/current/LOOM_COMPATIBILITY.yml
+  ccr_registry: governance/changes/CCR_REGISTRY.yml
   default_visibility: LOW_NOISE
   cameo_only_when_assurance_relevant: true
   speech_allowed: false
   personality_can_change_gate_result: false
   deterministic_hard_gate_only: true
   missing_dependency_edge_means_independent: false
+  canon_promotion_requires_registered_approved_ccr: true
 
 scoped_agent_rules:
   canon: canon/AGENTS.md
