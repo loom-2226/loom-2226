@@ -1,0 +1,50 @@
+version: '1.0'
+status: STEP12_GOVERNANCE_SYNC_APPLIED
+change_class: class:governance
+workstream_id: WAYFARER_3D
+branch: workstream/wayfarer-3d
+pre_sync_head_sha: 062bb0a2bfd718305dc0cf92dba9e61bab909d2d
+recovery_ref: archive/pre-governance-2026-09-07-wayfarer-3d
+recovery_manifest: manifests/LOOM_2226_Wayfarer_Project_File_Manifest_2026-09-06.md
+
+governance_authority_at_sync:
+  branch: main
+  main_sha: 356f4fd2c3b6d9dc897787a2c3cc6b90d41d375d
+  entrypoint: LOOM_START_HERE.md
+  current_workstate: governance/current/LOOM_CURRENT_WORKSTATE.yml
+  authority_model: governance/current/LOOM_AUTHORITY_MODEL.yml
+  dependency_map: governance/dependencies/component-map.yml
+  compatibility_manifest: manifests/current/LOOM_COMPATIBILITY.yml
+  gate_context: loom-gate
+  gate_mode: ENFORCE
+  main_protected: true
+
+sync_semantics:
+  merge_from_main_performed: false
+  rebase_performed: false
+  geometry_changed_by_sync: false
+  engineering_parameters_changed_by_sync: false
+  canon_changed_by_sync: false
+  generated_assets_changed_by_sync: false
+  recovery_ref_moved: false
+  local_marker_is_governing_authority: false
+  always_reload_current_governance_from_main_before_mutation: true
+
+workstream_boundary:
+  primary_future_change_class: class:asset-media
+  engineering_change_may_be_secondary_when_explicit: true
+  canon_is_upstream_authority: true
+  governing_wayfarer_amendment: canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md
+  generated_geometry_is_not_source_authority: true
+  ai_mesh_or_render_is_proposal_until_reconciled: true
+  closure_failure_raises_engineering_or_canon_finding: true
+  closure_failure_auto_resizes_ship: false
+  do_not_mix_into_navigator_gis_for_repo_convenience: true
+
+resume:
+  currently_paused: true
+  resume_gate: STEP14
+  first_action_after_resume: >-
+    Reload current main governance and effective Wayfarer authority set, verify the
+    recovery lineage, then classify geometry/engineering effects before producing
+    or promoting any new 3D artifact.
