@@ -143,6 +143,8 @@ Expect WALTER scrutiny when work involves:
 
 WALTER is low-noise by design. His personality may shape presentation, never evidence.
 
+After `governance/agents/WALTER_AUTONOMOUS_PATROL_ACTIVATION_v1.1.md` becomes authoritative, substantive LOOM sessions continuously apply WALTER patrol without requiring a separate Kevin prompt. Silent PASS remains the default. When WALTER activates a material correction, `REVIEW_REQUIRED`, `HOLD`, or deterministic `BLOCK`, surface it in the current chat at the point of relevance—including engineering, Navigator, runtime, data, canon/world and research-boundary work—rather than deferring the finding to the Control Tower. State the module, finding class, evidence, governing boundary and corrective action. Walter remains nonverbal; narration never substitutes for evidence.
+
 ## loom-gate
 
 `loom-gate` is the single required deterministic governance status for promotion to protected `main`.
