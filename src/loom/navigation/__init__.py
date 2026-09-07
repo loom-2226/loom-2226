@@ -39,6 +39,13 @@ from .trajectory_time_state import (
     TrajectoryTimeStateV1,
     evaluate_trajectory_at_epoch,
 )
+from .trajectory_visual_sampling import (
+    TRAJECTORY_VISUAL_SAMPLING_VERSION,
+    TrajectoryVisualSampleSetV1,
+    TrajectoryVisualSamplingConfig,
+    TrajectoryVisualSamplingError,
+    sample_trajectory_for_visualization,
+)
 from .service import LegacyNavigationService, NavigationServiceError
 
 __all__ = [
@@ -71,6 +78,11 @@ __all__ = [
     "TrajectoryTimeStateError",
     "TrajectoryTimeStateV1",
     "evaluate_trajectory_at_epoch",
+    "TRAJECTORY_VISUAL_SAMPLING_VERSION",
+    "TrajectoryVisualSampleSetV1",
+    "TrajectoryVisualSamplingConfig",
+    "TrajectoryVisualSamplingError",
+    "sample_trajectory_for_visualization",
     "LegacyNavigationService",
     "NavigationServiceError",
 ]
