@@ -1,0 +1,90 @@
+schema_version: '1.0'
+record_type: CANON_CHANGE_REQUEST
+
+id: CCR-YYYY-NNNN
+title: REPLACE_ME
+status: PROPOSED
+proposal_revision: 1
+created_date: YYYY-MM-DD
+updated_date: YYYY-MM-DD
+
+origin:
+  issue: null
+  source_type: REPLACE_WITH_ENUM
+  source_references: []
+  evidentiary_status: REPLACE_WITH_ENUM
+  summary: REPLACE_ME
+
+proposal:
+  reason: REPLACE_ME
+  claims_added: []
+  claims_modified: []
+  claims_retired: []
+  affected_governing_sources: []
+  proposed_authority_relationship:
+    type: REPLACE_WITH_ENUM
+    parent_source: null
+    scope: null
+  explicit_non_scope: []
+
+frozen_research:
+  involved: false
+  sources: []
+  qualification_state: NOT_APPLICABLE
+  rule: >-
+    If a relied-on frozen/preregistered source is not yet dispositioned under its
+    frozen gate, this CCR cannot advance to APPROVED_FOR_IMPLEMENTATION.
+
+downstream_impact:
+  component_map_reviewed: false
+  components: []
+  # Each component entry should contain:
+  # - component_id
+  #   state: UNCHANGED_COMPATIBLE | REVIEW_REQUIRED | REVALIDATION_REQUIRED |
+  #          MIGRATION_REQUIRED | BLOCKED_PENDING_UPSTREAM | SUPERSEDED
+  #   rationale: ...
+
+baseline_obligations:
+  authority_registry_update_required: false
+  canon_baseline_manifest_update_required: false
+  file_hash_manifest_update_required: false
+  validation_report_update_required: false
+  compatibility_manifest_update_required: false
+  archive_or_supersession_update_required: false
+  notes: null
+
+validation:
+  required_tests: []
+  required_qualification: []
+  required_external_verification: []
+
+assurance:
+  walter_required: true
+  status: NOT_RUN
+  finding_ids: []
+  concerns: []
+
+implementation:
+  implementation_pr: null
+  target_branch: main
+  merged_commit: null
+  implemented_date: null
+  changed_governing_sources: []
+  downstream_followup_issues: []
+
+decision:
+  decision_authority: Kevin
+  decision_date: null
+  rationale: null
+  disposition: null
+
+supersession:
+  supersedes: []
+  superseded_by: null
+
+history:
+  - date: YYYY-MM-DD
+    event: CREATED
+    status: PROPOSED
+    actor: REPLACE_ME
+    note: Initial CCR record created.
