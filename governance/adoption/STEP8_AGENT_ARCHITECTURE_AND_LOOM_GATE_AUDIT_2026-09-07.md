@@ -28,18 +28,11 @@ Scripts, passive runtime components, directly prompted chats, intellectual revie
 
 ### Current topology
 
-Active autonomous agents: **1**.
+Active autonomous agents: **1** — WALTER / Continuous Assurance / `ACTIVE_ADVISORY`.
 
-- WALTER — Continuous Assurance — ACTIVE_ADVISORY.
+Reserved but not active: Research Qualification and Release Operator.
 
-Reserved but **not active**:
-
-- Research Qualification;
-- Release Operator.
-
-Deferred candidate:
-
-- Runtime / Simulation Steward.
+Deferred candidate: Runtime / Simulation Steward.
 
 Near-term target maximum is three top-level agents. A fifth top-level autonomous agent is a governance smell requiring explicit architecture review.
 
@@ -49,75 +42,29 @@ New autonomous agents require a distinct persistent objective, independent trigg
 
 Default when unclear: **do not create the agent**.
 
-### Walter initial review
-
-Walter's first-agent creation review is durable and APPROVED in:
-
-`governance/agents/reviews/AGENT_CREATION_REVIEW_WALTER_v1.0.md`
-
-The active WALTER registry entry points directly to that review. `loom-gate` checks that every ACTIVE autonomous agent has an approved registry-linked creation review whose durable file actually exists.
-
-WALTER may inspect future agent creation or expansion but may not approve his own authority increase or create/activate another autonomous agent.
+Walter's first-agent creation review is durable and APPROVED in `governance/agents/reviews/AGENT_CREATION_REVIEW_WALTER_v1.0.md`. The active registry entry points directly to it. WALTER may inspect future agent creation/expansion but may not approve his own authority increase or create/activate another autonomous agent.
 
 ## Persona architecture
 
-Technical role comes first; persona comes second.
+Technical role comes first; persona comes second. Future agents may be bound later to established LOOM characters, real-life behavioral lineages, new governance-only personalities, or no personality.
 
-Future autonomous technical agents may be given personalities later, including established LOOM characters, real-life behavioral lineages, new governance-only personalities, or no personality at all.
-
-A persona binding must be reversible: removing it must leave the technical objective, triggers, permissions, gates and evidentiary behavior unchanged.
-
-Personality may improve presentation, memorability, salience and interaction. It may not change permissions, evidence, scientific thresholds, canon promotion, hard-gate results or source independence.
-
-Walter is the first approved persona-bound agent.
+A persona must be reversible: removing it leaves technical objective, triggers, permissions, gates and evidentiary behavior unchanged. Personality may improve presentation and salience; it may not change evidence, permissions, scientific thresholds, canon eligibility or hard-gate outcomes.
 
 ## loom-gate architecture
 
-Created:
+Created `.github/workflows/loom-gate.yml` and `governance/current/LOOM_GATE_POLICY.yml`.
 
-- `.github/workflows/loom-gate.yml`
-- `governance/current/LOOM_GATE_POLICY.yml`
+Stable future required-check context: `loom-gate`.
 
-Stable future required-check context:
+Current mode: `OBSERVE`.
 
-`loom-gate`
+OBSERVE reports WATCH/CANDIDATE_BLOCK but exits successfully. Step 9 determines which deterministic rules earn enforcement.
 
-Current mode:
+Candidate hard-gate families include frozen SHA integrity, canon CCR airlock, machine-control parse integrity, release JSON parse integrity, autonomous-agent registry consistency, approved creation-review presence for ACTIVE agents, and `class:governance` when activating a new autonomous agent.
 
-`OBSERVE`
-
-In OBSERVE mode:
-
-- deterministic violations are classified as WATCH or CANDIDATE_BLOCK;
-- candidate blocks do not fail the PR;
-- the job exits successfully;
-- Step 9 historical validation determines which candidate hard gates actually earn enforcement.
-
-### Candidate hard-gate families
-
-- frozen PR #19 / PR #16 SHA integrity;
-- current-canon class/CCR/approval airlock;
-- required machine-control parse integrity;
-- release manifest JSON parse integrity;
-- autonomous-agent registry consistency;
-- approved creation-review presence for ACTIVE agents;
-- class:governance requirement when activating a new autonomous agent.
-
-### Advisory-by-design families
-
-- mixed canon + engineering/geometry;
-- research + canon same-PR review;
-- vendor/dependency assurance language;
-- SQLite migration/recovery declarations until path classification matures;
-- persona-authority separation semantic review.
-
-Other candidate rules such as downstream-impact declaration and release/compatibility coupling remain candidates pending Step 9 historical validation.
-
-## Deterministic-first rule
+Advisory-by-design families include mixed-authority review, vendor/dependency assurance, immature SQLite path semantics and persona-authority semantic review.
 
 `loom-gate` uses no LLM judgment for hard results.
-
-A future LLM WALTER layer may add separate advisory findings, but it may not modify the deterministic result.
 
 ## Bootstrap integration
 
@@ -125,25 +72,18 @@ Root `AGENTS.md` and `LOOM_SESSION_BOOTSTRAP.yml` conditionally load agent regis
 
 ## Live-run finding during implementation
 
-The first `loom-gate` run correctly noticed that PR #24 introduced the registry with active-agent count moving from zero on frozen `main` to one on the governance branch, but PR #24 had not yet explicitly recorded the Agent Creation Gate review.
+The first `loom-gate` run correctly noticed that PR #24 introduced active-agent count zero -> one without explicitly recording the Agent Creation Gate review in the PR contract.
 
-This was treated as a valid self-governance finding. The rule was not weakened. A durable Walter creation review was created, registry-linked, and the PR contract is now required to cite it before final Step-8 acceptance.
+The rule was not weakened. A durable Walter creation review was created and registry-linked. PR #24 must explicitly cite that review before final Step-8 acceptance.
 
 ## Legacy workflow disposition
 
-After the final zero-finding `loom-gate` run, the older `LOOM Governance Advisory` workflow is retired so LOOM has one stable always-running governance status rather than duplicate overlapping checks.
+After a clean `loom-gate` run, retire the older `LOOM Governance Advisory` workflow so LOOM has one stable always-running governance status.
 
 ## Acceptance
 
-Step 8 closes when:
-
-1. `loom-gate` runs successfully in OBSERVE mode;
-2. agent registry/control manifests parse;
-3. WALTER's ACTIVE registry entry has an approved durable creation-review file;
-4. PR #24 explicitly records the initial Agent Creation Gate review;
-5. the final live run produces zero WATCH/CANDIDATE_BLOCK findings for the governance PR;
-6. frozen `main` and PR #19 remain unchanged.
+Step 8 closes when `loom-gate` runs in OBSERVE mode with zero findings for PR #24, all machine manifests parse, WALTER has an approved durable creation review, PR #24 cites the Agent Creation Gate review, the old duplicate advisory workflow is retired, and frozen `main`/PR #19 remain unchanged.
 
 ## Next permitted action
 
-**Step 9 only:** validate `loom-gate` against real historical LOOM research, Navigator/GIS, runtime/release, media, Wayfarer-3D, canon and SQLite examples; measure false positives; promote only earned deterministic rules toward enforcement.
+**Step 9 only:** historical validation against real LOOM workstreams and rule-by-rule false-positive review before any enforcement.
