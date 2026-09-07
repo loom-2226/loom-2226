@@ -1,0 +1,86 @@
+version: '1.0'
+status: GOVERNING
+class: governance
+date: '2026-09-08'
+repository: loom-2226/loom-2226
+purpose: retire upstream research surfaces from active successor use without deleting history
+
+active_research_repository: loom-2226/loom-research-lab
+
+core_rules:
+  upstream_research_tree_status: HISTORICAL_REFERENCE_AND_FROZEN_OBJECT_HOST
+  new_active_successor_research_upstream: forbidden
+  historical_files_deleted_by_retirement: false
+  historical_git_identity_preserved: true
+  negative_and_unresolved_results_preserved: true
+  evidence_status_upgrade_by_retirement: false
+  lab_self_promotion: forbidden
+
+subtrees:
+  relational_foundations:
+    path: research/relational_foundations
+    status: HISTORICAL_PROVENANCE_WITH_FROZEN_PR_OBJECTS
+    active_successor: loom-2226/loom-research-lab/projects/relational_foundations
+  foundations_consequences:
+    path: research/foundations_consequences
+    status: HISTORICAL_PROVENANCE
+    active_successor: loom-2226/loom-research-lab/projects/foundations_consequences
+  rabbit_holes:
+    path: research/rabbit_holes
+    status: HISTORICAL_BACKLOG_AND_REFERENCE
+    activation_rule: route through a registered Research Lab project or governed Lab work item
+  seeds:
+    path: research/seeds
+    status: HISTORICAL_SOURCE_MATERIAL
+  technical_papers:
+    path: research/technical_papers
+    status: HISTORICAL_TECHNICAL_PAPER_AND_REFERENCE_SURFACE
+
+upstream_objects:
+  pr19:
+    pr: 19
+    head: 314efe50875630ba4be720b4097a2ca14075e620
+    state: FROZEN_UPSTREAM_QUALIFICATION_OBJECT
+    branch_mutation_allowed: false
+    successor_research_location: Research Lab
+  pr16:
+    pr: 16
+    head: b60086d906f63211206502f23458be490902c2df
+    state: PREREGISTERED_UPSTREAM_OBJECT
+    branch_mutation_allowed: false
+    successor_research_location: Research Lab
+  pr20:
+    pr: 20
+    head: 74120daed077f7e0401b4e348dc0620df9d9b844
+    state: HISTORICAL_FC_MIGRATION_SOURCE_PENDING_METADATA_CLOSURE
+    branch_mutation_allowed: false
+    successor_research_location: loom-2226/loom-research-lab/projects/foundations_consequences
+
+return_path:
+  lab_packet: shared/disposition/LAB_TO_LOOM_DISPOSITION_PACKET_TEMPLATE.yml
+  upstream_intake: governance/current/LOOM_LAB_RESEARCH_DISPOSITION_INTAKE_v1.0.md
+  canon_facing_maximum_request: OPEN_CCR_INTAKE
+
+supersedes_for_active_research_interpretation:
+  - old upstream WIP/resume language for S4
+  - old upstream WIP/resume language for F2
+  - old upstream WIP/resume language for P1
+  - old PR20 portfolio and four-slot WIP semantics
+
+preserves:
+  - historical commits and branches
+  - exact frozen/preregistered scientific objects
+  - historical technical papers and seeds
+  - old plans/backlogs as historical evidence
+  - negative, null, inconclusive and unresolved results
+  - PR20 provenance and exact source head
+
+not_established:
+  - method confirmation
+  - physics confirmation
+  - M1_M2_M3
+  - hidden topology
+  - anomaly ontology
+  - canon change
+  - engineering certification
+  - runtime_or_data_change
