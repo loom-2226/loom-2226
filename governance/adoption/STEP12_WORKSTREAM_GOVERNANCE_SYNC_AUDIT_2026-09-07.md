@@ -1,7 +1,7 @@
 # LOOM 2226 — Governance Adoption Step 12 Audit
 
 **Date:** 7 September 2026  
-**Status:** STEP 12 COMPLETE PENDING PROTECTED-MAIN MERGE  
+**Status:** STEP 12 COMPLETE — VERIFIED ON PROTECTED `main`  
 **Change class:** `class:governance`  
 **Purpose:** apply governance metadata/review to grandfathered active workstreams without rebasing, merging main into them, or changing functional behavior.
 
@@ -169,7 +169,7 @@ Step 12 found stale governance wording in the root bootstrap layer:
 
 Those statements were historically correct when written, but wrong after Steps 10–11.
 
-Corrections in this Step-12 PR:
+Corrections:
 
 - `AGENTS.md` now states that `loom-gate` is ENFORCE and required on protected `main`;
 - `LOOM_START_HERE.md` no longer hard-codes a current adoption branch/PR and directs sessions to current workstate;
@@ -191,11 +191,19 @@ No functional source was modified.
 
 No Python, runtime, SQLite, launcher, media, geometry, canon or scientific code changed.
 
-Therefore functional regression is **not required** for the branch-local sync commits or bootstrap prose/YAML updates.
+Therefore functional regression was **not required** for the branch-local sync commits or bootstrap prose/YAML updates.
 
-The protected-main Step-12 PR must still pass `loom-gate` in ENFORCE mode before merge.
+Protected-main PR #27 passed `loom-gate` in ENFORCE mode before merge.
 
-## 11. Step-12 acceptance
+## 11. Protected-main closure
+
+PR #27 merged to `main` at:
+
+`626e3ce1470abbe3ce8a24624b87c230c32570b4`
+
+The promotion occurred under the active `LOOM main protection v1` ruleset with required `loom-gate`.
+
+## 12. Step-12 acceptance
 
 - Navigator/GIS/HUD sidecar sync: **PASS**
 - Runtime/devops sidecar sync: **PASS**
@@ -207,11 +215,12 @@ The protected-main Step-12 PR must still pass `loom-gate` in ENFORCE mode before
 - release baselines untouched: **PASS**
 - recovery refs preserved: **PASS**
 - bootstrap stale-state correction: **PASS**
+- protected-main `loom-gate`: **PASS**
 - functional behavior changed: **NO**
 
-## 12. Next step
+## 13. Next step
 
-After this record merges through protected `main`, the only permitted next action is:
+The only permitted next action is:
 
 **Step 13 — configure and test the LOOM ChatGPT Project bootstrap in a completely fresh chat.**
 
