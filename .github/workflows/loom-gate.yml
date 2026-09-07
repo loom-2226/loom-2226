@@ -79,10 +79,7 @@ jobs:
 
           # LG004 / LG005 / LG006 — canon airlock
           if grep -q '^canon/current/' <<<"$changed"; then
-            if ! grep -q 'class:canon' <<<"${PR_BODY:-}"; then
-              candidate_block "LG004: current canon changed without class:canon."
-            fi
-
+            grep -q 'class:canon' <<<"${PR_BODY:-}" || candidate_block "LG004: current canon changed without class:canon."
             ccr_ids="$(grep -Eo 'CCR-[0-9]{4}-[0-9]{4}' <<<"${PR_BODY:-}" | sort -u || true)"
             if [[ -z "$ccr_ids" ]]; then
               candidate_block "LG005: current canon changed without an exact CCR-YYYY-NNNN identifier."
@@ -92,18 +89,15 @@ jobs:
               while IFS= read -r ccr_id; do
                 [[ -z "$ccr_id" ]] && continue
                 entry="$(ruby -ryaml -e '
-                  registry = YAML.safe_load(File.read(ARGV[0]), aliases: true)
-                  id = ARGV[1]
-                  record = Array(registry["records"]).find { |x| x["id"] == id }
+                  registry=YAML.safe_load(File.read(ARGV[0]), aliases: true)
+                  record=Array(registry["records"]).find { |x| x["id"] == ARGV[1] }
                   exit 2 unless record
-                  puts [record["path"], record["status"]].join("|")
+                  puts [record["path"],record["status"]].join("|")
                 ' governance/changes/CCR_REGISTRY.yml "$ccr_id" 2>/dev/null || true)"
-
                 if [[ -z "$entry" ]]; then
                   candidate_block "LG005: canon PR cites unregistered $ccr_id."
                   continue
                 fi
-
                 record_path="${entry%%|*}"
                 record_status="${entry#*|}"
                 [[ -f "$record_path" ]] || candidate_block "LG006: registered $ccr_id durable record is missing: $record_path."
@@ -112,36 +106,22 @@ jobs:
             fi
           fi
 
-          # LG010 / LG011 — mixed authority review
+          # Advisory authority/dependency signals
           if grep -Eq '^(geometry/|engineering/)' <<<"$changed" && grep -q '^canon/current/' <<<"$changed"; then
             watch "LG010: canon and engineering/geometry changed in one PR; explicit sequencing review is required."
           fi
           if grep -q '^research/' <<<"$changed" && grep -q '^canon/current/' <<<"$changed"; then
             watch "LG011: research and current canon changed together; verify explicit promotion separation."
           fi
-
-          # LG012 — data migration/recovery declaration
-          if grep -Eq '^(data/.*\.sqlite3|data/.*migration|data/.*schema)' <<<"$changed"; then
-            if ! grep -Eqi 'schema|migration|compatib|rollback|recovery' <<<"${PR_BODY:-}"; then
-              watch "LG012: SQLite/schema/migration path changed without migration/compatibility/recovery language."
-            fi
+          if grep -Eq '^(data/.*\.sqlite3|data/.*migration|data/.*schema)' <<<"$changed" && ! grep -Eqi 'schema|migration|compatib|rollback|recovery' <<<"${PR_BODY:-}"; then
+            watch "LG012: SQLite/schema/migration path changed without migration/compatibility/recovery language."
           fi
-
-          # LG013 — vendor/dependency assurance
-          if grep -Eq '(^|/)(requirements[^/]*\.txt|pyproject\.toml|poetry\.lock|Pipfile|package-lock\.json|package\.json)$' <<<"$changed"; then
-            if ! grep -Eqi 'vendor|dependency|license|lock-in|provider|package' <<<"${PR_BODY:-}"; then
-              watch "LG013: dependency definition changed without vendor/dependency assurance language."
-            fi
+          if grep -Eq '(^|/)(requirements[^/]*\.txt|pyproject\.toml|poetry\.lock|Pipfile|package-lock\.json|package\.json)$' <<<"$changed" && ! grep -Eqi 'vendor|dependency|license|lock-in|provider|package' <<<"${PR_BODY:-}"; then
+            watch "LG013: dependency definition changed without vendor/dependency assurance language."
           fi
-
-          # LG009 — downstream impact declaration on load-bearing changes
-          if grep -Eq '^(canon/current/|engineering/current/|src/|data/|geometry/|deploy/|manifests/release_manifest\.json)' <<<"$changed"; then
-            if ! grep -Eqi 'UNCHANGED_COMPATIBLE|REVIEW_REQUIRED|REVALIDATION_REQUIRED|MIGRATION_REQUIRED|BLOCKED_PENDING_UPSTREAM|SUPERSEDED|downstream|dependency impact|dependencies' <<<"${PR_BODY:-}"; then
-              watch "LG009: load-bearing component changed without downstream dependency/impact classification."
-            fi
+          if grep -Eq '^(canon/current/|engineering/current/|src/|data/|geometry/|deploy/|manifests/release_manifest\.json)' <<<"$changed" && ! grep -Eqi 'UNCHANGED_COMPATIBLE|REVIEW_REQUIRED|REVALIDATION_REQUIRED|MIGRATION_REQUIRED|BLOCKED_PENDING_UPSTREAM|SUPERSEDED|downstream|dependency impact|dependencies' <<<"${PR_BODY:-}"; then
+            watch "LG009: load-bearing component changed without downstream dependency/impact classification."
           fi
-
-          # LG008 — release / compatibility coupling
           if grep -q '^manifests/release_manifest\.json$' <<<"$changed" && ! grep -q '^manifests/current/LOOM_COMPATIBILITY\.yml$' <<<"$changed"; then
             watch "LG008: release manifest changed without matching LOOM compatibility-manifest review/update."
           fi
@@ -166,7 +146,6 @@ jobs:
               candidate_block "LG007: required control file is invalid YAML: $control."
             fi
           done
-
           if [[ -f manifests/release_manifest.json ]] && ! python -c 'import json; json.load(open("manifests/release_manifest.json", encoding="utf-8"))'; then
             candidate_block "LG017: current release manifest is invalid JSON."
           fi
@@ -177,31 +156,22 @@ jobs:
             ccr_id="$(basename "$ccr_file" | grep -Eo '^CCR-[0-9]{4}-[0-9]{4}' || true)"
             yaml_id="$(ruby -ryaml -e 'x=YAML.safe_load(File.read(ARGV[0]), aliases: true); puts x["id"]' "$ccr_file" 2>/dev/null || true)"
             [[ -n "$ccr_id" && "$yaml_id" == "$ccr_id" ]] || candidate_block "LG007: CCR filename/record ID mismatch: $ccr_file declares ${yaml_id:-<missing>}."
-            if [[ -f governance/changes/CCR_REGISTRY.yml ]] && ! ruby -ryaml -e '
-              registry=YAML.safe_load(File.read(ARGV[0]), aliases: true)
-              id=ARGV[1]
-              exit(Array(registry["records"]).any? { |x| x["id"] == id } ? 0 : 1)
-            ' governance/changes/CCR_REGISTRY.yml "$ccr_id"; then
+            if [[ -f governance/changes/CCR_REGISTRY.yml ]] && ! ruby -ryaml -e 'registry=YAML.safe_load(File.read(ARGV[0]), aliases: true); exit(Array(registry["records"]).any? { |x| x["id"] == ARGV[1] } ? 0 : 1)' governance/changes/CCR_REGISTRY.yml "$ccr_id"; then
               candidate_block "LG007: CCR record exists but is not indexed: $ccr_id."
             fi
           done
           shopt -u nullglob
 
-          # LG014 / LG015 / LG016 — autonomous-agent integrity
+          # LG014 / LG015 / LG016 — autonomous-agent integrity.
+          # Durable registry-linked creation review is authoritative; PR prose is explanatory only.
           if [[ -f governance/agents/AGENT_REGISTRY.yml ]]; then
             registry_check="$(ruby -ryaml -e '
               x=YAML.safe_load(File.read(ARGV[0]), aliases: true)
               declared=x.dig("count","active_autonomous_agents").to_i
-              agents=x["agents"] || {}
-              active_entries=agents.select { |_k,v| v["status"].to_s.start_with?("ACTIVE") }
-              active=active_entries.length
-              bad_persona=active_entries.any? do |_k,v|
-                v.dig("persona_binding","bound") == true && v.dig("persona_binding","technical_permissions_derived_from_persona") != false
-              end
-              missing_review=active_entries.any? do |_k,v|
-                v.dig("creation_review","status") != "APPROVED" || v.dig("creation_review","path").to_s.empty?
-              end
-              puts [declared,active,bad_persona ? 1 : 0,missing_review ? 1 : 0].join("|")
+              active_entries=(x["agents"] || {}).select { |_k,v| v["status"].to_s.start_with?("ACTIVE") }
+              bad_persona=active_entries.any? { |_k,v| v.dig("persona_binding","bound") == true && v.dig("persona_binding","technical_permissions_derived_from_persona") != false }
+              missing_review=active_entries.any? { |_k,v| v.dig("creation_review","status") != "APPROVED" || v.dig("creation_review","path").to_s.empty? }
+              puts [declared,active_entries.length,bad_persona ? 1 : 0,missing_review ? 1 : 0].join("|")
             ' governance/agents/AGENT_REGISTRY.yml 2>/dev/null || true)"
             if [[ -z "$registry_check" ]]; then
               candidate_block "LG014: autonomous-agent registry could not be evaluated."
@@ -232,13 +202,8 @@ jobs:
           if grep -q '^governance/agents/AGENT_REGISTRY.yml$' <<<"$changed"; then
             base_active="$(git show "$BASE_SHA:governance/agents/AGENT_REGISTRY.yml" 2>/dev/null | ruby -ryaml -e 'x=YAML.safe_load(STDIN.read, aliases: true); puts((x.dig("count","active_autonomous_agents") || 0).to_i)' 2>/dev/null || echo 0)"
             head_active="$(ruby -ryaml -e 'x=YAML.safe_load(File.read(ARGV[0]), aliases: true); puts((x.dig("count","active_autonomous_agents") || 0).to_i)' governance/agents/AGENT_REGISTRY.yml 2>/dev/null || echo 0)"
-            if [[ "$head_active" =~ ^[0-9]+$ && "$base_active" =~ ^[0-9]+$ && "$head_active" -gt "$base_active" ]]; then
-              if ! grep -Eqi 'agent creation gate|agent creation review|new autonomous agent' <<<"${PR_BODY:-}"; then
-                watch "LG015: active autonomous-agent count increased without explicit Agent Creation Gate review language."
-              fi
-              if ! grep -q 'class:governance' <<<"${PR_BODY:-}"; then
-                candidate_block "LG015: activating a new autonomous agent requires class:governance."
-              fi
+            if [[ "$head_active" =~ ^[0-9]+$ && "$base_active" =~ ^[0-9]+$ && "$head_active" -gt "$base_active" ]] && ! grep -q 'class:governance' <<<"${PR_BODY:-}"; then
+              candidate_block "LG015: activating a new autonomous agent requires class:governance."
             fi
           fi
 
@@ -255,7 +220,6 @@ jobs:
             echo "**Result: BLOCK**" >> "$GITHUB_STEP_SUMMARY"
             exit 1
           fi
-
           if [[ "$candidate_blocks" -gt 0 ]]; then
             echo "**Result: CANDIDATE_BLOCK (observe mode — not enforced)**" >> "$GITHUB_STEP_SUMMARY"
           elif [[ "$watches" -gt 0 ]]; then
@@ -265,5 +229,4 @@ jobs:
             echo >> "$GITHUB_STEP_SUMMARY"
             echo "Walter completes the circuit and lies down somewhere inconvenient." >> "$GITHUB_STEP_SUMMARY"
           fi
-
           exit 0
