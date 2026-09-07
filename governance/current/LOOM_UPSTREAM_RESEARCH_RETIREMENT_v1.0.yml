@@ -1,5 +1,5 @@
 version: '1.0'
-status: GOVERNING
+status: GOVERNING_COMPLETE
 class: governance
 date: '2026-09-08'
 repository: loom-2226/loom-2226
@@ -41,20 +41,38 @@ upstream_objects:
     pr: 19
     head: 314efe50875630ba4be720b4097a2ca14075e620
     state: FROZEN_UPSTREAM_QUALIFICATION_OBJECT
+    metadata_state: OPEN_DRAFT
     branch_mutation_allowed: false
     successor_research_location: Research Lab
   pr16:
     pr: 16
     head: b60086d906f63211206502f23458be490902c2df
     state: PREREGISTERED_UPSTREAM_OBJECT
+    metadata_state: OPEN_DRAFT
     branch_mutation_allowed: false
     successor_research_location: Research Lab
   pr20:
     pr: 20
     head: 74120daed077f7e0401b4e348dc0620df9d9b844
-    state: HISTORICAL_FC_MIGRATION_SOURCE_PENDING_METADATA_CLOSURE
+    state: HISTORICAL_FC_MIGRATION_SOURCE_CLOSED_UNMERGED
+    metadata_state: CLOSED
+    closed_as_part_of_m6: true
+    branch_content_mutated_by_m6: false
     branch_mutation_allowed: false
     successor_research_location: loom-2226/loom-research-lab/projects/foundations_consequences
+
+current_workstate_reconciliation:
+  rule: this registry and LOOM_RESEARCH_AUTHORITY_BOUNDARY_v1.0.md supersede older workstate resume semantics for migrated research
+  historical_fields_not_rewritten:
+    - active_wip_before_pause
+    - pre-migration post_restart_wip labels
+    - pre-migration foundations_program resume language
+  current_interpretation:
+    S4: MIGRATED_TO_RESEARCH_LAB_NO_UPSTREAM_SUCCESSOR_WIP
+    F2: MIGRATED_TO_RESEARCH_LAB_NO_UPSTREAM_SUCCESSOR_WIP
+    P1: MIGRATED_TO_RESEARCH_LAB_NO_UPSTREAM_SUCCESSOR_WIP
+    PR20: CLOSED_HISTORICAL_SOURCE_NO_UPSTREAM_RESUME
+  reason: preserve adoption history while preventing stale metadata from reactivating upstream research
 
 return_path:
   lab_packet: shared/disposition/LAB_TO_LOOM_DISPOSITION_PACKET_TEMPLATE.yml
