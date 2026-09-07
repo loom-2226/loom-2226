@@ -1,0 +1,47 @@
+version: '1.0'
+status: STEP12_GOVERNANCE_SYNC_APPLIED
+change_class: class:governance
+workstream_id: NAVIGATOR_GIS_HUD
+branch: planning/navigator-gis-hud-next-phase-2026-09-06
+pre_sync_head_sha: c664c1a66b68e8354295cc2b3b36ff3007e1276a
+recovery_ref: archive/pre-governance-2026-09-07-navigator
+
+# This SHA is an audit anchor showing which authoritative governance state was
+# reviewed when this marker was added. It is NOT a vendored governance copy.
+governance_authority_at_sync:
+  branch: main
+  main_sha: 356f4fd2c3b6d9dc897787a2c3cc6b90d41d375d
+  entrypoint: LOOM_START_HERE.md
+  current_workstate: governance/current/LOOM_CURRENT_WORKSTATE.yml
+  authority_model: governance/current/LOOM_AUTHORITY_MODEL.yml
+  dependency_map: governance/dependencies/component-map.yml
+  compatibility_manifest: manifests/current/LOOM_COMPATIBILITY.yml
+  gate_context: loom-gate
+  gate_mode: ENFORCE
+  main_protected: true
+
+sync_semantics:
+  merge_from_main_performed: false
+  rebase_performed: false
+  functional_source_changed_by_sync: false
+  runtime_data_changed_by_sync: false
+  canon_changed_by_sync: false
+  recovery_ref_moved: false
+  local_marker_is_governing_authority: false
+  always_reload_current_governance_from_main_before_mutation: true
+
+workstream_boundary:
+  primary_future_change_class: class:runtime
+  planning_or_diagnostic_outputs_are_not_canon: true
+  engineering_findings_may_flow_upward: true
+  findings_auto_modify_canon: false
+  typed_validated_schema_adapter_preference: true
+  preserve_pixel_windows_runtime_contracts_unless_explicitly_changed: true
+
+resume:
+  currently_paused: true
+  resume_gate: STEP14
+  first_action_after_resume: >-
+    Reload current main governance, verify this branch lineage against the recorded
+    recovery anchor, classify the next change, and run the required tests before
+    functional mutation.
