@@ -10,11 +10,11 @@ permissions:
 
 jobs:
   walter-advisory:
-    name: WALTER / #LOOMSAFE advisory
+    name: "WALTER / #LOOMSAFE advisory"
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
