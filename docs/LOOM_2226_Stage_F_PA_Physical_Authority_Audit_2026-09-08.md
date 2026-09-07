@@ -186,6 +186,14 @@ F-PA-5 establishes that the Sequence-B route adapter currently promotes **25 exa
 
 The present trajectory telemetry boundary is strong enough to carry authoritative ordinary 6D trajectory truth where Sequence-B provides it, but it is not a complete simulator-state or avionics telemetry surface. Missing fields include acceleration vector, attitude/angular rate, thrust/control vectors, mass-flow rate, quantitative thermal/power state, target-relative vectors, covariance/uncertainty, sensors, estimated-navigation state, guidance/control state, docking/proximity state and traffic-clearance state.
 
+### 2.14 Engineering / vehicle authority
+
+F-PA-6 verifies the live governing engineering source `canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md` (Git blob `618ee985f395414e0acbb583fa82e1b297745aba`). The canon already governs propulsion-regime separation, the unified relational plant baseline, Mc inventory/array baseline, certified metric speed/ramp card, metric environmental-certification architecture, conservation-ledger requirement and frame discipline.
+
+`src/loom/navigation/engineering_feasibility_shadow.py` is explicitly non-authoritative. It can evaluate sampled torch thrust-magnitude demand and estimate mass-flow/remass demand from Navigator telemetry, but it deliberately leaves certified thrust-vector/gimbal authority and numeric thermal closure open.
+
+Confirmed engineering runtime gaps are vehicle true 6DOF dynamics, certified thrust-vector/gimbal envelope, attitude/RCS/actuator model, mass-properties/inertia/CG evolution, quantitative thermal state, runtime power-bus/load state, structural-load runtime model, sensor measurement models, communications link/latency model and fault/damage/degradation dynamics.
+
 ## 3. Confirmed simulator gaps
 
 1. qualified rotating/body-fixed orientation/frame model;
@@ -224,7 +232,7 @@ Inventory exact persisted mutable state versus missing translational/attitude st
 
 ### F-PA-6 — Engineering authority audit
 
-Map Wayfarer/vehicle engineering authority to runtime dynamics requirements: mass properties, thrust/acceleration envelopes, remass flow, power, thermal, attitude/RCS, structural limits and sensor/communications capability. Missing fields remain missing.
+**CORE ENGINEERING AUTHORITY AUDIT COMPLETE.** Governing engineering constraints, diagnostic runtime engineering coverage and missing simulator dynamics/control/telemetry domains are recorded in `docs/LOOM_2226_Stage_F_PA_6_Engineering_Authority_Audit_2026-09-08.md` and `src/loom/engineering_authority_audit.py`.
 
 ## 5. F-PA exit gate
 
