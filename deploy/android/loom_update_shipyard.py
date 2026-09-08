@@ -11,6 +11,7 @@ DEPLOY = HERE.parents[1]
 APP_ROOT = HERE.parents[2]
 BASE_UPDATER = DEPLOY / "loom_update.py"
 MIGRATOR = APP_ROOT / "src" / "shipyard_migrate.py"
+PHASE3 = APP_ROOT / "src" / "shipyard_phase3.py"
 SHIPYARD_MANIFEST_PATH = "manifests/shipyard_overlay_manifest.json"
 
 
@@ -38,10 +39,15 @@ def main(argv=None) -> int:
         print("SHIPYARD MIGRATION SKIPPED: non-mutating updater mode")
         return 0
     if not MIGRATOR.is_file():
-        raise RuntimeError(f"Shipyard migrator not installed: {MIGRATOR}")
-    migrator = _load("shipyard_migrate_runtime", MIGRATOR)
-    result = migrator.apply_phase2()
-    print("\nSHIPYARD LOCAL MIGRATION")
+        raise RuntimeError(f"Shipyard Phase-2 migrator not installed: {MIGRATOR}")
+    if not PHASE3.is_file():
+        raise RuntimeError(f"Shipyard Phase-3 migrator not installed: {PHASE3}")
+
+    phase2 = _load("shipyard_migrate_runtime", MIGRATOR).apply_phase2()
+    phase3 = _load("shipyard_phase3_runtime", PHASE3).apply_phase3()
+    result = {"phase2": phase2, "phase3": phase3}
+
+    print("\nSHIPYARD LOCAL MIGRATIONS")
     print(json.dumps(result, indent=2, sort_keys=True))
     print("\nLOOM + SHIPYARD UPDATE COMPLETE")
     return 0
