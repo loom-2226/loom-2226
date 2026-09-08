@@ -10,6 +10,7 @@ SYNTH = Path(__file__).resolve().parents[1] / "qualification" / "synthesis"
 if str(SYNTH) not in sys.path:
     sys.path.insert(0, str(SYNTH))
 
+from architectural_review import ArchitecturalReviewError  # noqa: E402
 from model_permutation_experiment import (  # noqa: E402
     ARCHITECTURAL_REVIEW_AUTHORITY,
     CRITIC_PACKET_AUTHORITY,
@@ -98,7 +99,7 @@ class ModelPermutationExperimentTests(unittest.TestCase):
         self.assertEqual(execution.authority_status, "CANDIDATE_DERIVATION_ONLY")
         self.assertTrue(child.candidate_id.startswith("CAND-MUT-"))
         self.assertEqual(evidence.candidate_id, child.candidate_id)
-        self.assertEqual(evidence.evaluation_hash, packet2 and evidence.evaluation_hash)
+        self.assertEqual(len(evidence.evaluation_hash), 64)
         self.assertFalse(evidence.flight_dynamics_authority)
         self.assertFalse(evidence.canon_changed)
         self.assertFalse(evidence.production_shipclasses_changed)
@@ -152,13 +153,13 @@ class ModelPermutationExperimentTests(unittest.TestCase):
 
         row = json.loads(self._critic_raw(packet))
         row["physical_feasibility_claimed"] = True
-        with self.assertRaises(Exception):
+        with self.assertRaises(ArchitecturalReviewError):
             parse_critic_response(json.dumps(row), packet)
 
     def test_trace_records_model_prompt_raw_and_parsed_hashes_without_authority(self):
         packet = build_designer_packet(2226)
         raw = self._designer_raw(packet)
-        packet2, proposal, child, _, child_eval, evidence = execute_designer_response(raw, seed=2226)
+        packet2, proposal, child, _, _, evidence = execute_designer_response(raw, seed=2226)
         prompt = designer_prompt(packet2)
         trace = build_trace(
             role="DESIGNER",
