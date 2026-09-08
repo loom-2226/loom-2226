@@ -6,6 +6,7 @@ on:
       - research/computational-shipyard-phase11-remass-feed-physics-bounds-v0.1-2026-09-09
     paths:
       - 'src/shipyard_evidence_viewer.py'
+      - 'tools/shipyard_evidence_viewer.py'
       - 'manifests/shipyard_overlay_manifest.json'
       - 'tests/test_wayfarer_phase12_evidence_viewer.py'
       - '.github/workflows/research_shipyard_phase12_evidence_viewer.yml'
@@ -18,8 +19,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Compile viewer
-        run: python -m py_compile src/shipyard_evidence_viewer.py
+      - name: Compile both viewer copies
+        run: python -m py_compile src/shipyard_evidence_viewer.py tools/shipyard_evidence_viewer.py
+      - name: Verify viewer copies are identical
+        run: cmp -s src/shipyard_evidence_viewer.py tools/shipyard_evidence_viewer.py
       - name: Run Phase-12 focused tests
         run: python tests/test_wayfarer_phase12_evidence_viewer.py
       - name: Verify Shipyard overlay manifest digests
