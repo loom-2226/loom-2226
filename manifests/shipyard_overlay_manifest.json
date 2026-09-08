@@ -2,8 +2,8 @@
   "product": "LOOM 2226 Computational Shipyard",
   "format": "LOOM_RELEASE_MANIFEST_V2",
   "release_state": "staging",
-  "release_id": "shipyard-phase9-remass-architecture-gate-v0.1-2026-09-09",
-  "source_ref": "research/computational-shipyard-phase9-remass-architecture-gate-v0.1-2026-09-09",
+  "release_id": "shipyard-phase10-remass-feed-decomposition-v0.1-2026-09-09",
+  "source_ref": "research/computational-shipyard-phase10-remass-feed-decomposition-v0.1-2026-09-09",
   "authority": {
     "scope": "SHIPYARD_RESEARCH_OVERLAY_ONLY",
     "campaign_policy": "preserve_local_never_install",
@@ -20,16 +20,17 @@
     {"path":"src/shipyard_phase6_remass_candidates.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ae03c8d3c4890bbe7f3ead401526ade40d28d424"},
     {"path":"src/shipyard_phase8_water_closure.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"383cda65a9d772a72b44d09876c0b56e651ffe3d"},
     {"path":"src/shipyard_phase9_remass_architecture.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"900072839cb3870b2de81f773b23b69b95e33544"},
+    {"path":"src/shipyard_phase10_remass_feed.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5c15a45d72f8f5c2d0f99602cb171d93104968c9"},
     {"path":"src/shipyard_evidence_viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ec76afed3574e4091dbe00d7d5c8d6db890ce3ff"},
-    {"path":"deploy/android/loom_update_shipyard.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"31472afc285f9356c6895244ecbf31254fb2bc24"}
+    {"path":"deploy/android/loom_update_shipyard.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"b81054db7ab6678a270027793487e3967159eb10"}
   ],
   "preserve_local": ["/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"],
   "notes": [
     "Research overlay only; persistent Shipyard SQLite is migrated in place and never replaced.",
-    "Phase 9 derives a total remass-feed demand envelope from the reference wet mass and source-derived working torch mode cards. It does not assume an equal per-tank feed split.",
-    "Five tank/feed architecture families are recorded from NASA/AIAA heritage evidence: metallic rigid passive-PMD, COPV passive-PMD, flexible-separator positive expulsion, metallic-bellows positive expulsion, and rigid-PMD pump-fed.",
-    "Heritage evidence raises candidate priority but does not admit a Wayfarer tank architecture.",
-    "All architecture families remain blocked on explicit propulsion-to-tank interface, thermodynamic, structural, fluid-management and life-cycle requirements.",
-    "No water selection, tank material selection, design pressure, wall thickness, ullage policy, feed split, spatial envelope, canon change, production mutation or flight authority is admitted."
+    "Phase 10 separates bulk storage from transient feed acquisition/conditioning as an explicit architecture question, following the existing Wayfarer Phase-2C instruction to distinguish major tanks from header/reserve/conditioning volumes.",
+    "Twenty-four transient-buffer sensitivity probes map 0.25, 1, 5 and 10 second total-flow buffers across the six Phase-9 torch demand points using the Phase-6 water screening density only.",
+    "Buffer durations are sensitivity probes, not burn durations, header sizes or admitted engineering requirements.",
+    "Three feed topologies are retained: common header/conditioner, local collectors to common manifold, and direct bulk feed as a comparator. No topology is selected.",
+    "No water selection, header size, feed split, pressure, material, spatial envelope, canon change, production mutation or flight authority is admitted."
   ]
 }
