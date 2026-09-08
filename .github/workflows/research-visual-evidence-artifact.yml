@@ -1,0 +1,40 @@
+name: LOOM Research Visual Evidence Artifact
+
+on:
+  pull_request:
+    paths:
+      - 'qualification/synthesis/wayfarer_visual_evidence.py'
+      - 'tests/test_wayfarer_visual_evidence.py'
+      - 'research/model_runs/wayfarer_2026-09-08_run001/designer_raw.json'
+      - '.github/workflows/research-visual-evidence-artifact.yml'
+
+jobs:
+  build-visual-evidence:
+    runs-on: ubuntu-24.04
+    env:
+      PYTHONPATH: ${{ github.workspace }}/qualification/synthesis:${{ github.workspace }}/src:${{ github.workspace }}/deploy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate deterministic visual evidence
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from qualification.synthesis.wayfarer_visual_evidence import build_run001_visual_evidence, write_visual_evidence
+          root = Path.cwd()
+          raw = (root / 'research/model_runs/wayfarer_2026-09-08_run001/designer_raw.json').read_text(encoding='utf-8')
+          package = build_run001_visual_evidence(raw, seed=2226)
+          out = root / 'research/model_runs/wayfarer_2026-09-08_run001/visual_evidence'
+          written = write_visual_evidence(package, out)
+          for name, sha in sorted(written.items()):
+              print(f'{name} {sha}')
+          PY
+      - name: Upload visual evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-run001-visual-evidence
+          path: research/model_runs/wayfarer_2026-09-08_run001/visual_evidence/
+          if-no-files-found: error
+          retention-days: 7
