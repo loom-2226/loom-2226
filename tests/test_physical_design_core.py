@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import math
+import sys
 import unittest
 from pathlib import Path
 
@@ -11,6 +12,7 @@ spec = importlib.util.spec_from_file_location("physical_design_core", CORE_PATH)
 if spec is None or spec.loader is None:
     raise RuntimeError(f"Unable to load core from {CORE_PATH}")
 core = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = core
 spec.loader.exec_module(core)
 
 
