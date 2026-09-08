@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import sqlite3
+import sys
 from pathlib import Path
 from typing import Mapping
 
@@ -20,13 +21,27 @@ def build_wayfarer_connection(repo_root: Path) -> sqlite3.Connection:
 
 
 def _load_phase3_resolver(repo_root: Path):
-    """Load the Phase-3 resolver by file path so Pixel execution does not depend on package import paths."""
-    resolver_path = repo_root / "qualification" / "phase3" / "shipclasses_resolver.py"
+    """Load the Phase-3 resolver by file path so Pixel execution does not depend on package layout."""
+    p3 = repo_root / "qualification" / "phase3"
+    resolver_path = p3 / "shipclasses_resolver.py"
     spec = importlib.util.spec_from_file_location("loom_phase3_shipclasses_resolver", resolver_path)
     if spec is None or spec.loader is None:
         raise DynamicsError(f"PHASE3_RESOLVER_IMPORT_FAILED:{resolver_path}")
+
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    inserted = False
+    p3_text = str(p3)
+    if p3_text not in sys.path:
+        sys.path.insert(0, p3_text)
+        inserted = True
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        if inserted:
+            try:
+                sys.path.remove(p3_text)
+            except ValueError:
+                pass
     return module
 
 
