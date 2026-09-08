@@ -1,19 +1,17 @@
 # LOOM 2226 — Portable Ship Qualification — Phase 4 3D Status
 
 **Date:** 2026-09-08  
-**Status:** ENGINEERING / QUALIFICATION — PHASE 4 IN PROGRESS — FEATURE BRANCH — NOT CANON  
+**Status:** ENGINEERING / QUALIFICATION — PHASE 4 PASSED — FEATURE BRANCH — NOT CANON  
 **Parent authority:** `docs/LOOM_2226_Portable_Ship_Simulation_Qualification_Work_Plan_2026-09-08.md`  
 **Phase-3 closure parent:** commit `56053a90a989e59c1153693f8dd2ab1bebcfad93`
 
 ## 1. Scope
 
-Phase 4 is the Wayfarer compatibility + minimal-3D sniff qualification gate.
+Phase 4 is the Wayfarer compatibility + minimal-3D sniff qualification gate. It demonstrates that the generic ship-class authority can reproduce the current Wayfarer physical baseline and generate a deterministic crude 3D artifact without renderer-only numerical geometry becoming a second authority.
 
-It must demonstrate that the generic ship-class authority can reproduce the current Wayfarer physical baseline and generate a deterministic crude 3D artifact without renderer-only numerical geometry becoming a second authority.
+## 2. Live authority used
 
-## 2. Live authority re-fetched before work
-
-Current work was based on live GitHub copies of:
+Work was based on live GitHub copies of:
 
 - `geometry/wayfarer_geometry_seed.sql`;
 - `src/wayfarer_geometry.py`;
@@ -22,7 +20,7 @@ Current work was based on live GitHub copies of:
 
 The Phase-4 mapping preserves source/status labels rather than promoting lower-authority values.
 
-## 3. New Phase-4 artifacts
+## 3. Qualified artifacts
 
 - `qualification/phase4/LOOM_2226_SHIPCLASSES_WAYFARER_PHASE4_GEOMETRY_v0.1.sql`
 - `qualification/phase4/minimal_3d.py`
@@ -34,88 +32,112 @@ The generator emits deterministic:
 - `wayfarer_minimal3d.json` — structured scene with primitive, transform, status and provenance;
 - `wayfarer_minimal3d.obj` — crude portable OBJ generated only from primitives marked `RENDER`.
 
-## 4. Authority discipline
+## 4. Authority discipline retained
 
-The overlay maps currently governed/current-engineering geometry including:
+The qualified mapping carries the current governed/current-engineering geometry needed for the sniff test, including the canonical 57 m overall length reference, 9 m nominal main-body diameter reference, major tank/longeron placement, +Z launch-bay/launch semantics, propulsion/relational regions, radiator roots, and -Z docking-side semantics.
 
-- 57 m canonical overall length reference;
-- 9 m canonical nominal main-body diameter reference;
-- forward pressure hull;
-- four major tanks;
-- four longerons;
-- technical core;
-- integrated +Z launch-bay envelope and planetary launch;
-- relational-plant region;
-- shadow-shield region;
-- reactor/torch region;
-- magnetic-nozzle envelope;
-- four radiator root markers;
-- -Z docking-side marker.
+Radiator physical panel geometry remains `OPEN` and is deliberately not rendered. The older 8 m × 5 m panel placeholder was not promoted into physical authority. Docking collar dimensions likewise remain `OPEN`.
 
-Radiator physical panel geometry remains `OPEN` and is deliberately **not rendered**. Only the governed four-root count/root region is represented. The existing current compiler's 8 m × 5 m radiator placeholder is not promoted into the Phase-4 physical model.
+The 57 m × 9 m reference envelope remains a non-rendered `REFERENCE_ENVELOPE`; it is testable metadata, not literal hull geometry.
 
-Docking collar dimensions also remain `OPEN`; only the governed docking station / -Z side semantic marker is carried.
+## 5. Critical same-source coupled test
 
-The 57 m × 9 m canonical reference envelope is stored as a non-rendered `REFERENCE_ENVELOPE`, so it remains testable without falsely turning a nominal envelope into literal hull geometry.
+The verifier mutates the governed `planetary_launch` component transform from z=5.2 m to z=6.25 m. The same source row must move both:
 
-## 5. Critical coupled test
+1. generated launch geometry; and
+2. physical launch mass centroid used by the mass resolver.
 
-The Phase-4 test mutates the governed `planetary_launch` component transform from z=5.2 m to z=6.25 m.
-
-The same database row must drive both:
-
-1. the generated launch geometry pose; and
-2. the physical mass centroid used by the Phase-3 mass resolver.
-
-The expected center-of-mass shift is evaluated numerically as:
+The expected wet center-of-mass shift is evaluated numerically as:
 
 `33000 kg * (6.25 - 5.2) m / 1158500 kg`.
 
-Any disagreement fails the gate.
+Observed:
 
-## 6. Development regression evidence
+- mutated launch z: `6.25 m`;
+- mutated wet CoM delta z: `0.02990936555891241 m`;
+- coupling numerical error: `2.7755575615628914e-17 m`.
 
-Before the new Python artifacts were committed, local development checks completed:
+This passes the critical same-authority requirement.
 
-- Python compilation of `minimal_3d.py`, the Phase-4 test module and verifier: PASS;
-- deterministic synthetic-schema unit/functional exercise: PASS;
-- scene rendered x-bounds: exactly 0.0 m to 57.0 m;
-- canonical 57 m × 9 m reference envelope retained as non-rendered CANON metadata;
-- four radiator roots retained as OPEN non-rendered status markers;
-- launch DOCKED/ABSENT visibility semantics exercised;
-- one transform mutation moved the generated launch geometry consistently.
+## 6. Pixel acceptance evidence
 
-These are development results only. Phase 4 remains OPEN until the repository verifier passes on the Pixel and repeats offline.
-
-## 7. Pixel acceptance target
-
-Run:
+The Phase-4 verifier executed on Pixel / Termux under:
 
 ```text
-python qualification/phase4/verify_all.py
+Android-17-aarch64-64bit-ELF
+Python 3.13.13
+aarch64
 ```
 
-The verifier checks:
+### Online-installed run
 
-- required Phase-3/Phase-4 artifacts;
-- Phase-4 unit suite;
-- SQLite integrity and foreign keys;
-- exact 57 m rendered longitudinal extent;
-- canonical 57 m × 9 m reference envelope;
-- Phase-3 docked mass/CoM compatibility;
-- +Z launch and -Z docking semantics;
-- radiator OPEN/non-rendered discipline;
-- critical same-source geometry/mass transform coupling;
-- deterministic scene JSON and OBJ hashes.
+Result:
 
-A second run with Wi-Fi and mobile data disabled is mandatory.
+```text
+LOOM_PHASE4_VERIFY: PASS
+```
 
-## 8. Gate state
+All ten checks passed:
 
-**PHASE 4: OPEN — PIXEL QUALIFICATION REQUIRED.**
+- `critical_same_source_coupling`
+- `docked_mass_com`
+- `foreign_keys`
+- `main_body_reference`
+- `overall_length`
+- `radiators_open`
+- `required_files`
+- `side_semantics`
+- `sqlite_integrity`
+- `unit_suite`
 
-No merge is authorized.
+Unit suite: `6` tests, no errors/failures/skips.
 
-Production SHIPCLASSES remains untouched.
+Reference numerics:
 
-Navigator/GIS/HUD physics-dependent implementation remains hard frozen.
+- DOCKED wet mass: `1,158,500 kg`;
+- DOCKED wet CoM: `[26.676650841605525, 0.0, 0.14812257229175657] m`;
+- scene bounds min: `[0.0, -4.3, -4.3] m`;
+- scene bounds max: `[57.0, 4.3, 7.1] m`.
+
+Artifact hashes:
+
+```text
+phase4_verification_result.json
+38792e824e095e96d0d53bcb1001d4f65757bee603ce984f2d761bce3fb05b2e
+
+wayfarer_minimal3d.json
+2bbb05fdbdcaae873eec00091843cf1b72d2826e42b05658306da798b0a2f896
+
+wayfarer_minimal3d.obj
+68a9521bf3041e7355d628aa07b4f1f9b52ca6f058c6d582b3767b5b478b8ac8
+```
+
+### Mandatory offline repeat
+
+With Wi-Fi and mobile data disabled, the same command was executed again.
+
+Result:
+
+```text
+LOOM_PHASE4_VERIFY: PASS
+```
+
+The result JSON, scene JSON, OBJ hashes, environment fields and numerical outputs matched the online-installed run exactly.
+
+This satisfies the mandatory offline and deterministic Pixel requirement for Phase 4.
+
+## 7. Gate disposition
+
+**PHASE 4: PASSED — WAYFARER COMPATIBILITY + MINIMAL-3D / SAME-AUTHORITY COUPLING GATE CLOSED.**
+
+This authorizes progression to Phase 5 standalone flight-dynamics qualification only.
+
+It does **not** authorize:
+
+- production SHIPCLASSES promotion;
+- destructive migration of current Wayfarer authority;
+- Navigator/GIS/HUD physics-dependent implementation;
+- invention of OPEN radiator, docking, RCS or inertia detail;
+- merge without explicit authorization.
+
+Navigator/GIS/HUD physics-dependent implementation remains hard frozen pending the full exit gate.
