@@ -24,7 +24,7 @@ jobs:
           python -m py_compile src/shipyard_phase4_remass.py deploy/android/loom_update_shipyard.py
       - name: Run Phase-4 focused tests
         run: |
-          python -m pytest -q tests/test_wayfarer_phase4_remass.py
+          python tests/test_wayfarer_phase4_remass.py
       - name: Verify Shipyard overlay manifest digests
         run: |
           python - <<'PY'
