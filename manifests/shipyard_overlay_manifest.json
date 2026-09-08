@@ -2,8 +2,8 @@
   "product": "LOOM 2226 Computational Shipyard",
   "format": "LOOM_RELEASE_MANIFEST_V2",
   "release_state": "staging",
-  "release_id": "shipyard-phase4-remass-sizing-v0.1-2026-09-08",
-  "source_ref": "research/computational-shipyard-phase4-remass-sizing-v0.1-2026-09-08",
+  "release_id": "shipyard-phase5-remass-input-audit-v0.1-2026-09-08",
+  "source_ref": "research/computational-shipyard-phase5-remass-input-audit-v0.1-2026-09-08",
   "authority": {
     "scope": "SHIPYARD_RESEARCH_OVERLAY_ONLY",
     "campaign_policy": "preserve_local_never_install",
@@ -12,51 +12,19 @@
     "flight_dynamics_authority": false
   },
   "artifacts": [
-    {
-      "path": "deploy/loom_update.py",
-      "install_group": "code",
-      "source": "repository",
-      "required": true,
-      "git_blob_sha1": "f6ec3c377c27befddef193fd72186453f8986646"
-    },
-    {
-      "path": "src/shipyard_migrate.py",
-      "install_group": "code",
-      "source": "repository",
-      "required": true,
-      "git_blob_sha1": "897d2b7961ef5a6f38960fe5bb203dfca38b2a0d"
-    },
-    {
-      "path": "src/shipyard_phase3.py",
-      "install_group": "code",
-      "source": "repository",
-      "required": true,
-      "git_blob_sha1": "ffd8c7dc53c5d8a0a2696c068d3d6e5d1c57b52f"
-    },
-    {
-      "path": "src/shipyard_phase4_remass.py",
-      "install_group": "code",
-      "source": "repository",
-      "required": true,
-      "git_blob_sha1": "7c9ae3b0334894e978faac132e8f1db1afa8c911"
-    },
-    {
-      "path": "deploy/android/loom_update_shipyard.py",
-      "install_group": "code",
-      "source": "repository",
-      "required": true,
-      "git_blob_sha1": "d890cd1a4582c70a3eaafd3576b3084eda2a3897"
-    }
+    {"path":"deploy/loom_update.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"f6ec3c377c27befddef193fd72186453f8986646"},
+    {"path":"src/shipyard_migrate.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"897d2b7961ef5a6f38960fe5bb203dfca38b2a0d"},
+    {"path":"src/shipyard_phase3.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ffd8c7dc53c5d8a0a2696c068d3d6e5d1c57b52f"},
+    {"path":"src/shipyard_phase4_remass.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"7c9ae3b0334894e978faac132e8f1db1afa8c911"},
+    {"path":"src/shipyard_phase5_remass_audit.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ecd65fc04ae171650fffd2e20442fbd37a5bac06"},
+    {"path":"deploy/android/loom_update_shipyard.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"8821fee2daf18ec144f9a37ef0885dc2545fe792"}
   ],
-  "preserve_local": [
-    "/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"
-  ],
+  "preserve_local": ["/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"],
   "notes": [
-    "Research overlay only: installs updater plumbing plus Phase-2/3/4 Shipyard migration code into the existing LOOM_TEST runtime tree.",
-    "The persistent Shipyard editing ledger is migrated in place and is never replaced by the updater.",
-    "Phase 4 installs an executable deterministic L0 remass-tank equivalent-envelope sizing kernel.",
-    "Existing S1 evidence admits only per-tank remass mass, nominal external diameter, and anchor position as support inputs.",
-    "Density, ullage, pressure/temperature state, tankage semantics, internal diameter/end allowance, and full geometry rule remain OPEN; therefore no live tank envelope is admitted in Phase 4.",
-    "No world/canon SQLite is modified by the Shipyard migrations."
+    "Research overlay only; persistent Shipyard SQLite is migrated in place and never replaced.",
+    "Phase 5 audits the remass sizing inputs against current repository authority and admits only deterministic feasibility bounds.",
+    "Current authority does not specify the exact Wayfarer normal-remass material/state, ullage policy, internal diameter, end allowance, or tankage-fraction semantics.",
+    "The 18-32 m tank region, generated tank anchor, 3.0 m nominal external diameter and 62.5 t per-tank remass mass are used to derive fail-closed packaging bounds without admitting a tank envelope.",
+    "No world/canon SQLite is modified; canon/production/flight authority remain false."
   ]
 }
