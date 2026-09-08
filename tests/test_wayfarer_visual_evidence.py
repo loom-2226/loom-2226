@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import base64
 import sys
 import tempfile
 import unittest
@@ -69,17 +68,6 @@ class WayfarerVisualEvidenceTests(unittest.TestCase):
             self.assertEqual(one, two)
             for name in one:
                 self.assertEqual((Path(td1) / name).read_bytes(), (Path(td2) / name).read_bytes())
-
-    def test_export_materialized_visual_evidence_payloads(self):
-        package = self._package()
-        for artifact in package.artifacts:
-            encoded = base64.b64encode(artifact.content.encode("utf-8")).decode("ascii")
-            print(f"LOOM_VISUAL_ARTIFACT_B64::{artifact.artifact_id}::{artifact.sha256}::{encoded}")
-        with tempfile.TemporaryDirectory() as td:
-            hashes = write_visual_evidence(package, Path(td))
-            manifest = (Path(td) / "visual_evidence_manifest.json").read_text(encoding="utf-8")
-            encoded = base64.b64encode(manifest.encode("utf-8")).decode("ascii")
-            print(f"LOOM_VISUAL_ARTIFACT_B64::visual_evidence_manifest.json::{hashes['visual_evidence_manifest.json']}::{encoded}")
 
 
 if __name__ == "__main__":
