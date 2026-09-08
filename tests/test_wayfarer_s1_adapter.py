@@ -16,6 +16,7 @@ spec = importlib.util.spec_from_file_location("wayfarer_s1_adapter", ADAPTER_PAT
 if spec is None or spec.loader is None:
     raise RuntimeError(f"Unable to load S1 adapter from {ADAPTER_PATH}")
 adapter = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = adapter
 spec.loader.exec_module(adapter)
 
 
