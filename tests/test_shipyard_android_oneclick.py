@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WRAPPER = ROOT / "deploy" / "android" / "loom_update_shipyard.py"
 MIGRATOR = ROOT / "src" / "shipyard_migrate.py"
 OVERLAY = ROOT / "manifests" / "shipyard_overlay_manifest.json"
+CANONICAL_MANIFEST = ROOT / "manifests" / "release_manifest.json"
 
 
 def _load(path: Path, name: str):
@@ -33,6 +34,14 @@ def test_overlay_manifest_is_bounded_and_pinned() -> None:
     ]
     assert all(row["install_group"] == "code" for row in manifest["artifacts"])
     assert all(row.get("git_blob_sha1") for row in manifest["artifacts"])
+
+
+def test_canonical_runtime_manifest_is_not_repurposed_for_shipyard() -> None:
+    manifest = json.loads(CANONICAL_MANIFEST.read_text(encoding="utf-8"))
+    assert manifest["source_ref"] == "integration/runtime-devops-convergence-2026-09-06"
+    assert "runtime_files" in manifest
+    assert "canonical_data" in manifest
+    assert "src/shipyard_migrate.py" not in {row["path"] for row in manifest["artifacts"]}
 
 
 def test_wrapper_paths_match_runtime_install_layout() -> None:
