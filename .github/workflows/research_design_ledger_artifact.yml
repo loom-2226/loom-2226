@@ -6,7 +6,7 @@ on:
       - research/computational-shipyard-governed-synthesis-v0.1-2026-09-08
     paths:
       - 'qualification/synthesis/design_ledger.py'
-      - 'tests/test_design_ledger.py'
+      - 'tests/test_wayfarer_design_ledger.py'
       - 'docs/LOOM_2226_Computational_Shipyard_Design_Ledger_v0.1.md'
       - '.github/workflows/research_design_ledger_artifact.yml'
 
