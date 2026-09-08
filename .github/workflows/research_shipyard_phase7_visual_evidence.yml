@@ -6,6 +6,7 @@ on:
       - research/computational-shipyard-phase6-remass-candidate-screen-v0.1-2026-09-08
     paths:
       - 'tools/shipyard_evidence_viewer.py'
+      - 'src/shipyard_evidence_viewer.py'
       - 'manifests/shipyard_overlay_manifest.json'
       - 'tests/test_shipyard_evidence_viewer.py'
       - '.github/workflows/research_shipyard_phase7_visual_evidence.yml'
@@ -19,7 +20,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Compile viewer
-        run: python -m py_compile tools/shipyard_evidence_viewer.py
+        run: python -m py_compile tools/shipyard_evidence_viewer.py src/shipyard_evidence_viewer.py
       - name: Run Phase-7 focused tests
         run: python tests/test_shipyard_evidence_viewer.py
       - name: Verify Shipyard overlay manifest digests
