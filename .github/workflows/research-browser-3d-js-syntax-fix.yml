@@ -1,0 +1,44 @@
+name: LOOM Research Browser 3D JS Syntax Fix Artifact
+
+on:
+  pull_request:
+    branches:
+      - research/computational-shipyard-browser-3d-localhost-2026-09-08
+
+jobs:
+  build-js-fixed-pixel-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate syntax-fixed viewer and parse JavaScript
+        run: |
+          python - <<'PY'
+          import re, sys
+          from pathlib import Path
+          root = Path('.')
+          synth = root/'qualification'/'synthesis'
+          sys.path.insert(0, str(synth))
+          from wayfarer_browser_3d_js_syntax_fix import build_run001_browser_3d_js_syntax_fix
+          raw = (root/'research'/'model_runs'/'wayfarer_2026-09-08_run001'/'designer_raw.json').read_text(encoding='utf-8')
+          pkg = build_run001_browser_3d_js_syntax_fix(raw)
+          out = root/'wayfarer_pixel_localhost_js_fixed'
+          out.mkdir(exist_ok=True)
+          (out/'wayfarer_shipyard_3d_pixel_fix.html').write_text(pkg.html, encoding='utf-8')
+          launcher = (root/'tools'/'wayfarer_shipyard_localhost.py').read_text(encoding='utf-8')
+          (out/'wayfarer_shipyard_localhost.py').write_text(launcher, encoding='utf-8')
+          scripts = re.findall(r'<script(?:[^>]*)>(.*?)</script>', pkg.html, re.S)
+          if len(scripts) != 2:
+              raise SystemExit(f'unexpected script count: {len(scripts)}')
+          (out/'wayfarer_app.js').write_text(scripts[1], encoding='utf-8')
+          (out/'sha256.txt').write_text(pkg.html_sha256+'\n', encoding='utf-8')
+          print('HTML_SHA256', pkg.html_sha256)
+          PY
+          node --check wayfarer_pixel_localhost_js_fixed/wayfarer_app.js
+          rm wayfarer_pixel_localhost_js_fixed/wayfarer_app.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-pixel-localhost-js-fixed
+          path: wayfarer_pixel_localhost_js_fixed/
