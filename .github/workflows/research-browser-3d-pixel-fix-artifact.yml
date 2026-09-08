@@ -1,0 +1,36 @@
+name: LOOM Research Browser 3D Pixel Fix Artifact
+on:
+  pull_request:
+    paths:
+      - 'qualification/synthesis/wayfarer_browser_3d_pixel_fix.py'
+      - 'tests/test_wayfarer_browser_3d_pixel_fix.py'
+      - '.github/workflows/research-browser-3d-pixel-fix-artifact.yml'
+jobs:
+  build-browser-3d-pixel-fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate fixed self-contained browser 3D viewer
+        run: |
+          python - <<'PY'
+          import sys
+          from pathlib import Path
+          root = Path('.')
+          synth = root/'qualification'/'synthesis'
+          sys.path.insert(0, str(synth))
+          from wayfarer_browser_3d_pixel_fix import build_run001_browser_3d_pixel_fix
+          raw = (root/'research'/'model_runs'/'wayfarer_2026-09-08_run001'/'designer_raw.json').read_text(encoding='utf-8')
+          pkg = build_run001_browser_3d_pixel_fix(raw)
+          out = root/'browser3d_pixel_fix_artifact'
+          out.mkdir(exist_ok=True)
+          (out/'wayfarer_shipyard_3d_pixel_fix.html').write_text(pkg.html, encoding='utf-8')
+          (out/'sha256.txt').write_text(pkg.html_sha256+'\n', encoding='utf-8')
+          print('HTML_SHA256', pkg.html_sha256)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-run001-browser-3d-pixel-fix
+          path: browser3d_pixel_fix_artifact
