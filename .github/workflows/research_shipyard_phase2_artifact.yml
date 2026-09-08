@@ -60,7 +60,7 @@ jobs:
           LOOM_SHIPYARD_DOWNLOADS="$PWD" LOOM_SHIPYARD_HOME="$PWD/runtime" python LOOM_Computational_Shipyard.py --status
           python - <<'PY'
           import sqlite3
-          con=sqlite3.connect('phase2_pixel_artifact/wayfarer_phase2_design_ledger.sqlite3')
+          con=sqlite3.connect('wayfarer_phase2_design_ledger.sqlite3')
           try:
               n=con.execute('SELECT COUNT(*) FROM functional_region_contract').fetchone()[0]
               assert n == 9, n
