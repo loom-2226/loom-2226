@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WRAPPER = ROOT / "deploy" / "android" / "loom_update_shipyard.py"
 MIGRATOR = ROOT / "src" / "shipyard_migrate.py"
+OVERLAY = ROOT / "manifests" / "shipyard_overlay_manifest.json"
 
 
 def _load(path: Path, name: str):
@@ -21,7 +22,7 @@ def _load(path: Path, name: str):
 
 
 def test_overlay_manifest_is_bounded_and_pinned() -> None:
-    manifest = json.loads((ROOT / "manifests" / "release_manifest.json").read_text(encoding="utf-8"))
+    manifest = json.loads(OVERLAY.read_text(encoding="utf-8"))
     assert manifest["release_state"] == "staging"
     assert manifest["source_ref"] == "research/computational-shipyard-android-oneclick-v0.1-2026-09-08"
     paths = [row["path"] for row in manifest["artifacts"]]
@@ -38,6 +39,8 @@ def test_wrapper_paths_match_runtime_install_layout() -> None:
     text = WRAPPER.read_text(encoding="utf-8")
     assert 'DEPLOY / "loom_update.py"' in text
     assert 'APP_ROOT / "src" / "shipyard_migrate.py"' in text
+    assert 'SHIPYARD_MANIFEST_PATH = "manifests/shipyard_overlay_manifest.json"' in text
+    assert "updater.MANIFEST_PATH = SHIPYARD_MANIFEST_PATH" in text
     assert "migrator.apply_phase2()" in text
 
 
