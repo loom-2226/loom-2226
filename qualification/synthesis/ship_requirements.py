@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
-from typing import Iterable, Optional, Sequence, Tuple
+from typing import Optional, Sequence, Tuple
 
 from design_requirements import DoctrineProfile, RequirementsError, ScalarRequirement
 
@@ -33,9 +34,12 @@ def _scalar(
     *,
     provenance: str,
 ) -> ScalarRequirement:
+    value = float(value)
+    if not math.isfinite(value) or value < 0.0:
+        raise RequirementsError(f"{requirement_id} must be finite and non-negative")
     return ScalarRequirement(
         requirement_id=requirement_id,
-        value=float(value),
+        value=value,
         unit=unit,
         relation=relation,
         authority_status="USER_OR_SCENARIO_REQUIREMENT",
