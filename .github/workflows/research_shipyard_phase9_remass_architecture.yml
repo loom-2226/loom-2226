@@ -1,0 +1,39 @@
+name: LOOM Research Shipyard Phase 9 Remass Architecture
+
+on:
+  pull_request:
+    branches:
+      - research/computational-shipyard-phase8-water-closure-map-v0.1-2026-09-08
+    paths:
+      - 'src/shipyard_phase9_remass_architecture.py'
+      - 'deploy/android/loom_update_shipyard.py'
+      - 'manifests/shipyard_overlay_manifest.json'
+      - 'tests/test_wayfarer_phase9_remass_architecture.py'
+      - '.github/workflows/research_shipyard_phase9_remass_architecture.yml'
+
+jobs:
+  validate-phase9:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile Phase 9 and updater
+        run: python -m py_compile src/shipyard_phase9_remass_architecture.py deploy/android/loom_update_shipyard.py
+      - name: Run Phase-9 focused tests
+        run: python tests/test_wayfarer_phase9_remass_architecture.py
+      - name: Verify Shipyard overlay manifest digests
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path('.')
+          manifest=json.loads((root/'manifests/shipyard_overlay_manifest.json').read_text())
+          assert manifest['source_ref'] == 'research/computational-shipyard-phase9-remass-architecture-gate-v0.1-2026-09-09'
+          for row in manifest['artifacts']:
+              data=(root/row['path']).read_bytes()
+              actual=hashlib.sha1(f"blob {len(data)}\0".encode()+data).hexdigest()
+              assert actual == row['git_blob_sha1'], (row['path'], actual, row['git_blob_sha1'])
+          print('OVERLAY_ARTIFACTS', len(manifest['artifacts']))
+          PY
