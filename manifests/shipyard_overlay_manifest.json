@@ -18,13 +18,14 @@
     {"path":"src/shipyard_phase4_remass.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"7c9ae3b0334894e978faac132e8f1db1afa8c911"},
     {"path":"src/shipyard_phase5_remass_audit.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ecd65fc04ae171650fffd2e20442fbd37a5bac06"},
     {"path":"src/shipyard_phase6_remass_candidates.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ae03c8d3c4890bbe7f3ead401526ade40d28d424"},
-    {"path":"tools/shipyard_evidence_viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"33722dffeb6fe7625d01530c35ff7a73e0660bc3"},
+    {"path":"src/shipyard_evidence_viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"33722dffeb6fe7625d01530c35ff7a73e0660bc3"},
     {"path":"deploy/android/loom_update_shipyard.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"d8a01621868738c4410431fc72d75fe4911422c7"}
   ],
   "preserve_local": ["/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"],
   "notes": [
     "Research overlay only; persistent Shipyard SQLite is never replaced.",
     "Phase 7 adds a read-only offline-capable visual evidence viewer for the Phase-5 feasibility bounds and Phase-6 candidate screens.",
+    "The viewer is installed under src/ because the Android updater intentionally restricts code artifacts to src/ and deploy/ paths.",
     "The viewer renders evidence overlays only. Candidate bars and ideal fluid-only lengths are not admitted physical tank geometry.",
     "Water remains merely not rejected by the density-only screen; methane and hydrogen are rejected by the current idealized outer-envelope bound.",
     "No candidate is selected, no live engineering input or spatial envelope is admitted, and no world/canon SQLite is modified.",
