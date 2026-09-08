@@ -1,0 +1,41 @@
+name: LOOM Research Browser 3D Artifact
+
+on:
+  pull_request:
+    branches:
+      - research/computational-shipyard-visual-evidence-2026-09-08
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-browser-3d:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate self-contained browser 3D viewer
+        env:
+          PYTHONPATH: qualification/synthesis
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from wayfarer_browser_3d import build_run001_browser_3d, write_browser_3d
+          raw = Path('research/model_runs/wayfarer_2026-09-08_run001/designer_raw.json').read_text(encoding='utf-8')
+          package = build_run001_browser_3d(raw)
+          out = Path('artifact/wayfarer_browser_3d')
+          written = write_browser_3d(package, out)
+          print('BROWSER_3D_HTML_SHA256=' + package.html_sha256)
+          for name, digest in sorted(written.items()):
+              print(f'BROWSER_3D_ARTIFACT::{name}::{digest}')
+          PY
+      - name: Upload browser 3D viewer
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-run001-browser-3d
+          path: artifact/wayfarer_browser_3d/
+          if-no-files-found: error
+          retention-days: 7
