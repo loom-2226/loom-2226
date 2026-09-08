@@ -1,0 +1,38 @@
+name: LOOM Research Shipyard Phase 7 Visual Evidence
+
+on:
+  pull_request:
+    branches:
+      - research/computational-shipyard-phase6-remass-candidate-screen-v0.1-2026-09-08
+    paths:
+      - 'tools/shipyard_evidence_viewer.py'
+      - 'manifests/shipyard_overlay_manifest.json'
+      - 'tests/test_shipyard_evidence_viewer.py'
+      - '.github/workflows/research_shipyard_phase7_visual_evidence.yml'
+
+jobs:
+  validate-phase7:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile viewer
+        run: python -m py_compile tools/shipyard_evidence_viewer.py
+      - name: Run Phase-7 focused tests
+        run: python tests/test_shipyard_evidence_viewer.py
+      - name: Verify Shipyard overlay manifest digests
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path('.')
+          manifest=json.loads((root/'manifests/shipyard_overlay_manifest.json').read_text())
+          assert manifest['source_ref'] == 'research/computational-shipyard-phase7-visual-evidence-v0.1-2026-09-08'
+          for row in manifest['artifacts']:
+              data=(root/row['path']).read_bytes()
+              actual=hashlib.sha1(f"blob {len(data)}\0".encode()+data).hexdigest()
+              assert actual == row['git_blob_sha1'], (row['path'], actual, row['git_blob_sha1'])
+          print('OVERLAY_ARTIFACTS', len(manifest['artifacts']))
+          PY
