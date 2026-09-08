@@ -21,23 +21,37 @@ def build_wayfarer_connection(repo_root: Path) -> sqlite3.Connection:
 
 
 def _load_phase3_resolver(repo_root: Path):
-    """Load the Phase-3 resolver by file path so Pixel execution does not depend on package layout."""
+    """Load Phase-3 resolver by file path without depending on package layout.
+
+    The module is temporarily registered in sys.modules while executing it.
+    This is required for Python facilities such as @dataclass, which resolve
+    their defining module through sys.modules during class construction.
+    """
     p3 = repo_root / "qualification" / "phase3"
     resolver_path = p3 / "shipclasses_resolver.py"
-    spec = importlib.util.spec_from_file_location("loom_phase3_shipclasses_resolver", resolver_path)
+    module_name = "loom_phase3_shipclasses_resolver"
+    spec = importlib.util.spec_from_file_location(module_name, resolver_path)
     if spec is None or spec.loader is None:
         raise DynamicsError(f"PHASE3_RESOLVER_IMPORT_FAILED:{resolver_path}")
 
     module = importlib.util.module_from_spec(spec)
-    inserted = False
+    inserted_path = False
     p3_text = str(p3)
+    previous_module = sys.modules.get(module_name)
+
     if p3_text not in sys.path:
         sys.path.insert(0, p3_text)
-        inserted = True
+        inserted_path = True
+    sys.modules[module_name] = module
+
     try:
         spec.loader.exec_module(module)
     finally:
-        if inserted:
+        if previous_module is None:
+            sys.modules.pop(module_name, None)
+        else:
+            sys.modules[module_name] = previous_module
+        if inserted_path:
             try:
                 sys.path.remove(p3_text)
             except ValueError:
