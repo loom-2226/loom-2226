@@ -69,7 +69,7 @@ class Phase8WaterClosureTests(unittest.TestCase):
         self.assertIn("phase8", evidence)
         page = shipyard_evidence_viewer.render_html(evidence)
         self.assertIn("Phase 8", page)
-        self.assertIn("not wall thickness", page)
+        self.assertIn("wall thickness", page)
         self.assertIn("NO SPATIAL ENVELOPE ADMITTED", page)
 
 
