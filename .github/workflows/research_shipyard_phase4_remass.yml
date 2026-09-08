@@ -3,7 +3,7 @@ name: LOOM Research Shipyard Phase 4 Remass Sizing
 on:
   pull_request:
     branches:
-      - research/computational-shipyard-android-oneclick-v0.1-2026-09-08
+      - research/computational-shipyard-phase3-discipline-gates-v0.1-2026-09-08
     paths:
       - 'src/shipyard_phase4_remass.py'
       - 'deploy/android/loom_update_shipyard.py'
