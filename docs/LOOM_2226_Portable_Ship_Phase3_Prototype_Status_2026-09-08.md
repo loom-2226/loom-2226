@@ -11,6 +11,9 @@
 - `qualification/phase3/LOOM_2226_SHIPCLASSES_WAYFARER_SEED_v0.1.sql`
 - `qualification/phase3/shipclasses_resolver.py`
 - `qualification/phase3/test_phase3_wayfarer.py`
+- `qualification/phase3/shipclasses_geometry_resolver.py`
+- `qualification/phase3/LOOM_2226_SHIPCLASSES_WAYFARER_GEOMETRY_COUPLING_v0.1.sql`
+- `qualification/phase3/test_phase3_geometry_coupling.py`
 
 These are prototype qualification artifacts only. They do not replace the current Wayfarer geometry seed/compiler or any production/campaign SQLite authority.
 
@@ -39,9 +42,9 @@ Reference values:
 
 The 300 t working-fluid/water family is represented as exactly 300,000 kg of physical store mass at reference state: 250,000 kg normal remass-capable inventory plus 50,000 kg protected water. Operational labels do not create additional mass.
 
-## 4. Local regression evidence before Python commit
+## 4. Development regression evidence
 
-Before committing the resolver/test Python artifacts, a local unit/functional run executed seven tests and reported:
+Before committing the original resolver/test Python artifacts, a local unit/functional run executed seven tests and reported:
 
 ```text
 Ran 7 tests in 0.008s
@@ -58,9 +61,41 @@ Covered behavior:
 6. illegal configuration state fails closed;
 7. direct DOCKED→ABSENT transition is rejected while DOCKED→EXTRACTING is admitted.
 
-This is development evidence, not the mandatory Pixel acceptance gate.
+Before committing the transform-coupling resolver, a second local unit run executed four focused transform tests and reported:
 
-## 5. Important limitations still OPEN
+```text
+Ran 4 tests in 0.002s
+OK
+```
+
+Covered behavior:
+
+1. one component transform moves both a mass centroid and a geometry primitive;
+2. parent/child transform composition correctly rotates and translates child placement;
+3. center-of-mass calculation uses transformed mass centroids;
+4. transform cycles fail closed.
+
+These are development regression results. The repository-level Wayfarer geometry-coupling tests have now been authored against the real prototype schema/seed/overlay, but mandatory Pixel acceptance has not yet been run for this Phase-3 increment.
+
+## 5. Same-authority geometry coupling increment
+
+Phase 3 now contains the first explicit same-source coupling seam required by the governing work plan.
+
+The planetary launch is used as the initial controlled case because its carried-state mass, conservative working centroid, and working low-detail envelope are already present in live Wayfarer engineering authority.
+
+The geometry-coupling overlay moves the launch placement into `component_transform`, resets the launch mass element centroid to component-local zero, and binds a low-detail `geometry_primitive` to that same component transform. The transform resolver composes parent/child translation and quaternion orientation into body-datum placement.
+
+Required coupled behavior is therefore explicit:
+
+```text
+component_transform
+      ├──> physical mass centroid
+      └──> low-detail geometry pose
+```
+
+The accompanying repository test intentionally mutates the one launch transform and requires both mass and geometry placement to move together. This is the narrow precursor to the Phase-4 coupled test; it does not yet constitute full Wayfarer 3D qualification.
+
+## 6. Important limitations still OPEN
 
 Phase 3 is **not closed**.
 
@@ -74,15 +109,16 @@ The current prototype deliberately does not invent:
 - detailed torch application/gimbal geometry beyond currently governed sources;
 - production metric hardware serialization beyond already governed machine/configuration facts.
 
-The current resolver therefore proves class/configuration/store/mass/CoM semantics only. Full inertia/effectors/geometry qualification remains ahead.
+The original resolver proves class/configuration/store/mass/CoM semantics. The new transform resolver proves the generic same-authority placement mechanism. Full inertia/effectors/geometry qualification remains ahead.
 
-## 6. Next controlled sequence
+## 7. Next controlled sequence
 
-1. extend the Wayfarer prototype using only current governed geometry/component data;
-2. preserve OPEN status for unresolved RCS/radiator/docking details;
-3. add deterministic prototype database construction and machine-readable verification;
-4. qualify component/configuration geometry from the same authority used by mass properties;
-5. then proceed toward Phase 4 Wayfarer compatibility + minimal-3D sniff qualification.
+1. execute the real repository Phase-3 mass/configuration and geometry-coupling tests together;
+2. build deterministic prototype database construction and machine-readable verification around the accepted schema + seed + coupling overlay;
+3. extend low-detail governed geometry only where current authority supports it;
+4. preserve OPEN status for unresolved RCS/radiator/docking details;
+5. run the resulting Phase-3 verifier on the Pixel, including an offline repeat;
+6. only after that gate, proceed into Phase 4 Wayfarer compatibility + minimal-3D sniff qualification.
 
 **Navigator/GIS/HUD physics-dependent implementation remains hard frozen.**
 
