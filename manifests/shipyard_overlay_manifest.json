@@ -2,8 +2,8 @@
   "product": "LOOM 2226 Computational Shipyard",
   "format": "LOOM_RELEASE_MANIFEST_V2",
   "release_state": "staging",
-  "release_id": "shipyard-phase3-discipline-gates-v0.1-2026-09-08",
-  "source_ref": "research/computational-shipyard-phase3-discipline-gates-v0.1-2026-09-08",
+  "release_id": "shipyard-phase4-remass-sizing-v0.1-2026-09-08",
+  "source_ref": "research/computational-shipyard-phase4-remass-sizing-v0.1-2026-09-08",
   "authority": {
     "scope": "SHIPYARD_RESEARCH_OVERLAY_ONLY",
     "campaign_policy": "preserve_local_never_install",
@@ -34,21 +34,29 @@
       "git_blob_sha1": "ffd8c7dc53c5d8a0a2696c068d3d6e5d1c57b52f"
     },
     {
+      "path": "src/shipyard_phase4_remass.py",
+      "install_group": "code",
+      "source": "repository",
+      "required": true,
+      "git_blob_sha1": "7c9ae3b0334894e978faac132e8f1db1afa8c911"
+    },
+    {
       "path": "deploy/android/loom_update_shipyard.py",
       "install_group": "code",
       "source": "repository",
       "required": true,
-      "git_blob_sha1": "c28acbc85741ff5ae346adff20f798f9256ad80a"
+      "git_blob_sha1": "d890cd1a4582c70a3eaafd3576b3084eda2a3897"
     }
   ],
   "preserve_local": [
     "/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"
   ],
   "notes": [
-    "Research overlay only: installs updater plumbing and Phase-2/Phase-3 Shipyard migrators into the existing LOOM_TEST runtime tree.",
+    "Research overlay only: installs updater plumbing plus Phase-2/3/4 Shipyard migration code into the existing LOOM_TEST runtime tree.",
     "The persistent Shipyard editing ledger is migrated in place and is never replaced by the updater.",
-    "Phase 3 adds machine-readable discipline contracts and workflow gates; it does not admit any new spatial envelope.",
-    "All Phase-3 discipline contracts remain blocked until their required engineering inputs are explicitly admitted.",
+    "Phase 4 installs an executable deterministic L0 remass-tank equivalent-envelope sizing kernel.",
+    "Existing S1 evidence admits only per-tank remass mass, nominal external diameter, and anchor position as support inputs.",
+    "Density, ullage, pressure/temperature state, tankage semantics, internal diameter/end allowance, and full geometry rule remain OPEN; therefore no live tank envelope is admitted in Phase 4.",
     "No world/canon SQLite is modified by the Shipyard migrations."
   ]
 }
