@@ -1,0 +1,41 @@
+name: LOOM Research Shipyard Phase 4 Remass Sizing
+
+on:
+  pull_request:
+    branches:
+      - research/computational-shipyard-android-oneclick-v0.1-2026-09-08
+    paths:
+      - 'src/shipyard_phase4_remass.py'
+      - 'deploy/android/loom_update_shipyard.py'
+      - 'manifests/shipyard_overlay_manifest.json'
+      - 'tests/test_wayfarer_phase4_remass.py'
+      - '.github/workflows/research_shipyard_phase4_remass.yml'
+
+jobs:
+  validate-phase4:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile production Python
+        run: |
+          python -m py_compile src/shipyard_phase4_remass.py deploy/android/loom_update_shipyard.py
+      - name: Run Phase-4 focused tests
+        run: |
+          python -m pytest -q tests/test_wayfarer_phase4_remass.py
+      - name: Verify Shipyard overlay manifest digests
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path('.')
+          manifest=json.loads((root/'manifests/shipyard_overlay_manifest.json').read_text())
+          assert manifest['source_ref'] == 'research/computational-shipyard-phase4-remass-sizing-v0.1-2026-09-08'
+          for row in manifest['artifacts']:
+              data=(root/row['path']).read_bytes()
+              actual=hashlib.sha1(f"blob {len(data)}\0".encode()+data).hexdigest()
+              assert actual == row['git_blob_sha1'], (row['path'], actual, row['git_blob_sha1'])
+          print('OVERLAY_ARTIFACTS', len(manifest['artifacts']))
+          PY
