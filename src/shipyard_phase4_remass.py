@@ -135,9 +135,6 @@ def _point_mass_from_phase1(con: sqlite3.Connection, source_id: str) -> tuple[fl
             break
     else:
         raise RuntimeError(f"Missing point-mass anchor for {source_id}")
-    # Mass is part of the S1 deterministic candidate evidence, not the design-state node.
-    # Phase-1 discipline summary preserves aggregate mass but not per-tank mass, so use the
-    # frozen S1 test-definition value already admitted for each of the four equal tanks.
     return 62_500.0, anchor
 
 
@@ -212,13 +209,14 @@ def apply_phase4(db_path: Path = DEFAULT_DB) -> dict:
             "authority_status": MODEL_AUTHORITY,
             "notes": [
                 "Model is executable only when every physical input is explicitly admitted.",
-                "No water/remass density, ullage, pressure/temperature state, internal diameter, wall allowance, or tankage semantics are invented by this migration.",
-                "Nominal 3.0 m external diameter from the S1 test definition is packaging evidence only, not an inferred internal diameter.",
+                "No remass density, ullage, pressure/temperature state, internal diameter, wall/end allowance, or tankage semantics are invented by this migration.",
+                "Nominal 3.0 m external diameter from S1 is packaging evidence only, not an inferred internal diameter.",
             ],
         }
         model_text = _canonical(model_spec)
         con.execute("INSERT INTO discipline_model VALUES(?,?,?,?,?,?,?)", (MODEL_ID, MODEL_VERSION, "REMASS_TANK_SIZING", "L0_ANALYTIC", _sha(model_text), model_text, MODEL_AUTHORITY))
 
+        per_source: dict[str, dict] = {}
         attempts = []
         for source_id in REMASS_SOURCES:
             mass, anchor = _point_mass_from_phase1(con, source_id)
@@ -227,23 +225,17 @@ def apply_phase4(db_path: Path = DEFAULT_DB) -> dict:
                 "external_diameter_m": (3.0, "m", ["WAYFARER_S1_TEST_DEFINITION_v0.1", "nominal tank external diameter"]),
                 "anchor_position_m": (anchor, "m", [phase3["parent_state_id"], source_id]),
             }
-            for name, (value, unit, refs) in admitted.items():
-                con.execute(
-                    "INSERT INTO engineering_input VALUES(?,?,?,?,?,?,?,?,?)",
-                    (f"INPUT::{source_id}::{name}", child_state_id, source_id, name, _canonical(value), unit, "ADMITTED_FROM_EXISTING_EVIDENCE", json.dumps(refs), INPUT_AUTHORITY),
-                )
-            missing = list(LIVE_REQUIRED)
-            attempt = {
+            per_source[source_id] = admitted
+            attempts.append({
                 "attempt_id": f"ATTEMPT::{source_id}::{MODEL_VERSION}",
                 "source_id": source_id,
                 "execution_status": "BLOCKED_MISSING_ADMITTED_INPUTS",
-                "missing_inputs": missing,
+                "missing_inputs": list(LIVE_REQUIRED),
                 "admitted_support_inputs": sorted(admitted),
                 "model_id": MODEL_ID,
                 "model_version": MODEL_VERSION,
                 "result_admitted": False,
-            }
-            attempts.append(attempt)
+            })
 
         phase4_json = dict(phase3_json)
         phase4_json["phase4_remass_sizing_model"] = model_spec
@@ -257,6 +249,13 @@ def apply_phase4(db_path: Path = DEFAULT_DB) -> dict:
             "INSERT INTO design_state(state_id,run_id,candidate_id,parent_state_id,state_kind,state_hash,state_json,provenance_json) VALUES(?,?,?,?,?,?,?,?)",
             (child_state_id, phase3["run_id"], phase3["candidate_id"], phase3["state_id"], "PHASE4_REMASS_SIZING_STATE", child_hash, child_text, json.dumps([VERSION, phase3["state_id"], MODEL_VERSION])),
         )
+
+        for source_id, admitted in per_source.items():
+            for name, (value, unit, refs) in admitted.items():
+                con.execute(
+                    "INSERT INTO engineering_input VALUES(?,?,?,?,?,?,?,?,?)",
+                    (f"INPUT::{source_id}::{name}", child_state_id, source_id, name, _canonical(value), unit, "ADMITTED_FROM_EXISTING_EVIDENCE", json.dumps(refs), INPUT_AUTHORITY),
+                )
         for attempt in attempts:
             con.execute(
                 "INSERT INTO discipline_execution_attempt VALUES(?,?,?,?,?,?,?,?,?,?)",
