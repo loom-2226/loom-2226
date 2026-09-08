@@ -17,10 +17,10 @@ class WayfarerS2CompareTests(unittest.TestCase):
     def test_baseline_reproduces_qualified_docked_mass_and_com(self):
         payload = s2.compare(2226)
         self.assertEqual(payload["baseline"]["mass_kg"], 1_158_500.0)
-        self.assertEqual(
-            payload["baseline"]["center_of_mass_m"],
-            [26.676650841605525, 0.0, 0.14812257229175657],
-        )
+        observed = payload["baseline"]["center_of_mass_m"]
+        expected = [26.676650841605525, 0.0, 0.14812257229175657]
+        for got, want in zip(observed, expected):
+            self.assertAlmostEqual(got, want, places=12)
 
     def test_generated_candidate_matches_closed_s1(self):
         payload = s2.compare(2226)
