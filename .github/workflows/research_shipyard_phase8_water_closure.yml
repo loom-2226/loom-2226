@@ -7,6 +7,7 @@ on:
     paths:
       - 'src/shipyard_phase8_water_closure.py'
       - 'src/shipyard_evidence_viewer.py'
+      - 'tools/shipyard_evidence_viewer.py'
       - 'deploy/android/loom_update_shipyard.py'
       - 'manifests/shipyard_overlay_manifest.json'
       - 'tests/test_wayfarer_phase8_water_closure.py'
@@ -21,7 +22,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Compile Phase 8 and viewer
-        run: python -m py_compile src/shipyard_phase8_water_closure.py src/shipyard_evidence_viewer.py deploy/android/loom_update_shipyard.py
+        run: python -m py_compile src/shipyard_phase8_water_closure.py src/shipyard_evidence_viewer.py tools/shipyard_evidence_viewer.py deploy/android/loom_update_shipyard.py
       - name: Run Phase-8 focused tests
         run: python tests/test_wayfarer_phase8_water_closure.py
       - name: Verify Shipyard overlay manifest digests
@@ -32,6 +33,7 @@ jobs:
           root=Path('.')
           manifest=json.loads((root/'manifests/shipyard_overlay_manifest.json').read_text())
           assert manifest['source_ref'] == 'research/computational-shipyard-phase8-water-closure-map-v0.1-2026-09-08'
+          assert (root/'src/shipyard_evidence_viewer.py').read_bytes() == (root/'tools/shipyard_evidence_viewer.py').read_bytes()
           for row in manifest['artifacts']:
               data=(root/row['path']).read_bytes()
               actual=hashlib.sha1(f"blob {len(data)}\0".encode()+data).hexdigest()
