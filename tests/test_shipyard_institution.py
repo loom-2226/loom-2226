@@ -1,8 +1,7 @@
 import dataclasses
 import sys
+import unittest
 from pathlib import Path
-
-import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "qualification" / "synthesis"))
@@ -95,67 +94,66 @@ def fixture_snapshot() -> InstitutionalMemorySnapshot:
     )
 
 
-def test_snapshot_is_valid_and_context_is_deterministically_chronological():
-    snapshot = fixture_snapshot()
-    validate_snapshot(snapshot)
-    context = institutional_context(snapshot)
-    assert context.historical_design_refs == ("D2184", "D2192")
-    assert context.material_constraints == ("titanium-supply-limited",)
-    assert context.economic_constraints == ("high-skilled-labor-cost",)
-    assert context.material_constraints != snapshot.institution.material_access
-    assert context.authority_status == INSTITUTION_AUTHORITY
-    assert content_hash(snapshot) == content_hash(snapshot)
+class ShipyardInstitutionTests(unittest.TestCase):
+    def test_snapshot_is_valid_and_context_is_deterministically_chronological(self):
+        snapshot = fixture_snapshot()
+        validate_snapshot(snapshot)
+        context = institutional_context(snapshot)
+        self.assertEqual(context.historical_design_refs, ("D2184", "D2192"))
+        self.assertEqual(context.material_constraints, ("titanium-supply-limited",))
+        self.assertEqual(context.economic_constraints, ("high-skilled-labor-cost",))
+        self.assertNotEqual(context.material_constraints, snapshot.institution.material_access)
+        self.assertEqual(context.authority_status, INSTITUTION_AUTHORITY)
+        self.assertEqual(content_hash(snapshot), content_hash(snapshot))
+
+    def test_lineage_cycle_fails_closed(self):
+        snapshot = fixture_snapshot()
+        equal_date_parent = dataclasses.replace(snapshot.historical_designs[1], service_date="2192-01-01")
+        snapshot = dataclasses.replace(
+            snapshot,
+            historical_designs=(snapshot.historical_designs[0], equal_date_parent),
+        )
+        reverse = DesignLineageEdge(
+            parent_design_id="D2192",
+            child_design_id="D2184",
+            mechanisms=("ARCHITECTURAL_PRECEDENT",),
+            rationale="malformed reverse edge",
+            provenance_refs=("prov:x",),
+        )
+        with self.assertRaisesRegex(InstitutionContractError, "cycle"):
+            validate_snapshot(dataclasses.replace(snapshot, lineage_edges=snapshot.lineage_edges + (reverse,)))
+
+    def test_unknown_design_memory_ref_fails_closed(self):
+        snapshot = fixture_snapshot()
+        bad = dataclasses.replace(snapshot.memory_events[0], design_refs=("MISSING",))
+        with self.assertRaisesRegex(InstitutionContractError, "unknown designs"):
+            validate_snapshot(dataclasses.replace(snapshot, memory_events=(bad,)))
+
+    def test_future_memory_is_not_back_propagated(self):
+        snapshot = fixture_snapshot()
+        bad = dataclasses.replace(snapshot.memory_events[0], event_date="2200-01-01")
+        with self.assertRaisesRegex(InstitutionContractError, "after snapshot date"):
+            validate_snapshot(dataclasses.replace(snapshot, memory_events=(bad,)))
+
+    def test_authority_escalation_fails_closed(self):
+        snapshot = fixture_snapshot()
+        bad = dataclasses.replace(snapshot.institution, authority_status="ENGINEERING_PASS")
+        with self.assertRaisesRegex(InstitutionContractError, "may not claim"):
+            validate_snapshot(dataclasses.replace(snapshot, institution=bad))
+
+    def test_parent_may_not_postdate_child(self):
+        snapshot = fixture_snapshot()
+        late_parent = dataclasses.replace(snapshot.historical_designs[1], service_date="2194-01-01")
+        child = dataclasses.replace(snapshot.historical_designs[0], service_date="2192-01-01")
+        with self.assertRaisesRegex(InstitutionContractError, "post-date"):
+            validate_snapshot(dataclasses.replace(snapshot, historical_designs=(child, late_parent)))
+
+    def test_records_are_non_authoritative_by_construction(self):
+        snapshot = fixture_snapshot()
+        self.assertEqual(snapshot.institution.authority_status, INSTITUTION_AUTHORITY)
+        self.assertTrue(all(row.authority_status == DESIGN_AUTHORITY for row in snapshot.historical_designs))
+        self.assertTrue(all(row.authority_status == MEMORY_AUTHORITY for row in snapshot.memory_events))
 
 
-def test_lineage_cycle_fails_closed():
-    snapshot = fixture_snapshot()
-    equal_date_parent = dataclasses.replace(snapshot.historical_designs[1], service_date="2192-01-01")
-    snapshot = dataclasses.replace(
-        snapshot,
-        historical_designs=(snapshot.historical_designs[0], equal_date_parent),
-    )
-    reverse = DesignLineageEdge(
-        parent_design_id="D2192",
-        child_design_id="D2184",
-        mechanisms=("ARCHITECTURAL_PRECEDENT",),
-        rationale="malformed reverse edge",
-        provenance_refs=("prov:x",),
-    )
-    with pytest.raises(InstitutionContractError, match="cycle"):
-        validate_snapshot(dataclasses.replace(snapshot, lineage_edges=snapshot.lineage_edges + (reverse,)))
-
-
-def test_unknown_design_memory_ref_fails_closed():
-    snapshot = fixture_snapshot()
-    bad = dataclasses.replace(snapshot.memory_events[0], design_refs=("MISSING",))
-    with pytest.raises(InstitutionContractError, match="unknown designs"):
-        validate_snapshot(dataclasses.replace(snapshot, memory_events=(bad,)))
-
-
-def test_future_memory_is_not_back_propagated():
-    snapshot = fixture_snapshot()
-    bad = dataclasses.replace(snapshot.memory_events[0], event_date="2200-01-01")
-    with pytest.raises(InstitutionContractError, match="after snapshot date"):
-        validate_snapshot(dataclasses.replace(snapshot, memory_events=(bad,)))
-
-
-def test_authority_escalation_fails_closed():
-    snapshot = fixture_snapshot()
-    bad = dataclasses.replace(snapshot.institution, authority_status="ENGINEERING_PASS")
-    with pytest.raises(InstitutionContractError, match="may not claim"):
-        validate_snapshot(dataclasses.replace(snapshot, institution=bad))
-
-
-def test_parent_may_not_postdate_child():
-    snapshot = fixture_snapshot()
-    late_parent = dataclasses.replace(snapshot.historical_designs[1], service_date="2194-01-01")
-    child = dataclasses.replace(snapshot.historical_designs[0], service_date="2192-01-01")
-    with pytest.raises(InstitutionContractError, match="post-date"):
-        validate_snapshot(dataclasses.replace(snapshot, historical_designs=(child, late_parent)))
-
-
-def test_records_are_non_authoritative_by_construction():
-    snapshot = fixture_snapshot()
-    assert snapshot.institution.authority_status == INSTITUTION_AUTHORITY
-    assert all(row.authority_status == DESIGN_AUTHORITY for row in snapshot.historical_designs)
-    assert all(row.authority_status == MEMORY_AUTHORITY for row in snapshot.memory_events)
+if __name__ == "__main__":
+    unittest.main()
