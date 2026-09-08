@@ -15,6 +15,7 @@ PHASE3 = APP_ROOT / "src" / "shipyard_phase3.py"
 PHASE4 = APP_ROOT / "src" / "shipyard_phase4_remass.py"
 PHASE5 = APP_ROOT / "src" / "shipyard_phase5_remass_audit.py"
 PHASE6 = APP_ROOT / "src" / "shipyard_phase6_remass_candidates.py"
+PHASE8 = APP_ROOT / "src" / "shipyard_phase8_water_closure.py"
 SHIPYARD_MANIFEST_PATH = "manifests/shipyard_overlay_manifest.json"
 
 
@@ -41,7 +42,7 @@ def main(argv=None) -> int:
     if "--dry-run" in argv or (argv and argv[0] in {"status", "validate"}):
         print("SHIPYARD MIGRATION SKIPPED: non-mutating updater mode")
         return 0
-    for label, path in (("Phase-2", MIGRATOR), ("Phase-3", PHASE3), ("Phase-4", PHASE4), ("Phase-5", PHASE5), ("Phase-6", PHASE6)):
+    for label, path in (("Phase-2", MIGRATOR), ("Phase-3", PHASE3), ("Phase-4", PHASE4), ("Phase-5", PHASE5), ("Phase-6", PHASE6), ("Phase-8", PHASE8)):
         if not path.is_file():
             raise RuntimeError(f"Shipyard {label} migrator not installed: {path}")
 
@@ -50,7 +51,8 @@ def main(argv=None) -> int:
     phase4 = _load("shipyard_phase4_runtime", PHASE4).apply_phase4()
     phase5 = _load("shipyard_phase5_runtime", PHASE5).apply_phase5()
     phase6 = _load("shipyard_phase6_runtime", PHASE6).apply_phase6()
-    result = {"phase2": phase2, "phase3": phase3, "phase4": phase4, "phase5": phase5, "phase6": phase6}
+    phase8 = _load("shipyard_phase8_runtime", PHASE8).apply_phase8()
+    result = {"phase2": phase2, "phase3": phase3, "phase4": phase4, "phase5": phase5, "phase6": phase6, "phase8": phase8}
 
     print("\nSHIPYARD LOCAL MIGRATIONS")
     print(json.dumps(result, indent=2, sort_keys=True))
