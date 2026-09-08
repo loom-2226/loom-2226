@@ -11,6 +11,7 @@ WRAPPER = ROOT / "deploy" / "android" / "loom_update_shipyard.py"
 MIGRATOR = ROOT / "src" / "shipyard_migrate.py"
 OVERLAY = ROOT / "manifests" / "shipyard_overlay_manifest.json"
 CANONICAL_MANIFEST = ROOT / "manifests" / "release_manifest.json"
+SHIPYARD_DB = "/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"
 
 
 def _load(path: Path, name: str):
@@ -34,6 +35,7 @@ def test_overlay_manifest_is_bounded_and_pinned() -> None:
     ]
     assert all(row["install_group"] == "code" for row in manifest["artifacts"])
     assert all(row.get("git_blob_sha1") for row in manifest["artifacts"])
+    assert SHIPYARD_DB in manifest["preserve_local"]
 
 
 def test_canonical_runtime_manifest_is_not_repurposed_for_shipyard() -> None:
