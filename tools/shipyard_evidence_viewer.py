@@ -37,7 +37,15 @@ def load_evidence(db_path: Path = DEFAULT_DB) -> dict:
         for row in con.execute("SELECT source_id,candidate_id,comparison_json,screen_status FROM remass_candidate_comparison WHERE state_id=? ORDER BY source_id,candidate_id", (state["state_id"],)):
             payload = json.loads(row["comparison_json"]); payload["screen_status"] = row["screen_status"]; payload["model"] = models[row["candidate_id"]]; comparisons.append(payload)
         tanks = [{"source_id": s, "bound": bounds[s], "comparisons": [r for r in comparisons if r["source_id"] == s]} for s in sorted(bounds)]
-        out = {"state_id": state["state_id"], "state_hash": state["state_hash"], "authority_banner": AUTHORITY_BANNER, "tanks": tanks}
+        out = {
+            "state_id": state["state_id"],
+            "state_hash": state["state_hash"],
+            "authority_banner": AUTHORITY_BANNER,
+            "tank_count": len(tanks),
+            "candidate_count": len(models),
+            "comparison_count": len(comparisons),
+            "tanks": tanks,
+        }
         if {"remass_water_closure_frontier", "remass_water_closure_probe"}.issubset(_tables(con)):
             p8 = con.execute("SELECT state_id,state_hash FROM design_state WHERE state_kind='PHASE8_WATER_CLOSURE_MAP_STATE' ORDER BY rowid DESC LIMIT 1").fetchone()
             if p8:
@@ -80,7 +88,7 @@ def render_html(e: dict) -> str:
     phase8line = f"<div class='sub'>Phase-8 state: {html.escape(p8['state_id'])}</div>" if p8 else ""
     return f"""<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>LOOM Shipyard Evidence Viewer</title><style>
 :root{{color-scheme:dark}}body{{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3}}main{{max-width:1100px;margin:auto;padding:16px}}.banner{{border:2px solid #f0b429;padding:10px;font-weight:800;margin:12px 0;background:#241d0d}}.sub,.metrics{{color:#9da7b3;font-size:.86rem}}.tank{{border:1px solid #30363d;border-radius:10px;padding:12px;margin:14px 0;background:#161b22}}table{{width:100%;border-collapse:collapse;font-size:.82rem}}th,td{{padding:7px;border-bottom:1px solid #30363d;text-align:right}}th:first-child,td:first-child{{text-align:left}}.rejected,.bad{{color:#ff7b72;font-weight:700}}.not-rejected,.ok{{color:#7ee787;font-weight:700}}.bound,.closure{{padding:10px;border:1px dashed #59636e;border-radius:8px;margin:10px 0}}.barrow{{display:grid;grid-template-columns:82px 1fr 55px auto;gap:8px;align-items:center;font-size:.78rem;margin:6px 0}}.track{{height:14px;background:#21262d;border:1px solid #59636e;overflow:hidden}}.bar{{height:100%;background:linear-gradient(90deg,#58a6ff,#7ee787)}}em{{color:#ff7b72;font-style:normal}}h3{{margin:.2rem 0 .5rem}}
-</style></head><body><main><h1>LOOM 2226 — Computational Shipyard Evidence Viewer</h1><div class='sub'>Phase-6 state: {html.escape(e['state_id'])}</div>{phase8line}<div class='banner'>{AUTHORITY_BANNER}</div><p>Candidate screens and Phase-8 closure maps are evidence overlays only. No physical tank geometry, material selection, wall thickness, ullage policy, end geometry or spatial envelope is admitted.</p>{''.join(cards)}</main></body></html>"""
+</style></head><body><main><h1>LOOM 2226 — Computational Shipyard Evidence Viewer</h1><div class='sub'>Phase-6 state: {html.escape(e['state_id'])}</div>{phase8line}<div class='banner'>{AUTHORITY_BANNER}</div><p>The bars are evidence overlays, not physical tank geometry. Candidate screens and Phase-8 closure maps remain research evidence only. No material selection, wall thickness, ullage policy, end geometry or spatial envelope is admitted.</p>{''.join(cards)}</main></body></html>"""
 
 
 def serve(db_path: Path, host: str, port: int) -> None:
