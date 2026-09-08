@@ -24,7 +24,7 @@ jobs:
           python -m py_compile src/shipyard_migrate.py deploy/android/loom_update_shipyard.py
       - name: Run focused tests
         run: |
-          python -m unittest discover -s tests -p 'test_shipyard_android_oneclick.py' -v || python tests/test_shipyard_android_oneclick.py
+          python tests/test_shipyard_android_oneclick.py
       - name: Verify overlay manifest digests
         run: |
           python - <<'PY'
