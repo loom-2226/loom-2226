@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 import sqlite3
 from pathlib import Path
 from typing import Mapping
@@ -18,14 +19,35 @@ def build_wayfarer_connection(repo_root: Path) -> sqlite3.Connection:
     return conn
 
 
-def resolve_wayfarer_mass_com(conn: sqlite3.Connection, launch_state: str = "DOCKED") -> Mapping[str, object]:
-    from qualification.phase3.shipclasses_resolver import compute_mass_properties
-    return compute_mass_properties(conn, {"launch_state": launch_state})
+def _load_phase3_resolver(repo_root: Path):
+    """Load the Phase-3 resolver by file path so Pixel execution does not depend on package import paths."""
+    resolver_path = repo_root / "qualification" / "phase3" / "shipclasses_resolver.py"
+    spec = importlib.util.spec_from_file_location("loom_phase3_shipclasses_resolver", resolver_path)
+    if spec is None or spec.loader is None:
+        raise DynamicsError(f"PHASE3_RESOLVER_IMPORT_FAILED:{resolver_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
-def resolve_wayfarer_mass_properties_for_6dof(conn: sqlite3.Connection, state: VehicleState) -> MassProperties:
+def resolve_wayfarer_mass_com(
+    conn: sqlite3.Connection,
+    launch_state: str = "DOCKED",
+    repo_root: Path | None = None,
+) -> Mapping[str, object]:
+    root = repo_root or Path(__file__).resolve().parents[2]
+    resolver = _load_phase3_resolver(root)
+    return resolver.compute_mass_properties(conn, {"launch_state": launch_state})
+
+
+def resolve_wayfarer_mass_properties_for_6dof(
+    conn: sqlite3.Connection,
+    state: VehicleState,
+    repo_root: Path | None = None,
+) -> MassProperties:
     _ = resolve_wayfarer_mass_com(
         conn,
         state.configuration if state.configuration in {"DOCKED", "EXTRACTING", "ABSENT"} else "DOCKED",
+        repo_root=repo_root,
     )
     raise DynamicsError(WAYFARER_INERTIA_OPEN_CODE)
