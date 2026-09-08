@@ -1,0 +1,60 @@
+name: LOOM Research Governed Synthesis Artifact
+
+on:
+  pull_request:
+    branches:
+      - research/computational-shipyard-browser-3d-js-syntax-fix-2026-09-08
+
+jobs:
+  build-governed-synthesis:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate governed synthesis viewer and manifest
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          from dataclasses import asdict
+          from pathlib import Path
+          root = Path('.')
+          synth = root/'qualification'/'synthesis'
+          sys.path.insert(0, str(synth))
+          from governed_ship_synthesis import build_wayfarer_governed_synthesis, canonical_json
+          from governed_ship_synthesis_viewer import build_viewer, write_viewer
+          package = build_wayfarer_governed_synthesis(2226)
+          viewer = build_viewer(package)
+          out = root/'governed_synthesis_artifact'
+          out.mkdir(exist_ok=True)
+          write_viewer(viewer, out)
+          (out/'governed_synthesis_package.json').write_text(canonical_json(package)+'\n', encoding='utf-8')
+          launcher = root/'tools'/'wayfarer_governed_synthesis_localhost.py'
+          (out/launcher.name).write_bytes(launcher.read_bytes())
+          print('SYNTHESIS_PACKAGE_HASH', package.package_hash)
+          print('VIEWER_HTML_SHA256', viewer.html_sha256)
+          print('MESH_COUNT', len(package.geometry.primitives))
+          print('TOPOLOGY_NODE_COUNT', len(package.topology.nodes))
+          print('TOPOLOGY_EDGE_COUNT', len(package.topology.edges))
+          print('PACKAGING_OPEN_COUNT', len(package.packaging.open_items))
+          PY
+      - name: Parse emitted application JavaScript
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          html = Path('governed_synthesis_artifact/wayfarer_governed_synthesis.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', html, flags=re.S)
+          if len(scripts) < 2:
+              raise SystemExit(f'expected data + application scripts, found {len(scripts)}')
+          Path('/tmp/loom_governed_synthesis.js').write_text(scripts[-1], encoding='utf-8')
+          PY
+          node --check /tmp/loom_governed_synthesis.js
+      - name: Upload governed synthesis Pixel package
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-governed-synthesis-pixel
+          path: governed_synthesis_artifact/
+          retention-days: 90
