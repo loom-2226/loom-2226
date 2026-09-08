@@ -1,0 +1,40 @@
+name: LOOM Research Shipyard Android One-Click
+
+on:
+  pull_request:
+    branches:
+      - research/computational-shipyard-phase2-functional-regions-v0.1-2026-09-08
+    paths:
+      - 'manifests/release_manifest.json'
+      - 'src/shipyard_migrate.py'
+      - 'deploy/android/loom_update_shipyard.py'
+      - 'tests/test_shipyard_android_oneclick.py'
+      - '.github/workflows/research_shipyard_android_oneclick.yml'
+
+jobs:
+  validate-oneclick:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile updater overlay
+        run: |
+          python -m py_compile src/shipyard_migrate.py deploy/android/loom_update_shipyard.py
+      - name: Run focused tests
+        run: |
+          python tests/test_shipyard_android_oneclick.py
+      - name: Verify overlay manifest digests
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path('.')
+          m=json.loads((root/'manifests/release_manifest.json').read_text())
+          for row in m['artifacts']:
+              data=(root/row['path']).read_bytes()
+              actual=hashlib.sha1(f"blob {len(data)}\0".encode()+data).hexdigest()
+              assert actual == row['git_blob_sha1'], (row['path'], actual, row['git_blob_sha1'])
+          print('OVERLAY_ARTIFACTS', len(m['artifacts']))
+          PY
