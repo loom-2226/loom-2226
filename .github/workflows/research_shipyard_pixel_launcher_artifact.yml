@@ -1,0 +1,52 @@
+name: LOOM Research Shipyard Pixel Launcher
+
+on:
+  pull_request:
+    branches:
+      - research/computational-shipyard-design-ledger-v0.1-2026-09-08
+    paths:
+      - 'deploy/android/LOOM_Computational_Shipyard.py'
+      - 'tests/test_wayfarer_shipyard_pixel_launcher.py'
+      - '.github/workflows/research_shipyard_pixel_launcher_artifact.yml'
+
+jobs:
+  build-pixel-launcher:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build standalone Pixel Shipyard package
+        run: |
+          python - <<'PY'
+          import shutil, sys
+          from pathlib import Path
+          root=Path('.')
+          synth=root/'qualification'/'synthesis'
+          sys.path.insert(0,str(synth))
+          from design_ledger import build_wayfarer_phase1_ledger
+          from governed_ship_synthesis_viewer import build_wayfarer_viewer, write_viewer
+          out=root/'shipyard_pixel_artifact'
+          out.mkdir(exist_ok=True)
+          build_wayfarer_phase1_ledger(out/'wayfarer_phase1_design_ledger.sqlite3')
+          write_viewer(build_wayfarer_viewer(2226), out)
+          shutil.copy2(root/'deploy'/'android'/'LOOM_Computational_Shipyard.py', out/'LOOM_Computational_Shipyard.py')
+          (out/'README_TERMUX.txt').write_text(
+              'LOOM COMPUTATIONAL SHIPYARD - PIXEL/TERMUX\n\n'
+              '1. Extract this package in Downloads.\n'
+              '2. In Termux: cd ~/storage/downloads/<extracted-folder>\n'
+              '3. Run: python LOOM_Computational_Shipyard.py\n'
+              '4. Choose option 1 once to activate the bundled Phase-1 ledger.\n'
+              '5. Choose option 6 to launch the offline 3D viewer at http://127.0.0.1:2227/\n',
+              encoding='utf-8')
+          PY
+      - name: Smoke-test packaged launcher
+        run: |
+          LOOM_SHIPYARD_DOWNLOADS="$PWD/shipyard_pixel_artifact" LOOM_SHIPYARD_HOME="$PWD/shipyard_pixel_artifact/runtime" python shipyard_pixel_artifact/LOOM_Computational_Shipyard.py --status
+      - name: Upload Pixel Shipyard package
+        uses: actions/upload-artifact@v4
+        with:
+          name: loom-computational-shipyard-pixel-v0.1
+          path: shipyard_pixel_artifact/
+          retention-days: 90
