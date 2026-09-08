@@ -34,6 +34,8 @@ def fixture_snapshot() -> InstitutionalMemorySnapshot:
         preferred_architectures=("spine-freighter",),
         manufacturing_capabilities=("robotic-weld", "large-ring-forge"),
         material_access=("al-li-alloy",),
+        material_constraints=("titanium-supply-limited",),
+        economic_constraints=("high-skilled-labor-cost",),
         automation_profile=("high-automation",),
         component_ecosystem=("supplier-A",),
         risk_tolerance="CONSERVATIVE",
@@ -98,6 +100,9 @@ def test_snapshot_is_valid_and_context_is_deterministically_chronological():
     validate_snapshot(snapshot)
     context = institutional_context(snapshot)
     assert context.historical_design_refs == ("D2184", "D2192")
+    assert context.material_constraints == ("titanium-supply-limited",)
+    assert context.economic_constraints == ("high-skilled-labor-cost",)
+    assert context.material_constraints != snapshot.institution.material_access
     assert context.authority_status == INSTITUTION_AUTHORITY
     assert content_hash(snapshot) == content_hash(snapshot)
 
