@@ -1,0 +1,50 @@
+name: LOOM Research Design Ledger Artifact
+
+on:
+  pull_request:
+    branches:
+      - research/computational-shipyard-governed-synthesis-v0.1-2026-09-08
+    paths:
+      - 'qualification/synthesis/design_ledger.py'
+      - 'tests/test_design_ledger.py'
+      - 'docs/LOOM_2226_Computational_Shipyard_Design_Ledger_v0.1.md'
+      - '.github/workflows/research_design_ledger_artifact.yml'
+
+jobs:
+  build-design-ledger:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build deterministic Wayfarer Phase 1 ledger
+        run: |
+          python - <<'PY'
+          import json
+          import sqlite3
+          import sys
+          from pathlib import Path
+          root = Path('.')
+          sys.path.insert(0, str(root/'qualification'/'synthesis'))
+          from design_ledger import build_wayfarer_phase1_ledger
+          out = root/'design_ledger_artifact'
+          out.mkdir(exist_ok=True)
+          result = build_wayfarer_phase1_ledger(out/'wayfarer_phase1_design_ledger.sqlite3')
+          (out/'wayfarer_phase1_design_ledger_manifest.json').write_text(json.dumps(result, sort_keys=True, indent=2)+'\n', encoding='utf-8')
+          con = sqlite3.connect(out/'wayfarer_phase1_design_ledger.sqlite3')
+          try:
+              print('COUNTS', result['counts'])
+              print('STATE_HASH', result['state_hash'])
+              print('DEPENDENCY_GRAPH_HASH', result['dependency_graph_hash'])
+              print('COUPLED_PHYSICS_STATUS', result['coupled_physics_status'])
+              print('DISCIPLINE_ROWS', con.execute('SELECT discipline_id,fidelity_class,result_status,authority_status FROM discipline_result').fetchall())
+          finally:
+              con.close()
+          PY
+      - name: Upload design ledger artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-phase1-design-ledger
+          path: design_ledger_artifact/
+          retention-days: 90
