@@ -2,8 +2,8 @@
   "product": "LOOM 2226 Computational Shipyard",
   "format": "LOOM_RELEASE_MANIFEST_V2",
   "release_state": "staging",
-  "release_id": "shipyard-phase8-water-closure-map-v0.1-2026-09-08",
-  "source_ref": "research/computational-shipyard-phase8-water-closure-map-v0.1-2026-09-08",
+  "release_id": "shipyard-phase9-remass-architecture-gate-v0.1-2026-09-09",
+  "source_ref": "research/computational-shipyard-phase9-remass-architecture-gate-v0.1-2026-09-09",
   "authority": {
     "scope": "SHIPYARD_RESEARCH_OVERLAY_ONLY",
     "campaign_policy": "preserve_local_never_install",
@@ -19,17 +19,17 @@
     {"path":"src/shipyard_phase5_remass_audit.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ecd65fc04ae171650fffd2e20442fbd37a5bac06"},
     {"path":"src/shipyard_phase6_remass_candidates.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ae03c8d3c4890bbe7f3ead401526ade40d28d424"},
     {"path":"src/shipyard_phase8_water_closure.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"383cda65a9d772a72b44d09876c0b56e651ffe3d"},
+    {"path":"src/shipyard_phase9_remass_architecture.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"900072839cb3870b2de81f773b23b69b95e33544"},
     {"path":"src/shipyard_evidence_viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ec76afed3574e4091dbe00d7d5c8d6db890ce3ff"},
-    {"path":"deploy/android/loom_update_shipyard.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"c9b0f140ce22536dccde192cd0be460274d462d2"}
+    {"path":"deploy/android/loom_update_shipyard.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"31472afc285f9356c6895244ecbf31254fb2bc24"}
   ],
   "preserve_local": ["/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"],
   "notes": [
     "Research overlay only; persistent Shipyard SQLite is migrated in place and never replaced.",
-    "Phase 8 maps the exact geometric closure budget for the Phase-6 water screening survivor without selecting water or admitting its density as a live Wayfarer engineering input.",
-    "The closure frontier computes allowable combinations of internal diameter, ullage and axial end allowance against the existing Phase-5 outer-envelope bound.",
-    "The 5x5 probe grid is sensitivity evidence only, not a set of physically admitted wall, ullage or tank-head assumptions.",
-    "Radial allocation is a geometric budget and must not be interpreted as wall thickness or insulation design.",
-    "No live sizing execution, physical tank envelope, canon change, production mutation or flight authority is admitted.",
-    "The evidence viewer exposes the Phase-8 closure budget and sensitivity grid on Pixel."
+    "Phase 9 derives a total remass-feed demand envelope from the reference wet mass and source-derived working torch mode cards. It does not assume an equal per-tank feed split.",
+    "Five tank/feed architecture families are recorded from NASA/AIAA heritage evidence: metallic rigid passive-PMD, COPV passive-PMD, flexible-separator positive expulsion, metallic-bellows positive expulsion, and rigid-PMD pump-fed.",
+    "Heritage evidence raises candidate priority but does not admit a Wayfarer tank architecture.",
+    "All architecture families remain blocked on explicit propulsion-to-tank interface, thermodynamic, structural, fluid-management and life-cycle requirements.",
+    "No water selection, tank material selection, design pressure, wall thickness, ullage policy, feed split, spatial envelope, canon change, production mutation or flight authority is admitted."
   ]
 }
