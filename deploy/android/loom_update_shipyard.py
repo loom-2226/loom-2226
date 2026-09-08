@@ -11,6 +11,7 @@ DEPLOY = HERE.parents[1]
 APP_ROOT = HERE.parents[2]
 BASE_UPDATER = DEPLOY / "loom_update.py"
 MIGRATOR = APP_ROOT / "src" / "shipyard_migrate.py"
+SHIPYARD_MANIFEST_PATH = "manifests/shipyard_overlay_manifest.json"
 
 
 def _load(name: str, path: Path):
@@ -28,6 +29,7 @@ def main(argv=None) -> int:
     if not BASE_UPDATER.is_file():
         raise RuntimeError(f"Base LOOM updater not installed: {BASE_UPDATER}")
     updater = _load("loom_update_runtime", BASE_UPDATER)
+    updater.MANIFEST_PATH = SHIPYARD_MANIFEST_PATH
     rc = int(updater.main(argv))
     if rc != 0:
         print("SHIPYARD MIGRATION SKIPPED: base LOOM update did not complete cleanly")
