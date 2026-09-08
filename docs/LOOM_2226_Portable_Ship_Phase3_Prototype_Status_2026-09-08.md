@@ -9,11 +9,13 @@
 
 - `qualification/phase3/LOOM_2226_SHIPCLASSES_PROTOTYPE_SCHEMA_v0.1.sql`
 - `qualification/phase3/LOOM_2226_SHIPCLASSES_WAYFARER_SEED_v0.1.sql`
-- `qualification/phase3/shipclasses_resolver.py`
-- `qualification/phase3/test_phase3_wayfarer.py`
-- `qualification/phase3/shipclasses_geometry_resolver.py`
 - `qualification/phase3/LOOM_2226_SHIPCLASSES_WAYFARER_GEOMETRY_COUPLING_v0.1.sql`
+- `qualification/phase3/shipclasses_resolver.py`
+- `qualification/phase3/shipclasses_geometry_resolver.py`
+- `qualification/phase3/test_phase3_wayfarer.py`
 - `qualification/phase3/test_phase3_geometry_coupling.py`
+- `qualification/phase3/test_phase3_overlay_mass_integration.py`
+- `qualification/phase3/verify_all.py`
 
 These are prototype qualification artifacts only. They do not replace the current Wayfarer geometry seed/compiler or any production/campaign SQLite authority.
 
@@ -29,11 +31,9 @@ The seed was mapped from live GitHub authority/current engineering sources inclu
 
 No chat-memory Wayfarer number was promoted into the prototype without a live GitHub source.
 
-## 3. Compatibility results
+## 3. Compatibility targets
 
-The prototype reproduces the current Wayfarer reference mass/CoM compatibility model for the two presently modeled launch states.
-
-Reference values:
+Reference values remain:
 
 | State | Dry mass | Wet mass | Dry CoM B [m] | Wet CoM B [m] |
 |---|---:|---:|---|---|
@@ -44,48 +44,25 @@ The 300 t working-fluid/water family is represented as exactly 300,000 kg of phy
 
 ## 4. Development regression evidence
 
-Before committing the original resolver/test Python artifacts, a local unit/functional run executed seven tests and reported:
+Earlier development runs passed the original seven mass/configuration tests and four focused transform tests.
 
-```text
-Ran 7 tests in 0.008s
-OK
-```
+After the first Pixel verifier failure described below, a targeted unit + functional regression was run before the resolver repair was committed. It verified both representations of the launch placement:
 
-Covered behavior:
+1. pre-overlay form: component transform identity + launch centroid stored in component-local fields;
+2. overlay form: launch centroid local zero + placement stored in `component_transform`.
 
-1. docked wet mass/CoM compatibility;
-2. launch-absent wet mass/CoM compatibility;
-3. protected-water minimum fails closed;
-4. dry reference ledger compatibility;
-5. no double-counting of the 300 t inventory;
-6. illegal configuration state fails closed;
-7. direct DOCKED→ABSENT transition is rejected while DOCKED→EXTRACTING is admitted.
+Both forms reproduced exactly:
 
-Before committing the transform-coupling resolver, a second local unit run executed four focused transform tests and reported:
+- DOCKED wet mass `1,158,500 kg`;
+- DOCKED wet CoM `[26.676650841605525, 0, 0.14812257229175657]`;
+- ABSENT wet mass `1,125,500 kg`;
+- ABSENT wet CoM `[26.819635717458908, 0, 0]`.
 
-```text
-Ran 4 tests in 0.002s
-OK
-```
-
-Covered behavior:
-
-1. one component transform moves both a mass centroid and a geometry primitive;
-2. parent/child transform composition correctly rotates and translates child placement;
-3. center-of-mass calculation uses transformed mass centroids;
-4. transform cycles fail closed.
-
-These are development regression results. The repository-level Wayfarer geometry-coupling tests have now been authored against the real prototype schema/seed/overlay, but mandatory Pixel acceptance has not yet been run for this Phase-3 increment.
+The repair changes the generic mass resolver so mass-element centroids are resolved through the governed component-transform chain rather than being treated as already body-frame after the geometry-coupling overlay.
 
 ## 5. Same-authority geometry coupling increment
 
-Phase 3 now contains the first explicit same-source coupling seam required by the governing work plan.
-
-The planetary launch is used as the initial controlled case because its carried-state mass, conservative working centroid, and working low-detail envelope are already present in live Wayfarer engineering authority.
-
-The geometry-coupling overlay moves the launch placement into `component_transform`, resets the launch mass element centroid to component-local zero, and binds a low-detail `geometry_primitive` to that same component transform. The transform resolver composes parent/child translation and quaternion orientation into body-datum placement.
-
-Required coupled behavior is therefore explicit:
+The planetary launch remains the initial controlled same-source case:
 
 ```text
 component_transform
@@ -93,13 +70,61 @@ component_transform
       └──> low-detail geometry pose
 ```
 
-The accompanying repository test intentionally mutates the one launch transform and requires both mass and geometry placement to move together. This is the narrow precursor to the Phase-4 coupled test; it does not yet constitute full Wayfarer 3D qualification.
+The geometry-coupling overlay moves the launch placement into `component_transform`, resets the launch mass element centroid to component-local zero, and binds the low-detail geometry primitive to that same transform.
 
-## 6. Important limitations still OPEN
+## 6. First Pixel verifier execution — FAIL, useful integration finding
 
-Phase 3 is **not closed**.
+The first real Pixel/Termux execution of `verify_all.py` ran on:
 
-The current prototype deliberately does not invent:
+```text
+Android-17-aarch64-64bit-ELF
+Python 3.13.13
+aarch64
+```
+
+The executable correctly returned:
+
+```text
+LOOM_PHASE3_VERIFY: FAIL
+```
+
+Eight checks passed and one failed:
+
+```text
+absent_mass_com                 PASS
+foreign_keys                    PASS
+launch_pose_reference           PASS
+required_files                  PASS
+same_authority_geometry_mass    PASS
+sqlite_integrity                PASS
+unit_suite                      PASS
+working_fluid_no_double_count   PASS
+docked_mass_com                 FAIL
+```
+
+Observed DOCKED result:
+
+```text
+mass = 1,158,500 kg                         correct
+CoM  = [26.05567544238239, 0, 0]           incorrect
+expected [26.676650841605525, 0, 0.14812257229175657]
+max error = 0.6209753992231342 m
+```
+
+The failure was deterministic and diagnostic. The repository unit suites each passed in isolation, but the integrated verifier applied the geometry overlay and then called the original mass resolver. That resolver still interpreted `mass_element.cx/cy/cz` as already body-frame. The overlay had intentionally moved the launch placement into `component_transform` and reset its local centroid to zero. Therefore the integrated mass solution placed the 33 t launch at body origin while the geometry resolver correctly placed it at `[21.8, 0, 5.2]`.
+
+This was an integration bug in LOOM's prototype resolver semantics, not a Pixel numerical failure and not a canon-data discrepancy.
+
+Repair:
+
+- `shipclasses_resolver.py` now obtains mass-element body centroids through `resolve_mass_centroids_B()`;
+- `test_phase3_overlay_mass_integration.py` explicitly guards DOCKED and ABSENT mass/CoM after schema + seed + geometry overlay are all applied together.
+
+The first Pixel FAIL remains retained as qualification evidence. It is not rewritten as a PASS.
+
+## 7. Important limitations still OPEN
+
+Phase 3 is **not closed**. The prototype still deliberately does not invent:
 
 - exact Wayfarer RCS nozzle count/placement/directions;
 - final radiator geometry or sweep envelopes;
@@ -109,16 +134,13 @@ The current prototype deliberately does not invent:
 - detailed torch application/gimbal geometry beyond currently governed sources;
 - production metric hardware serialization beyond already governed machine/configuration facts.
 
-The original resolver proves class/configuration/store/mass/CoM semantics. The new transform resolver proves the generic same-authority placement mechanism. Full inertia/effectors/geometry qualification remains ahead.
+## 8. Next controlled sequence
 
-## 7. Next controlled sequence
-
-1. execute the real repository Phase-3 mass/configuration and geometry-coupling tests together;
-2. build deterministic prototype database construction and machine-readable verification around the accepted schema + seed + coupling overlay;
-3. extend low-detail governed geometry only where current authority supports it;
-4. preserve OPEN status for unresolved RCS/radiator/docking details;
-5. run the resulting Phase-3 verifier on the Pixel, including an offline repeat;
-6. only after that gate, proceed into Phase 4 Wayfarer compatibility + minimal-3D sniff qualification.
+1. install the repaired `shipclasses_resolver.py` and new integration test from the current feature-branch commit on Pixel;
+2. rerun `python verify_all.py` online-installed;
+3. if PASS, disable Wi-Fi and mobile data and rerun exactly the same verifier;
+4. compare result JSON/database snapshot hashes and numerical outputs;
+5. only after two Pixel PASS runs, close the Phase-3 portable prototype gate and proceed toward Phase 4 minimal-3D qualification.
 
 **Navigator/GIS/HUD physics-dependent implementation remains hard frozen.**
 
