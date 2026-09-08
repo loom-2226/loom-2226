@@ -1,0 +1,49 @@
+{
+  "schema": "LOOM_2226_SHIP_DESIGN_REQUEST",
+  "schema_version": "0.1",
+  "status": [
+    "ENGINEERING",
+    "RESEARCH",
+    "EXAMPLE_ONLY",
+    "NON_CANON",
+    "NON_PRODUCTION"
+  ],
+  "ship_class": {
+    "id": "EXAMPLE_INTERPLANETARY_FREIGHTER",
+    "objective_priority": [
+      "MINIMIZE_COST_PER_TONNE_KM",
+      "MINIMIZE_DRY_MASS",
+      "MINIMIZE_TURNAROUND_TIME"
+    ],
+    "required_capabilities": [
+      "CARGO_TRANSFER",
+      "DOCKING"
+    ],
+    "authority_status": "QUALIFICATION_ONLY",
+    "provenance": "EXAMPLE_ONLY_NOT_ENGINEERING_AUTHORITY"
+  },
+  "functional_requirements": {
+    "cargo_mass_t": 1800,
+    "cargo_volume_m3": 3200,
+    "passengers": 12,
+    "crew": 8,
+    "endurance_days": 120,
+    "normal_acceleration_g": 0.08,
+    "emergency_acceleration_g": 0.25,
+    "delta_v_km_s": 140,
+    "docking_ports": 2,
+    "planetary_landing_required": false,
+    "max_dry_mass_t": 2500,
+    "max_length_m": 120
+  },
+  "requirements_provenance": "EXAMPLE_ONLY_NOT_ENGINEERING_AUTHORITY",
+  "expected_derived_requirements": [
+    "ship.required_habitable_volume",
+    "ship.required_life_support_power",
+    "ship.required_radiator_area",
+    "ship.required_power_generation",
+    "ship.required_remass",
+    "ship.required_structural_capacity"
+  ],
+  "derivation_rules": []
+}
