@@ -2,8 +2,8 @@
   "product": "LOOM 2226 Computational Shipyard",
   "format": "LOOM_RELEASE_MANIFEST_V2",
   "release_state": "staging",
-  "release_id": "shipyard-phase11-remass-feed-physics-bounds-v0.1-2026-09-09",
-  "source_ref": "research/computational-shipyard-phase11-remass-feed-physics-bounds-v0.1-2026-09-09",
+  "release_id": "shipyard-phase12-evidence-viewer-v0.1-2026-09-09",
+  "source_ref": "research/computational-shipyard-phase12-evidence-viewer-v0.1-2026-09-09",
   "authority": {
     "scope": "SHIPYARD_RESEARCH_OVERLAY_ONLY",
     "campaign_policy": "preserve_local_never_install",
@@ -22,16 +22,16 @@
     {"path":"src/shipyard_phase9_remass_architecture.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"900072839cb3870b2de81f773b23b69b95e33544"},
     {"path":"src/shipyard_phase10_remass_feed.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5c15a45d72f8f5c2d0f99602cb171d93104968c9"},
     {"path":"src/shipyard_phase11_remass_feed_bounds.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5d81e5641c467ae64e02f1ed0e060680850777e7"},
-    {"path":"src/shipyard_evidence_viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ec76afed3574e4091dbe00d7d5c8d6db890ce3ff"},
+    {"path":"src/shipyard_evidence_viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"041c2bf92efcfddd351fa10dd8ddf227a35d2f9a"},
     {"path":"deploy/android/loom_update_shipyard.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"8a5cc6c17bca003f41165d5796101a3092e83e02"}
   ],
   "preserve_local": ["/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"],
   "notes": [
-    "Research overlay only; persistent Shipyard SQLite is migrated in place and never replaced.",
-    "Phase 11 derives inertial liquid-head bounds across the existing 11 m maximum tank-length bound and six Phase-9 acceleration modes using the Phase-6 water screening density. This is not admitted tank geometry or outlet orientation.",
-    "Phase 11 also maps ideal hydraulic-power sensitivity over 0.1, 1, 5 and 10 MPa pressure-rise probes. These pressure rises are probes only, not propulsion inlet requirements or pump designs.",
-    "NASA feed-system literature supports treating pressure-fed versus pump-fed architecture as a vehicle/engine trade, and NASA LAD literature identifies flow rate and acceleration as major PMD design drivers.",
-    "The next modeling priority is a pump/header-conditioned propulsion interface; this is a research-sequence priority, not a physical selection.",
-    "No water selection, propulsion inlet pressure, pump efficiency, tank material, feed split, spatial envelope, canon change, production mutation or flight authority is admitted."
+    "Research overlay only; persistent Shipyard SQLite is never replaced by this package.",
+    "Phase 12 is a read-only evidence-viewer extension. It adds visual summaries for the Phase-9 architecture gate, Phase-10 feed decomposition and transient-buffer probes, and Phase-11 inertial-head and hydraulic-power bounds.",
+    "The viewer displays total propulsion feed demand rather than assuming equal instantaneous per-tank flow.",
+    "The viewer preserves the distinction between research priority and physical selection: pump/header-conditioned feed is shown only as the current next-modeling priority.",
+    "Pressure-rise values, buffer durations, water density, tank architecture families and feed topologies remain screening or sensitivity evidence unless separately admitted through governed engineering work.",
+    "No spatial envelope, tank architecture, header size, pump design, propulsion inlet pressure, canon change, production mutation or flight authority is admitted."
   ]
 }
