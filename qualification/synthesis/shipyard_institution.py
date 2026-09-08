@@ -65,6 +65,8 @@ class ShipbuildingInstitution:
     preferred_architectures: Tuple[str, ...]
     manufacturing_capabilities: Tuple[str, ...]
     material_access: Tuple[str, ...]
+    material_constraints: Tuple[str, ...]
+    economic_constraints: Tuple[str, ...]
     automation_profile: Tuple[str, ...]
     component_ecosystem: Tuple[str, ...]
     risk_tolerance: str
@@ -131,7 +133,8 @@ def validate_institution(row: ShipbuildingInstitution) -> None:
         ("founding_lineage", True), ("cultural_progenitors", False),
         ("engineering_lineage", True), ("design_doctrine", True),
         ("preferred_architectures", False), ("manufacturing_capabilities", True),
-        ("material_access", False), ("automation_profile", False),
+        ("material_access", False), ("material_constraints", False),
+        ("economic_constraints", False), ("automation_profile", False),
         ("component_ecosystem", False), ("maintainability_doctrine", True),
         ("aesthetic_principles", False), ("provenance_refs", True),
     ):
@@ -238,7 +241,11 @@ def validate_snapshot(snapshot: InstitutionalMemorySnapshot) -> None:
 
 
 def institutional_context(snapshot: InstitutionalMemorySnapshot) -> ShipyardInstitutionContext:
-    """Project persistent yard state into the existing model-neutral agent context contract."""
+    """Project persistent yard state into the existing model-neutral agent context contract.
+
+    Only semantically identical fields are projected. Material access remains a distinct
+    persistent-yard fact and is not silently converted into a material constraint.
+    """
     validate_snapshot(snapshot)
     inst = snapshot.institution
     ordered_designs = tuple(
@@ -258,8 +265,8 @@ def institutional_context(snapshot: InstitutionalMemorySnapshot) -> ShipyardInst
         design_doctrine=inst.design_doctrine,
         aesthetic_principles=inst.aesthetic_principles,
         manufacturing_capabilities=inst.manufacturing_capabilities,
-        material_constraints=inst.material_access,
-        economic_constraints=(),
+        material_constraints=inst.material_constraints,
+        economic_constraints=inst.economic_constraints,
         historical_design_refs=ordered_designs,
         provenance_refs=provenance,
         authority_status=INSTITUTION_AUTHORITY,
