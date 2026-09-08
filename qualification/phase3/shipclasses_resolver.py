@@ -6,6 +6,8 @@ import sqlite3
 from dataclasses import dataclass
 from typing import Dict, Iterable, Mapping, Optional, Tuple
 
+from shipclasses_geometry_resolver import resolve_mass_centroids_B
+
 Vector3 = Tuple[float, float, float]
 
 
@@ -70,9 +72,10 @@ def resolve_mass_contributions(
 ) -> Iterable[MassContribution]:
     conn.row_factory = sqlite3.Row
     active = resolve_active_components(conn, instance_state)
+    transformed_centroids = resolve_mass_centroids_B(conn)
 
     for row in conn.execute(
-        "SELECT mass_element_id,component_id,reference_mass_kg,cx_m,cy_m,cz_m,authority_status FROM mass_element"
+        "SELECT mass_element_id,component_id,reference_mass_kg,authority_status FROM mass_element"
     ):
         if not active.get(row["component_id"], False):
             continue
@@ -80,8 +83,9 @@ def resolve_mass_contributions(
         if mass < 0 or not math.isfinite(mass):
             raise PhysicalContractError(f"Invalid mass for {row['mass_element_id']}")
         yield MassContribution(
-            row["mass_element_id"], mass,
-            (float(row["cx_m"]), float(row["cy_m"]), float(row["cz_m"])),
+            row["mass_element_id"],
+            mass,
+            transformed_centroids[row["mass_element_id"]],
             row["authority_status"],
         )
 
