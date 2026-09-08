@@ -2,11 +2,12 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
-from typing import Dict, Mapping, Optional, Protocol, Sequence, Tuple, Union
+from typing import Dict, Mapping, Optional, Protocol, Sequence, Tuple, TypeVar, Union
 
 Vector3 = Tuple[float, float, float]
 Tensor3 = Tuple[Tuple[float, float, float], Tuple[float, float, float], Tuple[float, float, float]]
 Quaternion = Tuple[float, float, float, float]
+SolverResultT = TypeVar("SolverResultT", covariant=True)
 
 
 class PhysicalDesignError(ValueError):
@@ -137,10 +138,10 @@ class DesignAuthorityRecord:
     provenance_map: Mapping[str, str]
 
 
-class PhysicalDesignSolver(Protocol):
+class PhysicalDesignSolver(Protocol[SolverResultT]):
     solver_version: str
 
-    def solve(self, seed: int) -> EvaluationResult:
+    def solve(self, seed: int) -> SolverResultT:
         ...
 
 
