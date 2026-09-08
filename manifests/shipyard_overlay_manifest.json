@@ -2,8 +2,8 @@
   "product": "LOOM 2226 Computational Shipyard",
   "format": "LOOM_RELEASE_MANIFEST_V2",
   "release_state": "staging",
-  "release_id": "shipyard-android-oneclick-v0.1-2026-09-08",
-  "source_ref": "research/computational-shipyard-android-oneclick-v0.1-2026-09-08",
+  "release_id": "shipyard-phase3-discipline-gates-v0.1-2026-09-08",
+  "source_ref": "research/computational-shipyard-phase3-discipline-gates-v0.1-2026-09-08",
   "authority": {
     "scope": "SHIPYARD_RESEARCH_OVERLAY_ONLY",
     "campaign_policy": "preserve_local_never_install",
@@ -27,20 +27,28 @@
       "git_blob_sha1": "897d2b7961ef5a6f38960fe5bb203dfca38b2a0d"
     },
     {
+      "path": "src/shipyard_phase3.py",
+      "install_group": "code",
+      "source": "repository",
+      "required": true,
+      "git_blob_sha1": "ffd8c7dc53c5d8a0a2696c068d3d6e5d1c57b52f"
+    },
+    {
       "path": "deploy/android/loom_update_shipyard.py",
       "install_group": "code",
       "source": "repository",
       "required": true,
-      "git_blob_sha1": "5d19b0878cb35a8632768e7c3602cb5eb70e0585"
+      "git_blob_sha1": "c28acbc85741ff5ae346adff20f798f9256ad80a"
     }
   ],
   "preserve_local": [
     "/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"
   ],
   "notes": [
-    "Research overlay only: installs updater plumbing and the standalone Shipyard migrator into the existing LOOM_TEST runtime tree.",
+    "Research overlay only: installs updater plumbing and Phase-2/Phase-3 Shipyard migrators into the existing LOOM_TEST runtime tree.",
     "The persistent Shipyard editing ledger is migrated in place and is never replaced by the updater.",
-    "No world/canon SQLite is modified by the Shipyard migration.",
-    "Phase-2 migration is idempotent and fails closed for non-Shipyard SQLite targets."
+    "Phase 3 adds machine-readable discipline contracts and workflow gates; it does not admit any new spatial envelope.",
+    "All Phase-3 discipline contracts remain blocked until their required engineering inputs are explicitly admitted.",
+    "No world/canon SQLite is modified by the Shipyard migrations."
   ]
 }
