@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import contextlib
 import http.server
 import socket
 import sys
@@ -66,7 +65,9 @@ def validate_viewer(viewer_path: Path) -> Path:
 
 
 def make_server(viewer_path: Path, port: int = DEFAULT_PORT) -> http.server.ThreadingHTTPServer:
-    if port < 1 or port > 65535:
+    # Port 0 is intentionally accepted for tests so the OS may choose a free
+    # ephemeral loopback port. User-facing runs default to fixed port 2226.
+    if port < 0 or port > 65535:
         raise LocalOnlyServerError(f"invalid port: {port}")
     viewer = validate_viewer(viewer_path)
     try:
@@ -94,7 +95,8 @@ def wait_until_listening(port: int, timeout_s: float = 3.0) -> None:
 
 def serve(viewer_path: Path, port: int = DEFAULT_PORT, *, open_browser: bool = True) -> None:
     server = make_server(viewer_path, port)
-    url = f"http://{HOST}:{port}/"
+    actual_port = int(server.server_address[1])
+    url = f"http://{HOST}:{actual_port}/"
     print("LOOM Wayfarer Shipyard 3D")
     print(f"VIEWER: {validate_viewer(viewer_path)}")
     print(f"LOCAL URL: {url}")
