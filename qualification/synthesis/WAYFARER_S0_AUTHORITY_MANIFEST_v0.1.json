@@ -13,7 +13,9 @@
     {"path":"qualification/phase3/LOOM_2226_SHIPCLASSES_WAYFARER_GEOMETRY_COUPLING_v0.1.sql","git_blob_sha":"7b7aaf3d34e092f9f690aba11aa3d799ba9cfcec","classification":"QUALIFICATION_ONLY","mutable":false},
     {"path":"qualification/phase4/LOOM_2226_SHIPCLASSES_WAYFARER_PHASE4_GEOMETRY_v0.1.sql","git_blob_sha":"d8c49c7003427aa7fc328ddc620480c43f563584","classification":"QUALIFICATION_ONLY","mutable":false},
     {"path":"qualification/phase5/wayfarer_inertia_audit.py","git_blob_sha":"7a0c3c964ca655cee2c12019b3a85a3971e1e492","classification":"QUALIFICATION_ONLY","mutable":false},
-    {"path":"qualification/phase5/PHASE5C_WAYFARER_INERTIA_AUTHORITY_PLAN_v0.1.md","git_blob_sha":"c3a87c499ff61a86434410856495d35d6ca6b6c3","classification":"QUALIFICATION_ONLY","mutable":false}
+    {"path":"qualification/phase5/PHASE5C_WAYFARER_INERTIA_AUTHORITY_PLAN_v0.1.md","git_blob_sha":"c3a87c499ff61a86434410856495d35d6ca6b6c3","classification":"QUALIFICATION_ONLY","mutable":false},
+    {"path":"docs/LOOM_2226_Physical_Design_Synthesis_Work_Plan_2026-09-08.md","git_blob_sha":"7262cfdf41a832465fa65095db4417b9ab2f8b64","classification":"RESEARCH_GOVERNANCE","mutable":false},
+    {"path":"qualification/synthesis/WAYFARER_S1_TEST_DEFINITION_v0.1.md","git_blob_sha":"747a5492d2330a52b15e8df023bfe096d644c463","classification":"QUALIFICATION_ONLY","mutable":false}
   ],
   "reference_states": {
     "DOCKED": {
@@ -49,27 +51,27 @@
     "protected_water_store":50000.0
   },
   "field_inventory": [
-    {"field":"ship.reference_length_m","value":57.0,"classification":"CANON","s1_use":"FIXED_REFERENCE"},
-    {"field":"ship.nominal_main_body_diameter_m","value":9.0,"classification":"CANON","s1_use":"FIXED_REFERENCE"},
+    {"field":"ship.reference_length_m","value":57.0,"classification":"CANON","precision":"APPROXIMATE","s1_use":"QUALIFICATION_FIXED_REFERENCE"},
+    {"field":"ship.nominal_main_body_diameter_m","value":9.0,"classification":"CANON","precision":"APPROXIMATE","s1_use":"REFERENCE_ONLY_NOT_COLLISION_AUTHORITY"},
     {"field":"pressure_hull.region_x_m","value":[0.0,14.0],"classification":"DESIGN_BASELINE","s1_use":"FIXED"},
     {"field":"pressure_hull.trial_diameter_m","value":8.6,"classification":"DESIGN_BASELINE","s1_use":"FIXED"},
     {"field":"tank.region_x_m","value":[18.0,32.0],"classification":"DESIGN_BASELINE","s1_use":"ADMITTED_REGION"},
-    {"field":"tank.count","value":4,"classification":"DESIGN_BASELINE","s1_use":"FIXED_TOPOLOGY"},
-    {"field":"tank.topology","value":"QUADRATURE","classification":"DESIGN_BASELINE","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"tank.count","value":4,"classification":"CANON","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"tank.topology","value":"QUADRATURE","classification":"CANON","s1_use":"FIXED_TOPOLOGY"},
     {"field":"tank.external_diameter_m","value":3.0,"classification":"DESIGN_BASELINE","s1_use":"ADMITTED_EQUIVALENT_BODY"},
     {"field":"tank.center_radius_m","value":2.7,"classification":"DESIGN_BASELINE","s1_use":"FIXED_TOPOLOGY"},
-    {"field":"longeron.count","value":4,"classification":"DESIGN_BASELINE","s1_use":"FIXED_TOPOLOGY"},
-    {"field":"launch.bay_reservation_x_m","value":[16.0,28.0],"classification":"DESIGN_BASELINE","s1_use":"ADMITTED_REGION_APPROX"},
-    {"field":"launch.side","value":"+Z","classification":"CANON","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"longeron.count","value":4,"classification":"CANON","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"launch.bay_reservation_x_m","value":[16.0,28.0],"classification":"DESIGN_BASELINE","precision":"APPROXIMATE","s1_use":"ADMITTED_REGION_APPROX"},
+    {"field":"launch.side","value":"+Z","classification":"QUALIFICATION_ONLY","s1_use":"FIXED_TOPOLOGY"},
     {"field":"launch.working_envelope_m","value":[10.5,3.9,3.1],"classification":"DESIGN_BASELINE","s1_use":"ADMITTED_EQUIVALENT_BODY"},
-    {"field":"docking.side","value":"-Z","classification":"DESIGN_BASELINE","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"docking.side","value":"-Z","classification":"QUALIFICATION_ONLY","s1_use":"FIXED_TOPOLOGY"},
     {"field":"docking.geometry","value":null,"classification":"OPEN","s1_use":"PROHIBITED_COLLISION_AUTHORITY"},
     {"field":"relational.region_x_m","value":[18.0,34.0],"classification":"DESIGN_BASELINE","s1_use":"ADMITTED_REGION"},
     {"field":"relational.equivalent_body","value":{"type":"CYLINDER_X","length_m":16.0,"diameter_m":1.4},"classification":"QUALIFICATION_ONLY","s1_use":"ADMITTED_EQUIVALENT_BODY"},
     {"field":"shadow_shield.region_x_m","value":[38.0,43.0],"classification":"DESIGN_BASELINE","s1_use":"FIXED"},
     {"field":"reactor_torch.region_x_m","value":[43.0,50.0],"classification":"DESIGN_BASELINE","s1_use":"FIXED"},
     {"field":"nozzle.region_x_m","value":[50.0,57.0],"classification":"DESIGN_BASELINE","s1_use":"FIXED"},
-    {"field":"radiator.count","value":4,"classification":"DESIGN_BASELINE","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"radiator.count","value":4,"classification":"CANON","s1_use":"FIXED_TOPOLOGY"},
     {"field":"radiator.panel_geometry","value":null,"classification":"OPEN","s1_use":"PROHIBITED_COLLISION_AUTHORITY"},
     {"field":"full_wayfarer_centroidal_inertia","value":null,"classification":"OPEN","s1_use":"UNRESOLVED_MODE_A"}
   ],
