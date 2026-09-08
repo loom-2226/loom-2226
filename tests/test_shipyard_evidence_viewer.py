@@ -32,6 +32,12 @@ class EvidenceViewerTests(unittest.TestCase):
         shipyard_phase6_remass_candidates.apply_phase6(db)
         return db
 
+    def test_android_safe_copy_matches_tool_viewer(self):
+        self.assertEqual(
+            (ROOT / "tools" / "shipyard_evidence_viewer.py").read_bytes(),
+            (ROOT / "src" / "shipyard_evidence_viewer.py").read_bytes(),
+        )
+
     def test_viewer_reads_phase6_without_mutation(self):
         db = self._db()
         before = db.read_bytes()
