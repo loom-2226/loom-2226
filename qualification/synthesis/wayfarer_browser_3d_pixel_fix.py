@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
+import hashlib
 
 from wayfarer_browser_3d import Browser3DPackage, build_run001_browser_3d
 
@@ -15,27 +16,13 @@ _NEW_GL = "const D=JSON.parse(document.getElementById('loom-data').textContent),
 _OLD_LINK = "gl.linkProgram(pr);gl.useProgram(pr);const ap=gl.getAttribLocation(pr,'p'),um=gl.getUniformLocation(pr,'mvp'),uc=gl.getUniformLocation(pr,'col');gl.enable(gl.DEPTH_TEST);"
 _NEW_LINK = "gl.linkProgram(pr);if(!gl.getProgramParameter(pr,gl.LINK_STATUS))throw Error('PROGRAM LINK FAIL: '+gl.getProgramInfoLog(pr));gl.useProgram(pr);const ap=gl.getAttribLocation(pr,'p'),um=gl.getUniformLocation(pr,'mvp'),uc=gl.getUniformLocation(pr,'col');if(ap<0||!um||!uc)throw Error('shader bindings unavailable');gl.enable(gl.DEPTH_TEST);"
 
-_OLD_RENDER = "function render(){resize();gl.viewport(0,0,c.width,c.height);gl.clearColor(.035,.045,.06,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.uniformMatrix4fv(um,false,camera());"
-_NEW_RENDER = "let firstFrame=true;function render(){resize();gl.viewport(0,0,c.width,c.height);gl.clearColor(.035,.045,.06,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.uniformMatrix4fv(um,false,camera());"
-
-_OLD_HUD = "document.getElementById('hud').textContent=(mode==='overlay'?'PARENT + CHILD':D[mode].candidate_id)+'\\nTouch/drag: orbit • pinch/wheel: zoom\\n'+D.authority_status+' • NON-CANON • NON-PRODUCTION';requestAnimationFrame(render)}"
-_NEW_HUD = "{let err=gl.getError(),label=(mode==='overlay'?'PARENT + CHILD':D[mode].candidate_id);hud.textContent=label+'\\nTouch/drag: orbit • pinch/wheel: zoom\\nWebGL '+gl.getParameter(gl.VERSION)+' • GLERR '+err+'\\n'+D.authority_status+' • NON-CANON • NON-PRODUCTION';if(firstFrame)firstFrame=false;}requestAnimationFrame(render)}"
-
 
 def patch_pixel_blank_render(package: Browser3DPackage) -> Browser3DPackage:
     html = package.html
-    replacements = (
-        (_BAD_MM, _GOOD_MM),
-        (_OLD_GL, _NEW_GL),
-        (_OLD_LINK, _NEW_LINK),
-        (_OLD_RENDER, _NEW_RENDER),
-        (_OLD_HUD, _NEW_HUD),
-    )
-    for old, new in replacements:
+    for old, new in ((_BAD_MM, _GOOD_MM), (_OLD_GL, _NEW_GL), (_OLD_LINK, _NEW_LINK)):
         if old not in html:
             raise ValueError(f"Pixel fix anchor missing: {old[:48]}")
         html = html.replace(old, new, 1)
-    import hashlib
     digest = hashlib.sha256(html.encode("utf-8")).hexdigest()
     return replace(package, version=PIXEL_FIX_VERSION, html=html, html_sha256=digest)
 
