@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import sys
 import unittest
+from dataclasses import asdict
 from pathlib import Path
 
 SYNTH = Path(__file__).resolve().parents[1] / "qualification" / "synthesis"
@@ -18,7 +19,7 @@ class WayfarerRealModelPacketExportTests(unittest.TestCase):
         prompt = designer_prompt(packet)
         self.assertEqual(packet.authority_status, "MODEL_INPUT_ONLY")
         self.assertEqual(len(packet.packet_hash), 64)
-        print("LOOM_REAL_MODEL_DESIGNER_PACKET_JSON=" + json.dumps(packet.__dict__, sort_keys=True, separators=(",", ":")))
+        print("LOOM_REAL_MODEL_DESIGNER_PACKET_JSON=" + json.dumps(asdict(packet), sort_keys=True, separators=(",", ":")))
         print("LOOM_REAL_MODEL_DESIGNER_PROMPT=" + prompt)
 
 
