@@ -1,0 +1,35 @@
+name: LOOM Shipyard Semantic 3D Builder Smoke
+
+on:
+  pull_request:
+    paths:
+      - 'tools/wayfarer_semantic_3d_smoke.py'
+      - 'qualification/synthesis/governed_ship_synthesis.py'
+      - 'qualification/synthesis/semantic_geometry.py'
+      - '.github/workflows/research_shipyard_3d_builder_smoke.yml'
+  workflow_dispatch:
+
+jobs:
+  semantic-3d-builder-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile builder and source modules
+        run: |
+          python -m py_compile tools/wayfarer_semantic_3d_smoke.py qualification/synthesis/governed_ship_synthesis.py qualification/synthesis/semantic_geometry.py
+      - name: Generate standalone Wayfarer semantic 3D viewer
+        run: |
+          mkdir -p out/wayfarer-semantic-3d-smoke
+          python tools/wayfarer_semantic_3d_smoke.py out/wayfarer-semantic-3d-smoke/wayfarer_semantic_3d_smoke.html
+          test -s out/wayfarer-semantic-3d-smoke/wayfarer_semantic_3d_smoke.html
+          grep -q 'DERIVED_SEMANTIC_3D_SMOKE_EVIDENCE_ONLY' out/wayfarer-semantic-3d-smoke/wayfarer_semantic_3d_smoke.html
+          grep -q 'ADMITTED_SPATIAL_ENVELOPE' out/wayfarer-semantic-3d-smoke/wayfarer_semantic_3d_smoke.html
+          grep -q 'STRUCTURAL_HYPOTHESIS' out/wayfarer-semantic-3d-smoke/wayfarer_semantic_3d_smoke.html
+      - name: Upload standalone viewer
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-semantic-3d-smoke
+          path: out/wayfarer-semantic-3d-smoke/
