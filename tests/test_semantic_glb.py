@@ -67,6 +67,16 @@ class SemanticGLBTests(unittest.TestCase):
             self.assertEqual(extras["engineering_status"], sem.engineering_status)
             self.assertEqual(extras["authority_status"], sem.authority_status)
 
+    def test_wayfarer_indices_use_webgl1_safe_unsigned_short(self):
+        glb, _ = build_semantic_glb(self.source, self.semantic)
+        doc, _ = parse_glb(glb)
+        index_accessors = []
+        for mesh in doc["meshes"]:
+            for primitive in mesh["primitives"]:
+                index_accessors.append(doc["accessors"][primitive["indices"]])
+        self.assertTrue(index_accessors)
+        self.assertTrue(all(row["componentType"] == 5123 for row in index_accessors))
+
     def test_glb_asset_binds_to_governed_and_semantic_hashes(self):
         glb, _ = build_semantic_glb(self.source, self.semantic)
         doc, _ = parse_glb(glb)
