@@ -5,11 +5,14 @@ on:
     paths:
       - 'src/shipyard_glb_viewer.py'
       - 'src/shipyard_visual_artifact_store.py'
+      - 'src/shipyard_visual_library.py'
       - 'deploy/android/LOOM_Shipyard_GLB_Viewer.py'
+      - 'deploy/android/LOOM_Shipyard_GLB_Library.py'
       - 'qualification/synthesis/semantic_glb.py'
       - 'src/qualification/synthesis/semantic_glb.py'
       - 'tests/test_shipyard_glb_viewer.py'
       - 'tests/test_shipyard_visual_artifact_store.py'
+      - 'tests/test_shipyard_visual_library.py'
       - '.github/workflows/research_shipyard_glb_native_viewer.yml'
   workflow_dispatch:
 
@@ -23,16 +26,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Compile GLB viewer path
+      - name: Compile GLB viewer and library path
         run: |
           python -m py_compile \
             src/shipyard_glb_viewer.py \
             src/shipyard_visual_artifact_store.py \
+            src/shipyard_visual_library.py \
             deploy/android/LOOM_Shipyard_GLB_Viewer.py \
+            deploy/android/LOOM_Shipyard_GLB_Library.py \
             qualification/synthesis/semantic_glb.py \
             src/qualification/synthesis/semantic_glb.py
-      - name: Run GLB and SQLite artifact regression
-        run: python -m unittest tests.test_shipyard_glb_viewer tests.test_shipyard_visual_artifact_store -v
+      - name: Run GLB and SQLite artifact/library regression
+        run: python -m unittest tests.test_shipyard_glb_viewer tests.test_shipyard_visual_artifact_store tests.test_shipyard_visual_library -v
       - name: Generate governed GLB, store in ledger, read back and inspect through Pixel launcher
         run: |
           DB="$(mktemp --suffix=.sqlite3)"
@@ -52,6 +57,25 @@ jobs:
           assert row is not None and row[1] > 0
           assert row[2] == 'DERIVED_VISUAL_ARTIFACT_STORAGE_ONLY'
           print('SQLITE GLB BLOB:', row)
+          PY
+      - name: Populate and list SQLite GLB visual library
+        run: |
+          DB="$(mktemp --suffix=.sqlite3)"
+          rm -f "$DB"
+          python - <<PY
+          from design_ledger import DesignLedger
+          with DesignLedger("$DB"):
+              pass
+          PY
+          python deploy/android/LOOM_Shipyard_GLB_Library.py --db "$DB" --list | tee /tmp/glb-library.txt
+          grep -q 'Wayfarer — Governed Semantic' /tmp/glb-library.txt
+          grep -q 'GOVERNED_SEMANTIC' /tmp/glb-library.txt
+          python - <<PY
+          import sqlite3
+          con=sqlite3.connect("$DB")
+          row=con.execute('SELECT display_name,artifact_class,length(payload) FROM visual_library_asset').fetchone()
+          assert row is not None and row[1] == 'GOVERNED_SEMANTIC' and row[2] > 0
+          print('GLB LIBRARY:', row)
           PY
       - name: Validate embedded viewer JavaScript syntax
         run: |
