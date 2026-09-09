@@ -26,8 +26,8 @@ class HudServerTests(unittest.TestCase):
         self.assertIn("@media (orientation:portrait)", text)
         self.assertIn("@media (orientation:landscape)", text)
         self.assertIn("orientationchange", text)
-        self.assertIn("ResizeObserver", text)
-        self.assertIn("STATE", text)
+        self.assertIn("window.addEventListener('resize'", text)
+        self.assertIn("dataset.orientation", text)
 
     def test_demo_page_keeps_mock_authority_visible(self):
         page = server.validate_assets()
@@ -41,9 +41,16 @@ class HudServerTests(unittest.TestCase):
         page = server.validate_assets()
         text = page.read_text(encoding="utf-8")
         self.assertIn("drag to look", text)
-        self.assertIn("RESET = ship-forward camera", text)
+        self.assertIn('id="reset"', text)
+        self.assertIn(".camera-readout{display:none}", text)
         self.assertNotIn('id="up"', text)
         self.assertNotIn('id="down"', text)
+
+    def test_demo_page_uses_larger_scene_symbology(self):
+        page = server.validate_assets()
+        text = page.read_text(encoding="utf-8")
+        self.assertIn("width:78,height:60", text)
+        self.assertIn("r:28,class:'station'", text)
 
 
 if __name__ == "__main__":
