@@ -1,0 +1,24 @@
+name: LOOM Shipyard Semantic Geometry R1
+
+on:
+  pull_request:
+    paths:
+      - 'qualification/synthesis/semantic_geometry.py'
+      - 'qualification/synthesis/governed_ship_synthesis.py'
+      - 'tests/test_wayfarer_semantic_geometry.py'
+      - 'tests/test_wayfarer_governed_ship_synthesis.py'
+      - '.github/workflows/research_shipyard_semantic_geometry_r1.yml'
+  workflow_dispatch:
+
+jobs:
+  semantic-geometry-r1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile R1 synthesis modules
+        run: python -m compileall -q qualification/synthesis/semantic_geometry.py qualification/synthesis/governed_ship_synthesis.py
+      - name: Run R1 semantic geometry tests
+        run: python -m unittest -v tests.test_wayfarer_semantic_geometry tests.test_wayfarer_governed_ship_synthesis
