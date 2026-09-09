@@ -1,0 +1,44 @@
+name: LOOM Shipyard GLB Native Viewer
+
+on:
+  pull_request:
+    paths:
+      - 'src/shipyard_glb_viewer.py'
+      - 'deploy/android/LOOM_Shipyard_GLB_Viewer.py'
+      - 'qualification/synthesis/semantic_glb.py'
+      - 'src/qualification/synthesis/semantic_glb.py'
+      - 'tests/test_shipyard_glb_viewer.py'
+      - '.github/workflows/research_shipyard_glb_native_viewer.yml'
+  workflow_dispatch:
+
+jobs:
+  glb-native-viewer:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}/qualification/synthesis
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile GLB viewer path
+        run: |
+          python -m py_compile \
+            src/shipyard_glb_viewer.py \
+            deploy/android/LOOM_Shipyard_GLB_Viewer.py \
+            qualification/synthesis/semantic_glb.py \
+            src/qualification/synthesis/semantic_glb.py
+      - name: Run GLB viewer regression
+        run: python -m unittest tests.test_shipyard_glb_viewer -v
+      - name: Generate governed GLB and inspect through Pixel launcher
+        run: python deploy/android/LOOM_Shipyard_GLB_Viewer.py --status
+      - name: Validate embedded viewer JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from shipyard_glb_viewer import viewer_html
+          html = viewer_html()
+          script = html.split('<script>',1)[1].split('</script>',1)[0]
+          Path('/tmp/loom_glb_viewer.js').write_text(script, encoding='utf-8')
+          PY
+          node --check /tmp/loom_glb_viewer.js
