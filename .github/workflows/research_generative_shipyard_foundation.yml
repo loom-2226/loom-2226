@@ -4,7 +4,11 @@ on:
   pull_request:
     paths:
       - 'src/qualification/synthesis/generative_shipyard_foundation.py'
+      - 'src/qualification/synthesis/generative_candidate_compiler.py'
+      - 'src/qualification/synthesis/physical_design_core.py'
+      - 'qualification/synthesis/physical_design_core.py'
       - 'tests/test_generative_shipyard_foundation.py'
+      - 'tests/test_generative_candidate_compiler.py'
       - '.github/workflows/research_generative_shipyard_foundation.yml'
   workflow_dispatch:
 
@@ -18,10 +22,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Compile foundation
-        run: python -m py_compile src/qualification/synthesis/generative_shipyard_foundation.py
-      - name: Run foundation regression
-        run: python -m unittest tests.test_generative_shipyard_foundation -v
+      - name: Compile foundation and candidate compiler
+        run: |
+          python -m py_compile \
+            src/qualification/synthesis/generative_shipyard_foundation.py \
+            src/qualification/synthesis/generative_candidate_compiler.py
+      - name: Run foundation and candidate compiler regression
+        run: python -m unittest tests.test_generative_shipyard_foundation tests.test_generative_candidate_compiler -v
       - name: Execute first bounded Wayfarer candidate family
         run: |
           python src/qualification/synthesis/generative_shipyard_foundation.py > /tmp/wayfarer-generative-v01.json
@@ -41,4 +48,19 @@ jobs:
           assert p['adequacy']['adequate_for_selection'] is False
           print('WAYFARER GENERATIVE FAMILY:', len(legal), 'survived,', len(rejected), 'rejected,', len(p['pareto_frontier']), 'Pareto')
           print('EXPERIMENT HASH:', p['experiment_hash'])
+          PY
+      - name: Compile surviving candidates to distinct governed semantic GLBs
+        run: |
+          python src/qualification/synthesis/generative_candidate_compiler.py > /tmp/wayfarer-compiled-family.json
+          python - <<'PY'
+          import json
+          p=json.load(open('/tmp/wayfarer-compiled-family.json'))
+          assert p['candidate_count'] >= 2
+          assert p['distinct_glb_count'] >= 2
+          assert p['distinct_governed_package_count'] >= 2
+          assert p['flight_dynamics_authority'] is False
+          assert p['canon_changed'] is False
+          assert p['production_shipclasses_changed'] is False
+          print('COMPILED SURVIVORS:', p['candidate_count'])
+          print('DISTINCT GLBS:', p['distinct_glb_count'])
           PY
