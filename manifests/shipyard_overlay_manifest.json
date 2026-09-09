@@ -2,7 +2,7 @@
   "product": "LOOM 2226 Computational Shipyard",
   "format": "LOOM_RELEASE_MANIFEST_V2",
   "release_state": "staging",
-  "release_id": "shipyard-semantic-3d-builder-smoke-v0.4-2026-09-09",
+  "release_id": "shipyard-semantic-3d-builder-smoke-v0.5-2026-09-09",
   "source_ref": "research/computational-shipyard-3d-builder-smoke-v0.1-2026-09-09",
   "authority": {
     "scope": "SHIPYARD_RESEARCH_OVERLAY_ONLY",
@@ -21,28 +21,6 @@
     {"path":"src/shipyard_phase8_water_closure.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"383cda65a9d772a72b44d09876c0b56e651ffe3d"},
     {"path":"src/shipyard_phase9_remass_architecture.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"900072839cb3870b2de81f773b23b69b95e33544"},
     {"path":"src/shipyard_phase10_remass_feed.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5c15a45d72f8f5c2d0f99602cb171d93104968c9"},
-    {"path":"src/shipyard_phase11_remass_feed_bounds.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5d81e5641c467ae64e02f1ed0e060680850777e7"},
-    {"path":"src/shipyard_evidence_viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"041c2bf92efcfddd351fa10dd8ddf227a35d2f9a"},
-    {"path":"deploy/android/loom_update_shipyard.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"8a5cc6c17bca003f41165d5796101a3092e83e02"},
-    {"path":"deploy/android/LOOM_Shipyard_3D_Test.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"8644b0c8c48733eaa80d664c0401ce8c8974092d"},
-    {"path":"src/tools/wayfarer_semantic_3d_smoke.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"14ec0f4964321a700ccc9b6e3679e6f749b7151b"},
-    {"path":"src/tools/wayfarer_semantic_3d_smoke_android.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"36c1353fd240165c439e16912c5ff92e7cdd9999"},
-    {"path":"src/qualification/synthesis/governed_ship_synthesis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5fe83869f87b6deaf869f39bdf5a1ebafb95514c"},
-    {"path":"src/qualification/synthesis/semantic_geometry.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"52aad20285dc4d68ce8c45d81f1a8c40afc1caad"},
-    {"path":"src/qualification/synthesis/wayfarer_s1_solver.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"a55e52af93cbbfced593dca6ab7015adb56f8277"},
-    {"path":"src/qualification/synthesis/wayfarer_s1_adapter.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"0850b5244b544d79f5025e24864e14875e7b3e0a"},
-    {"path":"src/qualification/synthesis/physical_design_core.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"4873dfd19e1bf3260f314cdd068e7885ae64ee8d"},
-    {"path":"src/qualification/synthesis/physical_design_search.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"0af27f4805c3fc51b051911f37520a85ea99d0e4"},
-    {"path":"src/qualification/synthesis/WAYFARER_S0_AUTHORITY_MANIFEST_v0.1.json","install_group":"code","source":"repository","required":true,"git_blob_sha1":"936229f49833428dd40bc8e52da34bb80b178f73"},
-    {"path":"src/qualification/synthesis/WAYFARER_S1_TEST_DEFINITION_v0.1.md","install_group":"code","source":"repository","required":true,"git_blob_sha1":"747a5492d2330a52b15e8df023bfe096d644c463"}
-  ],
-  "preserve_local": ["/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"],
-  "notes": [
-    "Research overlay only; persistent Shipyard SQLite is never replaced by this package.",
-    "The Phase-12 evidence viewer remains installed unchanged.",
-    "Semantic 3D runtime research sources are mirrored under updater-safe src/ paths so the existing LOOM updater security policy remains unchanged.",
-    "The Android wrapper repairs accidental literal JavaScript newlines emitted by the research HTML builder before serving the generated viewer over loopback HTTP on port 2227.",
-    "The 3D artifact is derived research evidence only. It does not create canon, production, flight-dynamics, structural-qualification, or new engineering authority.",
-    "Opening generated HTML directly through Android content:// is not the supported test path; use the Python loopback launcher."
+    {"path":"src/shipyard_phase11_remass_feed_bounds.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5d81e5641c467ae62d2e20442fbd37a5bac06"}
   ]
 }
