@@ -54,7 +54,7 @@ This is a successful fail-closed result, not a spacecraft qualification failure.
 
 ## CI evidence
 
-Implementation head `babdbc9876d320c6f0228ba55ff3deb16f99db69`, documentation head `03ff664d534d055b5bac306bdfb19cce0f506484`, and final evidence head `f5ff71cfa507039e096b6af9b1af63f25f3fabb4` all retained passing dedicated R2A, inherited R2 and full Python regression workflows.
+Implementation head `babdbc9876d320c6f0228ba55ff3deb16f99db69`, documentation head `03ff664d534d055b5bac306bdfb19cce0f506484`, evidence head `f5ff71cfa507039e096b6af9b1af63f25f3fabb4`, and final branch head `800b688e3c2c55a626cf4620a856be65f55aaaae` all retained passing dedicated R2A, inherited R2 and full Python regression workflows.
 
 ## Authority
 
