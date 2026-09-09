@@ -2,7 +2,7 @@
   "product": "LOOM 2226 Computational Shipyard",
   "format": "LOOM_RELEASE_MANIFEST_V2",
   "release_state": "staging",
-  "release_id": "shipyard-integrated-glb-native-v0.1-2026-09-09",
+  "release_id": "shipyard-integrated-glb-native-v0.2-2026-09-09",
   "source_ref": "research/computational-shipyard-integrated-vehicle-pipeline-v0.1-2026-09-09",
   "authority": {"scope":"SHIPYARD_RESEARCH_OVERLAY_ONLY","campaign_policy":"preserve_local_never_install","canon_changed":false,"production_shipclasses_changed":false,"flight_dynamics_authority":false},
   "artifacts": [
@@ -25,7 +25,7 @@
     {"path":"src/tools/wayfarer_semantic_3d_smoke_android.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ddc3478593a2aff62e985b3e1692e1b02263bf4f"},
     {"path":"src/qualification/synthesis/governed_ship_synthesis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5fe83869f87b6deaf869f39bdf5a1ebafb95514c"},
     {"path":"src/qualification/synthesis/semantic_geometry.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"52aad20285dc4d68ce8c45d81f1a8c40afc1caad"},
-    {"path":"src/qualification/synthesis/semantic_glb.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"7c341e0f42750c218c839789c7ae55664ed38ec7"},
+    {"path":"src/qualification/synthesis/semantic_glb.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"dd94662879f5af08ad43254f90f32d0d4a791df5"},
     {"path":"src/qualification/synthesis/wayfarer_s1_solver.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"a55e52af93cbbfced593dca6ab7015adb56f8277"},
     {"path":"src/qualification/synthesis/wayfarer_s1_adapter.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"0850b5244b544d79f5025e24864e14875e7b3e0a"},
     {"path":"src/qualification/synthesis/physical_design_core.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"4873dfd19e1bf3260f314cdd068e7885ae64ee8d"},
@@ -37,6 +37,7 @@
   "notes": [
     "Research overlay only; persistent Shipyard SQLite is never replaced by this package.",
     "The GLB-native launcher generates the current governed semantic Wayfarer GLB by default and serves it as model/gltf-binary on Android loopback HTTP.",
+    "Current semantic GLBs use 16-bit index accessors when the mesh permits, avoiding WebGL1 UNSIGNED_INT rendering failure on Pixel while retaining 32-bit fallback for larger future meshes.",
     "Use --model PATH only for external visualization compatibility fixtures. External GLBs create no engineering authority.",
     "The legacy semantic 3D smoke launcher remains installed for regression comparison.",
     "No canon, production, flight-dynamics, or structural-qualification authority is created by this staging release."
