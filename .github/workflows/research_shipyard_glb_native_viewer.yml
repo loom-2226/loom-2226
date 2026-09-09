@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'src/shipyard_glb_viewer.py'
+      - 'src/shipyard_glb_viewer_compat.py'
       - 'src/shipyard_visual_artifact_store.py'
       - 'src/shipyard_visual_library.py'
       - 'deploy/android/LOOM_Shipyard_GLB_Viewer.py'
@@ -30,6 +31,7 @@ jobs:
         run: |
           python -m py_compile \
             src/shipyard_glb_viewer.py \
+            src/shipyard_glb_viewer_compat.py \
             src/shipyard_visual_artifact_store.py \
             src/shipyard_visual_library.py \
             deploy/android/LOOM_Shipyard_GLB_Viewer.py \
@@ -77,16 +79,19 @@ jobs:
           assert row[1] == 'GOVERNED_SEMANTIC' and row[2] > 0
           print('GLB LIBRARY:', row)
           PY
-      - name: Validate embedded viewer JavaScript syntax
+      - name: Validate compatibility viewer JavaScript syntax and uint32 path
         run: |
           python - <<'PY'
           from pathlib import Path
           import sys
           sys.path.insert(0, 'src')
           sys.path.insert(0, 'deploy/android')
-          from shipyard_glb_viewer import viewer_html
+          from shipyard_glb_viewer_compat import viewer_html
           from LOOM_Shipyard_GLB_Library import _library_html
-          for name, html in [('viewer', viewer_html()), ('library', _library_html())]:
+          compat = viewer_html()
+          assert 'OES_element_index_uint' in compat
+          assert "getContext('webgl2'" in compat
+          for name, html in [('viewer', compat), ('library', _library_html())]:
               scripts=[]
               rest=html
               while '<script>' in rest:
