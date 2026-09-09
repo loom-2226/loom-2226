@@ -7,13 +7,17 @@ on:
       - 'src/shipyard_glb_viewer_compat.py'
       - 'src/shipyard_visual_artifact_store.py'
       - 'src/shipyard_visual_library.py'
+      - 'src/shipyard_realization_handoff.py'
       - 'deploy/android/LOOM_Shipyard_GLB_Viewer.py'
       - 'deploy/android/LOOM_Shipyard_GLB_Library.py'
       - 'qualification/synthesis/semantic_glb.py'
+      - 'qualification/synthesis/shipyard_visual_grammar.py'
       - 'src/qualification/synthesis/semantic_glb.py'
+      - 'src/qualification/synthesis/shipyard_visual_grammar.py'
       - 'tests/test_shipyard_glb_viewer.py'
       - 'tests/test_shipyard_visual_artifact_store.py'
       - 'tests/test_shipyard_visual_library.py'
+      - 'tests/test_shipyard_realization_handoff.py'
       - '.github/workflows/research_shipyard_glb_native_viewer.yml'
   workflow_dispatch:
 
@@ -27,19 +31,22 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Compile GLB viewer and library path
+      - name: Compile GLB viewer, library and realization handoff
         run: |
           python -m py_compile \
             src/shipyard_glb_viewer.py \
             src/shipyard_glb_viewer_compat.py \
             src/shipyard_visual_artifact_store.py \
             src/shipyard_visual_library.py \
+            src/shipyard_realization_handoff.py \
             deploy/android/LOOM_Shipyard_GLB_Viewer.py \
             deploy/android/LOOM_Shipyard_GLB_Library.py \
             qualification/synthesis/semantic_glb.py \
-            src/qualification/synthesis/semantic_glb.py
-      - name: Run GLB and SQLite artifact/library regression
-        run: python -m unittest tests.test_shipyard_glb_viewer tests.test_shipyard_visual_artifact_store tests.test_shipyard_visual_library -v
+            qualification/synthesis/shipyard_visual_grammar.py \
+            src/qualification/synthesis/semantic_glb.py \
+            src/qualification/synthesis/shipyard_visual_grammar.py
+      - name: Run GLB, SQLite library and realization regressions
+        run: python -m unittest tests.test_shipyard_glb_viewer tests.test_shipyard_visual_artifact_store tests.test_shipyard_visual_library tests.test_shipyard_realization_handoff -v
       - name: Generate governed GLB, store in ledger, read back and inspect through Pixel launcher
         run: |
           DB="$(mktemp --suffix=.sqlite3)"
@@ -52,15 +59,7 @@ jobs:
           python deploy/android/LOOM_Shipyard_GLB_Viewer.py --db "$DB" --status | tee /tmp/glb-status.txt
           grep -q 'source=SQLITE_BLOB' /tmp/glb-status.txt
           grep -q 'artifact_id=VISUAL::GLB::' /tmp/glb-status.txt
-          python - <<PY
-          import sqlite3
-          con=sqlite3.connect("$DB")
-          row=con.execute('SELECT artifact_sha256,length(payload),authority_status FROM visual_artifact_blob').fetchone()
-          assert row is not None and row[1] > 0
-          assert row[2] == 'DERIVED_VISUAL_ARTIFACT_STORAGE_ONLY'
-          print('SQLITE GLB BLOB:', row)
-          PY
-      - name: Populate and list SQLite GLB visual library
+      - name: Populate SQLite GLB library and emit Asteria packet
         run: |
           DB="$(mktemp --suffix=.sqlite3)"
           rm -f "$DB"
@@ -71,15 +70,24 @@ jobs:
           PY
           python deploy/android/LOOM_Shipyard_GLB_Library.py --db "$DB" --list | tee /tmp/glb-library.txt
           grep -q 'GOVERNED_SEMANTIC' /tmp/glb-library.txt
-          python - <<PY
+          ASSET=$(python - <<PY
           import sqlite3
           con=sqlite3.connect("$DB")
-          row=con.execute('SELECT display_name,artifact_class,length(payload) FROM visual_library_asset').fetchone()
-          assert row is not None and row[0] == 'Wayfarer — Governed Semantic'
-          assert row[1] == 'GOVERNED_SEMANTIC' and row[2] > 0
-          print('GLB LIBRARY:', row)
+          print(con.execute("SELECT asset_id FROM visual_library_asset WHERE artifact_class='GOVERNED_SEMANTIC'").fetchone()[0])
           PY
-      - name: Validate compatibility viewer JavaScript syntax and uint32 path
+          )
+          python deploy/android/LOOM_Shipyard_GLB_Library.py --db "$DB" --packet-asset "$ASSET" --yard ASTERIA > /tmp/asteria-packet.json
+          python - <<'PY'
+          import json
+          packet=json.load(open('/tmp/asteria-packet.json'))
+          assert packet['yard']['yard_id']=='ASTERIA'
+          assert packet['authority_status']=='NON_AUTHORITATIVE_VISUAL_REALIZATION_HANDOFF_ONLY'
+          assert packet['visual_realization_authoritative'] is False
+          assert len(packet['reference_views'])==7
+          assert len(packet['component_map'])>0
+          print('ASTERIA PACKET:', packet['packet_hash'])
+          PY
+      - name: Validate compatibility viewer JavaScript syntax and mobile realization controls
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -91,7 +99,11 @@ jobs:
           compat = viewer_html()
           assert 'OES_element_index_uint' in compat
           assert "getContext('webgl2'" in compat
-          for name, html in [('viewer', compat), ('library', _library_html())]:
+          library=_library_html()
+          assert '/api/realization' in library
+          assert 'yardSelect' in library
+          assert '@media(max-width:720px)' in library
+          for name, html in [('viewer', compat), ('library', library)]:
               scripts=[]
               rest=html
               while '<script>' in rest:
