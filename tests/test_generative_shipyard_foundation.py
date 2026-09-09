@@ -1,8 +1,14 @@
 from __future__ import annotations
 
+import sys
 import unittest
+from pathlib import Path
 
-from qualification.synthesis.generative_shipyard_foundation import (
+SYNTH = Path(__file__).resolve().parents[1] / "src" / "qualification" / "synthesis"
+if str(SYNTH) not in sys.path:
+    sys.path.insert(0, str(SYNTH))
+
+from generative_shipyard_foundation import (
     FOUNDATION_AUTHORITY,
     GenerativeShipyardError,
     ModelAdequacyContract,
