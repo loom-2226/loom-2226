@@ -4,11 +4,13 @@ on:
   pull_request:
     paths:
       - 'qualification/synthesis/deterministic_reference_renderer.py'
+      - 'qualification/synthesis/reference_render_pack_io.py'
       - 'qualification/synthesis/semantic_geometry.py'
       - 'qualification/synthesis/minimum_spatial_validation.py'
       - 'qualification/synthesis/spatial_rule_contract.py'
       - 'qualification/synthesis/spatial_validation_with_rules.py'
       - 'qualification/synthesis/governed_ship_synthesis.py'
+      - 'tools/wayfarer_reference_render_pack.py'
       - 'tests/test_wayfarer_deterministic_reference_renderer_r3.py'
       - '.github/workflows/research_shipyard_deterministic_reference_renderer_r3.yml'
   workflow_dispatch:
@@ -29,7 +31,18 @@ jobs:
             qualification/synthesis/minimum_spatial_validation.py \
             qualification/synthesis/spatial_rule_contract.py \
             qualification/synthesis/spatial_validation_with_rules.py \
-            qualification/synthesis/deterministic_reference_renderer.py
+            qualification/synthesis/deterministic_reference_renderer.py \
+            qualification/synthesis/reference_render_pack_io.py \
+            tools/wayfarer_reference_render_pack.py
       - name: Run R3 deterministic reference-renderer tests
         run: |
           python -m unittest -v tests.test_wayfarer_deterministic_reference_renderer_r3
+      - name: Generate Wayfarer R3 reference pack
+        run: |
+          python tools/wayfarer_reference_render_pack.py --output artifacts/wayfarer_reference_r3
+      - name: Upload Wayfarer R3 reference pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-reference-render-pack-r3
+          path: artifacts/wayfarer_reference_r3
+          if-no-files-found: error
