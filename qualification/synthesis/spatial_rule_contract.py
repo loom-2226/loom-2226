@@ -7,7 +7,11 @@ from dataclasses import asdict, dataclass
 from typing import Iterable, Tuple
 
 from governed_ship_synthesis import GovernedSynthesisPackage, validate_package
-from semantic_geometry import SemanticGeometryPackage, validate_semantic_geometry
+from semantic_geometry import (
+    SEMANTIC_CLASS_ADMITTED_ENVELOPE,
+    SemanticGeometryPackage,
+    validate_semantic_geometry,
+)
 
 SPATIAL_RULE_CONTRACT_VERSION = "LOOM_SPATIAL_RULE_CONTRACT_R2A_v0.1"
 SPATIAL_RULE_CONTRACT_AUTHORITY = "SPATIAL_RULE_CONTRACT_EVIDENCE_ONLY"
@@ -153,10 +157,8 @@ def validate_spatial_rule_contract(
         raise SpatialRuleContractError("semantic package hash mismatch")
 
     domains = [row.domain for row in package.domains]
-    if tuple(sorted(domains)) != tuple(sorted(REQUIRED_DOMAINS)):
+    if tuple(sorted(domains)) != tuple(sorted(REQUIRED_DOMAINS)) or len(domains) != len(set(domains)):
         raise SpatialRuleContractError("required spatial-rule domains must appear exactly once")
-    if len(domains) != len(set(domains)):
-        raise SpatialRuleContractError("duplicate spatial-rule domain")
 
     allowed_status = {DOMAIN_OPEN, DOMAIN_ADMITTED_COMPLETE}
     for row in package.domains:
@@ -168,7 +170,11 @@ def validate_spatial_rule_contract(
         if not row.provenance_refs:
             raise SpatialRuleContractError("domain provenance is required")
 
-    semantic_ids = {row.semantic_object_id for row in semantic.objects}
+    admitted_envelope_ids = {
+        row.semantic_object_id
+        for row in semantic.objects
+        if row.semantic_class == SEMANTIC_CLASS_ADMITTED_ENVELOPE
+    }
     rule_ids = []
 
     for row in package.pair_clearance_rules:
@@ -180,21 +186,20 @@ def validate_spatial_rule_contract(
         _nonempty(row.rule_id, "clearance rule_id")
         if row.semantic_object_a == row.semantic_object_b:
             raise SpatialRuleContractError("clearance rule may not target same semantic object twice")
-        if row.semantic_object_a not in semantic_ids or row.semantic_object_b not in semantic_ids:
-            raise SpatialRuleContractError("clearance rule references unknown semantic object")
+        if row.semantic_object_a not in admitted_envelope_ids or row.semantic_object_b not in admitted_envelope_ids:
+            raise SpatialRuleContractError("R2A clearance rule requires admitted-envelope semantic objects")
         _finite_positive(row.minimum_clearance_m, "minimum_clearance_m")
         _nonempty(row.rationale, "clearance rationale")
         if not row.provenance_refs:
             raise SpatialRuleContractError("clearance provenance is required")
 
+    exclusion_domains = {DOMAIN_DEPLOYMENT, DOMAIN_PLUME, DOMAIN_DOCKING, DOMAIN_SERVICE, DOMAIN_ROBOT, DOMAIN_LOOM}
     for row in package.exclusion_rules:
         rule_ids.append(row.rule_id)
         if row.authority_status != SPATIAL_RULE_CONTRACT_AUTHORITY:
             raise SpatialRuleContractError("exclusion rule authority escalation")
-        if row.rule_kind != RULE_AABB_EXCLUSION:
-            raise SpatialRuleContractError("invalid exclusion rule kind")
-        if row.domain not in {DOMAIN_DEPLOYMENT, DOMAIN_PLUME, DOMAIN_DOCKING, DOMAIN_SERVICE, DOMAIN_ROBOT, DOMAIN_LOOM}:
-            raise SpatialRuleContractError("invalid exclusion rule domain")
+        if row.rule_kind != RULE_AABB_EXCLUSION or row.domain not in exclusion_domains:
+            raise SpatialRuleContractError("invalid exclusion rule kind/domain")
         _nonempty(row.rule_id, "exclusion rule_id")
         _vec3(row.center_m, f"{row.rule_id}.center_m")
         dims = _vec3(row.dimensions_m, f"{row.rule_id}.dimensions_m")
@@ -202,8 +207,8 @@ def validate_spatial_rule_contract(
             raise SpatialRuleContractError("exclusion rule dimensions must be positive")
         if not row.prohibited_semantic_object_ids:
             raise SpatialRuleContractError("exclusion rule must name prohibited semantic objects")
-        if any(obj_id not in semantic_ids for obj_id in row.prohibited_semantic_object_ids):
-            raise SpatialRuleContractError("exclusion rule references unknown semantic object")
+        if any(obj_id not in admitted_envelope_ids for obj_id in row.prohibited_semantic_object_ids):
+            raise SpatialRuleContractError("R2A exclusion rule requires admitted-envelope semantic objects")
         if len(row.prohibited_semantic_object_ids) != len(set(row.prohibited_semantic_object_ids)):
             raise SpatialRuleContractError("duplicate prohibited semantic object")
         _nonempty(row.rationale, "exclusion rationale")
@@ -216,9 +221,14 @@ def validate_spatial_rule_contract(
     domain_status = {row.domain: row.status for row in package.domains}
     if domain_status[DOMAIN_CLEARANCE] == DOMAIN_OPEN and package.pair_clearance_rules:
         raise SpatialRuleContractError("OPEN clearance domain may not carry admitted clearance rules")
-    for domain in {DOMAIN_DEPLOYMENT, DOMAIN_PLUME, DOMAIN_DOCKING, DOMAIN_SERVICE, DOMAIN_ROBOT, DOMAIN_LOOM}:
-        if domain_status[domain] == DOMAIN_OPEN and any(row.domain == domain for row in package.exclusion_rules):
+    if domain_status[DOMAIN_CLEARANCE] == DOMAIN_ADMITTED_COMPLETE and not package.pair_clearance_rules:
+        raise SpatialRuleContractError("ADMITTED_COMPLETE clearance domain requires explicit governed rules")
+    for domain in exclusion_domains:
+        rows = tuple(row for row in package.exclusion_rules if row.domain == domain)
+        if domain_status[domain] == DOMAIN_OPEN and rows:
             raise SpatialRuleContractError(f"OPEN {domain} domain may not carry admitted rules")
+        if domain_status[domain] == DOMAIN_ADMITTED_COMPLETE and not rows:
+            raise SpatialRuleContractError(f"ADMITTED_COMPLETE {domain} domain requires explicit governed rules")
 
     if package.package_hash != _hash_without_hash(package):
         raise SpatialRuleContractError("spatial-rule contract package hash mismatch")
