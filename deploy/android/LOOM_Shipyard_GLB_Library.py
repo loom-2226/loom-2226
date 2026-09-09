@@ -10,7 +10,7 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-APP_VERSION = "LOOM_SHIPYARD_GLB_LIBRARY_PIXEL_v0.1"
+APP_VERSION = "LOOM_SHIPYARD_GLB_LIBRARY_PIXEL_v0.2"
 DEFAULT_PORT = 2227
 HERE = Path(__file__).resolve()
 APP_ROOT = HERE.parents[2]
@@ -20,7 +20,7 @@ for p in (SRC, SYN):
     if str(p) not in sys.path:
         sys.path.insert(0, str(p))
 
-from shipyard_glb_viewer import viewer_html
+from shipyard_glb_viewer_compat import viewer_html
 from shipyard_visual_library import add_glb_asset, import_glb_file, list_assets, load_asset
 
 
@@ -164,7 +164,7 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
     db_path = Path(args.db).expanduser().resolve() if args.db else default_db()
     try:
-        governed = ensure_governed_wayfarer(db_path)
+        ensure_governed_wayfarer(db_path)
         if args.import_glb:
             label = args.label or Path(args.import_glb).stem
             imported = import_glb_file(db_path, args.import_glb, display_name=label, ship_name=args.ship, artifact_class=args.artifact_class)
