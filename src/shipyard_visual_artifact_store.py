@@ -11,6 +11,7 @@ STORE_VERSION = "LOOM_SHIPYARD_VISUAL_ARTIFACT_STORE_v0.1"
 STORE_AUTHORITY = "DERIVED_VISUAL_ARTIFACT_STORAGE_ONLY"
 GLB_KIND = "ASSEMBLED_SEMANTIC_GLB"
 GLB_MIME = "model/gltf-binary"
+_REQUIRED_LEDGER_TABLES = frozenset({"ledger_meta", "design_state", "derived_artifact"})
 
 
 class VisualArtifactStoreError(ValueError):
@@ -48,7 +49,17 @@ def _text(value: object, label: str) -> str:
     return value.strip()
 
 
+def _require_design_ledger(connection: sqlite3.Connection) -> None:
+    tables = {row[0] for row in connection.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+    if not _REQUIRED_LEDGER_TABLES.issubset(tables):
+        raise VisualArtifactStoreError("refusing visual BLOB storage: target is not a LOOM Shipyard design ledger")
+    meta = connection.execute("SELECT value FROM ledger_meta WHERE key='ledger_version'").fetchone()
+    if meta is None or not isinstance(meta[0], str) or not meta[0].startswith("LOOM_DESIGN_LEDGER_"):
+        raise VisualArtifactStoreError("refusing visual BLOB storage: missing LOOM design-ledger identity")
+
+
 def ensure_schema(connection: sqlite3.Connection) -> None:
+    _require_design_ledger(connection)
     connection.executescript(
         """
         CREATE TABLE IF NOT EXISTS visual_artifact_blob(
@@ -132,6 +143,8 @@ def store_semantic_glb(db_path: str | Path, glb: bytes, manifest: dict[str, Any]
 
 def load_artifact(db_path: str | Path, artifact_id: str) -> StoredVisualArtifact:
     path = Path(db_path).expanduser().resolve()
+    if not path.is_file():
+        raise VisualArtifactStoreError(f"Shipyard design ledger not found: {path}")
     con = sqlite3.connect(str(path))
     con.row_factory = sqlite3.Row
     try:
