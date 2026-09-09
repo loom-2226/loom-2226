@@ -2,7 +2,7 @@
   "product": "LOOM 2226 Computational Shipyard",
   "format": "LOOM_RELEASE_MANIFEST_V2",
   "release_state": "staging",
-  "release_id": "shipyard-integrated-glb-library-v0.4-2026-09-09",
+  "release_id": "shipyard-integrated-glb-library-v0.5-2026-09-09",
   "source_ref": "research/computational-shipyard-integrated-vehicle-pipeline-v0.1-2026-09-09",
   "authority": {"scope":"SHIPYARD_RESEARCH_OVERLAY_ONLY","campaign_policy":"preserve_local_never_install","canon_changed":false,"production_shipclasses_changed":false,"flight_dynamics_authority":false},
   "artifacts": [
@@ -20,8 +20,9 @@
     {"path":"deploy/android/loom_update_shipyard.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"8a5cc6c17bca003f41165d5796101a3092e83e02"},
     {"path":"deploy/android/LOOM_Shipyard_3D_Test.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"eb404db55f5f317179a0b78b12dd54cf2169bb38"},
     {"path":"deploy/android/LOOM_Shipyard_GLB_Viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"c6820866fc967266e1e1d45ae4a8b368b9a21708"},
-    {"path":"deploy/android/LOOM_Shipyard_GLB_Library.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"589848cd90815e7c665b0d59d448234260ed71e5"},
+    {"path":"deploy/android/LOOM_Shipyard_GLB_Library.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"cc91bd56ae8e6fa7c2b4cf219a5be83f1a83e4e3"},
     {"path":"src/shipyard_glb_viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5cc7478d5dcc0d45d12680b4fec20602f8cfd339"},
+    {"path":"src/shipyard_glb_viewer_compat.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"bef61fe7c671ec61417cef7a3f51de07aa20071c"},
     {"path":"src/shipyard_visual_artifact_store.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"40871a27d6ef29ff0dd12a4d78920b50c89127dc"},
     {"path":"src/shipyard_visual_library.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"a01564557cc3876a0b349c088078fb261b51410c"},
     {"path":"src/tools/wayfarer_semantic_3d_smoke.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"14ec0f4964321a700ccc9b6e3679e6f749b7151b"},
@@ -39,10 +40,10 @@
   "preserve_local": ["/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"],
   "notes": [
     "Research overlay only; persistent Shipyard SQLite is never replaced by this package.",
-    "The GLB visual library stores complete GLB binaries as verified BLOBs in the Shipyard design-ledger SQLite and presents them through a selectable Pixel browser library.",
-    "Library classes distinguish GOVERNED_SEMANTIC, VISUAL_REFERENCE, and EXTERNAL_FIXTURE; visual references and fixtures create no engineering authority.",
-    "The current governed semantic Wayfarer is automatically registered in the library. External GLBs may be imported explicitly with --import-glb and remain non-authoritative.",
-    "Component-level GLB decomposition remains deferred until whole-GLB library, visual inspection, deterministic references, and yard-specific realization are accepted.",
-    "No canon, production, flight-dynamics, or structural-qualification authority is created by this staging release."
+    "The GLB visual library stores complete GLB BLOBs plus catalog metadata inside the existing Shipyard design-ledger SQLite.",
+    "GOVERNED_SEMANTIC, VISUAL_REFERENCE, and EXTERNAL_FIXTURE assets remain authority-distinct; visual-reference and fixture assets never gain engineering authority.",
+    "The Pixel library viewer prefers WebGL2 and explicitly enables OES_element_index_uint on WebGL1 so legacy visual-reference GLBs using UNSIGNED_INT index accessors can render without rewriting their stored bytes.",
+    "The current governed semantic Wayfarer remains generated from Design State and stored as a library member; imported Wayfarer visual-reference GLBs are preserved byte-for-byte as non-authoritative visual references.",
+    "Component-level GLB decomposition remains deferred until library, visualization, and image-realization acceptance are closed."
   ]
 }
