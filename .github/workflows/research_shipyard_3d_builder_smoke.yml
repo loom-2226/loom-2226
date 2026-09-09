@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'tools/wayfarer_semantic_3d_smoke.py'
+      - 'deploy/android/LOOM_Shipyard_3D_Test.py'
       - 'qualification/synthesis/governed_ship_synthesis.py'
       - 'qualification/synthesis/semantic_geometry.py'
       - '.github/workflows/research_shipyard_3d_builder_smoke.yml'
@@ -17,19 +18,31 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Compile builder and source modules
+      - name: Compile builder, Pixel bootstrap, and source modules
         run: |
-          python -m py_compile tools/wayfarer_semantic_3d_smoke.py qualification/synthesis/governed_ship_synthesis.py qualification/synthesis/semantic_geometry.py
+          python -m py_compile \
+            tools/wayfarer_semantic_3d_smoke.py \
+            deploy/android/LOOM_Shipyard_3D_Test.py \
+            qualification/synthesis/governed_ship_synthesis.py \
+            qualification/synthesis/semantic_geometry.py
       - name: Generate standalone Wayfarer semantic 3D viewer
         run: |
           mkdir -p out/wayfarer-semantic-3d-smoke
           python tools/wayfarer_semantic_3d_smoke.py out/wayfarer-semantic-3d-smoke/wayfarer_semantic_3d_smoke.html
+          cp deploy/android/LOOM_Shipyard_3D_Test.py out/wayfarer-semantic-3d-smoke/LOOM_Shipyard_3D_Test.py
           test -s out/wayfarer-semantic-3d-smoke/wayfarer_semantic_3d_smoke.html
+          test -s out/wayfarer-semantic-3d-smoke/LOOM_Shipyard_3D_Test.py
           grep -q 'DERIVED_SEMANTIC_3D_SMOKE_EVIDENCE_ONLY' out/wayfarer-semantic-3d-smoke/wayfarer_semantic_3d_smoke.html
           grep -q 'ADMITTED_SPATIAL_ENVELOPE' out/wayfarer-semantic-3d-smoke/wayfarer_semantic_3d_smoke.html
           grep -q 'STRUCTURAL_HYPOTHESIS' out/wayfarer-semantic-3d-smoke/wayfarer_semantic_3d_smoke.html
-      - name: Upload standalone viewer
+          grep -q '127.0.0.1' out/wayfarer-semantic-3d-smoke/LOOM_Shipyard_3D_Test.py
+      - name: Pixel bootstrap discovery smoke test
+        run: |
+          tmpdir="$(mktemp -d)"
+          cp out/wayfarer-semantic-3d-smoke/wayfarer_semantic_3d_smoke.html "$tmpdir/"
+          LOOM_SHIPYARD_DOWNLOADS="$tmpdir" python deploy/android/LOOM_Shipyard_3D_Test.py --status
+      - name: Upload Pixel-ready semantic 3D test package
         uses: actions/upload-artifact@v4
         with:
-          name: wayfarer-semantic-3d-smoke
+          name: wayfarer-semantic-3d-smoke-pixel
           path: out/wayfarer-semantic-3d-smoke/
