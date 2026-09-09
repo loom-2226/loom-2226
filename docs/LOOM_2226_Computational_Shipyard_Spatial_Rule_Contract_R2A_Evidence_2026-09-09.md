@@ -54,13 +54,7 @@ This is a successful fail-closed result, not a spacecraft qualification failure.
 
 ## CI evidence
 
-Initial implementation head `babdbc9876d320c6f0228ba55ff3deb16f99db69` passed:
-
-- `LOOM Shipyard Spatial Rule Contract R2A`;
-- inherited `LOOM Shipyard Minimum Spatial Validation R2`;
-- full `LOOM Python Regression`.
-
-Documentation head `03ff664d534d055b5bac306bdfb19cce0f506484` also passed all three workflows. The full repository unit-regression suite completed successfully after the dedicated R2A and inherited R2 workflows had already passed.
+Implementation head `babdbc9876d320c6f0228ba55ff3deb16f99db69`, documentation head `03ff664d534d055b5bac306bdfb19cce0f506484`, and final evidence head `f5ff71cfa507039e096b6af9b1af63f25f3fabb4` all retained passing dedicated R2A, inherited R2 and full Python regression workflows.
 
 ## Authority
 
