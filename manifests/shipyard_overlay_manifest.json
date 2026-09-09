@@ -2,7 +2,7 @@
   "product": "LOOM 2226 Computational Shipyard",
   "format": "LOOM_RELEASE_MANIFEST_V2",
   "release_state": "staging",
-  "release_id": "shipyard-integrated-visual-workspace-v0.7-2026-09-09",
+  "release_id": "shipyard-generative-campaign-v0.8-2026-09-10",
   "source_ref": "research/computational-shipyard-integrated-vehicle-pipeline-v0.1-2026-09-09",
   "authority": {"scope":"SHIPYARD_RESEARCH_OVERLAY_ONLY","campaign_policy":"preserve_local_never_install","canon_changed":false,"production_shipclasses_changed":false,"flight_dynamics_authority":false},
   "artifacts": [
@@ -22,6 +22,7 @@
     {"path":"deploy/android/LOOM_Shipyard_GLB_Viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"c6820866fc967266e1e1d45ae4a8b368b9a21708"},
     {"path":"deploy/android/LOOM_Shipyard_GLB_Library.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"82db0918ff2d4cbb0caaf18e28403f7aad1add49"},
     {"path":"deploy/android/LOOM_Shipyard_Visual_Workspace.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"93b1c4d0152eb80b88076c17d0f1a0cb375aa760"},
+    {"path":"deploy/android/LOOM_Shipyard_Build_Campaign.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"30879e95f2b9ce0536d586241a72cc1bc4b7c1b3"},
     {"path":"src/shipyard_glb_viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5cc7478d5dcc0d45d12680b4fec20602f8cfd339"},
     {"path":"src/shipyard_glb_viewer_compat.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"bef61fe7c671ec61417cef7a3f51de07aa20071c"},
     {"path":"src/shipyard_visual_artifact_store.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"40871a27d6ef29ff0dd12a4d78920b50c89127dc"},
@@ -34,6 +35,11 @@
     {"path":"src/qualification/synthesis/semantic_geometry.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"52aad20285dc4d68ce8c45d81f1a8c40afc1caad"},
     {"path":"src/qualification/synthesis/semantic_glb.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"dd94662879f5af08ad43254f90f32d0d4a791df5"},
     {"path":"src/qualification/synthesis/shipyard_visual_grammar.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5c6fc5479f10e8fe374dac6eec55573095075a5d"},
+    {"path":"src/qualification/synthesis/generative_shipyard_foundation.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"3a69b5b5c588a0ad20f643fe5caa2dae0211a17d"},
+    {"path":"src/qualification/synthesis/generative_candidate_compiler.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"a6c1e6288ddd57620e4de3207fad12cbcd0445e1"},
+    {"path":"src/qualification/synthesis/vehicle_dynamics_contract.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"d52353050726315d6afc41afb03fa6ebbebc2b0f"},
+    {"path":"src/qualification/synthesis/shipyard_candidate_archive.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"7af481173c25c3f150091d27893dbbf8b76d72cb"},
+    {"path":"src/qualification/synthesis/generative_shipyard_campaign.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"78f1518d97a2230be6d38e2fcd046be3cb62a71e"},
     {"path":"src/qualification/synthesis/wayfarer_s1_solver.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"a55e52af93cbbfced593dca6ab7015adb56f8277"},
     {"path":"src/qualification/synthesis/wayfarer_s1_adapter.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"0850b5244b544d79f5025e24864e14875e7b3e0a"},
     {"path":"src/qualification/synthesis/physical_design_core.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"4873dfd19e1bf3260f314cdd068e7885ae64ee8d"},
@@ -44,11 +50,11 @@
   "preserve_local": ["/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"],
   "notes": [
     "Research overlay only; persistent Shipyard SQLite is never replaced by this package.",
-    "GLB assets and generated/imported visual realizations are stored in the existing Shipyard design-ledger SQLite as BLOBs with separate authority classes.",
-    "The visual workspace binds every imported realization image to the exact source GLB SHA-256, yard ID, and deterministic realization packet hash.",
-    "Realization images are NON_AUTHORITATIVE_VISUAL_REALIZATION_ONLY and may never back-propagate engineering claims.",
-    "The Pixel workspace keeps the GLB inspector, yard selection, packet access, realization gallery, and local image ingestion in one responsive display.",
-    "The current runtime does not pretend to contain an OpenAI image-generation provider; provider automation can be added later without changing the SQLite provenance contract.",
-    "Component-level GLB decomposition remains deferred until visualization acceptance is closed."
+    "Visualization is functionally frozen as a consumer: GLB library/workspace remains available but is no longer the primary development lane.",
+    "The first bounded generative campaign evaluates 10 Wayfarer configuration probes under the declared S1 adequacy contract, retains 6 survivors, rejects 4 for traceable admitted constraints, and retains a 4-member Pareto frontier.",
+    "Every surviving candidate compiles through governed synthesis -> semantic geometry -> semantic GLB and is registered as a separate GOVERNED_SEMANTIC asset in the same Shipyard SQLite.",
+    "Candidate lineage, choices, objectives, rejections, Pareto membership, GLB hashes, and Vehicle Dynamics Contract hashes are persisted in additive campaign tables.",
+    "Current admitted architecture variation changes packaging and semantic geometry but does not yet change ordinary translational Torch mission behavior because wet mass, remass, and Torch operating cards remain fixed.",
+    "No candidate or campaign claims flight-dynamics authority, canon mutation, production shipclass mutation, or structural qualification."
   ]
 }
