@@ -4,13 +4,7 @@
   "release_state": "staging",
   "release_id": "shipyard-integrated-glb-native-v0.1-2026-09-09",
   "source_ref": "research/computational-shipyard-integrated-vehicle-pipeline-v0.1-2026-09-09",
-  "authority": {
-    "scope": "SHIPYARD_RESEARCH_OVERLAY_ONLY",
-    "campaign_policy": "preserve_local_never_install",
-    "canon_changed": false,
-    "production_shipclasses_changed": false,
-    "flight_dynamics_authority": false
-  },
+  "authority": {"scope":"SHIPYARD_RESEARCH_OVERLAY_ONLY","campaign_policy":"preserve_local_never_install","canon_changed":false,"production_shipclasses_changed":false,"flight_dynamics_authority":false},
   "artifacts": [
     {"path":"deploy/loom_update.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"f6ec3c377c27befddef193fd72186453f8986646"},
     {"path":"src/shipyard_migrate.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"897d2b7961ef5a6f38960fe5bb203dfca38b2a0d"},
@@ -42,9 +36,9 @@
   "preserve_local": ["/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"],
   "notes": [
     "Research overlay only; persistent Shipyard SQLite is never replaced by this package.",
-    "The legacy semantic 3D smoke launcher remains available for regression comparison.",
-    "The GLB-native launcher generates the current governed semantic Wayfarer GLB by default and serves the GLB as a separate model/gltf-binary resource over Android loopback HTTP.",
-    "An external GLB may be supplied with --model for visualization compatibility testing; doing so creates no engineering authority.",
-    "The GLB viewer is offline and dependency-free and does not create canon, production, flight-dynamics, structural-qualification, or new engineering authority."
+    "The GLB-native launcher generates the current governed semantic Wayfarer GLB by default and serves it as model/gltf-binary on Android loopback HTTP.",
+    "Use --model PATH only for external visualization compatibility fixtures. External GLBs create no engineering authority.",
+    "The legacy semantic 3D smoke launcher remains installed for regression comparison.",
+    "No canon, production, flight-dynamics, or structural-qualification authority is created by this staging release."
   ]
 }
