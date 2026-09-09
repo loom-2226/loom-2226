@@ -68,22 +68,32 @@ jobs:
               pass
           PY
           python deploy/android/LOOM_Shipyard_GLB_Library.py --db "$DB" --list | tee /tmp/glb-library.txt
-          grep -q 'Wayfarer — Governed Semantic' /tmp/glb-library.txt
           grep -q 'GOVERNED_SEMANTIC' /tmp/glb-library.txt
           python - <<PY
           import sqlite3
           con=sqlite3.connect("$DB")
           row=con.execute('SELECT display_name,artifact_class,length(payload) FROM visual_library_asset').fetchone()
-          assert row is not None and row[1] == 'GOVERNED_SEMANTIC' and row[2] > 0
+          assert row is not None and row[0] == 'Wayfarer — Governed Semantic'
+          assert row[1] == 'GOVERNED_SEMANTIC' and row[2] > 0
           print('GLB LIBRARY:', row)
           PY
       - name: Validate embedded viewer JavaScript syntax
         run: |
           python - <<'PY'
           from pathlib import Path
+          import sys
+          sys.path.insert(0, 'src')
+          sys.path.insert(0, 'deploy/android')
           from shipyard_glb_viewer import viewer_html
-          html = viewer_html()
-          script = html.split('<script>',1)[1].split('</script>',1)[0]
-          Path('/tmp/loom_glb_viewer.js').write_text(script, encoding='utf-8')
+          from LOOM_Shipyard_GLB_Library import _library_html
+          for name, html in [('viewer', viewer_html()), ('library', _library_html())]:
+              scripts=[]
+              rest=html
+              while '<script>' in rest:
+                  rest=rest.split('<script>',1)[1]
+                  script, rest=rest.split('</script>',1)
+                  scripts.append(script)
+              Path(f'/tmp/loom_glb_{name}.js').write_text('\n'.join(scripts), encoding='utf-8')
           PY
           node --check /tmp/loom_glb_viewer.js
+          node --check /tmp/loom_glb_library.js
