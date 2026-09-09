@@ -2,8 +2,8 @@
   "product": "LOOM 2226 Computational Shipyard",
   "format": "LOOM_RELEASE_MANIFEST_V2",
   "release_state": "staging",
-  "release_id": "shipyard-semantic-3d-builder-smoke-v0.6-2026-09-09",
-  "source_ref": "research/computational-shipyard-3d-builder-smoke-v0.1-2026-09-09",
+  "release_id": "shipyard-integrated-glb-native-v0.1-2026-09-09",
+  "source_ref": "research/computational-shipyard-integrated-vehicle-pipeline-v0.1-2026-09-09",
   "authority": {
     "scope": "SHIPYARD_RESEARCH_OVERLAY_ONLY",
     "campaign_policy": "preserve_local_never_install",
@@ -25,10 +25,13 @@
     {"path":"src/shipyard_evidence_viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"041c2bf92efcfddd351fa10dd8ddf227a35d2f9a"},
     {"path":"deploy/android/loom_update_shipyard.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"8a5cc6c17bca003f41165d5796101a3092e83e02"},
     {"path":"deploy/android/LOOM_Shipyard_3D_Test.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"eb404db55f5f317179a0b78b12dd54cf2169bb38"},
+    {"path":"deploy/android/LOOM_Shipyard_GLB_Viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"395b012c08d7f356bf22d171112de5681f49fecf"},
+    {"path":"src/shipyard_glb_viewer.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5cc7478d5dcc0d45d12680b4fec20602f8cfd339"},
     {"path":"src/tools/wayfarer_semantic_3d_smoke.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"14ec0f4964321a700ccc9b6e3679e6f749b7151b"},
     {"path":"src/tools/wayfarer_semantic_3d_smoke_android.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"ddc3478593a2aff62e985b3e1692e1b02263bf4f"},
     {"path":"src/qualification/synthesis/governed_ship_synthesis.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"5fe83869f87b6deaf869f39bdf5a1ebafb95514c"},
     {"path":"src/qualification/synthesis/semantic_geometry.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"52aad20285dc4d68ce8c45d81f1a8c40afc1caad"},
+    {"path":"src/qualification/synthesis/semantic_glb.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"7c341e0f42750c218c839789c7ae55664ed38ec7"},
     {"path":"src/qualification/synthesis/wayfarer_s1_solver.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"a55e52af93cbbfced593dca6ab7015adb56f8277"},
     {"path":"src/qualification/synthesis/wayfarer_s1_adapter.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"0850b5244b544d79f5025e24864e14875e7b3e0a"},
     {"path":"src/qualification/synthesis/physical_design_core.py","install_group":"code","source":"repository","required":true,"git_blob_sha1":"4873dfd19e1bf3260f314cdd068e7885ae64ee8d"},
@@ -39,10 +42,9 @@
   "preserve_local": ["/storage/emulated/0/Download/LOOM_SHIPYARD/shipyard_design_ledger.sqlite3"],
   "notes": [
     "Research overlay only; persistent Shipyard SQLite is never replaced by this package.",
-    "The Phase-12 evidence viewer remains installed unchanged.",
-    "Semantic 3D runtime research sources are mirrored under updater-safe src/ paths so the existing LOOM updater security policy remains unchanged.",
-    "The Android runtime corrects WebGL column-major matrix multiplication, disables triangle culling for coarse evidence geometry, surfaces runtime exceptions in the HUD, and always regenerates the viewer before an interactive run so stale Downloads HTML cannot shadow runtime fixes.",
-    "The 3D artifact is derived research evidence only. It does not create canon, production, flight-dynamics, structural-qualification, or new engineering authority.",
-    "Opening generated HTML directly through Android content:// is not the supported test path; use the Python loopback launcher."
+    "The legacy semantic 3D smoke launcher remains available for regression comparison.",
+    "The GLB-native launcher generates the current governed semantic Wayfarer GLB by default and serves the GLB as a separate model/gltf-binary resource over Android loopback HTTP.",
+    "An external GLB may be supplied with --model for visualization compatibility testing; doing so creates no engineering authority.",
+    "The GLB viewer is offline and dependency-free and does not create canon, production, flight-dynamics, structural-qualification, or new engineering authority."
   ]
 }
