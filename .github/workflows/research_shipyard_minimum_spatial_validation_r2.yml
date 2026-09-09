@@ -1,0 +1,20 @@
+name: LOOM Shipyard Minimum Spatial Validation R2
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  minimum-spatial-validation-r2:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}/deploy:${{ github.workspace }}/qualification/synthesis
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile R2 synthesis modules
+        run: python -m compileall -q qualification/synthesis
+      - name: Run R2 minimum spatial validation tests
+        run: python -m unittest -v tests.test_wayfarer_minimum_spatial_validation tests.test_wayfarer_semantic_geometry tests.test_wayfarer_governed_ship_synthesis
