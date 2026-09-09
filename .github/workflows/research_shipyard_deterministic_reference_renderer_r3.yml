@@ -1,0 +1,35 @@
+name: LOOM Shipyard Deterministic Reference Renderer R3
+
+on:
+  pull_request:
+    paths:
+      - 'qualification/synthesis/deterministic_reference_renderer.py'
+      - 'qualification/synthesis/semantic_geometry.py'
+      - 'qualification/synthesis/minimum_spatial_validation.py'
+      - 'qualification/synthesis/spatial_rule_contract.py'
+      - 'qualification/synthesis/spatial_validation_with_rules.py'
+      - 'qualification/synthesis/governed_ship_synthesis.py'
+      - 'tests/test_wayfarer_deterministic_reference_renderer_r3.py'
+      - '.github/workflows/research_shipyard_deterministic_reference_renderer_r3.yml'
+  workflow_dispatch:
+
+jobs:
+  deterministic-reference-renderer-r3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile R3 synthesis modules
+        run: |
+          python -m py_compile \
+            qualification/synthesis/governed_ship_synthesis.py \
+            qualification/synthesis/semantic_geometry.py \
+            qualification/synthesis/minimum_spatial_validation.py \
+            qualification/synthesis/spatial_rule_contract.py \
+            qualification/synthesis/spatial_validation_with_rules.py \
+            qualification/synthesis/deterministic_reference_renderer.py
+      - name: Run R3 deterministic reference-renderer tests
+        run: |
+          python -m unittest -v tests.test_wayfarer_deterministic_reference_renderer_r3
