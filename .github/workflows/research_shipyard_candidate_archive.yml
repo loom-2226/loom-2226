@@ -16,7 +16,7 @@ jobs:
   candidate-archive:
     runs-on: ubuntu-latest
     env:
-      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/src:${{ github.workspace }}/src/qualification/synthesis
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/src:${{ github.workspace }}/qualification/synthesis:${{ github.workspace }}/src/qualification/synthesis
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
