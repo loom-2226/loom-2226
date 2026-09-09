@@ -9,7 +9,7 @@ import zipfile
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-APP_VERSION = "LOOM_SHIPYARD_3D_TEST_PIXEL_v0.3"
+APP_VERSION = "LOOM_SHIPYARD_3D_TEST_PIXEL_v0.4"
 DEFAULT_PORT = 2227
 VIEWER_NAME = "wayfarer_semantic_3d_smoke.html"
 ARTIFACT_ZIP_NAMES = ("wayfarer-semantic-3d-smoke.zip", "LOOM_Shipyard_3D_Test_Pixel.zip")
@@ -44,22 +44,39 @@ def _generate_viewer() -> Path | None:
     out_dir = runtime_root() / "semantic_3d_smoke"
     out_dir.mkdir(parents=True, exist_ok=True)
     out = out_dir / VIEWER_NAME
-    proc = subprocess.run([sys.executable, str(BUILDER), str(out)], cwd=str(APP_ROOT), text=True, capture_output=True, check=False)
+    proc = subprocess.run(
+        [sys.executable, str(BUILDER), str(out)],
+        cwd=str(APP_ROOT),
+        text=True,
+        capture_output=True,
+        check=False,
+    )
     if proc.returncode != 0:
         print("SHIPYARD BUILDER FAILED")
-        if proc.stdout.strip(): print(proc.stdout.strip())
-        if proc.stderr.strip(): print(proc.stderr.strip())
+        if proc.stdout.strip():
+            print(proc.stdout.strip())
+        if proc.stderr.strip():
+            print(proc.stderr.strip())
         return None
     return out if out.is_file() and out.stat().st_size > 0 else None
 
 
 def discover_viewer(*, generate_if_missing: bool = True) -> Path | None:
+    # For an interactive test run, prefer a freshly generated viewer from the
+    # installed governed runtime. This prevents stale Downloads HTML from
+    # shadowing a newly installed builder/runtime fix.
+    if generate_if_missing:
+        generated = _generate_viewer()
+        if generated is not None:
+            return generated
+
     here = HERE.parent
-    roots = (here, downloads_root(), runtime_root(), runtime_root() / "semantic_3d_smoke")
+    roots = (runtime_root() / "semantic_3d_smoke", here, runtime_root(), downloads_root())
     for root in roots:
         candidate = root / VIEWER_NAME
         if candidate.is_file() and candidate.stat().st_size > 0:
             return candidate
+
     out_dir = runtime_root() / "semantic_3d_smoke"
     for root in roots:
         if not root.exists():
@@ -84,14 +101,17 @@ def discover_viewer(*, generate_if_missing: bool = True) -> Path | None:
                         return out
             except (zipfile.BadZipFile, OSError):
                 continue
-    if generate_if_missing:
-        return _generate_viewer()
     return None
 
 
 def _open_url(url: str) -> None:
     try:
-        subprocess.run(["termux-open-url", url], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run(
+            ["termux-open-url", url],
+            check=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
         return
     except FileNotFoundError:
         pass
@@ -100,21 +120,26 @@ def _open_url(url: str) -> None:
 
 def serve_viewer(path: Path, port: int = DEFAULT_PORT) -> None:
     content = path.read_bytes()
+
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             if self.path in ("/", "/index.html"):
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html; charset=utf-8")
-                self.send_header("Cache-Control", "no-store")
+                self.send_header("Cache-Control", "no-store, max-age=0")
+                self.send_header("Pragma", "no-cache")
                 self.send_header("Content-Length", str(len(content)))
                 self.end_headers()
                 self.wfile.write(content)
             elif self.path == "/favicon.ico":
-                self.send_response(204); self.end_headers()
+                self.send_response(204)
+                self.end_headers()
             else:
                 self.send_error(404, "Not found")
+
         def log_message(self, fmt, *args):
             print("[SHIPYARD 3D HTTP] " + (fmt % args))
+
     server = ThreadingHTTPServer(("127.0.0.1", int(port)), Handler)
     url = f"http://127.0.0.1:{int(port)}/"
     print("LOOM SHIPYARD 3D TEST")
