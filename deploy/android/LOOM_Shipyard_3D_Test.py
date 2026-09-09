@@ -9,14 +9,14 @@ import zipfile
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-APP_VERSION = "LOOM_SHIPYARD_3D_TEST_PIXEL_v0.2"
+APP_VERSION = "LOOM_SHIPYARD_3D_TEST_PIXEL_v0.3"
 DEFAULT_PORT = 2227
 VIEWER_NAME = "wayfarer_semantic_3d_smoke.html"
 ARTIFACT_ZIP_NAMES = ("wayfarer-semantic-3d-smoke.zip", "LOOM_Shipyard_3D_Test_Pixel.zip")
 
 HERE = Path(__file__).resolve()
 APP_ROOT = HERE.parents[2]
-BUILDER = APP_ROOT / "tools" / "wayfarer_semantic_3d_smoke.py"
+BUILDER = APP_ROOT / "src" / "tools" / "wayfarer_semantic_3d_smoke_android.py"
 
 
 def downloads_root() -> Path:
@@ -44,19 +44,11 @@ def _generate_viewer() -> Path | None:
     out_dir = runtime_root() / "semantic_3d_smoke"
     out_dir.mkdir(parents=True, exist_ok=True)
     out = out_dir / VIEWER_NAME
-    proc = subprocess.run(
-        [sys.executable, str(BUILDER), str(out)],
-        cwd=str(APP_ROOT),
-        text=True,
-        capture_output=True,
-        check=False,
-    )
+    proc = subprocess.run([sys.executable, str(BUILDER), str(out)], cwd=str(APP_ROOT), text=True, capture_output=True, check=False)
     if proc.returncode != 0:
         print("SHIPYARD BUILDER FAILED")
-        if proc.stdout.strip():
-            print(proc.stdout.strip())
-        if proc.stderr.strip():
-            print(proc.stderr.strip())
+        if proc.stdout.strip(): print(proc.stdout.strip())
+        if proc.stderr.strip(): print(proc.stderr.strip())
         return None
     return out if out.is_file() and out.stat().st_size > 0 else None
 
@@ -68,7 +60,6 @@ def discover_viewer(*, generate_if_missing: bool = True) -> Path | None:
         candidate = root / VIEWER_NAME
         if candidate.is_file() and candidate.stat().st_size > 0:
             return candidate
-
     out_dir = runtime_root() / "semantic_3d_smoke"
     for root in roots:
         if not root.exists():
@@ -93,7 +84,6 @@ def discover_viewer(*, generate_if_missing: bool = True) -> Path | None:
                         return out
             except (zipfile.BadZipFile, OSError):
                 continue
-
     if generate_if_missing:
         return _generate_viewer()
     return None
@@ -101,12 +91,7 @@ def discover_viewer(*, generate_if_missing: bool = True) -> Path | None:
 
 def _open_url(url: str) -> None:
     try:
-        subprocess.run(
-            ["termux-open-url", url],
-            check=False,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
+        subprocess.run(["termux-open-url", url], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         return
     except FileNotFoundError:
         pass
@@ -115,7 +100,6 @@ def _open_url(url: str) -> None:
 
 def serve_viewer(path: Path, port: int = DEFAULT_PORT) -> None:
     content = path.read_bytes()
-
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             if self.path in ("/", "/index.html"):
@@ -126,19 +110,17 @@ def serve_viewer(path: Path, port: int = DEFAULT_PORT) -> None:
                 self.end_headers()
                 self.wfile.write(content)
             elif self.path == "/favicon.ico":
-                self.send_response(204)
-                self.end_headers()
+                self.send_response(204); self.end_headers()
             else:
                 self.send_error(404, "Not found")
-
         def log_message(self, fmt, *args):
             print("[SHIPYARD 3D HTTP] " + (fmt % args))
-
     server = ThreadingHTTPServer(("127.0.0.1", int(port)), Handler)
     url = f"http://127.0.0.1:{int(port)}/"
     print("LOOM SHIPYARD 3D TEST")
     print("=====================")
     print(APP_VERSION)
+    print(f"BUILDER: {BUILDER}")
     print(f"VIEWER: {path}")
     print(f"LOCAL URL: {url}")
     print("NETWORK: loopback only; no internet required")
