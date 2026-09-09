@@ -1,0 +1,88 @@
+{
+  "schema": "LOOM_2226_WAYFARER_S0_AUTHORITY_MANIFEST",
+  "version": "0.1",
+  "status": ["ENGINEERING", "RESEARCH", "QUALIFICATION_CANDIDATE", "NON_CANON", "NON_PRODUCTION"],
+  "flight_dynamics_authority": false,
+  "source_head": "f0c14decd09ef864fd0203b3922925099f2f2d63",
+  "sources": [
+    {"path":"canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md","git_blob_sha":"618ee985f395414e0acbb583fa82e1b297745aba","classification":"CANON","mutable":false},
+    {"path":"canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md","git_blob_sha":"0f995c554ae03def093c738590102ed7ef8dd416","classification":"CANON","mutable":false},
+    {"path":"geometry/wayfarer_geometry_seed.sql","git_blob_sha":"9d9f714fe4c8e45398518d7cfac1cf6457518eb7","classification":"DESIGN_BASELINE","mutable":false},
+    {"path":"qualification/phase3/LOOM_2226_SHIPCLASSES_PROTOTYPE_SCHEMA_v0.1.sql","git_blob_sha":"b139234af86d4c764ed7bffc0613a584c1d22c3c","classification":"QUALIFICATION_ONLY","mutable":false},
+    {"path":"qualification/phase3/LOOM_2226_SHIPCLASSES_WAYFARER_SEED_v0.1.sql","git_blob_sha":"00b92d8abe059e993499c1721417ac2d0612f0d5","classification":"QUALIFICATION_ONLY","mutable":false},
+    {"path":"qualification/phase3/LOOM_2226_SHIPCLASSES_WAYFARER_GEOMETRY_COUPLING_v0.1.sql","git_blob_sha":"7b7aaf3d34e092f9f690aba11aa3d799ba9cfcec","classification":"QUALIFICATION_ONLY","mutable":false},
+    {"path":"qualification/phase4/LOOM_2226_SHIPCLASSES_WAYFARER_PHASE4_GEOMETRY_v0.1.sql","git_blob_sha":"d8c49c7003427aa7fc328ddc620480c43f563584","classification":"QUALIFICATION_ONLY","mutable":false},
+    {"path":"qualification/phase5/wayfarer_inertia_audit.py","git_blob_sha":"7a0c3c964ca655cee2c12019b3a85a3971e1e492","classification":"QUALIFICATION_ONLY","mutable":false},
+    {"path":"qualification/phase5/PHASE5C_WAYFARER_INERTIA_AUTHORITY_PLAN_v0.1.md","git_blob_sha":"c3a87c499ff61a86434410856495d35d6ca6b6c3","classification":"QUALIFICATION_ONLY","mutable":false},
+    {"path":"docs/LOOM_2226_Physical_Design_Synthesis_Work_Plan_2026-09-08.md","git_blob_sha":"7262cfdf41a832465fa65095db4417b9ab2f8b64","classification":"RESEARCH_GOVERNANCE","mutable":false},
+    {"path":"qualification/synthesis/WAYFARER_S1_TEST_DEFINITION_v0.1.md","git_blob_sha":"747a5492d2330a52b15e8df023bfe096d644c463","classification":"QUALIFICATION_ONLY","mutable":false}
+  ],
+  "reference_states": {
+    "DOCKED": {
+      "dry_mass_kg": 858500.0,
+      "wet_mass_kg": 1158500.0,
+      "wet_com_B_m": [26.676650841605525, 0.0, 0.14812257229175657]
+    },
+    "ABSENT": {
+      "dry_mass_kg": 825500.0,
+      "wet_mass_kg": 1125500.0,
+      "wet_com_B_m": [26.819635717458908, 0.0, 0.0]
+    }
+  },
+  "stores": {
+    "normal_remass": {"mass_kg":250000.0,"classification":"DESIGN_BASELINE"},
+    "protected_water": {"mass_kg":50000.0,"classification":"DESIGN_BASELINE"},
+    "working_fluid_water_total_kg": 300000.0
+  },
+  "mass_ledger": {
+    "structure":150000.0,
+    "armor_fixed_shield":105000.0,
+    "habitation_life_support":45000.0,
+    "relational_plant":88000.0,
+    "thermal_radiators":90000.0,
+    "propulsion":160000.0,
+    "electrical":55000.0,
+    "planetary_launch":33000.0,
+    "avionics_sensors_comms":20000.0,
+    "rcs_docking_service":25000.0,
+    "mission_courier_systems":20000.0,
+    "engineering_reserve":67500.0,
+    "normal_remass_store":250000.0,
+    "protected_water_store":50000.0
+  },
+  "field_inventory": [
+    {"field":"ship.reference_length_m","value":57.0,"classification":"CANON","precision":"APPROXIMATE","s1_use":"QUALIFICATION_FIXED_REFERENCE"},
+    {"field":"ship.nominal_main_body_diameter_m","value":9.0,"classification":"CANON","precision":"APPROXIMATE","s1_use":"REFERENCE_ONLY_NOT_COLLISION_AUTHORITY"},
+    {"field":"pressure_hull.region_x_m","value":[0.0,14.0],"classification":"DESIGN_BASELINE","s1_use":"FIXED"},
+    {"field":"pressure_hull.trial_diameter_m","value":8.6,"classification":"DESIGN_BASELINE","s1_use":"FIXED"},
+    {"field":"tank.region_x_m","value":[18.0,32.0],"classification":"DESIGN_BASELINE","s1_use":"ADMITTED_REGION"},
+    {"field":"tank.count","value":4,"classification":"CANON","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"tank.topology","value":"QUADRATURE","classification":"CANON","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"tank.external_diameter_m","value":3.0,"classification":"DESIGN_BASELINE","s1_use":"ADMITTED_EQUIVALENT_BODY"},
+    {"field":"tank.center_radius_m","value":2.7,"classification":"DESIGN_BASELINE","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"longeron.count","value":4,"classification":"CANON","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"launch.bay_reservation_x_m","value":[16.0,28.0],"classification":"DESIGN_BASELINE","precision":"APPROXIMATE","s1_use":"ADMITTED_REGION_APPROX"},
+    {"field":"launch.side","value":"+Z","classification":"QUALIFICATION_ONLY","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"launch.working_envelope_m","value":[10.5,3.9,3.1],"classification":"DESIGN_BASELINE","s1_use":"ADMITTED_EQUIVALENT_BODY"},
+    {"field":"docking.side","value":"-Z","classification":"QUALIFICATION_ONLY","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"docking.geometry","value":null,"classification":"OPEN","s1_use":"PROHIBITED_COLLISION_AUTHORITY"},
+    {"field":"relational.region_x_m","value":[18.0,34.0],"classification":"DESIGN_BASELINE","s1_use":"ADMITTED_REGION"},
+    {"field":"relational.equivalent_body","value":{"type":"CYLINDER_X","length_m":16.0,"diameter_m":1.4},"classification":"QUALIFICATION_ONLY","s1_use":"ADMITTED_EQUIVALENT_BODY"},
+    {"field":"shadow_shield.region_x_m","value":[38.0,43.0],"classification":"DESIGN_BASELINE","s1_use":"FIXED"},
+    {"field":"reactor_torch.region_x_m","value":[43.0,50.0],"classification":"DESIGN_BASELINE","s1_use":"FIXED"},
+    {"field":"nozzle.region_x_m","value":[50.0,57.0],"classification":"DESIGN_BASELINE","s1_use":"FIXED"},
+    {"field":"radiator.count","value":4,"classification":"CANON","s1_use":"FIXED_TOPOLOGY"},
+    {"field":"radiator.panel_geometry","value":null,"classification":"OPEN","s1_use":"PROHIBITED_COLLISION_AUTHORITY"},
+    {"field":"full_wayfarer_centroidal_inertia","value":null,"classification":"OPEN","s1_use":"UNRESOLVED_MODE_A"}
+  ],
+  "s1_do_not_optimize": [
+    "structure","armor_fixed_shield","habitation_life_support","thermal_radiators","propulsion","engineering_reserve","protected_water_without_admitted_container","radiator_deployment_geometry","docking_collar_dimensions","detailed_rcs_geometry","detailed_pressure_hull_internals"
+  ],
+  "s1_initial_variables": ["relational_plant_longitudinal_station","planetary_launch_longitudinal_station","four_tank_cluster_common_longitudinal_station"],
+  "inertia_firewall": {
+    "mode":"A",
+    "candidate_full_flight_inertia_authority":false,
+    "required_outputs":["parallel_axis_tensor","admitted_centroidal_tensor","candidate_aggregate_tensor","unresolved_inertia_mass_fraction"],
+    "surrogate_label_if_later_used":"SURROGATE_FULL_INERTIA_NOT_WAYFARER_AUTHORITY"
+  }
+}
