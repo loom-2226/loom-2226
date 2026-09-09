@@ -1,0 +1,44 @@
+name: LOOM Shipyard Visual Workspace
+
+on:
+  pull_request:
+    paths:
+      - 'src/shipyard_visual_realizations.py'
+      - 'deploy/android/LOOM_Shipyard_Visual_Workspace.py'
+      - 'tests/test_shipyard_visual_realizations.py'
+      - '.github/workflows/research_shipyard_visual_workspace.yml'
+  workflow_dispatch:
+
+jobs:
+  visual-workspace:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}/qualification/synthesis:${{ github.workspace }}/deploy/android
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile workspace runtime
+        run: python -m py_compile src/shipyard_visual_realizations.py deploy/android/LOOM_Shipyard_Visual_Workspace.py
+      - name: Run realization store regression
+        run: python -m unittest tests.test_shipyard_visual_realizations -v
+      - name: Validate workspace JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import sys
+          sys.path.insert(0,'src'); sys.path.insert(0,'qualification/synthesis'); sys.path.insert(0,'deploy/android')
+          from LOOM_Shipyard_Visual_Workspace import _html
+          html=_html()
+          assert '/api/realization-image' in html
+          assert 'IMPORT IMAGE' in html
+          assert 'REALIZATIONS' in html
+          scripts=[]; rest=html
+          while '<script>' in rest:
+              rest=rest.split('<script>',1)[1]
+              script,rest=rest.split('</script>',1)
+              scripts.append(script)
+          Path('/tmp/visual_workspace.js').write_text('\n'.join(scripts),encoding='utf-8')
+          PY
+          node --check /tmp/visual_workspace.js
