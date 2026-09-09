@@ -14,6 +14,30 @@ class PhysicalDesignError(ValueError):
     """Fail-closed error for invalid or unsupported physical-design inputs."""
 
 
+class _MirroredGeometryMeta(type):
+    """Preserve geometry identity across LOOM's mirrored synthesis import surfaces.
+
+    The research tree is intentionally mirrored under ``qualification/synthesis``
+    and ``src/qualification/synthesis`` for desktop/Pixel packaging.  Python can
+    therefore load the same source file under two module names in one process,
+    which would normally make otherwise-identical dataclass types fail
+    ``isinstance`` checks.  Geometry is a serialized engineering contract, so we
+    accept the mirror only when the concrete class name and complete field shape
+    match exactly.  Unrelated duck-typed objects remain rejected.
+    """
+
+    def __instancecheck__(cls, instance):
+        if type.__instancecheck__(cls, instance):
+            return True
+        if type(instance).__name__ != cls.__name__:
+            return False
+        if cls.__name__ == "BoxGeometry":
+            return set(getattr(instance, "__dataclass_fields__", ())) == {"x_m", "y_m", "z_m"}
+        if cls.__name__ == "CylinderXGeometry":
+            return set(getattr(instance, "__dataclass_fields__", ())) == {"length_m", "diameter_m"}
+        return False
+
+
 @dataclass(frozen=True)
 class Transform:
     translation_m: Vector3
@@ -21,14 +45,14 @@ class Transform:
 
 
 @dataclass(frozen=True)
-class BoxGeometry:
+class BoxGeometry(metaclass=_MirroredGeometryMeta):
     x_m: float
     y_m: float
     z_m: float
 
 
 @dataclass(frozen=True)
-class CylinderXGeometry:
+class CylinderXGeometry(metaclass=_MirroredGeometryMeta):
     length_m: float
     diameter_m: float
 
