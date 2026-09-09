@@ -4,10 +4,12 @@ on:
   pull_request:
     paths:
       - 'src/shipyard_glb_viewer.py'
+      - 'src/shipyard_visual_artifact_store.py'
       - 'deploy/android/LOOM_Shipyard_GLB_Viewer.py'
       - 'qualification/synthesis/semantic_glb.py'
       - 'src/qualification/synthesis/semantic_glb.py'
       - 'tests/test_shipyard_glb_viewer.py'
+      - 'tests/test_shipyard_visual_artifact_store.py'
       - '.github/workflows/research_shipyard_glb_native_viewer.yml'
   workflow_dispatch:
 
@@ -25,13 +27,32 @@ jobs:
         run: |
           python -m py_compile \
             src/shipyard_glb_viewer.py \
+            src/shipyard_visual_artifact_store.py \
             deploy/android/LOOM_Shipyard_GLB_Viewer.py \
             qualification/synthesis/semantic_glb.py \
             src/qualification/synthesis/semantic_glb.py
-      - name: Run GLB viewer regression
-        run: python -m unittest tests.test_shipyard_glb_viewer -v
-      - name: Generate governed GLB and inspect through Pixel launcher
-        run: python deploy/android/LOOM_Shipyard_GLB_Viewer.py --status
+      - name: Run GLB and SQLite artifact regression
+        run: python -m unittest tests.test_shipyard_glb_viewer tests.test_shipyard_visual_artifact_store -v
+      - name: Generate governed GLB, store in ledger, read back and inspect through Pixel launcher
+        run: |
+          DB="$(mktemp --suffix=.sqlite3)"
+          rm -f "$DB"
+          python - <<PY
+          from design_ledger import DesignLedger
+          with DesignLedger("$DB"):
+              pass
+          PY
+          python deploy/android/LOOM_Shipyard_GLB_Viewer.py --db "$DB" --status | tee /tmp/glb-status.txt
+          grep -q 'source=SQLITE_BLOB' /tmp/glb-status.txt
+          grep -q 'artifact_id=VISUAL::GLB::' /tmp/glb-status.txt
+          python - <<PY
+          import sqlite3
+          con=sqlite3.connect("$DB")
+          row=con.execute('SELECT artifact_sha256,length(payload),authority_status FROM visual_artifact_blob').fetchone()
+          assert row is not None and row[1] > 0
+          assert row[2] == 'DERIVED_VISUAL_ARTIFACT_STORAGE_ONLY'
+          print('SQLITE GLB BLOB:', row)
+          PY
       - name: Validate embedded viewer JavaScript syntax
         run: |
           python - <<'PY'
