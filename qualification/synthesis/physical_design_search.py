@@ -83,6 +83,26 @@ def _objective_key(evaluation: EvaluationResult) -> Tuple[float, ...]:
     return values
 
 
+def _is_physical_design_rejection(exc: ValueError) -> bool:
+    """Recognize only the declared physical-design exception lineage.
+
+    LOOM currently mirrors the synthesis source tree for desktop and Pixel
+    packaging. A long-lived Python test/runtime process can therefore hold two
+    class objects for the same ``PhysicalDesignError`` source. ``except
+    PhysicalDesignError`` cannot match across those module identities. We catch
+    ValueError narrowly, then accept it only when its MRO contains the exact
+    physical-design contract class from a ``physical_design_core`` module.
+    Unrelated ValueError subclasses are re-raised.
+    """
+    if isinstance(exc, PhysicalDesignError):
+        return True
+    return any(
+        base.__name__ == "PhysicalDesignError"
+        and base.__module__.split(".")[-1] == "physical_design_core"
+        for base in type(exc).__mro__
+    )
+
+
 class DeterministicGridSearch:
     """Portable exhaustive grid search with visible lexicographic selection."""
 
@@ -120,7 +140,9 @@ class DeterministicGridSearch:
                 candidate = self.candidate_builder(candidate_id, seed, values)
                 evaluation = self.evaluator(candidate)
                 key = _objective_key(evaluation)
-            except PhysicalDesignError:
+            except ValueError as exc:
+                if not _is_physical_design_rejection(exc):
+                    raise
                 continue
             if not all(result.passed for result in evaluation.hard_constraints):
                 continue
