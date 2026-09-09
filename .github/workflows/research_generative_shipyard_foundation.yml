@@ -1,0 +1,44 @@
+name: LOOM Generative Shipyard Foundation
+
+on:
+  pull_request:
+    paths:
+      - 'src/qualification/synthesis/generative_shipyard_foundation.py'
+      - 'tests/test_generative_shipyard_foundation.py'
+      - '.github/workflows/research_generative_shipyard_foundation.yml'
+  workflow_dispatch:
+
+jobs:
+  generative-shipyard-foundation:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/src:${{ github.workspace }}/src/qualification/synthesis
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile foundation
+        run: python -m py_compile src/qualification/synthesis/generative_shipyard_foundation.py
+      - name: Run foundation regression
+        run: python -m unittest tests.test_generative_shipyard_foundation -v
+      - name: Execute first bounded Wayfarer candidate family
+        run: |
+          python src/qualification/synthesis/generative_shipyard_foundation.py > /tmp/wayfarer-generative-v01.json
+          python - <<'PY'
+          import json
+          p=json.load(open('/tmp/wayfarer-generative-v01.json'))
+          outcomes=p['outcomes']
+          legal=[x for x in outcomes if x['status']=='SURVIVED_SCREEN']
+          rejected=[x for x in outcomes if x['status']=='REJECTED_BY_ADEQUATE_MODEL']
+          assert len(outcomes)==10
+          assert len(legal)>=2
+          assert len(rejected)>=2
+          assert p['pareto_frontier']
+          assert p['flight_dynamics_authority'] is False
+          assert p['canon_changed'] is False
+          assert p['production_shipclasses_changed'] is False
+          assert p['adequacy']['adequate_for_selection'] is False
+          print('WAYFARER GENERATIVE FAMILY:', len(legal), 'survived,', len(rejected), 'rejected,', len(p['pareto_frontier']), 'Pareto')
+          print('EXPERIMENT HASH:', p['experiment_hash'])
+          PY
