@@ -1,0 +1,47 @@
+name: LOOM Shipyard Visual Grammar
+
+on:
+  pull_request:
+    paths:
+      - 'qualification/synthesis/shipyard_visual_grammar.py'
+      - 'tests/test_shipyard_visual_grammar.py'
+      - '.github/workflows/research_shipyard_visual_grammar.yml'
+  workflow_dispatch:
+
+jobs:
+  visual-grammar:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}/qualification/synthesis:${{ github.workspace }}/src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile visual grammar
+        run: python -m py_compile qualification/synthesis/shipyard_visual_grammar.py
+      - name: Run visual grammar regression
+        run: python -m unittest tests.test_shipyard_visual_grammar -v
+      - name: Generate four deterministic realization packets
+        run: |
+          mkdir -p out/shipyard-realization-packets
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from governed_ship_synthesis import build_wayfarer_governed_synthesis
+          from semantic_geometry import build_semantic_geometry
+          from semantic_glb import build_semantic_glb
+          from shipyard_visual_grammar import GRAMMARS, build_realization_packet, canonical_packet_json
+          source = build_wayfarer_governed_synthesis()
+          semantic = build_semantic_geometry(source)
+          _, manifest = build_semantic_glb(source, semantic)
+          out = Path('out/shipyard-realization-packets')
+          for yard in sorted(GRAMMARS):
+              packet = build_realization_packet(manifest, yard)
+              (out / f'{yard.lower()}_realization_packet.json').write_text(canonical_packet_json(packet) + '\n')
+              (out / f'{yard.lower()}_realization_instruction.txt').write_text(packet.realization_instruction + '\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shipyard-realization-packets-v0.1
+          path: out/shipyard-realization-packets/
