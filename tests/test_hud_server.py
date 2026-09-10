@@ -62,7 +62,7 @@ class HudServerTests(unittest.TestCase):
         self.assertIn("Protected water remains separate",text)
         js=(server.demo_root()/"hud_wayfarer_engineering_state_v01.js").read_text(encoding="utf-8")
         self.assertIn("LOOM_HUD_WAYFARER_ENGINEERING_TYPED_PAYLOAD_V1",js)
-        self.assertIn("PRIMARY_CANDIDATE_NOT_CERTIFIED",js)
+        self.assertIn("q(fs.primary)",js)
         self.assertIn("CERTIFIED",js)
         self.assertNotIn("mode_cards",js)
         self.assertNotIn("candidate_effective_area_m2",js)
