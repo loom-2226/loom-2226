@@ -3,24 +3,34 @@ from __future__ import annotations
 import math
 from typing import Iterable
 
-CONTRACT = "LOOM_HUD_WAYFARER_ATTITUDE_ENVELOPE_V1"
-ENGINEERING_SOURCE_BRANCH = "engineering/wayfarer-flight-system-qualification-v1"
-ENGINEERING_SOURCE_COMMIT = "e2df887d5e901eed9378c7aeb7d4964040b9a7e6"
-ENGINEERING_SOURCE_ARTIFACT = "engineering/current/wayfarer_q4_hud_attitude_envelope_v0.4.json"
-AUTHORITY = "QUALIFIED_FOR_HUD_FINITE_ATTITUDE_ENVELOPE_NON_CANON"
+from loom.hud.wayfarer_engineering_state import (
+    ENGINEERING_SOURCE_BRANCH,
+    ENGINEERING_SOURCE_COMMIT,
+    load_wayfarer_engineering_state,
+)
 
-_REFERENCE_TIMES_S = {
-    "nominal": {
-        "roll": {90.0: 20.30, 180.0: 28.71},
-        "pitch": {90.0: 42.24, 180.0: 59.74},
-        "yaw": {90.0: 42.15, 180.0: 59.61},
-    },
-    "degraded": {
-        "roll": {90.0: 28.71, 180.0: 40.60},
-        "pitch": {90.0: 48.77, 180.0: 68.98},
-        "yaw": {90.0: 48.67, 180.0: 68.83},
-    },
-}
+CONTRACT = "LOOM_HUD_WAYFARER_ATTITUDE_ENVELOPE_V1"
+ENGINEERING_SOURCE_ARTIFACT = "engineering/current/wayfarer_q4_hud_attitude_envelope_v0.4.json"
+
+_ENGINEERING_STATE = load_wayfarer_engineering_state()
+_ATTITUDE = _ENGINEERING_STATE["attitude"]
+AUTHORITY = _ATTITUDE["status"]
+
+
+def _reference_times() -> dict[str, dict[str, dict[float, float]]]:
+    cases = _ATTITUDE["control_cases"]
+    out: dict[str, dict[str, dict[float, float]]] = {}
+    for case_name, output_name in (("NOMINAL", "nominal"), ("ONE_CLUSTER_OUT", "degraded")):
+        slew = cases[case_name]["reference_wet_docked_slew_s"]
+        out[output_name] = {
+            "roll": {90.0: float(slew["roll_90"]), 180.0: float(slew["roll_180"])},
+            "pitch": {90.0: float(slew["pitch_90"]), 180.0: float(slew["pitch_180"])},
+            "yaw": {90.0: float(slew["yaw_90"]), 180.0: float(slew["yaw_180"])},
+        }
+    return out
+
+
+_REFERENCE_TIMES_S = _reference_times()
 
 
 def _unit(v: Iterable[float]) -> tuple[float, float, float]:
@@ -61,6 +71,7 @@ def transition_between_directions_s(current_direction, target_direction, *, axis
     return {
         "contract": CONTRACT,
         "authority": AUTHORITY,
+        "engineering_source_branch": ENGINEERING_SOURCE_BRANCH,
         "engineering_source_commit": ENGINEERING_SOURCE_COMMIT,
         "engineering_source_artifact": ENGINEERING_SOURCE_ARTIFACT,
         "axis": axis.lower(),
@@ -68,5 +79,5 @@ def transition_between_directions_s(current_direction, target_direction, *, axis
         "transition_time_s": attitude_transition_time_s(angle, axis=axis, degraded=degraded),
         "control_case": "ONE_CLUSTER_OUT" if degraded else "NOMINAL",
         "closed_loop_control_authority": False,
-        "instantaneous_attitude_reset_allowed": False,
+        "instantaneous_attitude_reset_allowed": bool(_ATTITUDE["instantaneous_attitude_reset_allowed"]),
     }
