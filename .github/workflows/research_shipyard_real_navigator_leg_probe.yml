@@ -17,9 +17,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Resolve canonical M1 mission tokens
+      - name: Resolve canonical M1 mission tokens and acquisition helpers
         run: |
           PYTHONPATH=src python - <<'PY' > navigator_solver_probe.txt
+          import inspect
           import tempfile
           from pathlib import Path
           import loom_navigator_core as campaign
@@ -29,19 +30,25 @@ jobs:
               print('NAV CORE SHA:', campaign.CORE_SHA)
               print('MISSION_SCHEMA:', repr(nav.MISSION_SCHEMA))
               print('VALID_SHIPS:', repr(nav.VALID_SHIPS))
-              print('ROUTE_OBJECTS containing NEP:')
+              for name in ('run_acquisition','fetch_or_cache','build_canonical_dependency_index','_route_rows_from_canonical'):
+                  obj = getattr(nav, name, None)
+                  print('\n===', name, '===')
+                  if obj is None:
+                      print('MISSING')
+                  else:
+                      print('SIGNATURE', inspect.signature(obj))
+                      try:
+                          print(inspect.getsource(obj))
+                      except Exception as exc:
+                          print('SOURCE_UNAVAILABLE', repr(exc))
+              print('\nROUTE_OBJECTS CERES/NEPTUNE:')
               for key, value in sorted(nav.ROUTE_OBJECTS.items()):
                   probe=(str(key)+' '+repr(value)).upper()
-                  if 'NEP' in probe or '899' in probe:
+                  if 'CERES' in probe or 'NEPTUNE' in probe or '899' in probe:
                       print(key, repr(value))
-              print('ROUTE_OBJECTS containing CERES:')
-              for key, value in sorted(nav.ROUTE_OBJECTS.items()):
-                  if 'CERES' in (str(key)+' '+repr(value)).upper() or repr(value).find("'CE'") >= 0:
-                      print(key, repr(value))
-              print('ALL BASE ROUTE OBJECTS:')
-              for key, value in sorted(nav.ROUTE_OBJECTS.items()):
-                  if value.get('kind') == 'base':
-                      print(key, repr(value))
+              for name in ('BASE_OBJECTS','LOCAL_OBJECTS','SOURCE_ID','SOURCE_NAME','SOURCE_URL','ACQUISITION_SCHEMA'):
+                  if hasattr(nav, name):
+                      print('\n', name, '=', repr(getattr(nav, name)))
           PY
           cat navigator_solver_probe.txt
       - name: Preserve probe output
