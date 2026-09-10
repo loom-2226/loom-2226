@@ -54,7 +54,7 @@ class HudServerTests(unittest.TestCase):
         self.assertIn("function project(p,w,h,fovy=60)", text)
         self.assertIn("function edge(q,w,h)", text)
         self.assertIn("const trajectory=", text)
-        self.assertIn("const cmd=", text)
+        self.assertIn("cmd=[", text)
         self.assertIn("BEARING", text)
         self.assertIn("CLOSURE", text)
 
