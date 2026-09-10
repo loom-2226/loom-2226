@@ -11,11 +11,14 @@ import mimetypes
 import sqlite3
 
 from loom.hud.earth_moon_qualification import build_earth_moon_qualification
+from loom.hud.engineering_state_payload import (
+    attach_typed_engineering_payload,
+    build_wayfarer_engineering_payload,
+)
 from loom.hud.intercept_qualification import solve_moon_intercept
 from loom.hud.rendezvous_qualification import solve_moon_rendezvous_feasibility
 from loom.hud.live_provider import load_live_flight_view, unavailable_live_payload
 from loom.hud.realtime_flight_qualification import RealtimeFlightQualification
-from loom.hud.wayfarer_engineering_state import load_wayfarer_engineering_state
 from loom.runtime import resolve_runtime_roots
 
 DEFAULT_HOST = "127.0.0.1"
@@ -119,12 +122,12 @@ def make_handler(directory: Path):
                 except Exception as exc: self._json({"contract":"LOOM_HUD_EARTH_MOON_QUALIFICATION_V2","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
                 return
             if parsed.path == REALTIME_ENDPOINT:
-                try: self._json(get_session().snapshot())
+                try: self._json(attach_typed_engineering_payload(get_session().snapshot()))
                 except Exception as exc: self._json({"contract":"LOOM_HUD_REALTIME_FLIGHT_QUALIFICATION_V1","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
                 return
             if parsed.path == WAYFARER_ENGINEERING_ENDPOINT:
-                try: self._json(load_wayfarer_engineering_state())
-                except Exception as exc: self._json({"contract":"LOOM_HUD_WAYFARER_ENGINEERING_HANDOFF_V1","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
+                try: self._json(build_wayfarer_engineering_payload(epoch="QUALIFICATION_STATIC"))
+                except Exception as exc: self._json({"contract":"LOOM_HUD_WAYFARER_ENGINEERING_TYPED_PAYLOAD_V1","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
                 return
             if parsed.path == TRAJECTORY_PREVIEW_ENDPOINT:
                 query = parse_qs(parsed.query)
@@ -171,7 +174,7 @@ def make_handler(directory: Path):
                 elif action == "TIME_SCALE": result = session.set_time_scale(float(payload["value"]))
                 elif action == "TORCH": result = session.set_torch(active=bool(payload.get("active")), mode=payload.get("mode"))
                 else: raise ValueError(f"unsupported qualification control action: {action}")
-                self._json(result)
+                self._json(attach_typed_engineering_payload(result))
             except Exception as exc: self._json({"status":"REJECTED","reason":str(exc)},400)
 
     return HudHandler
@@ -179,7 +182,7 @@ def make_handler(directory: Path):
 
 def serve(*, host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, root: Path | None = None) -> None:
     page = validate_assets(root); directory = page.parent; handler = make_handler(directory); url = f"http://{host}:{port}/{page.name}"
-    print(f"LOOM HUD: {url}"); print(f"LIVE STATE: {LIVE_ENDPOINT} (READ ONLY / FAIL CLOSED)"); print(f"REALTIME QUALIFICATION: {REALTIME_ENDPOINT} (WALL-UTC SEEDED / NON-CAMPAIGN)"); print(f"WAYFARER ENGINEERING: {WAYFARER_ENGINEERING_ENDPOINT} (PINNED PR96 / NON-CANON)"); print(f"TRAJECTORY PREVIEW: {TRAJECTORY_PREVIEW_ENDPOINT} (READ ONLY / NO NAVIGATOR CLAIM)"); print(f"INTERCEPT PREVIEW: {INTERCEPT_PREVIEW_ENDPOINT} (QUALIFICATION SEARCH / NO COMMIT)"); print(f"RENDEZVOUS FEASIBILITY: {RENDEZVOUS_PREVIEW_ENDPOINT} (FINITE ATTITUDE ENVELOPE / NO COMMIT)"); print(f"WAYFARER GEOMETRY: {WAYFARER_GEOMETRY_ENDPOINT} (IN-MEMORY COMPILE)"); print(f"3D ASSETS: {ASSET_PREFIX} (LOCAL QUALIFICATION CACHE)"); print("CAMPAIGN: WRITE NONE")
+    print(f"LOOM HUD: {url}"); print(f"LIVE STATE: {LIVE_ENDPOINT} (READ ONLY / FAIL CLOSED)"); print(f"REALTIME QUALIFICATION: {REALTIME_ENDPOINT} (WALL-UTC SEEDED / NON-CAMPAIGN)"); print(f"WAYFARER ENGINEERING: {WAYFARER_ENGINEERING_ENDPOINT} (TYPED PR96 / NON-CANON)"); print(f"TRAJECTORY PREVIEW: {TRAJECTORY_PREVIEW_ENDPOINT} (READ ONLY / NO NAVIGATOR CLAIM)"); print(f"INTERCEPT PREVIEW: {INTERCEPT_PREVIEW_ENDPOINT} (QUALIFICATION SEARCH / NO COMMIT)"); print(f"RENDEZVOUS FEASIBILITY: {RENDEZVOUS_PREVIEW_ENDPOINT} (FINITE ATTITUDE ENVELOPE / NO COMMIT)"); print(f"WAYFARER GEOMETRY: {WAYFARER_GEOMETRY_ENDPOINT} (IN-MEMORY COMPILE)"); print(f"3D ASSETS: {ASSET_PREFIX} (LOCAL QUALIFICATION CACHE)"); print("CAMPAIGN: WRITE NONE")
     with ThreadingHTTPServer((host, port), handler) as server:
         server.daemon_threads = True; server.serve_forever()
 
