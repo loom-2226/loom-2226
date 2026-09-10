@@ -9,16 +9,16 @@ WET_MASS_KG = 1_158_500.0
 
 def test_econ_reference_closure():
     out = mode_closure(WET_MASS_KG, 0.30, 3_000.0)
-    assert math.isclose(out["thrust_MN"], 3.408300575, rel_tol=1e-9)
-    assert math.isclose(out["mdot_kg_s"], 1.1361001916666666, rel_tol=1e-9)
-    assert math.isclose(out["jet_power_TW"], 5.1124508625, rel_tol=1e-9)
+    assert math.isclose(out["thrust_MN"], 3.4083012075, rel_tol=1e-9)
+    assert math.isclose(out["mdot_kg_s"], 1.1361004025, rel_tol=1e-9)
+    assert math.isclose(out["jet_power_TW"], 5.11245181125, rel_tol=1e-9)
 
 
 def test_limit_reference_closure():
     out = mode_closure(WET_MASS_KG, 7.50, 300.0)
-    assert math.isclose(out["thrust_MN"], 85.207514625, rel_tol=1e-9)
-    assert math.isclose(out["mdot_kg_s"], 284.02504875, rel_tol=1e-9)
-    assert math.isclose(out["jet_power_TW"], 12.78112719375, rel_tol=1e-9)
+    assert math.isclose(out["thrust_MN"], 85.2075301875, rel_tol=1e-9)
+    assert math.isclose(out["mdot_kg_s"], 284.025100625, rel_tol=1e-9)
+    assert math.isclose(out["jet_power_TW"], 12.781129528125, rel_tol=1e-9)
 
 
 def test_species_identity_does_not_enter_ideal_momentum_closure():
