@@ -19,7 +19,7 @@ jobs:
           python-version: '3.11'
       - name: Inspect embedded Navigator solver boundary
         run: |
-          PYTHONPATH=src python - <<'PY'
+          PYTHONPATH=src python - <<'PY' > navigator_solver_probe.txt
           import inspect
           import tempfile
           from pathlib import Path
@@ -37,3 +37,10 @@ jobs:
                   if obj is not None:
                       print(name, inspect.signature(obj))
           PY
+          cat navigator_solver_probe.txt
+      - name: Preserve probe output
+        uses: actions/upload-artifact@v4
+        with:
+          name: navigator-solver-probe
+          path: navigator_solver_probe.txt
+          if-no-files-found: error
