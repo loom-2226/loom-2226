@@ -5,6 +5,7 @@ from loom.hud.wayfarer_engineering_state import (
     ENGINEERING_SOURCE_COMMIT,
     load_wayfarer_engineering_state,
 )
+from loom.hud import realtime_flight_qualification as realtime
 
 
 def test_engineering_handoff_is_pinned_to_pr96_source():
@@ -30,6 +31,16 @@ def test_mass_and_torch_cards_come_from_engineering_baseline_object():
     assert cards["LIMIT"]["acceleration_g"] == 7.5
     assert all(card["status"] == "WORKING_ENGINEERING_CARD" for card in cards.values())
     assert state["torch"]["jet_power_is_electrical_bus_power"] is False
+
+
+def test_runtime_working_cards_and_mass_baseline_are_guarded_against_engineering_drift():
+    state = load_wayfarer_engineering_state()
+    mass = state["mass"]
+    assert realtime.INITIAL_WET_MASS_T == mass["reference_wet_mass_t"]
+    assert realtime.INITIAL_REMASS_T == mass["normal_remass_allowance_t"]
+    for mode, card in state["torch"]["mode_cards"].items():
+        assert realtime.TORCH_CARDS[mode]["acceleration_g"] == card["acceleration_g"]
+        assert realtime.TORCH_CARDS[mode]["exhaust_velocity_km_s"] == card["exhaust_velocity_km_s"]
 
 
 def test_dispatch_reserves_remain_separate_and_candidate():
