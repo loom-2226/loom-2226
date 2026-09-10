@@ -15,7 +15,7 @@ class HudServerTests(unittest.TestCase):
     def test_authority_boundary_visible(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NON-CANON",text); self.assertIn("NOT Navigator targeting authority",text); self.assertIn("Q4 FINITE ATTITUDE",text)
     def test_build_marker(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.22-wayfarer-engineering"',text); self.assertIn("BUILD hud-v0.22-wayfarer-engineering",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.23-typed-engineering"',text); self.assertIn("BUILD hud-v0.23-typed-engineering",text)
     def test_optical_moon_and_external_client_present(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NASA LRO OPTICAL MOON",text); self.assertIn("hud_v0_15.js",text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("SphereGeometry(1737.4",js); self.assertIn("moonOptical",js); self.assertIn("moonTopo",js)
@@ -58,12 +58,14 @@ class HudServerTests(unittest.TestCase):
         self.assertEqual(server.WAYFARER_ENGINEERING_ENDPOINT,"/wayfarer-engineering-state.json")
         text=server.validate_assets().read_text(encoding="utf-8")
         self.assertIn("hud_wayfarer_engineering_state_v01.js",text)
+        self.assertIn("typed HUD StateDatum payload",text)
         self.assertIn("Protected water remains separate",text)
-        self.assertIn("Feedstock screening remains OPEN",text)
         js=(server.demo_root()/"hud_wayfarer_engineering_state_v01.js").read_text(encoding="utf-8")
-        self.assertIn("/wayfarer-engineering-state.json",js)
-        self.assertIn("PRIMARY CANDIDATE",js)
+        self.assertIn("LOOM_HUD_WAYFARER_ENGINEERING_TYPED_PAYLOAD_V1",js)
+        self.assertIn("PRIMARY_CANDIDATE_NOT_CERTIFIED",js)
         self.assertIn("CERTIFIED",js)
+        self.assertNotIn("mode_cards",js)
+        self.assertNotIn("candidate_effective_area_m2",js)
         self.assertNotIn("/control",js)
     def test_freeze_record_exists_and_preserves_rotational_firewall(self):
         freeze=server.repo_root()/"engineering"/"hud"/"LOCAL_FLIGHT_QUALIFICATION_FREEZE_2026-09-11.md"
