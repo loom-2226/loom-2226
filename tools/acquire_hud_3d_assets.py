@@ -2,9 +2,14 @@
 """Acquire external 3D assets for the HUD qualification scene.
 
 Assets are cached under LOOM data/qualification and are not written into canon,
-campaign state, or the authoritative spatial SQLite database.  SHA-256 digests
+campaign state, or the authoritative spatial SQLite database. SHA-256 digests
 are recorded after acquisition; upstream files currently have no repository-
 local qualification hash to compare against.
+
+Three r147 is intentional: r148 removed the classic examples/js addon tree. The
+existing Pixel Geometry Lab uses the classic global THREE runtime, so this HUD
+qualification slice stays on the last loader-compatible classic release rather
+than silently introducing a second module/runtime architecture.
 """
 from __future__ import annotations
 
@@ -15,8 +20,8 @@ import os
 import urllib.request
 
 NASA_MOON_URL = "https://svs.gsfc.nasa.gov/vis/a010000/a014900/a014959/Moon_NASA_LRO_8k_Topo_Small.glb"
-THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"
-GLTF_LOADER_URL = "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/js/loaders/GLTFLoader.js"
+THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"
+GLTF_LOADER_URL = "https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"
 
 
 def _download(url: str, target: Path, minimum_bytes: int) -> dict:
@@ -61,6 +66,8 @@ def main() -> int:
         "contract": "LOOM_HUD_EXTERNAL_3D_ASSET_CACHE_V1",
         "status": "QUALIFICATION_ONLY",
         "data_access": "LOCAL_EXTERNAL_CACHE",
+        "three_version": "0.147.0",
+        "three_version_reason": "last classic examples/js addon release; matches Pixel global-THREE architecture",
         "moon_radius_km_for_scene_scale": 1737.4,
         "moon_orientation_authority": "MODEL_NATIVE_NOT_SPICE_QUALIFIED",
         "nasa_credit": "NASA's Goddard Space Flight Center",
