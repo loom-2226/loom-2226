@@ -126,11 +126,11 @@ jobs:
               assert acquisition['authority']['llm_calculation_authority'] == 'ZERO'
               assert {d['id'] for d in canonical['dependencies']} == required_ids
 
-              candidates, selected, plan_meta = campaign._candidate_plans(
+              candidates = campaign._candidate_plans(
                   nav, normalized, acquisition, cache, state, 'FASTEST'
               )
               assert candidates
-              assert selected
+              selected = candidates[0]
               leg = selected['leg']
               burn = leg['terminal_burn']
               used = float(burn['remass_used_t'])
