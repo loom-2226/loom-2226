@@ -14,24 +14,22 @@ import loom_navigator_core as outer_core
 
 
 class ShipyardNavigatorSolvedLegProbeTest(unittest.TestCase):
-    """Probe the real embedded Navigator solve boundary before fixing a fixture.
+    """Probe only the real embedded Navigator contracts needed for an M1 seam test."""
 
-    This intentionally does not claim M1 closure.  It proves CI can load the
-    exact embedded Sequence-H solver owned by Navigator and exposes the source
-    shape needed to bind a governed deterministic ephemeris fixture without
-    replacing ``_solve_leg``.
-    """
-
-    def test_real_embedded_solve_leg_is_loadable(self):
+    def test_real_embedded_solve_dependencies_are_loadable(self):
         with TemporaryDirectory() as td:
             nav = outer_core._load_core(Path(td) / "sequence_h")
-            solve = nav._solve_leg
-            self.assertTrue(callable(solve))
-            source = inspect.getsource(solve)
-            self.assertIn("def _solve_leg", source)
-            self.assertIn("remass_used_t", source)
-            print("\n=== REAL NAVIGATOR _solve_leg SOURCE ===\n")
-            print(source)
+            solve_source = inspect.getsource(nav._solve_leg)
+            state_source = inspect.getsource(nav._state_primary)
+            burn_source = inspect.getsource(nav._torch_burn)
+            self.assertIn("def _solve_leg", solve_source)
+            self.assertIn("terminal_burn", solve_source)
+            self.assertIn("def _state_primary", state_source)
+            self.assertIn("def _torch_burn", burn_source)
+            print("\n=== REAL NAVIGATOR _state_primary SOURCE ===\n")
+            print(state_source)
+            print("\n=== REAL NAVIGATOR _torch_burn SOURCE ===\n")
+            print(burn_source)
 
 
 if __name__ == "__main__":
