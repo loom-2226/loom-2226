@@ -15,7 +15,7 @@ class HudServerTests(unittest.TestCase):
     def test_authority_boundary_visible(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("QUALIFICATION_ONLY",text); self.assertIn("NOT Navigator targeting authority",text); self.assertIn("ATTITUDE TRANSITION UNQUALIFIED",text)
     def test_build_marker(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.17-ship-look"',text); self.assertIn("BUILD hud-v0.17-ship-look",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.18-range-rate"',text); self.assertIn("BUILD hud-v0.18-range-rate",text)
     def test_optical_moon_and_external_client_present(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NASA LRO OPTICAL MOON",text); self.assertIn("hud_v0_15.js",text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("SphereGeometry(1737.4",js); self.assertIn("moonOptical",js); self.assertIn("moonTopo",js)
@@ -35,9 +35,13 @@ class HudServerTests(unittest.TestCase):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("hud_v0_16_arrival_check.js",text); self.assertIn("START / MID / ARRIVAL",text)
         js=(server.demo_root()/"hud_v0_16_arrival_check.js").read_text(encoding="utf-8"); self.assertIn("Math.atan2(1737.4,range)",js); self.assertIn("button('ARRIVAL',100)",js); self.assertIn("dispatchEvent(new Event('input'",js); self.assertIn("camera.value='SHIP'",js)
     def test_ship_look_keeps_eye_fixed_and_rotates_view(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("hud_v0_17_renderer_hook.js",text); self.assertIn("hud_v0_17_ship_look.js",text); self.assertIn("SHIP drag now rotates the view from a fixed ship-eye position",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("hud_v0_17_renderer_hook.js",text); self.assertIn("hud_v0_17_ship_look.js",text); self.assertIn("SHIP drag rotates the view from a fixed ship-eye position",text)
         pre=(server.demo_root()/"hud_v0_17_renderer_hook.js").read_text(encoding="utf-8"); post=(server.demo_root()/"hud_v0_17_ship_look.js").read_text(encoding="utf-8")
         self.assertIn("__loomBeforeRender",pre); self.assertIn("camera.position.set(0,0,0)",post); self.assertIn("rotateShipLook",post); self.assertIn("stopImmediatePropagation",post); self.assertIn("CAM USER / SHIP LOOK",post); self.assertIn("camera.fov=shipFov",post)
+    def test_moon_range_rate_telemetry_is_derived_without_state_mutation(self):
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("hud_v0_18_range_rate.js",text); self.assertIn("negative dR/dt means closing",text)
+        js=(server.demo_root()/"hud_v0_18_range_rate.js").read_text(encoding="utf-8")
+        self.assertIn("moon.velocity_earth_centered_km_s",js); self.assertIn("wayfarer.velocity_earth_centered_km_s",js); self.assertIn("CLOSING",js); self.assertIn("RECEDING",js); self.assertIn("SAMPLED",js); self.assertNotIn("control",js)
     def test_server_endpoints(self):
         self.assertEqual(server.LIVE_ENDPOINT,"/flight-view.json"); self.assertEqual(server.EARTH_MOON_ENDPOINT,"/earth-moon-qualification.json"); self.assertEqual(server.REALTIME_ENDPOINT,"/qualification-flight.json"); self.assertEqual(server.TRAJECTORY_PREVIEW_ENDPOINT,"/qualification-flight/trajectory-preview.json"); self.assertEqual(server.INTERCEPT_PREVIEW_ENDPOINT,"/qualification-flight/intercept-preview.json"); self.assertEqual(server.RENDEZVOUS_PREVIEW_ENDPOINT,"/qualification-flight/rendezvous-preview.json")
 
