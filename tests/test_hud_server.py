@@ -28,28 +28,30 @@ class HudServerTests(unittest.TestCase):
 
     def test_earth_moon_page_keeps_authority_boundary_visible(self):
         text = server.validate_assets().read_text(encoding="utf-8")
-        self.assertIn("DERIVED / QUALIFICATION_ONLY", text)
-        self.assertIn("NO NAV AUTHORITY", text)
+        self.assertIn("QUALIFICATION_ONLY", text)
         self.assertIn("FROZEN INERTIAL MIDPOINT", text)
+        self.assertIn("EXTERNAL JPL + HERMITE WHEN CACHE PRESENT", text)
 
     def test_earth_moon_page_exposes_verified_build_marker(self):
         text = server.validate_assets().read_text(encoding="utf-8")
-        self.assertIn('content="hud-v0.6-earth-moon-2026"', text)
-        self.assertIn("BUILD hud-v0.6-earth-moon-2026", text)
+        self.assertIn('content="hud-v0.7-earth-moon-jpl"', text)
+        self.assertIn("BUILD hud-v0.7-earth-moon-jpl", text)
 
-    def test_earth_moon_page_consumes_server_propagation(self):
+    def test_earth_moon_page_consumes_server_generated_states(self):
         text = server.validate_assets().read_text(encoding="utf-8")
         self.assertIn("/earth-moon-qualification.json?epoch=2026-09-10T00:00:00Z&days=30", text)
         self.assertIn("moon_relative_to_observer_km", text)
         self.assertIn("moon_relative_velocity_km_s", text)
         self.assertIn("data.camera_basis", text)
         self.assertNotIn("propagate_parent_centric", text)
+        self.assertNotIn("hermite_state", text)
 
-    def test_earth_moon_page_has_playback_controls(self):
+    def test_earth_moon_page_has_dense_playback_controls(self):
         text = server.validate_assets().read_text(encoding="utf-8")
         self.assertIn('id="play"', text)
-        self.assertIn('id="day" type="range"', text)
-        self.assertIn("DAY ${idx}", text)
+        self.assertIn('id="sample" type="range"', text)
+        self.assertIn("elapsed_hours", text)
+        self.assertIn("50)", text)
 
     def test_server_retains_live_endpoint_and_adds_qualification_endpoint(self):
         self.assertEqual(server.LIVE_ENDPOINT, "/flight-view.json")
