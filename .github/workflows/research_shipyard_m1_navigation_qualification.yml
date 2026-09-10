@@ -29,6 +29,7 @@ jobs:
           import copy
           import json
           import tempfile
+          import time
           from pathlib import Path
 
           import loom_navigator_core as campaign
@@ -61,11 +62,69 @@ jobs:
                   'remass_t': state['ship']['remass_t'],
               }
 
-              acquisition = nav.run_acquisition(normalized, cache, offline=False, refresh=False)
+              # Route-scoped acquisition, built entirely from Navigator's governed
+              # SOURCE-010 machinery. The generic run_acquisition() sweep currently
+              # includes unrelated local moons whose Horizons coverage ends before
+              # 2226; M1 needs only the two authoritative BASE dependencies actually
+              # consumed by this Ceres -> Neptune route.
+              _, _, trace = nav.acquisition_window(normalized)
+              full_plan = nav.build_acquisition_plan(normalized)
+              required_ids = {
+                  nav.ROUTE_OBJECTS[token]['base_id'] for token in normalized['route']
+              }
+              route_plan = [
+                  item for item in full_plan
+                  if item['scope'] == 'BASE' and item['id'] in required_ids
+              ]
+              assert required_ids == {'CE', 'NE'}
+              assert {item['id'] for item in route_plan} == required_ids
+              assert len(route_plan) == 2
+
+              session = nav.build_session()
+              entries = []
+              hits = fetched = 0
+              total_cache = total_raw = 0
+              t0 = time.perf_counter()
+              for item in route_plan:
+                  req = item['request']
+                  r = nav.fetch_or_cache(req, cache, session, offline=False, refresh=False)
+                  hits += int(r['status'] == 'CACHE_HIT')
+                  fetched += int(r['status'] == 'FETCHED')
+                  total_cache += int(r.get('cache_bytes', 0))
+                  total_raw += int(r.get('raw_archive_bytes', 0))
+                  entries.append({
+                      **{k: v for k, v in item.items() if k != 'request'},
+                      'request': req.canonical(),
+                      **r,
+                  })
+
+              acquisition = {
+                  'schema': 'LOOM_NAV_EPHEMERIS_ACQUISITION_INDEX_v1',
+                  'workflow_version': nav.WORKFLOW_VERSION,
+                  'test_id': normalized['test_id'],
+                  'epoch_utc': normalized['epoch_utc'],
+                  'policy': nav.EPHEMERIS_POLICY,
+                  'window_trace': trace,
+                  'request_count': len(route_plan),
+                  'cache_hits': hits,
+                  'fetched': fetched,
+                  'direct_unavailable': 0,
+                  'cache_bytes_touched': total_cache,
+                  'raw_archive_bytes_written': total_raw,
+                  'elapsed_seconds': round(time.perf_counter() - t0, 6),
+                  'entries': entries,
+                  'authority': {
+                      'source': 'SOURCE-010',
+                      'derived_scientific_values_in_cache': False,
+                      'llm_calculation_authority': 'ZERO',
+                  },
+              }
+
               canonical, axis_validation = nav.build_canonical_dependency_index(acquisition, cache)
-              assert axis_validation['qualification'] == 'PASS'
+              assert axis_validation['status'] == 'PASS'
               assert acquisition['authority']['source'] == 'SOURCE-010'
               assert acquisition['authority']['llm_calculation_authority'] == 'ZERO'
+              assert {d['id'] for d in canonical['dependencies']} == required_ids
 
               candidates, selected, plan_meta = campaign._candidate_plans(
                   nav, normalized, acquisition, cache, state, 'FASTEST'
@@ -83,7 +142,7 @@ jobs:
               assert state == before
 
               evidence = {
-                  'schema': 'LOOM_SHIPYARD_M1_NAVIGATION_QUALIFICATION_v0.1',
+                  'schema': 'LOOM_SHIPYARD_M1_NAVIGATION_QUALIFICATION_v0.2',
                   'status': 'PASS',
                   'm1_closed': True,
                   'scope': 'ONE_GOVERNED_WAYFARER_CLOSES_THROUGH_REAL_NAVIGATOR_PLANNING_AND_PHYSICS',
@@ -96,7 +155,9 @@ jobs:
                   'ship': normalized['ship'],
                   'ephemeris_source_authority': acquisition['authority']['source'],
                   'ephemeris_llm_calculation_authority': acquisition['authority']['llm_calculation_authority'],
-                  'axis_qualification': axis_validation['qualification'],
+                  'acquisition_scope': 'ROUTE_REQUIRED_BASE_DEPENDENCIES_ONLY',
+                  'acquisition_dependency_ids': sorted(required_ids),
+                  'axis_qualification': axis_validation['status'],
                   'candidate_count': len(candidates),
                   'selected_metric_mode': selected['metric'],
                   'selected_torch_mode': selected['torch'],
@@ -114,7 +175,7 @@ jobs:
                   'canon_changed': False,
                   'production_shipclasses_changed': False,
                   'm2_candidate_differentiation_closed': False,
-                  'note': 'M1 closes one governed Wayfarer through live SOURCE-010 acquisition and the real Navigator planner/solver. B1 deterministic replay packaging is Navigator infrastructure and is not asserted by this Shipyard qualification.'
+                  'note': 'M1 closes one governed Wayfarer through Navigator-native SOURCE-010 route-scoped acquisition, canonical axis validation, real candidate planning, and NAV-V1-A solve. Unrelated 2226-incompatible local-moon acquisition is not required by this route and is not fabricated or downgraded.'
               }
               Path('shipyard_m1_navigation_qualification.json').write_text(
                   json.dumps(evidence, indent=2, sort_keys=True) + '\n', encoding='utf-8'
