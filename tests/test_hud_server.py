@@ -15,7 +15,7 @@ class HudServerTests(unittest.TestCase):
     def test_authority_boundary_visible(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("QUALIFICATION_ONLY",text); self.assertIn("NOT Navigator targeting authority",text); self.assertIn("ATTITUDE TRANSITION UNQUALIFIED",text)
     def test_build_marker(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.18-range-rate"',text); self.assertIn("BUILD hud-v0.18-range-rate",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.20-quality-freeze"',text); self.assertIn("BUILD hud-v0.20-quality-freeze",text)
     def test_optical_moon_and_external_client_present(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NASA LRO OPTICAL MOON",text); self.assertIn("hud_v0_15.js",text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("SphereGeometry(1737.4",js); self.assertIn("moonOptical",js); self.assertIn("moonTopo",js)
@@ -42,6 +42,20 @@ class HudServerTests(unittest.TestCase):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("hud_v0_18_range_rate.js",text); self.assertIn("negative dR/dt means closing",text)
         js=(server.demo_root()/"hud_v0_18_range_rate.js").read_text(encoding="utf-8")
         self.assertIn("moon.velocity_earth_centered_km_s",js); self.assertIn("wayfarer.velocity_earth_centered_km_s",js); self.assertIn("CLOSING",js); self.assertIn("RECEDING",js); self.assertIn("SAMPLED",js); self.assertNotIn("control",js)
+    def test_terminal_quality_panel_is_fail_closed_and_non_commanding(self):
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('id="qualityPanel"',text); self.assertIn("hud_v0_20_quality_hook.js",text); self.assertIn("hud_v0_20_quality.js",text)
+        hook=(server.demo_root()/"hud_v0_20_quality_hook.js").read_text(encoding="utf-8")
+        panel=(server.demo_root()/"hud_v0_20_quality.js").read_text(encoding="utf-8")
+        self.assertIn("rendezvous-preview.json",hook); self.assertIn("__loomRendezvousQuality",hook)
+        self.assertIn("SOLVED_TRANSLATIONAL_FEASIBILITY",panel); self.assertIn("NOT SOLVED",panel)
+        self.assertIn("MIN CLEAR",panel); self.assertIn("REMASS",panel); self.assertIn("REL V",panel); self.assertNotIn("/control",panel)
+    def test_freeze_record_exists_and_preserves_rotational_firewall(self):
+        freeze=server.repo_root()/"engineering"/"hud"/"LOCAL_FLIGHT_QUALIFICATION_FREEZE_2026-09-11.md"
+        self.assertTrue(freeze.is_file())
+        text=freeze.read_text(encoding="utf-8")
+        self.assertIn("FROZEN QUALIFICATION SLICE",text)
+        self.assertIn("ATTITUDE / ROTATIONAL AUTHORITY NOT INCLUDED",text)
+        self.assertIn("Import only through governed engineering authority",text)
     def test_server_endpoints(self):
         self.assertEqual(server.LIVE_ENDPOINT,"/flight-view.json"); self.assertEqual(server.EARTH_MOON_ENDPOINT,"/earth-moon-qualification.json"); self.assertEqual(server.REALTIME_ENDPOINT,"/qualification-flight.json"); self.assertEqual(server.TRAJECTORY_PREVIEW_ENDPOINT,"/qualification-flight/trajectory-preview.json"); self.assertEqual(server.INTERCEPT_PREVIEW_ENDPOINT,"/qualification-flight/intercept-preview.json"); self.assertEqual(server.RENDEZVOUS_PREVIEW_ENDPOINT,"/qualification-flight/rendezvous-preview.json")
 
