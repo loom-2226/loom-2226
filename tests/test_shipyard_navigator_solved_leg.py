@@ -24,14 +24,14 @@ def _qualification_ephemeris_rows():
     """Deterministic seam fixture; not a claim of celestial ephemeris authority.
 
     The seven-column shape matches Navigator's existing route-scoped
-    qualification fixtures: sample coordinate, XYZ km, VXYZ km/s. Forty-nine
-    hourly samples cover Navigator's complete 48-hour root-search window. The
-    destination translates consistently at +10 km/s in Y so the real terminal
-    burn has non-zero delta-v.
+    qualification fixtures: sample coordinate, XYZ km, VXYZ km/s. Seventy-three
+    hourly samples provide margin beyond Navigator's 48-hour root-search bound,
+    including terminal-burn checkpoint interpolation. The destination translates
+    consistently at +10 km/s in Y so the real terminal burn has non-zero delta-v.
     """
     origin = []
     destination = []
-    for sample in range(49):
+    for sample in range(73):
         elapsed_s = sample * AXIS["step_seconds"]
         origin.append((float(sample), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))
         destination.append(
