@@ -12,6 +12,7 @@ import sqlite3
 
 from loom.hud.earth_moon_qualification import build_earth_moon_qualification
 from loom.hud.intercept_qualification import solve_moon_intercept
+from loom.hud.rendezvous_qualification import solve_moon_rendezvous_feasibility
 from loom.hud.live_provider import load_live_flight_view, unavailable_live_payload
 from loom.hud.realtime_flight_qualification import RealtimeFlightQualification
 from loom.runtime import resolve_runtime_roots
@@ -24,6 +25,7 @@ EARTH_MOON_ENDPOINT = "/earth-moon-qualification.json"
 REALTIME_ENDPOINT = "/qualification-flight.json"
 TRAJECTORY_PREVIEW_ENDPOINT = "/qualification-flight/trajectory-preview.json"
 INTERCEPT_PREVIEW_ENDPOINT = "/qualification-flight/intercept-preview.json"
+RENDEZVOUS_PREVIEW_ENDPOINT = "/qualification-flight/rendezvous-preview.json"
 CONTROL_ENDPOINT = "/qualification-flight/control"
 WAYFARER_GEOMETRY_ENDPOINT = "/wayfarer-geometry.json"
 ASSET_PREFIX = "/qualification-assets/"
@@ -125,7 +127,6 @@ def make_handler(directory: Path):
                     result = get_session().trajectory_preview(burn_s=burn_s, coast_s=coast_s, mode=mode, sample_s=sample_s)
                     if result.get("points"):
                         p = result["points"][-1]
-                        moon_v = get_session().anchors
                         from loom.hud.earth_moon_qualification import _state_from_jpl
                         _mp, mv, _src = _state_from_jpl(get_session().anchors, get_session().sim_epoch.fromisoformat(p["epoch_utc"].replace("Z", "+00:00")))
                         result["final"]["relative_speed_km_s"] = sum((float(p["wayfarer_velocity_earth_centered_km_s"][i])-float(mv[i]))**2 for i in range(3))**0.5
@@ -138,6 +139,13 @@ def make_handler(directory: Path):
                     max_time_s = float((query.get("max_time_s") or ["22200"])[0]); mode = (query.get("mode") or ["CRUISE"])[0]; sample_s = float((query.get("sample_s") or ["60"])[0])
                     self._json(solve_moon_intercept(get_session(), max_time_s=max_time_s, mode=mode, sample_s=sample_s))
                 except Exception as exc: self._json({"contract":"LOOM_HUD_INTERCEPT_PREVIEW_QUALIFICATION_V1","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
+                return
+            if parsed.path == RENDEZVOUS_PREVIEW_ENDPOINT:
+                query = parse_qs(parsed.query)
+                try:
+                    max_time_s = float((query.get("max_time_s") or ["22200"])[0]); mode = (query.get("mode") or ["CRUISE"])[0]; standoff_altitude_km = float((query.get("standoff_altitude_km") or ["1000"])[0]); sample_s = float((query.get("sample_s") or ["60"])[0])
+                    self._json(solve_moon_rendezvous_feasibility(get_session(), max_time_s=max_time_s, mode=mode, standoff_altitude_km=standoff_altitude_km, sample_s=sample_s))
+                except Exception as exc: self._json({"contract":"LOOM_HUD_RENDEZVOUS_FEASIBILITY_QUALIFICATION_V1","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
                 return
             if parsed.path == WAYFARER_GEOMETRY_ENDPOINT:
                 try: self._json(_compile_wayfarer_geometry(root))
@@ -165,7 +173,7 @@ def make_handler(directory: Path):
 
 def serve(*, host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, root: Path | None = None) -> None:
     page = validate_assets(root); directory = page.parent; handler = make_handler(directory); url = f"http://{host}:{port}/{page.name}"
-    print(f"LOOM HUD: {url}"); print(f"LIVE STATE: {LIVE_ENDPOINT} (READ ONLY / FAIL CLOSED)"); print(f"REALTIME QUALIFICATION: {REALTIME_ENDPOINT} (WALL-UTC SEEDED / NON-CAMPAIGN)"); print(f"TRAJECTORY PREVIEW: {TRAJECTORY_PREVIEW_ENDPOINT} (READ ONLY / NO NAVIGATOR CLAIM)"); print(f"INTERCEPT PREVIEW: {INTERCEPT_PREVIEW_ENDPOINT} (QUALIFICATION SEARCH / NO COMMIT)"); print(f"WAYFARER GEOMETRY: {WAYFARER_GEOMETRY_ENDPOINT} (IN-MEMORY COMPILE)"); print(f"3D ASSETS: {ASSET_PREFIX} (LOCAL QUALIFICATION CACHE)"); print("CAMPAIGN: WRITE NONE")
+    print(f"LOOM HUD: {url}"); print(f"LIVE STATE: {LIVE_ENDPOINT} (READ ONLY / FAIL CLOSED)"); print(f"REALTIME QUALIFICATION: {REALTIME_ENDPOINT} (WALL-UTC SEEDED / NON-CAMPAIGN)"); print(f"TRAJECTORY PREVIEW: {TRAJECTORY_PREVIEW_ENDPOINT} (READ ONLY / NO NAVIGATOR CLAIM)"); print(f"INTERCEPT PREVIEW: {INTERCEPT_PREVIEW_ENDPOINT} (QUALIFICATION SEARCH / NO COMMIT)"); print(f"RENDEZVOUS FEASIBILITY: {RENDEZVOUS_PREVIEW_ENDPOINT} (UNQUALIFIED ATTITUDE TRANSITION / NO COMMIT)"); print(f"WAYFARER GEOMETRY: {WAYFARER_GEOMETRY_ENDPOINT} (IN-MEMORY COMPILE)"); print(f"3D ASSETS: {ASSET_PREFIX} (LOCAL QUALIFICATION CACHE)"); print("CAMPAIGN: WRITE NONE")
     with ThreadingHTTPServer((host, port), handler) as server:
         server.daemon_threads = True; server.serve_forever()
 
