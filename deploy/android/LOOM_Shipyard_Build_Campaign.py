@@ -1,13 +1,11 @@
 from __future__ import annotations
 
 import argparse
-import json
-import os
 import subprocess
 import sys
 from pathlib import Path
 
-APP_VERSION = "LOOM_SHIPYARD_BUILD_CAMPAIGN_PIXEL_v0.1"
+APP_VERSION = "LOOM_SHIPYARD_BUILD_CAMPAIGN_PIXEL_v0.2"
 HERE = Path(__file__).resolve()
 APP_ROOT = HERE.parents[2]
 SRC = APP_ROOT / "src"
@@ -22,7 +20,7 @@ from LOOM_Shipyard_GLB_Library import default_db
 
 
 def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description="Run the first bounded LOOM iterative Wayfarer shipbuilding campaign")
+    ap = argparse.ArgumentParser(description="Run the bounded LOOM iterative Wayfarer shipbuilding campaign")
     ap.add_argument("--db", help="Shipyard design-ledger SQLite path")
     ap.add_argument("--seed", type=int, default=2226)
     ap.add_argument("--open-library", action="store_true", help="Open visual workspace after successful build")
@@ -46,8 +44,19 @@ def main(argv=None) -> int:
     print(f"GLB ASSETS: {report['visual_asset_count']}")
     print(f"RESULT: {report['interpretation']}")
     print(f"NAV DIFFERENTIATED: {report['dynamics_differentiation']['translational_mission_behavior_differentiated']}")
+    readiness = report["dynamics_readiness"]
+    print(f"DYNAMICS READINESS: {readiness['status']}")
+    print(f"TRANSLATIONAL CORE READY: {readiness['translational_core_ready']}")
+    if readiness["missing_required_admissions"]:
+        print("MISSING PHYSICAL ADMISSIONS:")
+        for gate in readiness["missing_required_admissions"]:
+            print(f"  - {gate}")
+    feed = readiness["remass_feed_evidence"]
+    print(f"REMASS FEED: {feed['phase11_selection_status']}; LIVE INPUTS={feed['phase11_live_engineering_input_admission_count']}")
     if report.get("next_blocker"):
         print(f"NEXT BLOCKER: {report['next_blocker']}")
+    if report.get("next_admission_priority"):
+        print(f"NEXT ADMISSION PRIORITY: {report['next_admission_priority']}")
     print("AUTHORITY: RESEARCH ONLY; NO FLIGHT/CANON/PRODUCTION PROMOTION")
     if args.open_library:
         workspace = APP_ROOT / "deploy" / "android" / "LOOM_Shipyard_Visual_Workspace.py"
