@@ -3,23 +3,26 @@
 
 Static HUD assets are served from the checked-in demo directory. The optional
 `/flight-view.json` endpoint reads canonical campaign/spatial state through the
-existing read-only adapters. It never writes campaign/data authority and never
-propagates, interpolates or invents missing vehicle state.
+existing read-only adapters. `/earth-moon-qualification.json` is an explicitly
+qualification-only 2026 Earth-Moon propagation surface built from the stored
+LOOM celestial catalog; it never writes authority.
 """
 from __future__ import annotations
 
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 import argparse
 import json
 
+from loom.hud.earth_moon_qualification import build_earth_moon_qualification
 from loom.hud.live_provider import load_live_flight_view, unavailable_live_payload
 
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8767
-DEFAULT_PAGE = "hud_mock_v0_1.html"
+DEFAULT_PAGE = "earth_moon_qualification.html"
 LIVE_ENDPOINT = "/flight-view.json"
+EARTH_MOON_ENDPOINT = "/earth-moon-qualification.json"
 
 
 def demo_root() -> Path:
@@ -43,21 +46,36 @@ def make_handler(directory: Path):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, directory=str(directory), **kwargs)
 
+        def _json(self, payload, status=200):
+            body = (json.dumps(payload, separators=(",", ":"), sort_keys=True) + "\n").encode("utf-8")
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+
         def do_GET(self):
-            if urlparse(self.path).path == LIVE_ENDPOINT:
+            parsed = urlparse(self.path)
+            if parsed.path == LIVE_ENDPOINT:
                 try:
-                    payload = load_live_flight_view()
-                    status = 200
+                    self._json(load_live_flight_view())
                 except Exception as exc:
-                    payload = unavailable_live_payload(exc)
-                    status = 503
-                body = (json.dumps(payload, separators=(",", ":"), sort_keys=True) + "\n").encode("utf-8")
-                self.send_response(status)
-                self.send_header("Content-Type", "application/json; charset=utf-8")
-                self.send_header("Content-Length", str(len(body)))
-                self.send_header("Cache-Control", "no-store")
-                self.end_headers()
-                self.wfile.write(body)
+                    self._json(unavailable_live_payload(exc), 503)
+                return
+            if parsed.path == EARTH_MOON_ENDPOINT:
+                query = parse_qs(parsed.query)
+                epoch = (query.get("epoch") or ["2026-09-10T00:00:00Z"])[0]
+                try:
+                    days = int((query.get("days") or ["30"])[0])
+                    self._json(build_earth_moon_qualification(epoch_utc=epoch, days=days))
+                except Exception as exc:
+                    self._json({
+                        "contract": "LOOM_HUD_EARTH_MOON_QUALIFICATION_V1",
+                        "status": "UNAVAILABLE",
+                        "authority": "UNAVAILABLE",
+                        "reason": str(exc),
+                    }, 503)
                 return
             return super().do_GET()
 
@@ -71,6 +89,7 @@ def serve(*, host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, root: Path | No
     url = f"http://{host}:{port}/{page.name}"
     print(f"LOOM HUD: {url}")
     print(f"LIVE STATE: {LIVE_ENDPOINT} (READ ONLY / FAIL CLOSED)")
+    print(f"EARTH-MOON QUALIFICATION: {EARTH_MOON_ENDPOINT} (DERIVED / NON-NAVIGATION-GRADE)")
     print("CAMPAIGN/DATA: READ ONLY / WRITE NONE")
     with ThreadingHTTPServer((host, port), handler) as server:
         server.serve_forever()
