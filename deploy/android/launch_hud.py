@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Android launcher for the LOOM HUD qualification surface.
+"""Android launcher for the LOOM HUD live synthetic-vision surface.
 
 Each preview chooses a free localhost port and appends a cache-busting query so
 an older HUD server/browser document cannot masquerade as the current checkout.
+The preview code may run from a downloaded branch, while data/campaign authority
+remains bound to the qualified Documents/LOOM roots.
 """
 from __future__ import annotations
 
@@ -17,9 +19,11 @@ from urllib.request import urlopen
 
 LOOM_ROOT = Path("/storage/emulated/0/Documents/LOOM")
 APP = Path(os.environ.get("LOOM_APP_ROOT") or os.environ.get("LOOM_HOME") or str(LOOM_ROOT / "runtime")).expanduser().resolve()
+DATA = Path(os.environ.get("LOOM_DATA_ROOT") or str(LOOM_ROOT / "data")).expanduser().resolve()
+CAMPAIGN = Path(os.environ.get("LOOM_CAMPAIGN_ROOT") or str(LOOM_ROOT / "campaign")).expanduser().resolve()
 SERVER = APP / "src" / "loom" / "hud" / "server.py"
 PAGE = "hud_mock_v0_1.html"
-BUILD_MARKER = "hud-v0.4-synthvision"
+BUILD_MARKER = "hud-v0.5-live-spatial"
 
 if not SERVER.exists():
     raise SystemExit(f"LOOM file missing: {SERVER}")
@@ -72,9 +76,16 @@ cache_token = str(time.time_ns())
 HUD_URL = str(os.environ.get("LOOM_HUD_URL") or f"http://127.0.0.1:{port}/{PAGE}?build={BUILD_MARKER}&t={cache_token}")
 
 env = os.environ.copy()
-env.update({"LOOM_APP_ROOT": str(APP), "LOOM_HOME": str(APP)})
+env.update({
+    "LOOM_APP_ROOT": str(APP),
+    "LOOM_DATA_ROOT": str(DATA),
+    "LOOM_CAMPAIGN_ROOT": str(CAMPAIGN),
+    "LOOM_HOME": str(APP),
+})
 
 print(f"LOOM HUD APP ROOT: {APP}")
+print(f"LOOM HUD DATA ROOT: {DATA}")
+print(f"LOOM HUD CAMPAIGN ROOT: {CAMPAIGN}")
 print(f"LOOM HUD BUILD: {BUILD_MARKER}")
 print(f"LOOM HUD PREVIEW: {HUD_URL}")
 
