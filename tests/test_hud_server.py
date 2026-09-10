@@ -15,11 +15,13 @@ class HudServerTests(unittest.TestCase):
     def test_authority_boundary_visible(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("QUALIFICATION_ONLY",text); self.assertIn("NOT Navigator targeting",text); self.assertIn("ATTITUDE FIXED / NO ROTATION",text)
     def test_build_marker(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.9-moon-trajectory"',text); self.assertIn("BUILD hud-v0.9-moon-trajectory",text)
-    def test_moon_asset_is_centered_before_physical_scale(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("box.getCenter(center)",text); self.assertIn("1737.4/sphere.radius",text); self.assertIn("CENTERED_AND_SCALED",text)
-    def test_trajectory_preview_controls_present(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('value="TRAJECTORY"',text); self.assertIn("trajectory-preview.json",text); self.assertIn("CALCULATE",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.10-moon-gmat"',text); self.assertIn("BUILD hud-v0.10-moon-gmat",text)
+    def test_moon_transform_applies_scaled_center_translation(self):
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("box.getCenter(center)",text); self.assertIn("1737.4/sphere.radius",text); self.assertIn("multiplyScalar(-scale)",text); self.assertIn("moonModelRadiusKm",text)
+    def test_moon_diagnostics_present(self):
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("MOON BRG",text); self.assertIn("MOON DIAM",text); self.assertIn("GLB R",text); self.assertIn("moonPresentation",text)
+    def test_trajectory_preview_controls_and_framing_present(self):
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('value="TRAJECTORY"',text); self.assertIn("trajectory-preview.json",text); self.assertIn("CALCULATE",text); self.assertIn("setTrajectoryScene",text); self.assertIn("allTrajectoryPoints",text); self.assertIn("MOON PATH",text)
     def test_server_endpoints(self):
         self.assertEqual(server.LIVE_ENDPOINT,"/flight-view.json"); self.assertEqual(server.EARTH_MOON_ENDPOINT,"/earth-moon-qualification.json"); self.assertEqual(server.REALTIME_ENDPOINT,"/qualification-flight.json"); self.assertEqual(server.TRAJECTORY_PREVIEW_ENDPOINT,"/qualification-flight/trajectory-preview.json")
 
