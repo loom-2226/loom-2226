@@ -17,7 +17,7 @@ from loom.runtime import resolve_runtime_roots
 
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8767
-DEFAULT_PAGE = "earth_moon_qualification.html"
+DEFAULT_PAGE = "earth_moon_qualification_v011.html"
 LIVE_ENDPOINT = "/flight-view.json"
 EARTH_MOON_ENDPOINT = "/earth-moon-qualification.json"
 REALTIME_ENDPOINT = "/qualification-flight.json"
