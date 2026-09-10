@@ -19,7 +19,7 @@ LOOM_ROOT = Path("/storage/emulated/0/Documents/LOOM")
 APP = Path(os.environ.get("LOOM_APP_ROOT") or os.environ.get("LOOM_HOME") or str(LOOM_ROOT / "runtime")).expanduser().resolve()
 SERVER = APP / "src" / "loom" / "hud" / "server.py"
 PAGE = "hud_mock_v0_1.html"
-BUILD_MARKER = "hud-v0.3.1-tactical"
+BUILD_MARKER = "hud-v0.4-synthvision"
 
 if not SERVER.exists():
     raise SystemExit(f"LOOM file missing: {SERVER}")
