@@ -55,10 +55,33 @@ def add_diagonal_intrinsic(point_tensor: Sequence[Sequence[float]], intrinsic_di
     return tuple(tuple(row) for row in out)
 
 
+def homogeneous_cylinder_inertia(mass_kg: float, length_m: float, radius_m: float) -> dict:
+    """Order-of-magnitude comparison envelope, not literal Wayfarer inertia canon."""
+    if mass_kg <= 0 or length_m <= 0 or radius_m <= 0:
+        raise ValueError("mass, length and radius must be positive")
+    ixx = 0.5 * mass_kg * radius_m * radius_m
+    i_transverse = mass_kg * (3.0 * radius_m * radius_m + length_m * length_m) / 12.0
+    return {
+        "Ixx_kg_m2": ixx,
+        "Iyy_kg_m2": i_transverse,
+        "Izz_kg_m2": i_transverse,
+        "model_class": "HOMOGENEOUS_CYLINDER_REFERENCE_ONLY",
+        "qualification_status": "NOT_FINAL",
+    }
+
+
 def torque_from_thruster_pair(thrust_each_N: float, moment_arm_m: float) -> float:
+    """Opposed pair with each thruster at the supplied moment arm from the CoM."""
     if thrust_each_N < 0 or moment_arm_m < 0:
         raise ValueError("thrust and arm must be non-negative")
     return 2.0 * thrust_each_N * moment_arm_m
+
+
+def torque_from_separated_couple(thrust_each_N: float, separation_m: float) -> float:
+    """Equivalent couple torque F*d for equal opposite forces separated by d."""
+    if thrust_each_N < 0 or separation_m < 0:
+        raise ValueError("thrust and separation must be non-negative")
+    return thrust_each_N * separation_m
 
 
 def angular_accel_rad_s2(torque_Nm: float, inertia_kg_m2: float) -> float:
@@ -75,3 +98,15 @@ def bang_bang_slew_time_s(angle_rad: float, angular_accel_rad_s2_value: float) -
     if angle_rad < 0 or angular_accel_rad_s2_value <= 0:
         raise ValueError("angle must be non-negative and acceleration positive")
     return 2.0 * math.sqrt(angle_rad / angular_accel_rad_s2_value)
+
+
+def translation_accel_m_s2(total_thrust_N: float, mass_kg: float) -> float:
+    if total_thrust_N < 0 or mass_kg <= 0:
+        raise ValueError("thrust must be non-negative and mass positive")
+    return total_thrust_N / mass_kg
+
+
+def impulse_for_delta_v_N_s(mass_kg: float, delta_v_m_s: float) -> float:
+    if mass_kg <= 0 or delta_v_m_s < 0:
+        raise ValueError("mass must be positive and delta-v non-negative")
+    return mass_kg * delta_v_m_s
