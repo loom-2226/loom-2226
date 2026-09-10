@@ -64,6 +64,10 @@ class ShipyardNavigatorSolvedLegTest(unittest.TestCase):
         origin_rows, destination_rows = _qualification_ephemeris_rows()
         with TemporaryDirectory() as td:
             nav = outer_core._load_core(Path(td) / "sequence_h")
+            # Select directly from Navigator's admitted mode registry rather than
+            # introducing a Shipyard-side propulsion-mode name.
+            torch_mode = sorted(nav.TORCH_MODES)[0]
+            self.assertTrue(torch_mode)
             leg = nav._solve_leg(
                 "CERES",
                 "MARS",
@@ -72,7 +76,7 @@ class ShipyardNavigatorSolvedLegTest(unittest.TestCase):
                 destination_rows,
                 AXIS,
                 "EXPEDITE",
-                "PRECISION_COLLAPSE",
+                torch_mode,
                 wet_mass_t,
             )
 
@@ -86,6 +90,7 @@ class ShipyardNavigatorSolvedLegTest(unittest.TestCase):
         self.assertAlmostEqual(float(burn["wet_mass_start_t"]), wet_mass_t, places=9)
         self.assertAlmostEqual(float(burn["wet_mass_end_t"]), wet_mass_t - used, places=9)
         self.assertAlmostEqual(float(burn["delta_v_km_s"]), 10.0, places=9)
+        self.assertEqual(leg["torch_mode"], torch_mode)
 
         # Real Navigator root/interpolation closure remains tight.
         self.assertLess(abs(float(leg["root_solver"]["root_residual_s"])), 1e-6)
