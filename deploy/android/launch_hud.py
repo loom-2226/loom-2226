@@ -76,11 +76,14 @@ cache_token = str(time.time_ns())
 HUD_URL = str(os.environ.get("LOOM_HUD_URL") or f"http://127.0.0.1:{port}/{PAGE}?build={BUILD_MARKER}&t={cache_token}")
 
 env = os.environ.copy()
+src_root = str(APP / "src")
+existing_pythonpath = str(env.get("PYTHONPATH") or "").strip()
 env.update({
     "LOOM_APP_ROOT": str(APP),
     "LOOM_DATA_ROOT": str(DATA),
     "LOOM_CAMPAIGN_ROOT": str(CAMPAIGN),
     "LOOM_HOME": str(APP),
+    "PYTHONPATH": src_root if not existing_pythonpath else src_root + os.pathsep + existing_pythonpath,
 })
 
 print(f"LOOM HUD APP ROOT: {APP}")
