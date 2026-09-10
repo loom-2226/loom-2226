@@ -14,6 +14,8 @@ jobs:
   qualify-m1-live-navigation:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/src:${{ github.workspace }}/src/qualification/synthesis
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,7 +23,7 @@ jobs:
           python-version: '3.11'
       - name: Run governed Shipyard to live Navigator M1 chain
         run: |
-          PYTHONPATH=src python - <<'PY'
+          python - <<'PY'
           import copy
           import json
           import tempfile
