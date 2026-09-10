@@ -8,11 +8,10 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-sys.path.insert(0, str(ROOT / "src" / "qualification" / "synthesis"))
 
 import loom_navigator_core as outer_core
-from generative_shipyard_foundation import build_wayfarer_contract_family
-from shipyard_campaign_binding import validate_campaign_binding
+from qualification.synthesis.shipyard_campaign_binding import validate_campaign_binding
+from qualification.synthesis.vehicle_dynamics_contract import build_wayfarer_contract_family
 
 
 AXIS = {
@@ -25,7 +24,7 @@ def _qualification_ephemeris_rows():
     """Deterministic seam fixture; not a claim of celestial ephemeris authority.
 
     The seven-column shape matches Navigator's existing route-scoped
-    qualification fixtures: sample coordinate, XYZ km, VXYZ km/s.  The
+    qualification fixtures: sample coordinate, XYZ km, VXYZ km/s. The
     destination translates consistently at +10 km/s in Y across the 48-hour
     interpolation window so the real terminal-burn model has non-zero delta-v.
     """
@@ -46,7 +45,7 @@ class ShipyardNavigatorSolvedLegTest(unittest.TestCase):
 
     This is deliberately narrower than full M1 closure because the celestial
     rows are a deterministic qualification replay, not a live/canonical B1
-    ephemeris acquisition.  `_solve_leg`, `_state_primary`, `_metric_time_s`,
+    ephemeris acquisition. `_solve_leg`, `_state_primary`, `_metric_time_s`,
     and `_torch_burn` remain the real embedded Navigator implementations.
     """
 
