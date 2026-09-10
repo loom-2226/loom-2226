@@ -1,0 +1,26 @@
+name: LOOM Shipyard Navigator Handoff
+
+on:
+  pull_request:
+    paths:
+      - 'src/qualification/synthesis/shipyard_navigator_handoff.py'
+      - 'src/qualification/synthesis/vehicle_dynamics_contract.py'
+      - 'src/loom/navigation/engineering_feasibility_shadow.py'
+      - 'tests/test_shipyard_navigator_handoff.py'
+      - '.github/workflows/research_shipyard_navigator_handoff.yml'
+  workflow_dispatch:
+
+jobs:
+  shipyard-navigator-handoff:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/src:${{ github.workspace }}/src/qualification/synthesis
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile handoff adapter
+        run: python -m py_compile src/qualification/synthesis/shipyard_navigator_handoff.py
+      - name: Exercise Shipyard contract through existing Navigator D2i consumer
+        run: python -m unittest tests.test_shipyard_navigator_handoff -v
