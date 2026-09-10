@@ -17,32 +17,35 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Inspect embedded Navigator solver boundary
+      - name: Inspect embedded Navigator solver and canonical SQLite ephemeris
         run: |
           PYTHONPATH=src python - <<'PY' > navigator_solver_probe.txt
-          import inspect
-          import tempfile
+          import inspect, sqlite3, tempfile
           from pathlib import Path
           import loom_navigator_core as campaign
 
           with tempfile.TemporaryDirectory() as td:
               nav = campaign._load_core(Path(td))
               print('NAV CORE SHA:', campaign.CORE_SHA)
-              for name in ('_solve_leg', '_state_primary', '_pos_km', '_vel_km_s', '_torch_burn', '_burn_displacement', '_metric_time_s'):
+              for name in ('_solve_leg', '_state_primary', '_route_rows_from_canonical', 'build_canonical_dependency_index', 'run_acquisition'):
                   obj = getattr(nav, name, None)
                   print(f'\n=== {name} ===')
                   if obj is None:
-                      print('MISSING')
-                      continue
+                      print('MISSING'); continue
                   print('SIGNATURE:', inspect.signature(obj))
-                  try:
-                      print(inspect.getsource(obj))
-                  except (OSError, TypeError):
-                      print('SOURCE UNAVAILABLE')
-              print('\n=== MODES ===')
-              print('METRIC_MODES:', repr(nav.METRIC_MODES))
-              print('TORCH_MODES:', repr(nav.TORCH_MODES))
-              print('NAV_V1_A:', repr(nav.NAV_V1_A))
+                  try: print(inspect.getsource(obj))
+                  except (OSError, TypeError): print('SOURCE UNAVAILABLE')
+              print('\n=== CANONICAL SQLITE EPHEMERIS ===')
+              db=Path('data/LOOM_2226.sqlite3')
+              con=sqlite3.connect(db)
+              for token in ('CERES','NEPTUNE'):
+                  rows=con.execute("SELECT epoch_utc,reference_frame,reference_plane,source,navigation_grade,x_au,y_au,z_au,vx_au_d,vy_au_d,vz_au_d FROM states WHERE entity_id=? ORDER BY epoch_utc",(token,)).fetchall()
+                  print(token,'ROW_COUNT',len(rows))
+                  if rows:
+                      print('FIRST',rows[0]); print('LAST',rows[-1])
+                      print('NAV_GRADE_COUNT',sum(bool(r[4]) for r in rows))
+                      print('EPOCH_SAMPLE',[r[0] for r in rows[:5]])
+              con.close()
           PY
           cat navigator_solver_probe.txt
       - name: Preserve probe output
