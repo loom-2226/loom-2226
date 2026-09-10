@@ -1,15 +1,15 @@
 from __future__ import annotations
 
-"""Qualification-only two-burn lunar terminal-state feasibility preview.
+"""Qualification-only lunar terminal-state feasibility preview.
 
 This module is deliberately NOT Navigator targeting authority and NOT executable
-flight-control authority.  It asks a narrower engineering question: if Wayfarer
+flight-control authority. It asks a narrower engineering question: if Wayfarer
 could establish the required thrust attitudes instantaneously, can a departure
 burn + coast + braking burn reach a user-specified Moon-relative standoff point
 with low relative velocity using the same disposable HUD flight dynamics?
 
-The attitude transitions are explicitly UNQUALIFIED.  No RCS, inertia tensor,
-flip time, torque, or control law is invented.  The live session and campaign
+The attitude transitions are explicitly UNQUALIFIED. No RCS, inertia tensor,
+flip time, torque, or control law is invented. The live session and campaign
 state are restored unchanged after every candidate evaluation.
 """
 
@@ -27,6 +27,10 @@ from loom.hud.realtime_flight_qualification import (
 )
 
 CONTRACT = "LOOM_HUD_RENDEZVOUS_FEASIBILITY_QUALIFICATION_V1"
+POSITION_TOLERANCE_KM = 50.0
+RELATIVE_SPEED_TOLERANCE_KM_S = 0.05
+MIN_SURFACE_CLEARANCE_KM = 100.0
+CORRECTOR_ITERATIONS = 6
 
 
 def _mag(v) -> float:
@@ -92,12 +96,39 @@ def _target_state(session, start_epoch, arrival_s: float, standoff_altitude_km: 
     epoch = _future_epoch(start_epoch, arrival_s)
     moon_p, moon_v, source = _state_from_jpl(session.anchors, epoch)
     # Qualification convention only: terminal point lies on the Earth->Moon
-    # outward radial line.  It is not an orbit, station location or docking point.
+    # outward radial line. It is not an orbit, station location or docking point.
     radial = _unit(moon_p)
     radius = MOON_RADIUS_KM + standoff_altitude_km
     target_p = _add(moon_p, _scale(radial, radius))
     target_v = tuple(float(x) for x in moon_v)
     return epoch, target_p, target_v, moon_p, source
+
+
+def _classify_solution(
+    *,
+    position_error_km: float,
+    relative_speed_km_s: float,
+    min_surface_clearance_km: float,
+    remass_t: float,
+) -> dict[str, Any]:
+    position_ok = float(position_error_km) <= POSITION_TOLERANCE_KM
+    velocity_ok = float(relative_speed_km_s) <= RELATIVE_SPEED_TOLERANCE_KM_S
+    surface_clearance_ok = float(min_surface_clearance_km) >= MIN_SURFACE_CLEARANCE_KM
+    remass_ok = float(remass_t) > 0.0
+    solved = position_ok and velocity_ok and surface_clearance_ok and remass_ok
+    return {
+        "status": "SOLVED_TRANSLATIONAL_FEASIBILITY" if solved else "NOT_SOLVED",
+        "position_ok": position_ok,
+        "velocity_ok": velocity_ok,
+        "surface_clearance_ok": surface_clearance_ok,
+        "remass_ok": remass_ok,
+        "thresholds": {
+            "position_error_km_max": POSITION_TOLERANCE_KM,
+            "relative_speed_km_s_max": RELATIVE_SPEED_TOLERANCE_KM_S,
+            "min_surface_clearance_km": MIN_SURFACE_CLEARANCE_KM,
+            "remass_t_min_exclusive": 0.0,
+        },
+    }
 
 
 def _run_candidate(
@@ -118,6 +149,7 @@ def _run_candidate(
     points: list[dict[str, Any]] = []
     elapsed = 0.0
     next_sample = 0.0
+    min_moon_range_km = float("inf")
 
     segments = (
         ("BURN", burn1_s, _unit(dir1), True),
@@ -133,8 +165,10 @@ def _run_candidate(
             session._step(dt)
             elapsed += dt
             left -= dt
+            moon_p, _moon_v, moon_source = _state_from_jpl(session.anchors, session.sim_epoch)
+            moon_rel = [float(moon_p[i]) - float(session.ship_position[i]) for i in range(3)]
+            min_moon_range_km = min(min_moon_range_km, _mag(moon_rel))
             if elapsed + 1e-9 >= next_sample or left <= 1e-9:
-                moon_p, _moon_v, moon_source = _state_from_jpl(session.anchors, session.sim_epoch)
                 points.append({
                     "elapsed_s": elapsed,
                     "epoch_utc": session.sim_epoch.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
@@ -142,7 +176,7 @@ def _run_candidate(
                     "wayfarer_position_earth_centered_km": list(session.ship_position),
                     "wayfarer_velocity_earth_centered_km_s": list(session.ship_velocity),
                     "moon_position_earth_centered_km": list(moon_p),
-                    "moon_relative_to_wayfarer_km": [float(moon_p[i]) - float(session.ship_position[i]) for i in range(3)],
+                    "moon_relative_to_wayfarer_km": moon_rel,
                     "remass_t": float(session.remass_t),
                     "state_source": moon_source,
                 })
@@ -155,7 +189,20 @@ def _run_candidate(
         "final_remass_t": float(session.remass_t),
         "final_wet_mass_t": float(session.wet_mass_t),
         "final_epoch": session.sim_epoch,
+        "min_moon_range_km": min_moon_range_km,
+        "min_surface_clearance_km": min_moon_range_km - MOON_RADIUS_KM,
     }
+
+
+def _score(position_error_km: float, relative_speed_km_s: float, min_surface_clearance_km: float) -> float:
+    surface_penalty = 0.0
+    if min_surface_clearance_km < MIN_SURFACE_CLEARANCE_KM:
+        surface_penalty = 1e6 + (MIN_SURFACE_CLEARANCE_KM - min_surface_clearance_km) * 1000.0
+    return (
+        float(position_error_km) / POSITION_TOLERANCE_KM
+        + float(relative_speed_km_s) / RELATIVE_SPEED_TOLERANCE_KM_S
+        + surface_penalty
+    )
 
 
 def solve_moon_rendezvous_feasibility(
@@ -166,11 +213,14 @@ def solve_moon_rendezvous_feasibility(
     standoff_altitude_km: float,
     sample_s: float = 60.0,
 ) -> dict[str, Any]:
-    """Search a two-burn terminal-state feasibility envelope.
+    """Iteratively correct a two-burn terminal-state feasibility solution.
 
-    Position and velocity seeds are impulsive approximations.  Candidate plans are
-    evaluated with the actual qualification gravity/thrust/remass integrator.
-    Results remain non-navigation-grade because the attitude transitions are not
+    The first candidate uses the previous impulsive transfer seed. A deterministic
+    shooting corrector then feeds terminal position residual mainly into the first
+    burn and terminal velocity residual into the braking burn. Every iteration is
+    re-evaluated with the actual qualification gravity/thrust/remass integrator.
+
+    This remains non-navigation-grade because the attitude transitions are not
     physically qualified and the standoff point is a synthetic qualification
     target rather than an operational lunar orbit or facility.
     """
@@ -196,67 +246,90 @@ def solve_moon_rendezvous_feasibility(
         a = TORCH_CARDS[mode]["acceleration_g"] * G0_M_S2 / 1000.0
         candidates: list[dict[str, Any]] = []
         try:
-            fractions = [0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00]
+            # Four arrival windows keep Pixel runtime bounded while spanning the
+            # useful part of the requested horizon. Each gets iterative correction.
+            fractions = [0.55, 0.70, 0.85, 1.00]
             for frac in fractions:
                 arrival_s = max(1800.0, max_time_s * frac)
                 target_epoch, target_p, target_v, moon_p, source = _target_state(
                     session, start_epoch, arrival_s, standoff_altitude_km
                 )
-                # Impulsive seed: one velocity change establishes the mean transfer
-                # velocity; the second removes the terminal velocity mismatch.
                 mean_v = _scale(_sub(target_p, start_p), 1.0 / arrival_s)
                 dv1 = _sub(mean_v, start_v)
                 dv2 = _sub(target_v, mean_v)
-                burn1_s = _mag(dv1) / a
-                burn2_s = _mag(dv2) / a
-                coast_s = arrival_s - burn1_s - burn2_s
-                if burn1_s <= 0.0 or burn2_s <= 0.0 or coast_s < 0.0:
-                    continue
-                if burn1_s + burn2_s >= arrival_s:
-                    continue
-                trial = _run_candidate(
-                    session,
-                    baseline=baseline,
-                    mode=mode,
-                    burn1_s=burn1_s,
-                    coast_s=coast_s,
-                    burn2_s=burn2_s,
-                    dir1=dv1,
-                    dir2=dv2,
-                    sample_s=sample_s,
-                )
-                final_p = trial["final_position"]
-                final_v = trial["final_velocity"]
-                pos_err = _mag(_sub(final_p, target_p))
-                rel_v = _mag(_sub(final_v, target_v))
-                moon_range = _mag(_sub(final_p, moon_p))
-                candidates.append({
-                    "arrival_s": arrival_s,
-                    "burn1_s": burn1_s,
-                    "coast_s": coast_s,
-                    "burn2_s": burn2_s,
-                    "dir1": list(_unit(dv1)),
-                    "dir2": list(_unit(dv2)),
-                    "position_error_km": pos_err,
-                    "relative_speed_km_s": rel_v,
-                    "moon_range_km": moon_range,
-                    "target_epoch_utc": target_epoch.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
-                    "target_position_earth_centered_km": list(target_p),
-                    "target_velocity_earth_centered_km_s": list(target_v),
-                    "target_state_source": source,
-                    "trial": trial,
-                })
+
+                for iteration in range(CORRECTOR_ITERATIONS):
+                    burn1_s = _mag(dv1) / a
+                    burn2_s = _mag(dv2) / a
+                    coast_s = arrival_s - burn1_s - burn2_s
+                    if burn1_s <= 0.0 or burn2_s <= 0.0 or coast_s < 0.0:
+                        break
+                    trial = _run_candidate(
+                        session,
+                        baseline=baseline,
+                        mode=mode,
+                        burn1_s=burn1_s,
+                        coast_s=coast_s,
+                        burn2_s=burn2_s,
+                        dir1=dv1,
+                        dir2=dv2,
+                        sample_s=sample_s,
+                    )
+                    final_p = trial["final_position"]
+                    final_v = trial["final_velocity"]
+                    pos_residual = _sub(target_p, final_p)
+                    vel_residual = _sub(target_v, final_v)
+                    pos_err = _mag(pos_residual)
+                    rel_v = _mag(vel_residual)
+                    moon_range = _mag(_sub(final_p, moon_p))
+                    min_clearance = float(trial["min_surface_clearance_km"])
+                    quality = _classify_solution(
+                        position_error_km=pos_err,
+                        relative_speed_km_s=rel_v,
+                        min_surface_clearance_km=min_clearance,
+                        remass_t=trial["final_remass_t"],
+                    )
+                    candidates.append({
+                        "arrival_s": arrival_s,
+                        "burn1_s": burn1_s,
+                        "coast_s": coast_s,
+                        "burn2_s": burn2_s,
+                        "dir1": list(_unit(dv1)),
+                        "dir2": list(_unit(dv2)),
+                        "position_error_km": pos_err,
+                        "relative_speed_km_s": rel_v,
+                        "moon_range_km": moon_range,
+                        "min_surface_clearance_km": min_clearance,
+                        "iteration": iteration,
+                        "quality": quality,
+                        "score": _score(pos_err, rel_v, min_clearance),
+                        "target_epoch_utc": target_epoch.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
+                        "target_position_earth_centered_km": list(target_p),
+                        "target_velocity_earth_centered_km_s": list(target_v),
+                        "target_state_source": source,
+                        "trial": trial,
+                    })
+                    if quality["status"] == "SOLVED_TRANSLATIONAL_FEASIBILITY":
+                        break
+
+                    # Deterministic shooting correction. Position error primarily
+                    # changes departure delta-v because it acts across the transfer;
+                    # braking then absorbs the remaining terminal velocity residual.
+                    tau = max(60.0, coast_s + 0.5 * (burn1_s + burn2_s))
+                    c1 = _scale(pos_residual, 0.80 / tau)
+                    c2 = _sub(_scale(vel_residual, 0.85), c1)
+                    dv1 = _add(dv1, c1)
+                    dv2 = _add(dv2, c2)
 
             if not candidates:
-                raise ValueError("no feasible two-burn seed within requested horizon")
+                raise ValueError("no feasible corrected two-burn seed within requested horizon")
 
-            # Prefer plans that actually reach the terminal neighborhood, then the
-            # lower residual relative velocity.  Both quantities remain visible.
-            best = min(candidates, key=lambda c: (c["position_error_km"], c["relative_speed_km_s"]))
+            best = min(candidates, key=lambda c: (c["score"], c["position_error_km"], c["relative_speed_km_s"]))
             trial = best["trial"]
+            quality = best["quality"]
             return {
                 "contract": CONTRACT,
-                "solver": "QUALIFICATION_TWO_BURN_TERMINAL_STATE_FEASIBILITY",
+                "solver": "QUALIFICATION_ITERATIVE_TERMINAL_STATE_CORRECTOR",
                 "status": "QUALIFICATION_ONLY",
                 "navigation_grade": False,
                 "mutates_live_state": False,
@@ -289,15 +362,22 @@ def solve_moon_rendezvous_feasibility(
                 },
                 "search": {
                     "candidate_count": len(candidates),
+                    "arrival_windows": len(fractions),
+                    "corrector_iterations_max": CORRECTOR_ITERATIONS,
+                    "selected_iteration": best["iteration"],
                     "max_time_s": max_time_s,
-                    "criterion": "MINIMUM_TERMINAL_POSITION_ERROR_THEN_RELATIVE_SPEED",
+                    "criterion": "NORMALIZED_POSITION_PLUS_RELATIVE_SPEED_WITH_SURFACE_PENALTY",
+                    "algorithm": "DETERMINISTIC_SHOOTING_CORRECTOR",
                 },
+                "quality": quality,
                 "points": trial["points"],
                 "final": {
                     "speed_km_s": _mag(trial["final_velocity"]),
                     "moon_range_km": best["moon_range_km"],
                     "target_position_error_km": best["position_error_km"],
                     "relative_speed_km_s": best["relative_speed_km_s"],
+                    "min_moon_range_km": trial["min_moon_range_km"],
+                    "min_surface_clearance_km": trial["min_surface_clearance_km"],
                     "remass_t": trial["final_remass_t"],
                     "wet_mass_t": trial["final_wet_mass_t"],
                 },
