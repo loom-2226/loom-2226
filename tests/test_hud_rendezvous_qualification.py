@@ -1,6 +1,13 @@
 import unittest
 
-from loom.hud.rendezvous_qualification import CONTRACT, solve_moon_rendezvous_feasibility
+from loom.hud.rendezvous_qualification import (
+    CONTRACT,
+    POSITION_TOLERANCE_KM,
+    RELATIVE_SPEED_TOLERANCE_KM_S,
+    MIN_SURFACE_CLEARANCE_KM,
+    _classify_solution,
+    solve_moon_rendezvous_feasibility,
+)
 
 
 class HudRendezvousQualificationTests(unittest.TestCase):
@@ -30,6 +37,36 @@ class HudRendezvousQualificationTests(unittest.TestCase):
             solve_moon_rendezvous_feasibility(
                 None, max_time_s=21600.0, mode="CRUISE", standoff_altitude_km=100001.0
             )
+
+    def test_quality_gate_requires_position_velocity_and_surface_clearance(self):
+        good = _classify_solution(
+            position_error_km=POSITION_TOLERANCE_KM * 0.5,
+            relative_speed_km_s=RELATIVE_SPEED_TOLERANCE_KM_S * 0.5,
+            min_surface_clearance_km=MIN_SURFACE_CLEARANCE_KM + 10.0,
+            remass_t=10.0,
+        )
+        self.assertEqual(good["status"], "SOLVED_TRANSLATIONAL_FEASIBILITY")
+        self.assertTrue(good["position_ok"])
+        self.assertTrue(good["velocity_ok"])
+        self.assertTrue(good["surface_clearance_ok"])
+        self.assertTrue(good["remass_ok"])
+
+        bad = _classify_solution(
+            position_error_km=POSITION_TOLERANCE_KM * 2.0,
+            relative_speed_km_s=RELATIVE_SPEED_TOLERANCE_KM_S * 2.0,
+            min_surface_clearance_km=MIN_SURFACE_CLEARANCE_KM - 1.0,
+            remass_t=0.0,
+        )
+        self.assertEqual(bad["status"], "NOT_SOLVED")
+        self.assertFalse(bad["position_ok"])
+        self.assertFalse(bad["velocity_ok"])
+        self.assertFalse(bad["surface_clearance_ok"])
+        self.assertFalse(bad["remass_ok"])
+
+    def test_quality_thresholds_are_explicit_not_hidden(self):
+        self.assertGreater(POSITION_TOLERANCE_KM, 0.0)
+        self.assertGreater(RELATIVE_SPEED_TOLERANCE_KM_S, 0.0)
+        self.assertGreaterEqual(MIN_SURFACE_CLEARANCE_KM, 0.0)
 
 
 if __name__ == "__main__":
