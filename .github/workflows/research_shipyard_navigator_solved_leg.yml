@@ -1,0 +1,24 @@
+name: LOOM Shipyard Navigator Solved Leg
+
+on:
+  pull_request:
+    paths:
+      - 'src/qualification/synthesis/shipyard_campaign_binding.py'
+      - 'src/qualification/synthesis/vehicle_dynamics_contract.py'
+      - 'src/loom_navigator_core.py'
+      - 'tests/test_shipyard_navigator_solved_leg.py'
+      - '.github/workflows/research_shipyard_navigator_solved_leg.yml'
+  workflow_dispatch:
+
+jobs:
+  shipyard-navigator-solved-leg:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/src:${{ github.workspace }}/src/qualification/synthesis
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Load real embedded Navigator solve boundary
+        run: python -m unittest tests.test_shipyard_navigator_solved_leg -v
