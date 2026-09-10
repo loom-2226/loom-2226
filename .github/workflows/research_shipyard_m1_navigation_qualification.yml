@@ -1,0 +1,125 @@
+name: LOOM Shipyard M1 Navigation Qualification
+
+on:
+  pull_request:
+    paths:
+      - 'src/qualification/synthesis/vehicle_dynamics_contract.py'
+      - 'src/qualification/synthesis/shipyard_campaign_binding.py'
+      - 'src/loom_navigator_core.py'
+      - 'tests/test_shipyard_real_navigator_leg.py'
+      - '.github/workflows/research_shipyard_m1_navigation_qualification.yml'
+  workflow_dispatch:
+
+jobs:
+  qualify-m1-live-navigation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run governed Shipyard to live Navigator M1 chain
+        run: |
+          PYTHONPATH=src python - <<'PY'
+          import copy
+          import json
+          import tempfile
+          from pathlib import Path
+
+          import loom_navigator_core as campaign
+          from qualification.synthesis.shipyard_campaign_binding import validate_campaign_binding
+          from qualification.synthesis.vehicle_dynamics_contract import build_wayfarer_contract_family
+
+          contract = build_wayfarer_contract_family(2226)[0]
+          state = campaign._new_state('SHIPYARD-M1-QUALIFICATION', 'WAYFARER-M1')
+          before = copy.deepcopy(state)
+          binding = validate_campaign_binding(contract, state)
+          assert binding['compatible_for_navigator_consumption'] is True
+
+          with tempfile.TemporaryDirectory() as td:
+              root = Path(td)
+              nav = campaign._load_core(root / 'core')
+              cache = root / 'cache'
+              mission = {
+                  'schema': nav.MISSION_SCHEMA,
+                  'test_id': 'SHIPYARD_M1',
+                  'epoch': {'local': '2226-08-01T00:00:00', 'timezone': 'UTC', 'fold': 0},
+                  'route': ['CERES', 'NEPTUNE_SYSTEM'],
+                  'ship': 'WAYFARER_BASELINE',
+                  'requested_modes': {'metric': 'NORMAL', 'torch': 'CRUISE'},
+              }
+              normalized = nav.validate_and_normalize_mission(mission)
+              normalized['_campaign_initial_state'] = {
+                  'state_id': state['state_id'],
+                  'state_sha256': state['state_sha256'],
+                  'wet_mass_t': state['ship']['wet_mass_t'],
+                  'remass_t': state['ship']['remass_t'],
+              }
+
+              acquisition = nav.run_acquisition(normalized, cache, offline=False, refresh=False)
+              canonical, axis_validation = nav.build_canonical_dependency_index(acquisition, cache)
+              assert axis_validation['qualification'] == 'PASS'
+              assert acquisition['authority']['source'] == 'SOURCE-010'
+              assert acquisition['authority']['llm_calculation_authority'] == 'ZERO'
+
+              candidates, selected, plan_meta = campaign._candidate_plans(
+                  nav, normalized, acquisition, cache, state, 'FASTEST'
+              )
+              assert candidates
+              assert selected
+              leg = selected['leg']
+              burn = leg['terminal_burn']
+              used = float(burn['remass_used_t'])
+              assert leg['solver_model'] == 'NAV-V1-A'
+              assert leg['solver_version'] == '1.1'
+              assert used >= 0.0
+              assert used <= float(state['ship']['remass_t']) + 1e-9
+              assert float(burn['wet_mass_start_t']) == float(state['ship']['wet_mass_t'])
+              assert state == before
+
+              evidence = {
+                  'schema': 'LOOM_SHIPYARD_M1_NAVIGATION_QUALIFICATION_v0.1',
+                  'status': 'PASS',
+                  'm1_closed': True,
+                  'scope': 'ONE_GOVERNED_WAYFARER_CLOSES_THROUGH_REAL_NAVIGATOR_PLANNING_AND_PHYSICS',
+                  'shipyard_contract_version': contract.contract_version,
+                  'shipyard_contract_hash': contract.contract_hash,
+                  'campaign_binding_hash': binding['binding_hash'],
+                  'navigator_core_sha256': campaign.CORE_SHA,
+                  'mission_schema': nav.MISSION_SCHEMA,
+                  'route': normalized['route'],
+                  'ship': normalized['ship'],
+                  'ephemeris_source_authority': acquisition['authority']['source'],
+                  'ephemeris_llm_calculation_authority': acquisition['authority']['llm_calculation_authority'],
+                  'axis_qualification': axis_validation['qualification'],
+                  'candidate_count': len(candidates),
+                  'selected_metric_mode': selected['metric'],
+                  'selected_torch_mode': selected['torch'],
+                  'solver_model': leg['solver_model'],
+                  'solver_version': leg['solver_version'],
+                  'campaign_wet_mass_t': state['ship']['wet_mass_t'],
+                  'campaign_remass_t': state['ship']['remass_t'],
+                  'terminal_remass_used_t': used,
+                  'arrival_remass_t': selected['arrival_remass_t'],
+                  'total_nav_time_s': selected['total_s'],
+                  'arrival_epoch_utc': selected['arrival_epoch_utc'],
+                  'root_residual_s': leg['root_solver']['root_residual_s'],
+                  'campaign_state_mutated': False,
+                  'flight_dynamics_authority_changed': False,
+                  'canon_changed': False,
+                  'production_shipclasses_changed': False,
+                  'm2_candidate_differentiation_closed': False,
+                  'note': 'M1 closes one governed Wayfarer through live SOURCE-010 acquisition and the real Navigator planner/solver. B1 deterministic replay packaging is Navigator infrastructure and is not asserted by this Shipyard qualification.'
+              }
+              Path('shipyard_m1_navigation_qualification.json').write_text(
+                  json.dumps(evidence, indent=2, sort_keys=True) + '\n', encoding='utf-8'
+              )
+              print(json.dumps(evidence, indent=2, sort_keys=True))
+          PY
+      - name: Preserve M1 qualification evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: shipyard-m1-navigation-qualification
+          path: shipyard_m1_navigation_qualification.json
+          if-no-files-found: error
