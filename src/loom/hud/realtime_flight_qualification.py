@@ -1,0 +1,311 @@
+from __future__ import annotations
+
+"""In-memory Earth-Moon local-flight qualification session.
+
+This is deliberately NOT campaign authority.  It starts from wall-clock UTC,
+uses the local JPL Horizons qualification cache for lunar state, reuses LOOM's
+shared gravity primitive, and applies the documented Wayfarer working torch
+acceleration/exhaust-velocity cards to a disposable test vehicle state.
+
+No campaign file or canonical SQLite database is written.  Attitude is fixed for
+this slice: the ship is initially pointed at the Moon and no rotational dynamics
+are invented.
+"""
+
+from datetime import datetime, timezone
+from pathlib import Path
+import math
+import os
+import sqlite3
+import threading
+import time
+from typing import Any
+
+from loom.application.contracts import SpatialState
+from loom.hud.earth_moon_qualification import CACHE_RELATIVE, _load_jpl_cache, _state_from_jpl
+from loom.runtime import resolve_runtime_roots
+from loom.spatial.gravity import GravitySource, evaluate_gravity
+
+CONTRACT = "LOOM_HUD_REALTIME_FLIGHT_QUALIFICATION_V1"
+FRAME = "J2000/ECLIPTIC"
+G0_M_S2 = 9.80665
+MOON_RADIUS_KM = 1737.4
+WAYFARER_LENGTH_KM = 0.057
+INITIAL_REMASS_T = 250.0
+INITIAL_WET_MASS_T = 1158.5
+
+# Source-derived working engineering cards.  These are not universal spacecraft
+# constants and remain qualification inputs here.
+TORCH_CARDS: dict[str, dict[str, float]] = {
+    "ECON": {"acceleration_g": 0.30, "exhaust_velocity_km_s": 3000.0},
+    "CRUISE": {"acceleration_g": 1.00, "exhaust_velocity_km_s": 2000.0},
+    "EXPEDITE": {"acceleration_g": 2.00, "exhaust_velocity_km_s": 1000.0},
+    "FAST": {"acceleration_g": 3.00, "exhaust_velocity_km_s": 700.0},
+    "HARD": {"acceleration_g": 5.00, "exhaust_velocity_km_s": 450.0},
+    "LIMIT": {"acceleration_g": 7.50, "exhaust_velocity_km_s": 300.0},
+}
+ALLOWED_TIME_SCALES = (0.0, 1.0, 10.0, 100.0, 1000.0, 10000.0)
+MAX_INTEGRATION_STEP_S = 10.0
+
+
+def _parse_utc(value: str) -> datetime:
+    probe = value[:-1] + "+00:00" if value.endswith("Z") else value
+    dt = datetime.fromisoformat(probe)
+    if dt.tzinfo is None:
+        raise ValueError("epoch must include timezone")
+    return dt.astimezone(timezone.utc)
+
+
+def _iso(dt: datetime) -> str:
+    return dt.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+
+
+def _unit(v: tuple[float, float, float]) -> tuple[float, float, float]:
+    mag = math.sqrt(sum(x * x for x in v))
+    if mag <= 0.0:
+        raise ValueError("zero vector cannot define Wayfarer fixed attitude")
+    return tuple(x / mag for x in v)  # type: ignore[return-value]
+
+
+def _vadd(a, b):
+    return tuple(a[i] + b[i] for i in range(3))
+
+
+def _vscale(a, s: float):
+    return tuple(x * s for x in a)
+
+
+def _load_mu(db_path: Path, entity_id: str) -> tuple[float, str]:
+    if not db_path.is_file():
+        raise FileNotFoundError(f"celestial database not found: {db_path}")
+    conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+    conn.row_factory = sqlite3.Row
+    try:
+        conn.execute("PRAGMA query_only=ON")
+        row = conn.execute(
+            "SELECT gm_km3_s2,source_id,status FROM celestial_properties WHERE entity_id=?",
+            (entity_id,),
+        ).fetchone()
+        if row is not None and row["gm_km3_s2"] is not None:
+            return float(row["gm_km3_s2"]), f"celestial_properties:{row['source_id'] or ''}:{row['status']}"
+        row = conn.execute(
+            "SELECT gm_km3_s2,source,metadata_status FROM celestial_dynamics WHERE entity_id=?",
+            (entity_id,),
+        ).fetchone()
+        if row is not None and row["gm_km3_s2"] is not None:
+            return float(row["gm_km3_s2"]), f"celestial_dynamics:{row['source']}:{row['metadata_status']}"
+    finally:
+        conn.close()
+    raise ValueError(f"no GM available for {entity_id}")
+
+
+class RealtimeFlightQualification:
+    """Disposable server-side qualification state; never campaign persistence."""
+
+    def __init__(self, *, data_root: Path | str | None = None):
+        roots = resolve_runtime_roots(data_root=data_root)
+        self.data_root = roots.data_root
+        cache_path = self.data_root / CACHE_RELATIVE
+        cached = _load_jpl_cache(cache_path)
+        if cached is None:
+            raise FileNotFoundError(
+                f"JPL qualification cache missing: {cache_path}; run tools/acquire_earth_moon_ephemeris_2026.py"
+            )
+        self.anchors, self.cache_doc = cached
+        self.coverage_start = _parse_utc(self.anchors[0].epoch_utc)
+        self.coverage_end = _parse_utc(self.anchors[-1].epoch_utc)
+        db_path = Path(os.environ.get("LOOM_SPATIAL_DB") or (self.data_root / "LOOM_2226.sqlite3"))
+        self.earth_mu, self.earth_mu_source = _load_mu(db_path, "EA")
+        self.moon_mu, self.moon_mu_source = _load_mu(db_path, "LU")
+        self.lock = threading.RLock()
+        self.time_scale = 1.0
+        self.torch_mode = "CRUISE"
+        self.torch_active = False
+        self.status = "RUNNING"
+        self.last_wall = time.monotonic()
+        self._reset_to_wall_utc()
+
+    def _reset_to_wall_utc(self) -> None:
+        now = datetime.now(timezone.utc)
+        if not (self.coverage_start <= now <= self.coverage_end):
+            raise ValueError(
+                f"wall UTC {_iso(now)} outside JPL cache coverage "
+                f"{_iso(self.coverage_start)} .. {_iso(self.coverage_end)}"
+            )
+        moon_p, _moon_v, _ = _state_from_jpl(self.anchors, now)
+        self.sim_epoch = now
+        self.ship_position = tuple(0.5 * x for x in moon_p)
+        self.ship_velocity = (0.0, 0.0, 0.0)
+        self.nose_direction = _unit(tuple(moon_p[i] - self.ship_position[i] for i in range(3)))
+        self.remass_t = INITIAL_REMASS_T
+        self.wet_mass_t = INITIAL_WET_MASS_T
+        self.torch_active = False
+        self.status = "RUNNING"
+        self.last_wall = time.monotonic()
+
+    def reset(self) -> dict[str, Any]:
+        with self.lock:
+            self._reset_to_wall_utc()
+            return self.snapshot(advance=False)
+
+    def set_time_scale(self, value: float) -> dict[str, Any]:
+        value = float(value)
+        if value not in ALLOWED_TIME_SCALES:
+            raise ValueError(f"time scale must be one of {ALLOWED_TIME_SCALES}")
+        with self.lock:
+            self._advance_locked()
+            self.time_scale = value
+            self.last_wall = time.monotonic()
+            return self.snapshot(advance=False)
+
+    def set_torch(self, *, active: bool, mode: str | None = None) -> dict[str, Any]:
+        with self.lock:
+            self._advance_locked()
+            if mode is not None:
+                mode = str(mode).upper()
+                if mode not in TORCH_CARDS:
+                    raise ValueError(f"unknown torch mode: {mode}")
+                self.torch_mode = mode
+            if active and self.remass_t <= 0.0:
+                raise ValueError("normal remass exhausted")
+            self.torch_active = bool(active)
+            self.last_wall = time.monotonic()
+            return self.snapshot(advance=False)
+
+    def _gravity(self, epoch: datetime, ship_position) -> tuple[float, float, float]:
+        epoch_text = _iso(epoch)
+        moon_p, moon_v, state_source = _state_from_jpl(self.anchors, epoch)
+        earth = SpatialState(
+            entity_id="EA", epoch_utc=epoch_text, reference_frame=FRAME,
+            position_km=(0.0, 0.0, 0.0), velocity_km_s=(0.0, 0.0, 0.0),
+            provenance={"state_source": "EARTH_CENTERED_FRAME_ORIGIN"}, navigation_grade=False,
+        )
+        moon = SpatialState(
+            entity_id="LU", epoch_utc=epoch_text, reference_frame=FRAME,
+            position_km=moon_p, velocity_km_s=moon_v,
+            provenance={"state_source": state_source, "cache": "JPL_HORIZONS_DIRECT_HOURLY_PLUS_HERMITE"},
+            navigation_grade=False,
+        )
+        evaluation = evaluate_gravity(
+            ship_position,
+            (
+                GravitySource("EA", earth, self.earth_mu, provenance={"source": self.earth_mu_source}),
+                GravitySource("LU", moon, self.moon_mu, provenance={"source": self.moon_mu_source}),
+            ),
+            epoch_utc=epoch_text,
+        )
+        return evaluation.total_acceleration_km_s2
+
+    def _thrust_acceleration(self) -> tuple[tuple[float, float, float], float, float]:
+        if not self.torch_active or self.remass_t <= 0.0:
+            return (0.0, 0.0, 0.0), 0.0, 0.0
+        card = TORCH_CARDS[self.torch_mode]
+        acceleration_km_s2 = card["acceleration_g"] * G0_M_S2 / 1000.0
+        thrust_n = self.wet_mass_t * 1000.0 * acceleration_km_s2 * 1000.0
+        exhaust_m_s = card["exhaust_velocity_km_s"] * 1000.0
+        mass_flow_kg_s = thrust_n / exhaust_m_s
+        return _vscale(self.nose_direction, acceleration_km_s2), thrust_n, mass_flow_kg_s
+
+    def _step(self, dt: float) -> None:
+        if dt <= 0.0:
+            return
+        gravity = self._gravity(self.sim_epoch, self.ship_position)
+        thrust_acc, _thrust_n, mass_flow_kg_s = self._thrust_acceleration()
+        acc = _vadd(gravity, thrust_acc)
+        # Semi-implicit Euler is adequate for this bounded visual/physics smoke slice;
+        # the explicit integrator identity is exposed in the payload and is not a
+        # Navigator trajectory qualification claim.
+        self.ship_velocity = _vadd(self.ship_velocity, _vscale(acc, dt))
+        self.ship_position = _vadd(self.ship_position, _vscale(self.ship_velocity, dt))
+        if self.torch_active and mass_flow_kg_s > 0.0:
+            used_t = min(self.remass_t, mass_flow_kg_s * dt / 1000.0)
+            self.remass_t -= used_t
+            self.wet_mass_t -= used_t
+            if self.remass_t <= 1e-12:
+                self.remass_t = 0.0
+                self.torch_active = False
+        self.sim_epoch = self.sim_epoch.fromtimestamp(self.sim_epoch.timestamp() + dt, tz=timezone.utc)
+
+    def _advance_locked(self) -> None:
+        wall_now = time.monotonic()
+        sim_dt = max(0.0, wall_now - self.last_wall) * self.time_scale
+        self.last_wall = wall_now
+        if sim_dt <= 0.0 or self.status != "RUNNING":
+            return
+        remaining_coverage = (self.coverage_end - self.sim_epoch).total_seconds()
+        if sim_dt > remaining_coverage:
+            sim_dt = max(0.0, remaining_coverage)
+            self.status = "EPHEMERIS_LIMIT"
+            self.time_scale = 0.0
+            self.torch_active = False
+        remaining = sim_dt
+        while remaining > 1e-9:
+            step = min(MAX_INTEGRATION_STEP_S, remaining)
+            self._step(step)
+            remaining -= step
+
+    def snapshot(self, *, advance: bool = True) -> dict[str, Any]:
+        with self.lock:
+            if advance:
+                self._advance_locked()
+            moon_p, moon_v, moon_source = _state_from_jpl(self.anchors, self.sim_epoch)
+            card = TORCH_CARDS[self.torch_mode]
+            thrust_acc, thrust_n, mass_flow_kg_s = self._thrust_acceleration()
+            moon_rel = tuple(moon_p[i] - self.ship_position[i] for i in range(3))
+            earth_rel = tuple(-self.ship_position[i] for i in range(3))
+            return {
+                "contract": CONTRACT,
+                "status": self.status,
+                "authority": "QUALIFICATION_ONLY",
+                "navigation_grade": False,
+                "campaign_mutation": False,
+                "frame": FRAME,
+                "sim_epoch_utc": _iso(self.sim_epoch),
+                "wall_epoch_utc": _iso(datetime.now(timezone.utc)),
+                "time_scale": self.time_scale,
+                "allowed_time_scales": list(ALLOWED_TIME_SCALES),
+                "ephemeris": {
+                    "moon_source": moon_source,
+                    "mode": "JPL_HORIZONS_HOURLY_PLUS_CUBIC_HERMITE",
+                    "coverage_start_utc": _iso(self.coverage_start),
+                    "coverage_end_utc": _iso(self.coverage_end),
+                },
+                "earth": {
+                    "position_km": [0.0, 0.0, 0.0],
+                    "relative_to_wayfarer_km": list(earth_rel),
+                },
+                "moon": {
+                    "position_earth_centered_km": list(moon_p),
+                    "velocity_earth_centered_km_s": list(moon_v),
+                    "relative_to_wayfarer_km": list(moon_rel),
+                    "radius_km": MOON_RADIUS_KM,
+                    "visual_orientation_authority": "MODEL_NATIVE_NOT_SPICE_QUALIFIED",
+                },
+                "wayfarer": {
+                    "position_earth_centered_km": list(self.ship_position),
+                    "velocity_earth_centered_km_s": list(self.ship_velocity),
+                    "fixed_nose_direction_inertial": list(self.nose_direction),
+                    "attitude_authority": "FIXED_QUALIFICATION_ATTITUDE_NO_ROTATIONAL_DYNAMICS",
+                    "length_km": WAYFARER_LENGTH_KM,
+                    "wet_mass_t": self.wet_mass_t,
+                    "remass_t": self.remass_t,
+                    "geometry_authority": "DETERMINISTIC_WAYFARER_ENGINEERING_GEOMETRY_NON_CANON_VISUAL",
+                },
+                "torch": {
+                    "active": self.torch_active,
+                    "mode": self.torch_mode,
+                    "acceleration_g": card["acceleration_g"],
+                    "exhaust_velocity_km_s": card["exhaust_velocity_km_s"],
+                    "thrust_n": thrust_n,
+                    "mass_flow_kg_s": mass_flow_kg_s,
+                    "acceleration_vector_km_s2": list(thrust_acc),
+                    "authority": "SOURCE_DERIVED_WORKING_ENGINEERING_CARD_QUALIFICATION",
+                },
+                "integration": {
+                    "owner": "PYTHON_SERVER_QUALIFICATION_SESSION",
+                    "method": "SEMI_IMPLICIT_EULER",
+                    "max_step_s": MAX_INTEGRATION_STEP_S,
+                    "gravity": "LOOM_SHARED_EARTH_PLUS_MOON_POINT_MASS",
+                    "attitude_dynamics": "NOT_IMPLEMENTED",
+                },
+            }
