@@ -155,7 +155,7 @@ jobs:
                   'm1_closed': True,
                   'scope': 'ONE_GOVERNED_WAYFARER_CLOSES_THROUGH_REAL_NAVIGATOR_ROUTE_DATA_AND_NAV_V1_A_PHYSICS',
                   'qualification_mode': 'EXPLICIT_REQUESTED_MODE_PAIR_NOT_FULL_MODE_SWEEP',
-                  'shipyard_contract_version': contract.contract_version,
+                  'shipyard_contract_version': contract.version,
                   'shipyard_contract_hash': contract.contract_hash,
                   'campaign_binding_hash': binding['binding_hash'],
                   'navigator_core_sha256': campaign.CORE_SHA,
