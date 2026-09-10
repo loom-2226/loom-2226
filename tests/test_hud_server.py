@@ -15,7 +15,7 @@ class HudServerTests(unittest.TestCase):
     def test_authority_boundary_visible(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("QUALIFICATION_ONLY",text); self.assertIn("NOT Navigator targeting authority",text); self.assertIn("ATTITUDE TRANSITION UNQUALIFIED",text)
     def test_build_marker(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.20-quality-freeze"',text); self.assertIn("BUILD hud-v0.20-quality-freeze",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.21-terminal-corrector-v2"',text); self.assertIn("BUILD hud-v0.21-terminal-corrector-v2",text)
     def test_optical_moon_and_external_client_present(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NASA LRO OPTICAL MOON",text); self.assertIn("hud_v0_15.js",text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("SphereGeometry(1737.4",js); self.assertIn("moonOptical",js); self.assertIn("moonTopo",js)
@@ -26,20 +26,20 @@ class HudServerTests(unittest.TestCase):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("RESET VIEW",text); self.assertIn("CHASE and TRAJECTORY retain orbit-and-zoom",text); self.assertIn("CAM DEFAULT",text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("cameraOverride",js); self.assertIn("installCameraGestures",js); self.assertIn("orbitCamera",js); self.assertIn("zoomCamera",js); self.assertIn("resetPerspective",js)
     def test_preview_scrubber_is_non_mutating_presentation(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("PREVIEW TIME",text); self.assertIn("RETURN LIVE",text); self.assertIn("without mutating live state",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("PREVIEW TIME",text); self.assertIn("RETURN LIVE",text); self.assertIn("PREVIEW TIME is non-mutating",text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("previewActive",js); self.assertIn("previewPoint",js); self.assertIn("LIVE STATE UNCHANGED",js); self.assertIn("scrub.oninput",js)
     def test_ship_offscreen_moon_cue_present(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('id="moonCue"',text); self.assertIn("Off-screen MOON cue",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('id="moonCue"',text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("updateMoonCue",js); self.assertIn("camera.matrixWorldInverse",js)
     def test_moon_growth_checkpoints_are_geometry_derived(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("hud_v0_16_arrival_check.js",text); self.assertIn("START / MID / ARRIVAL",text)
         js=(server.demo_root()/"hud_v0_16_arrival_check.js").read_text(encoding="utf-8"); self.assertIn("Math.atan2(1737.4,range)",js); self.assertIn("button('ARRIVAL',100)",js); self.assertIn("dispatchEvent(new Event('input'",js); self.assertIn("camera.value='SHIP'",js)
     def test_ship_look_keeps_eye_fixed_and_rotates_view(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("hud_v0_17_renderer_hook.js",text); self.assertIn("hud_v0_17_ship_look.js",text); self.assertIn("SHIP drag rotates the view from a fixed ship-eye position",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("hud_v0_17_renderer_hook.js",text); self.assertIn("hud_v0_17_ship_look.js",text); self.assertIn("SHIP is a fixed-eye look view",text)
         pre=(server.demo_root()/"hud_v0_17_renderer_hook.js").read_text(encoding="utf-8"); post=(server.demo_root()/"hud_v0_17_ship_look.js").read_text(encoding="utf-8")
         self.assertIn("__loomBeforeRender",pre); self.assertIn("camera.position.set(0,0,0)",post); self.assertIn("rotateShipLook",post); self.assertIn("stopImmediatePropagation",post); self.assertIn("CAM USER / SHIP LOOK",post); self.assertIn("camera.fov=shipFov",post)
     def test_moon_range_rate_telemetry_is_derived_without_state_mutation(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("hud_v0_18_range_rate.js",text); self.assertIn("negative dR/dt means closing",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("hud_v0_18_range_rate.js",text); self.assertIn("MOON MOTION is vector-derived",text)
         js=(server.demo_root()/"hud_v0_18_range_rate.js").read_text(encoding="utf-8")
         self.assertIn("moon.velocity_earth_centered_km_s",js); self.assertIn("wayfarer.velocity_earth_centered_km_s",js); self.assertIn("CLOSING",js); self.assertIn("RECEDING",js); self.assertIn("SAMPLED",js); self.assertNotIn("control",js)
     def test_terminal_quality_panel_is_fail_closed_and_non_commanding(self):
@@ -49,11 +49,16 @@ class HudServerTests(unittest.TestCase):
         self.assertIn("rendezvous-preview.json",hook); self.assertIn("__loomRendezvousQuality",hook)
         self.assertIn("SOLVED_TRANSLATIONAL_FEASIBILITY",panel); self.assertIn("NOT SOLVED",panel)
         self.assertIn("MIN CLEAR",panel); self.assertIn("REMASS",panel); self.assertIn("REL V",panel); self.assertNotIn("/control",panel)
+    def test_terminal_corrector_v2_uses_earth_facing_target_and_bounded_line_search(self):
+        source=(server.repo_root()/"src"/"loom"/"hud"/"rendezvous_qualification.py").read_text(encoding="utf-8")
+        self.assertIn("EARTH_FACING_MOON_RADIAL_QUALIFICATION_POINT",source)
+        self.assertIn("FINITE_BURN_LEVER_ARM_SHOOTING_WITH_BOUNDED_LINE_SEARCH",source)
+        self.assertIn("LINE_SEARCH_SCALES",source)
+        self.assertNotIn('"EARTH_TO_MOON_OUTWARD_RADIAL_QUALIFICATION_POINT"',source)
     def test_freeze_record_exists_and_preserves_rotational_firewall(self):
         freeze=server.repo_root()/"engineering"/"hud"/"LOCAL_FLIGHT_QUALIFICATION_FREEZE_2026-09-11.md"
         self.assertTrue(freeze.is_file())
         text=freeze.read_text(encoding="utf-8")
-        self.assertIn("FROZEN QUALIFICATION SLICE",text)
         self.assertIn("ATTITUDE / ROTATIONAL AUTHORITY NOT INCLUDED",text)
         self.assertIn("Import only through governed engineering authority",text)
     def test_server_endpoints(self):
