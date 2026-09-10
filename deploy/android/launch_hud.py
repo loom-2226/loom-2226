@@ -8,7 +8,7 @@ LOOM_ROOT=Path("/storage/emulated/0/Documents/LOOM")
 APP=Path(os.environ.get("LOOM_APP_ROOT") or os.environ.get("LOOM_HOME") or str(LOOM_ROOT/"runtime")).expanduser().resolve()
 DATA=Path(os.environ.get("LOOM_DATA_ROOT") or str(LOOM_ROOT/"data")).expanduser().resolve()
 CAMPAIGN=Path(os.environ.get("LOOM_CAMPAIGN_ROOT") or str(LOOM_ROOT/"campaign")).expanduser().resolve()
-SERVER=APP/"src"/"loom"/"hud"/"server.py"; PAGE="earth_moon_qualification.html"; BUILD_MARKER="hud-v0.21-terminal-corrector-v2"
+SERVER=APP/"src"/"loom"/"hud"/"server.py"; PAGE="earth_moon_qualification.html"; BUILD_MARKER="hud-v0.22-wayfarer-engineering"
 if not SERVER.exists(): raise SystemExit(f"LOOM file missing: {SERVER}")
 def _browser_enabled(): return str(os.environ.get("LOOM_NO_BROWSER") or "").strip().lower() not in {"1","true","yes","on"}
 def _free_port():
