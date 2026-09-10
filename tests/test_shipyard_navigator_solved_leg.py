@@ -16,7 +16,7 @@ from qualification.synthesis.vehicle_dynamics_contract import build_wayfarer_con
 
 AXIS = {
     "start_utc": "2226-06-15T00:00:00Z",
-    "step_seconds": 48.0 * 3600.0,
+    "step_seconds": 3600.0,
 }
 
 
@@ -24,19 +24,27 @@ def _qualification_ephemeris_rows():
     """Deterministic seam fixture; not a claim of celestial ephemeris authority.
 
     The seven-column shape matches Navigator's existing route-scoped
-    qualification fixtures: sample coordinate, XYZ km, VXYZ km/s. The
-    destination translates consistently at +10 km/s in Y across the 48-hour
-    interpolation window so the real terminal-burn model has non-zero delta-v.
+    qualification fixtures: sample coordinate, XYZ km, VXYZ km/s. Forty-nine
+    hourly samples cover Navigator's complete 48-hour root-search window. The
+    destination translates consistently at +10 km/s in Y so the real terminal
+    burn has non-zero delta-v.
     """
-    duration_s = AXIS["step_seconds"]
-    origin = [
-        (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
-        (1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
-    ]
-    destination = [
-        (0.0, 100_000_000.0, 0.0, 0.0, 0.0, 10.0, 0.0),
-        (1.0, 100_000_000.0, 10.0 * duration_s, 0.0, 0.0, 10.0, 0.0),
-    ]
+    origin = []
+    destination = []
+    for sample in range(49):
+        elapsed_s = sample * AXIS["step_seconds"]
+        origin.append((float(sample), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))
+        destination.append(
+            (
+                float(sample),
+                100_000_000.0,
+                10.0 * elapsed_s,
+                0.0,
+                0.0,
+                10.0,
+                0.0,
+            )
+        )
     return origin, destination
 
 
