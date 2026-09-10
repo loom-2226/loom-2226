@@ -37,12 +37,12 @@
         "water_only_requirement": false
       },
       "mode_cards": [
-        {"mode": "ECON", "exhaust_velocity_km_s": 3000.0, "acceleration_g": null, "status": "BASELINE_VE_ONLY"},
-        {"mode": "CRUISE", "exhaust_velocity_km_s": 2000.0, "acceleration_g": null, "status": "BASELINE_VE_ONLY"},
-        {"mode": "EXPEDITE", "exhaust_velocity_km_s": 1000.0, "acceleration_g": null, "status": "BASELINE_VE_ONLY"},
-        {"mode": "FAST", "exhaust_velocity_km_s": 700.0, "acceleration_g": null, "status": "BASELINE_VE_ONLY"},
-        {"mode": "HARD", "exhaust_velocity_km_s": 450.0, "acceleration_g": 5.0, "status": "BASELINE_PARTIAL"},
-        {"mode": "LIMIT", "exhaust_velocity_km_s": 300.0, "acceleration_g": 7.5, "status": "BASELINE_PARTIAL"}
+        {"mode": "ECON", "exhaust_velocity_km_s": 3000.0, "acceleration_g": 0.3, "status": "WORKING_ENGINEERING_CARD"},
+        {"mode": "CRUISE", "exhaust_velocity_km_s": 2000.0, "acceleration_g": 1.0, "status": "WORKING_ENGINEERING_CARD"},
+        {"mode": "EXPEDITE", "exhaust_velocity_km_s": 1000.0, "acceleration_g": 2.0, "status": "WORKING_ENGINEERING_CARD"},
+        {"mode": "FAST", "exhaust_velocity_km_s": 700.0, "acceleration_g": 3.0, "status": "WORKING_ENGINEERING_CARD"},
+        {"mode": "HARD", "exhaust_velocity_km_s": 450.0, "acceleration_g": 5.0, "status": "WORKING_ENGINEERING_CARD"},
+        {"mode": "LIMIT", "exhaust_velocity_km_s": 300.0, "acceleration_g": 7.5, "status": "WORKING_ENGINEERING_CARD"}
       ]
     },
     "endurance": {
