@@ -15,13 +15,18 @@ class HudServerTests(unittest.TestCase):
     def test_authority_boundary_visible(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("QUALIFICATION_ONLY",text); self.assertIn("NOT Navigator targeting authority",text); self.assertIn("ATTITUDE TRANSITION UNQUALIFIED",text)
     def test_build_marker(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.13-rendezvous-feasibility"',text); self.assertIn("BUILD hud-v0.13-rendezvous-feasibility",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.14-free-camera"',text); self.assertIn("BUILD hud-v0.14-free-camera",text)
     def test_optical_moon_and_external_client_present(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NASA LRO OPTICAL MOON",text); self.assertIn("hud_v0_13.js",text)
-        js=(server.demo_root()/"hud_v0_13.js").read_text(encoding="utf-8"); self.assertIn("SphereGeometry(1737.4",js); self.assertIn("moonOptical",js); self.assertIn("moonTopo.visible=false",js)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NASA LRO OPTICAL MOON",text); self.assertIn("hud_v0_14.js",text)
+        js=(server.demo_root()/"hud_v0_14.js").read_text(encoding="utf-8"); self.assertIn("SphereGeometry(1737.4",js); self.assertIn("moonOptical",js); self.assertIn("moonTopo.visible=false",js)
     def test_intercept_and_rendezvous_preview_controls_present(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("SOLVE INTERCEPT",text); self.assertIn("SOLVE RENDEZVOUS",text); self.assertIn("STANDOFF ALT km",text); self.assertIn("BRAKE",text)
-        js=(server.demo_root()/"hud_v0_13.js").read_text(encoding="utf-8"); self.assertIn("intercept-preview.json",js); self.assertIn("rendezvous-preview.json",js); self.assertIn("target_position_error_km",js); self.assertIn("ATTITUDE TRANSITION UNQUALIFIED",js)
+        js=(server.demo_root()/"hud_v0_14.js").read_text(encoding="utf-8"); self.assertIn("intercept-preview.json",js); self.assertIn("rendezvous-preview.json",js); self.assertIn("target_position_error_km",js); self.assertIn("ATTITUDE TRANSITION UNQUALIFIED",js)
+    def test_free_camera_controls_are_presentation_only(self):
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("RESET VIEW",text); self.assertIn("drag to orbit",text); self.assertIn("CAM DEFAULT",text)
+        js=(server.demo_root()/"hud_v0_14.js").read_text(encoding="utf-8"); self.assertIn("cameraOverride",js); self.assertIn("installCameraGestures",js); self.assertIn("orbitCamera",js); self.assertIn("zoomCamera",js); self.assertIn("resetPerspective",js)
+    def test_moon_growth_contract_is_visible(self):
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("Moon apparent size is geometry-derived and grows only as actual range falls",text)
     def test_server_endpoints(self):
         self.assertEqual(server.LIVE_ENDPOINT,"/flight-view.json"); self.assertEqual(server.EARTH_MOON_ENDPOINT,"/earth-moon-qualification.json"); self.assertEqual(server.REALTIME_ENDPOINT,"/qualification-flight.json"); self.assertEqual(server.TRAJECTORY_PREVIEW_ENDPOINT,"/qualification-flight/trajectory-preview.json"); self.assertEqual(server.INTERCEPT_PREVIEW_ENDPOINT,"/qualification-flight/intercept-preview.json"); self.assertEqual(server.RENDEZVOUS_PREVIEW_ENDPOINT,"/qualification-flight/rendezvous-preview.json")
 
