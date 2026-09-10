@@ -8,9 +8,12 @@ from typing import Any
 
 from generative_candidate_compiler import CompiledCandidateArtifact, compile_wayfarer_survivor_family
 
-CONTRACT_VERSION = "LOOM_SHIPYARD_VEHICLE_DYNAMICS_CONTRACT_v0.1"
+CONTRACT_VERSION = "LOOM_SHIPYARD_VEHICLE_DYNAMICS_CONTRACT_v0.2"
 CONTRACT_AUTHORITY = "ENGINEERING_HANDOFF_RESEARCH_ONLY"
 TORCH_CARD_AUTHORITY = "SOURCE_DERIVED_WORKING_ENGINEERING_CARD_ONLY"
+READINESS_VERSION = "LOOM_SHIPYARD_DYNAMICS_READINESS_v0.1"
+READINESS_AUTHORITY = "ENGINEERING_RESEARCH_GATE_ONLY"
+READINESS_BLOCKED = "BLOCKED_BY_UNADMITTED_PHYSICAL_DEGREES_OF_FREEDOM"
 OPEN = "OPEN_NOT_QUALIFIED"
 G0_M_S2 = 9.80665
 
@@ -25,6 +28,33 @@ _TORCH_CARDS = (
     ("HARD", 5.00, 450.0),
     ("LIMIT", 7.50, 300.0),
 )
+
+# These gates describe what must become admitted before the current family can
+# claim physically differentiated ordinary translational mission behaviour.
+# They are deliberately separate from Phase-10/11 remass-feed probes, which are
+# analytic research evidence only and explicitly admit zero live engineering inputs.
+_REQUIRED_TRANSLATIONAL_ADMISSIONS = (
+    "CANDIDATE_DEPENDENT_WET_OR_DRY_MASS_STATE",
+    "CANDIDATE_DEPENDENT_NORMAL_REMASS_STATE_OR_CAPACITY",
+    "CANDIDATE_DEPENDENT_ADMITTED_PROPULSION_PERFORMANCE_OR_DUTY_LIMIT",
+)
+_OPTIONAL_COUPLED_ADMISSIONS = (
+    "QUALIFIED_INERTIA_AND_ATTITUDE_CONTROL_EFFECTS",
+    "QUALIFIED_THERMAL_DURATION_CONSTRAINTS",
+    "QUALIFIED_PLUME_OR_VECTORING_CONSTRAINTS",
+)
+_REMASS_FEED_EVIDENCE = {
+    "phase10_status": "DECOMPOSITION_RESEARCH_ONLY_NOT_LIVE_ENGINEERING_INPUT",
+    "phase11_authority": "ANALYTIC_FEED_BOUND_EVIDENCE_ONLY",
+    "phase11_selection_status": "NO_FEED_ARCHITECTURE_SELECTED",
+    "phase11_live_engineering_input_admission_count": 0,
+    "phase11_propulsion_inlet_pressure_admitted": False,
+    "phase11_pump_efficiency_admitted": False,
+    "provenance": (
+        "src/shipyard_phase10_remass_feed.py;"
+        "src/shipyard_phase11_remass_feed_bounds.py"
+    ),
+}
 
 
 class VehicleDynamicsContractError(ValueError):
@@ -136,11 +166,11 @@ def validate_vehicle_dynamics_contract(contract: VehicleDynamicsContract) -> Non
     if contract.version != CONTRACT_VERSION or contract.authority_status != CONTRACT_AUTHORITY:
         raise VehicleDynamicsContractError("contract authority/version mismatch")
     if contract.flight_dynamics_authority:
-        raise VehicleDynamicsContractError("v0.1 handoff cannot claim flight dynamics authority")
+        raise VehicleDynamicsContractError("v0.2 handoff cannot claim flight dynamics authority")
     _positive(contract.wet_mass_kg, "wet mass")
     _positive(contract.normal_remass_kg, "normal remass")
     if contract.thrust_axis_body != (1.0, 0.0, 0.0):
-        raise VehicleDynamicsContractError("v0.1 Wayfarer thrust axis must remain explicit +X body")
+        raise VehicleDynamicsContractError("v0.2 Wayfarer thrust axis must remain explicit +X body")
     if tuple(card.mode for card in contract.torch_cards) != tuple(row[0] for row in _TORCH_CARDS):
         raise VehicleDynamicsContractError("torch card mode set/order mismatch")
     for card in contract.torch_cards:
@@ -161,7 +191,7 @@ def validate_vehicle_dynamics_contract(contract: VehicleDynamicsContract) -> Non
         contract.loom_transport_contract_status,
     ):
         if status != OPEN:
-            raise VehicleDynamicsContractError("v0.1 open dynamics field was silently promoted")
+            raise VehicleDynamicsContractError("v0.2 open dynamics field was silently promoted")
     payload = asdict(contract)
     digest = payload.pop("contract_hash")
     payload["contract_hash"] = ""
@@ -199,20 +229,97 @@ def build_wayfarer_contract_family(seed: int = 2226) -> tuple[VehicleDynamicsCon
     return tuple(build_vehicle_dynamics_contract(row) for row in compile_wayfarer_survivor_family(seed))
 
 
+def dynamics_readiness_report(contracts: tuple[VehicleDynamicsContract, ...]) -> dict[str, Any]:
+    if not contracts:
+        raise VehicleDynamicsContractError("readiness report requires at least one contract")
+    for contract in contracts:
+        validate_vehicle_dynamics_contract(contract)
+
+    wet_masses = {row.wet_mass_kg for row in contracts}
+    remass_states = {row.normal_remass_kg for row in contracts}
+    propulsion_signatures = {
+        tuple((card.mode, card.acceleration_g, card.exhaust_velocity_km_s) for card in row.torch_cards)
+        for row in contracts
+    }
+    admission_state = {
+        "candidate_dependent_wet_or_dry_mass_state": len(wet_masses) > 1,
+        "candidate_dependent_normal_remass_state_or_capacity": len(remass_states) > 1,
+        "candidate_dependent_admitted_propulsion_performance_or_duty_limit": len(propulsion_signatures) > 1,
+        "qualified_inertia_and_attitude_control_effects": all(
+            row.inertia_tensor_status != OPEN and row.attitude_control_status != OPEN for row in contracts
+        ),
+        "qualified_thermal_duration_constraints": all(row.thermal_duration_status != OPEN for row in contracts),
+        "qualified_plume_or_vectoring_constraints": all(row.plume_geometry_status != OPEN for row in contracts),
+    }
+    translational_core_ready = any(
+        admission_state[key]
+        for key in (
+            "candidate_dependent_wet_or_dry_mass_state",
+            "candidate_dependent_normal_remass_state_or_capacity",
+            "candidate_dependent_admitted_propulsion_performance_or_duty_limit",
+        )
+    )
+    missing_required = [
+        gate for gate, admitted in zip(
+            _REQUIRED_TRANSLATIONAL_ADMISSIONS,
+            (
+                admission_state["candidate_dependent_wet_or_dry_mass_state"],
+                admission_state["candidate_dependent_normal_remass_state_or_capacity"],
+                admission_state["candidate_dependent_admitted_propulsion_performance_or_duty_limit"],
+            ),
+        ) if not admitted
+    ]
+    missing_optional = [
+        gate for gate, admitted in zip(
+            _OPTIONAL_COUPLED_ADMISSIONS,
+            (
+                admission_state["qualified_inertia_and_attitude_control_effects"],
+                admission_state["qualified_thermal_duration_constraints"],
+                admission_state["qualified_plume_or_vectoring_constraints"],
+            ),
+        ) if not admitted
+    ]
+    status = "READY_FOR_DIFFERENTIATED_TRANSLATIONAL_EVALUATION" if translational_core_ready else READINESS_BLOCKED
+    report = {
+        "version": READINESS_VERSION,
+        "authority_status": READINESS_AUTHORITY,
+        "status": status,
+        "candidate_count": len(contracts),
+        "translational_core_ready": translational_core_ready,
+        "admission_state": admission_state,
+        "missing_required_admissions": missing_required,
+        "missing_coupled_admissions": missing_optional,
+        "remass_feed_evidence": dict(_REMASS_FEED_EVIDENCE),
+        "phase10_phase11_may_supply_live_dynamics_inputs": False,
+        "next_admission_priority": (
+            "ADMIT_ONE_CANDIDATE_DEPENDENT_PHYSICAL_DRIVER_FROM_GOVERNED_ENGINEERING_EVIDENCE"
+            if not translational_core_ready else None
+        ),
+        "flight_dynamics_authority": False,
+        "canon_changed": False,
+        "production_shipclasses_changed": False,
+    }
+    report["report_hash"] = _sha(report)
+    return report
+
+
 def family_differentiation_report(seed: int = 2226) -> dict[str, Any]:
     contracts = build_wayfarer_contract_family(seed)
     signatures = {row.candidate_id: translational_signature(row) for row in contracts}
+    differentiated = len(set(signatures.values())) > 1
+    readiness = dynamics_readiness_report(contracts)
     return {
         "version": CONTRACT_VERSION,
         "candidate_count": len(contracts),
         "distinct_design_state_count": len({row.design_state_hash for row in contracts}),
         "distinct_semantic_glb_count": len({row.semantic_glb_sha256 for row in contracts}),
         "distinct_translational_signature_count": len(set(signatures.values())),
-        "translational_mission_behavior_differentiated": len(set(signatures.values())) > 1,
+        "translational_mission_behavior_differentiated": differentiated,
         "reason_if_not_differentiated": (
-            None if len(set(signatures.values())) > 1 else
+            None if differentiated else
             "CURRENT_BOUNDED_DOMAIN_MOVES_PACKAGING_WITH_FIXED_WET_MASS_REMASS_AND_TORCH_CARDS; QUALIFIED_INERTIA_ATTITUDE_EFFECTS_REMAIN_OPEN"
         ),
+        "readiness": readiness,
         "signatures": signatures,
         "flight_dynamics_authority": False,
         "canon_changed": False,
