@@ -1,0 +1,39 @@
+name: LOOM Shipyard Real Navigator Leg Probe
+
+on:
+  pull_request:
+    paths:
+      - 'src/qualification/synthesis/shipyard_campaign_binding.py'
+      - 'src/loom_navigator_core.py'
+      - 'tests/test_shipyard_real_navigator_leg.py'
+      - '.github/workflows/research_shipyard_real_navigator_leg_probe.yml'
+  workflow_dispatch:
+
+jobs:
+  probe-real-navigator-solver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect embedded Navigator solver boundary
+        run: |
+          PYTHONPATH=src python - <<'PY'
+          import inspect
+          import tempfile
+          from pathlib import Path
+          import loom_navigator_core as campaign
+
+          with tempfile.TemporaryDirectory() as td:
+              nav = campaign._load_core(Path(td))
+              print('NAV CORE SHA:', campaign.CORE_SHA)
+              print('SOLVE LEG SIGNATURE:', inspect.signature(nav._solve_leg))
+              print('SOLVE LEG SOURCE:')
+              print(inspect.getsource(nav._solve_leg))
+              print('INTERP/ROW HELPERS:')
+              for name in ('_interp_state', '_state_at', '_solve_leg', '_terminal_burn'):
+                  obj = getattr(nav, name, None)
+                  if obj is not None:
+                      print(name, inspect.signature(obj))
+          PY
