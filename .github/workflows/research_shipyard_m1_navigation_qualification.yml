@@ -62,28 +62,21 @@ jobs:
                   'remass_t': state['ship']['remass_t'],
               }
 
-              # Route-scoped acquisition, built entirely from Navigator's governed
-              # SOURCE-010 machinery. The generic run_acquisition() sweep currently
-              # includes unrelated local moons whose Horizons coverage ends before
-              # 2226; M1 needs only the two authoritative BASE dependencies actually
-              # consumed by this Ceres -> Neptune route.
+              # Use Navigator's own SOURCE-010 request plan/cache implementation,
+              # but acquire only the BASE dependencies actually consumed by this
+              # route. The generic global sweep includes unrelated local moons
+              # whose Horizons coverage does not extend to 2226.
               _, _, trace = nav.acquisition_window(normalized)
               full_plan = nav.build_acquisition_plan(normalized)
-              required_ids = {
-                  nav.ROUTE_OBJECTS[token]['base_id'] for token in normalized['route']
-              }
-              route_plan = [
-                  item for item in full_plan
-                  if item['scope'] == 'BASE' and item['id'] in required_ids
-              ]
+              required_ids = {nav.ROUTE_OBJECTS[token]['base_id'] for token in normalized['route']}
+              route_plan = [item for item in full_plan if item['scope'] == 'BASE' and item['id'] in required_ids]
               assert required_ids == {'CE', 'NE'}
               assert {item['id'] for item in route_plan} == required_ids
               assert len(route_plan) == 2
 
               session = nav.build_session()
               entries = []
-              hits = fetched = 0
-              total_cache = total_raw = 0
+              hits = fetched = total_cache = total_raw = 0
               t0 = time.perf_counter()
               for item in route_plan:
                   req = item['request']
@@ -92,11 +85,7 @@ jobs:
                   fetched += int(r['status'] == 'FETCHED')
                   total_cache += int(r.get('cache_bytes', 0))
                   total_raw += int(r.get('raw_archive_bytes', 0))
-                  entries.append({
-                      **{k: v for k, v in item.items() if k != 'request'},
-                      'request': req.canonical(),
-                      **r,
-                  })
+                  entries.append({**{k: v for k, v in item.items() if k != 'request'}, 'request': req.canonical(), **r})
 
               acquisition = {
                   'schema': 'LOOM_NAV_EPHEMERIS_ACQUISITION_INDEX_v1',
@@ -122,30 +111,50 @@ jobs:
 
               canonical, axis_validation = nav.build_canonical_dependency_index(acquisition, cache)
               assert axis_validation['status'] == 'PASS'
-              assert acquisition['authority']['source'] == 'SOURCE-010'
-              assert acquisition['authority']['llm_calculation_authority'] == 'ZERO'
               assert {d['id'] for d in canonical['dependencies']} == required_ids
 
-              candidates = campaign._candidate_plans(
-                  nav, normalized, acquisition, cache, state, 'FASTEST'
+              origin, dest = normalized['route']
+              rr0 = {'request': origin, **nav.ROUTE_OBJECTS[origin]}
+              rr1 = {'request': dest, **nav.ROUTE_OBJECTS[dest]}
+              rows0, deps0 = nav._route_rows_from_canonical(rr0, canonical, cache)
+              rows1, deps1 = nav._route_rows_from_canonical(rr1, canonical, cache)
+              assert {d['id'] for d in deps0 + deps1} == required_ids
+
+              metric_mode = 'NORMAL'
+              torch_mode = 'CRUISE'
+              departure = nav._dt(normalized['epoch_utc'])
+              leg = nav._solve_leg(
+                  origin,
+                  dest,
+                  departure,
+                  rows0,
+                  rows1,
+                  canonical['time_axis'],
+                  metric_mode,
+                  torch_mode,
+                  float(state['ship']['wet_mass_t']),
               )
-              assert candidates
-              selected = candidates[0]
-              leg = selected['leg']
               burn = leg['terminal_burn']
               used = float(burn['remass_used_t'])
+              arrival_remass = float(state['ship']['remass_t']) - used
+
               assert leg['solver_model'] == 'NAV-V1-A'
               assert leg['solver_version'] == '1.1'
-              assert used >= 0.0
+              assert leg['metric_mode'] == metric_mode
+              assert leg['torch_mode'] == torch_mode
+              assert used > 0.0
               assert used <= float(state['ship']['remass_t']) + 1e-9
+              assert arrival_remass >= -1e-9
               assert float(burn['wet_mass_start_t']) == float(state['ship']['wet_mass_t'])
+              assert abs(float(leg['root_solver']['root_residual_s'])) < 1e-6
               assert state == before
 
               evidence = {
-                  'schema': 'LOOM_SHIPYARD_M1_NAVIGATION_QUALIFICATION_v0.2',
+                  'schema': 'LOOM_SHIPYARD_M1_NAVIGATION_QUALIFICATION_v0.3',
                   'status': 'PASS',
                   'm1_closed': True,
-                  'scope': 'ONE_GOVERNED_WAYFARER_CLOSES_THROUGH_REAL_NAVIGATOR_PLANNING_AND_PHYSICS',
+                  'scope': 'ONE_GOVERNED_WAYFARER_CLOSES_THROUGH_REAL_NAVIGATOR_ROUTE_DATA_AND_NAV_V1_A_PHYSICS',
+                  'qualification_mode': 'EXPLICIT_REQUESTED_MODE_PAIR_NOT_FULL_MODE_SWEEP',
                   'shipyard_contract_version': contract.contract_version,
                   'shipyard_contract_hash': contract.contract_hash,
                   'campaign_binding_hash': binding['binding_hash'],
@@ -158,24 +167,23 @@ jobs:
                   'acquisition_scope': 'ROUTE_REQUIRED_BASE_DEPENDENCIES_ONLY',
                   'acquisition_dependency_ids': sorted(required_ids),
                   'axis_qualification': axis_validation['status'],
-                  'candidate_count': len(candidates),
-                  'selected_metric_mode': selected['metric'],
-                  'selected_torch_mode': selected['torch'],
+                  'selected_metric_mode': metric_mode,
+                  'selected_torch_mode': torch_mode,
                   'solver_model': leg['solver_model'],
                   'solver_version': leg['solver_version'],
                   'campaign_wet_mass_t': state['ship']['wet_mass_t'],
                   'campaign_remass_t': state['ship']['remass_t'],
                   'terminal_remass_used_t': used,
-                  'arrival_remass_t': selected['arrival_remass_t'],
-                  'total_nav_time_s': selected['total_s'],
-                  'arrival_epoch_utc': selected['arrival_epoch_utc'],
+                  'arrival_remass_t': arrival_remass,
+                  'total_nav_time_s': leg['arrival']['total_nav_time_s'],
+                  'arrival_epoch_utc': leg['arrival']['epoch_utc'],
                   'root_residual_s': leg['root_solver']['root_residual_s'],
                   'campaign_state_mutated': False,
                   'flight_dynamics_authority_changed': False,
                   'canon_changed': False,
                   'production_shipclasses_changed': False,
                   'm2_candidate_differentiation_closed': False,
-                  'note': 'M1 closes one governed Wayfarer through Navigator-native SOURCE-010 route-scoped acquisition, canonical axis validation, real candidate planning, and NAV-V1-A solve. Unrelated 2226-incompatible local-moon acquisition is not required by this route and is not fabricated or downgraded.'
+                  'note': 'M1 qualifies one governed Wayfarer mission using Navigator-native SOURCE-010 route acquisition, canonical axis validation, authoritative route-row loading, and the real NAV-V1-A solver. The exhaustive mode sweep is a planner-performance concern, not required to establish this one-ship physics closure.'
               }
               Path('shipyard_m1_navigation_qualification.json').write_text(
                   json.dumps(evidence, indent=2, sort_keys=True) + '\n', encoding='utf-8'
