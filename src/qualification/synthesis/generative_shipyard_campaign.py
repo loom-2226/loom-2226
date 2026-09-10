@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
@@ -11,7 +10,7 @@ from shipyard_candidate_archive import archive_wayfarer_campaign, campaign_summa
 from vehicle_dynamics_contract import family_differentiation_report
 from shipyard_visual_library import add_glb_asset
 
-CAMPAIGN_EXECUTOR_VERSION = "LOOM_GENERATIVE_SHIPYARD_CAMPAIGN_EXECUTOR_v0.1"
+CAMPAIGN_EXECUTOR_VERSION = "LOOM_GENERATIVE_SHIPYARD_CAMPAIGN_EXECUTOR_v0.2"
 CAMPAIGN_EXECUTOR_AUTHORITY = "ENGINEERING_RESEARCH_CAMPAIGN_EXECUTION_ONLY"
 
 
@@ -53,6 +52,7 @@ def run_and_persist_wayfarer_campaign(db_path: str | Path, seed: int = 2226) -> 
 
     summary = campaign_summary(path, campaign_id)
     dynamics = family_differentiation_report(seed)
+    readiness = dynamics["readiness"]
     surviving = [x for x in experiment.outcomes if x.status == "SURVIVED_SCREEN"]
     rejected = [x for x in experiment.outcomes if x.status.startswith("REJECTED_")]
     report = {
@@ -67,6 +67,7 @@ def run_and_persist_wayfarer_campaign(db_path: str | Path, seed: int = 2226) -> 
         "visual_asset_count": len(visual_assets),
         "visual_assets": visual_assets,
         "dynamics_differentiation": dynamics,
+        "dynamics_readiness": readiness,
         "archive_summary_hash": summary["summary_hash"],
         "flight_dynamics_authority": False,
         "canon_changed": False,
@@ -77,9 +78,9 @@ def run_and_persist_wayfarer_campaign(db_path: str | Path, seed: int = 2226) -> 
             else "CAMPAIGN_INCOMPLETE"
         ),
         "next_blocker": (
-            "TRANSLATIONAL_MISSION_BEHAVIOR_NOT_YET_DIFFERENTIATED; CURRENT_ADMITTED_DOMAIN_CHANGES_PACKAGING_ONLY"
-            if not dynamics["translational_mission_behavior_differentiated"] else None
+            readiness["status"] if not dynamics["translational_mission_behavior_differentiated"] else None
         ),
+        "next_admission_priority": readiness["next_admission_priority"],
     }
     return report
 
@@ -89,4 +90,7 @@ def canonical_report(report: dict[str, Any]) -> str:
         raise GenerativeCampaignError("campaign authority mismatch")
     if report.get("flight_dynamics_authority") or report.get("canon_changed") or report.get("production_shipclasses_changed"):
         raise GenerativeCampaignError("campaign report authority escalation")
+    readiness = report.get("dynamics_readiness", {})
+    if readiness.get("phase10_phase11_may_supply_live_dynamics_inputs") is not False:
+        raise GenerativeCampaignError("campaign attempted to promote Phase-10/11 probe evidence")
     return json.dumps(report, sort_keys=True, separators=(",", ":"), allow_nan=False)
