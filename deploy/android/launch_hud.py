@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Android launcher for the LOOM HUD live synthetic-vision surface.
+"""Android launcher for the LOOM HUD qualification/live synthetic-vision surface.
 
 Each preview chooses a free localhost port and appends a cache-busting query so
 an older HUD server/browser document cannot masquerade as the current checkout.
@@ -22,8 +22,8 @@ APP = Path(os.environ.get("LOOM_APP_ROOT") or os.environ.get("LOOM_HOME") or str
 DATA = Path(os.environ.get("LOOM_DATA_ROOT") or str(LOOM_ROOT / "data")).expanduser().resolve()
 CAMPAIGN = Path(os.environ.get("LOOM_CAMPAIGN_ROOT") or str(LOOM_ROOT / "campaign")).expanduser().resolve()
 SERVER = APP / "src" / "loom" / "hud" / "server.py"
-PAGE = "hud_mock_v0_1.html"
-BUILD_MARKER = "hud-v0.5-live-spatial"
+PAGE = "earth_moon_qualification.html"
+BUILD_MARKER = "hud-v0.6-earth-moon-2026"
 
 if not SERVER.exists():
     raise SystemExit(f"LOOM file missing: {SERVER}")
