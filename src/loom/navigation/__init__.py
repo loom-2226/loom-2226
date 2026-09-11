@@ -47,6 +47,7 @@ from .trajectory_visual_sampling import (
     sample_trajectory_for_visualization,
 )
 from .service import LegacyNavigationService, NavigationServiceError
+from .targeting import NavigationTargetAdapter, NavigationTargetError
 
 __all__ = [
     "ArrivalState",
@@ -85,4 +86,6 @@ __all__ = [
     "sample_trajectory_for_visualization",
     "LegacyNavigationService",
     "NavigationServiceError",
+    "NavigationTargetAdapter",
+    "NavigationTargetError",
 ]
