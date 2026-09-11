@@ -26,6 +26,10 @@ from .sqlite_celestial_catalog import (
     SQLiteCelestialCatalogError,
     osculating_elements_from_state,
 )
+from .sqlite_infrastructure_catalog import (
+    SQLiteInfrastructureCatalog,
+    SQLiteInfrastructureCatalogError,
+)
 from .runtime import SpatialRuntime, SpatialRuntimeError
 from .targets import (
     OrbitDefinition,
@@ -58,6 +62,8 @@ __all__ = [
     "SQLiteCelestialCatalog",
     "SQLiteCelestialCatalogError",
     "osculating_elements_from_state",
+    "SQLiteInfrastructureCatalog",
+    "SQLiteInfrastructureCatalogError",
     "SpatialRuntime",
     "SpatialRuntimeError",
     "OrbitDefinition",
