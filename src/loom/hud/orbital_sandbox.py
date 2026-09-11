@@ -12,7 +12,11 @@ import math
 import time
 from typing import Any
 
-from loom.hud.orbital_state import EARTH_RADIUS_KM, earth_orbital_state
+from loom.hud.orbital_state import (
+    EARTH_RADIUS_KM,
+    earth_orbital_state,
+    earth_orbit_visualization,
+)
 
 CONTRACT = "LOOM_HUD_ORBITAL_SANDBOX_V1"
 
@@ -75,7 +79,7 @@ def initialize_earth_circular_orbit(
 
 
 def attach_orbital_state(payload: dict[str, Any], session: Any) -> dict[str, Any]:
-    """Attach deterministic osculating Earth-orbit diagnostics to a live payload."""
+    """Attach deterministic osculating Earth diagnostics and display geometry."""
 
     stamped = dict(payload)
     orbit = earth_orbital_state(session.ship_position, session.ship_velocity, session.earth_mu)
@@ -85,4 +89,9 @@ def attach_orbital_state(payload: dict[str, Any], session: Any) -> dict[str, Any
     if seed is not None:
         orbit["sandbox_seed"] = dict(seed)
     stamped["orbital_state"] = orbit
+    stamped["orbit_visualization"] = earth_orbit_visualization(
+        session.ship_position,
+        session.ship_velocity,
+        session.earth_mu,
+    )
     return stamped
