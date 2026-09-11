@@ -140,6 +140,9 @@ def earth_orbit_visualization(
         "points_earth_centered_km": [],
         "periapsis_position_earth_centered_km": None,
         "apoapsis_position_earth_centered_km": None,
+        "current_position_earth_centered_km": None,
+        "prograde_unit_earth_centered": None,
+        "direction_authority": None,
     }
     if not state["operational_orbit"]:
         return unavailable
@@ -149,11 +152,11 @@ def earth_orbit_visualization(
     mu = float(mu_km3_s2)
     h = _cross(r, v)
     hmag = _mag(h)
-    if hmag <= 1e-12:
+    vmag = _mag(v)
+    if hmag <= 1e-12 or vmag <= 1e-15:
         return unavailable
     h_hat = _unit(h)
     rmag = _mag(r)
-    vmag = _mag(v)
     rv = _dot(r, v)
     evec = tuple(((vmag * vmag - mu / rmag) * r[i] - rv * v[i]) / mu for i in range(3))
     ecc = _mag(evec)
@@ -181,4 +184,7 @@ def earth_orbit_visualization(
         "points_earth_centered_km": points,
         "periapsis_position_earth_centered_km": [float(x) for x in _scale(p_hat, peri_radius)],
         "apoapsis_position_earth_centered_km": [float(x) for x in _scale(p_hat, -apo_radius)],
+        "current_position_earth_centered_km": [float(x) for x in r],
+        "prograde_unit_earth_centered": [float(x) for x in _unit(v)],
+        "direction_authority": "SERVER_DERIVED_FROM_LIVE_VELOCITY",
     }
