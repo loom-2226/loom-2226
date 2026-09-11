@@ -96,7 +96,7 @@ class HudPredictedPathV034Tests(unittest.TestCase):
 
     def test_hud_exposes_predicted_path_toggle_and_build_marker(self):
         html = Path("src/loom/hud/demo/earth_moon_qualification.html").read_text(encoding="utf-8")
-        self.assertIn('content="hud-v0.36-screen-space-path-cues"', html)
+        self.assertIn('content="hud-v0.37-persistent-orbital-burn"', html)
         self.assertIn('id="predictedPathToggle"', html)
         self.assertIn("hud_predicted_path_v01.js", html)
 
