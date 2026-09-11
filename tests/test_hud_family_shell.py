@@ -44,12 +44,21 @@ class HudFamilyShellTests(unittest.TestCase):
         self.assertIn("rendezvous_selection_payload", source)
         self.assertIn('"hud_family_selection"', source)
 
+    def test_solved_nav_selection_is_held_against_live_poll_until_return_live(self):
+        js = (server.demo_root() / "hud_family_control_v01.js").read_text(encoding="utf-8")
+        self.assertIn("planningHold", js)
+        self.assertIn("NAV / FLIGHT PLAN", js)
+        self.assertIn("if(planningHold)return", js)
+        self.assertIn("RETURN_LIVE_RELEASE", js)
+        self.assertIn("liveView.addEventListener('click'", js)
+
     def test_clicks_do_not_claim_auto_operational_state(self):
         js = (server.demo_root() / "hud_family_control_v01.js").read_text(encoding="utf-8")
         self.assertNotIn("STRATEGIC_PLANNING_PRESENTATION", js)
         self.assertNotIn("for(const id of ['preview','solve','rendezvous'])", js)
-        self.assertNotIn("getElementById('liveView')?.addEventListener", js)
-        self.assertNotIn("getElementById('reset')?.addEventListener", js)
+        self.assertNotIn("rendezvous.addEventListener", js)
+        self.assertNotIn("preview.addEventListener", js)
+        self.assertNotIn("solve.addEventListener", js)
 
 
 if __name__ == "__main__":
