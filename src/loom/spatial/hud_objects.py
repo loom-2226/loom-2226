@@ -3,8 +3,8 @@
 This module deliberately does not model detailed station topology. It exposes the
 minimum governed object surface needed for HUD/GIS selection and inspection:
 identity, classification, authority summary, engineering/transport summary,
-approved HERO media, geometry references, and (when requested) the exact shared
-SpatialState returned by the injected resolver.
+approved HERO media, visualization-only geometry references, and (when
+requested) the exact shared SpatialState returned by the injected resolver.
 
 WORLD remains world-fact authority. Shared spatial/navigation services remain
 physical-state authority. The generated spatial-geometry database remains a
@@ -17,6 +17,7 @@ import sqlite3
 from typing import Any, Protocol
 
 from loom.application.contracts import SpatialState
+from .procedural_proxies import decode_proxy_row
 
 
 class HUDSpatialObjectError(RuntimeError):
@@ -127,6 +128,7 @@ class HUDInfrastructureObjectAdapter:
             "available_roles": [],
             "default_symbol": None,
             "orbit_render_style": None,
+            "visual_proxy": None,
             "status": "UNAVAILABLE",
         }
         if self.geometry_path is None or not self.geometry_path.is_file():
@@ -152,12 +154,17 @@ class HUDInfrastructureObjectAdapter:
                 "SELECT * FROM visual_profiles WHERE object_id=?",
                 (target_id,),
             ).fetchone()
+            proxy = conn.execute(
+                "SELECT * FROM procedural_visual_proxies WHERE object_id=?",
+                (target_id,),
+            ).fetchone()
         result.update(
             {
                 "object_kind": obj["object_kind"],
                 "status": obj["status"],
                 "available_roles": sorted({r["geometry_role"] for r in assets}),
                 "assets": [dict(r) for r in assets],
+                "visual_proxy": decode_proxy_row(proxy) if proxy is not None else None,
             }
         )
         if visual is not None:
