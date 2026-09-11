@@ -50,6 +50,7 @@ class HUDInfrastructureObjectTests(unittest.TestCase):
         obj = self.adapter.describe_object("EAR-O01")
         self.assertEqual(obj["contract"], "LOOM_HUD_SPATIAL_OBJECT_V1")
         self.assertEqual(obj["detail_scope"], "THIN_WORLD_BACKED_V1")
+        self.assertEqual(obj["detail_policy"], "STATION_COMPLEXITY_DEFERRED")
         self.assertEqual(obj["entity_id"], "EAR-O01")
         self.assertEqual(obj["display_name"], "LEO Atlantic Exchange")
         self.assertEqual(obj["facility_type"], "ORBITAL_HABITAT_PORT")
