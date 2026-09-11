@@ -23,6 +23,7 @@ from loom.hud.intercept_qualification import solve_moon_intercept
 from loom.hud.rendezvous_qualification import solve_moon_rendezvous_feasibility
 from loom.hud.live_provider import load_live_flight_view, unavailable_live_payload
 from loom.hud.orbital_sandbox import attach_orbital_state, initialize_earth_circular_orbit
+from loom.hud.predicted_path import build_predicted_path
 from loom.hud.realtime_flight_qualification import RealtimeFlightQualification
 from loom.runtime import resolve_runtime_roots
 
@@ -33,6 +34,7 @@ LIVE_ENDPOINT = "/flight-view.json"
 EARTH_MOON_ENDPOINT = "/earth-moon-qualification.json"
 REALTIME_ENDPOINT = "/qualification-flight.json"
 TRAJECTORY_PREVIEW_ENDPOINT = "/qualification-flight/trajectory-preview.json"
+PREDICTED_PATH_ENDPOINT = "/qualification-flight/predicted-path.json"
 INTERCEPT_PREVIEW_ENDPOINT = "/qualification-flight/intercept-preview.json"
 RENDEZVOUS_PREVIEW_ENDPOINT = "/qualification-flight/rendezvous-preview.json"
 WAYFARER_ENGINEERING_ENDPOINT = "/wayfarer-engineering-state.json"
@@ -170,6 +172,15 @@ def make_handler(directory: Path):
                 except Exception as exc:
                     self._json({"contract":"LOOM_HUD_WAYFARER_ENGINEERING_TYPED_PAYLOAD_V1","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
                 return
+            if parsed.path == PREDICTED_PATH_ENDPOINT:
+                query = parse_qs(parsed.query)
+                try:
+                    horizon_s = float((query.get("horizon_s") or ["21600"])[0])
+                    sample_s = float((query.get("sample_s") or ["60"])[0])
+                    self._json(build_predicted_path(get_session(), horizon_s=horizon_s, sample_s=sample_s))
+                except Exception as exc:
+                    self._json({"contract":"LOOM_PREDICTED_PATH_V1","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
+                return
             if parsed.path == TRAJECTORY_PREVIEW_ENDPOINT:
                 query = parse_qs(parsed.query)
                 try:
@@ -262,6 +273,7 @@ def serve(*, host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, root: Path | No
     print(f"LIVE STATE: {LIVE_ENDPOINT} (READ ONLY / FAIL CLOSED)")
     print(f"REALTIME QUALIFICATION: {REALTIME_ENDPOINT} (WALL-UTC SEEDED / NON-CAMPAIGN)")
     print(f"WAYFARER ENGINEERING: {WAYFARER_ENGINEERING_ENDPOINT} (TYPED PR96 / NON-CANON)")
+    print(f"PREDICTED PATH: {PREDICTED_PATH_ENDPOINT} (CURRENT STATE / BALLISTIC / READ ONLY)")
     print(f"TRAJECTORY PREVIEW: {TRAJECTORY_PREVIEW_ENDPOINT} (READ ONLY / NO NAVIGATOR CLAIM)")
     print(f"INTERCEPT PREVIEW: {INTERCEPT_PREVIEW_ENDPOINT} (QUALIFICATION SEARCH / NO COMMIT)")
     print(f"RENDEZVOUS FEASIBILITY: {RENDEZVOUS_PREVIEW_ENDPOINT} (FINITE ATTITUDE ENVELOPE / NO COMMIT)")
