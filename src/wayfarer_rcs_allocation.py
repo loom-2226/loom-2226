@@ -2,19 +2,16 @@ from __future__ import annotations
 
 """Bounded Q4 RCS force-allocation screen for the Wayfarer candidate layout.
 
-This module advances the prior rank-six kinematic screen one step: it asks
-whether the existing Q4 HUD nominal/degraded force and torque envelopes can be
-reproduced while respecting the current 25 kN *per mount* sizing cap.
-
-The allocator intentionally uses a convexified sampled-vectoring model. Each
-mount may distribute its commanded thrust across the five already-defined
-sample directions, with the sum bounded by the mount thrust cap. This is a
-useful feasibility relaxation for a continuously vectorable or time-shared
-actuator, but it is not a final gimbal/nozzle command law.
+The allocator works in the already-screened sampled 45 degree vectoring space,
+with a 25 kN cap per hardpoint.  In addition to wrench residuals it now exposes
+the physically meaningful resultant force at each surviving hardpoint.  The
+single-gimbal realizability proof establishes that this resultant can be
+represented by one simultaneous direction/magnitude under the continuous
+45-degree engineering assumption.
 """
 
 import math
-from typing import Any, Iterable, Sequence
+from typing import Any, Sequence
 
 from wayfarer_rcs_control import build_rcs_control_candidate
 
@@ -24,8 +21,6 @@ CHARACTERISTIC_LENGTH_M = 20.0
 MAX_ITERATIONS = 1_500
 RELATIVE_RESIDUAL_GATE = 1.0e-4
 
-# These are not new authority values. They are the existing Q4 HUD envelope
-# already qualified for downstream finite-attitude use.
 _REQUIREMENTS = {
     "NOMINAL": {
         "translation_N": 100_000.0,
@@ -50,6 +45,10 @@ def _cross(a: Sequence[float], b: Sequence[float]) -> tuple[float, float, float]
         float(a[2]) * float(b[0]) - float(a[0]) * float(b[2]),
         float(a[0]) * float(b[1]) - float(a[1]) * float(b[0]),
     )
+
+
+def _norm3(v: Sequence[float]) -> float:
+    return math.sqrt(sum(float(x) * float(x) for x in v))
 
 
 def _wrench(position: Sequence[float], force_unit: Sequence[float]) -> tuple[float, ...]:
@@ -85,12 +84,9 @@ def _physical_wrench(wrench: Sequence[float]) -> tuple[float, ...]:
 
 
 def _project_capped_simplex(values: Sequence[float], cap: float) -> list[float]:
-    """Euclidean projection onto x>=0 and sum(x)<=cap."""
-
     clipped = [max(0.0, float(x)) for x in values]
     if sum(clipped) <= cap:
         return clipped
-
     ordered = sorted((float(x) for x in values), reverse=True)
     cumulative = 0.0
     rho = -1
@@ -125,16 +121,17 @@ def _norm6(v: Sequence[float]) -> float:
     return math.sqrt(sum(float(x) * float(x) for x in v))
 
 
+def _surviving_mounts(mounts: Sequence[dict[str, Any]], failed_cluster: str | None) -> list[dict[str, Any]]:
+    return [m for m in mounts if failed_cluster is None or m["logical_cluster"] != failed_cluster]
+
+
 def _build_channels(
     mounts: Sequence[dict[str, Any]], failed_cluster: str | None
 ) -> tuple[list[tuple[float, ...]], list[list[int]], list[str]]:
     columns: list[tuple[float, ...]] = []
     groups: list[list[int]] = []
     mount_ids: list[str] = []
-
-    for mount in mounts:
-        if failed_cluster is not None and mount["logical_cluster"] == failed_cluster:
-            continue
+    for mount in _surviving_mounts(mounts, failed_cluster):
         indices: list[int] = []
         for sample in mount["sampled_force_directions"]:
             physical = _wrench(mount["position_m"], sample["force_unit_ship"])
@@ -143,6 +140,35 @@ def _build_channels(
         groups.append(indices)
         mount_ids.append(mount["id"])
     return columns, groups, mount_ids
+
+
+def _resultant_mount_commands(
+    mounts: Sequence[dict[str, Any]],
+    groups: Sequence[Sequence[int]],
+    x: Sequence[float],
+    failed_cluster: str | None,
+) -> dict[str, dict[str, Any]]:
+    commands: dict[str, dict[str, Any]] = {}
+    for mount, indices in zip(_surviving_mounts(mounts, failed_cluster), groups):
+        resultant = [0.0, 0.0, 0.0]
+        summed_channel_thrust = 0.0
+        for local_i, channel_i in enumerate(indices):
+            amount = max(0.0, float(x[channel_i]))
+            summed_channel_thrust += amount
+            direction = mount["sampled_force_directions"][local_i]["force_unit_ship"]
+            for axis in range(3):
+                resultant[axis] += amount * float(direction[axis])
+        thrust = _norm3(resultant)
+        commands[mount["id"]] = {
+            "logical_cluster": mount["logical_cluster"],
+            "commanded_thrust_N": thrust,
+            "mount_utilization_fraction": thrust / MOUNT_THRUST_CAP_N,
+            "summed_sample_channel_thrust_N": summed_channel_thrust,
+            "commanded_force_unit_ship": (
+                [component / thrust for component in resultant] if thrust > 1.0e-12 else None
+            ),
+        }
+    return commands
 
 
 def _allocate(
@@ -154,30 +180,23 @@ def _allocate(
     columns, groups, mount_ids = _build_channels(mounts, failed_cluster)
     target = list(_normalized_wrench(target_physical))
     target_norm = max(_norm6(target), 1.0)
-
-    # Frobenius norm squared is a safe upper bound on ||A||_2^2. For
-    # grad ||Ax-b||^2, 2*||A||_F^2 therefore yields a conservative Lipschitz
-    # bound and a deterministic step without a numerical dependency.
     frobenius_sq = sum(sum(value * value for value in col) for col in columns)
     step = 0.9 / max(2.0 * frobenius_sq, 1.0)
 
     x = [0.0] * len(columns)
     y = list(x)
     momentum = 1.0
-
     for _ in range(MAX_ITERATIONS):
         achieved_y = _matvec(columns, y)
         residual_y = [achieved_y[i] - target[i] for i in range(6)]
         gradient = [2.0 * _dot6(col, residual_y) for col in columns]
         trial = [y[j] - step * gradient[j] for j in range(len(columns))]
-
         projected = list(trial)
         for indices in groups:
             values = [trial[j] for j in indices]
             group_projection = _project_capped_simplex(values, MOUNT_THRUST_CAP_N)
             for local_i, channel_i in enumerate(indices):
                 projected[channel_i] = group_projection[local_i]
-
         next_momentum = (1.0 + math.sqrt(1.0 + 4.0 * momentum * momentum)) / 2.0
         factor = (momentum - 1.0) / next_momentum
         y = [projected[j] + factor * (projected[j] - x[j]) for j in range(len(x))]
@@ -189,23 +208,25 @@ def _allocate(
     relative_residual = _norm6(residual_normalized) / target_norm
     achieved_physical = _physical_wrench(achieved_normalized)
 
-    mount_usage: dict[str, float] = {}
-    for mount_id, indices in zip(mount_ids, groups):
-        mount_usage[mount_id] = sum(x[j] for j in indices)
+    mount_usage = {mount_id: sum(x[j] for j in indices) for mount_id, indices in zip(mount_ids, groups)}
     max_mount_thrust = max(mount_usage.values(), default=0.0)
     max_utilization = max_mount_thrust / MOUNT_THRUST_CAP_N
+    physical_commands = _resultant_mount_commands(mounts, groups, x, failed_cluster)
+    total_resultant_thrust = sum(item["commanded_thrust_N"] for item in physical_commands.values())
+    max_physical_utilization = max(
+        (item["mount_utilization_fraction"] for item in physical_commands.values()), default=0.0
+    )
 
     return {
-        "target_wrench": {
-            axis: float(target_physical[i]) for i, axis in enumerate(_AXIS_NAMES)
-        },
-        "achieved_wrench": {
-            axis: float(achieved_physical[i]) for i, axis in enumerate(_AXIS_NAMES)
-        },
+        "target_wrench": {axis: float(target_physical[i]) for i, axis in enumerate(_AXIS_NAMES)},
+        "achieved_wrench": {axis: float(achieved_physical[i]) for i, axis in enumerate(_AXIS_NAMES)},
         "relative_normalized_residual": relative_residual,
         "residual_gate": RELATIVE_RESIDUAL_GATE,
         "max_mount_thrust_N": max_mount_thrust,
         "max_mount_utilization_fraction": max_utilization,
+        "physical_mount_commands": physical_commands,
+        "total_resultant_mount_thrust_N": total_resultant_thrust,
+        "max_physical_mount_utilization_fraction": max_physical_utilization,
         "active_mount_count": len(groups),
         "failed_cluster": failed_cluster,
         "pass": relative_residual <= RELATIVE_RESIDUAL_GATE and max_utilization <= 1.0 + 1e-9,
@@ -226,16 +247,8 @@ def _axis_targets(requirement: dict[str, float]) -> dict[str, tuple[float, ...]]
     return targets
 
 
-def _screen(
-    mounts: Sequence[dict[str, Any]],
-    requirement: dict[str, float],
-    *,
-    failed_cluster: str | None,
-) -> dict[str, Any]:
-    cases = {
-        name: _allocate(mounts, target, failed_cluster=failed_cluster)
-        for name, target in _axis_targets(requirement).items()
-    }
+def _screen(mounts: Sequence[dict[str, Any]], requirement: dict[str, float], *, failed_cluster: str | None) -> dict[str, Any]:
+    cases = {name: _allocate(mounts, target, failed_cluster=failed_cluster) for name, target in _axis_targets(requirement).items()}
     all_pass = all(case["pass"] for case in cases.values())
     max_utilization = max(case["max_mount_utilization_fraction"] for case in cases.values())
     worst_residual = max(case["relative_normalized_residual"] for case in cases.values())
@@ -245,41 +258,28 @@ def _screen(
         "max_mount_utilization_fraction": max_utilization,
         "worst_relative_normalized_residual": worst_residual,
         "cases": cases,
-        "disposition": (
-            "PASS_BOUNDED_ALLOCATION_SCREEN_NOT_FINAL_CONTROL_QUALIFICATION"
-            if all_pass
-            else "FAIL_BOUNDED_ALLOCATION_SCREEN"
-        ),
+        "disposition": "PASS_BOUNDED_ALLOCATION_SCREEN_NOT_FINAL_CONTROL_QUALIFICATION" if all_pass else "FAIL_BOUNDED_ALLOCATION_SCREEN",
     }
 
 
 def build_rcs_allocation_screen() -> dict[str, Any]:
     control = build_rcs_control_candidate()
     mounts = control["mounts"]
-
     nominal = _screen(mounts, _REQUIREMENTS["NOMINAL"], failed_cluster=None)
     degraded = {
-        cluster_id: _screen(
-            mounts,
-            _REQUIREMENTS["ONE_CLUSTER_OUT"],
-            failed_cluster=cluster_id,
-        )
+        cluster_id: _screen(mounts, _REQUIREMENTS["ONE_CLUSTER_OUT"], failed_cluster=cluster_id)
         for cluster_id in _CLUSTER_IDS
     }
-
     return {
-        "standard_id": "WAYFARER_Q4_RCS_BOUNDED_ALLOCATION_SCREEN_V0.1",
+        "standard_id": "WAYFARER_Q4_RCS_BOUNDED_ALLOCATION_SCREEN_V0.2",
         "status": STATUS,
         "authority": "ENGINEERING_STUDY_NON_CANON",
         "source_control_screen": control["standard_id"],
-        "allocation_model": "CONVEXIFIED_SAMPLED_VECTORING_WITH_PER_MOUNT_THRUST_CAP",
+        "allocation_model": "SAMPLED_VECTORING_WITH_PER_MOUNT_THRUST_CAP_AND_PHYSICAL_RESULTANT_REPORTING",
         "mount_thrust_cap_N": MOUNT_THRUST_CAP_N,
         "characteristic_length_for_numerical_scaling_m": CHARACTERISTIC_LENGTH_M,
         "requirements": _REQUIREMENTS,
-        "screens": {
-            "NOMINAL": nominal,
-            "ONE_CLUSTER_OUT": degraded,
-        },
+        "screens": {"NOMINAL": nominal, "ONE_CLUSTER_OUT": degraded},
         "exact_nozzle_hardware_status": "OPEN_Q4",
         "plume_interference_status": "OPEN_Q4",
         "structural_load_qualification": "OPEN_Q4",
@@ -287,10 +287,9 @@ def build_rcs_allocation_screen() -> dict[str, Any]:
         "closed_loop_control_status": "OPEN_Q4",
         "power_thermal_qualification": "OPEN_Q5",
         "notes": [
-            "Passing proves feasibility only inside the convexified sampled-vector model and 25 kN per-mount cap.",
-            "A mount's five sample channels are not five simultaneous physical nozzles; convex mixing represents continuous vectoring or sufficiently fast time-sharing for this screen.",
-            "Pure-axis screens deliberately request both signs of all six wrench components.",
+            "The reported physical mount command is the resultant of each mount's non-negative sampled allocation.",
+            "Single-gimbal realizability is separately proven under the continuous 45 degree engineering assumption.",
             "The nominal/degraded targets are inherited from the existing Q4 HUD envelope; this module does not create stronger force/torque authority.",
-            "Final actuator qualification still requires exact nozzle/vectoring hardware, plume/interference closure, structural limits, minimum impulse behavior, Q5 power/thermal closure and closed-loop control qualification.",
+            "Final actuator qualification still requires hardware dynamics, plume/interference closure, structural limits, minimum impulse behavior, Q5 power/thermal closure and closed-loop control qualification.",
         ],
     }
