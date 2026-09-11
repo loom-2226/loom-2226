@@ -29,6 +29,20 @@ def test_open_and_candidate_statuses_survive_typed_adapter():
     assert state.feedstock_certified_species.quality == "CERTIFIED_NONE"
 
 
+def test_q5_attitude_energy_summary_is_exposed_without_inventing_detail():
+    state = build_wayfarer_engineering_hud_state(epoch="QUALIFICATION_STATIC")
+
+    assert state.attitude_energy_status.value == "OPEN_BOUNDED"
+    assert state.attitude_energy_status.quality == "ENGINEERING_CANDIDATE_NON_CANON"
+    assert state.attitude_energy_buffer_screen_pass.value is True
+    assert state.attitude_energy_detail_available.value is False
+    assert "NO_MACHINE_READABLE_ENERGY_ARTIFACT" in state.attitude_energy_detail_available.quality
+    assert state.combined_maneuver_energy_available.value is False
+    assert state.combined_maneuver_energy_available.quality == "OPEN_Q4_Q5"
+    assert state.translation_maneuver_energy_available.value is False
+    assert state.translation_maneuver_energy_available.quality == "OPEN_Q4_Q5"
+
+
 def test_reserve_concepts_remain_separate():
     state = build_wayfarer_engineering_hud_state(epoch="QUALIFICATION_STATIC")
 
@@ -59,9 +73,12 @@ def test_source_commit_is_present_on_every_datum():
         state.normal_remass,
         state.protected_water_reserve,
         state.power_thermal_status,
+        state.attitude_energy_status,
+        state.attitude_energy_buffer_screen_pass,
+        state.attitude_energy_detail_available,
         state.dispatch_status,
         state.feedstock_primary,
         state.routine_optimizer_may_consume_protected_water,
     ]
     for datum in datums:
-        assert "e2df887d5e901eed9378c7aeb7d4964040b9a7e6" in datum.source
+        assert "41755c6569a1b94b6a3b046bde66281ae910f015" in datum.source
