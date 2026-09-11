@@ -1,0 +1,32 @@
+name: Earth-Luna Completeness Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/earth-luna-spatial-infrastructure-v0.1-2026-09-12
+    paths:
+      - 'tools/audit_earth_luna_completeness.py'
+      - 'data/LOOM_2226.sqlite3'
+      - '.github/workflows/earth-luna-completeness-audit.yml'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate completeness matrix
+        run: |
+          python tools/audit_earth_luna_completeness.py \
+            --world data/LOOM_2226.sqlite3 \
+            --json earth_luna_completeness.json \
+            --markdown earth_luna_completeness.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: earth-luna-completeness
+          path: |
+            earth_luna_completeness.json
+            earth_luna_completeness.md
