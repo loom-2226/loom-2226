@@ -15,6 +15,10 @@ from loom.hud.engineering_state_payload import (
     attach_typed_engineering_payload,
     build_wayfarer_engineering_payload,
 )
+from loom.hud.hud_family_selector import (
+    live_qualification_selection_payload,
+    rendezvous_selection_payload,
+)
 from loom.hud.intercept_qualification import solve_moon_intercept
 from loom.hud.rendezvous_qualification import solve_moon_rendezvous_feasibility
 from loom.hud.live_provider import load_live_flight_view, unavailable_live_payload
@@ -70,6 +74,18 @@ def _compile_wayfarer_geometry(root: Path) -> dict:
         conn.close()
 
 
+def _stamp_live_family(payload: dict) -> dict:
+    stamped = dict(payload)
+    stamped["hud_family_selection"] = live_qualification_selection_payload(stamped)
+    return stamped
+
+
+def _stamp_rendezvous_family(payload: dict) -> dict:
+    stamped = dict(payload)
+    stamped["hud_family_selection"] = rendezvous_selection_payload(stamped)
+    return stamped
+
+
 def make_handler(directory: Path):
     qualification_session: list[RealtimeFlightQualification | None] = [None]
     root = repo_root()
@@ -122,7 +138,9 @@ def make_handler(directory: Path):
                 except Exception as exc: self._json({"contract":"LOOM_HUD_EARTH_MOON_QUALIFICATION_V2","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
                 return
             if parsed.path == REALTIME_ENDPOINT:
-                try: self._json(attach_typed_engineering_payload(get_session().snapshot()))
+                try:
+                    payload = attach_typed_engineering_payload(get_session().snapshot())
+                    self._json(_stamp_live_family(payload))
                 except Exception as exc: self._json({"contract":"LOOM_HUD_REALTIME_FLIGHT_QUALIFICATION_V1","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
                 return
             if parsed.path == WAYFARER_ENGINEERING_ENDPOINT:
@@ -153,7 +171,8 @@ def make_handler(directory: Path):
                 query = parse_qs(parsed.query)
                 try:
                     max_time_s = float((query.get("max_time_s") or ["22200"])[0]); mode = (query.get("mode") or ["CRUISE"])[0]; standoff_altitude_km = float((query.get("standoff_altitude_km") or ["1000"])[0]); sample_s = float((query.get("sample_s") or ["60"])[0])
-                    self._json(solve_moon_rendezvous_feasibility(get_session(), max_time_s=max_time_s, mode=mode, standoff_altitude_km=standoff_altitude_km, sample_s=sample_s))
+                    result = solve_moon_rendezvous_feasibility(get_session(), max_time_s=max_time_s, mode=mode, standoff_altitude_km=standoff_altitude_km, sample_s=sample_s)
+                    self._json(_stamp_rendezvous_family(result))
                 except Exception as exc: self._json({"contract":"LOOM_HUD_RENDEZVOUS_FEASIBILITY_QUALIFICATION_V1","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
                 return
             if parsed.path == WAYFARER_GEOMETRY_ENDPOINT:
@@ -174,7 +193,7 @@ def make_handler(directory: Path):
                 elif action == "TIME_SCALE": result = session.set_time_scale(float(payload["value"]))
                 elif action == "TORCH": result = session.set_torch(active=bool(payload.get("active")), mode=payload.get("mode"))
                 else: raise ValueError(f"unsupported qualification control action: {action}")
-                self._json(attach_typed_engineering_payload(result))
+                self._json(_stamp_live_family(attach_typed_engineering_payload(result)))
             except Exception as exc: self._json({"status":"REJECTED","reason":str(exc)},400)
 
     return HudHandler
