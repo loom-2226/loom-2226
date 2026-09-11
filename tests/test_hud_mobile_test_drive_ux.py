@@ -15,19 +15,22 @@ class HudMobileTestDriveUxTests(unittest.TestCase):
         self.assertIn("renderCompact", js)
         self.assertIn("renderExpanded", js)
 
-    def test_wayfarer_uses_high_contrast_presentation_materials(self):
-        js = (DEMO / "hud_v0_15.js").read_text(encoding="utf-8")
-        self.assertIn("function shipMaterial", js)
-        self.assertIn("emissive", js)
-        self.assertIn("SHIP CHASE", js)
+    def test_view_modes_have_explicit_operator_cues(self):
+        js = (DEMO / "hud_test_drive_ux_v01.js").read_text(encoding="utf-8")
         self.assertIn("SHIP / LOOK", js)
+        self.assertIn("CHASE / OWN SHIP", js)
         self.assertIn("TRAJECTORY / OVERVIEW", js)
+        self.assertIn("TRAJECTORY / LOAD PLAN", js)
+        self.assertNotIn("fetch(", js)
+        self.assertNotIn("/control", js)
 
     def test_mobile_layout_preserves_viewport_and_scrollable_controls(self):
         html = (DEMO / "earth_moon_qualification.html").read_text(encoding="utf-8")
         self.assertIn("minmax(32dvh,1fr)", html)
         self.assertIn("max-height:48dvh", html)
         self.assertIn("overflow-y:auto", html)
+        self.assertIn("hud_test_drive_ux_v01.js", html)
+        self.assertIn("drop-shadow", html)
 
 
 if __name__ == "__main__":
