@@ -5,6 +5,7 @@ on:
     paths:
       - 'src/wayfarer_*.py'
       - 'tests/test_wayfarer_*.py'
+      - 'engineering/current/wayfarer_q5_power_thermal_envelope_v0.2.json'
       - '.github/workflows/wayfarer-q4-python.yml'
 
 permissions:
@@ -22,7 +23,7 @@ jobs:
           python-version: '3.12'
       - name: Install test runner
         run: python -m pip install --disable-pip-version-check pytest
-      - name: Run Q4 actuator regression
+      - name: Run Q4/Q5 actuator regression
         env:
           PYTHONPATH: src
         run: >-
@@ -35,3 +36,5 @@ jobs:
           tests/test_wayfarer_rcs_allocation.py
           tests/test_wayfarer_rcs_plume_screen.py
           tests/test_wayfarer_rcs_combined_maneuvers.py
+          tests/test_wayfarer_rcs_gimbal_realizability.py
+          tests/test_wayfarer_q5_rcs_duty.py
