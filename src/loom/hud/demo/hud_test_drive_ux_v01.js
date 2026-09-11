@@ -11,6 +11,7 @@ stage.appendChild(cue);
 function label(){
   if(cameraSel.value==='SHIP')return 'SHIP / LOOK';
   if(cameraSel.value==='CHASE')return 'CHASE / OWN SHIP';
+  if(cameraSel.value==='ORBIT')return 'ORBIT / EARTH OVERVIEW';
   if(cameraSel.value==='TRAJECTORY'){
     const s=String(scrubState?.textContent||'');
     return s.startsWith('PREVIEW')?'TRAJECTORY / OVERVIEW':'TRAJECTORY / LOAD PLAN';
