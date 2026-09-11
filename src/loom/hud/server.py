@@ -15,6 +15,7 @@ from loom.hud.engineering_state_payload import (
     attach_typed_engineering_payload,
     build_wayfarer_engineering_payload,
 )
+from loom.hud.flight_command_executor import execute_velocity_aligned_burn
 from loom.hud.hud_family_selector import (
     live_qualification_selection_payload,
     rendezvous_selection_payload,
@@ -245,19 +246,39 @@ def make_handler(directory: Path):
                 session = get_session()
                 if action == "RESET_REALTIME":
                     session.reset()
-                elif action == "TIME_SCALE":
+                    self._json(_live_payload(session, advance=False))
+                    return
+                if action == "TIME_SCALE":
                     session.set_time_scale(float(payload["value"]))
-                elif action == "TORCH":
+                    self._json(_live_payload(session, advance=False))
+                    return
+                if action == "TORCH":
                     session.set_torch(active=bool(payload.get("active")), mode=payload.get("mode"))
-                elif action == "INITIALIZE_EARTH_ORBIT":
+                    self._json(_live_payload(session, advance=False))
+                    return
+                if action == "INITIALIZE_EARTH_ORBIT":
                     initialize_earth_circular_orbit(
                         session,
                         altitude_km=float(payload.get("altitude_km", 400.0)),
                         inclination_deg=float(payload.get("inclination_deg", 0.0)),
                     )
-                else:
-                    raise ValueError(f"unsupported qualification control action: {action}")
-                self._json(_live_payload(session, advance=False))
+                    self._json(_live_payload(session, advance=False))
+                    return
+                if action == "EXECUTE_VELOCITY_BURN":
+                    receipt = execute_velocity_aligned_burn(
+                        session,
+                        direction=payload.get("direction"),
+                        duration_s=float(payload.get("duration_s", 5.0)),
+                        torch_mode=str(payload.get("mode") or session.torch_mode),
+                        requested_by="HUD_MANUAL_CONTROL",
+                    )
+                    self._json({
+                        "contract": "LOOM_HUD_EXECUTION_RESPONSE_V1",
+                        "receipt": receipt,
+                        "live": _live_payload(session, advance=False),
+                    })
+                    return
+                raise ValueError(f"unsupported qualification control action: {action}")
             except Exception as exc:
                 self._json({"status":"REJECTED","reason":str(exc)},400)
 
@@ -280,6 +301,7 @@ def serve(*, host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, root: Path | No
     print(f"WAYFARER GEOMETRY: {WAYFARER_GEOMETRY_ENDPOINT} (IN-MEMORY COMPILE)")
     print(f"3D ASSETS: {ASSET_PREFIX} (LOCAL QUALIFICATION CACHE)")
     print("ORBITAL SANDBOX: INITIALIZE_EARTH_ORBIT (IN-MEMORY / NO CAMPAIGN WRITE)")
+    print("FLIGHT EXECUTION: EXECUTE_VELOCITY_BURN (LIVE QUALIFICATION STATE / NO CAMPAIGN WRITE)")
     print("CAMPAIGN: WRITE NONE")
     with ThreadingHTTPServer((host, port), handler) as server:
         server.daemon_threads = True
