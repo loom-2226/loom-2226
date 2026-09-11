@@ -13,9 +13,9 @@ class HudServerTests(unittest.TestCase):
     def test_page_is_responsive(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("@media(orientation:portrait)",text); self.assertIn("viewport-fit=cover",text)
     def test_authority_boundary_visible(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NON-CANON",text); self.assertIn("NOT Navigator targeting authority",text); self.assertIn("Q4 FINITE ATTITUDE",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NON-CANON",text); self.assertIn("NOT Navigator targeting authority",text); self.assertIn("Q4 FINITE ATTITUDE",text); self.assertIn("Q5 PURE-ATTITUDE ENERGY",text)
     def test_build_marker(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.23-typed-engineering"',text); self.assertIn("BUILD hud-v0.23-typed-engineering",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.24-q4-attitude-q5-energy"',text); self.assertIn("BUILD hud-v0.24-q4-attitude-q5-energy",text)
     def test_optical_moon_and_external_client_present(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NASA LRO OPTICAL MOON",text); self.assertIn("hud_v0_15.js",text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("SphereGeometry(1737.4",js); self.assertIn("moonOptical",js); self.assertIn("moonTopo",js)
@@ -48,7 +48,7 @@ class HudServerTests(unittest.TestCase):
         panel=(server.demo_root()/"hud_v0_20_quality.js").read_text(encoding="utf-8")
         self.assertIn("rendezvous-preview.json",hook); self.assertIn("__loomRendezvousQuality",hook)
         self.assertIn("SOLVED_TRANSLATIONAL_FEASIBILITY",panel); self.assertIn("NOT SOLVED",panel)
-        self.assertIn("MIN CLEAR",panel); self.assertIn("REMASS",panel); self.assertIn("REL V",panel); self.assertNotIn("/control",panel)
+        self.assertIn("MIN CLEAR",panel); self.assertIn("REMASS",panel); self.assertIn("REL V",panel); self.assertIn("Q4 ATT",panel); self.assertIn("TORCH OFF DURING SLEW",panel); self.assertNotIn("ATTITUDE TRANSITION UNQUALIFIED",panel); self.assertNotIn("/control",panel)
     def test_terminal_corrector_v2_uses_earth_facing_target_and_bounded_line_search(self):
         source=(server.repo_root()/"src"/"loom"/"hud"/"rendezvous_qualification.py").read_text(encoding="utf-8")
         self.assertIn("EARTH_FACING_MOON_RADIAL_QUALIFICATION_POINT",source)
