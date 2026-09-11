@@ -1,5 +1,21 @@
 PRAGMA foreign_keys = ON;
 
+-- This database is a DEFINITION/OPERATIONAL-GEOMETRY layer only.
+-- It may define target orbit families, local geometry, interfaces and render assets.
+-- It MUST NOT store propagated epoch-dependent position/velocity state.
+-- Resolved physical state remains authoritative in shared spatial/navigation services.
+CREATE TABLE IF NOT EXISTS runtime_metadata (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL,
+    notes TEXT
+);
+
+INSERT OR REPLACE INTO runtime_metadata VALUES
+('database_role','DEFINITION_AND_OPERATIONAL_GEOMETRY','Definitions and operational/render geometry only; not physical-state authority'),
+('state_authority','SHARED_SPATIAL_NAVIGATION_SERVICES','Epoch-dependent position/velocity is produced by shared spatial/navigation services'),
+('propagated_state_storage','FORBIDDEN','Do not persist resolved position/velocity here; caches of resolved state belong outside this authority boundary'),
+('world_authority','data/LOOM_2226.sqlite3','WORLD remains authority for facility identity and world facts');
+
 CREATE TABLE IF NOT EXISTS spatial_objects (
     object_id TEXT PRIMARY KEY,
     object_kind TEXT NOT NULL CHECK (object_kind IN ('FACILITY','STANDARD_ORBIT')),
@@ -26,10 +42,12 @@ CREATE TABLE IF NOT EXISTS facility_world_bindings (
     security_authority TEXT
 );
 
+-- Standard-orbit rows are target DEFINITIONS, not propagated states.
+-- element_epoch_utc anchors the declared element/reference definition only.
 CREATE TABLE IF NOT EXISTS standard_orbits (
     object_id TEXT PRIMARY KEY REFERENCES spatial_objects(object_id) ON DELETE CASCADE,
     representation TEXT NOT NULL,
-    epoch_utc TEXT NOT NULL,
+    element_epoch_utc TEXT NOT NULL,
     semi_major_axis_km REAL,
     altitude_km REAL,
     eccentricity REAL NOT NULL DEFAULT 0.0,
