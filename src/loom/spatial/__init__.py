@@ -30,6 +30,10 @@ from .sqlite_infrastructure_catalog import (
     SQLiteInfrastructureCatalog,
     SQLiteInfrastructureCatalogError,
 )
+from .hud_objects import (
+    HUDInfrastructureObjectAdapter,
+    HUDSpatialObjectError,
+)
 from .runtime import SpatialRuntime, SpatialRuntimeError
 from .targets import (
     OrbitDefinition,
@@ -64,6 +68,8 @@ __all__ = [
     "osculating_elements_from_state",
     "SQLiteInfrastructureCatalog",
     "SQLiteInfrastructureCatalogError",
+    "HUDInfrastructureObjectAdapter",
+    "HUDSpatialObjectError",
     "SpatialRuntime",
     "SpatialRuntimeError",
     "OrbitDefinition",
