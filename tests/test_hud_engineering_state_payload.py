@@ -8,7 +8,7 @@ def test_typed_engineering_payload_preserves_datum_metadata_and_firewalls():
     payload = build_wayfarer_engineering_payload(epoch="QUALIFICATION_STATIC")
 
     assert payload["contract"] == "LOOM_HUD_WAYFARER_ENGINEERING_TYPED_PAYLOAD_V1"
-    assert payload["source_commit"] == "e2df887d5e901eed9378c7aeb7d4964040b9a7e6"
+    assert payload["source_commit"] == "41755c6569a1b94b6a3b046bde66281ae910f015"
 
     wet = payload["mass"]["reference_wet_mass"]
     assert wet["value"] == 1158.5
@@ -22,7 +22,7 @@ def test_typed_engineering_payload_preserves_datum_metadata_and_firewalls():
     assert payload["firewalls"]["metric_velocity_reset_allowed"]["value"] is False
 
 
-def test_open_candidate_and_feedstock_states_remain_visible():
+def test_open_candidate_and_attitude_energy_states_remain_visible():
     payload = build_wayfarer_engineering_payload(epoch="QUALIFICATION_STATIC")
 
     assert payload["power_thermal"]["status"]["value"] == "OPEN_BOUNDED"
@@ -31,6 +31,13 @@ def test_open_candidate_and_feedstock_states_remain_visible():
     assert payload["feedstock"]["primary"]["quality"] == "PRIMARY_CANDIDATE_NOT_CERTIFIED"
     assert payload["feedstock"]["certified_species"]["value"] == []
     assert payload["feedstock"]["certified_species"]["quality"] == "CERTIFIED_NONE"
+
+    energy = payload["attitude"]["energy_screen"]
+    assert energy["status"]["value"] == "OPEN_BOUNDED"
+    assert energy["gross_conversion_heat_within_50GJ_buffer"]["value"] is True
+    assert energy["per_maneuver_detail_available"]["value"] is False
+    assert energy["combined_maneuver_energy_available"]["value"] is False
+    assert energy["translation_maneuver_energy_available"]["value"] is False
 
 
 def test_realtime_attachment_replaces_raw_engineering_with_typed_payload():
