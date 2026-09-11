@@ -46,10 +46,19 @@ class HudPredictedPathV034Tests(unittest.TestCase):
         self.assertEqual(p["start_nose_direction_inertial"], [1.0, 0.0, 0.0])
         self.assertAlmostEqual(p["start_speed_km_s"], math.sqrt(398600.4418 / 6778.137), places=9)
         self.assertEqual(p["motion_cue"], "VELOCITY_DOMINATED")
+        self.assertGreater(p["body_velocity_angle_deg"], 80.0)
+        self.assertTrue(p["show_body_axis_cue"])
+
+        s.nose_direction = (0.0, 1.0, 0.0)
+        aligned = build_predicted_path(s, horizon_s=120.0, sample_s=60.0)
+        self.assertLess(aligned["body_velocity_angle_deg"], 1.0)
+        self.assertFalse(aligned["show_body_axis_cue"])
 
         s.ship_velocity = (0.0, 0.0, 0.0)
         q = build_predicted_path(s, horizon_s=120.0, sample_s=60.0)
         self.assertEqual(q["motion_cue"], "GRAVITY_DOMINATED_NEAR_ZERO_SPEED")
+        self.assertIsNone(q["body_velocity_angle_deg"])
+        self.assertTrue(q["show_body_axis_cue"])
 
     def test_prediction_curves_under_gravity_not_velocity_vector(self):
         s = _Session()
@@ -77,13 +86,17 @@ class HudPredictedPathV034Tests(unittest.TestCase):
         self.assertIn("PREDICTED_PATH_START_VELOCITY", source)
         self.assertIn("PREDICTED_PATH_BODY_NOSE", source)
         self.assertIn("GRAVITY-DOMINATED PATH", source)
+        self.assertIn("cueWorldLengthForPixels", source)
+        self.assertIn("CUE_PIXELS", source)
+        self.assertIn("show_body_axis_cue", source)
+        self.assertNotIn("extent*.08", source)
         self.assertNotIn("398600", source)
         self.assertNotIn("sqrt(", source)
         self.assertNotIn("qualification-flight/control", source)
 
     def test_hud_exposes_predicted_path_toggle_and_build_marker(self):
         html = Path("src/loom/hud/demo/earth_moon_qualification.html").read_text(encoding="utf-8")
-        self.assertIn('content="hud-v0.35-path-direction-cues"', html)
+        self.assertIn('content="hud-v0.36-screen-space-path-cues"', html)
         self.assertIn('id="predictedPathToggle"', html)
         self.assertIn("hud_predicted_path_v01.js", html)
 
