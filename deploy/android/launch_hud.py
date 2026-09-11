@@ -28,7 +28,7 @@ DATA = Path(os.environ.get("LOOM_DATA_ROOT") or str(LOOM_ROOT / "data")).expandu
 CAMPAIGN = Path(os.environ.get("LOOM_CAMPAIGN_ROOT") or str(LOOM_ROOT / "campaign")).expanduser().resolve()
 SERVER = APP / "src" / "loom" / "hud" / "server.py"
 PAGE = "earth_moon_qualification.html"
-BUILD_MARKER="hud-v0.36-screen-space-path-cues"
+BUILD_MARKER="hud-v0.37-persistent-orbital-burn"
 
 
 def _truthy(name: str) -> bool:
