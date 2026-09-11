@@ -6,7 +6,7 @@ from loom.hud import server
 class HudFamilyShellTests(unittest.TestCase):
     def test_family_control_is_visible_and_contains_governing_families(self):
         html = server.validate_assets().read_text(encoding="utf-8")
-        self.assertIn('content="hud-v0.29-runtime-family-auto"', html)
+        self.assertIn('content="hud-v0.30-server-family-payload"', html)
         self.assertIn('id="hudFamily"', html)
         for family in (
             "TACTICAL",
@@ -28,16 +28,21 @@ class HudFamilyShellTests(unittest.TestCase):
         self.assertNotIn("fetch(", js)
         self.assertNotIn("post(", js)
 
-    def test_runtime_events_drive_known_auto_contexts_without_claiming_metric_or_sensor_state(self):
+    def test_runtime_events_consume_server_stamped_family_selection(self):
         js = (server.demo_root() / "hud_family_control_v01.js").read_text(encoding="utf-8")
+        self.assertIn("hud_family_selection", js)
         self.assertIn("loom-rendezvous-quality", js)
         self.assertIn("loom-live-qualification", js)
-        self.assertIn("STRATEGIC_PLANNING_SOLVED_TRANSLATIONAL_FEASIBILITY", js)
-        self.assertIn("LOCAL_GEOMETRY_TACTICAL_QUALITY", js)
-        self.assertIn("NAV / FLIGHT PLAN", js)
-        self.assertIn("TACTICAL / TRACK", js)
-        self.assertNotIn("setAutomatic('NAV / METRIC'", js)
-        self.assertNotIn("setAutomatic('SENSOR / WIDE'", js)
+        self.assertNotIn("relative_to_wayfarer_km", js)
+        self.assertNotIn("velocity_earth_centered_km_s", js)
+        self.assertNotIn("SOLVED_TRANSLATIONAL_FEASIBILITY", js)
+        self.assertNotIn("hasLiveTrack", js)
+
+    def test_server_stamps_live_and_rendezvous_family_payloads(self):
+        source = (server.repo_root() / "src" / "loom" / "hud" / "server.py").read_text(encoding="utf-8")
+        self.assertIn("live_qualification_selection_payload", source)
+        self.assertIn("rendezvous_selection_payload", source)
+        self.assertIn('"hud_family_selection"', source)
 
     def test_clicks_do_not_claim_auto_operational_state(self):
         js = (server.demo_root() / "hud_family_control_v01.js").read_text(encoding="utf-8")
