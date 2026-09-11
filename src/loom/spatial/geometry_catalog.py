@@ -34,10 +34,10 @@ def build_earth_luna_geometry_db(world_path: str | Path, seed_path: str | Path, 
     Existing facility identity and descriptive facts are read from WORLD;
     non-facility standard-orbit definitions come from the committed seed.
 
-    This function intentionally does not propagate an orbit, resolve a target
-    position/velocity, or copy physical-state authority into this database.
-    Consumers requiring state at an epoch must call the shared spatial/navigation
-    state services.
+    WORLD location/orbit model *identifiers and classifications* may be mirrored
+    as bindings so HUD/Navigator can discover which shared resolver to call. The
+    quantitative model parameters and all propagated state remain in WORLD and
+    the shared spatial/navigation services.
     """
     world = Path(world_path)
     seed = Path(seed_path)
@@ -60,9 +60,23 @@ def build_earth_luna_geometry_db(world_path: str | Path, seed_path: str | Path, 
                 """
                 SELECT e.entity_id, e.name, e.parent_entity_id,
                        n.facility_type, n.system, n.traffic,
-                       n.civil_authority, n.administrative_authority, n.security_authority
+                       n.civil_authority, n.administrative_authority, n.security_authority,
+                       lm.model_id AS location_model_id,
+                       lm.center_entity_id AS location_center_entity_id,
+                       lm.frame_family,
+                       lm.geometry_kind,
+                       lm.precision_class,
+                       lm.position_authority,
+                       lm.navigation_grade AS location_navigation_grade,
+                       og.orbit_family,
+                       og.reference_frame AS orbit_reference_frame,
+                       og.reference_plane AS orbit_reference_plane,
+                       og.navigation_grade AS orbit_navigation_grade,
+                       og.epistemic_status AS orbit_epistemic_status
                 FROM entities e
                 JOIN infrastructure_nodes n ON n.entity_id=e.entity_id
+                LEFT JOIN entity_location_models lm ON lm.entity_id=e.entity_id
+                LEFT JOIN orbit_geometry_models og ON og.entity_id=e.entity_id
                 WHERE e.parent_entity_id IN (?, ?)
                 ORDER BY e.entity_id
                 """,
@@ -99,6 +113,36 @@ def build_earth_luna_geometry_db(world_path: str | Path, seed_path: str | Path, 
                     object_id, object_id, name, parent, facility_type,
                     row["system"], row["traffic"], row["civil_authority"],
                     row["administrative_authority"], row["security_authority"],
+                ),
+            )
+            nav_grade = bool(row["location_navigation_grade"]) and bool(row["orbit_navigation_grade"])
+            runtime.execute(
+                """
+                INSERT OR REPLACE INTO world_spatial_model_bindings
+                (object_id, world_entity_id, location_model_id, location_center_entity_id,
+                 frame_family, geometry_kind, precision_class, position_authority,
+                 location_navigation_grade, orbit_family, orbit_reference_frame,
+                 orbit_reference_plane, orbit_navigation_grade, orbit_epistemic_status,
+                 navigation_grade, notes)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                        'References authoritative WORLD model classifications only; quantitative parameters and propagated state are not copied')
+                """,
+                (
+                    object_id,
+                    object_id,
+                    row["location_model_id"],
+                    row["location_center_entity_id"],
+                    row["frame_family"],
+                    row["geometry_kind"],
+                    row["precision_class"],
+                    row["position_authority"],
+                    row["location_navigation_grade"],
+                    row["orbit_family"],
+                    row["orbit_reference_frame"],
+                    row["orbit_reference_plane"],
+                    row["orbit_navigation_grade"],
+                    row["orbit_epistemic_status"],
+                    int(nav_grade),
                 ),
             )
             runtime.execute(
