@@ -5,6 +5,8 @@ from loom.hud.hud_family_selector import (
     CONTRACT,
     HudFamily,
     HudFamilyContext,
+    live_qualification_selection_payload,
+    rendezvous_selection_payload,
     select_hud_family,
     selection_payload,
 )
@@ -56,6 +58,37 @@ class HudFamilySelectorTests(unittest.TestCase):
         self.assertEqual(payload["contract"], CONTRACT)
         self.assertEqual(payload["family"], "TACTICAL / TRACK")
         self.assertEqual(payload["authority"], "PRESENTATION_ONLY_CANON_RULE_APPLICATION")
+
+    def test_live_adapter_promotes_only_complete_relative_geometry(self):
+        complete = {
+            "moon": {
+                "relative_to_wayfarer_km": [1.0, 2.0, 3.0],
+                "velocity_earth_centered_km_s": [0.1, 0.2, 0.3],
+            },
+            "wayfarer": {"velocity_earth_centered_km_s": [0.0, 0.0, 0.0]},
+        }
+        payload = live_qualification_selection_payload(complete)
+        self.assertEqual(payload["family"], "TACTICAL / TRACK")
+        self.assertEqual(payload["reason"], "LOCAL_GEOMETRY_TACTICAL_QUALITY")
+
+        incomplete = {
+            "moon": {"relative_to_wayfarer_km": [1.0, 2.0, 3.0]},
+            "wayfarer": {"velocity_earth_centered_km_s": [0.0, 0.0, 0.0]},
+        }
+        fallback = live_qualification_selection_payload(incomplete)
+        self.assertEqual(fallback["family"], "TACTICAL")
+        self.assertEqual(fallback["reason"], "DEFAULT_LOCAL_PRESENTATION_NO_HIGHER_PHASE_CLAIM")
+
+    def test_rendezvous_adapter_emits_nav_only_for_solved_feasibility(self):
+        solved = rendezvous_selection_payload(
+            {"quality": {"status": "SOLVED_TRANSLATIONAL_FEASIBILITY"}}
+        )
+        self.assertIsNotNone(solved)
+        self.assertEqual(solved["family"], "NAV / FLIGHT PLAN")
+        self.assertEqual(solved["reason"], "STRATEGIC_PLANNING")
+
+        unsolved = rendezvous_selection_payload({"quality": {"status": "NOT_SOLVED"}})
+        self.assertIsNone(unsolved)
 
 
 if __name__ == "__main__":
