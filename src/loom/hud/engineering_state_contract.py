@@ -43,6 +43,11 @@ class WayfarerEngineeringHudState:
     protected_optimizer_reserve: StateDatum[float]
     routine_optimizer_may_consume_protected_water: StateDatum[bool]
     attitude_status: StateDatum[str]
+    attitude_energy_status: StateDatum[str]
+    attitude_energy_buffer_screen_pass: StateDatum[bool]
+    attitude_energy_detail_available: StateDatum[bool]
+    combined_maneuver_energy_available: StateDatum[bool]
+    translation_maneuver_energy_available: StateDatum[bool]
     power_thermal_status: StateDatum[str]
     radiator_effective_area_range: StateDatum[tuple[float, float]]
     thermal_buffer_range: StateDatum[tuple[float, float]]
@@ -83,6 +88,7 @@ def build_wayfarer_engineering_hud_state(*, epoch: str) -> WayfarerEngineeringHu
     mass = engineering["mass"]
     dispatch = engineering["dispatch"]
     attitude = engineering["attitude"]
+    attitude_energy = engineering["attitude_energy"]
     thermal = engineering["power_thermal"]
     feedstock = engineering["feedstock"]
     torch = engineering["torch"]
@@ -165,6 +171,36 @@ def build_wayfarer_engineering_hud_state(*, epoch: str) -> WayfarerEngineeringHu
             str(attitude["status"]), unit=None, epoch=epoch,
             source_path="q4_hud_attitude.status",
             quality=str(attitude["status"]),
+        ),
+        attitude_energy_status=_datum(
+            str(attitude_energy["qualification_status"]), unit=None, epoch=epoch,
+            source_path="q5_attitude_energy.qualification_status",
+            quality=str(attitude_energy["status"]),
+            derivation="pinned PR #96 Q5 attitude-energy durable-note summary",
+        ),
+        attitude_energy_buffer_screen_pass=_datum(
+            bool(attitude_energy["gross_conversion_heat_within_50GJ_buffer_screen"]), unit=None, epoch=epoch,
+            source_path="q5_attitude_energy.gross_conversion_heat_within_50GJ_buffer_screen",
+            quality="CHECKED_REFERENCE_WET_DOCKED_PURE_ATTITUDE_SET",
+            derivation="pinned PR #96 Q5 attitude-energy durable-note summary",
+        ),
+        attitude_energy_detail_available=_datum(
+            bool(attitude_energy["machine_readable_per_maneuver_detail_available"]), unit=None, epoch=epoch,
+            source_path="q5_attitude_energy.machine_readable_per_maneuver_detail_available",
+            quality=str(attitude_energy["detail_availability_reason"]),
+            derivation="HUD handoff availability boundary; no engineering values synthesized",
+        ),
+        combined_maneuver_energy_available=_datum(
+            False, unit=None, epoch=epoch,
+            source_path="q5_attitude_energy.combined_maneuver_duration",
+            quality=str(attitude_energy["combined_maneuver_duration"]),
+            derivation="energy unavailable because duration remains unearned",
+        ),
+        translation_maneuver_energy_available=_datum(
+            False, unit=None, epoch=epoch,
+            source_path="q5_attitude_energy.translation_maneuver_duration",
+            quality=str(attitude_energy["translation_maneuver_duration"]),
+            derivation="energy unavailable because duration remains unearned",
         ),
         power_thermal_status=_datum(
             str(thermal["qualification_status"]), unit=None, epoch=epoch,
