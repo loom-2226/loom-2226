@@ -114,6 +114,39 @@ def _datum(
     )
 
 
+def _optional_datum(
+    value,
+    *,
+    unit: str | None,
+    epoch: str,
+    source_path: str,
+    quality: str,
+    unavailable_quality: str,
+    derivation: str = "pinned PR #96 engineering handoff adapter",
+):
+    if value is not None:
+        return _datum(
+            value,
+            unit=unit,
+            epoch=epoch,
+            source_path=source_path,
+            quality=quality,
+            derivation=derivation,
+        )
+    return StateDatum(
+        value=None,
+        unit=unit,
+        epoch=epoch,
+        frame=FRAME,
+        source=f"PR96:{ENGINEERING_SOURCE_COMMIT}:{source_path}",
+        authority=AuthorityClass.UNAVAILABLE,
+        derivation=derivation,
+        freshness_seconds=None,
+        availability=Availability.UNAVAILABLE,
+        quality=unavailable_quality,
+    )
+
+
 def _attitude_energy_maneuvers(attitude_energy: dict, *, epoch: str) -> dict[str, AttitudeEnergyManeuverHudState]:
     result: dict[str, AttitudeEnergyManeuverHudState] = {}
     quality = str(attitude_energy["status"])
@@ -141,7 +174,14 @@ def _attitude_energy_maneuvers(attitude_energy: dict, *, epoch: str) -> dict[str
             qualified_transition_time=_datum(float(row["qualified_transition_time_s"]), unit="s", epoch=epoch, source_path=f"{base}.qualified_transition_time_s", quality="Q4_QUALIFIED_TIMING"),
             powered_rcs_time=_datum(float(row["powered_rcs_time_s"]), unit="s", epoch=epoch, source_path=f"{base}.powered_rcs_time_s", quality="DERIVED_FROM_Q4_SETTLE_MODEL"),
             settle_margin_time=_datum(float(row["settle_margin_time_s"]), unit="s", epoch=epoch, source_path=f"{base}.settle_margin_time_s", quality="Q4_SETTLE_MARGIN"),
-            worst_failed_cluster=_datum(row["worst_failed_cluster"], unit=None, epoch=epoch, source_path=f"{base}.worst_failed_cluster", quality="WORST_SCREENED_Q4_ALLOCATION_CASE"),
+            worst_failed_cluster=_optional_datum(
+                row["worst_failed_cluster"],
+                unit=None,
+                epoch=epoch,
+                source_path=f"{base}.worst_failed_cluster",
+                quality="WORST_SCREENED_Q4_ALLOCATION_CASE",
+                unavailable_quality="NOT_APPLICABLE_NOMINAL_CONTROL_CASE",
+            ),
             total_resultant_mount_thrust=_datum(float(row["total_resultant_mount_thrust_kN"]), unit="kN", epoch=epoch, source_path=f"{base}.total_resultant_mount_thrust_kN", quality="PHYSICAL_RESULTANT_MOUNT_THRUST"),
             max_physical_mount_utilization=_datum(float(row["max_physical_mount_utilization_fraction"]), unit="fraction", epoch=epoch, source_path=f"{base}.max_physical_mount_utilization_fraction", quality="Q4_BOUNDED_ALLOCATION_SCREEN"),
             candidates=candidates,
