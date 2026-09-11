@@ -15,7 +15,7 @@ class HudServerTests(unittest.TestCase):
     def test_authority_boundary_visible(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NON-CANON",text); self.assertIn("NOT Navigator targeting authority",text); self.assertIn("Q4 FINITE ATTITUDE",text); self.assertIn("Q5 PURE-ATTITUDE ENERGY",text)
     def test_build_marker(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.34-predicted-path"',text); self.assertIn("BUILD hud-v0.34-predicted-path",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.35-path-direction-cues"',text); self.assertIn("BUILD hud-v0.35-path-direction-cues",text)
     def test_optical_moon_and_external_client_present(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NASA LRO OPTICAL MOON",text); self.assertIn("hud_v0_15.js",text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("SphereGeometry(1737.4",js); self.assertIn("moonOptical",js); self.assertIn("moonTopo",js)
