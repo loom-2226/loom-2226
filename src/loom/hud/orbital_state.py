@@ -6,6 +6,7 @@ import math
 from typing import Any, Sequence
 
 CONTRACT = "LOOM_HUD_ORBITAL_STATE_V1"
+VISUAL_CONTRACT = "LOOM_HUD_ORBIT_VISUALIZATION_V1"
 EARTH_RADIUS_KM = 6378.137
 
 
@@ -23,6 +24,21 @@ def _cross(a: Sequence[float], b: Sequence[float]) -> tuple[float, float, float]
 
 def _mag(v: Sequence[float]) -> float:
     return math.sqrt(_dot(v, v))
+
+
+def _unit(v: Sequence[float]) -> tuple[float, float, float]:
+    m = _mag(v)
+    if m <= 1e-15:
+        raise ValueError("cannot normalize zero vector")
+    return tuple(float(x) / m for x in v)  # type: ignore[return-value]
+
+
+def _scale(v: Sequence[float], s: float) -> tuple[float, float, float]:
+    return tuple(float(x) * float(s) for x in v)  # type: ignore[return-value]
+
+
+def _add(a: Sequence[float], b: Sequence[float]) -> tuple[float, float, float]:
+    return tuple(float(a[i]) + float(b[i]) for i in range(3))  # type: ignore[return-value]
 
 
 def earth_orbital_state(position_km: Sequence[float], velocity_km_s: Sequence[float], mu_km3_s2: float) -> dict[str, Any]:
@@ -64,11 +80,26 @@ def earth_orbital_state(position_km: Sequence[float], velocity_km_s: Sequence[fl
     elif energy > 0:
         classification = "ESCAPE_HYPERBOLIC"
 
+    operational_orbit = bool(
+        classification == "BOUND_ELLIPTIC"
+        and periapsis_altitude_km is not None
+        and periapsis_altitude_km >= 0.0
+        and ecc < 1.0
+    )
+    if operational_orbit:
+        presentation_regime = "EARTH_ORBIT"
+    elif classification == "ESCAPE_HYPERBOLIC":
+        presentation_regime = "EARTH_ESCAPE"
+    else:
+        presentation_regime = "FREE_FLIGHT_OSCULATING"
+
     return {
         "contract": CONTRACT,
         "reference_body": "EARTH",
         "frame": "EARTH_CENTERED_INERTIAL",
         "classification": classification,
+        "presentation_regime": presentation_regime,
+        "operational_orbit": operational_orbit,
         "radius_km": rmag,
         "altitude_km": rmag - EARTH_RADIUS_KM,
         "speed_km_s": vmag,
@@ -82,4 +113,70 @@ def earth_orbital_state(position_km: Sequence[float], velocity_km_s: Sequence[fl
         "period_s": period_s,
         "navigation_grade": False,
         "authority": "QUALIFICATION_DERIVED_DISPLAY_STATE",
+    }
+
+
+def earth_orbit_visualization(
+    position_km: Sequence[float],
+    velocity_km_s: Sequence[float],
+    mu_km3_s2: float,
+    *,
+    samples: int = 128,
+) -> dict[str, Any]:
+    """Return server-derived osculating orbit geometry for presentation only.
+
+    Geometry is emitted only for a bound orbit whose osculating periapsis stays
+    above the Earth reference surface. Browser code renders these points but does
+    not derive orbital mechanics itself.
+    """
+    if samples < 24 or samples > 720:
+        raise ValueError("samples must be in 24..720")
+    state = earth_orbital_state(position_km, velocity_km_s, mu_km3_s2)
+    unavailable = {
+        "contract": VISUAL_CONTRACT,
+        "available": False,
+        "authority": "QUALIFICATION_DERIVED_PRESENTATION_GEOMETRY",
+        "navigation_grade": False,
+        "points_earth_centered_km": [],
+        "periapsis_position_earth_centered_km": None,
+        "apoapsis_position_earth_centered_km": None,
+    }
+    if not state["operational_orbit"]:
+        return unavailable
+
+    r = tuple(float(x) for x in position_km)
+    v = tuple(float(x) for x in velocity_km_s)
+    mu = float(mu_km3_s2)
+    h = _cross(r, v)
+    hmag = _mag(h)
+    if hmag <= 1e-12:
+        return unavailable
+    h_hat = _unit(h)
+    rmag = _mag(r)
+    vmag = _mag(v)
+    rv = _dot(r, v)
+    evec = tuple(((vmag * vmag - mu / rmag) * r[i] - rv * v[i]) / mu for i in range(3))
+    ecc = _mag(evec)
+    p_hat = _unit(evec) if ecc > 1e-10 else _unit(r)
+    q_hat = _unit(_cross(h_hat, p_hat))
+    p = hmag * hmag / mu
+
+    points: list[list[float]] = []
+    for i in range(samples + 1):
+        theta = 2.0 * math.pi * i / samples
+        denom = 1.0 + ecc * math.cos(theta)
+        radius = p / denom
+        direction = _add(_scale(p_hat, math.cos(theta)), _scale(q_hat, math.sin(theta)))
+        points.append([float(x) for x in _scale(direction, radius)])
+
+    peri_radius = p / (1.0 + ecc)
+    apo_radius = p / (1.0 - ecc)
+    return {
+        "contract": VISUAL_CONTRACT,
+        "available": True,
+        "authority": "QUALIFICATION_DERIVED_PRESENTATION_GEOMETRY",
+        "navigation_grade": False,
+        "points_earth_centered_km": points,
+        "periapsis_position_earth_centered_km": [float(x) for x in _scale(p_hat, peri_radius)],
+        "apoapsis_position_earth_centered_km": [float(x) for x in _scale(p_hat, -apo_radius)],
     }
