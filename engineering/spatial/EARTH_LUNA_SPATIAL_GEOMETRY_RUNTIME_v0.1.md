@@ -158,7 +158,18 @@ python -m loom.spatial.geometry_catalog \
 
 The output database is reproducible and should not be hand-edited as source authority.
 
-## 8. Next detail pass
+## 8. Qualification
+
+The schema has an automated authority-firewall test which verifies that:
+
+- the database declares itself `DEFINITION_AND_OPERATIONAL_GEOMETRY`;
+- the shared spatial/navigation services are declared physical-state authority;
+- propagated state storage is declared forbidden; and
+- geometry/runtime tables contain no inertial position/velocity state columns.
+
+Exact-head GitHub Actions unit regression passed at commit `0cc936342113cae1d0ca1bd5f1a3476593848fa2`.
+
+## 9. Next detail pass
 
 For the 31 existing Earth–Luna facilities:
 
