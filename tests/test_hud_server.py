@@ -63,7 +63,7 @@ class HudServerTests(unittest.TestCase):
         self.assertEqual(server.WAYFARER_ENGINEERING_ENDPOINT,"/wayfarer-engineering-state.json")
         text=server.validate_assets().read_text(encoding="utf-8")
         self.assertIn("hud_wayfarer_engineering_state_v01.js",text)
-        self.assertIn("typed HUD StateDatum payload",text)
+        self.assertIn("PR96 ENGINEERING CONSUMER",text)
         self.assertIn("Protected water remains separate",text)
         js=(server.demo_root()/"hud_wayfarer_engineering_state_v01.js").read_text(encoding="utf-8")
         self.assertIn("LOOM_HUD_WAYFARER_ENGINEERING_TYPED_PAYLOAD_V1",js)
