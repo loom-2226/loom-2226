@@ -20,6 +20,7 @@ MIN_SAMPLE_S = 10.0
 MAX_SAMPLE_S = 3600.0
 MAX_STEP_S = 10.0
 NEAR_ZERO_SPEED_KM_S = 0.01
+BODY_AXIS_SEPARATION_DEG = 12.0
 
 
 def _iso(dt: datetime) -> str:
@@ -36,6 +37,14 @@ def _scale(a, s: float):
 
 def _mag(a) -> float:
     return math.sqrt(sum(float(x) * float(x) for x in a))
+
+
+def _angle_deg(a, b) -> float | None:
+    ma, mb = _mag(a), _mag(b)
+    if ma <= 0.0 or mb <= 0.0:
+        return None
+    dot = sum(float(a[i]) * float(b[i]) for i in range(3)) / (ma * mb)
+    return math.degrees(math.acos(max(-1.0, min(1.0, dot))))
 
 
 def build_predicted_path(
@@ -72,6 +81,14 @@ def build_predicted_path(
         "GRAVITY_DOMINATED_NEAR_ZERO_SPEED"
         if start_speed < NEAR_ZERO_SPEED_KM_S
         else "VELOCITY_DOMINATED"
+    )
+    body_velocity_angle_deg = (
+        None if start_speed < NEAR_ZERO_SPEED_KM_S else _angle_deg(nose_direction, velocity)
+    )
+    show_body_axis_cue = (
+        start_speed < NEAR_ZERO_SPEED_KM_S
+        or body_velocity_angle_deg is None
+        or body_velocity_angle_deg >= BODY_AXIS_SEPARATION_DEG
     )
 
     points: list[dict[str, Any]] = [
@@ -117,6 +134,9 @@ def build_predicted_path(
         "start_nose_direction_inertial": list(nose_direction),
         "motion_cue": motion_cue,
         "motion_cue_threshold_km_s": NEAR_ZERO_SPEED_KM_S,
+        "body_velocity_angle_deg": body_velocity_angle_deg,
+        "body_axis_cue_threshold_deg": BODY_AXIS_SEPARATION_DEG,
+        "show_body_axis_cue": show_body_axis_cue,
         "active_propulsion_ignored": torch_active,
         "active_torch_mode_at_prediction_start": torch_mode if torch_active else None,
         "active_propulsion_reason": (
