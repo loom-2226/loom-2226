@@ -168,6 +168,8 @@ def earth_orbit_visualization(
         radius = p / denom
         direction = _add(_scale(p_hat, math.cos(theta)), _scale(q_hat, math.sin(theta)))
         points.append([float(x) for x in _scale(direction, radius)])
+    # Force exact topological closure instead of leaving a floating-point seam at 2π.
+    points[-1] = list(points[0])
 
     peri_radius = p / (1.0 + ecc)
     apo_radius = p / (1.0 - ecc)
