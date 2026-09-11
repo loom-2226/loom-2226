@@ -1,10 +1,16 @@
-"""Deterministic Earth-Luna spatial/geometry runtime database builder.
+"""Deterministic Earth-Luna spatial definition/geometry database builder.
 
-WORLD remains authoritative for facility identity and world facts.  This module
-materializes a separate runtime SQLite that can be consumed by HUD/Navigator and
-progressively enriched with procedural or GLB geometry without mutating WORLD.
+WORLD remains authoritative for facility identity and world facts. This module
+materializes a separate runtime SQLite containing target definitions,
+operational geometry and presentation-support metadata for HUD/Navigator.
 
-The generated database is a runtime/cache product.  The committed seed SQL and
+It is deliberately NOT a physical-state database. Epoch-dependent position,
+velocity and propagated orbital state remain authoritative outputs of the shared
+spatial/navigation domain services, consistent with the GIS/Navigator
+convergence architecture. HUD/GIS consumers render typed service outputs; they
+do not calculate or recover flight truth from this database.
+
+The generated database is a runtime/cache product. The committed seed SQL and
 this builder are the reviewable source artifacts.
 """
 from __future__ import annotations
@@ -23,11 +29,15 @@ def _readonly_connection(path: Path) -> sqlite3.Connection:
 
 
 def build_earth_luna_geometry_db(world_path: str | Path, seed_path: str | Path, output_path: str | Path) -> Path:
-    """Build a fresh Earth-Luna HUD geometry/runtime SQLite database.
+    """Build a fresh Earth-Luna target-definition/geometry runtime database.
 
-    The function intentionally does not copy orbital physics out of WORLD into
-    Python constants. Existing facility identity and descriptive facts are read
-    from WORLD; non-facility standard orbit targets come from the committed seed.
+    Existing facility identity and descriptive facts are read from WORLD;
+    non-facility standard-orbit definitions come from the committed seed.
+
+    This function intentionally does not propagate an orbit, resolve a target
+    position/velocity, or copy physical-state authority into this database.
+    Consumers requiring state at an epoch must call the shared spatial/navigation
+    state services.
     """
     world = Path(world_path)
     seed = Path(seed_path)
@@ -118,7 +128,7 @@ def build_earth_luna_geometry_db(world_path: str | Path, seed_path: str | Path, 
 def main() -> None:
     import argparse
 
-    parser = argparse.ArgumentParser(description="Build LOOM Earth-Luna spatial geometry runtime SQLite")
+    parser = argparse.ArgumentParser(description="Build LOOM Earth-Luna spatial definition/geometry runtime SQLite")
     parser.add_argument("--world", default="data/LOOM_2226.sqlite3")
     parser.add_argument("--seed", default="geometry/earth_luna_spatial_geometry_seed.sql")
     parser.add_argument("--output", default="data/LOOM_2226_SPATIAL_GEOMETRY.sqlite3")
