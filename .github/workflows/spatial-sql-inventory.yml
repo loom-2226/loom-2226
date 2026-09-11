@@ -1,0 +1,46 @@
+name: spatial-sql-inventory
+on:
+  push:
+    branches:
+      - feature/earth-luna-spatial-infrastructure-v0.1-2026-09-12
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect tracked WORLD SQLite
+        shell: python
+        run: |
+          import json, sqlite3, pathlib, re
+          db = pathlib.Path('data/LOOM_2226.sqlite3')
+          c = sqlite3.connect(db)
+          c.row_factory = sqlite3.Row
+          tables = [r['name'] for r in c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name")]
+          print(f"::notice title=SQL TABLES::{','.join(tables)}")
+          entity_cols = [r['name'] for r in c.execute('PRAGMA table_info(entities)')]
+          print(f"::notice title=ENTITIES COLUMNS::{','.join(entity_cols)}")
+          rows = c.execute("SELECT entity_id,name,entity_class,parent_entity_id FROM entities ORDER BY name").fetchall()
+          terms = re.compile(r'(station|spaceport|port|yard|depot|orbital|orbit|terminal|dock|habitat|luna|lunar|moon)', re.I)
+          matches = [dict(r) for r in rows if terms.search(' '.join(str(r[k] or '') for k in r.keys()))]
+          classes = {}
+          for r in rows: classes[r['entity_class']] = classes.get(r['entity_class'],0)+1
+          print('::notice title=ENTITY CLASSES::' + json.dumps(classes, sort_keys=True, separators=(',',':')))
+          print('::notice title=SPATIAL INFRA COUNT::' + str(len(matches)))
+          for i in range(0, len(matches), 20):
+              chunk = matches[i:i+20]
+              text = ' | '.join(f"{r['entity_id']}::{r['name']}::{r['entity_class']}::{r['parent_entity_id']}" for r in chunk)
+              print(f"::notice title=SPATIAL INFRA {i+1}-{i+len(chunk)}::{text}")
+          # Discover tables containing likely location/facility columns and emit sampled rows.
+          for t in tables:
+              cols=[r['name'] for r in c.execute(f'PRAGMA table_info("{t}")')]
+              low={x.lower() for x in cols}
+              if low & {'latitude_deg','longitude_deg','lat_deg','lon_deg','facility_class','facility_type','orbit_class','semi_major_axis_km','altitude_km'} or any('facility' in x.lower() or 'station' in x.lower() or 'port' in x.lower() for x in cols):
+                  print(f"::notice title=LIKELY TABLE {t}::{','.join(cols)}")
+                  try:
+                      sample=[dict(r) for r in c.execute(f'SELECT * FROM "{t}" LIMIT 10')]
+                      compact=json.dumps(sample, default=str, separators=(',',':'))
+                      if len(compact)>6000: compact=compact[:6000]+'...'
+                      print(f"::notice title=SAMPLE {t}::{compact}")
+                  except Exception as e:
+                      print(f"::warning title=SAMPLE FAILED {t}::{e}")
+          c.close()
