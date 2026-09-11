@@ -15,7 +15,7 @@ const roles={
   telemetry:document.getElementById('readout'),
   assurance:document.getElementById('wayfarerEngineering')
 };
-for(const [role,node] of Object.entries(roles))if(node)node.dataset.familyRole=role;
+for(const [role,node] of Object.entries(roles))if(node)node.setAttribute('data-family-role',role);
 function clear(){document.querySelectorAll('[data-family-role]').forEach(n=>n.classList.remove('family-primary','family-secondary'));notice.textContent='';notice.className='family-notice';}
 function primary(...names){for(const name of names){const n=roles[name];if(n)n.classList.add('family-primary')}}
 function secondary(...names){for(const name of names){const n=roles[name];if(n)n.classList.add('family-secondary')}}
