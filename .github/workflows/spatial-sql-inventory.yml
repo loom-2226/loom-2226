@@ -11,34 +11,27 @@ jobs:
       - name: Inspect tracked WORLD SQLite
         shell: python
         run: |
-          import json, sqlite3, pathlib, re
-          db = pathlib.Path('data/LOOM_2226.sqlite3')
-          c = sqlite3.connect(db)
-          c.row_factory = sqlite3.Row
-          tables = [r['name'] for r in c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name")]
-          rows = c.execute("SELECT entity_id,name,entity_class,parent_entity_id FROM entities ORDER BY name").fetchall()
-          terms = re.compile(r'(station|spaceport|port|yard|depot|orbital|orbit|terminal|dock|habitat|luna|lunar|moon|launch|gateway|cloudport)', re.I)
-          matches = [dict(r) for r in rows if terms.search(' '.join(str(r[k] or '') for k in r.keys()))]
-          classes = {}
-          for r in rows: classes[r['entity_class']] = classes.get(r['entity_class'],0)+1
-          likely = {}
-          for t in tables:
-              cols=[r['name'] for r in c.execute(f'PRAGMA table_info("{t}")')]
-              low={x.lower() for x in cols}
-              if low & {'latitude_deg','longitude_deg','lat_deg','lon_deg','facility_class','facility_type','orbit_class','semi_major_axis_km','altitude_km','elevation_m'} or any(k in x.lower() for x in cols for k in ('facility','station','port','orbit','latitude','longitude')):
-                  try:
-                      sample=[dict(r) for r in c.execute(f'SELECT * FROM "{t}" LIMIT 100')]
-                  except Exception as e:
-                      sample=[{'error':str(e)}]
-                  likely[t]={'columns':cols,'sample':sample}
-          report={
-              'database':'data/LOOM_2226.sqlite3',
-              'tables':tables,
-              'entity_columns':[r['name'] for r in c.execute('PRAGMA table_info(entities)')],
-              'entity_class_counts':classes,
-              'matched_entities':matches,
-              'likely_infrastructure_tables':likely,
-          }
+          import json, sqlite3, pathlib
+          db=pathlib.Path('data/LOOM_2226.sqlite3')
+          c=sqlite3.connect(db); c.row_factory=sqlite3.Row
+          infra=[dict(r) for r in c.execute("SELECT e.entity_id,e.name,e.parent_entity_id,n.facility_type,n.system,n.traffic,n.civil_authority,n.administrative_authority,n.security_authority FROM entities e JOIN infrastructure_nodes n ON n.entity_id=e.entity_id WHERE e.parent_entity_id IN ('EA','LU') ORDER BY e.entity_id")]
+          ids=[r['entity_id'] for r in infra]
+          qmarks=','.join('?'*len(ids))
+          def rows(table):
+              cols=[r['name'] for r in c.execute(f'PRAGMA table_info("{table}")')]
+              if 'entity_id' not in cols:return {'columns':cols,'rows':[]}
+              return {'columns':cols,'rows':[dict(r) for r in c.execute(f'SELECT * FROM "{table}" WHERE entity_id IN ({qmarks}) ORDER BY entity_id',ids)]}
+          report={'earth_luna_infrastructure':infra}
+          for t in ['entity_location_models','orbit_geometry_models','infrastructure_engineering_profiles','infrastructure_physical_properties','infrastructure_capacity_profiles','infrastructure_energy_profiles','entity_transport_profiles']:
+              report[t]=rows(t)
+          # media linkage for these infrastructure entities
+          media=[]
+          for r in c.execute(f'''SELECT k.spatial_entity_id,k.canonical_name,a.asset_id,a.asset_role,a.review_status,a.is_current,a.media_key,a.width_px,a.height_px
+                                FROM knowledge_entities k JOIN image_assets a ON a.entity_id=k.noun_id
+                                WHERE k.spatial_entity_id IN ({qmarks}) ORDER BY k.spatial_entity_id,a.is_current DESC,a.asset_role''',ids):
+              media.append(dict(r))
+          report['image_assets']=media
+          report['image_asset_count']=len(media)
           pathlib.Path('spatial_sql_inventory.json').write_text(json.dumps(report,indent=2,default=str)+'\n',encoding='utf-8')
           c.close()
       - uses: actions/upload-artifact@v4
