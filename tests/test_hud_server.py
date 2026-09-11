@@ -15,7 +15,12 @@ class HudServerTests(unittest.TestCase):
     def test_authority_boundary_visible(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NON-CANON",text); self.assertIn("NOT Navigator targeting authority",text); self.assertIn("Q4 FINITE ATTITUDE",text); self.assertIn("Q5 PURE-ATTITUDE ENERGY",text)
     def test_build_marker(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.36-screen-space-path-cues"',text); self.assertIn("BUILD hud-v0.36-screen-space-path-cues",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.37-persistent-orbital-burn"',text); self.assertIn("BUILD hud-v0.37-persistent-orbital-burn",text)
+    def test_persistent_orbital_burn_controls_present(self):
+        text=server.validate_assets().read_text(encoding="utf-8")
+        self.assertIn('id="burnPrograde"',text); self.assertIn('id="burnRetrograde"',text); self.assertIn('id="orbitalBurnS"',text); self.assertIn("hud_orbital_burn_v01.js",text)
+        js=(server.demo_root()/"hud_orbital_burn_v01.js").read_text(encoding="utf-8")
+        self.assertIn("EXECUTE_VELOCITY_BURN",js); self.assertIn("/qualification-flight/control",js); self.assertIn("LOOM_HUD_EXECUTION_RESPONSE_V1",js)
     def test_optical_moon_and_external_client_present(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NASA LRO OPTICAL MOON",text); self.assertIn("hud_v0_15.js",text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("SphereGeometry(1737.4",js); self.assertIn("moonOptical",js); self.assertIn("moonTopo",js)
