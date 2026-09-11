@@ -1,0 +1,27 @@
+name: Earth-Luna Body Property Probe
+on:
+  push:
+    branches:
+      - feature/earth-luna-spatial-infrastructure-v0.1-2026-09-12
+    paths:
+      - '.github/workflows/earth-luna-body-property-probe.yml'
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect body property schema
+        run: |
+          python - <<'PY'
+          import sqlite3, json
+          c=sqlite3.connect('data/LOOM_2226.sqlite3'); c.row_factory=sqlite3.Row
+          for table in ('celestial_properties','celestial_dynamics'):
+              print('SCHEMA', table, json.dumps([dict(r) for r in c.execute(f'PRAGMA table_info({table})')]))
+              cols=[r[1] for r in c.execute(f'PRAGMA table_info({table})')]
+              if 'entity_id' in cols:
+                  rows=[dict(r) for r in c.execute(f"SELECT * FROM {table} WHERE entity_id IN ('EA','LU') ORDER BY entity_id")]
+                  print('ROWS', table, json.dumps(rows, sort_keys=True, default=str))
+          PY
