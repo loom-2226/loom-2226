@@ -12,7 +12,7 @@ Bridge the now-realizable Q4 one-vector-per-hardpoint RCS demand into Q5 power/t
 
 `Q4 bounded allocator -> physical resultant thrust per surviving hardpoint -> Q4 mission-relevant combined-wrench cases -> Q5 candidate exhaust-velocity/efficiency envelope -> jet-power and conversion-waste-heat screening`
 
-The allocator now reports, for every screened case:
+The allocator reports, for every screened case:
 
 - one resultant commanded force vector per surviving hardpoint;
 - resultant thrust per hardpoint;
@@ -41,12 +41,11 @@ For each Q4 combined maneuver case, the bridge derives:
 
 ## Explicit non-results
 
-The bridge does **not** qualify or infer:
+The combined-wrench suite still does **not** contain earned maneuver duration. Therefore this bridge does not qualify or infer:
 
-- maneuver duration;
-- maneuver energy draw;
-- thermal-buffer depletion;
-- propellant consumption;
+- combined-maneuver energy draw;
+- combined-maneuver thermal-buffer depletion;
+- combined-maneuver propellant consumption;
 - working-fluid selection;
 - electrical-bus source;
 - physical radiator transient response;
@@ -56,19 +55,21 @@ The bridge does **not** qualify or infer:
 - minimum impulse bit;
 - closed-loop control.
 
-Those remain open because the current sources do not earn them.
+Those remain open because the current combined-maneuver sources do not earn them.
+
+Pure-attitude 90° / 180° timing is now handled separately by `LOOM_2226_Wayfarer_Q5_RCS_Attitude_Energy_Bridge_v0.1.md`, which consumes the already-qualified Q4 finite-attitude timing envelope without assigning arbitrary durations to the combined cases.
 
 ## Validation
 
-Validated code/test head: `a4703635071bb1c76ed5d96c9b1e38ed1420ccf6`
+Original instantaneous-duty code/test head: `a4703635071bb1c76ed5d96c9b1e38ed1420ccf6`
 
 - WALTER / LOOM Gate run 185: **PASS**
 - Wayfarer Q4 Python run 12: **PASS**
 
-The dedicated Python workflow now includes both the single-gimbal realizability regression and the Q5 RCS duty/load bridge regression.
+The later attitude-energy bridge is separately validated at head `5aecbd98fd27063c5d5e7b4b352cc19e74f31627` by WALTER run 190 and Wayfarer Q4 Python run 16.
 
 ## Disposition
 
-**PASS AS A Q4 -> Q5 ENGINEERING BRIDGE; Q5 REMAINS OPEN_BOUNDED.**
+**PASS AS A Q4 -> Q5 INSTANTANEOUS-DUTY BRIDGE; Q5 REMAINS OPEN_BOUNDED.**
 
-The next earned step is to use mission duration/control-law timing once qualified to turn instantaneous power/waste-heat demand into energy, thermal-buffer and radiator transient requirements. Until duration authority exists, those quantities remain explicitly unavailable rather than guessed.
+Combined and translational energy closure still requires earned displacement / attitude histories and timing rather than named-case duration guesses.
