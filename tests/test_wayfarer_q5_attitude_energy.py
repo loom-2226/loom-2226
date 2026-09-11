@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 from wayfarer_q5_attitude_energy import build_q5_attitude_energy_bridge
 
 
@@ -44,3 +47,39 @@ def test_gross_conversion_heat_stays_within_existing_buffer_screen_for_checked_s
     result = build_q5_attitude_energy_bridge()
     assert result["summary"]["all_checked_gross_conversion_heat_within_50GJ_buffer_screen"] is True
     assert result["summary"]["max_gross_conversion_waste_heat_energy_GJ"] < 50.0
+
+
+def test_machine_readable_attitude_energy_envelope_tracks_bridge():
+    root = Path(__file__).resolve().parents[1]
+    artifact = json.loads(
+        (root / "engineering/current/wayfarer_q5_attitude_energy_envelope_v0.1.json").read_text(encoding="utf-8")
+    )
+    bridge = build_q5_attitude_energy_bridge()
+
+    assert artifact["schema"] == "LOOM.Wayfarer.Q5AttitudeEnergyEnvelope"
+    assert artifact["status"] == bridge["status"]
+    assert artifact["unavailable"]["combined_maneuver_energy"] == "TIMING_OPEN_Q4_Q5"
+    assert artifact["unavailable"]["translation_maneuver_energy"] == "TIMING_OPEN_Q4_Q5"
+    assert len(artifact["maneuvers"]) == 12
+
+    for row in artifact["maneuvers"]:
+        source = bridge["mass_states"]["REFERENCE_WET_DOCKED"]["control_cases"][row["control_case"]]["slews"][row["maneuver"]]
+        assert abs(row["qualified_transition_time_s"] - source["qualified_transition_time_s"]) < 1e-6
+        assert abs(row["powered_rcs_time_s"] - source["powered_bang_bang_time_s"]) < 1e-6
+        assert abs(row["settle_margin_time_s"] - source["settle_margin_time_s"]) < 1e-6
+        assert abs(row["total_resultant_mount_thrust_kN"] - source["total_resultant_mount_thrust_kN"]) < 1e-6
+        assert row["worst_failed_cluster"] == source["worst_screen_failed_cluster"]
+
+        for candidate, compact in row["candidates"].items():
+            detailed = source["candidate_propulsion_screens"][candidate]
+            assert abs(compact["jet_energy_GJ"] - detailed["jet_energy_GJ"]) < 1e-6
+            assert abs(compact["equivalent_expelled_mass_kg"] - detailed["equivalent_expelled_mass_kg"]) < 1e-6
+            assert abs(
+                compact["worst_conversion_waste_heat_energy_GJ"]
+                - max(detailed["conversion_waste_heat_energy_GJ_by_efficiency"].values())
+            ) < 1e-6
+            assert abs(
+                compact["worst_heat_fraction_of_50GJ_buffer"]
+                - detailed["gross_worst_conversion_heat_fraction_of_buffer"]["buffer_50GJ"]
+            ) < 1e-6
+            assert compact["radiator_transient_credit_applied"] is False
