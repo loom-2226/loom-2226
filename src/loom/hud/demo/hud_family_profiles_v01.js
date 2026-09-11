@@ -12,7 +12,7 @@ const roles={
   rendezvous:rowOf('rendezvous'),
   scrub:rowOf('scrub'),
   quality:document.getElementById('qualityPanel'),
-  navPlan:document.getElementById('navFlightPlan'),
+  navplan:document.getElementById('navFlightPlan'),
   tacticalTrack:document.getElementById('tacticalTrack'),
   telemetry:document.getElementById('readout'),
   assurance:document.getElementById('wayfarerEngineering')
@@ -24,25 +24,25 @@ function secondary(...names){for(const name of names){const n=roles[name];if(n)n
 function apply(family){
   clear();
   if(family==='NAV / FLIGHT PLAN'){
-    primary('planning','rendezvous','scrub','quality','navPlan','telemetry');
+    primary('planning','rendezvous','scrub','quality','navplan','telemetry');
     secondary('time','tacticalTrack','assurance');
     notice.textContent='NAV / FLIGHT PLAN • SAME LIVE FLIGHT DECK • TRAJECTORY / TERMINAL-STATE EMPHASIS';
   }else if(family==='TACTICAL / TRACK'){
     primary('telemetry','flight','time','tacticalTrack');
-    secondary('planning','rendezvous','scrub','quality','navPlan','assurance');
+    secondary('planning','rendezvous','scrub','quality','navplan','assurance');
     notice.textContent='TACTICAL / TRACK • SAME 3D LOCAL-FLIGHT SURFACE • TRACK / RELATIVE-MOTION EMPHASIS';
   }else if(family==='TACTICAL'){
     primary('telemetry','flight','time','tacticalTrack');
-    secondary('planning','rendezvous','scrub','quality','navPlan','assurance');
+    secondary('planning','rendezvous','scrub','quality','navplan','assurance');
     notice.textContent='TACTICAL • SAME 3D LOCAL-FLIGHT SURFACE • LOCAL GEOMETRY / HAZARD EMPHASIS';
   }else if(family==='SENSOR / WIDE'){
     primary('telemetry','flight');
-    secondary('planning','rendezvous','scrub','quality','navPlan','tacticalTrack','assurance');
+    secondary('planning','rendezvous','scrub','quality','navplan','tacticalTrack','assurance');
     notice.textContent='SENSOR / WIDE • PRESENTATION PROFILE ONLY • RUNTIME REACQUISITION DATA NOT PRESENT IN THIS QUALIFICATION SLICE';
     notice.classList.add('warn');
   }else if(family==='NAV / METRIC'){
     primary('telemetry','flight');
-    secondary('planning','rendezvous','scrub','quality','navPlan','tacticalTrack','assurance');
+    secondary('planning','rendezvous','scrub','quality','navplan','tacticalTrack','assurance');
     notice.textContent='NAV / METRIC • PRESENTATION PROFILE ONLY • RUNTIME PHASE DATA NOT PRESENT IN THIS QUALIFICATION SLICE';
     notice.classList.add('warn');
   }
