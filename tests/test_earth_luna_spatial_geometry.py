@@ -35,6 +35,36 @@ def test_world_backed_earth_luna_facilities_are_imported_without_renaming():
         conn.close(); tmp.cleanup()
 
 
+def test_world_spatial_model_bindings_reference_existing_world_models_without_copying_state():
+    tmp, conn = _build()
+    try:
+        rows = conn.execute(
+            "SELECT * FROM world_spatial_model_bindings ORDER BY object_id"
+        ).fetchall()
+        assert len(rows) == 31
+        by_id = {r["object_id"]: r for r in rows}
+
+        leo = by_id["EAR-O01"]
+        assert leo["location_model_id"] == "PM-PLANETOCENTRIC_LOW_ORBIT-v1"
+        assert leo["frame_family"] == "PARENT_EQUATORIAL_INERTIAL"
+        assert leo["orbit_family"] == "KEPLERIAN_PLANETOCENTRIC_LOW_ORBIT"
+        assert leo["navigation_grade"] == 0
+
+        surface = by_id["EAR-S06"]
+        assert surface["location_model_id"] == "PM-SURFACE_BODY_FIXED-v1"
+        assert surface["frame_family"] == "PARENT_BODY_FIXED"
+        assert surface["orbit_family"] == "SURFACE_FIXED"
+
+        l2 = by_id["MCH-P03"]
+        assert l2["frame_family"] == "EARTH_MOON_ROTATING"
+        assert l2["orbit_family"] == "CR3BP_LINEARIZED_L2_REFERENCE"
+
+        columns = {r[1].lower() for r in conn.execute("PRAGMA table_info(world_spatial_model_bindings)")}
+        assert not ({"semi_major_axis_km", "mean_anomaly_deg", "position_x_km", "velocity_x_km_s"} & columns)
+    finally:
+        conn.close(); tmp.cleanup()
+
+
 def test_standard_orbits_are_first_class_non_facility_targets():
     tmp, conn = _build()
     try:
@@ -70,9 +100,6 @@ def test_geometry_database_declares_definition_only_state_authority_boundary():
         assert metadata["state_authority"] == "SHARED_SPATIAL_NAVIGATION_SERVICES"
         assert metadata["propagated_state_storage"] == "FORBIDDEN"
 
-        # The geometry database may carry orbit definitions, epochs, frames and
-        # operational geometry, but never epoch-dependent resolved position or
-        # velocity. Those belong to the shared spatial/navigation state service.
         forbidden = {
             "position_x_km", "position_y_km", "position_z_km",
             "velocity_x_km_s", "velocity_y_km_s", "velocity_z_km_s",
@@ -81,6 +108,7 @@ def test_geometry_database_declares_definition_only_state_authority_boundary():
         for table in (
             "spatial_objects",
             "facility_world_bindings",
+            "world_spatial_model_bindings",
             "standard_orbits",
             "local_frames",
             "geometry_assets",
@@ -118,6 +146,7 @@ def test_operational_geometry_tables_exist_for_future_hud_and_rendezvous_detail(
             "spatial_objects",
             "standard_orbits",
             "facility_world_bindings",
+            "world_spatial_model_bindings",
             "local_frames",
             "geometry_assets",
             "operational_interfaces",
