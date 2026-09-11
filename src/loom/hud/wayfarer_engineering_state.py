@@ -17,7 +17,7 @@ from typing import Any
 
 CONTRACT = "LOOM_HUD_WAYFARER_ENGINEERING_HANDOFF_V1"
 ENGINEERING_SOURCE_BRANCH = "engineering/wayfarer-flight-system-qualification-v1"
-ENGINEERING_SOURCE_COMMIT = "41755c6569a1b94b6a3b046bde66281ae910f015"
+ENGINEERING_SOURCE_COMMIT = "835cccfb4a37a2a683c6196cbb7382b826271d67"
 AUTHORITY = "HUD_CONSUMER_OF_PINNED_ENGINEERING_NON_CANON"
 
 _ARTIFACTS = {
@@ -28,6 +28,10 @@ _ARTIFACTS = {
     "attitude": (
         "engineering/current/wayfarer_q4_hud_attitude_envelope_v0.4.json",
         "b377372ff2711e1c5520024a1ec03bf32045867b",
+    ),
+    "attitude_energy": (
+        "engineering/current/wayfarer_q5_attitude_energy_envelope_v0.1.json",
+        "d4fd8fae93e615d7c07deb265b9a434db3b72dd2",
     ),
     "power_thermal": (
         "engineering/current/wayfarer_q5_power_thermal_envelope_v0.2.json",
@@ -97,6 +101,7 @@ def _load_cached() -> dict[str, Any]:
 
     baseline = docs["baseline"]
     attitude = docs["attitude"]
+    attitude_energy = docs["attitude_energy"]
     thermal = docs["power_thermal"]
     dispatch = docs["dispatch"]
     feedstock = docs["feedstock"]
@@ -107,6 +112,20 @@ def _load_cached() -> dict[str, Any]:
         raise ValueError("Q4 artifact is not explicitly qualified for HUD-only use")
     if attitude.get("instantaneous_attitude_reset_allowed") is not False:
         raise ValueError("Q4 artifact no longer forbids instantaneous attitude reset")
+    if attitude_energy.get("schema") != "LOOM.Wayfarer.Q5AttitudeEnergyEnvelope":
+        raise ValueError("unexpected Q5 attitude-energy artifact schema")
+    if attitude_energy.get("status") != "ENGINEERING_CANDIDATE_NON_CANON":
+        raise ValueError("Q5 attitude-energy artifact lost NON-CANON engineering status")
+    if attitude_energy.get("scope") != "REFERENCE_WET_DOCKED_PURE_ATTITUDE_ONLY":
+        raise ValueError("Q5 attitude-energy artifact scope widened unexpectedly")
+    maneuvers = attitude_energy.get("maneuvers")
+    if not isinstance(maneuvers, list) or len(maneuvers) != 12:
+        raise ValueError("Q5 attitude-energy artifact must contain exactly 12 qualified pure-attitude cases")
+    unavailable = attitude_energy.get("unavailable", {})
+    if unavailable.get("combined_maneuver_energy") != "TIMING_OPEN_Q4_Q5":
+        raise ValueError("combined-maneuver energy boundary unexpectedly changed")
+    if unavailable.get("translation_maneuver_energy") != "TIMING_OPEN_Q4_Q5":
+        raise ValueError("translation-maneuver energy boundary unexpectedly changed")
 
     mass = baseline["mass_states"]
     torch = baseline["mobility_regimes"]["torch"]
@@ -183,20 +202,20 @@ def _load_cached() -> dict[str, Any]:
             "not_qualified_for": list(attitude["not_qualified_for"]),
         },
         "attitude_energy": {
-            "status": "ENGINEERING_CANDIDATE_NON_CANON",
-            "qualification_status": "OPEN_BOUNDED",
-            "scope": "QUALIFIED_Q4_PURE_ATTITUDE_TIMING_TO_Q5_ENERGY_SCREEN",
+            "status": attitude_energy["status"],
+            "qualification_status": str(thermal["qualification_status"]),
+            "scope": attitude_energy["scope"],
             "reference_state": "REFERENCE_WET_DOCKED",
-            "checked_angles_deg": [90, 180],
-            "checked_axes": ["ROLL", "PITCH", "YAW"],
-            "control_cases": ["NOMINAL", "ONE_CLUSTER_OUT"],
-            "gross_conversion_heat_within_50GJ_buffer_screen": True,
-            "thermal_buffer_screening_GJ": list(thermal["thermal_buffer"]["usable_energy_GJ_screening"]),
+            "settle_factor": float(attitude_energy["settle_factor"]),
+            "summary": copy.deepcopy(attitude_energy["summary"]),
+            "thermal_buffer_screening_GJ": list(attitude_energy["thermal_buffer_screening_GJ"]),
             "radiator_transient_credit_applied": False,
-            "machine_readable_per_maneuver_detail_available": False,
-            "detail_availability_reason": "PR96_SOURCE_EXECUTABLE_AND_DURABLE_NOTE_ONLY_NO_MACHINE_READABLE_ENERGY_ARTIFACT",
-            "combined_maneuver_duration": "OPEN_Q4_Q5",
-            "translation_maneuver_duration": "OPEN_Q4_Q5",
+            "machine_readable_per_maneuver_detail_available": True,
+            "detail_availability_reason": "PINNED_MACHINE_READABLE_PR96_ARTIFACT",
+            "maneuvers": copy.deepcopy(maneuvers),
+            "combined_maneuver_duration": str(unavailable["combined_maneuver_energy"]),
+            "translation_maneuver_duration": str(unavailable["translation_maneuver_energy"]),
+            "open_items": copy.deepcopy(attitude_energy["open_items"]),
         },
         "power_thermal": copy.deepcopy(thermal),
         "dispatch": {
