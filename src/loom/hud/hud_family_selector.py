@@ -45,9 +45,6 @@ class HudFamilySelection:
 
 
 def _automatic(context: HudFamilyContext) -> tuple[HudFamily, str]:
-    # Phase-specific modes outrank generic local-context cues. This prevents a
-    # nearby known object from forcing TACTICAL while the ship is explicitly in
-    # metric operation or incomplete post-transport reacquisition.
     if context.metric_phase:
         return HudFamily.NAV_METRIC, "METRIC_ACQUISITION_CRUISE_OR_COLLAPSE"
     if not context.local_reacquisition_complete:
@@ -58,8 +55,6 @@ def _automatic(context: HudFamilyContext) -> tuple[HudFamily, str]:
         return HudFamily.TACTICAL_TRACK, "LOCAL_GEOMETRY_TACTICAL_QUALITY"
     if context.near_infrastructure or context.maneuver_hazard or context.established_contacts:
         return HudFamily.TACTICAL, "LOCAL_INFRASTRUCTURE_HAZARD_OR_ESTABLISHED_CONTACT"
-    # Fail to the least assumptive local spatial presentation. This is not a
-    # claim that a tactical-quality track exists.
     return HudFamily.TACTICAL, "DEFAULT_LOCAL_PRESENTATION_NO_HIGHER_PHASE_CLAIM"
 
 
@@ -99,3 +94,31 @@ def selection_payload(selection: HudFamilySelection) -> dict[str, str]:
         "reason": selection.reason,
         "authority": selection.authority,
     }
+
+
+def _vector3(value: object) -> bool:
+    return isinstance(value, (list, tuple)) and len(value) == 3 and all(
+        isinstance(component, (int, float)) for component in value
+    )
+
+
+def live_qualification_selection_payload(snapshot: dict) -> dict[str, str]:
+    """Derive presentation family only from an earned live relative-state product."""
+    moon = snapshot.get("moon") or {}
+    wayfarer = snapshot.get("wayfarer") or {}
+    tactical_quality = (
+        _vector3(moon.get("relative_to_wayfarer_km"))
+        and _vector3(moon.get("velocity_earth_centered_km_s"))
+        and _vector3(wayfarer.get("velocity_earth_centered_km_s"))
+    )
+    return selection_payload(
+        select_hud_family(HudFamilyContext(tactical_quality_state=tactical_quality))
+    )
+
+
+def rendezvous_selection_payload(result: dict) -> dict[str, str] | None:
+    """Expose NAV / FLIGHT PLAN only after the solver earns translational feasibility."""
+    quality = result.get("quality") or {}
+    if quality.get("status") != "SOLVED_TRANSLATIONAL_FEASIBILITY":
+        return None
+    return selection_payload(select_hud_family(HudFamilyContext(strategic_planning=True)))
