@@ -10,6 +10,7 @@ to have its Torch control active.
 """
 
 from datetime import datetime, timezone
+import math
 from typing import Any
 
 CONTRACT = "LOOM_PREDICTED_PATH_V1"
@@ -18,6 +19,7 @@ MAX_HORIZON_S = 7 * 86400.0
 MIN_SAMPLE_S = 10.0
 MAX_SAMPLE_S = 3600.0
 MAX_STEP_S = 10.0
+NEAR_ZERO_SPEED_KM_S = 0.01
 
 
 def _iso(dt: datetime) -> str:
@@ -30,6 +32,10 @@ def _add(a, b):
 
 def _scale(a, s: float):
     return tuple(float(x) * float(s) for x in a)
+
+
+def _mag(a) -> float:
+    return math.sqrt(sum(float(x) * float(x) for x in a))
 
 
 def build_predicted_path(
@@ -56,9 +62,17 @@ def build_predicted_path(
         epoch = session.sim_epoch
         position = tuple(float(x) for x in session.ship_position)
         velocity = tuple(float(x) for x in session.ship_velocity)
+        nose_direction = tuple(float(x) for x in getattr(session, "nose_direction", (0.0, 0.0, 0.0)))
         torch_active = bool(getattr(session, "torch_active", False))
         torch_mode = str(getattr(session, "torch_mode", "UNAVAILABLE"))
         status = str(getattr(session, "status", "UNKNOWN"))
+
+    start_speed = _mag(velocity)
+    motion_cue = (
+        "GRAVITY_DOMINATED_NEAR_ZERO_SPEED"
+        if start_speed < NEAR_ZERO_SPEED_KM_S
+        else "VELOCITY_DOMINATED"
+    )
 
     points: list[dict[str, Any]] = [
         {
@@ -99,6 +113,10 @@ def build_predicted_path(
         "frame": "J2000/ECLIPTIC",
         "assumption": ASSUMPTION,
         "assumption_detail": "NO_NEW_MANEUVER_COMMAND; BALLISTIC EARTH_PLUS_MOON GRAVITY ONLY",
+        "start_speed_km_s": start_speed,
+        "start_nose_direction_inertial": list(nose_direction),
+        "motion_cue": motion_cue,
+        "motion_cue_threshold_km_s": NEAR_ZERO_SPEED_KM_S,
         "active_propulsion_ignored": torch_active,
         "active_torch_mode_at_prediction_start": torch_mode if torch_active else None,
         "active_propulsion_reason": (
