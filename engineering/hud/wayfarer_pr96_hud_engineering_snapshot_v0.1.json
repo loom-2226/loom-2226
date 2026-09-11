@@ -5,7 +5,7 @@
   "source": {
     "repository": "loom-2226/loom-2226",
     "branch": "engineering/wayfarer-flight-system-qualification-v1",
-    "commit": "e2df887d5e901eed9378c7aeb7d4964040b9a7e6",
+    "commit": "41755c6569a1b94b6a3b046bde66281ae910f015",
     "pr": 96,
     "rule": "Pinned HUD integration snapshot. Source engineering authority remains PR #96; this object does not promote engineering values to canon."
   },
@@ -46,6 +46,22 @@
     "major_torch_high_metric_mutual_exclusion": true,
     "jet_power_is_electrical_bus_power": false,
     "physical_geometry_status": "OPEN"
+  },
+  "attitude_energy": {
+    "source_artifact": "engineering/current/LOOM_2226_Wayfarer_Q5_RCS_Attitude_Energy_Bridge_v0.1.md",
+    "status": "ENGINEERING_CANDIDATE_NON_CANON",
+    "qualification_status": "OPEN_BOUNDED",
+    "scope": "QUALIFIED_Q4_PURE_ATTITUDE_TIMING_TO_Q5_ENERGY_SCREEN",
+    "reference_state": "REFERENCE_WET_DOCKED",
+    "checked_axes": ["ROLL","PITCH","YAW"],
+    "checked_angles_deg": [90,180],
+    "control_cases": ["NOMINAL","ONE_CLUSTER_OUT"],
+    "gross_conversion_heat_within_50GJ_buffer_screen": true,
+    "radiator_transient_credit_applied": false,
+    "machine_readable_per_maneuver_detail_available": false,
+    "combined_maneuver_energy_available": false,
+    "translation_maneuver_energy_available": false,
+    "rule": "HUD may present the earned bounded pure-attitude result, but must not synthesize per-maneuver energy values or assign durations to translation/combined cases until a machine-readable engineering handoff exists."
   },
   "dispatch": {
     "source_artifact": "engineering/current/wayfarer_q7_dispatch_doctrine_v0.1.json",
