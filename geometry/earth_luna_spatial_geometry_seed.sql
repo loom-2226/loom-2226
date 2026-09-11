@@ -42,6 +42,30 @@ CREATE TABLE IF NOT EXISTS facility_world_bindings (
     security_authority TEXT
 );
 
+-- Reference existing WORLD placement/orbit models without copying their
+-- quantitative orbital elements, body-fixed coordinates or propagated state.
+-- Consumers use these identifiers/classifications to dispatch to shared
+-- spatial/navigation services, which remain state authority.
+CREATE TABLE IF NOT EXISTS world_spatial_model_bindings (
+    object_id TEXT PRIMARY KEY REFERENCES spatial_objects(object_id) ON DELETE CASCADE,
+    world_entity_id TEXT NOT NULL UNIQUE,
+    location_model_id TEXT,
+    location_center_entity_id TEXT,
+    frame_family TEXT,
+    geometry_kind TEXT,
+    precision_class TEXT,
+    position_authority TEXT,
+    location_navigation_grade INTEGER,
+    orbit_family TEXT,
+    orbit_reference_frame TEXT,
+    orbit_reference_plane TEXT,
+    orbit_navigation_grade INTEGER,
+    orbit_epistemic_status TEXT,
+    navigation_grade INTEGER NOT NULL DEFAULT 0,
+    state_resolver_authority TEXT NOT NULL DEFAULT 'SHARED_SPATIAL_NAVIGATION_SERVICES',
+    notes TEXT
+);
+
 -- Standard-orbit rows are target DEFINITIONS, not propagated states.
 -- element_epoch_utc anchors the declared element/reference definition only.
 CREATE TABLE IF NOT EXISTS standard_orbits (
