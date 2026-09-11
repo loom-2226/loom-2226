@@ -41,10 +41,26 @@ def test_allocation_screen_uses_existing_q4_hud_nominal_and_degraded_bounds():
     assert req["ONE_CLUSTER_OUT"]["roll_torque_Nm"] == 100000.0
 
 
+def test_physical_resultants_are_reported_without_exceeding_mount_cap():
+    result = build_rcs_allocation_screen()
+    cases = list(result["screens"]["NOMINAL"]["cases"].values())
+    cases += [
+        case
+        for screen in result["screens"]["ONE_CLUSTER_OUT"].values()
+        for case in screen["cases"].values()
+    ]
+    for case in cases:
+        assert case["total_resultant_mount_thrust_N"] > 0.0
+        assert case["max_physical_mount_utilization_fraction"] <= 1.0 + 1e-9
+        for command in case["physical_mount_commands"].values():
+            assert command["commanded_thrust_N"] <= 25000.0 + 1e-8
+            assert command["mount_utilization_fraction"] <= 1.0 + 1e-9
+
+
 def test_screen_does_not_claim_final_nozzle_or_closed_loop_qualification():
     result = build_rcs_allocation_screen()
     assert result["status"] == "ENGINEERING_CANDIDATE_NON_CANON"
-    assert result["allocation_model"] == "CONVEXIFIED_SAMPLED_VECTORING_WITH_PER_MOUNT_THRUST_CAP"
+    assert result["allocation_model"] == "SAMPLED_VECTORING_WITH_PER_MOUNT_THRUST_CAP_AND_PHYSICAL_RESULTANT_REPORTING"
     assert result["exact_nozzle_hardware_status"] == "OPEN_Q4"
     assert result["closed_loop_control_status"] == "OPEN_Q4"
     assert result["plume_interference_status"] == "OPEN_Q4"
