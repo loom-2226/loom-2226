@@ -35,7 +35,7 @@ class HudTacticalTrackOverlayTests(unittest.TestCase):
         js = (DEMO / "hud_family_profiles_v01.js").read_text(encoding="utf-8")
         self.assertIn("tacticalTrack", js)
         self.assertIn("primary('telemetry','flight','time','tacticalTrack')", js)
-        self.assertIn("secondary('planning','rendezvous','scrub','quality','navPlan','assurance')", js)
+        self.assertIn("secondary('planning','rendezvous','scrub','quality','navplan','assurance')", js)
 
 
 if __name__ == "__main__":
