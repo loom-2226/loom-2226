@@ -18,6 +18,8 @@ from __future__ import annotations
 from pathlib import Path
 import sqlite3
 
+from .procedural_proxies import ensure_proxy_schema, register_facility_proxy
+
 
 EARTH_LUNA_BODY_IDS = ("EA", "LU")
 
@@ -38,6 +40,10 @@ def build_earth_luna_geometry_db(world_path: str | Path, seed_path: str | Path, 
     as bindings so HUD/Navigator can discover which shared resolver to call. The
     quantitative model parameters and all propagated state remain in WORLD and
     the shared spatial/navigation services.
+
+    Every WORLD-backed facility also receives a deterministic normalized
+    procedural visual proxy. These are deliberately visualization-only,
+    non-canon and non-navigation geometry; no physical dimensions are inferred.
     """
     world = Path(world_path)
     seed = Path(seed_path)
@@ -54,6 +60,7 @@ def build_earth_luna_geometry_db(world_path: str | Path, seed_path: str | Path, 
     runtime.row_factory = sqlite3.Row
     try:
         runtime.executescript(seed.read_text(encoding="utf-8"))
+        ensure_proxy_schema(runtime)
         source = _readonly_connection(world)
         try:
             rows = source.execute(
@@ -150,16 +157,17 @@ def build_earth_luna_geometry_db(world_path: str | Path, seed_path: str | Path, 
                 INSERT OR REPLACE INTO geometry_assets
                 (asset_id, object_id, geometry_role, status, provenance, navigation_authority)
                 VALUES (?, ?, 'HUD_SYMBOLIC', 'WORLD_BACKED_PLACEHOLDER',
-                        'Symbolic facility geometry until procedural/GLB asset is registered', 0)
+                        'Symbolic facility geometry retained alongside procedural/GLB render assets', 0)
                 """,
                 (f"HUDSYM:{object_id}", object_id),
             )
+            register_facility_proxy(runtime, row)
             runtime.execute(
                 """
                 INSERT OR REPLACE INTO visual_profiles
                 (object_id, hero_media_entity_id, default_symbol, label_priority, status, notes)
                 VALUES (?, ?, 'FACILITY', 50, 'WORLD_BACKED',
-                        'hero_media_entity_id is the WORLD spatial entity key used by the MEDIA linkage')
+                        'hero_media_entity_id is the WORLD spatial entity key used by the MEDIA linkage; RENDER_LOW proxy is visualization-only')
                 """,
                 (object_id, object_id),
             )
