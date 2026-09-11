@@ -71,8 +71,11 @@ def audit(world: Path) -> list[dict]:
                 """
                 SELECT ia.media_key, ia.asset_role, ia.review_status, ia.is_current
                 FROM knowledge_entities ke
-                JOIN image_assets ia ON ia.knowledge_entity_id=ke.knowledge_entity_id
-                WHERE ke.spatial_entity_id=? AND ia.asset_role='HERO' AND ia.is_current=1
+                JOIN image_assets ia ON ia.entity_id=ke.noun_id
+                WHERE ke.spatial_entity_id=?
+                  AND ia.asset_role='HERO'
+                  AND ia.is_current=1
+                  AND ia.review_status='APPROVED_REFERENCE'
                 ORDER BY ia.media_key LIMIT 1
                 """,
                 (entity_id,),
@@ -137,7 +140,7 @@ def markdown(rows: list[dict]) -> str:
     lines.append(f"- Facilities audited: **{len(rows)}**")
     for status in ("YES", "PARTIAL", "NO"):
         lines.append(f"- Runtime {status}: **{sum(1 for r in rows if r['hud_runtime_resolvable']==status)}**")
-    lines.append(f"- Current HERO media: **{sum(1 for r in rows if r['hero_media'])}/{len(rows)}**")
+    lines.append(f"- Current approved HERO media: **{sum(1 for r in rows if r['hero_media'])}/{len(rows)}**")
     for key in SUPPORT_TABLES:
         lines.append(f"- {key.title()} profile present: **{sum(1 for r in rows if r['profiles'][key])}/{len(rows)}**")
     return "\n".join(lines) + "\n"
