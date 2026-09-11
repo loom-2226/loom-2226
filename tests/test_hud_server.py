@@ -15,7 +15,7 @@ class HudServerTests(unittest.TestCase):
     def test_authority_boundary_visible(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NON-CANON",text); self.assertIn("NOT Navigator targeting authority",text); self.assertIn("Q4 FINITE ATTITUDE",text); self.assertIn("Q5 PURE-ATTITUDE ENERGY",text)
     def test_build_marker(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.33-orbit-path-cue"',text); self.assertIn("BUILD hud-v0.33-orbit-path-cue",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.34-predicted-path"',text); self.assertIn("BUILD hud-v0.34-predicted-path",text)
     def test_optical_moon_and_external_client_present(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NASA LRO OPTICAL MOON",text); self.assertIn("hud_v0_15.js",text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("SphereGeometry(1737.4",js); self.assertIn("moonOptical",js); self.assertIn("moonTopo",js)
@@ -74,6 +74,6 @@ class HudServerTests(unittest.TestCase):
         self.assertIn("ATTITUDE / ROTATIONAL AUTHORITY NOT INCLUDED",text)
         self.assertIn("Import only through governed engineering authority",text)
     def test_server_endpoints(self):
-        self.assertEqual(server.LIVE_ENDPOINT,"/flight-view.json"); self.assertEqual(server.EARTH_MOON_ENDPOINT,"/earth-moon-qualification.json"); self.assertEqual(server.REALTIME_ENDPOINT,"/qualification-flight.json"); self.assertEqual(server.TRAJECTORY_PREVIEW_ENDPOINT,"/qualification-flight/trajectory-preview.json"); self.assertEqual(server.INTERCEPT_PREVIEW_ENDPOINT,"/qualification-flight/intercept-preview.json"); self.assertEqual(server.RENDEZVOUS_PREVIEW_ENDPOINT,"/qualification-flight/rendezvous-preview.json"); self.assertEqual(server.WAYFARER_ENGINEERING_ENDPOINT,"/wayfarer-engineering-state.json")
+        self.assertEqual(server.LIVE_ENDPOINT,"/flight-view.json"); self.assertEqual(server.EARTH_MOON_ENDPOINT,"/earth-moon-qualification.json"); self.assertEqual(server.REALTIME_ENDPOINT,"/qualification-flight.json"); self.assertEqual(server.PREDICTED_PATH_ENDPOINT,"/qualification-flight/predicted-path.json"); self.assertEqual(server.TRAJECTORY_PREVIEW_ENDPOINT,"/qualification-flight/trajectory-preview.json"); self.assertEqual(server.INTERCEPT_PREVIEW_ENDPOINT,"/qualification-flight/intercept-preview.json"); self.assertEqual(server.RENDEZVOUS_PREVIEW_ENDPOINT,"/qualification-flight/rendezvous-preview.json"); self.assertEqual(server.WAYFARER_ENGINEERING_ENDPOINT,"/wayfarer-engineering-state.json")
 
 if __name__=="__main__": unittest.main()
