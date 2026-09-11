@@ -27,6 +27,16 @@ from .sqlite_celestial_catalog import (
     osculating_elements_from_state,
 )
 from .runtime import SpatialRuntime, SpatialRuntimeError
+from .targets import (
+    OrbitDefinition,
+    SpatialTarget,
+    SpatialTargetCatalog,
+    SpatialTargetError,
+    SpatialTargetResolver,
+    SurfaceLocation,
+    TargetStateUnavailable,
+    load_target_catalog,
+)
 
 __all__ = [
     "SpatialFrame",
@@ -50,4 +60,12 @@ __all__ = [
     "osculating_elements_from_state",
     "SpatialRuntime",
     "SpatialRuntimeError",
+    "OrbitDefinition",
+    "SpatialTarget",
+    "SpatialTargetCatalog",
+    "SpatialTargetError",
+    "SpatialTargetResolver",
+    "SurfaceLocation",
+    "TargetStateUnavailable",
+    "load_target_catalog",
 ]
