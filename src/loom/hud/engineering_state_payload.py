@@ -42,6 +42,37 @@ def datum_payload(datum: StateDatum) -> dict[str, Any]:
     }
 
 
+def _attitude_energy_maneuver_payload(state) -> dict[str, Any]:
+    return {
+        key: {
+            "control_case": datum_payload(row.control_case),
+            "maneuver": datum_payload(row.maneuver),
+            "axis": datum_payload(row.axis),
+            "angle_deg": datum_payload(row.angle_deg),
+            "qualified_transition_time": datum_payload(row.qualified_transition_time),
+            "powered_rcs_time": datum_payload(row.powered_rcs_time),
+            "settle_margin_time": datum_payload(row.settle_margin_time),
+            "worst_failed_cluster": datum_payload(row.worst_failed_cluster),
+            "total_resultant_mount_thrust": datum_payload(row.total_resultant_mount_thrust),
+            "max_physical_mount_utilization": datum_payload(row.max_physical_mount_utilization),
+            "candidates": {
+                candidate: {
+                    "exhaust_velocity": datum_payload(screen.exhaust_velocity),
+                    "jet_power": datum_payload(screen.jet_power),
+                    "jet_energy": datum_payload(screen.jet_energy),
+                    "equivalent_expelled_mass": datum_payload(screen.equivalent_expelled_mass),
+                    "waste_heat_power": datum_payload(screen.waste_heat_power),
+                    "waste_heat_energy": datum_payload(screen.waste_heat_energy),
+                    "heat_fraction_of_50GJ_buffer": datum_payload(screen.heat_fraction_of_50GJ_buffer),
+                    "radiator_transient_credit_applied": datum_payload(screen.radiator_transient_credit_applied),
+                }
+                for candidate, screen in row.candidates.items()
+            },
+        }
+        for key, row in state.attitude_energy_maneuvers.items()
+    }
+
+
 def build_wayfarer_engineering_payload(*, epoch: str) -> dict[str, Any]:
     state = build_wayfarer_engineering_hud_state(epoch=epoch)
     return {
@@ -75,12 +106,20 @@ def build_wayfarer_engineering_payload(*, epoch: str) -> dict[str, Any]:
                 "per_maneuver_detail_available": datum_payload(
                     state.attitude_energy_detail_available
                 ),
+                "max_checked_jet_energy": datum_payload(state.attitude_energy_max_jet_energy),
+                "max_gross_conversion_waste_heat_energy": datum_payload(
+                    state.attitude_energy_max_waste_heat_energy
+                ),
+                "max_equivalent_expelled_mass": datum_payload(
+                    state.attitude_energy_max_equivalent_expelled_mass
+                ),
                 "combined_maneuver_energy_available": datum_payload(
                     state.combined_maneuver_energy_available
                 ),
                 "translation_maneuver_energy_available": datum_payload(
                     state.translation_maneuver_energy_available
                 ),
+                "maneuvers": _attitude_energy_maneuver_payload(state),
             },
         },
         "power_thermal": {
