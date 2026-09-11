@@ -5,6 +5,7 @@ on:
     paths:
       - 'src/wayfarer_*.py'
       - 'tests/test_wayfarer_*.py'
+      - 'engineering/current/wayfarer_q4_hud_attitude_envelope_v0.4.json'
       - 'engineering/current/wayfarer_q5_power_thermal_envelope_v0.2.json'
       - '.github/workflows/wayfarer-q4-python.yml'
 
@@ -38,3 +39,4 @@ jobs:
           tests/test_wayfarer_rcs_combined_maneuvers.py
           tests/test_wayfarer_rcs_gimbal_realizability.py
           tests/test_wayfarer_q5_rcs_duty.py
+          tests/test_wayfarer_q5_attitude_energy.py
