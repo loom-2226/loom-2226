@@ -1,8 +1,31 @@
 (()=>{'use strict';
 const root=document.documentElement;
+const hud=document.querySelector('.hud');
+const stage=document.getElementById('stage');
 const footer=document.querySelector('.footer');
 const notice=document.getElementById('hudFamilyNotice');
-if(!footer||!notice)return;
+if(!footer||!notice||!stage||!hud)return;
+
+function preserveViewport(){
+  const compact=window.matchMedia('(orientation: portrait), (max-height: 760px)').matches;
+  if(compact){
+    stage.style.minHeight='32dvh';
+    footer.style.maxHeight='48dvh';
+    footer.style.overflowY='auto';
+    footer.style.overscrollBehavior='contain';
+    hud.style.gridTemplateRows='auto minmax(32dvh,1fr) minmax(0,48dvh)';
+  }else{
+    stage.style.minHeight='';
+    footer.style.maxHeight='';
+    footer.style.overflowY='';
+    footer.style.overscrollBehavior='';
+    hud.style.gridTemplateRows='';
+  }
+}
+preserveViewport();
+window.addEventListener('resize',preserveViewport,{passive:true});
+window.visualViewport?.addEventListener('resize',preserveViewport,{passive:true});
+
 const rowOf=id=>document.getElementById(id)?.closest('.row')||null;
 const roles={
   time:rowOf('reset'),
