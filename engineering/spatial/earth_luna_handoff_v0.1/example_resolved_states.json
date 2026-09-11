@@ -1,0 +1,43 @@
+{
+  "contract": "LOOM_SPATIAL_TARGET_EXAMPLES_V1",
+  "status": "QUALIFICATION_FIXTURE_NOT_CANON_NOT_EPHEMERIS_TRUTH",
+  "epoch_utc": "2226-01-01T00:00:00Z",
+  "reference_frame": "J2000/ECLIPTIC",
+  "fixture_authority_note": "These values use synthetic central-body states and test-only body properties from tests/test_spatial_targets.py. They demonstrate deterministic resolver composition only and must not be used as 2226 celestial ephemeris.",
+  "synthetic_body_states": {
+    "EA": {
+      "position_km": [1000000.0, 2000000.0, 3000000.0],
+      "velocity_km_s": [1.0, 2.0, 3.0]
+    },
+    "LU": {
+      "position_km": [1384400.0, 2000000.0, 3000000.0],
+      "velocity_km_s": [1.0, 3.0, 3.0]
+    }
+  },
+  "examples": [
+    {
+      "target_id": "EARTH_LEO_400_REFERENCE",
+      "position_km": [1006778.137, 2000000.0, 3000000.0],
+      "velocity_km_s": [1.0, 9.66855811418948, 3.0],
+      "navigation_grade": false
+    },
+    {
+      "target_id": "EARTH_STATION_QUAL_01",
+      "position_km": [1000000.0, 2006778.137, 3000000.0],
+      "velocity_km_s": [-6.668558114189481, 2.0, 3.0],
+      "navigation_grade": false
+    },
+    {
+      "target_id": "LUNA_LLO_100_REFERENCE",
+      "position_km": [1386237.4, 2000000.0, 3000000.0],
+      "velocity_km_s": [1.0, 4.633504134050327, 3.0],
+      "navigation_grade": false
+    },
+    {
+      "target_id": "LUNA_STATION_QUAL_01",
+      "position_km": [1383481.3, 2001591.2350769136, 3000000.0],
+      "velocity_km_s": [-0.41465607727448406, 2.183247932974837, 3.0],
+      "navigation_grade": false
+    }
+  ]
+}
