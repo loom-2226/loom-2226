@@ -35,6 +35,13 @@ class HudFamilyProfileTests(unittest.TestCase):
         self.assertIn("family-notice", html)
         self.assertNotIn("display:none!important", html)
 
+    def test_mobile_profile_preserves_a_visible_viewport(self):
+        js = (DEMO / "hud_family_profiles_v01.js").read_text(encoding="utf-8")
+        self.assertIn("minHeight='32dvh'", js)
+        self.assertIn("maxHeight='48dvh'", js)
+        self.assertIn("overflowY='auto'", js)
+        self.assertIn("visualViewport", js)
+
 
 if __name__ == "__main__":
     unittest.main()
