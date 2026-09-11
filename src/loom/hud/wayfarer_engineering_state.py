@@ -17,7 +17,7 @@ from typing import Any
 
 CONTRACT = "LOOM_HUD_WAYFARER_ENGINEERING_HANDOFF_V1"
 ENGINEERING_SOURCE_BRANCH = "engineering/wayfarer-flight-system-qualification-v1"
-ENGINEERING_SOURCE_COMMIT = "e2df887d5e901eed9378c7aeb7d4964040b9a7e6"
+ENGINEERING_SOURCE_COMMIT = "41755c6569a1b94b6a3b046bde66281ae910f015"
 AUTHORITY = "HUD_CONSUMER_OF_PINNED_ENGINEERING_NON_CANON"
 
 _ARTIFACTS = {
@@ -40,6 +40,13 @@ _ARTIFACTS = {
     "feedstock": (
         "engineering/current/wayfarer_torch_feedstock_screening_v0.2.json",
         "418a9b53ce1836336202dd0dcb6c3962de43da1b",
+    ),
+}
+
+_TEXT_ARTIFACTS = {
+    "attitude_energy_note": (
+        "engineering/current/LOOM_2226_Wayfarer_Q5_RCS_Attitude_Energy_Bridge_v0.1.md",
+        "710aafc488fa54e3918bd7bc3ddbfc7c9ff32c95",
     ),
 }
 
@@ -68,12 +75,26 @@ def _load_verified(relative_path: str, expected_blob_sha1: str) -> dict[str, Any
     return value
 
 
+def _verify_text(relative_path: str, expected_blob_sha1: str) -> None:
+    path = _repo_root() / relative_path
+    data = path.read_bytes()
+    actual = _git_blob_sha1(data)
+    if actual != expected_blob_sha1:
+        raise RuntimeError(
+            f"Wayfarer engineering artifact drift: {relative_path} "
+            f"expected Git blob {expected_blob_sha1}, got {actual}"
+        )
+
+
 @lru_cache(maxsize=1)
 def _load_cached() -> dict[str, Any]:
     docs = {
         key: _load_verified(path, blob_sha)
         for key, (path, blob_sha) in _ARTIFACTS.items()
     }
+    for path, blob_sha in _TEXT_ARTIFACTS.values():
+        _verify_text(path, blob_sha)
+
     baseline = docs["baseline"]
     attitude = docs["attitude"]
     thermal = docs["power_thermal"]
@@ -95,7 +116,6 @@ def _load_cached() -> dict[str, Any]:
 
     primary_candidate = feedstock["provisional_doctrine"].get("primary")
     certified_species: list[str] = []
-    # Q2 screening dispositions are deliberately not certification ratings.
     for item in feedstock.get("feeds", []):
         if item.get("screening") == "CERTIFIED":
             certified_species.append(str(item["species"]))
@@ -114,8 +134,14 @@ def _load_cached() -> dict[str, Any]:
             "branch": ENGINEERING_SOURCE_BRANCH,
             "commit": ENGINEERING_SOURCE_COMMIT,
             "artifacts": {
-                key: {"path": path, "git_blob_sha1": blob_sha}
-                for key, (path, blob_sha) in _ARTIFACTS.items()
+                **{
+                    key: {"path": path, "git_blob_sha1": blob_sha}
+                    for key, (path, blob_sha) in _ARTIFACTS.items()
+                },
+                **{
+                    key: {"path": path, "git_blob_sha1": blob_sha}
+                    for key, (path, blob_sha) in _TEXT_ARTIFACTS.items()
+                },
             },
         },
         "mass": {
@@ -155,6 +181,22 @@ def _load_cached() -> dict[str, Any]:
             "control_cases": copy.deepcopy(attitude["control_cases"]),
             "mass_states": copy.deepcopy(attitude["mass_states"]),
             "not_qualified_for": list(attitude["not_qualified_for"]),
+        },
+        "attitude_energy": {
+            "status": "ENGINEERING_CANDIDATE_NON_CANON",
+            "qualification_status": "OPEN_BOUNDED",
+            "scope": "QUALIFIED_Q4_PURE_ATTITUDE_TIMING_TO_Q5_ENERGY_SCREEN",
+            "reference_state": "REFERENCE_WET_DOCKED",
+            "checked_angles_deg": [90, 180],
+            "checked_axes": ["ROLL", "PITCH", "YAW"],
+            "control_cases": ["NOMINAL", "ONE_CLUSTER_OUT"],
+            "gross_conversion_heat_within_50GJ_buffer_screen": True,
+            "thermal_buffer_screening_GJ": list(thermal["thermal_buffer"]["usable_energy_GJ_screening"]),
+            "radiator_transient_credit_applied": False,
+            "machine_readable_per_maneuver_detail_available": False,
+            "detail_availability_reason": "PR96_SOURCE_EXECUTABLE_AND_DURABLE_NOTE_ONLY_NO_MACHINE_READABLE_ENERGY_ARTIFACT",
+            "combined_maneuver_duration": "OPEN_Q4_Q5",
+            "translation_maneuver_duration": "OPEN_Q4_Q5",
         },
         "power_thermal": copy.deepcopy(thermal),
         "dispatch": {
