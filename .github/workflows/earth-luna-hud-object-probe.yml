@@ -1,0 +1,38 @@
+name: Earth-Luna HUD Object Probe
+
+on:
+  push:
+    branches:
+      - feature/earth-luna-spatial-infrastructure-v0.1-2026-09-12
+    paths:
+      - '.github/workflows/earth-luna-hud-object-probe.yml'
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect WORLD HUD enrichment rows
+        run: |
+          python - <<'PY'
+          import json, sqlite3
+          c=sqlite3.connect('data/LOOM_2226.sqlite3'); c.row_factory=sqlite3.Row
+          for table in ('infrastructure_engineering_profiles','entity_transport_profiles','entity_authorities','infrastructure_nodes','knowledge_entities','image_assets'):
+              cols=[r[1] for r in c.execute(f'PRAGMA table_info({table})')]
+              print('SCHEMA',table,json.dumps(cols))
+          eid='EAR-O01'
+          for table in ('infrastructure_engineering_profiles','entity_transport_profiles','entity_authorities','infrastructure_nodes'):
+              rows=c.execute(f'SELECT * FROM {table} WHERE entity_id=?',(eid,)).fetchall()
+              print('ROWS',table,json.dumps([dict(r) for r in rows],sort_keys=True,default=str))
+          rows=c.execute('''
+              SELECT ke.*, ia.*
+              FROM knowledge_entities ke
+              JOIN image_assets ia ON ia.entity_id=ke.noun_id
+              WHERE ke.spatial_entity_id=? AND ia.asset_role='HERO' AND ia.is_current=1
+              ORDER BY ia.media_key
+          ''',(eid,)).fetchall()
+          print('HERO',json.dumps([dict(r) for r in rows],sort_keys=True,default=str))
+          PY
