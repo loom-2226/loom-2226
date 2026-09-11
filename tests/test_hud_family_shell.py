@@ -6,7 +6,7 @@ from loom.hud import server
 class HudFamilyShellTests(unittest.TestCase):
     def test_family_control_is_visible_and_contains_governing_families(self):
         html = server.validate_assets().read_text(encoding="utf-8")
-        self.assertIn('content="hud-v0.30-server-family-payload"', html)
+        self.assertIn('content="hud-v0.31-orbital-sandbox"', html)
         self.assertIn('id="hudFamily"', html)
         for family in (
             "TACTICAL",
