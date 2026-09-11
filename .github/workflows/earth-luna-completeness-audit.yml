@@ -18,6 +18,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Inspect support-table keys
+        run: |
+          python - <<'PY'
+          import sqlite3
+          c=sqlite3.connect('data/LOOM_2226.sqlite3')
+          for t in ['infrastructure_physical_properties','infrastructure_engineering_profiles','infrastructure_energy_profiles','infrastructure_capacity_profiles','entity_transport_profiles']:
+              print('TABLE',t)
+              print([r[1] for r in c.execute(f'PRAGMA table_info({t})')])
+              print('sample', c.execute(f'SELECT * FROM {t} LIMIT 1').fetchone())
+          PY
       - name: Generate completeness matrix
         run: |
           python tools/audit_earth_luna_completeness.py \
