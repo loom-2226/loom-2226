@@ -11,6 +11,7 @@ class _Session:
         self.sim_epoch = datetime(2026, 9, 11, 22, 0, tzinfo=timezone.utc)
         self.ship_position = (6778.137, 0.0, 0.0)
         self.ship_velocity = (0.0, math.sqrt(398600.4418 / 6778.137), 0.0)
+        self.nose_direction = (1.0, 0.0, 0.0)
         self.status = "RUNNING"
         self.torch_active = False
         self.torch_mode = "CRUISE"
@@ -39,6 +40,17 @@ class HudPredictedPathV034Tests(unittest.TestCase):
         self.assertGreater(len(a["points"]), 2)
         self.assertEqual(a["points"][0]["position_earth_centered_km"], list(s.ship_position))
 
+    def test_prediction_carries_start_motion_and_attitude_cues(self):
+        s = _Session()
+        p = build_predicted_path(s, horizon_s=1200.0, sample_s=60.0)
+        self.assertEqual(p["start_nose_direction_inertial"], [1.0, 0.0, 0.0])
+        self.assertAlmostEqual(p["start_speed_km_s"], math.sqrt(398600.4418 / 6778.137), places=9)
+        self.assertEqual(p["motion_cue"], "VELOCITY_DOMINATED")
+
+        s.ship_velocity = (0.0, 0.0, 0.0)
+        q = build_predicted_path(s, horizon_s=120.0, sample_s=60.0)
+        self.assertEqual(q["motion_cue"], "GRAVITY_DOMINATED_NEAR_ZERO_SPEED")
+
     def test_prediction_curves_under_gravity_not_velocity_vector(self):
         s = _Session()
         p = build_predicted_path(s, horizon_s=1200.0, sample_s=120.0)
@@ -61,13 +73,17 @@ class HudPredictedPathV034Tests(unittest.TestCase):
         self.assertIn("predicted-path.json", source)
         self.assertIn("loom-live-qualification", source)
         self.assertIn("position_earth_centered_km", source)
+        self.assertIn("PREDICTED_PATH_FUTURE_DIRECTION", source)
+        self.assertIn("PREDICTED_PATH_START_VELOCITY", source)
+        self.assertIn("PREDICTED_PATH_BODY_NOSE", source)
+        self.assertIn("GRAVITY-DOMINATED PATH", source)
         self.assertNotIn("398600", source)
         self.assertNotIn("sqrt(", source)
         self.assertNotIn("qualification-flight/control", source)
 
     def test_hud_exposes_predicted_path_toggle_and_build_marker(self):
         html = Path("src/loom/hud/demo/earth_moon_qualification.html").read_text(encoding="utf-8")
-        self.assertIn('content="hud-v0.34-predicted-path"', html)
+        self.assertIn('content="hud-v0.35-path-direction-cues"', html)
         self.assertIn('id="predictedPathToggle"', html)
         self.assertIn("hud_predicted_path_v01.js", html)
 
