@@ -42,11 +42,18 @@ def test_q5_attitude_energy_machine_detail_is_typed_without_widening_scope():
     assert state.attitude_energy_max_waste_heat_energy.value == 12.665744
     assert state.attitude_energy_max_equivalent_expelled_mass.value == 227.983387
 
+    nominal = state.attitude_energy_maneuvers["NOMINAL:PITCH_180"]
+    assert nominal.worst_failed_cluster.value is None
+    assert nominal.worst_failed_cluster.availability == Availability.UNAVAILABLE
+    assert nominal.worst_failed_cluster.authority == AuthorityClass.UNAVAILABLE
+    assert nominal.worst_failed_cluster.quality == "NOT_APPLICABLE_NOMINAL_CONTROL_CASE"
+
     pitch = state.attitude_energy_maneuvers["ONE_CLUSTER_OUT:PITCH_180"]
     assert pitch.qualified_transition_time.value == 68.98
     assert pitch.powered_rcs_time.value == 57.483333
     assert pitch.settle_margin_time.value == 11.496667
     assert pitch.worst_failed_cluster.value == "B"
+    assert pitch.worst_failed_cluster.availability == Availability.AVAILABLE
     assert pitch.total_resultant_mount_thrust.value == 79.321561
     alt = pitch.candidates["alternate_50kms"]
     assert alt.jet_energy.value == 113.991693
