@@ -59,6 +59,42 @@ def test_standard_orbits_are_first_class_non_facility_targets():
         conn.close(); tmp.cleanup()
 
 
+def test_geometry_database_declares_definition_only_state_authority_boundary():
+    tmp, conn = _build()
+    try:
+        metadata = {
+            r["key"]: r["value"]
+            for r in conn.execute("SELECT key, value FROM runtime_metadata")
+        }
+        assert metadata["database_role"] == "DEFINITION_AND_OPERATIONAL_GEOMETRY"
+        assert metadata["state_authority"] == "SHARED_SPATIAL_NAVIGATION_SERVICES"
+        assert metadata["propagated_state_storage"] == "FORBIDDEN"
+
+        # The geometry database may carry orbit definitions, epochs, frames and
+        # operational geometry, but never epoch-dependent resolved position or
+        # velocity. Those belong to the shared spatial/navigation state service.
+        forbidden = {
+            "position_x_km", "position_y_km", "position_z_km",
+            "velocity_x_km_s", "velocity_y_km_s", "velocity_z_km_s",
+            "x_km", "y_km", "z_km", "vx_km_s", "vy_km_s", "vz_km_s",
+        }
+        for table in (
+            "spatial_objects",
+            "facility_world_bindings",
+            "standard_orbits",
+            "local_frames",
+            "geometry_assets",
+            "operational_interfaces",
+            "approach_corridors",
+            "keepout_volumes",
+            "visual_profiles",
+        ):
+            columns = {r[1].lower() for r in conn.execute(f"PRAGMA table_info({table})")}
+            assert not (columns & forbidden), (table, columns & forbidden)
+    finally:
+        conn.close(); tmp.cleanup()
+
+
 def test_geometry_assets_support_external_or_embedded_glb_without_making_render_mesh_navigation_authority():
     tmp, conn = _build()
     try:
@@ -78,6 +114,7 @@ def test_operational_geometry_tables_exist_for_future_hud_and_rendezvous_detail(
     try:
         tables = {r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         assert {
+            "runtime_metadata",
             "spatial_objects",
             "standard_orbits",
             "facility_world_bindings",
