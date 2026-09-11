@@ -67,6 +67,21 @@ def build_wayfarer_engineering_payload(*, epoch: str) -> dict[str, Any]:
         },
         "attitude": {
             "status": datum_payload(state.attitude_status),
+            "energy_screen": {
+                "status": datum_payload(state.attitude_energy_status),
+                "gross_conversion_heat_within_50GJ_buffer": datum_payload(
+                    state.attitude_energy_buffer_screen_pass
+                ),
+                "per_maneuver_detail_available": datum_payload(
+                    state.attitude_energy_detail_available
+                ),
+                "combined_maneuver_energy_available": datum_payload(
+                    state.combined_maneuver_energy_available
+                ),
+                "translation_maneuver_energy_available": datum_payload(
+                    state.translation_maneuver_energy_available
+                ),
+            },
         },
         "power_thermal": {
             "status": datum_payload(state.power_thermal_status),
