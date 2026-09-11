@@ -199,6 +199,7 @@ class HUDInfrastructureObjectAdapter:
         )
         return {
             "contract": "LOOM_HUD_SPATIAL_OBJECT_V1",
+            "detail_scope": "THIN_WORLD_BACKED_V1",
             "entity_id": row["entity_id"],
             "display_name": row["name"],
             "parent_body_id": row["parent_entity_id"],
