@@ -21,11 +21,12 @@ from loom.hud.hud_family_selector import (
     rendezvous_selection_payload,
 )
 from loom.hud.intercept_qualification import solve_moon_intercept
-from loom.hud.rendezvous_qualification import solve_moon_rendezvous_feasibility
 from loom.hud.live_provider import load_live_flight_view, unavailable_live_payload
+from loom.hud.maneuver_plan_review import validate_maneuver_plan_review
 from loom.hud.orbital_sandbox import attach_orbital_state, initialize_earth_circular_orbit
 from loom.hud.predicted_path import build_predicted_path
 from loom.hud.realtime_flight_qualification import RealtimeFlightQualification
+from loom.hud.rendezvous_qualification import solve_moon_rendezvous_feasibility
 from loom.runtime import resolve_runtime_roots
 
 DEFAULT_HOST = "127.0.0.1"
@@ -264,6 +265,13 @@ def make_handler(directory: Path):
                     )
                     self._json(_live_payload(session, advance=False))
                     return
+                if action == "VALIDATE_MANEUVER_PLAN_REVIEW":
+                    receipt = validate_maneuver_plan_review(session, payload.get("plan") or {})
+                    self._json({
+                        "contract": "LOOM_HUD_MANEUVER_PLAN_REVIEW_RESPONSE_V1",
+                        "receipt": receipt,
+                    })
+                    return
                 if action == "EXECUTE_VELOCITY_BURN":
                     receipt = execute_velocity_aligned_burn(
                         session,
@@ -301,6 +309,7 @@ def serve(*, host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, root: Path | No
     print(f"WAYFARER GEOMETRY: {WAYFARER_GEOMETRY_ENDPOINT} (IN-MEMORY COMPILE)")
     print(f"3D ASSETS: {ASSET_PREFIX} (LOCAL QUALIFICATION CACHE)")
     print("ORBITAL SANDBOX: INITIALIZE_EARTH_ORBIT (IN-MEMORY / NO CAMPAIGN WRITE)")
+    print("MANEUVER PLAN REVIEW: VALIDATE_MANEUVER_PLAN_REVIEW (SERVER VALIDATION / NO EXECUTION / NO CAMPAIGN WRITE)")
     print("FLIGHT EXECUTION: EXECUTE_VELOCITY_BURN (LIVE QUALIFICATION STATE / NO CAMPAIGN WRITE)")
     print("CAMPAIGN: WRITE NONE")
     with ThreadingHTTPServer((host, port), handler) as server:
