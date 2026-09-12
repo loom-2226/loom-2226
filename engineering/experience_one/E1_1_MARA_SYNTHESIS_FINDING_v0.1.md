@@ -1,9 +1,9 @@
 # LOOM 2226 — E1.1 Mara Synthesis Finding v0.1
 
-**Status:** V0.3 LIVE SYNTHESIS RUN COMPLETE; 1/4 CASES PASS; EPISTEMIC/VALIDATION SEMANTICS UNDER REVIEW  
+**Status:** V0.3 LIVE SYNTHESIS RUN DIAGNOSED; VALIDATOR CONTRACT DEFECT CONFIRMED; V0.4 RETEST PENDING  
 **Date:** 12 September 2026  
 **Class:** `class:engineering` / `REQUIRED_FOR_E1`  
-**Diagnosis:** `SYNTHESIS/ADAPTER_BOUNDARY_FAILURE`, not data failure
+**Diagnosis:** `SYNTHESIS/VALIDATION_CONTRACT_FAILURE`, not data failure
 
 ## First empirical failure
 
@@ -35,15 +35,11 @@ Pixel execution of v0.2 produced:
 - the exact-name resolver rejected that shortened reference with `KeyError: Unknown projected entity reference: Metric & Loom Anchorage`;
 - because v0.2 wrote its result artifact only at the end, the process-level exception prevented a complete structured evidence artifact for the partially completed run.
 
-Two distinct findings follow.
-
-First, exact full-name resolution is still too strict for ordinary language inside an already-bounded Ceres context. Second, the empirical harness itself must preserve partial failures as evidence rather than terminating before checkpointing them.
-
-The `why_restricted` failure is deliberately **not** being prompt-tuned yet. Its precise validation reason must be captured on the next run before changing query semantics or epistemic expectations.
+Two findings followed: exact full-name resolution was too strict for ordinary language inside an already-bounded Ceres context, and the empirical harness needed to preserve partial failures as evidence rather than terminate before checkpointing them.
 
 ## v0.3 bounded correction
 
-The resolver now accepts one additional deterministic alias only when mechanically derivable from the active projection context: if a projected place name begins with the current context entity name plus a space, that exact prefix may be omitted.
+The resolver accepted one additional deterministic alias only when mechanically derivable from the active projection context: if a projected place name begins with the current context entity name plus a space, that exact prefix may be omitted.
 
 Example inside the Ceres projection:
 
@@ -51,18 +47,7 @@ Example inside the Ceres projection:
 
 This is not fuzzy matching, arbitrary suffix matching, embeddings, retrieval, or model inference. `Loom Anchorage` still fails closed. Ambiguous contextual aliases fail closed.
 
-Resolver tests now cover:
-
-- exact ID;
-- exact projected name;
-- exact context-qualified alias;
-- case/whitespace normalization;
-- rejection of arbitrary suffixes;
-- unknown reference fail-closed;
-- ambiguous full-name fail-closed;
-- ambiguous context-alias fail-closed.
-
-`e1_1_mara_grounded_synthesis_v03.py` additionally:
+`e1_1_mara_grounded_synthesis_v03.py` also:
 
 - records target/query adapter failures as case failures rather than crashing;
 - checkpoints the result JSON after every case;
@@ -88,22 +73,113 @@ Live v0.3 synthesis result:
 
 The run completed without crashing and wrote all four cases. Usage was 4,938 input tokens and 847 output tokens; eight audited provider entries were written for the four two-turn cases.
 
-### Immediate interpretation
+## Persisted v0.3 answer inspection
 
-The entity-reference adapter is no longer the active blocker for these cases. Both the full projected name and the exact context-qualified alias resolved deterministically to `CER-P05`.
+The saved case outputs establish that the remaining failure was in the validator contract, not in source grounding.
 
-The remaining failures are concentrated in **epistemic-status semantics and answer-validation semantics**, not entity resolution or missing source data.
+### why_restricted
 
-`why_restricted` also used at least one evidence reference that the validator did not recognize as a literal `facts` key. Before changing the prompt or compact-query schema, the persisted v0.3 case artifact must be inspected to determine whether the model cited a legitimate packet field outside `facts` (for example place role/traffic metadata), invented a key, or exposed a genuine evidence-shape mismatch.
+Mara answered that the anchorage is a `RESTRICTED` strategic port with high security posture (`0.8750064000000001`), low commercial openness (`0.1998359999999999`) and guarded outsider attitude (`0.32052143199999994`). It then explicitly stated that a direct comparison with the rest of Ceres and a proven causal explanation were not available from the current authoritative context.
 
-Likewise, the three `epistemic_status_mismatch` results must be inspected at the answer level before changing expectations. A single status field may be conflating at least two different questions:
+Its returned status was mixed text:
 
-1. whether the **underlying requested proposition** is established by authoritative evidence; and
-2. whether Mara's **meta-answer** about support/non-support is itself grounded.
+`SUPPORTED for the listed characteristics; NOT AVAILABLE for a direct comparative or causal explanation`
 
-For example, a grounded answer that says "current authoritative context does not establish sabotage" can itself be well-supported while the sabotage proposition remains unavailable. That distinction must be evaluated from the actual saved outputs, not repaired by forcing a preferred label.
+and it cited:
 
-No synthesis PASS is claimed from this run.
+- `security_posture`;
+- `commercial_openness`;
+- `outsider_attitude`;
+- `authorities`;
+- `role`;
+- `traffic_class`;
+- `strategic_importance`.
+
+The answer was epistemically disciplined. The validator defect was twofold:
+
+1. one scalar `epistemic_status` could not represent a mixed answer containing both supported description and an unsupported comparative/causal component;
+2. the validator allowed only keys in `tool_packet.facts`, even though `role` and `traffic_class` are legitimate deterministic evidence in `tool_packet.place`.
+
+### who_runs_it
+
+Mara correctly identified:
+
+- civil authority: Ceres Commonwealth;
+- administration: Belt Standards Directorate;
+- security: Belt Security & Rescue Directorate;
+- primary commercial operator: Axiom Precision & Metrology.
+
+This case passed cleanly.
+
+### unsupported_sabotage_cause
+
+Mara answered:
+
+`NOT AVAILABLE from current authoritative context.`
+
+with status `NOT_ESTABLISHED` and no evidence keys.
+
+That status is semantically better than forcing the underlying proposition into the same label as an answer-grounding state. The sabotage proposition is not established by current evidence; Mara's statement about that lack of establishment is itself grounded.
+
+### contradictory_user_claim
+
+Mara rejected the requested characterization and stated that the anchorage is a restricted strategic port with low commercial openness and high security posture, while tourist-port status is not established.
+
+It returned `CONTRADICTED_AND_NOT_AVAILABLE`, reflecting two distinct conditions in the user's compound claim: some components conflict with available evidence, while another component is merely unestablished.
+
+Again, the model preserved the evidence boundary. The scalar status ontology was the limiting layer.
+
+## v0.4 bounded contract correction
+
+`e1_1_mara_grounded_synthesis_v04.py` replaces the overloaded scalar with a small explicit assessment vocabulary:
+
+- `SUPPORTED` — available tool evidence establishes the proposition answered;
+- `NOT_ESTABLISHED` — current tool evidence does not establish the requested proposition;
+- `CONTRADICTED` — available tool evidence conflicts with the requested proposition;
+- `MIXED` — the answer necessarily contains both established material and a component that is not established or is contradicted.
+
+The response contract is now:
+
+```json
+{
+  "answer": "...",
+  "assessment": "SUPPORTED | NOT_ESTABLISHED | CONTRADICTED | MIXED",
+  "evidence_paths": ["place.traffic_class", "facts.security_posture"],
+  "target_entity_id": "CER-P05"
+}
+```
+
+The deterministic validator now checks dotted evidence paths against the actual tool packet rather than assuming all evidence lives under `facts`.
+
+Examples of valid paths:
+
+- `place.traffic_class`;
+- `place.role`;
+- `facts.security_posture`;
+- `facts.commercial_openness`;
+- `facts.administrative`.
+
+A model cannot create a valid citation by naming a plausible path: every path must exist in the actual deterministic packet or validation fails.
+
+Expected assessments for the four empirical cases are:
+
+| Case | Expected assessment |
+| --- | --- |
+| why restricted | `MIXED` |
+| who runs it | `SUPPORTED` |
+| sabotage last week | `NOT_ESTABLISHED` |
+| open/lightly-policed tourist port | `CONTRADICTED` |
+
+This is a contract correction derived from the persisted v0.3 evidence, not prompt tuning to force a green result. The underlying WORLD/CIVSTATE projection, compact query, entity resolver and authority boundaries are unchanged.
+
+Added `tests/test_e1_1_mara_epistemic_contract_v04.py` to verify:
+
+- both `place.*` and `facts.*` evidence paths can be valid;
+- nonexistent evidence paths fail;
+- mixed answers can cite supported place and runtime facts while disclosing unsupported comparison/causation;
+- unsupported sabotage can be `NOT_ESTABLISHED` without fabricated evidence;
+- contradictory claims require deterministic grounding;
+- invalid assessment labels fail.
 
 ## Authority result
 
@@ -115,19 +191,20 @@ Authority remains:
 - model canon authority = ZERO;
 - resolver authority = deterministic resolution over already-projected entities only;
 - compact query remains the deterministic fact-selection boundary;
+- evidence-path validation is deterministic against the returned tool packet;
 - no fuzzy/entity-generative behavior and no hidden duplicate world state.
 
-## Next discriminator
+## Retest requirement
 
-Inspect the saved `E1_1_MARA_SYNTHESIS_RESULT_V03.json` case outputs, specifically:
+Before any Mara synthesis PASS claim:
 
-- each `model_answer_parsed.epistemic_status`;
-- each `model_answer_parsed.used_fact_keys`;
-- each `model_answer_parsed.answer`;
-- the corresponding `tool_packet` fields.
-
-Do not prompt-tune or relabel expected statuses until those concrete outputs show whether the defect is in the model instruction, validator ontology, packet shape, or query evidence.
+1. run the v0.4 epistemic-contract tests on Pixel;
+2. run `e1_1_mara_grounded_synthesis_v04.py` against the unchanged real Ceres projection;
+3. retain all four cases and provider audit entries;
+4. inspect any failure as evidence before changing the contract again;
+5. require every cited evidence path to resolve against the actual tool packet;
+6. do not claim comparison or causation that the deterministic packet does not establish.
 
 ## Falsifier
 
-Reopen/reclassify if contextual alias generation becomes fuzzy or non-deterministic, if ambiguous references are silently accepted, if normal user language still cannot be bounded without broad entity search, if the model bypasses canonical normalization, or if synthesis validation reveals that the compact query lacks the evidence needed for the question being asked.
+Reopen/reclassify if the four-state assessment vocabulary cannot represent normal bounded answers without ad hoc labels, if evidence paths allow nonexistent or model-created facts through validation, if contextual alias resolution becomes fuzzy/non-deterministic, if the model bypasses canonical normalization, or if the compact query genuinely lacks the evidence required by an E1.1 acceptance question.
