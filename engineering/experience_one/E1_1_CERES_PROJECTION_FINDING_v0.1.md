@@ -1,6 +1,6 @@
 # LOOM 2226 — E1.1 Ceres Projection Finding v0.1
 
-**Status:** EMPIRICAL PROJECTION + COMPACT QUERY TEST PASSED; E1.1 CONTINUES  
+**Status:** EMPIRICAL PROJECTION + COMPACT QUERY TEST PASSED; FIELD-LEVEL PROVENANCE RETEST PENDING  
 **Date:** 12 September 2026  
 **Class:** `class:engineering` / `REQUIRED_FOR_E1`  
 **Diagnosis:** `PROJECTION_FAILURE` before `DATA_FAILURE`
@@ -57,7 +57,7 @@ The `INTERESTING` selection heuristic is presentation-only and explicitly marked
 
 On Pixel/Termux, the repository test module was executed directly because `pytest` is not installed in the current Termux Python environment. No test dependency was added solely for Pixel qualification.
 
-Result:
+Initial result:
 
 - `ALL 6 TESTS PASS`;
 - compact grounded orientation PASS;
@@ -67,7 +67,9 @@ Result:
 - unknown-place fail-closed PASS;
 - bad authority-contract fail-closed PASS.
 
-The real Pixel-generated Ceres projection was then queried with `--intent ORIENT`.
+The real Pixel-generated Ceres projection was then queried with `ORIENT`, `INTERESTING --max-items 3`, and `PLACE_DETAIL --target CER-P05`.
+
+### ORIENT
 
 Observed `LOOM_CANON_CONTEXT_QUERY_V1` result:
 
@@ -79,20 +81,62 @@ Observed `LOOM_CANON_CONTEXT_QUERY_V1` result:
 - authority policy preserved `model_calculation_authority = ZERO`, `model_state_authority = ZERO`, `model_sqlite_access = false`, `read_only = true`;
 - selection authority remains `PRESENTATION_DERIVED_NON_AUTHORITY`.
 
+### INTERESTING
+
+The deterministic presentation ranking returned:
+
+1. `CER-P05` — Ceres Metric & Loom Anchorage — `RESTRICTED`, strategic importance `0.688`, governance style `CIVIC_ASSERTIVE`, commercial openness `0.1998359999999999`;
+2. `CER-P03` — Ceres Belt Exchange — `EXTREME`, strategic importance `0.78`, governance style `NETWORK_COMPACT`, commercial openness `0.4624759999999999`;
+3. `CER-P04` — Ceres Shipyard Arc — `EXTREME`, strategic importance `0.78`, governance style `NETWORK_COMPACT`, commercial openness `0.35383599999999993`.
+
+The ranking remained explicitly `PRESENTATION_DERIVED_NON_AUTHORITY` and used `traffic_class_then_strategic_importance`.
+
+### PLACE_DETAIL — CER-P05
+
+The compact packet correctly exposed a materially differentiated place without inventing narrative prose:
+
+- role `STRATEGIC_PORT`;
+- traffic `RESTRICTED`;
+- civil authority `Ceres Commonwealth`;
+- administrative authority `Belt Standards Directorate`;
+- security authority `Belt Security & Rescue Directorate`;
+- primary commercial actor `Axiom Precision & Metrology`;
+- secondary commercial actor `Ferrum Meridian`;
+- commercial regime `LEADING / CONTESTED`;
+- governance style `CIVIC_ASSERTIVE`;
+- commercial openness `0.1998359999999999`;
+- security posture `0.8750064000000001`;
+- outsider attitude `0.32052143199999994`;
+- scarcity pressure `0.549`;
+- strategic importance `0.688`.
+
+This is sufficient to support grounded synthesis such as explaining why the anchorage feels more restricted, security-heavy and institutionally assertive than other Ceres places, without allowing the model to create those underlying facts.
+
+## Field-level provenance correction
+
+The first compact packets attached the complete place provenance list to several individual fields. This was safe but overly broad: for example, runtime behavioral values such as `security_posture` listed both WORLD and CIVSTATE even though the value is sourced from `CIVSTATE.civ_runtime_place_context`.
+
+`src/loom_canon_context_query.py` v0.2 therefore tightens provenance attribution:
+
+- facility identity, role, traffic class, authority and commercial facts -> `WORLD.infrastructure_nodes`;
+- runtime behavioral/derived metrics -> `CIVSTATE.civ_runtime_place_context`;
+- `INTERESTING` selection records provenance separately for its WORLD traffic-class input and CIVSTATE strategic-importance input;
+- mixed-source attribution is retained only when a result genuinely depends on both.
+
+Tests were expanded from 6 to 8 to assert these source boundaries. Pixel empirical retest of v0.2 is required before the provenance correction itself earns an empirical PASS.
+
+## Seam result
+
 This is the first empirical E1.1 proof of the seam:
 
 `governed WORLD/CIVSTATE -> read-only canon projection -> compact question-shaped evidence`
 
 No model was required for this proof.
 
-## Current interpretation
-
-The ORIENT packet is compact enough to become a safe Mara/UI evidence input and remains explicitly provenance-bearing. That is materially different from handing a model the full 39 KB Ceres projection or direct SQLite access.
-
-E1.1 should now test the other compact intents against the real projection, especially `INTERESTING` and `PLACE_DETAIL`, before introducing model synthesis.
+The remaining immediate step before Mara synthesis is to empirically rerun the compact-query tests and one representative `PLACE_DETAIL` packet with the tightened field-level provenance.
 
 ## Falsifier
 
 Reclassify toward `DATA_FAILURE` only if a user-relevant question cannot be answered after the governed projection has actually attempted to surface all relevant existing source classes, or if the available source facts are genuinely absent rather than merely unprojected.
 
-Reopen the compact-query boundary if any intent drops required provenance/epistemic status, permits direct model SQLite access, elevates presentation ranking into authority, or requires hidden duplicate world state.
+Reopen the compact-query boundary if any intent drops required provenance/epistemic status, permits direct model SQLite access, elevates presentation ranking into authority, attributes a fact to a source that did not supply it, or requires hidden duplicate world state.
