@@ -8,10 +8,20 @@ def _projection():
     return {"schema":"LOOM_CANON_CONTEXT_PROJECTION_V1","entity":{"entity_id":"CER","name":"Ceres","summary":"database prose"},"regional_morphology":{"political_morphology":"Ceres Commonwealth embedded in Belt network compacts"},"mobility":{"transport_role":"bulk materials and Belt exchange"},"places":[{"entity_id":"CER-P05","name":"Ceres Metric & Loom Anchorage","role":"STRATEGIC_PORT","traffic_class":"RESTRICTED","runtime_context":{"strategic_importance":.688,"governance_style":"CIVIC_ASSERTIVE","commercial_openness":.2},"provenance":[{"database":"WORLD","relation":"infrastructure_nodes"},{"database":"CIVSTATE","relation":"civ_runtime_place_context"}]}],"provenance":{"entity":{"database":"WORLD","relation":"atlas_profiles"},"regional_morphology":{"database":"WORLD","relation":"regional_morphology"},"mobility":{"database":"WORLD","relation":"region_mobility"}},"authority_policy":{"read_only":True,"model_access_to_sqlite":False}}
 
 def _synthesis():
-    return {"structural_pass":True,"assessment":"SUPPORTED","evidence_paths":["orient.facts.identity.value","interesting.items[0]"],"answer":"Ceres is a Belt logistics and exchange hub. Notice the restricted Metric & Loom Anchorage."}
+    return {
+        "schema":"LOOM_E1_1_MARA_CERES_ORIENTATION_SYNTHESIS_RESULT_V01",
+        "structural_pass":True,
+        "structural_fail_reasons":[],
+        "semantic_review":"EMPIRICAL_MANUAL_REVIEW_REQUIRED",
+        "model_answer_parsed":{
+            "assessment":"SUPPORTED",
+            "evidence_paths":["orient.facts.identity.value","interesting.items[0]"],
+            "answer":"Ceres is a Belt logistics and exchange hub. Notice the restricted Metric & Loom Anchorage."
+        }
+    }
 
 def test_uses_qualified_synthesis_as_human_facing_explain():
-    view=mod.build_view_model(_projection(),_synthesis()); assert view["entity"]["explain"]==_synthesis()["answer"]; assert view["entity"]["explain"]!="database prose"
+    s=_synthesis(); view=mod.build_view_model(_projection(),s); assert view["entity"]["explain"]==s["model_answer_parsed"]["answer"]; assert view["entity"]["explain"]!="database prose"
 
 def test_machine_metrics_are_not_primary_card_copy():
     rendered=mod.render_html(mod.build_view_model(_projection(),_synthesis())); assert "<summary>Details</summary>" in rendered; assert "Strategic <b>0.688</b>" in rendered; assert "Ask Mara about this" in rendered
@@ -30,6 +40,12 @@ def test_unqualified_synthesis_fails_closed():
     try: mod.build_view_model(_projection(),bad)
     except ValueError as exc: assert "structural_pass" in str(exc)
     else: raise AssertionError("expected unqualified synthesis to fail closed")
+
+def test_wrong_persisted_shape_fails_closed():
+    bad={"structural_pass":True,"assessment":"SUPPORTED","answer":"flattened console shape","evidence_paths":["orient.x"]}
+    try: mod.build_view_model(_projection(),bad)
+    except ValueError as exc: assert "schema" in str(exc) or "model_answer_parsed" in str(exc)
+    else: raise AssertionError("expected flattened console-shape synthesis to fail closed")
 
 def test_non_ceres_projection_still_fails_closed():
     p=_projection(); p["entity"]["entity_id"]="MARS"
