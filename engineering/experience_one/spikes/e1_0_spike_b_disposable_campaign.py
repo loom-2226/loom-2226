@@ -88,7 +88,10 @@ def main()->int:
           'CONSIDER_GRAVITY_ASSISTS':'NO','CONSIDER_PRECISION_COLLAPSE':'NO',
           'CONSIDER_SOLAR_WEATHER':'NO','CONSIDER_EXCHANGE_ASSIST':'NO',
           'NOTES':'E1.0 Spike B disposable campaign continuity test.'}
-        responses=iter([str(args.plan),'y']); original_input=builtins.input
+        # Existing Navigator still asks the human to choose the operational strategy
+        # before choosing a ranked direct plan and explicitly authorizing commit.
+        # 1 = DIRECT_NAVIGATION, then --plan, then y for COMMIT FLIGHT.
+        responses=iter(['1',str(args.plan),'y']); original_input=builtins.input
         def scripted_input(prompt=''):
             try: value=next(responses)
             except StopIteration: raise RuntimeError(f'unexpected interactive prompt: {prompt!r}')
