@@ -36,18 +36,24 @@ The empirical projection declared and preserved:
 
 G2 therefore still holds for this increment.
 
-## Next bounded increment
+## Current bounded increment
 
-Do not feed the full database-shaped projection to Mara. Add a deterministic compact query layer over `LOOM_CANON_CONTEXT_PROJECTION_V1` that returns small evidence-bearing packets for typed intents such as:
+`src/loom_canon_context_query.py` now adds a deterministic compact query layer over `LOOM_CANON_CONTEXT_PROJECTION_V1`.
+
+Typed intents:
 
 - `ORIENT`;
 - `INTERESTING`;
 - `WHO_RUNS`;
 - `PLACE_DETAIL`.
 
-Natural-language interpretation may later map to those typed requests, but the model must not select authoritative facts, query SQLite directly, or invent missing facts.
+The query layer does not read SQLite. It consumes only the already-built read-only projection and emits a small `LOOM_CANON_CONTEXT_QUERY_V1` packet with explicit provenance and epistemic status.
 
-Any ranking used only to choose what to show must be explicitly marked `PRESENTATION_DERIVED_NON_AUTHORITY`.
+Natural-language interpretation may later map to these typed requests, but the model must not select authoritative facts, query SQLite directly, or invent missing facts.
+
+The `INTERESTING` selection heuristic is presentation-only and explicitly marked `PRESENTATION_DERIVED_NON_AUTHORITY`; it cannot become canon/state authority.
+
+Unit tests cover orientation, deterministic interesting-place selection, authority separation, place detail, unknown-place fail-closed behavior and authority-contract fail-closed behavior. Pixel empirical execution is still required before this increment earns an empirical claim.
 
 ## Falsifier
 
