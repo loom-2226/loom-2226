@@ -3,14 +3,15 @@ from __future__ import annotations
 """Qualification-only lunar terminal-state feasibility preview.
 
 This module is deliberately NOT Navigator targeting authority and NOT executable
-flight-control authority. It asks a narrower engineering question: if Wayfarer
-could establish the required thrust attitudes instantaneously, can a departure
-burn + coast + braking burn reach a user-specified Moon-relative standoff point
-with low relative velocity using the same disposable HUD flight dynamics?
+flight-control authority. It asks a narrower engineering question: can a
+Wayfarer departure burn + coast + braking burn reach a synthetic Earth-facing
+Moon-relative standoff point while paying finite attitude-transition time from
+the pinned Q4 HUD attitude envelope?
 
-The attitude transitions are explicitly UNQUALIFIED. No RCS, inertia tensor,
-flip time, torque, or control law is invented. The live session and campaign
-state are restored unchanged after every candidate evaluation.
+Attitude transition duration is engineering-qualified for this HUD slice. During
+rotation the torch is off and the vehicle continues to propagate under the same
+gravity model. This remains non-navigation-grade and is not a closed-loop
+controller, final RCS placement model, docking model, or structural authority.
 """
 
 from datetime import timezone
@@ -24,6 +25,12 @@ from loom.hud.realtime_flight_qualification import (
     MAX_INTEGRATION_STEP_S,
     MOON_RADIUS_KM,
     TORCH_CARDS,
+)
+from loom.hud.wayfarer_attitude_envelope import (
+    AUTHORITY as ATTITUDE_AUTHORITY,
+    ENGINEERING_SOURCE_ARTIFACT,
+    ENGINEERING_SOURCE_COMMIT,
+    transition_between_directions_s,
 )
 
 CONTRACT = "LOOM_HUD_RENDEZVOUS_FEASIBILITY_QUALIFICATION_V1"
@@ -96,11 +103,7 @@ def _restore(session, saved) -> None:
 def _target_state(session, start_epoch, arrival_s: float, standoff_altitude_km: float):
     epoch = _future_epoch(start_epoch, arrival_s)
     moon_p, moon_v, source = _state_from_jpl(session.anchors, epoch)
-    # Qualification convention only: approach from the Earth-facing side of the
-    # Moon. The previous outward-radial target sat on the lunar far side, making
-    # a direct two-burn transfer intersect the Moon and forcing the clearance gate
-    # to fight the terminal-position objective. This target is still NOT an orbit,
-    # station location, docking point, or Navigator-authoritative destination.
+    # Earth-facing lunar radial qualification point. Not an orbit/station/dock.
     earth_to_moon = _unit(moon_p)
     radius = MOON_RADIUS_KM + standoff_altitude_km
     target_p = _sub(moon_p, _scale(earth_to_moon, radius))
@@ -135,6 +138,83 @@ def _classify_solution(
     }
 
 
+def _attitude_transition_budget(
+    *,
+    current_direction,
+    departure_direction,
+    braking_direction,
+    degraded: bool = False,
+) -> dict[str, Any]:
+    initial = transition_between_directions_s(
+        current_direction, departure_direction, axis="pitch", degraded=degraded
+    )
+    flip = transition_between_directions_s(
+        departure_direction, braking_direction, axis="pitch", degraded=degraded
+    )
+    return {
+        "authority": ATTITUDE_AUTHORITY,
+        "engineering_source_commit": ENGINEERING_SOURCE_COMMIT,
+        "engineering_source_artifact": ENGINEERING_SOURCE_ARTIFACT,
+        "control_case": "ONE_CLUSTER_OUT" if degraded else "NOMINAL",
+        "initial_angle_deg": initial["angle_deg"],
+        "initial_transition_s": initial["transition_time_s"],
+        "flip_angle_deg": flip["angle_deg"],
+        "flip_transition_s": flip["transition_time_s"],
+        "total_transition_s": initial["transition_time_s"] + flip["transition_time_s"],
+        "instantaneous_attitude_reset_allowed": False,
+        "closed_loop_control_authority": False,
+    }
+
+
+def _sample_point(session, *, elapsed_s: float, phase: str) -> tuple[dict[str, Any], float]:
+    moon_p, _moon_v, moon_source = _state_from_jpl(session.anchors, session.sim_epoch)
+    moon_rel = [float(moon_p[i]) - float(session.ship_position[i]) for i in range(3)]
+    return ({
+        "elapsed_s": elapsed_s,
+        "epoch_utc": session.sim_epoch.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
+        "phase": phase,
+        "wayfarer_position_earth_centered_km": list(session.ship_position),
+        "wayfarer_velocity_earth_centered_km_s": list(session.ship_velocity),
+        "moon_position_earth_centered_km": list(moon_p),
+        "moon_relative_to_wayfarer_km": moon_rel,
+        "remass_t": float(session.remass_t),
+        "state_source": moon_source,
+    }, _mag(moon_rel))
+
+
+def _run_segment(
+    session,
+    *,
+    phase: str,
+    duration_s: float,
+    target_direction,
+    thrust_active: bool,
+    elapsed_s: float,
+    next_sample_s: float,
+    sample_s: float,
+    points: list[dict[str, Any]],
+    min_moon_range_km: float,
+) -> tuple[float, float, float]:
+    session.torch_active = bool(thrust_active and duration_s > 0.0 and session.remass_t > 0.0)
+    left = max(0.0, float(duration_s))
+    while left > 1e-9:
+        dt = min(MAX_INTEGRATION_STEP_S, left)
+        session._step(dt)
+        elapsed_s += dt
+        left -= dt
+        if elapsed_s + 1e-9 >= next_sample_s or left <= 1e-9:
+            point, moon_range = _sample_point(session, elapsed_s=elapsed_s, phase=phase)
+            points.append(point)
+            min_moon_range_km = min(min_moon_range_km, moon_range)
+            next_sample_s += sample_s
+        else:
+            _point, moon_range = _sample_point(session, elapsed_s=elapsed_s, phase=phase)
+            min_moon_range_km = min(min_moon_range_km, moon_range)
+    if target_direction is not None:
+        session.nose_direction = _unit(target_direction)
+    return elapsed_s, next_sample_s, min_moon_range_km
+
+
 def _run_candidate(
     session,
     *,
@@ -146,6 +226,7 @@ def _run_candidate(
     dir1,
     dir2,
     sample_s: float,
+    attitude_budget: dict[str, Any],
 ) -> dict[str, Any]:
     _restore(session, baseline)
     session.time_scale = 0.0
@@ -155,36 +236,30 @@ def _run_candidate(
     next_sample = 0.0
     min_moon_range_km = float("inf")
 
-    segments = (
-        ("BURN", burn1_s, _unit(dir1), True),
-        ("COAST", coast_s, _unit(dir1), False),
-        ("BRAKE", burn2_s, _unit(dir2), True),
+    # Rotation consumes real elapsed time. The torch is off, but gravity keeps
+    # propagating the ship. Direction snaps only after the qualified transition
+    # duration; this is a timing envelope, not a continuous rigid-body integrator.
+    sequence = (
+        ("ROTATE_DEPARTURE", attitude_budget["initial_transition_s"], dir1, False),
+        ("BURN", burn1_s, dir1, True),
+        ("COAST", coast_s, dir1, False),
+        ("ROTATE_BRAKE", attitude_budget["flip_transition_s"], dir2, False),
+        ("BRAKE", burn2_s, dir2, True),
     )
-    for phase, duration, direction, active in segments:
-        session.nose_direction = direction
-        session.torch_active = bool(active and duration > 0.0 and session.remass_t > 0.0)
-        left = max(0.0, float(duration))
-        while left > 1e-9:
-            dt = min(MAX_INTEGRATION_STEP_S, left)
-            session._step(dt)
-            elapsed += dt
-            left -= dt
-            moon_p, _moon_v, moon_source = _state_from_jpl(session.anchors, session.sim_epoch)
-            moon_rel = [float(moon_p[i]) - float(session.ship_position[i]) for i in range(3)]
-            min_moon_range_km = min(min_moon_range_km, _mag(moon_rel))
-            if elapsed + 1e-9 >= next_sample or left <= 1e-9:
-                points.append({
-                    "elapsed_s": elapsed,
-                    "epoch_utc": session.sim_epoch.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
-                    "phase": phase,
-                    "wayfarer_position_earth_centered_km": list(session.ship_position),
-                    "wayfarer_velocity_earth_centered_km_s": list(session.ship_velocity),
-                    "moon_position_earth_centered_km": list(moon_p),
-                    "moon_relative_to_wayfarer_km": moon_rel,
-                    "remass_t": float(session.remass_t),
-                    "state_source": moon_source,
-                })
-                next_sample += sample_s
+    for phase, duration, direction, active in sequence:
+        elapsed, next_sample, min_moon_range_km = _run_segment(
+            session,
+            phase=phase,
+            duration_s=duration,
+            target_direction=direction,
+            thrust_active=active,
+            elapsed_s=elapsed,
+            next_sample_s=next_sample,
+            sample_s=sample_s,
+            points=points,
+            min_moon_range_km=min_moon_range_km,
+        )
+
     session.torch_active = False
     return {
         "points": points,
@@ -195,6 +270,7 @@ def _run_candidate(
         "final_epoch": session.sim_epoch,
         "min_moon_range_km": min_moon_range_km,
         "min_surface_clearance_km": min_moon_range_km - MOON_RADIUS_KM,
+        "attitude_budget": attitude_budget,
     }
 
 
@@ -226,10 +302,17 @@ def _evaluate(
     sample_s: float,
     iteration: int,
     line_scale: float,
+    degraded_attitude: bool,
 ) -> dict[str, Any] | None:
     burn1_s = _mag(dv1) / acceleration_km_s2
     burn2_s = _mag(dv2) / acceleration_km_s2
-    coast_s = arrival_s - burn1_s - burn2_s
+    attitude_budget = _attitude_transition_budget(
+        current_direction=baseline[-1],
+        departure_direction=dv1,
+        braking_direction=dv2,
+        degraded=degraded_attitude,
+    )
+    coast_s = arrival_s - burn1_s - burn2_s - attitude_budget["total_transition_s"]
     if burn1_s <= 0.0 or burn2_s <= 0.0 or coast_s < 0.0:
         return None
     trial = _run_candidate(
@@ -242,6 +325,7 @@ def _evaluate(
         dir1=dv1,
         dir2=dv2,
         sample_s=sample_s,
+        attitude_budget=attitude_budget,
     )
     final_p = trial["final_position"]
     final_v = trial["final_velocity"]
@@ -262,6 +346,7 @@ def _evaluate(
         "burn1_s": burn1_s,
         "coast_s": coast_s,
         "burn2_s": burn2_s,
+        "attitude_budget": attitude_budget,
         "dir1": list(_unit(dv1)),
         "dir2": list(_unit(dv2)),
         "dv1": tuple(dv1),
@@ -291,18 +376,9 @@ def solve_moon_rendezvous_feasibility(
     mode: str,
     standoff_altitude_km: float,
     sample_s: float = 60.0,
+    degraded_attitude: bool = False,
 ) -> dict[str, Any]:
-    """Iteratively correct a two-burn terminal-state feasibility solution.
-
-    The initial candidate is an impulsive transfer seed. Each shooting iteration
-    uses the terminal position and velocity residuals together. A finite-burn
-    lever-arm approximation solves the linearized two-impulse correction, then a
-    bounded deterministic line search accepts only an improved propagated result.
-
-    This remains non-navigation-grade because the attitude transitions are not
-    physically qualified and the Earth-facing standoff point is a synthetic
-    qualification target rather than an operational lunar orbit or facility.
-    """
+    """Iteratively correct a finite-attitude two-burn terminal-state solution."""
     max_time_s = float(max_time_s)
     sample_s = float(sample_s)
     standoff_altitude_km = float(standoff_altitude_km)
@@ -325,8 +401,6 @@ def solve_moon_rendezvous_feasibility(
         a = TORCH_CARDS[mode]["acceleration_g"] * G0_M_S2 / 1000.0
         candidates: list[dict[str, Any]] = []
         try:
-            # Three arrival windows keep Pixel runtime bounded while giving the
-            # terminal corrector materially different transfer-time seeds.
             fractions = [0.70, 0.85, 1.00]
             for frac in fractions:
                 arrival_s = max(1800.0, max_time_s * frac)
@@ -353,6 +427,7 @@ def solve_moon_rendezvous_feasibility(
                     sample_s=sample_s,
                     iteration=0,
                     line_scale=0.0,
+                    degraded_attitude=degraded_attitude,
                 )
                 if current is None:
                     continue
@@ -362,12 +437,6 @@ def solve_moon_rendezvous_feasibility(
                     if current["quality"]["status"] == "SOLVED_TRANSLATIONAL_FEASIBILITY":
                         break
 
-                    # Linearized two-burn shooting correction. The first burn's
-                    # delta-v acts for nearly the whole transfer while the second
-                    # burn acts near arrival. Solve the pair of equations
-                    #   dr ~= L1*d1 + L2*d2
-                    #   dv ~= d1 + d2
-                    # then verify every correction with the real propagator.
                     burn1_s = float(current["burn1_s"])
                     burn2_s = float(current["burn2_s"])
                     l1 = max(1.0, arrival_s - 0.5 * burn1_s)
@@ -398,6 +467,7 @@ def solve_moon_rendezvous_feasibility(
                             sample_s=sample_s,
                             iteration=iteration,
                             line_scale=line_scale,
+                            degraded_attitude=degraded_attitude,
                         )
                         if candidate is None:
                             continue
@@ -406,9 +476,6 @@ def solve_moon_rendezvous_feasibility(
                             improved = candidate
                             break
                     if improved is None:
-                        # Stagnation is evidence: do not manufacture further
-                        # corrections once all bounded line-search steps worsen
-                        # the propagated terminal state.
                         break
                     current = improved
 
@@ -425,12 +492,14 @@ def solve_moon_rendezvous_feasibility(
             quality = best["quality"]
             return {
                 "contract": CONTRACT,
-                "solver": "QUALIFICATION_ITERATIVE_TERMINAL_STATE_CORRECTOR_V2",
+                "solver": "QUALIFICATION_ITERATIVE_TERMINAL_STATE_CORRECTOR_V3_FINITE_ATTITUDE",
                 "status": "QUALIFICATION_ONLY",
                 "navigation_grade": False,
                 "mutates_live_state": False,
                 "targeting_authority": "NONE_NOT_NAVIGATOR",
-                "attitude_transition_authority": "UNQUALIFIED_INSTANTANEOUS_REORIENTATION_ASSUMED_FOR_FEASIBILITY_ONLY",
+                "attitude_transition_authority": ATTITUDE_AUTHORITY,
+                "attitude_engineering_source_commit": ENGINEERING_SOURCE_COMMIT,
+                "attitude_engineering_source_artifact": ENGINEERING_SOURCE_ARTIFACT,
                 "frame": "J2000/ECLIPTIC",
                 "start_epoch_utc": start_epoch.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
                 "start_position_earth_centered_km": list(start_p),
@@ -445,6 +514,7 @@ def solve_moon_rendezvous_feasibility(
                 "burn1_s": best["burn1_s"],
                 "coast_s": best["coast_s"],
                 "burn2_s": best["burn2_s"],
+                "attitude_transitions": best["attitude_budget"],
                 "arrival_elapsed_s": best["arrival_s"],
                 "commanded_direction_inertial": best["dir1"],
                 "braking_direction_inertial": best["dir2"],
@@ -455,6 +525,7 @@ def solve_moon_rendezvous_feasibility(
                     "method": "SEMI_IMPLICIT_EULER",
                     "max_step_s": MAX_INTEGRATION_STEP_S,
                     "gravity": "LOOM_SHARED_EARTH_PLUS_MOON_POINT_MASS",
+                    "attitude_transition": "FINITE_NO_THRUST_GRAVITY_PROPAGATION",
                 },
                 "search": {
                     "candidate_count": len(candidates),
@@ -464,7 +535,7 @@ def solve_moon_rendezvous_feasibility(
                     "selected_line_scale": best["line_scale"],
                     "max_time_s": max_time_s,
                     "criterion": "SOLVED_FIRST_THEN_NORMALIZED_POSITION_PLUS_RELATIVE_SPEED_WITH_SURFACE_PENALTY",
-                    "algorithm": "FINITE_BURN_LEVER_ARM_SHOOTING_WITH_BOUNDED_LINE_SEARCH",
+                    "algorithm": "FINITE_BURN_LEVER_ARM_SHOOTING_WITH_BOUNDED_LINE_SEARCH_AND_FINITE_ATTITUDE",
                 },
                 "quality": quality,
                 "points": trial["points"],

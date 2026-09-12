@@ -1,0 +1,93 @@
+{
+  "schema": "LOOM.HUD.WayfarerEngineeringSnapshot",
+  "schema_version": "0.1",
+  "status": "HUD_ENGINEERING_CONSUMER_SNAPSHOT_NON_CANON",
+  "source": {
+    "repository": "loom-2226/loom-2226",
+    "branch": "engineering/wayfarer-flight-system-qualification-v1",
+    "commit": "41755c6569a1b94b6a3b046bde66281ae910f015",
+    "pr": 96,
+    "rule": "Pinned HUD integration snapshot. Source engineering authority remains PR #96; this object does not promote engineering values to canon."
+  },
+  "mass": {
+    "source_artifact": "engineering/current/wayfarer_flight_system_baseline_v0.1.json",
+    "status": "ENGINEERING_BASELINE_NON_CANON",
+    "dry_mass_t": 858.5,
+    "reference_wet_mass_t": 1158.5,
+    "normal_remass_allowance_t": 250.0,
+    "protected_water_reserve_t": 50.0,
+    "working_fluid_water_inventory_t": 300.0,
+    "protected_water_optimizer_access": false
+  },
+  "torch": {
+    "source_artifact": "engineering/current/wayfarer_flight_system_baseline_v0.1.json",
+    "status": "ENGINEERING_BASELINE_NON_CANON",
+    "physics_class": "ordinary_momentum_exchange",
+    "mode_cards": [
+      {"mode":"ECON","acceleration_g":0.30,"exhaust_velocity_km_s":3000.0,"status":"WORKING_ENGINEERING_CARD"},
+      {"mode":"CRUISE","acceleration_g":1.00,"exhaust_velocity_km_s":2000.0,"status":"WORKING_ENGINEERING_CARD"},
+      {"mode":"EXPEDITE","acceleration_g":2.00,"exhaust_velocity_km_s":1000.0,"status":"WORKING_ENGINEERING_CARD"},
+      {"mode":"FAST","acceleration_g":3.00,"exhaust_velocity_km_s":700.0,"status":"WORKING_ENGINEERING_CARD"},
+      {"mode":"HARD","acceleration_g":5.00,"exhaust_velocity_km_s":450.0,"status":"WORKING_ENGINEERING_CARD"},
+      {"mode":"LIMIT","acceleration_g":7.50,"exhaust_velocity_km_s":300.0,"status":"WORKING_ENGINEERING_CARD"}
+    ],
+    "jet_power_is_electrical_bus_power": false
+  },
+  "power_thermal": {
+    "source_artifact": "engineering/current/wayfarer_q5_power_thermal_envelope_v0.2.json",
+    "status": "ENGINEERING_CANDIDATE_NON_CANON",
+    "qualification_status": "OPEN_BOUNDED",
+    "reject_temperature_K": 900.0,
+    "candidate_effective_radiator_area_m2": [3000.0,3500.0,4000.0],
+    "lead_thermal_buffer_GJ": 60.0,
+    "thermal_buffer_screening_GJ": [50.0,60.0],
+    "normal_ship_coupled_heat_ceiling_MW": 50.0,
+    "transient_ship_coupled_heat_sensitivity_MW": 100.0,
+    "major_torch_high_metric_mutual_exclusion": true,
+    "jet_power_is_electrical_bus_power": false,
+    "physical_geometry_status": "OPEN"
+  },
+  "attitude_energy": {
+    "source_artifact": "engineering/current/LOOM_2226_Wayfarer_Q5_RCS_Attitude_Energy_Bridge_v0.1.md",
+    "status": "ENGINEERING_CANDIDATE_NON_CANON",
+    "qualification_status": "OPEN_BOUNDED",
+    "scope": "QUALIFIED_Q4_PURE_ATTITUDE_TIMING_TO_Q5_ENERGY_SCREEN",
+    "reference_state": "REFERENCE_WET_DOCKED",
+    "checked_axes": ["ROLL","PITCH","YAW"],
+    "checked_angles_deg": [90,180],
+    "control_cases": ["NOMINAL","ONE_CLUSTER_OUT"],
+    "gross_conversion_heat_within_50GJ_buffer_screen": true,
+    "radiator_transient_credit_applied": false,
+    "machine_readable_per_maneuver_detail_available": false,
+    "combined_maneuver_energy_available": false,
+    "translation_maneuver_energy_available": false,
+    "rule": "HUD may present the earned bounded pure-attitude result, but must not synthesize per-maneuver energy values or assign durations to translation/combined cases until a machine-readable engineering handoff exists."
+  },
+  "dispatch": {
+    "source_artifact": "engineering/current/wayfarer_q7_dispatch_doctrine_v0.1.json",
+    "status": "CANDIDATE_NON_CANON",
+    "authority_boundary": "Screening policy only; final remass quantities require populated Q6 Navigator mission regression.",
+    "normal_dispatch_remass_t": 150.0,
+    "minimum_dispatch_remass_t": 100.0,
+    "protected_optimizer_reserve_t": 50.0,
+    "contingency_feed_reserve_t": 0.0,
+    "protected_optimizer_reserve_is_protected_water": false,
+    "torch_mode_authorization": {
+      "ECON":"ROUTINE","CRUISE":"ROUTINE","EXPEDITE":"TIME_CRITICAL","FAST":"EXCEPTIONAL","HARD":"EMERGENCY","LIMIT":"CONTINGENCY"
+    }
+  },
+  "feedstock": {
+    "source_artifact": "engineering/current/wayfarer_torch_feedstock_screening_v0.2.json",
+    "status": "ENGINEERING_SCREENING_NON_CANON",
+    "certification_status": "OPEN",
+    "primary_candidate": "H2O",
+    "primary_candidate_disposition": "ADVANCE_PRIMARY",
+    "certified_primary": null,
+    "alternates_are_certified": false
+  },
+  "separation": {
+    "torch_metric_loom_separation_preserved": true,
+    "ordinary_velocity_reset_allowed": false,
+    "reactionless_torch_allowed": false
+  }
+}

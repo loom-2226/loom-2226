@@ -4,12 +4,13 @@ from __future__ import annotations
 
 This is deliberately NOT campaign authority. It starts from wall-clock UTC,
 uses the local JPL Horizons qualification cache for lunar state, reuses LOOM's
-shared gravity primitive, and applies the documented Wayfarer working torch
-acceleration/exhaust-velocity cards to a disposable test vehicle state.
+shared gravity primitive, and consumes the pinned Wayfarer engineering handoff
+for working torch cards and baseline mass state.
 
 No campaign file or canonical SQLite database is written. Attitude is fixed for
 this slice: the ship is initially pointed at the Moon and no rotational dynamics
-are invented.
+are invented here. The separate rendezvous qualification consumes the Q4 finite
+attitude envelope.
 """
 
 from datetime import datetime, timezone
@@ -23,6 +24,10 @@ from typing import Any
 
 from loom.application.contracts import SpatialState
 from loom.hud.earth_moon_qualification import CACHE_RELATIVE, _load_jpl_cache, _state_from_jpl
+from loom.hud.wayfarer_engineering_state import (
+    ENGINEERING_SOURCE_COMMIT,
+    load_wayfarer_engineering_state,
+)
 from loom.runtime import resolve_runtime_roots
 from loom.spatial.gravity import GravitySource, evaluate_gravity
 
@@ -32,16 +37,17 @@ FRAME = "J2000/ECLIPTIC"
 G0_M_S2 = 9.80665
 MOON_RADIUS_KM = 1737.4
 WAYFARER_LENGTH_KM = 0.057
-INITIAL_REMASS_T = 250.0
-INITIAL_WET_MASS_T = 1158.5
 
+_ENGINEERING = load_wayfarer_engineering_state()
+INITIAL_REMASS_T = float(_ENGINEERING["mass"]["normal_remass_allowance_t"])
+INITIAL_WET_MASS_T = float(_ENGINEERING["mass"]["reference_wet_mass_t"])
+PROTECTED_WATER_RESERVE_T = float(_ENGINEERING["mass"]["protected_water_reserve_t"])
 TORCH_CARDS: dict[str, dict[str, float]] = {
-    "ECON": {"acceleration_g": 0.30, "exhaust_velocity_km_s": 3000.0},
-    "CRUISE": {"acceleration_g": 1.00, "exhaust_velocity_km_s": 2000.0},
-    "EXPEDITE": {"acceleration_g": 2.00, "exhaust_velocity_km_s": 1000.0},
-    "FAST": {"acceleration_g": 3.00, "exhaust_velocity_km_s": 700.0},
-    "HARD": {"acceleration_g": 5.00, "exhaust_velocity_km_s": 450.0},
-    "LIMIT": {"acceleration_g": 7.50, "exhaust_velocity_km_s": 300.0},
+    mode: {
+        "acceleration_g": float(card["acceleration_g"]),
+        "exhaust_velocity_km_s": float(card["exhaust_velocity_km_s"]),
+    }
+    for mode, card in _ENGINEERING["torch"]["mode_cards"].items()
 }
 ALLOWED_TIME_SCALES = (0.0, 1.0, 10.0, 100.0, 1000.0, 10000.0)
 MAX_INTEGRATION_STEP_S = 10.0
@@ -256,7 +262,7 @@ class RealtimeFlightQualification:
                         next_sample += sample_s
                 final_speed = math.sqrt(sum(x*x for x in self.ship_velocity))
                 final_moon_range = math.sqrt(sum(x*x for x in points[-1]["moon_relative_to_wayfarer_km"])) if points else None
-                return {"contract": PREVIEW_CONTRACT, "status": "QUALIFICATION_ONLY", "navigation_grade": False, "mutates_live_state": False, "solver": "NONE_FIXED_ATTITUDE_FORWARD_PROPAGATION", "frame": FRAME, "start_epoch_utc": _iso(start_epoch), "start_position_earth_centered_km": list(start_position), "mode": mode, "burn_s": burn_s, "coast_s": coast_s, "sample_s": sample_s, "integration": {"method": "SEMI_IMPLICIT_EULER", "max_step_s": MAX_INTEGRATION_STEP_S, "gravity": "LOOM_SHARED_EARTH_PLUS_MOON_POINT_MASS"}, "points": points, "final": {"speed_km_s": final_speed, "moon_range_km": final_moon_range, "remass_t": self.remass_t}}
+                return {"contract": PREVIEW_CONTRACT, "status": "QUALIFICATION_ONLY", "navigation_grade": False, "mutates_live_state": False, "solver": "NONE_FIXED_ATTITUDE_FORWARD_PROPAGATION", "frame": FRAME, "start_epoch_utc": _iso(start_epoch), "start_position_earth_centered_km": list(start_position), "mode": mode, "burn_s": burn_s, "coast_s": coast_s, "sample_s": sample_s, "engineering_source_commit": ENGINEERING_SOURCE_COMMIT, "torch_card_status": _ENGINEERING["torch"]["mode_cards"][mode]["status"], "integration": {"method": "SEMI_IMPLICIT_EULER", "max_step_s": MAX_INTEGRATION_STEP_S, "gravity": "LOOM_SHARED_EARTH_PLUS_MOON_POINT_MASS"}, "points": points, "final": {"speed_km_s": final_speed, "moon_range_km": final_moon_range, "remass_t": self.remass_t}}
             finally:
                 (self.sim_epoch, self.ship_position, self.ship_velocity, self.remass_t, self.wet_mass_t, self.torch_active, self.torch_mode, self.status, self.time_scale, self.last_wall) = saved
 
@@ -269,4 +275,14 @@ class RealtimeFlightQualification:
             thrust_acc, thrust_n, mass_flow_kg_s = self._thrust_acceleration()
             moon_rel = tuple(moon_p[i] - self.ship_position[i] for i in range(3))
             earth_rel = tuple(-self.ship_position[i] for i in range(3))
-            return {"contract": CONTRACT, "status": self.status, "authority": "QUALIFICATION_ONLY", "navigation_grade": False, "campaign_mutation": False, "frame": FRAME, "sim_epoch_utc": _iso(self.sim_epoch), "wall_epoch_utc": _iso(datetime.now(timezone.utc)), "time_scale": self.time_scale, "allowed_time_scales": list(ALLOWED_TIME_SCALES), "ephemeris": {"moon_source": moon_source, "mode": "JPL_HORIZONS_HOURLY_PLUS_CUBIC_HERMITE", "coverage_start_utc": _iso(self.coverage_start), "coverage_end_utc": _iso(self.coverage_end)}, "earth": {"position_km": [0.0, 0.0, 0.0], "relative_to_wayfarer_km": list(earth_rel)}, "moon": {"position_earth_centered_km": list(moon_p), "velocity_earth_centered_km_s": list(moon_v), "relative_to_wayfarer_km": list(moon_rel), "radius_km": MOON_RADIUS_KM, "visual_orientation_authority": "MODEL_NATIVE_NOT_SPICE_QUALIFIED"}, "wayfarer": {"position_earth_centered_km": list(self.ship_position), "velocity_earth_centered_km_s": list(self.ship_velocity), "fixed_nose_direction_inertial": list(self.nose_direction), "attitude_authority": "FIXED_QUALIFICATION_ATTITUDE_NO_ROTATIONAL_DYNAMICS", "length_km": WAYFARER_LENGTH_KM, "wet_mass_t": self.wet_mass_t, "remass_t": self.remass_t, "geometry_authority": "DETERMINISTIC_WAYFARER_ENGINEERING_GEOMETRY_NON_CANON_VISUAL"}, "torch": {"active": self.torch_active, "mode": self.torch_mode, "acceleration_g": card["acceleration_g"], "exhaust_velocity_km_s": card["exhaust_velocity_km_s"], "thrust_n": thrust_n, "mass_flow_kg_s": mass_flow_kg_s, "acceleration_vector_km_s2": list(thrust_acc), "authority": "SOURCE_DERIVED_WORKING_ENGINEERING_CARD_QUALIFICATION"}, "integration": {"owner": "PYTHON_SERVER_QUALIFICATION_SESSION", "method": "SEMI_IMPLICIT_EULER", "max_step_s": MAX_INTEGRATION_STEP_S, "gravity": "LOOM_SHARED_EARTH_PLUS_MOON_POINT_MASS", "attitude_dynamics": "NOT_IMPLEMENTED"}}
+            engineering = {
+                "contract": _ENGINEERING["contract"],
+                "source": _ENGINEERING["source"],
+                "authority": _ENGINEERING["authority"],
+                "mass": _ENGINEERING["mass"],
+                "dispatch": _ENGINEERING["dispatch"],
+                "power_thermal": _ENGINEERING["power_thermal"],
+                "feedstock": _ENGINEERING["feedstock"],
+                "mobility_firewall": _ENGINEERING["mobility_firewall"],
+            }
+            return {"contract": CONTRACT, "status": self.status, "authority": "QUALIFICATION_ONLY", "navigation_grade": False, "campaign_mutation": False, "frame": FRAME, "sim_epoch_utc": _iso(self.sim_epoch), "wall_epoch_utc": _iso(datetime.now(timezone.utc)), "time_scale": self.time_scale, "allowed_time_scales": list(ALLOWED_TIME_SCALES), "ephemeris": {"moon_source": moon_source, "mode": "JPL_HORIZONS_HOURLY_PLUS_CUBIC_HERMITE", "coverage_start_utc": _iso(self.coverage_start), "coverage_end_utc": _iso(self.coverage_end)}, "earth": {"position_km": [0.0, 0.0, 0.0], "relative_to_wayfarer_km": list(earth_rel)}, "moon": {"position_earth_centered_km": list(moon_p), "velocity_earth_centered_km_s": list(moon_v), "relative_to_wayfarer_km": list(moon_rel), "radius_km": MOON_RADIUS_KM, "visual_orientation_authority": "MODEL_NATIVE_NOT_SPICE_QUALIFIED"}, "wayfarer": {"position_earth_centered_km": list(self.ship_position), "velocity_earth_centered_km_s": list(self.ship_velocity), "fixed_nose_direction_inertial": list(self.nose_direction), "attitude_authority": "FIXED_QUALIFICATION_ATTITUDE_NO_ROTATIONAL_DYNAMICS", "length_km": WAYFARER_LENGTH_KM, "wet_mass_t": self.wet_mass_t, "remass_t": self.remass_t, "protected_water_reserve_t": PROTECTED_WATER_RESERVE_T, "geometry_authority": "DETERMINISTIC_WAYFARER_ENGINEERING_GEOMETRY_NON_CANON_VISUAL"}, "torch": {"active": self.torch_active, "mode": self.torch_mode, "acceleration_g": card["acceleration_g"], "exhaust_velocity_km_s": card["exhaust_velocity_km_s"], "card_status": _ENGINEERING["torch"]["mode_cards"][self.torch_mode]["status"], "mode_authorization": _ENGINEERING["dispatch"]["torch_mode_authorization"][self.torch_mode], "thrust_n": thrust_n, "mass_flow_kg_s": mass_flow_kg_s, "acceleration_vector_km_s2": list(thrust_acc), "authority": "PINNED_PR96_WORKING_ENGINEERING_CARD_QUALIFICATION", "jet_power_is_electrical_bus_power": _ENGINEERING["torch"]["jet_power_is_electrical_bus_power"]}, "engineering": engineering, "integration": {"owner": "PYTHON_SERVER_QUALIFICATION_SESSION", "method": "SEMI_IMPLICIT_EULER", "max_step_s": MAX_INTEGRATION_STEP_S, "gravity": "LOOM_SHARED_EARTH_PLUS_MOON_POINT_MASS", "attitude_dynamics": "NOT_IMPLEMENTED"}}

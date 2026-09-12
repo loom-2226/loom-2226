@@ -5,6 +5,7 @@ from loom.hud.rendezvous_qualification import (
     POSITION_TOLERANCE_KM,
     RELATIVE_SPEED_TOLERANCE_KM_S,
     MIN_SURFACE_CLEARANCE_KM,
+    _attitude_transition_budget,
     _classify_solution,
     solve_moon_rendezvous_feasibility,
 )
@@ -67,6 +68,33 @@ class HudRendezvousQualificationTests(unittest.TestCase):
         self.assertGreater(POSITION_TOLERANCE_KM, 0.0)
         self.assertGreater(RELATIVE_SPEED_TOLERANCE_KM_S, 0.0)
         self.assertGreaterEqual(MIN_SURFACE_CLEARANCE_KM, 0.0)
+
+    def test_attitude_budget_makes_flip_finite(self):
+        budget = _attitude_transition_budget(
+            current_direction=(1.0, 0.0, 0.0),
+            departure_direction=(1.0, 0.0, 0.0),
+            braking_direction=(-1.0, 0.0, 0.0),
+            degraded=False,
+        )
+        self.assertEqual(budget["initial_transition_s"], 0.0)
+        self.assertGreater(budget["flip_transition_s"], 0.0)
+        self.assertAlmostEqual(budget["flip_angle_deg"], 180.0)
+        self.assertFalse(budget["instantaneous_attitude_reset_allowed"])
+
+    def test_one_cluster_out_attitude_budget_is_slower(self):
+        nominal = _attitude_transition_budget(
+            current_direction=(1.0, 0.0, 0.0),
+            departure_direction=(0.0, 1.0, 0.0),
+            braking_direction=(-1.0, 0.0, 0.0),
+            degraded=False,
+        )
+        degraded = _attitude_transition_budget(
+            current_direction=(1.0, 0.0, 0.0),
+            departure_direction=(0.0, 1.0, 0.0),
+            braking_direction=(-1.0, 0.0, 0.0),
+            degraded=True,
+        )
+        self.assertGreater(degraded["total_transition_s"], nominal["total_transition_s"])
 
 
 if __name__ == "__main__":

@@ -15,7 +15,11 @@ window.fetch=async function(...args){
     const u=String(args[0]&&args[0].url||args[0]||'');
     if(response.ok&&(u.includes('/qualification-flight.json')||u.includes('/trajectory-preview.json')||u.includes('/intercept-preview.json')||u.includes('/rendezvous-preview.json'))){
       response.clone().json().then(j=>{
-        if(u.includes('/qualification-flight.json'))live=j; else if(j&&Array.isArray(j.points))preview=j;
+        if(u.includes('/qualification-flight.json')){
+          live=j;
+          window.__loomLiveQualification=j;
+          window.dispatchEvent(new CustomEvent('loom-live-qualification',{detail:j}));
+        }else if(j&&Array.isArray(j.points))preview=j;
       }).catch(()=>{});
     }
   }catch(_e){}
