@@ -51,9 +51,10 @@ def _cross(a, b) -> tuple[float, float, float]:
     )
 
 
-def _resolve_orbital_burn_target(session: Any, direction: str) -> tuple[float, float, float]:
-    """Resolve a manual burn direction from the current live orbital frame."""
+def resolve_orbital_burn_target(session: Any, direction: str) -> tuple[float, float, float]:
+    """Resolve a local orbital-frame direction from current live state without mutation."""
 
+    direction = str(direction).upper().strip()
     if direction in {"PROGRADE", "RETROGRADE"}:
         speed = _mag(session.ship_velocity)
         if speed < MIN_SPEED_KM_S:
@@ -244,7 +245,7 @@ def execute_velocity_aligned_burn(
 
     with session.lock:
         session._advance_locked()
-        target = _resolve_orbital_burn_target(session, direction)
+        target = resolve_orbital_burn_target(session, direction)
 
     command = FlightCommand(
         kind=CommandKind.TORCH_BURN,
