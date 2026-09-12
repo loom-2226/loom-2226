@@ -1,7 +1,7 @@
-import math
 import threading
 import unittest
 from datetime import datetime, timezone
+from pathlib import Path
 
 from loom.hud.flight_command_executor import execute_velocity_aligned_burn
 
@@ -75,6 +75,7 @@ class OrbitalFrameBurnV038Tests(unittest.TestCase):
                 self.assertEqual(receipt["contract"], "LOOM_FLIGHT_EXECUTION_RECEIPT_V1")
                 self.assertEqual(receipt["command"]["contract"], "LOOM_FLIGHT_COMMAND_V1")
                 self.assertEqual(receipt["command"]["origin"], "MANUAL")
+                self.assertEqual(receipt["direction_basis"], "CURRENT_LIVE_EARTH_CENTERED_ORBITAL_FRAME")
                 self.assertLess(session.remass_t, 250.0)
                 self.assertFalse(session.torch_active)
 
@@ -89,6 +90,14 @@ class OrbitalFrameBurnV038Tests(unittest.TestCase):
                 duration_s=1.0,
                 torch_mode="CRUISE",
             )
+
+    def test_mobile_runtime_exposes_compact_non_tangential_control(self):
+        root = Path(__file__).resolve().parents[1]
+        script = (root / "src/loom/hud/demo/hud_orbital_burn_v01.js").read_text(encoding="utf-8")
+        self.assertIn("orbitalBurnDirection", script)
+        self.assertIn("BURN VECTOR", script)
+        for direction in ("RADIAL_OUT", "RADIAL_IN", "NORMAL", "ANTINORMAL"):
+            self.assertIn(direction, script)
 
 
 if __name__ == "__main__":
