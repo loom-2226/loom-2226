@@ -25,6 +25,10 @@ CAMPAIGN_FILES = (
     "LOOM_STATE_V1.bak",
     "LOOM_CAMPAIGN_HISTORY.jsonl.gz",
 )
+SCRIPT_PATH = Path(__file__).resolve()
+DEFAULT_REPO = SCRIPT_PATH.parents[3]
+ANDROID_ROOT = Path("/storage/emulated/0/Download")
+DEFAULT_ROOT = ANDROID_ROOT if ANDROID_ROOT.exists() else Path.cwd()
 
 
 def sha256_file(path: Path) -> str | None:
@@ -51,35 +55,14 @@ def load_module(path: Path, module_name: str):
 
 
 def candidate_public_view(candidate: dict[str, Any]) -> dict[str, Any]:
-    """Reduce a raw candidate to stable spike evidence fields.
-
-    The nested raw ``leg`` remains solver evidence but is excluded from the ranking
-    fingerprint so the comparison focuses on user-relevant candidate membership,
-    order and quantitative route metrics.
-    """
-
+    """Reduce a raw candidate to stable spike evidence fields."""
     fields = (
-        "metric",
-        "torch",
-        "total_s",
-        "remass_used_t",
-        "arrival_remass_t",
-        "thermal",
-        "arrival_epoch_utc",
-        "delta_v_km_s",
-        "metric_distance_km",
-        "metric_duration_s",
-        "metric_beta_c",
-        "metric_effective_speed_km_s",
-        "ordinary_departure_speed_km_s",
-        "torch_burn_s",
-        "ve_km_s",
-        "jet_power_TW",
-        "thrust_MN",
-        "mdot_kg_s",
-        "initial_accel_g",
-        "final_accel_g",
-        "balanced_policy_score",
+        "metric", "torch", "total_s", "remass_used_t", "arrival_remass_t",
+        "thermal", "arrival_epoch_utc", "delta_v_km_s", "metric_distance_km",
+        "metric_duration_s", "metric_beta_c", "metric_effective_speed_km_s",
+        "ordinary_departure_speed_km_s", "torch_burn_s", "ve_km_s",
+        "jet_power_TW", "thrust_MN", "mdot_kg_s", "initial_accel_g",
+        "final_accel_g", "balanced_policy_score",
     )
     return {k: candidate[k] for k in fields if k in candidate}
 
@@ -93,8 +76,7 @@ def fingerprint(value: Any) -> str:
 
 
 def materially_distinct(candidates: Iterable[dict[str, Any]]) -> bool:
-    pairs = {(c.get("metric"), c.get("torch")) for c in candidates}
-    return len(pairs) >= 2
+    return len({(c.get("metric"), c.get("torch")) for c in candidates}) >= 2
 
 
 def build_mission(wrapper: Any, nav: Any, state: dict[str, Any], origin: str, destination: str,
@@ -122,13 +104,8 @@ def build_mission(wrapper: Any, nav: Any, state: dict[str, Any], origin: str, de
 def validate_candidate(nav: Any, wrapper: Any, state: dict[str, Any], acq: Any, cache: Path,
                        b1: Path, origin: str, destination: str, candidate: dict[str, Any], index: int) -> dict[str, Any]:
     normalized = build_mission(
-        wrapper,
-        nav,
-        state,
-        origin,
-        destination,
-        metric=str(candidate["metric"]),
-        torch=str(candidate["torch"]),
+        wrapper, nav, state, origin, destination,
+        metric=str(candidate["metric"]), torch=str(candidate["torch"]),
         test_id=f"E1-0-SPIKE-A-CAND-{index:02d}",
     )
     runtime, _payloads, _html, validation, det = nav.target_determinism_gate(normalized, acq, cache, b1)
@@ -149,19 +126,19 @@ def validate_candidate(nav: Any, wrapper: Any, state: dict[str, Any], acq: Any, 
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--root", type=Path, required=True,
-                   help="Existing LOOM runtime root, normally /storage/emulated/0/Download on Pixel")
-    p.add_argument("--repo", type=Path, default=Path.cwd(), help="LOOM repository checkout root")
+    p.add_argument("--root", type=Path, default=DEFAULT_ROOT,
+                   help=f"Existing LOOM runtime root (default: {DEFAULT_ROOT})")
+    p.add_argument("--repo", type=Path, default=DEFAULT_REPO,
+                   help=f"LOOM repository checkout root (default: {DEFAULT_REPO})")
     p.add_argument("--origin", default="CERES")
     p.add_argument("--destination", default="NEPTUNE_SYSTEM")
-    p.add_argument("--priority", default="BALANCED",
-                   choices=("FASTEST", "REMASS", "CONSERVATIVE", "BALANCED"))
+    p.add_argument("--priority", default="BALANCED", choices=("FASTEST", "REMASS", "CONSERVATIVE", "BALANCED"))
     p.add_argument("--allow-online-acquisition", action="store_true",
-                   help="Allow the existing Navigator acquisition layer to fill missing cache data. Campaign state still must remain unchanged.")
+                   help="Allow existing Navigator acquisition to fill missing cache data; campaign state still must remain unchanged")
     p.add_argument("--max-validate", type=int, default=8,
                    help="Maximum ranked candidates to independently pass through target_determinism_gate")
-    p.add_argument("--out", type=Path,
-                   default=Path("E1_0_SPIKE_A_MULTIROUTE_RESULT.json"))
+    p.add_argument("--out", type=Path, default=None,
+                   help="Evidence JSON path (default: <root>/E1_0_SPIKE_A_MULTIROUTE_RESULT.json)")
     return p.parse_args()
 
 
@@ -169,6 +146,7 @@ def main() -> int:
     args = parse_args()
     root = args.root.expanduser().resolve()
     repo = args.repo.expanduser().resolve()
+    out = args.out.expanduser().resolve() if args.out else root / "E1_0_SPIKE_A_MULTIROUTE_RESULT.json"
     wrapper_path = repo / "src" / "loom_navigator_core.py"
     state_path = root / "LOOM_STATE_V1.json"
     if not wrapper_path.exists():
@@ -180,9 +158,8 @@ def main() -> int:
     wrapper = load_module(wrapper_path, "loom_e1_spike_a_wrapper")
     state = json.loads(state_path.read_text(encoding="utf-8"))
     wrapper._validate_state(state)
-
     cache = root / "LOOM_Navigator_Cache_v1"
-    b1 = None
+
     with tempfile.TemporaryDirectory(prefix="loom_e1_spike_a_core_") as td:
         nav = wrapper._load_core(Path(td))
         b1 = nav.find_b1_package(root, nav.EXPECTED_B1_PACKAGE)
@@ -196,13 +173,7 @@ def main() -> int:
             raise SystemExit("origin equals destination")
 
         normalized = build_mission(wrapper, nav, state, origin, destination)
-        acq = nav.run_acquisition(
-            normalized,
-            cache,
-            offline=not args.allow_online_acquisition,
-            refresh=False,
-        )
-
+        acq = nav.run_acquisition(normalized, cache, offline=not args.allow_online_acquisition, refresh=False)
         first_raw = wrapper._candidate_plans(nav, normalized, acq, cache, state, args.priority)
         second_raw = wrapper._candidate_plans(nav, normalized, acq, cache, state, args.priority)
         first = [candidate_public_view(c) for c in first_raw]
@@ -212,11 +183,10 @@ def main() -> int:
         deterministic_rerun = first == second and first_fp == second_fp
         distinct = materially_distinct(first)
 
-        validations = []
-        for i, candidate in enumerate(first_raw[: max(0, args.max_validate)], 1):
-            validations.append(
-                validate_candidate(nav, wrapper, state, acq, cache, b1, origin, destination, candidate, i)
-            )
+        validations = [
+            validate_candidate(nav, wrapper, state, acq, cache, b1, origin, destination, candidate, i)
+            for i, candidate in enumerate(first_raw[: max(0, args.max_validate)], 1)
+        ]
 
     after = campaign_hashes(root)
     campaign_unchanged = before == after
@@ -253,10 +223,10 @@ def main() -> int:
         },
     }
     result["spike_observation_pass"] = all(result["spike_pass_conditions"].values())
-
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2, sort_keys=True))
+    print(f"\nEVIDENCE WRITTEN: {out}")
 
     if not campaign_unchanged:
         raise SystemExit("FAIL CLOSED: campaign files changed during read-only Spike A")
