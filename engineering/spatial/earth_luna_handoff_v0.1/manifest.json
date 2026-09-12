@@ -1,0 +1,40 @@
+{
+  "package": "LOOM_EARTH_LUNA_SPATIAL_HANDOFF_V0_1",
+  "status": "ENGINEERING_HANDOFF_NON_CANON",
+  "contract": "LOOM_SPATIAL_TARGET_V1",
+  "physical_state_contract": "SpatialState",
+  "canonical_frame": "J2000/ECLIPTIC",
+  "body_ids": ["EA", "LU"],
+  "authority": {
+    "github_canonical": true,
+    "canon_mutated": false,
+    "civstate_mutated": false,
+    "resolver_authority": "PYTHON",
+    "orbital_propagator": "src/loom/spatial/celestial_state.py::propagate_parent_centric",
+    "celestial_state_source": "INJECTED_EXISTING_CELESTIAL_STATE_SERVICE",
+    "body_property_source": "INJECTED_EXISTING_CELESTIAL_PROPERTY_SOURCE",
+    "llm_mutation_authority": false
+  },
+  "catalogs": {
+    "target_catalog": "src/loom/spatial/catalogs/earth_luna_v0.1.json",
+    "standard_orbits": "PRESENT",
+    "orbital_stations": "QUALIFICATION_FIXTURES_ONLY",
+    "earth_ground_ports": "EMPTY_PENDING_GOVERNED_2226_PORTS",
+    "lunar_surface_ports": "EMPTY_PENDING_GOVERNED_2226_PORTS"
+  },
+  "capabilities": {
+    "named_orbit_resolution": "AVAILABLE_ENGINEERING_REFERENCE",
+    "moving_station_resolution": "AVAILABLE_NON_CANON_QUALIFICATION",
+    "body_fixed_surface_resolution": "UNAVAILABLE",
+    "true_geo": "UNAVAILABLE_PENDING_BODY_ORIENTATION",
+    "sun_synchronous": "UNAVAILABLE_PENDING_PERTURBATION_MODEL",
+    "nrho_periodic_family": "UNAVAILABLE_PENDING_CR3BP_MODEL",
+    "navigator_target_id_adapter": "HANDOFF_SEAM_DEFINED_NOT_YET_BOUND_TO_LEGACY_ROUTE_SOLVER",
+    "surface_ascent_descent": "UNAVAILABLE"
+  },
+  "tests": [
+    "tests/test_spatial_targets.py"
+  ],
+  "examples": "engineering/spatial/earth_luna_handoff_v0.1/example_resolved_states.json",
+  "recovery_report": "engineering/spatial/LOOM_2226_Earth_Luna_Spatial_Infrastructure_Recovery_and_Gap_v0.1.md"
+}
