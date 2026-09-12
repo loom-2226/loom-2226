@@ -1,6 +1,6 @@
 # LOOM 2226 — E1.1 Mara Synthesis Finding v0.1
 
-**Status:** SECOND LIVE SYNTHESIS ATTEMPT PARTIALLY EXECUTED; REFERENCE BOUNDARY STILL TOO STRICT; V0.3 RETEST PENDING  
+**Status:** V0.3 LIVE SYNTHESIS RUN COMPLETE; 1/4 CASES PASS; EPISTEMIC/VALIDATION SEMANTICS UNDER REVIEW  
 **Date:** 12 September 2026  
 **Class:** `class:engineering` / `REQUIRED_FOR_E1`  
 **Diagnosis:** `SYNTHESIS/ADAPTER_BOUNDARY_FAILURE`, not data failure
@@ -70,6 +70,41 @@ Resolver tests now cover:
 - prints explicit validation reasons for synthesis failures;
 - leaves the model authority boundary unchanged.
 
+## v0.3 empirical run — complete four-case evidence
+
+Pixel/Termux resolver regression:
+
+- `ALL 8 TESTS PASS`;
+- contextual alias resolution PASS;
+- arbitrary suffix rejection PASS;
+- ambiguous contextual alias fail-closed PASS.
+
+Live v0.3 synthesis result:
+
+- `why_restricted` — **FAIL** — `Ceres Metric & Loom Anchorage -> CER-P05`; reasons: `epistemic_status_mismatch`, `used_fact_key_not_in_packet`;
+- `who_runs_it` — **PASS** — `Ceres Metric & Loom Anchorage -> CER-P05`;
+- `unsupported_sabotage_cause` — **FAIL** — contextual alias `Metric & Loom Anchorage -> CER-P05`; reason: `epistemic_status_mismatch`;
+- `contradictory_user_claim` — **FAIL** — contextual alias `Metric & Loom Anchorage -> CER-P05`; reason: `epistemic_status_mismatch`.
+
+The run completed without crashing and wrote all four cases. Usage was 4,938 input tokens and 847 output tokens; eight audited provider entries were written for the four two-turn cases.
+
+### Immediate interpretation
+
+The entity-reference adapter is no longer the active blocker for these cases. Both the full projected name and the exact context-qualified alias resolved deterministically to `CER-P05`.
+
+The remaining failures are concentrated in **epistemic-status semantics and answer-validation semantics**, not entity resolution or missing source data.
+
+`why_restricted` also used at least one evidence reference that the validator did not recognize as a literal `facts` key. Before changing the prompt or compact-query schema, the persisted v0.3 case artifact must be inspected to determine whether the model cited a legitimate packet field outside `facts` (for example place role/traffic metadata), invented a key, or exposed a genuine evidence-shape mismatch.
+
+Likewise, the three `epistemic_status_mismatch` results must be inspected at the answer level before changing expectations. A single status field may be conflating at least two different questions:
+
+1. whether the **underlying requested proposition** is established by authoritative evidence; and
+2. whether Mara's **meta-answer** about support/non-support is itself grounded.
+
+For example, a grounded answer that says "current authoritative context does not establish sabotage" can itself be well-supported while the sabotage proposition remains unavailable. That distinction must be evaluated from the actual saved outputs, not repaired by forcing a preferred label.
+
+No synthesis PASS is claimed from this run.
+
 ## Authority result
 
 Authority remains:
@@ -82,16 +117,16 @@ Authority remains:
 - compact query remains the deterministic fact-selection boundary;
 - no fuzzy/entity-generative behavior and no hidden duplicate world state.
 
-## Retest requirement
+## Next discriminator
 
-Before Mara synthesis earns any PASS claim:
+Inspect the saved `E1_1_MARA_SYNTHESIS_RESULT_V03.json` case outputs, specifically:
 
-1. run the updated resolver tests on Pixel;
-2. run `e1_1_mara_grounded_synthesis_v03.py` against the real Ceres projection;
-3. retain all four case results even if one fails;
-4. inspect `why_restricted` failure reasons rather than tuning around them;
-5. confirm the contextual alias resolves to `CER-P05`;
-6. confirm unsupported sabotage and contradictory-user cases preserve epistemic discipline.
+- each `model_answer_parsed.epistemic_status`;
+- each `model_answer_parsed.used_fact_keys`;
+- each `model_answer_parsed.answer`;
+- the corresponding `tool_packet` fields.
+
+Do not prompt-tune or relabel expected statuses until those concrete outputs show whether the defect is in the model instruction, validator ontology, packet shape, or query evidence.
 
 ## Falsifier
 
