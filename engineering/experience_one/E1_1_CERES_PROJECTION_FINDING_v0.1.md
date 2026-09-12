@@ -1,6 +1,6 @@
 # LOOM 2226 — E1.1 Ceres Projection Finding v0.1
 
-**Status:** EMPIRICAL PROJECTION + COMPACT QUERY TEST PASSED; FIELD-LEVEL PROVENANCE RETEST PENDING  
+**Status:** EMPIRICAL PROJECTION + COMPACT QUERY + FIELD-LEVEL PROVENANCE TEST PASSED; MARA SYNTHESIS NEXT  
 **Date:** 12 September 2026  
 **Class:** `class:engineering` / `REQUIRED_FOR_E1`  
 **Diagnosis:** `PROJECTION_FAILURE` before `DATA_FAILURE`
@@ -112,28 +112,47 @@ The compact packet correctly exposed a materially differentiated place without i
 
 This is sufficient to support grounded synthesis such as explaining why the anchorage feels more restricted, security-heavy and institutionally assertive than other Ceres places, without allowing the model to create those underlying facts.
 
-## Field-level provenance correction
+## Field-level provenance correction — EMPIRICAL PASS
 
 The first compact packets attached the complete place provenance list to several individual fields. This was safe but overly broad: for example, runtime behavioral values such as `security_posture` listed both WORLD and CIVSTATE even though the value is sourced from `CIVSTATE.civ_runtime_place_context`.
 
-`src/loom_canon_context_query.py` v0.2 therefore tightens provenance attribution:
+`src/loom_canon_context_query.py` v0.2 tightened provenance attribution:
 
 - facility identity, role, traffic class, authority and commercial facts -> `WORLD.infrastructure_nodes`;
 - runtime behavioral/derived metrics -> `CIVSTATE.civ_runtime_place_context`;
 - `INTERESTING` selection records provenance separately for its WORLD traffic-class input and CIVSTATE strategic-importance input;
 - mixed-source attribution is retained only when a result genuinely depends on both.
 
-Tests were expanded from 6 to 8 to assert these source boundaries. Pixel empirical retest of v0.2 is required before the provenance correction itself earns an empirical PASS.
+Pixel/Termux retest result:
+
+- `ALL 8 TESTS PASS`;
+- field-specific provenance test PASS;
+- canon-vs-runtime provenance separation test PASS;
+- prior compact-query and fail-closed tests remain PASS.
+
+Representative real `PLACE_DETAIL --target CER-P05` packet confirmed:
+
+- `authorities` provenance = `WORLD.infrastructure_nodes`, source `CANON I v2.4`;
+- `commercial` provenance = `WORLD.infrastructure_nodes`, source `CANON I v2.4`;
+- `governance_style` provenance = `CIVSTATE.civ_runtime_place_context`;
+- `commercial_openness` provenance = `CIVSTATE.civ_runtime_place_context`;
+- `security_posture` provenance = `CIVSTATE.civ_runtime_place_context`;
+- `outsider_attitude` provenance = `CIVSTATE.civ_runtime_place_context`;
+- `scarcity_pressure` provenance = `CIVSTATE.civ_runtime_place_context`;
+- `strategic_importance` provenance = `CIVSTATE.civ_runtime_place_context`;
+- place identity/role/traffic provenance = `WORLD.infrastructure_nodes`, source `CANON I v2.4`.
+
+The field-level correction therefore earns **EMPIRICALLY_TESTED PASS** on Pixel.
 
 ## Seam result
 
-This is the first empirical E1.1 proof of the seam:
+E1.1 has now empirically proven:
 
-`governed WORLD/CIVSTATE -> read-only canon projection -> compact question-shaped evidence`
+`governed WORLD/CIVSTATE -> read-only canon projection -> compact question-shaped evidence with field-level provenance`
 
 No model was required for this proof.
 
-The remaining immediate step before Mara synthesis is to empirically rerun the compact-query tests and one representative `PLACE_DETAIL` packet with the tightened field-level provenance.
+The next bounded step is the first Mara synthesis test using only `LOOM_CANON_CONTEXT_QUERY_V1` packets as model evidence. The model must remain unable to access SQLite, choose authoritative facts, calculate world state, or override provenance/epistemic status.
 
 ## Falsifier
 
