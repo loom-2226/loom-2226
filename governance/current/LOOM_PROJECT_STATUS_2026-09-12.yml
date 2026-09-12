@@ -1,4 +1,4 @@
-version: '1.0'
+version: '1.1'
 captured_date: '2026-09-12'
 repository: loom-2226/loom-2226
 classification: governance
@@ -6,7 +6,7 @@ purpose: current operational project-status overlay preserving the 2026-09-07 go
 supersession_rule:
   - LOOM_CURRENT_WORKSTATE.yml remains authoritative for governance-adoption history, frozen-object identity, protection/gate policy and controls not superseded here
   - this file supersedes old operational WIP interpretations in LOOM_CURRENT_WORKSTATE.yml where they conflict with later governed Git state
-  - open PR does not equal active WIP; superseded and historical PRs may remain as provenance until explicitly closed
+  - open PR does not equal active WIP; superseded and historical PRs may be closed while their branches and Git history remain provenance
 current_product_engineering_lanes:
   - id: WAYFARER_FLIGHT_SYSTEM
     class: engineering
@@ -23,16 +23,18 @@ current_product_engineering_lanes:
     head_sha: 8b1637e3e6ff7ebb718aa3dfb7b3310be3b6ac2f
     state: ACTIVE_INTEGRATION
     current_level: v0.42_explicit_validated_plan_execution_gate
-    base_lineage_pr: 92
+    frozen_ancestor_pr: 92
     authority: qualification_only_non_canon
   - id: EARTH_LUNA_SPATIAL_NAV_INTEGRATION
     class: engineering
     pr: 103
     branch: feature/earth-luna-spatial-infrastructure-v0.1-2026-09-12
-    head_sha: 010644f6fab8a74ec75f3ab6afc98a24b65b52b7
+    head_sha: d1bb0f721164b4ce325af5562006bc5fa16d2637
     state: ACTIVE_INTEGRATION
     base: HUD_LOCAL_FLIGHT_v0.42
     handoff: READY_FOR_HUD_NAVIGATOR_INTEGRATION_WITH_SPECIALIZED_RESOLVER_GAPS
+    live_scene_endpoint: GET_/earth-luna-scene.json
+    next_boundary: establish_correct_global_system_HUD_GIS_consumer_without_mixing_2226_scene_into_2026_local_flight_qualification
   - id: COMPUTATIONAL_SHIPYARD
     class: engineering_qualification_with_historical_research_named_branches
     current_frontier_pr: 100
@@ -42,55 +44,45 @@ current_product_engineering_lanes:
     boundary_note: direct engineering/qualification consumption by Navigator/HUD may remain upstream; genuinely exploratory successor research belongs in loom-research-lab under LOOM_RESEARCH_AUTHORITY_BOUNDARY_v1.0
 active_parallel_research_external_repo:
   repository: loom-2226/loom-research-lab
+  main_sha_after_cleanup: 333a30f96b3aae5bf93e84428c916201c70a44a9
   project: NAV_GIS_HUD_RENDERER_ACCELERATION
   state: ACTIVE_PARALLEL_RESEARCH
   freezes_upstream_hud_nav_gis: false
   promotion_requires_separate_upstream_handoff: true
-historical_or_superseded_open_prs_cleanup_candidates:
+closed_provenance_prs_2026_09_12:
   - pr: 37
-    title: Navigator Stage F integrated 3D foundation
     disposition: SUPERSEDED_BY_LATER_HUD_SPATIAL_INTEGRATION
-    preserve_branch: true
+    branch_preserved: true
   - pr: 38
-    title: Stage F-PA physical authority audit
     disposition: HISTORICAL_AUDIT_ANCESTOR_LATER_WORK_HAS_ADVANCED
-    preserve_branch: true
+    branch_preserved: true
   - pr: 44
-    title: Stage F-PB state continuity and Tokyo Drift qualification
     disposition: HISTORICAL_STACKED_ANCESTOR
-    preserve_branch: true
+    branch_preserved: true
   - pr: 89
-    title: Shipyard semantic 3D builder smoke test
     disposition: SUPERSEDED_BY_SHIPYARD_INTEGRATED_PIPELINE
-    preserve_branch: true
+    branch_preserved: true
   - pr: 91
-    title: Computational Shipyard integrated vehicle pipeline v0.1
     disposition: ANCESTOR_OF_LATER_SHIPYARD_GATES
-    preserve_branch: true
-  - pr: 93
-    title: Computational Shipyard dynamics readiness gate
-    disposition: ANCESTOR_OF_LATER_SHIPYARD_GATES
-    preserve_branch: true
-  - pr: 94
-    title: Computational Shipyard Navigator consumer handoff
-    disposition: ANCESTOR_OF_LATER_SHIPYARD_GATES
-    preserve_branch: true
-  - pr: 95
-    title: Computational Shipyard campaign-state binding
-    disposition: ANCESTOR_OF_LATER_SHIPYARD_GATES
-    preserve_branch: true
-  - pr: 97
-    title: Computational Shipyard solved-leg seam
-    disposition: SUPERSEDED_BY_PR98_M1_CLOSURE
-    preserve_branch: true
-  - pr: 98
-    title: Computational Shipyard real Navigator leg
-    disposition: M1_CLOSED_ANCESTOR_TO_CURRENT_M2A_FRONTIER
-    preserve_branch: true
+    branch_preserved: true
   - pr: 92
-    title: HUD v0.21 frozen Earth-Moon qualification slice
     disposition: FROZEN_ANCESTOR_TO_CURRENT_HUD_PR99
-    preserve_branch: true
+    branch_preserved: true
+  - pr: 93
+    disposition: ANCESTOR_OF_LATER_SHIPYARD_GATES
+    branch_preserved: true
+  - pr: 94
+    disposition: ANCESTOR_OF_LATER_SHIPYARD_GATES
+    branch_preserved: true
+  - pr: 95
+    disposition: ANCESTOR_OF_LATER_SHIPYARD_GATES
+    branch_preserved: true
+  - pr: 97
+    disposition: SUPERSEDED_BY_PR98_M1_CLOSURE
+    branch_preserved: true
+  - pr: 98
+    disposition: M1_CLOSED_ANCESTOR_TO_CURRENT_M2A_FRONTIER
+    branch_preserved: true
 frozen_historical_scientific_objects:
   - pr: 19
     head_sha: 314efe50875630ba4be720b4097a2ca14075e620
