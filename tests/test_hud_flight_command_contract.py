@@ -5,6 +5,7 @@ from loom.hud.flight_command_contract import (
     CommandOrigin,
     FlightCommand,
     ManeuverPlan,
+    PlanExecutionPolicy,
 )
 
 
@@ -21,7 +22,31 @@ class FlightCommandContractTests(unittest.TestCase):
             objective="hold current trajectory",
             planner="TEST",
         )
-        self.assertEqual(plan.payload()["execution_authority"], "NONE_UNTIL_EXPLICIT_EXECUTION_BOUNDARY")
+        payload = plan.payload()
+        self.assertEqual(payload["execution_authority"], "NONE_UNTIL_EXPLICIT_EXECUTION_BOUNDARY")
+        self.assertEqual(payload["execution_policy"], "REVIEW_REQUIRED")
+
+    def test_plan_round_trip_preserves_order_provenance_and_policy(self):
+        plan = ManeuverPlan(
+            commands=(
+                FlightCommand(CommandKind.COAST, CommandOrigin.LLM, duration_s=120, requested_by="MARA"),
+                FlightCommand(
+                    CommandKind.TORCH_BURN,
+                    CommandOrigin.LLM,
+                    duration_s=5,
+                    torch_mode="CRUISE",
+                    target_direction_inertial=(0.0, 1.0, 0.0),
+                    requested_by="MARA",
+                ),
+            ),
+            objective="raise apoapsis after coast",
+            planner="NAVIGATOR",
+            execution_policy=PlanExecutionPolicy.EXPLICIT_EXECUTION,
+        )
+        restored = ManeuverPlan.from_mapping(plan.payload())
+        self.assertEqual(restored, plan)
+        self.assertEqual([c.kind for c in restored.commands], [CommandKind.COAST, CommandKind.TORCH_BURN])
+        self.assertTrue(all(c.origin is CommandOrigin.LLM for c in restored.commands))
 
     def test_invalid_burn_fails_closed(self):
         with self.assertRaises(ValueError):
