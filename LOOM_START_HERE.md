@@ -11,12 +11,16 @@ If you are a human, ChatGPT, Codex, another LLM, or any future agent entering th
 Read, in this order from authoritative `main`:
 
 1. `governance/current/LOOM_CURRENT_WORKSTATE.yml`
-2. `governance/current/LOOM_GOVERNANCE_BASELINE_v1.0.md`
-3. `governance/current/LOOM_AUTHORITY_MODEL.yml`
-4. `governance/current/LOOM_CHANGE_CONTROL_v1.0.md`
-5. `AGENTS.md`
+2. `governance/current/LOOM_PROJECT_STATUS_2026-09-12.yml` when present
+3. `governance/current/LOOM_GOVERNANCE_BASELINE_v1.0.md`
+4. `governance/current/LOOM_AUTHORITY_MODEL.yml`
+5. `governance/current/LOOM_CHANGE_CONTROL_v1.0.md`
+6. `governance/current/LOOM_RESEARCH_AUTHORITY_BOUNDARY_v1.0.md`
+7. `AGENTS.md`
 
 Then read the nearest scoped `AGENTS.md` for any subtree you intend to modify.
+
+`LOOM_CURRENT_WORKSTATE.yml` preserves the governance-adoption and restart control state. Later dated project-status overlays may supersede its old operational WIP interpretation without rewriting that history. When the two differ, use the later governed overlay for current project status while preserving the workstate for frozen-object identity, adoption provenance and controls not explicitly superseded.
 
 For grandfathered workstream branches, a branch-local `governance/workstream-sync/*_STEP12.yml` marker records that governance was reviewed. It is **not** a local copy of governing policy. Always reload current governance from `main` before authoritative mutation.
 
@@ -30,21 +34,22 @@ Verify:
 - frozen/preregistered state;
 - upstream/downstream dependencies;
 - required test/qualification class;
-- whether a CCR or governance exception is required.
+- whether a CCR or governance exception is required;
+- whether an apparently open PR is active WIP, a frozen object, a stacked ancestor, or preserved provenance.
 
-Do not assume a workstream is active merely because it appears in an old conversation.
+Do not assume a workstream is active merely because it appears in an old conversation or because a PR remains open.
 
 ## 3. Current governance/adoption state
 
 Governance Baseline v1.0 is authoritative on protected `main`.
 
-The repository's exact current state is defined by:
+The governance-adoption baseline and exact frozen-object state are defined by:
 
 `governance/current/LOOM_CURRENT_WORKSTATE.yml`
 
-Do not hard-code an adoption branch, PR number, current step, gate mode, or workstream head from this document. Read the workstate and relevant Git refs every session.
+The current product/project execution picture is additionally defined by the latest governed project-status overlay listed in Section 1.
 
-Until `restart_gate_reached: true`, do not resume game development or physics execution from memory.
+Do not hard-code an adoption branch, PR number, current step, gate mode, or workstream head from this document. Read the workstate, current project-status overlay and relevant Git refs every session.
 
 ## 4. Critical scientific freeze
 
@@ -56,7 +61,7 @@ Exact frozen SHA:
 
 Do not rebase, merge `main` into it, refactor, optimize, tune, change diagnostics, or alter verdict rules.
 
-A useful improvement becomes a successor experiment.
+A useful improvement becomes a successor experiment in the Research Lab.
 
 PR #16 is preregistered/on hold at the exact SHA recorded in current workstate and must likewise not be casually rebased or mutated.
 
@@ -69,9 +74,9 @@ external established knowledge
         ↓
 research / simulation / derivation
         ↓
-Canon Change Request
+Canon Change Request or governed disposition/intake
         ↓
-canon
+canon / engineering authority as applicable
         ↓
 engineering
         ↓
@@ -82,6 +87,8 @@ release
 
 Findings may travel upward. Authority does not travel upward automatically.
 
+Active successor research belongs in `loom-2226/loom-research-lab` unless a governed upstream exception explicitly says otherwise.
+
 ## 6. WALTER / #LOOMSAFE
 
 WALTER is LOOM's bounded autonomous Continuous Assurance Agent.
@@ -89,13 +96,14 @@ WALTER is LOOM's bounded autonomous Continuous Assurance Agent.
 Read when assurance is relevant:
 
 - `governance/agents/WALTER_AUTONOMOUS_ASSURANCE_AGENT_v1.0.md`
+- `governance/agents/WALTER_AUTONOMOUS_PATROL_ACTIVATION_v1.1.md`
 - `governance/roles/WALTER_CONTINUOUS_ASSURANCE_ROLE_v1.0.md`
 
-WALTER may activate on vendor, black-box, provenance, drift, frozen-state, dependency or release concerns.
+WALTER may activate on vendor, black-box, provenance, drift, frozen-state, dependency, release, authority-boundary, stale-context or qualification concerns.
 
 He is deterministic-first and LLM-second. His deterministic historically validated `loom-gate` rules may block protected-main promotion when an explicit rule fails; advisory/interpretive findings do not become hard evidence by personality or model judgment.
 
-He does not speak.
+WALTER is **ACTIVE_PATROL**. Silent PASS remains the default. Material `WATCH`, `REVIEW_REQUIRED`, `HOLD`, or deterministic `BLOCK` findings must be surfaced in the LOOM chat where they arise, with the module, finding class, evidence, governing boundary and corrective action. The character remains nonverbal; narrated findings carry the evidence.
 
 ## 7. If repository authority is unavailable
 
