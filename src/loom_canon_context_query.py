@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""LOOM 2226 deterministic compact Canon Context Query v0.1.
+"""LOOM 2226 deterministic compact Canon Context Query v0.2.
 
 E1.1 additive/read-only projection layer. This module does not read SQLite and
 has no world/campaign authority. It consumes LOOM_CANON_CONTEXT_PROJECTION_V1
@@ -8,6 +8,11 @@ for a UI or read-only Mara tool.
 
 It deliberately does *not* parse natural language. Natural-language intent may
 later map to one of these typed requests, but the model never decides facts.
+
+v0.2 tightens field-level provenance: canonical facility identity/role/authority
+and commercial facts are attributed to WORLD infrastructure records, while
+runtime behavioral metrics are attributed to CIVSTATE runtime context. Mixed
+facts carry both only when they genuinely depend on both.
 """
 from __future__ import annotations
 
@@ -58,6 +63,33 @@ def _fact(value: Any, source: Any, *, status: str = "SUPPORTED") -> dict[str, An
         "epistemic_status": status,
         "provenance": source,
     }
+
+
+def _place_sources(place: dict[str, Any]) -> list[dict[str, Any]]:
+    return [p for p in (place.get("provenance") or []) if isinstance(p, dict)]
+
+
+def _place_source(place: dict[str, Any], database: str, relation: str | None = None) -> dict[str, Any] | None:
+    db = database.upper()
+    for source in _place_sources(place):
+        if str(source.get("database", "")).upper() != db:
+            continue
+        if relation is not None and source.get("relation") != relation:
+            continue
+        return source
+    return None
+
+
+def _world_place_source(place: dict[str, Any]) -> dict[str, Any] | None:
+    return _place_source(place, "WORLD", "infrastructure_nodes") or _place_source(place, "WORLD")
+
+
+def _civ_place_source(place: dict[str, Any]) -> dict[str, Any] | None:
+    return _place_source(place, "CIVSTATE", "civ_runtime_place_context") or _place_source(place, "CIVSTATE")
+
+
+def _combined_sources(*sources: dict[str, Any] | None) -> list[dict[str, Any]]:
+    return [s for s in sources if s is not None]
 
 
 def _base(projection: dict[str, Any], intent: str, target_entity_id: str | None) -> dict[str, Any]:
@@ -125,6 +157,8 @@ def _interesting(projection: dict[str, Any], max_items: int) -> dict[str, Any]:
     items = []
     for place in places:
         runtime = place.get("runtime_context") or {}
+        world_source = _world_place_source(place)
+        civ_source = _civ_place_source(place)
         items.append(
             {
                 "entity_id": place.get("entity_id"),
@@ -137,8 +171,17 @@ def _interesting(projection: dict[str, Any], max_items: int) -> dict[str, Any]:
                 "why_selected": {
                     "method": "traffic_class_then_strategic_importance",
                     "authority": "PRESENTATION_DERIVED_NON_AUTHORITY",
+                    "inputs": {
+                        "traffic_class": {"provenance": world_source},
+                        "strategic_importance": {"provenance": civ_source},
+                    },
                 },
-                "provenance": place.get("provenance"),
+                "provenance_by_field": {
+                    "identity_role_traffic": world_source,
+                    "strategic_importance": civ_source,
+                    "governance_style": civ_source,
+                    "commercial_openness": civ_source,
+                },
                 "epistemic_status": "SUPPORTED",
             }
         )
@@ -149,14 +192,15 @@ def _who_runs(projection: dict[str, Any], target_entity_id: str | None) -> dict[
     prov = projection.get("provenance") or {}
     if target_entity_id:
         place = _place_by_id(projection, target_entity_id)
+        world_source = _world_place_source(place)
         return {
             "answer_kind": "PLACE_AUTHORITY",
             "place": {"entity_id": place.get("entity_id"), "name": place.get("name")},
             "facts": {
-                "civil": _fact(place.get("authorities", {}).get("civil"), place.get("provenance")),
-                "administrative": _fact(place.get("authorities", {}).get("administrative"), place.get("provenance")),
-                "security": _fact(place.get("authorities", {}).get("security"), place.get("provenance")),
-                "primary_commercial": _fact(place.get("commercial", {}).get("primary"), place.get("provenance")),
+                "civil": _fact(place.get("authorities", {}).get("civil"), world_source),
+                "administrative": _fact(place.get("authorities", {}).get("administrative"), world_source),
+                "security": _fact(place.get("authorities", {}).get("security"), world_source),
+                "primary_commercial": _fact(place.get("commercial", {}).get("primary"), world_source),
             },
         }
 
@@ -177,6 +221,8 @@ def _place_detail(projection: dict[str, Any], target_entity_id: str | None) -> d
         raise ValueError("PLACE_DETAIL requires target_entity_id")
     place = _place_by_id(projection, target_entity_id)
     runtime = place.get("runtime_context") or {}
+    world_source = _world_place_source(place)
+    civ_source = _civ_place_source(place)
     return {
         "answer_kind": "PLACE_DETAIL",
         "place": {
@@ -184,16 +230,17 @@ def _place_detail(projection: dict[str, Any], target_entity_id: str | None) -> d
             "name": place.get("name"),
             "role": place.get("role"),
             "traffic_class": place.get("traffic_class"),
+            "provenance": world_source,
         },
         "facts": {
-            "governance_style": _fact(runtime.get("governance_style"), place.get("provenance")),
-            "security_posture": _fact(runtime.get("security_posture"), place.get("provenance")),
-            "commercial_openness": _fact(runtime.get("commercial_openness"), place.get("provenance")),
-            "outsider_attitude": _fact(runtime.get("outsider_attitude"), place.get("provenance")),
-            "scarcity_pressure": _fact(runtime.get("scarcity_pressure"), place.get("provenance")),
-            "strategic_importance": _fact(runtime.get("strategic_importance"), place.get("provenance")),
-            "authorities": _fact(place.get("authorities"), place.get("provenance")),
-            "commercial": _fact(place.get("commercial"), place.get("provenance")),
+            "governance_style": _fact(runtime.get("governance_style"), civ_source),
+            "security_posture": _fact(runtime.get("security_posture"), civ_source),
+            "commercial_openness": _fact(runtime.get("commercial_openness"), civ_source),
+            "outsider_attitude": _fact(runtime.get("outsider_attitude"), civ_source),
+            "scarcity_pressure": _fact(runtime.get("scarcity_pressure"), civ_source),
+            "strategic_importance": _fact(runtime.get("strategic_importance"), civ_source),
+            "authorities": _fact(place.get("authorities"), world_source),
+            "commercial": _fact(place.get("commercial"), world_source),
         },
     }
 
