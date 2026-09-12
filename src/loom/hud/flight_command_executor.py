@@ -52,13 +52,7 @@ def _cross(a, b) -> tuple[float, float, float]:
 
 
 def _resolve_orbital_burn_target(session: Any, direction: str) -> tuple[float, float, float]:
-    """Resolve a manual burn direction from the current live orbital frame.
-
-    PROGRADE/RETROGRADE follow the instantaneous velocity vector. RADIAL_OUT
-    and RADIAL_IN use the Earth-centred position vector. NORMAL/ANTINORMAL use
-    the instantaneous specific-angular-momentum direction r x v. Degenerate
-    frames fail closed rather than manufacturing an arbitrary direction.
-    """
+    """Resolve a manual burn direction from the current live orbital frame."""
 
     if direction in {"PROGRADE", "RETROGRADE"}:
         speed = _mag(session.ship_velocity)
@@ -95,58 +89,27 @@ def _run_steps(session: Any, duration_s: float) -> float:
     return elapsed
 
 
-def execute_velocity_aligned_burn(
-    session: Any,
-    *,
-    direction: str,
-    duration_s: float,
-    torch_mode: str,
-    requested_by: str | None = None,
-) -> dict[str, Any]:
-    """Execute a short manual orbital-frame finite-thrust burn on live HUD state.
+def execute_flight_command(session: Any, command: FlightCommand) -> dict[str, Any]:
+    """Execute one already-typed command against the live qualification state.
 
-    The legacy function name is retained as the compatibility seam used by the
-    current HUD server endpoint. Direction resolution now supports the six
-    conventional local orbital directions: prograde, retrograde, radial out,
-    radial in, normal and antinormal.
-
-    Attitude transition time is taken from the imported Q4 envelope; Torch
-    remains off during that transition. Continuous rotational dynamics are not
-    claimed: orientation is set to the target only after the earned transition
-    time has elapsed.
+    This is the shared deterministic seam for manual, LLM, NPC and system-origin
+    commands. Origin is provenance only. The supported v0.39 slice is COAST and
+    TORCH_BURN with an explicit inertial target vector. Unsupported command kinds
+    fail before state mutation.
     """
 
-    direction = str(direction).upper().strip()
-    duration_s = float(duration_s)
-    torch_mode = str(torch_mode).upper().strip()
-    if direction not in ORBITAL_BURN_DIRECTIONS:
-        raise ValueError(
-            "direction must be one of " + ", ".join(sorted(ORBITAL_BURN_DIRECTIONS))
-        )
-    if not (0.0 < duration_s <= MAX_BURN_S):
-        raise ValueError(f"qualification burn duration must be in (0,{MAX_BURN_S:g}] seconds")
+    if command.kind not in {CommandKind.COAST, CommandKind.TORCH_BURN}:
+        raise ValueError(f"unsupported deterministic command kind: {command.kind.value}")
+    if command.kind is CommandKind.TORCH_BURN:
+        if command.target_direction_inertial is None:
+            raise ValueError("TORCH_BURN execution requires target_direction_inertial")
+        if command.duration_s is None or not (0.0 < float(command.duration_s) <= MAX_BURN_S):
+            raise ValueError(f"qualification burn duration must be in (0,{MAX_BURN_S:g}] seconds")
 
     with session.lock:
         session._advance_locked()
         if str(getattr(session, "status", "")) != "RUNNING":
             raise ValueError("qualification session must be RUNNING")
-        cards = getattr(session, "TORCH_CARDS", None)
-        if cards is None:
-            # RealtimeFlightQualification keeps the engineering cards at module scope.
-            from loom.hud.realtime_flight_qualification import TORCH_CARDS
-            cards = TORCH_CARDS
-        if torch_mode not in cards:
-            raise ValueError(f"unknown torch mode: {torch_mode}")
-        if float(getattr(session, "remass_t", 0.0)) <= 0.0:
-            raise ValueError("normal remass exhausted")
-
-        target = _resolve_orbital_burn_target(session, direction)
-        transition = transition_between_directions_s(
-            session.nose_direction,
-            target,
-            axis="pitch",
-            degraded=False,
-        )
 
         start_epoch = session.sim_epoch
         start_position = tuple(float(x) for x in session.ship_position)
@@ -154,13 +117,58 @@ def execute_velocity_aligned_burn(
         start_remass = float(session.remass_t)
         start_wet = float(session.wet_mass_t)
 
-        command = FlightCommand(
-            kind=CommandKind.TORCH_BURN,
-            origin=CommandOrigin.MANUAL,
-            duration_s=duration_s,
-            torch_mode=torch_mode,
-            target_direction_inertial=target,
-            requested_by=requested_by,
+        if command.kind is CommandKind.COAST:
+            session.torch_active = False
+            coast_elapsed = _run_steps(session, float(command.duration_s))
+            session.last_wall = time.monotonic()
+            return {
+                "contract": CONTRACT,
+                "status": "EXECUTED_QUALIFICATION_ONLY",
+                "authority": "DETERMINISTIC_HUD_QUALIFICATION_EXECUTOR",
+                "command_kind": command.kind.value,
+                "command": command.payload(),
+                "mutates_live_qualification_state": True,
+                "campaign_mutation": False,
+                "navigation_grade": False,
+                "execution": {
+                    "coast_elapsed_s": coast_elapsed,
+                    "cutoff_after_command": True,
+                },
+                "start": {
+                    "epoch_utc": start_epoch.isoformat(),
+                    "position_earth_centered_km": list(start_position),
+                    "velocity_earth_centered_km_s": list(start_velocity),
+                    "speed_km_s": _mag(start_velocity),
+                    "remass_t": start_remass,
+                    "wet_mass_t": start_wet,
+                },
+                "end": {
+                    "epoch_utc": session.sim_epoch.isoformat(),
+                    "position_earth_centered_km": list(session.ship_position),
+                    "velocity_earth_centered_km_s": list(session.ship_velocity),
+                    "speed_km_s": _mag(session.ship_velocity),
+                    "remass_t": float(session.remass_t),
+                    "wet_mass_t": float(session.wet_mass_t),
+                },
+                "remass_used_t": 0.0,
+            }
+
+        cards = getattr(session, "TORCH_CARDS", None)
+        if cards is None:
+            from loom.hud.realtime_flight_qualification import TORCH_CARDS
+            cards = TORCH_CARDS
+        torch_mode = str(command.torch_mode).upper().strip()
+        if torch_mode not in cards:
+            raise ValueError(f"unknown torch mode: {torch_mode}")
+        if float(getattr(session, "remass_t", 0.0)) <= 0.0:
+            raise ValueError("normal remass exhausted")
+
+        target = _unit(command.target_direction_inertial)
+        transition = transition_between_directions_s(
+            session.nose_direction,
+            target,
+            axis="pitch",
+            degraded=False,
         )
 
         session.torch_active = False
@@ -168,7 +176,7 @@ def execute_velocity_aligned_burn(
         session.nose_direction = target
         session.torch_mode = torch_mode
         session.torch_active = True
-        burn_elapsed = _run_steps(session, duration_s)
+        burn_elapsed = _run_steps(session, float(command.duration_s))
         session.torch_active = False
         session.last_wall = time.monotonic()
 
@@ -177,9 +185,8 @@ def execute_velocity_aligned_burn(
             "contract": CONTRACT,
             "status": "EXECUTED_QUALIFICATION_ONLY",
             "authority": "DETERMINISTIC_HUD_QUALIFICATION_EXECUTOR",
+            "command_kind": command.kind.value,
             "command": command.payload(),
-            "direction_reference": direction,
-            "direction_basis": "CURRENT_LIVE_EARTH_CENTERED_ORBITAL_FRAME",
             "mutates_live_qualification_state": True,
             "campaign_mutation": False,
             "navigation_grade": False,
@@ -192,7 +199,7 @@ def execute_velocity_aligned_burn(
             "execution": {
                 "transition_elapsed_s": transition_elapsed,
                 "burn_elapsed_s": burn_elapsed,
-                "requested_burn_s": duration_s,
+                "requested_burn_s": float(command.duration_s),
                 "torch_mode": torch_mode,
                 "cutoff_after_command": True,
             },
@@ -215,3 +222,39 @@ def execute_velocity_aligned_burn(
             "remass_used_t": start_remass - float(session.remass_t),
             "attitude_dynamics_authority": "Q4_FINITE_TRANSITION_TIME_ONLY_NO_CLOSED_LOOP_ROTATIONAL_DYNAMICS",
         }
+
+
+def execute_velocity_aligned_burn(
+    session: Any,
+    *,
+    direction: str,
+    duration_s: float,
+    torch_mode: str,
+    requested_by: str | None = None,
+) -> dict[str, Any]:
+    """Compatibility seam for manual six-direction orbital-frame burns."""
+
+    direction = str(direction).upper().strip()
+    duration_s = float(duration_s)
+    torch_mode = str(torch_mode).upper().strip()
+    if direction not in ORBITAL_BURN_DIRECTIONS:
+        raise ValueError(
+            "direction must be one of " + ", ".join(sorted(ORBITAL_BURN_DIRECTIONS))
+        )
+
+    with session.lock:
+        session._advance_locked()
+        target = _resolve_orbital_burn_target(session, direction)
+
+    command = FlightCommand(
+        kind=CommandKind.TORCH_BURN,
+        origin=CommandOrigin.MANUAL,
+        duration_s=duration_s,
+        torch_mode=torch_mode,
+        target_direction_inertial=target,
+        requested_by=requested_by,
+    )
+    receipt = execute_flight_command(session, command)
+    receipt["direction_reference"] = direction
+    receipt["direction_basis"] = "CURRENT_LIVE_EARTH_CENTERED_ORBITAL_FRAME"
+    return receipt
