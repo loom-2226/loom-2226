@@ -1,113 +1,62 @@
-# LOOM 2226 — E1.0 Spike A Multi-Route Source Finding v0.1
+# LOOM 2226 — E1.0 Spike A Multi-Route Finding v0.1
 
-**Status:** SOURCE FINDING — DIRECT EMPIRICAL RUN PENDING  
+**Status:** EMPIRICALLY TESTED — EXIT CLASSIFIED  
 **Date:** 12 September 2026  
 **Class:** `class:engineering` / `REQUIRED_FOR_E1` bounded spike evidence  
 **Parent:** `E1_0_RISK_BURNDOWN_EVIDENCE_PACK_v0.1.md`  
-**No canon/runtime authority change. No gate PASS is claimed.**
+**No canon/runtime authority change. No Experience One gate PASS is claimed.**
 
 ---
 
-## 1. Finding
+## 1. Source finding
 
-The current preserved Navigator wrapper on protected `main` already contains a real multi-candidate enumeration and deterministic ranking seam.
+The preserved Navigator wrapper already contains a real multi-candidate enumeration and deterministic ranking seam.
 
-`src/loom_navigator_core.py::_candidate_plans(...)`:
+`src/loom_navigator_core.py::_candidate_plans(...)` builds canonical dependency/time-axis input, resolves route rows, evaluates the existing authoritative solver across metric/torch combinations, rejects infeasible/remass-invalid candidates, retains quantitative outputs, and deterministically ranks them by policy. The interactive campaign path displays ranked candidates, requires explicit selection, constructs a plan summary/SHA, and separately asks `COMMIT FLIGHT? [y/N]` before campaign mutation.
 
-1. builds the canonical dependency/time-axis input;
-2. resolves origin/destination route rows;
-3. loops over every `nav.METRIC_MODES × nav.TORCH_MODES` pair;
-4. calls the existing authoritative `nav._solve_leg(...)` for each pair;
-5. rejects infeasible candidates and candidates exceeding current remass;
-6. retains quantitative candidate outputs including total time, remass use, arrival remass, thermal posture, arrival epoch, terminal Δv/burn, metric distance/duration/β, jet power/thrust/mdot and acceleration;
-7. sorts the candidate set according to the requested deterministic policy.
-
-Observed ranking policies are:
-
-- `FASTEST`: `(total_s, remass_used_t)`;
-- `REMASS`: `(remass_used_t, total_s)`;
-- `CONSERVATIVE`: `(thermal_class, remass_used_t, total_s)`;
-- otherwise/BALANCED: normalized time + normalized remass + deterministic thermal penalty, then `(balanced_policy_score, total_s)`.
-
-The interactive campaign path then displays up to eight ranked candidates, requires explicit user selection, constructs a plan summary and plan SHA, and separately asks `COMMIT FLIGHT? [y/N]` before entering the campaign commit path.
-
-This is materially stronger evidence than the historical multi-strategy record alone. The missing Experience One capability is therefore **not obviously a new multi-route solver**. It may instead be a bounded typed exposure/adapter over a candidate-set capability that already exists.
+Therefore Experience One does not require a new multi-route solver merely to present route choice.
 
 ---
 
-## 2. Current Spike A classification
+## 2. Empirical result
 
-**Not yet an exit classification.**
+The direct Pixel/runtime experiment completed successfully against the existing Ceres → Neptune campaign state.
 
-Source-only implementation-size hypothesis is now:
+Observed evidence:
 
-`BOUNDED_EXTENSION` — **INFERRED / REQUIRES_EMPIRICAL_TEST**
+- acquisition mode: `OFFLINE_CACHE_ONLY`;
+- valid candidate count: **24**;
+- candidate generation was run twice with identical fixed inputs;
+- both runs produced the identical candidate-set SHA-256 fingerprint `c3d06c...c049`;
+- the candidate set contained materially distinct metric/torch combinations, including HARD/CRUISE, HARD/ECON, EXPEDITE/CRUISE and FAST/CRUISE examples;
+- independently exercised candidate validation returned PASS for the validated subset;
+- campaign state, backup state and compressed campaign history retained bit-identical before/after hashes;
+- a prior online-enabled run and the restart/offline run both returned 24 candidates with the same candidate-set fingerprint.
 
-Reason: candidate enumeration and deterministic policy ranking already exist in current Navigator source. The remaining E1 production work appears likely to be exposing a small ranked subset through a stable typed contract rather than inventing multi-route solving.
-
-This classification may be falsified by the direct run if current Ceres→Neptune state produces fewer than two valid candidates, ranking is not reproducible for fixed inputs, candidate validation diverges, or exposing the set requires hidden state/side effects/foundational solver changes.
-
----
-
-## 3. Direct experiment harness
-
-Added bounded spike harness:
-
-`engineering/experience_one/spikes/e1_0_spike_a_multiroute.py`
-
-The harness deliberately:
-
-- requires an existing campaign state and refuses to create one;
-- imports the preserved Navigator wrapper and hash-verifies its embedded Sequence H core through the existing loader;
-- uses the existing B1 package and ephemeris acquisition/cache path;
-- calls `_candidate_plans(...)` twice with fixed state/epoch/origin/destination/priority;
-- fingerprints candidate membership/order/user-relevant quantitative metrics;
-- checks for at least two materially distinct metric/torch pairs;
-- independently sends emitted candidates through `target_determinism_gate(...)` up to the configured validation limit;
-- hashes campaign state/backup/history before and after and fails closed if those campaign files change;
-- emits `LOOM_E1_0_SPIKE_A_MULTIROUTE_RESULT_V1` JSON evidence;
-- never calls the campaign commit path.
-
-A helper-level unit test exists at:
-
-`tests/test_e1_0_spike_a_multiroute.py`
-
-The direct real-state run is still required. Unit/source evidence cannot substitute for that empirical result.
+The preserved empirical JSON/console evidence is external device evidence from the Pixel run. This repository finding records the observed result without pretending the source tree generated it locally.
 
 ---
 
-## 4. Target direct run
+## 3. Spike A exit classification
 
-Pixel/runtime-root example from a checkout of this branch:
+`BOUNDED_EXTENSION — EMPIRICALLY_TESTED`
 
-```bash
-python engineering/experience_one/spikes/e1_0_spike_a_multiroute.py \
-  --root /storage/emulated/0/Download \
-  --repo . \
-  --origin CERES \
-  --destination NEPTUNE_SYSTEM \
-  --priority BALANCED \
-  --out /storage/emulated/0/Download/E1_0_SPIKE_A_MULTIROUTE_RESULT.json
-```
+Reason: the deterministic solver, candidate enumeration and ranking capability already exist. Experience One's remaining production need is a bounded typed exposure/curation of an existing candidate set, not new trajectory physics or a foundational Navigator redesign.
 
-Default acquisition is offline/cache-only. If and only if the existing cache lacks required ephemeris data, a second run may explicitly add `--allow-online-acquisition`; campaign state/history hashes still must remain unchanged.
+The source-only hypothesis `BOUNDED_EXTENSION — INFERRED / REQUIRES_EMPIRICAL_TEST` is therefore closed by empirical evidence.
 
-The run result is evidence, not self-promoting authority.
+This is a **Spike A exit classification**, not an Experience One gate PASS and not permission to promote the spike harness into production.
 
 ---
 
-## 5. Exit criteria
+## 4. Falsifier
 
-Spike A may receive an implementation-size exit classification only after the direct result records:
+This classification must be reopened if a controlled rerun with the same pinned solver/state/epoch/problem fails candidate reproducibility, yields fewer than two materially distinct valid candidates, candidate validation diverges from enumeration, campaign artifacts mutate during read-only enumeration, or production exposure proves to require a new solver/hidden state/foundational authority change.
 
-- at least two candidates;
-- materially distinct candidate modes;
-- exact same ranked candidate projection on identical rerun;
-- independent deterministic validation of the emitted candidate subset;
-- no campaign-state/history mutation;
-- exact wrapper/core/state/epoch identity;
-- preserved raw JSON evidence.
+---
 
-If these hold, the expected classification is `BOUNDED_EXTENSION`, subject to review of the production typed-contract work required.
+## 5. Production implication
 
-If they do not hold, classify from observed failure rather than repairing the spike until it tells the desired story.
+E1.2 should consume the existing deterministic candidate machinery and expose only the small user-relevant ranked subset required by the Experience One interaction. The spike harness remains disposable evidence code.
+
+Next E1.0 uncertainty: Spike B execution continuity.
