@@ -20,7 +20,7 @@ if(row&&!reviewButton){
  row.parentNode.insertBefore(reviewPanel,row.nextSibling);
 }
 let busy=false;
-const controls=()=>[pro,retro,vectorSelect,vectorBurn].filter(Boolean);
+const controls=()=>[pro,retro,vectorSelect,vectorBurn,reviewButton].filter(Boolean);
 const fmt=(n,d=2)=>Number.isFinite(Number(n))?Number(n).toFixed(d):'—';
 function stagedPlan(){
  const direction=vectorSelect?vectorSelect.value:'PROGRADE';
@@ -45,12 +45,28 @@ function stagedPlan(){
   execution_authority:'NONE_UNTIL_EXPLICIT_EXECUTION_BOUNDARY'
  };
 }
-function renderReview(){
+function renderBrowserStage(p){
  if(!reviewPanel)return;
- const p=stagedPlan(),c=p.commands[0],ctx=p.review_context;
+ const c=p.commands[0],ctx=p.review_context;
  reviewPanel.className='quality neutral';
- reviewPanel.innerHTML=`<b>MANEUVER PLAN REVIEW / BROWSER STAGED</b><br>${p.objective}<br>POLICY ${p.execution_policy} • AUTHORITY NONE<br>${ctx.direction_reference} • ${fmt(c.duration_s,1)} s • ${c.torch_mode}<br><span class="scale">${p.contract} • ${c.contract} • NON-EXECUTING • TARGET VECTOR NOT RESOLVED UNTIL DETERMINISTIC BOUNDARY</span>`;
- window.__loomStagedManeuverPlan=p;
+ reviewPanel.innerHTML=`<b>MANEUVER PLAN REVIEW / BROWSER STAGED</b><br>${p.objective}<br>POLICY ${p.execution_policy} • AUTHORITY NONE<br>${ctx.direction_reference} • ${fmt(c.duration_s,1)} s • ${c.torch_mode}<br><span class="scale">${p.contract} • ${c.contract} • NON-EXECUTING • SERVER VALIDATION PENDING</span>`;
+}
+async function reviewPlan(){
+ if(busy)return;
+ const p=stagedPlan();window.__loomStagedManeuverPlan=p;renderBrowserStage(p);
+ busy=true;controls().forEach(x=>x.disabled=true);
+ try{
+  const r=await fetch('/qualification-flight/control',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'VALIDATE_MANEUVER_PLAN_REVIEW',plan:p})});
+  const d=await r.json();
+  if(!r.ok||d.contract!=='LOOM_HUD_MANEUVER_PLAN_REVIEW_RESPONSE_V1')throw new Error(d.reason||`HTTP ${r.status}`);
+  const receipt=d.receipt||{},ctx=receipt.review_context||{},c=(receipt.plan&&receipt.plan.commands&&receipt.plan.commands[0])||{};
+  reviewPanel.className='quality good';
+  reviewPanel.innerHTML=`<b>MANEUVER PLAN REVIEW / SERVER VALIDATED</b><br>${receipt.plan.objective}<br>POLICY ${receipt.plan.execution_policy} • AUTHORITY NONE<br>${ctx.direction_reference} • ${fmt(c.duration_s,1)} s • ${c.torch_mode}<br><span class="scale">${receipt.contract} • ${receipt.direction_status} • NON-EXECUTING • TARGET VECTOR NOT EXPOSED • LIVE STATE UNCHANGED</span>`;
+  window.__loomManeuverPlanReviewReceipt=receipt;
+ }catch(err){
+  reviewPanel.className='quality badq';
+  reviewPanel.innerHTML=`<b>MANEUVER PLAN REVIEW / REJECTED</b><br>${String(err&&err.message||err)}<br><span class="scale">NON-EXECUTING • LIVE STATE UNCHANGED</span>`;
+ }finally{busy=false;controls().forEach(x=>x.disabled=false);}
 }
 async function execute(direction){
  if(busy)return;busy=true;controls().forEach(x=>x.disabled=true);state.textContent=`EXECUTING ${direction}…`;
@@ -67,5 +83,5 @@ async function execute(direction){
 pro.addEventListener('click',()=>execute('PROGRADE'));
 retro.addEventListener('click',()=>execute('RETROGRADE'));
 if(vectorBurn&&vectorSelect)vectorBurn.addEventListener('click',()=>execute(vectorSelect.value));
-if(reviewButton)reviewButton.addEventListener('click',renderReview);
+if(reviewButton)reviewButton.addEventListener('click',reviewPlan);
 })();
