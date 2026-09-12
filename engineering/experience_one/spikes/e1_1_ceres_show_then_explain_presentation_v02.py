@@ -5,12 +5,12 @@ from __future__ import annotations
 
 Iterates only the PRESENTATION seam exposed by the Pixel v0.1 screenshots.
 Consumes an already-qualified Canon Context projection plus the already-empirically-
-qualified grounded Mara synthesis artifact. It does not call a model, query SQLite,
-mutate campaign/canon state, or replace HUD/GIS/Atlas presentation.
+qualified grounded Mara synthesis result artifact. It does not call a model, query
+SQLite, mutate campaign/canon state, or replace HUD/GIS/Atlas presentation.
 
 The deterministic packet remains the SHOW/INSPECT source. The supplied grounded
-synthesis is used only as human-facing EXPLAIN text. Machine metrics remain available
-under Details rather than leading the experience.
+synthesis result is used only as human-facing EXPLAIN text. Machine metrics remain
+available under Details rather than leading the experience.
 """
 
 import argparse
@@ -48,15 +48,28 @@ def _human_label(value: Any) -> str:
 
 
 def _validate_synthesis(synthesis: dict[str, Any]) -> str:
+    """Validate the actual persisted Mara synthesis result contract.
+
+    The empirical synthesis harness persists model fields beneath
+    ``model_answer_parsed``; console output flattens selected fields for readability.
+    Presentation must consume the persisted artifact contract, not the console shape.
+    """
+    if synthesis.get("schema") != "LOOM_E1_1_MARA_CERES_ORIENTATION_SYNTHESIS_RESULT_V01":
+        raise ValueError("unexpected grounded synthesis result schema")
     if synthesis.get("structural_pass") is not True:
         raise ValueError("grounded synthesis must have structural_pass=true")
-    if synthesis.get("assessment") != "SUPPORTED":
+
+    parsed = synthesis.get("model_answer_parsed")
+    if not isinstance(parsed, dict):
+        raise ValueError("grounded synthesis model_answer_parsed missing")
+    if parsed.get("assessment") != "SUPPORTED":
         raise ValueError("grounded synthesis assessment must be SUPPORTED")
-    answer = synthesis.get("answer")
+
+    answer = parsed.get("answer")
     if not isinstance(answer, str) or not answer.strip():
         raise ValueError("grounded synthesis answer missing")
-    evidence_paths = synthesis.get("evidence_paths")
-    if not isinstance(evidence_paths, list) or not evidence_paths:
+    evidence_paths = parsed.get("evidence_paths")
+    if not isinstance(evidence_paths, list) or not evidence_paths or not all(isinstance(p, str) and p for p in evidence_paths):
         raise ValueError("grounded synthesis evidence paths missing")
     return answer.strip()
 
@@ -66,7 +79,6 @@ def build_view_model(projection: dict[str, Any], synthesis: dict[str, Any]) -> d
     interesting = query_mod.query_projection(projection, "INTERESTING", max_items=3)
     entity = orient.get("context_entity") or {}
     facts = orient.get("facts") or {}
-    identity = ((facts.get("identity") or {}).get("value") or {})
     political = (facts.get("political_context") or {}).get("value")
     transport = (facts.get("transport_role") or {}).get("value")
     items = interesting.get("items") or []
@@ -109,7 +121,7 @@ def build_view_model(projection: dict[str, Any], synthesis: dict[str, Any]) -> d
         ],
         "authority": {
             "show_source": "DETERMINISTIC_ORIENT_AND_INTERESTING_PACKETS",
-            "explain_source": "PREQUALIFIED_GROUNDED_MARA_SYNTHESIS_ARTIFACT",
+            "explain_source": "PREQUALIFIED_GROUNDED_MARA_SYNTHESIS_RESULT_ARTIFACT",
             "selection_authority": "PRESENTATION_DERIVED_NON_AUTHORITY",
             "model_called": False,
             "model_calculation_authority": "ZERO",
@@ -162,9 +174,27 @@ def render_html(view: dict[str, Any]) -> str:
 
 
 def main() -> int:
-    ap=argparse.ArgumentParser(); ap.add_argument("--projection",type=Path,default=DEFAULT_PROJECTION); ap.add_argument("--synthesis",type=Path,default=DEFAULT_SYNTHESIS); ap.add_argument("--out",type=Path,default=DEFAULT_OUT); args=ap.parse_args()
-    projection=json.loads(args.projection.expanduser().read_text(encoding="utf-8")); synthesis=json.loads(args.synthesis.expanduser().read_text(encoding="utf-8"))
-    view=build_view_model(projection,synthesis); args.out.parent.mkdir(parents=True,exist_ok=True); args.out.write_text(render_html(view),encoding="utf-8")
-    print("schema:",view["schema"]); print("place:",view["entity"]["name"]); print("explain:",view["entity"]["explain"]); print("notice_count:",len(view["notice_cards"])); print("model_called:",view["authority"]["model_called"]); print("network_required:",view["authority"]["network_required"]); print("campaign_mutation:",view["authority"]["campaign_mutation"]); print("canon_mutation:",view["authority"]["canon_mutation"]); print("out:",args.out); return 0
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--projection", type=Path, default=DEFAULT_PROJECTION)
+    ap.add_argument("--synthesis", type=Path, default=DEFAULT_SYNTHESIS)
+    ap.add_argument("--out", type=Path, default=DEFAULT_OUT)
+    args = ap.parse_args()
+    projection = json.loads(args.projection.expanduser().read_text(encoding="utf-8"))
+    synthesis = json.loads(args.synthesis.expanduser().read_text(encoding="utf-8"))
+    view = build_view_model(projection, synthesis)
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    args.out.write_text(render_html(view), encoding="utf-8")
+    print("schema:", view["schema"])
+    print("place:", view["entity"]["name"])
+    print("explain:", view["entity"]["explain"])
+    print("notice_count:", len(view["notice_cards"]))
+    print("model_called:", view["authority"]["model_called"])
+    print("network_required:", view["authority"]["network_required"])
+    print("campaign_mutation:", view["authority"]["campaign_mutation"])
+    print("canon_mutation:", view["authority"]["canon_mutation"])
+    print("out:", args.out)
+    return 0
 
-if __name__=="__main__": raise SystemExit(main())
+
+if __name__ == "__main__":
+    raise SystemExit(main())
