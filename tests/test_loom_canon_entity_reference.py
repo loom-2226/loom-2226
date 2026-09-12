@@ -26,6 +26,19 @@ def test_resolves_exact_projected_name():
     assert mod.resolve_projected_entity_id(projection(), "Ceres Metric & Loom Anchorage") == "CER-P05"
 
 
+def test_resolves_exact_context_qualified_alias():
+    assert mod.resolve_projected_entity_id(projection(), "Metric & Loom Anchorage") == "CER-P05"
+
+
+def test_context_alias_is_not_general_suffix_matching():
+    try:
+        mod.resolve_projected_entity_id(projection(), "Loom Anchorage")
+    except KeyError as exc:
+        assert "Unknown projected entity reference" in str(exc)
+    else:
+        raise AssertionError("arbitrary suffix unexpectedly resolved")
+
+
 def test_resolution_normalizes_case_and_whitespace_only():
     assert mod.resolve_projected_entity_id(projection(), "  ceres   metric & loom anchorage ") == "CER-P05"
 
@@ -48,3 +61,14 @@ def test_ambiguous_name_fails_closed():
         assert "Ambiguous projected entity reference" in str(exc)
     else:
         raise AssertionError("ambiguous reference did not fail closed")
+
+
+def test_ambiguous_context_alias_fails_closed():
+    p = projection()
+    p["places"].append({"entity_id": "CER-P98", "name": "Ceres Metric & Loom Anchorage"})
+    try:
+        mod.resolve_projected_entity_id(p, "Metric & Loom Anchorage")
+    except ValueError as exc:
+        assert "Ambiguous projected entity reference" in str(exc)
+    else:
+        raise AssertionError("ambiguous context alias did not fail closed")
