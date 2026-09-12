@@ -1,4 +1,4 @@
-version: '1.1'
+version: '1.2'
 captured_date: '2026-09-12'
 repository: loom-2226/loom-2226
 classification: governance
@@ -44,7 +44,8 @@ current_product_engineering_lanes:
     boundary_note: direct engineering/qualification consumption by Navigator/HUD may remain upstream; genuinely exploratory successor research belongs in loom-research-lab under LOOM_RESEARCH_AUTHORITY_BOUNDARY_v1.0
 active_parallel_research_external_repo:
   repository: loom-2226/loom-research-lab
-  main_sha_after_cleanup: 333a30f96b3aae5bf93e84428c916201c70a44a9
+  cleanup_baseline_sha: 333a30f96b3aae5bf93e84428c916201c70a44a9
+  current_main_sha_at_status_refresh: f27aa70aac4f8b5c8a57db4380e9b3a740495bb3
   project: NAV_GIS_HUD_RENDERER_ACCELERATION
   state: ACTIVE_PARALLEL_RESEARCH
   freezes_upstream_hud_nav_gis: false
