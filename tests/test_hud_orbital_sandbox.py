@@ -1,8 +1,8 @@
 import math
 from pathlib import Path
 import unittest
-from unittest.mock import patch
 
+from loom.hud.orbital_sandbox import attach_orbital_state, initialize_earth_circular_orbit
 from loom.hud.orbital_state import EARTH_RADIUS_KM
 from loom.hud.realtime_flight_qualification import RealtimeFlightQualification
 
@@ -18,29 +18,37 @@ class HudOrbitalSandboxTests(unittest.TestCase):
         s.torch_active = False
         s.status = "RUNNING"
         s.last_wall = 0.0
+        s.remass_t = 250.0
+        s.wet_mass_t = 1158.5
         return s
 
     def test_earth_orbit_initializer_is_a_real_circular_state(self):
         s = self._session_shell()
-        result = s.initialize_earth_circular_orbit(altitude_km=400.0, inclination_deg=0.0)
+        meta = initialize_earth_circular_orbit(s, altitude_km=400.0, inclination_deg=0.0)
         r = math.sqrt(sum(x * x for x in s.ship_position))
         v = math.sqrt(sum(x * x for x in s.ship_velocity))
         self.assertAlmostEqual(r, EARTH_RADIUS_KM + 400.0, places=6)
         self.assertAlmostEqual(v, math.sqrt(s.earth_mu / r), places=6)
-        self.assertEqual(result["sandbox_state"], "EARTH_CIRCULAR_ORBIT")
-        self.assertFalse(result["campaign_mutation"])
+        self.assertEqual(meta["sandbox_state"], "EARTH_CIRCULAR_ORBIT")
+        self.assertFalse(meta["campaign_mutation"])
+        self.assertFalse(s.torch_active)
 
-    def test_snapshot_publishes_derived_orbital_state(self):
-        source = Path("src/loom/hud/realtime_flight_qualification.py").read_text(encoding="utf-8")
-        self.assertIn('"orbital_state": earth_orbital_state(', source)
-        self.assertIn('self.ship_position', source)
-        self.assertIn('self.ship_velocity', source)
-        self.assertIn('self.earth_mu', source)
+    def test_orbital_state_is_attached_from_live_position_velocity(self):
+        s = self._session_shell()
+        initialize_earth_circular_orbit(s, altitude_km=400.0, inclination_deg=28.5)
+        payload = {"campaign_mutation": False}
+        result = attach_orbital_state(payload, s)
+        orbit = result["orbital_state"]
+        self.assertEqual(orbit["classification"], "BOUND_ELLIPTIC")
+        self.assertAlmostEqual(orbit["altitude_km"], 400.0, places=6)
+        self.assertAlmostEqual(orbit["inclination_deg"], 28.5, places=6)
+        self.assertFalse(orbit["navigation_grade"])
 
     def test_control_endpoint_exposes_explicit_non_campaign_orbit_initializer(self):
         source = Path("src/loom/hud/server.py").read_text(encoding="utf-8")
         self.assertIn('INITIALIZE_EARTH_ORBIT', source)
         self.assertIn('initialize_earth_circular_orbit', source)
+        self.assertIn('attach_orbital_state', source)
 
     def test_orbital_hud_consumes_live_payload_without_fetch_or_control_authority(self):
         source = Path("src/loom/hud/demo/hud_orbital_state_v01.js").read_text(encoding="utf-8")

@@ -15,7 +15,12 @@ class HudServerTests(unittest.TestCase):
     def test_authority_boundary_visible(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NON-CANON",text); self.assertIn("NOT Navigator targeting authority",text); self.assertIn("Q4 FINITE ATTITUDE",text); self.assertIn("Q5 PURE-ATTITUDE ENERGY",text)
     def test_build_marker(self):
-        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.30-server-family-payload"',text); self.assertIn("BUILD hud-v0.30-server-family-payload",text)
+        text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn('content="hud-v0.37-persistent-orbital-burn"',text); self.assertIn("BUILD hud-v0.37-persistent-orbital-burn",text)
+    def test_persistent_orbital_burn_controls_present(self):
+        text=server.validate_assets().read_text(encoding="utf-8")
+        self.assertIn('id="burnPrograde"',text); self.assertIn('id="burnRetrograde"',text); self.assertIn('id="orbitalBurnS"',text); self.assertIn("hud_orbital_burn_v01.js",text)
+        js=(server.demo_root()/"hud_orbital_burn_v01.js").read_text(encoding="utf-8")
+        self.assertIn("EXECUTE_VELOCITY_BURN",js); self.assertIn("/qualification-flight/control",js); self.assertIn("LOOM_HUD_EXECUTION_RESPONSE_V1",js)
     def test_optical_moon_and_external_client_present(self):
         text=server.validate_assets().read_text(encoding="utf-8"); self.assertIn("NASA LRO OPTICAL MOON",text); self.assertIn("hud_v0_15.js",text)
         js=(server.demo_root()/"hud_v0_15.js").read_text(encoding="utf-8"); self.assertIn("SphereGeometry(1737.4",js); self.assertIn("moonOptical",js); self.assertIn("moonTopo",js)
@@ -58,7 +63,7 @@ class HudServerTests(unittest.TestCase):
         self.assertEqual(server.WAYFARER_ENGINEERING_ENDPOINT,"/wayfarer-engineering-state.json")
         text=server.validate_assets().read_text(encoding="utf-8")
         self.assertIn("hud_wayfarer_engineering_state_v01.js",text)
-        self.assertIn("typed HUD StateDatum payload",text)
+        self.assertIn("PR96 ENGINEERING CONSUMER",text)
         self.assertIn("Protected water remains separate",text)
         js=(server.demo_root()/"hud_wayfarer_engineering_state_v01.js").read_text(encoding="utf-8")
         self.assertIn("LOOM_HUD_WAYFARER_ENGINEERING_TYPED_PAYLOAD_V1",js)
@@ -74,6 +79,6 @@ class HudServerTests(unittest.TestCase):
         self.assertIn("ATTITUDE / ROTATIONAL AUTHORITY NOT INCLUDED",text)
         self.assertIn("Import only through governed engineering authority",text)
     def test_server_endpoints(self):
-        self.assertEqual(server.LIVE_ENDPOINT,"/flight-view.json"); self.assertEqual(server.EARTH_MOON_ENDPOINT,"/earth-moon-qualification.json"); self.assertEqual(server.REALTIME_ENDPOINT,"/qualification-flight.json"); self.assertEqual(server.TRAJECTORY_PREVIEW_ENDPOINT,"/qualification-flight/trajectory-preview.json"); self.assertEqual(server.INTERCEPT_PREVIEW_ENDPOINT,"/qualification-flight/intercept-preview.json"); self.assertEqual(server.RENDEZVOUS_PREVIEW_ENDPOINT,"/qualification-flight/rendezvous-preview.json"); self.assertEqual(server.WAYFARER_ENGINEERING_ENDPOINT,"/wayfarer-engineering-state.json")
+        self.assertEqual(server.LIVE_ENDPOINT,"/flight-view.json"); self.assertEqual(server.EARTH_MOON_ENDPOINT,"/earth-moon-qualification.json"); self.assertEqual(server.REALTIME_ENDPOINT,"/qualification-flight.json"); self.assertEqual(server.PREDICTED_PATH_ENDPOINT,"/qualification-flight/predicted-path.json"); self.assertEqual(server.TRAJECTORY_PREVIEW_ENDPOINT,"/qualification-flight/trajectory-preview.json"); self.assertEqual(server.INTERCEPT_PREVIEW_ENDPOINT,"/qualification-flight/intercept-preview.json"); self.assertEqual(server.RENDEZVOUS_PREVIEW_ENDPOINT,"/qualification-flight/rendezvous-preview.json"); self.assertEqual(server.WAYFARER_ENGINEERING_ENDPOINT,"/wayfarer-engineering-state.json")
 
 if __name__=="__main__": unittest.main()
