@@ -28,6 +28,11 @@ class CommandKind(str, Enum):
     HOLD_ATTITUDE = "HOLD_ATTITUDE"
 
 
+class PlanExecutionPolicy(str, Enum):
+    REVIEW_REQUIRED = "REVIEW_REQUIRED"
+    EXPLICIT_EXECUTION = "EXPLICIT_EXECUTION"
+
+
 @dataclass(frozen=True)
 class FlightCommand:
     kind: CommandKind
@@ -81,6 +86,7 @@ class ManeuverPlan:
     commands: tuple[FlightCommand, ...]
     objective: str
     planner: str
+    execution_policy: PlanExecutionPolicy = PlanExecutionPolicy.REVIEW_REQUIRED
 
     def __post_init__(self) -> None:
         if not self.commands:
@@ -95,6 +101,16 @@ class ManeuverPlan:
             "contract": PLAN_CONTRACT,
             "objective": self.objective,
             "planner": self.planner,
+            "execution_policy": self.execution_policy.value,
             "commands": [c.payload() for c in self.commands],
             "execution_authority": "NONE_UNTIL_EXPLICIT_EXECUTION_BOUNDARY",
         }
+
+    @classmethod
+    def from_mapping(cls, raw: Mapping[str, Any]) -> "ManeuverPlan":
+        return cls(
+            commands=tuple(FlightCommand.from_mapping(c) for c in raw["commands"]),
+            objective=str(raw["objective"]),
+            planner=str(raw["planner"]),
+            execution_policy=PlanExecutionPolicy(str(raw.get("execution_policy", "REVIEW_REQUIRED")).upper()),
+        )
