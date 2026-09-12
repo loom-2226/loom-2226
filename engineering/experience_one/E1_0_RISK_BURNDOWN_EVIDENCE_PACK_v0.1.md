@@ -22,17 +22,17 @@ Execute E1.0 before E1.1 production work. This pack records baseline evidence, S
 | G1 baseline fixture | `IN_PROGRESS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | Source surfaces inventoried; remaining device/baseline capture must be closed deliberately. |
 | G2 consume authority | `IN_PROGRESS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | Existing engineering/Navigator authority is consumed; no E1 replacement authority asserted. |
 | Spike A | `PASS` | `EMPIRICALLY_TESTED` | Pixel Ceres→Neptune run returned 24 deterministic valid candidates, reproducible fingerprint, independent validation and no campaign mutation. Exit classification: `BOUNDED_EXTENSION`. |
-| Spike B | `IN_PROGRESS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | Source trace now suggests local qualification execution and interplanetary campaign execution may correctly be separate authority scopes. Disposable-state empirical continuity test required before classification. |
+| Spike B | `PASS` | `EMPIRICALLY_TESTED` | Disposable Pixel campaign executed the existing interplanetary authority path, persisted arrival, restarted, replayed deterministically, and left the real campaign bit-identical. Exit classification: `BOUNDED_ADAPTER`. |
 | Spike C | `IN_PROGRESS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | Typed LLM provenance socket exists; actual model/tool runtime remains unverified. |
-| E1.0 GO/REPLAN | `NOT_STARTED` | `DOCUMENTED_ONLY` | Must wait for baseline + B/C exits. |
+| E1.0 GO/REPLAN | `NOT_STARTED` | `DOCUMENTED_ONLY` | Must wait for baseline + Spike C exit. |
 
-Spike A PASS is limited to the spike's falsifiable exit criteria. No Experience One product gate is thereby passed.
+Spike A/B PASS statements are limited to their falsifiable spike exit criteria. No Experience One product gate is thereby passed.
 
 ## 2. Baseline evidence
 
 PR #99's local maneuver path is explicitly qualification-only (`campaign_mutation=False`, `navigation_grade=False`). Preserved Navigator assigns Python authoritative state, quantitative reconciliation, ephemeris, flight calculations, operational choices, commit/execution, history and handoff. Persistent campaign artifacts include state, backup and compressed history. Replay requires both `FLIGHT_COMMITTED` and `FLIGHT_ARRIVED`.
 
-This evidence does not justify joining the two paths. Their scopes must be tested before any adapter is designed.
+Spike B now empirically shows that the local qualification path and interplanetary campaign path can remain separate authority scopes. Do not merge them merely for visual architectural symmetry.
 
 ## 3. Spike A — CLOSED
 
@@ -52,35 +52,34 @@ Direct Pixel evidence established:
 
 Detailed record: `E1_0_SPIKE_A_SOURCE_FINDING_v0.1.md`.
 
-## 4. Spike B — execution continuity
+## 4. Spike B — CLOSED
 
-### Revised source hypothesis
+The direct Pixel disposable-state experiment used the real campaign as a read-only source, copied its state/history into a temporary campaign root, then exercised the **existing Navigator interplanetary campaign path**. The current campaign was at Mars, so the empirical continuity leg was `MARS → NEPTUNE_SYSTEM`; this answers the Spike B authority/continuity question but does not substitute for the preregistered Ceres Experience One fixture.
 
-The earlier seam framing may be wrong. PR #99's local maneuver executor is deliberately qualification-only. Preserved Navigator already contains its own interplanetary campaign authority path: ranked candidate selection, explicit `COMMIT FLIGHT? [y/N]`, deterministic revalidation, `FLIGHT_COMMITTED`, arrival-state construction, `FLIGHT_ARRIVED`, atomic persistence, and replay semantics.
+Observed evidence:
 
-Do **not** force the PR #99 qualification executor to become the interplanetary campaign executor merely to create one apparent path.
+- ranked plan `1` selected as `HARD / CRUISE`;
+- final plan SHA `75de273b020d434a760f2c83f8c31c800773f59da07974d5c305303ca3986ad0`;
+- explicit `COMMIT FLIGHT? [y/N]` authorization required;
+- `F000002` committed/executed through existing Navigator authority;
+- disposable history recorded `FLIGHT_COMMITTED`, two `FLIGHT_PHASE`, and `FLIGHT_ARRIVED`;
+- persisted arrival state `S000009-f76dfb43c8c5` at `NEPTUNE_SYSTEM`;
+- restart/reload mode `EXISTING` recovered the same authoritative arrival state;
+- `BODY_RENDEZVOUS` kinematic boundary and `last_flight` provenance persisted;
+- offline replay expected/runtime SHA both `178b67b07aadc5bd80c574f78827fb3bb1fc031912859b846df6d77ebef00df0`;
+- `replay_pass: true`;
+- real campaign state, backup and history hashes were bit-identical before/after;
+- `spike_observation_pass: true`.
 
-### Required direct experiment
+**Exit classification:** `BOUNDED_ADAPTER — EMPIRICALLY_TESTED`.
 
-Using disposable campaign state only:
+The test also exposed two bounded integration seams: a legacy hard-coded Android Download root in the interplanetary entry path, and an unconditional final `serve_sequence_d(...)` presentation hold. Both are integration/testability issues, not evidence of a second campaign authority.
 
-1. preserve hashes of the user's real campaign artifacts;
-2. create a disposable copy of campaign state/history while reusing read-only B1/cache inputs;
-3. exercise the existing interplanetary campaign path, including explicit authorization and deterministic revalidation;
-4. verify `FLIGHT_COMMITTED` and `FLIGHT_ARRIVED` in disposable history;
-5. reload/restart from disposable persisted state;
-6. verify location, epoch, resources and journey provenance;
-7. replay the flight using the existing replay path;
-8. prove the user's real campaign hashes remain unchanged;
-9. classify `BOUNDED_ADAPTER`, `MODERATE_INTEGRATION`, `FOUNDATIONAL_AUTHORITY_RECONCILIATION`, or `INCOMPATIBLE_PATHS_REQUIRING_REDESIGN` from observed evidence.
+**Falsifier:** reopen if production E1 cannot enter the existing Navigator commit path through a typed adapter without duplicate state/mutation logic; if explicit authorization/stale-state boundaries cannot be preserved; if the Ceres fixture reveals route-specific continuity failure; if restart/replay diverges; or if another component must become authoritative for interplanetary campaign mutation.
 
-No duplicate campaign mutation logic may be implemented in the spike.
-
-### Current hypothesis
-
-`BOUNDED_ADAPTER — INFERRED / REQUIRES_EMPIRICAL_TEST`.
-
-Falsifiers include inability to isolate the real campaign, failed deterministic revalidation, missing committed/arrived records, restart state divergence, replay failure, or discovery that E1 must reconcile contradictory authoritative state models.
+Detailed record: `E1_0_SPIKE_B_EXECUTION_CONTINUITY_FINDING_v0.1.md`.  
+Raw evidence: `evidence/E1_0_SPIKE_B_CAMPAIGN_RESULT.json`.  
+Uploaded artifact SHA-256: `9a18688f0a1a10fe7d3b6f5feba55aa81eaa1c5223dcea16287f05b00396842b`.
 
 ## 5. Spike C — minimum Mara/model/tool plumbing
 
@@ -88,12 +87,12 @@ Required pipeline remains USER → MODEL → ONE READ-ONLY TYPED TOOL CALL → D
 
 ## 6. GO / REPLAN
 
-Current state: `NOT_STARTED / DOCUMENTED_ONLY`. Do not fill until baseline and Spike B/C exit evidence exist.
+Current state: `NOT_STARTED / DOCUMENTED_ONLY`. Do not fill until baseline and Spike C exit evidence exist.
 
 ## 7. WALTER / #LOOMSAFE
 
-Active watches: documentation-as-progress; duplicate flight/campaign authority; spike promotion; model authority creep; PASS without falsifier; vendor/data/cost/lock-in and prompt-injection risk for Spike C.
+Active watches: documentation-as-progress; duplicate flight/campaign authority; spike promotion; model authority creep; PASS without falsifier; vendor/data/cost/lock-in and prompt-injection risk for Spike C. Spike B additionally records legacy Android root coupling and presentation-server hold as bounded integration seams for later production work.
 
 ## 8. Next action
 
-Build the smallest disposable-state Spike B harness around the **existing** Navigator campaign path. It must fail closed before touching real campaign state, prove restart/replay continuity, and leave the user's real campaign bit-identical.
+Proceed to Spike C: prove the smallest real Mara/model/tool loop on Pixel with one read-only typed tool call, deterministic LOOM response, grounded model answer, hostile contradiction tests, and explicit provider/runtime/data/cost/lock-in evidence. Stop at Spike C exit classification before any E1.1 production implementation.
