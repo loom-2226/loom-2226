@@ -11,6 +11,10 @@ import mimetypes
 import secrets
 import sqlite3
 
+from loom.hud.earth_luna_scene_provider import (
+    DEFAULT_EPOCH as EARTH_LUNA_DEFAULT_EPOCH,
+    build_earth_luna_hud_scene,
+)
 from loom.hud.earth_moon_qualification import build_earth_moon_qualification
 from loom.hud.engineering_state_payload import (
     attach_typed_engineering_payload,
@@ -37,6 +41,7 @@ DEFAULT_PORT = 8767
 DEFAULT_PAGE = "earth_moon_qualification.html"
 LIVE_ENDPOINT = "/flight-view.json"
 EARTH_MOON_ENDPOINT = "/earth-moon-qualification.json"
+EARTH_LUNA_SCENE_ENDPOINT = "/earth-luna-scene.json"
 REALTIME_ENDPOINT = "/qualification-flight.json"
 TRAJECTORY_PREVIEW_ENDPOINT = "/qualification-flight/trajectory-preview.json"
 PREDICTED_PATH_ENDPOINT = "/qualification-flight/predicted-path.json"
@@ -101,7 +106,7 @@ def _live_payload(session: RealtimeFlightQualification, *, advance: bool = True)
     return _stamp_live_family(payload)
 
 
-def make_handler(directory: Path):
+def make_handler(directory: Path, earth_luna_scene_provider=build_earth_luna_hud_scene):
     qualification_session: list[RealtimeFlightQualification | None] = [None]
     validated_reviews: dict[str, dict] = {}
     control_revision = [0]
@@ -170,6 +175,14 @@ def make_handler(directory: Path):
                     self._json(build_earth_moon_qualification(epoch_utc=epoch, days=days))
                 except Exception as exc:
                     self._json({"contract":"LOOM_HUD_EARTH_MOON_QUALIFICATION_V2","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
+                return
+            if parsed.path == EARTH_LUNA_SCENE_ENDPOINT:
+                query = parse_qs(parsed.query)
+                epoch = (query.get("epoch") or [EARTH_LUNA_DEFAULT_EPOCH])[0]
+                try:
+                    self._json(earth_luna_scene_provider(epoch_utc=epoch))
+                except Exception as exc:
+                    self._json({"contract":"LOOM_EARTH_LUNA_SCENE_V1","status":"UNAVAILABLE","authority":"UNAVAILABLE","reason":str(exc)},503)
                 return
             if parsed.path == REALTIME_ENDPOINT:
                 try:
@@ -340,6 +353,7 @@ def serve(*, host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, root: Path | No
     url = f"http://{host}:{port}/{page.name}"
     print(f"LOOM HUD: {url}")
     print(f"LIVE STATE: {LIVE_ENDPOINT} (READ ONLY / FAIL CLOSED)")
+    print(f"EARTH-LUNA SCENE: {EARTH_LUNA_SCENE_ENDPOINT} (40 TARGETS / SHARED SPATIAL STATE / READ ONLY)")
     print(f"REALTIME QUALIFICATION: {REALTIME_ENDPOINT} (WALL-UTC SEEDED / NON-CAMPAIGN)")
     print(f"WAYFARER ENGINEERING: {WAYFARER_ENGINEERING_ENDPOINT} (TYPED PR96 / NON-CANON)")
     print(f"PREDICTED PATH: {PREDICTED_PATH_ENDPOINT} (CURRENT STATE / BALLISTIC / READ ONLY)")
