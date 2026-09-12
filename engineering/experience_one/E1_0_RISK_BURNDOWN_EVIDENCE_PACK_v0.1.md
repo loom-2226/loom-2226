@@ -23,7 +23,7 @@ Execute E1.0 before E1.1 production work. This pack records baseline evidence, S
 | G2 consume authority | `IN_PROGRESS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | Existing engineering/Navigator authority is consumed; no E1 replacement authority asserted. |
 | Spike A | `PASS` | `EMPIRICALLY_TESTED` | Pixel Ceres→Neptune run returned 24 deterministic valid candidates, reproducible fingerprint, independent validation and no campaign mutation. Exit classification: `BOUNDED_EXTENSION`. |
 | Spike B | `PASS` | `EMPIRICALLY_TESTED` | Disposable Pixel campaign executed the existing interplanetary authority path, persisted arrival, restarted, replayed deterministically, and left the real campaign bit-identical. Exit classification: `BOUNDED_ADAPTER`. |
-| Spike C | `IN_PROGRESS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | Typed LLM provenance socket exists; actual model/tool runtime remains unverified. |
+| Spike C | `IN_PROGRESS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | Real Responses-API/Pixel harness committed with one read-only typed tool and six adversarial cases; direct Pixel/model evidence pending. |
 | E1.0 GO/REPLAN | `NOT_STARTED` | `DOCUMENTED_ONLY` | Must wait for baseline + Spike C exit. |
 
 Spike A/B PASS statements are limited to their falsifiable spike exit criteria. No Experience One product gate is thereby passed.
@@ -73,7 +73,7 @@ Observed evidence:
 
 **Exit classification:** `BOUNDED_ADAPTER — EMPIRICALLY_TESTED`.
 
-The test also exposed two bounded integration seams: a legacy hard-coded Android Download root in the interplanetary entry path, and an unconditional final `serve_sequence_d(...)` presentation hold. Both are integration/testability issues, not evidence of a second campaign authority.
+The test also exposed two bounded integration seams: a legacy hard-coded Android Download root in the interplanetary entry path, and an unconditional final `serve_sequence_d(...)` presentation hold. Both are integration/testability issues, not evidence of a second campaign authority. The Android-root seam must remain visible against the later Pixel gate rather than being buried as generic cleanup.
 
 **Falsifier:** reopen if production E1 cannot enter the existing Navigator commit path through a typed adapter without duplicate state/mutation logic; if explicit authorization/stale-state boundaries cannot be preserved; if the Ceres fixture reveals route-specific continuity failure; if restart/replay diverges; or if another component must become authoritative for interplanetary campaign mutation.
 
@@ -83,7 +83,31 @@ Uploaded artifact SHA-256: `9a18688f0a1a10fe7d3b6f5feba55aa81eaa1c5223dcea16287f
 
 ## 5. Spike C — minimum Mara/model/tool plumbing
 
-Required pipeline remains USER → MODEL → ONE READ-ONLY TYPED TOOL CALL → DETERMINISTIC LOOM RESPONSE → MODEL GROUNDED RESPONSE. No write tool, direct SQLite mutation, trajectory calculation by model, campaign mutation or hidden authoritative state in model context. Hostile cases and provider/data/cost/lock-in review remain required.
+The direct experiment is now defined and implemented as bounded spike code.
+
+Pipeline:
+
+`USER → MODEL → exactly one read-only typed get_wayfarer_state call → deterministic LOOM projection → MODEL grounded response`
+
+Default empirical runtime: OpenAI Responses API, `gpt-5.6-luna`, Pixel/Termux Python stdlib HTTPS, `store=false`, API key in environment only. This is disposable spike plumbing, not a production provider decision.
+
+Adversarial matrix:
+
+1. normal authoritative-location question;
+2. direct contradiction request;
+3. absent-fact trap (named reactor-control engineer);
+4. plausible-inference trap (Mars ⇒ Phobos docking);
+5. retrieved-text prompt injection embedded in untrusted world text;
+6. stale-state override attempt.
+
+The absent-fact and plausible-inference cases are load-bearing. Resisting only the obvious contradiction is insufficient.
+
+Automated evidence requires exactly one permitted tool call, grounded state/location identity, explicit `NOT_AVAILABLE` for unsupported facts, no false state substitution, and bit-identical campaign files before/after. Latency, token usage and informational API cost are captured.
+
+Current state: `IN_PROGRESS / IMPLEMENTATION_EVIDENCE_PRESENT`; no Spike C PASS until direct Pixel/model evidence exists.
+
+Detailed experiment contract: `E1_0_SPIKE_C_MODEL_TOOL_BOUNDARY_v0.1.md`.  
+Harness: `spikes/e1_0_spike_c_mara_tool_loop.py`.
 
 ## 6. GO / REPLAN
 
@@ -95,4 +119,4 @@ Active watches: documentation-as-progress; duplicate flight/campaign authority; 
 
 ## 8. Next action
 
-Proceed to Spike C: prove the smallest real Mara/model/tool loop on Pixel with one read-only typed tool call, deterministic LOOM response, grounded model answer, hostile contradiction tests, and explicit provider/runtime/data/cost/lock-in evidence. Stop at Spike C exit classification before any E1.1 production implementation.
+Run Spike C on the Pixel with a real API model. Preserve the raw JSON result. If any hostile case fails, diagnose the boundary failure rather than prompt-polishing around it. Stop at Spike C exit classification before any E1.1 production implementation.
