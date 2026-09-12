@@ -1,6 +1,6 @@
 # LOOM 2226 — E1.1 Campaign Operator Context Finding v0.1
 
-**Status:** EMPIRICAL CAMPAIGN-STATE SHAPE CONFIRMED; BOUNDED READ-ONLY ADAPTER IMPLEMENTED; PIXEL RETEST PENDING  
+**Status:** PASS / EMPIRICALLY_TESTED  
 **Date:** 12 September 2026  
 **Class:** `class:engineering` / `REQUIRED_FOR_E1`  
 **Diagnosis:** `PROJECTION_BOUNDARY_READY`, not data failure
@@ -8,6 +8,12 @@
 ## Question
 
 Can Experience One answer the preregistered operator question **"Where am I?"** from existing authoritative campaign state without allowing Canon Context, the browser, or Mara to become ship-location authority?
+
+## Result
+
+**PASS / EMPIRICALLY_TESTED.**
+
+The bounded adapter and Pixel harness both passed against the active campaign state. The current ship location is directly available from Navigator-owned `LOOM_STATE_V1.location_token`; no inference from flight history, Canon Context, UI selection, browser state, or model reasoning is required.
 
 ## Runtime change declaration
 
@@ -24,7 +30,7 @@ Dependencies:
 - no model dependency;
 - no new persistence dependency.
 
-## Empirical Pixel evidence
+## Empirical Pixel evidence — source shape
 
 The read-only campaign-state probe was run against the active Pixel state file:
 
@@ -36,7 +42,7 @@ Observed source file SHA-256:
 
 Relevant observed fields:
 
-- `$.schema` is represented by Navigator's established `LOOM_STATE_V1` contract;
+- Navigator schema: `LOOM_STATE_V1`;
 - `$.location_token = 'MARS'`;
 - `$.epoch_utc = '2027-06-15T08:57:51.391985Z'`;
 - `$.kinematic_boundary.status = 'BODY_RENDEZVOUS'`;
@@ -79,34 +85,77 @@ The adapter:
 - does not infer current location from `last_flight.route`;
 - does not mutate the input state.
 
-Unit tests explicitly include the adverse condition where `last_flight.route` points somewhere else while `location_token` remains `MARS`; the projection must still return `MARS`.
+## Unit regression evidence
 
-## Empirical retest harness
+Pixel direct-import regression:
 
-Added:
+- `PASS: test_does_not_infer_current_location_from_last_flight_route`
+- `PASS: test_input_state_is_not_mutated`
+- `PASS: test_missing_kinematic_status_fails_closed`
+- `PASS: test_missing_location_fails_closed`
+- `PASS: test_preserves_navigator_authority_and_zero_model_authority`
+- `PASS: test_projects_current_location_from_location_token`
+- `PASS: test_provenance_points_to_exact_campaign_fields`
+- `PASS: test_schema_mismatch_fails_closed`
+
+**ALL 8 TESTS PASS.**
+
+## Empirical Pixel execution
+
+Harness:
 
 `engineering/experience_one/spikes/e1_1_operator_location_query.py`
 
-It reads the real Pixel campaign state and emits:
+Input:
 
-`LOOM_E1_1_OPERATOR_LOCATION_RESULT_V1`
+`/storage/emulated/0/Download/LOOM_TEST/LOOM_STATE_V1.json`
 
-The harness checks that location, epoch, and kinematic status come directly from Navigator state, model authority remains zero, and no world/canon context is merged.
+Observed result:
 
-## Expected current answer packet
+- result schema: `LOOM_E1_1_OPERATOR_LOCATION_RESULT_V1`;
+- ship: `wayfarer`;
+- location token: `MARS`;
+- epoch UTC: `2027-06-15T08:57:51.391985Z`;
+- kinematic status: `BODY_RENDEZVOUS`;
+- `all_pass: True`.
 
-Given the empirically observed active state, the deterministic answer packet should be equivalent to:
+Output artifact:
+
+`/storage/emulated/0/Download/E1_1_OPERATOR_LOCATION_RESULT.json`
+
+This empirically qualifies the read-only operator-location projection on the Pixel runtime target.
+
+## Qualified answer packet
+
+For the tested state, the deterministic answer packet is:
 
 - ship: `wayfarer`;
 - location: `MARS`;
 - kinematic state: `BODY_RENDEZVOUS`;
 - epoch: `2027-06-15T08:57:51.391985Z`.
 
-Human-facing phrasing is presentation, not state authority. A safe rendering would be: **Wayfarer is at Mars, in a body-rendezvous state, at the current campaign epoch.**
+Human-facing phrasing is presentation, not state authority. A safe rendering is: **Wayfarer is at Mars, in a body-rendezvous state, at the current campaign epoch.**
 
-## Stop condition
+## Limits
 
-Do **not** build a generalized Experience Context merger yet. First empirically qualify this bounded location projection on the Pixel. After that, add Canon Context as a separately labeled read-only source only when the user asks what the current place is like or what is interesting there.
+This finding qualifies only the bounded current-location projection. It does not:
+
+- make Canon Context a campaign-state source;
+- qualify a generalized Experience Context merger;
+- qualify Mara natural-language synthesis over campaign state;
+- establish place description, nearby-interest, destination-interest, or route-planning behavior;
+- close all E1.1 acceptance criteria;
+- change Navigator state authority.
+
+## Next seam
+
+The next E1.1 seam should compose **separately labeled read-only sources** at the question boundary rather than merge authorities:
+
+1. `Where am I?` → Navigator campaign operator context.
+2. `What is this place / what is interesting here?` → Canon Context Projection keyed from the established Navigator location.
+3. `What is at the destination / why might I care?` → destination Canon Context, still separate from campaign location authority.
+
+A generalized Experience Context abstraction is not yet earned. First test the smallest current-place handoff from `location_token` to Canon Context and fail closed when the current location has no supported projection.
 
 ## Falsifier
 
