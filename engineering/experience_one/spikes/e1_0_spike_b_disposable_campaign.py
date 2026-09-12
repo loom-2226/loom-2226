@@ -97,10 +97,23 @@ def main()->int:
             except StopIteration: raise RuntimeError(f'unexpected interactive prompt: {prompt!r}')
             print(f'{prompt}{value}'); return value
         builtins.input=scripted_input
+        # Navigator normally ends an authorized flight by serving its generated HTML
+        # indefinitely for human/browser qualification. That presentation hold is not
+        # part of Spike B's campaign-continuity question, so replace only the server
+        # hold with a no-op while leaving planning, validation, commit, persistence,
+        # history, HTML generation and deterministic flight execution untouched.
+        original_serve_sequence_d=navmod._load_core(tmp/'LOOM_E1_SPIKE_B_SERVER_PATCH').serve_sequence_d
+        core_for_run=navmod._load_core(tmp/'LOOM_E1_SPIKE_B_SERVER_PATCH')
+        original_load_core=navmod._load_core
+        def load_core_without_server_hold(internal):
+            core=original_load_core(internal)
+            core.serve_sequence_d=lambda *a,**k: print('SPIKE B SERVER HOLD     SKIPPED / PRESENTATION OUT OF SCOPE')
+            return core
+        navmod._load_core=load_core_without_server_hold
         try:
             navmod._navigator_one_action_main()
         finally:
-            builtins.input=original_input; navmod.Path=original_path_ctor
+            builtins.input=original_input; navmod.Path=original_path_ctor; navmod._load_core=original_load_core
 
         sp=tmp/navmod.STATE_FILE; bp=tmp/navmod.BACKUP_FILE
         restarted,mode=navmod._setup_campaign(sp,bp,tmp/navmod.HISTORY_FILE)
