@@ -8,6 +8,7 @@ from urllib.parse import parse_qs, urlparse
 import argparse
 import json
 import mimetypes
+import secrets
 import sqlite3
 
 from loom.hud.earth_moon_qualification import build_earth_moon_qualification
@@ -22,6 +23,8 @@ from loom.hud.hud_family_selector import (
 )
 from loom.hud.intercept_qualification import solve_moon_intercept
 from loom.hud.live_provider import load_live_flight_view, unavailable_live_payload
+from loom.hud.maneuver_plan_executor import execute_maneuver_plan
+from loom.hud.maneuver_plan_handoff import build_explicit_execution_plan_from_review
 from loom.hud.maneuver_plan_review import validate_maneuver_plan_review
 from loom.hud.orbital_sandbox import attach_orbital_state, initialize_earth_circular_orbit
 from loom.hud.predicted_path import build_predicted_path
@@ -100,12 +103,18 @@ def _live_payload(session: RealtimeFlightQualification, *, advance: bool = True)
 
 def make_handler(directory: Path):
     qualification_session: list[RealtimeFlightQualification | None] = [None]
+    validated_reviews: dict[str, dict] = {}
+    control_revision = [0]
     root = repo_root()
 
     def get_session() -> RealtimeFlightQualification:
         if qualification_session[0] is None:
             qualification_session[0] = RealtimeFlightQualification()
         return qualification_session[0]
+
+    def invalidate_validated_reviews() -> None:
+        control_revision[0] += 1
+        validated_reviews.clear()
 
     class HudHandler(SimpleHTTPRequestHandler):
         def __init__(self, *args, **kwargs):
@@ -246,18 +255,22 @@ def make_handler(directory: Path):
                 action = str(payload.get("action") or "").upper()
                 session = get_session()
                 if action == "RESET_REALTIME":
+                    invalidate_validated_reviews()
                     session.reset()
                     self._json(_live_payload(session, advance=False))
                     return
                 if action == "TIME_SCALE":
+                    invalidate_validated_reviews()
                     session.set_time_scale(float(payload["value"]))
                     self._json(_live_payload(session, advance=False))
                     return
                 if action == "TORCH":
+                    invalidate_validated_reviews()
                     session.set_torch(active=bool(payload.get("active")), mode=payload.get("mode"))
                     self._json(_live_payload(session, advance=False))
                     return
                 if action == "INITIALIZE_EARTH_ORBIT":
+                    invalidate_validated_reviews()
                     initialize_earth_circular_orbit(
                         session,
                         altitude_km=float(payload.get("altitude_km", 400.0)),
@@ -266,13 +279,40 @@ def make_handler(directory: Path):
                     self._json(_live_payload(session, advance=False))
                     return
                 if action == "VALIDATE_MANEUVER_PLAN_REVIEW":
-                    receipt = validate_maneuver_plan_review(session, payload.get("plan") or {})
+                    invalidate_validated_reviews()
+                    raw_plan = payload.get("plan") or {}
+                    receipt = validate_maneuver_plan_review(session, raw_plan)
+                    ticket = secrets.token_urlsafe(18)
+                    validated_reviews[ticket] = {
+                        "control_revision": control_revision[0],
+                        "plan": raw_plan,
+                    }
                     self._json({
                         "contract": "LOOM_HUD_MANEUVER_PLAN_REVIEW_RESPONSE_V1",
                         "receipt": receipt,
+                        "execution_ticket": ticket,
+                        "execution_available": True,
+                        "control_revision": control_revision[0],
+                    })
+                    return
+                if action == "EXECUTE_VALIDATED_MANEUVER_PLAN":
+                    ticket = str(payload.get("execution_ticket") or "")
+                    stored = validated_reviews.pop(ticket, None)
+                    if stored is None:
+                        raise ValueError("validated maneuver plan ticket is missing, stale, or already consumed")
+                    if int(stored["control_revision"]) != control_revision[0]:
+                        raise ValueError("validated maneuver plan is stale after a control-state change")
+                    plan = build_explicit_execution_plan_from_review(session, stored["plan"])
+                    receipt = execute_maneuver_plan(session, plan)
+                    invalidate_validated_reviews()
+                    self._json({
+                        "contract": "LOOM_HUD_MANEUVER_PLAN_EXECUTION_RESPONSE_V1",
+                        "receipt": receipt,
+                        "live": _live_payload(session, advance=False),
                     })
                     return
                 if action == "EXECUTE_VELOCITY_BURN":
+                    invalidate_validated_reviews()
                     receipt = execute_velocity_aligned_burn(
                         session,
                         direction=payload.get("direction"),
@@ -310,6 +350,7 @@ def serve(*, host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, root: Path | No
     print(f"3D ASSETS: {ASSET_PREFIX} (LOCAL QUALIFICATION CACHE)")
     print("ORBITAL SANDBOX: INITIALIZE_EARTH_ORBIT (IN-MEMORY / NO CAMPAIGN WRITE)")
     print("MANEUVER PLAN REVIEW: VALIDATE_MANEUVER_PLAN_REVIEW (SERVER VALIDATION / NO EXECUTION / NO CAMPAIGN WRITE)")
+    print("MANEUVER PLAN EXECUTION: EXECUTE_VALIDATED_MANEUVER_PLAN (ONE-TIME SERVER TICKET / LIVE QUALIFICATION STATE / NO CAMPAIGN WRITE)")
     print("FLIGHT EXECUTION: EXECUTE_VELOCITY_BURN (LIVE QUALIFICATION STATE / NO CAMPAIGN WRITE)")
     print("CAMPAIGN: WRITE NONE")
     with ThreadingHTTPServer((host, port), handler) as server:
