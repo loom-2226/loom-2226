@@ -23,7 +23,7 @@ Execute E1.0 before E1.1 production work. This pack records baseline evidence, S
 | G2 consume authority | `IN_PROGRESS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | Existing engineering/Navigator authority is consumed; no E1 replacement authority asserted. |
 | Spike A | `PASS` | `EMPIRICALLY_TESTED` | Pixel Ceres→Neptune run returned 24 deterministic valid candidates, reproducible fingerprint, independent validation and no campaign mutation. Exit classification: `BOUNDED_EXTENSION`. |
 | Spike B | `PASS` | `EMPIRICALLY_TESTED` | Disposable Pixel campaign executed the existing interplanetary authority path, persisted arrival, restarted, replayed deterministically, and left the real campaign bit-identical. Exit classification: `BOUNDED_ADAPTER`. |
-| Spike C | `IN_PROGRESS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | Real Responses-API/Pixel harness committed with one read-only typed tool and six adversarial cases; direct Pixel/model evidence pending. |
+| Spike C | `IN_PROGRESS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | Model/tool adversarial harness exists; provider/runtime selection is now an explicit Pixel preflight rather than an assumed OpenAI-key path. |
 | E1.0 GO/REPLAN | `NOT_STARTED` | `DOCUMENTED_ONLY` | Must wait for baseline + Spike C exit. |
 
 Spike A/B PASS statements are limited to their falsifiable spike exit criteria. No Experience One product gate is thereby passed.
@@ -83,13 +83,19 @@ Uploaded artifact SHA-256: `9a18688f0a1a10fe7d3b6f5feba55aa81eaa1c5223dcea16287f
 
 ## 5. Spike C — minimum Mara/model/tool plumbing
 
-The direct experiment is now defined and implemented as bounded spike code.
+The adversarial experiment contract and direct-OpenAI candidate harness exist, but the provider/runtime boundary is no longer assumed.
 
-Pipeline:
+Required pipeline remains:
 
 `USER → MODEL → exactly one read-only typed get_wayfarer_state call → deterministic LOOM projection → MODEL grounded response`
 
-Default empirical runtime: OpenAI Responses API, `gpt-5.6-luna`, Pixel/Termux Python stdlib HTTPS, `store=false`, API key in environment only. This is disposable spike plumbing, not a production provider decision.
+Provider/runtime preflight now compares three shapes:
+
+1. GitHub Copilot SDK/CLI using user GitHub authentication if it works on the actual Pixel/Termux runtime;
+2. direct OpenAI Responses API as a valid spike fallback if the user deliberately chooses a separately billed API account/key;
+3. a brokered backend only if no safe local user-auth path is viable.
+
+Important correction: GitHub Models inference API is retired and is **not** a candidate. The GitHub path under test is Copilot SDK/CLI. Official documentation supports Linux and publishes Linux ARM64 runtime paths, but Android/Termux is not documented; Pixel viability therefore requires empirical evidence.
 
 Adversarial matrix:
 
@@ -102,12 +108,14 @@ Adversarial matrix:
 
 The absent-fact and plausible-inference cases are load-bearing. Resisting only the obvious contradiction is insufficient.
 
-Automated evidence requires exactly one permitted tool call, grounded state/location identity, explicit `NOT_AVAILABLE` for unsupported facts, no false state substitution, and bit-identical campaign files before/after. Latency, token usage and informational API cost are captured.
+Provider-independent invariants remain: model calculation authority ZERO; model state authority ZERO; exactly one read-only typed state tool; no write/action/campaign-mutation tool; no direct SQLite handle; missing facts remain missing; model context is disposable/reconstructible; campaign files remain bit-identical; logs are evidence only, never authority.
 
-Current state: `IN_PROGRESS / IMPLEMENTATION_EVIDENCE_PRESENT`; no Spike C PASS until direct Pixel/model evidence exists.
+Current state: `IN_PROGRESS / IMPLEMENTATION_EVIDENCE_PRESENT`; no Spike C PASS until a real model/tool run exists on the Pixel path.
 
+Provider decision record: `E1_0_SPIKE_C_PROVIDER_DECISION_v0.1.md`.  
+Provider preflight: `spikes/e1_0_spike_c_provider_preflight.py`.  
 Detailed experiment contract: `E1_0_SPIKE_C_MODEL_TOOL_BOUNDARY_v0.1.md`.  
-Harness: `spikes/e1_0_spike_c_mara_tool_loop.py`.
+Direct-OpenAI candidate harness: `spikes/e1_0_spike_c_mara_tool_loop.py`.
 
 ## 6. GO / REPLAN
 
@@ -119,4 +127,4 @@ Active watches: documentation-as-progress; duplicate flight/campaign authority; 
 
 ## 8. Next action
 
-Run Spike C on the Pixel with a real API model. Preserve the raw JSON result. If any hostile case fails, diagnose the boundary failure rather than prompt-polishing around it. Stop at Spike C exit classification before any E1.1 production implementation.
+Run the non-secret Pixel provider preflight. If a GitHub Copilot user-auth path is viable on Termux, test that before creating a separate model-provider credential. If Pixel/runtime support fails, record the failure as Spike C evidence and deliberately choose between direct API fallback and a brokered seam. Do not treat setup friction as something to hide from the implementation-size classification.
