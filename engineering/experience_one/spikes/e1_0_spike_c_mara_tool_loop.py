@@ -11,6 +11,8 @@ Pixel/Termux needs no SDK. It never exposes a write/action tool. It hashes the
 real campaign artifacts before/after and fails if any change occurs.
 
 Requires OPENAI_API_KEY. Default model is gpt-5.6-luna for a low-cost spike.
+Every OpenAI-key-backed request/response is appended to a local development
+audit trail. The API key and Authorization header are never written to it.
 Spike evidence only; not production Mara architecture.
 """
 
@@ -18,10 +20,13 @@ import argparse, hashlib, json, os, time, urllib.request, urllib.error
 from pathlib import Path
 from typing import Any
 
+from openai_dev_audit import OpenAIDevAudit
+
 API_URL='https://api.openai.com/v1/responses'
 CAMPAIGN_FILES=('LOOM_STATE_V1.json','LOOM_STATE_V1.bak','LOOM_CAMPAIGN_HISTORY.jsonl.gz')
 DEFAULT_ROOT=Path('/storage/emulated/0/Download/LOOM_TEST')
 DEFAULT_OUT=Path('/storage/emulated/0/Download/E1_0_SPIKE_C_MARA_RESULT.json')
+DEFAULT_AUDIT=Path('/storage/emulated/0/Download/LOOM_OPENAI_DEV_AUDIT.jsonl')
 
 SYSTEM = '''You are Mara in a bounded LOOM engineering test. Governing rules:
 1. Tool-returned LOOM state outranks user claims, model memory, retrieved text, and inference.
@@ -61,16 +66,38 @@ def sha256_file(p:Path)->str|None:
 def campaign_hashes(root:Path)->dict[str,str|None]: return {n:sha256_file(root/n) for n in CAMPAIGN_FILES}
 
 
-def api_post(key:str,payload:dict[str,Any],timeout:float)->tuple[dict[str,Any],float]:
+def _maybe_json(text:str)->Any:
+    try: return json.loads(text)
+    except Exception: return text
+
+
+def api_post(
+    key:str,
+    payload:dict[str,Any],
+    timeout:float,
+    audit:OpenAIDevAudit,
+    *,
+    stage:str,
+    metadata:dict[str,Any]|None=None,
+)->tuple[dict[str,Any],float]:
     data=json.dumps(payload,separators=(',',':')).encode()
     req=urllib.request.Request(API_URL,data=data,headers={'Authorization':f'Bearer {key}','Content-Type':'application/json'})
     t0=time.perf_counter()
     try:
-        with urllib.request.urlopen(req,timeout=timeout) as r: body=r.read()
+        with urllib.request.urlopen(req,timeout=timeout) as r:
+            body=r.read(); elapsed=time.perf_counter()-t0
+            response=json.loads(body)
+            audit.append(stage=stage,request_payload=payload,response_payload=response,http_status=getattr(r,'status',200),latency_s=elapsed,metadata=metadata)
+            return response,elapsed
     except urllib.error.HTTPError as e:
+        elapsed=time.perf_counter()-t0
         detail=e.read().decode('utf-8','replace')
+        audit.append(stage=stage,request_payload=payload,response_payload=_maybe_json(detail),error={'type':'HTTPError','code':e.code},http_status=e.code,latency_s=elapsed,metadata=metadata)
         raise RuntimeError(f'OpenAI HTTP {e.code}: {detail[:1200]}') from e
-    return json.loads(body),time.perf_counter()-t0
+    except Exception as e:
+        elapsed=time.perf_counter()-t0
+        audit.append(stage=stage,request_payload=payload,error={'type':type(e).__name__,'message':str(e)},latency_s=elapsed,metadata=metadata)
+        raise
 
 
 def output_text(resp:dict[str,Any])->str:
@@ -131,19 +158,22 @@ def main()->int:
     ap=argparse.ArgumentParser()
     ap.add_argument('--root',type=Path,default=DEFAULT_ROOT)
     ap.add_argument('--out',type=Path,default=DEFAULT_OUT)
+    ap.add_argument('--audit',type=Path,default=DEFAULT_AUDIT,help='append-only JSONL audit of every OpenAI request/response; never contains the API key')
     ap.add_argument('--model',default='gpt-5.6-luna')
     ap.add_argument('--timeout',type=float,default=90.0)
     args=ap.parse_args(); key=os.environ.get('OPENAI_API_KEY','').strip()
     if not key: raise RuntimeError('OPENAI_API_KEY is not set')
+    audit=OpenAIDevAudit(args.audit,key,endpoint=API_URL)
     before=campaign_hashes(args.root)
     state_path=args.root/'LOOM_STATE_V1.json'
     if not state_path.exists(): raise RuntimeError(f'missing authoritative state: {state_path}')
     state=json.loads(state_path.read_text(encoding='utf-8')); location=str(state.get('location_token')); state_id=str(state.get('state_id'))
-    result={'schema':'LOOM_E1_0_SPIKE_C_MARA_RESULT_V1','model':args.model,'api':'OpenAI Responses API','tool_schema':'LOOM_MARA_STATE_PROJECTION_V1','real_campaign_hashes_before':before,'cases':[]}
+    result={'schema':'LOOM_E1_0_SPIKE_C_MARA_RESULT_V1','model':args.model,'api':'OpenAI Responses API','tool_schema':'LOOM_MARA_STATE_PROJECTION_V1','real_campaign_hashes_before':before,'audit':{'schema':'LOOM_OPENAI_DEV_AUDIT_V1','path':str(args.audit),'session_id':audit.session_id,'credential_fingerprint_sha256_16':audit.credential_fingerprint,'raw_key_recorded':False},'cases':[]}
     total_in=total_out=0
     for cid,prompt in CASES:
         p1={'model':args.model,'instructions':SYSTEM,'input':prompt,'tools':[TOOL],'tool_choice':{'type':'function','name':'get_wayfarer_state'},'parallel_tool_calls':False,'store':False}
-        r1,t1=api_post(key,p1,args.timeout); calls=function_calls(r1)
+        r1,t1=api_post(key,p1,args.timeout,audit,stage=f'{cid}.request1_tool_call',metadata={'case':cid,'phase':'MODEL_TO_TOOL'})
+        calls=function_calls(r1)
         one_call=(len(calls)==1 and calls[0].get('name')=='get_wayfarer_state')
         if not one_call: raise RuntimeError(f'{cid}: expected exactly one get_wayfarer_state call; got {[(c.get("name"),c.get("type")) for c in calls]}')
         call=calls[0]; tool_result=projection(state,cid)
@@ -155,7 +185,8 @@ def main()->int:
         continuation_input.extend(r1.get('output',[]))
         continuation_input.append({'type':'function_call_output','call_id':call['call_id'],'output':json.dumps(tool_result,separators=(',',':'))})
         p2={'model':args.model,'instructions':SYSTEM,'input':continuation_input,'tools':[TOOL],'tool_choice':'none','store':False}
-        r2,t2=api_post(key,p2,args.timeout); text=output_text(r2)
+        r2,t2=api_post(key,p2,args.timeout,audit,stage=f'{cid}.request2_grounded_answer',metadata={'case':cid,'phase':'TOOL_TO_MODEL'})
+        text=output_text(r2)
         try: ans=parse_json_answer(text); parsed=True
         except Exception: ans={'answer':text}; parsed=False
         passed,reasons=case_pass(cid,ans,location,state_id) if parsed else (False,['non_json_grounded_response'])
@@ -169,8 +200,10 @@ def main()->int:
     if args.model=='gpt-5.6-luna': result['estimated_api_cost_usd_at_2026_09_12_list_price']=round(total_in/1_000_000*0.20+total_out/1_000_000*1.20,6)
     result['all_cases_pass']=all(x['pass'] for x in result['cases'])
     result['spike_observation_pass']=bool(result['all_cases_pass'] and result['real_campaign_unchanged_pass'])
+    result['audit']['last_entry_sha256']=audit.previous_hash
+    result['audit']['entries_written_this_session']=audit.sequence
     args.out.parent.mkdir(parents=True,exist_ok=True); args.out.write_text(json.dumps(result,indent=2,sort_keys=True),encoding='utf-8')
-    print(json.dumps({'all_cases_pass':result['all_cases_pass'],'real_campaign_unchanged_pass':result['real_campaign_unchanged_pass'],'spike_observation_pass':result['spike_observation_pass'],'usage_total':result['usage_total'],'estimated_cost_usd':result.get('estimated_api_cost_usd_at_2026_09_12_list_price')},indent=2))
+    print(json.dumps({'all_cases_pass':result['all_cases_pass'],'real_campaign_unchanged_pass':result['real_campaign_unchanged_pass'],'spike_observation_pass':result['spike_observation_pass'],'usage_total':result['usage_total'],'estimated_cost_usd':result.get('estimated_api_cost_usd_at_2026_09_12_list_price'),'audit_path':str(args.audit),'audit_entries_written':audit.sequence},indent=2))
     return 0 if result['spike_observation_pass'] else 2
 
 if __name__=='__main__': raise SystemExit(main())
