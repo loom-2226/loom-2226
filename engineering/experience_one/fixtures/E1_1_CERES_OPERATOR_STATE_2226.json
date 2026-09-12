@@ -1,0 +1,28 @@
+{
+  "schema": "LOOM_STATE_V1",
+  "state_id": "E1_1_DISPOSABLE_CERES_ACCEPTANCE",
+  "state_sha256": "NON_AUTHORITATIVE_ACCEPTANCE_FIXTURE",
+  "revision": 0,
+  "status": "QUALIFICATION_FIXTURE_NON_AUTHORITATIVE",
+  "epoch_utc": "2226-08-22T12:00:00Z",
+  "location_token": "CERES",
+  "kinematic_boundary": {
+    "status": "BODY_RENDEZVOUS",
+    "source": "E1_1_DISPOSABLE_ACCEPTANCE_FIXTURE"
+  },
+  "ship_identity": {
+    "ship_name": "wayfarer",
+    "ship_instance_id": "E1_1_FIXTURE_WAYFARER",
+    "ship_class": "WAYFARER",
+    "ship_template": "WAYFARER_BASELINE"
+  },
+  "fixture_meta": {
+    "purpose": "E1.1 current-place positive control only",
+    "authoritative_campaign_state": false,
+    "campaign_mutation": false,
+    "canon_mutation": false,
+    "may_replace_live_state": false,
+    "preregistered_experience_one_location": "CERES",
+    "temporal_alignment_target_year": 2226
+  }
+}
