@@ -1,6 +1,6 @@
 # LOOM 2226 — Experience One E1.0 Risk Burn-Down Evidence Pack v0.1
 
-**Status:** CLOSED — E1.0 GO  
+**Status:** GO DECISION RECORDED — CLOSURE PENDING G1 BASELINE CAPTURE  
 **Date:** 12 September 2026  
 **Primary change class:** `class:engineering`  
 **Scope:** `REQUIRED_FOR_E1` bounded enabling work; this is not a fifth standing WIP stream  
@@ -14,50 +14,56 @@
 
 Execute E1.0 before E1.1 production work. This pack records baseline evidence, Spike A/B/C exits and the governed GO / REPLAN decision. A spike may remove uncertainty; it may not silently become production architecture.
 
-## 1. Final gate/activity state
+The E1.0 risk decision is now `GO`, but E1.0 is **not fully closed** because G1 remains incomplete. The baseline index is useful documentation; it is not equivalent to captured regression references.
 
-| Gate/activity | State | Evidence maturity | Final statement |
+## 1. Current gate/activity state
+
+| Gate/activity | State | Evidence maturity | Current statement |
 |---|---|---|---|
 | G0 target freeze | `PASS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | E1 remained bounded to the original four capabilities and Ceres→Neptune qualification scenario; no fifth required objective was introduced. |
-| G1 baseline fixture | `PASS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | `E1_0_BASELINE_FIXTURE_v0.1.md` captures the current source/output regression frontier and protects uncaptured visual behavior from replacement until separately captured. |
-| G2 consume authority | `PASS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | E1 consumes existing PR #96/#99/#103 authority plus Navigator campaign authority; Spike B/C evidence shows no convenience authority was created. |
+| G1 baseline fixture | `IN_PROGRESS` | `DOCUMENTED_ONLY` | `E1_0_BASELINE_FIXTURE_v0.1.md` indexes the live frontier and identifies what must be captured, but it is not itself a complete regression reference. Replacement of any uncaptured behavior remains blocked. |
+| G2 consume authority | `PASS` | `IMPLEMENTATION_EVIDENCE_PRESENT` | E1 currently consumes existing engineering/Navigator/spatial authority. This is a standing invariant and must be re-asserted at later gates. |
 | Spike A | `PASS` | `EMPIRICALLY_TESTED` | Pixel Ceres→Neptune run returned 24 deterministic valid candidates, reproducible fingerprint, independent validation and no campaign mutation. Exit classification: `BOUNDED_EXTENSION`. |
 | Spike B | `PASS` | `EMPIRICALLY_TESTED` | Disposable Pixel campaign executed the existing interplanetary authority path, persisted arrival, restarted, replayed deterministically, and left the real campaign bit-identical. Exit classification: `BOUNDED_ADAPTER`. |
 | Spike C | `PASS` | `EMPIRICALLY_TESTED` | Corrected Pixel run passed all six adversarial model/tool cases, preserved epistemic boundaries and left the real campaign bit-identical. Exit classification: `BOUNDED_MODEL_ADAPTER`. |
-| E1.0 GO/REPLAN | `PASS — GO` | `EMPIRICALLY_TESTED` + `IMPLEMENTATION_EVIDENCE_PRESENT` | The governed GO criteria are satisfied for proceeding substantially as written into E1.1. |
+| E1.0 GO/REPLAN | `GO DECISION RECORDED` | `EMPIRICALLY_TESTED` + `IMPLEMENTATION_EVIDENCE_PRESENT` | All four GO criteria are met. E1.1 may begin only through additive/non-replacement projection work while G1 remains open. |
 
 These PASS statements are bounded and falsifiable. They do not claim Experience One itself is complete.
 
-## 2. Baseline / authority closure
+## 2. Baseline / authority state
 
 ### G0 — PASS
 
 **Exact pass statement:** Experience One remains frozen to the four governed capabilities — PLACE, TEXTURE, AGENCY and CONSEQUENCE — with Ceres→Neptune as the qualification scenario; no additional required objective was introduced during E1.0.
 
 **Evidence class:** `OBSERVED_IN_SOURCE`.  
-**Exact refs:** governed v1.0/v1.1 workplans; PR #109 change set; PR #109 contains only E1.0 evidence/spike/test artifacts.  
+**Exact refs:** governed v1.0/v1.1 workplans; PR #109 change set.  
 **Target configuration:** E1.0 branch based on protected `main` `65b1b1559eac8dfe0ed6be24739ba9ac32f83f3c`.  
 **Known limit:** this does not forbid later scope changes when evidence proves an original capability cannot be completed honestly without one.  
 **Falsifier:** a fifth required Experience One objective is added without evidence that one of the original four capabilities cannot be completed honestly without it.
 
-### G1 — PASS
+### G1 — IN PROGRESS / DOCUMENTED ONLY
 
-**Exact pass statement:** a usable Experience One baseline fixture now exists before convergence replacement work proceeds, and uncaptured visual behaviors remain protected from replacement until an adequate regression reference is captured.
+**Current statement:** `E1_0_BASELINE_FIXTURE_v0.1.md` is a baseline **index/protection document**, not a completed regression capture.
 
-**Evidence class:** `OBSERVED_IN_SOURCE` + `TESTED` for deterministic spike fixtures.  
-**Exact refs:** `E1_0_BASELINE_FIXTURE_v0.1.md`; PR #96 head `835cccfb4a37a2a683c6196cbb7382b826271d67`; PR #99 head `8b1637e3e6ff7ebb718aa3dfb7b3310be3b6ac2f`; PR #103 head `d1bb0f721164b4ce325af5562006bc5fa16d2637`; PR #100 head `ea66fa980e189e5f68e0ceb8a15b1582e0ad31d7`; Spike A/B/C records/evidence in PR #109.  
-**Target configuration:** Pixel-first Experience One frontier and current active upstream heads listed above.  
-**Known limit:** visual screenshot coverage is not comprehensive; this is explicitly handled by the no-replacement-without-capture rule.  
-**Falsifier:** E1 replaces a currently working renderer, scrubber, route view, HUD behavior, graph behavior or command path without an adequate regression reference for that behavior.
+**Evidence class:** `DOCUMENTED`.  
+**Exact refs:** `E1_0_BASELINE_FIXTURE_v0.1.md`; current PR #96/#99/#103/#100 heads; Spike A/B/C evidence.  
+**Target configuration:** Pixel-first Experience One frontier.  
+**Known limit:** actual visual/behavioral captures are incomplete, including HUD composition, Wayfarer 3D appearance, route playback, scrubber behavior, Atlas/link analysis and Ceres/Neptune world-summary presentation.  
+**Pass condition:** each E1-relevant behavior that may be replaced has an actual inspectable regression reference — screenshot/video where appropriate, deterministic fixture/test where sufficient, or other concrete capture beyond prose.  
+**Blocking rule:** E1.1 may add read-only/non-replacement projection surfaces while G1 remains open, but may not replace a currently working behavior lacking a captured reference.  
+**Falsifier after eventual PASS:** G1 reopens if E1 replaces a current behavior for which no adequate captured regression reference exists.
 
-### G2 — PASS
+This correction is deliberate enforcement of v1.1 §4.1 and WALTER's documentation-as-progress watch. The existence of a markdown baseline document is not itself evidence that the baseline was captured.
 
-**Exact pass statement:** Experience One consumes existing engineering, spatial, Navigator and campaign authority rather than defining new physics/state truth for UX convenience.
+### G2 — PASS / STANDING INVARIANT
+
+**Exact pass statement:** Experience One currently consumes existing engineering, spatial, Navigator and campaign authority rather than defining new physics/state truth for UX convenience.
 
 **Evidence class:** `OBSERVED_IN_SOURCE` + `TESTED`.  
 **Exact refs:** PR #96 Wayfarer engineering authority; PR #99 typed command/plan/revalidation/explicit-execution authority; PR #103 WORLD/shared-spatial target authority; Spike B existing Navigator campaign commit/persistence/replay; Spike C read-only model/tool boundary.  
-**Target configuration:** current upstream heads listed under G1 plus E1.0 Pixel spike runs.  
-**Known limit:** open upstream qualification gaps remain open; E1 must constrain itself to qualified envelopes instead of filling them.  
+**Target configuration:** current upstream heads plus E1.0 Pixel spike runs.  
+**Known limit:** this is not a one-time property. It must be explicitly revalidated at each later Experience One gate and whenever a new E1 adapter/service crosses an authority boundary.  
 **Falsifier:** an E1 implementation introduces duplicate trajectory physics, duplicate campaign state, browser/model state authority, or an E1-only engineering number that overrides the upstream source of truth.
 
 ## 3. Spike A — CLOSED
@@ -149,7 +155,7 @@ Development OpenAI audit remains local at `/storage/emulated/0/Download/LOOM_OPE
 
 **Falsifier:** reopen if production integration allows model/user/retrieved text to override deterministic state, invent unavailable authoritative facts, introduces hidden write/calculation/state authority, requires duplicate campaign state, cannot preserve explicit provenance/epistemic status, becomes operationally unacceptable on Pixel, or provider/data/cost/lock-in constraints require replanning.
 
-## 6. E1.0 GO / REPLAN — GO
+## 6. E1.0 GO / REPLAN — GO DECISION RECORDED
 
 The governing GO criteria are:
 
@@ -158,23 +164,39 @@ The governing GO criteria are:
 - Mara read-only plumbing is feasible without violating authority boundaries;
 - no critical upstream qualification blocker has been discovered.
 
-Evidence now maps cleanly:
+Evidence maps cleanly:
 
 - Spike A = `BOUNDED_EXTENSION`;
 - Spike B = `BOUNDED_ADAPTER`;
 - Spike C = `BOUNDED_MODEL_ADAPTER` with six hostile/normal cases passing on Pixel;
-- G0/G1/G2 are closed with explicit evidence/falsifiers;
-- PR #96 retains open qualification items, but E1.0 discovered no upstream blocker that requires foundational replanning of the Experience One path. E1 must continue to constrain itself to qualified envelopes rather than inventing missing engineering truth.
+- G0 is closed;
+- G2 currently holds and remains a standing invariant;
+- PR #96 retains open qualification items, but E1.0 discovered no upstream blocker that requires foundational replanning of the Experience One path.
 
-**Decision: `GO`.**
+**Decision: `GO`.**  
+**E1.0 closure state: pending G1.**
 
-Proceed substantially as written into **E1.1 — existing world becomes interrogable**.
+The GO decision authorizes progression substantially as written, but while G1 is open only **additive/non-replacement E1.1 projection work** may proceed. Any replacement of existing behavior remains blocked until its regression reference is captured.
 
-This GO does not promote any spike harness to production architecture, choose a permanent model provider, merge active upstream PRs, or waive later Experience One gates.
+Reviewer evidence can legitimately remain `DOCUMENTED` where the reviewer has not directly received the A/B/C raw artifacts; that does not erase the project's empirical Pixel evidence, and the distinction must remain explicit.
 
-**Falsifier:** reopen E1.0/REPLAN if E1.1 implementation reveals that one of the bounded spike conclusions was false in production shape — especially if ranked candidates require foundational solver redesign, campaign execution requires duplicate authority, Mara needs write/state/calculation authority to be useful, or an upstream qualification gap blocks the preregistered Ceres→Neptune loop.
+**Falsifier:** reopen/REPLAN if E1.1 reveals that one of the bounded spike conclusions was false in production shape — especially if ranked candidates require foundational solver redesign, campaign execution requires duplicate authority, Mara needs write/state/calculation authority to be useful, or an upstream qualification gap blocks the preregistered Ceres→Neptune loop.
 
-## 7. WALTER / #LOOMSAFE
+## 7. E1.1 diagnostic starting rule
+
+Existing world texture must be tested before new lore is authored.
+
+If Ceres appears boring/thin during E1.1, use v1.1 precedence:
+
+1. verify the governed data exists;
+2. verify projection surfaces it;
+3. verify synthesis communicates it;
+4. verify presentation exposes it;
+5. only then consider mechanics/motivation or genuine data absence.
+
+Current prior evidence indicates substantial structured world texture already exists in Atlas/CIVSTATE. Therefore the first E1.1 hypothesis for a thin experience is **`PROJECTION_FAILURE`, not `DATA_FAILURE`**. Genuine data gaps — including possible human-habits/daily-life texture — remain candidates only after projection has been tested honestly.
+
+## 8. WALTER / #LOOMSAFE
 
 Carry forward these watches into E1.1:
 
@@ -187,8 +209,9 @@ Carry forward these watches into E1.1:
 - presentation-server hold;
 - uncaptured visual replacement;
 - duplicate campaign/flight authority;
-- using Mara prose to conceal a mechanics/data/projection failure.
+- using Mara prose to conceal a mechanics/data/projection failure;
+- authoring new lore before demonstrating that existing data failed the projection test.
 
-## 8. Next action
+## 9. Next action
 
-Begin **E1.1 — existing world becomes interrogable**, starting from the governed Canon Context Projection / read-only world-context path rather than new lore or a new renderer. Preserve the local OpenAI development audit for every key-backed call and assess usage/cost/value at the end of the build.
+Begin **E1.1 — existing world becomes interrogable** through additive, read-only Canon Context Projection work. Do not replace existing presentation behavior while G1 remains open. Preserve the local OpenAI development audit for every key-backed call and assess usage/cost/value at the end of the build.
