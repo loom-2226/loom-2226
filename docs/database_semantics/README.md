@@ -17,6 +17,20 @@ The data dictionary deliberately separates four levels of recovery:
 
 Every current production field must be represented. No field may disappear merely because its meaning has not yet been recovered.
 
+## Focused CIVSTATE recovery
+
+`LOOM_CIVSTATE_IMPORTANT_TABLES_RECOVERY_v0.4.md` is the current focused recovery pass for seven high-value tables:
+
+- `civ_country_operating_profile`
+- `civ_governance_profile`
+- `civ_place_dna`
+- `civ_economic_state`
+- `civ_node_texture_overlay`
+- `civ_social_state`
+- `civ_sector_state`
+
+It records preserved semantics, exact runtime formulas/copy relationships where verifiable, intentionally unsupported NULL contracts, and two political-breadth methodology/runtime discrepancies that still require builder/history tracing.
+
 ## Evidence routing
 
 For CIVSTATE, the generator ingests and cross-routes all five self-documentation layers:
