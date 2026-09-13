@@ -12,7 +12,13 @@ import argparse
 import hashlib
 import json
 import os
+import sys
 from pathlib import Path
+
+SCRIPT_PATH = Path(__file__).resolve()
+DEFAULT_REPO = SCRIPT_PATH.parents[3]
+if str(DEFAULT_REPO) not in sys.path:
+    sys.path.insert(0, str(DEFAULT_REPO))
 
 from engineering.experience_one.e1_mara_intent_adapter import OpenAIMaraIntentAdapter
 
