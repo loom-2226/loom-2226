@@ -2,6 +2,7 @@ from __future__ import annotations
 
 """Loopback-only Experience One HUD server. Navigator alone executes/mutates."""
 import argparse, json, os, sys
+from html import escape
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
@@ -10,7 +11,7 @@ if str(REPO_ROOT) not in sys.path: sys.path.insert(0,str(REPO_ROOT))
 from engineering.experience_one.e1_flight_interaction_contract import FlightIntent
 from engineering.experience_one.e1_hud_interaction import MaraIntentSession
 from engineering.experience_one.e1_hud_presenter import build_hud_payload, render_hud_html
-from engineering.experience_one.e1_hud_experience_ui import render_experience_html
+from engineering.experience_one.e1_hud_experience_ui import human_location, render_experience_html
 from engineering.experience_one.e1_mara_intent_adapter import OpenAIMaraIntentAdapter
 from engineering.experience_one.e1_navigator_review_service import NavigatorReviewService
 from engineering.experience_one.e1_navigator_finalization_service import NavigatorFinalizationService
@@ -36,8 +37,11 @@ def _execution_ui(html:str, authorization, execution)->str:
     if not isinstance(authorization,dict): return html
     html=html.replace("There is deliberately no execute control in this qualification slice.","Explicit authorization is recorded; execution requires a separate governed Navigator request.")
     if isinstance(execution,dict):
+        place=escape(human_location(execution.get("location_token","—")))
+        state_id=escape(str(execution.get("state_id","—")))
+        flight_id=escape(str(execution.get("flight_id","—")))
         block=("<section class='panel execution'><div class='eyebrow'>Navigator execution</div><div class='guard'>EXECUTED · CAMPAIGN STATE MUTATED BY NAVIGATOR</div>"
-               f"<div class='value compact'>ARRIVED {execution.get('location_token','—')}</div><div class='small'>State {execution.get('state_id','—')} · Flight {execution.get('flight_id','—')}</div></section>")
+               f"<div class='value compact'>ARRIVED AT {place}</div><div class='small'>State {state_id} · Flight {flight_id}</div></section>")
     else:
         block=("<section class='panel execution-request'><div class='eyebrow'>Governed execution</div><div class='small'>Navigator will re-run, revalidate current state, reviewed candidates, selected plan and final-plan SHA before any mutation.</div>"
                "<button id='execute-flight' type='button'>EXECUTE AUTHORIZED FLIGHT</button><div class='small status' id='execute-status'></div></section>"
