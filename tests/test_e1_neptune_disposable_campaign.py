@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import importlib.util
+import sys
 from pathlib import Path
 
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "engineering" / "experience_one" / "qualification" / "e1_neptune_disposable_campaign.py"
+sys.path.insert(0, str(MODULE_PATH.parent))
 spec = importlib.util.spec_from_file_location("e1_neptune_qualification", MODULE_PATH)
 assert spec is not None and spec.loader is not None
 mod = importlib.util.module_from_spec(spec)
