@@ -58,6 +58,7 @@ def main() -> int:
             "build_acquisition_plan",
             "run_acquisition",
             "build_canonical_dependency_index",
+            "target_determinism_gate",
             "fetch_or_cache",
             "validate_and_normalize_mission",
             "_route_rows_from_canonical",
