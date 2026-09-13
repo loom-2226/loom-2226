@@ -31,6 +31,16 @@ class E1MaraIntentAdapterTests(unittest.TestCase):
             self.assertEqual(intent.destination, "NEPTUNE_SYSTEM")
             self.assertEqual(intent.priority, "BALANCED")
 
+    def test_parse_accepts_ceres_as_existing_e1_route_endpoint(self):
+        intent = parse_mara_intent_json('{"destination":"ceres","priority":"balanced"}')
+        self.assertEqual(intent.destination, "CERES")
+        self.assertEqual(intent.priority, "BALANCED")
+        self.assertEqual(intent.origin, IntentOrigin.MARA)
+        payload = intent.payload()
+        self.assertEqual(payload["calculation_authority"], "ZERO")
+        self.assertEqual(payload["state_authority"], "ZERO")
+        self.assertEqual(payload["execution_authority"], "ZERO")
+
     def test_parse_rejects_unknown_destination_alias(self):
         with self.assertRaises(ValueError):
             parse_mara_intent_json('{"destination":"Somewhere mysterious","priority":"BALANCED"}')
