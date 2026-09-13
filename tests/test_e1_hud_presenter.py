@@ -31,6 +31,7 @@ class E1HUDPresenterTests(unittest.TestCase):
             origin=IntentOrigin.MARA,
             requested_by="MARA",
         )
+        self.intent_payload = intent.payload()
         self.review = build_review(
             intent,
             (
@@ -60,6 +61,17 @@ class E1HUDPresenterTests(unittest.TestCase):
         self.assertIn("NEPTUNE_SYSTEM", orientation["summary"])
         self.assertIn(self.state["epoch_utc"], orientation["summary"])
 
+    def test_typed_mara_intent_is_presented_without_authority_promotion(self):
+        payload = build_hud_payload(self.state, intent=self.intent_payload)
+        shown = payload["flight_intent"]
+        self.assertEqual(shown["destination"], "NEPTUNE_SYSTEM")
+        self.assertEqual(shown["priority"], "BALANCED")
+        self.assertEqual(shown["origin"], "MARA")
+        self.assertEqual(shown["calculation_authority"], "ZERO")
+        self.assertEqual(shown["state_authority"], "ZERO")
+        self.assertEqual(shown["execution_authority"], "ZERO")
+        self.assertEqual(payload["execution_authority"], "ZERO")
+
     def test_review_is_presented_without_execution_authority(self):
         payload = build_hud_payload(self.state, review=self.review)
         review = payload["flight_review"]
@@ -68,11 +80,18 @@ class E1HUDPresenterTests(unittest.TestCase):
         self.assertEqual(len(review["candidates"]), 2)
         self.assertEqual(payload["execution_authority"], "ZERO")
 
-    def test_html_exposes_orientation_and_explicit_authority_labels(self):
-        html = render_hud_html(build_hud_payload(self.state, review=self.review))
+    def test_html_exposes_orientation_intent_form_and_explicit_authority_labels(self):
+        html = render_hud_html(build_hud_payload(
+            self.state,
+            intent=self.intent_payload,
+            review=self.review,
+        ))
         self.assertIn("WAYFARER", html)
         self.assertIn("NEPTUNE_SYSTEM", html)
         self.assertIn("Navigator", html)
+        self.assertIn("Mara", html)
+        self.assertIn("flight-intent-form", html)
+        self.assertIn("/intent.json", html)
         self.assertIn("PRESENTATION ONLY", html)
         self.assertIn("REVIEW ONLY", html)
 
