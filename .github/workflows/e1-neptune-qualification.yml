@@ -6,6 +6,7 @@ on:
       - 'engineering/experience_one/e1_neptune_seed_ceres.py'
       - 'engineering/experience_one/qualification/e1_neptune_disposable_campaign.py'
       - 'engineering/experience_one/qualification/e1_neptune_pixel_run.py'
+      - 'engineering/experience_one/qualification/e1_ephemeris_scope_probe.py'
       - 'tests/test_e1_neptune_disposable_campaign.py'
       - '.github/workflows/e1-neptune-qualification.yml'
 
@@ -32,3 +33,6 @@ jobs:
           engineering/experience_one/e1_neptune_seed_ceres.py
           engineering/experience_one/qualification/e1_neptune_disposable_campaign.py
           engineering/experience_one/qualification/e1_neptune_pixel_run.py
+          engineering/experience_one/qualification/e1_ephemeris_scope_probe.py
+      - name: Inspect embedded Sequence H ephemeris seam
+        run: python engineering/experience_one/qualification/e1_ephemeris_scope_probe.py
