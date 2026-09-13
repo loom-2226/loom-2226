@@ -48,12 +48,8 @@ def render_experience_html(diagnostic_html: str, *, location: str, ship_name: st
     html = html.replace("INTERPRET INTENT", "ASK MARA", 1)
 
     grid_start = "<div class='grid'>"
-    grid_end = "</div>"
     start = html.find(grid_start)
     if start >= 0:
-        end = html.find(grid_end, start + len(grid_start))
-        # The first closing div is not necessarily the grid close in arbitrary HTML;
-        # the production presenter has the interaction section immediately before it.
         interaction_close = "</section></div>"
         real_end = html.find(interaction_close, start)
         if real_end >= 0:
@@ -73,7 +69,27 @@ def render_experience_html(diagnostic_html: str, *, location: str, ship_name: st
 .e1-details .interaction{display:block}
 .e1-details:not([open]) .grid{display:none}
 .intent-result,.navigator-request,.review,.final-plan,.authorization,.execution-request,.execution{margin-top:14px}
-@media(max-width:640px){main{padding-top:18px}.e1-world-hero{padding-top:8px}}
+@media(max-width:640px){
+main{padding-top:18px}
+.e1-world-hero{padding-top:8px}
+.review{overflow:visible}
+.review table{min-width:0;width:100%;display:block}
+.review thead{display:none}
+.review tbody{display:block}
+.review tr{display:block;border:1px solid var(--line);margin:10px 0;padding:8px 10px;background:#0c1118}
+.review td{display:grid;grid-template-columns:7.3rem minmax(0,1fr);gap:10px;align-items:center;border-top:1px solid var(--line);padding:8px 0;white-space:normal}
+.review td:first-child{border-top:0}
+.review td::before{color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.review td:nth-child(1)::before{content:'Plan'}
+.review td:nth-child(2)::before{content:'Metric'}
+.review td:nth-child(3)::before{content:'Torch'}
+.review td:nth-child(4)::before{content:'Time'}
+.review td:nth-child(5)::before{content:'Remass used'}
+.review td:nth-child(6)::before{content:'Arrival remass'}
+.review td:nth-child(7)::before{content:'Thermal'}
+.review td:nth-child(8)::before{content:'Action'}
+.review td:nth-child(8) button{width:100%;margin-top:0}
+}
 </style>"""
     html = html.replace("</head>", css + "</head>", 1)
 
