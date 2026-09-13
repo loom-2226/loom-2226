@@ -1,6 +1,6 @@
 import unittest
 
-from engineering.experience_one.e1_hud_experience_ui import render_experience_html
+from engineering.experience_one.e1_hud_experience_ui import human_location, render_experience_html
 
 
 class E1HUDExperienceUITests(unittest.TestCase):
@@ -27,6 +27,8 @@ class E1HUDExperienceUITests(unittest.TestCase):
         html = render_experience_html("<html><body><main><header></header><div class='grid'></div><footer>x</footer></main></body></html>", location="NEPTUNE_SYSTEM", ship_name="WAYFARER")
         self.assertIn("Neptune system", html)
         self.assertNotIn("NEPTUNE_SYSTEM</strong>", html)
+        self.assertEqual(human_location("PLUTO_SYSTEM"), "Pluto System")
+        self.assertEqual(human_location("EARTH"), "Earth")
 
     def test_mobile_navigator_review_is_cardified_without_dropping_fields(self):
         diagnostic = """<html><head></head><body><main><header></header><div class='grid'></div>
@@ -34,6 +36,9 @@ class E1HUDExperienceUITests(unittest.TestCase):
 <tbody><tr><td>1</td><td>HARD</td><td>CRUISE</td><td>8.222 h</td><td>13.397 t</td><td>236.603 t</td><td>SUSTAINABLE</td><td><button>SELECT</button></td></tr></tbody></table></section>
 <footer>x</footer></main></body></html>"""
         html = render_experience_html(diagnostic, location="CERES", ship_name="WAYFARER")
+        self.assertIn("@media(max-width:760px)", html)
+        self.assertIn("html,body{max-width:100%;overflow-x:hidden}", html)
+        self.assertIn(".review table{min-width:0!important", html)
         self.assertIn(".review thead{display:none}", html)
         self.assertIn(".review td:nth-child(1)::before{content:'Plan'}", html)
         self.assertIn(".review td:nth-child(6)::before{content:'Arrival remass'}", html)
