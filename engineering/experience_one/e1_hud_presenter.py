@@ -107,7 +107,7 @@ def render_hud_html(payload: Mapping[str, Any]) -> str:
                 "</tr>"
             )
         cards = (
-            "<section class='panel review'><div class='eyebrow'>NAVIGATOR FLIGHT REVIEW</div>"
+            "<section class='panel review'><div class='eyebrow'>Navigator flight review</div>"
             "<div class='guard'>REVIEW ONLY · EXECUTION AUTHORITY: NONE</div>"
             "<table><thead><tr><th>PLAN</th><th>METRIC</th><th>TORCH</th></tr></thead>"
             f"<tbody>{''.join(rows)}</tbody></table></section>"
@@ -150,7 +150,7 @@ footer {{ margin-top:14px; color:var(--muted); font-size:11px; letter-spacing:.0
 </style>
 </head>
 <body><main>
-<header><div><div class='eyebrow'>LOOM · EXPERIENCE ONE · 2226</div><h1>{ship_name}</h1></div><div class='guard'>PRESENTATION ONLY · NAVIGATOR AUTHORITY</div></header>
+<header><div><div class='eyebrow'>LOOM · EXPERIENCE ONE · 2226</div><h1>{ship_name}</h1></div><div class='guard'>PRESENTATION ONLY · Navigator authority</div></header>
 <div class='grid'>
 <section class='panel orientation'><div class='eyebrow'>CURRENT ORIENTATION</div><div class='value'>{summary}</div><div class='small'>Local geometric placement is deliberately not claimed until a qualified Neptune spatial resolver supplies it.</div></section>
 <section class='panel'><div class='eyebrow'>LOCATION</div><div class='value'>{location}</div><div class='small'>Boundary: {boundary}</div></section>
