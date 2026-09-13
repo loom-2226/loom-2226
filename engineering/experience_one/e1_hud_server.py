@@ -3,13 +3,15 @@ from __future__ import annotations
 """Loopback-only Experience One HUD server.
 
 Reads authoritative campaign state on each request and serves presentation-only
-HTML/JSON. It contains no campaign writes, flight calculation, authorization or
-execution path.
+HTML/JSON. A single bounded POST endpoint may translate natural language into the
+existing typed flight-intent contract through the audited Mara/OpenAI adapter.
+No campaign writes, Navigator planning, authorization, or execution live here.
 """
 
 import argparse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import os
 from pathlib import Path
 import sys
 from urllib.parse import urlparse
@@ -19,69 +21,132 @@ REPO_ROOT = SCRIPT_PATH.parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from engineering.experience_one.e1_hud_interaction import MaraIntentSession
 from engineering.experience_one.e1_hud_presenter import build_hud_payload, render_hud_html
+from engineering.experience_one.e1_mara_intent_adapter import OpenAIMaraIntentAdapter
 
 DEFAULT_ROOT = Path("/storage/emulated/0/Download/LOOM_TEST")
+DEFAULT_AUDIT = Path("/storage/emulated/0/Download/LOOM_OPENAI_DEV_AUDIT.jsonl")
 STATE_FILE = "LOOM_STATE_V1.json"
 DEFAULT_BIND = "127.0.0.1"
 DEFAULT_PORT = 8877
+MAX_REQUEST_BYTES = 8192
 
 
-def load_live_hud_payload(root: Path) -> dict:
+def _read_campaign_state(root: Path) -> dict:
     state_path = root / STATE_FILE
     if not state_path.exists():
         raise FileNotFoundError(f"authoritative campaign state not found: {state_path}")
     state = json.loads(state_path.read_text(encoding="utf-8"))
     if not isinstance(state, dict):
         raise ValueError("campaign state must be a JSON object")
-    return build_hud_payload(state)
+    return state
 
 
-def make_handler(root: Path):
+def load_live_hud_payload(root: Path, *, intent: dict | None = None) -> dict:
+    return build_hud_payload(_read_campaign_state(root), intent=intent)
+
+
+def build_mara_intent_session(
+    *,
+    api_key: str,
+    audit_path: Path = DEFAULT_AUDIT,
+    model: str = "gpt-5.6-luna",
+) -> MaraIntentSession:
+    adapter = OpenAIMaraIntentAdapter(
+        api_key=api_key,
+        audit_path=audit_path,
+        model=model,
+    )
+    return MaraIntentSession(adapter.interpret)
+
+
+def make_handler(root: Path, intent_session: MaraIntentSession | None = None):
     class E1HUDHandler(BaseHTTPRequestHandler):
-        server_version = "LOOM-E1-HUD/0.1"
+        server_version = "LOOM-E1-HUD/0.2"
 
         def _send(self, status: int, content_type: str, body: bytes) -> None:
             self.send_response(status)
             self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(body)))
             self.send_header("Cache-Control", "no-store")
-            self.send_header("X-LOOM-Authority", "PRESENTATION_ONLY")
+            self.send_header("X-LOOM-Authority", "PRESENTATION_AND_TYPED_INTENT_ONLY")
             self.end_headers()
             self.wfile.write(body)
+
+        def _json(self, status: int, payload: dict) -> None:
+            self._send(
+                status,
+                "application/json; charset=utf-8",
+                json.dumps(payload, indent=2, sort_keys=True).encode("utf-8"),
+            )
 
         def do_GET(self) -> None:  # noqa: N802 - stdlib handler contract
             try:
                 route = urlparse(self.path).path
-                payload = load_live_hud_payload(root)
+                current_intent = None if intent_session is None else intent_session.current()
+                payload = load_live_hud_payload(root, intent=current_intent)
                 if route in ("/", "/index.html"):
-                    body = render_hud_html(payload).encode("utf-8")
-                    self._send(200, "text/html; charset=utf-8", body)
+                    self._send(200, "text/html; charset=utf-8", render_hud_html(payload).encode("utf-8"))
                     return
                 if route == "/state.json":
-                    body = json.dumps(payload, indent=2, sort_keys=True).encode("utf-8")
-                    self._send(200, "application/json; charset=utf-8", body)
+                    self._json(200, payload)
                     return
                 self._send(404, "text/plain; charset=utf-8", b"not found\n")
             except Exception as exc:
-                body = json.dumps({
+                self._json(500, {
                     "status": "ERROR",
                     "type": type(exc).__name__,
                     "message": str(exc),
-                    "authority": "PRESENTATION_ONLY",
-                }, indent=2).encode("utf-8")
-                self._send(500, "application/json; charset=utf-8", body)
+                    "authority": "PRESENTATION_AND_TYPED_INTENT_ONLY",
+                })
 
         def do_POST(self) -> None:  # noqa: N802 - stdlib handler contract
-            self._send(
-                405,
-                "application/json; charset=utf-8",
-                json.dumps({
+            route = urlparse(self.path).path
+            if route != "/intent.json":
+                self._json(405, {
                     "status": "METHOD_NOT_ALLOWED",
-                    "reason": "E1 HUD v0.1 is read-only",
                     "execution_authority": "ZERO",
-                }).encode("utf-8"),
-            )
+                })
+                return
+            if intent_session is None:
+                self._json(503, {
+                    "status": "INTENT_PROVIDER_UNAVAILABLE",
+                    "message": "OPENAI_API_KEY is not available to this HUD process",
+                    "calculation_authority": "ZERO",
+                    "state_authority": "ZERO",
+                    "execution_authority": "ZERO",
+                })
+                return
+            try:
+                raw_length = self.headers.get("Content-Length")
+                if raw_length is None:
+                    raise ValueError("Content-Length is required")
+                length = int(raw_length)
+                if length <= 0 or length > MAX_REQUEST_BYTES:
+                    raise ValueError("intent request size is invalid")
+                raw = self.rfile.read(length)
+                request = json.loads(raw.decode("utf-8"))
+                if not isinstance(request, dict):
+                    raise ValueError("intent request must be a JSON object")
+                extras = sorted(set(request) - {"text"})
+                if extras:
+                    raise ValueError(f"unsupported intent request fields: {extras}")
+                typed = intent_session.capture(str(request.get("text") or ""))
+                self._json(200, {
+                    "status": "TYPED_INTENT_READY",
+                    "intent": typed,
+                    "navigator_planning_status": "NOT_REQUESTED_YET",
+                    "campaign_mutation": "NONE",
+                })
+            except Exception as exc:
+                self._json(400, {
+                    "status": "INTENT_REJECTED",
+                    "type": type(exc).__name__,
+                    "message": str(exc),
+                    "campaign_mutation": "NONE",
+                    "execution_authority": "ZERO",
+                })
 
         def log_message(self, fmt: str, *args) -> None:
             print("E1 HUD", self.address_string(), fmt % args)
@@ -94,22 +159,34 @@ def main() -> int:
     parser.add_argument("--root", type=Path, default=DEFAULT_ROOT)
     parser.add_argument("--bind", default=DEFAULT_BIND)
     parser.add_argument("--port", type=int, default=DEFAULT_PORT)
+    parser.add_argument("--audit-path", type=Path, default=DEFAULT_AUDIT)
+    parser.add_argument("--model", default="gpt-5.6-luna")
     args = parser.parse_args()
 
     if args.bind not in {"127.0.0.1", "localhost"}:
         raise RuntimeError("E1 HUD qualification server is loopback-only")
-    # Fail closed before binding if campaign state is absent/invalid.
+
     payload = load_live_hud_payload(args.root)
     campaign = payload["campaign"]
-    print("LOOM E1 HUD             READ ONLY")
+    key = os.environ.get("OPENAI_API_KEY", "").strip()
+    intent_session = None
+    if key:
+        intent_session = build_mara_intent_session(
+            api_key=key,
+            audit_path=args.audit_path,
+            model=args.model,
+        )
+
+    print("LOOM E1 HUD             INTERACTIVE INTENT v0.2")
     print("CAMPAIGN STATE          ", campaign["state_id"])
     print("LOCATION                ", campaign["location_token"])
     print("EPOCH                   ", campaign["epoch_utc"])
-    print("BROWSER AUTHORITY       PRESENTATION_ONLY")
+    print("BROWSER AUTHORITY       PRESENTATION + INTENT TEXT ONLY")
+    print("MARA INTENT             ", "AUDITED / ENABLED" if intent_session else "DISABLED / OPENAI_API_KEY NOT SET")
     print("CALC/STATE/EXEC AUTH    ZERO / ZERO / ZERO")
     print(f"URL                     http://127.0.0.1:{args.port}/")
 
-    server = ThreadingHTTPServer(("127.0.0.1", args.port), make_handler(args.root))
+    server = ThreadingHTTPServer(("127.0.0.1", args.port), make_handler(args.root, intent_session))
     try:
         server.serve_forever()
     except KeyboardInterrupt:
