@@ -5,8 +5,9 @@ from __future__ import annotations
 
 This is diagnostic tooling only. It does not call Horizons, mutate campaign state,
 or alter Navigator behavior. It loads the exact embedded core through Navigator's
-own loader and prints the implementation/signatures needed to design a bounded
-route-scoped acquisition adapter without guessing at the opaque embedded module.
+own loader and prints the implementation/signatures needed to design bounded
+route-scoped acquisition and downstream determinism adapters without guessing at
+the opaque embedded module.
 """
 
 import inspect
@@ -59,6 +60,10 @@ def main() -> int:
             "run_acquisition",
             "build_canonical_dependency_index",
             "target_determinism_gate",
+            "build_sequence_d_once",
+            "compile_sequence_b",
+            "compile_ephemeris_payload",
+            "_all_dependency_rows",
             "fetch_or_cache",
             "validate_and_normalize_mission",
             "_route_rows_from_canonical",
@@ -68,7 +73,7 @@ def main() -> int:
         interesting = {}
         for key, value in sorted(vars(core).items()):
             upper = key.upper()
-            if any(token in upper for token in ("EPHEM", "TARGET", "OBJECT", "MOON", "ACQUIS", "LOCAL", "BASE_MAP")):
+            if any(token in upper for token in ("EPHEM", "TARGET", "OBJECT", "MOON", "ACQUIS", "LOCAL", "BASE_MAP", "SEQUENCE_B")):
                 if isinstance(value, (dict, list, tuple, set, str, int, float, bool, type(None))):
                     try:
                         rendered = json.loads(json.dumps(value, default=str))
