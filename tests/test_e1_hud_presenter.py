@@ -114,6 +114,25 @@ class E1HUDPresenterTests(unittest.TestCase):
         self.assertIn("REVIEW ONLY", review_html)
         self.assertNotIn("AUTHORIZE FLIGHT", review_html)
 
+    def test_finalized_plan_uses_review_labels_not_nested_navigator_dicts(self):
+        finalization = {
+            "execution_authority": "NONE_FINALIZED_NOT_AUTHORIZED",
+            "selected_plan_number": 1,
+            "selected_candidate": {"plan_number": 1, "metric": "HARD", "torch": "CRUISE"},
+            "finalized_plan": {
+                "metric": {"beta_c": 0.595, "semantics": "RELATIONAL_DISPLACEMENT"},
+                "torch": {"delta_v_km_s": 23.2625, "thermal_posture": "SUSTAINABLE"},
+            },
+            "finalized_plan_sha256": "c" * 64,
+        }
+        html = render_hud_html(build_hud_payload(self.state, finalization=finalization))
+        self.assertIn("Metric HARD · Torch CRUISE", html)
+        self.assertNotIn("Metric {'", html)
+        self.assertNotIn("Torch {'", html)
+        self.assertIn("Technical plan details", html)
+        self.assertIn("beta_c", html)
+        self.assertIn("AUTHORIZE FLIGHT", html)
+
     def test_html_exposes_orientation_intent_form_and_explicit_authority_labels(self):
         html = render_hud_html(build_hud_payload(
             self.state,
