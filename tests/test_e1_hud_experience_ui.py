@@ -28,6 +28,19 @@ class E1HUDExperienceUITests(unittest.TestCase):
         self.assertIn("Neptune system", html)
         self.assertNotIn("NEPTUNE_SYSTEM</strong>", html)
 
+    def test_mobile_navigator_review_is_cardified_without_dropping_fields(self):
+        diagnostic = """<html><head></head><body><main><header></header><div class='grid'></div>
+<section class='panel review'><table><thead><tr><th>PLAN</th><th>METRIC</th><th>TORCH</th><th>TIME</th><th>REMASS USED</th><th>ARRIVAL REMASS</th><th>THERMAL</th><th></th></tr></thead>
+<tbody><tr><td>1</td><td>HARD</td><td>CRUISE</td><td>8.222 h</td><td>13.397 t</td><td>236.603 t</td><td>SUSTAINABLE</td><td><button>SELECT</button></td></tr></tbody></table></section>
+<footer>x</footer></main></body></html>"""
+        html = render_experience_html(diagnostic, location="CERES", ship_name="WAYFARER")
+        self.assertIn(".review thead{display:none}", html)
+        self.assertIn(".review td:nth-child(1)::before{content:'Plan'}", html)
+        self.assertIn(".review td:nth-child(6)::before{content:'Arrival remass'}", html)
+        self.assertIn("8.222 h", html)
+        self.assertIn("236.603 t", html)
+        self.assertIn("SELECT", html)
+
 
 if __name__ == "__main__":
     unittest.main()
