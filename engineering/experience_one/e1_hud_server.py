@@ -33,6 +33,7 @@ def build_mara_intent_session(*,api_key,audit_path=DEFAULT_AUDIT,model="gpt-5.6-
 
 def _execution_ui(html:str, authorization, execution)->str:
     if not isinstance(authorization,dict): return html
+    html=html.replace("There is deliberately no execute control in this qualification slice.","Explicit authorization is recorded; execution requires a separate governed Navigator request.")
     if isinstance(execution,dict):
         block=("<section class='panel execution'><div class='eyebrow'>Navigator execution</div><div class='guard'>EXECUTED · CAMPAIGN STATE MUTATED BY NAVIGATOR</div>"
                f"<div class='value compact'>ARRIVED {execution.get('location_token','—')}</div><div class='small'>State {execution.get('state_id','—')} · Flight {execution.get('flight_id','—')}</div></section>")
