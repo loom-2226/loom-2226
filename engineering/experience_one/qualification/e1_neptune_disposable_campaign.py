@@ -20,6 +20,8 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from e1_route_scoped_ephemeris import install_route_scoped_acquisition
+
 CAMPAIGN_FILES = ("LOOM_STATE_V1.json", "LOOM_STATE_V1.bak", "LOOM_CAMPAIGN_HISTORY.jsonl.gz")
 READ_INPUTS = ("LOOM_Navigator_Cache_v1", "LOOM_2226_CIVSTATE.sqlite3")
 ANDROID_ROOT = Path("/storage/emulated/0/Download")
@@ -114,6 +116,7 @@ def main() -> int:
         "priority": args.priority.upper(),
         "authorized_plan_number": args.plan,
         "authority_path": "EXISTING_NAVIGATOR_CAMPAIGN_FLIGHT_PATH",
+        "ephemeris_scope": "ROUTE_REQUIRED_ONLY",
         "real_campaign_hashes_before": before,
     }
 
@@ -157,6 +160,7 @@ def main() -> int:
 
         def load_core_without_server_hold(internal):
             core = original_load_core(internal)
+            install_route_scoped_acquisition(core)
             core.serve_sequence_d = lambda *a, **k: print("E1 NEPTUNE SERVER HOLD SKIPPED / PRESENTATION OUT OF SCOPE")
             return core
 
@@ -187,6 +191,7 @@ def main() -> int:
             raise RuntimeError("no FLIGHT_COMMITTED record for arrived flight")
 
         core = navmod._load_core(temp_root / "LOOM_E1_NEPTUNE_REPLAY")
+        install_route_scoped_acquisition(core)
         replay_ok = bool(navmod._replay_flight(core, ledger, flight_id, temp_root))
         restart_location = str(restarted.get("location_token"))
         destination_pass = restart_location.upper() in {destination.upper(), "NEPTUNE", "NEPTUNE_SYSTEM"}
