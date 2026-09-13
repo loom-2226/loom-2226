@@ -19,7 +19,7 @@ Every current production field must be represented. No field may disappear merel
 
 ## Focused CIVSTATE recovery
 
-`LOOM_CIVSTATE_IMPORTANT_TABLES_RECOVERY_v0.4.md` is the current focused recovery pass for seven high-value tables:
+The focused CIVSTATE recovery series covers seven high-value tables:
 
 - `civ_country_operating_profile`
 - `civ_governance_profile`
@@ -29,7 +29,11 @@ Every current production field must be represented. No field may disappear merel
 - `civ_social_state`
 - `civ_sector_state`
 
-It records preserved semantics, exact runtime formulas/copy relationships where verifiable, intentionally unsupported NULL contracts, and two political-breadth methodology/runtime discrepancies that still require builder/history tracing.
+Read in sequence:
+
+- `LOOM_CIVSTATE_IMPORTANT_TABLES_RECOVERY_v0.4.md` — bounded field definitions, exact carry-throughs, and political-breadth discrepancies.
+- `LOOM_CIVSTATE_IMPORTANT_TABLES_RECOVERY_v0.5.md` / `v0.6.md` — exact reverse-verified node-texture equations and explicit rejection of approximate fits as definitions.
+- `LOOM_CIVSTATE_BUILDER_ARCHAEOLOGY_v0.7.md` — provenance boundary for the unrecovered Phase-13 materializer; records that production Git contains the built database/runtime consumers but not the original Phase-13 builder source, and identifies pre-Git recovery artifacts and hashes without promoting them to Git authority.
 
 ## Evidence routing
 
@@ -48,5 +52,9 @@ A readiness-audit record about `civ_transport_flow` therefore belongs to the tra
 ## Hard rule
 
 Do not infer scientific, social, political, economic or gameplay meaning from an identifier alone. Schema/value behavior may prove storage structure, joins and observed domains. It does not prove intended semantics.
+
+Approximate regression, correlation, or a plausible-looking formula is not a recovered definition. A numerical generator is promoted to `RECOVERED_EXACT` only when supported by preserved source/methodology or when it exactly reproduces the complete applicable runtime population and is consistent with the preserved source family.
+
+Historical artifacts recovered outside Git remain **historical recovery evidence** until imported and governed. Their existence does not retroactively make them production Git authority.
 
 This documentation is subordinate to canon/engineering/data authority and does not promote database contents to canon.
