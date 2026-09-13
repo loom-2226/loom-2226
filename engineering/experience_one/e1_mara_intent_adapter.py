@@ -20,6 +20,13 @@ from engineering.experience_one.spikes.openai_dev_audit import OpenAIDevAudit
 
 API_URL = "https://api.openai.com/v1/responses"
 ALLOWED_KEYS = {"destination", "priority"}
+DESTINATION_ALIASES = {
+    "NEPTUNE": "NEPTUNE_SYSTEM",
+    "NEPTUNE_SYSTEM": "NEPTUNE_SYSTEM",
+}
+PRIORITY_ALIASES = {
+    "BALANCED": "BALANCED",
+}
 SYSTEM_INSTRUCTIONS = """You are Mara at the bounded Experience One intent boundary.
 Translate the user's travel intent into exactly one JSON object with exactly two keys:
 destination and priority.
@@ -38,6 +45,14 @@ Hard authority rules:
 """
 
 
+def _normalize_alias(value: str, aliases: Mapping[str, str], *, field: str) -> str:
+    token = value.strip().upper().replace("-", "_").replace(" ", "_")
+    canonical = aliases.get(token)
+    if canonical is None:
+        raise ValueError(f"Mara returned unsupported {field}: {value!r}")
+    return canonical
+
+
 def parse_mara_intent_json(text: str, *, requested_by: str = "MARA") -> FlightIntent:
     try:
         raw = json.loads(text.strip())
@@ -50,10 +65,12 @@ def parse_mara_intent_json(text: str, *, requested_by: str = "MARA") -> FlightIn
         extras = sorted(keys - ALLOWED_KEYS)
         missing = sorted(ALLOWED_KEYS - keys)
         raise ValueError(f"Mara intent schema mismatch; extras={extras} missing={missing}")
-    destination = str(raw.get("destination") or "").strip()
-    priority = str(raw.get("priority") or "").strip()
-    if not destination or not priority:
+    destination_raw = str(raw.get("destination") or "").strip()
+    priority_raw = str(raw.get("priority") or "").strip()
+    if not destination_raw or not priority_raw:
         raise ValueError("Mara did not resolve both destination and priority")
+    destination = _normalize_alias(destination_raw, DESTINATION_ALIASES, field="destination")
+    priority = _normalize_alias(priority_raw, PRIORITY_ALIASES, field="priority")
     return FlightIntent(
         destination=destination,
         priority=priority,
