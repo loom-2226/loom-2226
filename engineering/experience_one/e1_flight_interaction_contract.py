@@ -74,27 +74,24 @@ class FlightIntent:
 class NavigatorCandidateRef:
     """Reference to one Navigator-produced comparison candidate.
 
-    Candidate refs intentionally do not contain a final plan SHA. Navigator only
-    earns that SHA after candidate selection and its final deterministic solve.
+    Only fields Navigator actually owns at comparison time are bound here.
+    Mission route/strategy remain in Navigator mission context. A final plan SHA
+    does not exist until the selected candidate receives Navigator's final solve.
     """
 
     plan_number: int
-    route: str
-    strategy: str
     metric: str
     torch: str
 
     def __post_init__(self) -> None:
         if self.plan_number <= 0:
             raise ValueError("plan_number must be positive")
-        if not all(x.strip() for x in (self.route, self.strategy, self.metric, self.torch)):
-            raise ValueError("candidate identity fields are required")
+        if not self.metric.strip() or not self.torch.strip():
+            raise ValueError("candidate metric and torch are required")
 
     def payload(self) -> dict[str, Any]:
         return {
             "plan_number": self.plan_number,
-            "route": self.route,
-            "strategy": self.strategy,
             "metric": self.metric,
             "torch": self.torch,
         }
