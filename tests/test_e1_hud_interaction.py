@@ -29,6 +29,69 @@ class E1HUDInteractionTests(unittest.TestCase):
         self.assertEqual(payload["state_authority"], "ZERO")
         self.assertEqual(payload["execution_authority"], "ZERO")
         self.assertEqual(session.current(), payload)
+        self.assertIsNone(session.current_review())
+
+    def test_review_bundle_is_in_memory_and_must_remain_review_only(self):
+        session = MaraIntentSession(
+            lambda text: FlightIntent("NEPTUNE_SYSTEM", "BALANCED", IntentOrigin.MARA, "MARA")
+        )
+        session.capture("Neptune")
+        bundle = {
+            "schema": "LOOM_E1_NAVIGATOR_REVIEW_BUNDLE_V1",
+            "review": {
+                "contract": "LOOM_E1_FLIGHT_REVIEW_V1",
+                "navigator_state_id": "S1",
+                "planner_authority": "NAVIGATOR",
+                "execution_authority": "NONE_REVIEW_ONLY",
+                "candidates": [{"plan_number": 1, "metric": "HARD", "torch": "CRUISE"}],
+            },
+            "candidate_display": [{
+                "plan_number": 1,
+                "metric": "HARD",
+                "torch": "CRUISE",
+                "total_s": 100.0,
+                "remass_used_t": 1.0,
+                "arrival_remass_t": 249.0,
+                "thermal": "SUSTAINABLE",
+            }],
+            "planner_authority": "NAVIGATOR",
+            "calculation_authority": "NAVIGATOR_ONLY",
+            "caller_calculation_authority": "ZERO",
+            "execution_authority": "NONE_REVIEW_ONLY",
+            "campaign_mutation": "NONE",
+        }
+        stored = session.store_review(bundle)
+        self.assertEqual(stored["planner_authority"], "NAVIGATOR")
+        self.assertEqual(stored["execution_authority"], "NONE_REVIEW_ONLY")
+        self.assertEqual(session.current_review(), stored)
+
+    def test_new_intent_invalidates_prior_review(self):
+        session = MaraIntentSession(
+            lambda text: FlightIntent("NEPTUNE_SYSTEM", "BALANCED", IntentOrigin.MARA, "MARA")
+        )
+        session.capture("Neptune")
+        session.store_review({
+            "review": {"planner_authority": "NAVIGATOR", "execution_authority": "NONE_REVIEW_ONLY"},
+            "candidate_display": [],
+            "planner_authority": "NAVIGATOR",
+            "execution_authority": "NONE_REVIEW_ONLY",
+            "campaign_mutation": "NONE",
+        })
+        session.capture("Neptune again")
+        self.assertIsNone(session.current_review())
+
+    def test_review_with_execution_authority_fails_closed(self):
+        session = MaraIntentSession(
+            lambda text: FlightIntent("NEPTUNE_SYSTEM", "BALANCED", IntentOrigin.MARA, "MARA")
+        )
+        session.capture("Neptune")
+        with self.assertRaises(ValueError):
+            session.store_review({
+                "review": {"planner_authority": "NAVIGATOR", "execution_authority": "NAVIGATOR_ONLY"},
+                "planner_authority": "NAVIGATOR",
+                "execution_authority": "NAVIGATOR_ONLY",
+                "campaign_mutation": "NONE",
+            })
 
     def test_empty_text_fails_closed_without_replacing_prior_intent(self):
         def interpret(text: str) -> FlightIntent:
