@@ -14,6 +14,19 @@ Before mutation:
 - preserve recovery/rollback path;
 - update compatibility metadata when required.
 
+## Semantic interpretation — mandatory
+
+Before interpreting `LOOM_2226.sqlite3` or `LOOM_2226_CIVSTATE.sqlite3`, read:
+
+- `docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_v0.1.md`
+- `docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md`
+- `docs/database_semantics/LOOM_DATABASE_SEMANTIC_INDEX_v0.1.json`
+- `docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md`
+
+Do not infer intended semantics from table names, column names, correlations, distributions, or apparent graph topology. Schema/value behavior may verify structure or variation but does not establish intended meaning. If the semantic dossier marks a field/table unresolved, preserve that status until generating builder/migration, methodology/derivation/audit text, source documentation, or an authoritative consumer contract closes it.
+
+For CIVSTATE, consult `civ_variable_semantics`, `civ_derivation`, `civ_methodology_note`, `civ_assumption`, and `civ_readiness_audit` before interpreting unfamiliar fields.
+
 ## SQLite discipline
 
 - do not manually patch production SQLite as a substitute for a governed migration when a migration is required;
