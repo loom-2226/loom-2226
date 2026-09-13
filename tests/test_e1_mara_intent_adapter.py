@@ -22,13 +22,22 @@ class E1MaraIntentAdapterTests(unittest.TestCase):
         self.assertEqual(payload["execution_authority"], "ZERO")
 
     def test_parse_normalizes_bounded_destination_and_priority_aliases(self):
-        intent = parse_mara_intent_json('{"destination":"Neptune","priority":"balanced"}')
-        self.assertEqual(intent.destination, "NEPTUNE_SYSTEM")
-        self.assertEqual(intent.priority, "BALANCED")
+        for raw in (
+            '{"destination":"Neptune","priority":"balanced"}',
+            '{"destination":"NEPTUNE_SYSTEM","priority":"balanced profile"}',
+            '{"destination":"NEPTUNE","priority":"balanced_profile"}',
+        ):
+            intent = parse_mara_intent_json(raw)
+            self.assertEqual(intent.destination, "NEPTUNE_SYSTEM")
+            self.assertEqual(intent.priority, "BALANCED")
 
     def test_parse_rejects_unknown_destination_alias(self):
         with self.assertRaises(ValueError):
             parse_mara_intent_json('{"destination":"Somewhere mysterious","priority":"BALANCED"}')
+
+    def test_parse_rejects_unknown_priority_alias(self):
+        with self.assertRaises(ValueError):
+            parse_mara_intent_json('{"destination":"NEPTUNE_SYSTEM","priority":"YOLO"}')
 
     def test_parse_rejects_extra_authority_or_plan_fields(self):
         for raw in (
@@ -44,7 +53,7 @@ class E1MaraIntentAdapterTests(unittest.TestCase):
         def provider(payload):
             calls.append(payload)
             return {
-                "response": {"output_text": '{"destination":"NEPTUNE","priority":"BALANCED"}'},
+                "response": {"output_text": '{"destination":"NEPTUNE","priority":"balanced profile"}'},
                 "http_status": 200,
                 "latency_s": 0.1,
             }
@@ -59,6 +68,7 @@ class E1MaraIntentAdapterTests(unittest.TestCase):
             )
             intent = adapter.interpret("Take us to Neptune, balanced profile.")
             self.assertEqual(intent.destination, "NEPTUNE_SYSTEM")
+            self.assertEqual(intent.priority, "BALANCED")
             self.assertEqual(len(calls), 1)
             rows = [json.loads(x) for x in audit_path.read_text(encoding="utf-8").splitlines() if x.strip()]
             self.assertEqual(len(rows), 1)
