@@ -2,6 +2,7 @@ from __future__ import annotations
 
 """Experience One HUD presentation model with zero browser authority."""
 
+import json
 from html import escape
 from typing import Any, Mapping
 
@@ -127,14 +128,20 @@ def render_hud_html(payload: Mapping[str, Any]) -> str:
 
     final_card=""
     if isinstance(finalization, Mapping):
-        plan=finalization.get("finalized_plan") or {}; sha=escape(str(finalization.get("finalized_plan_sha256","—")))
+        plan=finalization.get("finalized_plan") or {}
+        selected=finalization.get("selected_candidate") or {}
+        sha=escape(str(finalization.get("finalized_plan_sha256","—")))
+        metric=escape(str(selected.get("metric","—")))
+        torch=escape(str(selected.get("torch","—")))
+        raw_plan=escape(json.dumps(plan, sort_keys=True, indent=2, default=str))
         auth_button="" if isinstance(authorization, Mapping) else "<button id='authorize-flight' type='button'>AUTHORIZE FLIGHT</button><div class='small status' id='authorize-status'></div>"
         final_card=("<section class='panel final-plan'><div class='eyebrow'>Navigator finalized plan</div>"
             "<div class='guard'>FINALIZED · NOT EXECUTED</div>"
             f"<div class='value compact'>PLAN {escape(str(finalization.get('selected_plan_number','—')))}</div>"
-            f"<div class='small'>Metric {escape(str(plan.get('metric','—')))} · Torch {escape(str(plan.get('torch','—')))}</div>"
+            f"<div class='small'>Metric {metric} · Torch {torch}</div>"
             f"<div class='small'>Final plan SHA <code>{sha}</code></div>"
-            "<div class='small'>Campaign mutation: NONE · Execution authority: NONE until explicit authorization.</div>"+auth_button+"</section>")
+            "<div class='small'>Campaign mutation: NONE · Execution authority: NONE until explicit authorization.</div>"
+            f"<details class='technical-details'><summary>Technical plan details</summary><pre>{raw_plan}</pre></details>"+auth_button+"</section>")
 
     auth_card=""
     if isinstance(authorization, Mapping):
