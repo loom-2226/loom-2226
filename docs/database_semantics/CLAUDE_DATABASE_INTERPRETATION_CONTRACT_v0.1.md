@@ -2,34 +2,43 @@
 
 Applies whenever an agent reads `data/LOOM_2226.sqlite3` or `data/LOOM_2226_CIVSTATE.sqlite3`.
 
-## Primary rule: use the data dictionary
+## Primary rule
 
-Before using a database field materially:
+Before using a database field materially, consult the generated production data dictionary and its field recovery status.
 
-1. Read `docs/database_semantics/LOOM_DATABASE_DATA_DICTIONARY_v0.1.md` if present and current.
-2. Use `docs/database_semantics/LOOM_DATABASE_DATA_DICTIONARY_v0.1.json` for machine lookup.
-3. If generated outputs are missing or stale, run `python tools/build_database_data_dictionary.py` from the repository root.
-4. If a field is marked `DEFINITION_NOT_RECOVERED`, do not make up a definition from its name. Recover it from builder/methodology/source evidence or carry the unresolved status.
-5. Secondary semantic/misuse notes may add guardrails, but they do not replace the concrete definition, unit, grain, generation rule, and join contract in the data dictionary.
+The question is:
 
-## What Claude should retrieve for a field
+> What exactly is this field, at what row grain, in what units/domain, how is it generated, and how does it join?
 
-- database;
-- table;
-- row grain / primary key;
-- column;
-- SQLite declared type;
-- nullability/default/key position;
-- foreign-key target or join key where applicable;
-- concrete data definition;
-- unit or scale/domain;
-- data role (identifier, count, rate, score, weight, proxy, text, timestamp, etc.);
-- generating rule/source where applicable.
+## Recovery statuses
+
+- `RECOVERED_EXACT`: explicit preserved semantic/formula contract.
+- `RECOVERED_STRUCTURAL`: concrete key/lookup/metadata meaning proven by schema or verified value-domain joins.
+- `RECOVERED_PARTIAL`: useful meaning recovered but exact formula/unit/taxonomy remains incomplete.
+- `RECOVERED_STORAGE_ONLY`: storage role is inventoried, but intended semantic/generating meaning remains open.
+
+`RECOVERED_STORAGE_ONLY` is **not understood**. Do not infer the missing meaning from the identifier.
+
+## Evidence order
+
+For CIVSTATE, consult and cross-route all five in-database documentation layers:
+
+1. `civ_variable_semantics`
+2. `civ_readiness_audit`
+3. `civ_derivation`
+4. `civ_methodology_note`
+5. `civ_assumption`
+
+Then search the repository for the generating builder/migration, frozen specification, source documentation, and authoritative consumer contract.
+
+Documentation belongs to the table/field it **describes**, not necessarily the documentation table where the prose is stored.
 
 ## Hard prohibitions
 
-- Do not infer a missing data definition from a table or column identifier.
-- A proxy is not a literal physical count unless its definition says so.
+- Do not infer scientific, economic, social, political, physical, or gameplay meaning from a column name.
+- A value constant within Ceres/region/class is not a local differentiator.
+- A generated symmetric edge/flow is not evidence of reciprocal real-world dependence.
+- A proxy is not a literal physical count unless its contract says so.
 - Organization-scope facts are not individual-scope facts.
 - Co-presence or shared facility standing is not a person-person relationship.
 - Cross-boundary fact is not boundary-dependent fact.
@@ -37,44 +46,39 @@ Before using a database field materially:
 - Never infer absence from schema that was not actually inventoried/queried.
 - Re-query identifiers; do not trust copied IDs.
 
-## Known concrete definitions that matter often
+## Specific known warnings
 
-### `civ_transport_flow.passengers_year`
-Annual modeled origin-destination corridor-demand proxy in `passengers/year`; not a timetable, scheduled-service count, unique-traveler count, or guaranteed direct route.
+### `civ_transport_flow`
+Annual corridor demand proxy, not scheduled direct service. Reverse-paired rows do not prove reciprocal operational dependence.
 
-### `civ_transport_flow.accessibility_index`
-Relative topology/ephemeris accessibility used by the OD allocator, dimensionless `0..1`; not door-to-door travel time.
+### `civ_actor_exposure`
+Exposure represents influence/control/dependency constructs, not ownership. `employment_share`, `asset_share`, and `revenue_share` are intentionally unsupported in the current derivation.
 
-### `civ_actor_exposure.control_weight`
-Derived from OPERATIONS exposure in the preserved actor-exposure derivation. It is a weight, not an ownership share.
-
-### `civ_actor_exposure.service_dependency_weight`
-Derived from SUPPLY exposure in the preserved actor-exposure derivation. It is a dependency/exposure weight, not ownership.
-
-### `civ_demographic_state.biological_population`
-Recognized biological resident population at the row geography/year, unit `persons`.
-
-### `civ_demographic_state.synthetic_population`
-Recognized synthetic persons at the row geography/year, unit `persons`; distinct from non-person automation/task capacity.
-
-### `civ_demographic_state.transient_population`
-Nonresident transient presence associated with the geography, unit `persons/day-equivalent`; not part of resident census population.
-
-### `civ_workforce_state.synthetic_workers`
-Recognized synthetic persons participating in labor, unit `person-FTE proxy`.
-
-### `civ_workforce_state.machine_task_equivalent`
-Non-person automated task capacity, unit `FTE-equivalent`; never add to person counts.
+### `civ_census_node_relation`
+`LOCATED_IN` and `GATEWAY_FOR` relate operational facilities to census geography. They do not transfer population or imply every zone resident uses a facility.
 
 ### `civ_infrastructure_state.berths_equivalent`
-Annual ship-call throughput normalized by utilization, unit `equivalent one-call/day berths`; not literal dock count.
+Throughput equivalent, not literal physical dock/berth count.
 
-### `civ_infrastructure_state.habitable_capacity`
-Occupied-equivalent accommodation-capacity proxy, unit `persons-equivalent`; not certified engineering life-support capacity.
+### `civ_workforce_state.machine_task_equivalent`
+Non-person automation task capacity. Never add it to synthetic-person population.
 
-### `civ_infrastructure_state.industrial_capacity_index`
-Relative industrial scale across the current 127-node universe, unit `0..1 percentile-composite`; not an absolute physical production ceiling.
+### `knowledge_entities`
+Knowledge noun/entity catalog, not a proposition/claim table.
 
-## Output behavior
+### `knowledge_relationships`
+Semantic noun relationships with provenance/context; not automatically interpersonal social ties.
 
-When Claude uses a field that materially affects a conclusion, prefer citing its dictionary definition rather than paraphrasing from memory. If the dictionary says `DEFINITION_NOT_RECOVERED`, say so and do not silently substitute a plausible meaning.
+## Output discipline
+
+When a field materially supports a conclusion, record:
+
+- database / table / column;
+- row/key or grain used;
+- recovery status;
+- evidence source;
+- unit/scale where recovered;
+- generating rule where recovered;
+- known caveat or misuse warning.
+
+If a required meaning is only `RECOVERED_STORAGE_ONLY`, stop or downgrade the conclusion instead of filling the gap.
