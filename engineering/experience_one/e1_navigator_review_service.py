@@ -4,8 +4,9 @@ from __future__ import annotations
 
 The service never commits a flight. Production candidate generation runs the
 existing Navigator path against a temporary copy of the supplied campaign and
-intentionally stops at Navigator's plan-selection prompt. The source campaign is
-hashed before and after and must remain bit-identical.
+stops immediately after Navigator has deterministically generated its comparison
+candidates. The source campaign is hashed before and after and must remain
+bit-identical.
 """
 
 import builtins
@@ -119,16 +120,18 @@ def _navigator_candidate_source(
         def observed_candidate_plans(*call_args, **call_kwargs):
             candidates = original_candidate_plans(*call_args, **call_kwargs)
             captured[:] = [dict(row) for row in candidates[:8]]
-            return candidates
+            if not captured:
+                raise RuntimeError("Navigator produced no review candidates")
+            # Stop at the exact seam we need. Navigator's interactive selection
+            # loop uses a bare except around input, so throwing from input would
+            # be swallowed forever. Raising here occurs after authoritative
+            # candidate calculation but before selection/finalization/commit.
+            raise _ReviewReady("Navigator comparison ready")
 
         def scripted_input(prompt=""):
             upper = str(prompt).upper()
             if "OPERATIONAL STRATEGY" in upper:
                 return "1"
-            if "SELECT PLAN" in upper:
-                if not captured:
-                    raise RuntimeError("Navigator comparison candidates were not captured")
-                raise _ReviewReady("Navigator comparison ready")
             raise RuntimeError(f"unexpected Navigator review prompt: {prompt!r}")
 
         def load_core_for_review(internal):
