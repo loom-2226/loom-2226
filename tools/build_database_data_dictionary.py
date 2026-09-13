@@ -1,246 +1,153 @@
 #!/usr/bin/env python3
 """Build the LOOM production database data dictionary.
 
-Reads both production SQLite databases directly from data/ and emits exhaustive
-Markdown + JSON dictionaries. Every current table and every current column is
-included. Maintained field definitions are merged from
-`docs/database_semantics/DATA_DICTIONARY_FIELD_DEFINITIONS_v0.1.json`.
+Reads both production SQLite databases directly and emits exhaustive Markdown +
+JSON. Maintained field definitions are merged with CIVSTATE self-documentation.
 
-This tool does not infer a definition from a table/column name. Missing recovered
-meaning is emitted explicitly as DEFINITION_NOT_RECOVERED.
+v0.2 recovery rule: documentation is routed to the table/field it DESCRIBES,
+not merely the table in which the prose is stored. The recovery engine ingests:
+  * civ_variable_semantics
+  * civ_readiness_audit
+  * civ_derivation (method/source_detail/notes)
+  * civ_methodology_note
+  * civ_assumption
+
+No definition is inferred from an identifier. Unrecovered fields remain
+DEFINITION_NOT_RECOVERED.
 """
-
 from __future__ import annotations
-
-import argparse
-import json
-import sqlite3
+import argparse, json, re, sqlite3
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DBS = [
-    ROOT / "data" / "LOOM_2226.sqlite3",
-    ROOT / "data" / "LOOM_2226_CIVSTATE.sqlite3",
-]
-DEFAULT_DEFS = ROOT / "docs" / "database_semantics" / "DATA_DICTIONARY_FIELD_DEFINITIONS_v0.1.json"
-DEFAULT_MD = ROOT / "docs" / "database_semantics" / "LOOM_DATABASE_DATA_DICTIONARY_v0.1.md"
-DEFAULT_JSON = ROOT / "docs" / "database_semantics" / "LOOM_DATABASE_DATA_DICTIONARY_v0.1.json"
+ROOT=Path(__file__).resolve().parents[1]
+DEFAULT_DBS=[ROOT/'data'/'LOOM_2226.sqlite3',ROOT/'data'/'LOOM_2226_CIVSTATE.sqlite3']
+DEFAULT_DEFS=ROOT/'docs'/'database_semantics'/'DATA_DICTIONARY_FIELD_DEFINITIONS_v0.1.json'
+DEFAULT_MD=ROOT/'docs'/'database_semantics'/'LOOM_DATABASE_DATA_DICTIONARY_v0.2.md'
+DEFAULT_JSON=ROOT/'docs'/'database_semantics'/'LOOM_DATABASE_DATA_DICTIONARY_v0.2.json'
+DOC_TABLES=('civ_variable_semantics','civ_readiness_audit','civ_derivation','civ_methodology_note','civ_assumption')
 
+def qi(s): return '"'+s.replace('"','""')+'"'
+def tables(c): return [r[0] for r in c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name")]
+def cols(c,t): return [dict(cid=r[0],name=r[1],declared_type=r[2] or None,not_null=bool(r[3]),default=r[4],pk_position=int(r[5])) for r in c.execute(f'PRAGMA table_info({qi(t)})')]
+def rows_as_dict(c,t):
+    names=[r[1] for r in c.execute(f'PRAGMA table_info({qi(t)})')]
+    return [dict(zip(names,r)) for r in c.execute(f'SELECT * FROM {qi(t)}')]
 
-def qident(name: str) -> str:
-    return '"' + name.replace('"', '""') + '"'
+def load_defs(p):
+    x=json.loads(p.read_text()); exact={}; wild={}
+    for r in x.get('fields',[]):
+        (wild if r['column']=='*' else exact)[(r['database'],r['table']) if r['column']=='*' else (r['database'],r['table'],r['column'])]=r
+    return exact,wild
 
+def schema(c,t):
+    cs=cols(c,t); fk={}
+    for r in c.execute(f'PRAGMA foreign_key_list({qi(t)})'):
+        fk.setdefault(r[3],[]).append(dict(target_table=r[2],from_column=r[3],target_column=r[4],on_update=r[5],on_delete=r[6]))
+    ix=[]
+    for r in c.execute(f'PRAGMA index_list({qi(t)})'):
+        ix.append(dict(name=r[1],unique=bool(r[2]),origin=r[3],columns=[x[2] for x in c.execute(f'PRAGMA index_info({qi(r[1])})')]))
+    for x in cs:x['foreign_keys']=fk.get(x['name'],[])
+    pk=[x['name'] for x in sorted((x for x in cs if x['pk_position']),key=lambda z:z['pk_position'])]
+    return dict(table=t,row_count=c.execute(f'SELECT COUNT(*) FROM {qi(t)}').fetchone()[0],primary_key=pk,indexes=ix,columns=cs)
 
-def load_definitions(path: Path) -> tuple[dict[tuple[str, str, str], dict[str, Any]], dict[tuple[str, str], dict[str, Any]]]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    exact: dict[tuple[str, str, str], dict[str, Any]] = {}
-    wildcard: dict[tuple[str, str], dict[str, Any]] = {}
-    for row in payload.get("fields", []):
-        key = (row["database"], row["table"], row["column"])
-        if row["column"] == "*":
-            wildcard[(row["database"], row["table"])] = row
-        else:
-            exact[key] = row
-    return exact, wildcard
+def text_of(r): return ' '.join(str(v) for v in r.values() if v is not None)
+def mentioned(text,name): return re.search(r'(?<![A-Za-z0-9_])'+re.escape(name)+r'(?![A-Za-z0-9_])',text,re.I) is not None
 
+def collect_self_docs(c):
+    present=set(tables(c)); evidence=[]
+    # exact variable semantics: use actual schema flexibly
+    if 'civ_variable_semantics' in present:
+        for r in rows_as_dict(c,'civ_variable_semantics'):
+            evidence.append(dict(source_table='civ_variable_semantics',source_key=r.get('variable_key'),target_table=r.get('table_name'),target_column=r.get('column_name'),kind='VARIABLE_SEMANTICS',text=text_of(r),payload=r))
+    for st,kind,key_candidates in [
+        ('civ_readiness_audit','READINESS_AUDIT',('audit_key','audit_id','id')),
+        ('civ_derivation','DERIVATION',('derivation_id','id')),
+        ('civ_methodology_note','METHODOLOGY',('methodology_id','note_id','id')),
+        ('civ_assumption','ASSUMPTION',('assumption_id','id'))]:
+        if st not in present: continue
+        for r in rows_as_dict(c,st):
+            key=next((r.get(k) for k in key_candidates if r.get(k) is not None),None)
+            evidence.append(dict(source_table=st,source_key=key,target_table=None,target_column=None,kind=kind,text=text_of(r),payload=r))
+    return evidence
 
-def table_names(con: sqlite3.Connection) -> list[str]:
-    return [
-        r[0]
-        for r in con.execute(
-            "SELECT name FROM sqlite_master "
-            "WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"
-        )
-    ]
+def route_evidence(c,evidence):
+    ts=tables(c); cmap={t:[x['name'] for x in cols(c,t)] for t in ts}; routed={t:[] for t in ts}; routed_col={(t,x):[] for t in ts for x in cmap[t]}
+    for e in evidence:
+        if e.get('target_table') in routed:
+            routed[e['target_table']].append(e)
+            if (e['target_table'],e.get('target_column')) in routed_col:routed_col[(e['target_table'],e['target_column'])].append(e)
+            continue
+        txt=e['text']
+        hits=[t for t in ts if mentioned(txt,t)]
+        # If prose names a field uniquely across tables, route it to that field/table too.
+        for t in hits:routed[t].append(e)
+        for t in hits:
+            for col in cmap[t]:
+                if mentioned(txt,col): routed_col[(t,col)].append(e)
+    return routed,routed_col
 
+def derivation_evidence(c,t):
+    names={x['name'] for x in cols(c,t)}
+    if 'derivation_id' not in names or 'civ_derivation' not in tables(c):return []
+    ids=[r[0] for r in c.execute(f'SELECT DISTINCT derivation_id FROM {qi(t)} WHERE derivation_id IS NOT NULL')]
+    if not ids:return []
+    ds=rows_as_dict(c,'civ_derivation'); return [dict(source_table='civ_derivation',source_key=d.get('derivation_id'),kind='ROW_DERIVATION',text=text_of(d),payload=d) for d in ds if d.get('derivation_id') in ids]
 
-def table_schema(con: sqlite3.Connection, table: str) -> dict[str, Any]:
-    cols = []
-    for r in con.execute(f"PRAGMA table_info({qident(table)})"):
-        cols.append(
-            {
-                "cid": r[0],
-                "name": r[1],
-                "declared_type": r[2] or None,
-                "not_null": bool(r[3]),
-                "default": r[4],
-                "pk_position": int(r[5]),
-            }
-        )
-
-    fks_by_col: dict[str, list[dict[str, Any]]] = {}
-    for r in con.execute(f"PRAGMA foreign_key_list({qident(table)})"):
-        item = {
-            "target_table": r[2],
-            "from_column": r[3],
-            "target_column": r[4],
-            "on_update": r[5],
-            "on_delete": r[6],
-        }
-        fks_by_col.setdefault(r[3], []).append(item)
-
-    indexes = []
-    for r in con.execute(f"PRAGMA index_list({qident(table)})"):
-        index_name = r[1]
-        indexes.append(
-            {
-                "name": index_name,
-                "unique": bool(r[2]),
-                "origin": r[3],
-                "columns": [x[2] for x in con.execute(f"PRAGMA index_info({qident(index_name)})")],
-            }
-        )
-
-    for c in cols:
-        c["foreign_keys"] = fks_by_col.get(c["name"], [])
-
-    row_count = con.execute(f"SELECT COUNT(*) FROM {qident(table)}").fetchone()[0]
-    pk = [c["name"] for c in sorted((c for c in cols if c["pk_position"]), key=lambda x: x["pk_position"])]
-    return {"table": table, "row_count": row_count, "primary_key": pk, "indexes": indexes, "columns": cols}
-
-
-def attach_definition(db_name: str, table: str, col: dict[str, Any], exact, wildcard) -> dict[str, Any]:
-    row = exact.get((db_name, table, col["name"]))
-    if row is None:
-        row = wildcard.get((db_name, table))
-    if row is None:
-        definition = {
-            "definition_status": "DEFINITION_NOT_RECOVERED",
-            "definition": None,
-            "unit": None,
-            "data_role": None,
-            "scope": None,
-            "epistemic_status": None,
-            "generation": None,
-            "join_notes": None,
-            "misuse_warning": None,
-        }
+def attach(db,t,col,exact,wild,col_ev):
+    r=exact.get((db,t,col['name'])) or wild.get((db,t)); ev=col_ev.get((t,col['name']),[])
+    if r:
+        d=dict(definition_status='DEFINED',definition=r.get('definition'),unit=r.get('unit'),data_role=r.get('data_role'),scope=r.get('scope'),epistemic_status=r.get('epistemic_status'),generation=r.get('generation'),join_notes=r.get('join_notes'),misuse_warning=r.get('misuse_warning'))
     else:
-        definition = {
-            "definition_status": "DEFINED",
-            "definition": row.get("definition"),
-            "unit": row.get("unit"),
-            "data_role": row.get("data_role"),
-            "scope": row.get("scope"),
-            "epistemic_status": row.get("epistemic_status"),
-            "generation": row.get("generation"),
-            "join_notes": row.get("join_notes"),
-            "misuse_warning": row.get("misuse_warning"),
-        }
-    out = dict(col)
-    out.update(definition)
+        d=dict(definition_status='DEFINITION_NOT_RECOVERED',definition=None,unit=None,data_role=None,scope=None,epistemic_status=None,generation=None,join_notes=None,misuse_warning=None)
+    out=dict(col);out.update(d);out['self_documentation_evidence']=[dict(source_table=x['source_table'],source_key=x.get('source_key'),kind=x['kind'],text=x['text']) for x in ev];return out
+
+def status_for(info):
+    n=len(info['columns']); defined=sum(x['definition_status']=='DEFINED' for x in info['columns']); has_purpose=bool(info['self_documentation_evidence'] or info['row_derivation_evidence'])
+    if n and defined==n and has_purpose:return 'UNDERSTOOD'
+    if defined or has_purpose:return 'PARTIALLY_UNDERSTOOD'
+    return 'NOT_UNDERSTOOD'
+
+def build(paths,defs):
+    exact,wild=load_defs(defs); out=dict(version='0.2',definition_rule='Ingest all five CIVSTATE self-documentation layers and route findings to described tables/fields; never infer definitions from identifiers.',databases=[])
+    for p in paths:
+        c=sqlite3.connect(f'file:{p}?mode=ro',uri=True); ev=collect_self_docs(c); tev,cev=route_evidence(c,ev); db=dict(database=p.name,tables=[])
+        for t in tables(c):
+            inf=schema(c,t); inf['self_documentation_evidence']=[dict(source_table=x['source_table'],source_key=x.get('source_key'),kind=x['kind'],text=x['text']) for x in tev[t]]; inf['row_derivation_evidence']=[dict(source_table=x['source_table'],source_key=x.get('source_key'),kind=x['kind'],text=x['text']) for x in derivation_evidence(c,t)]; inf['columns']=[attach(p.name,t,x,exact,wild,cev) for x in inf['columns']]; inf['understanding_status']=status_for(inf); db['tables'].append(inf)
+        c.close();out['databases'].append(db)
     return out
 
+def render(doc):
+    L=['# LOOM Production Database Data Dictionary v0.2','', 'Generated from production schemas plus routed CIVSTATE self-documentation. Evidence belongs to the table/field it describes, not merely the table where the prose is stored.','']; stats={'UNDERSTOOD':0,'PARTIALLY_UNDERSTOOD':0,'NOT_UNDERSTOOD':0}; nc=nd=0
+    for db in doc['databases']:
+        L += [f"## `{db['database']}`",'']
+        for t in db['tables']:
+            stats[t['understanding_status']]+=1; nc+=len(t['columns']); nd+=sum(x['definition_status']=='DEFINED' for x in t['columns'])
+            L += [f"### `{t['table']}`",'',f"- Rows: `{t['row_count']}`",f"- Primary key: `{', '.join(t['primary_key']) if t['primary_key'] else 'NONE'}`",f"- Status: **{t['understanding_status']}**",'']
+            ev=t['self_documentation_evidence']+t['row_derivation_evidence']
+            if ev:
+                L += ['**Recovered documentation attached to this table:**','']
+                seen=set()
+                for e in ev:
+                    k=(e['source_table'],e.get('source_key'),e['text'])
+                    if k in seen:continue
+                    seen.add(k); L.append(f"- `{e['source_table']}` `{e.get('source_key')}`: {e['text']}")
+                L.append('')
+            L += ['| Column | Type | Definition | Unit | Role | Field evidence |','|---|---|---|---|---|---|']
+            for x in t['columns']:
+                def esc(v):return str(v).replace('|','\\|').replace('\n',' ')
+                fe='; '.join(f"{e['source_table']}:{e.get('source_key')}" for e in x['self_documentation_evidence']) or '—'
+                L.append(f"| `{esc(x['name'])}` | `{esc(x['declared_type'] or 'UNTYPED')}` | {esc(x['definition'] or '**DEFINITION_NOT_RECOVERED**')} | {esc(x['unit'] or '—')} | {esc(x['data_role'] or '—')} | {esc(fe)} |")
+            L.append('')
+    L += ['## Coverage','',f"- Columns: `{nc}`",f"- Explicit field definitions: `{nd}`",f"- `UNDERSTOOD`: `{stats['UNDERSTOOD']}` tables",f"- `PARTIALLY_UNDERSTOOD`: `{stats['PARTIALLY_UNDERSTOOD']}` tables",f"- `NOT_UNDERSTOOD`: `{stats['NOT_UNDERSTOOD']}` tables",'', 'Table status is mechanically derived: UNDERSTOOD requires every field defined plus table-purpose evidence; PARTIAL requires some field definition or routed purpose/derivation evidence.']
+    return '\n'.join(L)+'\n'
 
-def build(db_paths: list[Path], defs_path: Path) -> dict[str, Any]:
-    exact, wildcard = load_definitions(defs_path)
-    result: dict[str, Any] = {
-        "version": "0.1",
-        "definition_rule": "Never infer intended meaning from a field name. Unrecovered definitions are explicit.",
-        "databases": [],
-    }
-    for path in db_paths:
-        if not path.exists():
-            raise FileNotFoundError(path)
-        con = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
-        db = {"database": path.name, "tables": []}
-        for t in table_names(con):
-            info = table_schema(con, t)
-            info["columns"] = [attach_definition(path.name, t, c, exact, wildcard) for c in info["columns"]]
-            db["tables"].append(info)
-        con.close()
-        result["databases"].append(db)
-    return result
-
-
-def render_markdown(doc: dict[str, Any]) -> str:
-    lines = [
-        "# LOOM Production Database Data Dictionary v0.1",
-        "",
-        "Generated directly from the production SQLite schemas and merged with the maintained field-definition registry.",
-        "",
-        "`DEFINITION_NOT_RECOVERED` means the column is structurally inventoried but its concrete data definition has not yet been recovered from builder/methodology/source evidence.",
-        "",
-    ]
-    total_tables = 0
-    total_cols = 0
-    missing = 0
-    for db in doc["databases"]:
-        lines += [f"## `{db['database']}`", ""]
-        for t in db["tables"]:
-            total_tables += 1
-            total_cols += len(t["columns"])
-            grain = ", ".join(t["primary_key"]) if t["primary_key"] else "NO DECLARED PRIMARY KEY"
-            lines += [
-                f"### `{t['table']}`",
-                "",
-                f"- Rows: `{t['row_count']}`",
-                f"- Primary key / row identity: `{grain}`",
-                "",
-                "| Column | SQLite type | Key/nullability | FK | Definition | Unit / scale | Role | Generation / source |",
-                "|---|---|---|---|---|---|---|---|",
-            ]
-            for c in t["columns"]:
-                if c["definition_status"] != "DEFINED":
-                    missing += 1
-                keybits = []
-                if c["pk_position"]:
-                    keybits.append(f"PK#{c['pk_position']}")
-                keybits.append("NOT NULL" if c["not_null"] else "NULLABLE")
-                fks = "; ".join(f"{x['target_table']}.{x['target_column']}" for x in c["foreign_keys"]) or "—"
-                definition = c["definition"] or "**DEFINITION_NOT_RECOVERED**"
-                unit = c["unit"] or "—"
-                role = c["data_role"] or "—"
-                generation = c["generation"] or "—"
-                def esc(v: Any) -> str:
-                    return str(v).replace("|", "\\|").replace("\n", " ")
-                lines.append(
-                    f"| `{esc(c['name'])}` | `{esc(c['declared_type'] or 'UNTYPED')}` | {esc(', '.join(keybits))} | {esc(fks)} | {esc(definition)} | {esc(unit)} | {esc(role)} | {esc(generation)} |"
-                )
-            lines.append("")
-    lines += [
-        "## Coverage",
-        "",
-        f"- Databases: `{len(doc['databases'])}`",
-        f"- Tables: `{total_tables}`",
-        f"- Columns: `{total_cols}`",
-        f"- Columns whose concrete definition is not yet recovered: `{missing}`",
-        "",
-        "Coverage is structural and exhaustive for the database bytes used to generate this file; definition completeness is reported separately and is never faked.",
-    ]
-    return "\n".join(lines) + "\n"
-
-
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--world", type=Path, default=DEFAULT_DBS[0])
-    ap.add_argument("--civstate", type=Path, default=DEFAULT_DBS[1])
-    ap.add_argument("--definitions", type=Path, default=DEFAULT_DEFS)
-    ap.add_argument("--markdown", type=Path, default=DEFAULT_MD)
-    ap.add_argument("--json", type=Path, default=DEFAULT_JSON)
-    ap.add_argument("--check", action="store_true", help="Fail if generated outputs differ from committed outputs.")
-    args = ap.parse_args()
-
-    doc = build([args.world, args.civstate], args.definitions)
-    md = render_markdown(doc)
-    js = json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
-
-    if args.check:
-        ok = True
-        for path, expected in ((args.markdown, md), (args.json, js)):
-            actual = path.read_text(encoding="utf-8") if path.exists() else None
-            if actual != expected:
-                print(f"STALE: {path}")
-                ok = False
+def main():
+    a=argparse.ArgumentParser();a.add_argument('--world',type=Path,default=DEFAULT_DBS[0]);a.add_argument('--civstate',type=Path,default=DEFAULT_DBS[1]);a.add_argument('--definitions',type=Path,default=DEFAULT_DEFS);a.add_argument('--markdown',type=Path,default=DEFAULT_MD);a.add_argument('--json',type=Path,default=DEFAULT_JSON);a.add_argument('--check',action='store_true');x=a.parse_args();doc=build([x.world,x.civstate],x.definitions);md=render(doc);js=json.dumps(doc,indent=2,ensure_ascii=False)+'\n'
+    if x.check:
+        ok=True
+        for p,s in ((x.markdown,md),(x.json,js)):
+            if not p.exists() or p.read_text()!=s:print('STALE:',p);ok=False
         return 0 if ok else 1
-
-    args.markdown.write_text(md, encoding="utf-8")
-    args.json.write_text(js, encoding="utf-8")
-    print(f"wrote {args.markdown}")
-    print(f"wrote {args.json}")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
+    x.markdown.write_text(md);x.json.write_text(js);print('wrote',x.markdown);print('wrote',x.json);return 0
+if __name__=='__main__':raise SystemExit(main())
