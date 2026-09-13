@@ -10,6 +10,7 @@ if str(REPO_ROOT) not in sys.path: sys.path.insert(0,str(REPO_ROOT))
 from engineering.experience_one.e1_flight_interaction_contract import FlightIntent
 from engineering.experience_one.e1_hud_interaction import MaraIntentSession
 from engineering.experience_one.e1_hud_presenter import build_hud_payload, render_hud_html
+from engineering.experience_one.e1_hud_experience_ui import render_experience_html
 from engineering.experience_one.e1_mara_intent_adapter import OpenAIMaraIntentAdapter
 from engineering.experience_one.e1_navigator_review_service import NavigatorReviewService
 from engineering.experience_one.e1_navigator_finalization_service import NavigatorFinalizationService
@@ -45,7 +46,7 @@ def _execution_ui(html:str, authorization, execution)->str:
 
 def make_handler(root,intent_session=None,navigator_service=None,finalization_service=None,execution_service=None):
     class Handler(BaseHTTPRequestHandler):
-        server_version="LOOM-E1-HUD/0.5.1"
+        server_version="LOOM-E1-HUD/0.6.0"
         def _send(self,status,ctype,body):
             self.send_response(status); self.send_header("Content-Type",ctype); self.send_header("Content-Length",str(len(body))); self.send_header("Cache-Control","no-store"); self.send_header("X-LOOM-Authority","PRESENTATION_REQUESTS_NAVIGATOR_EXECUTION_ONLY"); self.end_headers(); self.wfile.write(body)
         def _json(self,status,payload): self._send(status,"application/json; charset=utf-8",json.dumps(payload,indent=2,sort_keys=True).encode())
@@ -63,7 +64,9 @@ def make_handler(root,intent_session=None,navigator_service=None,finalization_se
                 intent=None if s is None else s.current(); review=None if s is None else s.current_review(); final=None if s is None else s.current_finalization(); auth=None if s is None else s.current_authorization(); execution=None if s is None else s.current_execution()
                 payload=load_live_hud_payload(root,intent=intent,review_bundle=review,finalization=final,authorization=auth)
                 if route in ("/","/index.html"):
-                    html=_execution_ui(render_hud_html(payload),auth,execution); self._send(200,"text/html; charset=utf-8",html.encode()); return
+                    html=_execution_ui(render_hud_html(payload),auth,execution)
+                    html=render_experience_html(html,location=payload["campaign"]["location_token"],ship_name=payload["campaign"]["ship_name"])
+                    self._send(200,"text/html; charset=utf-8",html.encode()); return
                 if route=="/state.json": self._json(200,{**payload,"navigator_execution":execution}); return
                 self._send(404,"text/plain; charset=utf-8",b"not found\n")
             except Exception as exc: self._json(500,{"status":"ERROR","type":type(exc).__name__,"message":str(exc),"execution_authority":"ZERO"})
@@ -111,7 +114,7 @@ def main():
     p=argparse.ArgumentParser(); p.add_argument("--root",type=Path,default=DEFAULT_ROOT); p.add_argument("--bind",default="127.0.0.1"); p.add_argument("--port",type=int,default=8877); p.add_argument("--audit-path",type=Path,default=DEFAULT_AUDIT); p.add_argument("--model",default="gpt-5.6-luna"); a=p.parse_args()
     if a.bind not in {"127.0.0.1","localhost"}: raise RuntimeError("E1 HUD qualification server is loopback-only")
     campaign=load_live_hud_payload(a.root)["campaign"]; key=os.environ.get("OPENAI_API_KEY","").strip(); session=build_mara_intent_session(api_key=key,audit_path=a.audit_path,model=a.model) if key else None
-    print("LOOM E1 HUD             GOVERNED EXECUTION v0.5.1"); print("CAMPAIGN STATE          ",campaign["state_id"]); print("LOCATION                ",campaign["location_token"]); print("EPOCH                   ",campaign["epoch_utc"]); print("BROWSER AUTHORITY       PRESENTATION + TYPED REQUESTS ONLY"); print("MARA INTENT             ","AUDITED / ENABLED" if session else "DISABLED / OPENAI_API_KEY NOT SET"); print("NAVIGATOR               REVIEW + FINALIZE + REVALIDATE + EXECUTE"); print("CAMPAIGN MUTATION       NAVIGATOR ONLY AFTER EXPLICIT AUTHORIZATION"); print("CALC/STATE/EXEC AUTH    ZERO / ZERO / ZERO (BROWSER + MARA)"); print(f"URL                     http://127.0.0.1:{a.port}/")
+    print("LOOM E1 HUD             ZERO-INSTRUCTION EXPERIENCE v0.6.0"); print("CAMPAIGN STATE          ",campaign["state_id"]); print("LOCATION                ",campaign["location_token"]); print("EPOCH                   ",campaign["epoch_utc"]); print("BROWSER AUTHORITY       PRESENTATION + TYPED REQUESTS ONLY"); print("MARA INTENT             ","AUDITED / ENABLED" if session else "DISABLED / OPENAI_API_KEY NOT SET"); print("NAVIGATOR               REVIEW + FINALIZE + REVALIDATE + EXECUTE"); print("CAMPAIGN MUTATION       NAVIGATOR ONLY AFTER EXPLICIT AUTHORIZATION"); print("CALC/STATE/EXEC AUTH    ZERO / ZERO / ZERO (BROWSER + MARA)"); print(f"URL                     http://127.0.0.1:{a.port}/")
     server=ThreadingHTTPServer(("127.0.0.1",a.port),make_handler(a.root,session,NavigatorReviewService(),NavigatorFinalizationService(),NavigatorExecutionService()))
     try: server.serve_forever()
     except KeyboardInterrupt: pass
