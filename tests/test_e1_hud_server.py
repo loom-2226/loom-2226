@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from engineering.experience_one.e1_hud_server import load_live_hud_payload
+from engineering.experience_one.e1_hud_server import _execution_ui, load_live_hud_payload
 
 
 class E1HUDServerTests(unittest.TestCase):
@@ -24,6 +24,16 @@ class E1HUDServerTests(unittest.TestCase):
             self.assertEqual(payload["campaign"]["location_token"], "NEPTUNE_SYSTEM")
             self.assertEqual(payload["browser_authority"], "PRESENTATION_ONLY")
             self.assertEqual(payload["execution_authority"], "ZERO")
+
+    def test_execution_card_humanizes_internal_location_token(self):
+        html = _execution_ui(
+            "<html><body><footer>x</footer></body></html>",
+            {"explicit": True},
+            {"location_token": "NEPTUNE_SYSTEM", "state_id": "S2", "flight_id": "F1"},
+        )
+        self.assertIn("ARRIVED AT Neptune system", html)
+        self.assertNotIn("ARRIVED NEPTUNE_SYSTEM", html)
+        self.assertIn("State S2 · Flight F1", html)
 
     def test_missing_campaign_state_fails_closed(self):
         with tempfile.TemporaryDirectory() as td:
