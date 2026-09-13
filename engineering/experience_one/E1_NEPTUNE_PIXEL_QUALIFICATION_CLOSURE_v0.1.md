@@ -2,13 +2,13 @@
 
 ## Disposition
 
-`PASS / EMPIRICALLY_TESTED / 2226_FLIGHT_STATE_PERSISTENCE_SEAM_CLOSED`
+`PASS / EMPIRICALLY_TESTED / 2226_TYPED_INTERACTION_FLIGHT_STATE_PERSISTENCE_SEAM_CLOSED`
 
 ## Target
 
-Bounded Experience One mechanics seam only:
+Bounded Experience One interaction + mechanics seam:
 
-`CERES start → deterministic plan → explicit authorization → existing Navigator execution → NEPTUNE_SYSTEM arrival → restart → replay`
+`CERES start → typed intent → Navigator comparison candidates → typed review → Navigator final solve → explicit typed authorization → existing Navigator execution → NEPTUNE_SYSTEM arrival → restart → replay`
 
 This is not a claim that the full 2226 Experience One product is complete.
 
@@ -19,59 +19,53 @@ Checkout: `engineering/experience-one-neptune-flight-closure-2026-09-13`
 Runtime inputs: `/storage/emulated/0/Download/LOOM_TEST`  
 Disposable qualification root: `/storage/emulated/0/Download/LOOM_E1_NEPTUNE_QUAL`
 
-Authoritative 2226 result artifact:
-`engineering/experience_one/evidence/E1_NEPTUNE_2226_PIXEL_QUALIFICATION_RESULT_2026-09-13.json`
+Controlling typed 2226 result artifact:
+`engineering/experience_one/evidence/E1_NEPTUNE_2226_TYPED_PIXEL_QUALIFICATION_RESULT_2026-09-13.json`
 
-Qualification epoch:
-`2226-08-22T01:32:00Z`
+Qualification epoch: `2226-08-22T01:32:00Z`
 
 Observed:
-
-- origin `CERES`;
-- destination `NEPTUNE_SYSTEM`;
-- route-scoped authoritative ephemeris acquisition used only `CE` / Ceres and `NE` / Neptune system barycenter;
-- eight deterministic direct candidate plans produced;
+- origin `CERES`, destination `NEPTUNE_SYSTEM`;
+- interaction contract `LOOM_E1_FLIGHT_INTENT_V1`;
+- eight deterministic direct candidates produced by Navigator;
 - plan 1 explicitly selected;
+- Navigator produced the final plan SHA only after selection/final solve;
+- typed review SHA `9f6da59c1eb686ad30e9aaf4bc9c9aacb5ecf516d8f0b4e3970c6afed6cff785`;
+- typed authorization contract `LOOM_E1_FLIGHT_AUTHORIZATION_V1`;
+- typed execution-request contract `LOOM_E1_NAVIGATOR_EXECUTION_REQUEST_V1`;
+- `typed_interaction_pass: true`;
 - explicit `COMMIT FLIGHT? [y/N] y` authorization required;
-- selected plan `HARD / CRUISE`;
-- departure `2226-08-22T01:32:00Z`;
-- arrival `2226-08-22T09:45:17.864616Z`;
-- total transit `8.222 h`;
-- plan SHA `38b43bc50363cffc69eea114fc6231ed50441aec85aa4bc8458270feb6c91f2e`;
-- `FLIGHT_COMMITTED` recorded;
-- two authoritative `FLIGHT_PHASE` records recorded;
-- `FLIGHT_ARRIVED` recorded;
-- arrival state `S000002-17d132b08c45` at `NEPTUNE_SYSTEM`;
-- post-arrival remass `236.603241561 t` from `250.000000 t` start;
-- restart recovered the same Neptune state and epoch;
+- committed plan SHA `c323db2f783774c85eecb0bde362e8567aba631ff7f22c680f69c595ed66c6dd`;
+- typed execution request final plan SHA matched the actual committed Navigator plan SHA;
+- `FLIGHT_COMMITTED`, two `FLIGHT_PHASE` records, and `FLIGHT_ARRIVED` recorded;
+- arrival state `S000002-b32f118834b5` at `NEPTUNE_SYSTEM`;
+- restart recovered Neptune state at `2226-08-22T09:45:17.864616Z`;
 - authoritative flight-runtime determinism PASS;
-- expected and replay runtime SHA both `4ed0223c83d1900d0cfcb57cb0622d982bdddfed2ef8f3241dfc392dd3a8d350`;
+- expected and replay runtime SHA both `7e0620be4ee337e36554263e2cdd566547e8d2563e0b38b4ec5831cb9fc933a7`;
 - replay PASS;
 - live campaign state/history hashes were bit-identical before and after;
-- qualification result reported `qualification_pass: true`.
+- `qualification_pass: true`.
 
 ## What this earns
 
-The 2226 E1 Ceres → Neptune flight/state/persistence mechanics seam is empirically closed on the first-class Pixel runtime without introducing a second flight, state, ephemeris, clock, or execution authority.
+The 2226 E1 typed interaction + flight/state/persistence seam is empirically closed on the first-class Pixel runtime without introducing a second planning, flight, state, ephemeris, clock, or execution authority.
 
-The production path remains the existing Navigator authority.
+Human/Mara/NPC/system intent remains nonauthoritative. Review is nonexecuting. Explicit authorization binds to Navigator-owned state, the reviewed candidate set, and Navigator's finalized plan SHA. Navigator remains sole planning/execution/campaign authority.
 
-Sequence B/C/D whole-map presentation compilation was intentionally outside this qualification scope and does not gate the authoritative flight seam.
+Sequence B/C/D whole-map presentation compilation remains outside this qualification scope.
 
 ## Prior evidence retained
 
-The earlier 2027 disposable Pixel qualification remains useful historical evidence for the same authority path but no longer defines the temporal boundary of this seam. The 2226 V3 run is the controlling qualification evidence for E1 flight closure.
+The earlier 2027 disposable Pixel qualification remains historical evidence. The 2226 V3 run closed campaign-time flight/state/persistence. The 2226 V4 typed Pixel run is now controlling evidence for the interaction + flight seam.
 
 ## Remaining E1 critical-path work
 
-1. port/re-earn the minimal typed request/review/authorization seam from PR #99 onto current E1/main without wholesale merging the stale branch;
-2. keep Navigator as sole planning/execution/campaign authority;
-3. insert audited Mara/OpenAI through the provider-neutral typed seam only after that deterministic contract is re-earned;
-4. build HUD presentation/interaction in front of Navigator, not around it;
-5. selectively reuse PR #103 spatial presentation patterns where they do not reintroduce epoch/frame authority conflicts;
-6. prove minimum grounded Neptune orientation;
-7. run the Pixel zero-instruction Experience One acceptance path: `You’re aboard Wayfarer. Explore.`
+1. insert audited Mara/OpenAI through the qualified provider-neutral typed seam, preserving zero LLM calculation/state/execution authority;
+2. build HUD presentation/interaction in front of Navigator;
+3. selectively reuse PR #103 spatial presentation patterns without epoch/frame authority conflicts;
+4. prove minimum grounded Neptune orientation after arrival;
+5. run the Pixel zero-instruction Experience One acceptance path: `You’re aboard Wayfarer. Explore.`
 
 ## Falsifier retained
 
-This closure is invalid if later production integration bypasses existing Navigator authority, loses explicit authorization, produces divergent restart/replay state, mutates an unintended campaign, or relies on browser/LLM calculation or state authority.
+This closure is invalid if later production integration bypasses Navigator authority, weakens explicit authorization, permits an LLM/browser to calculate or mutate state, produces divergent restart/replay state, or mutates an unintended campaign.
