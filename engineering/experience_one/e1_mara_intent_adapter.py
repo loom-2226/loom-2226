@@ -21,6 +21,7 @@ from engineering.experience_one.spikes.openai_dev_audit import OpenAIDevAudit
 API_URL = "https://api.openai.com/v1/responses"
 ALLOWED_KEYS = {"destination", "priority"}
 DESTINATION_ALIASES = {
+    "CERES": "CERES",
     "NEPTUNE": "NEPTUNE_SYSTEM",
     "NEPTUNE_SYSTEM": "NEPTUNE_SYSTEM",
 }
