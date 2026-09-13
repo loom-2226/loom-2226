@@ -21,7 +21,6 @@ PLAN_B = {
     "metric": "HARD",
     "torch": "ECON",
 }
-ROUTE = "CERES>NEPTUNE_SYSTEM"
 
 
 class E1NavigatorInteractionAdapterTests(unittest.TestCase):
@@ -38,8 +37,8 @@ class E1NavigatorInteractionAdapterTests(unittest.TestCase):
         review = build_review(
             self.intent,
             (
-                NavigatorCandidateRef(1, ROUTE, "DIRECT_NAVIGATION", "HARD", "CRUISE"),
-                NavigatorCandidateRef(2, ROUTE, "DIRECT_NAVIGATION", "HARD", "ECON"),
+                NavigatorCandidateRef(1, "HARD", "CRUISE"),
+                NavigatorCandidateRef(2, "HARD", "ECON"),
             ),
             self.state_id,
         )
@@ -48,13 +47,10 @@ class E1NavigatorInteractionAdapterTests(unittest.TestCase):
         )
 
     def test_review_packages_existing_navigator_output_without_execution_authority(self):
-        payload = review_from_navigator_output(
-            self.intent, self.state_id, [PLAN_A, PLAN_B], route=ROUTE
-        )
+        payload = review_from_navigator_output(self.intent, self.state_id, [PLAN_A, PLAN_B])
         self.assertEqual(payload["planner_authority"], "NAVIGATOR")
         self.assertEqual(payload["execution_authority"], "NONE_REVIEW_ONLY")
-        self.assertEqual(payload["candidates"][0]["metric"], "HARD")
-        self.assertEqual(payload["candidates"][0]["torch"], "CRUISE")
+        self.assertEqual(payload["candidates"][0], {"plan_number": 1, "metric": "HARD", "torch": "CRUISE"})
         self.assertNotIn("plan_sha256", payload["candidates"][0])
 
     def test_authorization_binds_final_navigator_sha_after_candidate_selection(self):
@@ -64,7 +60,6 @@ class E1NavigatorInteractionAdapterTests(unittest.TestCase):
             self.state_id,
             [PLAN_A, PLAN_B],
             self._authorization(plan_sha),
-            route=ROUTE,
             current_navigator_state_id=self.state_id,
             current_finalized_plan_sha256=plan_sha,
         )
@@ -79,7 +74,6 @@ class E1NavigatorInteractionAdapterTests(unittest.TestCase):
                 self.state_id,
                 [PLAN_A, PLAN_B],
                 self._authorization(),
-                route=ROUTE,
                 current_navigator_state_id="S000002-changed",
                 current_finalized_plan_sha256="a" * 64,
             )
@@ -93,7 +87,6 @@ class E1NavigatorInteractionAdapterTests(unittest.TestCase):
                 self.state_id,
                 [changed, PLAN_B],
                 self._authorization(),
-                route=ROUTE,
                 current_navigator_state_id=self.state_id,
                 current_finalized_plan_sha256="a" * 64,
             )
@@ -105,16 +98,13 @@ class E1NavigatorInteractionAdapterTests(unittest.TestCase):
                 self.state_id,
                 [PLAN_A, PLAN_B],
                 self._authorization("a" * 64),
-                route=ROUTE,
                 current_navigator_state_id=self.state_id,
                 current_finalized_plan_sha256="b" * 64,
             )
 
     def test_missing_navigator_candidate_field_fails_closed(self):
         with self.assertRaisesRegex(ValueError, "torch"):
-            review_from_navigator_output(
-                self.intent, self.state_id, [{"metric": "HARD"}], route=ROUTE
-            )
+            review_from_navigator_output(self.intent, self.state_id, [{"metric": "HARD"}])
 
 
 if __name__ == "__main__":
