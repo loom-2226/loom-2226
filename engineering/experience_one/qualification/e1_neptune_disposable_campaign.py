@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any
 
 from e1_route_scoped_ephemeris import install_route_scoped_acquisition
+from e1_flight_runtime_determinism import install_flight_runtime_determinism
 
 CAMPAIGN_FILES = ("LOOM_STATE_V1.json", "LOOM_STATE_V1.bak", "LOOM_CAMPAIGN_HISTORY.jsonl.gz")
 READ_INPUTS = ("LOOM_Navigator_Cache_v1", "LOOM_2226_CIVSTATE.sqlite3")
@@ -84,6 +85,11 @@ def prepare_disposable(real_root: Path, temp_root: Path) -> None:
             copy_or_link(path, temp_root / path.name)
 
 
+def install_e1_flight_qualification_adapters(core: Any) -> None:
+    install_route_scoped_acquisition(core)
+    install_flight_runtime_determinism(core)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=DEFAULT_ROOT)
@@ -117,6 +123,8 @@ def main() -> int:
         "authorized_plan_number": args.plan,
         "authority_path": "EXISTING_NAVIGATOR_CAMPAIGN_FLIGHT_PATH",
         "ephemeris_scope": "ROUTE_REQUIRED_ONLY",
+        "determinism_scope": "AUTHORITATIVE_FLIGHT_RUNTIME_ONLY",
+        "presentation_scope": "SEQUENCE_B_C_D_OUT_OF_SCOPE_FOR_FLIGHT_SEAM",
         "real_campaign_hashes_before": before,
     }
 
@@ -160,7 +168,7 @@ def main() -> int:
 
         def load_core_without_server_hold(internal):
             core = original_load_core(internal)
-            install_route_scoped_acquisition(core)
+            install_e1_flight_qualification_adapters(core)
             core.serve_sequence_d = lambda *a, **k: print("E1 NEPTUNE SERVER HOLD SKIPPED / PRESENTATION OUT OF SCOPE")
             return core
 
@@ -191,7 +199,7 @@ def main() -> int:
             raise RuntimeError("no FLIGHT_COMMITTED record for arrived flight")
 
         core = navmod._load_core(temp_root / "LOOM_E1_NEPTUNE_REPLAY")
-        install_route_scoped_acquisition(core)
+        install_e1_flight_qualification_adapters(core)
         replay_ok = bool(navmod._replay_flight(core, ledger, flight_id, temp_root))
         restart_location = str(restarted.get("location_token"))
         destination_pass = restart_location.upper() in {destination.upper(), "NEPTUNE", "NEPTUNE_SYSTEM"}
