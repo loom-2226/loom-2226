@@ -54,6 +54,30 @@ class E1HUDInteractionTests(unittest.TestCase):
         session.capture("Neptune again")
         self.assertIsNone(session.current_review()); self.assertIsNone(session.current_finalization()); self.assertIsNone(session.current_authorization())
 
+    def test_failed_new_nonempty_intent_clears_prior_interaction_chain(self):
+        calls=[]
+        def interpret(text):
+            calls.append(text)
+            if text == "Phoebe":
+                raise ValueError("destination not supported by Navigator: 'Phoebe'")
+            return FlightIntent("CERES", "BALANCED", IntentOrigin.MARA, "MARA")
+        session=MaraIntentSession(interpret)
+        first=session.capture("Ceres")
+        review={"review":{"navigator_state_id":"S1","planner_authority":"NAVIGATOR","execution_authority":"NONE_REVIEW_ONLY","review_sha256":"a"*64,"candidates":[{"plan_number":1,"metric":"HARD","torch":"CRUISE"}]},"planner_authority":"NAVIGATOR","execution_authority":"NONE_REVIEW_ONLY","campaign_mutation":"NONE"}
+        session.store_review(review)
+        finalization={"navigator_state_id":"S1","review_sha256":"a"*64,"selected_plan_number":1,"finalized_plan_sha256":"b"*64,"planner_authority":"NAVIGATOR","execution_authority":"NONE_FINALIZED_NOT_AUTHORIZED","campaign_mutation":"NONE"}
+        session.store_finalization(finalization); session.authorize()
+        session.store_execution({"execution_authority":"NAVIGATOR","campaign_mutated_by_navigator":True,"location_token":"CERES"})
+        self.assertEqual(session.current(), first)
+        with self.assertRaisesRegex(ValueError, "not supported"):
+            session.capture("Phoebe")
+        self.assertEqual(calls,["Ceres","Phoebe"])
+        self.assertIsNone(session.current())
+        self.assertIsNone(session.current_review())
+        self.assertIsNone(session.current_finalization())
+        self.assertIsNone(session.current_authorization())
+        self.assertIsNone(session.current_execution())
+
     def test_review_with_execution_authority_fails_closed(self):
         session=self.make_session(); session.capture("Neptune")
         with self.assertRaises(ValueError):
