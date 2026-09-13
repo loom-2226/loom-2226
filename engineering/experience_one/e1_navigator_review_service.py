@@ -11,8 +11,16 @@ hashed before and after and must remain bit-identical.
 import builtins
 import json
 from pathlib import Path
+import sys
 import tempfile
 from typing import Any, Callable, Mapping, Sequence
+
+# The qualified disposable harness intentionally imports its sibling qualification
+# adapters as direct modules because it is also a standalone Pixel script. Make
+# that established script layout available before importing it as a package here.
+QUAL_DIR = Path(__file__).resolve().parent / "qualification"
+if str(QUAL_DIR) not in sys.path:
+    sys.path.insert(0, str(QUAL_DIR))
 
 from engineering.experience_one.e1_flight_interaction_contract import FlightIntent
 from engineering.experience_one.e1_navigator_interaction_adapter import review_from_navigator_output
