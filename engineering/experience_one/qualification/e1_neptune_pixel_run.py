@@ -36,6 +36,7 @@ def main() -> int:
     ap.add_argument('--result', type=Path, default=DEFAULT_RESULT)
     ap.add_argument('--plan', type=int, default=1)
     ap.add_argument('--priority', default='BALANCED')
+    ap.add_argument('--epoch', help='Optional UTC epoch for the disposable E1 campaign seed')
     ap.add_argument('--keep-existing-qualification-root', action='store_true')
     args = ap.parse_args()
 
@@ -58,12 +59,15 @@ def main() -> int:
     seed = repo / 'engineering' / 'experience_one' / 'e1_neptune_seed_ceres.py'
     harness = repo / 'engineering' / 'experience_one' / 'qualification' / 'e1_neptune_disposable_campaign.py'
 
-    run_checked([
+    seed_cmd = [
         sys.executable, str(seed),
         '--repo', str(repo),
         '--runtime-root', str(runtime),
         '--out-root', str(qual),
-    ])
+    ]
+    if args.epoch:
+        seed_cmd.extend(['--epoch', args.epoch])
+    run_checked(seed_cmd)
 
     run_checked([
         sys.executable, str(harness),
