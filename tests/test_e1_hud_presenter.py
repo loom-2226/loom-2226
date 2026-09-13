@@ -40,6 +40,10 @@ class E1HUDPresenterTests(unittest.TestCase):
             ),
             "S000001-origin",
         )
+        self.candidate_details = [
+            {"plan_number": 1, "metric": "HARD", "torch": "CRUISE", "total_s": 29599.2, "remass_used_t": 13.396758, "arrival_remass_t": 236.603242, "thermal": "SUSTAINABLE"},
+            {"plan_number": 2, "metric": "SOFT", "torch": "ECONOMY", "total_s": 34830.0, "remass_used_t": 8.948, "arrival_remass_t": 241.052, "thermal": "SUSTAINABLE"},
+        ]
 
     def test_payload_is_read_only_and_grounded_in_campaign_state(self):
         payload = build_hud_payload(self.state)
@@ -79,6 +83,36 @@ class E1HUDPresenterTests(unittest.TestCase):
         self.assertEqual(review["execution_authority"], "NONE_REVIEW_ONLY")
         self.assertEqual(len(review["candidates"]), 2)
         self.assertEqual(payload["execution_authority"], "ZERO")
+
+    def test_mapping_review_and_candidate_details_are_preserved_for_display(self):
+        payload = build_hud_payload(
+            self.state,
+            intent=self.intent_payload,
+            review=self.review.payload(),
+            candidate_details=self.candidate_details,
+        )
+        self.assertEqual(payload["navigator_candidate_details"][0]["total_s"], 29599.2)
+        self.assertEqual(payload["navigator_candidate_details"][0]["remass_used_t"], 13.396758)
+        self.assertEqual(payload["flight_review"]["execution_authority"], "NONE_REVIEW_ONLY")
+
+    def test_html_exposes_navigator_request_and_rich_review_without_execution(self):
+        intent_html = render_hud_html(build_hud_payload(self.state, intent=self.intent_payload))
+        self.assertIn("ASK NAVIGATOR FOR OPTIONS", intent_html)
+        self.assertNotIn("AUTHORIZE FLIGHT", intent_html)
+
+        review_html = render_hud_html(build_hud_payload(
+            self.state,
+            intent=self.intent_payload,
+            review=self.review.payload(),
+            candidate_details=self.candidate_details,
+        ))
+        self.assertIn("Navigator flight review", review_html)
+        self.assertIn("8.222 h", review_html)
+        self.assertIn("13.397 t", review_html)
+        self.assertIn("236.603 t", review_html)
+        self.assertIn("SUSTAINABLE", review_html)
+        self.assertIn("REVIEW ONLY", review_html)
+        self.assertNotIn("AUTHORIZE FLIGHT", review_html)
 
     def test_html_exposes_orientation_intent_form_and_explicit_authority_labels(self):
         html = render_hud_html(build_hud_payload(
