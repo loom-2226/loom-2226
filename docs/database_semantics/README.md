@@ -1,32 +1,38 @@
-# LOOM Production Database Data Dictionary
+# LOOM Database Data Dictionary
 
-This directory is the production **data dictionary** for `data/LOOM_2226.sqlite3` and `data/LOOM_2226_CIVSTATE.sqlite3`.
+This directory is the production data-contract documentation for the LOOM world databases.
 
-The primary question is concrete:
+**Primary task:** answer, for every field, **what is this field, at what row grain, in what units/domain, how is it generated, and how does it join?**
 
-> **What exactly is this table/field, at what row grain, in what units/domain, how is it generated, and how does it join?**
+The generator is `tools/build_database_data_dictionary.py`.
 
-Start with:
+## Recovery statuses
 
-- `LOOM_DATABASE_DATA_DICTIONARY_v0.1.md` — generated human-readable dictionary.
-- `LOOM_DATABASE_DATA_DICTIONARY_v0.1.json` — generated machine-readable dictionary.
-- `DATA_DICTIONARY_FIELD_DEFINITIONS_v0.1.json` — maintained field-definition registry.
-- `CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md` — misuse/scope guardrails for agents.
+The data dictionary deliberately separates four levels of recovery:
 
-The generator is `tools/build_database_data_dictionary.py`. It inventories **every current table and every current column** directly from the two production SQLite files and combines that structural inventory with maintained field definitions.
+- `RECOVERED_EXACT` — explicit preserved semantic/formula contract.
+- `RECOVERED_STRUCTURAL` — concrete key/lookup/metadata meaning proven by schema or verified value-domain joins.
+- `RECOVERED_PARTIAL` — useful meaning recovered, but exact formula/unit/taxonomy remains incomplete.
+- `RECOVERED_STORAGE_ONLY` — the field is inventoried and its storage role is known, but semantic/generating meaning is still open. **This is not treated as understood.**
 
-Each column entry records, where available:
+Every current production field must be represented. No field may disappear merely because its meaning has not yet been recovered.
 
-- declared SQLite type;
-- primary-key position and nullability;
-- foreign-key target;
-- definition;
-- unit;
-- value scale/domain;
-- data role (identifier, count, rate, score, weight, proxy, text, timestamp, etc.);
-- generating rule/source;
-- join notes.
+## Evidence routing
 
-If a definition has not yet been recovered, the dictionary must say `DEFINITION_NOT_RECOVERED`; the column is still listed and cannot disappear from coverage.
+For CIVSTATE, the generator ingests and cross-routes all five self-documentation layers:
 
-The older semantic-dossier files are recovery/audit scaffolding. They are not the primary deliverable.
+1. `civ_variable_semantics`
+2. `civ_readiness_audit`
+3. `civ_derivation`
+4. `civ_methodology_note`
+5. `civ_assumption`
+
+Evidence is attached to the table/field it **describes**, not merely the table in which the prose happens to live.
+
+A readiness-audit record about `civ_transport_flow` therefore belongs to the transport entry. A derivation explaining `civ_actor_exposure` belongs to actor exposure. Table status is derived from recovered field and purpose evidence rather than assigned by table name.
+
+## Hard rule
+
+Do not infer scientific, social, political, economic or gameplay meaning from an identifier alone. Schema/value behavior may prove storage structure, joins and observed domains. It does not prove intended semantics.
+
+This documentation is subordinate to canon/engineering/data authority and does not promote database contents to canon.
