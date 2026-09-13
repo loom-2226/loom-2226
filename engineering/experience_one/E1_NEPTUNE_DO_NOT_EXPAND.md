@@ -1,0 +1,1 @@
+Do not expand Ceres. Do not add a second flight path. Reuse Navigator and the tested disposable continuity harness. The only open mechanics proof is Ceres-origin execution through Neptune restart/replay.
