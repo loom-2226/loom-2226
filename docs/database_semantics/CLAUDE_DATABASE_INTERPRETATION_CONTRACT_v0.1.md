@@ -1,20 +1,35 @@
-# Claude / Agent Database Interpretation Contract v0.1
+# Claude / Agent Database Interpretation Contract v0.2
 
 Applies whenever an agent reads `data/LOOM_2226.sqlite3` or `data/LOOM_2226_CIVSTATE.sqlite3`.
 
-## Before interpreting a field
+## Primary rule: use the data dictionary
 
-1. Read `docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_v0.1.md`.
-2. Check `docs/database_semantics/LOOM_DATABASE_SEMANTIC_INDEX_v0.1.json` for coverage.
-3. For CIVSTATE, inspect `civ_variable_semantics`, `civ_derivation`, `civ_methodology_note`, `civ_assumption`, and `civ_readiness_audit` before interpreting an unfamiliar field.
-4. Search GitHub for the generating builder/migration and authoritative consumers.
-5. If meaning remains untraced, say `NOT UNDERSTOOD`; do not infer semantics from the identifier.
+Before using a database field materially:
+
+1. Read `docs/database_semantics/LOOM_DATABASE_DATA_DICTIONARY_v0.1.md` if present and current.
+2. Use `docs/database_semantics/LOOM_DATABASE_DATA_DICTIONARY_v0.1.json` for machine lookup.
+3. If generated outputs are missing or stale, run `python tools/build_database_data_dictionary.py` from the repository root.
+4. If a field is marked `DEFINITION_NOT_RECOVERED`, do not make up a definition from its name. Recover it from builder/methodology/source evidence or carry the unresolved status.
+5. Secondary semantic/misuse notes may add guardrails, but they do not replace the concrete definition, unit, grain, generation rule, and join contract in the data dictionary.
+
+## What Claude should retrieve for a field
+
+- database;
+- table;
+- row grain / primary key;
+- column;
+- SQLite declared type;
+- nullability/default/key position;
+- foreign-key target or join key where applicable;
+- concrete data definition;
+- unit or scale/domain;
+- data role (identifier, count, rate, score, weight, proxy, text, timestamp, etc.);
+- generating rule/source where applicable.
 
 ## Hard prohibitions
 
-- A value constant within Ceres/region/class is not a local differentiator.
-- A generated symmetric edge/flow is not evidence of reciprocal real-world dependence.
-- A proxy is not a literal physical count unless its contract says so.
+- Do not infer a missing data definition from a table or column identifier.
+- A proxy is not a literal physical count unless its definition says so.
 - Organization-scope facts are not individual-scope facts.
 - Co-presence or shared facility standing is not a person-person relationship.
 - Cross-boundary fact is not boundary-dependent fact.
@@ -22,36 +37,44 @@ Applies whenever an agent reads `data/LOOM_2226.sqlite3` or `data/LOOM_2226_CIVS
 - Never infer absence from schema that was not actually inventoried/queried.
 - Re-query identifiers; do not trust copied IDs.
 
-## Specific known warnings
+## Known concrete definitions that matter often
 
-### `civ_transport_flow`
-Treat as annual corridor demand, not scheduled direct service. Do not use reverse-paired rows as evidence of Thompson-style reciprocal/sequential dependency unless a separate source establishes prerequisite semantics.
+### `civ_transport_flow.passengers_year`
+Annual modeled origin-destination corridor-demand proxy in `passengers/year`; not a timetable, scheduled-service count, unique-traveler count, or guaranteed direct route.
 
-### `civ_actor_exposure`
-Interpret exposure weights as influence/control/dependency constructs, not ownership. Organization-level exposure does not locate a projected individual.
+### `civ_transport_flow.accessibility_index`
+Relative topology/ephemeris accessibility used by the OD allocator, dimensionless `0..1`; not door-to-door travel time.
 
-### `knowledge_entities`
-Despite the name, this is a knowledge-noun/entity catalog, not a table of propositions or claims. `noun_id` is the knowledge noun key; `spatial_entity_id` is the bridge to the spatial/world entity key.
+### `civ_actor_exposure.control_weight`
+Derived from OPERATIONS exposure in the preserved actor-exposure derivation. It is a weight, not an ownership share.
 
-### `knowledge_relationships`
-These are semantic noun relationships with provenance/context. They do not automatically represent interpersonal social ties.
+### `civ_actor_exposure.service_dependency_weight`
+Derived from SUPPLY exposure in the preserved actor-exposure derivation. It is a dependency/exposure weight, not ownership.
 
-### `berths_equivalent`
-Do not read as a literal physical berth count unless the semantic contract recovered from builder/methodology explicitly supports that interpretation. Prior work used it too literally.
+### `civ_demographic_state.biological_population`
+Recognized biological resident population at the row geography/year, unit `persons`.
 
-### `authority_complexity`
-Do not use as a Ceres-local selector merely because it equals 1.00 at a facility. Prior audit found it shared across all five Ceres facilities and many system-wide nodes; grouping-level variation must be checked before use.
+### `civ_demographic_state.synthetic_population`
+Recognized synthetic persons at the row geography/year, unit `persons`; distinct from non-person automation/task capacity.
 
-## Epistemic output format
+### `civ_demographic_state.transient_population`
+Nonresident transient presence associated with the geography, unit `persons/day-equivalent`; not part of resident census population.
 
-When using a field materially, record:
+### `civ_workforce_state.synthetic_workers`
+Recognized synthetic persons participating in labor, unit `person-FTE proxy`.
 
-- database/table/column;
-- row/key used;
-- semantic evidence source;
-- epistemic class;
-- grouping-level variation check where relevant;
-- known misuse warning;
-- unresolved caveat.
+### `civ_workforce_state.machine_task_equivalent`
+Non-person automated task capacity, unit `FTE-equivalent`; never add to person counts.
 
-If any of those are unknown and matter to the conclusion, downgrade the conclusion rather than filling the gap.
+### `civ_infrastructure_state.berths_equivalent`
+Annual ship-call throughput normalized by utilization, unit `equivalent one-call/day berths`; not literal dock count.
+
+### `civ_infrastructure_state.habitable_capacity`
+Occupied-equivalent accommodation-capacity proxy, unit `persons-equivalent`; not certified engineering life-support capacity.
+
+### `civ_infrastructure_state.industrial_capacity_index`
+Relative industrial scale across the current 127-node universe, unit `0..1 percentile-composite`; not an absolute physical production ceiling.
+
+## Output behavior
+
+When Claude uses a field that materially affects a conclusion, prefer citing its dictionary definition rather than paraphrasing from memory. If the dictionary says `DEFINITION_NOT_RECOVERED`, say so and do not silently substitute a plausible meaning.
