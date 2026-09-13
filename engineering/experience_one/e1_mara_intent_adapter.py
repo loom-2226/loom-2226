@@ -3,9 +3,9 @@ from __future__ import annotations
 """Audited Mara/OpenAI adapter for Experience One flight intent only.
 
 Mara may translate natural language into destination + priority. It has zero
-calculation, planning, state, authorization, or execution authority. Any provider
-output that attempts to carry additional authority fails closed before it reaches
-Navigator.
+calculation, planning, state, authorization, or execution authority. Destination
+and priority acceptance are resolved against Navigator-owned registries before a
+typed intent can cross the boundary.
 """
 
 import json
@@ -16,19 +16,11 @@ from pathlib import Path
 from typing import Any, Callable, Mapping
 
 from engineering.experience_one.e1_flight_interaction_contract import FlightIntent, IntentOrigin
+from engineering.experience_one.e1_navigator_destination_registry import resolve_destination, resolve_priority
 from engineering.experience_one.spikes.openai_dev_audit import OpenAIDevAudit
 
 API_URL = "https://api.openai.com/v1/responses"
 ALLOWED_KEYS = {"destination", "priority"}
-DESTINATION_ALIASES = {
-    "CERES": "CERES",
-    "NEPTUNE": "NEPTUNE_SYSTEM",
-    "NEPTUNE_SYSTEM": "NEPTUNE_SYSTEM",
-}
-PRIORITY_ALIASES = {
-    "BALANCED": "BALANCED",
-    "BALANCED_PROFILE": "BALANCED",
-}
 SYSTEM_INSTRUCTIONS = """You are Mara at the bounded Experience One intent boundary.
 Translate the user's travel intent into exactly one JSON object with exactly two keys:
 destination and priority.
@@ -47,14 +39,6 @@ Hard authority rules:
 """
 
 
-def _normalize_alias(value: str, aliases: Mapping[str, str], *, field: str) -> str:
-    token = value.strip().upper().replace("-", "_").replace(" ", "_")
-    canonical = aliases.get(token)
-    if canonical is None:
-        raise ValueError(f"Mara returned unsupported {field}: {value!r}")
-    return canonical
-
-
 def parse_mara_intent_json(text: str, *, requested_by: str = "MARA") -> FlightIntent:
     try:
         raw = json.loads(text.strip())
@@ -71,8 +55,8 @@ def parse_mara_intent_json(text: str, *, requested_by: str = "MARA") -> FlightIn
     priority_raw = str(raw.get("priority") or "").strip()
     if not destination_raw or not priority_raw:
         raise ValueError("Mara did not resolve both destination and priority")
-    destination = _normalize_alias(destination_raw, DESTINATION_ALIASES, field="destination")
-    priority = _normalize_alias(priority_raw, PRIORITY_ALIASES, field="priority")
+    destination = resolve_destination(destination_raw)
+    priority = resolve_priority(priority_raw)
     return FlightIntent(
         destination=destination,
         priority=priority,
@@ -169,9 +153,6 @@ class OpenAIMaraIntentAdapter:
             output = _response_output_text(response)
             return parse_mara_intent_json(output)
         except Exception as exc:
-            # If the provider call itself failed before a response could be audited,
-            # record the failure. Do not duplicate an already-audited response parse
-            # failure: the successful provider response above remains the evidence.
             if self.audit.sequence == 0:
                 self.audit.append(
                     stage="e1.mara.intent",
