@@ -4,8 +4,7 @@ from __future__ import annotations
 
 This module presents authoritative campaign state, bounded Mara intent, and typed
 Navigator review data. It performs no trajectory calculation, no state mutation,
-no authorization and no execution. Browser controls only submit natural-language
-intent to the server-side audited Mara adapter.
+no authorization and no execution.
 """
 
 from html import escape
@@ -30,21 +29,15 @@ def _campaign_projection(state: Mapping[str, Any]) -> dict[str, Any]:
     ship = state.get("ship")
     if not isinstance(ship, Mapping):
         raise ValueError("campaign state missing ship mapping")
-    ship_name = str(ship.get("name") or "WAYFARER").strip() or "WAYFARER"
-    remass = ship.get("remass_t")
-    wet_mass = ship.get("wet_mass_t")
     boundary = state.get("kinematic_boundary")
-    boundary_status = None
-    if isinstance(boundary, Mapping):
-        boundary_status = boundary.get("status")
     return {
         "state_id": state_id,
         "epoch_utc": epoch,
         "location_token": location,
-        "ship_name": ship_name,
-        "remass_t": remass,
-        "wet_mass_t": wet_mass,
-        "kinematic_boundary_status": boundary_status,
+        "ship_name": str(ship.get("name") or "WAYFARER").strip() or "WAYFARER",
+        "remass_t": ship.get("remass_t"),
+        "wet_mass_t": ship.get("wet_mass_t"),
+        "kinematic_boundary_status": boundary.get("status") if isinstance(boundary, Mapping) else None,
         "state_authority": "NAVIGATOR_CAMPAIGN_READ_ONLY",
     }
 
@@ -63,32 +56,31 @@ def _orientation(campaign: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _validate_intent_payload(intent: Mapping[str, Any]) -> dict[str, Any]:
-    required = {
-        "contract",
-        "destination",
-        "priority",
-        "origin",
-        "calculation_authority",
-        "state_authority",
-        "execution_authority",
-    }
+    required = {"contract", "destination", "priority", "origin", "calculation_authority", "state_authority", "execution_authority"}
     missing = sorted(required - set(intent))
     if missing:
         raise ValueError(f"flight intent presentation missing fields: {missing}")
-    if str(intent["calculation_authority"]) != "ZERO":
-        raise ValueError("flight intent calculation authority must remain ZERO")
-    if str(intent["state_authority"]) != "ZERO":
-        raise ValueError("flight intent state authority must remain ZERO")
-    if str(intent["execution_authority"]) != "ZERO":
-        raise ValueError("flight intent execution authority must remain ZERO")
+    for field in ("calculation_authority", "state_authority", "execution_authority"):
+        if str(intent[field]) != "ZERO":
+            raise ValueError(f"flight intent {field} must remain ZERO")
     return dict(intent)
+
+
+def _review_payload(review: FlightReview | Mapping[str, Any]) -> dict[str, Any]:
+    payload = review.payload() if isinstance(review, FlightReview) else dict(review)
+    if str(payload.get("planner_authority") or "") != "NAVIGATOR":
+        raise ValueError("flight review planner authority must be NAVIGATOR")
+    if str(payload.get("execution_authority") or "") != "NONE_REVIEW_ONLY":
+        raise ValueError("flight review must remain review-only")
+    return payload
 
 
 def build_hud_payload(
     state: Mapping[str, Any],
     *,
     intent: Mapping[str, Any] | None = None,
-    review: FlightReview | None = None,
+    review: FlightReview | Mapping[str, Any] | None = None,
+    candidate_details: list[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     campaign = _campaign_projection(state)
     payload: dict[str, Any] = {
@@ -101,11 +93,14 @@ def build_hud_payload(
         "execution_authority": "ZERO",
         "flight_intent": None,
         "flight_review": None,
+        "navigator_candidate_details": [],
     }
     if intent is not None:
         payload["flight_intent"] = _validate_intent_payload(intent)
     if review is not None:
-        payload["flight_review"] = review.payload()
+        payload["flight_review"] = _review_payload(review)
+    if candidate_details is not None:
+        payload["navigator_candidate_details"] = [dict(row) for row in candidate_details]
     return payload
 
 
@@ -123,6 +118,8 @@ def render_hud_html(payload: Mapping[str, Any]) -> str:
     orientation = payload["orientation"]
     intent = payload.get("flight_intent")
     review = payload.get("flight_review")
+    detail_rows = payload.get("navigator_candidate_details") or []
+    detail_by_plan = {int(row.get("plan_number")): row for row in detail_rows if row.get("plan_number") is not None}
 
     intent_card = ""
     if isinstance(intent, Mapping):
@@ -133,21 +130,37 @@ def render_hud_html(payload: Mapping[str, Any]) -> str:
             "<div class='small'>Calculation ZERO · State ZERO · Execution ZERO</div></section>"
         )
 
+    navigator_request = ""
+    if isinstance(intent, Mapping) and not isinstance(review, Mapping):
+        navigator_request = (
+            "<section class='panel navigator-request'><div class='eyebrow'>Navigator planning request</div>"
+            "<div class='small'>Navigator will calculate deterministic comparison options against a temporary campaign copy. No plan will be selected and no campaign state will be changed.</div>"
+            "<button id='navigator-options-submit' type='button'>ASK NAVIGATOR FOR OPTIONS</button>"
+            "<div class='small status' id='navigator-options-status'></div></section>"
+        )
+
     review_card = ""
     if isinstance(review, Mapping):
         rows = []
         for candidate in review.get("candidates", []) or []:
+            plan = int(candidate.get("plan_number"))
+            detail = detail_by_plan.get(plan, {})
+            total_h = None if detail.get("total_s") is None else float(detail["total_s"]) / 3600.0
             rows.append(
                 "<tr>"
-                f"<td>{escape(str(candidate.get('plan_number', '—')))}</td>"
+                f"<td>{plan}</td>"
                 f"<td>{escape(str(candidate.get('metric', '—')))}</td>"
                 f"<td>{escape(str(candidate.get('torch', '—')))}</td>"
+                f"<td>{'—' if total_h is None else f'{total_h:.3f} h'}</td>"
+                f"<td>{_num(detail.get('remass_used_t'))} t</td>"
+                f"<td>{_num(detail.get('arrival_remass_t'))} t</td>"
+                f"<td>{escape(str(detail.get('thermal', '—')))}</td>"
                 "</tr>"
             )
         review_card = (
             "<section class='panel review'><div class='eyebrow'>Navigator flight review</div>"
             "<div class='guard'>REVIEW ONLY · EXECUTION AUTHORITY: NONE</div>"
-            "<table><thead><tr><th>PLAN</th><th>METRIC</th><th>TORCH</th></tr></thead>"
+            "<table><thead><tr><th>PLAN</th><th>METRIC</th><th>TORCH</th><th>TIME</th><th>REMASS USED</th><th>ARRIVAL REMASS</th><th>THERMAL</th></tr></thead>"
             f"<tbody>{''.join(rows)}</tbody></table></section>"
         )
 
@@ -183,13 +196,14 @@ h1 {{ margin:3px 0 0; font-size:clamp(28px,8vw,58px); letter-spacing:.08em; font
 .interaction {{ grid-column:1/-1; }}
 form {{ display:grid; gap:10px; margin-top:12px; }}
 textarea {{ width:100%; min-height:86px; resize:vertical; background:#090d13; color:var(--text); border:1px solid var(--line); padding:12px; font:inherit; }}
-button {{ justify-self:start; border:1px solid #536174; background:#17202b; color:var(--text); padding:11px 15px; font:inherit; font-weight:650; }}
+button {{ justify-self:start; border:1px solid #536174; background:#17202b; color:var(--text); padding:11px 15px; margin-top:12px; font:inherit; font-weight:650; }}
 button:disabled {{ opacity:.55; }}
 .status {{ min-height:20px; }}
-.review,.intent-result {{ margin-top:12px; }}
-table {{ width:100%; border-collapse:collapse; margin-top:12px; }}
-th,td {{ text-align:left; padding:9px 7px; border-top:1px solid var(--line); font-size:13px; }}
-th {{ color:var(--muted); font-size:10px; letter-spacing:.14em; }}
+.review,.intent-result,.navigator-request {{ margin-top:12px; }}
+.review {{ overflow-x:auto; }}
+table {{ width:100%; border-collapse:collapse; margin-top:12px; min-width:760px; }}
+th,td {{ text-align:left; padding:9px 7px; border-top:1px solid var(--line); font-size:13px; white-space:nowrap; }}
+th {{ color:var(--muted); font-size:10px; letter-spacing:.1em; }}
 footer {{ margin-top:14px; color:var(--muted); font-size:11px; letter-spacing:.05em; }}
 @media(max-width:640px) {{ .grid {{ grid-template-columns:1fr; }} .orientation,.interaction {{ grid-column:auto; }} header {{ display:block; }} header .guard {{ display:inline-block; margin-top:12px; }} }}
 </style>
@@ -205,6 +219,7 @@ footer {{ margin-top:14px; color:var(--muted); font-size:11px; letter-spacing:.0
 <section class='panel interaction'><div class='eyebrow'>Tell Mara where you want to go</div><div class='small'>Mara may translate your words into a typed destination and priority. Mara cannot calculate a route, change campaign state, authorize, or execute.</div><form id='flight-intent-form'><textarea id='flight-intent-text' maxlength='1000' placeholder='Take us to Neptune, balanced profile.' required></textarea><button id='flight-intent-submit' type='submit'>INTERPRET INTENT</button><div class='small status' id='flight-intent-status'></div></form></section>
 </div>
 {intent_card}
+{navigator_request}
 {review_card}
 <footer>Browser calculation authority: ZERO · browser state authority: ZERO · browser execution authority: ZERO</footer>
 <script>
@@ -214,20 +229,25 @@ const button=document.getElementById('flight-intent-submit');
 const status=document.getElementById('flight-intent-status');
 form.addEventListener('submit', async (event) => {{
   event.preventDefault();
-  const value=text.value.trim();
-  if(!value) return;
-  button.disabled=true;
-  status.textContent='Mara is translating intent…';
+  const value=text.value.trim(); if(!value) return;
+  button.disabled=true; status.textContent='Mara is translating intent…';
   try {{
     const response=await fetch('/intent.json', {{method:'POST',headers:{{'Content-Type':'application/json'}},body:JSON.stringify({{text:value}})}});
-    const data=await response.json();
-    if(!response.ok) throw new Error(data.message || data.reason || 'intent request failed');
-    status.textContent='Typed intent received. Reloading…';
-    location.reload();
-  }} catch(error) {{
-    status.textContent='Intent failed: '+error.message;
-    button.disabled=false;
-  }}
+    const data=await response.json(); if(!response.ok) throw new Error(data.message || data.reason || 'intent request failed');
+    status.textContent='Typed intent received. Reloading…'; location.reload();
+  }} catch(error) {{ status.textContent='Intent failed: '+error.message; button.disabled=false; }}
 }});
+const navButton=document.getElementById('navigator-options-submit');
+if(navButton) {{
+  const navStatus=document.getElementById('navigator-options-status');
+  navButton.addEventListener('click', async () => {{
+    navButton.disabled=true; navStatus.textContent='Navigator is calculating deterministic options…';
+    try {{
+      const response=await fetch('/navigator-review.json', {{method:'POST',headers:{{'Content-Type':'application/json'}},body:'{{}}'}});
+      const data=await response.json(); if(!response.ok) throw new Error(data.message || data.reason || 'Navigator review failed');
+      navStatus.textContent='Navigator options ready. Reloading…'; location.reload();
+    }} catch(error) {{ navStatus.textContent='Navigator review failed: '+error.message; navButton.disabled=false; }}
+  }});
+}}
 </script>
 </main></body></html>"""
