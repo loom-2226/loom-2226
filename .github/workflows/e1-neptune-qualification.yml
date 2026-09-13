@@ -1,0 +1,28 @@
+name: E1 Neptune Qualification Harness
+
+on:
+  pull_request:
+    paths:
+      - 'engineering/experience_one/qualification/e1_neptune_disposable_campaign.py'
+      - 'tests/test_e1_neptune_disposable_campaign.py'
+      - '.github/workflows/e1-neptune-qualification.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  harness-safety:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install pytest
+        run: python -m pip install --disable-pip-version-check pytest
+      - name: Run qualification harness safety tests
+        run: python -m pytest -q tests/test_e1_neptune_disposable_campaign.py
+      - name: Compile qualification harness
+        run: python -m py_compile engineering/experience_one/qualification/e1_neptune_disposable_campaign.py
