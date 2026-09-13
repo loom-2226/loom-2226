@@ -54,6 +54,8 @@ def main() -> int:
         print("CORE_SHA", getattr(outer, "CORE_SHA", None))
 
         for name in (
+            "acquisition_window",
+            "build_acquisition_plan",
             "run_acquisition",
             "build_canonical_dependency_index",
             "fetch_or_cache",
@@ -65,7 +67,7 @@ def main() -> int:
         interesting = {}
         for key, value in sorted(vars(core).items()):
             upper = key.upper()
-            if any(token in upper for token in ("EPHEM", "TARGET", "OBJECT", "MOON", "ACQUIS")):
+            if any(token in upper for token in ("EPHEM", "TARGET", "OBJECT", "MOON", "ACQUIS", "LOCAL", "BASE_MAP")):
                 if isinstance(value, (dict, list, tuple, set, str, int, float, bool, type(None))):
                     try:
                         rendered = json.loads(json.dumps(value, default=str))
