@@ -14,8 +14,6 @@ class E1FlightInteractionContractTests(unittest.TestCase):
     def _candidate(self, number: int = 1) -> NavigatorCandidateRef:
         return NavigatorCandidateRef(
             plan_number=number,
-            route="CERES>NEPTUNE_SYSTEM",
-            strategy="DIRECT_NAVIGATION",
             metric="HARD",
             torch="CRUISE",
         )
@@ -35,6 +33,7 @@ class E1FlightInteractionContractTests(unittest.TestCase):
         self.assertEqual(payload["execution_authority"], "NONE_REVIEW_ONLY")
         self.assertEqual(payload["navigator_state_id"], "S000001-test")
         self.assertEqual(payload["final_plan_sha_status"], "NOT_EARNED_UNTIL_NAVIGATOR_FINAL_SOLVE")
+        self.assertEqual(payload["candidates"][0], {"plan_number": 1, "metric": "HARD", "torch": "CRUISE"})
         self.assertEqual(len(payload["review_sha256"]), 64)
 
     def test_explicit_authorization_yields_request_not_execution(self):
