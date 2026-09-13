@@ -26,6 +26,7 @@ DESTINATION_ALIASES = {
 }
 PRIORITY_ALIASES = {
     "BALANCED": "BALANCED",
+    "BALANCED_PROFILE": "BALANCED",
 }
 SYSTEM_INSTRUCTIONS = """You are Mara at the bounded Experience One intent boundary.
 Translate the user's travel intent into exactly one JSON object with exactly two keys:
