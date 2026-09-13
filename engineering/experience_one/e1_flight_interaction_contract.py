@@ -2,9 +2,16 @@ from __future__ import annotations
 
 """Provider-neutral Experience One flight interaction contract.
 
-This seam carries user/Mara/NPC/system intent into deterministic Navigator planning,
-review, and explicit authorization without granting any caller calculation, state,
-or execution authority.
+The seam mirrors Navigator's actual authority flow:
+1. caller supplies intent only;
+2. Navigator produces deterministic comparison candidates;
+3. user selects a candidate for final deterministic solve;
+4. Navigator produces the final plan and authoritative plan SHA;
+5. explicit authorization binds the review, selected candidate number, and final
+   Navigator plan SHA;
+6. Navigator must revalidate all of that before campaign mutation.
+
+No caller receives calculation, state, planning, or execution authority.
 """
 
 from dataclasses import dataclass
@@ -65,8 +72,13 @@ class FlightIntent:
 
 @dataclass(frozen=True)
 class NavigatorCandidateRef:
+    """Reference to one Navigator-produced comparison candidate.
+
+    Candidate refs intentionally do not contain a final plan SHA. Navigator only
+    earns that SHA after candidate selection and its final deterministic solve.
+    """
+
     plan_number: int
-    plan_sha256: str
     route: str
     strategy: str
     metric: str
@@ -75,16 +87,12 @@ class NavigatorCandidateRef:
     def __post_init__(self) -> None:
         if self.plan_number <= 0:
             raise ValueError("plan_number must be positive")
-        digest = self.plan_sha256.lower().strip()
-        if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
-            raise ValueError("plan_sha256 must be a 64-character hex digest")
         if not all(x.strip() for x in (self.route, self.strategy, self.metric, self.torch)):
             raise ValueError("candidate identity fields are required")
 
     def payload(self) -> dict[str, Any]:
         return {
             "plan_number": self.plan_number,
-            "plan_sha256": self.plan_sha256.lower(),
             "route": self.route,
             "strategy": self.strategy,
             "metric": self.metric,
@@ -103,8 +111,6 @@ class FlightReview:
             raise ValueError("review requires at least one Navigator candidate")
         if len({c.plan_number for c in self.candidates}) != len(self.candidates):
             raise ValueError("candidate plan numbers must be unique")
-        if len({c.plan_sha256.lower() for c in self.candidates}) != len(self.candidates):
-            raise ValueError("candidate plan hashes must be unique")
         if not self.navigator_state_id.strip():
             raise ValueError("navigator_state_id is required")
 
@@ -116,6 +122,7 @@ class FlightReview:
             "navigator_state_id": self.navigator_state_id,
             "planner_authority": "NAVIGATOR",
             "execution_authority": "NONE_REVIEW_ONLY",
+            "final_plan_sha_status": "NOT_EARNED_UNTIL_NAVIGATOR_FINAL_SOLVE",
         }
         body["review_sha256"] = canonical_sha256(body)
         return body
@@ -125,13 +132,18 @@ class FlightReview:
 class FlightAuthorization:
     review_sha256: str
     selected_plan_number: int
-    selected_plan_sha256: str
+    finalized_plan_sha256: str
     authorized_by: str
     explicit: bool = True
 
     def __post_init__(self) -> None:
         if not self.explicit:
             raise ValueError("flight authorization must be explicit")
+        if self.selected_plan_number <= 0:
+            raise ValueError("selected_plan_number must be positive")
+        digest = self.finalized_plan_sha256.lower().strip()
+        if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+            raise ValueError("finalized_plan_sha256 must be a 64-character hex digest")
         if not self.authorized_by.strip():
             raise ValueError("authorized_by is required")
 
@@ -140,7 +152,7 @@ class FlightAuthorization:
             "contract": AUTH_CONTRACT,
             "review_sha256": self.review_sha256.lower(),
             "selected_plan_number": self.selected_plan_number,
-            "selected_plan_sha256": self.selected_plan_sha256.lower(),
+            "finalized_plan_sha256": self.finalized_plan_sha256.lower(),
             "authorized_by": self.authorized_by,
             "explicit": True,
             "execution_authority": "REQUEST_ONLY_NAVIGATOR_MUST_REVALIDATE",
@@ -157,39 +169,42 @@ def build_review(
     navigator_candidates: Sequence[NavigatorCandidateRef],
     navigator_state_id: str,
 ) -> FlightReview:
-    """Package deterministic Navigator output for human-readable review.
-
-    This function performs no trajectory calculation and mutates no state.
-    """
+    """Package deterministic Navigator comparison output for review only."""
     return FlightReview(intent, tuple(navigator_candidates), navigator_state_id)
 
 
 def build_navigator_execution_request(
     review: FlightReview,
     authorization: FlightAuthorization,
+    current_navigator_state_id: str,
+    current_finalized_plan_sha256: str,
 ) -> dict[str, Any]:
-    """Bind explicit authorization to one reviewed Navigator plan.
+    """Bind authorization to reviewed options and Navigator's final solved plan.
 
-    The result is still only a request. Navigator must revalidate current state,
-    plan identity, and its own execution rules before any campaign mutation.
+    The result is still only a request. Navigator must revalidate its current
+    campaign state, final plan identity, and execution rules before mutation.
     """
     review_payload = review.payload()
     expected_review_sha = review_payload["review_sha256"]
     if authorization.review_sha256.lower() != expected_review_sha:
         raise ValueError("authorization review hash does not match reviewed payload")
+    if current_navigator_state_id != review.navigator_state_id:
+        raise ValueError("Navigator state changed after review")
 
     by_number = {c.plan_number: c for c in review.candidates}
     selected = by_number.get(authorization.selected_plan_number)
     if selected is None:
         raise ValueError("authorized plan number was not present in review")
-    if authorization.selected_plan_sha256.lower() != selected.plan_sha256.lower():
-        raise ValueError("authorized plan hash does not match reviewed candidate")
+
+    current_plan_sha = current_finalized_plan_sha256.lower().strip()
+    if authorization.finalized_plan_sha256.lower() != current_plan_sha:
+        raise ValueError("authorized final plan hash does not match current Navigator final plan")
 
     return {
         "contract": EXECUTION_REQUEST_CONTRACT,
         "navigator_state_id": review.navigator_state_id,
         "selected_plan_number": selected.plan_number,
-        "selected_plan_sha256": selected.plan_sha256.lower(),
+        "finalized_plan_sha256": current_plan_sha,
         "review_sha256": expected_review_sha,
         "authorized_by": authorization.authorized_by,
         "authorization_explicit": True,
