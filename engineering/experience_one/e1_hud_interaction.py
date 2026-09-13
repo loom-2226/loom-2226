@@ -15,13 +15,22 @@ class MaraIntentSession:
     def __init__(self, interpreter: Callable[[str], FlightIntent]) -> None:
         self._interpreter=interpreter; self._current=None; self._review=None; self._finalization=None; self._authorization=None; self._execution=None
 
+    def _clear_interaction_chain(self) -> None:
+        self._current=self._review=self._finalization=self._authorization=self._execution=None
+
     def capture(self, user_text: str) -> dict:
         text=str(user_text or "").strip()
         if not text: raise ValueError("flight intent text is required")
+        # A new non-empty user request retires the prior ephemeral interaction chain
+        # before interpretation. If Mara/provider validation fails, the HUD therefore
+        # cannot continue presenting stale intent/review/authorization/execution cards
+        # as if they described the new request. Authoritative campaign state is separate
+        # and is never touched here.
+        self._clear_interaction_chain()
         payload=self._interpreter(text).payload()
         for field in ("calculation_authority","state_authority","execution_authority"):
             if payload.get(field)!="ZERO": raise ValueError(f"intent crossed {field.replace('_authority','')}-authority boundary")
-        self._current=dict(payload); self._review=self._finalization=self._authorization=self._execution=None
+        self._current=dict(payload)
         return dict(self._current)
 
     def current(self): return None if self._current is None else dict(self._current)
