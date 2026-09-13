@@ -1,0 +1,68 @@
+{
+  "contract": "WAYFARER_HUD_ATTITUDE_ENVELOPE_V0.3",
+  "status": "ENGINEERING_QUALIFICATION_CANDIDATE_NON_CANON",
+  "date": "2026-09-11",
+  "hud_role": "UPSTREAM_ENGINEERING_INPUT_ONLY",
+  "instantaneous_attitude_transition_allowed": false,
+  "mass_state_evidence": {
+    "balanced_tank_draw": true,
+    "tank_count": 4,
+    "tank_center_radius_m": 2.7,
+    "tank_x_m": 25.0,
+    "wet_docked": {
+      "mass_t": 1158.5,
+      "center_of_mass_m": [26.6767, 0.0, 0.1481],
+      "centroid_inertia_diag_kg_m2": [2689000.0, 136774000.0, 135907000.0]
+    },
+    "normal_remass_depleted_docked": {
+      "mass_t": 908.5,
+      "center_of_mass_m": [27.1380, 0.0, 0.1889],
+      "centroid_inertia_diag_kg_m2": [860000.0, 134959000.0, 134099000.0]
+    },
+    "wet_launch_absent": {
+      "mass_t": 1125.5,
+      "center_of_mass_m": [26.8196, 0.0, 0.0],
+      "centroid_inertia_diag_kg_m2": [1823000.0, 135099000.0, 135099000.0]
+    },
+    "quality": "CENTROID_PLUS_KNOWN_RADIAL_FLUID_DISTRIBUTION",
+    "final_intrinsic_tensor_available": false
+  },
+  "conservative_design_inertia_kg_m2": {
+    "roll": 12000000.0,
+    "pitch": 320000000.0,
+    "yaw": 320000000.0,
+    "basis": "conservative envelope above centroid-only lower-fidelity states pending composite intrinsic tensors"
+  },
+  "rcs_actuator_candidate": {
+    "individual_thruster_max_N": 25000.0,
+    "pitch_yaw_couple_separation_m": 40.0,
+    "pitch_yaw_nominal_torque_Nm": 1000000.0,
+    "roll_effective_arm_m": 4.0,
+    "roll_nominal_torque_Nm": 200000.0,
+    "one_cluster_out_torque_fraction": 0.5,
+    "fine_pointing": "INTERNAL_MOMENTUM_STORAGE",
+    "large_angle_transition": "DISTRIBUTED_RCS_COUPLES"
+  },
+  "nominal_control_envelope": {
+    "pitch": {"angular_accel_deg_s2": 0.17905, "max_slew_rate_deg_s": 3.0, "settle_allowance_s": 8.0, "slew_90_deg_s": 54.76, "slew_180_deg_s": 84.76},
+    "yaw": {"angular_accel_deg_s2": 0.17905, "max_slew_rate_deg_s": 3.0, "settle_allowance_s": 8.0, "slew_90_deg_s": 54.76, "slew_180_deg_s": 84.76},
+    "roll": {"angular_accel_deg_s2": 0.95493, "max_slew_rate_deg_s": 6.0, "settle_allowance_s": 8.0, "slew_90_deg_s": 29.28, "slew_180_deg_s": 44.28}
+  },
+  "one_cluster_out_control_envelope": {
+    "pitch": {"angular_accel_deg_s2": 0.08952, "max_slew_rate_deg_s": 1.5, "settle_allowance_s": 12.0, "slew_90_deg_s": 88.75, "slew_180_deg_s": 148.75},
+    "yaw": {"angular_accel_deg_s2": 0.08952, "max_slew_rate_deg_s": 1.5, "settle_allowance_s": 12.0, "slew_90_deg_s": 88.75, "slew_180_deg_s": 148.75},
+    "roll": {"angular_accel_deg_s2": 0.47746, "max_slew_rate_deg_s": 3.0, "settle_allowance_s": 12.0, "slew_90_deg_s": 48.28, "slew_180_deg_s": 78.28}
+  },
+  "hud_permissions": {
+    "replace_instantaneous_flip_assumption_in_qualification": true,
+    "bound_attitude_transition_time": true,
+    "display_engineering_authority_status": true,
+    "claim_final_closed_loop_control_law": false,
+    "claim_final_actuator_canon": false
+  },
+  "remaining_q4_gates": [
+    "component_intrinsic_inertia_tensor",
+    "final_rcs_station_and_plume_interference_matrix",
+    "closed_loop_settling_and_pointing_qualification"
+  ]
+}

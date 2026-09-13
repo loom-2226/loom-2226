@@ -1,0 +1,124 @@
+{
+  "standard_id": "WAYFARER_FLIGHT_SYSTEM_BASELINE_V0.1",
+  "status": "ENGINEERING_BASELINE_NON_CANON",
+  "date": "2026-09-11",
+  "authority": {
+    "governing_canon": "canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md",
+    "wayfarer_candidate": "engineering/current/LOOM_2226_Wayfarer_Canon_Candidate_Specification_v0.1.md",
+    "qualification_plan": "engineering/current/LOOM_2226_Wayfarer_Flight_System_Qualification_Plan_v0.1.md",
+    "rule": "This object captures the comparison baseline only and does not alter governing canon."
+  },
+  "identity": {
+    "vehicle": "Wayfarer",
+    "role": "mature 2226 courier-type spacecraft",
+    "length_m": 57.0,
+    "nominal_body_diameter_m": 9.0,
+    "normal_crew": 6,
+    "payload_target_t": 50.0
+  },
+  "mass_states": {
+    "dry_mass_t": 858.5,
+    "working_fluid_water_inventory_t": 300.0,
+    "reference_wet_mass_t": 1158.5,
+    "normal_remass_allowance_t": 250.0,
+    "protected_water_reserve_t": 50.0,
+    "post_normal_remass_reference_mass_t": 908.5,
+    "normal_remass_is_within_working_fluid_inventory": true,
+    "qualification_disposition": "BASELINE"
+  },
+  "mobility_regimes": {
+    "torch": {
+      "physics_class": "ordinary_momentum_exchange",
+      "hardware": "single_primary_axial_fusion_torch_magnetic_nozzle",
+      "qualification_disposition": "BASELINE",
+      "feedstock_identity": {
+        "status": "OPEN_FOR_QUALIFICATION",
+        "baseline_inventory_description": "working fluid / water",
+        "water_only_requirement": false
+      },
+      "mode_cards": [
+        {"mode": "ECON", "exhaust_velocity_km_s": 3000.0, "acceleration_g": 0.3, "status": "WORKING_ENGINEERING_CARD"},
+        {"mode": "CRUISE", "exhaust_velocity_km_s": 2000.0, "acceleration_g": 1.0, "status": "WORKING_ENGINEERING_CARD"},
+        {"mode": "EXPEDITE", "exhaust_velocity_km_s": 1000.0, "acceleration_g": 2.0, "status": "WORKING_ENGINEERING_CARD"},
+        {"mode": "FAST", "exhaust_velocity_km_s": 700.0, "acceleration_g": 3.0, "status": "WORKING_ENGINEERING_CARD"},
+        {"mode": "HARD", "exhaust_velocity_km_s": 450.0, "acceleration_g": 5.0, "status": "WORKING_ENGINEERING_CARD"},
+        {"mode": "LIMIT", "exhaust_velocity_km_s": 300.0, "acceleration_g": 7.5, "status": "WORKING_ENGINEERING_CARD"}
+      ]
+    },
+    "endurance": {
+      "implementation_class": "E0_NONE",
+      "allowed_qualification_classes": ["E0_NONE", "E1_LOW_REMASS", "E2_MOMENTUM_COUPLED"],
+      "status": "OPEN_FOR_QUALIFICATION",
+      "canon_effect": "none"
+    },
+    "metric": {
+      "physics_class": "continuous_subluminal_relational_metric_transport",
+      "status": "GOVERNING_CANON",
+      "ordinary_velocity_reset_allowed": false,
+      "torch_terminal_state_matching_required_when_needed": true
+    },
+    "loom": {
+      "physics_class": "discontinuous_interstellar_relational_re_embedding",
+      "status": "GOVERNING_CANON"
+    }
+  },
+  "torch_feedstock_qualification": {
+    "candidate_species": ["H2O", "H2", "NH3", "CH4", "CO2", "CO", "N2", "Ar", "O2"],
+    "rating_enum": ["CERTIFIED", "DERATED", "CONTINGENCY", "PROHIBITED"],
+    "primary_remass": null,
+    "alternate_remass": null,
+    "contingency_remass": null,
+    "status": "OPEN"
+  },
+  "rcs_translation": {
+    "status": "OPEN_FOR_QUALIFICATION",
+    "candidate_station_bands_x_m": [[5.0, 8.0], [17.0, 20.0], [35.0, 38.0], [43.0, 46.0]],
+    "exact_thruster_count": null,
+    "working_fluid": null,
+    "docking_translation_acceleration_m_s2": null,
+    "minimum_impulse_bit_N_s": null
+  },
+  "attitude": {
+    "status": "OPEN_FOR_QUALIFICATION",
+    "architecture_candidate": "internal_momentum_storage_plus_external_unload_and_high_authority_thrusters",
+    "pitch_accel_rad_s2": null,
+    "yaw_accel_rad_s2": null,
+    "roll_accel_rad_s2": null,
+    "nominal_slew_rate_rad_s": null,
+    "emergency_slew_rate_rad_s": null
+  },
+  "power_thermal": {
+    "status": "OPEN_MODEL",
+    "high_drive_reject_interface_K": 900.0,
+    "metric_radiator_equivalent_area_m2": {
+      "NORMAL": 106.0,
+      "FAST": 202.0,
+      "EXPEDITE": 336.0,
+      "HARD": 719.0
+    },
+    "torch_jet_power_is_electrical_bus_power": false,
+    "major_torch_and_high_metric_mutually_exclusive": true
+  },
+  "configuration_states": {
+    "launch": ["DOCKED", "EXTRACTING", "ABSENT"],
+    "radiators": ["STOWED", "DEPLOYING", "DEPLOYED"],
+    "docking": ["FREE", "APPROACH", "SOFT_CAPTURE", "HARD_DOCKED"],
+    "torch": ["OFF", "SAFE", "ACTIVE"]
+  },
+  "hard_kills": [
+    "free_momentum_cycle",
+    "free_work_cycle",
+    "hidden_shipboard_momentum_bank",
+    "metric_silently_erases_ordinary_state_mismatch",
+    "unqualified_endurance_drive_promoted_to_canon"
+  ],
+  "next_required_work": [
+    "Q2_TORCH_FEEDSTOCK_STUDY",
+    "Q4_MASS_PROPERTIES_RCS_ATTITUDE",
+    "Q5_POWER_THERMAL_CLOSURE",
+    "Q3_ENDURANCE_DRIVE_DISPOSITION",
+    "Q6_MISSION_REGRESSION",
+    "Q7_RESERVE_DOCTRINE",
+    "Q8_FINAL_STANDARD_AND_NAVIGATOR_ADAPTER"
+  ]
+}
