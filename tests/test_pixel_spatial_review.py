@@ -57,6 +57,11 @@ class PixelSpatialReviewContractTests(unittest.TestCase):
         self.assertIn("spatial_review.py", cfg[2])
         self.assertIn("--review neptune-mag-exact-sample", cfg[2])
 
+    def test_qualification_command_does_not_kill_its_own_shell_by_matching_command_text(self):
+        cfg = (self.repo / "engineering/pixel/active_qualification.txt").read_text(encoding="utf-8").splitlines()
+        qualification_command = cfg[1]
+        self.assertNotIn("pkill -f 'engineering/pixel/spatial_review.py'", qualification_command)
+
 
 if __name__ == "__main__":
     unittest.main()
