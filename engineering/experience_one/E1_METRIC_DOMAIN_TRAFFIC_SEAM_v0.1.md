@@ -14,6 +14,17 @@ This seam connects already-merged authority:
 
 It does not create another planner or ephemeris.
 
+## Current dependency state
+
+Merged before this seam:
+
+- metric-domain hierarchy/intersection checks;
+- first/final-leg origin/destination transition semantics;
+- shared celestial-state authority;
+- read-only SQLite celestial provider.
+
+This PR adds only the adapter that turns existing Navigator route samples plus existing body state into checker-ready moving domains.
+
 ## E1 acceptance sequence
 
 1. Take the authoritative Ceres → Neptune candidate selected by the E1 Navigator path.
