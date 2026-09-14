@@ -3,14 +3,15 @@ from __future__ import annotations
 
 """Qualify presence of the committed E1 vessel configuration identity bundle.
 
-This is an identity/evidence step only. It does not invent a mass-state model,
-node topology, hull/lattice configuration, domain geometry, membership, or
-attachment state. Current E1 live evidence exposes the ship identity but not the
-remaining committed configuration tuple required by the domain-size binding rule.
+This is an identity/evidence step only. It promotes already-earned mass-state and
+node-topology evidence, while preserving hull/lattice configuration as unresolved
+until a governed configuration identity actually exists.
 """
 
 import json
 from typing import Any, Mapping
+
+from engineering.experience_one.qualification import e1_wayfarer_configuration_evidence as wayfarer_evidence
 
 SCHEMA = "LOOM_E1_CONFIGURATION_IDENTITY_BUNDLE_V1"
 REQUIRED = [
@@ -60,13 +61,15 @@ def evaluate_configuration(state: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def build_current_e1_inventory() -> dict[str, Any]:
-    # The current live mission exposes the committed ship identifier. No governed
-    # artifact currently exposes the other three configuration-identity members.
+    earned = wayfarer_evidence.build_evidence()
+    mass = earned["mass_state_model"]
+    topo = earned["node_topology"]
+    hull = earned["hull_lattice_configuration"]
     return evaluate_configuration({
-        "ship": "WAYFARER_BASELINE",
-        "mass_state_model": "UNKNOWN",
-        "node_topology": "UNKNOWN",
-        "hull_lattice_configuration": "UNKNOWN",
+        "ship": earned["ship"],
+        "mass_state_model": mass.get("model_id", "UNKNOWN") if mass.get("state") == "PRESENT_QUALIFIED_SUPPORT" else "UNKNOWN",
+        "node_topology": topo.get("topology_id", "UNKNOWN") if topo.get("state") == "PRESENT_QUALIFIED_SUPPORT" else "UNKNOWN",
+        "hull_lattice_configuration": "UNKNOWN" if hull.get("state") != "PRESENT_QUALIFIED_SUPPORT" else hull.get("configuration_id", "UNKNOWN"),
     })
 
 
