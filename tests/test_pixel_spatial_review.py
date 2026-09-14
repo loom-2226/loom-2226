@@ -51,11 +51,21 @@ class PixelSpatialReviewContractTests(unittest.TestCase):
         self.assertIn("termux-open-url", text)
         self.assertIn("if [[ $PIPE_RC -eq 0", text)
 
-    def test_active_config_can_carry_optional_third_line(self):
+    def test_runner_uses_termux_writable_review_log_location(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
+        self.assertIn("TMPDIR", text)
+        self.assertIn("REVIEW_LOG", text)
+        self.assertNotIn(">/tmp/loom-spatial-review.log", text)
+        self.assertNotIn("SPATIAL_REVIEW_LOG=/tmp/loom-spatial-review.log", text)
+
+    def test_active_bootstrap_config_avoids_old_runner_post_hook(self):
         cfg = (self.repo / "engineering/pixel/active_qualification.txt").read_text(encoding="utf-8").splitlines()
-        self.assertGreaterEqual(len(cfg), 3)
-        self.assertIn("spatial_review.py", cfg[2])
-        self.assertIn("--review neptune-mag-exact-sample", cfg[2])
+        self.assertGreaterEqual(len(cfg), 2)
+        self.assertIn("spatial_review.py", cfg[1])
+        self.assertIn("--review neptune-mag-exact-sample", cfg[1])
+        self.assertIn("TMPDIR", cfg[1])
+        self.assertNotIn("/tmp/loom-spatial-review.log", cfg[1])
+        self.assertEqual(len(cfg), 2)
 
     def test_qualification_command_does_not_kill_its_own_shell_by_matching_command_text(self):
         cfg = (self.repo / "engineering/pixel/active_qualification.txt").read_text(encoding="utf-8").splitlines()
