@@ -11,7 +11,13 @@ the Ceres departure and Neptune arrival epochs earned by the Pixel qualification
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+SCRIPT_PATH = Path(__file__).resolve()
+REPO_ROOT = SCRIPT_PATH.parents[3]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from src.loom_sqlite_celestial_provider import SQLiteCelestialCatalog
 
@@ -44,7 +50,7 @@ def main() -> int:
     parser.add_argument(
         "--db",
         type=Path,
-        default=Path("data/LOOM_2226.sqlite3"),
+        default=REPO_ROOT / "data" / "LOOM_2226.sqlite3",
         help="Path to authoritative LOOM WORLD/CORE celestial SQLite database",
     )
     parser.add_argument("--out", type=Path)
