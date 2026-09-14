@@ -28,20 +28,19 @@ class TranslationDomainEnvelopeContractTests(unittest.TestCase):
         self.assertFalse(membership["mass_state_inclusion_alone_certifies_membership"])
         self.assertFalse(membership["attachment_state_alone_certifies_membership"])
 
-    def test_current_e1_envelope_instantiation_remains_unresolved(self):
+    def test_current_e1_geometry_envelope_is_present_but_boundary_is_unresolved(self):
+        current = self.result["current_e1_instantiation"]
         self.assertEqual(
             self.result["disposition"],
-            "ENVELOPE_CONTRACT_QUALIFIED_INSTANTIATION_UNRESOLVED",
+            "ENVELOPE_CONTRACT_QUALIFIED_BOUNDARY_INSTANTIATION_UNRESOLVED",
         )
-        self.assertFalse(self.result["current_e1_instantiation"]["certified_boundary_present"])
-        self.assertFalse(self.result["current_e1_instantiation"]["numeric_extent_defined"])
-        self.assertIn(
-            "certified_translation_domain_boundary_solution",
-            self.result["current_e1_instantiation"]["missing_required_evidence"],
-        )
-        self.assertIn(
-            "committed_component_geometry_envelope",
-            self.result["current_e1_instantiation"]["missing_required_evidence"],
+        self.assertTrue(current["committed_component_geometry_envelope_present"])
+        self.assertFalse(current["certified_boundary_present"])
+        self.assertFalse(current["numeric_extent_defined"])
+        self.assertNotIn("committed_component_geometry_envelope", current["missing_required_evidence"])
+        self.assertEqual(
+            current["missing_required_evidence"],
+            ["certified_translation_domain_boundary_solution", "domain_membership_containment_result"],
         )
 
     def test_open_schematic_detail_is_preserved(self):
@@ -49,6 +48,7 @@ class TranslationDomainEnvelopeContractTests(unittest.TestCase):
         self.assertEqual(current["distributed_boundary_metric_nodes"], 208)
         self.assertEqual(current["exact_node_placement"], "OPEN")
         self.assertFalse(current["exact_node_placement_promoted_to_known"])
+        self.assertTrue(current["component_geometry_open_detail_bounded"])
         self.assertFalse(self.result["authority"]["certifies_domain_membership"])
         self.assertFalse(self.result["authority"]["certifies_domain_size"])
         self.assertFalse(self.result["authority"]["certifies_overall_ga"])
