@@ -11,7 +11,7 @@ from dataclasses import dataclass
 import math
 from typing import Protocol
 
-from src.loom_neptune_atmosphere_reference import NeptuneAtmosphereReferenceProvider
+from src.loom_neptune_atmosphere_reference_provider import NeptuneAtmosphereReferenceProvider
 from src.loom_planetary_environment import EnvironmentQuery, PlanetaryEnvironmentState
 from src.loom_spatial_state_authority import CANONICAL_FRAME, SpatialState
 
