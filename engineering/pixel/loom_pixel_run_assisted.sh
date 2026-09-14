@@ -45,12 +45,19 @@ RUN_DIR="$STATE_ROOT/${STAMP}-${HEAD_SHA:0:8}"
 mkdir -p "$RUN_DIR"
 cp "$RAW_TMP" "$RUN_DIR/governed-transcript.txt"
 REPORT="$RUN_DIR/report.txt"
+QUALIFICATION_SUMMARY="$(grep -E '^QUALIFICATION_(AXIS|DISPOSITION|MISSING_REQUIRED_EVIDENCE)=' "$RAW_TMP" | tail -n 3 || true)"
 
 copy_report() {
   if command -v termux-clipboard-set >/dev/null 2>&1; then
     termux-clipboard-set < "$REPORT"
   fi
   cat "$REPORT"
+}
+
+append_qualification_summary() {
+  if [[ -n "$QUALIFICATION_SUMMARY" ]]; then
+    printf '%s\n' "$QUALIFICATION_SUMMARY" >> "$REPORT"
+  fi
 }
 
 if [[ $RAW_RC -eq 0 ]]; then
@@ -64,6 +71,7 @@ SHA=$HEAD_SHA
 RAW_LOG=$RUN_DIR/governed-transcript.txt
 RESULT=GOVERNED_QUALIFICATION_PASS
 EOF
+  append_qualification_summary
   copy_report
   exit 0
 fi
@@ -80,6 +88,7 @@ RAW_LOG=$RUN_DIR/governed-transcript.txt
 RESULT=ESCALATE
 REASON=OPENAI_API_KEY is not configured in $ENV_FILE or the environment.
 EOF
+  append_qualification_summary
   copy_report
   exit "$RAW_RC"
 fi
@@ -95,6 +104,7 @@ SHA=$HEAD_SHA
 RESULT=ESCALATE
 REASON=active qualification config is missing after governed failure.
 EOF
+  append_qualification_summary
   copy_report
   exit "$RAW_RC"
 fi
@@ -112,6 +122,7 @@ SHA=$HEAD_SHA
 RESULT=ESCALATE
 REASON=active qualification command is empty after governed failure.
 EOF
+  append_qualification_summary
   copy_report
   exit "$RAW_RC"
 fi
@@ -127,6 +138,7 @@ SHA=$HEAD_SHA
 RESULT=ESCALATE
 REASON=authoritative working tree is dirty; assisted repair refused.
 EOF
+  append_qualification_summary
   copy_report
   exit "$RAW_RC"
 fi
@@ -165,7 +177,8 @@ while [[ $ATTEMPT -lt $MAX_ATTEMPTS ]]; do
 
   ATTEMPT_LOG="$RUN_DIR/retry-$ATTEMPT.txt"
   set +e
-  (cd "$WORKTREE" && bash -lc "$QUAL_COMMAND") >"$ATTEMPT_LOG" 2>&1
+  export PYTHONPATH="$WORKTREE${PYTHONPATH:+:$PYTHONPATH}"
+  (cd "$WORKTREE" && bash -c "$QUAL_COMMAND") >"$ATTEMPT_LOG" 2>&1
   RETRY_RC=$?
   set -e
   CURRENT_TRANSCRIPT="$ATTEMPT_LOG"
@@ -225,5 +238,6 @@ NOTE=No authoritative files were changed.
 EOF
 fi
 
+append_qualification_summary
 copy_report
 exit "$RAW_RC"

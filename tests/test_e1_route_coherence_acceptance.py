@@ -53,6 +53,17 @@ class E1RouteCoherenceAcceptanceTests(unittest.TestCase):
         self.assertEqual(report["missing_required_evidence"], [])
         self.assertFalse(report["hard_fail"])
 
+    def test_governed_summary_lines_expose_axis_disposition_and_missing_evidence(self):
+        report = {
+            "axis": "loom_coherence",
+            "disposition": "INDETERMINATE_NOT_CERTIFIABLE",
+            "missing_required_evidence": ["route_uncertainty"],
+        }
+        lines = route_accept.governed_summary_lines(report)
+        self.assertEqual(lines[0], "QUALIFICATION_AXIS=loom_coherence")
+        self.assertEqual(lines[1], "QUALIFICATION_DISPOSITION=INDETERMINATE_NOT_CERTIFIABLE")
+        self.assertEqual(lines[2], "QUALIFICATION_MISSING_REQUIRED_EVIDENCE=route_uncertainty")
+
     def test_no_cross_axis_or_runtime_authority_is_created(self):
         report = route_accept.build_static_contract()
         self.assertFalse(report["authority"]["certifies_lattice_coherence"])
