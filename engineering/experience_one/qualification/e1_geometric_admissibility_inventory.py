@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-"""Read-only inventory of already-versioned Geometric Admissibility inputs.
+"""Read-only qualification of already-versioned Geometric Admissibility inputs.
 
-This module audits SQLite schema only. It identifies concrete columns that may
-support canon-named Geometric Admissibility observable families. Presence of a
-column does not establish physical relevance, a threshold, an admissibility
-rule, or runtime policy.
+This module deliberately uses an exact allowlist of physically defensible fields
+for Neptune rather than keyword-matching the entire database schema. It reports
+what LOOM already has, plus canon-relevant families that remain missing. It does
+not define a metric threshold, admissibility score, or runtime policy.
 """
 
 import json
@@ -16,68 +16,172 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DB_PATH = REPO_ROOT / "data" / "LOOM_2226.sqlite3"
-
-FAMILY_KEYWORDS: dict[str, tuple[str, ...]] = {
-    "gravity": ("gm_", "mass_", "gravity", "gravitational"),
-    "geometry": ("radius", "diameter", "flattening", "ellipsoid"),
-    "matter_environment": ("density", "atmospher", "pressure", "composition", "plasma_density"),
-    "electromagnetic_environment": ("magnetic", "magnet", "electric_field", "flux_density", "radiation", "solar_wind"),
-    "uncertainty": ("uncertainty", "sigma", "error_bound", "stddev", "confidence_interval"),
-    "provenance_quality": ("source", "status", "quality", "grade", "provenance", "epoch", "updated", "timestamp"),
-}
+ENTITY_CANDIDATES = ("NE", "NEPTUNE", "NEPTUNE_SYSTEM")
 
 
-def _matches(column_name: str, keywords: tuple[str, ...]) -> bool:
-    name = column_name.lower()
-    return any(keyword in name for keyword in keywords)
+def _table_columns(conn: sqlite3.Connection, table: str) -> set[str]:
+    escaped = table.replace("'", "''")
+    try:
+        return {str(row[1]) for row in conn.execute(f"PRAGMA table_info('{escaped}')")}
+    except sqlite3.DatabaseError:
+        return set()
 
 
-def inventory_schema(db_path: Path) -> dict[str, Any]:
+def _first_entity_row(conn: sqlite3.Connection, table: str, columns: list[str]) -> sqlite3.Row | None:
+    available = _table_columns(conn, table)
+    if "entity_id" not in available:
+        return None
+    selected = [column for column in columns if column in available]
+    if not selected:
+        return None
+    select_sql = ",".join(["entity_id", *selected])
+    for entity_id in ENTITY_CANDIDATES:
+        row = conn.execute(f"SELECT {select_sql} FROM {table} WHERE entity_id=? LIMIT 1", (entity_id,)).fetchone()
+        if row is not None:
+            return row
+    return None
+
+
+def _latest_state(conn: sqlite3.Connection) -> sqlite3.Row | None:
+    available = _table_columns(conn, "states")
+    required = {"entity_id", "epoch_utc"}
+    if not required.issubset(available):
+        return None
+    selected = [c for c in ("entity_id", "epoch_utc", "source", "navigation_grade", "reference_frame", "reference_plane") if c in available]
+    select_sql = ",".join(selected)
+    for entity_id in ENTITY_CANDIDATES:
+        row = conn.execute(
+            f"SELECT {select_sql} FROM states WHERE entity_id=? ORDER BY epoch_utc DESC LIMIT 1",
+            (entity_id,),
+        ).fetchone()
+        if row is not None:
+            return row
+    return None
+
+
+def qualify_neptune_inputs(db_path: Path) -> dict[str, Any]:
     path = Path(db_path).resolve()
     if not path.is_file():
         raise RuntimeError(f"LOOM database not found: {path}")
 
-    families: dict[str, list[str]] = {name: [] for name in FAMILY_KEYWORDS}
-    scanned_tables: list[str] = []
-
     conn = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+    conn.row_factory = sqlite3.Row
     try:
         conn.execute("PRAGMA query_only=ON")
-        tables = [
-            row[0]
-            for row in conn.execute(
-                "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"
-            )
-        ]
-        for table in tables:
-            scanned_tables.append(table)
-            escaped = table.replace("'", "''")
-            for row in conn.execute(f"PRAGMA table_info('{escaped}')"):
-                column = str(row[1])
-                qualified = f"{table}.{column}"
-                for family, keywords in FAMILY_KEYWORDS.items():
-                    if _matches(column, keywords):
-                        families[family].append(qualified)
+        props = _first_entity_row(
+            conn,
+            "celestial_properties",
+            ["gm_km3_s2", "mean_radius_km", "source_id", "status"],
+        )
+        dyn = _first_entity_row(
+            conn,
+            "celestial_dynamics",
+            [
+                "gm_km3_s2",
+                "mean_radius_km",
+                "reference_orbit_radius_km",
+                "hill_radius_km",
+                "soi_radius_km",
+                "atmosphere_class",
+                "source",
+                "metadata_status",
+            ],
+        )
+        state = _latest_state(conn)
     finally:
         conn.close()
 
-    for values in families.values():
-        values.sort()
+    if props is None and dyn is None:
+        raise RuntimeError(f"no Neptune physical row found for candidates {ENTITY_CANDIDATES}")
+
+    body = str((props or dyn)["entity_id"])
+
+    gravity: dict[str, Any] = {}
+    geometry: dict[str, Any] = {}
+    matter: dict[str, Any] = {}
+    provenance: dict[str, Any] = {}
+
+    if props is not None:
+        if "gm_km3_s2" in props.keys() and props["gm_km3_s2"] is not None:
+            gravity["gm_km3_s2"] = float(props["gm_km3_s2"])
+            provenance["gm_source"] = f"celestial_properties:{props['source_id'] or ''}:{props['status']}"
+        if "mean_radius_km" in props.keys() and props["mean_radius_km"] is not None:
+            geometry["mean_radius_km"] = float(props["mean_radius_km"])
+        if "source_id" in props.keys():
+            provenance["celestial_properties_source_id"] = props["source_id"]
+        if "status" in props.keys():
+            provenance["celestial_properties_status"] = props["status"]
+
+    if dyn is not None:
+        if not gravity and "gm_km3_s2" in dyn.keys() and dyn["gm_km3_s2"] is not None:
+            gravity["gm_km3_s2"] = float(dyn["gm_km3_s2"])
+            provenance["gm_source"] = f"celestial_dynamics:{dyn['source'] or ''}:{dyn['metadata_status']}"
+        if "mean_radius_km" in dyn.keys() and dyn["mean_radius_km"] is not None and "mean_radius_km" not in geometry:
+            geometry["mean_radius_km"] = float(dyn["mean_radius_km"])
+        for field in ("reference_orbit_radius_km", "hill_radius_km", "soi_radius_km"):
+            if field in dyn.keys() and dyn[field] is not None:
+                geometry[field] = float(dyn[field])
+        if "atmosphere_class" in dyn.keys() and dyn["atmosphere_class"] not in (None, ""):
+            matter["atmosphere_class"] = dyn["atmosphere_class"]
+        if "source" in dyn.keys():
+            provenance["celestial_dynamics_source"] = dyn["source"]
+        if "metadata_status" in dyn.keys():
+            provenance["celestial_dynamics_metadata_status"] = dyn["metadata_status"]
+
+    if state is not None:
+        if "epoch_utc" in state.keys():
+            provenance["state_epoch_utc"] = state["epoch_utc"]
+        if "source" in state.keys():
+            provenance["state_source"] = state["source"]
+        if "navigation_grade" in state.keys():
+            provenance["navigation_grade"] = state["navigation_grade"]
+        if "reference_frame" in state.keys():
+            provenance["reference_frame"] = state["reference_frame"]
+        if "reference_plane" in state.keys():
+            provenance["reference_plane"] = state["reference_plane"]
+
+    available = {
+        "gravity": gravity,
+        "geometry": geometry,
+        "matter_environment": matter,
+        "electromagnetic_environment": {},
+        "physical_uncertainty": {},
+        "loom_coherence": {},
+        "provenance_quality": provenance,
+    }
+
+    missing: list[str] = []
+    if "atmosphere_class" not in matter:
+        missing.append("atmospheric_classification")
+    missing.extend(
+        [
+            "local_matter_density",
+            "electromagnetic_environment",
+            "physical_uncertainty",
+            "loom_coherence",
+        ]
+    )
 
     return {
-        "schema": "LOOM_E1_GEOMETRIC_ADMISSIBILITY_DATA_INVENTORY_V1",
+        "schema": "LOOM_E1_GEOMETRIC_ADMISSIBILITY_INPUT_QUALIFICATION_V1",
         "status": "PASS",
-        "classification": "DATA_AVAILABILITY_AUDIT_ONLY_NOT_ADMISSIBILITY_POLICY",
+        "body": body,
         "database": str(path),
-        "tables_scanned": scanned_tables,
-        "families": families,
-        "authority_note": "READ_ONLY_SCHEMA_AUDIT_NO_THRESHOLD_NO_METRIC_POLICY_NO_CAMPAIGN_MUTATION_LLM_AUTHORITY_ZERO",
-        "interpretation": "COLUMN_PRESENCE_ONLY_DO_NOT_INFER_PHYSICAL_RELEVANCE_OR_ADMISSIBILITY",
+        "available": available,
+        "missing_required_families": missing,
+        "rejected_false_positive_classes": [
+            "infrastructure_mass_fields_are_not_local_gravity",
+            "transport_feeder_density_is_not_local_matter_density",
+            "generic_schema_keyword_match_is_not_physical_qualification",
+        ],
+        "authority_note": "READ_ONLY_EXACT_FIELD_QUALIFICATION_NO_THRESHOLD_NO_SCORE_NO_METRIC_POLICY_NO_CAMPAIGN_MUTATION_LLM_AUTHORITY_ZERO",
+        "interpretation": "AVAILABLE_MEANS_VERSIONED_FIELD_PRESENT_FOR_NEPTUNE_ONLY_NOT_PHYSICALLY_SUFFICIENT_FOR_ADMISSIBILITY",
+        "next_action": "PURSUE_MISSING_ENVIRONMENT_AND_UNCERTAINTY_FAMILIES_BEFORE_COMPOUND_ADMISSIBILITY_MODEL",
     }
 
 
 def main() -> int:
-    print(json.dumps(inventory_schema(DB_PATH), indent=2, sort_keys=True))
+    print(json.dumps(qualify_neptune_inputs(DB_PATH), indent=2, sort_keys=True))
     return 0
 
 
