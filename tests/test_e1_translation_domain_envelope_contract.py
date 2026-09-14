@@ -35,6 +35,8 @@ class TranslationDomainEnvelopeContractTests(unittest.TestCase):
             "ENVELOPE_CONTRACT_QUALIFIED_BOUNDARY_INSTANTIATION_UNRESOLVED",
         )
         self.assertTrue(current["committed_component_geometry_envelope_present"])
+        self.assertTrue(current["metric_node_placement_baseline_present"])
+        self.assertEqual(current["metric_node_placement_status"], "DESIGN_BASELINE")
         self.assertFalse(current["certified_boundary_present"])
         self.assertFalse(current["numeric_extent_defined"])
         self.assertNotIn("committed_component_geometry_envelope", current["missing_required_evidence"])
@@ -43,11 +45,12 @@ class TranslationDomainEnvelopeContractTests(unittest.TestCase):
             ["certified_translation_domain_boundary_solution", "domain_membership_containment_result"],
         )
 
-    def test_open_schematic_detail_is_preserved(self):
+    def test_metric_node_baseline_is_not_promoted_to_canon_or_loom_certification(self):
         current = self.result["current_e1_instantiation"]
         self.assertEqual(current["distributed_boundary_metric_nodes"], 208)
-        self.assertEqual(current["exact_node_placement"], "OPEN")
-        self.assertFalse(current["exact_node_placement_promoted_to_known"])
+        self.assertEqual(current["metric_node_layout"], "13_AXIAL_RINGS_X_16_AZIMUTHAL_NODES")
+        self.assertFalse(current["metric_node_placement_promoted_to_canon"])
+        self.assertFalse(self.result["authority"]["certifies_loom_design"])
         self.assertTrue(current["component_geometry_open_detail_bounded"])
         self.assertFalse(self.result["authority"]["certifies_domain_membership"])
         self.assertFalse(self.result["authority"]["certifies_domain_size"])
