@@ -199,7 +199,7 @@ trap cleanup EXIT
   echo
 
   set +e
-  bash -lc "$QUAL_COMMAND"
+  PYTHONPATH="$REPO_ROOT${PYTHONPATH:+:$PYTHONPATH}" bash -lc "$QUAL_COMMAND"
   RC=$?
   set -e
 
