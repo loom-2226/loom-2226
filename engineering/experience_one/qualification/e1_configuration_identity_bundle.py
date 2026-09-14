@@ -3,15 +3,16 @@ from __future__ import annotations
 
 """Qualify presence of the committed E1 vessel configuration identity bundle.
 
-This is an identity/evidence step only. It promotes already-earned mass-state and
-node-topology evidence, while preserving hull/lattice configuration as unresolved
-until a governed configuration identity actually exists.
+This identity/evidence step binds already-earned mass-state, node-topology, and
+governing reference-schematic identity. It does not claim detailed open geometry,
+domain geometry, domain membership, or runtime attachment state.
 """
 
 import json
 from typing import Any, Mapping
 
 from engineering.experience_one.qualification import e1_wayfarer_configuration_evidence as wayfarer_evidence
+from engineering.experience_one.qualification import e1_hull_lattice_configuration_evidence as hull_evidence
 
 SCHEMA = "LOOM_E1_CONFIGURATION_IDENTITY_BUNDLE_V1"
 REQUIRED = [
@@ -47,8 +48,10 @@ def evaluate_configuration(state: Mapping[str, Any]) -> dict[str, Any]:
             "infer_unknown_values": False,
             "invent_configuration_values": False,
             "hull_dimensions_substitute_for_domain_geometry": False,
+            "open_detail_required_for_configuration_identity": False,
         },
         "authority": {
+            "certifies_configuration_identity": complete,
             "certifies_domain_membership_or_attachment": False,
             "certifies_domain_size": False,
             "certifies_lattice_coherence": False,
@@ -64,17 +67,22 @@ def build_current_e1_inventory() -> dict[str, Any]:
     earned = wayfarer_evidence.build_evidence()
     mass = earned["mass_state_model"]
     topo = earned["node_topology"]
-    hull = earned["hull_lattice_configuration"]
+    hull = hull_evidence.build_current_e1_hull_lattice_configuration()
     return evaluate_configuration({
         "ship": earned["ship"],
         "mass_state_model": mass.get("model_id", "UNKNOWN") if mass.get("state") == "PRESENT_QUALIFIED_SUPPORT" else "UNKNOWN",
         "node_topology": topo.get("topology_id", "UNKNOWN") if topo.get("state") == "PRESENT_QUALIFIED_SUPPORT" else "UNKNOWN",
-        "hull_lattice_configuration": "UNKNOWN" if hull.get("state") != "PRESENT_QUALIFIED_SUPPORT" else hull.get("configuration_id", "UNKNOWN"),
+        "hull_lattice_configuration": hull.get("configuration_id", "UNKNOWN") if hull.get("configuration_identity_present") else "UNKNOWN",
     })
 
 
 def main() -> int:
-    print(json.dumps(build_current_e1_inventory(), indent=2, sort_keys=True))
+    result = build_current_e1_inventory()
+    print(json.dumps(result, indent=2, sort_keys=True))
+    print("QUALIFICATION_AXIS=configuration_identity")
+    print(f"QUALIFICATION_DISPOSITION={result['disposition']}")
+    missing = ",".join(result["missing_required_evidence"]) or "NONE"
+    print(f"QUALIFICATION_MISSING_REQUIRED_EVIDENCE={missing}")
     return 0
 
 
