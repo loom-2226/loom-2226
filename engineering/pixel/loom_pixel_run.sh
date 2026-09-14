@@ -98,9 +98,6 @@ choose_bootstrap_config() {
   CURRENT_HEAD="$current_head"
   LOCAL_CONFIG_BRANCH="$local_config_branch"
 
-  # The dedicated remote qualification pointer is routing authority only. It
-  # points at a candidate commit whose active_qualification.txt names the real
-  # branch and command. It does not grant merge, runtime, or campaign authority.
   if git show-ref --verify --quiet "refs/remotes/$QUALIFICATION_POINTER_REF"; then
     echo "BOOTSTRAP_MODE=REMOTE_QUALIFICATION_POINTER"
     load_qualification_pointer_config "REMOTE_QUALIFICATION_POINTER"
@@ -108,9 +105,6 @@ choose_bootstrap_config() {
     return
   fi
 
-  # Backward-compatible fallback: an unmerged candidate branch whose own config
-  # points to itself can qualify itself. Once merged into origin/main, it is
-  # stale for qualification purposes and follows origin/main instead.
   if [[ -n "$CURRENT_BRANCH" && "$CURRENT_BRANCH" != "main" ]]; then
     if [[ "$LOCAL_CONFIG_BRANCH" == "$CURRENT_BRANCH" ]]; then
       if git merge-base --is-ancestor "$CURRENT_HEAD" origin/main; then
@@ -199,7 +193,8 @@ trap cleanup EXIT
   echo
 
   set +e
-  PYTHONPATH="$REPO_ROOT${PYTHONPATH:+:$PYTHONPATH}" bash -lc "$QUAL_COMMAND"
+  export PYTHONPATH="$REPO_ROOT${PYTHONPATH:+:$PYTHONPATH}"
+  bash -lc "$QUAL_COMMAND"
   RC=$?
   set -e
 
