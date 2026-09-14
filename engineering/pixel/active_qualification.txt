@@ -1,3 +1,2 @@
 engineering/pixel-spatial-review-prototype-2026-09-14
-python -m unittest discover -s tests -p 'test_pixel_spatial_review.py' && python engineering/pixel/spatial_review.py --review neptune-mag-exact-sample --check && (nohup python engineering/pixel/spatial_review.py --review neptune-mag-exact-sample --port 8878 >/tmp/loom-spatial-review.log 2>&1 & sleep 0.5; termux-open-url http://127.0.0.1:8878/ >/dev/null 2>&1 || true)
-python engineering/pixel/spatial_review.py --review neptune-mag-exact-sample --port 8878
+python -m unittest discover -s tests -p 'test_pixel_spatial_review.py' && python engineering/pixel/spatial_review.py --review neptune-mag-exact-sample --check && (REVIEW_LOG_DIR="${TMPDIR:-$HOME/.cache/loom}"; mkdir -p "$REVIEW_LOG_DIR"; nohup python engineering/pixel/spatial_review.py --review neptune-mag-exact-sample --port 8878 >"$REVIEW_LOG_DIR/loom-spatial-review.log" 2>&1 & sleep 0.5; termux-open-url http://127.0.0.1:8878/ >/dev/null 2>&1 || true)
