@@ -1,2 +1,2 @@
-engineering/civstate-hel-cross-domain-differentiation-2026-09-14
-python -m unittest discover -s tests -p 'test_civstate_hel_cross_domain_differentiation.py' && python engineering/civstate/hel_cross_domain_differentiation.py --db data/LOOM_2226_CIVSTATE.sqlite3
+engineering/civstate-hel-differentiator-input-inventory-2026-09-14
+python -m unittest discover -s tests -p 'test_civstate_hel_differentiator_input_inventory.py' && python engineering/civstate/hel_differentiator_input_inventory.py --db data/LOOM_2226_CIVSTATE.sqlite3
