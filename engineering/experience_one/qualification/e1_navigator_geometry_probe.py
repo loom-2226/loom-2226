@@ -5,9 +5,10 @@ from __future__ import annotations
 
 The purpose is discovery, not route invention. This runs the real Ceres→Neptune
 candidate path against Navigator SOURCE-010 and inventories the selected solved-leg
-payload for explicit trajectory/position/velocity/collapse geometry. If Navigator
-only exposes scalar distance/timing today, the probe says so and does not synthesize
-a straight line or other substitute path.
+payload for explicit spatial state and, separately, any explicit metric occupancy
+path. A collapse state is not treated as a trajectory. If Navigator says metric
+transit is relational displacement rather than ordinary-space occupancy, the probe
+preserves that semantic boundary and does not synthesize a straight line.
 """
 
 import json
@@ -38,6 +39,7 @@ _SPATIAL_TERMS = (
     "collapse_state",
     "coordinate",
 )
+_OCCUPANCY_TERMS = ("trajectory", "path", "sample")
 _PHYSICS_SCALAR_TERMS = (
     "distance",
     "duration",
@@ -68,8 +70,9 @@ def _walk(value: Any, path: str = ""):
 
 
 def inventory_leg_geometry(leg: dict[str, Any]) -> dict[str, Any]:
-    """Inventory geometry that is explicitly present in a solved Navigator leg."""
+    """Inventory explicit spatial state separately from metric occupancy geometry."""
     explicit: list[str] = []
+    occupancy: list[str] = []
     physics: list[str] = []
     temporal: list[str] = []
     for path, value in _walk(leg):
@@ -77,14 +80,20 @@ def inventory_leg_geometry(leg: dict[str, Any]) -> dict[str, Any]:
         leaf = leaf.split("[", 1)[0]
         if any(term in leaf for term in _SPATIAL_TERMS):
             explicit.append(path)
+        if path.startswith("metric_segment.") and any(term in leaf for term in _OCCUPANCY_TERMS):
+            occupancy.append(path)
         if not isinstance(value, (dict, list, tuple)) and any(term in leaf for term in _PHYSICS_SCALAR_TERMS):
             physics.append(path)
         if not isinstance(value, (dict, list, tuple)) and any(term in leaf for term in _TEMPORAL_TERMS):
             temporal.append(path)
+    semantics = str((leg.get("metric_segment") or {}).get("semantics") or "")
     return {
         "top_level_keys": sorted(leg),
-        "explicit_spatial_path_present": bool(explicit),
+        "explicit_spatial_state_present": bool(explicit),
         "explicit_spatial_paths": sorted(set(explicit)),
+        "metric_occupancy_path_present": bool(occupancy),
+        "metric_occupancy_paths": sorted(set(occupancy)),
+        "metric_segment_semantics": semantics,
         "physics_scalar_paths": sorted(set(physics)),
         "temporal_paths": sorted(set(temporal)),
     }
@@ -144,6 +153,16 @@ def _route_scoped_acquisition(nav: Any, normalized: dict[str, Any], cache: Path)
     return acquisition, required_ids
 
 
+def _next_action(inventory: dict[str, Any]) -> str:
+    if inventory["metric_occupancy_path_present"]:
+        return "PROMOTE_EXPLICIT_NAVIGATOR_METRIC_OCCUPANCY_SAMPLES_TO_HYDRATION"
+    if inventory["metric_segment_semantics"] == "RELATIONAL_DISPLACEMENT_NOT_ORDINARY_SPACE_OCCUPANCY":
+        return "PROMOTE_COLLAPSE_STATE_AND_REVIEW_METRIC_DOMAIN_CHECKER_SEMANTICS"
+    if inventory["explicit_spatial_state_present"]:
+        return "DEFINE_MINIMAL_NAVIGATOR_METRIC_OCCUPANCY_SEAM_OR_NON_OCCUPANCY_DOMAIN_RULE"
+    return "DEFINE_MINIMAL_NAVIGATOR_SPATIAL_OUTPUT_SEAM_FROM_EXISTING_SOLVER_INTERNALS"
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory(prefix="loom-e1-geometry-") as td:
         root = Path(td)
@@ -177,7 +196,7 @@ def main() -> int:
         inventory = inventory_leg_geometry(leg)
         arrival = str(selected.get("arrival_epoch_utc") or leg.get("arrival", {}).get("epoch_utc") or "")
         result = {
-            "schema": "LOOM_E1_NAVIGATOR_GEOMETRY_PROBE_V1",
+            "schema": "LOOM_E1_NAVIGATOR_GEOMETRY_PROBE_V2",
             "status": "PASS",
             "authority_note": "READ_ONLY_NAVIGATOR_OUTPUT_INSPECTION_NO_ROUTE_INVENTION_NO_CAMPAIGN_MUTATION_LLM_AUTHORITY_ZERO",
             "source_authority": acquisition["authority"]["source"],
@@ -187,8 +206,8 @@ def main() -> int:
             "earned_arrival_epoch_utc": EARNED_ARRIVAL,
             "selected_candidate": {
                 "candidate_id": selected.get("candidate_id"),
-                "metric_mode": selected.get("metric_mode"),
-                "ordinary_mode": selected.get("ordinary_mode"),
+                "metric_mode": selected.get("metric_mode") or leg.get("metric_mode"),
+                "ordinary_mode": selected.get("ordinary_mode") or leg.get("torch_mode"),
                 "total_duration_s": selected.get("total_duration_s", selected.get("total_s")),
                 "total_remass_t": selected.get("total_remass_t", selected.get("remass_used_t")),
                 "arrival_epoch_utc": arrival,
@@ -196,11 +215,7 @@ def main() -> int:
             },
             "geometry_inventory": inventory,
             "solved_leg": leg,
-            "next_action": (
-                "PROMOTE_EXPLICIT_NAVIGATOR_ROUTE_SAMPLES_TO_HYDRATION"
-                if inventory["explicit_spatial_path_present"]
-                else "DEFINE_MINIMAL_NAVIGATOR_SPATIAL_OUTPUT_SEAM_FROM_EXISTING_SOLVER_INTERNALS"
-            ),
+            "next_action": _next_action(inventory),
         }
         print(json.dumps(result, indent=2, sort_keys=True))
         return 0
