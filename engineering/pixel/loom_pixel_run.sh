@@ -116,7 +116,24 @@ trap cleanup EXIT
   RC=$?
   set -e
 
-  if [[ $RC -eq 0 && -n "$SPATIAL_REVIEW_COMMAND" ]]; then
+  echo
+  echo "EXIT_CODE=$RC"
+  echo "UTC_END=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  if [[ $RC -eq 0 ]]; then
+    echo "LOOM_PIXEL_QUALIFICATION_STATUS=PASS"
+  else
+    echo "LOOM_PIXEL_QUALIFICATION_STATUS=FAIL"
+  fi
+  exit "$RC"
+} 2>&1 | tee "$TMP"
+PIPE_RC=${PIPESTATUS[0]}
+
+# Re-read the config in the parent shell after any branch handoff performed in the
+# qualification pipeline. The read-only review must correspond to the exact branch
+# that was just qualified, never to a stale bootstrap command.
+load_config "POST_QUALIFICATION"
+if [[ $PIPE_RC -eq 0 && -n "$SPATIAL_REVIEW_COMMAND" ]]; then
+  {
     echo
     echo "[SPATIAL REVIEW]"
     echo "READ_ONLY_PRESENTATION=YES"
@@ -138,19 +155,8 @@ trap cleanup EXIT
       echo "SPATIAL_REVIEW_STATUS=FAILED_TO_STAY_RUNNING"
       echo "SPATIAL_REVIEW_LOG=/tmp/loom-spatial-review.log"
     fi
-  fi
-
-  echo
-  echo "EXIT_CODE=$RC"
-  echo "UTC_END=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  if [[ $RC -eq 0 ]]; then
-    echo "LOOM_PIXEL_QUALIFICATION_STATUS=PASS"
-  else
-    echo "LOOM_PIXEL_QUALIFICATION_STATUS=FAIL"
-  fi
-  exit "$RC"
-} 2>&1 | tee "$TMP"
-PIPE_RC=${PIPESTATUS[0]}
+  } 2>&1 | tee -a "$TMP"
+fi
 
 if command -v termux-clipboard-set >/dev/null 2>&1; then
   termux-clipboard-set < "$TMP"
