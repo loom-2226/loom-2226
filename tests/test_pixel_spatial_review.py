@@ -1,4 +1,6 @@
 import pathlib
+import subprocess
+import sys
 import unittest
 
 
@@ -17,6 +19,23 @@ class PixelSpatialReviewContractTests(unittest.TestCase):
         self.assertIn("EXACT BODY / EPOCH / FRAME / POSITION", html)
         self.assertIn("Scale bar", html)
         self.assertNotIn("canvas", html.lower())
+
+    def test_review_script_executes_directly_from_repo_root(self):
+        proc = subprocess.run(
+            [
+                sys.executable,
+                "engineering/pixel/spatial_review.py",
+                "--review",
+                "neptune-mag-exact-sample",
+                "--check",
+            ],
+            cwd=self.repo,
+            text=True,
+            capture_output=True,
+            timeout=10,
+        )
+        self.assertEqual(proc.returncode, 0, msg=proc.stdout + proc.stderr)
+        self.assertIn("SPATIAL_REVIEW_CHECK=PASS", proc.stdout)
 
     def test_review_server_is_read_only_and_port_separated(self):
         text = (self.repo / "engineering/pixel/spatial_review.py").read_text(encoding="utf-8")
