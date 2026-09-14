@@ -4,7 +4,7 @@ set -u
 # Governed Pixel qualification runner.
 # One command: fetch, resolve the governed qualification pointer, determine the
 # active branch, switch/pull it, refresh config, run it, copy the complete result,
-# and optionally launch a read-only Spatial Review.
+# persist a durable qualification log, and optionally launch a read-only Spatial Review.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -12,6 +12,7 @@ CONFIG_REL="engineering/pixel/active_qualification.txt"
 CONFIG="$SCRIPT_DIR/active_qualification.txt"
 QUALIFICATION_POINTER_REF="origin/qualification/active"
 LOOM_SPATIAL_REVIEW_URL="http://127.0.0.1:8878/"
+QUALIFICATION_LOG_DIR="${LOOM_QUALIFICATION_LOG_DIR:-$(dirname "$REPO_ROOT")/LOOM_Qualification_Logs}"
 
 cd "$REPO_ROOT" || exit 90
 
@@ -240,6 +241,16 @@ if [[ $PIPE_RC -eq 0 && -n "$SPATIAL_REVIEW_COMMAND" ]]; then
     fi
   } 2>&1 | tee -a "$TMP"
 fi
+
+mkdir -p "$QUALIFICATION_LOG_DIR"
+QUALIFICATION_LOG_STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+QUALIFICATION_LOG="$QUALIFICATION_LOG_DIR/qualification-$QUALIFICATION_LOG_STAMP.log"
+LATEST_QUALIFICATION_LOG="$QUALIFICATION_LOG_DIR/latest.log"
+cp "$TMP" "$QUALIFICATION_LOG"
+cp "$TMP" "$LATEST_QUALIFICATION_LOG"
+echo
+echo "QUALIFICATION_LOG_SAVED=$QUALIFICATION_LOG"
+echo "QUALIFICATION_LOG_LATEST=$LATEST_QUALIFICATION_LOG"
 
 if command -v termux-clipboard-set >/dev/null 2>&1; then
   termux-clipboard-set < "$TMP"
