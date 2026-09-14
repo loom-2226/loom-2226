@@ -1,7 +1,10 @@
 import math
 import unittest
 
-from engineering.experience_one.qualification.e1_metric_admissibility_observables import gravitational_observables
+from engineering.experience_one.qualification.e1_metric_admissibility_observables import (
+    gravitational_observables,
+    radial_profile,
+)
 
 
 class TestMetricAdmissibilityObservables(unittest.TestCase):
@@ -18,6 +21,14 @@ class TestMetricAdmissibilityObservables(unittest.TestCase):
             with self.subTest(mu=mu, radius=radius):
                 with self.assertRaises(ValueError):
                     gravitational_observables(mu_km3_s2=mu, radius_km=radius)
+
+    def test_radial_profile_preserves_order_and_monotonic_decay(self):
+        rows = radial_profile(mu_km3_s2=100.0, radii_km=(10.0, 100.0, 1000.0))
+        self.assertEqual([row["radius_km"] for row in rows], [10.0, 100.0, 1000.0])
+        self.assertGreater(rows[0]["acceleration_km_s2"], rows[1]["acceleration_km_s2"])
+        self.assertGreater(rows[1]["acceleration_km_s2"], rows[2]["acceleration_km_s2"])
+        self.assertGreater(rows[0]["tidal_scale_s2"], rows[1]["tidal_scale_s2"])
+        self.assertGreater(rows[1]["tidal_scale_s2"], rows[2]["tidal_scale_s2"])
 
 
 if __name__ == "__main__":
