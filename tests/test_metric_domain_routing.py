@@ -37,6 +37,19 @@ class MetricDomainRoutingTests(unittest.TestCase):
         with self.assertRaises(KeyError):
             resolve_metric_route("UNKNOWN", {}, NavigationPreferences())
 
+    def test_cycle_fails_closed(self):
+        rules = {
+            "A": DomainRule("A", "B", DomainKind.LOCAL_ONLY),
+            "B": DomainRule("B", "A", DomainKind.LOCAL_ONLY),
+        }
+        with self.assertRaises(ValueError):
+            resolve_metric_route("A", rules, NavigationPreferences())
+
+    def test_local_target_without_metric_ancestor_fails_closed(self):
+        rules = {"EUROPA": DomainRule("EUROPA", None, DomainKind.LOCAL_ONLY)}
+        with self.assertRaises(ValueError):
+            resolve_metric_route("EUROPA", rules, NavigationPreferences())
+
 
 if __name__ == "__main__":
     unittest.main()
