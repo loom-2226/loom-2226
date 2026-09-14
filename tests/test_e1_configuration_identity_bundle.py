@@ -23,6 +23,7 @@ class E1ConfigurationIdentityBundleTests(unittest.TestCase):
         self.assertEqual(report["disposition"], "CONFIGURATION_IDENTITY_PRESENT")
         self.assertEqual(report["missing_required_evidence"], [])
         self.assertTrue(report["configuration_identity_complete"])
+        self.assertTrue(report["authority"]["certifies_configuration_identity"])
         self.assertFalse(report["authority"]["certifies_domain_membership_or_attachment"])
         self.assertFalse(report["authority"]["certifies_domain_size"])
 
@@ -35,11 +36,17 @@ class E1ConfigurationIdentityBundleTests(unittest.TestCase):
         })
         self.assertEqual(len(report["missing_required_evidence"]), 3)
 
-    def test_static_live_inventory_preserves_current_gap(self):
+    def test_current_inventory_has_complete_identity_but_no_domain_claim(self):
         report = bundle.build_current_e1_inventory()
         self.assertEqual(report["ship"], "WAYFARER_BASELINE")
-        self.assertEqual(report["disposition"], "INDETERMINATE_NOT_CERTIFIABLE")
-        self.assertFalse(report["configuration_identity_complete"])
+        self.assertEqual(report["disposition"], "CONFIGURATION_IDENTITY_PRESENT")
+        self.assertEqual(report["missing_required_evidence"], [])
+        self.assertTrue(report["configuration_identity_complete"])
+        self.assertEqual(
+            report["configuration"]["hull_lattice_configuration"],
+            "WAYFARER_REFERENCE_SCHEMATIC_V2_4A",
+        )
+        self.assertFalse(report["authority"]["certifies_domain_membership_or_attachment"])
 
 
 if __name__ == "__main__":
