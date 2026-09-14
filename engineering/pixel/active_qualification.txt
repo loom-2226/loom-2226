@@ -1,2 +1,3 @@
-engineering/e1-neptune-mag-exact-sample-adapter-refresh-2026-09-14
-python -m unittest discover -s tests -p 'test_neptune_mag_exact_sample_adapter.py' && python engineering/experience_one/qualification/e1_neptune_mag_exact_sample_adapter.py
+engineering/pixel-spatial-review-prototype-2026-09-14
+python -m unittest discover -s tests -p 'test_pixel_spatial_review.py' && python engineering/pixel/spatial_review.py --review neptune-mag-exact-sample --check
+python engineering/pixel/spatial_review.py --review neptune-mag-exact-sample --port 8878
