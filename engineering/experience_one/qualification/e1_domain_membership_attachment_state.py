@@ -4,16 +4,16 @@ from __future__ import annotations
 """Classify E1 runtime configuration state needed for domain membership/attachment.
 
 Configuration identity is already qualified. Authored runtime state comes from the
-typed E1 runtime-configuration input. Domain membership remains derived-only and is
+explicit E1 initial-condition lock. Domain membership remains derived-only and is
 not inferred from identity or authored by this classifier.
 """
 
 import json
 from typing import Any, Mapping
 
-from engineering.experience_one.qualification.e1_runtime_configuration_input import (
-    SCHEMA as RUNTIME_INPUT_SCHEMA,
-    build_default_e1_runtime_configuration,
+from engineering.experience_one.qualification.e1_initial_configuration_state import (
+    SCHEMA as INITIAL_CONFIGURATION_SCHEMA,
+    build_e1_initial_configuration_state,
 )
 
 SCHEMA = "LOOM_E1_DOMAIN_MEMBERSHIP_ATTACHMENT_STATE_V1"
@@ -66,12 +66,12 @@ def evaluate_runtime_configuration_state(state: Mapping[str, Any]) -> dict[str, 
 
 
 def build_current_e1_runtime_inventory() -> dict[str, Any]:
-    runtime_input = build_default_e1_runtime_configuration().to_evidence()
+    runtime_input = build_e1_initial_configuration_state().to_evidence()
     authored = runtime_input["authored_state"]
     derived = runtime_input["derived_state"]
     return evaluate_runtime_configuration_state({
         "configuration_identity": runtime_input["configuration_identity"],
-        "runtime_input_source": RUNTIME_INPUT_SCHEMA,
+        "runtime_input_source": INITIAL_CONFIGURATION_SCHEMA,
         "launch_attachment_state": authored["launch_attachment_state"],
         "external_attachment_state": authored["external_attachment_state"],
         "deployable_structure_state": authored["deployable_structure_state"],
