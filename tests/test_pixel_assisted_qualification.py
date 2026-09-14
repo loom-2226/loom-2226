@@ -57,6 +57,11 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
         self.assertIn("QUALIFICATION_SUMMARY", text)
         self.assertIn("append_qualification_summary", text)
 
+    def test_assisted_retry_exports_worktree_pythonpath_and_uses_login_shell(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run_assisted.sh").read_text(encoding="utf-8")
+        self.assertIn('export PYTHONPATH="$WORKTREE${PYTHONPATH:+:$PYTHONPATH}"', text)
+        self.assertIn('(cd "$WORKTREE" && bash -lc "$QUAL_COMMAND")', text)
+
     def test_assisted_runner_uses_detached_temp_worktree_and_no_git_authority(self):
         text = (self.repo / "engineering/pixel/loom_pixel_run_assisted.sh").read_text(encoding="utf-8")
         self.assertIn("git worktree add --detach", text)
