@@ -2,11 +2,10 @@
 set -u
 
 # Governed Pixel qualification runner.
-# One command: fetch authoritative active qualification from origin/main,
-# switch/pull the governed qualification branch, refresh config, run it,
-# copy the complete result, and optionally launch a read-only Spatial Review.
-# A single post-pull branch handoff is allowed so a merged/updated branch can
-# point the same invocation at the next governed gate.
+# One command: fetch, determine whether the current branch is an unmerged
+# self-qualifying candidate or a merged/stale branch, switch/pull the governed
+# qualification branch, refresh config, run it, copy the complete result, and
+# optionally launch a read-only Spatial Review.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -68,6 +67,41 @@ switch_to_config_branch() {
   fi
 }
 
+choose_bootstrap_config() {
+  local current_branch current_head local_config_branch
+  current_branch="$(git branch --show-current)"
+  current_head="$(git rev-parse HEAD)"
+  local_config_branch=""
+
+  if [[ -f "$CONFIG" ]]; then
+    local_config_branch="$(sed -n '1p' "$CONFIG")"
+  fi
+
+  CURRENT_BRANCH="$current_branch"
+  CURRENT_HEAD="$current_head"
+  LOCAL_CONFIG_BRANCH="$local_config_branch"
+
+  # An unmerged candidate branch whose own config points to itself must be able
+  # to qualify itself. Once that exact head is merged into origin/main, it is
+  # stale for qualification purposes and must follow the authoritative config
+  # published by origin/main instead.
+  if [[ -n "$CURRENT_BRANCH" && "$CURRENT_BRANCH" != "main" && "$LOCAL_CONFIG_BRANCH" == "$CURRENT_BRANCH" ]]; then
+    if git merge-base --is-ancestor "$CURRENT_HEAD" origin/main; then
+      echo "BOOTSTRAP_MODE=CURRENT_BRANCH_MERGED_INTO_ORIGIN_MAIN"
+      load_origin_main_config "MERGED_BRANCH_BOOTSTRAP"
+      BOOTSTRAP_AUTHORITY="origin/main"
+    else
+      echo "BOOTSTRAP_MODE=CURRENT_UNMERGED_SELF_QUALIFICATION"
+      load_config "CURRENT_UNMERGED_SELF_QUALIFICATION"
+      BOOTSTRAP_AUTHORITY="current-unmerged-branch"
+    fi
+  else
+    echo "BOOTSTRAP_MODE=ORIGIN_MAIN_ACTIVE_QUALIFICATION"
+    load_origin_main_config "ORIGIN_MAIN_ACTIVE_QUALIFICATION"
+    BOOTSTRAP_AUTHORITY="origin/main"
+  fi
+}
+
 if [[ -n "$(git status --porcelain)" ]]; then
   echo "LOOM PIXEL QUALIFICATION: REFUSED — working tree is not clean." >&2
   git status --short >&2
@@ -83,22 +117,22 @@ trap cleanup EXIT
   echo "========================"
   echo "UTC_START=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   echo "REPO_ROOT=$REPO_ROOT"
-  echo "BOOTSTRAP_AUTHORITY=origin/main"
   echo
 
-  echo "[1/4] FETCH + AUTHORITATIVE CONFIG"
+  echo "[1/4] FETCH + CHOOSE GOVERNED CONFIG"
   git fetch origin
-  load_origin_main_config "POST_FETCH"
+  choose_bootstrap_config
   BOOTSTRAP_BRANCH="$QUAL_BRANCH"
   BOOTSTRAP_COMMAND="$QUAL_COMMAND"
   BOOTSTRAP_SPATIAL_REVIEW_COMMAND="$SPATIAL_REVIEW_COMMAND"
+  echo "BOOTSTRAP_AUTHORITY=$BOOTSTRAP_AUTHORITY"
   echo "BOOTSTRAP_CONFIG_BRANCH=$BOOTSTRAP_BRANCH"
   echo "BOOTSTRAP_CONFIG_COMMAND=$BOOTSTRAP_COMMAND"
   if [[ -n "$BOOTSTRAP_SPATIAL_REVIEW_COMMAND" ]]; then
     echo "BOOTSTRAP_SPATIAL_REVIEW_COMMAND=$BOOTSTRAP_SPATIAL_REVIEW_COMMAND"
   fi
 
-  echo "[2/4] SYNC AUTHORITATIVE ACTIVE BRANCH"
+  echo "[2/4] SYNC GOVERNED ACTIVE BRANCH"
   switch_to_config_branch
 
   echo "[3/4] FAST-FORWARD + CONFIG REFRESH"
@@ -149,9 +183,6 @@ trap cleanup EXIT
 } 2>&1 | tee "$TMP"
 PIPE_RC=${PIPESTATUS[0]}
 
-# Re-read the config in the parent shell after any branch handoff performed in the
-# qualification pipeline. The read-only review must correspond to the exact branch
-# that was just qualified, never to a stale bootstrap command.
 load_config "POST_QUALIFICATION"
 if [[ $PIPE_RC -eq 0 && -n "$SPATIAL_REVIEW_COMMAND" ]]; then
   {
