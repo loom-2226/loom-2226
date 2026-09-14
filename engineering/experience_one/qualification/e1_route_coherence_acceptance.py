@@ -14,6 +14,7 @@ import json
 from typing import Any
 
 from engineering.experience_one.qualification import e1_ga_evidence_adapter as adapter
+from engineering.experience_one.qualification import e1_route_uncertainty_evidence as route_unc
 
 SCHEMA = "LOOM_E1_ROUTE_COHERENCE_ACCEPTANCE_V1"
 AXIS = "loom_coherence"
@@ -44,6 +45,7 @@ def build_static_contract() -> dict[str, Any]:
             "one_or_more_required_groups_missing": "INDETERMINATE_NOT_CERTIFIABLE",
             "missing_evidence_is_not_hard_fail": True,
             "no_cross_axis_compensation": True,
+            "qualitative_lineage_uncertainty_requires_governed_qualification": True,
         },
         "authority": {
             "certifies_loom_coherence_only": True,
@@ -87,12 +89,22 @@ def classify_route_evidence(payload: dict[str, Any]) -> dict[str, Any]:
         ("leg", "duration"),
         ("leg", "remass"),
     ])
-    uncertainty = _matches(paths, [
+
+    generic_uncertainty_paths = [p for p in paths if not p.startswith("route_uncertainty")]
+    uncertainty = _matches(generic_uncertainty_paths, [
         ("uncertainty",),
         ("sigma",),
         ("error",),
         ("confidence",),
     ])
+    governed_uncertainty = payload.get("route_uncertainty") or {}
+    if governed_uncertainty.get("disposition") == "QUALIFIED_ROUTE_UNCERTAINTY_EVIDENCE":
+        uncertainty.extend([
+            "route_uncertainty.disposition",
+            "route_uncertainty.evidence_class",
+            "route_uncertainty.source_authority",
+        ])
+
     provenance = ["source_authority"] if source else []
 
     groups = {
@@ -113,6 +125,7 @@ def classify_route_evidence(payload: dict[str, Any]) -> dict[str, Any]:
         "candidate_id": candidate.get("candidate_id"),
         "source_authority": source,
         "evidence": {name: sorted(set(values)) for name, values in groups.items()},
+        "route_uncertainty_artifact_disposition": governed_uncertainty.get("disposition"),
         "missing_required_evidence": missing,
         "disposition": "SATISFIED" if satisfied else "INDETERMINATE_NOT_CERTIFIABLE",
         "hard_fail": False,
@@ -134,7 +147,9 @@ def governed_summary_lines(report: dict[str, Any]) -> list[str]:
 
 
 def build_live_report() -> dict[str, Any]:
-    return classify_route_evidence(adapter.acquire_live_e1_payload())
+    payload = adapter.acquire_live_e1_payload()
+    payload["route_uncertainty"] = route_unc.acquire_live_route_uncertainty()
+    return classify_route_evidence(payload)
 
 
 def main() -> int:
