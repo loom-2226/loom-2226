@@ -12,23 +12,9 @@ DUPLICATE_PAIRS = (
 )
 
 PREFERRED_INFRA_FIELDS = (
-    "resident_population",
-    "transient_daily_population",
-    "workforce_assigned",
-    "cargo_throughput_tonnes_year",
-    "passenger_movements_year",
-    "ship_calls_year",
-    "utilization",
-    "strategic_importance",
-    "economic_centrality",
-    "transport_centrality",
-)
-
-INFLUENCE_FIELDS = (
-    "influence_actor_count",
-    "influence_domain_count",
-    "influence_weight_sum",
-    "influence_weight_max",
+    "resident_population", "transient_daily_population", "workforce_assigned",
+    "cargo_throughput_tonnes_year", "passenger_movements_year", "ship_calls_year",
+    "utilization", "strategic_importance", "economic_centrality", "transport_centrality",
 )
 
 
@@ -42,9 +28,7 @@ def _same(a, b) -> bool:
 
 def summarize_upstream_rows(rows: list[dict], pairs=DUPLICATE_PAIRS) -> dict:
     by_id = {row["node_subject_id"]: row for row in rows}
-    compared_fields = sorted(
-        set().union(*(set(row) for row in rows)) - {"node_subject_id"}
-    ) if rows else []
+    compared_fields = sorted(set().union(*(set(row) for row in rows)) - {"node_subject_id"}) if rows else []
     pair_results = []
     for left, right in pairs:
         if left not in by_id or right not in by_id:
@@ -52,21 +36,13 @@ def summarize_upstream_rows(rows: list[dict], pairs=DUPLICATE_PAIRS) -> dict:
             continue
         identical = [f for f in compared_fields if _same(by_id[left].get(f), by_id[right].get(f))]
         different = [f for f in compared_fields if f not in identical]
-        pair_results.append({
-            "pair": [left, right],
-            "status": "COMPARED",
-            "identical_upstream_fields": identical,
-            "different_upstream_fields": different,
-        })
+        pair_results.append({"pair": [left, right], "status": "COMPARED", "identical_upstream_fields": identical, "different_upstream_fields": different})
     return {
         "schema": "LOOM_CIVSTATE_HEL_TEXTURE_UPSTREAM_PROVENANCE_V1",
-        "status": "PASS",
-        "scope": "DUPLICATE_HEL_TEXTURE_PAIRS",
-        "compared_fields": compared_fields,
-        "pair_results": pair_results,
+        "status": "PASS", "scope": "DUPLICATE_HEL_TEXTURE_PAIRS",
+        "compared_fields": compared_fields, "pair_results": pair_results,
         "interpretation_authority": "DIAGNOSTIC_ONLY_NO_DEFECT_DECLARATION",
-        "mutation_authority": "ZERO",
-        "canon_change_authority": "ZERO",
+        "mutation_authority": "ZERO", "canon_change_authority": "ZERO",
         "equation_invention_authority": "ZERO",
         "next_action": "TRACE_IDENTICAL_SOURCE_FAMILIES_OR_NORMALIZATION_COLLAPSE_ONLY_WHERE_RUNTIME_EVIDENCE_SUPPORTS_IT",
     }
@@ -89,53 +65,23 @@ def load_upstream_rows(db_path: str | Path) -> tuple[list[dict], dict]:
     try:
         infra_cols = _columns(conn, "civ_infrastructure_state")
         influence_cols = _columns(conn, "civ_influence_edge")
-        infra_key = _node_key(infra_cols)
-        influence_key = _node_key(influence_cols)
+        infra_key, influence_key = _node_key(infra_cols), _node_key(influence_cols)
         infra_fields = [f for f in PREFERRED_INFRA_FIELDS if f in infra_cols]
-
         node_ids = sorted({node for pair in DUPLICATE_PAIRS for node in pair})
         rows = []
         for node_id in node_ids:
             selected = [infra_key] + infra_fields
-            sql = f"SELECT {', '.join(selected)} FROM civ_infrastructure_state WHERE {infra_key}=? AND year=2226"
-            infra = conn.execute(sql, (node_id,)).fetchone()
-            if infra is None:
-                # Some recovered tables are not year-keyed; retry without year only if year is absent.
-                if "year" not in infra_cols:
-                    sql = f"SELECT {', '.join(selected)} FROM civ_infrastructure_state WHERE {infra_key}=?"
-                    infra = conn.execute(sql, (node_id,)).fetchone()
-            row = {"node_subject_id": node_id}
-            for field in infra_fields:
-                row[field] = infra[field] if infra is not None else None
-
+            where = f"{infra_key}=?" + (" AND year=2226" if "year" in infra_cols else "")
+            infra = conn.execute(f"SELECT {', '.join(selected)} FROM civ_infrastructure_state WHERE {where}", (node_id,)).fetchone()
+            row = {"node_subject_id": node_id, **{f: (infra[f] if infra is not None else None) for f in infra_fields}}
             if {"actor_subject_id", "influence_domain", "influence_weight"}.issubset(influence_cols):
                 agg = conn.execute(
-                    f"""
-                    SELECT COUNT(DISTINCT actor_subject_id) AS actor_count,
-                           COUNT(DISTINCT influence_domain) AS domain_count,
-                           SUM(influence_weight) AS weight_sum,
-                           MAX(influence_weight) AS weight_max
-                    FROM civ_influence_edge
-                    WHERE {influence_key}=?
-                    """,
+                    f"SELECT COUNT(DISTINCT actor_subject_id) actor_count, COUNT(DISTINCT influence_domain) domain_count, SUM(influence_weight) weight_sum, MAX(influence_weight) weight_max FROM civ_influence_edge WHERE {influence_key}=?",
                     (node_id,),
                 ).fetchone()
-                row.update({
-                    "influence_actor_count": agg["actor_count"],
-                    "influence_domain_count": agg["domain_count"],
-                    "influence_weight_sum": agg["weight_sum"],
-                    "influence_weight_max": agg["weight_max"],
-                })
+                row.update({"influence_actor_count": agg["actor_count"], "influence_domain_count": agg["domain_count"], "influence_weight_sum": agg["weight_sum"], "influence_weight_max": agg["weight_max"]})
             rows.append(row)
-
-        metadata = {
-            "infrastructure_node_key": infra_key,
-            "influence_node_key": influence_key,
-            "infrastructure_fields_found": infra_fields,
-            "infrastructure_columns": infra_cols,
-            "influence_columns": influence_cols,
-        }
-        return rows, metadata
+        return rows, {"infrastructure_node_key": infra_key, "influence_node_key": influence_key, "infrastructure_fields_found": infra_fields, "infrastructure_columns": infra_cols, "influence_columns": influence_cols}
     finally:
         conn.close()
 
@@ -146,8 +92,7 @@ def main() -> int:
     args = parser.parse_args()
     rows, metadata = load_upstream_rows(args.db)
     report = summarize_upstream_rows(rows)
-    report["source_schema"] = metadata
-    report["upstream_rows"] = rows
+    report["source_schema"], report["upstream_rows"] = metadata, rows
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0
 
