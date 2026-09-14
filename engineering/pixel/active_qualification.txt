@@ -1,2 +1,2 @@
-engineering/civstate-hel-parent-pool-audit-2026-09-14
-python -m unittest discover -s tests -p 'test_civstate_hel_parent_pool_audit.py' && python engineering/civstate/hel_parent_pool_audit.py --db data/LOOM_2226_CIVSTATE.sqlite3
+engineering/civstate-phase13-provenance-loss-boundary-2026-09-14
+python -m unittest discover -s tests -p 'test_civstate_phase13_provenance_loss_boundary.py' && python engineering/civstate/phase13_provenance_loss_boundary.py
