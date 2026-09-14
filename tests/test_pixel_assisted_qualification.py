@@ -39,7 +39,7 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
         text = (self.repo / "engineering/pixel/mechanical_repair.py").read_text(encoding="utf-8")
         self.assertIn("https://api.openai.com/v1/responses", text)
         self.assertIn("gpt-5.6-terra", text)
-        self.assertIn('"type": "json_schema"', text)
+        self.assertIn('\"type\": \"json_schema\"', text)
         self.assertIn("OPENAI_API_KEY", text)
 
     def test_repair_agent_exact_replacements_only(self):
@@ -57,6 +57,29 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
             )
             self.assertEqual(applied, ["engineering/pixel/example.py"])
             self.assertEqual(p.read_text(encoding="utf-8"), "alpha\ngamma\n")
+
+    def test_candidate_patch_generator_does_not_require_worktree_git_metadata(self):
+        from engineering.pixel.candidate_patch import build_candidate_patch
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as td:
+            base = pathlib.Path(td) / "base"
+            repaired = pathlib.Path(td) / "repaired"
+            rel = pathlib.Path("engineering/pixel/example.py")
+            (base / rel).parent.mkdir(parents=True)
+            (repaired / rel).parent.mkdir(parents=True)
+            (base / rel).write_text("alpha\nbeta\n", encoding="utf-8")
+            (repaired / rel).write_text("alpha\ngamma\n", encoding="utf-8")
+            patch = build_candidate_patch(base, repaired, [rel.as_posix()])
+            self.assertIn("--- a/engineering/pixel/example.py", patch)
+            self.assertIn("+++ b/engineering/pixel/example.py", patch)
+            self.assertIn("-beta", patch)
+            self.assertIn("+gamma", patch)
+
+    def test_assisted_runner_packages_candidate_without_git_diff_in_worktree(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run_assisted.sh").read_text(encoding="utf-8")
+        self.assertIn("candidate_patch.py", text)
+        self.assertNotIn('git -C "$WORKTREE" diff', text)
 
     def test_installer_creates_two_distinct_termux_shortcuts(self):
         text = (self.repo / "engineering/pixel/install_qualify_shortcuts.sh").read_text(encoding="utf-8")
