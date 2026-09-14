@@ -1,2 +1,2 @@
-engineering/e1-ga-evidence-adapter-2026-09-14
-python -m unittest discover -s tests -p 'test_e1_ga_evidence_adapter.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && python engineering/experience_one/qualification/e1_ga_evidence_adapter.py --live
+engineering/e1-route-coherence-acceptance-2026-09-14
+python -m unittest discover -s tests -p 'test_e1_route_coherence_acceptance.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && python engineering/experience_one/qualification/e1_route_coherence_acceptance.py --live
