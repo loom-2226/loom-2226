@@ -25,6 +25,13 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
         self.assertIn("git switch", text)
         self.assertIn("git pull --ff-only", text)
 
+    def test_raw_runner_prefers_governed_remote_qualification_pointer(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
+        self.assertIn('QUALIFICATION_POINTER_REF="origin/qualification/active"', text)
+        self.assertIn('git show "$QUALIFICATION_POINTER_REF:engineering/pixel/active_qualification.txt"', text)
+        self.assertIn("REMOTE_QUALIFICATION_POINTER", text)
+        self.assertIn('BOOTSTRAP_AUTHORITY="$QUALIFICATION_POINTER_REF"', text)
+
     def test_raw_runner_only_self_qualifies_when_current_branch_config_points_to_itself(self):
         text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
         self.assertIn('[[ "$LOCAL_CONFIG_BRANCH" == "$CURRENT_BRANCH" ]]', text)
