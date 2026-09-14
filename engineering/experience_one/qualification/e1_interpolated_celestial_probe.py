@@ -5,7 +5,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+SCRIPT_PATH = Path(__file__).resolve()
+REPO_ROOT = SCRIPT_PATH.parents[3]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from src.loom_sqlite_interpolated_celestial_provider import SQLiteInterpolatedCelestialResolver
 
@@ -15,7 +21,7 @@ ARRIVAL = "2226-08-22T09:45:17.864616Z"
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--db", type=Path, default=Path("data/LOOM_2226.sqlite3"))
+    parser.add_argument("--db", type=Path, default=REPO_ROOT / "data" / "LOOM_2226.sqlite3")
     args = parser.parse_args()
 
     resolver = SQLiteInterpolatedCelestialResolver(args.db)
