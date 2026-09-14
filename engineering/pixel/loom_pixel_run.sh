@@ -33,14 +33,10 @@ load_config() {
   fi
 }
 
-load_remote_config() {
-  local ref="$1"
-  local phase="${2:-REMOTE_BOOTSTRAP}"
-  local remote_config
-  if ! remote_config="$(git show "$ref:engineering/pixel/active_qualification.txt" 2>/dev/null)"; then
-    echo "LOOM PIXEL QUALIFICATION: unable to read $ref:$CONFIG_REL during $phase" >&2
-    exit 95
-  fi
+_parse_remote_config() {
+  local remote_config="$1"
+  local ref="$2"
+  local phase="$3"
 
   mapfile -t CFG <<< "$remote_config"
   QUAL_BRANCH="${CFG[0]:-}"
@@ -54,7 +50,23 @@ load_remote_config() {
 }
 
 load_origin_main_config() {
-  load_remote_config "origin/main" "${1:-ORIGIN_MAIN_BOOTSTRAP}"
+  local phase="${1:-ORIGIN_MAIN_BOOTSTRAP}"
+  local remote_config
+  if ! remote_config="$(git show "origin/main:engineering/pixel/active_qualification.txt" 2>/dev/null)"; then
+    echo "LOOM PIXEL QUALIFICATION: unable to read origin/main:$CONFIG_REL during $phase" >&2
+    exit 95
+  fi
+  _parse_remote_config "$remote_config" "origin/main" "$phase"
+}
+
+load_qualification_pointer_config() {
+  local phase="${1:-REMOTE_QUALIFICATION_POINTER}"
+  local remote_config
+  if ! remote_config="$(git show "origin/qualification/active:engineering/pixel/active_qualification.txt" 2>/dev/null)"; then
+    echo "LOOM PIXEL QUALIFICATION: unable to read origin/qualification/active:$CONFIG_REL during $phase" >&2
+    exit 95
+  fi
+  _parse_remote_config "$remote_config" "origin/qualification/active" "$phase"
 }
 
 switch_to_config_branch() {
@@ -91,7 +103,7 @@ choose_bootstrap_config() {
   # branch and command. It does not grant merge, runtime, or campaign authority.
   if git show-ref --verify --quiet "refs/remotes/$QUALIFICATION_POINTER_REF"; then
     echo "BOOTSTRAP_MODE=REMOTE_QUALIFICATION_POINTER"
-    load_remote_config "$QUALIFICATION_POINTER_REF" "REMOTE_QUALIFICATION_POINTER"
+    load_qualification_pointer_config "REMOTE_QUALIFICATION_POINTER"
     BOOTSTRAP_AUTHORITY="$QUALIFICATION_POINTER_REF"
     return
   fi
