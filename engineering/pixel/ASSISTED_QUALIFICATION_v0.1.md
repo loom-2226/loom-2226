@@ -1,5 +1,7 @@
 # LOOM Pixel Assisted Qualification v0.1
 
+> **Canonical operating procedure:** see `engineering/pixel/TERMUX_WIDGET_QUALIFICATION_RUNBOOK_v1.0.md` for installation, Termux widget shortcuts, branch/config handoff behavior, clipboard workflow, API-key setup, smoke testing, troubleshooting, and the end-to-end operating procedure. This file preserves the narrower v0.1 assisted-repair authority design.
+
 ## Two-button model
 
 `LOOM_Qualify.sh`
