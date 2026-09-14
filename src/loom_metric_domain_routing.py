@@ -1,9 +1,8 @@
 """Small deterministic contract for metric-entry versus local navigation domains.
 
-This module owns no ephemeris, trajectory calculation, campaign state, or UI.
-It only resolves a semantic target to the enclosing domain at which metric
-flight may terminate. Moving boundary geometry remains an ephemeris/navigation
-service concern.
+This runtime module owns no ephemeris, trajectory calculation, campaign state, or UI.
+It resolves a semantic target to the enclosing domain at which metric flight may
+terminate. Moving boundary geometry remains an ephemeris/navigation service concern.
 """
 from __future__ import annotations
 
