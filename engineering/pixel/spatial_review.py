@@ -10,7 +10,13 @@ from __future__ import annotations
 import argparse
 import html as html_lib
 import math
+import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from src.loom_neptune_mag_exact_sample_adapter import HistoricalMagneticFieldSample
 from src.loom_neptune_spatial_atmosphere import NEPTUNE_REFERENCE_MEAN_RADIUS_KM
