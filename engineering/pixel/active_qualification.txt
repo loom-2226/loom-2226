@@ -1,2 +1,2 @@
-engineering/e1-domain-membership-dependency-2026-09-15
-python -m unittest discover -s tests -p 'test_e1_domain_membership_derivation.py' && python -m unittest discover -s tests -p 'test_e1_domain_membership_attachment_state.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && python engineering/experience_one/qualification/e1_domain_membership_derivation.py && python engineering/experience_one/qualification/e1_domain_membership_attachment_state.py
+engineering/e1-translation-domain-envelope-contract-2026-09-15
+python -m unittest discover -s tests -p 'test_e1_translation_domain_envelope_contract.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && python engineering/experience_one/qualification/e1_translation_domain_envelope_contract.py
