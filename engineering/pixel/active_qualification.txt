@@ -1,2 +1,2 @@
-engineering/e1-neptune-plasma-em-source-qualification-2026-09-14
-python -m unittest discover -s tests -p 'test_neptune_plasma_em_source_qualification.py' && python engineering/experience_one/qualification/e1_neptune_plasma_em_source_qualification.py
+engineering/civstate-hel-texture-audit-2026-09-14
+python -m unittest discover -s tests -p 'test_civstate_hel_texture_audit.py' && python engineering/civstate/hel_texture_audit.py --db data/LOOM_2226_CIVSTATE.sqlite3
