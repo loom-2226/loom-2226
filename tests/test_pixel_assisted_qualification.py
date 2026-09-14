@@ -48,6 +48,12 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
         self.assertIn('RAW_RUNNER="$SCRIPT_DIR/loom_pixel_run.sh"', text)
         self.assertIn('bash "$RAW_RUNNER"', text)
 
+    def test_assisted_runner_surfaces_governed_qualification_disposition_markers(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run_assisted.sh").read_text(encoding="utf-8")
+        self.assertIn("QUALIFICATION_DISPOSITION", text)
+        self.assertIn("QUALIFICATION_MISSING_REQUIRED_EVIDENCE", text)
+        self.assertIn('grep -E \'^QUALIFICATION_(AXIS|DISPOSITION|MISSING_REQUIRED_EVIDENCE)=\'', text)
+
     def test_assisted_runner_uses_detached_temp_worktree_and_no_git_authority(self):
         text = (self.repo / "engineering/pixel/loom_pixel_run_assisted.sh").read_text(encoding="utf-8")
         self.assertIn("git worktree add --detach", text)
