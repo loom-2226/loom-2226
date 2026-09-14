@@ -1,116 +1,35 @@
 # LOOM 2226 — Wayfarer RCS / Torch / Metric Geometry Priority v0.1
 
-**Status:** ACTIVE ENGINEERING PRIORITY / NON-CANON DESIGN RECORD  
-**Date:** 2026-09-15  
-**Authority:** governing canon remains `canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md`
+**Status:** ACTIVE ENGINEERING PRIORITY / NON-CANON  
+**Date:** 2026-09-15
 
-## Purpose
+## Priority
 
-Preserve the current physical-engineering priority for the Wayfarer and prevent subsystem terminology from drifting across HUD, Computational Shipyard, E1 qualification and later detailed design.
+Wayfarer geometry work is ordered by spacecraft function, not by renderer convenience:
 
-Current physical priority is:
+1. **RCS / attitude control** — recover and requalify prior actuator-placement work against current geometry, mass properties and interference constraints.
+2. **Torch / remass / thrust chain** — preserve the gross reactor/shield/nozzle geometry while closing feed, thermal, structural and plume interfaces before freezing detailed plumbing/hardware.
+3. **Metric** — continue the distributed 208-node design baseline and field-boundary qualification, but reopen placement where RCS or torch exclusion envelopes require it.
+4. **Loom** — detailed physical design deferred. Shared Mc/NRE hardware relationships remain canon, but this work makes zero Loom formation or certification claims.
 
-1. **RCS / attitude-control geometry**
-2. **Torch / reactor / magnetic-nozzle geometry**
-3. **Metric distributed-node geometry and certified metric-domain boundary**
-4. **Loom detailed physical design deferred**
+## Current recovered RCS status
 
-This ordering is a project-engineering priority. It does not alter governing physics or canon.
+The prior PR #96 / HUD flight-control lineage contains a serious 16-hardpoint RCS candidate rather than presentation-only geometry. It is now recovered in `src/wayfarer_recovered_rcs_candidate.py` with provenance and current deterministic-geometry point-clearance checks.
 
-## Regime separation
+The recovered hardpoint pattern remains **ENGINEERING_CANDIDATE_NON_CANON**. Historical wrench-rank, one-cluster-out, bounded-allocation, gimbal and Q5 energy/thermal results are prior evidence, not current flight authority.
 
-Canon explicitly preserves three physically distinct propulsion regimes:
+Computational Shipyard Phase 5B remains controlling for rotational dynamics authority: the complete Wayfarer inertia tensor is still `WAYFARER_INERTIA_OPEN_NOT_QUALIFIED`. Old Q4 torque/slew targets therefore remain screening ancestry until requalified against a complete configuration-aware inertia model.
 
-- `TORCH` — ordinary momentum exchange;
-- `METRIC` — continuous subluminal relational/metric transport;
-- `LOOM` — discontinuous interstellar relational re-embedding.
+## Current torch/remass status
 
-No geometry artifact may silently make one subsystem perform another subsystem's work.
+Earlier Q2 multi-feed work remains candidate evidence. Later Shipyard Phase 9–11 is the controlling conservative physical-feed interpretation: no feed architecture is selected; bulk storage is not silently equated to engine-feed hardware; header/collector/pump/conditioning architectures require admitted propulsion-inlet, fluid-state, transient-duty and component models before geometry is frozen.
 
-## RCS
+## Metric interaction rule
 
-RCS remains a separate conventional attitude/translation-control subsystem.
+The 208-node count is governing canon. The current 13 × 16 placement is a design baseline only. A metric-node placement that blocks qualified RCS actuation, finite plume clearance, torch feed/service routing, thermal rejection, launch extraction or docking is invalid and must move.
 
-Required future geometry work includes:
-
-- station count and placement;
-- thrust-vector authority and torque closure;
-- plume and keep-out volumes;
-- launch-bay extraction interference;
-- radiator deployed/stowed interference;
-- docking dead zones;
-- torch/nozzle exclusion geometry;
-- ordinary-space control authority.
-
-The current 208-node metric array does **not** define RCS geometry.
-
-## Torch
-
-Torch geometry remains the ordinary-momentum propulsion chain centered on the current aft reactor / thrust-frame / magnetic-nozzle envelopes.
-
-Required future work includes:
-
-- reactor/torch detailed physical envelope;
-- shadow-shield layering and line-of-sight geometry;
-- thrust-frame and longeron load closure;
-- magnetic-nozzle coil/support geometry;
-- plume envelope;
-- service/feed/thermal routing;
-- mutual exclusions with RCS and deployable systems.
-
-The current 208-node metric array does **not** define torch geometry.
-
-## Metric
-
-Metric work may proceed now because E1 requires a vessel-configuration-bound certified translation-domain boundary.
-
-Governing node count:
-
-- `208 distributed boundary/metric nodes` — CANON.
-
-Current exact placement baseline:
-
-- `src/wayfarer_metric_node_array.py`
-- 13 axial rings × 16 azimuthal nodes = 208;
-- cell-centered axial spacing across the 57 m reference length;
-- 22.5° circumferential sectors;
-- ring support radii follow the current deterministic structural envelope by axial zone.
-
-Placement status is **DESIGN_BASELINE**, not recovered canon.
-
-This baseline is intended to become a shared Wayfarer geometry consumer across:
-
-- Computational Shipyard;
-- HUD / inspection rendering;
-- semantic GLB derivatives;
-- E1 metric-boundary work.
-
-Any change to placement must follow the main-repository provenance/backpropagation record and identify stale derived assets and qualification evidence.
-
-## Loom boundary
-
-Canon states that Metric and Loom ultimately share Mc/NRE order-parameter hardware and distributed hardware. That hardware commonality does **not** mean detailed Loom geometry, formation, collapse/rephase/formation sequence, or Loom certification is being designed here.
-
-Current project rule:
-
-> Preserve future shared-hardware compatibility, but make **zero Loom design or certification claims** until Loom is explicitly taken up as its own engineering workstream.
-
-## E1 implication
-
-The metric node-placement baseline is necessary input to a distributed-node metric field solution, but it is not sufficient evidence for:
-
-- certified metric-domain boundary geometry;
-- numeric certified domain extent;
-- domain membership containment;
-- local-geometry compatibility;
-- causal compatibility;
-- lattice/coherence certification;
-- overall GA certification.
-
-The next E1 step remains:
-
-`committed vessel geometry + metric node placement + governing metric environment architecture -> certified metric field boundary -> containment result`
+The shared geometry stack must therefore expose RCS, torch and metric layers as distinct systems with explicit provenance and interference relationships.
 
 ## Non-claims
 
-This record does not promote the 13 × 16 arrangement to canon. It does not change the 208-node canon count. It does not define RCS or torch station geometry. It does not certify Loom formation or metric transport. It does not mutate campaign state.
+No final RCS hardware, full inertia tensor, closed-loop GNC, torch feed architecture, metric boundary, domain membership or detailed Loom design is certified by this priority record.
