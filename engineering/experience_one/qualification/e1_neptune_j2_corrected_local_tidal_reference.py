@@ -173,6 +173,7 @@ def qualify_j2_corrected_local_tidal_reference() -> dict[str, Any]:
         "j2_corrected_tidal_reference": {
             "reference_model": "AXISYMMETRIC_MONOPOLE_PLUS_MEASURED_J2_WEAK_FIELD_TIDAL_ENVELOPE",
             "single_endpoint_orientation_claimed": False,
+            "max_abs_trace_s2_inv": nominal["max_abs_trace_s2_inv"],
             "orientation_envelope": nominal,
         },
         "source_uncertainty_envelope": {
