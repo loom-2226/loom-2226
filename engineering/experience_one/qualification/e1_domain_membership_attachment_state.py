@@ -5,7 +5,9 @@ from __future__ import annotations
 
 Configuration identity is already qualified. Authored runtime state comes from the
 explicit E1 initial-condition lock. Domain membership remains derived-only and is
-not inferred from identity or authored by this classifier.
+not inferred from identity or authored by this classifier. The current derivation
+boundary is surfaced explicitly: membership requires a governed translation-domain
+geometry or equivalent certification envelope for this exact committed state.
 """
 
 import json
@@ -14,6 +16,9 @@ from typing import Any, Mapping
 from engineering.experience_one.qualification.e1_initial_configuration_state import (
     SCHEMA as INITIAL_CONFIGURATION_SCHEMA,
     build_e1_initial_configuration_state,
+)
+from engineering.experience_one.qualification.e1_domain_membership_derivation import (
+    build_e1_domain_membership_derivation,
 )
 
 SCHEMA = "LOOM_E1_DOMAIN_MEMBERSHIP_ATTACHMENT_STATE_V1"
@@ -35,7 +40,7 @@ def _known(value: Any) -> bool:
 def evaluate_runtime_configuration_state(state: Mapping[str, Any]) -> dict[str, Any]:
     missing = sorted(name for name in REQUIRED if not _known(state.get(name)))
     complete = not missing
-    return {
+    result = {
         "schema": SCHEMA,
         "status": "PASS",
         "configuration_identity": state.get("configuration_identity", "UNKNOWN"),
@@ -63,12 +68,17 @@ def evaluate_runtime_configuration_state(state: Mapping[str, Any]) -> dict[str, 
             "llm_calculation_authority": "ZERO",
         },
     }
+    dependency = state.get("domain_membership_dependency")
+    if dependency is not None:
+        result["domain_membership_dependency"] = dependency
+    return result
 
 
 def build_current_e1_runtime_inventory() -> dict[str, Any]:
     runtime_input = build_e1_initial_configuration_state().to_evidence()
     authored = runtime_input["authored_state"]
     derived = runtime_input["derived_state"]
+    membership_dependency = build_e1_domain_membership_derivation()
     return evaluate_runtime_configuration_state({
         "configuration_identity": runtime_input["configuration_identity"],
         "runtime_input_source": INITIAL_CONFIGURATION_SCHEMA,
@@ -76,6 +86,7 @@ def build_current_e1_runtime_inventory() -> dict[str, Any]:
         "external_attachment_state": authored["external_attachment_state"],
         "deployable_structure_state": authored["deployable_structure_state"],
         "domain_membership_state": derived["domain_membership_state"],
+        "domain_membership_dependency": membership_dependency,
     })
 
 
@@ -86,6 +97,9 @@ def main() -> int:
     print(f"QUALIFICATION_DISPOSITION={result['disposition']}")
     missing = ",".join(result["missing_required_evidence"]) or "NONE"
     print(f"QUALIFICATION_MISSING_REQUIRED_EVIDENCE={missing}")
+    dependency = result.get("domain_membership_dependency") or {}
+    if dependency:
+        print(f"QUALIFICATION_UPSTREAM_DEPENDENCY={dependency['disposition']}")
     return 0
 
 
