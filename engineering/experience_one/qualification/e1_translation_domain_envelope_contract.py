@@ -12,16 +12,21 @@ count, or a celestial-mechanics stand-off radius.
 
 import json
 
+from engineering.experience_one.qualification.e1_committed_component_geometry_envelope import (
+    build_e1_committed_component_geometry_envelope,
+)
+
 SCHEMA = "LOOM_E1_TRANSLATION_DOMAIN_ENVELOPE_CONTRACT_V1"
 CONFIGURATION_ID = "WAYFARER_REFERENCE_SCHEMATIC_V2_4A"
 
 
 def qualify_e1_translation_domain_envelope_contract():
-    missing = [
-        "certified_translation_domain_boundary_solution",
-        "committed_component_geometry_envelope",
-        "domain_membership_containment_result",
-    ]
+    component_geometry = build_e1_committed_component_geometry_envelope()
+    geometry_present = component_geometry["authority"]["certifies_committed_component_geometry_envelope"]
+    missing = ["certified_translation_domain_boundary_solution"]
+    if not geometry_present:
+        missing.append("committed_component_geometry_envelope")
+    missing.append("domain_membership_containment_result")
 
     return {
         "schema": SCHEMA,
@@ -33,6 +38,7 @@ def qualify_e1_translation_domain_envelope_contract():
             "wayfarer_schematic": "canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md",
             "domain_size_binding": "engineering/experience_one/qualification/e1_compound_ga_domain_size_binding.py",
             "domain_membership_dependency": "engineering/experience_one/qualification/e1_domain_membership_derivation.py",
+            "committed_component_geometry": "engineering/experience_one/qualification/e1_committed_component_geometry_envelope.py",
         },
         "certification_envelope_contract": {
             "domain_kind": "VESSEL_CONFIGURATION_BOUND_TRANSLATION_DOMAIN",
@@ -59,6 +65,9 @@ def qualify_e1_translation_domain_envelope_contract():
             "distributed_boundary_metric_nodes": 208,
             "exact_node_placement": "OPEN",
             "exact_node_placement_promoted_to_known": False,
+            "committed_component_geometry_envelope_present": geometry_present,
+            "component_geometry_envelope_m": component_geometry["component_geometry_envelope_m"],
+            "component_geometry_open_detail_bounded": component_geometry["open_detail_present"],
             "certified_boundary_present": False,
             "numeric_extent_defined": False,
             "membership_state": "UNKNOWN",
@@ -72,11 +81,13 @@ def qualify_e1_translation_domain_envelope_contract():
             "node_count_substitution_allowed": False,
             "open_schematic_detail_promoted_to_known": False,
             "unknown_membership_treated_as_member": False,
+            "design_baseline_geometry_may_supply_conservative_material_containment_input_with_provenance": True,
         },
-        "disposition": "ENVELOPE_CONTRACT_QUALIFIED_INSTANTIATION_UNRESOLVED",
-        "qualified_next_step": "RESOLVE_MINIMUM_WAYFARER_COMPONENT_AND_NODE_GEOMETRY_THEN_SOLVE_CERTIFIED_TRANSLATION_DOMAIN_BOUNDARY",
+        "disposition": "ENVELOPE_CONTRACT_QUALIFIED_BOUNDARY_INSTANTIATION_UNRESOLVED",
+        "qualified_next_step": "SOLVE_CERTIFIED_TRANSLATION_DOMAIN_BOUNDARY_FOR_COMMITTED_E1_CONFIGURATION_THEN_EVALUATE_CONTAINMENT",
         "authority": {
             "certifies_envelope_contract": True,
+            "certifies_component_geometry_envelope": geometry_present,
             "certifies_boundary_geometry": False,
             "certifies_domain_membership": False,
             "certifies_domain_size": False,

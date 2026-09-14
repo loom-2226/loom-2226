@@ -1,2 +1,2 @@
-engineering/e1-translation-domain-envelope-contract-2026-09-15
-python -m unittest discover -s tests -p 'test_e1_translation_domain_envelope_contract.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && python engineering/experience_one/qualification/e1_translation_domain_envelope_contract.py
+engineering/e1-committed-component-geometry-envelope-2026-09-15
+python -m unittest discover -s tests -p 'test_wayfarer_geometry.py' && python -m unittest discover -s tests -p 'test_e1_committed_component_geometry_envelope.py' && python -m unittest discover -s tests -p 'test_e1_translation_domain_envelope_contract.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && python engineering/experience_one/qualification/e1_committed_component_geometry_envelope.py && python engineering/experience_one/qualification/e1_translation_domain_envelope_contract.py
