@@ -36,15 +36,16 @@ class DomainMembershipAttachmentStateTests(unittest.TestCase):
         self.assertFalse(report["authority"]["certifies_domain_size"])
         self.assertFalse(report["authority"]["certifies_lattice_coherence"])
 
-    def test_current_inventory_comes_from_typed_authored_input_and_derived_membership(self):
+    def test_current_inventory_uses_authored_e1_initial_state_but_membership_remains_derived(self):
         report = build_current_e1_runtime_inventory()
         self.assertEqual(report["configuration_identity"], "WAYFARER_REFERENCE_SCHEMATIC_V2_4A")
-        self.assertEqual(report["runtime_state"]["launch_attachment_state"], "UNKNOWN")
-        self.assertEqual(report["runtime_state"]["external_attachment_state"], "UNKNOWN")
-        self.assertEqual(report["runtime_state"]["deployable_structure_state"], "UNKNOWN")
+        self.assertEqual(report["runtime_state"]["launch_attachment_state"], "DOCKED")
+        self.assertEqual(report["runtime_state"]["external_attachment_state"], "FREE")
+        self.assertEqual(report["runtime_state"]["deployable_structure_state"], "STOWED")
         self.assertEqual(report["runtime_state"]["domain_membership_state"], "UNKNOWN")
+        self.assertEqual(report["missing_required_evidence"], ["domain_membership_state"])
         self.assertEqual(report["disposition"], "INDETERMINATE_NOT_CERTIFIABLE")
-        self.assertEqual(report["runtime_input_source"], "LOOM_E1_RUNTIME_CONFIGURATION_INPUT_V1")
+        self.assertEqual(report["runtime_input_source"], "LOOM_E1_INITIAL_CONFIGURATION_STATE_V1")
         self.assertTrue(report["policy"]["domain_membership_is_derived_only"])
         self.assertFalse(report["policy"]["infer_launch_docked_from_baseline"])
         self.assertFalse(report["policy"]["infer_radiators_stowed_from_mode"])
