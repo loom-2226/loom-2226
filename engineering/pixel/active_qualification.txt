@@ -1,2 +1,2 @@
-engineering/civstate-hel-texture-upstream-provenance-2026-09-14
-python -m unittest discover -s tests -p 'test_civstate_hel_texture_upstream_provenance.py' && python engineering/civstate/hel_texture_upstream_provenance.py --db data/LOOM_2226_CIVSTATE.sqlite3
+engineering/civstate-hel-materializer-lineage-audit-2026-09-14
+python -m unittest discover -s tests -p 'test_civstate_hel_materializer_lineage_audit.py' && python engineering/civstate/hel_materializer_lineage_audit.py --db data/LOOM_2226_CIVSTATE.sqlite3
