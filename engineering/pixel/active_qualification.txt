@@ -1,2 +1,2 @@
-engineering/pixel-runner-refresh-config-2026-09-14
-python -m unittest discover -s tests -p 'test_pixel_runner_config_refresh.py' && bash -n engineering/pixel/loom_pixel_run.sh
+engineering/e1-neptune-atmosphere-reference-provider-2026-09-14
+python -m unittest discover -s tests -p 'test_neptune_atmosphere_reference_provider.py' && python engineering/experience_one/qualification/e1_neptune_atmosphere_reference_provider.py
