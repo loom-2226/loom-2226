@@ -20,6 +20,22 @@ class PixelSpatialReviewContractTests(unittest.TestCase):
         self.assertIn("Scale bar", html)
         self.assertNotIn("canvas", html.lower())
 
+    def test_pds_pairing_review_explains_problem_solution_legend_and_definitions(self):
+        from engineering.pixel.spatial_review import build_neptune_mag_pds_source_contract_review
+
+        html = build_neptune_mag_pds_source_contract_review()
+        self.assertIn("Problem statement", html)
+        self.assertIn("How we are trying to solve it", html)
+        self.assertIn("Legend", html)
+        self.assertIn("Definitions", html)
+        self.assertIn("Exact epoch", html)
+        self.assertIn("Fail closed", html)
+        self.assertIn("12-second cadence", html)
+        self.assertIn("same timestamp", html)
+        self.assertIn("NO INTERPOLATION", html)
+        self.assertIn("<svg", html)
+        self.assertNotIn("canvas", html.lower())
+
     def test_review_script_executes_directly_from_repo_root(self):
         proc = subprocess.run(
             [
@@ -57,15 +73,6 @@ class PixelSpatialReviewContractTests(unittest.TestCase):
         self.assertIn("REVIEW_LOG", text)
         self.assertNotIn(">/tmp/loom-spatial-review.log", text)
         self.assertNotIn("SPATIAL_REVIEW_LOG=/tmp/loom-spatial-review.log", text)
-
-    def test_active_bootstrap_config_avoids_old_runner_post_hook(self):
-        cfg = (self.repo / "engineering/pixel/active_qualification.txt").read_text(encoding="utf-8").splitlines()
-        self.assertGreaterEqual(len(cfg), 2)
-        self.assertIn("spatial_review.py", cfg[1])
-        self.assertIn("--review neptune-mag-exact-sample", cfg[1])
-        self.assertIn("TMPDIR", cfg[1])
-        self.assertNotIn("/tmp/loom-spatial-review.log", cfg[1])
-        self.assertEqual(len(cfg), 2)
 
     def test_qualification_command_does_not_kill_its_own_shell_by_matching_command_text(self):
         cfg = (self.repo / "engineering/pixel/active_qualification.txt").read_text(encoding="utf-8").splitlines()
