@@ -11,6 +11,7 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 RAW_RUNNER="$SCRIPT_DIR/loom_pixel_run.sh"
 CONFIG="$SCRIPT_DIR/active_qualification.txt"
 REPAIR_AGENT="$SCRIPT_DIR/mechanical_repair.py"
+PATCH_BUILDER="$SCRIPT_DIR/candidate_patch.py"
 MAX_ATTEMPTS="${LOOM_ASSISTED_MAX_ATTEMPTS:-2}"
 STATE_ROOT="$HOME/.cache/loom/assisted"
 ENV_FILE="$HOME/.config/loom/openai.env"
@@ -170,8 +171,20 @@ while [[ $ATTEMPT -lt $MAX_ATTEMPTS ]]; do
   CURRENT_TRANSCRIPT="$ATTEMPT_LOG"
 
   if [[ $RETRY_RC -eq 0 ]]; then
+    set +e
+    python "$PATCH_BUILDER" \
+      --authoritative-root "$REPO_ROOT" \
+      --repaired-root "$WORKTREE" \
+      --decision "$DECISION" \
+      --output "$RUN_DIR/candidate.patch"
+    PATCH_RC=$?
+    set -e
+    if [[ $PATCH_RC -ne 0 ]]; then
+      LAST_SUMMARY="Local repair passed qualification, but candidate patch packaging failed."
+      LAST_REASON="metadata-independent candidate patch builder returned exit $PATCH_RC"
+      break
+    fi
     LOCAL_PASS=1
-    git -C "$WORKTREE" diff --no-ext-diff > "$RUN_DIR/candidate.patch"
     break
   fi
 done
