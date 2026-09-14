@@ -1,9 +1,9 @@
 """Deterministic metric-trajectory intersection check for moving spherical domains.
 
-This module consumes already-resolved trajectory and domain geometry. It does not
-own ephemeris, select domain radii, calculate routes, mutate campaign state, or
-expose authority to Mara. Domain centers must be supplied for the same segment
-epochs as the trajectory by the authoritative navigation/ephemeris layer.
+Consumes already-resolved trajectory and domain geometry. It does not own ephemeris,
+select domain radii, generate routes, mutate campaign state, or expose numerical
+authority to Mara. Domain centers must be supplied for the same segment epochs as
+the trajectory by the authoritative navigation/ephemeris layer.
 """
 from __future__ import annotations
 
@@ -65,63 +65,33 @@ def _dot(a: Vector3, b: Vector3) -> float:
     return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
 
 
-def _relative_segment_min_distance(
-    ship_start: Vector3,
-    ship_end: Vector3,
-    domain_start: Vector3,
-    domain_end: Vector3,
-) -> float:
-    """Exact minimum separation for linear ship/domain motion over one segment."""
+def _relative_segment_min_distance(ship_start: Vector3, ship_end: Vector3, domain_start: Vector3, domain_end: Vector3) -> float:
     r0 = _sub(ship_start, domain_start)
-    ship_delta = _sub(ship_end, ship_start)
-    domain_delta = _sub(domain_end, domain_start)
-    relative_delta = _sub(ship_delta, domain_delta)
+    relative_delta = _sub(_sub(ship_end, ship_start), _sub(domain_end, domain_start))
     denom = _dot(relative_delta, relative_delta)
     if denom == 0.0:
         return sqrt(_dot(r0, r0))
-    u = -_dot(r0, relative_delta) / denom
-    u = min(1.0, max(0.0, u))
+    u = min(1.0, max(0.0, -_dot(r0, relative_delta) / denom))
     closest = _add(r0, _scale(relative_delta, u))
     return sqrt(_dot(closest, closest))
 
 
-def segment_intersects_moving_domain(
-    ship_start: TimedPosition,
-    ship_end: TimedPosition,
-    domain: MovingDomainSegment,
-) -> bool:
+def segment_intersects_moving_domain(ship_start: TimedPosition, ship_end: TimedPosition, domain: MovingDomainSegment) -> bool:
     if ship_end.epoch <= ship_start.epoch:
         raise ValueError("trajectory segment epochs must increase")
     if ship_start.epoch != domain.start.epoch or ship_end.epoch != domain.end.epoch:
         raise ValueError("trajectory/domain epochs must match; interpolate from ephemeris first")
-    distance = _relative_segment_min_distance(
-        ship_start.position,
-        ship_end.position,
-        domain.start.position,
-        domain.end.position,
-    )
-    return distance <= domain.radius
+    return _relative_segment_min_distance(ship_start.position, ship_end.position, domain.start.position, domain.end.position) <= domain.radius
 
 
-def check_metric_trajectory(
-    trajectory: Sequence[TimedPosition],
-    domains: Iterable[MovingDomainSegment],
-    preferences: NavigationPreferences,
-) -> MetricTrajectoryCheck:
-    """Check one metric segment against moving exclusion domains.
-
-    The first seam intentionally accepts exactly two trajectory states. Navigator
-    can later call this per segment for a piecewise trajectory/ephemeris solution.
-    """
+def check_metric_trajectory(trajectory: Sequence[TimedPosition], domains: Iterable[MovingDomainSegment], preferences: NavigationPreferences) -> MetricTrajectoryCheck:
+    """Check one proposed metric segment; this function does not generate a detour."""
     if len(trajectory) != 2:
         raise ValueError("first metric-domain seam requires exactly one trajectory segment")
     start, end = trajectory
     blockers = []
     for domain in domains:
-        if (
-            domain.exclusion_class is ExclusionClass.REGULATORY
-            and not preferences.obey_regulatory_exclusions
-        ):
+        if domain.exclusion_class is ExclusionClass.REGULATORY and not preferences.obey_regulatory_exclusions:
             continue
         if segment_intersects_moving_domain(start, end, domain):
             blockers.append(domain.domain_id)
