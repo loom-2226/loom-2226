@@ -36,7 +36,7 @@ load_config() {
 load_origin_main_config() {
   local phase="${1:-ORIGIN_MAIN_BOOTSTRAP}"
   local remote_config
-  if ! remote_config="$(git show "origin/main:$CONFIG_REL" 2>/dev/null)"; then
+  if ! remote_config="$(git show "origin/main:engineering/pixel/active_qualification.txt" 2>/dev/null)"; then
     echo "LOOM PIXEL QUALIFICATION: unable to read origin/main:$CONFIG_REL during $phase" >&2
     exit 95
   fi
@@ -85,15 +85,21 @@ choose_bootstrap_config() {
   # to qualify itself. Once that exact head is merged into origin/main, it is
   # stale for qualification purposes and must follow the authoritative config
   # published by origin/main instead.
-  if [[ -n "$CURRENT_BRANCH" && "$CURRENT_BRANCH" != "main" && "$LOCAL_CONFIG_BRANCH" == "$CURRENT_BRANCH" ]]; then
-    if git merge-base --is-ancestor "$CURRENT_HEAD" origin/main; then
-      echo "BOOTSTRAP_MODE=CURRENT_BRANCH_MERGED_INTO_ORIGIN_MAIN"
-      load_origin_main_config "MERGED_BRANCH_BOOTSTRAP"
-      BOOTSTRAP_AUTHORITY="origin/main"
+  if [[ -n "$CURRENT_BRANCH" && "$CURRENT_BRANCH" != "main" ]]; then
+    if [[ "$LOCAL_CONFIG_BRANCH" == "$CURRENT_BRANCH" ]]; then
+      if git merge-base --is-ancestor "$CURRENT_HEAD" origin/main; then
+        echo "BOOTSTRAP_MODE=CURRENT_BRANCH_MERGED_INTO_ORIGIN_MAIN"
+        load_origin_main_config "MERGED_BRANCH_BOOTSTRAP"
+        BOOTSTRAP_AUTHORITY="origin/main"
+      else
+        echo "BOOTSTRAP_MODE=CURRENT_UNMERGED_SELF_QUALIFICATION"
+        load_config "CURRENT_UNMERGED_SELF_QUALIFICATION"
+        BOOTSTRAP_AUTHORITY="current-unmerged-branch"
+      fi
     else
-      echo "BOOTSTRAP_MODE=CURRENT_UNMERGED_SELF_QUALIFICATION"
-      load_config "CURRENT_UNMERGED_SELF_QUALIFICATION"
-      BOOTSTRAP_AUTHORITY="current-unmerged-branch"
+      echo "BOOTSTRAP_MODE=ORIGIN_MAIN_ACTIVE_QUALIFICATION"
+      load_origin_main_config "ORIGIN_MAIN_ACTIVE_QUALIFICATION"
+      BOOTSTRAP_AUTHORITY="origin/main"
     fi
   else
     echo "BOOTSTRAP_MODE=ORIGIN_MAIN_ACTIVE_QUALIFICATION"
