@@ -138,13 +138,17 @@ if [[ $PIPE_RC -eq 0 && -n "$SPATIAL_REVIEW_COMMAND" ]]; then
     echo "[SPATIAL REVIEW]"
     echo "READ_ONLY_PRESENTATION=YES"
     echo "LOOM_SPATIAL_REVIEW_URL=$LOOM_SPATIAL_REVIEW_URL"
+    REVIEW_LOG_DIR="${TMPDIR:-$HOME/.cache/loom}"
+    mkdir -p "$REVIEW_LOG_DIR"
+    REVIEW_LOG="$REVIEW_LOG_DIR/loom-spatial-review.log"
     pkill -f "engineering/pixel/spatial_review.py" >/dev/null 2>&1 || true
-    nohup bash -lc "$SPATIAL_REVIEW_COMMAND" >/tmp/loom-spatial-review.log 2>&1 &
+    nohup bash -lc "$SPATIAL_REVIEW_COMMAND" >"$REVIEW_LOG" 2>&1 &
     REVIEW_PID=$!
     sleep 0.5
     if kill -0 "$REVIEW_PID" >/dev/null 2>&1; then
       echo "SPATIAL_REVIEW_STATUS=LAUNCHED"
       echo "SPATIAL_REVIEW_PID=$REVIEW_PID"
+      echo "SPATIAL_REVIEW_LOG=$REVIEW_LOG"
       if command -v termux-open-url >/dev/null 2>&1; then
         termux-open-url "$LOOM_SPATIAL_REVIEW_URL" >/dev/null 2>&1 || true
         echo "SPATIAL_REVIEW_BROWSER=OPEN_REQUESTED"
@@ -153,7 +157,7 @@ if [[ $PIPE_RC -eq 0 && -n "$SPATIAL_REVIEW_COMMAND" ]]; then
       fi
     else
       echo "SPATIAL_REVIEW_STATUS=FAILED_TO_STAY_RUNNING"
-      echo "SPATIAL_REVIEW_LOG=/tmp/loom-spatial-review.log"
+      echo "SPATIAL_REVIEW_LOG=$REVIEW_LOG"
     fi
   } 2>&1 | tee -a "$TMP"
 fi
