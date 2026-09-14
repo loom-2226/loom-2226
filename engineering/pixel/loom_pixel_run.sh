@@ -62,11 +62,11 @@ load_origin_main_config() {
 load_qualification_pointer_config() {
   local phase="${1:-REMOTE_QUALIFICATION_POINTER}"
   local remote_config
-  if ! remote_config="$(git show "origin/qualification/active:engineering/pixel/active_qualification.txt" 2>/dev/null)"; then
-    echo "LOOM PIXEL QUALIFICATION: unable to read origin/qualification/active:$CONFIG_REL during $phase" >&2
+  if ! remote_config="$(git show "$QUALIFICATION_POINTER_REF:engineering/pixel/active_qualification.txt" 2>/dev/null)"; then
+    echo "LOOM PIXEL QUALIFICATION: unable to read $QUALIFICATION_POINTER_REF:$CONFIG_REL during $phase" >&2
     exit 95
   fi
-  _parse_remote_config "$remote_config" "origin/qualification/active" "$phase"
+  _parse_remote_config "$remote_config" "$QUALIFICATION_POINTER_REF" "$phase"
 }
 
 switch_to_config_branch() {
