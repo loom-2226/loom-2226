@@ -1,3 +1,2 @@
-engineering/e1-geometric-admissibility-relevance-audit-2026-09-14
-python -m unittest discover -s tests -p 'test_e1_geometric_admissibility_relevance_audit.py' && python -m unittest discover -s tests -p 'test_e1_geometric_admissibility_spatial_review.py' && python engineering/experience_one/qualification/e1_geometric_admissibility_relevance_audit.py && python engineering/pixel/spatial_review.py --review geometric-admissibility-relevance --check
-python engineering/pixel/spatial_review.py --review geometric-admissibility-relevance --port 8878
+engineering/pixel-assisted-qualification-2026-09-14
+python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py'
