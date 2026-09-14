@@ -1,0 +1,2 @@
+engineering/e1-forced-collapse-radius-experiment-2026-09-14
+python -m unittest discover -s tests -p 'test_e1_metric_admissibility_observables.py' && python engineering/experience_one/qualification/e1_forced_collapse_radius_experiment_entry.py && python engineering/experience_one/qualification/e1_metric_admissibility_observables.py
