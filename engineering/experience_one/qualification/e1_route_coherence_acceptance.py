@@ -124,6 +124,15 @@ def classify_route_evidence(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def governed_summary_lines(report: dict[str, Any]) -> list[str]:
+    missing = report.get("missing_required_evidence") or []
+    return [
+        f"QUALIFICATION_AXIS={report.get('axis', AXIS)}",
+        f"QUALIFICATION_DISPOSITION={report.get('disposition', 'NOT_EVALUATED')}",
+        "QUALIFICATION_MISSING_REQUIRED_EVIDENCE=" + (",".join(str(item) for item in missing) if missing else "NONE"),
+    ]
+
+
 def build_live_report() -> dict[str, Any]:
     return classify_route_evidence(adapter.acquire_live_e1_payload())
 
@@ -134,6 +143,9 @@ def main() -> int:
     args = parser.parse_args()
     report = build_live_report() if args.live else build_static_contract()
     print(json.dumps(report, indent=2, sort_keys=True))
+    if args.live:
+        for line in governed_summary_lines(report):
+            print(line)
     return 0
 
 
