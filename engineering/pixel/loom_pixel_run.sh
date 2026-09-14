@@ -2,15 +2,15 @@
 set -u
 
 # Governed Pixel qualification runner.
-# One command: fetch, determine whether the current branch is an unmerged
-# self-qualifying candidate or a merged/stale branch, switch/pull the governed
-# qualification branch, refresh config, run it, copy the complete result, and
-# optionally launch a read-only Spatial Review.
+# One command: fetch, resolve the governed qualification pointer, determine the
+# active branch, switch/pull it, refresh config, run it, copy the complete result,
+# and optionally launch a read-only Spatial Review.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 CONFIG_REL="engineering/pixel/active_qualification.txt"
 CONFIG="$SCRIPT_DIR/active_qualification.txt"
+QUALIFICATION_POINTER_REF="origin/qualification/active"
 LOOM_SPATIAL_REVIEW_URL="http://127.0.0.1:8878/"
 
 cd "$REPO_ROOT" || exit 90
@@ -33,13 +33,10 @@ load_config() {
   fi
 }
 
-load_origin_main_config() {
-  local phase="${1:-ORIGIN_MAIN_BOOTSTRAP}"
-  local remote_config
-  if ! remote_config="$(git show "origin/main:engineering/pixel/active_qualification.txt" 2>/dev/null)"; then
-    echo "LOOM PIXEL QUALIFICATION: unable to read origin/main:$CONFIG_REL during $phase" >&2
-    exit 95
-  fi
+_parse_remote_config() {
+  local remote_config="$1"
+  local ref="$2"
+  local phase="$3"
 
   mapfile -t CFG <<< "$remote_config"
   QUAL_BRANCH="${CFG[0]:-}"
@@ -47,9 +44,29 @@ load_origin_main_config() {
   SPATIAL_REVIEW_COMMAND="${CFG[2]:-}"
 
   if [[ -z "$QUAL_BRANCH" || -z "$QUAL_COMMAND" ]]; then
-    echo "LOOM PIXEL QUALIFICATION: invalid origin/main active qualification config during $phase" >&2
+    echo "LOOM PIXEL QUALIFICATION: invalid active qualification config from $ref during $phase" >&2
     exit 96
   fi
+}
+
+load_origin_main_config() {
+  local phase="${1:-ORIGIN_MAIN_BOOTSTRAP}"
+  local remote_config
+  if ! remote_config="$(git show "origin/main:engineering/pixel/active_qualification.txt" 2>/dev/null)"; then
+    echo "LOOM PIXEL QUALIFICATION: unable to read origin/main:$CONFIG_REL during $phase" >&2
+    exit 95
+  fi
+  _parse_remote_config "$remote_config" "origin/main" "$phase"
+}
+
+load_qualification_pointer_config() {
+  local phase="${1:-REMOTE_QUALIFICATION_POINTER}"
+  local remote_config
+  if ! remote_config="$(git show "$QUALIFICATION_POINTER_REF:engineering/pixel/active_qualification.txt" 2>/dev/null)"; then
+    echo "LOOM PIXEL QUALIFICATION: unable to read $QUALIFICATION_POINTER_REF:$CONFIG_REL during $phase" >&2
+    exit 95
+  fi
+  _parse_remote_config "$remote_config" "$QUALIFICATION_POINTER_REF" "$phase"
 }
 
 switch_to_config_branch() {
@@ -81,10 +98,19 @@ choose_bootstrap_config() {
   CURRENT_HEAD="$current_head"
   LOCAL_CONFIG_BRANCH="$local_config_branch"
 
-  # An unmerged candidate branch whose own config points to itself must be able
-  # to qualify itself. Once that exact head is merged into origin/main, it is
-  # stale for qualification purposes and must follow the authoritative config
-  # published by origin/main instead.
+  # The dedicated remote qualification pointer is routing authority only. It
+  # points at a candidate commit whose active_qualification.txt names the real
+  # branch and command. It does not grant merge, runtime, or campaign authority.
+  if git show-ref --verify --quiet "refs/remotes/$QUALIFICATION_POINTER_REF"; then
+    echo "BOOTSTRAP_MODE=REMOTE_QUALIFICATION_POINTER"
+    load_qualification_pointer_config "REMOTE_QUALIFICATION_POINTER"
+    BOOTSTRAP_AUTHORITY="$QUALIFICATION_POINTER_REF"
+    return
+  fi
+
+  # Backward-compatible fallback: an unmerged candidate branch whose own config
+  # points to itself can qualify itself. Once merged into origin/main, it is
+  # stale for qualification purposes and follows origin/main instead.
   if [[ -n "$CURRENT_BRANCH" && "$CURRENT_BRANCH" != "main" ]]; then
     if [[ "$LOCAL_CONFIG_BRANCH" == "$CURRENT_BRANCH" ]]; then
       if git merge-base --is-ancestor "$CURRENT_HEAD" origin/main; then
