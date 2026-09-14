@@ -1,2 +1,2 @@
-engineering/pixel-assisted-candidate-patch-fix-2026-09-14
-python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py'
+engineering/e1-local-curvature-tidal-shear-2026-09-14
+python -m unittest discover -s tests -p 'test_e1_local_curvature_tidal_shear.py' && python engineering/experience_one/qualification/e1_local_curvature_tidal_shear.py
