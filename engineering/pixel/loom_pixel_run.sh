@@ -2,13 +2,15 @@
 set -u
 
 # Governed Pixel qualification runner.
-# One command: fetch/pull active qualification branch, refresh config, run it,
+# One command: fetch authoritative active qualification from origin/main,
+# switch/pull the governed qualification branch, refresh config, run it,
 # copy the complete result, and optionally launch a read-only Spatial Review.
 # A single post-pull branch handoff is allowed so a merged/updated branch can
 # point the same invocation at the next governed gate.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+CONFIG_REL="engineering/pixel/active_qualification.txt"
 CONFIG="$SCRIPT_DIR/active_qualification.txt"
 LOOM_SPATIAL_REVIEW_URL="http://127.0.0.1:8878/"
 
@@ -32,6 +34,25 @@ load_config() {
   fi
 }
 
+load_origin_main_config() {
+  local phase="${1:-ORIGIN_MAIN_BOOTSTRAP}"
+  local remote_config
+  if ! remote_config="$(git show "origin/main:$CONFIG_REL" 2>/dev/null)"; then
+    echo "LOOM PIXEL QUALIFICATION: unable to read origin/main:$CONFIG_REL during $phase" >&2
+    exit 95
+  fi
+
+  mapfile -t CFG <<< "$remote_config"
+  QUAL_BRANCH="${CFG[0]:-}"
+  QUAL_COMMAND="${CFG[1]:-}"
+  SPATIAL_REVIEW_COMMAND="${CFG[2]:-}"
+
+  if [[ -z "$QUAL_BRANCH" || -z "$QUAL_COMMAND" ]]; then
+    echo "LOOM PIXEL QUALIFICATION: invalid origin/main active qualification config during $phase" >&2
+    exit 96
+  fi
+}
+
 switch_to_config_branch() {
   local current_branch
   current_branch="$(git branch --show-current)"
@@ -46,11 +67,6 @@ switch_to_config_branch() {
     echo "BRANCH OK $current_branch"
   fi
 }
-
-load_config "BOOTSTRAP"
-BOOTSTRAP_BRANCH="$QUAL_BRANCH"
-BOOTSTRAP_COMMAND="$QUAL_COMMAND"
-BOOTSTRAP_SPATIAL_REVIEW_COMMAND="$SPATIAL_REVIEW_COMMAND"
 
 if [[ -n "$(git status --porcelain)" ]]; then
   echo "LOOM PIXEL QUALIFICATION: REFUSED — working tree is not clean." >&2
@@ -67,17 +83,22 @@ trap cleanup EXIT
   echo "========================"
   echo "UTC_START=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   echo "REPO_ROOT=$REPO_ROOT"
+  echo "BOOTSTRAP_AUTHORITY=origin/main"
+  echo
+
+  echo "[1/4] FETCH + AUTHORITATIVE CONFIG"
+  git fetch origin
+  load_origin_main_config "POST_FETCH"
+  BOOTSTRAP_BRANCH="$QUAL_BRANCH"
+  BOOTSTRAP_COMMAND="$QUAL_COMMAND"
+  BOOTSTRAP_SPATIAL_REVIEW_COMMAND="$SPATIAL_REVIEW_COMMAND"
   echo "BOOTSTRAP_CONFIG_BRANCH=$BOOTSTRAP_BRANCH"
   echo "BOOTSTRAP_CONFIG_COMMAND=$BOOTSTRAP_COMMAND"
   if [[ -n "$BOOTSTRAP_SPATIAL_REVIEW_COMMAND" ]]; then
     echo "BOOTSTRAP_SPATIAL_REVIEW_COMMAND=$BOOTSTRAP_SPATIAL_REVIEW_COMMAND"
   fi
-  echo
 
-  echo "[1/4] FETCH"
-  git fetch origin
-
-  echo "[2/4] SYNC BOOTSTRAP BRANCH"
+  echo "[2/4] SYNC AUTHORITATIVE ACTIVE BRANCH"
   switch_to_config_branch
 
   echo "[3/4] FAST-FORWARD + CONFIG REFRESH"
