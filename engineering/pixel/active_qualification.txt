@@ -1,2 +1,2 @@
-engineering/e1-runtime-configuration-input-2026-09-15
-python -m unittest discover -s tests -p 'test_e1_runtime_configuration_input.py' && python -m unittest discover -s tests -p 'test_e1_domain_membership_attachment_state.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && python engineering/experience_one/qualification/e1_runtime_configuration_input.py && python engineering/experience_one/qualification/e1_domain_membership_attachment_state.py
+engineering/e1-initial-configuration-state-2026-09-15
+python -m unittest discover -s tests -p 'test_e1_initial_configuration_state.py' && python -m unittest discover -s tests -p 'test_e1_domain_membership_attachment_state.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && python engineering/experience_one/qualification/e1_initial_configuration_state.py && python engineering/experience_one/qualification/e1_domain_membership_attachment_state.py
