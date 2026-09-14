@@ -9,8 +9,14 @@ qualified short test id while preserving the exact diagnostic solver path.
 """
 
 import json
+import sys
 import tempfile
 from pathlib import Path
+
+SCRIPT_PATH = Path(__file__).resolve()
+REPO_ROOT = SCRIPT_PATH.parents[3]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from src import loom_navigator_core as campaign
 from engineering.experience_one.qualification import e1_forced_collapse_radius_experiment as exp
