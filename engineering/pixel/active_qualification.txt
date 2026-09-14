@@ -1,2 +1,2 @@
-engineering/e1-neptune-plasma-em-source-qualification-2026-09-14
-python -m unittest discover -s tests -p 'test_neptune_plasma_em_source_qualification.py' && python engineering/experience_one/qualification/e1_neptune_plasma_em_source_qualification.py
+engineering/e1-neptune-mag-exact-sample-adapter-2026-09-14
+python -m unittest discover -s tests -p 'test_neptune_mag_exact_sample_adapter.py' && python engineering/experience_one/qualification/e1_neptune_mag_exact_sample_adapter.py
