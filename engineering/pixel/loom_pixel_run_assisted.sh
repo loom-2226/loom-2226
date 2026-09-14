@@ -177,6 +177,7 @@ while [[ $ATTEMPT -lt $MAX_ATTEMPTS ]]; do
 
   ATTEMPT_LOG="$RUN_DIR/retry-$ATTEMPT.txt"
   set +e
+  export PYTHONPATH="$WORKTREE${PYTHONPATH:+:$PYTHONPATH}"
   (cd "$WORKTREE" && bash -lc "$QUAL_COMMAND") >"$ATTEMPT_LOG" 2>&1
   RETRY_RC=$?
   set -e
