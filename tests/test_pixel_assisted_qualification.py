@@ -38,9 +38,10 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
         self.assertIn('git merge-base --is-ancestor "$CURRENT_HEAD" origin/main', text)
         self.assertIn("CURRENT_BRANCH_MERGED_INTO_ORIGIN_MAIN", text)
 
-    def test_raw_runner_executes_qualification_with_repo_root_on_pythonpath(self):
+    def test_raw_runner_exports_repo_root_pythonpath_and_uses_login_shell(self):
         text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
-        self.assertIn('PYTHONPATH="$REPO_ROOT${PYTHONPATH:+:$PYTHONPATH}" bash -lc "$QUAL_COMMAND"', text)
+        self.assertIn('export PYTHONPATH="$REPO_ROOT${PYTHONPATH:+:$PYTHONPATH}"', text)
+        self.assertIn('bash -lc "$QUAL_COMMAND"', text)
 
     def test_assisted_runner_inherits_raw_runner_branch_bootstrap(self):
         text = (self.repo / "engineering/pixel/loom_pixel_run_assisted.sh").read_text(encoding="utf-8")
