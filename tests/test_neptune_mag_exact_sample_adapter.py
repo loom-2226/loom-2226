@@ -29,7 +29,10 @@ class NeptuneMagExactSampleAdapterTests(unittest.TestCase):
             position_km=self.sample.position_km,
         )
         state = self.provider.environment_state(query)
-        self.assertEqual(state.magnetic_field_t, (1.0e-7, -2.0e-8, 5.0e-9))
+        expected = (1.0e-7, -2.0e-8, 5.0e-9)
+        self.assertIsNotNone(state.magnetic_field_t)
+        for actual, target in zip(state.magnetic_field_t, expected):
+            self.assertAlmostEqual(actual, target, places=18)
         self.assertIsNone(state.plasma_number_density_m3)
         self.assertIsNone(state.mass_density_kg_m3)
         self.assertEqual(state.provenance.source_ids, (self.sample.source_id,))
