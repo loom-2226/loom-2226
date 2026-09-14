@@ -1,2 +1,2 @@
-engineering/pixel-assisted-repair-controlled-test-2026-09-14
-python engineering/pixel/controlled_repair_fixture.py
+engineering/pixel-assisted-candidate-patch-fix-2026-09-14
+python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py'
