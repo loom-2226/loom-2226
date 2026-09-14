@@ -1,2 +1,2 @@
-engineering/civstate-hel-differentiator-input-inventory-2026-09-14
-python -m unittest discover -s tests -p 'test_civstate_hel_differentiator_input_inventory.py' && python engineering/civstate/hel_differentiator_input_inventory.py --db data/LOOM_2226_CIVSTATE.sqlite3
+engineering/civstate-hel-allocator-v2-design-contract-2026-09-14
+python -m unittest discover -s tests -p 'test_civstate_hel_allocator_v2_design_contract.py' && python engineering/civstate/hel_allocator_v2_design_contract.py --db data/LOOM_2226_CIVSTATE.sqlite3
