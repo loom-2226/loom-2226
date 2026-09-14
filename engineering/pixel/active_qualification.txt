@@ -1,2 +1,2 @@
-engineering/e1-rcs-gnc-plume-local-flight-2026-09-15
-python -m unittest discover -s tests -p 'test_wayfarer_rcs_closed_loop_gnc.py' && python -m unittest discover -s tests -p 'test_e1_local_flight_rotational_binding.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && python src/wayfarer_rcs_closed_loop_gnc.py && python engineering/experience_one/qualification/e1_local_flight_rotational_binding.py && python engineering/experience_one/qualification/e1_rcs_closed_loop_local_flight.py
+engineering/e1-rcs-coupled-local-flight-2026-09-15
+python -m unittest discover -s tests -p 'test_wayfarer_rcs_coupled_local_flight.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && python src/wayfarer_rcs_coupled_local_flight.py && python engineering/experience_one/qualification/e1_rcs_coupled_local_flight.py
