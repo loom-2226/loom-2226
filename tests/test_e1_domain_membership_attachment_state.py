@@ -50,6 +50,14 @@ class DomainMembershipAttachmentStateTests(unittest.TestCase):
         self.assertFalse(report["policy"]["infer_launch_docked_from_baseline"])
         self.assertFalse(report["policy"]["infer_radiators_stowed_from_mode"])
         self.assertFalse(report["policy"]["infer_domain_membership_from_configuration_identity"])
+        self.assertEqual(
+            report["domain_membership_dependency"]["disposition"],
+            "DOMAIN_MEMBERSHIP_REQUIRES_CERTIFIED_DOMAIN_SOLUTION",
+        )
+        self.assertEqual(
+            report["domain_membership_dependency"]["missing_required_evidence"],
+            ["translation_domain_geometry_or_certification_envelope"],
+        )
 
 
 if __name__ == "__main__":
