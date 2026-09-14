@@ -55,9 +55,17 @@ class TestGeometricAdmissibilityInventory(unittest.TestCase):
         self.assertEqual(report["available"]["geometry"]["mean_radius_km"], 24622.0)
         self.assertEqual(report["available"]["matter_environment"]["atmosphere_class"], "HYDROGEN_HELIUM_METHANE")
         self.assertEqual(report["available"]["provenance_quality"]["navigation_grade"], 1)
-        rendered = repr(report)
-        self.assertNotIn("feeder_density", rendered)
-        self.assertNotIn("dry_mass_kg", rendered)
+        available_rendered = repr(report["available"])
+        self.assertNotIn("feeder_density", available_rendered)
+        self.assertNotIn("dry_mass_kg", available_rendered)
+        self.assertIn(
+            "transport_feeder_density_is_not_local_matter_density",
+            report["rejected_false_positive_classes"],
+        )
+        self.assertIn(
+            "infrastructure_mass_fields_are_not_local_gravity",
+            report["rejected_false_positive_classes"],
+        )
 
     def test_missing_required_families_remain_explicitly_missing(self):
         td, db = self._db(
