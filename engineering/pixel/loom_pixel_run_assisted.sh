@@ -133,7 +133,7 @@ fi
 WORK_BASE="${TMPDIR:-$HOME/.cache/loom}"
 mkdir -p "$WORK_BASE"
 WORKTREE="$WORK_BASE/loom-assisted-worktree-${STAMP}-$$"
-git -C "$REPO_ROOT" worktree add --detach "$WORKTREE" "$HEAD_SHA" >/dev/null
+(cd "$REPO_ROOT" && git worktree add --detach "$WORKTREE" "$HEAD_SHA") >/dev/null
 
 CURRENT_TRANSCRIPT="$RUN_DIR/governed-transcript.txt"
 ATTEMPT=0
