@@ -68,6 +68,24 @@ Any E1 change that differs materially from prior HUD / Wayfarer 3D / Computation
 
 The purpose is not to preserve old layouts. The purpose is to make later HUD and Shipyard work resumable without reverse-engineering what E1 changed.
 
+## E1 change ledger
+
+Material divergences from prior HUD / Shipyard / 3D assumptions should be appended to an E1 change ledger using stable machine-readable fields wherever practical:
+
+- `change_id`
+- `e1_commit`
+- `baseline_source`
+- `baseline_ref`
+- `baseline_value_or_geometry`
+- `e1_value_or_geometry`
+- `reason`
+- `physics_dependency`
+- `affected_consumers`
+- `compatibility` = `COMPATIBLE | ADAPTATION_REQUIRED | STALE | SUPERSEDED`
+- `authority_status`
+
+A later HUD or Shipyard workstream should be able to traverse this ledger forward from its last known baseline rather than infer changes from visual diffs.
+
 ## Required downstream recovery path
 
 When E1 stabilizes a physical change, the lineage record must identify expected adaptation points for:
