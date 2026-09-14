@@ -4,61 +4,82 @@ import unittest
 from pathlib import Path
 
 from engineering.experience_one.qualification.e1_geometric_admissibility_inventory import (
-    inventory_schema,
+    qualify_neptune_inputs,
 )
 
 
 class TestGeometricAdmissibilityInventory(unittest.TestCase):
-    def test_inventory_reports_only_fields_that_exist(self):
-        with tempfile.TemporaryDirectory() as td:
-            db = Path(td) / "test.sqlite3"
-            conn = sqlite3.connect(db)
-            conn.executescript(
-                """
-                CREATE TABLE celestial_properties(
-                    entity_id TEXT,
-                    gm_km3_s2 REAL,
-                    mean_radius_km REAL,
-                    source_id TEXT,
-                    status TEXT
-                );
-                CREATE TABLE environment(
-                    entity_id TEXT,
-                    atmospheric_density_kg_m3 REAL,
-                    magnetic_flux_density_t REAL,
-                    measurement_sigma REAL
-                );
-                """
-            )
-            conn.close()
+    def _db(self, sql: str) -> tuple[tempfile.TemporaryDirectory, Path]:
+        td = tempfile.TemporaryDirectory()
+        db = Path(td.name) / "test.sqlite3"
+        conn = sqlite3.connect(db)
+        conn.executescript(sql)
+        conn.close()
+        return td, db
 
-            report = inventory_schema(db)
+    def test_qualification_uses_exact_physical_fields_not_keyword_matches(self):
+        td, db = self._db(
+            """
+            CREATE TABLE celestial_properties(
+                entity_id TEXT, gm_km3_s2 REAL, mean_radius_km REAL,
+                source_id TEXT, status TEXT
+            );
+            INSERT INTO celestial_properties VALUES
+                ('NE', 6836529.0, 24622.0, 'PHYS', 'ENGINEERING_REFERENCE_NONCANON');
+
+            CREATE TABLE celestial_dynamics(
+                entity_id TEXT, gm_km3_s2 REAL, mean_radius_km REAL,
+                atmosphere_class TEXT, source TEXT, metadata_status TEXT,
+                feeder_density REAL, dry_mass_kg REAL
+            );
+            INSERT INTO celestial_dynamics VALUES
+                ('NE', 6836529.0, 24622.0, 'HYDROGEN_HELIUM_METHANE',
+                 'DYN', 'REFERENCE', 999.0, 888.0);
+
+            CREATE TABLE states(
+                entity_id TEXT, epoch_utc TEXT, source TEXT, navigation_grade INTEGER,
+                reference_frame TEXT, reference_plane TEXT
+            );
+            INSERT INTO states VALUES
+                ('NE', '2226-08-22T00:00:00Z', 'SOURCE-010', 1, 'J2000', 'ECLIPTIC');
+            """
+        )
+        try:
+            report = qualify_neptune_inputs(db)
+        finally:
+            td.cleanup()
 
         self.assertEqual(report["status"], "PASS")
-        self.assertEqual(report["classification"], "DATA_AVAILABILITY_AUDIT_ONLY_NOT_ADMISSIBILITY_POLICY")
-        self.assertIn("celestial_properties.gm_km3_s2", report["families"]["gravity"])
-        self.assertIn("celestial_properties.mean_radius_km", report["families"]["geometry"])
-        self.assertIn("environment.atmospheric_density_kg_m3", report["families"]["matter_environment"])
-        self.assertIn("environment.magnetic_flux_density_t", report["families"]["electromagnetic_environment"])
-        self.assertIn("environment.measurement_sigma", report["families"]["uncertainty"])
-        self.assertIn("celestial_properties.source_id", report["families"]["provenance_quality"])
-        self.assertIn("celestial_properties.status", report["families"]["provenance_quality"])
+        self.assertEqual(report["body"], "NE")
+        self.assertEqual(report["available"]["gravity"]["gm_km3_s2"], 6836529.0)
+        self.assertEqual(report["available"]["geometry"]["mean_radius_km"], 24622.0)
+        self.assertEqual(report["available"]["matter_environment"]["atmosphere_class"], "HYDROGEN_HELIUM_METHANE")
+        self.assertEqual(report["available"]["provenance_quality"]["navigation_grade"], 1)
+        rendered = repr(report)
+        self.assertNotIn("feeder_density", rendered)
+        self.assertNotIn("dry_mass_kg", rendered)
 
-    def test_inventory_does_not_invent_missing_families(self):
-        with tempfile.TemporaryDirectory() as td:
-            db = Path(td) / "test.sqlite3"
-            conn = sqlite3.connect(db)
-            conn.execute("CREATE TABLE celestial_properties(entity_id TEXT, gm_km3_s2 REAL)")
-            conn.close()
+    def test_missing_required_families_remain_explicitly_missing(self):
+        td, db = self._db(
+            """
+            CREATE TABLE celestial_properties(
+                entity_id TEXT, gm_km3_s2 REAL, source_id TEXT, status TEXT
+            );
+            INSERT INTO celestial_properties VALUES ('NE', 6836529.0, 'PHYS', 'REFERENCE');
+            """
+        )
+        try:
+            report = qualify_neptune_inputs(db)
+        finally:
+            td.cleanup()
 
-            report = inventory_schema(db)
-
-        self.assertEqual(report["families"]["gravity"], ["celestial_properties.gm_km3_s2"])
-        self.assertEqual(report["families"]["geometry"], [])
-        self.assertEqual(report["families"]["matter_environment"], [])
-        self.assertEqual(report["families"]["electromagnetic_environment"], [])
-        self.assertEqual(report["families"]["uncertainty"], [])
-        self.assertEqual(report["families"]["provenance_quality"], [])
+        self.assertIn("electromagnetic_environment", report["missing_required_families"])
+        self.assertIn("physical_uncertainty", report["missing_required_families"])
+        self.assertIn("loom_coherence", report["missing_required_families"])
+        self.assertIn("local_matter_density", report["missing_required_families"])
+        self.assertEqual(report["available"]["electromagnetic_environment"], {})
+        self.assertEqual(report["available"]["physical_uncertainty"], {})
+        self.assertEqual(report["available"]["loom_coherence"], {})
 
 
 if __name__ == "__main__":
