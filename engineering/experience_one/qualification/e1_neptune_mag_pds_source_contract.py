@@ -1,4 +1,10 @@
 import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from src.loom_neptune_mag_pds_source_contract import NEPTUNE_MAG_PDS_SOURCE_CONTRACT as c
 
