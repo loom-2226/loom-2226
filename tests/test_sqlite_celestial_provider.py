@@ -28,9 +28,10 @@ class SQLiteCelestialProviderTests(unittest.TestCase):
             );
             """
         )
-        conn.execute("INSERT INTO states VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", (
-            "EARTH", "2226-08-22T00:00:00Z", "J2000", "ECLIPTIC",
-            1.0,2.0,3.0,0.1,0.2,0.3,"TEST_DIRECT",1))
+        for epoch in ("2226-08-22T00:00:00Z", "2226-08-22T01:00:00Z"):
+            conn.execute("INSERT INTO states VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", (
+                "EARTH", epoch, "J2000", "ECLIPTIC",
+                1.0,2.0,3.0,0.1,0.2,0.3,"TEST_DIRECT",1))
         conn.execute("INSERT INTO states VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", (
             "DISPLAY", "2226-08-22T00:00:00Z", "J2000", "ECLIPTIC",
             9.0,9.0,9.0,0,0,0,"DISPLAY_ONLY",0))
@@ -62,7 +63,7 @@ class SQLiteCelestialProviderTests(unittest.TestCase):
         cat = SQLiteCelestialCatalog(self.db)
         cat.direct_state("EARTH", "2226-08-22T00:00:00Z")
         with sqlite3.connect(self.db) as conn:
-            self.assertEqual(conn.execute("SELECT COUNT(*) FROM states").fetchone()[0], 2)
+            self.assertEqual(conn.execute("SELECT COUNT(*) FROM states").fetchone()[0], 3)
 
     def test_service_propagates_child_from_genuine_anchor_but_not_navigation_grade(self):
         service = SQLiteCelestialCatalog(self.db).build_service(["EARTH","MOON"], "2226-08-22T01:00:00Z")
