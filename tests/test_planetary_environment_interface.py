@@ -1,5 +1,5 @@
 import unittest
-from dataclasses import FrozenInstanceError
+from dataclasses import FrozenInstanceError, MISSING
 
 from src.loom_planetary_environment import (
     EnvironmentProvenance,
@@ -55,8 +55,10 @@ class TestPlanetaryEnvironmentInterface(unittest.TestCase):
         fields = PlanetaryEnvironmentState.__dataclass_fields__
         self.assertIn("uncertainty", fields)
         self.assertIn("provenance", fields)
-        self.assertFalse(fields["uncertainty"].default is not fields["uncertainty"].default_factory)
-        self.assertFalse(fields["provenance"].default is not fields["provenance"].default_factory)
+        self.assertIs(fields["uncertainty"].default, MISSING)
+        self.assertIs(fields["uncertainty"].default_factory, MISSING)
+        self.assertIs(fields["provenance"].default, MISSING)
+        self.assertIs(fields["provenance"].default_factory, MISSING)
 
 
 if __name__ == "__main__":
