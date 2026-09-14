@@ -15,6 +15,27 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
         self.assertIn("loom_pixel_run.sh", text)
         self.assertIn("LOOM ASSISTED QUALIFICATION", text)
 
+    def test_raw_runner_fetches_before_choosing_qualification_branch(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
+        self.assertIn("git fetch origin", text)
+        self.assertIn("origin/main:engineering/pixel/active_qualification.txt", text)
+        self.assertIn("git merge-base --is-ancestor", text)
+        self.assertIn("CURRENT_UNMERGED_SELF_QUALIFICATION", text)
+        self.assertIn("ORIGIN_MAIN_ACTIVE_QUALIFICATION", text)
+        self.assertIn("git switch", text)
+        self.assertIn("git pull --ff-only", text)
+
+    def test_raw_runner_only_self_qualifies_when_current_branch_config_points_to_itself(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
+        self.assertIn('[[ "$LOCAL_CONFIG_BRANCH" == "$CURRENT_BRANCH" ]]', text)
+        self.assertIn('git merge-base --is-ancestor "$CURRENT_HEAD" origin/main', text)
+        self.assertIn("CURRENT_BRANCH_MERGED_INTO_ORIGIN_MAIN", text)
+
+    def test_assisted_runner_inherits_raw_runner_branch_bootstrap(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run_assisted.sh").read_text(encoding="utf-8")
+        self.assertIn('RAW_RUNNER="$SCRIPT_DIR/loom_pixel_run.sh"', text)
+        self.assertIn('bash "$RAW_RUNNER"', text)
+
     def test_assisted_runner_uses_detached_temp_worktree_and_no_git_authority(self):
         text = (self.repo / "engineering/pixel/loom_pixel_run_assisted.sh").read_text(encoding="utf-8")
         self.assertIn("git worktree add --detach", text)
@@ -39,7 +60,7 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
         text = (self.repo / "engineering/pixel/mechanical_repair.py").read_text(encoding="utf-8")
         self.assertIn("https://api.openai.com/v1/responses", text)
         self.assertIn("gpt-5.6-terra", text)
-        self.assertIn('\"type\": \"json_schema\"', text)
+        self.assertIn('"type": "json_schema"', text)
         self.assertIn("OPENAI_API_KEY", text)
 
     def test_repair_agent_exact_replacements_only(self):
