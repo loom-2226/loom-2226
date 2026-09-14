@@ -15,6 +15,7 @@ import json
 from engineering.experience_one.qualification.e1_committed_component_geometry_envelope import (
     build_e1_committed_component_geometry_envelope,
 )
+from src.wayfarer_metric_node_array import build_metric_node_array
 
 SCHEMA = "LOOM_E1_TRANSLATION_DOMAIN_ENVELOPE_CONTRACT_V1"
 CONFIGURATION_ID = "WAYFARER_REFERENCE_SCHEMATIC_V2_4A"
@@ -22,10 +23,15 @@ CONFIGURATION_ID = "WAYFARER_REFERENCE_SCHEMATIC_V2_4A"
 
 def qualify_e1_translation_domain_envelope_contract():
     component_geometry = build_e1_committed_component_geometry_envelope()
+    metric_nodes = build_metric_node_array()
     geometry_present = component_geometry["authority"]["certifies_committed_component_geometry_envelope"]
+    node_baseline_present = metric_nodes["authority"]["certifies_metric_node_placement_baseline"]
+
     missing = ["certified_translation_domain_boundary_solution"]
     if not geometry_present:
         missing.append("committed_component_geometry_envelope")
+    if not node_baseline_present:
+        missing.append("metric_node_placement_baseline")
     missing.append("domain_membership_containment_result")
 
     return {
@@ -39,6 +45,7 @@ def qualify_e1_translation_domain_envelope_contract():
             "domain_size_binding": "engineering/experience_one/qualification/e1_compound_ga_domain_size_binding.py",
             "domain_membership_dependency": "engineering/experience_one/qualification/e1_domain_membership_derivation.py",
             "committed_component_geometry": "engineering/experience_one/qualification/e1_committed_component_geometry_envelope.py",
+            "metric_node_array": "src/wayfarer_metric_node_array.py",
         },
         "certification_envelope_contract": {
             "domain_kind": "VESSEL_CONFIGURATION_BOUND_TRANSLATION_DOMAIN",
@@ -62,9 +69,11 @@ def qualify_e1_translation_domain_envelope_contract():
             "launch_attachment_state": "DOCKED",
             "external_attachment_state": "FREE",
             "deployable_structure_state": "STOWED",
-            "distributed_boundary_metric_nodes": 208,
-            "exact_node_placement": "OPEN",
-            "exact_node_placement_promoted_to_known": False,
+            "distributed_boundary_metric_nodes": metric_nodes["node_count"],
+            "metric_node_placement_baseline_present": node_baseline_present,
+            "metric_node_placement_status": metric_nodes["provenance"]["placement_status"],
+            "metric_node_layout": "13_AXIAL_RINGS_X_16_AZIMUTHAL_NODES",
+            "metric_node_placement_promoted_to_canon": False,
             "committed_component_geometry_envelope_present": geometry_present,
             "component_geometry_envelope_m": component_geometry["component_geometry_envelope_m"],
             "component_geometry_open_detail_bounded": component_geometry["open_detail_present"],
@@ -79,7 +88,9 @@ def qualify_e1_translation_domain_envelope_contract():
             "collapse_radius_substitution_allowed": False,
             "hull_dimension_substitution_allowed": False,
             "node_count_substitution_allowed": False,
-            "open_schematic_detail_promoted_to_known": False,
+            "metric_node_design_baseline_may_seed_field_solution": True,
+            "metric_node_design_baseline_is_canon": False,
+            "metric_node_design_baseline_certifies_boundary": False,
             "unknown_membership_treated_as_member": False,
             "design_baseline_geometry_may_supply_conservative_material_containment_input_with_provenance": True,
         },
@@ -88,12 +99,14 @@ def qualify_e1_translation_domain_envelope_contract():
         "authority": {
             "certifies_envelope_contract": True,
             "certifies_component_geometry_envelope": geometry_present,
+            "certifies_metric_node_placement_baseline": node_baseline_present,
             "certifies_boundary_geometry": False,
             "certifies_domain_membership": False,
             "certifies_domain_size": False,
             "certifies_local_geometry_compatibility": False,
             "certifies_causal_compatibility": False,
             "certifies_lattice_coherence": False,
+            "certifies_loom_design": False,
             "certifies_overall_ga": False,
             "campaign_state_mutation": "ZERO",
             "runtime_policy_mutation": "ZERO",
