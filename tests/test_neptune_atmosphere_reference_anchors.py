@@ -32,7 +32,7 @@ class NeptuneAtmosphereReferenceAnchorsTests(unittest.TestCase):
             self.assertFalse(anchor.qualified_for_2226_endpoint)
             self.assertEqual(anchor.interpolation_authority, "ZERO")
             self.assertEqual(anchor.extrapolation_authority, "ZERO")
-            self.assertIn("LINDAL", anchor.source_ids)
+            self.assertIn("LINDAL_1992_AJ_NEPTUNE_OCCULTATION", anchor.source_ids)
 
     def test_no_density_or_admissibility_payload_is_smuggled_into_anchors(self):
         forbidden = {
