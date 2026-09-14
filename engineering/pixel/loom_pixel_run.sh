@@ -3,12 +3,14 @@ set -u
 
 # Governed Pixel qualification runner.
 # One command: fetch/pull active qualification branch, refresh config, run it,
-# and copy the complete result. A single post-pull branch handoff is allowed so
-# a merged/updated branch can point the same invocation at the next governed gate.
+# copy the complete result, and optionally launch a read-only Spatial Review.
+# A single post-pull branch handoff is allowed so a merged/updated branch can
+# point the same invocation at the next governed gate.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 CONFIG="$SCRIPT_DIR/active_qualification.txt"
+LOOM_SPATIAL_REVIEW_URL="http://127.0.0.1:8878/"
 
 cd "$REPO_ROOT" || exit 90
 
@@ -22,6 +24,7 @@ load_config() {
   mapfile -t CFG < "$CONFIG"
   QUAL_BRANCH="${CFG[0]:-}"
   QUAL_COMMAND="${CFG[1]:-}"
+  SPATIAL_REVIEW_COMMAND="${CFG[2]:-}"
 
   if [[ -z "$QUAL_BRANCH" || -z "$QUAL_COMMAND" ]]; then
     echo "LOOM PIXEL QUALIFICATION: invalid active qualification config during $phase" >&2
@@ -47,6 +50,7 @@ switch_to_config_branch() {
 load_config "BOOTSTRAP"
 BOOTSTRAP_BRANCH="$QUAL_BRANCH"
 BOOTSTRAP_COMMAND="$QUAL_COMMAND"
+BOOTSTRAP_SPATIAL_REVIEW_COMMAND="$SPATIAL_REVIEW_COMMAND"
 
 if [[ -n "$(git status --porcelain)" ]]; then
   echo "LOOM PIXEL QUALIFICATION: REFUSED — working tree is not clean." >&2
@@ -65,6 +69,9 @@ trap cleanup EXIT
   echo "REPO_ROOT=$REPO_ROOT"
   echo "BOOTSTRAP_CONFIG_BRANCH=$BOOTSTRAP_BRANCH"
   echo "BOOTSTRAP_CONFIG_COMMAND=$BOOTSTRAP_COMMAND"
+  if [[ -n "$BOOTSTRAP_SPATIAL_REVIEW_COMMAND" ]]; then
+    echo "BOOTSTRAP_SPATIAL_REVIEW_COMMAND=$BOOTSTRAP_SPATIAL_REVIEW_COMMAND"
+  fi
   echo
 
   echo "[1/4] FETCH"
@@ -94,6 +101,9 @@ trap cleanup EXIT
 
   echo "EFFECTIVE_CONFIG_BRANCH=$QUAL_BRANCH"
   echo "EFFECTIVE_CONFIG_COMMAND=$QUAL_COMMAND"
+  if [[ -n "$SPATIAL_REVIEW_COMMAND" ]]; then
+    echo "EFFECTIVE_SPATIAL_REVIEW_COMMAND=$SPATIAL_REVIEW_COMMAND"
+  fi
   echo "BRANCH=$(git branch --show-current)"
   echo "SHA=$(git rev-parse HEAD)"
   echo
@@ -117,6 +127,40 @@ trap cleanup EXIT
   exit "$RC"
 } 2>&1 | tee "$TMP"
 PIPE_RC=${PIPESTATUS[0]}
+
+# Re-read the config in the parent shell after any branch handoff performed in the
+# qualification pipeline. The read-only review must correspond to the exact branch
+# that was just qualified, never to a stale bootstrap command.
+load_config "POST_QUALIFICATION"
+if [[ $PIPE_RC -eq 0 && -n "$SPATIAL_REVIEW_COMMAND" ]]; then
+  {
+    echo
+    echo "[SPATIAL REVIEW]"
+    echo "READ_ONLY_PRESENTATION=YES"
+    echo "LOOM_SPATIAL_REVIEW_URL=$LOOM_SPATIAL_REVIEW_URL"
+    REVIEW_LOG_DIR="${TMPDIR:-$HOME/.cache/loom}"
+    mkdir -p "$REVIEW_LOG_DIR"
+    REVIEW_LOG="$REVIEW_LOG_DIR/loom-spatial-review.log"
+    pkill -f "engineering/pixel/spatial_review.py" >/dev/null 2>&1 || true
+    nohup bash -lc "$SPATIAL_REVIEW_COMMAND" >"$REVIEW_LOG" 2>&1 &
+    REVIEW_PID=$!
+    sleep 0.5
+    if kill -0 "$REVIEW_PID" >/dev/null 2>&1; then
+      echo "SPATIAL_REVIEW_STATUS=LAUNCHED"
+      echo "SPATIAL_REVIEW_PID=$REVIEW_PID"
+      echo "SPATIAL_REVIEW_LOG=$REVIEW_LOG"
+      if command -v termux-open-url >/dev/null 2>&1; then
+        termux-open-url "$LOOM_SPATIAL_REVIEW_URL" >/dev/null 2>&1 || true
+        echo "SPATIAL_REVIEW_BROWSER=OPEN_REQUESTED"
+      else
+        echo "SPATIAL_REVIEW_BROWSER=TERMUX_OPEN_URL_UNAVAILABLE"
+      fi
+    else
+      echo "SPATIAL_REVIEW_STATUS=FAILED_TO_STAY_RUNNING"
+      echo "SPATIAL_REVIEW_LOG=$REVIEW_LOG"
+    fi
+  } 2>&1 | tee -a "$TMP"
+fi
 
 if command -v termux-clipboard-set >/dev/null 2>&1; then
   termux-clipboard-set < "$TMP"
