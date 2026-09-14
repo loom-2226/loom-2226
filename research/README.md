@@ -7,6 +7,15 @@ This `research/**` tree is retained for provenance, historical reconstruction, t
 
 It is **not** an active successor-research workspace.
 
+## Upstream research control tower
+
+Main now maintains the authoritative upstream inventory and cross-workstream linkage for off-repository Research Lab efforts:
+
+- `research/LAB_PROJECT_REGISTRY.yml` — machine-readable registry of Research Lab projects, status-at-capture, source paths, promotion boundaries, shared assets and resume points.
+- `docs/architecture/LOOM_PROVENANCE_AND_LINKAGE_CONTROL_TOWER_v1.0.md` — human-readable provenance, change-backpropagation and cross-effort linkage rules.
+
+This does **not** duplicate active research into main. The Research Lab remains the working source for experiments, methods, evidence and reviews; main owns the upstream inventory, promotion decisions and linkage to runtime/engineering/canon consumers.
+
 ## Current rule
 
 > **Do not start new active research in this upstream tree.**

@@ -1,0 +1,182 @@
+version: '1.0'
+registry_id: LOOM_UPSTREAM_RESEARCH_CONTROL_TOWER
+captured_date: '2026-09-15'
+upstream_repository: loom-2226/loom-2226
+upstream_base_sha: 7017e141820d99359d07da9b5cd6cf0e1882a5d3
+research_repository: loom-2226/loom-research-lab
+research_main_sha_at_capture: e4196d0a8cc3944db267e8d31dc9ff04015f842c
+
+purpose:
+  - authoritative_upstream_inventory_of_off_repo_research_efforts
+  - preserve_cross_repo_provenance_and_promotion_paths
+  - preserve_linkage_between_shared_assets_and_consuming_workstreams
+  - make_resume_points_and_change_backpropagation_discoverable
+
+boundaries:
+  main_is_authoritative_for:
+    - upstream_awareness_of_research_projects
+    - project_to_runtime_engineering_linkage
+    - promotion_intake_and_upstream_disposition
+    - shared_asset_provenance_and_consumer_linkage
+  research_lab_remains_authoritative_for:
+    - project_internal_research_artifacts
+    - project_methods_and_experiments
+    - project_evidence_and_reviews
+    - current_research_working_files
+  research_outputs_self_promote: false
+  research_location_implies_canon: false
+  research_location_implies_runtime_authority: false
+  duplicate_live_research_trees_in_main: false
+
+projects:
+  - id: RF
+    name: Relational Foundations
+    source_path: projects/relational_foundations
+    lab_manifest_path: projects/relational_foundations/PROJECT_MANIFEST.yml
+    status_at_capture: FROZEN_RESEARCH_BASELINE
+    source_status_basis: LAB_CURRENT_STATUS.yml
+    upstream_historical_path: research/relational_foundations
+    notes:
+      - active successor science belongs in Research Lab
+      - exact frozen upstream PR heads remain governed in main where Git identity matters
+    promotion_requires_upstream_decision: true
+
+  - id: AP
+    name: Anomaly / Phenomenology
+    source_path: projects/anomaly_phenomenology
+    lab_manifest_path: projects/anomaly_phenomenology/PROJECT_MANIFEST.yml
+    status_at_capture: FROZEN_RESEARCH_BASELINE
+    source_status_basis: LAB_CURRENT_STATUS.yml
+    upstream_historical_path: null
+    notes:
+      - bounded successor A2.1 exists but is not active execution at capture
+      - epistemic firewalls remain in force
+    promotion_requires_upstream_decision: true
+
+  - id: FC
+    name: Foundations Consequences
+    source_path: projects/foundations_consequences
+    lab_manifest_path: projects/foundations_consequences/PROJECT_MANIFEST.yml
+    status_at_capture: ESTABLISHED_RESEARCH_PROJECT_NO_ACTIVE_EXECUTION_BY_DEFAULT
+    source_status_basis: LAB_CURRENT_STATUS.yml
+    upstream_historical_path: research/foundations_consequences
+    notes:
+      - migration complete for current control purposes
+      - historical upstream PR 20 is provenance, not active project authority
+    promotion_requires_upstream_decision: true
+
+  - id: DTA
+    name: Deep Time Attunement
+    source_path: projects/deep_time_attunement
+    lab_manifest_path: projects/deep_time_attunement/PROJECT_MANIFEST.yml
+    status_at_capture: PARKED_OPTIONAL
+    source_status_basis: LAB_CURRENT_STATUS.yml
+    upstream_historical_path: null
+    promotion_requires_upstream_decision: true
+
+  - id: NAV_GIS_HUD_RENDERER_ACCELERATION
+    name: NAV GIS HUD Renderer Acceleration
+    source_path: projects/nav_gis_hud_renderer_acceleration
+    lab_manifest_path: projects/nav_gis_hud_renderer_acceleration/PROJECT_MANIFEST.yml
+    work_plan_path: projects/nav_gis_hud_renderer_acceleration/WORK_PLAN.md
+    status_at_capture: ACTIVE_PARALLEL_RESEARCH
+    source_status_basis: LAB_CURRENT_STATUS.yml
+    parallel_to_upstream_runtime: true
+    freeze_upstream_runtime: false
+    upstream_consumers_and_links:
+      - HUD qualification and Wayfarer engineering consumption
+      - Solar GIS
+      - Navigator presentation
+      - semantic GLB rendering research
+      - Wayfarer local-flight presentation
+    wayfarer_geometry_shared_asset: true
+    research_lab_provenance_pr: 61
+    promotion_requires_upstream_decision: true
+    promotion_requires_runtime_handoff_and_qualification: true
+
+  - id: WORLD_OBJECT_DEVELOPMENT
+    name: LOOM World Object Development Research
+    source_path: projects/world_object_development
+    lab_manifest_path: projects/world_object_development/PROJECT_MANIFEST.yml
+    status_at_capture: PARALLEL_RESEARCH
+    source_status_basis: project_manifest
+    e1_critical_path: false
+    upstream_links:
+      - persistent world-object development lifecycle
+      - provenance-aware object derivation
+      - typed Event and Claim separation
+      - relationship-first object integration
+    promotion_requires_upstream_decision: true
+    registry_drift:
+      detected: true
+      condition: project_exists_in_lab_tree_but_is_not_listed_in_LAB_MANIFEST_or_LAB_CURRENT_STATUS
+      upstream_action: preserve_in_control_tower_and_do_not_lose_project
+
+shared_assets:
+  - id: WAYFARER_DETERMINISTIC_GEOMETRY
+    authority_repository: loom-2226/loom-2226
+    authority_chain:
+      - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+      - canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md
+      - geometry/wayfarer_geometry_seed.sql
+      - src/wayfarer_geometry.py
+      - generated_geometry_json_derivative
+    derivatives:
+      - HUD / Three.js presentation geometry
+      - Computational Shipyard / Blender geometry
+      - semantic GLB interchange derivatives
+    known_consumer_branch_families:
+      - feature/hud-wayfarer-attitude-envelope-v0.1-2026-09-11
+      - feature/hud-local-flight-contract-shell-v0.1-2026-09-09
+      - workstream/wayfarer-3d
+      - research/computational-shipyard-wayfarer-vertical-slice-2026-09-08
+      - research/physical-design-synthesis-wayfarer-s1-2026-09-08
+      - research/physical-design-synthesis-wayfarer-s2-2026-09-08
+    verified_branch_heads_at_capture:
+      hud_wayfarer_attitude: 8b1637e3e6ff7ebb718aa3dfb7b3310be3b6ac2f
+      computational_shipyard_vertical_slice: dc129ebb5999641c85138c3f263ec78b7e3495c5
+    active_e1_integration:
+      pr: 182
+      branch: engineering/e1-committed-component-geometry-envelope-2026-09-15
+      head_at_registry_capture: 08898889ea6ebc322e39205446204cd46118dc2e
+      purpose: consume existing deterministic geometry as conservative committed component envelope
+    change_control:
+      rule: changes_to_shared_geometry_must_record_affected_consumers_and_backpropagation_requirements
+      required_trace:
+        - changed_authority_or_input_file
+        - reason_for_change
+        - exact_commit_or_pr
+        - affected_HUD_consumers
+        - affected_Shipyard_or_GLB_consumers
+        - affected_E1_or_other_engineering_consumers
+        - whether_regeneration_is_required
+        - whether_requalification_is_required
+        - whether_research_fixtures_or_benchmarks_are_stale
+      glb_is_authority: false
+      generated_json_is_authority: false
+
+cross_repo_change_protocol:
+  when_main_changes_shared_asset:
+    - record_change_in_main_PR
+    - identify_all_registered_consumers
+    - regenerate_derivatives_if_required
+    - mark_research_lab_fixtures_or_findings_stale_if_input_semantics_changed
+    - preserve_old_commit_as_provenance
+  when_lab_research_proposes_runtime_change:
+    - produce_governed_handoff_or_disposition
+    - cite_exact_lab_commit_and_artifacts
+    - open_separate_main_PR
+    - qualify_under_main_runtime_or_engineering_process
+    - record_promotion_or_rejection_in_this_registry_or_successor
+  when_resuming_old_branch:
+    - begin_from_registered_authority_chain
+    - compare_branch_inputs_against_current_main
+    - do_not_assume_old_generated_GLBS_or_JSON_are_current
+
+known_open_records_at_capture:
+  - repository: loom-2226/loom-2226
+    pr: 182
+    purpose: E1 committed Wayfarer component geometry envelope
+  - repository: loom-2226/loom-research-lab
+    pr: 61
+    purpose: preserve Wayfarer HUD / Shipyard upstream lineage in renderer research project
