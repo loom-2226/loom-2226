@@ -46,7 +46,7 @@ This follows the general discipline demonstrated by Nagy, Farmer, Bui, and Tranc
 ### 4. EXTRAPOLATED DISTRIBUTION
 Do not report a 200-year extrapolation as a point prediction. Preserve uncertainty and model disagreement. Raw extrapolations may be retained diagnostically even when absurd; they do not become authority.
 
-**Model-disagreement rule:** after hindcast/admissibility screening and application of physical/system constraints, `loom_2226_mvp` defaults to the **most conservative surviving candidate envelope** for the consumer metric. A less conservative candidate may be selected only with an explicit, reviewable justification tied to evidence or model applicability; convenience or desired consumer performance is not justification. The aggressive envelope must remain separately labeled.
+**Model-disagreement rule:** after hindcast/admissibility screening and application of physical/system constraints, `loom_2226_mvp` defaults to the **most conservative surviving candidate envelope** for the consumer metric. “Most conservative” means the surviving envelope that grants the least favorable downstream capability after normalization to the same metric semantics; for an upper capability such as allowable field this is normally the lowest admissible upper envelope, while for a burden such as minimum mass or required power it is normally the highest admissible lower envelope. A less conservative candidate may be selected only with an explicit, reviewable justification tied to evidence or model applicability; convenience or desired consumer performance is not justification. The aggressive envelope must remain separately labeled.
 
 ### 5. PHYSICS BOUNDS
 Apply relevant known-theory constraints independently of the empirical trend: conservation, thermodynamics, magnetic pressure, stress, Stefan-Boltzmann radiation, electrochemistry, radiation damage, critical surfaces, etc. A bound must state its assumptions.
@@ -87,7 +87,7 @@ Every frozen frontier shall expose a machine-checkable `producer_version_hash` i
 12. **No mechanism laundering.** Better engineering cannot make an unearned physical mechanism valid.
 13. **Provenance survives.** Every downstream value remains traceable to observations, model, bounds, derating, assumptions, and exact `producer_version_hash`.
 14. **False precision prohibited.** Output precision shall reflect evidence and model uncertainty.
-15. **Conservative disagreement resolution.** Unless a reviewed applicability argument says otherwise, the MVP uses the most conservative surviving candidate after model screening and physical/system filtering.
+15. **Conservative disagreement resolution.** Unless a reviewed applicability argument says otherwise, the MVP uses the least favorable downstream capability among surviving like-for-like candidate envelopes after model screening and physical/system filtering.
 
 ## Computational roles
 
