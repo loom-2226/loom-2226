@@ -12,11 +12,17 @@ class FrontierConsumerExerciseTests(unittest.TestCase):
         self.assertIn("E1_RCS_FROZEN_INTERFACE", r["authority_inputs"])
         self.assertIn("E1_TORCH_T5_FROZEN_INTERFACE", r["authority_inputs"])
 
-    def test_canon_metric_load_is_accounted_not_ignored(self):
+    def test_canon_metric_load_is_fixed_and_upstream_power_pays_losses(self):
         r = build_consumer_exercise("MVP_2226")
         hard = r["metric"]["HARD"]
-        self.assertEqual(hard["canon_cryo_electrical_w"], Fraction(23_900_000))
-        self.assertGreater(hard["frontier_distribution_heat_w"], 0)
+        load = Fraction(23_900_000)
+        self.assertEqual(hard["canon_cryo_electrical_w"], load)
+        self.assertEqual(hard["frontier_delivered_load_w"], load)
+        self.assertGreater(hard["frontier_required_upstream_electrical_w"], load)
+        self.assertEqual(
+            hard["frontier_distribution_heat_w"],
+            hard["frontier_required_upstream_electrical_w"] - load,
+        )
         self.assertGreater(hard["frontier_distribution_radiator_area_m2"], 0)
         self.assertEqual(r["metric"]["shared_bank_j"], Fraction(2_000_000_000))
         self.assertEqual(r["metric"]["node_count"], 208)
