@@ -1,2 +1,2 @@
-engineering/e1-torch-integrated-architecture-readiness-2026-09-15
-python -m unittest tests.test_wayfarer_torch_integrated_architecture_readiness && python src/wayfarer_torch_integrated_architecture_readiness.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
+engineering/e1-torch-source-power-realizability-2026-09-15
+python -m unittest tests.test_wayfarer_torch_source_power_realizability && python src/wayfarer_torch_source_power_realizability.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
