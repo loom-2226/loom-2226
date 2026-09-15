@@ -40,12 +40,12 @@ _parse_remote_config() {
 }
 load_origin_main_config() {
   local phase="${1:-ORIGIN_MAIN_BOOTSTRAP}" remote_config
-  remote_config="$(git show "origin/main:$CONFIG_REL" 2>/dev/null)" || { echo "LOOM PIXEL QUALIFICATION: unable to read origin/main:$CONFIG_REL during $phase" >&2; exit 95; }
+  remote_config="$(git show "origin/main:engineering/pixel/active_qualification.txt" 2>/dev/null)" || { echo "LOOM PIXEL QUALIFICATION: unable to read origin/main:$CONFIG_REL during $phase" >&2; exit 95; }
   _parse_remote_config "$remote_config" "origin/main" "$phase"
 }
 load_qualification_pointer_config() {
   local phase="${1:-REMOTE_QUALIFICATION_POINTER}" remote_config
-  remote_config="$(git show "$QUALIFICATION_POINTER_REF:$CONFIG_REL" 2>/dev/null)" || { echo "LOOM PIXEL QUALIFICATION: unable to read $QUALIFICATION_POINTER_REF:$CONFIG_REL during $phase" >&2; exit 95; }
+  remote_config="$(git show "$QUALIFICATION_POINTER_REF:engineering/pixel/active_qualification.txt" 2>/dev/null)" || { echo "LOOM PIXEL QUALIFICATION: unable to read $QUALIFICATION_POINTER_REF:$CONFIG_REL during $phase" >&2; exit 95; }
   _parse_remote_config "$remote_config" "$QUALIFICATION_POINTER_REF" "$phase"
 }
 switch_to_config_branch() {
