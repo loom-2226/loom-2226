@@ -55,6 +55,14 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
         self.assertIn("QUALIFICATION_SUMMARY", text)
         self.assertIn("append_qualification_summary", text)
 
+    def test_assisted_runner_opens_retained_transcript_for_review_before_exit(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run_assisted.sh").read_text(encoding="utf-8")
+        self.assertIn("review_log", text)
+        self.assertIn('less -R "$log"', text)
+        self.assertIn('cat "$log"', text)
+        self.assertIn("Press q to close the qualification review", text)
+        self.assertIn('review_log "$RUN_DIR/governed-transcript.txt"', text)
+
     def test_assisted_retry_exports_worktree_pythonpath_without_login_shell(self):
         text = (self.repo / "engineering/pixel/loom_pixel_run_assisted.sh").read_text(encoding="utf-8")
         self.assertIn('export PYTHONPATH="$WORKTREE${PYTHONPATH:+:$PYTHONPATH}"', text)
@@ -72,7 +80,6 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
 
     def test_repair_agent_is_bounded_to_pixel_engineering_files(self):
         from engineering.pixel.mechanical_repair import is_editable_path
-
         self.assertTrue(is_editable_path("engineering/pixel/spatial_review.py"))
         self.assertTrue(is_editable_path("engineering/pixel/loom_pixel_run.sh"))
         self.assertFalse(is_editable_path("tests/test_pixel_spatial_review.py"))
@@ -91,36 +98,26 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
     def test_repair_agent_exact_replacements_only(self):
         from engineering.pixel.mechanical_repair import apply_exact_replacements
         import tempfile
-
         with tempfile.TemporaryDirectory() as td:
             root = pathlib.Path(td)
             p = root / "engineering/pixel/example.py"
             p.parent.mkdir(parents=True)
             p.write_text("alpha\nbeta\n", encoding="utf-8")
-            applied = apply_exact_replacements(
-                root,
-                [{"path": "engineering/pixel/example.py", "old": "beta", "new": "gamma"}],
-            )
+            applied = apply_exact_replacements(root,[{"path":"engineering/pixel/example.py","old":"beta","new":"gamma"}])
             self.assertEqual(applied, ["engineering/pixel/example.py"])
             self.assertEqual(p.read_text(encoding="utf-8"), "alpha\ngamma\n")
 
     def test_candidate_patch_generator_does_not_require_worktree_git_metadata(self):
         from engineering.pixel.candidate_patch import build_candidate_patch
         import tempfile
-
         with tempfile.TemporaryDirectory() as td:
-            base = pathlib.Path(td) / "base"
-            repaired = pathlib.Path(td) / "repaired"
+            base = pathlib.Path(td) / "base"; repaired = pathlib.Path(td) / "repaired"
             rel = pathlib.Path("engineering/pixel/example.py")
-            (base / rel).parent.mkdir(parents=True)
-            (repaired / rel).parent.mkdir(parents=True)
-            (base / rel).write_text("alpha\nbeta\n", encoding="utf-8")
-            (repaired / rel).write_text("alpha\ngamma\n", encoding="utf-8")
+            (base / rel).parent.mkdir(parents=True); (repaired / rel).parent.mkdir(parents=True)
+            (base / rel).write_text("alpha\nbeta\n", encoding="utf-8"); (repaired / rel).write_text("alpha\ngamma\n", encoding="utf-8")
             patch = build_candidate_patch(base, repaired, [rel.as_posix()])
-            self.assertIn("--- a/engineering/pixel/example.py", patch)
-            self.assertIn("+++ b/engineering/pixel/example.py", patch)
-            self.assertIn("-beta", patch)
-            self.assertIn("+gamma", patch)
+            self.assertIn("--- a/engineering/pixel/example.py", patch); self.assertIn("+++ b/engineering/pixel/example.py", patch)
+            self.assertIn("-beta", patch); self.assertIn("+gamma", patch)
 
     def test_assisted_runner_packages_candidate_without_git_diff_in_worktree(self):
         text = (self.repo / "engineering/pixel/loom_pixel_run_assisted.sh").read_text(encoding="utf-8")
@@ -129,10 +126,8 @@ class PixelAssistedQualificationContractTests(unittest.TestCase):
 
     def test_installer_creates_two_distinct_termux_shortcuts(self):
         text = (self.repo / "engineering/pixel/install_qualify_shortcuts.sh").read_text(encoding="utf-8")
-        self.assertIn("LOOM_Qualify.sh", text)
-        self.assertIn("LOOM_Qualify_AI.sh", text)
-        self.assertIn("loom_pixel_run.sh", text)
-        self.assertIn("loom_pixel_run_assisted.sh", text)
+        self.assertIn("LOOM_Qualify.sh", text); self.assertIn("LOOM_Qualify_AI.sh", text)
+        self.assertIn("loom_pixel_run.sh", text); self.assertIn("loom_pixel_run_assisted.sh", text)
 
 
 if __name__ == "__main__":
