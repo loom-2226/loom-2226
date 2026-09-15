@@ -36,6 +36,12 @@ class PixelQualificationRunnerContractTests(unittest.TestCase):
         self.assertIn('kill -0 "$LOCK_PID"', text)
         self.assertIn('rm -rf "$QUALIFICATION_LOCK_DIR"', text)
 
+    def test_lock_cleanup_is_owned_only_by_top_level_runner(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
+        self.assertIn('QUALIFICATION_LOCK_OWNER_BASHPID="$BASHPID"', text)
+        self.assertIn('[[ "$BASHPID" == "$QUALIFICATION_LOCK_OWNER_BASHPID" ]]', text)
+        self.assertIn('printf \'%s\\n\' "$QUALIFICATION_LOCK_OWNER_BASHPID" > "$QUALIFICATION_LOCK_DIR/pid"', text)
+
 
 if __name__ == "__main__":
     unittest.main()
