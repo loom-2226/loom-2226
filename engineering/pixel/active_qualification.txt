@@ -1,2 +1,2 @@
-engineering/e1-torch-thermal-shield-thrust-frame-envelope-2026-09-15
-python -m unittest tests.test_wayfarer_torch_thermal_shield_thrust_frame_envelope && python src/wayfarer_torch_thermal_shield_thrust_frame_envelope.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
+engineering/e1-torch-reactor-nozzle-family-trade-2026-09-15
+python -m unittest tests.test_wayfarer_torch_reactor_nozzle_family_trade && python src/wayfarer_torch_reactor_nozzle_family_trade.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
