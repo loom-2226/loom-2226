@@ -1,6 +1,8 @@
 ; LOOM 2226 — Wayfarer torch mode + remass constraint model v0.1
 ; class: engineering verification artifact; non-canon; non-qualification by itself
 ; Exact rational arithmetic. SI units for propulsion variables; tonnes for inventory.
+; This file intentionally contains constraints only. Query fixtures include it and
+; issue their own check-sat/get-model/get-unsat-core commands.
 (set-option :produce-models true)
 (set-option :produce-unsat-cores true)
 
@@ -42,6 +44,3 @@
 (assert (! (= thrust_N (* mdot_kg_s ve_m_s)) :named A_THRUST_IDENTITY))
 (assert (! (= jet_power_W (* (/ 1 2) mdot_kg_s ve_m_s ve_m_s)) :named A_JET_POWER_IDENTITY))
 (assert (! (and (>= mdot_kg_s 0) (>= ve_m_s 0) (>= thrust_N 0) (>= jet_power_W 0)) :named A_PROPULSION_NONNEGATIVE))
-
-(check-sat)
-(get-model)
