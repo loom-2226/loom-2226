@@ -1,6 +1,6 @@
 # F1 — Superconductor / High-Field Magnet Frontier MVP v0.1
 
-**Status:** HOSTILE-REVIEW SCAFFOLD / NOT FROZEN  
+**Status:** HOSTILE REVIEW CONDITIONS INCORPORATED / NUMERICAL ENVELOPE NOT FROZEN  
 **Protocol:** `LOOM_2226_ENGINEERING_FRONTIER_PROTOCOL_v0.1`  
 **Authority:** DERIVED ENGINEERING ENVELOPE — PENDING DATA/FIT/COUPLED-CONSTRAINT PASS  
 **Target epoch:** 2226
@@ -21,7 +21,7 @@ May inform magnetic-nozzle field/mass sensitivity and related integration requir
 **May not close:** magnetic-nozzle plasma physics, detachment, divergence, interception, erosion, or lifetime merely because a stronger magnet becomes feasible.
 
 ### Fusion source / confinement
-May inform field, structural, cryogenic, and specific-mass sensitivity.
+May inform field, structural, cryogenic, radiation-lifetime, and specific-mass sensitivity.
 
 **May not close:** `SOURCE_REACTOR_REALIZABILITY` or fusion gain/source physics by materials extrapolation alone.
 
@@ -45,7 +45,8 @@ F1 must not collapse all magnet records into a single `tesla vs year` series. At
 9. installed magnet/system mass where available;
 10. cryogenic/electrical burden;
 11. duty cycle;
-12. structural stress/strain and protection regime where available.
+12. structural stress/strain and protection regime where available;
+13. radiation/fluence tolerance and lifetime in the relevant consumer environment.
 
 ## 2026 evidence anchors for the first pass
 
@@ -62,7 +63,7 @@ A three-point historical fit using approximately 8.3 T, 11.8 T, and 20 T milesto
 
 Disposition: **REJECT AS DOWNSTREAM AUTHORITY.**
 
-Reason: the forecast horizon is many times the fitted observation window; the observations are not demonstrated to be like-for-like system metrics; no hindcast was performed; no uncertainty distribution was retained; and no coupled physical/system constraints were applied.
+Reason: the forecast horizon is many times the fitted observation window; the observations are not demonstrated to be like-for-like system metrics; three points fail the protocol's minimum-N rule for quantitative hindcasting; no uncertainty distribution was retained; and no coupled physical/system constraints were applied.
 
 The absurd raw result is useful only as a regression test: the Frontier Protocol must prevent such a value from silently becoming canon.
 
@@ -72,22 +73,23 @@ Characteristic magnetic pressure is
 
 `P_B = B^2 / (2 mu0)`.
 
-At 375 T, this characteristic pressure is approximately 56 GPa.
+At roughly 375 T, this characteristic pressure is roughly 56 GPa. Precision beyond that is unsupported by the assumptions.
 
-The exploratory calculation assumed a future structural budget of approximately 56 GPa and solved the above expression backward for field. That future strength budget was based on an 8x multiplier over an assumed modern ~7 GPa practical reference.
+The exploratory calculation assumed a future structural budget of approximately 56 GPa and solved the above expression backward for field. That future strength budget was based on an unearned 8x multiplier over an assumed modern ~7 GPa practical reference.
 
 Disposition: **CONDITIONAL_UPPER_BOUND_EXPERIMENT_ONLY**.
 
-It is not yet accepted because:
+It is not accepted because:
 
 - the 8x structural multiplier has not been earned;
 - characteristic magnetic pressure is not by itself a complete magnet stress solution;
+- it is only one candidate constraint and the protocol now requires all applicable bounds;
 - bore/geometry matter;
 - conductor critical surface and engineering current density matter;
 - reinforcement and insulation consume mass/volume;
 - stored energy and quench/protection matter;
 - cryogenic burden matters;
-- radiation/lifetime may matter for Wayfarer consumers;
+- radiation/fluence lifetime matters for relevant Wayfarer consumers;
 - the installed system must fit mass and geometry budgets simultaneously.
 
 ## Required F1 computational work before freeze
@@ -96,24 +98,29 @@ It is not yet accepted because:
 Build a cited dataset with operating-class labels. Do not silently mix all-superconducting, hybrid, resistive, and pulsed systems.
 
 ### Forecast pass
-Where data support it, fit multiple plausible trends and perform hindcasting. Preserve model disagreement and widening uncertainty. If the data are too sparse for a defensible statistical extrapolation, say so and use bounded scenario construction rather than fake statistics.
+Where data support it, fit multiple plausible trends and perform hindcasting. Quantitative hindcasting requires at least 6 independent like-for-like observations under the protocol. If F1 cannot assemble that minimum for a given operating class, classify it `INSUFFICIENT_FOR_QUANTITATIVE_HINDCAST` and use bounded scenario construction instead of fake statistical validation.
+
+Preserve model disagreement and widening uncertainty. After admissibility/hindcast and physical/system filtering, the MVP defaults to the most conservative surviving candidate unless a reviewed applicability argument supports another choice.
 
 ### Physics pass
-At minimum represent:
+At minimum represent and evaluate every applicable constraint among:
 
 - `B` and useful bore/aperture;
 - conductor `Jc(B,T,strain)` or a defensible engineering-current-density envelope;
 - magnetic stress/structural constraint;
 - reinforcement fraction / installed mass;
 - stored magnetic energy;
-- quench/protection burden;
-- operating temperature / cryogenic burden;
+- quench/protection burden and thermal-runaway constraints;
+- operating temperature / cryogenic power burden;
+- radiation/fluence tolerance and lifetime for the consumer environment;
 - operating margin and duty cycle.
+
+The most restrictive applicable individual or coupled bound governs. Any identified bound that cannot yet be evaluated must remain explicit and prevents the physical constraint set from being called closed.
 
 ### Joint satisfiability pass
 Use exact/analytic checks for simple constraints and Z3 when the multidimensional envelope becomes genuinely coupled.
 
-The relevant SMT question is not `B <= arbitrary_cap`. It is whether there exists at least one state satisfying the required field/bore, conductor, structure, mass, protection, thermal, geometry, margin, and duty constraints simultaneously.
+The relevant SMT question is not `B <= arbitrary_cap`. It is whether there exists at least one state satisfying the required field/bore, conductor, structure, mass, protection, thermal, radiation/lifetime, geometry, margin, and duty constraints simultaneously.
 
 `SAT` means the encoded assumptions admit a solution. It does not certify a component. `UNSAT` means at least one ambition/assumption set is mutually incompatible and should be diagnosed rather than patched with an invented parameter.
 
@@ -121,40 +128,34 @@ The relevant SMT question is not `B <= arbitrary_cap`. It is whether there exist
 
 Until the work above is complete:
 
+- `frontier_version = v0.1`
+- `producer_version_hash = PENDING_FREEZE`
+- `hindcast_status = PENDING_DATA`
 - `loom_2226_mvp_large_continuous_field = UNSET`
+- `mvp_selection_basis = UNSET`
 - `aggressive_2226_large_continuous_field = UNSET`
-- `conditional_upper_bound = 375 T EXPERIMENT / NOT AUTHORITY`
+- `conditional_upper_bound = ~375 T EXPERIMENT / NOT AUTHORITY`
 - `component_hardware_certified = false`
 - `new_physics_required_by_frontier = false`
-- `review_status = HOSTILE_REVIEW_REQUIRED`
+- `review_status = ACCEPT_WITH_CONDITIONS / CONDITIONS INCORPORATED`
 
-No consumer may substitute 50 T, 75 T, 100 T, 375 T, or any other conversational placeholder as F1 authority until the frontier is frozen through governed process.
+On freeze, `producer_version_hash` must identify the exact governed F1 artifact/version. Any consumer using F1 must pin that hash and revalidate if it changes.
 
-## Hostile review request for Claude
+No consumer may substitute 50 T, 75 T, 100 T, ~375 T, or any other conversational placeholder as F1 authority until the frontier is frozen through governed process.
 
-Review this protocol and F1 scaffold as an adversarial engineering-methodology reviewer.
+## Hostile review disposition — 2026-09-16
 
-Find:
+Review disposition: **ACCEPT_WITH_CONDITIONS**.
 
-- miracle-smuggling;
-- category errors;
-- unjustified extrapolation;
-- double-counting of technological progress;
-- inappropriate or incomparable datasets;
-- weak or mislabeled physical caps;
-- arbitrary system derating;
-- false precision;
-- hidden preferred outcomes;
-- any place where `DERIVED_ENGINEERING_ENVELOPE` can masquerade as `2226_FACT`;
-- any place where improved materials could accidentally launder an unknown physical mechanism into validity.
+All five requested corrections are incorporated in this revision:
 
-Separately assess whether the protocol is conservative enough for a 200-year horizon while still allowing genuine technological progress.
+1. all applicable independent physics bounds must be evaluated, with the tightest individual/coupled constraint governing;
+2. quantitative hindcasting now has a protocol-level minimum of 6 independent like-for-like observations; sparse classes fall back to bounded scenario construction;
+3. model disagreement resolves conservatively by default after screening/filtering;
+4. radiation/fluence tolerance is a required F1 metric and physics/system consideration for relevant consumers;
+5. frozen producer artifacts expose `producer_version_hash`, which consumers must pin for machine-detectable provenance and revalidation.
 
-Do **not** substitute a preferred numerical answer merely because an output looks too high or too low. Identify the failed assumption, dataset, model, bound, or constraint.
-
-For F1 specifically, determine whether the proposed data categories compare like with like, whether a meaningful hindcast can be built from available evidence, what minimum coupled constraints are required before a field value can become downstream authority, and whether the 375 T experiment is correctly demoted to a conditional non-authoritative bound.
-
-Return one disposition: `ACCEPT`, `ACCEPT_WITH_CONDITIONS`, or `REVISE`. Tie every condition to a specific methodological defect and identify the smallest corrective action.
+The reviewer's false-precision criticism is also incorporated: the stress-only experiment is expressed only as approximately 375 T / approximately 56 GPa, and remains non-authoritative.
 
 ## References
 
