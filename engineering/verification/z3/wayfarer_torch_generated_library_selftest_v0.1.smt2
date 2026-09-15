@@ -1,0 +1,6 @@
+(include "wayfarer_torch_generated_cards_v0.1.smt2")
+(declare-const m TorchMode)
+(assert (! (= m FAST) :named T_FAST))
+(assert (! (= (mode-thrust m) (/ 1363320483 40)) :named T_EXACT_FAST_THRUST))
+(assert (! (= (mode-pjet m) 11929054226250) :named T_EXACT_FAST_PJET))
+(check-sat)

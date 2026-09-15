@@ -6,21 +6,14 @@ no working-fluid species, hardware, response time, or efficiency is selected/cer
 import json
 import math
 
-MODES = {
-    "ECON": (1.1361004025, 3_000_000.0),
-    "CRUISE": (5.6805020125, 2_000_000.0),
-    "EXPEDITE": (22.72200805, 1_000_000.0),
-    "FAST": (48.69001725, 700_000.0),
-    "HARD": (2272200805 / 18000000, 450_000.0),
-    "LIMIT": (2272200805 / 8000000, 300_000.0),
-}
+from src.wayfarer_torch_mode_cards import MODE_CARDS, mode_outputs
+
+# Backward-compatible float presentation view. Exact verification authority lives in MODE_CARDS.
+MODES = {name: (float(mdot), float(ve)) for name, (mdot, ve) in MODE_CARDS.items()}
 
 
 def _mode_outputs(mode):
-    mdot, ve = MODES[mode]
-    thrust = mdot * ve
-    jet_power = 0.5 * mdot * ve * ve
-    return mdot, ve, thrust, jet_power
+    return tuple(float(v) for v in mode_outputs(mode))
 
 
 def build_envelope():
@@ -74,7 +67,7 @@ def build_envelope():
             "EROSION_CONTAMINATION_AND_LIFETIME",
         ],
         "firewall": "PROTECTED_50_T_WATER_RESERVE_IS_NOT_NORMAL_REMASS",
-        "qualified_next_step": "Z3_FIXED_DURATION_SEGMENT_AND_CONFIGURATION_SYNTHESIS",
+        "qualified_next_step": "Z3_GENERATED_FORMAL_LIBRARY_AND_CONFIGURATION_SYNTHESIS",
     }
 
 
