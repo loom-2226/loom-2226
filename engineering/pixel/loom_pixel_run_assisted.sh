@@ -16,11 +16,7 @@ MAX_ATTEMPTS="${LOOM_ASSISTED_MAX_ATTEMPTS:-2}"
 STATE_ROOT="$HOME/.cache/loom/assisted"
 ENV_FILE="$HOME/.config/loom/openai.env"
 
-if [[ -f "$ENV_FILE" ]]; then
-  # shellcheck disable=SC1090
-  source "$ENV_FILE"
-fi
-
+if [[ -f "$ENV_FILE" ]]; then source "$ENV_FILE"; fi
 mkdir -p "$STATE_ROOT"
 RAW_TMP="$(mktemp -t loom-assisted-raw.XXXXXX)"
 WORKTREE=""
@@ -48,15 +44,23 @@ REPORT="$RUN_DIR/report.txt"
 QUALIFICATION_SUMMARY="$(grep -E '^QUALIFICATION_(AXIS|DISPOSITION|MISSING_REQUIRED_EVIDENCE)=' "$RAW_TMP" | tail -n 3 || true)"
 
 copy_report() {
-  if command -v termux-clipboard-set >/dev/null 2>&1; then
-    termux-clipboard-set < "$REPORT"
-  fi
+  if command -v termux-clipboard-set >/dev/null 2>&1; then termux-clipboard-set < "$REPORT"; fi
   cat "$REPORT"
 }
 
 append_qualification_summary() {
-  if [[ -n "$QUALIFICATION_SUMMARY" ]]; then
-    printf '%s\n' "$QUALIFICATION_SUMMARY" >> "$REPORT"
+  if [[ -n "$QUALIFICATION_SUMMARY" ]]; then printf '%s\n' "$QUALIFICATION_SUMMARY" >> "$REPORT"; fi
+}
+
+review_log() {
+  local log="$1"
+  [[ -f "$log" ]] || return 0
+  printf '\nFULL QUALIFICATION TRANSCRIPT\n=============================\n'
+  printf 'Press q to close the qualification review.\n\n'
+  if command -v less >/dev/null 2>&1 && [[ -t 0 && -t 1 ]]; then
+    less -R "$log"
+  else
+    cat "$log"
   fi
 }
 
@@ -73,6 +77,7 @@ RESULT=GOVERNED_QUALIFICATION_PASS
 EOF
   append_qualification_summary
   copy_report
+  review_log "$RUN_DIR/governed-transcript.txt"
   exit 0
 fi
 
@@ -88,9 +93,7 @@ RAW_LOG=$RUN_DIR/governed-transcript.txt
 RESULT=ESCALATE
 REASON=OPENAI_API_KEY is not configured in $ENV_FILE or the environment.
 EOF
-  append_qualification_summary
-  copy_report
-  exit "$RAW_RC"
+  append_qualification_summary; copy_report; review_log "$RUN_DIR/governed-transcript.txt"; exit "$RAW_RC"
 fi
 
 if [[ ! -f "$CONFIG" ]]; then
@@ -101,12 +104,11 @@ GOVERNED_QUALIFICATION_PASS=NO
 LOCAL_REPAIR_ATTEMPTED=NO
 BRANCH=$BRANCH
 SHA=$HEAD_SHA
+RAW_LOG=$RUN_DIR/governed-transcript.txt
 RESULT=ESCALATE
 REASON=active qualification config is missing after governed failure.
 EOF
-  append_qualification_summary
-  copy_report
-  exit "$RAW_RC"
+  append_qualification_summary; copy_report; review_log "$RUN_DIR/governed-transcript.txt"; exit "$RAW_RC"
 fi
 
 mapfile -t CFG < "$CONFIG"
@@ -119,12 +121,11 @@ GOVERNED_QUALIFICATION_PASS=NO
 LOCAL_REPAIR_ATTEMPTED=NO
 BRANCH=$BRANCH
 SHA=$HEAD_SHA
+RAW_LOG=$RUN_DIR/governed-transcript.txt
 RESULT=ESCALATE
 REASON=active qualification command is empty after governed failure.
 EOF
-  append_qualification_summary
-  copy_report
-  exit "$RAW_RC"
+  append_qualification_summary; copy_report; review_log "$RUN_DIR/governed-transcript.txt"; exit "$RAW_RC"
 fi
 
 if [[ -n "$(git -C "$REPO_ROOT" status --porcelain)" ]]; then
@@ -135,46 +136,31 @@ GOVERNED_QUALIFICATION_PASS=NO
 LOCAL_REPAIR_ATTEMPTED=NO
 BRANCH=$BRANCH
 SHA=$HEAD_SHA
+RAW_LOG=$RUN_DIR/governed-transcript.txt
 RESULT=ESCALATE
 REASON=authoritative working tree is dirty; assisted repair refused.
 EOF
-  append_qualification_summary
-  copy_report
-  exit "$RAW_RC"
+  append_qualification_summary; copy_report; review_log "$RUN_DIR/governed-transcript.txt"; exit "$RAW_RC"
 fi
 
 WORK_BASE="${TMPDIR:-$HOME/.cache/loom}"
 mkdir -p "$WORK_BASE"
 WORKTREE="$WORK_BASE/loom-assisted-worktree-${STAMP}-$$"
 (cd "$REPO_ROOT" && git worktree add --detach "$WORKTREE" "$HEAD_SHA") >/dev/null
-
 CURRENT_TRANSCRIPT="$RUN_DIR/governed-transcript.txt"
-ATTEMPT=0
-LAST_SUMMARY=""
-LAST_REASON=""
-LOCAL_PASS=0
+ATTEMPT=0; LAST_SUMMARY=""; LAST_REASON=""; LOCAL_PASS=0
 
 while [[ $ATTEMPT -lt $MAX_ATTEMPTS ]]; do
-  ATTEMPT=$((ATTEMPT + 1))
-  DECISION="$RUN_DIR/decision-$ATTEMPT.json"
+  ATTEMPT=$((ATTEMPT + 1)); DECISION="$RUN_DIR/decision-$ATTEMPT.json"
   set +e
-  python "$REPAIR_AGENT" \
-    --root "$WORKTREE" \
-    --transcript "$CURRENT_TRANSCRIPT" \
-    --attempt "$ATTEMPT" \
-    --output "$DECISION" >/dev/null
+  python "$REPAIR_AGENT" --root "$WORKTREE" --transcript "$CURRENT_TRANSCRIPT" --attempt "$ATTEMPT" --output "$DECISION" >/dev/null
   AGENT_RC=$?
   set -e
-
   if [[ -f "$DECISION" ]]; then
     LAST_SUMMARY="$(python -c 'import json,sys; print(json.load(open(sys.argv[1])).get("summary", ""))' "$DECISION" 2>/dev/null || true)"
     LAST_REASON="$(python -c 'import json,sys; print(json.load(open(sys.argv[1])).get("reason", ""))' "$DECISION" 2>/dev/null || true)"
   fi
-
-  if [[ $AGENT_RC -ne 0 ]]; then
-    break
-  fi
-
+  if [[ $AGENT_RC -ne 0 ]]; then break; fi
   ATTEMPT_LOG="$RUN_DIR/retry-$ATTEMPT.txt"
   set +e
   export PYTHONPATH="$WORKTREE${PYTHONPATH:+:$PYTHONPATH}"
@@ -182,14 +168,9 @@ while [[ $ATTEMPT -lt $MAX_ATTEMPTS ]]; do
   RETRY_RC=$?
   set -e
   CURRENT_TRANSCRIPT="$ATTEMPT_LOG"
-
   if [[ $RETRY_RC -eq 0 ]]; then
     set +e
-    python "$PATCH_BUILDER" \
-      --authoritative-root "$REPO_ROOT" \
-      --repaired-root "$WORKTREE" \
-      --decision "$DECISION" \
-      --output "$RUN_DIR/candidate.patch"
+    python "$PATCH_BUILDER" --authoritative-root "$REPO_ROOT" --repaired-root "$WORKTREE" --decision "$DECISION" --output "$RUN_DIR/candidate.patch"
     PATCH_RC=$?
     set -e
     if [[ $PATCH_RC -ne 0 ]]; then
@@ -197,8 +178,7 @@ while [[ $ATTEMPT -lt $MAX_ATTEMPTS ]]; do
       LAST_REASON="metadata-independent candidate patch builder returned exit $PATCH_RC"
       break
     fi
-    LOCAL_PASS=1
-    break
+    LOCAL_PASS=1; break
   fi
 done
 
@@ -240,4 +220,5 @@ fi
 
 append_qualification_summary
 copy_report
+review_log "$CURRENT_TRANSCRIPT"
 exit "$RAW_RC"
