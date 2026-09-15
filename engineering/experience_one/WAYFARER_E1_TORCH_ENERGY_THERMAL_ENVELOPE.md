@@ -1,19 +1,19 @@
-# Wayfarer E1 Torch — Source, Energy, Thermal and Radiator Envelope v0.1
+# Wayfarer E1 Torch — Source, Energy and Thermal-Deposition Envelope v0.2
 
 **Status:** WORKING ENGINEERING INTERFACE / NON-CANON / NON-HARDWARE-CERTIFICATION
 
-Yes: E1 ultimately needs the radiator requirement sized. But radiator area is a **downstream consequence of earned vehicle heat deposition**, not a fraction of the 5–13 TW direct kinetic jet power chosen by convenience.
+E1 carries torch heat deposition forward as a **working output variable**. The torch layer does not require that deposited heat be rejected immediately by radiators.
 
 ## Current authority
 
-- four major radiator assemblies;
-- 900 K high-drive reject interface;
-- torch and high-metric operation mutually exclusive;
-- direct kinetic jet power from the earned six torch cards.
+- four major radiator assemblies exist in the vehicle grammar;
+- 900 K is the current high-drive reject interface;
+- torch and high-metric operation are mutually exclusive;
+- direct kinetic jet power comes from the earned six torch cards.
 
 Existing metric-drive equivalent radiator areas are not reused as a torch solution. Archived courier torch-deposition ppm, 50–60 GJ transient capacity, 1,600 m2 high-temperature area and 3,600–4,000 m2 total effective area remain sensitivity/history only until re-earned.
 
-## Power chain
+## Torch power chain
 
 When the required physical inputs exist:
 
@@ -23,34 +23,29 @@ When the required physical inputs exist:
 
 `m_source = P_source / specific_power` when source specific power is supplied.
 
-`P_vehicle_deposition = P_source * f_vehicle_deposition`
+`P_heat = P_source * f_vehicle_deposition`
 
-No missing quantity receives a default.
+`P_heat` is the torch layer's thermal output to the later ship-wide power/thermal architecture. No missing quantity receives a default.
 
-## Radiator sizing
+## Downstream radiator sensitivity only
 
-For an explicitly supplied vehicle heat-rejection load, radiator temperature and emissivity, the ideal emitting area is:
+The implementation retains a radiator sensitivity helper so a later thermal architecture can evaluate an explicitly supplied heat-rejection load:
 
 `A = P_reject / (epsilon * sigma * T^4)`
 
-The executable T2 interface uses the current 900 K reject interface and requires emissivity explicitly. It reports total ideal emitting area and ideal area per each of the four radiator assemblies.
+This is **not a requirement that P_heat == P_reject at the same instant**. Heat may later be transported, stored, recovered, reused or rejected according to the ship-wide energy/thermal architecture. Conservation must close over the complete duty cycle, but that closure is downstream of the torch layer.
 
-This is **not yet physical radiator geometry**. Physical sizing must additionally close view factors, two-sided versus one-sided emitting convention, coolant/transport temperature drops, manifold/plumbing losses, deployment/stowage, structural mass, micrometeoroid tolerance, plume interception and external clearance.
+Physical radiator sizing additionally requires view factors, emitting-surface convention, coolant/transport temperature drops, manifold/plumbing losses, deployment/stowage, structural mass, micrometeoroid tolerance, plume interception and external clearance.
 
-## What blocks a governing Wayfarer radiator area today
+## Open torch physical inputs
 
-1. source directed fraction is OPEN;
-2. vehicle deposition fraction and its photon/neutron/plasma/interception partition are OPEN;
-3. radiator emissivity/material system is OPEN;
-4. transient buffer credit is OPEN;
-5. physical geometry/view factor/plume-clearance closure is OPEN.
+1. source directed fraction;
+2. vehicle deposition fraction and photon/neutron/plasma/interception partition;
+3. applicable source Q and source specific power;
+4. source/field/shield lifetime behavior.
 
-Therefore T2 earns the **sizing equation and dependency chain**, not a fake square-metre answer.
-
-## Why this matters
-
-At terawatt jet powers, tiny deposition fractions dominate the thermal design. A 10 ppm deposition against a ~10 TW scale is ~100 MW scale before correcting for source directed fraction. That is why the archived ppm values are useful as sensitivity cases but cannot be promoted merely because they produce plausible radiator sizes.
+Radiator emissivity, thermal storage capacity and thermal disposal strategy are downstream thermal-system holds, not prerequisites for calculating torch heat deposition.
 
 ## E1 closure rule
 
-E1 may qualify this interface with the radiator area unresolved if all unresolved physical inputs remain explicit technology holds and no runtime behavior assumes a radiator area. A physical radiator design/freeze requires those inputs to be earned separately.
+E1 may qualify the torch interface with `P_heat` unresolved or parametrically evaluated provided unresolved physical inputs remain explicit technology holds and no runtime behavior silently assumes their values. The downstream power/thermal chain consumes `P_heat` later.
