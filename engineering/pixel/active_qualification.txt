@@ -1,2 +1,2 @@
-engineering/e1-torch-source-architecture-breakthrough-trade-2026-09-15
-python -m unittest tests.test_wayfarer_torch_source_architecture_breakthrough_trade && python src/wayfarer_torch_source_architecture_breakthrough_trade.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
+engineering/e1-torch-requirements-source-mass-efficiency-trade-2026-09-15
+python -m unittest tests.test_wayfarer_torch_requirements_source_mass_efficiency_trade && python src/wayfarer_torch_requirements_source_mass_efficiency_trade.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
