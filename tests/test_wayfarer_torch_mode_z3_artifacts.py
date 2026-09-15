@@ -16,8 +16,6 @@ class WayfarerTorchModeZ3ArtifactTests(unittest.TestCase):
     def test_exact_card_table_does_not_duplicate_rounded_derived_outputs(self):
         text = (Z3 / "wayfarer_torch_mode_envelope_v0.1.smt2").read_text()
         table = text.split("; Exact physical identities.", 1)[0]
-        # mdot and ve are the exact card inputs. Thrust and jet power must be
-        # derived by the named identities, not independently rounded and pinned.
         self.assertNotIn("(= thrust_N", table)
         self.assertNotIn("(= jet_power_W", table)
         self.assertIn("(* mdot_kg_s ve_m_s)", text)
@@ -38,6 +36,8 @@ class WayfarerTorchModeZ3ArtifactTests(unittest.TestCase):
         self.assertIn("wayfarer_torch_mode_synthesis_v0.1.smt2 sat", text)
         self.assertIn("wayfarer_torch_mode_negative_power_v0.1.smt2 unsat", text)
         self.assertIn("LOOM_Z3_WAYFARER_TORCH_MODE_STATUS=PASS", text)
+        self.assertIn("solver_exit=", text)
+        self.assertIn("2>&1", text)
 
     def test_synthesis_query_is_not_prebound_to_a_specific_mode(self):
         text = (Z3 / "wayfarer_torch_mode_synthesis_v0.1.smt2").read_text()
