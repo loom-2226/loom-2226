@@ -1,0 +1,43 @@
+{
+  "schema": "LOOM.Wayfarer.RCSCoarseFineOfflineSweepResult",
+  "schema_version": "0.1",
+  "source_head_sha": "4ccd92a33ef64bf8e495aefe20c686025b155c0d",
+  "source_workflow_run_id": 34923328218,
+  "source_artifact_id": 10379120717,
+  "source_result_sha256": "6ba805ce09be05aba364f9923612c15369ae7ad98febd28feb95988382be9832",
+  "execution": {
+    "point_count": 9,
+    "case_runs": 45,
+    "pass_region_points": 9,
+    "all_explored_points_passed": true,
+    "deterministic_source": "CURRENT_GOVERNED_REALIZED_WRENCH_CLOSED_LOOP_SIMULATOR"
+  },
+  "explored_region": {
+    "coarse_activation_fraction": [0.10, 0.20, 0.30],
+    "fine_quantization_fraction": [0.25, 0.50, 1.00],
+    "interpretation": "ALL_NINE_SAMPLED_CARTESIAN_POINTS_PASSED_ALL_FIVE_CANONICAL_COUPLED_FLIGHT_CASES"
+  },
+  "pixel_witnesses": [
+    {"coarse_activation_fraction": 0.10, "fine_quantization_fraction": 0.25, "role": "LOW_COARSE_LOW_FINE_CORNER"},
+    {"coarse_activation_fraction": 0.10, "fine_quantization_fraction": 1.00, "role": "LOW_COARSE_HIGH_FINE_CORNER"},
+    {"coarse_activation_fraction": 0.20, "fine_quantization_fraction": 0.50, "role": "PR198_EXISTING_INTERIOR_WITNESS"},
+    {"coarse_activation_fraction": 0.30, "fine_quantization_fraction": 0.25, "role": "HIGH_COARSE_LOW_FINE_CORNER"},
+    {"coarse_activation_fraction": 0.30, "fine_quantization_fraction": 1.00, "role": "HIGH_COARSE_HIGH_FINE_CORNER"}
+  ],
+  "authority": {
+    "claim": "SAMPLED_NUMERICAL_PASS_REGION_ONLY",
+    "continuous_region_interpolation_certified": false,
+    "hardware_inference": "PROHIBITED_WITHOUT_SEPARATE_EVIDENCE",
+    "final_thruster_hardware_certified": false,
+    "minimum_impulse_bit_certified": false,
+    "valve_dynamics_certified": false,
+    "vectoring_mechanism_certified": false,
+    "working_fluid_certified": false,
+    "plume_interference_certified": false,
+    "structural_mount_loads_certified": false,
+    "canon_changed": false,
+    "campaign_state_mutation": "ZERO",
+    "llm_calculation_authority": "ZERO"
+  },
+  "qualified_next_step": "PIXEL_REPLAY_BOUNDARY_AND_INTERIOR_WITNESSES"
+}
