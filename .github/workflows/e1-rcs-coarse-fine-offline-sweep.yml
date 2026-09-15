@@ -1,0 +1,77 @@
+name: E1 RCS Coarse Fine Offline Sweep
+
+on:
+  pull_request:
+    paths:
+      - 'src/wayfarer_rcs_coarse_fine_offline_exploration.py'
+      - 'src/wayfarer_rcs_coarse_fine_authority_envelope.py'
+      - 'src/wayfarer_rcs_actuator_requirement_envelope.py'
+      - 'src/wayfarer_rcs_time_domain_mount_coupling.py'
+      - 'src/wayfarer_rcs_mount_allocator.py'
+      - 'tests/test_wayfarer_rcs_coarse_fine_offline_exploration.py'
+      - '.github/workflows/e1-rcs-coarse-fine-offline-sweep.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-sweep:
+    name: deterministic-45-case-sweep
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Contract tests
+        run: python -m unittest tests.test_wayfarer_rcs_coarse_fine_offline_exploration
+
+      - name: Execute deterministic sweep
+        run: |
+          mkdir -p engineering/experience_one/results
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          from src.wayfarer_rcs_coarse_fine_offline_exploration import execute_offline_exploration
+
+          result = execute_offline_exploration()
+          payload = json.dumps(result, indent=2, sort_keys=True) + '\n'
+          out = Path('engineering/experience_one/results/e1_rcs_coarse_fine_offline_sweep.json')
+          out.write_text(payload, encoding='utf-8')
+          digest = hashlib.sha256(payload.encode('utf-8')).hexdigest()
+          print(f'LOOM_E1_RCS_OFFLINE_SWEEP_STATUS={result["status"]}')
+          print(f'POINT_COUNT={result["execution"]["point_count"]}')
+          print(f'CASE_RUNS={result["execution"]["case_runs"]}')
+          print(f'PASS_REGION_POINTS={len(result["pass_region"])}')
+          print(f'RESULT_SHA256={digest}')
+          PY
+
+      - name: Validate result authority boundary
+        run: |
+          python - <<'PY'
+          import json
+          p='engineering/experience_one/results/e1_rcs_coarse_fine_offline_sweep.json'
+          x=json.load(open(p, encoding='utf-8'))
+          assert x['status'] == 'COMPLETE'
+          assert x['execution']['point_count'] == 9
+          assert x['execution']['case_runs'] == 45
+          assert x['authority']['claim'] == 'NUMERICAL_PASS_REGION_ONLY'
+          assert x['authority']['final_thruster_hardware_certified'] is False
+          assert x['authority']['minimum_impulse_bit_certified'] is False
+          assert x['authority']['valve_dynamics_certified'] is False
+          assert x['authority']['vectoring_mechanism_certified'] is False
+          assert x['authority']['campaign_state_mutation'] == 'ZERO'
+          assert x['authority']['llm_calculation_authority'] == 'ZERO'
+          assert x['pixel_contract']['full_sweep'] == 'PROHIBITED'
+          print('AUTHORITY_BOUNDARY=PASS')
+          PY
+
+      - name: Upload deterministic sweep result
+        uses: actions/upload-artifact@v4
+        with:
+          name: e1-rcs-coarse-fine-offline-sweep-${{ github.sha }}
+          path: engineering/experience_one/results/e1_rcs_coarse_fine_offline_sweep.json
+          if-no-files-found: error
+          retention-days: 30
