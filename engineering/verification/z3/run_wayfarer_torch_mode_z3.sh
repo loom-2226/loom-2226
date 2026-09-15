@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
-cd "$HERE"
 command -v z3 >/dev/null 2>&1 || { echo 'Z3 NOT FOUND'; exit 2; }
 
 run_expect() {
   local file="$1" expected="$2"
   local out first
-  out="$(z3 "$file")"
+  # Z3 resolves SMT-LIB (include ...) relative to the process working directory,
+  # not relative to the including file. Run in the artifact directory so this
+  # behaves identically when invoked from the repository root on Termux.
+  out="$(cd "$HERE" && z3 "$file")"
   first="${out%%$'\n'*}"
   printf '%-58s expected=%-5s got=%s\n' "$file" "$expected" "$first"
   [[ "$first" == "$expected" ]] || { printf '%s\n' "$out"; exit 1; }
