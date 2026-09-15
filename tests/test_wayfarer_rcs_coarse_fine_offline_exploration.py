@@ -1,9 +1,11 @@
 import unittest
+from unittest.mock import patch
 
 from src.wayfarer_rcs_coarse_fine_offline_exploration import (
     EXPLORATION_CASES,
     EXPLORATION_PARAMETERS,
     build_offline_exploration_plan,
+    execute_offline_exploration,
 )
 from src.wayfarer_rcs_time_domain_mount_coupling import _CASES
 
@@ -34,6 +36,36 @@ class CoarseFineOfflineExplorationContractTests(unittest.TestCase):
         plan = build_offline_exploration_plan()
         self.assertEqual(plan["pixel_contract"]["full_sweep"], "PROHIBITED")
         self.assertEqual(plan["pixel_contract"]["qualification_mode"], "BOUNDARY_AND_WITNESS_REPLAY_ONLY")
+
+    def test_executor_runs_cartesian_grid_across_all_cases_and_derives_pass_region(self):
+        def fake_case(name, spec, *, coarse_fraction, fine_fraction, trace_mib_ns):
+            passed = coarse_fraction <= 0.20 and fine_fraction <= 0.50
+            return {"pass": passed, "duration_s": 10.0,
+                    "terminal_velocity_error_m_s": 0.001,
+                    "terminal_attitude_error_deg": 0.01,
+                    "terminal_body_rate_deg_s": 0.001,
+                    "max_mount_realization_error_N": fine_fraction,
+                    "coarse_total_impulse_Ns": coarse_fraction * 100.0,
+                    "fine_total_impulse_Ns": fine_fraction * 100.0}
+
+        with patch("src.wayfarer_rcs_coarse_fine_offline_exploration.build_actuator_requirement_envelope") as demand, patch(
+            "src.wayfarer_rcs_coarse_fine_offline_exploration._simulate_case", side_effect=fake_case
+        ) as simulate:
+            demand.return_value = {"aggregate_sampled_actuator_demand": {"sampled_exact_trace_mib_upper_bound_Ns": 9.0}}
+            result = execute_offline_exploration()
+
+        self.assertEqual(simulate.call_count, len(EXPLORATION_PARAMETERS) * len(EXPLORATION_CASES))
+        self.assertEqual(result["execution"]["point_count"], len(EXPLORATION_PARAMETERS))
+        self.assertEqual(result["execution"]["case_runs"], len(EXPLORATION_PARAMETERS) * len(EXPLORATION_CASES))
+        self.assertEqual(result["source_demand"]["sampled_exact_trace_mib_upper_bound_Ns"], 9.0)
+        self.assertEqual(
+            {(p["coarse_activation_fraction"], p["fine_quantization_fraction"]) for p in result["pass_region"]},
+            {(0.10, 0.25), (0.10, 0.50), (0.20, 0.25), (0.20, 0.50)},
+        )
+        self.assertEqual(result["authority"]["claim"], "NUMERICAL_PASS_REGION_ONLY")
+        self.assertFalse(result["authority"]["final_thruster_hardware_certified"])
+        self.assertEqual(result["authority"]["campaign_state_mutation"], "ZERO")
+        self.assertEqual(result["authority"]["llm_calculation_authority"], "ZERO")
 
 
 if __name__ == "__main__":
