@@ -29,6 +29,13 @@ class WayfarerTorchModeZ3ArtifactTests(unittest.TestCase):
         self.assertIn("wayfarer_torch_mode_negative_power_v0.1.smt2 unsat", text)
         self.assertIn("LOOM_Z3_WAYFARER_TORCH_MODE_STATUS=PASS", text)
 
+    def test_synthesis_query_is_not_prebound_to_a_specific_mode(self):
+        text = (Z3 / "wayfarer_torch_mode_synthesis_v0.1.smt2").read_text()
+        for mode in ("ECON", "CRUISE", "EXPEDITE", "FAST", "HARD", "LIMIT"):
+            self.assertNotIn(f"(= mode {mode})", text)
+        self.assertIn("Q_MIN_THRUST_30_MN", text)
+        self.assertIn("Q_MAX_JET_POWER_12_TW", text)
+
 
 if __name__ == "__main__":
     unittest.main()
