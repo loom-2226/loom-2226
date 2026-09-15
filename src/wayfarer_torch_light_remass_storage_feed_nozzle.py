@@ -1,0 +1,13 @@
+"""Light-remass storage/feed/nozzle envelope; no species selection or certification."""
+import json, math
+
+def build_envelope():
+ return {'schema':'LOOM.Wayfarer.TorchLightRemassStorageFeedNozzleEnvelope','schema_version':'0.1','status':'PASS','authority':{'claim':'E1_TORCH_LIGHT_REMASS_STORAGE_FEED_NOZZLE_ENVELOPE_ONLY','campaign_state_mutation':'ZERO','llm_calculation_authority':'ZERO','canon_changed':False,'working_fluid_selected':False,'hardware_certified':False},'candidate_inputs':{'species':None,'stored_density_kg_m3':None,'tank_utilization_fraction':None,'storage_temperature_K':None,'storage_pressure_Pa':None,'feed_pressure_Pa':None,'ionization_state':None,'coupling_efficiency':None,'nozzle_efficiency':None},'requirements':{'normal_remass_kg':250000.0,'protected_water_kg':50000.0,'mass_flow_kg_s_range':[1.1361004025,284.025100625],'peak_mass_flow_kg_s':284.025100625,'effective_exhaust_velocity_km_s_range':[300.0,3000.0]},'research_direction':{'leading_topology_analog':'LIGHT_HYDROGENIC_OR_HELIUM_CLASS','status':'RESEARCH_DIRECTION_ONLY_NOT_SELECTION','scale_warning':'PUBLISHED_AUGMENTED_DFD_EXHAUST_VELOCITIES_DO_NOT_CLOSE_WAYFARER_REQUIREMENT'},'storage_holds':['SPECIES_IDENTITY','PHASE_AND_THERMODYNAMIC_STATE','TANK_DENSITY_AND_UTILIZATION','INSULATION_AND_BOILOFF_OR_PRESSURE_MANAGEMENT','TANKAGE_MASS_AND_VOLUME','CENTER_OF_MASS_MIGRATION'],'feed_holds':['PEAK_284_KG_S_DELIVERY','TURNDOWN_RATIO_AND_MODE_SWITCHING','VALVE_PUMP_OR_INJECTOR_RESPONSE','FAULT_ISOLATION','THERMAL_CONDITIONING','IONIZATION_AND_PLASMA_INJECTION'],'nozzle_holds':['SPECIES_DEPENDENT_ENERGY_TRANSFER','MAGNETIZATION_AND_GYRADIUS','DETACHMENT','DIVERGENCE','WALL_OR_COIL_INTERCEPTION','EROSION_CONTAMINATION_AND_LIFETIME'],'firewall':'PROTECTED_50_T_WATER_RESERVE_IS_NOT_NORMAL_REMASS','qualified_next_step':'TORCH_LIGHT_REMASS_FEED_DYNAMICS_AND_NOZZLE_COUPLING_MODEL'}
+
+def evaluate_storage(species,stored_density_kg_m3,tank_utilization_fraction):
+ if not species: raise ValueError('species must be explicit')
+ if stored_density_kg_m3 is None or not math.isfinite(stored_density_kg_m3) or stored_density_kg_m3<=0: raise ValueError('density must be explicit and positive')
+ if tank_utilization_fraction is None or not math.isfinite(tank_utilization_fraction) or tank_utilization_fraction<=0 or tank_utilization_fraction>1: raise ValueError('tank utilization must be in (0,1]')
+ return {'species':species,'required_tank_internal_volume_m3':250000.0/stored_density_kg_m3/tank_utilization_fraction,'status':'SENSITIVITY_ONLY_EXPLICIT_INPUTS','certified':False}
+
+if __name__=='__main__': print(json.dumps(build_envelope(),indent=2,sort_keys=True))
