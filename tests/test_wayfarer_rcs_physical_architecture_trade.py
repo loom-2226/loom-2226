@@ -14,7 +14,7 @@ class TestWayfarerRCSPhysicalArchitectureTrade(unittest.TestCase):
 
     def test_preserves_candidate_not_hardware_selection_boundary(self):
         a = self.trade["authority"]
-        self.assertEqual(a["claim"], "PHYSICAL_ARCHITECTURE_TRADE_FRAME_ONLY")
+        self.assertEqual(a["claim"], "EVIDENCE_BACKED_PHYSICAL_ARCHITECTURE_TRADE_ONLY")
         self.assertFalse(a["final_thruster_hardware_certified"])
         self.assertFalse(a["working_fluid_certified"])
         self.assertFalse(a["vectoring_mechanism_certified"])
@@ -29,6 +29,14 @@ class TestWayfarerRCSPhysicalArchitectureTrade(unittest.TestCase):
         self.assertIn("FLUIDIC_OR_SECONDARY_INJECTION", vectoring)
         self.assertIn("MECHANICAL_GIMBAL_IF_EVIDENCE_SUPPORTS", vectoring)
 
+    def test_evidence_supports_mechanism_families_not_wayfarer_values(self):
+        findings = self.trade["evidence_findings"]
+        self.assertTrue(findings["electronically_valved_variable_injection_geometry_supported"])
+        self.assertTrue(findings["fluidic_secondary_injection_tvc_supported"])
+        self.assertTrue(findings["mib_response_is_coupled_propulsion_gnc_quantity"])
+        self.assertFalse(findings["wayfarer_45_degree_vector_cone_physically_demonstrated"])
+        self.assertFalse(findings["wayfarer_numeric_hardware_values_supported"])
+
     def test_no_propellant_or_performance_value_is_invented(self):
         selection = self.trade["selection"]
         self.assertIsNone(selection["working_fluid"])
@@ -37,10 +45,10 @@ class TestWayfarerRCSPhysicalArchitectureTrade(unittest.TestCase):
         self.assertIsNone(selection["valve_response_s"])
         self.assertIsNone(selection["vectoring_mechanism"])
 
-    def test_next_step_requires_evidence_then_installation(self):
+    def test_next_step_is_governed_extrapolation_before_installation(self):
         self.assertEqual(
             self.trade["qualified_next_step"],
-            "GATHER_EVIDENCE_AND_DOWNSELECT_PHYSICAL_RCS_ARCHITECTURE_THEN_RUN_INSTALLATION_FEASIBILITY",
+            "BUILD_GOVERNED_RCS_TECHNOLOGY_EXTRAPOLATION_AND_DOWNSELECT_THEN_RUN_INSTALLATION_FEASIBILITY",
         )
 
 
