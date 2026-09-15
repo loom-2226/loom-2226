@@ -8,8 +8,8 @@
 (declare-const high-metric Bool)
 
 (assert (! (current-grammar-valid 4 4 4 1) :named CURRENT_GRAMMAR))
-(assert (! (= (wet-mass-t) 1158.5) :named CURRENT_WET_MASS_IDENTITY))
-(assert (! (= (+ (normal-remass-t) (protected-water-t)) (working-fluid-t)) :named CURRENT_FLUID_IDENTITY))
+(assert (! (= wet-mass-t 1158.5) :named CURRENT_WET_MASS_IDENTITY))
+(assert (! (= (+ normal-remass-t protected-water-t) working-fluid-t) :named CURRENT_FLUID_IDENTITY))
 
 (assert (! (candidate-ledger-valid 150.0 105.0 45.0 88.0 90.0 160.0 55.0 33.0 20.0 25.0 20.0 67.5) :named CANDIDATE_LEDGER))
 (assert (! (aft-torch-packaging-valid 38.0 43.0 43.0 50.0 50.0 57.0) :named CANDIDATE_AFT_PACKAGING))
