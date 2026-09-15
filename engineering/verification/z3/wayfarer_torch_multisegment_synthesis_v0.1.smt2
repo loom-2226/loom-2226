@@ -26,7 +26,7 @@
     (and (= m EXPEDITE) (= flow (/ 2272200805 100000000)) (= f (* flow 1000000)) (= p (* (/ 1 2) flow 1000000 1000000)))
     (and (= m FAST) (= flow (/ 4869001725 100000000)) (= f (* flow 700000)) (= p (* (/ 1 2) flow 700000 700000)))
     (and (= m HARD) (= flow (/ 2272200805 18000000)) (= f (* flow 450000)) (= p (* (/ 1 2) flow 450000 450000)))
-    (and (= m LIMIT) (= flow (/ 2272200805 8000000)) (= f (* flow 300000)) (= p (* (/ 1 2) flow 300000 300000))))
+    (and (= m LIMIT) (= flow (/ 2272200805 8000000)) (= f (* flow 300000)) (= p (* (/ 1 2) flow 300000 300000)))))
 
 (assert (! (bind-card mode2 mdot2 thrust2 power2) :named M_BIND_SEGMENT_2))
 (assert (! (bind-card mode3 mdot3 thrust3 power3) :named M_BIND_SEGMENT_3))
