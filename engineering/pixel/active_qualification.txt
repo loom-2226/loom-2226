@@ -1,2 +1,2 @@
-engineering/e1-torch-reactor-nozzle-family-trade-2026-09-15
-python -m unittest tests.test_wayfarer_torch_reactor_nozzle_family_trade && python src/wayfarer_torch_reactor_nozzle_family_trade.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
+engineering/e1-torch-deposition-partition-model-2026-09-15
+python -m unittest tests.test_wayfarer_torch_deposition_partition_model && python src/wayfarer_torch_deposition_partition_model.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
