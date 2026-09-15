@@ -6,10 +6,11 @@ command -v z3 >/dev/null 2>&1 || { echo 'Z3 NOT FOUND'; exit 2; }
 
 run_expect() {
   local file="$1" expected="$2"
-  local out
+  local out first
   out="$(z3 "$file")"
-  local first
-  first="$(printf '%s\n' "$out" | head -n1)"
+  # Do not pipe a potentially large model through head under pipefail: printf can
+  # receive SIGPIPE and terminate an otherwise successful qualification.
+  first="${out%%$'\n'*}"
   printf '%-58s expected=%-5s got=%s\n' "$file" "$expected" "$first"
   [[ "$first" == "$expected" ]] || { printf '%s\n' "$out"; exit 1; }
 }
