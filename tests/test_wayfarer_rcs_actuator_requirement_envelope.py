@@ -8,9 +8,9 @@ class TestWayfarerRCSActuatorRequirementEnvelope(unittest.TestCase):
         from src.wayfarer_rcs_actuator_requirement_envelope import summarize_mount_command_trace
 
         trace = [
-            {"t_s": 0.0, "mount_id": "M1", "thrust_N": 1000.0, "force_unit": [1.0, 0.0, 0.0]},
-            {"t_s": 1.0, "mount_id": "M1", "thrust_N": 2000.0, "force_unit": [0.0, 1.0, 0.0]},
-            {"t_s": 2.0, "mount_id": "M1", "thrust_N": 0.0, "force_unit": None},
+            {"case": "A", "t_s": 0.0, "mount_id": "M1", "thrust_N": 1000.0, "force_unit": [1.0, 0.0, 0.0]},
+            {"case": "A", "t_s": 1.0, "mount_id": "M1", "thrust_N": 2000.0, "force_unit": [0.0, 1.0, 0.0]},
+            {"case": "A", "t_s": 2.0, "mount_id": "M1", "thrust_N": 0.0, "force_unit": None},
         ]
         out = summarize_mount_command_trace(trace, sample_period_s=1.0)
         self.assertEqual(out["sample_period_s"], 1.0)
@@ -18,6 +18,21 @@ class TestWayfarerRCSActuatorRequirementEnvelope(unittest.TestCase):
         self.assertAlmostEqual(out["maximum_sampled_thrust_step_N"], 2000.0)
         self.assertAlmostEqual(out["maximum_sampled_direction_step_deg"], 90.0)
         self.assertFalse(out["hardware_selected"])
+
+    def test_separate_cases_do_not_create_false_cross_case_transitions(self):
+        from src.wayfarer_rcs_actuator_requirement_envelope import summarize_mount_command_trace
+
+        trace = [
+            {"case": "A", "t_s": 0.0, "mount_id": "M1", "thrust_N": 100.0, "force_unit": [1.0, 0.0, 0.0]},
+            {"case": "A", "t_s": 1.0, "mount_id": "M1", "thrust_N": 200.0, "force_unit": [1.0, 0.0, 0.0]},
+            {"case": "B", "t_s": 0.0, "mount_id": "M1", "thrust_N": 10000.0, "force_unit": [-1.0, 0.0, 0.0]},
+            {"case": "B", "t_s": 1.0, "mount_id": "M1", "thrust_N": 10100.0, "force_unit": [-1.0, 0.0, 0.0]},
+        ]
+        out = summarize_mount_command_trace(trace, sample_period_s=1.0)
+        self.assertEqual(out["mount_count_observed"], 1)
+        self.assertEqual(out["command_series_count"], 2)
+        self.assertAlmostEqual(out["maximum_sampled_thrust_step_N"], 100.0)
+        self.assertAlmostEqual(out["maximum_sampled_direction_step_deg"], 0.0)
 
     def test_contract_keeps_actual_actuator_hardware_unqualified(self):
         from src.wayfarer_rcs_actuator_requirement_envelope import requirement_authority_contract
