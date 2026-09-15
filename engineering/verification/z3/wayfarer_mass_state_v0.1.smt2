@@ -1,0 +1,48 @@
+; LOOM 2226 — Wayfarer mass/remass/state constraint POC v0.1
+; class: engineering verification artifact; non-canon; non-qualification by itself
+; Units: all mass variables are metric tonnes.
+(set-option :produce-models true)
+(set-option :produce-unsat-cores true)
+
+(declare-const dry_mass_t Real)
+(declare-const normal_remass_initial_t Real)
+(declare-const normal_remass_consumed_t Real)
+(declare-const normal_remass_remaining_t Real)
+(declare-const protected_water_initial_t Real)
+(declare-const protected_water_consumed_t Real)
+(declare-const protected_water_remaining_t Real)
+(declare-const working_fluid_water_inventory_t Real)
+(declare-const reference_wet_mass_t Real)
+(declare-const current_mass_t Real)
+(declare-const post_normal_remass_reference_mass_t Real)
+(declare-const torch_active Bool)
+(declare-const high_metric_thermal_field_active Bool)
+
+; Authority: src/wayfarer_torch_baseline_recovery.py on authoritative main.
+(assert (! (= dry_mass_t (/ 1717 2)) :named A_DRY_MASS_858P5_T))
+(assert (! (= normal_remass_initial_t 250) :named A_NORMAL_REMASS_250_T))
+(assert (! (= protected_water_initial_t 50) :named A_PROTECTED_WATER_50_T))
+(assert (! (= working_fluid_water_inventory_t 300) :named A_COMBINED_INVENTORY_300_T))
+(assert (! (= reference_wet_mass_t (/ 2317 2)) :named A_REFERENCE_WET_MASS_1158P5_T))
+(assert (! (= post_normal_remass_reference_mass_t (/ 1817 2)) :named A_POST_NORMAL_REMASS_MASS_908P5_T))
+
+; Exact inventory/accounting identities.
+(assert (! (= working_fluid_water_inventory_t (+ normal_remass_initial_t protected_water_initial_t)) :named A_INVENTORY_SPLIT))
+(assert (! (= reference_wet_mass_t (+ dry_mass_t working_fluid_water_inventory_t)) :named A_WET_MASS_ACCOUNTING))
+(assert (! (= normal_remass_remaining_t (- normal_remass_initial_t normal_remass_consumed_t)) :named A_NORMAL_REMASS_BALANCE))
+(assert (! (= protected_water_remaining_t (- protected_water_initial_t protected_water_consumed_t)) :named A_PROTECTED_WATER_BALANCE))
+(assert (! (= current_mass_t (+ dry_mass_t normal_remass_remaining_t protected_water_remaining_t)) :named A_CURRENT_MASS_ACCOUNTING))
+(assert (! (= post_normal_remass_reference_mass_t (+ dry_mass_t protected_water_initial_t)) :named A_POST_REMASS_ACCOUNTING))
+
+; Bounds and protected-reserve rule for the normal torch remass envelope.
+(assert (! (>= normal_remass_consumed_t 0) :named A_REMASS_CONSUMED_NONNEGATIVE))
+(assert (! (<= normal_remass_consumed_t normal_remass_initial_t) :named A_REMASS_CONSUMPTION_LIMIT))
+(assert (! (>= normal_remass_remaining_t 0) :named A_REMASS_REMAINING_NONNEGATIVE))
+(assert (! (= protected_water_consumed_t 0) :named A_PROTECTED_WATER_NOT_CONSUMED))
+(assert (! (= protected_water_remaining_t protected_water_initial_t) :named A_PROTECTED_WATER_REMAINS_INTACT))
+
+; Authority: baseline states torch and high metric thermal/field operation are mutually exclusive.
+(assert (! (not (and torch_active high_metric_thermal_field_active)) :named A_TORCH_METRIC_MUTUAL_EXCLUSION))
+
+(check-sat)
+(get-model)
