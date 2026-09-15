@@ -1,0 +1,46 @@
+{
+  "schema": "LOOM.Wayfarer.System3DLayer",
+  "schema_version": "0.1",
+  "system": "SYSTEM_RCS",
+  "base_model": "wayfarer_test.glb",
+  "coordinate_mapping": "LOOM (X,Y,Z) -> glTF (X,Z,-Y)",
+  "vehicle_length_m": 57.0,
+  "main_body_radius_m": 4.5,
+  "mount_count": 16,
+  "mount_architecture": "COMPOUND_COARSE_FINE_VECTORED_MOUNT",
+  "coarse_actuation_family": "ELECTRONICALLY_METERED_THROTTLEABLE_LIQUID_THRUSTER_FAMILY",
+  "fine_actuation_family": "DEDICATED_FAST_PULSED_FINE_AUTHORITY_ELEMENT",
+  "vectoring_architecture": "INTERNAL_FLOW_VECTORING_PREFERRED_MECHANICAL_GIMBAL_RESERVE",
+  "candidate_thruster_unit_max_N": 25000.0,
+  "vector_envelope": {
+    "half_angle_deg": 45.0,
+    "role": "RECOVERED_GEOMETRIC_VECTOR_ENVELOPE",
+    "physical_plume": false,
+    "physically_certified": false
+  },
+  "bands": [
+    {"name":"FORE","x_m":6.5,"azimuths_deg":[0,90,180,270]},
+    {"name":"FORE_MID","x_m":18.5,"azimuths_deg":[45,135,225,315]},
+    {"name":"RADIATOR_ROOT","x_m":36.5,"azimuths_deg":[45,135,225,315]},
+    {"name":"AFT","x_m":44.5,"azimuths_deg":[0,90,180,270]}
+  ],
+  "scene_hierarchy": ["SYSTEM_RCS","RCS_MOUNTS","RCS_VECTOR_ENVELOPES"],
+  "freeze_authority": "E1_RCS_VEHICLE_ARCHITECTURE",
+  "freeze_merge_sha": "e2c16b12772089cc1961beb2fb65f11c6dd9b21d",
+  "component_installation_release": false,
+  "component_installation_holds": [
+    "PHYSICAL_PLUME_MODEL_AND_CLEARANCE_SWEEP",
+    "WORKING_FLUID_CYCLE_EXHAUST_VELOCITY_AND_THERMAL_LOAD",
+    "MIB_VALVE_RESPONSE_DUTY_TOTAL_IMPULSE_AND_CYCLE_LIFE",
+    "VECTORING_DYNAMIC_RESPONSE_AND_LIFE",
+    "MOUNT_LOAD_PATH_LOCAL_STRUCTURE_AND_REINFORCEMENT"
+  ],
+  "authority": {
+    "placement": "DERIVED_FROM_FROZEN_GOVERNED_RCS_HARDPOINT_GEOMETRY",
+    "mount_visual_geometry": "SCHEMATIC_NOT_COMPONENT_DETAILED_DESIGN",
+    "vector_envelopes": "GEOMETRIC_QUALIFICATION_ENVELOPE_NOT_PHYSICAL_PLUME",
+    "canon_changed": false,
+    "campaign_state_mutation": "ZERO",
+    "llm_calculation_authority": "ZERO"
+  }
+}
