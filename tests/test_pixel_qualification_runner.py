@@ -21,6 +21,13 @@ class PixelQualificationRunnerContractTests(unittest.TestCase):
         self.assertIn("termux-clipboard-set", text)
         self.assertIn("LOOM PIXEL QUALIFICATION", text)
 
+    def test_raw_runner_retains_transcript_for_interactive_review(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
+        self.assertIn('LATEST_QUALIFICATION_LOG="$QUALIFICATION_LOG_DIR/latest.log"', text)
+        self.assertIn('less -R "$LATEST_QUALIFICATION_LOG"', text)
+        self.assertIn("Press q when finished reviewing", text)
+        self.assertIn('cat "$LATEST_QUALIFICATION_LOG"', text)
+
 
 if __name__ == "__main__":
     unittest.main()
