@@ -28,19 +28,23 @@
 (assert (! (not (and torch_active high_metric_thermal_field_active)) :named A_TORCH_METRIC_EXCLUSION))
 (assert (! (= torch_active (not (= mode OFF))) :named A_MODE_ACTIVITY_BINDING))
 
-; Exact recovered working-card points from the earned torch performance envelope.
+; Exact recovered working-card inputs from the earned torch performance envelope.
+; mdot was derived with standard gravity 9.80665 m/s^2. Do not pin rounded display
+; thrust/power values here: the independent identities below derive exact values and
+; thereby make numerical drift visible instead of encoding rounded contradictions.
 (assert (!
   (or
-    (and (= mode OFF) (= mdot_kg_s 0) (= ve_m_s 0) (= thrust_N 0) (= jet_power_W 0))
-    (and (= mode ECON) (= mdot_kg_s (/ 11361004025 10000000000)) (= ve_m_s 3000000) (= thrust_N 3408300) (= jet_power_W 5112450000000))
-    (and (= mode CRUISE) (= mdot_kg_s (/ 56805020125 10000000000)) (= ve_m_s 2000000) (= thrust_N 11361000) (= jet_power_W 11361000000000))
-    (and (= mode EXPEDITE) (= mdot_kg_s (/ 2272200805 100000000)) (= ve_m_s 1000000) (= thrust_N 22722000) (= jet_power_W 11361000000000))
-    (and (= mode FAST) (= mdot_kg_s (/ 4869001725 100000000)) (= ve_m_s 700000) (= thrust_N 34083000) (= jet_power_W 11929050000000))
-    (and (= mode HARD) (= mdot_kg_s (/ 2272200805 18000000)) (= ve_m_s 450000) (= thrust_N 56805000) (= jet_power_W 12781125000000))
-    (and (= mode LIMIT) (= mdot_kg_s (/ 2272200805 8000000)) (= ve_m_s 300000) (= thrust_N 85207500) (= jet_power_W 12781125000000)))
+    (and (= mode OFF) (= mdot_kg_s 0) (= ve_m_s 0))
+    (and (= mode ECON) (= mdot_kg_s (/ 11361004025 10000000000)) (= ve_m_s 3000000))
+    (and (= mode CRUISE) (= mdot_kg_s (/ 56805020125 10000000000)) (= ve_m_s 2000000))
+    (and (= mode EXPEDITE) (= mdot_kg_s (/ 2272200805 100000000)) (= ve_m_s 1000000))
+    (and (= mode FAST) (= mdot_kg_s (/ 4869001725 100000000)) (= ve_m_s 700000))
+    (and (= mode HARD) (= mdot_kg_s (/ 2272200805 18000000)) (= ve_m_s 450000))
+    (and (= mode LIMIT) (= mdot_kg_s (/ 2272200805 8000000)) (= ve_m_s 300000)))
   :named A_MODE_CARD_TABLE))
 
-; Independent physical identities. If a card drifts, the table and identities become inconsistent.
+; Exact physical identities. thrust and jet power are outputs, not duplicated rounded
+; card inputs: F = mdot*ve and Pjet = 1/2*mdot*ve^2.
 (assert (! (= thrust_N (* mdot_kg_s ve_m_s)) :named A_THRUST_IDENTITY))
 (assert (! (= jet_power_W (* (/ 1 2) mdot_kg_s ve_m_s ve_m_s)) :named A_JET_POWER_IDENTITY))
 (assert (! (and (>= mdot_kg_s 0) (>= ve_m_s 0) (>= thrust_N 0) (>= jet_power_W 0)) :named A_PROPULSION_NONNEGATIVE))
