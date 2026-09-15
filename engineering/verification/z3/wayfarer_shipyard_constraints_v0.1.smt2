@@ -2,10 +2,11 @@
 ; ENGINEERING VERIFICATION ONLY / NON-CANON / NON-CERTIFICATION.
 ; Governing/current values are separated from candidate packaging constraints.
 
-; Current vehicle identities.
+; Current vehicle identities. Zero-arity define-fun symbols are SMT constants and
+; therefore referenced without function-application parentheses.
 (define-fun dry-mass-t () Real 858.5)
 (define-fun working-fluid-t () Real 300.0)
-(define-fun wet-mass-t () Real (+ (dry-mass-t) (working-fluid-t)))
+(define-fun wet-mass-t () Real (+ dry-mass-t working-fluid-t))
 (define-fun normal-remass-t () Real 250.0)
 (define-fun protected-water-t () Real 50.0)
 
@@ -26,7 +27,7 @@
   (propulsion Real) (electrical Real) (launch Real) (avionics Real)
   (rcs-service Real) (mission Real) (reserve Real)) Bool
  (= (candidate-ledger-total-t structure armor hab relational thermal propulsion electrical launch avionics rcs-service mission reserve)
-    (dry-mass-t)))
+    dry-mass-t))
 
 ; Candidate broad axial packaging only. Adjacent envelopes may touch but not overlap.
 (define-fun ordered-envelope ((a0 Real) (a1 Real) (b0 Real) (b1 Real)) Bool
