@@ -8,16 +8,18 @@ run_expect() {
   local file="$1" expected="$2"
   local out first
   out="$(z3 "$file")"
-  # Do not pipe a potentially large model through head under pipefail: printf can
-  # receive SIGPIPE and terminate an otherwise successful qualification.
   first="${out%%$'\n'*}"
   printf '%-58s expected=%-5s got=%s\n' "$file" "$expected" "$first"
   [[ "$first" == "$expected" ]] || { printf '%s\n' "$out"; exit 1; }
+  printf '%s\n' "$out"
 }
 
-run_expect wayfarer_torch_mode_envelope_v0.1.smt2 sat
+run_expect wayfarer_torch_mode_baseline_v0.1.smt2 sat >/dev/null
 run_expect wayfarer_torch_mode_synthesis_v0.1.smt2 sat
-run_expect wayfarer_torch_mode_negative_power_v0.1.smt2 unsat
-run_expect wayfarer_torch_mode_negative_zero_remass_active_v0.1.smt2 sat
+hostile="$(run_expect wayfarer_torch_mode_negative_power_v0.1.smt2 unsat)"
+printf '%s\n' "$hostile"
+[[ "$hostile" == *"H_REQUIRE_CRUISE"* ]] || { echo 'EXPECTED UNSAT CORE TO NAME H_REQUIRE_CRUISE'; exit 1; }
+[[ "$hostile" == *"H_REQUIRE_12_TW"* ]] || { echo 'EXPECTED UNSAT CORE TO NAME H_REQUIRE_12_TW'; exit 1; }
+run_expect wayfarer_torch_mode_negative_zero_remass_active_v0.1.smt2 sat >/dev/null
 
 echo 'LOOM_Z3_WAYFARER_TORCH_MODE_STATUS=PASS'
