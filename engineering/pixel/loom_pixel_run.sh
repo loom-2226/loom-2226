@@ -9,11 +9,9 @@ QUALIFICATION_POINTER_REF="origin/qualification/active"
 LOOM_SPATIAL_REVIEW_URL="http://127.0.0.1:8878/"
 QUALIFICATION_LOG_DIR="${LOOM_QUALIFICATION_LOG_DIR:-$(dirname "$REPO_ROOT")/LOOM_Qualification_Logs}"
 QUALIFICATION_LOCK_DIR="${TMPDIR:-$HOME/.cache/loom}/qualification.lock"
+QUALIFICATION_LOCK_OWNER_BASHPID="$BASHPID"
 
 cd "$REPO_ROOT" || exit 90
-
-# Android shortcuts can open a fresh Termux session on every tap. Qualification
-# is single-session: a second tap refuses while the first runner/reviewer lives.
 mkdir -p "$(dirname "$QUALIFICATION_LOCK_DIR")"
 if ! mkdir "$QUALIFICATION_LOCK_DIR" 2>/dev/null; then
   LOCK_PID="$(cat "$QUALIFICATION_LOCK_DIR/pid" 2>/dev/null || true)"
@@ -23,12 +21,9 @@ if ! mkdir "$QUALIFICATION_LOCK_DIR" 2>/dev/null; then
     exit 97
   fi
   rm -rf "$QUALIFICATION_LOCK_DIR"
-  if ! mkdir "$QUALIFICATION_LOCK_DIR" 2>/dev/null; then
-    echo "LOOM PIXEL QUALIFICATION: unable to acquire qualification session lock." >&2
-    exit 98
-  fi
+  mkdir "$QUALIFICATION_LOCK_DIR" 2>/dev/null || { echo "LOOM PIXEL QUALIFICATION: unable to acquire qualification session lock." >&2; exit 98; }
 fi
-printf '%s\n' "$$" > "$QUALIFICATION_LOCK_DIR/pid"
+printf '%s\n' "$QUALIFICATION_LOCK_OWNER_BASHPID" > "$QUALIFICATION_LOCK_DIR/pid"
 
 load_config() {
   local phase="${1:-UNSPECIFIED}"
@@ -37,26 +32,22 @@ load_config() {
   QUAL_BRANCH="${CFG[0]:-}"; QUAL_COMMAND="${CFG[1]:-}"; SPATIAL_REVIEW_COMMAND="${CFG[2]:-}"
   [[ -n "$QUAL_BRANCH" && -n "$QUAL_COMMAND" ]] || { echo "LOOM PIXEL QUALIFICATION: invalid active qualification config during $phase" >&2; exit 92; }
 }
-
 _parse_remote_config() {
   local remote_config="$1" ref="$2" phase="$3"
   mapfile -t CFG <<< "$remote_config"
   QUAL_BRANCH="${CFG[0]:-}"; QUAL_COMMAND="${CFG[1]:-}"; SPATIAL_REVIEW_COMMAND="${CFG[2]:-}"
   [[ -n "$QUAL_BRANCH" && -n "$QUAL_COMMAND" ]] || { echo "LOOM PIXEL QUALIFICATION: invalid active qualification config from $ref during $phase" >&2; exit 96; }
 }
-
 load_origin_main_config() {
   local phase="${1:-ORIGIN_MAIN_BOOTSTRAP}" remote_config
   remote_config="$(git show "origin/main:engineering/pixel/active_qualification.txt" 2>/dev/null)" || { echo "LOOM PIXEL QUALIFICATION: unable to read origin/main:$CONFIG_REL during $phase" >&2; exit 95; }
   _parse_remote_config "$remote_config" "origin/main" "$phase"
 }
-
 load_qualification_pointer_config() {
   local phase="${1:-REMOTE_QUALIFICATION_POINTER}" remote_config
   remote_config="$(git show "$QUALIFICATION_POINTER_REF:engineering/pixel/active_qualification.txt" 2>/dev/null)" || { echo "LOOM PIXEL QUALIFICATION: unable to read $QUALIFICATION_POINTER_REF:$CONFIG_REL during $phase" >&2; exit 95; }
   _parse_remote_config "$remote_config" "$QUALIFICATION_POINTER_REF" "$phase"
 }
-
 switch_to_config_branch() {
   local current_branch="$(git branch --show-current)"
   if [[ "$current_branch" != "$QUAL_BRANCH" ]]; then
@@ -64,7 +55,6 @@ switch_to_config_branch() {
     if git show-ref --verify --quiet "refs/heads/$QUAL_BRANCH"; then git switch "$QUAL_BRANCH"; else git switch --track -c "$QUAL_BRANCH" "origin/$QUAL_BRANCH"; fi
   else echo "BRANCH OK $current_branch"; fi
 }
-
 choose_bootstrap_config() {
   local current_branch="$(git branch --show-current)" current_head="$(git rev-parse HEAD)" local_config_branch=""
   [[ ! -f "$CONFIG" ]] || local_config_branch="$(sed -n '1p' "$CONFIG")"
@@ -79,7 +69,12 @@ choose_bootstrap_config() {
 
 if [[ -n "$(git status --porcelain)" ]]; then echo "LOOM PIXEL QUALIFICATION: REFUSED — working tree is not clean." >&2; git status --short >&2; rm -rf "$QUALIFICATION_LOCK_DIR"; exit 93; fi
 TMP="$(mktemp -t loom-pixel-qual.XXXXXX)"
-cleanup() { rm -f "$TMP"; rm -rf "$QUALIFICATION_LOCK_DIR"; }
+cleanup() {
+  rm -f "$TMP"
+  # EXIT traps are inherited by the pipeline subshell. Only the top-level runner
+  # owns the session lock; otherwise the subshell drops it before `less` review.
+  if [[ "$BASHPID" == "$QUALIFICATION_LOCK_OWNER_BASHPID" ]]; then rm -rf "$QUALIFICATION_LOCK_DIR"; fi
+}
 trap cleanup EXIT
 
 {
@@ -99,18 +94,7 @@ PIPE_RC=${PIPESTATUS[0]}
 
 load_config "POST_QUALIFICATION"
 if [[ $PIPE_RC -eq 0 && -n "$SPATIAL_REVIEW_COMMAND" ]]; then
-  {
-    echo; echo "[SPATIAL REVIEW]"; echo "READ_ONLY_PRESENTATION=YES"; echo "LOOM_SPATIAL_REVIEW_URL=$LOOM_SPATIAL_REVIEW_URL"
-    REVIEW_LOG_DIR="${TMPDIR:-$HOME/.cache/loom}"; mkdir -p "$REVIEW_LOG_DIR"; REVIEW_LOG="$REVIEW_LOG_DIR/loom-spatial-review.log"
-    pkill -f "engineering/pixel/spatial_review.py" >/dev/null 2>&1 || true
-    nohup bash -lc "$SPATIAL_REVIEW_COMMAND" >"$REVIEW_LOG" 2>&1 &
-    REVIEW_PID=$!
-    sleep 0.5
-    if kill -0 "$REVIEW_PID" >/dev/null 2>&1; then
-      echo "SPATIAL_REVIEW_STATUS=LAUNCHED"; echo "SPATIAL_REVIEW_PID=$REVIEW_PID"; echo "SPATIAL_REVIEW_LOG=$REVIEW_LOG"
-      if command -v termux-open-url >/dev/null 2>&1; then termux-open-url "$LOOM_SPATIAL_REVIEW_URL" >/dev/null 2>&1 || true; echo "SPATIAL_REVIEW_BROWSER=OPEN_REQUESTED"; else echo "SPATIAL_REVIEW_BROWSER=TERMUX_OPEN_URL_UNAVAILABLE"; fi
-    else echo "SPATIAL_REVIEW_STATUS=FAILED_TO_STAY_RUNNING"; echo "SPATIAL_REVIEW_LOG=$REVIEW_LOG"; fi
-  } 2>&1 | tee -a "$TMP"
+  { echo; echo "[SPATIAL REVIEW]"; echo "READ_ONLY_PRESENTATION=YES"; echo "LOOM_SPATIAL_REVIEW_URL=$LOOM_SPATIAL_REVIEW_URL"; REVIEW_LOG_DIR="${TMPDIR:-$HOME/.cache/loom}"; mkdir -p "$REVIEW_LOG_DIR"; REVIEW_LOG="$REVIEW_LOG_DIR/loom-spatial-review.log"; pkill -f "engineering/pixel/spatial_review.py" >/dev/null 2>&1 || true; nohup bash -lc "$SPATIAL_REVIEW_COMMAND" >"$REVIEW_LOG" 2>&1 & REVIEW_PID=$!; sleep 0.5; if kill -0 "$REVIEW_PID" >/dev/null 2>&1; then echo "SPATIAL_REVIEW_STATUS=LAUNCHED"; echo "SPATIAL_REVIEW_PID=$REVIEW_PID"; echo "SPATIAL_REVIEW_LOG=$REVIEW_LOG"; if command -v termux-open-url >/dev/null 2>&1; then termux-open-url "$LOOM_SPATIAL_REVIEW_URL" >/dev/null 2>&1 || true; echo "SPATIAL_REVIEW_BROWSER=OPEN_REQUESTED"; else echo "SPATIAL_REVIEW_BROWSER=TERMUX_OPEN_URL_UNAVAILABLE"; fi; else echo "SPATIAL_REVIEW_STATUS=FAILED_TO_STAY_RUNNING"; echo "SPATIAL_REVIEW_LOG=$REVIEW_LOG"; fi; } 2>&1 | tee -a "$TMP"
 fi
 
 mkdir -p "$QUALIFICATION_LOG_DIR"; QUALIFICATION_LOG_STAMP="$(date -u +%Y%m%dT%H%M%SZ)"; QUALIFICATION_LOG="$QUALIFICATION_LOG_DIR/qualification-$QUALIFICATION_LOG_STAMP.log"; LATEST_QUALIFICATION_LOG="$QUALIFICATION_LOG_DIR/latest.log"
