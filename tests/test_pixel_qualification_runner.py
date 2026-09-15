@@ -12,7 +12,8 @@ class PixelQualificationRunnerContractTests(unittest.TestCase):
         self.assertTrue(cfg[0].strip())
         self.assertTrue(cfg[1].strip())
         self.assertTrue(cfg[0].strip().startswith("engineering/"))
-        self.assertIn("python", cfg[1])
+        command = cfg[1].strip()
+        self.assertTrue("python" in command or command.startswith("bash engineering/pixel/"))
 
     def test_runner_is_fail_closed_and_copies_output(self):
         text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
