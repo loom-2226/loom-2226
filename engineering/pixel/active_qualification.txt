@@ -1,2 +1,2 @@
-engineering/e1-rcs-coarse-fine-authority-envelope-2026-09-15
-python -m unittest discover -s tests -p 'test_wayfarer_rcs_coarse_fine_authority_envelope.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && python src/wayfarer_rcs_coarse_fine_authority_envelope.py && python engineering/experience_one/qualification/e1_rcs_coarse_fine_authority_envelope.py
+engineering/pixel-single-qualification-session-2026-09-15
+python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
