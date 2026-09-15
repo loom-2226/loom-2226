@@ -1,5 +1,6 @@
 ; Hostile mission contradiction: LIMIT burn from insufficient normal remass while
 ; demanding a larger final reserve. Expected UNSAT with named core.
+(set-option :produce-unsat-cores true)
 (include "wayfarer_torch_mission_constraints_v0.1.smt2")
 (declare-const m TorchMode)
 (declare-const r Real)
