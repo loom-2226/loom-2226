@@ -49,3 +49,5 @@ Radiator emissivity, thermal storage capacity and thermal disposal strategy are 
 ## E1 closure rule
 
 E1 may qualify the torch interface with `P_heat` unresolved or parametrically evaluated provided unresolved physical inputs remain explicit technology holds and no runtime behavior silently assumes their values. The downstream power/thermal chain consumes `P_heat` later.
+
+Pixel qualification correction: the first T2 run exposed a test that expected radiator area without supplying radiator emissivity. The corrected test preserves heat deposition while leaving radiator area unresolved; an explicit-emissivity test covers downstream sensitivity.
