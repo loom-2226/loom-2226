@@ -27,11 +27,13 @@ class MissionConstraintTests(unittest.TestCase):
         self.assertNotIn('284025100625', text)
         self.assertIn('(get-value (m1 m2 m3 m4 m5 r5))', text)
 
-    def test_hostile_cases_request_unsat_cores(self):
-        self.assertIn('(get-unsat-core)', NEG.read_text())
-        self.assertIn('H_FINAL_RESERVE', NEG.read_text())
-        self.assertIn('(get-unsat-core)', STATE_NEG.read_text())
-        self.assertIn('H_PROPULSION_STATE_VALID', STATE_NEG.read_text())
+    def test_hostile_cases_enable_and_request_unsat_cores(self):
+        for path, marker in ((NEG, 'H_FINAL_RESERVE'), (STATE_NEG, 'H_PROPULSION_STATE_VALID')):
+            text = path.read_text()
+            self.assertIn('(set-option :produce-unsat-cores true)', text)
+            self.assertIn('(get-unsat-core)', text)
+            self.assertIn(marker, text)
+            self.assertLess(text.index('(set-option :produce-unsat-cores true)'), text.index('(check-sat)'))
 
     def test_runner_preserves_solver_diagnostics(self):
         text = RUNNER.read_text()
