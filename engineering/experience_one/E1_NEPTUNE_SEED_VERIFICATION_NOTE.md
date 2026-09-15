@@ -1,0 +1,1 @@
+The Ceres seed script now follows Navigator's own `_mvp_self_test()` pattern: `_new_state` → `_validate_state` → `HistoryLedger.append('CAMPAIGN_CREATED', ...)` → `_atomic_save`. It does not fabricate flight records.
