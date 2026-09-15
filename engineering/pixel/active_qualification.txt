@@ -1,2 +1,2 @@
-engineering/e1-torch-research-bounded-source-scaling-2026-09-15
-python -m unittest tests.test_wayfarer_torch_research_bounded_source_scaling && python src/wayfarer_torch_research_bounded_source_scaling.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
+engineering/e1-torch-energy-partition-mass-feasibility-2026-09-15
+python -m unittest tests.test_wayfarer_torch_energy_partition_mass_feasibility && python src/wayfarer_torch_energy_partition_mass_feasibility.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
