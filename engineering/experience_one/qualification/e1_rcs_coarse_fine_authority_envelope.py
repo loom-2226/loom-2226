@@ -4,8 +4,8 @@ import json
 
 from src.wayfarer_rcs_coarse_fine_authority_envelope import build_coarse_fine_authority_envelope
 
-SCHEMA = "LOOM_E1_RCS_COARSE_FINE_AUTHORITY_ENVELOPE_V1"
-QUALIFICATION_AXIS = "rcs_coarse_fine_authority_parameter_envelope"
+SCHEMA = "LOOM_E1_RCS_COARSE_FINE_AUTHORITY_PIXEL_PROBE_V1"
+QUALIFICATION_AXIS = "rcs_coarse_fine_realized_wrench_pixel_probe"
 
 
 def build_qualification() -> dict:
@@ -15,10 +15,12 @@ def build_qualification() -> dict:
         "qualification_axis": QUALIFICATION_AXIS,
         "status": result["status"],
         "disposition": result["disposition"],
-        "parameter_sweep": result["parameter_sweep"],
+        "parameter_probe": result["parameter_sweep"],
         "closed_loop_contract": result["closed_loop_contract"],
+        "exploration_contract": result["exploration_contract"],
         "authority": {
-            "certifies_coarse_fine_numerical_authority_envelope": result["authority"]["coarse_fine_numerical_authority_envelope_qualified"],
+            "certifies_coarse_fine_pixel_coupling_probe": result["authority"]["coarse_fine_pixel_coupling_probe_qualified"],
+            "certifies_full_coarse_fine_parameter_envelope": False,
             "certifies_final_rcs_hardware": False,
             "certifies_minimum_impulse_bit_hardware": False,
             "certifies_valve_dynamics": False,
