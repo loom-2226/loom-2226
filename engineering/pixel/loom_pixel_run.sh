@@ -69,10 +69,9 @@ choose_bootstrap_config() {
 
 if [[ -n "$(git status --porcelain)" ]]; then echo "LOOM PIXEL QUALIFICATION: REFUSED — working tree is not clean." >&2; git status --short >&2; rm -rf "$QUALIFICATION_LOCK_DIR"; exit 93; fi
 TMP="$(mktemp -t loom-pixel-qual.XXXXXX)"
+CLIPBOARD_RECEIPT="$(mktemp -t loom-pixel-receipt.XXXXXX)"
 cleanup() {
-  rm -f "$TMP"
-  # EXIT traps are inherited by the pipeline subshell. Only the top-level runner
-  # owns the session lock; otherwise the subshell drops it before `less` review.
+  rm -f "$TMP" "$CLIPBOARD_RECEIPT"
   if [[ "$BASHPID" == "$QUALIFICATION_LOCK_OWNER_BASHPID" ]]; then rm -rf "$QUALIFICATION_LOCK_DIR"; fi
 }
 trap cleanup EXIT
@@ -98,7 +97,22 @@ if [[ $PIPE_RC -eq 0 && -n "$SPATIAL_REVIEW_COMMAND" ]]; then
 fi
 
 mkdir -p "$QUALIFICATION_LOG_DIR"; QUALIFICATION_LOG_STAMP="$(date -u +%Y%m%dT%H%M%SZ)"; QUALIFICATION_LOG="$QUALIFICATION_LOG_DIR/qualification-$QUALIFICATION_LOG_STAMP.log"; LATEST_QUALIFICATION_LOG="$QUALIFICATION_LOG_DIR/latest.log"
-cp "$TMP" "$QUALIFICATION_LOG"; cp "$TMP" "$LATEST_QUALIFICATION_LOG"; echo; echo "QUALIFICATION_LOG_SAVED=$QUALIFICATION_LOG"; echo "QUALIFICATION_LOG_LATEST=$LATEST_QUALIFICATION_LOG"
-if command -v termux-clipboard-set >/dev/null 2>&1; then termux-clipboard-set < "$TMP"; echo; echo "Complete qualification output copied to Android clipboard."; else echo; echo "WARNING: termux-clipboard-set unavailable; output was not copied." >&2; fi
+cp "$TMP" "$QUALIFICATION_LOG"; cp "$TMP" "$LATEST_QUALIFICATION_LOG"
+TRANSCRIPT_SHA256="$(sha256sum "$QUALIFICATION_LOG" | awk '{print $1}')"
+FINAL_BRANCH="$(grep '^BRANCH=' "$TMP" | tail -1 | cut -d= -f2-)"
+FINAL_SHA="$(grep '^SHA=' "$TMP" | tail -1 | cut -d= -f2-)"
+FINAL_STATUS="$(grep '^LOOM_PIXEL_QUALIFICATION_STATUS=' "$TMP" | tail -1 | cut -d= -f2-)"
+if [[ $PIPE_RC -eq 0 && "$FINAL_STATUS" == "PASS" ]]; then TESTS="PASS"; else TESTS="FAIL"; fi
+{
+  echo "LOOM PIXEL QUALIFICATION RECEIPT"
+  echo "BRANCH=$FINAL_BRANCH"
+  echo "SHA=$FINAL_SHA"
+  echo "TESTS=$TESTS"
+  echo "EXIT_CODE=$PIPE_RC"
+  echo "LOOM_PIXEL_QUALIFICATION_STATUS=${FINAL_STATUS:-FAIL}"
+  echo "TRANSCRIPT_SHA256=$TRANSCRIPT_SHA256"
+} > "$CLIPBOARD_RECEIPT"
+echo; echo "QUALIFICATION_LOG_SAVED=$QUALIFICATION_LOG"; echo "QUALIFICATION_LOG_LATEST=$LATEST_QUALIFICATION_LOG"; echo "TRANSCRIPT_SHA256=$TRANSCRIPT_SHA256"
+if command -v termux-clipboard-set >/dev/null 2>&1; then termux-clipboard-set < "$CLIPBOARD_RECEIPT"; echo; echo "Compact qualification receipt copied to Android clipboard; full transcript retained locally."; else echo; echo "WARNING: termux-clipboard-set unavailable; receipt was not copied." >&2; fi
 if [[ -t 0 && -t 1 ]]; then echo; echo "Qualification transcript retained. Press q when finished reviewing."; if command -v less >/dev/null 2>&1; then less -R "$LATEST_QUALIFICATION_LOG"; else cat "$LATEST_QUALIFICATION_LOG"; echo; printf "Press Enter to close..."; read -r _; fi; else cat "$LATEST_QUALIFICATION_LOG"; fi
 exit "$PIPE_RC"

@@ -28,6 +28,15 @@ class PixelQualificationRunnerContractTests(unittest.TestCase):
         self.assertIn("Press q when finished reviewing", text)
         self.assertIn('cat "$LATEST_QUALIFICATION_LOG"', text)
 
+    def test_clipboard_is_compact_receipt_while_full_transcript_stays_local(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
+        self.assertIn('TRANSCRIPT_SHA256=', text)
+        self.assertIn('TESTS=', text)
+        self.assertIn('CLIPBOARD_RECEIPT=', text)
+        self.assertIn('termux-clipboard-set < "$CLIPBOARD_RECEIPT"', text)
+        self.assertNotIn('termux-clipboard-set < "$TMP"', text)
+        self.assertIn('cp "$TMP" "$QUALIFICATION_LOG"', text)
+
     def test_runner_refuses_duplicate_live_qualification_session(self):
         text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
         self.assertIn('QUALIFICATION_LOCK_DIR="${TMPDIR:-$HOME/.cache/loom}/qualification.lock"', text)
