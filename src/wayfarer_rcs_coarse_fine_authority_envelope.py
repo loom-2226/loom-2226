@@ -3,10 +3,8 @@ from __future__ import annotations
 """Bounded numerical coarse/fine RCS qualification probe.
 
 Pixel qualification proves the realization model is coupled into the real mount
-allocator/time loop for one nominal and one degraded case.  It deliberately does
-NOT execute the wider exploratory parameter sweep: that is an offline engineering
-study, not a reason to make the governed phone gate perform hundreds of thousands
-of allocator iterations.
+allocator/time loop for one nominal and one degraded case. It deliberately does
+NOT execute the wider exploratory parameter sweep.
 """
 
 import math
@@ -26,12 +24,13 @@ from src.wayfarer_rcs_time_domain_mount_coupling import (
 )
 
 SCHEMA = "LOOM.Wayfarer.RCSCoarseFineAuthorityEnvelope"
-SCHEMA_VERSION = "0.2"
-
-# One representative dimensionless point. This is a numerical probe, not a
-# selected hardware threshold or MIB.
+SCHEMA_VERSION = "0.3"
 PIXEL_QUALIFICATION_PARAMETERS = ((0.20, 0.50),)
-PIXEL_QUALIFICATION_CASES = ("NOMINAL", "DEGRADED_A")
+# Bind directly to the canonical case identifiers owned by the coupled-flight module.
+PIXEL_QUALIFICATION_CASES = (
+    "NOMINAL_MIXED_TRANSLATION_ATTITUDE",
+    "DEGRADED_MIXED_TRANSLATION_ATTITUDE_A",
+)
 
 
 def _norm(v: Sequence[float]) -> float:
@@ -46,22 +45,18 @@ def _clip(v: list[float], limit: float) -> list[float]:
 
 
 def _cross3(a: Sequence[float], b: Sequence[float]) -> list[float]:
-    return [
-        float(a[1]) * float(b[2]) - float(a[2]) * float(b[1]),
-        float(a[2]) * float(b[0]) - float(a[0]) * float(b[2]),
-        float(a[0]) * float(b[1]) - float(a[1]) * float(b[0]),
-    ]
+    return [float(a[1])*float(b[2])-float(a[2])*float(b[1]),
+            float(a[2])*float(b[0])-float(a[0])*float(b[2]),
+            float(a[0])*float(b[1])-float(a[1])*float(b[0])]
 
 
-def _realize_mount_wrench(
-    commands: dict[str, Any], *, com: Sequence[float], coarse_activation_fraction: float,
-    fine_quantization_fraction: float, trace_mib_upper_bound_ns: float,
-) -> tuple[list[float], dict[str, float]]:
+def _realize_mount_wrench(commands: dict[str, Any], *, com: Sequence[float],
+                           coarse_activation_fraction: float, fine_quantization_fraction: float,
+                           trace_mib_upper_bound_ns: float) -> tuple[list[float], dict[str, float]]:
     threshold_n = coarse_activation_fraction * MOUNT_THRUST_CAP_N
     fine_quantum_n = fine_quantization_fraction * trace_mib_upper_bound_ns / CONTROL_DT_S
     wrench = [0.0] * 6
-    coarse_total = fine_total = 0.0
-    max_error = 0.0
+    coarse_total = fine_total = max_error = 0.0
     for command in commands.values():
         requested = max(0.0, float(command["commanded_thrust_N"]))
         direction = command["commanded_force_unit_ship"]
@@ -81,13 +76,11 @@ def _realize_mount_wrench(
         for i in range(3):
             wrench[i] += force[i]
             wrench[i + 3] += torque[i]
-    return wrench, {
-        "coarse_total_impulse_Ns": coarse_total * CONTROL_DT_S,
-        "fine_total_impulse_Ns": fine_total * CONTROL_DT_S,
-        "max_mount_realization_error_N": max_error,
-        "fine_force_quantum_N": fine_quantum_n,
-        "coarse_activation_threshold_N": threshold_n,
-    }
+    return wrench, {"coarse_total_impulse_Ns": coarse_total * CONTROL_DT_S,
+                    "fine_total_impulse_Ns": fine_total * CONTROL_DT_S,
+                    "max_mount_realization_error_N": max_error,
+                    "fine_force_quantum_N": fine_quantum_n,
+                    "coarse_activation_threshold_N": threshold_n}
 
 
 def _simulate_case(name: str, spec: dict[str, Any], *, coarse_fraction: float,
@@ -113,10 +106,9 @@ def _simulate_case(name: str, spec: dict[str, Any], *, coarse_fraction: float,
         allocator_pass = allocator_pass and bool(allocation["pass"])
         if not allocation["pass"]:
             break
-        achieved, telemetry = _realize_mount_wrench(
-            allocation["mount_commands"], com=com, coarse_activation_fraction=coarse_fraction,
-            fine_quantization_fraction=fine_fraction, trace_mib_upper_bound_ns=trace_mib_ns,
-        )
+        achieved, telemetry = _realize_mount_wrench(allocation["mount_commands"], com=com,
+            coarse_activation_fraction=coarse_fraction, fine_quantization_fraction=fine_fraction,
+            trace_mib_upper_bound_ns=trace_mib_ns)
         max_error = max(max_error, telemetry["max_mount_realization_error_N"])
         coarse_impulse += telemetry["coarse_total_impulse_Ns"]
         fine_impulse += telemetry["fine_total_impulse_Ns"]
@@ -142,15 +134,10 @@ def _simulate_case(name: str, spec: dict[str, Any], *, coarse_fraction: float,
     attitude_error = _attitude_error_deg(q, target_q)
     body_rate = math.degrees(math.sqrt(_dot(omega, omega)))
     passed = allocator_pass and in_gate + 1e-12 >= HOLD_TIME_S and velocity_error <= VELOCITY_GATE_M_S and attitude_error <= ATTITUDE_GATE_DEG and body_rate <= RATE_GATE_DEG_S
-    return {
-        "pass": passed, "duration_s": t,
-        "terminal_velocity_error_m_s": velocity_error,
-        "terminal_attitude_error_deg": attitude_error,
-        "terminal_body_rate_deg_s": body_rate,
-        "max_mount_realization_error_N": max_error,
-        "coarse_total_impulse_Ns": coarse_impulse,
-        "fine_total_impulse_Ns": fine_impulse,
-    }
+    return {"pass": passed, "duration_s": t, "terminal_velocity_error_m_s": velocity_error,
+            "terminal_attitude_error_deg": attitude_error, "terminal_body_rate_deg_s": body_rate,
+            "max_mount_realization_error_N": max_error, "coarse_total_impulse_Ns": coarse_impulse,
+            "fine_total_impulse_Ns": fine_impulse}
 
 
 def build_coarse_fine_authority_envelope() -> dict[str, Any]:
@@ -158,68 +145,44 @@ def build_coarse_fine_authority_envelope() -> dict[str, Any]:
     trace_mib_ns = float(demand["sampled_exact_trace_mib_upper_bound_Ns"])
     rows = []
     for coarse_fraction, fine_fraction in PIXEL_QUALIFICATION_PARAMETERS:
-        cases = {
-            name: _simulate_case(name, _CASES[name], coarse_fraction=coarse_fraction,
-                                 fine_fraction=fine_fraction, trace_mib_ns=trace_mib_ns)
-            for name in PIXEL_QUALIFICATION_CASES
-        }
-        rows.append({
-            "coarse_activation_fraction": coarse_fraction,
-            "fine_quantization_fraction": fine_fraction,
-            "pass": all(case["pass"] for case in cases.values()),
-            "cases": cases,
-        })
+        cases = {name: _simulate_case(name, _CASES[name], coarse_fraction=coarse_fraction,
+                                      fine_fraction=fine_fraction, trace_mib_ns=trace_mib_ns)
+                 for name in PIXEL_QUALIFICATION_CASES}
+        rows.append({"coarse_activation_fraction": coarse_fraction,
+                     "fine_quantization_fraction": fine_fraction,
+                     "pass": all(case["pass"] for case in cases.values()), "cases": cases})
     probe_pass = all(row["pass"] for row in rows)
     return {
-        "schema": SCHEMA,
-        "schema_version": SCHEMA_VERSION,
+        "schema": SCHEMA, "schema_version": SCHEMA_VERSION,
         "status": "PASS" if probe_pass else "FAIL",
         "disposition": "COARSE_FINE_AUTHORITY_PIXEL_PROBE_QUALIFIED_HARDWARE_OPEN" if probe_pass else "COARSE_FINE_AUTHORITY_PIXEL_PROBE_FAILED",
-        "parameter_contract": {
-            "coarse_activation_parameter": "FRACTION_OF_CURRENT_MOUNT_THRUST_CAP",
+        "parameter_contract": {"coarse_activation_parameter": "FRACTION_OF_CURRENT_MOUNT_THRUST_CAP",
             "fine_quantization_parameter": "FRACTION_OF_CURRENT_SAMPLED_EXACT_TRACE_MIB_UPPER_BOUND",
             "interpretation": "NUMERICAL_AUTHORITY_SPLIT_PROBE_NOT_HARDWARE_SPECIFICATION",
-            "selected_hardware_threshold": False,
-        },
-        "closed_loop_contract": {
-            "allocator_location": "INSIDE_COUPLED_LOCAL_FLIGHT_TIME_LOOP",
+            "selected_hardware_threshold": False},
+        "closed_loop_contract": {"allocator_location": "INSIDE_COUPLED_LOCAL_FLIGHT_TIME_LOOP",
             "state_advance_wrench": "REALIZED_COARSE_PLUS_FINE_MOUNT_WRENCH_ONLY",
             "sample_period_s": CONTROL_DT_S,
             "sample_period_authority": "NUMERICAL_QUALIFICATION_CADENCE_NOT_HARDWARE_BANDWIDTH",
-            "pixel_cases": list(PIXEL_QUALIFICATION_CASES),
-        },
-        "exploration_contract": {
-            "full_parameter_sweep_authority": "NOT_EXECUTED_BY_PIXEL_QUALIFICATION",
+            "pixel_cases": list(PIXEL_QUALIFICATION_CASES)},
+        "exploration_contract": {"full_parameter_sweep_authority": "NOT_EXECUTED_BY_PIXEL_QUALIFICATION",
             "reason": "SEPARATE_EXPENSIVE_ENGINEERING_EXPLORATION_FROM_GOVERNED_INTERACTIVE_GATE",
-            "qualification_claim": "BOUNDED_COUPLING_PROBE_ONLY",
-        },
-        "source_demand": {
-            "sampled_exact_trace_mib_upper_bound_Ns": trace_mib_ns,
-            "transition_series_identity": "QUALIFICATION_CASE_PLUS_MOUNT_ID",
-        },
+            "qualification_claim": "BOUNDED_COUPLING_PROBE_ONLY"},
+        "source_demand": {"sampled_exact_trace_mib_upper_bound_Ns": trace_mib_ns,
+            "transition_series_identity": "QUALIFICATION_CASE_PLUS_MOUNT_ID"},
         "parameter_sweep": rows,
-        "authority": {
-            "coarse_fine_numerical_authority_envelope_qualified": False,
+        "authority": {"coarse_fine_numerical_authority_envelope_qualified": False,
             "coarse_fine_pixel_coupling_probe_qualified": probe_pass,
-            "final_thruster_hardware_certified": False,
-            "minimum_impulse_bit_certified": False,
-            "valve_dynamics_certified": False,
-            "vectoring_mechanism_certified": False,
-            "working_fluid_certified": False,
-            "plume_interference_certified": False,
-            "structural_mount_loads_certified": False,
-            "canon_changed": False,
-            "campaign_state_mutation": "ZERO",
-            "llm_calculation_authority": "ZERO",
-        },
-        "remaining_open": [
-            "execute_offline_coarse_fine_parameter_envelope_exploration",
+            "final_thruster_hardware_certified": False, "minimum_impulse_bit_certified": False,
+            "valve_dynamics_certified": False, "vectoring_mechanism_certified": False,
+            "working_fluid_certified": False, "plume_interference_certified": False,
+            "structural_mount_loads_certified": False, "canon_changed": False,
+            "campaign_state_mutation": "ZERO", "llm_calculation_authority": "ZERO"},
+        "remaining_open": ["execute_offline_coarse_fine_parameter_envelope_exploration",
             "select_evidence_backed_valve_response_mib_and_cycle_life_envelope",
             "select_and_validate_vectoring_mechanism_response_envelope",
             "select_rcs_working_fluid_and_exhaust_velocity",
-            "finite_plume_and_external_hardware_interference",
-            "structural_rcs_mount_loads",
-        ],
+            "finite_plume_and_external_hardware_interference", "structural_rcs_mount_loads"],
         "qualified_next_step": "EXECUTE_OFFLINE_COARSE_FINE_PARAMETER_ENVELOPE_EXPLORATION",
     }
 
