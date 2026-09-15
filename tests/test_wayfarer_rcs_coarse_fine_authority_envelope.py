@@ -11,7 +11,10 @@ from src.wayfarer_rcs_coarse_fine_authority_envelope import (
 class CoarseFineAuthorityEnvelopeTests(unittest.TestCase):
     def test_pixel_contract_is_bounded_but_keeps_nominal_and_degraded_closed_loop_replay(self):
         self.assertEqual(len(PIXEL_QUALIFICATION_PARAMETERS), 1)
-        self.assertEqual(PIXEL_QUALIFICATION_CASES, ("NOMINAL", "DEGRADED_A"))
+        self.assertEqual(
+            PIXEL_QUALIFICATION_CASES,
+            ("NOMINAL_MIXED_TRANSLATION_ATTITUDE", "DEGRADED_MIXED_TRANSLATION_ATTITUDE_A"),
+        )
 
     def test_mount_realization_quantizes_only_fine_channel(self):
         commands = {
