@@ -4,7 +4,8 @@ set -u
 # Governed Pixel qualification runner.
 # One command: fetch, resolve the governed qualification pointer, determine the
 # active branch, switch/pull it, refresh config, run it, copy the complete result,
-# persist a durable qualification log, and optionally launch a read-only Spatial Review.
+# persist a durable qualification log, optionally launch a read-only Spatial Review,
+# and retain the completed transcript for human review on interactive terminals.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -22,12 +23,10 @@ load_config() {
     echo "LOOM PIXEL QUALIFICATION: missing $CONFIG during $phase" >&2
     exit 91
   fi
-
   mapfile -t CFG < "$CONFIG"
   QUAL_BRANCH="${CFG[0]:-}"
   QUAL_COMMAND="${CFG[1]:-}"
   SPATIAL_REVIEW_COMMAND="${CFG[2]:-}"
-
   if [[ -z "$QUAL_BRANCH" || -z "$QUAL_COMMAND" ]]; then
     echo "LOOM PIXEL QUALIFICATION: invalid active qualification config during $phase" >&2
     exit 92
@@ -38,12 +37,10 @@ _parse_remote_config() {
   local remote_config="$1"
   local ref="$2"
   local phase="$3"
-
   mapfile -t CFG <<< "$remote_config"
   QUAL_BRANCH="${CFG[0]:-}"
   QUAL_COMMAND="${CFG[1]:-}"
   SPATIAL_REVIEW_COMMAND="${CFG[2]:-}"
-
   if [[ -z "$QUAL_BRANCH" || -z "$QUAL_COMMAND" ]]; then
     echo "LOOM PIXEL QUALIFICATION: invalid active qualification config from $ref during $phase" >&2
     exit 96
@@ -90,11 +87,9 @@ choose_bootstrap_config() {
   current_branch="$(git branch --show-current)"
   current_head="$(git rev-parse HEAD)"
   local_config_branch=""
-
   if [[ -f "$CONFIG" ]]; then
     local_config_branch="$(sed -n '1p' "$CONFIG")"
   fi
-
   CURRENT_BRANCH="$current_branch"
   CURRENT_HEAD="$current_head"
   LOCAL_CONFIG_BRANCH="$local_config_branch"
@@ -145,7 +140,6 @@ trap cleanup EXIT
   echo "UTC_START=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   echo "REPO_ROOT=$REPO_ROOT"
   echo
-
   echo "[1/4] FETCH + CHOOSE GOVERNED CONFIG"
   git fetch origin
   choose_bootstrap_config
@@ -155,24 +149,18 @@ trap cleanup EXIT
   echo "BOOTSTRAP_AUTHORITY=$BOOTSTRAP_AUTHORITY"
   echo "BOOTSTRAP_CONFIG_BRANCH=$BOOTSTRAP_BRANCH"
   echo "BOOTSTRAP_CONFIG_COMMAND=$BOOTSTRAP_COMMAND"
-  if [[ -n "$BOOTSTRAP_SPATIAL_REVIEW_COMMAND" ]]; then
-    echo "BOOTSTRAP_SPATIAL_REVIEW_COMMAND=$BOOTSTRAP_SPATIAL_REVIEW_COMMAND"
-  fi
-
+  if [[ -n "$BOOTSTRAP_SPATIAL_REVIEW_COMMAND" ]]; then echo "BOOTSTRAP_SPATIAL_REVIEW_COMMAND=$BOOTSTRAP_SPATIAL_REVIEW_COMMAND"; fi
   echo "[2/4] SYNC GOVERNED ACTIVE BRANCH"
   switch_to_config_branch
-
   echo "[3/4] FAST-FORWARD + CONFIG REFRESH"
   git pull --ff-only
   load_config "POST_PULL"
-
   CURRENT_BRANCH="$(git branch --show-current)"
   if [[ "$QUAL_BRANCH" != "$CURRENT_BRANCH" ]]; then
     echo "CONFIG_HANDOFF=$CURRENT_BRANCH->$QUAL_BRANCH"
     switch_to_config_branch
     git pull --ff-only
     load_config "POST_HANDOFF_PULL"
-
     CURRENT_BRANCH="$(git branch --show-current)"
     if [[ "$QUAL_BRANCH" != "$CURRENT_BRANCH" ]]; then
       echo "CONFIG_BRANCH_CHAIN_REFUSED=$CURRENT_BRANCH->$QUAL_BRANCH" >&2
@@ -180,33 +168,24 @@ trap cleanup EXIT
       exit 94
     fi
   fi
-
   echo "EFFECTIVE_CONFIG_BRANCH=$QUAL_BRANCH"
   echo "EFFECTIVE_CONFIG_COMMAND=$QUAL_COMMAND"
-  if [[ -n "$SPATIAL_REVIEW_COMMAND" ]]; then
-    echo "EFFECTIVE_SPATIAL_REVIEW_COMMAND=$SPATIAL_REVIEW_COMMAND"
-  fi
+  if [[ -n "$SPATIAL_REVIEW_COMMAND" ]]; then echo "EFFECTIVE_SPATIAL_REVIEW_COMMAND=$SPATIAL_REVIEW_COMMAND"; fi
   echo "BRANCH=$(git branch --show-current)"
   echo "SHA=$(git rev-parse HEAD)"
   echo
   echo "[4/4] RUN"
   echo '$' "$QUAL_COMMAND"
   echo
-
   set +e
   export PYTHONPATH="$REPO_ROOT${PYTHONPATH:+:$PYTHONPATH}"
   bash -lc "$QUAL_COMMAND"
   RC=$?
   set -e
-
   echo
   echo "EXIT_CODE=$RC"
   echo "UTC_END=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  if [[ $RC -eq 0 ]]; then
-    echo "LOOM_PIXEL_QUALIFICATION_STATUS=PASS"
-  else
-    echo "LOOM_PIXEL_QUALIFICATION_STATUS=FAIL"
-  fi
+  if [[ $RC -eq 0 ]]; then echo "LOOM_PIXEL_QUALIFICATION_STATUS=PASS"; else echo "LOOM_PIXEL_QUALIFICATION_STATUS=FAIL"; fi
   exit "$RC"
 } 2>&1 | tee "$TMP"
 PIPE_RC=${PIPESTATUS[0]}
@@ -259,6 +238,23 @@ if command -v termux-clipboard-set >/dev/null 2>&1; then
 else
   echo
   echo "WARNING: termux-clipboard-set unavailable; output was not copied." >&2
+fi
+
+# Shortcut-launched Termux sessions are transient. Keep the durable transcript in
+# front of the operator before returning so PASS/FAIL and diagnostics remain readable.
+if [[ -t 0 && -t 1 ]]; then
+  echo
+  echo "Qualification transcript retained. Press q when finished reviewing."
+  if command -v less >/dev/null 2>&1; then
+    less -R "$LATEST_QUALIFICATION_LOG"
+  else
+    cat "$LATEST_QUALIFICATION_LOG"
+    echo
+    printf "Press Enter to close..."
+    read -r _
+  fi
+else
+  cat "$LATEST_QUALIFICATION_LOG"
 fi
 
 exit "$PIPE_RC"
