@@ -28,6 +28,14 @@ class PixelQualificationRunnerContractTests(unittest.TestCase):
         self.assertIn("Press q when finished reviewing", text)
         self.assertIn('cat "$LATEST_QUALIFICATION_LOG"', text)
 
+    def test_runner_refuses_duplicate_live_qualification_session(self):
+        text = (self.repo / "engineering/pixel/loom_pixel_run.sh").read_text(encoding="utf-8")
+        self.assertIn('QUALIFICATION_LOCK_DIR="${TMPDIR:-$HOME/.cache/loom}/qualification.lock"', text)
+        self.assertIn('mkdir "$QUALIFICATION_LOCK_DIR"', text)
+        self.assertIn("QUALIFICATION_ALREADY_RUNNING", text)
+        self.assertIn('kill -0 "$LOCK_PID"', text)
+        self.assertIn('rm -rf "$QUALIFICATION_LOCK_DIR"', text)
+
 
 if __name__ == "__main__":
     unittest.main()
