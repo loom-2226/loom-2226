@@ -13,6 +13,16 @@ class WayfarerTorchModeZ3ArtifactTests(unittest.TestCase):
         for mode in ("ECON", "CRUISE", "EXPEDITE", "FAST", "HARD", "LIMIT"):
             self.assertIn(f"(= mode {mode})", text)
 
+    def test_exact_card_table_does_not_duplicate_rounded_derived_outputs(self):
+        text = (Z3 / "wayfarer_torch_mode_envelope_v0.1.smt2").read_text()
+        table = text.split("; Exact physical identities.", 1)[0]
+        # mdot and ve are the exact card inputs. Thrust and jet power must be
+        # derived by the named identities, not independently rounded and pinned.
+        self.assertNotIn("(= thrust_N", table)
+        self.assertNotIn("(= jet_power_W", table)
+        self.assertIn("(* mdot_kg_s ve_m_s)", text)
+        self.assertIn("(* (/ 1 2) mdot_kg_s ve_m_s ve_m_s)", text)
+
     def test_protected_water_and_metric_firewalls_are_preserved(self):
         text = (Z3 / "wayfarer_torch_mode_envelope_v0.1.smt2").read_text()
         self.assertIn("A_PROTECTED_WATER_FIREWALL", text)
