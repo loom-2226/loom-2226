@@ -1,2 +1,2 @@
-engineering/e1-rcs-coarse-fine-offline-envelope-2026-09-15
-python -m unittest tests.test_e1_rcs_coarse_fine_persisted_result tests.test_e1_rcs_coarse_fine_offline_witness_replay && python engineering/experience_one/qualification/e1_rcs_coarse_fine_offline_witness_replay.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
+engineering/e1-rcs-physical-requirement-envelope-2026-09-15
+python -m unittest tests.test_wayfarer_rcs_physical_requirement_envelope && python src/wayfarer_rcs_physical_requirement_envelope.py && python -m unittest discover -s tests -p 'test_pixel_qualification_runner.py' && python -m unittest discover -s tests -p 'test_pixel_assisted_qualification.py' && bash -n engineering/pixel/loom_pixel_run.sh
