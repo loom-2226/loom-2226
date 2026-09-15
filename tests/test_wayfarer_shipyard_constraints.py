@@ -25,6 +25,11 @@ class ShipyardConstraintTests(unittest.TestCase):
         for token in ('858.5', '300.0', '250.0', '50.0', '(= tanks 4)', '(= longerons 4)', '(= radiators 4)', '(= torch-count 1)'):
             self.assertIn(token, text)
 
+    def test_zero_arity_constants_are_not_applied_as_functions(self):
+        text = LIB.read_text() + '\n' + SYN.read_text()
+        for symbol in ('dry-mass-t', 'working-fluid-t', 'wet-mass-t', 'normal-remass-t', 'protected-water-t'):
+            self.assertNotIn(f'({symbol})', text)
+
     def test_synthesis_keeps_candidate_inputs_visibly_named(self):
         text = SYN.read_text()
         self.assertIn('CANDIDATE_LEDGER', text)
