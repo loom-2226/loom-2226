@@ -5,7 +5,8 @@ SECONDS=0
 echo QUAL_PHASE_START=PYTHON_FRONTIER_REGRESSION
 python -m unittest \
   tests.test_wayfarer_2226_frontier_accountant \
-  tests.test_wayfarer_2226_frontier_consumers
+  tests.test_wayfarer_2226_frontier_consumers \
+  tests.test_pixel_qualification_runner
 
 echo QUAL_PHASE_ELAPSED_AFTER_PYTHON=$SECONDS
 echo QUAL_PHASE_START=RUNNER_SYNTAX
