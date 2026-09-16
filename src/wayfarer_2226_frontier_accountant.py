@@ -2,15 +2,57 @@
 
 ENGINEERING SCENARIO TOOL / NOT DOWNSTREAM AUTHORITY.
 
-This module deliberately accounts only quantities already admitted by the bounded
-horizon pass. It does not invent a magnet field, fusion source specific power,
-RCS exhaust velocity, E2 momentum partner, or metric constitutive law.
+This module accounts only ordinary-engineering producer quantities admitted by
+the bounded horizon pass. It does not invent a magnet field, fusion source
+specific power, RCS exhaust velocity, E2 momentum partner, or metric
+constitutive law.
 """
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from fractions import Fraction
-from typing import Dict, Optional
+import hashlib
+import json
+from typing import Dict
 
 STEFAN_BOLTZMANN_W_M2_K4 = Fraction(5670374419, 100_000_000_000_000_000)
+PRODUCER_REGISTER_VERSION = "WAYFARER_2226_ENGINEERING_FRONTIER_REGISTER_v1.0-rc1"
+
+# Hostile-review H2 compaction: reusable ordinary-engineering producers only.
+# Architecture/mechanism-dependent F7/F8 outputs remain consumer-derived.
+PRODUCER_QUANTITIES = (
+    # F1 fields / superconductors / magnets (5)
+    "f1_engineering_current_density_factor",
+    "f1_installed_magnet_mass_burden_factor",
+    "f1_cryogenic_parasitic_burden_factor",
+    "f1_stored_energy_protection_capability_factor",
+    "f1_radiation_fluence_lifetime_factor",
+    # F2 power conversion / PMAD (4)
+    "f2_conversion_efficiency",
+    "f2_pmad_efficiency",
+    "f2_installed_specific_power_factor",
+    "f2_environment_radiation_derating",
+    # F3 storage, only after technology/load-duration selection (4)
+    "f3_usable_specific_energy_factor",
+    "f3_specific_power_factor",
+    "f3_round_trip_efficiency",
+    "f3_cycle_lifetime_factor",
+    # F4 structures / extreme materials (5)
+    "f4_installed_specific_load_factor",
+    "f4_high_temperature_service_delta_k",
+    "f4_creep_fatigue_lifetime_factor",
+    "f4_radiation_fluence_lifetime_factor",
+    "f4_plasma_erosion_lifetime_factor",
+    # F5 thermal transport / radiators (5)
+    "f5_radiator_temperature_class",
+    "f5_effective_emissivity",
+    "f5_installed_radiator_mass_burden_factor",
+    "f5_heat_transport_capacity_factor",
+    "f5_freeze_turndown_capability_factor",
+    # F6 fluids / cryogenics / feed (4)
+    "f6_tankage_burden_factor_by_storage_class",
+    "f6_active_cryogenic_burden_factor",
+    "f6_retention_capability",
+    "f6_feed_system_burden_turndown_response",
+)
 
 
 @dataclass(frozen=True)
@@ -32,6 +74,39 @@ SCENARIOS: Dict[str, FrontierScenario] = {
     "MVP_2226": FrontierScenario(Fraction(98,100), Fraction(96,100), Fraction(90,100), Fraction(5), Fraction(2), Fraction(3), Fraction(1,2), Fraction(1,2), Fraction(3,5), Fraction(1,2)),
     "AGGRESSIVE_2226": FrontierScenario(Fraction(99,100), Fraction(98,100), Fraction(95,100), Fraction(10), Fraction(3), Fraction(5), Fraction(1,3), Fraction(1,3), Fraction(1,2), Fraction(1,3)),
 }
+
+
+def _fraction_token(value: Fraction) -> str:
+    value = Fraction(value)
+    return f"{value.numerator}/{value.denominator}"
+
+
+def producer_payload():
+    """Return the deterministic producer-authority payload used for pinning.
+
+    The payload deliberately includes only the compact producer identity and the
+    scenario values currently consumed by the accountant. Unresolved mechanism
+    outputs are excluded and therefore cannot become authority through hashing.
+    """
+    scenarios = {}
+    for name in sorted(SCENARIOS):
+        scenarios[name] = {
+            key: _fraction_token(value)
+            for key, value in sorted(asdict(SCENARIOS[name]).items())
+        }
+    return {
+        "producer_register_version": PRODUCER_REGISTER_VERSION,
+        "producer_quantity_count": len(PRODUCER_QUANTITIES),
+        "producer_quantities": PRODUCER_QUANTITIES,
+        "scenarios": scenarios,
+        "large_system_continuous_field_t": "UNSET",
+        "mechanism_authority": "NONE",
+    }
+
+
+def producer_version_hash() -> str:
+    encoded = json.dumps(producer_payload(), sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
 
 
 def radiator_flux_w_m2(temperature_k: Fraction, emissivity: Fraction) -> Fraction:
@@ -69,11 +144,7 @@ def assess_frontier_case(
     source_electrical_power_w: Fraction = Fraction(0),
     radiator_temperature_k: Fraction = Fraction(900),
 ):
-    """Return the bounded cross-frontier accounting state for one scenario.
-
-    The default 900 K is inherited from the existing E1 high-drive reject
-    interface; it is not a newly projected radiator technology limit.
-    """
+    """Return bounded cross-frontier accounting state for one scenario."""
     if scenario not in SCENARIOS:
         raise ValueError(f"unknown frontier scenario: {scenario}")
     s = SCENARIOS[scenario]
@@ -96,6 +167,9 @@ def assess_frontier_case(
     return {
         "scenario": scenario,
         "authority": "PROVISIONAL_ACCOUNTING_ONLY_NOT_DOWNSTREAM_AUTHORITY",
+        "producer_register_version": PRODUCER_REGISTER_VERSION,
+        "producer_version_hash": producer_version_hash(),
+        "downstream_authority": "REVALIDATION_REQUIRED_BEFORE_LOAD_BEARING_USE",
         "consumed_frontiers": ("F1_FIELDS", "F2_POWER", "F3_STORAGE", "F4_MATERIALS", "F5_THERMAL", "F6_FLUIDS"),
         "conversion_efficiency": s.conversion_efficiency,
         "pmad_efficiency": s.pmad_efficiency,
