@@ -1,6 +1,7 @@
 import unittest
 from fractions import Fraction
 
+from src.wayfarer_2226_frontier_accountant import producer_version_hash
 from src.wayfarer_2226_frontier_consumers import build_consumer_exercise
 
 
@@ -19,10 +20,7 @@ class FrontierConsumerExerciseTests(unittest.TestCase):
         self.assertEqual(hard["canon_cryo_electrical_w"], load)
         self.assertEqual(hard["frontier_delivered_load_w"], load)
         self.assertGreater(hard["frontier_required_upstream_electrical_w"], load)
-        self.assertEqual(
-            hard["frontier_distribution_heat_w"],
-            hard["frontier_required_upstream_electrical_w"] - load,
-        )
+        self.assertEqual(hard["frontier_distribution_heat_w"], hard["frontier_required_upstream_electrical_w"] - load)
         self.assertGreater(hard["frontier_distribution_radiator_area_m2"], 0)
         self.assertEqual(r["metric"]["shared_bank_j"], Fraction(2_000_000_000))
         self.assertEqual(r["metric"]["node_count"], 208)
@@ -58,6 +56,18 @@ class FrontierConsumerExerciseTests(unittest.TestCase):
         self.assertEqual(r["packaging"]["main_body_diameter_m"], Fraction(9))
         self.assertTrue(r["operating_rules"]["torch_high_metric_mutually_exclusive"])
         self.assertEqual(r["packaging"]["aft_rcs_x_m"], Fraction("44.5"))
+
+    def test_consumer_pins_current_producer_hash_and_requires_revalidation(self):
+        current = producer_version_hash()
+        r = build_consumer_exercise("MVP_2226", expected_producer_hash=current)
+        self.assertEqual(r["producer_version_hash"], current)
+        self.assertFalse(r["producer_stale"])
+        self.assertEqual(r["downstream_authority"], "REVALIDATION_REQUIRED_BEFORE_LOAD_BEARING_USE")
+
+    def test_consumer_detects_stale_producer_pin(self):
+        r = build_consumer_exercise("MVP_2226", expected_producer_hash="0" * 64)
+        self.assertTrue(r["producer_stale"])
+        self.assertEqual(r["downstream_authority"], "STALE_PRODUCER_REVALIDATION_REQUIRED")
 
 
 if __name__ == "__main__":
