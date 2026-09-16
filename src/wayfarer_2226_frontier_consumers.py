@@ -6,7 +6,12 @@ UPSTREAM rather than reducing the already-certified consumer requirement.
 """
 from fractions import Fraction
 
-from src.wayfarer_2226_frontier_accountant import radiator_flux_w_m2, SCENARIOS
+from src.wayfarer_2226_frontier_accountant import (
+    radiator_flux_w_m2,
+    producer_version_hash,
+    PRODUCER_REGISTER_VERSION,
+    SCENARIOS,
+)
 
 METRIC_MODES = {
     "NORMAL": {"beta": Fraction(268,1000), "cryo_electrical_w": Fraction(3_500_000), "canon_900k_equiv_m2": Fraction(106)},
@@ -16,11 +21,13 @@ METRIC_MODES = {
 }
 
 
-def build_consumer_exercise(scenario: str):
+def build_consumer_exercise(scenario: str, *, expected_producer_hash=None):
     if scenario not in SCENARIOS:
         raise ValueError(f"unknown frontier scenario: {scenario}")
     s = SCENARIOS[scenario]
     flux = radiator_flux_w_m2(Fraction(900), s.radiator_emissivity)
+    current_hash = producer_version_hash()
+    stale = expected_producer_hash is not None and expected_producer_hash != current_hash
 
     metric = {"plant_mass_kg": Fraction(88_000), "mc299m_kg": Fraction(10), "active_tiles": 100, "node_count": 208, "shared_bank_j": Fraction(2_000_000_000), "cryoplant_class_w": Fraction(150_000), "reject_temperature_k": Fraction(900)}
     for name, card in METRIC_MODES.items():
@@ -40,6 +47,10 @@ def build_consumer_exercise(scenario: str):
     return {
         "scenario": scenario,
         "authority": "INTEGRATION_EXERCISE_ONLY_NO_CANON_OR_E1_MUTATION",
+        "producer_register_version": PRODUCER_REGISTER_VERSION,
+        "producer_version_hash": current_hash,
+        "producer_stale": stale,
+        "downstream_authority": "STALE_PRODUCER_REVALIDATION_REQUIRED" if stale else "REVALIDATION_REQUIRED_BEFORE_LOAD_BEARING_USE",
         "authority_inputs": ("CANON_II_V2_4", "CANON_II_WAYFARER_SCHEMATIC_V2_4A", "E1_RCS_FROZEN_INTERFACE", "E1_TORCH_T5_FROZEN_INTERFACE"),
         "metric": metric,
         "torch": {
