@@ -3,6 +3,9 @@ from fractions import Fraction
 
 from src.wayfarer_2226_frontier_accountant import (
     SCENARIOS,
+    PRODUCER_REGISTER_VERSION,
+    producer_payload,
+    producer_version_hash,
     radiator_flux_w_m2,
     conversion_chain,
     assess_frontier_case,
@@ -47,6 +50,27 @@ class FrontierAccountantTests(unittest.TestCase):
         self.assertIn("F2_POWER", r["consumed_frontiers"])
         self.assertIn("F5_THERMAL", r["consumed_frontiers"])
         self.assertIn("F1_FIELD_REQUIRES_COUPLED_MODEL", r["holds"])
+
+    def test_producer_payload_is_compact_and_excludes_mechanism_outputs(self):
+        payload = producer_payload()
+        self.assertEqual(payload["producer_register_version"], PRODUCER_REGISTER_VERSION)
+        self.assertEqual(payload["producer_quantity_count"], 27)
+        names = set(payload["producer_quantities"])
+        self.assertNotIn("fusion_source_specific_power", names)
+        self.assertNotIn("e2_thrust_power", names)
+        self.assertNotIn("metric_constitutive_law", names)
+        self.assertNotIn("rcs_exhaust_velocity", names)
+
+    def test_producer_version_hash_is_deterministic_and_pinned_into_consumers(self):
+        h1 = producer_version_hash()
+        h2 = producer_version_hash()
+        self.assertEqual(h1, h2)
+        self.assertEqual(len(h1), 64)
+        self.assertTrue(all(c in "0123456789abcdef" for c in h1))
+        r = assess_frontier_case("MVP_2226")
+        self.assertEqual(r["producer_register_version"], PRODUCER_REGISTER_VERSION)
+        self.assertEqual(r["producer_version_hash"], h1)
+        self.assertEqual(r["downstream_authority"], "REVALIDATION_REQUIRED_BEFORE_LOAD_BEARING_USE")
 
 
 if __name__ == "__main__":
