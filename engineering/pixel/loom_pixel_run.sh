@@ -6,7 +6,6 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 CONFIG_REL="engineering/pixel/active_qualification.txt"
 CONFIG="$SCRIPT_DIR/active_qualification.txt"
 QUALIFICATION_POINTER_REF="origin/qualification/active"
-LOOM_SPATIAL_REVIEW_URL="http://127.0.0.1:8878/"
 QUALIFICATION_LOG_DIR="${LOOM_QUALIFICATION_LOG_DIR:-$(dirname "$REPO_ROOT")/LOOM_Qualification_Logs}"
 QUALIFICATION_LOCK_DIR="${TMPDIR:-$HOME/.cache/loom}/qualification.lock"
 QUALIFICATION_LOCK_OWNER_BASHPID="$BASHPID"
@@ -15,104 +14,33 @@ cd "$REPO_ROOT" || exit 90
 mkdir -p "$(dirname "$QUALIFICATION_LOCK_DIR")"
 if ! mkdir "$QUALIFICATION_LOCK_DIR" 2>/dev/null; then
   LOCK_PID="$(cat "$QUALIFICATION_LOCK_DIR/pid" 2>/dev/null || true)"
-  if [[ -n "$LOCK_PID" ]] && kill -0 "$LOCK_PID" 2>/dev/null; then
-    echo "LOOM PIXEL QUALIFICATION: QUALIFICATION_ALREADY_RUNNING (PID=$LOCK_PID)" >&2
-    echo "Return to the existing Termux qualification session instead of launching another." >&2
-    exit 97
-  fi
-  rm -rf "$QUALIFICATION_LOCK_DIR"
-  mkdir "$QUALIFICATION_LOCK_DIR" 2>/dev/null || { echo "LOOM PIXEL QUALIFICATION: unable to acquire qualification session lock." >&2; exit 98; }
+  if [[ -n "$LOCK_PID" ]] && kill -0 "$LOCK_PID" 2>/dev/null; then echo "LOOM PIXEL QUALIFICATION: QUALIFICATION_ALREADY_RUNNING (PID=$LOCK_PID)" >&2; exit 97; fi
+  rm -rf "$QUALIFICATION_LOCK_DIR"; mkdir "$QUALIFICATION_LOCK_DIR" 2>/dev/null || exit 98
 fi
 printf '%s\n' "$QUALIFICATION_LOCK_OWNER_BASHPID" > "$QUALIFICATION_LOCK_DIR/pid"
-
-load_config() {
-  local phase="${1:-UNSPECIFIED}"
-  [[ -f "$CONFIG" ]] || { echo "LOOM PIXEL QUALIFICATION: missing $CONFIG during $phase" >&2; exit 91; }
-  mapfile -t CFG < "$CONFIG"
-  QUAL_BRANCH="${CFG[0]:-}"; QUAL_COMMAND="${CFG[1]:-}"; SPATIAL_REVIEW_COMMAND="${CFG[2]:-}"
-  [[ -n "$QUAL_BRANCH" && -n "$QUAL_COMMAND" ]] || { echo "LOOM PIXEL QUALIFICATION: invalid active qualification config during $phase" >&2; exit 92; }
-}
-_parse_remote_config() {
-  local remote_config="$1" ref="$2" phase="$3"
-  mapfile -t CFG <<< "$remote_config"
-  QUAL_BRANCH="${CFG[0]:-}"; QUAL_COMMAND="${CFG[1]:-}"; SPATIAL_REVIEW_COMMAND="${CFG[2]:-}"
-  [[ -n "$QUAL_BRANCH" && -n "$QUAL_COMMAND" ]] || { echo "LOOM PIXEL QUALIFICATION: invalid active qualification config from $ref during $phase" >&2; exit 96; }
-}
-load_origin_main_config() {
-  local phase="${1:-ORIGIN_MAIN_BOOTSTRAP}" remote_config
-  remote_config="$(git show "origin/main:engineering/pixel/active_qualification.txt" 2>/dev/null)" || { echo "LOOM PIXEL QUALIFICATION: unable to read origin/main:$CONFIG_REL during $phase" >&2; exit 95; }
-  _parse_remote_config "$remote_config" "origin/main" "$phase"
-}
-load_qualification_pointer_config() {
-  local phase="${1:-REMOTE_QUALIFICATION_POINTER}" remote_config
-  remote_config="$(git show "$QUALIFICATION_POINTER_REF:engineering/pixel/active_qualification.txt" 2>/dev/null)" || { echo "LOOM PIXEL QUALIFICATION: unable to read $QUALIFICATION_POINTER_REF:$CONFIG_REL during $phase" >&2; exit 95; }
-  _parse_remote_config "$remote_config" "$QUALIFICATION_POINTER_REF" "$phase"
-}
-switch_to_config_branch() {
-  local current_branch="$(git branch --show-current)"
-  if [[ "$current_branch" != "$QUAL_BRANCH" ]]; then
-    echo "SWITCH $current_branch -> $QUAL_BRANCH"
-    if git show-ref --verify --quiet "refs/heads/$QUAL_BRANCH"; then git switch "$QUAL_BRANCH"; else git switch --track -c "$QUAL_BRANCH" "origin/$QUAL_BRANCH"; fi
-  else echo "BRANCH OK $current_branch"; fi
-}
-choose_bootstrap_config() {
-  local current_branch="$(git branch --show-current)" current_head="$(git rev-parse HEAD)" local_config_branch=""
-  [[ ! -f "$CONFIG" ]] || local_config_branch="$(sed -n '1p' "$CONFIG")"
-  CURRENT_BRANCH="$current_branch"; CURRENT_HEAD="$current_head"; LOCAL_CONFIG_BRANCH="$local_config_branch"
-  if git show-ref --verify --quiet "refs/remotes/$QUALIFICATION_POINTER_REF"; then echo "BOOTSTRAP_MODE=REMOTE_QUALIFICATION_POINTER"; load_qualification_pointer_config "REMOTE_QUALIFICATION_POINTER"; BOOTSTRAP_AUTHORITY="$QUALIFICATION_POINTER_REF"; return; fi
-  if [[ -n "$CURRENT_BRANCH" && "$CURRENT_BRANCH" != "main" ]]; then
-    if [[ "$LOCAL_CONFIG_BRANCH" == "$CURRENT_BRANCH" ]]; then
-      if git merge-base --is-ancestor "$CURRENT_HEAD" origin/main; then echo "BOOTSTRAP_MODE=CURRENT_BRANCH_MERGED_INTO_ORIGIN_MAIN"; load_origin_main_config "MERGED_BRANCH_BOOTSTRAP"; BOOTSTRAP_AUTHORITY="origin/main"; else echo "BOOTSTRAP_MODE=CURRENT_UNMERGED_SELF_QUALIFICATION"; load_config "CURRENT_UNMERGED_SELF_QUALIFICATION"; BOOTSTRAP_AUTHORITY="current-unmerged-branch"; fi
-    else echo "BOOTSTRAP_MODE=ORIGIN_MAIN_ACTIVE_QUALIFICATION"; load_origin_main_config "ORIGIN_MAIN_ACTIVE_QUALIFICATION"; BOOTSTRAP_AUTHORITY="origin/main"; fi
-  else echo "BOOTSTRAP_MODE=ORIGIN_MAIN_ACTIVE_QUALIFICATION"; load_origin_main_config "ORIGIN_MAIN_ACTIVE_QUALIFICATION"; BOOTSTRAP_AUTHORITY="origin/main"; fi
-}
-
-if [[ -n "$(git status --porcelain)" ]]; then echo "LOOM PIXEL QUALIFICATION: REFUSED — working tree is not clean." >&2; git status --short >&2; rm -rf "$QUALIFICATION_LOCK_DIR"; exit 93; fi
-TMP="$(mktemp -t loom-pixel-qual.XXXXXX)"
-CLIPBOARD_RECEIPT="$(mktemp -t loom-pixel-receipt.XXXXXX)"
-cleanup() {
-  rm -f "$TMP" "$CLIPBOARD_RECEIPT"
-  if [[ "$BASHPID" == "$QUALIFICATION_LOCK_OWNER_BASHPID" ]]; then rm -rf "$QUALIFICATION_LOCK_DIR"; fi
-}
+TMP="$(mktemp -t loom-pixel-qual.XXXXXX)"; CLIPBOARD_RECEIPT="$(mktemp -t loom-pixel-receipt.XXXXXX)"
+cleanup(){ rm -f "$TMP" "$CLIPBOARD_RECEIPT"; [[ "$BASHPID" != "$QUALIFICATION_LOCK_OWNER_BASHPID" ]] || rm -rf "$QUALIFICATION_LOCK_DIR"; }
 trap cleanup EXIT
 
+_parse_remote_config(){ local remote_config="$1" ref="$2" phase="$3"; mapfile -t CFG <<< "$remote_config"; QUAL_BRANCH="${CFG[0]:-}"; QUAL_COMMAND="${CFG[1]:-}"; [[ -n "$QUAL_BRANCH" && -n "$QUAL_COMMAND" ]] || { echo "LOOM PIXEL QUALIFICATION: invalid config from $ref during $phase" >&2; exit 96; }; }
+load_qualification_pointer_config(){ local phase="${1:-REMOTE_QUALIFICATION_POINTER}" remote_config; remote_config="$(git show "$QUALIFICATION_POINTER_REF:$CONFIG_REL" 2>/dev/null)" || { echo "LOOM PIXEL QUALIFICATION: unable to read $QUALIFICATION_POINTER_REF:$CONFIG_REL during $phase" >&2; exit 95; }; _parse_remote_config "$remote_config" "$QUALIFICATION_POINTER_REF" "$phase"; }
+switch_to_config_branch(){ local current_branch="$(git branch --show-current)"; if [[ "$current_branch" != "$QUAL_BRANCH" ]]; then echo "SWITCH $current_branch -> $QUAL_BRANCH"; if git show-ref --verify --quiet "refs/heads/$QUAL_BRANCH"; then git switch "$QUAL_BRANCH"; else git switch --track -c "$QUAL_BRANCH" "origin/$QUAL_BRANCH"; fi; else echo "BRANCH OK $current_branch"; fi; }
+
+if [[ -n "$(git status --porcelain)" ]]; then echo "LOOM PIXEL QUALIFICATION: REFUSED — working tree is not clean." >&2; git status --short >&2; exit 93; fi
 {
-  echo "LOOM PIXEL QUALIFICATION"; echo "========================"; echo "UTC_START=$(date -u +%Y-%m-%dT%H:%M:%SZ)"; echo "REPO_ROOT=$REPO_ROOT"; echo
-  echo "[1/4] FETCH + CHOOSE GOVERNED CONFIG"; git fetch origin; choose_bootstrap_config
-  BOOTSTRAP_BRANCH="$QUAL_BRANCH"; BOOTSTRAP_COMMAND="$QUAL_COMMAND"; BOOTSTRAP_SPATIAL_REVIEW_COMMAND="$SPATIAL_REVIEW_COMMAND"
-  echo "BOOTSTRAP_AUTHORITY=$BOOTSTRAP_AUTHORITY"; echo "BOOTSTRAP_CONFIG_BRANCH=$BOOTSTRAP_BRANCH"; echo "BOOTSTRAP_CONFIG_COMMAND=$BOOTSTRAP_COMMAND"
-  [[ -z "$BOOTSTRAP_SPATIAL_REVIEW_COMMAND" ]] || echo "BOOTSTRAP_SPATIAL_REVIEW_COMMAND=$BOOTSTRAP_SPATIAL_REVIEW_COMMAND"
-  echo "[2/4] SYNC GOVERNED ACTIVE BRANCH"; switch_to_config_branch
-  echo "[3/4] FAST-FORWARD + CONFIG REFRESH"; git pull --ff-only; load_config "POST_PULL"; CURRENT_BRANCH="$(git branch --show-current)"
-  if [[ "$QUAL_BRANCH" != "$CURRENT_BRANCH" ]]; then echo "CONFIG_HANDOFF=$CURRENT_BRANCH->$QUAL_BRANCH"; switch_to_config_branch; git pull --ff-only; load_config "POST_HANDOFF_PULL"; CURRENT_BRANCH="$(git branch --show-current)"; [[ "$QUAL_BRANCH" == "$CURRENT_BRANCH" ]] || { echo "CONFIG_BRANCH_CHAIN_REFUSED=$CURRENT_BRANCH->$QUAL_BRANCH" >&2; exit 94; }; fi
-  echo "EFFECTIVE_CONFIG_BRANCH=$QUAL_BRANCH"; echo "EFFECTIVE_CONFIG_COMMAND=$QUAL_COMMAND"; [[ -z "$SPATIAL_REVIEW_COMMAND" ]] || echo "EFFECTIVE_SPATIAL_REVIEW_COMMAND=$SPATIAL_REVIEW_COMMAND"; echo "BRANCH=$(git branch --show-current)"; echo "SHA=$(git rev-parse HEAD)"; echo; echo "[4/4] RUN"; echo '$' "$QUAL_COMMAND"; echo
-  set +e; export PYTHONPATH="$REPO_ROOT${PYTHONPATH:+:$PYTHONPATH}"; bash -lc "$QUAL_COMMAND"; RC=$?; set -e
-  echo; echo "EXIT_CODE=$RC"; echo "UTC_END=$(date -u +%Y-%m-%dT%H:%M:%SZ)"; if [[ $RC -eq 0 ]]; then echo "LOOM_PIXEL_QUALIFICATION_STATUS=PASS"; else echo "LOOM_PIXEL_QUALIFICATION_STATUS=FAIL"; fi; exit "$RC"
+ echo "LOOM PIXEL QUALIFICATION"; echo "========================"; echo "UTC_START=$(date -u +%Y-%m-%dT%H:%M:%SZ)"; echo "REPO_ROOT=$REPO_ROOT"; echo
+ echo "[1/4] FETCH + LOAD GOVERNED POINTER"; git fetch origin; load_qualification_pointer_config "REMOTE_QUALIFICATION_POINTER"; echo "BOOTSTRAP_AUTHORITY=$QUALIFICATION_POINTER_REF"; echo "BOOTSTRAP_CONFIG_BRANCH=$QUAL_BRANCH"; echo "BOOTSTRAP_CONFIG_COMMAND=$QUAL_COMMAND"
+ echo "[2/4] SYNC GOVERNED ACTIVE BRANCH"; switch_to_config_branch
+ echo "[3/4] FAST-FORWARD + RELOAD GOVERNED POINTER"; git pull --ff-only; git fetch origin qualification/active; load_qualification_pointer_config "POST_PULL_GOVERNED_POINTER"; CURRENT_BRANCH="$(git branch --show-current)"; [[ "$QUAL_BRANCH" == "$CURRENT_BRANCH" ]] || { echo "GOVERNED_POINTER_HANDOFF_REFUSED=$CURRENT_BRANCH->$QUAL_BRANCH" >&2; exit 94; }
+ echo "EFFECTIVE_CONFIG_BRANCH=$QUAL_BRANCH"; echo "EFFECTIVE_CONFIG_COMMAND=$QUAL_COMMAND"; echo "BRANCH=$CURRENT_BRANCH"; echo "SHA=$(git rev-parse HEAD)"; echo; echo "[4/4] RUN"; echo '$' "$QUAL_COMMAND"; echo
+ set +e; export PYTHONPATH="$REPO_ROOT${PYTHONPATH:+:$PYTHONPATH}"; bash -lc "$QUAL_COMMAND"; RC=$?; set -e
+ echo; echo "EXIT_CODE=$RC"; echo "UTC_END=$(date -u +%Y-%m-%dT%H:%M:%SZ)"; if [[ $RC -eq 0 ]]; then echo "LOOM_PIXEL_QUALIFICATION_STATUS=PASS"; else echo "LOOM_PIXEL_QUALIFICATION_STATUS=FAIL"; fi; exit "$RC"
 } 2>&1 | tee "$TMP"
 PIPE_RC=${PIPESTATUS[0]}
-
-load_config "POST_QUALIFICATION"
-if [[ $PIPE_RC -eq 0 && -n "$SPATIAL_REVIEW_COMMAND" ]]; then
-  { echo; echo "[SPATIAL REVIEW]"; echo "READ_ONLY_PRESENTATION=YES"; echo "LOOM_SPATIAL_REVIEW_URL=$LOOM_SPATIAL_REVIEW_URL"; REVIEW_LOG_DIR="${TMPDIR:-$HOME/.cache/loom}"; mkdir -p "$REVIEW_LOG_DIR"; REVIEW_LOG="$REVIEW_LOG_DIR/loom-spatial-review.log"; pkill -f "engineering/pixel/spatial_review.py" >/dev/null 2>&1 || true; nohup bash -lc "$SPATIAL_REVIEW_COMMAND" >"$REVIEW_LOG" 2>&1 & REVIEW_PID=$!; sleep 0.5; if kill -0 "$REVIEW_PID" >/dev/null 2>&1; then echo "SPATIAL_REVIEW_STATUS=LAUNCHED"; echo "SPATIAL_REVIEW_PID=$REVIEW_PID"; echo "SPATIAL_REVIEW_LOG=$REVIEW_LOG"; if command -v termux-open-url >/dev/null 2>&1; then termux-open-url "$LOOM_SPATIAL_REVIEW_URL" >/dev/null 2>&1 || true; echo "SPATIAL_REVIEW_BROWSER=OPEN_REQUESTED"; else echo "SPATIAL_REVIEW_BROWSER=TERMUX_OPEN_URL_UNAVAILABLE"; fi; else echo "SPATIAL_REVIEW_STATUS=FAILED_TO_STAY_RUNNING"; echo "SPATIAL_REVIEW_LOG=$REVIEW_LOG"; fi; } 2>&1 | tee -a "$TMP"
-fi
-
-mkdir -p "$QUALIFICATION_LOG_DIR"; QUALIFICATION_LOG_STAMP="$(date -u +%Y%m%dT%H%M%SZ)"; QUALIFICATION_LOG="$QUALIFICATION_LOG_DIR/qualification-$QUALIFICATION_LOG_STAMP.log"; LATEST_QUALIFICATION_LOG="$QUALIFICATION_LOG_DIR/latest.log"
-cp "$TMP" "$QUALIFICATION_LOG"; cp "$TMP" "$LATEST_QUALIFICATION_LOG"
-TRANSCRIPT_SHA256="$(sha256sum "$QUALIFICATION_LOG" | awk '{print $1}')"
-FINAL_BRANCH="$(grep '^BRANCH=' "$TMP" | tail -1 | cut -d= -f2-)"
-FINAL_SHA="$(grep '^SHA=' "$TMP" | tail -1 | cut -d= -f2-)"
-FINAL_STATUS="$(grep '^LOOM_PIXEL_QUALIFICATION_STATUS=' "$TMP" | tail -1 | cut -d= -f2-)"
-if [[ $PIPE_RC -eq 0 && "$FINAL_STATUS" == "PASS" ]]; then TESTS="PASS"; else TESTS="FAIL"; fi
-{
-  echo "LOOM PIXEL QUALIFICATION RECEIPT"
-  echo "BRANCH=$FINAL_BRANCH"
-  echo "SHA=$FINAL_SHA"
-  echo "TESTS=$TESTS"
-  echo "EXIT_CODE=$PIPE_RC"
-  echo "LOOM_PIXEL_QUALIFICATION_STATUS=${FINAL_STATUS:-FAIL}"
-  echo "TRANSCRIPT_SHA256=$TRANSCRIPT_SHA256"
-} > "$CLIPBOARD_RECEIPT"
-echo; echo "QUALIFICATION_LOG_SAVED=$QUALIFICATION_LOG"; echo "QUALIFICATION_LOG_LATEST=$LATEST_QUALIFICATION_LOG"; echo "TRANSCRIPT_SHA256=$TRANSCRIPT_SHA256"
-if command -v termux-clipboard-set >/dev/null 2>&1; then termux-clipboard-set < "$CLIPBOARD_RECEIPT"; echo; echo "Compact qualification receipt copied to Android clipboard; full transcript retained locally."; else echo; echo "WARNING: termux-clipboard-set unavailable; receipt was not copied." >&2; fi
-if [[ -t 0 && -t 1 ]]; then echo; echo "Qualification transcript retained. Press q when finished reviewing."; if command -v less >/dev/null 2>&1; then less -R "$LATEST_QUALIFICATION_LOG"; else cat "$LATEST_QUALIFICATION_LOG"; echo; printf "Press Enter to close..."; read -r _; fi; else cat "$LATEST_QUALIFICATION_LOG"; fi
+load_qualification_pointer_config "POST_QUALIFICATION"
+mkdir -p "$QUALIFICATION_LOG_DIR"; STAMP="$(date -u +%Y%m%dT%H%M%SZ)"; LOG="$QUALIFICATION_LOG_DIR/qualification-$STAMP.log"; LATEST="$QUALIFICATION_LOG_DIR/latest.log"; cp "$TMP" "$LOG"; cp "$TMP" "$LATEST"
+TRANSCRIPT_SHA256="$(sha256sum "$LOG" | awk '{print $1}')"; FINAL_BRANCH="$(grep '^BRANCH=' "$TMP" | tail -1 | cut -d= -f2-)"; FINAL_SHA="$(grep '^SHA=' "$TMP" | tail -1 | cut -d= -f2-)"; FINAL_STATUS="$(grep '^LOOM_PIXEL_QUALIFICATION_STATUS=' "$TMP" | tail -1 | cut -d= -f2-)"; [[ $PIPE_RC -eq 0 && "$FINAL_STATUS" == PASS ]] && TESTS=PASS || TESTS=FAIL
+{ echo "LOOM PIXEL QUALIFICATION RECEIPT"; echo "BRANCH=$FINAL_BRANCH"; echo "SHA=$FINAL_SHA"; echo "TESTS=$TESTS"; echo "EXIT_CODE=$PIPE_RC"; echo "LOOM_PIXEL_QUALIFICATION_STATUS=${FINAL_STATUS:-FAIL}"; echo "TRANSCRIPT_SHA256=$TRANSCRIPT_SHA256"; } > "$CLIPBOARD_RECEIPT"
+echo; echo "QUALIFICATION_LOG_SAVED=$LOG"; echo "QUALIFICATION_LOG_LATEST=$LATEST"; echo "TRANSCRIPT_SHA256=$TRANSCRIPT_SHA256"
+if command -v termux-clipboard-set >/dev/null 2>&1; then termux-clipboard-set < "$CLIPBOARD_RECEIPT"; echo "Compact qualification receipt copied to Android clipboard; full transcript retained locally."; else cat "$CLIPBOARD_RECEIPT"; fi
 exit "$PIPE_RC"
