@@ -1,0 +1,23 @@
+name: Ceres Inspector structural audit
+on:
+  pull_request:
+    paths:
+      - 'tools/audit_ceres_inspector_sources.py'
+      - '.github/workflows/ceres-inspector-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect checked-out database structure read-only
+        run: python tools/audit_ceres_inspector_sources.py
+      - name: Retain structural report for human semantic review; never deploy
+        uses: actions/upload-artifact@v4
+        with:
+          name: ceres-inspector-structural-audit
+          path: ceres_inspector_structural_audit.json
+          retention-days: 7
