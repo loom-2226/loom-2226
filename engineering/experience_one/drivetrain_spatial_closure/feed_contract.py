@@ -56,8 +56,8 @@ def verify_source_contract(baseline: dict, performance: dict) -> dict:
         thrust = row['initial_thrust_N_at_reference_wet_mass']
         flow = row['initial_mass_flow_kg_s_at_reference_wet_mass']
         ve = row['exhaust_velocity_m_s']
-        if not all(math.isfinite(v) and v > 0 for v in (thrust, flow, ve)) or not math.isclose(flow * ve, thrust, rel_tol=1e-10):
-            raise ValueError('flow/thrust mismatch: ' + mode)
+        if not all(math.isfinite(v) and v > 0 for v in (thrust, flow, ve)) or not math.isclose(ve, row['exhaust_velocity_km_s'] * 1000, rel_tol=0, abs_tol=1e-8) or not math.isclose(flow * ve, thrust, rel_tol=1e-10):
+            raise ValueError('flow/thrust/velocity unit mismatch: ' + mode)
         flows.append(flow)
         burn = env['constant_card_full_normal_remass_burn'][mode]
         if burn['normal_remass_consumed_t'] != vi['normal_remass_allowance_t'] or burn['protected_water_consumed_t'] != 0 or burn['final_mass_t'] != vi['post_normal_remass_reference_mass_t']:
