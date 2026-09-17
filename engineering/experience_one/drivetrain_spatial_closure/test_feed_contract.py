@@ -26,6 +26,13 @@ class FeedContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             verify_source_contract(BASE, performance)
 
+    def test_velocity_units_mismatch_rejected(self):
+        performance = copy.deepcopy(PERF)
+        performance['operating_cards']['ECON']['exhaust_velocity_m_s'] = 300
+        performance['operating_cards']['ECON']['initial_thrust_N_at_reference_wet_mass'] = 300
+        with self.assertRaises(ValueError):
+            verify_source_contract(BASE, performance)
+
     def test_reserve_burn_rejected(self):
         performance = copy.deepcopy(PERF)
         performance['normal_remass_envelope']['constant_card_full_normal_remass_burn']['ECON']['protected_water_consumed_t'] = 1
