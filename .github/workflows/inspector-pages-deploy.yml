@@ -1,0 +1,58 @@
+name: Publish LOOM Pages with Media Inspector
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_publication:
+        description: 'I authorize public publication of the 182 approved/current media assets and allowlisted Inspector metadata'
+        type: boolean
+        required: true
+        default: false
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: loom-pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: ${{ inputs.confirm_publication == true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and verify existing media release
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --output /tmp/LOOM_2226_media.sqlite3 'https://github.com/loom-2226/loom-2226/releases/download/v0.1.0-runtime-baseline/LOOM_2226_media.sqlite3'
+          echo '286873428afbf30b91bdb2e71b55146ed5979873cfd6af69579c121b724eb038  /tmp/LOOM_2226_media.sqlite3' | sha256sum --check
+      - name: Generate Inspector alongside existing Ceres gallery
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f docs/ceres/index.html
+          python tools/build_inspector_pages.py --world data/LOOM_2226.sqlite3 --media /tmp/LOOM_2226_media.sqlite3 --output docs/inspector
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('docs/inspector')
+          data=json.loads((root/'catalog.json').read_text())
+          assert data['status']=='APPROVED_FOR_PUBLICATION'
+          assert len(data['assets'])==182
+          assert len({a['asset_id'] for a in data['assets']})==182
+          assert all((root/a['original']).is_file() and (root/a['thumbnail']).is_file() for a in data['assets'])
+          assert (root/'index.html').is_file()
+          assert Path('docs/ceres/index.html').is_file()
+          print('Validated Inspector and preserved Ceres')
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - name: Deploy complete docs site
+        id: deployment
+        uses: actions/deploy-pages@v4
