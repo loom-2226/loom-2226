@@ -1,0 +1,26 @@
+name: E1 feed contract verification
+
+on:
+  pull_request:
+    paths:
+      - 'engineering/experience_one/drivetrain_spatial_closure/**'
+      - 'src/wayfarer_torch_baseline_recovery.py'
+      - 'src/wayfarer_torch_performance_remass_envelope.py'
+      - '.github/workflows/e1-feed-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  feed-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Execute fixture and actual repository source builders
+        run: python -m unittest -v engineering.experience_one.drivetrain_spatial_closure.test_feed_contract
+      - name: Emit source-backed contract result
+        run: python -m engineering.experience_one.drivetrain_spatial_closure.feed_contract
