@@ -22,5 +22,7 @@ jobs:
           python-version: '3.11'
       - name: Execute fixture and actual repository source builders
         run: python -m unittest -v engineering.experience_one.drivetrain_spatial_closure.test_feed_contract
+      - name: Verify PR D logical feed connectivity and isolation
+        run: python -m unittest -v engineering.experience_one.drivetrain_spatial_closure.test_feed_graph
       - name: Emit source-backed contract result
         run: python -m engineering.experience_one.drivetrain_spatial_closure.feed_contract
