@@ -1,0 +1,45 @@
+name: Ship Pages preview and publication safety
+on:
+  pull_request:
+    paths:
+      - 'docs/ships/**'
+      - '.github/workflows/ship-pages-preview.yml'
+      - '.github/workflows/inspector-pages-deploy.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate public ship site and preserve existing Pages sections
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          root=Path('docs')
+          for page in ('inspector/index.html','ceres/index.html','ships/index.html'):
+              p=root/page
+              assert p.is_file() and p.stat().st_size>0, f'Missing Pages entry: {p}'
+              HTMLParser().feed(p.read_text(encoding='utf-8'))
+          forbidden={'.sqlite','.sqlite3','.db','.pem','.key','.env'}
+          for p in root.rglob('*'):
+              if not p.is_file(): continue
+              assert p.suffix.lower() not in forbidden, f'Forbidden public artifact: {p}'
+              assert p.name not in ('.env','id_rsa'), f'Forbidden public artifact: {p}'
+          ship=(root/'ships/index.html').read_text(encoding='utf-8')
+          for phrase in ('Tank alternatives','50 t','not clearance-qualified'):
+              assert phrase.lower() in ship.lower(), f'Missing design-status disclosure: {phrase}'
+          assert 'catalog.json' in (root/'inspector/index.html').read_text(encoding='utf-8')
+          print('PASS: three Pages entries, HTML parsing, file safety and Wayfarer candidate disclosures')
+          PY
+      - name: Upload ship preview (not published)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ship-pages-preview
+          path: docs/ships/
+          retention-days: 7
