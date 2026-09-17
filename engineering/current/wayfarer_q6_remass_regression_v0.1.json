@@ -1,0 +1,33 @@
+{
+  "schema": "LOOM.Wayfarer.RemassMissionRegression",
+  "schema_version": "0.1",
+  "status": "ENGINEERING_SCREENING_NON_CANON",
+  "reference_initial_mass_t": 1158.5,
+  "normal_remass_baseline_t": 250.0,
+  "protected_water_reserve_t": 50.0,
+  "torch_modes": {
+    "ECON": {"ve_km_s": 3000.0, "ideal_dv_from_250t_km_s": 729.26},
+    "CRUISE": {"ve_km_s": 2000.0, "ideal_dv_from_250t_km_s": 486.17},
+    "EXPEDITE": {"ve_km_s": 1000.0, "ideal_dv_from_250t_km_s": 243.09},
+    "FAST": {"ve_km_s": 700.0, "ideal_dv_from_250t_km_s": 170.16},
+    "HARD": {"ve_km_s": 450.0, "ideal_dv_from_250t_km_s": 109.39},
+    "LIMIT": {"ve_km_s": 300.0, "ideal_dv_from_250t_km_s": 72.93}
+  },
+  "regression_buckets": [
+    {"name": "ROUTINE_COURIER", "ordinary_delta_v_km_s": 50.0, "cruise_ve_propellant_t": 28.60},
+    {"name": "DEMANDING_TRUNK_TERMINAL", "ordinary_delta_v_km_s": 100.0, "cruise_ve_propellant_t": 56.50},
+    {"name": "SEVERE_DEGRADED_METRIC_CONSTRAINED", "ordinary_delta_v_km_s": 200.0, "cruise_ve_propellant_t": 110.25},
+    {"name": "EXTRAORDINARY_ORDINARY_SPACE_RECOVERY", "ordinary_delta_v_km_s": 300.0, "cruise_ve_propellant_t": 161.37}
+  ],
+  "candidate_dispatch_inventories_t": [100.0, 150.0, 200.0, 250.0],
+  "mode_doctrine_candidate": {
+    "ECON": "BULK_DELTA_V",
+    "CRUISE": "BULK_DELTA_V",
+    "EXPEDITE": "TIME_CRITICAL_COSTED",
+    "FAST": "EXCEPTIONAL",
+    "HARD": "EMERGENCY_OR_HIGH_AUTHORITY",
+    "LIMIT": "TIME_LIMITED_CONTINGENCY"
+  },
+  "next_gate": "RUN_ACTUAL_NAVIGATOR_ROUTE_SUITE",
+  "qualification_status": "SCREENING_PASS"
+}

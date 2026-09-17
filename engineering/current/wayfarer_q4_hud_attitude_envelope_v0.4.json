@@ -1,0 +1,113 @@
+{
+  "standard_id": "WAYFARER_Q4_HUD_ATTITUDE_ENVELOPE_V0.4",
+  "status": "QUALIFIED_FOR_HUD_FINITE_ATTITUDE_ENVELOPE_NON_CANON",
+  "date": "2026-09-11",
+  "authority": "ENGINEERING_QUALIFICATION_NON_CANON",
+  "hud_use_allowed": true,
+  "canon_promotion_allowed": false,
+  "instantaneous_attitude_reset_allowed": false,
+  "scope": "finite attitude-transition timing and degraded-control presentation for the existing HUD qualification slice",
+  "source_model": "src/wayfarer_q4_rigid_body.py",
+  "assumptions": {
+    "rcs_individual_thruster_max_N": 25000.0,
+    "pitch_yaw_couple_separation_m": 40.0,
+    "nominal_pitch_yaw_torque_Nm": 1000000.0,
+    "nominal_roll_torque_Nm": 200000.0,
+    "settle_margin_fraction": 0.20,
+    "balanced_four_tank_draw": true,
+    "radiators": "STOWED_OR_ENVELOPE_EQUIVALENT_ONLY",
+    "closed_loop_control_law": "NOT_QUALIFIED"
+  },
+  "mass_states": {
+    "REFERENCE_WET_DOCKED": {
+      "mass_t": 1158.5,
+      "normal_remass_t": 250.0,
+      "protected_water_t": 50.0,
+      "launch_state": "DOCKED",
+      "center_of_mass_m": [26.6766508416, 0.0, 0.1481225723],
+      "inertia_diag_kg_m2": [9108407.17, 197193835.57, 196342333.41]
+    },
+    "REFERENCE_WET_LAUNCH_ABSENT": {
+      "mass_t": 1125.5,
+      "normal_remass_t": 250.0,
+      "protected_water_t": 50.0,
+      "launch_state": "ABSENT",
+      "center_of_mass_m": [26.8196357175, 0.0, 0.0],
+      "inertia_diag_kg_m2": [8173250.0, 195189511.05, 195189511.05]
+    },
+    "NORMAL_REMASS_DEPLETED_DOCKED": {
+      "mass_t": 908.5,
+      "normal_remass_t": 0.0,
+      "protected_water_t": 50.0,
+      "launch_state": "DOCKED",
+      "center_of_mass_m": [27.1380297193, 0.0, 0.1888827738],
+      "inertia_diag_kg_m2": [6997662.72, 191155450.46, 190310942.74]
+    },
+    "NORMAL_REMASS_DEPLETED_LAUNCH_ABSENT": {
+      "mass_t": 875.5,
+      "normal_remass_t": 0.0,
+      "protected_water_t": 50.0,
+      "launch_state": "ABSENT",
+      "center_of_mass_m": [27.3392347230, 0.0, 0.0],
+      "inertia_diag_kg_m2": [6069500.0, 188990163.95, 188990163.95]
+    }
+  },
+  "control_cases": {
+    "NOMINAL": {
+      "three_axis_control_retained": true,
+      "translation_control_retained": true,
+      "pitch_yaw_torque_Nm": 1000000.0,
+      "roll_torque_Nm": 200000.0,
+      "aggregate_translation_thrust_N": 100000.0,
+      "reference_wet_docked_slew_s": {
+        "pitch_90": 42.24,
+        "pitch_180": 59.74,
+        "yaw_90": 42.15,
+        "yaw_180": 59.61,
+        "roll_90": 20.30,
+        "roll_180": 28.71
+      }
+    },
+    "ONE_CLUSTER_OUT": {
+      "three_axis_control_retained": true,
+      "translation_control_retained": true,
+      "pitch_yaw_torque_Nm": 750000.0,
+      "roll_torque_Nm": 100000.0,
+      "aggregate_translation_thrust_N": 75000.0,
+      "reference_wet_docked_slew_s": {
+        "pitch_90": 48.77,
+        "pitch_180": 68.98,
+        "yaw_90": 48.67,
+        "yaw_180": 68.83,
+        "roll_90": 28.71,
+        "roll_180": 40.60
+      },
+      "degraded": true
+    }
+  },
+  "hud_contract": {
+    "required_behavior": [
+      "replace instantaneous attitude flip with finite transition duration",
+      "surface nominal versus degraded attitude authority",
+      "preserve Python as numerical authority",
+      "do not infer closed-loop pointing precision from this envelope"
+    ],
+    "minimum_fields": [
+      "attitude_transition_status",
+      "axis",
+      "commanded_angle_deg",
+      "estimated_transition_time_s",
+      "control_case",
+      "qualification_authority"
+    ]
+  },
+  "not_qualified_for": [
+    "final_thruster_location",
+    "final_thruster_plume_clearance",
+    "structural_load_limit",
+    "closed_loop_guidance_control",
+    "docking_contact_dynamics",
+    "radiator_deployed_high_rate_slew"
+  ],
+  "promotion_rule": "HUD qualification may consume this finite-transition envelope. Operational flight-control or canon promotion remains blocked on final plume/interference, structural-load, deployed-radiator and closed-loop-control qualification."
+}
