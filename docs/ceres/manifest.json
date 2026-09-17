@@ -1,0 +1,164 @@
+[
+  {
+    "node_id": "CER-P01",
+    "name": "Occator Industrial Lift & Surface Port",
+    "facility_type": "SURFACE_INBODY_PORT",
+    "noun_id": "N-A9D3520F2C92",
+    "asset_id": "ca5b4ee6-39b8-4bc1-8099-160f3706cc36",
+    "role": "HERO",
+    "is_current": 1,
+    "review_status": "APPROVED_REFERENCE",
+    "media_key": "9572ca5c-9229-492b-a388-a3d7e195e96a",
+    "civstate_zones": [
+      {
+        "zone": "ZONE:025",
+        "relationship": "LOCATED_IN",
+        "primary": true,
+        "confidence": 0.97,
+        "basis": "EXPLICIT_FACILITY_ROLE_TO_CENSUS_ZONE_MAPPING"
+      }
+    ],
+    "export_status": "VERIFIED",
+    "filename": "CER-P01_ca5b4ee6-39b8-4bc1-8099-160f3706cc36.png",
+    "sha256": "68e8445669c75be8f026777da9ec0b233fa16835ef0b4ed46835e19790621cdb",
+    "byte_length": 1968477
+  },
+  {
+    "node_id": "CER-P02",
+    "name": "Ceres Polar Volatiles Terminal",
+    "facility_type": "SURFACE_RESOURCE_PORT",
+    "noun_id": "N-66D023C87896",
+    "asset_id": "8c793e6c-6daf-4d26-911b-dfeb314cd722",
+    "role": "HERO",
+    "is_current": 1,
+    "review_status": "APPROVED_REFERENCE",
+    "media_key": "41375bd5-7c11-4608-ba9b-fbc657788989",
+    "civstate_zones": [
+      {
+        "zone": "ZONE:024",
+        "relationship": "LOCATED_IN",
+        "primary": true,
+        "confidence": 0.97,
+        "basis": "EXPLICIT_FACILITY_ROLE_TO_CENSUS_ZONE_MAPPING"
+      }
+    ],
+    "export_status": "VERIFIED",
+    "filename": "CER-P02_8c793e6c-6daf-4d26-911b-dfeb314cd722.png",
+    "sha256": "c4924eaab61873f143111a4887d1fdec9356640838f2dc23527f760febd7be04",
+    "byte_length": 1923004
+  },
+  {
+    "node_id": "CER-P03",
+    "name": "Ceres Belt Exchange",
+    "facility_type": "ORBITAL_HABITAT_PORT",
+    "noun_id": "N-DF89D87493E1",
+    "asset_id": "1a5457e4-2040-40f1-9551-93bee57321ff",
+    "role": "HERO",
+    "is_current": 1,
+    "review_status": "APPROVED_REFERENCE",
+    "media_key": "b1dfa810-f427-43b8-9c12-c3c896480252",
+    "civstate_zones": [
+      {
+        "zone": "ZONE:024",
+        "relationship": "GATEWAY_FOR",
+        "primary": false,
+        "confidence": 0.82,
+        "basis": "SAME_PARENT_GATEWAY_FACILITY_ROLE"
+      },
+      {
+        "zone": "ZONE:025",
+        "relationship": "GATEWAY_FOR",
+        "primary": false,
+        "confidence": 0.82,
+        "basis": "SAME_PARENT_GATEWAY_FACILITY_ROLE"
+      },
+      {
+        "zone": "ZONE:026",
+        "relationship": "LOCATED_IN",
+        "primary": true,
+        "confidence": 0.97,
+        "basis": "EXPLICIT_FACILITY_ROLE_TO_CENSUS_ZONE_MAPPING"
+      }
+    ],
+    "export_status": "VERIFIED",
+    "filename": "CER-P03_1a5457e4-2040-40f1-9551-93bee57321ff.png",
+    "sha256": "a39819a9f4e641efb5bc7100454a1ddc16ebd6c454d4dbeade2807c1ce90fd5e",
+    "byte_length": 1843581
+  },
+  {
+    "node_id": "CER-P04",
+    "name": "Ceres Shipyard Arc",
+    "facility_type": "ORBITAL_SHIPYARD",
+    "noun_id": "N-EA427F71CAE0",
+    "asset_id": "0e193b5f-ae79-44ed-8c81-27585de19a50",
+    "role": "HERO",
+    "is_current": 1,
+    "review_status": "APPROVED_REFERENCE",
+    "media_key": "8219aa76-bcb1-49a8-890a-0909cec23cb4",
+    "civstate_zones": [
+      {
+        "zone": "ZONE:024",
+        "relationship": "GATEWAY_FOR",
+        "primary": false,
+        "confidence": 0.82,
+        "basis": "SAME_PARENT_GATEWAY_FACILITY_ROLE"
+      },
+      {
+        "zone": "ZONE:025",
+        "relationship": "GATEWAY_FOR",
+        "primary": false,
+        "confidence": 0.82,
+        "basis": "SAME_PARENT_GATEWAY_FACILITY_ROLE"
+      },
+      {
+        "zone": "ZONE:026",
+        "relationship": "LOCATED_IN",
+        "primary": true,
+        "confidence": 0.97,
+        "basis": "EXPLICIT_FACILITY_ROLE_TO_CENSUS_ZONE_MAPPING"
+      }
+    ],
+    "export_status": "VERIFIED",
+    "filename": "CER-P04_0e193b5f-ae79-44ed-8c81-27585de19a50.png",
+    "sha256": "d80e1b8ef2b97ed84b4c6c020660ef01c78f9162f8b5bc3adc8697be01047937",
+    "byte_length": 2431124
+  },
+  {
+    "node_id": "CER-P05",
+    "name": "Ceres Metric & Loom Anchorage",
+    "facility_type": "STRATEGIC_PORT",
+    "noun_id": "N-465322B9CAEC",
+    "asset_id": "9f29943b-d7eb-413c-9dcd-aa594e92f3b9",
+    "role": "HERO",
+    "is_current": 1,
+    "review_status": "APPROVED_REFERENCE",
+    "media_key": "5fd8e221-6696-41af-9c6a-2fce034afb27",
+    "civstate_zones": [
+      {
+        "zone": "ZONE:024",
+        "relationship": "GATEWAY_FOR",
+        "primary": false,
+        "confidence": 0.82,
+        "basis": "SAME_PARENT_GATEWAY_FACILITY_ROLE"
+      },
+      {
+        "zone": "ZONE:025",
+        "relationship": "GATEWAY_FOR",
+        "primary": false,
+        "confidence": 0.82,
+        "basis": "SAME_PARENT_GATEWAY_FACILITY_ROLE"
+      },
+      {
+        "zone": "ZONE:026",
+        "relationship": "LOCATED_IN",
+        "primary": true,
+        "confidence": 0.97,
+        "basis": "EXPLICIT_FACILITY_ROLE_TO_CENSUS_ZONE_MAPPING"
+      }
+    ],
+    "export_status": "VERIFIED",
+    "filename": "CER-P05_9f29943b-d7eb-413c-9dcd-aa594e92f3b9.png",
+    "sha256": "b294ae059af938296cfaf9d62e39f15f00004c99da5b540ccf8ab61f04c58ead",
+    "byte_length": 1479908
+  }
+]
