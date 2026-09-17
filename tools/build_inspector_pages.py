@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
-"""Build a public, media-only Pages snapshot from the existing LOOM databases.
-
-Derived presentation only. Never exports CIVSTATE or arbitrary SQL rows.
-"""
+"""Derived media-only Pages export from existing LOOM WORLD and media release."""
 import argparse
 import hashlib
 import json
-import mimetypes
 import sqlite3
 from pathlib import Path
 
@@ -29,9 +25,10 @@ def build(world_path, media_path, output):
         raise RuntimeError(f'Expected 182 distinct approved/current assets; got {len(approved)}')
     out = Path(output)
     out.mkdir(parents=True, exist_ok=True)
-    media = connect(media_path)
+    media, world = connect(media_path), connect(world_path)
     results = []
     try:
+        entities = mod.entities(world)
         for entry in approved:
             row = media.execute('SELECT mime_type,original_blob,thumbnail_mime_type,thumbnail_blob FROM media_assets WHERE media_key=?', (entry['media_key'],)).fetchone()
             if row is None or row['original_blob'] is None or row['thumbnail_blob'] is None:
@@ -40,13 +37,12 @@ def build(world_path, media_path, output):
             if original_mime not in ALLOWED or thumb_mime not in ALLOWED:
                 raise RuntimeError(f'Unapproved MIME for {entry["asset_id"]}: {original_mime}/{thumb_mime}')
             item = {k: entry.get(k) for k in ('asset_id','knowledge_entity_id','asset_role','review_status','media_key','width_px','height_px','is_current','canonical_name','noun_class','spatial_entity_id','name','object_type','parent','celestial_object','celestial_id')}
-            item['ancestry'] = [{'name': e['name'], 'entity_id': e['entity_id'], 'entity_class': e['entity_class']} for e in mod.ancestry(entry['spatial_entity_id'], mod.entities(world))] if False else []
+            item['ancestry'] = [{'name': e['name'], 'entity_id': e['entity_id'], 'entity_class': e['entity_class']} for e in mod.ancestry(entry['spatial_entity_id'], entities)]
             for label, blob, mime in (('original', row['original_blob'], original_mime), ('thumbnail', row['thumbnail_blob'], thumb_mime)):
                 data = bytes(blob)
                 if not data:
                     raise RuntimeError(f'Empty {label} for {entry["asset_id"]}')
-                name = hashlib.sha256(data).hexdigest() + ALLOWED[mime]
-                relative = f'images/{name}'
+                relative = 'images/' + hashlib.sha256(data).hexdigest() + ALLOWED[mime]
                 target = out / relative
                 target.parent.mkdir(exist_ok=True)
                 if not target.exists():
@@ -56,9 +52,10 @@ def build(world_path, media_path, output):
             results.append(item)
     finally:
         media.close()
-    # Publish only explicitly allowlisted fields; never serialize whole SQL rows.
+        world.close()
+    # Only allowlisted fields; never export arbitrary SQL rows or CIVSTATE.
     (out / 'catalog.json').write_text(json.dumps({'status':'APPROVED_FOR_PUBLICATION','source':'WORLD + existing media release; read-only derived export','approved_current_assets':len(results),'sql_inspection':'NOT_EXPORTED','assets':results}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    print(f'PASS: {len(results)} approved/current assets, no CIVSTATE or SQL row export')
+    print(f'PASS: {len(results)} approved/current assets; CIVSTATE and SQL rows excluded')
 
 def main():
     p = argparse.ArgumentParser()
