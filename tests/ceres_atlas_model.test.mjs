@@ -62,6 +62,12 @@ test('route carries domain and typed institution dossiers without losing list st
   assert.equal(parseRoute('#institution=inst%3Aceres-commonwealth').institutionId, 'inst:ceres-commonwealth');
 });
 
+test('empty route remains body-first while collection mode is explicit', () => {
+  assert.deepEqual(parseRoute(''), {query: '', type: '', facilityId: ''});
+  assert.equal(parseRoute('#collection=1').collection, '1');
+  assert.equal(routeHash({query: '', type: '', facilityId: '', collection: '1'}), '#collection=1');
+});
+
 test('unknown and malformed URL values remain data, never another selected facility', () => {
   assert.equal(parseRoute('#facility=CER-P99').facilityId, 'CER-P99');
   assert.equal(findFacility(records, parseRoute('#facility=%E0%A4%A').facilityId), null);

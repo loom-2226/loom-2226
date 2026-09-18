@@ -42,6 +42,7 @@ export function parseRoute(hash) {
   };
   if (params.has('institution')) route.institutionId = (params.get('institution') || '').slice(0, 160);
   if (params.has('domain')) route.domain = (params.get('domain') || 'people').slice(0, 64);
+  if (params.has('collection')) route.collection = params.get('collection') === '1' ? '1' : '';
   return route;
 }
 
@@ -52,6 +53,7 @@ export function routeHash(route) {
   if (route.facilityId) params.set('facility', route.facilityId);
   if (route.institutionId) params.set('institution', route.institutionId);
   if (route.domain && route.domain !== 'people') params.set('domain', route.domain);
+  if (route.collection === '1') params.set('collection', '1');
   return params.size ? `#${params}` : '#';
 }
 

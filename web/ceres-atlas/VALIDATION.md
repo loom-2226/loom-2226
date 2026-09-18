@@ -183,3 +183,27 @@ image. Physical/JPL citation enrichment remains incomplete.
 The semantic-coverage checker discrepancy remains documented above and was not
 expanded into this implementation. This is a private prototype increment, not
 full Atlas acceptance, publication, deployment or protected-main qualification.
+
+## 08R corrective body-first pass — 2026-09-19
+
+Pixel acceptance feedback identified that 955ab59 still opened the facility
+collection. The default empty route now opens the Ceres body dossier. The
+facility collection remains available through an explicit secondary browse
+route (`#collection=1`). The body view renders the verified CIVSTATE 2226
+values for biological residents (7,729,119), synthetic residents (4,456,610),
+combined residents (12,185,729), annual value added (5.508 T model units/year),
+productive capital (40.915 T model units), and five pilot facilities. It also
+renders the three evidence layers, six substantive analytical domains, and a
+Ceres-centered schematic with all five named facility targets.
+
+The approved body WORLD HERO record was not recoverable from the repository's
+available media snapshot. The application therefore displays an explicit
+unavailable-media state and does not substitute a facility image. The original
+08R visual artifact was also not present in repository history/assets; the
+implementation follows the handoff and LOOM design system without claiming
+pixel fidelity to an uninspected artifact.
+
+Corrective verification: **24 JavaScript model tests passed**, **42 Atlas
+server/TAP tests passed**, syntax and whitespace checks passed. The seven
+Playwright tests remain **skipped/unverified locally** because Playwright is
+not installed in Termux.

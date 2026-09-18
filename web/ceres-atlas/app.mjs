@@ -134,22 +134,38 @@ function drawDetail() {
 }
 function drawBody(view,back){
  const title=element('h1','Ceres'); title.id='detail-title'; title.tabIndex=-1;
- const hero=element('div',undefined,'hero-ceres'); hero.append(element('span','Ceres HERO unavailable in this local approved gallery snapshot.','image-fallback'));
- const nav=element('nav',undefined,'domain-nav');
- for(const d of DOMAINS){const b=button(d.toUpperCase(),()=>{route.domain=d;history.pushState(history.state,'',routeHash(route));drawBody(view,back);});b.classList.toggle('selected',route.domain===d);nav.append(b)}
- const section=element('section',undefined,'analysis'); section.append(element('p',(route.domain||'people').toUpperCase(),'eyebrow'));
- const values={
-  people:[['Resident composition','7.729M biological / 4.457M synthetic']],
-  economy:[['Value added','5.508 T/year'],['Productive capital','40.915 T stock']],
-  transit:[['Transit model','Node comparisons; OD demand proxy']],
-  infrastructure:[['Ceres infrastructure','Five pilot nodes; no zone transfer']],
-  institutions:[['Governance','Ceres Commonwealth in inspected profiles']],
-  society:[['Society model','Eight node indices; not surveys']]
+ const intro=element('p','CERES BODY / 2226','eyebrow');
+ const lede=element('p','A body dossier for Ceres: physical context, historical observation and the LOOM 2226 model are kept in separate evidence layers.','lede');
+ const hero=element('figure',undefined,'hero-ceres');
+ const fallback=element('span','Approved Ceres WORLD HERO is unavailable in the local media snapshot. No substitute is shown.','image-fallback'); hero.append(fallback,element('figcaption','HERO · WORLD media record · unavailable locally'));
+ const layers=element('section',undefined,'evidence-layers');
+ for(const [label,text] of [['NASA / JPL physical Ceres','Observed dwarf planet; physical reference context only.'],['Historical observation through 2026','Historical record and observation boundary; not a 2226 forecast.'],['LOOM 2226 CIVSTATE','Fictional model state, year 2226, with source grain and derivation retained.']]) layers.append(element('div',`${label}\n${text}`,'evidence-layer'));
+ const headline=element('section',undefined,'headline-metrics'); headline.append(element('h2','2226 headline metrics'));
+ const hg=element('div',undefined,'analysis-grid');
+ for(const [l,v] of [['Biological residents','7,729,119 persons'],['Synthetic residents','4,456,610 persons'],['Combined residents','12,185,729 persons'],['Annual value added','5.508 T model units / year'],['Productive capital','40.915 T model units'],['Pilot facilities','5 verified nodes']]) hg.append(metric(l,v));
+ headline.append(hg,element('p','CIVSTATE · BODY:CERES:CERES · year 2226 · DERIV:MATERIALIZER2226. Monetary units follow the model definition; they are not presented as contemporary currency.','source-note'));
+ const nav=element('nav',undefined,'domain-nav'); for(const d of DOMAINS){const b=button(d.toUpperCase(),()=>{route.domain=d;route.collection='';history.pushState(history.state,'',routeHash(route));drawBody(view,back);});b.classList.toggle('selected',route.domain===d);nav.append(b)}
+ const section=element('section',undefined,'analysis'); section.append(element('p',(route.domain||'people').toUpperCase(),'eyebrow'),element('h2',domainTitle(route.domain||'people')));
+ const grid=element('div',undefined,'analysis-grid');
+ const bodyDomains={
+  people:[['Biological residents','7,729,119 persons'],['Synthetic residents','4,456,610 persons'],['Combined residents','12,185,729 persons'],['Age structure','12,185,729 denominator unresolved; age bands available in CIVSTATE']],
+  economy:[['Annual value added','5.508 T model units / year'],['Annual investment','1.487 T model units / year'],['Productive capital','40.915 T model units'],['Capital / output ratio','7.428'],['Investment / output ratio','.270'],['Productivity index','8.237'],['Income per capita','452,034 model units/person/year']],
+  transit:[['Cargo comparison','Five node rows · tonnes/year'],['Passenger comparison','Five node rows · movements/year'],['Ship calls','Five node rows · calls/year'],['OD joins','No fabricated corridors or timetables']],
+  infrastructure:[['Average / peak power','Five node rows · MW'],['Habitable capacity','Five node rows · capacity equivalents'],['Utilization','Five node rows · index'],['Industrial capacity','Five node rows · index']],
+  institutions:[['Civil authority','Ceres Commonwealth · documented relationship'],['Governance joins','Typed institution IDs; relationship type retained'],['Facility links','Five pilot facilities'],['Authority caveat','Influence is not ownership or legal authority']],
+  society:[['Institutional trust','Five facility records · model index'],['Political autonomy','Five facility records · model index'],['Family viability','Five facility records · model index'],['Social pressure','Separate records retained; no body-wide mean']]
  };
- const grid=element('div',undefined,'analysis-grid'); for(const [l,v] of (values[route.domain]||values.people)) grid.append(metric(l,v));
- section.append(grid,element('p','2226 model layer; source grain and limitations remain visible. 2026 observation and fictional 2226 model are deliberately separated.','source-note'));
- view.replaceChildren(back,title,hero,nav,section,element('p','Ceres body dossier: facilities, institutions and six analytical domains are navigable from this private prototype.','muted')); document.title='Ceres · Ceres Atlas';
+ for(const [l,v] of bodyDomains[route.domain||'people']) grid.append(metric(l,v));
+ section.append(grid,element('p','Source values remain measurements where present; unresolved denominators and missingness are disclosed beside them.','source-note'));
+ const schematic=element('section',undefined,'topology'); schematic.append(element('h2','Ceres facility topology'),element('p','Relationships between the five verified pilot nodes; positions are schematic and do not encode physical distance.','source-note'));
+ const diagram=element('div',undefined,'topology-diagram'); diagram.setAttribute('role','group'); diagram.setAttribute('aria-label','Ceres-centered facility topology');
+ const center=element('span','CERES','topology-center'); diagram.append(center);
+ const points=[['CER-P01','Occator','topology-p1'],['CER-P02','Polar Terminal','topology-p2'],['CER-P03','Belt Exchange','topology-p3'],['CER-P04','Shipyard Arc','topology-p4'],['CER-P05','Metric Anchorage','topology-p5']];
+ for(const [id,label,cls] of points){const r=findFacility(records,id);const b=button(label,()=>openFacility(id),`topology-node ${cls}`);b.setAttribute('aria-label',`${r?.name||label} facility`);diagram.append(b)} schematic.append(diagram);
+ const browse=button('Browse facility collection',()=>{route.collection='1';route.domain='';history.pushState({atlas:listSnapshot(history.state?.atlas)},'',routeHash(route));render();},'secondary');
+ view.replaceChildren(back,title,intro,lede,hero,layers,headline,nav,section,schematic,browse,element('p','Approved facility imagery and typed dossier links remain available from the topology and secondary collection.','muted')); document.title='Ceres body dossier · Ceres Atlas';
 }
+function domainTitle(d){return ({people:'People / demographic state',economy:'Economy / flows and stocks',transit:'Transit / node comparisons',infrastructure:'Infrastructure / capacity and power',institutions:'Institutions / governance relationships',society:'Society / model indices'})[d]||'People / demographic state'}
 function metric(label,value){const d=element('div',undefined,'metric');d.append(element('span',label),element('strong',value));return d}
 function metricNode(label,name){const d=element('div',undefined,'metric');d.append(element('span',label),instButton(name));return d}
 function drawInstitution(view,back){const info=Object.values(INSTITUTIONS).find(x=>x.id===route.institutionId);const title=element('h1',info?Object.keys(INSTITUTIONS).find(k=>INSTITUTIONS[k]===info):'Institution not found');title.id='detail-title';title.tabIndex=-1;if(!info){view.replaceChildren(back,title,element('p','No institution relationship matches this route.'));return}const body=element('div',undefined,'analysis');body.append(element('p','INSTITUTION / GOVERNANCE','eyebrow'),element('p',info.role,'lede'),element('p','Source-backed relationship dossier. This record is not a claim of ownership, equity or sovereignty beyond its named relationship.','source-note'));const list=element('div',undefined,'analysis-grid');for(const id of info.facilities){const r=findFacility(records,id);const d=element('div',undefined,'metric');const b=button(r.name,()=>openFacility(r.id),'entity-link');d.append(element('span','Connected facility'),b);list.append(d)}body.append(list,element('p','Provenance: inspected CIVSTATE governance profile relationship; stable facility IDs retained internally.','source-note'));view.replaceChildren(back,title,body);document.title=`${title.textContent} · Ceres Atlas`}
@@ -159,7 +175,7 @@ function render() {
   route = parseRoute(location.hash);
   renderedHash = location.hash;
   const version = ++renderVersion;
-  const detail = Boolean(route.facilityId || route.institutionId || route.domain);
+  const detail = !route.collection && Boolean(route.facilityId || route.institutionId || route.domain || !route.collection);
   $('list-view').hidden = detail;
   $('detail-view').hidden = !detail;
   if (detail) {
@@ -188,7 +204,7 @@ function render() {
 }
 
 function filterChanged() {
-  route = {query: $('search').value, type: $('type-filter').value, facilityId: '', institutionId: '', domain: route.domain || 'people'};
+  route = {query: $('search').value, type: $('type-filter').value, facilityId: '', institutionId: '', domain: '', collection: '1'};
   saveList();
   renderedHash = location.hash;
   drawCards();
