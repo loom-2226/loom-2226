@@ -71,7 +71,7 @@ test('empty route remains body-first while collection mode is explicit', () => {
 test('facility selection clears competing collection and institution routes', () => {
   assert.deepEqual(facilityRoute({query: 'port', type: 'STRATEGIC_PORT', collection: '1',
     institutionId: 'inst:ceres-commonwealth', domain: 'transit'}, 'CER-P01'), {
-    query: 'port', type: 'STRATEGIC_PORT', facilityId: 'CER-P01', domain: 'transit',
+    query: 'port', type: 'STRATEGIC_PORT', facilityId: 'CER-P01', domain: 'transit', metric: '',
   });
 });
 

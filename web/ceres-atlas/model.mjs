@@ -41,7 +41,8 @@ export function parseRoute(hash) {
     facilityId: (params.get('facility') || '').slice(0, 128),
   };
   if (params.has('institution')) route.institutionId = (params.get('institution') || '').slice(0, 160);
-  if (params.has('domain')) route.domain = (params.get('domain') || 'people').slice(0, 64);
+  if (params.has('domain')) route.domain = (params.get('domain') || 'world').slice(0, 64);
+  if (params.has('metric')) route.metric = (params.get('metric') || '').slice(0, 64);
   if (params.has('collection')) route.collection = params.get('collection') === '1' ? '1' : '';
   return route;
 }
@@ -52,7 +53,8 @@ export function routeHash(route) {
   if (route.type) params.set('type', route.type);
   if (route.facilityId) params.set('facility', route.facilityId);
   if (route.institutionId) params.set('institution', route.institutionId);
-  if (route.domain && route.domain !== 'people') params.set('domain', route.domain);
+  if (route.domain && route.domain !== 'world') params.set('domain', route.domain);
+  if (route.metric) params.set('metric', route.metric);
   if (route.collection === '1') params.set('collection', '1');
   return params.size ? `#${params}` : '#';
 }
@@ -62,7 +64,8 @@ export function facilityRoute(route, facilityId) {
     query: route.query || '',
     type: route.type || '',
     facilityId,
-    domain: route.domain || 'people',
+    domain: route.domain && route.domain !== 'world' ? route.domain : 'people',
+    metric: route.metric || '',
   };
 }
 
@@ -73,6 +76,7 @@ export function institutionRoute(route, institutionId) {
     facilityId: '',
     institutionId,
     domain: route.domain || 'institutions',
+    metric: route.metric || '',
   };
 }
 

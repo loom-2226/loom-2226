@@ -85,7 +85,7 @@ test('body topology opens all five dossiers and multi-hop history preserves cont
     await page.waitForFunction(() => document.querySelector('#detail-title')?.textContent === 'Ceres');
   }
 
-  await page.getByRole('button', {name: 'INSTITUTIONS'}).click();
+  await page.getByRole('button', {name: 'Institutions'}).click();
   await page.locator('#topology-CER-P01').click();
   assert.equal(await page.locator('#detail-title').textContent(), 'Occator Industrial Lift & Surface Port');
   const institution = page.locator('.analysis .metric button.entity-link', {hasText: 'Ceres Commonwealth'}).first();
@@ -103,7 +103,7 @@ test('body topology opens all five dossiers and multi-hop history preserves cont
   assert.equal(await page.locator('#detail-title').textContent(), 'Occator Industrial Lift & Surface Port');
   await page.goBack();
   assert.equal(await page.locator('#detail-title').textContent(), 'Ceres');
-  assert.equal(await page.locator('.domain-nav button.selected').textContent(), 'INSTITUTIONS');
+  assert.equal(await page.locator('.domain-nav button.selected').textContent(), 'Institutions');
 });
 
 test('filters, return scroll/focus, refresh and browser Back/Forward preserve state', async t => {

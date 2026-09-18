@@ -6,12 +6,20 @@ let sourceHash = '', renderedHash = null;
 history.scrollRestoration = 'manual';
 
 const DOMAINS = ['people','economy','transit','infrastructure','institutions','society'];
+const BODY_DOMAINS = ['world', ...DOMAINS];
 const METRICS = {
   'CER-P01': {output:'243.05 B/year', capital:'1.805 T', cargo:'12.985 M t/year', passengers:'1.001 M/year', power:'4,761 / 6,904 MW', capacity:'70,998 eq.', utilization:'0.672', trust:'.431', autonomy:'.375', family:'.477'},
   'CER-P02': {output:'202.55 B/year', capital:'1.504 T', cargo:'7.214 M t/year', passengers:'.520 M/year', power:'3,968 / 5,753 MW', capacity:'59,246 eq.', utilization:'.608', trust:'.531', autonomy:'.495', family:'.477'},
   'CER-P03': {output:'460.79 B/year', capital:'3.423 T', cargo:'35.900 M t/year', passengers:'3.013 M/year', power:'9,026 / 13,088 MW', capacity:'232,670 eq.', utilization:'.760', trust:'.431', autonomy:'.375', family:'.657'},
   'CER-P04': {output:'549.40 B/year', capital:'4.081 T', cargo:'42.804 M t/year', passengers:'3.592 M/year', power:'10,762 / 15,605 MW', capacity:'211,001 eq.', utilization:'.760', trust:'.431', autonomy:'.375', family:'.477'},
   'CER-P05': {output:'218.75 B/year', capital:'1.625 T', cargo:'8.765 M t/year', passengers:'.643 M/year', power:'4,285 / 6,213 MW', capacity:'34,784 eq.', utilization:'.624', trust:'.431', autonomy:'.361', family:'.477'}
+};
+const FACILITY_DATA = {
+  'CER-P01': {short:'Occator Lift', residents:24914, transients:22796, workforce:83170, capacity:70998, output:243.05, capital:1.805, cost:29.17, replacement:2.076, cargo:12.98, passengers:1.001, calls:40, average:4761, peak:6904, utilization:.672, industrial:.498, trust:.431, autonomy:.375, family:.477},
+  'CER-P02': {short:'Polar Terminal', residents:20762, transients:15260, workforce:69308, capacity:59246, output:202.55, capital:1.504, cost:24.31, replacement:1.730, cargo:7.21, passengers:.520, calls:40, average:3968, peak:5753, utilization:.608, industrial:.429, trust:.531, autonomy:.495, family:.477},
+  'CER-P03': {short:'Belt Exchange', residents:94466, transients:82363, workforce:241151, capacity:232670, output:460.79, capital:3.423, cost:55.29, replacement:3.936, cargo:35.90, passengers:3.013, calls:71.80, average:9026, peak:13088, utilization:.760, industrial:.697, trust:.431, autonomy:.375, family:.657},
+  'CER-P04': {short:'Shipyard Arc', residents:77435, transients:82926, workforce:232233, capacity:211001, output:549.40, capital:4.081, cost:65.93, replacement:4.693, cargo:42.80, passengers:3.592, calls:85.61, average:10762, peak:15605, utilization:.760, industrial:.730, trust:.431, autonomy:.375, family:.477},
+  'CER-P05': {short:'Metric Anchorage', residents:11211, transients:10494, workforce:48434, capacity:34784, output:218.75, capital:1.625, cost:26.25, replacement:1.869, cargo:8.76, passengers:.643, calls:40, average:4285, peak:6213, utilization:.624, industrial:.472, trust:.431, autonomy:.361, family:.477},
 };
 const INSTITUTIONS = {
   'Ceres Commonwealth': {id:'inst:ceres-commonwealth', role:'Ultimate sovereign / local civil authority', facilities:['CER-P01','CER-P02','CER-P03','CER-P04','CER-P05']},
@@ -132,43 +140,59 @@ function drawDetail() {
   const prov=element('details',undefined,'provenance');const defs=element('dl');for(const [l,v] of [['Manifest','docs/ceres/manifest.json'],['Manifest SHA-256',sourceHash],['Knowledge noun ID',record.nounId],['Asset ID',record.assetId],['Media key',record.mediaKey],['Review status',record.review],['Image SHA-256',record.hash],['Image bytes',String(record.bytes)]] )addDefinition(defs,l,v);prov.append(element('summary','Identity & image provenance'),defs);
   view.replaceChildren(back,heading,figure,retry,nav,analysis,facts,element('p','No fabricated population, economic, ownership, coordinate or transit values are displayed.','muted'),prov); document.title=`${record.name} · Ceres Atlas`;
 }
-function drawBody(view,back){
- const title=element('h1','Ceres'); title.id='detail-title'; title.tabIndex=-1;
- const intro=element('p','CERES BODY / 2226','eyebrow');
- const lede=element('p','A body dossier for Ceres: physical context, historical observation and the LOOM 2226 model are kept in separate evidence layers.','lede');
- const hero=element('figure',undefined,'hero-ceres');
- const fallback=element('span','Approved Ceres WORLD HERO is unavailable in the local media snapshot. No substitute is shown.','image-fallback'); hero.append(fallback,element('figcaption','HERO · WORLD media record · unavailable locally'));
- const layers=element('section',undefined,'evidence-layers');
- for(const [label,text] of [['NASA / JPL physical Ceres','Observed dwarf planet; physical reference context only.'],['Historical observation through 2026','Historical record and observation boundary; not a 2226 forecast.'],['LOOM 2226 CIVSTATE','Fictional model state, year 2226, with source grain and derivation retained.']]) layers.append(element('div',`${label}\n${text}`,'evidence-layer'));
- const headline=element('section',undefined,'headline-metrics'); headline.append(element('h2','2226 headline metrics'));
- const hg=element('div',undefined,'analysis-grid');
- for(const [l,v] of [['Biological residents','7,729,119 persons'],['Synthetic residents','4,456,610 persons'],['Combined residents','12,185,729 persons'],['Annual value added','5.508 T model units / year'],['Productive capital','40.915 T model units'],['Pilot facilities','5 verified nodes']]) hg.append(metric(l,v));
- headline.append(hg,element('p','CIVSTATE · BODY:CERES:CERES · year 2226 · DERIV:MATERIALIZER2226. Monetary units follow the model definition; they are not presented as contemporary currency.','source-note'));
- const nav=element('nav',undefined,'domain-nav'); for(const d of DOMAINS){const b=button(d.toUpperCase(),()=>{route.domain=d;route.collection='';history.pushState(history.state,'',routeHash(route));drawBody(view,back);});b.classList.toggle('selected',route.domain===d);nav.append(b)}
- const section=element('section',undefined,'analysis'); section.append(element('p',(route.domain||'people').toUpperCase(),'eyebrow'),element('h2',domainTitle(route.domain||'people')));
- const grid=element('div',undefined,'analysis-grid');
- const bodyDomains={
-  people:[['Biological residents','7,729,119 persons'],['Synthetic residents','4,456,610 persons'],['Combined residents','12,185,729 persons'],['Age structure','12,185,729 denominator unresolved; age bands available in CIVSTATE']],
-  economy:[['Annual value added','5.508 T model units / year'],['Annual investment','1.487 T model units / year'],['Productive capital','40.915 T model units'],['Capital / output ratio','7.428'],['Investment / output ratio','.270'],['Productivity index','8.237'],['Income per capita','452,034 model units/person/year']],
-  transit:[['Cargo comparison','Five node rows · tonnes/year'],['Passenger comparison','Five node rows · movements/year'],['Ship calls','Five node rows · calls/year'],['OD joins','No fabricated corridors or timetables']],
-  infrastructure:[['Average / peak power','Five node rows · MW'],['Habitable capacity','Five node rows · capacity equivalents'],['Utilization','Five node rows · index'],['Industrial capacity','Five node rows · index']],
-  institutions:[['Civil authority','Ceres Commonwealth · documented relationship'],['Governance joins','Typed institution IDs; relationship type retained'],['Facility links','Five pilot facilities'],['Authority caveat','Influence is not ownership or legal authority']],
-  society:[['Institutional trust','Five facility records · model index'],['Political autonomy','Five facility records · model index'],['Family viability','Five facility records · model index'],['Social pressure','Separate records retained; no body-wide mean']]
- };
- for(const [l,v] of bodyDomains[route.domain||'people']) {
-  grid.append(route.domain==='institutions' && l==='Civil authority'
-    ? metricNode(l,'Ceres Commonwealth','documented relationship') : metric(l,v));
- }
- section.append(grid,element('p','Source values remain measurements where present; unresolved denominators and missingness are disclosed beside them.','source-note'));
- const schematic=element('section',undefined,'topology'); schematic.append(element('h2','Ceres facility topology'),element('p','Relationships between the five verified pilot nodes; positions are schematic and do not encode physical distance.','source-note'));
- const diagram=element('div',undefined,'topology-diagram'); diagram.setAttribute('role','group'); diagram.setAttribute('aria-label','Ceres-centered facility topology');
- const center=element('span','CERES','topology-center'); diagram.append(center);
- const points=[['CER-P01','Occator','topology-p1'],['CER-P02','Polar Terminal','topology-p2'],['CER-P03','Belt Exchange','topology-p3'],['CER-P04','Shipyard Arc','topology-p4'],['CER-P05','Metric Anchorage','topology-p5']];
- for(const [id,label,cls] of points){const r=findFacility(records,id);const b=button(label,()=>openFacility(id),`topology-node ${cls}`);b.id=`topology-${id}`;b.setAttribute('aria-label',`${r?.name||label} facility`);diagram.append(b)} schematic.append(diagram);
- const browse=button('Browse facility collection',()=>{route.collection='1';route.domain='';history.pushState({atlas:listSnapshot(history.state?.atlas)},'',routeHash(route));render();},'secondary');
- view.replaceChildren(back,title,intro,lede,hero,layers,headline,nav,section,schematic,browse,element('p','Approved facility imagery and typed dossier links remain available from the topology and secondary collection.','muted')); document.title='Ceres body dossier · Ceres Atlas';
+function bodySubnav(items, selected) {
+ const nav=element('div',undefined,'subnav');
+ for(const item of items){const [key,label]=Array.isArray(item)?item:[item.toLowerCase().replace(/[^a-z]+/g,'-'),item];const active=key===selected;const b=button(label,()=>{route.metric=key;history.pushState(history.state,'',routeHash(route));drawBody($('detail-view'),null);},active?'selected':'');b.setAttribute('aria-pressed',String(active));nav.append(b)} return nav;
 }
-function domainTitle(d){return ({people:'People / demographic state',economy:'Economy / flows and stocks',transit:'Transit / node comparisons',infrastructure:'Infrastructure / capacity and power',institutions:'Institutions / governance relationships',society:'Society / model indices'})[d]||'People / demographic state'}
+function sourceBadge(text,warning=false){return element('span',text,warning?'source-badge warning':'source-badge')}
+function facilityComparisons(key,format,domain,secondKey=null) {
+ const wrap=element('div',undefined,'comparisons'); const values=Object.values(FACILITY_DATA).map(v=>Math.max(v[key]||0,secondKey?v[secondKey]||0:0)); const max=Math.max(...values);
+ for(const record of records){const data=FACILITY_DATA[record.id];const row=button('',()=>openFacility(record.id),'comparison-row');row.setAttribute('aria-label',`Open ${record.name} dossier on ${domain}`);const top=element('span',undefined,'comparison-label');top.append(element('span',data.short),element('strong',format(data[key],secondKey?data[secondKey]:undefined)));const track=element('span',undefined,'comparison-track');const fill=element('i');fill.style.width=`${(data[key]/max)*100}%`;track.append(fill);row.append(top,track);if(secondKey){const track2=element('span',undefined,'comparison-track light');const fill2=element('i');fill2.style.width=`${(data[secondKey]/max)*100}%`;track2.append(fill2);row.append(track2)}wrap.append(row)} return wrap;
+}
+function topologySection(){
+ const schematic=element('section',undefined,'topology'); const label=element('div',undefined,'section-heading');label.append(element('div',undefined),sourceBadge('SCHEMATIC'));label.firstChild.append(element('p','INTERACTIVE SPATIAL INDEX','eyebrow'),element('h2','Ceres network'));schematic.append(label);
+ const diagram=element('div',undefined,'topology-diagram'); diagram.setAttribute('role','group'); diagram.setAttribute('aria-label','Ceres-centered facility topology');diagram.append(element('span','CERES','topology-center'));
+ const points=[['CER-P01','Occator','topology-p1'],['CER-P02','Polar Terminal','topology-p2'],['CER-P03','Belt Exchange','topology-p3'],['CER-P04','Shipyard Arc','topology-p4'],['CER-P05','Metric Anchorage*','topology-p5']];
+ for(const [id,label,cls] of points){const r=findFacility(records,id);const b=button(label,()=>openFacility(id),`topology-node ${cls}`);b.id=`topology-${id}`;b.setAttribute('aria-label',`${r?.name||label} facility`);diagram.append(b)}schematic.append(diagram,element('p','Topology only · not to scale. Metric Anchorage placement remains unverified.','source-note'));return schematic;
+}
+function drawBody(view,back){
+ const domain=route.domain||'world'; const defaults={world:'environment',people:'composition',economy:'output',transit:'cargo',infrastructure:'power',institutions:'authority',society:'trust'}; const selected=route.metric||defaults[domain]; const title=element('h1','Ceres');title.id='detail-title';title.tabIndex=-1;
+ const identity=element('section',undefined,'body-identity');identity.append(element('p','SOL / MAIN BELT / DWARF PLANET','eyebrow'));
+ if(domain==='world'){
+  const hero=element('figure',undefined,'hero-ceres');hero.append(element('span','Approved Ceres WORLD HERO unavailable in this local media snapshot. No substitute is shown.','image-fallback'),element('figcaption','HERO · WORLD record · unavailable locally'));identity.append(hero,title,element('p','The physical world. The inhabited world.','lede'));
+ } else { title.className='sr-only'; identity.append(title); }
+ const headline=element('section',undefined,'headline-metrics');const hg=element('div',undefined,'headline-grid');for(const [l,v,n] of [['Resident population','12.186M','Biological + synthetic'],['Annual value added','5.508T','Model units / year'],['Productive capital','40.915T','Model stock'],['Facilities in pilot','5','Named, verified identities']]){const m=element('div',undefined,'headline-kpi');m.append(element('span',l),element('strong',v),element('small',n));hg.append(m)}headline.append(hg);
+ const nav=element('nav',undefined,'domain-nav');nav.setAttribute('aria-label','Analytical navigation');nav.append(element('span','ANALYTICAL NAVIGATION','nav-label'));for(const d of BODY_DOMAINS){const b=button(d==='infrastructure'?'Systems':d[0].toUpperCase()+d.slice(1),()=>{route.domain=d;route.metric='';route.collection='';history.pushState(history.state,'',routeHash(route));drawBody(view,back);});b.classList.toggle('selected',domain===d);nav.append(b)}
+ const section=element('section',undefined,'body-analysis');
+ if(domain==='world'){
+  const head=element('div',undefined,'section-heading');head.append(element('h2','The world'),sourceBadge('REFERENCE'));section.append(head,bodySubnav([['environment','Environment'],['resources','Resources'],['history','2026 history']],selected),element('h3','Physical conditions'));
+  const facts=element('div',undefined,'world-facts');for(const [l,v,n] of [['Diameter','≈940 km','Reference dimension'],['Surface gravity','≈0.27 m/s²','≈2.8% Earth'],['Escape speed','≈0.51 km/s','Not mission Δv'],['Rotation','≈9 hours','One Ceres day']]){const f=element('div');f.append(element('span',l),element('strong',v),element('small',n));facts.append(f)}section.append(facts,element('h3','Atmosphere'),element('p','Extremely tenuous exosphere, with evidence of water vapor. Not breathable or capable of supporting unprotected human habitation.'),element('p','NASA/JPL physical reference layer; approximate values, distinct from the fictional 2226 model.','source-note'));
+ }
+ if(domain==='people'){
+  const head=element('div',undefined,'section-heading');head.append(element('h2','People and settlement'),sourceBadge('CIVSTATE'));section.append(head,bodySubnav([['composition','Composition'],['age','Age'],['facilities','Facilities'],['zones','Zones']],selected),element('p','BODY · RECOGNIZED RESIDENTS · 2226','eyebrow'),element('h3','12.186 million'));
+  const stack=element('div',undefined,'population-stack');stack.append(element('span','63.4%','bio'),element('span','36.6%','synthetic'));const counts=element('div',undefined,'population-counts');counts.append(metric('BIOLOGICAL','7.729M'),metric('SYNTHETIC','4.457M'));section.append(stack,counts);const nullRow=element('div',undefined,'fact-row');nullRow.append(element('span','Body-level transient measure'),element('strong','NULL'));section.append(nullRow,element('p','Transients are separate and absent from this body row. Age denominators and census-zone reconciliation remain unresolved.','source-note'),element('h3','Facility residents'),facilityComparisons('residents',v=>v.toLocaleString(),'People'));
+ }
+ if(domain==='economy'){
+  const head=element('div',undefined,'section-heading');head.append(element('h2','The economy'),sourceBadge('BODY + NODES'));section.append(head,element('p','BODY LEVEL · MONETARY UNITS REQUIRE FINAL DEFINITION','eyebrow'),element('h3','5.508T / year'),element('p','Annual value added'),bodySubnav([['output','Output'],['capital','Capital'],['cost','Op. cost']],selected),element('h3','Annual flows · common scale'));
+  section.append(metricBar('Value added','5.508T / yr',100),metricBar('Investment','1.487T / yr',27),element('p','Not stacked: production and investment are distinct annual flows.','source-note'),element('h3','Capital and economic indicators'));
+  for(const [l,v] of [['Productive capital','40.915T'],['Infrastructure capital','13.093T'],['Capital / annual output','7.428'],['Income per capita','452,034'],['Productivity index','8.237']]){const row=element('div',undefined,'fact-row');row.append(element('span',l),element('strong',v));section.append(row)}section.append(element('h3','Facility economic comparisons'),selected==='capital'?facilityComparisons('capital',v=>`${v.toFixed(3)} T`,'Economy'):selected==='cost'?facilityComparisons('cost',v=>`${v.toFixed(2)} B / year`,'Economy'):facilityComparisons('output',v=>`${v.toFixed(2)} B / year`,'Economy'));
+ }
+ if(domain==='transit'){
+  const head=element('div',undefined,'section-heading');head.append(element('h2','Movement and exchange'),sourceBadge('NODE DATA'));section.append(head,element('p','Compare a single unit at a time. Each row opens the same facility dossier on Transit.'),bodySubnav([['cargo','Cargo'],['passengers','Passengers'],['calls','Ship calls']],selected),selected==='passengers'?facilityComparisons('passengers',v=>`${v.toFixed(3)} M / year`,'Transit'):selected==='calls'?facilityComparisons('calls',v=>`${v.toFixed(2)} / year`,'Transit'):facilityComparisons('cargo',v=>`${v.toFixed(2)} M tonnes / year`,'Transit'),element('h3','Origin–destination network'),sourceBadge('Endpoint validation pending',true),element('p','The source contains modeled transport flows. Ranked corridors remain withheld until endpoint and aggregation validation.','source-note'));
+ }
+ if(domain==='infrastructure'){
+  const head=element('div',undefined,'section-heading');head.append(element('h2','Infrastructure'),sourceBadge('FIVE NODES'));section.append(head,bodySubnav([['power','Power'],['capacity','Capacity'],['utilization','Utilization']],selected),element('h3',selected==='capacity'?'Habitable capacity':selected==='utilization'?'Utilization index':'Average and peak demand'),element('p',selected==='power'?'MW · matching operational measures, shared scale':'Five facility-node measures on a shared scale'),selected==='capacity'?facilityComparisons('capacity',v=>`${v.toLocaleString()} eq.`,'Infrastructure'):selected==='utilization'?facilityComparisons('utilization',v=>v.toFixed(3),'Infrastructure'):facilityComparisons('peak',(peak,average)=>`${average} / ${peak} MW`,'Infrastructure','average'),element('p','Dark bar: peak. Light bar: average. Higher demand alone is not a reliability judgment.','source-note'));
+ }
+ if(domain==='institutions'){
+  const head=element('div',undefined,'section-heading');head.append(element('h2','Institutions'),sourceBadge('NAMED ROLES'));section.append(head,bodySubnav([['authority','Authority'],['influence','Influence']],selected));const common=element('div',undefined,'institution-common');common.append(element('span','COMMON CIVIL AUTHORITY'),instButton('Ceres Commonwealth'),element('p','Named ultimate sovereign and local civil authority in the five inspected facility governance profiles.'));section.append(common,element('p',"The Commonwealth's civil role, facility administration, operations and security remain distinct.",'source-note'));
+  const roles=[['CER-P01','Ceres Commonwealth','Ferrum Meridian'],['CER-P02','Ceres Volatiles Cooperative','Ferrum Meridian'],['CER-P03','Belt Transit Authority','Concord Mutual Infrastructure & Assurance'],['CER-P04','Belt Transit Authority','Asteria Ship Systems'],['CER-P05','Belt Standards Directorate','Axiom Precision & Metrology']];for(const [id,admin,operator] of roles){const r=findFacility(records,id);const card=element('article',undefined,'governance-card');card.append(button(r.name,()=>openFacility(id),'facility-name'),element('span','ADMINISTRATION'),instButton(admin),element('span','OPERATOR'),instButton(operator));section.append(card)}section.append(element('p','Common named security provider: Belt Security & Rescue Directorate. Primary financier and certifier fields are NULL in these inspected profiles.','source-note'));
+ }
+ if(domain==='society'){
+  const head=element('div',undefined,'section-heading');head.append(element('h2','Society'),sourceBadge('MODEL INDICES',true));section.append(head,element('p','Facility-specific social states; not surveys or a calculated Ceres-wide average.'),bodySubnav([['trust','Trust'],['autonomy','Autonomy'],['family','Family']],selected),element('h3',selected==='autonomy'?'Political autonomy':selected==='family'?'Family viability':'Institutional trust'),facilityComparisons(selected,v=>v.toFixed(3),'Society'),element('p','0 · Index minimum                                      1 · Index maximum','scale-note'),element('h3','Further social measures'),element('p','The source inventory also includes migration dependence, automation exposure, access scarcity, cultural distance and cognitive-sovereignty pressure, alongside separate social-pressure records.'),element('p','Fictional model indices, not measured public-opinion percentages.','source-note'));
+ }
+ view.replaceChildren(identity,headline,nav,section,topologySection());document.title=`${domainTitle(domain)} · Ceres Atlas`;
+}
+function domainTitle(d){return ({world:'Ceres world dossier',people:'People and settlement',economy:'The economy',transit:'Movement and exchange',infrastructure:'Infrastructure',institutions:'Institutions',society:'Society'})[d]||'Ceres world dossier'}
 function metric(label,value){const d=element('div',undefined,'metric');d.append(element('span',label),element('strong',value));return d}
 function metricNode(label,name,note=''){
  const d=element('div',undefined,'metric'); const link=instButton(name);
