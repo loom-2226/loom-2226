@@ -1,0 +1,1706 @@
+{
+  "$description": "LOOM design tokens (DRAFT v0.1.0), single file. Top-level groups are the three layers: brand, interface, domain. Format follows the W3C Design Tokens (DTCG) draft; loom metadata is under $extensions.loom. Provenance vocabulary: source | observed | derived | proposed. Layer rule: brand references nothing; interface references brand; domain references brand and interface. $manifest holds version, approval status, asset list and machine checks.",
+  "$manifest": {
+    "name": "LOOM Design System",
+    "id": "loom-design-system",
+    "version": "0.1.0-draft",
+    "status": "DRAFT",
+    "approval": {
+      "approved": false,
+      "approved_by": null,
+      "approved_on": null,
+      "approved_version": null,
+      "rule": "Status stays DRAFT until the owner records approval here. Once approved, brand-layer token values, logo geometry and Montserrat roles are frozen: changes need an explicit owner-approved version bump (see LOOM_STYLE_GUIDE section 8)."
+    },
+    "identity": {
+      "wordmark": "LOOM",
+      "tagline": "A BRIGHTER UNIVERSE CONNECTS US",
+      "supporting_lines": [
+        "A COHERENT UNIVERSE. A CLEARER TOMORROW.",
+        "FURTHER TOGETHER",
+        "CIVILIZATION BEYOND BORDERS",
+        "SAME STARS. A RICHER TOMORROW."
+      ],
+      "sheet_keywords": [
+        "PEOPLE",
+        "PLACES",
+        "SYSTEMS",
+        "A BRIGHTER TOMORROW"
+      ],
+      "product_lockups": [
+        "LOOM / ATLAS"
+      ],
+      "abstract": "LOOM is a hard-science-fiction worldbuilding and systems platform centered on human civilization expanding across the Solar System. It combines navigation, atlas, infrastructure, economic, and societal views into a coherent future-operating picture."
+    },
+    "layers": {
+      "brand": {
+        "may_reference": []
+      },
+      "interface": {
+        "may_reference": [
+          "brand"
+        ]
+      },
+      "domain": {
+        "may_reference": [
+          "brand",
+          "interface"
+        ]
+      }
+    },
+    "provenance_vocabulary": {
+      "source": "Read directly from the brand sheet.",
+      "observed": "Seen in the brand sheet or Ceres Atlas mock but not specified as a rule.",
+      "derived": "Computed from source values (for example an alpha variant of a brand colour).",
+      "proposed": "New in this system. Needs owner approval."
+    },
+    "sources": [],
+    "assets": {
+      "logo": [
+        "loom-wordmark-white.svg",
+        "loom-wordmark-void.svg",
+        "loom-mark-ion-blue.svg"
+      ]
+    },
+    "fonts": {
+      "family": "Montserrat",
+      "license": "SIL Open Font License 1.1",
+      "weights_used": [
+        200,
+        300,
+        400,
+        500
+      ],
+      "css": "loom-tokens.css",
+      "files": [
+        "Montserrat-VF.woff2"
+      ],
+      "bundled": false,
+      "note": "Font binary not bundled. See LOOM_STYLE_GUIDE.md Appendix B."
+    },
+    "generated": [
+      "loom-tokens.css"
+    ],
+    "checks": {
+      "cvd_min_delta_e_warn": 20,
+      "contrast": [
+        {
+          "use": "text on every surface",
+          "fg": "interface.text.primary",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised",
+            "interface.surface.control",
+            "interface.surface.highest"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "secondary text",
+          "fg": "interface.text.secondary",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised",
+            "interface.surface.control",
+            "interface.surface.highest"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "tertiary text (not on highest)",
+          "fg": "interface.text.tertiary",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised",
+            "interface.surface.control"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "labels, values, links",
+          "fg": "interface.text.label",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised",
+            "interface.surface.control",
+            "interface.surface.highest"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "hero metric",
+          "fg": "interface.text.hero-metric",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised",
+            "interface.surface.control",
+            "interface.surface.highest"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "text on solid ion-blue",
+          "fg": "interface.text.on-accent",
+          "bg": [
+            "brand.color.accent.ion-blue"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "status text (nominal)",
+          "fg": "domain.status.nominal.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised",
+            "interface.surface.control",
+            "interface.surface.highest"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "status text (info)",
+          "fg": "domain.status.info.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised",
+            "interface.surface.control",
+            "interface.surface.highest"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "status text (caution)",
+          "fg": "domain.status.caution.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised",
+            "interface.surface.control",
+            "interface.surface.highest"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "status text (critical, canvas/panel/raised only)",
+          "fg": "domain.status.critical.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "status graphics (critical on control/highest)",
+          "fg": "domain.status.critical.color",
+          "bg": [
+            "interface.surface.control",
+            "interface.surface.highest"
+          ],
+          "min": 3.0
+        },
+        {
+          "use": "selection ring",
+          "fg": "domain.selection.highlight",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised",
+            "interface.surface.control",
+            "interface.surface.highest"
+          ],
+          "min": 3.0
+        },
+        {
+          "use": "focus ring",
+          "fg": "interface.focus.ring-color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised",
+            "interface.surface.control",
+            "interface.surface.highest"
+          ],
+          "min": 3.0
+        },
+        {
+          "use": "certainty text (canvas/panel/raised)",
+          "fg": "domain.certainty.provisional.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "certainty text (canvas/panel/raised)",
+          "fg": "domain.certainty.estimated.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "certainty text (canvas/panel/raised)",
+          "fg": "domain.certainty.unresolved.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel",
+            "interface.surface.raised"
+          ],
+          "min": 4.5
+        },
+        {
+          "use": "navigation strokes",
+          "fg": "domain.nav.orbit.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel"
+          ],
+          "min": 3.0
+        },
+        {
+          "use": "navigation strokes",
+          "fg": "domain.nav.route-planned.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel"
+          ],
+          "min": 3.0
+        },
+        {
+          "use": "navigation strokes",
+          "fg": "domain.nav.route-alternate.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel"
+          ],
+          "min": 3.0
+        },
+        {
+          "use": "navigation strokes",
+          "fg": "domain.nav.route-completed.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel"
+          ],
+          "min": 3.0
+        },
+        {
+          "use": "keep-out outline",
+          "fg": "domain.nav.keep-out.color",
+          "bg": [
+            "interface.surface.canvas",
+            "interface.surface.panel"
+          ],
+          "min": 3.0
+        }
+      ]
+    },
+    "original_sources_note": "Brand sheet and Ceres Atlas mock are the owner's original images; they are not part of this bundle. Keep the originals.",
+    "files": {
+      "LOOM_STYLE_GUIDE.md": "Human/agent-readable rules and rationale",
+      "loom-tokens.json": "This file: manifest ($manifest) plus all design tokens (brand, interface, domain)",
+      "loom-tokens.css": "GENERATED CSS custom properties, type classes, @font-face",
+      "loom_design.py": "Python adapter, validator and CSS generator in one stdlib-only file",
+      "loom-wordmark-white.svg": "Default logo, for dark backgrounds",
+      "loom-wordmark-void.svg": "Logo for light backgrounds",
+      "loom-mark-ion-blue.svg": "Segmented-O mark"
+    }
+  },
+  "brand": {
+    "color": {
+      "$type": "color",
+      "primary": {
+        "$description": "Background / UI base. A deep cinematic backdrop that lets key elements and data stand out.",
+        "$extensions": {
+          "loom": {
+            "provenance": "source"
+          }
+        },
+        "void": {
+          "$value": "#05070B",
+          "$description": "Deepest backdrop. Default page canvas."
+        },
+        "deep-space": {
+          "$value": "#0B1220",
+          "$description": "Primary panel surface."
+        },
+        "midnight": {
+          "$value": "#11182B",
+          "$description": "Raised panel / grouped content."
+        },
+        "slate": {
+          "$value": "#1E2A3A",
+          "$description": "Controls and inset regions."
+        },
+        "nebula": {
+          "$value": "#22364A",
+          "$description": "Highest-elevation surface; active control fill."
+        }
+      },
+      "accent": {
+        "$description": "Pops / interactives. High-energy identity and action colours. NOT operational status colours; see the domain layer.",
+        "$extensions": {
+          "loom": {
+            "provenance": "source"
+          }
+        },
+        "ion-blue": {
+          "$value": "#00D1FF",
+          "$description": "Primary interactive and label colour. Selection, links, focus."
+        },
+        "amber": {
+          "$value": "#FF8703",
+          "$description": "Identity accent for hero metrics. Never use where it could read as caution (see LOOM_STYLE_GUIDE D1)."
+        },
+        "crimson": {
+          "$value": "#FF3B3B",
+          "$description": "Identity accent. Not a status colour; status danger is domain.status.critical."
+        },
+        "violet": {
+          "$value": "#B96BFF",
+          "$description": "Secondary interactive accent (alternates, comparison series)."
+        },
+        "emerald": {
+          "$value": "#00E676",
+          "$description": "Identity accent. Not a status colour; status success is domain.status.nominal."
+        }
+      },
+      "secondary": {
+        "$description": "Support / states. Text, icons, supporting UI and environmental detail; adds warmth without competing with accents.",
+        "$extensions": {
+          "loom": {
+            "provenance": "source"
+          }
+        },
+        "steel": {
+          "$value": "#8A97A6",
+          "$description": "Tertiary text, quiet icons, unresolved data."
+        },
+        "ice": {
+          "$value": "#C7D3DF",
+          "$description": "Secondary text and icons."
+        },
+        "sand": {
+          "$value": "#D6B98A",
+          "$description": "Warm neutral. Provisional data."
+        },
+        "copper": {
+          "$value": "#C47F46",
+          "$description": "Warm support colour for environmental / infrastructure detail."
+        },
+        "mint": {
+          "$value": "#7EE7D1",
+          "$description": "Cool support colour for environmental detail. Not a status colour."
+        }
+      },
+      "neutral": {
+        "$extensions": {
+          "loom": {
+            "provenance": "observed"
+          }
+        },
+        "white": {
+          "$value": "#FFFFFF",
+          "$description": "Logo colour on dark and primary text. Observed in the logo and Ceres Atlas mock; not listed on the palette sheet (see LOOM_STYLE_GUIDE D6)."
+        }
+      }
+    },
+    "font": {
+      "family": {
+        "$type": "fontFamily",
+        "$extensions": {
+          "loom": {
+            "provenance": "source"
+          }
+        },
+        "primary": {
+          "$value": [
+            "Montserrat",
+            "Avenir Next",
+            "Segoe UI",
+            "Roboto",
+            "system-ui",
+            "sans-serif"
+          ],
+          "$description": "Montserrat is the only brand typeface. Fallbacks are for load failure only (Roboto covers Android/Termux WebView)."
+        }
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$extensions": {
+          "loom": {
+            "provenance": "source"
+          }
+        },
+        "extralight": {
+          "$value": 200,
+          "$description": "Display / hero."
+        },
+        "light": {
+          "$value": 300,
+          "$description": "Section / subhead."
+        },
+        "regular": {
+          "$value": 400,
+          "$description": "Body copy."
+        },
+        "medium": {
+          "$value": 500,
+          "$description": "Labels, navigation, UI emphasis."
+        }
+      },
+      "tracking": {
+        "$type": "dimension",
+        "$extensions": {
+          "loom": {
+            "provenance": "source"
+          }
+        },
+        "display": {
+          "$value": "0.2em",
+          "$description": "Sheet value +200 (1/1000 em). Display / hero."
+        },
+        "subhead": {
+          "$value": "0.1em",
+          "$description": "Sheet value +100. Section / subhead."
+        },
+        "label": {
+          "$value": "0.08em",
+          "$description": "Sheet value +80. Labels, navigation, data labels."
+        },
+        "body": {
+          "$value": "0em",
+          "$description": "Body copy is not tracked."
+        }
+      },
+      "role": {
+        "$description": "Brand typographic roles exactly as specified on the brand sheet. Sizes are an interface-layer decision.",
+        "$extensions": {
+          "loom": {
+            "provenance": "source"
+          }
+        },
+        "display": {
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.weight.extralight}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.tracking.display}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "uppercase"
+          }
+        },
+        "subhead": {
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.weight.light}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.tracking.subhead}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "uppercase"
+          }
+        },
+        "body": {
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.weight.regular}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.tracking.body}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "none"
+          }
+        },
+        "label": {
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.weight.medium}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.tracking.label}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "uppercase"
+          }
+        }
+      }
+    },
+    "logo": {
+      "$description": "Logo construction and usage limits. Measured from the brand sheet; see LOOM_STYLE_GUIDE section 2.2.",
+      "$extensions": {
+        "loom": {
+          "provenance": "proposed"
+        }
+      },
+      "min-width-wordmark": {
+        "$type": "dimension",
+        "$value": "96px",
+        "$description": "Smallest wordmark width on screen."
+      },
+      "min-size-mark": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Smallest mark size on screen."
+      },
+      "clear-space-ratio": {
+        "$type": "number",
+        "$value": 0.5,
+        "$description": "Clear space on all sides = 0.5 x wordmark height (half the O diameter)."
+      }
+    }
+  },
+  "interface": {
+    "surface": {
+      "$type": "color",
+      "$extensions": {
+        "loom": {
+          "provenance": "source"
+        }
+      },
+      "canvas": {
+        "$value": "{brand.color.primary.void}",
+        "$description": "Page / viewport background."
+      },
+      "panel": {
+        "$value": "{brand.color.primary.deep-space}",
+        "$description": "Default panel."
+      },
+      "raised": {
+        "$value": "{brand.color.primary.midnight}",
+        "$description": "Panel nested in a panel; hover fill."
+      },
+      "control": {
+        "$value": "{brand.color.primary.slate}",
+        "$description": "Control track, inset regions, bar tracks."
+      },
+      "highest": {
+        "$value": "{brand.color.primary.nebula}",
+        "$description": "Highest elevation; pressed control fill."
+      },
+      "scrim": {
+        "$value": "#05070BCC",
+        "$description": "Modal scrim: void at 80%.",
+        "$extensions": {
+          "loom": {
+            "provenance": "derived"
+          }
+        }
+      }
+    },
+    "text": {
+      "$type": "color",
+      "$extensions": {
+        "loom": {
+          "provenance": "observed"
+        }
+      },
+      "primary": {
+        "$value": "{brand.color.neutral.white}",
+        "$description": "Headings, key values, body on any surface."
+      },
+      "secondary": {
+        "$value": "{brand.color.secondary.ice}",
+        "$description": "Supporting copy."
+      },
+      "tertiary": {
+        "$value": "{brand.color.secondary.steel}",
+        "$description": "Footnotes, captions. Only on canvas, panel, raised (contrast)."
+      },
+      "label": {
+        "$value": "{brand.color.accent.ion-blue}",
+        "$description": "Section labels and data labels."
+      },
+      "value": {
+        "$value": "{brand.color.accent.ion-blue}",
+        "$description": "Tabulated values."
+      },
+      "link": {
+        "$value": "{brand.color.accent.ion-blue}",
+        "$description": "Links. Must also be underlined or otherwise non-colour distinguished in running text."
+      },
+      "hero-metric": {
+        "$value": "{brand.color.accent.amber}",
+        "$description": "Atlas headline metric as seen in the mock. Flagged: LOOM_STYLE_GUIDE D1 (amber vs caution)."
+      },
+      "on-accent": {
+        "$value": "{brand.color.primary.void}",
+        "$description": "Text on solid ion-blue fills.",
+        "$extensions": {
+          "loom": {
+            "provenance": "proposed"
+          }
+        }
+      },
+      "disabled": {
+        "$value": "#8A97A68C",
+        "$description": "Steel at 55%. Exempt from contrast minimums; must also carry a non-colour disabled cue.",
+        "$extensions": {
+          "loom": {
+            "provenance": "derived"
+          }
+        }
+      }
+    },
+    "border": {
+      "$type": "color",
+      "$extensions": {
+        "loom": {
+          "provenance": "derived"
+        }
+      },
+      "divider": {
+        "$value": "#8A97A640",
+        "$description": "Data-row dividers: steel at 25%."
+      },
+      "hairline": {
+        "$value": "#00D1FF2E",
+        "$description": "Panel edge: ion-blue at 18%."
+      },
+      "default": {
+        "$value": "#00D1FF59",
+        "$description": "Control rest border: ion-blue at 35%."
+      },
+      "strong": {
+        "$value": "{brand.color.accent.ion-blue}",
+        "$description": "Selected / active border.",
+        "$extensions": {
+          "loom": {
+            "provenance": "observed"
+          }
+        }
+      }
+    },
+    "focus": {
+      "$extensions": {
+        "loom": {
+          "provenance": "proposed"
+        }
+      },
+      "ring-color": {
+        "$type": "color",
+        "$value": "{brand.color.neutral.white}",
+        "$description": "Keyboard focus ring. White so it stays distinct from ion-blue selection."
+      },
+      "ring-width": {
+        "$type": "dimension",
+        "$value": "2px"
+      },
+      "ring-offset": {
+        "$type": "dimension",
+        "$value": "2px"
+      }
+    },
+    "type": {
+      "size": {
+        "$type": "dimension",
+        "$extensions": {
+          "loom": {
+            "provenance": "proposed"
+          }
+        },
+        "display": {
+          "$value": "40px",
+          "$description": "Body name, e.g. CERES. Scales down to 32px below 360px width."
+        },
+        "hero-metric": {
+          "$value": "32px"
+        },
+        "title": {
+          "$value": "18px",
+          "$description": "Panel titles, e.g. THE ECONOMY."
+        },
+        "subhead": {
+          "$value": "14px"
+        },
+        "body": {
+          "$value": "14px"
+        },
+        "data": {
+          "$value": "14px"
+        },
+        "control": {
+          "$value": "12px"
+        },
+        "label": {
+          "$value": "11px",
+          "$description": "Absolute floor for any text. Uppercase medium only."
+        },
+        "caption": {
+          "$value": "12px"
+        }
+      },
+      "line-height": {
+        "$type": "number",
+        "$extensions": {
+          "loom": {
+            "provenance": "proposed"
+          }
+        },
+        "tight": {
+          "$value": 1.1
+        },
+        "snug": {
+          "$value": 1.25
+        },
+        "normal": {
+          "$value": 1.4
+        },
+        "relaxed": {
+          "$value": 1.5
+        }
+      },
+      "style": {
+        "$description": "Complete HUD type styles. Weight, tracking and transform come from brand.font.role.*; sizes from interface.type.size.*.",
+        "$extensions": {
+          "loom": {
+            "provenance": "proposed"
+          }
+        },
+        "display": {
+          "size": {
+            "$type": "dimension",
+            "$value": "{interface.type.size.display}"
+          },
+          "line-height": {
+            "$type": "number",
+            "$value": "{interface.type.line-height.tight}"
+          },
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.role.display.weight}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.role.display.tracking}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "{brand.font.role.display.transform}"
+          },
+          "numeric": {
+            "$type": "string",
+            "$value": "normal"
+          }
+        },
+        "hero-metric": {
+          "size": {
+            "$type": "dimension",
+            "$value": "{interface.type.size.hero-metric}"
+          },
+          "line-height": {
+            "$type": "number",
+            "$value": "{interface.type.line-height.tight}"
+          },
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.weight.light}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.tracking.body}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "none"
+          },
+          "numeric": {
+            "$type": "string",
+            "$value": "tabular-nums"
+          }
+        },
+        "title": {
+          "size": {
+            "$type": "dimension",
+            "$value": "{interface.type.size.title}"
+          },
+          "line-height": {
+            "$type": "number",
+            "$value": "{interface.type.line-height.snug}"
+          },
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.role.subhead.weight}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.role.subhead.tracking}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "{brand.font.role.subhead.transform}"
+          },
+          "numeric": {
+            "$type": "string",
+            "$value": "normal"
+          }
+        },
+        "subhead": {
+          "size": {
+            "$type": "dimension",
+            "$value": "{interface.type.size.subhead}"
+          },
+          "line-height": {
+            "$type": "number",
+            "$value": "{interface.type.line-height.snug}"
+          },
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.role.subhead.weight}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.role.subhead.tracking}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "{brand.font.role.subhead.transform}"
+          },
+          "numeric": {
+            "$type": "string",
+            "$value": "normal"
+          }
+        },
+        "body": {
+          "size": {
+            "$type": "dimension",
+            "$value": "{interface.type.size.body}"
+          },
+          "line-height": {
+            "$type": "number",
+            "$value": "{interface.type.line-height.relaxed}"
+          },
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.role.body.weight}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.role.body.tracking}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "{brand.font.role.body.transform}"
+          },
+          "numeric": {
+            "$type": "string",
+            "$value": "normal"
+          }
+        },
+        "data": {
+          "size": {
+            "$type": "dimension",
+            "$value": "{interface.type.size.data}"
+          },
+          "line-height": {
+            "$type": "number",
+            "$value": "{interface.type.line-height.normal}"
+          },
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.role.body.weight}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.role.body.tracking}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "none"
+          },
+          "numeric": {
+            "$type": "string",
+            "$value": "tabular-nums"
+          }
+        },
+        "control": {
+          "size": {
+            "$type": "dimension",
+            "$value": "{interface.type.size.control}"
+          },
+          "line-height": {
+            "$type": "number",
+            "$value": "{interface.type.line-height.tight}"
+          },
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.role.label.weight}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.role.label.tracking}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "{brand.font.role.label.transform}"
+          },
+          "numeric": {
+            "$type": "string",
+            "$value": "normal"
+          }
+        },
+        "label": {
+          "size": {
+            "$type": "dimension",
+            "$value": "{interface.type.size.label}"
+          },
+          "line-height": {
+            "$type": "number",
+            "$value": "{interface.type.line-height.normal}"
+          },
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.role.label.weight}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.role.label.tracking}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "{brand.font.role.label.transform}"
+          },
+          "numeric": {
+            "$type": "string",
+            "$value": "normal"
+          }
+        },
+        "caption": {
+          "size": {
+            "$type": "dimension",
+            "$value": "{interface.type.size.caption}"
+          },
+          "line-height": {
+            "$type": "number",
+            "$value": "{interface.type.line-height.normal}"
+          },
+          "weight": {
+            "$type": "fontWeight",
+            "$value": "{brand.font.role.body.weight}"
+          },
+          "tracking": {
+            "$type": "dimension",
+            "$value": "{brand.font.role.body.tracking}"
+          },
+          "transform": {
+            "$type": "string",
+            "$value": "{brand.font.role.body.transform}"
+          },
+          "numeric": {
+            "$type": "string",
+            "$value": "normal"
+          }
+        }
+      }
+    },
+    "space": {
+      "$type": "dimension",
+      "$extensions": {
+        "loom": {
+          "provenance": "proposed"
+        }
+      },
+      "1": {
+        "$value": "4px"
+      },
+      "2": {
+        "$value": "8px"
+      },
+      "3": {
+        "$value": "12px"
+      },
+      "4": {
+        "$value": "16px"
+      },
+      "5": {
+        "$value": "24px"
+      },
+      "6": {
+        "$value": "32px"
+      },
+      "7": {
+        "$value": "48px"
+      },
+      "8": {
+        "$value": "64px"
+      }
+    },
+    "radius": {
+      "$type": "dimension",
+      "$extensions": {
+        "loom": {
+          "provenance": "observed"
+        }
+      },
+      "bar": {
+        "$value": "2px"
+      },
+      "frame": {
+        "$value": "8px"
+      },
+      "panel": {
+        "$value": "12px"
+      },
+      "pill": {
+        "$value": "999px",
+        "$description": "Chips, tabs, badges."
+      }
+    },
+    "size": {
+      "$type": "dimension",
+      "$extensions": {
+        "loom": {
+          "provenance": "proposed"
+        }
+      },
+      "target-min": {
+        "$value": "44px",
+        "$description": "Minimum touch target in both axes (Pixel / phone is a first-class target)."
+      },
+      "hairline": {
+        "$value": "1px"
+      },
+      "stroke-data": {
+        "$value": "2px"
+      },
+      "bar-height": {
+        "$value": "10px"
+      },
+      "gutter": {
+        "$value": "16px"
+      },
+      "viewport-min": {
+        "$value": "360px",
+        "$description": "Narrowest supported layout width."
+      }
+    },
+    "control": {
+      "$extensions": {
+        "loom": {
+          "provenance": "observed"
+        }
+      },
+      "chip": {
+        "bg-rest": {
+          "$type": "color",
+          "$value": "{interface.surface.panel}"
+        },
+        "bg-hover": {
+          "$type": "color",
+          "$value": "{interface.surface.raised}"
+        },
+        "bg-active": {
+          "$type": "color",
+          "$value": "#00D1FF24",
+          "$description": "Ion-blue at 14%.",
+          "$extensions": {
+            "loom": {
+              "provenance": "derived"
+            }
+          }
+        },
+        "bg-pressed": {
+          "$type": "color",
+          "$value": "{interface.surface.highest}"
+        },
+        "border-rest": {
+          "$type": "color",
+          "$value": "{interface.border.default}"
+        },
+        "border-active": {
+          "$type": "color",
+          "$value": "{interface.border.strong}"
+        },
+        "text-rest": {
+          "$type": "color",
+          "$value": "{interface.text.secondary}"
+        },
+        "text-active": {
+          "$type": "color",
+          "$value": "{brand.color.accent.ion-blue}"
+        }
+      }
+    },
+    "effect": {
+      "glow-active": {
+        "$type": "shadow",
+        "$extensions": {
+          "loom": {
+            "provenance": "observed"
+          }
+        },
+        "$description": "Soft ion-blue glow on the active control. Decorative only; never the sole selected-state cue.",
+        "$value": {
+          "color": "#00D1FF59",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "12px",
+          "spread": "0px"
+        }
+      }
+    },
+    "dataviz": {
+      "$description": "Charts and bars. Series colours exclude every status colour and amber. Always pair with direct labels or markers.",
+      "$extensions": {
+        "loom": {
+          "provenance": "proposed"
+        }
+      },
+      "bar-track": {
+        "$type": "color",
+        "$value": "{interface.surface.control}"
+      },
+      "bar-primary": {
+        "$type": "color",
+        "$value": "{brand.color.accent.ion-blue}"
+      },
+      "bar-secondary": {
+        "$type": "color",
+        "$value": "{brand.color.secondary.steel}"
+      },
+      "series-1": {
+        "$type": "color",
+        "$value": "{brand.color.accent.ion-blue}"
+      },
+      "series-2": {
+        "$type": "color",
+        "$value": "{brand.color.accent.violet}"
+      },
+      "series-3": {
+        "$type": "color",
+        "$value": "{brand.color.secondary.sand}"
+      },
+      "series-4": {
+        "$type": "color",
+        "$value": "{brand.color.secondary.mint}"
+      },
+      "series-5": {
+        "$type": "color",
+        "$value": "{brand.color.secondary.ice}"
+      },
+      "series-6": {
+        "$type": "color",
+        "$value": "{brand.color.secondary.copper}"
+      }
+    },
+    "motion": {
+      "$extensions": {
+        "loom": {
+          "provenance": "proposed"
+        }
+      },
+      "duration-fast": {
+        "$type": "duration",
+        "$value": "120ms"
+      },
+      "duration-base": {
+        "$type": "duration",
+        "$value": "200ms"
+      },
+      "duration-slow": {
+        "$type": "duration",
+        "$value": "400ms"
+      },
+      "easing-standard": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.2,
+          0,
+          0,
+          1
+        ]
+      }
+    }
+  },
+  "domain": {
+    "status": {
+      "$description": "Operational status registry. Each entry binds a colour to a defined condition plus redundant non-colour indicators. Threshold values are NOT defined here: each producing system must cite the governing specification for its own thresholds (threshold-source). Provenance: colours are 'source' (brand sheet semantic row); shapes, icons, labels, severities and conditions are 'proposed'.",
+      "$extensions": {
+        "loom": {
+          "provenance": "proposed"
+        }
+      },
+      "nominal": {
+        "color": {
+          "$type": "color",
+          "$value": "#22C55E",
+          "$description": "Sheet: Success.",
+          "$extensions": {
+            "loom": {
+              "provenance": "source"
+            }
+          }
+        },
+        "shape": {
+          "$type": "string",
+          "$value": "circle"
+        },
+        "icon": {
+          "$type": "string",
+          "$value": "check-in-circle"
+        },
+        "label": {
+          "$type": "string",
+          "$value": "NOMINAL"
+        },
+        "severity": {
+          "$type": "number",
+          "$value": 0
+        },
+        "condition": {
+          "$type": "string",
+          "$value": "The value or system state is inside its defined nominal envelope."
+        },
+        "threshold-source": {
+          "$type": "string",
+          "$value": "UNDEFINED"
+        }
+      },
+      "info": {
+        "color": {
+          "$type": "color",
+          "$value": "#38BDF8",
+          "$description": "Sheet: Info.",
+          "$extensions": {
+            "loom": {
+              "provenance": "source"
+            }
+          }
+        },
+        "shape": {
+          "$type": "string",
+          "$value": "square"
+        },
+        "icon": {
+          "$type": "string",
+          "$value": "i-in-square"
+        },
+        "label": {
+          "$type": "string",
+          "$value": "INFO"
+        },
+        "severity": {
+          "$type": "number",
+          "$value": 1
+        },
+        "condition": {
+          "$type": "string",
+          "$value": "Informational. No operator action is implied."
+        },
+        "threshold-source": {
+          "$type": "string",
+          "$value": "NOT_APPLICABLE"
+        }
+      },
+      "caution": {
+        "color": {
+          "$type": "color",
+          "$value": "#F59E0B",
+          "$description": "Sheet: Warning. Renamed caution to avoid confusion with the 'warning' UI pattern.",
+          "$extensions": {
+            "loom": {
+              "provenance": "source"
+            }
+          }
+        },
+        "shape": {
+          "$type": "string",
+          "$value": "triangle"
+        },
+        "icon": {
+          "$type": "string",
+          "$value": "exclamation-in-triangle"
+        },
+        "label": {
+          "$type": "string",
+          "$value": "CAUTION"
+        },
+        "severity": {
+          "$type": "number",
+          "$value": 2
+        },
+        "condition": {
+          "$type": "string",
+          "$value": "A defined limit is being approached or a margin is reduced. Monitor, and act if it continues."
+        },
+        "threshold-source": {
+          "$type": "string",
+          "$value": "UNDEFINED"
+        }
+      },
+      "critical": {
+        "color": {
+          "$type": "color",
+          "$value": "#EF4444",
+          "$description": "Sheet: Danger.",
+          "$extensions": {
+            "loom": {
+              "provenance": "source"
+            }
+          }
+        },
+        "shape": {
+          "$type": "string",
+          "$value": "octagon"
+        },
+        "icon": {
+          "$type": "string",
+          "$value": "exclamation-in-octagon"
+        },
+        "label": {
+          "$type": "string",
+          "$value": "CRITICAL"
+        },
+        "severity": {
+          "$type": "number",
+          "$value": 3
+        },
+        "condition": {
+          "$type": "string",
+          "$value": "A defined limit has been breached or a safety-relevant fault exists. Immediate attention required."
+        },
+        "threshold-source": {
+          "$type": "string",
+          "$value": "UNDEFINED"
+        }
+      }
+    },
+    "selection": {
+      "$description": "Attention and focus marker. Deliberately NOT a status: it carries no severity, and must never appear inside a status context.",
+      "$extensions": {
+        "loom": {
+          "provenance": "source"
+        }
+      },
+      "highlight": {
+        "$type": "color",
+        "$value": "#FDE047",
+        "$description": "Sheet: Highlight. Use as a ring/underline around the current selection, plus a label or position cue."
+      },
+      "ring-width": {
+        "$type": "dimension",
+        "$value": "2px",
+        "$extensions": {
+          "loom": {
+            "provenance": "proposed"
+          }
+        }
+      }
+    },
+    "certainty": {
+      "$description": "Data-quality states. Use neutral/support hues only (never status colours) so uncertainty cannot be mistaken for severity. Redundant cues: line dash, text affix and label.",
+      "$extensions": {
+        "loom": {
+          "provenance": "proposed"
+        }
+      },
+      "verified": {
+        "color": {
+          "$type": "color",
+          "$value": "{interface.text.primary}"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "none",
+          "$description": "SVG stroke-dasharray."
+        },
+        "affix": {
+          "$type": "string",
+          "$value": ""
+        },
+        "label": {
+          "$type": "string",
+          "$value": "VERIFIED"
+        }
+      },
+      "provisional": {
+        "color": {
+          "$type": "color",
+          "$value": "{brand.color.secondary.sand}"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "6 4"
+        },
+        "affix": {
+          "$type": "string",
+          "$value": "(P)",
+          "$description": "Suffix after the value."
+        },
+        "label": {
+          "$type": "string",
+          "$value": "PROVISIONAL"
+        }
+      },
+      "estimated": {
+        "color": {
+          "$type": "color",
+          "$value": "{brand.color.secondary.ice}"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "2 3"
+        },
+        "affix": {
+          "$type": "string",
+          "$value": "≈",
+          "$description": "Prefix before the value (≈)."
+        },
+        "label": {
+          "$type": "string",
+          "$value": "ESTIMATED"
+        }
+      },
+      "unresolved": {
+        "color": {
+          "$type": "color",
+          "$value": "{brand.color.secondary.steel}"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "1 4"
+        },
+        "affix": {
+          "$type": "string",
+          "$value": "?",
+          "$description": "Suffix after the value."
+        },
+        "label": {
+          "$type": "string",
+          "$value": "UNRESOLVED"
+        }
+      },
+      "null": {
+        "color": {
+          "$type": "color",
+          "$value": "{brand.color.secondary.steel}"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "1 4"
+        },
+        "affix": {
+          "$type": "string",
+          "$value": "—",
+          "$description": "Replaces the value entirely (—)."
+        },
+        "label": {
+          "$type": "string",
+          "$value": "NULL"
+        }
+      }
+    },
+    "nav": {
+      "$description": "Navigation and spatial-schematic states. Every state has a colour, a stroke dash and a marker shape so states are distinguishable in greyscale.",
+      "orbit": {
+        "$extensions": {
+          "loom": {
+            "provenance": "observed"
+          }
+        },
+        "color": {
+          "$type": "color",
+          "$value": "{brand.color.secondary.steel}"
+        },
+        "width": {
+          "$type": "dimension",
+          "$value": "1px"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "4 6"
+        },
+        "marker": {
+          "$type": "string",
+          "$value": "none"
+        }
+      },
+      "node": {
+        "$extensions": {
+          "loom": {
+            "provenance": "observed"
+          }
+        },
+        "color": {
+          "$type": "color",
+          "$value": "{brand.color.secondary.ice}"
+        },
+        "width": {
+          "$type": "dimension",
+          "$value": "1px"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "none"
+        },
+        "marker": {
+          "$type": "string",
+          "$value": "filled-circle"
+        }
+      },
+      "node-selected": {
+        "$extensions": {
+          "loom": {
+            "provenance": "proposed"
+          }
+        },
+        "color": {
+          "$type": "color",
+          "$value": "{domain.selection.highlight}"
+        },
+        "width": {
+          "$type": "dimension",
+          "$value": "2px"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "none"
+        },
+        "marker": {
+          "$type": "string",
+          "$value": "ring-around-node"
+        }
+      },
+      "route-planned": {
+        "$extensions": {
+          "loom": {
+            "provenance": "proposed"
+          }
+        },
+        "color": {
+          "$type": "color",
+          "$value": "{brand.color.accent.ion-blue}"
+        },
+        "width": {
+          "$type": "dimension",
+          "$value": "2px"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "6 4"
+        },
+        "marker": {
+          "$type": "string",
+          "$value": "open-circle"
+        }
+      },
+      "route-committed": {
+        "$extensions": {
+          "loom": {
+            "provenance": "proposed"
+          }
+        },
+        "color": {
+          "$type": "color",
+          "$value": "{brand.color.accent.ion-blue}"
+        },
+        "width": {
+          "$type": "dimension",
+          "$value": "3px"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "none"
+        },
+        "marker": {
+          "$type": "string",
+          "$value": "filled-circle"
+        }
+      },
+      "route-alternate": {
+        "$extensions": {
+          "loom": {
+            "provenance": "proposed"
+          }
+        },
+        "color": {
+          "$type": "color",
+          "$value": "{brand.color.accent.violet}"
+        },
+        "width": {
+          "$type": "dimension",
+          "$value": "2px"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "2 4"
+        },
+        "marker": {
+          "$type": "string",
+          "$value": "diamond"
+        }
+      },
+      "route-completed": {
+        "$extensions": {
+          "loom": {
+            "provenance": "proposed"
+          }
+        },
+        "color": {
+          "$type": "color",
+          "$value": "{brand.color.secondary.steel}"
+        },
+        "width": {
+          "$type": "dimension",
+          "$value": "2px"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "none"
+        },
+        "marker": {
+          "$type": "string",
+          "$value": "check"
+        }
+      },
+      "keep-out": {
+        "$description": "Restricted region. Uses the critical status colour because it represents a defined critical condition; must be bound to a condition ID.",
+        "$extensions": {
+          "loom": {
+            "provenance": "proposed"
+          }
+        },
+        "color": {
+          "$type": "color",
+          "$value": "{domain.status.critical.color}"
+        },
+        "width": {
+          "$type": "dimension",
+          "$value": "2px"
+        },
+        "dash": {
+          "$type": "string",
+          "$value": "none"
+        },
+        "marker": {
+          "$type": "string",
+          "$value": "hatched-fill-with-label"
+        }
+      }
+    }
+  }
+}

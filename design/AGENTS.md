@@ -1,0 +1,3 @@
+# LOOM design-system scoped agent rules
+
+Read `LOOM_STYLE_GUIDE.md` and `loom-tokens.json` before modifying design system assets. `loom-tokens.json` is the value source of truth; `loom-tokens.css` is generated. Preserve DRAFT v0.1.0 status and provenance; do not approve unresolved decisions. Do not modify source token values, logos, or approved visual semantics without the owner's explicit request. For UI work elsewhere, use `loom-tokens.css` or `loom_design.py`, never duplicate token literals. Operational statuses require subsystem-defined thresholds and non-colour cues. Run `python design/loom_design.py --check` after changes. Main-repository governance and root `AGENTS.md` always take precedence.
