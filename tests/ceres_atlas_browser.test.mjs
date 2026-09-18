@@ -1,0 +1,188 @@
+/** Optional real-browser acceptance. Missing tooling is SKIP, never PASS. */
+import {test, before, after} from 'node:test';
+import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
+import {once} from 'node:events';
+import {fileURLToPath} from 'node:url';
+
+let chromium, browser, server, baseURL;
+let gap = 'Playwright is not installed; real-browser verification unavailable.';
+try {
+  ({chromium} = await import('playwright'));
+} catch (error) {
+  if (error.code !== 'ERR_MODULE_NOT_FOUND') throw error;
+}
+
+before(async () => {
+  if (!chromium) return;
+  try {
+    browser = await chromium.launch({headless: true});
+  } catch (error) {
+    if (!/Executable doesn't exist|not supported|missing dependencies/i.test(error.message)) throw error;
+    gap = `Chromium unavailable: ${error.message.split('\n')[0]}`;
+    return;
+  }
+  server = spawn(process.env.PYTHON || 'python', ['-B', 'tools/serve_ceres_atlas.py', '--port', '0'], {
+    cwd: fileURLToPath(new URL('../', import.meta.url)), stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  baseURL = await new Promise((resolve, reject) => {
+    let output = '';
+    const timer = setTimeout(() => reject(new Error('Atlas launcher timed out')), 10000);
+    server.once('error', error => { clearTimeout(timer); reject(error); });
+    server.once('exit', code => { clearTimeout(timer); reject(new Error(`Atlas exited early: ${code}`)); });
+    server.stdout.on('data', chunk => {
+      output += chunk;
+      const match = output.match(/http:\/\/127\.0\.0\.1:\d+\//);
+      if (match) { clearTimeout(timer); resolve(match[0]); }
+    });
+  });
+});
+
+after(async () => {
+  await browser?.close();
+  if (server && server.exitCode === null) {
+    const stopped = once(server, 'exit');
+    server.kill('SIGTERM');
+    await stopped;
+  }
+});
+
+async function open(t, options = {}, hash = '') {
+  if (!browser) { t.skip(gap); return null; }
+  const context = await browser.newContext({viewport: {width: 393, height: 851}, ...options});
+  t.after(() => context.close());
+  const errors = [], external = [];
+  await context.route('**/*', route => {
+    if (!route.request().url().startsWith(baseURL)) {
+      external.push(route.request().url()); return route.abort();
+    }
+    return route.continue();
+  });
+  const page = await context.newPage();
+  page.on('pageerror', error => errors.push(error.message));
+  t.after(() => {
+    assert.deepEqual(errors, [], 'no browser script exceptions');
+    assert.deepEqual(external, [], 'all application requests stay on loopback');
+  });
+  await page.goto(baseURL + hash);
+  await page.locator(hash.includes('facility=') ? '#detail-view' : '#list-view').waitFor({state: 'visible'});
+  return page;
+}
+
+test('mouse: all five facilities share working details and verified images', async t => {
+  const page = await open(t, {viewport: {width: 1280, height: 900}});
+  if (!page) return;
+  assert.equal(await page.locator('.facility-card').count(), 5);
+  for (let i = 1; i <= 5; i++) {
+    const id = `CER-P0${i}`;
+    await page.locator(`#open-${id}`).click();
+    await page.locator('#detail-view').waitFor({state: 'visible'});
+    assert.ok((await page.locator('#detail-view .eyebrow').textContent()).includes(id));
+    await page.waitForFunction(() => document.querySelector('#detail-view img')?.naturalWidth > 0);
+    await page.locator('summary').click();
+    assert.ok((await page.locator('.provenance').textContent()).includes('APPROVED_REFERENCE'));
+    await page.locator('#back-to-list').click();
+    await page.waitForFunction(expected => document.activeElement.id === `open-${expected}`, id);
+  }
+});
+
+test('filters, return scroll/focus, refresh and browser Back/Forward preserve state', async t => {
+  const page = await open(t);
+  if (!page) return;
+  await page.locator('#search').fill('ceres');
+  await page.locator('#type-filter').selectOption('ORBITAL_SHIPYARD');
+  assert.equal(await page.locator('.facility-card').count(), 1);
+  await page.locator('#open-CER-P04').click();
+  await page.reload();
+  await page.locator('#detail-title').waitFor({state: 'visible'});
+  await page.locator('#back-to-list').click();
+  await page.locator('#list-view').waitFor({state: 'visible'});
+  assert.equal(await page.locator('#search').inputValue(), 'ceres');
+  assert.equal(await page.locator('#type-filter').inputValue(), 'ORBITAL_SHIPYARD');
+  await page.goForward();
+  await page.locator('#detail-view').waitFor({state: 'visible'});
+  await page.goBack();
+  await page.locator('#list-view').waitFor({state: 'visible'});
+  await page.locator('#clear-filters').click();
+  await page.locator('#open-CER-P05').scrollIntoViewIfNeeded();
+  const scroll = await page.evaluate(() => window.scrollY);
+  assert.ok(scroll > 0);
+  await page.locator('#open-CER-P05').click();
+  await page.locator('#back-to-list').click();
+  await page.waitForFunction(() => document.activeElement.id === 'open-CER-P05');
+  assert.ok(Math.abs(await page.evaluate(() => window.scrollY) - scroll) < 3);
+});
+
+test('keyboard: Tab, Enter, Space and Escape support the same interaction', async t => {
+  const page = await open(t);
+  if (!page) return;
+  await page.locator('#clear-filters').focus();
+  await page.keyboard.press('Tab');
+  assert.equal(await page.evaluate(() => document.activeElement.id), 'open-CER-P01');
+  await page.keyboard.press('Enter');
+  await page.waitForFunction(() => document.activeElement.id === 'detail-title');
+  await page.keyboard.press('Escape');
+  await page.waitForFunction(() => document.activeElement.id === 'open-CER-P01');
+  await page.keyboard.press('Space');
+  await page.locator('#detail-view').waitFor({state: 'visible'});
+  await page.locator('#back-to-list').focus();
+  await page.keyboard.press('Enter');
+  await page.waitForFunction(() => document.activeElement.id === 'open-CER-P01');
+});
+
+test('touch and 320px/Pixel portrait/landscape layouts have no horizontal overflow', async t => {
+  const page = await open(t, {hasTouch: true, isMobile: true});
+  if (!page) return;
+  for (const viewport of [{width: 320, height: 640}, {width: 393, height: 851}, {width: 851, height: 393}]) {
+    await page.setViewportSize(viewport);
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
+    const box = await page.locator('#clear-filters').boundingBox();
+    assert.ok(box.height >= 48);
+    await page.locator('#open-CER-P01').tap();
+    await page.locator('#detail-view').waitFor({state: 'visible'});
+    await page.locator('summary').tap();
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
+    await page.locator('#back-to-list').tap();
+    await page.locator('#list-view').waitFor({state: 'visible'});
+  }
+});
+
+test('unknown deep link returns safely; empty search can be cleared', async t => {
+  const page = await open(t, {}, '#q=ceres&facility=CER-P99');
+  if (!page) return;
+  assert.equal(await page.locator('#detail-title').textContent(), 'Facility not found');
+  await page.locator('#back-to-list').click();
+  await page.locator('#list-view').waitFor({state: 'visible'});
+  assert.equal(await page.locator('#search').inputValue(), 'ceres');
+  await page.locator('#search').fill('no facility matches this');
+  await page.locator('#empty').waitFor({state: 'visible'});
+  await page.locator('#clear-filters').click();
+  assert.equal(await page.locator('.facility-card').count(), 5);
+});
+
+test('missing image retains identity and supports retry without navigation loss', async t => {
+  const page = await open(t);
+  if (!page) return;
+  await page.route('**/images/CER-P01*', route => route.fulfill({status: 404, body: ''}));
+  await page.locator('#open-CER-P01').click();
+  await page.locator('#detail-view .image-fallback').waitFor({state: 'visible'});
+  assert.equal(await page.locator('#detail-title').textContent(), 'Occator Industrial Lift & Surface Port');
+  await page.unroute('**/images/CER-P01*');
+  await page.getByRole('button', {name: 'Retry facility image'}).click();
+  await page.waitForFunction(() => document.querySelector('#detail-view img')?.naturalWidth > 0);
+  await page.locator('#back-to-list').click();
+  await page.locator('#list-view').waitFor({state: 'visible'});
+});
+
+test('manifest failure has a usable retry and never renders unapproved records', async t => {
+  const page = await open(t);
+  if (!page) return;
+  await page.route('**/manifest.json', route => route.fulfill({status: 503, body: ''}));
+  await page.reload();
+  await page.locator('#load-error').waitFor({state: 'visible'});
+  assert.equal(await page.locator('.facility-card:visible').count(), 0);
+  await page.unroute('**/manifest.json');
+  await page.locator('#retry-load').click();
+  await page.locator('#list-view').waitFor({state: 'visible'});
+  assert.equal(await page.locator('.facility-card').count(), 5);
+});
