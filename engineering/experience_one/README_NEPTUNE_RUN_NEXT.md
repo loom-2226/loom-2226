@@ -1,0 +1,1 @@
+Next executable step: run the tested disposable campaign continuity harness from PR #109 against a Navigator-created fresh qualification campaign whose authoritative starting state is CERES. Capture the result JSON and attach it to PR #112. Do not change Ceres features or flight authority while doing so.
