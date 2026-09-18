@@ -10,7 +10,7 @@ a local development commit, not production promotion or full-product acceptance.
 | --- | --- |
 | `python -B -m pytest -p no:cacheprovider tests/test_ceres_atlas_server.py tests/test_database_data_dictionary.py -q` | **27 passed**: 25 Atlas unit/HTTP checks and 2 existing dictionary regressions. |
 | `node --test tests/ceres_atlas_model.test.mjs` | **22 passed**, no skips. |
-| `node --test tests/ceres_atlas_browser.test.mjs` | **7 skipped**, 0 browser tests passed: Playwright and a browser executable are unavailable. |
+| `node --test tests/ceres_atlas_browser.test.mjs` | **7 skipped**, 0 browser tests passed: Playwright and a browser executable are unavailable locally in Termux. Historical local result; superseded for hosted-browser coverage by the CI evidence below, not rewritten as a local PASS. |
 | `node --check` on application/model/browser-test modules | Passed. |
 | Direct `python -B tests/test_database_semantic_coverage.py` | Existing failure reproduced: `TypeError: string indices must be integers, not 'str'` at line 34. Unchanged by this slice. |
 
@@ -35,7 +35,8 @@ Evidence source: Kevin's report in this session; this was not an agent-run or
 instrumented browser test. Device/browser versions and screenshots were not supplied.
 The PASS is limited to these three observed behaviors. It does not establish
 all-facility, keyboard, error-path, responsive-layout or full-product acceptance.
-The seven skipped automated browser tests remain explicitly **UNVERIFIED**.
+The original seven locally skipped automated browser tests remain a historical
+local result; the distinct hosted Chromium results are documented below.
 
 Kevin subsequently authorized committing this evidence and pushing only the
 11-file Ceres Atlas slice to `origin/feature/ceres-atlas-private-20260919`.
@@ -51,20 +52,18 @@ Checked before and after implementation:
 - `docs/ceres/manifest.json`: `6ae473bf6b6063b17a08e876d7b0057166135d397ce56e276423d319a44ccd81`
 
 All five PNGs match their original manifest hashes and byte lengths. Existing
-Inspector, GIS, gallery, data, governance, launchers and workflows are unchanged.
+Inspector, GIS, gallery, data, governance, launchers and workflows were unchanged
+by the original Slice 1 implementation. The later dedicated additive CI workflow
+and browser-test fixture correction are documented separately below.
 
-## Remaining verification gaps
+## Remaining verification gaps and scope boundaries
 
-- Agent-run browser interaction remains unavailable. The user-observed Pixel
-  smoke test above verifies only its three stated behaviors; screenshots,
-  screen-reader behavior and broader visual/layout coverage remain unverified.
-  All seven automated browser tests are still **SKIPPED / UNVERIFIED**.
-  The browser suite covers mouse,
-  keyboard, touch, 320px/393px/851px layouts, all five details, focus/scroll/history,
-  refresh, unknown IDs, empty search, image retry and manifest retry when run with
-  Playwright + Chromium. Skips do not establish that those browser behaviors pass.
+- The original Termux browser execution remains **7 SKIPPED / UNVERIFIED LOCALLY**.
+  Hosted Chromium browser coverage subsequently ran and passed; see the exact
+  commit-specific CI evidence below. Screenshots, screen-reader behavior and
+  full-product acceptance are not established by the hosted suite.
 - No protected-main `loom-gate` status was produced during implementation; there
-  was no PR or promotion. The later branch-push authorization above does not
+  was no PR or promotion. The later branch-push authorization does not
   establish a gate result. Ruby (used by the existing gate) is absent locally. The gate
   remains required for any later protected-main promotion.
 - The existing semantic coverage index/checker mismatch remains `REVIEW_REQUIRED`
@@ -100,18 +99,55 @@ The existing browser suite runs with Node's TAP reporter; pipeline failures are
 propagated, and `tools/check_ceres_browser_tap.py` requires exactly seven real
 passes, zero failures/cancellations/skips/todos, seven result records and a complete
 plan. Missing tooling cannot produce a green job. Markdown-only evidence updates
-do not trigger redundant reruns. The seven existing test assertions are unchanged.
+do not trigger redundant reruns. The original seven test assertions were unchanged
+by the CI workflow addition.
 
 Scope: this workflow, its result checker and checker regressions, plus this evidence
 record. Application/data/schema/launcher/publication consumers remain
 `UNCHANGED_COMPATIBLE`; no migration, CCR, frozen-object change or governance
 exception is required. Recovery is a revert of this additive verification change.
-Only this feature branch is authorized for commit/push. Hosted browser results
-will be recorded below after inspecting the actual Actions run; no CI PASS is
-claimed by this authorization record.
+Only this feature branch is authorized for commit/push.
 
 Pre-push local verification for this CI change: **44 Python tests passed**
 (17 TAP-checker regressions, 25 Atlas server/source checks, 2 dictionary regressions);
 **22 JavaScript model tests passed**. The actual local seven-skip browser TAP output
 was fed through the new CLI checker and correctly rejected with a nonzero exit.
-JavaScript syntax and whitespace checks passed. Hosted execution remains pending.
+JavaScript syntax and whitespace checks passed.
+
+## Hosted Chromium browser CI — observed evidence, 2026-09-19
+
+This section records completed historical results without rewriting the previous
+Termux skips or first hosted failure.
+
+1. **First hosted run — FAIL, preserved:** commit
+   `80bd5bdf2366449cf5b5aa254104fc9d48a27942`, Actions run
+   [35367680146](https://github.com/loom-2226/loom-2226/actions/runs/35367680146),
+   completed with **6 passed, 1 failed, 0 skipped**. Playwright and Chromium
+   installed successfully. Test 6, `missing image retains identity and supports
+   retry without navigation loss`, timed out waiting for a visible
+   `#detail-view .image-fallback`; the element remained hidden. The test installed
+   its image-request interception after initial page navigation, allowing the
+   first image to have loaded already. This failure remains part of the audit trail.
+2. **Narrow fixture repair:** commit
+   `6e22cf0e4cd568f58391f6986bb25ae4de9fcfea`,
+   `test(ceres-atlas): intercept image request before initial navigation`,
+   changed only `tests/ceres_atlas_browser.test.mjs` to register the simulated
+   image failure before opening the page. The original failure/retry assertions
+   were retained. No application code, canonical databases, manifest, deployment,
+   publication or protected-main files were changed by this repair.
+3. **Second hosted run — PASS, verified:** Actions run
+   [35368342705](https://github.com/loom-2226/loom-2226/actions/runs/35368342705)
+   checked out that exact repair commit and completed with conclusion `success`.
+   The decoded browser job log explicitly records **7 tests, 7 passed, 0 failed,
+   0 cancelled, 0 skipped, 0 todo**. Each of the seven named browser tests passed,
+   including the previously failing missing-image recovery. The strict TAP
+   checker printed `Ceres browser verification PASS: tests=7, suites=0, pass=7,
+   fail=0, cancelled=0, skipped=0, todo=0`. GitHub job `browser` concluded
+   `success`.
+
+Disposition: **the scoped seven-test hosted-browser verification gap is CLOSED
+for commit `6e22cf0e4cd568f58391f6986bb25ae4de9fcfea`.** This does not
+retroactively make the locally skipped tests pass. It does not establish a
+protected-main `loom-gate`, release qualification, full Atlas acceptance,
+publication, or resolution of the unrelated semantic coverage checker defect.
+This evidence-only Markdown update does not require or claim a fresh CI run.
