@@ -77,7 +77,11 @@ test('body topology opens all five dossiers and multi-hop history preserves cont
   if (!page) return;
   assert.equal(await page.locator('#detail-title').textContent(), 'Ceres');
   await page.waitForFunction(() => document.querySelector('.hero-ceres img')?.naturalWidth === 1024);
-  assert.equal(await page.locator('.hero-ceres img').getAttribute('src'), '/assets/ceres-world-hero.png');
+  const hero = page.locator('.hero-ceres img');
+  assert.equal(await hero.getAttribute('src'), 'assets/ceres-world-hero.png');
+  assert.equal(await hero.evaluate(image => image.currentSrc), baseURL + 'assets/ceres-world-hero.png');
+  assert.ok(await hero.isVisible());
+  assert.ok(await page.locator('.hero-ceres .image-fallback').isHidden());
   assert.equal(await page.locator('.topology-node').count(), 5);
   for (let i = 1; i <= 5; i++) {
     const id = `CER-P0${i}`;
