@@ -112,7 +112,7 @@ function addDefinition(list, label, value) {
 function drawDetail() {
   const view = $('detail-view'); const back = button('← Back to facilities', backToList, 'back secondary'); back.id='back-to-list';
   if (route.institutionId) { drawInstitution(view, back); return; }
-  if (!route.facilityId && route.domain) { drawBody(view, back); return; }
+  if (!route.facilityId) { drawBody(view, back); return; }
   const record=findFacility(records,route.facilityId); const title=element('h1',record?.name||'Facility not found'); title.id='detail-title'; title.tabIndex=-1;
   if (!record) { view.replaceChildren(back,title,element('p',`No facility matches “${route.facilityId}” in this local collection.`)); return; }
   const m=METRICS[record.id]; const heading=element('div','', 'detail-heading'); heading.append(element('p',`CERES / ${record.id}`,'eyebrow'),title,element('p',record.typeLabel,'lede'));
