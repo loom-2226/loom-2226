@@ -132,3 +132,18 @@ h1{font-size:2rem;letter-spacing:-.025em;margin:.35rem 0}.lede{font-size:.9rem;c
 footer{color:#777;border-color:#303030}
 @media(min-width:760px){.headline-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.body-identity:has(.hero-ceres){display:grid;grid-template-columns:1.35fr 1fr;gap:1.4rem;align-items:end}.body-identity .eyebrow{grid-column:1/-1}.body-identity .hero-ceres{grid-row:2/5}.body-identity h1,.body-identity .lede{grid-column:2}.topology-diagram{min-height:440px}}
 @media(max-width:560px){main{padding-inline:20px}.masthead{gap:.6rem}.edition{display:none}.headline-grid{gap:1rem}.domain-nav{gap:.28rem}.domain-nav button{padding:.3rem .68rem}.section-heading h2{font-size:1.35rem}.comparison-label{font-size:.83rem}.topology-diagram{min-height:300px}.topology-node{min-width:5.7rem;font-size:.66rem}.topology-p2{left:84%}.topology-p5{left:16%}}
+
+
+/* Verified WORLD/facility imagery and original 08R schematic alignment */
+.hero-ceres img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 48%}
+.topology-diagram{border-radius:7px;background:radial-gradient(ellipse at center,#3e3e3e 0 13%,transparent 13.5%),repeating-radial-gradient(ellipse at center,#3b3b3b 0 1px,transparent 2px 18%)}
+.topology-diagram::before{inset:19% 14%;border-color:#666}.topology-diagram::after{inset:31% 30%;border-color:#777}
+.topology-center{width:24%;max-width:110px;height:auto;aspect-ratio:1}
+.topology-node{min-width:7rem;background:#000;border:0;border-bottom:1px solid #555;border-radius:0;overflow:visible}
+.topology-node::after{content:'';position:absolute;top:50%;width:8px;height:8px;border-radius:50%;background:#fff;transform:translateY(-50%)}
+.topology-p1{left:19%;top:28%}.topology-p1::before{transform:rotate(22deg)}.topology-p1::after,.topology-p2::after{right:-9px}
+.topology-p2{left:18%;top:75%}.topology-p2::before{transform:rotate(-25deg)}
+.topology-p3{left:81%;top:28%}.topology-p3::before{transform:rotate(158deg)}.topology-p3::after,.topology-p4::after,.topology-p5::after{left:-9px}
+.topology-p4{left:86%;top:51%}.topology-p4::before{transform:rotate(180deg)}
+.topology-p5{left:78%;top:76%;border-bottom-style:dashed}.topology-p5::before{transform:rotate(218deg);border-top-style:dashed}
+@media(max-width:560px){.topology-node{min-width:5.8rem}.topology-p1{left:18%}.topology-p2{left:18%}.topology-p3{left:82%}.topology-p4{left:84%}.topology-p5{left:80%}}

@@ -77,7 +77,7 @@ def test_manifest_drift_refuses_startup(tmp_path):
         atlas.create_server(0, root=tmp_path)
 
 
-@pytest.mark.parametrize("path", ["/", "/index.html", "/style.css", "/app.mjs", "/model.mjs", "/manifest.json"])
+@pytest.mark.parametrize("path", ["/", "/index.html", "/style.css", "/app.mjs", "/model.mjs", "/manifest.json", "/assets/ceres-world-hero.png"])
 def test_application_resources_are_available_with_local_only_policy(server, path):
     status, headers, content = request(server, path)
     assert server.server_address[0] == "127.0.0.1"
@@ -88,6 +88,13 @@ def test_application_resources_are_available_with_local_only_policy(server, path
     assert "Access-Control-Allow-Origin" not in headers
     if path.endswith(".mjs"):
         assert headers["Content-Type"].startswith("text/javascript")
+
+
+def test_world_hero_is_exact_approved_media_blob(server):
+    status, headers, content = request(server, "/assets/ceres-world-hero.png")
+    assert status == 200 and headers["Content-Type"] == "image/png"
+    assert len(content) == 1261154
+    assert hashlib.sha256(content).hexdigest() == "fa5fc5876d8f66631837ce498d77e139444b9247e8b2a66ff6dd8ad611e1f08e"
 
 
 def test_http_images_are_exact_approved_bytes(server):

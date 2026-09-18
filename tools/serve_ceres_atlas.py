@@ -24,6 +24,7 @@ STATIC = {
     "/app.mjs": ("app.mjs", "text/javascript; charset=utf-8"),
     "/model.mjs": ("model.mjs", "text/javascript; charset=utf-8"),
     "/assets/loom-wordmark-white.svg": ("assets/loom-wordmark-white.svg", "image/svg+xml"),
+    "/assets/ceres-world-hero.png": ("assets/ceres-world-hero.png", "image/png"),
 }
 CSP = (
     "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; "
