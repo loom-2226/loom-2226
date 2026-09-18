@@ -155,7 +155,10 @@ function drawBody(view,back){
   institutions:[['Civil authority','Ceres Commonwealth · documented relationship'],['Governance joins','Typed institution IDs; relationship type retained'],['Facility links','Five pilot facilities'],['Authority caveat','Influence is not ownership or legal authority']],
   society:[['Institutional trust','Five facility records · model index'],['Political autonomy','Five facility records · model index'],['Family viability','Five facility records · model index'],['Social pressure','Separate records retained; no body-wide mean']]
  };
- for(const [l,v] of bodyDomains[route.domain||'people']) grid.append(metric(l,v));
+ for(const [l,v] of bodyDomains[route.domain||'people']) {
+  grid.append(route.domain==='institutions' && l==='Civil authority'
+    ? metricNode(l,'Ceres Commonwealth','documented relationship') : metric(l,v));
+ }
  section.append(grid,element('p','Source values remain measurements where present; unresolved denominators and missingness are disclosed beside them.','source-note'));
  const schematic=element('section',undefined,'topology'); schematic.append(element('h2','Ceres facility topology'),element('p','Relationships between the five verified pilot nodes; positions are schematic and do not encode physical distance.','source-note'));
  const diagram=element('div',undefined,'topology-diagram'); diagram.setAttribute('role','group'); diagram.setAttribute('aria-label','Ceres-centered facility topology');
@@ -167,7 +170,11 @@ function drawBody(view,back){
 }
 function domainTitle(d){return ({people:'People / demographic state',economy:'Economy / flows and stocks',transit:'Transit / node comparisons',infrastructure:'Infrastructure / capacity and power',institutions:'Institutions / governance relationships',society:'Society / model indices'})[d]||'People / demographic state'}
 function metric(label,value){const d=element('div',undefined,'metric');d.append(element('span',label),element('strong',value));return d}
-function metricNode(label,name){const d=element('div',undefined,'metric');d.append(element('span',label),instButton(name));return d}
+function metricNode(label,name,note=''){
+ const d=element('div',undefined,'metric'); const link=instButton(name);
+ if(link.tagName==='BUTTON') link.setAttribute('aria-label',`Open institution dossier: ${name}`);
+ d.append(element('span',label),link); if(note) d.append(element('small',note,'metric-note')); return d;
+}
 function drawInstitution(view,back){const info=Object.values(INSTITUTIONS).find(x=>x.id===route.institutionId);const title=element('h1',info?Object.keys(INSTITUTIONS).find(k=>INSTITUTIONS[k]===info):'Institution not found');title.id='detail-title';title.tabIndex=-1;if(!info){view.replaceChildren(back,title,element('p','No institution relationship matches this route.'));return}const body=element('div',undefined,'analysis');body.append(element('p','INSTITUTION / GOVERNANCE','eyebrow'),element('p',info.role,'lede'),element('p','Source-backed relationship dossier. This record is not a claim of ownership, equity or sovereignty beyond its named relationship.','source-note'));const list=element('div',undefined,'analysis-grid');for(const id of info.facilities){const r=findFacility(records,id);const d=element('div',undefined,'metric');const b=button(r.name,()=>openFacility(r.id),'entity-link');d.append(element('span','Connected facility'),b);list.append(d)}body.append(list,element('p','Provenance: inspected CIVSTATE governance profile relationship; stable facility IDs retained internally.','source-note'));view.replaceChildren(back,title,body);document.title=`${title.textContent} · Ceres Atlas`}
 
 function render() {

@@ -88,7 +88,12 @@ test('body topology opens all five dossiers and multi-hop history preserves cont
   await page.getByRole('button', {name: 'INSTITUTIONS'}).click();
   await page.locator('#topology-CER-P01').click();
   assert.equal(await page.locator('#detail-title').textContent(), 'Occator Industrial Lift & Surface Port');
-  await page.getByRole('button', {name: 'Ceres Commonwealth'}).click();
+  const institution = page.locator('.analysis .metric button.entity-link', {hasText: 'Ceres Commonwealth'}).first();
+  assert.equal(await institution.evaluate(node => node.tagName), 'BUTTON');
+  assert.equal(await institution.getAttribute('aria-label'), 'Open institution dossier: Ceres Commonwealth');
+  const target = await institution.boundingBox();
+  assert.ok(target.height >= 48, 'institution control has an accessible touch target');
+  await institution.click();
   assert.equal(await page.locator('#detail-title').textContent(), 'Ceres Commonwealth');
   await page.getByRole('button', {name: 'Ceres Belt Exchange'}).click();
   assert.equal(await page.locator('#detail-title').textContent(), 'Ceres Belt Exchange');
