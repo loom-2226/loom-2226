@@ -47,7 +47,7 @@ after(async () => {
   }
 });
 
-async function open(t, options = {}, hash = '') {
+async function open(t, options = {}, hash = '', beforeNavigation = null) {
   if (!browser) { t.skip(gap); return null; }
   const context = await browser.newContext({viewport: {width: 393, height: 851}, ...options});
   t.after(() => context.close());
@@ -64,6 +64,9 @@ async function open(t, options = {}, hash = '') {
     assert.deepEqual(errors, [], 'no browser script exceptions');
     assert.deepEqual(external, [], 'all application requests stay on loopback');
   });
+  // Register failure fixtures before navigation: list thumbnails can otherwise
+  // load the identical URL before a detail-only interception is installed.
+  if (beforeNavigation) await beforeNavigation(page);
   await page.goto(baseURL + hash);
   await page.locator(hash.includes('facility=') ? '#detail-view' : '#list-view').waitFor({state: 'visible'});
   return page;
@@ -161,9 +164,10 @@ test('unknown deep link returns safely; empty search can be cleared', async t =>
 });
 
 test('missing image retains identity and supports retry without navigation loss', async t => {
-  const page = await open(t);
+  const page = await open(t, {}, '', async page => {
+    await page.route('**/images/CER-P01*', route => route.fulfill({status: 404, body: ''}));
+  });
   if (!page) return;
-  await page.route('**/images/CER-P01*', route => route.fulfill({status: 404, body: ''}));
   await page.locator('#open-CER-P01').click();
   await page.locator('#detail-view .image-fallback').waitFor({state: 'visible'});
   assert.equal(await page.locator('#detail-title').textContent(), 'Occator Industrial Lift & Surface Port');
