@@ -73,3 +73,45 @@ Inspector, GIS, gallery, data, governance, launchers and workflows are unchanged
   checker execution before asserting current semantic column coverage.
 - Larger Atlas work (body dossier, richer fields, spatial interpretation, canonical
   metrics, full-product acceptance and publication) remains outside this slice.
+
+## Dedicated browser CI authorization — 2026-09-19
+
+Primary class: `class:governance` (verification automation only). Work item:
+close the existing seven-test browser verification gap on the Ceres feature branch.
+Authoritative main was reverified at `84ccdf5e88eedb492564f021a6dcc6d131a6026e`;
+feature head before this change was `5bcc4b449e06b63cb0b590b980e21799097a095e`.
+
+Repository Actions policy reports `enabled=true`, `allowed_actions=all`, and
+default workflow permissions `read`. Pages reports `build_type=workflow`; the
+existing `inspector-pages-deploy.yml` is manual-only with an explicit publication
+confirmation. The other existing workflows use pull-request/manual events, not
+this feature-branch push. No repository setting or permission change is needed.
+
+`.github/workflows/ceres-atlas-browser.yml` is push-triggered only on
+`feature/ceres-atlas-private-20260919`, additionally guarded by exact job ref.
+It uses `ubuntu-24.04`, Node 24, Python 3.13, commit-pinned official setup actions,
+and Playwright 1.63.0 (Apache-2.0) with its matching Chromium. Dependencies are
+installed only in the disposable runner. The token has only `contents: read`;
+checkout does not persist credentials. No deployment environment, Pages action,
+release, artifact upload, repository write, or main-branch trigger is present.
+This is a separate functional CI check, not a change to `loom-gate` or its semantics.
+
+The existing browser suite runs with Node's TAP reporter; pipeline failures are
+propagated, and `tools/check_ceres_browser_tap.py` requires exactly seven real
+passes, zero failures/cancellations/skips/todos, seven result records and a complete
+plan. Missing tooling cannot produce a green job. Markdown-only evidence updates
+do not trigger redundant reruns. The seven existing test assertions are unchanged.
+
+Scope: this workflow, its result checker and checker regressions, plus this evidence
+record. Application/data/schema/launcher/publication consumers remain
+`UNCHANGED_COMPATIBLE`; no migration, CCR, frozen-object change or governance
+exception is required. Recovery is a revert of this additive verification change.
+Only this feature branch is authorized for commit/push. Hosted browser results
+will be recorded below after inspecting the actual Actions run; no CI PASS is
+claimed by this authorization record.
+
+Pre-push local verification for this CI change: **44 Python tests passed**
+(17 TAP-checker regressions, 25 Atlas server/source checks, 2 dictionary regressions);
+**22 JavaScript model tests passed**. The actual local seven-skip browser TAP output
+was fed through the new CLI checker and correctly rejected with a nonzero exit.
+JavaScript syntax and whitespace checks passed. Hosted execution remains pending.
