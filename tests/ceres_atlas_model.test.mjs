@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {validateManifest, filterFacilities, findFacility, parseRoute, routeHash, listSnapshot} from '../web/ceres-atlas/model.mjs';
+import {validateManifest, filterFacilities, findFacility, parseRoute, routeHash, facilityRoute, institutionRoute, listSnapshot} from '../web/ceres-atlas/model.mjs';
 
 const raw = readFileSync(new URL('../docs/ceres/manifest.json', import.meta.url));
 const original = JSON.parse(raw);
@@ -66,6 +66,23 @@ test('empty route remains body-first while collection mode is explicit', () => {
   assert.deepEqual(parseRoute(''), {query: '', type: '', facilityId: ''});
   assert.equal(parseRoute('#collection=1').collection, '1');
   assert.equal(routeHash({query: '', type: '', facilityId: '', collection: '1'}), '#collection=1');
+});
+
+test('facility selection clears competing collection and institution routes', () => {
+  assert.deepEqual(facilityRoute({query: 'port', type: 'STRATEGIC_PORT', collection: '1',
+    institutionId: 'inst:ceres-commonwealth', domain: 'transit'}, 'CER-P01'), {
+    query: 'port', type: 'STRATEGIC_PORT', facilityId: 'CER-P01', domain: 'transit',
+  });
+});
+
+test('institution and linked-facility transitions remain mutually exclusive', () => {
+  const institution = institutionRoute({facilityId: 'CER-P01', domain: 'institutions'}, 'inst:ceres-commonwealth');
+  assert.equal(institution.facilityId, '');
+  assert.equal(institution.institutionId, 'inst:ceres-commonwealth');
+  const linked = facilityRoute(institution, 'CER-P03');
+  assert.equal(linked.facilityId, 'CER-P03');
+  assert.ok(!('institutionId' in linked));
+  assert.equal(linked.domain, 'institutions');
 });
 
 test('unknown and malformed URL values remain data, never another selected facility', () => {

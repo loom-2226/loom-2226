@@ -68,29 +68,41 @@ async function open(t, options = {}, hash = '', beforeNavigation = null) {
   // load the identical URL before a detail-only interception is installed.
   if (beforeNavigation) await beforeNavigation(page);
   await page.goto(baseURL + hash);
-  await page.locator(hash.includes('facility=') ? '#detail-view' : '#list-view').waitFor({state: 'visible'});
+  await page.locator(hash.includes('collection=1') ? '#list-view' : '#detail-view').waitFor({state: 'visible'});
   return page;
 }
 
-test('mouse: all five facilities share working details and verified images', async t => {
+test('body topology opens all five dossiers and multi-hop history preserves context', async t => {
   const page = await open(t, {viewport: {width: 1280, height: 900}});
   if (!page) return;
-  assert.equal(await page.locator('.facility-card').count(), 5);
+  assert.equal(await page.locator('#detail-title').textContent(), 'Ceres');
+  assert.equal(await page.locator('.topology-node').count(), 5);
   for (let i = 1; i <= 5; i++) {
     const id = `CER-P0${i}`;
-    await page.locator(`#open-${id}`).click();
-    await page.locator('#detail-view').waitFor({state: 'visible'});
+    await page.locator(`#topology-${id}`).click();
     assert.ok((await page.locator('#detail-view .eyebrow').textContent()).includes(id));
-    await page.waitForFunction(() => document.querySelector('#detail-view img')?.naturalWidth > 0);
-    await page.locator('summary').click();
-    assert.ok((await page.locator('.provenance').textContent()).includes('APPROVED_REFERENCE'));
-    await page.locator('#back-to-list').click();
-    await page.waitForFunction(expected => document.activeElement.id === `open-${expected}`, id);
+    await page.goBack();
+    await page.waitForFunction(() => document.querySelector('#detail-title')?.textContent === 'Ceres');
   }
+
+  await page.getByRole('button', {name: 'INSTITUTIONS'}).click();
+  await page.locator('#topology-CER-P01').click();
+  assert.equal(await page.locator('#detail-title').textContent(), 'Occator Industrial Lift & Surface Port');
+  await page.getByRole('button', {name: 'Ceres Commonwealth'}).click();
+  assert.equal(await page.locator('#detail-title').textContent(), 'Ceres Commonwealth');
+  await page.getByRole('button', {name: 'Ceres Belt Exchange'}).click();
+  assert.equal(await page.locator('#detail-title').textContent(), 'Ceres Belt Exchange');
+  await page.goBack();
+  assert.equal(await page.locator('#detail-title').textContent(), 'Ceres Commonwealth');
+  await page.goBack();
+  assert.equal(await page.locator('#detail-title').textContent(), 'Occator Industrial Lift & Surface Port');
+  await page.goBack();
+  assert.equal(await page.locator('#detail-title').textContent(), 'Ceres');
+  assert.equal(await page.locator('.domain-nav button.selected').textContent(), 'INSTITUTIONS');
 });
 
 test('filters, return scroll/focus, refresh and browser Back/Forward preserve state', async t => {
-  const page = await open(t);
+  const page = await open(t, {}, '#collection=1');
   if (!page) return;
   await page.locator('#search').fill('ceres');
   await page.locator('#type-filter').selectOption('ORBITAL_SHIPYARD');
@@ -117,7 +129,7 @@ test('filters, return scroll/focus, refresh and browser Back/Forward preserve st
 });
 
 test('keyboard: Tab, Enter, Space and Escape support the same interaction', async t => {
-  const page = await open(t);
+  const page = await open(t, {}, '#collection=1');
   if (!page) return;
   await page.locator('#clear-filters').focus();
   await page.keyboard.press('Tab');
@@ -134,7 +146,7 @@ test('keyboard: Tab, Enter, Space and Escape support the same interaction', asyn
 });
 
 test('touch and 320px/Pixel portrait/landscape layouts have no horizontal overflow', async t => {
-  const page = await open(t, {hasTouch: true, isMobile: true});
+  const page = await open(t, {hasTouch: true, isMobile: true}, '#collection=1');
   if (!page) return;
   for (const viewport of [{width: 320, height: 640}, {width: 393, height: 851}, {width: 851, height: 393}]) {
     await page.setViewportSize(viewport);
@@ -155,6 +167,8 @@ test('unknown deep link returns safely; empty search can be cleared', async t =>
   if (!page) return;
   assert.equal(await page.locator('#detail-title').textContent(), 'Facility not found');
   await page.locator('#back-to-list').click();
+  assert.equal(await page.locator('#detail-title').textContent(), 'Ceres');
+  await page.getByRole('button', {name: 'Browse facility collection'}).click();
   await page.locator('#list-view').waitFor({state: 'visible'});
   assert.equal(await page.locator('#search').inputValue(), 'ceres');
   await page.locator('#search').fill('no facility matches this');
@@ -164,7 +178,7 @@ test('unknown deep link returns safely; empty search can be cleared', async t =>
 });
 
 test('missing image retains identity and supports retry without navigation loss', async t => {
-  const page = await open(t, {}, '', async page => {
+  const page = await open(t, {}, '#collection=1', async page => {
     await page.route('**/images/CER-P01*', route => route.fulfill({status: 404, body: ''}));
   });
   if (!page) return;
@@ -179,7 +193,7 @@ test('missing image retains identity and supports retry without navigation loss'
 });
 
 test('manifest failure has a usable retry and never renders unapproved records', async t => {
-  const page = await open(t);
+  const page = await open(t, {}, '#collection=1');
   if (!page) return;
   await page.route('**/manifest.json', route => route.fulfill({status: 503, body: ''}));
   await page.reload();

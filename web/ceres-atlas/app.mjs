@@ -1,4 +1,4 @@
-import {validateManifest, parseRoute, routeHash, filterFacilities, findFacility, listSnapshot} from './model.mjs';
+import {validateManifest, parseRoute, routeHash, facilityRoute, institutionRoute, filterFacilities, findFacility, listSnapshot} from './model.mjs';
 
 const $ = id => document.getElementById(id);
 let records = [], route = parseRoute(location.hash), ready = false, renderVersion = 0;
@@ -25,7 +25,7 @@ const INSTITUTIONS = {
   'Belt Security & Rescue Directorate': {id:'inst:belt-security', role:'Security provider', facilities:['CER-P01','CER-P02','CER-P03','CER-P04','CER-P05']}
 };
 function instButton(name) { const info=INSTITUTIONS[name]; if(!info) return element('span',name); const b=button(name,()=>openInstitution(info.id), 'entity-link'); b.dataset.entity=name; return b; }
-function openInstitution(id) { const snapshot=saveList({focus:'institution-'+id}); route={...route,institutionId:id,facilityId:''}; history.pushState({atlas:snapshot,fromList:true},'',routeHash(route)); render(); }
+function openInstitution(id) { const snapshot=saveList({focus:'institution-'+id}); route=institutionRoute(route,id); history.pushState({atlas:snapshot,fromList:true},'',routeHash(route)); render(); }
 function metricBar(label,value,width,action) { const row=element('div',undefined,'bar-row'); const labelNode=action?instButton(label):element('span',label); const bar=element('span',undefined,'bar'); const fill=element('i'); fill.style.width=`${width}%`; bar.append(fill); row.append(labelNode,bar,element('strong',value)); return row; }
 
 
@@ -62,13 +62,13 @@ function image(record, detail = false) {
 function saveList(overrides = {}) {
   const previous = listSnapshot(history.state?.atlas);
   const snapshot = {...previous, scroll: window.scrollY, focus: document.activeElement?.id || previous.focus, ...overrides};
-  history.replaceState({atlas: snapshot}, '', routeHash(route));
+  history.replaceState({...history.state, atlas: snapshot}, '', routeHash(route));
   return snapshot;
 }
 
 function openFacility(id) {
   const snapshot = saveList({focus: `open-${id}`, lastId: id});
-  route = {...route, facilityId: id};
+  route = facilityRoute(route, id);
   history.pushState({atlas: snapshot, fromList: true}, '', routeHash(route));
   render();
 }
@@ -161,7 +161,7 @@ function drawBody(view,back){
  const diagram=element('div',undefined,'topology-diagram'); diagram.setAttribute('role','group'); diagram.setAttribute('aria-label','Ceres-centered facility topology');
  const center=element('span','CERES','topology-center'); diagram.append(center);
  const points=[['CER-P01','Occator','topology-p1'],['CER-P02','Polar Terminal','topology-p2'],['CER-P03','Belt Exchange','topology-p3'],['CER-P04','Shipyard Arc','topology-p4'],['CER-P05','Metric Anchorage','topology-p5']];
- for(const [id,label,cls] of points){const r=findFacility(records,id);const b=button(label,()=>openFacility(id),`topology-node ${cls}`);b.setAttribute('aria-label',`${r?.name||label} facility`);diagram.append(b)} schematic.append(diagram);
+ for(const [id,label,cls] of points){const r=findFacility(records,id);const b=button(label,()=>openFacility(id),`topology-node ${cls}`);b.id=`topology-${id}`;b.setAttribute('aria-label',`${r?.name||label} facility`);diagram.append(b)} schematic.append(diagram);
  const browse=button('Browse facility collection',()=>{route.collection='1';route.domain='';history.pushState({atlas:listSnapshot(history.state?.atlas)},'',routeHash(route));render();},'secondary');
  view.replaceChildren(back,title,intro,lede,hero,layers,headline,nav,section,schematic,browse,element('p','Approved facility imagery and typed dossier links remain available from the topology and secondary collection.','muted')); document.title='Ceres body dossier · Ceres Atlas';
 }

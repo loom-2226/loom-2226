@@ -57,6 +57,25 @@ export function routeHash(route) {
   return params.size ? `#${params}` : '#';
 }
 
+export function facilityRoute(route, facilityId) {
+  return {
+    query: route.query || '',
+    type: route.type || '',
+    facilityId,
+    domain: route.domain || 'people',
+  };
+}
+
+export function institutionRoute(route, institutionId) {
+  return {
+    query: route.query || '',
+    type: route.type || '',
+    facilityId: '',
+    institutionId,
+    domain: route.domain || 'institutions',
+  };
+}
+
 export function filterFacilities(records, {query, type}) {
   const needle = query.trim().toLowerCase();
   return records.filter(record => (!type || record.type === type) &&
