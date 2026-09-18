@@ -23,6 +23,25 @@ Manifest drift prevents startup. Model tests cover filters, route round trips,
 unknown IDs, return snapshots, provenance projection and rejection of malformed,
 duplicate or unapproved records.
 
+## Pixel smoke test — user-observed PASS, 2026-09-19
+
+Kevin reported these observations after the slice-1 implementation:
+
+- The facility list loads on Pixel.
+- Occator detail opens correctly.
+- Back to facilities preserves the list state.
+
+Evidence source: Kevin's report in this session; this was not an agent-run or
+instrumented browser test. Device/browser versions and screenshots were not supplied.
+The PASS is limited to these three observed behaviors. It does not establish
+all-facility, keyboard, error-path, responsive-layout or full-product acceptance.
+The seven skipped automated browser tests remain explicitly **UNVERIFIED**.
+
+Kevin subsequently authorized committing this evidence and pushing only the
+11-file Ceres Atlas slice to `origin/feature/ceres-atlas-private-20260919`.
+This authorizes branch delivery only, not merge, deployment, publication or
+canonical database changes.
+
 ## Source preservation
 
 Checked before and after implementation:
@@ -36,13 +55,17 @@ Inspector, GIS, gallery, data, governance, launchers and workflows are unchanged
 
 ## Remaining verification gaps
 
-- No actual browser interaction, screenshot, Pixel touch/rendering, screen-reader
-  or visual layout verification was possible here. The browser suite covers mouse,
+- Agent-run browser interaction remains unavailable. The user-observed Pixel
+  smoke test above verifies only its three stated behaviors; screenshots,
+  screen-reader behavior and broader visual/layout coverage remain unverified.
+  All seven automated browser tests are still **SKIPPED / UNVERIFIED**.
+  The browser suite covers mouse,
   keyboard, touch, 320px/393px/851px layouts, all five details, focus/scroll/history,
   refresh, unknown IDs, empty search, image retry and manifest retry when run with
   Playwright + Chromium. Skips do not establish that those browser behaviors pass.
-- No protected-main `loom-gate` status was produced: no PR, push or promotion was
-  performed. Ruby (used by the existing gate) is also absent locally. The gate
+- No protected-main `loom-gate` status was produced during implementation; there
+  was no PR or promotion. The later branch-push authorization above does not
+  establish a gate result. Ruby (used by the existing gate) is absent locally. The gate
   remains required for any later protected-main promotion.
 - The existing semantic coverage index/checker mismatch remains `REVIEW_REQUIRED`
   under WALTER.PROVENANCE. This application does not consume that index or infer
