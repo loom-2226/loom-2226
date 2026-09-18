@@ -35,11 +35,14 @@ export function validateManifest(payload) {
 
 export function parseRoute(hash) {
   const params = new URLSearchParams(hash.replace(/^#/, ''));
-  return {
+  const route = {
     query: (params.get('q') || '').slice(0, 200),
     type: (params.get('type') || '').slice(0, 128),
     facilityId: (params.get('facility') || '').slice(0, 128),
   };
+  if (params.has('institution')) route.institutionId = (params.get('institution') || '').slice(0, 160);
+  if (params.has('domain')) route.domain = (params.get('domain') || 'people').slice(0, 64);
+  return route;
 }
 
 export function routeHash(route) {
@@ -47,6 +50,8 @@ export function routeHash(route) {
   if (route.query) params.set('q', route.query);
   if (route.type) params.set('type', route.type);
   if (route.facilityId) params.set('facility', route.facilityId);
+  if (route.institutionId) params.set('institution', route.institutionId);
+  if (route.domain && route.domain !== 'people') params.set('domain', route.domain);
   return params.size ? `#${params}` : '#';
 }
 

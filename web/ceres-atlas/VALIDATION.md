@@ -151,3 +151,35 @@ retroactively make the locally skipped tests pass. It does not establish a
 protected-main `loom-gate`, release qualification, full Atlas acceptance,
 publication, or resolution of the unrelated semantic coverage checker defect.
 This evidence-only Markdown update does not require or claim a fresh CI run.
+
+## Prototype 08R implementation — 2026-09-19
+
+The private Atlas now includes the complete six-domain body view (People,
+Economy, Transit, Infrastructure, Institutions & Governance, and Society),
+reusable facility dossiers, and typed institution dossiers connected through
+facility roles. Facility, institution, and domain routes preserve query/type
+filters, browser history, return focus and scroll context. The UI uses the
+approved Montserrat/token styling and the unchanged official white LOOM SVG
+served from the private allowlist.
+
+The verified five-facility manifest and approved PNGs remain the only facility
+identity/media source. Analytical values shown in the prototype retain the
+handoff's explicit model/source caveats; no population, economic,
+ infrastructure, coordinates or ownership values are inferred from the
+canonical databases. The local manifest contains no Ceres body hero asset, so
+that hero renders an explicit unavailable state rather than substituting an
+image. Physical/JPL citation enrichment remains incomplete.
+
+### 08R checks
+
+| Command / check | Result |
+| --- | --- |
+| `node --check web/ceres-atlas/app.mjs` | Passed |
+| `node --test tests/ceres_atlas_model.test.mjs` | **23 passed**, including domain/institution route coverage |
+| `python -B -m pytest -p no:cacheprovider tests/test_ceres_atlas_server.py tests/test_ceres_browser_tap.py -q` | **42 passed** |
+| `node --test tests/ceres_atlas_browser.test.mjs` | **7 skipped / unverified locally**: Playwright is unavailable in Termux |
+| `git diff --check` | Passed |
+
+The semantic-coverage checker discrepancy remains documented above and was not
+expanded into this implementation. This is a private prototype increment, not
+full Atlas acceptance, publication, deployment or protected-main qualification.

@@ -5,6 +5,30 @@ let records = [], route = parseRoute(location.hash), ready = false, renderVersio
 let sourceHash = '', renderedHash = null;
 history.scrollRestoration = 'manual';
 
+const DOMAINS = ['people','economy','transit','infrastructure','institutions','society'];
+const METRICS = {
+  'CER-P01': {output:'243.05 B/year', capital:'1.805 T', cargo:'12.985 M t/year', passengers:'1.001 M/year', power:'4,761 / 6,904 MW', capacity:'70,998 eq.', utilization:'0.672', trust:'.431', autonomy:'.375', family:'.477'},
+  'CER-P02': {output:'202.55 B/year', capital:'1.504 T', cargo:'7.214 M t/year', passengers:'.520 M/year', power:'3,968 / 5,753 MW', capacity:'59,246 eq.', utilization:'.608', trust:'.531', autonomy:'.495', family:'.477'},
+  'CER-P03': {output:'460.79 B/year', capital:'3.423 T', cargo:'35.900 M t/year', passengers:'3.013 M/year', power:'9,026 / 13,088 MW', capacity:'232,670 eq.', utilization:'.760', trust:'.431', autonomy:'.375', family:'.657'},
+  'CER-P04': {output:'549.40 B/year', capital:'4.081 T', cargo:'42.804 M t/year', passengers:'3.592 M/year', power:'10,762 / 15,605 MW', capacity:'211,001 eq.', utilization:'.760', trust:'.431', autonomy:'.375', family:'.477'},
+  'CER-P05': {output:'218.75 B/year', capital:'1.625 T', cargo:'8.765 M t/year', passengers:'.643 M/year', power:'4,285 / 6,213 MW', capacity:'34,784 eq.', utilization:'.624', trust:'.431', autonomy:'.361', family:'.477'}
+};
+const INSTITUTIONS = {
+  'Ceres Commonwealth': {id:'inst:ceres-commonwealth', role:'Ultimate sovereign / local civil authority', facilities:['CER-P01','CER-P02','CER-P03','CER-P04','CER-P05']},
+  'Ferrum Meridian': {id:'inst:ferrum-meridian', role:'Operator in inspected profiles', facilities:['CER-P01','CER-P02']},
+  'Ceres Volatiles Cooperative': {id:'inst:ceres-volatiles-cooperative', role:'Administrator', facilities:['CER-P02']},
+  'Belt Transit Authority': {id:'inst:belt-transit-authority', role:'Administrator', facilities:['CER-P03','CER-P04']},
+  'Concord Mutual Infrastructure & Assurance': {id:'inst:concord-mutual', role:'Operator', facilities:['CER-P03']},
+  'Asteria Ship Systems': {id:'inst:asteria-ship-systems', role:'Operator', facilities:['CER-P04']},
+  'Belt Standards Directorate': {id:'inst:belt-standards-directorate', role:'Administrator', facilities:['CER-P05']},
+  'Axiom Precision & Metrology': {id:'inst:axiom-precision', role:'Operator', facilities:['CER-P05']},
+  'Belt Security & Rescue Directorate': {id:'inst:belt-security', role:'Security provider', facilities:['CER-P01','CER-P02','CER-P03','CER-P04','CER-P05']}
+};
+function instButton(name) { const info=INSTITUTIONS[name]; if(!info) return element('span',name); const b=button(name,()=>openInstitution(info.id), 'entity-link'); b.dataset.entity=name; return b; }
+function openInstitution(id) { const snapshot=saveList({focus:'institution-'+id}); route={...route,institutionId:id,facilityId:''}; history.pushState({atlas:snapshot,fromList:true},'',routeHash(route)); render(); }
+function metricBar(label,value,width,action) { const row=element('div',undefined,'bar-row'); const labelNode=action?instButton(label):element('span',label); const bar=element('span',undefined,'bar'); const fill=element('i'); fill.style.width=`${width}%`; bar.append(fill); row.append(labelNode,bar,element('strong',value)); return row; }
+
+
 function element(tag, text, className) {
   const node = document.createElement(tag);
   if (text !== undefined) node.textContent = text;
@@ -86,52 +110,56 @@ function addDefinition(list, label, value) {
 }
 
 function drawDetail() {
-  const view = $('detail-view');
-  const back = button('← Back to facilities', backToList, 'back secondary');
-  back.id = 'back-to-list';
-  const record = findFacility(records, route.facilityId);
-  const title = element('h1', record?.name || 'Facility not found');
-  title.id = 'detail-title'; title.tabIndex = -1;
-  if (!record) {
-    view.replaceChildren(back, title, element('p', `No facility matches “${route.facilityId}” in this local collection.`));
-    document.title = 'Facility not found · Ceres Atlas';
-    return;
-  }
-  const heading = element('div', undefined, 'detail-heading');
-  heading.append(element('p', `Ceres / ${record.id}`, 'eyebrow'), title, element('p', record.typeLabel, 'lede'));
-  const figure = element('figure', undefined, 'detail-media');
-  figure.append(image(record, true), element('figcaption', 'HERO · Approved reference imagery'));
-  const retry = button('Retry image', () => {
-    const fresh = image(record, true);
-    figure.replaceChild(fresh, figure.firstChild);
-  }, 'secondary');
-  // This control is useful even if the initial image succeeds and later becomes unavailable.
-  retry.setAttribute('aria-label', 'Retry facility image');
-  const facts = element('dl', undefined, 'facts');
-  for (const [label, value] of [['Facility ID', record.id], ['Facility type', record.typeLabel]]) {
-    const group = element('div'); addDefinition(group, label, value); facts.append(group);
-  }
-  const provenance = element('details', undefined, 'provenance');
-  const definitions = element('dl');
-  for (const [label, value] of [
-    ['Manifest', 'docs/ceres/manifest.json'], ['Manifest SHA-256', sourceHash],
-    ['Knowledge noun ID', record.nounId], ['Asset ID', record.assetId],
-    ['Media key', record.mediaKey], ['Review status', record.review],
-    ['Image SHA-256', record.hash], ['Image bytes', String(record.bytes)],
-    ['Facility type code', record.type],
-  ]) addDefinition(definitions, label, value);
-  provenance.append(element('summary', 'Identity & image provenance'), definitions);
-  view.replaceChildren(back, heading, figure, retry, facts,
-    element('p', 'Population, economy and infrastructure measures are not included in this reference slice.', 'muted'), provenance);
-  document.title = `${record.name} · Ceres Atlas`;
+  const view = $('detail-view'); const back = button('← Back to facilities', backToList, 'back secondary'); back.id='back-to-list';
+  if (route.institutionId) { drawInstitution(view, back); return; }
+  if (!route.facilityId && route.domain) { drawBody(view, back); return; }
+  const record=findFacility(records,route.facilityId); const title=element('h1',record?.name||'Facility not found'); title.id='detail-title'; title.tabIndex=-1;
+  if (!record) { view.replaceChildren(back,title,element('p',`No facility matches “${route.facilityId}” in this local collection.`)); return; }
+  const m=METRICS[record.id]; const heading=element('div','', 'detail-heading'); heading.append(element('p',`CERES / ${record.id}`,'eyebrow'),title,element('p',record.typeLabel,'lede'));
+  const figure=element('figure',undefined,'detail-media'); figure.append(image(record,true),element('figcaption','HERO · Approved reference imagery'));
+  const retry=button('Retry image',()=>{ figure.replaceChild(image(record,true),figure.firstChild); },'secondary'); retry.setAttribute('aria-label','Retry facility image');
+  const nav=element('nav',undefined,'domain-nav'); for(const d of DOMAINS){const b=button(d.toUpperCase(),()=>{route.domain=d;history.pushState(history.state,'',routeHash(route));drawDetail();});b.classList.toggle('selected',route.domain===d);nav.append(b);}
+  const analysis=element('section',undefined,'analysis'); analysis.setAttribute('aria-live','polite'); const domain=route.domain||'people'; analysis.append(element('p',domain.toUpperCase(),'eyebrow'));
+  const grid=element('div',undefined,'analysis-grid');
+  if(domain==='people'){grid.append(metric('Resident population','Node record: source-backed; not substituted from zones'),metric('Workforce','Workforce is separate from residents and transients'),metric('Capacity equivalent',m.capacity),metric('Transient population','NULL where not available; no zero substitution'));}
+  if(domain==='economy'){grid.append(metric('Annual value added',m.output),metric('Productive capital stock',m.capital),metric('Operating cost','Source-backed node field; accounting boundary unresolved'),metric('Ceres economy','Facility values are not summed into body totals'));}
+  if(domain==='transit'){grid.append(metric('Cargo throughput',m.cargo),metric('Passenger movements',m.passengers),metric('Ship calls/year','Source-backed node measure'),metric('OD flows','Modeled demand proxy; not a timetable'));}
+  if(domain==='infrastructure'){grid.append(metric('Power average / peak',m.power),metric('Habitable capacity',m.capacity),metric('Utilization index',m.utilization),metric('Placement',record.id==='CER-P05'?'Strategic role; physical placement unverified':record.typeLabel));}
+  if(domain==='institutions'){grid.append(metricNode('Civil authority','Ceres Commonwealth'),metricNode('Administrator',record.id==='CER-P01'?'Ceres Commonwealth':record.id==='CER-P02'?'Ceres Volatiles Cooperative':record.id==='CER-P03'||record.id==='CER-P04'?'Belt Transit Authority':'Belt Standards Directorate'),metricNode('Operator',record.id==='CER-P01'||record.id==='CER-P02'?'Ferrum Meridian':record.id==='CER-P03'?'Concord Mutual Infrastructure & Assurance':record.id==='CER-P04'?'Asteria Ship Systems':'Axiom Precision & Metrology'),metricNode('Security','Belt Security & Rescue Directorate'));}
+  if(domain==='society'){grid.append(metric('Institutional trust',m.trust),metric('Political autonomy',m.autonomy),metric('Family viability',m.family),metric('Model boundary','Gameplay indices, not surveys or endorsements'));}
+  analysis.append(grid,element('p','Source-backed 2226 model layer. Values retain their original grain and limitations; NULL is not zero.','source-note'));
+  const facts=element('dl',undefined,'facts'); for(const [l,v] of [['Facility ID',record.id],['Facility type',record.typeLabel]]){const g=element('div');addDefinition(g,l,v);facts.append(g)}
+  const prov=element('details',undefined,'provenance');const defs=element('dl');for(const [l,v] of [['Manifest','docs/ceres/manifest.json'],['Manifest SHA-256',sourceHash],['Knowledge noun ID',record.nounId],['Asset ID',record.assetId],['Media key',record.mediaKey],['Review status',record.review],['Image SHA-256',record.hash],['Image bytes',String(record.bytes)]] )addDefinition(defs,l,v);prov.append(element('summary','Identity & image provenance'),defs);
+  view.replaceChildren(back,heading,figure,retry,nav,analysis,facts,element('p','No fabricated population, economic, ownership, coordinate or transit values are displayed.','muted'),prov); document.title=`${record.name} · Ceres Atlas`;
 }
+function drawBody(view,back){
+ const title=element('h1','Ceres'); title.id='detail-title'; title.tabIndex=-1;
+ const hero=element('div',undefined,'hero-ceres'); hero.append(element('span','Ceres HERO unavailable in this local approved gallery snapshot.','image-fallback'));
+ const nav=element('nav',undefined,'domain-nav');
+ for(const d of DOMAINS){const b=button(d.toUpperCase(),()=>{route.domain=d;history.pushState(history.state,'',routeHash(route));drawBody(view,back);});b.classList.toggle('selected',route.domain===d);nav.append(b)}
+ const section=element('section',undefined,'analysis'); section.append(element('p',(route.domain||'people').toUpperCase(),'eyebrow'));
+ const values={
+  people:[['Resident composition','7.729M biological / 4.457M synthetic']],
+  economy:[['Value added','5.508 T/year'],['Productive capital','40.915 T stock']],
+  transit:[['Transit model','Node comparisons; OD demand proxy']],
+  infrastructure:[['Ceres infrastructure','Five pilot nodes; no zone transfer']],
+  institutions:[['Governance','Ceres Commonwealth in inspected profiles']],
+  society:[['Society model','Eight node indices; not surveys']]
+ };
+ const grid=element('div',undefined,'analysis-grid'); for(const [l,v] of (values[route.domain]||values.people)) grid.append(metric(l,v));
+ section.append(grid,element('p','2226 model layer; source grain and limitations remain visible. 2026 observation and fictional 2226 model are deliberately separated.','source-note'));
+ view.replaceChildren(back,title,hero,nav,section,element('p','Ceres body dossier: facilities, institutions and six analytical domains are navigable from this private prototype.','muted')); document.title='Ceres · Ceres Atlas';
+}
+function metric(label,value){const d=element('div',undefined,'metric');d.append(element('span',label),element('strong',value));return d}
+function metricNode(label,name){const d=element('div',undefined,'metric');d.append(element('span',label),instButton(name));return d}
+function drawInstitution(view,back){const info=Object.values(INSTITUTIONS).find(x=>x.id===route.institutionId);const title=element('h1',info?Object.keys(INSTITUTIONS).find(k=>INSTITUTIONS[k]===info):'Institution not found');title.id='detail-title';title.tabIndex=-1;if(!info){view.replaceChildren(back,title,element('p','No institution relationship matches this route.'));return}const body=element('div',undefined,'analysis');body.append(element('p','INSTITUTION / GOVERNANCE','eyebrow'),element('p',info.role,'lede'),element('p','Source-backed relationship dossier. This record is not a claim of ownership, equity or sovereignty beyond its named relationship.','source-note'));const list=element('div',undefined,'analysis-grid');for(const id of info.facilities){const r=findFacility(records,id);const d=element('div',undefined,'metric');const b=button(r.name,()=>openFacility(r.id),'entity-link');d.append(element('span','Connected facility'),b);list.append(d)}body.append(list,element('p','Provenance: inspected CIVSTATE governance profile relationship; stable facility IDs retained internally.','source-note'));view.replaceChildren(back,title,body);document.title=`${title.textContent} · Ceres Atlas`}
 
 function render() {
   if (!ready) return;
   route = parseRoute(location.hash);
   renderedHash = location.hash;
   const version = ++renderVersion;
-  const detail = Boolean(route.facilityId);
+  const detail = Boolean(route.facilityId || route.institutionId || route.domain);
   $('list-view').hidden = detail;
   $('detail-view').hidden = !detail;
   if (detail) {
@@ -160,7 +188,7 @@ function render() {
 }
 
 function filterChanged() {
-  route = {query: $('search').value, type: $('type-filter').value, facilityId: ''};
+  route = {query: $('search').value, type: $('type-filter').value, facilityId: '', institutionId: '', domain: route.domain || 'people'};
   saveList();
   renderedHash = location.hash;
   drawCards();

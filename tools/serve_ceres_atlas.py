@@ -23,6 +23,7 @@ STATIC = {
     "/style.css": ("style.css", "text/css; charset=utf-8"),
     "/app.mjs": ("app.mjs", "text/javascript; charset=utf-8"),
     "/model.mjs": ("model.mjs", "text/javascript; charset=utf-8"),
+    "/assets/loom-wordmark-white.svg": ("assets/loom-wordmark-white.svg", "image/svg+xml"),
 }
 CSP = (
     "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; "
@@ -98,7 +99,7 @@ def create_server(port: int = 8768, root: Path = ROOT) -> ThreadingHTTPServer:
                     filename, mime = STATIC[path]
                     directory = root / "web/ceres-atlas"
                     file = directory / filename
-                    if file.is_symlink() or file.resolve().parent != directory.resolve():
+                    if file.is_symlink() or directory.resolve() not in file.resolve().parents:
                         raise ValueError("Application file must be local")
                     self.respond(200, mime, file.read_bytes())
                 elif path in images:

@@ -55,6 +55,13 @@ test('route preserves filters and facility through serialization and return', ()
   assert.deepEqual(parseRoute(''), {query: '', type: '', facilityId: ''});
 });
 
+test('route carries domain and typed institution dossiers without losing list state', () => {
+  const route = {query: 'belt', type: '', facilityId: 'CER-P05', domain: 'institutions', institutionId: 'inst:belt-transit-authority'};
+  assert.deepEqual(parseRoute(routeHash(route)), route);
+  assert.equal(parseRoute('#domain=transit').domain, 'transit');
+  assert.equal(parseRoute('#institution=inst%3Aceres-commonwealth').institutionId, 'inst:ceres-commonwealth');
+});
+
 test('unknown and malformed URL values remain data, never another selected facility', () => {
   assert.equal(parseRoute('#facility=CER-P99').facilityId, 'CER-P99');
   assert.equal(findFacility(records, parseRoute('#facility=%E0%A4%A').facilityId), null);
