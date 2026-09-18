@@ -160,3 +160,7 @@ Do not weaken, bypass, or expand hard-gate semantics without an explicit `class:
 If current repository authority cannot be verified, discussion may continue, but authoritative mutation must wait.
 
 Never invent a current branch state, test result, hash, dependency, approval, canon decision or prior merge.
+
+## LOOM visual design system
+
+For visual UI, HUD, GIS, charts, documentation and LOOM logo work, read `design/STYLE_GUIDE.md` only if it exists; otherwise the actual guide is `design/LOOM_STYLE_GUIDE.md`. Read `design/loom-tokens.json` for canonical values and DRAFT/approval status, and the scoped `design/AGENTS.md` when modifying its files. Use `design/loom-tokens.css` for web and `design/loom_design.py` for Python; do not duplicate existing tokens or invent operational thresholds. Preserve governance, scientific and canon authority boundaries. Run `python design/loom_design.py --check` after design-system changes.
