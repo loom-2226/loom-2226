@@ -1,98 +1,80 @@
-# Private Ceres Atlas — slice 1
+# Private Ceres Atlas — Prototype 08R
 
-**Primary class:** `class:asset-media`
+**Primary class:** `class:runtime`
 
-**Secondary affected class:** runtime, limited to the new private serving helper.
-The helper stays with the presentation because its allowlist and image verification
-are required to run this slice offline without exposing the repository. No existing
-production runtime component changes.
+**Affected read-only boundaries:** `class:data` (WORLD and CIVSTATE queries) and
+`class:asset-media` (approved MEDIA blobs). No schema, migration, canon, frozen
+research, public Inspector, release, deployment, or design-system files are changed.
 
-**Work item:** Ceres Atlas / private five-facility vertical slice, explicitly requested by Kevin on 2026-09-19.
+The private launcher exposes a fixed Ceres dossier projection at
+`/atlas-data.json`. The browser cannot submit SQL or access SQLite files. The
+server opens WORLD, CIVSTATE, and MEDIA through SQLite URI `mode=ro&immutable=1`.
+Missing databases, rows, or verified images remain unavailable; repository image
+fallbacks and stale analytical values are not used.
 
-**Authority tier:** derived presentation, not canon or navigation authority.
+## Runtime source boundary
 
-**Promotion target:** local commit on `feature/ceres-atlas-private-20260919` only; no push, Pages, deployment or release.
+| Atlas area | Runtime source | Status |
+| --- | --- | --- |
+| World identity and physical environment | WORLD `entities`, `celestial_properties`, `celestial_dynamics` | Live; derived diameter, gravity, and escape speed are identified in the view |
+| Facility identity | WORLD `infrastructure_nodes` | Live for the verified `CER-P01`–`CER-P05` set |
+| People and census zones | CIVSTATE `civ_demographic_state`, `civ_subject`, `civ_census_node_relation` | Live; age denominators and zone reconciliation remain qualified |
+| Economy and workforce | CIVSTATE `civ_economic_state`, `civ_workforce_state` | Live; monetary-unit definition remains qualified |
+| Transit node measures | CIVSTATE `civ_infrastructure_state` | Live; origin–destination corridors remain unsupported pending endpoint validation |
+| Systems | CIVSTATE `civ_infrastructure_state` | Live |
+| Institutions | CIVSTATE `civ_subject` and `v_graph_civstate_influence_edges` | Live typed facility/institution edges |
+| Society | CIVSTATE `civ_social_state`, `civ_social_pressure` | Live fictional model indices and pressure records |
+| Facility runtime context | CIVSTATE `civ_runtime_place_context` plus the source tables above | Live |
+| World resources and historical observation through 2026 | No approved bounded runtime projection identified | Explicitly unavailable |
+| Approved imagery | WORLD `image_assets` identity + MEDIA `media_assets.original_blob` | Live after approval, identity, length, and SHA-256 verification |
 
-## Scope and authority
+All analytical rows retain their source IDs, epoch, source NULLs, derivation IDs,
+and original numeric values in the server response. Body, census-zone, and
+facility-node grains stay separate. The client formats values for display but
+does not turn NULL into zero. Facility and institution navigation uses typed
+`NODE:*` and `NOUN:*` identifiers from the CIVSTATE relationship view.
 
-Bootstrap verified live main and this branch at `84ccdf5e88eedb492564f021a6dcc6d131a6026e`.
-The source is `docs/ceres/manifest.json` and its five existing approved-reference PNGs.
-The manifest SHA-256 is `6ae473bf6b6063b17a08e876d7b0057166135d397ce56e276423d319a44ccd81`.
-The launcher pins that snapshot and verifies each image's hash and size before serving it.
-Missing/corrupt images produce an unavailable-image state; they never substitute a different asset.
+The fixed approved-media manifest remains an allowlist for the Ceres HERO and five
+facility HERO identities. Its SHA-256 is
+`6ae473bf6b6063b17a08e876d7b0057166135d397ce56e276423d319a44ccd81`.
 
-This work follows the current governance bootstrap, authority model, change control,
-research boundary and dependency/compatibility policy. The user's explicit instruction
-to keep this slice separate supersedes the Inspector-only location in
-`docs/CERES_INSPECTOR_VISUALIZATION_WORKPLAN.md` for this bounded implementation.
-`web/ceres-atlas/` is outside the `docs/` Pages upload tree. No publication workflow is added.
+## Launch on Pixel
 
-The view consumes only identity, facility type, approval and image provenance fields.
-It excludes census-zone relationships and supplies no population, economic, capacity,
-coordinate or other inferred measures. Database semantics are not a runtime dependency.
-No canon change, CCR, governance exception, schema migration or frozen-object mutation
-is involved. This is not acceptance of the larger Atlas product.
-
-Dependency review: the existing Ceres gallery/manifest/PNG sources, Inspector/exporter,
-GIS, canonical databases, Wayfarer viewer, Pixel/Windows launchers, updater and release
-manifests are `UNCHANGED_COMPATIBLE`: consumed read-only where applicable and not edited.
-The new presentation and its private launcher require unit + functional validation.
-The coarse component map does not separately register this new application; its explicit
-dependency is the pinned gallery snapshot, not an assumption of independence.
-Rollback is a revert of this additive slice; no database or release recovery is needed.
-
-## Launch offline
-
-From the repository root, with Python 3.10+:
+From the repository root in Termux:
 
 ```sh
 python -B tools/serve_ceres_atlas.py \
   --world-db data/LOOM_2226.sqlite3 \
+  --civstate-db data/LOOM_2226_CIVSTATE.sqlite3 \
   --media-db /storage/emulated/0/Download/LOOM_TEST/data/LOOM_2226_media.sqlite3
 ```
 
-Open `http://127.0.0.1:8768/` in the Pixel's browser. Keep Termux running;
-Ctrl+C stops the server. `--port 8769` selects another loopback port if needed.
-No internet connection, package install or external font/CDN is needed. The launcher
-opens WORLD and MEDIA SQLite in read-only immutable mode, verifies each requested
-asset's stable IDs, approval state, media key, byte length and SHA-256, and serves only
-the verified original image bytes. It never exposes either database to the browser and
-never falls back to repository PNGs. Missing or mismatched databases/images produce the
-explicit unavailable-image state. Both database paths are configurable with the shown
-arguments; no device-specific path is embedded in application logic.
-This is local offline use while the launcher is running, not an installed PWA.
-
-Search by name, facility ID or type; optionally filter by facility type. Select a
-card with mouse/touch or Tab then Enter/Space. Back to facilities, browser Back,
-and Escape return to the list with filters, scroll and focus retained. Browser
-Forward restores the detail. URLs retain filters and the selected facility across
-refresh. A direct unknown facility URL offers a safe return to the list.
+Open `http://127.0.0.1:8768/` in Chrome. Keep Termux running; Ctrl+C stops the
+server. `--port 8769` selects another loopback port. Database paths are command-line
+configuration and no Pixel path is embedded in application logic. No internet
+connection is required.
 
 ## Validation
 
 ```sh
-python -B -m pytest -p no:cacheprovider tests/test_ceres_atlas_server.py tests/test_database_data_dictionary.py -q
+python -B -m pytest -p no:cacheprovider \
+  tests/test_ceres_atlas_server.py \
+  tests/test_ceres_browser_tap.py \
+  tests/test_database_data_dictionary.py -q
 node --test tests/ceres_atlas_model.test.mjs
-```
-
-Browser interaction suite (requires separately installed Playwright and Chromium):
-
-```sh
 node --test tests/ceres_atlas_browser.test.mjs
 ```
 
-That suite starts/stops its own loopback server, checks mouse, touch, keyboard,
-history, error recovery and narrow-screen overflow. If tooling is unavailable it
-reports explicit skips, which are not browser verification. No browser package is
-a runtime dependency. See `VALIDATION.md` for results and remaining gaps.
+The server suite covers representative SQL values, typed joins, NULL and numeric
+zero preservation, missing databases/rows, all six MEDIA blobs, read-only source
+hashes, and a disposable CIVSTATE-copy mutation that changes the HTTP response
+without a frontend edit. The browser suite is real verification only when all seven
+tests execute; local skips are recorded as unverified in `VALIDATION.md`.
 
 ## Existing semantic coverage discrepancy
 
 `tests/test_database_semantic_coverage.py:34` expects `tables` to be a list of
-records with `database`, `table` and `schema_columns`. The committed
-`docs/database_semantics/LOOM_DATABASE_SEMANTIC_INDEX_v0.1.json` instead has a
-database-name → table-name-list mapping. Direct execution raises `TypeError`;
-pytest does not collect its `main()` as a test. The two dictionary-generator tests
-do not validate that index contract. WALTER.PROVENANCE: `REVIEW_REQUIRED` for any
-claim of current column-coverage acceptance under the semantic interpretation
-contract. Repair is a separate data/documentation work item, intentionally deferred.
+records with `database`, `table`, and `schema_columns`. The committed semantic
+index instead contains a database-name to table-name-list mapping. Its `main()` is
+not collected by pytest. This unrelated registry/checker discrepancy remains
+outside the Atlas runtime change and is not treated as semantic-coverage acceptance.

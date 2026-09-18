@@ -207,3 +207,62 @@ Corrective verification: **24 JavaScript model tests passed**, **42 Atlas
 server/TAP tests passed**, syntax and whitespace checks passed. The seven
 Playwright tests remain **skipped/unverified locally** because Playwright is
 not installed in Termux.
+
+## Live WORLD/CIVSTATE SQL runtime — 2026-09-19
+
+The private Atlas now requests its analytical projection from
+“/atlas-data.json” on every load. The Python launcher executes fixed read-only
+queries against configurable WORLD and CIVSTATE databases. The existing image
+routes continue to resolve approved identity in WORLD and original bytes in
+MEDIA. The browser receives the bounded projection and image responses; it has
+no SQLite access and no arbitrary SQL endpoint.
+
+The following views are live from the 2226 database rows:
+
+- World environment: WORLD entities, celestial_properties and celestial_dynamics.
+- People: CIVSTATE body demographics, three census-zone rows, five facility-node
+  population/workforce/capacity rows, with body, zone and node grains separated.
+- Economy: CIVSTATE body economic/workforce rows and five facility-node flow and
+  stock fields.
+- Transit: five facility-node cargo, passenger and ship-call fields.
+- Systems: five facility-node power, capacity, utilization and industrial indices.
+- Institutions: typed civ_subject identities joined through
+  v_graph_civstate_influence_edges, reciprocal in facility and institution dossiers.
+- Society: five civ_social_state rows and separate civ_social_pressure records.
+- Facility context: civ_runtime_place_context plus the detailed source tables.
+
+WORLD resources, WORLD historical observation through 2026, and ranked transit
+origin–destination corridors remain unsupported. They render explicit unavailable
+states. Transit corridors remain withheld pending typed endpoint and aggregation
+validation. Existing age-denominator, census-zone reconciliation and monetary-unit
+qualifications remain visible.
+
+Local verification:
+
+| Check | Result |
+| --- | --- |
+| Python Atlas server, strict browser-TAP checker and database-dictionary tests | 58 passed |
+| JavaScript model tests | 26 passed, 0 failed, 0 skipped |
+| Playwright browser suite | 0 passed, 7 skipped: Playwright is not installed in Termux; all seven interactions remain locally unverified for this commit |
+| JavaScript/Python syntax and whitespace | Passed |
+| Disposable CIVSTATE-copy mutation | Passed: changed body value added appeared in the HTTP response; source NULL stayed null; numeric zero stayed zero; no frontend edit was made and the authoritative database hash was unchanged |
+| Missing WORLD/CIVSTATE/facility-row behavior | Passed: application shell remains available and analytical response or row becomes explicitly unavailable |
+| Read-only integrity | Passed: WORLD, CIVSTATE and MEDIA hashes were unchanged by data and image requests |
+
+The actual configured Pixel MEDIA database was also exercised over HTTP with the
+repository WORLD and CIVSTATE databases. “/atlas-data.json” returned Ceres, five
+facilities and eleven typed institution dossiers. The approved Ceres HERO and all
+five facility HERO responses returned HTTP 200 with their expected byte lengths
+and SHA-256 hashes. No repository PNG fallback was used.
+
+Pixel launch command:
+
+    python -B tools/serve_ceres_atlas.py \
+      --world-db data/LOOM_2226.sqlite3 \
+      --civstate-db data/LOOM_2226_CIVSTATE.sqlite3 \
+      --media-db /storage/emulated/0/Download/LOOM_TEST/data/LOOM_2226_media.sqlite3
+
+This is a private feature-branch runtime increment. It is not deployment,
+publication, protected-main qualification, or full product acceptance. The seven
+browser tests remain explicitly unverified locally until a Chromium-capable run
+executes them without skips.

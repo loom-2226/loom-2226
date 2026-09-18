@@ -86,6 +86,9 @@ test('body topology opens all five dossiers and multi-hop history preserves cont
   const page = await open(t, {viewport: {width: 1280, height: 900}});
   if (!page) return;
   assert.equal(await page.locator('#detail-title').textContent(), 'Ceres');
+  assert.equal(await page.locator('.headline-kpi').count(), 6);
+  assert.equal(await page.locator('.headline-kpi', {hasText: 'Biological residents'}).locator('strong').textContent(), '7.729M');
+  assert.equal(await page.locator('.headline-kpi', {hasText: 'Annual value added'}).locator('strong').textContent(), '5.508T');
   await page.waitForFunction(() => document.querySelector('.hero-ceres img')?.naturalWidth === 1024);
   const hero = page.locator('.hero-ceres img');
   assert.equal(await hero.getAttribute('src'), 'assets/ceres-world-hero.png');
@@ -97,6 +100,7 @@ test('body topology opens all five dossiers and multi-hop history preserves cont
     const id = `CER-P0${i}`;
     await page.locator(`#topology-${id}`).click();
     assert.ok((await page.locator('#detail-view .eyebrow').textContent()).includes(id));
+    if (id === 'CER-P01') assert.equal(await page.locator('.metric', {hasText: 'Resident population'}).locator('strong').textContent(), '24,914');
     await page.waitForFunction(() => document.querySelector('#detail-view .detail-media img')?.naturalWidth > 0);
     assert.ok((await page.locator('#detail-view .detail-media img').getAttribute('src')).includes(id));
     await page.goBack();
