@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Serve the private, offline Ceres Atlas on loopback. No SQLite or writes."""
+"""Serve the private, offline Ceres Atlas using read-only WORLD and MEDIA SQLite."""
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
 import re
+import sqlite3
+from contextlib import closing
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -24,8 +26,16 @@ STATIC = {
     "/app.mjs": ("app.mjs", "text/javascript; charset=utf-8"),
     "/model.mjs": ("model.mjs", "text/javascript; charset=utf-8"),
     "/assets/loom-wordmark-white.svg": ("assets/loom-wordmark-white.svg", "image/svg+xml"),
-    "/assets/ceres-world-hero.png": ("assets/ceres-world-hero.png", "image/png"),
 }
+BODY_HERO = {
+    "noun_id": "N-75BA5C617E79",
+    "asset_id": "0e516224-6345-4e97-b6d1-569bf193f495",
+    "media_key": "2c6211b6-6cd2-4b62-89f7-cb795fdbac51",
+    "sha256": "fa5fc5876d8f66631837ce498d77e139444b9247e8b2a66ff6dd8ad611e1f08e",
+    "byte_length": 1261154,
+}
+BODY_HERO_PATH = "/assets/ceres-world-hero.png"
+
 CSP = (
     "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; "
     "connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
@@ -56,19 +66,52 @@ def load_manifest(root: Path) -> dict:
     }
 
 
-def read_image(root: Path, record: dict) -> bytes:
-    directory = (root / "docs/ceres").resolve()
-    path = directory / record["filename"]
-    if path.is_symlink() or path.resolve().parent != directory:
-        raise ValueError("Image must be a local gallery file")
-    content = path.read_bytes()
-    if len(content) != record["byte_length"] or hashlib.sha256(content).hexdigest() != record["sha256"]:
-        raise ValueError("Image failed manifest verification")
-    return content
+def _connect_readonly(path: Path) -> sqlite3.Connection:
+    if not path.is_file():
+        raise ValueError("Image database is unavailable")
+    return sqlite3.connect(path.resolve().as_uri() + "?mode=ro&immutable=1", uri=True)
 
 
-def create_server(port: int = 8768, root: Path = ROOT) -> ThreadingHTTPServer:
+def read_media_blob(world_db: Path, media_db: Path, record: dict) -> tuple[str, bytes]:
+    try:
+        with closing(_connect_readonly(world_db)) as world:
+            identity = world.execute("""
+                SELECT entity_id, asset_role, review_status, media_key,
+                       content_hash, byte_length, is_current
+                FROM image_assets WHERE asset_id=?
+            """, (record["asset_id"],)).fetchall()
+        expected_identity = [(
+            record["noun_id"], "HERO", "APPROVED_REFERENCE", record["media_key"],
+            record["sha256"], record["byte_length"], 1,
+        )]
+        if identity != expected_identity:
+            raise ValueError("WORLD asset identity or approval does not match")
+
+        with closing(_connect_readonly(media_db)) as media:
+            rows = media.execute("""
+                SELECT asset_id, mime_type, original_blob,
+                       original_byte_length, original_sha256
+                FROM media_assets WHERE media_key=?
+            """, (record["media_key"],)).fetchall()
+        if len(rows) != 1:
+            raise ValueError("MEDIA asset is unavailable")
+        asset_id, mime_type, blob, byte_length, sha256 = rows[0]
+        content = bytes(blob) if blob is not None else b""
+        if (asset_id != record["asset_id"] or mime_type != "image/png" or
+                byte_length != record["byte_length"] or sha256 != record["sha256"] or
+                len(content) != record["byte_length"] or
+                hashlib.sha256(content).hexdigest() != record["sha256"]):
+            raise ValueError("MEDIA blob identity or integrity does not match")
+        return mime_type, content
+    except sqlite3.Error as error:
+        raise ValueError("Image database could not be read") from error
+
+
+def create_server(port: int = 8768, root: Path = ROOT, world_db: Path | None = None,
+                  media_db: Path | None = None) -> ThreadingHTTPServer:
     root = root.resolve()
+    world_db = Path(world_db) if world_db else root / "data/LOOM_2226.sqlite3"
+    media_db = Path(media_db) if media_db else root / "data/LOOM_2226_media.sqlite3"
     manifest = load_manifest(root)
     payload = json.dumps(manifest, ensure_ascii=False).encode("utf-8")
     images = {"/images/" + r["filename"]: r for r in manifest["facilities"]}
@@ -96,6 +139,9 @@ def create_server(port: int = 8768, root: Path = ROOT) -> ThreadingHTTPServer:
             try:
                 if path == "/manifest.json":
                     self.respond(200, "application/json; charset=utf-8", payload)
+                elif path == BODY_HERO_PATH:
+                    mime, content = read_media_blob(world_db, media_db, BODY_HERO)
+                    self.respond(200, mime, content)
                 elif path in STATIC:
                     filename, mime = STATIC[path]
                     directory = root / "web/ceres-atlas"
@@ -104,7 +150,8 @@ def create_server(port: int = 8768, root: Path = ROOT) -> ThreadingHTTPServer:
                         raise ValueError("Application file must be local")
                     self.respond(200, mime, file.read_bytes())
                 elif path in images:
-                    self.respond(200, "image/png", read_image(root, images[path]))
+                    mime, content = read_media_blob(world_db, media_db, images[path])
+                    self.respond(200, mime, content)
                 else:
                     self.respond(404, "text/plain", b"Not found")
             except (OSError, ValueError):
@@ -121,9 +168,11 @@ def create_server(port: int = 8768, root: Path = ROOT) -> ThreadingHTTPServer:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8768)
+    parser.add_argument("--world-db", type=Path, default=ROOT / "data/LOOM_2226.sqlite3")
+    parser.add_argument("--media-db", type=Path, default=ROOT / "data/LOOM_2226_media.sqlite3")
     args = parser.parse_args()
     try:
-        server = create_server(args.port)
+        server = create_server(args.port, world_db=args.world_db, media_db=args.media_db)
     except (OSError, ValueError) as error:
         parser.exit(1, f"Cannot start Ceres Atlas: {error}\n")
     print(f"Private Ceres Atlas: http://127.0.0.1:{server.server_port}/", flush=True)

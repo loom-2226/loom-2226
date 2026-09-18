@@ -46,14 +46,20 @@ Rollback is a revert of this additive slice; no database or release recovery is 
 From the repository root, with Python 3.10+:
 
 ```sh
-python -B tools/serve_ceres_atlas.py
+python -B tools/serve_ceres_atlas.py \
+  --world-db data/LOOM_2226.sqlite3 \
+  --media-db /storage/emulated/0/Download/LOOM_TEST/data/LOOM_2226_media.sqlite3
 ```
 
 Open `http://127.0.0.1:8768/` in the Pixel's browser. Keep Termux running;
 Ctrl+C stops the server. `--port 8769` selects another loopback port if needed.
-No internet connection, package install, media database or external font/CDN is needed.
-The launcher serves only the application, its allowlisted manifest projection and the
-five verified images. It never serves the repository root or opens SQLite.
+No internet connection, package install or external font/CDN is needed. The launcher
+opens WORLD and MEDIA SQLite in read-only immutable mode, verifies each requested
+asset's stable IDs, approval state, media key, byte length and SHA-256, and serves only
+the verified original image bytes. It never exposes either database to the browser and
+never falls back to repository PNGs. Missing or mismatched databases/images produce the
+explicit unavailable-image state. Both database paths are configurable with the shown
+arguments; no device-specific path is embedded in application logic.
 This is local offline use while the launcher is running, not an installed PWA.
 
 Search by name, facility ID or type; optionally filter by facility type. Select a

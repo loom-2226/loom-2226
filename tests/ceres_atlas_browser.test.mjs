@@ -1,11 +1,14 @@
 /** Optional real-browser acceptance. Missing tooling is SKIP, never PASS. */
 import {test, before, after} from 'node:test';
 import assert from 'node:assert/strict';
-import {spawn} from 'node:child_process';
+import {spawn, spawnSync} from 'node:child_process';
 import {once} from 'node:events';
 import {fileURLToPath} from 'node:url';
+import {mkdtempSync, rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 
-let chromium, browser, server, baseURL;
+let chromium, browser, server, baseURL, mediaFixtureDirectory;
 let gap = 'Playwright is not installed; real-browser verification unavailable.';
 try {
   ({chromium} = await import('playwright'));
@@ -22,8 +25,14 @@ before(async () => {
     gap = `Chromium unavailable: ${error.message.split('\n')[0]}`;
     return;
   }
-  server = spawn(process.env.PYTHON || 'python', ['-B', 'tools/serve_ceres_atlas.py', '--port', '0'], {
-    cwd: fileURLToPath(new URL('../', import.meta.url)), stdio: ['ignore', 'pipe', 'pipe'],
+  const cwd = fileURLToPath(new URL('../', import.meta.url));
+  const python = process.env.PYTHON || 'python';
+  mediaFixtureDirectory = mkdtempSync(join(tmpdir(), 'ceres-atlas-media-'));
+  const mediaDB = join(mediaFixtureDirectory, 'media.sqlite3');
+  const fixture = spawnSync(python, ['-B', 'tests/create_ceres_media_fixture.py', mediaDB], {cwd, encoding: 'utf8'});
+  assert.equal(fixture.status, 0, fixture.stderr || 'MEDIA fixture creation failed');
+  server = spawn(python, ['-B', 'tools/serve_ceres_atlas.py', '--port', '0', '--media-db', mediaDB], {
+    cwd, stdio: ['ignore', 'pipe', 'pipe'],
   });
   baseURL = await new Promise((resolve, reject) => {
     let output = '';
@@ -45,6 +54,7 @@ after(async () => {
     server.kill('SIGTERM');
     await stopped;
   }
+  if (mediaFixtureDirectory) rmSync(mediaFixtureDirectory, {recursive: true, force: true});
 });
 
 async function open(t, options = {}, hash = '', beforeNavigation = null) {
