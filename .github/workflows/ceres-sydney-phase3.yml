@@ -1,0 +1,150 @@
+name: Ceres Sydney Phase 3 qualification
+
+on:
+  pull_request:
+    branches:
+      - engineering/ceres-sydney-update-rollback-20260919
+
+permissions:
+  contents: read
+
+jobs:
+  phase3:
+    name: Phase 3 functional qualification
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify identity and protected paths
+        shell: bash
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+          EXPECTED_BASE: ${{ github.event.pull_request.base.sha }}
+          EXPECTED_PR: ${{ github.event.pull_request.number }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+        run: |
+          set -euo pipefail
+
+          test "$EXPECTED_PR" = "258"
+          test "$EXPECTED_HEAD" = \
+            "520af8926fddf5bcfd32f8937dfe92b37d55b33e"
+
+          actual_head="$(git rev-parse HEAD)"
+          test "$actual_head" = "$EXPECTED_HEAD"
+
+          git cat-file -e "${EXPECTED_BASE}^{commit}"
+
+          echo "PR number: $EXPECTED_PR"
+          echo "Expected head: $EXPECTED_HEAD"
+          echo "Checkout HEAD: $actual_head"
+          echo "Base SHA: $EXPECTED_BASE"
+          echo "Workflow SHA: $WORKFLOW_SHA"
+          echo "Workflow ref: $WORKFLOW_REF"
+
+          git diff --name-only \
+            "$EXPECTED_BASE" "$EXPECTED_HEAD" \
+            > "$RUNNER_TEMP/phase3-changed-files.txt"
+
+          echo "Changed files:"
+          cat "$RUNNER_TEMP/phase3-changed-files.txt"
+
+          python - "$RUNNER_TEMP/phase3-changed-files.txt" <<'PY'
+          from pathlib import Path
+          import sys
+
+          paths = Path(sys.argv[1]).read_text().splitlines()
+
+          assert paths, "Empty PR diff"
+
+          forbidden = [
+              path for path in paths
+              if path.startswith(".github/")
+              or ".sqlite" in Path(path).name.lower()
+          ]
+
+          assert not forbidden, (
+              f"Protected paths modified: {forbidden}"
+          )
+
+          print("Protected-path check: PASS")
+          PY
+
+          # The workflow belongs to the independently reviewed PR base.
+          # The older implementation head need not contain this new file.
+          workflow=".github/workflows/ceres-sydney-phase3.yml"
+
+          base_blob="$(git rev-parse "${EXPECTED_BASE}:${workflow}")"
+          executed_blob="$(git rev-parse "${WORKFLOW_SHA}:${workflow}")"
+          test "$base_blob" = "$executed_blob"
+
+          echo "Workflow blob: $base_blob"
+          echo "Workflow base/executed identity: PASS"
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.13"
+
+      - name: Set up Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install \
+            --disable-pip-version-check \
+            pytest==8.4.2
+
+      - name: Verify Python syntax
+        run: |
+          python -m py_compile \
+            deploy/ceres_sydney_release.py \
+            tests/test_ceres_sydney_release.py
+
+      - name: Run Phase 3 and existing Ceres Python tests
+        run: |
+          python -B -m pytest -p no:cacheprovider \
+            tests/test_ceres_sydney_release.py \
+            tests/test_ceres_atlas_server.py \
+            tests/test_ceres_browser_tap.py \
+            tests/test_database_data_dictionary.py \
+            -q
+
+      - name: Run Node model tests
+        run: |
+          node --test tests/ceres_atlas_model.test.mjs
+
+      - name: Verify whitespace
+        run: git diff --check
+
+      - name: Record qualification evidence
+        if: always()
+        shell: bash
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+        run: |
+          {
+            echo "### Phase 3 qualification"
+            echo
+            echo "PR: #258"
+            echo "Expected head: $EXPECTED_HEAD"
+            echo "Checked-out HEAD: $(git rev-parse HEAD)"
+            echo "Workflow SHA: $WORKFLOW_SHA"
+            echo "Workflow ref: $WORKFLOW_REF"
+            echo
+            echo "Production execution: NOT PERFORMED"
+            echo "Sydney access: NOT PERFORMED"
+            echo "Docker replacement: NOT PERFORMED"
+          } >> "$GITHUB_STEP_SUMMARY"
