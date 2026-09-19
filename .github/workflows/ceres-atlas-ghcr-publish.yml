@@ -1,6 +1,9 @@
 name: Ceres Atlas private GHCR publication
 
 on:
+  push:
+    branches:
+      - engineering/ceres-atlas-docker-qualification-20260919
   workflow_dispatch:
     inputs:
       source_sha:
@@ -15,6 +18,7 @@ permissions:
 
 jobs:
   publish-and-verify:
+    if: github.event_name == 'workflow_dispatch' || github.sha == '7f2a33d5c8ac0e6fb0d7d53f8f33706dfe4de4d4'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
