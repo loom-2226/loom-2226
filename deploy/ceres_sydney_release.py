@@ -116,6 +116,10 @@ def validate_runtime(release: dict[str, Any], evidence: dict[str, Any]) -> dict[
 
 
 def validate_provenance(release: dict[str, Any], evidence: dict[str, Any]) -> None:
+    auth = evidence.get("authentication", {})
+    _require(auth.get("source_commit_verified") is True, "source commit is not independently authenticated")
+    _require(auth.get("image_digest_verified") is True, "image digest is not independently authenticated")
+    _require(auth.get("ci_runs_verified") is True, "successful CI provenance is not independently authenticated")
     registry = evidence.get("registry", {})
     _require(registry.get("available") is True, "private registry unavailable")
     _require(registry.get("resolved_image") == release["image"], "registry digest mismatch")
@@ -145,12 +149,36 @@ class Runner:
         if result.returncode:
             raise ReleaseError(f"command failed ({args[0]}): {result.stderr.strip()}")
 
+    def capture(self, args: list[str]) -> str:
+        result = self.run(args, text=True, capture_output=True, timeout=120)
+        if result.returncode:
+            raise ReleaseError(f"inspection failed ({args[0]}): {result.stderr.strip()}")
+        return result.stdout
+
+
+def refresh_host_state(runner: Runner, evidence: dict[str, Any]) -> None:
+    """Re-read mutable host state immediately before mutation and reject drift."""
+    live = json.loads(runner.capture(["docker", "inspect", CONTAINER]))[0]
+    expected = evidence.get("container", {})
+    _require(live == expected, "host Docker configuration drifted since evidence collection")
+    free = int(runner.capture(["df", "--output=avail", "/"]).splitlines()[-1].strip()) * 1024
+    _require(free >= evidence.get("disk_free_bytes", 0), "host disk state drifted since evidence collection")
+    listeners = runner.capture(["ss", "-ltn"]).splitlines()
+    _require(not any(f":{p}" in line for p in ("80", "443", "8768") for line in listeners), "host listener state drifted")
+    tailscale = json.loads(runner.capture(["tailscale", "serve", "status", "--json"]))
+    _require(tailscale == evidence.get("tailscale"), "Tailscale state drifted since evidence collection")
+
 
 def exact_run_args(release: dict[str, Any], prior: dict[str, Any], image: str) -> list[str]:
     """Reconstruct only the approved, captured single-container configuration."""
     inspect = prior["inspect"]
+    host = inspect.get("HostConfig", {})
+    _require(set(host) >= {"ReadonlyRootfs", "RestartPolicy", "Tmpfs", "PortBindings"}, "prior runtime configuration is incomplete")
+    _require(set(host) <= {"ReadonlyRootfs", "RestartPolicy", "Tmpfs", "PortBindings"}, "unsupported prior Docker configuration prevents exact rollback")
     env = _env(inspect)
+    _require(set(env) == set(DATABASE_ENVS) | {"CERES_ALLOWED_HOSTS"}, "unsupported prior environment prevents exact rollback")
     mounts = {m["Destination"]: m for m in inspect["Mounts"]}
+    _require(len(mounts) == 3 and set(mounts) == {release["databases"][n]["container_path"] for n in DATABASE_ENVS}, "unsupported prior mounts prevent exact rollback")
     args = ["docker", "run", "--detach", "--name", CONTAINER, "--read-only",
             "--tmpfs", "/tmp:rw,nosuid,nodev,size=64m", "--restart", "unless-stopped",
             "--publish", PORT]
@@ -251,7 +279,9 @@ def main(argv: list[str] | None = None) -> int:
         if args.execute:
             confirmation = input("Maintenance window authorized; type the candidate digest to continue: ")
             _require(confirmation == release["image"], "maintenance confirmation mismatch")
-            report["result"] = replace(Runner(), release, prior,
+            live_runner = Runner()
+            refresh_host_state(live_runner, evidence)
+            report["result"] = replace(live_runner, release, prior,
                                        lambda phase: live_verify(release, phase), args.timeout)
             report["mutation_performed"] = True
         print(json.dumps(redact(report), sort_keys=True))

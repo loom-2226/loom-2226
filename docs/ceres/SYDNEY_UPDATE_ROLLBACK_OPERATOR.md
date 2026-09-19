@@ -102,3 +102,22 @@ absent or writable mounts; wrong identities, ownership, and permissions; public
 binding and Funnel; disk; root, health, WORLD, CIVSTATE, MEDIA, and private-browser
 failures; timeout; candidate rollback; and failed rollback. Mocks exercise state
 transitions only and are not end-to-end Sydney qualification.
+
+## Blocking-review corrections
+
+The release tool now requires independently authenticated provenance flags for the
+source commit, registry digest and successful CI runs. Self-consistent release and
+evidence JSON without those authenticated checks fails closed.
+
+`--execute` performs a local read-only refresh immediately before stopping the
+container: `docker inspect`, free disk, listening sockets, and `tailscale serve
+status --json` are re-read and compared byte-for-byte to the reviewed evidence.
+Any drift aborts before mutation. This is deliberately local-only; it does not
+contact Sydney.
+
+Rollback accepts only the complete supported runtime shape: the expected read-only
+root, restart policy, tmpfs, loopback binding, three read-only database binds, and
+exactly the approved environment variables. Unsupported Docker options, extra
+mounts, or extra environment variables fail closed before replacement. Therefore
+`exact_run_args` is an exact reconstruction of the admitted canonical shape; the
+tool does not claim rollback for an unrecognized configuration.

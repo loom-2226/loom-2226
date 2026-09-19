@@ -47,7 +47,9 @@ def evidence(release):
               "/assets/ceres-world-hero.png": {"status": 200, "sha256": "f" * 64},
               "private_browser_verified": True}
     return {"registry": {"available": True, "resolved_image": IMAGE1, "source_sha": "a" * 40,
-                         "successful_ci_run_ids": [123, 456]}, "disk_free_bytes": 1000,
+                         "successful_ci_run_ids": [123, 456]},
+            "authentication": {"source_commit_verified": True, "image_digest_verified": True, "ci_runs_verified": True},
+            "disk_free_bytes": 1000,
             "public_listeners": [], "tailscale": {"funnel": False, "serve_target": "http://127.0.0.1:8768"},
             "files": files, "backups": backups, "current_health": health,
             "container": {"Name": "/ceres-atlas", "Config": {"Image": IMAGE0, "Env": env}, "Mounts": mounts,
@@ -131,3 +133,14 @@ def test_release_rejects_inconsistent_backup(release):
     release["databases"]["CERES_MEDIA_DB"]["backup"]["sha256"] = "0" * 64
     with pytest.raises(ReleaseError, match="backup hash"):
         validate_release(release)
+
+def test_provenance_rejects_self_consistent_unverified_evidence(release, evidence):
+    evidence["authentication"]["image_digest_verified"] = False
+    with pytest.raises(ReleaseError, match="independently authenticated"):
+        validate_provenance(release, evidence)
+
+def test_rollback_rejects_unsupported_prior_configuration(release, evidence):
+    prior = {"prior_image": IMAGE0, "inspect": json.loads(json.dumps(evidence["container"]))}
+    prior["inspect"]["HostConfig"]["SecurityOpt"] = ["no-new-privileges"]
+    with pytest.raises(ReleaseError, match="unsupported prior Docker configuration"):
+        replace(Runner(FakeCommands()), release, prior, lambda phase: True, 0)
