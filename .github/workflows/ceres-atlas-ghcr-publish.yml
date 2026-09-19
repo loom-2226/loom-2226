@@ -4,13 +4,6 @@ on:
   push:
     branches:
       - engineering/ceres-atlas-docker-qualification-20260919
-  workflow_dispatch:
-    inputs:
-      source_sha:
-        description: Exact qualified source commit to publish
-        required: true
-        type: string
-        default: 5263648fe39efe8e7588998b9f7f92e2cf0e3bca
 
 permissions:
   contents: read
@@ -18,7 +11,6 @@ permissions:
 
 jobs:
   publish-and-verify:
-    if: github.event_name == 'workflow_dispatch' || github.event.head_commit.message == 'ci(ceres-atlas): constrain publication trigger'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
@@ -26,21 +18,20 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
-          ref: ${{ inputs.source_sha }}
+          ref: 5263648fe39efe8e7588998b9f7f92e2cf0e3bca
           persist-credentials: false
       - name: Verify qualified source identity
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD)" = "${{ inputs.source_sha }}"
-          test "${{ inputs.source_sha }}" = 5263648fe39efe8e7588998b9f7f92e2cf0e3bca
+          test "$(git rev-parse HEAD)" = 5263648fe39efe8e7588998b9f7f92e2cf0e3bca
       - name: Build and publish immutable source tag
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           echo "$GHCR_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-          docker build --pull --tag "$IMAGE:sha-${{ inputs.source_sha }}" .
-          docker push "$IMAGE:sha-${{ inputs.source_sha }}"
+          docker build --pull --tag "$IMAGE:sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca" .
+          docker push "$IMAGE:sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca"
       - name: Confirm package is private and capture registry digest
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -49,15 +40,15 @@ jobs:
           package_json="$(gh api /user/packages/container/ceres-atlas)"
           visibility="$(printf '%s' "$package_json" | jq -r '.visibility')"
           test "$visibility" = private
-          digest="$(docker buildx imagetools inspect "$IMAGE:sha-${{ inputs.source_sha }}" --format '{{json .Manifest.Digest}}' | tr -d '"')"
+          digest="$(docker buildx imagetools inspect "$IMAGE:sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca" --format '{{json .Manifest.Digest}}' | tr -d '"')"
           test "$digest" = sha256:*
           printf 'REGISTRY_DIGEST=%s\n' "$digest" >> "$GITHUB_ENV"
           cat > "$RUNNER_TEMP/ceres-atlas-publication.yml" <<PUB
           schema_version: 1
           package: $IMAGE
           visibility: private
-          source_commit: ${{ inputs.source_sha }}
-          image_tag: sha-${{ inputs.source_sha }}
+          source_commit: 5263648fe39efe8e7588998b9f7f92e2cf0e3bca
+          image_tag: sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca
           registry_manifest_digest: $digest
           local_image_id: not_substituted_for_registry_digest
           canonical_databases_published: false
