@@ -88,7 +88,7 @@ jobs:
           echo "### Image content" >> "$GITHUB_STEP_SUMMARY"
           echo "Built local image $image_id from the pinned Python base." >> "$GITHUB_STEP_SUMMARY"
           cat "$RUNNER_TEMP/ceres-atlas-compatibility.yml" >> "$GITHUB_STEP_SUMMARY"
-          if docker run --rm loom-ceres-atlas:qualification sh -c \
+          if docker run --rm --entrypoint sh loom-ceres-atlas:qualification -c \
             "test ! -e /app/data && ! find /app -type f \( -name '*.sqlite' -o -name '*.sqlite3' -o -name '*.db' -o -name '*.png' \) | grep -q ."; then
             echo 'Image content inspection passed: no database or PNG payload is embedded.' >> "$GITHUB_STEP_SUMMARY"
           else
@@ -129,7 +129,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          node --test --test-reporter=tap tests/ceres_atlas_browser.test.mjs | tee "$RUNNER_TEMP/ceres-browser.tap"
+          CERES_ATLAS_BASE_URL=http://127.0.0.1:8768/ \
+            node --test --test-reporter=tap tests/ceres_atlas_browser.test.mjs | tee "$RUNNER_TEMP/ceres-browser.tap"
           python tools/check_ceres_browser_tap.py "$RUNNER_TEMP/ceres-browser.tap"
       - name: Negative startup verification rejects a corrupt WORLD mount
         run: |
