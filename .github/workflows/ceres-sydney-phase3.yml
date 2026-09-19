@@ -77,22 +77,16 @@ jobs:
           print("Protected-path check: PASS")
           PY
 
-          # The proposed workflow must come unchanged from
-          # the PR base, not from Codex's implementation diff.
+          # The workflow belongs to the independently reviewed PR base.
+          # The older implementation head need not contain this new file.
           workflow=".github/workflows/ceres-sydney-phase3.yml"
 
-          base_blob="$(
-            git rev-parse "${EXPECTED_BASE}:${workflow}"
-          )"
+          base_blob="$(git rev-parse "${EXPECTED_BASE}:${workflow}")"
+          executed_blob="$(git rev-parse "${WORKFLOW_SHA}:${workflow}")"
+          test "$base_blob" = "$executed_blob"
 
-          head_blob="$(
-            git rev-parse "${EXPECTED_HEAD}:${workflow}"
-          )"
-
-          test "$base_blob" = "$head_blob"
-
-          echo "Workflow blob: $head_blob"
-          echo "Workflow base/head identity: PASS"
+          echo "Workflow blob: $base_blob"
+          echo "Workflow base/executed identity: PASS"
 
       - name: Set up Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
