@@ -93,7 +93,7 @@ else
   [[ -f "$KEY_FILE" ]] || { echo "Key pair exists remotely but custody file is absent: $KEY_FILE" >&2; exit 1; }
   chmod 600 "$KEY_FILE"
 fi
-aws lightsail create-instances --region "$REGION" --instance-names "$INSTANCE" --availability-zone "$ZONE" --blueprint-id "$BLUEPRINT" --bundle-id "$BUNDLE_ID" --key-pair-name "$KEY_NAME" --tags key=loom-purpose,value=ceres-atlas,key=loom-managed,value=true
+aws lightsail create-instances --region "$REGION" --instance-names "$INSTANCE" --availability-zone "$ZONE" --blueprint-id "$BLUEPRINT" --bundle-id "$BUNDLE_ID" --key-pair-name "$KEY_NAME" --tags key=loom-purpose,value=ceres-atlas key=loom-managed,value=true
 PORTS_JSON="[{\"fromPort\":22,\"toPort\":22,\"protocol\":\"tcp\",\"cidrs\":[\"$SSH_CIDR\"]}]"
 if ((PUBLIC_HTTPS)); then PORTS_JSON="${PORTS_JSON%]} ,{\"fromPort\":443,\"toPort\":443,\"protocol\":\"tcp\",\"cidrs\":[\"0.0.0.0/0\"]}]"; fi
 aws lightsail put-instance-public-ports --region "$REGION" --instance-name "$INSTANCE" --port-infos "$PORTS_JSON"

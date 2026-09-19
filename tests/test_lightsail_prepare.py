@@ -72,3 +72,6 @@ def test_approve_persists_pem_and_crlf_cli_output(tmp_path):
     assert stat.S_IMODE(key.stat().st_mode) == 0o600
     calls=(tmp_path/'calls').read_text()
     assert 'create-instances' in calls and 'put-instance-public-ports' in calls
+    create = next(line for line in calls.splitlines() if 'create-instances' in line)
+    assert 'key=loom-purpose,value=ceres-atlas key=loom-managed,value=true' in create
+    assert 'key=loom-purpose,value=ceres-atlas,key=loom-managed' not in create
