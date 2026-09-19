@@ -34,12 +34,13 @@ jobs:
           docker push "$IMAGE:sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca"
       - name: Confirm package is private and capture registry digest
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          package_json="$(gh api /user/packages/container/ceres-atlas)"
-          visibility="$(printf '%s' "$package_json" | jq -r '.visibility')"
-          test "$visibility" = private
+          # The repository token can publish/pull but does not have read:packages
+          # metadata scope. A package that is anonymously visible must fail closed.
+          status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' https://api.github.com/users/loom-2226/packages/container/ceres-atlas)"
+          test "$status" = 404
           digest="$(docker buildx imagetools inspect "$IMAGE:sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca" --format '{{json .Manifest.Digest}}' | tr -d '"')"
           test "$digest" = sha256:*
           printf 'REGISTRY_DIGEST=%s\n' "$digest" >> "$GITHUB_ENV"
