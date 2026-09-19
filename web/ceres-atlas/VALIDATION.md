@@ -294,7 +294,7 @@ Playwright browser tests (7 passed, 0 failed, 0 skipped), plus read-only health,
 image-content and corrupt-WORLD negative checks. The image was not pushed to
 GHCR and no Pages, deployment or publication job ran.
 
-## Follow-up container evidence — pending hosted run
+## Follow-up container evidence — hosted run 2026-09-19
 
 The qualification workflow now additionally mutates only a disposable CIVSTATE copy
 while the running container is serving `/atlas-data.json`, verifies the changed value
@@ -304,3 +304,10 @@ final filesystem and every saved image layer for restricted databases, image byt
 credentials and secrets. The private GHCR publication mechanism and production
 contract are documented in `DOCKER_COMPATIBILITY.yml`; both remain explicitly
 unauthorized and unprovisioned.
+
+Final evidence is recorded in [Actions run 35414410309](https://github.com/loom-2226/loom-2226/actions/runs/35414410309), commit `986278d594e1a4db0c17d43ef358d728a839e0b2`. The running container
+served the disposable CIVSTATE mutation over `/atlas-data.json` without frontend
+changes, returned the approved MEDIA fixture with the verified HERO SHA-256 and
+byte length, rejected missing WORLD/CIVSTATE/MEDIA mounts and incompatible database
+inputs, and passed full saved-layer inspection. The resulting local image ID was
+`sha256:797c3193209a50ccc75c7947cf3690ec2f385a096197beee7a17c10d4c01b4b5`.
