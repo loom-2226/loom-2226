@@ -132,6 +132,20 @@ def test_foreign_host_and_write_requests_rejected(server):
     assert request(server, "/manifest.json", method="POST")[0] == 501
 
 
+def test_explicit_proxy_host_is_allowed_without_weakening_foreign_host_rejection(media_db):
+    trusted_host = "ceres-atlas.tailnet.example"
+    instance = atlas.create_server(0, media_db=media_db, allowed_hosts={trusted_host})
+    thread = threading.Thread(target=instance.serve_forever, daemon=True)
+    thread.start()
+    try:
+        assert request(instance, "/healthz", headers={"Host": trusted_host})[0] == 200
+        assert request(instance, "/", headers={"Host": "foreign.example"})[0] == 403
+    finally:
+        instance.shutdown()
+        instance.server_close()
+        thread.join(timeout=3)
+
+
 def test_head_returns_headers_without_body(server):
     status, headers, content = request(server, "/manifest.json", method="HEAD")
     assert status == 200 and int(headers["Content-Length"]) > 0 and content == b""
