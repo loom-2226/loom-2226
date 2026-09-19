@@ -25,6 +25,9 @@ while (($#)); do
   esac
 done
 command -v aws >/dev/null || { echo "AWS CLI is required." >&2; exit 2; }
+PYTHON_BIN="${PYTHON_BIN:-}"
+if [[ -z "$PYTHON_BIN" ]]; then command -v python3 >/dev/null && PYTHON_BIN=python3 || PYTHON_BIN=python; fi
+command -v "$PYTHON_BIN" >/dev/null || { echo "Python is required for portable bundle/key parsing." >&2; exit 2; }
 [[ "$REGION" == ap-southeast-2 ]] || { echo "Refusing non-Sydney region: $REGION" >&2; exit 2; }
 [[ "$ZONE" =~ ^ap-southeast-2[abc]$ ]] || { echo "Invalid Sydney zone: $ZONE" >&2; exit 2; }
 
@@ -45,7 +48,7 @@ rm -f "$INSTANCE_ERR"
 ((TEARDOWN)) && { echo "No instance exists; nothing to tear down."; exit 0; }
 
 BUNDLE_JSON="$(aws lightsail get-bundles --region "$REGION" --no-include-inactive --output json)"
-BUNDLE_ID="$(printf '%s' "$BUNDLE_JSON" | python3 -c 'import json,sys
+BUNDLE_ID="$(printf '%s' "$BUNDLE_JSON" | "$PYTHON_BIN" -c 'import json,sys
 x=json.load(sys.stdin)["bundles"]
 r=[b for b in x if b.get("ramSizeInGb")==4 and b.get("cpuCount")==2 and b.get("diskSizeInGb")==80 and b.get("price")==24.0 and b.get("isActive") is True and b.get("publicIpv4AddressCount",1)==1]
 if len(r)!=1: raise SystemExit("expected one active public-IPv4 bundle, found %d: %s" % (len(r), [b.get("bundleId") for b in r]))
@@ -63,8 +66,27 @@ umask 077
 if ! aws lightsail get-key-pair --region "$REGION" --key-pair-name "$KEY_NAME" >/dev/null 2>&1; then
   [[ ! -e "$KEY_FILE" ]] || { echo "Refusing to overwrite existing key file: $KEY_FILE" >&2; exit 1; }
   tmp_key="$(mktemp "${KEY_FILE}.XXXXXX")"
+  raw_key="$(mktemp "${KEY_FILE}.raw.XXXXXX")"
   trap 'rm -f "$tmp_key"' EXIT
-  aws lightsail create-key-pair --region "$REGION" --key-pair-name "$KEY_NAME" --query privateKeyBase64 --output text | base64 -d > "$tmp_key"
+  trap 'rm -f "$tmp_key" "$raw_key"' EXIT
+  aws lightsail create-key-pair --region "$REGION" --key-pair-name "$KEY_NAME" --query privateKeyBase64 --output text > "$raw_key"
+  "$PYTHON_BIN" - "$raw_key" "$tmp_key" <<'PY'
+import base64, pathlib, sys
+raw = pathlib.Path(sys.argv[1]).read_bytes().strip()
+if raw.startswith(b'"') and raw.endswith(b'"'):
+    raw = raw[1:-1]
+if b'-----BEGIN ' in raw:
+    pem = raw.replace(b'\\\\r\\\\n', b'\n').replace(b'\\r\\n', b'\n').replace(b'\\n', b'\n').replace(b'\\r', b'\r')
+else:
+    compact = b''.join(raw.split())
+    try:
+        pem = base64.b64decode(compact + b'=' * (-len(compact) % 4), validate=False)
+    except Exception as exc:
+        raise SystemExit(f'privateKeyBase64 could not be decoded: {exc}')
+if b'-----BEGIN ' not in pem or b'PRIVATE KEY-----' not in pem:
+    raise SystemExit('AWS key response did not contain a PEM private key')
+pathlib.Path(sys.argv[2]).write_bytes(pem)
+PY
   [[ -s "$tmp_key" ]] || { echo "AWS returned an empty private key." >&2; exit 1; }
   chmod 600 "$tmp_key"; mv -n "$tmp_key" "$KEY_FILE"
 else

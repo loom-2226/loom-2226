@@ -12,7 +12,7 @@ def fake(tmp, mode='absent'):
 printf '%s\\n' "$*" >> "{log}"
 case "$*" in
 *"get-instance"*)
-  if [ "{mode}" = existing ]; then echo '{{"name":"loom-ceres-sydney-01"}}'; exit 0; fi
+  if [ "{mode}" = existing ] || [ -f "{log}.created" ]; then echo '{{"name":"loom-ceres-sydney-01"}}'; exit 0; fi
   echo 'NotFoundException: instance does not exist' >&2; exit 254;;
 *"get-bundles"*) printf '%s' '{json.dumps(BUNDLES)}';;
 *"get-blueprints"*) echo ubuntu_24_04;;
@@ -51,3 +51,24 @@ def test_duplicate_bundle_fails_closed(tmp_path):
 def test_public_ssh_cidr_is_rejected(tmp_path):
     r=run(tmp_path, 'absent', '--ssh-cidr', '0.0.0.0/0')
     assert r.returncode != 0 and '/32' in r.stderr
+
+def test_approve_persists_pem_and_crlf_cli_output(tmp_path):
+    bindir, log = fake(tmp_path)
+    pem = b'-----BEGIN OPENSSH PRIVATE KEY-----\r\nfixture\r\n-----END OPENSSH PRIVATE KEY-----\r\n'
+    # Simulate AWS CLI v2 on Git Bash returning a quoted, CRLF-escaped PEM field.
+    aws = bindir / 'aws'
+    text = aws.read_text().replace("*) :;;", f'''*"get-key-pair"*) echo 'missing'; exit 254;;
+*"create-key-pair"*) printf '%s' '"{pem.decode().replace(chr(13), r"\\r").replace(chr(10), r"\\n")}"';;
+    *"create-instances"*) touch "{log}.created"; echo created;;
+*"put-instance-public-ports"*) echo firewall;;
+*"get-instance"*) echo '{{"name":"loom-ceres-sydney-01"}}';;
+*) :;;''')
+    aws.write_text(text)
+    key = tmp_path / 'key.pem'
+    env={**os.environ, 'PATH':f'{bindir}:{os.environ["PATH"]}', 'HOME':str(tmp_path), 'LIGHTSAIL_KEY_FILE':str(key)}
+    r=subprocess.run([str(SCRIPT),'--ssh-cidr','203.0.113.7/32','--approve'],env=env,text=True,capture_output=True)
+    assert r.returncode == 0, r.stderr
+    assert key.read_bytes() == pem.replace(b'\r\n', b'\n')
+    assert stat.S_IMODE(key.stat().st_mode) == 0o600
+    calls=(tmp_path/'calls').read_text()
+    assert 'create-instances' in calls and 'put-instance-public-ports' in calls
