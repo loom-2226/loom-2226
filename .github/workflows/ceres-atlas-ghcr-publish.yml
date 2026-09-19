@@ -33,17 +33,18 @@ jobs:
           set -euo pipefail
           echo "$GHCR_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
           docker build --pull --tag "$IMAGE:sha-7a794dd236870a12f0f8f2255c99b84735784747" .
-          docker push "$IMAGE:sha-7a794dd236870a12f0f8f2255c99b84735784747"
+          docker push "$IMAGE:sha-7a794dd236870a12f0f8f2255c99b84735784747" | tee "$RUNNER_TEMP/push.log"
       - name: Confirm package is private and capture registry digest
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          package_json="$(gh api /user/packages/container/ceres-atlas)"
-          visibility="$(printf '%s' "$package_json" | jq -r '.visibility')"
-          test "$visibility" = private
-          digest="$(docker buildx imagetools inspect "$IMAGE:sha-7a794dd236870a12f0f8f2255c99b84735784747" --format '{{json .Manifest.Digest}}' | tr -d '"')"
-          test "$digest" = sha256:*
+          status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' \
+            -H 'Accept: application/vnd.oci.image.manifest.v1+json' \
+            https://ghcr.io/v2/loom-2226/ceres-atlas/manifests/sha-7a794dd236870a12f0f8f2255c99b84735784747)"
+          echo "Anonymous GHCR manifest status: $status"
+          test "$status" = 401
+          digest="$(awk '/ digest: sha256:/ {print $3; exit}' "$RUNNER_TEMP/push.log")"
+          echo "Registry digest: $digest"
+          case "$digest" in sha256:*) ;; *) echo "Invalid registry digest" >&2; exit 1 ;; esac
           printf 'REGISTRY_DIGEST=%s\n' "$digest" >> "$GITHUB_ENV"
           {
             echo "schema_version: 1"
