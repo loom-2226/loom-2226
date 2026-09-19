@@ -1,64 +1,121 @@
-# Sydney Ceres immutable update and exact rollback
+# Sydney Ceres controlled update and retained-container rollback
 
-**Primary class:** `class:runtime`. This is manual, offline-first tooling for Issue
-#255. It is not deployment approval and has not contacted Sydney.
+**Primary class:** `class:runtime`. Issue #255 / PR #258; implementation and
+offline qualification only. This document does not authorize Sydney access or a
+release. No database, schema, campaign state, launcher, updater, workflow,
+Tailscale setting, credential, image publication or infrastructure changes.
+Pixel and Windows remain `UNCHANGED_COMPATIBLE`. The manual Linux release path is
+`REVALIDATION_REQUIRED`. Existing external dependencies remain GitHub/GHCR,
+GitHub CLI, Docker and Tailscale; the Python implementation uses the standard
+library and existing Atlas read-only SQL/media verifier.
 
-## Boundary and compatibility
+## Trust and compatibility
 
-The implementation is limited to `deploy/ceres_sydney_release.py` and its tests.
-It does not change schemas, database bytes, media, the Ceres image, launchers,
-updaters, workflows, Tailscale, ingress, secrets, or infrastructure. WORLD,
-CIVSTATE, and MEDIA remain external immutable/read-only inputs. Pixel and Windows
-are `UNCHANGED_COMPATIBLE`; the private container release path is
-`REVALIDATION_REQUIRED` for every candidate. GitHub/GHCR and Docker remain the
-existing external dependencies; no new dependency is introduced.
+Offline evidence is untrusted input. A successful default invocation reports
+`OFFLINE_PLAN_ONLY`, `provenance: UNVERIFIED`, `mutation_performed: false`.
+It does **not** mean that a host, image or release is qualified. The old
+`authentication.*_verified` and registry assertions have no authority.
 
-The current topology is one container on one loopback port. Replacement therefore
-requires a separately approved maintenance window. The bounded reversible action
-is: retain the old image and backups, stop/remove the old container, start the
-candidate on the same loopback port, qualify it, and on any failure recreate the
-old digest with the captured configuration. The tool must stop if rollback itself
-fails. It never invents a second port, proxy, hostname, or public listener.
+Before execution the tool itself:
 
-## Release file (nonsecret)
+1. Authenticates to `github.com` through the existing `gh` credential context,
+   resolves the exact source SHA, checks the actual GHCR package metadata is
+   private and bound to `loom-2226/loom-2226`, and fetches every approved CI run.
+   Each must belong to that repository, use `ceres-atlas-docker.yml`, run on the
+   exact approved SHA, and be completed/successful (`push` or manual dispatch).
+2. Invokes `gh attestation verify oci://<digest>` with the exact repository,
+   signer workflow, source SHA, signer SHA, GitHub OIDC issuer and hosted-runner
+   restriction. It additionally requires a verified SLSA v1 subject containing
+   the approved digest and an invocation of one approved successful run attempt.
+   This binds registry bytes, source and CI; labels or matching JSON strings alone
+   are insufficient. No offline-bundle or unsigned fallback exists.
+3. Pulls the approved digest, inspects both images, validates the prior image ID
+   and inherited configuration, writes a new durable recovery record, and runs
+   fresh local host checks **after** pull, prompts and record persistence.
 
-Create a task-local JSON file outside Git with:
+See the [GitHub CLI verification contract](https://cli.github.com/manual/gh_attestation_verify).
+The CLI must support all supplied flags. Existing authentication needs read access
+to the private package and attestations; this tool never creates credentials,
+logs in, changes scopes or prints command output on failure.
 
-```json
-{
-  "schema_version": 1,
-  "target": "SYDNEY",
-  "approval": "I APPROVE THE SYDNEY CERES RELEASE DESCRIBED BY THIS FILE",
-  "source_sha": "<40 lowercase hex>",
-  "image": "ghcr.io/loom-2226/ceres-atlas@sha256:<64 lowercase hex>",
-  "successful_ci_run_ids": [123456789],
-  "provenance": {"source_sha": "<same SHA>", "image": "<same digest reference>"},
-  "hostname": "<existing CERES_ALLOWED_HOSTS value>",
-  "minimum_free_bytes": 2147483648,
-  "databases": {
-    "CERES_WORLD_DB": {"container_path": "/data/world.sqlite3", "sha256": "<hash>", "uid": 1000, "gid": 1000, "backup": {"sha256": "<same hash>", "restore_tested": true}},
-    "CERES_CIVSTATE_DB": {"container_path": "/data/civstate.sqlite3", "sha256": "<hash>", "uid": 1000, "gid": 1000, "backup": {"sha256": "<same hash>", "restore_tested": true}},
-    "CERES_MEDIA_DB": {"container_path": "/data/media.sqlite3", "sha256": "<hash>", "uid": 1000, "gid": 1000, "backup": {"sha256": "<same hash>", "restore_tested": true}}
-  },
-  "checks": {"world_identity": "CER", "civstate_identity": "BODY:CERES:CERES@2226", "media_path": "/assets/ceres-world-hero.png", "media_sha256": "<approved blob hash>"}
-}
-```
+**Known publication gap:** the historical publication run `35415378704` has
+workflow head `466dd71b9db57fc8574ade54d8d7579fa2774bdb`, while its recorded image
+source is `5263648fe39efe8e7588998b9f7f92e2cf0e3bca`. That record is not accepted as
+the required signed qualification binding. During this correction the digest
+attestation endpoint returned HTTP 404 and package metadata returned HTTP 403
+(`read:packages` unavailable). These responses do not prove absence or privacy.
+The existing published image is **not qualified by this correction**. Missing
+proof blocks execution; obtaining an approved signed qualification/publication
+record requires separate authorization outside this PR's allowed files. No
+`.github/` changes or publication are made here.
 
-The approval is per file/release: changing the target, source, image, CI evidence,
-data identity, hostname, or checks requires a new explicit approval. Tags and
-`latest` are rejected. Never put a token, password, registry credential, database,
-or backup in either JSON file.
+## Nonsecret release and evidence files
 
-## Evidence and offline dry run
+Prepare a reviewed release JSON outside Git with the existing schema-version 1
+fields: `target: SYDNEY`, the literal approval
+`I APPROVE THE SYDNEY CERES RELEASE DESCRIBED BY THIS FILE`, exact `source_sha`,
+immutable `image` (`ghcr.io/loom-2226/ceres-atlas@sha256:...`),
+`successful_ci_run_ids`, matching `provenance.source_sha` / `provenance.image`,
+existing private `hostname` / `CERES_ALLOWED_HOSTS`, and `minimum_free_bytes`.
+The redundant provenance fields remain consistency checks, never authentication.
 
-An operator-owned collector must produce nonsecret JSON from `docker inspect`,
-local file hash/stat checks, free-space checks, registry manifest/OCI source-label
-verification, successful CI records, `tailscale serve status --json`, listener
-inspection, and HTTP/body/media checks. The format is intentionally the direct
-input checked by `validate_provenance`, `validate_runtime`, and `validate_health`;
-the unit-test fixture is the executable format example. Do not copy Docker auth or
-environment secrets. Funnel must be false, Serve must target
-`http://127.0.0.1:8768`, and ports 80/443/8768 must not be publicly listening.
+Additional required fields:
+
+- `host_identity`: the exact existing host's OS hostname, independently approved.
+- `window_end_unix`: finite UTC Unix deadline for this approved maintenance window.
+- `databases`: exactly `CERES_WORLD_DB`, `CERES_CIVSTATE_DB`, `CERES_MEDIA_DB`.
+  Each has a distinct `/data/<filename>` `container_path`, approved SHA-256,
+  numeric `uid`/`gid`, and `backup` with independent absolute `path`, the same
+  SHA-256 and the existing `restore_tested` declaration. That declaration is not
+  trusted: actual copies are restored and checked during every preflight.
+- `checks`: existing verified `world_identity` (`CER`), `civstate_identity`
+  (the actual `subject_id`, `BODY:CERES:CERES`, **without an epoch suffix**),
+  approved `media_path` and `media_sha256`.
+
+The nonsecret reviewed evidence includes the complete `docker inspect` object,
+file hashes/owners/permissions, backup/restore records, current health evidence,
+`disk_free_bytes`, raw `ss -H -ltn` output in `listeners`, and the actual
+`tailscale serve status --json` object in `tailscale`. Do not use the previous
+synthetic `funnel`/`serve_target` summary. The executable test fixtures document
+the JSON shape; their example identities and run IDs are not real authorization.
+No credentials belong in either input or a recovery record.
+
+## Live checks and admitted runtime profile
+
+Docker operations explicitly use the **local** Unix socket
+`/var/run/docker.sock`; Docker context/remote-host environment cannot select Sydney
+or another remote daemon. There is no SSH implementation.
+
+Preflight verifies actual container identity and full persistent configuration,
+read-only database binds, owner/mode/hash, absence of SQLite sidecars, disk,
+Tailscale Serve targeting `http://127.0.0.1:8768`, and Funnel OFF. It checks all
+three actual databases and independently copied backups through the existing
+Atlas SQL and six-asset media verifier, then repeats file and host checks.
+Supplied snapshots detect drift; they never replace the live checks. Concurrent
+administration must be excluded throughout the approved maintenance window; this
+tool cannot lock out root or another Docker administrator.
+
+The socket parser requires `127.0.0.1:8768`. It rejects other Ceres interfaces,
+IPv4/IPv6 wildcard bindings, IPv6 loopback, malformed evidence and drift in the
+complete listener set. Kernel listeners on 80/443 fail closed, including private
+interfaces not separately qualified here; userspace Tailscale Serve is inspected
+separately. A different legitimate Serve representation needs explicit
+qualification, not a permissive parser exception.
+
+The candidate uses the existing three `:ro` binds, loopback port, allowlist,
+read-only root, `/tmp:rw,nosuid,nodev,size=64m`, and `unless-stopped` policy.
+The [Docker inspect schema](https://docs.docker.com/reference/api/engine/version/v1.47/)
+contains many default fields. The tool admits explicitly enumerated defaults,
+image-inherited environment/configuration and the above overrides. Unknown or
+nondefault HostConfig options, custom network settings/hostname, extra secrets,
+extra mounts, image-config overrides and `AutoRemove` fail **before stop**.
+A daemon whose representation differs is unsupported until tested. Do not edit
+evidence to hide fields. This is deliberately fail-closed compatibility, not a
+claim that every Docker version/profile is supported.
+
+## Commands and recovery
+
+Offline inspection, no host/network operations:
 
 ```sh
 python -B deploy/ceres_sydney_release.py \
@@ -66,58 +123,77 @@ python -B deploy/ceres_sydney_release.py \
   --evidence /secure/operator/evidence.json
 ```
 
-A pass prints redacted `DRY_RUN_PASS` with `mutation_performed: false`. It proves
-only deterministic validation of supplied offline evidence—not its freshness,
-Sydney access, registry authentication, browser behavior, or release qualification.
+Add `--verify-provenance` for authenticated read-only GitHub/GHCR verification;
+it still performs no host mutation. That flag is not deployment approval.
 
-## Future maintenance invocation
+Only after **separate explicit release authorization**, in the approved host's
+interactive terminal, the execution form adds:
 
-`replace()` is the executable stop/replace/rollback primitive and accepts an
-injected verifier. Only during a separately authorized maintenance window, run the
-same command with `--execute --timeout <seconds>`. The tool requires the operator
-to retype the complete candidate digest before stopping anything. After candidate
-startup and again after rollback if needed, its live verifier checks all of:
+```text
+--execute --timeout 60 --recovery-record /secure/operator/recovery-UNIQUE.json
+```
 
-1. `/healthz` and `/` content, not status alone;
-2. representative WORLD `CER` and CIVSTATE `BODY:CERES:CERES@2226` results;
-3. approved MEDIA bytes, length, and SHA-256;
-4. explicit operator confirmation after checking the existing private browser path
-   through Tailscale Serve (the offline suite cannot fake this gate);
-5. timeout handling and exact prior digest/config restoration.
+The recovery directory must be operator-owned and private (0700). The record is
+created exclusively (0600), fsynced along with its directory, and never overwritten
+or removed by failure handling. It preserves the prior image digest, image ID,
+complete prior inspection, database/backup evidence and authenticated provenance.
+The operator must retype the exact candidate digest. Noninteractive input and CI
+execution (`CI` or `GITHUB_ACTIONS`) are rejected. CI tests use injected process
+simulators only. An expired/insufficient window fails before stop.
 
-If candidate verification fails, `replace()` removes it and recreates the prior
-immutable image using the captured loopback binding, allowlist, mounts, read-only
-root, tmpfs, and restart policy. If recreation or restored verification fails it
-raises `ROLLBACK FAILED; preserve evidence`; stop, retain images/backups/logs, and
-do not reopen access. No automatic SSH or CI deployment exists.
+Replacement stops and renames the **original container ID** to
+`ceres-atlas-rollback-<original-ID-prefix>`, then starts the candidate on the same
+loopback port. It never removes or reconstructs the original. The original remains
+stopped after success, preserving its configuration and image reference. Existing
+recovery names block a subsequent release until independently reviewed.
 
-## Offline qualification
+Candidate verification checks local health/root, representative WORLD/CIVSTATE,
+approved MEDIA SHA-256 and bounded operator confirmation of private browser access.
+On failure, only an identified candidate may be removed. The original is checked
+for configuration drift, renamed back and restarted by its original ID. Its full
+persistent inspect state is compared again, followed by health/private-access
+verification. The comparison excludes runtime state/restart counters and ephemeral
+network endpoints; requested network configuration remains checked. All opaque
+persistent fields, Config, HostConfig, mounts, labels, image and container IDs
+remain in the comparison. This preserves configuration instead of reconstructing
+a subset of CLI options.
+
+Rollback failure is a hard stop. Retain the original object, images, backups and
+recovery JSON. Do not prune or force-delete a rollback object. Independent manual
+recovery must compare the retained object's ID/configuration with that record,
+resolve the specific failing condition, and then restore the original name and
+start the same object under a new approved window. If Docker itself cannot restart
+that object, exact restoration is unverified; do not recreate a subset of options
+and call it exact. No ingress, Tailscale or database changes are a recovery shortcut.
+
+## Qualification evidence and limits
+
+Offline regression commands:
 
 ```sh
 python -B -m pytest -p no:cacheprovider tests/test_ceres_sydney_release.py -q
+python -B -m pytest -p no:cacheprovider tests/test_ceres_atlas_server.py tests/test_ceres_browser_tap.py tests/test_database_data_dictionary.py -q
+node --test tests/ceres_atlas_model.test.mjs tests/ceres_atlas_browser.test.mjs
 ```
 
-The suite covers a positive dry run; approval/digest/provenance/registry failures;
-absent or writable mounts; wrong identities, ownership, and permissions; public
-binding and Funnel; disk; root, health, WORLD, CIVSTATE, MEDIA, and private-browser
-failures; timeout; candidate rollback; and failed rollback. Mocks exercise state
-transitions only and are not end-to-end Sydney qualification.
+At the correction based on PR head `cfb31e8d239c4f88e00d564ac189c15b0e951db2`,
+the combined Python command passed **162 tests** (101 Phase 3 regressions plus
+61 existing Ceres/data-dictionary tests), with no failures or skips. Node reported
+**26 passes, zero failures, seven skips**. Python AST syntax and `git diff --check`
+passed. These are local results, not a successful GitHub qualification run.
 
-## Blocking-review corrections
+Coverage includes forged provenance, authenticated record/digest/source/run/attempt
+mismatches, authentication failure, package privacy failure, valid loopback and
+invalid IPv4/IPv6/malformed listeners, fresh host drift, database/backup integrity,
+actual SQL and media checks on disposable copies, unsupported Docker options,
+image/config overrides, retained-container success, failed candidate, exact
+rollback, failed rollback and preserved recovery records. Process-boundary mocks
+are explicitly offline simulations, not cryptographic or Docker integration proof.
 
-The release tool now requires independently authenticated provenance flags for the
-source commit, registry digest and successful CI runs. Self-consistent release and
-evidence JSON without those authenticated checks fails closed.
-
-`--execute` performs a local read-only refresh immediately before stopping the
-container: `docker inspect`, free disk, listening sockets, and `tailscale serve
-status --json` are re-read and compared byte-for-byte to the reviewed evidence.
-Any drift aborts before mutation. This is deliberately local-only; it does not
-contact Sydney.
-
-Rollback accepts only the complete supported runtime shape: the expected read-only
-root, restart policy, tmpfs, loopback binding, three read-only database binds, and
-exactly the approved environment variables. Unsupported Docker options, extra
-mounts, or extra environment variables fail closed before replacement. Therefore
-`exact_run_args` is an exact reconstruction of the admitted canonical shape; the
-tool does not claim rollback for an unrecognized configuration.
+Docker is unavailable in this Termux environment; real daemon stop/rename/start
+behavior and the actual Sydney configuration are unverified. Playwright is not
+installed: seven browser tests remain skipped/unverified. No Sydney access,
+release, merge, deployment, publication, credentials or Tailscale changes occurred.
+A future independently authorized Linux qualification must test the exact Docker
+version/profile, valid authenticated artifact and private browser path before
+production use. This correction does not declare Phase 3 production-qualified.
