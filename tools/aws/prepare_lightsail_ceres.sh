@@ -59,6 +59,7 @@ if ! aws lightsail get-key-pair --region "$REGION" --key-pair-name "$KEY_NAME" >
   chmod 600 "$KEY_FILE"
 fi
 aws lightsail create-instances --region "$REGION" --instance-names "$INSTANCE" --availability-zone "$ZONE" --blueprint-id "$BLUEPRINT" --bundle-id "$BUNDLE_ID" --key-pair-name "$KEY_NAME" --tags key=loom-purpose,value=ceres-atlas,key=loom-managed,value=true
-aws lightsail put-instance-public-ports --region "$REGION" --instance-name "$INSTANCE" --port-infos "[{"fromPort":22,"toPort":22,"protocol":"tcp","cidrs":["$SSH_CIDR"]},{"fromPort":443,"toPort":443,"protocol":"tcp","cidrs":["0.0.0.0/0"]}]"
+PORTS_JSON="[{\"fromPort\":22,\"toPort\":22,\"protocol\":\"tcp\",\"cidrs\":[\"$SSH_CIDR\"]},{\"fromPort\":443,\"toPort\":443,\"protocol\":\"tcp\",\"cidrs\":[\"0.0.0.0/0\"]}]"
+aws lightsail put-instance-public-ports --region "$REGION" --instance-name "$INSTANCE" --port-infos "$PORTS_JSON"
 aws lightsail get-instance --region "$REGION" --instance-name "$INSTANCE" --query 'instance.{name:name,state:state,ip:publicIp,zone:location.availabilityZone,bundle:bundleId,blueprint:blueprintId}' --output table
 echo "Provisioned infrastructure only. No LOOM deployment was performed."
