@@ -85,3 +85,14 @@ production_contract:
     HTTPS is mandatory at the authorized ingress with certificate renewal, private
     network exposure, authenticated access control, audit logging and least-privilege
     service credentials. No infrastructure is provisioned by this PR.
+
+private_publication:
+  status: PUBLISHED_PRIVATE
+  source_commit: 5263648fe39efe8e7588998b9f7f92e2cf0e3bca
+  image: ghcr.io/loom-2226/ceres-atlas
+  immutable_tag: sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca
+  registry_manifest_digest: sha256:4d81c96c3a2fd7cac678670f2aa8f88df4a6bf30fbffcbdf798898985031856b
+  qualification_run: https://github.com/loom-2226/loom-2226/actions/runs/35415378704
+  visibility_evidence: anonymous_GHCR_manifest_HTTP_401_and_authenticated_pull
+  canonical_databases_published: false
+  media_blobs_published: false

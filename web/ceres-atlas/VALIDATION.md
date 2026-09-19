@@ -311,3 +311,22 @@ changes, returned the approved MEDIA fixture with the verified HERO SHA-256 and
 byte length, rejected missing WORLD/CIVSTATE/MEDIA mounts and incompatible database
 inputs, and passed full saved-layer inspection. The resulting local image ID was
 `sha256:797c3193209a50ccc75c7947cf3690ec2f385a096197beee7a17c10d4c01b4b5`.
+
+## Authorized private GHCR publication — 2026-09-19
+
+Kevin authorized publication of qualified source commit
+`5263648fe39efe8e7588998b9f7f92e2cf0e3bca`. The one-shot publication workflow
+built that exact checkout and pushed:
+
+    ghcr.io/loom-2226/ceres-atlas:sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca
+
+Registry manifest digest:
+
+    sha256:4d81c96c3a2fd7cac678670f2aa8f88df4a6bf30fbffcbdf798898985031856b
+
+[Publication and pull-by-digest verification run 35415378704](https://github.com/loom-2226/loom-2226/actions/runs/35415378704)
+passed. Anonymous GHCR manifest access returned HTTP 401, authenticated push and
+pull succeeded, and the digest-pulled container passed health, five-facility Atlas
+projection and approved MEDIA HERO hash verification. No SQLite database or MEDIA
+blob was published. The publication workflow was removed after this one-shot run;
+future publication requires a new explicit authorization.
