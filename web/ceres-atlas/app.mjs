@@ -337,7 +337,12 @@ function drawBody(view) {
   if (domain === 'infrastructure') drawInfrastructure(section, selected);
   if (domain === 'institutions') drawInstitutions(section, selected);
   if (domain === 'society') drawSociety(section, selected);
-  view.replaceChildren(identity, headline, layers, nav, section, topologySection()); document.title = `${domainTitle(domain)} · Ceres Atlas`;
+  const browse = button('Browse facility collection', () => {
+    route = {query: route.query || '', type: route.type || '', facilityId: '', institutionId: '', domain: '', metric: '', collection: '1'};
+    history.pushState({atlas: listSnapshot(history.state?.atlas), fromBody: true}, '', routeHash(route)); render();
+  }, 'secondary');
+  browse.id = 'browse-facility-collection';
+  view.replaceChildren(identity, headline, layers, nav, section, browse, topologySection()); document.title = `${domainTitle(domain)} · Ceres Atlas`;
 }
 function domainTitle(domain) { return ({world: 'Ceres world dossier', people: 'People and settlement', economy: 'The economy', transit: 'Movement and exchange', infrastructure: 'Infrastructure', institutions: 'Institutions', society: 'Society'})[domain] || 'Ceres world dossier'; }
 function drawInstitution(view, back) {

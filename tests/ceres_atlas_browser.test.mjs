@@ -104,7 +104,7 @@ test('body topology opens all five dossiers and multi-hop history preserves cont
   for (let i = 1; i <= 5; i++) {
     const id = `CER-P0${i}`;
     await page.locator(`#topology-${id}`).click();
-    assert.ok((await page.locator('#detail-view .eyebrow').textContent()).includes(id));
+    assert.ok((await page.locator('#detail-view .detail-heading > .eyebrow').textContent()).includes(id));
     if (id === 'CER-P01') assert.equal(await page.locator('.metric', {hasText: 'Resident population'}).locator('strong').textContent(), '24,914');
     await page.waitForFunction(() => document.querySelector('#detail-view .detail-media img')?.naturalWidth > 0);
     assert.ok((await page.locator('#detail-view .detail-media img').getAttribute('src')).includes(id));
