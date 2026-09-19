@@ -6,7 +6,7 @@ image:
   base_image: python:3.13.7-slim-bookworm
   base_digest: sha256:adafcc17694d715c905b4c7bebd96907a1fd5cf183395f0ebc4d3428bd22d92d
   publication: NOT_PUBLISHED
-  image_digest: GENERATED_BY_GITHUB_ACTIONS_RUN
+  image_digest: sha256:a0aab23956087d696706d1b0fd7f68500569f9ec6ae1f66849b524ef4d1a9c17
 runtime:
   listener:
     host_env: CERES_HOST
@@ -42,6 +42,7 @@ source_contract:
   restricted_payloads_in_image: forbidden
 qualification:
   workflow: .github/workflows/ceres-atlas-docker.yml
+  latest_successful_run: https://github.com/loom-2226/loom-2226/actions/runs/35414085360
   browser_requirement: seven_real_playwright_passes_zero_skips
   ghcr_push: prohibited_without_separate_publication_authorization
   pages_deploy: prohibited

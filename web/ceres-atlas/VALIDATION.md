@@ -241,7 +241,7 @@ Local verification:
 
 | Check | Result |
 | --- | --- |
-| Python Atlas server, strict browser-TAP checker and database-dictionary tests | 58 passed |
+| Python Atlas server, strict browser-TAP checker and database-dictionary tests | 60 passed |
 | JavaScript model tests | 26 passed, 0 failed, 0 skipped |
 | Playwright browser suite | 0 passed, 7 skipped: Playwright is not installed in Termux; all seven interactions remain locally unverified for this commit |
 | JavaScript/Python syntax and whitespace | Passed |
@@ -284,5 +284,12 @@ against that running container. It requires seven actual Playwright passes and z
 skips; the existing TAP checker remains the hard browser condition. The immutable
 image ID and generated compatibility record are emitted in the Actions job summary.
 The committed mount and schema contract is in
-`web/ceres-atlas/DOCKER_COMPATIBILITY.yml`; no image digest is claimed until the
-hosted build executes.
+`web/ceres-atlas/DOCKER_COMPATIBILITY.yml`.
+
+Final hosted qualification: [Actions run 35414085360](https://github.com/loom-2226/loom-2226/actions/runs/35414085360)
+on commit `efa52f6973784b525c2924d917fb78d89e96189b`. The pinned image built as
+`sha256:a0aab23956087d696706d1b0fd7f68500569f9ec6ae1f66849b524ef4d1a9c17`.
+The run passed 60 Python checks, 26 JavaScript model checks, and seven real
+Playwright browser tests (7 passed, 0 failed, 0 skipped), plus read-only health,
+image-content and corrupt-WORLD negative checks. The image was not pushed to
+GHCR and no Pages, deployment or publication job ran.
