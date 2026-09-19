@@ -31,7 +31,7 @@ jobs:
           set -euo pipefail
           echo "$GHCR_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
           docker build --pull --tag "$IMAGE:sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca" .
-          docker push "$IMAGE:sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca"
+          docker push "$IMAGE:sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca" | tee "$RUNNER_TEMP/push.log"
       - name: Confirm package is private and capture registry digest
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -45,9 +45,7 @@ jobs:
             https://ghcr.io/v2/loom-2226/ceres-atlas/manifests/sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca)"
           echo "Anonymous GHCR manifest status: $status"
           test "$status" = 401
-          digest="$(docker manifest inspect --verbose \
-            "$IMAGE:sha-5263648fe39efe8b9f7f92e2cf0e3bca" \
-            | jq -r '.[0].Descriptor.digest // .Descriptor.digest')"
+          digest="$(awk '/ digest: sha256:/ {print $3; exit}' "$RUNNER_TEMP/push.log")"
           echo "Registry digest: $digest"
           test "$digest" = sha256:*
           printf 'REGISTRY_DIGEST=%s\n' "$digest" >> "$GITHUB_ENV"
