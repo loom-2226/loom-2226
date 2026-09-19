@@ -1,0 +1,85 @@
+name: Ceres Atlas private GHCR publication
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: Exact qualified source commit to publish
+        required: true
+        type: string
+        default: 5263648fe39efe8e7588998b9f7f92e2cf0e3bca
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish-and-verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      IMAGE: ghcr.io/loom-2226/ceres-atlas
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ inputs.source_sha }}
+          persist-credentials: false
+      - name: Verify qualified source identity
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ inputs.source_sha }}"
+          test "${{ inputs.source_sha }}" = 5263648fe39efe8e7588998b9f7f92e2cf0e3bca
+      - name: Build and publish immutable source tag
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          echo "$GHCR_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker build --pull --tag "$IMAGE:sha-${{ inputs.source_sha }}" .
+          docker push "$IMAGE:sha-${{ inputs.source_sha }}"
+      - name: Confirm package is private and capture registry digest
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          package_json="$(gh api /user/packages/container/ceres-atlas)"
+          visibility="$(printf '%s' "$package_json" | jq -r '.visibility')"
+          test "$visibility" = private
+          digest="$(docker buildx imagetools inspect "$IMAGE:sha-${{ inputs.source_sha }}" --format '{{json .Manifest.Digest}}' | tr -d '"')"
+          test "$digest" = sha256:*
+          printf 'REGISTRY_DIGEST=%s\n' "$digest" >> "$GITHUB_ENV"
+          cat > "$RUNNER_TEMP/ceres-atlas-publication.yml" <<PUB
+          schema_version: 1
+          package: $IMAGE
+          visibility: private
+          source_commit: ${{ inputs.source_sha }}
+          image_tag: sha-${{ inputs.source_sha }}
+          registry_manifest_digest: $digest
+          local_image_id: not_substituted_for_registry_digest
+          canonical_databases_published: false
+          media_blobs_published: false
+          PUB
+          cat "$RUNNER_TEMP/ceres-atlas-publication.yml" >> "$GITHUB_STEP_SUMMARY"
+      - name: Pull by registry digest and verify container
+        run: |
+          set -euo pipefail
+          docker pull "$IMAGE@$REGISTRY_DIGEST"
+          fixture="$RUNNER_TEMP/ceres-atlas-fixture"
+          mkdir -p "$fixture"
+          cp data/LOOM_2226.sqlite3 "$fixture/world.sqlite3"
+          cp data/LOOM_2226_CIVSTATE.sqlite3 "$fixture/civstate.sqlite3"
+          python tests/create_ceres_media_fixture.py "$fixture/media.sqlite3"
+          chmod a+r "$fixture"/*.sqlite3
+          docker run --detach --name ceres-atlas-ghcr-verify \
+            --read-only --tmpfs /tmp:rw,nosuid,nodev,size=64m --publish 8768:8768 \
+            --volume "$fixture:/data:ro" \
+            --env CERES_WORLD_DB=/data/world.sqlite3 \
+            --env CERES_CIVSTATE_DB=/data/civstate.sqlite3 \
+            --env CERES_MEDIA_DB=/data/media.sqlite3 \
+            "$IMAGE@$REGISTRY_DIGEST"
+          trap 'docker rm --force ceres-atlas-ghcr-verify || true' EXIT
+          for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8768/healthz && break; sleep 1; done
+          curl --fail --silent http://127.0.0.1:8768/atlas-data.json | jq -e '.world.entity_id == "CER" and (.facilities | length == 5)'
+          curl --fail --silent --output "$RUNNER_TEMP/hero.png" http://127.0.0.1:8768/assets/ceres-world-hero.png
+          test "$(sha256sum "$RUNNER_TEMP/hero.png" | cut -d' ' -f1)" = fa5fc5876d8f66631837ce498d77e139444b9247e8b2a66ff6dd8ad611e1f08e
+          echo 'Pulled registry digest passed health, Atlas projection and MEDIA HERO verification.' >> "$GITHUB_STEP_SUMMARY"
