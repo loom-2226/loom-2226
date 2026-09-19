@@ -1,0 +1,50 @@
+schema_version: 1
+artifact: private-ceres-atlas-docker-qualification
+change_class: class:runtime
+image:
+  dockerfile: Dockerfile
+  base_image: python:3.13.7-slim-bookworm
+  base_digest: sha256:adafcc17694d715c905b4c7bebd96907a1fd5cf183395f0ebc4d3428bd22d92d
+  publication: NOT_PUBLISHED
+  image_digest: GENERATED_BY_GITHUB_ACTIONS_RUN
+runtime:
+  listener:
+    host_env: CERES_HOST
+    port_env: CERES_PORT
+    default_host: 0.0.0.0_in_container
+    default_port: 8768
+  databases:
+    world:
+      env: CERES_WORLD_DB
+      mode: read_only_immutable
+      required_identity: WORLD entities/infrastructure_nodes and image_assets
+    civstate:
+      env: CERES_CIVSTATE_DB
+      mode: read_only_immutable
+      required_schema: LOOM_2226_CIVSTATE 1.2-runtime-compatible projection
+    media:
+      env: CERES_MEDIA_DB
+      mode: read_only_immutable
+      required_table: media_assets.original_blob
+  startup: verify_all_analytical_rows_and_six_approved_media_assets
+  healthcheck: GET_/healthz
+  state: no_mutable_campaign_state_in_image
+source_contract:
+  manifest: docs/ceres/manifest.json
+  world_snapshot:
+    path: data/LOOM_2226.sqlite3
+    sha256: e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde
+  civstate_snapshot:
+    path: data/LOOM_2226_CIVSTATE.sqlite3
+    schema: LOOM_2226_CIVSTATE 1.2-runtime
+    sha256: 9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560
+  media_snapshot: external_release_or_pixel_mount_only
+  restricted_payloads_in_image: forbidden
+qualification:
+  workflow: .github/workflows/ceres-atlas-docker.yml
+  browser_requirement: seven_real_playwright_passes_zero_skips
+  ghcr_push: prohibited_without_separate_publication_authorization
+  pages_deploy: prohibited
+rollback:
+  method: remove_local_image_and_revert_qualification_branch
+  source_databases_modified: false

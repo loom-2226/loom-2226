@@ -9,6 +9,7 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 
 let chromium, browser, server, baseURL, mediaFixtureDirectory;
+const externalBaseURL = process.env.CERES_ATLAS_BASE_URL;
 let gap = 'Playwright is not installed; real-browser verification unavailable.';
 try {
   ({chromium} = await import('playwright'));
@@ -23,6 +24,10 @@ before(async () => {
   } catch (error) {
     if (!/Executable doesn't exist|not supported|missing dependencies/i.test(error.message)) throw error;
     gap = `Chromium unavailable: ${error.message.split('\n')[0]}`;
+    return;
+  }
+  if (externalBaseURL) {
+    baseURL = externalBaseURL.endsWith('/') ? externalBaseURL : `${externalBaseURL}/`;
     return;
   }
   const cwd = fileURLToPath(new URL('../', import.meta.url));

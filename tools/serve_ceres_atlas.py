@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import sqlite3
 from contextlib import closing
@@ -314,8 +315,17 @@ def load_atlas_data(world_db: Path, civstate_db: Path) -> dict[str, object]:
     return ReadOnlyAtlasQueryAdapter(Path(world_db), Path(civstate_db)).load()
 
 
+def verify_runtime(world_db: Path, civstate_db: Path, media_db: Path, manifest: dict) -> dict[str, object]:
+    data = load_atlas_data(world_db, civstate_db)
+    assets = [BODY_HERO, *manifest["facilities"]]
+    for record in assets:
+        read_media_blob(world_db, media_db, record)
+    return {"status": "ok", "epoch": data["epoch"], "facilities": len(data["facilities"]), "media_assets": len(assets)}
+
+
 def create_server(port: int = 8768, root: Path = ROOT, world_db: Path | None = None,
-                  civstate_db: Path | None = None, media_db: Path | None = None) -> ThreadingHTTPServer:
+                  civstate_db: Path | None = None, media_db: Path | None = None,
+                  host: str = "127.0.0.1") -> ThreadingHTTPServer:
     root = root.resolve()
     world_db = Path(world_db) if world_db else root / "data/LOOM_2226.sqlite3"
     civstate_db = Path(civstate_db) if civstate_db else root / "data/LOOM_2226_CIVSTATE.sqlite3"
@@ -348,6 +358,9 @@ def create_server(port: int = 8768, root: Path = ROOT, world_db: Path | None = N
                 if path == "/atlas-data.json":
                     data = json.dumps(load_atlas_data(world_db, civstate_db), ensure_ascii=False).encode("utf-8")
                     self.respond(200, "application/json; charset=utf-8", data)
+                elif path == "/healthz":
+                    data = json.dumps(verify_runtime(world_db, civstate_db, media_db, manifest), ensure_ascii=False).encode("utf-8")
+                    self.respond(200, "application/json; charset=utf-8", data)
                 elif path == "/manifest.json":
                     self.respond(200, "application/json; charset=utf-8", payload)
                 elif path == BODY_HERO_PATH:
@@ -366,6 +379,9 @@ def create_server(port: int = 8768, root: Path = ROOT, world_db: Path | None = N
                 else:
                     self.respond(404, "text/plain", b"Not found")
             except (OSError, ValueError):
+                if path == "/healthz":
+                    self.respond(503, "application/json; charset=utf-8", b'{"status":"unavailable"}')
+                    return
                 self.respond(404, "text/plain", b"Local resource unavailable or unverified")
 
         do_HEAD = do_GET
@@ -373,18 +389,23 @@ def create_server(port: int = 8768, root: Path = ROOT, world_db: Path | None = N
         def log_message(self, *_args) -> None:
             pass
 
-    return ThreadingHTTPServer(("127.0.0.1", port), Handler)
+    return ThreadingHTTPServer((host, port), Handler)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--port", type=int, default=8768)
-    parser.add_argument("--world-db", type=Path, default=ROOT / "data/LOOM_2226.sqlite3")
-    parser.add_argument("--civstate-db", type=Path, default=ROOT / "data/LOOM_2226_CIVSTATE.sqlite3")
-    parser.add_argument("--media-db", type=Path, default=ROOT / "data/LOOM_2226_media.sqlite3")
+    parser.add_argument("--host", default=os.environ.get("CERES_HOST", "127.0.0.1"))
+    parser.add_argument("--port", type=int, default=int(os.environ.get("CERES_PORT", "8768")))
+    parser.add_argument("--world-db", type=Path, default=Path(os.environ.get("CERES_WORLD_DB", ROOT / "data/LOOM_2226.sqlite3")))
+    parser.add_argument("--civstate-db", type=Path, default=Path(os.environ.get("CERES_CIVSTATE_DB", ROOT / "data/LOOM_2226_CIVSTATE.sqlite3")))
+    parser.add_argument("--media-db", type=Path, default=Path(os.environ.get("CERES_MEDIA_DB", ROOT / "data/LOOM_2226_media.sqlite3")))
+    parser.add_argument("--verify-startup", action="store_true")
     args = parser.parse_args()
     try:
-        server = create_server(args.port, world_db=args.world_db, civstate_db=args.civstate_db, media_db=args.media_db)
+        manifest = load_manifest(ROOT)
+        if args.verify_startup:
+            verify_runtime(args.world_db, args.civstate_db, args.media_db, manifest)
+        server = create_server(args.port, world_db=args.world_db, civstate_db=args.civstate_db, media_db=args.media_db, host=args.host)
     except (OSError, ValueError) as error:
         parser.exit(1, f"Cannot start Ceres Atlas: {error}\n")
     print(f"Private Ceres Atlas: http://127.0.0.1:{server.server_port}/", flush=True)

@@ -89,7 +89,7 @@ def test_manifest_drift_refuses_startup(tmp_path):
         atlas.create_server(0, root=tmp_path)
 
 
-@pytest.mark.parametrize("path", ["/", "/index.html", "/style.css", "/app.mjs", "/model.mjs", "/manifest.json", "/atlas-data.json", "/assets/ceres-world-hero.png"])
+@pytest.mark.parametrize("path", ["/", "/index.html", "/style.css", "/app.mjs", "/model.mjs", "/manifest.json", "/atlas-data.json", "/healthz", "/assets/ceres-world-hero.png"])
 def test_application_resources_are_available_with_local_only_policy(server, path):
     status, headers, content = request(server, path)
     assert server.server_address[0] == "127.0.0.1"
@@ -240,6 +240,13 @@ def test_live_atlas_projection_has_representative_values_nulls_and_sources(serve
     assert payload["support"]["transit_od_corridors"] == "UNSUPPORTED_PENDING_ENDPOINT_VALIDATION"
 
 
+def test_health_check_verifies_all_three_read_only_boundaries(server):
+    status, headers, raw = request(server, "/healthz")
+    assert status == 200
+    assert headers["Content-Type"].startswith("application/json")
+    assert json.loads(raw) == {"status": "ok", "epoch": 2226, "facilities": 5, "media_assets": 6}
+
+
 def test_typed_relationships_are_reciprocal_and_navigable(server):
     payload = json.loads(request(server, "/atlas-data.json")[2])
     occator_edges = payload["facilities"]["CER-P01"]["institutions"]
@@ -260,6 +267,7 @@ def test_missing_civstate_database_keeps_shell_available_and_data_unavailable(tm
     try:
         assert request(instance, "/")[0] == 200
         assert request(instance, "/atlas-data.json")[0] == 404
+        assert request(instance, "/healthz")[0] == 503
         assert request(instance, atlas.BODY_HERO_PATH)[0] == 200
     finally:
         instance.shutdown()

@@ -54,6 +54,33 @@ server. `--port 8769` selects another loopback port. Database paths are command-
 configuration and no Pixel path is embedded in application logic. No internet
 connection is required.
 
+## Container qualification
+
+The Docker image is a private qualification artifact. It contains the Python
+server, UI, LOOM wordmark, and verified identity manifest only. It does not
+contain WORLD, CIVSTATE, MEDIA, repository PNGs, credentials, or campaign state.
+Mount all three databases read-only and keep the database paths configurable:
+
+```sh
+docker build --tag loom-ceres-atlas:qualification .
+docker run --rm --read-only --tmpfs /tmp:rw,nosuid,nodev,size=64m \
+  --publish 8768:8768 \
+  --volume /path/to/world.sqlite3:/data/world.sqlite3:ro \
+  --volume /path/to/civstate.sqlite3:/data/civstate.sqlite3:ro \
+  --volume /path/to/media.sqlite3:/data/media.sqlite3:ro \
+  --env CERES_WORLD_DB=/data/world.sqlite3 \
+  --env CERES_CIVSTATE_DB=/data/civstate.sqlite3 \
+  --env CERES_MEDIA_DB=/data/media.sqlite3 \
+  loom-ceres-atlas:qualification
+```
+
+The image uses the pinned Python base digest recorded in `Dockerfile`, performs
+fail-closed startup verification with `--verify-startup`, and exposes `/healthz`.
+The dedicated GitHub Actions job builds this image, inspects its contents, mounts
+disposable representative databases, runs the existing Python/JavaScript checks,
+and runs all seven Playwright cases against the running container. It has
+`contents: read` only and does not push to GHCR or deploy Pages.
+
 ## Validation
 
 ```sh

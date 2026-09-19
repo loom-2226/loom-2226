@@ -266,3 +266,23 @@ This is a private feature-branch runtime increment. It is not deployment,
 publication, protected-main qualification, or full product acceptance. The seven
 browser tests remain explicitly unverified locally until a Chromium-capable run
 executes them without skips.
+
+## Docker qualification implementation — 2026-09-19
+
+The engineering qualification branch adds a digest-pinned Python 3.13 image,
+read-only external WORLD/CIVSTATE/MEDIA mounts, fail-closed startup verification,
+`/healthz`, negative corrupt-WORLD startup coverage, and a dedicated GitHub Actions
+workflow. The image build context copies no SQLite database, approved PNG, credential,
+or campaign-state file. GHCR publication is deliberately disabled: this repository
+is public and no separate authorization for publishing this private Atlas image was
+verified.
+
+The workflow builds locally on `ubuntu-24.04`, creates disposable copies of the
+representative WORLD and CIVSTATE databases plus the existing MEDIA fixture, starts
+the container with all three mounts read-only, and runs the seven browser tests
+against that running container. It requires seven actual Playwright passes and zero
+skips; the existing TAP checker remains the hard browser condition. The immutable
+image ID and generated compatibility record are emitted in the Actions job summary.
+The committed mount and schema contract is in
+`web/ceres-atlas/DOCKER_COMPATIBILITY.yml`; no image digest is claimed until the
+hosted build executes.
