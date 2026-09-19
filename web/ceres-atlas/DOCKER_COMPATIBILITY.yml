@@ -49,3 +49,39 @@ qualification:
 rollback:
   method: remove_local_image_and_revert_qualification_branch
   source_databases_modified: false
+
+private_artifact_publication:
+  status: DESIGNED_NOT_AUTHORIZED
+  mechanism: >-
+    After explicit Kevin authorization, publish the locally qualified image to a
+    private GHCR package using a short-lived GitHub Actions token with packages:write;
+    record the registry manifest digest (sha256 of the OCI manifest), immutable tag,
+    source commit, base digest and compatibility manifest in the PR. Never publish
+    canonical SQLite files, MEDIA blobs, credentials or campaign state in the image.
+  distinction: >-
+    The Docker image ID emitted by docker build identifies the local image config/layers.
+    A registry manifest digest identifies the pushed multi-platform or single-platform
+    manifest. They are different identifiers; no registry digest exists while publication
+    is withheld.
+  authorization_required: Kevin_explicit_written_approval
+production_contract:
+  status: NOT_AUTHORIZED_NOT_PROVISIONED
+  authorization: >-
+    Kevin must explicitly approve the exact PR commit, image reference/digest, WORLD,
+    CIVSTATE and MEDIA identities, private registry/package ACL, deployment target,
+    HTTPS certificate/termination, access-control policy and rollback window.
+  inputs: >-
+    Exact immutable image manifest digest plus compatibility manifest, exact database
+    paths and SHA-256 identities, read-only mounts, and a documented release timestamp.
+  rollback: >-
+    Stop the running revision, restore the previous approved image manifest and its
+    matching database identities, then verify /healthz and representative Atlas
+    responses before reopening access.
+  backup_restore: >-
+    Independently restore tested encrypted backups of WORLD, CIVSTATE and MEDIA into
+    isolated read-only release mounts; verify hashes and schema/identity contracts
+    before startup. Runtime never writes campaign or source databases.
+  transport_access: >-
+    HTTPS is mandatory at the authorized ingress with certificate renewal, private
+    network exposure, authenticated access control, audit logging and least-privilege
+    service credentials. No infrastructure is provisioned by this PR.

@@ -293,3 +293,14 @@ The run passed 60 Python checks, 26 JavaScript model checks, and seven real
 Playwright browser tests (7 passed, 0 failed, 0 skipped), plus read-only health,
 image-content and corrupt-WORLD negative checks. The image was not pushed to
 GHCR and no Pages, deployment or publication job ran.
+
+## Follow-up container evidence — pending hosted run
+
+The qualification workflow now additionally mutates only a disposable CIVSTATE copy
+while the running container is serving `/atlas-data.json`, verifies the changed value
+without frontend changes, retrieves the approved MEDIA fixture blob over HTTP, checks
+all three missing-mount failures, incompatible database inputs, and scans both the
+final filesystem and every saved image layer for restricted databases, image bytes,
+credentials and secrets. The private GHCR publication mechanism and production
+contract are documented in `DOCKER_COMPATIBILITY.yml`; both remain explicitly
+unauthorized and unprovisioned.
