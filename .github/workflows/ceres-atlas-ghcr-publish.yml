@@ -38,9 +38,12 @@ jobs:
         run: |
           set -euo pipefail
           # The repository token can publish/pull but does not have read:packages
-          # metadata scope. A package that is anonymously visible must fail closed.
-          status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' https://api.github.com/users/loom-2226/packages/container/ceres-atlas)"
-          test "$status" = 404
+          # metadata scope. GHCR's anonymous manifest probe is authoritative:
+          # 401 means private, while 200 would mean public and fails closed.
+          status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' \
+            -H 'Accept: application/vnd.oci.image.manifest.v1+json' \
+            https://ghcr.io/v2/loom-2226/ceres-atlas/manifests/sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca)"
+          test "$status" = 401
           digest="$(docker buildx imagetools inspect "$IMAGE:sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca" --format '{{json .Manifest.Digest}}' | tr -d '"')"
           test "$digest" = sha256:*
           printf 'REGISTRY_DIGEST=%s\n' "$digest" >> "$GITHUB_ENV"
