@@ -325,7 +325,8 @@ def verify_runtime(world_db: Path, civstate_db: Path, media_db: Path, manifest: 
 
 def create_server(port: int = 8768, root: Path = ROOT, world_db: Path | None = None,
                   civstate_db: Path | None = None, media_db: Path | None = None,
-                  host: str = "127.0.0.1") -> ThreadingHTTPServer:
+                  host: str = "127.0.0.1",
+                  allowed_hosts: set[str] | None = None) -> ThreadingHTTPServer:
     root = root.resolve()
     world_db = Path(world_db) if world_db else root / "data/LOOM_2226.sqlite3"
     civstate_db = Path(civstate_db) if civstate_db else root / "data/LOOM_2226_CIVSTATE.sqlite3"
@@ -333,6 +334,7 @@ def create_server(port: int = 8768, root: Path = ROOT, world_db: Path | None = N
     manifest = load_manifest(root)
     payload = json.dumps(manifest, ensure_ascii=False).encode("utf-8")
     images = {"/images/" + r["filename"]: r for r in manifest["facilities"]}
+    extra_allowed_hosts = {value.strip() for value in (allowed_hosts or set()) if value.strip()}
 
     class Handler(BaseHTTPRequestHandler):
         def respond(self, status: int, content_type: str, content: bytes) -> None:
@@ -349,8 +351,12 @@ def create_server(port: int = 8768, root: Path = ROOT, world_db: Path | None = N
 
         def do_GET(self) -> None:
             # Reject foreign Host headers (including DNS rebinding); no CORS grant.
-            allowed_hosts = {f"127.0.0.1:{self.server.server_port}", f"localhost:{self.server.server_port}"}
-            if self.headers.get("Host") not in allowed_hosts:
+            request_allowed_hosts = {
+                f"127.0.0.1:{self.server.server_port}",
+                f"localhost:{self.server.server_port}",
+                *extra_allowed_hosts,
+            }
+            if self.headers.get("Host") not in request_allowed_hosts:
                 self.respond(403, "text/plain", b"Loopback access only")
                 return
             path = urlsplit(self.path).path
@@ -399,13 +405,25 @@ def main() -> None:
     parser.add_argument("--world-db", type=Path, default=Path(os.environ.get("CERES_WORLD_DB", ROOT / "data/LOOM_2226.sqlite3")))
     parser.add_argument("--civstate-db", type=Path, default=Path(os.environ.get("CERES_CIVSTATE_DB", ROOT / "data/LOOM_2226_CIVSTATE.sqlite3")))
     parser.add_argument("--media-db", type=Path, default=Path(os.environ.get("CERES_MEDIA_DB", ROOT / "data/LOOM_2226_media.sqlite3")))
+    env_allowed_hosts = [
+        value.strip() for value in os.environ.get("CERES_ALLOWED_HOSTS", "").split(",")
+        if value.strip()
+    ]
+    parser.add_argument("--allowed-host", action="append", default=env_allowed_hosts)
     parser.add_argument("--verify-startup", action="store_true")
     args = parser.parse_args()
     try:
         manifest = load_manifest(ROOT)
         if args.verify_startup:
             verify_runtime(args.world_db, args.civstate_db, args.media_db, manifest)
-        server = create_server(args.port, world_db=args.world_db, civstate_db=args.civstate_db, media_db=args.media_db, host=args.host)
+        server = create_server(
+            args.port,
+            world_db=args.world_db,
+            civstate_db=args.civstate_db,
+            media_db=args.media_db,
+            host=args.host,
+            allowed_hosts=set(args.allowed_host),
+        )
     except (OSError, ValueError) as error:
         parser.exit(1, f"Cannot start Ceres Atlas: {error}\n")
     print(f"Private Ceres Atlas: http://127.0.0.1:{server.server_port}/", flush=True)
