@@ -47,7 +47,7 @@ jobs:
           test "$status" = 401
           digest="$(awk '/ digest: sha256:/ {print $3; exit}' "$RUNNER_TEMP/push.log")"
           echo "Registry digest: $digest"
-          test "$digest" = sha256:*
+          case "$digest" in sha256:*) ;; *) echo "Invalid registry digest" >test "$digest" = sha256:*2; exit 1 ;; esac
           printf 'REGISTRY_DIGEST=%s\n' "$digest" >> "$GITHUB_ENV"
           cat > "$RUNNER_TEMP/ceres-atlas-publication.yml" <<PUB
           schema_version: 1
