@@ -8,6 +8,7 @@
     "DWARF_PLANET": {"surface_possible": true, "orbital_possible": true},
     "MOON": {"surface_possible": true, "orbital_possible": true},
     "PLANET": {"surface_possible": true, "orbital_possible": true},
+    "STAR": {"surface_possible": false, "orbital_possible": null},
     "SYSTEM_BARYCENTER": {"surface_possible": false, "orbital_possible": null}
   },
   "prior_interpretation": "Structural test eligibility only; not observed habitability, engineering feasibility, settlement importance, or canon. Null means unresolved.",

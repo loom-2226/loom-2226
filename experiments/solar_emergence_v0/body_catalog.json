@@ -2,777 +2,1767 @@
   "baseline_main_sha": "fbc3818648cd9cdf54629281f52b5eb928b4f877",
   "bodies": [
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "AR",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "AR",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Ariel",
-      "parent_body_id": "UR"
+      "parent_body_id": "UR",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "701",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "CA",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "CA",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Callisto",
-      "parent_body_id": "JU"
+      "parent_body_id": "JU",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "504",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "DWARF_PLANET",
       "body_id": "CER",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "CER",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Ceres",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "1;",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "CH",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "CH",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Charon",
-      "parent_body_id": "PL"
+      "parent_body_id": "PL",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "901",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "ASTEROID",
       "body_id": "DAV",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "DAV",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Davida",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "511;",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "DE",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "DE",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Deimos",
-      "parent_body_id": "MA"
+      "parent_body_id": "MA",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "402",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "DI",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "DI",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Dione",
-      "parent_body_id": "SA"
+      "parent_body_id": "SA",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "604",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "PLANET",
       "body_id": "EA",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "EA",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Earth",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "399",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "EN",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "EN",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Enceladus",
-      "parent_body_id": "SA"
+      "parent_body_id": "SA",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "602",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "EU",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "EU",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Europa",
-      "parent_body_id": "JU"
+      "parent_body_id": "JU",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "502",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "GA",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "GA",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Ganymede",
-      "parent_body_id": "JU"
+      "parent_body_id": "JU",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "503",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "HY",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "HY",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Hydra",
-      "parent_body_id": "PL"
+      "parent_body_id": "PL",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "903",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "ASTEROID",
       "body_id": "HYG",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "HYG",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Hygiea",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "10;",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "IA",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "IA",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Iapetus",
-      "parent_body_id": "SA"
+      "parent_body_id": "SA",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "608",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "ASTEROID",
       "body_id": "INT",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "INT",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Interamnia",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "704;",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "IO",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "IO",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Io",
-      "parent_body_id": "JU"
+      "parent_body_id": "JU",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "501",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "SYSTEM_BARYCENTER",
       "body_id": "JU",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "SYSTEM_BARYCENTER",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "JU",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Jupiter",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "5",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "ASTEROID",
       "body_id": "JUN",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "JUN",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Juno",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "3;",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "KE",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "KE",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Kerberos",
-      "parent_body_id": "PL"
+      "parent_body_id": "PL",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "904",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "ASTEROID",
       "body_id": "KLE",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "KLE",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Kleopatra",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "216;",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "LU",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "LU",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Moon",
-      "parent_body_id": "EA"
+      "parent_body_id": "EA",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "301",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "ASTEROID",
       "body_id": "LUT",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "LUT",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Lutetia",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "21;",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "PLANET",
       "body_id": "MA",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "MA",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Mars",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "499",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "PLANET",
       "body_id": "ME",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "ME",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Mercury",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "199",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "MI",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "MI",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Miranda",
-      "parent_body_id": "UR"
+      "parent_body_id": "UR",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "705",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "MIM",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "MIM",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Mimas",
-      "parent_body_id": "SA"
+      "parent_body_id": "SA",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "601",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "SYSTEM_BARYCENTER",
       "body_id": "NE",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "SYSTEM_BARYCENTER",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "NE",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Neptune",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "8",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "NI",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "NI",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Nix",
-      "parent_body_id": "PL"
+      "parent_body_id": "PL",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "902",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "NR",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "NR",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Nereid",
-      "parent_body_id": "NE"
+      "parent_body_id": "NE",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "802",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "OB",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "OB",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Oberon",
-      "parent_body_id": "UR"
+      "parent_body_id": "UR",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "704",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "ASTEROID",
       "body_id": "PAL",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "PAL",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Pallas",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "2;",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "PB",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "PB",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Phoebe",
-      "parent_body_id": "SA"
+      "parent_body_id": "SA",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "609",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "PH",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "PH",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Phobos",
-      "parent_body_id": "MA"
+      "parent_body_id": "MA",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "401",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "SYSTEM_BARYCENTER",
       "body_id": "PL",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "SYSTEM_BARYCENTER",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "PL",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Pluto",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "9",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "PR",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "PR",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Proteus",
-      "parent_body_id": "NE"
+      "parent_body_id": "NE",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "808",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "ASTEROID",
       "body_id": "PSY",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "PSY",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Psyche",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "16;",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "RH",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "RH",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Rhea",
-      "parent_body_id": "SA"
+      "parent_body_id": "SA",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "605",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "SYSTEM_BARYCENTER",
       "body_id": "SA",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "SYSTEM_BARYCENTER",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "SA",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Saturn",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "6",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": null,
+      "body_class": "STAR",
+      "body_id": "SOL",
+      "candidate_role": "REFERENCE_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
+      "ephemeris": null,
+      "ephemeris_state_materialized": false,
+      "name": "Sun",
+      "parent_body_id": null,
+      "propagation_capability": false,
+      "propagation_method": null,
+      "registry_provenance": {
+        "entity_provenance": "HELIOCENTRIC_ORIGIN",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": null,
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": null,
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": null,
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
+    },
+    {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "ST",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "ST",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Styx",
-      "parent_body_id": "PL"
+      "parent_body_id": "PL",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "905",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "TE",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "TE",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Tethys",
-      "parent_body_id": "SA"
+      "parent_body_id": "SA",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "603",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "ASTEROID",
       "body_id": "THE",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "THE",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Themis",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "24;",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "TI",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "TI",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Titan",
-      "parent_body_id": "SA"
+      "parent_body_id": "SA",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "606",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "TR",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": false,
+      "direct_state_epoch_count": 0,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": false,
-        "registry_key": "TR",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "APPROX_PERIOD_DISPLAY"
       },
+      "ephemeris_state_materialized": true,
       "name": "Triton",
-      "parent_body_id": "NE"
+      "parent_body_id": "NE",
+      "propagation_capability": true,
+      "propagation_method": "SOLAR_SCENE_DISPLAY_FALLBACK",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "801",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": null,
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": null,
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "TT",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "TT",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Titania",
-      "parent_body_id": "UR"
+      "parent_body_id": "UR",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "703",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "MOON",
       "body_id": "UM",
-      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": true,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "UM",
-        "registry_table": "ephemeris_states",
         "source": "SQLite local state",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Umbriel",
-      "parent_body_id": "UR"
+      "parent_body_id": "UR",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "702",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only",
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "SYSTEM_BARYCENTER",
       "body_id": "UR",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "SYSTEM_BARYCENTER",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "UR",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Uranus",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "7",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "PLANET",
       "body_id": "VE",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "VE",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Venus",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "299",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan",
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     },
     {
+      "acquisition_capability": true,
       "body_class": "ASTEROID",
       "body_id": "VST",
-      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "candidate_role": "PHYSICAL_BODY",
+      "direct_state_capability": true,
+      "direct_state_epoch_count": 1,
+      "display_fallback_capability": false,
       "ephemeris": {
         "latest_epoch_utc": "2226-08-29T05:00:00Z",
         "navigation_grade": true,
-        "registry_key": "VST",
-        "registry_table": "ephemeris_states",
         "source": "JPL Horizons",
         "state_count": 1,
         "status": "JPL_HORIZONS_DIRECT"
       },
+      "ephemeris_state_materialized": true,
       "name": "Vesta",
-      "parent_body_id": "SOL"
+      "parent_body_id": "SOL",
+      "propagation_capability": true,
+      "propagation_method": "PROVIDER_ANCHOR_MODEL",
+      "registry_provenance": {
+        "entity_provenance": "JPL_HORIZONS_VECTORS",
+        "rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+        "source_command": "4;",
+        "table": "entities"
+      },
+      "source_evidence": {
+        "direct_state": "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row",
+        "display_fallback": null,
+        "navigator_acquisition": null,
+        "propagation_model": "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe",
+        "solar_scene": "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data",
+        "solar_scene_acquisition": "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests",
+        "sqlite_entity": "data/LOOM_2226.sqlite3:entities.entity_id"
+      }
     }
   ],
-  "body_count": 48,
-  "inclusion_rule": "distinct ephemeris_states.entity_id joined to entities; all navigation grades",
-  "schema": "loom-solar-emergence-v0-body-catalog-v1",
+  "body_count": 49,
+  "registry_rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
+  "schema": "loom-solar-emergence-v0-body-catalog-v2",
   "source_database": "data/LOOM_2226.sqlite3",
   "source_database_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
   "status": "EXPERIMENTAL_FICTIONAL_NONCANON_NONPRODUCTION"
