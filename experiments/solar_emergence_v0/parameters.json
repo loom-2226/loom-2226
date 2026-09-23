@@ -1,0 +1,16 @@
+{
+  "schema": "loom-solar-emergence-v0-run1-parameters-v1",
+  "status": "EXPERIMENTAL_FICTIONAL_NONCANON_NONPRODUCTION",
+  "baseline_main_sha": "fbc3818648cd9cdf54629281f52b5eb928b4f877",
+  "world_db_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
+  "body_class_test_priors": {
+    "ASTEROID": {"surface_possible": true, "orbital_possible": true},
+    "DWARF_PLANET": {"surface_possible": true, "orbital_possible": true},
+    "MOON": {"surface_possible": true, "orbital_possible": true},
+    "PLANET": {"surface_possible": true, "orbital_possible": true},
+    "SYSTEM_BARYCENTER": {"surface_possible": false, "orbital_possible": null}
+  },
+  "prior_interpretation": "Structural test eligibility only; not observed habitability, engineering feasibility, settlement importance, or canon. Null means unresolved.",
+  "gravity_source_status": "ENGINEERING_REFERENCE_NONCANON",
+  "gravity_source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1"
+}

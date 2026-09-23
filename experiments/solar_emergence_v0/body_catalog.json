@@ -1,0 +1,779 @@
+{
+  "baseline_main_sha": "fbc3818648cd9cdf54629281f52b5eb928b4f877",
+  "bodies": [
+    {
+      "body_class": "MOON",
+      "body_id": "AR",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "AR",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Ariel",
+      "parent_body_id": "UR"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "CA",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "CA",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Callisto",
+      "parent_body_id": "JU"
+    },
+    {
+      "body_class": "DWARF_PLANET",
+      "body_id": "CER",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "CER",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Ceres",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "CH",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "CH",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Charon",
+      "parent_body_id": "PL"
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "DAV",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "DAV",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Davida",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "DE",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "DE",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Deimos",
+      "parent_body_id": "MA"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "DI",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "DI",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Dione",
+      "parent_body_id": "SA"
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "EA",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "EA",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Earth",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "EN",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "EN",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Enceladus",
+      "parent_body_id": "SA"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "EU",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "EU",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Europa",
+      "parent_body_id": "JU"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "GA",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "GA",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Ganymede",
+      "parent_body_id": "JU"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "HY",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "HY",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Hydra",
+      "parent_body_id": "PL"
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "HYG",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "HYG",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Hygiea",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "IA",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "IA",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Iapetus",
+      "parent_body_id": "SA"
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "INT",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "INT",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Interamnia",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "IO",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "IO",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Io",
+      "parent_body_id": "JU"
+    },
+    {
+      "body_class": "SYSTEM_BARYCENTER",
+      "body_id": "JU",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "JU",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Jupiter",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "JUN",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "JUN",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Juno",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "KE",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "KE",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Kerberos",
+      "parent_body_id": "PL"
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "KLE",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "KLE",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Kleopatra",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "LU",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "LU",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Moon",
+      "parent_body_id": "EA"
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "LUT",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "LUT",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Lutetia",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "MA",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "MA",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Mars",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "ME",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "ME",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Mercury",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "MI",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "MI",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Miranda",
+      "parent_body_id": "UR"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "MIM",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "MIM",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Mimas",
+      "parent_body_id": "SA"
+    },
+    {
+      "body_class": "SYSTEM_BARYCENTER",
+      "body_id": "NE",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "NE",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Neptune",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NI",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "NI",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Nix",
+      "parent_body_id": "PL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NR",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "NR",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Nereid",
+      "parent_body_id": "NE"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "OB",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "OB",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Oberon",
+      "parent_body_id": "UR"
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "PAL",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "PAL",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Pallas",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "PB",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "PB",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Phoebe",
+      "parent_body_id": "SA"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "PH",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "PH",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Phobos",
+      "parent_body_id": "MA"
+    },
+    {
+      "body_class": "SYSTEM_BARYCENTER",
+      "body_id": "PL",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "PL",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Pluto",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "PR",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "PR",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Proteus",
+      "parent_body_id": "NE"
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "PSY",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "PSY",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Psyche",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "RH",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "RH",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Rhea",
+      "parent_body_id": "SA"
+    },
+    {
+      "body_class": "SYSTEM_BARYCENTER",
+      "body_id": "SA",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "SA",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Saturn",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "ST",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "ST",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Styx",
+      "parent_body_id": "PL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "TE",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "TE",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Tethys",
+      "parent_body_id": "SA"
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "THE",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "THE",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Themis",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "TI",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "TI",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Titan",
+      "parent_body_id": "SA"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "TR",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": false,
+        "registry_key": "TR",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "APPROX_PERIOD_DISPLAY"
+      },
+      "name": "Triton",
+      "parent_body_id": "NE"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "TT",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "TT",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Titania",
+      "parent_body_id": "UR"
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "UM",
+      "entity_provenance": "JPL_HORIZONS_LOCAL_OR_DISPLAY_FALLBACK",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "UM",
+        "registry_table": "ephemeris_states",
+        "source": "SQLite local state",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Umbriel",
+      "parent_body_id": "UR"
+    },
+    {
+      "body_class": "SYSTEM_BARYCENTER",
+      "body_id": "UR",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "UR",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Uranus",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "VE",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "VE",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Venus",
+      "parent_body_id": "SOL"
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "VST",
+      "entity_provenance": "JPL_HORIZONS_VECTORS",
+      "ephemeris": {
+        "latest_epoch_utc": "2226-08-29T05:00:00Z",
+        "navigation_grade": true,
+        "registry_key": "VST",
+        "registry_table": "ephemeris_states",
+        "source": "JPL Horizons",
+        "state_count": 1,
+        "status": "JPL_HORIZONS_DIRECT"
+      },
+      "name": "Vesta",
+      "parent_body_id": "SOL"
+    }
+  ],
+  "body_count": 48,
+  "inclusion_rule": "distinct ephemeris_states.entity_id joined to entities; all navigation grades",
+  "schema": "loom-solar-emergence-v0-body-catalog-v1",
+  "source_database": "data/LOOM_2226.sqlite3",
+  "source_database_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
+  "status": "EXPERIMENTAL_FICTIONAL_NONCANON_NONPRODUCTION"
+}

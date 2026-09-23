@@ -1,0 +1,1563 @@
+{
+  "baseline_main_sha": "fbc3818648cd9cdf54629281f52b5eb928b4f877",
+  "body_count": 48,
+  "opportunities": [
+    {
+      "body_class": "MOON",
+      "body_id": "AR",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 90.3,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 578.9,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.2694515282810267,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "CA",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 7179.289,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 2410.3,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 1.2357745147005106,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "DWARF_PLANET",
+      "body_id": "CER",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "DWARF_PLANET",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 62.6284,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 469.7,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "DWARF_PLANET",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.2838769930425923,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "CH",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 105.88,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 606.0,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.28831596030890216,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "DAV",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "DE",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 9.85e-05,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 6.2,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.002562434963579604,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "DI",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 73.11,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 561.4,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.23197007735128058,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "EA",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "PLANET",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 398600.4355,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 6371.0084,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "PLANET",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 9.82022443640704,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "EN",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 7.21,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 252.1,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.11344610075052228,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "EU",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 3202.739,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 1560.8,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 1.3147011277844873,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "GA",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 9887.834,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 2634.1,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 1.4250714847559016,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "HY",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "HYG",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 5.1,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 217.0,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.108305549066661,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "IA",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 120.5,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 734.5,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.22335899490305897,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "INT",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "IO",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 5959.916,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 1821.6,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 1.7961148499757655,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "SYSTEM_BARYCENTER",
+      "body_id": "JU",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "surface_possible": {
+          "body_class": "SYSTEM_BARYCENTER",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": null,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": false,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "JUN",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "KE",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "KLE",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "LU",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 4902.8001,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 1737.4,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 1.624218870597702,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "LUT",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "MA",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "PLANET",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 42828.375214,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 3389.5,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "PLANET",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 3.72786625147936,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "ME",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "PLANET",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 22031.86855,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 2439.7,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "PLANET",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 3.7015061848157447,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "MI",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 4.4,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 235.8,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.07913435646862214,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "MIM",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 2.503,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 198.2,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.06371674026887802,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "SYSTEM_BARYCENTER",
+      "body_id": "NE",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "surface_possible": {
+          "body_class": "SYSTEM_BARYCENTER",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": null,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": false,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NI",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NR",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 2.06,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 170.0,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.07128027681660899,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "OB",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 192.4,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 761.4,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.33187865605565736,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "PAL",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 14.3,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 256.0,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.21820068359375,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "PB",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 0.553,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 106.5,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.04875575833719059,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "PH",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 0.0007112,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 11.27,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.005599431238874163,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "SYSTEM_BARYCENTER",
+      "body_id": "PL",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "surface_possible": {
+          "body_class": "SYSTEM_BARYCENTER",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": null,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": false,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "PR",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 3.36,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 210.0,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.0761904761904762,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "PSY",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 1.53,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 113.0,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.11982144255619077,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "RH",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 153.94,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 763.8,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.2638713106097522,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "SYSTEM_BARYCENTER",
+      "body_id": "SA",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "surface_possible": {
+          "body_class": "SYSTEM_BARYCENTER",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": null,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": false,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "ST",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "TE",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 41.21,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 531.1,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.14609993128942567,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "THE",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "TI",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 8978.14,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 2574.7,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 1.3543568456117419,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "TR",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 1427.6,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 1353.4,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.7793888617360882,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "TT",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 228.2,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 788.9,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.3666669178597495,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "UM",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 81.5,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 584.7,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "MOON",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.2383918594123351,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "SYSTEM_BARYCENTER",
+      "body_id": "UR",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "surface_possible": {
+          "body_class": "SYSTEM_BARYCENTER",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": null,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": false,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "VE",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "PLANET",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 324858.592,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 6051.8,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "PLANET",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 8.870032755895648,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "ASTEROID",
+      "body_id": "VST",
+      "bulk_material_potential": null,
+      "field_provenance": {
+        "orbital_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_gravity": {
+          "formula": "1000 * gm_km3_s2 / mean_radius_km**2",
+          "gm_km3_s2": 17.288,
+          "kind": "DERIVED_FROM_ENGINEERING_REFERENCE",
+          "mean_radius_km": 262.7,
+          "source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1",
+          "source_status": "ENGINEERING_REFERENCE_NONCANON",
+          "source_table": "celestial_properties",
+          "unit": "m/s^2"
+        },
+        "surface_possible": {
+          "body_class": "ASTEROID",
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": 0.25050973543604244,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    }
+  ],
+  "schema": "loom-solar-emergence-v0-body-opportunities-v1",
+  "source_database": "data/LOOM_2226.sqlite3",
+  "source_database_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
+  "status": "EXPERIMENTAL_FICTIONAL_NONCANON_NONPRODUCTION"
+}
