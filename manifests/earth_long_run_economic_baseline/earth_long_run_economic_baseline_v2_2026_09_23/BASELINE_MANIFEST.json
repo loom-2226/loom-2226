@@ -1,0 +1,43 @@
+{
+  "schema": "loom-earth-local-economic-baseline-designation-v1",
+  "designation": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v2_2026_09_23",
+  "scope": "local 80-economy Earth research reference; no canon or production promotion",
+  "decision": "PROMOTED_QUALIFIED_SUCCESSOR",
+  "model_version": "v0.6.1-d1-c1-h1-r1-alpha060-national-gfcf1",
+  "calibration_policy_id": "WDI_NATIONAL_GFCF_GDP_LATEST_2024_2025_MEDIAN_2024_FALLBACK_v1",
+  "alpha_ceiling": 0.6,
+  "qualified_successor_root": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23",
+  "qualified_successor_run_manifest": {
+    "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/RUN_MANIFEST.json",
+    "sha256": "d24a8b6960700f8cd1fb8e096cf16095eef617f0545c771b753b907e7413eaf3",
+    "registered_file_counts": {"inputs": 12, "code": 16, "outputs": 19, "evidence": 12},
+    "registered_files_integrity": "59/59 SHA-256 and byte sizes verified at promotion"
+  },
+  "runner_sha256": "e500acf56895dbed10e82bfc54ee195d9eeb4eb1bb5c7574fdc951ac51b69e73",
+  "source_wdi_sha256": "bdcba23035a47cefebc486ba17e12a1d8fbc977759668100b69c86b6bf86c5bc",
+  "selected_outputs": {
+    "annual_countries": {"path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/results/countries_2060_2226.ndjson", "sha256": "60ea8a2adfbf4142b9a8211f512a1816a6e313df4e2c4f876d6b30fe0416cf37"},
+    "endpoint_countries": {"path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/results/countries_2226.ndjson", "sha256": "bf4e9c59123ddd40f5361b53b051b69d0e1229a3b329711c257320f31006151a"},
+    "complete_checkpoint_2226": {"path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/complete_checkpoints/earth_2226.checkpoint.zip", "sha256": "46b55915858619c4f8a444012b6bb4eaca175c7c8005ed4348b77397b5cb4fa1"}
+  },
+  "qualification": {
+    "focused_successor_tests": "12 PASS",
+    "inherited_regressions": "4 PASS",
+    "annual_gates_2061_2226": "PASS; zero failures",
+    "country_sector_asset_aggregation_2190_2226": "PASS; zero residual",
+    "fresh_process_checkpoint_continuation": "PASS; six annual and endpoint files byte-identical",
+    "historical_v0_5_mid_stage": "REVIEW unchanged",
+    "historical_v0_2_boundary": "PASS unchanged"
+  },
+  "previous_formal_baseline": {
+    "path": "/home/ubuntu/loom_earth_2026_2035/earth_baseline_2226_2026_09_23/BASELINE_MANIFEST.json",
+    "sha256": "c93452288de6a787518e26e65f6bb10fe0da600db161d14330ba4ddf8938088e",
+    "designation": "LOOM_EARTH_2226_REFERENCE_BASELINE_2026_09_23_v1.0",
+    "policy": "UNTREATED_FROZEN_2060_EXPLICIT_v1",
+    "registered_files_integrity": "75/75 SHA-256 and byte sizes verified at promotion"
+  },
+  "epistemic_status": "numerically qualified exploratory reference scenario; not an empirically validated future forecast",
+  "model_behavior_changed_by_promotion": false,
+  "simulation_executed_by_promotion": false,
+  "independent_backup_verified": false
+}

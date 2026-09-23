@@ -1,0 +1,123 @@
+{
+  "aggregation": {
+    "2190": {
+      "asset_rows": 3200,
+      "capital_country_sector_relative_residual": 0.0,
+      "capital_sector_asset_relative_residual": 0.0,
+      "country_rows": 80,
+      "investment_country_sector_relative_residual": 0.0,
+      "sector_rows": 800,
+      "value_added_country_sector_relative_residual": 0.0
+    },
+    "2226": {
+      "asset_rows": 3200,
+      "capital_country_sector_relative_residual": 0.0,
+      "capital_sector_asset_relative_residual": 0.0,
+      "country_rows": 80,
+      "investment_country_sector_relative_residual": 0.0,
+      "sector_rows": 800,
+      "value_added_country_sector_relative_residual": 0.0
+    }
+  },
+  "annual_qualification": {
+    "annual_gate_failures": [],
+    "final_year_reached": 2226,
+    "max_annual_investment_share_move_pp": 0.5056309892205679,
+    "max_annual_labor_share_move_pp": 0.4749565199215544,
+    "max_annual_synthetic_ratio_move": 0.0,
+    "max_annual_technology_multiplier_log_move": 0.0,
+    "max_annual_trade_component_weight_move": 0.00353403659402296,
+    "max_annual_trade_total_variation_move": 0.004592975336223709,
+    "max_asset_to_sector_capital_relative_residual": 0.0,
+    "max_capital_identity_relative_residual": 0.0,
+    "max_employment_reconciliation_relative_residual": 2.2188757786235373e-16,
+    "maximum_country_year_va_growth": {
+      "growth": 0.07131418818382484,
+      "iso3": "NGA",
+      "year": 2061
+    },
+    "maximum_synthetic_labor_equivalent_ratio": {
+      "iso3": null,
+      "ratio": 0.0,
+      "sector": null,
+      "year": null
+    },
+    "minimum_country_year_va_growth": {
+      "growth": -0.02839489521132721,
+      "iso3": "SAU",
+      "year": 2061
+    },
+    "minimum_replacement_coverage": {
+      "iso3": "SAU",
+      "ratio": 0.8501849562327239,
+      "year": 2067
+    },
+    "passed": true
+  },
+  "baseline_alpha_ceiling": 0.6,
+  "baseline_country_file_sha256": "f6a153288aa6419cd7ab91e51cc41a56e6cab70c2319bd8b3fe642f25938107a",
+  "country_comparison_sha256": "86118b6f24256afdf303fba03298ff3eb932412f2662e60b5e51960819b20d00",
+  "country_rows_baseline": 13360,
+  "country_rows_new": 13360,
+  "global": {
+    "2190": {
+      "absolute_change": {
+        "capital": -347607987657250.5,
+        "investment": -13051192236143.047,
+        "population": 0.0,
+        "value_added": -34461666278066.062
+      },
+      "baseline": {
+        "capital": 3220232383496610.0,
+        "investment": 152207758374627.8,
+        "population": 6594638548.253483,
+        "value_added": 548975729177854.3
+      },
+      "national_gfcf": {
+        "capital": 2872624395839359.5,
+        "investment": 139156566138484.77,
+        "population": 6594638548.253483,
+        "value_added": 514514062899788.25
+      },
+      "relative_change": {
+        "capital": -0.10794500093804067,
+        "investment": -0.08574590661811236,
+        "population": 0.0,
+        "value_added": -0.06277448063082103
+      }
+    },
+    "2226": {
+      "absolute_change": {
+        "capital": -572575419576989.0,
+        "investment": -19587673428477.344,
+        "population": 0.0,
+        "value_added": -49597157529277.375
+      },
+      "baseline": {
+        "capital": 3859596443149320.0,
+        "investment": 175023711967863.38,
+        "population": 6572523389.641058,
+        "value_added": 631338447085598.2
+      },
+      "national_gfcf": {
+        "capital": 3287021023572331.0,
+        "investment": 155436038539386.03,
+        "population": 6572523389.641058,
+        "value_added": 581741289556320.9
+      },
+      "relative_change": {
+        "capital": -0.14835111079897872,
+        "investment": -0.11191439838776757,
+        "population": 0.0,
+        "value_added": -0.07855874730618596
+      }
+    }
+  },
+  "max_aggregation_relative_residual": 0.0,
+  "new_alpha_ceiling": 0.6,
+  "new_country_file_sha256": "60ea8a2adfbf4142b9a8211f512a1816a6e313df4e2c4f876d6b30fe0416cf37",
+  "unchanged_path_checks": {
+    "max_employment_absolute_residual": 1.1920928955078125e-07,
+    "max_forward_investment_rate_absolute_residual": 5.551115123125783e-17
+  }
+}

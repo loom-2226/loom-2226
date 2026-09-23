@@ -1,0 +1,734 @@
+{
+  "calibration_policy_id": "UNTREATED_FROZEN_2060_EXPLICIT_v1",
+  "capital_exponent_disposition": "RETAINED_CORRECT_SOURCE_MAPPING_NO_JUSTIFIED_REPLACEMENT_ELASTICITY",
+  "commands_in_fresh_isolated_execution_copy": [
+    "python3 -B -m unittest -v test_repairs",
+    "python3 -B stage_bridge.py",
+    "python3 -B stage_mid.py",
+    "python3 -B prepare_freeze.py",
+    "python3 -B runner.py --output-dir trajectory --save-at 2225",
+    "python3 -B runner.py --output-dir resume_2226 --resume trajectory/complete_checkpoints/earth_2225.checkpoint.zip",
+    "python3 -B qualify.py"
+  ],
+  "epistemic_status": {
+    "2026_2226_propagation": "NUMERICALLY_QUALIFIED_UNDER_RECORDED_GATES",
+    "2026_seed": "PREVIOUSLY_SOFTWARE_QUALIFIED_UNCHANGED_WITH_SOURCE_CAVEATS",
+    "2226_economics": "EXPLORATORY_NOT_EMPIRICALLY_VALIDATED",
+    "fixed_alpha_200_years": "UNVALIDATED_SCENARIO_ASSUMPTION",
+    "historical_v0_2_boundary": "PASS_UNCHANGED",
+    "historical_v0_5_mid_stage": "REVIEW_UNCHANGED"
+  },
+  "freeze_id": "LOOM_EARTH_2226_REFERENCE_BASELINE_2026_09_23_v1.0",
+  "global_2226_recorded": {
+    "capital": 5825194995478961.0,
+    "investment": 263918322985392.94,
+    "population": 6572523389.641058,
+    "value_added": 950281790828375.9
+  },
+  "manifest_self_sha256": "Not embedded; hash this file separately to avoid self-reference.",
+  "model_version": "v0.6.1-d1-c1-h1-r1",
+  "new_code_or_coefficient_changes": 0,
+  "new_simulations_this_finalization": 0,
+  "ordered_80_country_alpha_and_investment_vector_sha256": "db0dbfa36a3f98b0ca5917a72f842f26542240a6fe9746cda04965360bb8ae83",
+  "qualification_recorded_from_predecessor": {
+    "annual_country_rows": 16080,
+    "bridge": "QUALIFIED_CAPITAL_ASSET_BRIDGE_2026_2031",
+    "checkpoint_payload_bytes_equal": false,
+    "endpoint_aggregation_max_relative_residual": {
+      "country_sector_capital": 0.0,
+      "country_sector_employment": 0.0,
+      "country_sector_gross_output": 0.0,
+      "country_sector_investment": 3.7419666338415235e-16,
+      "country_sector_value_added": 0.0,
+      "sector_asset_capital": 3.6587820137389274e-16,
+      "sector_asset_investment": 0.0
+    },
+    "exact_resume_endpoints": {
+      "countries_2226.ndjson": {
+        "equal": true,
+        "full_sha256": "c9663223400c9b90f2ebf6d9b3877bcc17492b19d87669f8370d3117def80d24",
+        "resume_sha256": "c9663223400c9b90f2ebf6d9b3877bcc17492b19d87669f8370d3117def80d24"
+      },
+      "country_sector_assets_2226.ndjson": {
+        "equal": true,
+        "full_sha256": "b4dac9335afd88240afabdf3b7fd3e782e69c0024db60dfaa3f216ad0e2caf7a",
+        "resume_sha256": "b4dac9335afd88240afabdf3b7fd3e782e69c0024db60dfaa3f216ad0e2caf7a"
+      },
+      "country_sectors_2226.ndjson": {
+        "equal": true,
+        "full_sha256": "d0c9374a9b3ffdde0b12f3e70055e6ee768b1c6d6791cfd0840997ccb8fcc19a",
+        "resume_sha256": "d0c9374a9b3ffdde0b12f3e70055e6ee768b1c6d6791cfd0840997ccb8fcc19a"
+      }
+    },
+    "expansion_during_shortfall_count": 0,
+    "full_checkpoint": {
+      "file_sha256": "d606ffc048e3d96882d257e666e0a7ec8f25e3d125a1852ed31fac9fdae5dd1d",
+      "integrity_sha256": "6c929f49cfce4f2e3b272a5024cf67d06ff0b4ee763d6de2a8964c5e3f8e1f1b",
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/complete_checkpoints/earth_2226.checkpoint.zip",
+      "payload_sha256": "3b994235c294f94010547ef83810c32dbf44a82ee15630c5bd1246b3fd19fd62",
+      "state_fingerprint": "4b2daa374ecdd658710e5cb1b84d33b696a7fdcc74cef738cf96be8f1ba6ab6f"
+    },
+    "historical_v02_boundary_gate": {
+      "gates": {
+        "2032_2033_transition_window_exempt_from_post_boundary_move_gate": true,
+        "max_mean_abs_sector_drift_pp_per_year": 0.25,
+        "post_boundary_count_ge_1_5pp_max": 0,
+        "post_boundary_count_ge_2pp_max": 0,
+        "post_boundary_max_move_pp": 1.0,
+        "steady_state_qualification_start_year": 2034
+      },
+      "max_endpoint_asset_capital_residual": 3.7717086556659216e-16,
+      "max_mean_abs_sector_drift_pp": 0.06262003999195535,
+      "passed": true,
+      "post_boundary_count_ge_1_5pp": 0,
+      "post_boundary_count_ge_2pp": 0,
+      "post_boundary_max_move_pp": 0.8191993481904941,
+      "row_counts": {
+        "assets": 96000,
+        "sectors": 24000
+      },
+      "source_gate_path": "/home/ubuntu/LOOM_Earth2026/Earth2031_2060_asset_structural_transition_diagnostic_v0.2.json",
+      "source_gate_sha256": "8e11ff09894a0796885a34390d418a8fdaea42e323efad813f4b1a27c650ae51"
+    },
+    "long": "QUALIFIED_CAUSAL_TECH_BLIND_EARTH_2060_2226_PROVISIONAL",
+    "long_qualification": {
+      "annual_gate_failures": [],
+      "final_year_reached": 2226,
+      "max_annual_investment_share_move_pp": 0.46690218196557276,
+      "max_annual_labor_share_move_pp": 0.4749565199215544,
+      "max_annual_synthetic_ratio_move": 0.0,
+      "max_annual_technology_multiplier_log_move": 0.0,
+      "max_annual_trade_component_weight_move": 0.0034650121666160993,
+      "max_annual_trade_total_variation_move": 0.006180330801990464,
+      "max_asset_to_sector_capital_relative_residual": 0.0,
+      "max_capital_identity_relative_residual": 0.0,
+      "max_employment_reconciliation_relative_residual": 2.2202866532443283e-16,
+      "maximum_country_year_va_growth": {
+        "growth": 0.0738506244802366,
+        "iso3": "NGA",
+        "year": 2061
+      },
+      "maximum_synthetic_labor_equivalent_ratio": {
+        "iso3": null,
+        "ratio": 0.0,
+        "sector": null,
+        "year": null
+      },
+      "minimum_country_year_va_growth": {
+        "growth": -0.030638484047638026,
+        "iso3": "SAU",
+        "year": 2061
+      },
+      "minimum_replacement_coverage": {
+        "iso3": "SAU",
+        "ratio": 0.8230733964397644,
+        "year": 2067
+      },
+      "passed": true
+    },
+    "material_change_rows": 2412,
+    "mid": "REVIEW",
+    "mid_qualification": {
+      "all_nonnegative": true,
+      "all_numeric": true,
+      "max_absolute_2032_tfp_simple_growth": 0.043748079333695955,
+      "max_annual_sector_investment_share_move": 0.04009355027507272,
+      "max_annual_sector_labor_share_move": 0.0044488241548572005,
+      "max_capital_identity_relative_residual": 0.0,
+      "max_employment_reconciliation_relative_residual": 2.2070150163122038e-16,
+      "max_sector_va_share_2060": 0.618771063951268,
+      "maximum_absolute_mean_sector_investment_bias_percentage_points": 3.9418020240307214,
+      "minimum_replacement_coverage_country": "UKR",
+      "minimum_replacement_coverage_ratio": 0.6274556574544309,
+      "minimum_replacement_coverage_year": 2032,
+      "passed": false,
+      "under_replacement_country_year_count": 71
+    },
+    "resume_checkpoint": {
+      "file_sha256": "3b0d29b6445366f0c33adee53d6bf85f103903c7297894a55e6ec10a69375608",
+      "integrity_sha256": "293aaef3dedcbe13ec07f26f0b09e813aba19c7c58d4ea61a1bf7452211acae7",
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/resume_2226/complete_checkpoints/earth_2226.checkpoint.zip",
+      "payload_sha256": "f5dd5c4bdf762fb98ac45c2e92e761682a98e6ed2f664bed0d6062ad12c090bb",
+      "state_fingerprint": "4b2daa374ecdd658710e5cb1b84d33b696a7fdcc74cef738cf96be8f1ba6ab6f"
+    },
+    "shortfall_country_years": 2626
+  },
+  "recorded_model_runtime": {
+    "platform": "Linux-7.0.0-1012-aws-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "reference_outputs": {
+    "annual_assets_2060_2226": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/country_sector_assets_2060_2226.ndjson",
+    "annual_countries_2060_2226": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/countries_2060_2226.ndjson",
+    "annual_sectors_2060_2226": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/country_sectors_2060_2226.ndjson",
+    "assets_2226": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/country_sector_assets_2226.ndjson",
+    "complete_checkpoint_2226": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/complete_checkpoints/earth_2226.checkpoint.zip",
+    "country_2226": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/countries_2226.ndjson",
+    "country_table_2226": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/WORLD_2226.csv",
+    "resumed_complete_checkpoint_2226": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/resume_2226/complete_checkpoints/earth_2226.checkpoint.zip",
+    "sectors_2226": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/country_sectors_2226.ndjson"
+  },
+  "scientific_limits": [
+    "latest PWT labor income share is not an independently estimated capital output elasticity",
+    "fixed exponent and investment/VA ratio through 2226",
+    "authored post-2100 demographic tail",
+    "projected OECD 2024 source, mixed-year 2026 seed and reconstructed capital",
+    "calibrated TFP catch-up",
+    "no physical resource or migration closure"
+  ],
+  "sensitivity_evidence": {
+    "alpha_bounds": {
+      "q1": 0.416310876607895,
+      "q3": 0.5106692910194399
+    },
+    "archive_members": {
+      "PIXEL_STORAGE/Download/LOOM_2226_Bounded_Attribution_2060_2190_Report_v0.4.json": {
+        "bytes": 21082,
+        "sha256": "346dbaa35b650c0a3a6160cce7dc5647221c4fce8e0d47d1e2502ebd102d3f70"
+      },
+      "PIXEL_STORAGE/Download/LOOM_SOLAR_CIVPROP_2060_2190_Alpha_Sensitivity_Runner_v0.3.py": {
+        "bytes": 12518,
+        "sha256": "fa2897b7ffcccdc4c7818d3df3fb75ab32e29deac54d2d9dc3dce930f92310b4"
+      },
+      "PIXEL_STORAGE/Download/LOOM_SOLAR_CIVPROP_2060_2190_Attribution_Bounded_Runner_v0.4.py": {
+        "bytes": 13859,
+        "sha256": "ad2753c38aadd38038329973a7782fc46a6df46c74778632597ea94d7ae4a929"
+      }
+    },
+    "archived_governance": {
+      "2226_endpoint_used": false,
+      "deployment_performed": false
+    },
+    "boundary": "unchanged_frozen_2060",
+    "first_treatment_year": 2061,
+    "focal_results": {
+      "AGO": {
+        "alpha_original": 0.776764899492264,
+        "alpha_sensitivity": 0.5106692910194399,
+        "value_added_2190_original": 28478149957145.047,
+        "value_added_2190_sensitivity": 5260586426435.599
+      },
+      "CHN": {
+        "alpha_original": 0.43881940841674805,
+        "alpha_sensitivity": 0.43881940841674805,
+        "value_added_2190_original": 91424330413537.2,
+        "value_added_2190_sensitivity": 92084643257845.97
+      },
+      "CIV": {
+        "alpha_original": 0.6680798232555389,
+        "alpha_sensitivity": 0.5106692910194399,
+        "value_added_2190_original": 3385202506778.287,
+        "value_added_2190_sensitivity": 2293091455627.16
+      },
+      "IRL": {
+        "alpha_original": 0.691012114286423,
+        "alpha_sensitivity": 0.5106692910194399,
+        "value_added_2190_original": 2438897694856.7393,
+        "value_added_2190_sensitivity": 1645470974052.522
+      },
+      "NGA": {
+        "alpha_original": 0.68844273686409,
+        "alpha_sensitivity": 0.5106692910194399,
+        "value_added_2190_original": 287979027280020.7,
+        "value_added_2190_sensitivity": 66675432435185.84
+      },
+      "SAU": {
+        "alpha_original": 0.720382124185562,
+        "alpha_sensitivity": 0.5106692910194399,
+        "value_added_2190_original": 730736390495.8263,
+        "value_added_2190_sensitivity": 957450189558.8898
+      }
+    },
+    "role": "ARCHIVED_2190_ONLY_NOT_CONTROLLED_AGAINST_CURRENT_2226",
+    "sector_A_level_adjustment": "A_new=A_old*(K_2060/L_2060)^(alpha_old-alpha_new)",
+    "source_archive": {
+      "bytes": 126160595,
+      "path": "/home/ubuntu/loom_earth_2026_2035/source_archives/LOOM_2226_Pixel_Loose_Project_Archive_2026-09-03.zip",
+      "role": "original_pixel_loose_project_archive",
+      "sha256": "5a5ccb71805050a11f23b4ada4f8df91bf6823cc9a14cdd0201315bbd19b4f8f"
+    }
+  },
+  "source_documentation": {
+    "PWT_11_home": "https://www.rug.nl/ggdc/productivity/pwt/?lang=en",
+    "PWT_resource_rent_note": "https://www.rug.nl/ggdc/docs/what_is_new_in_pwt90.pdf"
+  },
+  "starting_state": {
+    "active_frozen_2060_country_state": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/frozen_2060/countries_2060.ndjson",
+    "active_frozen_2060_manifest": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/frozen_2060/Earth2060_boundary_FROZEN_manifest_v1.0.json",
+    "frozen_2026_country_seed": "/home/ubuntu/LOOM_Earth2026/earth_empirical_baseline_FROZEN_v1.0/seed_2026/countries_2026.ndjson",
+    "frozen_2026_manifest": "/home/ubuntu/LOOM_Earth2026/earth_empirical_baseline_FROZEN_v1.0/Earth_empirical_baseline_FROZEN_manifest_v1.0.json"
+  },
+  "verdict": "BASELINE_FINALIZED_EXISTING_SCENARIO",
+  "verification_this_finalization": {
+    "additional_evidence_files_checked": 15,
+    "all_hashes_match": true,
+    "alpha_2026_to_policy_to_2226_exact_match_80": true,
+    "archived_2190_TFP_max_absolute_difference": 8.881784197001252e-16,
+    "archived_2190_population_exact_same_80": true,
+    "archived_alpha_changed_country_count": 40,
+    "endpoint_rows": {
+      "assets": 3200,
+      "countries": 80,
+      "sectors": 800
+    },
+    "endpoint_sum_minus_recorded_global_totals": {
+      "capital": 0.0,
+      "investment": 0.0,
+      "population": 0.0,
+      "value_added": 0.0
+    },
+    "previous_manifest_file_hashes_checked": 60
+  },
+  "verified_file_register": [
+    {
+      "bytes": 326756,
+      "path": "/home/ubuntu/LOOM_Earth2026/earth2026_2031_cobb_douglas_v0.2/countries_2026_2031.ndjson",
+      "role": "active_source_or_code",
+      "sha256": "8524ada09880514088d8293df84b0cd5c4eac30dcf8d694b72192c75096e9f7c"
+    },
+    {
+      "bytes": 2900554,
+      "path": "/home/ubuntu/LOOM_Earth2026/earth2026_2031_cobb_douglas_v0.2/country_sectors_2026_2031.ndjson",
+      "role": "active_source_or_code",
+      "sha256": "b34ea2829d7c7e9ee721ea434ee5d1ff93f1cd8d0cc3994ebd8d619dc2f8020a"
+    },
+    {
+      "bytes": 990515,
+      "path": "/home/ubuntu/LOOM_Earth2026/earth2026_sector_capital_asset_reconstruction_v0.2/country_sector_assets_2026.ndjson",
+      "role": "active_source_or_code",
+      "sha256": "9237259645c73b5de66e83e5a0aa36165fef173438a1aadbb289d5b1964d90f7"
+    },
+    {
+      "bytes": 85571,
+      "path": "/home/ubuntu/LOOM_Earth2026/earth2060_2190_ctfp_gap_frontier_v0.6.1/countries_2190.ndjson",
+      "role": "active_source_or_code",
+      "sha256": "6b33e9fcf13d8164325a45ff1e0dc977ebc20caa6b205df7472101bd3b24ede3"
+    },
+    {
+      "bytes": 328031,
+      "path": "/home/ubuntu/LOOM_Earth2026/earth_empirical_baseline_FROZEN_v1.0/seed_2026/countries_2026.ndjson",
+      "role": "active_source_or_code",
+      "sha256": "922fe4483b38d2497cc0dcb4f064532f8022ba889bad8a5e77d25c9356bb9b58"
+    },
+    {
+      "bytes": 96247,
+      "path": "/home/ubuntu/LOOM_Earth2026/oecd_ten_sector_2024/current_country_sector_gross_output_2024.ndjson",
+      "role": "active_source_or_code",
+      "sha256": "1b02a1bb16e5b82e62c7b115e8b084ff0fe5558788bf6068e47e4c4fd3c606a3"
+    },
+    {
+      "bytes": 16557272,
+      "path": "/home/ubuntu/LOOM_Earth2026/raw/WPP2024_Demographic_Indicators_Medium.csv.gz",
+      "role": "active_source_or_code",
+      "sha256": "286ac36bb1415e2e1ade03acfef0a29f0e4c087e2f78e38c48f50c5df89082bc"
+    },
+    {
+      "bytes": 19885780,
+      "path": "/home/ubuntu/LOOM_Earth2026/raw/WPP2024_PopulationByAge5GroupSex_Percentage_Medium.csv.gz",
+      "role": "active_source_or_code",
+      "sha256": "c2a7b248c01399688a3461d4a2303c93aabc7d36e5dbf6b378429ed4bf40b012"
+    },
+    {
+      "bytes": 13385,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/archived_wrapper_path_fixed.py",
+      "role": "active_source_or_code",
+      "sha256": "2c880dbe98bdd12dff2589396702c2ee0b47b67b5e8b600537b70968c0214f3a"
+    },
+    {
+      "bytes": 8808,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/checkpoint_io.py",
+      "role": "active_source_or_code",
+      "sha256": "5461476dcb5dc851bf2d7e053e7c0e5a93f98233917a600846e3444611cb1b58"
+    },
+    {
+      "bytes": 9702,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/frozen_2060/Earth2060_boundary_FROZEN_manifest_v1.0.json",
+      "role": "active_source_or_code",
+      "sha256": "4cb20e2eed2ffe949f6b0b61f6f9306506ad4ead092d7e8b83b27abd734e3b15"
+    },
+    {
+      "bytes": 1501,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/horizon_checkpoint.py",
+      "role": "active_source_or_code",
+      "sha256": "80e58b3de2375bb18e6cf0f813b1419fbecd644ef1bd29c3c33df31820fab07b"
+    },
+    {
+      "bytes": 2977,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/prepare_freeze.py",
+      "role": "active_source_or_code",
+      "sha256": "28b1efa9ae7b4c695f55c27f6dc4517c6f79712a14ae2a8b7a80d2ede30ed046"
+    },
+    {
+      "bytes": 15978,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/qualify.py",
+      "role": "active_source_or_code",
+      "sha256": "5f858add8925d541b7f0a21b86777f061753c3ffa67950d9e10ea12cb10bf30d"
+    },
+    {
+      "bytes": 91750,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/runner.py",
+      "role": "active_source_or_code",
+      "sha256": "b9b3b2d7c2ea461dbeab2d20ad342c17daeb154fc208ddfd5460080aba9c2b6e"
+    },
+    {
+      "bytes": 29815,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_bridge.py",
+      "role": "active_source_or_code",
+      "sha256": "50fc8d9b38bf0336e34cd9214158120a3177df207fa3bcd977adf5eeea96b0a7"
+    },
+    {
+      "bytes": 71088,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_mid.py",
+      "role": "active_source_or_code",
+      "sha256": "fb944c8d29e35bcd010d39e149604010dfdd89ab832764f87560844ef19947da"
+    },
+    {
+      "bytes": 4185,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/test_repairs.py",
+      "role": "active_source_or_code",
+      "sha256": "5f13537892feaff2af3b24a1da2fc31c40edd1b0ffec4d4069d11a8738f58b37"
+    },
+    {
+      "bytes": 8808,
+      "path": "/home/ubuntu/loom_earth_2026_2035/horizon_adapter_v0.6.1_d1_c1_h1/checkpoint_io.py",
+      "role": "active_source_or_code",
+      "sha256": "5461476dcb5dc851bf2d7e053e7c0e5a93f98233917a600846e3444611cb1b58"
+    },
+    {
+      "bytes": 1498,
+      "path": "/home/ubuntu/loom_earth_2026_2035/horizon_adapter_v0.6.1_d1_c1_h1/horizon_checkpoint.py",
+      "role": "active_source_or_code",
+      "sha256": "336bf2ba214224767fca993b48b0966546ab8e6e76a7874a7bca63fe59574b1a"
+    },
+    {
+      "bytes": 90161,
+      "path": "/home/ubuntu/loom_earth_2026_2035/horizon_adapter_v0.6.1_d1_c1_h1/runner_v0.6.1_d1_c1_h1.py",
+      "role": "active_source_or_code",
+      "sha256": "9c738cbaed290d220d77f31ffd4de15420b98b90b0d22f68aa85032941357bdf"
+    },
+    {
+      "bytes": 54741172,
+      "path": "/home/ubuntu/loom_earth_2026_2035/oecd_ten_sector_2024/current_bilateral_sector_final_demand_2024.ndjson",
+      "role": "active_source_or_code",
+      "sha256": "0bf737144d54f9159e42bbdc2aeb015b1c02707f2f9d231a79fccae369125a2c"
+    },
+    {
+      "bytes": 108867056,
+      "path": "/home/ubuntu/loom_earth_2026_2035/oecd_ten_sector_2024/current_bilateral_sector_intermediate_2024.ndjson",
+      "role": "active_source_or_code",
+      "sha256": "ec15a137fa75201136994d4c5d3dcbde4608fd22cd497b48d7c549be78d6fcd1"
+    },
+    {
+      "bytes": 29802,
+      "path": "/home/ubuntu/loom_earth_2026_2035/recovered_sources/LOOM_SOLAR_CIVPROP_Earth2026_2031_Capital_Asset_Bridge_Rebuild_v0.1.py",
+      "role": "active_source_or_code",
+      "sha256": "522af08e839965b7bb74433a3cd42a49ead433942cdbca215af565af89f7a31b"
+    },
+    {
+      "bytes": 70895,
+      "path": "/home/ubuntu/loom_earth_2026_2035/recovered_sources/LOOM_SOLAR_CIVPROP_Earth2031_2060_Asset_Aware_Structural_Reallocation_Qualification_v0.5.py",
+      "role": "active_source_or_code",
+      "sha256": "e96ad4064f67ec14e3d4717bfa2a650dea4bd5b463603fd906e2139afd035afd"
+    },
+    {
+      "bytes": 126160595,
+      "path": "/home/ubuntu/loom_earth_2026_2035/source_archives/LOOM_2226_Pixel_Loose_Project_Archive_2026-09-03.zip",
+      "role": "active_source_or_code",
+      "sha256": "5a5ccb71805050a11f23b4ada4f8df91bf6823cc9a14cdd0201315bbd19b4f8f"
+    },
+    {
+      "bytes": 5839841,
+      "path": "/home/ubuntu/loom_earth_2026_2035/source_archives/pwt110.xlsx",
+      "role": "active_source_or_code",
+      "sha256": "7b337e94f39dfe304bc459e433f8ce0624496c812707ae0c924888f5142b3ab3"
+    },
+    {
+      "bytes": 1362645,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/MATERIAL_CHANGES.csv",
+      "role": "active_run_output",
+      "sha256": "7f6e8ced176d71726bfe70ae99efbb8fb8c4a2863782db52e94caeee5b98441a"
+    },
+    {
+      "bytes": 9348,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/REPAIR_AND_QUALIFICATION.md",
+      "role": "active_run_output",
+      "sha256": "55a873cc5418c61af4f56ff2dcd27722e283c094492741cc818d06177351952c"
+    },
+    {
+      "bytes": 35922,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/WORLD_2226.csv",
+      "role": "active_run_output",
+      "sha256": "b6c7fb43d6d30947884a724b234ca5f20dbc5e303ca00c6ba6b08760a5109bc8"
+    },
+    {
+      "bytes": 9702,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/frozen_2060/Earth2060_boundary_FROZEN_manifest_v1.0.json",
+      "role": "active_run_output",
+      "sha256": "4cb20e2eed2ffe949f6b0b61f6f9306506ad4ead092d7e8b83b27abd734e3b15"
+    },
+    {
+      "bytes": 83667,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/frozen_2060/countries_2060.ndjson",
+      "role": "active_run_output",
+      "sha256": "945830e72085dd743a6d6c4e7a7acbc977fb80ae46a821e1b29684e9cc8b82c5"
+    },
+    {
+      "bytes": 1442264,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/frozen_2060/country_sector_assets_2060.ndjson",
+      "role": "active_run_output",
+      "sha256": "c76b7b3965c0c87fce7410cf0463c1908315262f0ce9eeab2023844ca6649724"
+    },
+    {
+      "bytes": 927556,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/frozen_2060/country_sectors_2060.ndjson",
+      "role": "active_run_output",
+      "sha256": "cb55d98a45772eb7c35bbb18ca8459f83962372aa350fcd9e7324415a2644ca9"
+    },
+    {
+      "bytes": 69436697,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/resume_2226/complete_checkpoints/earth_2226.checkpoint.zip",
+      "role": "active_run_output",
+      "sha256": "3b0d29b6445366f0c33adee53d6bf85f103903c7297894a55e6ec10a69375608"
+    },
+    {
+      "bytes": 152794,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/resume_2226/trajectory_report.json",
+      "role": "active_run_output",
+      "sha256": "2498ee02421d19c85368ddb84754f006d59e948e88ff1af37eaf5ff4db68603a"
+    },
+    {
+      "bytes": 420882,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2026_2031/countries_2026_2031.ndjson",
+      "role": "active_run_output",
+      "sha256": "caf4e5ccd2095e48c6e866a561cd10701bd8ec90860954051835a391be23c416"
+    },
+    {
+      "bytes": 72725,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2026_2031/countries_2031.ndjson",
+      "role": "active_run_output",
+      "sha256": "0c8f36da5e3bc529ac9709aeb57e7a956f3e4031ca988824472557ea4116bf6d"
+    },
+    {
+      "bytes": 7657150,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2026_2031/country_sector_assets_2026_2031.ndjson",
+      "role": "active_run_output",
+      "sha256": "253baabc0e2f2a9c443c88a17650b1d5353ac2e8f1e0f2b7561b12c4532b5fec"
+    },
+    {
+      "bytes": 1308288,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2026_2031/country_sector_assets_2031.ndjson",
+      "role": "active_run_output",
+      "sha256": "e8ed963b45e69940e142ee8205f52c0d7b95a321e0dfade5212268bbea1a3312"
+    },
+    {
+      "bytes": 4350784,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2026_2031/country_sectors_2026_2031.ndjson",
+      "role": "active_run_output",
+      "sha256": "34d67c4847cae7314dbee3c532297e27994e1308ec2cc5d60ce8e1cc3f0fc869"
+    },
+    {
+      "bytes": 740820,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2026_2031/country_sectors_2031.ndjson",
+      "role": "active_run_output",
+      "sha256": "53e5ebbcfc1b95ba3f2adf1fbb28df12370f3923b550891340e94f77a011c4c3"
+    },
+    {
+      "bytes": 19638,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2026_2031/report.json",
+      "role": "active_run_output",
+      "sha256": "eef50eb4c2337c49318d4745c8ae43355c8aac818d14b583d858305b2989d8d1"
+    },
+    {
+      "bytes": 2514890,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2031_2060/countries_2031_2060.ndjson",
+      "role": "active_run_output",
+      "sha256": "0f3639bb4677c7c9b01d72bfdd0154f29abc1f3312bc2e4ca85f055822f4bd7b"
+    },
+    {
+      "bytes": 83667,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2031_2060/countries_2060.ndjson",
+      "role": "active_run_output",
+      "sha256": "945830e72085dd743a6d6c4e7a7acbc977fb80ae46a821e1b29684e9cc8b82c5"
+    },
+    {
+      "bytes": 43287613,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2031_2060/country_sector_assets_2031_2060.ndjson",
+      "role": "active_run_output",
+      "sha256": "c45be95668fd579f2d63672dfd60f6f3e91c1923ac951a1e608a8106a3850525"
+    },
+    {
+      "bytes": 1442264,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2031_2060/country_sector_assets_2060.ndjson",
+      "role": "active_run_output",
+      "sha256": "c76b7b3965c0c87fce7410cf0463c1908315262f0ce9eeab2023844ca6649724"
+    },
+    {
+      "bytes": 27953746,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2031_2060/country_sectors_2031_2060.ndjson",
+      "role": "active_run_output",
+      "sha256": "e74f3c86bc47d72f434e3579dcab15657fb02a522f7a69a66f95b1b4c8d348bb"
+    },
+    {
+      "bytes": 927556,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2031_2060/country_sectors_2060.ndjson",
+      "role": "active_run_output",
+      "sha256": "cb55d98a45772eb7c35bbb18ca8459f83962372aa350fcd9e7324415a2644ca9"
+    },
+    {
+      "bytes": 64365,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/stage_2031_2060/report.json",
+      "role": "active_run_output",
+      "sha256": "c1e446182cce6cfb0a0ce805b7e9e9ca168bbbbd7406bab61282ce4d921288f0"
+    },
+    {
+      "bytes": 68912133,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/complete_checkpoints/earth_2225.checkpoint.zip",
+      "role": "active_run_output",
+      "sha256": "7403b929dfea73b95149f76b6aa79a7ad4016936a0ebaceb0fedc3464c101187"
+    },
+    {
+      "bytes": 69256991,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/complete_checkpoints/earth_2226.checkpoint.zip",
+      "role": "active_run_output",
+      "sha256": "d606ffc048e3d96882d257e666e0a7ec8f25e3d125a1852ed31fac9fdae5dd1d"
+    },
+    {
+      "bytes": 13306,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/checkpoints.json",
+      "role": "active_run_output",
+      "sha256": "1ddd7a00b1424feac6339a8b1b69ff9a63eb895e457e9148312271c7478bb4a8"
+    },
+    {
+      "bytes": 14213115,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/countries_2060_2226.ndjson",
+      "role": "active_run_output",
+      "sha256": "f464dde0e9527c6d105abc8219e438064dd78609cc6f11d7005e7a8e6b57dfc4"
+    },
+    {
+      "bytes": 85598,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/countries_2226.ndjson",
+      "role": "active_run_output",
+      "sha256": "c9663223400c9b90f2ebf6d9b3877bcc17492b19d87669f8370d3117def80d24"
+    },
+    {
+      "bytes": 233588336,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/country_sector_assets_2060_2226.ndjson",
+      "role": "active_run_output",
+      "sha256": "673a03330cb813f0decd12ede8763e6de7b35ab2709e50de41a9427253dffcfc"
+    },
+    {
+      "bytes": 1397759,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/country_sector_assets_2226.ndjson",
+      "role": "active_run_output",
+      "sha256": "b4dac9335afd88240afabdf3b7fd3e782e69c0024db60dfaa3f216ad0e2caf7a"
+    },
+    {
+      "bytes": 188877401,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/country_sectors_2060_2226.ndjson",
+      "role": "active_run_output",
+      "sha256": "a1290466ebcdde5051165b88dbdde25a5051b453da6d5b9b15a7eee9d6939350"
+    },
+    {
+      "bytes": 1132734,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/results/country_sectors_2226.ndjson",
+      "role": "active_run_output",
+      "sha256": "d0c9374a9b3ffdde0b12f3e70055e6ee768b1c6d6791cfd0840997ccb8fcc19a"
+    },
+    {
+      "bytes": 152787,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/trajectory/trajectory_report.json",
+      "role": "active_run_output",
+      "sha256": "83bd7639601b865a77d13764e294e7eecb9e0282efdbb3c50702938ed91ecdee"
+    },
+    {
+      "bytes": 24701,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/RUN_MANIFEST.json",
+      "role": "predecessor_run_manifest",
+      "sha256": "705116dd3a901c91f67c78303c720cd63287762a6339c392188541830ed066e2"
+    },
+    {
+      "bytes": 9348,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/REPAIR_AND_QUALIFICATION.md",
+      "role": "predecessor_qualification_report",
+      "sha256": "55a873cc5418c61af4f56ff2dcd27722e283c094492741cc818d06177351952c"
+    },
+    {
+      "bytes": 38926,
+      "path": "/home/ubuntu/loom_earth_2026_2035/empirical_baseline_audit_2026_09_22/RUN_MANIFEST.json",
+      "role": "empirical_source_audit_manifest",
+      "sha256": "ada90920f59bc9645de2222ab8defae03d35ada3b3dec04632ed8940d7b3a0a9"
+    },
+    {
+      "bytes": 58228,
+      "path": "/home/ubuntu/loom_earth_2026_2035/empirical_baseline_audit_2026_09_22/BASELINE_AUDIT.csv",
+      "role": "all_80_parameter_audit",
+      "sha256": "2a5d707dc89e24d60cc5fef308cd820e2091b138ee3641c3791153759413fe32"
+    },
+    {
+      "bytes": 11397,
+      "path": "/home/ubuntu/loom_earth_2026_2035/empirical_baseline_audit_2026_09_22/OUTLIER_CAUSAL_REVIEW.md",
+      "role": "causal_audit",
+      "sha256": "06e8ae0e079e75cac8a5ebbc7981a6f956b6bb169f737df3617352845fd00144"
+    },
+    {
+      "bytes": 14704,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_dynamic_successor_2026_09_23/RUN_MANIFEST.json",
+      "role": "rejected_D1_manifest",
+      "sha256": "d1c3dac95c9b9a251186b924709269e7887a5a4675e517d50cc441fc58b3c5af"
+    },
+    {
+      "bytes": 8549,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_dynamic_successor_2026_09_23/PROPAGATION_REPAIR.md",
+      "role": "rejected_D1_report",
+      "sha256": "c0574adb7e4d5274cf47d92587fe5d6c094ec9caceaa50144ecf64c1ae4df68d"
+    },
+    {
+      "bytes": 85549,
+      "path": "/home/ubuntu/LOOM_Earth2026/LOOM_SOLAR_CIVPROP_2060_2190_IQR_WINSORIZED_ALPHA_Sensitivity_v0.1.py",
+      "role": "archived_alpha_only_runner",
+      "sha256": "d769e943b76cb1a37d83689305df820e569d00c650535f86cadfe068a67be5cc"
+    },
+    {
+      "bytes": 40342,
+      "path": "/home/ubuntu/LOOM_Earth2026/Earth2060_2190_ctfp_gap_frontier_iqr_winsor_alpha_sensitivity_report_v0.1.json",
+      "role": "archived_alpha_only_report",
+      "sha256": "96503248c44101e4d011531cee3cde9309a367be0c0baf25c07c3c676e29f00a"
+    },
+    {
+      "bytes": 85425,
+      "path": "/home/ubuntu/LOOM_Earth2026/earth2060_2190_ctfp_gap_frontier_iqr_winsor_alpha_sensitivity_v0.1/countries_2190.ndjson",
+      "role": "archived_alpha_only_endpoint",
+      "sha256": "f2b12ad5b339e79f239dc081cece3ce5be13557354bff54a9fb38359d49c011d"
+    },
+    {
+      "bytes": 85571,
+      "path": "/home/ubuntu/LOOM_Earth2026/earth2060_2190_ctfp_gap_frontier_v0.6.1/countries_2190.ndjson",
+      "role": "archived_original_endpoint",
+      "sha256": "6b33e9fcf13d8164325a45ff1e0dc977ebc20caa6b205df7472101bd3b24ede3"
+    },
+    {
+      "bytes": 5984,
+      "path": "/home/ubuntu/LOOM_Earth2026/raw/program_package_pwt_110/program_package_pwt_110/gen_final_pwt.do",
+      "role": "PWT_11_source_variable_labels",
+      "sha256": "eecc7db1cb7f5c7198bc16f5423fcf6e9d17b65492fd46e451550761eab2464b"
+    },
+    {
+      "bytes": 11971,
+      "path": "/home/ubuntu/LOOM_Earth2026/raw/program_package_pwt_110/program_package_pwt_110/gen_pwt110.do",
+      "role": "PWT_11_source_labsh_merge_and_TFP_code",
+      "sha256": "c058390b3102b6d486a3c6922dc85bddcf05e6e000ecb666a223a8466ce21707"
+    },
+    {
+      "bytes": 231595,
+      "path": "/home/ubuntu/LOOM_Earth2026/raw/program_package_pwt_110/program_package_pwt_110/Data/lab_share_data.dta",
+      "role": "PWT_11_underlying_labor_share_data_unparsed",
+      "sha256": "cab81ee5a301977735837ca26a131c95552819ce08d2ae5cef15e6696247f8b0"
+    },
+    {
+      "bytes": 8329,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_baseline_2226_2026_09_23/EARTH_2226_BASELINE.md",
+      "role": "finalization_report",
+      "sha256": "398921d1069606312445ef3370a92404b9baeb04aab810c4e6520c886db2bf35"
+    }
+  ]
+}

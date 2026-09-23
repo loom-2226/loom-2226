@@ -1,0 +1,7 @@
+# Local Earth long-run economic baseline record
+
+**Class: data / manifest. Status: local commit only, non-canon, not deployed.** This directory is an exact-byte Git snapshot of the local Earth baseline designation and its compact qualification/provenance records. It does not contain the large annual output, source datasets or complete checkpoint. Those remain at the absolute quantifactus paths pinned, with sizes and SHA-256 hashes, in `investment_rate_source_round1_2026_09_23/RUN_MANIFEST.json`.
+
+The operative local pointer is `/home/ubuntu/loom_earth_2026_2035/EARTH_LONG_RUN_ECONOMIC_BASELINE_CURRENT.json`. The committed copy records its value at commit time; it does not independently authorize a production or canon change. The preceding v1 baseline manifest and report are retained here as exact-byte rollback provenance, while the original v1 directory and outputs remain untouched.
+
+From `earth_baseline_integration_2026_09_23/`, run `python3 -B -m unittest -v test_earth_baseline_resolver.py` on quantifactus. The resolver reads the committed pointer copy and verifies the separately preserved, hash-pinned source artifacts; no simulation runs. A restore to another host requires restoring those source artifacts and explicitly remapping the absolute paths before using the resolver. There is no SQLite/schema, launcher, runtime, Navigator, media or release compatibility change in this commit.
