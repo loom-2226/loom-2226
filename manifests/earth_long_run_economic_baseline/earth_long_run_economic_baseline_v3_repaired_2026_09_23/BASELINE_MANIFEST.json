@@ -84,6 +84,26 @@
       "bytes": 2806,
       "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/verify_results.py",
       "sha256": "e630317eba6cedc3aa03abb32dcbe627f3e524308d3b5559868f7deb7991f770"
+    },
+    "DATA_DICTIONARY.md": {
+      "bytes": 33110,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/DATA_DICTIONARY.md",
+      "sha256": "46228761fcf292f828620377fea23da8a1b26a80b1b96c5fdb5f088ed9be1fcf"
+    },
+    "FIELD_SEMANTICS.json": {
+      "bytes": 136052,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/FIELD_SEMANTICS.json",
+      "sha256": "f6c3462f9f7ac82ad1f61794f5d8c4cb44ac3b7fc2bf77f3178c476e3c32c13e"
+    },
+    "README.md": {
+      "bytes": 918,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/README.md",
+      "sha256": "b62189d5527edb28c80dec67a1f14fc361f0d09f7c738252a9c4c9e3fdd0f21f"
+    },
+    "test_field_semantics.py": {
+      "bytes": 7992,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/test_field_semantics.py",
+      "sha256": "ef26c02dd25966afd27adf4a49d68ba800c752e77d915f9344c455b2c9064d12"
     }
   },
   "decision": "PROMOTED_REPAIRED_LONG_RUN_SUCCESSOR",
@@ -168,5 +188,33 @@
       "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/independent_validation.log",
       "sha256": "65b0df0136ced5ed3a53844cd9a49c50f70e21ceb643409a5f48800a1f781381"
     }
+  },
+  "semantic_contract": {
+    "description": "Read-only field semantics and verification for the unchanged v3 numerical baseline",
+    "schema": "loom-earth-v3-field-semantics-v1",
+    "files": {
+      "DATA_DICTIONARY.md": {
+        "bytes": 33110,
+        "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/DATA_DICTIONARY.md",
+        "sha256": "46228761fcf292f828620377fea23da8a1b26a80b1b96c5fdb5f088ed9be1fcf"
+      },
+      "FIELD_SEMANTICS.json": {
+        "bytes": 136052,
+        "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/FIELD_SEMANTICS.json",
+        "sha256": "f6c3462f9f7ac82ad1f61794f5d8c4cb44ac3b7fc2bf77f3178c476e3c32c13e"
+      },
+      "README.md": {
+        "bytes": 918,
+        "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/README.md",
+        "sha256": "b62189d5527edb28c80dec67a1f14fc361f0d09f7c738252a9c4c9e3fdd0f21f"
+      },
+      "test_field_semantics.py": {
+        "bytes": 7992,
+        "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/test_field_semantics.py",
+        "sha256": "ef26c02dd25966afd27adf4a49d68ba800c752e77d915f9344c455b2c9064d12"
+      }
+    },
+    "model_behavior_changed": false,
+    "numerical_outputs_changed": false
   }
 }
