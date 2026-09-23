@@ -1,0 +1,125 @@
+--- /home/ubuntu/loom_earth_2026_2035/alpha_ceiling_round1_2026_09_23/runner.py
++++ /home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/runner.py
+@@ -94,6 +94,10 @@
+ import argparse
+ import horizon_checkpoint as _checkpoint_io
+ from alpha_transform import transform as _transform_alpha
++from investment_rate_source import load_rates as _load_national_investment_rates
++from investment_rate_source import SOURCE as WDI_GFCF_SOURCE
++from investment_rate_source import SOURCE_SHA256 as WDI_GFCF_SOURCE_SHA256
++from investment_rate_source import POLICY_ID as NATIONAL_INVESTMENT_POLICY_ID
+ 
+ ROOT = Path("/home/ubuntu/LOOM_Earth2026")
+ FREEZE = Path(__file__).resolve().parent / "frozen_2060"
+@@ -107,6 +111,7 @@
+ ALPHA_CEILING = None
+ ALPHA_CEILING_ID = "NONE"
+ ALPHA_TRANSFORM_SHA256 = hashlib.sha256((Path(__file__).resolve().parent / "alpha_transform.py").read_bytes()).hexdigest()
++INVESTMENT_SOURCE_HELPER_SHA256 = hashlib.sha256((Path(__file__).resolve().parent / "investment_rate_source.py").read_bytes()).hexdigest()
+ 
+ OECD = Path("/home/ubuntu/loom_earth_2026_2035/oecd_ten_sector_2024")
+ OECD_INTER = OECD / "current_bilateral_sector_intermediate_2024.ndjson"
+@@ -1113,15 +1118,16 @@
+             raise ValueError("Economic policy not loaded into active state")
+     return policy
+ 
+-def effective_policy_vector(policy, ceiling):
+-    return [[iso, min(alpha, ceiling) if ceiling is not None else alpha, investment_rate]
+-            for iso, alpha, investment_rate in policy["ordered_vector"]]
+-
+-def verify_effective_policy(base, policy):
+-    expected=effective_policy_vector(policy, ALPHA_CEILING)
++def effective_policy_vector(policy, ceiling, national_rates):
++    return [[iso, min(alpha, ceiling) if ceiling is not None else alpha,
++             national_rates[iso]["investment_rate"]]
++            for iso, alpha, _original_rate in policy["ordered_vector"]]
++
++def verify_effective_policy(base, policy, national_rates):
++    expected=effective_policy_vector(policy, ALPHA_CEILING, national_rates)
+     actual=[[iso,base[iso]["alpha"],base[iso]["investment_rate"]] for iso in sorted(base)]
+     if actual!=expected:
+-        raise ValueError("Alpha experiment policy not loaded into active state")
++        raise ValueError("National GFCF and alpha experiment policy not loaded into active state")
+     return hashlib.sha256(json.dumps(expected,separators=(',',':'),allow_nan=False).encode()).hexdigest()
+ 
+ def main():
+@@ -1129,6 +1135,9 @@
+     print(f"VISIBLE OUTPUT ROOT: {ROOT}",flush=True)
+ 
+     _policy=verify_policy()
++    _national_rates,_national_summary=_load_national_investment_rates(
++        [row[0] for row in _policy["ordered_vector"]]
++    )
+     _compat,_constants=_checkpoint_io.compatibility(globals(),__file__)
+     if _options.resume:
+         _restored,_manifest=_checkpoint_io.load(_options.resume,_compat,_constants)
+@@ -1185,7 +1194,8 @@
+     else:
+         required=(
+             COUNTRIES_2060_SRC,SECTORS_2060_SRC,ASSETS_2060_SRC,
+-            FREEZE_MANIFEST,OECD_INTER,OECD_FINAL,WPP_TOTAL,WPP_AGE,PWT_MAIN
++            FREEZE_MANIFEST,OECD_INTER,OECD_FINAL,WPP_TOTAL,WPP_AGE,PWT_MAIN,
++            WDI_GFCF_SOURCE
+         )
+         for p in required:
+             if not p.is_file():
+@@ -1421,6 +1431,8 @@
+ 
+     if not _options.resume:
+         verify_policy(base)
++        for iso in sorted(base):
++            base[iso]["investment_rate"]=_national_rates[iso]["investment_rate"]
+         boundary_records=[]
+         for iso in sorted(base):
+             original=base[iso]["alpha"]
+@@ -1439,10 +1451,18 @@
+             base[iso]["alpha"]=effective
+     else:
+         boundary_records=None
+-    _effective_policy_fingerprint=verify_effective_policy(base,_policy)
++    _effective_policy_fingerprint=verify_effective_policy(base,_policy,_national_rates)
+     if boundary_records is not None:
+         (OUTDIR/"alpha_boundary_transform.json").write_text(
+             json.dumps(boundary_records,indent=2,sort_keys=True)+"\n",encoding="utf-8"
++        )
++        (OUTDIR/"investment_rate_provenance.json").write_text(
++            json.dumps({"policy_id":NATIONAL_INVESTMENT_POLICY_ID,
++                        "source":str(WDI_GFCF_SOURCE),
++                        "source_sha256":WDI_GFCF_SOURCE_SHA256,
++                        "summary":_national_summary,
++                        "countries":_national_rates},indent=2,sort_keys=True)+"\n",
++            encoding="utf-8"
+         )
+     _execution_start_year=_current_year
+ 
+@@ -2103,6 +2123,10 @@
+                             "alpha_ceiling":ALPHA_CEILING,
+                             "effective_policy_vector_sha256":_effective_policy_fingerprint,
+                             "transform_source_sha256":ALPHA_TRANSFORM_SHA256},
++        "investment_rate_source":{"id":NATIONAL_INVESTMENT_POLICY_ID,
++                                  "wdi_source_sha256":WDI_GFCF_SOURCE_SHA256,
++                                  "helper_sha256":INVESTMENT_SOURCE_HELPER_SHA256,
++                                  "summary":_national_summary},
+         "horizon_adapter":{
+             "model_version":_checkpoint_io.MODEL,
+             "demographic_scenario":_checkpoint_io.SCENARIO,
+@@ -2358,7 +2382,7 @@
+     parser.add_argument('--resume',type=Path)
+     parser.add_argument('--stop-after',type=int)
+     parser.add_argument('--save-at',type=int,action='append',default=[])
+-    parser.add_argument('--alpha-ceiling',type=float,choices=(0.50,0.55,0.60,0.65))
++    parser.add_argument('--alpha-ceiling',type=float,choices=(0.60,),required=True)
+     options=parser.parse_args()
+     global ALPHA_CEILING,ALPHA_CEILING_ID
+     ALPHA_CEILING=options.alpha_ceiling
+--- /home/ubuntu/loom_earth_2026_2035/alpha_ceiling_round1_2026_09_23/horizon_checkpoint.py
++++ /home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/horizon_checkpoint.py
+@@ -1,7 +1,7 @@
+ """Explicit h1 model contract over the unchanged c1 format-1 codec."""
+ import checkpoint_io as codec
+ 
+-MODEL='v0.6.1-d1-c1-h1-r1-alpha-round1'
++MODEL='v0.6.1-d1-c1-h1-r1-alpha060-national-gfcf1'
+ SCENARIO={
+     'version':'WPP2024_MEDIUM_DECAYING_TAIL_TO_2226_v1',
+     'empirical_projection_end_year':2100,

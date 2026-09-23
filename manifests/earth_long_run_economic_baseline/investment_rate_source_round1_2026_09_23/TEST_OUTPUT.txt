@@ -1,0 +1,18 @@
+test_active_runner_uses_only_harmonized_rate_and_point_six_alpha (test_investment_rate_source.NationalInvestmentRateTests.test_active_runner_uses_only_harmonized_rate_and_point_six_alpha) ... ok
+test_inherited_replacement_shortfall_keeps_expansion_zero (test_investment_rate_source.NationalInvestmentRateTests.test_inherited_replacement_shortfall_keeps_expansion_zero) ... ok
+test_invalid_or_incomplete_series_rejected (test_investment_rate_source.NationalInvestmentRateTests.test_invalid_or_incomplete_series_rejected) ... ok
+test_latest_observation_and_same_series_median (test_investment_rate_source.NationalInvestmentRateTests.test_latest_observation_and_same_series_median) ... ok
+test_real_source_hash_coverage_and_vintage (test_investment_rate_source.NationalInvestmentRateTests.test_real_source_hash_coverage_and_vintage) ... ok
+test_source_hash_mismatch_rejected (test_investment_rate_source.NationalInvestmentRateTests.test_source_hash_mismatch_rejected) ... ok
+test_above_cap_rule_and_continuity (test_alpha_transform.UniversalAlphaTransformTests.test_above_cap_rule_and_continuity) ... ok
+test_all_800_frozen_sectors_continuity (test_alpha_transform.UniversalAlphaTransformTests.test_all_800_frozen_sectors_continuity) ... ok
+test_below_cap_identity (test_alpha_transform.UniversalAlphaTransformTests.test_below_cap_identity) ... ok
+test_monotonicity (test_alpha_transform.UniversalAlphaTransformTests.test_monotonicity) ... ok
+test_no_cap_identity (test_alpha_transform.UniversalAlphaTransformTests.test_no_cap_identity) ... ok
+test_universality_no_country_argument (test_alpha_transform.UniversalAlphaTransformTests.test_universality_no_country_argument) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.470s
+
+OK
+MAX_BOUNDARY_CONTINUITY_RELATIVE_RESIDUAL=6.4830158925129025e-16

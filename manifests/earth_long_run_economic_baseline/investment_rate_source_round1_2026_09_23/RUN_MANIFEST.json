@@ -1,0 +1,387 @@
+{
+  "alpha_ceiling": 0.6,
+  "boundary_check": {
+    "annual_gate_failures": [],
+    "boundary": {
+      "countries": {
+        "byte_identical": true,
+        "rows": 80,
+        "sha256": "df8b2ef0ce687990b7b825a4eb87bd7aab5b15e98b48250cd35ad1be2f355201"
+      },
+      "country_sector_assets": {
+        "byte_identical": true,
+        "rows": 3200,
+        "sha256": "2ef056bfb9c41e1b5c8f0eac51198c08e78ecf14dcb16e7bbaaed3a9eae5367a"
+      },
+      "country_sectors": {
+        "byte_identical": true,
+        "rows": 800,
+        "sha256": "24bdc7d535aa9725fefe31e7dcfcae08fab98142f8218ae040d60c98a6bd7d27"
+      }
+    },
+    "max_2061_alpha_difference_vs_cap060": 0.0,
+    "max_2061_investment_rate_residual": 2.7755575615628914e-17,
+    "passed": true
+  },
+  "code": [
+    {
+      "bytes": 94211,
+      "path": "/home/ubuntu/loom_earth_2026_2035/alpha_ceiling_round1_2026_09_23/runner.py",
+      "sha256": "d97cd6dbfaf3eb5978caeff6aef0229655bfa4b654645d2697727306107fad35"
+    },
+    {
+      "bytes": 1514,
+      "path": "/home/ubuntu/loom_earth_2026_2035/alpha_ceiling_round1_2026_09_23/horizon_checkpoint.py",
+      "sha256": "234b1800f029a1ac0577a540fe205133f53f9792c17b3995c4cb30cd9b163c8f"
+    },
+    {
+      "bytes": 8808,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/checkpoint_io.py",
+      "sha256": "5461476dcb5dc851bf2d7e053e7c0e5a93f98233917a600846e3444611cb1b58"
+    },
+    {
+      "bytes": 95756,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/runner.py",
+      "sha256": "e500acf56895dbed10e82bfc54ee195d9eeb4eb1bb5c7574fdc951ac51b69e73"
+    },
+    {
+      "bytes": 1525,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/horizon_checkpoint.py",
+      "sha256": "eeada362ee21a267db2f127a0523e62135ed806d672f20ba034932c868a98958"
+    },
+    {
+      "bytes": 1368,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/alpha_transform.py",
+      "sha256": "c128beac9a2e59cc4827f803c54c8d0fce238d4d8ae1dfe0e9cdefca3e7643fa"
+    },
+    {
+      "bytes": 4085,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/investment_rate_source.py",
+      "sha256": "82c41e731c8b15db381e84cf01b65e22a9c250737647859a2ad8276d2dd02572"
+    },
+    {
+      "bytes": 4387,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/test_investment_rate_source.py",
+      "sha256": "c6706144880aa7ab7f34e5d5a982c8c44f976c314681c24d2452f80547a25c1e"
+    },
+    {
+      "bytes": 3299,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/test_alpha_transform.py",
+      "sha256": "da0cf2c382a5df0f5bf6b16c07873c016fd5c154f9869a16ebfb8c8b6b497cc1"
+    },
+    {
+      "bytes": 2670,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/build_provenance.py",
+      "sha256": "3d21dbf2f82a6ef1c1a9c38f14186b2082cc22625c86445ab23f34cc9753decc"
+    },
+    {
+      "bytes": 2454,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/check_boundary.py",
+      "sha256": "2c3f9faae44bb273f4a404226823b1594a8250702685863ac08536902dd5d92b"
+    },
+    {
+      "bytes": 7857,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/analyze_results.py",
+      "sha256": "2b9a3f650a12d2b22de36414af200d852c7223ab6aa7dbcb93ed756de2f9f600"
+    },
+    {
+      "bytes": 1400,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/check_checkpoint_restore.py",
+      "sha256": "4e79666e2163e9631b6bb583d629647edd2744fd5b34677ff62813696f6161ba"
+    },
+    {
+      "bytes": 8652,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/write_report.py",
+      "sha256": "1b5072d39630d12adc0656581914623d0593fb1cbf859a4dfe379199ef14c784"
+    },
+    {
+      "bytes": 4996,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/make_manifest.py",
+      "sha256": "b3447701865365f267e38d8896d421920b9b1b77b1810b3f458345408996fb54"
+    },
+    {
+      "bytes": 6202,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/SOURCE_CORRECTION_DIFF.patch",
+      "sha256": "63fdd5b27c826f22f1085789a623edb6e89aa5fc711840ea73bcb36f81eea211"
+    }
+  ],
+  "commands": [
+    "python3 -m unittest -v test_investment_rate_source.py test_alpha_transform.py",
+    "python3 runner.py --alpha-ceiling 0.60 --stop-after 2061 --output-dir /home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/BOUNDARY_2061",
+    "python3 check_boundary.py",
+    "python3 runner.py --alpha-ceiling 0.60 --output-dir /home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY",
+    "python3 analyze_results.py",
+    "python3 runner.py --alpha-ceiling 0.60 --resume /home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/complete_checkpoints/earth_2226.checkpoint.zip --output-dir /home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/RESUME_2226",
+    "python3 check_checkpoint_restore.py"
+  ],
+  "evidence": [
+    {
+      "bytes": 1840,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TEST_OUTPUT.txt",
+      "sha256": "a6134a5c2bef385cf1c9b258c91fa4bb0a5bb2e3665d3eb4944279833c4c2f97"
+    },
+    {
+      "bytes": 518,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/INHERITED_TEST_OUTPUT.txt",
+      "sha256": "e0b6bc0812348b94c78e18f093eabf7d39f752df7a99ad826e611c2dbf22ff80"
+    },
+    {
+      "bytes": 672,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/BOUNDARY_CHECK.json",
+      "sha256": "a369283f239fd7f458567a3f7c6ce04701bed404ea385f41c9e1c211dd0026b0"
+    },
+    {
+      "bytes": 37172,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/INVESTMENT_RATE_PROVENANCE.csv",
+      "sha256": "a620438a36515cd50ea947d9683c410b2ad57d30925623ff9db42a72ba59b141"
+    },
+    {
+      "bytes": 84294,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/COUNTRY_COMPARISON.csv",
+      "sha256": "86118b6f24256afdf303fba03298ff3eb932412f2662e60b5e51960819b20d00"
+    },
+    {
+      "bytes": 4071,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/COMPARISON_SUMMARY.json",
+      "sha256": "9bd95ed2b6e40e02de58d9baacdc34429b9e093693915e0d2bab22e735fbf67a"
+    },
+    {
+      "bytes": 7735,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/INVESTMENT_RATE_CORRECTION.md",
+      "sha256": "25f598478921e619b4d5434fde82da0668fdd20a1c44c9022c3479cb6b1a1456"
+    },
+    {
+      "bytes": 1614,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/CHECKPOINT_RESTORE_CHECK.json",
+      "sha256": "934f8074ff704af5b8bc7d974b2cce987fa28ba2f459e041e7ab50662abdede2"
+    },
+    {
+      "bytes": 1694,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/ANALYSIS_OUTPUT.json",
+      "sha256": "55c1efe38d53ffa6f319c13a11814aa95855276df1f5cee9759ab9eccc17f3b4"
+    },
+    {
+      "bytes": 5099,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/BOUNDARY_2061.log",
+      "sha256": "4174f505a5592cf6d3f39a70929a920fec4fbf5381c9fd956c58ed91d087e99d"
+    },
+    {
+      "bytes": 8951,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY.log",
+      "sha256": "148a241c5d7b7af3398157b8fccc4c94d952b6a03f6a76427ea4ee5b20082d79"
+    },
+    {
+      "bytes": 3992,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/RESUME_2226.log",
+      "sha256": "469e8a95952ac23058e373d3f4f1a1a938d6de7f260103267ba151c3bcd2df74"
+    }
+  ],
+  "github_live_main": {
+    "loom-2226/loom-2226": "ffac42ab367a5424c4388d57f0436097d2912a42",
+    "loom-2226/loom-research-lab": "efd1aa744f32dd8f2e9c2abbd73512fad1984b62"
+  },
+  "inputs": [
+    {
+      "bytes": 2217225,
+      "path": "/home/ubuntu/LOOM_Earth2026/raw/WB_WDI_NE.GDI.FTOT.ZS_1990_2026.json",
+      "sha256": "bdcba23035a47cefebc486ba17e12a1d8fbc977759668100b69c86b6bf86c5bc"
+    },
+    {
+      "bytes": 10299,
+      "path": "/home/ubuntu/LOOM_Earth2026/Earth2026_source_manifest.json",
+      "sha256": "71943dec0c8a94052aa9b32484ed1760e6e1eb585ef401e23f0bcb09bd743cc3"
+    },
+    {
+      "bytes": 58228,
+      "path": "/home/ubuntu/loom_earth_2026_2035/empirical_baseline_audit_2026_09_22/BASELINE_AUDIT.csv",
+      "sha256": "2a5d707dc89e24d60cc5fef308cd820e2091b138ee3641c3791153759413fe32"
+    },
+    {
+      "bytes": 83667,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/frozen_2060/countries_2060.ndjson",
+      "sha256": "945830e72085dd743a6d6c4e7a7acbc977fb80ae46a821e1b29684e9cc8b82c5"
+    },
+    {
+      "bytes": 927556,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/frozen_2060/country_sectors_2060.ndjson",
+      "sha256": "cb55d98a45772eb7c35bbb18ca8459f83962372aa350fcd9e7324415a2644ca9"
+    },
+    {
+      "bytes": 1442264,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/frozen_2060/country_sector_assets_2060.ndjson",
+      "sha256": "c76b7b3965c0c87fce7410cf0463c1908315262f0ce9eeab2023844ca6649724"
+    },
+    {
+      "bytes": 9702,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/frozen_2060/Earth2060_boundary_FROZEN_manifest_v1.0.json",
+      "sha256": "4cb20e2eed2ffe949f6b0b61f6f9306506ad4ead092d7e8b83b27abd734e3b15"
+    },
+    {
+      "bytes": 108867056,
+      "path": "/home/ubuntu/loom_earth_2026_2035/oecd_ten_sector_2024/current_bilateral_sector_intermediate_2024.ndjson",
+      "sha256": "ec15a137fa75201136994d4c5d3dcbde4608fd22cd497b48d7c549be78d6fcd1"
+    },
+    {
+      "bytes": 54741172,
+      "path": "/home/ubuntu/loom_earth_2026_2035/oecd_ten_sector_2024/current_bilateral_sector_final_demand_2024.ndjson",
+      "sha256": "0bf737144d54f9159e42bbdc2aeb015b1c02707f2f9d231a79fccae369125a2c"
+    },
+    {
+      "bytes": 16557272,
+      "path": "/home/ubuntu/LOOM_Earth2026/raw/WPP2024_Demographic_Indicators_Medium.csv.gz",
+      "sha256": "286ac36bb1415e2e1ade03acfef0a29f0e4c087e2f78e38c48f50c5df89082bc"
+    },
+    {
+      "bytes": 19885780,
+      "path": "/home/ubuntu/LOOM_Earth2026/raw/WPP2024_PopulationByAge5GroupSex_Percentage_Medium.csv.gz",
+      "sha256": "c2a7b248c01399688a3461d4a2303c93aabc7d36e5dbf6b378429ed4bf40b012"
+    },
+    {
+      "bytes": 5839841,
+      "path": "/home/ubuntu/loom_earth_2026_2035/source_archives/pwt110.xlsx",
+      "sha256": "7b337e94f39dfe304bc459e433f8ce0624496c812707ae0c924888f5142b3ab3"
+    }
+  ],
+  "interpretation": "2060 state preserved; national-account rate begins in 2061; 80-economy exploratory long-run scenario",
+  "model_version": "v0.6.1-d1-c1-h1-r1-alpha060-national-gfcf1",
+  "outputs": [
+    {
+      "bytes": 155302,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/trajectory_report.json",
+      "sha256": "32bad30f5921c08d9dbc7856a849423db2405c2062cde50d6841e61b8f2f6386"
+    },
+    {
+      "bytes": 168943,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/results/alpha_boundary_transform.json",
+      "sha256": "52a3988ecf9948d65698aa2b6d19f7552505a7c7b385bd63033a1b443946be09"
+    },
+    {
+      "bytes": 13322,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/results/checkpoints.json",
+      "sha256": "812a8bb408926b1f31e2d794f96e8ad4583228b6f32c0f76b7581a3f7874af0b"
+    },
+    {
+      "bytes": 14163181,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/results/countries_2060_2226.ndjson",
+      "sha256": "60ea8a2adfbf4142b9a8211f512a1816a6e313df4e2c4f876d6b30fe0416cf37"
+    },
+    {
+      "bytes": 85105,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/results/countries_2226.ndjson",
+      "sha256": "bf4e9c59123ddd40f5361b53b051b69d0e1229a3b329711c257320f31006151a"
+    },
+    {
+      "bytes": 233573631,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/results/country_sector_assets_2060_2226.ndjson",
+      "sha256": "85be9a02577cc99b89daed4c39298f05727203e8c0a5c3de343c457c1f4fa4ae"
+    },
+    {
+      "bytes": 1397407,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/results/country_sector_assets_2226.ndjson",
+      "sha256": "7ea415b74f133bc248f2b6463601adc1c9e0cb65b4f443a023f706c655baf7d5"
+    },
+    {
+      "bytes": 188620373,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/results/country_sectors_2060_2226.ndjson",
+      "sha256": "17b6d99698ff6d088281bc83a898f913b8d604c40fb2b958012ff411300ab6d2"
+    },
+    {
+      "bytes": 1131085,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/results/country_sectors_2226.ndjson",
+      "sha256": "42df50963d0334d9df8aae62496f257a4023a396677643f03559470b42da528f"
+    },
+    {
+      "bytes": 45701,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/results/investment_rate_provenance.json",
+      "sha256": "ecb509983d067760c1bd11c80893314968504bceca371945e63f1b20e9f40425"
+    },
+    {
+      "bytes": 69492865,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/TRAJECTORY/complete_checkpoints/earth_2226.checkpoint.zip",
+      "sha256": "46b55915858619c4f8a444012b6bb4eaca175c7c8005ed4348b77397b5cb4fa1"
+    },
+    {
+      "bytes": 155309,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/RESUME_2226/trajectory_report.json",
+      "sha256": "4e31453d1ea50d0574f141c2ad18d841c9f85f5d8e125adc33371245da9ef3ef"
+    },
+    {
+      "bytes": 13322,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/RESUME_2226/results/checkpoints.json",
+      "sha256": "812a8bb408926b1f31e2d794f96e8ad4583228b6f32c0f76b7581a3f7874af0b"
+    },
+    {
+      "bytes": 14163181,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/RESUME_2226/results/countries_2060_2226.ndjson",
+      "sha256": "60ea8a2adfbf4142b9a8211f512a1816a6e313df4e2c4f876d6b30fe0416cf37"
+    },
+    {
+      "bytes": 85105,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/RESUME_2226/results/countries_2226.ndjson",
+      "sha256": "bf4e9c59123ddd40f5361b53b051b69d0e1229a3b329711c257320f31006151a"
+    },
+    {
+      "bytes": 233573631,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/RESUME_2226/results/country_sector_assets_2060_2226.ndjson",
+      "sha256": "85be9a02577cc99b89daed4c39298f05727203e8c0a5c3de343c457c1f4fa4ae"
+    },
+    {
+      "bytes": 1397407,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/RESUME_2226/results/country_sector_assets_2226.ndjson",
+      "sha256": "7ea415b74f133bc248f2b6463601adc1c9e0cb65b4f443a023f706c655baf7d5"
+    },
+    {
+      "bytes": 188620373,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/RESUME_2226/results/country_sectors_2060_2226.ndjson",
+      "sha256": "17b6d99698ff6d088281bc83a898f913b8d604c40fb2b958012ff411300ab6d2"
+    },
+    {
+      "bytes": 1131085,
+      "path": "/home/ubuntu/loom_earth_2026_2035/investment_rate_source_round1_2026_09_23/RESUME_2226/results/country_sectors_2226.ndjson",
+      "sha256": "42df50963d0334d9df8aae62496f257a4023a396677643f03559470b42da528f"
+    }
+  ],
+  "policy_id": "WDI_NATIONAL_GFCF_GDP_LATEST_2024_2025_MEDIAN_2024_FALLBACK_v1",
+  "qualification": {
+    "annual_gate_failures": [],
+    "final_year_reached": 2226,
+    "max_annual_investment_share_move_pp": 0.5056309892205679,
+    "max_annual_labor_share_move_pp": 0.4749565199215544,
+    "max_annual_synthetic_ratio_move": 0.0,
+    "max_annual_technology_multiplier_log_move": 0.0,
+    "max_annual_trade_component_weight_move": 0.00353403659402296,
+    "max_annual_trade_total_variation_move": 0.004592975336223709,
+    "max_asset_to_sector_capital_relative_residual": 0.0,
+    "max_capital_identity_relative_residual": 0.0,
+    "max_employment_reconciliation_relative_residual": 2.2188757786235373e-16,
+    "maximum_country_year_va_growth": {
+      "growth": 0.07131418818382484,
+      "iso3": "NGA",
+      "year": 2061
+    },
+    "maximum_synthetic_labor_equivalent_ratio": {
+      "iso3": null,
+      "ratio": 0.0,
+      "sector": null,
+      "year": null
+    },
+    "minimum_country_year_va_growth": {
+      "growth": -0.02839489521132721,
+      "iso3": "SAU",
+      "year": 2061
+    },
+    "minimum_replacement_coverage": {
+      "iso3": "SAU",
+      "ratio": 0.8501849562327239,
+      "year": 2067
+    },
+    "passed": true
+  },
+  "reference_cap060_country_output": {
+    "bytes": 14179943,
+    "path": "/home/ubuntu/loom_earth_2026_2035/alpha_ceiling_round1_2026_09_23/CAP_060/results/countries_2060_2226.ndjson",
+    "sha256": "f6a153288aa6419cd7ab91e51cc41a56e6cab70c2319bd8b3fe642f25938107a"
+  },
+  "runtime": "3.12.3",
+  "source_release": "World Bank WDI lastupdated 2026-07-13; snapshot acquired 2026-08-31"
+}

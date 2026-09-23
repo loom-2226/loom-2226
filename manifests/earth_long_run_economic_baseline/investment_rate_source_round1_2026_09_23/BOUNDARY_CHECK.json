@@ -1,0 +1,23 @@
+{
+  "annual_gate_failures": [],
+  "boundary": {
+    "countries": {
+      "byte_identical": true,
+      "rows": 80,
+      "sha256": "df8b2ef0ce687990b7b825a4eb87bd7aab5b15e98b48250cd35ad1be2f355201"
+    },
+    "country_sector_assets": {
+      "byte_identical": true,
+      "rows": 3200,
+      "sha256": "2ef056bfb9c41e1b5c8f0eac51198c08e78ecf14dcb16e7bbaaed3a9eae5367a"
+    },
+    "country_sectors": {
+      "byte_identical": true,
+      "rows": 800,
+      "sha256": "24bdc7d535aa9725fefe31e7dcfcae08fab98142f8218ae040d60c98a6bd7d27"
+    }
+  },
+  "max_2061_alpha_difference_vs_cap060": 0.0,
+  "max_2061_investment_rate_residual": 2.7755575615628914e-17,
+  "passed": true
+}
