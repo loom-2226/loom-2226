@@ -6,12 +6,13 @@
   "body_class_test_priors": {
     "ASTEROID": {"surface_possible": true, "orbital_possible": true},
     "DWARF_PLANET": {"surface_possible": true, "orbital_possible": true},
+    "GIANT_PLANET": {"surface_possible": false, "orbital_possible": true},
     "MOON": {"surface_possible": true, "orbital_possible": true},
-    "PLANET": {"surface_possible": true, "orbital_possible": true},
     "STAR": {"surface_possible": false, "orbital_possible": null},
-    "SYSTEM_BARYCENTER": {"surface_possible": false, "orbital_possible": null}
+    "SYSTEM_BARYCENTER": {"surface_possible": false, "orbital_possible": null},
+    "TERRESTRIAL_PLANET": {"surface_possible": true, "orbital_possible": true}
   },
-  "prior_interpretation": "Structural test eligibility only; not observed habitability, engineering feasibility, settlement importance, or canon. Null means unresolved.",
+  "prior_interpretation": "Structural test eligibility only; orbital_possible means an orbital or free-space facility may be associated with the body, not guaranteed long-lived two-body orbit at arbitrary altitude. Not observed habitability, engineering feasibility, settlement importance, or canon. Null means unresolved.",
   "gravity_source_status": "ENGINEERING_REFERENCE_NONCANON",
   "gravity_source_id": "REFERENCE_PHYSICAL_CONSTANTS_v0.1"
 }

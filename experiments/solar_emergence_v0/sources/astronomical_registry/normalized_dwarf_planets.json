@@ -1,0 +1,10 @@
+{
+  "schema": "loom-solar-emergence-frozen-dwarf-planets-v1",
+  "dwarf_planets": [
+    {"display_name": "Ceres", "body_class": "DWARF_PLANET", "physical_subclass": "DWARF_PLANET", "naif_id": "20000001", "horizons_target_id": "1;", "registry_source": "NASA_IAU_FIVE_DWARFS_AND_JPL_SBDB", "ephemeris_identity_status": "JPL_SBDB_SPK_ID"},
+    {"display_name": "Pluto", "body_class": "DWARF_PLANET", "physical_subclass": "DWARF_PLANET", "naif_id": "999", "horizons_target_id": "999", "registry_source": "NASA_IAU_FIVE_DWARFS_AND_JPL_HORIZONS_MB", "ephemeris_identity_status": "JPL_HORIZONS_MAJOR_BODY_ID"},
+    {"display_name": "Haumea", "body_class": "DWARF_PLANET", "physical_subclass": "DWARF_PLANET", "naif_id": "920136108", "horizons_target_id": "920136108", "registry_source": "NASA_IAU_FIVE_DWARFS_AND_JPL_HORIZONS_MB", "ephemeris_identity_status": "JPL_HORIZONS_MAJOR_BODY_ID"},
+    {"display_name": "Makemake", "body_class": "DWARF_PLANET", "physical_subclass": "DWARF_PLANET", "naif_id": "20136472", "horizons_target_id": "136472;", "registry_source": "NASA_IAU_FIVE_DWARFS_AND_JPL_SBDB", "ephemeris_identity_status": "JPL_SBDB_SPK_ID"},
+    {"display_name": "Eris", "body_class": "DWARF_PLANET", "physical_subclass": "DWARF_PLANET", "naif_id": "920136199", "horizons_target_id": "920136199", "registry_source": "NASA_IAU_FIVE_DWARFS_AND_JPL_HORIZONS_MB", "ephemeris_identity_status": "JPL_HORIZONS_MAJOR_BODY_ID"}
+  ]
+}

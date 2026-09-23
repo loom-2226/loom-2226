@@ -1,0 +1,70 @@
+{
+  "schema": "loom-solar-emergence-astronomical-source-manifest-v1",
+  "status": "FROZEN_EXPERIMENTAL_NONCANON_NONPRODUCTION",
+  "frozen_utc": "2026-09-23T22:53:12Z",
+  "parser_version": "astronomical_registry.py:1",
+  "excluded_provisional_count": 292,
+  "inclusion_rule": "All 8 NASA-listed physical planets; all 5 NASA/IAU-recognized dwarf planets; JPL discovery-table natural satellites with both permanent IAU name and number plus a unique JPL Horizons major-body ID; Earth Moon and named Eris/Haumea dwarf satellites from JPL major-body identities; existing LOOM-registered asteroids and reference bodies. Provisional-only satellites and unrelated small bodies are excluded.",
+  "sources": [
+    {
+      "name": "Planetary Satellite Discovery Circumstances",
+      "organization": "NASA/JPL Solar System Dynamics",
+      "url": "https://ssd.jpl.nasa.gov/sats/discovery.html",
+      "retrieved_utc": "2026-09-23T22:26:03Z",
+      "role": "IAU-recognized permanent names and designations for planetary satellites and Pluto satellites",
+      "raw_path": "raw/solar_sats_discovery.raw.gz",
+      "raw_response_sha256": "4836d801269036704bcc685000d198d92a3eb36dc9622b298b3e7c94d8c0daa5",
+      "parser_text_path": "raw/solar_sats_discovery.html",
+      "limitations": "Exact response is retained as gzip; parser HTML has trailing padding removed. The table explicitly excludes Earth's Moon and satellites of dwarf planets other than Pluto; provisional-only rows are filtered out."
+    },
+    {
+      "name": "Horizons major-body list (COMMAND=MB)",
+      "organization": "NASA/JPL Solar System Dynamics",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27MB%27",
+      "retrieved_utc": "2026-09-23T22:28:58Z",
+      "role": "Stable Horizons/NAIF identities for planets, named moons, Sun and dwarf-system physical bodies",
+      "raw_path": "raw/solar_horizons_mb.raw.gz",
+      "raw_response_sha256": "7d966a43e4120fd3c47cdf35d8e3ce50df8cfa3b602aa2e7aea1fe78891c4d0c",
+      "parser_text_path": "raw/solar_horizons_mb.txt",
+      "limitations": "Exact response is retained as gzip; parser text has trailing fixed-width padding removed. ID presence does not guarantee ephemeris coverage at 2226 or navigation grade. Generic MB membership does not itself qualify an object for the experiment."
+    },
+    {
+      "name": "About the Planets",
+      "organization": "NASA Science",
+      "url": "https://science.nasa.gov/solar-system/planets/",
+      "retrieved_utc": "2026-09-23T22:48:42Z",
+      "role": "Eight physical planets and five IAU-recognized dwarf planets; terrestrial/giant distinction",
+      "normalized_paths": ["normalized_planets.json", "normalized_dwarf_planets.json"],
+      "limitations": "Classification page, not a state-vector or physical-property authority; raw HTML not retained because the normalized 8/5 identity lists and source URL suffice for the bounded freeze."
+    },
+    {
+      "name": "Small-Body Database Ceres identity",
+      "organization": "NASA/JPL Solar System Dynamics",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1",
+      "retrieved_utc": "2026-09-23T22:38:14Z",
+      "role": "Current Ceres SPK identity and numbered-small-body target",
+      "raw_path": "raw/solar_ceres_sbdb.json",
+      "limitations": "Orbit and physical values in the response are not promoted into Run-1 opportunities."
+    },
+    {
+      "name": "Small-Body Database Makemake identity",
+      "organization": "NASA/JPL Solar System Dynamics",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=136472",
+      "retrieved_utc": "2026-09-23T22:37:14Z",
+      "role": "Current Makemake SPK identity and numbered-small-body target",
+      "raw_path": "raw/solar_makemake_sbdb.json",
+      "limitations": "Orbit and physical values in the response are not promoted into Run-1 opportunities."
+    }
+  ],
+  "files": [
+    {"path": "raw/solar_sats_discovery.raw.gz", "sha256": "b7e0e0a9c725a533cbbe4a48fe91bf301fc297b2ea0aa513100da7053a76735c"},
+    {"path": "raw/solar_sats_discovery.html", "sha256": "bb3c6032ad648391326e7eec677d7180446551d66a89e6cebe9d22045e5eaab7"},
+    {"path": "raw/solar_horizons_mb.raw.gz", "sha256": "14a9d6f3b83beaac474662a99a0a4ab9cabf50c5c9d8df3c09695c8364fc6cec"},
+    {"path": "raw/solar_horizons_mb.txt", "sha256": "42b558715c7cd427b2aeb149a7363eab5f567752ab7f02dc5ae7f0f6a82d57ed"},
+    {"path": "raw/solar_ceres_sbdb.json", "sha256": "629b709abd0360c9c76da5016e1af284237baaf2788ac8fccbc31eae99b49cfc"},
+    {"path": "raw/solar_makemake_sbdb.json", "sha256": "8ccca9e936603d19ca755be36e2c38c7c71ae016b24cd0390672ff2d68819a8b"},
+    {"path": "normalized_planets.json", "sha256": "59a32285f6a47235cf0b22526e0dfa0bb3b5066eaec214f3b0a73b1f61e247f7"},
+    {"path": "normalized_dwarf_planets.json", "sha256": "af96d0386982b2a35f24a17a7d83468d6eb4717476bbe23448cdcdc0091bfacb"},
+    {"path": "normalized_moons.json", "sha256": "a608ac90c1750a6867f91fa767308f0021ebd40cf67768e911e8f76bd6dd539c"}
+  ]
+}

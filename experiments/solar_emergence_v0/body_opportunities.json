@@ -1,6 +1,6 @@
 {
   "baseline_main_sha": "fbc3818648cd9cdf54629281f52b5eb928b4f877",
-  "body_count": 49,
+  "body_count": 201,
   "opportunities": [
     {
       "body_class": "MOON",
@@ -9,8 +9,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -24,13 +24,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.2694515282810267,
@@ -46,8 +47,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -61,13 +62,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 1.2357745147005106,
@@ -83,8 +85,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "DWARF_PLANET",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "DWARF_PLANET",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -98,13 +100,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "DWARF_PLANET",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "DWARF_PLANET",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "DWARF_PLANET",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.2838769930425923,
@@ -120,8 +123,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -135,13 +138,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.28831596030890216,
@@ -157,18 +161,19 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "ASTEROID",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -184,8 +189,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -199,13 +204,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.002562434963579604,
@@ -221,8 +227,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -236,13 +242,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.23197007735128058,
@@ -258,8 +265,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "PLANET",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "TERRESTRIAL_PLANET",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -273,13 +280,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "PLANET",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "TERRESTRIAL_PLANET",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "TERRESTRIAL_PLANET",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 9.82022443640704,
@@ -295,8 +303,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -310,13 +318,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.11344610075052228,
@@ -332,8 +341,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -347,13 +356,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 1.3147011277844873,
@@ -369,8 +379,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -384,13 +394,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 1.4250714847559016,
@@ -406,18 +417,19 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -433,8 +445,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -448,13 +460,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "ASTEROID",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.108305549066661,
@@ -470,8 +483,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -485,13 +498,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.22335899490305897,
@@ -507,18 +521,19 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "ASTEROID",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -534,8 +549,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -549,13 +564,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 1.7961148499757655,
@@ -571,13 +587,14 @@
       "candidate_role": "SYSTEM_BARYCENTER",
       "field_provenance": {
         "surface_possible": {
-          "body_class": "SYSTEM_BARYCENTER",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "SYSTEM_BARYCENTER",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": null,
+      "physical_subclass": "SYSTEM_BARYCENTER",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -593,18 +610,19 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "ASTEROID",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -620,18 +638,19 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -647,18 +666,19 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "ASTEROID",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -674,8 +694,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -689,13 +709,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 1.624218870597702,
@@ -711,18 +732,19 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "ASTEROID",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -738,8 +760,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "PLANET",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "TERRESTRIAL_PLANET",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -753,13 +775,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "PLANET",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "TERRESTRIAL_PLANET",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "TERRESTRIAL_PLANET",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 3.72786625147936,
@@ -775,8 +798,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "PLANET",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "TERRESTRIAL_PLANET",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -790,13 +813,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "PLANET",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "TERRESTRIAL_PLANET",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "TERRESTRIAL_PLANET",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 3.7015061848157447,
@@ -812,8 +836,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -827,13 +851,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.07913435646862214,
@@ -849,8 +874,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -864,16 +889,4273 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.06371674026887802,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_120136108",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_120136199",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "DWARF_PLANET",
+      "body_id": "NAIF_20136472",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "DWARF_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "DWARF_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "DWARF_PLANET",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_220136108",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_505",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_506",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_507",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_508",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_509",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_510",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_511",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_512",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_513",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_514",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_515",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_516",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_517",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_518",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_519",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_520",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_521",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_522",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_523",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_524",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_525",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_526",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_527",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_528",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_529",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_530",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_531",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_532",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_533",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_534",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_535",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_536",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_537",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_538",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_539",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_540",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_541",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_542",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_543",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_544",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_545",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_546",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_547",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_548",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_549",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_550",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_553",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_557",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_558",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_560",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_562",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_565",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_571",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "NAIF_599",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "GIANT_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "GIANT_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "GIANT_PLANET",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": false,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_607",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_610",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_611",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_612",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_613",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_614",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_615",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_616",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_617",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_618",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_619",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_620",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_621",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_622",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_623",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_624",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_625",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_626",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_627",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_628",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_629",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_630",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_631",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_632",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_633",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_634",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_635",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_636",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_637",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_638",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_639",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_640",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_641",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_642",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_643",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_644",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_645",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_646",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_647",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_648",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_649",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_650",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_651",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_652",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_653",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_654",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_655",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_656",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_657",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_659",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_661",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_662",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_663",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_665",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_666",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "NAIF_699",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "GIANT_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "GIANT_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "GIANT_PLANET",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": false,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_706",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_707",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_708",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_709",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_710",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_711",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_712",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_713",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_714",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_715",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_716",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_717",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_718",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_719",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_720",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_721",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_722",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_723",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_724",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_725",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_726",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_727",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "NAIF_799",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "GIANT_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "GIANT_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "GIANT_PLANET",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": false,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_803",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_804",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_805",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_806",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_807",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_809",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_810",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_811",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_812",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_813",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "MOON",
+      "body_id": "NAIF_814",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "MOON",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "PLANET",
+      "body_id": "NAIF_899",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "GIANT_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "GIANT_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "GIANT_PLANET",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": false,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "DWARF_PLANET",
+      "body_id": "NAIF_920136108",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "DWARF_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "DWARF_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "DWARF_PLANET",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "DWARF_PLANET",
+      "body_id": "NAIF_920136199",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "DWARF_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "DWARF_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "DWARF_PLANET",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
+      "surface_possible": true,
+      "thermal_environment": null,
+      "volatile_potential": null,
+      "water_potential": null
+    },
+    {
+      "body_class": "DWARF_PLANET",
+      "body_id": "NAIF_999",
+      "bulk_material_potential": null,
+      "candidate_role": "PHYSICAL_BODY",
+      "field_provenance": {
+        "orbital_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "DWARF_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        },
+        "surface_possible": {
+          "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "DWARF_PLANET",
+          "source": "parameters.json:body_class_test_priors"
+        }
+      },
+      "metal_potential": null,
+      "orbital_possible": true,
+      "physical_subclass": "DWARF_PLANET",
+      "radiation_environment": null,
+      "solar_energy_potential": null,
+      "surface_gravity": null,
       "surface_possible": true,
       "thermal_environment": null,
       "volatile_potential": null,
@@ -886,13 +5168,14 @@
       "candidate_role": "SYSTEM_BARYCENTER",
       "field_provenance": {
         "surface_possible": {
-          "body_class": "SYSTEM_BARYCENTER",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "SYSTEM_BARYCENTER",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": null,
+      "physical_subclass": "SYSTEM_BARYCENTER",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -908,18 +5191,19 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -935,8 +5219,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -950,13 +5234,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.07128027681660899,
@@ -972,8 +5257,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -987,13 +5272,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.33187865605565736,
@@ -1009,8 +5295,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1024,13 +5310,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "ASTEROID",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.21820068359375,
@@ -1046,8 +5333,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1061,13 +5348,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.04875575833719059,
@@ -1083,8 +5371,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1098,13 +5386,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.005599431238874163,
@@ -1120,13 +5409,14 @@
       "candidate_role": "SYSTEM_BARYCENTER",
       "field_provenance": {
         "surface_possible": {
-          "body_class": "SYSTEM_BARYCENTER",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "SYSTEM_BARYCENTER",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": null,
+      "physical_subclass": "SYSTEM_BARYCENTER",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -1142,8 +5432,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1157,13 +5447,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.0761904761904762,
@@ -1179,8 +5470,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1194,13 +5485,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "ASTEROID",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.11982144255619077,
@@ -1216,8 +5508,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1231,13 +5523,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.2638713106097522,
@@ -1253,13 +5546,14 @@
       "candidate_role": "SYSTEM_BARYCENTER",
       "field_provenance": {
         "surface_possible": {
-          "body_class": "SYSTEM_BARYCENTER",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "SYSTEM_BARYCENTER",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": null,
+      "physical_subclass": "SYSTEM_BARYCENTER",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -1275,13 +5569,14 @@
       "candidate_role": "REFERENCE_BODY",
       "field_provenance": {
         "surface_possible": {
-          "body_class": "STAR",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "STAR",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": null,
+      "physical_subclass": "STAR",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -1297,18 +5592,19 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -1324,8 +5620,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1339,13 +5635,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.14609993128942567,
@@ -1361,18 +5658,19 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "ASTEROID",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -1388,8 +5686,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1403,13 +5701,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 1.3543568456117419,
@@ -1425,8 +5724,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1440,13 +5739,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.7793888617360882,
@@ -1462,8 +5762,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1477,13 +5777,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.3666669178597495,
@@ -1499,8 +5800,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1514,13 +5815,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "MOON",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "MOON",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "MOON",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.2383918594123351,
@@ -1536,13 +5838,14 @@
       "candidate_role": "SYSTEM_BARYCENTER",
       "field_provenance": {
         "surface_possible": {
-          "body_class": "SYSTEM_BARYCENTER",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "SYSTEM_BARYCENTER",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": null,
+      "physical_subclass": "SYSTEM_BARYCENTER",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": null,
@@ -1558,8 +5861,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "PLANET",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "TERRESTRIAL_PLANET",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1573,13 +5876,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "PLANET",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "TERRESTRIAL_PLANET",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "TERRESTRIAL_PLANET",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 8.870032755895648,
@@ -1595,8 +5899,8 @@
       "candidate_role": "PHYSICAL_BODY",
       "field_provenance": {
         "orbital_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         },
         "surface_gravity": {
@@ -1610,13 +5914,14 @@
           "unit": "m/s^2"
         },
         "surface_possible": {
-          "body_class": "ASTEROID",
           "kind": "EXPERIMENTAL_CLASS_PRIOR",
+          "physical_subclass": "ASTEROID",
           "source": "parameters.json:body_class_test_priors"
         }
       },
       "metal_potential": null,
       "orbital_possible": true,
+      "physical_subclass": "ASTEROID",
       "radiation_environment": null,
       "solar_energy_potential": null,
       "surface_gravity": 0.25050973543604244,
@@ -1626,9 +5931,10 @@
       "water_potential": null
     }
   ],
-  "registry_rule": "entities.entity_class in the Solar scene celestial taxonomy AND (source_command is present OR STAR has HELIOCENTRIC_ORIGIN provenance); cross-check against Solar scene source registry; state rows are evidence, not membership",
-  "schema": "loom-solar-emergence-v0-body-opportunities-v2",
+  "registry_rule": "All 8 NASA-listed physical planets; all 5 NASA/IAU-recognized dwarf planets; JPL discovery-table natural satellites with both permanent IAU name and number plus a unique JPL Horizons major-body ID; Earth Moon and named Eris/Haumea dwarf satellites from JPL major-body identities; existing LOOM-registered asteroids and reference bodies. Provisional-only satellites and unrelated small bodies are excluded.",
+  "schema": "loom-solar-emergence-v0-body-opportunities-v3",
   "source_database": "data/LOOM_2226.sqlite3",
   "source_database_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
+  "source_manifest_sha256": "7168f69b289778e3002ddd7d82bd9b96cf3fdf3397e611e69b0a8fe5a2e5d36f",
   "status": "EXPERIMENTAL_FICTIONAL_NONCANON_NONPRODUCTION"
 }

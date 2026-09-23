@@ -18,6 +18,7 @@ ROOT = HERE.parents[1]
 WORLD_DB = ROOT / "data" / "LOOM_2226.sqlite3"
 PARAMETERS = HERE / "parameters.json"
 RELEASE_MANIFEST = ROOT / "manifests" / "release_manifest.json"
+SOURCE_DIR = HERE / "sources" / "astronomical_registry"
 
 # These classes come from SolarSceneStore.seed_reference_data and its entity
 # taxonomy. They identify registered celestial objects, not facility hosts.
@@ -339,15 +340,16 @@ def build_opportunities(catalog: list[dict], db_path: Path, parameters: dict) ->
         seen.add(body_id)
         role = body["candidate_role"]
         body_class = body["body_class"]
-        prior = priors.get(body_class, {})
+        subclass = body.get("physical_subclass", body_class)
+        prior = priors.get(subclass, {})
         flags = {field: prior.get(field) for field in ("surface_possible", "orbital_possible")}
         provenance = {
-            field: {"kind": "EXPERIMENTAL_CLASS_PRIOR", "body_class": body_class,
+            field: {"kind": "EXPERIMENTAL_CLASS_PRIOR", "physical_subclass": subclass,
                     "source": "parameters.json:body_class_test_priors"}
             for field, value in flags.items() if value is not None
         }
         gravity = None
-        physical = props.get(body_id)
+        physical = props.get(body.get("loom_entity_id") or body_id)
         if role == "PHYSICAL_BODY" and flags["surface_possible"] is True and physical is not None:
             gm, radius = physical["gm_km3_s2"], physical["mean_radius_km"]
             if (physical["status"] == parameters["gravity_source_status"]
@@ -364,7 +366,8 @@ def build_opportunities(catalog: list[dict], db_path: Path, parameters: dict) ->
                     "formula": "1000 * gm_km3_s2 / mean_radius_km**2", "unit": "m/s^2",
                 }
         result.append({
-            "body_id": body_id, "body_class": body_class, "candidate_role": role,
+            "body_id": body_id, "body_class": body_class,
+            "physical_subclass": subclass, "candidate_role": role,
             **flags, "surface_gravity": gravity,
             **{field: None for field in UNKNOWN_FIELDS},
             "field_provenance": provenance,
@@ -376,60 +379,90 @@ def _json_bytes(value: dict) -> bytes:
     return (json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n").encode("utf-8")
 
 
-def generate_bytes(db_path: Path, parameters: dict, *, source_sets: dict | None = None) -> tuple[bytes, bytes, bytes]:
+def generate_bytes(db_path: Path, parameters: dict, source_dir: Path = SOURCE_DIR) -> tuple[bytes, bytes, bytes, bytes]:
+    """Generate every experiment artifact from local frozen sources and read-only DB."""
+    from astronomical_registry import build_astronomical_registry, read_frozen_sources
+
     db_path = Path(db_path)
-    source_sets = load_source_sets(ROOT) if source_sets is None else source_sets
+    sources = read_frozen_sources(source_dir)
+    source_sets = load_source_sets(ROOT)
     with open_world_db(db_path) as conn:
-        catalog = build_catalog(conn)
+        registry = build_astronomical_registry(sources, conn, ROOT)
+        gis = build_catalog(conn)
+        db_tables = {name: _table_ids(conn, name) for name in (
+            "entities", "ephemeris_states", "states", "celestial_dynamics",
+            "celestial_properties",
+        )}
     if db_path.resolve() == WORLD_DB.resolve():
-        _probe_propagation(catalog, db_path)
-    for row in catalog:
-        body_id = row["body_id"]
-        scene_acquisition = body_id in source_sets.get("solar_scene_acquisition_ids", set())
-        display_fallback = body_id in source_sets.get("solar_scene_display_fallback_ids", set())
-        navigator_acquisition = body_id in source_sets["navigator_acquisition_ids"]
-        row["display_fallback_capability"] = display_fallback
-        if row["propagation_capability"] is True:
-            row["propagation_method"] = "PROVIDER_ANCHOR_MODEL"
-        elif display_fallback:
-            row["propagation_capability"] = True
-            row["propagation_method"] = "SOLAR_SCENE_DISPLAY_FALLBACK"
-        if scene_acquisition or navigator_acquisition:
-            row["acquisition_capability"] = True
-        evidence = row["source_evidence"]
-        if body_id in source_sets["solar_scene_ids"]:
-            evidence["solar_scene"] = "src/loom_solar_gis.py:EXPECTED_IDS/seed_reference_data"
-        if row["direct_state_capability"]:
-            evidence["direct_state"] = "src/loom_sqlite_celestial_provider.py:direct_state + qualified states row"
-        if row["propagation_method"] == "PROVIDER_ANCHOR_MODEL":
-            evidence["propagation_model"] = "src/loom_sqlite_celestial_provider.py:orbit_model_from_direct_anchor probe"
-        if display_fallback:
-            evidence["display_fallback"] = "src/loom_solar_gis.py:MOON_SYSTEMS/circular_local_fallback; display only"
-        if scene_acquisition:
-            evidence["solar_scene_acquisition"] = "src/loom_solar_gis.py:OBJECTS/MOON_OBJECTS provider requests"
-        if navigator_acquisition:
-            evidence["navigator_acquisition"] = "src/loom_navigator_core.py:BASE_MAP_OBJECTS/LOCAL_SYSTEMS acquisition plan"
+        _probe_propagation(gis, db_path)
+    gis_by_id = {row["body_id"]: row for row in gis}
+    catalog = []
+    audit_rows = []
+    for identity in registry:
+        row = dict(identity)
+        loom_id = row["loom_entity_id"]
+        old = gis_by_id.get(loom_id) if loom_id else None
+        row.update({
+            "ephemeris_state_materialized": old["ephemeris_state_materialized"] if old else False,
+            "ephemeris": old["ephemeris"] if old else None,
+            "direct_state_capability": old["direct_state_capability"] if old else False,
+            "provider_propagation_support": old["propagation_capability"] is True if old else False,
+            "solar_scene_display_fallback": loom_id in source_sets["solar_scene_display_fallback_ids"] if loom_id else False,
+            "loom_acquisition_capability": loom_id in source_sets["solar_scene_acquisition_ids"] if loom_id else False,
+        })
+        catalog.append(row)
+        audit_rows.append({
+            "body_id": row["body_id"], "display_name": row["display_name"],
+            "body_class": row["body_class"], "physical_subclass": row["physical_subclass"],
+            "candidate_role": row["candidate_role"],
+            "present_in_astronomical_source_registry": True,
+            "present_in_frozen_external_source": row["registry_source"] != "LOOM_SOLAR_GIS_EXPLICIT_ENTITY",
+            "loom_entity_id": loom_id, "loom_mapping_status": row["loom_mapping_status"],
+            **{f"present_in_{name}": loom_id in ids if loom_id else False
+               for name, ids in db_tables.items()},
+            "present_in_solar_gis_expected_ids": loom_id in source_sets["solar_scene_ids"] if loom_id else False,
+            "present_in_navigator_target_vocabulary": loom_id in source_sets["navigator_target_ids"] if loom_id else False,
+            "present_in_navigator_acquisition_definitions": loom_id in source_sets["navigator_acquisition_ids"] if loom_id else False,
+            "ephemeris_state_materialized": row["ephemeris_state_materialized"],
+            "direct_state_capability": row["direct_state_capability"],
+            "provider_propagation_support": row["provider_propagation_support"],
+            "external_ephemeris_identity": row["ephemeris_identity_status"],
+            "evidence": {
+                "astronomical": row["registry_source"],
+                "loom": "data/LOOM_2226.sqlite3:entities.entity_id" if loom_id else None,
+                "solar_gis": "src/loom_solar_gis.py:EXPECTED_IDS" if loom_id in source_sets["solar_scene_ids"] else None,
+                "navigator": "src/loom_navigator_core.py:ROUTE_OBJECTS/BASE_MAP_OBJECTS/LOCAL_SYSTEMS" if loom_id in source_sets["navigator_target_ids"] or loom_id in source_sets["navigator_acquisition_ids"] else None,
+            },
+        })
     with open_world_db(db_path) as conn:
-        audit = build_registry_audit(conn, source_sets, catalog)
+        production_audit = build_registry_audit(conn, source_sets, gis)
     catalog_ids = {row["body_id"] for row in catalog}
     opportunity = build_opportunities(catalog, db_path, parameters)
-    if source_sets["solar_scene_ids"] != catalog_ids or audit["conflicts"]:
-        raise ValueError("Solar scene and SQLite celestial registry disagree; review before generation")
+    if source_sets["solar_scene_ids"] != set(gis_by_id) or production_audit["conflicts"]:
+        raise ValueError("Production Solar scene and SQLite celestial registry disagree")
     if catalog_ids != {row["body_id"] for row in opportunity} or len(catalog) != len(opportunity):
         raise ValueError("Catalog and opportunity body IDs disagree")
+    rule = sources["manifest"]["inclusion_rule"]
     common = {
         "status": parameters["status"],
         "source_database": "data/LOOM_2226.sqlite3",
         "source_database_sha256": sha256(db_path),
         "baseline_main_sha": parameters["baseline_main_sha"],
-        "registry_rule": REGISTRY_RULE,
+        "source_manifest_sha256": sha256(Path(source_dir) / "source_manifest.json"),
+        "registry_rule": rule,
         "body_count": len(catalog),
     }
     return (
-        _json_bytes({**common, **audit}),
-        _json_bytes({"schema": "loom-solar-emergence-v0-body-catalog-v2", **common,
+        _json_bytes({"schema": "loom-solar-emergence-v0-astronomical-registry-v1", **common,
+                     "bodies": registry}),
+        _json_bytes({"schema": "loom-solar-emergence-v0-body-registry-audit-v2", **common,
+                     "production_gis_body_count": len(gis),
+                     "excluded_provisional_satellites": sources["excluded_provisional_count"],
+                     "production_registry_conflicts": production_audit["conflicts"],
+                     "bodies": audit_rows}),
+        _json_bytes({"schema": "loom-solar-emergence-v0-body-catalog-v3", **common,
                      "bodies": catalog}),
-        _json_bytes({"schema": "loom-solar-emergence-v0-body-opportunities-v2", **common,
+        _json_bytes({"schema": "loom-solar-emergence-v0-body-opportunities-v3", **common,
                      "opportunities": opportunity}),
     )
 
@@ -441,7 +474,8 @@ def main() -> int:
     registered = [item for item in release["artifacts"] if item["path"] == "data/LOOM_2226.sqlite3"]
     if len(registered) != 1 or actual != registered[0]["sha256"] or actual != parameters["world_db_sha256"]:
         raise ValueError("World DB hash does not match release authority and Run 1 parameters")
-    audit, catalog, opportunity = generate_bytes(WORLD_DB, parameters)
+    registry, audit, catalog, opportunity = generate_bytes(WORLD_DB, parameters)
+    (HERE / "astronomical_registry.json").write_bytes(registry)
     (HERE / "body_registry_audit.json").write_bytes(audit)
     (HERE / "body_catalog.json").write_bytes(catalog)
     (HERE / "body_opportunities.json").write_bytes(opportunity)

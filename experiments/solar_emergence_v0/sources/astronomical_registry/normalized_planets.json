@@ -1,0 +1,13 @@
+{
+  "schema": "loom-solar-emergence-frozen-planets-v1",
+  "planets": [
+    {"display_name": "Mercury", "body_class": "PLANET", "physical_subclass": "TERRESTRIAL_PLANET", "naif_id": "199", "horizons_target_id": "199", "registry_source": "NASA_EIGHT_PLANETS_AND_JPL_HORIZONS_MB", "ephemeris_identity_status": "JPL_HORIZONS_MAJOR_BODY_ID"},
+    {"display_name": "Venus", "body_class": "PLANET", "physical_subclass": "TERRESTRIAL_PLANET", "naif_id": "299", "horizons_target_id": "299", "registry_source": "NASA_EIGHT_PLANETS_AND_JPL_HORIZONS_MB", "ephemeris_identity_status": "JPL_HORIZONS_MAJOR_BODY_ID"},
+    {"display_name": "Earth", "body_class": "PLANET", "physical_subclass": "TERRESTRIAL_PLANET", "naif_id": "399", "horizons_target_id": "399", "registry_source": "NASA_EIGHT_PLANETS_AND_JPL_HORIZONS_MB", "ephemeris_identity_status": "JPL_HORIZONS_MAJOR_BODY_ID"},
+    {"display_name": "Mars", "body_class": "PLANET", "physical_subclass": "TERRESTRIAL_PLANET", "naif_id": "499", "horizons_target_id": "499", "registry_source": "NASA_EIGHT_PLANETS_AND_JPL_HORIZONS_MB", "ephemeris_identity_status": "JPL_HORIZONS_MAJOR_BODY_ID"},
+    {"display_name": "Jupiter", "body_class": "PLANET", "physical_subclass": "GIANT_PLANET", "naif_id": "599", "horizons_target_id": "599", "registry_source": "NASA_EIGHT_PLANETS_AND_JPL_HORIZONS_MB", "ephemeris_identity_status": "JPL_HORIZONS_MAJOR_BODY_ID"},
+    {"display_name": "Saturn", "body_class": "PLANET", "physical_subclass": "GIANT_PLANET", "naif_id": "699", "horizons_target_id": "699", "registry_source": "NASA_EIGHT_PLANETS_AND_JPL_HORIZONS_MB", "ephemeris_identity_status": "JPL_HORIZONS_MAJOR_BODY_ID"},
+    {"display_name": "Uranus", "body_class": "PLANET", "physical_subclass": "GIANT_PLANET", "naif_id": "799", "horizons_target_id": "799", "registry_source": "NASA_EIGHT_PLANETS_AND_JPL_HORIZONS_MB", "ephemeris_identity_status": "JPL_HORIZONS_MAJOR_BODY_ID"},
+    {"display_name": "Neptune", "body_class": "PLANET", "physical_subclass": "GIANT_PLANET", "naif_id": "899", "horizons_target_id": "899", "registry_source": "NASA_EIGHT_PLANETS_AND_JPL_HORIZONS_MB", "ephemeris_identity_status": "JPL_HORIZONS_MAJOR_BODY_ID"}
+  ]
+}

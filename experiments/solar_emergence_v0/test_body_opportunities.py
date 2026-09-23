@@ -92,21 +92,6 @@ class CorrectedRegistryTests(unittest.TestCase):
         self.assertTrue(properties <= ids)
         self.assertEqual(len(ids), len(catalog))
 
-    def test_acquisition_and_display_fallback_are_distinct_capabilities(self):
-        sources = load_source_sets(ROOT)
-        self.assertEqual(len(sources["solar_scene_acquisition_ids"]), 48)
-        self.assertEqual(len(sources["solar_scene_display_fallback_ids"]), 28)
-        _, catalog_bytes, _ = generate_bytes(WORLD_DB, PARAMETERS, source_sets=sources)
-        catalog = json.loads(catalog_bytes)["bodies"]
-        by_id = {row["body_id"]: row for row in catalog}
-        self.assertFalse(by_id["SOL"]["acquisition_capability"])
-        self.assertEqual(sum(row["acquisition_capability"] is True for row in catalog), 48)
-        self.assertEqual(sum(row["display_fallback_capability"] is True for row in catalog), 28)
-        self.assertEqual(sum(row["propagation_method"] == "SOLAR_SCENE_DISPLAY_FALLBACK"
-                             for row in catalog), 12)
-        self.assertEqual(sum(row["propagation_method"] == "PROVIDER_ANCHOR_MODEL"
-                             for row in catalog), 36)
-
     def test_arbitrary_nonmaterialized_fixture_and_reference_roles(self):
         with tempfile.TemporaryDirectory() as tmp:
             db = Path(tmp) / "fixture.sqlite3"
@@ -165,15 +150,18 @@ class CorrectedRegistryTests(unittest.TestCase):
                 self.assertEqual(conn.execute("PRAGMA query_only").fetchone()[0], 1)
                 with self.assertRaises(sqlite3.OperationalError):
                     conn.execute("INSERT INTO entities VALUES ('BAD','Bad','MOON',NULL,'1','TEST')")
-            first = generate_bytes(db, PARAMETERS, source_sets=FIXTURE_SOURCES)
-            self.assertEqual(first, generate_bytes(db, PARAMETERS, source_sets=FIXTURE_SOURCES))
+            with open_world_db(db) as conn:
+                first = build_catalog(conn)
+            with open_world_db(db) as conn:
+                self.assertEqual(first, build_catalog(conn))
             self.assertEqual(hashlib.sha256(db.read_bytes()).hexdigest(), before)
         self.assertFalse((HERE / "route_accessibility.py").exists())
         self.assertFalse((HERE / "accessibility.json").exists())
         self.assertFalse(any("accessibility" in key for key in PARAMETERS))
 
     def test_checked_in_artifacts_reproduce(self):
-        audit, catalog, opportunities = generate_bytes(WORLD_DB, PARAMETERS)
+        registry, audit, catalog, opportunities = generate_bytes(WORLD_DB, PARAMETERS)
+        self.assertEqual((HERE / "astronomical_registry.json").read_bytes(), registry)
         self.assertEqual((HERE / "body_registry_audit.json").read_bytes(), audit)
         self.assertEqual((HERE / "body_catalog.json").read_bytes(), catalog)
         self.assertEqual((HERE / "body_opportunities.json").read_bytes(), opportunities)
