@@ -1,13 +1,14 @@
 """Resolve the local Earth long-run economic baseline, failing closed on stale files.
 
 This module reads the current-baseline pointer; it never selects a versioned run
-on its own. Historical v1 support exists solely so a pointer edit can roll back.
+on its own. Historical designations remain resolvable for explicit rollback.
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
+import zipfile
 from pathlib import Path
 
 
@@ -64,6 +65,59 @@ def resolve(pointer_path: Path = CURRENT_POINTER) -> dict:
     # The rollback target is checked independently. It is never a substitute
     # for a missing or corrupt active manifest.
     _check(Path(pointer["rollback_manifest"]), pointer["rollback_manifest_sha256"])
+
+    if manifest.get("schema") == "loom-earth-local-economic-baseline-designation-v2":
+        if manifest["designation"] != pointer["active_designation"]:
+            raise BaselineResolutionError("Active designation does not match manifest")
+        _check(manifest_path.parent / "BASELINE_DECISION.md", pointer["active_decision_sha256"])
+        run_ref = manifest["run_manifest"]
+        _check(Path(run_ref["path"]), run_ref["sha256"], run_ref["bytes"])
+        run = _json(Path(run_ref["path"]))
+        if run["baseline_id"] != manifest["designation"]:
+            raise BaselineResolutionError("Run designation mismatch")
+        if run["inherited_runtime_model_version"] != "v0.6.1-d1-c1-h1-r1-alpha060-national-gfcf1":
+            raise BaselineResolutionError("Runtime model identity mismatch")
+        if run["investment_policy_id"] != "WDI_NATIONAL_GFCF_GDP_LATEST_2024_2025_MEDIAN_2024_FALLBACK_v1":
+            raise BaselineResolutionError("Investment policy mismatch")
+        count = 0
+        for section in ("sources", "code", "outputs", "validation", "smoke_2061"):
+            for item in run[section].values():
+                _check(Path(item["path"]), item["sha256"], item["bytes"])
+                count += 1
+        summary = run["compact_summary"]
+        _check(Path(summary["path"]), summary["sha256"], summary["bytes"])
+        count += 1
+        for item in manifest["compact_record"].values():
+            _check(Path(item["path"]), item["sha256"], item["bytes"])
+        for name, item in manifest["selected_outputs"].items():
+            if run["outputs"].get(name) != item:
+                raise BaselineResolutionError("Selected output is not pinned by the run manifest")
+        if run["outputs"]["results/active_boundary_repairs.json"] != manifest["taiwan_evidence"]:
+            raise BaselineResolutionError("Taiwan evidence is not pinned by the run manifest")
+        checkpoint = Path(run["outputs"]["complete_checkpoints/earth_2226.checkpoint.zip"]["path"])
+        try:
+            with zipfile.ZipFile(checkpoint) as archive:
+                checkpoint_manifest = json.loads(archive.read("manifest.json"))
+        except (OSError, zipfile.BadZipFile, KeyError, json.JSONDecodeError) as exc:
+            raise BaselineResolutionError("Cannot inspect completed checkpoint manifest") from exc
+        if checkpoint_manifest["runner_sha256"] != run["code"]["runner_executed.py"]["sha256"]:
+            raise BaselineResolutionError("Executed runner does not match checkpoint")
+        report = _json(Path(run["outputs"]["trajectory_report.json"]["path"]))
+        if not report["qualification"]["passed"] or report["qualification"]["final_year_reached"] != 2226:
+            raise BaselineResolutionError("Repaired run is not qualified through 2226")
+        artifacts = {
+            "annual_countries": Path(run["outputs"]["results/countries_2060_2226.ndjson"]["path"]),
+            "annual_sectors": Path(run["outputs"]["results/country_sectors_2060_2226.ndjson"]["path"]),
+            "annual_assets": Path(run["outputs"]["results/country_sector_assets_2060_2226.ndjson"]["path"]),
+            "endpoint_countries": Path(run["outputs"]["results/countries_2226.ndjson"]["path"]),
+            "endpoint_sectors": Path(run["outputs"]["results/country_sectors_2226.ndjson"]["path"]),
+            "endpoint_assets": Path(run["outputs"]["results/country_sector_assets_2226.ndjson"]["path"]),
+            "complete_checkpoint_2226": Path(run["outputs"]["complete_checkpoints/earth_2226.checkpoint.zip"]["path"]),
+        }
+        return {"designation": manifest["designation"],
+                "model_version": run["inherited_runtime_model_version"] + "+long-run-repair-v3",
+                "policy": run["investment_policy_id"], "manifest": manifest_path,
+                "artifacts": artifacts, "verified_registered_files": count}
 
     if manifest.get("schema") == "loom-earth-local-economic-baseline-designation-v1":
         if manifest["designation"] != pointer["active_designation"]:
