@@ -1,0 +1,56 @@
+{
+  "age_source_open_100_plus_treatment": "ALL_WPP_100_PLUS_MASS_ASSIGNED_TO_100_104_AT_2100_BOUNDARY",
+  "boundary_population_2100": 10186607670.0,
+  "country_area_count": 237,
+  "economic_labor_country_count": 80,
+  "files": {
+    "annual_summary": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/annual_biological_summary.json",
+    "cohort_path": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/biological_cohorts_2100_2226.ndjson",
+    "country_endpoint": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/country_demography_2226.csv",
+    "country_path": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/biological_country_2100_2226.ndjson",
+    "labor_path": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/biological_labor_80_2100_2226.ndjson"
+  },
+  "labor_boundary_repair_count": 1,
+  "labor_boundary_repairs": [
+    {
+      "health_capable_biological_population_2100": 17909350.317306086,
+      "iso3": "ARE",
+      "legacy_v4_employment_2100": 20011173.50902893,
+      "method": "CAP_AT_HEALTH_CAPABLE_BIOLOGICAL_POPULATION_AND_REBASE_PRODUCTION_A",
+      "selected_biological_labor_2100": 17909350.317306086
+    }
+  ],
+  "migration": "ZERO_AFTER_2100",
+  "status": "DEMOGRAPHY_AND_BIOLOGICAL_LABOR_COMPLETE",
+  "terminal": {
+    "age_100_plus": 212534391.37133604,
+    "age_100_plus_share": 0.030400598196390072,
+    "age_120_plus": 14709409.276712976,
+    "age_120_plus_share": 0.002104011676615238,
+    "age_150_plus": 276060.50628721854,
+    "age_150_plus_share": 3.9487277684234625e-05,
+    "age_20_64": 3411418654.3592906,
+    "age_20_64_share": 0.4879641695712569,
+    "age_65_plus": 2140608486.3028963,
+    "age_65_plus_share": 0.30618940336191497,
+    "age_80_plus": 1103947492.920418,
+    "age_80_plus_share": 0.15790698129202652,
+    "births": 70048130.42547008,
+    "deaths": 87157626.49295188,
+    "fertility_sd": 10.0,
+    "mean_childbearing_age": 39.0,
+    "median_age_approx_country_weighted": 47.41847821023892,
+    "medicine_access": {
+      "broad": 0.995,
+      "extreme": 0.001,
+      "high_end": 0.3
+    },
+    "natural_change": -17109496.0674818,
+    "population": 6991125306.099191,
+    "tfr": 1.88,
+    "under_20": 1439098165.4370024,
+    "under_20_share": 0.20584642706682796,
+    "year": 2226
+  },
+  "terminal_population_2226": 6991125306.099191
+}

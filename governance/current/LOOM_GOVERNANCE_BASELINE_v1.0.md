@@ -216,6 +216,11 @@ Governance recognizes the **declared scoped-authority relationship** for current
 
 Governance adoption does not edit the canon file or retroactively change its content.
 
+**Resolution, 25 September 2026:** the next formal canon baseline update
+registered and hash-pinned v2.4a alongside the CCR-2026-0001 Earth biosynthetic
+v2.4b amendment. The historical defect statement above remains provenance; the
+active authority model records the reconciliation as complete.
+
 ## 6.3 Supersession
 
 Superseded governing sources are archived, not silently overwritten/deleted.

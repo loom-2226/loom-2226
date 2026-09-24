@@ -1,0 +1,167 @@
+schema_version: '1.0'
+record_type: CANON_CHANGE_REQUEST
+
+id: CCR-2026-0001
+title: Promote the lean biosynthetic Earth successor
+status: APPROVED_FOR_IMPLEMENTATION
+proposal_revision: 1
+created_date: '2026-09-25'
+updated_date: '2026-09-25'
+
+origin:
+  issue: Kevin promotion directive, 2026-09-25
+  source_type: MIXED
+  source_references:
+    - repository: loom-2226/loom-research-lab
+      project: earth_lean_biosynthetic_successor
+      candidate_commit: d9f5065e390a1ce0c1cca78f68a14317dc03d723
+      merged_pr: 75
+      merged_commit: cb4e63554f8ecfaf35a8c3b70275fea479959fbd
+    - manifests/earth_long_run_economic_baseline/EARTH_LONG_RUN_ECONOMIC_BASELINE_CURRENT.json
+    - manifests/earth_long_run_economic_baseline/EARTH_DEMOGRAPHIC_AUTHORITY_CURRENT.json
+  evidentiary_status: MIXED_EXPLAINED
+  summary: >-
+    Qualified WPP evidence through 2100 is coupled to a selected post-2100
+    cohort, medicine, synthetic-person, labor and economic model. Kevin
+    explicitly authorized promotion of the qualified middle scenario after the
+    bounded 3 by 3 sensitivity campaign.
+
+proposal:
+  reason: >-
+    Replace the endpoint-only Earth demographic bridge and the v4 post-2100
+    economic trajectory with one causally coupled, qualified successor while
+    preserving prior authorities as superseded provenance.
+  claims_added:
+    - WPP 2024 remains authoritative through 2100.
+    - MED_CENTRAL x SYNTH_CENTRAL is the selected modeled Earth successor for 2101-2226.
+    - Earth biological population at 2226 is 7163281708.265873.
+    - Earth recognized synthetic-person population at 2226 is 9672505.78986048.
+    - Earth total recognized-person population at 2226 is 7172954214.055734.
+    - Biological humans, recognized synthetic persons and non-person machine-task capacity are distinct categories.
+    - Existing off-Earth census values remain unchanged pending separate Solar modeling.
+  claims_modified:
+    - The current selected Earth demographic authority after 2100.
+    - The current selected 80-economy Earth economic trajectory after 2100.
+    - Exact Solar population totals that are arithmetic sums of the new Earth values and unchanged off-Earth residuals.
+  claims_retired:
+    - EARTH_2226_CANON_CONSTRAINED_COUNTRY_ALLOCATION as current selected 2226 Earth authority.
+    - Earth v4 as current selected economic authority for 2101-2226.
+    - The prior exact Earth and arithmetic Solar census totals where they conflict with the selected successor.
+  affected_governing_sources:
+    - canon/current/LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md
+    - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
+    - governance/current/LOOM_2226_Baseline_File_Hashes_v2.4.md
+    - governance/current/LOOM_2226_Canon_v2.4_Validation_Report.md
+    - governance/current/LOOM_AUTHORITY_MODEL.yml
+    - governance/dependencies/component-map.yml
+    - manifests/current/LOOM_COMPATIBILITY.yml
+    - manifests/earth_long_run_economic_baseline/EARTH_LONG_RUN_ECONOMIC_BASELINE_CURRENT.json
+    - manifests/earth_long_run_economic_baseline/EARTH_DEMOGRAPHIC_AUTHORITY_CURRENT.json
+  proposed_authority_relationship:
+    type: SCOPED_GOVERNING_AMENDMENT
+    parent_source: canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
+    scope: Earth post-2100 demography, personhood census, labor and economic state through 2226
+  explicit_non_scope:
+    - No change to WPP authority through 2100.
+    - No off-Earth demographic or economic model rerun.
+    - No migration model or expanded economic country qualification.
+    - No change to propulsion, Navigator, GIS, Atlas geography, production databases or historical Earth data.
+    - No claim that the selected sensitivity scenario is uniquely true.
+
+frozen_research:
+  involved: false
+  sources: []
+  qualification_state: QUALIFIED_RESEARCH_LAB_CANDIDATE_MERGED
+  rule: >-
+    The relied-on candidate completed its qualification campaign and merged as
+    Research Lab PR #75 before this implementation began.
+
+downstream_impact:
+  component_map_reviewed: true
+  components:
+    - component_id: canon_baseline_v2_4
+      state: REVALIDATION_REQUIRED
+      rationale: Register and hash the scoped amendment and the pre-existing v2.4a amendment.
+    - component_id: canon_i_world_history
+      state: SUPERSEDED
+      rationale: Exact census claims are superseded only within the amendment scope.
+    - component_id: solar_atlas
+      state: REVIEW_REQUIRED
+      rationale: Narrative census values remain parent provenance and are overridden by the scoped amendment.
+    - component_id: runtime_campaign_core
+      state: REVALIDATION_REQUIRED
+      rationale: Runtime consumers must load the amendment or resolve the promoted Earth pointers.
+    - component_id: world_db
+      state: UNCHANGED_COMPATIBLE
+      rationale: No SQLite bytes or schema are changed by this promotion.
+    - component_id: civstate_db
+      state: REVIEW_REQUIRED
+      rationale: Existing CIVSTATE data is unchanged and may retain superseded census values until a separate migration.
+    - component_id: navigator
+      state: UNCHANGED_COMPATIBLE
+      rationale: Navigation authority and code do not consume these promoted economic outputs.
+    - component_id: solar_gis
+      state: UNCHANGED_COMPATIBLE
+      rationale: Spatial authority and GIS code are unchanged.
+
+baseline_obligations:
+  authority_registry_update_required: true
+  canon_baseline_manifest_update_required: true
+  file_hash_manifest_update_required: true
+  validation_report_update_required: true
+  compatibility_manifest_update_required: false
+  archive_or_supersession_update_required: true
+  notes: >-
+    Preserve Earth v4, PR #268 bridge artifacts and parent canon files. Register
+    the new scoped amendment and close the outstanding v2.4a registration defect.
+
+validation:
+  required_tests:
+    - Research Lab successor focused tests
+    - Promoted artifact hash verification
+    - Earth authority resolver tests
+    - Earth v4 rollback regression tests
+    - Canon amendment and baseline hash validation
+    - Workforce and population invariant across all 80 qualified economies
+  required_qualification:
+    - Selected scenario is exactly MED_CENTRAL x SYNTH_CENTRAL.
+    - All nine sensitivity runs remain visible.
+    - Biological, synthetic-person and non-person machine categories remain separate.
+    - No selected trajectory bytes change during packaging.
+  required_external_verification: []
+
+assurance:
+  walter_required: true
+  status: PASS
+  finding_ids: []
+  concerns:
+    - Existing CIVSTATE and narrative parent files retain superseded census values and require scoped-amendment-aware consumers.
+
+implementation:
+  implementation_pr: null
+  target_branch: main
+  merged_commit: null
+  implemented_date: null
+  changed_governing_sources: []
+  downstream_followup_issues:
+    - Reconcile or regenerate CIVSTATE census data under a separately governed data migration if required.
+
+decision:
+  decision_authority: Kevin
+  decision_date: '2026-09-25'
+  rationale: >-
+    The science and modeling campaign is complete. Promote the fixed selected
+    scenario, preserve uncertainty and provenance, and update conflicting canon
+    values without reopening model assumptions.
+  disposition: APPROVED_FOR_IMPLEMENTATION
+
+supersession:
+  supersedes: []
+  superseded_by: null
+
+history:
+  - date: '2026-09-25'
+    event: CREATED_AND_APPROVED
+    status: APPROVED_FOR_IMPLEMENTATION
+    actor: Kevin
+    note: Explicit promotion authorization supplied after Research Lab qualification and merge.

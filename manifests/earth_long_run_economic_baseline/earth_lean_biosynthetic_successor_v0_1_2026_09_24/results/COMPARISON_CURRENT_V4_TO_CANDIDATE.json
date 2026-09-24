@@ -1,0 +1,764 @@
+{
+  "candidate_2226": {
+    "age_structure": {
+      "age_100_plus": 212534391.37133604,
+      "age_120_plus": 14709409.276712976,
+      "age_150_plus": 276060.50628721854,
+      "age_20_64": 3411418654.3592906,
+      "age_65_plus": 2140608486.3028963,
+      "age_80_plus": 1103947492.920418,
+      "under_20": 1439098165.4370024
+    },
+    "biological_labor": 1448652898.4875078,
+    "biological_population": 6991125306.099191,
+    "machine_task_capacity": 57857610.54767315,
+    "median_biological_age_approx": 47.41847821023892,
+    "recognized_person_population": 7000917164.072894,
+    "synthetic_labor": 11015840.220416347,
+    "synthetic_population": 9791857.97370342,
+    "total_effective_labor": 1517526349.2555974,
+    "value_added": 236154215436127.6
+  },
+  "candidate_minus_v4": {
+    "biological_population": -1321413589.0865355,
+    "total_effective_labor": -646129868.049484,
+    "value_added": -92496058772923.97,
+    "value_added_fraction": -0.28144220781659235
+  },
+  "current_promoted_bridge_v4": {
+    "biological_age_structure": null,
+    "biological_labor": null,
+    "biological_population_2226": 8312538895.185726,
+    "machine_task_capacity": null,
+    "note": "Null means the promoted bridge/v4 does not model the category; it is not zero.",
+    "recognized_person_population_2226": null,
+    "synthetic_labor": null,
+    "synthetic_population_2226": null,
+    "total_effective_labor": 2163656217.3050814,
+    "value_added": 328650274209051.56
+  },
+  "designation": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_CANDIDATE_2026_09_24",
+  "economy_rank_changes": [
+    {
+      "candidate_rank": 51,
+      "candidate_value_added": 352264967860.101,
+      "iso3": "SAU",
+      "rank_change_positive_is_rise": -10,
+      "v4_rank": 41,
+      "v4_value_added": 738632508423.1808,
+      "value_added_change_fraction": -0.5230849389338281
+    },
+    {
+      "candidate_rank": 45,
+      "candidate_value_added": 523938769496.9519,
+      "iso3": "SGP",
+      "rank_change_positive_is_rise": 6,
+      "v4_rank": 51,
+      "v4_value_added": 508082004362.4108,
+      "value_added_change_fraction": 0.031209066643562045
+    },
+    {
+      "candidate_rank": 28,
+      "candidate_value_added": 1319489980661.0198,
+      "iso3": "CIV",
+      "rank_change_positive_is_rise": -5,
+      "v4_rank": 23,
+      "v4_value_added": 2549099983528.8906,
+      "value_added_change_fraction": -0.4823702525648441
+    },
+    {
+      "candidate_rank": 42,
+      "candidate_value_added": 572327757172.6393,
+      "iso3": "CMR",
+      "rank_change_positive_is_rise": -5,
+      "v4_rank": 37,
+      "v4_value_added": 946550794906.5198,
+      "value_added_change_fraction": -0.3953544170557042
+    },
+    {
+      "candidate_rank": 67,
+      "candidate_value_added": 93056666757.11295,
+      "iso3": "HKG",
+      "rank_change_positive_is_rise": 5,
+      "v4_rank": 72,
+      "v4_value_added": 73326971601.25406,
+      "value_added_change_fraction": 0.26906463917734547
+    },
+    {
+      "candidate_rank": 40,
+      "candidate_value_added": 600796364039.0574,
+      "iso3": "SWE",
+      "rank_change_positive_is_rise": -5,
+      "v4_rank": 35,
+      "v4_value_added": 1005938621374.5988,
+      "value_added_change_fraction": -0.4027504747575166
+    },
+    {
+      "candidate_rank": 18,
+      "candidate_value_added": 2514933427436.4326,
+      "iso3": "BGD",
+      "rank_change_positive_is_rise": 4,
+      "v4_rank": 22,
+      "v4_value_added": 2779438053296.706,
+      "value_added_change_fraction": -0.09516478539485462
+    },
+    {
+      "candidate_rank": 20,
+      "candidate_value_added": 2371101865190.785,
+      "iso3": "CAN",
+      "rank_change_positive_is_rise": -4,
+      "v4_rank": 16,
+      "v4_value_added": 4441813280484.17,
+      "value_added_change_fraction": -0.46618605612968755
+    },
+    {
+      "candidate_rank": 39,
+      "candidate_value_added": 605913316816.2245,
+      "iso3": "COL",
+      "rank_change_positive_is_rise": 4,
+      "v4_rank": 43,
+      "v4_value_added": 691237920102.6302,
+      "value_added_change_fraction": -0.12343738791664871
+    },
+    {
+      "candidate_rank": 11,
+      "candidate_value_added": 3739681714286.7,
+      "iso3": "PHL",
+      "rank_change_positive_is_rise": 4,
+      "v4_rank": 15,
+      "v4_value_added": 4595597538154.539,
+      "value_added_change_fraction": -0.1862469062535772
+    },
+    {
+      "candidate_rank": 43,
+      "candidate_value_added": 565142401378.7318,
+      "iso3": "TWN",
+      "rank_change_positive_is_rise": 4,
+      "v4_rank": 47,
+      "v4_value_added": 634150479580.1803,
+      "value_added_change_fraction": -0.10881972090777747
+    },
+    {
+      "candidate_rank": 34,
+      "candidate_value_added": 782327808453.3292,
+      "iso3": "CHE",
+      "rank_change_positive_is_rise": -3,
+      "v4_rank": 31,
+      "v4_value_added": 1265127079232.609,
+      "value_added_change_fraction": -0.3816211657346963
+    },
+    {
+      "candidate_rank": 47,
+      "candidate_value_added": 425013831215.1834,
+      "iso3": "CZE",
+      "rank_change_positive_is_rise": -3,
+      "v4_rank": 44,
+      "v4_value_added": 658596843543.3641,
+      "value_added_change_fraction": -0.35466767661907395
+    },
+    {
+      "candidate_rank": 62,
+      "candidate_value_added": 126346219660.81648,
+      "iso3": "JOR",
+      "rank_change_positive_is_rise": -3,
+      "v4_rank": 59,
+      "v4_value_added": 192330873876.37073,
+      "value_added_change_fraction": -0.34307884577059033
+    },
+    {
+      "candidate_rank": 61,
+      "candidate_value_added": 127256490419.71791,
+      "iso3": "MMR",
+      "rank_change_positive_is_rise": 3,
+      "v4_rank": 64,
+      "v4_value_added": 150235756212.51196,
+      "value_added_change_fraction": -0.15295470513883092
+    },
+    {
+      "candidate_rank": 17,
+      "candidate_value_added": 2723357422444.516,
+      "iso3": "MYS",
+      "rank_change_positive_is_rise": 3,
+      "v4_rank": 20,
+      "v4_value_added": 3429564932778.2036,
+      "value_added_change_fraction": -0.2059175213695711
+    },
+    {
+      "candidate_rank": 63,
+      "candidate_value_added": 114421669713.49255,
+      "iso3": "SVN",
+      "rank_change_positive_is_rise": -3,
+      "v4_rank": 60,
+      "v4_value_added": 176374245651.60788,
+      "value_added_change_fraction": -0.3512563623403968
+    },
+    {
+      "candidate_rank": 12,
+      "candidate_value_added": 3558491350418.807,
+      "iso3": "ARE",
+      "rank_change_positive_is_rise": -2,
+      "v4_rank": 10,
+      "v4_value_added": 7612644534649.463,
+      "value_added_change_fraction": -0.5325551673637072
+    },
+    {
+      "candidate_rank": 36,
+      "candidate_value_added": 700073807813.3445,
+      "iso3": "ARG",
+      "rank_change_positive_is_rise": 2,
+      "v4_rank": 38,
+      "v4_value_added": 861956282168.2546,
+      "value_added_change_fraction": -0.1878082191682554
+    },
+    {
+      "candidate_rank": 54,
+      "candidate_value_added": 271777983413.85184,
+      "iso3": "AUT",
+      "rank_change_positive_is_rise": -2,
+      "v4_rank": 52,
+      "v4_value_added": 402660023618.88116,
+      "value_added_change_fraction": -0.3250435417669114
+    },
+    {
+      "candidate_rank": 77,
+      "candidate_value_added": 34454381710.718414,
+      "iso3": "BRN",
+      "rank_change_positive_is_rise": -2,
+      "v4_rank": 75,
+      "v4_value_added": 47171952291.636635,
+      "value_added_change_fraction": -0.269600259541791
+    },
+    {
+      "candidate_rank": 60,
+      "candidate_value_added": 149808500427.86407,
+      "iso3": "CHL",
+      "rank_change_positive_is_rise": 2,
+      "v4_rank": 62,
+      "v4_value_added": 162674929504.62997,
+      "value_added_change_fraction": -0.07909288244934942
+    },
+    {
+      "candidate_rank": 23,
+      "candidate_value_added": 1972122781031.0913,
+      "iso3": "COD",
+      "rank_change_positive_is_rise": -2,
+      "v4_rank": 21,
+      "v4_value_added": 3402656662098.4043,
+      "value_added_change_fraction": -0.42041675758879204
+    },
+    {
+      "candidate_rank": 15,
+      "candidate_value_added": 3134448619005.486,
+      "iso3": "DEU",
+      "rank_change_positive_is_rise": -2,
+      "v4_rank": 13,
+      "v4_value_added": 4906522410918.811,
+      "value_added_change_fraction": -0.36116696175071183
+    },
+    {
+      "candidate_rank": 21,
+      "candidate_value_added": 2293924091997.169,
+      "iso3": "FRA",
+      "rank_change_positive_is_rise": -2,
+      "v4_rank": 19,
+      "v4_value_added": 3518629357643.1353,
+      "value_added_change_fraction": -0.34806316356841405
+    },
+    {
+      "candidate_rank": 69,
+      "candidate_value_added": 77437862592.84937,
+      "iso3": "HRV",
+      "rank_change_positive_is_rise": -2,
+      "v4_rank": 67,
+      "v4_value_added": 91581451985.41904,
+      "value_added_change_fraction": -0.1544372696211621
+    },
+    {
+      "candidate_rank": 24,
+      "candidate_value_added": 1755402281277.2185,
+      "iso3": "IRL",
+      "rank_change_positive_is_rise": 2,
+      "v4_rank": 26,
+      "v4_value_added": 1777378310823.6082,
+      "value_added_change_fraction": -0.012364294878903004
+    },
+    {
+      "candidate_rank": 30,
+      "candidate_value_added": 1229982611743.0947,
+      "iso3": "KOR",
+      "rank_change_positive_is_rise": 2,
+      "v4_rank": 32,
+      "v4_value_added": 1242577809920.8086,
+      "value_added_change_fraction": -0.010136345649466083
+    },
+    {
+      "candidate_rank": 37,
+      "candidate_value_added": 679716775701.1995,
+      "iso3": "MAR",
+      "rank_change_positive_is_rise": 2,
+      "v4_rank": 39,
+      "v4_value_added": 798503706504.9583,
+      "value_added_change_fraction": -0.14876190283910873
+    },
+    {
+      "candidate_rank": 38,
+      "candidate_value_added": 653231390585.552,
+      "iso3": "POL",
+      "rank_change_positive_is_rise": 2,
+      "v4_rank": 40,
+      "v4_value_added": 777915892754.6902,
+      "value_added_change_fraction": -0.16028018366820596
+    },
+    {
+      "candidate_rank": 65,
+      "candidate_value_added": 107006550726.82787,
+      "iso3": "SEN",
+      "rank_change_positive_is_rise": -2,
+      "v4_rank": 63,
+      "v4_value_added": 161958799036.55954,
+      "value_added_change_fraction": -0.339297701863837
+    },
+    {
+      "candidate_rank": 26,
+      "candidate_value_added": 1458192883956.908,
+      "iso3": "TUR",
+      "rank_change_positive_is_rise": 2,
+      "v4_rank": 28,
+      "v4_value_added": 1601501134296.009,
+      "value_added_change_fraction": -0.0894837020531345
+    },
+    {
+      "candidate_rank": 59,
+      "candidate_value_added": 157315444044.58698,
+      "iso3": "UKR",
+      "rank_change_positive_is_rise": 2,
+      "v4_rank": 61,
+      "v4_value_added": 163492394528.42343,
+      "value_added_change_fraction": -0.03778127112061214
+    },
+    {
+      "candidate_rank": 3,
+      "candidate_value_added": 39375004007832.11,
+      "iso3": "USA",
+      "rank_change_positive_is_rise": -2,
+      "v4_rank": 1,
+      "v4_value_added": 66356455795328.46,
+      "value_added_change_fraction": -0.4066138172104705
+    },
+    {
+      "candidate_rank": 22,
+      "candidate_value_added": 1974628713782.4216,
+      "iso3": "VNM",
+      "rank_change_positive_is_rise": 2,
+      "v4_rank": 24,
+      "v4_value_added": 2518589648368.8438,
+      "value_added_change_fraction": -0.21597838891250765
+    },
+    {
+      "candidate_rank": 7,
+      "candidate_value_added": 5271947379658.829,
+      "iso3": "AGO",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 8,
+      "v4_value_added": 8204154601418.959,
+      "value_added_change_fraction": -0.3574051641168472
+    },
+    {
+      "candidate_rank": 49,
+      "candidate_value_added": 367801661718.6064,
+      "iso3": "BEL",
+      "rank_change_positive_is_rise": -1,
+      "v4_rank": 48,
+      "v4_value_added": 578051417203.0157,
+      "value_added_change_fraction": -0.3637215466086612
+    },
+    {
+      "candidate_rank": 75,
+      "candidate_value_added": 36882703696.08398,
+      "iso3": "BGR",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 76,
+      "v4_value_added": 43170365387.47928,
+      "value_added_change_fraction": -0.14564763663591584
+    },
+    {
+      "candidate_rank": 2,
+      "candidate_value_added": 41550944584569.34,
+      "iso3": "CHN",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 3,
+      "v4_value_added": 47088062814118.76,
+      "value_added_change_fraction": -0.11759069918436271
+    },
+    {
+      "candidate_rank": 64,
+      "candidate_value_added": 107712631053.02925,
+      "iso3": "CRI",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 65,
+      "v4_value_added": 123310345425.06218,
+      "value_added_change_fraction": -0.12649153092764576
+    },
+    {
+      "candidate_rank": 71,
+      "candidate_value_added": 56659865592.273735,
+      "iso3": "CYP",
+      "rank_change_positive_is_rise": -1,
+      "v4_rank": 70,
+      "v4_value_added": 75170016033.61069,
+      "value_added_change_fraction": -0.24624380062737417
+    },
+    {
+      "candidate_rank": 13,
+      "candidate_value_added": 3402841109943.706,
+      "iso3": "EGY",
+      "rank_change_positive_is_rise": -1,
+      "v4_rank": 12,
+      "v4_value_added": 4942942151858.348,
+      "value_added_change_fraction": -0.3115757770573191
+    },
+    {
+      "candidate_rank": 32,
+      "candidate_value_added": 888759795749.9248,
+      "iso3": "ESP",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 33,
+      "v4_value_added": 1227024198586.0007,
+      "value_added_change_fraction": -0.2756786730252634
+    },
+    {
+      "candidate_rank": 74,
+      "candidate_value_added": 48171773553.60429,
+      "iso3": "EST",
+      "rank_change_positive_is_rise": -1,
+      "v4_rank": 73,
+      "v4_value_added": 66167694838.804085,
+      "value_added_change_fraction": -0.2719744329773157
+    },
+    {
+      "candidate_rank": 10,
+      "candidate_value_added": 3891178025847.832,
+      "iso3": "GBR",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 11,
+      "v4_value_added": 5861175110511.339,
+      "value_added_change_fraction": -0.33610957658141716
+    },
+    {
+      "candidate_rank": 52,
+      "candidate_value_added": 283909295425.9633,
+      "iso3": "GRC",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 53,
+      "v4_value_added": 391046824539.10864,
+      "value_added_change_fraction": -0.2739762156090094
+    },
+    {
+      "candidate_rank": 1,
+      "candidate_value_added": 42726302170625.73,
+      "iso3": "IND",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 2,
+      "v4_value_added": 49991167888576.01,
+      "value_added_change_fraction": -0.14532298453484316
+    },
+    {
+      "candidate_rank": 19,
+      "candidate_value_added": 2502816715704.1104,
+      "iso3": "ISR",
+      "rank_change_positive_is_rise": -1,
+      "v4_rank": 18,
+      "v4_value_added": 4194181254302.9136,
+      "value_added_change_fraction": -0.403264531513413
+    },
+    {
+      "candidate_rank": 35,
+      "candidate_value_added": 749674746494.6412,
+      "iso3": "ITA",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 36,
+      "v4_value_added": 971019285068.1345,
+      "value_added_change_fraction": -0.22795071321159388
+    },
+    {
+      "candidate_rank": 16,
+      "candidate_value_added": 3118419260710.96,
+      "iso3": "JPN",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 17,
+      "v4_value_added": 4270866391753.7397,
+      "value_added_change_fraction": -0.26983919077120844
+    },
+    {
+      "candidate_rank": 53,
+      "candidate_value_added": 281135631582.5092,
+      "iso3": "KHM",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 54,
+      "v4_value_added": 374211085994.3636,
+      "value_added_change_fraction": -0.2487244710148867
+    },
+    {
+      "candidate_rank": 72,
+      "candidate_value_added": 52317581348.450836,
+      "iso3": "LUX",
+      "rank_change_positive_is_rise": -1,
+      "v4_rank": 71,
+      "v4_value_added": 73433778335.54836,
+      "value_added_change_fraction": -0.2875542763251151
+    },
+    {
+      "candidate_rank": 73,
+      "candidate_value_added": 50298551916.58506,
+      "iso3": "LVA",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 74,
+      "v4_value_added": 63517539369.60013,
+      "value_added_change_fraction": -0.20811554704749402
+    },
+    {
+      "candidate_rank": 76,
+      "candidate_value_added": 36134152197.87127,
+      "iso3": "MLT",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 77,
+      "v4_value_added": 40779603595.96982,
+      "value_added_change_fraction": -0.11391605087984846
+    },
+    {
+      "candidate_rank": 33,
+      "candidate_value_added": 830659853469.3555,
+      "iso3": "NLD",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 34,
+      "v4_value_added": 1155563808165.5862,
+      "value_added_change_fraction": -0.28116487588167327
+    },
+    {
+      "candidate_rank": 48,
+      "candidate_value_added": 388544633742.9645,
+      "iso3": "NOR",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 49,
+      "v4_value_added": 571071692277.2306,
+      "value_added_change_fraction": -0.3196219686645878
+    },
+    {
+      "candidate_rank": 41,
+      "candidate_value_added": 586828466669.7631,
+      "iso3": "PER",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 42,
+      "v4_value_added": 724423900237.9471,
+      "value_added_change_fraction": -0.18993773331193098
+    },
+    {
+      "candidate_rank": 44,
+      "candidate_value_added": 564386334040.516,
+      "iso3": "ROU",
+      "rank_change_positive_is_rise": 1,
+      "v4_rank": 45,
+      "v4_value_added": 654763586348.2102,
+      "value_added_change_fraction": -0.13803035812017594
+    },
+    {
+      "candidate_rank": 8,
+      "candidate_value_added": 5023116837310.209,
+      "iso3": "RUS",
+      "rank_change_positive_is_rise": -1,
+      "v4_rank": 7,
+      "v4_value_added": 8293523118503.899,
+      "value_added_change_fraction": -0.39433256945977524
+    },
+    {
+      "candidate_rank": 70,
+      "candidate_value_added": 63722354798.93729,
+      "iso3": "TUN",
+      "rank_change_positive_is_rise": -1,
+      "v4_rank": 69,
+      "v4_value_added": 80743577731.9285,
+      "value_added_change_fraction": -0.2108059044584607
+    },
+    {
+      "candidate_rank": 31,
+      "candidate_value_added": 929810269513.3496,
+      "iso3": "ZAF",
+      "rank_change_positive_is_rise": -1,
+      "v4_rank": 30,
+      "v4_value_added": 1313835230751.5076,
+      "value_added_change_fraction": -0.29229309143924953
+    },
+    {
+      "candidate_rank": 9,
+      "candidate_value_added": 4016939530271.3784,
+      "iso3": "AUS",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 9,
+      "v4_value_added": 7741945042003.238,
+      "value_added_change_fraction": -0.48114595124638215
+    },
+    {
+      "candidate_rank": 78,
+      "candidate_value_added": 29290666951.49549,
+      "iso3": "BLR",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 78,
+      "v4_value_added": 37630720585.766266,
+      "value_added_change_fraction": -0.22162885813633293
+    },
+    {
+      "candidate_rank": 25,
+      "candidate_value_added": 1723921314605.4673,
+      "iso3": "BRA",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 25,
+      "v4_value_added": 2012368096717.285,
+      "value_added_change_fraction": -0.14333698818936358
+    },
+    {
+      "candidate_rank": 46,
+      "candidate_value_added": 454885020700.0052,
+      "iso3": "DNK",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 46,
+      "v4_value_added": 654756703275.0684,
+      "value_added_change_fraction": -0.30526099477151214
+    },
+    {
+      "candidate_rank": 58,
+      "candidate_value_added": 161297768858.39606,
+      "iso3": "FIN",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 58,
+      "v4_value_added": 244811714908.0035,
+      "value_added_change_fraction": -0.3411354153578423
+    },
+    {
+      "candidate_rank": 50,
+      "candidate_value_added": 366999284533.2335,
+      "iso3": "HUN",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 50,
+      "v4_value_added": 546506258851.1654,
+      "value_added_change_fraction": -0.3284627969225482
+    },
+    {
+      "candidate_rank": 5,
+      "candidate_value_added": 8987094190511.871,
+      "iso3": "IDN",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 5,
+      "v4_value_added": 11821809180732.404,
+      "value_added_change_fraction": -0.23978690121649482
+    },
+    {
+      "candidate_rank": 79,
+      "candidate_value_added": 28521237996.55382,
+      "iso3": "ISL",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 79,
+      "v4_value_added": 36855707268.652855,
+      "value_added_change_fraction": -0.22613781934359478
+    },
+    {
+      "candidate_rank": 14,
+      "candidate_value_added": 3193068912471.001,
+      "iso3": "KAZ",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 14,
+      "v4_value_added": 4640070280088.109,
+      "value_added_change_fraction": -0.3118490195777016
+    },
+    {
+      "candidate_rank": 66,
+      "candidate_value_added": 103662378143.17456,
+      "iso3": "LAO",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 66,
+      "v4_value_added": 116135624960.30275,
+      "value_added_change_fraction": -0.1074024169706046
+    },
+    {
+      "candidate_rank": 68,
+      "candidate_value_added": 84653502113.6007,
+      "iso3": "LTU",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 68,
+      "v4_value_added": 89996793425.20921,
+      "value_added_change_fraction": -0.05937201880474774
+    },
+    {
+      "candidate_rank": 29,
+      "candidate_value_added": 1235531509663.1946,
+      "iso3": "MEX",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 29,
+      "v4_value_added": 1441233751762.563,
+      "value_added_change_fraction": -0.14272649516277558
+    },
+    {
+      "candidate_rank": 4,
+      "candidate_value_added": 15528110299474.37,
+      "iso3": "NGA",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 4,
+      "v4_value_added": 24904844397388.465,
+      "value_added_change_fraction": -0.3765024164895945
+    },
+    {
+      "candidate_rank": 56,
+      "candidate_value_added": 217351589562.60294,
+      "iso3": "NZL",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 56,
+      "v4_value_added": 338741102202.3763,
+      "value_added_change_fraction": -0.3583548375161477
+    },
+    {
+      "candidate_rank": 6,
+      "candidate_value_added": 7171511447600.983,
+      "iso3": "PAK",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 6,
+      "v4_value_added": 9129200786283.068,
+      "value_added_change_fraction": -0.21444257657511256
+    },
+    {
+      "candidate_rank": 55,
+      "candidate_value_added": 253003020995.11215,
+      "iso3": "PRT",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 55,
+      "v4_value_added": 373986161359.80664,
+      "value_added_change_fraction": -0.3234963024428553
+    },
+    {
+      "candidate_rank": 80,
+      "candidate_value_added": 3364135385.1011167,
+      "iso3": "STP",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 80,
+      "v4_value_added": 4151098160.194653,
+      "value_added_change_fraction": -0.18957941843915205
+    },
+    {
+      "candidate_rank": 57,
+      "candidate_value_added": 205439474133.60147,
+      "iso3": "SVK",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 57,
+      "v4_value_added": 262794655928.21268,
+      "value_added_change_fraction": -0.21825094422878544
+    },
+    {
+      "candidate_rank": 27,
+      "candidate_value_added": 1438203054157.3857,
+      "iso3": "THA",
+      "rank_change_positive_is_rise": 0,
+      "v4_rank": 27,
+      "v4_value_added": 1638089868667.8599,
+      "value_added_change_fraction": -0.12202432744000036
+    }
+  ],
+  "schema": "LOOM_EARTH_LEAN_BIOSYNTHETIC_COMPARISON_v0"
+}

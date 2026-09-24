@@ -1,0 +1,382 @@
+{
+  "authority_boundary": {
+    "demographic_areas": 237,
+    "economic_economies": 80,
+    "empirical_demography_through_year": 2100,
+    "selected_modeled_successor_end_year": 2226,
+    "selected_modeled_successor_start_year": 2101
+  },
+  "category_contract": {
+    "biological_humans_are_synthetic_persons": false,
+    "machine_tasks_count_as_population": false,
+    "synthetic_persons_are_machine_tasks": false
+  },
+  "designation": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+  "files": [
+    {
+      "bytes": 1201,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/CONSISTENCY_REPORT.md",
+      "sha256": "ccb5450c304e6415fa32a299211ecab8e842d5d4767817f75290be1f251419af"
+    },
+    {
+      "bytes": 733,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/LABOR_COMPOSITION_REPORT.md",
+      "sha256": "97879bf9b3680bf6b8a49c5f1db127380bf93d7738ecf4057c377baa38ab22d9"
+    },
+    {
+      "bytes": 6445,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/LAB_DISPOSITION_INTAKE.yml",
+      "sha256": "a569953e38f254c3e68b8f219bf2eed3f450b7137aca9bfa982014f7dabfa56d"
+    },
+    {
+      "bytes": 1131,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/MEDICAL_LONGEVITY_ASSUMPTIONS.md",
+      "sha256": "8afa27270638e56b0f4e33146f857d52c1b6fd0928eae841eb2bba0b24786d12"
+    },
+    {
+      "bytes": 2490,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/MODEL_SPEC.md",
+      "sha256": "6596d4255f603ce15b1c5a4b8cb855bdea07f09b6aa618226c3dfffabf776509"
+    },
+    {
+      "bytes": 1799,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/OUTLIER_REVIEW.md",
+      "sha256": "8df7481cd942b85deacbcbc77462711c5be39d208559ae39063e617ad9046bc3"
+    },
+    {
+      "bytes": 1696,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/PROJECT_MANIFEST.yml",
+      "sha256": "f3a0d089a0d147d7d7d0257e8debee47dd50233955fde8d426b621aa57d2db21"
+    },
+    {
+      "bytes": 2422,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/PROMOTION_DECISION.md",
+      "sha256": "ad496091bc12aa7eb93b49acdd2951429fac11fe9a54a1b6c3b31d51a52a813f"
+    },
+    {
+      "bytes": 3368,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/README.md",
+      "sha256": "77b6c7462decbcf2e2590ffa8ed7e4d90a2ffde51db9a5fce260f64fb8b73962"
+    },
+    {
+      "bytes": 1818,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/REPRODUCIBILITY.md",
+      "sha256": "6ab4e244929efdea879f5a1af47e2b7645a07bd15c2bb7922b0845a466dc0122"
+    },
+    {
+      "bytes": 1240,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/SYNTHETIC_PERSON_ASSUMPTIONS.md",
+      "sha256": "70d7c8a80276d1a6fb2d9247d803ca4a443f295f444b5b854e0ac95cd04626f1"
+    },
+    {
+      "bytes": 1568,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/WORK_PLAN.md",
+      "sha256": "9b8559fba9f8aae0d0eed0058701276704d2b4cb1104245f8b3dc6db7c2979b1"
+    },
+    {
+      "bytes": 3219,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/build_promotion_manifest.py",
+      "sha256": "6f7d998590816594c87db7dab9a0877893d62465ac20c42ef146c6dc6052751c"
+    },
+    {
+      "bytes": 3252,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/parameters.json",
+      "sha256": "45cf49d47d403d15cf7cc8fec10c9d7ea53fd1db1d1eb82c33b558ba6a61046b"
+    },
+    {
+      "bytes": 7392,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/CANDIDATE_MANIFEST.json",
+      "sha256": "a1b844e02d62dd4fe7b5db1d5c3f20c246a5de220019a269e67a0f76fe213399"
+    },
+    {
+      "bytes": 23677,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/COMPARISON_CURRENT_V4_TO_CANDIDATE.json",
+      "sha256": "63c13687c7f1a8e746825f0f44e8f0d1d3ec8b118c578a5eda4af7e34606ebdb"
+    },
+    {
+      "bytes": 506,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/DETERMINISM_REPORT.json",
+      "sha256": "5eb1243b7d6ad28297e80531b9af75b048f05de948e91342290235188590595d"
+    },
+    {
+      "bytes": 39400,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/OUTLIER_REVIEW.json",
+      "sha256": "3af5095a65b3ac7a3c6a05cae753dad7359ccae1aa3fa21691d5487e40ffc9a1"
+    },
+    {
+      "bytes": 2887,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/SOURCE_PROVENANCE.json",
+      "sha256": "0f893fcb7ef0bae41db03ae195387e607e55c18d63121711b45361c7c6d64cfb"
+    },
+    {
+      "bytes": 133585,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/annual_biological_summary.json",
+      "sha256": "f2db733a3a9eb2d28abde8fe5c7f202575be4a024baa8c8b25d35943f0d09555"
+    },
+    {
+      "bytes": 29934,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/annual_economic_summary.json",
+      "sha256": "74e4515cf150b3e1c5f5819986816ad82a5279e9b58f710ca04bd31db0349b9f"
+    },
+    {
+      "bytes": 43254,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/annual_labor_composition.json",
+      "sha256": "257b5457081552d575f6a67e5026dbc9ca3b9f806b1a3ed9d54edbe38a253f3c"
+    },
+    {
+      "bytes": 50227,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/annual_synthetic_summary.json",
+      "sha256": "efb0541acba6e1dc63a7a6b1fa0cdb89aecdfab569c7c90d4fddbe3ff52c85e4"
+    },
+    {
+      "bytes": 66108,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/countries_2226.json",
+      "sha256": "95d21115e84a5789cb01edb45a086d7399da112049c82805211207268662a72b"
+    },
+    {
+      "bytes": 46257,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/country_demography_2226.csv",
+      "sha256": "e75d9a980818c05f7e6689fbe7a9abbc391b837a01a60f0ca1807fbc0d0e8e33"
+    },
+    {
+      "bytes": 1316216,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/country_sector_assets_2226.json",
+      "sha256": "eb8b6ec938c29315e01c549bdc7ec50d2a44358e00146ef7d0c4d9bfc8f0f9e7"
+    },
+    {
+      "bytes": 852800,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/country_sectors_2226.json",
+      "sha256": "bb60e1f6611fabbb9cdf5c81885e5ea57564b93a30969d59bd15cebc5c1e09e0"
+    },
+    {
+      "bytes": 2319,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/demography_report.json",
+      "sha256": "7fceb47e6c28542639b1233cba6d420e2c0c4f753fb88bd2287de67334803b54"
+    },
+    {
+      "bytes": 2748,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/economic_report.json",
+      "sha256": "c94ebbec7753ee8eda4ed7f999bbd350a2651a39c4bbe9f4dc08a8e8615f0413"
+    },
+    {
+      "bytes": 6152,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/results/independent_validation.json",
+      "sha256": "55bac88f40ea7f15184f74d6327839832718a9be7bd5e9421c751cc22199448c"
+    },
+    {
+      "bytes": 79,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/sources/recovered/.gitattributes",
+      "sha256": "d7815cee669233295e0de7373295071d2e6644e64920f188ce7a717786768304"
+    },
+    {
+      "bytes": 1620,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/sources/recovered/LOOM_2226_Earth_Demographic_Model_v0.4_social_scenarios.csv",
+      "sha256": "18ce70d6dcf9df8cd6c223d64c7c499136afa8d9cba495f4ad7aa763a66751a5"
+    },
+    {
+      "bytes": 35866,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/sources/recovered/LOOM_2226_Earth_Demographic_and_Social_Propagation_Model_v0.3-1.md",
+      "sha256": "2e1edaad99ce8aaae5c9fd6836c721fd5cfe82a1f6bcd559c4fda1f65dfab8ec"
+    },
+    {
+      "bytes": 12767,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/src/analyze_v01_grid.py",
+      "sha256": "b4ab0d3aec3132aa9e64daf57960de8f1ef28f283466f5a49bcfd64ca533bd2a"
+    },
+    {
+      "bytes": 1955,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/src/build_v01_scenarios.py",
+      "sha256": "afb2c57c0f110f8501f55e64a49c96bdf5c4102ddbe8369d3f9290658f84d4a3"
+    },
+    {
+      "bytes": 11247,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/src/finalize_candidate.py",
+      "sha256": "1aa7feb86effd121f95c8f4b576d463229ae9d0beb01fd440a7149fa784122b9"
+    },
+    {
+      "bytes": 12780,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/src/model.py",
+      "sha256": "0eb6279042a1d5b1df45f9c75c353630841eaf38ec0de7a3bedbae9184ee07fc"
+    },
+    {
+      "bytes": 2567,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/src/prepare_economic_boundary.py",
+      "sha256": "5c27fae4b1482fa0a3f6d01adb2d2ff392257f069fe688b6c8f2567ad2460a35"
+    },
+    {
+      "bytes": 40530,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/src/run_coupled_economy.py",
+      "sha256": "c2b98455e0ce89815ddcb41b7a2ecdafd368a099fa44089ebeec98bbaf5a7ed6"
+    },
+    {
+      "bytes": 17483,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/src/run_demography.py",
+      "sha256": "66370130f6bff6872b9d0b021bee06933476cd6c3cb165a3dda998357b159018"
+    },
+    {
+      "bytes": 8773,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/src/validate_candidate.py",
+      "sha256": "d0526cd0acf030c3c4ddbefc229217eb16858b0110eaef81fafebe14c0ff4d35"
+    },
+    {
+      "bytes": 1009,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/test_promotion.py",
+      "sha256": "88dfd21eca0ab17484ded58bb958de173ccf9480398b21f1b45ae73c2e5b7269"
+    },
+    {
+      "bytes": 2853,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/tests/test_candidate_artifacts.py",
+      "sha256": "5c8f91471e2a2cccd0e2a5f67a550789557deefa09390915eb515f5e6fceb3ef"
+    },
+    {
+      "bytes": 5301,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/tests/test_model.py",
+      "sha256": "93e381f4d6ced4a5fd3cbf18989d4428b79e84cdde78f90cc41cdf025a73a6e7"
+    },
+    {
+      "bytes": 2686,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/tests/test_v01_sensitivity.py",
+      "sha256": "37718f08641f3d4cf95a39b2427feed553d2cf174d644a466a9bea55b201e2f3"
+    },
+    {
+      "bytes": 1544,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/ALLOCATION_REPAIR_REPORT.md",
+      "sha256": "a38c58624527c82578b99516fdeeb9a1558bf8107f159e214df0fa043e713a89"
+    },
+    {
+      "bytes": 419,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/LABOR_COMPOSITION_TABLE.md",
+      "sha256": "b0ed26a7c1c2929a964f45be3c3abccaa5717dfced9299339464e738495b2aca"
+    },
+    {
+      "bytes": 1181,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/MEDICAL_SENSITIVITY_REPORT.md",
+      "sha256": "0813d3221ab5c8352d5aee607dd000882f40b5f5c8d62101763943667b50cbfe"
+    },
+    {
+      "bytes": 1724,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/README.md",
+      "sha256": "47a09b50bf0212750ad606684df38a5635530edb91b24662c37e0791f454e604"
+    },
+    {
+      "bytes": 741,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/SELECTED_ENDPOINT.md",
+      "sha256": "d0ec7b5a75cc79a70a811f2af3f00dc775c5ab7ddc2e07e11cc9774f0be91120"
+    },
+    {
+      "bytes": 668,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/SYNTHETIC_SENSITIVITY_REPORT.md",
+      "sha256": "c870d29e3da98794320bac2c62868ac868864f48e6be9c4476fdffe21f7df530"
+    },
+    {
+      "bytes": 1932,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/V0_4_VS_V0_RECONCILIATION.md",
+      "sha256": "92f478849eb29c750dfd2f1e54864b52ef9de32310a88e6a4b7edbcf8a38b1a6"
+    },
+    {
+      "bytes": 40276,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/CANDIDATE_MANIFEST.json",
+      "sha256": "508580bfe37877d796da1ad74f92b8bcba4a6857cdab5cc25e4cc55d5fff3653"
+    },
+    {
+      "bytes": 1339,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/DETERMINISM_REPORT.json",
+      "sha256": "3d9dc77861a7e92921791d003899713ab523160b0d8079018d5ae8c146f3fe80"
+    },
+    {
+      "bytes": 877,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/allocation_concentration_before_after.json",
+      "sha256": "8b55ab1a33e7506abf4a6952c7357412f2aa8fe63f3ba1d60c3faf362e04b7cf"
+    },
+    {
+      "bytes": 133824,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/selected_annual_biological_summary.json",
+      "sha256": "bc3333f2143667071e1e2a086c9805e0c4bc36976df9f80f4a0f08f4476914b1"
+    },
+    {
+      "bytes": 29939,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/selected_annual_economic_summary.json",
+      "sha256": "128fed2d8064ce2fe54782b1f06eaec5923533f26f78c422b5c4b7452de0063c"
+    },
+    {
+      "bytes": 43273,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/selected_annual_labor_composition.json",
+      "sha256": "6fffca9fe8e796f17eb6beb7304a0f34539b1273c9362ff961683910881fd802"
+    },
+    {
+      "bytes": 50314,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/selected_annual_synthetic_summary.json",
+      "sha256": "573e430625dd89717a754a4a680b52e0487ed1faf9fe22a07b3f8dd1b168c74c"
+    },
+    {
+      "bytes": 66734,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/selected_countries_2226.json",
+      "sha256": "a328de17cbe33224a2d3d8a501d4f13721727b02c159a8b13697dae188d6c30d"
+    },
+    {
+      "bytes": 46167,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/selected_country_demography_2226.csv",
+      "sha256": "d4d3392bbec782e58bf31fb434620065cf6556807148aaefdea6a783d61d8fbd"
+    },
+    {
+      "bytes": 3009,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/selected_economic_report.json",
+      "sha256": "e43ad90114017129ca0c0788d4451dbeb8a90ee631d2872162cdc7b5dec8a843"
+    },
+    {
+      "bytes": 12108,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/selected_scenario.json",
+      "sha256": "b41765cfe35c06d85aab0fcf8c5d56f2c115071dc1a9ad6cd4af7c6575e2bfb3"
+    },
+    {
+      "bytes": 3886,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/sensitivity_grid.csv",
+      "sha256": "37976657a6341a4d86cbb9242adb73208507d893bb0479926ad531fff051f474"
+    },
+    {
+      "bytes": 113075,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/sensitivity_grid.json",
+      "sha256": "5b1a6f09395093e3a7d498f1e18e349dfb470b4761b911b8196ea55672cca42e"
+    },
+    {
+      "bytes": 3011,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/sensitivity_parameters.json",
+      "sha256": "f502fb9ce465334329c27190c222df33e04fdd66973ed0f3c5c7e6ae726eaae2"
+    },
+    {
+      "bytes": 7059,
+      "path": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/validate_promotion.py",
+      "sha256": "d399a5d0de48efa9af8099794eb58d1b916cc6faf9ae6b0e751b3a4137d2c948"
+    }
+  ],
+  "preserved_provenance": [
+    "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+    "EARTH_2226_CANON_CONSTRAINED_COUNTRY_ALLOCATION",
+    "EARTH_LONG_RUN_ECONOMIC_BASELINE_v3_REPAIRED_2026_09_23"
+  ],
+  "research_source": {
+    "candidate_commit": "d9f5065e390a1ce0c1cca78f68a14317dc03d723",
+    "candidate_manifest_sha256": "508580bfe37877d796da1ad74f92b8bcba4a6857cdab5cc25e4cc55d5fff3653",
+    "merged_commit": "cb4e63554f8ecfaf35a8c3b70275fea479959fbd",
+    "pull_request": 75,
+    "repository": "loom-2226/loom-research-lab"
+  },
+  "rollback": {
+    "demographic_manifest": "manifests/earth_long_run_economic_baseline/earth_demographic_correction_v4_1_2026_09_24/CORRECTION_MANIFEST.json",
+    "designation": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+    "economic_manifest": "manifests/earth_long_run_economic_baseline/earth_long_run_economic_baseline_v4_2026_09_24/BASELINE_MANIFEST.json"
+  },
+  "schema": "loom-earth-biosynthetic-promotion-manifest-v1",
+  "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+  "selection": {
+    "endpoint_fitted": false,
+    "qualification": "PASS",
+    "rule": "EXPLICIT_PARAMETER_MIDDLE_CASE_AFTER_ALL_NINE_RUNS_QUALIFIED",
+    "sensitivity_grid_runs": 9
+  },
+  "status": "ACTIVE_SELECTED_EARTH_AUTHORITY",
+  "supersedes": {
+    "demographic_authority": "EARTH_2226_CANON_CONSTRAINED_COUNTRY_ALLOCATION",
+    "economic_authority_after_2100": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24"
+  }
+}

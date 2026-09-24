@@ -17,7 +17,7 @@ source_state:
 canon:
   baseline_id: v2.4
   baseline_manifest: governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
-  baseline_manifest_blob_sha: 47f559206301bf546cfb77e59d32eebaf9f4f2bb
+  baseline_manifest_blob_sha: 6ace1d7187bad5a393797c1f0d9be93e95e21f1d
   authority_index: governance/AUTHORITY.md
   active_sources:
     - path: canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
@@ -35,7 +35,13 @@ canon:
       version: v2.4a
       parent: canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
       status: EFFECTIVE_SCOPED_GOVERNING_AMENDMENT
-      baseline_registration: RECONCILIATION_REQUIRED_AT_NEXT_CANON_BASELINE_UPDATE
+      baseline_registration: REGISTERED_IN_CANON_BASELINE_2026_09_25
+    - path: canon/current/LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md
+      version: v2.4b
+      parent: canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
+      status: EFFECTIVE_SCOPED_GOVERNING_AMENDMENT
+      baseline_registration: REGISTERED_IN_CANON_BASELINE_2026_09_25
+      authorization: CCR-2026-0001
 
 engineering:
   runtime_architecture:

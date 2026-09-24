@@ -1,0 +1,693 @@
+{
+  "checked_in_results": {
+    "DETERMINISM_REPORT.json": {
+      "bytes": 1339,
+      "sha256": "3d9dc77861a7e92921791d003899713ab523160b0d8079018d5ae8c146f3fe80"
+    },
+    "allocation_concentration_before_after.json": {
+      "bytes": 877,
+      "sha256": "8b55ab1a33e7506abf4a6952c7357412f2aa8fe63f3ba1d60c3faf362e04b7cf"
+    },
+    "selected_annual_biological_summary.json": {
+      "bytes": 133824,
+      "sha256": "bc3333f2143667071e1e2a086c9805e0c4bc36976df9f80f4a0f08f4476914b1"
+    },
+    "selected_annual_economic_summary.json": {
+      "bytes": 29939,
+      "sha256": "128fed2d8064ce2fe54782b1f06eaec5923533f26f78c422b5c4b7452de0063c"
+    },
+    "selected_annual_labor_composition.json": {
+      "bytes": 43273,
+      "sha256": "6fffca9fe8e796f17eb6beb7304a0f34539b1273c9362ff961683910881fd802"
+    },
+    "selected_annual_synthetic_summary.json": {
+      "bytes": 50314,
+      "sha256": "573e430625dd89717a754a4a680b52e0487ed1faf9fe22a07b3f8dd1b168c74c"
+    },
+    "selected_countries_2226.json": {
+      "bytes": 66734,
+      "sha256": "a328de17cbe33224a2d3d8a501d4f13721727b02c159a8b13697dae188d6c30d"
+    },
+    "selected_country_demography_2226.csv": {
+      "bytes": 46167,
+      "sha256": "d4d3392bbec782e58bf31fb434620065cf6556807148aaefdea6a783d61d8fbd"
+    },
+    "selected_economic_report.json": {
+      "bytes": 3009,
+      "sha256": "e43ad90114017129ca0c0788d4451dbeb8a90ee631d2872162cdc7b5dec8a843"
+    },
+    "selected_scenario.json": {
+      "bytes": 12108,
+      "sha256": "b41765cfe35c06d85aab0fcf8c5d56f2c115071dc1a9ad6cd4af7c6575e2bfb3"
+    },
+    "sensitivity_grid.csv": {
+      "bytes": 3886,
+      "sha256": "37976657a6341a4d86cbb9242adb73208507d893bb0479926ad531fff051f474"
+    },
+    "sensitivity_grid.json": {
+      "bytes": 113075,
+      "sha256": "5b1a6f09395093e3a7d498f1e18e349dfb470b4761b911b8196ea55672cca42e"
+    }
+  },
+  "designation": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_CANDIDATE_2026_09_24",
+  "grid_runs": 9,
+  "local_grid_root": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924",
+  "local_run_artifacts": {
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/annual_biological_summary.json": {
+      "bytes": 133824,
+      "sha256": "bc3333f2143667071e1e2a086c9805e0c4bc36976df9f80f4a0f08f4476914b1"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/biological_cohorts_2100_2226.ndjson": {
+      "bytes": 51184973,
+      "sha256": "3c6f4ef4b5cabb1fb7b97956158acce1bb5d0012f443093ee81a0c2896da1248"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/biological_country_2100_2226.ndjson": {
+      "bytes": 26845881,
+      "sha256": "a4c239a364c73401217d60be1b7d5ef1c500fc7d47bc6d547eed589d06bc0ef8"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/biological_labor_80_2100_2226.ndjson": {
+      "bytes": 2543057,
+      "sha256": "7a813f6c7bf1445d2a105f2e52e29c3abbba0eb68fcd8386613a575e0dd8f5f2"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/country_demography_2226.csv": {
+      "bytes": 46167,
+      "sha256": "d4d3392bbec782e58bf31fb434620065cf6556807148aaefdea6a783d61d8fbd"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/demography_report.json": {
+      "bytes": 2441,
+      "sha256": "8fa68d21c2d6cee8bd75f5eb25156c8a23e3ce062af7e306ed81843d5eb698f7"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/labor_boundary_repairs_2100.json": {
+      "bytes": 294,
+      "sha256": "6ff988063b663a0f98f9e5ad94c4eb19eaa0a9cf616466d8e8b92f136674f99d"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/labor_calibration_2100.json": {
+      "bytes": 2308,
+      "sha256": "8d8c43c9b7db0790001bf0bc5deac3b00b173c8fa4d448aa1f33fcda51dfd899"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/mortality_calibration_2100.json": {
+      "bytes": 6843,
+      "sha256": "670994961efec4df9503d5260a7b57c137b480c55195ae8f900369bdcb8335b4"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CONSERVATIVE/annual_biological_summary.json": {
+      "bytes": 133585,
+      "sha256": "f2db733a3a9eb2d28abde8fe5c7f202575be4a024baa8c8b25d35943f0d09555"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CONSERVATIVE/biological_cohorts_2100_2226.ndjson": {
+      "bytes": 51288969,
+      "sha256": "3266acea865663e8718e3e837bc1bc032e0df723501dd39ce9a01ef2e9604be2"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CONSERVATIVE/biological_country_2100_2226.ndjson": {
+      "bytes": 26864726,
+      "sha256": "6c679df0945df976fb5099f9dff5fc6b6d027fe26c96a6ee0de7e8cdbe982723"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CONSERVATIVE/biological_labor_80_2100_2226.ndjson": {
+      "bytes": 2542936,
+      "sha256": "b21028528eb866829b9047dc829314adaac35bac566832a842c0082764b6628c"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CONSERVATIVE/country_demography_2226.csv": {
+      "bytes": 46257,
+      "sha256": "e75d9a980818c05f7e6689fbe7a9abbc391b837a01a60f0ca1807fbc0d0e8e33"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CONSERVATIVE/demography_report.json": {
+      "bytes": 2469,
+      "sha256": "8d850917db1a9a66c777616938463ce10e0854e4f88b7f3bcc70f9b9a9c17c07"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CONSERVATIVE/labor_boundary_repairs_2100.json": {
+      "bytes": 294,
+      "sha256": "6ff988063b663a0f98f9e5ad94c4eb19eaa0a9cf616466d8e8b92f136674f99d"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CONSERVATIVE/labor_calibration_2100.json": {
+      "bytes": 2308,
+      "sha256": "8d8c43c9b7db0790001bf0bc5deac3b00b173c8fa4d448aa1f33fcda51dfd899"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CONSERVATIVE/mortality_calibration_2100.json": {
+      "bytes": 6843,
+      "sha256": "670994961efec4df9503d5260a7b57c137b480c55195ae8f900369bdcb8335b4"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_HIGH/annual_biological_summary.json": {
+      "bytes": 133534,
+      "sha256": "43c47823d30c9a42b01f7e63f7ea59617dc56e47ede8ad04b96bfb5b259ea92e"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_HIGH/biological_cohorts_2100_2226.ndjson": {
+      "bytes": 51065154,
+      "sha256": "b33042d5455b834789c3726f0f11872b8f80c3c1216a864985b185359fdad3f0"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_HIGH/biological_country_2100_2226.ndjson": {
+      "bytes": 26818043,
+      "sha256": "60a18465c913f591a077cc9dbde10ef680cb030cd0e2a79593da4628d899e039"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_HIGH/biological_labor_80_2100_2226.ndjson": {
+      "bytes": 2542962,
+      "sha256": "09dee4ac4cde58cbd44fcb885b19183f348aa23e97e4158e80307d863ce4e2c4"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_HIGH/country_demography_2226.csv": {
+      "bytes": 45957,
+      "sha256": "6bca3faa448228da450f90ea542433b58d67249d3769e84e664f25451e4bde82"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_HIGH/demography_report.json": {
+      "bytes": 2427,
+      "sha256": "ab8d5f0e01e4e315696ab8fe4119a43dfb3e9033f91a2b5861ee34132406e6fc"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_HIGH/labor_boundary_repairs_2100.json": {
+      "bytes": 294,
+      "sha256": "6ff988063b663a0f98f9e5ad94c4eb19eaa0a9cf616466d8e8b92f136674f99d"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_HIGH/labor_calibration_2100.json": {
+      "bytes": 2308,
+      "sha256": "8d8c43c9b7db0790001bf0bc5deac3b00b173c8fa4d448aa1f33fcda51dfd899"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_HIGH/mortality_calibration_2100.json": {
+      "bytes": 6843,
+      "sha256": "670994961efec4df9503d5260a7b57c137b480c55195ae8f900369bdcb8335b4"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/determinism/MED_CENTRAL__SYNTH_CENTRAL/annual_economic_summary.json": {
+      "bytes": 29939,
+      "sha256": "128fed2d8064ce2fe54782b1f06eaec5923533f26f78c422b5c4b7452de0063c"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/determinism/MED_CENTRAL__SYNTH_CENTRAL/annual_labor_composition.json": {
+      "bytes": 43273,
+      "sha256": "6fffca9fe8e796f17eb6beb7304a0f34539b1273c9362ff961683910881fd802"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/determinism/MED_CENTRAL__SYNTH_CENTRAL/annual_synthetic_summary.json": {
+      "bytes": 50314,
+      "sha256": "573e430625dd89717a754a4a680b52e0487ed1faf9fe22a07b3f8dd1b168c74c"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/determinism/MED_CENTRAL__SYNTH_CENTRAL/boundary_factor_rebase_2100.json": {
+      "bytes": 317976,
+      "sha256": "be225d1bd80640b15d8e29aaa9fedb4d47ebe1c8d74cdf5433f20bcba49b2928"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/determinism/MED_CENTRAL__SYNTH_CENTRAL/countries_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/determinism/MED_CENTRAL__SYNTH_CENTRAL/countries_2226.json": {
+      "bytes": 66734,
+      "sha256": "a328de17cbe33224a2d3d8a501d4f13721727b02c159a8b13697dae188d6c30d"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/determinism/MED_CENTRAL__SYNTH_CENTRAL/country_sector_assets_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/determinism/MED_CENTRAL__SYNTH_CENTRAL/country_sector_assets_2226.json": {
+      "bytes": 1316505,
+      "sha256": "add8022ae3a1346eadf58695588d449db71845c873fd561819f3ef56af06fd41"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/determinism/MED_CENTRAL__SYNTH_CENTRAL/country_sectors_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/determinism/MED_CENTRAL__SYNTH_CENTRAL/country_sectors_2226.json": {
+      "bytes": 865813,
+      "sha256": "d71374af821442b854e5920a9c3ebcf1861e4b3f40bd82e8b5f4237760a766ef"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/determinism/MED_CENTRAL__SYNTH_CENTRAL/economic_report.json": {
+      "bytes": 2997,
+      "sha256": "3d92b33b04f790ad0bd22059564bddb224ed045f2306c57d10d4353609527336"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs/MED_CONSERVATIVE__SYNTH_CENTRAL/annual_economic_summary.json": {
+      "bytes": 29960,
+      "sha256": "7b54cba69472574de32674398123eeb85aced61c258881abc652f7169d02a790"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs/MED_CONSERVATIVE__SYNTH_CENTRAL/annual_labor_composition.json": {
+      "bytes": 43265,
+      "sha256": "dda8b8d5037bf8246e0fa701e389683ad9e4827c093d87460841a9afe7b02fb7"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs/MED_CONSERVATIVE__SYNTH_CENTRAL/annual_synthetic_summary.json": {
+      "bytes": 50274,
+      "sha256": "6a8b324c0cfff1099eb2454eacce33fdb934b2a0b9f9422597888ee9fa4b59d4"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs/MED_CONSERVATIVE__SYNTH_CENTRAL/boundary_factor_rebase_2100.json": {
+      "bytes": 317936,
+      "sha256": "62dd544de907ed8577be8bce26bae48af08603b6451bc694002177d7ba5d14e7"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs/MED_CONSERVATIVE__SYNTH_CENTRAL/countries_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs/MED_CONSERVATIVE__SYNTH_CENTRAL/countries_2226.json": {
+      "bytes": 66553,
+      "sha256": "4b150f813f3887ce4680fb000a4aba412679b57a478a71feb8976a7fa46506c9"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs/MED_CONSERVATIVE__SYNTH_CENTRAL/country_sector_assets_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs/MED_CONSERVATIVE__SYNTH_CENTRAL/country_sector_assets_2226.json": {
+      "bytes": 1316469,
+      "sha256": "6eb1504e6da49a64057424172989660af190e48ca80f3f381f46803afd3a476c"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs/MED_CONSERVATIVE__SYNTH_CENTRAL/country_sectors_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs/MED_CONSERVATIVE__SYNTH_CENTRAL/country_sectors_2226.json": {
+      "bytes": 862500,
+      "sha256": "8f905349f34a78f8ef5bf63911cac9e2f697ba935836813c341adeb67cc6056c"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs/MED_CONSERVATIVE__SYNTH_CENTRAL/economic_report.json": {
+      "bytes": 2988,
+      "sha256": "8336dd6e766b552dd26406c1537595c80fe033dc973e88afa3bf717512b71e54"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_CENTRAL/annual_economic_summary.json": {
+      "bytes": 29939,
+      "sha256": "128fed2d8064ce2fe54782b1f06eaec5923533f26f78c422b5c4b7452de0063c"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_CENTRAL/annual_labor_composition.json": {
+      "bytes": 43273,
+      "sha256": "6fffca9fe8e796f17eb6beb7304a0f34539b1273c9362ff961683910881fd802"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_CENTRAL/annual_synthetic_summary.json": {
+      "bytes": 50314,
+      "sha256": "573e430625dd89717a754a4a680b52e0487ed1faf9fe22a07b3f8dd1b168c74c"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_CENTRAL/boundary_factor_rebase_2100.json": {
+      "bytes": 317976,
+      "sha256": "be225d1bd80640b15d8e29aaa9fedb4d47ebe1c8d74cdf5433f20bcba49b2928"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_CENTRAL/countries_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_CENTRAL/countries_2226.json": {
+      "bytes": 66734,
+      "sha256": "a328de17cbe33224a2d3d8a501d4f13721727b02c159a8b13697dae188d6c30d"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_CENTRAL/country_sector_assets_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_CENTRAL/country_sector_assets_2226.json": {
+      "bytes": 1316505,
+      "sha256": "add8022ae3a1346eadf58695588d449db71845c873fd561819f3ef56af06fd41"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_CENTRAL/country_sectors_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_CENTRAL/country_sectors_2226.json": {
+      "bytes": 865813,
+      "sha256": "d71374af821442b854e5920a9c3ebcf1861e4b3f40bd82e8b5f4237760a766ef"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_CENTRAL/economic_report.json": {
+      "bytes": 3009,
+      "sha256": "e43ad90114017129ca0c0788d4451dbeb8a90ee631d2872162cdc7b5dec8a843"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_HIGH/annual_economic_summary.json": {
+      "bytes": 29934,
+      "sha256": "a69b113d770608123adaaf7a59228dac32f3b2c31faf73f8cf2c15a18b30f29b"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_HIGH/annual_labor_composition.json": {
+      "bytes": 43219,
+      "sha256": "8a2fc6f0fd6de05e7f5b483069d018efb19e2a7e28f2c82688af2c10751efbca"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_HIGH/annual_synthetic_summary.json": {
+      "bytes": 50358,
+      "sha256": "db48f03110d0ac53e38d884af325984e7b73283bdbb61b344e2d022aa92acea4"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_HIGH/boundary_factor_rebase_2100.json": {
+      "bytes": 317976,
+      "sha256": "be225d1bd80640b15d8e29aaa9fedb4d47ebe1c8d74cdf5433f20bcba49b2928"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_HIGH/countries_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_HIGH/countries_2226.json": {
+      "bytes": 66638,
+      "sha256": "f8db9b8fa551473c00b4713edd820e780f44758988b98611cf9fdbbfeceb1422"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_HIGH/country_sector_assets_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_HIGH/country_sector_assets_2226.json": {
+      "bytes": 1316693,
+      "sha256": "ae406131745e26f040e9117441585f5310ea97eceb0ab4a1b4f8f5e9514e53ad"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_HIGH/country_sectors_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_HIGH/country_sectors_2226.json": {
+      "bytes": 864925,
+      "sha256": "6dff41b6cc14b180463cde380376c827e7ad9dae5be3c4a87ca59354596748c9"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_HIGH/economic_report.json": {
+      "bytes": 2992,
+      "sha256": "712e9dd86350f298b3c22e9d825b984e6ae1c41ce8fc331c8d47af508bcc6bef"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_LOW/annual_economic_summary.json": {
+      "bytes": 29923,
+      "sha256": "8ce65db30524f8c848b84649a324046b888d5f8dc366e3c1b7386b813a8bfbf1"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_LOW/annual_labor_composition.json": {
+      "bytes": 43325,
+      "sha256": "694e2b76cf274147c64b71743b8194e5f47aa57a6e49e54d60b80085d9677017"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_LOW/annual_synthetic_summary.json": {
+      "bytes": 50348,
+      "sha256": "8b0e1d1c9b46eb8ff609126006b7055ec900094c11818876ed3db06ebf4ac8e9"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_LOW/boundary_factor_rebase_2100.json": {
+      "bytes": 317976,
+      "sha256": "be225d1bd80640b15d8e29aaa9fedb4d47ebe1c8d74cdf5433f20bcba49b2928"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_LOW/countries_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_LOW/countries_2226.json": {
+      "bytes": 66717,
+      "sha256": "69b1841a63254f5a709c3c92fd1c7a5117686f71b8e8bbe906a2f144b9858dab"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_LOW/country_sector_assets_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_LOW/country_sector_assets_2226.json": {
+      "bytes": 1316681,
+      "sha256": "185a85b1b7c8624728e99e30f51539ca8866ec6f183d997ceb26c66c4f73c0ed"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_LOW/country_sectors_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_LOW/country_sectors_2226.json": {
+      "bytes": 865831,
+      "sha256": "4ee18d1540993cfcb26e8a1a231b917ed361cbae12cbc6d4203a1dccbb36c9b0"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CENTRAL__SYNTH_LOW/economic_report.json": {
+      "bytes": 2988,
+      "sha256": "372141966e30d9e6b33ebf6b867247f1ea1b4e5734801c5972a0f447902920ef"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_CENTRAL/annual_economic_summary.json": {
+      "bytes": 29936,
+      "sha256": "2ae9fd7e1395dedfc739674eb6ca9bcfc4453c9f503fd85536ce5f460c9d9688"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_CENTRAL/annual_labor_composition.json": {
+      "bytes": 43271,
+      "sha256": "a8f79171f2f11f4734dd979e8afb1d6ddca3a80617f7159523f6e2df42ba78ad"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_CENTRAL/annual_synthetic_summary.json": {
+      "bytes": 50312,
+      "sha256": "b5d8e0edb1563d6ba648a01d821eb4f7d729290388b293e505ccb82084ee9bab"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_CENTRAL/boundary_factor_rebase_2100.json": {
+      "bytes": 317976,
+      "sha256": "be225d1bd80640b15d8e29aaa9fedb4d47ebe1c8d74cdf5433f20bcba49b2928"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_CENTRAL/countries_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_CENTRAL/countries_2226.json": {
+      "bytes": 66695,
+      "sha256": "a2f1939d456c1daf4f290bcad03e96d98c070b01cbbd2c2e893845b545c08152"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_CENTRAL/country_sector_assets_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_CENTRAL/country_sector_assets_2226.json": {
+      "bytes": 1316496,
+      "sha256": "7239ba9381b596d53dd5c273593fb91f2a6d5f85806ecb203106eff00c19945c"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_CENTRAL/country_sectors_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_CENTRAL/country_sectors_2226.json": {
+      "bytes": 865784,
+      "sha256": "43985ffcaa6aefe5b1983c26684c9a5e6470c98b1aad47e1c6bd1af7dd625b20"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_CENTRAL/economic_report.json": {
+      "bytes": 3042,
+      "sha256": "33c8ac2f231329bb35f22719fc1ecab35bc0448b7cb49291c97d38ab21f83e67"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_HIGH/annual_economic_summary.json": {
+      "bytes": 29917,
+      "sha256": "8e11d5e938608af56229573680250fc8576f225c3cdd83501b7fb8669f3d1994"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_HIGH/annual_labor_composition.json": {
+      "bytes": 43272,
+      "sha256": "8fad056b30bb784fa37be5fab03733c40e76e433f8e2c7c0acaa6bbd7e3adbf2"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_HIGH/annual_synthetic_summary.json": {
+      "bytes": 50400,
+      "sha256": "7dd2dfc6b3834e196cf79a14a750be98671c3f530f72c088e33370029901ab4b"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_HIGH/boundary_factor_rebase_2100.json": {
+      "bytes": 317976,
+      "sha256": "be225d1bd80640b15d8e29aaa9fedb4d47ebe1c8d74cdf5433f20bcba49b2928"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_HIGH/countries_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_HIGH/countries_2226.json": {
+      "bytes": 66595,
+      "sha256": "a340d449cf74807d7da72f1fab19e27fe44cb5fd5681674a6f8e2e25c88c3adb"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_HIGH/country_sector_assets_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_HIGH/country_sector_assets_2226.json": {
+      "bytes": 1316105,
+      "sha256": "ee804a312ce9af23c63829b15cd1f1b27edab8305cd489c70c9106d2681cbd83"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_HIGH/country_sectors_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_HIGH/country_sectors_2226.json": {
+      "bytes": 864783,
+      "sha256": "93c2aba5261b9d66440db231f24d29eca05c855b406b926b4f17cb72ab510532"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_HIGH/economic_report.json": {
+      "bytes": 3022,
+      "sha256": "8e0e8f3ac2b543ee7898b7ecf365e0321fe3d43d245d9b3c640591cf5f3d7fb9"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_LOW/annual_economic_summary.json": {
+      "bytes": 29921,
+      "sha256": "0b1eaf45518a25dee34dabdedec4192035b46f207abfc17df8da2280f0af84cf"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_LOW/annual_labor_composition.json": {
+      "bytes": 43303,
+      "sha256": "90ab11d210e79fa5402c2d900b78bdfac66266b1e262bf4eaaeb6aa38bc37ebe"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_LOW/annual_synthetic_summary.json": {
+      "bytes": 50339,
+      "sha256": "845ba8a4e558a1be625acfe1b4883237b5e242e3d89322a20bced0570630bcec"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_LOW/boundary_factor_rebase_2100.json": {
+      "bytes": 317976,
+      "sha256": "be225d1bd80640b15d8e29aaa9fedb4d47ebe1c8d74cdf5433f20bcba49b2928"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_LOW/countries_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_LOW/countries_2226.json": {
+      "bytes": 66664,
+      "sha256": "8d75ea0bf5c1a5ee145846524677c92d16686cf186a9006d1326b3a6d22a2590"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_LOW/country_sector_assets_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_LOW/country_sector_assets_2226.json": {
+      "bytes": 1316694,
+      "sha256": "3e3093b222032ca7f5ae822dc2b0b8d7d3600373d7945723bda2bd0528d3f34f"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_LOW/country_sectors_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_LOW/country_sectors_2226.json": {
+      "bytes": 865955,
+      "sha256": "49c6687fba0ba8c37fdd81d0e794a64419ef241b2d514dd95af9bc912e1c5758"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_CONSERVATIVE__SYNTH_LOW/economic_report.json": {
+      "bytes": 3018,
+      "sha256": "b718632830b75547fa4e7bb61160bc9d5cb6b3ed6bdcdf3031f0e8a18a1fdcb4"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_CENTRAL/annual_economic_summary.json": {
+      "bytes": 29941,
+      "sha256": "3b637f9d85a0c21b3cb847e380bf50e57823eaa80b009882ae26b019656ac7ad"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_CENTRAL/annual_labor_composition.json": {
+      "bytes": 43272,
+      "sha256": "765cb00a6d3c5769ae10fe4a691d39d4e73f8daef52309de4fd237d9c0e2d559"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_CENTRAL/annual_synthetic_summary.json": {
+      "bytes": 50322,
+      "sha256": "1a9049507a1cf2515b1d637856caa2d54120d77af5620cb85ac392663ac32f51"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_CENTRAL/boundary_factor_rebase_2100.json": {
+      "bytes": 317976,
+      "sha256": "be225d1bd80640b15d8e29aaa9fedb4d47ebe1c8d74cdf5433f20bcba49b2928"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_CENTRAL/countries_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_CENTRAL/countries_2226.json": {
+      "bytes": 66671,
+      "sha256": "8e746e95cce7604e6e69dafb3eede3211de0d31d6e24e3b0a837eb2fd699a232"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_CENTRAL/country_sector_assets_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_CENTRAL/country_sector_assets_2226.json": {
+      "bytes": 1316595,
+      "sha256": "35a1c138312bc7530f69c7d4d0740ea924f39aae25fb6da58787fa39c0400e8c"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_CENTRAL/country_sectors_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_CENTRAL/country_sectors_2226.json": {
+      "bytes": 865809,
+      "sha256": "266668f9d99a99b8e679b3aeeea40b435017257bd4da47bb2e03ffb540243bdb"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_CENTRAL/economic_report.json": {
+      "bytes": 2994,
+      "sha256": "44c3153bb543658a3150cec62e8cf6103e620acce81b9b64493adaf3b224b8b9"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_HIGH/annual_economic_summary.json": {
+      "bytes": 29918,
+      "sha256": "6327c603d3521f095d9592fd5bdf5e4ec0c5e535425369eaf327d5d8f2ddd62d"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_HIGH/annual_labor_composition.json": {
+      "bytes": 43275,
+      "sha256": "49d14aced928d9ad93a013f834c6b75b4ee882d2446445bbaa1fa197a586565d"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_HIGH/annual_synthetic_summary.json": {
+      "bytes": 50380,
+      "sha256": "d3c30b00406156878860eeb71b3c7907d9e7e1798210c37f669fe7e2b5248cdc"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_HIGH/boundary_factor_rebase_2100.json": {
+      "bytes": 317976,
+      "sha256": "be225d1bd80640b15d8e29aaa9fedb4d47ebe1c8d74cdf5433f20bcba49b2928"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_HIGH/countries_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_HIGH/countries_2226.json": {
+      "bytes": 66570,
+      "sha256": "9194dce5f649675050ad2b341dace498cc8cfac69915378c2e3f2a331822db3a"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_HIGH/country_sector_assets_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_HIGH/country_sector_assets_2226.json": {
+      "bytes": 1316489,
+      "sha256": "b37a69df0ac1469f5c881d99ff5196b7b5e9f16511845687bc09c820622c3b04"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_HIGH/country_sectors_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_HIGH/country_sectors_2226.json": {
+      "bytes": 864758,
+      "sha256": "264c36d6a9cb9b5e36ea633ed177390bfafd5a195b17cdacebe4a72719d7b20d"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_HIGH/economic_report.json": {
+      "bytes": 2971,
+      "sha256": "56c476a6da47744efb5460b32100111548f8ca77dc2e721c3e3049f96e7edce9"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_LOW/annual_economic_summary.json": {
+      "bytes": 29938,
+      "sha256": "e6018a3d15563b88af7b2781b6f6e3f4f3375d00046799eea146ebe9fec98556"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_LOW/annual_labor_composition.json": {
+      "bytes": 43322,
+      "sha256": "1029780acb56bfeabaf185bd54151014ac72d0948fa977a6eefe7bb52c56ae62"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_LOW/annual_synthetic_summary.json": {
+      "bytes": 50342,
+      "sha256": "d2388942234ba1c208fb4ecf9f65957b0060cd4a71b2a749f5744f9fd1f6d0a8"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_LOW/boundary_factor_rebase_2100.json": {
+      "bytes": 317976,
+      "sha256": "be225d1bd80640b15d8e29aaa9fedb4d47ebe1c8d74cdf5433f20bcba49b2928"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_LOW/countries_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_LOW/countries_2226.json": {
+      "bytes": 66655,
+      "sha256": "ce70f82bc024056ed64780257168c7506faf54dd979ddf85995c4b16aa15deb5"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_LOW/country_sector_assets_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_LOW/country_sector_assets_2226.json": {
+      "bytes": 1316330,
+      "sha256": "8f245927824eb51eca8972715517ccc159edf81ecbab730121e3fb64fb117080"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_LOW/country_sectors_2100_2226.ndjson": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_LOW/country_sectors_2226.json": {
+      "bytes": 865424,
+      "sha256": "16d4d11c863b9bcba4f31dcc72b5041ba376c0ea10973d08ba4c62a42bba6f97"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/runs_repaired/MED_HIGH__SYNTH_LOW/economic_report.json": {
+      "bytes": 2968,
+      "sha256": "68d46d7cadfe0f283ee222b2c32c90e7564261c2ca5859830833543a2ca4b098"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/scenarios/MED_CENTRAL__SYNTH_CENTRAL.json": {
+      "bytes": 6013,
+      "sha256": "82e5120319943470c154904e5a2e83f3b8285fc086fa7fdb1ed3f4b77d72c4b2"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/scenarios/MED_CENTRAL__SYNTH_HIGH.json": {
+      "bytes": 6011,
+      "sha256": "c2b226c4221bec42ded625391782217430c75b5a9500dd2532432ad761ba59c0"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/scenarios/MED_CENTRAL__SYNTH_LOW.json": {
+      "bytes": 6010,
+      "sha256": "b4e407c4f5b556bf4bc597b45dddd1077bea6b333ebfadd5dc49bbdb5d234ed5"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/scenarios/MED_CONSERVATIVE__SYNTH_CENTRAL.json": {
+      "bytes": 5973,
+      "sha256": "52d35e24ff741b680616e1d477f1f8c4f98efadd4d74e5c7ad3d8b1678a56c5d"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/scenarios/MED_CONSERVATIVE__SYNTH_HIGH.json": {
+      "bytes": 5971,
+      "sha256": "025b5a7c153c52b23ae7ba985177d9b125880fadd17f7af86069976e4598d0eb"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/scenarios/MED_CONSERVATIVE__SYNTH_LOW.json": {
+      "bytes": 5970,
+      "sha256": "0a7d793617f27b4c72e79bf0e8e99b11e6ad5916df5d327bfba77c81bc801a05"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/scenarios/MED_HIGH__SYNTH_CENTRAL.json": {
+      "bytes": 6011,
+      "sha256": "a65d0496ee5fe37372334e9f8d6f9dbfca39ce0368902033b0c97bad150637dc"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/scenarios/MED_HIGH__SYNTH_HIGH.json": {
+      "bytes": 6009,
+      "sha256": "c50098802b69f2ff8c7983c921bb7ec6a786fff1c481cdf3768c243b16b82fdf"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/scenarios/MED_HIGH__SYNTH_LOW.json": {
+      "bytes": 6008,
+      "sha256": "22f8030049d88b4a8754abd2f6b99a493333a654092b451c281587298b71e0f8"
+    },
+    "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/scenarios/grid_manifest.json": {
+      "bytes": 1793,
+      "sha256": "e459e27444b66508193d750539a8326698da0238e047d9d9accb606943b05716"
+    }
+  },
+  "qualification": "PASS",
+  "schema": "LOOM_EARTH_BIOSYNTHETIC_V0_1_CANDIDATE_MANIFEST",
+  "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+  "status": "RESEARCH_CANDIDATE_NOT_PROMOTED"
+}

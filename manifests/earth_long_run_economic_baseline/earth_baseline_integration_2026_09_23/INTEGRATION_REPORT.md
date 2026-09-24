@@ -47,3 +47,20 @@ decision record and builder, verifies the current canon/CIVSTATE/WPP source
 hashes, and fails closed if the selected endpoint no longer reconciles. The old
 v4 half-life sensitivity remains available only as non-selected comparison
 provenance.
+# Earth lean biosynthetic successor promotion — 25 September 2026
+
+The current economic and demographic pointers now resolve
+`EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24`, selected scenario
+`MED_CENTRAL × SYNTH_CENTRAL`.
+
+- WPP 2024 remains authoritative through 2100.
+- The selected annual coupled successor governs 2101–2226.
+- Demography covers 237 WPP Country/Area identities.
+- Economics remains qualified for 80 economies.
+- Biological humans, recognized synthetic persons and non-person machine-task
+  capacity resolve separately.
+- The workforce/population invariant passes 80/80.
+- Earth v4 and the PR #268 endpoint bridge remain hash-pinned rollback
+  provenance.
+- Resolver validation fails closed on manifest, scenario, roster, category and
+  workforce-invariant mismatch.

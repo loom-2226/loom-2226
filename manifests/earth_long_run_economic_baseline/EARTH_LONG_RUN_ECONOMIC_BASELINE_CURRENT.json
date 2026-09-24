@@ -1,11 +1,17 @@
 {
-  "active_decision_sha256": "0154609b79383df91fe02dd436a4f5799b97ad6a65e08e69be208859c1da8c59",
-  "active_designation": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
-  "active_manifest": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/BASELINE_MANIFEST.json",
-  "active_manifest_sha256": "8fa64961e2f343d9143e9afcb196505a9ac8bbd86c4fd3ceff4210b3e93721b5",
-  "previous_formal_designation": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v3_REPAIRED_2026_09_23",
-  "rollback_manifest": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/BASELINE_MANIFEST.json",
-  "rollback_manifest_sha256": "f8954955671c59bda3d4ce51b734589d77395a70ae556d9df277ae209f580fdb",
-  "schema": "loom-earth-local-economic-baseline-pointer-v1",
-  "scope": "80 qualified economic economies plus 237 WPP identity/demographic areas; 157 areas are demographic-only; scenario, not canon or physical capacity"
+  "schema": "loom-earth-coupled-successor-pointer-v1",
+  "active_designation": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+  "active_manifest": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/PROMOTION_MANIFEST.json",
+  "active_manifest_sha256": "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2",
+  "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+  "empirical_demographic_authority_through_year": 2100,
+  "selected_modeled_successor_start_year": 2101,
+  "selected_modeled_successor_end_year": 2226,
+  "previous_formal_designation": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+  "rollback_manifest": "manifests/earth_long_run_economic_baseline/earth_long_run_economic_baseline_v4_2026_09_24/BASELINE_MANIFEST.json",
+  "rollback_manifest_sha256": "8fa64961e2f343d9143e9afcb196505a9ac8bbd86c4fd3ceff4210b3e93721b5",
+  "rollback_demographic_manifest": "manifests/earth_long_run_economic_baseline/earth_demographic_correction_v4_1_2026_09_24/CORRECTION_MANIFEST.json",
+  "rollback_demographic_manifest_sha256": "79a12da869a3d6d511722389e0f3e0140667467ae2f5b81bdbe94a9544d7810e",
+  "v3_rollback_designation": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v3_REPAIRED_2026_09_23",
+  "scope": "237-area biological demography plus 80-economy coupled labor/economic successor; synthetic persons and non-person machine tasks remain separate"
 }

@@ -59,7 +59,15 @@ components:
       - canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md
     authority: SCOPED_GOVERNING_AMENDMENT
     parent: canon_ii_engineering_ships
-    baseline_registration_state: RECONCILIATION_REQUIRED_AT_NEXT_CANON_BASELINE_UPDATE
+    baseline_registration_state: REGISTERED_IN_CANON_BASELINE_2026_09_25
+
+  earth_biosynthetic_amendment:
+    tier: CANON
+    paths:
+      - canon/current/LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md
+    authority: SCOPED_GOVERNING_AMENDMENT
+    parent: canon_i_world_history
+    baseline_registration_state: REGISTERED_IN_CANON_BASELINE_2026_09_25
 
   canon_iii_authority_gm:
     tier: CANON
@@ -282,6 +290,18 @@ edges:
     to: wayfarer_engineering
     type: GOVERNS_DECLARED_SCOPE
     confidence: ESTABLISHED
+  - from: canon_i_world_history
+    to: earth_biosynthetic_amendment
+    type: PARENT_OF_SCOPED_AMENDMENT
+    confidence: ESTABLISHED
+  - from: earth_biosynthetic_amendment
+    to: runtime_campaign_core
+    type: GOVERNS_DECLARED_SCOPE
+    confidence: ESTABLISHED
+  - from: earth_biosynthetic_amendment
+    to: civstate_db
+    type: REVALIDATION_INPUT
+    confidence: REGISTERED_COARSE
   - from: wayfarer_engineering
     to: wayfarer_geometry_authority
     type: CONSTRAINS

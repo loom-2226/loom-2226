@@ -1,0 +1,136 @@
+packet_version: '1.0'
+packet_class: LAB_TO_LOOM_RESEARCH_DISPOSITION
+packet_id: LDP-2026-EARTH-BIOSYNTHETIC-V0-1
+status: DISPOSITIONED_UPSTREAM
+created_date: '2026-09-25'
+
+source:
+  repository: loom-2226/loom-research-lab
+  head: d9f5065e390a1ce0c1cca78f68a14317dc03d723
+  merged_head: cb4e63554f8ecfaf35a8c3b70275fea479959fbd
+  pull_request: 75
+  project_id: EARTH_LEAN_BIOSYNTHETIC_SUCCESSOR
+  project_manifest: projects/earth_lean_biosynthetic_successor/PROJECT_MANIFEST.yml
+  work_item_or_result_id: EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_CANDIDATE_2026_09_24
+  source_artifacts:
+    - path: projects/earth_lean_biosynthetic_successor/v0_1/results/CANDIDATE_MANIFEST.json
+      sha_or_hash: 508580bfe37877d796da1ad74f92b8bcba4a6857cdab5cc25e4cc55d5fff3653
+      provenance_class: MERGED_RESEARCH_CANDIDATE
+    - path: projects/earth_lean_biosynthetic_successor/v0_1/results/selected_scenario.json
+      sha_or_hash: b41765cfe35c06d85aab0fcf8c5d56f2c115071dc1a9ad6cd4af7c6575e2bfb3
+      provenance_class: SELECTED_QUALIFIED_RESEARCH_OUTPUT
+    - path: projects/earth_lean_biosynthetic_successor/v0_1/results/sensitivity_grid.json
+      sha_or_hash: 5b1a6f09395093e3a7d498f1e18e349dfb470b4761b911b8196ea55672cca42e
+      provenance_class: QUALIFICATION_AND_UNCERTAINTY_EVIDENCE
+
+research_state:
+  classification: [RESEARCH, NON_CANON_AT_SOURCE]
+  source_project_evidence_status: QUALIFIED_RESEARCH_RESULT
+  qualification_state: NINE_OF_NINE_RUNS_PASS_AND_FOCUSED_TESTS_PASS
+  protocol_or_method: projects/earth_lean_biosynthetic_successor/WORK_PLAN.md
+  preregistration_state: BOUNDED_AUTHORIZED_WORK_PLAN_NOT_PREREGISTERED
+  execution_or_review_record: projects/earth_lean_biosynthetic_successor/v0_1/results/CANDIDATE_MANIFEST.json
+  result_verdict: QUALIFIED_WORKING_CENTRAL_SCENARIO
+  limitations:
+    - The selected scenario is a model authority, not an empirical forecast after 2100.
+    - Economics covers 80 qualified economies; 157 additional areas are demographic-only.
+    - No post-2100 country migration model is included.
+    - Medical and synthetic sensitivities remain model-sensitive.
+  negative_results:
+    - No tested scenario uniquely dominated the parameter-middle case on evidence.
+    - The v0 allocation produced geographic concentration pathologies and was repaired generically in v0.1.
+  unresolved_results:
+    - Off-Earth demographics and economics were not rerun.
+    - Cohort-level medical truth and synthetic consciousness are not established.
+
+claims:
+  - claim_id: C1
+    statement: MED_CENTRAL x SYNTH_CENTRAL passed the bounded qualification suite.
+    evidence_class: RESEARCH_RESULT
+    support_status: SUPPORTED_WITHIN_MODEL_SCOPE
+    source_artifacts: [projects/earth_lean_biosynthetic_successor/v0_1/results/selected_scenario.json]
+    source_project_status_inherited_without_upgrade: true
+  - claim_id: C2
+    statement: The selected 2226 workforce/population invariant passes across all 80 qualified economies.
+    evidence_class: MATHEMATICAL_ENGINEERING_DERIVATION
+    support_status: SUPPORTED
+    source_artifacts: [projects/earth_lean_biosynthetic_successor/v0_1/results/selected_countries_2226.json]
+    source_project_status_inherited_without_upgrade: true
+  - claim_id: C3
+    statement: Biological humans, synthetic persons and machine-task capacity remain distinct.
+    evidence_class: MODEL_CONTRACT_AND_VALIDATION
+    support_status: SUPPORTED
+    source_artifacts: [projects/earth_lean_biosynthetic_successor/v0_1/results/selected_annual_labor_composition.json]
+    source_project_status_inherited_without_upgrade: true
+
+cross_project:
+  projects_materially_contributing_evidence: [EARTH_LEAN_BIOSYNTHETIC_SUCCESSOR]
+  bridge_required: false
+  bridge_record: NONE_SINGLE_PROJECT
+  evidentiary_weight_combined_across_projects: false
+  convergence_used_as_truth_multiplier: false
+
+upstream_request:
+  requested_action: OPEN_CCR_INTAKE
+  permitted_actions:
+    - NO_UPSTREAM_ACTION
+    - ARCHIVE_AS_RESEARCH_RECORD
+    - REQUEST_MORE_RESEARCH
+    - REQUEST_INDEPENDENT_REVIEW
+    - OPEN_CCR_INTAKE
+    - OPEN_ENGINEERING_INTAKE
+    - OPEN_RUNTIME_DATA_INTAKE
+    - OPEN_GOVERNANCE_INTAKE
+  requested_scope: Earth post-2100 demographic, labor and economic successor authority
+  rationale: Promote the completed selected scenario without changing model assumptions or outputs.
+  requested_action_is_not_approval: true
+
+upstream_dependencies_and_impacts:
+  frozen_or_preregistered_upstream_objects_referenced: [NONE]
+  canon_areas_potentially_affected: [EARTH_AND_ARITHMETIC_SOLAR_CENSUS]
+  engineering_areas_potentially_affected: [NONE]
+  runtime_data_release_areas_potentially_affected: [EARTH_AUTHORITY_POINTERS, CIVSTATE_REVIEW_REQUIRED]
+  compatibility_or_migration_implications:
+    - Resolver consumers must accept the coupled-successor pointer schema.
+    - Existing production databases remain unchanged and may retain superseded values.
+
+provenance:
+  external_sources: [UN_WPP_2024]
+  reconstruction_or_mirror_status: Exact package copy from merged Research Lab source; recovered lineage retains recovered status.
+  known_provenance_gaps:
+    - Large per-run artifacts remain hash-pinned on quantifactus and are not all checked into Git.
+
+review:
+  hostile_review_status: PASSED_CANDIDATE_CONSISTENCY_AND_ALLOCATION_REVIEW
+  independent_review_status: INDEPENDENT_ARTIFACT_VALIDATION_PASS
+  source_project_gate_or_acceptance_record: Research Lab PR #75 lab-gate
+  lab_gate_state: PASS
+
+does_not_establish:
+  - canon_authority_at_research_source
+  - engineering_authority
+  - runtime_authority
+  - data_or_release_authority_before_upstream_promotion
+  - cross_project_evidence_upgrade
+  - reviewer_endorsement
+  - empirical_post_2100_forecast_truth
+  - synthetic_consciousness
+  - off_earth_population_or_economics
+
+lab_attestation:
+  exact_source_head_verified: true
+  packet_complete_against_template: true
+  source_project_status_preserved: true
+  negative_and_unresolved_results_preserved: true
+  bridge_state_explicit: true
+  does_not_establish_complete: true
+  lab_research_does_not_self_promote: true
+  ready_for_upstream_intake: true
+
+upstream_disposition:
+  state: CCR_INTAKE_AUTHORIZED
+  decision_record: governance/changes/CCR-2026-0001-earth-lean-biosynthetic-successor.yml
+  resulting_ccr: CCR-2026-0001
+  resulting_engineering_work_item: null
+  resulting_runtime_data_work_item: null
+  notes: Kevin separately approved controlled implementation on 2026-09-25.

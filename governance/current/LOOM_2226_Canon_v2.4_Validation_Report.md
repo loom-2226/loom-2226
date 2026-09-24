@@ -1,8 +1,8 @@
 # LOOM 2226 — Canon v2.4 Validation Report
 
-**Date:** 22 August 2026; institutional amendment validated 24 August 2026  
+**Date:** 22 August 2026; institutional amendment validated 24 August 2026; scoped amendments registered 25 September 2026
 **Result:** PASS  
-**Scope:** v2.4 replacement package plus the in-place 24 August institutional/security/societal amendment; research models remain status-controlled rather than promoted by this report.
+**Scope:** v2.4 replacement package, the in-place institutional amendment, Wayfarer amendment v2.4a and Earth biosynthetic amendment v2.4b.
 
 # 1. Baseline integrity
 
@@ -84,7 +84,17 @@ PASS — Mara/Sol/Walter guardrails preserved; Walter remains nonverbal.
 
 # 7. Solar census / institutions / xenoarchaeology
 
-PASS — conserved biological and recognized-synthetic totals unchanged.
+PASS — Earth post-2100 demographic, personhood, labor and economic authority is superseded only through registered scoped amendment v2.4b under `CCR-2026-0001`.
+
+PASS — WPP 2024 remains authoritative through 2100; the selected modeled successor begins in 2101.
+
+PASS — the selected Earth state is exactly `MED_CENTRAL × SYNTH_CENTRAL`; all nine qualified sensitivity runs remain preserved.
+
+PASS — biological humans, recognized synthetic persons and non-person machine-task capacity remain distinct and reconstruct the selected person/labor identities.
+
+PASS — the workforce/population invariant passes for 80/80 economically qualified economies.
+
+PASS — existing off-Earth body/system rows are unchanged. Solar totals are reconciled only by combining the new Earth state with the preserved off-Earth residual and are explicitly not a new off-Earth simulation.
 
 PASS — 127-node Solar infrastructure graph unchanged.
 
@@ -138,7 +148,7 @@ PASS — CANON III v2.4 contains model registry, status precedence, conflict rul
 
 PASS — Atlas v3.2 includes future route-flow schema.
 
-PASS — Manifest defines a six-file minimal runtime set and moves derivation/review artifacts to audit archive rather than requiring them in ordinary context.
+PASS — Manifest defines the parent runtime set and requires scoped amendments v2.4a and v2.4b when their declared scope is relevant.
 
 # 10. Known non-failures / remaining open items
 
@@ -176,8 +186,11 @@ CAUSAL-COMMUNICATIONS       PASS
 INSTITUTIONAL INTEGRATION   PASS
 SECURITY / AUXILIARY LAYER PASS
 XENO / HIDDEN GRAPH        PASS
+EARTH BIOSYNTHETIC AUTHORITY PASS
+PERSONHOOD / LABOR SEPARATION PASS
+SCOPED AMENDMENT REGISTRATION PASS
 MODEL-STATUS HYGIENE       PASS
 LLM RUNTIME USABILITY      PASS
 ```
 
-**v2.4, including the 24 August in-place institutional amendment, remains suitable as the governing baseline.**
+**v2.4, including its in-place institutional integration and registered scoped amendments v2.4a and v2.4b, remains suitable as the governing baseline.**

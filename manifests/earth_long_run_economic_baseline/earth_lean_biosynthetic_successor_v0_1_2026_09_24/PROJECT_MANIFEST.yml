@@ -1,0 +1,43 @@
+project_id: EARTH_LEAN_BIOSYNTHETIC_SUCCESSOR
+title: Lean biological, synthetic-person, labor, and economics successor
+status: V0_1_CANDIDATE_COMPLETE_PENDING_UPSTREAM_REVIEW
+primary_change_class: class:experiment
+authorization: KEVIN_2026_09_24_LEAN_SUCCESSOR
+epistemic_mode: NON_CANON_RESEARCH_CANDIDATE
+upstream_authority:
+  repository: loom-2226/loom-2226
+  main_sha: 817103d9d8640b6400047a1d02fd479633e8323d
+starting_economic_baseline: EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24
+starting_demographic_bridge: EARTH_2226_CANON_CONSTRAINED_COUNTRY_ALLOCATION
+scope:
+  - 237_area_biological_demography_2100_2226
+  - 80_economy_labor_and_economic_coupling_2100_2226
+  - lean_synthetic_person_stock_and_labor
+  - separate_nonperson_machine_task_capacity
+  - bounded_three_by_three_sensitivity
+  - generic_geographic_allocation_repair
+allowed_outputs:
+  - candidate_code
+  - parameterized_scenario
+  - generated_noncanon_evidence
+  - hostile_consistency_review
+  - upstream_disposition_packet
+may_not_infer:
+  - canon_population_endpoint
+  - promoted_economic_authority
+  - cohort_level_medical_truth
+  - synthetic_person_consciousness_or_personhood_proof
+  - 237_area_economic_qualification
+  - off_earth_population_or_economics
+forbidden_mutations:
+  - upstream_canon
+  - upstream_promoted_Earth_pointers
+  - production_SQLite_or_Postgres
+  - Atlas_Navigator_Solar_or_CIVSTATE_runtime
+active_work_plan: projects/earth_lean_biosynthetic_successor/WORK_PLAN.md
+qualification:
+  tests: projects/earth_lean_biosynthetic_successor/tests
+  validator: projects/earth_lean_biosynthetic_successor/src/validate_candidate.py
+promotion:
+  self_promotes: false
+  requires_separate_upstream_decision: true

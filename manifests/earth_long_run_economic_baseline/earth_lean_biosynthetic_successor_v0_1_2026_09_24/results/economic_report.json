@@ -1,0 +1,49 @@
+{
+  "baseline": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+  "boundary_value_added_2100": 283569270413996.56,
+  "category_boundaries": {
+    "biological_persons_are_synthetic_persons": false,
+    "machine_tasks_counted_as_population": false,
+    "synthetic_persons_are_machine_tasks": false
+  },
+  "checkpoint": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/v4_control_to_2100/complete_checkpoints/earth_2100.checkpoint.zip",
+  "checkpoint_sha256": "0de027cce11808d01f016cdde48502436dd345a5ad33769dcc5fe3fc3d417888",
+  "economic_country_count": 80,
+  "economic_level_continuity_2100": true,
+  "end_year": 2226,
+  "engine": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/runner.py",
+  "engine_sha256": "32e927276fff88652780d041169d8e216fa2ecea1f0e34babb8f0b155a5b9c37",
+  "max_residuals_and_movements": {
+    "annual_country_va_growth_abs": 0.0237076597621535,
+    "annual_investment_share_move": 0.0015938880548764522,
+    "annual_labor_share_move": 0.0024679925293896177,
+    "annual_trade_total_variation_move": 0.005782232055148424,
+    "capital_stock_flow_relative_residual": 0.0,
+    "country_sector_reconciliation_relative_residual": 6.726171844226511e-16,
+    "labor_composition_relative_residual": 0.0,
+    "production_equation_relative_residual": 0.0,
+    "sector_asset_reconciliation_relative_residual": 2.778473621127747e-16
+  },
+  "selected_outputs": {
+    "annual_economic": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/coupled_successor/annual_economic_summary.json",
+    "annual_labor": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/coupled_successor/annual_labor_composition.json",
+    "annual_synthetic": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/coupled_successor/annual_synthetic_summary.json",
+    "assets": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/coupled_successor/country_sector_assets_2100_2226.ndjson",
+    "countries": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/coupled_successor/countries_2100_2226.ndjson",
+    "sectors": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/coupled_successor/country_sectors_2100_2226.ndjson"
+  },
+  "start_year": 2100,
+  "status": "COUPLED_SUCCESSOR_COMPLETE_PENDING_INDEPENDENT_VALIDATION",
+  "terminal_labor_2226": {
+    "biological_labor": 1448652898.4875078,
+    "biological_share": 0.9546146590457065,
+    "machine_share": 0.0381262642167989,
+    "machine_task_capacity": 57857610.54767315,
+    "synthetic_labor": 11015840.220416347,
+    "synthetic_share": 0.0072590767374945565,
+    "total_effective_labor": 1517526349.2555974,
+    "year": 2226
+  },
+  "terminal_synthetic_population_2226": 9791857.97370342,
+  "terminal_value_added_2226": 236154215436127.6
+}

@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import csv
+import math
 import zipfile
 from pathlib import Path
 
@@ -56,9 +58,157 @@ def _registered(rows: list[dict]) -> None:
         _check(Path(item["path"]), item["sha256"], item["bytes"])
 
 
+def _authority_path(value: str) -> Path:
+    path = Path(value)
+    return path if path.is_absolute() else REPO_ROOT / path
+
+
+def _json_value(path: Path):
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise BaselineResolutionError(f"Cannot parse {path}: {exc}") from exc
+
+
+def _resolve_coupled_successor(pointer: dict) -> dict:
+    designation = "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24"
+    selected_name = "MED_CENTRAL__SYNTH_CENTRAL"
+    if (pointer.get("active_designation") != designation or
+            pointer.get("selected_scenario") != selected_name or
+            pointer.get("empirical_demographic_authority_through_year") != 2100 or
+            pointer.get("selected_modeled_successor_start_year") != 2101 or
+            pointer.get("selected_modeled_successor_end_year") != 2226):
+        raise BaselineResolutionError("Coupled-successor pointer identity invalid")
+
+    manifest_path = _authority_path(pointer["active_manifest"])
+    _check(manifest_path, pointer["active_manifest_sha256"])
+    manifest = _json(manifest_path)
+    if (manifest.get("schema") != "loom-earth-biosynthetic-promotion-manifest-v1" or
+            manifest.get("status") != "ACTIVE_SELECTED_EARTH_AUTHORITY" or
+            manifest.get("designation") != designation or
+            manifest.get("selected_scenario") != selected_name or
+            manifest.get("research_source", {}).get("candidate_commit") !=
+            "d9f5065e390a1ce0c1cca78f68a14317dc03d723" or
+            manifest.get("research_source", {}).get("merged_commit") !=
+            "cb4e63554f8ecfaf35a8c3b70275fea479959fbd"):
+        raise BaselineResolutionError("Coupled-successor manifest identity invalid")
+
+    checked = 0
+    for item in manifest.get("files", []):
+        _check(_authority_path(item["path"]), item["sha256"], item["bytes"])
+        checked += 1
+
+    _check(_authority_path(pointer["rollback_manifest"]), pointer["rollback_manifest_sha256"])
+    _check(_authority_path(pointer["rollback_demographic_manifest"]),
+           pointer["rollback_demographic_manifest_sha256"])
+
+    demographic_pointer = _json(DEMOGRAPHIC_POINTER)
+    if (demographic_pointer.get("schema") != "loom-earth-demographic-authority-pointer-v2" or
+            demographic_pointer.get("status") != "ACTIVE" or
+            demographic_pointer.get("active_designation") != designation or
+            demographic_pointer.get("economic_baseline_designation") != designation or
+            demographic_pointer.get("selected_scenario") != selected_name or
+            demographic_pointer.get("empirical_authority_through_year") != 2100 or
+            demographic_pointer.get("selected_modeled_successor_start_year") != 2101 or
+            demographic_pointer.get("selected_year") != 2226 or
+            demographic_pointer.get("active_manifest") != pointer["active_manifest"] or
+            demographic_pointer.get("active_manifest_sha256") != pointer["active_manifest_sha256"]):
+        raise BaselineResolutionError("Coupled demographic authority pointer invalid")
+    _check(_authority_path(demographic_pointer["selected_endpoint"]),
+           demographic_pointer["selected_endpoint_sha256"])
+    _check(_authority_path(demographic_pointer["selected_country_demography"]),
+           demographic_pointer["selected_country_demography_sha256"])
+    _check(_authority_path(demographic_pointer["rollback_manifest"]),
+           demographic_pointer["rollback_manifest_sha256"])
+    checked += 3
+
+    package = manifest_path.parent
+    selected_path = package / "v0_1/results/selected_scenario.json"
+    economic_path = package / "v0_1/results/selected_countries_2226.json"
+    demographic_path = package / "v0_1/results/selected_country_demography_2226.csv"
+    selected = _json(selected_path)
+    if selected.get("selection") != selected_name or selected.get("endpoint", {}).get("qualification") != "PASS":
+        raise BaselineResolutionError("Selected coupled scenario is not qualified")
+    endpoint = selected["endpoint"]
+    if (not math.isclose(endpoint["recognized_person_population"],
+                         endpoint["biological_population"] + endpoint["synthetic_population"],
+                         rel_tol=1e-13, abs_tol=1e-6) or
+            not math.isclose(endpoint["total_effective_labor"],
+                             endpoint["biological_labor"] + endpoint["synthetic_labor"] +
+                             endpoint["machine_task_capacity"], rel_tol=1e-13, abs_tol=1e-6)):
+        raise BaselineResolutionError("Coupled category identity failed")
+
+    countries = _json_value(economic_path)
+    if (not isinstance(countries, list) or len(countries) != 80 or
+            len({row["iso3"] for row in countries}) != 80 or {row["year"] for row in countries} != {2226}):
+        raise BaselineResolutionError("Coupled economic roster mismatch")
+    if any(not (row["biological_labor"] <= row["labor_capable_biological_population"]
+                <= row["biological_population"]) for row in countries):
+        raise BaselineResolutionError("Coupled workforce/population invariant failed")
+    if any(row["synthetic_labor"] > 0 and row["synthetic_population"] <= 0 for row in countries):
+        raise BaselineResolutionError("Synthetic labor lacks supporting synthetic persons")
+    if any(not math.isclose(row["recognized_person_population"],
+                            row["biological_population"] + row["synthetic_population"],
+                            rel_tol=1e-12, abs_tol=1e-5) for row in countries):
+        raise BaselineResolutionError("Country person-category identity failed")
+
+    try:
+        with demographic_path.open(encoding="utf-8") as stream:
+            demographic_rows = list(csv.DictReader(stream))
+    except (OSError, UnicodeError, csv.Error) as exc:
+        raise BaselineResolutionError("Cannot read coupled demographic roster") from exc
+    if len(demographic_rows) != 237 or len({row["iso3"] for row in demographic_rows}) != 237:
+        raise BaselineResolutionError("Coupled demographic roster mismatch")
+
+    return {
+        "designation": designation,
+        "model_version": "earth-lean-biosynthetic-coupled-successor-v0.1",
+        "policy": selected_name,
+        "manifest": manifest_path,
+        "coverage": {"economic_economies": 80, "identity_demographic_areas": 237,
+                     "demographic_only_areas": 157},
+        "demographic_authority": {
+            "wpp_authority_through_year": 2100,
+            "post_2100_selected_state": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR",
+            "post_2100_status": "SELECTED_ANNUAL_COHORT_TRAJECTORY_2101_2226",
+            "selected_scenario": selected_name,
+            "earth_biological_population_2226": endpoint["biological_population"],
+            "earth_synthetic_person_population_2226": endpoint["synthetic_population"],
+            "earth_recognized_person_population_2226": endpoint["recognized_person_population"],
+            "selected_country_area_count": len(demographic_rows),
+        },
+        "economic_authority": {
+            "selected_scenario": selected_name,
+            "qualified_economies": 80,
+            "value_added_2226": endpoint["value_added_80"],
+        },
+        "labor_authority": {
+            "biological_labor_2226": endpoint["biological_labor"],
+            "synthetic_labor_2226": endpoint["synthetic_labor"],
+            "machine_task_capacity_2226": endpoint["machine_task_capacity"],
+            "total_effective_labor_2226": endpoint["total_effective_labor"],
+            "workforce_invariant_passed": 80,
+            "workforce_invariant_failed": 0,
+        },
+        "artifacts": {
+            "annual_biological": package / "v0_1/results/selected_annual_biological_summary.json",
+            "annual_synthetic": package / "v0_1/results/selected_annual_synthetic_summary.json",
+            "annual_labor": package / "v0_1/results/selected_annual_labor_composition.json",
+            "annual_economic": package / "v0_1/results/selected_annual_economic_summary.json",
+            "endpoint_countries": economic_path,
+            "demographic_country_population_2226": demographic_path,
+            "sensitivity_grid": package / "v0_1/results/sensitivity_grid.json",
+            "selected_scenario": selected_path,
+        },
+        "verified_registered_files": checked,
+    }
+
+
 def resolve(pointer_path: Path = CURRENT_POINTER) -> dict:
     """Return verified baseline identity and artifact paths; never fall back."""
     pointer = _json(Path(pointer_path))
+    if pointer.get("schema") == "loom-earth-coupled-successor-pointer-v1":
+        return _resolve_coupled_successor(pointer)
     if pointer.get("schema") != "loom-earth-local-economic-baseline-pointer-v1":
         raise BaselineResolutionError("Unsupported baseline-pointer schema")
     manifest_path = Path(pointer["active_manifest"])
@@ -147,13 +297,18 @@ def resolve(pointer_path: Path = CURRENT_POINTER) -> dict:
         # additive v4.1 supplement selects a 2226 endpoint without rewriting
         # the immutable promoted-v4 records or inventing an annual trajectory.
         demographic_pointer = _json(DEMOGRAPHIC_POINTER)
-        if (demographic_pointer.get("schema") != "loom-earth-demographic-authority-pointer-v1" or
-                demographic_pointer.get("status") != "ACTIVE" or
-                demographic_pointer.get("economic_baseline_designation") != manifest["designation"] or
-                demographic_pointer.get("selected_year") != 2226):
+        if demographic_pointer.get("schema") == "loom-earth-demographic-authority-pointer-v2":
+            correction_manifest_path = _authority_path(demographic_pointer["rollback_manifest"])
+            correction_manifest_hash = demographic_pointer["rollback_manifest_sha256"]
+        elif (demographic_pointer.get("schema") == "loom-earth-demographic-authority-pointer-v1" and
+              demographic_pointer.get("status") == "ACTIVE" and
+              demographic_pointer.get("economic_baseline_designation") == manifest["designation"] and
+              demographic_pointer.get("selected_year") == 2226):
+            correction_manifest_path = REPO_ROOT / demographic_pointer["active_manifest"]
+            correction_manifest_hash = demographic_pointer["active_manifest_sha256"]
+        else:
             raise BaselineResolutionError("V4 demographic authority pointer invalid")
-        correction_manifest_path = REPO_ROOT / demographic_pointer["active_manifest"]
-        _check(correction_manifest_path, demographic_pointer["active_manifest_sha256"])
+        _check(correction_manifest_path, correction_manifest_hash)
         correction_manifest = _json(correction_manifest_path)
         if (correction_manifest.get("schema") != "loom-earth-v4-demographic-correction-manifest-v1" or
                 correction_manifest.get("status") != "ACTIVE_DATA_INTEGRATION_SUPPLEMENT" or
@@ -370,8 +525,11 @@ def load_endpoint_countries(pointer_path: Path = CURRENT_POINTER) -> list[dict]:
     """Read the verified current endpoint for a downstream data consumer."""
     endpoint = resolve(pointer_path)["artifacts"]["endpoint_countries"]
     try:
-        with endpoint.open(encoding="utf-8") as stream:
-            rows = [json.loads(line) for line in stream]
+        if endpoint.suffix == ".json":
+            rows = json.loads(endpoint.read_text(encoding="utf-8"))
+        else:
+            with endpoint.open(encoding="utf-8") as stream:
+                rows = [json.loads(line) for line in stream]
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
         raise BaselineResolutionError(f"Cannot load endpoint {endpoint}: {exc}") from exc
     if len(rows) != 80 or len({row["iso3"] for row in rows}) != 80 or {row["year"] for row in rows} != {2226}:

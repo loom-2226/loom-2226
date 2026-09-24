@@ -1,0 +1,59 @@
+{
+  "authority_main_sha": "817103d9d8640b6400047a1d02fd479633e8323d",
+  "authority_roles": {
+    "current_bridge": "PROMOTED_COMPARATOR_ONLY",
+    "recovered_lineage": "SETTING_CALIBRATION_AND_PROVENANCE",
+    "technology_timeline": "TECHNOLOGY_BOUNDARY; OFF_EARTH_MED_EVENTS_NOT_USED_AS_EARTH_MULTIPLIERS",
+    "v4": "QUALIFIED_80_ECONOMY_BOUNDARY_AND_ENGINE",
+    "wpp": "EMPIRICAL_DEMOGRAPHY_THROUGH_2100"
+  },
+  "designation": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_CANDIDATE_2026_09_24",
+  "schema": "LOOM_EARTH_LEAN_BIOSYNTHETIC_SOURCE_MANIFEST_v0",
+  "source_files": {
+    "current_bridge": {
+      "bytes": 30298,
+      "path": "/home/ubuntu/LOOM_AUTHORITY/manifests/earth_long_run_economic_baseline/earth_demographic_correction_v4_1_2026_09_24/EARTH_2226_COUNTRY_POPULATION.csv",
+      "sha256": "cd3793771e0ead1a3e816693cf0de525dbec7face9b399198425e0ba55ec049e"
+    },
+    "demography_lineage": {
+      "bytes": 4091,
+      "path": "/home/ubuntu/LOOM_AUTHORITY/manifests/earth_long_run_economic_baseline/EARTH_DEMOGRAPHY_LINEAGE_RECOVERY_2026_09_24.md",
+      "sha256": "d26667a9f76c3d6da85eda284176f88615ab6a6c4aacef0146e37646807ba4bf"
+    },
+    "recovered_v03": {
+      "bytes": 35866,
+      "path": "sources/recovered/LOOM_2226_Earth_Demographic_and_Social_Propagation_Model_v0.3-1.md",
+      "sha256": "2e1edaad99ce8aaae5c9fd6836c721fd5cfe82a1f6bcd559c4fda1f65dfab8ec"
+    },
+    "recovered_v04": {
+      "bytes": 1620,
+      "path": "sources/recovered/LOOM_2226_Earth_Demographic_Model_v0.4_social_scenarios.csv",
+      "sha256": "18ce70d6dcf9df8cd6c223d64c7c499136afa8d9cba495f4ad7aa763a66751a5"
+    },
+    "technology_timeline": {
+      "bytes": 32637,
+      "path": "/home/ubuntu/LOOM_AUTHORITY/docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md",
+      "sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb"
+    },
+    "v4_2100_checkpoint": {
+      "bytes": 30831446,
+      "path": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924/v4_control_to_2100/complete_checkpoints/earth_2100.checkpoint.zip",
+      "sha256": "0de027cce11808d01f016cdde48502436dd345a5ad33769dcc5fe3fc3d417888"
+    },
+    "v4_manifest": {
+      "bytes": 4057,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/BASELINE_MANIFEST.json",
+      "sha256": "8fa64961e2f343d9143e9afcb196505a9ac8bbd86c4fd3ceff4210b3e93721b5"
+    },
+    "wpp_age_sex": {
+      "bytes": 19885780,
+      "path": "/home/ubuntu/LOOM_Earth2026/raw/WPP2024_PopulationByAge5GroupSex_Percentage_Medium.csv.gz",
+      "sha256": "c2a7b248c01399688a3461d4a2303c93aabc7d36e5dbf6b378429ed4bf40b012"
+    },
+    "wpp_indicators": {
+      "bytes": 16557272,
+      "path": "/home/ubuntu/LOOM_Earth2026/raw/WPP2024_Demographic_Indicators_Medium.csv.gz",
+      "sha256": "286ac36bb1415e2e1ade03acfef0a29f0e4c087e2f78e38c48f50c5df89082bc"
+    }
+  }
+}
