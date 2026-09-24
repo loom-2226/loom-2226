@@ -1,0 +1,115 @@
+{
+  "excluded_population_from_v3": 1501988952.0,
+  "layers": {
+    "asset_decomposition": {
+      "economies_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 80,
+        "UNAVAILABLE": 157
+      },
+      "population_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 6764256339.0,
+        "UNAVAILABLE": 1501988952.0
+      }
+    },
+    "demography": {
+      "economies_by_class": {
+        "DIRECT": 237
+      },
+      "population_by_class": {
+        "DIRECT": 8266245291.0
+      }
+    },
+    "factor_shares": {
+      "economies_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 80,
+        "UNAVAILABLE": 157
+      },
+      "population_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 6764256339.0,
+        "UNAVAILABLE": 1501988952.0
+      }
+    },
+    "identity_geography": {
+      "economies_by_class": {
+        "DIRECT": 237
+      },
+      "population_by_class": {
+        "DIRECT": 8266245291.0
+      }
+    },
+    "investment_capital": {
+      "economies_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 80,
+        "UNAVAILABLE": 157
+      },
+      "population_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 6764256339.0,
+        "UNAVAILABLE": 1501988952.0
+      }
+    },
+    "labor": {
+      "economies_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 80,
+        "UNAVAILABLE": 157
+      },
+      "population_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 6764256339.0,
+        "UNAVAILABLE": 1501988952.0
+      }
+    },
+    "macroeconomic_envelope": {
+      "economies_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 189,
+        "UNAVAILABLE": 48
+      },
+      "population_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 8113247470.0,
+        "UNAVAILABLE": 152997821.0
+      }
+    },
+    "productivity_tfp": {
+      "economies_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 80,
+        "UNAVAILABLE": 157
+      },
+      "population_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 6764256339.0,
+        "UNAVAILABLE": 1501988952.0
+      }
+    },
+    "sector_decomposition": {
+      "economies_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 80,
+        "UNAVAILABLE": 157
+      },
+      "population_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 6764256339.0,
+        "UNAVAILABLE": 1501988952.0
+      }
+    },
+    "trade_network_topology": {
+      "economies_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 80,
+        "UNAVAILABLE": 157
+      },
+      "population_by_class": {
+        "DERIVED_FROM_QUALIFIED_METHOD": 6764256339.0,
+        "UNAVAILABLE": 1501988952.0
+      }
+    }
+  },
+  "macro_2026_coverage": {
+    "limitation": "Available-source denominator is not a complete world GDP observation",
+    "method": "WDI_2015_USD_LEVEL_PLUS_IMF_WEO_2026_GROWTH_AVAILABLE_SOURCE_DENOMINATOR",
+    "source_denominator": 101920497330279.12,
+    "source_economies": 189,
+    "v3_80_numerator_on_same_source_basis": 97972106141060.2,
+    "v3_share_of_available_source_denominator": 0.9612600871007925
+  },
+  "schema": "loom-earth-v4-coverage-v1",
+  "target_economies": 237,
+  "v3_modeled_economies": 80,
+  "v3_modeled_population_2026_jan1": 6764256339.0,
+  "v3_population_coverage": 0.8182985262202038,
+  "wpp_world_population_2026_jan1": 8266245291.0
+}

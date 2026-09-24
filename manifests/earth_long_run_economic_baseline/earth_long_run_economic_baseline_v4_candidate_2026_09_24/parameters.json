@@ -1,0 +1,11 @@
+{
+  "schema": "loom-earth-v4-candidate-demographic-sensitivity-v1",
+  "status": "CANDIDATE_NON_CANON_NOT_PROMOTED",
+  "population_time_basis": "TPopulation1Jan",
+  "demographic_scenarios": {
+    "FAST_DECAY": {"population_growth_half_life_years": 20, "working_age_share_delta_half_life_years": 15},
+    "CENTRAL": {"population_growth_half_life_years": 40, "working_age_share_delta_half_life_years": 30},
+    "SLOW_DECAY": {"population_growth_half_life_years": 80, "working_age_share_delta_half_life_years": 60}
+  },
+  "scenario_note": "Fast and slow are symmetric half/double half-life sensitivity tests, not observations or calibrated country forecasts. Central retains the v3 coefficients."
+}
