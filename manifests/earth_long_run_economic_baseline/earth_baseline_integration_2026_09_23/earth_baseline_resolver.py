@@ -66,6 +66,122 @@ def resolve(pointer_path: Path = CURRENT_POINTER) -> dict:
     # for a missing or corrupt active manifest.
     _check(Path(pointer["rollback_manifest"]), pointer["rollback_manifest_sha256"])
 
+    if manifest.get("schema") == "loom-earth-local-economic-baseline-designation-v3":
+        if manifest["designation"] != pointer["active_designation"] or manifest["designation"] != "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24":
+            raise BaselineResolutionError("V4 designation mismatch")
+        decision = manifest["decision"]
+        _check(Path(decision["path"]), decision["sha256"], decision["bytes"])
+        _check(manifest_path.parent / "BASELINE_DECISION.md", pointer["active_decision_sha256"])
+        if decision["sha256"] != pointer["active_decision_sha256"]:
+            raise BaselineResolutionError("V4 decision hash mismatch")
+        previous = manifest["previous_current_baseline"]
+        _check(Path(previous["path"]), previous["sha256"], previous["bytes"])
+        if (previous["path"] != pointer["rollback_manifest"] or
+                previous["sha256"] != pointer["rollback_manifest_sha256"] or
+                pointer["previous_formal_designation"] != "EARTH_LONG_RUN_ECONOMIC_BASELINE_v3_REPAIRED_2026_09_23"):
+            raise BaselineResolutionError("V4 rollback identity mismatch")
+        run_ref = manifest["run_manifest"]
+        _check(Path(run_ref["path"]), run_ref["sha256"], run_ref["bytes"])
+        run = _json(Path(run_ref["path"]))
+        if (run.get("schema") != "loom-earth-v4-promoted-run-manifest-v1" or
+                run["baseline_id"] != manifest["designation"] or
+                run["inherited_runtime_model_version"] != "v0.6.1-d1-c1-h1-r1-alpha060-national-gfcf1" or
+                run["investment_policy_id"] != "WDI_NATIONAL_GFCF_GDP_LATEST_2024_2025_MEDIAN_2024_FALLBACK_v1"):
+            raise BaselineResolutionError("V4 run identity mismatch")
+        checked = 0
+        for group in ("candidate_local_artifacts", "candidate_git_snapshot", "inherited_code_dependencies"):
+            for item in run[group].values():
+                _check(Path(item["path"]), item["sha256"], item["bytes"])
+                checked += 1
+        for name in ("source_candidate_manifest", "scope", "boundary_qualification",
+                     "independent_validation", "forward_trajectory_report", "previous_current_baseline"):
+            item = run[name]
+            _check(Path(item["path"]), item["sha256"], item["bytes"])
+            checked += 1
+        if (manifest["promotion_scope"] != run["scope"] or
+                manifest["boundary_qualification"] != run["boundary_qualification"] or
+                manifest["selected_outputs"] != run["selected_outputs"] or
+                manifest["previous_current_baseline"] != run["previous_current_baseline"]):
+            raise BaselineResolutionError("V4 designation/run records disagree")
+        for name, item in run["selected_outputs"].items():
+            if run["candidate_local_artifacts"].get(name) != item:
+                raise BaselineResolutionError("V4 selected output is not run-pinned")
+        scope = _json(Path(run["scope"]["path"]))
+        economic = set(scope["economic_qualification"]["iso3"])
+        demographic = set(scope["identity_demography"]["iso3"])
+        demographic_only = set(scope["demographic_only"]["iso3"])
+        if (len(economic) != 80 or len(demographic) != 237 or len(demographic_only) != 157 or
+                economic & demographic_only or economic | demographic_only != demographic or
+                scope["identity_demography"]["population_time_basis"] != "UN_WPP_2024_MEDIUM_TPopulation1Jan"):
+            raise BaselineResolutionError("V4 coverage partition invalid")
+        for name in ("country_evidence", "coverage_report", "demographic_sensitivity"):
+            item = scope[name]
+            _check(Path(item["path"]), item["sha256"], item["bytes"])
+            checked += 1
+        evidence = _json(Path(scope["country_evidence"]["path"]))["economies"]
+        if (len(evidence) != 237 or {row["iso3"] for row in evidence} != demographic or
+                {row["iso3"] for row in evidence if row["v3_economic_model"]} != economic or
+                any(row["demography"]["class"] != "DIRECT" or row["identity_geography"]["class"] != "DIRECT"
+                    for row in evidence)):
+            raise BaselineResolutionError("V4 country evidence contradicts scope")
+        for row in evidence:
+            expected = "DERIVED_FROM_QUALIFIED_METHOD" if row["iso3"] in economic else "UNAVAILABLE"
+            for layer in ("labor", "productivity_tfp", "factor_shares", "investment_capital",
+                          "sector_decomposition", "asset_decomposition", "trade_network_topology"):
+                if row[layer]["class"] != expected:
+                    raise BaselineResolutionError(f"V4 {layer} evidence contradicts economic coverage")
+        coverage = _json(Path(scope["coverage_report"]["path"]))
+        if coverage["target_economies"] != 237 or coverage["v3_modeled_economies"] != 80:
+            raise BaselineResolutionError("V4 coverage report contradicts scope")
+        sensitivity = _json(Path(scope["demographic_sensitivity"]["path"]))
+        if any(set(scenario["country_population_2226"]) != demographic
+               for scenario in sensitivity["scenarios"].values()):
+            raise BaselineResolutionError("V4 demographic envelope incomplete")
+        boundary = _json(Path(run["boundary_qualification"]["path"]))
+        if (boundary["all_years_diagnostic"]["status"] != "REVIEW_RETAINED" or
+                not boundary["existing_post_transition_qualification"]["passed"] or
+                not 4.0093 < boundary["all_years_diagnostic"]["maximum_total_sector_investment_share_move_pp"] < 4.0094):
+            raise BaselineResolutionError("V4 REVIEW disposition invalid")
+        source = boundary["existing_post_transition_qualification"]
+        _check(Path(source["source_gate_path"]), source["source_gate_sha256"])
+        validation = _json(Path(run["independent_validation"]["path"]))
+        report = _json(Path(run["forward_trajectory_report"]["path"]))
+        if (validation["status"] != "PASS" or validation["reconstructed_nodes"] != [["TWN", "ENERGY"]] or
+                not report["qualification"]["passed"] or report["qualification"]["final_year_reached"] != 2226):
+            raise BaselineResolutionError("V4 numerical qualification failed")
+        endpoint = Path(run["selected_outputs"]["successor_80_2226/results/countries_2226.ndjson"]["path"])
+        try:
+            with endpoint.open() as stream:
+                endpoint_rows = [json.loads(line) for line in stream]
+        except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+            raise BaselineResolutionError("Cannot read V4 economic endpoint") from exc
+        if (len(endpoint_rows) != 80 or {row["iso3"] for row in endpoint_rows} != economic or
+                {row["year"] for row in endpoint_rows} != {2226}):
+            raise BaselineResolutionError("V4 endpoint/economic coverage mismatch")
+        checkpoint = Path(run["selected_outputs"]["successor_80_2226/complete_checkpoints/earth_2226.checkpoint.zip"]["path"])
+        try:
+            with zipfile.ZipFile(checkpoint) as archive:
+                checkpoint_manifest = json.loads(archive.read("manifest.json"))
+        except (OSError, zipfile.BadZipFile, KeyError, json.JSONDecodeError) as exc:
+            raise BaselineResolutionError("Cannot inspect V4 checkpoint") from exc
+        if checkpoint_manifest["runner_sha256"] != run["inherited_code_dependencies"]["v3_runner.py"]["sha256"]:
+            raise BaselineResolutionError("V4 checkpoint runner hash mismatch")
+        outputs = run["selected_outputs"]
+        return {"designation": manifest["designation"], "model_version": run["inherited_runtime_model_version"] + "+earth-v4-seed",
+                "policy": run["investment_policy_id"], "manifest": manifest_path,
+                "coverage": {"economic_economies": 80, "identity_demographic_areas": 237,
+                             "demographic_only_areas": 157},
+                "artifacts": {"annual_countries": Path(outputs["successor_80_2226/results/countries_2060_2226.ndjson"]["path"]),
+                              "annual_sectors": Path(outputs["successor_80_2226/results/country_sectors_2060_2226.ndjson"]["path"]),
+                              "annual_assets": Path(outputs["successor_80_2226/results/country_sector_assets_2060_2226.ndjson"]["path"]),
+                              "endpoint_countries": endpoint,
+                              "endpoint_sectors": Path(outputs["successor_80_2226/results/country_sectors_2226.ndjson"]["path"]),
+                              "endpoint_assets": Path(outputs["successor_80_2226/results/country_sector_assets_2226.ndjson"]["path"]),
+                              "complete_checkpoint_2226": checkpoint,
+                              "country_evidence": Path(scope["country_evidence"]["path"]),
+                              "demographic_sensitivity": Path(scope["demographic_sensitivity"]["path"])},
+                "verified_registered_files": checked}
+
     if manifest.get("schema") == "loom-earth-local-economic-baseline-designation-v2":
         if manifest["designation"] != pointer["active_designation"]:
             raise BaselineResolutionError("Active designation does not match manifest")

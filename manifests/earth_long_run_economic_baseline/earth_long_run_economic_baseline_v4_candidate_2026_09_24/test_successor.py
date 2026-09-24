@@ -100,9 +100,16 @@ class SuccessorRules(unittest.TestCase):
         pointer = HERE.parent / "EARTH_LONG_RUN_ECONOMIC_BASELINE_CURRENT.json"
         import json
         data = json.loads(pointer.read_text())
-        manifest = Path(data["active_manifest"])
-        self.assertEqual(hashlib.sha256(manifest.read_bytes()).hexdigest(), data["active_manifest_sha256"])
-        self.assertEqual(data["active_designation"], "EARTH_LONG_RUN_ECONOMIC_BASELINE_v3_REPAIRED_2026_09_23")
+        designation = "EARTH_LONG_RUN_ECONOMIC_BASELINE_v3_REPAIRED_2026_09_23"
+        if data["active_designation"] == designation:
+            manifest = Path(data["active_manifest"])
+            expected = data["active_manifest_sha256"]
+        else:
+            self.assertEqual(data["previous_formal_designation"], designation)
+            manifest = Path(data["rollback_manifest"])
+            expected = data["rollback_manifest_sha256"]
+        self.assertEqual(hashlib.sha256(manifest.read_bytes()).hexdigest(), expected)
+        self.assertEqual(expected, "f8954955671c59bda3d4ce51b734589d77395a70ae556d9df277ae209f580fdb")
 
     def test_live_central_demography_matches_frozen_v3(self):
         report = json.loads((HERE / "DEMOGRAPHIC_SENSITIVITY.json").read_text())
