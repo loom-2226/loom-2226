@@ -3,7 +3,7 @@ record_type: CANON_CHANGE_REQUEST
 
 id: CCR-2026-0001
 title: Promote the lean biosynthetic Earth successor
-status: APPROVED_FOR_IMPLEMENTATION
+status: IMPLEMENTED
 proposal_revision: 1
 created_date: '2026-09-25'
 updated_date: '2026-09-25'
@@ -109,7 +109,7 @@ baseline_obligations:
   canon_baseline_manifest_update_required: true
   file_hash_manifest_update_required: true
   validation_report_update_required: true
-  compatibility_manifest_update_required: false
+  compatibility_manifest_update_required: true
   archive_or_supersession_update_required: true
   notes: >-
     Preserve Earth v4, PR #268 bridge artifacts and parent canon files. Register
@@ -138,11 +138,20 @@ assurance:
     - Existing CIVSTATE and narrative parent files retain superseded census values and require scoped-amendment-aware consumers.
 
 implementation:
-  implementation_pr: null
+  implementation_pr: 269
   target_branch: main
-  merged_commit: null
-  implemented_date: null
-  changed_governing_sources: []
+  merged_commit: c27b81b850212c530e61a87f7bf2a4b9a5802af7
+  implemented_date: '2026-09-25'
+  changed_governing_sources:
+    - canon/current/LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md
+    - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
+    - governance/current/LOOM_2226_Baseline_File_Hashes_v2.4.md
+    - governance/current/LOOM_2226_Canon_v2.4_Validation_Report.md
+    - governance/current/LOOM_AUTHORITY_MODEL.yml
+    - governance/dependencies/component-map.yml
+    - manifests/current/LOOM_COMPATIBILITY.yml
+    - manifests/earth_long_run_economic_baseline/EARTH_LONG_RUN_ECONOMIC_BASELINE_CURRENT.json
+    - manifests/earth_long_run_economic_baseline/EARTH_DEMOGRAPHIC_AUTHORITY_CURRENT.json
   downstream_followup_issues:
     - Reconcile or regenerate CIVSTATE census data under a separately governed data migration if required.
 
@@ -153,7 +162,7 @@ decision:
     The science and modeling campaign is complete. Promote the fixed selected
     scenario, preserve uncertainty and provenance, and update conflicting canon
     values without reopening model assumptions.
-  disposition: APPROVED_FOR_IMPLEMENTATION
+  disposition: IMPLEMENTED
 
 supersession:
   supersedes: []
@@ -165,3 +174,8 @@ history:
     status: APPROVED_FOR_IMPLEMENTATION
     actor: Kevin
     note: Explicit promotion authorization supplied after Research Lab qualification and merge.
+  - date: '2026-09-25'
+    event: IMPLEMENTED
+    status: IMPLEMENTED
+    actor: Codex
+    note: Canon implementation PR #269 merged to authoritative main at c27b81b850212c530e61a87f7bf2a4b9a5802af7 after loom-gate PASS.

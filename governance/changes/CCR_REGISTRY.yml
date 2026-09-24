@@ -26,9 +26,9 @@ promotion_rules:
 records:
   - id: CCR-2026-0001
     path: governance/changes/CCR-2026-0001-earth-lean-biosynthetic-successor.yml
-    status: APPROVED_FOR_IMPLEMENTATION
+    status: IMPLEMENTED
     title: Promote the lean biosynthetic Earth successor
     originating_issue: Kevin promotion directive, 2026-09-25
-    approved_pr: null
-    implemented_pr: null
+    approved_pr: 269
+    implemented_pr: 269
     supersedes: []
