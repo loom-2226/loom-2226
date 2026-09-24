@@ -1,0 +1,37 @@
+{
+  "schema": "loom-earth-postgres-temporal-projection-v1",
+  "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+  "snapshot_state": "VALIDATED",
+  "authority_main_sha": "d6372ece50976fecfaf76b382d9b682560b70273",
+  "model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+  "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+  "promotion_manifest_sha256": "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2",
+  "research_lab_source_sha": "cb4e63554f8ecfaf35a8c3b70275fea479959fbd",
+  "coverage": {
+    "demography": {"areas": 237, "years": [2026, 2226], "cohorts": 2657718},
+    "economics": {"economies": 80, "years": [2026, 2226], "rows": 16080},
+    "sectors": {"rows": 160800},
+    "assets": {"rows": 643200},
+    "legacy_labor": {"years": [2026, 2100], "rows": 6000},
+    "biosynthetic_labor": {"years": [2100, 2226], "rows": 10160}
+  },
+  "endpoint_2226": {
+    "biological_population": 7163281708.265873,
+    "synthetic_persons": 9672505.78986048,
+    "recognized_persons": 7172954214.055734,
+    "biological_labor": 1455527766.770138,
+    "synthetic_labor": 10881569.013593039,
+    "machine_task_capacity": 52627339.05102448,
+    "total_effective_labor": 1519036674.8347554,
+    "value_added": 241453886085432.44,
+    "workforce_invariant": "80/80 PASS"
+  },
+  "database": "loom_dev PostgreSQL 16.15",
+  "prior_snapshot_preserved": "ceres-v1-0231e5f7da744728ab5021268b6f239b",
+  "backup": {
+    "path": "/home/ubuntu/LOOM_ARCHIVE/POSTGRES/2026-09-25/loom_dev_earth_temporal_20260925.dump",
+    "bytes": 92181495,
+    "sha256": "d304f61f0612bb6a0abaf4f007bf327ebca130c700e69023b40763422e419001",
+    "restore_test": "NOT_RUN: local PostgreSQL role lacks CREATEDB permission"
+  }
+}

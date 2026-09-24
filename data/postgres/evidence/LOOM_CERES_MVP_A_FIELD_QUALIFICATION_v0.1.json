@@ -1,0 +1,4512 @@
+{
+  "schema_version": "0.1",
+  "scope": "Actual Atlas UI consumption from manifest and read-only projection, including displayed calculations; projected-but-unread columns excluded.",
+  "a_gate": "Semantic sufficiency only; B/C/D informational and independent. NOT_TESTED is not PASS.",
+  "consumer_revision": "520af8926fddf5bcfd32f8937dfe92b37d55b33e",
+  "records": [
+    {
+      "id": "manifest.schema_version",
+      "payload_path": "manifest.schema_version",
+      "source": {
+        "derived_expression": "load_manifest constant",
+        "inputs": [
+          "docs/ceres/manifest.json"
+        ]
+      },
+      "definition": "Manifest schema/source/integrity control: schema_version",
+      "display_label": "Schema Version",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "CER-P01"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "schema_version"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "schema_version"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.source",
+      "payload_path": "manifest.source",
+      "source": {
+        "derived_expression": "load_manifest constant",
+        "inputs": [
+          "docs/ceres/manifest.json"
+        ]
+      },
+      "definition": "Manifest schema/source/integrity control: source",
+      "display_label": "Source",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "CER-P01"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "source"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "source"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.source_sha256",
+      "payload_path": "manifest.source_sha256",
+      "source": {
+        "derived_expression": "load_manifest constant",
+        "inputs": [
+          "docs/ceres/manifest.json"
+        ]
+      },
+      "definition": "Manifest schema/source/integrity control: source_sha256",
+      "display_label": "Source Sha256",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "CER-P01"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "source_sha256"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "source_sha256"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].node_id",
+      "payload_path": "manifest.facilities[].node_id",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "node_id",
+        "derived_expression": "load_manifest projects node_id from approved manifest row",
+        "cross_checked_against": {
+          "database": "LOOM_2226.sqlite3",
+          "table": "infrastructure_nodes",
+          "column": "node_id"
+        }
+      },
+      "definition": "Approved facility identity used by the collection and cross-checked against WORLD",
+      "display_label": "Node Id",
+      "unit": "identifier/name/category",
+      "measurement_basis": "approved facility identity",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "manifest snapshot",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "node_id"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "node_id"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "node_id"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].name",
+      "payload_path": "manifest.facilities[].name",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "name",
+        "derived_expression": "load_manifest projects name from approved manifest row",
+        "cross_checked_against": {
+          "database": "LOOM_2226.sqlite3",
+          "table": "infrastructure_nodes",
+          "column": "node_name"
+        }
+      },
+      "definition": "Approved facility identity used by the collection and cross-checked against WORLD",
+      "display_label": "Name",
+      "unit": "identifier/name/category",
+      "measurement_basis": "approved facility identity",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "manifest snapshot",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "name"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "name"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "name"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].facility_type",
+      "payload_path": "manifest.facilities[].facility_type",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "facility_type",
+        "derived_expression": "load_manifest projects facility_type from approved manifest row",
+        "cross_checked_against": {
+          "database": "LOOM_2226.sqlite3",
+          "table": "infrastructure_nodes",
+          "column": "facility_type"
+        }
+      },
+      "definition": "Approved facility identity used by the collection and cross-checked against WORLD",
+      "display_label": "Facility Type",
+      "unit": "identifier/name/category",
+      "measurement_basis": "approved facility identity",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "manifest snapshot",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "facility_type"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "facility_type"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "facility_type"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].noun_id",
+      "payload_path": "manifest.facilities[].noun_id",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "noun_id",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "entity_id",
+        "derived_expression": "load_manifest projects noun_id from approved manifest row"
+      },
+      "definition": "Approved image identity, lookup, integrity or review control: noun_id",
+      "display_label": "Noun Id",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "noun_id"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "noun_id"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "noun_id"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].asset_id",
+      "payload_path": "manifest.facilities[].asset_id",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "asset_id",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "asset_id",
+        "derived_expression": "load_manifest projects asset_id from approved manifest row"
+      },
+      "definition": "Approved image identity, lookup, integrity or review control: asset_id",
+      "display_label": "Asset Id",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "asset_id"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "asset_id"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "asset_id"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].media_key",
+      "payload_path": "manifest.facilities[].media_key",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "media_key",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "media_key",
+        "derived_expression": "load_manifest projects media_key from approved manifest row"
+      },
+      "definition": "Approved image identity, lookup, integrity or review control: media_key",
+      "display_label": "Media Key",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "media_key"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "media_key"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "media_key"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].filename",
+      "payload_path": "manifest.facilities[].filename",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "filename",
+        "derived_expression": "load_manifest projects filename from approved manifest row"
+      },
+      "definition": "Approved image identity, lookup, integrity or review control: filename",
+      "display_label": "Filename",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "filename"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "filename"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "filename"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].sha256",
+      "payload_path": "manifest.facilities[].sha256",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "sha256",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "content_hash",
+        "derived_expression": "load_manifest projects sha256 from approved manifest row"
+      },
+      "definition": "Approved image identity, lookup, integrity or review control: sha256",
+      "display_label": "Sha256",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "sha256"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "sha256"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "sha256"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].byte_length",
+      "payload_path": "manifest.facilities[].byte_length",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "byte_length",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "byte_length",
+        "derived_expression": "load_manifest projects byte_length from approved manifest row"
+      },
+      "definition": "Approved image identity, lookup, integrity or review control: byte_length",
+      "display_label": "Byte Length",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "byte_length"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "byte_length"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "byte_length"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].role",
+      "payload_path": "manifest.facilities[].role",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "role",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "asset_role",
+        "derived_expression": "load_manifest projects role from approved manifest row"
+      },
+      "definition": "Approved image identity, lookup, integrity or review control: role",
+      "display_label": "Role",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "role"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "role"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "role"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].review_status",
+      "payload_path": "manifest.facilities[].review_status",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "review_status",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "review_status",
+        "derived_expression": "load_manifest projects review_status from approved manifest row"
+      },
+      "definition": "Approved image identity, lookup, integrity or review control: review_status",
+      "display_label": "Review Status",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "review_status"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "review_status"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "review_status"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].is_current",
+      "payload_path": "manifest.facilities[].is_current",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "is_current",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "is_current",
+        "derived_expression": "load_manifest projects is_current from approved manifest row"
+      },
+      "definition": "Approved image identity, lookup, integrity or review control: is_current",
+      "display_label": "Is Current",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "is_current"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "is_current"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "is_current"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "manifest.facilities[].export_status",
+      "payload_path": "manifest.facilities[].export_status",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "export_status",
+        "derived_expression": "load_manifest projects export_status from approved manifest row"
+      },
+      "definition": "Approved image identity, lookup, integrity or review control: export_status",
+      "display_label": "Export Status",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "docs/ceres/manifest.json",
+          "locator": "export_status"
+        },
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "export_status"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "export_status"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.schema_version",
+      "payload_path": "atlas.schema_version",
+      "source": {
+        "derived_expression": "load_atlas_data constant",
+        "inputs": [
+          "tools/serve_ceres_atlas.py"
+        ]
+      },
+      "definition": "Read-only Atlas projection guard: schema_version",
+      "display_label": "Schema Version",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "schema_version"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.epoch",
+      "payload_path": "atlas.epoch",
+      "source": {
+        "derived_expression": "load_atlas_data constant",
+        "inputs": [
+          "tools/serve_ceres_atlas.py"
+        ]
+      },
+      "definition": "Read-only Atlas projection guard: epoch",
+      "display_label": "Epoch",
+      "unit": "control value",
+      "measurement_basis": "identity, media approval or integrity control",
+      "entity_geographic_grain": "manifest or projection",
+      "epoch_temporal_basis": "approved snapshot / request time",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "epoch"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.world.entity_id",
+      "payload_path": "atlas.world.entity_id",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "entities",
+        "column": "entity_id"
+      },
+      "definition": "Ceres WORLD entity key",
+      "display_label": "World ID",
+      "unit": "identifier",
+      "measurement_basis": "WORLD physical/identity reference",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "entity_id"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "entity_id"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## Core world database tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.world.name",
+      "payload_path": "atlas.world.name",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "entities",
+        "column": "name"
+      },
+      "definition": "Ceres WORLD display name",
+      "display_label": "World name",
+      "unit": "name",
+      "measurement_basis": "WORLD physical/identity reference",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "name"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "name"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## Core world database tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.world.gm_km3_s2",
+      "payload_path": "atlas.world.gm_km3_s2",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_properties",
+        "column": "gm_km3_s2"
+      },
+      "definition": "Reference GM used in UI calculations",
+      "display_label": "Gravitational parameter",
+      "unit": "km³/s²",
+      "measurement_basis": "WORLD physical/identity reference",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "gm_km3_s2"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "gm_km3_s2"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## Core world database tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.world.mean_radius_km",
+      "payload_path": "atlas.world.mean_radius_km",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_properties",
+        "column": "mean_radius_km"
+      },
+      "definition": "Reference mean radius used in UI calculations",
+      "display_label": "Mean radius",
+      "unit": "km",
+      "measurement_basis": "WORLD physical/identity reference",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "mean_radius_km"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "mean_radius_km"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## Core world database tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.world.rotation_period_s",
+      "payload_path": "atlas.world.rotation_period_s",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_properties",
+        "column": "rotation_period_s"
+      },
+      "definition": "Reference rotation period",
+      "display_label": "Rotation period",
+      "unit": "seconds",
+      "measurement_basis": "WORLD physical/identity reference",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "rotation_period_s"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "rotation_period_s"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## Core world database tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.world.physical_source_id",
+      "payload_path": "atlas.world.physical_source_id",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_properties",
+        "column": "source_id"
+      },
+      "definition": "Source registry key for physical constants",
+      "display_label": "Physical source ID",
+      "unit": "identifier",
+      "measurement_basis": "WORLD physical/identity reference",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "source_id"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "physical_source_id"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## Core world database tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.world.physical_status",
+      "payload_path": "atlas.world.physical_status",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_properties",
+        "column": "status"
+      },
+      "definition": "Stored engineering-reference status",
+      "display_label": "Physical source status",
+      "unit": "category",
+      "measurement_basis": "WORLD physical/identity reference",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "status"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "physical_status"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## Core world database tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.world.atmosphere_class",
+      "payload_path": "atlas.world.atmosphere_class",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_dynamics",
+        "column": "atmosphere_class"
+      },
+      "definition": null,
+      "display_label": "Withhold: atmosphere class",
+      "unit": null,
+      "measurement_basis": "WORLD class; taxonomy unresolved",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "atmosphere_class"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "atmosphere_class"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## Core world database tables"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Class taxonomy and whether NULL denotes absence versus unmodelled state are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.world.diameter_km",
+      "payload_path": "derived.world.diameter_km",
+      "source": {
+        "expression": "2 * mean_radius_km",
+        "inputs": [
+          "atlas.world.mean_radius_km"
+        ]
+      },
+      "definition": "Diameter from reference mean radius",
+      "display_label": "Diameter",
+      "unit": "km",
+      "measurement_basis": "UI arithmetic on physical reference",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "Object.keys(atlasData.facilities).length"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "mean_radius_km"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.world.surface_gravity_m_s2",
+      "payload_path": "derived.world.surface_gravity_m_s2",
+      "source": {
+        "expression": "gm_km3_s2 / mean_radius_km² * 1000",
+        "inputs": [
+          "atlas.world.gm_km3_s2",
+          "atlas.world.mean_radius_km"
+        ]
+      },
+      "definition": "Reference gravity at mean radius",
+      "display_label": "Surface gravity",
+      "unit": "m/s²",
+      "measurement_basis": "UI arithmetic on physical reference",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "gravity"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "gm_km3_s2"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.world.escape_speed_km_s",
+      "payload_path": "derived.world.escape_speed_km_s",
+      "source": {
+        "expression": "sqrt(2 * gm_km3_s2 / mean_radius_km)",
+        "inputs": [
+          "atlas.world.gm_km3_s2",
+          "atlas.world.mean_radius_km"
+        ]
+      },
+      "definition": "Ideal escape speed, not mission delta-v",
+      "display_label": "Escape speed",
+      "unit": "km/s",
+      "measurement_basis": "UI arithmetic on physical reference",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "escape"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "gm_km3_s2"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.world.rotation_hours",
+      "payload_path": "derived.world.rotation_hours",
+      "source": {
+        "expression": "rotation_period_s / 3600",
+        "inputs": [
+          "atlas.world.rotation_period_s"
+        ]
+      },
+      "definition": "Reference rotation period converted to hours",
+      "display_label": "Rotation",
+      "unit": "hours",
+      "measurement_basis": "UI arithmetic on physical reference",
+      "entity_geographic_grain": "Ceres body",
+      "epoch_temporal_basis": "physical reference, no 2226 measurement epoch",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "rotationHours"
+        },
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "rotation_period_s"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].identity.node_id",
+      "payload_path": "atlas.facilities[].identity.node_id",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "node_id"
+      },
+      "definition": "WORLD facility node key",
+      "display_label": "Facility ID",
+      "unit": "identifier/name/category",
+      "measurement_basis": "WORLD node identity",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "undated WORLD node identity, displayed in 2226 Atlas",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "node_id"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "node_id"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "infrastructure_nodes"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].identity.node_name",
+      "payload_path": "atlas.facilities[].identity.node_name",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "node_name"
+      },
+      "definition": "WORLD node display name",
+      "display_label": "Facility name",
+      "unit": "identifier/name/category",
+      "measurement_basis": "WORLD node identity",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "undated WORLD node identity, displayed in 2226 Atlas",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "node_name"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "node_name"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "infrastructure_nodes"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].identity.facility_type",
+      "payload_path": "atlas.facilities[].identity.facility_type",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "facility_type"
+      },
+      "definition": "WORLD facility classification",
+      "display_label": "Facility type",
+      "unit": "identifier/name/category",
+      "measurement_basis": "WORLD node identity",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "undated WORLD node identity, displayed in 2226 Atlas",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "facility_type"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "facility_type"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "infrastructure_nodes"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].identity.source",
+      "payload_path": "atlas.facilities[].identity.source",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "source"
+      },
+      "definition": "Stored node source attribution",
+      "display_label": "WORLD source",
+      "unit": "identifier/name/category",
+      "measurement_basis": "WORLD node identity",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "undated WORLD node identity, displayed in 2226 Atlas",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "source"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "source"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "infrastructure_nodes"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].identity.civil_authority",
+      "payload_path": "atlas.facilities[].identity.civil_authority",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "civil_authority"
+      },
+      "definition": "Named facility civil authority; not ownership",
+      "display_label": "Civil authority (identity field)",
+      "unit": "identifier/name/category",
+      "measurement_basis": "WORLD node identity",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "undated WORLD node identity, displayed in 2226 Atlas",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "civil_authority"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "civil_authority"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "infrastructure_nodes"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].identity.traffic",
+      "payload_path": "atlas.facilities[].identity.traffic",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "traffic"
+      },
+      "definition": null,
+      "display_label": "Withhold: traffic class",
+      "unit": null,
+      "measurement_basis": "taxonomy unresolved",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "undated WORLD node identity, displayed in 2226 Atlas",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "traffic"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "traffic"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "infrastructure_nodes"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Traffic class vocabulary and operational basis are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].runtime_context.governance_style",
+      "payload_path": "atlas.facilities[].runtime_context.governance_style",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_runtime_place_context",
+        "column": "governance_style"
+      },
+      "definition": null,
+      "display_label": "Withhold: governance style",
+      "unit": null,
+      "measurement_basis": "view-derived style; taxonomy unresolved",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "runtime place-context view; exact source epoch not exposed",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "governance_style"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Style taxonomy, generator and relationship to named authority are unestablished. Exact temporal basis of the view is also unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.resident_population",
+      "payload_path": "atlas.facilities[].infrastructure.resident_population",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "resident_population"
+      },
+      "definition": "Residents assigned to facility; distinct from transients and workforce",
+      "display_label": "Facility residents",
+      "unit": "persons",
+      "measurement_basis": "modeled facility resident allocation",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "facility residents, not census-zone population",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "resident_population"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Infrastructure capacities"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.transient_daily_population",
+      "payload_path": "atlas.facilities[].infrastructure.transient_daily_population",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "transient_daily_population"
+      },
+      "definition": "Daily transient presence, not resident census",
+      "display_label": "Daily nonresident presence",
+      "unit": "persons/day-equivalent",
+      "measurement_basis": "modeled daily facility presence",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "nonresident presence",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "transient_daily_population"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Infrastructure capacities"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.habitable_capacity",
+      "payload_path": "atlas.facilities[].infrastructure.habitable_capacity",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "habitable_capacity"
+      },
+      "definition": "Accommodation-equivalent proxy; not certified life support",
+      "display_label": "Accommodation capacity proxy",
+      "unit": "persons-equivalent",
+      "measurement_basis": "(residents + daily transients) / utilization",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "capacity, not occupancy",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "habitable_capacity"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Infrastructure capacities"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.annual_value_added",
+      "payload_path": "atlas.facilities[].infrastructure.annual_value_added",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "annual_value_added"
+      },
+      "definition": null,
+      "display_label": "Withhold: facility annual value added",
+      "unit": "model monetary units/year",
+      "measurement_basis": "modeled location production",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "production, not household income",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "annual_value_added"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Node-level attribution and accounting boundary for modeled production are unestablished; country-level ECON.VA cannot be transferred to a facility field.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.cargo_throughput_tonnes_year",
+      "payload_path": "atlas.facilities[].infrastructure.cargo_throughput_tonnes_year",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "cargo_throughput_tonnes_year"
+      },
+      "definition": "Annual node cargo incidence; no timetable implication",
+      "display_label": "Annual cargo incidence",
+      "unit": "tonnes/year",
+      "measurement_basis": "modeled node transport marginal",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "cargo_throughput_tonnes_year"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.passenger_movements_year",
+      "payload_path": "atlas.facilities[].infrastructure.passenger_movements_year",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "passenger_movements_year"
+      },
+      "definition": "Annual node movement incidence; not unique travelers or scheduled service",
+      "display_label": "Annual passenger movements",
+      "unit": "movements/year",
+      "measurement_basis": "modeled node transport marginal",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not unique persons",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "passenger_movements_year"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.ship_calls_year",
+      "payload_path": "atlas.facilities[].infrastructure.ship_calls_year",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "ship_calls_year"
+      },
+      "definition": "Annual node ship-call incidence; not scheduled service",
+      "display_label": "Annual ship-call incidence",
+      "unit": "calls/year",
+      "measurement_basis": "modeled node transport marginal",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "ship_calls_year"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.industrial_capacity_index",
+      "payload_path": "atlas.facilities[].infrastructure.industrial_capacity_index",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "industrial_capacity_index"
+      },
+      "definition": "Relative network scale; not physical production ceiling",
+      "display_label": "Relative industrial scale index",
+      "unit": "0–1 percentile composite",
+      "measurement_basis": "five equal-weight ranked node signals across 127 nodes",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "industrial_capacity_index"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Infrastructure capacities"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.workforce",
+      "payload_path": "atlas.facilities[].infrastructure.workforce",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "workforce"
+      },
+      "definition": null,
+      "display_label": "Modeled facility workforce",
+      "unit": null,
+      "measurement_basis": "workforce allocation unestablished",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not physical occupancy",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "workforce"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "workforce"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Infrastructure capacities"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Headcount versus FTE, sector scope, assignment versus on-site presence and allocation are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.capital_stock",
+      "payload_path": "atlas.facilities[].infrastructure.capital_stock",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "capital_stock"
+      },
+      "definition": null,
+      "display_label": "Withhold: facility capital stock",
+      "unit": null,
+      "measurement_basis": "stock valuation unestablished",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not household wealth",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "capital_stock"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Asset boundary and valuation basis, including productive versus infrastructure capital, are unestablished. Exact monetary unit/scale also requires confirmation.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.annual_operating_cost",
+      "payload_path": "atlas.facilities[].infrastructure.annual_operating_cost",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "annual_operating_cost"
+      },
+      "definition": null,
+      "display_label": "Withhold: annual operating cost",
+      "unit": null,
+      "measurement_basis": "cost flow unestablished",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "annual_operating_cost"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Included costs, accounting boundary and depreciation treatment are unestablished. Exact monetary unit/scale also requires confirmation.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.replacement_value",
+      "payload_path": "atlas.facilities[].infrastructure.replacement_value",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "replacement_value"
+      },
+      "definition": null,
+      "display_label": "Withhold: replacement value",
+      "unit": null,
+      "measurement_basis": "replacement valuation unestablished",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "replacement_value"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Covered assets, valuation method and relation to capital_stock are unestablished. Exact monetary unit/scale also requires confirmation.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.power_average_mw",
+      "payload_path": "atlas.facilities[].infrastructure.power_average_mw",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "power_average_mw"
+      },
+      "definition": null,
+      "display_label": "Withhold: average power",
+      "unit": "MW",
+      "measurement_basis": "power basis unestablished",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "power_average_mw"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Demand versus supply, averaging interval and inclusion boundary are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.power_peak_mw",
+      "payload_path": "atlas.facilities[].infrastructure.power_peak_mw",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "power_peak_mw"
+      },
+      "definition": null,
+      "display_label": "Withhold: peak power",
+      "unit": "MW",
+      "measurement_basis": "power basis unestablished",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "power_peak_mw"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Demand versus supply, peak interval and inclusion boundary are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.utilization",
+      "payload_path": "atlas.facilities[].infrastructure.utilization",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "utilization"
+      },
+      "definition": null,
+      "display_label": "Withhold: utilization",
+      "unit": null,
+      "measurement_basis": "fraction denominator unestablished",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "utilization"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Utilized resource denominator and operating period are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.node_subject_id",
+      "payload_path": "atlas.facilities[].infrastructure.node_subject_id",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "node_subject_id"
+      },
+      "definition": "Facility subject key",
+      "display_label": "Node Subject Id",
+      "unit": "identifier",
+      "measurement_basis": "row key",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "node_subject_id"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "node_subject_id"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].infrastructure.year",
+      "payload_path": "atlas.facilities[].infrastructure.year",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "year"
+      },
+      "definition": "Infrastructure model epoch",
+      "display_label": "Year",
+      "unit": "year",
+      "measurement_basis": "row key",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "year"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "year"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Transport"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.demographic.year",
+      "payload_path": "atlas.body.demographic.year",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "year"
+      },
+      "definition": "Demographic row epoch",
+      "display_label": "Demographic epoch",
+      "unit": "year",
+      "measurement_basis": "aggregate demographic state",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "year"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "year"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.demographic.biological_population",
+      "payload_path": "atlas.body.demographic.biological_population",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "biological_population"
+      },
+      "definition": "Biological resident population at BODY grain",
+      "display_label": "Biological residents",
+      "unit": "persons",
+      "measurement_basis": "aggregate demographic state",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "resident biological persons",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "biological_population"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "biological_population"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.demographic.synthetic_population",
+      "payload_path": "atlas.body.demographic.synthetic_population",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "synthetic_population"
+      },
+      "definition": "Recognized synthetic persons, distinct from automation",
+      "display_label": "Synthetic residents",
+      "unit": "persons",
+      "measurement_basis": "aggregate demographic state",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "recognized resident synthetic persons",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "synthetic_population"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "synthetic_population"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.demographic.transient_population",
+      "payload_path": "atlas.body.demographic.transient_population",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "transient_population"
+      },
+      "definition": "Transient nonresident presence; excluded from resident total",
+      "display_label": "Daily nonresident presence",
+      "unit": "persons/day-equivalent",
+      "measurement_basis": "aggregate demographic state",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "nonresident daily equivalent",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "transient_population"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "transient_population"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.demographic.age_0_14",
+      "payload_path": "atlas.body.demographic.age_0_14",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "age_0_14"
+      },
+      "definition": null,
+      "display_label": "Withhold: Age 0–14",
+      "unit": "persons",
+      "measurement_basis": "aggregate age basis unresolved",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "biological versus all-resident denominator unresolved",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "age_0_14"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Age denominator and generating distribution are unestablished; age 80+ overlaps 65+ and a stored summary does not prove microdata.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.demographic.age_15_64",
+      "payload_path": "atlas.body.demographic.age_15_64",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "age_15_64"
+      },
+      "definition": null,
+      "display_label": "Withhold: Age 15–64",
+      "unit": "persons",
+      "measurement_basis": "aggregate age basis unresolved",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "biological versus all-resident denominator unresolved",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "age_15_64"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Age denominator and generating distribution are unestablished; age 80+ overlaps 65+ and a stored summary does not prove microdata.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.demographic.age_65_plus",
+      "payload_path": "atlas.body.demographic.age_65_plus",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "age_65_plus"
+      },
+      "definition": null,
+      "display_label": "Withhold: Age 65+",
+      "unit": "persons",
+      "measurement_basis": "aggregate age basis unresolved",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "biological versus all-resident denominator unresolved",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "age_65_plus"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Age denominator and generating distribution are unestablished; age 80+ overlaps 65+ and a stored summary does not prove microdata.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.demographic.age_80_plus",
+      "payload_path": "atlas.body.demographic.age_80_plus",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "age_80_plus"
+      },
+      "definition": null,
+      "display_label": "Withhold: Age 80+",
+      "unit": "persons",
+      "measurement_basis": "aggregate age basis unresolved",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "biological versus all-resident denominator unresolved",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "age_80_plus"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Age denominator and generating distribution are unestablished; age 80+ overlaps 65+ and a stored summary does not prove microdata.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.demographic.median_age",
+      "payload_path": "atlas.body.demographic.median_age",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "median_age"
+      },
+      "definition": null,
+      "display_label": "Withhold: Median age",
+      "unit": "years",
+      "measurement_basis": "aggregate age basis unresolved",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "biological versus all-resident denominator unresolved",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "median_age"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "median_age"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Age denominator and generating distribution are unestablished; age 80+ overlaps 65+ and a stored summary does not prove microdata.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.zones[].display_name",
+      "payload_path": "atlas.zones[].display_name",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "display_name"
+      },
+      "definition": "Zone display name",
+      "display_label": "Census zone",
+      "unit": "name",
+      "measurement_basis": "zone identity",
+      "entity_geographic_grain": "one Ceres census zone",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "display_name"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "display_name"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.zones[].biological_population",
+      "payload_path": "atlas.zones[].biological_population",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "biological_population"
+      },
+      "definition": "Zone resident count; not transferred to a facility node",
+      "display_label": "Zone biological residents",
+      "unit": "persons",
+      "measurement_basis": "zone resident count",
+      "entity_geographic_grain": "one Ceres census zone",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "resident biological persons",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "biological_population"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "biological_population"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.zones[].synthetic_population",
+      "payload_path": "atlas.zones[].synthetic_population",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "synthetic_population"
+      },
+      "definition": "Zone resident count; not transferred to a facility node",
+      "display_label": "Zone synthetic residents",
+      "unit": "persons",
+      "measurement_basis": "zone resident count",
+      "entity_geographic_grain": "one Ceres census zone",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "recognized resident synthetic persons",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "synthetic_population"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "synthetic_population"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_CIVSTATE_SEMANTIC_RECOVERY_SUPPLEMENT_v0.1.md",
+          "locator": "### Demography"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.body.combined_residents",
+      "payload_path": "derived.body.combined_residents",
+      "source": {
+        "expression": "biological_population + synthetic_population",
+        "inputs": [
+          "atlas.body.demographic.biological_population",
+          "atlas.body.demographic.synthetic_population"
+        ]
+      },
+      "definition": "Same BODY row recognized residents, excluding transients",
+      "display_label": "Combined residents",
+      "unit": "persons",
+      "measurement_basis": "same-row UI arithmetic",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "recognized residents",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "combined"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "biological_population"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.body.biological_share",
+      "payload_path": "derived.body.biological_share",
+      "source": {
+        "expression": "biological_population / combined_residents * 100",
+        "inputs": [
+          "atlas.body.demographic.biological_population",
+          "atlas.body.demographic.synthetic_population"
+        ]
+      },
+      "definition": "Biological share of combined residents",
+      "display_label": "Biological resident share",
+      "unit": "percent",
+      "measurement_basis": "same-row UI arithmetic",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "recognized residents",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "combined"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "biological_population"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.body.synthetic_share",
+      "payload_path": "derived.body.synthetic_share",
+      "source": {
+        "expression": "synthetic_population / combined_residents * 100",
+        "inputs": [
+          "atlas.body.demographic.biological_population",
+          "atlas.body.demographic.synthetic_population"
+        ]
+      },
+      "definition": "Synthetic share of combined residents",
+      "display_label": "Synthetic resident share",
+      "unit": "percent",
+      "measurement_basis": "same-row UI arithmetic",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "recognized residents",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "combined"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "biological_population"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.economy.year",
+      "payload_path": "atlas.body.economy.year",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "year"
+      },
+      "definition": "Economic model epoch",
+      "display_label": "Economic epoch",
+      "unit": "year",
+      "measurement_basis": "row key",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "year"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "year"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "# 11. Exact economic diagnostic relationships recovered"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.economy.value_added",
+      "payload_path": "atlas.body.economy.value_added",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "value_added"
+      },
+      "definition": "Annual Ceres production; not household income",
+      "display_label": "Annual value added",
+      "unit": "model monetary units/year",
+      "measurement_basis": "modeled annual location production",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "value_added"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "# 11. Exact economic diagnostic relationships recovered"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.economy.investment",
+      "payload_path": "atlas.body.economy.investment",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "investment"
+      },
+      "definition": "Annual investment including replacement and expansion",
+      "display_label": "Annual gross investment",
+      "unit": "model monetary units/year",
+      "measurement_basis": "modeled gross capital formation",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "investment"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "# 11. Exact economic diagnostic relationships recovered"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.economy.productive_capital",
+      "payload_path": "atlas.body.economy.productive_capital",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "productive_capital"
+      },
+      "definition": "Productive capital stock; not household wealth",
+      "display_label": "Productive capital",
+      "unit": "model monetary units",
+      "measurement_basis": "modeled productive stock",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "productive_capital"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "# 11. Exact economic diagnostic relationships recovered"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.economy.capital_output_ratio",
+      "payload_path": "atlas.body.economy.capital_output_ratio",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "capital_output_ratio"
+      },
+      "definition": "Stored diagnostic capital/output ratio",
+      "display_label": "Productive capital / annual value added",
+      "unit": "years",
+      "measurement_basis": "productive_capital / value_added",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "capital_output_ratio"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "# 11. Exact economic diagnostic relationships recovered"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.economy.investment_output_ratio",
+      "payload_path": "atlas.body.economy.investment_output_ratio",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "investment_output_ratio"
+      },
+      "definition": "Stored diagnostic investment/output ratio",
+      "display_label": "Investment / annual value added",
+      "unit": "fraction",
+      "measurement_basis": "investment / value_added",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "investment_output_ratio"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "# 11. Exact economic diagnostic relationships recovered"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.economy.income_per_capita",
+      "payload_path": "atlas.body.economy.income_per_capita",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "income_per_capita"
+      },
+      "definition": "Production-intensity diagnostic; not income, wages, consumption or welfare",
+      "display_label": "Annual value added per resident",
+      "unit": "model monetary units/person/year",
+      "measurement_basis": "value_added / (biological_population + synthetic_population)",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "resident denominator only for income_per_capita",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "income_per_capita"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "# 11. Exact economic diagnostic relationships recovered"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.economy.infrastructure_capital",
+      "payload_path": "atlas.body.economy.infrastructure_capital",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "infrastructure_capital"
+      },
+      "definition": null,
+      "display_label": "Withhold: infrastructure capital",
+      "unit": null,
+      "measurement_basis": "stock basis unestablished",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "infrastructure_capital"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "# 11. Exact economic diagnostic relationships recovered"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Asset boundary and valuation method are unestablished. Exact monetary unit/scale also requires confirmation.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.body.economy.productivity_index",
+      "payload_path": "atlas.body.economy.productivity_index",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "productivity_index"
+      },
+      "definition": null,
+      "display_label": "Withhold: productivity index",
+      "unit": null,
+      "measurement_basis": "index basis unestablished",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "productivity_index"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "# 11. Exact economic diagnostic relationships recovered"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Construction, reference base, scale and labor denominator are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.body.investment_bar_percent",
+      "payload_path": "derived.body.investment_bar_percent",
+      "source": {
+        "expression": "investment / value_added * 100",
+        "inputs": [
+          "atlas.body.economy.investment",
+          "atlas.body.economy.value_added"
+        ]
+      },
+      "definition": "Visual comparison of two annual model flows",
+      "display_label": "Investment relative to value added",
+      "unit": "percent",
+      "measurement_basis": "UI bar width; zero output unavailable",
+      "entity_geographic_grain": "Ceres BODY:CERES:CERES",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "ratio"
+        },
+        {
+          "path": "docs/database_semantics/recovery/LOOM_CIVSTATE_RECOVERY_CONSOLIDATION_v1.0.md",
+          "locator": "# 11. Exact economic diagnostic relationships recovered"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social.institutional_trust",
+      "payload_path": "atlas.facilities[].social.institutional_trust",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "institutional_trust"
+      },
+      "definition": null,
+      "display_label": "Withhold: Institutional Trust",
+      "unit": null,
+      "measurement_basis": "fictional index construction unresolved",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not person-level or survey measure",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "institutional_trust"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_state"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Score construction, anchors, denominator and permitted facility-level interpretation are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social.political_autonomy",
+      "payload_path": "atlas.facilities[].social.political_autonomy",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "political_autonomy"
+      },
+      "definition": null,
+      "display_label": "Withhold: Political Autonomy",
+      "unit": null,
+      "measurement_basis": "fictional index construction unresolved",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not person-level or survey measure",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "political_autonomy"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_state"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Score construction, anchors, denominator and permitted facility-level interpretation are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social.family_viability",
+      "payload_path": "atlas.facilities[].social.family_viability",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "family_viability"
+      },
+      "definition": null,
+      "display_label": "Withhold: Family Viability",
+      "unit": null,
+      "measurement_basis": "fictional index construction unresolved",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not person-level or survey measure",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "family_viability"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_state"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Score construction, anchors, denominator and permitted facility-level interpretation are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social.migration_dependence",
+      "payload_path": "atlas.facilities[].social.migration_dependence",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "migration_dependence"
+      },
+      "definition": null,
+      "display_label": "Withhold: Migration Dependence",
+      "unit": null,
+      "measurement_basis": "fictional index construction unresolved",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not person-level or survey measure",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "migration_dependence"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_state"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Score construction, anchors, denominator and permitted facility-level interpretation are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social.automation_exposure",
+      "payload_path": "atlas.facilities[].social.automation_exposure",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "automation_exposure"
+      },
+      "definition": null,
+      "display_label": "Withhold: Automation Exposure",
+      "unit": null,
+      "measurement_basis": "fictional index construction unresolved",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not person-level or survey measure",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "automation_exposure"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_state"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Score construction, anchors, denominator and permitted facility-level interpretation are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social.access_scarcity",
+      "payload_path": "atlas.facilities[].social.access_scarcity",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "access_scarcity"
+      },
+      "definition": null,
+      "display_label": "Withhold: Access Scarcity",
+      "unit": null,
+      "measurement_basis": "fictional index construction unresolved",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not person-level or survey measure",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "access_scarcity"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_state"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Score construction, anchors, denominator and permitted facility-level interpretation are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social.cultural_distance",
+      "payload_path": "atlas.facilities[].social.cultural_distance",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "cultural_distance"
+      },
+      "definition": null,
+      "display_label": "Withhold: Cultural Distance",
+      "unit": null,
+      "measurement_basis": "fictional index construction unresolved",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not person-level or survey measure",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "cultural_distance"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_state"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Score construction, anchors, denominator and permitted facility-level interpretation are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social.cognitive_sovereignty_pressure",
+      "payload_path": "atlas.facilities[].social.cognitive_sovereignty_pressure",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "cognitive_sovereignty_pressure"
+      },
+      "definition": null,
+      "display_label": "Withhold: Cognitive Sovereignty Pressure",
+      "unit": null,
+      "measurement_basis": "fictional index construction unresolved",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not person-level or survey measure",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "load_atlas_data"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "cognitive_sovereignty_pressure"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_state"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Score construction, anchors, denominator and permitted facility-level interpretation are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social.subject_id",
+      "payload_path": "atlas.facilities[].social.subject_id",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "subject_id"
+      },
+      "definition": "Facility subject key",
+      "display_label": "Subject Id",
+      "unit": "identifier",
+      "measurement_basis": "row key",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "subject_id"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "subject_id"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_state"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social.year",
+      "payload_path": "atlas.facilities[].social.year",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "year"
+      },
+      "definition": "Social model epoch",
+      "display_label": "Year",
+      "unit": "year",
+      "measurement_basis": "row key",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "year"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "year"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_state"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social_pressures[].pressure_type",
+      "payload_path": "atlas.facilities[].social_pressures[].pressure_type",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_pressure",
+        "column": "pressure_type"
+      },
+      "definition": null,
+      "display_label": "Withhold: Pressure Type",
+      "unit": null,
+      "measurement_basis": "social-pressure model record",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not individual measurement",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "pressure_type"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "pressure_type"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_pressure"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Pressure taxonomy and mechanism are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social_pressures[].intensity",
+      "payload_path": "atlas.facilities[].social_pressures[].intensity",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_pressure",
+        "column": "intensity"
+      },
+      "definition": null,
+      "display_label": "Withhold: Intensity",
+      "unit": null,
+      "measurement_basis": "social-pressure model record",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not individual measurement",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "intensity"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "intensity"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_pressure"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Scale, anchors and derivation are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social_pressures[].direction",
+      "payload_path": "atlas.facilities[].social_pressures[].direction",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_pressure",
+        "column": "direction"
+      },
+      "definition": null,
+      "display_label": "Withhold: Direction",
+      "unit": null,
+      "measurement_basis": "social-pressure model record",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not individual measurement",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "direction"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "direction"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_pressure"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Direction vocabulary and whether it means change, effect or valence are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].social_pressures[].affected_groups",
+      "payload_path": "atlas.facilities[].social_pressures[].affected_groups",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_pressure",
+        "column": "affected_groups"
+      },
+      "definition": null,
+      "display_label": "Withhold: Affected Groups",
+      "unit": null,
+      "measurement_basis": "social-pressure model record",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not individual measurement",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "affected_groups"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "affected_groups"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "civ_social_pressure"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Group taxonomy and modeled versus measured basis are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.facility.social_pressure_record_count",
+      "payload_path": "derived.facility.social_pressure_record_count",
+      "source": {
+        "expression": "count(social_pressures)",
+        "inputs": [
+          "atlas.facilities[].social_pressures[]"
+        ]
+      },
+      "definition": "Projected pressure-record count, not intensity or prevalence",
+      "display_label": "Social-pressure records",
+      "unit": "records",
+      "measurement_basis": "UI record count across five facilities",
+      "entity_geographic_grain": "five Ceres facility nodes",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not a people count",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "pressureCount"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.institutions{}.id",
+      "payload_path": "atlas.institutions{}.id",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "subject_id"
+      },
+      "definition": "Institution subject key",
+      "display_label": "Institution ID",
+      "unit": "identifier/name/category",
+      "measurement_basis": "institution identity",
+      "entity_geographic_grain": "one institution subject",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "subject_id"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "id"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.institutions{}.name",
+      "payload_path": "atlas.institutions{}.name",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "display_name"
+      },
+      "definition": "CIVSTATE subject display name",
+      "display_label": "Institution name",
+      "unit": "identifier/name/category",
+      "measurement_basis": "institution identity",
+      "entity_geographic_grain": "one institution subject",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "display_name"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "name"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.institutions{}.institution_class",
+      "payload_path": "atlas.institutions{}.institution_class",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "subject_class"
+      },
+      "definition": "Subject classification",
+      "display_label": "Institution class",
+      "unit": "identifier/name/category",
+      "measurement_basis": "institution identity",
+      "entity_geographic_grain": "one institution subject",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "subject_class"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "institution_class"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.institutions{}.navigator_noun_id",
+      "payload_path": "atlas.institutions{}.navigator_noun_id",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "navigator_noun_id"
+      },
+      "definition": "Knowledge noun mapping",
+      "display_label": "Navigator noun ID",
+      "unit": "identifier/name/category",
+      "measurement_basis": "institution identity",
+      "entity_geographic_grain": "one institution subject",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "navigator_noun_id"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "navigator_noun_id"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].institutions[].institution_id",
+      "payload_path": "atlas.facilities[].institutions[].institution_id",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "actor_subject_id"
+      },
+      "definition": "Actor side of typed edge",
+      "display_label": "Institution ID",
+      "unit": "identifier/name/category",
+      "measurement_basis": "typed edge or joined subject",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "actor_subject_id"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "institution_id"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].institutions[].name",
+      "payload_path": "atlas.facilities[].institutions[].name",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "display_name"
+      },
+      "definition": "Joined institution display name",
+      "display_label": "Institution name",
+      "unit": "identifier/name/category",
+      "measurement_basis": "typed edge or joined subject",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "display_name"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "name"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].institutions[].domain",
+      "payload_path": "atlas.facilities[].institutions[].domain",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "influence_domain"
+      },
+      "definition": "Typed edge domain",
+      "display_label": "Influence domain",
+      "unit": "identifier/name/category",
+      "measurement_basis": "typed edge or joined subject",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "influence_domain"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "domain"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].institutions[].relationship",
+      "payload_path": "atlas.facilities[].institutions[].relationship",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "basis"
+      },
+      "definition": null,
+      "display_label": "Withhold: Relationship",
+      "unit": null,
+      "measurement_basis": "modeled influence edge",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "basis"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "relationship"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Relationship-basis vocabulary and legal or operational force are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].institutions[].control_class",
+      "payload_path": "atlas.facilities[].institutions[].control_class",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "control_class"
+      },
+      "definition": null,
+      "display_label": "Withhold: Control Class",
+      "unit": null,
+      "measurement_basis": "modeled influence edge",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "control_class"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "control_class"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Class taxonomy and distinction from ownership/legal authority are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].institutions[].weight",
+      "payload_path": "atlas.facilities[].institutions[].weight",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "influence_weight"
+      },
+      "definition": null,
+      "display_label": "Withhold: Weight",
+      "unit": null,
+      "measurement_basis": "modeled influence edge",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "influence_weight"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "weight"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Scale, normalization and domain-specific interpretation are unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.institutions.common_civil_authority",
+      "payload_path": "derived.institutions.common_civil_authority",
+      "source": {
+        "expression": "institution_id with civil-authority edge at all five facilities",
+        "inputs": [
+          "atlas.facilities[].institutions[].institution_id",
+          "atlas.facilities[].institutions[].relationship"
+        ]
+      },
+      "definition": null,
+      "display_label": "Withhold: common civil authority",
+      "unit": "institution identity",
+      "measurement_basis": "UI typed-edge equality/count",
+      "entity_geographic_grain": "five facility nodes",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not legal sovereignty",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "civilEdges"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "The UI equality test is deterministic, but the legal and operational meaning of the free-text civil-authority basis is unestablished.",
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.institutions.facility_edge_count",
+      "payload_path": "derived.institutions.facility_edge_count",
+      "source": {
+        "expression": "count(institution.facilities)",
+        "inputs": [
+          "atlas.institutions{}.facilities[]"
+        ]
+      },
+      "definition": "Count of projected facility–institution relationships",
+      "display_label": "Typed facility relationship records",
+      "unit": "records",
+      "measurement_basis": "UI projected-edge count",
+      "entity_geographic_grain": "one institution",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not people",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "facilities.length"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.facility_count",
+      "payload_path": "derived.facility_count",
+      "source": {
+        "expression": "Object.keys(atlas.facilities).length",
+        "inputs": [
+          "atlas.facilities"
+        ]
+      },
+      "definition": "Number of validated displayed facilities",
+      "display_label": "Facilities in pilot",
+      "unit": "facilities",
+      "measurement_basis": "UI count of verified WORLD identities",
+      "entity_geographic_grain": "Ceres pilot",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "not people",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "Object.keys(atlasData.facilities).length"
+        },
+        {
+          "path": "docs/database_semantics/LOOM_DATABASE_SEMANTIC_DOSSIER_FULL_v0.1.md",
+          "locator": "## CIVSTATE tables"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "Atlas load, display or calculation"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.institutions{}.facilities[].facility_id",
+      "payload_path": "atlas.institutions{}.facilities[].facility_id",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "subject_id",
+        "derived_expression": "remove NODE: prefix from v_graph_civstate_influence_edges.subject_id"
+      },
+      "definition": "Node side of typed influence edge",
+      "display_label": "Facility ID",
+      "unit": "identifier/name/category",
+      "measurement_basis": "typed edge or joined subject",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "subject_id"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "facility_id"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "institution dossier edge list"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.institutions{}.facilities[].domain",
+      "payload_path": "atlas.institutions{}.facilities[].domain",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "influence_domain"
+      },
+      "definition": "Typed edge domain",
+      "display_label": "Influence domain",
+      "unit": "identifier/name/category",
+      "measurement_basis": "typed edge or joined subject",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "influence_domain"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "domain"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "institution dossier edge list"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.institutions{}.facilities[].derivation_id",
+      "payload_path": "atlas.institutions{}.facilities[].derivation_id",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "derivation_id"
+      },
+      "definition": "Edge derivation registry key",
+      "display_label": "Derivation ID",
+      "unit": "identifier/name/category",
+      "measurement_basis": "typed edge or joined subject",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "derivation_id"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "derivation_id"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "institution dossier edge list"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.institutions{}.facilities[].relationship",
+      "payload_path": "atlas.institutions{}.facilities[].relationship",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "basis"
+      },
+      "definition": null,
+      "display_label": "Withhold: Relationship",
+      "unit": null,
+      "measurement_basis": "modeled influence edge",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "basis"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "relationship"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Relationship-basis vocabulary and legal or operational force are unestablished.",
+      "consumer_contexts": [
+        "institution dossier edge list"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.institutions{}.facilities[].control_class",
+      "payload_path": "atlas.institutions{}.facilities[].control_class",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "control_class"
+      },
+      "definition": null,
+      "display_label": "Withhold: Control Class",
+      "unit": null,
+      "measurement_basis": "modeled influence edge",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "control_class"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "control_class"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Class taxonomy and distinction from ownership/legal authority are unestablished.",
+      "consumer_contexts": [
+        "institution dossier edge list"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.institutions{}.facilities[].weight",
+      "payload_path": "atlas.institutions{}.facilities[].weight",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "influence_weight"
+      },
+      "definition": null,
+      "display_label": "Withhold: Weight",
+      "unit": null,
+      "measurement_basis": "modeled influence edge",
+      "entity_geographic_grain": "typed facility–institution edge",
+      "epoch_temporal_basis": "fictional model epoch 2226",
+      "population_accounting_basis": "organization/facility scope only",
+      "semantic_evidence": [
+        {
+          "path": "tools/serve_ceres_atlas.py",
+          "locator": "influence_weight"
+        },
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "weight"
+        },
+        {
+          "path": "docs/database_semantics/CLAUDE_DATABASE_INTERPRETATION_CONTRACT_v0.1.md",
+          "locator": "Organization-scope facts are not individual-scope facts."
+        }
+      ],
+      "a_status": "UNRESOLVED",
+      "missing_information": "Scale, normalization and domain-specific interpretation are unestablished.",
+      "consumer_contexts": [
+        "institution dossier edge list"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "atlas.facilities[].subject_id",
+      "payload_path": "atlas.facilities[].subject_id",
+      "source": {
+        "derived_expression": "\"NODE:\" + identity.node_id",
+        "inputs": [
+          "atlas.facilities[].identity.node_id"
+        ]
+      },
+      "definition": "Generated facility subject key used in CIVSTATE source note",
+      "display_label": "Facility subject ID",
+      "unit": "identifier/name/path",
+      "measurement_basis": "UI transformation",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "2226 identity / approved manifest snapshot",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "subject_id"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "facility dossier or collection"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.facility_type_label",
+      "payload_path": "derived.facility_type_label",
+      "source": {
+        "derived_expression": "title-case(facility_type)",
+        "inputs": [
+          "atlas.facilities[].identity.facility_type"
+        ]
+      },
+      "definition": "Human-readable formatting of WORLD facility category",
+      "display_label": "Facility type label",
+      "unit": "identifier/name/path",
+      "measurement_basis": "UI transformation",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "2226 identity / approved manifest snapshot",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "typeLabel"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "facility dossier or collection"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.facility_short_name",
+      "payload_path": "derived.facility_short_name",
+      "source": {
+        "derived_expression": "shortName(node_name)",
+        "inputs": [
+          "atlas.facilities[].identity.node_name"
+        ]
+      },
+      "definition": "Explicit UI alias for one of five facility names",
+      "display_label": "Facility short name",
+      "unit": "identifier/name/path",
+      "measurement_basis": "UI transformation",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "2226 identity / approved manifest snapshot",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/app.mjs",
+          "locator": "shortName"
+        }
+      ],
+      "a_status": "QUALIFIED",
+      "missing_information": null,
+      "consumer_contexts": [
+        "facility dossier or collection"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    },
+    {
+      "id": "derived.facility_image_path",
+      "payload_path": "derived.facility_image_path",
+      "source": {
+        "derived_expression": "\"images/\" + manifest.filename",
+        "inputs": [
+          "manifest.facilities[].filename"
+        ]
+      },
+      "definition": "Approved media delivery path built from manifest filename",
+      "display_label": "Facility image path",
+      "unit": "identifier/name/path",
+      "measurement_basis": "UI transformation",
+      "entity_geographic_grain": "one Ceres facility node",
+      "epoch_temporal_basis": "2226 identity / approved manifest snapshot",
+      "population_accounting_basis": "not applicable",
+      "semantic_evidence": [
+        {
+          "path": "web/ceres-atlas/model.mjs",
+          "locator": "images/"
+        }
+      ],
+      "a_status": "NOT_APPLICABLE",
+      "missing_information": null,
+      "consumer_contexts": [
+        "facility dossier or collection"
+      ],
+      "b_provenance": "PARTIAL",
+      "c_validation": "NOT_TESTED",
+      "d_reproducibility": "PARTIAL"
+    }
+  ],
+  "counts": {
+    "identified": 117,
+    "NOT_APPLICABLE": 16,
+    "QUALIFIED": 64,
+    "UNRESOLVED": 37
+  }
+}

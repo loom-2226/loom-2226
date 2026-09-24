@@ -1,0 +1,4438 @@
+{
+  "snapshot_id": "ceres-v1-0231e5f7da744728ab5021268b6f239b",
+  "consumer_git_commit": "520af8926fddf5bcfd32f8937dfe92b37d55b33e",
+  "source_sha256": {
+    "WORLD": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
+    "CIVSTATE": "9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560",
+    "MEDIA": "286873428afbf30b91bdb2e71b55146ed5979873cfd6af69579c121b724eb038"
+  },
+  "semantic_matrix_sha256": "4d0aef377ddb033d65d4a0eb5faf147b0bd455b8165570c39670046b332a9368",
+  "tables": [
+    {
+      "database": "WORLD",
+      "table": "entities",
+      "postgres_table": "loom_world.entities",
+      "source_rows": 7,
+      "postgres_rows": 7,
+      "columns": [
+        {
+          "column": "entity_id",
+          "postgres_column": "loom_world.entities.entity_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "name",
+          "postgres_column": "loom_world.entities.name",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "entity_class",
+          "postgres_column": "loom_world.entities.entity_class",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "parent_entity_id",
+          "postgres_column": "loom_world.entities.parent_entity_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "source_command",
+          "postgres_column": "loom_world.entities.source_command",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 6,
+          "postgres_nulls": 6,
+          "exact_values_match": true
+        },
+        {
+          "column": "glyph_px",
+          "postgres_column": "loom_world.entities.glyph_px",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "provenance",
+          "postgres_column": "loom_world.entities.provenance",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "display_name_short",
+          "postgres_column": "loom_world.entities.display_name_short",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "visibility_class",
+          "postgres_column": "loom_world.entities.visibility_class",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "label_priority",
+          "postgres_column": "loom_world.entities.label_priority",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "spatial_regime",
+          "postgres_column": "loom_world.entities.spatial_regime",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "image_prompt",
+          "postgres_column": "loom_world.entities.image_prompt",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "image_prompt_status",
+          "postgres_column": "loom_world.entities.image_prompt_status",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "image_prompt_version",
+          "postgres_column": "loom_world.entities.image_prompt_version",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "WORLD",
+      "table": "celestial_properties",
+      "postgres_table": "loom_world.celestial_properties",
+      "source_rows": 1,
+      "postgres_rows": 1,
+      "columns": [
+        {
+          "column": "entity_id",
+          "postgres_column": "loom_world.celestial_properties.entity_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "gm_km3_s2",
+          "postgres_column": "loom_world.celestial_properties.gm_km3_s2",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "mean_radius_km",
+          "postgres_column": "loom_world.celestial_properties.mean_radius_km",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "rotation_period_s",
+          "postgres_column": "loom_world.celestial_properties.rotation_period_s",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "source_id",
+          "postgres_column": "loom_world.celestial_properties.source_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "status",
+          "postgres_column": "loom_world.celestial_properties.status",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "WORLD",
+      "table": "celestial_dynamics",
+      "postgres_table": "loom_world.celestial_dynamics",
+      "source_rows": 1,
+      "postgres_rows": 1,
+      "columns": [
+        {
+          "column": "entity_id",
+          "postgres_column": "loom_world.celestial_dynamics.entity_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "primary_gravity_parent_id",
+          "postgres_column": "loom_world.celestial_dynamics.primary_gravity_parent_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "horizons_command",
+          "postgres_column": "loom_world.celestial_dynamics.horizons_command",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "parent_center_command",
+          "postgres_column": "loom_world.celestial_dynamics.parent_center_command",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "reference_orbit_radius_km",
+          "postgres_column": "loom_world.celestial_dynamics.reference_orbit_radius_km",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "orbital_period_days",
+          "postgres_column": "loom_world.celestial_dynamics.orbital_period_days",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "gm_km3_s2",
+          "postgres_column": "loom_world.celestial_dynamics.gm_km3_s2",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "mean_radius_km",
+          "postgres_column": "loom_world.celestial_dynamics.mean_radius_km",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "soi_radius_km",
+          "postgres_column": "loom_world.celestial_dynamics.soi_radius_km",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "hill_radius_km",
+          "postgres_column": "loom_world.celestial_dynamics.hill_radius_km",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "atmosphere_class",
+          "postgres_column": "loom_world.celestial_dynamics.atmosphere_class",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "metadata_status",
+          "postgres_column": "loom_world.celestial_dynamics.metadata_status",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "source",
+          "postgres_column": "loom_world.celestial_dynamics.source",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "WORLD",
+      "table": "infrastructure_nodes",
+      "postgres_table": "loom_world.infrastructure_nodes",
+      "source_rows": 5,
+      "postgres_rows": 5,
+      "columns": [
+        {
+          "column": "node_id",
+          "postgres_column": "loom_world.infrastructure_nodes.node_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "node_name",
+          "postgres_column": "loom_world.infrastructure_nodes.node_name",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "system",
+          "postgres_column": "loom_world.infrastructure_nodes.system",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "parent_body",
+          "postgres_column": "loom_world.infrastructure_nodes.parent_body",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "traffic",
+          "postgres_column": "loom_world.infrastructure_nodes.traffic",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "facility_type",
+          "postgres_column": "loom_world.infrastructure_nodes.facility_type",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "commercial_1",
+          "postgres_column": "loom_world.infrastructure_nodes.commercial_1",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "commercial_2",
+          "postgres_column": "loom_world.infrastructure_nodes.commercial_2",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "commercial_regime",
+          "postgres_column": "loom_world.infrastructure_nodes.commercial_regime",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "civil_authority",
+          "postgres_column": "loom_world.infrastructure_nodes.civil_authority",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "administrative_authority",
+          "postgres_column": "loom_world.infrastructure_nodes.administrative_authority",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "security_authority",
+          "postgres_column": "loom_world.infrastructure_nodes.security_authority",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "synthetic_constituency_1",
+          "postgres_column": "loom_world.infrastructure_nodes.synthetic_constituency_1",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "institutional_morphology",
+          "postgres_column": "loom_world.infrastructure_nodes.institutional_morphology",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "source",
+          "postgres_column": "loom_world.infrastructure_nodes.source",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "entity_id",
+          "postgres_column": "loom_world.infrastructure_nodes.entity_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "region_entity_id",
+          "postgres_column": "loom_world.infrastructure_nodes.region_entity_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "parent_entity_id",
+          "postgres_column": "loom_world.infrastructure_nodes.parent_entity_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "WORLD",
+      "table": "knowledge_entities",
+      "postgres_table": "loom_world.knowledge_entities",
+      "source_rows": 6,
+      "postgres_rows": 6,
+      "columns": [
+        {
+          "column": "noun_id",
+          "postgres_column": "loom_world.knowledge_entities.noun_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "canonical_name",
+          "postgres_column": "loom_world.knowledge_entities.canonical_name",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "noun_class",
+          "postgres_column": "loom_world.knowledge_entities.noun_class",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "quick_description",
+          "postgres_column": "loom_world.knowledge_entities.quick_description",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "boundary_note",
+          "postgres_column": "loom_world.knowledge_entities.boundary_note",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "spatial_entity_id",
+          "postgres_column": "loom_world.knowledge_entities.spatial_entity_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "canon_status",
+          "postgres_column": "loom_world.knowledge_entities.canon_status",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "source",
+          "postgres_column": "loom_world.knowledge_entities.source",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "source_detail",
+          "postgres_column": "loom_world.knowledge_entities.source_detail",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "display_name_short",
+          "postgres_column": "loom_world.knowledge_entities.display_name_short",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "image_prompt",
+          "postgres_column": "loom_world.knowledge_entities.image_prompt",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "image_prompt_status",
+          "postgres_column": "loom_world.knowledge_entities.image_prompt_status",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "image_prompt_version",
+          "postgres_column": "loom_world.knowledge_entities.image_prompt_version",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "WORLD",
+      "table": "image_assets",
+      "postgres_table": "loom_world.image_assets",
+      "source_rows": 6,
+      "postgres_rows": 6,
+      "columns": [
+        {
+          "column": "asset_id",
+          "postgres_column": "loom_world.image_assets.asset_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "entity_id",
+          "postgres_column": "loom_world.image_assets.entity_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "asset_role",
+          "postgres_column": "loom_world.image_assets.asset_role",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "prompt_version",
+          "postgres_column": "loom_world.image_assets.prompt_version",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "prompt_hash",
+          "postgres_column": "loom_world.image_assets.prompt_hash",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "provider",
+          "postgres_column": "loom_world.image_assets.provider",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "model_id",
+          "postgres_column": "loom_world.image_assets.model_id",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "generation_status",
+          "postgres_column": "loom_world.image_assets.generation_status",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "review_status",
+          "postgres_column": "loom_world.image_assets.review_status",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "media_key",
+          "postgres_column": "loom_world.image_assets.media_key",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "mime_type",
+          "postgres_column": "loom_world.image_assets.mime_type",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "width_px",
+          "postgres_column": "loom_world.image_assets.width_px",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "height_px",
+          "postgres_column": "loom_world.image_assets.height_px",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "content_hash",
+          "postgres_column": "loom_world.image_assets.content_hash",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "byte_length",
+          "postgres_column": "loom_world.image_assets.byte_length",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "thumbnail_hash",
+          "postgres_column": "loom_world.image_assets.thumbnail_hash",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "thumbnail_byte_length",
+          "postgres_column": "loom_world.image_assets.thumbnail_byte_length",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "created_at",
+          "postgres_column": "loom_world.image_assets.created_at",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "updated_at",
+          "postgres_column": "loom_world.image_assets.updated_at",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "is_current",
+          "postgres_column": "loom_world.image_assets.is_current",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "WORLD",
+      "table": "provenance_sources",
+      "postgres_table": "loom_world.provenance_sources",
+      "source_rows": 0,
+      "postgres_rows": 0,
+      "columns": [
+        {
+          "column": "source_id",
+          "postgres_column": "loom_world.provenance_sources.source_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "source_class",
+          "postgres_column": "loom_world.provenance_sources.source_class",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "citation",
+          "postgres_column": "loom_world.provenance_sources.citation",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "authority_status",
+          "postgres_column": "loom_world.provenance_sources.authority_status",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_subject",
+      "postgres_table": "loom_civ.civ_subject",
+      "source_rows": 349,
+      "postgres_rows": 349,
+      "columns": [
+        {
+          "column": "subject_id",
+          "postgres_column": "loom_civ.civ_subject.subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "subject_class",
+          "postgres_column": "loom_civ.civ_subject.subject_class",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "display_name",
+          "postgres_column": "loom_civ.civ_subject.display_name",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "navigator_entity_id",
+          "postgres_column": "loom_civ.civ_subject.navigator_entity_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 342,
+          "postgres_nulls": 342,
+          "exact_values_match": true
+        },
+        {
+          "column": "navigator_node_id",
+          "postgres_column": "loom_civ.civ_subject.navigator_node_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 344,
+          "postgres_nulls": 344,
+          "exact_values_match": true
+        },
+        {
+          "column": "navigator_noun_id",
+          "postgres_column": "loom_civ.civ_subject.navigator_noun_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 19,
+          "postgres_nulls": 19,
+          "exact_values_match": true
+        },
+        {
+          "column": "iso3",
+          "postgres_column": "loom_civ.civ_subject.iso3",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 349,
+          "postgres_nulls": 349,
+          "exact_values_match": true
+        },
+        {
+          "column": "parent_subject_id",
+          "postgres_column": "loom_civ.civ_subject.parent_subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 333,
+          "postgres_nulls": 333,
+          "exact_values_match": true
+        },
+        {
+          "column": "spatial_subject_id",
+          "postgres_column": "loom_civ.civ_subject.spatial_subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 162,
+          "postgres_nulls": 162,
+          "exact_values_match": true
+        },
+        {
+          "column": "aggregation_class",
+          "postgres_column": "loom_civ.civ_subject.aggregation_class",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "active_2226",
+          "postgres_column": "loom_civ.civ_subject.active_2226",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_model_run",
+      "postgres_table": "loom_civ.civ_model_run",
+      "source_rows": 2,
+      "postgres_rows": 2,
+      "columns": [
+        {
+          "column": "run_id",
+          "postgres_column": "loom_civ.civ_model_run.run_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "model_name",
+          "postgres_column": "loom_civ.civ_model_run.model_name",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "version",
+          "postgres_column": "loom_civ.civ_model_run.version",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "status",
+          "postgres_column": "loom_civ.civ_model_run.status",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "boundary_year",
+          "postgres_column": "loom_civ.civ_model_run.boundary_year",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "source_detail",
+          "postgres_column": "loom_civ.civ_model_run.source_detail",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "assumptions_json",
+          "postgres_column": "loom_civ.civ_model_run.assumptions_json",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "created_at",
+          "postgres_column": "loom_civ.civ_model_run.created_at",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_derivation",
+      "postgres_table": "loom_civ.civ_derivation",
+      "source_rows": 3,
+      "postgres_rows": 3,
+      "columns": [
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_civ.civ_derivation.derivation_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "epistemic_class",
+          "postgres_column": "loom_civ.civ_derivation.epistemic_class",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "run_id",
+          "postgres_column": "loom_civ.civ_derivation.run_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "method",
+          "postgres_column": "loom_civ.civ_derivation.method",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "source_detail",
+          "postgres_column": "loom_civ.civ_derivation.source_detail",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "confidence",
+          "postgres_column": "loom_civ.civ_derivation.confidence",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "uncertainty_low",
+          "postgres_column": "loom_civ.civ_derivation.uncertainty_low",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 3,
+          "postgres_nulls": 3,
+          "exact_values_match": true
+        },
+        {
+          "column": "uncertainty_high",
+          "postgres_column": "loom_civ.civ_derivation.uncertainty_high",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 3,
+          "postgres_nulls": 3,
+          "exact_values_match": true
+        },
+        {
+          "column": "notes",
+          "postgres_column": "loom_civ.civ_derivation.notes",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_demographic_state",
+      "postgres_table": "loom_civ.civ_demographic_state",
+      "source_rows": 4,
+      "postgres_rows": 4,
+      "columns": [
+        {
+          "column": "subject_id",
+          "postgres_column": "loom_civ.civ_demographic_state.subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "year",
+          "postgres_column": "loom_civ.civ_demographic_state.year",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "biological_population",
+          "postgres_column": "loom_civ.civ_demographic_state.biological_population",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "synthetic_population",
+          "postgres_column": "loom_civ.civ_demographic_state.synthetic_population",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "transient_population",
+          "postgres_column": "loom_civ.civ_demographic_state.transient_population",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 4,
+          "postgres_nulls": 4,
+          "exact_values_match": true
+        },
+        {
+          "column": "working_age_population",
+          "postgres_column": "loom_civ.civ_demographic_state.working_age_population",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "age_0_14",
+          "postgres_column": "loom_civ.civ_demographic_state.age_0_14",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 3,
+          "postgres_nulls": 3,
+          "exact_values_match": true
+        },
+        {
+          "column": "age_15_64",
+          "postgres_column": "loom_civ.civ_demographic_state.age_15_64",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 3,
+          "postgres_nulls": 3,
+          "exact_values_match": true
+        },
+        {
+          "column": "age_65_plus",
+          "postgres_column": "loom_civ.civ_demographic_state.age_65_plus",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 3,
+          "postgres_nulls": 3,
+          "exact_values_match": true
+        },
+        {
+          "column": "age_80_plus",
+          "postgres_column": "loom_civ.civ_demographic_state.age_80_plus",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 3,
+          "postgres_nulls": 3,
+          "exact_values_match": true
+        },
+        {
+          "column": "median_age",
+          "postgres_column": "loom_civ.civ_demographic_state.median_age",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "households",
+          "postgres_column": "loom_civ.civ_demographic_state.households",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 4,
+          "postgres_nulls": 4,
+          "exact_values_match": true
+        },
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_civ.civ_demographic_state.derivation_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_economic_state",
+      "postgres_table": "loom_civ.civ_economic_state",
+      "source_rows": 1,
+      "postgres_rows": 1,
+      "columns": [
+        {
+          "column": "subject_id",
+          "postgres_column": "loom_civ.civ_economic_state.subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "year",
+          "postgres_column": "loom_civ.civ_economic_state.year",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "value_added",
+          "postgres_column": "loom_civ.civ_economic_state.value_added",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "gross_output",
+          "postgres_column": "loom_civ.civ_economic_state.gross_output",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "consumption",
+          "postgres_column": "loom_civ.civ_economic_state.consumption",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "investment",
+          "postgres_column": "loom_civ.civ_economic_state.investment",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "productive_capital",
+          "postgres_column": "loom_civ.civ_economic_state.productive_capital",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "infrastructure_capital",
+          "postgres_column": "loom_civ.civ_economic_state.infrastructure_capital",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "residential_capital",
+          "postgres_column": "loom_civ.civ_economic_state.residential_capital",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "capital_output_ratio",
+          "postgres_column": "loom_civ.civ_economic_state.capital_output_ratio",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "investment_output_ratio",
+          "postgres_column": "loom_civ.civ_economic_state.investment_output_ratio",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "productivity_index",
+          "postgres_column": "loom_civ.civ_economic_state.productivity_index",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "income_per_capita",
+          "postgres_column": "loom_civ.civ_economic_state.income_per_capita",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "consumption_per_capita",
+          "postgres_column": "loom_civ.civ_economic_state.consumption_per_capita",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "price_level_index",
+          "postgres_column": "loom_civ.civ_economic_state.price_level_index",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "economic_complexity_index",
+          "postgres_column": "loom_civ.civ_economic_state.economic_complexity_index",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_civ.civ_economic_state.derivation_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_workforce_state",
+      "postgres_table": "loom_civ.civ_workforce_state",
+      "source_rows": 1,
+      "postgres_rows": 1,
+      "columns": [
+        {
+          "column": "subject_id",
+          "postgres_column": "loom_civ.civ_workforce_state.subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "year",
+          "postgres_column": "loom_civ.civ_workforce_state.year",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "sector_id",
+          "postgres_column": "loom_civ.civ_workforce_state.sector_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "biological_workers",
+          "postgres_column": "loom_civ.civ_workforce_state.biological_workers",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "synthetic_workers",
+          "postgres_column": "loom_civ.civ_workforce_state.synthetic_workers",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "remote_workers",
+          "postgres_column": "loom_civ.civ_workforce_state.remote_workers",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "transient_workers",
+          "postgres_column": "loom_civ.civ_workforce_state.transient_workers",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "machine_task_equivalent",
+          "postgres_column": "loom_civ.civ_workforce_state.machine_task_equivalent",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "total_fte_equivalent",
+          "postgres_column": "loom_civ.civ_workforce_state.total_fte_equivalent",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "mean_paid_hours_week",
+          "postgres_column": "loom_civ.civ_workforce_state.mean_paid_hours_week",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "automation_task_share",
+          "postgres_column": "loom_civ.civ_workforce_state.automation_task_share",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "participation_rate",
+          "postgres_column": "loom_civ.civ_workforce_state.participation_rate",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "employment_rate",
+          "postgres_column": "loom_civ.civ_workforce_state.employment_rate",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "skill_index",
+          "postgres_column": "loom_civ.civ_workforce_state.skill_index",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 1,
+          "postgres_nulls": 1,
+          "exact_values_match": true
+        },
+        {
+          "column": "labor_productivity_index",
+          "postgres_column": "loom_civ.civ_workforce_state.labor_productivity_index",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_civ.civ_workforce_state.derivation_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_place_dna",
+      "postgres_table": "loom_civ.civ_place_dna",
+      "source_rows": 5,
+      "postgres_rows": 5,
+      "columns": [
+        {
+          "column": "subject_id",
+          "postgres_column": "loom_civ.civ_place_dna.subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "year",
+          "postgres_column": "loom_civ.civ_place_dna.year",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "governance_style",
+          "postgres_column": "loom_civ.civ_place_dna.governance_style",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "security_posture",
+          "postgres_column": "loom_civ.civ_place_dna.security_posture",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "commercial_openness",
+          "postgres_column": "loom_civ.civ_place_dna.commercial_openness",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "corporate_proxy_level",
+          "postgres_column": "loom_civ.civ_place_dna.corporate_proxy_level",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "local_autonomy",
+          "postgres_column": "loom_civ.civ_place_dna.local_autonomy",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "institutional_trust",
+          "postgres_column": "loom_civ.civ_place_dna.institutional_trust",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "synthetic_acceptance",
+          "postgres_column": "loom_civ.civ_place_dna.synthetic_acceptance",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "migration_openness",
+          "postgres_column": "loom_civ.civ_place_dna.migration_openness",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "frontier_mentality",
+          "postgres_column": "loom_civ.civ_place_dna.frontier_mentality",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "wealth_level",
+          "postgres_column": "loom_civ.civ_place_dna.wealth_level",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "scarcity_pressure",
+          "postgres_column": "loom_civ.civ_place_dna.scarcity_pressure",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "social_tension",
+          "postgres_column": "loom_civ.civ_place_dna.social_tension",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "law_enforcement_reach",
+          "postgres_column": "loom_civ.civ_place_dna.law_enforcement_reach",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "data_sharing_level",
+          "postgres_column": "loom_civ.civ_place_dna.data_sharing_level",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "outsider_attitude",
+          "postgres_column": "loom_civ.civ_place_dna.outsider_attitude",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "concise_behavioral_prompt",
+          "postgres_column": "loom_civ.civ_place_dna.concise_behavioral_prompt",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_civ.civ_place_dna.derivation_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_governance_profile",
+      "postgres_table": "loom_civ.civ_governance_profile",
+      "source_rows": 5,
+      "postgres_rows": 5,
+      "columns": [
+        {
+          "column": "subject_id",
+          "postgres_column": "loom_civ.civ_governance_profile.subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "year",
+          "postgres_column": "loom_civ.civ_governance_profile.year",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "ultimate_sovereign",
+          "postgres_column": "loom_civ.civ_governance_profile.ultimate_sovereign",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "local_civil_authority",
+          "postgres_column": "loom_civ.civ_governance_profile.local_civil_authority",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "administrative_authority",
+          "postgres_column": "loom_civ.civ_governance_profile.administrative_authority",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "security_provider",
+          "postgres_column": "loom_civ.civ_governance_profile.security_provider",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "primary_owner_operator",
+          "postgres_column": "loom_civ.civ_governance_profile.primary_owner_operator",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "primary_financier",
+          "postgres_column": "loom_civ.civ_governance_profile.primary_financier",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 5,
+          "postgres_nulls": 5,
+          "exact_values_match": true
+        },
+        {
+          "column": "primary_certifier",
+          "postgres_column": "loom_civ.civ_governance_profile.primary_certifier",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 5,
+          "postgres_nulls": 5,
+          "exact_values_match": true
+        },
+        {
+          "column": "state_control",
+          "postgres_column": "loom_civ.civ_governance_profile.state_control",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "local_autonomy",
+          "postgres_column": "loom_civ.civ_governance_profile.local_autonomy",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "corporate_proxy_governance",
+          "postgres_column": "loom_civ.civ_governance_profile.corporate_proxy_governance",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "corporate_state_alignment",
+          "postgres_column": "loom_civ.civ_governance_profile.corporate_state_alignment",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "institutional_fragmentation",
+          "postgres_column": "loom_civ.civ_governance_profile.institutional_fragmentation",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "enforcement_capacity",
+          "postgres_column": "loom_civ.civ_governance_profile.enforcement_capacity",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "data_sharing_level",
+          "postgres_column": "loom_civ.civ_governance_profile.data_sharing_level",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "torch_corporate_legacy",
+          "postgres_column": "loom_civ.civ_governance_profile.torch_corporate_legacy",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "metric_reassertion",
+          "postgres_column": "loom_civ.civ_governance_profile.metric_reassertion",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "loom_frontier_disruption",
+          "postgres_column": "loom_civ.civ_governance_profile.loom_frontier_disruption",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_civ.civ_governance_profile.derivation_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_infrastructure_state",
+      "postgres_table": "loom_civ.civ_infrastructure_state",
+      "source_rows": 5,
+      "postgres_rows": 5,
+      "columns": [
+        {
+          "column": "node_subject_id",
+          "postgres_column": "loom_civ.civ_infrastructure_state.node_subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "year",
+          "postgres_column": "loom_civ.civ_infrastructure_state.year",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "resident_population",
+          "postgres_column": "loom_civ.civ_infrastructure_state.resident_population",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "transient_daily_population",
+          "postgres_column": "loom_civ.civ_infrastructure_state.transient_daily_population",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "workforce",
+          "postgres_column": "loom_civ.civ_infrastructure_state.workforce",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "capital_stock",
+          "postgres_column": "loom_civ.civ_infrastructure_state.capital_stock",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "replacement_value",
+          "postgres_column": "loom_civ.civ_infrastructure_state.replacement_value",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "annual_value_added",
+          "postgres_column": "loom_civ.civ_infrastructure_state.annual_value_added",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "annual_operating_cost",
+          "postgres_column": "loom_civ.civ_infrastructure_state.annual_operating_cost",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "power_average_mw",
+          "postgres_column": "loom_civ.civ_infrastructure_state.power_average_mw",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "power_peak_mw",
+          "postgres_column": "loom_civ.civ_infrastructure_state.power_peak_mw",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "habitable_capacity",
+          "postgres_column": "loom_civ.civ_infrastructure_state.habitable_capacity",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "industrial_capacity_index",
+          "postgres_column": "loom_civ.civ_infrastructure_state.industrial_capacity_index",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "cargo_throughput_tonnes_year",
+          "postgres_column": "loom_civ.civ_infrastructure_state.cargo_throughput_tonnes_year",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "passenger_movements_year",
+          "postgres_column": "loom_civ.civ_infrastructure_state.passenger_movements_year",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "ship_calls_year",
+          "postgres_column": "loom_civ.civ_infrastructure_state.ship_calls_year",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "berths_equivalent",
+          "postgres_column": "loom_civ.civ_infrastructure_state.berths_equivalent",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "utilization",
+          "postgres_column": "loom_civ.civ_infrastructure_state.utilization",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "strategic_importance",
+          "postgres_column": "loom_civ.civ_infrastructure_state.strategic_importance",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "economic_centrality",
+          "postgres_column": "loom_civ.civ_infrastructure_state.economic_centrality",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "transport_centrality",
+          "postgres_column": "loom_civ.civ_infrastructure_state.transport_centrality",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_civ.civ_infrastructure_state.derivation_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_social_state",
+      "postgres_table": "loom_civ.civ_social_state",
+      "source_rows": 5,
+      "postgres_rows": 5,
+      "columns": [
+        {
+          "column": "subject_id",
+          "postgres_column": "loom_civ.civ_social_state.subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "year",
+          "postgres_column": "loom_civ.civ_social_state.year",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "biological_age_pressure",
+          "postgres_column": "loom_civ.civ_social_state.biological_age_pressure",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "synthetic_presence",
+          "postgres_column": "loom_civ.civ_social_state.synthetic_presence",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "automation_exposure",
+          "postgres_column": "loom_civ.civ_social_state.automation_exposure",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "family_viability",
+          "postgres_column": "loom_civ.civ_social_state.family_viability",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "migration_dependence",
+          "postgres_column": "loom_civ.civ_social_state.migration_dependence",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "capital_concentration",
+          "postgres_column": "loom_civ.civ_social_state.capital_concentration",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "access_scarcity",
+          "postgres_column": "loom_civ.civ_social_state.access_scarcity",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "external_dependence",
+          "postgres_column": "loom_civ.civ_social_state.external_dependence",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "strategic_leverage",
+          "postgres_column": "loom_civ.civ_social_state.strategic_leverage",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "political_autonomy",
+          "postgres_column": "loom_civ.civ_social_state.political_autonomy",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "cultural_distance",
+          "postgres_column": "loom_civ.civ_social_state.cultural_distance",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "institutional_trust",
+          "postgres_column": "loom_civ.civ_social_state.institutional_trust",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "cognitive_sovereignty_pressure",
+          "postgres_column": "loom_civ.civ_social_state.cognitive_sovereignty_pressure",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "local_born_share",
+          "postgres_column": "loom_civ.civ_social_state.local_born_share",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_civ.civ_social_state.derivation_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_social_pressure",
+      "postgres_table": "loom_civ.civ_social_pressure",
+      "source_rows": 40,
+      "postgres_rows": 40,
+      "columns": [
+        {
+          "column": "subject_id",
+          "postgres_column": "loom_civ.civ_social_pressure.subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "year",
+          "postgres_column": "loom_civ.civ_social_pressure.year",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "pressure_type",
+          "postgres_column": "loom_civ.civ_social_pressure.pressure_type",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "intensity",
+          "postgres_column": "loom_civ.civ_social_pressure.intensity",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "direction",
+          "postgres_column": "loom_civ.civ_social_pressure.direction",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "affected_groups",
+          "postgres_column": "loom_civ.civ_social_pressure.affected_groups",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "trigger_basis",
+          "postgres_column": "loom_civ.civ_social_pressure.trigger_basis",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_civ.civ_social_pressure.derivation_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_census_node_relation",
+      "postgres_table": "loom_civ.civ_census_node_relation",
+      "source_rows": 11,
+      "postgres_rows": 11,
+      "columns": [
+        {
+          "column": "node_subject_id",
+          "postgres_column": "loom_civ.civ_census_node_relation.node_subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "zone_subject_id",
+          "postgres_column": "loom_civ.civ_census_node_relation.zone_subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "year",
+          "postgres_column": "loom_civ.civ_census_node_relation.year",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "relationship_type",
+          "postgres_column": "loom_civ.civ_census_node_relation.relationship_type",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "primary_relation",
+          "postgres_column": "loom_civ.civ_census_node_relation.primary_relation",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "confidence",
+          "postgres_column": "loom_civ.civ_census_node_relation.confidence",
+          "semantic_status": "QUALIFIED",
+          "presentation_label": "Qualified only within recorded row filter; unresolved legacy elsewhere",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "basis_code",
+          "postgres_column": "loom_civ.civ_census_node_relation.basis_code",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "basis_text",
+          "postgres_column": "loom_civ.civ_census_node_relation.basis_text",
+          "semantic_status": "NOT_ASSESSED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_civ.civ_census_node_relation.derivation_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "table": "civ_influence_edge",
+      "postgres_table": "loom_civ.civ_influence_edge",
+      "source_rows": 55,
+      "postgres_rows": 55,
+      "columns": [
+        {
+          "column": "subject_id",
+          "postgres_column": "loom_civ.civ_influence_edge.subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "actor_subject_id",
+          "postgres_column": "loom_civ.civ_influence_edge.actor_subject_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "year",
+          "postgres_column": "loom_civ.civ_influence_edge.year",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "influence_domain",
+          "postgres_column": "loom_civ.civ_influence_edge.influence_domain",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "influence_weight",
+          "postgres_column": "loom_civ.civ_influence_edge.influence_weight",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "control_class",
+          "postgres_column": "loom_civ.civ_influence_edge.control_class",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "basis",
+          "postgres_column": "loom_civ.civ_influence_edge.basis",
+          "semantic_status": "UNRESOLVED",
+          "presentation_label": "Unresolved legacy data",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_civ.civ_influence_edge.derivation_id",
+          "semantic_status": "STRUCTURAL",
+          "presentation_label": "STRUCTURAL",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "MEDIA",
+      "table": "media_assets",
+      "postgres_table": "loom_media.media_assets",
+      "source_rows": 6,
+      "postgres_rows": 6,
+      "columns": [
+        {
+          "column": "media_key",
+          "postgres_column": "loom_media.media_assets.media_key",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "asset_id",
+          "postgres_column": "loom_media.media_assets.asset_id",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "mime_type",
+          "postgres_column": "loom_media.media_assets.mime_type",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "width_px",
+          "postgres_column": "loom_media.media_assets.width_px",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "height_px",
+          "postgres_column": "loom_media.media_assets.height_px",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "original_blob",
+          "postgres_column": "loom_media.media_assets.original_blob",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "original_byte_length",
+          "postgres_column": "loom_media.media_assets.original_byte_length",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "original_sha256",
+          "postgres_column": "loom_media.media_assets.original_sha256",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "thumbnail_mime_type",
+          "postgres_column": "loom_media.media_assets.thumbnail_mime_type",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "thumbnail_blob",
+          "postgres_column": "loom_media.media_assets.thumbnail_blob",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "thumbnail_byte_length",
+          "postgres_column": "loom_media.media_assets.thumbnail_byte_length",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "thumbnail_sha256",
+          "postgres_column": "loom_media.media_assets.thumbnail_sha256",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "created_at",
+          "postgres_column": "loom_media.media_assets.created_at",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        },
+        {
+          "column": "updated_at",
+          "postgres_column": "loom_media.media_assets.updated_at",
+          "semantic_status": "NOT_APPLICABLE",
+          "presentation_label": "NOT_APPLICABLE",
+          "source_nulls": 0,
+          "postgres_nulls": 0,
+          "exact_values_match": true
+        }
+      ]
+    }
+  ],
+  "views": [
+    {
+      "database": "CIVSTATE",
+      "view": "civ_runtime_place_context",
+      "postgres_view": "loom_ceres.civ_runtime_place_context",
+      "source_rows": 5,
+      "postgres_rows": 5,
+      "columns": [
+        {
+          "column": "subject_id",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.subject_id",
+          "sqlite_source_expression": "civ_subject.subject_id",
+          "exact_values_match": true
+        },
+        {
+          "column": "display_name",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.display_name",
+          "sqlite_source_expression": "civ_subject.display_name",
+          "exact_values_match": true
+        },
+        {
+          "column": "navigator_entity_id",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.navigator_entity_id",
+          "sqlite_source_expression": "civ_subject.navigator_entity_id",
+          "exact_values_match": true
+        },
+        {
+          "column": "navigator_node_id",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.navigator_node_id",
+          "sqlite_source_expression": "civ_subject.navigator_node_id",
+          "exact_values_match": true
+        },
+        {
+          "column": "governance_style",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.governance_style",
+          "sqlite_source_expression": "civ_place_dna.governance_style",
+          "exact_values_match": true
+        },
+        {
+          "column": "security_posture",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.security_posture",
+          "sqlite_source_expression": "civ_place_dna.security_posture",
+          "exact_values_match": true
+        },
+        {
+          "column": "commercial_openness",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.commercial_openness",
+          "sqlite_source_expression": "civ_place_dna.commercial_openness",
+          "exact_values_match": true
+        },
+        {
+          "column": "corporate_proxy_level",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.corporate_proxy_level",
+          "sqlite_source_expression": "civ_place_dna.corporate_proxy_level",
+          "exact_values_match": true
+        },
+        {
+          "column": "local_autonomy",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.local_autonomy",
+          "sqlite_source_expression": "civ_place_dna.local_autonomy",
+          "exact_values_match": true
+        },
+        {
+          "column": "institutional_trust",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.institutional_trust",
+          "sqlite_source_expression": "civ_place_dna.institutional_trust",
+          "exact_values_match": true
+        },
+        {
+          "column": "synthetic_acceptance",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.synthetic_acceptance",
+          "sqlite_source_expression": "civ_place_dna.synthetic_acceptance",
+          "exact_values_match": true
+        },
+        {
+          "column": "migration_openness",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.migration_openness",
+          "sqlite_source_expression": "civ_place_dna.migration_openness",
+          "exact_values_match": true
+        },
+        {
+          "column": "frontier_mentality",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.frontier_mentality",
+          "sqlite_source_expression": "civ_place_dna.frontier_mentality",
+          "exact_values_match": true
+        },
+        {
+          "column": "scarcity_pressure",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.scarcity_pressure",
+          "sqlite_source_expression": "civ_place_dna.scarcity_pressure",
+          "exact_values_match": true
+        },
+        {
+          "column": "social_tension",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.social_tension",
+          "sqlite_source_expression": "civ_place_dna.social_tension",
+          "exact_values_match": true
+        },
+        {
+          "column": "law_enforcement_reach",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.law_enforcement_reach",
+          "sqlite_source_expression": "civ_place_dna.law_enforcement_reach",
+          "exact_values_match": true
+        },
+        {
+          "column": "data_sharing_level",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.data_sharing_level",
+          "sqlite_source_expression": "civ_place_dna.data_sharing_level",
+          "exact_values_match": true
+        },
+        {
+          "column": "outsider_attitude",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.outsider_attitude",
+          "sqlite_source_expression": "civ_place_dna.outsider_attitude",
+          "exact_values_match": true
+        },
+        {
+          "column": "concise_behavioral_prompt",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.concise_behavioral_prompt",
+          "sqlite_source_expression": "civ_place_dna.concise_behavioral_prompt",
+          "exact_values_match": true
+        },
+        {
+          "column": "ultimate_sovereign",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.ultimate_sovereign",
+          "sqlite_source_expression": "civ_governance_profile.ultimate_sovereign",
+          "exact_values_match": true
+        },
+        {
+          "column": "local_civil_authority",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.local_civil_authority",
+          "sqlite_source_expression": "civ_governance_profile.local_civil_authority",
+          "exact_values_match": true
+        },
+        {
+          "column": "administrative_authority",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.administrative_authority",
+          "sqlite_source_expression": "civ_governance_profile.administrative_authority",
+          "exact_values_match": true
+        },
+        {
+          "column": "security_provider",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.security_provider",
+          "sqlite_source_expression": "civ_governance_profile.security_provider",
+          "exact_values_match": true
+        },
+        {
+          "column": "primary_owner_operator",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.primary_owner_operator",
+          "sqlite_source_expression": "civ_governance_profile.primary_owner_operator",
+          "exact_values_match": true
+        },
+        {
+          "column": "primary_financier",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.primary_financier",
+          "sqlite_source_expression": "civ_governance_profile.primary_financier",
+          "exact_values_match": true
+        },
+        {
+          "column": "primary_certifier",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.primary_certifier",
+          "sqlite_source_expression": "civ_governance_profile.primary_certifier",
+          "exact_values_match": true
+        },
+        {
+          "column": "torch_corporate_legacy",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.torch_corporate_legacy",
+          "sqlite_source_expression": "civ_governance_profile.torch_corporate_legacy",
+          "exact_values_match": true
+        },
+        {
+          "column": "metric_reassertion",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.metric_reassertion",
+          "sqlite_source_expression": "civ_governance_profile.metric_reassertion",
+          "exact_values_match": true
+        },
+        {
+          "column": "loom_frontier_disruption",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.loom_frontier_disruption",
+          "sqlite_source_expression": "civ_governance_profile.loom_frontier_disruption",
+          "exact_values_match": true
+        },
+        {
+          "column": "resident_population",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.resident_population",
+          "sqlite_source_expression": "civ_infrastructure_state.resident_population",
+          "exact_values_match": true
+        },
+        {
+          "column": "transient_daily_population",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.transient_daily_population",
+          "sqlite_source_expression": "civ_infrastructure_state.transient_daily_population",
+          "exact_values_match": true
+        },
+        {
+          "column": "workforce",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.workforce",
+          "sqlite_source_expression": "civ_infrastructure_state.workforce",
+          "exact_values_match": true
+        },
+        {
+          "column": "annual_value_added",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.annual_value_added",
+          "sqlite_source_expression": "civ_infrastructure_state.annual_value_added",
+          "exact_values_match": true
+        },
+        {
+          "column": "power_average_mw",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.power_average_mw",
+          "sqlite_source_expression": "civ_infrastructure_state.power_average_mw",
+          "exact_values_match": true
+        },
+        {
+          "column": "cargo_throughput_tonnes_year",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.cargo_throughput_tonnes_year",
+          "sqlite_source_expression": "civ_infrastructure_state.cargo_throughput_tonnes_year",
+          "exact_values_match": true
+        },
+        {
+          "column": "strategic_importance",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.strategic_importance",
+          "sqlite_source_expression": "civ_infrastructure_state.strategic_importance",
+          "exact_values_match": true
+        },
+        {
+          "column": "economic_centrality",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.economic_centrality",
+          "sqlite_source_expression": "civ_infrastructure_state.economic_centrality",
+          "exact_values_match": true
+        },
+        {
+          "column": "transport_centrality",
+          "postgres_column": "loom_ceres.civ_runtime_place_context.transport_centrality",
+          "sqlite_source_expression": "civ_infrastructure_state.transport_centrality",
+          "exact_values_match": true
+        }
+      ]
+    },
+    {
+      "database": "CIVSTATE",
+      "view": "v_graph_civstate_influence_edges",
+      "postgres_view": "loom_ceres.v_graph_civstate_influence_edges",
+      "source_rows": 25,
+      "postgres_rows": 25,
+      "columns": [
+        {
+          "column": "subject_id",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.subject_id",
+          "sqlite_source_expression": "civ_influence_edge.subject_id",
+          "exact_values_match": true
+        },
+        {
+          "column": "subject_name",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.subject_name",
+          "sqlite_source_expression": "civ_subject[subject].display_name",
+          "exact_values_match": true
+        },
+        {
+          "column": "subject_node_key",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.subject_node_key",
+          "sqlite_source_expression": "CASE civ_subject[subject].navigator_entity_id/navigator_noun_id",
+          "exact_values_match": true
+        },
+        {
+          "column": "actor_subject_id",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.actor_subject_id",
+          "sqlite_source_expression": "civ_influence_edge.actor_subject_id",
+          "exact_values_match": true
+        },
+        {
+          "column": "actor_name",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.actor_name",
+          "sqlite_source_expression": "civ_subject[actor].display_name",
+          "exact_values_match": true
+        },
+        {
+          "column": "actor_node_key",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.actor_node_key",
+          "sqlite_source_expression": "CASE civ_subject[actor].navigator_entity_id/navigator_noun_id",
+          "exact_values_match": true
+        },
+        {
+          "column": "year",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.year",
+          "sqlite_source_expression": "civ_influence_edge.year",
+          "exact_values_match": true
+        },
+        {
+          "column": "influence_domain",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.influence_domain",
+          "sqlite_source_expression": "civ_influence_edge.influence_domain",
+          "exact_values_match": true
+        },
+        {
+          "column": "influence_weight",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.influence_weight",
+          "sqlite_source_expression": "civ_influence_edge.influence_weight",
+          "exact_values_match": true
+        },
+        {
+          "column": "control_class",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.control_class",
+          "sqlite_source_expression": "civ_influence_edge.control_class",
+          "exact_values_match": true
+        },
+        {
+          "column": "basis",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.basis",
+          "sqlite_source_expression": "civ_influence_edge.basis",
+          "exact_values_match": true
+        },
+        {
+          "column": "derivation_id",
+          "postgres_column": "loom_ceres.v_graph_civstate_influence_edges.derivation_id",
+          "sqlite_source_expression": "civ_influence_edge.derivation_id",
+          "exact_values_match": true
+        }
+      ]
+    }
+  ],
+  "manifest": {
+    "source_records": 5,
+    "postgres_records": 5,
+    "all_fields_match": true,
+    "field_count": 14,
+    "zone_relation_count": 11,
+    "zone_relations_match": true
+  },
+  "media": {
+    "approved_asset_count": 6,
+    "all_original_blob_hashes_match": true
+  },
+  "atlas_payload": {
+    "exact_match": true,
+    "facilities": 5,
+    "zones": 3,
+    "institutions": 11,
+    "facility_institution_edges": 25,
+    "pressure_records": 40,
+    "census_relations": 11
+  },
+  "derived_values": {
+    "exact_match": true,
+    "checked_formula_or_dimension_count": 85
+  },
+  "referential_integrity": {
+    "foreign_keys": 59,
+    "all_validated": true
+  },
+  "discrepancies": [],
+  "consumed_identities": [
+    {
+      "identity": "manifest.schema_version",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "derived_expression": "load_manifest constant",
+        "inputs": [
+          "docs/ceres/manifest.json"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.source",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "derived_expression": "load_manifest constant",
+        "inputs": [
+          "docs/ceres/manifest.json"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.source_sha256",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "derived_expression": "load_manifest constant",
+        "inputs": [
+          "docs/ceres/manifest.json"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].node_id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "node_id",
+        "derived_expression": "load_manifest projects node_id from approved manifest row",
+        "cross_checked_against": {
+          "database": "LOOM_2226.sqlite3",
+          "table": "infrastructure_nodes",
+          "column": "node_id"
+        }
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.node_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].name",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "name",
+        "derived_expression": "load_manifest projects name from approved manifest row",
+        "cross_checked_against": {
+          "database": "LOOM_2226.sqlite3",
+          "table": "infrastructure_nodes",
+          "column": "node_name"
+        }
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.name",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].facility_type",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "facility_type",
+        "derived_expression": "load_manifest projects facility_type from approved manifest row",
+        "cross_checked_against": {
+          "database": "LOOM_2226.sqlite3",
+          "table": "infrastructure_nodes",
+          "column": "facility_type"
+        }
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.facility_type",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].noun_id",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "noun_id",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "entity_id",
+        "derived_expression": "load_manifest projects noun_id from approved manifest row"
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.noun_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].asset_id",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "asset_id",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "asset_id",
+        "derived_expression": "load_manifest projects asset_id from approved manifest row"
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.asset_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].media_key",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "media_key",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "media_key",
+        "derived_expression": "load_manifest projects media_key from approved manifest row"
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.media_key",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].filename",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "filename",
+        "derived_expression": "load_manifest projects filename from approved manifest row"
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.filename",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].sha256",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "sha256",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "content_hash",
+        "derived_expression": "load_manifest projects sha256 from approved manifest row"
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.sha256",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].byte_length",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "byte_length",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "byte_length",
+        "derived_expression": "load_manifest projects byte_length from approved manifest row"
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.byte_length",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].role",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "role",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "asset_role",
+        "derived_expression": "load_manifest projects role from approved manifest row"
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.role",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].review_status",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "review_status",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "review_status",
+        "derived_expression": "load_manifest projects review_status from approved manifest row"
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.review_status",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].is_current",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "is_current",
+        "upstream_database": "LOOM_2226.sqlite3",
+        "upstream_table": "image_assets",
+        "upstream_column": "is_current",
+        "derived_expression": "load_manifest projects is_current from approved manifest row"
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.is_current",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "manifest.facilities[].export_status",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "manifest": "docs/ceres/manifest.json",
+        "column": "export_status",
+        "derived_expression": "load_manifest projects export_status from approved manifest row"
+      },
+      "postgres_target": "loom_media.ceres_manifest_asset.export_status",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.schema_version",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "derived_expression": "load_atlas_data constant",
+        "inputs": [
+          "tools/serve_ceres_atlas.py"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.epoch",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "derived_expression": "load_atlas_data constant",
+        "inputs": [
+          "tools/serve_ceres_atlas.py"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.world.entity_id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "entities",
+        "column": "entity_id"
+      },
+      "postgres_target": "loom_world.entities.entity_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.world.name",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "entities",
+        "column": "name"
+      },
+      "postgres_target": "loom_world.entities.name",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.world.gm_km3_s2",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_properties",
+        "column": "gm_km3_s2"
+      },
+      "postgres_target": "loom_world.celestial_properties.gm_km3_s2",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.world.mean_radius_km",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_properties",
+        "column": "mean_radius_km"
+      },
+      "postgres_target": "loom_world.celestial_properties.mean_radius_km",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.world.rotation_period_s",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_properties",
+        "column": "rotation_period_s"
+      },
+      "postgres_target": "loom_world.celestial_properties.rotation_period_s",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.world.physical_source_id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_properties",
+        "column": "source_id"
+      },
+      "postgres_target": "loom_world.celestial_properties.source_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.world.physical_status",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_properties",
+        "column": "status"
+      },
+      "postgres_target": "loom_world.celestial_properties.status",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.world.atmosphere_class",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "celestial_dynamics",
+        "column": "atmosphere_class"
+      },
+      "postgres_target": "loom_world.celestial_dynamics.atmosphere_class",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.world.diameter_km",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "expression": "2 * mean_radius_km",
+        "inputs": [
+          "atlas.world.mean_radius_km"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.world.surface_gravity_m_s2",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "expression": "gm_km3_s2 / mean_radius_km² * 1000",
+        "inputs": [
+          "atlas.world.gm_km3_s2",
+          "atlas.world.mean_radius_km"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.world.escape_speed_km_s",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "expression": "sqrt(2 * gm_km3_s2 / mean_radius_km)",
+        "inputs": [
+          "atlas.world.gm_km3_s2",
+          "atlas.world.mean_radius_km"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.world.rotation_hours",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "expression": "rotation_period_s / 3600",
+        "inputs": [
+          "atlas.world.rotation_period_s"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].identity.node_id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "node_id"
+      },
+      "postgres_target": "loom_world.infrastructure_nodes.node_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].identity.node_name",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "node_name"
+      },
+      "postgres_target": "loom_world.infrastructure_nodes.node_name",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].identity.facility_type",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "facility_type"
+      },
+      "postgres_target": "loom_world.infrastructure_nodes.facility_type",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].identity.source",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "source"
+      },
+      "postgres_target": "loom_world.infrastructure_nodes.source",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].identity.civil_authority",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "civil_authority"
+      },
+      "postgres_target": "loom_world.infrastructure_nodes.civil_authority",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].identity.traffic",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226.sqlite3",
+        "table": "infrastructure_nodes",
+        "column": "traffic"
+      },
+      "postgres_target": "loom_world.infrastructure_nodes.traffic",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].runtime_context.governance_style",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_runtime_place_context",
+        "column": "governance_style"
+      },
+      "postgres_target": "loom_ceres.civ_runtime_place_context.governance_style",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.resident_population",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "resident_population"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.resident_population",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.transient_daily_population",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "transient_daily_population"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.transient_daily_population",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.habitable_capacity",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "habitable_capacity"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.habitable_capacity",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.annual_value_added",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "annual_value_added"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.annual_value_added",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.cargo_throughput_tonnes_year",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "cargo_throughput_tonnes_year"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.cargo_throughput_tonnes_year",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.passenger_movements_year",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "passenger_movements_year"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.passenger_movements_year",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.ship_calls_year",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "ship_calls_year"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.ship_calls_year",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.industrial_capacity_index",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "industrial_capacity_index"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.industrial_capacity_index",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.workforce",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "workforce"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.workforce",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.capital_stock",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "capital_stock"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.capital_stock",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.annual_operating_cost",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "annual_operating_cost"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.annual_operating_cost",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.replacement_value",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "replacement_value"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.replacement_value",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.power_average_mw",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "power_average_mw"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.power_average_mw",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.power_peak_mw",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "power_peak_mw"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.power_peak_mw",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.utilization",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "utilization"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.utilization",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.node_subject_id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "node_subject_id"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.node_subject_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].infrastructure.year",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_infrastructure_state",
+        "column": "year"
+      },
+      "postgres_target": "loom_civ.civ_infrastructure_state.year",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.demographic.year",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "year"
+      },
+      "postgres_target": "loom_civ.civ_demographic_state.year",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.demographic.biological_population",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "biological_population"
+      },
+      "postgres_target": "loom_civ.civ_demographic_state.biological_population",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.demographic.synthetic_population",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "synthetic_population"
+      },
+      "postgres_target": "loom_civ.civ_demographic_state.synthetic_population",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.demographic.transient_population",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "transient_population"
+      },
+      "postgres_target": "loom_civ.civ_demographic_state.transient_population",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.demographic.age_0_14",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "age_0_14"
+      },
+      "postgres_target": "loom_civ.civ_demographic_state.age_0_14",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.demographic.age_15_64",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "age_15_64"
+      },
+      "postgres_target": "loom_civ.civ_demographic_state.age_15_64",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.demographic.age_65_plus",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "age_65_plus"
+      },
+      "postgres_target": "loom_civ.civ_demographic_state.age_65_plus",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.demographic.age_80_plus",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "age_80_plus"
+      },
+      "postgres_target": "loom_civ.civ_demographic_state.age_80_plus",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.demographic.median_age",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "median_age"
+      },
+      "postgres_target": "loom_civ.civ_demographic_state.median_age",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.zones[].display_name",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "display_name"
+      },
+      "postgres_target": "loom_civ.civ_subject.display_name",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.zones[].biological_population",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "biological_population"
+      },
+      "postgres_target": "loom_civ.civ_demographic_state.biological_population",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.zones[].synthetic_population",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_demographic_state",
+        "column": "synthetic_population"
+      },
+      "postgres_target": "loom_civ.civ_demographic_state.synthetic_population",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.body.combined_residents",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "expression": "biological_population + synthetic_population",
+        "inputs": [
+          "atlas.body.demographic.biological_population",
+          "atlas.body.demographic.synthetic_population"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.body.biological_share",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "expression": "biological_population / combined_residents * 100",
+        "inputs": [
+          "atlas.body.demographic.biological_population",
+          "atlas.body.demographic.synthetic_population"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.body.synthetic_share",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "expression": "synthetic_population / combined_residents * 100",
+        "inputs": [
+          "atlas.body.demographic.biological_population",
+          "atlas.body.demographic.synthetic_population"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.economy.year",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "year"
+      },
+      "postgres_target": "loom_civ.civ_economic_state.year",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.economy.value_added",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "value_added"
+      },
+      "postgres_target": "loom_civ.civ_economic_state.value_added",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.economy.investment",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "investment"
+      },
+      "postgres_target": "loom_civ.civ_economic_state.investment",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.economy.productive_capital",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "productive_capital"
+      },
+      "postgres_target": "loom_civ.civ_economic_state.productive_capital",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.economy.capital_output_ratio",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "capital_output_ratio"
+      },
+      "postgres_target": "loom_civ.civ_economic_state.capital_output_ratio",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.economy.investment_output_ratio",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "investment_output_ratio"
+      },
+      "postgres_target": "loom_civ.civ_economic_state.investment_output_ratio",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.economy.income_per_capita",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "income_per_capita"
+      },
+      "postgres_target": "loom_civ.civ_economic_state.income_per_capita",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.economy.infrastructure_capital",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "infrastructure_capital"
+      },
+      "postgres_target": "loom_civ.civ_economic_state.infrastructure_capital",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.body.economy.productivity_index",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_economic_state",
+        "column": "productivity_index"
+      },
+      "postgres_target": "loom_civ.civ_economic_state.productivity_index",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.body.investment_bar_percent",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "expression": "investment / value_added * 100",
+        "inputs": [
+          "atlas.body.economy.investment",
+          "atlas.body.economy.value_added"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social.institutional_trust",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "institutional_trust"
+      },
+      "postgres_target": "loom_civ.civ_social_state.institutional_trust",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social.political_autonomy",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "political_autonomy"
+      },
+      "postgres_target": "loom_civ.civ_social_state.political_autonomy",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social.family_viability",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "family_viability"
+      },
+      "postgres_target": "loom_civ.civ_social_state.family_viability",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social.migration_dependence",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "migration_dependence"
+      },
+      "postgres_target": "loom_civ.civ_social_state.migration_dependence",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social.automation_exposure",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "automation_exposure"
+      },
+      "postgres_target": "loom_civ.civ_social_state.automation_exposure",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social.access_scarcity",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "access_scarcity"
+      },
+      "postgres_target": "loom_civ.civ_social_state.access_scarcity",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social.cultural_distance",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "cultural_distance"
+      },
+      "postgres_target": "loom_civ.civ_social_state.cultural_distance",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social.cognitive_sovereignty_pressure",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "cognitive_sovereignty_pressure"
+      },
+      "postgres_target": "loom_civ.civ_social_state.cognitive_sovereignty_pressure",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social.subject_id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "subject_id"
+      },
+      "postgres_target": "loom_civ.civ_social_state.subject_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social.year",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_state",
+        "column": "year"
+      },
+      "postgres_target": "loom_civ.civ_social_state.year",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social_pressures[].pressure_type",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_pressure",
+        "column": "pressure_type"
+      },
+      "postgres_target": "loom_civ.civ_social_pressure.pressure_type",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social_pressures[].intensity",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_pressure",
+        "column": "intensity"
+      },
+      "postgres_target": "loom_civ.civ_social_pressure.intensity",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social_pressures[].direction",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_pressure",
+        "column": "direction"
+      },
+      "postgres_target": "loom_civ.civ_social_pressure.direction",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].social_pressures[].affected_groups",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_social_pressure",
+        "column": "affected_groups"
+      },
+      "postgres_target": "loom_civ.civ_social_pressure.affected_groups",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.facility.social_pressure_record_count",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "expression": "count(social_pressures)",
+        "inputs": [
+          "atlas.facilities[].social_pressures[]"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.institutions{}.id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "subject_id"
+      },
+      "postgres_target": "loom_civ.civ_subject.subject_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.institutions{}.name",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "display_name"
+      },
+      "postgres_target": "loom_civ.civ_subject.display_name",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.institutions{}.institution_class",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "subject_class"
+      },
+      "postgres_target": "loom_civ.civ_subject.subject_class",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.institutions{}.navigator_noun_id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "navigator_noun_id"
+      },
+      "postgres_target": "loom_civ.civ_subject.navigator_noun_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].institutions[].institution_id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "actor_subject_id"
+      },
+      "postgres_target": "loom_ceres.v_graph_civstate_influence_edges.actor_subject_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].institutions[].name",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "civ_subject",
+        "column": "display_name"
+      },
+      "postgres_target": "loom_civ.civ_subject.display_name",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].institutions[].domain",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "influence_domain"
+      },
+      "postgres_target": "loom_ceres.v_graph_civstate_influence_edges.influence_domain",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].institutions[].relationship",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "basis"
+      },
+      "postgres_target": "loom_ceres.v_graph_civstate_influence_edges.basis",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].institutions[].control_class",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "control_class"
+      },
+      "postgres_target": "loom_ceres.v_graph_civstate_influence_edges.control_class",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].institutions[].weight",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "influence_weight"
+      },
+      "postgres_target": "loom_ceres.v_graph_civstate_influence_edges.influence_weight",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.institutions.common_civil_authority",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "expression": "institution_id with civil-authority edge at all five facilities",
+        "inputs": [
+          "atlas.facilities[].institutions[].institution_id",
+          "atlas.facilities[].institutions[].relationship"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.institutions.facility_edge_count",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "expression": "count(institution.facilities)",
+        "inputs": [
+          "atlas.institutions{}.facilities[]"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.facility_count",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "expression": "Object.keys(atlas.facilities).length",
+        "inputs": [
+          "atlas.facilities"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.institutions{}.facilities[].facility_id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "subject_id",
+        "derived_expression": "remove NODE: prefix from v_graph_civstate_influence_edges.subject_id"
+      },
+      "postgres_target": "loom_ceres.v_graph_civstate_influence_edges.subject_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.institutions{}.facilities[].domain",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "influence_domain"
+      },
+      "postgres_target": "loom_ceres.v_graph_civstate_influence_edges.influence_domain",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.institutions{}.facilities[].derivation_id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "derivation_id"
+      },
+      "postgres_target": "loom_ceres.v_graph_civstate_influence_edges.derivation_id",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.institutions{}.facilities[].relationship",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "basis"
+      },
+      "postgres_target": "loom_ceres.v_graph_civstate_influence_edges.basis",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.institutions{}.facilities[].control_class",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "control_class"
+      },
+      "postgres_target": "loom_ceres.v_graph_civstate_influence_edges.control_class",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.institutions{}.facilities[].weight",
+      "mvp_a_gate_a_status": "UNRESOLVED",
+      "source": {
+        "database": "LOOM_2226_CIVSTATE.sqlite3",
+        "table": "v_graph_civstate_influence_edges",
+        "column": "influence_weight"
+      },
+      "postgres_target": "loom_ceres.v_graph_civstate_influence_edges.influence_weight",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "atlas.facilities[].subject_id",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "derived_expression": "\"NODE:\" + identity.node_id",
+        "inputs": [
+          "atlas.facilities[].identity.node_id"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.facility_type_label",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "derived_expression": "title-case(facility_type)",
+        "inputs": [
+          "atlas.facilities[].identity.facility_type"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.facility_short_name",
+      "mvp_a_gate_a_status": "QUALIFIED",
+      "source": {
+        "derived_expression": "shortName(node_name)",
+        "inputs": [
+          "atlas.facilities[].identity.node_name"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    },
+    {
+      "identity": "derived.facility_image_path",
+      "mvp_a_gate_a_status": "NOT_APPLICABLE",
+      "source": {
+        "derived_expression": "\"images/\" + manifest.filename",
+        "inputs": [
+          "manifest.facilities[].filename"
+        ]
+      },
+      "postgres_target": "unchanged consumer expression over exact PostgreSQL Atlas payload",
+      "value_or_expression_parity": true
+    }
+  ],
+  "row_lineage": {
+    "source_rows": 518,
+    "all_rows": 534,
+    "expected_source_rows": 518,
+    "exact_keys_match": true
+  },
+  "field_semantics": {
+    "counts": {
+      "QUALIFIED": 31,
+      "NOT_ASSESSED": 105,
+      "STRUCTURAL": 66,
+      "NOT_APPLICABLE": 58,
+      "UNRESOLVED": 33
+    },
+    "unresolved_legacy_label_count": 183,
+    "qualified_row_scoped_count": 29,
+    "exact_contract_match": true
+  },
+  "status": "PASS"
+}
