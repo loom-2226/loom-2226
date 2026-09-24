@@ -1,5 +1,7 @@
 # Earth/CIVSTATE PostgreSQL namespace separation
 
+Change class: `class:data`.
+
 This change moves the nine longitudinal Earth authority base tables from
 `loom_civ` to `loom_earth` with PostgreSQL `ALTER TABLE ... SET SCHEMA`.
 Rows are not copied, regenerated, normalized, or transformed. `civ_*` tables
