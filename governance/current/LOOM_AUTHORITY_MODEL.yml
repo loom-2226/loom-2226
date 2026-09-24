@@ -94,8 +94,14 @@ canon_amendments:
     parent: canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
     amendment: canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md
     effective_relationship: SCOPED_GOVERNING_AMENDMENT
-    baseline_management_state: RECONCILIATION_REQUIRED_AT_NEXT_CANON_BASELINE_UPDATE
+    baseline_management_state: REGISTERED_IN_CANON_BASELINE_2026_09_25
     adoption_action: RECORD_ONLY_NO_CANON_EDIT
+  earth_biosynthetic_v2_4b:
+    parent: canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
+    amendment: canon/current/LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md
+    effective_relationship: SCOPED_GOVERNING_AMENDMENT
+    baseline_management_state: REGISTERED_IN_CANON_BASELINE_2026_09_25
+    authorization: CCR-2026-0001
 
 frozen_research:
   pr_19:

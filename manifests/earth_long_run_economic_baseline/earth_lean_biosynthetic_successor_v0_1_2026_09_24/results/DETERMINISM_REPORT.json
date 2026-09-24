@@ -1,0 +1,11 @@
+{
+  "schema": "LOOM_EARTH_LEAN_BIOSYNTHETIC_DETERMINISM_v0",
+  "status": "PASS",
+  "runs_compared": 2,
+  "biological_primary_artifacts_compared": 8,
+  "economic_primary_artifacts_compared": 10,
+  "byte_identical_artifacts": 18,
+  "differences": [],
+  "second_run_root": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_20260924_determinism",
+  "notes": "Reports containing absolute output paths are excluded; all primary trajectory, endpoint, calibration, and boundary-rebase artifacts are byte-identical."
+}

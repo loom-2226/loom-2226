@@ -1,0 +1,60 @@
+{
+  "schema": "loom-earth-lean-biosynthetic-v0.1-sensitivity-v1",
+  "status": "EXPERIMENTAL_NON_CANON_NOT_ENDPOINT_FITTED",
+  "base_parameters": "../parameters.json",
+  "medical_scenarios": {
+    "MED_CONSERVATIVE": {
+      "description": "Exact v0 medicine path.",
+      "broad_access": [[2100, 0.0], [2160, 0.75], [2226, 0.995]],
+      "high_end_access": [[2100, 0.02], [2160, 0.10], [2226, 0.30]],
+      "extreme_access": [[2100, 0.0], [2160, 0.0001], [2226, 0.001]],
+      "broad_mortality_multiplier_by_age": [[0, 0.90], [65, 0.70], [80, 0.50], [100, 0.35]],
+      "high_end_mortality_multiplier_age_65_plus": 0.55,
+      "extreme_mortality_multiplier_age_100_plus": 0.10
+    },
+    "MED_CENTRAL": {
+      "description": "Earlier broad diffusion with modestly stronger mature-age efficacy; endpoint hierarchy unchanged.",
+      "broad_access": [[2100, 0.0], [2135, 0.50], [2160, 0.85], [2226, 0.995]],
+      "high_end_access": [[2100, 0.02], [2160, 0.15], [2226, 0.30]],
+      "extreme_access": [[2100, 0.0], [2160, 0.0002], [2226, 0.001]],
+      "broad_mortality_multiplier_by_age": [[0, 0.88], [65, 0.65], [80, 0.45], [100, 0.30]],
+      "high_end_mortality_multiplier_age_65_plus": 0.50,
+      "extreme_mortality_multiplier_age_100_plus": 0.10
+    },
+    "MED_HIGH": {
+      "description": "Earlier and stronger bounded diffusion; premium access remains minority and extreme access rare.",
+      "broad_access": [[2100, 0.0], [2125, 0.50], [2160, 0.95], [2226, 0.999]],
+      "high_end_access": [[2100, 0.02], [2160, 0.22], [2226, 0.40]],
+      "extreme_access": [[2100, 0.0], [2160, 0.0005], [2226, 0.002]],
+      "broad_mortality_multiplier_by_age": [[0, 0.85], [65, 0.60], [80, 0.40], [100, 0.25]],
+      "high_end_mortality_multiplier_age_65_plus": 0.45,
+      "extreme_mortality_multiplier_age_100_plus": 0.08
+    }
+  },
+  "synthetic_scenarios": {
+    "SYNTH_LOW": {
+      "annual_instantiation_per_biological_person": 0.00001,
+      "annual_retirement_loss_rate": 0.015
+    },
+    "SYNTH_CENTRAL": {
+      "annual_instantiation_per_biological_person": 0.00002,
+      "annual_retirement_loss_rate": 0.01
+    },
+    "SYNTH_HIGH": {
+      "annual_instantiation_per_biological_person": 0.00004,
+      "annual_retirement_loss_rate": 0.005
+    }
+  },
+  "allocation_repair": {
+    "method": "NORMALIZED_GEOMETRIC_BLEND_ABSOLUTE_CAPACITY_AND_INTENSITY",
+    "absolute_capacity_weight": 0.75,
+    "intensity_weight": 0.25,
+    "synthetic_absolute_signal": "COMPUTE_ENABLING_CAPITAL",
+    "synthetic_intensity_signal": "GEOMETRIC_MEAN_COMPUTE_AND_ENERGY_CAPACITY_PER_BIOLOGICAL_WORKER",
+    "machine_absolute_signal": "MACHINERY_PLUS_TRANSPORT_EQUIPMENT_CAPITAL",
+    "machine_intensity_signal": "SAME_CAPITAL_PER_SECTOR_BIOLOGICAL_WORKER",
+    "machine_global_total_rule": "PRESERVE_EXISTING_MECHANISM_GLOBAL_CAPACITY_THEN_REALLOCATE_WITH_GENERIC_NODE_CAPS",
+    "country_specific_exceptions": []
+  },
+  "selection_rule": "MED_CENTRAL_X_SYNTH_CENTRAL_UNLESS_CAUSAL_OR_NUMERICAL_QUALIFICATION_REJECTS_IT"
+}

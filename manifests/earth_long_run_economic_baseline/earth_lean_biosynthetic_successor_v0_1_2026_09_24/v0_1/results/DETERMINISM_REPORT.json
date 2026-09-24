@@ -1,0 +1,36 @@
+{
+  "note": "economic_report.json excluded because it records absolute output paths",
+  "primary_artifacts": {
+    "annual_economic_summary.json": {
+      "byte_identical": true,
+      "sha256": "128fed2d8064ce2fe54782b1f06eaec5923533f26f78c422b5c4b7452de0063c"
+    },
+    "annual_labor_composition.json": {
+      "byte_identical": true,
+      "sha256": "6fffca9fe8e796f17eb6beb7304a0f34539b1273c9362ff961683910881fd802"
+    },
+    "annual_synthetic_summary.json": {
+      "byte_identical": true,
+      "sha256": "573e430625dd89717a754a4a680b52e0487ed1faf9fe22a07b3f8dd1b168c74c"
+    },
+    "boundary_factor_rebase_2100.json": {
+      "byte_identical": true,
+      "sha256": "be225d1bd80640b15d8e29aaa9fedb4d47ebe1c8d74cdf5433f20bcba49b2928"
+    },
+    "countries_2226.json": {
+      "byte_identical": true,
+      "sha256": "a328de17cbe33224a2d3d8a501d4f13721727b02c159a8b13697dae188d6c30d"
+    },
+    "country_sector_assets_2226.json": {
+      "byte_identical": true,
+      "sha256": "add8022ae3a1346eadf58695588d449db71845c873fd561819f3ef56af06fd41"
+    },
+    "country_sectors_2226.json": {
+      "byte_identical": true,
+      "sha256": "d71374af821442b854e5920a9c3ebcf1861e4b3f40bd82e8b5f4237760a766ef"
+    }
+  },
+  "scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+  "schema": "LOOM_EARTH_BIOSYNTHETIC_V0_1_DETERMINISM",
+  "status": "PASS"
+}

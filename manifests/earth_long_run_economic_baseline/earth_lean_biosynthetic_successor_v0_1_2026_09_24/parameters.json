@@ -1,0 +1,63 @@
+{
+  "schema": "loom-earth-lean-biosynthetic-parameters-v1",
+  "status": "EXPERIMENTAL_NON_CANON_NOT_FITTED_TO_2226_ENDPOINTS",
+  "years": {"start": 2100, "end": 2226, "step": 1},
+  "age_groups": {"starts": [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155], "open_group_start": 155},
+  "fertility": {
+    "anchors": [
+      {"year": 2100, "tfr": 1.838, "mean_age": 30.21, "sd_age": 7.0},
+      {"year": 2125, "tfr": 1.802, "mean_age": 31.33, "sd_age": 7.31},
+      {"year": 2150, "tfr": 1.79, "mean_age": 32.75, "sd_age": 7.88},
+      {"year": 2175, "tfr": 1.815, "mean_age": 34.63, "sd_age": 8.81},
+      {"year": 2200, "tfr": 1.846, "mean_age": 36.74, "sd_age": 9.44},
+      {"year": 2226, "tfr": 1.88, "mean_age": 39.0, "sd_age": 10.0}
+    ],
+    "fertile_age_min": 15,
+    "fertile_age_max": 74,
+    "male_birth_share": 0.5121951219512195
+  },
+  "mortality": {
+    "baseline_method": "WPP_WORLD_2095_TO_2100_COHORT_SURVIVAL_WITH_COUNTRY_LEX_SCALING",
+    "country_life_expectancy_elasticity": 0.025,
+    "annual_probability_floor": 0.00001,
+    "annual_probability_ceiling": 0.95,
+    "terminal_age_annual_probability": 0.80
+  },
+  "medicine": {
+    "broad_access": [[2100, 0.0], [2160, 0.75], [2226, 0.995]],
+    "high_end_access": [[2100, 0.02], [2160, 0.10], [2226, 0.30]],
+    "extreme_access": [[2100, 0.0], [2160, 0.0001], [2226, 0.001]],
+    "broad_mortality_multiplier_by_age": [[0, 0.90], [65, 0.70], [80, 0.50], [100, 0.35]],
+    "high_end_mortality_multiplier_age_65_plus": 0.55,
+    "extreme_mortality_multiplier_age_100_plus": 0.10,
+    "interpretation": "Access-mixture scenario coefficients; no population endpoint fitting"
+  },
+  "biological_labor": {
+    "participation_by_age": [[0, 0.0], [20, 0.65], [25, 0.85], [55, 0.75], [65, 0.55], [75, 0.30], [85, 0.10], [100, 0.02], [120, 0.005], [150, 0.0]],
+    "paid_hours_by_age": [[0, 0.0], [20, 0.80], [25, 1.0], [55, 0.90], [65, 0.75], [75, 0.55], [85, 0.30], [100, 0.15], [120, 0.05], [150, 0.0]],
+    "baseline_functional_health_by_age": [[0, 1.0], [55, 0.95], [65, 0.85], [75, 0.65], [85, 0.38], [100, 0.15], [120, 0.04], [150, 0.005]],
+    "medical_health_recovery_fraction": 0.35,
+    "country_calibration_boundary": 2100
+  },
+  "synthetic_persons": {
+    "initial_population_share_of_biological_2100": 0.0001,
+    "annual_instantiation_per_biological_person": 0.00002,
+    "annual_retirement_loss_rate": 0.01,
+    "legal_access": [[2100, 0.20], [2160, 0.70], [2226, 1.0]],
+    "support_index_exponent": 0.25,
+    "support_index_bounds": [0.5, 2.0],
+    "labor_participation": [[2100, 0.60], [2226, 0.75]],
+    "effective_labor_per_participant": [[2100, 1.25], [2226, 1.50]],
+    "net_global_migration": 0.0,
+    "no_endpoint_target": true
+  },
+  "nonperson_machine_tasks": {
+    "source_index": "EXISTING_V4_AUTOMATION_ENABLING_CAPITAL_PER_BIOLOGICAL_WORKER",
+    "task_ratio_elasticity_above_2100_index": 0.10,
+    "annual_adjustment_speed": 0.15,
+    "maximum_machine_to_biological_task_ratio": 0.50,
+    "boundary_ratio_2100": 0.0,
+    "counted_as_population": false
+  },
+  "migration": {"biological_net_global": 0.0, "synthetic_net_global": 0.0, "country_model": "NONE_AFTER_2100"}
+}

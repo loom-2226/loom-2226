@@ -2,8 +2,9 @@
 
 **Frozen:** 22 August 2026  
 **Institutional amendment integrated:** 24 August 2026  
-**Status:** AUTHORITATIVE CONSOLIDATED BASELINE — POST-MV OPERATIONS / METRIC CERTIFICATION ARCHITECTURE / SOLAR MOBILITY OVERLAY / INSTITUTIONAL-SOCIETAL INTEGRATION  
-**Scope:** CANON I–III v2.4, Solar Atlas v3.2, Core Mechanics v0.5, plus unchanged campaign-character and presentation companions.
+**Earth biosynthetic amendment registered:** 25 September 2026
+**Status:** AUTHORITATIVE CONSOLIDATED BASELINE WITH REGISTERED SCOPED AMENDMENTS
+**Scope:** CANON I–III v2.4, Solar Atlas v3.2, Core Mechanics v0.5, Wayfarer amendment v2.4a, Earth biosynthetic amendment v2.4b, plus unchanged campaign-character and presentation companions.
 
 # 1. Freeze meaning
 
@@ -15,7 +16,7 @@ It preserves the full v2.3 xenoarchaeology/world-history package and all certifi
 2. frozen metric environmental-certification architecture after hostile review;
 3. Solar trade/traffic/shipyard/accessibility consequences at the level actually earned.
 
-No exact traffic, fare, fleet, metric-terminal or Candidate-B number is promoted merely because a research packet calculated it. The 24 August institutional amendment is integrated into the existing runtime files only; it creates no additional governing source file or standalone model file.
+No exact traffic, fare, fleet, metric-terminal or Candidate-B number is promoted merely because a research packet calculated it. The 24 August institutional amendment is integrated into the existing runtime files only. The later v2.4a and v2.4b scoped amendments are separate governing sources and override their parents only within their declared scope.
 
 # 2. What changes from v2.3
 
@@ -94,7 +95,7 @@ v2.4 does **not** alter:
 - reference courier wet mass ~1,158.5 t and normal remass 250 t;
 - torch card;
 - Mc strategic-material baseline (~1,000 kg/y primary, ~8.7 t historical, ~1.2 t/y effective serviceable flow);
-- conserved Solar population baseline;
+- off-Earth census rows outside the Earth biosynthetic amendment scope;
 - 127-node major Solar infrastructure graph;
 - six-system public 2226 frontier and ~351 biological humans outside Sol;
 - exactly three verified extraterrestrial technological lineages at campaign start;
@@ -111,6 +112,8 @@ v2.4 does **not** alter:
 3. `LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.4.md` — authority, truth-state, hidden graph, model registry, LLM numerical protocol.
 4. `LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md` — fast reader/LLM Solar narrative geography and future-modeling interface.
 5. `LOOM_2226_Core_Mechanics_v0.5.md` — table/LLM resolution and runtime procedure.
+6. `LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md` — scoped governing amendment for reference-courier launch packaging.
+7. `LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md` — scoped governing amendment for Earth post-2100 demography, personhood, labor, economics and dependent census arithmetic.
 
 # 5. Minimal runtime load versus audit archive
 
@@ -125,11 +128,13 @@ CANON II v2.4
 CANON III v2.4
 Atlas v3.2
 Core Mechanics v0.5
+Wayfarer Schematic Amendment v2.4a when reference-courier packaging is relevant
+Earth Biosynthetic Amendment v2.4b for all 2226 Earth/Solar census or Earth labor/economic use
 ```
 
 Add character sheets / Synthetic Speech Reference when those characters are active.
 
-The above six files are designed to prevent the model from needing to search older derivation artifacts during normal play.
+The five parent volumes plus the manifest remain the base runtime set. The two scoped amendments must be loaded whenever their declared scope is relevant; within that scope they outrank conflicting parent text.
 
 ## 5.2 Presentation companions — unchanged
 
@@ -221,6 +226,13 @@ Candidate-B threshold/radii are test fixtures, not setting constants.
 
 Exact calls/day and fleet counts are model outputs. Atlas qualitative traffic/yard classes are the promoted narrative layer.
 
+## Earth post-2100 state
+
+The endpoint-only `EARTH_2226_CANON_CONSTRAINED_COUNTRY_ALLOCATION`, Earth v4's
+post-2100 economic trajectory and conflicting parent-ledger census totals remain
+provenance only. Earth Biosynthetic Amendment v2.4b and its hash-pinned authority
+package govern 2101–2226. WPP 2024 remains authoritative through 2100.
+
 # 9. Provisional model inventory
 
 ## `TRAFFIC-OOM v0.1`
@@ -250,6 +262,9 @@ A later model may replace a provisional number without constituting a retcon if 
 Before a runtime answer or simulation, confirm:
 
 - current baseline is v2.4;
+- v2.4a and v2.4b are loaded when their scope is relevant;
+- Earth post-2100 authority resolves `MED_CENTRAL × SYNTH_CENTRAL` through the governed pointer;
+- biological humans, recognized synthetic persons and machine-task capacity are never conflated;
 - no legacy 32 kg/64-cell/old metric speed card returned;
 - no old 3× clearance used as physical law;
 - Metric and Loom terminology remain distinct;
