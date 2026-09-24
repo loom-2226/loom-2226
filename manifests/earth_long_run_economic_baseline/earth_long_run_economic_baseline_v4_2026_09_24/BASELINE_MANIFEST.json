@@ -1,0 +1,70 @@
+{
+  "boundary_qualification": {
+    "bytes": 1780,
+    "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/BOUNDARY_QUALIFICATION.json",
+    "sha256": "e8bce6ac7b0f04ed5f49cd3dfe35143aa05f263a58bf695b4f948c008db836e9"
+  },
+  "decision": {
+    "bytes": 3951,
+    "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/BASELINE_DECISION.md",
+    "sha256": "0154609b79383df91fe02dd436a4f5799b97ad6a65e08e69be208859c1da8c59"
+  },
+  "designation": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+  "epistemic_status": "qualified 80-economy economic model plus 237-area identity/demography; scenario, not canon or physical capacity",
+  "model_behavior_changed_by_promotion": false,
+  "previous_current_baseline": {
+    "bytes": 12636,
+    "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v3_repaired_2026_09_23/BASELINE_MANIFEST.json",
+    "sha256": "f8954955671c59bda3d4ce51b734589d77395a70ae556d9df277ae209f580fdb"
+  },
+  "promotion_scope": {
+    "bytes": 7772,
+    "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/PROMOTION_SCOPE.json",
+    "sha256": "06ea9aa8eead6198be1aac53917c1d6bc49741dcb9ec36eb2d8bc05dc009817f"
+  },
+  "run_manifest": {
+    "bytes": 30679,
+    "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/RUN_MANIFEST.json",
+    "sha256": "ad687f6bbaa1ff7e35404db082f7f8deb9c3880cc21015f9dd3e699e1d5a597b"
+  },
+  "schema": "loom-earth-local-economic-baseline-designation-v3",
+  "selected_outputs": {
+    "successor_80_2226/complete_checkpoints/earth_2226.checkpoint.zip": {
+      "bytes": 68690800,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/complete_checkpoints/earth_2226.checkpoint.zip",
+      "sha256": "076f29ad07192f54551f675f3d2ac867f79469db514d0e17f9b049bc880d6f51"
+    },
+    "successor_80_2226/results/countries_2060_2226.ndjson": {
+      "bytes": 15014972,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/countries_2060_2226.ndjson",
+      "sha256": "ca9beba0ed8ed52b13c26691229eb5eee14f03065e60a528e614bc9a385daf15"
+    },
+    "successor_80_2226/results/countries_2226.ndjson": {
+      "bytes": 89876,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/countries_2226.ndjson",
+      "sha256": "94cf9b7cf1aeb9bedee5b952f7cd6e0c8b3bfdeb674bd9549f7be784673f2a03"
+    },
+    "successor_80_2226/results/country_sector_assets_2060_2226.ndjson": {
+      "bytes": 233865737,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/country_sector_assets_2060_2226.ndjson",
+      "sha256": "8b8dec0149b70cbaab3614188403411a6a1daae9f8ddabad0195cc196aeeafff"
+    },
+    "successor_80_2226/results/country_sector_assets_2226.ndjson": {
+      "bytes": 1399148,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/country_sector_assets_2226.ndjson",
+      "sha256": "c861bc276681bd613a8d2b779c272542d1384cfbfa49e9d55e443dc0ca6a8924"
+    },
+    "successor_80_2226/results/country_sectors_2060_2226.ndjson": {
+      "bytes": 196493142,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/country_sectors_2060_2226.ndjson",
+      "sha256": "92238b050b1e60892f36700ecc30e11b36eab0d0337b36e9fe09bad4ad7db570"
+    },
+    "successor_80_2226/results/country_sectors_2226.ndjson": {
+      "bytes": 1179019,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/country_sectors_2226.ndjson",
+      "sha256": "5d50d3f133f18e9ae08e9c7770e4df5f0e533c808cf9f846f913163706933349"
+    }
+  },
+  "simulation_executed_by_promotion": false,
+  "status": "PROMOTED_WITH_DISCLOSED_2031_2060_REVIEW"
+}

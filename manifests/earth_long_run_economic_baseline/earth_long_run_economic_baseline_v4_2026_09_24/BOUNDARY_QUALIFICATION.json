@@ -1,0 +1,41 @@
+{
+  "all_years_diagnostic": {
+    "maximum_total_sector_investment_share_move_pp": 4.009355027507272,
+    "report": {
+      "bytes": 64397,
+      "path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2031_2060/report.json",
+      "sha256": "78c92a4a9430adbcbd4ea74f776af8460a1de793b5c4e9a6a1b8ed1cbe68fd73"
+    },
+    "status": "REVIEW_RETAINED",
+    "threshold_pp": 3.0
+  },
+  "disposition": "Investigated replacement-driven first transition; v0.2 boundary qualification PASS; original v0.5 REVIEW unchanged",
+  "existing_post_transition_qualification": {
+    "gates": {
+      "2032_2033_transition_window_exempt_from_post_boundary_move_gate": true,
+      "max_mean_abs_sector_drift_pp_per_year": 0.25,
+      "post_boundary_count_ge_1_5pp_max": 0,
+      "post_boundary_count_ge_2pp_max": 0,
+      "post_boundary_max_move_pp": 1.0,
+      "steady_state_qualification_start_year": 2034
+    },
+    "max_endpoint_asset_capital_residual": 2.8518127227840695e-16,
+    "max_mean_abs_sector_drift_pp": 0.06260776788169156,
+    "passed": true,
+    "post_boundary_count_ge_1_5pp": 0,
+    "post_boundary_count_ge_2pp": 0,
+    "post_boundary_max_move_pp": 0.819199315746097,
+    "row_counts": {
+      "assets": 96000,
+      "sectors": 24000
+    },
+    "source_gate_path": "/home/ubuntu/LOOM_Earth2026/Earth2031_2060_asset_structural_transition_diagnostic_v0.2.json",
+    "source_gate_sha256": "8e11ff09894a0796885a34390d418a8fdaea42e323efad813f4b1a27c650ae51"
+  },
+  "qualifier_source": {
+    "bytes": 15978,
+    "path": "/home/ubuntu/loom_earth_2026_2035/earth_repair_successor_2026_09_22/qualify.py",
+    "sha256": "5f858add8925d541b7f0a21b86777f061753c3ffa67950d9e10ea12cb10bf30d"
+  },
+  "schema": "earth-v4-inherited-boundary-qualification-v1"
+}

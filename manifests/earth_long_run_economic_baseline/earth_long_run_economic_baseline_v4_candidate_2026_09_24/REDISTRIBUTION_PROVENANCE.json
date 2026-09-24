@@ -1,0 +1,589 @@
+{
+  "asset_change_count": 40,
+  "asset_changes": [
+    {
+      "asset_class": "machinery",
+      "candidate_modeled_capital": 61111657863.42845,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 61584735093.11147,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "BULK_MATERIALS"
+    },
+    {
+      "asset_class": "other_assets",
+      "candidate_modeled_capital": 11861740447.604717,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 11953564487.507421,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "BULK_MATERIALS"
+    },
+    {
+      "asset_class": "structures",
+      "candidate_modeled_capital": 287512999218.44696,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 289738693266.41547,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "BULK_MATERIALS"
+    },
+    {
+      "asset_class": "transport_equipment",
+      "candidate_modeled_capital": 6429372339.209489,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 6479143360.994419,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "BULK_MATERIALS"
+    },
+    {
+      "asset_class": "machinery",
+      "candidate_modeled_capital": 12561484477.69252,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 12658725372.231714,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "CERTIFICATION_METROLOGY"
+    },
+    {
+      "asset_class": "other_assets",
+      "candidate_modeled_capital": 11473776418.27857,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 11562597153.171608,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "CERTIFICATION_METROLOGY"
+    },
+    {
+      "asset_class": "structures",
+      "candidate_modeled_capital": 41716389154.09726,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 42039323836.33911,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "CERTIFICATION_METROLOGY"
+    },
+    {
+      "asset_class": "transport_equipment",
+      "candidate_modeled_capital": 621908572.8254223,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 626722888.0483192,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "CERTIFICATION_METROLOGY"
+    },
+    {
+      "asset_class": "machinery",
+      "candidate_modeled_capital": 133469594011.67986,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 134502808098.63968,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "COMPUTE"
+    },
+    {
+      "asset_class": "other_assets",
+      "candidate_modeled_capital": 143924319767.43268,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 145038465919.9025,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "COMPUTE"
+    },
+    {
+      "asset_class": "structures",
+      "candidate_modeled_capital": 511651999373.40784,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 515612797016.4089,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "COMPUTE"
+    },
+    {
+      "asset_class": "transport_equipment",
+      "candidate_modeled_capital": 4680643845.848766,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 4716877620.240479,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "COMPUTE"
+    },
+    {
+      "asset_class": "machinery",
+      "candidate_modeled_capital": 3303278914.4859242,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 1.0170289766691095e-30,
+      "role": "ACCOUNTING_ANOMALY_TARGET",
+      "sector": "ENERGY"
+    },
+    {
+      "asset_class": "other_assets",
+      "candidate_modeled_capital": 2446320097.341088,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 2.8200683729028513e-31,
+      "role": "ACCOUNTING_ANOMALY_TARGET",
+      "sector": "ENERGY"
+    },
+    {
+      "asset_class": "structures",
+      "candidate_modeled_capital": 17462001927.821426,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 7.177248865372194e-30,
+      "role": "ACCOUNTING_ANOMALY_TARGET",
+      "sector": "ENERGY"
+    },
+    {
+      "asset_class": "transport_equipment",
+      "candidate_modeled_capital": 419050700.39461625,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 1.0699853676664869e-31,
+      "role": "ACCOUNTING_ANOMALY_TARGET",
+      "sector": "ENERGY"
+    },
+    {
+      "asset_class": "machinery",
+      "candidate_modeled_capital": 49472736755.76723,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 49855714833.39621,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "HABITATS_CONSTRUCTION"
+    },
+    {
+      "asset_class": "other_assets",
+      "candidate_modeled_capital": 10974436594.939167,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 11059391843.138592,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "HABITATS_CONSTRUCTION"
+    },
+    {
+      "asset_class": "structures",
+      "candidate_modeled_capital": 165514794644.49527,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 166796076862.31628,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "HABITATS_CONSTRUCTION"
+    },
+    {
+      "asset_class": "transport_equipment",
+      "candidate_modeled_capital": 9021786312.073082,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 9091625714.644123,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "HABITATS_CONSTRUCTION"
+    },
+    {
+      "asset_class": "machinery",
+      "candidate_modeled_capital": 15112731629.756514,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 15229722224.715103,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "MEDICINE"
+    },
+    {
+      "asset_class": "other_assets",
+      "candidate_modeled_capital": 11523966185.434977,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 11613175449.077436,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "MEDICINE"
+    },
+    {
+      "asset_class": "structures",
+      "candidate_modeled_capital": 77026204081.6981,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 77622478909.0216,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "MEDICINE"
+    },
+    {
+      "asset_class": "transport_equipment",
+      "candidate_modeled_capital": 794982349.5821112,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 801136462.5735749,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "MEDICINE"
+    },
+    {
+      "asset_class": "machinery",
+      "candidate_modeled_capital": 60454464903.16974,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 60922454674.32396,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "PRECISION_MATERIALS"
+    },
+    {
+      "asset_class": "other_assets",
+      "candidate_modeled_capital": 22858791510.080948,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 23035745861.174774,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "PRECISION_MATERIALS"
+    },
+    {
+      "asset_class": "structures",
+      "candidate_modeled_capital": 172376419959.32233,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 173710819353.28534,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "PRECISION_MATERIALS"
+    },
+    {
+      "asset_class": "transport_equipment",
+      "candidate_modeled_capital": 4047419765.0284343,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 4078751628.649006,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "PRECISION_MATERIALS"
+    },
+    {
+      "asset_class": "machinery",
+      "candidate_modeled_capital": 66896213655.201065,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 67414070256.35907,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "SERVICES"
+    },
+    {
+      "asset_class": "other_assets",
+      "candidate_modeled_capital": 92746569037.70909,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 93464538267.75386,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "SERVICES"
+    },
+    {
+      "asset_class": "structures",
+      "candidate_modeled_capital": 786819229620.138,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 792910150312.2565,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "SERVICES"
+    },
+    {
+      "asset_class": "transport_equipment",
+      "candidate_modeled_capital": 14075895850.633976,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 14184860098.162756,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "SERVICES"
+    },
+    {
+      "asset_class": "machinery",
+      "candidate_modeled_capital": 9357585721.036453,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 9430024612.144962,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "SHIPS_AEROSPACE"
+    },
+    {
+      "asset_class": "other_assets",
+      "candidate_modeled_capital": 3892076648.354127,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 3922205970.694427,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "SHIPS_AEROSPACE"
+    },
+    {
+      "asset_class": "structures",
+      "candidate_modeled_capital": 22012391990.014706,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 22182794197.79976,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "SHIPS_AEROSPACE"
+    },
+    {
+      "asset_class": "transport_equipment",
+      "candidate_modeled_capital": 1640805396.221505,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 1653507189.9288223,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "SHIPS_AEROSPACE"
+    },
+    {
+      "asset_class": "machinery",
+      "candidate_modeled_capital": 18277898496.415585,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 18419391263.71108,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "TRANSPORT_LOGISTICS"
+    },
+    {
+      "asset_class": "other_assets",
+      "candidate_modeled_capital": 6757581760.9033375,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 6809893515.658035,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "TRANSPORT_LOGISTICS"
+    },
+    {
+      "asset_class": "structures",
+      "candidate_modeled_capital": 191094050895.017,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 192573347110.61554,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "TRANSPORT_LOGISTICS"
+    },
+    {
+      "asset_class": "transport_equipment",
+      "candidate_modeled_capital": 12819748759.378016,
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "original_modeled_capital": 12918988927.953909,
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "TRANSPORT_LOGISTICS"
+    }
+  ],
+  "candidate_sha256": {
+    "/home/ubuntu/loom_earth_2026_2035/earth_empirical_baseline_v4_candidate_2026_09_24/qualified_inputs/country_sectors_2026_2031.ndjson": "89ef56eab829c67b8b660039ebb00da2f3e10bc88dbc1f14b4509f97e2709070",
+    "/home/ubuntu/loom_earth_2026_2035/earth_empirical_baseline_v4_candidate_2026_09_24/seed_assets_2026.ndjson": "d6b91c0304fe29817b98e8c7f285b24d14900e88da8b866587472792d27b6e0c"
+  },
+  "method": "Target PYP ratio, country VA/K/I residual donated proportionally; donor asset-class mixes and national asset-class capital conserved",
+  "schema": "loom-earth-v4-2026-redistribution-provenance-v1",
+  "sector_change_count": 10,
+  "sector_changes": [
+    {
+      "changed_modeled_fields": {
+        "capital": {
+          "candidate": 366915769868.68964,
+          "original": 99049596939.65955
+        },
+        "investment": {
+          "candidate": 14577134893.862213,
+          "original": 14689979330.315165
+        },
+        "value_added": {
+          "candidate": 56996957245.2224,
+          "original": 57438181777.11435
+        }
+      },
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "BULK_MATERIALS",
+      "year": 2026
+    },
+    {
+      "changed_modeled_fields": {
+        "capital": {
+          "candidate": 66373558622.893776,
+          "original": 36174469575.9065
+        },
+        "investment": {
+          "candidate": 5273887888.644589,
+          "original": 5314714080.557015
+        },
+        "value_added": {
+          "candidate": 20621031820.98832,
+          "original": 20780663239.086647
+        }
+      },
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "CERTIFICATION_METROLOGY",
+      "year": 2026
+    },
+    {
+      "changed_modeled_fields": {
+        "capital": {
+          "candidate": 793726556998.3691,
+          "original": 380077945207.87805
+        },
+        "investment": {
+          "candidate": 50454126163.492,
+          "original": 50844701367.40553
+        },
+        "value_added": {
+          "candidate": 197276878668.14307,
+          "original": 198804037356.0878
+        }
+      },
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "COMPUTE",
+      "year": 2026
+    },
+    {
+      "changed_modeled_fields": {
+        "capital": {
+          "candidate": 23630651640.043053,
+          "original": 0.0
+        },
+        "investment": {
+          "candidate": 1625809524.2573073,
+          "original": 0.0
+        },
+        "value_added": {
+          "candidate": 6356955370.014911,
+          "original": 0.0
+        }
+      },
+      "iso3": "TWN",
+      "method_id": "PYP_2024_VA_GO_RATIO_X_MODELED_2026_GO_COUNTRY_TOTAL_PRESERVED",
+      "role": "ACCOUNTING_ANOMALY_TARGET",
+      "sector": "ENERGY",
+      "year": 2026
+    },
+    {
+      "changed_modeled_fields": {
+        "capital": {
+          "candidate": 234983754307.27475,
+          "original": 1342106128663.651
+        },
+        "investment": {
+          "candidate": 24895013447.758026,
+          "original": 25087730588.914738
+        },
+        "value_added": {
+          "candidate": 97340117069.13364,
+          "original": 98093645847.93062
+        }
+      },
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "HABITATS_CONSTRUCTION",
+      "year": 2026
+    },
+    {
+      "changed_modeled_fields": {
+        "capital": {
+          "candidate": 104457884246.47171,
+          "original": 62830010308.98355
+        },
+        "investment": {
+          "candidate": 7114268074.269234,
+          "original": 7169341007.150864
+        },
+        "value_added": {
+          "candidate": 27816963773.238373,
+          "original": 28032300300.18133
+        }
+      },
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "MEDICINE",
+      "year": 2026
+    },
+    {
+      "changed_modeled_fields": {
+        "capital": {
+          "candidate": 259737096137.60144,
+          "original": 102550180825.88216
+        },
+        "investment": {
+          "candidate": 13758735194.884544,
+          "original": 13865244240.089706
+        },
+        "value_added": {
+          "candidate": 53796994221.50271,
+          "original": 54213447217.23813
+        }
+      },
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "PRECISION_MATERIALS",
+      "year": 2026
+    },
+    {
+      "changed_modeled_fields": {
+        "capital": {
+          "candidate": 960537908163.682,
+          "original": 860716696591.4572
+        },
+        "investment": {
+          "candidate": 83260470457.08215,
+          "original": 83905005952.97668
+        },
+        "value_added": {
+          "candidate": 325550494621.3795,
+          "original": 328070644319.5206
+        }
+      },
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "SERVICES",
+      "year": 2026
+    },
+    {
+      "changed_modeled_fields": {
+        "capital": {
+          "candidate": 36902859755.62679,
+          "original": 24306052747.884262
+        },
+        "investment": {
+          "candidate": 1954810009.2820249,
+          "original": 1969942573.7726572
+        },
+        "value_added": {
+          "candidate": 7643355387.243733,
+          "original": 7702524087.922104
+        }
+      },
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "SHIPS_AEROSPACE",
+      "year": 2026
+    },
+    {
+      "changed_modeled_fields": {
+        "capital": {
+          "candidate": 228949279911.71396,
+          "original": 168404238791.0642
+        },
+        "investment": {
+          "candidate": 8732051927.850508,
+          "original": 8799648440.200207
+        },
+        "value_added": {
+          "candidate": 34142538572.810825,
+          "original": 34406842604.595856
+        }
+      },
+      "iso3": "TWN",
+      "method_id": "PROPORTIONAL_COUNTRY_RESIDUAL_ASSET_CLASS_PRESERVING_2026",
+      "role": "WITHIN_COUNTRY_DONOR",
+      "sector": "TRANSPORT_LOGISTICS",
+      "year": 2026
+    }
+  ],
+  "source_observations_untouched": true,
+  "source_sha256": {
+    "/home/ubuntu/LOOM_Earth2026/earth2026_2031_cobb_douglas_v0.2/country_sectors_2026_2031.ndjson": "b34ea2829d7c7e9ee721ea434ee5d1ff93f1cd8d0cc3994ebd8d619dc2f8020a",
+    "/home/ubuntu/LOOM_Earth2026/earth2026_sector_capital_asset_reconstruction_v0.2/country_sector_assets_2026.ndjson": "9237259645c73b5de66e83e5a0aa36165fef173438a1aadbb289d5b1964d90f7"
+  }
+}

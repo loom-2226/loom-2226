@@ -1,0 +1,336 @@
+{
+  "asset_2026_investment_note": "2026 asset rows have null investment; asset-class investment shares are unavailable, not zero",
+  "schema": "loom-earth-v4-structure-v1",
+  "successor_80": {
+    "assets": {
+      "2026": {
+        "machinery": {
+          "capital": 0.08391283044216677,
+          "investment": null
+        },
+        "other_assets": {
+          "capital": 0.04212565210398156,
+          "investment": null
+        },
+        "structures": {
+          "capital": 0.8477548659505556,
+          "investment": null
+        },
+        "transport_equipment": {
+          "capital": 0.02620665150329598,
+          "investment": null
+        }
+      },
+      "2226": {
+        "machinery": {
+          "capital": 0.07023123409795048,
+          "investment": 0.23356831942494885
+        },
+        "other_assets": {
+          "capital": 0.05072004386246838,
+          "investment": 0.2137585424885238
+        },
+        "structures": {
+          "capital": 0.8631313919200441,
+          "investment": 0.47727955718021337
+        },
+        "transport_equipment": {
+          "capital": 0.01591733011953713,
+          "investment": 0.07539358090631398
+        }
+      }
+    },
+    "sectors": {
+      "2026": {
+        "BULK_MATERIALS": {
+          "capital": 0.1862135267680269,
+          "employment": 0.30530597369783385,
+          "investment": 0.13240280031474755,
+          "value_added": 0.11790752237482795
+        },
+        "CERTIFICATION_METROLOGY": {
+          "capital": 0.04319119952729307,
+          "employment": 0.02655986655100346,
+          "investment": 0.04881158819507391,
+          "value_added": 0.0534731196902462
+        },
+        "COMPUTE": {
+          "capital": 0.05540860732338867,
+          "employment": 0.027652391238114252,
+          "investment": 0.0558154736804119,
+          "value_added": 0.0560794349565413
+        },
+        "ENERGY": {
+          "capital": 0.10105635122760541,
+          "employment": 0.02303546151721576,
+          "investment": 0.049840743919495466,
+          "value_added": 0.049041911132737294
+        },
+        "HABITATS_CONSTRUCTION": {
+          "capital": 0.09744351990562684,
+          "employment": 0.0987956557131978,
+          "investment": 0.15625942956480274,
+          "value_added": 0.15867229078177714
+        },
+        "MEDICINE": {
+          "capital": 0.059660850267846476,
+          "employment": 0.050808820818128445,
+          "investment": 0.05786228391401895,
+          "value_added": 0.062965714079492
+        },
+        "PRECISION_MATERIALS": {
+          "capital": 0.07292445616414422,
+          "employment": 0.043355030396383804,
+          "investment": 0.0634150798973163,
+          "value_added": 0.05827789126829551
+        },
+        "SERVICES": {
+          "capital": 0.28059753141871163,
+          "employment": 0.3615483427719851,
+          "investment": 0.37182682307591153,
+          "value_added": 0.3814383759819997
+        },
+        "SHIPS_AEROSPACE": {
+          "capital": 0.00513319321563063,
+          "employment": 0.002510718343994869,
+          "investment": 0.004065058600649375,
+          "value_added": 0.004213566652453493
+        },
+        "TRANSPORT_LOGISTICS": {
+          "capital": 0.0983707641817261,
+          "employment": 0.06042773895214264,
+          "investment": 0.059700718837572296,
+          "value_added": 0.057930173081629385
+        }
+      },
+      "2226": {
+        "BULK_MATERIALS": {
+          "capital": 0.2039018882576968,
+          "employment": 0.27584427355233193,
+          "investment": 0.1856886935633003,
+          "value_added": 0.13008531841847115
+        },
+        "CERTIFICATION_METROLOGY": {
+          "capital": 0.051006225547337566,
+          "employment": 0.02696713856638574,
+          "investment": 0.0692976441551153,
+          "value_added": 0.050240005825163615
+        },
+        "COMPUTE": {
+          "capital": 0.07930928652546271,
+          "employment": 0.033858869068897395,
+          "investment": 0.10487748833721802,
+          "value_added": 0.08691115644405933
+        },
+        "ENERGY": {
+          "capital": 0.09269061598128689,
+          "employment": 0.04005252232648986,
+          "investment": 0.07584507756963237,
+          "value_added": 0.07645649225409905
+        },
+        "HABITATS_CONSTRUCTION": {
+          "capital": 0.12318931017529412,
+          "employment": 0.09862890603632816,
+          "investment": 0.13348999657741195,
+          "value_added": 0.17010942693826026
+        },
+        "MEDICINE": {
+          "capital": 0.05189769313871132,
+          "employment": 0.03980255848067488,
+          "investment": 0.05604519703601896,
+          "value_added": 0.04239581781182226
+        },
+        "PRECISION_MATERIALS": {
+          "capital": 0.068468349716438,
+          "employment": 0.03580480718659009,
+          "investment": 0.07591164915191113,
+          "value_added": 0.05585381052028708
+        },
+        "SERVICES": {
+          "capital": 0.23676422207788572,
+          "employment": 0.38865495929921406,
+          "investment": 0.2126467671471011,
+          "value_added": 0.33250403477370943
+        },
+        "SHIPS_AEROSPACE": {
+          "capital": 0.009210870030547335,
+          "employment": 0.0022972441138735455,
+          "investment": 0.01340152446324893,
+          "value_added": 0.004565213382112341
+        },
+        "TRANSPORT_LOGISTICS": {
+          "capital": 0.08356153854933952,
+          "employment": 0.058088721369214384,
+          "investment": 0.07279596199904188,
+          "value_added": 0.05087872363201548
+        }
+      }
+    }
+  },
+  "v3_control": {
+    "assets": {
+      "2026": {
+        "machinery": {
+          "capital": 0.08391283044216677,
+          "investment": null
+        },
+        "other_assets": {
+          "capital": 0.04212565210398156,
+          "investment": null
+        },
+        "structures": {
+          "capital": 0.8477548659505556,
+          "investment": null
+        },
+        "transport_equipment": {
+          "capital": 0.02620665150329598,
+          "investment": null
+        }
+      },
+      "2226": {
+        "machinery": {
+          "capital": 0.07023098495927624,
+          "investment": 0.2335679291854512
+        },
+        "other_assets": {
+          "capital": 0.050720127363636326,
+          "investment": 0.21375905558198682
+        },
+        "structures": {
+          "capital": 0.8631319042887516,
+          "investment": 0.4772809987211041
+        },
+        "transport_equipment": {
+          "capital": 0.015916983388335807,
+          "investment": 0.07539201651145794
+        }
+      }
+    },
+    "sectors": {
+      "2026": {
+        "BULK_MATERIALS": {
+          "capital": 0.186220094558651,
+          "employment": 0.30530597369783385,
+          "investment": 0.13240729539892962,
+          "value_added": 0.11791202594782715
+        },
+        "CERTIFICATION_METROLOGY": {
+          "capital": 0.04319238761369276,
+          "employment": 0.02655986655100346,
+          "investment": 0.04881321447967639,
+          "value_added": 0.05347474904603313
+        },
+        "COMPUTE": {
+          "capital": 0.0554228150251754,
+          "employment": 0.027652391238114252,
+          "investment": 0.05583103198772594,
+          "value_added": 0.05609502264520185
+        },
+        "ENERGY": {
+          "capital": 0.10100170997582991,
+          "employment": 0.02303546151721576,
+          "investment": 0.04977598086244772,
+          "value_added": 0.048977025772807777
+        },
+        "HABITATS_CONSTRUCTION": {
+          "capital": 0.09744772611376802,
+          "employment": 0.0987956557131978,
+          "investment": 0.15626710632583815,
+          "value_added": 0.15867998204012074
+        },
+        "MEDICINE": {
+          "capital": 0.05966272006350287,
+          "employment": 0.050808820818128445,
+          "investment": 0.057864477708212424,
+          "value_added": 0.06296791201659292
+        },
+        "PRECISION_MATERIALS": {
+          "capital": 0.07292910545699241,
+          "employment": 0.043355030396383804,
+          "investment": 0.06341932261533943,
+          "value_added": 0.058282141998550675
+        },
+        "SERVICES": {
+          "capital": 0.2806147250429311,
+          "employment": 0.3615483427719851,
+          "investment": 0.371852497725043,
+          "value_added": 0.3814640991168531
+        },
+        "SHIPS_AEROSPACE": {
+          "capital": 0.005133853776653646,
+          "employment": 0.002510718343994869,
+          "investment": 0.00406566139643988,
+          "value_added": 0.004214170586603823
+        },
+        "TRANSPORT_LOGISTICS": {
+          "capital": 0.09837486237280285,
+          "employment": 0.06042773895214264,
+          "investment": 0.0597034115003475,
+          "value_added": 0.05793287082940878
+        }
+      },
+      "2226": {
+        "BULK_MATERIALS": {
+          "capital": 0.20390174791045979,
+          "employment": 0.27584811406255116,
+          "investment": 0.1856887467626945,
+          "value_added": 0.13008760465709804
+        },
+        "CERTIFICATION_METROLOGY": {
+          "capital": 0.05100612912260188,
+          "employment": 0.026967794430779624,
+          "investment": 0.0692975679247923,
+          "value_added": 0.05024083306312895
+        },
+        "COMPUTE": {
+          "capital": 0.07931200561267181,
+          "employment": 0.03385985165342103,
+          "investment": 0.10488016012099068,
+          "value_added": 0.08691620762634118
+        },
+        "ENERGY": {
+          "capital": 0.09268709538261873,
+          "employment": 0.04003674413606341,
+          "investment": 0.07584168531862844,
+          "value_added": 0.07643651918468491
+        },
+        "HABITATS_CONSTRUCTION": {
+          "capital": 0.12318861986431956,
+          "employment": 0.0986311007449103,
+          "investment": 0.13348916032819214,
+          "value_added": 0.17011212643511237
+        },
+        "MEDICINE": {
+          "capital": 0.05189770488274797,
+          "employment": 0.03980356653607451,
+          "investment": 0.05604526756424985,
+          "value_added": 0.04239650463161491
+        },
+        "PRECISION_MATERIALS": {
+          "capital": 0.06846877415985675,
+          "employment": 0.03580622477692672,
+          "investment": 0.0759120795782684,
+          "value_added": 0.05585558460721364
+        },
+        "SERVICES": {
+          "capital": 0.2367658014315637,
+          "employment": 0.38866071828494153,
+          "investment": 0.2126482387070433,
+          "value_added": 0.33251006251397086
+        },
+        "SHIPS_AEROSPACE": {
+          "capital": 0.009210893689582776,
+          "employment": 0.0022972945458777537,
+          "investment": 0.013401508004819564,
+          "value_added": 0.004565392345573228
+        },
+        "TRANSPORT_LOGISTICS": {
+          "capital": 0.08356122794357711,
+          "employment": 0.058088590828454044,
+          "investment": 0.07279558569032088,
+          "value_added": 0.05087916493526189
+        }
+      }
+    }
+  }
+}
