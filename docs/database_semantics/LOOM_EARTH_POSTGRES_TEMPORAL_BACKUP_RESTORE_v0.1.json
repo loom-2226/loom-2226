@@ -1,0 +1,59 @@
+{
+  "schema": "loom-earth-postgres-temporal-backup-restore-v0.1",
+  "status": "PASS",
+  "restore_utc": "2026-09-24T19:28:20Z",
+  "postgresql": "16.15",
+  "source_database": "loom_dev",
+  "temporary_database": "loom_earth_restore_check_20260925",
+  "backup_path": "/home/ubuntu/LOOM_ARCHIVE/POSTGRES/2026-09-25/loom_dev_earth_temporal_20260925.dump",
+  "backup_bytes": 92181495,
+  "backup_sha256": "d304f61f0612bb6a0abaf4f007bf327ebca130c700e69023b40763422e419001",
+  "earth_snapshot": {"snapshot_id": "earth-v0-1-9934d0ac-20260925", "state": "VALIDATED"},
+  "prior_ceres_snapshot": {"snapshot_id": "ceres-v1-0231e5f7da744728ab5021268b6f239b", "state": "VALIDATED"},
+  "authority_main_sha": "d6372ece50976fecfaf76b382d9b682560b70273",
+  "promoted_manifest_sha256": "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2",
+  "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+  "row_counts": {
+    "demography": 47637,
+    "biological_cohorts": 2657718,
+    "economics": 16080,
+    "sectors": 160800,
+    "assets": 643200,
+    "legacy_labor": 6000,
+    "biosynthetic_labor": 10160,
+    "narrator_facts": 570173
+  },
+  "temporal_coverage": {
+    "demography": [2026, 2226],
+    "economics": [2026, 2226],
+    "legacy_labor": [2026, 2100],
+    "biosynthetic_labor": [2100, 2226]
+  },
+  "narrator_views": {
+    "current_earth_year": "PASS",
+    "current_country_year": "PASS",
+    "current_earth_fact": "PASS",
+    "fact_semantics": "PASS",
+    "model_context": "PASS",
+    "temporal_coverage": "PASS",
+    "pre_2100_synthetic_nonnull_rows": 0,
+    "semantic_misuse_warnings": 2
+  },
+  "endpoint_2226": {
+    "biological_population": 7163281708.265873,
+    "synthetic_population": 9672505.78986048,
+    "recognized_persons": 7172954214.055734,
+    "biological_labor": 1455527766.770138,
+    "synthetic_labor": 10881569.013593039,
+    "machine_task_capacity": 52627339.05102448,
+    "total_effective_labor": 1519036674.8347554,
+    "value_added": 241453886085432.44,
+    "reconciliation": "PASS"
+  },
+  "workforce_invariant": "80/80 PASS",
+  "temporary_database_dropped": true,
+  "production_consumer_bound": false,
+  "canon_changed": false,
+  "model_changed": false,
+  "sqlite_changed": false
+}
