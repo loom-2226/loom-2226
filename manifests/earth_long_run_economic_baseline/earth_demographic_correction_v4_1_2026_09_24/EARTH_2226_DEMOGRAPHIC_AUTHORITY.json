@@ -1,0 +1,2309 @@
+{
+  "authority": {
+    "canon_earth_biological_population_2226": 8312538895.185726,
+    "canon_source": "canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md",
+    "canon_source_sha256": "98a83f50b68b68931ad24cfec97c347cc506901973d0e0787c09f2baa27cd3a6",
+    "cohort_detail_status": "NOT_REPROMOTED_BY_THIS_CORRECTION",
+    "medical_longevity_lineage_status": "PRESERVED_AS_PROVENANCE; EXACT_AGE_FERTILITY_LONGEVITY_DETAIL_REMAINS_MODEL_SENSITIVE",
+    "wpp_authority_through_year": 2100
+  },
+  "boundaries": {
+    "does_not_change_canon": true,
+    "does_not_change_qualified_80_economy_outputs": true,
+    "does_not_select_v4_half_life_sensitivity": true,
+    "no_selected_2101_2225_annual_trajectory": true,
+    "not_a_cohort_component_rerun": true,
+    "replaces_for_2226_country_population_use": "v4 diagnostic half-life sensitivity only"
+  },
+  "change_class": "data",
+  "checks": {
+    "canon_parent_difference": 0.0,
+    "country_area_count": 237,
+    "demographic_only_count": 157,
+    "economic_80_count": 80,
+    "maximum_country_population": 1388480379.4332051,
+    "minimum_country_population": 674.0457850827387,
+    "selected_population_sum": 8312538895.185726
+  },
+  "countries": [
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 4.499808021480114e-06,
+      "iso3": "ABW",
+      "name": "Aruba",
+      "population_2226": 37404.82919942218,
+      "superseded_v4_diagnostic_central_population_2226": 53898.84747356247,
+      "wpp_population_2100": 75415.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.007753197741970714,
+      "iso3": "AFG",
+      "name": "Afghanistan",
+      "population_2226": 64448757.792197704,
+      "superseded_v4_diagnostic_central_population_2226": 169468571.12131348,
+      "wpp_population_2100": 129940523.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.010495344570645238,
+      "iso3": "AGO",
+      "name": "Angola",
+      "population_2226": 87242959.96186487,
+      "superseded_v4_diagnostic_central_population_2226": 232613337.20574123,
+      "wpp_population_2100": 149486497.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 5.590227587780573e-07,
+      "iso3": "AIA",
+      "name": "Anguilla",
+      "population_2226": 4646.898425636629,
+      "superseded_v4_diagnostic_central_population_2226": 5373.475958009096,
+      "wpp_population_2100": 9369.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 7.116803047144951e-05,
+      "iso3": "ALB",
+      "name": "Albania",
+      "population_2226": 591587.021387687,
+      "superseded_v4_diagnostic_central_population_2226": 584049.4177867289,
+      "wpp_population_2100": 1192748.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.8344345322865655e-06,
+      "iso3": "AND",
+      "name": "Andorra",
+      "population_2226": 23561.34729548964,
+      "superseded_v4_diagnostic_central_population_2226": 25324.656257169197,
+      "wpp_population_2100": 47504.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0019737722712525967,
+      "iso3": "ARE",
+      "name": "United Arab Emirates",
+      "population_2226": 16407058.775026282,
+      "superseded_v4_diagnostic_central_population_2226": 41286297.44678343,
+      "wpp_population_2100": 26015286.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.004628830585157334,
+      "iso3": "ARG",
+      "name": "Argentina",
+      "population_2226": 38477334.27834564,
+      "superseded_v4_diagnostic_central_population_2226": 26131194.66629165,
+      "wpp_population_2100": 38405794.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00010132924451080484,
+      "iso3": "ARM",
+      "name": "Armenia",
+      "population_2226": 842303.2862158499,
+      "superseded_v4_diagnostic_central_population_2226": 1186080.338599366,
+      "wpp_population_2100": 1698238.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.9313702293613978e-06,
+      "iso3": "ASM",
+      "name": "American Samoa",
+      "population_2226": 16054.590152570398,
+      "superseded_v4_diagnostic_central_population_2226": 26869.580254709817,
+      "wpp_population_2100": 32369.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 4.071874279783431e-06,
+      "iso3": "ATG",
+      "name": "Antigua and Barbuda",
+      "population_2226": 33847.61332700614,
+      "superseded_v4_diagnostic_central_population_2226": 45046.63328205223,
+      "wpp_population_2100": 68243.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.004060470842940758,
+      "iso3": "AUS",
+      "name": "Australia",
+      "population_2226": 33752821.81471262,
+      "superseded_v4_diagnostic_central_population_2226": 56814216.97268198,
+      "wpp_population_2100": 43035124.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.001031770667348838,
+      "iso3": "AUT",
+      "name": "Austria",
+      "population_2226": 8576633.80324895,
+      "superseded_v4_diagnostic_central_population_2226": 6593973.199485519,
+      "wpp_population_2100": 7406830.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0005989673186006387,
+      "iso3": "AZE",
+      "name": "Azerbaijan",
+      "population_2226": 4978939.13281291,
+      "superseded_v4_diagnostic_central_population_2226": 8590712.00334534,
+      "wpp_population_2100": 10038455.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0022567701634717925,
+      "iso3": "BDI",
+      "name": "Burundi",
+      "population_2226": 18759489.761353925,
+      "superseded_v4_diagnostic_central_population_2226": 45789992.42147607,
+      "wpp_population_2100": 37822574.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0014093044926928194,
+      "iso3": "BEL",
+      "name": "Belgium",
+      "population_2226": 11714898.41066905,
+      "superseded_v4_diagnostic_central_population_2226": 10299770.694931872,
+      "wpp_population_2100": 11070031.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.002357238468780291,
+      "iso3": "BEN",
+      "name": "Benin",
+      "population_2226": 19594636.456964213,
+      "superseded_v4_diagnostic_central_population_2226": 51032349.5493148,
+      "wpp_population_2100": 39506383.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.6676408458840777e-06,
+      "iso3": "BES",
+      "name": "Bonaire, Sint Eustatius and Saba",
+      "population_2226": 13862.329394611821,
+      "superseded_v4_diagnostic_central_population_2226": 20487.834595717017,
+      "wpp_population_2100": 27949.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.002974153944274032,
+      "iso3": "BFA",
+      "name": "Burkina Faso",
+      "population_2226": 24722770.342047933,
+      "superseded_v4_diagnostic_central_population_2226": 52305743.61179434,
+      "wpp_population_2100": 49845642.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.021727417723692116,
+      "iso3": "BGD",
+      "name": "Bangladesh",
+      "population_2226": 180610004.92013842,
+      "superseded_v4_diagnostic_central_population_2226": 166661149.66780007,
+      "wpp_population_2100": 209120273.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0005330429250447691,
+      "iso3": "BGR",
+      "name": "Bulgaria",
+      "population_2226": 4430940.047238213,
+      "superseded_v4_diagnostic_central_population_2226": 2498884.514958898,
+      "wpp_population_2100": 3544133.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00018380189777026263,
+      "iso3": "BHR",
+      "name": "Bahrain",
+      "population_2226": 1527860.4242242586,
+      "superseded_v4_diagnostic_central_population_2226": 4296189.918731449,
+      "wpp_population_2100": 3080447.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.2998395584848918e-05,
+      "iso3": "BHS",
+      "name": "Bahamas",
+      "population_2226": 191175.0578259243,
+      "superseded_v4_diagnostic_central_population_2226": 337485.29194562294,
+      "wpp_population_2100": 385444.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 8.195951464002227e-05,
+      "iso3": "BIH",
+      "name": "Bosnia and Herzegovina",
+      "population_2226": 681291.653275729,
+      "superseded_v4_diagnostic_central_population_2226": 801730.8297893227,
+      "wpp_population_2100": 1373609.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 5.548460490849777e-07,
+      "iso3": "BLM",
+      "name": "Saint Barthélemy",
+      "population_2226": 4612.179363859005,
+      "superseded_v4_diagnostic_central_population_2226": 5415.953788508088,
+      "wpp_population_2100": 9299.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0006105228640344723,
+      "iso3": "BLR",
+      "name": "Belarus",
+      "population_2226": 5074995.053686738,
+      "superseded_v4_diagnostic_central_population_2226": 2506315.2656669114,
+      "wpp_population_2100": 4376126.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.678869996403745e-05,
+      "iso3": "BLZ",
+      "name": "Belize",
+      "population_2226": 222682.11040252176,
+      "superseded_v4_diagnostic_central_population_2226": 318166.98570887366,
+      "wpp_population_2100": 448968.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.137699688199537e-06,
+      "iso3": "BMU",
+      "name": "Bermuda",
+      "population_2226": 17769.71180438505,
+      "superseded_v4_diagnostic_central_population_2226": 22859.801674426868,
+      "wpp_population_2100": 35827.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0010603856822394612,
+      "iso3": "BOL",
+      "name": "Bolivia (Plurinational State of)",
+      "population_2226": 8814497.227513572,
+      "superseded_v4_diagnostic_central_population_2226": 17094794.01945944,
+      "wpp_population_2100": 17771644.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.020011323472831934,
+      "iso3": "BRA",
+      "name": "Brazil",
+      "population_2226": 166344904.71205854,
+      "superseded_v4_diagnostic_central_population_2226": 112977354.0459384,
+      "wpp_population_2100": 163966039.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.1658270764449469e-05,
+      "iso3": "BRB",
+      "name": "Barbados",
+      "population_2226": 96909.82918009284,
+      "superseded_v4_diagnostic_central_population_2226": 136334.18004260346,
+      "wpp_population_2100": 195388.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 5.5800484524372495e-05,
+      "iso3": "BRN",
+      "name": "Brunei Darussalam",
+      "population_2226": 463843.6979790556,
+      "superseded_v4_diagnostic_central_population_2226": 396581.33114319365,
+      "wpp_population_2100": 465546.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 4.134841161770675e-05,
+      "iso3": "BTN",
+      "name": "Bhutan",
+      "population_2226": 343710.2798263367,
+      "superseded_v4_diagnostic_central_population_2226": 485394.35244172387,
+      "wpp_population_2100": 692983.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00022911585657242324,
+      "iso3": "BWA",
+      "name": "Botswana",
+      "population_2226": 1904534.4692620623,
+      "superseded_v4_diagnostic_central_population_2226": 3626347.251388426,
+      "wpp_population_2100": 3839891.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0011183157506732568,
+      "iso3": "CAF",
+      "name": "Central African Republic",
+      "population_2226": 9296043.17457027,
+      "superseded_v4_diagnostic_central_population_2226": 24486855.61103984,
+      "wpp_population_2100": 18742529.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.005685022841975336,
+      "iso3": "CAN",
+      "name": "Canada",
+      "population_2226": 47256973.49393928,
+      "superseded_v4_diagnostic_central_population_2226": 62584698.45101503,
+      "wpp_population_2100": 53524621.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0011281160915612405,
+      "iso3": "CHE",
+      "name": "Switzerland",
+      "population_2226": 9377508.889387714,
+      "superseded_v4_diagnostic_central_population_2226": 9347339.228692755,
+      "wpp_population_2100": 9124053.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.001718040795722452,
+      "iso3": "CHL",
+      "name": "Chile",
+      "population_2226": 14281280.937958717,
+      "superseded_v4_diagnostic_central_population_2226": 7537441.835883237,
+      "wpp_population_2100": 13507688.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.11206350283215083,
+      "iso3": "CHN",
+      "name": "China",
+      "population_2226": 931532226.0230095,
+      "superseded_v4_diagnostic_central_population_2226": 281204189.2832241,
+      "wpp_population_2100": 638684810.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.009757526200221358,
+      "iso3": "CIV",
+      "name": "Côte d'Ivoire",
+      "population_2226": 81109816.06013381,
+      "superseded_v4_diagnostic_central_population_2226": 159228082.25054577,
+      "wpp_population_2100": 103650711.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.009083571553674863,
+      "iso3": "CMR",
+      "name": "Cameroon",
+      "population_2226": 75507541.84712493,
+      "superseded_v4_diagnostic_central_population_2226": 123577388.31420554,
+      "wpp_population_2100": 88621753.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.04341966058694888,
+      "iso3": "COD",
+      "name": "Democratic Republic of the Congo",
+      "population_2226": 360927617.4447752,
+      "superseded_v4_diagnostic_central_population_2226": 637018160.3960853,
+      "wpp_population_2100": 429293088.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0011907881675818552,
+      "iso3": "COG",
+      "name": "Congo",
+      "population_2226": 9898472.95895111,
+      "superseded_v4_diagnostic_central_population_2226": 29549100.089584094,
+      "wpp_population_2100": 19957138.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 4.7244553356864744e-07,
+      "iso3": "COK",
+      "name": "Cook Islands",
+      "population_2226": 3927.2218736461555,
+      "superseded_v4_diagnostic_central_population_2226": 6885.959382018496,
+      "wpp_population_2100": 7918.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.005375904988340924,
+      "iso3": "COL",
+      "name": "Colombia",
+      "population_2226": 44687419.3124069,
+      "superseded_v4_diagnostic_central_population_2226": 32499423.73628874,
+      "wpp_population_2100": 47250735.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00011386516131633302,
+      "iso3": "COM",
+      "name": "Comoros",
+      "population_2226": 946508.5822486153,
+      "superseded_v4_diagnostic_central_population_2226": 2307644.3992649885,
+      "wpp_population_2100": 1908335.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.5003753243059158e-05,
+      "iso3": "CPV",
+      "name": "Cabo Verde",
+      "population_2226": 207844.6713585555,
+      "superseded_v4_diagnostic_central_population_2226": 254993.25513935796,
+      "wpp_population_2100": 419053.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.000485476172580908,
+      "iso3": "CRI",
+      "name": "Costa Rica",
+      "population_2226": 4035539.5672646957,
+      "superseded_v4_diagnostic_central_population_2226": 2286259.0453884904,
+      "wpp_population_2100": 3795407.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00033457389794940007,
+      "iso3": "CUB",
+      "name": "Cuba",
+      "population_2226": 2781158.540018288,
+      "superseded_v4_diagnostic_central_population_2226": 3243170.7249361672,
+      "wpp_population_2100": 5607326.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 7.219323369925658e-06,
+      "iso3": "CUW",
+      "name": "Curaçao",
+      "population_2226": 60010.90630943032,
+      "superseded_v4_diagnostic_central_population_2226": 76017.66664421622,
+      "wpp_population_2100": 120993.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 7.0451545757242335e-06,
+      "iso3": "CYM",
+      "name": "Cayman Islands",
+      "population_2226": 58563.121433303386,
+      "superseded_v4_diagnostic_central_population_2226": 121003.97549331622,
+      "wpp_population_2100": 118074.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.00015926991152219995,
+      "iso3": "CYP",
+      "name": "Cyprus",
+      "population_2226": 1323937.3343610764,
+      "superseded_v4_diagnostic_central_population_2226": 1074253.6862027158,
+      "wpp_population_2100": 1277540.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0011756056051503462,
+      "iso3": "CZE",
+      "name": "Czechia",
+      "population_2226": 9772267.318210606,
+      "superseded_v4_diagnostic_central_population_2226": 7357564.694024516,
+      "wpp_population_2100": 8239234.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.009864522410564657,
+      "iso3": "DEU",
+      "name": "Germany",
+      "population_2226": 81999226.22024998,
+      "superseded_v4_diagnostic_central_population_2226": 69624322.54594104,
+      "wpp_population_2100": 70917155.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00010985868237688695,
+      "iso3": "DJI",
+      "name": "Djibouti",
+      "population_2226": 913204.5702317274,
+      "superseded_v4_diagnostic_central_population_2226": 1955500.2041952533,
+      "wpp_population_2100": 1841188.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.941596969554726e-06,
+      "iso3": "DMA",
+      "name": "Dominica",
+      "population_2226": 24452.13922338412,
+      "superseded_v4_diagnostic_central_population_2226": 35379.306695911415,
+      "wpp_population_2100": 49300.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.000730929946092284,
+      "iso3": "DNK",
+      "name": "Denmark",
+      "population_2226": 6075883.606548117,
+      "superseded_v4_diagnostic_central_population_2226": 5487662.069369088,
+      "wpp_population_2100": 5866817.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0006984955658917875,
+      "iso3": "DOM",
+      "name": "Dominican Republic",
+      "population_2226": 5806271.559590247,
+      "superseded_v4_diagnostic_central_population_2226": 9106699.80005362,
+      "wpp_population_2100": 11706509.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.003851367994235916,
+      "iso3": "DZA",
+      "name": "Algeria",
+      "population_2226": 32014646.251759488,
+      "superseded_v4_diagnostic_central_population_2226": 61536193.486959815,
+      "wpp_population_2100": 64547402.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0011424928137334929,
+      "iso3": "ECU",
+      "name": "Ecuador",
+      "population_2226": 9497015.95162984,
+      "superseded_v4_diagnostic_central_population_2226": 14483059.620629586,
+      "wpp_population_2100": 19147727.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.020249290760744627,
+      "iso3": "EGY",
+      "name": "Egypt",
+      "population_2226": 168323017.04861468,
+      "superseded_v4_diagnostic_central_population_2226": 214572329.99742576,
+      "wpp_population_2100": 201846600.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0005031877279263101,
+      "iso3": "ERI",
+      "name": "Eritrea",
+      "population_2226": 4182767.559967586,
+      "superseded_v4_diagnostic_central_population_2226": 9858585.4892461,
+      "wpp_population_2100": 8433227.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 4.9628141911424025e-05,
+      "iso3": "ESH",
+      "name": "Western Sahara",
+      "population_2226": 412535.8599345091,
+      "superseded_v4_diagnostic_central_population_2226": 804747.7084235653,
+      "wpp_population_2100": 831748.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.004911714807916485,
+      "iso3": "ESP",
+      "name": "Spain",
+      "population_2226": 40828820.382865466,
+      "superseded_v4_diagnostic_central_population_2226": 26054858.999297857,
+      "wpp_population_2100": 33216190.000000004
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.00013088409434337825,
+      "iso3": "EST",
+      "name": "Estonia",
+      "population_2226": 1087979.1249904898,
+      "superseded_v4_diagnostic_central_population_2226": 596756.7309756046,
+      "wpp_population_2100": 828296.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.021862154649185873,
+      "iso3": "ETH",
+      "name": "Ethiopia",
+      "population_2226": 181730010.85392302,
+      "superseded_v4_diagnostic_central_population_2226": 486178778.0736617,
+      "wpp_population_2100": 366401052.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0006308413393777471,
+      "iso3": "FIN",
+      "name": "Finland",
+      "population_2226": 5243893.170268581,
+      "superseded_v4_diagnostic_central_population_2226": 3905431.864540134,
+      "wpp_population_2100": 4609493.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 5.2603928233180665e-05,
+      "iso3": "FJI",
+      "name": "Fiji",
+      "population_2226": 437272.1994778728,
+      "superseded_v4_diagnostic_central_population_2226": 696634.4850931003,
+      "wpp_population_2100": 881621.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.3449005211716738e-07,
+      "iso3": "FLK",
+      "name": "Falkland Islands (Malvinas)",
+      "population_2226": 1117.9537892395092,
+      "superseded_v4_diagnostic_central_population_2226": 1812.2203772389223,
+      "wpp_population_2100": 2254.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.008385386981797666,
+      "iso3": "FRA",
+      "name": "France",
+      "population_2226": 69703855.43737714,
+      "superseded_v4_diagnostic_central_population_2226": 68809485.90489857,
+      "wpp_population_2100": 68495709.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 3.778669259329234e-06,
+      "iso3": "FRO",
+      "name": "Faroe Islands",
+      "population_2226": 31410.335190216898,
+      "superseded_v4_diagnostic_central_population_2226": 57693.737128638306,
+      "wpp_population_2100": 63329.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 7.65590886741515e-06,
+      "iso3": "FSM",
+      "name": "Micronesia (Fed. States of)",
+      "population_2226": 63640.04023838573,
+      "superseded_v4_diagnostic_central_population_2226": 115349.90417428702,
+      "wpp_population_2100": 128310.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.000410609167560758,
+      "iso3": "GAB",
+      "name": "Gabon",
+      "population_2226": 3413204.6760686343,
+      "superseded_v4_diagnostic_central_population_2226": 9848910.797915954,
+      "wpp_population_2100": 6881647.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.008673039417211507,
+      "iso3": "GBR",
+      "name": "United Kingdom",
+      "population_2226": 72094977.4950496,
+      "superseded_v4_diagnostic_central_population_2226": 69035865.76694691,
+      "wpp_population_2100": 74373670.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00017769316150772688,
+      "iso3": "GEO",
+      "name": "Georgia",
+      "population_2226": 1477081.3164414987,
+      "superseded_v4_diagnostic_central_population_2226": 2300215.546232432,
+      "wpp_population_2100": 2978067.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 3.161828904942687e-06,
+      "iso3": "GGY",
+      "name": "Guernsey",
+      "population_2226": 26282.825752258577,
+      "superseded_v4_diagnostic_central_population_2226": 45405.97007367126,
+      "wpp_population_2100": 52991.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.004027543995781272,
+      "iso3": "GHA",
+      "name": "Ghana",
+      "population_2226": 33479116.11700356,
+      "superseded_v4_diagnostic_central_population_2226": 75209543.40629347,
+      "wpp_population_2100": 67500042.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.9423129769306824e-06,
+      "iso3": "GIB",
+      "name": "Gibraltar",
+      "population_2226": 24458.091062546,
+      "superseded_v4_diagnostic_central_population_2226": 45012.633414021024,
+      "wpp_population_2100": 49312.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0019091192261424853,
+      "iso3": "GIN",
+      "name": "Guinea",
+      "population_2226": 15869627.822856283,
+      "superseded_v4_diagnostic_central_population_2226": 34213322.17760004,
+      "wpp_population_2100": 31996082.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.4625166661287989e-05,
+      "iso3": "GLP",
+      "name": "Guadeloupe",
+      "population_2226": 121572.26672052998,
+      "superseded_v4_diagnostic_central_population_2226": 189751.0796770047,
+      "wpp_population_2100": 245112.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00034026538091359713,
+      "iso3": "GMB",
+      "name": "Gambia",
+      "population_2226": 2828469.213529463,
+      "superseded_v4_diagnostic_central_population_2226": 5962310.067641933,
+      "wpp_population_2100": 5702713.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0002781929711407674,
+      "iso3": "GNB",
+      "name": "Guinea-Bissau",
+      "population_2226": 2312489.892974909,
+      "superseded_v4_diagnostic_central_population_2226": 5135108.829955057,
+      "wpp_population_2100": 4662404.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0002978677201537074,
+      "iso3": "GNQ",
+      "name": "Equatorial Guinea",
+      "population_2226": 2476037.00939799,
+      "superseded_v4_diagnostic_central_population_2226": 6502201.859454902,
+      "wpp_population_2100": 4992145.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0009784583216783254,
+      "iso3": "GRC",
+      "name": "Greece",
+      "population_2226": 8133472.856269227,
+      "superseded_v4_diagnostic_central_population_2226": 4621295.79125104,
+      "wpp_population_2100": 6296238.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 4.431429317076267e-06,
+      "iso3": "GRD",
+      "name": "Grenada",
+      "population_2226": 36836.42855946279,
+      "superseded_v4_diagnostic_central_population_2226": 43078.43527965577,
+      "wpp_population_2100": 74269.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.2286326249460154e-06,
+      "iso3": "GRL",
+      "name": "Greenland",
+      "population_2226": 18525.595377943617,
+      "superseded_v4_diagnostic_central_population_2226": 27794.511006022825,
+      "wpp_population_2100": 37351.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0015487742537121255,
+      "iso3": "GTM",
+      "name": "Guatemala",
+      "population_2226": 12874246.22384429,
+      "superseded_v4_diagnostic_central_population_2226": 22296433.134115074,
+      "wpp_population_2100": 25956843.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 4.612077978030098e-05,
+      "iso3": "GUF",
+      "name": "French Guiana",
+      "population_2226": 383380.77580004727,
+      "superseded_v4_diagnostic_central_population_2226": 1086751.9990602592,
+      "wpp_population_2100": 772966.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.2269204057984373e-05,
+      "iso3": "GUM",
+      "name": "Guam",
+      "population_2226": 101988.23594496565,
+      "superseded_v4_diagnostic_central_population_2226": 197984.0902802473,
+      "wpp_population_2100": 205627.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 5.3150898201130115e-05,
+      "iso3": "GUY",
+      "name": "Guyana",
+      "population_2226": 441818.90861095116,
+      "superseded_v4_diagnostic_central_population_2226": 744593.2607714408,
+      "wpp_population_2100": 890788.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.00048806861661694867,
+      "iso3": "HKG",
+      "name": "China, Hong Kong SAR",
+      "population_2226": 4057089.359147876,
+      "superseded_v4_diagnostic_central_population_2226": 586019.0207522332,
+      "wpp_population_2100": 2106152.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0010167027882397295,
+      "iso3": "HND",
+      "name": "Honduras",
+      "population_2226": 8451381.472086528,
+      "superseded_v4_diagnostic_central_population_2226": 16492145.126445409,
+      "wpp_population_2100": 17039536.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.00034410804937031934,
+      "iso3": "HRV",
+      "name": "Croatia",
+      "population_2226": 2860411.5445372695,
+      "superseded_v4_diagnostic_central_population_2226": 1414044.0021836387,
+      "wpp_population_2100": 2150256.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0009052563595066587,
+      "iso3": "HTI",
+      "name": "Haiti",
+      "population_2226": 7524978.698513334,
+      "superseded_v4_diagnostic_central_population_2226": 13505227.338547396,
+      "wpp_population_2100": 15171738.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0010672198975700158,
+      "iso3": "HUN",
+      "name": "Hungary",
+      "population_2226": 8871306.908266883,
+      "superseded_v4_diagnostic_central_population_2226": 6754022.358261681,
+      "wpp_population_2100": 7468752.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.03392653475189814,
+      "iso3": "IDN",
+      "name": "Indonesia",
+      "population_2226": 282015639.70402354,
+      "superseded_v4_diagnostic_central_population_2226": 247581910.02211782,
+      "wpp_population_2100": 296074174.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 3.475261133767656e-06,
+      "iso3": "IMN",
+      "name": "Isle of Man",
+      "population_2226": 28888.243345370887,
+      "superseded_v4_diagnostic_central_population_2226": 42555.00181864053,
+      "wpp_population_2100": 58244.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.16703445204176484,
+      "iso3": "IND",
+      "name": "India",
+      "population_2226": 1388480379.4332051,
+      "superseded_v4_diagnostic_central_population_2226": 1177218970.0790665,
+      "wpp_population_2100": 1509106631.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0006357674214063823,
+      "iso3": "IRL",
+      "name": "Ireland",
+      "population_2226": 5284841.418732488,
+      "superseded_v4_diagnostic_central_population_2226": 4387959.902703248,
+      "wpp_population_2100": 5298149.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.004792147329349499,
+      "iso3": "IRN",
+      "name": "Iran (Islamic Republic of)",
+      "population_2226": 39834911.066678114,
+      "superseded_v4_diagnostic_central_population_2226": 58456730.725493185,
+      "wpp_population_2100": 80314491.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.006000378749289844,
+      "iso3": "IRQ",
+      "name": "Iraq",
+      "population_2226": 49878381.739317715,
+      "superseded_v4_diagnostic_central_population_2226": 114654765.50910608,
+      "wpp_population_2100": 100563971.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 4.561555052795201e-05,
+      "iso3": "ISL",
+      "name": "Iceland",
+      "population_2226": 379181.03798891086,
+      "superseded_v4_diagnostic_central_population_2226": 279788.9683426712,
+      "wpp_population_2100": 363492.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0015461957553710873,
+      "iso3": "ISR",
+      "name": "Israel",
+      "population_2226": 12852812.356093237,
+      "superseded_v4_diagnostic_central_population_2226": 26070273.153542772,
+      "wpp_population_2100": 19699919.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.005652500977515928,
+      "iso3": "ITA",
+      "name": "Italy",
+      "population_2226": 46986634.23067649,
+      "superseded_v4_diagnostic_central_population_2226": 25512470.039108027,
+      "wpp_population_2100": 35496387.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 6.421285415597047e-05,
+      "iso3": "JAM",
+      "name": "Jamaica",
+      "population_2226": 533771.8477423929,
+      "superseded_v4_diagnostic_central_population_2226": 423545.570183149,
+      "wpp_population_2100": 1076182.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 5.955809020487709e-06,
+      "iso3": "JEY",
+      "name": "Jersey",
+      "population_2226": 49507.894135102084,
+      "superseded_v4_diagnostic_central_population_2226": 98706.87526436357,
+      "wpp_population_2100": 99817.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0021050461161812384,
+      "iso3": "JOR",
+      "name": "Jordan",
+      "population_2226": 17498277.716916196,
+      "superseded_v4_diagnostic_central_population_2226": 23539099.60220412,
+      "wpp_population_2100": 21306183.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.01243652857597699,
+      "iso3": "JPN",
+      "name": "Japan",
+      "population_2226": 103379127.50889748,
+      "superseded_v4_diagnostic_central_population_2226": 60420239.722331785,
+      "wpp_population_2100": 77038488.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0031707935253660648,
+      "iso3": "KAZ",
+      "name": "Kazakhstan",
+      "population_2226": 26357344.508208483,
+      "superseded_v4_diagnostic_central_population_2226": 38990015.564156935,
+      "wpp_population_2100": 33637669.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.006218249173017339,
+      "iso3": "KEN",
+      "name": "Kenya",
+      "population_2226": 51689438.1106631,
+      "superseded_v4_diagnostic_central_population_2226": 106475559.9183009,
+      "wpp_population_2100": 104215393.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0006998285926239746,
+      "iso3": "KGZ",
+      "name": "Kyrgyzstan",
+      "population_2226": 5817352.396149876,
+      "superseded_v4_diagnostic_central_population_2226": 12341424.362626655,
+      "wpp_population_2100": 11728850.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0024401235207410586,
+      "iso3": "KHM",
+      "name": "Cambodia",
+      "population_2226": 20283621.675217584,
+      "superseded_v4_diagnostic_central_population_2226": 20643452.23057772,
+      "wpp_population_2100": 22769153.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.3285039522622695e-05,
+      "iso3": "KIR",
+      "name": "Kiribati",
+      "population_2226": 110432.40775588076,
+      "superseded_v4_diagnostic_central_population_2226": 228677.72397956022,
+      "wpp_population_2100": 222652.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.811080990200702e-06,
+      "iso3": "KNA",
+      "name": "Saint Kitts and Nevis",
+      "population_2226": 15054.681173374813,
+      "superseded_v4_diagnostic_central_population_2226": 20244.65637394182,
+      "wpp_population_2100": 30353.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.004167324815146871,
+      "iso3": "KOR",
+      "name": "Republic of Korea",
+      "population_2226": 34641049.61478103,
+      "superseded_v4_diagnostic_central_population_2226": 10068889.897450691,
+      "wpp_population_2100": 22006983.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0005706429618170185,
+      "iso3": "KWT",
+      "name": "Kuwait",
+      "population_2226": 4743491.815367949,
+      "superseded_v4_diagnostic_central_population_2226": 14408496.75909343,
+      "wpp_population_2100": 9563750.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0009683329904330756,
+      "iso3": "LAO",
+      "name": "Lao People's Democratic Republic",
+      "population_2226": 8049305.646466449,
+      "superseded_v4_diagnostic_central_population_2226": 7383197.693262655,
+      "wpp_population_2100": 9279907.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.000429872570336211,
+      "iso3": "LBN",
+      "name": "Lebanon",
+      "population_2226": 3573332.460893216,
+      "superseded_v4_diagnostic_central_population_2226": 6192465.998344994,
+      "wpp_population_2100": 7204494.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.000754995349924829,
+      "iso3": "LBR",
+      "name": "Liberia",
+      "population_2226": 6275928.2119344985,
+      "superseded_v4_diagnostic_central_population_2226": 14021089.622943165,
+      "wpp_population_2100": 12653423.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0005843307554886167,
+      "iso3": "LBY",
+      "name": "Libya",
+      "population_2226": 4857272.132652387,
+      "superseded_v4_diagnostic_central_population_2226": 9058039.06099412,
+      "wpp_population_2100": 9793152.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 6.4873848298541e-06,
+      "iso3": "LCA",
+      "name": "Saint Lucia",
+      "population_2226": 53926.638726200035,
+      "superseded_v4_diagnostic_central_population_2226": 64936.08107515484,
+      "wpp_population_2100": 108726.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.601493465975376e-06,
+      "iso3": "LIE",
+      "name": "Liechtenstein",
+      "population_2226": 21625.01562149184,
+      "superseded_v4_diagnostic_central_population_2226": 44265.285711856915,
+      "wpp_population_2100": 43600.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0012714296916445855,
+      "iso3": "LKA",
+      "name": "Sri Lanka",
+      "population_2226": 10568808.764289612,
+      "superseded_v4_diagnostic_central_population_2226": 16244671.912446525,
+      "wpp_population_2100": 21308658.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00019466886104971748,
+      "iso3": "LSO",
+      "name": "Lesotho",
+      "population_2226": 1618192.479157282,
+      "superseded_v4_diagnostic_central_population_2226": 3025123.9657329936,
+      "wpp_population_2100": 3262573.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.00022760937458902788,
+      "iso3": "LTU",
+      "name": "Lithuania",
+      "population_2226": 1892011.779180192,
+      "superseded_v4_diagnostic_central_population_2226": 630442.0242180554,
+      "wpp_population_2100": 1216525.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 8.488849741609522e-05,
+      "iso3": "LUX",
+      "name": "Luxembourg",
+      "population_2226": 705638.9365251645,
+      "superseded_v4_diagnostic_central_population_2226": 671054.6210076468,
+      "wpp_population_2100": 748879.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.00016045210799612057,
+      "iso3": "LVA",
+      "name": "Latvia",
+      "population_2226": 1333764.3885322928,
+      "superseded_v4_diagnostic_central_population_2226": 568807.3337287697,
+      "wpp_population_2100": 930123.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.98985609852078e-05,
+      "iso3": "MAC",
+      "name": "China, Macao SAR",
+      "population_2226": 165407.56214776504,
+      "superseded_v4_diagnostic_central_population_2226": 154737.95130336788,
+      "wpp_population_2100": 333492.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.1939422994075064e-06,
+      "iso3": "MAF",
+      "name": "Saint Martin (French part)",
+      "population_2226": 9924.691802432379,
+      "superseded_v4_diagnostic_central_population_2226": 22507.100495531715,
+      "wpp_population_2100": 20010.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.004237064216849322,
+      "iso3": "MAR",
+      "name": "Morocco",
+      "population_2226": 35220761.103959635,
+      "superseded_v4_diagnostic_central_population_2226": 28664623.265124373,
+      "wpp_population_2100": 38000823.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.8244700963045043e-06,
+      "iso3": "MCO",
+      "name": "Monaco",
+      "population_2226": 23478.517533820166,
+      "superseded_v4_diagnostic_central_population_2226": 64774.449620427935,
+      "wpp_population_2100": 47337.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 8.917800266800932e-05,
+      "iso3": "MDA",
+      "name": "Republic of Moldova",
+      "population_2226": 741295.6157728039,
+      "superseded_v4_diagnostic_central_population_2226": 943727.6925873035,
+      "wpp_population_2100": 1494588.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0050809821987845465,
+      "iso3": "MDG",
+      "name": "Madagascar",
+      "population_2226": 42235862.15314283,
+      "superseded_v4_diagnostic_central_population_2226": 110957539.54685867,
+      "wpp_population_2100": 85155249.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.8380324693507472e-05,
+      "iso3": "MDV",
+      "name": "Maldives",
+      "population_2226": 235912.5528727808,
+      "superseded_v4_diagnostic_central_population_2226": 387268.2404793659,
+      "wpp_population_2100": 475643.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.014650320193202972,
+      "iso3": "MEX",
+      "name": "Mexico",
+      "population_2226": 121781356.43292457,
+      "superseded_v4_diagnostic_central_population_2226": 98626182.97546653,
+      "wpp_population_2100": 130628673.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.4233033288389135e-06,
+      "iso3": "MHL",
+      "name": "Marshall Islands",
+      "population_2226": 11831.264280620788,
+      "superseded_v4_diagnostic_central_population_2226": 20248.09122097776,
+      "wpp_population_2100": 23854.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 5.1814052762937956e-05,
+      "iso3": "MKD",
+      "name": "North Macedonia",
+      "population_2226": 430706.3289091272,
+      "superseded_v4_diagnostic_central_population_2226": 469888.01136668766,
+      "wpp_population_2100": 868383.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.004725768314212135,
+      "iso3": "MLI",
+      "name": "Mali",
+      "population_2226": 39283132.92152465,
+      "superseded_v4_diagnostic_central_population_2226": 101525901.6061083,
+      "wpp_population_2100": 79202005.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 5.408979947404427e-05,
+      "iso3": "MLT",
+      "name": "Malta",
+      "population_2226": 449623.56196078943,
+      "superseded_v4_diagnostic_central_population_2226": 226589.2418960349,
+      "wpp_population_2100": 361380.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.005596363093065731,
+      "iso3": "MMR",
+      "name": "Myanmar",
+      "population_2226": 46519985.88269079,
+      "superseded_v4_diagnostic_central_population_2226": 38803019.14631668,
+      "wpp_population_2100": 49784469.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.956358886782281e-05,
+      "iso3": "MNE",
+      "name": "Montenegro",
+      "population_2226": 162623.09339319958,
+      "superseded_v4_diagnostic_central_population_2226": 189214.15028660485,
+      "wpp_population_2100": 327878.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0003291651782314245,
+      "iso3": "MNG",
+      "name": "Mongolia",
+      "population_2226": 2736198.346989458,
+      "superseded_v4_diagnostic_central_population_2226": 6108386.780553386,
+      "wpp_population_2100": 5516678.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.486156611165046e-06,
+      "iso3": "MNP",
+      "name": "Northern Mariana Islands",
+      "population_2226": 20666.27352983258,
+      "superseded_v4_diagnostic_central_population_2226": 37836.09678325252,
+      "wpp_population_2100": 41667.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.006214496578359952,
+      "iso3": "MOZ",
+      "name": "Mozambique",
+      "population_2226": 51658244.52161571,
+      "superseded_v4_diagnostic_central_population_2226": 131872603.25496475,
+      "wpp_population_2100": 104152501.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.001018279317147023,
+      "iso3": "MRT",
+      "name": "Mauritania",
+      "population_2226": 8464486.42994779,
+      "superseded_v4_diagnostic_central_population_2226": 24378901.94376911,
+      "wpp_population_2100": 17065958.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.665910494725516e-07,
+      "iso3": "MSR",
+      "name": "Montserrat",
+      "population_2226": 1384.7945783303949,
+      "superseded_v4_diagnostic_central_population_2226": 2165.9209589866855,
+      "wpp_population_2100": 2792.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.2545165234134285e-05,
+      "iso3": "MTQ",
+      "name": "Martinique",
+      "population_2226": 104282.17395527299,
+      "superseded_v4_diagnostic_central_population_2226": 173554.30803598545,
+      "wpp_population_2100": 210252.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 3.495595743244822e-05,
+      "iso3": "MUS",
+      "name": "Mauritius",
+      "population_2226": 290572.7557756824,
+      "superseded_v4_diagnostic_central_population_2226": 275715.2693978803,
+      "wpp_population_2100": 585848.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0035213269599818527,
+      "iso3": "MWI",
+      "name": "Malawi",
+      "population_2226": 29271167.31751526,
+      "superseded_v4_diagnostic_central_population_2226": 74251036.67392103,
+      "wpp_population_2100": 59016045.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.004636246384609196,
+      "iso3": "MYS",
+      "name": "Malaysia",
+      "population_2226": 38538978.39972814,
+      "superseded_v4_diagnostic_central_population_2226": 38707161.71487887,
+      "wpp_population_2100": 44087388.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 8.16790187504913e-05,
+      "iso3": "MYT",
+      "name": "Mayotte",
+      "population_2226": 678960.0202840632,
+      "superseded_v4_diagnostic_central_population_2226": 2351883.225348323,
+      "wpp_population_2100": 1368908.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00035175503194100885,
+      "iso3": "NAM",
+      "name": "Namibia",
+      "population_2226": 2923977.3845869335,
+      "superseded_v4_diagnostic_central_population_2226": 6300273.382778249,
+      "wpp_population_2100": 5895275.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.014206316031435e-05,
+      "iso3": "NCL",
+      "name": "New Caledonia",
+      "population_2226": 167431.68344940056,
+      "superseded_v4_diagnostic_central_population_2226": 309460.68959012587,
+      "wpp_population_2100": 337573.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.005408838813869128,
+      "iso3": "NER",
+      "name": "Niger",
+      "population_2226": 44961183.01807736,
+      "superseded_v4_diagnostic_central_population_2226": 115995931.96639583,
+      "wpp_population_2100": 90649996.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0385848116358503,
+      "iso3": "NGA",
+      "name": "Nigeria",
+      "population_2226": 320737747.4864204,
+      "superseded_v4_diagnostic_central_population_2226": 501712922.58997726,
+      "wpp_population_2100": 476692581.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0005149431370247644,
+      "iso3": "NIC",
+      "name": "Nicaragua",
+      "population_2226": 4280484.855327307,
+      "superseded_v4_diagnostic_central_population_2226": 7152448.725495184,
+      "wpp_population_2100": 8630243.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.427241369406674e-07,
+      "iso3": "NIU",
+      "name": "Niue",
+      "population_2226": 1186.3999396011118,
+      "superseded_v4_diagnostic_central_population_2226": 2660.7841768549024,
+      "wpp_population_2100": 2392.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.002193183704843108,
+      "iso3": "NLD",
+      "name": "Netherlands",
+      "population_2226": 18230924.850795865,
+      "superseded_v4_diagnostic_central_population_2226": 15721503.834492102,
+      "wpp_population_2100": 17525084.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0006764291619824169,
+      "iso3": "NOR",
+      "name": "Norway",
+      "population_2226": 5622843.7188167265,
+      "superseded_v4_diagnostic_central_population_2226": 4844458.397336015,
+      "wpp_population_2100": 5419882.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.001904998007021042,
+      "iso3": "NPL",
+      "name": "Nepal",
+      "population_2226": 15835370.028613701,
+      "superseded_v4_diagnostic_central_population_2226": 24125094.71576895,
+      "wpp_population_2100": 31927012.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.2318310230518725e-06,
+      "iso3": "NRU",
+      "name": "Nauru",
+      "population_2226": 10239.643291415116,
+      "superseded_v4_diagnostic_central_population_2226": 22840.625090102963,
+      "wpp_population_2100": 20645.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0006719585228934905,
+      "iso3": "NZL",
+      "name": "New Zealand",
+      "population_2226": 5585681.357503688,
+      "superseded_v4_diagnostic_central_population_2226": 5685668.038652259,
+      "wpp_population_2100": 5814526.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0007192920001264447,
+      "iso3": "OMN",
+      "name": "Oman",
+      "population_2226": 5979142.728047008,
+      "superseded_v4_diagnostic_central_population_2226": 17242438.78691634,
+      "wpp_population_2100": 12055049.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.05288407641400568,
+      "iso3": "PAK",
+      "name": "Pakistan",
+      "population_2226": 439600942.1273963,
+      "superseded_v4_diagnostic_central_population_2226": 575280252.5624292,
+      "wpp_population_2100": 510572265.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0003526774284430849,
+      "iso3": "PAN",
+      "name": "Panama",
+      "population_2226": 2931644.841387224,
+      "superseded_v4_diagnostic_central_population_2226": 5460979.7159609925,
+      "wpp_population_2100": 5910734.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.004173315969486483,
+      "iso3": "PER",
+      "name": "Peru",
+      "population_2226": 34690851.31825612,
+      "superseded_v4_diagnostic_central_population_2226": 31130152.02048557,
+      "wpp_population_2100": 38246909.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.012790813061030654,
+      "iso3": "PHL",
+      "name": "Philippines",
+      "population_2226": 106324131.07086691,
+      "superseded_v4_diagnostic_central_population_2226": 82523346.65801588,
+      "wpp_population_2100": 114596066.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 6.658868596395688e-07,
+      "iso3": "PLW",
+      "name": "Palau",
+      "population_2226": 5535.210420546994,
+      "superseded_v4_diagnostic_central_population_2226": 8324.474219912978,
+      "wpp_population_2100": 11160.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0011119610062097988,
+      "iso3": "PNG",
+      "name": "Papua New Guinea",
+      "population_2226": 9243219.114048809,
+      "superseded_v4_diagnostic_central_population_2226": 19861217.093497347,
+      "wpp_population_2100": 18636026.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0031704728604120577,
+      "iso3": "POL",
+      "name": "Poland",
+      "population_2226": 26354678.968305975,
+      "superseded_v4_diagnostic_central_population_2226": 11479983.460263373,
+      "wpp_population_2100": 19430415.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 6.007695688332025e-05,
+      "iso3": "PRI",
+      "name": "Puerto Rico",
+      "population_2226": 499392.04079699545,
+      "superseded_v4_diagnostic_central_population_2226": 321865.2231734779,
+      "wpp_population_2100": 1006866.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0011680551123970796,
+      "iso3": "PRK",
+      "name": "Dem. People's Republic of Korea",
+      "population_2226": 9709503.553521259,
+      "superseded_v4_diagnostic_central_population_2226": 14051396.31487733,
+      "wpp_population_2100": 19576141.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0012089348520057865,
+      "iso3": "PRT",
+      "name": "Portugal",
+      "population_2226": 10049317.9790437,
+      "superseded_v4_diagnostic_central_population_2226": 8501923.801024957,
+      "wpp_population_2100": 8756138.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0005405088367233867,
+      "iso3": "PRY",
+      "name": "Paraguay",
+      "population_2226": 4493000.7284547435,
+      "superseded_v4_diagnostic_central_population_2226": 8298439.409822105,
+      "wpp_population_2100": 9058714.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0006849001371716876,
+      "iso3": "PSE",
+      "name": "State of Palestine",
+      "population_2226": 5693259.029557693,
+      "superseded_v4_diagnostic_central_population_2226": 12514417.814351577,
+      "wpp_population_2100": 11478655.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.121267550747919e-05,
+      "iso3": "PYF",
+      "name": "French Polynesia",
+      "population_2226": 93205.80127501712,
+      "superseded_v4_diagnostic_central_population_2226": 108786.53021848948,
+      "wpp_population_2100": 187920.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00043174856932849844,
+      "iso3": "QAT",
+      "name": "Qatar",
+      "population_2226": 3588926.775483934,
+      "superseded_v4_diagnostic_central_population_2226": 12298884.042102432,
+      "wpp_population_2100": 7235935.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 5.094344746105616e-05,
+      "iso3": "REU",
+      "name": "Réunion",
+      "population_2226": 423469.38847487984,
+      "superseded_v4_diagnostic_central_population_2226": 734360.1339141786,
+      "wpp_population_2100": 853792.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0017330917199293156,
+      "iso3": "ROU",
+      "name": "Romania",
+      "population_2226": 14406392.330836764,
+      "superseded_v4_diagnostic_central_population_2226": 7425645.287723438,
+      "wpp_population_2100": 10810476.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.016928294010981556,
+      "iso3": "RUS",
+      "name": "Russian Federation",
+      "population_2226": 140717102.39542377,
+      "superseded_v4_diagnostic_central_population_2226": 122681186.95043987,
+      "wpp_population_2100": 126439051.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0019537351970876507,
+      "iso3": "RWA",
+      "name": "Rwanda",
+      "population_2226": 16240499.816684447,
+      "superseded_v4_diagnostic_central_population_2226": 38456906.52981081,
+      "wpp_population_2100": 32743828.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.007042502906345941,
+      "iso3": "SAU",
+      "name": "Saudi Arabia",
+      "population_2226": 58541079.32845915,
+      "superseded_v4_diagnostic_central_population_2226": 99094544.94565828,
+      "wpp_population_2100": 70783515.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.008150732495511943,
+      "iso3": "SDN",
+      "name": "Sudan",
+      "population_2226": 67753280.89319724,
+      "superseded_v4_diagnostic_central_population_2226": 174770657.37047848,
+      "wpp_population_2100": 136603048.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.004922177091479926,
+      "iso3": "SEN",
+      "name": "Senegal",
+      "population_2226": 40915788.521919034,
+      "superseded_v4_diagnostic_central_population_2226": 58394916.92359714,
+      "wpp_population_2100": 46932746.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0005912592852518276,
+      "iso3": "SGP",
+      "name": "Singapore",
+      "population_2226": 4914865.805795529,
+      "superseded_v4_diagnostic_central_population_2226": 2368545.6154111708,
+      "wpp_population_2100": 4182765.9999999995
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.5770062455442473e-07,
+      "iso3": "SHN",
+      "name": "Saint Helena",
+      "population_2226": 1310.8925754037368,
+      "superseded_v4_diagnostic_central_population_2226": 1846.2473102244983,
+      "wpp_population_2100": 2643.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00011022438314415675,
+      "iso3": "SLB",
+      "name": "Solomon Islands",
+      "population_2226": 916244.4720836569,
+      "superseded_v4_diagnostic_central_population_2226": 2139976.539181499,
+      "wpp_population_2100": 1847317.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.000951405779581998,
+      "iso3": "SLE",
+      "name": "Sierra Leone",
+      "population_2226": 7908597.547879856,
+      "superseded_v4_diagnostic_central_population_2226": 15518762.71749535,
+      "wpp_population_2100": 15945184.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0003039995476541178,
+      "iso3": "SLV",
+      "name": "El Salvador",
+      "population_2226": 2527008.063993721,
+      "superseded_v4_diagnostic_central_population_2226": 3285415.6495486004,
+      "wpp_population_2100": 5094912.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.8600081608910642e-06,
+      "iso3": "SMR",
+      "name": "San Marino",
+      "population_2226": 15461.390182769841,
+      "superseded_v4_diagnostic_central_population_2226": 30570.24018735242,
+      "wpp_population_2100": 31173.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.004010897003292127,
+      "iso3": "SOM",
+      "name": "Somalia",
+      "population_2226": 33340737.344449677,
+      "superseded_v4_diagnostic_central_population_2226": 90232087.1263753,
+      "wpp_population_2100": 67221045.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.2124391566197166e-07,
+      "iso3": "SPM",
+      "name": "Saint Pierre and Miquelon",
+      "population_2226": 1007.8447647447573,
+      "superseded_v4_diagnostic_central_population_2226": 964.0213357653811,
+      "wpp_population_2100": 2032.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00022171830703316572,
+      "iso3": "SRB",
+      "name": "Serbia",
+      "population_2226": 1843042.050987921,
+      "superseded_v4_diagnostic_central_population_2226": 2513492.194861641,
+      "wpp_population_2100": 3715911.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0014223320648334284,
+      "iso3": "SSD",
+      "name": "South Sudan",
+      "population_2226": 11823190.6107977,
+      "superseded_v4_diagnostic_central_population_2226": 24282644.03437865,
+      "wpp_population_2100": 23837722.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 5.63896241665911e-05,
+      "iso3": "STP",
+      "name": "Sao Tome and Principe",
+      "population_2226": 468740.9441696935,
+      "superseded_v4_diagnostic_central_population_2226": 632001.0743654594,
+      "wpp_population_2100": 533352.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 4.237904456811483e-05,
+      "iso3": "SUR",
+      "name": "Suriname",
+      "population_2226": 352277.4563132639,
+      "superseded_v4_diagnostic_central_population_2226": 601160.0051295805,
+      "wpp_population_2100": 710256.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0005349291513401896,
+      "iso3": "SVK",
+      "name": "Slovakia",
+      "population_2226": 4446619.3766840175,
+      "superseded_v4_diagnostic_central_population_2226": 2478117.0691278316,
+      "wpp_population_2100": 3438506.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.00023534890213235734,
+      "iso3": "SVN",
+      "name": "Slovenia",
+      "population_2226": 1956346.9029144794,
+      "superseded_v4_diagnostic_central_population_2226": 1436273.4573334837,
+      "wpp_population_2100": 1634237.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0013492414452491214,
+      "iso3": "SWE",
+      "name": "Sweden",
+      "population_2226": 11215621.992629923,
+      "superseded_v4_diagnostic_central_population_2226": 11266538.374899657,
+      "wpp_population_2100": 11369803.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 8.02712289147981e-05,
+      "iso3": "SWZ",
+      "name": "Eswatini",
+      "population_2226": 667257.7125186163,
+      "superseded_v4_diagnostic_central_population_2226": 996710.1242437292,
+      "wpp_population_2100": 1345314.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.531981083226264e-06,
+      "iso3": "SXM",
+      "name": "Sint Maarten (Dutch part)",
+      "population_2226": 21047.191236192804,
+      "superseded_v4_diagnostic_central_population_2226": 30379.360343071312,
+      "wpp_population_2100": 42435.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 6.931607739353794e-06,
+      "iso3": "SYC",
+      "name": "Seychelles",
+      "population_2226": 57619.25893954882,
+      "superseded_v4_diagnostic_central_population_2226": 96248.88909285734,
+      "wpp_population_2100": 116171.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.002608607655595599,
+      "iso3": "SYR",
+      "name": "Syrian Arab Republic",
+      "population_2226": 21684152.599417668,
+      "superseded_v4_diagnostic_central_population_2226": 41329467.2741192,
+      "wpp_population_2100": 43719231.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.314851846467447e-06,
+      "iso3": "TCA",
+      "name": "Turks and Caicos Islands",
+      "population_2226": 19242.29601035315,
+      "superseded_v4_diagnostic_central_population_2226": 28137.643758762784,
+      "wpp_population_2100": 38796.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.004140158351879091,
+      "iso3": "TCD",
+      "name": "Chad",
+      "population_2226": 34415227.332222976,
+      "superseded_v4_diagnostic_central_population_2226": 92381107.98067784,
+      "wpp_population_2100": 69387414.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0015647871620025802,
+      "iso3": "TGO",
+      "name": "Togo",
+      "population_2226": 13007354.146833736,
+      "superseded_v4_diagnostic_central_population_2226": 36385984.60666632,
+      "wpp_population_2100": 26225213.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.006385303089524375,
+      "iso3": "THA",
+      "name": "Thailand",
+      "population_2226": 53078080.28922095,
+      "superseded_v4_diagnostic_central_population_2226": 30892593.24757049,
+      "wpp_population_2100": 45725632.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0012052211459299801,
+      "iso3": "TJK",
+      "name": "Tajikistan",
+      "population_2226": 10018447.652843272,
+      "superseded_v4_diagnostic_central_population_2226": 21608250.27277462,
+      "wpp_population_2100": 20199029.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.609250212548238e-07,
+      "iso3": "TKL",
+      "name": "Tokelau",
+      "population_2226": 2168.9493879078855,
+      "superseded_v4_diagnostic_central_population_2226": 4081.2917578314914,
+      "wpp_population_2100": 4373.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0005943710285852483,
+      "iso3": "TKM",
+      "name": "Turkmenistan",
+      "population_2226": 4940732.293286424,
+      "superseded_v4_diagnostic_central_population_2226": 8844120.230560185,
+      "wpp_population_2100": 9961423.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00011785887145757454,
+      "iso3": "TLS",
+      "name": "Timor-Leste",
+      "population_2226": 979706.4531337832,
+      "superseded_v4_diagnostic_central_population_2226": 1666523.194031634,
+      "wpp_population_2100": 1975268.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 7.03345978858361e-06,
+      "iso3": "TON",
+      "name": "Tonga",
+      "population_2226": 58465.90806032603,
+      "superseded_v4_diagnostic_central_population_2226": 121911.65220294172,
+      "wpp_population_2100": 117878.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 5.3850079403751675e-05,
+      "iso3": "TTO",
+      "name": "Trinidad and Tobago",
+      "population_2226": 447630.8795525256,
+      "superseded_v4_diagnostic_central_population_2226": 567804.1185697997,
+      "wpp_population_2100": 902506.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0012045725359549327,
+      "iso3": "TUN",
+      "name": "Tunisia",
+      "population_2226": 10013056.057197884,
+      "superseded_v4_diagnostic_central_population_2226": 7697802.941327381,
+      "wpp_population_2100": 10690654.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.008402128125630948,
+      "iso3": "TUR",
+      "name": "Türkiye",
+      "population_2226": 69843016.8466412,
+      "superseded_v4_diagnostic_central_population_2226": 40089843.46509977,
+      "wpp_population_2100": 65666935.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 7.312821999769315e-07,
+      "iso3": "TUV",
+      "name": "Tuvalu",
+      "population_2226": 6078.811730665229,
+      "superseded_v4_diagnostic_central_population_2226": 13371.45029321584,
+      "wpp_population_2100": 12256.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0019170987474757964,
+      "iso3": "TWN",
+      "name": "China, Taiwan Province of China",
+      "population_2226": 15935957.904304396,
+      "superseded_v4_diagnostic_central_population_2226": 5383323.031536088,
+      "wpp_population_2100": 10077143.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.015614587122145243,
+      "iso3": "TZA",
+      "name": "United Republic of Tanzania",
+      "population_2226": 129796862.78509848,
+      "superseded_v4_diagnostic_central_population_2226": 424622615.9161733,
+      "wpp_population_2100": 261694295.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.007209282440488932,
+      "iso3": "UGA",
+      "name": "Uganda",
+      "population_2226": 59927440.69294372,
+      "superseded_v4_diagnostic_central_population_2226": 129697938.34224837,
+      "wpp_population_2100": 120824718.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.0020019271986306247,
+      "iso3": "UKR",
+      "name": "Ukraine",
+      "population_2226": 16641097.703947268,
+      "superseded_v4_diagnostic_central_population_2226": 6661081.438564924,
+      "wpp_population_2100": 15322504.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.00013468904250040197,
+      "iso3": "URY",
+      "name": "Uruguay",
+      "population_2226": 1119607.9045399148,
+      "superseded_v4_diagnostic_central_population_2226": 1346869.1893622696,
+      "wpp_population_2100": 2257335.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.046489315131579,
+      "iso3": "USA",
+      "name": "United States of America",
+      "population_2226": 386444240.2417968,
+      "superseded_v4_diagnostic_central_population_2226": 458989473.4534347,
+      "wpp_population_2100": 421007222.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.004428860580947741,
+      "iso3": "UZB",
+      "name": "Uzbekistan",
+      "population_2226": 36815075.84048295,
+      "superseded_v4_diagnostic_central_population_2226": 91904845.47001499,
+      "wpp_population_2100": 74225949.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 8.108783532707651e-08,
+      "iso3": "VAT",
+      "name": "Holy See",
+      "population_2226": 674.0457850827387,
+      "superseded_v4_diagnostic_central_population_2226": 1853.3553504612748,
+      "wpp_population_2100": 1359.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 3.845973952669147e-06,
+      "iso3": "VCT",
+      "name": "Saint Vincent and the Grenadines",
+      "population_2226": 31969.808071433472,
+      "superseded_v4_diagnostic_central_population_2226": 44113.016229614834,
+      "wpp_population_2100": 64456.99999999999
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0016917923713479046,
+      "iso3": "VEN",
+      "name": "Venezuela (Bolivarian Republic of)",
+      "population_2226": 14063089.889407951,
+      "superseded_v4_diagnostic_central_population_2226": 22328084.55916573,
+      "wpp_population_2100": 28353770.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 1.6706242099505634e-06,
+      "iso3": "VGB",
+      "name": "British Virgin Islands",
+      "population_2226": 13887.128724452983,
+      "superseded_v4_diagnostic_central_population_2226": 19165.37463750102,
+      "wpp_population_2100": 27999.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 3.702891812040502e-06,
+      "iso3": "VIR",
+      "name": "United States Virgin Islands",
+      "population_2226": 30780.432212251424,
+      "superseded_v4_diagnostic_central_population_2226": 54140.83661142026,
+      "wpp_population_2100": 62059.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.010935356251964174,
+      "iso3": "VNM",
+      "name": "Viet Nam",
+      "population_2226": 90900574.1771646,
+      "superseded_v4_diagnostic_central_population_2226": 71720432.58543909,
+      "wpp_population_2100": 91954468.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 5.210570643407758e-05,
+      "iso3": "VUT",
+      "name": "Vanuatu",
+      "population_2226": 433130.71139439906,
+      "superseded_v4_diagnostic_central_population_2226": 1185508.97073794,
+      "wpp_population_2100": 873271.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 4.1259925039494786e-07,
+      "iso3": "WLF",
+      "name": "Wallis and Futuna Islands",
+      "population_2226": 3429.747317032479,
+      "superseded_v4_diagnostic_central_population_2226": 4062.9454300724205,
+      "wpp_population_2100": 6915.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 2.2850719063557886e-05,
+      "iso3": "WSM",
+      "name": "Samoa",
+      "population_2226": 189947.49099878687,
+      "superseded_v4_diagnostic_central_population_2226": 470068.00525377353,
+      "wpp_population_2100": 382969.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 6.56986291283616e-05,
+      "iso3": "XKX",
+      "name": "Kosovo (under UNSC res. 1244)",
+      "population_2226": 546122.4099898876,
+      "superseded_v4_diagnostic_central_population_2226": 617234.5427723287,
+      "wpp_population_2100": 1101083.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.006557071918402947,
+      "iso3": "YEM",
+      "name": "Yemen",
+      "population_2226": 54505915.36025458,
+      "superseded_v4_diagnostic_central_population_2226": 132579854.12343459,
+      "wpp_population_2100": 109893928.0
+    },
+    {
+      "allocation_class": "RECOVERED_V2_1_NAMED_80_RENORMALIZED",
+      "earth_share_2226": 0.01059705026135436,
+      "iso3": "ZAF",
+      "name": "South Africa",
+      "population_2226": 88088392.47174619,
+      "superseded_v4_diagnostic_central_population_2226": 105480740.2345273,
+      "wpp_population_2100": 94206139.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.003837050651079008,
+      "iso3": "ZMB",
+      "name": "Zambia",
+      "population_2226": 31895632.779891968,
+      "superseded_v4_diagnostic_central_population_2226": 87388500.3577341,
+      "wpp_population_2100": 64307449.0
+    },
+    {
+      "allocation_class": "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL",
+      "earth_share_2226": 0.0022155389980618987,
+      "iso3": "ZWE",
+      "name": "Zimbabwe",
+      "population_2226": 18416754.095190346,
+      "superseded_v4_diagnostic_central_population_2226": 42722927.04662053,
+      "wpp_population_2100": 37131556.0
+    }
+  ],
+  "method": {
+    "demographic_only_157_rule": "allocate recovered v2.1 ROW residual by UN WPP 2024 Medium 2100 Jan-1 population share",
+    "free_parameters_added": 0,
+    "id": "CANON_PARENT_X_RECOVERED_V2_1_COUNTRY_SHAPE_WITH_WPP_ROW_DISAGGREGATION",
+    "named_80_rule": "preserve frozen v2.1 2226 country shares and renormalize to canon Earth parent",
+    "recovered_allocator": {
+      "audit_rows": 162,
+      "country_rows_per_year": 81,
+      "decision_basis": "Independent review preferred v2.1; full 81-row reconciliation verified; four constants explicitly declared, not fitted.",
+      "freeze_id": "FREEZE:DEMOGRAPHIC_V2_1",
+      "frozen_earth_parent_2226": 6553512340.0,
+      "limitations": "Aggregate allocator; no explicit migration term; no dense recovered intermediate trajectory; geometric-mean endpoint development proxy retained.",
+      "model_id": "DEMOGRAPHIC_ALLOCATION_V2_1",
+      "status": "FROZEN_GAMEPLAY_DEMOGRAPHIC_ALLOCATOR"
+    },
+    "recovered_allocator_source": "data/LOOM_2226_CIVSTATE.sqlite3",
+    "recovered_allocator_source_sha256": "9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560",
+    "renormalization_factor": 1.268409741818801,
+    "wpp_source": "/home/ubuntu/LOOM_Earth2026/raw/WPP2024_Demographic_Indicators_Medium.csv.gz",
+    "wpp_source_sha256": "286ac36bb1415e2e1ade03acfef0a29f0e4c087e2f78e38c48f50c5df89082bc"
+  },
+  "schema": "loom-earth-v4-demographic-authority-correction-v1",
+  "scope": "2226 Earth biological population endpoint only; 237 WPP Country/Area identities",
+  "status": "SELECTED_2226_CANON_CONSTRAINED_COUNTRY_ALLOCATION",
+  "top_20_population_2226": [
+    {
+      "iso3": "IND",
+      "name": "India",
+      "population": 1388480379.4332051,
+      "rank": 1
+    },
+    {
+      "iso3": "CHN",
+      "name": "China",
+      "population": 931532226.0230095,
+      "rank": 2
+    },
+    {
+      "iso3": "PAK",
+      "name": "Pakistan",
+      "population": 439600942.1273963,
+      "rank": 3
+    },
+    {
+      "iso3": "USA",
+      "name": "United States of America",
+      "population": 386444240.2417968,
+      "rank": 4
+    },
+    {
+      "iso3": "COD",
+      "name": "Democratic Republic of the Congo",
+      "population": 360927617.4447752,
+      "rank": 5
+    },
+    {
+      "iso3": "NGA",
+      "name": "Nigeria",
+      "population": 320737747.4864204,
+      "rank": 6
+    },
+    {
+      "iso3": "IDN",
+      "name": "Indonesia",
+      "population": 282015639.70402354,
+      "rank": 7
+    },
+    {
+      "iso3": "ETH",
+      "name": "Ethiopia",
+      "population": 181730010.85392302,
+      "rank": 8
+    },
+    {
+      "iso3": "BGD",
+      "name": "Bangladesh",
+      "population": 180610004.92013842,
+      "rank": 9
+    },
+    {
+      "iso3": "EGY",
+      "name": "Egypt",
+      "population": 168323017.04861468,
+      "rank": 10
+    },
+    {
+      "iso3": "BRA",
+      "name": "Brazil",
+      "population": 166344904.71205854,
+      "rank": 11
+    },
+    {
+      "iso3": "RUS",
+      "name": "Russian Federation",
+      "population": 140717102.39542377,
+      "rank": 12
+    },
+    {
+      "iso3": "TZA",
+      "name": "United Republic of Tanzania",
+      "population": 129796862.78509848,
+      "rank": 13
+    },
+    {
+      "iso3": "MEX",
+      "name": "Mexico",
+      "population": 121781356.43292457,
+      "rank": 14
+    },
+    {
+      "iso3": "PHL",
+      "name": "Philippines",
+      "population": 106324131.07086691,
+      "rank": 15
+    },
+    {
+      "iso3": "JPN",
+      "name": "Japan",
+      "population": 103379127.50889748,
+      "rank": 16
+    },
+    {
+      "iso3": "VNM",
+      "name": "Viet Nam",
+      "population": 90900574.1771646,
+      "rank": 17
+    },
+    {
+      "iso3": "ZAF",
+      "name": "South Africa",
+      "population": 88088392.47174619,
+      "rank": 18
+    },
+    {
+      "iso3": "AGO",
+      "name": "Angola",
+      "population": 87242959.96186487,
+      "rank": 19
+    },
+    {
+      "iso3": "DEU",
+      "name": "Germany",
+      "population": 81999226.22024998,
+      "rank": 20
+    }
+  ]
+}
