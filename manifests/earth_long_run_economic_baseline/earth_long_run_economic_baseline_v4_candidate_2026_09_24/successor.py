@@ -108,6 +108,16 @@ def repair_seed(source, sectors, assets, countries):
     keys = ("value_added", "gross_output", "capital", "investment", "employment")
     for iso, sector in qualifying_nodes(source, state):
         node = (iso, sector)
+        # The four-asset reconstruction, rather than the earlier macro-sector
+        # scalar capital allocation, is the qualified input to the bridge.
+        # Recover its sector totals before redistributing the country envelope.
+        for (i, s), row in state.items():
+            if i == iso:
+                row["capital"] = sum(a["capital"] for (j, t, _), a in asset_state.items()
+                                     if j == iso and t == s)
+        if not math.isclose(sum(row["capital"] for (i, _), row in state.items() if i == iso),
+                            countries[iso]["capital"], rel_tol=1e-10):
+            raise ValueError(f"asset-backed national capital mismatch {iso}")
         country, old = countries[iso], state[node]
         if min(country[k] for k in keys) <= 0:
             raise ValueError(f"invalid country total for {node}")
@@ -145,8 +155,12 @@ def repair_seed(source, sectors, assets, countries):
             rows = {cls: asset_state.get((iso, s, cls)) for cls in classes}
             existing = sum((r["capital"] if r else 0) for r in rows.values())
             for cls in classes:
-                fraction = ((rows[cls]["capital"] / existing) if existing > 0 and rows[cls]
-                            else class_cap[cls] / total_class_cap)
+                # The qualifying node's old assets are epsilon placeholders,
+                # not an observed class mix. Use country asset-class proportions
+                # for it and retain each donor sector's established proportions.
+                fraction = (class_cap[cls] / total_class_cap if s == sector else
+                            rows[cls]["capital"] / existing if existing > 0 and rows[cls] else
+                            class_cap[cls] / total_class_cap)
                 if rows[cls] is None:
                     rows[cls] = {"iso3": iso, "sector": s, "asset_class": cls}
                     asset_state[(iso, s, cls)] = rows[cls]
@@ -157,6 +171,10 @@ def repair_seed(source, sectors, assets, countries):
             if srow["value_added"] > 0 and srow["capital"] > 0 and labor > 0:
                 srow["operative_A_2026"] = srow["value_added"] / (
                     country["country_tfp_multiplier"] * srow["capital"] ** alpha * labor ** (1-alpha))
+        for cls in classes:
+            observed = sum(a["capital"] for (i, _, c), a in asset_state.items() if i == iso and c == cls)
+            if not math.isclose(observed, class_cap[cls], rel_tol=1e-10, abs_tol=1e-6):
+                raise ValueError(f"national asset-class capital changed {iso} {cls}")
         for key in keys:
             actual = sum(r[key] for (i, _), r in state.items() if i == iso)
             if not math.isclose(actual, country[key], rel_tol=1e-10, abs_tol=1e-6):

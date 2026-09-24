@@ -13,6 +13,7 @@ The unchanged v3 [data dictionary](../earth_long_run_economic_baseline_v3_repair
 | `RECONSTRUCTION_TRACE.json.source_current_va_2024` | Original signed OECD current-price accounting observation, USD million. Never overwritten by modeled positive VA. |
 | `reconstructed_modeled_va_2026` | `2026 modeled gross output × 2024 PYP VA / 2024 PYP gross output`, in model proxy units. It is a production reconstruction, not an OECD source observation. |
 | `operative_A_2026` | Production parameter inferred from reconstructed modeled VA, capital, employment, country TFP and alpha. Historical `cobb_douglas_A_2026` is retained separately. |
+| `REDISTRIBUTION_PROVENANCE.json` | Every 2026 sector and asset-capital cell altered by the repair, with target/donor role, original and candidate modeled values, source hashes and method ID. These are modeled changes; the signed source accounting file remains untouched. |
 | `CANDIDATE_2060_MANIFEST.json.status` | Explicit inherited 2031–2060 review status. It does not designate a governed frozen baseline. |
 | Candidate annual economic values | Inherited v3 constant-2015-USD-scale model proxy units. No physical capacity, purchasing-power forecast, canon or synthetic labor is inferred. |
 

@@ -168,8 +168,26 @@ def main():
                                              - v3_end[iso]["value_added"]/v3["boundaries"]["2226"]["value_added"]),
                   "population_delta": suc_end[iso]["population"]-v3_end[iso]["population"]}
             for iso in sorted(v3_end)}
+    review_isos = json.loads((HERE / "review_economies.json").read_text())["iso3"]
+    trajectories = {}
+    for name, arm_data in (("V3_CONTROL", v3), ("SUCCESSOR_80", successor)):
+        trajectories[name] = {}
+        for year, year_rows in arm_data["country_rows"].items():
+            mapping = {r["iso3"]: r for r in year_rows}
+            total_va = arm_data["boundaries"][str(year)]["value_added"]
+            trajectories[name][str(year)] = {
+                iso: {"population": mapping[iso]["population"], "value_added": mapping[iso]["value_added"],
+                      "va_share": mapping[iso]["value_added"] / total_va}
+                for iso in review_isos}
     comparison = {"schema": "loom-earth-v4-controlled-comparison-v1",
                   "V3_CONTROL": v3["boundaries"], "SUCCESSOR_80": successor["boundaries"],
+                  "review_economy_trajectories": trajectories,
+                  "concentration": {"V3_CONTROL": v3["descriptives"]["concentration_2226"],
+                                    "SUCCESSOR_80": successor["descriptives"]["concentration_2226"]},
+                  "sector_composition": {"V3_CONTROL": v3["sector_composition"],
+                                         "SUCCESSOR_80": successor["sector_composition"]},
+                  "asset_composition": {"V3_CONTROL": v3["asset_composition"],
+                                        "SUCCESSOR_80": successor["asset_composition"]},
                   "A_to_B_2226_country_effects": diff,
                   "A_to_B_2226_global_delta": {field: successor["boundaries"]["2226"][field]-v3["boundaries"]["2226"][field]
                                                for field in ("population", "value_added", "capital", "investment")},
