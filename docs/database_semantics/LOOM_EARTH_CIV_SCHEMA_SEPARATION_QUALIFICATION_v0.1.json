@@ -1,0 +1,87 @@
+{
+  "schema": "loom-earth-civ-schema-separation-qualification-v0.1",
+  "database": "loom_dev",
+  "postgresql": "16.15",
+  "migration": "008_earth_schema_separation",
+  "migration_sha256": "ae01512d758fa4d5fb3f5608c20b20756e95e6df87473c48dbb67edea9804360",
+  "earth_snapshot": "earth-v0-1-9934d0ac-20260925",
+  "civ_snapshot": "ceres-v1-0231e5f7da744728ab5021268b6f239b",
+  "row_content_equivalence": "PASS",
+  "earth_table_fingerprints": {
+    "earth_area": {
+      "rows": 237,
+      "sha256": "5922364eb35a643444ea387aa1e581bf589a8679539538afe5d4fab31208f275"
+    },
+    "earth_biological_cohort_year": {
+      "rows": 2657718,
+      "sha256": "b4f242d8ccaa8e7c520019ab7df055278249858a58efeb78c51c5a3be5bb76d9"
+    },
+    "earth_demographic_year": {
+      "rows": 47637,
+      "sha256": "5b99a6539a833ad3bdb8645cca8b3c45f9b67b4e1c52c7f42e772cd91440d3ba"
+    },
+    "earth_derivation": {
+      "rows": 7,
+      "sha256": "346b011071c1950ae52eeb9bbb20837ea5d92bd28266d2add2279a908d49aaf0"
+    },
+    "earth_economic_year": {
+      "rows": 16080,
+      "sha256": "541271623fe25641f5ce553f6260e8f2841e19eeefd446539f70856880178035"
+    },
+    "earth_labor_composition_year": {
+      "rows": 10160,
+      "sha256": "d65cbba118f21f1df8b2e737ab93a2a7269fd1657c89ad332e3e68c44f1ac315"
+    },
+    "earth_legacy_labor_year": {
+      "rows": 6000,
+      "sha256": "ef43916a6f4867c2c04f18c3e2652cf155fdd73588997d78f9bd74edc195a0b4"
+    },
+    "earth_sector_asset_year": {
+      "rows": 643200,
+      "sha256": "d0e94d0dfc5fa51290d2f862ea26686481e6d1f03c4949e285a2e458b330b53e"
+    },
+    "earth_sector_year": {
+      "rows": 160800,
+      "sha256": "9100079d7c8f91a2aa9605a6c1091a26fdc3a81c9d5cb22d2debd4ccc9a38302"
+    }
+  },
+  "coverage": {
+    "demography": [
+      2026,
+      2226
+    ],
+    "economics": [
+      2026,
+      2226
+    ],
+    "legacy_labor": [
+      2026,
+      2100
+    ],
+    "biosynthetic_labor": [
+      2100,
+      2226
+    ]
+  },
+  "workforce_invariant": "80/80 PASS",
+  "endpoint_reconciliation": "PASS",
+  "narrator_views": "PASS",
+  "stale_runtime_references": 0,
+  "historical_migration_references": [
+    "004_earth_temporal_authority",
+    "005_earth_narrator_views",
+    "006_earth_narrator_recognized_fix"
+  ],
+  "earth_civ_contamination": "NONE_FOUND",
+  "model_outputs_changed": false,
+  "canon_changed": false,
+  "sqlite_changed": false,
+  "backup": {
+    "path": "/home/ubuntu/LOOM_ARCHIVE/POSTGRES/2026-09-25/loom_dev_earth_civ_separated_20260925.dump",
+    "bytes": 92333074,
+    "sha256": "9b8593184a5efbd5c8ff4400415634bb2ee3b05e1b9cf21b316478d105fffc00",
+    "restore_database": "loom_earth_schema_restore_20260925",
+    "restore": "PASS",
+    "dropped": true
+  }
+}

@@ -244,7 +244,7 @@ def import_stage(args):
     for did,method,artifact in [("V4_2026_2030","promoted v4 stage 2026-2031",args.v4/"stage_2026_2031/countries_2026_2031.ndjson"),("V4_2031_2059","promoted v4 stage 2031-2060",args.v4/"stage_2031_2060/countries_2031_2060.ndjson"),("V4_2060_2100","promoted v4 successor_80 trajectory",args.v4/"successor_80_2226/results/countries_2060_2226.ndjson")]: derivs.append((did,V4_MODEL,method,"QUALIFIED_MODEL",None,str(artifact)))
     for did,model,method,status,scenario,path in derivs:
         digest=artifacts[path]["sha256"]
-        sql.append(f"INSERT INTO loom_civ.earth_derivation VALUES ({sqlq(SNAPSHOT_ID)},{sqlq(did)},{sqlq(model)},{sqlq(method)},{sqlq(status)},{sqlq(scenario)},{sqlq(digest)},{sqlq('Source bytes remain outside PostgreSQL and are hash pinned.')});")
+        sql.append(f"INSERT INTO loom_earth.earth_derivation VALUES ({sqlq(SNAPSHOT_ID)},{sqlq(did)},{sqlq(model)},{sqlq(method)},{sqlq(status)},{sqlq(scenario)},{sqlq(digest)},{sqlq('Source bytes remain outside PostgreSQL and are hash pinned.')});")
     contexts={
       "model_designation":MODEL,"selected_scenario":SCENARIO,"authority_main_sha":AUTHORITY_SHA,"promotion_merge_sha":PROMOTION_MERGE,"promotion_manifest_sha256":PROMOTION_MANIFEST_SHA,"research_lab_source_sha":LAB_SHA,"v4_predecessor":V4_MODEL,
       "fertility_path":{"status":"setting calibration","anchors":{"2100":1.838,"2125":1.802,"2150":1.790,"2175":1.815,"2200":1.846,"2226":1.880}},
@@ -280,28 +280,28 @@ def verify(args,validate=False):
     state=q(f"SELECT state FROM loom_control.snapshot WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")
     if not state: raise ValueError("snapshot missing")
     checks={
-      "areas":int(q(f"SELECT count(*) FROM loom_civ.earth_area WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
-      "demography":int(q(f"SELECT count(*) FROM loom_civ.earth_demographic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
-      "cohorts":int(q(f"SELECT count(*) FROM loom_civ.earth_biological_cohort_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
-      "economics":int(q(f"SELECT count(*) FROM loom_civ.earth_economic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
-      "sectors":int(q(f"SELECT count(*) FROM loom_civ.earth_sector_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
-      "assets":int(q(f"SELECT count(*) FROM loom_civ.earth_sector_asset_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
-      "legacy_labor":int(q(f"SELECT count(*) FROM loom_civ.earth_legacy_labor_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
-      "labor":int(q(f"SELECT count(*) FROM loom_civ.earth_labor_composition_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
+      "areas":int(q(f"SELECT count(*) FROM loom_earth.earth_area WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
+      "demography":int(q(f"SELECT count(*) FROM loom_earth.earth_demographic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
+      "cohorts":int(q(f"SELECT count(*) FROM loom_earth.earth_biological_cohort_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
+      "economics":int(q(f"SELECT count(*) FROM loom_earth.earth_economic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
+      "sectors":int(q(f"SELECT count(*) FROM loom_earth.earth_sector_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
+      "assets":int(q(f"SELECT count(*) FROM loom_earth.earth_sector_asset_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
+      "legacy_labor":int(q(f"SELECT count(*) FROM loom_earth.earth_legacy_labor_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
+      "labor":int(q(f"SELECT count(*) FROM loom_earth.earth_labor_composition_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)}")),
     }
     expected=json.loads((args.stage/"IMPORT_MANIFEST.json").read_text())["table_counts"]
     mapping={"areas":"earth_area","demography":"earth_demographic_year","cohorts":"earth_biological_cohort_year","economics":"earth_economic_year","sectors":"earth_sector_year","assets":"earth_sector_asset_year","legacy_labor":"earth_legacy_labor_year","labor":"earth_labor_composition_year"}
     if any(checks[k]!=expected[v] for k,v in mapping.items()): raise ValueError(f"row count mismatch {checks} vs {expected}")
-    if q(f"SELECT count(*) FROM loom_civ.earth_demographic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} GROUP BY year HAVING count(*)<>237 LIMIT 1"): raise ValueError("demographic annual coverage failure")
-    if q(f"SELECT count(*) FROM loom_civ.earth_economic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} GROUP BY year HAVING count(*)<>80 LIMIT 1"): raise ValueError("economic annual coverage failure")
-    workforce=int(q(f"SELECT count(*) FROM loom_civ.earth_labor_composition_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} AND year=2226 AND biological_effective_labor<=labor_capable_biological_population+1e-6 AND labor_capable_biological_population<=biological_population+1e-6"))
+    if q(f"SELECT count(*) FROM loom_earth.earth_demographic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} GROUP BY year HAVING count(*)<>237 LIMIT 1"): raise ValueError("demographic annual coverage failure")
+    if q(f"SELECT count(*) FROM loom_earth.earth_economic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} GROUP BY year HAVING count(*)<>80 LIMIT 1"): raise ValueError("economic annual coverage failure")
+    workforce=int(q(f"SELECT count(*) FROM loom_earth.earth_labor_composition_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} AND year=2226 AND biological_effective_labor<=labor_capable_biological_population+1e-6 AND labor_capable_biological_population<=biological_population+1e-6"))
     if workforce!=80: raise ValueError(f"workforce invariant {workforce}/80")
-    bad=int(q(f"SELECT count(*) FROM loom_civ.earth_labor_composition_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} AND (abs(recognized_person_population-biological_population-synthetic_population)>1e-5 OR abs(total_effective_labor-biological_effective_labor-synthetic_effective_labor-machine_task_capacity)>1e-5)"))
+    bad=int(q(f"SELECT count(*) FROM loom_earth.earth_labor_composition_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} AND (abs(recognized_person_population-biological_population-synthetic_population)>1e-5 OR abs(total_effective_labor-biological_effective_labor-synthetic_effective_labor-machine_task_capacity)>1e-5)"))
     if bad: raise ValueError(f"category identity failures: {bad}")
-    endpoint=[float(x) for x in q(f"SELECT d.biological_population,l.synthetic_population,d.biological_population+l.synthetic_population,l.biological_effective_labor,l.synthetic_effective_labor,l.machine_task_capacity,l.total_effective_labor FROM (SELECT sum(biological_population) biological_population FROM loom_civ.earth_demographic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} AND year=2226) d CROSS JOIN (SELECT sum(synthetic_population) synthetic_population,sum(biological_effective_labor) biological_effective_labor,sum(synthetic_effective_labor) synthetic_effective_labor,sum(machine_task_capacity) machine_task_capacity,sum(total_effective_labor) total_effective_labor FROM loom_civ.earth_labor_composition_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} AND year=2226) l").split("|")]
+    endpoint=[float(x) for x in q(f"SELECT d.biological_population,l.synthetic_population,d.biological_population+l.synthetic_population,l.biological_effective_labor,l.synthetic_effective_labor,l.machine_task_capacity,l.total_effective_labor FROM (SELECT sum(biological_population) biological_population FROM loom_earth.earth_demographic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} AND year=2226) d CROSS JOIN (SELECT sum(synthetic_population) synthetic_population,sum(biological_effective_labor) biological_effective_labor,sum(synthetic_effective_labor) synthetic_effective_labor,sum(machine_task_capacity) machine_task_capacity,sum(total_effective_labor) total_effective_labor FROM loom_earth.earth_labor_composition_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} AND year=2226) l").split("|")]
     target=[7163281708.265873,9672505.78986048,7172954214.055734,1455527766.770138,10881569.013593039,52627339.05102448,1519036674.8347554]
     if any(not math.isclose(a,b,rel_tol=2e-12,abs_tol=1e-5) for a,b in zip(endpoint,target)): raise ValueError(f"endpoint mismatch {endpoint}")
-    va=float(q(f"SELECT sum(value_added) FROM loom_civ.earth_economic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} AND year=2226"))
+    va=float(q(f"SELECT sum(value_added) FROM loom_earth.earth_economic_year WHERE snapshot_id={sqlq(SNAPSHOT_ID)} AND year=2226"))
     if not math.isclose(va,241453886085432.44,rel_tol=2e-12): raise ValueError(f"VA endpoint mismatch {va}")
     ceres=q("SELECT state FROM loom_control.snapshot WHERE snapshot_id='ceres-v1-0231e5f7da744728ab5021268b6f239b'")
     if ceres!="VALIDATED": raise ValueError("prior Ceres snapshot changed")

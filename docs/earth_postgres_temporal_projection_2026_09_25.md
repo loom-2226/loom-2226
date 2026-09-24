@@ -16,9 +16,14 @@ the promoted runner with `summary_only=false`; their hashes are in the
 snapshot source registry and the staging import manifest. The projection
 contains 237 demographic areas, 80 qualified economic economies, annual sector
 and asset rows, embedded semantic definitions, model context, temporal
-coverage, source hashes, and narrator views under `loom_narrator`.
+coverage, source hashes, and narrator views under `loom_narrator`. Longitudinal
+Earth base tables are in `loom_earth`; `loom_civ` contains CIVSTATE `civ_*`
+tables only.
 
-The prior accepted Ceres snapshot remains unchanged. A durable custom-format
-backup is recorded in `data/postgres/earth_temporal_projection_manifest.json`.
-Disposable restore was not possible because the local PostgreSQL role lacks
-`CREATEDB` permission.
+The prior accepted Ceres snapshot remains unchanged. The post-separation
+custom-format backup is `/home/ubuntu/LOOM_ARCHIVE/POSTGRES/2026-09-25/loom_dev_earth_civ_separated_20260925.dump` and its restore was qualified in a
+disposable database. The compact namespace qualification and backup evidence
+is recorded in
+`docs/database_semantics/LOOM_EARTH_CIV_SCHEMA_SEPARATION_QUALIFICATION_v0.1.json`.
+The post-separation backup SHA-256 is
+`9b8593184a5efbd5c8ff4400415634bb2ee3b05e1b9cf21b316478d105fffc00`.
