@@ -25,3 +25,5 @@ custom-format backup is `/home/ubuntu/LOOM_ARCHIVE/POSTGRES/2026-09-25/loom_dev_
 disposable database. The compact namespace qualification and backup evidence
 is recorded in
 `docs/database_semantics/LOOM_EARTH_CIV_SCHEMA_SEPARATION_QUALIFICATION_v0.1.json`.
+The post-separation backup SHA-256 is
+`9b8593184a5efbd5c8ff4400415634bb2ee3b05e1b9cf21b316478d105fffc00`.
