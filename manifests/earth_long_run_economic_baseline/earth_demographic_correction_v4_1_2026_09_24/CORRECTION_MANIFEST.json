@@ -1,0 +1,28 @@
+{
+  "files": {
+    "DEMOGRAPHIC_CORRECTION_DECISION.md": {
+      "bytes": 5099,
+      "path": "manifests/earth_long_run_economic_baseline/earth_demographic_correction_v4_1_2026_09_24/DEMOGRAPHIC_CORRECTION_DECISION.md",
+      "sha256": "b5194079b806b3dac43827c8c69058a810e0de7d89cd13e3e80b13dba5d1bb0c"
+    },
+    "EARTH_2226_COUNTRY_POPULATION.csv": {
+      "bytes": 30298,
+      "path": "manifests/earth_long_run_economic_baseline/earth_demographic_correction_v4_1_2026_09_24/EARTH_2226_COUNTRY_POPULATION.csv",
+      "sha256": "cd3793771e0ead1a3e816693cf0de525dbec7face9b399198425e0ba55ec049e"
+    },
+    "EARTH_2226_DEMOGRAPHIC_AUTHORITY.json": {
+      "bytes": 86832,
+      "path": "manifests/earth_long_run_economic_baseline/earth_demographic_correction_v4_1_2026_09_24/EARTH_2226_DEMOGRAPHIC_AUTHORITY.json",
+      "sha256": "4b16305c4903b17955dd1efe7a06232c2f1a618f7ee7b8e5e2e0011b6abcc83c"
+    },
+    "build_demographic_correction.py": {
+      "bytes": 11150,
+      "path": "manifests/earth_long_run_economic_baseline/earth_demographic_correction_v4_1_2026_09_24/build_demographic_correction.py",
+      "sha256": "81338a5c6b15249eb9967509f85efc7c74bad27c7706d0cb718a08ae3888203e"
+    }
+  },
+  "schema": "loom-earth-v4-demographic-correction-manifest-v1",
+  "selected_year": 2226,
+  "status": "ACTIVE_DATA_INTEGRATION_SUPPLEMENT",
+  "target_baseline": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24"
+}

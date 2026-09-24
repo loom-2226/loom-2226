@@ -12,7 +12,10 @@ import zipfile
 from pathlib import Path
 
 
-CURRENT_POINTER = Path(__file__).resolve().parents[1] / "EARTH_LONG_RUN_ECONOMIC_BASELINE_CURRENT.json"
+BASELINE_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[3]
+CURRENT_POINTER = BASELINE_ROOT / "EARTH_LONG_RUN_ECONOMIC_BASELINE_CURRENT.json"
+DEMOGRAPHIC_POINTER = BASELINE_ROOT / "EARTH_DEMOGRAPHIC_AUTHORITY_CURRENT.json"
 
 
 class BaselineResolutionError(ValueError):
@@ -139,6 +142,77 @@ def resolve(pointer_path: Path = CURRENT_POINTER) -> dict:
         if any(set(scenario["country_population_2226"]) != demographic
                for scenario in sensitivity["scenarios"].values()):
             raise BaselineResolutionError("V4 demographic envelope incomplete")
+
+        # PR #267 made the aggregate half-life tail non-authoritative. The
+        # additive v4.1 supplement selects a 2226 endpoint without rewriting
+        # the immutable promoted-v4 records or inventing an annual trajectory.
+        demographic_pointer = _json(DEMOGRAPHIC_POINTER)
+        if (demographic_pointer.get("schema") != "loom-earth-demographic-authority-pointer-v1" or
+                demographic_pointer.get("status") != "ACTIVE" or
+                demographic_pointer.get("economic_baseline_designation") != manifest["designation"] or
+                demographic_pointer.get("selected_year") != 2226):
+            raise BaselineResolutionError("V4 demographic authority pointer invalid")
+        correction_manifest_path = REPO_ROOT / demographic_pointer["active_manifest"]
+        _check(correction_manifest_path, demographic_pointer["active_manifest_sha256"])
+        correction_manifest = _json(correction_manifest_path)
+        if (correction_manifest.get("schema") != "loom-earth-v4-demographic-correction-manifest-v1" or
+                correction_manifest.get("status") != "ACTIVE_DATA_INTEGRATION_SUPPLEMENT" or
+                correction_manifest.get("target_baseline") != manifest["designation"] or
+                correction_manifest.get("selected_year") != 2226):
+            raise BaselineResolutionError("V4 demographic correction manifest invalid")
+        correction_files = correction_manifest.get("files", {})
+        required_correction_files = {
+            "DEMOGRAPHIC_CORRECTION_DECISION.md",
+            "EARTH_2226_COUNTRY_POPULATION.csv",
+            "EARTH_2226_DEMOGRAPHIC_AUTHORITY.json",
+            "build_demographic_correction.py",
+        }
+        if set(correction_files) != required_correction_files:
+            raise BaselineResolutionError("V4 demographic correction file register invalid")
+        correction_paths = {}
+        for name, item in correction_files.items():
+            path = REPO_ROOT / item["path"]
+            _check(path, item["sha256"], item["bytes"])
+            correction_paths[name] = path
+            checked += 1
+        correction = _json(correction_paths["EARTH_2226_DEMOGRAPHIC_AUTHORITY.json"])
+        if (correction.get("schema") != "loom-earth-v4-demographic-authority-correction-v1" or
+                correction.get("status") != "SELECTED_2226_CANON_CONSTRAINED_COUNTRY_ALLOCATION"):
+            raise BaselineResolutionError("V4 demographic correction authority invalid")
+        authority = correction["authority"]
+        method = correction["method"]
+        checks = correction["checks"]
+        rows = correction["countries"]
+        if (authority["wpp_authority_through_year"] != 2100 or
+                authority["cohort_detail_status"] != "NOT_REPROMOTED_BY_THIS_CORRECTION" or
+                method["free_parameters_added"] != 0 or
+                checks["country_area_count"] != 237 or
+                checks["economic_80_count"] != 80 or
+                checks["demographic_only_count"] != 157 or
+                len(rows) != 237 or
+                len({row["iso3"] for row in rows}) != 237 or
+                {row["iso3"] for row in rows} != demographic or
+                any(row["population_2226"] <= 0 for row in rows)):
+            raise BaselineResolutionError("V4 selected demographic endpoint failed structural checks")
+        selected_total = sum(row["population_2226"] for row in rows)
+        canon_total = authority["canon_earth_biological_population_2226"]
+        if (abs(selected_total - canon_total) > 1e-3 or
+                abs(checks["selected_population_sum"] - canon_total) > 1e-3 or
+                abs(checks["canon_parent_difference"]) > 1e-3 or
+                abs(canon_total - 8312538895.185726) > 1e-6):
+            raise BaselineResolutionError("V4 selected demographic endpoint does not reconcile to canon Earth")
+        if (sum(row["allocation_class"] == "RECOVERED_V2_1_NAMED_80_RENORMALIZED" for row in rows) != 80 or
+                sum(row["allocation_class"] == "WPP_2100_SHARE_OF_RECOVERED_V2_1_ROW_RESIDUAL" for row in rows) != 157):
+            raise BaselineResolutionError("V4 selected demographic allocation classes invalid")
+        for source_key, hash_key in (
+                ("canon_source", "canon_source_sha256"),
+                ("recovered_allocator_source", "recovered_allocator_source_sha256")):
+            source_path = REPO_ROOT / (authority[source_key] if source_key == "canon_source" else method[source_key])
+            expected = authority[hash_key] if source_key == "canon_source" else method[hash_key]
+            _check(source_path, expected)
+        _check(Path(method["wpp_source"]), method["wpp_source_sha256"])
+        checked += 3
+
         boundary = _json(Path(run["boundary_qualification"]["path"]))
         if (boundary["all_years_diagnostic"]["status"] != "REVIEW_RETAINED" or
                 not boundary["existing_post_transition_qualification"]["passed"] or
@@ -175,8 +249,14 @@ def resolve(pointer_path: Path = CURRENT_POINTER) -> dict:
                              "demographic_only_areas": 157},
                 "demographic_authority": {
                     "wpp_authority_through_year": 2100,
-                    "post_2100_selected_state": None,
-                    "post_2100_status": "UNSELECTED_DIAGNOSTIC_SENSITIVITY_ONLY",
+                    "post_2100_selected_state": "EARTH_2226_CANON_CONSTRAINED_COUNTRY_ALLOCATION",
+                    "post_2100_status": "SELECTED_ENDPOINT_ONLY_NO_ANNUAL_COHORT_TRAJECTORY",
+                    "selected_year": 2226,
+                    "earth_biological_population_2226": canon_total,
+                    "selected_country_area_count": len(rows),
+                    "allocation_method": method["id"],
+                    "cohort_detail_status": authority["cohort_detail_status"],
+                    "medical_longevity_lineage_status": authority["medical_longevity_lineage_status"],
                     "recovered_cohort_control_2226": 8442000000,
                     "recovered_control_status": "PROVISIONAL_PROPAGATION_DEPENDENT_NOT_GOVERNING"},
                 "artifacts": {"annual_countries": Path(outputs["successor_80_2226/results/countries_2060_2226.ndjson"]["path"]),
@@ -187,7 +267,10 @@ def resolve(pointer_path: Path = CURRENT_POINTER) -> dict:
                               "endpoint_assets": Path(outputs["successor_80_2226/results/country_sector_assets_2226.ndjson"]["path"]),
                               "complete_checkpoint_2226": checkpoint,
                               "country_evidence": Path(scope["country_evidence"]["path"]),
-                              "demographic_sensitivity": Path(scope["demographic_sensitivity"]["path"])},
+                              "demographic_sensitivity": Path(scope["demographic_sensitivity"]["path"]),
+                              "demographic_authority_2226": correction_paths["EARTH_2226_DEMOGRAPHIC_AUTHORITY.json"],
+                              "demographic_country_population_2226": correction_paths["EARTH_2226_COUNTRY_POPULATION.csv"],
+                              "demographic_correction_decision": correction_paths["DEMOGRAPHIC_CORRECTION_DECISION.md"]},
                 "verified_registered_files": checked}
 
     if manifest.get("schema") == "loom-earth-local-economic-baseline-designation-v2":

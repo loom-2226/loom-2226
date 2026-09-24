@@ -1,0 +1,10 @@
+{
+  "schema": "loom-earth-demographic-authority-pointer-v1",
+  "status": "ACTIVE",
+  "economic_baseline_designation": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+  "selected_year": 2226,
+  "active_manifest": "manifests/earth_long_run_economic_baseline/earth_demographic_correction_v4_1_2026_09_24/CORRECTION_MANIFEST.json",
+  "active_manifest_sha256": "79a12da869a3d6d511722389e0f3e0140667467ae2f5b81bdbe94a9544d7810e",
+  "supersedes_for_2226_country_population_use": "earth_long_run_economic_baseline_v4_candidate_2026_09_24/DEMOGRAPHIC_SENSITIVITY.json",
+  "superseded_artifact_status": "RETAINED_NON_SELECTED_PROVENANCE"
+}
