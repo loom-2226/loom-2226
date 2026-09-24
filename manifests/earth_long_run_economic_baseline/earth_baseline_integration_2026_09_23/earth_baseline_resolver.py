@@ -134,6 +134,8 @@ def resolve(pointer_path: Path = CURRENT_POINTER) -> dict:
         if coverage["target_economies"] != 237 or coverage["v3_modeled_economies"] != 80:
             raise BaselineResolutionError("V4 coverage report contradicts scope")
         sensitivity = _json(Path(scope["demographic_sensitivity"]["path"]))
+        if sensitivity.get("status") != "SCENARIOS_NOT_SELECTED_CENTRAL_UNCHANGED":
+            raise BaselineResolutionError("V4 demographic sensitivity authority status invalid")
         if any(set(scenario["country_population_2226"]) != demographic
                for scenario in sensitivity["scenarios"].values()):
             raise BaselineResolutionError("V4 demographic envelope incomplete")
@@ -171,6 +173,12 @@ def resolve(pointer_path: Path = CURRENT_POINTER) -> dict:
                 "policy": run["investment_policy_id"], "manifest": manifest_path,
                 "coverage": {"economic_economies": 80, "identity_demographic_areas": 237,
                              "demographic_only_areas": 157},
+                "demographic_authority": {
+                    "wpp_authority_through_year": 2100,
+                    "post_2100_selected_state": None,
+                    "post_2100_status": "UNSELECTED_DIAGNOSTIC_SENSITIVITY_ONLY",
+                    "recovered_cohort_control_2226": 8442000000,
+                    "recovered_control_status": "PROVISIONAL_PROPAGATION_DEPENDENT_NOT_GOVERNING"},
                 "artifacts": {"annual_countries": Path(outputs["successor_80_2226/results/countries_2060_2226.ndjson"]["path"]),
                               "annual_sectors": Path(outputs["successor_80_2226/results/country_sectors_2060_2226.ndjson"]["path"]),
                               "annual_assets": Path(outputs["successor_80_2226/results/country_sector_assets_2060_2226.ndjson"]["path"]),

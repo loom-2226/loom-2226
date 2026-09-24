@@ -42,6 +42,17 @@ class EarthBaselineResolverTests(unittest.TestCase):
         self.assertEqual(sha(self.current["artifacts"]["endpoint_countries"]),
                          json.loads(Path(self.pointer["active_manifest"]).read_text())["selected_outputs"]["successor_80_2226/results/countries_2226.ndjson"]["sha256"])
 
+    def test_post_2100_demography_is_not_selected_authority(self):
+        authority = self.current["demographic_authority"]
+        self.assertEqual(authority["wpp_authority_through_year"], 2100)
+        self.assertIsNone(authority["post_2100_selected_state"])
+        self.assertEqual(authority["post_2100_status"],
+                         "UNSELECTED_DIAGNOSTIC_SENSITIVITY_ONLY")
+        self.assertEqual(authority["recovered_cohort_control_2226"], 8442000000)
+        self.assertEqual(authority["recovered_control_status"],
+                         "PROVISIONAL_PROPAGATION_DEPENDENT_NOT_GOVERNING")
+        self.assertIn("demographic_sensitivity", self.current["artifacts"])
+
     def test_invalid_active_manifest_never_falls_back(self):
         with tempfile.TemporaryDirectory() as directory:
             pointer = dict(self.pointer, active_manifest=str(Path(directory) / "missing.json"))
