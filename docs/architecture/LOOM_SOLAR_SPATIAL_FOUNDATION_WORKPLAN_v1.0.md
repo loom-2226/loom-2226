@@ -10,7 +10,7 @@
 
 Establish a qualified, time-addressable Solar System foundation shared by Navigator, Solar GIS/HUD, transportation modeling, and 2026→2226 civilization propagation.
 
-This plan extends rather than replaces the current LOOM spatial-state authority. Existing `HybridCelestialStateService`, canonical `J2000/ECLIPTIC` state semantics, provenance/uncertainty handling, Navigator authority boundaries, SQLite celestial provider, and PostgreSQL migration work remain inputs to be reconciled before implementation.
+This plan extends rather than replaces the current LOOM spatial-state authority. Existing `HybridCelestialStateService`, canonical `J2000/ECLIPTIC` state semantics, provenance/uncertainty handling and Navigator authority boundaries remain implementation inputs. Existing Ceres/legacy PostgreSQL and SQLite structures may be inspected for proven patterns, but they are not Solar data authority and are not prerequisites to be cleaned, reconciled, migrated or reorganized.
 
 The governing architectural invariant is:
 
@@ -53,7 +53,25 @@ Derived records must declare at least one derivation class:
 
 A date is not an epistemic classification. A fictional pre-2026 assertion remains fictional; a future empirical observation remains empirical when later ingested. Authority and provenance determine classification.
 
-Existing PostgreSQL `loom_world` naming and current Ceres migration semantics must be reconciled before adopting these logical names physically. This document does not rename an existing schema.
+### Solar isolation and anti-rabbit-hole boundary
+
+Solar work is a new, additive domain. Ceres and the existing `loom_world` implementation are out of scope except as read-only reference examples for proven structural patterns such as keys, snapshots, provenance, lineage, migrations, qualification and recovery.
+
+The implementation must:
+
+- leave existing Ceres, `loom_world`, Earth and CIVSTATE schemas/data intact unless a separately authorized work item explicitly changes them;
+- create no cleanup, normalization, migration or reconciliation prerequisite against Ceres or legacy SQLite;
+- avoid importing legacy celestial/entity rows wholesale merely because they already exist;
+- use a dedicated Solar persistence namespace, presently `loom_solar`, for new empirical Solar-System persistence;
+- keep Solar schema changes additive;
+- reuse qualified code/interface behavior where appropriate without inheriting Ceres database ownership;
+- add only data structures required by the current bounded Solar phase.
+
+`loom_control` may be reused for genuinely shared governance/provenance machinery where its existing contract fits without modification. Reusing shared control infrastructure does not make Ceres or `loom_world` an upstream Solar data dependency.
+
+**Anti-rabbit-hole rule:** no legacy PostgreSQL/SQLite cleanup is required to begin or qualify the Solar foundation. If Solar implementation exposes a legacy defect, record it separately and continue Solar work unless that defect directly blocks the qualified Solar interface.
+
+The earlier logical names `solar_core`, `solar_empirical`, `solar_world` and `solar_derived` describe authority concepts, not required physical PostgreSQL schemas. The initial physical persistence target is one isolated `loom_solar` namespace; additional schemas require demonstrated need and separate review.
 
 ## 4. Celestial identity model
 
@@ -153,8 +171,9 @@ Civilization propagation consumes accessibility; it does not invent instantaneou
 ### Phase 0 — Bootstrap and dependency reconciliation
 
 - create implementation work from current protected `main` in a clean quantifactus worktree;
-- inspect current spatial-state authority, SQLite provider, Navigator/GIS contracts, PostgreSQL schemas and dependency manifests;
+- inspect current spatial-state authority, SQLite provider, Navigator/GIS contracts, PostgreSQL schemas and dependency manifests read-only;
 - identify superseded/active seams before mutation;
+- classify Ceres/legacy database structures as reference-only unless a Solar requirement independently justifies reuse;
 - classify downstream components and required revalidation.
 
 **Exit:** implementation scope references exact current Git authorities and does not duplicate an existing service.
@@ -164,7 +183,8 @@ Civilization propagation consumes accessibility; it does not invent instantaneou
 - define immutable LOOM body identity and external-ID crosswalk;
 - define object taxonomy and hierarchy;
 - define empirical/world/derived authority classes and lineage;
-- reconcile logical namespace design with current PostgreSQL `loom_world` semantics.
+- define the minimum additive `loom_solar` persistence contract required for identity and ephemeris;
+- explicitly prohibit Ceres/`loom_world` cleanup or migration as a Phase 1 dependency.
 
 **Exit:** identity and authority contracts reviewed before schema/code implementation.
 ### Phase 2 — DE440 local authority
@@ -279,7 +299,10 @@ Do not:
 - treat catalog presence as ephemeris availability;
 - mix empirical resource observations with fictional 2226 reserves/extraction;
 - use a date boundary such as 2026 as a substitute for provenance;
-- overwrite historical source/version records in place.
+- overwrite historical source/version records in place;
+- refactor, clean, migrate or normalize Ceres/`loom_world`/legacy SQLite as a prerequisite to Solar work;
+- make Solar persistence depend on Ceres data ownership merely because Ceres contains earlier celestial rows;
+- pre-design Solar tables for future enrichment before a bounded phase actually requires them.
 
 ## 11. Testing and promotion class
 
@@ -301,7 +324,7 @@ Implementation must preserve:
 
 ## 13. First implementation campaign
 
-The first bounded campaign is **Phases 0–4 only**:
+The first bounded campaign is **Phases 0–4 only**. Database work in this campaign is additive and limited to the minimum `loom_solar` identity/ephemeris persistence required to qualify the local DE440 path; it does not include legacy cleanup:
 
 `dependency reconciliation -> identity/authority contracts -> DE440 local assets -> governed adapter -> qualification`
 
