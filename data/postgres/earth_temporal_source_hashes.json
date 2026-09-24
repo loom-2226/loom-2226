@@ -1,0 +1,19 @@
+{
+  "schema": "loom-earth-temporal-source-hashes-v1",
+  "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+  "replay": {
+    "countries_2100_2226.ndjson": {"bytes": 7588078, "sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33"},
+    "country_sectors_2100_2226.ndjson": {"bytes": 98713173, "sha256": "e70fc57b3e53d6f25d152eeb0d35086d9f1c4b1bf5a27d608c5b9dff1e2fb392"},
+    "country_sector_assets_2100_2226.ndjson": {"bytes": 145943798, "sha256": "e9e97d089665bfad2433a2c463ec711d13afe6d2294ef61df264c7d11f088a73"}
+  },
+  "staged_import": {
+    "earth_area.csv": {"bytes": 15930, "sha256": "7aeb66efef8968820a00ff6d30ed12cacf912c42c716488697b3661c6ef656e7"},
+    "earth_biological_cohort_year.csv": {"bytes": 259102790, "sha256": "29c2afb0d215d7c216cff12a69a6d2a816991c63a2b8c5f461fda901bab9027e"},
+    "earth_demographic_year.csv": {"bytes": 11578894, "sha256": "f249fda1e6a68ac4daf0ab22d68e4671da57c67d98e0716d3ead1120080b34d0"},
+    "earth_economic_year.csv": {"bytes": 2352026, "sha256": "1218a057dc881f0b22088bf94e0391fc5891e21e47febdbfec9b4271b025653d"},
+    "earth_labor_composition_year.csv": {"bytes": 2112253, "sha256": "7d956f8e6abd9a2a8486997de0acb3e8bc46eb5a0b01dfef3e93f5bd66571dca"},
+    "earth_legacy_labor_year.csv": {"bytes": 635400, "sha256": "0889ba385d82ac5dde88b13b97bc85a3ed3af73b71b6c82ee3d4ec18253afb20"},
+    "earth_sector_asset_year.csv": {"bytes": 120682994, "sha256": "24f843ad49320a54f4bf643a2226dc62d70ea4e782c6712f8fd003e3c8c16acd"},
+    "earth_sector_year.csv": {"bytes": 26552522, "sha256": "6c00840e014c1d1da82bf4a8aedffc9c381ae75317ad96d02ae2df2a707ca743"}
+  }
+}

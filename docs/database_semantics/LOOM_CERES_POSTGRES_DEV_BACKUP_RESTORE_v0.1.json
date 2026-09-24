@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "source_database": "loom_dev",
+  "restored_database": "loom_ceres_restore_test_406661",
+  "restored_database_disposition": "dropped after verification",
+  "backup_path": "/tmp/loom_ceres_dev_backup.dump",
+  "backup_sha256": "de4cc5718a7ddc0ad09fefea06eafd61792b617dfd22547f272c6f152e17d578",
+  "backup_size_bytes": 12501982,
+  "snapshot_id": "ceres-v1-0231e5f7da744728ab5021268b6f239b",
+  "restored_atlas_payload_exact_match": true,
+  "restored_source_row_lineage": 518,
+  "restored_foreign_keys_validated": true
+}
