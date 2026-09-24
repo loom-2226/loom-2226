@@ -4,7 +4,7 @@ id_format: CCR-YYYY-NNNN
 
 allocation:
   current_year: 2026
-  next_sequence: 1
+  next_sequence: 2
   ids_are_never_reused: true
 
 allowed_statuses:
@@ -23,4 +23,12 @@ promotion_rules:
   implemented_requires_baseline_authority_hash_validation_completion: true
   frozen_unqualified_source_may_be_approved: false
 
-records: []
+records:
+  - id: CCR-2026-0001
+    path: governance/changes/CCR-2026-0001-earth-lean-biosynthetic-successor.yml
+    status: APPROVED_FOR_IMPLEMENTATION
+    title: Promote the lean biosynthetic Earth successor
+    originating_issue: Kevin promotion directive, 2026-09-25
+    approved_pr: null
+    implemented_pr: null
+    supersedes: []
