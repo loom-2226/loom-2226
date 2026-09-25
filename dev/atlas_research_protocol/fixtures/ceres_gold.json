@@ -1,0 +1,20 @@
+{
+  "fixture_id": "ARP-GOLD-HCQ01-CERES-V03-R1",
+  "purpose": "Evaluation reference only; no new Ceres research.",
+  "schema": "LOOM_SOLAR_FACTUAL_ENRICHMENT_DDL_v0.3-R1",
+  "database_sha256": "0bbbfd5ae2ab287900ff4e356f9571d21aff4593cc78e0cd69bf1610def9adc6",
+  "expected_counts": {"body": 1, "source": 16, "observation": 8, "fact": 8, "fact_input": 2, "knowledge_event": 4, "body_region": 5, "material_evidence": 6, "activity_fact": 2, "body_model_product": 9, "region_model_product": 3, "derived_quantity": 1, "derived_input": 1, "preferred_fact": 0},
+  "facts": [
+    {"property_code": "MASS", "reported_unit": "10^18 kg", "evidence_class": "DYNAMICAL_INFERENCE", "status": "CANDIDATE"},
+    {"property_code": "EQUATORIAL_RADIUS", "reported_unit": "km", "evidence_class": "IN_SITU_REMOTE", "status": "CANDIDATE"},
+    {"property_code": "MEAN_RADIUS", "reported_value": "469.7", "reported_unit": "km", "semantic_note": "equivalent-volume mean radius", "evidence_class": "IN_SITU_REMOTE", "status": "CANDIDATE"},
+    {"property_code": "BULK_DENSITY", "reported_unit": "g/cm^3", "evidence_class": "DERIVED", "status": "CANDIDATE", "input_properties": ["MASS", "MEAN_RADIUS"]},
+    {"property_code": "GM", "reported_unit": "km^3/s^2", "evidence_class": "DYNAMICAL_INFERENCE", "status": "CANDIDATE"},
+    {"property_code": "ROTATION_PERIOD", "reported_unit": "d", "evidence_class": "IN_SITU_REMOTE", "status": "CANDIDATE"},
+    {"property_code": "SURFACE_TEMPERATURE", "reported_unit": "K", "evidence_class": "IN_SITU_REMOTE", "status": "CANDIDATE"},
+    {"property_code": "THERMAL_INERTIA", "reported_unit": "tiu", "evidence_class": "PHYSICAL_MODEL", "status": "CANDIDATE"}
+  ],
+  "regional_expectations": [{"name": "Ahuna Mons", "regionally_linked": true}, {"name": "Occator crater", "regionally_linked": true}, {"name": "Northern polar permanently shadowed regions", "regionally_linked": true}],
+  "evaluation_dimensions": ["authoritative_source_recall", "assertion_fact_recall", "value_unit_agreement", "epistemic_class_agreement", "scope_regional_agreement", "resolution_preservation", "unknown_discipline", "provenance_completeness", "cutoff_discipline", "unsupported_additions", "independent_evidence_lineages"],
+  "forbidden_outcomes": ["preferred_fact", "CURRENT_fact", "Phase-4_state", "CIVPROP", "resource_potential", "habitation_potential", "engineering_judgment", "new_scientific_value"]
+}

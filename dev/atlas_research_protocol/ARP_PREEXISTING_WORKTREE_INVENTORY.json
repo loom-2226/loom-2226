@@ -1,0 +1,16 @@
+{
+  "inventory_type": "PRE_ARP_WORKTREE_PRESERVATION",
+  "captured_utc": "2026-09-25T21:10:07Z",
+  "repository": "loom-2226/loom-2226",
+  "worktree": "/home/ubuntu/LOOM_SOLAR_FACTS_HCQ01",
+  "branch": "research/solar-facts-hcq01-ceres-20260925",
+  "head": "bab64eaaeb65b8db8af47ffdda1b1a6a3bdca9a9",
+  "remote": "origin",
+  "remote_main_at_inventory": "cdf41a71a27389bb82ac21034d9461dded94e64a",
+  "local_vs_remote_main": {"remote_only_commits": 3, "local_only_commits": 0, "classification": "REMOTE_ONLY_MAIN_ADVANCEMENT"},
+  "status_before_arp": {"tracked_modifications": [], "staged_files": [], "untracked_files": [], "worktree_clean": true},
+  "local_work_classification": {"shared_promoted_hcq01": ["dev/solar_facts_hcq01/"], "local_committed_unpushed": [], "local_uncommitted_tracked": [], "local_untracked_research_or_engineering": [], "unrelated_worktrees_preserved": true},
+  "relevant_worktrees_observed": ["/home/ubuntu/LOOM_SOLAR_FACTS_HCQ01", "/home/ubuntu/LOOM_SOLAR_SPATIAL", "/home/ubuntu/LOOM_SOLAR_PHASE4_COMPLETION", "/home/ubuntu/LOOM_SOLAR_PHASE4_HARDEN", "/home/ubuntu/LOOM_SOLAR_MIGRATION_REPAIR", "/home/ubuntu/LOOM_SOLAR_FINAL_AUDIT"],
+  "preservation_policy": "No reset, clean, destructive checkout, forced rebase, stash-forget, or deletion was used against pre-existing work.",
+  "arp_scope_note": "This inventory is a preservation record. It does not promote or alter Solar Phase-4 authority, Ceres facts, CIVPROP, or canon."
+}

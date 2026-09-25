@@ -1,0 +1,13 @@
+{
+  "protocol_version": "1.0.0",
+  "profiles": {
+    "terrestrial_planet": {"applicable_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "geology_geotechnical", "thermal_environment", "water_volatiles", "mineralogy_composition", "regional", "history"], "required_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "history"]},
+    "dwarf_planet": {"applicable_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "geology_geotechnical", "thermal_environment", "water_volatiles", "mineralogy_composition", "regional", "history"], "required_lanes": ["identity", "orbit_geometry", "gravity_shape", "history"]},
+    "rocky_moon": {"applicable_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "geology_geotechnical", "thermal_environment", "water_volatiles", "mineralogy_composition", "regional", "history"], "required_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "history"]},
+    "icy_moon": {"applicable_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "geology_geotechnical", "thermal_environment", "water_volatiles", "mineralogy_composition", "regional", "history"], "required_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "thermal_environment", "history"]},
+    "gas_giant": {"applicable_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "thermal_environment", "atmosphere_environment", "composition", "regional", "history"], "required_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "history"]},
+    "ice_giant": {"applicable_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "thermal_environment", "atmosphere_environment", "composition", "regional", "history"], "required_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "history"]},
+    "asteroid": {"applicable_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "geology_geotechnical", "thermal_environment", "water_volatiles", "mineralogy_composition", "regional", "history"], "required_lanes": ["identity", "orbit_geometry", "gravity_shape", "history"]},
+    "comet": {"applicable_lanes": ["identity", "orbit_geometry", "rotation_orientation", "gravity_shape", "thermal_environment", "water_volatiles", "mineralogy_composition", "activity", "regional", "history"], "required_lanes": ["identity", "orbit_geometry", "thermal_environment", "activity", "history"]}
+  }
+}

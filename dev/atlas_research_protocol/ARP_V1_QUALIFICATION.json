@@ -1,0 +1,46 @@
+{
+  "arp_version": "1.0.0",
+  "campaign_fixture": {
+    "blocking": false,
+    "errors": [],
+    "status": "PASS"
+  },
+  "ceres_gold_fixture": {
+    "counts": {
+      "activity_fact": 2,
+      "body": 1,
+      "body_model_product": 9,
+      "body_region": 5,
+      "derived_input": 1,
+      "derived_quantity": 1,
+      "fact": 8,
+      "fact_input": 2,
+      "knowledge_event": 4,
+      "material_evidence": 6,
+      "observation": 8,
+      "preferred_fact": 0,
+      "region_model_product": 3,
+      "source": 16
+    },
+    "foreign_key_check": [],
+    "integrity_check": "ok",
+    "sha256": "0bbbfd5ae2ab287900ff4e356f9571d21aff4593cc78e0cd69bf1610def9adc6",
+    "status": "PASS"
+  },
+  "external_research_operations": 0,
+  "metrics": {
+    "artifacts_reused": 1,
+    "assertions_accepted": 1,
+    "assertions_extracted": 1,
+    "assertions_rejected": 0,
+    "coverage_after_pass_1": {},
+    "coverage_after_pass_2": {},
+    "coverage_before": {},
+    "duplicate_work_avoided": 1,
+    "external_research_operations": 0,
+    "independent_evidence_lineages": 1,
+    "sources_acquired": 1,
+    "sources_discovered": 1,
+    "sources_rejected": 0
+  }
+}
