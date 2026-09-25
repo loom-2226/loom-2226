@@ -1,5 +1,7 @@
 # ARP-QUAL-01 — Ceres qualification
 
+Change class: `class:research`
+
 Date: 2026-09-26
 Knowledge cutoff: `2025-12-31T23:59:59Z`
 Research tier: Tier A / deep empirical envelope
