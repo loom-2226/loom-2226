@@ -1,0 +1,99 @@
+{
+  "manifest_version": "1.0",
+  "manifest_id": "SOLAR_PHASE4B_AUTHORITY_V1",
+  "classification": "ENGINEERING/DATA AUTHORITY — DIRECT PLUS EXPLICIT PROPAGATED SEAM",
+  "source_main_sha": "5a67c8e9ad555eff8bae15bb805f243d862d7420",
+  "horizon_contract": {
+    "modeled_start": "2026-01-01T00:00:00Z",
+    "full_2250_gate": "2251-01-01T00:00:00Z",
+    "propagation_is_not_direct_authority": true
+  },
+  "propagation_model": {
+    "algorithm": "fixed-step RK4 barycentric N-body",
+    "algorithm_version": "LOOM_SOLAR_PHASE4B_RK4_NBODY_V1",
+    "integration_step_seconds": 3600,
+    "sample_step_seconds": 43200,
+    "frame": "ECLIPJ2000",
+    "units": "km,km/s",
+    "external_perturbation": "DE440 daily linearly interpolated tidal field",
+    "navigation_grade": false,
+    "uncertainty_policy": "declared target-specific maximum error envelope from withheld predecessor overlap"
+  },
+  "assets": [
+    {"asset_id":"LSK","local_path":"kernels/lsk/naif0012.tls","sha256":"678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b","byte_count":5257},
+    {"asset_id":"DE440","local_path":"kernels/spk/de440.bsp","sha256":"a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5","byte_count":119799808},
+    {"asset_id":"CERES2251","local_path":"kernels/spk/phase4b/2000001_ceres_2025_2251_guard.bsp","sha256":"e90bf70280961d61f7b505a5d2a9c39abcc558d9a2442570e4c0e384aa9f0956","byte_count":4106240},
+    {"asset_id":"SAT441XL2","local_path":"kernels/spk/satellite_systems/sat441xl_part-2.bsp","sha256":"d021819387e6045e2cd2819a7907ca62cc8cb3091ca925dfe894d2e0f4f7af1e","byte_count":2021645312},
+    {"asset_id":"JUP365","local_path":"kernels/spk/phase4b/jup365.bsp","sha256":"dbf016c01ba4d022154838000cf3f06962cf958ddc503a366f7fe8f81495c5cb","byte_count":1136581632},
+    {"asset_id":"PLU060","local_path":"kernels/spk/phase4b/plu060.bsp","sha256":"dfbb102491a26ed41ae08ca3f8963f22f0219df1d8f265ab87b9ad825a826fc6","byte_count":135207936},
+    {"asset_id":"PROP599","local_path":"kernels/spk/phase4b/propagated_599_from_5_2251.bsp","sha256":"626c3425323eea7999a7701604c7ea80f00a70b1946e24ef208247a22fd6c5f7","byte_count":2094080},
+    {"asset_id":"PROP501","local_path":"kernels/spk/phase4b/propagated_501_from_5_2251.bsp","sha256":"78bea0d67a28c0c4fe04c83ad840f6cd9a3ad98c71469cd3d47c25e601624a0d","byte_count":2094080},
+    {"asset_id":"PROP502","local_path":"kernels/spk/phase4b/propagated_502_from_5_2251.bsp","sha256":"a7fe17be71d02b01c7dc0a6510280d62cbdc3e79dbd1a760e959d1888a717c59","byte_count":2094080},
+    {"asset_id":"PROP503","local_path":"kernels/spk/phase4b/propagated_503_from_5_2251.bsp","sha256":"48df30179445d0dab12d1799c9f865f4eaf2521ef133df2dc771f80c097c415b","byte_count":2094080},
+    {"asset_id":"PROP504","local_path":"kernels/spk/phase4b/propagated_504_from_5_2251.bsp","sha256":"ff4e91bf041ab350f6afc4304c178dd884396a4d5db5ed02e8f1c2960960d732","byte_count":2094080},
+    {"asset_id":"PROP999","local_path":"kernels/spk/phase4b/propagated_999_from_9_2251.bsp","sha256":"abb7de2d27ca3bb6a7124133f634491cf806b2c4680bcd14e8aef84c90ce19d8","byte_count":2095104},
+    {"asset_id":"PROP901","local_path":"kernels/spk/phase4b/propagated_901_from_9_2251.bsp","sha256":"24b63919c90e4de152ca2e612b7469fe4600c31f2a1c684c300cc43a7bfc29c5","byte_count":2095104}
+  ],
+  "registry": {
+    "bodies": [
+      {"body_id":"JUPITER","canonical_name":"Jupiter","body_class":"PLANET"},
+      {"body_id":"IO","canonical_name":"Io","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"EUROPA","canonical_name":"Europa","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"GANYMEDE","canonical_name":"Ganymede","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"CALLISTO","canonical_name":"Callisto","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"PLUTO","canonical_name":"Pluto","body_class":"DWARF_PLANET"},
+      {"body_id":"CHARON","canonical_name":"Charon","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"JUPITER_SYSTEM_BARYCENTER","canonical_name":"Jupiter system barycenter","body_class":"BARYCENTER"},
+      {"body_id":"PLUTO_SYSTEM_BARYCENTER","canonical_name":"Pluto system barycenter","body_class":"BARYCENTER"},
+      {"body_id":"CERES","canonical_name":"Ceres","body_class":"DWARF_PLANET"},
+      {"body_id":"SATURN","canonical_name":"Saturn","body_class":"PLANET"}
+    ],
+    "identifiers": [
+      {"body_id":"JUPITER","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"599"},
+      {"body_id":"IO","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"501"},
+      {"body_id":"EUROPA","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"502"},
+      {"body_id":"GANYMEDE","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"503"},
+      {"body_id":"CALLISTO","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"504"},
+      {"body_id":"PLUTO","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"999"},
+      {"body_id":"CHARON","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"901"},
+      {"body_id":"JUPITER_SYSTEM_BARYCENTER","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"5"},
+      {"body_id":"PLUTO_SYSTEM_BARYCENTER","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"9"},
+      {"body_id":"CERES","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"20000001"},
+      {"body_id":"SATURN","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"699"}
+    ],
+    "sources": [
+      {"ephemeris_source_id":"DE440","provider":"JPL/NAIF","product_name":"DE440","product_version":"440","asset_filename":"de440.bsp","sha256":"a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5","byte_count":119799808,"source_url":"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp","acquired_at":"2026-09-24T21:39:02Z","status":"QUALIFIED","kernel_asset_ids":["LSK","DE440"]},
+      {"ephemeris_source_id":"CERES_SPK_PHASE4B_2251","provider":"JPL/Horizons","product_name":"Ceres supplementary SPK","product_version":"2025-2251-guard","asset_filename":"2000001_ceres_2025_2251_guard.bsp","sha256":"e90bf70280961d61f7b505a5d2a9c39abcc558d9a2442570e4c0e384aa9f0956","byte_count":4106240,"source_url":"https://ssd.jpl.nasa.gov/api/horizons.api","acquired_at":"2026-09-25T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","CERES2251"]},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","provider":"JPL/NAIF","product_name":"sat441xl_part-2","product_version":"2022-05-24","asset_filename":"sat441xl_part-2.bsp","sha256":"d021819387e6045e2cd2819a7907ca62cc8cb3091ca925dfe894d2e0f4f7af1e","byte_count":2021645312,"source_url":"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/sat441xl_part-2.bsp","acquired_at":"2026-09-25T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","SAT441XL2","DE440"]},
+      {"ephemeris_source_id":"JPL_JUP365_PRE2250","provider":"JPL/NAIF","product_name":"JUP365","product_version":"JUP365","asset_filename":"jup365.bsp","sha256":"dbf016c01ba4d022154838000cf3f06962cf958ddc503a366f7fe8f81495c5cb","byte_count":1136581632,"source_url":"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/jup365.bsp","acquired_at":"2026-09-25T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","JUP365","DE440"],"state_capability":"DIRECT_SPICE_PARTIAL_2200","navigation_grade":true},
+      {"ephemeris_source_id":"JPL_PLU060_PRE2250","provider":"JPL/NAIF","product_name":"PLU060","product_version":"PLU060","asset_filename":"plu060.bsp","sha256":"dfbb102491a26ed41ae08ca3f8963f22f0219df1d8f265ab87b9ad825a826fc6","byte_count":135207936,"source_url":"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/plu060.bsp","acquired_at":"2026-09-25T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","PLU060","DE440"],"state_capability":"DIRECT_SPICE_PARTIAL_2199","navigation_grade":true},
+      {"ephemeris_source_id":"PROP_JUPITER_599_PHASE4B","provider":"LOOM/JPL-NASA-derived","product_name":"Phase-4B Jupiter propagation SPK","product_version":"LOOM_SOLAR_PHASE4B_RK4_NBODY_V1","asset_filename":"propagated_599_from_5_2251.bsp","sha256":"626c3425323eea7999a7701604c7ea80f00a70b1946e24ef208247a22fd6c5f7","byte_count":2094080,"source_url":"JUP365 + DE440 authoritative initial state; local deterministic propagation","acquired_at":"2026-09-25T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","DE440","PROP599"],"state_capability":"EMPIRICAL_PROPAGATED_2250","navigation_grade":false,"uncertainty_km":1000.0,"source_lineage":"JPL_JUP365_PRE2250;DE440;LOOM_SOLAR_PHASE4B_RK4_NBODY_V1"},
+      {"ephemeris_source_id":"PROP_IO_501_PHASE4B","provider":"LOOM/JPL-NASA-derived","product_name":"Phase-4B Io propagation SPK","product_version":"LOOM_SOLAR_PHASE4B_RK4_NBODY_V1","asset_filename":"propagated_501_from_5_2251.bsp","sha256":"78bea0d67a28c0c4fe04c83ad840f6cd9a3ad98c71469cd3d47c25e601624a0d","byte_count":2094080,"source_url":"JUP365 + DE440 authoritative initial state; local deterministic propagation","acquired_at":"2026-09-25T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","DE440","PROP501"],"state_capability":"EMPIRICAL_PROPAGATED_2250","navigation_grade":false,"uncertainty_km":1000000.0,"source_lineage":"JPL_JUP365_PRE2250;DE440;LOOM_SOLAR_PHASE4B_RK4_NBODY_V1"},
+      {"ephemeris_source_id":"PROP_EUROPA_502_PHASE4B","provider":"LOOM/JPL-NASA-derived","product_name":"Phase-4B Europa propagation SPK","product_version":"LOOM_SOLAR_PHASE4B_RK4_NBODY_V1","asset_filename":"propagated_502_from_5_2251.bsp","sha256":"a7fe17be71d02b01c7dc0a6510280d62cbdc3e79dbd1a760e959d1888a717c59","byte_count":2094080,"source_url":"JUP365 + DE440 authoritative initial state; local deterministic propagation","acquired_at":"2026-09-25T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","DE440","PROP502"],"state_capability":"EMPIRICAL_PROPAGATED_2250","navigation_grade":false,"uncertainty_km":1000000.0,"source_lineage":"JPL_JUP365_PRE2250;DE440;LOOM_SOLAR_PHASE4B_RK4_NBODY_V1"},
+      {"ephemeris_source_id":"PROP_GANYMEDE_503_PHASE4B","provider":"LOOM/JPL-NASA-derived","product_name":"Phase-4B Ganymede propagation SPK","product_version":"LOOM_SOLAR_PHASE4B_RK4_NBODY_V1","asset_filename":"propagated_503_from_5_2251.bsp","sha256":"48df30179445d0dab12d1799c9f865f4eaf2521ef133df2dc771f80c097c415b","byte_count":2094080,"source_url":"JUP365 + DE440 authoritative initial state; local deterministic propagation","acquired_at":"2026-09-25T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","DE440","PROP503"],"state_capability":"EMPIRICAL_PROPAGATED_2250","navigation_grade":false,"uncertainty_km":1000000.0,"source_lineage":"JPL_JUP365_PRE2250;DE440;LOOM_SOLAR_PHASE4B_RK4_NBODY_V1"},
+      {"ephemeris_source_id":"PROP_CALLISTO_504_PHASE4B","provider":"LOOM/JPL-NASA-derived","product_name":"Phase-4B Callisto propagation SPK","product_version":"LOOM_SOLAR_PHASE4B_RK4_NBODY_V1","asset_filename":"propagated_504_from_5_2251.bsp","sha256":"ff4e91bf041ab350f6afc4304c178dd884396a4d5db5ed02e8f1c2960960d732","byte_count":2094080,"source_url":"JUP365 + DE440 authoritative initial state; local deterministic propagation","acquired_at":"2026-09-25T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","DE440","PROP504"],"state_capability":"EMPIRICAL_PROPAGATED_2250","navigation_grade":false,"uncertainty_km":1000000.0,"source_lineage":"JPL_JUP365_PRE2250;DE440;LOOM_SOLAR_PHASE4B_RK4_NBODY_V1"},
+      {"ephemeris_source_id":"PROP_PLUTO_999_PHASE4B","provider":"LOOM/JPL-NASA-derived","product_name":"Phase-4B Pluto propagation SPK","product_version":"LOOM_SOLAR_PHASE4B_RK4_NBODY_V1","asset_filename":"propagated_999_from_9_2251.bsp","sha256":"abb7de2d27ca3bb6a7124133f634491cf806b2c4680bcd14e8aef84c90ce19d8","byte_count":2095104,"source_url":"PLU060 + DE440 authoritative initial state; local deterministic propagation","acquired_at":"2026-09-25T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","DE440","PROP999"],"state_capability":"EMPIRICAL_PROPAGATED_2250","navigation_grade":false,"uncertainty_km":1000000.0,"source_lineage":"JPL_PLU060_PRE2250;DE440;LOOM_SOLAR_PHASE4B_RK4_NBODY_V1"},
+      {"ephemeris_source_id":"PROP_CHARON_901_PHASE4B","provider":"LOOM/JPL-NASA-derived","product_name":"Phase-4B Charon propagation SPK","product_version":"LOOM_SOLAR_PHASE4B_RK4_NBODY_V1","asset_filename":"propagated_901_from_9_2251.bsp","sha256":"24b63919c90e4de152ca2e612b7469fe4600c31f2a1c684c300cc43a7bfc29c5","byte_count":2095104,"source_url":"PLU060 + DE440 authoritative initial state; local deterministic propagation","acquired_at":"2026-09-25T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","DE440","PROP901"],"state_capability":"EMPIRICAL_PROPAGATED_2250","navigation_grade":false,"uncertainty_km":1000000.0,"source_lineage":"JPL_PLU060_PRE2250;DE440;LOOM_SOLAR_PHASE4B_RK4_NBODY_V1"}
+    ],
+    "coverage": [
+      {"ephemeris_source_id":"CERES_SPK_PHASE4B_2251","body_id":"CERES","valid_from":"2024-12-31T23:58:50.816Z","valid_until":"2251-01-02T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","body_id":"SATURN","valid_from":"2014-09-27T23:58:52.818Z","valid_until":"4500-01-17T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_JUP365_PRE2250","body_id":"JUPITER","valid_from":"1600-01-09T23:59:18.816Z","valid_until":"2200-01-09T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_JUP365_PRE2250","body_id":"IO","valid_from":"1600-01-09T23:59:18.816Z","valid_until":"2200-01-09T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_JUP365_PRE2250","body_id":"EUROPA","valid_from":"1600-01-09T23:59:18.816Z","valid_until":"2200-01-09T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_JUP365_PRE2250","body_id":"GANYMEDE","valid_from":"1600-01-09T23:59:18.816Z","valid_until":"2200-01-09T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_JUP365_PRE2250","body_id":"CALLISTO","valid_from":"1600-01-09T23:59:18.816Z","valid_until":"2200-01-09T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"PROP_JUPITER_599_PHASE4B","body_id":"JUPITER","valid_from":"2200-01-09T23:58:50.816Z","valid_until":"2251-01-01T00:00:00.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"DERIVED","status":"QUALIFIED"},
+      {"ephemeris_source_id":"PROP_IO_501_PHASE4B","body_id":"IO","valid_from":"2200-01-09T23:58:50.816Z","valid_until":"2251-01-01T00:00:00.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"DERIVED","status":"QUALIFIED"},
+      {"ephemeris_source_id":"PROP_EUROPA_502_PHASE4B","body_id":"EUROPA","valid_from":"2200-01-09T23:58:50.816Z","valid_until":"2251-01-01T00:00:00.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"DERIVED","status":"QUALIFIED"},
+      {"ephemeris_source_id":"PROP_GANYMEDE_503_PHASE4B","body_id":"GANYMEDE","valid_from":"2200-01-09T23:58:50.816Z","valid_until":"2251-01-01T00:00:00.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"DERIVED","status":"QUALIFIED"},
+      {"ephemeris_source_id":"PROP_CALLISTO_504_PHASE4B","body_id":"CALLISTO","valid_from":"2200-01-09T23:58:50.816Z","valid_until":"2251-01-01T00:00:00.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"DERIVED","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_PLU060_PRE2250","body_id":"PLUTO","valid_from":"1800-01-01T23:59:18.816Z","valid_until":"2199-12-29T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_PLU060_PRE2250","body_id":"CHARON","valid_from":"1800-01-01T23:59:18.816Z","valid_until":"2199-12-29T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"PROP_PLUTO_999_PHASE4B","body_id":"PLUTO","valid_from":"2199-12-29T23:58:50.816Z","valid_until":"2251-01-01T00:00:00.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"DERIVED","status":"QUALIFIED"},
+      {"ephemeris_source_id":"PROP_CHARON_901_PHASE4B","body_id":"CHARON","valid_from":"2199-12-29T23:58:50.816Z","valid_until":"2251-01-01T00:00:00.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"DERIVED","status":"QUALIFIED"},
+      {"ephemeris_source_id":"DE440","body_id":"JUPITER_SYSTEM_BARYCENTER","valid_from":"1549-12-30T23:59:18.816Z","valid_until":"2650-01-24T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"DE440","body_id":"PLUTO_SYSTEM_BARYCENTER","valid_from":"1549-12-30T23:59:18.816Z","valid_until":"2650-01-24T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"}
+    ]
+  }
+}
