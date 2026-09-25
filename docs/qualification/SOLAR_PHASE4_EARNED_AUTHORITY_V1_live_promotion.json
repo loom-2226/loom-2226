@@ -1,0 +1,91 @@
+{
+  "schema": "loom-solar-phase4-earned-live-promotion-v1",
+  "date": "2026-09-25",
+  "status": "PASS_EARNED_AUTHORITY_PROMOTION",
+  "phase4_2250_complete": false,
+  "phase5_blocked": true,
+  "git": {
+    "promotion_pr": 281,
+    "promotion_merge_sha": "497679cded08c6219412336af0507c3c761ffffc",
+    "migration_hardening_pr": 282,
+    "migration_identity_repair_pr": 283,
+    "authoritative_main_sha": "5a67c8e9ad555eff8bae15bb805f243d862d7420"
+  },
+  "postgres": {
+    "database": "loom_dev",
+    "migration_revision": "012_solar_phase4_earned_authority",
+    "migration_sha256": "e8a452135bb867a7b0d8fd7afe57be927cb8b7f91aeced5a9307653b4e0a03e6",
+    "counts": {
+      "body": 19,
+      "body_identifier": 19,
+      "ephemeris_source": 6,
+      "ephemeris_coverage": 19
+    },
+    "invalid_loom_constraints": 0,
+    "full_2026_through_2250_targets": 17,
+    "promoted_horizon_holes": [
+      "CERES",
+      "SATURN"
+    ],
+    "required_unpromoted_physical_center_holes": [
+      "JUPITER",
+      "PLUTO"
+    ]
+  },
+  "earth": {
+    "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+    "state": "VALIDATED",
+    "semantic_sha256": "2d84b0b9137b3147e09723dff8cffe952e39e7d55f8062a73c0b13b62baee3a0",
+    "contract_sha256": "78cbfde6d391ecdded2ae584fb1cd90b853d40eb8af25ed02d1a8be6bb9c3eb6",
+    "pre_overall_sha256": "fedcc9b69e2e585663f821109be93338ca4711d4654097588f431cb991154ebc",
+    "post_overall_sha256": "fedcc9b69e2e585663f821109be93338ca4711d4654097588f431cb991154ebc",
+    "live_final_overall_sha256": "fedcc9b69e2e585663f821109be93338ca4711d4654097588f431cb991154ebc",
+    "result": "EXACT_PASS"
+  },
+  "timeline": {
+    "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+    "state": "VALIDATED",
+    "semantic_sha256": "8543a0dde2248891fd1f0f1abd6480d2d30ba587e0e7dfea96580edee52b3636",
+    "contract_sha256": "0232bf23494f7fe0c38bef18604e1605b9b10f5417572d3b0656891a89d69c86",
+    "milestone_count": 43,
+    "interpretation_rule_count": 5,
+    "result": "PASS"
+  },
+  "spice": {
+    "final_current_main_suite": "tests.test_spice_ephemeris_adapter + tests.test_official_planet_center_ephemeris",
+    "passed": 21,
+    "failed": 0,
+    "result": "PASS"
+  },
+  "backups": {
+    "pre": {
+      "path": "/home/ubuntu/LOOM_ARCHIVE/POSTGRES/2026-09-25/SOLAR_PHASE4_EARNED/loom_dev_pre_solar_phase4_earned_20260925.dump",
+      "bytes": 79732097,
+      "sha256": "7b4e320776b5f029b5ed4430ba5223b7998071ec8518d12e04f66e3de5419c6c"
+    },
+    "post": {
+      "path": "/home/ubuntu/LOOM_ARCHIVE/POSTGRES/2026-09-25/SOLAR_PHASE4_EARNED/loom_dev_post_solar_phase4_earned_497679c.dump",
+      "bytes": 79733666,
+      "sha256": "7f8cb0de63aa0d97e927fd87145c63d720b55393bbc58a2f8f46708e1b40bcd6"
+    },
+    "post_restore": {
+      "pg_restore_no_owner_no_privileges": "PASS",
+      "solar_counts": "19/19/6/19",
+      "migration_hash_match": "PASS",
+      "earth_exact_compare": "PASS",
+      "timeline_verify": "PASS",
+      "disposable_restore_database_dropped": true
+    }
+  },
+  "migration_identity_event": {
+    "finding": "PR #282 changed migration 012 after a concurrent live promotion had already recorded the earlier hash.",
+    "resolution": "PR #283 restored migration 012 to the exact applied bytes/hash. Future changes must use a new forward migration or runner contract.",
+    "resolved": true
+  },
+  "authority_boundary": {
+    "physical_body_center_not_interchangeable_with_system_barycenter": true,
+    "catalog_presence_not_ephemeris_qualification": true,
+    "kernel_target_presence_not_object_promotion": true,
+    "runtime_network_dependency_allowed": false
+  }
+}

@@ -90,6 +90,35 @@ forward state. The repository therefore restores migration 012 to the exact appl
 bytes/hash. Any further migration-safety hardening must use a new forward migration
 or migration-runner contract rather than rewriting revision 012.
 
+## Live promotion and restore qualification
+
+Live `loom_dev` now contains 19 bodies, 19 governed NAIF identifiers, 6 qualified
+sources and 19 qualified body-coverage records. Migration 012 in Git and PostgreSQL
+has the same SHA-256:
+`e8a452135bb867a7b0d8fd7afe57be927cb8b7f91aeced5a9307653b4e0a03e6`.
+
+Durable recovery artifacts:
+
+- pre-promotion dump: 79,732,097 bytes, SHA-256
+  `7b4e320776b5f029b5ed4430ba5223b7998071ec8518d12e04f66e3de5419c6c`;
+- post-promotion dump: 79,733,666 bytes, SHA-256
+  `7f8cb0de63aa0d97e927fd87145c63d720b55393bbc58a2f8f46708e1b40bcd6`.
+
+The post-promotion dump restored successfully with `--no-owner --no-privileges`.
+On the restored database:
+
+- Solar counts were exactly 19/19/6/19;
+- migration 012 hash matched the live/applied identity;
+- Earth matched the pre-Solar preservation contract exactly at overall SHA-256
+  `fedcc9b69e2e585663f821109be93338ca4711d4654097588f431cb991154ebc`;
+- Timeline remained `VALIDATED` with 43 milestones and 5 interpretation rules.
+
+The final current-main live audit independently reproduced the same Earth fingerprint,
+Timeline PASS, zero invalid LOOM constraints, and 21/21 SPICE/official-center tests.
+
+Machine-readable record:
+`docs/qualification/SOLAR_PHASE4_EARNED_AUTHORITY_V1_live_promotion.json`.
+
 ## Does not establish
 
 This promotion does not establish:
