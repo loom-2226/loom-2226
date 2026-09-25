@@ -48,7 +48,10 @@ def main() -> None:
           AND (c.relname LIKE 'earth_%' OR c.relname LIKE 'civ_%')
         ORDER BY 1
     """)
-    expected_objects = [*(f"loom_earth.{t}" for t in EARTH_TABLES), *(f"loom_civ.{t}" for t in CIV_TABLES)]
+    legacy_civ_schema = 'loom_civ' in q(args.database, "SELECT nspname FROM pg_namespace WHERE nspname='loom_civ'")
+    expected_objects = [*(f"loom_earth.{t}" for t in EARTH_TABLES)]
+    if legacy_civ_schema:
+        expected_objects.extend(f"loom_civ.{t}" for t in CIV_TABLES)
     if objects != sorted(expected_objects):
         raise SystemExit(f"namespace object guard failed: {objects}")
     counts = {}
@@ -61,10 +64,11 @@ def main() -> None:
         snapshots[table] = q(args.database, f"SELECT snapshot_id || ':' || count(*) FROM loom_earth.{table} GROUP BY snapshot_id ORDER BY 1")
         if snapshots[table] != [f"{EARTH}:{EXPECTED[table]}"]:
             raise SystemExit(f"{table}: unexpected snapshot membership {snapshots[table]}")
-    for table in CIV_TABLES:
-        bad = q(args.database, f"SELECT count(*) FROM loom_civ.{table} WHERE snapshot_id <> '{CERES}'")
-        if bad and int(bad[0]) != 0:
-            raise SystemExit(f"{table}: non-CIVSTATE snapshot rows: {bad[0]}")
+    if legacy_civ_schema:
+        for table in CIV_TABLES:
+            bad = q(args.database, f"SELECT count(*) FROM loom_civ.{table} WHERE snapshot_id <> '{CERES}'")
+            if bad and int(bad[0]) != 0:
+                raise SystemExit(f"{table}: non-CIVSTATE snapshot rows: {bad[0]}")
     views = q(args.database, """
         SELECT viewname FROM pg_views WHERE schemaname='loom_narrator'
         AND viewname IN ('current_earth_year','current_country_year','current_country_fact','current_earth_fact')
@@ -73,7 +77,9 @@ def main() -> None:
     if views != ['current_country_fact', 'current_country_year', 'current_earth_fact', 'current_earth_year']:
         raise SystemExit(f"narrator view guard failed: {views}")
     result = {"status": "PASS", "database": args.database, "earth_snapshot": EARTH,
-              "civ_snapshot": CERES, "counts": counts, "earth_objects": expected_objects,
+              "civ_snapshot": CERES if legacy_civ_schema else "RETIRED_FORENSIC_BASELINE",
+              "legacy_civ_schema": "PRESENT_CERES_ONLY" if legacy_civ_schema else "RETIRED_EMPTY",
+              "counts": counts, "earth_objects": expected_objects,
               "narrator_views": views}
     payload = json.dumps(result, indent=2, sort_keys=True) + "\n"
     if args.output:

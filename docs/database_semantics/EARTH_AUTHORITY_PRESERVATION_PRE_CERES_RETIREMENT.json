@@ -1,0 +1,2943 @@
+{
+  "contract_version": "1",
+  "database": "loom_dev",
+  "earth_data": [
+    {
+      "columns": [
+        "snapshot_id",
+        "iso3",
+        "display_name",
+        "wpp_location_id",
+        "wpp_location_type",
+        "economic_qualified"
+      ],
+      "content_sha256": "cf4673e8906fc52fcafbed4f1aca942a281acf567c77808235852df23b9a41f2",
+      "row_count": 237,
+      "schema": "loom_earth",
+      "table": "earth_area"
+    },
+    {
+      "columns": [
+        "snapshot_id",
+        "iso3",
+        "year",
+        "sex",
+        "age_start",
+        "age_span",
+        "persons",
+        "open_ended",
+        "derivation_id"
+      ],
+      "content_sha256": "8656c2ea1c20bfdb677a6253fad5015fe3bf2b47c52726dcbc219bdbbe2bb279",
+      "row_count": 2657718,
+      "schema": "loom_earth",
+      "table": "earth_biological_cohort_year"
+    },
+    {
+      "columns": [
+        "snapshot_id",
+        "iso3",
+        "year",
+        "biological_population",
+        "births",
+        "deaths",
+        "median_age",
+        "age_under_20",
+        "age_20_64",
+        "age_65_plus",
+        "age_80_plus",
+        "age_100_plus",
+        "age_120_plus",
+        "age_150_plus",
+        "derivation_id"
+      ],
+      "content_sha256": "d46330adfce559bbf1bcd182597154abdb1aac9c7d38b948b70b6806d280b566",
+      "row_count": 47637,
+      "schema": "loom_earth",
+      "table": "earth_demographic_year"
+    },
+    {
+      "columns": [
+        "snapshot_id",
+        "derivation_id",
+        "source_model",
+        "method",
+        "epistemic_status",
+        "selected_scenario",
+        "source_artifact_sha256",
+        "notes"
+      ],
+      "content_sha256": "ec17e1b4686a5bd643f982b0028ee5795091ef9eb1aabe163fe818ec8563b4d7",
+      "row_count": 7,
+      "schema": "loom_earth",
+      "table": "earth_derivation"
+    },
+    {
+      "columns": [
+        "snapshot_id",
+        "iso3",
+        "year",
+        "value_added",
+        "gross_output",
+        "investment",
+        "capital",
+        "population",
+        "derivation_id"
+      ],
+      "content_sha256": "03d2fe03be95a134a3d9e136bcde7920124e9ad994386e2be2d2cfd47a6638c4",
+      "row_count": 16080,
+      "schema": "loom_earth",
+      "table": "earth_economic_year"
+    },
+    {
+      "columns": [
+        "snapshot_id",
+        "iso3",
+        "year",
+        "biological_population",
+        "labor_capable_biological_population",
+        "biological_effective_labor",
+        "synthetic_population",
+        "synthetic_effective_labor",
+        "machine_task_capacity",
+        "total_effective_labor",
+        "recognized_person_population",
+        "derivation_id"
+      ],
+      "content_sha256": "902fe3efe71a6d8ac8a57da3575c38c860e163e9fe56c04ba8a9c3954a5d22e1",
+      "row_count": 10160,
+      "schema": "loom_earth",
+      "table": "earth_labor_composition_year"
+    },
+    {
+      "columns": [
+        "snapshot_id",
+        "iso3",
+        "year",
+        "legacy_employment",
+        "legacy_labor_force",
+        "labor_market_working_age_population",
+        "derivation_id"
+      ],
+      "content_sha256": "cadb407b329d8591f1a64d57cdc5fbb1bf55dc35a6737f8865be67ee55f900b0",
+      "row_count": 6000,
+      "schema": "loom_earth",
+      "table": "earth_legacy_labor_year"
+    },
+    {
+      "columns": [
+        "snapshot_id",
+        "iso3",
+        "sector",
+        "asset_class",
+        "year",
+        "capital",
+        "investment",
+        "depreciation_rate",
+        "replacement_need",
+        "replacement_funded",
+        "expansion_investment",
+        "derivation_id"
+      ],
+      "content_sha256": "ad46524bbab0cd91fa2128c3ffd8abf22580b48d1923891ac9265e9634a604d8",
+      "row_count": 643200,
+      "schema": "loom_earth",
+      "table": "earth_sector_asset_year"
+    },
+    {
+      "columns": [
+        "snapshot_id",
+        "iso3",
+        "sector",
+        "year",
+        "value_added",
+        "gross_output",
+        "investment",
+        "capital",
+        "employment",
+        "effective_labor",
+        "derivation_id"
+      ],
+      "content_sha256": "7f845022e1ecc4b494ea88879241a806dccc83d730c36d815fbb6827c4ad73ff",
+      "row_count": 160800,
+      "schema": "loom_earth",
+      "table": "earth_sector_year"
+    }
+  ],
+  "earth_metadata": {
+    "content_sha256": "eb44a5ca63737c45f30dbc4fabacc91ffe567d8032e7ec13a9d5f4eb6caf4777",
+    "rows": {
+      "earth_derivation": [
+        {
+          "derivation_id": "BIOSYNTHETIC_2101_2226",
+          "epistemic_status": "SELECTED_MODEL",
+          "method": "Deterministic full-row replay of promoted selected coupled successor",
+          "notes": "Source bytes remain outside PostgreSQL and are hash pinned.",
+          "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24"
+        },
+        {
+          "derivation_id": "BIOSYNTHETIC_BOUNDARY_2100",
+          "epistemic_status": "SELECTED_MODEL",
+          "method": "Explicit labor reinterpretation and production-A rebase with economic levels preserved",
+          "notes": "Source bytes remain outside PostgreSQL and are hash pinned.",
+          "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24"
+        },
+        {
+          "derivation_id": "MED_CENTRAL_COHORT_2101_2226",
+          "epistemic_status": "SELECTED_MODEL",
+          "method": "Annual five-year cohort propagation with MED_CENTRAL mortality and health semantics",
+          "notes": "Source bytes remain outside PostgreSQL and are hash pinned.",
+          "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "3c6f4ef4b5cabb1fb7b97956158acce1bb5d0012f443093ee81a0c2896da1248",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24"
+        },
+        {
+          "derivation_id": "V4_2026_2030",
+          "epistemic_status": "QUALIFIED_MODEL",
+          "method": "promoted v4 stage 2026-2031",
+          "notes": "Source bytes remain outside PostgreSQL and are hash pinned.",
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "50a736dca69f00abfcdb11a0729df648fd68b1c9cce82e06e33a51a239899bf1",
+          "source_model": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24"
+        },
+        {
+          "derivation_id": "V4_2031_2059",
+          "epistemic_status": "QUALIFIED_MODEL",
+          "method": "promoted v4 stage 2031-2060",
+          "notes": "Source bytes remain outside PostgreSQL and are hash pinned.",
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "449072d0c18ac09fc9346622d5917ef70efcb7913b5facbbd3517aa800e3e112",
+          "source_model": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24"
+        },
+        {
+          "derivation_id": "V4_2060_2100",
+          "epistemic_status": "QUALIFIED_MODEL",
+          "method": "promoted v4 successor_80 trajectory",
+          "notes": "Source bytes remain outside PostgreSQL and are hash pinned.",
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "ca9beba0ed8ed52b13c26691229eb5eee14f03065e60a528e614bc9a385daf15",
+          "source_model": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24"
+        },
+        {
+          "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+          "epistemic_status": "EMPIRICAL_PROJECTION_SOURCE",
+          "method": "Jan-1 total normalized age-sex percentage source",
+          "notes": "Source bytes remain outside PostgreSQL and are hash pinned.",
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "c2a7b248c01399688a3461d4a2303c93aabc7d36e5dbf6b378429ed4bf40b012",
+          "source_model": "UN_WPP_2024_MEDIUM"
+        }
+      ],
+      "import_batch": [
+        {
+          "batch_id": "batch-earth_area",
+          "derivation_id": "MULTI_SOURCE_SEE_SNAPSHOT_SOURCE",
+          "fact_family": "earth_area",
+          "imported_at": "2026-09-24T18:45:56.684782+00:00",
+          "record_count": 237,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "source_key_rule": "Primary key columns in migration 004; exact source hashes in snapshot_source",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226
+        },
+        {
+          "batch_id": "batch-earth_biological_cohort_year",
+          "derivation_id": "MULTI_SOURCE_SEE_SNAPSHOT_SOURCE",
+          "fact_family": "earth_biological_cohort_year",
+          "imported_at": "2026-09-24T18:45:56.74652+00:00",
+          "record_count": 2657718,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "source_key_rule": "Primary key columns in migration 004; exact source hashes in snapshot_source",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226
+        },
+        {
+          "batch_id": "batch-earth_demographic_year",
+          "derivation_id": "MULTI_SOURCE_SEE_SNAPSHOT_SOURCE",
+          "fact_family": "earth_demographic_year",
+          "imported_at": "2026-09-24T18:45:56.795043+00:00",
+          "record_count": 47637,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "source_key_rule": "Primary key columns in migration 004; exact source hashes in snapshot_source",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226
+        },
+        {
+          "batch_id": "batch-earth_economic_year",
+          "derivation_id": "MULTI_SOURCE_SEE_SNAPSHOT_SOURCE",
+          "fact_family": "earth_economic_year",
+          "imported_at": "2026-09-24T18:45:56.846142+00:00",
+          "record_count": 16080,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "source_key_rule": "Primary key columns in migration 004; exact source hashes in snapshot_source",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226
+        },
+        {
+          "batch_id": "batch-earth_labor_composition_year",
+          "derivation_id": "MULTI_SOURCE_SEE_SNAPSHOT_SOURCE",
+          "fact_family": "earth_labor_composition_year",
+          "imported_at": "2026-09-24T18:45:56.895191+00:00",
+          "record_count": 10160,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "source_key_rule": "Primary key columns in migration 004; exact source hashes in snapshot_source",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226
+        },
+        {
+          "batch_id": "batch-earth_legacy_labor_year",
+          "derivation_id": "MULTI_SOURCE_SEE_SNAPSHOT_SOURCE",
+          "fact_family": "earth_legacy_labor_year",
+          "imported_at": "2026-09-24T18:45:56.950382+00:00",
+          "record_count": 6000,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "source_key_rule": "Primary key columns in migration 004; exact source hashes in snapshot_source",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226
+        },
+        {
+          "batch_id": "batch-earth_sector_asset_year",
+          "derivation_id": "MULTI_SOURCE_SEE_SNAPSHOT_SOURCE",
+          "fact_family": "earth_sector_asset_year",
+          "imported_at": "2026-09-24T18:45:57.00327+00:00",
+          "record_count": 643200,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "source_key_rule": "Primary key columns in migration 004; exact source hashes in snapshot_source",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226
+        },
+        {
+          "batch_id": "batch-earth_sector_year",
+          "derivation_id": "MULTI_SOURCE_SEE_SNAPSHOT_SOURCE",
+          "fact_family": "earth_sector_year",
+          "imported_at": "2026-09-24T18:45:57.058539+00:00",
+          "record_count": 160800,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "source_key_rule": "Primary key columns in migration 004; exact source hashes in snapshot_source",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226
+        }
+      ],
+      "model_context_record": [
+        {
+          "context_key": "allocation_repair",
+          "context_value": {
+            "country_specific_exceptions": false,
+            "formula": "normalized(absolute_capacity_share^0.75 * intensity_share^0.25)"
+          },
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "authority_main_sha",
+          "context_value": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "fertility_path",
+          "context_value": {
+            "anchors": {
+              "2100": 1.838,
+              "2125": 1.802,
+              "2150": 1.79,
+              "2175": 1.815,
+              "2200": 1.846,
+              "2226": 1.88
+            },
+            "status": "setting calibration"
+          },
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "handoff_2100",
+          "context_value": {
+            "demography": "WPP Jan-1 state represented once in consumer demographic timeline; selected propagation starts 2101",
+            "economics": "v4 levels through 2100; coupled successor starts 2101",
+            "labor": "legacy employment and selected effective labor are separate semantic families"
+          },
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "limitations",
+          "context_value": [
+            "No selected synthetic population before 2100",
+            "No economics for 157 demographic-only areas",
+            "No off-Earth coupling",
+            "Five-year cohort resolution",
+            "Model proxy monetary units are not household income"
+          ],
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "medical_longevity",
+          "context_value": {
+            "broad": "near-universal mature-Earth infrastructure",
+            "extreme": "rare",
+            "high_end": "material but unequal",
+            "immortality": false,
+            "mechanism": "age-specific mortality and functional health; never a population multiplier"
+          },
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "model_designation",
+          "context_value": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "promotion_manifest_sha256",
+          "context_value": "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2",
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "promotion_merge_sha",
+          "context_value": "c27b81b850212c530e61a87f7bf2a4b9a5802af7",
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "research_lab_source_sha",
+          "context_value": "cb4e63554f8ecfaf35a8c3b70275fea479959fbd",
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "selected_scenario",
+          "context_value": "MED_CENTRAL__SYNTH_CENTRAL",
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "sensitivity",
+          "context_value": {
+            "grid": "3x3 preserved in promoted authority",
+            "medical_biological_population_range_2226": "approximately 6.991B-7.465B"
+          },
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "synthetic_stock",
+          "context_value": {
+            "equation": "S(t+1)=S(t)+additions-losses+net migration",
+            "net_migration": 0,
+            "persons_distinct_from_machine_tasks": true
+          },
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "v4_predecessor",
+          "context_value": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        },
+        {
+          "context_key": "workforce_invariant",
+          "context_value": {
+            "expected_2226": "80/80 PASS",
+            "rule": "biological_effective_labor <= labor_capable_biological_population <= biological_population"
+          },
+          "description": "Embedded selected authority context; Git remains release authority.",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+        }
+      ],
+      "semantic_version": [
+        {
+          "recorded_at": "2026-09-24T18:43:16.840904+00:00",
+          "semantic_sha256": "2d84b0b9137b3147e09723dff8cffe952e39e7d55f8062a73c0b13b62baee3a0",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "tools/earth_temporal_pg.py"
+        },
+        {
+          "recorded_at": "2026-09-21T01:27:19.388681+00:00",
+          "semantic_sha256": "4d0aef377ddb033d65d4a0eb5faf147b0bd455b8165570c39670046b332a9368",
+          "source_git_commit": null,
+          "source_path": "docs/database_semantics/LOOM_WHOLE_SYSTEM_POSTGRES_GATE_A_ADMISSION_MATRIX_v0.1.json"
+        },
+        {
+          "recorded_at": "2026-09-25T07:03:01.028431+00:00",
+          "semantic_sha256": "8543a0dde2248891fd1f0f1abd6480d2d30ba587e0e7dfea96580edee52b3636",
+          "source_git_commit": "c0b50afdd792cecf0b32a8752855e5afa8694ddd",
+          "source_path": "canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md + docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md"
+        }
+      ],
+      "snapshot_source": [
+        {
+          "artifact_sha256": "286ac36bb1415e2e1ade03acfef0a29f0e4c087e2f78e38c48f50c5df89082bc",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "WPP_2024_MEDIUM"
+        },
+        {
+          "artifact_sha256": "3c6f4ef4b5cabb1fb7b97956158acce1bb5d0012f443093ee81a0c2896da1248",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "449072d0c18ac09fc9346622d5917ef70efcb7913b5facbbd3517aa800e3e112",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "50a736dca69f00abfcdb11a0729df648fd68b1c9cce82e06e33a51a239899bf1",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "540ab5092847d6b59255e511bac52489faa55bba16c323a5c4677440f0cefb7c",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "546cc263934bb74ea17e5620fd735039af50c8e35d87b41a4eaeb7987507424d",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "8b8dec0149b70cbaab3614188403411a6a1daae9f8ddabad0195cc196aeeafff",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "92238b050b1e60892f36700ecc30e11b36eab0d0337b36e9fe09bad4ad7db570",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "a4c239a364c73401217d60be1b7d5ef1c500fc7d47bc6d547eed589d06bc0ef8",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "SELECTED_DETAILED_REPLAY"
+        },
+        {
+          "artifact_sha256": "c2a7b248c01399688a3461d4a2303c93aabc7d36e5dbf6b378429ed4bf40b012",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "WPP_2024_MEDIUM"
+        },
+        {
+          "artifact_sha256": "ca9beba0ed8ed52b13c26691229eb5eee14f03065e60a528e614bc9a385daf15",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "d003438b869a7e17bf3a899edebf31edf8f1104213f25f302a74115a70def57b",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "db2e52092acb8e2a5597a8d5596affc1be94415ccaf344ed11e71dbe8dd61a68",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "e70fc57b3e53d6f25d152eeb0d35086d9f1c4b1bf5a27d608c5b9dff1e2fb392",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "SELECTED_DETAILED_REPLAY"
+        },
+        {
+          "artifact_sha256": "e9e97d089665bfad2433a2c463ec711d13afe6d2294ef61df264c7d11f088a73",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_role": "SELECTED_DETAILED_REPLAY"
+        }
+      ],
+      "source_artifact": [
+        {
+          "artifact_sha256": "286ac36bb1415e2e1ade03acfef0a29f0e4c087e2f78e38c48f50c5df89082bc",
+          "byte_count": 16557272,
+          "retained_location": "/home/ubuntu/LOOM_Earth2026/raw/WPP2024_Demographic_Indicators_Medium.csv.gz",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/LOOM_Earth2026/raw/WPP2024_Demographic_Indicators_Medium.csv.gz",
+          "source_role": "WPP_2024_MEDIUM"
+        },
+        {
+          "artifact_sha256": "3c6f4ef4b5cabb1fb7b97956158acce1bb5d0012f443093ee81a0c2896da1248",
+          "byte_count": 51184973,
+          "retained_location": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/biological_cohorts_2100_2226.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/biological_cohorts_2100_2226.ndjson",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "449072d0c18ac09fc9346622d5917ef70efcb7913b5facbbd3517aa800e3e112",
+          "byte_count": 2514774,
+          "retained_location": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2031_2060/countries_2031_2060.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2031_2060/countries_2031_2060.ndjson",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "50a736dca69f00abfcdb11a0729df648fd68b1c9cce82e06e33a51a239899bf1",
+          "byte_count": 420879,
+          "retained_location": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2026_2031/countries_2026_2031.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2026_2031/countries_2026_2031.ndjson",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "540ab5092847d6b59255e511bac52489faa55bba16c323a5c4677440f0cefb7c",
+          "byte_count": 7657051,
+          "retained_location": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2026_2031/country_sector_assets_2026_2031.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2026_2031/country_sector_assets_2026_2031.ndjson",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "546cc263934bb74ea17e5620fd735039af50c8e35d87b41a4eaeb7987507424d",
+          "byte_count": 4351579,
+          "retained_location": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2026_2031/country_sectors_2026_2031.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2026_2031/country_sectors_2026_2031.ndjson",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "8b8dec0149b70cbaab3614188403411a6a1daae9f8ddabad0195cc196aeeafff",
+          "byte_count": 233865737,
+          "retained_location": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/country_sector_assets_2060_2226.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/country_sector_assets_2060_2226.ndjson",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "92238b050b1e60892f36700ecc30e11b36eab0d0337b36e9fe09bad4ad7db570",
+          "byte_count": 196493142,
+          "retained_location": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/country_sectors_2060_2226.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/country_sectors_2060_2226.ndjson",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "a4c239a364c73401217d60be1b7d5ef1c500fc7d47bc6d547eed589d06bc0ef8",
+          "byte_count": 26845881,
+          "retained_location": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/biological_country_2100_2226.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/loom_earth_lean_biosynthetic_v0_1_20260924/demography/MED_CENTRAL/biological_country_2100_2226.ndjson",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "b54ab9b53b1c3415c24fcbd7dccaa95fe8ab24810d3f1337e3748a78f6014a33",
+          "byte_count": 7588078,
+          "retained_location": "/home/ubuntu/LOOM_ARCHIVE/EARTH_TEMPORAL/2026-09-25/MED_CENTRAL__SYNTH_CENTRAL_detailed_replay/countries_2100_2226.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/LOOM_ARCHIVE/EARTH_TEMPORAL/2026-09-25/MED_CENTRAL__SYNTH_CENTRAL_detailed_replay/countries_2100_2226.ndjson",
+          "source_role": "SELECTED_DETAILED_REPLAY"
+        },
+        {
+          "artifact_sha256": "c2a7b248c01399688a3461d4a2303c93aabc7d36e5dbf6b378429ed4bf40b012",
+          "byte_count": 19885780,
+          "retained_location": "/home/ubuntu/LOOM_Earth2026/raw/WPP2024_PopulationByAge5GroupSex_Percentage_Medium.csv.gz",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/LOOM_Earth2026/raw/WPP2024_PopulationByAge5GroupSex_Percentage_Medium.csv.gz",
+          "source_role": "WPP_2024_MEDIUM"
+        },
+        {
+          "artifact_sha256": "ca9beba0ed8ed52b13c26691229eb5eee14f03065e60a528e614bc9a385daf15",
+          "byte_count": 15014972,
+          "retained_location": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/countries_2060_2226.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/successor_80_2226/results/countries_2060_2226.ndjson",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "d003438b869a7e17bf3a899edebf31edf8f1104213f25f302a74115a70def57b",
+          "byte_count": 43285204,
+          "retained_location": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2031_2060/country_sector_assets_2031_2060.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2031_2060/country_sector_assets_2031_2060.ndjson",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "db2e52092acb8e2a5597a8d5596affc1be94415ccaf344ed11e71dbe8dd61a68",
+          "byte_count": 27955992,
+          "retained_location": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2031_2060/country_sectors_2031_2060.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24/stage_2031_2060/country_sectors_2031_2060.ndjson",
+          "source_role": "PROMOTED_V4_OR_SUCCESSOR_SOURCE"
+        },
+        {
+          "artifact_sha256": "e70fc57b3e53d6f25d152eeb0d35086d9f1c4b1bf5a27d608c5b9dff1e2fb392",
+          "byte_count": 98713173,
+          "retained_location": "/home/ubuntu/LOOM_ARCHIVE/EARTH_TEMPORAL/2026-09-25/MED_CENTRAL__SYNTH_CENTRAL_detailed_replay/country_sectors_2100_2226.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/LOOM_ARCHIVE/EARTH_TEMPORAL/2026-09-25/MED_CENTRAL__SYNTH_CENTRAL_detailed_replay/country_sectors_2100_2226.ndjson",
+          "source_role": "SELECTED_DETAILED_REPLAY"
+        },
+        {
+          "artifact_sha256": "e9e97d089665bfad2433a2c463ec711d13afe6d2294ef61df264c7d11f088a73",
+          "byte_count": 145943798,
+          "retained_location": "/home/ubuntu/LOOM_ARCHIVE/EARTH_TEMPORAL/2026-09-25/MED_CENTRAL__SYNTH_CENTRAL_detailed_replay/country_sector_assets_2100_2226.ndjson",
+          "source_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "source_path": "/home/ubuntu/LOOM_ARCHIVE/EARTH_TEMPORAL/2026-09-25/MED_CENTRAL__SYNTH_CENTRAL_detailed_replay/country_sector_assets_2100_2226.ndjson",
+          "source_role": "SELECTED_DETAILED_REPLAY"
+        }
+      ],
+      "temporal_coverage": [
+        {
+          "coverage_scope": "80_QUALIFIED_ECONOMIES",
+          "epistemic_status": "SELECTED_MODEL",
+          "fact_family": "biosynthetic_labor",
+          "geographic_coverage": "80_QUALIFIED_ECONOMIES",
+          "handoff_predecessor": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unavailable_intervals": [
+            [
+              2026,
+              2099,
+              "NOT_MODELED_BY_THIS_AUTHORITY"
+            ]
+          ],
+          "valid_from_year": 2100,
+          "valid_to_year": 2226,
+          "variable_key": "WORK.TOTAL_EFFECTIVE_LABOR"
+        },
+        {
+          "coverage_scope": "237_WPP_COUNTRY_AREA",
+          "epistemic_status": "SELECTED_AUTHORITY",
+          "fact_family": "cohorts",
+          "geographic_coverage": "237_WPP_COUNTRY_AREA",
+          "handoff_predecessor": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_model": "WPP_AGE_SEX_THEN_MED_CENTRAL",
+          "temporal_grain": "ANNUAL",
+          "unavailable_intervals": [],
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": null
+        },
+        {
+          "coverage_scope": "237_WPP_COUNTRY_AREA",
+          "epistemic_status": "SELECTED_AUTHORITY",
+          "fact_family": "demography",
+          "geographic_coverage": "237_WPP_COUNTRY_AREA",
+          "handoff_predecessor": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_model": "WPP_2024_MEDIUM_THEN_MED_CENTRAL",
+          "temporal_grain": "ANNUAL",
+          "unavailable_intervals": [],
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.BIO_POP"
+        },
+        {
+          "coverage_scope": "80_QUALIFIED_ECONOMIES",
+          "epistemic_status": "SELECTED_AUTHORITY",
+          "fact_family": "economics",
+          "geographic_coverage": "80_QUALIFIED_ECONOMIES",
+          "handoff_predecessor": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_model": "V4_THEN_COUPLED_SUCCESSOR",
+          "temporal_grain": "ANNUAL",
+          "unavailable_intervals": [],
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "ECON.VALUE_ADDED"
+        },
+        {
+          "coverage_scope": "80_QUALIFIED_ECONOMIES",
+          "epistemic_status": "QUALIFIED_MODEL",
+          "fact_family": "legacy_labor",
+          "geographic_coverage": "80_QUALIFIED_ECONOMIES",
+          "handoff_predecessor": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_model": "V4",
+          "temporal_grain": "ANNUAL",
+          "unavailable_intervals": [
+            [
+              2101,
+              2226,
+              "SUPERSEDED_SEMANTIC"
+            ]
+          ],
+          "valid_from_year": 2026,
+          "valid_to_year": 2100,
+          "variable_key": "WORK.LEGACY_EMPLOYMENT"
+        },
+        {
+          "coverage_scope": "80_QUALIFIED_ECONOMIES",
+          "epistemic_status": "SELECTED_MODEL",
+          "fact_family": "synthetic_persons",
+          "geographic_coverage": "80_QUALIFIED_ECONOMIES",
+          "handoff_predecessor": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unavailable_intervals": [
+            [
+              2026,
+              2099,
+              "NOT_MODELED_BY_THIS_AUTHORITY"
+            ]
+          ],
+          "valid_from_year": 2100,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.SYNTH_POP"
+        }
+      ],
+      "variable_semantics": [
+        {
+          "coverage_scope": "237 WPP areas",
+          "definition": "Biological persons age 100 or older.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "DERIVED",
+          "future_limitation": "237 WPP areas",
+          "grain": "area-year",
+          "human_label": "Biological persons age 100+",
+          "interpretation": "Biological persons age 100 or older.",
+          "misuse_warning": "NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "biological humans",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.AGE_100_PLUS"
+        },
+        {
+          "coverage_scope": "237 WPP areas",
+          "definition": "Biological persons age 120 or older.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "DERIVED",
+          "future_limitation": "237 WPP areas",
+          "grain": "area-year",
+          "human_label": "Biological persons age 120+",
+          "interpretation": "Biological persons age 120 or older.",
+          "misuse_warning": "NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "biological humans",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.AGE_120_PLUS"
+        },
+        {
+          "coverage_scope": "237 WPP areas",
+          "definition": "Biological persons age 150 or older.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "DERIVED",
+          "future_limitation": "237 WPP areas",
+          "grain": "area-year",
+          "human_label": "Biological persons age 150+",
+          "interpretation": "Biological persons age 150 or older.",
+          "misuse_warning": "NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "biological humans",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.AGE_150_PLUS"
+        },
+        {
+          "coverage_scope": "237 WPP areas",
+          "definition": "Biological persons in age groups 20-64.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "DERIVED",
+          "future_limitation": "237 WPP areas",
+          "grain": "area-year",
+          "human_label": "Biological persons age 20-64",
+          "interpretation": "Biological persons in age groups 20-64.",
+          "misuse_warning": "NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "biological humans",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.AGE_20_64"
+        },
+        {
+          "coverage_scope": "237 WPP areas",
+          "definition": "Biological persons age 65 or older.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "DERIVED",
+          "future_limitation": "237 WPP areas",
+          "grain": "area-year",
+          "human_label": "Biological persons age 65+",
+          "interpretation": "Biological persons age 65 or older.",
+          "misuse_warning": "NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "biological humans",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.AGE_65_PLUS"
+        },
+        {
+          "coverage_scope": "237 WPP areas",
+          "definition": "Biological persons age 80 or older.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "DERIVED",
+          "future_limitation": "237 WPP areas",
+          "grain": "area-year",
+          "human_label": "Biological persons age 80+",
+          "interpretation": "Biological persons age 80 or older.",
+          "misuse_warning": "NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "biological humans",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.AGE_80_PLUS"
+        },
+        {
+          "coverage_scope": "237 WPP areas",
+          "definition": "Biological persons in age groups 0-19.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "DERIVED",
+          "future_limitation": "237 WPP areas",
+          "grain": "area-year",
+          "human_label": "Biological persons under 20",
+          "interpretation": "Biological persons in age groups 0-19.",
+          "misuse_warning": "NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "biological humans",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.AGE_UNDER_20"
+        },
+        {
+          "coverage_scope": "WPP through 2100; selected cohort successor after 2100",
+          "definition": "Biological human persons alive at Jan-1/model boundary.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "SELECTED_AUTHORITY",
+          "future_limitation": "WPP through 2100; selected cohort successor after 2100",
+          "grain": "area-year",
+          "human_label": "Biological population",
+          "interpretation": "Biological human persons alive at Jan-1/model boundary.",
+          "misuse_warning": "NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "biological humans",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.BIO_POP"
+        },
+        {
+          "coverage_scope": "237 WPP areas",
+          "definition": "Median derived from five-year biological cohorts.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "DERIVED",
+          "future_limitation": "237 WPP areas",
+          "grain": "area-year",
+          "human_label": "Approximate biological median age",
+          "interpretation": "Median derived from five-year biological cohorts.",
+          "misuse_warning": "Grouped-cohort approximation; not synthetic age. NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "biological humans",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "years",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.MEDIAN_AGE"
+        },
+        {
+          "coverage_scope": "economic 80 only",
+          "definition": "Biological population plus recognized synthetic-person population.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "DERIVED",
+          "future_limitation": "economic 80 only",
+          "grain": "economic-area-year",
+          "human_label": "Recognized-person population",
+          "interpretation": "Biological population plus recognized synthetic-person population.",
+          "misuse_warning": "Machine task capacity is not a population. NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "recognized persons",
+          "predecessor": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+          "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons",
+          "valid_from_year": 2100,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.RECOGNIZED_POP"
+        },
+        {
+          "coverage_scope": "selected successor only",
+          "definition": "Recognized synthetic persons; excludes biological humans and machine tasks.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "SELECTED_MODEL",
+          "future_limitation": "selected successor only",
+          "grain": "economic-area-year",
+          "human_label": "Synthetic-person population",
+          "interpretation": "Recognized synthetic persons; excludes biological humans and machine tasks.",
+          "misuse_warning": "Synthetic-person headcount is not synthetic effective labor. NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "recognized synthetic persons",
+          "predecessor": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+          "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons",
+          "valid_from_year": 2100,
+          "valid_to_year": 2226,
+          "variable_key": "DEM.SYNTH_POP"
+        },
+        {
+          "coverage_scope": "economic 80",
+          "definition": "Modeled productive capital stock in baseline proxy units.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "QUALIFIED_MODEL",
+          "future_limitation": "economic 80",
+          "grain": "economic-area-year",
+          "human_label": "Productive capital",
+          "interpretation": "Modeled productive capital stock in baseline proxy units.",
+          "misuse_warning": "Value added per person is production intensity, not household income. NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "economic accounts",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "model proxy monetary units",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "ECON.CAPITAL"
+        },
+        {
+          "coverage_scope": "economic 80",
+          "definition": "Modeled gross output in baseline proxy units.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "QUALIFIED_MODEL",
+          "future_limitation": "economic 80",
+          "grain": "economic-area-year",
+          "human_label": "Gross output",
+          "interpretation": "Modeled gross output in baseline proxy units.",
+          "misuse_warning": "Value added per person is production intensity, not household income. NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "economic accounts",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "model proxy monetary units",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "ECON.GROSS_OUTPUT"
+        },
+        {
+          "coverage_scope": "economic 80",
+          "definition": "Modeled annual investment in baseline proxy units.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "QUALIFIED_MODEL",
+          "future_limitation": "economic 80",
+          "grain": "economic-area-year",
+          "human_label": "Investment",
+          "interpretation": "Modeled annual investment in baseline proxy units.",
+          "misuse_warning": "Value added per person is production intensity, not household income. NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "economic accounts",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "model proxy monetary units",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "ECON.INVESTMENT"
+        },
+        {
+          "coverage_scope": "economic 80",
+          "definition": "Modeled economic value added in baseline proxy units.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "QUALIFIED_MODEL",
+          "future_limitation": "economic 80",
+          "grain": "economic-area-year",
+          "human_label": "Value added",
+          "interpretation": "Modeled economic value added in baseline proxy units.",
+          "misuse_warning": "Value added per person is production intensity, not household income. NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "economic accounts",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "model proxy monetary units",
+          "valid_from_year": 2026,
+          "valid_to_year": 2226,
+          "variable_key": "ECON.VALUE_ADDED"
+        },
+        {
+          "coverage_scope": "economic 80",
+          "definition": "Cohort population weighted by functional health, participation and paid-hours factors.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "SELECTED_MODEL",
+          "future_limitation": "economic 80",
+          "grain": "economic-area-year",
+          "human_label": "Biological effective labor",
+          "interpretation": "Cohort population weighted by functional health, participation and paid-hours factors.",
+          "misuse_warning": "Biological effective labor is not worker headcount. NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "biological labor input",
+          "predecessor": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+          "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "effective-labor equivalents",
+          "valid_from_year": 2100,
+          "valid_to_year": 2226,
+          "variable_key": "WORK.BIO_EFFECTIVE_LABOR"
+        },
+        {
+          "coverage_scope": "economic 80",
+          "definition": "Health and age eligible biological population under the selected cohort labor interface.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "SELECTED_MODEL",
+          "future_limitation": "economic 80",
+          "grain": "economic-area-year",
+          "human_label": "Labor-capable biological population",
+          "interpretation": "Health and age eligible biological population under the selected cohort labor interface.",
+          "misuse_warning": "NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "biological humans",
+          "predecessor": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+          "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons",
+          "valid_from_year": 2100,
+          "valid_to_year": 2226,
+          "variable_key": "WORK.LABOR_CAPABLE_BIO"
+        },
+        {
+          "coverage_scope": "economic 80",
+          "definition": "Employment under predecessor v4 labor-market semantics.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "QUALIFIED_MODEL",
+          "future_limitation": "economic 80",
+          "grain": "economic-area-year",
+          "human_label": "Legacy employment",
+          "interpretation": "Employment under predecessor v4 labor-market semantics.",
+          "misuse_warning": "Legacy employment is not automatically comparable to post-2100 biological effective labor. NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "legacy v4 employment",
+          "predecessor": null,
+          "selected_scenario": null,
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "persons/FTE proxy",
+          "valid_from_year": 2026,
+          "valid_to_year": 2100,
+          "variable_key": "WORK.LEGACY_EMPLOYMENT"
+        },
+        {
+          "coverage_scope": "economic 80",
+          "definition": "Non-person automation contribution to production.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "SELECTED_MODEL",
+          "future_limitation": "economic 80",
+          "grain": "economic-area-year",
+          "human_label": "Non-person machine task capacity",
+          "interpretation": "Non-person automation contribution to production.",
+          "misuse_warning": "Machine task capacity is not a population. NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "non-person automation",
+          "predecessor": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+          "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "effective-labor equivalents",
+          "valid_from_year": 2100,
+          "valid_to_year": 2226,
+          "variable_key": "WORK.MACHINE_TASK_CAPACITY"
+        },
+        {
+          "coverage_scope": "economic 80",
+          "definition": "Synthetic-person stock weighted by participation and capacity.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "SELECTED_MODEL",
+          "future_limitation": "economic 80",
+          "grain": "economic-area-year",
+          "human_label": "Synthetic effective labor",
+          "interpretation": "Synthetic-person stock weighted by participation and capacity.",
+          "misuse_warning": "Synthetic effective labor is not synthetic-person headcount. NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "synthetic-person labor input",
+          "predecessor": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+          "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "effective-labor equivalents",
+          "valid_from_year": 2100,
+          "valid_to_year": 2226,
+          "variable_key": "WORK.SYNTH_EFFECTIVE_LABOR"
+        },
+        {
+          "coverage_scope": "economic 80",
+          "definition": "Biological effective labor plus synthetic effective labor plus non-person machine-task capacity.",
+          "derivation_method": "See earth_derivation and import_batch",
+          "epistemic_status": "DERIVED",
+          "future_limitation": "economic 80",
+          "grain": "economic-area-year",
+          "human_label": "Total effective labor",
+          "interpretation": "Biological effective labor plus synthetic effective labor plus non-person machine-task capacity.",
+          "misuse_warning": "NULL / unavailable before a modeled boundary does not mean zero.",
+          "population_accounting_basis": "production labor input",
+          "predecessor": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+          "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "source_artifact_hashes": [
+            "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2"
+          ],
+          "source_model_identity": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+          "temporal_grain": "ANNUAL",
+          "unit": "effective-labor equivalents",
+          "valid_from_year": 2100,
+          "valid_to_year": 2226,
+          "variable_key": "WORK.TOTAL_EFFECTIVE_LABOR"
+        }
+      ]
+    }
+  },
+  "earth_schema": {
+    "catalog": {
+      "columns": [
+        {
+          "column_default": null,
+          "column_name": "snapshot_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 1,
+          "table_name": "earth_area",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "iso3",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 2,
+          "table_name": "earth_area",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "display_name",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 3,
+          "table_name": "earth_area",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "wpp_location_id",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "ordinal_position": 4,
+          "table_name": "earth_area",
+          "table_schema": "loom_earth",
+          "udt_name": "int4",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "wpp_location_type",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 5,
+          "table_name": "earth_area",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "economic_qualified",
+          "data_type": "boolean",
+          "is_nullable": "NO",
+          "ordinal_position": 6,
+          "table_name": "earth_area",
+          "table_schema": "loom_earth",
+          "udt_name": "bool",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "snapshot_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 1,
+          "table_name": "earth_biological_cohort_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "iso3",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 2,
+          "table_name": "earth_biological_cohort_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "year",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "ordinal_position": 3,
+          "table_name": "earth_biological_cohort_year",
+          "table_schema": "loom_earth",
+          "udt_name": "int4",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "sex",
+          "data_type": "character",
+          "is_nullable": "NO",
+          "ordinal_position": 4,
+          "table_name": "earth_biological_cohort_year",
+          "table_schema": "loom_earth",
+          "udt_name": "bpchar",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "age_start",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "ordinal_position": 5,
+          "table_name": "earth_biological_cohort_year",
+          "table_schema": "loom_earth",
+          "udt_name": "int4",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "age_span",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "ordinal_position": 6,
+          "table_name": "earth_biological_cohort_year",
+          "table_schema": "loom_earth",
+          "udt_name": "int4",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "persons",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 7,
+          "table_name": "earth_biological_cohort_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": "false",
+          "column_name": "open_ended",
+          "data_type": "boolean",
+          "is_nullable": "NO",
+          "ordinal_position": 8,
+          "table_name": "earth_biological_cohort_year",
+          "table_schema": "loom_earth",
+          "udt_name": "bool",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "derivation_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 9,
+          "table_name": "earth_biological_cohort_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "snapshot_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 1,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "iso3",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 2,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "year",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "ordinal_position": 3,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "int4",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "biological_population",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 4,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "births",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 5,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "deaths",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 6,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "median_age",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 7,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "age_under_20",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 8,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "age_20_64",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 9,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "age_65_plus",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 10,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "age_80_plus",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 11,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "age_100_plus",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 12,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "age_120_plus",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 13,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "age_150_plus",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 14,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "derivation_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 15,
+          "table_name": "earth_demographic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "snapshot_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 1,
+          "table_name": "earth_derivation",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "derivation_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 2,
+          "table_name": "earth_derivation",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "source_model",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 3,
+          "table_name": "earth_derivation",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "method",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 4,
+          "table_name": "earth_derivation",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "epistemic_status",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 5,
+          "table_name": "earth_derivation",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "selected_scenario",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "ordinal_position": 6,
+          "table_name": "earth_derivation",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "source_artifact_sha256",
+          "data_type": "character",
+          "is_nullable": "NO",
+          "ordinal_position": 7,
+          "table_name": "earth_derivation",
+          "table_schema": "loom_earth",
+          "udt_name": "bpchar",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "notes",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 8,
+          "table_name": "earth_derivation",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "snapshot_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 1,
+          "table_name": "earth_economic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "iso3",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 2,
+          "table_name": "earth_economic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "year",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "ordinal_position": 3,
+          "table_name": "earth_economic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "int4",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "value_added",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 4,
+          "table_name": "earth_economic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "gross_output",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 5,
+          "table_name": "earth_economic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "investment",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 6,
+          "table_name": "earth_economic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "capital",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 7,
+          "table_name": "earth_economic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "population",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 8,
+          "table_name": "earth_economic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "derivation_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 9,
+          "table_name": "earth_economic_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "snapshot_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 1,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "iso3",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 2,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "year",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "ordinal_position": 3,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "int4",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "biological_population",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 4,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "labor_capable_biological_population",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 5,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "biological_effective_labor",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 6,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "synthetic_population",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 7,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "synthetic_effective_labor",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 8,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "machine_task_capacity",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 9,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "total_effective_labor",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 10,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "recognized_person_population",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 11,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "derivation_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 12,
+          "table_name": "earth_labor_composition_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "snapshot_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 1,
+          "table_name": "earth_legacy_labor_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "iso3",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 2,
+          "table_name": "earth_legacy_labor_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "year",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "ordinal_position": 3,
+          "table_name": "earth_legacy_labor_year",
+          "table_schema": "loom_earth",
+          "udt_name": "int4",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "legacy_employment",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 4,
+          "table_name": "earth_legacy_labor_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "legacy_labor_force",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 5,
+          "table_name": "earth_legacy_labor_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "labor_market_working_age_population",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 6,
+          "table_name": "earth_legacy_labor_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "derivation_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 7,
+          "table_name": "earth_legacy_labor_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "snapshot_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 1,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "iso3",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 2,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "sector",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 3,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "asset_class",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 4,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "year",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "ordinal_position": 5,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "int4",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "capital",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 6,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "investment",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 7,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "depreciation_rate",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 8,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "replacement_need",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 9,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "replacement_funded",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 10,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "expansion_investment",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 11,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "derivation_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 12,
+          "table_name": "earth_sector_asset_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "snapshot_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 1,
+          "table_name": "earth_sector_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "iso3",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 2,
+          "table_name": "earth_sector_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "sector",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 3,
+          "table_name": "earth_sector_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "year",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "ordinal_position": 4,
+          "table_name": "earth_sector_year",
+          "table_schema": "loom_earth",
+          "udt_name": "int4",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "value_added",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 5,
+          "table_name": "earth_sector_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "gross_output",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 6,
+          "table_name": "earth_sector_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "investment",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 7,
+          "table_name": "earth_sector_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "capital",
+          "data_type": "double precision",
+          "is_nullable": "NO",
+          "ordinal_position": 8,
+          "table_name": "earth_sector_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "employment",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 9,
+          "table_name": "earth_sector_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "effective_labor",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "ordinal_position": 10,
+          "table_name": "earth_sector_year",
+          "table_schema": "loom_earth",
+          "udt_name": "float8",
+          "udt_schema": "pg_catalog"
+        },
+        {
+          "column_default": null,
+          "column_name": "derivation_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "ordinal_position": 11,
+          "table_name": "earth_sector_year",
+          "table_schema": "loom_earth",
+          "udt_name": "text",
+          "udt_schema": "pg_catalog"
+        }
+      ],
+      "comments": [
+        {
+          "description": "Post-2100 selected biological, synthetic-person, and non-person machine labor categories.",
+          "object_name": "earth_labor_composition_year",
+          "schema_name": "loom_earth"
+        },
+        {
+          "description": "Historical employment under v4 semantics; not biological effective labor.",
+          "object_name": "earth_legacy_labor_year",
+          "schema_name": "loom_earth"
+        }
+      ],
+      "constraints": [
+        {
+          "conname": "earth_area_pkey",
+          "contype": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_area"
+        },
+        {
+          "conname": "earth_area_snapshot_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_area"
+        },
+        {
+          "conname": "earth_biological_cohort_year_age_start_check",
+          "contype": "c",
+          "definition": "CHECK (age_start >= 0)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_biological_cohort_year"
+        },
+        {
+          "conname": "earth_biological_cohort_year_persons_check",
+          "contype": "c",
+          "definition": "CHECK (persons >= 0::double precision)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_biological_cohort_year"
+        },
+        {
+          "conname": "earth_biological_cohort_year_pkey",
+          "contype": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, year, sex, age_start)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_biological_cohort_year"
+        },
+        {
+          "conname": "earth_biological_cohort_year_sex_check",
+          "contype": "c",
+          "definition": "CHECK (sex = ANY (ARRAY['F'::bpchar, 'M'::bpchar]))",
+          "schema_name": "loom_earth",
+          "table_name": "earth_biological_cohort_year"
+        },
+        {
+          "conname": "earth_biological_cohort_year_snapshot_id_derivation_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_biological_cohort_year"
+        },
+        {
+          "conname": "earth_biological_cohort_year_snapshot_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_biological_cohort_year"
+        },
+        {
+          "conname": "earth_biological_cohort_year_snapshot_id_iso3_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_biological_cohort_year"
+        },
+        {
+          "conname": "earth_biological_cohort_year_year_check",
+          "contype": "c",
+          "definition": "CHECK (year >= 2026 AND year <= 2226)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_biological_cohort_year"
+        },
+        {
+          "conname": "earth_demographic_year_biological_population_check",
+          "contype": "c",
+          "definition": "CHECK (biological_population >= 0::double precision)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_demographic_year"
+        },
+        {
+          "conname": "earth_demographic_year_pkey",
+          "contype": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, year)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_demographic_year"
+        },
+        {
+          "conname": "earth_demographic_year_snapshot_id_derivation_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_demographic_year"
+        },
+        {
+          "conname": "earth_demographic_year_snapshot_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_demographic_year"
+        },
+        {
+          "conname": "earth_demographic_year_snapshot_id_iso3_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_demographic_year"
+        },
+        {
+          "conname": "earth_demographic_year_year_check",
+          "contype": "c",
+          "definition": "CHECK (year >= 2026 AND year <= 2226)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_demographic_year"
+        },
+        {
+          "conname": "earth_derivation_pkey",
+          "contype": "p",
+          "definition": "PRIMARY KEY (snapshot_id, derivation_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_derivation"
+        },
+        {
+          "conname": "earth_derivation_snapshot_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_derivation"
+        },
+        {
+          "conname": "earth_derivation_source_artifact_sha256_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (source_artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_derivation"
+        },
+        {
+          "conname": "earth_economic_year_pkey",
+          "contype": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, year)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_economic_year"
+        },
+        {
+          "conname": "earth_economic_year_snapshot_id_derivation_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_economic_year"
+        },
+        {
+          "conname": "earth_economic_year_snapshot_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_economic_year"
+        },
+        {
+          "conname": "earth_economic_year_snapshot_id_iso3_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_economic_year"
+        },
+        {
+          "conname": "earth_economic_year_year_check",
+          "contype": "c",
+          "definition": "CHECK (year >= 2026 AND year <= 2226)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_economic_year"
+        },
+        {
+          "conname": "earth_labor_composition_year_check",
+          "contype": "c",
+          "definition": "CHECK (biological_effective_labor <= (labor_capable_biological_population + 0.000001::double precision))",
+          "schema_name": "loom_earth",
+          "table_name": "earth_labor_composition_year"
+        },
+        {
+          "conname": "earth_labor_composition_year_check1",
+          "contype": "c",
+          "definition": "CHECK (labor_capable_biological_population <= (biological_population + 0.000001::double precision))",
+          "schema_name": "loom_earth",
+          "table_name": "earth_labor_composition_year"
+        },
+        {
+          "conname": "earth_labor_composition_year_pkey",
+          "contype": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, year)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_labor_composition_year"
+        },
+        {
+          "conname": "earth_labor_composition_year_snapshot_id_derivation_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_labor_composition_year"
+        },
+        {
+          "conname": "earth_labor_composition_year_snapshot_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_labor_composition_year"
+        },
+        {
+          "conname": "earth_labor_composition_year_snapshot_id_iso3_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_labor_composition_year"
+        },
+        {
+          "conname": "earth_labor_composition_year_year_check",
+          "contype": "c",
+          "definition": "CHECK (year >= 2100 AND year <= 2226)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_labor_composition_year"
+        },
+        {
+          "conname": "earth_legacy_labor_year_pkey",
+          "contype": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, year)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_legacy_labor_year"
+        },
+        {
+          "conname": "earth_legacy_labor_year_snapshot_id_derivation_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_legacy_labor_year"
+        },
+        {
+          "conname": "earth_legacy_labor_year_snapshot_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_legacy_labor_year"
+        },
+        {
+          "conname": "earth_legacy_labor_year_snapshot_id_iso3_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_legacy_labor_year"
+        },
+        {
+          "conname": "earth_legacy_labor_year_year_check",
+          "contype": "c",
+          "definition": "CHECK (year >= 2026 AND year <= 2100)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_legacy_labor_year"
+        },
+        {
+          "conname": "earth_sector_asset_year_pkey",
+          "contype": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, sector, asset_class, year)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_sector_asset_year"
+        },
+        {
+          "conname": "earth_sector_asset_year_snapshot_id_derivation_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_sector_asset_year"
+        },
+        {
+          "conname": "earth_sector_asset_year_snapshot_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_sector_asset_year"
+        },
+        {
+          "conname": "earth_sector_asset_year_snapshot_id_iso3_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_sector_asset_year"
+        },
+        {
+          "conname": "earth_sector_asset_year_year_check",
+          "contype": "c",
+          "definition": "CHECK (year >= 2026 AND year <= 2226)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_sector_asset_year"
+        },
+        {
+          "conname": "earth_sector_year_pkey",
+          "contype": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, sector, year)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_sector_year"
+        },
+        {
+          "conname": "earth_sector_year_snapshot_id_derivation_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_sector_year"
+        },
+        {
+          "conname": "earth_sector_year_snapshot_id_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_sector_year"
+        },
+        {
+          "conname": "earth_sector_year_snapshot_id_iso3_fkey",
+          "contype": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_sector_year"
+        },
+        {
+          "conname": "earth_sector_year_year_check",
+          "contype": "c",
+          "definition": "CHECK (year >= 2026 AND year <= 2226)",
+          "schema_name": "loom_earth",
+          "table_name": "earth_sector_year"
+        }
+      ],
+      "indexes": [
+        {
+          "indexdef": "CREATE UNIQUE INDEX earth_area_pkey ON loom_earth.earth_area USING btree (snapshot_id, iso3)",
+          "indexname": "earth_area_pkey",
+          "schemaname": "loom_earth",
+          "tablename": "earth_area"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX earth_biological_cohort_year_pkey ON loom_earth.earth_biological_cohort_year USING btree (snapshot_id, iso3, year, sex, age_start)",
+          "indexname": "earth_biological_cohort_year_pkey",
+          "schemaname": "loom_earth",
+          "tablename": "earth_biological_cohort_year"
+        },
+        {
+          "indexdef": "CREATE INDEX earth_cohort_year_idx ON loom_earth.earth_biological_cohort_year USING btree (snapshot_id, year)",
+          "indexname": "earth_cohort_year_idx",
+          "schemaname": "loom_earth",
+          "tablename": "earth_biological_cohort_year"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX earth_demographic_year_pkey ON loom_earth.earth_demographic_year USING btree (snapshot_id, iso3, year)",
+          "indexname": "earth_demographic_year_pkey",
+          "schemaname": "loom_earth",
+          "tablename": "earth_demographic_year"
+        },
+        {
+          "indexdef": "CREATE INDEX earth_demographic_year_year_idx ON loom_earth.earth_demographic_year USING btree (snapshot_id, year)",
+          "indexname": "earth_demographic_year_year_idx",
+          "schemaname": "loom_earth",
+          "tablename": "earth_demographic_year"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX earth_derivation_pkey ON loom_earth.earth_derivation USING btree (snapshot_id, derivation_id)",
+          "indexname": "earth_derivation_pkey",
+          "schemaname": "loom_earth",
+          "tablename": "earth_derivation"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX earth_economic_year_pkey ON loom_earth.earth_economic_year USING btree (snapshot_id, iso3, year)",
+          "indexname": "earth_economic_year_pkey",
+          "schemaname": "loom_earth",
+          "tablename": "earth_economic_year"
+        },
+        {
+          "indexdef": "CREATE INDEX earth_economic_year_year_idx ON loom_earth.earth_economic_year USING btree (snapshot_id, year)",
+          "indexname": "earth_economic_year_year_idx",
+          "schemaname": "loom_earth",
+          "tablename": "earth_economic_year"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX earth_labor_composition_year_pkey ON loom_earth.earth_labor_composition_year USING btree (snapshot_id, iso3, year)",
+          "indexname": "earth_labor_composition_year_pkey",
+          "schemaname": "loom_earth",
+          "tablename": "earth_labor_composition_year"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX earth_legacy_labor_year_pkey ON loom_earth.earth_legacy_labor_year USING btree (snapshot_id, iso3, year)",
+          "indexname": "earth_legacy_labor_year_pkey",
+          "schemaname": "loom_earth",
+          "tablename": "earth_legacy_labor_year"
+        },
+        {
+          "indexdef": "CREATE INDEX earth_asset_year_year_idx ON loom_earth.earth_sector_asset_year USING btree (snapshot_id, year)",
+          "indexname": "earth_asset_year_year_idx",
+          "schemaname": "loom_earth",
+          "tablename": "earth_sector_asset_year"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX earth_sector_asset_year_pkey ON loom_earth.earth_sector_asset_year USING btree (snapshot_id, iso3, sector, asset_class, year)",
+          "indexname": "earth_sector_asset_year_pkey",
+          "schemaname": "loom_earth",
+          "tablename": "earth_sector_asset_year"
+        },
+        {
+          "indexdef": "CREATE UNIQUE INDEX earth_sector_year_pkey ON loom_earth.earth_sector_year USING btree (snapshot_id, iso3, sector, year)",
+          "indexname": "earth_sector_year_pkey",
+          "schemaname": "loom_earth",
+          "tablename": "earth_sector_year"
+        },
+        {
+          "indexdef": "CREATE INDEX earth_sector_year_year_idx ON loom_earth.earth_sector_year USING btree (snapshot_id, year)",
+          "indexname": "earth_sector_year_year_idx",
+          "schemaname": "loom_earth",
+          "tablename": "earth_sector_year"
+        }
+      ],
+      "schema": "loom_earth",
+      "tables": [
+        "earth_area",
+        "earth_biological_cohort_year",
+        "earth_demographic_year",
+        "earth_derivation",
+        "earth_economic_year",
+        "earth_labor_composition_year",
+        "earth_legacy_labor_year",
+        "earth_sector_asset_year",
+        "earth_sector_year"
+      ]
+    },
+    "content_sha256": "31c9887c619c4a7b68a08f57af3361f0d4d5ff4fcfe560fa08ffc24c1a510f1e"
+  },
+  "narrator": {
+    "content_sha256": "94d61cc2ed30a4253bf30ab90703337c1f8147c478f93c6501e3a7ec5531c994",
+    "views": [
+      {
+        "columns": [
+          "snapshot_id",
+          "subject_id",
+          "year",
+          "variable_key",
+          "numeric_value",
+          "unit",
+          "definition",
+          "epistemic_status",
+          "derivation_id",
+          "source_artifact",
+          "misuse_warning"
+        ],
+        "definition": " SELECT c.snapshot_id,\n    c.iso3 AS subject_id,\n    c.year,\n    v.variable_key,\n        CASE v.variable_key\n            WHEN 'DEM.BIO_POP'::text THEN c.biological_population\n            WHEN 'DEM.SYNTH_POP'::text THEN c.synthetic_population\n            WHEN 'DEM.RECOGNIZED_POP'::text THEN c.recognized_person_population\n            WHEN 'DEM.MEDIAN_AGE'::text THEN c.median_age\n            WHEN 'DEM.AGE_UNDER_20'::text THEN c.age_under_20\n            WHEN 'DEM.AGE_20_64'::text THEN c.age_20_64\n            WHEN 'DEM.AGE_65_PLUS'::text THEN c.age_65_plus\n            WHEN 'DEM.AGE_80_PLUS'::text THEN c.age_80_plus\n            WHEN 'DEM.AGE_100_PLUS'::text THEN c.age_100_plus\n            WHEN 'DEM.AGE_120_PLUS'::text THEN c.age_120_plus\n            WHEN 'DEM.AGE_150_PLUS'::text THEN c.age_150_plus\n            WHEN 'WORK.LEGACY_EMPLOYMENT'::text THEN c.legacy_employment\n            WHEN 'WORK.LABOR_CAPABLE_BIO'::text THEN c.labor_capable_biological_population\n            WHEN 'WORK.BIO_EFFECTIVE_LABOR'::text THEN c.biological_effective_labor\n            WHEN 'WORK.SYNTH_EFFECTIVE_LABOR'::text THEN c.synthetic_effective_labor\n            WHEN 'WORK.MACHINE_TASK_CAPACITY'::text THEN c.machine_task_capacity\n            WHEN 'WORK.TOTAL_EFFECTIVE_LABOR'::text THEN c.total_effective_labor\n            WHEN 'ECON.VALUE_ADDED'::text THEN c.value_added\n            WHEN 'ECON.GROSS_OUTPUT'::text THEN c.gross_output\n            WHEN 'ECON.CAPITAL'::text THEN c.capital\n            WHEN 'ECON.INVESTMENT'::text THEN c.investment\n            ELSE NULL::double precision\n        END AS numeric_value,\n    v.unit,\n    v.definition,\n    v.epistemic_status,\n    v.derivation_method AS derivation_id,\n    v.source_artifact_hashes AS source_artifact,\n    v.misuse_warning\n   FROM loom_narrator.current_country_year c\n     JOIN loom_narrator.fact_semantics v ON true\n  WHERE\n        CASE v.variable_key\n            WHEN 'DEM.BIO_POP'::text THEN c.biological_population\n            WHEN 'DEM.SYNTH_POP'::text THEN c.synthetic_population\n            WHEN 'DEM.RECOGNIZED_POP'::text THEN c.recognized_person_population\n            WHEN 'DEM.MEDIAN_AGE'::text THEN c.median_age\n            WHEN 'DEM.AGE_UNDER_20'::text THEN c.age_under_20\n            WHEN 'DEM.AGE_20_64'::text THEN c.age_20_64\n            WHEN 'DEM.AGE_65_PLUS'::text THEN c.age_65_plus\n            WHEN 'DEM.AGE_80_PLUS'::text THEN c.age_80_plus\n            WHEN 'DEM.AGE_100_PLUS'::text THEN c.age_100_plus\n            WHEN 'DEM.AGE_120_PLUS'::text THEN c.age_120_plus\n            WHEN 'DEM.AGE_150_PLUS'::text THEN c.age_150_plus\n            WHEN 'WORK.LEGACY_EMPLOYMENT'::text THEN c.legacy_employment\n            WHEN 'WORK.LABOR_CAPABLE_BIO'::text THEN c.labor_capable_biological_population\n            WHEN 'WORK.BIO_EFFECTIVE_LABOR'::text THEN c.biological_effective_labor\n            WHEN 'WORK.SYNTH_EFFECTIVE_LABOR'::text THEN c.synthetic_effective_labor\n            WHEN 'WORK.MACHINE_TASK_CAPACITY'::text THEN c.machine_task_capacity\n            WHEN 'WORK.TOTAL_EFFECTIVE_LABOR'::text THEN c.total_effective_labor\n            WHEN 'ECON.VALUE_ADDED'::text THEN c.value_added\n            WHEN 'ECON.GROSS_OUTPUT'::text THEN c.gross_output\n            WHEN 'ECON.CAPITAL'::text THEN c.capital\n            WHEN 'ECON.INVESTMENT'::text THEN c.investment\n            ELSE NULL::double precision\n        END IS NOT NULL;",
+        "dependencies": [],
+        "result_sha256": "8a253573365b4962ad4a15c123881347f096e79e051b35dc3c9615eee02ce252",
+        "row_count": 570173,
+        "view": "current_country_fact"
+      },
+      {
+        "columns": [
+          "snapshot_id",
+          "iso3",
+          "display_name",
+          "year",
+          "biological_population",
+          "births",
+          "deaths",
+          "median_age",
+          "age_under_20",
+          "age_20_64",
+          "age_65_plus",
+          "age_80_plus",
+          "age_100_plus",
+          "age_120_plus",
+          "age_150_plus",
+          "value_added",
+          "gross_output",
+          "investment",
+          "capital",
+          "legacy_employment",
+          "legacy_labor_force",
+          "labor_capable_biological_population",
+          "biological_effective_labor",
+          "synthetic_population",
+          "synthetic_effective_labor",
+          "machine_task_capacity",
+          "total_effective_labor",
+          "recognized_person_population",
+          "economic_qualified",
+          "economic_coverage",
+          "biosynthetic_labor_coverage"
+        ],
+        "definition": " WITH sid AS (\n         SELECT current_earth_snapshot.snapshot_id\n           FROM loom_narrator.current_earth_snapshot\n        )\n SELECT a.snapshot_id,\n    a.iso3,\n    a.display_name,\n    d.year,\n    d.biological_population,\n    d.births,\n    d.deaths,\n    d.median_age,\n    d.age_under_20,\n    d.age_20_64,\n    d.age_65_plus,\n    d.age_80_plus,\n    d.age_100_plus,\n    d.age_120_plus,\n    d.age_150_plus,\n    e.value_added,\n    e.gross_output,\n    e.investment,\n    e.capital,\n    ll.legacy_employment,\n    ll.legacy_labor_force,\n    l.labor_capable_biological_population,\n    l.biological_effective_labor,\n    l.synthetic_population,\n    l.synthetic_effective_labor,\n    l.machine_task_capacity,\n    l.total_effective_labor,\n    l.recognized_person_population,\n    a.economic_qualified,\n        CASE\n            WHEN e.iso3 IS NULL THEN 'DEMOGRAPHY_ONLY'::text\n            ELSE 'ECONOMICALLY_QUALIFIED'::text\n        END AS economic_coverage,\n        CASE\n            WHEN l.iso3 IS NULL THEN 'NOT_MODELED_BY_THIS_AUTHORITY'::text\n            ELSE 'MODELED'::text\n        END AS biosynthetic_labor_coverage\n   FROM sid\n     JOIN loom_earth.earth_area a USING (snapshot_id)\n     JOIN loom_earth.earth_demographic_year d USING (snapshot_id, iso3)\n     LEFT JOIN loom_earth.earth_economic_year e USING (snapshot_id, iso3, year)\n     LEFT JOIN loom_earth.earth_legacy_labor_year ll USING (snapshot_id, iso3, year)\n     LEFT JOIN loom_earth.earth_labor_composition_year l USING (snapshot_id, iso3, year);",
+        "dependencies": [],
+        "result_sha256": "73c3b2fac11501f31cebb13e0da93f0ad31764797c75505a7394eb95384e3965",
+        "row_count": 47637,
+        "view": "current_country_year"
+      },
+      {
+        "columns": [
+          "snapshot_id",
+          "subject_id",
+          "year",
+          "variable_key",
+          "numeric_value",
+          "unit",
+          "definition",
+          "epistemic_status",
+          "derivation_id",
+          "source_artifact",
+          "misuse_warning"
+        ],
+        "definition": " SELECT snapshot_id,\n    subject_id,\n    year,\n    variable_key,\n    numeric_value,\n    unit,\n    definition,\n    epistemic_status,\n    derivation_id,\n    source_artifact,\n    misuse_warning\n   FROM loom_narrator.current_country_fact;",
+        "dependencies": [],
+        "result_sha256": "8a253573365b4962ad4a15c123881347f096e79e051b35dc3c9615eee02ce252",
+        "row_count": 570173,
+        "view": "current_earth_fact"
+      },
+      {
+        "columns": [
+          "snapshot_id"
+        ],
+        "definition": " SELECT s.snapshot_id\n   FROM loom_control.snapshot s\n     JOIN loom_control.model_context_record m ON m.snapshot_id = s.snapshot_id AND m.context_key = 'model_designation'::text\n  WHERE s.state = 'VALIDATED'::text AND (m.context_value #>> '{}'::text[]) = 'EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24'::text\n  ORDER BY s.created_at DESC\n LIMIT 1;",
+        "dependencies": [],
+        "result_sha256": "fcf5677dbafee87b375404330453a332c45ba420452541da9d2cf966f1b9c383",
+        "row_count": 1,
+        "view": "current_earth_snapshot"
+      },
+      {
+        "columns": [
+          "snapshot_id",
+          "year",
+          "biological_population",
+          "synthetic_population",
+          "recognized_person_population",
+          "age_under_20",
+          "age_20_64",
+          "age_65_plus",
+          "age_80_plus",
+          "age_100_plus",
+          "age_120_plus",
+          "age_150_plus",
+          "biological_effective_labor",
+          "synthetic_effective_labor",
+          "machine_task_capacity",
+          "total_effective_labor",
+          "value_added",
+          "gross_output",
+          "investment",
+          "capital",
+          "demographic_status",
+          "economic_status"
+        ],
+        "definition": " WITH sid AS (\n         SELECT current_earth_snapshot.snapshot_id\n           FROM loom_narrator.current_earth_snapshot\n        ), d AS (\n         SELECT earth_demographic_year.year,\n            sum(earth_demographic_year.biological_population) AS biological_population,\n            sum(earth_demographic_year.age_under_20) AS age_under_20,\n            sum(earth_demographic_year.age_20_64) AS age_20_64,\n            sum(earth_demographic_year.age_65_plus) AS age_65_plus,\n            sum(earth_demographic_year.age_80_plus) AS age_80_plus,\n            sum(earth_demographic_year.age_100_plus) AS age_100_plus,\n            sum(earth_demographic_year.age_120_plus) AS age_120_plus,\n            sum(earth_demographic_year.age_150_plus) AS age_150_plus\n           FROM loom_earth.earth_demographic_year\n             JOIN sid sid_1 USING (snapshot_id)\n          GROUP BY earth_demographic_year.year\n        ), e AS (\n         SELECT earth_economic_year.year,\n            sum(earth_economic_year.value_added) AS value_added,\n            sum(earth_economic_year.gross_output) AS gross_output,\n            sum(earth_economic_year.investment) AS investment,\n            sum(earth_economic_year.capital) AS capital\n           FROM loom_earth.earth_economic_year\n             JOIN sid sid_1 USING (snapshot_id)\n          GROUP BY earth_economic_year.year\n        ), l AS (\n         SELECT earth_labor_composition_year.year,\n            sum(earth_labor_composition_year.synthetic_population) AS synthetic_population,\n            sum(earth_labor_composition_year.synthetic_effective_labor) AS synthetic_effective_labor,\n            sum(earth_labor_composition_year.biological_effective_labor) AS biological_effective_labor,\n            sum(earth_labor_composition_year.machine_task_capacity) AS machine_task_capacity,\n            sum(earth_labor_composition_year.total_effective_labor) AS total_effective_labor\n           FROM loom_earth.earth_labor_composition_year\n             JOIN sid sid_1 USING (snapshot_id)\n          GROUP BY earth_labor_composition_year.year\n        )\n SELECT sid.snapshot_id,\n    d.year,\n    d.biological_population,\n    l.synthetic_population,\n    d.biological_population + l.synthetic_population AS recognized_person_population,\n    d.age_under_20,\n    d.age_20_64,\n    d.age_65_plus,\n    d.age_80_plus,\n    d.age_100_plus,\n    d.age_120_plus,\n    d.age_150_plus,\n    l.biological_effective_labor,\n    l.synthetic_effective_labor,\n    l.machine_task_capacity,\n    l.total_effective_labor,\n    e.value_added,\n    e.gross_output,\n    e.investment,\n    e.capital,\n        CASE\n            WHEN d.year <= 2100 THEN 'WPP_2024_MEDIUM'::text\n            ELSE 'MED_CENTRAL'::text\n        END AS demographic_status,\n        CASE\n            WHEN d.year <= 2100 THEN 'V4_PREDECESSOR'::text\n            ELSE 'MED_CENTRAL__SYNTH_CENTRAL'::text\n        END AS economic_status\n   FROM sid\n     CROSS JOIN d\n     LEFT JOIN e USING (year)\n     LEFT JOIN l USING (year);",
+        "dependencies": [],
+        "result_sha256": "ffc39ed63437b509fefd226cab51757b6cd3714becb33d8485b5b8b00e463dd8",
+        "row_count": 201,
+        "view": "current_earth_year"
+      },
+      {
+        "columns": [
+          "snapshot_id",
+          "variable_key",
+          "human_label",
+          "definition",
+          "unit",
+          "grain",
+          "population_accounting_basis",
+          "epistemic_status",
+          "interpretation",
+          "misuse_warning",
+          "valid_from_year",
+          "valid_to_year",
+          "temporal_grain",
+          "coverage_scope",
+          "source_model_identity",
+          "selected_scenario",
+          "derivation_method",
+          "source_artifact_hashes",
+          "predecessor",
+          "future_limitation"
+        ],
+        "definition": " SELECT v.snapshot_id,\n    v.variable_key,\n    v.human_label,\n    v.definition,\n    v.unit,\n    v.grain,\n    v.population_accounting_basis,\n    v.epistemic_status,\n    v.interpretation,\n    v.misuse_warning,\n    v.valid_from_year,\n    v.valid_to_year,\n    v.temporal_grain,\n    v.coverage_scope,\n    v.source_model_identity,\n    v.selected_scenario,\n    v.derivation_method,\n    v.source_artifact_hashes,\n    v.predecessor,\n    v.future_limitation\n   FROM loom_control.variable_semantics v\n     JOIN loom_narrator.current_earth_snapshot s USING (snapshot_id);",
+        "dependencies": [],
+        "result_sha256": "e5a132ce448675c31dc25231dbd964fcafe59ef4d060e9fa1c1d52e93d217f79",
+        "row_count": 21,
+        "view": "fact_semantics"
+      },
+      {
+        "columns": [
+          "snapshot_id",
+          "context_key",
+          "context_value",
+          "description"
+        ],
+        "definition": " SELECT m.snapshot_id,\n    m.context_key,\n    m.context_value,\n    m.description\n   FROM loom_control.model_context_record m\n     JOIN loom_narrator.current_earth_snapshot s USING (snapshot_id);",
+        "dependencies": [],
+        "result_sha256": "a2fbb49fa49adba8d7554252f4e31d2f191a5dc5cec4b03034209cac596efbb2",
+        "row_count": 15,
+        "view": "model_context"
+      },
+      {
+        "columns": [
+          "snapshot_id",
+          "fact_family",
+          "variable_key",
+          "coverage_scope",
+          "valid_from_year",
+          "valid_to_year",
+          "temporal_grain",
+          "geographic_coverage",
+          "source_model",
+          "epistemic_status",
+          "handoff_predecessor",
+          "unavailable_intervals"
+        ],
+        "definition": " SELECT c.snapshot_id,\n    c.fact_family,\n    c.variable_key,\n    c.coverage_scope,\n    c.valid_from_year,\n    c.valid_to_year,\n    c.temporal_grain,\n    c.geographic_coverage,\n    c.source_model,\n    c.epistemic_status,\n    c.handoff_predecessor,\n    c.unavailable_intervals\n   FROM loom_control.temporal_coverage c\n     JOIN loom_narrator.current_earth_snapshot s USING (snapshot_id);",
+        "dependencies": [],
+        "result_sha256": "92e4c900b6d242cbf25a0346f74d09b9285bb24d1b7a6bef1ab4f5e13bbc74ff",
+        "row_count": 6,
+        "view": "temporal_coverage"
+      }
+    ]
+  },
+  "overall_sha256": "fedcc9b69e2e585663f821109be93338ca4711d4654097588f431cb991154ebc",
+  "snapshot": {
+    "consumer_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+    "consumer_query_sha256": "7ab8445e129ba172e346bb1d82592814ef69b4ef2eafd77d3615d7f1d9ed9079",
+    "contract_sha256": "78cbfde6d391ecdded2ae584fb1cd90b853d40eb8af25ed02d1a8be6bb9c3eb6",
+    "created_at": "2026-09-24T18:43:16.840904+00:00",
+    "semantic_sha256": "2d84b0b9137b3147e09723dff8cffe952e39e7d55f8062a73c0b13b62baee3a0",
+    "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+    "state": "VALIDATED"
+  },
+  "snapshot_id": "earth-v0-1-9934d0ac-20260925"
+}

@@ -14,6 +14,11 @@ SPEC.loader.exec_module(ceres_pg)
 
 
 class CeresPostgresUnitTests(unittest.TestCase):
+    def test_earth_qualification_no_longer_requires_live_ceres_snapshot(self):
+        text = (ROOT / "tools/earth_temporal_pg.py").read_text()
+        self.assertIn("RETIRED_FORENSIC_BASELINE", text)
+        self.assertNotIn('ceres!="VALIDATED"', text)
+
     def test_copy_encoding_preserves_null_literal_and_binary(self):
         self.assertEqual(ceres_pg.copy_cell(None), r"\N")
         self.assertEqual(ceres_pg.copy_cell(r"\N"), r'"\N"')
@@ -59,21 +64,12 @@ class CeresPostgresUnitTests(unittest.TestCase):
         self.assertTrue(report["referential_integrity"]["all_validated"])
 
 
-@unittest.skipUnless(os.environ.get("CERES_PG_INTEGRATION") == "1", "Requires local development PostgreSQL")
+@unittest.skipUnless(os.environ.get("CERES_RETIREMENT_INTEGRATION") == "1", "Requires disposable cleaned PostgreSQL")
 class CeresPostgresIntegrationTests(unittest.TestCase):
-    def test_live_snapshot_reproduces_actual_atlas_consumer(self):
-        import tempfile
-        spec = ceres_pg.contract()
-        paths = {**ceres_pg.SOURCE_PATHS,
-                 "MEDIA": Path(os.environ.get("CERES_PG_MEDIA_DB", ceres_pg.SOURCE_PATHS["MEDIA"]))}
-        selected, manifest = ceres_pg.selected_rows(spec, paths)
-        with tempfile.TemporaryDirectory() as directory:
-            report = ceres_pg.verify(os.environ.get("CERES_PG_TEST_DB", "loom_dev"), spec, paths,
-                                     selected, manifest, ceres_pg.snapshot_id(spec),
-                                     Path(directory) / "live-coverage.json")
-        self.assertEqual(report["status"], "PASS", report["discrepancies"])
-        self.assertTrue(report["atlas_payload"]["exact_match"])
-        self.assertTrue(report["derived_values"]["exact_match"])
+    def test_cleaned_database_has_no_operational_ceres_snapshot(self):
+        database = os.environ.get("CERES_RETIREMENT_DB", "loom_dev")
+        result = ceres_pg.psql(database, "SELECT count(*) FROM loom_control.snapshot WHERE snapshot_id='ceres-v1-0231e5f7da744728ab5021268b6f239b'")
+        self.assertEqual(result, "0")
 
 
 if __name__ == "__main__":
