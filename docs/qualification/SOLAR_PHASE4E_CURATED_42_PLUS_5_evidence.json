@@ -1,0 +1,931 @@
+{
+  "artifact": "SOLAR_PHASE4E_CURATED_42_PLUS_5_QUALIFICATION",
+  "counts": {
+    "natural_cohort_count": 42,
+    "spacecraft_cohort_count": 5,
+    "total_selected_count": 47,
+    "accounted_outcomes": 47
+  },
+  "rows": [
+    {
+      "cohort_entry": 1,
+      "cohort": "NATURAL",
+      "supplied_entry": "3 Juno",
+      "body_id": "JUNO",
+      "canonical_name": "3 Juno",
+      "object_type": "ASTEROID",
+      "naif_id": "20000003",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_JUNO"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 2,
+      "cohort": "NATURAL",
+      "supplied_entry": "21 Lutetia",
+      "body_id": "LUTETIA",
+      "canonical_name": "21 Lutetia",
+      "object_type": "ASTEROID",
+      "naif_id": "20000021",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_LUTETIA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 3,
+      "cohort": "NATURAL",
+      "supplied_entry": "24 Themis",
+      "body_id": "THEMIS",
+      "canonical_name": "24 Themis",
+      "object_type": "ASTEROID",
+      "naif_id": "20000024",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_THEMIS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 4,
+      "cohort": "NATURAL",
+      "supplied_entry": "511 Davida",
+      "body_id": "DAVIDA",
+      "canonical_name": "511 Davida",
+      "object_type": "ASTEROID",
+      "naif_id": "20000511",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_DAVIDA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 5,
+      "cohort": "NATURAL",
+      "supplied_entry": "704 Interamnia",
+      "body_id": "INTERAMNIA",
+      "canonical_name": "704 Interamnia",
+      "object_type": "ASTEROID",
+      "naif_id": "20000704",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_INTERAMNIA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 6,
+      "cohort": "NATURAL",
+      "supplied_entry": "Nix",
+      "body_id": "NIX",
+      "canonical_name": "Nix",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "902",
+      "parent_body_id": "PLUTO",
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PLU060_4E"
+      ],
+      "coverage": {
+        "valid_from": "1800-01-01T23:59:18.816Z",
+        "valid_until": "2199-12-29T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Official PLU060 coverage ends 2199-12-29."
+    },
+    {
+      "cohort_entry": 7,
+      "cohort": "NATURAL",
+      "supplied_entry": "Hydra",
+      "body_id": "HYDRA",
+      "canonical_name": "Hydra",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "903",
+      "parent_body_id": "PLUTO",
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PLU060_4E"
+      ],
+      "coverage": {
+        "valid_from": "1800-01-01T23:59:18.816Z",
+        "valid_until": "2199-12-29T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Official PLU060 coverage ends 2199-12-29."
+    },
+    {
+      "cohort_entry": 8,
+      "cohort": "NATURAL",
+      "supplied_entry": "Kerberos",
+      "body_id": "KERBEROS",
+      "canonical_name": "Kerberos",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "904",
+      "parent_body_id": "PLUTO",
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PLU060_4E"
+      ],
+      "coverage": {
+        "valid_from": "1800-01-01T23:59:18.816Z",
+        "valid_until": "2199-12-29T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Official PLU060 coverage ends 2199-12-29."
+    },
+    {
+      "cohort_entry": 9,
+      "cohort": "NATURAL",
+      "supplied_entry": "Styx",
+      "body_id": "STYX",
+      "canonical_name": "Styx",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "905",
+      "parent_body_id": "PLUTO",
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PLU060_4E"
+      ],
+      "coverage": {
+        "valid_from": "1800-01-01T23:59:18.816Z",
+        "valid_until": "2199-12-29T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Official PLU060 coverage ends 2199-12-29."
+    },
+    {
+      "cohort_entry": 10,
+      "cohort": "NATURAL",
+      "supplied_entry": "Nereid",
+      "body_id": "NEREID",
+      "canonical_name": "Nereid",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "802",
+      "parent_body_id": "NEPTUNE_SYSTEM_BARYCENTER",
+      "outcome": "QUALIFIED_DIRECT",
+      "source_ids": [
+        "NAIF_NEP101XL_802"
+      ],
+      "coverage": {
+        "valid_from": "2026-01-01T00:00:00Z",
+        "valid_until": "2251-01-01T00:00:00Z"
+      },
+      "navigation_grade": true,
+      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+    },
+    {
+      "cohort_entry": 11,
+      "cohort": "NATURAL",
+      "supplied_entry": "Proteus",
+      "body_id": "PROTEUS",
+      "canonical_name": "Proteus",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "808",
+      "parent_body_id": "NEPTUNE_SYSTEM_BARYCENTER",
+      "outcome": "CATALOG_ONLY",
+      "source_ids": [],
+      "coverage": null,
+      "navigation_grade": false,
+      "reason": "Catalog identity resolved; no independent authoritative SPK target accepted."
+    },
+    {
+      "cohort_entry": 12,
+      "cohort": "NATURAL",
+      "supplied_entry": "1I/ʻOumuamua",
+      "body_id": "OUMUAMUA",
+      "canonical_name": "1I/ʻOumuamua",
+      "object_type": "INTERSTELLAR_OBJECT",
+      "naif_id": "50788063",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_OUMUAMUA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 13,
+      "cohort": "NATURAL",
+      "supplied_entry": "2I/Borisov",
+      "body_id": "BORISOV",
+      "canonical_name": "2I/Borisov",
+      "object_type": "INTERSTELLAR_OBJECT",
+      "naif_id": "1003639",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_BORISOV"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 14,
+      "cohort": "NATURAL",
+      "supplied_entry": "3I/ATLAS",
+      "body_id": "ATLAS3I",
+      "canonical_name": "3I/ATLAS",
+      "object_type": "INTERSTELLAR_OBJECT",
+      "naif_id": "1004083",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_ATLAS3I"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 15,
+      "cohort": "NATURAL",
+      "supplied_entry": "90377 Sedna",
+      "body_id": "SEDNA",
+      "canonical_name": "90377 Sedna",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20090377",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_SEDNA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 16,
+      "cohort": "NATURAL",
+      "supplied_entry": "50000 Quaoar",
+      "body_id": "QUAOAR",
+      "canonical_name": "50000 Quaoar",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20050000",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_QUAOAR"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 17,
+      "cohort": "NATURAL",
+      "supplied_entry": "90482 Orcus",
+      "body_id": "ORCUS",
+      "canonical_name": "90482 Orcus",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20090482",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_ORCUS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 18,
+      "cohort": "NATURAL",
+      "supplied_entry": "225088 Gonggong",
+      "body_id": "GONGGONG",
+      "canonical_name": "225088 Gonggong",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20225088",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_GONGGONG"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 19,
+      "cohort": "NATURAL",
+      "supplied_entry": "120347 Salacia",
+      "body_id": "SALACIA",
+      "canonical_name": "120347 Salacia",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20120347",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_SALACIA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 20,
+      "cohort": "NATURAL",
+      "supplied_entry": "20000 Varuna",
+      "body_id": "VARUNA",
+      "canonical_name": "20000 Varuna",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20020000",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_VARUNA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 21,
+      "cohort": "NATURAL",
+      "supplied_entry": "2002 MS4",
+      "body_id": "MS4",
+      "canonical_name": "2002 MS4",
+      "object_type": "TRANS_NEPTUNIAN_OBJECT",
+      "naif_id": "20307261",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_MS4"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 22,
+      "cohort": "NATURAL",
+      "supplied_entry": "28978 Ixion",
+      "body_id": "IXION",
+      "canonical_name": "28978 Ixion",
+      "object_type": "TRANS_NEPTUNIAN_OBJECT",
+      "naif_id": "20028978",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_IXION"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 23,
+      "cohort": "NATURAL",
+      "supplied_entry": "486958 Arrokoth",
+      "body_id": "ARROKOTH",
+      "canonical_name": "486958 Arrokoth",
+      "object_type": "TRANS_NEPTUNIAN_OBJECT",
+      "naif_id": "20486958",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_ARROKOTH"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 24,
+      "cohort": "NATURAL",
+      "supplied_entry": "99942 Apophis",
+      "body_id": "APOPHIS",
+      "canonical_name": "99942 Apophis",
+      "object_type": "NEAR_EARTH_ASTEROID",
+      "naif_id": "20099942",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_APOPHIS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 25,
+      "cohort": "NATURAL",
+      "supplied_entry": "243 Ida",
+      "body_id": "IDA",
+      "canonical_name": "243 Ida",
+      "object_type": "ASTEROID",
+      "naif_id": "20000243",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_IDA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 26,
+      "cohort": "NATURAL",
+      "supplied_entry": "Dactyl",
+      "body_id": "DACTYL",
+      "canonical_name": "Dactyl",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": null,
+      "parent_body_id": "IDA",
+      "outcome": "CATALOG_ONLY",
+      "source_ids": [],
+      "coverage": null,
+      "navigation_grade": false,
+      "reason": "Catalog identity resolved; no independent authoritative SPK target accepted."
+    },
+    {
+      "cohort_entry": 27,
+      "cohort": "NATURAL",
+      "supplied_entry": "951 Gaspra",
+      "body_id": "GASPRA",
+      "canonical_name": "951 Gaspra",
+      "object_type": "ASTEROID",
+      "naif_id": "20000951",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_GASPRA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 28,
+      "cohort": "NATURAL",
+      "supplied_entry": "253 Mathilde",
+      "body_id": "MATHILDE",
+      "canonical_name": "253 Mathilde",
+      "object_type": "ASTEROID",
+      "naif_id": "20000253",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_MATHILDE"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 29,
+      "cohort": "NATURAL",
+      "supplied_entry": "2867 Šteins",
+      "body_id": "STEINS",
+      "canonical_name": "2867 Šteins",
+      "object_type": "ASTEROID",
+      "naif_id": "20002867",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_STEINS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 30,
+      "cohort": "NATURAL",
+      "supplied_entry": "4179 Toutatis",
+      "body_id": "TOUTATIS",
+      "canonical_name": "4179 Toutatis",
+      "object_type": "NEAR_EARTH_ASTEROID",
+      "naif_id": "20004179",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_TOUTATIS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 31,
+      "cohort": "NATURAL",
+      "supplied_entry": "9969 Braille",
+      "body_id": "BRAILLE",
+      "canonical_name": "9969 Braille",
+      "object_type": "ASTEROID",
+      "naif_id": "20009969",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_BRAILLE"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 32,
+      "cohort": "NATURAL",
+      "supplied_entry": "152830 Dinkinesh",
+      "body_id": "DINKINESH",
+      "canonical_name": "152830 Dinkinesh",
+      "object_type": "ASTEROID",
+      "naif_id": "20152830",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_DINKINESH"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 33,
+      "cohort": "NATURAL",
+      "supplied_entry": "Selam",
+      "body_id": "SELAM",
+      "canonical_name": "Selam",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": null,
+      "parent_body_id": "DINKINESH",
+      "outcome": "CATALOG_ONLY",
+      "source_ids": [],
+      "coverage": null,
+      "navigation_grade": false,
+      "reason": "Catalog identity resolved; no independent authoritative SPK target accepted."
+    },
+    {
+      "cohort_entry": 34,
+      "cohort": "NATURAL",
+      "supplied_entry": "52246 Donaldjohanson",
+      "body_id": "DONALDJOHANSON",
+      "canonical_name": "52246 Donaldjohanson",
+      "object_type": "ASTEROID",
+      "naif_id": "20052246",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_DONALDJOHANSON"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 35,
+      "cohort": "NATURAL",
+      "supplied_entry": "15094 Polymele",
+      "body_id": "POLYMELE",
+      "canonical_name": "15094 Polymele",
+      "object_type": "TROJAN_ASTEROID",
+      "naif_id": "20015094",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_POLYMELE"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 36,
+      "cohort": "NATURAL",
+      "supplied_entry": "11351 Leucus",
+      "body_id": "LEUCUS",
+      "canonical_name": "11351 Leucus",
+      "object_type": "TROJAN_ASTEROID",
+      "naif_id": "20011351",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_LEUCUS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 37,
+      "cohort": "NATURAL",
+      "supplied_entry": "21900 Orus",
+      "body_id": "ORUS",
+      "canonical_name": "21900 Orus",
+      "object_type": "TROJAN_ASTEROID",
+      "naif_id": "20021900",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_ORUS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 38,
+      "cohort": "NATURAL",
+      "supplied_entry": "9P/Tempel 1",
+      "body_id": "TEMPEL1",
+      "canonical_name": "9P/Tempel 1",
+      "object_type": "COMET",
+      "naif_id": "1000093",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_TEMPEL1"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 39,
+      "cohort": "NATURAL",
+      "supplied_entry": "81P/Wild 2",
+      "body_id": "WILD2",
+      "canonical_name": "81P/Wild 2",
+      "object_type": "COMET",
+      "naif_id": "1000107",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_WILD2"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 40,
+      "cohort": "NATURAL",
+      "supplied_entry": "103P/Hartley 2",
+      "body_id": "HARTLEY2",
+      "canonical_name": "103P/Hartley 2",
+      "object_type": "COMET",
+      "naif_id": "1000041",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_HARTLEY2"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 41,
+      "cohort": "NATURAL",
+      "supplied_entry": "19P/Borrelly",
+      "body_id": "BORRELLY",
+      "canonical_name": "19P/Borrelly",
+      "object_type": "COMET",
+      "naif_id": "1000005",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_BORRELLY"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 42,
+      "cohort": "NATURAL",
+      "supplied_entry": "109P/Swift–Tuttle",
+      "body_id": "SWIFTTUTTLE",
+      "canonical_name": "109P/Swift–Tuttle",
+      "object_type": "COMET",
+      "naif_id": "1000140",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_SWIFTTUTTLE"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 43,
+      "cohort": "SPACECRAFT",
+      "supplied_entry": "Pioneer 10",
+      "body_id": "PIONEER10",
+      "canonical_name": "Pioneer 10",
+      "object_type": "SPACECRAFT",
+      "naif_id": "-23",
+      "parent_body_id": null,
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PIONEER10_SPK"
+      ],
+      "coverage": {
+        "valid_from": "1972-03-03T02:04:00.000Z",
+        "valid_until": "1990-01-02T00:00:00.000Z"
+      },
+      "navigation_grade": false,
+      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+    },
+    {
+      "cohort_entry": 44,
+      "cohort": "SPACECRAFT",
+      "supplied_entry": "Pioneer 11",
+      "body_id": "PIONEER11",
+      "canonical_name": "Pioneer 11",
+      "object_type": "SPACECRAFT",
+      "naif_id": "-24",
+      "parent_body_id": null,
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PIONEER11_SPK"
+      ],
+      "coverage": {
+        "valid_from": "1973-04-06T02:25:00.000Z",
+        "valid_until": "1990-01-02T00:00:00.000Z"
+      },
+      "navigation_grade": false,
+      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+    },
+    {
+      "cohort_entry": 45,
+      "cohort": "SPACECRAFT",
+      "supplied_entry": "Voyager 1",
+      "body_id": "VOYAGER1",
+      "canonical_name": "Voyager 1",
+      "object_type": "SPACECRAFT",
+      "naif_id": "-31",
+      "parent_body_id": null,
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_VOYAGER1_SPK"
+      ],
+      "coverage": {
+        "valid_from": "1980-12-31T23:59:08.816Z",
+        "valid_until": "2099-12-31T23:58:50.816Z"
+      },
+      "navigation_grade": false,
+      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+    },
+    {
+      "cohort_entry": 46,
+      "cohort": "SPACECRAFT",
+      "supplied_entry": "Voyager 2",
+      "body_id": "VOYAGER2",
+      "canonical_name": "Voyager 2",
+      "object_type": "SPACECRAFT",
+      "naif_id": "-32",
+      "parent_body_id": null,
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_VOYAGER2_SPK"
+      ],
+      "coverage": {
+        "valid_from": "1989-08-29T07:59:03.817Z",
+        "valid_until": "2099-12-31T23:58:50.816Z"
+      },
+      "navigation_grade": false,
+      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+    },
+    {
+      "cohort_entry": 47,
+      "cohort": "SPACECRAFT",
+      "supplied_entry": "New Horizons",
+      "body_id": "NEWHORIZONS",
+      "canonical_name": "New Horizons",
+      "object_type": "SPACECRAFT",
+      "naif_id": "-98",
+      "parent_body_id": null,
+      "outcome": "CATALOG_ONLY",
+      "source_ids": [],
+      "coverage": null,
+      "navigation_grade": false,
+      "reason": "Catalog identity resolved; no independent authoritative SPK target accepted."
+    }
+  ]
+}

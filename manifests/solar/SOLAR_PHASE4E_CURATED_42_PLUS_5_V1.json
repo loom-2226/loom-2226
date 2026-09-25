@@ -1,0 +1,2813 @@
+{
+  "manifest_version": "1.0",
+  "manifest_id": "SOLAR_PHASE4E_CURATED_42_PLUS_5_V1",
+  "classification": "ENGINEERING/DATA AUTHORITY — LOCKED CURATED COHORT",
+  "source_main_sha": "1118aaaec5b14fff539a67c0f50aff9aa713006c",
+  "horizon_contract": {
+    "modeled_start": "2026-01-01T00:00:00Z",
+    "full_2250_gate": "2251-01-01T00:00:00Z"
+  },
+  "locked_cohort": {
+    "natural_count": 42,
+    "spacecraft_count": 5,
+    "total_count": 47
+  },
+  "assets": [
+    {
+      "asset_id": "LSK",
+      "local_path": "kernels/lsk/naif0012.tls",
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+      "byte_count": 5257
+    },
+    {
+      "asset_id": "DE440",
+      "local_path": "kernels/spk/de440.bsp",
+      "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "byte_count": 119799808
+    },
+    {
+      "asset_id": "JUNO",
+      "local_path": "kernels/spk/phase4e/juno_2026_2251.bsp",
+      "sha256": "a362ba0e3ba2dd37683d80a3a844bb6f5c3613c2c5bd5f474a33d61f2242b0a8",
+      "byte_count": 4094976
+    },
+    {
+      "asset_id": "LUTETIA",
+      "local_path": "kernels/spk/phase4e/lutetia_2026_2251.bsp",
+      "sha256": "07ae3a15ac2205da8065a5e9e09ff826235df2639a103ab94ac6d114766b0d50",
+      "byte_count": 4087808
+    },
+    {
+      "asset_id": "THEMIS",
+      "local_path": "kernels/spk/phase4e/themis_2026_2251.bsp",
+      "sha256": "15e1435beb8687f9aaf3fc93422330fefc7d3c38caa3e0294f4b23fac95b9b45",
+      "byte_count": 4066304
+    },
+    {
+      "asset_id": "DAVIDA",
+      "local_path": "kernels/spk/phase4e/davida_2026_2251.bsp",
+      "sha256": "9ddc9f5fc63b4311afa9ad927243cc74dd55341271d0cd88f5de22eb8c7871e8",
+      "byte_count": 4059136
+    },
+    {
+      "asset_id": "INTERAMNIA",
+      "local_path": "kernels/spk/phase4e/interamnia_2026_2251.bsp",
+      "sha256": "ed3dfd8f8176eff31b94dd89317ff34fa79595010864b1808565e001e5981cb9",
+      "byte_count": 4057088
+    },
+    {
+      "asset_id": "SEDNA",
+      "local_path": "kernels/spk/phase4e/sedna_2026_2251.bsp",
+      "sha256": "2a46e07418f7f3d8c3178fae691ad42105eb644329b6160292574d36e0b59473",
+      "byte_count": 4030464
+    },
+    {
+      "asset_id": "QUAOAR",
+      "local_path": "kernels/spk/phase4e/quaoar_2026_2251.bsp",
+      "sha256": "49947637138bf33734d140375ed0cf1b844b367f0fd4a3aa207e798883aca06f",
+      "byte_count": 4116480
+    },
+    {
+      "asset_id": "ORCUS",
+      "local_path": "kernels/spk/phase4e/orcus_2026_2251.bsp",
+      "sha256": "13b180ddee652f389d5987586d53b01d6861f807f534313679983c5d17a2ab4e",
+      "byte_count": 4044800
+    },
+    {
+      "asset_id": "GONGGONG",
+      "local_path": "kernels/spk/phase4e/gonggong_2026_2251.bsp",
+      "sha256": "e8da2390e3574a6cf032be0c8cfb83a532399af6388b408a9630aee2571a6a62",
+      "byte_count": 4037632
+    },
+    {
+      "asset_id": "SALACIA",
+      "local_path": "kernels/spk/phase4e/salacia_2026_2251.bsp",
+      "sha256": "2ba5221f3fcb7c712fd06d978bd938a17ef10eeb8d7152b026f1782a7ead6b09",
+      "byte_count": 3942400
+    },
+    {
+      "asset_id": "VARUNA",
+      "local_path": "kernels/spk/phase4e/varuna_2026_2251.bsp",
+      "sha256": "63ce353756ded9b85f7f5f4ae82600cb99aa1ecb0507499f075e5b508e66fa0c",
+      "byte_count": 4035584
+    },
+    {
+      "asset_id": "MS4",
+      "local_path": "kernels/spk/phase4e/ms4_2026_2251.bsp",
+      "sha256": "cb0deef80c421fe704be9c9f1ea904fa608858417c2d826afce0cc323fd39405",
+      "byte_count": 4055040
+    },
+    {
+      "asset_id": "IXION",
+      "local_path": "kernels/spk/phase4e/ixion_2026_2251.bsp",
+      "sha256": "446dcb249b53d1ffda63d18d937a6a8c02a57f485dc50ee72fa4244683098a75",
+      "byte_count": 3985408
+    },
+    {
+      "asset_id": "ARROKOTH",
+      "local_path": "kernels/spk/phase4e/arrokoth_2026_2251.bsp",
+      "sha256": "b88f51891b0b0a6fe8d386507eff2342b5f1cac2f5dbc44d522c51ba94627b73",
+      "byte_count": 3986432
+    },
+    {
+      "asset_id": "APOPHIS",
+      "local_path": "kernels/spk/phase4e/apophis_2026_2251.bsp",
+      "sha256": "9c7c8084a2bb97fc4cfc1fb69e0ddd56adb27e77a768acab32adf27fd6b3689c",
+      "byte_count": 4228096
+    },
+    {
+      "asset_id": "IDA",
+      "local_path": "kernels/spk/phase4e/ida_2026_2251.bsp",
+      "sha256": "d90f1cfa0eb32899facec6644ffd8a66f4872975850120e5fbc09efce21c4977",
+      "byte_count": 4081664
+    },
+    {
+      "asset_id": "GASPRA",
+      "local_path": "kernels/spk/phase4e/gaspra_2026_2251.bsp",
+      "sha256": "568bf0dca3b9b24a98ff545537f0626f3c8cab22c7b2f8fabeb57eebdfd1fd0c",
+      "byte_count": 4050944
+    },
+    {
+      "asset_id": "MATHILDE",
+      "local_path": "kernels/spk/phase4e/mathilde_2026_2251.bsp",
+      "sha256": "c52efadde47d35263a3c43ecaf0c9b682bdc9f97e3147dc04535667930647b77",
+      "byte_count": 4097024
+    },
+    {
+      "asset_id": "STEINS",
+      "local_path": "kernels/spk/phase4e/steins_2026_2251.bsp",
+      "sha256": "2f795b509527854b40afe06c95a638eb3a6833cdcdb15e5e7be3aa2f3e0f1fae",
+      "byte_count": 4076544
+    },
+    {
+      "asset_id": "TOUTATIS",
+      "local_path": "kernels/spk/phase4e/toutatis_2026_2251.bsp",
+      "sha256": "db123f6c35731578de196f307a33bba4426c899ba9cec25a608367d1f35980cf",
+      "byte_count": 4046848
+    },
+    {
+      "asset_id": "BRAILLE",
+      "local_path": "kernels/spk/phase4e/braille_2026_2251.bsp",
+      "sha256": "2d8e2bc64e8eb3b194419e93265507d034f3985c33c2e61ab14fc5fca2804247",
+      "byte_count": 4055040
+    },
+    {
+      "asset_id": "DINKINESH",
+      "local_path": "kernels/spk/phase4e/dinkinesh_2026_2251.bsp",
+      "sha256": "f2ffa923f7a0c390150587b32ec1914d98d9055581836df2d703afc6293c1127",
+      "byte_count": 4058112
+    },
+    {
+      "asset_id": "DONALDJOHANSON",
+      "local_path": "kernels/spk/phase4e/donaldjohanson_2026_2251.bsp",
+      "sha256": "b25f84881d7a32ff0f82a5b154a52238e74c301ab4b0696330d6fe64df1bcf62",
+      "byte_count": 4074496
+    },
+    {
+      "asset_id": "POLYMELE",
+      "local_path": "kernels/spk/phase4e/polymele_2026_2251.bsp",
+      "sha256": "b62cd886f465e457655088837e116d583192ae25f8ae3a4096e4bf4d3e787e3f",
+      "byte_count": 4040704
+    },
+    {
+      "asset_id": "LEUCUS",
+      "local_path": "kernels/spk/phase4e/leucus_2026_2251.bsp",
+      "sha256": "6c38119cc22f43c988d7d030919c0c7cc64564346a857aec08d84209f8646d0a",
+      "byte_count": 4040704
+    },
+    {
+      "asset_id": "ORUS",
+      "local_path": "kernels/spk/phase4e/orus_2026_2251.bsp",
+      "sha256": "74002fa2a050482bb44542e85bf65862d6978e64515079e49e113871bbdd431f",
+      "byte_count": 4096000
+    },
+    {
+      "asset_id": "OUMUAMUA",
+      "local_path": "kernels/spk/phase4e/oumuamua_2026_2251.bsp",
+      "sha256": "e655198cf97d7085dd1e4bc857e825a262d98becd75ab678c245c3534fda44ca",
+      "byte_count": 4008960
+    },
+    {
+      "asset_id": "BORISOV",
+      "local_path": "kernels/spk/phase4e/borisov_2026_2251.bsp",
+      "sha256": "b680e9c1daaea18b19439fd65c90c2250aedc484ceda2505a15ef071171e9f81",
+      "byte_count": 4031488
+    },
+    {
+      "asset_id": "ATLAS3I",
+      "local_path": "kernels/spk/phase4e/atlas3i_2026_2251.bsp",
+      "sha256": "751b425d6ee6f71209048abaa6b4d4504b487a5c49f7ac2187e54d7eec09ce20",
+      "byte_count": 4023296
+    },
+    {
+      "asset_id": "TEMPEL1",
+      "local_path": "kernels/spk/phase4e/tempel1_2026_2251.bsp",
+      "sha256": "b737ac62c985666415c889e5a625c5c98255d0b9a69684871d2cfffe32cc1266",
+      "byte_count": 4109312
+    },
+    {
+      "asset_id": "WILD2",
+      "local_path": "kernels/spk/phase4e/wild2_2026_2251.bsp",
+      "sha256": "9c4d04e949e87fbfaf745c6d3db60848b823631f417a6bd640fc13d2a01e5452",
+      "byte_count": 4088832
+    },
+    {
+      "asset_id": "HARTLEY2",
+      "local_path": "kernels/spk/phase4e/hartley2_2026_2251.bsp",
+      "sha256": "55df06be9bf0de8a3b9fd48f8530ad58a63f8a3eb4d6dbc07e89f65e1a39f761",
+      "byte_count": 4086784
+    },
+    {
+      "asset_id": "BORRELLY",
+      "local_path": "kernels/spk/phase4e/borrelly_2026_2251.bsp",
+      "sha256": "7f5d6ef135e387ff43c57e82b9d2ad83f2270a87b2418e48a744196791e9bb96",
+      "byte_count": 4033536
+    },
+    {
+      "asset_id": "SWIFTTUTTLE",
+      "local_path": "kernels/spk/phase4e/swifttuttle_2026_2251.bsp",
+      "sha256": "2e4628cde65266a1dfcc66b5bc18556644e8aeade9222cc97625e672495b0928",
+      "byte_count": 4047872
+    },
+    {
+      "asset_id": "PLU060",
+      "local_path": "kernels/spk/phase4b/plu060.bsp",
+      "sha256": "dfbb102491a26ed41ae08ca3f8963f22f0219df1d8f265ab87b9ad825a826fc6",
+      "byte_count": 135207936
+    },
+    {
+      "asset_id": "NEREID",
+      "local_path": "kernels/spk/phase4e/nep101xl-802.bsp",
+      "sha256": "006ed86a0ecea070cf209c17d08de0fe10ab3c4925e8d26ad14da64045c1b9af",
+      "byte_count": 767016960
+    },
+    {
+      "asset_id": "PIONEER10",
+      "local_path": "kernels/spk/phase4e/p10-a.bsp",
+      "sha256": "851ec1a9eddbd11cee25d981c7eea4031be8468cd13369ac7baec13f3afd03e5",
+      "byte_count": 1358848
+    },
+    {
+      "asset_id": "PIONEER11",
+      "local_path": "kernels/spk/phase4e/p11-a.bsp",
+      "sha256": "babbb7c028fa968f6cd99575f1f050fb3b93298319cc591e031db233146a54a9",
+      "byte_count": 1403904
+    },
+    {
+      "asset_id": "VOYAGER1",
+      "local_path": "kernels/spk/phase4e/vgr1.x2100.bsp",
+      "sha256": "aa8f37673b5ef60296d210566d01cc49f7b32711f37003393c3327616c9fc6d0",
+      "byte_count": 16286720
+    },
+    {
+      "asset_id": "VOYAGER2",
+      "local_path": "kernels/spk/phase4e/vgr2.x2100.bsp",
+      "sha256": "391f5361773322e2242fb1c81578aeb1fbf9134c3878b2f325e9b8b5f46ad7cb",
+      "byte_count": 15744000
+    }
+  ],
+  "identities": [
+    {
+      "body_id": "JUNO",
+      "canonical_name": "3 Juno",
+      "object_class": "ASTEROID",
+      "naif_id": "20000003",
+      "authoritative_alias": "3 Juno",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "LUTETIA",
+      "canonical_name": "21 Lutetia",
+      "object_class": "ASTEROID",
+      "naif_id": "20000021",
+      "authoritative_alias": "21 Lutetia",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "THEMIS",
+      "canonical_name": "24 Themis",
+      "object_class": "ASTEROID",
+      "naif_id": "20000024",
+      "authoritative_alias": "24 Themis",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "DAVIDA",
+      "canonical_name": "511 Davida",
+      "object_class": "ASTEROID",
+      "naif_id": "20000511",
+      "authoritative_alias": "511 Davida",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "INTERAMNIA",
+      "canonical_name": "704 Interamnia",
+      "object_class": "ASTEROID",
+      "naif_id": "20000704",
+      "authoritative_alias": "704 Interamnia",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "NIX",
+      "canonical_name": "Nix",
+      "object_class": "NATURAL_SATELLITE",
+      "naif_id": "902",
+      "authoritative_alias": "Nix",
+      "parent_body_id": "PLUTO"
+    },
+    {
+      "body_id": "HYDRA",
+      "canonical_name": "Hydra",
+      "object_class": "NATURAL_SATELLITE",
+      "naif_id": "903",
+      "authoritative_alias": "Hydra",
+      "parent_body_id": "PLUTO"
+    },
+    {
+      "body_id": "KERBEROS",
+      "canonical_name": "Kerberos",
+      "object_class": "NATURAL_SATELLITE",
+      "naif_id": "904",
+      "authoritative_alias": "Kerberos",
+      "parent_body_id": "PLUTO"
+    },
+    {
+      "body_id": "STYX",
+      "canonical_name": "Styx",
+      "object_class": "NATURAL_SATELLITE",
+      "naif_id": "905",
+      "authoritative_alias": "Styx",
+      "parent_body_id": "PLUTO"
+    },
+    {
+      "body_id": "NEREID",
+      "canonical_name": "Nereid",
+      "object_class": "NATURAL_SATELLITE",
+      "naif_id": "802",
+      "authoritative_alias": "Nereid",
+      "parent_body_id": "NEPTUNE_SYSTEM_BARYCENTER"
+    },
+    {
+      "body_id": "PROTEUS",
+      "canonical_name": "Proteus",
+      "object_class": "NATURAL_SATELLITE",
+      "naif_id": "808",
+      "authoritative_alias": "Proteus",
+      "parent_body_id": "NEPTUNE_SYSTEM_BARYCENTER"
+    },
+    {
+      "body_id": "OUMUAMUA",
+      "canonical_name": "1I/ʻOumuamua",
+      "object_class": "INTERSTELLAR_OBJECT",
+      "naif_id": "50788063",
+      "authoritative_alias": "1I",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "BORISOV",
+      "canonical_name": "2I/Borisov",
+      "object_class": "INTERSTELLAR_OBJECT",
+      "naif_id": "1003639",
+      "authoritative_alias": "2I",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "ATLAS3I",
+      "canonical_name": "3I/ATLAS",
+      "object_class": "INTERSTELLAR_OBJECT",
+      "naif_id": "1004083",
+      "authoritative_alias": "3I",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "SEDNA",
+      "canonical_name": "90377 Sedna",
+      "object_class": "DWARF_PLANET",
+      "naif_id": "20090377",
+      "authoritative_alias": "90377 Sedna",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "QUAOAR",
+      "canonical_name": "50000 Quaoar",
+      "object_class": "DWARF_PLANET",
+      "naif_id": "20050000",
+      "authoritative_alias": "50000 Quaoar",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "ORCUS",
+      "canonical_name": "90482 Orcus",
+      "object_class": "DWARF_PLANET",
+      "naif_id": "20090482",
+      "authoritative_alias": "90482 Orcus",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "GONGGONG",
+      "canonical_name": "225088 Gonggong",
+      "object_class": "DWARF_PLANET",
+      "naif_id": "20225088",
+      "authoritative_alias": "225088 Gonggong",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "SALACIA",
+      "canonical_name": "120347 Salacia",
+      "object_class": "DWARF_PLANET",
+      "naif_id": "20120347",
+      "authoritative_alias": "120347 Salacia",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "VARUNA",
+      "canonical_name": "20000 Varuna",
+      "object_class": "DWARF_PLANET",
+      "naif_id": "20020000",
+      "authoritative_alias": "20000 Varuna",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "MS4",
+      "canonical_name": "2002 MS4",
+      "object_class": "TRANS_NEPTUNIAN_OBJECT",
+      "naif_id": "20307261",
+      "authoritative_alias": "2002 MS4",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "IXION",
+      "canonical_name": "28978 Ixion",
+      "object_class": "TRANS_NEPTUNIAN_OBJECT",
+      "naif_id": "20028978",
+      "authoritative_alias": "28978 Ixion",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "ARROKOTH",
+      "canonical_name": "486958 Arrokoth",
+      "object_class": "TRANS_NEPTUNIAN_OBJECT",
+      "naif_id": "20486958",
+      "authoritative_alias": "486958 Arrokoth",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "APOPHIS",
+      "canonical_name": "99942 Apophis",
+      "object_class": "NEAR_EARTH_ASTEROID",
+      "naif_id": "20099942",
+      "authoritative_alias": "99942 Apophis",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "IDA",
+      "canonical_name": "243 Ida",
+      "object_class": "ASTEROID",
+      "naif_id": "20000243",
+      "authoritative_alias": "243 Ida",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "DACTYL",
+      "canonical_name": "Dactyl",
+      "object_class": "NATURAL_SATELLITE",
+      "naif_id": null,
+      "authoritative_alias": "243 Ida I (Dactyl)",
+      "parent_body_id": "IDA"
+    },
+    {
+      "body_id": "GASPRA",
+      "canonical_name": "951 Gaspra",
+      "object_class": "ASTEROID",
+      "naif_id": "20000951",
+      "authoritative_alias": "951 Gaspra",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "MATHILDE",
+      "canonical_name": "253 Mathilde",
+      "object_class": "ASTEROID",
+      "naif_id": "20000253",
+      "authoritative_alias": "253 Mathilde",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "STEINS",
+      "canonical_name": "2867 Šteins",
+      "object_class": "ASTEROID",
+      "naif_id": "20002867",
+      "authoritative_alias": "2867 Šteins",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "TOUTATIS",
+      "canonical_name": "4179 Toutatis",
+      "object_class": "NEAR_EARTH_ASTEROID",
+      "naif_id": "20004179",
+      "authoritative_alias": "4179 Toutatis",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "BRAILLE",
+      "canonical_name": "9969 Braille",
+      "object_class": "ASTEROID",
+      "naif_id": "20009969",
+      "authoritative_alias": "9969 Braille",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "DINKINESH",
+      "canonical_name": "152830 Dinkinesh",
+      "object_class": "ASTEROID",
+      "naif_id": "20152830",
+      "authoritative_alias": "152830 Dinkinesh",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "SELAM",
+      "canonical_name": "Selam",
+      "object_class": "NATURAL_SATELLITE",
+      "naif_id": null,
+      "authoritative_alias": "152830 I (Selam)",
+      "parent_body_id": "DINKINESH"
+    },
+    {
+      "body_id": "DONALDJOHANSON",
+      "canonical_name": "52246 Donaldjohanson",
+      "object_class": "ASTEROID",
+      "naif_id": "20052246",
+      "authoritative_alias": "52246 Donaldjohanson",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "POLYMELE",
+      "canonical_name": "15094 Polymele",
+      "object_class": "TROJAN_ASTEROID",
+      "naif_id": "20015094",
+      "authoritative_alias": "15094 Polymele",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "LEUCUS",
+      "canonical_name": "11351 Leucus",
+      "object_class": "TROJAN_ASTEROID",
+      "naif_id": "20011351",
+      "authoritative_alias": "11351 Leucus",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "ORUS",
+      "canonical_name": "21900 Orus",
+      "object_class": "TROJAN_ASTEROID",
+      "naif_id": "20021900",
+      "authoritative_alias": "21900 Orus",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "TEMPEL1",
+      "canonical_name": "9P/Tempel 1",
+      "object_class": "COMET",
+      "naif_id": "1000093",
+      "authoritative_alias": "9P",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "WILD2",
+      "canonical_name": "81P/Wild 2",
+      "object_class": "COMET",
+      "naif_id": "1000107",
+      "authoritative_alias": "81P",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "HARTLEY2",
+      "canonical_name": "103P/Hartley 2",
+      "object_class": "COMET",
+      "naif_id": "1000041",
+      "authoritative_alias": "103P",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "BORRELLY",
+      "canonical_name": "19P/Borrelly",
+      "object_class": "COMET",
+      "naif_id": "1000005",
+      "authoritative_alias": "19P",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "SWIFTTUTTLE",
+      "canonical_name": "109P/Swift–Tuttle",
+      "object_class": "COMET",
+      "naif_id": "1000140",
+      "authoritative_alias": "109P",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "PIONEER10",
+      "canonical_name": "Pioneer 10",
+      "object_class": "SPACECRAFT",
+      "naif_id": "-23",
+      "authoritative_alias": "Pioneer 10",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "PIONEER11",
+      "canonical_name": "Pioneer 11",
+      "object_class": "SPACECRAFT",
+      "naif_id": "-24",
+      "authoritative_alias": "Pioneer 11",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "VOYAGER1",
+      "canonical_name": "Voyager 1",
+      "object_class": "SPACECRAFT",
+      "naif_id": "-31",
+      "authoritative_alias": "Voyager 1",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "VOYAGER2",
+      "canonical_name": "Voyager 2",
+      "object_class": "SPACECRAFT",
+      "naif_id": "-32",
+      "authoritative_alias": "Voyager 2",
+      "parent_body_id": null
+    },
+    {
+      "body_id": "NEWHORIZONS",
+      "canonical_name": "New Horizons",
+      "object_class": "SPACECRAFT",
+      "naif_id": "-98",
+      "authoritative_alias": "New Horizons",
+      "parent_body_id": null
+    }
+  ],
+  "sources": [
+    {
+      "ephemeris_source_id": "HORIZONS_4E_JUNO",
+      "provider": "JPL/Horizons",
+      "product_name": "JUNO Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "juno_2026_2251.bsp",
+      "sha256": "a362ba0e3ba2dd37683d80a3a844bb6f5c3613c2c5bd5f474a33d61f2242b0a8",
+      "byte_count": 4094976,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "JUNO",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_LUTETIA",
+      "provider": "JPL/Horizons",
+      "product_name": "LUTETIA Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "lutetia_2026_2251.bsp",
+      "sha256": "07ae3a15ac2205da8065a5e9e09ff826235df2639a103ab94ac6d114766b0d50",
+      "byte_count": 4087808,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "LUTETIA",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_THEMIS",
+      "provider": "JPL/Horizons",
+      "product_name": "THEMIS Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "themis_2026_2251.bsp",
+      "sha256": "15e1435beb8687f9aaf3fc93422330fefc7d3c38caa3e0294f4b23fac95b9b45",
+      "byte_count": 4066304,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "THEMIS",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_DAVIDA",
+      "provider": "JPL/Horizons",
+      "product_name": "DAVIDA Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "davida_2026_2251.bsp",
+      "sha256": "9ddc9f5fc63b4311afa9ad927243cc74dd55341271d0cd88f5de22eb8c7871e8",
+      "byte_count": 4059136,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "DAVIDA",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_INTERAMNIA",
+      "provider": "JPL/Horizons",
+      "product_name": "INTERAMNIA Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "interamnia_2026_2251.bsp",
+      "sha256": "ed3dfd8f8176eff31b94dd89317ff34fa79595010864b1808565e001e5981cb9",
+      "byte_count": 4057088,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "INTERAMNIA",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_SEDNA",
+      "provider": "JPL/Horizons",
+      "product_name": "SEDNA Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "sedna_2026_2251.bsp",
+      "sha256": "2a46e07418f7f3d8c3178fae691ad42105eb644329b6160292574d36e0b59473",
+      "byte_count": 4030464,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "SEDNA",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_QUAOAR",
+      "provider": "JPL/Horizons",
+      "product_name": "QUAOAR Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "quaoar_2026_2251.bsp",
+      "sha256": "49947637138bf33734d140375ed0cf1b844b367f0fd4a3aa207e798883aca06f",
+      "byte_count": 4116480,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "QUAOAR",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_ORCUS",
+      "provider": "JPL/Horizons",
+      "product_name": "ORCUS Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "orcus_2026_2251.bsp",
+      "sha256": "13b180ddee652f389d5987586d53b01d6861f807f534313679983c5d17a2ab4e",
+      "byte_count": 4044800,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "ORCUS",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_GONGGONG",
+      "provider": "JPL/Horizons",
+      "product_name": "GONGGONG Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "gonggong_2026_2251.bsp",
+      "sha256": "e8da2390e3574a6cf032be0c8cfb83a532399af6388b408a9630aee2571a6a62",
+      "byte_count": 4037632,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "GONGGONG",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_SALACIA",
+      "provider": "JPL/Horizons",
+      "product_name": "SALACIA Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "salacia_2026_2251.bsp",
+      "sha256": "2ba5221f3fcb7c712fd06d978bd938a17ef10eeb8d7152b026f1782a7ead6b09",
+      "byte_count": 3942400,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "SALACIA",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_VARUNA",
+      "provider": "JPL/Horizons",
+      "product_name": "VARUNA Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "varuna_2026_2251.bsp",
+      "sha256": "63ce353756ded9b85f7f5f4ae82600cb99aa1ecb0507499f075e5b508e66fa0c",
+      "byte_count": 4035584,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "VARUNA",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_MS4",
+      "provider": "JPL/Horizons",
+      "product_name": "MS4 Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "ms4_2026_2251.bsp",
+      "sha256": "cb0deef80c421fe704be9c9f1ea904fa608858417c2d826afce0cc323fd39405",
+      "byte_count": 4055040,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "MS4",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_IXION",
+      "provider": "JPL/Horizons",
+      "product_name": "IXION Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "ixion_2026_2251.bsp",
+      "sha256": "446dcb249b53d1ffda63d18d937a6a8c02a57f485dc50ee72fa4244683098a75",
+      "byte_count": 3985408,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "IXION",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_ARROKOTH",
+      "provider": "JPL/Horizons",
+      "product_name": "ARROKOTH Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "arrokoth_2026_2251.bsp",
+      "sha256": "b88f51891b0b0a6fe8d386507eff2342b5f1cac2f5dbc44d522c51ba94627b73",
+      "byte_count": 3986432,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "ARROKOTH",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_APOPHIS",
+      "provider": "JPL/Horizons",
+      "product_name": "APOPHIS Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "apophis_2026_2251.bsp",
+      "sha256": "9c7c8084a2bb97fc4cfc1fb69e0ddd56adb27e77a768acab32adf27fd6b3689c",
+      "byte_count": 4228096,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "APOPHIS",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_IDA",
+      "provider": "JPL/Horizons",
+      "product_name": "IDA Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "ida_2026_2251.bsp",
+      "sha256": "d90f1cfa0eb32899facec6644ffd8a66f4872975850120e5fbc09efce21c4977",
+      "byte_count": 4081664,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "IDA",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_GASPRA",
+      "provider": "JPL/Horizons",
+      "product_name": "GASPRA Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "gaspra_2026_2251.bsp",
+      "sha256": "568bf0dca3b9b24a98ff545537f0626f3c8cab22c7b2f8fabeb57eebdfd1fd0c",
+      "byte_count": 4050944,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "GASPRA",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_MATHILDE",
+      "provider": "JPL/Horizons",
+      "product_name": "MATHILDE Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "mathilde_2026_2251.bsp",
+      "sha256": "c52efadde47d35263a3c43ecaf0c9b682bdc9f97e3147dc04535667930647b77",
+      "byte_count": 4097024,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "MATHILDE",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_STEINS",
+      "provider": "JPL/Horizons",
+      "product_name": "STEINS Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "steins_2026_2251.bsp",
+      "sha256": "2f795b509527854b40afe06c95a638eb3a6833cdcdb15e5e7be3aa2f3e0f1fae",
+      "byte_count": 4076544,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "STEINS",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_TOUTATIS",
+      "provider": "JPL/Horizons",
+      "product_name": "TOUTATIS Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "toutatis_2026_2251.bsp",
+      "sha256": "db123f6c35731578de196f307a33bba4426c899ba9cec25a608367d1f35980cf",
+      "byte_count": 4046848,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "TOUTATIS",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_BRAILLE",
+      "provider": "JPL/Horizons",
+      "product_name": "BRAILLE Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "braille_2026_2251.bsp",
+      "sha256": "2d8e2bc64e8eb3b194419e93265507d034f3985c33c2e61ab14fc5fca2804247",
+      "byte_count": 4055040,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "BRAILLE",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_DINKINESH",
+      "provider": "JPL/Horizons",
+      "product_name": "DINKINESH Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "dinkinesh_2026_2251.bsp",
+      "sha256": "f2ffa923f7a0c390150587b32ec1914d98d9055581836df2d703afc6293c1127",
+      "byte_count": 4058112,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "DINKINESH",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_DONALDJOHANSON",
+      "provider": "JPL/Horizons",
+      "product_name": "DONALDJOHANSON Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "donaldjohanson_2026_2251.bsp",
+      "sha256": "b25f84881d7a32ff0f82a5b154a52238e74c301ab4b0696330d6fe64df1bcf62",
+      "byte_count": 4074496,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "DONALDJOHANSON",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_POLYMELE",
+      "provider": "JPL/Horizons",
+      "product_name": "POLYMELE Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "polymele_2026_2251.bsp",
+      "sha256": "b62cd886f465e457655088837e116d583192ae25f8ae3a4096e4bf4d3e787e3f",
+      "byte_count": 4040704,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "POLYMELE",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_LEUCUS",
+      "provider": "JPL/Horizons",
+      "product_name": "LEUCUS Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "leucus_2026_2251.bsp",
+      "sha256": "6c38119cc22f43c988d7d030919c0c7cc64564346a857aec08d84209f8646d0a",
+      "byte_count": 4040704,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "LEUCUS",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_ORUS",
+      "provider": "JPL/Horizons",
+      "product_name": "ORUS Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "orus_2026_2251.bsp",
+      "sha256": "74002fa2a050482bb44542e85bf65862d6978e64515079e49e113871bbdd431f",
+      "byte_count": 4096000,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "ORUS",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_OUMUAMUA",
+      "provider": "JPL/Horizons",
+      "product_name": "OUMUAMUA Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "oumuamua_2026_2251.bsp",
+      "sha256": "e655198cf97d7085dd1e4bc857e825a262d98becd75ab678c245c3534fda44ca",
+      "byte_count": 4008960,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "OUMUAMUA",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_BORISOV",
+      "provider": "JPL/Horizons",
+      "product_name": "BORISOV Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "borisov_2026_2251.bsp",
+      "sha256": "b680e9c1daaea18b19439fd65c90c2250aedc484ceda2505a15ef071171e9f81",
+      "byte_count": 4031488,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "BORISOV",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_ATLAS3I",
+      "provider": "JPL/Horizons",
+      "product_name": "ATLAS3I Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "atlas3i_2026_2251.bsp",
+      "sha256": "751b425d6ee6f71209048abaa6b4d4504b487a5c49f7ac2187e54d7eec09ce20",
+      "byte_count": 4023296,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "ATLAS3I",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_TEMPEL1",
+      "provider": "JPL/Horizons",
+      "product_name": "TEMPEL1 Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "tempel1_2026_2251.bsp",
+      "sha256": "b737ac62c985666415c889e5a625c5c98255d0b9a69684871d2cfffe32cc1266",
+      "byte_count": 4109312,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "TEMPEL1",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_WILD2",
+      "provider": "JPL/Horizons",
+      "product_name": "WILD2 Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "wild2_2026_2251.bsp",
+      "sha256": "9c4d04e949e87fbfaf745c6d3db60848b823631f417a6bd640fc13d2a01e5452",
+      "byte_count": 4088832,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "WILD2",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_HARTLEY2",
+      "provider": "JPL/Horizons",
+      "product_name": "HARTLEY2 Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "hartley2_2026_2251.bsp",
+      "sha256": "55df06be9bf0de8a3b9fd48f8530ad58a63f8a3eb4d6dbc07e89f65e1a39f761",
+      "byte_count": 4086784,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "HARTLEY2",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_BORRELLY",
+      "provider": "JPL/Horizons",
+      "product_name": "BORRELLY Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "borrelly_2026_2251.bsp",
+      "sha256": "7f5d6ef135e387ff43c57e82b9d2ad83f2270a87b2418e48a744196791e9bb96",
+      "byte_count": 4033536,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "BORRELLY",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_SWIFTTUTTLE",
+      "provider": "JPL/Horizons",
+      "product_name": "SWIFTTUTTLE Phase-4E SPK",
+      "product_version": "2026-09-25",
+      "asset_filename": "swifttuttle_2026_2251.bsp",
+      "sha256": "2e4628cde65266a1dfcc66b5bc18556644e8aeade9222cc97625e672495b0928",
+      "byte_count": 4047872,
+      "source_url": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "HORIZONS_SPK_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "SWIFTTUTTLE",
+        "DE440"
+      ],
+      "source_lineage": "Horizons SPK request 2026-01-01 through 2251-01-02"
+    },
+    {
+      "ephemeris_source_id": "NAIF_PLU060_4E",
+      "provider": "JPL/NAIF",
+      "product_name": "PLU060",
+      "product_version": "PLU060/DE440",
+      "asset_filename": "plu060.bsp",
+      "sha256": "dfbb102491a26ed41ae08ca3f8963f22f0219df1d8f265ab87b9ad825a826fc6",
+      "byte_count": 135207936,
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/plu060.bsp",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "EPHEMERIS_PARTIAL",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "PLU060",
+        "DE440"
+      ],
+      "source_lineage": "Precomputed Pluto-system solution; actual object coverage ends 2199-12-29"
+    },
+    {
+      "ephemeris_source_id": "NAIF_NEP101XL_802",
+      "provider": "JPL/NAIF",
+      "product_name": "nep101xl-802",
+      "product_version": "2022-04-10",
+      "asset_filename": "nep101xl-802.bsp",
+      "sha256": "006ed86a0ecea070cf209c17d08de0fe10ab3c4925e8d26ad14da64045c1b9af",
+      "byte_count": 767016960,
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/nep101xl-802.bsp",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+      "navigation_grade": true,
+      "kernel_asset_ids": [
+        "LSK",
+        "NEREID",
+        "DE440"
+      ],
+      "source_lineage": "Official NAIF Nereid long-horizon satellite kernel"
+    },
+    {
+      "ephemeris_source_id": "NAIF_PIONEER10_SPK",
+      "provider": "JPL/NAIF",
+      "product_name": "p10-a.bsp",
+      "product_version": "mission archive",
+      "asset_filename": "p10-a.bsp",
+      "sha256": "851ec1a9eddbd11cee25d981c7eea4031be8468cd13369ac7baec13f3afd03e5",
+      "byte_count": 1358848,
+      "source_url": "https://naif.jpl.nasa.gov/",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "EPHEMERIS_PARTIAL",
+      "navigation_grade": false,
+      "kernel_asset_ids": [
+        "LSK",
+        "PIONEER10",
+        "DE440"
+      ],
+      "source_lineage": "Official mission SPK; historical/predicted coverage only"
+    },
+    {
+      "ephemeris_source_id": "NAIF_PIONEER11_SPK",
+      "provider": "JPL/NAIF",
+      "product_name": "p11-a.bsp",
+      "product_version": "mission archive",
+      "asset_filename": "p11-a.bsp",
+      "sha256": "babbb7c028fa968f6cd99575f1f050fb3b93298319cc591e031db233146a54a9",
+      "byte_count": 1403904,
+      "source_url": "https://naif.jpl.nasa.gov/",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "EPHEMERIS_PARTIAL",
+      "navigation_grade": false,
+      "kernel_asset_ids": [
+        "LSK",
+        "PIONEER11",
+        "DE440"
+      ],
+      "source_lineage": "Official mission SPK; historical/predicted coverage only"
+    },
+    {
+      "ephemeris_source_id": "NAIF_VOYAGER1_SPK",
+      "provider": "JPL/NAIF",
+      "product_name": "vgr1.x2100.bsp",
+      "product_version": "mission archive",
+      "asset_filename": "vgr1.x2100.bsp",
+      "sha256": "aa8f37673b5ef60296d210566d01cc49f7b32711f37003393c3327616c9fc6d0",
+      "byte_count": 16286720,
+      "source_url": "https://naif.jpl.nasa.gov/",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "EPHEMERIS_PARTIAL",
+      "navigation_grade": false,
+      "kernel_asset_ids": [
+        "LSK",
+        "VOYAGER1",
+        "DE440"
+      ],
+      "source_lineage": "Official mission SPK; historical/predicted coverage only"
+    },
+    {
+      "ephemeris_source_id": "NAIF_VOYAGER2_SPK",
+      "provider": "JPL/NAIF",
+      "product_name": "vgr2.x2100.bsp",
+      "product_version": "mission archive",
+      "asset_filename": "vgr2.x2100.bsp",
+      "sha256": "391f5361773322e2242fb1c81578aeb1fbf9134c3878b2f325e9b8b5f46ad7cb",
+      "byte_count": 15744000,
+      "source_url": "https://naif.jpl.nasa.gov/",
+      "acquired_at": "2026-09-26T00:00:00Z",
+      "status": "QUALIFIED",
+      "state_capability": "EPHEMERIS_PARTIAL",
+      "navigation_grade": false,
+      "kernel_asset_ids": [
+        "LSK",
+        "VOYAGER2",
+        "DE440"
+      ],
+      "source_lineage": "Official mission SPK; historical/predicted coverage only"
+    }
+  ],
+  "coverage": [
+    {
+      "ephemeris_source_id": "HORIZONS_4E_JUNO",
+      "body_id": "JUNO",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_LUTETIA",
+      "body_id": "LUTETIA",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_THEMIS",
+      "body_id": "THEMIS",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_DAVIDA",
+      "body_id": "DAVIDA",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_INTERAMNIA",
+      "body_id": "INTERAMNIA",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_SEDNA",
+      "body_id": "SEDNA",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_QUAOAR",
+      "body_id": "QUAOAR",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_ORCUS",
+      "body_id": "ORCUS",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_GONGGONG",
+      "body_id": "GONGGONG",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_SALACIA",
+      "body_id": "SALACIA",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_VARUNA",
+      "body_id": "VARUNA",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_MS4",
+      "body_id": "MS4",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_IXION",
+      "body_id": "IXION",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_ARROKOTH",
+      "body_id": "ARROKOTH",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_APOPHIS",
+      "body_id": "APOPHIS",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_IDA",
+      "body_id": "IDA",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_GASPRA",
+      "body_id": "GASPRA",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_MATHILDE",
+      "body_id": "MATHILDE",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_STEINS",
+      "body_id": "STEINS",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_TOUTATIS",
+      "body_id": "TOUTATIS",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_BRAILLE",
+      "body_id": "BRAILLE",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_DINKINESH",
+      "body_id": "DINKINESH",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_DONALDJOHANSON",
+      "body_id": "DONALDJOHANSON",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_POLYMELE",
+      "body_id": "POLYMELE",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_LEUCUS",
+      "body_id": "LEUCUS",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_ORUS",
+      "body_id": "ORUS",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_OUMUAMUA",
+      "body_id": "OUMUAMUA",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_BORISOV",
+      "body_id": "BORISOV",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_ATLAS3I",
+      "body_id": "ATLAS3I",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_TEMPEL1",
+      "body_id": "TEMPEL1",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_WILD2",
+      "body_id": "WILD2",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_HARTLEY2",
+      "body_id": "HARTLEY2",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_BORRELLY",
+      "body_id": "BORRELLY",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "HORIZONS_4E_SWIFTTUTTLE",
+      "body_id": "SWIFTTUTTLE",
+      "valid_from": "2025-12-31T23:58:50.816Z",
+      "valid_until": "2251-01-01T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "NAIF_PLU060_4E",
+      "body_id": "NIX",
+      "valid_from": "1800-01-01T23:59:18.816Z",
+      "valid_until": "2199-12-29T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "NAIF_PLU060_4E",
+      "body_id": "HYDRA",
+      "valid_from": "1800-01-01T23:59:18.816Z",
+      "valid_until": "2199-12-29T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "NAIF_PLU060_4E",
+      "body_id": "KERBEROS",
+      "valid_from": "1800-01-01T23:59:18.816Z",
+      "valid_until": "2199-12-29T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "NAIF_PLU060_4E",
+      "body_id": "STYX",
+      "valid_from": "1800-01-01T23:59:18.816Z",
+      "valid_until": "2199-12-29T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "NAIF_NEP101XL_802",
+      "body_id": "NEREID",
+      "valid_from": "2026-01-01T00:00:00Z",
+      "valid_until": "2251-01-01T00:00:00Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "NAIF_PIONEER10_SPK",
+      "body_id": "PIONEER10",
+      "valid_from": "1972-03-03T02:04:00.000Z",
+      "valid_until": "1990-01-02T00:00:00.000Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "NAIF_PIONEER11_SPK",
+      "body_id": "PIONEER11",
+      "valid_from": "1973-04-06T02:25:00.000Z",
+      "valid_until": "1990-01-02T00:00:00.000Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "NAIF_VOYAGER1_SPK",
+      "body_id": "VOYAGER1",
+      "valid_from": "1980-12-31T23:59:08.816Z",
+      "valid_until": "2099-12-31T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    },
+    {
+      "ephemeris_source_id": "NAIF_VOYAGER2_SPK",
+      "body_id": "VOYAGER2",
+      "valid_from": "1989-08-29T07:59:03.817Z",
+      "valid_until": "2099-12-31T23:58:50.816Z",
+      "reference_frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "coverage_class": "BODY",
+      "status": "QUALIFIED"
+    }
+  ],
+  "qualification": [
+    {
+      "cohort_entry": 1,
+      "cohort": "NATURAL",
+      "supplied_entry": "3 Juno",
+      "body_id": "JUNO",
+      "canonical_name": "3 Juno",
+      "object_type": "ASTEROID",
+      "naif_id": "20000003",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_JUNO"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 2,
+      "cohort": "NATURAL",
+      "supplied_entry": "21 Lutetia",
+      "body_id": "LUTETIA",
+      "canonical_name": "21 Lutetia",
+      "object_type": "ASTEROID",
+      "naif_id": "20000021",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_LUTETIA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 3,
+      "cohort": "NATURAL",
+      "supplied_entry": "24 Themis",
+      "body_id": "THEMIS",
+      "canonical_name": "24 Themis",
+      "object_type": "ASTEROID",
+      "naif_id": "20000024",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_THEMIS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 4,
+      "cohort": "NATURAL",
+      "supplied_entry": "511 Davida",
+      "body_id": "DAVIDA",
+      "canonical_name": "511 Davida",
+      "object_type": "ASTEROID",
+      "naif_id": "20000511",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_DAVIDA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 5,
+      "cohort": "NATURAL",
+      "supplied_entry": "704 Interamnia",
+      "body_id": "INTERAMNIA",
+      "canonical_name": "704 Interamnia",
+      "object_type": "ASTEROID",
+      "naif_id": "20000704",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_INTERAMNIA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 6,
+      "cohort": "NATURAL",
+      "supplied_entry": "Nix",
+      "body_id": "NIX",
+      "canonical_name": "Nix",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "902",
+      "parent_body_id": "PLUTO",
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PLU060_4E"
+      ],
+      "coverage": {
+        "valid_from": "1800-01-01T23:59:18.816Z",
+        "valid_until": "2199-12-29T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Official PLU060 coverage ends 2199-12-29."
+    },
+    {
+      "cohort_entry": 7,
+      "cohort": "NATURAL",
+      "supplied_entry": "Hydra",
+      "body_id": "HYDRA",
+      "canonical_name": "Hydra",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "903",
+      "parent_body_id": "PLUTO",
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PLU060_4E"
+      ],
+      "coverage": {
+        "valid_from": "1800-01-01T23:59:18.816Z",
+        "valid_until": "2199-12-29T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Official PLU060 coverage ends 2199-12-29."
+    },
+    {
+      "cohort_entry": 8,
+      "cohort": "NATURAL",
+      "supplied_entry": "Kerberos",
+      "body_id": "KERBEROS",
+      "canonical_name": "Kerberos",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "904",
+      "parent_body_id": "PLUTO",
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PLU060_4E"
+      ],
+      "coverage": {
+        "valid_from": "1800-01-01T23:59:18.816Z",
+        "valid_until": "2199-12-29T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Official PLU060 coverage ends 2199-12-29."
+    },
+    {
+      "cohort_entry": 9,
+      "cohort": "NATURAL",
+      "supplied_entry": "Styx",
+      "body_id": "STYX",
+      "canonical_name": "Styx",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "905",
+      "parent_body_id": "PLUTO",
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PLU060_4E"
+      ],
+      "coverage": {
+        "valid_from": "1800-01-01T23:59:18.816Z",
+        "valid_until": "2199-12-29T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Official PLU060 coverage ends 2199-12-29."
+    },
+    {
+      "cohort_entry": 10,
+      "cohort": "NATURAL",
+      "supplied_entry": "Nereid",
+      "body_id": "NEREID",
+      "canonical_name": "Nereid",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "802",
+      "parent_body_id": "NEPTUNE_SYSTEM_BARYCENTER",
+      "outcome": "QUALIFIED_DIRECT",
+      "source_ids": [
+        "NAIF_NEP101XL_802"
+      ],
+      "coverage": {
+        "valid_from": "2026-01-01T00:00:00Z",
+        "valid_until": "2251-01-01T00:00:00Z"
+      },
+      "navigation_grade": true,
+      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+    },
+    {
+      "cohort_entry": 11,
+      "cohort": "NATURAL",
+      "supplied_entry": "Proteus",
+      "body_id": "PROTEUS",
+      "canonical_name": "Proteus",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": "808",
+      "parent_body_id": "NEPTUNE_SYSTEM_BARYCENTER",
+      "outcome": "CATALOG_ONLY",
+      "source_ids": [],
+      "coverage": null,
+      "navigation_grade": false,
+      "reason": "Catalog identity resolved; no independent authoritative SPK target accepted."
+    },
+    {
+      "cohort_entry": 12,
+      "cohort": "NATURAL",
+      "supplied_entry": "1I/ʻOumuamua",
+      "body_id": "OUMUAMUA",
+      "canonical_name": "1I/ʻOumuamua",
+      "object_type": "INTERSTELLAR_OBJECT",
+      "naif_id": "50788063",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_OUMUAMUA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 13,
+      "cohort": "NATURAL",
+      "supplied_entry": "2I/Borisov",
+      "body_id": "BORISOV",
+      "canonical_name": "2I/Borisov",
+      "object_type": "INTERSTELLAR_OBJECT",
+      "naif_id": "1003639",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_BORISOV"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 14,
+      "cohort": "NATURAL",
+      "supplied_entry": "3I/ATLAS",
+      "body_id": "ATLAS3I",
+      "canonical_name": "3I/ATLAS",
+      "object_type": "INTERSTELLAR_OBJECT",
+      "naif_id": "1004083",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_ATLAS3I"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 15,
+      "cohort": "NATURAL",
+      "supplied_entry": "90377 Sedna",
+      "body_id": "SEDNA",
+      "canonical_name": "90377 Sedna",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20090377",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_SEDNA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 16,
+      "cohort": "NATURAL",
+      "supplied_entry": "50000 Quaoar",
+      "body_id": "QUAOAR",
+      "canonical_name": "50000 Quaoar",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20050000",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_QUAOAR"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 17,
+      "cohort": "NATURAL",
+      "supplied_entry": "90482 Orcus",
+      "body_id": "ORCUS",
+      "canonical_name": "90482 Orcus",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20090482",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_ORCUS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 18,
+      "cohort": "NATURAL",
+      "supplied_entry": "225088 Gonggong",
+      "body_id": "GONGGONG",
+      "canonical_name": "225088 Gonggong",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20225088",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_GONGGONG"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 19,
+      "cohort": "NATURAL",
+      "supplied_entry": "120347 Salacia",
+      "body_id": "SALACIA",
+      "canonical_name": "120347 Salacia",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20120347",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_SALACIA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 20,
+      "cohort": "NATURAL",
+      "supplied_entry": "20000 Varuna",
+      "body_id": "VARUNA",
+      "canonical_name": "20000 Varuna",
+      "object_type": "DWARF_PLANET",
+      "naif_id": "20020000",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_VARUNA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 21,
+      "cohort": "NATURAL",
+      "supplied_entry": "2002 MS4",
+      "body_id": "MS4",
+      "canonical_name": "2002 MS4",
+      "object_type": "TRANS_NEPTUNIAN_OBJECT",
+      "naif_id": "20307261",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_MS4"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 22,
+      "cohort": "NATURAL",
+      "supplied_entry": "28978 Ixion",
+      "body_id": "IXION",
+      "canonical_name": "28978 Ixion",
+      "object_type": "TRANS_NEPTUNIAN_OBJECT",
+      "naif_id": "20028978",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_IXION"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 23,
+      "cohort": "NATURAL",
+      "supplied_entry": "486958 Arrokoth",
+      "body_id": "ARROKOTH",
+      "canonical_name": "486958 Arrokoth",
+      "object_type": "TRANS_NEPTUNIAN_OBJECT",
+      "naif_id": "20486958",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_ARROKOTH"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 24,
+      "cohort": "NATURAL",
+      "supplied_entry": "99942 Apophis",
+      "body_id": "APOPHIS",
+      "canonical_name": "99942 Apophis",
+      "object_type": "NEAR_EARTH_ASTEROID",
+      "naif_id": "20099942",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_APOPHIS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 25,
+      "cohort": "NATURAL",
+      "supplied_entry": "243 Ida",
+      "body_id": "IDA",
+      "canonical_name": "243 Ida",
+      "object_type": "ASTEROID",
+      "naif_id": "20000243",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_IDA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 26,
+      "cohort": "NATURAL",
+      "supplied_entry": "Dactyl",
+      "body_id": "DACTYL",
+      "canonical_name": "Dactyl",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": null,
+      "parent_body_id": "IDA",
+      "outcome": "CATALOG_ONLY",
+      "source_ids": [],
+      "coverage": null,
+      "navigation_grade": false,
+      "reason": "Catalog identity resolved; no independent authoritative SPK target accepted."
+    },
+    {
+      "cohort_entry": 27,
+      "cohort": "NATURAL",
+      "supplied_entry": "951 Gaspra",
+      "body_id": "GASPRA",
+      "canonical_name": "951 Gaspra",
+      "object_type": "ASTEROID",
+      "naif_id": "20000951",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_GASPRA"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 28,
+      "cohort": "NATURAL",
+      "supplied_entry": "253 Mathilde",
+      "body_id": "MATHILDE",
+      "canonical_name": "253 Mathilde",
+      "object_type": "ASTEROID",
+      "naif_id": "20000253",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_MATHILDE"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 29,
+      "cohort": "NATURAL",
+      "supplied_entry": "2867 Šteins",
+      "body_id": "STEINS",
+      "canonical_name": "2867 Šteins",
+      "object_type": "ASTEROID",
+      "naif_id": "20002867",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_STEINS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 30,
+      "cohort": "NATURAL",
+      "supplied_entry": "4179 Toutatis",
+      "body_id": "TOUTATIS",
+      "canonical_name": "4179 Toutatis",
+      "object_type": "NEAR_EARTH_ASTEROID",
+      "naif_id": "20004179",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_TOUTATIS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 31,
+      "cohort": "NATURAL",
+      "supplied_entry": "9969 Braille",
+      "body_id": "BRAILLE",
+      "canonical_name": "9969 Braille",
+      "object_type": "ASTEROID",
+      "naif_id": "20009969",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_BRAILLE"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 32,
+      "cohort": "NATURAL",
+      "supplied_entry": "152830 Dinkinesh",
+      "body_id": "DINKINESH",
+      "canonical_name": "152830 Dinkinesh",
+      "object_type": "ASTEROID",
+      "naif_id": "20152830",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_DINKINESH"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 33,
+      "cohort": "NATURAL",
+      "supplied_entry": "Selam",
+      "body_id": "SELAM",
+      "canonical_name": "Selam",
+      "object_type": "NATURAL_SATELLITE",
+      "naif_id": null,
+      "parent_body_id": "DINKINESH",
+      "outcome": "CATALOG_ONLY",
+      "source_ids": [],
+      "coverage": null,
+      "navigation_grade": false,
+      "reason": "Catalog identity resolved; no independent authoritative SPK target accepted."
+    },
+    {
+      "cohort_entry": 34,
+      "cohort": "NATURAL",
+      "supplied_entry": "52246 Donaldjohanson",
+      "body_id": "DONALDJOHANSON",
+      "canonical_name": "52246 Donaldjohanson",
+      "object_type": "ASTEROID",
+      "naif_id": "20052246",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_DONALDJOHANSON"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 35,
+      "cohort": "NATURAL",
+      "supplied_entry": "15094 Polymele",
+      "body_id": "POLYMELE",
+      "canonical_name": "15094 Polymele",
+      "object_type": "TROJAN_ASTEROID",
+      "naif_id": "20015094",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_POLYMELE"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 36,
+      "cohort": "NATURAL",
+      "supplied_entry": "11351 Leucus",
+      "body_id": "LEUCUS",
+      "canonical_name": "11351 Leucus",
+      "object_type": "TROJAN_ASTEROID",
+      "naif_id": "20011351",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_LEUCUS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 37,
+      "cohort": "NATURAL",
+      "supplied_entry": "21900 Orus",
+      "body_id": "ORUS",
+      "canonical_name": "21900 Orus",
+      "object_type": "TROJAN_ASTEROID",
+      "naif_id": "20021900",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_ORUS"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 38,
+      "cohort": "NATURAL",
+      "supplied_entry": "9P/Tempel 1",
+      "body_id": "TEMPEL1",
+      "canonical_name": "9P/Tempel 1",
+      "object_type": "COMET",
+      "naif_id": "1000093",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_TEMPEL1"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 39,
+      "cohort": "NATURAL",
+      "supplied_entry": "81P/Wild 2",
+      "body_id": "WILD2",
+      "canonical_name": "81P/Wild 2",
+      "object_type": "COMET",
+      "naif_id": "1000107",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_WILD2"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 40,
+      "cohort": "NATURAL",
+      "supplied_entry": "103P/Hartley 2",
+      "body_id": "HARTLEY2",
+      "canonical_name": "103P/Hartley 2",
+      "object_type": "COMET",
+      "naif_id": "1000041",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_HARTLEY2"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 41,
+      "cohort": "NATURAL",
+      "supplied_entry": "19P/Borrelly",
+      "body_id": "BORRELLY",
+      "canonical_name": "19P/Borrelly",
+      "object_type": "COMET",
+      "naif_id": "1000005",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_BORRELLY"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 42,
+      "cohort": "NATURAL",
+      "supplied_entry": "109P/Swift–Tuttle",
+      "body_id": "SWIFTTUTTLE",
+      "canonical_name": "109P/Swift–Tuttle",
+      "object_type": "COMET",
+      "naif_id": "1000140",
+      "parent_body_id": null,
+      "outcome": "QUALIFIED_HORIZONS",
+      "source_ids": [
+        "HORIZONS_4E_SWIFTTUTTLE"
+      ],
+      "coverage": {
+        "valid_from": "2025-12-31T23:58:50.816Z",
+        "valid_until": "2251-01-01T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Direct Horizons SPK through 2251-01-01."
+    },
+    {
+      "cohort_entry": 43,
+      "cohort": "SPACECRAFT",
+      "supplied_entry": "Pioneer 10",
+      "body_id": "PIONEER10",
+      "canonical_name": "Pioneer 10",
+      "object_type": "SPACECRAFT",
+      "naif_id": "-23",
+      "parent_body_id": null,
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PIONEER10_SPK"
+      ],
+      "coverage": {
+        "valid_from": "1972-03-03T02:04:00.000Z",
+        "valid_until": "1990-01-02T00:00:00.000Z"
+      },
+      "navigation_grade": false,
+      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+    },
+    {
+      "cohort_entry": 44,
+      "cohort": "SPACECRAFT",
+      "supplied_entry": "Pioneer 11",
+      "body_id": "PIONEER11",
+      "canonical_name": "Pioneer 11",
+      "object_type": "SPACECRAFT",
+      "naif_id": "-24",
+      "parent_body_id": null,
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_PIONEER11_SPK"
+      ],
+      "coverage": {
+        "valid_from": "1973-04-06T02:25:00.000Z",
+        "valid_until": "1990-01-02T00:00:00.000Z"
+      },
+      "navigation_grade": false,
+      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+    },
+    {
+      "cohort_entry": 45,
+      "cohort": "SPACECRAFT",
+      "supplied_entry": "Voyager 1",
+      "body_id": "VOYAGER1",
+      "canonical_name": "Voyager 1",
+      "object_type": "SPACECRAFT",
+      "naif_id": "-31",
+      "parent_body_id": null,
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_VOYAGER1_SPK"
+      ],
+      "coverage": {
+        "valid_from": "1980-12-31T23:59:08.816Z",
+        "valid_until": "2099-12-31T23:58:50.816Z"
+      },
+      "navigation_grade": false,
+      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+    },
+    {
+      "cohort_entry": 46,
+      "cohort": "SPACECRAFT",
+      "supplied_entry": "Voyager 2",
+      "body_id": "VOYAGER2",
+      "canonical_name": "Voyager 2",
+      "object_type": "SPACECRAFT",
+      "naif_id": "-32",
+      "parent_body_id": null,
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_VOYAGER2_SPK"
+      ],
+      "coverage": {
+        "valid_from": "1989-08-29T07:59:03.817Z",
+        "valid_until": "2099-12-31T23:58:50.816Z"
+      },
+      "navigation_grade": false,
+      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+    },
+    {
+      "cohort_entry": 47,
+      "cohort": "SPACECRAFT",
+      "supplied_entry": "New Horizons",
+      "body_id": "NEWHORIZONS",
+      "canonical_name": "New Horizons",
+      "object_type": "SPACECRAFT",
+      "naif_id": "-98",
+      "parent_body_id": null,
+      "outcome": "CATALOG_ONLY",
+      "source_ids": [],
+      "coverage": null,
+      "navigation_grade": false,
+      "reason": "Catalog identity resolved; no independent authoritative SPK target accepted."
+    }
+  ],
+  "binary_semantics": {
+    "DACTYL": {
+      "parent": "IDA",
+      "independent_state_promoted": false
+    },
+    "SELAM": {
+      "parent": "DINKINESH",
+      "independent_state_promoted": false
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # LOOM Solar Phase 4 — 2250 Ephemeris Completion Work Plan v1.0
 
-**Status:** PHASE 4D CLOSED; PHASE 4E/5 NOT STARTED
+**Status:** PHASE 4D CLOSED; CURATED PHASE 4E 42+5 IMPLEMENTED; PHASE 5 NOT STARTED
 **Primary class:** `class:engineering` with governed `class:data` promotion steps
 **Date:** 2026-09-25
 **Repository:** `loom-2226/loom-2226`
@@ -448,4 +448,12 @@ extension; it is not direct JPL authority. Binary companions are recorded
 semantically without invented component states, and published comet
 non-gravitational models are preserved in source provenance.
 
-Phase 4E remains separate and is not started.
+The locked Phase 4E curated 42+5 implementation is complete; any broader
+Phase-4E catalog work remains explicitly out of scope.
+# Phase 4E curated 42+5 implementation
+
+The locked Phase 4E curated cohort is implemented by migration 016 and manifest
+`SOLAR_PHASE4E_CURATED_42_PLUS_5_V1.json`. It accounts for exactly 42 natural
+objects and 5 historical interstellar-bound spacecraft. Qualification outcomes
+remain explicit: direct Horizons/NAIF, partial mission or satellite authority,
+and catalog-only identity where an independent state source is not available.
