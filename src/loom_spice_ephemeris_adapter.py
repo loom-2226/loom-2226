@@ -162,7 +162,7 @@ class SolarEphemerisRegistry:
         # coverage wins that single-point overlap; equal-tier authority still
         # fails closed and never uses input order as a tiebreaker.
         direct = [(source, record) for source, record in candidates
-                  if source.state_capability.startswith("DIRECT_")]
+                  if source.state_capability.startswith(("DIRECT_", "HORIZONS_"))]
         if direct:
             candidates = direct
         if len(candidates) != 1:
