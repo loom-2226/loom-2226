@@ -1,0 +1,63 @@
+{
+  "qualification": "ARP-QUAL-01_CERES",
+  "analysis_type": "POST_HOC_FORENSIC_ANALYSIS",
+  "blind_campaigns_unchanged": [
+    "frozen_attempt_01",
+    "attempt_02"
+  ],
+  "reference_comparison_after_freeze": true,
+  "misses": [
+    {
+      "property_code": "GM",
+      "primary_classification": "SOURCE_DISCOVERY_DEFECT",
+      "contributing_classification": "COVERAGE_ACCOUNTING_DEFECT",
+      "finding": "The blind artifacts contained JPL physical parameters and a Dawn gravity product, but no acquired DE440/DE441 source artifact. The HCQ scalar is asserted from the DE440 paper, while the gravity lane was marked COVERED without a scalar evidence-question basis.",
+      "trace_evidence": [
+        "attempt_02/campaign.json: gravity_shape coverage=COVERED",
+        "attempt_02/campaign.json: sources_acquired=12, sources_discovered=18",
+        "attempt_02/campaign.json: no DE440 artifact in the acquired artifact set",
+        "frozen_attempt_01/artifacts/jpl_phys.html: physical table exposes Mass and Equatorial Gravity documentation, not the HCQ DE440 GM assertion",
+        "HCQ v0.3-R1 source_assertion: GM -> DE440/DE441 paper table: GM_Ceres"
+      ],
+      "disposition": "Not an extraction loss from an acquired GM source. The source-family search and lane accounting were insufficiently explicit; no Ceres-specific search rule is justified."
+    },
+    {
+      "property_code": "SURFACE_TEMPERATURE",
+      "primary_classification": "EXTRACTION_DEFECT",
+      "contributing_classification": "IMPLEMENTATION_DEFECT",
+      "finding": "The acquired thermal arXiv artifact itself contains the disk-averaged brightness-temperature result of 170 K to 180 K in its metadata and abstract, but the blind assertion set retained only thermal inertia.",
+      "trace_evidence": [
+        "frozen_attempt_01/artifacts/thermal_arxiv.html:30, 41, 128 contain the 170 K to 180 K result",
+        "attempt_02/campaign.json: thermal_environment coverage=PARTIAL",
+        "attempt_02 campaign assertions: THERMAL_INERTIA present; SURFACE_TEMPERATURE absent",
+        "HCQ v0.3-R1 source_assertion: SURFACE_TEMPERATURE -> thermal observation results"
+      ],
+      "disposition": "A real bounded extraction miss. The evidence was available in an acquired artifact; the forensic record does not add it to the frozen campaign or mutate Ceres authority."
+    },
+    {
+      "property_code": "REGIONAL_AHUNA",
+      "primary_classification": "COVERAGE_ACCOUNTING_DEFECT",
+      "contributing_classification": "SOURCE_DISCOVERY_DEFECT",
+      "finding": "The blind artifact set contains no Ahuna source or artifact. Regional was marked COVERED while geology_geotechnical remained PARTIAL and no explicit regional evidence-question basis required Ahuna or an honest unresolved state.",
+      "trace_evidence": [
+        "frozen_attempt_01/artifacts/: no Ahuna artifact",
+        "attempt_02/campaign.json: regional coverage=COVERED",
+        "attempt_02/campaign.json: geology_geotechnical coverage=PARTIAL",
+        "HCQ v0.3-R1 source 8: LPSC2016-2279 Ahuna Mons source"
+      ],
+      "disposition": "The trace supports a foundational-coverage accounting risk, not an Ahuna-specific rule."
+    }
+  ],
+  "foundational_coverage_hypothesis": {
+    "result": "SUPPORTED_AS_A_RISK",
+    "reason": "The campaign produced optional/deep additions while gravity_shape and regional lane-level COVERED states did not expose the specific foundational questions they had answered or left unresolved.",
+    "limit": "The trace does not prove that the stop rule alone caused every miss; source discovery and extraction also contributed."
+  },
+  "remediation": {
+    "version": "1.0.2",
+    "change": "Covered lanes under coverage_contract_version 1.0.2 require explicit evidence-question basis entries. Each entry must be SUPPORTED, UNKNOWN, SOURCE_NOT_FOUND, or NOT_APPLICABLE; unresolved states require rationale.",
+    "answer_key_overfitting": "NONE; no Ceres name, property value, source identifier, or reference list is encoded."
+  },
+  "recommendation": "NOT_READY_FOR_ARP_QUAL_02",
+  "recommendation_reason": "v1.0.2 coverage hardening is implemented and synthetic-tested, but it has not yet been validated by a fresh independent body campaign."
+}

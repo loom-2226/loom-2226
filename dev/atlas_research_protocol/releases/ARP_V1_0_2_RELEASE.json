@@ -1,0 +1,20 @@
+{
+  "version": "1.0.2",
+  "protocol_contract": "ARP v1.0",
+  "parent": "1.0.1",
+  "earned_by": "ARP-QUAL-01_CERES forensic review",
+  "status": "NARROW_REMEDIATION",
+  "changes": [
+    {
+      "change": "optional coverage_contract_version 1.0.2",
+      "reason": "A covered lane must expose an explicit evidence-question basis, including honest UNKNOWN or SOURCE_NOT_FOUND outcomes."
+    }
+  ],
+  "scope": "Body-agnostic coverage accounting; no target-body properties, source identifiers, or expected values are encoded.",
+  "qualification": "Synthetic tests prove that optional depth cannot substitute for an unaccounted foundational lane basis.",
+  "scientific_content_impact": "NONE; no campaign data or Ceres fact changed.",
+  "known_limitations": [
+    "The contract requires campaign authors or future tooling to define the relevant evidence questions.",
+    "It does not determine scientific truth or guarantee exhaustive discovery."
+  ]
+}

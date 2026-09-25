@@ -1,0 +1,28 @@
+{
+  "version": "1.0.1",
+  "protocol_contract": "ARP v1.0",
+  "parent": "1.0.0",
+  "earned_by": "ARP-QUAL-01_CERES",
+  "status": "FORMALIZED",
+  "changes": [
+    {
+      "change": "explicit reported_value versus normalized_value handling",
+      "reason": "The first blind attempt placed JPL mass in normalized form in the reported fields."
+    },
+    {
+      "change": "uncertainty value/unit fields and validation",
+      "reason": "The first blind attempt omitted supplied bulk-density uncertainty."
+    },
+    {
+      "change": "artifact/source identity validation",
+      "reason": "Assertions must retain a coherent provenance path to their acquired artifact."
+    }
+  ],
+  "qualification": "The repaired implementation passed the second ARP-QUAL-01 attempt with reference misses recorded separately.",
+  "scientific_content_impact": "NONE; this is research-machinery metadata and validation only.",
+  "known_limitations": [
+    "Finite recall remains measurable by blind qualification.",
+    "Coverage is still lane-level unless the v1.0.2 coverage-basis contract is selected.",
+    "No Ceres authority was changed."
+  ]
+}

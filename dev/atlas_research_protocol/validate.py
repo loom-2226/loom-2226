@@ -16,6 +16,8 @@ TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 
 COVERAGE = {"COVERED", "PARTIAL", "MODEL_ONLY", "CONFLICTED", "NOT_APPLICABLE", "UNKNOWN", "SOURCE_NOT_FOUND"}
+CONTRACT_COVERAGE_BASIS = "1.0.2"
+COVERAGE_BASIS_STATES = {"SUPPORTED", "UNKNOWN", "SOURCE_NOT_FOUND", "NOT_APPLICABLE"}
 EVIDENCE = {"DIRECT_SAMPLE", "IN_SITU_DIRECT", "IN_SITU_REMOTE", "EARTH_REMOTE", "DYNAMICAL_INFERENCE", "ANALOG_INFERENCE", "PHYSICAL_MODEL", "THEORETICAL_EXPECTATION", "DERIVED"}
 FRONTIER_PHASES = {"KNOWABLE", "INFERRED", "FUTURE_OBSERVABLE", "ENGINEERING_DERIVED", "ECONOMIC_DERIVED"}
 LIEN_STATES = {"OPEN", "RESOLVED", "ACCEPTED_UNKNOWN", "DEFERRED_SCHEMA", "SOURCE_UNAVAILABLE"}
@@ -89,6 +91,16 @@ def validate_campaign(campaign: dict[str, Any], authority_policy: dict[str, Any]
     for name, lane in lanes.items():
         if lane.get("coverage") not in COVERAGE:
             _error(errors, "COVERAGE", f"lane {name} has invalid coverage")
+        if campaign.get("coverage_contract_version") == CONTRACT_COVERAGE_BASIS and lane.get("coverage") == "COVERED":
+            basis = lane.get("coverage_basis")
+            if not isinstance(basis, list) or not basis:
+                _error(errors, "COVERAGE_BASIS", f"covered lane {name} lacks explicit evidence-question basis")
+            else:
+                for item in basis:
+                    if not item.get("question_id") or item.get("state") not in COVERAGE_BASIS_STATES:
+                        _error(errors, "COVERAGE_BASIS", f"covered lane {name} has malformed evidence-question basis")
+                    if item.get("state") in {"UNKNOWN", "SOURCE_NOT_FOUND"} and not item.get("rationale"):
+                        _error(errors, "COVERAGE_BASIS", f"covered lane {name} has an unresolved basis item without rationale")
     for gap in campaign.get("unresolved_gaps", []):
         if not gap.get("gap_id") or not gap.get("lane"):
             _error(errors, "RESUMABILITY", "unresolved gap lacks stable id/lane")
