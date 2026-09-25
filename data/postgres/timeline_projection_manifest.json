@@ -1,0 +1,28 @@
+{
+  "contract_sha256": "0232bf23494f7fe0c38bef18604e1605b9b10f5417572d3b0656891a89d69c86",
+  "counts": {
+    "CANON_HISTORY": 19,
+    "FICTIONAL_PHYSICS_SCENARIO_ANCHOR": 5,
+    "MODERATE_SCENARIO_ANCHOR": 18,
+    "SOCIAL_SCENARIO_ANCHOR": 1
+  },
+  "interpretation_rule_count": 5,
+  "projection_sha256": "a6e757e5ede30244688076a1bdc27265d0a205dd65d6e65c9ee021180986bafd",
+  "schema": "loom-timeline-postgres-projection-v1",
+  "semantic_sha256": "8543a0dde2248891fd1f0f1abd6480d2d30ba587e0e7dfea96580edee52b3636",
+  "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+  "source_authority_main_sha": "c0b50afdd792cecf0b32a8752855e5afa8694ddd",
+  "sources": {
+    "canon": {
+      "bytes": 453097,
+      "path": "canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md",
+      "sha256": "98a83f50b68b68931ad24cfec97c347cc506901973d0e0787c09f2baa27cd3a6"
+    },
+    "technology": {
+      "bytes": 32637,
+      "path": "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md",
+      "sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb"
+    }
+  },
+  "total_milestones": 43
+}
