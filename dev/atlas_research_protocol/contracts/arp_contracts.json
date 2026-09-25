@@ -1,7 +1,8 @@
 {
   "protocol_version": "1.0.0",
+  "implementation_versions": ["1.0.0", "1.0.1", "1.0.2"],
   "contracts": {
-    "campaign": {"required": ["campaign_id", "target_body", "body_profile", "knowledge_cutoff", "research_tier", "arp_version", "solar_facts_schema_version", "repository_baseline", "lanes", "unresolved_gaps", "status", "qualification_state"]},
+    "campaign": {"required": ["campaign_id", "target_body", "body_profile", "knowledge_cutoff", "research_tier", "arp_version", "solar_facts_schema_version", "repository_baseline", "lanes", "unresolved_gaps", "status", "qualification_state"], "optional": ["coverage_contract_version", "implementation_version"], "coverage_basis_contract": {"version": "1.0.2", "covered_lane_requires": ["question_id", "state"], "states": ["SUPPORTED", "UNKNOWN", "SOURCE_NOT_FOUND", "NOT_APPLICABLE"]}},
     "source_candidate": {"required": ["source_id", "provider", "authority_domain", "authority_role", "source_type", "locator"], "identity_rule": "source_id is stable within a campaign"},
     "acquired_artifact": {"required": ["artifact_id", "source_id", "locator", "retrieved_at", "sha256", "byte_count", "media_type", "original_filename"], "identity_rule": "artifact_id plus SHA-256 and version identify a preserved artifact"},
     "assertion_candidate": {"required": ["assertion_id", "source_id", "artifact_id", "property_code", "evidence_class", "scope_type", "claim_kind", "method_type", "independent_evidence_lineage_id", "status", "provenance_complete"], "optional": ["reported_uncertainty", "normalized_uncertainty", "uncertainty_unit", "normalization_method", "reported_precision"], "identity_rule": "canonical_assertion_key prevents idempotent duplicate loading; reported and normalized values/units must remain distinguishable"},

@@ -1,5 +1,8 @@
-"""Atlas Research Protocol v1.0 deterministic contracts and validation."""
+"""Atlas Research Protocol versioned contracts and validation."""
 
 ARP_VERSION = "1.0.0"
-# Qualification remediation revision; the protocol contract remains v1.0.
-IMPLEMENTATION_REVISION = "1.0.1-reported-normalization-and-uncertainty-hardening"
+# The v1.0 protocol contract remains stable.  These implementation releases
+# are earned by ARP-QUAL-01 and are intentionally distinct from the protocol
+# contract version.
+IMPLEMENTATION_VERSION = "1.0.2"
+IMPLEMENTATION_REVISION = "1.0.2-coverage-basis-hardening"

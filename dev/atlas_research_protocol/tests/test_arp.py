@@ -126,6 +126,35 @@ class ARPTest(unittest.TestCase):
         self.assertNotEqual(profiles["gas_giant"]["applicable_lanes"], profiles["dwarf_planet"]["applicable_lanes"])
         self.assertIn("required_lanes", profiles["comet"])
 
+    def test_v102_covered_lanes_require_explicit_question_basis(self):
+        campaign = copy.deepcopy(self.campaign)
+        campaign["target_body"] = "SYNTHETIC-BODY"
+        campaign["coverage_contract_version"] = "1.0.2"
+        result = qualify(campaign, self.policy, REPO)
+        self.assertEqual("FAIL", result["status"])
+        self.assertTrue(any(e.startswith("COVERAGE_BASIS:") for e in result["errors"]), result)
+
+        for name, lane in campaign["lanes"].items():
+            if lane.get("coverage") == "COVERED":
+                lane["coverage_basis"] = [{
+                    "question_id": f"{name}:foundational-evidence",
+                    "state": "SUPPORTED",
+                    "rationale": "Synthetic body-neutral qualification fixture.",
+                }]
+        self.assertEqual("PASS", qualify(campaign, self.policy, REPO)["status"])
+
+    def test_v102_explicit_unknown_is_not_fabricated_completeness(self):
+        campaign = copy.deepcopy(self.campaign)
+        campaign["coverage_contract_version"] = "1.0.2"
+        for name, lane in campaign["lanes"].items():
+            if lane.get("coverage") == "COVERED":
+                lane["coverage_basis"] = [{
+                    "question_id": f"{name}:foundational-evidence",
+                    "state": "UNKNOWN",
+                    "rationale": "No qualifying evidence was established in this bounded campaign.",
+                }]
+        self.assertEqual("PASS", qualify(campaign, self.policy, REPO)["status"])
+
 
 if __name__ == "__main__":
     unittest.main()
