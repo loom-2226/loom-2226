@@ -1,0 +1,101 @@
+{
+  "manifest_version": "1.0",
+  "manifest_id": "SOLAR_PHASE4C_MAJOR_MOONS_V1",
+  "classification": "ENGINEERING/DATA AUTHORITY — DIRECT JPL/NAIF MAJOR-MOON PROMOTION",
+  "source_main_sha": "7837425b39a295b2a4c600edc835cdd3aae91ce2",
+  "horizon_contract": {
+    "modeled_start": "2026-01-01T00:00:00Z",
+    "full_2250_gate": "2251-01-01T00:00:00Z",
+    "propagation_used": false
+  },
+  "assets": [
+    {"asset_id":"LSK","local_path":"kernels/lsk/naif0012.tls","sha256":"678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b","byte_count":5257},
+    {"asset_id":"DE440","local_path":"kernels/spk/de440.bsp","sha256":"a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5","byte_count":119799808},
+    {"asset_id":"MAR099","local_path":"kernels/spk/satellite_systems/mar099.bsp","sha256":"9991e57b196bae1a096acc6e2afc6718102ee420d684695de0f0333064c046bc","byte_count":1227574272},
+    {"asset_id":"SAT441XL2","local_path":"kernels/spk/satellite_systems/sat441xl_part-2.bsp","sha256":"d021819387e6045e2cd2819a7907ca62cc8cb3091ca925dfe894d2e0f4f7af1e","byte_count":2021645312},
+    {"asset_id":"URA184P3","local_path":"kernels/spk/satellite_systems/ura184_part-3.bsp","sha256":"273cd4ccc470d1098562cd4e94fa48fc2b4c6b1c2896308e473c949b87937c53","byte_count":386885632},
+    {"asset_id":"NEP097","local_path":"kernels/spk/satellite_systems/nep097.bsp","sha256":"5c1132fdc48c54e5d2e4eb663e1ed1a876911eae9433c203f29a5a1b5e1fa9b1","byte_count":105262080}
+  ],
+  "registry": {
+    "bodies": [
+      {"body_id":"MARS_SYSTEM_BARYCENTER","canonical_name":"Mars system barycenter","body_class":"BARYCENTER"},
+      {"body_id":"SATURN_SYSTEM_BARYCENTER","canonical_name":"Saturn system barycenter","body_class":"BARYCENTER"},
+      {"body_id":"URANUS_SYSTEM_BARYCENTER","canonical_name":"Uranus system barycenter","body_class":"BARYCENTER"},
+      {"body_id":"NEPTUNE_SYSTEM_BARYCENTER","canonical_name":"Neptune system barycenter","body_class":"BARYCENTER"},
+      {"body_id":"PHOBOS","canonical_name":"Phobos","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"DEIMOS","canonical_name":"Deimos","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"MIMAS","canonical_name":"Mimas","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"ENCELADUS","canonical_name":"Enceladus","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"TETHYS","canonical_name":"Tethys","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"DIONE","canonical_name":"Dione","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"RHEA","canonical_name":"Rhea","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"TITAN","canonical_name":"Titan","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"HYPERION","canonical_name":"Hyperion","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"IAPETUS","canonical_name":"Iapetus","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"PHOEBE","canonical_name":"Phoebe","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"ARIEL","canonical_name":"Ariel","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"UMBRIEL","canonical_name":"Umbriel","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"TITANIA","canonical_name":"Titania","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"OBERON","canonical_name":"Oberon","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"MIRANDA","canonical_name":"Miranda","body_class":"NATURAL_SATELLITE"},
+      {"body_id":"TRITON","canonical_name":"Triton","body_class":"NATURAL_SATELLITE"}
+    ],
+    "identifiers": [
+      {"body_id":"MARS_SYSTEM_BARYCENTER","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"4"},
+      {"body_id":"SATURN_SYSTEM_BARYCENTER","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"6"},
+      {"body_id":"URANUS_SYSTEM_BARYCENTER","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"7"},
+      {"body_id":"NEPTUNE_SYSTEM_BARYCENTER","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"8"},
+      {"body_id":"PHOBOS","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"401"},
+      {"body_id":"DEIMOS","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"402"},
+      {"body_id":"MIMAS","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"601"},
+      {"body_id":"ENCELADUS","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"602"},
+      {"body_id":"TETHYS","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"603"},
+      {"body_id":"DIONE","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"604"},
+      {"body_id":"RHEA","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"605"},
+      {"body_id":"TITAN","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"606"},
+      {"body_id":"HYPERION","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"607"},
+      {"body_id":"IAPETUS","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"608"},
+      {"body_id":"PHOEBE","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"609"},
+      {"body_id":"ARIEL","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"701"},
+      {"body_id":"UMBRIEL","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"702"},
+      {"body_id":"TITANIA","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"703"},
+      {"body_id":"OBERON","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"704"},
+      {"body_id":"MIRANDA","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"705"},
+      {"body_id":"TRITON","authority":"NAIF","identifier_type":"NAIF_ID","identifier_value":"801"}
+    ],
+    "sources": [
+      {"ephemeris_source_id":"DE440","provider":"JPL/NAIF","product_name":"DE440","product_version":"440","asset_filename":"de440.bsp","sha256":"a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5","byte_count":119799808,"source_url":"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp","acquired_at":"2026-09-26T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","DE440"]},
+      {"ephemeris_source_id":"JPL_MAR099","provider":"JPL/NAIF","product_name":"MAR099","product_version":"MAR099.01","asset_filename":"mar099.bsp","sha256":"9991e57b196bae1a096acc6e2afc6718102ee420d684695de0f0333064c046bc","byte_count":1227574272,"source_url":"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/mar099.bsp","acquired_at":"2026-09-26T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","MAR099","DE440"]},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","provider":"JPL/NAIF","product_name":"sat441xl_part-2","product_version":"2022-05-24","asset_filename":"sat441xl_part-2.bsp","sha256":"d021819387e6045e2cd2819a7907ca62cc8cb3091ca925dfe894d2e0f4f7af1e","byte_count":2021645312,"source_url":"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/sat441xl_part-2.bsp","acquired_at":"2026-09-26T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","SAT441XL2","DE440"]},
+      {"ephemeris_source_id":"JPL_URA184_PART_3","provider":"JPL/NAIF","product_name":"URA184 part 3","product_version":"URA184 (NAIF 799 solution URA182.21)","asset_filename":"ura184_part-3.bsp","sha256":"273cd4ccc470d1098562cd4e94fa48fc2b4c6b1c2896308e473c949b87937c53","byte_count":386885632,"source_url":"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/ura184_part-3.bsp","acquired_at":"2026-09-26T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","URA184P3","DE440"]},
+      {"ephemeris_source_id":"JPL_NEP097","provider":"JPL/NAIF","product_name":"NEP097","product_version":"NEP097 / ephemeris version 24","asset_filename":"nep097.bsp","sha256":"5c1132fdc48c54e5d2e4eb663e1ed1a876911eae9433c203f29a5a1b5e1fa9b1","byte_count":105262080,"source_url":"https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/nep097.bsp","acquired_at":"2026-09-26T00:00:00Z","status":"QUALIFIED","kernel_asset_ids":["LSK","NEP097","DE440"]}
+    ],
+    "coverage": [
+      {"ephemeris_source_id":"DE440","body_id":"MARS_SYSTEM_BARYCENTER","valid_from":"1549-12-30T23:59:18.816Z","valid_until":"2650-01-24T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"DE440","body_id":"SATURN_SYSTEM_BARYCENTER","valid_from":"1549-12-30T23:59:18.816Z","valid_until":"2650-01-24T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"DE440","body_id":"URANUS_SYSTEM_BARYCENTER","valid_from":"1549-12-30T23:59:18.816Z","valid_until":"2650-01-24T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"DE440","body_id":"NEPTUNE_SYSTEM_BARYCENTER","valid_from":"1549-12-30T23:59:18.816Z","valid_until":"2650-01-24T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_MAR099","body_id":"PHOBOS","valid_from":"1599-12-31T23:59:18.816Z","valid_until":"2600-01-01T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_MAR099","body_id":"DEIMOS","valid_from":"1599-12-31T23:59:18.816Z","valid_until":"2600-01-01T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","body_id":"MIMAS","valid_from":"2014-09-27T23:58:52.818Z","valid_until":"4500-01-17T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","body_id":"ENCELADUS","valid_from":"2014-09-27T23:58:52.818Z","valid_until":"4500-01-17T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","body_id":"TETHYS","valid_from":"2014-09-27T23:58:52.818Z","valid_until":"4500-01-17T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","body_id":"DIONE","valid_from":"2014-09-27T23:58:52.818Z","valid_until":"4500-01-17T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","body_id":"RHEA","valid_from":"2014-09-27T23:58:52.818Z","valid_until":"4500-01-17T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","body_id":"TITAN","valid_from":"2014-09-27T23:58:52.818Z","valid_until":"4500-01-17T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","body_id":"HYPERION","valid_from":"2014-09-27T23:58:52.818Z","valid_until":"4500-01-17T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","body_id":"IAPETUS","valid_from":"2014-09-27T23:58:52.818Z","valid_until":"4500-01-17T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_SAT441XL_PART2","body_id":"PHOEBE","valid_from":"2014-09-27T23:58:52.818Z","valid_until":"4500-01-17T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_URA184_PART_3","body_id":"ARIEL","valid_from":"1600-01-03T23:59:18.816Z","valid_until":"2399-12-16T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_URA184_PART_3","body_id":"UMBRIEL","valid_from":"1600-01-03T23:59:18.816Z","valid_until":"2399-12-16T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_URA184_PART_3","body_id":"TITANIA","valid_from":"1600-01-03T23:59:18.816Z","valid_until":"2399-12-16T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_URA184_PART_3","body_id":"OBERON","valid_from":"1600-01-03T23:59:18.816Z","valid_until":"2399-12-16T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_URA184_PART_3","body_id":"MIRANDA","valid_from":"1600-01-03T23:59:18.816Z","valid_until":"2399-12-16T23:58:50.817Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"},
+      {"ephemeris_source_id":"JPL_NEP097","body_id":"TRITON","valid_from":"1600-01-09T23:59:18.816Z","valid_until":"2399-12-30T23:58:50.816Z","reference_frame":"ECLIPJ2000","units":"km,km/s","coverage_class":"BODY","status":"QUALIFIED"}
+    ]
+  },
+  "actual_kernel_inventory": {
+    "SAT441XL2_additional_targets_not_promoted": [612],
+    "URA184P3_additional_targets_not_promoted": [716,717,718,719,720,721,722,723,724,75051]
+  }
+}
