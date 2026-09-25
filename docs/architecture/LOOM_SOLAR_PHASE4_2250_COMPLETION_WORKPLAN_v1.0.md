@@ -1,6 +1,6 @@
 # LOOM Solar Phase 4 — 2250 Ephemeris Completion Work Plan v1.0
 
-**Status:** PHASE 4C CLOSED; PHASE 4D/4E/5 NOT STARTED
+**Status:** PHASE 4D CLOSED; PHASE 4E/5 NOT STARTED
 **Primary class:** `class:engineering` with governed `class:data` promotion steps
 **Date:** 2026-09-25
 **Repository:** `loom-2226/loom-2226`
@@ -437,3 +437,15 @@ SAT441XL part 2, URA184 part 3 and NEP097 all contain the required object target
 through the full 2250 horizon. Saturn target 612 and Uranus targets 716–724 and
 75051 are retained as inventory observations only; they are not silently promoted
 as part of the major-moon closure.
+
+## 15. Phase 4D closure record (2026-09-26)
+
+The 20-body strategic cohort is closed by migration
+`015_solar_phase4d_strategic_bodies.sql`. Nineteen bodies use direct JPL Horizons
+SPKs through the guard horizon. Bennu uses the authoritative JPL/OSIRIS-REx
+mission SPK through 2135 plus an explicit uncertainty-bearing Phase-4B RK4/N-body
+extension; it is not direct JPL authority. Binary companions are recorded
+semantically without invented component states, and published comet
+non-gravitational models are preserved in source provenance.
+
+Phase 4E remains separate and is not started.

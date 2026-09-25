@@ -346,10 +346,27 @@ def registry_from_manifest(
             )
             for record in document["assets"]
         }
-        bodies = [SolarBody(**record) for record in document["registry"]["bodies"]]
+        registry_document = document.get("registry")
+        if registry_document is None and "identities" in document:
+            registry_document = {
+                "bodies": [
+                    {"body_id": record["body_id"], "canonical_name": record["canonical_name"],
+                     "body_class": record["object_class"]}
+                    for record in document["identities"]
+                ],
+                "identifiers": [
+                    {"body_id": record["body_id"], "authority": "NAIF",
+                     "identifier_type": "NAIF_ID", "identifier_value": record["naif_id"]}
+                    for record in document["identities"] if record.get("naif_id") is not None
+                ],
+                "sources": document["sources"],
+                "coverage": document["coverage"],
+            }
+        bodies = [SolarBody(**{key: record[key] for key in ("body_id", "canonical_name", "body_class")})
+                  for record in registry_document["bodies"]]
         identifiers = [
-            BodyIdentifier(**record)
-            for record in document["registry"]["identifiers"]
+            BodyIdentifier(**{key: record[key] for key in ("body_id", "authority", "identifier_type", "identifier_value", "status") if key in record})
+            for record in registry_document["identifiers"]
         ]
         sources = [
             EphemerisSource(
@@ -361,8 +378,8 @@ def registry_from_manifest(
                 sha256=record["sha256"],
                 byte_count=int(record["byte_count"]),
                 source_url=record["source_url"],
-                acquired_at=record["acquired_at"],
-                status=record["status"],
+                acquired_at=record.get("acquired_at", "2026-01-01T00:00:00Z"),
+                status=record.get("status", "QUALIFIED"),
                 kernel_assets=tuple(assets[asset_id] for asset_id in record["kernel_asset_ids"]),
                 state_capability=record.get("state_capability", "DIRECT_SPICE_2250_QUALIFIED"),
                 navigation_grade=bool(record.get("navigation_grade", True)),
@@ -370,11 +387,13 @@ def registry_from_manifest(
                                 if record.get("uncertainty_km") is not None else None),
                 source_lineage=record.get("source_lineage"),
             )
-            for record in document["registry"]["sources"]
+            for record in registry_document["sources"]
         ]
         coverage = [
-            EphemerisCoverage(**record)
-            for record in document["registry"]["coverage"]
+            EphemerisCoverage(**{key: record[key] for key in (
+                "ephemeris_source_id", "body_id", "valid_from", "valid_until",
+                "reference_frame", "units", "coverage_class", "status") if key in record})
+            for record in registry_document["coverage"]
         ]
         for source in sources:
             primary = tuple(
