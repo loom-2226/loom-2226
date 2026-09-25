@@ -1,0 +1,51 @@
+{
+  "authority_path": "EXISTING_NAVIGATOR_CAMPAIGN_FLIGHT_PATH",
+  "authorized_plan_number": 1,
+  "committed_and_arrived_pass": true,
+  "committed_plan_sha256": "46cf041ab148af40c218b02b02d98dd649df10d38fe05289189879b6ea81d747",
+  "destination": "NEPTUNE_SYSTEM",
+  "disposable_mode_after_restart": "EXISTING",
+  "flight_id": "F000001",
+  "flight_record_types": [
+    "FLIGHT_COMMITTED",
+    "FLIGHT_PHASE",
+    "FLIGHT_PHASE",
+    "FLIGHT_ARRIVED"
+  ],
+  "last_flight": {
+    "arrival_epoch_utc": "2027-06-15T10:04:45.955218Z",
+    "committed_plan_sha256": "46cf041ab148af40c218b02b02d98dd649df10d38fe05289189879b6ea81d747",
+    "departure_epoch_utc": "2027-06-15T02:00:00Z",
+    "departure_state_id": "S000001-ca0f1b0e4213",
+    "flight_id": "F000001",
+    "metric": "HARD",
+    "remass_used_t": 13.796863616563769,
+    "route": "CERES>NEPTUNE_SYSTEM",
+    "runtime_sha256": "97468b80ea6b1660c80360d6f62a95e64b9f190aba79d36b9444d5e730599fe1",
+    "strategy": "DIRECT_NAVIGATION",
+    "torch": "CRUISE"
+  },
+  "origin": "CERES",
+  "priority": "BALANCED",
+  "qualification_pass": true,
+  "real_campaign_hashes_after": {
+    "LOOM_CAMPAIGN_HISTORY.jsonl.gz": "373ada9f13bde7e29d0057e3304af9fc651b47161316237c8e7076378e6486cf",
+    "LOOM_STATE_V1.bak": null,
+    "LOOM_STATE_V1.json": "1677e41fb7b65b1e6a2a2601c287c8603286a25600b4492db2830e619ce70669"
+  },
+  "real_campaign_hashes_before": {
+    "LOOM_CAMPAIGN_HISTORY.jsonl.gz": "373ada9f13bde7e29d0057e3304af9fc651b47161316237c8e7076378e6486cf",
+    "LOOM_STATE_V1.bak": null,
+    "LOOM_STATE_V1.json": "1677e41fb7b65b1e6a2a2601c287c8603286a25600b4492db2830e619ce70669"
+  },
+  "real_campaign_unchanged_pass": true,
+  "replay_pass": true,
+  "restart_destination_pass": true,
+  "restart_epoch_utc": "2027-06-15T10:04:45.955218Z",
+  "restart_location": "NEPTUNE_SYSTEM",
+  "restart_remass_t": 236.20313638343623,
+  "restart_state_id": "S000002-3c40842113c9",
+  "restart_state_sha256": "3c40842113c9956dd0f5b7a50921a2fef6a898478be47db24f9773b73bc52234",
+  "restart_wet_mass_t": 1144.7031363834362,
+  "schema": "LOOM_E1_NEPTUNE_QUALIFICATION_RESULT_V1"
+}

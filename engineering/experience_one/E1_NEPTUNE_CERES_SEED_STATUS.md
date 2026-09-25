@@ -1,0 +1,1 @@
+The disposable Ceres seed is now implemented. It uses Navigator's own fresh-campaign constructor and self-test pattern, copies only read inputs from the runtime root, and leaves the live campaign untouched. Next: pair it with the already-tested Spike B continuity harness and run Ceres → Neptune empirically.
