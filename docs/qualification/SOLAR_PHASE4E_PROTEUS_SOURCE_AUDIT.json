@@ -1,0 +1,35 @@
+{
+  "target": "Proteus",
+  "body_id": "PROTEUS",
+  "naif_id": "808",
+  "parent_body_id": "NEPTUNE_SYSTEM_BARYCENTER",
+  "candidates": [
+    {"product": "nep097.bsp", "target_808_present": false, "decision": "REJECT"},
+    {"product": "nep101xl-802.bsp", "target_808_present": false, "decision": "REJECT"},
+    {"product": "nep101xl.bsp", "target_808_present": false, "decision": "REJECT"},
+    {"product": "nep104.bsp", "target_808_present": false, "decision": "REJECT"},
+    {"product": "nep105.bsp", "target_808_present": false, "decision": "REJECT"},
+    {
+      "product": "nep098_part-3.bsp",
+      "provider": "JPL/NAIF",
+      "target_808_present": true,
+      "target_inventory": [3, 8, 10, 399, 807, 808, 814, 899],
+      "coverage_start": "1799-12-31T23:59:18.816Z",
+      "coverage_end": "2199-12-30T23:58:50.816Z",
+      "frame": "ECLIPJ2000",
+      "units": "km,km/s",
+      "sha256": "16955f87878e41b16934e697213350bc2d6a1b3e04d98f29ba7e0fce328b4355",
+      "decision": "ACCEPT_DIRECT_PARTIAL"
+    }
+  ],
+  "propagation": {
+    "attempted": true,
+    "model": "LOOM reduced Neptune-system RK4 exploratory model",
+    "step_seconds": 300,
+    "force_terms": ["Neptune system GM", "Neptune J2", "solar tide", "Triton", "inner Neptune moons"],
+    "held_out": {"initial_epoch": "2050-01-01T00:00:00Z", "validation_epoch": "2051-01-01T00:00:00Z", "position_error_km_approx": 228000, "velocity_error_km_s_approx": 14.8},
+    "decision": "REJECTED_FOR_2250",
+    "reason": "Orbital phase loss is too large for arbitrary-epoch 2250 state authority."
+  },
+  "final_outcome": "PARTIAL"
+}
