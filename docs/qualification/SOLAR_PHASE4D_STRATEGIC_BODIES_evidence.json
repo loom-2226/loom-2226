@@ -1,0 +1,36 @@
+{
+  "result": "PASS",
+  "manifest": "SOLAR_PHASE4D_STRATEGIC_BODIES_V1",
+  "required_body_count": 20,
+  "direct_count": 19,
+  "propagated_count": 1,
+  "horizon_gate": "2251-01-01T00:00:00Z",
+  "propagated_targets": [
+    {
+      "naif_id": "2101955",
+      "body": "101955 Bennu",
+      "predecessor": "JPL_BENNU_SB441",
+      "model": "LOOM_SOLAR_PHASE4B_RK4_NBODY_V2_SMALL_BODY",
+      "uncertainty_km": 1000000000.0,
+      "navigation_grade": false,
+      "withheld_overlap_position_error_km": {
+        "2030": 746.4,
+        "2050": 212663.1,
+        "2100": 51830435.5,
+        "2130": 222148898.7
+      }
+    }
+  ],
+  "binary_semantics": {
+    "KLEOPATRA": ["Alexhelios", "Cleoselene"],
+    "PATROCLUS": ["Menoetius"],
+    "DIDYMOS": ["Dimorphos"]
+  },
+  "qualification_checkpoints": [
+    "2026-01-01T00:00:00Z",
+    "2226-01-01T00:00:00Z",
+    "2250-01-01T00:00:00Z",
+    "2250-12-31T23:59:59Z"
+  ],
+  "postgresql_counts": {"active_bodies": 63, "active_identifiers": 63, "qualified_coverage": 71}
+}
