@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "qualification_case": "HCQ-01_CERES",
+    "epistemic_status": "CANDIDATE",
+    "adapter_note": "Structured acquisition artifact. The reported value is preserved verbatim from the cited JPL reference."
+  },
+  "source": {
+    "source_type": "PEER_REVIEWED",
+    "provider": "NASA Jet Propulsion Laboratory",
+    "title": "The JPL Planetary and Lunar Ephemerides DE440 and DE441",
+    "authors": "Park et al.",
+    "publication_date": "2021-03-01",
+    "url": "https://ssd.jpl.nasa.gov/doc/Park.2021.AJ.DE440.pdf",
+    "persistent_identifier": "doi:10.3847/1538-3881/abd414",
+    "citation_text": "Park et al. (2021), The JPL Planetary and Lunar Ephemerides DE440 and DE441, The Astronomical Journal, 161, 105."
+  },
+  "observations": [
+    {
+      "body_id": "CERES",
+      "source_id": "jpl-de440",
+      "mission": "Dawn",
+      "spacecraft": "Dawn",
+      "instrument": "Radiometric tracking",
+      "observation_product_id": "DAWN-CERES-GRAVITY",
+      "observation_method": "spacecraft radiometric tracking",
+      "spatial_context": "global body"
+    }
+  ],
+  "facts": [
+    {
+      "body_id": "CERES",
+      "source_id": "jpl-de440",
+      "property_code": "GM",
+      "evidence_class": "OBSERVED",
+      "value_semantics": "measured gravitational parameter",
+      "reported_value_text": "62.62890",
+      "reported_unit": "km^3/s^2",
+      "normalized_value": null,
+      "normalized_unit": null,
+      "observation_ref": "DAWN-CERES-GRAVITY",
+      "measurement_method": "spacecraft radiometric tracking",
+      "spatial_context": "global body",
+      "source_locator": "DE440/DE441 paper table: GM_Ceres",
+      "notes": "Reported value retained exactly; normalized field is deterministic same-unit numeric value."
+    }
+  ]
+}

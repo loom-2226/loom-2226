@@ -1,0 +1,78 @@
+PDS_VERSION_ID                     = PDS3                                     
+                                                                              
+RECORD_TYPE                        = "FIXED_LENGTH"                           
+RECORD_BYTES                       = 62                                       
+FILE_RECORDS                       = 99847                                    
+                                                                              
+^TABLE                             = ("CERES_SPC181019_0128.ICQ",2)           
+                                                                              
+DATA_SET_ID                        = "DAWN-A-FC2-5-CERESSHAPESPC-V1.0"        
+PRODUCT_NAME                       = "CERES Q=128 ICQ SHAPE MODEL"            
+PRODUCT_ID                         = "CERES_SPC181019_0128.ICQ"               
+INSTRUMENT_HOST_ID                 = "DAWN"                                   
+INSTRUMENT_HOST_NAME               = "DAWN"                                   
+INSTRUMENT_ID                      = "FC2"                                    
+INSTRUMENT_NAME                    = "FRAMING CAMERA 2"                       
+TARGET_NAME                        = "1 CERES"                                
+TARGET_TYPE                        = "ASTEROID"                               
+START_TIME                         = 2015-02-12T11:54:40                      
+STOP_TIME                          = 2016-08-27T01:38:41                      
+SPACECRAFT_CLOCK_START_COUNT       = "1/0476132467.030"                       
+SPACECRAFT_CLOCK_STOP_COUNT        = "1/0526100468.004"                       
+PRODUCT_CREATION_TIME              = 2018-10-19                               
+                                                                              
+OBJECT                             = TABLE                                    
+ ROWS                              = 99846                                    
+ ROW_BYTES                         = 62                                       
+ INTERCHANGE_FORMAT                = "ASCII"                                  
+ COLUMNS                           = 3                                        
+ DESCRIPTION                       = "Shape model of asteroid 1 Ceres in the  
+        Implicitly Connected Quadrilateral (ICQ) format, with Q = 128 (the    
+        lowest resolution model). In the ICQ format, the vertices are         
+        labeled as though they were grid points on the faces of a cube so that
+        each of the six faces (F) contains (Q+1)^2 vertices and Q^2 facets.   
+        For a complete description of the ICQ format and the ordering of the  
+        vertices in the file, see the data set catalog file in the catalog    
+        directory, and the document ICQMODEL.ASC in the document directory.   
+                                                                              
+		The spatial resolution of the Q = 128 model is ~0.7 deg at the        
+		equator for CERES_SPC181019_0128."                                    
+                                                                              
+ OBJECT                            = COLUMN                                   
+  COLUMN_NUMBER                    = 1                                        
+  NAME                             = "VERTEX_X"                               
+  DESCRIPTION                      = "X coordinate of the quadrilateral       
+        vertex"                                                               
+  UNIT                             = "KILOMETER"                              
+  DATA_TYPE                        = "ASCII_REAL"                             
+  START_BYTE                       = 1                                        
+  BYTES                            = 20                                       
+  FORMAT                           = "F20.10"                                 
+ END_OBJECT                        = COLUMN                                   
+                                                                              
+ OBJECT                            = COLUMN                                   
+  COLUMN_NUMBER                    = 2                                        
+  NAME                             = "VERTEX_Y"                               
+  DESCRIPTION                      = "Y coordinate of the quadrilateral       
+        vertex"                                                               
+  UNIT                             = "KILOMETER"                              
+  DATA_TYPE                        = "ASCII_REAL"                             
+  START_BYTE                       = 21                                       
+  BYTES                            = 20                                       
+  FORMAT                           = "F20.10"                                 
+ END_OBJECT                        = COLUMN                                   
+                                                                              
+ OBJECT                            = COLUMN                                   
+  COLUMN_NUMBER                    = 3                                        
+  NAME                             = "VERTEX_Z"                               
+  DESCRIPTION                      = "Z coordinate of the quadrilateral       
+        vertex"                                                               
+  UNIT                             = "KILOMETER"                              
+  DATA_TYPE                        = "ASCII_REAL"                             
+  START_BYTE                       = 41                                       
+  BYTES                            = 20                                       
+  FORMAT                           = "F20.10"                                 
+ END_OBJECT                        = COLUMN                                   
+                                                                              
+END_OBJECT                         = TABLE                                    
+END                                                                           

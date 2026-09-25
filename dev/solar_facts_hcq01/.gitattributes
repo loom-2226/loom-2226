@@ -1,0 +1,3 @@
+# Acquired HTML is immutable raw evidence; do not treat its formatter whitespace
+# as a source-code diff or a promotion failure.
+artifacts/**/* -diff

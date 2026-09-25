@@ -1,0 +1,23 @@
+{
+  "test_case": "HCQ-01_CERES",
+  "property": "MEAN_RADIUS",
+  "before": {"reported_value": "469.7", "unit": "km", "mapping": "mean radius", "status": "loaded"},
+  "hostile_source_check": {
+    "artifact": "artifacts/acquired/01_A_jpl_physical_parameters.html",
+    "source_locator": "Ceres row: Mean Radius; reference O; table column definitions",
+    "table_header": "Mean Radius (km)",
+    "definition": "Radius of a sphere with the equivalent volume of the planet"
+  },
+  "independent_checks": {
+    "MASS": "JPL Ceres row Mass, 938.416 ± 0.013 ×10^18 kg; normalized kg",
+    "EQUATORIAL_RADIUS": "JPL Ceres row Equatorial Radius, 482.1 km",
+    "MEAN_RADIUS": "JPL Ceres row Mean Radius, 469.7 km; equivalent-volume definition",
+    "BULK_DENSITY": "JPL Ceres row Bulk Density, 2.162 ± 0.008 g/cm^3; normalized kg/m^3",
+    "GM": "Park et al. DE440/DE441 Ceres GM, 62.62890 km^3/s^2",
+    "VOLUME": "4/3*pi*469.7^3 = 433513169.301 km^3; derived spherical equivalent volume with lineage to MEAN_RADIUS"
+  },
+  "after": {"mapping": "unchanged; semantically confirmed", "status": "candidate", "dependent_volume": "retained"},
+  "finding": "No scientific misclassification confirmed. Dimensional locator guard added to prevent MEAN/POLAR/EQUATORIAL/AXIS confusion.",
+  "classification": "VALIDATION PROBLEM",
+  "correction": "validator and regression test strengthened; no candidate value changed"
+}

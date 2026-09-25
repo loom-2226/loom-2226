@@ -1,0 +1,28 @@
+{
+  "assertion_count": 1,
+  "complete": true,
+  "derived_ids": [],
+  "fact_ids": [
+    5
+  ],
+  "fact_rows": [
+    {
+      "fact_id": 5,
+      "fact_status": "CANDIDATE",
+      "normalized_unit": "km^3/s^2",
+      "property_code": "GM",
+      "reported_unit": "km^3/s^2",
+      "reported_value_text": "62.62890"
+    }
+  ],
+  "gravity_model_ids": [],
+  "model_product_ids": [],
+  "raw_artifact": {
+    "byte_count": 5501569,
+    "path": "/home/ubuntu/LOOM_SOLAR_FACTS_HCQ01/dev/solar_facts_hcq01/artifacts/acquired/02_jpl_de440_de441.pdf",
+    "retrieved_at": "2026-09-25T13:50:10Z",
+    "sha256": "96c3945deb12e0f0843c2bf0703d3542d950cf85ff903b1fe11a501634f68ee0",
+    "url": "https://ssd.jpl.nasa.gov/doc/Park.2021.AJ.DE440.pdf"
+  },
+  "source_id": 2
+}

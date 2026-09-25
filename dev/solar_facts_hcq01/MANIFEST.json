@@ -1,0 +1,30 @@
+{
+  "database": "LOOM_SOLAR_HCQ01_CERES.sqlite3",
+  "sha256": "91137126f635cd35e7ccde20cc41ed342dbd23dec7e7af304d9220318f1da26d",
+  "schema": "LOOM_SOLAR_FACTUAL_ENRICHMENT_DDL_v0.2",
+  "status": "ROUND2_QUALIFIED_WITH_LIMITATIONS",
+  "qualification_case": "HCQ-01_CERES",
+  "empirical_cutoff": "2025-12-31T23:59:59Z",
+  "metadata_rows": 7,
+  "property_dictionary_rows": 53,
+  "factual_payload_counts": {
+    "body": 1,
+    "source": 16,
+    "body_region": 5,
+    "observation": 8,
+    "fact": 8,
+    "material_evidence": 6,
+    "activity_fact": 2,
+    "body_model_product": 9,
+    "region_model_product": 3,
+    "gravity_model": 1,
+    "orientation_model": 1,
+    "derived_quantity": 1,
+    "preferred_fact": 0,
+    "derived_input": 1,
+    "source_assertion": 8
+  },
+  "integrity_check": "ok",
+  "foreign_key_check": [],
+  "semantic_verification": "QUALIFIED_WITH_LIMITATIONS"
+}
