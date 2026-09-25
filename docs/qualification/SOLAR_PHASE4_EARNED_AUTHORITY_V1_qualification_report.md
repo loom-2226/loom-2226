@@ -74,8 +74,10 @@ Targeted local qualification:
 - the 17 full-horizon targets resolve at `2250-12-31T23:59:59Z`;
 - Ceres and Saturn correctly fail closed at that end-of-2250 instant under their
   current promoted sources;
-- PostgreSQL migration/round-trip qualification: required before PR promotion and
-  recorded by the final PR test result.
+- disposable PostgreSQL migration/round-trip qualification: PASS;
+- PR #281 targeted Solar qualification: 24 tests PASS with 2 environment-gated skips;
+- PR #281 disposable PostgreSQL migration qualification: 11 tests PASS;
+- post-merge migration hardening regression: 12/12 PostgreSQL/contract tests PASS.
 
 ## Does not establish
 
