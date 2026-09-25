@@ -78,6 +78,10 @@ class EphemerisSource:
     acquired_at: str
     status: str
     kernel_assets: tuple[KernelAsset, ...]
+    state_capability: str = "DIRECT_SPICE_2250_QUALIFIED"
+    navigation_grade: bool = True
+    uncertainty_km: float | None = None
+    source_lineage: str | None = None
 
 
 @dataclass(frozen=True)
@@ -153,6 +157,14 @@ class SolarEphemerisRegistry:
         specificity = max(record.body_id is not None for _, record in candidates)
         candidates = [(source, record) for source, record in candidates
                       if (record.body_id is not None) == specificity]
+        # A propagated seam may intentionally share its exact hand-off epoch
+        # with the predecessor's inclusive SPK interval. Direct authoritative
+        # coverage wins that single-point overlap; equal-tier authority still
+        # fails closed and never uses input order as a tiebreaker.
+        direct = [(source, record) for source, record in candidates
+                  if source.state_capability.startswith("DIRECT_")]
+        if direct:
+            candidates = direct
         if len(candidates) != 1:
             source_ids = sorted(source.ephemeris_source_id for source, _ in candidates)
             raise CelestialStateError(
@@ -304,9 +316,17 @@ class SpiceEphemerisAdapter:
                 "time_scale_internal": "SPICE ET/TDB",
                 "request_time_scale": "UTC",
                 "units": STATE_UNITS,
+                "state_capability": source.state_capability,
+                "navigation_grade": source.navigation_grade,
+                "uncertainty_km": source.uncertainty_km,
+                "source_lineage": source.source_lineage,
             },
-            navigation_grade=True,
-            payload={"state_class": "CELESTIAL", "ephemeris_quality": "QUALIFIED"},
+            navigation_grade=source.navigation_grade,
+            payload={
+                "state_class": "CELESTIAL",
+                "ephemeris_quality": "QUALIFIED",
+                "state_capability": source.state_capability,
+            },
         )
 
 
@@ -344,6 +364,11 @@ def registry_from_manifest(
                 acquired_at=record["acquired_at"],
                 status=record["status"],
                 kernel_assets=tuple(assets[asset_id] for asset_id in record["kernel_asset_ids"]),
+                state_capability=record.get("state_capability", "DIRECT_SPICE_2250_QUALIFIED"),
+                navigation_grade=bool(record.get("navigation_grade", True)),
+                uncertainty_km=(float(record["uncertainty_km"])
+                                if record.get("uncertainty_km") is not None else None),
+                source_lineage=record.get("source_lineage"),
             )
             for record in document["registry"]["sources"]
         ]

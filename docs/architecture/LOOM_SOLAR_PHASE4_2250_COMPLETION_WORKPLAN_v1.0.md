@@ -1,6 +1,6 @@
 # LOOM Solar Phase 4 — 2250 Ephemeris Completion Work Plan v1.0
 
-**Status:** ACTIVE BASELINE-COMPLETION WORK PLAN
+**Status:** PHASE 4B CLOSED; PHASE 4C/5 NOT STARTED
 **Primary class:** `class:engineering` with governed `class:data` promotion steps
 **Date:** 2026-09-25
 **Repository:** `loom-2226/loom-2226`
@@ -413,3 +413,18 @@ Only after the Phase-4 gate passes may Phase 5 proceed.
 Phase 5 then means scientific/catalog enrichment and wider object-population use on
 top of a completed 2026-through-2250 state foundation; it may not reopen basic
 physical-center identity or horizon coverage as hidden prerequisites.
+
+## 13. Phase 4B closure record (2026-09-26)
+
+Phase 4B is closed for its required physical-center targets. Ceres and Saturn use
+direct JPL/Horizons or JPL/NAIF SPKs through the required horizon. Jupiter, Io,
+Europa, Ganymede, Callisto, Pluto and Charon use an explicit, deterministic,
+offline RK4/N-body propagation seam initialized from the authoritative JUP365 or
+PLU060 predecessor solution and validated against withheld predecessor overlap.
+Those propagated states are recorded as `EMPIRICAL_PROPAGATED_2250`, carry explicit
+uncertainty and `navigation_grade=false`, and are never represented as direct JPL
+authority. The machine-readable authority manifest and qualification report are
+the controlling implementation evidence.
+
+Phase 4C remains a separate future work item. No satellite inventory promotion or
+Phase 5 work is included in this closure.
