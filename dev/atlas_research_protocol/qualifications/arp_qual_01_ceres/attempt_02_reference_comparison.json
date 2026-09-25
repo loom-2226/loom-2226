@@ -1,0 +1,140 @@
+{
+  "campaign_id": "ARP-QUAL-01_CERES_BLIND_ATTEMPT_02",
+  "classification_vocabulary": [
+    "MATCHED_REFERENCE",
+    "DEFENSIBLE_ADDITION",
+    "REFERENCE_MISS",
+    "SUPPORTED_DIFFERENCE",
+    "UNSUPPORTED_ADDITION",
+    "MISCLASSIFIED_ADDITION",
+    "CONFLICT_REQUIRES_REVIEW"
+  ],
+  "conflicts_requiring_review": [],
+  "defensible_additions": [
+    {
+      "classification": "DEFENSIBLE_ADDITION",
+      "property_code": "GRAVITY_FIELD_MODEL",
+      "reason": "Blind candidate cites an acquired pre-cutoff primary/mission artifact and preserves model/interpretation/scope limits."
+    },
+    {
+      "classification": "DEFENSIBLE_ADDITION",
+      "property_code": "ROTATION_ORIENTATION_SOLUTION",
+      "reason": "Blind candidate cites an acquired pre-cutoff primary/mission artifact and preserves model/interpretation/scope limits."
+    },
+    {
+      "classification": "DEFENSIBLE_ADDITION",
+      "property_code": "SHAPE_MODEL",
+      "reason": "Blind candidate cites an acquired pre-cutoff primary/mission artifact and preserves model/interpretation/scope limits."
+    },
+    {
+      "classification": "DEFENSIBLE_ADDITION",
+      "property_code": "SHAPE_MODEL_ARCHIVE",
+      "reason": "Blind candidate cites an acquired pre-cutoff primary/mission artifact and preserves model/interpretation/scope limits."
+    },
+    {
+      "classification": "DEFENSIBLE_ADDITION",
+      "property_code": "OCCATOR_ACTIVITY",
+      "reason": "Blind candidate cites an acquired pre-cutoff primary/mission artifact and preserves model/interpretation/scope limits."
+    },
+    {
+      "classification": "DEFENSIBLE_ADDITION",
+      "property_code": "PERMANENTLY_SHADOWED_AREA",
+      "reason": "Blind candidate cites an acquired pre-cutoff primary/mission artifact and preserves model/interpretation/scope limits."
+    },
+    {
+      "classification": "DEFENSIBLE_ADDITION",
+      "property_code": "SURFACE_COMPOSITION",
+      "reason": "Blind candidate cites an acquired pre-cutoff primary/mission artifact and preserves model/interpretation/scope limits."
+    },
+    {
+      "classification": "DEFENSIBLE_ADDITION",
+      "property_code": "AMMONIATED_PHYLLOSILICATES",
+      "reason": "Blind candidate cites an acquired pre-cutoff primary/mission artifact and preserves model/interpretation/scope limits."
+    },
+    {
+      "classification": "DEFENSIBLE_ADDITION",
+      "property_code": "INTERIOR_DIFFERENTIATION",
+      "reason": "Blind candidate cites an acquired pre-cutoff primary/mission artifact and preserves model/interpretation/scope limits."
+    },
+    {
+      "classification": "DEFENSIBLE_ADDITION",
+      "property_code": "WATER_VAPOR_ACTIVITY",
+      "reason": "Blind candidate cites an acquired pre-cutoff primary/mission artifact and preserves model/interpretation/scope limits."
+    }
+  ],
+  "matched_reference": [
+    {
+      "classification": "MATCHED_REFERENCE",
+      "evidence_class": "DYNAMICAL_INFERENCE",
+      "normalization": "reported 938.416 \u00d7 10^18 kg; normalized kg",
+      "property_code": "MASS",
+      "status": "CANDIDATE"
+    },
+    {
+      "classification": "MATCHED_REFERENCE",
+      "evidence_class": "IN_SITU_REMOTE",
+      "property_code": "EQUATORIAL_RADIUS",
+      "status": "CANDIDATE"
+    },
+    {
+      "classification": "MATCHED_REFERENCE",
+      "evidence_class": "IN_SITU_REMOTE",
+      "property_code": "MEAN_RADIUS",
+      "status": "CANDIDATE"
+    },
+    {
+      "classification": "MATCHED_REFERENCE",
+      "evidence_class": "DERIVED",
+      "property_code": "BULK_DENSITY",
+      "status": "CANDIDATE",
+      "uncertainty_preserved": 0.008
+    },
+    {
+      "classification": "MATCHED_REFERENCE",
+      "evidence_class": "IN_SITU_REMOTE",
+      "property_code": "ROTATION_PERIOD",
+      "status": "CANDIDATE"
+    }
+  ],
+  "metrics": {
+    "blind_assertion_count": 16,
+    "defensible_addition_count": 10,
+    "independent_lineage_count": 11,
+    "matched_reference_count": 5,
+    "misclassified_addition_count": 0,
+    "reference_fact_count": 8,
+    "reference_miss_count": 3,
+    "source_recall_against_reference_count": 12,
+    "source_recall_against_reference_denominator": 16,
+    "unsupported_addition_count": 0
+  },
+  "misclassified_additions": [],
+  "reason": "Reference misses and defensible additions remain review results, not automatic failures.",
+  "reference_fixture": "ARP-GOLD-HCQ01-CERES-V03-R1",
+  "reference_misses": [
+    {
+      "classification": "REFERENCE_MISS",
+      "property_code": "GM",
+      "reason": "No blind assertion candidate recovered."
+    },
+    {
+      "classification": "REFERENCE_MISS",
+      "property_code": "SURFACE_TEMPERATURE",
+      "reason": "No blind assertion candidate recovered."
+    },
+    {
+      "classification": "REFERENCE_MISS",
+      "property_code": "REGIONAL_AHUNA",
+      "reason": "HCQ reference contains defensible Ahuna regional evidence not recovered by the blind run."
+    }
+  ],
+  "status": "PASS_WITH_REFERENCE_MISSES",
+  "supported_differences": [
+    {
+      "classification": "SUPPORTED_DIFFERENCE",
+      "property_code": "THERMAL_INERTIA",
+      "reason": "Blind run retained a supported range and physical-model class; unit spelling differs from reference representation."
+    }
+  ],
+  "unsupported_additions": []
+}

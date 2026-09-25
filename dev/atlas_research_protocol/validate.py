@@ -103,6 +103,8 @@ def validate_campaign(campaign: dict[str, Any], authority_policy: dict[str, Any]
         artifact = artifact_map.get(assertion.get("artifact_id"))
         if source is None or artifact is None:
             _error(errors, "PROVENANCE", f"assertion {aid} lacks source/artifact path")
+        elif artifact.get("source_id") != assertion.get("source_id"):
+            _error(errors, "PROVENANCE", f"assertion {aid} artifact/source identities do not agree")
         if not assertion.get("provenance_complete", False):
             _error(errors, "PROVENANCE", f"assertion {aid} is marked incomplete")
         if assertion.get("evidence_class") not in EVIDENCE:
@@ -124,6 +126,17 @@ def validate_campaign(campaign: dict[str, Any], authority_policy: dict[str, Any]
             _error(errors, "RANGE_MIDPOINT", f"assertion {aid} contains a scalar alongside a reported range")
         if assertion.get("reported_value") is not None and assertion.get("reported_unit") is None:
             _error(errors, "UNIT", f"assertion {aid} has a value without reported unit")
+        reported = assertion.get("reported_value")
+        normalized = assertion.get("normalized_value")
+        if (reported is not None and normalized is not None and reported != normalized) or assertion.get("reported_unit") != assertion.get("normalized_unit"):
+            if not assertion.get("normalization_method"):
+                _error(errors, "NORMALIZATION", f"assertion {aid} changes reported value/unit without a normalization method")
+        uncertainty = assertion.get("reported_uncertainty")
+        if uncertainty is not None:
+            if not isinstance(uncertainty, (int, float)) or uncertainty < 0:
+                _error(errors, "UNCERTAINTY", f"assertion {aid} has invalid reported uncertainty")
+            if not assertion.get("uncertainty_unit"):
+                _error(errors, "UNCERTAINTY", f"assertion {aid} uncertainty lacks a unit")
         if assertion.get("research_coverage") == "UNKNOWN" and assertion.get("reported_value") is not None:
             _error(errors, "UNKNOWN_FABRICATION", f"assertion {aid} fills UNKNOWN with a value")
         key = assertion.get("canonical_assertion_key")

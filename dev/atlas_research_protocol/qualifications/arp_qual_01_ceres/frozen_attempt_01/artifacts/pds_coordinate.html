@@ -1,0 +1,168 @@
+<html>
+<head>
+<title>Ceres Coordinate System Description</title>
+</head>
+<body lang=EN-US link="#000000" vlink=purple>
+                                                                                <p>
+Ceres Coordinate System Description                                             <br>
+Updated 28-Jun-2018                                                             <br>
+C. Raymond, JPL and T. Roatsch, DLR                                             </p>
+                                                                                <p>
+                                                                                </p>
+                                                                                <p>
+The Ceres coordinate system has been updated from the values published by 
+Archinal et al. (2011) using data obtained by the Dawn mission.  As a part of 
+the Ceres gravity science investigation, the Ceres body-pole direction and 
+rotation rate were determined together with its gravity field by processing 
+the DSN radio data (8.4 GHz X-band) and optical imagery (IFOV of 93.3 
+mrad/pixel). At this time, the final parameters have been determined using the 
+full Dawn data set, including the High- and Low-Altitude Mapping Orbit (HAMO, 
+LAMO) data. The final parameters agree well with the interim post-Survey 
+update, published in the previous description of the Cerean coordinate system 
+(Oct 2015). The gravity field is modeled by Park et al. (2016) in a Ceres-fixed 
+frame, and its inertial orientation in the International Celestial Reference Frame 
+(ICRF; Archinal et al., 2011) is modeled with 
+{&alpha; &delta;, <i>W</i><sub>0</sub> + &Omega;&Delta;t}, 
+where &alpha; represents the spin pole right ascension, &delta; represents the 
+spin pole declination, <i>W</i><sub>0</sub> represents the prime meridian angle 
+(fixed to 170.65&deg;), &Omega; represents the rotation rate, and &Delta;t represents 
+the time elapsed since J2000 = JD 2451545.0, i.e. 2000 January 1 12 hours TDB. 
+Since the gravity field of Ceres perturbs Dawn's orbit, both gravity field and 
+rotational parameters can be estimated by accurately tracking the spacecraft 
+motion.  The pole parameters are also estimated while solving for the 
+topography within the stereophotogrammetry processing pipeline, with a map 
+resolution of 0.41015 km/pixel or 20 pxl/deg (Preusker et al., 2016).  These 
+independent analyses produce rotation parameters that agree within measurement 
+errors. The final pole parameters and body axes derived from Dawn data are given 
+in Table 1, along with the previous IAU system. In the previous post-Survey 
+update, the rotation rate was left unchanged as that value was consistent with 
+the short-arc of Dawn measurements. Table 1 reports the equivalent spherical 
+body radius, R, the average equatorial radius of the oblate spheroidal shape, 
+A, and the polar radius B. The Dawn project's configuration-controlled Planetary
+Constants and Models Document (JPL D-41251) archives the updates to the PCK.    </p>
+                                                                                <p>
+                                                                                </p>
+                                                                                <p>
+Table 1. Comparison of pre-Dawn and post-Dawn coordinate systems.               </p>
+                                                                                <pre>
+========================================================================================================================================================================
+                            &alpha; [deg]               &delta; [deg]              <i>W</i><sub>0</sub> [deg]          &Omega; [deg/day]                 R [km]             A [km]             B [km]
+========================================================================================================================================================================
+Previous system [1]        291 +/- 5          &nbsp;  59 +/- 5          &nbsp;&nbsp;  170.90     &nbsp;&nbsp;&nbsp;   952.1532 +/- 0.00003     &nbsp;  476.2 +/- 1.7      487.3 +/- 1.8      454.7 +/- 1.6
+
+Dawn post-Survey Update    291.418 +/- 0.03   &nbsp;  66.764 +/- 0.03   &nbsp;&nbsp;  170.650    &nbsp;&nbsp;&nbsp;   952.1532 +/- 0.00003[2]  &nbsp;  470                 482                446
+(dawn_ceres_v05.tpc)
+
+Dawn Final                291.42763 +/- 0.0002 &nbsp; 66.76033 +/- 0.0002 &nbsp; 170.309 +/- 0.011 &nbsp; 952.1532635 +/- 0.000002 &nbsp; 469.73 +/- 0.15 &nbsp; 482.10 +/- 0.15 &nbsp; 445.94 +/- 0.15
+(dawn_ceres_v06.tpc)
+========================================================================================================================================================================</pre>
+                                                                                <p>
+[1] Archinal et al. (2011), [2] Unchanged from previous system.                 </p>
+                                                                                <p>
+                                                                                </p>
+                                                                                <p>
+The previous coordinate system was anchored to a bright feature in the Hubble 
+Space Telescope (HST) data (Thomas et al., 2005) that was dubbed "Feature #1" 
+in Li et al. (2006). Feature #1 is centered at 1&deg;E, 12&deg;N in their map 
+(Fig. 5 of Li et al., 2006) and is well-expressed in the F330W and F220W 
+filters and much smaller and muted in the F555W filter. A bright crater of ~32 
+km diameter named Haulani is observed in the region of Feature #1, surrounded 
+by a generally brighter ejecta deposit that together define a higher albedo 
+region. The Dawn team was not able to confidently or exactly identify the 
+location of Haulani with respect to Feature #1. Thus, the Dawn team has chosen 
+a small crater (~0.8 km diameter) nearby Haulani to define the prime meridian. 
+The location of this small crater is within the envelope of the broad feature 
+identified in HST data to which the previous system was anchored.  This small 
+crater named 'Kait' defines the 0&deg; longitude position.  The location of 
+Kait is illustrated in Fig. 1. One of the Survey images was used to display the 
+crater Kait (white arrows), which serves as the reference crater for the 
+definition of zero-longitude for Ceres' body fixed-frame, which is described in 
+detail in Preusker et al. (2016). After the original article (Roatsch et al., 
+2016) was published, HAMO and LAMO images became available and the authors 
+recognized that, because of the low Survey image resolution, the upper right 
+insert of Fig. 1 is not precise enough and somewhat misleading. An updated 
+figure (Fig. 2) shows Kait's precise location in both a HAMO and a LAMO image. 
+The correctness of already published Dawn results (e.g. image mosaics, atlases, 
+etc.), as well as of archived products at the Planetary Data System Small Bodies 
+Node is not affected by this update.                                            <p>
+                                                                                </p>
+                                                                                <p>
+The pole in the updated coordinate system moved away from the previous 
+estimate reported in Thomas et al (2005) by more than the (one-sigma) error of 
+"~5 degrees" and the shape of the body is also smaller by an amount that 
+exceeded the previous estimate's error of +/-1.7 km. The pole RA and dec have 
+changed such that the previously-defined IAU pole moves on the surface of 
+Ceres along the latitude of 82.231 degrees as Ceres rotates.                    </p>
+                                                                                <p>
+                                                                                </p>
+                                                                                <p>
+<img width=650 height=680 src="CERES_COORD_SYS_180628_FIG1.JPG">                 </p>
+                                                                                <p>
+                                                                                </p>
+                                                                                <p>
+Figure 1.  The tiny Kait crater defines the 0&deg; longitude position in the 
+updated coordinate system described in Roatsch et al. (2016).  Kait can be 
+located within the inset region (shown by white box) of this camera image. The 
+inset region image at top right points out the tiny crater Kait. The inset at 
+the top middle position shows Kait's location exact location of 0&deg; lon, 
+-2.1&deg; lat on a plot gridded in one-degree increments. Kait anchors the 
+prime meridian. A small adjustment was made to <i>W</i><sub>0</sub> in the 
+final update to maintain the system, as the rotation rate (W) changed to a 
+more precise value.                                                             </p>
+                                                                                </p>
+                                                                                <p>
+                                                                                <p>
+<img width=640 height=360 src="CERES_COORD_SYS_180628_FIG2.JPG">                </p>
+                                                                                <p>
+Fig. 2: Crater Kait in (a) Survey image FC21A0038023, (b) HAMO image 
+FC21A0042363, and (c) LAMO image FC21A0054621. Crater Kait can now clearly be 
+identified in the center of the black dotted circles. From Roatsch et al. 
+(2017).                                                                         </p>
+                                                                                <p>
+                                                                                </p>
+                                                                                <p>
+                                                                                </p>
+                                                                                <p>
+References:                                                                     </p>
+                                                                                <p>
+Archinal, B. A., M. F. A'Hearn, E. Bowell,
+A. Conrad, G. J. Consolmagno, R. Courtin, T. Fukushima, D. Hestroffer, J. L.
+Hilton and G. A. Krasinsky, G. Neumann, J. Oberst, P. K. Seidelmann, P. Stooke,
+D. J. Tholen, P. C. Thomas, I. P. Williams, 2011. Report of the IAU Working
+Group on Cartographic Coordinates and Rotational Elements, 2009. <i>Celes.
+Mech. &amp; Dyn. Astron. 109</i>, 101-135.                                      </p>
+                                                                                <p>
+Park, R. S., A. S. Konopliv, B. G. Bills, N. Rambaux, J. C. Castillo-Rogez, 
+C. A. Raymond, A. T. Vaughan, A. Ermakov, M. T. Zuber, R. R. Fu, M. J. Toplis, 
+and C. T. Russell, A partially differentiated interior for (1) Ceres deduced 
+from its gravity field and shape, 2016. <i>Nature</i>, 537, 515, 
+doi:10.1038/nature18955.                                                        </p>
+                                                                                <p>
+Preusker, F., F. Scholten, K. D. Matz, S. Elgner, R. Jaumann, Th. Roatsch, 
+S. P. Joy, C. A. Polanskey, C. A. Raymond, C.T. Russell, 2016. 
+Dawn at Ceres - Shape Model and Rotational State. Abstract #1954, LPSC 2016.    </p>
+                                                                                <p>
+Roatsch, Th., E. Kersten, K.-D. Matz, F. Preusker, F. Scholten, R.
+Jaumann, C. A. Raymond, and C. T. Russell,  Ceres Survey Atlas derived from
+Dawn Framing Camera images,  2016. Planet Space Sci. 121, 115-120.              </p>
+                                                                                <p>
+Roatsch, Th., E. Kersten, K.-D. Matz, F. Preusker, F. Scholten, R. Jaumann, 
+C. A. Raymond, and C. T. Russell, Corrigendum to "Ceres Survey Atlas derived 
+from Dawn Framing Camera images" [Planet Space Sci. 121 (2016) 115-120], 2017.  
+Planet Space Sci. 145, 78-79.                                                   </p>
+                                                                                <p>
+Thomas, P.C., J.Wm. Parker,
+L.A. McFadden, C.T. Russell, S.A Stern, M.V. Sykes, E.F. Young, Differentiation
+of the asteroid Ceres as revealed by its shape, 2005. <i>Nature 437</i>,
+224-226.                                                                        </p>
+                                                                                <p>
+Li, J.-Y., L.A. McFadden, J.Wm. Parker, E.F.
+Young, S. Alan Stern, P.C. Thomas, C.T. Russell, M.V. Sykes, Photometric
+Analysis of 1 Ceres and Surface Mapping from HST Observations, 2006.  <i>Icarus,
+182</i>, 143-160.                                                               </p>
+                                                                                <p>
+                                                                                </p>
+                                                                                <p>
+                                                                                </p>
+</body>
+</html>

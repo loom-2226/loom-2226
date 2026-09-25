@@ -1,0 +1,71 @@
+{
+  "metrics": {
+    "artifacts_reused": 0,
+    "assertions_accepted": 16,
+    "assertions_extracted": 16,
+    "assertions_rejected": 0,
+    "coverage_after_pass_1": {
+      "geology_geotechnical": "UNKNOWN",
+      "gravity_shape": "COVERED",
+      "history": "UNKNOWN",
+      "identity": "COVERED",
+      "mineralogy_composition": "COVERED",
+      "orbit_geometry": "UNKNOWN",
+      "regional": "COVERED",
+      "rotation_orientation": "COVERED",
+      "thermal_environment": "UNKNOWN",
+      "water_volatiles": "COVERED"
+    },
+    "coverage_after_pass_2": {
+      "geology_geotechnical": "PARTIAL",
+      "gravity_shape": "COVERED",
+      "history": "PARTIAL",
+      "identity": "COVERED",
+      "mineralogy_composition": "COVERED",
+      "orbit_geometry": "PARTIAL",
+      "regional": "COVERED",
+      "rotation_orientation": "COVERED",
+      "thermal_environment": "PARTIAL",
+      "water_volatiles": "COVERED"
+    },
+    "coverage_before": {
+      "geology_geotechnical": "UNKNOWN",
+      "gravity_shape": "UNKNOWN",
+      "history": "UNKNOWN",
+      "identity": "UNKNOWN",
+      "mineralogy_composition": "UNKNOWN",
+      "orbit_geometry": "UNKNOWN",
+      "regional": "UNKNOWN",
+      "rotation_orientation": "UNKNOWN",
+      "thermal_environment": "UNKNOWN",
+      "water_volatiles": "UNKNOWN"
+    },
+    "duplicate_work_avoided": 3,
+    "external_research_operations": 18,
+    "independent_evidence_lineages": 11,
+    "sources_acquired": 12,
+    "sources_discovered": 18,
+    "sources_rejected": 5
+  },
+  "qualification": {
+    "blocking": false,
+    "errors": [],
+    "status": "PASS"
+  },
+  "remaining_work": {
+    "campaign_id": "ARP-QUAL-01_CERES_BLIND_ATTEMPT_01",
+    "remaining_lanes": [
+      "orbit_geometry",
+      "geology_geotechnical",
+      "thermal_environment",
+      "history"
+    ],
+    "resumable": true,
+    "target_body": "Ceres",
+    "unresolved_gaps": [
+      "GEO-001",
+      "HIST-001",
+      "ORBIT-001"
+    ]
+  }
+}

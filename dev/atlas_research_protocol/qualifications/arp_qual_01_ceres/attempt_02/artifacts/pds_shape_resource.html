@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     
+    <base href="/pds/" />
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Shape Models of Ceres | PDS SBN Asteroid/Dust Subnode</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/main20210813.css">
+    <link rel="stylesheet" href="css/header20210331.css">
+    <link rel="stylesheet" href="css/footer20210331.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+
+    <!-- PDS Feedback Widget -->
+    <!-- Only add JQuery if you do not already include a library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit' async defer></script>
+    <link rel="stylesheet" href="feedback/css/feedback.css"  type="text/css" media="screen" />
+    <script src="feedback/js/modernizr-custom.js"></script>
+    <script src="feedback/js/config.js"></script>
+    <script src="feedback/js/feedback.js"></script>
+    <!-- -->
+
+
+    </head>
+<body>
+
+    <!-- BEGIN sbn-header -->
+
+<header>
+    <div id="sbn-notices">
+        <!--
+        <div class="notice">
+            PUT ANY DOWNTIME NOTICES HERE
+        </div>
+        -->
+    </div>
+    <div id="sbn-header">
+
+        <div class="sbn-title-container">
+            <div class="sbn-title"><a class="ignore-a-styling" href="http://pdssbn.astro.umd.edu/">PDS Small Bodies Node</a></div>
+            <a class="sbn-subtitle ignore-a-styling" href="">Asteroid/Dust Subnode</a>
+        </div>
+        <div class="gradient-bar"></div>
+    </div>
+</header>
+<nav>
+    
+    <div id="menu-backdrop"></div>
+    <div id="menu-drawer">
+        <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </div>
+
+    <div id="theme-switch">
+        <label for="theme-switch-checkbox">
+            <input type="checkbox" id="theme-switch-checkbox" />
+            <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 0 24 24" width="30" title="Change light/dark theme">
+                <title>Change light/dark theme</title>
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path
+                    d="M20 15.31L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69zM12 18V6c3.31 0 6 2.69 6 6s-2.69 6-6 6z" />
+            </svg>
+      </label>
+    </div>
+    <div id="menu">
+        <div class="menu-handle">
+            <div>Find Data</div>
+            <ul class="menu-list">
+                <li><a href="">Archive Home</a></li>
+                <li class="divider"></li>
+                <li><a href="archive/data-types.html"> Browse by Data Type</a></li>
+                <li><a href="archive/target-types.html"> Browse by Target Type</a></li>
+                <li><a href="archive/missions.html"> Browse by Mission</a></li>
+                <li class="divider"></li>
+                <li><a href="ferret/">Ferret - Target Search</a></li>
+                <li><a href="sbib/">SBIB - Image Search</a></li>
+                <li><a href="https://catch.astro.umd.edu/">CATCH - Survey Search</a></li>
+            </ul>
+        </div>
+        <div class="menu-handle">
+            <div>Archive Data</div>
+            <ul class="menu-list">
+                <li><a href="olafs">OLAF - Archive your data</a></li>
+                <li><a href="sbnarchivinghowto.html">How to Archive</a></li>
+                <li><a href="other_tools/pdf1a.html">PDF/A Tools</a></li>
+                <li><a href="https://pds.nasa.gov/datastandards/documents/current-version.shtml">PDS4 Standards</a></li>
+            </ul>
+        </div>
+        <div class="menu-handle">
+            <div>Support</div>
+            <ul class="menu-list">
+                <li><a href="support/">Support Home</a></li>
+                <li class="divider"></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="support/Tips.html">Tips & Tricks Articles <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 24 24" width="24px" class="callout-svg-icon"><title>New!</title><path d="M0 0h24v24H0z" fill="none"/><path d="M23 12l-2.44-2.78.34-3.68-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.81.34 3.68L1 12l2.44 2.78-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.68L23 12zm-10 5h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></a></li>
+                <li><a href="support/FAQ.html">Frequently Asked Questions</a></li>
+                <li><a href="support/Keyterms.html">Key Terms</a></li>
+                <li><a href="support/Glossary.html">Full Glossary</a></li>
+                <li class="divider"></li>
+                <li><a href="https://pds.nasa.gov/home/proposers/">Information for Data Proposers</a></li>
+                <li><a href="https://sbnwiki.astro.umd.edu/wiki/SBN_PDS4_Wiki">PDS4 Tutorials and Quick Ref</a></li>
+                <li><a href="http://pdssbn.astro.umd.edu/howto/understand.shtml">Using PDS Data</a></li>
+            </ul>
+        </div>
+        <div class="menu-handle">
+            <div>PDS Info</div>
+            <ul class="menu-list">
+                <li><a href="aboutastsubnode.html">About SBN Asteroid Subnode</a></li>
+                <li><a href="http://pdssbn.astro.umd.edu/">SBN Comet Subnode</a></li>
+                <li><a href="http://pds.nasa.gov/">PDS Home</a></li>
+            </ul>
+        </div>
+    </div>
+    
+<div id="search-bar" class="search-container">
+    <div class="search-box" v-bind:class="{focused: focused}">
+        <svg class="search-icon" viewBox="0 0 100 125">
+            <path d="M35.285,8L85,28.228L52.303,70.575l-4.715-17.337C33,59.622,16.45,72.294,43.672,92c0,0-37.15-4.02-26.875-39.512    c0,0,4.692-16.873,23.799-24.958L35.285,8z" />
+        </svg>
+        <div class="input-field">
+            <input tabindex="0" placeholder="Shortcut to data by keyword..." type="text" aria-label="Shortcut to data by keyword"
+                v-model="query"
+                v-on:focus="onFocus"
+                v-on:keyup="keypress">
+        </div>
+    </div>
+    <div class="search-filter" v-if="focused">
+        <label class="toggle-option" v-bind:class="{focused: mode === 'asteroid'}">Asteroid/Dust <input type="radio" v-model="mode" value="asteroid"></label>
+        <label class="toggle-option" v-bind:class="{focused: mode === 'pds'}">PDS <input type="radio" v-model="mode" value="pds"></label>
+    </div>
+    <ul class="search-results" v-if="query.length > 0 && focused">
+        <template v-for="result in searchResults">
+            <li class="search-result" >
+                <a v-bind:href="result.url" v-bind:title="title(result)" tabindex="0">{{result.name}}</a>
+            </li>
+        </template>
+        <p class="no-results" v-if="searchResults.length === 0">No results found</p>
+        <p class="no-results" v-if="searchResults.length === 0">Need help finding something? <a href="contact.html">Contact Us</a></p>
+    </ul>
+</div>
+
+</nav>
+
+
+<!-- END sbn-header -->
+
+
+    <main><div class="sbn-main "  data-page-theme="images/dawn-patch.png" >
+    <!-- BEGIN main content -->
+
+            <ol class="breadcrumbs">
+            <li><a href="">Home</a></li>
+            <li class="breadcrumbs-separator">/</li>
+            <li><a href="archive/missions.html">Missions</a></li>
+            <li class="breadcrumbs-separator">/</li>
+            <li><a href="resource/dawn">Dawn</a></li>
+            <li class="breadcrumbs-separator">/</li>
+            <li>Shape Models of Ceres</li>
+        </ol>
+        
+        <center>
+            <h2>Dawn Shape Models of Ceres</h2>
+            </center>
+
+<hr>
+
+            <p>
+            <b>Status:  Archived</b>
+
+
+            <table border=1>
+            <tr><td width=400> Data set:
+                <td width=200> Browse:
+                <td width=200> Download:
+            <tr><td> Ceres SPC Shape Model
+                <td><a href="https://sbnarchive.psi.edu/pds4/dawn/dwarf_planet-ceres.dawn.shape-models-maps_V1_0/">Ceres SPC Shape and Regional Models</a> (730 MB)
+                <td><a href="https://sbnarchive.psi.edu/pds4/dawn/dwarf_planet-ceres.dawn.shape-models-maps_V1_0.zip">dwarf_planet-ceres.dawn.shape-models-maps.zip</a> (147 MB)
+            </table>
+            </center>
+
+            <p>
+            Use the following citation to reference this data set:
+<p>
+"Weirich, J.R., Gaskell, R.W., Schorghofer, N., Mazarico, E. (2024). Ceres SPC Shape and Regional Models Bundle V1.0. urn:nasa:pds:dwarf_planet-ceres.dawn.shape-models-maps::1.0. NASA Planetary Data System; doi:<a href="https://doi.org/10.26033/v4kc-7e11">10.26033/v4kc-7e11.</a>"
+
+<hr>
+<br><br>
+
+            <p>
+            <b>Status:  Archived</b>
+
+
+            <table border=1>
+            <tr><td width=400> Data set:
+                <td width=200> Browse:
+                <td width=200> Download:
+            <tr><td> Ceres SPC Shape Model
+                <td><a href="https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCSPC_4_01/">DWNCSPC_4_01</a> (501 Mb)
+                <td><a href="https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCSPC_4_01.zip">DWNCSPC_4_01.zip</a> (147 Mb)
+            </table>
+            </center>
+
+            <p>
+            Use the following citation to reference this data set:
+<p>
+"Park, R.S. and Buccino, D.R.,
+    Ceres SPC Shape Model Dataset V1.0. DAWN-A-FC2-5-CERESSHAPESPC-V1.0.
+    NASA Planetary Data System, 2018."
+
+<hr>
+<br><br>
+
+            <p>
+            <b>Status:  Archived</b>
+
+            <p>
+            <table border=1>
+            <tr><td width=400> Data set:
+                <td width=200> Browse:
+                <td width=200> Download:
+            <tr><td> Ceres HAMO Digital Terrain Model
+                <td><a href="https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCHSPG_2/">DWNCHSPG_2</a> (2.0 Gb)
+                <td><a href="https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCHSPG_2.zip">DWNCHSPG_2.zip</a> (1.6 Gb)
+            </table>
+            </center>
+
+            <p>
+            Use the following citation to reference this data set:
+
+            <p>
+            "Roatsch,T., E. Kersten,K.-D. Matz,F. Preusker, F. Scholten, S. Elgner,
+                  S.E. Schroeder, R. Jaumann, C.A. Raymond, C.T. Russell,
+                  DAWN FC2 DERIVED CERES HAMO DTM SPG V1.0,
+                  DAWN-A-FC2-5-CERESHAMODTMSPG-V1.0, NASA Planetary Data System, 2016."
+
+<br><br>
+
+            <p>
+            <b>Status:  Archived<br>
+Latest release date:  May 14, 2019 </b>
+
+<p>
+Digital Terrain Models and mosaics for seven selected Ceres regions.
+
+            <table border=1>
+            <tr><td width=400> Data set:
+                <td width=200> Browse:
+                <td width=200> Download:
+            <tr><td> Ceres Regional DTMs and Mosaics for selected regions
+                <td><a href="https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCLSPG_2/">DWNCLSPG_2</a>
+                <td><a href="https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCLSPG_2-190820.tgz">DWNCLSPG_2-190820.tgz</a> (4.0 Gb)
+            </table>
+
+<br><br>
+<hr>
+<h3 id="pds-superseded-title">Superseded Versions: <a onclick="setShow()" id="pds-superseded-toggle">Show</a></h3>
+<div id="pds-superseded">
+<p>
+The following data set has been superseded by the Ceres Regional DTMs and
+Mosaics for Selected Regions, which includes the Occator DTM and adds
+DTMs of additional regions as well as mosaics.
+
+            <p>
+            <table border=1>
+            <tr><td width=400> Data set:
+                <td width=200> Browse:
+                <td width=200> Download:
+            <tr><td> Ceres LAMO Regional Digital Terrain Model (Occator)
+                <td><a href="https://sbnarchive.psi.edu/pds3/dawn/fc/superseded/DWNCLSPG_2_181207/">DWNCLSPG_2 v1 </a> (260 Mb)
+                <td><a href="https://sbnarchive.psi.edu/pds3/dawn/fc/superseded/DWNCLSPG_2_181207.zip">DWNCLSPG_2_181207.zip</a> (205 Mb)
+            </table></div>
+            </center>
+
+            <br> <br>
+
+            <h3>
+            <center>
+            <a href="resource/dawn/index.html">Return to Dawn Archive Page</a><br>
+            </center>
+            <br>
+
+
+    <!-- END main content -->
+    </div></main>
+
+    <!-- BEGIN sbn-footer -->
+
+<footer class="sbn-footer">
+    <p class="sbn-footer-text">
+        For questions about the data sets or this web site, contact Carol Neese (<a href="/cdn-cgi/l/email-protection#38565d5d4b5d78484b51165d5c4d" class="link"><span class="__cf_email__" data-cfemail="6c0209091f092c1c1f0542090819">[email&#160;protected]</span></a>).
+    </p>
+</footer>
+
+<div class="sbn-footer-extended">
+    <aside class="sbn-footer-psi-container">
+        <img src="images/PSI_Logo.png" alt="PSI Logo" title="PSI Logo" class="psi-logo">
+        <span>Hosted by the Planetary Science Institute</span>
+    </aside>
+</div>
+
+<!-- END sbn-footer -->
+
+
+    
+
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/vue/vue.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/search-data.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/search.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/scripts20210813.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>

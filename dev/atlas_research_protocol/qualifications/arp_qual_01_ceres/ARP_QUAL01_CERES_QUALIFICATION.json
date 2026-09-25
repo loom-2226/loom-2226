@@ -1,0 +1,48 @@
+{
+  "qualification_case": "ARP-QUAL-01_CERES",
+  "knowledge_cutoff": "2025-12-31T23:59:59Z",
+  "research_tier": "Tier A / deep empirical envelope",
+  "repository_baseline": "b4bc58a2e4c88bfd2a0267be692e04fd1fb1c57f",
+  "blind_execution": {
+    "research_root": "/home/ubuntu/ARP01_CERES_BLIND",
+    "mechanism": "EXTERNAL_INPUT_ALLOWLIST",
+    "hcq_answer_key_available_during_research": false,
+    "frozen_before_reference_comparison": true
+  },
+  "attempt_01": {
+    "arp_version": "1.0.0",
+    "campaign_sha256": "4275e6d7e83535ce22a1d9492495d827bccd33bbe413a3136d31ca0e8c4514d9",
+    "status": "NOT_QUALIFIED_REMEDIATION_REQUIRED",
+    "failure": "reported-vs-normalized mass preservation and supplied uncertainty omission"
+  },
+  "attempt_02": {
+    "implementation_revision": "1.0.1-reported-normalization-and-uncertainty-hardening",
+    "campaign_sha256": "169dc279b0b2ac48ea028d4367217598299a12db93fccc4873300bf8bef1c18d",
+    "status": "PASS_WITH_REFERENCE_MISSES",
+    "deterministic_validation": "PASS",
+    "hostile_tests": {"attempted": 12, "rejected": 12},
+    "matched_reference": 5,
+    "defensible_additions": 10,
+    "reference_misses": 3,
+    "supported_differences": 1,
+    "unsupported_additions": 0,
+    "misclassified_additions": 0,
+    "independent_lineages": 11
+  },
+  "hcq_reference_sha256": "0bbbfd5ae2ab287900ff4e356f9571d21aff4593cc78e0cd69bf1610def9adc6",
+  "final_recommendation": "ARP_REMEDIATION_REQUIRED_BEFORE_NEXT_BODY",
+  "no_hcq_mutation": true,
+  "no_forbidden_authority_contamination": true,
+  "tests": {
+    "arp": "17/17 PASS",
+    "hcq_v02": "14/14 PASS",
+    "v03": "9/9 PASS",
+    "v03_r1": "10/10 PASS"
+  },
+  "known_limitations": [
+    "GM, surface temperature, and Ahuna reference evidence were not recovered in the blind run.",
+    "Site-scale geotechnical properties remain UNKNOWN.",
+    "A full knowledge-adoption/revision ontology remains outside ARP v1.0.",
+    "One primary GRaND paper acquisition was unavailable in this public retrieval run and was not replaced by a secondary summary."
+  ]
+}
