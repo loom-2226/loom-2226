@@ -1,6 +1,6 @@
 # LOOM Solar Phase 4 — 2250 Ephemeris Completion Work Plan v1.0
 
-**Status:** PHASE 4B CLOSED; PHASE 4C/5 NOT STARTED
+**Status:** PHASE 4C CLOSED; PHASE 4D/4E/5 NOT STARTED
 **Primary class:** `class:engineering` with governed `class:data` promotion steps
 **Date:** 2026-09-25
 **Repository:** `loom-2226/loom-2226`
@@ -426,5 +426,14 @@ uncertainty and `navigation_grade=false`, and are never represented as direct JP
 authority. The machine-readable authority manifest and qualification report are
 the controlling implementation evidence.
 
-Phase 4C remains a separate future work item. No satellite inventory promotion or
+Phase 4C is now closed for the required major-moon set. No Phase 4D, Phase 4E or
 Phase 5 work is included in this closure.
+
+## 14. Phase 4C closure record (2026-09-26)
+
+The 17 required major satellites are promoted from direct accepted JPL/NAIF
+system-kernel coverage by migration `014_solar_phase4c_major_moons.sql`. MAR099,
+SAT441XL part 2, URA184 part 3 and NEP097 all contain the required object targets
+through the full 2250 horizon. Saturn target 612 and Uranus targets 716–724 and
+75051 are retained as inventory observations only; they are not silently promoted
+as part of the major-moon closure.
