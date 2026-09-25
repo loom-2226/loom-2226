@@ -1,0 +1,272 @@
+{
+  "manifest_version": "1.0",
+  "manifest_id": "OFFICIAL_PLANET_CENTER_KERNELS_V1",
+  "classification": "ENGINEERING_AUTHORITY / OFFICIAL_JPL_NAIF_INPUTS",
+  "acquired_at": "2026-09-25T01:32:16Z",
+  "asset_root_contract": "Caller supplies the governed local Solar asset root; local_path values are relative to it.",
+  "authority_policy": {
+    "planetary_backbone": "DE440",
+    "supplementary_role": "physical planet center relative to its distinct system barycenter",
+    "derived_ephemeris_allowed": false,
+    "barycenter_substitution_allowed": false,
+    "runtime_network_allowed": false,
+    "request_time_scale": "UTC",
+    "internal_time_scale": "SPICE ET/TDB",
+    "spice_output_frame": "ECLIPJ2000",
+    "loom_output_frame": "J2000/ECLIPTIC",
+    "aberration_correction": "NONE",
+    "units": "km,km/s",
+    "observer_naif_id": 10
+  },
+  "official_catalog": {
+    "directory_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/",
+    "summary_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/aa_summaries.txt",
+    "checksum_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/aa_checksums.txt",
+    "readme_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/AAREADME_Satellite_SPKs"
+  },
+  "assets": [
+    {
+      "asset_id": "NAIF0012_LSK",
+      "provider": "NAIF",
+      "product": "NAIF0012",
+      "local_path": "kernels/lsk/naif0012.tls",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+      "byte_count": 5257,
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+      "acquired_at": "2026-09-24T21:39:02.529102Z"
+    },
+    {
+      "asset_id": "DE440",
+      "provider": "JPL/NAIF",
+      "product": "DE440",
+      "local_path": "kernels/spk/de440.bsp",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+      "byte_count": 119799808,
+      "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "acquired_at": "2026-09-24T21:39:02.529102Z"
+    },
+    {
+      "asset_id": "MAR099",
+      "provider": "JPL/NAIF",
+      "product": "MAR099.01",
+      "local_path": "kernels/spk/satellite_systems/mar099.bsp",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/mar099.bsp",
+      "official_last_modified": "2025-06-03T00:02:08Z",
+      "byte_count": 1227574272,
+      "official_md5": "46f5740f86ec78b978ab96a82f0e42b7",
+      "sha256": "9991e57b196bae1a096acc6e2afc6718102ee420d684695de0f0333064c046bc",
+      "acquired_at": "2026-09-25T01:32:16Z"
+    },
+    {
+      "asset_id": "SAT441",
+      "provider": "JPL/NAIF",
+      "product": "SAT441.24",
+      "local_path": "kernels/spk/satellite_systems/sat441.bsp",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/sat441.bsp",
+      "official_last_modified": "2022-01-29T14:38:13Z",
+      "byte_count": 661592064,
+      "official_md5": "0d081d7e58504450cf2aa0b151a36b41",
+      "sha256": "d7e444a9ba7a52b8f448ff0747030789524d2f0c1212e4e2bd7f5fc3c96444d5",
+      "acquired_at": "2026-09-25T01:32:16Z"
+    },
+    {
+      "asset_id": "URA184_PART_3",
+      "provider": "JPL/NAIF",
+      "product": "URA184 part 3",
+      "local_path": "kernels/spk/satellite_systems/ura184_part-3.bsp",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/ura184_part-3.bsp",
+      "official_last_modified": "2025-09-26T13:43:01Z",
+      "byte_count": 386885632,
+      "official_md5": "cf24471fb9037543cdbe168bc0fd4c2e",
+      "sha256": "273cd4ccc470d1098562cd4e94fa48fc2b4c6b1c2896308e473c949b87937c53",
+      "acquired_at": "2026-09-25T01:32:16Z"
+    },
+    {
+      "asset_id": "NEP097",
+      "provider": "JPL/NAIF",
+      "product": "NEP097",
+      "local_path": "kernels/spk/satellite_systems/nep097.bsp",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/nep097.bsp",
+      "official_last_modified": "2022-04-10T20:28:01Z",
+      "byte_count": 105262080,
+      "official_md5": "937e05462aac5e34cb5cfddae6c99199",
+      "sha256": "5c1132fdc48c54e5d2e4eb663e1ed1a876911eae9433c203f29a5a1b5e1fa9b1",
+      "acquired_at": "2026-09-25T01:32:16Z"
+    }
+  ],
+  "selected_kernel_inventory": [
+    {
+      "asset_id": "MAR099",
+      "spk_target_ids": [3, 4, 10, 399, 401, 402, 499],
+      "selected_target": {
+        "naif_id": 499,
+        "center_naif_id": 4,
+        "segment_frame_id": 1,
+        "segment_frame": "J2000",
+        "spk_data_type": 2,
+        "coverage_et": [-12622824000.0, 18934257600.0],
+        "coverage_utc": ["1599-12-31T23:59:18.815889Z", "2600-01-01T23:58:50.816341Z"]
+      }
+    },
+    {
+      "asset_id": "SAT441",
+      "spk_target_ids": [3, 6, 10, 399, 601, 602, 603, 604, 605, 606, 607, 608, 609, 612, 613, 614, 632, 634, 699],
+      "selected_target": {
+        "naif_id": 699,
+        "center_naif_id": 6,
+        "segment_frame_id": 1,
+        "segment_frame": "J2000",
+        "spk_data_type": 2,
+        "coverage_et": [-7889400000.0, 7889659200.0],
+        "coverage_utc": ["1749-12-29T23:59:18.816003Z", "2250-01-05T23:58:50.816055Z"]
+      }
+    },
+    {
+      "asset_id": "URA184_PART_3",
+      "spk_target_ids": [3, 7, 10, 399, 701, 702, 703, 704, 705, 716, 717, 718, 719, 720, 721, 722, 723, 724, 799, 75051],
+      "selected_target": {
+        "naif_id": 799,
+        "center_naif_id": 7,
+        "segment_frame_id": 1,
+        "segment_frame": "J2000",
+        "spk_data_type": 2,
+        "coverage_et": [-12622564800.0, 12621441600.0],
+        "coverage_utc": ["1600-01-03T23:59:18.815802Z", "2399-12-16T23:58:50.816698Z"]
+      }
+    },
+    {
+      "asset_id": "NEP097",
+      "spk_target_ids": [3, 8, 10, 399, 801, 899],
+      "selected_target": {
+        "naif_id": 899,
+        "center_naif_id": 8,
+        "segment_frame_id": 1,
+        "segment_frame": "J2000",
+        "spk_data_type": 2,
+        "coverage_et": [-12622046400.0, 12622651200.0],
+        "coverage_utc": ["1600-01-09T23:59:18.815630Z", "2399-12-30T23:58:50.816313Z"]
+      }
+    }
+  ],
+  "selection_review": [
+    {
+      "body_id": "MARS",
+      "selected": "MAR099",
+      "reason": "MAR099 is the current official full-span Mars system product covering 2250; the smaller MAR099S ends in 2050."
+    },
+    {
+      "body_id": "SATURN",
+      "selected": "SAT441",
+      "reason": "SAT441 covers 2250-01-01 and is smaller than SAT441XL part 2; newer short-span products end by 2150 or earlier."
+    },
+    {
+      "body_id": "URANUS",
+      "selected": "URA184_PART_3",
+      "reason": "URA184 part 3 is the smallest current official product containing NAIF 799 through 2250. DE440 is loaded after it so embedded DE442 backbone segments cannot override LOOM's backbone."
+    },
+    {
+      "body_id": "NEPTUNE",
+      "selected": "NEP097",
+      "reason": "NEP097 is the smallest current official product containing NAIF 899 through 2250."
+    }
+  ],
+  "registry": {
+    "bodies": [
+      {"body_id": "MARS", "canonical_name": "Mars", "body_class": "PLANET"},
+      {"body_id": "MARS_SYSTEM_BARYCENTER", "canonical_name": "Mars system barycenter", "body_class": "BARYCENTER"},
+      {"body_id": "SATURN", "canonical_name": "Saturn", "body_class": "PLANET"},
+      {"body_id": "SATURN_SYSTEM_BARYCENTER", "canonical_name": "Saturn system barycenter", "body_class": "BARYCENTER"},
+      {"body_id": "URANUS", "canonical_name": "Uranus", "body_class": "PLANET"},
+      {"body_id": "URANUS_SYSTEM_BARYCENTER", "canonical_name": "Uranus system barycenter", "body_class": "BARYCENTER"},
+      {"body_id": "NEPTUNE", "canonical_name": "Neptune", "body_class": "PLANET"},
+      {"body_id": "NEPTUNE_SYSTEM_BARYCENTER", "canonical_name": "Neptune system barycenter", "body_class": "BARYCENTER"}
+    ],
+    "identifiers": [
+      {"body_id": "MARS", "authority": "NAIF", "identifier_type": "NAIF_ID", "identifier_value": "499", "status": "ACTIVE"},
+      {"body_id": "MARS_SYSTEM_BARYCENTER", "authority": "NAIF", "identifier_type": "NAIF_ID", "identifier_value": "4", "status": "ACTIVE"},
+      {"body_id": "SATURN", "authority": "NAIF", "identifier_type": "NAIF_ID", "identifier_value": "699", "status": "ACTIVE"},
+      {"body_id": "SATURN_SYSTEM_BARYCENTER", "authority": "NAIF", "identifier_type": "NAIF_ID", "identifier_value": "6", "status": "ACTIVE"},
+      {"body_id": "URANUS", "authority": "NAIF", "identifier_type": "NAIF_ID", "identifier_value": "799", "status": "ACTIVE"},
+      {"body_id": "URANUS_SYSTEM_BARYCENTER", "authority": "NAIF", "identifier_type": "NAIF_ID", "identifier_value": "7", "status": "ACTIVE"},
+      {"body_id": "NEPTUNE", "authority": "NAIF", "identifier_type": "NAIF_ID", "identifier_value": "899", "status": "ACTIVE"},
+      {"body_id": "NEPTUNE_SYSTEM_BARYCENTER", "authority": "NAIF", "identifier_type": "NAIF_ID", "identifier_value": "8", "status": "ACTIVE"}
+    ],
+    "sources": [
+      {
+        "ephemeris_source_id": "DE440",
+        "provider": "JPL/NAIF",
+        "product_name": "DE440",
+        "product_version": "440",
+        "asset_filename": "de440.bsp",
+        "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+        "byte_count": 119799808,
+        "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+        "acquired_at": "2026-09-24T21:39:02.529102Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": ["NAIF0012_LSK", "DE440"]
+      },
+      {
+        "ephemeris_source_id": "JPL_MAR099",
+        "provider": "JPL/NAIF",
+        "product_name": "MAR099",
+        "product_version": "MAR099.01",
+        "asset_filename": "mar099.bsp",
+        "sha256": "9991e57b196bae1a096acc6e2afc6718102ee420d684695de0f0333064c046bc",
+        "byte_count": 1227574272,
+        "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/mar099.bsp",
+        "acquired_at": "2026-09-25T01:32:16Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": ["NAIF0012_LSK", "MAR099", "DE440"]
+      },
+      {
+        "ephemeris_source_id": "JPL_SAT441",
+        "provider": "JPL/NAIF",
+        "product_name": "SAT441",
+        "product_version": "SAT441.24",
+        "asset_filename": "sat441.bsp",
+        "sha256": "d7e444a9ba7a52b8f448ff0747030789524d2f0c1212e4e2bd7f5fc3c96444d5",
+        "byte_count": 661592064,
+        "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/sat441.bsp",
+        "acquired_at": "2026-09-25T01:32:16Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": ["NAIF0012_LSK", "SAT441", "DE440"]
+      },
+      {
+        "ephemeris_source_id": "JPL_URA184_PART_3",
+        "provider": "JPL/NAIF",
+        "product_name": "URA184 part 3",
+        "product_version": "URA184 (NAIF 799 solution URA182.21)",
+        "asset_filename": "ura184_part-3.bsp",
+        "sha256": "273cd4ccc470d1098562cd4e94fa48fc2b4c6b1c2896308e473c949b87937c53",
+        "byte_count": 386885632,
+        "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/ura184_part-3.bsp",
+        "acquired_at": "2026-09-25T01:32:16Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": ["NAIF0012_LSK", "URA184_PART_3", "DE440"]
+      },
+      {
+        "ephemeris_source_id": "JPL_NEP097",
+        "provider": "JPL/NAIF",
+        "product_name": "NEP097",
+        "product_version": "NEP097 / ephemeris version 24",
+        "asset_filename": "nep097.bsp",
+        "sha256": "5c1132fdc48c54e5d2e4eb663e1ed1a876911eae9433c203f29a5a1b5e1fa9b1",
+        "byte_count": 105262080,
+        "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/nep097.bsp",
+        "acquired_at": "2026-09-25T01:32:16Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": ["NAIF0012_LSK", "NEP097", "DE440"]
+      }
+    ],
+    "coverage": [
+      {"ephemeris_source_id": "DE440", "body_id": "MARS_SYSTEM_BARYCENTER", "valid_from": "1549-12-30T23:59:18.815889Z", "valid_until": "2650-01-24T23:58:50.815708Z", "reference_frame": "ECLIPJ2000", "units": "km,km/s", "coverage_class": "BODY", "status": "QUALIFIED"},
+      {"ephemeris_source_id": "DE440", "body_id": "SATURN_SYSTEM_BARYCENTER", "valid_from": "1549-12-30T23:59:18.815889Z", "valid_until": "2650-01-24T23:58:50.815708Z", "reference_frame": "ECLIPJ2000", "units": "km,km/s", "coverage_class": "BODY", "status": "QUALIFIED"},
+      {"ephemeris_source_id": "DE440", "body_id": "URANUS_SYSTEM_BARYCENTER", "valid_from": "1549-12-30T23:59:18.815889Z", "valid_until": "2650-01-24T23:58:50.815708Z", "reference_frame": "ECLIPJ2000", "units": "km,km/s", "coverage_class": "BODY", "status": "QUALIFIED"},
+      {"ephemeris_source_id": "DE440", "body_id": "NEPTUNE_SYSTEM_BARYCENTER", "valid_from": "1549-12-30T23:59:18.815889Z", "valid_until": "2650-01-24T23:58:50.815708Z", "reference_frame": "ECLIPJ2000", "units": "km,km/s", "coverage_class": "BODY", "status": "QUALIFIED"},
+      {"ephemeris_source_id": "JPL_MAR099", "body_id": "MARS", "valid_from": "1599-12-31T23:59:18.815889Z", "valid_until": "2600-01-01T23:58:50.816341Z", "reference_frame": "ECLIPJ2000", "units": "km,km/s", "coverage_class": "BODY", "status": "QUALIFIED"},
+      {"ephemeris_source_id": "JPL_SAT441", "body_id": "SATURN", "valid_from": "1749-12-29T23:59:18.816003Z", "valid_until": "2250-01-05T23:58:50.816055Z", "reference_frame": "ECLIPJ2000", "units": "km,km/s", "coverage_class": "BODY", "status": "QUALIFIED"},
+      {"ephemeris_source_id": "JPL_URA184_PART_3", "body_id": "URANUS", "valid_from": "1600-01-03T23:59:18.815802Z", "valid_until": "2399-12-16T23:58:50.816698Z", "reference_frame": "ECLIPJ2000", "units": "km,km/s", "coverage_class": "BODY", "status": "QUALIFIED"},
+      {"ephemeris_source_id": "JPL_NEP097", "body_id": "NEPTUNE", "valid_from": "1600-01-09T23:59:18.815630Z", "valid_until": "2399-12-30T23:58:50.816313Z", "reference_frame": "ECLIPJ2000", "units": "km,km/s", "coverage_class": "BODY", "status": "QUALIFIED"}
+    ]
+  }
+}

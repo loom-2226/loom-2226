@@ -1,0 +1,169 @@
+{
+  "manifest_version": "1.0",
+  "manifest_id": "SOLAR_PHASE4_EARNED_AUTHORITY_V1",
+  "classification": "ENGINEERING/DATA AUTHORITY \u2014 EARNED QUALIFICATION PROMOTION",
+  "source_main_sha": "788aef4693f5bec8e2ef24da6f74b1deb2484588",
+  "promotion_rule": "Only previously qualified targets; kernel target presence alone is insufficient.",
+  "horizon_contract": {
+    "modeled_start": "2026-01-01T00:00:00Z",
+    "full_2250_gate": "2251-01-01T00:00:00Z"
+  },
+  "evidence": [
+    "docs/qualification/EPHEMERIS_FOUNDATION_V1_qualification_report.md",
+    "docs/qualification/OFFICIAL_PLANET_CENTERS_V1_evidence.json",
+    "docs/qualification/OFFICIAL_PLANET_CENTERS_V1_qualification_report.md"
+  ],
+  "sources": [
+    {
+      "id": "DE440",
+      "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "bytes": 119799808
+    },
+    {
+      "id": "CERES_SPK_2025_2227",
+      "sha256": "adb69cc0723550fad437b7466fedaf7480e2e36c489e9d2d727e783a78566137",
+      "bytes": 3678208
+    },
+    {
+      "id": "JPL_MAR099",
+      "sha256": "9991e57b196bae1a096acc6e2afc6718102ee420d684695de0f0333064c046bc",
+      "bytes": 1227574272
+    },
+    {
+      "id": "JPL_SAT441",
+      "sha256": "d7e444a9ba7a52b8f448ff0747030789524d2f0c1212e4e2bd7f5fc3c96444d5",
+      "bytes": 661592064
+    },
+    {
+      "id": "JPL_URA184_PART_3",
+      "sha256": "273cd4ccc470d1098562cd4e94fa48fc2b4c6b1c2896308e473c949b87937c53",
+      "bytes": 386885632
+    },
+    {
+      "id": "JPL_NEP097",
+      "sha256": "5c1132fdc48c54e5d2e4eb663e1ed1a876911eae9433c203f29a5a1b5e1fa9b1",
+      "bytes": 105262080
+    }
+  ],
+  "targets": [
+    {
+      "body_id": "MERCURY_SYSTEM_BARYCENTER",
+      "naif_id": "1",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "VENUS_SYSTEM_BARYCENTER",
+      "naif_id": "2",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "EARTH_MOON_BARYCENTER",
+      "naif_id": "3",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "MARS_SYSTEM_BARYCENTER",
+      "naif_id": "4",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "JUPITER_SYSTEM_BARYCENTER",
+      "naif_id": "5",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "SATURN_SYSTEM_BARYCENTER",
+      "naif_id": "6",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "URANUS_SYSTEM_BARYCENTER",
+      "naif_id": "7",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "NEPTUNE_SYSTEM_BARYCENTER",
+      "naif_id": "8",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "PLUTO_SYSTEM_BARYCENTER",
+      "naif_id": "9",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "SUN",
+      "naif_id": "10",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "MERCURY",
+      "naif_id": "199",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "VENUS",
+      "naif_id": "299",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "MOON",
+      "naif_id": "301",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "EARTH",
+      "naif_id": "399",
+      "source": "DE440",
+      "full_2250": true
+    },
+    {
+      "body_id": "CERES",
+      "naif_id": "20000001",
+      "source": "CERES_SPK_2025_2227",
+      "full_2250": false
+    },
+    {
+      "body_id": "MARS",
+      "naif_id": "499",
+      "source": "JPL_MAR099",
+      "full_2250": true
+    },
+    {
+      "body_id": "SATURN",
+      "naif_id": "699",
+      "source": "JPL_SAT441",
+      "full_2250": false
+    },
+    {
+      "body_id": "URANUS",
+      "naif_id": "799",
+      "source": "JPL_URA184_PART_3",
+      "full_2250": true
+    },
+    {
+      "body_id": "NEPTUNE",
+      "naif_id": "899",
+      "source": "JPL_NEP097",
+      "full_2250": true
+    }
+  ],
+  "counts": {
+    "targets": 19,
+    "full_2250": 17,
+    "partial": 2
+  }
+}

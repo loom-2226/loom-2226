@@ -206,30 +206,72 @@ Civilization propagation consumes accessibility; it does not invent instantaneou
 
 **Exit:** stable typed interface; no consumer directly calls SPICE.
 
-### Phase 4 — Qualification
+### Phase 4 — Qualification and 2250 ephemeris completion
 
-- establish golden JPL/NAIF reference cases across representative bodies and epochs;
-- test time conversion, frames, units, coverage boundaries and failure modes;
-- verify deterministic replay from pinned assets;
-- run unit and relevant functional regression.
+The representative `EPHEMERIS_FOUNDATION_V1` qualification remains necessary but
+is no longer sufficient to exit Phase 4.
 
-**Exit:** `EPHEMERIS_FOUNDATION_V1 = PASS` with recorded evidence.
-### Phase 5 — Broad empirical catalog
+Phase 4 now MUST also complete
+`docs/architecture/LOOM_SOLAR_PHASE4_2250_COMPLETION_WORKPLAN_v1.0.md`.
 
-- ingest authoritative object inventory/crosswalks;
-- cover planets, satellites, dwarf planets, asteroids, NEOs, Centaurs, TNOs, comets and interstellar objects;
-- preserve aliases, designations, classifications, discovery/source metadata and completeness status;
-- explicitly test 1I/ʻOumuamua and representative comet/small-body identities.
+Required rules:
 
-**Exit:** broad local catalog independent of whether each object has locally materialized high-fidelity ephemeris.
+- physical bodies resolve to physical centers; system barycenters remain separate
+  first-class dynamical points and may not silently stand in for bodies;
+- "through 2250" means uninterrupted state capability through
+  `2250-12-31T23:59:59Z`, requiring source/model coverage through at least
+  `2251-01-01T00:00:00Z`;
+- promote the already-earned DE440/Ceres/official-planet-center authority into
+  `loom_solar` before new catalog expansion;
+- close Ceres, Saturn, Jupiter and Pluto physical-center horizon holes;
+- qualify the major/strategic moons and the strategic resource/object priority set;
+- establish a broad empirical catalog with explicit per-object state-capability
+  status and governed offline position capability through 2250;
+- preserve source-specific uncertainty and distinguish direct SPICE/Horizons
+  authority from non-navigation-grade empirical propagation;
+- test time conversion, frames, units, source/object coverage boundaries, identity,
+  center-vs-barycenter semantics, deterministic replay and failure modes;
+- run relevant unit, functional, PostgreSQL and backup/restore regression.
 
-### Phase 6 — Resolver expansion
+Catalog presence is not ephemeris qualification. Kernel target presence is not
+object-level promotion.
 
-- compose qualified satellite and small-body ephemeris providers;
-- implement provider/coverage selection without changing consumer contracts;
-- preserve source-specific uncertainty and validity.
+**Exit:** `EPHEMERIS_FOUNDATION_V1 = PASS` **and** the Phase-4 2250 completion gate
+passes with zero unresolved operational targets. Phase 5 is blocked until that
+machine-readable completion is recorded.
 
-**Exit:** representative major moon, dwarf planet, comet and interstellar-object state queries resolve through the same API.
+### Phase 5 — Post-baseline empirical catalog expansion
+
+Phase 5 begins only after the Phase-4 2250 completion gate has frozen the baseline
+empirical catalog and state-capability matrix.
+
+- ingest newly discovered or newly prioritized objects beyond the frozen baseline;
+- refresh authoritative inventory/crosswalk snapshots through versioned successor
+  manifests rather than mutating historical provenance;
+- extend aliases, designations, classifications, discovery/source metadata and
+  completeness status;
+- preserve the Phase-4 rule that an object may not become operational merely because
+  it is cataloged; operational promotion requires governed state capability for the
+  required horizon and quality class.
+
+**Exit:** versioned post-baseline catalog expansion with no regression of the frozen
+Phase-4 2250 state foundation.
+
+### Phase 6 — Post-baseline resolver/provider expansion
+
+The baseline multi-provider resolver for planets, moons, strategic small bodies and
+the Phase-4 empirical catalog is already required by the Phase-4 completion gate.
+
+Phase 6 may add later provider classes, higher-fidelity models, spacecraft,
+dynamical points or successor scientific products without changing consumer
+contracts.
+
+- compose additional qualified providers behind the existing resolver;
+- preserve provider/coverage selection, source-specific uncertainty and validity;
+- never downgrade an already-qualified Phase-4 target to a weaker implicit fallback.
+
+**Exit:** successor provider capability integrates without regressing the frozen
+Phase-4 state authority.
 
 ### Phase 7 — Empirical scientific enrichment
 
