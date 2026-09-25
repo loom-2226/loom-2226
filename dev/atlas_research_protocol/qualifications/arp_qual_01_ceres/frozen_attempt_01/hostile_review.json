@@ -1,0 +1,94 @@
+{
+  "attacks": [
+    {
+      "attack": "secondary_source_replaces_primary",
+      "errors": [
+        "AUTHORITY_LAUNDERING: assertion secondary-assertion selects secondary source while primary is represented"
+      ],
+      "rejected": true
+    },
+    {
+      "attack": "derived_publications_counted_independent",
+      "errors": [
+        "DUPLICATE_LINEAGE: lineage jpl-physical-table is counted as independent more than once"
+      ],
+      "rejected": true
+    },
+    {
+      "attack": "regional_to_global",
+      "errors": [
+        "SCOPE_LAUNDERING: assertion a-psr-area promotes local evidence globally"
+      ],
+      "rejected": true
+    },
+    {
+      "attack": "coarse_to_site_resolution",
+      "errors": [
+        "RESOLUTION_LAUNDERING: assertion a-pds-shape-product promotes coarse evidence to site scale"
+      ],
+      "rejected": true
+    },
+    {
+      "attack": "model_to_direct_measurement",
+      "errors": [
+        "EPISTEMIC_PROMOTION: assertion a-pds-gravity-product labels non-direct evidence as measurement"
+      ],
+      "rejected": true
+    },
+    {
+      "attack": "post_cutoff_source",
+      "errors": [
+        "CUTOFF: assertion a-jpl-equatorial-radius uses source evidence after cutoff",
+        "CUTOFF: assertion a-jpl-mean-radius uses source evidence after cutoff",
+        "CUTOFF: assertion a-jpl-mass uses source evidence after cutoff",
+        "CUTOFF: assertion a-jpl-density uses source evidence after cutoff",
+        "CUTOFF: assertion a-jpl-rotation-period uses source evidence after cutoff"
+      ],
+      "rejected": true
+    },
+    {
+      "attack": "range_midpoint_fabrication",
+      "errors": [
+        "RANGE_MIDPOINT: assertion a-thermal-inertia-range contains a scalar alongside a reported range"
+      ],
+      "rejected": true
+    },
+    {
+      "attack": "unknown_filled_with_value",
+      "errors": [
+        "RANGE_MIDPOINT: assertion a-thermal-inertia-range contains a scalar alongside a reported range",
+        "UNKNOWN_FABRICATION: assertion a-thermal-inertia-range fills UNKNOWN with a value"
+      ],
+      "rejected": true
+    },
+    {
+      "attack": "future_observable_promoted_to_knowable",
+      "errors": [
+        "FRONTIER_PROMOTION: future unobserved subsurface details is future-observable but knowable"
+      ],
+      "rejected": true
+    },
+    {
+      "attack": "forbidden_engineering_frontier",
+      "errors": [
+        "CONTAMINATION: frontier bulk physical parameters enters forbidden authority"
+      ],
+      "rejected": true
+    },
+    {
+      "attack": "false_completeness",
+      "errors": [
+        "FALSE_COMPLETENESS: campaign claims complete coverage with unresolved applicable lanes"
+      ],
+      "rejected": true
+    },
+    {
+      "attack": "blocking_lien_ignored",
+      "errors": [
+        "BLOCKING_LIEN: campaign has an open blocking lien"
+      ],
+      "rejected": true
+    }
+  ],
+  "status": "PASS"
+}

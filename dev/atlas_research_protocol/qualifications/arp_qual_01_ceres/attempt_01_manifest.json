@@ -1,0 +1,116 @@
+{
+  "arp_implementation_revision": "1.0.0",
+  "arp_version": "1.0.0",
+  "blindness": {
+    "allowed_inputs": [
+      "ARP generic implementation",
+      "generic profile/policy/contracts",
+      "public acquired artifacts listed here"
+    ],
+    "excluded_answer_key_paths": [
+      "HCQ-01 SQLite specimens",
+      "HCQ qualification reports",
+      "Ceres gold fixtures",
+      "ARP qualification reports and semantic diffs"
+    ],
+    "mode": "EXTERNAL_INPUT_ALLOWLIST",
+    "research_root": "/home/ubuntu/ARP01_CERES_BLIND",
+    "researcher_access_to_hcq": false
+  },
+  "campaign_id": "ARP-QUAL-01_CERES_BLIND_ATTEMPT_01",
+  "campaign_sha256": "4275e6d7e83535ce22a1d9492495d827bccd33bbe413a3136d31ca0e8c4514d9",
+  "cutoff": "2025-12-31T23:59:59Z",
+  "files": [
+    {
+      "byte_count": 22470,
+      "path": "artifacts/herschel_water.html",
+      "sha256": "c3fb268650859699dfeb32c24c5b6843f2a31e18e7076bbb07d451afbc1155c9"
+    },
+    {
+      "byte_count": 361009,
+      "path": "artifacts/interior_nature.html",
+      "sha256": "cc92ca817eb1b2d0781b2c92987d8705cb2f3e027eda0bbefdeb419aadfc027d"
+    },
+    {
+      "byte_count": 58244,
+      "path": "artifacts/jpl_phys.html",
+      "sha256": "e49a487947295c389ba6e5833dd8fb04b63e826d39f70c123881882096e5e68b"
+    },
+    {
+      "byte_count": 390197,
+      "path": "artifacts/occator_activity.html",
+      "sha256": "3f63d6ad24f8f4311079292bf583c34d2ea12e6601c1837159f64cc702fa8764"
+    },
+    {
+      "byte_count": 5285457,
+      "path": "artifacts/occator_brine_paper.pdf",
+      "sha256": "d87b054fca39125433b2b988fc83e3391638783d24cd4191ec29551e4b99c54d"
+    },
+    {
+      "byte_count": 13536,
+      "path": "artifacts/pds_coordinate.html",
+      "sha256": "30e4efaea3537bc5023b5a5396248d36a2fc3f43cb4435fe256affd8776a04bb"
+    },
+    {
+      "byte_count": 14489,
+      "path": "artifacts/pds_gravity_bundle.html",
+      "sha256": "4bd2cef580a84795828168388c6f728a614d191039dbec369bea7dcc3cd5539a"
+    },
+    {
+      "byte_count": 5364,
+      "path": "artifacts/pds_gravity_dataset.html",
+      "sha256": "c41775abbc9db32d3a11a23baa3d32a78b020b438b0a22679c62daa4c6fe779e"
+    },
+    {
+      "byte_count": 25637,
+      "path": "artifacts/pds_shape_profile.html",
+      "sha256": "ca267511379dd299740907233ef2cc0910110a095aa75ef1c5835d897bad2b8a"
+    },
+    {
+      "byte_count": 13766,
+      "path": "artifacts/pds_shape_resource.html",
+      "sha256": "871ed9e7b12ddae081e9dd2995ce65323424fe2877a8e05108e3224b0fba5d31"
+    },
+    {
+      "byte_count": 1462456,
+      "path": "artifacts/psr_model.pdf",
+      "sha256": "60900fa92d717f9910d4398cd8855b75e9a5d4fa48cb241244801173d8c6542d"
+    },
+    {
+      "byte_count": 44683,
+      "path": "artifacts/thermal_arxiv.html",
+      "sha256": "a9de69e122a527ae8364d0a0cea4703d2d10cf34fc9653fb10007c6cc7f09602"
+    },
+    {
+      "byte_count": 46993,
+      "path": "artifacts/vir_mineralogy.html",
+      "sha256": "216ee047022dc6e051697393b4c49c2e7c5674fd323d4d36db1adea1b6520fa4"
+    },
+    {
+      "byte_count": 431714,
+      "path": "artifacts/vir_nature.html",
+      "sha256": "0d7bf185bf957bb0344308af61cec00c85e5d7aef005658cfacdc541381b3b9d"
+    },
+    {
+      "byte_count": 33966,
+      "path": "campaign.json",
+      "sha256": "4275e6d7e83535ce22a1d9492495d827bccd33bbe413a3136d31ca0e8c4514d9"
+    },
+    {
+      "byte_count": 2909,
+      "path": "hostile_review.json",
+      "sha256": "2a66e1bc636103cc032aefd3a4093d9edc2d05c1230512d81f2bc2c15b649cf9"
+    },
+    {
+      "byte_count": 1952,
+      "path": "validation.json",
+      "sha256": "c2c88c333ed394ef5137c76a322133b200ac46fc231e17c3e95acc7c06ad8c36"
+    }
+  ],
+  "scientific_counts": {
+    "artifacts": 12,
+    "assertions": 16,
+    "independent_evidence_lineages": 11,
+    "sources": 12
+  }
+}

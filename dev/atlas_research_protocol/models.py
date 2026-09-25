@@ -49,6 +49,11 @@ class AssertionCandidate:
     normalized_unit: str | None = None
     reported_value: Any = None
     normalized_value: Any = None
+    reported_uncertainty: Any = None
+    normalized_uncertainty: Any = None
+    uncertainty_unit: str | None = None
+    normalization_method: str | None = None
+    reported_precision: str | None = None
     value_min: Any = None
     value_max: Any = None
     resolution: dict[str, Any] = field(default_factory=dict)

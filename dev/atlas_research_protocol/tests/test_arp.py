@@ -66,6 +66,21 @@ class ARPTest(unittest.TestCase):
         self.assertFails(lambda c: c["sources"][0].update(publication_date="2026-01-01"), "CUTOFF")
         self.assertFails(lambda c: c["assertions"][0].update(value_min=1, value_max=3, reported_value=2, reported_unit="km"), "RANGE_MIDPOINT")
 
+    def test_reported_and_normalized_values_require_explicit_lineage(self):
+        self.assertFails(lambda c: c["assertions"][0].update(reported_value=1, normalized_value=1000, reported_unit="m", normalized_unit="mm"), "NORMALIZATION")
+        campaign = copy.deepcopy(self.campaign)
+        campaign["assertions"][0].update(reported_value=1, normalized_value=1000, reported_unit="m", normalized_unit="mm", normalization_method="unit conversion")
+        self.assertEqual("PASS", qualify(campaign, self.policy, REPO)["status"])
+
+    def test_uncertainty_requires_nonnegative_value_and_unit(self):
+        self.assertFails(lambda c: c["assertions"][0].update(reported_uncertainty=-1, uncertainty_unit="km"), "UNCERTAINTY")
+        self.assertFails(lambda c: c["assertions"][0].update(reported_uncertainty=1), "UNCERTAINTY")
+
+    def test_assertion_artifact_must_belong_to_assertion_source(self):
+        def mutate(c):
+            c["artifacts"][0]["source_id"] = "different-source"
+        self.assertFails(mutate, "PROVENANCE")
+
     def test_unknown_and_frontier_promotion_fail(self):
         self.assertFails(lambda c: c["assertions"][0].update(research_coverage="UNKNOWN", reported_value=1, reported_unit="km"), "UNKNOWN_FABRICATION")
         self.assertFails(lambda c: c["epistemic_frontier"][0].update(phase="FUTURE_OBSERVABLE", state_at_cutoff="KNOWABLE"), "FRONTIER_PROMOTION")
