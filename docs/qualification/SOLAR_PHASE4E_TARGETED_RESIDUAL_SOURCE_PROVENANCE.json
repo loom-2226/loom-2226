@@ -1,0 +1,25 @@
+{
+  "artifact": "SOLAR_PHASE4E_TARGETED_RESIDUAL_SOURCE_PROVENANCE",
+  "direct_products": [
+    {
+      "body": "New Horizons",
+      "provider": "JPL/PDS/NAIF",
+      "product": "nh_pred_alleph_od164.bsp",
+      "sha256": "b676f0053ee02f6e32f7e2b23ca2e865ec9f424caa3f2710e87aa06621adc050",
+      "coverage": "2019-01-01T05:34:32Z/2033-01-01T11:58:51Z"
+    }
+  ],
+  "derived_products": [
+    {"body":"Pioneer 10","product":"propagated_pioneer10_1990_2251.bsp","sha256":"217611f8da7a264eeeee8920af635fc8ac451872c269eb01c823ef73d2eb5114","coverage":"2026-01-01T00:00:00Z/2251-01-01T00:00:00Z"},
+    {"body":"Pioneer 11","product":"propagated_pioneer11_1990_2251.bsp","sha256":"d081eb7f4888f3629303102365bd07355374f270a9fd80fc2969db51d8a73dd7","coverage":"2026-01-01T00:00:00Z/2251-01-01T00:00:00Z"},
+    {"body":"Voyager 1","product":"propagated_voyager1_2100_2251.bsp","sha256":"68ea2420006b560ae3e59243cd21a3ba515380cb2bfb54d7c9e93e38527014f3","coverage":"2026-01-01T00:00:00Z/2251-01-01T00:00:00Z"},
+    {"body":"Voyager 2","product":"propagated_voyager2_2100_2251.bsp","sha256":"4daa5b72afff049ad909252a35f4b8b34fbcf5fc31c1057a69238da520575726","coverage":"2026-01-01T00:00:00Z/2251-01-01T00:00:00Z"},
+    {"body":"New Horizons","product":"propagated_new_horizons_2033_2251.bsp","sha256":"f8c7f0e16f1ba9dc3b6ae78b727e656c3059a5035b2e7c280f90edcd91d37506","coverage":"2033-01-01T00:00:00Z/2251-01-01T00:00:00Z"}
+  ],
+  "model": "LOOM_SOLAR_PHASE4E_RK4_NBODY_V1",
+  "frame": "ECLIPJ2000",
+  "units": "km,km/s",
+  "force_model": ["solar gravity", "differential DE440 planetary perturbations"],
+  "integration_step_seconds": 86400,
+  "navigation_grade": false
+}

@@ -32,7 +32,7 @@ class Phase4EQualificationTests(unittest.TestCase):
         self.assertEqual(self.evidence["counts"]["accounted_outcomes"], 47)
         self.assertEqual(sum(row["cohort"] == "NATURAL" for row in self.evidence["rows"]), 42)
         self.assertEqual(sum(row["cohort"] == "SPACECRAFT" for row in self.evidence["rows"]), 5)
-        self.assertEqual({row["outcome"] for row in self.evidence["rows"]}, {"QUALIFIED_HORIZONS", "QUALIFIED_DIRECT", "PARTIAL", "CATALOG_ONLY"})
+        self.assertEqual({row["outcome"] for row in self.evidence["rows"]}, {"QUALIFIED_HORIZONS", "QUALIFIED_DIRECT", "QUALIFIED_PROPAGATED", "PARTIAL", "CATALOG_ONLY"})
 
     def test_all_manifest_assets_are_hash_pinned(self):
         for asset in self.document["assets"]:
@@ -68,11 +68,9 @@ class Phase4EQualificationTests(unittest.TestCase):
         for body, epoch in (("PIONEER10", "1973-01-01T00:00:00Z"), ("PIONEER11", "1974-01-01T00:00:00Z"), ("VOYAGER1", "1981-01-01T00:00:00Z"), ("VOYAGER2", "1990-01-01T00:00:00Z")):
             state = self.service.resolve(body, epoch)
             self.assertFalse(state.navigation_grade)
-            self.assertEqual(state.provenance["state_capability"], "EPHEMERIS_PARTIAL")
-        with self.assertRaises(CelestialStateError):
-            self.service.resolve("PIONEER10", "2026-01-01T00:00:00Z")
-        with self.assertRaises(CelestialStateError):
-            self.service.resolve("NEWHORIZONS", EPOCHS[0])
+            self.assertTrue(state.provenance["state_capability"].startswith("DIRECT_SPICE_PARTIAL") or state.provenance["state_capability"] == "EPHEMERIS_PARTIAL")
+        self.assertEqual(self.service.resolve("PIONEER10", "2026-01-01T00:00:00Z").provenance["state_capability"], "EMPIRICAL_PROPAGATED_2250")
+        self.assertEqual(self.service.resolve("NEWHORIZONS", EPOCHS[0]).provenance["state_capability"], "DIRECT_SPICE_PARTIAL_2033")
 
 
 if __name__ == "__main__":

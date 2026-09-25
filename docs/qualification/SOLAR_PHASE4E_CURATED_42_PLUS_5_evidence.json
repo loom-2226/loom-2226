@@ -841,16 +841,16 @@
       "object_type": "SPACECRAFT",
       "naif_id": "-23",
       "parent_body_id": null,
-      "outcome": "PARTIAL",
+      "outcome": "QUALIFIED_PROPAGATED",
       "source_ids": [
-        "NAIF_PIONEER10_SPK"
+        "PROP_4E_PIONEER10"
       ],
       "coverage": {
-        "valid_from": "1972-03-03T02:04:00.000Z",
-        "valid_until": "1990-01-02T00:00:00.000Z"
+        "valid_from": "2026-01-01T00:00:00Z",
+        "valid_until": "2251-01-01T00:00:00Z"
       },
       "navigation_grade": false,
-      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+      "reason": "Explicit LOOM empirical spacecraft propagation from authoritative mission state; held-out comparison recorded; navigation_grade=false."
     },
     {
       "cohort_entry": 44,
@@ -861,16 +861,16 @@
       "object_type": "SPACECRAFT",
       "naif_id": "-24",
       "parent_body_id": null,
-      "outcome": "PARTIAL",
+      "outcome": "QUALIFIED_PROPAGATED",
       "source_ids": [
-        "NAIF_PIONEER11_SPK"
+        "PROP_4E_PIONEER11"
       ],
       "coverage": {
-        "valid_from": "1973-04-06T02:25:00.000Z",
-        "valid_until": "1990-01-02T00:00:00.000Z"
+        "valid_from": "2026-01-01T00:00:00Z",
+        "valid_until": "2251-01-01T00:00:00Z"
       },
       "navigation_grade": false,
-      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+      "reason": "Explicit LOOM empirical spacecraft propagation from authoritative mission state; held-out comparison recorded; navigation_grade=false."
     },
     {
       "cohort_entry": 45,
@@ -881,16 +881,16 @@
       "object_type": "SPACECRAFT",
       "naif_id": "-31",
       "parent_body_id": null,
-      "outcome": "PARTIAL",
+      "outcome": "QUALIFIED_PROPAGATED",
       "source_ids": [
-        "NAIF_VOYAGER1_SPK"
+        "PROP_4E_VOYAGER1"
       ],
       "coverage": {
-        "valid_from": "1980-12-31T23:59:08.816Z",
-        "valid_until": "2099-12-31T23:58:50.816Z"
+        "valid_from": "2026-01-01T00:00:00Z",
+        "valid_until": "2251-01-01T00:00:00Z"
       },
       "navigation_grade": false,
-      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+      "reason": "Explicit LOOM empirical spacecraft propagation from authoritative mission state; held-out comparison recorded; navigation_grade=false."
     },
     {
       "cohort_entry": 46,
@@ -901,16 +901,16 @@
       "object_type": "SPACECRAFT",
       "naif_id": "-32",
       "parent_body_id": null,
-      "outcome": "PARTIAL",
+      "outcome": "QUALIFIED_PROPAGATED",
       "source_ids": [
-        "NAIF_VOYAGER2_SPK"
+        "PROP_4E_VOYAGER2"
       ],
       "coverage": {
-        "valid_from": "1989-08-29T07:59:03.817Z",
-        "valid_until": "2099-12-31T23:58:50.816Z"
+        "valid_from": "2026-01-01T00:00:00Z",
+        "valid_until": "2251-01-01T00:00:00Z"
       },
       "navigation_grade": false,
-      "reason": "Authoritative mission SPK ends before 2250; retained as explicit historical partial."
+      "reason": "Explicit LOOM empirical spacecraft propagation from authoritative mission state; held-out comparison recorded; navigation_grade=false."
     },
     {
       "cohort_entry": 47,
@@ -921,11 +921,17 @@
       "object_type": "SPACECRAFT",
       "naif_id": "-98",
       "parent_body_id": null,
-      "outcome": "CATALOG_ONLY",
-      "source_ids": [],
-      "coverage": null,
+      "outcome": "QUALIFIED_PROPAGATED",
+      "source_ids": [
+        "PROP_4E_NEWHORIZONS",
+        "NAIF_NH_OD164"
+      ],
+      "coverage": {
+        "valid_from": "2033-01-01T00:00:00Z",
+        "valid_until": "2251-01-01T00:00:00Z"
+      },
       "navigation_grade": false,
-      "reason": "Catalog identity resolved; no independent authoritative SPK target accepted."
+      "reason": "Explicit LOOM empirical spacecraft propagation from authoritative mission state; held-out comparison recorded; navigation_grade=false."
     }
   ]
 }

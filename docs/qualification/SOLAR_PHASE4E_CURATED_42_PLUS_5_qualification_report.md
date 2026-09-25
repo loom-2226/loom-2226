@@ -11,10 +11,17 @@ authority ending 2199-12-29. Proteus, Dactyl and Selam are catalog-only because
 no independent authoritative SPK target was available. The interstellar objects
 retain their Horizons hyperbolic identities and actual SPK target IDs.
 
-Pioneer 10, Pioneer 11, Voyager 1 and Voyager 2 use official mission SPKs as
-historical/forecast partial authority; New Horizons is catalog-only because no
-accepted local mission SPK product was available. Spacecraft are non-navigation-
-grade and are never extended to 2250 by assertion.
+The targeted residual closure subsequently acquired the official New Horizons
+PDS OD164 SPK through 2033. Pioneer 10/11 and Voyager 1/2 now have explicit
+LOOM empirical extensions from their mission kernels through 2251, and New
+Horizons has the same extension after its direct OD164 interval. All five
+extensions use solar gravity plus differential DE440 planetary perturbations,
+fixed-step RK4, held-out comparisons, conservative uncertainty, and
+`navigation_grade=false`.
+
+Proteus, Dactyl and Selam remain catalog-only; Nix, Hydra, Kerberos and Styx
+remain partial under PLU060 because no defensible independent 2250 state source
+was found.
 
 No trajectory samples are stored in PostgreSQL. Migration 016 stores identity,
 source, exact coverage, cohort accounting, spacecraft mission metadata, and

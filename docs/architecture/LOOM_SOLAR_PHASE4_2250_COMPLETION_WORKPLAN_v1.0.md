@@ -448,8 +448,10 @@ extension; it is not direct JPL authority. Binary companions are recorded
 semantically without invented component states, and published comet
 non-gravitational models are preserved in source provenance.
 
-The locked Phase 4E curated 42+5 implementation is complete; any broader
-Phase-4E catalog work remains explicitly out of scope.
+The locked Phase 4E curated 42+5 implementation is complete. The targeted
+residual closure adds a direct New Horizons PDS interval and explicit empirical
+spacecraft extensions; any broader Phase-4E catalog work remains explicitly
+out of scope.
 # Phase 4E curated 42+5 implementation
 
 The locked Phase 4E curated cohort is implemented by migration 016 and manifest
