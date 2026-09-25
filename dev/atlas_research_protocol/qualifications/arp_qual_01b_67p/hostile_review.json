@@ -1,0 +1,104 @@
+{
+  "all_attacks_rejected": true,
+  "attack_count": 10,
+  "attacks": {
+    "coarse_to_site": {
+      "errors": [
+        "RESOLUTION_LAUNDERING: assertion as-identity promotes coarse evidence to site scale"
+      ],
+      "expected_rejection": "RESOLUTION_LAUNDERING",
+      "passed": true
+    },
+    "coverage_basis_removal": {
+      "errors": [
+        "COVERAGE_BASIS: covered lane gravity_shape lacks explicit evidence-question basis"
+      ],
+      "expected_rejection": "COVERAGE_BASIS",
+      "passed": true
+    },
+    "duplicate_assertion": {
+      "errors": [
+        "DUPLICATE_ASSERTION: assertion DUP repeats canonical key IDENTITY|67P|Rosetta"
+      ],
+      "expected_rejection": "DUPLICATE_ASSERTION",
+      "passed": true
+    },
+    "forbidden_frontier": {
+      "errors": [
+        "CONTAMINATION: frontier body_identity enters forbidden authority"
+      ],
+      "expected_rejection": "CONTAMINATION",
+      "passed": true
+    },
+    "frontier_promotion": {
+      "errors": [
+        "CONTAMINATION: frontier body_identity enters forbidden authority"
+      ],
+      "expected_rejection": "CONTAMINATION",
+      "passed": true
+    },
+    "model_to_observation": {
+      "errors": [
+        "EPISTEMIC_PROMOTION: assertion as-shape-archive labels non-direct evidence as measurement"
+      ],
+      "expected_rejection": "EPISTEMIC_PROMOTION",
+      "passed": true
+    },
+    "post_cutoff": {
+      "errors": [
+        "CUTOFF: assertion as-identity uses source evidence after cutoff"
+      ],
+      "expected_rejection": "CUTOFF",
+      "passed": true
+    },
+    "range_midpoint": {
+      "errors": [
+        "RANGE_MIDPOINT: assertion as-gravity-gm contains a scalar alongside a reported range",
+        "NORMALIZATION: assertion as-gravity-gm changes reported value/unit without a normalization method"
+      ],
+      "expected_rejection": "RANGE_MIDPOINT",
+      "passed": true
+    },
+    "regional_to_global": {
+      "errors": [
+        "SCOPE_LAUNDERING: assertion as-identity promotes local evidence globally"
+      ],
+      "expected_rejection": "SCOPE_LAUNDERING",
+      "passed": true
+    },
+    "unknown_fabrication": {
+      "errors": [
+        "NORMALIZATION: assertion as-identity changes reported value/unit without a normalization method",
+        "UNKNOWN_FABRICATION: assertion as-identity fills UNKNOWN with a value"
+      ],
+      "expected_rejection": "UNKNOWN_FABRICATION",
+      "passed": true
+    }
+  },
+  "campaign_id": "ARP-QUAL-01B_67P_TRANSFER",
+  "fresh_context": true,
+  "liens": [
+    {
+      "finding": "No orbit-element artifact admitted.",
+      "lien_id": "L-67P-ORBIT-001",
+      "severity": "NON_BLOCKING",
+      "state": "SOURCE_UNAVAILABLE",
+      "target": "orbit_geometry"
+    },
+    {
+      "finding": "No complete regional evidence matrix.",
+      "lien_id": "L-67P-REGION-001",
+      "severity": "NON_BLOCKING",
+      "state": "ACCEPTED_UNKNOWN",
+      "target": "regional"
+    },
+    {
+      "finding": "Site-scale geotechnical values unknown.",
+      "lien_id": "L-67P-GEO-001",
+      "severity": "NON_BLOCKING",
+      "state": "ACCEPTED_UNKNOWN",
+      "target": "geology_geotechnical"
+    }
+  ],
+  "status": "PASS"
+}

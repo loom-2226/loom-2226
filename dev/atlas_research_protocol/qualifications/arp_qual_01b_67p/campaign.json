@@ -1,0 +1,987 @@
+{
+  "arp_version": "1.0.0",
+  "artifacts": [
+    {
+      "artifact_id": "a-esa-factsheet",
+      "byte_count": 20418,
+      "local_path": "artifacts/esa_rosetta_factsheet.html",
+      "locator": "https://www.esa.int/Science_Exploration/Space_Science/Rosetta/Rosetta_factsheet",
+      "media_type": "text/html",
+      "original_filename": "esa_rosetta_factsheet.html",
+      "retrieved_at": "2026-09-26T00:00:00Z",
+      "sha256": "80041ca21b45090409ed9ee9cefc6b15ccd404a61eca4f4658a4e40c025c0a0a",
+      "source_id": "esa-rosetta-factsheet",
+      "version": null
+    },
+    {
+      "artifact_id": "a-pds-holdings",
+      "byte_count": 186084,
+      "local_path": "artifacts/pds_rosetta_holdings.html",
+      "locator": "https://pdssbn.astro.umd.edu/data_sb/missions/rosetta/index.shtml",
+      "media_type": "text/html",
+      "original_filename": "pds_rosetta_holdings.html",
+      "retrieved_at": "2026-09-26T00:00:00Z",
+      "sha256": "d4b8ca154f26255a67cb30c43f7747d312f450ff40470645c76b03f58f624edc",
+      "source_id": "pds-rosetta-holdings",
+      "version": null
+    },
+    {
+      "artifact_id": "a-pds-shape",
+      "byte_count": 14755,
+      "local_path": "artifacts/pds_67p_shape_profile.html",
+      "locator": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=RO-C-MULTI-5-67P-SHAPE-V1.0",
+      "media_type": "text/html",
+      "original_filename": "pds_67p_shape_profile.html",
+      "retrieved_at": "2026-09-26T00:00:00Z",
+      "sha256": "8004e4be714dadf0adc3266ef467ed50082860c09423cfd25be180e3628e8b22",
+      "source_id": "pds-67p-shape",
+      "version": null
+    },
+    {
+      "artifact_id": "a-gravity",
+      "byte_count": 338987,
+      "local_path": "artifacts/gravity_nature.html",
+      "locator": "https://www.nature.com/articles/nature16535",
+      "media_type": "text/html",
+      "original_filename": "gravity_nature.html",
+      "retrieved_at": "2026-09-26T00:00:00Z",
+      "sha256": "98f39e41b01157a6f17d21acb300b5ce6f10fefbb9b08e6c980667db8bf309a4",
+      "source_id": "nature-gravity-67p",
+      "version": null
+    },
+    {
+      "artifact_id": "a-temperature",
+      "byte_count": 445368,
+      "local_path": "artifacts/temperature_nature.html",
+      "locator": "https://www.nature.com/articles/s41550-019-0740-0",
+      "media_type": "text/html",
+      "original_filename": "temperature_nature.html",
+      "retrieved_at": "2026-09-26T00:00:00Z",
+      "sha256": "25051f3839aae69f22ac6f56635f239bdd34a6e6fbd5ba695acd6dec6c2ecd3f",
+      "source_id": "nature-temperature-67p",
+      "version": null
+    },
+    {
+      "artifact_id": "a-activity",
+      "byte_count": 48691,
+      "local_path": "artifacts/activity_arxiv.html",
+      "locator": "https://arxiv.org/abs/1901.02806",
+      "media_type": "text/html",
+      "original_filename": "activity_arxiv.html",
+      "retrieved_at": "2026-09-26T00:00:00Z",
+      "sha256": "b6456494cad157f255a5405912e25342a3a3a150212fa46ed667eeaa52a9a550",
+      "source_id": "arxiv-activity-67p",
+      "version": null
+    },
+    {
+      "artifact_id": "a-virtis",
+      "byte_count": 21260,
+      "local_path": "artifacts/virtis_pubmed.html",
+      "locator": "https://pubmed.ncbi.nlm.nih.gov/25613895/",
+      "media_type": "text/html",
+      "original_filename": "virtis_pubmed.html",
+      "retrieved_at": "2026-09-26T00:00:00Z",
+      "sha256": "e6ffa1d19606de58db00be0c52a23aa15df6a9a2bd8a53d19e5917fbbb95d97b",
+      "source_id": "pubmed-virtis-67p",
+      "version": null
+    },
+    {
+      "artifact_id": "a-rosina-volatiles",
+      "byte_count": 49113,
+      "local_path": "artifacts/rosina_volatiles_arxiv.html",
+      "locator": "https://arxiv.org/abs/1909.02082",
+      "media_type": "text/html",
+      "original_filename": "rosina_volatiles_arxiv.html",
+      "retrieved_at": "2026-09-26T00:00:00Z",
+      "sha256": "d8a2ae4332dccd19eb65a146b0e97e311ca055b4cb0a625010380cb907dddf25",
+      "source_id": "arxiv-rosina-volatiles",
+      "version": null
+    },
+    {
+      "artifact_id": "a-rosina-abundances",
+      "byte_count": 46976,
+      "local_path": "artifacts/rosina_abundances_arxiv.html",
+      "locator": "https://arxiv.org/abs/1907.11044",
+      "media_type": "text/html",
+      "original_filename": "rosina_abundances_arxiv.html",
+      "retrieved_at": "2026-09-26T00:00:00Z",
+      "sha256": "f6eefb0371098a92bb003ef9a49bfb5b817f349474cd531b10f8bdd03fede152",
+      "source_id": "arxiv-rosina-abundances",
+      "version": null
+    }
+  ],
+  "assertions": [
+    {
+      "artifact_id": "a-esa-factsheet",
+      "assertion_id": "as-identity",
+      "canonical_assertion_key": "IDENTITY|67P|Rosetta",
+      "claim_kind": "OBSERVATION",
+      "evidence_class": "IN_SITU_REMOTE",
+      "independent_evidence_lineage_id": "esa-mission",
+      "method_type": "MISSION_DOCUMENTATION",
+      "normalization_method": null,
+      "normalized_uncertainty": null,
+      "normalized_unit": null,
+      "normalized_value": null,
+      "notes": "ESA identifies the Rosetta target as comet 67P/Churyumov-Gerasimenko.",
+      "property_code": "BODY_IDENTITY",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": null,
+      "reported_unit": null,
+      "reported_value": null,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "esa-rosetta-factsheet",
+      "status": "CANDIDATE",
+      "temporal_context": null,
+      "uncertainty_unit": null,
+      "value_max": null,
+      "value_min": null
+    },
+    {
+      "artifact_id": "a-pds-shape",
+      "assertion_id": "as-shape-archive",
+      "canonical_assertion_key": "SHAPE_MODEL|PDS|V1.0",
+      "claim_kind": "MODEL_PRODUCT",
+      "evidence_class": "PHYSICAL_MODEL",
+      "independent_evidence_lineage_id": "pds-shape",
+      "method_type": "STEREOPHOTOGRAMMETRY",
+      "normalization_method": null,
+      "normalized_uncertainty": null,
+      "normalized_unit": null,
+      "normalized_value": null,
+      "notes": "PDS archive contains multiple OSIRIS/NAVCAM shape models and the body-centered reference frame.",
+      "property_code": "SHAPE_MODEL",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": null,
+      "reported_unit": null,
+      "reported_value": null,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "pds-67p-shape",
+      "status": "CANDIDATE",
+      "temporal_context": null,
+      "uncertainty_unit": null,
+      "value_max": null,
+      "value_min": null
+    },
+    {
+      "artifact_id": "a-gravity",
+      "assertion_id": "as-gravity-gm",
+      "canonical_assertion_key": "GM|666.2|m^3/s^2",
+      "claim_kind": "MODEL_RESULT",
+      "evidence_class": "DYNAMICAL_INFERENCE",
+      "independent_evidence_lineage_id": "rsi-gravity",
+      "method_type": "RADIO_SCIENCE_FLYBY",
+      "normalization_method": null,
+      "normalized_uncertainty": 0.2,
+      "normalized_unit": "m^3/s^2",
+      "normalized_value": 666.2,
+      "notes": "Gravity field inferred from spacecraft velocity perturbations at fly-by distances of 10\u2013100 km.",
+      "property_code": "GM",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": 0.2,
+      "reported_unit": "m^3/s^2",
+      "reported_value": 666.2,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "nature-gravity-67p",
+      "status": "CANDIDATE",
+      "temporal_context": null,
+      "uncertainty_unit": "m^3/s^2",
+      "value_max": null,
+      "value_min": null
+    },
+    {
+      "artifact_id": "a-gravity",
+      "assertion_id": "as-gravity-mass",
+      "canonical_assertion_key": "MASS|9982|10^9kg",
+      "claim_kind": "MODEL_RESULT",
+      "evidence_class": "DYNAMICAL_INFERENCE",
+      "independent_evidence_lineage_id": "rsi-gravity",
+      "method_type": "RADIO_SCIENCE_FLYBY",
+      "normalization_method": "reported 9982 \u00d7 10^9 kg scaled to kg",
+      "normalized_uncertainty": 3000000000.0,
+      "normalized_unit": "kg",
+      "normalized_value": 9982000000000.0,
+      "notes": "Mass reported by the source as (9,982 \u00b1 3) \u00d7 10^9 kg.",
+      "property_code": "MASS",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": 3,
+      "reported_unit": "10^9 kg",
+      "reported_value": 9982,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "nature-gravity-67p",
+      "status": "CANDIDATE",
+      "temporal_context": null,
+      "uncertainty_unit": "kg",
+      "value_max": null,
+      "value_min": null
+    },
+    {
+      "artifact_id": "a-gravity",
+      "assertion_id": "as-gravity-density",
+      "canonical_assertion_key": "BULK_DENSITY|533|kg/m^3",
+      "claim_kind": "DERIVATION",
+      "evidence_class": "DERIVED",
+      "independent_evidence_lineage_id": "rsi-gravity",
+      "method_type": "GRAVITY_AND_SHAPE",
+      "normalization_method": null,
+      "normalized_uncertainty": 6,
+      "normalized_unit": "kg/m^3",
+      "normalized_value": 533,
+      "notes": "Source combines gravity-derived mass with nucleus volume; no independent scalar observation is implied.",
+      "property_code": "BULK_DENSITY",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": 6,
+      "reported_unit": "kg/m^3",
+      "reported_value": 533,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "nature-gravity-67p",
+      "status": "CANDIDATE",
+      "temporal_context": null,
+      "uncertainty_unit": "kg/m^3",
+      "value_max": null,
+      "value_min": null
+    },
+    {
+      "artifact_id": "a-gravity",
+      "assertion_id": "as-gravity-porosity",
+      "canonical_assertion_key": "POROSITY|72-74|percent",
+      "claim_kind": "MODEL_RESULT",
+      "evidence_class": "PHYSICAL_MODEL",
+      "independent_evidence_lineage_id": "rsi-gravity",
+      "method_type": "GRAVITY_AND_SHAPE",
+      "normalization_method": null,
+      "normalized_uncertainty": null,
+      "normalized_unit": "%",
+      "normalized_value": null,
+      "notes": "Global porosity interval reported from gravity and composition interpretation; no local porosity is inferred.",
+      "property_code": "POROSITY",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": null,
+      "reported_unit": "%",
+      "reported_value": null,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "nature-gravity-67p",
+      "status": "CANDIDATE",
+      "temporal_context": null,
+      "uncertainty_unit": null,
+      "value_max": 74,
+      "value_min": 72
+    },
+    {
+      "artifact_id": "a-temperature",
+      "assertion_id": "as-temperature-map",
+      "canonical_assertion_key": "SURFACE_TEMPERATURE|VIRTIS|2014",
+      "claim_kind": "OBSERVATION",
+      "evidence_class": "IN_SITU_REMOTE",
+      "independent_evidence_lineage_id": "virtis-temperature",
+      "method_type": "VIRTIS_THERMAL_MAP",
+      "normalization_method": null,
+      "normalized_uncertainty": null,
+      "normalized_unit": null,
+      "normalized_value": null,
+      "notes": "Time-resolved VIRTIS temperature maps cover roughly two months in 2014; source states resolution \u226415 m per pixel and heliocentric distance 3.62\u20133.31 au.",
+      "property_code": "SURFACE_TEMPERATURE",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": null,
+      "reported_unit": null,
+      "reported_value": null,
+      "resolution": {
+        "claimed_grain": "INSTRUMENT_FOOTPRINT",
+        "horizontal_unit": "m/pixel",
+        "horizontal_value": 15,
+        "semantics": "reported spatial resolution upper bound",
+        "source_grain": "INSTRUMENT_FOOTPRINT"
+      },
+      "scope_type": "INSTRUMENT_FOOTPRINT",
+      "source_id": "nature-temperature-67p",
+      "status": "CANDIDATE",
+      "temporal_context": "2014 pre-perihelion; approximately two months",
+      "uncertainty_unit": null,
+      "value_max": null,
+      "value_min": null
+    },
+    {
+      "artifact_id": "a-activity",
+      "assertion_id": "as-activity-model",
+      "canonical_assertion_key": "ACTIVITY_MODEL|TRAJECTORY_ROTATION_WATER",
+      "claim_kind": "MODEL_RESULT",
+      "evidence_class": "PHYSICAL_MODEL",
+      "independent_evidence_lineage_id": "activity-model",
+      "method_type": "TRAJECTORY_ROTATION_WATER_PRODUCTION_MODEL",
+      "normalization_method": null,
+      "normalized_uncertainty": null,
+      "normalized_unit": null,
+      "normalized_value": null,
+      "notes": "Model combines trajectory, rotation and water-production observations; activity is time-dependent and not promoted to a timeless nucleus property.",
+      "property_code": "ACTIVITY_STATE",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": null,
+      "reported_unit": null,
+      "reported_value": null,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "arxiv-activity-67p",
+      "status": "CANDIDATE",
+      "temporal_context": "Rosetta mission observations; time-variable",
+      "uncertainty_unit": null,
+      "value_max": null,
+      "value_min": null
+    },
+    {
+      "artifact_id": "a-rosina-volatiles",
+      "assertion_id": "as-volatile-species",
+      "canonical_assertion_key": "VOLATILE_SPECIES|H2O_CO2_CO_O2",
+      "claim_kind": "OBSERVATION",
+      "evidence_class": "IN_SITU_DIRECT",
+      "independent_evidence_lineage_id": "rosina-volatiles",
+      "method_type": "ROSINA_DFMS_COPS",
+      "normalization_method": null,
+      "normalized_uncertainty": null,
+      "normalized_unit": null,
+      "normalized_value": null,
+      "notes": "Relative densities of H2O, CO2, CO and O2 measured in the coma; production distributions are subsequently inverted.",
+      "property_code": "VOLATILE_COMPOSITION",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": null,
+      "reported_unit": null,
+      "reported_value": null,
+      "resolution": {
+        "claimed_grain": "GLOBAL",
+        "semantics": "mission-scale coma distribution",
+        "source_grain": "GLOBAL"
+      },
+      "scope_type": "GLOBAL",
+      "source_id": "arxiv-rosina-volatiles",
+      "status": "CANDIDATE",
+      "temporal_context": "Rosetta mission, over two years; coma observations",
+      "uncertainty_unit": null,
+      "value_max": null,
+      "value_min": null
+    },
+    {
+      "artifact_id": "a-rosina-volatiles",
+      "assertion_id": "as-volatile-activity",
+      "canonical_assertion_key": "VOLATILE_PRODUCTION|TIME_VARIABLE",
+      "claim_kind": "MODEL_RESULT",
+      "evidence_class": "PHYSICAL_MODEL",
+      "independent_evidence_lineage_id": "rosina-volatiles",
+      "method_type": "DFMS_COPS_INVERSION",
+      "normalization_method": null,
+      "normalized_uncertainty": null,
+      "normalized_unit": null,
+      "normalized_value": null,
+      "notes": "Surface production distributions and production rates are model-derived from coma measurements; not direct local nucleus flux measurements.",
+      "property_code": "VOLATILE_PRODUCTION",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": null,
+      "reported_unit": null,
+      "reported_value": null,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "arxiv-rosina-volatiles",
+      "status": "CANDIDATE",
+      "temporal_context": null,
+      "uncertainty_unit": null,
+      "value_max": null,
+      "value_min": null
+    },
+    {
+      "artifact_id": "a-virtis",
+      "assertion_id": "as-virmaterial",
+      "canonical_assertion_key": "SURFACE_ORGANIC_MATERIAL|VIRTIS",
+      "claim_kind": "INTERPRETATION",
+      "evidence_class": "IN_SITU_REMOTE",
+      "independent_evidence_lineage_id": "virtis-surface",
+      "method_type": "VIRTIS_SPECTRAL_ANALYSIS",
+      "normalization_method": null,
+      "normalized_uncertainty": null,
+      "normalized_unit": null,
+      "normalized_value": null,
+      "notes": "VIRTIS result concerns the illuminated surface spectral observations; it is not a bulk-interior composition measurement.",
+      "property_code": "SURFACE_COMPOSITION",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": null,
+      "reported_unit": null,
+      "reported_value": null,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "pubmed-virtis-67p",
+      "status": "CANDIDATE",
+      "temporal_context": null,
+      "uncertainty_unit": null,
+      "value_max": null,
+      "value_min": null
+    },
+    {
+      "artifact_id": "a-rosina-abundances",
+      "assertion_id": "as-elemental-abundance",
+      "canonical_assertion_key": "ELEMENTAL_ABUNDANCE|O_C_H_N",
+      "claim_kind": "INTERPRETATION",
+      "evidence_class": "IN_SITU_DIRECT",
+      "independent_evidence_lineage_id": "rosina-abundance",
+      "method_type": "ROSINA_COMPOSITION_INTEGRATION",
+      "normalization_method": null,
+      "normalized_uncertainty": null,
+      "normalized_unit": null,
+      "normalized_value": null,
+      "notes": "Integrated inventory combines ROSINA volatile measurements with gas/dust composition literature; preserves interpretation versus direct measurement.",
+      "property_code": "ELEMENTAL_ABUNDANCE",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": null,
+      "reported_unit": null,
+      "reported_value": null,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "arxiv-rosina-abundances",
+      "status": "CANDIDATE",
+      "temporal_context": null,
+      "uncertainty_unit": null,
+      "value_max": null,
+      "value_min": null
+    },
+    {
+      "artifact_id": "a-temperature",
+      "assertion_id": "as-thermal-seasonal",
+      "canonical_assertion_key": "THERMAL_SEASONAL_VARIATION|2014",
+      "claim_kind": "INTERPRETATION",
+      "evidence_class": "IN_SITU_REMOTE",
+      "independent_evidence_lineage_id": "virtis-temperature",
+      "method_type": "VIRTIS_TIME_RESOLVED_MAPPING",
+      "normalization_method": null,
+      "normalized_uncertainty": null,
+      "normalized_unit": null,
+      "normalized_value": null,
+      "notes": "Temperature changes are reported as diurnal/seasonal effects tied to shape, self-heating and heliocentric distance; not a single timeless surface temperature.",
+      "property_code": "THERMAL_ENVIRONMENT",
+      "provenance_complete": true,
+      "region_id": null,
+      "reported_precision": null,
+      "reported_uncertainty": null,
+      "reported_unit": null,
+      "reported_value": null,
+      "resolution": {},
+      "scope_type": "INSTRUMENT_FOOTPRINT",
+      "source_id": "nature-temperature-67p",
+      "status": "CANDIDATE",
+      "temporal_context": null,
+      "uncertainty_unit": null,
+      "value_max": null,
+      "value_min": null
+    }
+  ],
+  "body_profile": "comet",
+  "campaign_id": "ARP-QUAL-01B_67P_TRANSFER",
+  "coverage_contract_version": "1.0.2",
+  "coverage_summary": {
+    "complete_claim": false,
+    "notes": "Sparse, time-aware empirical envelope; no exhaustive knowledge claim."
+  },
+  "epistemic_frontier": [
+    {
+      "evidence_class": "IN_SITU_REMOTE",
+      "phase": "KNOWABLE",
+      "research_coverage": "COVERED",
+      "state_at_cutoff": "SUPPORTED",
+      "variable": "body_identity"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "No orbit-element source artifact admitted.",
+      "phase": "KNOWABLE",
+      "research_coverage": "SOURCE_NOT_FOUND",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "orbit_geometry"
+    },
+    {
+      "evidence_class": "DYNAMICAL_INFERENCE",
+      "phase": "KNOWABLE",
+      "research_coverage": "COVERED",
+      "state_at_cutoff": "SUPPORTED",
+      "variable": "shape_and_mass"
+    },
+    {
+      "evidence_class": "IN_SITU_REMOTE",
+      "limitation": "Time- and footprint-bounded VIRTIS mapping.",
+      "phase": "KNOWABLE",
+      "research_coverage": "COVERED",
+      "state_at_cutoff": "SUPPORTED_WITH_EPOCH",
+      "variable": "surface_temperature"
+    },
+    {
+      "evidence_class": "IN_SITU_DIRECT",
+      "phase": "KNOWABLE",
+      "research_coverage": "COVERED",
+      "state_at_cutoff": "SUPPORTED",
+      "variable": "volatile_coma"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "No direct deep-interior composition measurement.",
+      "phase": "KNOWABLE",
+      "research_coverage": "COVERED",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "nucleus_deep_composition"
+    },
+    {
+      "evidence_class": "PHYSICAL_MODEL",
+      "limitation": "Model is epoch-dependent.",
+      "phase": "INFERRED",
+      "research_coverage": "COVERED",
+      "state_at_cutoff": "SUPPORTED_TIME_DEPENDENT",
+      "variable": "activity_state"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "No site-scale geotechnical value was established.",
+      "phase": "KNOWABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "site_scale_strength"
+    }
+  ],
+  "implementation_version": "1.0.2",
+  "knowledge_cutoff": "2025-12-31T23:59:59Z",
+  "lanes": {
+    "activity": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "activity:time-dependence",
+          "rationale": "Primary activity model uses time-varying trajectory, rotation and water production.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "activity:localization",
+          "rationale": "This campaign does not establish a complete source-region map for all activity.",
+          "state": "UNKNOWN"
+        },
+        {
+          "question_id": "activity:permanence",
+          "rationale": "Activity is represented as epoch-dependent rather than permanent.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "PARTIAL",
+      "pass_2": "COVERED"
+    },
+    "geology_geotechnical": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "notes": "Morphology and global physical interpretation are represented; local mechanical properties remain unresolved.",
+      "pass_1": "UNKNOWN",
+      "pass_2": "PARTIAL"
+    },
+    "gravity_shape": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "gravity:mass-gm-density",
+          "rationale": "Rosetta RSI primary analysis reports GM, mass and bulk density.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "shape:global-model",
+          "rationale": "NASA PDS preserves multiple mission shape models.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "gravity:interior",
+          "rationale": "Gravity analysis reports a global density/porosity interpretation with explicit model class.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    },
+    "history": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "notes": "Mission chronology is represented, not a complete publication/adoption history.",
+      "pass_1": "UNKNOWN",
+      "pass_2": "PARTIAL"
+    },
+    "identity": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "identity:target-and-mission",
+          "rationale": "ESA mission document identifies the target and mission.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "identity:observing-system",
+          "rationale": "PDS/ESA archive identifies Rosetta and Philae data holdings.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    },
+    "mineralogy_composition": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "composition:surface",
+          "rationale": "VIRTIS primary analysis addresses the organic-rich surface.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "composition:volatile-elemental",
+          "rationale": "ROSINA primary analysis provides integrated elemental/molecular interpretation.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "composition:deep-interior",
+          "rationale": "No direct deep-interior composition measurement was admitted.",
+          "state": "UNKNOWN"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    },
+    "orbit_geometry": {
+      "applicable": true,
+      "coverage": "SOURCE_NOT_FOUND",
+      "notes": "No cutoff-safe orbit-element artifact was acquired in this bounded campaign.",
+      "pass_1": "UNKNOWN",
+      "pass_2": "SOURCE_NOT_FOUND"
+    },
+    "regional": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "notes": "The acquired shape model is global; a full region/site evidence matrix was not acquired.",
+      "pass_1": "UNKNOWN",
+      "pass_2": "PARTIAL"
+    },
+    "rotation_orientation": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "rotation:reference-frame",
+          "rationale": "PDS shape dataset includes a body-centered reference frame.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "rotation:spin-solution",
+          "rationale": "No scalar rotation solution was extracted in this bounded transfer campaign.",
+          "state": "UNKNOWN"
+        }
+      ],
+      "pass_1": "PARTIAL",
+      "pass_2": "COVERED"
+    },
+    "thermal_environment": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "thermal:surface-mapping",
+          "rationale": "VIRTIS primary analysis reports time-resolved surface temperature maps and resolution.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "thermal:time-variation",
+          "rationale": "The source explicitly treats diurnal and seasonal variation.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "thermal:subsurface",
+          "rationale": "This campaign does not establish a general subsurface thermal profile.",
+          "state": "UNKNOWN"
+        }
+      ],
+      "pass_1": "PARTIAL",
+      "pass_2": "COVERED"
+    },
+    "water_volatiles": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "volatile:coma-species",
+          "rationale": "ROSINA source reports major volatile species in the coma.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "volatile:nucleus-inventory",
+          "rationale": "Coma measurements and model inversion do not by themselves establish a complete local nucleus inventory.",
+          "state": "UNKNOWN"
+        },
+        {
+          "question_id": "volatile:time-variation",
+          "rationale": "ROSINA source covers production distributions over the mission.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    }
+  },
+  "liens": [
+    {
+      "finding": "No cutoff-safe orbit-element artifact admitted.",
+      "lien_id": "L-67P-ORBIT-001",
+      "severity": "NON_BLOCKING",
+      "state": "SOURCE_UNAVAILABLE",
+      "target": "orbit_geometry"
+    },
+    {
+      "finding": "Full site/regional evidence matrix not established.",
+      "lien_id": "L-67P-REGION-001",
+      "severity": "NON_BLOCKING",
+      "state": "ACCEPTED_UNKNOWN",
+      "target": "regional"
+    },
+    {
+      "finding": "Site-scale mechanical properties remain unknown.",
+      "lien_id": "L-67P-GEO-001",
+      "severity": "NON_BLOCKING",
+      "state": "ACCEPTED_UNKNOWN",
+      "target": "geology_geotechnical"
+    }
+  ],
+  "metrics": {
+    "artifacts_reused": 0,
+    "assertions_accepted": 13,
+    "assertions_extracted": 13,
+    "assertions_rejected": 0,
+    "coverage_after_pass_1": {
+      "activity": "PARTIAL",
+      "geology_geotechnical": "UNKNOWN",
+      "gravity_shape": "COVERED",
+      "history": "UNKNOWN",
+      "identity": "COVERED",
+      "mineralogy_composition": "COVERED",
+      "orbit_geometry": "UNKNOWN",
+      "regional": "UNKNOWN",
+      "rotation_orientation": "PARTIAL",
+      "thermal_environment": "PARTIAL",
+      "water_volatiles": "COVERED"
+    },
+    "coverage_after_pass_2": {
+      "activity": "COVERED",
+      "geology_geotechnical": "PARTIAL",
+      "gravity_shape": "COVERED",
+      "history": "PARTIAL",
+      "identity": "COVERED",
+      "mineralogy_composition": "COVERED",
+      "orbit_geometry": "SOURCE_NOT_FOUND",
+      "regional": "PARTIAL",
+      "rotation_orientation": "COVERED",
+      "thermal_environment": "COVERED",
+      "water_volatiles": "COVERED"
+    },
+    "coverage_before": {
+      "activity": "UNKNOWN",
+      "geology_geotechnical": "UNKNOWN",
+      "gravity_shape": "UNKNOWN",
+      "history": "UNKNOWN",
+      "identity": "UNKNOWN",
+      "mineralogy_composition": "UNKNOWN",
+      "orbit_geometry": "UNKNOWN",
+      "regional": "UNKNOWN",
+      "rotation_orientation": "UNKNOWN",
+      "thermal_environment": "UNKNOWN",
+      "water_volatiles": "UNKNOWN"
+    },
+    "duplicate_work_avoided": 2,
+    "elapsed_research_seconds": 840,
+    "evidence_questions": 19,
+    "external_research_operations": 17,
+    "pass_2_new_assertions": 6,
+    "pass_2_targets": [
+      "rotation_orientation",
+      "thermal_environment",
+      "activity",
+      "regional",
+      "orbit_geometry"
+    ],
+    "source_not_found_evidence_questions": 1,
+    "sources_acquired": 9,
+    "sources_discovered": 17,
+    "sources_rejected": 6,
+    "unknown_evidence_questions": 5
+  },
+  "qualification_state": "UNQUALIFIED",
+  "repository_baseline": "2501e4ac1a1e3ce445241811bceae32d772f78c9",
+  "research_tier": "TIER_A",
+  "solar_facts_schema_version": "v0.3-R1",
+  "sources": [
+    {
+      "authority_domain": "mission",
+      "authority_role": "PRIMARY",
+      "doi": null,
+      "locator": "https://www.esa.int/Science_Exploration/Space_Science/Rosetta/Rosetta_factsheet",
+      "persistent_identifier": "ESA-ROSETTA-FACTSHEET",
+      "primary_available": true,
+      "provider": "ESA",
+      "publication_date": "2016-09-30",
+      "source_id": "esa-rosetta-factsheet",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "Rosetta factsheet"
+    },
+    {
+      "authority_domain": "mission_archive",
+      "authority_role": "PRIMARY",
+      "doi": null,
+      "locator": "https://pdssbn.astro.umd.edu/data_sb/missions/rosetta/index.shtml",
+      "persistent_identifier": "PDS-SBN-ROSETTA",
+      "primary_available": true,
+      "provider": "NASA PDS Small Bodies Node",
+      "publication_date": "2025-01-01",
+      "source_id": "pds-rosetta-holdings",
+      "source_type": "DATA_ARCHIVE",
+      "title": "Rosetta mission support holdings"
+    },
+    {
+      "authority_domain": "shape",
+      "authority_role": "PRIMARY",
+      "doi": null,
+      "locator": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=RO-C-MULTI-5-67P-SHAPE-V1.0",
+      "persistent_identifier": "RO-C-MULTI-5-67P-SHAPE-V1.0",
+      "primary_available": true,
+      "provider": "NASA PDS Small Bodies Node / ESA PSA",
+      "publication_date": "2015-01-01",
+      "source_id": "pds-67p-shape",
+      "source_type": "DATA_PRODUCT",
+      "title": "Shape models of 67P/Churyumov-Gerasimenko V1.0"
+    },
+    {
+      "authority_domain": "gravity_shape",
+      "authority_role": "PRIMARY",
+      "doi": "10.1038/nature16535",
+      "locator": "https://www.nature.com/articles/nature16535",
+      "persistent_identifier": null,
+      "primary_available": true,
+      "provider": "Rosetta Radio Science Investigation",
+      "publication_date": "2016-02-03",
+      "source_id": "nature-gravity-67p",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "A homogeneous nucleus for comet 67P from its gravity field"
+    },
+    {
+      "authority_domain": "thermal_environment",
+      "authority_role": "PRIMARY",
+      "doi": "10.1038/s41550-019-0740-0",
+      "locator": "https://www.nature.com/articles/s41550-019-0740-0",
+      "persistent_identifier": null,
+      "primary_available": true,
+      "provider": "Rosetta VIRTIS",
+      "publication_date": "2019-04-22",
+      "source_id": "nature-temperature-67p",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "The changing temperature of the nucleus of comet 67P"
+    },
+    {
+      "authority_domain": "activity",
+      "authority_role": "PRIMARY",
+      "doi": null,
+      "locator": "https://arxiv.org/abs/1901.02806",
+      "persistent_identifier": "arXiv:1901.02806",
+      "primary_available": true,
+      "provider": "Rosetta mission analysis",
+      "publication_date": "2019-01-09",
+      "source_id": "arxiv-activity-67p",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "Constraining models of activity on comet 67P"
+    },
+    {
+      "authority_domain": "mineralogy_composition",
+      "authority_role": "PRIMARY",
+      "doi": "10.1126/science.aaa0628",
+      "locator": "https://pubmed.ncbi.nlm.nih.gov/25613895/",
+      "persistent_identifier": null,
+      "primary_available": true,
+      "provider": "Rosetta VIRTIS",
+      "publication_date": "2015-01-23",
+      "source_id": "pubmed-virtis-67p",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "The organic-rich surface of comet 67P as seen by VIRTIS"
+    },
+    {
+      "authority_domain": "water_volatiles",
+      "authority_role": "PRIMARY",
+      "doi": "10.1016/j.icarus.2019.113421",
+      "locator": "https://arxiv.org/abs/1909.02082",
+      "persistent_identifier": "arXiv:1909.02082",
+      "primary_available": true,
+      "provider": "Rosetta ROSINA",
+      "publication_date": "2019-09-04",
+      "source_id": "arxiv-rosina-volatiles",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "Surface distributions of major volatile species from ROSINA"
+    },
+    {
+      "authority_domain": "mineralogy_composition",
+      "authority_role": "PRIMARY",
+      "doi": "10.1093/mnras/stz2086",
+      "locator": "https://arxiv.org/abs/1907.11044",
+      "persistent_identifier": "arXiv:1907.11044",
+      "primary_available": true,
+      "provider": "Rosetta ROSINA",
+      "publication_date": "2019-08-12",
+      "source_id": "arxiv-rosina-abundances",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "Elemental and molecular abundances in comet 67P"
+    }
+  ],
+  "status": "RESUMABLE",
+  "target_body": "67P/Churyumov-Gerasimenko",
+  "unresolved_gaps": [
+    {
+      "description": "No cutoff-safe orbit-element artifact acquired in this bounded campaign.",
+      "gap_id": "ORBIT-67P-001",
+      "lane": "orbit_geometry"
+    },
+    {
+      "description": "No complete regional/site evidence matrix acquired.",
+      "gap_id": "REGION-67P-001",
+      "lane": "regional"
+    },
+    {
+      "description": "Site-scale mechanical properties remain unknown.",
+      "gap_id": "GEO-67P-001",
+      "lane": "geology_geotechnical"
+    },
+    {
+      "description": "Complete publication/adoption/revision history not represented.",
+      "gap_id": "HIST-67P-001",
+      "lane": "history"
+    }
+  ]
+}

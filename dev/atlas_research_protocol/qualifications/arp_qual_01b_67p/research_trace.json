@@ -1,0 +1,48 @@
+{
+  "campaign_id": "ARP-QUAL-01B_67P_TRANSFER",
+  "external_research_stopped": true,
+  "passes": [
+    {
+      "coverage": {
+        "activity": "PARTIAL",
+        "geology_geotechnical": "UNKNOWN",
+        "gravity_shape": "COVERED",
+        "history": "UNKNOWN",
+        "identity": "COVERED",
+        "mineralogy_composition": "COVERED",
+        "orbit_geometry": "UNKNOWN",
+        "regional": "UNKNOWN",
+        "rotation_orientation": "PARTIAL",
+        "thermal_environment": "PARTIAL",
+        "water_volatiles": "COVERED"
+      },
+      "name": "ASSESS/PASS_1",
+      "operations": 11
+    },
+    {
+      "coverage": {
+        "activity": "COVERED",
+        "geology_geotechnical": "PARTIAL",
+        "gravity_shape": "COVERED",
+        "history": "PARTIAL",
+        "identity": "COVERED",
+        "mineralogy_composition": "COVERED",
+        "orbit_geometry": "SOURCE_NOT_FOUND",
+        "regional": "PARTIAL",
+        "rotation_orientation": "COVERED",
+        "thermal_environment": "COVERED",
+        "water_volatiles": "COVERED"
+      },
+      "name": "TARGETED/PASS_2",
+      "operations": 6,
+      "targets": [
+        "rotation_orientation",
+        "thermal_environment",
+        "activity",
+        "regional",
+        "orbit_geometry"
+      ]
+    }
+  ],
+  "stop_rule": "Stop after primary coverage, explicit evidence-question dispositions, provenance validation, and diminishing returns across remaining gaps."
+}

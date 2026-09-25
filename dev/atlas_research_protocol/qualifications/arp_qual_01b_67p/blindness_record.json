@@ -1,0 +1,23 @@
+{
+  "allowed_inputs": [
+    "ARP v1.0.2 generic package",
+    "comet body profile",
+    "source authority policy",
+    "publicly acquired 67P artifacts"
+  ],
+  "blind_root": "/home/ubuntu/ARP01B_67P_BLIND/dev/atlas_research_protocol/qualifications/arp_qual_01b_67p",
+  "campaign_id": "ARP-QUAL-01B_67P_TRANSFER",
+  "excluded_answer_key_material": [
+    "dev/solar_facts_hcq01/**",
+    "dev/atlas_research_protocol/fixtures/ceres_gold.json",
+    "dev/atlas_research_protocol/qualifications/arp_qual_01_ceres/**",
+    "ARP-QUAL-01 Ceres comparison and qualification reports"
+  ],
+  "excluded_paths_verified_absent": [
+    "/home/ubuntu/ARP01B_67P_BLIND/dev/solar_facts_hcq01",
+    "/home/ubuntu/ARP01B_67P_BLIND/dev/atlas_research_protocol/fixtures/ceres_gold.json",
+    "/home/ubuntu/ARP01B_67P_BLIND/dev/atlas_research_protocol/qualifications/arp_qual_01_ceres"
+  ],
+  "method": "External-input allowlist; research execution copied only generic ARP modules and acquired 67P artifacts into the blind root.",
+  "research_phase_answer_key_access": false
+}

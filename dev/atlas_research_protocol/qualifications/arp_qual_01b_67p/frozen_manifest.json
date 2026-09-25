@@ -1,0 +1,84 @@
+{
+  "accepted_candidate_count": 13,
+  "arp_implementation_version": "1.0.2",
+  "arp_protocol_version": "1.0.0",
+  "artifact_manifest": [
+    {
+      "artifact_id": "a-esa-factsheet",
+      "byte_count": 20418,
+      "path": "artifacts/esa_rosetta_factsheet.html",
+      "sha256": "80041ca21b45090409ed9ee9cefc6b15ccd404a61eca4f4658a4e40c025c0a0a",
+      "source_id": "esa-rosetta-factsheet"
+    },
+    {
+      "artifact_id": "a-pds-holdings",
+      "byte_count": 186084,
+      "path": "artifacts/pds_rosetta_holdings.html",
+      "sha256": "d4b8ca154f26255a67cb30c43f7747d312f450ff40470645c76b03f58f624edc",
+      "source_id": "pds-rosetta-holdings"
+    },
+    {
+      "artifact_id": "a-pds-shape",
+      "byte_count": 14755,
+      "path": "artifacts/pds_67p_shape_profile.html",
+      "sha256": "8004e4be714dadf0adc3266ef467ed50082860c09423cfd25be180e3628e8b22",
+      "source_id": "pds-67p-shape"
+    },
+    {
+      "artifact_id": "a-gravity",
+      "byte_count": 338987,
+      "path": "artifacts/gravity_nature.html",
+      "sha256": "98f39e41b01157a6f17d21acb300b5ce6f10fefbb9b08e6c980667db8bf309a4",
+      "source_id": "nature-gravity-67p"
+    },
+    {
+      "artifact_id": "a-temperature",
+      "byte_count": 445368,
+      "path": "artifacts/temperature_nature.html",
+      "sha256": "25051f3839aae69f22ac6f56635f239bdd34a6e6fbd5ba695acd6dec6c2ecd3f",
+      "source_id": "nature-temperature-67p"
+    },
+    {
+      "artifact_id": "a-activity",
+      "byte_count": 48691,
+      "path": "artifacts/activity_arxiv.html",
+      "sha256": "b6456494cad157f255a5405912e25342a3a3a150212fa46ed667eeaa52a9a550",
+      "source_id": "arxiv-activity-67p"
+    },
+    {
+      "artifact_id": "a-virtis",
+      "byte_count": 21260,
+      "path": "artifacts/virtis_pubmed.html",
+      "sha256": "e6ffa1d19606de58db00be0c52a23aa15df6a9a2bd8a53d19e5917fbbb95d97b",
+      "source_id": "pubmed-virtis-67p"
+    },
+    {
+      "artifact_id": "a-rosina-volatiles",
+      "byte_count": 49113,
+      "path": "artifacts/rosina_volatiles_arxiv.html",
+      "sha256": "d8a2ae4332dccd19eb65a146b0e97e311ca055b4cb0a625010380cb907dddf25",
+      "source_id": "arxiv-rosina-volatiles"
+    },
+    {
+      "artifact_id": "a-rosina-abundances",
+      "byte_count": 46976,
+      "path": "artifacts/rosina_abundances_arxiv.html",
+      "sha256": "f6eefb0371098a92bb003ef9a49bfb5b817f349474cd531b10f8bdd03fede152",
+      "source_id": "arxiv-rosina-abundances"
+    }
+  ],
+  "assertion_count": 13,
+  "campaign_byte_count": 35487,
+  "campaign_id": "ARP-QUAL-01B_67P_TRANSFER",
+  "campaign_sha256": "2f5637c36fa657017f6668b42a7f05f356ebdd0d4db8953be51a0bffca0f38fa",
+  "external_research_stopped": true,
+  "frozen": true,
+  "frozen_at": "2026-09-25T22:13:36Z",
+  "knowledge_cutoff": "2025-12-31T23:59:59Z",
+  "qualification": {
+    "blocking": false,
+    "errors": [],
+    "status": "PASS"
+  },
+  "repository_baseline": "2501e4ac1a1e3ce445241811bceae32d772f78c9"
+}
