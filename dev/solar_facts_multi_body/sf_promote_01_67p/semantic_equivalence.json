@@ -1,0 +1,72 @@
+{
+  "campaign_sha256": "2f5637c36fa657017f6668b42a7f05f356ebdd0d4db8953be51a0bffca0f38fa",
+  "records": [
+    {
+      "assertion_id": "as-identity",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-shape-archive",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-gravity-gm",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-gravity-mass",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-gravity-density",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-gravity-porosity",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-temperature-map",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-activity-model",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-volatile-species",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-volatile-activity",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-virmaterial",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-elemental-abundance",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    },
+    {
+      "assertion_id": "as-thermal-seasonal",
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "disposition": "PROMOTE"
+    }
+  ],
+  "semantic_drift": 0,
+  "promotion_error": 0
+}
