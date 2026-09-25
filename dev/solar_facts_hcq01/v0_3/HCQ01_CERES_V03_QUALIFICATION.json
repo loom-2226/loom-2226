@@ -1,0 +1,42 @@
+{
+  "authorized_metadata_changes": [
+    {
+      "after": "PREPRINT",
+      "before": "OTHER",
+      "classification": "AUTHORIZED_METADATA_CHANGE",
+      "column": "source_type",
+      "key": [
+        9
+      ],
+      "reason": "preserved arXiv artifact is a preprint",
+      "table": "source"
+    }
+  ],
+  "byte_identical_independent_output": true,
+  "candidate_fact_promotions": 0,
+  "deterministic_semantic_output": true,
+  "fact_input_rows": 2,
+  "fact_status_distribution": {
+    "CANDIDATE": 8
+  },
+  "foreign_key_check": [],
+  "integrity_check": "ok",
+  "knowledge_event_rows": 4,
+  "new_scientific_observations": 0,
+  "preferred_fact_count": 0,
+  "qualification_case": "HCQ-01_CERES",
+  "resource_or_civprop_rows_added": 0,
+  "schema": "LOOM_SOLAR_FACTUAL_ENRICHMENT_DDL_v0.3",
+  "status": "QUALIFIED_LOCALLY_LOSSLESS_MIGRATION",
+  "tests": {
+    "legacy_hcq01": 14,
+    "total": 23,
+    "v03_migration_hostile": 9
+  },
+  "unexpected_change_count": 0,
+  "v2_database": "LOOM_SOLAR_HCQ01_CERES.sqlite3",
+  "v2_sha256": "91137126f635cd35e7ccde20cc41ed342dbd23dec7e7af304d9220318f1da26d",
+  "v2_unchanged": true,
+  "v3_database": "LOOM_SOLAR_HCQ01_CERES_v0_3.sqlite3",
+  "v3_sha256": "310c35491e3768adcfc1607c4542603613d8d28ad00df883755537805037ed74"
+}

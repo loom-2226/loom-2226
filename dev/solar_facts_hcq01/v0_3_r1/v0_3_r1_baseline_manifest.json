@@ -1,0 +1,68 @@
+{
+  "database_sha256": "310c35491e3768adcfc1607c4542603613d8d28ad00df883755537805037ed74",
+  "evidence_class_distribution": {
+    "DERIVED": 1,
+    "DYNAMICAL_INFERENCE": 2,
+    "IN_SITU_REMOTE": 4,
+    "PHYSICAL_MODEL": 1
+  },
+  "fact_status_distribution": {
+    "CANDIDATE": 8
+  },
+  "foreign_key_check": [],
+  "integrity_check": "ok",
+  "preferred_fact_count": 0,
+  "row_counts": {
+    "activity_fact": 2,
+    "body": 1,
+    "body_model_product": 9,
+    "body_region": 5,
+    "derived_input": 1,
+    "derived_quantity": 1,
+    "fact": 8,
+    "fact_input": 2,
+    "fact_observation": 2,
+    "gravity_model": 1,
+    "knowledge_event": 4,
+    "material_evidence": 6,
+    "meta": 10,
+    "observation": 8,
+    "orientation_model": 1,
+    "preferred_fact": 0,
+    "property_definition": 53,
+    "region_model_product": 3,
+    "source": 16,
+    "source_assertion": 8
+  },
+  "schema": "LOOM_SOLAR_FACTUAL_ENRICHMENT_DDL_v0.3",
+  "schema_version": "v0.3",
+  "source_type_distribution": {
+    "DATA_PRODUCT": 5,
+    "OFFICIAL_REFERENCE": 2,
+    "OTHER": 1,
+    "PEER_REVIEWED": 7,
+    "PREPRINT": 1
+  },
+  "table_inventory": [
+    "activity_fact",
+    "body",
+    "body_model_product",
+    "body_region",
+    "derived_input",
+    "derived_quantity",
+    "fact",
+    "fact_input",
+    "fact_observation",
+    "gravity_model",
+    "knowledge_event",
+    "material_evidence",
+    "meta",
+    "observation",
+    "orientation_model",
+    "preferred_fact",
+    "property_definition",
+    "region_model_product",
+    "source",
+    "source_assertion"
+  ]
+}

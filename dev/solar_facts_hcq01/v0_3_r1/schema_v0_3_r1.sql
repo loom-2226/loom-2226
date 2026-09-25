@@ -1,0 +1,18 @@
+-- LOOM_SOLAR_FACTUAL_ENRICHMENT_DDL_v0.3-R1
+--
+-- This file documents the deterministic repair delta applied by
+-- migration_r1.py to a pristine v0.3 candidate.  The v0.3 scientific
+-- tables and rows are copied unchanged.  SQLite table reconstruction is
+-- required only for the stricter knowledge_event temporal CHECK; the
+-- repair triggers are installed transactionally by the migration module.
+--
+-- Database boundary: event_time accepts only YYYY-MM-DD or
+-- YYYY-MM-DDTHH:MM:SSZ syntax.  Actual calendar validity (for example,
+-- rejecting 2025-02-30) is enforced by temporal.py at the application
+-- boundary because SQLite CHECK expressions are not a complete calendar
+-- parser.  No precision is added to existing date-only events.
+--
+-- R1 adds UPDATE-safe endpoint guards for every enumerated same-body
+-- relationship in relationship_matrix.json.  Existing v0.3 rows, values,
+-- provenance, statuses, PREPRINT classification, fact_input lineage and
+-- observation-scale NULLs are preserved.

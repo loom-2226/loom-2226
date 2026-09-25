@@ -1,0 +1,23 @@
+{
+  "schema": "LOOM_SOLAR_FACTUAL_ENRICHMENT_DDL_v0.3-R1",
+  "purpose": "Same-body semantic relationships examined for edge and endpoint mutation.",
+  "relationships": [
+    {"relationship": "fact_fact_observation_observation", "edge_tables": ["fact_observation"], "endpoints": ["fact", "observation"], "guards": ["v0.3 edge triggers", "trg_r1_fact_body_update", "trg_r1_observation_body_update"]},
+    {"relationship": "fact_fact_input_input_fact", "edge_tables": ["fact_input"], "endpoints": ["fact", "fact"], "guards": ["v0.3 edge triggers", "trg_r1_fact_body_update"]},
+    {"relationship": "fact_fact_input_input_observation", "edge_tables": ["fact_input"], "endpoints": ["fact", "observation"], "guards": ["v0.3 edge triggers", "trg_r1_fact_body_update", "trg_r1_observation_body_update"]},
+    {"relationship": "fact_fact_input_input_model", "edge_tables": ["fact_input"], "endpoints": ["fact", "body_model_product"], "guards": ["v0.3 edge triggers", "trg_r1_fact_body_update", "trg_r1_model_body_update"]},
+    {"relationship": "body_region_model_product", "edge_tables": ["region_model_product"], "endpoints": ["body_region", "body_model_product"], "guards": ["v0.3 edge triggers", "trg_r1_region_body_update", "trg_r1_model_body_update"]},
+    {"relationship": "body_region_fact", "edge_tables": ["fact"], "endpoints": ["body_region", "fact"], "guards": ["v0.3 edge triggers", "trg_r1_region_body_update", "trg_r1_fact_body_update"]},
+    {"relationship": "body_region_observation", "edge_tables": ["observation"], "endpoints": ["body_region", "observation"], "guards": ["v0.3 edge triggers", "trg_r1_region_body_update", "trg_r1_observation_body_update"]},
+    {"relationship": "body_region_material", "edge_tables": ["material_evidence"], "endpoints": ["body_region", "material_evidence"], "guards": ["v0.3 edge triggers", "trg_r1_region_body_update"]},
+    {"relationship": "body_region_activity", "edge_tables": ["activity_fact"], "endpoints": ["body_region", "activity_fact"], "guards": ["v0.3 edge triggers", "trg_r1_region_body_update"]},
+    {"relationship": "body_region_model", "edge_tables": ["body_model_product"], "endpoints": ["body_region", "body_model_product"], "guards": ["v0.3 edge triggers", "trg_r1_region_body_update", "trg_r1_model_body_update"]},
+    {"relationship": "observation_material", "edge_tables": ["material_evidence"], "endpoints": ["observation", "material_evidence"], "guards": ["trg_r1_material_observation_insert", "trg_r1_material_observation_update", "trg_r1_observation_body_update"]},
+    {"relationship": "observation_activity", "edge_tables": ["activity_fact"], "endpoints": ["observation", "activity_fact"], "guards": ["trg_r1_activity_observation_insert", "trg_r1_activity_observation_update", "trg_r1_observation_body_update"]},
+    {"relationship": "derived_quantity_derived_input_fact", "edge_tables": ["derived_input"], "endpoints": ["derived_quantity", "fact"], "guards": ["trg_r1_derived_input_insert", "trg_r1_derived_input_update", "trg_r1_derived_body_update", "trg_r1_fact_body_update"]},
+    {"relationship": "derived_quantity_region", "edge_tables": ["derived_quantity"], "endpoints": ["derived_quantity", "body_region"], "guards": ["trg_r1_derived_region_update", "trg_r1_region_body_update"]},
+    {"relationship": "fact_supersession", "edge_tables": ["fact"], "endpoints": ["fact", "fact"], "guards": ["trg_r1_fact_supersession_insert", "trg_r1_fact_supersession_update", "trg_r1_fact_body_update"]},
+    {"relationship": "preferred_fact_fact_region", "edge_tables": ["preferred_fact"], "endpoints": ["preferred_fact", "fact", "body_region"], "guards": ["trg_r1_preferred_insert", "trg_r1_preferred_update", "trg_r1_fact_body_update", "trg_r1_region_body_update"]}
+  ],
+  "policy": "A body_id mutation is allowed when no existing same-body relationship would be violated; otherwise the database aborts it."
+}
