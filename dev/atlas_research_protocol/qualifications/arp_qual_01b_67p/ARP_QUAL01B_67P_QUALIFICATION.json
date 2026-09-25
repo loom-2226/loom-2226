@@ -1,0 +1,424 @@
+{
+  "arp_implementation_version": "1.0.2",
+  "arp_protocol_version": "1.0.0",
+  "assertions": {
+    "accepted": 13,
+    "extracted": 13,
+    "rejected": 0
+  },
+  "authority_firewall": {
+    "canonical_67p_promotion": false,
+    "forbidden_inference": false,
+    "hcq_sha256": "0bbbfd5ae2ab287900ff4e356f9571d21aff4593cc78e0cd69bf1610def9adc6",
+    "phase4_phase5": false,
+    "preferred_fact": false
+  },
+  "blindness": {
+    "allowed_inputs": [
+      "ARP v1.0.2 generic package",
+      "comet body profile",
+      "source authority policy",
+      "publicly acquired 67P artifacts"
+    ],
+    "blind_root": "/home/ubuntu/ARP01B_67P_BLIND/dev/atlas_research_protocol/qualifications/arp_qual_01b_67p",
+    "campaign_id": "ARP-QUAL-01B_67P_TRANSFER",
+    "excluded_answer_key_material": [
+      "dev/solar_facts_hcq01/**",
+      "dev/atlas_research_protocol/fixtures/ceres_gold.json",
+      "dev/atlas_research_protocol/qualifications/arp_qual_01_ceres/**",
+      "ARP-QUAL-01 Ceres comparison and qualification reports"
+    ],
+    "excluded_paths_verified_absent": [
+      "/home/ubuntu/ARP01B_67P_BLIND/dev/solar_facts_hcq01",
+      "/home/ubuntu/ARP01B_67P_BLIND/dev/atlas_research_protocol/fixtures/ceres_gold.json",
+      "/home/ubuntu/ARP01B_67P_BLIND/dev/atlas_research_protocol/qualifications/arp_qual_01_ceres"
+    ],
+    "method": "External-input allowlist; research execution copied only generic ARP modules and acquired 67P artifacts into the blind root.",
+    "research_phase_answer_key_access": false
+  },
+  "body_profile": "comet",
+  "europa_readiness": "READY_FOR_ARP_QUAL_02_EUROPA",
+  "europa_readiness_reason": "ARP v1.0.2 transferred beyond Ceres with explicit evidence-question accounting, preserved temporal/spatial distinctions, acceptable UNKNOWN/SOURCE_NOT_FOUND states, provenance validation, and a fresh hostile review with no blocking liens.",
+  "extraction_completeness": {
+    "campaign_id": "ARP-QUAL-01B_67P_TRANSFER",
+    "high_value_artifacts_reviewed": 9,
+    "known_targeted_extraction_misses": [],
+    "review": "Each acquired high-value artifact was checked against the question that motivated acquisition; unresolved questions remain explicit in coverage and frontier.",
+    "scope": "Targeted extraction only; not an exhaustive extraction of every publication statement.",
+    "targeted_evidence_questions_with_extracted_support": 14
+  },
+  "frozen_manifest": {
+    "accepted_candidate_count": 13,
+    "arp_implementation_version": "1.0.2",
+    "arp_protocol_version": "1.0.0",
+    "artifact_manifest": [
+      {
+        "artifact_id": "a-esa-factsheet",
+        "byte_count": 20418,
+        "path": "artifacts/esa_rosetta_factsheet.html",
+        "sha256": "80041ca21b45090409ed9ee9cefc6b15ccd404a61eca4f4658a4e40c025c0a0a",
+        "source_id": "esa-rosetta-factsheet"
+      },
+      {
+        "artifact_id": "a-pds-holdings",
+        "byte_count": 186084,
+        "path": "artifacts/pds_rosetta_holdings.html",
+        "sha256": "d4b8ca154f26255a67cb30c43f7747d312f450ff40470645c76b03f58f624edc",
+        "source_id": "pds-rosetta-holdings"
+      },
+      {
+        "artifact_id": "a-pds-shape",
+        "byte_count": 14755,
+        "path": "artifacts/pds_67p_shape_profile.html",
+        "sha256": "8004e4be714dadf0adc3266ef467ed50082860c09423cfd25be180e3628e8b22",
+        "source_id": "pds-67p-shape"
+      },
+      {
+        "artifact_id": "a-gravity",
+        "byte_count": 338987,
+        "path": "artifacts/gravity_nature.html",
+        "sha256": "98f39e41b01157a6f17d21acb300b5ce6f10fefbb9b08e6c980667db8bf309a4",
+        "source_id": "nature-gravity-67p"
+      },
+      {
+        "artifact_id": "a-temperature",
+        "byte_count": 445368,
+        "path": "artifacts/temperature_nature.html",
+        "sha256": "25051f3839aae69f22ac6f56635f239bdd34a6e6fbd5ba695acd6dec6c2ecd3f",
+        "source_id": "nature-temperature-67p"
+      },
+      {
+        "artifact_id": "a-activity",
+        "byte_count": 48691,
+        "path": "artifacts/activity_arxiv.html",
+        "sha256": "b6456494cad157f255a5405912e25342a3a3a150212fa46ed667eeaa52a9a550",
+        "source_id": "arxiv-activity-67p"
+      },
+      {
+        "artifact_id": "a-virtis",
+        "byte_count": 21260,
+        "path": "artifacts/virtis_pubmed.html",
+        "sha256": "e6ffa1d19606de58db00be0c52a23aa15df6a9a2bd8a53d19e5917fbbb95d97b",
+        "source_id": "pubmed-virtis-67p"
+      },
+      {
+        "artifact_id": "a-rosina-volatiles",
+        "byte_count": 49113,
+        "path": "artifacts/rosina_volatiles_arxiv.html",
+        "sha256": "d8a2ae4332dccd19eb65a146b0e97e311ca055b4cb0a625010380cb907dddf25",
+        "source_id": "arxiv-rosina-volatiles"
+      },
+      {
+        "artifact_id": "a-rosina-abundances",
+        "byte_count": 46976,
+        "path": "artifacts/rosina_abundances_arxiv.html",
+        "sha256": "f6eefb0371098a92bb003ef9a49bfb5b817f349474cd531b10f8bdd03fede152",
+        "source_id": "arxiv-rosina-abundances"
+      }
+    ],
+    "assertion_count": 13,
+    "campaign_byte_count": 35487,
+    "campaign_id": "ARP-QUAL-01B_67P_TRANSFER",
+    "campaign_sha256": "2f5637c36fa657017f6668b42a7f05f356ebdd0d4db8953be51a0bffca0f38fa",
+    "external_research_stopped": true,
+    "frozen": true,
+    "frozen_at": "2026-09-25T22:13:36Z",
+    "knowledge_cutoff": "2025-12-31T23:59:59Z",
+    "qualification": {
+      "blocking": false,
+      "errors": [],
+      "status": "PASS"
+    },
+    "repository_baseline": "2501e4ac1a1e3ce445241811bceae32d772f78c9"
+  },
+  "hostile_review": {
+    "all_attacks_rejected": true,
+    "attack_count": 10,
+    "attacks": {
+      "coarse_to_site": {
+        "errors": [
+          "RESOLUTION_LAUNDERING: assertion as-identity promotes coarse evidence to site scale"
+        ],
+        "expected_rejection": "RESOLUTION_LAUNDERING",
+        "passed": true
+      },
+      "coverage_basis_removal": {
+        "errors": [
+          "COVERAGE_BASIS: covered lane gravity_shape lacks explicit evidence-question basis"
+        ],
+        "expected_rejection": "COVERAGE_BASIS",
+        "passed": true
+      },
+      "duplicate_assertion": {
+        "errors": [
+          "DUPLICATE_ASSERTION: assertion DUP repeats canonical key IDENTITY|67P|Rosetta"
+        ],
+        "expected_rejection": "DUPLICATE_ASSERTION",
+        "passed": true
+      },
+      "forbidden_frontier": {
+        "errors": [
+          "CONTAMINATION: frontier body_identity enters forbidden authority"
+        ],
+        "expected_rejection": "CONTAMINATION",
+        "passed": true
+      },
+      "frontier_promotion": {
+        "errors": [
+          "CONTAMINATION: frontier body_identity enters forbidden authority"
+        ],
+        "expected_rejection": "CONTAMINATION",
+        "passed": true
+      },
+      "model_to_observation": {
+        "errors": [
+          "EPISTEMIC_PROMOTION: assertion as-shape-archive labels non-direct evidence as measurement"
+        ],
+        "expected_rejection": "EPISTEMIC_PROMOTION",
+        "passed": true
+      },
+      "post_cutoff": {
+        "errors": [
+          "CUTOFF: assertion as-identity uses source evidence after cutoff"
+        ],
+        "expected_rejection": "CUTOFF",
+        "passed": true
+      },
+      "range_midpoint": {
+        "errors": [
+          "RANGE_MIDPOINT: assertion as-gravity-gm contains a scalar alongside a reported range",
+          "NORMALIZATION: assertion as-gravity-gm changes reported value/unit without a normalization method"
+        ],
+        "expected_rejection": "RANGE_MIDPOINT",
+        "passed": true
+      },
+      "regional_to_global": {
+        "errors": [
+          "SCOPE_LAUNDERING: assertion as-identity promotes local evidence globally"
+        ],
+        "expected_rejection": "SCOPE_LAUNDERING",
+        "passed": true
+      },
+      "unknown_fabrication": {
+        "errors": [
+          "NORMALIZATION: assertion as-identity changes reported value/unit without a normalization method",
+          "UNKNOWN_FABRICATION: assertion as-identity fills UNKNOWN with a value"
+        ],
+        "expected_rejection": "UNKNOWN_FABRICATION",
+        "passed": true
+      }
+    },
+    "campaign_id": "ARP-QUAL-01B_67P_TRANSFER",
+    "fresh_context": true,
+    "liens": [
+      {
+        "finding": "No orbit-element artifact admitted.",
+        "lien_id": "L-67P-ORBIT-001",
+        "severity": "NON_BLOCKING",
+        "state": "SOURCE_UNAVAILABLE",
+        "target": "orbit_geometry"
+      },
+      {
+        "finding": "No complete regional evidence matrix.",
+        "lien_id": "L-67P-REGION-001",
+        "severity": "NON_BLOCKING",
+        "state": "ACCEPTED_UNKNOWN",
+        "target": "regional"
+      },
+      {
+        "finding": "Site-scale geotechnical values unknown.",
+        "lien_id": "L-67P-GEO-001",
+        "severity": "NON_BLOCKING",
+        "state": "ACCEPTED_UNKNOWN",
+        "target": "geology_geotechnical"
+      }
+    ],
+    "status": "PASS"
+  },
+  "knowledge_cutoff": "2025-12-31T23:59:59Z",
+  "metrics": {
+    "artifacts_reused": 0,
+    "assertions_accepted": 13,
+    "assertions_extracted": 13,
+    "assertions_rejected": 0,
+    "coverage_after_pass_1": {
+      "activity": "PARTIAL",
+      "geology_geotechnical": "UNKNOWN",
+      "gravity_shape": "COVERED",
+      "history": "UNKNOWN",
+      "identity": "COVERED",
+      "mineralogy_composition": "COVERED",
+      "orbit_geometry": "UNKNOWN",
+      "regional": "UNKNOWN",
+      "rotation_orientation": "PARTIAL",
+      "thermal_environment": "PARTIAL",
+      "water_volatiles": "COVERED"
+    },
+    "coverage_after_pass_2": {
+      "activity": "COVERED",
+      "geology_geotechnical": "PARTIAL",
+      "gravity_shape": "COVERED",
+      "history": "PARTIAL",
+      "identity": "COVERED",
+      "mineralogy_composition": "COVERED",
+      "orbit_geometry": "SOURCE_NOT_FOUND",
+      "regional": "PARTIAL",
+      "rotation_orientation": "COVERED",
+      "thermal_environment": "COVERED",
+      "water_volatiles": "COVERED"
+    },
+    "coverage_before": {
+      "activity": "UNKNOWN",
+      "geology_geotechnical": "UNKNOWN",
+      "gravity_shape": "UNKNOWN",
+      "history": "UNKNOWN",
+      "identity": "UNKNOWN",
+      "mineralogy_composition": "UNKNOWN",
+      "orbit_geometry": "UNKNOWN",
+      "regional": "UNKNOWN",
+      "rotation_orientation": "UNKNOWN",
+      "thermal_environment": "UNKNOWN",
+      "water_volatiles": "UNKNOWN"
+    },
+    "duplicate_work_avoided": 2,
+    "elapsed_research_seconds": 840,
+    "evidence_questions": 19,
+    "external_research_operations": 17,
+    "final_coverage": {
+      "activity": "COVERED",
+      "geology_geotechnical": "PARTIAL",
+      "gravity_shape": "COVERED",
+      "history": "PARTIAL",
+      "identity": "COVERED",
+      "mineralogy_composition": "COVERED",
+      "orbit_geometry": "SOURCE_NOT_FOUND",
+      "regional": "PARTIAL",
+      "rotation_orientation": "COVERED",
+      "thermal_environment": "COVERED",
+      "water_volatiles": "COVERED"
+    },
+    "independent_evidence_lineages": 8,
+    "pass_2_new_assertions": 6,
+    "pass_2_targets": [
+      "rotation_orientation",
+      "thermal_environment",
+      "activity",
+      "regional",
+      "orbit_geometry"
+    ],
+    "source_not_found_evidence_questions": 1,
+    "sources_acquired": 9,
+    "sources_discovered": 17,
+    "sources_rejected": 6,
+    "unknown_evidence_questions": 5
+  },
+  "qualification_id": "ARP-QUAL-01B_67P_TRANSFER",
+  "qualification_notes": [
+    "This is a transfer qualification, not canonical 67P science promotion.",
+    "The source set is bounded and does not claim exhaustive comet knowledge.",
+    "The campaign was frozen before hostile qualification."
+  ],
+  "repository_baseline": "2501e4ac1a1e3ce445241811bceae32d772f78c9",
+  "research_tier": "TIER_A",
+  "result": "TRANSFER_PASS_WITH_LIENS",
+  "sources": [
+    {
+      "doi": null,
+      "locator": "https://www.esa.int/Science_Exploration/Space_Science/Rosetta/Rosetta_factsheet",
+      "persistent_identifier": "ESA-ROSETTA-FACTSHEET",
+      "provider": "ESA",
+      "publication_date": "2016-09-30",
+      "source_id": "esa-rosetta-factsheet",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "Rosetta factsheet"
+    },
+    {
+      "doi": null,
+      "locator": "https://pdssbn.astro.umd.edu/data_sb/missions/rosetta/index.shtml",
+      "persistent_identifier": "PDS-SBN-ROSETTA",
+      "provider": "NASA PDS Small Bodies Node",
+      "publication_date": "2025-01-01",
+      "source_id": "pds-rosetta-holdings",
+      "source_type": "DATA_ARCHIVE",
+      "title": "Rosetta mission support holdings"
+    },
+    {
+      "doi": null,
+      "locator": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=RO-C-MULTI-5-67P-SHAPE-V1.0",
+      "persistent_identifier": "RO-C-MULTI-5-67P-SHAPE-V1.0",
+      "provider": "NASA PDS Small Bodies Node / ESA PSA",
+      "publication_date": "2015-01-01",
+      "source_id": "pds-67p-shape",
+      "source_type": "DATA_PRODUCT",
+      "title": "Shape models of 67P/Churyumov-Gerasimenko V1.0"
+    },
+    {
+      "doi": "10.1038/nature16535",
+      "locator": "https://www.nature.com/articles/nature16535",
+      "persistent_identifier": null,
+      "provider": "Rosetta Radio Science Investigation",
+      "publication_date": "2016-02-03",
+      "source_id": "nature-gravity-67p",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "A homogeneous nucleus for comet 67P from its gravity field"
+    },
+    {
+      "doi": "10.1038/s41550-019-0740-0",
+      "locator": "https://www.nature.com/articles/s41550-019-0740-0",
+      "persistent_identifier": null,
+      "provider": "Rosetta VIRTIS",
+      "publication_date": "2019-04-22",
+      "source_id": "nature-temperature-67p",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "The changing temperature of the nucleus of comet 67P"
+    },
+    {
+      "doi": null,
+      "locator": "https://arxiv.org/abs/1901.02806",
+      "persistent_identifier": "arXiv:1901.02806",
+      "provider": "Rosetta mission analysis",
+      "publication_date": "2019-01-09",
+      "source_id": "arxiv-activity-67p",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "Constraining models of activity on comet 67P"
+    },
+    {
+      "doi": "10.1126/science.aaa0628",
+      "locator": "https://pubmed.ncbi.nlm.nih.gov/25613895/",
+      "persistent_identifier": null,
+      "provider": "Rosetta VIRTIS",
+      "publication_date": "2015-01-23",
+      "source_id": "pubmed-virtis-67p",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "The organic-rich surface of comet 67P as seen by VIRTIS"
+    },
+    {
+      "doi": "10.1016/j.icarus.2019.113421",
+      "locator": "https://arxiv.org/abs/1909.02082",
+      "persistent_identifier": "arXiv:1909.02082",
+      "provider": "Rosetta ROSINA",
+      "publication_date": "2019-09-04",
+      "source_id": "arxiv-rosina-volatiles",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "Surface distributions of major volatile species from ROSINA"
+    },
+    {
+      "doi": "10.1093/mnras/stz2086",
+      "locator": "https://arxiv.org/abs/1907.11044",
+      "persistent_identifier": "arXiv:1907.11044",
+      "provider": "Rosetta ROSINA",
+      "publication_date": "2019-08-12",
+      "source_id": "arxiv-rosina-abundances",
+      "source_type": "PEER_REVIEWED_PRIMARY",
+      "title": "Elemental and molecular abundances in comet 67P"
+    }
+  ],
+  "spatial_temporal_discipline": {
+    "coma_nucleus_distinguished": true,
+    "instrument_footprint_preserved": true,
+    "model_observation_distinguished": true,
+    "ranges_not_midpointed": true,
+    "time_dependent_activity_preserved": true
+  },
+  "target_body": "67P/Churyumov-Gerasimenko"
+}

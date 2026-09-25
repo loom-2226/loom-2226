@@ -1,0 +1,207 @@
+{
+  "campaign_id": "ARP-QUAL-01B_67P_TRANSFER",
+  "coverage_contract_version": "1.0.2",
+  "lanes": {
+    "activity": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "activity:time-dependence",
+          "rationale": "Primary activity model uses time-varying trajectory, rotation and water production.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "activity:localization",
+          "rationale": "This campaign does not establish a complete source-region map for all activity.",
+          "state": "UNKNOWN"
+        },
+        {
+          "question_id": "activity:permanence",
+          "rationale": "Activity is represented as epoch-dependent rather than permanent.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "PARTIAL",
+      "pass_2": "COVERED"
+    },
+    "geology_geotechnical": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "notes": "Morphology and global physical interpretation are represented; local mechanical properties remain unresolved.",
+      "pass_1": "UNKNOWN",
+      "pass_2": "PARTIAL"
+    },
+    "gravity_shape": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "gravity:mass-gm-density",
+          "rationale": "Rosetta RSI primary analysis reports GM, mass and bulk density.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "shape:global-model",
+          "rationale": "NASA PDS preserves multiple mission shape models.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "gravity:interior",
+          "rationale": "Gravity analysis reports a global density/porosity interpretation with explicit model class.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    },
+    "history": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "notes": "Mission chronology is represented, not a complete publication/adoption history.",
+      "pass_1": "UNKNOWN",
+      "pass_2": "PARTIAL"
+    },
+    "identity": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "identity:target-and-mission",
+          "rationale": "ESA mission document identifies the target and mission.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "identity:observing-system",
+          "rationale": "PDS/ESA archive identifies Rosetta and Philae data holdings.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    },
+    "mineralogy_composition": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "composition:surface",
+          "rationale": "VIRTIS primary analysis addresses the organic-rich surface.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "composition:volatile-elemental",
+          "rationale": "ROSINA primary analysis provides integrated elemental/molecular interpretation.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "composition:deep-interior",
+          "rationale": "No direct deep-interior composition measurement was admitted.",
+          "state": "UNKNOWN"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    },
+    "orbit_geometry": {
+      "applicable": true,
+      "coverage": "SOURCE_NOT_FOUND",
+      "notes": "No cutoff-safe orbit-element artifact was acquired in this bounded campaign.",
+      "pass_1": "UNKNOWN",
+      "pass_2": "SOURCE_NOT_FOUND"
+    },
+    "regional": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "notes": "The acquired shape model is global; a full region/site evidence matrix was not acquired.",
+      "pass_1": "UNKNOWN",
+      "pass_2": "PARTIAL"
+    },
+    "rotation_orientation": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "rotation:reference-frame",
+          "rationale": "PDS shape dataset includes a body-centered reference frame.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "rotation:spin-solution",
+          "rationale": "No scalar rotation solution was extracted in this bounded transfer campaign.",
+          "state": "UNKNOWN"
+        }
+      ],
+      "pass_1": "PARTIAL",
+      "pass_2": "COVERED"
+    },
+    "thermal_environment": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "thermal:surface-mapping",
+          "rationale": "VIRTIS primary analysis reports time-resolved surface temperature maps and resolution.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "thermal:time-variation",
+          "rationale": "The source explicitly treats diurnal and seasonal variation.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "thermal:subsurface",
+          "rationale": "This campaign does not establish a general subsurface thermal profile.",
+          "state": "UNKNOWN"
+        }
+      ],
+      "pass_1": "PARTIAL",
+      "pass_2": "COVERED"
+    },
+    "water_volatiles": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "volatile:coma-species",
+          "rationale": "ROSINA source reports major volatile species in the coma.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "volatile:nucleus-inventory",
+          "rationale": "Coma measurements and model inversion do not by themselves establish a complete local nucleus inventory.",
+          "state": "UNKNOWN"
+        },
+        {
+          "question_id": "volatile:time-variation",
+          "rationale": "ROSINA source covers production distributions over the mission.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    }
+  },
+  "unresolved_gaps": [
+    {
+      "description": "No cutoff-safe orbit-element artifact acquired in this bounded campaign.",
+      "gap_id": "ORBIT-67P-001",
+      "lane": "orbit_geometry"
+    },
+    {
+      "description": "No complete regional/site evidence matrix acquired.",
+      "gap_id": "REGION-67P-001",
+      "lane": "regional"
+    },
+    {
+      "description": "Site-scale mechanical properties remain unknown.",
+      "gap_id": "GEO-67P-001",
+      "lane": "geology_geotechnical"
+    },
+    {
+      "description": "Complete publication/adoption/revision history not represented.",
+      "gap_id": "HIST-67P-001",
+      "lane": "history"
+    }
+  ]
+}
