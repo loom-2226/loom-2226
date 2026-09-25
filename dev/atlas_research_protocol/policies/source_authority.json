@@ -1,0 +1,16 @@
+{
+  "protocol_version": "1.0.0",
+  "principle": "Authority is claim-domain and method sensitive; prestige alone is insufficient.",
+  "domains": {
+    "orbit_geometry": {"preferred": ["NAIF_SPICE", "JPL_HORIZONS", "JPL_EPHEMERIS"], "acceptable": ["PDS", "PEER_REVIEWED_PRIMARY"], "secondary_allowed_for_discovery": true},
+    "rotation_orientation": {"preferred": ["IAU", "NAIF_SPICE", "PDS", "PEER_REVIEWED_PRIMARY"], "acceptable": ["JPL"], "secondary_allowed_for_discovery": true},
+    "gravity_shape": {"preferred": ["PDS", "NAIF_SPICE", "JPL", "PEER_REVIEWED_PRIMARY"], "acceptable": ["USGS"], "secondary_allowed_for_discovery": true},
+    "geology_geotechnical": {"preferred": ["PDS", "MISSION_ARCHIVE", "PEER_REVIEWED_PRIMARY", "USGS"], "acceptable": ["IAU"], "secondary_allowed_for_discovery": true},
+    "thermal_environment": {"preferred": ["PDS", "MISSION_ARCHIVE", "PEER_REVIEWED_PRIMARY", "HERSCHEL"], "acceptable": ["JPL"], "secondary_allowed_for_discovery": true},
+    "water_volatiles": {"preferred": ["PDS", "MISSION_ARCHIVE", "PEER_REVIEWED_PRIMARY"], "acceptable": ["EARTH_REMOTE_PRIMARY"], "secondary_allowed_for_discovery": true},
+    "mineralogy_composition": {"preferred": ["PDS", "MISSION_ARCHIVE", "PEER_REVIEWED_PRIMARY"], "acceptable": ["USGS"], "secondary_allowed_for_discovery": true},
+    "regional": {"preferred": ["PDS", "MISSION_ARCHIVE", "USGS", "PEER_REVIEWED_PRIMARY"], "acceptable": ["IAU"], "secondary_allowed_for_discovery": true},
+    "history": {"preferred": ["PEER_REVIEWED_PRIMARY", "MISSION_ARCHIVE", "PDS", "IAU"], "acceptable": ["JPL"], "secondary_allowed_for_discovery": true}
+  },
+  "rule": "A secondary source may support discovery, but cannot replace an obtainable represented primary source in a qualified assertion. Source role must describe the artifact actually preserved."
+}

@@ -1,0 +1,30 @@
+{
+  "campaign_id": "ARP-REFERENCE-MINIMAL",
+  "target_body": "REFERENCE_BODY",
+  "body_profile": "dwarf_planet",
+  "knowledge_cutoff": "2025-12-31T23:59:59Z",
+  "research_tier": "TIER_A",
+  "arp_version": "1.0.0",
+  "solar_facts_schema_version": "v0.3-R1",
+  "repository_baseline": "cdf41a71a27389bb82ac21034d9461dded94e64a",
+  "status": "RESUMABLE",
+  "qualification_state": "UNQUALIFIED",
+  "lanes": {
+    "identity": {"applicable": true, "coverage": "COVERED"},
+    "gravity_shape": {"applicable": true, "coverage": "MODEL_ONLY"},
+    "geology_geotechnical": {"applicable": true, "coverage": "UNKNOWN"},
+    "thermal_environment": {"applicable": true, "coverage": "PARTIAL"},
+    "water_volatiles": {"applicable": true, "coverage": "SOURCE_NOT_FOUND"},
+    "regional": {"applicable": true, "coverage": "NOT_APPLICABLE"},
+    "history": {"applicable": true, "coverage": "COVERED"}
+  },
+  "completed_coverage": ["identity", "gravity_shape"],
+  "unresolved_gaps": [{"gap_id": "GEO-001", "lane": "geology_geotechnical", "priority": "NORMAL", "next_action": "targeted authoritative search"}],
+  "coverage_summary": {"complete_claim": false},
+  "sources": [{"source_id": "REFERENCE-SOURCE", "provider": "HCQ qualification package", "authority_domain": "factual_schema", "authority_role": "PRIMARY", "source_type": "QUALIFICATION_RECORD", "locator": "dev/solar_facts_hcq01/v0_3_r1/HCQ01_CERES_V03_R1_QUALIFICATION.md", "publication_date": "2025-12-31"}],
+  "artifacts": [{"artifact_id": "REFERENCE-ARTIFACT", "source_id": "REFERENCE-SOURCE", "locator": "local", "local_path": "dev/solar_facts_hcq01/v0_3_r1/LOOM_SOLAR_HCQ01_CERES_v0_3_R1.sqlite3", "retrieved_at": "2026-09-26T00:00:00Z", "sha256": "0bbbfd5ae2ab287900ff4e356f9571d21aff4593cc78e0cd69bf1610def9adc6", "byte_count": 233472, "media_type": "application/vnd.sqlite3", "original_filename": "LOOM_SOLAR_HCQ01_CERES_v0_3_R1.sqlite3"}],
+  "assertions": [{"assertion_id": "REFERENCE-ASSERTION-001", "source_id": "REFERENCE-SOURCE", "artifact_id": "REFERENCE-ARTIFACT", "property_code": "REFERENCE_PROPERTY", "evidence_class": "PHYSICAL_MODEL", "scope_type": "GLOBAL", "claim_kind": "MODEL_PRODUCT", "method_type": "MODEL", "independent_evidence_lineage_id": "REFERENCE-LINEAGE-001", "reported_unit": "unknown", "normalized_unit": "unknown", "reported_value": null, "normalized_value": null, "status": "CANDIDATE", "provenance_complete": true, "canonical_assertion_key": "REFERENCE_PROPERTY|REFERENCE-LINEAGE-001"}],
+  "epistemic_frontier": [{"variable": "bearing_strength", "phase": "KNOWABLE", "state_at_cutoff": "UNKNOWN", "research_coverage": "COVERED", "evidence_class": null, "limitation": "No supported value in the reference package."}],
+  "liens": [{"lien_id": "L-REFERENCE-001", "state": "ACCEPTED_UNKNOWN", "severity": "NON_BLOCKING", "target": "bearing_strength", "finding": "Value is legitimately unknown."}],
+  "metrics": {"sources_discovered": 1, "sources_acquired": 1, "sources_rejected": 0, "artifacts_reused": 1, "duplicate_work_avoided": 1, "assertions_extracted": 1, "assertions_accepted": 1, "assertions_rejected": 0, "external_research_operations": 0}
+}

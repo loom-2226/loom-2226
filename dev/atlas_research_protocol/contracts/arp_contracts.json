@@ -1,0 +1,12 @@
+{
+  "protocol_version": "1.0.0",
+  "contracts": {
+    "campaign": {"required": ["campaign_id", "target_body", "body_profile", "knowledge_cutoff", "research_tier", "arp_version", "solar_facts_schema_version", "repository_baseline", "lanes", "unresolved_gaps", "status", "qualification_state"]},
+    "source_candidate": {"required": ["source_id", "provider", "authority_domain", "authority_role", "source_type", "locator"], "identity_rule": "source_id is stable within a campaign"},
+    "acquired_artifact": {"required": ["artifact_id", "source_id", "locator", "retrieved_at", "sha256", "byte_count", "media_type", "original_filename"], "identity_rule": "artifact_id plus SHA-256 and version identify a preserved artifact"},
+    "assertion_candidate": {"required": ["assertion_id", "source_id", "artifact_id", "property_code", "evidence_class", "scope_type", "claim_kind", "method_type", "independent_evidence_lineage_id", "status", "provenance_complete"], "identity_rule": "canonical_assertion_key prevents idempotent duplicate loading"},
+    "epistemic_frontier": {"required": ["variable", "phase", "state_at_cutoff", "research_coverage"], "phases": ["KNOWABLE", "INFERRED", "FUTURE_OBSERVABLE", "ENGINEERING_DERIVED", "ECONOMIC_DERIVED"]},
+    "lien": {"required": ["lien_id", "state", "severity", "target", "finding"], "states": ["OPEN", "RESOLVED", "ACCEPTED_UNKNOWN", "DEFERRED_SCHEMA", "SOURCE_UNAVAILABLE"]}
+  },
+  "epistemic_firewall": ["OBSERVATION", "ASSERTION", "DERIVATION", "INTERPRETATION", "ENGINEERING_INFERENCE", "RESOURCE_POTENTIAL", "HABITATION_POTENTIAL", "ECONOMIC_VALUE", "LOOM_WORLD_STATE"]
+}
