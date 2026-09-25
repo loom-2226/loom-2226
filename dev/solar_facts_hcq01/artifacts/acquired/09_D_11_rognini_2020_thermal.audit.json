@@ -1,0 +1,37 @@
+{
+  "assertion_count": 2,
+  "complete": true,
+  "derived_ids": [],
+  "fact_ids": [
+    7,
+    8
+  ],
+  "fact_rows": [
+    {
+      "fact_id": 7,
+      "fact_status": "CANDIDATE",
+      "normalized_unit": "K",
+      "property_code": "SURFACE_TEMPERATURE",
+      "reported_unit": "K",
+      "reported_value_text": "170-180"
+    },
+    {
+      "fact_id": 8,
+      "fact_status": "CANDIDATE",
+      "normalized_unit": "J m^-2 K^-1 s^-1/2",
+      "property_code": "THERMAL_INERTIA",
+      "reported_unit": "tiu",
+      "reported_value_text": "40-160"
+    }
+  ],
+  "gravity_model_ids": [],
+  "model_product_ids": [],
+  "raw_artifact": {
+    "byte_count": 683253,
+    "path": "/home/ubuntu/LOOM_SOLAR_FACTS_HCQ01/dev/solar_facts_hcq01/artifacts/acquired/09_D_11_rognini_2020_thermal.pdf",
+    "retrieved_at": "2026-09-26T00:00:00Z",
+    "sha256": "ab7f6cd4224fe7ae63d96528d9e0c6ad852572ab8e11c370bdbe7b983e632249",
+    "url": "https://arxiv.org/pdf/2003.11045"
+  },
+  "source_id": 9
+}

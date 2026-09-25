@@ -1,0 +1,120 @@
+{
+  "records": [
+    {
+      "artifact_path": "artifacts/cohort_a/jpl_physical_parameters.html",
+      "source": {
+        "source_type": "OFFICIAL_REFERENCE",
+        "provider": "NASA Jet Propulsion Laboratory",
+        "title": "Planetary Physical Parameters",
+        "authors": "JPL Solar System Dynamics",
+        "publication_date": "2019-12-12",
+        "url": "https://ssd.jpl.nasa.gov/planets/phys_par.html",
+        "persistent_identifier": "JPL-SSD-PHYS-PAR",
+        "citation_text": "NASA/JPL Solar System Dynamics, Planetary Physical Parameters, Ceres row and reference notes."
+      },
+      "facts": [
+        {"body_id":"CERES","source_id":"jpl-physical-parameters","property_code":"MASS","evidence_class":"DYNAMICAL_INFERENCE","value_semantics":"JPL tabulated mass","reported_value_text":"938.416","reported_unit":"10^18 kg","normalized_value":null,"normalized_unit":null,"uncertainty_plus":0.013,"uncertainty_minus":0.013,"measurement_method":"mass from current GM estimate","source_locator":"Ceres row: Mass; reference O"},
+        {"body_id":"CERES","source_id":"jpl-physical-parameters","property_code":"EQUATORIAL_RADIUS","evidence_class":"IN_SITU_REMOTE","value_semantics":"JPL tabulated equatorial radius","reported_value_text":"482.1","reported_unit":"km","normalized_value":null,"normalized_unit":null,"measurement_method":"published physical parameter","source_locator":"Ceres row: Equatorial Radius; reference O"},
+        {"body_id":"CERES","source_id":"jpl-physical-parameters","property_code":"MEAN_RADIUS","evidence_class":"IN_SITU_REMOTE","value_semantics":"JPL tabulated mean radius","reported_value_text":"469.7","reported_unit":"km","normalized_value":null,"normalized_unit":null,"measurement_method":"published physical parameter","source_locator":"Ceres row: Mean Radius; reference O"},
+        {"body_id":"CERES","source_id":"jpl-physical-parameters","property_code":"BULK_DENSITY","evidence_class":"DERIVED","value_semantics":"JPL tabulated bulk density","reported_value_text":"2.162","reported_unit":"g/cm^3","normalized_value":null,"normalized_unit":null,"uncertainty_plus":0.008,"uncertainty_minus":0.008,"measurement_method":"computed from tabulated mass and volume per JPL reference note","source_locator":"Ceres row: Bulk Density; reference O","notes":"lineage: JPL total mass and equivalent-volume mean radius"}
+      ],
+      "derived_quantities": [
+        {"body_id":"CERES","property_code":"VOLUME","value_numeric":433513169.301,"unit":"km^3","derivation_method":"4/3*pi*mean_radius^3","derivation_version":"HCQ01-SPHERE-V1","input_property_codes":["MEAN_RADIUS"],"notes":"Equivalent spherical volume from JPL published mean radius; not a replacement for a shape-model volume."}
+      ]
+    },
+    {
+      "artifact_path": "artifacts/cohort_a/jpl_de440_de441.pdf",
+      "source": {
+        "source_type": "PEER_REVIEWED",
+        "provider": "NASA Jet Propulsion Laboratory",
+        "title": "The JPL Planetary and Lunar Ephemerides DE440 and DE441",
+        "authors": "Park et al.",
+        "publication_date": "2021-03-01",
+        "url": "https://ssd.jpl.nasa.gov/doc/Park.2021.AJ.DE440.pdf",
+        "doi": "10.3847/1538-3881/abd414",
+        "product_name": "DE440/DE441",
+        "product_version": "DE440/DE441",
+        "citation_text": "Park et al. (2021), The Astronomical Journal 161, 105."
+      },
+      "facts": [
+        {"body_id":"CERES","source_id":"jpl-de440","property_code":"GM","evidence_class":"DYNAMICAL_INFERENCE","value_semantics":"published planetary ephemeris gravitational parameter","reported_value_text":"62.62890","reported_unit":"km^3/s^2","normalized_value":null,"normalized_unit":null,"measurement_method":"planetary ephemeris fit","source_locator":"DE440/DE441 paper table: GM_Ceres"}
+      ]
+    },
+    {
+      "artifact_path": "artifacts/cohort_a/products/CERES_SPC181019_0128.ICQ",
+      "source": {
+        "source_type": "DATA_PRODUCT",
+        "provider": "NASA Planetary Data System Small Bodies Node",
+        "title": "Ceres SPC Shape Model Dataset V1.0",
+        "authors": "Park, R.S.; Buccino, D.R.",
+        "publication_date": "2018-10-19",
+        "url": "https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCSPC_4_01/DATA/ICQ/CERES_SPC181019_0128.ICQ",
+        "persistent_identifier": "DAWN-A-FC2-5-CERESSHAPESPC-V1.0",
+        "product_name": "DAWN CERES SPC SHAPE MODEL",
+        "product_version": "V1.0",
+        "citation_text": "Park, R.S. and Buccino, D.R., Ceres SPC Shape Model Dataset V1.0, NASA PDS, 2018."
+      },
+      "model_products": [
+        {"body_id":"CERES","source_id":"pds-ceres-spc-v1","model_type":"SHAPE_MODEL","model_name":"Ceres SPC Shape Model","model_version":"V1.0","reference_frame":"DAWN_CERES_GRV171219_V1","resolution_description":"ICQ resolutions 128, 256, 512, 1024; 100 m global topography delivery","persistent_identifier":"DAWN-A-FC2-5-CERESSHAPESPC-V1.0","product_url":"https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCSPC_4_01/","artifact_path":"artifacts/cohort_a/products/CERES_SPC181019_0128.ICQ","notes":"Metadata and bounded 128-resolution ICQ product acquired; archive notes ellipsoid patches in data gaps."}
+      ]
+    },
+    {
+      "artifact_path": "artifacts/cohort_a/products/JGDWN_C70E01_SHA.TAB",
+      "source": {
+        "source_type": "DATA_PRODUCT",
+        "provider": "NASA Planetary Data System Small Bodies Node",
+        "title": "Dawn Ceres Gravity Science Derived Science Data V4.0",
+        "authors": "Park, R.S.; Konopliv, A.S.; Asmar, S.W.; Buccino, D.R.",
+        "publication_date": "2024-05-01",
+        "url": "https://sbnarchive.psi.edu/pds3/dawn/grav/DWNCGRS_2_v4/DATA/SHADR/JGDWN_C70E01_SHA.TAB",
+        "persistent_identifier": "DAWN-A-RSS-5-CEGR-V4.0",
+        "product_name": "DAWN CERES GRAVITY SCIENCE DERIVED SCIENCE DATA",
+        "product_version": "V4.0",
+        "citation_text": "Park et al., Dawn Ceres Derived Gravity Data V4.0, NASA PDS, 2024."
+      },
+      "model_products": [
+        {"body_id":"CERES","source_id":"pds-ceres-gravity-v4","model_type":"GRAVITY_FIELD","model_name":"CERES70E gravity field","model_version":"V4.0","reference_frame":"Dawn Ceres centered body-fixed gravity coordinate system","resolution_description":"degree/order 70 spherical harmonic field; nominal, Kaula and isostatic variants","persistent_identifier":"DAWN-A-RSS-5-CEGR-V4.0","product_url":"https://sbnarchive.psi.edu/pds3/dawn/grav/DWNCGRS_2_v4/","artifact_path":"artifacts/cohort_a/products/JGDWN_C70E01_SHA.TAB","notes":"Archive metadata explicitly identifies JPL CERES70E and the version-4 nominal/Kaula/isostatic variants."}
+      ],
+      "gravity_models": [
+        {"body_id":"CERES","source_id":"pds-ceres-gravity-v4","model_name":"CERES70E nominal gravity field","model_version":"V4.0","maximum_degree":70,"maximum_order":70,"normalization":"PDS product label; coefficient convention retained in product","reference_frame":"Dawn Ceres centered body-fixed gravity coordinate system","persistent_identifier":"DAWN-A-RSS-5-CEGR-V4.0","product_url":"https://sbnarchive.psi.edu/pds3/dawn/grav/DWNCGRS_2_v4/DATA/SHADR/JGDWN_C70E01_SHA.TAB","artifact_path":"artifacts/cohort_a/products/JGDWN_C70E01_SHA.TAB","notes":"Dedicated model metadata only; coefficients remain in the acquired PDS product artifact."}
+      ]
+    },
+    {
+      "artifact_path": "artifacts/cohort_a/pds_hamo_spg_v1_aareadme.txt",
+      "source": {
+        "source_type": "DATA_PRODUCT",
+        "provider": "NASA Planetary Data System Small Bodies Node",
+        "title": "Dawn FC2 Derived Ceres HAMO DTM SPG V1.0",
+        "authors": "Preusker et al.",
+        "publication_date": "2016-09-01",
+        "url": "https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCHSPG_2/AAREADME.TXT",
+        "persistent_identifier": "DAWN-A-FC2-5-CERESHAMODTMSPG-V1.0",
+        "product_name": "DAWN FC2 DERIVED CERES HAMO DTM SPG",
+        "product_version": "V1.0",
+        "citation_text": "Preusker et al., Dawn FC2 Derived Ceres HAMO DTM SPG V1.0, NASA PDS, 2016."
+      },
+      "facts": [],
+      "model_products": [
+        {"body_id":"CERES","source_id":"pds-hamo-spg-v1","model_type":"DIGITAL_TERRAIN_MODEL","model_name":"Ceres HAMO SPG DTM","model_version":"V1.0","reference_frame":"dawn_ceres_SPG20160107","resolution_description":"~136.7 m/pixel; approximately 98% surface coverage; vertical accuracy about 10 m","persistent_identifier":"DAWN-A-FC2-5-CERESHAMODTMSPG-V1.0","product_url":"https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCHSPG_2/","artifact_path":"artifacts/cohort_a/pds_hamo_spg_v1_aareadme.txt","notes":"Static archive README records 2016 publication and DTM processing/coverage metadata; full global/polar IMG products are not flattened into facts."}
+      ]
+    },
+    {
+      "artifact_path": "artifacts/cohort_a/park_2019_ceres_shape_paper.pdf",
+      "source": {
+        "source_type": "PEER_REVIEWED",
+        "provider": "Dawn Science Team / Icarus",
+        "title": "High-resolution shape model of Ceres from stereophotoclinometry using Dawn Imaging Data",
+        "authors": "Park et al.",
+        "publication_date": "2019-03-01",
+        "url": "https://doi.org/10.1016/j.icarus.2018.10.024",
+        "doi": "10.1016/j.icarus.2018.10.024",
+        "product_name": "Ceres high-resolution SPC shape model paper",
+        "product_version": "2019 publication",
+        "citation_text": "Park et al., Icarus 319 (2019), High-resolution shape model of Ceres from stereophotoclinometry using Dawn Imaging Data."
+      },
+      "model_products": [
+        {"body_id":"CERES","source_id":"park-2019-shape","model_type":"SHAPE_MODEL","model_name":"High-resolution Ceres SPC shape model","model_version":"2019","reference_frame":"Dawn Ceres SPC frame","resolution_description":"high-resolution global shape/topography model derived from Dawn Framing Camera imaging","persistent_identifier":"doi:10.1016/j.icarus.2018.10.024","product_url":"https://doi.org/10.1016/j.icarus.2018.10.024","notes":"Peer-reviewed scientific representation of the same model family; retained separately from PDS product metadata."}
+      ]
+    }
+  ]
+}

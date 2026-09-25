@@ -1,0 +1,65 @@
+{
+  "qualification_case": "HCQ-01_CERES",
+  "empirical_cutoff": "2025-12-31T23:59:59Z",
+  "status": "CANDIDATE_SCOPE_REGISTERED",
+  "load_policy": "candidate_only",
+  "preferred_fact_policy": "forbidden",
+  "cohorts": [
+    {
+      "id": "A",
+      "name": "PHYSICAL_GRAVITY_SHAPE",
+      "source_families": ["JPL", "Dawn/PDS"],
+      "candidate_targets": ["MASS", "GM", "MEAN_RADIUS", "EQUATORIAL_RADIUS", "POLAR_RADIUS", "TRIAXIAL_AXIS_A", "TRIAXIAL_AXIS_B", "TRIAXIAL_AXIS_C", "VOLUME", "BULK_DENSITY"],
+      "forbidden_targets": ["RESOURCE_POTENTIAL", "HABITATION_POTENTIAL"]
+    },
+    {
+      "id": "B",
+      "name": "ROTATION_ORIENTATION",
+      "source_families": ["IAU", "Dawn/PDS", "peer reviewed"],
+      "candidate_targets": ["ROTATION_PERIOD", "ROTATION_DIRECTION", "OBLIQUITY", "SPIN_STATE", "TUMBLING_STATE", "SYNCHRONOUS_ROTATION"],
+      "forbidden_targets": ["LOOM_WORLD_STATE"]
+    },
+    {
+      "id": "C",
+      "name": "GEOLOGY_GEOTECHNICAL",
+      "source_families": ["Dawn FC/LAMO", "PDS", "peer reviewed"],
+      "candidate_targets": ["REGOLITH_DEPTH", "GRAIN_SIZE", "POROSITY", "COHESION", "BEARING_STRENGTH", "SEISMIC_ACTIVITY", "SURFACE_SLOPE", "SURFACE_ROUGHNESS"],
+      "forbidden_targets": ["ENGINEERING_INFERENCE"]
+    },
+    {
+      "id": "D",
+      "name": "THERMAL_ENVIRONMENT",
+      "source_families": ["Dawn", "Herschel", "pre-2026 observations"],
+      "candidate_targets": ["SURFACE_TEMPERATURE", "SUBSURFACE_TEMPERATURE", "THERMAL_INERTIA", "THERMAL_CONDUCTIVITY", "SOLAR_FLUX", "HEAT_FLOW", "SURFACE_PRESSURE", "ATMOSPHERIC_DENSITY"],
+      "forbidden_targets": ["HABITATION_POTENTIAL"]
+    },
+    {
+      "id": "E",
+      "name": "WATER_VOLATILES",
+      "source_families": ["Dawn GRaND", "Dawn VIR", "remote observations"],
+      "candidate_targets": ["REGOLITH_DEPTH", "ATMOSPHERIC_COMPOSITION", "ROCK_ABUNDANCE"],
+      "forbidden_targets": ["RESOURCE_POTENTIAL", "HABITATION_POTENTIAL"]
+    },
+    {
+      "id": "F",
+      "name": "MINERALOGY_COMPOSITION",
+      "source_families": ["Dawn VIR", "peer reviewed"],
+      "candidate_targets": ["DUST_CHARACTERISTICS", "ROCK_ABUNDANCE", "ATMOSPHERIC_COMPOSITION"],
+      "forbidden_targets": ["RESOURCE_POTENTIAL"]
+    },
+    {
+      "id": "G",
+      "name": "REGIONAL",
+      "source_families": ["Occator", "polar ice/PSRs", "localized scientific evidence"],
+      "candidate_targets": ["body_region", "material_evidence", "observation"],
+      "forbidden_targets": ["undefined region", "globalizing localized evidence"]
+    },
+    {
+      "id": "H",
+      "name": "HISTORY",
+      "source_families": ["pre-Dawn", "Dawn", "post-Dawn reanalysis"],
+      "candidate_targets": ["source", "observation", "fact", "source_assertion"],
+      "forbidden_targets": ["retroactive authority upgrade"]
+    }
+  ]
+}

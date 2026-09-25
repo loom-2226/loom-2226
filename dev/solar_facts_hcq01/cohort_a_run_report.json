@@ -1,0 +1,173 @@
+{
+  "cohort": "A",
+  "cutoff": "2025-12-31T23:59:59Z",
+  "decisions": {
+    "PASS": 6
+  },
+  "qualification_case": "HCQ-01_CERES",
+  "sources": [
+    {
+      "assertion_count": 4,
+      "complete": true,
+      "derived_ids": [
+        1
+      ],
+      "fact_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "fact_rows": [
+        {
+          "fact_id": 1,
+          "fact_status": "CANDIDATE",
+          "normalized_unit": "kg",
+          "property_code": "MASS",
+          "reported_unit": "10^18 kg",
+          "reported_value_text": "938.416"
+        },
+        {
+          "fact_id": 2,
+          "fact_status": "CANDIDATE",
+          "normalized_unit": "km",
+          "property_code": "EQUATORIAL_RADIUS",
+          "reported_unit": "km",
+          "reported_value_text": "482.1"
+        },
+        {
+          "fact_id": 3,
+          "fact_status": "CANDIDATE",
+          "normalized_unit": "km",
+          "property_code": "MEAN_RADIUS",
+          "reported_unit": "km",
+          "reported_value_text": "469.7"
+        },
+        {
+          "fact_id": 4,
+          "fact_status": "CANDIDATE",
+          "normalized_unit": "kg/m^3",
+          "property_code": "BULK_DENSITY",
+          "reported_unit": "g/cm^3",
+          "reported_value_text": "2.162"
+        }
+      ],
+      "gravity_model_ids": [],
+      "model_product_ids": [],
+      "raw_artifact": {
+        "byte_count": 58244,
+        "path": "/home/ubuntu/LOOM_SOLAR_FACTS_HCQ01/dev/solar_facts_hcq01/artifacts/acquired/01_jpl_physical_parameters.html",
+        "retrieved_at": "2026-09-25T13:50:10Z",
+        "sha256": "e49a487947295c389ba6e5833dd8fb04b63e826d39f70c123881882096e5e68b",
+        "url": "https://ssd.jpl.nasa.gov/planets/phys_par.html"
+      },
+      "source_id": 1
+    },
+    {
+      "assertion_count": 1,
+      "complete": true,
+      "derived_ids": [],
+      "fact_ids": [
+        5
+      ],
+      "fact_rows": [
+        {
+          "fact_id": 5,
+          "fact_status": "CANDIDATE",
+          "normalized_unit": "km^3/s^2",
+          "property_code": "GM",
+          "reported_unit": "km^3/s^2",
+          "reported_value_text": "62.62890"
+        }
+      ],
+      "gravity_model_ids": [],
+      "model_product_ids": [],
+      "raw_artifact": {
+        "byte_count": 5501569,
+        "path": "/home/ubuntu/LOOM_SOLAR_FACTS_HCQ01/dev/solar_facts_hcq01/artifacts/acquired/02_jpl_de440_de441.pdf",
+        "retrieved_at": "2026-09-25T13:50:10Z",
+        "sha256": "96c3945deb12e0f0843c2bf0703d3542d950cf85ff903b1fe11a501634f68ee0",
+        "url": "https://ssd.jpl.nasa.gov/doc/Park.2021.AJ.DE440.pdf"
+      },
+      "source_id": 2
+    },
+    {
+      "assertion_count": 0,
+      "complete": true,
+      "derived_ids": [],
+      "fact_ids": [],
+      "fact_rows": [],
+      "gravity_model_ids": [],
+      "model_product_ids": [
+        1
+      ],
+      "raw_artifact": {
+        "byte_count": 6190563,
+        "path": "/home/ubuntu/LOOM_SOLAR_FACTS_HCQ01/dev/solar_facts_hcq01/artifacts/acquired/03_CERES_SPC181019_0128.ICQ",
+        "retrieved_at": "2026-09-25T13:50:10Z",
+        "sha256": "526bf5211ef103b8a587a55e7a1e1ba28246e04a484569d720d8b1107bf4c86e",
+        "url": "https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCSPC_4_01/DATA/ICQ/CERES_SPC181019_0128.ICQ"
+      },
+      "source_id": 3
+    },
+    {
+      "assertion_count": 0,
+      "complete": true,
+      "derived_ids": [],
+      "fact_ids": [],
+      "fact_rows": [],
+      "gravity_model_ids": [
+        1
+      ],
+      "model_product_ids": [
+        2
+      ],
+      "raw_artifact": {
+        "byte_count": 311954,
+        "path": "/home/ubuntu/LOOM_SOLAR_FACTS_HCQ01/dev/solar_facts_hcq01/artifacts/acquired/04_JGDWN_C70E01_SHA.TAB",
+        "retrieved_at": "2026-09-25T13:50:10Z",
+        "sha256": "9fa286877c0b8a7761b8bc68c46b048d2849350aa5d456738414fba122839c79",
+        "url": "https://sbnarchive.psi.edu/pds3/dawn/grav/DWNCGRS_2_v4/DATA/SHADR/JGDWN_C70E01_SHA.TAB"
+      },
+      "source_id": 4
+    },
+    {
+      "assertion_count": 0,
+      "complete": true,
+      "derived_ids": [],
+      "fact_ids": [],
+      "fact_rows": [],
+      "gravity_model_ids": [],
+      "model_product_ids": [
+        3
+      ],
+      "raw_artifact": {
+        "byte_count": 23680,
+        "path": "/home/ubuntu/LOOM_SOLAR_FACTS_HCQ01/dev/solar_facts_hcq01/artifacts/acquired/05_pds_hamo_spg_v1_aareadme.txt",
+        "retrieved_at": "2026-09-25T13:50:10Z",
+        "sha256": "f01d63f0466540990cb1e67f6cb00be7954b38f6e9d8858cba6b9fb2138df537",
+        "url": "https://sbnarchive.psi.edu/pds3/dawn/fc/DWNCHSPG_2/AAREADME.TXT"
+      },
+      "source_id": 5
+    },
+    {
+      "assertion_count": 0,
+      "complete": true,
+      "derived_ids": [],
+      "fact_ids": [],
+      "fact_rows": [],
+      "gravity_model_ids": [],
+      "model_product_ids": [
+        4
+      ],
+      "raw_artifact": {
+        "byte_count": 9352041,
+        "path": "/home/ubuntu/LOOM_SOLAR_FACTS_HCQ01/dev/solar_facts_hcq01/artifacts/acquired/06_park_2019_ceres_shape_paper.pdf",
+        "retrieved_at": "2026-09-25T13:50:10Z",
+        "sha256": "96b52b87e2dbd1fe295bd8ef40637c5b412ce8444f6948e8115e265fdce3f3ef",
+        "url": "https://doi.org/10.1016/j.icarus.2018.10.024"
+      },
+      "source_id": 6
+    }
+  ]
+}

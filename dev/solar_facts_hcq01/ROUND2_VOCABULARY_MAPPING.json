@@ -1,0 +1,20 @@
+{
+  "evidence_class": {
+    "ASSERTED": {"new": "context-specific", "rationale": "Not a frozen v0.2 class; mapped by scientific semantics."},
+    "OBSERVED": {"new": "IN_SITU_REMOTE", "rationale": "Round-1 spacecraft/thermal observations were remote measurements, not direct samples."},
+    "JPL mass": {"new": "DYNAMICAL_INFERENCE", "rationale": "Mass is inferred from gravitational/ephemeris solution."},
+    "JPL radii": {"new": "IN_SITU_REMOTE", "rationale": "Dawn-derived shape/remote imaging representation."},
+    "JPL bulk density": {"new": "DERIVED", "rationale": "JPL identifies density as computed from mass and equivalent volume."},
+    "DE440 GM": {"new": "DYNAMICAL_INFERENCE", "rationale": "Ephemeris gravitational parameter fit."},
+    "thermal inertia": {"new": "PHYSICAL_MODEL", "rationale": "Thermal-inertia inversion is model-derived."},
+    "Herschel water vapour": {"new": "EARTH_REMOTE", "rationale": "Remote far-infrared Earth/space observatory measurement."},
+    "VIR/GRaND mineral or hydrogen evidence": {"new": "IN_SITU_REMOTE", "rationale": "Orbital remote-sensing instruments measured from Dawn at Ceres."},
+    "Ahuna/Occator interpretation": {"new": "PHYSICAL_MODEL", "rationale": "Geological activity interpretation is not a direct observation."},
+    "volatile-rich interior interpretation": {"new": "PHYSICAL_MODEL", "rationale": "Gravity/shape constrained interior model."},
+    "PSR area": {"new": "not material_evidence", "rationale": "Modeled area remains on a regional PSR model product; no ice inventory row is loaded."}
+  },
+  "confidence_class": {"MEDIUM": {"new": "MODERATE", "rationale": "Frozen vocabulary equivalent; not a mechanical semantic upgrade."}},
+  "assertion_role": {"ASSERTS": {"new": "PRIMARY", "rationale": "Each retained source is the primary assertion source for its loaded fact."}},
+  "fact_status": {"CANDIDATE": {"new": "CANDIDATE", "rationale": "All HCQ rows remain candidate authority."}},
+  "source_type": {"PEER_REVIEWED (Ahuna LPSC abstract)": {"new": "OTHER", "rationale": "Conference abstract is not silently classified as a peer-reviewed journal article."}}
+}

@@ -1,0 +1,499 @@
+{
+  "actual_assertion_roles": [
+    "PRIMARY"
+  ],
+  "actual_confidence_values": {
+    "activity_fact": [
+      "MODERATE"
+    ],
+    "fact": [
+      "UNKNOWN"
+    ],
+    "material_evidence": [
+      "MODERATE"
+    ]
+  },
+  "actual_evidence_values": {
+    "activity_fact": [
+      "PHYSICAL_MODEL"
+    ],
+    "fact": [
+      "DERIVED",
+      "DYNAMICAL_INFERENCE",
+      "IN_SITU_REMOTE",
+      "PHYSICAL_MODEL"
+    ],
+    "material_evidence": [
+      "EARTH_REMOTE",
+      "IN_SITU_REMOTE",
+      "PHYSICAL_MODEL"
+    ]
+  },
+  "actual_fact_statuses": {
+    "fact": [
+      "CANDIDATE"
+    ],
+    "material_evidence": [
+      "CANDIDATE"
+    ]
+  },
+  "blockers": [],
+  "civprop_tables": [],
+  "controlled_vocabulary": {
+    "assertion_role": [
+      "PRIMARY",
+      "SUPPORTING",
+      "CONTRADICTING",
+      "SUPERSEDING"
+    ],
+    "confidence_class": [
+      "VERY_HIGH",
+      "HIGH",
+      "MODERATE",
+      "LOW",
+      "CONTESTED",
+      "UNKNOWN"
+    ],
+    "evidence_class": [
+      "DIRECT_SAMPLE",
+      "IN_SITU_DIRECT",
+      "IN_SITU_REMOTE",
+      "EARTH_REMOTE",
+      "DYNAMICAL_INFERENCE",
+      "ANALOG_INFERENCE",
+      "PHYSICAL_MODEL",
+      "THEORETICAL_EXPECTATION",
+      "DERIVED"
+    ],
+    "fact_status": [
+      "CANDIDATE",
+      "CURRENT",
+      "RETIRED"
+    ]
+  },
+  "counts": {
+    "activity_fact": 2,
+    "body": 1,
+    "body_model_product": 9,
+    "body_region": 5,
+    "derived_input": 1,
+    "derived_quantity": 1,
+    "fact": 8,
+    "gravity_model": 1,
+    "material_evidence": 6,
+    "observation": 8,
+    "orientation_model": 1,
+    "preferred_fact": 0,
+    "region_model_product": 3,
+    "source": 16,
+    "source_assertion": 8
+  },
+  "cross_body_violations": {
+    "activity_region": 0,
+    "fact_observation": 0,
+    "fact_region": 0,
+    "material_region": 0,
+    "model_region": 0,
+    "observation_region": 0,
+    "region_model": 0
+  },
+  "database_sha256": "91137126f635cd35e7ccde20cc41ed342dbd23dec7e7af304d9220318f1da26d",
+  "derived_lineage": [
+    [
+      "VOLUME",
+      433513169.301,
+      "km^3",
+      "MEAN_RADIUS",
+      "CANDIDATE"
+    ]
+  ],
+  "ephemeris_tables": [],
+  "foreign_key_check": [],
+  "gravity_model_metadata": [
+    [
+      62.6288969025,
+      470.0,
+      "PDS header normalization flag 1",
+      "Cmn and Smn spherical-harmonic coefficients",
+      null,
+      "Dedicated model metadata only; coefficients remain in the acquired PDS product artifact."
+    ]
+  ],
+  "integrity_check": "ok",
+  "knowledge_snapshots": {
+    "2010": {
+      "facts": 0,
+      "materials": 0,
+      "models": 0,
+      "observations": 0,
+      "sources": 0
+    },
+    "2016": {
+      "facts": 1,
+      "materials": 2,
+      "models": 4,
+      "observations": 4,
+      "sources": 6
+    },
+    "2025": {
+      "facts": 8,
+      "materials": 6,
+      "models": 9,
+      "observations": 8,
+      "sources": 16
+    }
+  },
+  "limitations": [
+    "raw artifact/hash/audit manifests remain external to frozen SQLite tables",
+    "no native historical knowledge-event relation",
+    "orientation uncertainty retained in notes because frozen table has no uncertainty columns"
+  ],
+  "orientation_model_metadata": [
+    [
+      291.431,
+      66.761,
+      170.488,
+      952.15323,
+      32667.012288,
+      "Reported uncertainties are retained in the source artifact: RA \u00b10.01 deg, Dec \u00b10.01 deg, W0 \u00b10.01 deg, W1 \u00b10.00002 deg/day."
+    ]
+  ],
+  "post_cutoff_sources": 0,
+  "preferred_fact_rows": 0,
+  "provenance_gaps": 0,
+  "psr_water_area_rows": 0,
+  "qualification_queries": {
+    "admissible_candidate_facts": [
+      [
+        1,
+        "MASS",
+        9.38416e+20,
+        null,
+        null,
+        "kg"
+      ],
+      [
+        2,
+        "EQUATORIAL_RADIUS",
+        482.1,
+        null,
+        null,
+        "km"
+      ],
+      [
+        3,
+        "MEAN_RADIUS",
+        469.7,
+        null,
+        null,
+        "km"
+      ],
+      [
+        4,
+        "BULK_DENSITY",
+        2162.0,
+        null,
+        null,
+        "kg/m^3"
+      ],
+      [
+        5,
+        "GM",
+        62.6289,
+        null,
+        null,
+        "km^3/s^2"
+      ],
+      [
+        6,
+        "ROTATION_PERIOD",
+        32667.012287999998,
+        null,
+        null,
+        "s"
+      ],
+      [
+        7,
+        "SURFACE_TEMPERATURE",
+        null,
+        170.0,
+        180.0,
+        "K"
+      ],
+      [
+        8,
+        "THERMAL_INERTIA",
+        null,
+        40.0,
+        160.0,
+        "J m^-2 K^-1 s^-1/2"
+      ]
+    ],
+    "competing_interpretations": [
+      [
+        "CRYOVOLCANIC_ACTIVITY_INTERPRETATION",
+        "Interpretation remains localized; no global activity state is inferred."
+      ]
+    ],
+    "derived_lineage_complete": [
+      [
+        "VOLUME",
+        433513169.301,
+        "km^3",
+        "MEAN_RADIUS",
+        "CANDIDATE"
+      ]
+    ],
+    "legitimate_unknowns": [
+      [
+        "gravity_model.reference_epoch",
+        1
+      ],
+      [
+        "fact.confidence_class",
+        1
+      ],
+      [
+        "fact.confidence_class",
+        2
+      ],
+      [
+        "fact.confidence_class",
+        3
+      ],
+      [
+        "fact.confidence_class",
+        4
+      ],
+      [
+        "fact.confidence_class",
+        5
+      ],
+      [
+        "fact.confidence_class",
+        6
+      ],
+      [
+        "fact.confidence_class",
+        7
+      ],
+      [
+        "fact.confidence_class",
+        8
+      ]
+    ],
+    "modeled_or_inferred_claims": [
+      [
+        "MASS",
+        "DYNAMICAL_INFERENCE"
+      ],
+      [
+        "BULK_DENSITY",
+        "DERIVED"
+      ],
+      [
+        "GM",
+        "DYNAMICAL_INFERENCE"
+      ],
+      [
+        "THERMAL_INERTIA",
+        "PHYSICAL_MODEL"
+      ],
+      [
+        "EXTRUSIVE_DOME_INTERPRETATION",
+        "PHYSICAL_MODEL"
+      ],
+      [
+        "CRYOVOLCANIC_ACTIVITY_INTERPRETATION",
+        "PHYSICAL_MODEL"
+      ]
+    ],
+    "occator_evidence": [
+      [
+        "material",
+        "carbonate_salt",
+        "IN_SITU_REMOTE",
+        3
+      ],
+      [
+        "activity",
+        "CRYOVOLCANIC_ACTIVITY_INTERPRETATION",
+        "PHYSICAL_MODEL",
+        3
+      ],
+      [
+        "observation",
+        "DAWN_FC_OCCATOR_XM2",
+        "high-resolution image and DTM analysis",
+        3
+      ]
+    ],
+    "records_without_provenance": [],
+    "regional_model_products": [
+      [
+        "Ahuna Mons Dawn FC topographic scene",
+        "Ahuna Mons",
+        "DESCRIBES"
+      ],
+      [
+        "Ceres polar PSR model",
+        "Northern polar permanently shadowed regions",
+        "DESCRIBES"
+      ],
+      [
+        "Dawn LAMO regional DTM collection",
+        "Ceres regional DTM coverage",
+        "DESCRIBES"
+      ]
+    ],
+    "sources_and_types": [
+      [
+        "Planetary Physical Parameters",
+        "OFFICIAL_REFERENCE"
+      ],
+      [
+        "The JPL Planetary and Lunar Ephemerides DE440 and DE441",
+        "PEER_REVIEWED"
+      ],
+      [
+        "Ceres SPC Shape Model Dataset V1.0",
+        "DATA_PRODUCT"
+      ],
+      [
+        "Dawn Ceres Gravity Science Derived Science Data V4.0",
+        "DATA_PRODUCT"
+      ],
+      [
+        "Dawn FC2 Derived Ceres HAMO DTM SPG V1.0",
+        "DATA_PRODUCT"
+      ],
+      [
+        "High-resolution shape model of Ceres from stereophotoclinometry using Dawn Imaging Data",
+        "PEER_REVIEWED"
+      ],
+      [
+        "Ceres Coordinate System and Dawn rotational elements",
+        "DATA_PRODUCT"
+      ],
+      [
+        "Ahuna Mons: a geologically young extrusive dome on Ceres",
+        "OTHER"
+      ],
+      [
+        "Thermal properties of Ceres from Dawn and Herschel observations",
+        "OTHER"
+      ],
+      [
+        "Exposed water ice on Ceres from neutron spectroscopy",
+        "PEER_REVIEWED"
+      ],
+      [
+        "Herschel discovers water vapour around dwarf planet Ceres",
+        "OFFICIAL_REFERENCE"
+      ],
+      [
+        "Global and localized mineralogical composition of Ceres from Dawn VIR",
+        "PEER_REVIEWED"
+      ],
+      [
+        "Recent cryovolcanic activity at Occator crater on Ceres",
+        "PEER_REVIEWED"
+      ],
+      [
+        "The permanently shadowed regions of dwarf planet Ceres",
+        "PEER_REVIEWED"
+      ],
+      [
+        "A partially differentiated interior for (1) Ceres deduced from its gravity field and shape",
+        "PEER_REVIEWED"
+      ],
+      [
+        "Ceres regional DTM catalogue",
+        "DATA_PRODUCT"
+      ]
+    ],
+    "unknown_confidence": [
+      [
+        "fact",
+        1,
+        "MASS"
+      ],
+      [
+        "fact",
+        2,
+        "EQUATORIAL_RADIUS"
+      ],
+      [
+        "fact",
+        3,
+        "MEAN_RADIUS"
+      ],
+      [
+        "fact",
+        4,
+        "BULK_DENSITY"
+      ],
+      [
+        "fact",
+        5,
+        "GM"
+      ],
+      [
+        "fact",
+        6,
+        "ROTATION_PERIOD"
+      ],
+      [
+        "fact",
+        7,
+        "SURFACE_TEMPERATURE"
+      ],
+      [
+        "fact",
+        8,
+        "THERMAL_INERTIA"
+      ]
+    ],
+    "water_ice_related_evidence": [
+      [
+        "water_ice",
+        null,
+        "IN_SITU_REMOTE",
+        2,
+        "Source supports enhanced hydrogen consistent with exposed water ice; no abundance scalar is fabricated."
+      ],
+      [
+        "water_vapor",
+        null,
+        "EARTH_REMOTE",
+        null,
+        "Reported production rate is preserved in the material-evidence fields; it is not converted into a surface abundance."
+      ]
+    ]
+  },
+  "qualification_status": "QUALIFIED_WITH_LIMITATIONS",
+  "regional_links": {
+    "observations_linked": 3,
+    "region_model_relationships": 3,
+    "regional_models_linked": 3
+  },
+  "round": 2,
+  "source_types": [
+    [
+      "DATA_PRODUCT",
+      5
+    ],
+    [
+      "OFFICIAL_REFERENCE",
+      2
+    ],
+    [
+      "OTHER",
+      2
+    ],
+    [
+      "PEER_REVIEWED",
+      7
+    ]
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "assertion_count": 1,
+  "complete": true,
+  "derived_ids": [],
+  "fact_ids": [
+    6
+  ],
+  "fact_rows": [
+    {
+      "fact_id": 6,
+      "fact_status": "CANDIDATE",
+      "normalized_unit": "s",
+      "property_code": "ROTATION_PERIOD",
+      "reported_unit": "d",
+      "reported_value_text": "0.37809042"
+    }
+  ],
+  "gravity_model_ids": [],
+  "model_product_ids": [],
+  "raw_artifact": {
+    "byte_count": 1142769,
+    "path": "/home/ubuntu/LOOM_SOLAR_FACTS_HCQ01/dev/solar_facts_hcq01/artifacts/acquired/07_B_17_ceres_coordinate_system.pdf",
+    "retrieved_at": "2026-09-26T00:00:00Z",
+    "sha256": "79268bd54dc80a70b2b648aa628ad55d55d1a6102028ea10623c1953ee3be105",
+    "url": "https://sbnarchive.psi.edu/pds3/dawn/vir/DWNC3VIR_V1B/DOCUMENT/CERES_COORD_SYS/CERES_COORD_SYS_151014.PDF"
+  },
+  "source_id": 7
+}

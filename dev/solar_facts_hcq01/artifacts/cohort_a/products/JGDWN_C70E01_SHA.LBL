@@ -1,0 +1,284 @@
+PDS_VERSION_ID               = "PDS3"                                         
+RECORD_TYPE                  = FIXED_LENGTH                                   
+RECORD_BYTES                 = 122                                            
+FILE_RECORDS                 = 2557                                           
+^SHADR_HEADER_TABLE          = ("JGDWN_C70E01_SHA.TAB",1)                     
+^SHADR_COEFFICIENTS_TABLE    = ("JGDWN_C70E01_SHA.TAB",3)                     
+INSTRUMENT_HOST_NAME         = "DAWN"                                         
+MISSION_PHASE_NAME           = {                                              
+                               "CERES SCIENCE SURVEY (CSS)",                  
+                               "CERES SCIENCE HAMO (CSH)",                    
+                               "CERES SCIENCE LAMO (CSL)",                    
+                               "CERES X2 ELLIPTICAL (C2E)" }                  
+TARGET_NAME                  = "1 CERES"                                      
+INSTRUMENT_NAME              = "GRAVITY SCIENCE INSTRUMENT"                   
+DATA_SET_ID                  = "DAWN-A-RSS-5-CEGR-V4.0"                       
+OBSERVATION_TYPE             = "GRAVITY FIELD"                                
+ORIGINAL_PRODUCT_ID          = "CERES70E"                                     
+PRODUCT_ID                   = "JGDWN_C70E01_SHA.TAB"                         
+PRODUCT_RELEASE_DATE         = 2019-04-04                                     
+DESCRIPTION                  = "                                              
+                                                                              
+This file contains coefficients and related data for the                      
+CERES70E spherical harmonic gravity model of Ceres.                           
+                                                                              
+CERES70E is a 70th degree and order model obtained from radiometric           
+tracking (Doppler and range data) and optical landmarks of the                
+Dawn spacecraft in orbit about Ceres. The gravity model includes              
+Prime Mission data from the Approach phase to the end of the LAMO             
+orbit. The data span is Feb 2, 2015 to Sept 2, 2016. Optical                  
+landmark tracking is included for LAMO and HAMO phases. The Doppler           
+and landmark tracking is also included for the Extended Mission-2             
+phase from June 6, 2018 to October 31, 2018. This gravity field is            
+consistent with the final SPC shape model of Ceres (Park et al.               
+High resolution shape model of Ceres from stereophotoclinometry               
+using Dawn imaging data, Icarus, 2019). More details can be found in          
+Park, R.S., Konopliv, A.S., Ermakov, A.I. et al.                              
+Evidence of non-uniform crust of Ceres from Dawn's                            
+high-resolution gravity data. Nat Astron 4, 748-755 (2020).                   
+https://doi.org/10.1038/s41550-020-1019-1                                     
+                                                                              
+Some details describing this model are:                                       
+   The spherical harmonic coefficients are fully normalized.                  
+   The associated GM = 62.628896902 km^3/s^2                                  
+   The reference radius = 470.0 km                                            
+   The Ceres-fixed reference frame prime meridian and pole                    
+      location in IAU coordinates are fixed to CERES18D values:               
+         Right ascension = 291.42763 degrees                                  
+         RA rate         =   0.0 degrees/cty                                  
+         Declination     =  66.76033 degrees                                  
+         Dec rate        =   0.0 degrees/cty                                  
+         Prime Meridian  = 170.309 degrees                                    
+         Rotation rate   = 952.1532635 degrees/day                            
+   The pole location, W0 and spin rate were determined in the CERES18D        
+   gravity field by fixing the y-value of the Kait landmark to zero.          
+   The uncertainties of the pole for CERES18D solution are                    
+         Right ascension = 0.0002 degrees                                     
+         Declination     = 0.0002 degrees                                     
+   The gravity field is constrained using a variable surface                  
+   acceleration constraint based upon the degree strength of the              
+   gravity field for each longitude and latitude location.                    
+                                                                              
+Observations for the gravity field consist of Doppler and                     
+range measurements from Deep Space Network (DSN) tracking.                    
+                                                                              
+The count time for the Doppler observations is 60 seconds.                    
+The typical accuracy for the Doppler is 0.02-0.03 mm/s for the                
+60 second sample time. The range accuracy is about 1-2 meters                 
+and is limited by the station calibration accuracy. The actual                
+rms scatter is less than 0.3 meters in spacecraft position.                   
+                                                                              
+This product is a set of two ASCII tables: a header table and                 
+a coefficients table with 5037 coefficients and a GM value.                   
+Definitions of the tables follow.                                             
+                                                                              
+The CERES70E gravity model is delivered as a Spherical Harmonics              
+Gravity ASCII Data Record (SHGADR) and is produced by the JPL                 
+Dawn Gravity Science Team (Alex Konopliv, Ryan Park, Sami Asmar)."            
+                                                                              
+START_TIME                   = 2015-02-02T07:00:00.000                        
+STOP_TIME                    = 2018-10-31T10:00:00.000                        
+SPACECRAFT_CLOCK_START_COUNT = "1/0476132467.030"                             
+SPACECRAFT_CLOCK_STOP_COUNT  = "1/0594252067.090"                             
+PRODUCT_CREATION_TIME        = 2019-04-04T00:00:00.000                        
+PRODUCER_FULL_NAME           = "ALEX S. KONOPLIV"                             
+PRODUCER_INSTITUTION_NAME    = "JET PROPULSION LABORATORY"                    
+PRODUCT_VERSION_TYPE         = "FINAL"                                        
+PRODUCER_ID                  = "DAWN RADIO SCIENCE"                           
+SOFTWARE_NAME                = "SHAGRV.V1.0"                                  
+                                                                              
+                                                                              
+OBJECT               = SHADR_HEADER_TABLE                                     
+ROWS                       = 1                                                
+COLUMNS                    = 8                                                
+ROW_BYTES                  = 137                                              
+ROW_SUFFIX_BYTES           = 107                                              
+INTERCHANGE_FORMAT         = ASCII                                            
+DESCRIPTION                = "The SHADR header includes                       
+descriptive information about the spherical harmonic                          
+coefficients which follow in SHADR_COEFFICIENTS_TABLE.                        
+The header consists of a single record of eight (delimited)                   
+data columns requiring 137 bytes, a pad of 105 unspecified                    
+ASCII characters, an ASCII carriage-return, and an ASCII                      
+line-feed."                                                                   
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "REFERENCE RADIUS"                         
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 1                                          
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "KILOMETER"                                
+    DESCRIPTION                  = "The assumed reference                     
+    radius of the spherical planet."                                          
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "CONSTANT"                                 
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 25                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "For a gravity field model                 
+    the assumed gravitational constant GM in kilometers cubed                 
+    per seconds squared for the planet.  For a topography                     
+    model, set to 1."                                                         
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "UNCERTAINTY IN CONSTANT"                  
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 49                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "For a gravity field model                 
+    the uncertainty in the gravitational constant GM in kilometers            
+    cubed per seconds squared for the planet.  For a topography               
+    model, set to 0."                                                         
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "DEGREE OF FIELD"                          
+    DATA_TYPE                    = ASCII_INTEGER                              
+    START_BYTE                   = 73                                         
+    BYTES                        = 5                                          
+    FORMAT                       = "I5"                                       
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The degree of model field."               
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "ORDER OF FIELD"                           
+    DATA_TYPE                    = ASCII_INTEGER                              
+    START_BYTE                   = 79                                         
+    BYTES                        = 5                                          
+    FORMAT                       = "I5"                                       
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The order of the model field."            
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "NORMALIZATION STATE"                      
+    DATA_TYPE                    = ASCII_INTEGER                              
+    START_BYTE                   = 85                                         
+    BYTES                        = 5                                          
+    FORMAT                       = "I5"                                       
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The normalization indicator.              
+    For gravity field:                                                        
+        0   coefficients are unnormalized                                     
+        1   coefficients are normalized                                       
+        2   other."                                                           
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "REFERENCE LONGITUDE"                      
+    POSITIVE_LONGITUDE_DIRECTION = "EAST"                                     
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 91                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "DEGREE"                                   
+    DESCRIPTION                  = "The reference longitude for               
+    the spherical harmonic expansion; normally 0."                            
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "REFERENCE LATITUDE"                       
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 115                                        
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "DEGREE"                                   
+    DESCRIPTION                  = "The reference latitude for                
+    the spherical harmonic expansion; normally 0."                            
+  END_OBJECT               = COLUMN                                           
+                                                                              
+END_OBJECT           = SHADR_HEADER_TABLE                                     
+                                                                              
+OBJECT               = SHADR_COEFFICIENTS_TABLE                               
+  ROWS                     = 2555                                             
+  COLUMNS                  = 6                                                
+  ROW_BYTES                = 107                                              
+  ROW_SUFFIX_BYTES         = 15                                               
+  INTERCHANGE_FORMAT       = ASCII                                            
+  DESCRIPTION              = "The SHADR coefficients table                    
+  contains the coefficients for the spherical harmonic model.                 
+  Each row in the table contains the degree index m, the                      
+  order index n, the coefficients Cmn and Smn, and the                        
+  uncertainties in Cmn and Smn.  The (delimited) data                         
+  require 107 ASCII characters; these are followed by a pad                   
+  of 13 unspecified ASCII characters, an ASCII carriage-                      
+  return, and an ASCII line-feed."                                            
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "COEFFICIENT DEGREE"                       
+    DATA_TYPE                    = ASCII_INTEGER                              
+    START_BYTE                   = 1                                          
+    BYTES                        = 5                                          
+    FORMAT                       = "I5"                                       
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The degree index m of the                 
+    C and S coefficients in this record."                                     
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "COEFFICIENT ORDER"                        
+    DATA_TYPE                    = ASCII_INTEGER                              
+    START_BYTE                   = 7                                          
+    BYTES                        = 5                                          
+    FORMAT                       = "I5"                                       
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The order index n of the                  
+    C and S coefficients in this record."                                     
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "C"                                        
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 13                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The coefficient Cmn                       
+    for this spherical harmonic model."                                       
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "S"                                        
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 37                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The coefficient Smn                       
+    for this spherical harmonic model."                                       
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "C UNCERTAINTY"                            
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 61                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The uncertainty in the                    
+    coefficient Cmn for this spherical harmonic model."                       
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "S UNCERTAINTY"                            
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 85                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The uncertainty in the                    
+    coefficient Smn for this spherical harmonic model."                       
+  END_OBJECT               = COLUMN                                           
+                                                                              
+END_OBJECT           = SHADR_COEFFICIENTS_TABLE                               
+                                                                              
+END                                                                           
