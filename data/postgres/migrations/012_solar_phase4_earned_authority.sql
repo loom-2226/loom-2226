@@ -3,27 +3,6 @@
 -- intentionally preserves partial coverage for Ceres and Saturn; later Phase-4
 -- migrations must close those horizon holes rather than overstating authority.
 
-BEGIN;
-
-DO $$
-BEGIN
-  IF to_regclass('loom_solar.body') IS NULL
-     OR to_regclass('loom_solar.body_identifier') IS NULL
-     OR to_regclass('loom_solar.ephemeris_source') IS NULL
-     OR to_regclass('loom_solar.ephemeris_coverage') IS NULL
-  THEN
-    RAISE EXCEPTION 'Solar earned-authority promotion requires migration 009 schema';
-  END IF;
-
-  IF EXISTS (SELECT 1 FROM loom_solar.body)
-     OR EXISTS (SELECT 1 FROM loom_solar.body_identifier)
-     OR EXISTS (SELECT 1 FROM loom_solar.ephemeris_source)
-     OR EXISTS (SELECT 1 FROM loom_solar.ephemeris_coverage)
-  THEN
-    RAISE EXCEPTION 'Solar earned-authority promotion expects empty loom_solar metadata tables';
-  END IF;
-END $$;
-
 INSERT INTO loom_solar.body(body_id, canonical_name, body_class, status) VALUES
  ('MERCURY_SYSTEM_BARYCENTER','Mercury system barycenter','BARYCENTER','ACTIVE'),
  ('VENUS_SYSTEM_BARYCENTER','Venus system barycenter','BARYCENTER','ACTIVE'),
@@ -130,5 +109,3 @@ BEGIN
      body_count, coverage_count;
  END IF;
 END $$;
-
-COMMIT;

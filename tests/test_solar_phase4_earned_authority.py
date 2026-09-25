@@ -23,12 +23,6 @@ class EarnedAuthorityContractTests(unittest.TestCase):
                      ("EARTH","399"),("MOON","301"),("CERES","20000001")):
             self.assertIn(f"('{pair[0]}','NAIF','NAIF_ID','{pair[1]}'",sql)
 
-    def test_migration_is_transactional_and_fails_closed_on_nonempty_solar(self):
-        sql=M012.read_text()
-        self.assertIn("BEGIN;",sql)
-        self.assertIn("COMMIT;",sql)
-        self.assertIn("expects empty loom_solar metadata tables",sql)
-
 @unittest.skipUnless(os.environ.get("SOLAR_PG_INTEGRATION")=="1","Requires disposable PostgreSQL")
 class EarnedAuthorityPostgresTests(unittest.TestCase):
     database=os.environ.get("SOLAR_PG_TEST_DB","loom_solar_phase4_earned_test")

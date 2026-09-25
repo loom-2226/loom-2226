@@ -76,8 +76,19 @@ Targeted local qualification:
   current promoted sources;
 - disposable PostgreSQL migration/round-trip qualification: PASS;
 - PR #281 targeted Solar qualification: 24 tests PASS with 2 environment-gated skips;
-- PR #281 disposable PostgreSQL migration qualification: 11 tests PASS;
-- post-merge migration hardening regression: 12/12 PostgreSQL/contract tests PASS.
+- PR #281 disposable PostgreSQL migration qualification: 11 tests PASS.
+
+### Applied migration identity
+
+Live `loom_dev` applied migration `012_solar_phase4_earned_authority` with SHA-256
+`e8a452135bb867a7b0d8fd7afe57be927cb8b7f91aeced5a9307653b4e0a03e6`.
+
+PR #282 briefly changed migration 012 after a concurrent live promotion had already
+recorded that hash. The proposed hardening itself passed 12/12 disposable
+PostgreSQL/contract tests, but mutating an applied migration is not an admissible
+forward state. The repository therefore restores migration 012 to the exact applied
+bytes/hash. Any further migration-safety hardening must use a new forward migration
+or migration-runner contract rather than rewriting revision 012.
 
 ## Does not establish
 
