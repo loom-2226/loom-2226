@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "campaign_sha256": "2f5637c36fa657017f6668b42a7f05f356ebdd0d4db8953be51a0bffca0f38fa",
+  "hcq_sha256": "0bbbfd5ae2ab287900ff4e356f9571d21aff4593cc78e0cd69bf1610def9adc6",
+  "database": "/home/ubuntu/LOOM_SF_PROMOTE_01_67P/dev/solar_facts_multi_body/sf_promote_01_67p/LOOM_SOLAR_FACTS_MULTI_BODY_SF_PROMOTE_01_67P.sqlite3",
+  "database_sha256": "0c4da54dc8f48cd2041ce75aefcea36f5e0d3436c3ceeacf8c0a330d2f5c5e95",
+  "semantic_digest": "a9433ce68ce74a426540359e8e41b78627263f185436c376c8ee5a7a6da6643a",
+  "deterministic_replay": true,
+  "preferred_fact": 0,
+  "facts_candidate_only": true,
+  "new_science": false,
+  "phase4_writes": 0,
+  "resource_engineering_world_state": false
+}
