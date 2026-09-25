@@ -459,3 +459,14 @@ The locked Phase 4E curated cohort is implemented by migration 016 and manifest
 objects and 5 historical interstellar-bound spacecraft. Qualification outcomes
 remain explicit: direct Horizons/NAIF, partial mission or satellite authority,
 and catalog-only identity where an independent state source is not available.
+
+## 16. Proteus closure attack (2026-09-26)
+
+The Proteus-only closure attack found the current official NAIF `NEP098 Part 3`
+product. It contains target 808 directly through
+`2199-12-30T23:58:50.816Z`; migration `018_solar_proteus_nep098_partial.sql`
+records this as `EPHEMERIS_PARTIAL`. A reduced Neptune-system propagation model
+was back-tested and rejected for 2250 because orbital phase error reached
+approximately 228,000 km after one year. Proteus therefore remains explicit
+partial authority, not a fabricated 2250 closure. Pluto moons, Dactyl and Selam
+were not modified.

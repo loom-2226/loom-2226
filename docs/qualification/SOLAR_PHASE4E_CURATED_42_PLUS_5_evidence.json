@@ -216,11 +216,16 @@
       "object_type": "NATURAL_SATELLITE",
       "naif_id": "808",
       "parent_body_id": "NEPTUNE_SYSTEM_BARYCENTER",
-      "outcome": "CATALOG_ONLY",
-      "source_ids": [],
-      "coverage": null,
-      "navigation_grade": false,
-      "reason": "Catalog identity resolved; no independent authoritative SPK target accepted."
+      "outcome": "PARTIAL",
+      "source_ids": [
+        "NAIF_NEP098_808"
+      ],
+      "coverage": {
+        "valid_from": "1799-12-31T23:59:18.816Z",
+        "valid_until": "2199-12-30T23:58:50.816Z"
+      },
+      "navigation_grade": true,
+      "reason": "Official NEP098 Part 3 directly contains target 808 through 2199-12-30; no accepted direct or validated propagated authority through 2250."
     },
     {
       "cohort_entry": 12,

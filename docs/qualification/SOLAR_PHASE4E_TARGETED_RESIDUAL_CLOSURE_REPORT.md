@@ -13,9 +13,11 @@ Closure result:
 - Nix, Hydra, Kerberos and Styx: still partial under PLU060, whose actual
   object-level coverage ends `2199-12-29T23:58:50.816Z`. The available NAIF
   archive and Horizons support did not provide a later independent solution.
-- Proteus: catalog-only. `nep101xl`, `nep104` and `nep105` do not contain NAIF
-  808; Horizons provides satellite orbital metadata but no independent SPK
-  suitable for governed 2250 state authority.
+- Proteus: now partial. The July 2026 official `NEP098 Part 3` release contains
+  NAIF 808 directly through `2199-12-30T23:58:50.816Z`. A reduced Neptune-system
+  propagation experiment was rejected after approximately 228,000 km one-year
+  held-out position error and clear orbital-phase loss; no 2250 authority is
+  claimed. See the dedicated Proteus source audit and report.
 - Dactyl and Selam: catalog-only. Targeted Horizons/NAIF/PDS searches found no
   independent authoritative state product or sufficiently constrained orbit
   solution for defensible 2250 propagation. They remain explicit companions of
