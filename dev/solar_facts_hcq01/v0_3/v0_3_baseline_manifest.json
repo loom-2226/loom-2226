@@ -1,0 +1,1217 @@
+{
+  "database_sha256": "91137126f635cd35e7ccde20cc41ed342dbd23dec7e7af304d9220318f1da26d",
+  "evidence_class_distribution": {
+    "DERIVED": 1,
+    "DYNAMICAL_INFERENCE": 2,
+    "IN_SITU_REMOTE": 4,
+    "PHYSICAL_MODEL": 1
+  },
+  "fact_status_distribution": {
+    "CANDIDATE": 8
+  },
+  "foreign_key_check": [],
+  "integrity_check": "ok",
+  "null_pattern_fingerprints": {
+    "activity_fact": {
+      "activity_id": 0,
+      "activity_type": 0,
+      "body_id": 0,
+      "confidence_class": 0,
+      "description": 0,
+      "evidence_class": 0,
+      "notes": 1,
+      "observation_id": 0,
+      "observed_from": 2,
+      "observed_until": 2,
+      "region_id": 0,
+      "source_id": 0
+    },
+    "body": {
+      "body_class": 0,
+      "body_id": 0,
+      "canonical_name": 0,
+      "parent_body_id": 1,
+      "status": 0
+    },
+    "body_model_product": {
+      "body_id": 0,
+      "byte_count": 6,
+      "model_name": 0,
+      "model_product_id": 0,
+      "model_type": 0,
+      "model_version": 0,
+      "notes": 0,
+      "persistent_identifier": 0,
+      "product_url": 0,
+      "reference_frame": 0,
+      "region_id": 6,
+      "resolution_description": 0,
+      "sha256": 6,
+      "source_id": 0
+    },
+    "body_region": {
+      "body_id": 0,
+      "canonical_name": 0,
+      "confidence_class": 0,
+      "description": 0,
+      "latitude_max_deg": 1,
+      "latitude_min_deg": 1,
+      "longitude_max_deg": 3,
+      "longitude_min_deg": 3,
+      "notes": 5,
+      "parent_region_id": 5,
+      "reference_frame": 0,
+      "region_id": 0,
+      "region_type": 0,
+      "source_id": 0
+    },
+    "derived_input": {
+      "derived_id": 0,
+      "fact_id": 0,
+      "input_role": 0
+    },
+    "derived_quantity": {
+      "body_id": 0,
+      "computed_at": 0,
+      "derivation_method": 0,
+      "derivation_version": 0,
+      "derived_id": 0,
+      "notes": 0,
+      "property_code": 0,
+      "reference_epoch": 1,
+      "region_id": 1,
+      "uncertainty_minus": 1,
+      "uncertainty_plus": 1,
+      "unit": 0,
+      "value_numeric": 0
+    },
+    "fact": {
+      "body_id": 0,
+      "canonical_unit": 0,
+      "confidence_class": 0,
+      "created_at": 0,
+      "evidence_class": 0,
+      "fact_id": 0,
+      "fact_status": 0,
+      "knowledge_valid_from": 0,
+      "knowledge_valid_until": 8,
+      "measurement_method": 0,
+      "notes": 5,
+      "property_code": 0,
+      "region_id": 8,
+      "reported_unit": 0,
+      "reported_value_text": 0,
+      "spatial_context": 6,
+      "supersedes_fact_id": 8,
+      "temporal_context": 8,
+      "uncertainty_minus": 6,
+      "uncertainty_plus": 6,
+      "value_boolean": 8,
+      "value_max": 6,
+      "value_min": 6,
+      "value_numeric": 2,
+      "value_semantics": 0,
+      "value_text": 8
+    },
+    "fact_observation": {
+      "fact_id": 0,
+      "observation_id": 0,
+      "relationship": 0
+    },
+    "gravity_model": {
+      "body_id": 0,
+      "byte_count": 0,
+      "coefficient_convention": 0,
+      "gm_unit": 0,
+      "gravitational_parameter": 0,
+      "gravity_model_id": 0,
+      "maximum_degree": 0,
+      "maximum_order": 0,
+      "model_name": 0,
+      "model_version": 0,
+      "normalization": 0,
+      "notes": 0,
+      "persistent_identifier": 0,
+      "product_url": 0,
+      "reference_epoch": 1,
+      "reference_frame": 0,
+      "reference_radius": 0,
+      "reference_radius_unit": 0,
+      "sha256": 0,
+      "source_id": 0,
+      "validity_notes": 0
+    },
+    "material_evidence": {
+      "abundance_max": 6,
+      "abundance_min": 6,
+      "abundance_semantics": 0,
+      "abundance_unit": 5,
+      "abundance_value": 5,
+      "areal_extent": 6,
+      "areal_extent_unit": 6,
+      "body_id": 0,
+      "confidence_class": 0,
+      "depth_max": 6,
+      "depth_min": 6,
+      "depth_unit": 6,
+      "estimated_volume": 6,
+      "estimated_volume_unit": 6,
+      "evidence_class": 0,
+      "fact_status": 0,
+      "host_material": 6,
+      "location_context": 4,
+      "material_evidence_id": 0,
+      "material_family": 0,
+      "material_species": 3,
+      "measurement_method": 6,
+      "measurement_resolution": 6,
+      "notes": 0,
+      "observation_id": 0,
+      "physical_form": 0,
+      "region_id": 4,
+      "reported_abundance": 5,
+      "source_id": 0,
+      "spatial_heterogeneity": 6,
+      "thickness_max": 6,
+      "thickness_min": 6,
+      "thickness_unit": 6
+    },
+    "observation": {
+      "body_id": 0,
+      "instrument": 0,
+      "mission": 0,
+      "notes": 8,
+      "observation_id": 0,
+      "observation_method": 0,
+      "observation_product_id": 0,
+      "observation_time_end": 4,
+      "observation_time_start": 4,
+      "region_id": 5,
+      "source_id": 0,
+      "spacecraft": 0,
+      "spatial_context": 0
+    },
+    "orientation_model": {
+      "body_id": 0,
+      "libration_model": 1,
+      "model_authority": 0,
+      "model_name": 0,
+      "model_version": 0,
+      "notes": 0,
+      "orientation_model_id": 0,
+      "persistent_identifier": 1,
+      "pole_dec_deg": 0,
+      "pole_dec_rate": 1,
+      "pole_ra_deg": 0,
+      "pole_ra_rate": 1,
+      "prime_meridian_deg": 0,
+      "prime_meridian_rate": 0,
+      "product_url": 0,
+      "reference_epoch": 0,
+      "reference_frame": 0,
+      "rotation_period_seconds": 0,
+      "rotation_state": 0,
+      "sha256": 1,
+      "source_id": 0,
+      "validity_notes": 1
+    },
+    "preferred_fact": {
+      "body_id": 0,
+      "fact_id": 0,
+      "property_code": 0,
+      "region_id": 0,
+      "selected_at": 0,
+      "selection_reason": 0
+    },
+    "property_definition": {
+      "canonical_name": 0,
+      "canonical_unit": 16,
+      "derivable": 0,
+      "description": 0,
+      "expected_value_kind": 0,
+      "notes": 53,
+      "property_code": 0,
+      "property_group": 0
+    },
+    "region_model_product": {
+      "model_product_id": 0,
+      "region_id": 0,
+      "relationship": 0
+    },
+    "source": {
+      "authors": 0,
+      "citation_text": 0,
+      "doi": 9,
+      "journal": 16,
+      "notes": 16,
+      "persistent_identifier": 7,
+      "product_name": 11,
+      "product_version": 11,
+      "provider": 0,
+      "publication_date": 0,
+      "retrieved_at": 0,
+      "source_id": 0,
+      "source_type": 0,
+      "title": 0,
+      "url": 0
+    },
+    "source_assertion": {
+      "assertion_role": 0,
+      "fact_id": 0,
+      "notes": 0,
+      "source_id": 0,
+      "source_locator": 0
+    }
+  },
+  "preferred_fact_count": 0,
+  "primary_key_inventories": {
+    "activity_fact": [
+      "activity_id"
+    ],
+    "body": [
+      "body_id"
+    ],
+    "body_model_product": [
+      "model_product_id"
+    ],
+    "body_region": [
+      "region_id"
+    ],
+    "derived_input": [
+      "derived_id",
+      "fact_id",
+      "input_role"
+    ],
+    "derived_quantity": [
+      "derived_id"
+    ],
+    "fact": [
+      "fact_id"
+    ],
+    "fact_observation": [
+      "fact_id",
+      "observation_id"
+    ],
+    "gravity_model": [
+      "gravity_model_id"
+    ],
+    "material_evidence": [
+      "material_evidence_id"
+    ],
+    "meta": [
+      "key"
+    ],
+    "observation": [
+      "observation_id"
+    ],
+    "orientation_model": [
+      "orientation_model_id"
+    ],
+    "preferred_fact": [],
+    "property_definition": [
+      "property_code"
+    ],
+    "region_model_product": [
+      "region_id",
+      "model_product_id",
+      "relationship"
+    ],
+    "source": [
+      "source_id"
+    ],
+    "source_assertion": [
+      "fact_id",
+      "source_id",
+      "assertion_role"
+    ]
+  },
+  "provenance_fingerprints": {
+    "source": [
+      "8ed80d2d8b3466520183f75b6caf7e59d8bd38bb15f4275fb511f926525dc570",
+      "df1ac1684da747ff0d5179aab0a935c3dd91004444bb57e906f7bb52f2f75247",
+      "c07b0871ab406e8e5182eecb311337e9ae96d925eb00c4718c491632459a3ba8",
+      "39929d28d8b2519c95ac689e6fed0ca8d7115c02ea639fdacb30762aaf73876c",
+      "0e900ad6574a31fe68f17000833c18b8e27f6e9f963cba94398b0424872623f3",
+      "bfe6c918a14642d11121d2476101f8dfea7f16390da28c5ade99042178b11902",
+      "bc433169d6f8ae73e0e0b65c2b25502c4b340ccddcf78d50b09489f5e3fde03f",
+      "a71a490c460dbecf98e1117918b7fa9cdae771d67c7141d8685495b5a959446a",
+      "b555bfb2af4e4f7968b408d335507925caefb18ac30512ce365e47525d05208d",
+      "03b2d65a661763e83d3e8e083cbc7a22031cd1324261e5010fb5b192676f3d9a",
+      "9e72a90d387076135e0524c6849b0f6bc798b6118113b8f8461d5450acd95b75",
+      "9e2fcb517306d6044e266741662239d0a0929879cad37eef153f4d9b1482d973",
+      "827a4c07802e31c882ebfb5a11230eefee56607ac62b9f1a3f45843b2d22e0c6",
+      "756a0f3584451ffeb5e3b0876bc19b230a1c3c3e90d08b724bb46b5783071121",
+      "5457623c77abb3f9298a4cf464d595da2115d72fe5a6043ef213ce74d16d633e",
+      "bd2718fb7bcb448bc401ea4c3a6727a0d00ed515dbc116d2963ed63e9dfae161"
+    ],
+    "source_assertion": [
+      "b464a1dbe471feebe9a3def64ea03e686f5417da78217cb4586d8f8ab3a51261",
+      "b2367033ab95a08dcf0a9a7595bdb4e2282bcee9a87f35b3cc9d6ed47fecc0f0",
+      "b1df5b2a2f766ffadb71211e7845623d2bf01116f4aaef8fa36b41ac4b623e8b",
+      "04b5ff1818a062ceefb0a01ffd5b821f9d809c6941878140b9dc92a46eec6448",
+      "0919d9f87cdade967c2fcc3b78c5600825fd572053350a341ade7c231e5e2e4b",
+      "cdf424f70d9d16c9afd82b55a9e957df5c0bfcb4cbd486c5c48a709bcca80b66",
+      "7c1138e323ea2199c32b0fc28ae3451fb6f3e899f2e7575a15636fa5ae89e40e",
+      "c0109483b6c862b12c043b33ece6238efbca3d67eeaf48be81fd304722983a03"
+    ]
+  },
+  "row_counts": {
+    "activity_fact": 2,
+    "body": 1,
+    "body_model_product": 9,
+    "body_region": 5,
+    "derived_input": 1,
+    "derived_quantity": 1,
+    "fact": 8,
+    "fact_observation": 2,
+    "gravity_model": 1,
+    "material_evidence": 6,
+    "meta": 7,
+    "observation": 8,
+    "orientation_model": 1,
+    "preferred_fact": 0,
+    "property_definition": 53,
+    "region_model_product": 3,
+    "source": 16,
+    "source_assertion": 8
+  },
+  "schema": "LOOM_SOLAR_FACTUAL_ENRICHMENT_DDL_v0.2",
+  "schema_version": null,
+  "scientific_record_fingerprints": {
+    "activity_fact": [
+      {
+        "fingerprint": "c36a8a7a0e1ba654290c143de1b0f6f895ba6f620bda8375cc676b07f3125dc2",
+        "key": {
+          "activity_id": 1
+        }
+      },
+      {
+        "fingerprint": "aa9764dd945c84341799119594acd04a5adffb5b1bed5d82ba0e26936e2e01fd",
+        "key": {
+          "activity_id": 2
+        }
+      }
+    ],
+    "body": [
+      {
+        "fingerprint": "ee038124b38b64a464e2f8e036db36d5e743a3d0c7a404cc79cebb96540448a0",
+        "key": {
+          "body_id": "CERES"
+        }
+      }
+    ],
+    "body_model_product": [
+      {
+        "fingerprint": "6c0da4f12462f73c98d8f0fd98607e0e2cff046e3a258d8cddfab3eac841b0d4",
+        "key": {
+          "model_product_id": 1
+        }
+      },
+      {
+        "fingerprint": "df81159245013219f4667d83661479663e342ddd345f6def8c3ef4939eeacf0c",
+        "key": {
+          "model_product_id": 2
+        }
+      },
+      {
+        "fingerprint": "6f0b948c80a65ad9f5a32d9045b0b8024f01c6d2302ac86aa793574a2c184160",
+        "key": {
+          "model_product_id": 3
+        }
+      },
+      {
+        "fingerprint": "e5e9dc4edc69d9e8252d1e6045b172dbd044cdfa13290c390ba8b43dfe021ee4",
+        "key": {
+          "model_product_id": 4
+        }
+      },
+      {
+        "fingerprint": "bae76f2d9f7498d35a4f7de90bf96cf2c2bf893b5b2d22465c930565a776fd6b",
+        "key": {
+          "model_product_id": 5
+        }
+      },
+      {
+        "fingerprint": "64f1dc61492ab3c10e5fb8df30fa2680de352d422b2965bc8a3d336b465f812a",
+        "key": {
+          "model_product_id": 6
+        }
+      },
+      {
+        "fingerprint": "687d709cb473f6b63bbf196a188731c99ee0198c45bd8dd6e37d4d166701da68",
+        "key": {
+          "model_product_id": 7
+        }
+      },
+      {
+        "fingerprint": "faa4396813e3e6c6aae7981fe0c338192d9b99bcbc193069b5254204c6c65d14",
+        "key": {
+          "model_product_id": 8
+        }
+      },
+      {
+        "fingerprint": "d0828f7891e2078fce07a25f1b5cfab6456769e0202f63845a0ebe5f37eea09f",
+        "key": {
+          "model_product_id": 9
+        }
+      }
+    ],
+    "body_region": [
+      {
+        "fingerprint": "f11eb7f0b2b665f7fb2e592f83ad1ca78a339ca4024fcb983f1e68c7c14e92b8",
+        "key": {
+          "region_id": 1
+        }
+      },
+      {
+        "fingerprint": "bcc953a89c318f8616d0985a378ac6d70d1ced76710e3cd43efaee37a81beea5",
+        "key": {
+          "region_id": 2
+        }
+      },
+      {
+        "fingerprint": "b40c8743fc8f2801c319f0849ad1dcb11b39b8587e115327e1e6b9fe9751bf90",
+        "key": {
+          "region_id": 3
+        }
+      },
+      {
+        "fingerprint": "f1755548018612537a98cc0b8a360763d3b0ac3bfdfcdff6b0806ddc676f9ec4",
+        "key": {
+          "region_id": 4
+        }
+      },
+      {
+        "fingerprint": "086f124300013125893b3e0ee2bcf44e76aadc04557c3454816e6ed30e373636",
+        "key": {
+          "region_id": 5
+        }
+      }
+    ],
+    "derived_input": [
+      {
+        "fingerprint": "90dec118e7eae090c71b7c5bb01e738aefa6a31a8cd1d7c7cdad1d9efee54aba",
+        "key": {
+          "derived_id": 1,
+          "fact_id": 3,
+          "input_role": "INPUT"
+        }
+      }
+    ],
+    "derived_quantity": [
+      {
+        "fingerprint": "4cef6a1944f1a82b1f599e020951c60100415d60fa35260226af601d3767a40e",
+        "key": {
+          "derived_id": 1
+        }
+      }
+    ],
+    "fact": [
+      {
+        "fingerprint": "c9b49e654404cf8121879fb32abce43193532c5209de6c4b2c174ca235568b7f",
+        "key": {
+          "fact_id": 1
+        }
+      },
+      {
+        "fingerprint": "2d25313ad7661409ca9357fdc1486aba4456abb51a5eb6fc11aedb92f343c466",
+        "key": {
+          "fact_id": 2
+        }
+      },
+      {
+        "fingerprint": "09a8ecac6525ebafdc3e12fca029da5d4b070c6dd3a5388051c1961168196748",
+        "key": {
+          "fact_id": 3
+        }
+      },
+      {
+        "fingerprint": "8c4c3aed3d0018e522375ce1f2ac3364f8106399c454657bf895da920a66e2ab",
+        "key": {
+          "fact_id": 4
+        }
+      },
+      {
+        "fingerprint": "4b7aa772e9d2cb5ced4e69d7fb5e49183de2072c24d1e9fa1d67d5554c5a035a",
+        "key": {
+          "fact_id": 5
+        }
+      },
+      {
+        "fingerprint": "2b600feec0526ef530a2098a8d70530b9a9120ce7c50a4ab6caea6fb37e5c1f8",
+        "key": {
+          "fact_id": 6
+        }
+      },
+      {
+        "fingerprint": "ebad43ec23f9be2cfa42a357dc1ea5deb8f541427a76dc14e72f9057ab795a60",
+        "key": {
+          "fact_id": 7
+        }
+      },
+      {
+        "fingerprint": "960ae5cce05bcf26592701ef32164ad676861fe95d5d182c31540d898c73c77e",
+        "key": {
+          "fact_id": 8
+        }
+      }
+    ],
+    "fact_observation": [
+      {
+        "fingerprint": "f9b8c643965c1c5e3a31689485930cf9ef4bea5ddc5998bd1e3c38fac2c73e71",
+        "key": {
+          "fact_id": 7,
+          "observation_id": 3
+        }
+      },
+      {
+        "fingerprint": "93f284612b165043f0f06d4ff54499dd2b9f2bdcb27ad6958bc85a8bc5f56af9",
+        "key": {
+          "fact_id": 8,
+          "observation_id": 3
+        }
+      }
+    ],
+    "gravity_model": [
+      {
+        "fingerprint": "35a23611fd9633b3d11630af7c987cafc4871c6d745500b8984c13a968ebe9cb",
+        "key": {
+          "gravity_model_id": 1
+        }
+      }
+    ],
+    "material_evidence": [
+      {
+        "fingerprint": "5a096613f6ec59912c526af345159f923d4c851e54e353f5af37da91a6a44123",
+        "key": {
+          "material_evidence_id": 1
+        }
+      },
+      {
+        "fingerprint": "8f3609f5a328bb8f56e8a4dd521d771597decebaf9adc1ba6bedd9cbdcb9900b",
+        "key": {
+          "material_evidence_id": 2
+        }
+      },
+      {
+        "fingerprint": "a26bc9ffc17bed2ae74b9060d9d58dd481dc55be407b0f3432e0d817142df5a7",
+        "key": {
+          "material_evidence_id": 3
+        }
+      },
+      {
+        "fingerprint": "17bc75017028a6fbb1d011d948c9dde63c28abb59c4a056d3764532865ae4ffe",
+        "key": {
+          "material_evidence_id": 4
+        }
+      },
+      {
+        "fingerprint": "4ed94d145a4986daa2fbd0ba1147a6a54cd566886642d31eb3a024045b911551",
+        "key": {
+          "material_evidence_id": 5
+        }
+      },
+      {
+        "fingerprint": "c0b64944a61538e3b651f69342c1d1ce541768bf9ecb85e8713b4ca41f17f5f1",
+        "key": {
+          "material_evidence_id": 6
+        }
+      }
+    ],
+    "observation": [
+      {
+        "fingerprint": "1439c38a35c1fc6145cb7a715efc677770d87909576999a27549a90d43428dc0",
+        "key": {
+          "observation_id": 1
+        }
+      },
+      {
+        "fingerprint": "9e0936c0702958856c5a4abc9a1cb11c87f1a60cc6e3aa3dbb1a80a8e7f0132e",
+        "key": {
+          "observation_id": 2
+        }
+      },
+      {
+        "fingerprint": "05a157357110d4602747d8838438a5de48f7b6125ebe2af216d4cad82f287840",
+        "key": {
+          "observation_id": 3
+        }
+      },
+      {
+        "fingerprint": "83205698ff9006f1144932c89851bc295b843c949660f027ebfb8efc8e6e3e76",
+        "key": {
+          "observation_id": 4
+        }
+      },
+      {
+        "fingerprint": "a3fefdf5b7592cc8e74e76efdc34f04ef12143007a04aac3a1a93a9654d8a23b",
+        "key": {
+          "observation_id": 5
+        }
+      },
+      {
+        "fingerprint": "56bbde82f5485c0604b31fd1b544d989257082310eb48a98f73eaf5262b404db",
+        "key": {
+          "observation_id": 6
+        }
+      },
+      {
+        "fingerprint": "4a06372f1f06d2e70ac013f39d3addfe7f56a5e08e6a88216577f159605b22ee",
+        "key": {
+          "observation_id": 7
+        }
+      },
+      {
+        "fingerprint": "74cb01de9f2636ccdb2c4c442e135d05711fa090442fe11781ecaf2133dda0b6",
+        "key": {
+          "observation_id": 8
+        }
+      }
+    ],
+    "orientation_model": [
+      {
+        "fingerprint": "f3a1ae8730b1d4983cb67f1c6d044f7b960ba881c51d5640dceeb79f9a231102",
+        "key": {
+          "orientation_model_id": 1
+        }
+      }
+    ],
+    "preferred_fact": [],
+    "property_definition": [
+      {
+        "fingerprint": "48947aa2ea8eb9dd8a6608c51dd37e9b60e20acffc78416504414d623005baf1",
+        "key": {
+          "property_code": "ABSOLUTE_MAGNITUDE"
+        }
+      },
+      {
+        "fingerprint": "3c66564737896694aac259f97bf21510148a832a3985eff75ca57e73de3e25be",
+        "key": {
+          "property_code": "ATMOSPHERIC_COMPOSITION"
+        }
+      },
+      {
+        "fingerprint": "756c03dc08baa49138c9fa1a0a8ad9f2739e5faa81257deaaa961b653e8d9041",
+        "key": {
+          "property_code": "ATMOSPHERIC_DENSITY"
+        }
+      },
+      {
+        "fingerprint": "cc470941ac85df2b51573d2415c3a12d47f1bc84a5844a0a524008648bd26ee1",
+        "key": {
+          "property_code": "BEARING_STRENGTH"
+        }
+      },
+      {
+        "fingerprint": "75ed4b5542835694804394ffd730445e11275e81fb072e938ba724baca2e39a8",
+        "key": {
+          "property_code": "BOND_ALBEDO"
+        }
+      },
+      {
+        "fingerprint": "c93b10ee37acb1fd447eaafe326112c7e2d544b241109efcb3522223296f6a2b",
+        "key": {
+          "property_code": "BULK_DENSITY"
+        }
+      },
+      {
+        "fingerprint": "0ed62b0e6cb9e5b609294ada02123da3b535a74a02bcc3999213e9cb8bffe272",
+        "key": {
+          "property_code": "C20"
+        }
+      },
+      {
+        "fingerprint": "1ba224e39f24b006f48402486aecd1573ab75a1b830e5caf0aa06e62ed664862",
+        "key": {
+          "property_code": "C22"
+        }
+      },
+      {
+        "fingerprint": "365fcd4e139e6c8d4c5fe874704834372d9e2de417b2dbc8afb3ef5076433e85",
+        "key": {
+          "property_code": "COHESION"
+        }
+      },
+      {
+        "fingerprint": "323c4c1f2dcd3b4d806b256a734f3feac81e159fcf1f861e43795420ca0ebbba",
+        "key": {
+          "property_code": "DUST_CHARACTERISTICS"
+        }
+      },
+      {
+        "fingerprint": "ac67556dc1b91c77b2189507938f2120ee9920187ed7bb69e674ebf0b732b931",
+        "key": {
+          "property_code": "ECLIPSE_DURATION"
+        }
+      },
+      {
+        "fingerprint": "55d981fbd590a27bd194f27dc7cc9a7a253b3f619dcbcb801c7eadd81fa3f2dd",
+        "key": {
+          "property_code": "EQUATORIAL_RADIUS"
+        }
+      },
+      {
+        "fingerprint": "0b8e4c1886bb98a3b4a73d6758137df4e259a5f5a17426f2a2508fe96bbd1bd7",
+        "key": {
+          "property_code": "ESCAPE_VELOCITY"
+        }
+      },
+      {
+        "fingerprint": "73efbaa3a1c581cc5b05e7563e598e7215bc83808f7fd9423b631aa107a0c2d8",
+        "key": {
+          "property_code": "GEOMETRIC_ALBEDO"
+        }
+      },
+      {
+        "fingerprint": "0b234556bd460c958c562fc030d7da0075a17ea365147813125cf608943e8f58",
+        "key": {
+          "property_code": "GM"
+        }
+      },
+      {
+        "fingerprint": "5ae23588dc75847422a63e50c9f144bdfa5ca13e9239ab1f6b6248721a8b2ca7",
+        "key": {
+          "property_code": "GRAIN_SIZE"
+        }
+      },
+      {
+        "fingerprint": "ee3454d2b1c3a9a0fdcd75d664bb1c1121dc59dc564357571a9c7eb5cfe71afd",
+        "key": {
+          "property_code": "HEAT_FLOW"
+        }
+      },
+      {
+        "fingerprint": "007c2469cb7a2d923b65f2782e9afc7c0c79fbfd596f54bd1eb446893ca8ea73",
+        "key": {
+          "property_code": "HILL_RADIUS"
+        }
+      },
+      {
+        "fingerprint": "bb146246cce722f68fe743c0e7901ad9d06a12c59fcaee7f77d9de33503de7ea",
+        "key": {
+          "property_code": "ILLUMINATION_DURATION"
+        }
+      },
+      {
+        "fingerprint": "b01a0e9d5231e7ffb94b1a43dc3c798bf349b7bc527687fbabfe193b7ea50095",
+        "key": {
+          "property_code": "J2"
+        }
+      },
+      {
+        "fingerprint": "4e59969a7d3d0028d4bdd2b378f6b3b4118bcf57c6b4413aeed8f8be2bdaab08",
+        "key": {
+          "property_code": "MAGNETIC_FIELD_STRENGTH"
+        }
+      },
+      {
+        "fingerprint": "ff3911338a79d7a8d594c5a93ae61d24574613faaa208acffb6d3008a6ff126b",
+        "key": {
+          "property_code": "MASS"
+        }
+      },
+      {
+        "fingerprint": "db6fdeb45b48e47bcd8438649ac828a4bd46b1ac38fa3db48b600b8a3c128a8b",
+        "key": {
+          "property_code": "MEAN_RADIUS"
+        }
+      },
+      {
+        "fingerprint": "8eb6b61d1f597f29bed47232ab57d25b2a658ddbc6b5c7f19c29c07691fa67f7",
+        "key": {
+          "property_code": "MEAN_SURFACE_GRAVITY"
+        }
+      },
+      {
+        "fingerprint": "766716a09e7c50a1bfc41c84a96a5a28b7a5ba117bcb7369b9e36e5adaa5d56c",
+        "key": {
+          "property_code": "OBLIQUITY"
+        }
+      },
+      {
+        "fingerprint": "a536fa31880543cb22a317d480c3f7da40551d4a44a865f2015eaadbcdddf9c1",
+        "key": {
+          "property_code": "PARENT_BODY_MASS_RATIO"
+        }
+      },
+      {
+        "fingerprint": "bbbc4616ffa242ba2b2c68c8bcbf044f66fbeb34fdbdf5bb3ae42d0e8d20aad6",
+        "key": {
+          "property_code": "PARTICLE_FLUX"
+        }
+      },
+      {
+        "fingerprint": "da34a62f8793ec6e9d1fca647103eb2969e69f77ed84f4713ea09c979f2cd73b",
+        "key": {
+          "property_code": "POLAR_RADIUS"
+        }
+      },
+      {
+        "fingerprint": "fe4d16f4c2cb4f54b3fba5b63cf55303f61b45f487f9262c211b5b83536da6f6",
+        "key": {
+          "property_code": "POROSITY"
+        }
+      },
+      {
+        "fingerprint": "3a8015a2f8e9458041324e62be7aad610e176cacc7eca15f6247f6fb9a3cb156",
+        "key": {
+          "property_code": "RADIATION_DOSE_RATE"
+        }
+      },
+      {
+        "fingerprint": "c271ce50630b7c9d5e374cfe4a3d5dba22c3da61589ffd8bea48e4b59041aac9",
+        "key": {
+          "property_code": "REGOLITH_DEPTH"
+        }
+      },
+      {
+        "fingerprint": "ec55bca061dfb0133a47f33dd5b31051b3a181775b6209ee55f68aa59b352e23",
+        "key": {
+          "property_code": "ROCK_ABUNDANCE"
+        }
+      },
+      {
+        "fingerprint": "995774fd18a69ec8d26db36a6f4565cba813a6c1555266807b8a6f1e65760d33",
+        "key": {
+          "property_code": "ROTATION_DIRECTION"
+        }
+      },
+      {
+        "fingerprint": "ec0c2cc03b344c7e7acf60697405b01815273b54b5c79a9bbca3f66d5b3c82b8",
+        "key": {
+          "property_code": "ROTATION_PERIOD"
+        }
+      },
+      {
+        "fingerprint": "b136c9b9a4c493cdf450bb89b3aca17b8b8e239acefd16c9ceed68aa5c410270",
+        "key": {
+          "property_code": "SCALE_HEIGHT"
+        }
+      },
+      {
+        "fingerprint": "9f7ddee9e564afc53594209508ef6145439a7ccc88ae5817573b78f1163fc812",
+        "key": {
+          "property_code": "SEISMIC_ACTIVITY"
+        }
+      },
+      {
+        "fingerprint": "64934b61593c2c78be677b3c9248ccdf0879014ce5a299e00766b9fdb37dd7cc",
+        "key": {
+          "property_code": "SOLAR_FLUX"
+        }
+      },
+      {
+        "fingerprint": "33c65a4c9672caa163c0fd1973748055a49099329d8db0404b3b439fae5ef9da",
+        "key": {
+          "property_code": "SPHERE_OF_INFLUENCE"
+        }
+      },
+      {
+        "fingerprint": "5ab10cafad9a4798e0055d028ebe556205d7cceb73a69a04a8b3464ddbd5dc43",
+        "key": {
+          "property_code": "SPIN_STATE"
+        }
+      },
+      {
+        "fingerprint": "512b3f0e2b6833c7b8a293a4fd5095f2a70e905026c736d7712a03d3202d4b34",
+        "key": {
+          "property_code": "SUBSURFACE_TEMPERATURE"
+        }
+      },
+      {
+        "fingerprint": "e47e80b5f3683491a1d95a4f29e2e1d6475caef877be47c558be3982d1dcd544",
+        "key": {
+          "property_code": "SURFACE_PRESSURE"
+        }
+      },
+      {
+        "fingerprint": "117bfda38ebeb251f6cc4ca6755a66fe263584282289261c028c9dd7ef53cd1e",
+        "key": {
+          "property_code": "SURFACE_ROUGHNESS"
+        }
+      },
+      {
+        "fingerprint": "a72ba4aeda114bdb108a21280b135c66785ec676ae23f29fd7b7539b0a2fab84",
+        "key": {
+          "property_code": "SURFACE_SLOPE"
+        }
+      },
+      {
+        "fingerprint": "7c51a6c102bb81c0b29760d58304c68e1a2f41dc3d64d38c6ab5cb23d8adf03a",
+        "key": {
+          "property_code": "SURFACE_TEMPERATURE"
+        }
+      },
+      {
+        "fingerprint": "18e59256bf2261518d0bb694895aeffa4e8e9c76a7c05ec52e8d012c41da42a9",
+        "key": {
+          "property_code": "SYNCHRONOUS_ROTATION"
+        }
+      },
+      {
+        "fingerprint": "7177af296f48fcc40f43a2b8177176bcb108bec6f48ed9e7da252fa332a4ff49",
+        "key": {
+          "property_code": "THERMAL_CONDUCTIVITY"
+        }
+      },
+      {
+        "fingerprint": "a20ddd5ee4d4426a1b81897329d8ef3df620340cbde96b80409090faa336f718",
+        "key": {
+          "property_code": "THERMAL_INERTIA"
+        }
+      },
+      {
+        "fingerprint": "4f5b45c73235d2d06c3f6853eaca47dc5cbc2f5a2889dc65888bee673225bff0",
+        "key": {
+          "property_code": "TRIAXIAL_AXIS_A"
+        }
+      },
+      {
+        "fingerprint": "db9b29941560853e9f1a011029c5ad78fc8538a03fd66f51daac85913b5fab21",
+        "key": {
+          "property_code": "TRIAXIAL_AXIS_B"
+        }
+      },
+      {
+        "fingerprint": "077c90e247ff2a4fff0736748a7d8862b15428111bb7c2305c7f19ef766b9901",
+        "key": {
+          "property_code": "TRIAXIAL_AXIS_C"
+        }
+      },
+      {
+        "fingerprint": "057a068768486c71bb76a0362e5c092efe52b7f9d56bf991d0097050d4edd1a5",
+        "key": {
+          "property_code": "TUMBLING_STATE"
+        }
+      },
+      {
+        "fingerprint": "a5fefa8393dfb50d110f871cdcf961e2589c9580dbad5ddc7c9ffef7d89f3581",
+        "key": {
+          "property_code": "VOLUME"
+        }
+      },
+      {
+        "fingerprint": "e4def25e8394685769ad579c6df992bd68b1a225a907ef42b3bd8ad109c6c670",
+        "key": {
+          "property_code": "WIND_SPEED"
+        }
+      }
+    ],
+    "region_model_product": [
+      {
+        "fingerprint": "cc9cf4d50e88783b478624de6e6a72847afe3de8c2cc27c0acb14ded5a0915e2",
+        "key": {
+          "model_product_id": 5,
+          "region_id": 1,
+          "relationship": "DESCRIBES"
+        }
+      },
+      {
+        "fingerprint": "6ab0059ea792559319e8a84bc346891d97a0c33bef0ba8ce16404bce1310b6dc",
+        "key": {
+          "model_product_id": 7,
+          "region_id": 4,
+          "relationship": "DESCRIBES"
+        }
+      },
+      {
+        "fingerprint": "b6c4bb33f5759f179a2d88baaa0fe44511a6a7cf2e8bcd325554c35bb81453a8",
+        "key": {
+          "model_product_id": 9,
+          "region_id": 5,
+          "relationship": "DESCRIBES"
+        }
+      }
+    ],
+    "source": [
+      {
+        "fingerprint": "a9ff1983efb8196d19807ac266310f07bd9d946d9e40545fe3390ca2fde92505",
+        "key": {
+          "source_id": 1
+        }
+      },
+      {
+        "fingerprint": "07155be50727cb3c675dec4e0ec934448ec78e8d9d5663082b4b5ebaad5744ba",
+        "key": {
+          "source_id": 2
+        }
+      },
+      {
+        "fingerprint": "71f6bc38ebd8b7f27bbee1c924cae2c66a7c3bd442487d66f89693afc1c6a8d1",
+        "key": {
+          "source_id": 3
+        }
+      },
+      {
+        "fingerprint": "3f1c47aff49c954f7da50b57d62866ff675ad867ceb5f733628ddd4a88a31215",
+        "key": {
+          "source_id": 4
+        }
+      },
+      {
+        "fingerprint": "1d6d282447b85c3bc1babc0468c5769a9bd6de61a4a42a9989e1fab5f4dd57ca",
+        "key": {
+          "source_id": 5
+        }
+      },
+      {
+        "fingerprint": "d868b8e63f2d63646a92879b34e64612b0021db81d8e2b4a4252158d88688f90",
+        "key": {
+          "source_id": 6
+        }
+      },
+      {
+        "fingerprint": "a265f9819dd9b7cfb5c8b178e687fdf795d38e3d07fc55b26c49eaecfb84d3be",
+        "key": {
+          "source_id": 7
+        }
+      },
+      {
+        "fingerprint": "e467a39488553ae2faf2244c6a3817f339258b074a9db2513c14e1db4cfff0c4",
+        "key": {
+          "source_id": 8
+        }
+      },
+      {
+        "fingerprint": "1d0308daaaaf77ccadda013f86742e05bf7591d2e29167e349f79877290171b2",
+        "key": {
+          "source_id": 9
+        }
+      },
+      {
+        "fingerprint": "a56934c25d6cfd8d733cceb91c493075d9d2177f8ec9650b6894cfa7afee8c16",
+        "key": {
+          "source_id": 10
+        }
+      },
+      {
+        "fingerprint": "5dec3258c0393a08f3fa2ef9fae7a3edde8e0e524175d567c3d85f68fff7490f",
+        "key": {
+          "source_id": 11
+        }
+      },
+      {
+        "fingerprint": "6b281e6a7533947ee531f2f02f36d8de886227687f26a2e7b64e26f54c71398f",
+        "key": {
+          "source_id": 12
+        }
+      },
+      {
+        "fingerprint": "0274950e2dc2d4b5826b04521868cdc46b12a5a90d0634acddee6f19a3876fd4",
+        "key": {
+          "source_id": 13
+        }
+      },
+      {
+        "fingerprint": "3f3ff40db3ef6990a6e0405bc9d29bb0cc32d2cd968d7c6f257ef3c2c11595d9",
+        "key": {
+          "source_id": 14
+        }
+      },
+      {
+        "fingerprint": "a67cd7fbc5da2136af4adf81b0f9ec5ddd2b12dd40fac108710a4ec2751ae830",
+        "key": {
+          "source_id": 15
+        }
+      },
+      {
+        "fingerprint": "c91294884e2b0821aac70de9ee9648816e7d045e2bf91233584a3100e6fdc570",
+        "key": {
+          "source_id": 16
+        }
+      }
+    ],
+    "source_assertion": [
+      {
+        "fingerprint": "b464a1dbe471feebe9a3def64ea03e686f5417da78217cb4586d8f8ab3a51261",
+        "key": {
+          "assertion_role": "PRIMARY",
+          "fact_id": 1,
+          "source_id": 1
+        }
+      },
+      {
+        "fingerprint": "b2367033ab95a08dcf0a9a7595bdb4e2282bcee9a87f35b3cc9d6ed47fecc0f0",
+        "key": {
+          "assertion_role": "PRIMARY",
+          "fact_id": 2,
+          "source_id": 1
+        }
+      },
+      {
+        "fingerprint": "b1df5b2a2f766ffadb71211e7845623d2bf01116f4aaef8fa36b41ac4b623e8b",
+        "key": {
+          "assertion_role": "PRIMARY",
+          "fact_id": 3,
+          "source_id": 1
+        }
+      },
+      {
+        "fingerprint": "04b5ff1818a062ceefb0a01ffd5b821f9d809c6941878140b9dc92a46eec6448",
+        "key": {
+          "assertion_role": "PRIMARY",
+          "fact_id": 4,
+          "source_id": 1
+        }
+      },
+      {
+        "fingerprint": "0919d9f87cdade967c2fcc3b78c5600825fd572053350a341ade7c231e5e2e4b",
+        "key": {
+          "assertion_role": "PRIMARY",
+          "fact_id": 5,
+          "source_id": 2
+        }
+      },
+      {
+        "fingerprint": "cdf424f70d9d16c9afd82b55a9e957df5c0bfcb4cbd486c5c48a709bcca80b66",
+        "key": {
+          "assertion_role": "PRIMARY",
+          "fact_id": 6,
+          "source_id": 7
+        }
+      },
+      {
+        "fingerprint": "7c1138e323ea2199c32b0fc28ae3451fb6f3e899f2e7575a15636fa5ae89e40e",
+        "key": {
+          "assertion_role": "PRIMARY",
+          "fact_id": 7,
+          "source_id": 9
+        }
+      },
+      {
+        "fingerprint": "c0109483b6c862b12c043b33ece6238efbca3d67eeaf48be81fd304722983a03",
+        "key": {
+          "assertion_role": "PRIMARY",
+          "fact_id": 8,
+          "source_id": 9
+        }
+      }
+    ]
+  },
+  "source_type_distribution": {
+    "DATA_PRODUCT": 5,
+    "OFFICIAL_REFERENCE": 2,
+    "OTHER": 2,
+    "PEER_REVIEWED": 7
+  },
+  "table_inventory": [
+    "activity_fact",
+    "body",
+    "body_model_product",
+    "body_region",
+    "derived_input",
+    "derived_quantity",
+    "fact",
+    "fact_observation",
+    "gravity_model",
+    "material_evidence",
+    "meta",
+    "observation",
+    "orientation_model",
+    "preferred_fact",
+    "property_definition",
+    "region_model_product",
+    "source",
+    "source_assertion"
+  ]
+}

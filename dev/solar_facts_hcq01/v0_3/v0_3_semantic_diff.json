@@ -1,0 +1,44 @@
+{
+  "authorized_metadata_changes": [
+    {
+      "after": "PREPRINT",
+      "before": "OTHER",
+      "classification": "AUTHORIZED_METADATA_CHANGE",
+      "column": "source_type",
+      "key": [
+        9
+      ],
+      "reason": "preserved arXiv artifact is a preprint",
+      "table": "source"
+    }
+  ],
+  "authorized_schema_additions": {
+    "observation_columns": [
+      "spatial_resolution_value",
+      "spatial_resolution_unit",
+      "spatial_resolution_semantics",
+      "vertical_sensitivity_min",
+      "vertical_sensitivity_max",
+      "vertical_sensitivity_unit"
+    ],
+    "source_type": "PREPRINT",
+    "tables": [
+      "fact_input",
+      "knowledge_event"
+    ]
+  },
+  "byte_identical_output": true,
+  "classification": "LOSSLESS_WITH_AUTHORIZED_METADATA_CHANGE",
+  "deterministic_semantic_output": true,
+  "fact_input_rows": 2,
+  "fact_status_unchanged": true,
+  "knowledge_event_rows": 4,
+  "provenance_unchanged": true,
+  "unexpected_change_count": 0,
+  "unexpected_changes": [],
+  "v2_sha_after_work": "91137126f635cd35e7ccde20cc41ed342dbd23dec7e7af304d9220318f1da26d",
+  "v2_unchanged": true,
+  "v3_foreign_key_check": [],
+  "v3_integrity_check": "ok",
+  "v3_sha256": "310c35491e3768adcfc1607c4542603613d8d28ad00df883755537805037ed74"
+}
