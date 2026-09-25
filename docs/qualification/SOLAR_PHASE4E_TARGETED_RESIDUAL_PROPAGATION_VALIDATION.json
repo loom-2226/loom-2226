@@ -1,0 +1,94 @@
+{
+  "model": "LOOM_SOLAR_PHASE4E_SPACECRAFT_RK4_NBODY_V1",
+  "integrator": "fixed-step RK4",
+  "integration_step_seconds": 86400,
+  "force_model": [
+    "Sun gravity",
+    "differential DE440 planets 1-8"
+  ],
+  "navigation_grade": false,
+  "held_out_validation": [
+    {
+      "body": "Pioneer 10",
+      "training": "1972-03-04 to 1990-01-01",
+      "epochs": {
+        "1980-01-01": {
+          "position_error_km": 2137642470.549,
+          "velocity_error_km_s": 8.936318
+        },
+        "1989-01-01": {
+          "position_error_km": 4654075117.041,
+          "velocity_error_km_s": 10.231379
+        }
+      }
+    },
+    {
+      "body": "Pioneer 11",
+      "training": "1973-04-07 to 1990-01-01",
+      "epochs": {
+        "1980-01-01": {
+          "position_error_km": 10072888644.528,
+          "velocity_error_km_s": 48.918602
+        },
+        "1989-01-01": {
+          "position_error_km": 24239476298.946,
+          "velocity_error_km_s": 52.76535
+        }
+      }
+    },
+    {
+      "body": "Voyager 1",
+      "training": "1981-01-01 to 2100-01-01",
+      "epochs": {
+        "1990-01-01": {
+          "position_error_km": 186239.422,
+          "velocity_error_km_s": 0.001331
+        },
+        "2050-01-01": {
+          "position_error_km": 9034254.261,
+          "velocity_error_km_s": 0.008119
+        },
+        "2099-01-01": {
+          "position_error_km": 25942499.939,
+          "velocity_error_km_s": 0.013786
+        }
+      }
+    },
+    {
+      "body": "Voyager 2",
+      "training": "1990-01-01 to 2100-01-01",
+      "epochs": {
+        "2000-01-01": {
+          "position_error_km": 43439.93,
+          "velocity_error_km_s": 0.00046
+        },
+        "2050-01-01": {
+          "position_error_km": 4487707.864,
+          "velocity_error_km_s": 0.005221
+        },
+        "2099-01-01": {
+          "position_error_km": 16172584.402,
+          "velocity_error_km_s": 0.009897
+        }
+      }
+    },
+    {
+      "body": "New Horizons",
+      "training": "2020-01-01 to 2033-01-01",
+      "epochs": {
+        "2025-01-01": {
+          "position_error_km": 32348.65,
+          "velocity_error_km_s": 0.000313
+        },
+        "2030-01-01": {
+          "position_error_km": 94203.285,
+          "velocity_error_km_s": 0.000429
+        },
+        "2032-01-01": {
+          "position_error_km": 121259.501,
+          "velocity_error_km_s": 0.000431
+        }
+      }
+    }
+  ]
+}
