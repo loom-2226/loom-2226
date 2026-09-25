@@ -36,3 +36,8 @@ Source assets are hash-pinned in the manifest and remain outside PostgreSQL. The
 PostgreSQL closure migration is `013_solar_phase4b_closure.sql`; it records 26
 active bodies, 26 active identifiers and 33 qualified coverage rows including the
 previously earned authority.
+
+Downstream impact: consumers receive explicit capability and uncertainty metadata;
+propagated states are suitable for horizon-qualified spatial modeling only and
+must not be treated as navigation-grade observations. Recovery is the retained
+pre-migration `loom_dev` backup plus normal migration controls.
