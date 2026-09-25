@@ -9,6 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime, timezone
 import hashlib
+import json
 from pathlib import Path
 from typing import Iterable, Mapping
 
@@ -168,6 +169,7 @@ class SpiceEphemerisAdapter:
     def __init__(self, registry: SolarEphemerisRegistry):
         self.registry = registry
         self._loaded: set[str] = set()
+        self._verified_assets: dict[Path, tuple[str, int]] = {}
         self._service = HybridCelestialStateService(self._direct_lookup, {})
 
     def service(self) -> HybridCelestialStateService:
@@ -184,17 +186,61 @@ class SpiceEphemerisAdapter:
             raise CelestialStateError("spiceypy is required for the local SPICE adapter") from exc
         return spiceypy
 
-    @staticmethod
-    def _verify_asset(asset: KernelAsset) -> Path:
+    def _verify_asset(self, asset: KernelAsset) -> Path:
         path = Path(asset.path).expanduser().resolve()
         if not path.is_file():
             raise CelestialStateError(f"pinned kernel asset is missing: {path}")
-        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        expected = (asset.sha256.lower(), asset.byte_count or path.stat().st_size)
+        if self._verified_assets.get(path) == expected:
+            return path
+        hasher = hashlib.sha256()
+        with path.open("rb") as handle:
+            for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                hasher.update(chunk)
+        digest = hasher.hexdigest()
         if digest != asset.sha256.lower():
             raise CelestialStateError(f"kernel hash mismatch: {path}")
         if asset.byte_count is not None and path.stat().st_size != asset.byte_count:
             raise CelestialStateError(f"kernel byte-count mismatch: {path}")
+        self._verified_assets[path] = (digest, path.stat().st_size)
         return path
+
+    def _source_asset(self, source: EphemerisSource) -> Path:
+        matches = tuple(
+            asset for asset in source.kernel_assets
+            if Path(asset.path).name == source.asset_filename
+        )
+        if len(matches) != 1:
+            raise CelestialStateError(
+                f"ephemeris source must identify exactly one primary kernel asset: "
+                f"{source.ephemeris_source_id}"
+            )
+        return self._verify_asset(matches[0])
+
+    def _require_source_object_coverage(
+        self, source: EphemerisSource, target: int, et: float,
+    ) -> None:
+        spice = self._spice()
+        source_path = self._source_asset(source)
+        try:
+            window = spice.spkcov(str(source_path), target)
+            covered = any(
+                start <= et <= stop
+                for start, stop in (
+                    spice.wnfetd(window, index)
+                    for index in range(spice.wncard(window))
+                )
+            )
+        except Exception as exc:
+            raise CelestialStateError(
+                f"cannot verify source/object coverage for {source.ephemeris_source_id} "
+                f"and NAIF {target}"
+            ) from exc
+        if not covered:
+            raise CelestialStateError(
+                f"selected source {source.ephemeris_source_id} does not contain NAIF {target} "
+                "at the requested epoch"
+            )
 
     def _load_source(self, source: EphemerisSource) -> None:
         if source.ephemeris_source_id in self._loaded:
@@ -218,6 +264,7 @@ class SpiceEphemerisAdapter:
         requested = _iso(_epoch(epoch_utc))
         try:
             et = float(spice.str2et(requested))
+            self._require_source_object_coverage(source, target, et)
             # spkgeo is the geometric (aberration-free) state API: target,
             # ET, frame, observer. Keep the explicit NONE contract in the
             # metadata even though this API has no aberration argument.
@@ -263,7 +310,74 @@ class SpiceEphemerisAdapter:
         )
 
 
+def registry_from_manifest(
+    manifest_path: Path | str,
+    asset_root: Path | str,
+) -> SolarEphemerisRegistry:
+    """Load governed identity and source metadata without granting SPICE access."""
+    path = Path(manifest_path)
+    try:
+        document = json.loads(path.read_text())
+        assets = {
+            record["asset_id"]: KernelAsset(
+                Path(asset_root) / record["local_path"],
+                record["sha256"],
+                int(record["byte_count"]),
+            )
+            for record in document["assets"]
+        }
+        bodies = [SolarBody(**record) for record in document["registry"]["bodies"]]
+        identifiers = [
+            BodyIdentifier(**record)
+            for record in document["registry"]["identifiers"]
+        ]
+        sources = [
+            EphemerisSource(
+                ephemeris_source_id=record["ephemeris_source_id"],
+                provider=record["provider"],
+                product_name=record["product_name"],
+                product_version=record["product_version"],
+                asset_filename=record["asset_filename"],
+                sha256=record["sha256"],
+                byte_count=int(record["byte_count"]),
+                source_url=record["source_url"],
+                acquired_at=record["acquired_at"],
+                status=record["status"],
+                kernel_assets=tuple(assets[asset_id] for asset_id in record["kernel_asset_ids"]),
+            )
+            for record in document["registry"]["sources"]
+        ]
+        coverage = [
+            EphemerisCoverage(**record)
+            for record in document["registry"]["coverage"]
+        ]
+        for source in sources:
+            primary = tuple(
+                asset for asset in source.kernel_assets
+                if Path(asset.path).name == source.asset_filename
+            )
+            if len(primary) != 1:
+                raise ValueError("source must name exactly one primary asset")
+            if (primary[0].sha256.lower() != source.sha256.lower()
+                    or primary[0].byte_count != source.byte_count):
+                raise ValueError("source provenance does not match primary asset")
+    except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        raise CelestialStateError(f"invalid Solar ephemeris manifest: {path}") from exc
+    return SolarEphemerisRegistry(bodies, identifiers, sources, coverage)
+
+
+def service_from_manifest(
+    manifest_path: Path | str,
+    asset_root: Path | str,
+) -> HybridCelestialStateService:
+    """Return the existing typed state authority backed by governed local assets."""
+    return SpiceEphemerisAdapter(
+        registry_from_manifest(manifest_path, asset_root)
+    ).service()
+
+
 __all__ = [
     "BodyIdentifier", "EphemerisCoverage", "EphemerisSource", "KernelAsset",
     "SolarBody", "SolarEphemerisRegistry", "SpiceEphemerisAdapter",
+    "registry_from_manifest", "service_from_manifest",
 ]

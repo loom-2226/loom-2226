@@ -1,0 +1,683 @@
+{
+  "assets": {
+    "DE440": {
+      "acquired_at": "2026-09-24T21:39:02.529102Z",
+      "byte_count": 119799808,
+      "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+      "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp"
+    },
+    "MAR099": {
+      "acquired_at": "2026-09-25T01:32:16Z",
+      "byte_count": 1227574272,
+      "path": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/mar099.bsp",
+      "sha256": "9991e57b196bae1a096acc6e2afc6718102ee420d684695de0f0333064c046bc",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/mar099.bsp"
+    },
+    "NAIF0012_LSK": {
+      "acquired_at": "2026-09-24T21:39:02.529102Z",
+      "byte_count": 5257,
+      "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls"
+    },
+    "NEP097": {
+      "acquired_at": "2026-09-25T01:32:16Z",
+      "byte_count": 105262080,
+      "path": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/nep097.bsp",
+      "sha256": "5c1132fdc48c54e5d2e4eb663e1ed1a876911eae9433c203f29a5a1b5e1fa9b1",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/nep097.bsp"
+    },
+    "SAT441": {
+      "acquired_at": "2026-09-25T01:32:16Z",
+      "byte_count": 661592064,
+      "path": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/sat441.bsp",
+      "sha256": "d7e444a9ba7a52b8f448ff0747030789524d2f0c1212e4e2bd7f5fc3c96444d5",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/sat441.bsp"
+    },
+    "URA184_PART_3": {
+      "acquired_at": "2026-09-25T01:32:16Z",
+      "byte_count": 386885632,
+      "path": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/ura184_part-3.bsp",
+      "sha256": "273cd4ccc470d1098562cd4e94fa48fc2b4c6b1c2896308e473c949b87937c53",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/ura184_part-3.bsp"
+    }
+  },
+  "cases": [
+    {
+      "barycenter_body_id": "MARS_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 4,
+      "body_id": "MARS",
+      "center_barycenter_position_separation_km": 0.0001022004947846362,
+      "center_barycenter_velocity_separation_km_s": 3.295605711997328e-08,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_MAR099",
+      "epoch_utc": "2026-01-01T00:00:00Z",
+      "naif_id": 499,
+      "position_km": [
+        50951685.8104577,
+        -207492004.36899716,
+        -5597567.532013863
+      ],
+      "velocity_km_s": [
+        24.447104445420276,
+        7.8613609906009,
+        -0.4347381970288482
+      ]
+    },
+    {
+      "barycenter_body_id": "MARS_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 4,
+      "body_id": "MARS",
+      "center_barycenter_position_separation_km": 0.00013221722403721983,
+      "center_barycenter_velocity_separation_km_s": 3.436409054203084e-08,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_MAR099",
+      "epoch_utc": "2226-01-01T00:00:00Z",
+      "naif_id": 499,
+      "position_km": [
+        104983168.53674543,
+        197994249.04813847,
+        1633120.968010977
+      ],
+      "velocity_km_s": [
+        -20.521580975149096,
+        13.432202270049508,
+        0.7767055954143016
+      ]
+    },
+    {
+      "barycenter_body_id": "MARS_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 4,
+      "body_id": "MARS",
+      "center_barycenter_position_separation_km": 0.00020395388075228755,
+      "center_barycenter_velocity_separation_km_s": 3.858946176478672e-08,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_MAR099",
+      "epoch_utc": "2250-01-01T00:00:00Z",
+      "naif_id": 499,
+      "position_km": [
+        164598800.34192595,
+        -125662216.50372204,
+        -6599042.7209545
+      ],
+      "velocity_km_s": [
+        15.588516490690846,
+        21.34996884224891,
+        0.07421997447038642
+      ]
+    },
+    {
+      "barycenter_body_id": "SATURN_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 6,
+      "body_id": "SATURN",
+      "center_barycenter_position_separation_km": 271.62243563686934,
+      "center_barycenter_velocity_separation_km_s": 0.00132338661577275,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_SAT441",
+      "epoch_utc": "2026-01-01T00:00:00Z",
+      "naif_id": 699,
+      "position_km": [
+        1422278011.6941113,
+        38557878.09347333,
+        -57286371.97805384
+      ],
+      "velocity_km_s": [
+        -0.8022944150697825,
+        9.633913036033475,
+        -0.1352979746846219
+      ]
+    },
+    {
+      "barycenter_body_id": "SATURN_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 6,
+      "body_id": "SATURN",
+      "center_barycenter_position_separation_km": 293.94931542131553,
+      "center_barycenter_velocity_separation_km_s": 0.0013063809667359977,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_SAT441",
+      "epoch_utc": "2226-01-01T00:00:00Z",
+      "naif_id": 699,
+      "position_km": [
+        531008782.2779842,
+        -1403511001.8297079,
+        2629796.376195252
+      ],
+      "velocity_km_s": [
+        8.492967696467296,
+        3.397943360910937,
+        -0.39803656453228653
+      ]
+    },
+    {
+      "barycenter_body_id": "SATURN_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 6,
+      "body_id": "SATURN",
+      "center_barycenter_position_separation_km": 299.950463138779,
+      "center_barycenter_velocity_separation_km_s": 0.001256569749600064,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_SAT441",
+      "epoch_utc": "2250-01-01T00:00:00Z",
+      "naif_id": 699,
+      "position_km": [
+        -940689246.9068619,
+        -1145972712.1891224,
+        57268505.25241101
+      ],
+      "velocity_km_s": [
+        6.913042805603518,
+        -6.159232086554442,
+        -0.1725433501004714
+      ]
+    },
+    {
+      "barycenter_body_id": "URANUS_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 7,
+      "body_id": "URANUS",
+      "center_barycenter_position_separation_km": 30.749404854367345,
+      "center_barycenter_velocity_separation_km_s": 0.0002729972865862004,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_URA184_PART_3",
+      "epoch_utc": "2026-01-01T00:00:00Z",
+      "naif_id": 799,
+      "position_km": [
+        1478074094.0320818,
+        2513246753.51379,
+        -9831551.144312024
+      ],
+      "velocity_km_s": [
+        -5.93278822253077,
+        3.1346496786136266,
+        0.08880773287034383
+      ]
+    },
+    {
+      "barycenter_body_id": "URANUS_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 7,
+      "body_id": "URANUS",
+      "center_barycenter_position_separation_km": 32.60095413682297,
+      "center_barycenter_velocity_separation_km_s": 0.0002226994397180375,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_URA184_PART_3",
+      "epoch_utc": "2226-01-01T00:00:00Z",
+      "naif_id": 799,
+      "position_km": [
+        -2501118929.0598965,
+        -1151325366.19147,
+        28065908.847895384
+      ],
+      "velocity_km_s": [
+        2.789676399742009,
+        -6.501702529567396,
+        -0.0601655554767504
+      ]
+    },
+    {
+      "barycenter_body_id": "URANUS_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 7,
+      "body_id": "URANUS",
+      "center_barycenter_position_separation_km": 41.96669494664148,
+      "center_barycenter_velocity_separation_km_s": 0.0003216250888676282,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_URA184_PART_3",
+      "epoch_utc": "2250-01-01T00:00:00Z",
+      "naif_id": 799,
+      "position_km": [
+        1845798045.1876385,
+        -2324298279.061761,
+        -32397314.99304843
+      ],
+      "velocity_km_s": [
+        5.274804996733297,
+        3.917799181276245,
+        -0.05377288086109777
+      ]
+    },
+    {
+      "barycenter_body_id": "NEPTUNE_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 8,
+      "body_id": "NEPTUNE",
+      "center_barycenter_position_separation_km": 74.00325351825938,
+      "center_barycenter_velocity_separation_km_s": 0.0009164005888009193,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_NEP097",
+      "epoch_utc": "2026-01-01T00:00:00Z",
+      "naif_id": 899,
+      "position_km": [
+        4468805600.939797,
+        77632623.21589294,
+        -104579012.23756096
+      ],
+      "velocity_km_s": [
+        -0.14188957506836566,
+        5.46564643328178,
+        -0.109824259520235
+      ]
+    },
+    {
+      "barycenter_body_id": "NEPTUNE_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 8,
+      "body_id": "NEPTUNE",
+      "center_barycenter_position_separation_km": 74.21963720462334,
+      "center_barycenter_velocity_separation_km_s": 0.0009186666883379305,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_NEP097",
+      "epoch_utc": "2226-01-01T00:00:00Z",
+      "naif_id": 899,
+      "position_km": [
+        842136124.1852729,
+        4385253023.85867,
+        -109734783.32748699
+      ],
+      "velocity_km_s": [
+        -5.37694374493878,
+        1.0696876482580577,
+        0.10150131140536384
+      ]
+    },
+    {
+      "barycenter_body_id": "NEPTUNE_SYSTEM_BARYCENTER",
+      "barycenter_naif_id": 8,
+      "body_id": "NEPTUNE",
+      "center_barycenter_position_separation_km": 73.93305832337559,
+      "center_barycenter_velocity_separation_km_s": 0.0009155709727272127,
+      "contract": "PASS",
+      "deterministic_replay": "PASS",
+      "ephemeris_source_id": "JPL_NEP097",
+      "epoch_utc": "2250-01-01T00:00:00Z",
+      "naif_id": 899,
+      "position_km": [
+        -3007747144.601145,
+        3344020497.146057,
+        483520.42046427727
+      ],
+      "velocity_km_s": [
+        -4.082104535948001,
+        -3.5933429941443014,
+        0.16842950293770564
+      ]
+    }
+  ],
+  "classification": "OFFICIAL JPL/NAIF INPUT / QUALIFIED SUPPLEMENTARY",
+  "contract": {
+    "aberration_correction": "NONE",
+    "barycenter_substitution_allowed": false,
+    "derived_ephemeris_allowed": false,
+    "internal_time_scale": "SPICE ET/TDB",
+    "loom_output_frame": "J2000/ECLIPTIC",
+    "observer_naif_id": 10,
+    "planetary_backbone": "DE440",
+    "request_time_scale": "UTC",
+    "runtime_network_allowed": false,
+    "spice_output_frame": "ECLIPJ2000",
+    "supplementary_role": "physical planet center relative to its distinct system barycenter",
+    "units": "km,km/s"
+  },
+  "coverage_boundaries": {
+    "MARS": {
+      "exact_boundaries": [
+        {
+          "ephemeris_source_id": "JPL_MAR099",
+          "epoch_utc": "1599-12-31T23:59:18.815889Z",
+          "result": "PASS"
+        },
+        {
+          "ephemeris_source_id": "JPL_MAR099",
+          "epoch_utc": "2600-01-01T23:58:50.816341Z",
+          "result": "PASS"
+        }
+      ],
+      "outside_boundaries": [
+        {
+          "epoch_utc": "1599-12-31T23:59:18.815888Z",
+          "result": "PASS_FAIL_CLOSED"
+        },
+        {
+          "epoch_utc": "2600-01-01T23:58:50.816342Z",
+          "result": "PASS_FAIL_CLOSED"
+        }
+      ],
+      "source_id": "JPL_MAR099",
+      "valid_from": "1599-12-31T23:59:18.815889Z",
+      "valid_until": "2600-01-01T23:58:50.816341Z"
+    },
+    "NEPTUNE": {
+      "exact_boundaries": [
+        {
+          "ephemeris_source_id": "JPL_NEP097",
+          "epoch_utc": "1600-01-09T23:59:18.815630Z",
+          "result": "PASS"
+        },
+        {
+          "ephemeris_source_id": "JPL_NEP097",
+          "epoch_utc": "2399-12-30T23:58:50.816313Z",
+          "result": "PASS"
+        }
+      ],
+      "outside_boundaries": [
+        {
+          "epoch_utc": "1600-01-09T23:59:18.815629Z",
+          "result": "PASS_FAIL_CLOSED"
+        },
+        {
+          "epoch_utc": "2399-12-30T23:58:50.816314Z",
+          "result": "PASS_FAIL_CLOSED"
+        }
+      ],
+      "source_id": "JPL_NEP097",
+      "valid_from": "1600-01-09T23:59:18.815630Z",
+      "valid_until": "2399-12-30T23:58:50.816313Z"
+    },
+    "SATURN": {
+      "exact_boundaries": [
+        {
+          "ephemeris_source_id": "JPL_SAT441",
+          "epoch_utc": "1749-12-29T23:59:18.816003Z",
+          "result": "PASS"
+        },
+        {
+          "ephemeris_source_id": "JPL_SAT441",
+          "epoch_utc": "2250-01-05T23:58:50.816055Z",
+          "result": "PASS"
+        }
+      ],
+      "outside_boundaries": [
+        {
+          "epoch_utc": "1749-12-29T23:59:18.816002Z",
+          "result": "PASS_FAIL_CLOSED"
+        },
+        {
+          "epoch_utc": "2250-01-05T23:58:50.816056Z",
+          "result": "PASS_FAIL_CLOSED"
+        }
+      ],
+      "source_id": "JPL_SAT441",
+      "valid_from": "1749-12-29T23:59:18.816003Z",
+      "valid_until": "2250-01-05T23:58:50.816055Z"
+    },
+    "URANUS": {
+      "exact_boundaries": [
+        {
+          "ephemeris_source_id": "JPL_URA184_PART_3",
+          "epoch_utc": "1600-01-03T23:59:18.815802Z",
+          "result": "PASS"
+        },
+        {
+          "ephemeris_source_id": "JPL_URA184_PART_3",
+          "epoch_utc": "2399-12-16T23:58:50.816698Z",
+          "result": "PASS"
+        }
+      ],
+      "outside_boundaries": [
+        {
+          "epoch_utc": "1600-01-03T23:59:18.815801Z",
+          "result": "PASS_FAIL_CLOSED"
+        },
+        {
+          "epoch_utc": "2399-12-16T23:58:50.816699Z",
+          "result": "PASS_FAIL_CLOSED"
+        }
+      ],
+      "source_id": "JPL_URA184_PART_3",
+      "valid_from": "1600-01-03T23:59:18.815802Z",
+      "valid_until": "2399-12-16T23:58:50.816698Z"
+    }
+  },
+  "does_not_establish": [
+    "Jupiter 599 authority",
+    "Pluto 999 authority",
+    "derived ephemeris authority",
+    "barycenter substitution for a physical center"
+  ],
+  "epochs": [
+    "2026-01-01T00:00:00Z",
+    "2226-01-01T00:00:00Z",
+    "2250-01-01T00:00:00Z"
+  ],
+  "generated_at": "2026-09-25T01:50:19.931902Z",
+  "kernel_inventory": {
+    "MAR099": {
+      "coverage_et": [
+        -12622824000.0,
+        18934257600.0
+      ],
+      "coverage_utc": [
+        "1599-12-31T23:59:18.815889Z",
+        "2600-01-01T23:58:50.816341Z"
+      ],
+      "segments": [
+        {
+          "center_naif_id": 4,
+          "coverage_et": [
+            -12622824000.0,
+            -342964800.0
+          ],
+          "coverage_utc": [
+            "1599-12-31T23:59:18.815889Z",
+            "1989-02-17T23:59:03.814811Z"
+          ],
+          "frame_id": 1,
+          "spk_data_type": 2,
+          "target_naif_id": 499
+        },
+        {
+          "center_naif_id": 4,
+          "coverage_et": [
+            -342964800.0,
+            18934257600.0
+          ],
+          "coverage_utc": [
+            "1989-02-17T23:59:03.814811Z",
+            "2600-01-01T23:58:50.816341Z"
+          ],
+          "frame_id": 1,
+          "spk_data_type": 2,
+          "target_naif_id": 499
+        }
+      ],
+      "selected_target_center_naif_id": 4,
+      "selected_target_naif_id": 499,
+      "spk_target_ids": [
+        3,
+        4,
+        10,
+        399,
+        401,
+        402,
+        499
+      ]
+    },
+    "NEP097": {
+      "coverage_et": [
+        -12622046400.0,
+        12622651200.0
+      ],
+      "coverage_utc": [
+        "1600-01-09T23:59:18.815630Z",
+        "2399-12-30T23:58:50.816313Z"
+      ],
+      "segments": [
+        {
+          "center_naif_id": 8,
+          "coverage_et": [
+            -12622046400.0,
+            -320932800.0
+          ],
+          "coverage_utc": [
+            "1600-01-09T23:59:18.815630Z",
+            "1989-10-30T23:59:03.817494Z"
+          ],
+          "frame_id": 1,
+          "spk_data_type": 2,
+          "target_naif_id": 899
+        },
+        {
+          "center_naif_id": 8,
+          "coverage_et": [
+            -320932800.0,
+            12622651200.0
+          ],
+          "coverage_utc": [
+            "1989-10-30T23:59:03.817494Z",
+            "2399-12-30T23:58:50.816313Z"
+          ],
+          "frame_id": 1,
+          "spk_data_type": 2,
+          "target_naif_id": 899
+        }
+      ],
+      "selected_target_center_naif_id": 8,
+      "selected_target_naif_id": 899,
+      "spk_target_ids": [
+        3,
+        8,
+        10,
+        399,
+        801,
+        899
+      ]
+    },
+    "SAT441": {
+      "coverage_et": [
+        -7889400000.0,
+        7889659200.0
+      ],
+      "coverage_utc": [
+        "1749-12-29T23:59:18.816003Z",
+        "2250-01-05T23:58:50.816055Z"
+      ],
+      "segments": [
+        {
+          "center_naif_id": 6,
+          "coverage_et": [
+            -7889400000.0,
+            465134400.0
+          ],
+          "coverage_utc": [
+            "1749-12-29T23:59:18.816003Z",
+            "2014-09-27T23:58:52.817643Z"
+          ],
+          "frame_id": 1,
+          "spk_data_type": 2,
+          "target_naif_id": 699
+        },
+        {
+          "center_naif_id": 6,
+          "coverage_et": [
+            465134400.0,
+            7889659200.0
+          ],
+          "coverage_utc": [
+            "2014-09-27T23:58:52.817643Z",
+            "2250-01-05T23:58:50.816055Z"
+          ],
+          "frame_id": 1,
+          "spk_data_type": 2,
+          "target_naif_id": 699
+        }
+      ],
+      "selected_target_center_naif_id": 6,
+      "selected_target_naif_id": 699,
+      "spk_target_ids": [
+        3,
+        6,
+        10,
+        399,
+        601,
+        602,
+        603,
+        604,
+        605,
+        606,
+        607,
+        608,
+        609,
+        612,
+        613,
+        614,
+        632,
+        634,
+        699
+      ]
+    },
+    "URA184_PART_3": {
+      "coverage_et": [
+        -12622564800.0,
+        12621441600.0
+      ],
+      "coverage_utc": [
+        "1600-01-03T23:59:18.815802Z",
+        "2399-12-16T23:58:50.816698Z"
+      ],
+      "segments": [
+        {
+          "center_naif_id": 7,
+          "coverage_et": [
+            -12622564800.0,
+            -455025600.0
+          ],
+          "coverage_utc": [
+            "1600-01-03T23:59:18.815802Z",
+            "1985-07-31T23:59:04.816737Z"
+          ],
+          "frame_id": 1,
+          "spk_data_type": 2,
+          "target_naif_id": 799
+        },
+        {
+          "center_naif_id": 7,
+          "coverage_et": [
+            -455025600.0,
+            12621441600.0
+          ],
+          "coverage_utc": [
+            "1985-07-31T23:59:04.816737Z",
+            "2399-12-16T23:58:50.816698Z"
+          ],
+          "frame_id": 1,
+          "spk_data_type": 2,
+          "target_naif_id": 799
+        }
+      ],
+      "selected_target_center_naif_id": 7,
+      "selected_target_naif_id": 799,
+      "spk_target_ids": [
+        3,
+        7,
+        10,
+        399,
+        701,
+        702,
+        703,
+        704,
+        705,
+        716,
+        717,
+        718,
+        719,
+        720,
+        721,
+        722,
+        723,
+        724,
+        799,
+        75051
+      ]
+    }
+  },
+  "manifest": "manifests/solar/OFFICIAL_PLANET_CENTER_KERNELS_V1.json",
+  "manifest_sha256": "2241829f4fd107d9b1a148e96c30a9e4dddfc2ed7d1b2b500aa63f47a770951a",
+  "qualification": "OFFICIAL_PLANET_CENTERS_V1",
+  "result": "PASS"
+}
