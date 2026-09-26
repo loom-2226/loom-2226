@@ -1,0 +1,45 @@
+{
+  "history": [
+    {
+      "disposition": "preserved; actual API signature 1.3 pinned after published docs stated 1.0; all successful responses revalidated",
+      "event": "initial SBDB acquisition strict signature check failed",
+      "evidence": "reports/first_pass_sbdb_acquisition_manifest.json"
+    },
+    {
+      "disposition": "preserved as SOURCE_NOT_FOUND; no name fallback",
+      "event": "Pluto NAIF identifier 999 exact-object SBDB query rejected",
+      "evidence": "reports/sbdb_acquisition_manifest_v1_3.json"
+    },
+    {
+      "disposition": "resolved only through documented NAIF numbered-asteroid formula and exact returned ID",
+      "event": "Bennu requested legacy SPK differs from returned extended NAIF ID",
+      "evidence": "reports/sbdb_identity_crosswalk.json"
+    },
+    {
+      "disposition": "HOLD; 30 assertions retained held",
+      "event": "four body IDs semantically identify barycenters while LOOM identities are primaries",
+      "evidence": "reports/sbdb_identity_crosswalk.json"
+    },
+    {
+      "disposition": "superseded by current SOURCE_NOT_PRESENT/SOURCE_NOT_FOUND distinctions; hashes preserved",
+      "event": "early candidate outputs used a mistaken missingness label and stale report/database naming",
+      "evidence": "reports/build_attempt_history.json"
+    },
+    {
+      "disposition": "test-only defect corrected; imports and deterministic report updated; no scientific inputs changed",
+      "event": "first V19 hostile test run failed due missing test imports and stale V18 digest expectation",
+      "evidence": "scripts/build_baseline.py candidate V19 and tests/test_baseline.py"
+    },
+    {
+      "disposition": "small body-neutral candidate-schema CHECK added; raw values and mapped scientific meanings unchanged; replays rebuilt",
+      "event": "hostile review found candidate assertion payload did not enforce matching body identity",
+      "evidence": "tests/test_baseline.py::test_cross_body_source_payload_mutation_fails_closed"
+    },
+    {
+      "disposition": "mutated test output preserved by hash outside worktree; exact origin/main artifact restored and verified",
+      "event": "legacy SF-PROMOTE-03 unittest rebuilt its tracked output",
+      "evidence": "reports/legacy_control_test_side_effect.json"
+    }
+  ],
+  "mission_id": "SOLAR-BASELINE-01"
+}

@@ -1,0 +1,295 @@
+{
+  "api": "https://ssd-api.jpl.nasa.gov/sbdb.api",
+  "failures": [
+    {
+      "body_id": "AMUN",
+      "error": "unexpected API signature",
+      "spk": "20003554"
+    },
+    {
+      "body_id": "APOPHIS",
+      "error": "unexpected API signature",
+      "spk": "20099942"
+    },
+    {
+      "body_id": "ARROKOTH",
+      "error": "unexpected API signature",
+      "spk": "20486958"
+    },
+    {
+      "body_id": "ASTEROID_6178",
+      "error": "unexpected API signature",
+      "spk": "20006178"
+    },
+    {
+      "body_id": "ATLAS3I",
+      "error": "unexpected API signature",
+      "spk": "1004083"
+    },
+    {
+      "body_id": "BENNU",
+      "error": "unexpected API signature",
+      "spk": "2101955"
+    },
+    {
+      "body_id": "BORISOV",
+      "error": "unexpected API signature",
+      "spk": "1003639"
+    },
+    {
+      "body_id": "BORRELLY",
+      "error": "unexpected API signature",
+      "spk": "1000005"
+    },
+    {
+      "body_id": "BRAILLE",
+      "error": "unexpected API signature",
+      "spk": "20009969"
+    },
+    {
+      "body_id": "CERES",
+      "error": "unexpected API signature",
+      "spk": "20000001"
+    },
+    {
+      "body_id": "CHIRON",
+      "error": "unexpected API signature",
+      "spk": "20002060"
+    },
+    {
+      "body_id": "COMET_67P",
+      "error": "unexpected API signature",
+      "spk": "1000012"
+    },
+    {
+      "body_id": "COMET_HALLEY",
+      "error": "unexpected API signature",
+      "spk": "1000036"
+    },
+    {
+      "body_id": "DAVIDA",
+      "error": "unexpected API signature",
+      "spk": "20000511"
+    },
+    {
+      "body_id": "DIDYMOS",
+      "error": "unexpected API signature",
+      "spk": "20065803"
+    },
+    {
+      "body_id": "DINKINESH",
+      "error": "unexpected API signature",
+      "spk": "20152830"
+    },
+    {
+      "body_id": "DONALDJOHANSON",
+      "error": "unexpected API signature",
+      "spk": "20052246"
+    },
+    {
+      "body_id": "ERIS",
+      "error": "unexpected API signature",
+      "spk": "20136199"
+    },
+    {
+      "body_id": "EROS",
+      "error": "unexpected API signature",
+      "spk": "20000433"
+    },
+    {
+      "body_id": "EURYBATES",
+      "error": "unexpected API signature",
+      "spk": "20003548"
+    },
+    {
+      "body_id": "GASPRA",
+      "error": "unexpected API signature",
+      "spk": "20000951"
+    },
+    {
+      "body_id": "GONGGONG",
+      "error": "unexpected API signature",
+      "spk": "20225088"
+    },
+    {
+      "body_id": "HARTLEY2",
+      "error": "unexpected API signature",
+      "spk": "1000041"
+    },
+    {
+      "body_id": "HAUMEA",
+      "error": "unexpected API signature",
+      "spk": "20136108"
+    },
+    {
+      "body_id": "HYGIEA",
+      "error": "unexpected API signature",
+      "spk": "20000010"
+    },
+    {
+      "body_id": "IDA",
+      "error": "unexpected API signature",
+      "spk": "20000243"
+    },
+    {
+      "body_id": "INTERAMNIA",
+      "error": "unexpected API signature",
+      "spk": "20000704"
+    },
+    {
+      "body_id": "ITOKAWA",
+      "error": "unexpected API signature",
+      "spk": "20025143"
+    },
+    {
+      "body_id": "IXION",
+      "error": "unexpected API signature",
+      "spk": "20028978"
+    },
+    {
+      "body_id": "JUNO",
+      "error": "unexpected API signature",
+      "spk": "20000003"
+    },
+    {
+      "body_id": "KLEOPATRA",
+      "error": "unexpected API signature",
+      "spk": "20000216"
+    },
+    {
+      "body_id": "LEUCUS",
+      "error": "unexpected API signature",
+      "spk": "20011351"
+    },
+    {
+      "body_id": "LUTETIA",
+      "error": "unexpected API signature",
+      "spk": "20000021"
+    },
+    {
+      "body_id": "MAKEMAKE",
+      "error": "unexpected API signature",
+      "spk": "20136472"
+    },
+    {
+      "body_id": "MATHILDE",
+      "error": "unexpected API signature",
+      "spk": "20000253"
+    },
+    {
+      "body_id": "MS4",
+      "error": "unexpected API signature",
+      "spk": "20307261"
+    },
+    {
+      "body_id": "ORCUS",
+      "error": "unexpected API signature",
+      "spk": "20090482"
+    },
+    {
+      "body_id": "ORUS",
+      "error": "unexpected API signature",
+      "spk": "20021900"
+    },
+    {
+      "body_id": "OUMUAMUA",
+      "error": "unexpected API signature",
+      "spk": "50788063"
+    },
+    {
+      "body_id": "PALLAS",
+      "error": "unexpected API signature",
+      "spk": "20000002"
+    },
+    {
+      "body_id": "PATROCLUS",
+      "error": "unexpected API signature",
+      "spk": "20000617"
+    },
+    {
+      "body_id": "PLUTO",
+      "error": "<HTTPError 400: 'Bad Request'>",
+      "spk": "999"
+    },
+    {
+      "body_id": "POLYMELE",
+      "error": "unexpected API signature",
+      "spk": "20015094"
+    },
+    {
+      "body_id": "PSYCHE",
+      "error": "unexpected API signature",
+      "spk": "20000016"
+    },
+    {
+      "body_id": "QUAOAR",
+      "error": "unexpected API signature",
+      "spk": "20050000"
+    },
+    {
+      "body_id": "RYUGU",
+      "error": "unexpected API signature",
+      "spk": "20162173"
+    },
+    {
+      "body_id": "SALACIA",
+      "error": "unexpected API signature",
+      "spk": "20120347"
+    },
+    {
+      "body_id": "SEDNA",
+      "error": "unexpected API signature",
+      "spk": "20090377"
+    },
+    {
+      "body_id": "STEINS",
+      "error": "unexpected API signature",
+      "spk": "20002867"
+    },
+    {
+      "body_id": "SWIFTTUTTLE",
+      "error": "unexpected API signature",
+      "spk": "1000140"
+    },
+    {
+      "body_id": "TEMPEL1",
+      "error": "unexpected API signature",
+      "spk": "1000093"
+    },
+    {
+      "body_id": "THEMIS",
+      "error": "unexpected API signature",
+      "spk": "20000024"
+    },
+    {
+      "body_id": "TOUTATIS",
+      "error": "unexpected API signature",
+      "spk": "20004179"
+    },
+    {
+      "body_id": "VARUNA",
+      "error": "unexpected API signature",
+      "spk": "20020000"
+    },
+    {
+      "body_id": "VESTA",
+      "error": "unexpected API signature",
+      "spk": "20000004"
+    },
+    {
+      "body_id": "WILD2",
+      "error": "unexpected API signature",
+      "spk": "1000107"
+    }
+  ],
+  "query_parameters": {
+    "alt-des": "1",
+    "full-prec": "1",
+    "phys-par": "1"
+  },
+  "records": [],
+  "requested_body_count": 56,
+  "selection": "existing loom_solar.body NAIF_ID only; exact spk parameter; no name-only lookup",
+  "source": "NASA/JPL SSD SBDB API",
+  "successful_responses": 0
+}

@@ -1,0 +1,850 @@
+{
+  "api_signature": "1.3",
+  "documented_api_signature": "1.0",
+  "held": [
+    {
+      "body_id": "PLUTO",
+      "disposition": "SOURCE_DOES_NOT_COVER_BODY_CLASS",
+      "reason": "<HTTPError 400: 'Bad Request'>",
+      "requested_spk_id": "999"
+    }
+  ],
+  "identity_hold": 4,
+  "match_alias": 1,
+  "match_exact": 50,
+  "policy_source": "NAIF Integer ID codes Required Reading, Asteroids section: original 7-digit permanent-asteroid IDs remain allowed alongside the documented 8-digit extension; transformations use only that declared arithmetic scheme and then verify response identity",
+  "records": [
+    {
+      "artifact": "sbdb_spk_20003554.json",
+      "body_id": "AMUN",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20003554",
+      "phys_par_count": 6,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20003554",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20003554&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20099942.json",
+      "body_id": "APOPHIS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20099942",
+      "phys_par_count": 7,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20099942",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20099942&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20486958.json",
+      "body_id": "ARROKOTH",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20486958",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20486958",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20486958&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20006178.json",
+      "body_id": "ASTEROID_6178",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20006178",
+      "phys_par_count": 6,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20006178",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20006178&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_1004083.json",
+      "body_id": "ATLAS3I",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "1004083",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "1004083",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1004083&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_2101955.json",
+      "body_id": "BENNU",
+      "crosswalk_basis": "NAIF numbered-asteroid legacy/extended alias formula",
+      "crosswalk_disposition": "MATCH_ALIAS",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20101955",
+      "phys_par_count": 15,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "2101955",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=2101955&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_1003639.json",
+      "body_id": "BORISOV",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "1003639",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "1003639",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1003639&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_1000005.json",
+      "body_id": "BORRELLY",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "1000005",
+      "phys_par_count": 7,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "1000005",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000005&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20009969.json",
+      "body_id": "BRAILLE",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20009969",
+      "phys_par_count": 4,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20009969",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20009969&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000001.json",
+      "body_id": "CERES",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000001",
+      "phys_par_count": 13,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000001",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000001&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20002060.json",
+      "body_id": "CHIRON",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20002060",
+      "phys_par_count": 8,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20002060",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20002060&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_1000012.json",
+      "body_id": "COMET_67P",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "1000012",
+      "phys_par_count": 7,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "1000012",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000012&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_1000036.json",
+      "body_id": "COMET_HALLEY",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "1000036",
+      "phys_par_count": 8,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "1000036",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000036&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000511.json",
+      "body_id": "DAVIDA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000511",
+      "phys_par_count": 9,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000511",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000511&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20065803.json",
+      "body_id": "DIDYMOS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "HOLD",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "hold_reason": "NAIF reference names this identifier as a system barycenter, but the LOOM body class is not BARYCENTER.",
+      "object_spkid": "20065803",
+      "phys_par_count": 7,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20065803",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20065803&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20152830.json",
+      "body_id": "DINKINESH",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20152830",
+      "phys_par_count": 5,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20152830",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20152830&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20052246.json",
+      "body_id": "DONALDJOHANSON",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20052246",
+      "phys_par_count": 3,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20052246",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20052246&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20136199.json",
+      "body_id": "ERIS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20136199",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20136199",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20136199&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000433.json",
+      "body_id": "EROS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000433",
+      "phys_par_count": 13,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000433",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000433&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20003548.json",
+      "body_id": "EURYBATES",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "HOLD",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "hold_reason": "NAIF reference names this identifier as a system barycenter, but the LOOM body class is not BARYCENTER.",
+      "object_spkid": "20003548",
+      "phys_par_count": 4,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20003548",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20003548&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000951.json",
+      "body_id": "GASPRA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000951",
+      "phys_par_count": 9,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000951",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000951&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20225088.json",
+      "body_id": "GONGGONG",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20225088",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20225088",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20225088&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_1000041.json",
+      "body_id": "HARTLEY2",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "1000041",
+      "phys_par_count": 4,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "1000041",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000041&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20136108.json",
+      "body_id": "HAUMEA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20136108",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20136108",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20136108&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000010.json",
+      "body_id": "HYGIEA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000010",
+      "phys_par_count": 9,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000010",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000010&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000243.json",
+      "body_id": "IDA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000243",
+      "phys_par_count": 11,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000243",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000243&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000704.json",
+      "body_id": "INTERAMNIA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000704",
+      "phys_par_count": 10,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000704",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000704&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20025143.json",
+      "body_id": "ITOKAWA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20025143",
+      "phys_par_count": 9,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20025143",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20025143&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20028978.json",
+      "body_id": "IXION",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20028978",
+      "phys_par_count": 1,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20028978",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20028978&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000003.json",
+      "body_id": "JUNO",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000003",
+      "phys_par_count": 9,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000003",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000003&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000216.json",
+      "body_id": "KLEOPATRA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "HOLD",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "hold_reason": "NAIF reference names this identifier as a system barycenter, but the LOOM body class is not BARYCENTER.",
+      "object_spkid": "20000216",
+      "phys_par_count": 11,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000216",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000216&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20011351.json",
+      "body_id": "LEUCUS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20011351",
+      "phys_par_count": 4,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20011351",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20011351&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000021.json",
+      "body_id": "LUTETIA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000021",
+      "phys_par_count": 13,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000021",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000021&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20136472.json",
+      "body_id": "MAKEMAKE",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20136472",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20136472",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20136472&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000253.json",
+      "body_id": "MATHILDE",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000253",
+      "phys_par_count": 7,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000253",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000253&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20307261.json",
+      "body_id": "MS4",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20307261",
+      "phys_par_count": 1,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20307261",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20307261&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20090482.json",
+      "body_id": "ORCUS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20090482",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20090482",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20090482&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20021900.json",
+      "body_id": "ORUS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20021900",
+      "phys_par_count": 4,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20021900",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20021900&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_50788063.json",
+      "body_id": "OUMUAMUA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "50788063",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "50788063",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=50788063&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000002.json",
+      "body_id": "PALLAS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000002",
+      "phys_par_count": 13,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000002",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000002&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000617.json",
+      "body_id": "PATROCLUS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "HOLD",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "hold_reason": "NAIF reference names this identifier as a system barycenter, but the LOOM body class is not BARYCENTER.",
+      "object_spkid": "20000617",
+      "phys_par_count": 7,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000617",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000617&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20015094.json",
+      "body_id": "POLYMELE",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20015094",
+      "phys_par_count": 5,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20015094",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20015094&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000016.json",
+      "body_id": "PSYCHE",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000016",
+      "phys_par_count": 12,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000016",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000016&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20050000.json",
+      "body_id": "QUAOAR",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20050000",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20050000",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20050000&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20162173.json",
+      "body_id": "RYUGU",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20162173",
+      "phys_par_count": 9,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20162173",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20162173&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20120347.json",
+      "body_id": "SALACIA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20120347",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20120347",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20120347&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20090377.json",
+      "body_id": "SEDNA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20090377",
+      "phys_par_count": 2,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20090377",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20090377&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20002867.json",
+      "body_id": "STEINS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20002867",
+      "phys_par_count": 4,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20002867",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20002867&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_1000140.json",
+      "body_id": "SWIFTTUTTLE",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "1000140",
+      "phys_par_count": 5,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "1000140",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000140&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_1000093.json",
+      "body_id": "TEMPEL1",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "1000093",
+      "phys_par_count": 6,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "1000093",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000093&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000024.json",
+      "body_id": "THEMIS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000024",
+      "phys_par_count": 9,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000024",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000024&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20004179.json",
+      "body_id": "TOUTATIS",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20004179",
+      "phys_par_count": 7,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20004179",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20004179&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20020000.json",
+      "body_id": "VARUNA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20020000",
+      "phys_par_count": 4,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20020000",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20020000&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_20000004.json",
+      "body_id": "VESTA",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "20000004",
+      "phys_par_count": 13,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "20000004",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000004&phys-par=1&alt-des=1&full-prec=1"
+    },
+    {
+      "artifact": "sbdb_spk_1000107.json",
+      "body_id": "WILD2",
+      "crosswalk_basis": "EXACT_NAIF_ID",
+      "crosswalk_disposition": "MATCH_EXACT",
+      "first_pass": "STRICT_VERSION_CHECK_FAILURE_PRESERVED",
+      "object_spkid": "1000107",
+      "phys_par_count": 6,
+      "signature": {
+        "source": "NASA/JPL Small-Body Database (SBDB) API",
+        "version": "1.3"
+      },
+      "spk_id": "1000107",
+      "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000107&phys-par=1&alt-des=1&full-prec=1"
+    }
+  ],
+  "request_count": 56,
+  "response_count": 55,
+  "source_not_found": 1
+}

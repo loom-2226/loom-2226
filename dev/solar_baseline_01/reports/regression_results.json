@@ -1,0 +1,110 @@
+{
+  "history": "reports/qualification_genealogy.json",
+  "hostile_cases": 26,
+  "limitations": [
+    "ARP-QUAL-01B source artifacts are absent in this worktree; no frozen research was altered or fabricated.",
+    "SF-PROMOTE-03 tests mutate their fixed output; output was preserved, and exact origin/main bytes restored. Do not rerun this suite against the promoted path."
+  ],
+  "mission_id": "SOLAR-BASELINE-01",
+  "overall": "PASS_WITH_LIENS",
+  "required_repository_gate": "pending PR; .github/workflows/loom-gate.yml",
+  "results": [
+    {
+      "detail": "27 dedicated identity, provenance, mapping, unit, source/payload cross-body constraint, firewall, replay, and control tests",
+      "result": "PASS",
+      "suite": "SOLAR-BASELINE-01",
+      "tests": 27
+    },
+    {
+      "result": "PASS",
+      "suite": "ARP core",
+      "tests": 19
+    },
+    {
+      "detail": "4 passed; frozen artifacts absent: 9 local artifact files required by existing frozen campaign; test validator also reports those artifacts missing. No artifact substitution or campaign mutation.",
+      "result": "BLOCKED_PREEXISTING_MISSING_ARTIFACTS",
+      "suite": "ARP-QUAL-01B 67P transfer",
+      "tests": 6
+    },
+    {
+      "result": "PASS",
+      "suite": "HCQ-01 ingest",
+      "tests": 14
+    },
+    {
+      "result": "PASS",
+      "suite": "v0.3",
+      "tests": 9
+    },
+    {
+      "result": "PASS",
+      "suite": "v0.3-R1",
+      "tests": 10
+    },
+    {
+      "result": "PASS",
+      "suite": "SF-PROMOTE-01",
+      "tests": 3
+    },
+    {
+      "detail": "no dedicated unittest module; existing qualify.py run from isolated /tmp repository copy, PASS_WITH_LIENS; expected DB SHA ed930b...; body digest and semantic digest verified.",
+      "result": "PASS",
+      "suite": "SF-PROMOTE-02",
+      "tests": 0
+    },
+    {
+      "detail": "existing test suite passed but its setUpClass rebuilds tracked OUT in place. Mutated bytes preserved at /tmp/solar-baseline-01-audit, then exact origin/main bytes restored and SHA verified. See reports/legacy_control_test_side_effect.json.",
+      "result": "PASS_WITH_TEST_SIDE_EFFECT_RESTORED",
+      "suite": "SF-PROMOTE-03",
+      "tests": 10
+    },
+    {
+      "detail": "one repository contract test passed; two PostgreSQL-dependent tests skipped because this is not a disposable DB test environment",
+      "result": "PASS",
+      "skipped": 2,
+      "suite": "Solar Phase-4 earned authority",
+      "tests": 3
+    },
+    {
+      "dependency": "spiceypy==8.2.0 in isolated venv",
+      "result": "PASS",
+      "skipped": 1,
+      "suite": "Solar Phase-4B",
+      "tests": 7
+    },
+    {
+      "dependency": "spiceypy==8.2.0 in isolated venv",
+      "result": "PASS",
+      "skipped": 1,
+      "suite": "Solar Phase-4C",
+      "tests": 5
+    },
+    {
+      "dependency": "spiceypy==8.2.0 in isolated venv",
+      "result": "PASS",
+      "skipped": 1,
+      "suite": "Solar Phase-4D",
+      "tests": 6
+    },
+    {
+      "dependency": "spiceypy==8.2.0 in isolated venv",
+      "result": "PASS",
+      "skipped": 0,
+      "suite": "Solar Phase-4E",
+      "tests": 5
+    },
+    {
+      "dependency": "spiceypy==8.2.0 in isolated venv",
+      "result": "PASS",
+      "skipped": 0,
+      "suite": "Solar Phase-4E residual closure",
+      "tests": 8
+    },
+    {
+      "detail": "candidate, canonical replay, reverse replay integrity; all 65 source artifact raw-file hashes verified",
+      "result": "PASS",
+      "suite": "SQLite integrity/foreign keys and raw artifact hashes",
+      "tests": 3
+    }
+  ]
+}
