@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LOOM · Solar Ephemeris Inspector</title>
+<link rel="stylesheet" href="/design/loom-tokens.css"><link rel="stylesheet" href="/inspector.css">
+<header><img src="/design/loom-wordmark-white.svg" alt="LOOM"><div><h1 class="loom-type-title">Solar Ephemeris Inspector <small>v0.1</small></h1><span>Phase-4 authority qualification · PostgreSQL → governed resolver → scene</span></div></header>
+<section class="toolbar" aria-label="Epoch and reference controls">
+  <label>UTC epoch<input id="epoch" value="2026-01-01T00:00:00Z" aria-label="UTC epoch"></label><button id="load">Evaluate</button>
+  <button data-year="2026">2026</button><button data-year="2226">2226</button><button data-year="2250">2250</button>
+  <label>Step days<input id="step" type="number" value="1" min="0.000001" step="any"></label>
+  <button id="back">− Step</button><button id="forward">+ Step</button><button id="play" aria-pressed="false">Play</button>
+  <label>Reference center<select id="center"><option>SUN</option></select></label>
+  <label>Presentation<select id="mode"><option>PHYSICAL</option><option>SCHEMATIC</option></select></label>
+  <label>Scene scope<select id="scope"><option value="all">Whole catalog</option><option value="local">Center + family + selection</option></select></label>
+  <button id="fit">Fit scene</button>
+</section>
+<div id="message" role="status">Loading governed catalog; first evaluation verifies pinned local assets…</div>
+<main>
+  <section id="stage" aria-label="Interactive Solar System scene">
+    <div id="labels"></div><div id="sceneStatus"></div>
+    <div id="help">Drag: rotate · Shift-drag / right-drag: pan · Wheel: zoom · Click: select<br>Point markers are enlarged for inspection; physical mode preserves positions.</div>
+  </section>
+  <aside>
+    <section><h2 class="loom-type-subhead">Reconciliation</h2><div id="counts"></div><p>Catalog = resolved + unresolved. Resolved = direct + propagated. Catalog-only and partial are catalog subsets. Rendered counts scene objects; labels may be hidden at distance. Local scope includes the selected object, including when its catalog parent is NULL.</p></section>
+    <section><h2 class="loom-type-subhead">Catalog / selection</h2><label>Find object<input id="search" placeholder="Name or ID"></label><select id="catalog" size="7" aria-label="Governed catalog"></select><div id="selection"></div><details><summary>Exact state + provenance + catalog record</summary><pre id="detail"></pre></details></section>
+    <section><h2 class="loom-type-subhead">Selected trajectory</h2><label>Start UTC<input id="start" value="2026-01-01T00:00:00Z"></label><label>End UTC<input id="end" value="2027-01-01T00:00:00Z"></label><label>Samples<input id="samples" type="number" min="2" max="512" value="96"></label><button id="trace">Sample resolver</button><button id="clearPath">Clear path</button><p>Direct: solid · Propagated: dashed. Seams: rings. No gap is bridged. Local paths subtract the center at each sample epoch.</p><div id="pathStatus"></div><div id="seams"></div><details><summary>Inspect exact trajectory samples and gaps</summary><select id="sampleList" aria-label="Trajectory samples"></select><pre id="sampleDetail"></pre></details></section>
+    <section><h2 class="loom-type-subhead">Failed resolution</h2><div id="failures"></div></section>
+  </aside>
+</main>
+<script src="/three.min.js"></script><script src="/presentation.js"></script><script src="/inspector.js"></script>
+</html>
