@@ -129,6 +129,11 @@
       "attack": "cross-body derivation/model/region input",
       "disposition": "FAIL_SAFE",
       "evidence": "not representable in candidate schema; no relational derivation/model/region inputs are admitted"
+    },
+    {
+      "attack": "B-V vs U-B vs I-R; comet magnitude vs slope; Tholen vs SMASSII field collision",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_source_defined_color_comet_and_taxonomy_fields_stay_distinct; distinct source-defined property codes and units retained"
     }
   ],
   "candidate_assertion_payload_body_integrity": "SQLite CHECK constraint; mismatched payload/body update rejected",
@@ -136,6 +141,8 @@
   "new_body_identities": 0,
   "phase4_ephemeris_import": false,
   "preferred_fact_selection": false,
+  "property_codes_never_coalesced": true,
   "qualified_control_mutation": "none after exact restoration; body digests equal",
-  "result": "PASS_WITH_LIENS"
+  "result": "PASS_WITH_LIENS",
+  "source_value_conflict_groups": 36
 }

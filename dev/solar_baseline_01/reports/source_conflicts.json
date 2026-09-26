@@ -1,0 +1,1343 @@
+{
+  "conflicts": [
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "c57e7870e2a704153e2949ac94aaeb2fccf0ebeca536f8779c7b33bdd0d3b197",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "83.5",
+          "reported_uncertainty": "1.4",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "83.5",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:701:GM:URA111",
+          "source_reference": "URA111",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "90f0fedb192c5c487b1bdce51a26c400449dc3c014e5b5ab0d537d8658693f42",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "83.46344431770477",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 8.346344431770477E+01 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:701:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "ARIEL",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "4a7f8044a761972efa69dfb8c81fa3d5dfcc559d553d77cdda54e83cebadb12a",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "7179.28340",
+          "reported_uncertainty": "0.00324",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "7179.28340",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:504:GM:JUP365",
+          "source_reference": "JUP365",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "5f35e47f3e91f51ef3ba0c1e618839b01d590de8bc84c4edfb76e424912fc454",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "7179.283402579837",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 7.179283402579837E+03 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:504:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "CALLISTO",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "3af587667728ab00a62f5423f74eec8fdfd25647e977bab6f3d5ce2c5e98472f",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "62.628888644409933",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 6.2628888644409933E+01 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:2000001:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "4953fc4b075d5bd938bc010f39ded3c97cfbde755a2a8150034eb4c12e709fdd",
+          "epistemic_class": "UNKNOWN",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "62.6284",
+          "reported_uncertainty": "0.0009",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "62.6284",
+          "source_artifact_id": "8608c02b36f107ee488c256167001945f9f87cc8d90dec91d5db37d9cff58bd3",
+          "source_lineage": "SBDB:20000001:Nature vol. 537, pp515-517 (22 September 2016):GM",
+          "source_reference": "Nature vol. 537, pp515-517 (22 September 2016)",
+          "source_value_kind": "COMPILED_REFERENCE_PARAMETER"
+        }
+      ],
+      "body_id": "CERES",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "a7fc836c06eea961eeb53499e023c76492bb50b260633f357ae928108acdaa38",
+          "epistemic_class": "UNKNOWN",
+          "normalized_unit": "d",
+          "normalized_value": "0.37809042",
+          "reported_uncertainty": null,
+          "reported_unit": "d",
+          "reported_value": "0.37809042 [Q]",
+          "source_artifact_id": "e49a487947295c389ba6e5833dd8fb04b63e826d39f70c123881882096e5e68b",
+          "source_lineage": "JPL:PLANET_PHYS:Ceres:Sidereal Rotation Period",
+          "source_reference": "Q",
+          "source_value_kind": "COMPILED_REFERENCE_PARAMETER"
+        },
+        {
+          "assertion_id": "167617576c127da7be9950f15c854b4b1c531c80f9725d945d8a7a7ba4e9645b",
+          "epistemic_class": "UNKNOWN",
+          "normalized_unit": "h",
+          "normalized_value": "9.074170",
+          "reported_uncertainty": "0.000001",
+          "reported_unit": "h",
+          "reported_value": "9.074170",
+          "source_artifact_id": "8608c02b36f107ee488c256167001945f9f87cc8d90dec91d5db37d9cff58bd3",
+          "source_lineage": "SBDB:20000001:Nature vol. 537, pp515-517 (22 September 2016):rot_per",
+          "source_reference": "Nature vol. 537, pp515-517 (22 September 2016)",
+          "source_value_kind": "COMPILED_REFERENCE_PARAMETER"
+        }
+      ],
+      "body_id": "CERES",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "ROTATION_PERIOD"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "9b902cd20a805ca5a67706d7673ee1057466a18f171f4193af5437e32bf4d8c5",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "106.1",
+          "reported_uncertainty": "0.3",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "106.1",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:901:GM:PLU060",
+          "source_reference": "PLU060",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "8f4b6e726fddfde7408bb9d3a504c535c519639bc33254bc27af3dc880478c46",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "105.8799888601881",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 1.058799888601881E+02 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:901:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "CHARON",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 1,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "63ad80bfaadce166e88ff64e69e79c009512e2194e94a571478ea128a5cc2e43",
+          "epistemic_class": "UNKNOWN",
+          "normalized_unit": "km",
+          "normalized_value": "[\"605\",\"605\",\"605\"]",
+          "reported_uncertainty": null,
+          "reported_unit": "km",
+          "reported_value": "(  605     605    605   )",
+          "source_artifact_id": "943e91ca95385bf8c40fbfc3a3cba5ef7452b951ca1da56c2e6207f8af7c719e",
+          "source_lineage": "NAIF:pck00011_n0066.tpc:901:RADII",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "d851011632b3efdb001162b134990a1dbfce8b071f921a557702ac9dc8efecb9",
+          "epistemic_class": "UNKNOWN",
+          "normalized_unit": "km",
+          "normalized_value": "[\"606\",\"606\",\"606\"]",
+          "reported_uncertainty": null,
+          "reported_unit": "km",
+          "reported_value": "(  606     606    606   )",
+          "source_artifact_id": "943e91ca95385bf8c40fbfc3a3cba5ef7452b951ca1da56c2e6207f8af7c719e",
+          "source_lineage": "NAIF:pck00011_n0066.tpc:901:RADII",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "CHARON",
+      "classification": "SAME_LINEAGE_MULTIVALUE_REQUIRES_REVIEW",
+      "distinct_values": 2,
+      "lineages": 1,
+      "property_code": "TRIAXIAL_RADII"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "985acea3e8be21c166612f90ab941b4eddd0413052c03f0cc85774d10967f40c",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.0000962",
+          "reported_uncertainty": "0.0000028",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "0.0000962",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:402:GM:MAR097",
+          "source_reference": "MAR097",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "66d2a43f58be45a8ca633d23b9839bb52caef5e4b9489404257cda32c245671c",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.00009615569648120313",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 9.615569648120313E-05 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:402:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "DEIMOS",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "a3e61addcb679a8eafe2e930fbf0bc09463fa1cfa35e517e4199d665932247e4",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "73.11607",
+          "reported_uncertainty": "0.00005",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "73.11607",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:604:GM:SAT441",
+          "source_reference": "SAT441",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "5199235fac7af0c61fdb86b080ad6a789640a5f350f321847cec93b7506dcfcb",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "73.11607172482067",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 7.311607172482067E+01 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:604:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "DIONE",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "66bd77a959bb82fe74886af9433764d34c9cfa8e225dc2803c1be0150f525ada",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "7.21037",
+          "reported_uncertainty": "0.00009",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "7.21037",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:602:GM:SAT441",
+          "source_reference": "SAT441",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "978360456bc69afa25c8855a8e6584c1f96530923c1d2b684328d7718ffd2dd5",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "7.210366688598896",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 7.210366688598896E+00 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:602:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "ENCELADUS",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "73341427037eda18c2a22a8ab9617e8f800faa1ad391654cdb101fc4b0772ca5",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "3202.71210",
+          "reported_uncertainty": "0.00181",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "3202.71210",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:502:GM:JUP365",
+          "source_reference": "JUP365",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "9a1dd2fed9ed02484906ca4699fe212e7ba82d9030ddcb91928d34eb969e3116",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "3202.712099607295",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 3.202712099607295E+03 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:502:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "EUROPA",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "0e20e8101545e1feba1208aef93a740b5f05135e17fbd82fe74b260ae9a62254",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "9887.83275",
+          "reported_uncertainty": "0.00247",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "9887.83275",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:503:GM:JUP365",
+          "source_reference": "JUP365",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "57c55e7131577231d910ad871e4e40af3b8813cb5561886bd24221c91997b531",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "9887.832752719638",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 9.887832752719638E+03 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:503:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "GANYMEDE",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "0cd04690a59ac393cf8071db9a96c52588fc8e3a16a9183f7f2ffd140318b1a4",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.0020",
+          "reported_uncertainty": "0.0003",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "0.0020",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:903:GM:PLU060",
+          "source_reference": "PLU060",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "c4ec19c586513e5bd2e66ea703d5daee1968a1a95cb72208406427ebf3662865",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.003211039206155255",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 3.211039206155255E-03 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:903:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "HYDRA",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "1de00b258af3f3fb1653df965b5d0924ac4829bc2923bd9e9325cdc62907dcf2",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "5.6251476453852289",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 5.6251476453852289E+00 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:2000010:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "83c928e41a47818b820176461ba4134cf7da3c00a86e6041a5bf4fced571388f",
+          "epistemic_class": "UNKNOWN",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "7",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "7.",
+          "source_artifact_id": "25027ac34088141f04aadacca63c2635ae1d5facf4fd7b6e05d4ba04d7633546",
+          "source_lineage": "SBDB:20000010:Scholl et al., A&A, v.179, p.311, 1987:GM",
+          "source_reference": "Scholl et al., A&A, v.179, p.311, 1987",
+          "source_value_kind": "COMPILED_REFERENCE_PARAMETER"
+        }
+      ],
+      "body_id": "HYGIEA",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "7f670d2345d41f4c938e446d1d04488c57b990ec1d8d8cc1df9bbe6252ddcda2",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.37049",
+          "reported_uncertainty": "0.00005",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "0.37049",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:607:GM:SAT441",
+          "source_reference": "SAT441",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "369780390fd861699ebdde7df58250e06749131555f992be5e41bfce487d181c",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.3704913747932265",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 3.704913747932265E-01 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:607:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "HYPERION",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "9dd7828ac554087ad51f816e969c8f3614cc338d4a6aafa0141d4d989ef117d6",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "120.51511",
+          "reported_uncertainty": "0.00242",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "120.51511",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:608:GM:SAT441",
+          "source_reference": "SAT441",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "0a3a188f42b357648d8626c5452461aa42f1df75d07f4373abed1a9c6df58aeb",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "120.5151060137642",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 1.205151060137642E+02 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:608:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "IAPETUS",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "0ca06be481454e0a513f2197ac7b09f15ee5b93b1db773310ce5352f91c0af11",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "2.8304096393299849",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 2.8304096393299849E+00 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:2000704:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "50a8e64dd3792a35ba71f6cbabc3b255228f60080f88d602919614f9ea5341b5",
+          "epistemic_class": "UNKNOWN",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "5",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "5.",
+          "source_artifact_id": "41135abc1517eb2321bdc19a70454dd92e3b1d13185a06fe0df167d2c0eee712",
+          "source_lineage": "SBDB:20000704:Landgraf, IAU Symposium #152, 1992:GM",
+          "source_reference": "Landgraf, IAU Symposium #152, 1992",
+          "source_value_kind": "COMPILED_REFERENCE_PARAMETER"
+        }
+      ],
+      "body_id": "INTERAMNIA",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "054d05154d6a008e8541579b1fa5e0440a12c4043737b0b60fca5c54882b287c",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "5959.91547",
+          "reported_uncertainty": "0.00135",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "5959.91547",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:501:GM:JUP365",
+          "source_reference": "JUP365",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "312029a2c13395e4c541c0d5388f4aff96765ea1a3ef6d6c1af7f03d3ed23118",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "5959.915466180539",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 5.959915466180539E+03 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:501:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "IO",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "5772011e0a026053b97cd14b34cc2c290fcc96bc698d3aa7ca90205c76da957b",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "<0.0002",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "<0.0002",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:904:GM:PLU060",
+          "source_reference": "PLU060",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "34491eca29ee23102c00a4c0c4c5a436db25b2218cb073327a10196917513d15",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.001110040850536676",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 1.110040850536676E-03 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:904:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "KERBEROS",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "a92a7f0a734769d31252fa2bd3e863239f625750713ad0ef65798cc0d45c508d",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "2.50349",
+          "reported_uncertainty": "0.00014",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "2.50349",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:601:GM:SAT441",
+          "source_reference": "SAT441",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "3e6f490d707b6ae2f5654cdb361198f92bfbd2cc424b86aa59dd4bb94aae773d",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "2.503488768152587",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 2.503488768152587E+00 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:601:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "MIMAS",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "edb01d653514f0b0033170f63dcfe50c37a89f9234bb74ae516fefe94fc9dcfe",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "4.3",
+          "reported_uncertainty": "0.2",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "4.3",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:705:GM:URA111",
+          "source_reference": "URA111",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "73bcab86befb09ad9a25ad6df408719909284ac7fe1e605bb12a387b08b8b4a6",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "4.319516899232100",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 4.319516899232100E+00 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:705:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "MIRANDA",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "087a9829023e62b7c977847e970079f017dac08a99bb6fefa6690eb5956171d3",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "4902.800",
+          "reported_uncertainty": "0.001",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "4902.800",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:301:GM:DE440",
+          "source_reference": "DE440",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "153eed7951990fc83112f3108b70b95434d21af29cb542d0d3bbb1e95e266146",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "[\"4.9028001184575496\",\"3\"]",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 4.9028001184575496D+03 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:301:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "MOON",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "54c357326ffe23cfa7e5b8bf059ace49d6dbcaa48cdb1f5e1f09d307a5633e1a",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.0015",
+          "reported_uncertainty": "0.0005",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "0.0015",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:902:GM:PLU060",
+          "source_reference": "PLU060",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "0626cee3c4540a6fd9a900e6a6630e326e0be542198d5ab686e16966fd4dd54d",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.003048175648169760",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 3.048175648169760E-03 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:902:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "NIX",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "0ac997d1d69ad4e6bcc0aa37dfeea4bb76f9c138dbd731a94d3e0e8569b54e9a",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "205.3",
+          "reported_uncertainty": "5.8",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "205.3",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:704:GM:URA111",
+          "source_reference": "URA111",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "a530500aab163aa641b794b2cb5677b2df56141ba95356431edaef24048d48f1",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "205.3234302535623",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 2.053234302535623E+02 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:704:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "OBERON",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "6c9a01bd8e4acd8a5d7d93f10798f36573b8eb037dfcdc8cca270f2f05570739",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "13.665878145967422",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 1.3665878145967422E+01 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:2000002:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "9fea5b93ac45a28b0d0d66d632ea025f658df1e604d6be67340d6f751c4c3fe5",
+          "epistemic_class": "UNKNOWN",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "13.63",
+          "reported_uncertainty": "0.18",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "13.63",
+          "source_artifact_id": "ebbb5d4878303692ea5f61264a433d96328f209eaaa0f7b89738ea7e4423a0ae",
+          "source_lineage": "SBDB:20000002:Vernazza et al., A&A 654, A56 (2021):GM",
+          "source_reference": "Vernazza et al., A&A 654, A56 (2021)",
+          "source_value_kind": "COMPILED_REFERENCE_PARAMETER"
+        }
+      ],
+      "body_id": "PALLAS",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "d84e9b7e16175e1eafe3cb3c45ce73db515fee7a7bbd8e252980cc1959628274",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.0007087",
+          "reported_uncertainty": "0.0000006",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "0.0007087",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:401:GM:MAR097",
+          "source_reference": "MAR097",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "428ec62f4c21eba2b175dafc0a4f9293de51f8e681377d9df4f2d94d345c9bad",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.0007087546066894452",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 7.087546066894452E-04 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:401:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "PHOBOS",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "0704a8e293540d76cc208a851ef5c463e8b2269c7e0393e892ee2571277cf520",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.55479",
+          "reported_uncertainty": "0.00108",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "0.55479",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:609:GM:SAT441",
+          "source_reference": "SAT441",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "a720b46b6c8880f34362f4298ece4d10b30237e1d5de1520a264f5330444ce55",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0.5547860052791678",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 5.547860052791678E-01 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:609:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "PHOEBE",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "aeaabc2dbbfb49c05c904770f57bc38044c685ab08f55f7dfb85ffe9a7e065fd",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "2.58342",
+          "reported_uncertainty": "2.42070",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "2.58342",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:808:GM:NEP097",
+          "source_reference": "NEP097",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "1dcd69b23f8ebc8be091e4ceabcb4f51877dca5e83af8c36339ceb168c306c4e",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "2.583422379120727",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 2.583422379120727E+00 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:808:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "PROTEUS",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "614923114c93694738c3c547e40934be707011e6bffffbb8b26949b048d3eb7a",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "1.5896582441709424",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 1.5896582441709424E+00 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:2000016:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "ceb62d14f7a799e605912f151a3e4d271cd601bfa83977a473322d2a0b738a29",
+          "epistemic_class": "UNKNOWN",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "1.601",
+          "reported_uncertainty": "0.017",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "1.601",
+          "source_artifact_id": "6e3d60420addbaab1ef4f75d6b188b1b48fcc4f3b95e05e2da1f12d1a7b327f2",
+          "source_lineage": "SBDB:20000016:Farnocchia et al. (2024), AJ 168, 21:GM",
+          "source_reference": "Farnocchia et al. (2024), AJ 168, 21",
+          "source_value_kind": "COMPILED_REFERENCE_PARAMETER"
+        }
+      ],
+      "body_id": "PSYCHE",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "00c7b0472c9485f9e4a27a4bbc72543bc7129d1a29a7c2df9f0e99d06a0eab66",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "153.94175",
+          "reported_uncertainty": "0.00041",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "153.94175",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:605:GM:SAT441",
+          "source_reference": "SAT441",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "e9b56190e49854172533cef97119be32acb4da31229870972ec05e80504f6ca1",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "153.9417519146563",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 1.539417519146563E+02 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:605:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "RHEA",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "c083a4b1ff66e8219fb48b40e07d9175701ecbd812d304e7ef816f2dbc76a204",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "<0.0003",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "<0.0003",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:905:GM:PLU060",
+          "source_reference": "PLU060",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "8f8d77b95b0f92dc1bc284e179386b6f06f1c55b438be64dcd52eea46593a677",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "0E-15",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 0.000000000000000E+00 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:905:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "STYX",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "c60c89d3ff3b68f9d21d0c5873d164947763e98b1f295db4898f9ae9e20a8e92",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "41.21353",
+          "reported_uncertainty": "0.00031",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "41.21353",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:603:GM:SAT441",
+          "source_reference": "SAT441",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "a9996b95fcf2595d24871687932ee0b6ff2eaaf5ca6a47308d6fd594397d974a",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "41.21352885489587",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 4.121352885489587E+01 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:603:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "TETHYS",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "beef5780dcf135e5d2ade0daed21cb72ca5be8e424b4b801810862c86eead225",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "8978.13710",
+          "reported_uncertainty": "0.00025",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "8978.13710",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:606:GM:SAT441",
+          "source_reference": "SAT441",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "26672d967f4e7435a6d38f88e2d48c5fd52ec236d0838e43db08c534ae1b14c9",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "8978.137095521046",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 8.978137095521046E+03 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:606:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "TITAN",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "d481458b0f3938aea5f5012701dd772b78f674ab5999204cbaad3240d2a78840",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "226.9",
+          "reported_uncertainty": "4.1",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "226.9",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:703:GM:URA111",
+          "source_reference": "URA111",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "8a7cc5bc34fb982dad9669ac7a7e703d14de89d1a81318c035abc72010b2dcc9",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "226.9437003741248",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 2.269437003741248E+02 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:703:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "TITANIA",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "04a4532b74ebf7ee0a445d69947edab7b206685cba67fb85aaaa9954298bd127",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "1428.49546",
+          "reported_uncertainty": "0.61603",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "1428.49546",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:801:GM:NEP097",
+          "source_reference": "NEP097",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "9928326dee1c6a6f616550a2299a4d79a27ec361cf1bcbd8ba8c91e387a311a8",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "1428.495462910464",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 1.428495462910464E+03 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:801:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "TRITON",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "0e7a0a364580d5d962fbf5c529ec7ccb9480af54ce9a6f8b5cab0bd1dafd2d40",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "85.1",
+          "reported_uncertainty": "1.9",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "85.1",
+          "source_artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+          "source_lineage": "JPL:SAT_PHYS:702:GM:URA111",
+          "source_reference": "URA111",
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "5ac68e94befcd15e276291bed9f87b0352eab5c754bdb5af1f2cf3816673e496",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "85.09338094489388",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 8.509338094489388E+01 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:702:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        }
+      ],
+      "body_id": "UMBRIEL",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    },
+    {
+      "artifacts": 2,
+      "assertion_count": 2,
+      "assertions": [
+        {
+          "assertion_id": "548243b8aa10c4f8edb30f22ea6d91b5d3a3798acb273450fb6500e1a35340f1",
+          "epistemic_class": "DYNAMICAL_INFERENCE",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "17.288232879171513",
+          "reported_uncertainty": null,
+          "reported_unit": "km^3/s^2",
+          "reported_value": "( 1.7288232879171513E+01 )",
+          "source_artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+          "source_lineage": "NAIF:gm_de440.tpc:2000004:GM",
+          "source_reference": null,
+          "source_value_kind": "REFERENCE_CONSTANT"
+        },
+        {
+          "assertion_id": "28d44751423e3c2ecff11407374d7956a728c11b4baa615afe8e150edd8b3c25",
+          "epistemic_class": "UNKNOWN",
+          "normalized_unit": "km^3/s^2",
+          "normalized_value": "17.2882844",
+          "reported_uncertainty": "0.0000030",
+          "reported_unit": "km^3/s^2",
+          "reported_value": "17.2882844",
+          "source_artifact_id": "25518748dcaf0bb7b4878d1c6ba4cbffb49467e706c7f35bfe0d6fe6fef82053",
+          "source_lineage": "SBDB:20000004:Park, R.S. et al. 2025, Nat Astron, DOI: 10.1038/s41550-025-02533-7:GM",
+          "source_reference": "Park, R.S. et al. 2025, Nat Astron, DOI: 10.1038/s41550-025-02533-7",
+          "source_value_kind": "COMPILED_REFERENCE_PARAMETER"
+        }
+      ],
+      "body_id": "VESTA",
+      "classification": "MULTIPLE_LINEAGE_VALUES_PRESERVED",
+      "distinct_values": 2,
+      "lineages": 2,
+      "property_code": "GM"
+    }
+  ],
+  "groups": 36,
+  "groups_by_classification": {
+    "MULTIPLE_LINEAGE_VALUES_PRESERVED": 35,
+    "SAME_LINEAGE_MULTIVALUE_REQUIRES_REVIEW": 1
+  },
+  "mission_id": "SOLAR-BASELINE-01",
+  "preference_resolved": false
+}

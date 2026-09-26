@@ -160,7 +160,7 @@
       "bytes": 1216512,
       "file": "LOOM_SOLAR_BASELINE_01_CANDIDATE_V19.sqlite3",
       "sha256": "761b6aacb6330351467cfe356ed6a478872a912e2e95ce28b7af60fbdbd52921",
-      "status": "RETAINED_QUALIFIED_CANDIDATE"
+      "status": "SUPERSEDED_HISTORICAL_CANDIDATE_RETAINED_IN_MAIN"
     },
     {
       "bytes": 1216512,
@@ -185,9 +185,27 @@
       "file": "LOOM_SOLAR_BASELINE_01_REPLAY_REVERSE_V19.sqlite3",
       "sha256": "dfb70f3042c91e97fae3c186b86fb5a05f30be1dfad727d92b3bba08184fbf92",
       "status": "SUPERSEDED_DEVELOPMENT_OR_REPLAY_OUTPUT"
+    },
+    {
+      "bytes": 1445888,
+      "file": "LOOM_SOLAR_BASELINE_01_CANDIDATE_V20.sqlite3",
+      "sha256": "0608f9502e99d9fc72a48cc732b45618463228ce5ff06d59737cdcdeac2f612e",
+      "status": "RETAINED_QUALIFIED_CANDIDATE"
+    },
+    {
+      "bytes": 1445888,
+      "file": "LOOM_SOLAR_BASELINE_01_REPLAY_CANONICAL_V20.sqlite3",
+      "sha256": "0608f9502e99d9fc72a48cc732b45618463228ce5ff06d59737cdcdeac2f612e",
+      "status": "SUPERSEDED_DEVELOPMENT_OR_REPLAY_OUTPUT"
+    },
+    {
+      "bytes": 1519616,
+      "file": "LOOM_SOLAR_BASELINE_01_REPLAY_REVERSE_V20.sqlite3",
+      "sha256": "e6eb699141966490b9f746a5be4314a8db7f5ee407113b9a775ad51c9b5e8a47",
+      "status": "SUPERSEDED_DEVELOPMENT_OR_REPLAY_OUTPUT"
     }
   ],
   "mission_id": "SOLAR-BASELINE-01",
-  "note": "Only generated disposable outputs from this mission are removed after their hashes/status are recorded; frozen source artifacts and prior repository/user work are preserved.",
-  "retained_candidate": "LOOM_SOLAR_BASELINE_01_CANDIDATE_V19.sqlite3"
+  "note": "Generated trial/replay outputs from this mission are summarized by hash; the prior main-committed V19 candidate is retained unchanged as historical qualification genealogy.",
+  "retained_candidate": "LOOM_SOLAR_BASELINE_01_CANDIDATE_V20.sqlite3"
 }
