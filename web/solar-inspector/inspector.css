@@ -14,6 +14,8 @@ input,select,button { font: inherit; color: var(--loom-interface-text-secondary)
 input,select { display: block; max-width: 100%; }
 button { cursor: pointer; }
 button:hover { background: var(--loom-interface-surface-raised); }
+input:focus,select:focus,button:focus { outline: none; }
+input:focus-visible,select:focus-visible,button:focus-visible { outline: 1px solid var(--loom-interface-accent-primary); outline-offset: 1px; }
 button[aria-pressed="true"] { background: var(--loom-interface-control-chip-bg-active); border-color: var(--loom-interface-border-strong); }
 button:disabled { opacity: .55; cursor: wait; }
 #step,#samples { width: 96px; }
@@ -42,7 +44,7 @@ summary { cursor: pointer; padding: var(--loom-interface-space-3) 0; min-height:
   header img { width: 54px; margin: 0; }
   header h1 { margin: 0; font-size: .9rem; line-height: 1.05; }
   header span { display: none; }
-  #mobileControls { display: block; min-height: 34px; padding: 3px 9px; }
+  #mobileControls { display: block; flex: 0 0 auto; min-width: 72px; max-width: 84px; min-height: 34px; padding: 3px 8px; white-space: nowrap; }
   .toolbar { display: none; position: absolute; z-index: 30; top: 54px; left: 0; right: 0; padding: 5px 8px 8px; border-bottom: 1px solid var(--loom-interface-border-default); box-shadow: 0 8px 24px var(--loom-interface-surface-canvas); }
   .toolbar.mobile-open { display: block; }
   .toolbar-head { display: none; }

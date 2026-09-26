@@ -90,31 +90,43 @@
     mesh.position.copy(position); mesh.quaternion.copy(camera.quaternion); group.add(mesh);
   }
   const orbitDays = { MERCURY: 88, VENUS: 225, EARTH: 366, MARS: 687, JUPITER: 4333, SATURN: 10759, URANUS: 30687, NEPTUNE: 60190 };
+  const solarPathClasses = new Set(['PLANET','ASTEROID','NEAR_EARTH_ASTEROID','TROJAN_ASTEROID','BINARY_ASTEROID_PRIMARY','DWARF_PLANET','CENTAUR','TRANS_NEPTUNIAN_OBJECT','COMET']);
+  const orbitCurrentKey = new Map();
+  function pathWindow(row) {
+    // Presentation path only: every point still comes from the governed resolver.
+    // Non-planets use a fixed 40-year inspection arc, never a browser-side orbit model.
+    const year = new Date(snapshot.epoch_utc).getUTCFullYear();
+    const anchor = Date.UTC(Math.floor(year / 25) * 25,0,1);
+    const halfDays = orbitDays[row.body_id] ? orbitDays[row.body_id] / 2 : 365.25 * 20;
+    return [new Date(anchor-halfDays*86400000).toISOString(), new Date(anchor+halfDays*86400000).toISOString()];
+  }
   async function loadPlanetOrbits() {
     if (!snapshot || snapshot.reference_center !== 'SUN' || !['planetary','all'].includes($('scope').value)) return;
-    const generation = ++orbitGeneration, epoch = Date.parse(snapshot.epoch_utc);
-    await Promise.all(visibleRows().filter(r => orbitDays[r.body_id]).map(async row => {
-      const half = orbitDays[row.body_id] * 86400000 / 2;
-      const start = new Date(epoch-half).toISOString(), end = new Date(epoch+half).toISOString();
+    const generation = ++orbitGeneration;
+    const candidates = visibleRows().filter(r => solarPathClasses.has(r.body_class));
+    // Planet lines arrive first. Full-catalog minor-body arcs then fill in progressively.
+    candidates.sort((a,b) => (orbitDays[b.body_id] ? 1 : 0) - (orbitDays[a.body_id] ? 1 : 0));
+    for (const row of candidates) {
+      if (generation !== orbitGeneration) return;
+      const [start,end] = pathWindow(row);
       const key = [row.body_id,start,end,'SUN'].join('|');
+      orbitCurrentKey.set(row.body_id,key);
       if (!orbitPaths.has(key)) {
-        try { orbitPaths.set(key, await get('/api/trajectory', { body: row.body_id, start, end, center: 'SUN', samples: 72 })); }
+        try { orbitPaths.set(key, await get('/api/trajectory', { body: row.body_id, start, end, center: 'SUN', samples: orbitDays[row.body_id] ? 48 : 28 })); }
         catch (_) { orbitPaths.set(key, null); }
+        if (generation === orbitGeneration) rebuild(false);
       }
-    }));
-    if (generation === orbitGeneration) rebuild(false);
+      if (!orbitDays[row.body_id]) await new Promise(resolve => setTimeout(resolve, 250));
+    }
   }
   function renderPlanetOrbits() {
     if (!snapshot || snapshot.reference_center !== 'SUN' || !['planetary','all'].includes($('scope').value)) return;
-    const epoch = Date.parse(snapshot.epoch_utc);
-    for (const row of visibleRows().filter(r => orbitDays[r.body_id])) {
-      const half=orbitDays[row.body_id]*86400000/2;
-      const key=[row.body_id,new Date(epoch-half).toISOString(),new Date(epoch+half).toISOString(),'SUN'].join('|');
-      const path=orbitPaths.get(key); if (!path) continue;
+    for (const row of visibleRows().filter(r => solarPathClasses.has(r.body_class))) {
+      const key=orbitCurrentKey.get(row.body_id), path=key && orbitPaths.get(key); if (!path) continue;
       for (const segment of path.segments) {
         const pts=segment.indices.map(i => path.points[i].relative && vector(path.points[i].relative.position_km)).filter(Boolean);
         if (pts.length < 2) continue;
-        paths.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: palette.node, transparent: true, opacity: .28 })));
+        paths.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: palette.node, transparent: true, opacity: orbitDays[row.body_id] ? .28 : .13 })));
       }
     }
   }
@@ -222,7 +234,7 @@
       if (!$('failures').children.length) $('failures').textContent = 'No unresolved objects at this epoch.';
       if (selected) select(selected); else { $('catalog').selectedIndex = -1; $('selection').textContent = 'No object selected.'; rebuild(fit); }
       $('message').textContent = `Exact resolver states evaluated at ${data.epoch_utc}. Read-only PostgreSQL snapshot ${data.authority.ledger_sha256.slice(0, 12)}. Restart to reload authority.`;
-      loadPlanetOrbits();
+      if (!playing) loadPlanetOrbits();
     } catch (e) { stopPlay(); $('message').textContent = 'Evaluation failed; previous scene retained: ' + e.message; }
     finally { setBusy(false); }
   }
@@ -250,7 +262,7 @@
     } catch (e) { $('pathStatus').textContent = 'Trajectory failed: ' + e.message; }
     finally { setBusy(false); }
   }
-  function stopPlay() { playing = false; playGeneration++; $('play').textContent = 'Play'; $('play').setAttribute('aria-pressed', 'false'); }
+  function stopPlay() { playing = false; playGeneration++; $('play').textContent = 'Play'; $('play').setAttribute('aria-pressed', 'false'); loadPlanetOrbits(); }
   async function step(direction) {
     if (busy) return;
     const delta = Number($('step').value) * 86400000 * direction;
@@ -260,7 +272,7 @@
   }
   $('play').onclick = async () => {
     if (playing) { stopPlay(); return; }
-    playing = true; $('play').textContent = 'Pause'; $('play').setAttribute('aria-pressed', 'true');
+    playing = true; orbitGeneration++; $('play').textContent = 'Pause'; $('play').setAttribute('aria-pressed', 'true');
     const generation = ++playGeneration;
     const tick = async () => { if (!playing || generation !== playGeneration) return; await step(1); if (playing && generation === playGeneration) setTimeout(tick, 700); };
     tick();
