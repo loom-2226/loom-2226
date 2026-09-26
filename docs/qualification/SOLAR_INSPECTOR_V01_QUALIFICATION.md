@@ -118,9 +118,9 @@ it was corrected to require explicit unresolved records and disjoint geometry,
 as required by the inspector contract. Historical Solar tests were untouched.
 
 ```sh
-NODE_PATH=/tmp/ceres-atlas-browser-test-20260921/node_modules \
-PLAYWRIGHT_BROWSERS_PATH=/tmp/ceres-playwright-browsers \
-node tests/solar_inspector_browser.cjs
+npm ci
+PLAYWRIGHT_BROWSERS_PATH="$PWD/.playwright" npx playwright install chromium
+PLAYWRIGHT_BROWSERS_PATH="$PWD/.playwright" npm run test:solar-inspector-browser
 ```
 
 Result: PASS, 13 exact-state responses checked, zero page exceptions, zero
