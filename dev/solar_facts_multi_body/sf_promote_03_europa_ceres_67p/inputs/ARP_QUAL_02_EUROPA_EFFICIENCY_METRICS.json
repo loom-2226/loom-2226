@@ -1,0 +1,42 @@
+{
+  "artifacts_acquired": 24,
+  "artifacts_reused": 0,
+  "assertions_accepted": 17,
+  "assertions_accepted_into_candidate_queue": 17,
+  "assertions_extracted": 17,
+  "assertions_rejected": 0,
+  "assertions_rejected_at_admission": 0,
+  "coverage_after_pass_1": {
+    "complete_science_claim": false,
+    "dispositioned": 26,
+    "question_count": 26
+  },
+  "coverage_after_pass_2": {
+    "complete_science_claim": false,
+    "dispositioned": 26,
+    "question_count": 26
+  },
+  "coverage_before": {},
+  "duplicate_lineage_avoidance": 2,
+  "duplicate_work_avoided": 2,
+  "elapsed_note": "Mission work predated this checkpoint; only a partial-session duration can be measured. Do not infer total elapsed time.",
+  "elapsed_seconds_since_context_checkpoint": null,
+  "external_research_operations": 8,
+  "independent_evidence_lineages": 12,
+  "pass_1_questions_dispositioned": 26,
+  "pass_2_final_questions_dispositioned": 26,
+  "pass_2_targeted_questions_reviewed": 9,
+  "remaining_dispositions": {
+    "PARTIAL": 12,
+    "SOURCE_NOT_FOUND": 2,
+    "SUPPORTED": 11,
+    "UNKNOWN": 1
+  },
+  "search_acquisition_effort": {
+    "note": "Batch-level effort metric; not a count of individual requests.",
+    "recorded_operation_batches": 8
+  },
+  "sources_acquired": 24,
+  "sources_discovered": 32,
+  "sources_rejected": 8
+}

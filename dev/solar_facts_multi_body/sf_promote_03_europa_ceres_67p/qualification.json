@@ -1,0 +1,262 @@
+{
+  "arp_version": "1.0.0",
+  "baseline": {
+    "67P_body_digest": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+    "CERES_body_digest": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+    "baseline_database_sha256": "ed930b0453ec994712614bf0beb1a5ff8c93452db1b753884539fa510184b64f",
+    "whole_semantic_digest": "2328f03f45b560c127a2c93b3aac0cf484f82e439979e16586eeaea12d845bd0"
+  },
+  "blindness_boundary": {
+    "cutoff": "2025-12-31T23:59:59Z",
+    "gate_a_exclusion": "All listed upstream identity/ephemeris and legacy presentation material is excluded from source discovery, assertion construction, source selection, and qualification. After Gate A, the Phase-4 body identity may be consulted only to bind the promotion record to existing loom_solar.body identity. The accepted campaign values remain independently sourced from acquired pre-cutoff artifacts.",
+    "mission_id": "ARP-QUAL-02-EUROPA",
+    "post_cutoff_negative_control": {
+      "detected": true,
+      "handling": "a search result describing a 2026 plume reanalysis was noticed during discovery and excluded from all positive evidence, candidate assertions, and cutoff conclusions; it is retained only as a temporal-leakage negative-control record"
+    },
+    "preexisting_upstream_europa_empirical_corpus": "FOUND_IDENTITY_AND_EPHEMERIS_ONLY",
+    "preexisting_upstream_europa_references": [
+      {
+        "answer_key_risk": "identity, NAIF mapping, and ephemeris coverage; not admitted as Gate A evidence",
+        "class": "PROMOTED_SOLAR_IDENTITY_AND_EPHEMERIS_AUTHORITY",
+        "path": "manifests/solar/SOLAR_PHASE4B_AUTHORITY_V1.json"
+      },
+      {
+        "answer_key_risk": "existing body identity and ephemeris registration; not admitted as Gate A evidence",
+        "class": "PROMOTED_SOLAR_IDENTITY_AND_EPHEMERIS_AUTHORITY",
+        "path": "data/postgres/migrations/013_solar_phase4b_closure.sql"
+      },
+      {
+        "answer_key_risk": "contains orbit-like literals; not treated as governing or evidence",
+        "class": "LEGACY_EMBEDDED_PRESENTATION_DATA",
+        "path": "src/loom_solar_gis.py"
+      }
+    ],
+    "research_context_baseline": "loom-2226/loom-2226@3752b018e1029d75db18410e61a336dc90efdf2d",
+    "research_lab_inventory": {
+      "empirical_europa_corpus": "NOT_FOUND",
+      "handling": "excluded from evidence discovery, assertion construction, and answer-key use; synthetic design inputs only",
+      "synthetic_non_evidentiary_mentions": [
+        "projects/loom_drive_mechanism_options/experiments/u1_synthetic_civilization_v0/README.md",
+        "projects/loom_drive_mechanism_options/experiments/u1_synthetic_civilization_v0/u1_synthetic_civilization.py",
+        "projects/loom_drive_mechanism_options/experiments/u2_relational_geography_v0/RESULT_2026-09-24.md",
+        "projects/loom_drive_mechanism_options/experiments/u2_relational_geography_v0/u2_relational_geography.py"
+      ]
+    },
+    "researcher_memory_used_as_evidence": false,
+    "scientific_values_from_other_bodies_used": false
+  },
+  "body_digests": {
+    "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+    "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+    "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+  },
+  "counts": {
+    "activity_fact": {
+      "CERES": 2,
+      "COMET_67P": 2,
+      "EUROPA": 3
+    },
+    "body_model_product": {
+      "CERES": 9,
+      "COMET_67P": 1,
+      "EUROPA": 1
+    },
+    "campaign_artifacts": {
+      "EUROPA": 14
+    },
+    "campaign_sources": {
+      "EUROPA": 14
+    },
+    "fact": {
+      "CERES": 8,
+      "COMET_67P": 4,
+      "EUROPA": 2
+    },
+    "frontier": {
+      "EUROPA": 6
+    },
+    "material_evidence": {
+      "CERES": 6,
+      "EUROPA": 1
+    },
+    "observation": {
+      "CERES": 8,
+      "COMET_67P": 4,
+      "EUROPA": 10
+    },
+    "orientation_model": {
+      "CERES": 1,
+      "EUROPA": 1
+    },
+    "preferred_fact": {},
+    "promotion_assertion": {
+      "CERES": 56,
+      "COMET_67P": 13,
+      "EUROPA": 17
+    },
+    "reviews": {
+      "HOLD": 1,
+      "PROMOTE": 11,
+      "SCHEMA_LIEN": 5
+    }
+  },
+  "coverage_dispositions": {
+    "PARTIAL": 12,
+    "SOURCE_NOT_FOUND": 2,
+    "SUPPORTED": 11,
+    "UNKNOWN": 1
+  },
+  "cross_body_hostile_review": "PASS",
+  "database_path": "LOOM_SOLAR_FACTS_MULTI_BODY_SF_PROMOTE_03_EUROPA_CERES_67P.sqlite3",
+  "database_sha256": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
+  "efficiency_metrics": {
+    "artifacts_acquired": 24,
+    "artifacts_reused": 0,
+    "assertions_accepted": 17,
+    "assertions_accepted_into_candidate_queue": 17,
+    "assertions_extracted": 17,
+    "assertions_rejected": 0,
+    "assertions_rejected_at_admission": 0,
+    "coverage_after_pass_1": {
+      "complete_science_claim": false,
+      "dispositioned": 26,
+      "question_count": 26
+    },
+    "coverage_after_pass_2": {
+      "complete_science_claim": false,
+      "dispositioned": 26,
+      "question_count": 26
+    },
+    "coverage_before": {},
+    "duplicate_lineage_avoidance": 2,
+    "duplicate_work_avoided": 2,
+    "elapsed_note": "Mission work predated this checkpoint; only a partial-session duration can be measured. Do not infer total elapsed time.",
+    "elapsed_seconds_since_context_checkpoint": null,
+    "external_research_operations": 8,
+    "independent_evidence_lineages": 12,
+    "pass_1_questions_dispositioned": 26,
+    "pass_2_final_questions_dispositioned": 26,
+    "pass_2_targeted_questions_reviewed": 9,
+    "remaining_dispositions": {
+      "PARTIAL": 12,
+      "SOURCE_NOT_FOUND": 2,
+      "SUPPORTED": 11,
+      "UNKNOWN": 1
+    },
+    "search_acquisition_effort": {
+      "note": "Batch-level effort metric; not a count of individual requests.",
+      "recorded_operation_batches": 8
+    },
+    "sources_acquired": 24,
+    "sources_discovered": 32,
+    "sources_rejected": 8
+  },
+  "important_conflicts": [
+    "Galileo magnetic measurements versus model-dependent conductive-layer/ocean interpretation; no direct ocean observation or sample.",
+    "HST plume candidates and Galileo E12 interpretation coexist with epoch/footprint-specific nondetections and ALMA model-dependent upper limits.",
+    "Juno MWR 2025 shell estimate is a footprint-scoped model result with idealized material assumptions; historical shell/interior model differences remain.",
+    "Regional leading-hemisphere NaCl interpretation does not establish global, subsurface or ocean abundance.",
+    "USGS global map is generalized at global scale and explicitly reports incomplete regional-resolution coverage."
+  ],
+  "knowledge_cutoff": "2025-12-31T23:59:59Z",
+  "mission_id": "ARP-QUAL-02-EUROPA",
+  "narrator": "PASS_BOUNDARY_PRESERVING",
+  "non_interference": {
+    "67P": true,
+    "CERES": true
+  },
+  "preferred_fact_counts": {
+    "CERES": 0,
+    "COMET_67P": 0,
+    "EUROPA": 0,
+    "TOTAL": 0
+  },
+  "promotion_semantic_equivalence": "PASS",
+  "promotion_verdict": "SF_THREE_BODY_PROMOTION_PASS_WITH_LIENS",
+  "research_hostile_review": {
+    "all_attacks_rejected": true,
+    "attack_count": 25,
+    "caveat": "Semantic refusal checks are deterministic boundary checks over frozen candidate notes and scopes; they do not invoke a narrator. The research layer has no narrator implementation, so the unknown-to-confident check verifies only that no assertion supplies such a predicate; the upstream production narrator remains to be tested in Gate B.",
+    "status": "PASS"
+  },
+  "research_liens": [
+    {
+      "finding": "PPR archive metadata acquired; primary 2010 analysis artifact unavailable.",
+      "lien_id": "EUROPA-LIEN-THERMAL-PRIMARY",
+      "severity": "NONBLOCKING",
+      "state": "SOURCE_UNAVAILABLE",
+      "target": "thermal_environment"
+    },
+    {
+      "finding": "PDS EPD archive located, but calibrated Europa-specific analysis not acquired.",
+      "lien_id": "EUROPA-LIEN-RADIATION-PRIMARY",
+      "severity": "NONBLOCKING",
+      "state": "SOURCE_UNAVAILABLE",
+      "target": "radiation_particle_environment"
+    },
+    {
+      "finding": "Juno result applies to sampled region and idealized model assumptions; competing model ensemble incomplete.",
+      "lien_id": "EUROPA-LIEN-SHELL-MODEL-SCOPE",
+      "severity": "NONBLOCKING",
+      "state": "OPEN",
+      "target": "ice_shell_interior_models"
+    },
+    {
+      "finding": "Pre-existing upstream identity/ephemeris metadata discovered and excluded from Gate A; permitted after Gate A only for existing-identity binding.",
+      "lien_id": "EUROPA-LIEN-IDENTITY-BLINDNESS",
+      "severity": "NONBLOCKING",
+      "state": "ACCEPTED_UNKNOWN",
+      "target": "identity_classification"
+    }
+  ],
+  "research_verdict": "ARP_QUAL_02_EUROPA_PASS_WITH_LIENS",
+  "source_metrics": {
+    "acquired": 24,
+    "artifacts_acquired": 24,
+    "discovered": 32,
+    "independent_evidence_lineages": 12,
+    "rejected": 8
+  },
+  "unresolved_liens": [
+    {
+      "finding": "PPR archive metadata acquired; primary 2010 analysis artifact unavailable.",
+      "lien_id": "EUROPA-LIEN-THERMAL-PRIMARY",
+      "severity": "NONBLOCKING",
+      "state": "SOURCE_UNAVAILABLE",
+      "target": "thermal_environment"
+    },
+    {
+      "finding": "PDS EPD archive located, but calibrated Europa-specific analysis not acquired.",
+      "lien_id": "EUROPA-LIEN-RADIATION-PRIMARY",
+      "severity": "NONBLOCKING",
+      "state": "SOURCE_UNAVAILABLE",
+      "target": "radiation_particle_environment"
+    },
+    {
+      "finding": "Juno result applies to sampled region and idealized model assumptions; competing model ensemble incomplete.",
+      "lien_id": "EUROPA-LIEN-SHELL-MODEL-SCOPE",
+      "severity": "NONBLOCKING",
+      "state": "OPEN",
+      "target": "ice_shell_interior_models"
+    },
+    {
+      "finding": "Pre-existing upstream identity/ephemeris metadata discovered and excluded from Gate A; permitted after Gate A only for existing-identity binding.",
+      "lien_id": "EUROPA-LIEN-IDENTITY-BLINDNESS",
+      "severity": "NONBLOCKING",
+      "state": "ACCEPTED_UNKNOWN",
+      "target": "identity_classification"
+    },
+    {
+      "finding": "Five scientifically valid assertion envelopes require schema lien/ledger-only disposition in current typed Solar Facts representation.",
+      "severity": "NONBLOCKING",
+      "state": "SCHEMA_LIEN"
+    },
+    {
+      "finding": "Independent alternate body insertion order not run; existing qualified Ceres/67P bodies were not rebuilt.",
+      "severity": "NONBLOCKING",
+      "state": "NOT_RUN"
+    }
+  ],
+  "whole_database_semantic_digest": "382f7871cdfc42526eddcc84bd17fcfdd1a6a78cafa129c5feb21546cdfa8581"
+}

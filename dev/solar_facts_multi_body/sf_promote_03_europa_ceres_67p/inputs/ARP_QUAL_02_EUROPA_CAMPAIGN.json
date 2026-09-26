@@ -1,0 +1,1235 @@
+{
+  "arp_version": "1.0.0",
+  "artifacts": [
+    {
+      "artifact_id": "art-jpl-physical",
+      "byte_count": 84633,
+      "local_path": "artifacts/pass_1/01_jpl_satellite_physical_parameters.html",
+      "locator": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "media_type": "text/html",
+      "original_filename": "01_jpl_satellite_physical_parameters.html",
+      "retrieved_at": "2026-09-26T07:31:29Z",
+      "sha256": "d48a005e6869b199796877492c894abb4c0fd49fe4819d27dfeb280f483aa440",
+      "source_id": "jpl-physical",
+      "version": "JUP365"
+    },
+    {
+      "artifact_id": "art-jpl-elements",
+      "byte_count": 580012,
+      "local_path": "artifacts/pass_1/02_jpl_satellite_mean_elements.html",
+      "locator": "https://ssd.jpl.nasa.gov/sats/elem/",
+      "media_type": "text/html",
+      "original_filename": "02_jpl_satellite_mean_elements.html",
+      "retrieved_at": "2026-09-26T07:31:30Z",
+      "sha256": "1e5e52225cf636b78d0ac602eb5352c5648aa025ba45d61593d824e70779dfdd",
+      "source_id": "jpl-elements",
+      "version": "JUP365"
+    },
+    {
+      "artifact_id": "art-usgs-map",
+      "byte_count": 1482703,
+      "local_path": "artifacts/pass_1/03_usgs_global_geologic_map_pamphlet.pdf",
+      "locator": "https://pubs.usgs.gov/publication/sim3513",
+      "media_type": "application/pdf",
+      "original_filename": "03_usgs_global_geologic_map_pamphlet.pdf",
+      "retrieved_at": "2026-09-26T07:31:30Z",
+      "sha256": "66db1ccb019f664b02ebbe1cac40c56604ee3a50c5ed6cd0f672e4fc9e678573",
+      "source_id": "usgs-map",
+      "version": "SIM 3513"
+    },
+    {
+      "artifact_id": "art-pds-nims-e6",
+      "byte_count": 2077,
+      "local_path": "artifacts/pass_1/04_pds_galileo_nims_e6_catalog.html",
+      "locator": "https://pds-imaging.jpl.nasa.gov/volumes/galileo.html",
+      "media_type": "text/html",
+      "original_filename": "04_pds_galileo_nims_e6_catalog.html",
+      "retrieved_at": "2026-09-26T07:31:29Z",
+      "sha256": "1f31c362baa9ea79d53c428df5b38d9e1a4b47a2dd95bfc6e6d5142c47cf0f10",
+      "source_id": "pds-nims-e6",
+      "version": "Galileo NIMS E6"
+    },
+    {
+      "artifact_id": "art-khurana98",
+      "byte_count": 316196,
+      "local_path": "artifacts/pass_1/06_khurana_1998_induced_fields.html",
+      "locator": "https://www.nature.com/articles/27394",
+      "media_type": "text/html",
+      "original_filename": "06_khurana_1998_induced_fields.html",
+      "retrieved_at": "2026-09-26T07:31:31Z",
+      "sha256": "b11b722e8ff1ed0af07be3d2df70c46d7a80343740bc264aaec1b2ae6c12205a",
+      "source_id": "khurana98",
+      "version": "DOI 10.1038/27394"
+    },
+    {
+      "artifact_id": "art-jia18",
+      "byte_count": 332633,
+      "local_path": "artifacts/pass_1/07_jia_2018_galileo_plume.html",
+      "locator": "https://www.nature.com/articles/s41550-018-0450-z",
+      "media_type": "text/html",
+      "original_filename": "07_jia_2018_galileo_plume.html",
+      "retrieved_at": "2026-09-26T07:31:31Z",
+      "sha256": "d623d374ce9e8c258102b9536da6f6dc1376482487ebfafab2b9827cc974f69f",
+      "source_id": "jia18",
+      "version": "DOI 10.1038/s41550-018-0450-z"
+    },
+    {
+      "artifact_id": "art-sparks16",
+      "byte_count": 3529374,
+      "local_path": "artifacts/pass_1/09_sparks_2016_hst_plume_search.pdf",
+      "locator": "https://arxiv.org/abs/1609.08215",
+      "media_type": "application/pdf",
+      "original_filename": "09_sparks_2016_hst_plume_search.pdf",
+      "retrieved_at": "2026-09-26T07:31:30Z",
+      "sha256": "163c880474b12b2cd9cead4ceb989075662ca7244662d75646e20c7df8201b9d",
+      "source_id": "sparks16",
+      "version": "arXiv:1609.08215"
+    },
+    {
+      "artifact_id": "art-cordiner24",
+      "byte_count": 1768764,
+      "local_path": "artifacts/pass_1/11_cordiner_2024_alma_plume_search.pdf",
+      "locator": "https://arxiv.org/abs/2404.05525",
+      "media_type": "application/pdf",
+      "original_filename": "11_cordiner_2024_alma_plume_search.pdf",
+      "retrieved_at": "2026-09-26T07:31:29Z",
+      "sha256": "0ce34fdded62f20eb876676cefcd34f912b96f8fe1cde5c07fb055e6dea3d71a",
+      "source_id": "cordiner24",
+      "version": "arXiv:2404.05525; ALMA 2021 epochs"
+    },
+    {
+      "artifact_id": "art-hall95",
+      "byte_count": 271191,
+      "local_path": "artifacts/pass_1/12_hall_1995_oxygen_atmosphere.html",
+      "locator": "https://www.nature.com/articles/373677a0",
+      "media_type": "text/html",
+      "original_filename": "12_hall_1995_oxygen_atmosphere.html",
+      "retrieved_at": "2026-09-26T07:31:30Z",
+      "sha256": "518cd5aaf4eb36585f5dbd6f73ba79f60a1d9e71d45327e6bf1e28b6f4da1eda",
+      "source_id": "hall95",
+      "version": "Nature 373, 677"
+    },
+    {
+      "artifact_id": "art-juno25",
+      "byte_count": 411314,
+      "local_path": "artifacts/pass_1/14_nature_astronomy_2025_juno_mwr_shell.html",
+      "locator": "https://doi.org/10.1038/s41550-025-02718-0",
+      "media_type": "text/html",
+      "original_filename": "14_nature_astronomy_2025_juno_mwr_shell.html",
+      "retrieved_at": "2026-09-26T07:31:31Z",
+      "sha256": "d082a6ba3202079c8c499c5db503086e9d3f835132422f7bdf82b5d15ffd1501",
+      "source_id": "juno25",
+      "version": "DOI 10.1038/s41550-025-02718-0; version of record"
+    },
+    {
+      "artifact_id": "art-trumbo19",
+      "byte_count": 154709,
+      "local_path": "artifacts/pass_1/15_science_advances_2019_sodium_chloride_surface.html",
+      "locator": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6561749/",
+      "media_type": "text/html",
+      "original_filename": "15_science_advances_2019_sodium_chloride_surface.html",
+      "retrieved_at": "2026-09-26T07:31:29Z",
+      "sha256": "380b3adc126b210b50510717d2a4d2eddecf48d77ef375129de14693f20f5487",
+      "source_id": "trumbo19",
+      "version": "DOI 10.1126/sciadv.aaw7123; PMC6561749"
+    },
+    {
+      "artifact_id": "art-roth14",
+      "byte_count": 2373176,
+      "local_path": "artifacts/pass_1/17_roth_2014_transient_water_vapor.pdf",
+      "locator": "https://doi.org/10.1126/science.1247051",
+      "media_type": "application/pdf",
+      "original_filename": "17_roth_2014_transient_water_vapor.pdf",
+      "retrieved_at": "2026-09-26T07:33:42Z",
+      "sha256": "17af9afe7e7a1fce889441f0025bed6404271d40c7ed81ab5c0c91933fc8f636",
+      "source_id": "roth14",
+      "version": "DOI 10.1126/science.1247051"
+    },
+    {
+      "artifact_id": "art-subaru24",
+      "byte_count": 7134737,
+      "local_path": "artifacts/pass_1/19_subaru_2024_plume_search.pdf",
+      "locator": "https://arxiv.org/abs/2409.19053",
+      "media_type": "application/pdf",
+      "original_filename": "19_subaru_2024_plume_search.pdf",
+      "retrieved_at": "2026-09-26T07:33:46Z",
+      "sha256": "ab6e68d669259fa38c51d6a160111e328a2310c4fed6c85f261bbf83d4d243b3",
+      "source_id": "subaru24",
+      "version": "arXiv:2409.19053"
+    },
+    {
+      "artifact_id": "art-pds-ppr",
+      "byte_count": 94306,
+      "local_path": "artifacts/pass_1/20_pds_galileo_ppr_rdr_profile.html",
+      "locator": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=GO-J-PPR-3-RDR-V1.0",
+      "media_type": "text/html",
+      "original_filename": "20_pds_galileo_ppr_rdr_profile.html",
+      "retrieved_at": "2026-09-26T07:33:43Z",
+      "sha256": "dae20d2b85bd072acf28c25b09cd4e9ce52895865a768b2027f2e231be02a784",
+      "source_id": "pds-ppr",
+      "version": "GO-J-PPR-3-RDR-V1.0"
+    },
+    {
+      "artifact_id": "art-pds-mag",
+      "byte_count": 13501,
+      "local_path": "artifacts/pass_1/21_pds_galileo_mag_europa_collection.html",
+      "locator": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=GO-J-MAG-3-RDR-HIGHRES-V1.0",
+      "media_type": "text/html",
+      "original_filename": "21_pds_galileo_mag_europa_collection.html",
+      "retrieved_at": "2026-09-26T07:33:43Z",
+      "sha256": "2b94257af23eb003b40430f985cf16b298b5dc0035a24165afe516fbe557caa2",
+      "source_id": "pds-mag",
+      "version": "Galileo MAG high-res Europa"
+    },
+    {
+      "artifact_id": "art-pds-epd",
+      "byte_count": 14430,
+      "local_path": "artifacts/pass_1/22_pds_galileo_epd_bundle.html",
+      "locator": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=GO-J-EPD-3-RDR-V1.0",
+      "media_type": "text/html",
+      "original_filename": "22_pds_galileo_epd_bundle.html",
+      "retrieved_at": "2026-09-26T07:33:43Z",
+      "sha256": "33a926f8375ef29e88d73b601ddb18ca0b88ac07c563996df8e84bfa0efc5dc5",
+      "source_id": "pds-epd",
+      "version": "GO-J-EPD-3-RDR-V1.0"
+    },
+    {
+      "artifact_id": "art-pds-nims",
+      "byte_count": 18189,
+      "local_path": "artifacts/pass_1/23_pds_galileo_nims_edr_profile.html",
+      "locator": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=GO-J-NIMS-2-EDR-V1.0",
+      "media_type": "text/html",
+      "original_filename": "23_pds_galileo_nims_edr_profile.html",
+      "retrieved_at": "2026-09-26T07:33:43Z",
+      "sha256": "0ee7c65fff5f2ed271900b051f3f4e387129965a37e83f30258004c746327b87",
+      "source_id": "pds-nims",
+      "version": "GO-J-NIMS-2-EDR-V1.0"
+    },
+    {
+      "artifact_id": "art-pds-ssi",
+      "byte_count": 59899,
+      "local_path": "artifacts/pass_1/24_pds_galileo_ssi_profile.html",
+      "locator": "https://pds-imaging.jpl.nasa.gov/volumes/galileo.html",
+      "media_type": "text/html",
+      "original_filename": "24_pds_galileo_ssi_profile.html",
+      "retrieved_at": "2026-09-26T07:33:43Z",
+      "sha256": "225a6bf069c1ccc1ed6b8094aa45e0fce8fd5602b470e2438d0f2e66d27a8ee1",
+      "source_id": "pds-ssi",
+      "version": "Galileo SSI"
+    },
+    {
+      "artifact_id": "art-usgs-nomen",
+      "byte_count": 34302,
+      "local_path": "artifacts/pass_1/25_usgs_europa_nomenclature.html",
+      "locator": "https://planetarynames.wr.usgs.gov/Page/EUROPA/target",
+      "media_type": "text/html",
+      "original_filename": "25_usgs_europa_nomenclature.html",
+      "retrieved_at": "2026-09-26T07:33:42Z",
+      "sha256": "9db9cb84f8674b0f790ec37a327c003c0aec44df41a1e8ab275d8299e539b1dd",
+      "source_id": "usgs-nomen",
+      "version": "IAU/USGS nomenclature"
+    },
+    {
+      "artifact_id": "art-geissler98",
+      "byte_count": 21256,
+      "local_path": "artifacts/pass_1/27_geissler_1998_nonsynchronous_rotation.html",
+      "locator": "https://pubmed.ncbi.nlm.nih.gov/9756488/",
+      "media_type": "text/html",
+      "original_filename": "27_geissler_1998_nonsynchronous_rotation.html",
+      "retrieved_at": "2026-09-26T07:33:42Z",
+      "sha256": "884df8bd7944bc88c4d88d47b5922a77fbdd35f529020f90a91507b3c974e2b6",
+      "source_id": "geissler98",
+      "version": "PubMed 9756488"
+    },
+    {
+      "artifact_id": "art-greeley00",
+      "byte_count": 64968,
+      "local_path": "artifacts/pass_1/28_jia_1999_geologic_mapping.html",
+      "locator": "https://doi.org/10.1029/1999JE001173",
+      "media_type": "text/html",
+      "original_filename": "28_jia_1999_geologic_mapping.html",
+      "retrieved_at": "2026-09-26T07:33:45Z",
+      "sha256": "d1ce65efeaa52dcafdddc02eb1b6e0b5e0b0806e2baeb8de188473be9c672ef8",
+      "source_id": "greeley00",
+      "version": "DOI 10.1029/1999JE001173"
+    },
+    {
+      "artifact_id": "art-naif-pck",
+      "byte_count": 131226,
+      "local_path": "artifacts/pass_1/29_naif_pck00011.tpc",
+      "locator": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+      "media_type": "text/plain",
+      "original_filename": "29_naif_pck00011.tpc",
+      "retrieved_at": "2026-09-26T07:36:06Z",
+      "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+      "source_id": "naif-pck",
+      "version": "PCK00011"
+    },
+    {
+      "artifact_id": "art-pnas-nondetect",
+      "byte_count": 21275,
+      "local_path": "artifacts/pass_1/30_pnas_2014_apocenter_nondetection.html",
+      "locator": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3970496/",
+      "media_type": "text/html",
+      "original_filename": "30_pnas_2014_apocenter_nondetection.html",
+      "retrieved_at": "2026-09-26T07:36:05Z",
+      "sha256": "cac357f1643bbf40e290dcbe0654e60182a7bbe3eff275cf221dcb1c027020ec",
+      "source_id": "pnas-nondetect",
+      "version": "PNAS 111, 1739\u20131742"
+    },
+    {
+      "artifact_id": "art-pds-mag-readme",
+      "byte_count": 9038,
+      "local_path": "artifacts/pass_1/32_pds_mag_high_resolution_readme.html",
+      "locator": "https://pds-ppi.igpp.ucla.edu/",
+      "media_type": "text/html",
+      "original_filename": "32_pds_mag_high_resolution_readme.html",
+      "retrieved_at": "2026-09-26T07:36:06Z",
+      "sha256": "b7b1f10ea36bca3b3c883366c8c4e0f91b55f38237ba1b42adbc36fc08db6e91",
+      "source_id": "pds-mag-readme",
+      "version": "Galileo MAG archive readme"
+    }
+  ],
+  "assertions": [
+    {
+      "artifact_id": "art-jpl-physical",
+      "assertion_id": "eu-gm",
+      "canonical_assertion_key": "EUROPA|GM|JUP365",
+      "claim_kind": "MODEL_RESULT",
+      "evidence_class": "DYNAMICAL_INFERENCE",
+      "independent_evidence_lineage_id": "jpl-jup365",
+      "method_type": "JUP365_GRAVITY_SOLUTION",
+      "normalized_uncertainty": 0.00181,
+      "normalized_unit": "km^3/s^2",
+      "normalized_value": 3202.7121,
+      "notes": "JPL tabulates GM as a fitted dynamical parameter; not a direct mass measurement.",
+      "property_code": "GM",
+      "provenance_complete": true,
+      "reported_uncertainty": 0.00181,
+      "reported_unit": "km^3/s^2",
+      "reported_value": 3202.7121,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "jpl-physical",
+      "status": "CANDIDATE",
+      "temporal_context": "JUP365 reference solution; cited 2021",
+      "uncertainty_unit": "km^3/s^2"
+    },
+    {
+      "artifact_id": "art-jpl-physical",
+      "assertion_id": "eu-radius",
+      "canonical_assertion_key": "EUROPA|MEAN_RADIUS|JUP365",
+      "claim_kind": "DERIVATION",
+      "evidence_class": "DERIVED",
+      "independent_evidence_lineage_id": "jpl-jup365",
+      "method_type": "JUP365_REFERENCE_PARAMETER",
+      "normalized_uncertainty": 0.3,
+      "normalized_unit": "km",
+      "normalized_value": 1560.8,
+      "notes": "JPL reference value; radius parameter does not provide a local terrain or geotechnical measure.",
+      "property_code": "MEAN_RADIUS",
+      "provenance_complete": true,
+      "reported_uncertainty": 0.3,
+      "reported_unit": "km",
+      "reported_value": 1560.8,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "jpl-physical",
+      "status": "CANDIDATE",
+      "uncertainty_unit": "km"
+    },
+    {
+      "artifact_id": "art-jpl-elements",
+      "assertion_id": "eu-orbit",
+      "canonical_assertion_key": "EUROPA|ORBIT|JUP365",
+      "claim_kind": "MODEL_RESULT",
+      "evidence_class": "DYNAMICAL_INFERENCE",
+      "independent_evidence_lineage_id": "jpl-jup365",
+      "method_type": "JUP365_MEAN_ELEMENTS",
+      "normalization_method": "No numerical conversion; source mean-element parameterization retained",
+      "normalized_unit": "mixed orbital elements",
+      "notes": "JPL explicitly warns mean elements are not intended for ephemeris computation; do not substitute for an ephemeris.",
+      "property_code": "ORBITAL_MEAN_ELEMENTS",
+      "provenance_complete": true,
+      "reported_unit": "mixed orbital elements",
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "jpl-elements",
+      "status": "CANDIDATE",
+      "temporal_context": "Epoch 2000-01-01.5; Laplace frame; mean elements only"
+    },
+    {
+      "artifact_id": "art-naif-pck",
+      "assertion_id": "eu-rotation",
+      "canonical_assertion_key": "EUROPA|PCK|00011",
+      "claim_kind": "MODEL_PRODUCT",
+      "evidence_class": "PHYSICAL_MODEL",
+      "independent_evidence_lineage_id": "naif-pck00011",
+      "method_type": "NAIF_PCK_POLYNOMIAL",
+      "normalized_unit": "mixed NAIF PCK angular coefficients",
+      "normalized_value": {
+        "pole_dec_deg": 64.51,
+        "pole_dec_rate_deg_per_century": 0.003,
+        "pole_ra_deg": 268.08,
+        "pole_ra_rate_deg_per_century": -0.009,
+        "prime_meridian_deg": 36.022,
+        "prime_meridian_rate_deg_per_day": 101.3747235
+      },
+      "notes": "NAIF BODY502 model is Jupiter satellite Europa. Values are model coefficients with source units/convention, not independent observation or measured libration. Kernel also includes asteroid (52) Europa under a different ID; identity collision test required.",
+      "property_code": "BODY_ORIENTATION_MODEL",
+      "provenance_complete": true,
+      "reported_unit": "mixed NAIF PCK angular coefficients",
+      "reported_value": {
+        "pole_dec_deg": 64.51,
+        "pole_dec_rate_deg_per_century": 0.003,
+        "pole_ra_deg": 268.08,
+        "pole_ra_rate_deg_per_century": -0.009,
+        "prime_meridian_deg": 36.022,
+        "prime_meridian_rate_deg_per_day": 101.3747235
+      },
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "naif-pck",
+      "status": "CANDIDATE",
+      "temporal_context": "Kernel release 2022-12-27; model polynomial"
+    },
+    {
+      "artifact_id": "art-usgs-map",
+      "assertion_id": "eu-geology",
+      "canonical_assertion_key": "EUROPA|GEOLOGY|SIM3513",
+      "claim_kind": "INTERPRETATION",
+      "evidence_class": "DERIVED",
+      "independent_evidence_lineage_id": "usgs-sim3513",
+      "method_type": "GALILEO_VOYAGER_GEOLOGIC_MAPPING",
+      "notes": "USGS global map classifies ridged plains, chaos terrain, ridges and bands based on Voyager/Galileo imaging. Map-scale synthesis does not mean the full surface has uniform regional-resolution coverage.",
+      "property_code": "SURFACE_GEOLOGY",
+      "provenance_complete": true,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "usgs-map",
+      "status": "CANDIDATE"
+    },
+    {
+      "artifact_id": "art-usgs-map",
+      "assertion_id": "eu-surface-age",
+      "canonical_assertion_key": "EUROPA|SURFACE_AGE|SIM3513",
+      "claim_kind": "INTERPRETATION",
+      "evidence_class": "DERIVED",
+      "independent_evidence_lineage_id": "usgs-sim3513",
+      "method_type": "CRATER_ABUNDANCE_AND_STRATIGRAPHY",
+      "notes": "Map interprets low impact-crater abundance as indicating surface may be as young as approximately 60 Ma; this is an age inference, not a direct measurement or current-activity finding.",
+      "property_code": "SURFACE_RELATIVE_AGE",
+      "provenance_complete": true,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "usgs-map",
+      "status": "CANDIDATE"
+    },
+    {
+      "artifact_id": "art-khurana98",
+      "assertion_id": "eu-mag-field",
+      "canonical_assertion_key": "EUROPA|MAG|GALILEO",
+      "claim_kind": "OBSERVATION",
+      "evidence_class": "IN_SITU_DIRECT",
+      "independent_evidence_lineage_id": "galileo-mag-europa",
+      "method_type": "GALILEO_MAG_FLYBYS",
+      "notes": "Galileo measured magnetic fields; induced-field attribution and conductive-layer/ocean interpretation are separate model-dependent assertions in the paper.",
+      "property_code": "MAGNETIC_FIELD",
+      "provenance_complete": true,
+      "resolution": {},
+      "scope_type": "INSTRUMENT_FOOTPRINT",
+      "source_id": "khurana98",
+      "status": "CANDIDATE",
+      "temporal_context": "Galileo Europa encounters, 1990s"
+    },
+    {
+      "artifact_id": "art-khurana98",
+      "assertion_id": "eu-ocean-inference",
+      "canonical_assertion_key": "EUROPA|CONDUCTOR|K98",
+      "claim_kind": "INTERPRETATION",
+      "evidence_class": "DYNAMICAL_INFERENCE",
+      "independent_evidence_lineage_id": "galileo-mag-europa",
+      "method_type": "INDUCED_MAGNETIC_FIELD_MODEL",
+      "notes": "Authors interpret time-varying induced fields as evidence consistent with a conductive layer, most plausibly salty liquid water. No ocean was sampled or directly observed.",
+      "property_code": "CONDUCTIVE_SUBSURFACE_LAYER",
+      "provenance_complete": true,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "khurana98",
+      "status": "CANDIDATE"
+    },
+    {
+      "artifact_id": "art-jia18",
+      "assertion_id": "eu-plume-galileo-candidate",
+      "canonical_assertion_key": "EUROPA|PLUME|E12|JIA2018",
+      "claim_kind": "CANDIDATE",
+      "evidence_class": "IN_SITU_DIRECT",
+      "independent_evidence_lineage_id": "galileo-mag-europa",
+      "method_type": "GALILEO_E12_MAG_PWS_SIGNATURE_COMPARISON",
+      "notes": "Paper reports magnetic and plasma-wave signatures consistent with plume interaction under inferred plume properties; candidate evidence, not continuous/global activity.",
+      "property_code": "PLUME_ACTIVITY",
+      "provenance_complete": true,
+      "resolution": {
+        "claimed_grain": "SITE",
+        "source_grain": "SITE"
+      },
+      "scope_type": "SITE",
+      "source_id": "jia18",
+      "status": "CANDIDATE",
+      "temporal_context": "Galileo E12 flyby; interpretation conditioned on plume inferred from separate Hubble reports"
+    },
+    {
+      "artifact_id": "art-roth14",
+      "assertion_id": "eu-plume-hst-candidate",
+      "canonical_assertion_key": "EUROPA|PLUME|HST|2012DEC",
+      "claim_kind": "CANDIDATE",
+      "evidence_class": "EARTH_REMOTE",
+      "independent_evidence_lineage_id": "hst-2012-dec",
+      "method_type": "HST_STIS_FUV_SPECTROSCOPY",
+      "notes": "Transient south-polar off-limb emission was reported in Dec 2012; Nov observation and other epochs yielded nondetections. Interpretation remains epoch/location-specific.",
+      "property_code": "WATER_VAPOR_EMISSION",
+      "provenance_complete": true,
+      "resolution": {},
+      "scope_type": "SITE",
+      "source_id": "roth14",
+      "status": "CANDIDATE",
+      "temporal_context": "HST observations Nov\u2013Dec 2012"
+    },
+    {
+      "artifact_id": "art-pnas-nondetect",
+      "assertion_id": "eu-plume-hst-nondetect",
+      "canonical_assertion_key": "EUROPA|PLUME_NONDETECTION|PNAS2014",
+      "claim_kind": "OBSERVATION",
+      "evidence_class": "EARTH_REMOTE",
+      "independent_evidence_lineage_id": "hst-apocenter-2014",
+      "method_type": "HST_STIS_APOCENTER_SEARCH",
+      "notes": "Nondetection/upper limit at a specific orbital phase and sensitivity; does not establish plume absence.",
+      "property_code": "WATER_VAPOR_EMISSION",
+      "provenance_complete": true,
+      "resolution": {},
+      "scope_type": "INSTRUMENT_FOOTPRINT",
+      "source_id": "pnas-nondetect",
+      "status": "CANDIDATE",
+      "temporal_context": "HST apocenter observation 2014"
+    },
+    {
+      "artifact_id": "art-sparks16",
+      "assertion_id": "eu-plume-sparks",
+      "canonical_assertion_key": "EUROPA|PLUME|SPARKS2016",
+      "claim_kind": "CANDIDATE",
+      "evidence_class": "EARTH_REMOTE",
+      "independent_evidence_lineage_id": "hst-sparks-2016",
+      "method_type": "HST_STIS_IMAGE_SEARCH",
+      "notes": "Three of ten observations were reported as epochs where plume activity could be implicated; candidate status retained.",
+      "property_code": "WATER_VAPOR_EMISSION",
+      "provenance_complete": true,
+      "resolution": {},
+      "scope_type": "INSTRUMENT_FOOTPRINT",
+      "source_id": "sparks16",
+      "status": "CANDIDATE",
+      "temporal_context": "10 HST observations; published 2016"
+    },
+    {
+      "artifact_id": "art-subaru24",
+      "assertion_id": "eu-plume-subaru",
+      "canonical_assertion_key": "EUROPA|PLUME_NONDETECTION|SUBARU2024",
+      "claim_kind": "OBSERVATION",
+      "evidence_class": "EARTH_REMOTE",
+      "independent_evidence_lineage_id": "subaru-2024",
+      "method_type": "SUBARU_IRCS_HIGH_DISPERSION",
+      "notes": "No water emission found within reported limits and observation time; nondetection does not prove absence.",
+      "property_code": "WATER_VAPOR_EMISSION",
+      "provenance_complete": true,
+      "resolution": {},
+      "scope_type": "INSTRUMENT_FOOTPRINT",
+      "source_id": "subaru24",
+      "status": "CANDIDATE",
+      "temporal_context": "Observation epochs and slit footprint in 2024 preprint"
+    },
+    {
+      "artifact_id": "art-cordiner24",
+      "assertion_id": "eu-plume-alma-limit",
+      "canonical_assertion_key": "EUROPA|PLUME_SPECIES_LIMIT|ALMA2021",
+      "claim_kind": "DERIVATION",
+      "evidence_class": "EARTH_REMOTE",
+      "independent_evidence_lineage_id": "alma-2021-four-epochs",
+      "method_type": "ALMA_SPECTRAL_MAPS_WITH_3D_PLUME_MODEL",
+      "notes": "Upper limits for HCN, H2CO, SO2 and CH3OH depend on assumed gas-production rate and a 3D plume model. This does not establish plume absence or constrain unobserved species.",
+      "property_code": "MOLECULAR_PLUME_SPECIES_UPPER_LIMIT",
+      "provenance_complete": true,
+      "resolution": {},
+      "scope_type": "INSTRUMENT_FOOTPRINT",
+      "source_id": "cordiner24",
+      "status": "CANDIDATE",
+      "temporal_context": "Four ALMA epochs in May\u2013June 2021; preprint posted 2024"
+    },
+    {
+      "artifact_id": "art-hall95",
+      "assertion_id": "eu-oxygen-atmos",
+      "canonical_assertion_key": "EUROPA|EXOSPHERE|O2|HALL1995",
+      "claim_kind": "INTERPRETATION",
+      "evidence_class": "EARTH_REMOTE",
+      "independent_evidence_lineage_id": "hst-hall-1995",
+      "method_type": "HST_OI_1304_1356_ANGSTROM_EMISSION",
+      "notes": "Far-UV emission detection was interpreted as a tenuous O2 atmosphere; observation and atmospheric interpretation are not conflated.",
+      "property_code": "OXYGEN_EXOSPHERE",
+      "provenance_complete": true,
+      "resolution": {},
+      "scope_type": "GLOBAL",
+      "source_id": "hall95",
+      "status": "CANDIDATE"
+    },
+    {
+      "artifact_id": "art-trumbo19",
+      "assertion_id": "eu-nacl-surface",
+      "canonical_assertion_key": "EUROPA|SURFACE_NACL|TRUMBO2019",
+      "claim_kind": "INTERPRETATION",
+      "evidence_class": "EARTH_REMOTE",
+      "independent_evidence_lineage_id": "hst-stis-leading-hemisphere",
+      "method_type": "HST_STIS_VISIBLE_SPECTROSCOPY_AND_LAB_COMPARISON",
+      "notes": "HST/STIS visible absorption near 450 nm interpreted by comparison with irradiated NaCl laboratory spectra; the leading-hemisphere signal is strongest in Tara Regio and associated with chaos terrain. It does not establish global abundance, subsurface inventory, or ocean composition.",
+      "property_code": "SURFACE_SPECTRAL_COMPOSITION",
+      "provenance_complete": true,
+      "region_id": "leading hemisphere",
+      "resolution": {},
+      "scope_type": "REGIONAL",
+      "source_id": "trumbo19",
+      "status": "CANDIDATE"
+    },
+    {
+      "artifact_id": "art-juno25",
+      "assertion_id": "eu-juno-shell",
+      "canonical_assertion_key": "EUROPA|ICE_SHELL|JUNO2022",
+      "claim_kind": "MODEL_RESULT",
+      "evidence_class": "PHYSICAL_MODEL",
+      "independent_evidence_lineage_id": "juno-2022-mwr",
+      "method_type": "JUNO_MWR_THERMAL_CONDUCTIVITY_MODEL",
+      "normalization_method": "No scalar normalization; model interval retained",
+      "normalized_unit": "km",
+      "notes": "Idealized pure-water-ice model gives 29 \u00b1 10 km over the sampled footprint; salinity, material assumptions, lateral heterogeneity and model dependence remain. Not a global shell thickness.",
+      "property_code": "ICE_SHELL_THICKNESS_MODEL",
+      "provenance_complete": true,
+      "reported_unit": "km",
+      "resolution": {
+        "claimed_grain": "INSTRUMENT_FOOTPRINT",
+        "footprint": "approximately 10\u00b0S\u201330\u00b0N, 60\u00b0W\u201340\u00b0E; Juno 2022 pass",
+        "source_grain": "INSTRUMENT_FOOTPRINT"
+      },
+      "scope_type": "INSTRUMENT_FOOTPRINT",
+      "source_id": "juno25",
+      "status": "CANDIDATE",
+      "temporal_context": "Juno 2022 flyby; paper published 2025-12-17",
+      "value_max": 39,
+      "value_min": 19
+    }
+  ],
+  "body_profile": "icy_moon",
+  "campaign_id": "ARP-QUAL-02-EUROPA",
+  "campaign_notes": "Pass 1 broad discovery. Pass 2 targeted closure of plume conflict, regional geology coverage, Juno footprint/model result, and source-access gaps. No body-specific scientific logic; no factual corpus from Ceres/67P used.",
+  "coverage_contract_version": "1.0.2",
+  "coverage_summary": {
+    "complete_claim": false,
+    "dispositions": {
+      "PARTIAL": 12,
+      "SOURCE_NOT_FOUND": 2,
+      "SUPPORTED": 11,
+      "UNKNOWN": 1
+    },
+    "note": "Question disposition means researched, not scientifically known.",
+    "pass_1_questions": 26,
+    "pass_2_questions": 26
+  },
+  "epistemic_frontier": [
+    {
+      "evidence_class": null,
+      "limitation": "No direct sample; surface spectra cannot stand in for ocean chemistry.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "ocean_composition"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "Candidates/nondetections do not establish recurrence or absence.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "plume_recurrence"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "Competing model assumptions and limited footprints.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "global_shell_structure"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "No direct mechanical measurements acquired.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "surface_geotechnical_properties"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "USGS notes complete regional-scale coverage is absent.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "regional_coverage_below_250m_px"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "Requires matched site, epoch, geometry and instrument evidence.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "local_thermal_and_radiation_environment"
+    }
+  ],
+  "implementation_version": "1.0.2",
+  "knowledge_cutoff": "2025-12-31T23:59:59Z",
+  "lanes": {
+    "activity": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "pass_1": "PARTIAL",
+      "pass_2": "PARTIAL"
+    },
+    "atmosphere_environment": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "pass_1": "PARTIAL",
+      "pass_2": "PARTIAL"
+    },
+    "geology_geotechnical": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "pass_1": "PARTIAL",
+      "pass_2": "PARTIAL"
+    },
+    "gravity_shape": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "pass_1": "PARTIAL",
+      "pass_2": "PARTIAL"
+    },
+    "history": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "historical_knowledge_evolution",
+          "rationale": "Voyager/Galileo sequence, later HST, Subaru and Juno reports represented in the source set.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    },
+    "identity": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "identity_classification",
+          "rationale": "Identity and class independently documented in excluded upstream identity reference only; scientific body descriptors are not required for ARP facts.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    },
+    "mineralogy_composition": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "pass_1": "PARTIAL",
+      "pass_2": "PARTIAL"
+    },
+    "orbit_geometry": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "orbit_dynamical_context",
+          "rationale": "JPL JUP365 mean elements acquired; these are modelled mean elements at a stated epoch, not an ephemeris.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    },
+    "regional": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "pass_1": "PARTIAL",
+      "pass_2": "PARTIAL"
+    },
+    "rotation_orientation": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "pass_1": "PARTIAL",
+      "pass_2": "PARTIAL"
+    },
+    "thermal_environment": {
+      "applicable": true,
+      "coverage": "PARTIAL",
+      "pass_1": "PARTIAL",
+      "pass_2": "PARTIAL"
+    },
+    "water_volatiles": {
+      "applicable": true,
+      "coverage": "COVERED",
+      "coverage_basis": [
+        {
+          "question_id": "ice_water",
+          "rationale": "Surface ice remote evidence and subsurface liquid water inference are separate; no direct ocean sample.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "magnetic_induction",
+          "rationale": "Galileo MAG measurements and induced-field interpretation are separated.",
+          "state": "SUPPORTED"
+        },
+        {
+          "question_id": "subsurface_ocean",
+          "rationale": "Multiple lines support an ocean inference, but direct sampling/observation is absent.",
+          "state": "SUPPORTED"
+        }
+      ],
+      "pass_1": "COVERED",
+      "pass_2": "COVERED"
+    }
+  },
+  "liens": [
+    {
+      "finding": "PPR archive metadata acquired; primary 2010 analysis artifact unavailable.",
+      "lien_id": "EUROPA-LIEN-THERMAL-PRIMARY",
+      "severity": "NONBLOCKING",
+      "state": "SOURCE_UNAVAILABLE",
+      "target": "thermal_environment"
+    },
+    {
+      "finding": "PDS EPD archive located, but calibrated Europa-specific analysis not acquired.",
+      "lien_id": "EUROPA-LIEN-RADIATION-PRIMARY",
+      "severity": "NONBLOCKING",
+      "state": "SOURCE_UNAVAILABLE",
+      "target": "radiation_particle_environment"
+    },
+    {
+      "finding": "Juno result applies to sampled region and idealized model assumptions; competing model ensemble incomplete.",
+      "lien_id": "EUROPA-LIEN-SHELL-MODEL-SCOPE",
+      "severity": "NONBLOCKING",
+      "state": "OPEN",
+      "target": "ice_shell_interior_models"
+    },
+    {
+      "finding": "Pre-existing upstream identity/ephemeris metadata discovered and excluded from Gate A; permitted after Gate A only for existing-identity binding.",
+      "lien_id": "EUROPA-LIEN-IDENTITY-BLINDNESS",
+      "severity": "NONBLOCKING",
+      "state": "ACCEPTED_UNKNOWN",
+      "target": "identity_classification"
+    }
+  ],
+  "metrics": {
+    "artifacts_reused": 0,
+    "assertions_accepted": 17,
+    "assertions_extracted": 17,
+    "assertions_rejected": 0,
+    "coverage_after_pass_1": {
+      "complete_science_claim": false,
+      "dispositioned": 26,
+      "question_count": 26
+    },
+    "coverage_after_pass_2": {
+      "complete_science_claim": false,
+      "dispositioned": 26,
+      "question_count": 26
+    },
+    "duplicate_work_avoided": 2,
+    "elapsed_minutes_at_campaign_build": null,
+    "external_research_operations": 8,
+    "independent_evidence_lineages": 12,
+    "sources_acquired": 24,
+    "sources_discovered": 32,
+    "sources_rejected": 8
+  },
+  "qualification_state": "ARP_QUAL_02_EUROPA_PASS_WITH_LIENS",
+  "repository_baseline": "loom-2226/loom-2226@3752b018e1029d75db18410e61a336dc90efdf2d",
+  "research_tier": "EMPIRICAL",
+  "solar_facts_schema_version": "0.3-R1",
+  "sources": [
+    {
+      "authority_domain": "gravity_shape",
+      "authority_role": "PRIMARY",
+      "locator": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "persistent_identifier": "JUP365",
+      "primary_available": true,
+      "provider": "JPL Solar System Dynamics",
+      "publication_date": "2021-01-01",
+      "release_date": "2021-01-01",
+      "source_id": "jpl-physical",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "JPL satellite physical parameters (JUP365 reference solution)"
+    },
+    {
+      "authority_domain": "orbit_geometry",
+      "authority_role": "PRIMARY",
+      "locator": "https://ssd.jpl.nasa.gov/sats/elem/",
+      "persistent_identifier": "JUP365",
+      "primary_available": true,
+      "provider": "JPL Solar System Dynamics",
+      "publication_date": "2021-01-01",
+      "release_date": "2021-01-01",
+      "source_id": "jpl-elements",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "Mean orbital elements for planetary satellites, JUP365"
+    },
+    {
+      "authority_domain": "geology_geotechnical",
+      "authority_role": "PRIMARY",
+      "locator": "https://pubs.usgs.gov/publication/sim3513",
+      "persistent_identifier": "SIM 3513",
+      "primary_available": true,
+      "provider": "U.S. Geological Survey Astrogeology",
+      "publication_date": "2024-03-08",
+      "release_date": "2024-03-08",
+      "source_id": "usgs-map",
+      "source_type": "GOVERNMENT_MAP_AND_REPORT",
+      "title": "Global geologic map of Europa, SIM 3513"
+    },
+    {
+      "authority_domain": "mineralogy_composition",
+      "authority_role": "PRIMARY",
+      "locator": "https://pds-imaging.jpl.nasa.gov/volumes/galileo.html",
+      "persistent_identifier": "Galileo NIMS E6",
+      "primary_available": true,
+      "provider": "NASA Planetary Data System",
+      "publication_date": "2003-01-01",
+      "release_date": "2003-01-01",
+      "source_id": "pds-nims-e6",
+      "source_type": "MISSION_ARCHIVE",
+      "title": "Galileo NIMS E6 observation catalog"
+    },
+    {
+      "authority_domain": "water_volatiles",
+      "authority_role": "PRIMARY",
+      "locator": "https://www.nature.com/articles/27394",
+      "persistent_identifier": "DOI 10.1038/27394",
+      "primary_available": true,
+      "provider": "Khurana et al.",
+      "publication_date": "1998-10-22",
+      "release_date": "1998-10-22",
+      "source_id": "khurana98",
+      "source_type": "JOURNAL_ARTICLE",
+      "title": "Induced magnetic fields as evidence for subsurface oceans in Europa and Callisto"
+    },
+    {
+      "authority_domain": "activity",
+      "authority_role": "PRIMARY",
+      "locator": "https://www.nature.com/articles/s41550-018-0450-z",
+      "persistent_identifier": "DOI 10.1038/s41550-018-0450-z",
+      "primary_available": true,
+      "provider": "Jia et al.",
+      "publication_date": "2018-05-14",
+      "release_date": "2018-05-14",
+      "source_id": "jia18",
+      "source_type": "JOURNAL_ARTICLE",
+      "title": "Evidence of a plume on Europa from Galileo magnetic and plasma wave signatures"
+    },
+    {
+      "authority_domain": "activity",
+      "authority_role": "PRIMARY",
+      "locator": "https://arxiv.org/abs/1609.08215",
+      "persistent_identifier": "arXiv:1609.08215",
+      "primary_available": true,
+      "provider": "Sparks et al.",
+      "publication_date": "2016-09-26",
+      "release_date": "2016-09-26",
+      "source_id": "sparks16",
+      "source_type": "JOURNAL_ARTICLE",
+      "title": "Probing for evidence of plumes on Europa with HST/STIS"
+    },
+    {
+      "authority_domain": "activity",
+      "authority_role": "PRIMARY",
+      "locator": "https://arxiv.org/abs/2404.05525",
+      "persistent_identifier": "arXiv:2404.05525; ALMA 2021 epochs",
+      "primary_available": true,
+      "provider": "Cordiner et al.",
+      "publication_date": "2024-04-08",
+      "release_date": "2024-04-08",
+      "source_id": "cordiner24",
+      "source_type": "PREPRINT",
+      "title": "ALMA Spectroscopy of Europa: A Search for Active Plumes"
+    },
+    {
+      "authority_domain": "atmosphere_environment",
+      "authority_role": "PRIMARY",
+      "locator": "https://www.nature.com/articles/373677a0",
+      "persistent_identifier": "Nature 373, 677",
+      "primary_available": true,
+      "provider": "Hall et al.",
+      "publication_date": "1995-02-23",
+      "release_date": "1995-02-23",
+      "source_id": "hall95",
+      "source_type": "JOURNAL_ARTICLE",
+      "title": "Detection of an oxygen atmosphere on Jupiter\u2019s moon Europa"
+    },
+    {
+      "authority_domain": "gravity_shape",
+      "authority_role": "PRIMARY",
+      "locator": "https://doi.org/10.1038/s41550-025-02718-0",
+      "persistent_identifier": "DOI 10.1038/s41550-025-02718-0; version of record",
+      "primary_available": true,
+      "provider": "Juno MWR authors",
+      "publication_date": "2025-12-17",
+      "release_date": "2025-12-17",
+      "source_id": "juno25",
+      "source_type": "JOURNAL_ARTICLE",
+      "title": "Europa\u2019s ice thickness and subsurface structure characterized by the Juno microwave radiometer"
+    },
+    {
+      "authority_domain": "mineralogy_composition",
+      "authority_role": "PRIMARY",
+      "locator": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6561749/",
+      "persistent_identifier": "DOI 10.1126/sciadv.aaw7123; PMC6561749",
+      "primary_available": true,
+      "provider": "Trumbo et al.",
+      "publication_date": "2019-06-12",
+      "release_date": "2019-06-12",
+      "source_id": "trumbo19",
+      "source_type": "JOURNAL_ARTICLE",
+      "title": "Sodium chloride on the surface of Europa"
+    },
+    {
+      "authority_domain": "activity",
+      "authority_role": "PRIMARY",
+      "locator": "https://doi.org/10.1126/science.1247051",
+      "persistent_identifier": "DOI 10.1126/science.1247051",
+      "primary_available": true,
+      "provider": "Roth et al.",
+      "publication_date": "2014-03-12",
+      "release_date": "2014-03-12",
+      "source_id": "roth14",
+      "source_type": "JOURNAL_ARTICLE",
+      "title": "Transient water vapor at Europa\u2019s south pole"
+    },
+    {
+      "authority_domain": "activity",
+      "authority_role": "PRIMARY",
+      "locator": "https://arxiv.org/abs/2409.19053",
+      "persistent_identifier": "arXiv:2409.19053",
+      "primary_available": true,
+      "provider": "K. de Kleer et al.",
+      "publication_date": "2024-09-27",
+      "release_date": "2024-09-27",
+      "source_id": "subaru24",
+      "source_type": "PREPRINT",
+      "title": "A search for water vapor plumes on Europa by spatially resolved Subaru/IRCS spectroscopy"
+    },
+    {
+      "authority_domain": "thermal_environment",
+      "authority_role": "PRIMARY",
+      "locator": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=GO-J-PPR-3-RDR-V1.0",
+      "persistent_identifier": "GO-J-PPR-3-RDR-V1.0",
+      "primary_available": true,
+      "provider": "NASA Planetary Data System",
+      "publication_date": "2003-01-01",
+      "release_date": "2003-01-01",
+      "source_id": "pds-ppr",
+      "source_type": "MISSION_ARCHIVE",
+      "title": "Galileo PPR calibrated/radiometrically derived data archive profile"
+    },
+    {
+      "authority_domain": "water_volatiles",
+      "authority_role": "PRIMARY",
+      "locator": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=GO-J-MAG-3-RDR-HIGHRES-V1.0",
+      "persistent_identifier": "Galileo MAG high-res Europa",
+      "primary_available": true,
+      "provider": "NASA Planetary Data System",
+      "publication_date": "2003-01-01",
+      "release_date": "2003-01-01",
+      "source_id": "pds-mag",
+      "source_type": "MISSION_ARCHIVE",
+      "title": "Galileo MAG calibrated high-resolution Europa collection"
+    },
+    {
+      "authority_domain": "thermal_environment",
+      "authority_role": "PRIMARY",
+      "locator": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=GO-J-EPD-3-RDR-V1.0",
+      "persistent_identifier": "GO-J-EPD-3-RDR-V1.0",
+      "primary_available": true,
+      "provider": "NASA Planetary Data System",
+      "publication_date": "2003-01-01",
+      "release_date": "2003-01-01",
+      "source_id": "pds-epd",
+      "source_type": "MISSION_ARCHIVE",
+      "title": "Galileo EPD calibrated data bundle"
+    },
+    {
+      "authority_domain": "mineralogy_composition",
+      "authority_role": "PRIMARY",
+      "locator": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=GO-J-NIMS-2-EDR-V1.0",
+      "persistent_identifier": "GO-J-NIMS-2-EDR-V1.0",
+      "primary_available": true,
+      "provider": "NASA Planetary Data System",
+      "publication_date": "2003-01-01",
+      "release_date": "2003-01-01",
+      "source_id": "pds-nims",
+      "source_type": "MISSION_ARCHIVE",
+      "title": "Galileo NIMS EDR profile"
+    },
+    {
+      "authority_domain": "regional",
+      "authority_role": "PRIMARY",
+      "locator": "https://pds-imaging.jpl.nasa.gov/volumes/galileo.html",
+      "persistent_identifier": "Galileo SSI",
+      "primary_available": true,
+      "provider": "NASA Planetary Data System",
+      "publication_date": "2003-01-01",
+      "release_date": "2003-01-01",
+      "source_id": "pds-ssi",
+      "source_type": "MISSION_ARCHIVE",
+      "title": "Galileo SSI image data archive profile"
+    },
+    {
+      "authority_domain": "regional",
+      "authority_role": "PRIMARY",
+      "locator": "https://planetarynames.wr.usgs.gov/Page/EUROPA/target",
+      "persistent_identifier": "IAU/USGS nomenclature",
+      "primary_available": true,
+      "provider": "U.S. Geological Survey / IAU",
+      "publication_date": "2025-01-01",
+      "release_date": "2025-01-01",
+      "source_id": "usgs-nomen",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "Europa feature nomenclature"
+    },
+    {
+      "authority_domain": "rotation_orientation",
+      "authority_role": "PRIMARY",
+      "locator": "https://pubmed.ncbi.nlm.nih.gov/9756488/",
+      "persistent_identifier": "PubMed 9756488",
+      "primary_available": true,
+      "provider": "Geissler et al.",
+      "publication_date": "1998-09-18",
+      "release_date": "1998-09-18",
+      "source_id": "geissler98",
+      "source_type": "JOURNAL_ARTICLE",
+      "title": "Evidence for non-synchronous rotation of Europa"
+    },
+    {
+      "authority_domain": "regional",
+      "authority_role": "PRIMARY",
+      "locator": "https://doi.org/10.1029/1999JE001173",
+      "persistent_identifier": "DOI 10.1029/1999JE001173",
+      "primary_available": true,
+      "provider": "Greeley et al.",
+      "publication_date": "2000-09-01",
+      "release_date": "2000-09-01",
+      "source_id": "greeley00",
+      "source_type": "JOURNAL_ARTICLE",
+      "title": "Geologic mapping of Europa"
+    },
+    {
+      "authority_domain": "rotation_orientation",
+      "authority_role": "PRIMARY",
+      "locator": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+      "persistent_identifier": "PCK00011",
+      "primary_available": true,
+      "provider": "NASA JPL Navigation and Ancillary Information Facility",
+      "publication_date": "2022-12-27",
+      "release_date": "2022-12-27",
+      "source_id": "naif-pck",
+      "source_type": "KERNEL",
+      "title": "Generic planetary constants kernel pck00011.tpc"
+    },
+    {
+      "authority_domain": "activity",
+      "authority_role": "PRIMARY",
+      "locator": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3970496/",
+      "persistent_identifier": "PNAS 111, 1739\u20131742",
+      "primary_available": true,
+      "provider": "Roth et al.",
+      "publication_date": "2014-03-17",
+      "release_date": "2014-03-17",
+      "source_id": "pnas-nondetect",
+      "source_type": "JOURNAL_ARTICLE",
+      "title": "A search for water vapor plumes on Europa near apocenter"
+    },
+    {
+      "authority_domain": "regional",
+      "authority_role": "PRIMARY",
+      "locator": "https://pds-ppi.igpp.ucla.edu/",
+      "persistent_identifier": "Galileo MAG archive readme",
+      "primary_available": true,
+      "provider": "NASA Planetary Data System",
+      "publication_date": "2003-01-01",
+      "release_date": "2003-01-01",
+      "source_id": "pds-mag-readme",
+      "source_type": "MISSION_ARCHIVE",
+      "title": "Galileo MAG high-resolution archive readme and observation index"
+    }
+  ],
+  "status": "CANDIDATE_RESEARCH_COMPLETE_WITH_OPEN_LIENS",
+  "target_body": "Europa",
+  "unresolved_gaps": [
+    {
+      "description": "Independent constraint on physical libration/tidal state.",
+      "gap_id": "EUROPA-GAP-01",
+      "lane": "rotation_orientation",
+      "status": "OPEN"
+    },
+    {
+      "description": "Shape/figure model and uncertainty beyond mean-radius parameter.",
+      "gap_id": "EUROPA-GAP-02",
+      "lane": "gravity_shape",
+      "status": "OPEN"
+    },
+    {
+      "description": "Direct mechanical/geotechnical measurements unavailable.",
+      "gap_id": "EUROPA-GAP-03",
+      "lane": "geology_geotechnical",
+      "status": "OPEN"
+    },
+    {
+      "description": "Acquired pre-cutoff primary Galileo PPR analysis with explicit footprint/epoch.",
+      "gap_id": "EUROPA-GAP-04",
+      "lane": "thermal_environment",
+      "status": "OPEN"
+    },
+    {
+      "description": "Europa-specific radiation/particle flux analysis and calibration.",
+      "gap_id": "EUROPA-GAP-05",
+      "lane": "water_volatiles",
+      "status": "OPEN"
+    },
+    {
+      "description": "Broader spatially registered spectra and competing hydrated-material interpretations.",
+      "gap_id": "EUROPA-GAP-06",
+      "lane": "mineralogy_composition",
+      "status": "OPEN"
+    },
+    {
+      "description": "Site-scale, illumination and local morphology synthesis.",
+      "gap_id": "EUROPA-GAP-07",
+      "lane": "regional",
+      "status": "OPEN"
+    },
+    {
+      "description": "Plume candidate/nondetection uniform sensitivity and lineage comparison.",
+      "gap_id": "EUROPA-GAP-08",
+      "lane": "activity",
+      "status": "OPEN"
+    },
+    {
+      "description": "Complete comparison of conductive layer/ocean and shell/interior models.",
+      "gap_id": "EUROPA-GAP-09",
+      "lane": "water_volatiles",
+      "status": "OPEN"
+    }
+  ]
+}
