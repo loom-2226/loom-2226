@@ -18,8 +18,12 @@
   const camera = new THREE.PerspectiveCamera(45, 1, 1e-9, 1e8);
   const objects = new THREE.Group(), paths = new THREE.Group();
   scene.add(objects, paths);
-  let snapshot = null, trajectory = null, selected = null, busy = false, playing = false, playGeneration = 0, orbitGeneration = 0;
+  let snapshot = null, trajectory = null, selected = null, busy = false, playing = false, playGeneration = 0, trajectoryVersion = 0;
   const orbitPaths = new Map();
+  const orbitPathRequests = new Map();
+  const orbitVisuals = new Map();
+  const maxOrbitPaths = 256;
+  let orbitLoading = false, orbitRefreshRequested = false;
   let distance = 80, theta = .55, phi = .65, target = new THREE.Vector3();
   let markers = [], labels = [], drag = null, moved = false;
   const pointers = new Map(); let pinch = null;
@@ -31,7 +35,24 @@
 
   function clear(group) {
     for (const item of [...group.children]) {
-      group.remove(item); item.geometry?.dispose(); item.material?.dispose();
+      group.remove(item);
+      if (!item.userData.cachedPathVisual) { item.geometry?.dispose(); item.material?.dispose(); }
+    }
+  }
+  function disposeVisual(item) { item.geometry?.dispose(); item.material?.dispose(); }
+  function clearTrajectoryVisuals() {
+    for (const [key, visual] of orbitVisuals) if (key.startsWith('trajectory|') || key.startsWith('seam|')) {
+      paths.remove(visual); disposeVisual(visual); orbitVisuals.delete(key);
+    }
+  }
+  function rememberOrbitPath(key, path) {
+    orbitPaths.set(key,path);
+    while (orbitPaths.size > maxOrbitPaths) {
+      const oldest = orbitPaths.keys().next().value;
+      orbitPaths.delete(oldest);
+      for (const [visualKey, visual] of orbitVisuals) if (visualKey.startsWith(oldest + '|')) {
+        paths.remove(visual); disposeVisual(visual); orbitVisuals.delete(visualKey);
+      }
     }
   }
   function updateCamera() {
@@ -74,7 +95,8 @@
       const scope = $('scope').value;
       if (scope === 'all') return true;
       if (scope === 'planetary') return r.body_id === 'SUN' || r.body_class === 'PLANET' ||
-        r.body_id === selected || (r.parent_body_id && snapshot.objects.some(p => p.body_id === r.parent_body_id && p.body_class === 'PLANET'));
+        r.body_class === 'NATURAL_SATELLITE' || r.body_id === selected ||
+        (r.parent_body_id && snapshot.objects.some(p => p.body_id === r.parent_body_id && p.body_class === 'PLANET'));
       return [center.body_id, system, selected].includes(r.body_id) || [center.body_id, system].includes(r.parent_body_id);
     });
   }
@@ -90,45 +112,85 @@
     mesh.position.copy(position); mesh.quaternion.copy(camera.quaternion); group.add(mesh);
   }
   const orbitDays = { MERCURY: 88, VENUS: 225, EARTH: 366, MARS: 687, JUPITER: 4333, SATURN: 10759, URANUS: 30687, NEPTUNE: 60190 };
-  const solarPathClasses = new Set(['PLANET','ASTEROID','NEAR_EARTH_ASTEROID','TROJAN_ASTEROID','BINARY_ASTEROID_PRIMARY','DWARF_PLANET','CENTAUR','TRANS_NEPTUNIAN_OBJECT','COMET']);
-  const orbitCurrentKey = new Map();
+  const solarPathClasses = new Set(['PLANET','NATURAL_SATELLITE','ASTEROID','NEAR_EARTH_ASTEROID','TROJAN_ASTEROID','BINARY_ASTEROID_PRIMARY','DWARF_PLANET','CENTAUR','TRANS_NEPTUNIAN_OBJECT','COMET','INTERSTELLAR_OBJECT']);
+  function pathCandidates() {
+    if (!snapshot || snapshot.reference_center !== 'SUN' || !['planetary','all'].includes($('scope').value)) return [];
+    const scope = $('scope').value;
+    return visibleRows().filter(r => solarPathClasses.has(r.body_class) &&
+      (scope === 'all' || r.body_class === 'PLANET' || r.body_class === 'NATURAL_SATELLITE' || r.body_id === selected))
+      .sort((a,b) => (b.body_id === selected ? 1 : 0) - (a.body_id === selected ? 1 : 0) ||
+        (orbitDays[b.body_id] ? 1 : 0) - (orbitDays[a.body_id] ? 1 : 0));
+  }
   function pathWindow(row) {
     // Presentation path only: every point still comes from the governed resolver.
-    // Non-planets use a fixed 40-year inspection arc, never a browser-side orbit model.
-    const year = new Date(snapshot.epoch_utc).getUTCFullYear();
-    const anchor = Date.UTC(Math.floor(year / 25) * 25,0,1);
-    const halfDays = orbitDays[row.body_id] ? orbitDays[row.body_id] / 2 : 365.25 * 20;
+    // Fixed calendar windows keep Play on cached paths; no browser orbit model is involved.
+    const epoch = new Date(snapshot.epoch_utc), year = epoch.getUTCFullYear();
+    const satellite = row.body_class === 'NATURAL_SATELLITE';
+    const anchor = satellite ? Date.UTC(year,epoch.getUTCMonth(),17) : Date.UTC(year,6,1);
+    const halfDays = satellite ? 16 : orbitDays[row.body_id] ? orbitDays[row.body_id] / 2 : 365.25 * 20;
     return [new Date(anchor-halfDays*86400000).toISOString(), new Date(anchor+halfDays*86400000).toISOString()];
   }
-  async function loadPlanetOrbits() {
-    if (!snapshot || snapshot.reference_center !== 'SUN' || !['planetary','all'].includes($('scope').value)) return;
-    const generation = ++orbitGeneration;
-    const candidates = visibleRows().filter(r => solarPathClasses.has(r.body_class));
-    // Planet lines arrive first. Full-catalog minor-body arcs then fill in progressively.
-    candidates.sort((a,b) => (orbitDays[b.body_id] ? 1 : 0) - (orbitDays[a.body_id] ? 1 : 0));
-    for (const row of candidates) {
-      if (generation !== orbitGeneration) return;
-      const [start,end] = pathWindow(row);
-      const key = [row.body_id,start,end,'SUN'].join('|');
-      orbitCurrentKey.set(row.body_id,key);
-      if (!orbitPaths.has(key)) {
-        try { orbitPaths.set(key, await get('/api/trajectory', { body: row.body_id, start, end, center: 'SUN', samples: orbitDays[row.body_id] ? 48 : 28 })); }
-        catch (_) { orbitPaths.set(key, null); }
-        if (generation === orbitGeneration) rebuild(false);
+  function loadPlanetOrbits() {
+    orbitRefreshRequested = true;
+    if (orbitLoading || playing) return;
+    orbitLoading = true;
+    (async () => {
+      while (!playing) {
+        orbitRefreshRequested = false;
+        const candidates = pathCandidates();
+        const next = candidates.find(row => {
+          const [start,end] = pathWindow(row);
+          const key = [row.body_id,start,end,'SUN'].join('|');
+          return !orbitPaths.has(key);
+        });
+        if (!next) {
+          if (orbitRefreshRequested) continue;
+          break;
+        }
+        const [start,end] = pathWindow(next);
+        const key = [next.body_id,start,end,'SUN'].join('|');
+        if (!orbitPathRequests.has(key)) {
+          const request = get('/api/trajectory', { body: next.body_id, start, end, center: 'SUN', samples: orbitDays[next.body_id] || next.body_class === 'NATURAL_SATELLITE' ? 48 : 28 })
+            .catch(() => null).then(path => { rememberOrbitPath(key, path); orbitPathRequests.delete(key); return path; });
+          orbitPathRequests.set(key, request);
+        }
+        await orbitPathRequests.get(key);
+        if (!playing && pathCandidates().some(row => row.body_id === next.body_id &&
+          [row.body_id,...pathWindow(row),'SUN'].join('|') === key)) rebuild(false);
+        await new Promise(resolve => setTimeout(resolve, 0));
       }
-      if (!orbitDays[row.body_id]) await new Promise(resolve => setTimeout(resolve, 250));
-    }
+    })().finally(() => {
+      orbitLoading = false;
+      if (orbitRefreshRequested && !playing) loadPlanetOrbits();
+    });
   }
   function renderPlanetOrbits() {
     if (!snapshot || snapshot.reference_center !== 'SUN' || !['planetary','all'].includes($('scope').value)) return;
-    for (const row of visibleRows().filter(r => solarPathClasses.has(r.body_class))) {
-      const key=orbitCurrentKey.get(row.body_id), path=key && orbitPaths.get(key); if (!path) continue;
-      for (const segment of path.segments) {
-        const pts=segment.indices.map(i => path.points[i].relative && vector(path.points[i].relative.position_km)).filter(Boolean);
-        if (pts.length < 2) continue;
-        paths.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: palette.node, transparent: true, opacity: orbitDays[row.body_id] ? .28 : .13 })));
+    for (const row of pathCandidates()) {
+      const key=[row.body_id,...pathWindow(row),'SUN'].join('|'), path=orbitPaths.get(key); if (!path) continue;
+      for (let i=0;i<path.segments.length;i++) {
+        const segment=path.segments[i];
+        if (segment.indices.length < 2) continue;
+        const visualKey=[key,$('mode').value,i].join('|');
+        let line=orbitVisuals.get(visualKey);
+        if (!line) {
+          const pts=segment.indices.map(j => path.points[j].relative && vector(path.points[j].relative.position_km)).filter(Boolean);
+          if (pts.length < 2) continue;
+          const material = new THREE.LineBasicMaterial({ color: palette.node, transparent: true,
+            opacity: orbitDays[row.body_id] ? .62 : .5, depthTest: false });
+          line=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),material);
+          line.userData.cachedPathVisual=true;
+          orbitVisuals.set(visualKey,line);
+        }
+        paths.add(line);
       }
     }
+  }
+  function updateOrbitStatus() {
+    const candidates = pathCandidates();
+    if (!candidates.length) { $('orbitStatus').textContent = ''; return; }
+    const attempted = candidates.filter(row => orbitPaths.has([row.body_id,...pathWindow(row),'SUN'].join('|'))).length;
+    $('orbitStatus').textContent = `Resolver paths ${attempted}/${candidates.length}`;
   }
   function rebuild(fit = false) {
     if (!snapshot) return;
@@ -147,20 +209,40 @@
     }
     labels.sort((a, b) => a.priority-b.priority);
     renderPlanetOrbits();
+    updateOrbitStatus();
     if (trajectory) {
-      for (const segment of trajectory.segments) {
-        const points = segment.indices.map(i => vector(trajectory.points[i].relative.position_km));
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-        const propagated = segment.authority_class === 'PROPAGATED';
-        const material = propagated ? new THREE.LineDashedMaterial({ color: palette.propagated,
-          dashSize: Math.max(distance / 150, 1e-10), gapSize: Math.max(distance / 250, 1e-10) }) :
-          new THREE.LineBasicMaterial({ color: palette.direct });
-        const line = new THREE.Line(geometry, material); line.computeLineDistances(); paths.add(line);
-        if (points.length === 1) point(points[0], propagated ? palette.propagated : palette.direct, 4, paths);
+      for (let i=0;i<trajectory.segments.length;i++) {
+        const segment=trajectory.segments[i], propagated=segment.authority_class === 'PROPAGATED';
+        const visualKey=['trajectory',trajectoryVersion,$('mode').value,i].join('|');
+        let line=orbitVisuals.get(visualKey);
+        if (!line) {
+          const points=segment.indices.map(j => vector(trajectory.points[j].relative.position_km));
+          if (points.length === 1) {
+            line=point(points[0],propagated ? palette.propagated : palette.direct,4,paths);
+            line.userData.cachedPathVisual=true; orbitVisuals.set(visualKey,line); continue;
+          }
+          if (points.length < 2) continue;
+          const geometry=new THREE.BufferGeometry().setFromPoints(points);
+          const material=propagated ? new THREE.LineDashedMaterial({ color: palette.propagated,
+            dashSize: Math.max(distance / 150, 1e-10), gapSize: Math.max(distance / 250, 1e-10) }) :
+            new THREE.LineBasicMaterial({ color: palette.direct });
+          line=new THREE.Line(geometry,material); line.computeLineDistances(); line.userData.cachedPathVisual=true;
+          orbitVisuals.set(visualKey,line);
+        }
+        paths.add(line);
       }
-      for (const seam of trajectory.seams) {
-        for (const i of [seam.before_index, seam.after_index]) {
-          ring(vector(trajectory.points[i].relative.position_km), distance / 200, paths);
+      for (let i=0;i<trajectory.seams.length;i++) {
+        const seam=trajectory.seams[i];
+        for (const [side,index] of [['before',seam.before_index],['after',seam.after_index]]) {
+          const visualKey=['seam',trajectoryVersion,$('mode').value,i,side].join('|');
+          let marker=orbitVisuals.get(visualKey);
+          if (!marker) {
+            marker=new THREE.Mesh(new THREE.RingGeometry(distance / 200, distance / 200 * 1.15, 32),
+              new THREE.MeshBasicMaterial({ color: palette.selected, side: THREE.DoubleSide }));
+            marker.position.copy(vector(trajectory.points[index].relative.position_km));
+            marker.userData.cachedPathVisual=true; orbitVisuals.set(visualKey,marker);
+          }
+          marker.quaternion.copy(camera.quaternion); paths.add(marker);
         }
       }
     }
@@ -187,7 +269,7 @@
     $('catalog').value = selected || '';
   }
   function clearSelection() {
-    selected = null; trajectory = null; clear(paths);
+    selected = null; trajectory = null; clearTrajectoryVisuals(); clear(paths);
     $('catalog').selectedIndex = -1; $('selection').textContent = 'No object selected.';
     $('detail').textContent = ''; $('pathStatus').textContent = ''; $('seams').replaceChildren(); $('sampleList').replaceChildren();
     rebuild(false);
@@ -202,6 +284,7 @@
     $('detail').textContent = JSON.stringify(row, null, 2);
     if (trajectory && trajectory.body_id !== id) clearPath();
     rebuild($('scope').value === 'local');
+    if (!playing) loadPlanetOrbits();
   }
   function setBusy(value) {
     busy = value;
@@ -239,15 +322,16 @@
     finally { setBusy(false); }
   }
   function clearPath() {
-    trajectory = null; clear(paths); $('seams').replaceChildren(); $('sampleList').replaceChildren();
-    $('sampleDetail').textContent = ''; $('pathStatus').textContent = ''; draw();
+    trajectory = null; clearTrajectoryVisuals(); clear(paths); $('seams').replaceChildren(); $('sampleList').replaceChildren();
+    $('sampleDetail').textContent = ''; $('pathStatus').textContent = ''; rebuild(false);
   }
   async function trace() {
     if (busy || !snapshot || !selected) { $('pathStatus').textContent = 'Select an object first.'; return; }
     setBusy(true); $('pathStatus').textContent = 'Sampling governed resolver…';
     try {
-      trajectory = await get('/api/trajectory', { body: selected, start: $('start').value, end: $('end').value,
+      const result = await get('/api/trajectory', { body: selected, start: $('start').value, end: $('end').value,
         center: snapshot.reference_center, samples: $('samples').value });
+      clearTrajectoryVisuals(); trajectory = result; trajectoryVersion++;
       $('pathStatus').textContent = `${trajectory.body_id} · ${trajectory.start} → ${trajectory.end} · ${trajectory.points.length} samples · ${trajectory.segments.length} segments · ${trajectory.seams.length} seams · ${trajectory.gap_indices.length} unavailable samples`;
       $('seams').replaceChildren();
       for (const seam of trajectory.seams) {
@@ -272,7 +356,7 @@
   }
   $('play').onclick = async () => {
     if (playing) { stopPlay(); return; }
-    playing = true; orbitGeneration++; $('play').textContent = 'Pause'; $('play').setAttribute('aria-pressed', 'true');
+    playing = true; $('play').textContent = 'Pause'; $('play').setAttribute('aria-pressed', 'true');
     const generation = ++playGeneration;
     const tick = async () => { if (!playing || generation !== playGeneration) return; await step(1); if (playing && generation === playGeneration) setTimeout(tick, 700); };
     tick();

@@ -60,6 +60,16 @@ Moon without rewriting or inferring authoritative parent metadata.
 Every vertex comes from `service.resolve`, including the independently sampled
 reference-center subtraction. No analytic orbit or browser propagator exists.
 
+Automatic scene paths use the same `/api/trajectory` resolver. Planetary scope
+samples planets and natural satellites; Whole Catalog progressively samples all
+visible planets, satellites, asteroid classes, dwarf planets, centaurs,
+trans-Neptunian objects, comets and interstellar objects. Spacecraft retain the
+explicit selected-trajectory control. The scene reports sampling progress.
+Calendar-stable inspection windows reuse sampled paths during Play; selected
+trajectories and their source seams remain separate. The browser caches path
+geometry and limits the automatic path cache to 256 entries. These are
+presentation choices only, not new physics or source authority.
+
 2026–2250 checks with 16 nominal samples plus coverage-adjacent samples:
 
 | Object | Actual samples | Source seams | Unavailable samples |
@@ -123,11 +133,24 @@ PLAYWRIGHT_BROWSERS_PATH="$PWD/.playwright" npx playwright install chromium
 PLAYWRIGHT_BROWSERS_PATH="$PWD/.playwright" npm run test:solar-inspector-browser
 ```
 
-Result: PASS, 13 exact-state responses checked, zero page exceptions, zero
-external requests. Exercised 2026/2226/2250 and arbitrary UTC, rotate/pan/zoom,
-canvas and catalog selection, Earth/Moon, Jupiter, Pluto, Ida/Dactyl, step/play/
-pause, physical/schematic state immutability, New Horizons seam, open
-interstellar trajectory, and 390px layout. Screenshots were inspected locally.
+Result: PASS for the original run, 13 exact-state responses checked, zero page
+exceptions, zero external requests. Exercised 2026/2226/2250 and arbitrary UTC,
+rotate/pan/zoom, canvas and catalog selection, Earth/Moon, Jupiter, Pluto,
+Ida/Dactyl, step/play/pause, physical/schematic state immutability, New Horizons
+seam, open interstellar trajectory, and 390px layout. Screenshots were inspected
+locally. The follow-up browser evidence is recorded below.
+
+Follow-up path/performance run: PASS, 17 exact-state responses, zero page
+exceptions and external requests. The browser requested all 93 renderable
+planet, satellite and minor-body paths in Whole Catalog through
+`/api/trajectory`; no automatic path request occurred during Play. Selected
+Earth/Sun, Moon/Earth, Ceres/Sun and 67P/Sun paths changed the rendered canvas.
+On this qualification host, the 412px mobile page reached its first exact
+snapshot in 469 ms and a Play advance took 63 ms. These are observations, not
+release performance thresholds. The mobile viewport at 3x pixel ratio had no
+horizontal overflow or page exception. The 13 live inspector Python tests also
+passed unchanged after the presentation follow-up.
+
 The repository's pre-existing absent Montserrat file causes a local font 404;
 the documented system fallback works. No missing runtime scripts or page errors.
 

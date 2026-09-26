@@ -11,9 +11,11 @@ const { transform } = require('../web/solar-inspector/presentation.js');
   const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
   const page = await browser.newPage({ viewport: { width: 1500, height: 1000 } });
   page.setDefaultTimeout(180000);
-  const errors = [], external = [], snapshots = [];
+  const errors = [], external = [], snapshots = [], trajectoryRequests = [];
+  let pathRequestsDuringPlay = null;
   page.on('pageerror', e => errors.push(e.message));
   page.on('request', r => { if (!r.url().startsWith('http://127.0.0.1:8765/')) external.push(r.url()); });
+  page.on('request', r => { if (r.url().includes('/api/trajectory?')) trajectoryRequests.push(new URL(r.url()).searchParams); });
   page.on('response', async r => { if (r.url().includes('/api/state?') && r.ok()) snapshots.push(await r.json()); });
   async function settled() { await page.waitForFunction(() => document.querySelector('#message').textContent.startsWith('Exact resolver'), { timeout: 180000 }); await page.waitForFunction(() => !document.querySelector('#load').disabled); }
   async function year(y) { await page.click(`[data-year="${y}"]`); await settled(); assert.match(await page.locator('#sceneStatus').innerText(), new RegExp(y)); }
@@ -52,6 +54,44 @@ const { transform } = require('../web/solar-inspector/presentation.js');
     await page.click('#forward'); await settled(); assert.match(await page.locator('#epoch').inputValue(), /2026-07-04/);
     await page.click('#back'); await settled(); assert.match(await page.locator('#epoch').inputValue(), /2026-07-03/);
     await page.click('#play'); await page.waitForFunction(() => document.querySelector('#epoch').value.startsWith('2026-07-04')); await page.click('#play'); await settled();
+    async function traceBody(body, centerId, start, end) {
+      if ((await page.locator('#center').inputValue()) !== centerId) await center(centerId);
+      await page.selectOption('#catalog', body);
+      await page.fill('#start', start); await page.fill('#end', end); await page.fill('#samples', '24');
+      const beforePath = await page.locator('canvas').screenshot();
+      await page.click('#trace');
+      await page.waitForFunction(() => /[1-9]\d* segments/.test(document.querySelector('#pathStatus').textContent), { timeout: 120000 });
+      assert.match(await page.locator('#pathStatus').innerText(), new RegExp('^' + body + ' ·'));
+      assert(trajectoryRequests.some(q => q.get('body') === body && q.get('center') === centerId), `${body} resolver path request missing`);
+      assert.notDeepEqual(await page.locator('canvas').screenshot(), beforePath, `${body} path must change the rendered canvas`);
+    }
+    await traceBody('EARTH', 'SUN', '2026-01-01T00:00:00Z', '2027-01-01T00:00:00Z');
+    await traceBody('MOON', 'EARTH', '2026-01-01T00:00:00Z', '2026-02-01T00:00:00Z');
+    await traceBody('CERES', 'SUN', '2026-01-01T00:00:00Z', '2027-01-01T00:00:00Z');
+    await traceBody('COMET_67P', 'SUN', '2026-01-01T00:00:00Z', '2027-01-01T00:00:00Z');
+    const wholeCatalog = snapshots.at(-1).objects.filter(r => r.relative &&
+      !['STAR','BARYCENTER','SPACECRAFT'].includes(r.body_class)).map(r => r.body_id);
+    await page.selectOption('#scope', 'all');
+    await page.waitForFunction(() => {
+      const match = document.querySelector('#orbitStatus').textContent.match(/Resolver paths (\d+)\/(\d+)/);
+      return match && match[1] === match[2];
+    }, null, { timeout: 600000 });
+    assert.match(await page.locator('#orbitStatus').innerText(), new RegExp(`^Resolver paths ${wholeCatalog.length}/${wholeCatalog.length}$`));
+    for (const body of wholeCatalog) {
+      assert(trajectoryRequests.some(q => q.get('body') === body && q.get('center') === 'SUN'),
+        `Whole Catalog must request ${body} through the governed resolver`);
+    }
+    await center('SUN');
+    await page.selectOption('#catalog', 'COMET_67P');
+    await page.waitForTimeout(250);
+    const pathsBeforePlay = trajectoryRequests.length;
+    const playStarted = Date.now();
+    await page.click('#play');
+    await page.waitForFunction(() => Date.parse(document.querySelector('#epoch').value) >= Date.parse('2026-07-05T00:00:00Z'));
+    const playAdvanceMs = Date.now() - playStarted;
+    await page.click('#play'); await settled();
+    assert.equal(trajectoryRequests.length, pathsBeforePlay, 'Play must reuse cached paths and never resample them');
+    pathRequestsDuringPlay = trajectoryRequests.length - pathsBeforePlay;
     await page.selectOption('#catalog', 'NEWHORIZONS');
     await page.fill('#start', '2026-01-01T00:00:00Z'); await page.fill('#end', '2250-01-01T00:00:00Z'); await page.fill('#samples', '32');
     await page.click('#trace'); await page.waitForFunction(() => document.querySelector('#pathStatus').textContent.includes('segments'), { timeout: 120000 });
@@ -66,9 +106,24 @@ const { transform } = require('../web/solar-inspector/presentation.js');
       assert.equal(s.counts.renderable, s.objects.filter(r => r.relative).length);
     }
     assert.deepEqual(errors, []); assert.deepEqual(external, []);
-    await page.setViewportSize({ width: 390, height: 844 });
-    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+    const mobile = await browser.newPage({ viewport: { width: 412, height: 915 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true });
+    const mobileErrors = [];
+    mobile.on('pageerror', e => mobileErrors.push(e.message));
+    const initialStart = Date.now();
+    await mobile.goto('http://127.0.0.1:8765/');
+    await mobile.waitForFunction(() => document.querySelector('#message').textContent.startsWith('Exact resolver'), { timeout: 180000 });
+    const initialLoadMs = Date.now() - initialStart;
+    assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+    await mobile.click('#mobileControls');
+    assert.equal(await mobile.locator('#controls').evaluate(el => getComputedStyle(el).display), 'block');
+    assert.equal(await mobile.locator('canvas').evaluate(el => el.width > 0 && el.height > 0), true);
+    assert.deepEqual(mobileErrors, []);
+    await mobile.close();
+    assert.deepEqual(errors, []); assert.deepEqual(external, []);
     console.log(JSON.stringify({ result: 'PASS', exactStateSnapshots: snapshots.length, pageErrors: errors, externalRequests: external,
-      exercised: ['2026/2226/2250', 'arbitrary UTC', 'Earth/Moon', 'Jupiter', 'Pluto', 'Ida/Dactyl', 'physical/schematic immutability', 'rotate/pan/zoom', 'canvas and catalog selection', 'step/play/pause', 'New Horizons seam', 'open interstellar path', '390px layout'] }, null, 2));
+      performance: { pixelInitialLoadMs: initialLoadMs, playAdvanceMs },
+      verifiedResolverPaths: ['EARTH@SUN', 'MOON@EARTH', 'CERES@SUN', 'COMET_67P@SUN'], wholeCatalogPaths: wholeCatalog.length,
+      pathRequestsDuringPlay,
+      exercised: ['2026/2226/2250', 'arbitrary UTC', 'Earth/Moon', 'Jupiter', 'Pluto', 'Ida/Dactyl', 'physical/schematic immutability', 'rotate/pan/zoom', 'canvas and catalog selection', 'step/play/pause', 'New Horizons seam', 'open interstellar path', '412px mobile layout'] }, null, 2));
   } finally { await browser.close(); }
 })().catch(e => { console.error(e); process.exit(1); });
