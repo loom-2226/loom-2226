@@ -25,6 +25,7 @@
   const orbitVisuals = new Map();
   const maxOrbitPaths = 256;
   let orbitLoading = false, orbitRefreshRequested = false;
+  let renderedLod = null;
   let distance = 80, theta = .55, phi = .65, target = new THREE.Vector3();
   let markers = [], labels = [], drag = null, moved = false;
   const pointers = new Map(); let pinch = null;
@@ -107,15 +108,20 @@
       target.y + distance * Math.sin(phi), target.z + distance * Math.cos(phi) * Math.sin(theta));
     stage.dataset.cameraDistance = String(distance);
     stage.dataset.cameraTarget = [target.x,target.y,target.z].join(',');
-    camera.lookAt(target); camera.updateProjectionMatrix(); draw();
+    camera.lookAt(target); camera.updateProjectionMatrix();
+    const lod = SolarPresentation.displayLod(distance, $('mode').value);
+    if (snapshot && lod !== renderedLod) rebuild(false); else draw();
   }
   function draw() {
     for (const item of paths.children) if (item.isMesh) item.quaternion.copy(camera.quaternion);
     renderer.render(scene, camera);
     let shown = 0; const occupied = [];
-    for (const { element, position, id } of labels) {
+    const lod = SolarPresentation.displayLod(distance, $('mode').value);
+    const budget = Math.max(8, Math.min(30, Math.floor(stage.clientWidth * stage.clientHeight / 25000)));
+    for (const { element, position, id, priority } of labels) {
       const p = position.clone().project(camera);
-      const visible = p.z >= -1 && p.z <= 1 && Math.abs(p.x) < 1 && Math.abs(p.y) < 1 && (shown < 30 || id === selected);
+      const visible = p.z >= -1 && p.z <= 1 && Math.abs(p.x) < 1 && Math.abs(p.y) < 1 &&
+        (priority <= lod || id === selected) && (shown < budget || id === selected);
       element.hidden = !visible;
       if (visible) {
         const x = (p.x + 1) / 2 * stage.clientWidth + 8, y = (1 - p.y) / 2 * stage.clientHeight;
@@ -219,6 +225,7 @@
   function renderPlanetOrbits() {
     if (!snapshot) return;
     for (const row of pathCandidates()) {
+      if (!SolarPresentation.showMinorPath(row, selected, snapshot.reference_center, distance, $('mode').value)) continue;
       const key=pathKey(row), path=orbitPaths.get(key); if (!path) continue;
       for (let i=0;i<path.segments.length;i++) {
         const segment=path.segments[i];
@@ -254,8 +261,13 @@
   }
   function rebuild(fit = false) {
     if (!snapshot) return;
+    renderedLod = SolarPresentation.displayLod(distance, $('mode').value);
     clear(objects); clear(paths); markers = []; labels = []; $('labels').replaceChildren();
     const rows = visibleRows();
+    const center = snapshot.reference_center, system = systemFor(center);
+    const localFamily = center === 'SUN' ? new Set() : system === 'OTHER'
+      ? new Set([center,...catalog.objects.filter(row => row.parent_body_id === center).map(row => row.body_id)])
+      : new Set(membersOf(system));
     for (const row of rows) {
       const position = vector(row.relative.position_km);
       point(position, row.body_id === selected ? palette.selected : row.body_id === 'SUN' ? palette.sun : palette.node,
@@ -265,9 +277,9 @@
       element.className = 'object-label' + (row.body_id === selected ? ' selected' : '');
       element.textContent = row.canonical_name;
       $('labels').append(element); labels.push({ element, position, id: row.body_id,
-        priority: row.body_id === selected ? 0 : row.body_id === 'SUN' ? 1 : row.body_class === 'PLANET' ? 2 : 3 });
+        priority: SolarPresentation.labelRank(row, selected, localFamily) });
     }
-    labels.sort((a, b) => a.priority-b.priority);
+    labels.sort((a, b) => a.priority-b.priority || a.id.localeCompare(b.id));
     renderPlanetOrbits();
     updateOrbitStatus();
     if (trajectory && $('layerSelected').checked) {
@@ -337,7 +349,7 @@
     distance = Math.max(1e-8, Math.min(nearest * 3, Math.max(.0001, marker.position.length() * .03)));
     updateCamera();
   }
-  function focusSystem() {
+  function frameSystem() {
     if (snapshot.reference_center === 'SUN') focusOverview();
     else {
       const center = snapshot.reference_center, system = systemFor(center);
@@ -346,6 +358,13 @@
       const radius = Math.max(1e-8,...markers.filter(marker => family.has(marker.row.body_id)).map(marker => marker.position.length()));
       target.set(0,0,0); distance = radius * 2.8; updateCamera();
     }
+  }
+  function focusSystem() {
+    if (!snapshot || !selected || selected === snapshot.reference_center) { if (snapshot) frameSystem(); return; }
+    if (busy) return;
+    populateCenters(selected);
+    $('scope').value = selected === 'SUN' ? 'planetary' : 'local';
+    load(true,true);
   }
   function populateCatalog() {
     const term = $('search').value.toLowerCase(); $('catalog').replaceChildren();

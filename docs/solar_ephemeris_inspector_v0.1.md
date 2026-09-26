@@ -52,8 +52,10 @@ Restart the inspector to reload the database snapshot or changed assets.
   Step days, backward/forward, and play/pause evaluate exact resolver states.
   Play waits for each response; no SPICE evaluation runs per browser frame.
 - Drag to rotate, Shift-drag/right-drag or two-finger drag to pan, and pinch or
-  wheel to zoom. The scene buttons focus the selected object or its system and
-  provide predictable zoom steps on a phone. Fit scene frames the visible
+  wheel to zoom. **Focus object** frames the selected marker. **System** changes
+  the reference center to the selected catalog object, switches to its local
+  scope, and requests new governed relative states and paths; when already
+  centered there, it frames that local family. Fit scene frames the visible
   objects and any selected sampled path.
 - Select in the catalog or click a point. Expand **Exact state + provenance +
   catalog record** for physical km/km/s, identity, identifiers, parent, epoch,
@@ -70,7 +72,14 @@ Restart the inspector to reload the database snapshot or changed assets.
   Planetary and local scopes load only their visible automatic paths. Whole
   Catalog progressively requests every renderable planet, moon and governed
   minor-body path, rather than only the selected object. Automatic minor-body
-  arcs span one year; use **Sample resolver** for a longer interval.
+  arcs span one year; use **Sample resolver** for a longer interval. Display LOD
+  keeps planet paths at Solar overview scale, shows local moons in centered
+  systems, and reveals other moon/minor paths at close zoom. Selected paths
+  remain visible. Cached resolver samples are reused when zoom changes.
+- Labels use deterministic priority: selection, Sun/planets, local moons,
+  spacecraft/dwarf planets, then other bodies. Zoom bands and a viewport label
+  budget admit lower-priority labels progressively; collision resolution uses
+  that order and body ID for stable ties. These are display choices only.
 - Select an object, set trajectory start/end and 2–512 nominal samples, then
   **Sample resolver**. Suggested checks: Earth over one year, Moon relative to
   Earth over a month, New Horizons or Voyager over 2026–2250, and Oumuamua over

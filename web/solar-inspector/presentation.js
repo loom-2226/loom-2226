@@ -9,7 +9,25 @@
     // Rotate canonical ecliptic XYZ into the viewer's Y-up coordinates.
     return [p[0] * scale, p[2] * scale, -p[1] * scale];
   }
-  const api = { transform, AU_KM };
+  // Display policy only. Distances are scene units (AU in PHYSICAL mode).
+  // The resolver and the catalog remain independent of these camera bands.
+  function displayLod(distance, mode) {
+    const schematic = mode === 'SCHEMATIC';
+    return distance > (schematic ? 8 : 3) ? 1 : distance > (schematic ? 3 : .4) ? 3 : 4;
+  }
+  function labelRank(row, selectedId, localFamily) {
+    if (row.body_id === selectedId) return 0;
+    if (row.body_id === 'SUN' || row.body_class === 'PLANET') return 1;
+    if (row.body_class === 'NATURAL_SATELLITE') return localFamily.has(row.body_id) ? 2 : 4;
+    if (row.body_class === 'SPACECRAFT' || row.body_class === 'DWARF_PLANET') return 3;
+    return 4;
+  }
+  function showMinorPath(row, selectedId, centerId, distance, mode) {
+    if (row.body_id === selectedId || row.body_class === 'PLANET') return true;
+    if (row.body_class === 'NATURAL_SATELLITE' && centerId !== 'SUN') return true;
+    return displayLod(distance, mode) === 4;
+  }
+  const api = { transform, AU_KM, displayLod, labelRank, showMinorPath };
   if (typeof module !== 'undefined') module.exports = api;
   else root.SolarPresentation = api;
 })(globalThis);

@@ -245,3 +245,32 @@ passed. Design validation retained only its two pre-existing warnings for the
 optional font and undefined operational status thresholds. The local mobile
 capture was visually inspected; touch controls, scene focus and readable
 state overlays were present without horizontal overflow.
+
+## Human Q1/Q2 correction — 2026-09-27
+
+On the open `class:runtime` Inspector PR #299, **System** now changes the
+reference center to the selected governed catalog object and switches to local
+scope before requesting a new exact scene. Earth selection therefore enters
+the Earth-centered Earth/Moon view; automatic Moon paths are requested with
+`center=EARTH`. When the selected object is already the reference center,
+System frames its local family. No resolver, database, schema, source precedence,
+Pixel/Windows launcher, canon, or asset authority changed.
+
+Whole Catalog label visibility now follows a deterministic camera-distance
+band, class priority, viewport budget, collision check and body-ID tie break.
+At Solar overview distance, selection and major planets take precedence. Local
+moons, spacecraft, dwarf planets and other minor labels appear progressively
+as zoom permits. Nonselected minor and Solar-overview moon paths are withheld
+from the display until close zoom, while all supported Whole Catalog paths are
+still sampled through the governed resolver and reused from the bounded cache.
+Selected paths remain visible. These LOD bands are representational only.
+
+Qualification on the existing read-only `loom_dev` snapshot: Inspector unit
+suite 15 tests passed, including three existing database-gated skips; JavaScript
+syntax checks and `git diff --check` passed. Desktop and 412px/3x Chromium
+browser qualification passed with 195 exact scene responses, 93/93 Whole Catalog
+resolver paths, zero path requests during Play, zero page errors and zero
+external requests. The browser checked selected Earth -> System -> Earth center
+and local scope, Moon@Earth path requests, selected minor priority and Solar
+overview decluttering. The warm-server phone first exact scene was 2.063 s and
+Play advance 65 ms; these are host observations, not release thresholds.

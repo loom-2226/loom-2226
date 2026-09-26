@@ -1,7 +1,7 @@
 /* Run against the loopback inspector with an installed Playwright + Chromium. */
 const assert = require('node:assert/strict');
 const { chromium } = require('playwright');
-const { transform } = require('../web/solar-inspector/presentation.js');
+const { transform, displayLod, labelRank, showMinorPath } = require('../web/solar-inspector/presentation.js');
 const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
 
 (async () => {
@@ -9,6 +9,16 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
   const physical = transform(p, 'PHYSICAL'), schematic = transform(p, 'SCHEMATIC');
   assert.deepEqual(p, [149597870.7, 2, 3]); assert.notDeepEqual(physical, schematic);
   assert.equal(physical[0], 1); assert.deepEqual(transform([0, 0, 0], 'SCHEMATIC'), [0, 0, -0]);
+  const local = new Set(['EARTH', 'MOON']);
+  assert.equal(displayLod(16, 'PHYSICAL'), 1);
+  assert.equal(displayLod(.1, 'PHYSICAL'), 4);
+  assert.equal(labelRank({body_id:'CERES',body_class:'DWARF_PLANET'}, 'CERES', local), 0);
+  assert.equal(labelRank({body_id:'EARTH',body_class:'PLANET'}, 'CERES', local), 1);
+  assert.equal(labelRank({body_id:'MOON',body_class:'NATURAL_SATELLITE'}, 'CERES', local), 2);
+  assert.equal(labelRank({body_id:'MOON',body_class:'NATURAL_SATELLITE'}, 'CERES', new Set()), 4);
+  assert.equal(showMinorPath({body_id:'CERES',body_class:'DWARF_PLANET'}, 'COMET_67P', 'SUN', 16, 'PHYSICAL'), false);
+  assert.equal(showMinorPath({body_id:'CERES',body_class:'DWARF_PLANET'}, 'CERES', 'SUN', 16, 'PHYSICAL'), true);
+  assert.equal(showMinorPath({body_id:'MOON',body_class:'NATURAL_SATELLITE'}, 'EARTH', 'EARTH', 16, 'PHYSICAL'), true);
   const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
   const page = await browser.newPage({ viewport: { width: 1500, height: 1000 } });
   page.setDefaultTimeout(180000);
@@ -48,6 +58,13 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     assert.equal(await page.locator('#detail').textContent(), exact);
     await page.screenshot({ path: '/tmp/solar-inspector-schematic.png' });
     await page.selectOption('#mode', 'PHYSICAL');
+    await page.click('#sceneSystem'); await settled();
+    assert.equal(await page.locator('#system').inputValue(), 'EARTH_MOON_BARYCENTER');
+    assert.equal(await page.locator('#center').inputValue(), 'EARTH');
+    assert.equal(await page.locator('#scope').inputValue(), 'local');
+    assert.match(await page.locator('#sceneStatus').innerText(), /Center: EARTH/);
+    assert(snapshots.some(state => state.reference_center === 'EARTH' && state.objects.length === 5 && !state.complete),
+      'System action must request an exact Earth-centered preview');
     await center('EARTH');
     assert(snapshots.some(state => state.reference_center === 'EARTH' && state.objects.length === 5 && !state.complete),
       'manual center navigation must use an exact resolver preview');
@@ -81,8 +98,13 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     await page.click('#fit');
     const catalogFitDistance = Number(await page.locator('#stage').getAttribute('data-camera-distance'));
     await page.click('#sceneSystem');
+    await settled();
+    assert.equal(await page.locator('#system').inputValue(), 'OTHER');
+    assert.equal(await page.locator('#center').inputValue(), 'COMET_67P');
+    assert.equal(await page.locator('#scope').inputValue(), 'local');
+    assert.match(await page.locator('#sceneStatus').innerText(), /Center: COMET_67P/);
     assert(Number(await page.locator('#stage').getAttribute('data-camera-distance')) < catalogFitDistance,
-      'system focus must frame the local family without a distant selected object');
+      'system focus must frame the selected local system');
     await center('JUPITER'); await center('PLUTO'); await center('IDA');
     await page.selectOption('#catalog', 'DACTYL');
     await page.waitForFunction(() => document.querySelector('#detail').textContent.includes('UNRESOLVED'));
@@ -126,6 +148,16 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
       assert(trajectoryRequests.some(q => q.get('body') === body && q.get('center') === 'SUN'),
         `Whole Catalog must request ${body} through the governed resolver`);
     }
+    await page.click('#clearPath');
+    await page.click('#clearSelection');
+    await page.click('#sceneSystem');
+    for (let i=0;i<8 && Number(await page.locator('#stage').getAttribute('data-camera-distance')) <= 3;i++) await page.click('#zoomOut');
+    const visibleLabels = await page.locator('#labels .object-label:not([hidden])').allTextContents();
+    assert(visibleLabels.some(name => ['Mercury','Venus','Earth','Mars','Jupiter'].includes(name)), 'overview must retain major planets');
+    assert(!visibleLabels.includes('Ceres'), 'overview must declutter nonselected minor labels');
+    await page.selectOption('#catalog', 'CERES');
+    assert((await page.locator('#labels .object-label.selected:not([hidden])').allTextContents()).includes('Ceres'),
+      'selected minor label must take priority at overview scale');
     console.log('browser: whole catalog paths ready');
     const beforeLayers = trajectoryRequests.length;
     await page.uncheck('#layerMinor');
