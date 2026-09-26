@@ -1,0 +1,19 @@
+{
+  "alternate_source_and_assertion_insertion_order": "PASS",
+  "build_runtime_seconds": 0.254677,
+  "candidate_body_count": 110,
+  "candidate_semantic_digest": "1b47133a1a5d6e58d3557e4efcfc5f678d5a1b7a343260709ca66b9776a8480e",
+  "candidate_sha256": "3e32c58703fc01ac5090ce36a06e24081fca9e30542bfb579344adeb244a1e60",
+  "comparison": "Canonical source/region/observation/material projections match after reversing catalog, region, observation and assertion insertion order; row IDs are ignored.",
+  "eligible_body_count": 95,
+  "foreign_key_check": "PASS",
+  "identical_byte_replay": "PASS",
+  "integrity_check": "PASS",
+  "lane_count": 380,
+  "network_used_by_build": false,
+  "offline": "PASS; build consumes frozen JSON inputs and qualified local SQLite inputs only.",
+  "preferred_fact_total": 0,
+  "repeated_clean_rebuilds": 2,
+  "runtime_seconds_per_build": 0.18624,
+  "whole_semantic_digest": "1b47133a1a5d6e58d3557e4efcfc5f678d5a1b7a343260709ca66b9776a8480e"
+}

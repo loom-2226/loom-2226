@@ -1,0 +1,94 @@
+{
+  "campaign_id": "SOLAR_CIVPROP_M4B_2026",
+  "executable_negative_cases": [
+    "UNKNOWN_TO_ZERO",
+    "TAXONOMY_TO_ABUNDANCE",
+    "UNIT_OR_RANGE_LAUNDERING",
+    "ECONOMIC_OR_ENGINEERING_LEAKAGE",
+    "DUPLICATE_ASSERTION_KEY",
+    "IDENTITY_OUTSIDE_EXISTING_CATALOG",
+    "BOUNDED_ABUNDANCE_WITHOUT_UNIT",
+    "PERCENT_ABUNDANCE_OVER_100"
+  ],
+  "foreign_keys": "PASS",
+  "hostile_cases": [
+    {
+      "id": "UNKNOWN_TO_ZERO",
+      "method": "Executable negative fixture rejected numeric value under UNKNOWN semantics.",
+      "result": "PASS"
+    },
+    {
+      "id": "TAXONOMY_TO_ABUNDANCE",
+      "method": "Executable negative fixture rejected taxonomic class asserted as quantitative material abundance.",
+      "result": "PASS"
+    },
+    {
+      "id": "REGIONAL_TO_GLOBAL",
+      "method": "All regional/site/sample assertions carry body-scoped region and observation links; coverage labels are lanes, not global inventory claims.",
+      "result": "PASS"
+    },
+    {
+      "id": "SURFACE_TO_BULK_INTERIOR",
+      "method": "Evidence notes and contexts preserve sampled surface, coma, plume, drill, and spectral scope; no bulk conversion is emitted.",
+      "result": "PASS"
+    },
+    {
+      "id": "MODEL_TO_DIRECT_OBSERVATION",
+      "method": "Four inference/model lanes retain their original epistemic class; no model output is relabeled direct.",
+      "result": "PASS"
+    },
+    {
+      "id": "NONDETECTION_TO_ABSENCE",
+      "method": "No non-detection/absence assertions were admitted; all unsupported lanes remain UNKNOWN_AFTER_SEARCH.",
+      "result": "NOT_APPLICABLE"
+    },
+    {
+      "id": "CONFLICT_COLLAPSE",
+      "method": "No winner/preferred_fact is selected; inherited evidence rows are preserved exactly and new rows are appended as CANDIDATE.",
+      "result": "PASS"
+    },
+    {
+      "id": "PROVENANCE_LOSS_OR_DUPLICATION",
+      "method": "Source, observation, region, DOI/URL, lineage and artifact hashes are retained; raw artifacts without verified redistribution rights are not committed.",
+      "result": "PASS_WITH_LIEN"
+    },
+    {
+      "id": "OBSERVATION_OR_REGION_BODY_MISMATCH",
+      "method": "Executable SQLite/body-reference consistency checks and foreign_key_check pass.",
+      "result": "PASS"
+    },
+    {
+      "id": "DUPLICATE_SOURCE_ARTIFACT",
+      "method": "Every acquired artifact has an exact path, size and SHA-256 record; lineage count is reported separately from assertion count.",
+      "result": "PASS"
+    },
+    {
+      "id": "UNIT_OR_RANGE_LAUNDERING",
+      "method": "No abundance ranges or unqualified numeric abundance are introduced; validator rejects reversed bounds and quantified values without units.",
+      "result": "PASS"
+    },
+    {
+      "id": "UNSUPPORTED_PHYSICAL_INVENTORY",
+      "method": "Inventory uses existing candidate mass or candidate size+bulk density only; no taxonomy-derived mass/density.",
+      "result": "PASS"
+    },
+    {
+      "id": "ECONOMIC_OR_ENGINEERING_LEAKAGE",
+      "method": "Executable negative fixture detects resource/economic score fields; schema scan finds none of the prohibited downstream fields.",
+      "result": "PASS"
+    },
+    {
+      "id": "DUPLICATE_ASSERTION_KEY",
+      "method": "Campaign validator rejects duplicate assertion keys.",
+      "result": "PASS"
+    },
+    {
+      "id": "IDENTITY_OUTSIDE_EXISTING_CATALOG",
+      "method": "All assertions must refer to the frozen 110-object catalog; resulting candidate remains exactly 110 bodies.",
+      "result": "PASS"
+    }
+  ],
+  "overall": "PASS_WITH_LIENS",
+  "preferred_fact_total": 0,
+  "sqlite_integrity": "PASS"
+}
