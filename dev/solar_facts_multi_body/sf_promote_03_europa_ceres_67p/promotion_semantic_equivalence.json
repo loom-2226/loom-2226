@@ -1,0 +1,235 @@
+{
+  "assertions": [
+    {
+      "assertion_id": "eu-gm",
+      "candidate_status": "CANDIDATE",
+      "disposition": "PROMOTE",
+      "property_code": "GM",
+      "raw_assertion_sha256": "365550ea861307664b3898e5a43d47e4cdcfa8e499ebe365fc4c6bbc3b72d84b",
+      "reason": "Typed scalar GM in dynamical-inference class; units and uncertainty retained.",
+      "typed_mapping": {
+        "activity_fact": false,
+        "body_model_product": false,
+        "fact": true,
+        "material_evidence": false,
+        "observation": false,
+        "orientation_model": false
+      }
+    },
+    {
+      "assertion_id": "eu-radius",
+      "candidate_status": "CANDIDATE",
+      "disposition": "PROMOTE",
+      "property_code": "MEAN_RADIUS",
+      "raw_assertion_sha256": "b78989e7b40bad6981ff434756b806b4883af5a70343f9944fd8328f461f7892",
+      "reason": "Typed mean-radius reference parameter; not a local figure or terrain model.",
+      "typed_mapping": {
+        "activity_fact": false,
+        "body_model_product": false,
+        "fact": true,
+        "material_evidence": false,
+        "observation": false,
+        "orientation_model": false
+      }
+    },
+    {
+      "assertion_id": "eu-orbit",
+      "candidate_status": "CANDIDATE",
+      "disposition": "HOLD",
+      "property_code": "ORBITAL_MEAN_ELEMENTS",
+      "raw_assertion_sha256": "12b0d6c5507d7d9b4aaf938ac2e82345371840e283e0e7f6c9ac890add949ad5",
+      "reason": "Mean-element vector is retained in the ledger; no ephemeris or epoch-free orbit fact is asserted.",
+      "typed_mapping": {}
+    },
+    {
+      "assertion_id": "eu-rotation",
+      "candidate_status": "CANDIDATE",
+      "disposition": "PROMOTE",
+      "property_code": "BODY_ORIENTATION_MODEL",
+      "raw_assertion_sha256": "c9ca21d201c6024f3b5b118eaa062137376d3a6ed532072ea7138f1591cd5ab4",
+      "reason": "NAIF BODY502 orientation coefficients map to the generic orientation-model table; coefficient units and model scope remain explicit.",
+      "typed_mapping": {
+        "activity_fact": false,
+        "body_model_product": false,
+        "fact": false,
+        "material_evidence": false,
+        "observation": false,
+        "orientation_model": true
+      }
+    },
+    {
+      "assertion_id": "eu-geology",
+      "candidate_status": "CANDIDATE",
+      "disposition": "PROMOTE",
+      "property_code": "SURFACE_GEOLOGY",
+      "raw_assertion_sha256": "db13b9aea8c560767c2663bc362823388bda7e0f7ba5bc4e29a85351dc4f360f",
+      "reason": "USGS global geologic-map product is represented as a global model product; regional coverage limitation retained.",
+      "typed_mapping": {
+        "activity_fact": false,
+        "body_model_product": true,
+        "fact": false,
+        "material_evidence": false,
+        "observation": false,
+        "orientation_model": false
+      }
+    },
+    {
+      "assertion_id": "eu-surface-age",
+      "candidate_status": "CANDIDATE",
+      "disposition": "SCHEMA_LIEN",
+      "property_code": "SURFACE_RELATIVE_AGE",
+      "raw_assertion_sha256": "5c415d145a61280b181bdc597631d2706180e255083fb4d14f3830478ae4f653",
+      "reason": "Qualitative crater-age interpretation is retained in the ledger; no scalar global surface age is inserted.",
+      "typed_mapping": {}
+    },
+    {
+      "assertion_id": "eu-mag-field",
+      "candidate_status": "CANDIDATE",
+      "disposition": "PROMOTE",
+      "property_code": "MAGNETIC_FIELD",
+      "raw_assertion_sha256": "dfd03dcf3de5796284eca19726d21173e985d1f15a294d80e52522db3bb55a97",
+      "reason": "Instrument-footprint Galileo magnetic measurement represented as a scoped observation.",
+      "typed_mapping": {
+        "activity_fact": false,
+        "body_model_product": false,
+        "fact": false,
+        "material_evidence": false,
+        "observation": true,
+        "orientation_model": false
+      }
+    },
+    {
+      "assertion_id": "eu-ocean-inference",
+      "candidate_status": "CANDIDATE",
+      "disposition": "SCHEMA_LIEN",
+      "property_code": "CONDUCTIVE_SUBSURFACE_LAYER",
+      "raw_assertion_sha256": "a079c152ded6629b06b92ef6247307ad301ff51e0a0c4872cf323b264f3ead3e",
+      "reason": "No existing typed property/epistemic structure distinguishes magnetic induction measurement from model-dependent conductive-layer/ocean interpretation; exact chain remains in ledger.",
+      "typed_mapping": {}
+    },
+    {
+      "assertion_id": "eu-plume-galileo-candidate",
+      "candidate_status": "CANDIDATE",
+      "disposition": "PROMOTE",
+      "property_code": "PLUME_ACTIVITY",
+      "raw_assertion_sha256": "c6cf992ab6103c0938f4be425141c411bb72079183af61d44dd5663d4fafc584",
+      "reason": "Candidate activity entry linked to E12 MAG/PWS observation; no permanent/global activity asserted.",
+      "typed_mapping": {
+        "activity_fact": true,
+        "body_model_product": false,
+        "fact": false,
+        "material_evidence": false,
+        "observation": true,
+        "orientation_model": false
+      }
+    },
+    {
+      "assertion_id": "eu-plume-hst-candidate",
+      "candidate_status": "CANDIDATE",
+      "disposition": "PROMOTE",
+      "property_code": "WATER_VAPOR_EMISSION",
+      "raw_assertion_sha256": "88790e05e9c192d2a099d5f2c355f6773df7d958112e50c82fa7879d2cc20421",
+      "reason": "Candidate activity entry scoped to reported south-polar HST epoch.",
+      "typed_mapping": {
+        "activity_fact": true,
+        "body_model_product": false,
+        "fact": false,
+        "material_evidence": false,
+        "observation": true,
+        "orientation_model": false
+      }
+    },
+    {
+      "assertion_id": "eu-plume-hst-nondetect",
+      "candidate_status": "CANDIDATE",
+      "disposition": "PROMOTE",
+      "property_code": "WATER_VAPOR_EMISSION",
+      "raw_assertion_sha256": "1e0666a8db2f784bf637872f2e08968a7d3d2c6206c446168bf151846a55fbd7",
+      "reason": "HST nondetection retained as an observation; no absence inference.",
+      "typed_mapping": {
+        "activity_fact": false,
+        "body_model_product": false,
+        "fact": false,
+        "material_evidence": false,
+        "observation": true,
+        "orientation_model": false
+      }
+    },
+    {
+      "assertion_id": "eu-plume-sparks",
+      "candidate_status": "CANDIDATE",
+      "disposition": "PROMOTE",
+      "property_code": "WATER_VAPOR_EMISSION",
+      "raw_assertion_sha256": "bbf0e035312ba6548d06ad2d4bb93cda153cbc5fd362b8f86f8c9709b91c9ead",
+      "reason": "HST multi-epoch candidate evidence retained as an instrument-footprint observation.",
+      "typed_mapping": {
+        "activity_fact": true,
+        "body_model_product": false,
+        "fact": false,
+        "material_evidence": false,
+        "observation": true,
+        "orientation_model": false
+      }
+    },
+    {
+      "assertion_id": "eu-plume-subaru",
+      "candidate_status": "CANDIDATE",
+      "disposition": "PROMOTE",
+      "property_code": "WATER_VAPOR_EMISSION",
+      "raw_assertion_sha256": "a7529147c2314581e572e049120ed2b4906eaccbb068a07413a81ba3077913b6",
+      "reason": "Subaru nondetection retained with observation-time/sensitivity limit.",
+      "typed_mapping": {
+        "activity_fact": false,
+        "body_model_product": false,
+        "fact": false,
+        "material_evidence": false,
+        "observation": true,
+        "orientation_model": false
+      }
+    },
+    {
+      "assertion_id": "eu-plume-alma-limit",
+      "candidate_status": "CANDIDATE",
+      "disposition": "SCHEMA_LIEN",
+      "property_code": "MOLECULAR_PLUME_SPECIES_UPPER_LIMIT",
+      "raw_assertion_sha256": "122a0ad59c0416358a67b9efab80cae54c5b9579d847dcb642905cf720ae6c29",
+      "reason": "Species/model-dependent upper limits retained in full ledger; typed observation alone cannot represent conditional limits.",
+      "typed_mapping": {}
+    },
+    {
+      "assertion_id": "eu-oxygen-atmos",
+      "candidate_status": "CANDIDATE",
+      "disposition": "SCHEMA_LIEN",
+      "property_code": "OXYGEN_EXOSPHERE",
+      "raw_assertion_sha256": "7fdfad71045468ff5e20b6ea5079e73a9c7a2dc8812257cc294a5e69b1a999e8",
+      "reason": "Existing typed vocabulary cannot preserve atomic-oxygen emission separately from interpreted molecular-O2 exosphere without adding a semantic property; exact claim remains in ledger.",
+      "typed_mapping": {}
+    },
+    {
+      "assertion_id": "eu-nacl-surface",
+      "candidate_status": "CANDIDATE",
+      "disposition": "PROMOTE",
+      "property_code": "SURFACE_SPECTRAL_COMPOSITION",
+      "raw_assertion_sha256": "808879c9012fdb6e09e72dfe2887236535e35a8320cc6f01ccf43053464c30c4",
+      "reason": "Regional material record permits unknown abundance and HST/STIS evidence; no global/ocean inventory is implied.",
+      "typed_mapping": {
+        "activity_fact": false,
+        "body_model_product": false,
+        "fact": false,
+        "material_evidence": true,
+        "observation": false,
+        "orientation_model": false
+      }
+    },
+    {
+      "assertion_id": "eu-juno-shell",
+      "candidate_status": "CANDIDATE",
+      "disposition": "SCHEMA_LIEN",
+      "property_code": "ICE_SHELL_THICKNESS_MODEL",
+      "raw_assertion_sha256": "c2c96e5d2aaa0d4ba2ca173b59502c0599380f2c7ff91fe073f82959583f31a6",
+      "reason": "Competing model scope/assumptions plus 19\u201339 km interval remain in ledger; no global scalar or single winning shell model is inserted.",
+      "typed_mapping": {}
+    }
+  ],
+  "method": "Frozen candidate assertion retained in promotion_assertion raw_assertion_json and raw_sha256; typed tables populated only where ordinary v0.3-R1 fields preserve source scope/status. Every assertion has one disposition."
+}

@@ -1,0 +1,225 @@
+{
+  "arp_version": "1.0.0",
+  "assertions": {
+    "admitted_as_candidates": 17,
+    "extracted": 17,
+    "preferred_fact": 0,
+    "rejected": 0
+  },
+  "blindness_boundary": {
+    "cutoff": "2025-12-31T23:59:59Z",
+    "gate_a_exclusion": "All listed upstream identity/ephemeris and legacy presentation material is excluded from source discovery, assertion construction, source selection, and qualification. After Gate A, the Phase-4 body identity may be consulted only to bind the promotion record to existing loom_solar.body identity. The accepted campaign values remain independently sourced from acquired pre-cutoff artifacts.",
+    "mission_id": "ARP-QUAL-02-EUROPA",
+    "post_cutoff_negative_control": {
+      "detected": true,
+      "handling": "a search result describing a 2026 plume reanalysis was noticed during discovery and excluded from all positive evidence, candidate assertions, and cutoff conclusions; it is retained only as a temporal-leakage negative-control record"
+    },
+    "preexisting_upstream_europa_empirical_corpus": "FOUND_IDENTITY_AND_EPHEMERIS_ONLY",
+    "preexisting_upstream_europa_references": [
+      {
+        "answer_key_risk": "identity, NAIF mapping, and ephemeris coverage; not admitted as Gate A evidence",
+        "class": "PROMOTED_SOLAR_IDENTITY_AND_EPHEMERIS_AUTHORITY",
+        "path": "manifests/solar/SOLAR_PHASE4B_AUTHORITY_V1.json"
+      },
+      {
+        "answer_key_risk": "existing body identity and ephemeris registration; not admitted as Gate A evidence",
+        "class": "PROMOTED_SOLAR_IDENTITY_AND_EPHEMERIS_AUTHORITY",
+        "path": "data/postgres/migrations/013_solar_phase4b_closure.sql"
+      },
+      {
+        "answer_key_risk": "contains orbit-like literals; not treated as governing or evidence",
+        "class": "LEGACY_EMBEDDED_PRESENTATION_DATA",
+        "path": "src/loom_solar_gis.py"
+      }
+    ],
+    "research_context_baseline": "loom-2226/loom-2226@3752b018e1029d75db18410e61a336dc90efdf2d",
+    "research_lab_inventory": {
+      "empirical_europa_corpus": "NOT_FOUND",
+      "handling": "excluded from evidence discovery, assertion construction, and answer-key use; synthetic design inputs only",
+      "synthetic_non_evidentiary_mentions": [
+        "projects/loom_drive_mechanism_options/experiments/u1_synthetic_civilization_v0/README.md",
+        "projects/loom_drive_mechanism_options/experiments/u1_synthetic_civilization_v0/u1_synthetic_civilization.py",
+        "projects/loom_drive_mechanism_options/experiments/u2_relational_geography_v0/RESULT_2026-09-24.md",
+        "projects/loom_drive_mechanism_options/experiments/u2_relational_geography_v0/u2_relational_geography.py"
+      ]
+    },
+    "researcher_memory_used_as_evidence": false,
+    "scientific_values_from_other_bodies_used": false
+  },
+  "coverage_dispositions": {
+    "PARTIAL": 12,
+    "SOURCE_NOT_FOUND": 2,
+    "SUPPORTED": 11,
+    "UNKNOWN": 1
+  },
+  "cutoff": "2025-12-31T23:59:59Z",
+  "external_scientist_review": "Not performed; protocol machinery was validated in fresh project context with deterministic ARP and adversarial mutations. This is a nonblocking review lien, not represented as a peer review.",
+  "frontier": [
+    {
+      "evidence_class": null,
+      "limitation": "No direct sample; surface spectra cannot stand in for ocean chemistry.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "ocean_composition"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "Candidates/nondetections do not establish recurrence or absence.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "plume_recurrence"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "Competing model assumptions and limited footprints.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "global_shell_structure"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "No direct mechanical measurements acquired.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "surface_geotechnical_properties"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "USGS notes complete regional-scale coverage is absent.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "regional_coverage_below_250m_px"
+    },
+    {
+      "evidence_class": null,
+      "limitation": "Requires matched site, epoch, geometry and instrument evidence.",
+      "phase": "FUTURE_OBSERVABLE",
+      "research_coverage": "PARTIAL",
+      "state_at_cutoff": "UNKNOWN",
+      "variable": "local_thermal_and_radiation_environment"
+    }
+  ],
+  "gaps": [
+    {
+      "description": "Independent constraint on physical libration/tidal state.",
+      "gap_id": "EUROPA-GAP-01",
+      "lane": "rotation_orientation",
+      "status": "OPEN"
+    },
+    {
+      "description": "Shape/figure model and uncertainty beyond mean-radius parameter.",
+      "gap_id": "EUROPA-GAP-02",
+      "lane": "gravity_shape",
+      "status": "OPEN"
+    },
+    {
+      "description": "Direct mechanical/geotechnical measurements unavailable.",
+      "gap_id": "EUROPA-GAP-03",
+      "lane": "geology_geotechnical",
+      "status": "OPEN"
+    },
+    {
+      "description": "Acquired pre-cutoff primary Galileo PPR analysis with explicit footprint/epoch.",
+      "gap_id": "EUROPA-GAP-04",
+      "lane": "thermal_environment",
+      "status": "OPEN"
+    },
+    {
+      "description": "Europa-specific radiation/particle flux analysis and calibration.",
+      "gap_id": "EUROPA-GAP-05",
+      "lane": "water_volatiles",
+      "status": "OPEN"
+    },
+    {
+      "description": "Broader spatially registered spectra and competing hydrated-material interpretations.",
+      "gap_id": "EUROPA-GAP-06",
+      "lane": "mineralogy_composition",
+      "status": "OPEN"
+    },
+    {
+      "description": "Site-scale, illumination and local morphology synthesis.",
+      "gap_id": "EUROPA-GAP-07",
+      "lane": "regional",
+      "status": "OPEN"
+    },
+    {
+      "description": "Plume candidate/nondetection uniform sensitivity and lineage comparison.",
+      "gap_id": "EUROPA-GAP-08",
+      "lane": "activity",
+      "status": "OPEN"
+    },
+    {
+      "description": "Complete comparison of conductive layer/ocean and shell/interior models.",
+      "gap_id": "EUROPA-GAP-09",
+      "lane": "water_volatiles",
+      "status": "OPEN"
+    }
+  ],
+  "hostile_review": {
+    "all_attacks_rejected": true,
+    "attack_count": 25,
+    "caveat": "Semantic refusal checks are deterministic boundary checks over frozen candidate notes and scopes; they do not invoke a narrator. The research layer has no narrator implementation, so the unknown-to-confident check verifies only that no assertion supplies such a predicate; the upstream production narrator remains to be tested in Gate B.",
+    "status": "PASS"
+  },
+  "implementation_version": "1.0.2",
+  "important_conflicts": [
+    "Galileo magnetic measurements versus model-dependent conductive-layer/ocean interpretation; no direct ocean observation or sample.",
+    "HST plume candidates and Galileo E12 interpretation coexist with epoch/footprint-specific nondetections and ALMA model-dependent upper limits.",
+    "Juno MWR 2025 shell estimate is a footprint-scoped model result with idealized material assumptions; historical shell/interior model differences remain.",
+    "Regional leading-hemisphere NaCl interpretation does not establish global, subsurface or ocean abundance.",
+    "USGS global map is generalized at global scale and explicitly reports incomplete regional-resolution coverage."
+  ],
+  "mission_id": "ARP-QUAL-02-EUROPA",
+  "preferred_facts": 0,
+  "remaining_liens": [
+    {
+      "finding": "PPR archive metadata acquired; primary 2010 analysis artifact unavailable.",
+      "lien_id": "EUROPA-LIEN-THERMAL-PRIMARY",
+      "severity": "NONBLOCKING",
+      "state": "SOURCE_UNAVAILABLE",
+      "target": "thermal_environment"
+    },
+    {
+      "finding": "PDS EPD archive located, but calibrated Europa-specific analysis not acquired.",
+      "lien_id": "EUROPA-LIEN-RADIATION-PRIMARY",
+      "severity": "NONBLOCKING",
+      "state": "SOURCE_UNAVAILABLE",
+      "target": "radiation_particle_environment"
+    },
+    {
+      "finding": "Juno result applies to sampled region and idealized model assumptions; competing model ensemble incomplete.",
+      "lien_id": "EUROPA-LIEN-SHELL-MODEL-SCOPE",
+      "severity": "NONBLOCKING",
+      "state": "OPEN",
+      "target": "ice_shell_interior_models"
+    },
+    {
+      "finding": "Pre-existing upstream identity/ephemeris metadata discovered and excluded from Gate A; permitted after Gate A only for existing-identity binding.",
+      "lien_id": "EUROPA-LIEN-IDENTITY-BLINDNESS",
+      "severity": "NONBLOCKING",
+      "state": "ACCEPTED_UNKNOWN",
+      "target": "identity_classification"
+    }
+  ],
+  "schema_change": "NONE",
+  "sources": {
+    "acquired": 24,
+    "artifacts_acquired": 24,
+    "discovered": 32,
+    "independent_evidence_lineages": 12,
+    "rejected": 8
+  },
+  "temporal_control": "All admitted source publication/release dates are at or before cutoff; 2026 plume reanalysis was retained only as excluded negative control.",
+  "upstream_baseline": "loom-2226/loom-2226@3752b018e1029d75db18410e61a336dc90efdf2d",
+  "validation": {
+    "blocking": false,
+    "errors": [],
+    "status": "PASS"
+  },
+  "verdict": "ARP_QUAL_02_EUROPA_PASS_WITH_LIENS"
+}

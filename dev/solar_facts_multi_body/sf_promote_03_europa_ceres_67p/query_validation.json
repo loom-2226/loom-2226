@@ -1,0 +1,34 @@
+{
+  "body_neutral_queries": "PASS",
+  "results": {
+    "CERES": {
+      "activity_evidence": 2,
+      "facts": 8,
+      "historical_knowledge_events": 0,
+      "material_evidence": 6,
+      "model_products": 10,
+      "observations": 8,
+      "regional_evidence": 5
+    },
+    "COMET_67P": {
+      "activity_evidence": 2,
+      "facts": 4,
+      "historical_knowledge_events": 0,
+      "material_evidence": 0,
+      "model_products": 1,
+      "observations": 4,
+      "regional_evidence": 0
+    },
+    "EUROPA": {
+      "activity_evidence": 3,
+      "facts": 2,
+      "frontier_records": 6,
+      "historical_knowledge_events": 14,
+      "material_evidence": 1,
+      "model_products": 2,
+      "observations": 10,
+      "regional_evidence": 3
+    }
+  },
+  "same_property_across_bodies": "GM records are body-scoped; source IDs/lineages are disjoint"
+}

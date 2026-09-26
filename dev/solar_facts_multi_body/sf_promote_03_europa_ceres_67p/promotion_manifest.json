@@ -1,0 +1,70 @@
+{
+  "baseline_database_sha256": "ed930b0453ec994712614bf0beb1a5ff8c93452db1b753884539fa510184b64f",
+  "baseline_whole_semantic_digest": "2328f03f45b560c127a2c93b3aac0cf484f82e439979e16586eeaea12d845bd0",
+  "body_digests": {
+    "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+    "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+    "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+  },
+  "counts": {
+    "activity_fact": {
+      "CERES": 2,
+      "COMET_67P": 2,
+      "EUROPA": 3
+    },
+    "body_model_product": {
+      "CERES": 9,
+      "COMET_67P": 1,
+      "EUROPA": 1
+    },
+    "campaign_artifacts": {
+      "EUROPA": 14
+    },
+    "campaign_sources": {
+      "EUROPA": 14
+    },
+    "fact": {
+      "CERES": 8,
+      "COMET_67P": 4,
+      "EUROPA": 2
+    },
+    "frontier": {
+      "EUROPA": 6
+    },
+    "material_evidence": {
+      "CERES": 6,
+      "EUROPA": 1
+    },
+    "observation": {
+      "CERES": 8,
+      "COMET_67P": 4,
+      "EUROPA": 10
+    },
+    "orientation_model": {
+      "CERES": 1,
+      "EUROPA": 1
+    },
+    "preferred_fact": {},
+    "promotion_assertion": {
+      "CERES": 56,
+      "COMET_67P": 13,
+      "EUROPA": 17
+    },
+    "reviews": {
+      "HOLD": 1,
+      "PROMOTE": 11,
+      "SCHEMA_LIEN": 5
+    }
+  },
+  "database_sha256": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
+  "preferred_fact_count": 0,
+  "qualification_case": "SF-PROMOTE-03_EUROPA_CERES_67P",
+  "raw_artifacts_hash_checked_against_research_lab_commit": "6492be6b11dd4cd3fa77f017ca98bdd2d1e2406c",
+  "research_campaign_sha256": "5f6f4dc829746da05eb3eb25bf56ef6f57ec2085225ccb88d9d74eb587d67730",
+  "research_freeze_sha256": "088842f59533797afd481e56ec2aa044256079db5800ef172401657f71fbe3d1",
+  "research_lab_commit": "6492be6b11dd4cd3fa77f017ca98bdd2d1e2406c",
+  "research_lab_merge_commit": "eb433d36b76752ae3fc66bbe3fd730b341ddb837",
+  "result": "SF_THREE_BODY_PROMOTION_PASS_WITH_LIENS",
+  "schema_change": "NONE",
+  "whole_database_semantic_digest": "382f7871cdfc42526eddcc84bd17fcfdd1a6a78cafa129c5feb21546cdfa8581"
+}

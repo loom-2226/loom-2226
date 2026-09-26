@@ -1,0 +1,13 @@
+{
+  "alternate_body_insertion_order": "NOT_RUN",
+  "alternate_order_limitation": "Baseline Ceres and 67P were not rebuilt or reordered; only generic SQL row insertion order was challenged to preserve their frozen scientific inputs.",
+  "body_digests": {
+    "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+    "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+    "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+  },
+  "replay_builds_byte_identical": true,
+  "replay_sha256": "10aaef24f578f357be69d623d122c452c46aa5c3626202540e59abe813292ce6",
+  "row_insertion_order_challenge": "PASS",
+  "whole_digest": "92c052b32013594c9991713e5a84de6e94daaf19f9f610c2e1c51c507dbe4dda"
+}

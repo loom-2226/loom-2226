@@ -1,0 +1,162 @@
+{
+  "all_attacks_rejected": true,
+  "attack_count": 25,
+  "attacks": {
+    "artifact_hash_mismatch": {
+      "errors": [
+        "ARTIFACT_HASH: art-jpl-physical hash does not match local bytes"
+      ],
+      "expected_rejection": "ARTIFACT_HASH",
+      "passed": true
+    },
+    "asteroid_52_europa_identity_collision": {
+      "detail": "NAIF BODY502 satellite and asteroid (52) Europa are explicitly distinguished.",
+      "passed": true,
+      "review_result": "PASS"
+    },
+    "candidate_plume_to_permanent_global_activity": {
+      "passed": true,
+      "preserved_boundary": "candidate evidence, not continuous/global activity",
+      "review_result": "REFUSED"
+    },
+    "candidate_to_preferred": {
+      "errors": [
+        "AUTHORITY: assertion eu-gm is not CANDIDATE"
+      ],
+      "expected_rejection": "AUTHORITY",
+      "passed": true
+    },
+    "coarse_to_site": {
+      "errors": [
+        "RESOLUTION_LAUNDERING: assertion eu-geology promotes coarse evidence to site scale"
+      ],
+      "expected_rejection": "RESOLUTION_LAUNDERING",
+      "passed": true
+    },
+    "duplicate_assertion": {
+      "errors": [
+        "DUPLICATE_ASSERTION: assertion eu-radius repeats canonical key EUROPA|GM|JUP365"
+      ],
+      "expected_rejection": "DUPLICATE_ASSERTION",
+      "passed": true
+    },
+    "duplicate_derivative_lineage": {
+      "detail": "JUP365 is one lineage for GM and orbit; PDS/catalog metadata is not counted as an independent measurement.",
+      "passed": true,
+      "review_result": "PASS"
+    },
+    "engineering_economic_resource_contamination": {
+      "passed": true,
+      "preserved_boundary": "forbidden by project manifest; none present",
+      "review_result": "REFUSED"
+    },
+    "ice_shell_range_to_midpoint_claim": {
+      "passed": true,
+      "preserved_boundary": "model interval retained",
+      "review_result": "REFUSED"
+    },
+    "inference_to_measurement": {
+      "errors": [
+        "EPISTEMIC_PROMOTION: assertion eu-ocean-inference labels non-direct evidence as measurement"
+      ],
+      "expected_rejection": "EPISTEMIC_PROMOTION",
+      "passed": true
+    },
+    "missing_provenance": {
+      "errors": [
+        "PROVENANCE: assertion eu-gm lacks source/artifact path"
+      ],
+      "expected_rejection": "PROVENANCE",
+      "passed": true
+    },
+    "model_to_observation": {
+      "errors": [
+        "EPISTEMIC_PROMOTION: assertion eu-juno-shell labels non-direct evidence as measurement"
+      ],
+      "expected_rejection": "EPISTEMIC_PROMOTION",
+      "passed": true
+    },
+    "nondetection_to_absence": {
+      "passed": true,
+      "preserved_boundary": "does not establish plume absence",
+      "review_result": "REFUSED"
+    },
+    "ocean_inference_to_direct_observation": {
+      "passed": true,
+      "preserved_boundary": "No ocean was sampled or directly observed",
+      "review_result": "REFUSED"
+    },
+    "post_cutoff_contamination": {
+      "errors": [
+        "CUTOFF: assertion eu-gm uses source evidence after cutoff",
+        "CUTOFF: assertion eu-radius uses source evidence after cutoff"
+      ],
+      "expected_rejection": "CUTOFF",
+      "passed": true
+    },
+    "post_cutoff_temporal_control": {
+      "detail": "2026 plume reanalysis seen only as negative control and is absent from admitted source/artifact/assertion lists.",
+      "passed": true,
+      "review_result": "PASS"
+    },
+    "radiation_to_human_shielding_design": {
+      "passed": true,
+      "preserved_boundary": "No human-dose or shielding inference in factual layer",
+      "review_result": "REFUSED_BY_SCOPE_UNKNOWN"
+    },
+    "range_to_midpoint": {
+      "errors": [
+        "RANGE_MIDPOINT: assertion eu-juno-shell contains a scalar alongside a reported range"
+      ],
+      "expected_rejection": "RANGE_MIDPOINT",
+      "passed": true
+    },
+    "regional_to_global": {
+      "errors": [
+        "SCOPE_LAUNDERING: assertion eu-oxygen-atmos promotes local evidence globally"
+      ],
+      "expected_rejection": "SCOPE_LAUNDERING",
+      "passed": true
+    },
+    "regional_to_global_composition": {
+      "passed": true,
+      "preserved_boundary": "leading hemisphere",
+      "review_result": "REFUSED"
+    },
+    "secondary_source_substitution": {
+      "errors": [
+        "AUTHORITY_LAUNDERING: assertion eu-gm selects secondary source while primary is represented",
+        "AUTHORITY_LAUNDERING: assertion eu-radius selects secondary source while primary is represented"
+      ],
+      "expected_rejection": "AUTHORITY_LAUNDERING",
+      "passed": true
+    },
+    "surface_composition_to_ocean_composition": {
+      "passed": true,
+      "preserved_boundary": "does not establish global abundance, subsurface inventory, or ocean composition",
+      "review_result": "REFUSED"
+    },
+    "unknown_to_confident_narrative": {
+      "passed": true,
+      "preserved_boundary": "thermal lane remains partial; no timeless global temperature",
+      "review_result": "REFUSED_BY_SCOPE_UNKNOWN"
+    },
+    "unknown_to_zero": {
+      "errors": [
+        "NORMALIZATION: assertion eu-gm changes reported value/unit without a normalization method",
+        "UNKNOWN_FABRICATION: assertion eu-gm fills UNKNOWN with a value"
+      ],
+      "expected_rejection": "UNKNOWN_FABRICATION",
+      "passed": true
+    },
+    "young_geology_to_current_activity": {
+      "passed": true,
+      "preserved_boundary": "not a direct measurement or current-activity finding",
+      "review_result": "REFUSED"
+    }
+  },
+  "campaign_id": "ARP-QUAL-02-EUROPA",
+  "caveat": "Semantic refusal checks are deterministic boundary checks over frozen candidate notes and scopes; they do not invoke a narrator. The research layer has no narrator implementation, so the unknown-to-confident check verifies only that no assertion supplies such a predicate; the upstream production narrator remains to be tested in Gate B.",
+  "fresh_validator_context": "upstream LOOM ARP 1.0.2 imported from verified main baseline",
+  "status": "PASS"
+}
