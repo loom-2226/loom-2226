@@ -29,6 +29,18 @@ class Inspector:
         self.cohorts = {}
         for row in ledger['curated_cohort_member']:
             self.cohorts.setdefault(row['body_id'], []).append(row)
+        identifiers = {}
+        for identifier in registry.identifiers:
+            identifiers.setdefault(identifier.body_id, []).append(asdict(identifier))
+        coverage_rows = [(coverage.body_id, asdict(coverage)) for coverage in registry.coverage]
+        # Trajectory sampling revisits each identity at many epochs. Share the
+        # immutable startup-ledger projection; only resolver state varies.
+        self.record_metadata = {
+            body_id: {**body, 'identifiers': identifiers.get(body_id, []),
+                      'metadata': self.metadata.get(body_id), 'cohorts': self.cohorts.get(body_id, []),
+                      'known_coverage': [row for covered_body, row in coverage_rows if covered_body in (None, body_id)]}
+            for body_id, body in self.bodies.items()
+        }
         self.authority = {
             'catalog_source': 'PostgreSQL loom_solar; read-only startup snapshot',
             'ledger_sha256': hashlib.sha256(json.dumps(ledger, sort_keys=True).encode()).hexdigest(),
@@ -45,12 +57,7 @@ class Inspector:
         epoch = _iso(_epoch(epoch))
         if body_id not in self.bodies:
             raise ValueError(f'unknown catalog object: {body_id}')
-        row = {
-            **self.bodies[body_id], 'epoch_utc': epoch,
-            'identifiers': [asdict(i) for i in self.registry.identifiers if i.body_id == body_id],
-            'metadata': self.metadata.get(body_id), 'cohorts': self.cohorts.get(body_id, []),
-            'known_coverage': [asdict(c) for c in self.registry.coverage if c.body_id in (None, body_id)],
-        }
+        row = {**self.record_metadata[body_id], 'epoch_utc': epoch}
         try:
             state = self.service.resolve(body_id, epoch)
             if state.reference_frame != CANONICAL_FRAME or state.provenance.get('units') != 'km,km/s':
@@ -75,6 +82,77 @@ class Inspector:
             row['presentation_reason'] = ('object unresolved' if row['resolution'] == 'UNRESOLVED'
                                           else f'reference center unresolved: {center["reason"]}')
         return row
+
+    def catalog(self, epoch=None):
+        """Stable governed identity for selectors; no ephemeris evaluation."""
+        if epoch is not None:
+            epoch = _iso(_epoch(epoch))
+        def identity(row):
+            item = {key: row.get(key) for key in ('body_id', 'canonical_name', 'body_class', 'parent_body_id', 'status')}
+            if epoch:
+                try:
+                    source, _ = self.registry.source_for(row['body_id'], epoch)
+                    item['source_asset_bytes'] = sum(asset.byte_count or 0 for asset in source.kernel_assets)
+                except CelestialStateError:
+                    item['source_asset_bytes'] = None
+            return item
+        return {'authority': self.authority, 'objects': [
+            identity(row) for row in sorted(self.bodies.values(), key=lambda row: row['body_id'])
+        ]}
+
+    def preview_ids(self, epoch, center_id='SUN', limit=5):
+        """Prioritize low-cost governed sources for the first scene paint."""
+        epoch = _iso(_epoch(epoch))
+        if center_id not in self.bodies:
+            raise ValueError(f'unknown catalog object: {center_id}')
+        candidates = []
+        for row in self.bodies.values():
+            if row['body_class'] not in ('PLANET', 'NATURAL_SATELLITE'):
+                continue
+            try:
+                source, _ = self.registry.source_for(row['body_id'], epoch)
+            except CelestialStateError:
+                continue
+            candidates.append((sum(asset.byte_count or 0 for asset in source.kernel_assets), row['body_id']))
+        return tuple([center_id] + [body for _, body in sorted(candidates) if body != center_id][:limit-1])
+
+    def scene_row(self, row):
+        """Transport projection of an exact resolver row, never a new state source."""
+        keys = ('body_id', 'canonical_name', 'body_class', 'parent_body_id', 'resolution',
+                'authority_class', 'relative', 'reason', 'presentation_reason')
+        return {**{key: row[key] for key in keys if key in row},
+                'catalog_only': not any(c['status'] == 'QUALIFIED' and self.registry.sources[c['ephemeris_source_id']].status == 'QUALIFIED'
+                                        for c in row['known_coverage']),
+                'partial_catalog': any(c['final_outcome'] == 'PARTIAL' for c in row['cohorts'])}
+
+    @lru_cache(maxsize=8)
+    def scene_snapshot(self, epoch, center_id='SUN', body_ids=None):
+        epoch = _iso(_epoch(epoch))
+        ids = tuple(sorted(self.bodies)) if body_ids is None else tuple(dict.fromkeys(body_ids))
+        if not ids or any(body not in self.bodies for body in ids):
+            raise ValueError('scene requires known catalog body IDs')
+        rows = [self.at(body, epoch, center_id) for body in ids]
+        scene_rows = [self.scene_row(row) for row in rows]
+        resolved = sum(row['resolution'] == 'RESOLVED' for row in rows)
+        direct = sum(row.get('authority_class') == 'DIRECT' for row in rows)
+        return {
+            'epoch_utc': epoch, 'reference_center': center_id, 'reference_frame': CANONICAL_FRAME,
+            'units': 'km,km/s', 'authority': self.authority, 'objects': scene_rows,
+            'complete': body_ids is None, 'catalog_total': len(self.bodies),
+            'counts': {'catalog': len(rows), 'resolved': resolved, 'direct': direct,
+                       'propagated': resolved-direct, 'unresolved': len(rows)-resolved,
+                       'catalog_only': sum(row['catalog_only'] for row in scene_rows),
+                       'partial_catalog': sum(row['partial_catalog'] for row in scene_rows),
+                       'renderable': sum('relative' in row for row in scene_rows)},
+        }
+
+    def path(self, body_id, start, end, center_id='SUN', samples=96):
+        """Compact display geometry from the same exact trajectory and seam logic."""
+        result = self.trajectory(body_id, start, end, center_id, samples)
+        return {**{key: result[key] for key in ('body_id', 'reference_center', 'reference_frame',
+                                                'start', 'end', 'segments', 'gap_indices', 'closed_by_renderer')},
+                'points': [{key: point[key] for key in ('epoch_utc', 'resolution', 'authority_class', 'relative') if key in point}
+                           for point in result['points']]}
 
     @lru_cache(maxsize=8)
     def snapshot(self, epoch, center_id='SUN'):

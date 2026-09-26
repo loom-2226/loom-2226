@@ -154,6 +154,56 @@ passed unchanged after the presentation follow-up.
 The repository's pre-existing absent Montserrat file causes a local font 404;
 the documented system fallback works. No missing runtime scripts or page errors.
 
+### Mobile review and progressive data-path follow-up
+
+The original mobile view waited for a full 110-body response before drawing a
+useful scene. A fresh-process full snapshot took 58.8 s on this host, of which
+57.6 s was pinned SPICE asset verification. JSON serialization took about
+5 ms; the full response was 320,689 bytes. The governing kernel hashes remain
+checked and source isolation remains fail closed. The adapter was not given a
+browser-side substitute or a bypass for verification.
+
+The revised UI first requests governed catalog identity, then five exact
+resolver states selected by the already-governed source metadata's declared
+kernel-byte cost. It progressively merges the remaining rows in 12-body
+batches. Manual epoch and center changes use the same preview. A process-start
+Pixel-sized Chromium run observed first useful paint at 1.748 s, 17/110 rows
+at 2.160 s, 53/110 at 3.620 s, 89/110 at 15.834 s, and 110/110 at 64.191 s.
+The ten compact scene responses totaled 59,208 bytes. OS file cache state was
+different between the original and revised process-start measurements, so the
+times are observations rather than a controlled cold-storage speedup claim.
+The full verification cost remains; it is moved behind a useful scene.
+
+Whole Catalog requests all 93 renderable planet, moon and minor-body paths,
+not merely the selected object. They appear as resolver responses arrive. In
+the process-start run, all paths completed in 40.601 s and transported
+1,077,297 bytes. The earlier warm-server run completed in 10.126 s and
+transported 8,769,177 bytes; those completion times are not directly comparable
+because the earlier process had already warmed its asset and resolver caches.
+The compact path response retains exact sampled relative geometry, segment
+authority, gaps and source keys; explicit selected trajectories retain the
+full provenance/seam records. Automatic minor-body arcs now use a one-year
+window and 24 nominal samples, with longer exact traces available on demand.
+
+Avoidable repeated work was reduced by projecting stable ledger identity and
+coverage metadata once at inspector startup, and omitting those repeated
+records from scene/path transport. `read_ledger` remains one read-only
+repeatable PostgreSQL snapshot; no schema, migration, authority precedence,
+manifest or kernel asset changed. Browser path caches are bounded and carry no
+state authority. Threaded HTTP handling keeps static/control requests
+responsive while the existing shared SPICE evaluation lock enforces selected
+source isolation.
+
+For Navigator scale, retain separate governed identity, exact state, compact
+scene and full provenance contracts. Key any reusable evaluated state or path
+by ledger/manifest/source identity, epoch, frame and reference center, and
+invalidate it when authority changes. Preverification or managed asset warming
+could shorten first use only if it retains current hash and source-closure
+checks. Batch/stream exact resolver work by source closure behind that boundary;
+use visible-extent and time-window queries to bound demand. Progressive
+geometry may reduce samples or transport detail, but every physical sample
+must still come from the governed resolver, with gaps and seams exposed.
+
 `git diff --check`, Python compile checks and JavaScript syntax checks passed.
 `python3 design/loom_design.py --check` passed: 251 tokens, 74 contrast checks,
 zero errors, two existing warnings (missing optional font; undefined operational
@@ -168,3 +218,30 @@ or production infrastructure work. No generated scene cache is authority.
 The existing design tokens remain DRAFT. Deferred: font packaging, decorative
 context, textures and other explicitly excluded features. The bounded deliverable
 is the local inspector and PR; merging is not part of this authorization.
+
+## Completion review — 2026-09-27
+
+Current `main` was refreshed to `a7b21f82067294be3e27e1715864f0932a13a8f5`.
+The intervening Solar data promotions do not change this PR's Inspector source
+files. The existing PR remains #299, `class:runtime`.
+
+The combined Inspector and Solar regression run passed: 88 tests, 11 existing
+PostgreSQL integration-gated skips. The live Inspector portion passed all 15
+tests against the read-only `loom_dev` snapshot. The prior disposable-database
+integration qualification of the 11 gated cases remains recorded above; no
+schema or migration was changed in this follow-up.
+
+A fresh Inspector process passed the desktop and 412px/3x Chromium browser run:
+93/93 Whole Catalog resolver paths, zero path requests during Play, zero page
+errors and zero external requests. The warm-server phone view reached its first
+exact scene in 2.128 s and a Play advance in 64 ms. These measurements are
+host observations, not release thresholds. A separate phone browser check held
+back background batches, selected Mars outside the five-row preview, and
+verified that exact detail insertion reconciles the preview to 6/110 with
+matching resolved/rendered counts. Invalid catalog epochs returned HTTP 400.
+
+Final Python/JavaScript compile checks, `git diff --check`, and design validation
+passed. Design validation retained only its two pre-existing warnings for the
+optional font and undefined operational status thresholds. The local mobile
+capture was visually inspected; touch controls, scene focus and readable
+state overlays were present without horizontal overflow.

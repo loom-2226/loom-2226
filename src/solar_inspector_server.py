@@ -1,7 +1,7 @@
 """Loopback-only, single-process qualification inspector. No runtime network fetches."""
 import argparse
 import hashlib
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import mimetypes
 from pathlib import Path
@@ -35,10 +35,21 @@ def handler_for(inspector, three_path):
                 return query.get(key, [default])[0]
             try:
                 if url.path == '/api/state':
-                    result = inspector.snapshot(value('epoch'), value('center', 'SUN'))
+                    body_ids = (inspector.preview_ids(value('epoch'), value('center', 'SUN')) if value('preview') == '1'
+                                else tuple(value('bodies').split(',')) if value('bodies') else None)
+                    result = (inspector.scene_snapshot(value('epoch'), value('center', 'SUN'), body_ids)
+                              if value('view') == 'scene' else inspector.snapshot(value('epoch'), value('center', 'SUN')))
+                elif url.path == '/api/catalog':
+                    result = inspector.catalog(value('epoch'))
+                elif url.path == '/api/object':
+                    result = inspector.at(value('body'), value('epoch'), value('center', 'SUN'))
+                    projection = inspector.scene_row(result)
+                    result['catalog_only'] = projection['catalog_only']
+                    result['partial_catalog'] = projection['partial_catalog']
                 elif url.path == '/api/trajectory':
-                    result = inspector.trajectory(value('body'), value('start'), value('end'),
-                                                  value('center', 'SUN'), int(value('samples', '96')))
+                    method = inspector.path if value('view') == 'path' else inspector.trajectory
+                    result = method(value('body'), value('start'), value('end'),
+                                    value('center', 'SUN'), int(value('samples', '96')))
                 elif url.path in static:
                     path = static[url.path]
                     if not path.is_file():
@@ -50,6 +61,8 @@ def handler_for(inspector, three_path):
                     self.send_error(404)
                     return
                 self.respond(200, json.dumps(result, allow_nan=False).encode(), 'application/json')
+            except (BrokenPipeError, ConnectionResetError):
+                return
             except Exception as exc:
                 self.respond(400, json.dumps({'error': str(exc)}).encode(), 'application/json')
 
@@ -78,7 +91,7 @@ def main():
     if hashlib.sha256(args.three_js.read_bytes()).hexdigest() != THREE_SHA256:
         parser.error('Three.js asset hash mismatch; install the documented r149 build')
     inspector = Inspector.connect(args.database, args.asset_root)
-    with HTTPServer(('127.0.0.1', args.port), handler_for(inspector, args.three_js)) as server:
+    with ThreadingHTTPServer(('127.0.0.1', args.port), handler_for(inspector, args.three_js)) as server:
         print(f'Solar inspector: http://127.0.0.1:{args.port} | {len(inspector.bodies)} catalog objects', flush=True)
         server.serve_forever()
 

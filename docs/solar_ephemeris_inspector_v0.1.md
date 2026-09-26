@@ -40,8 +40,10 @@ No CDN or external ephemeris request occurs at runtime. The setup download is
 optional if those exact bytes are already installed. No paid/hosted service,
 AI inference, telemetry, or external data transmission is introduced.
 
-Initial evaluation hashes the local kernels (about 14 GB on this host) and can
-take roughly a minute on cold storage. Later requests reuse verified assets.
+The first scene evaluates five exact states chosen from the governed source
+metadata for low declared asset cost. The remaining catalog loads in batches;
+the status shows its progress. Verifying all local kernels (about 14 GB on this
+host) can still take roughly a minute. Later requests reuse verified assets.
 Restart the inspector to reload the database snapshot or changed assets.
 
 ## Inspect
@@ -49,17 +51,26 @@ Restart the inspector to reload the database snapshot or changed assets.
 - Choose arbitrary timezone-qualified UTC input or the 2026/2226/2250 shortcuts.
   Step days, backward/forward, and play/pause evaluate exact resolver states.
   Play waits for each response; no SPICE evaluation runs per browser frame.
-- Drag to rotate, Shift-drag/right-drag to pan, wheel to zoom. Fit scene frames
-  the visible objects and any selected sampled path.
+- Drag to rotate, Shift-drag/right-drag or two-finger drag to pan, and pinch or
+  wheel to zoom. The scene buttons focus the selected object or its system and
+  provide predictable zoom steps on a phone. Fit scene frames the visible
+  objects and any selected sampled path.
 - Select in the catalog or click a point. Expand **Exact state + provenance +
   catalog record** for physical km/km/s, identity, identifiers, parent, epoch,
   frame, navigation grade, uncertainty, coverage, source lineage and hashes.
   Uncertainty not provided by authority remains NULL, never zero.
-- Choose a reference center. Local scope includes its database-linked family
-  plus the selected object. For Earth/Moon, choose Earth then select Moon: the
-  current database's Moon parent is NULL and is deliberately not invented.
+- Choose a system and then a reference center. Local scope includes its
+  database-linked family plus the selected object. The Earth/Moon group is an
+  explicit presentation association: the current database's Moon parent is
+  NULL and is not rewritten. Both Earth and Moon can be inspected relative to
+  the governed Earth/Moon barycenter, or Moon relative to Earth.
   Reference-center subtraction uses child and center states at identical epochs
   and frames, including velocity. The original absolute state remains intact.
+- Path layers control planets, moons, minor bodies and the selected trajectory.
+  Planetary and local scopes load only their visible automatic paths. Whole
+  Catalog progressively requests every renderable planet, moon and governed
+  minor-body path, rather than only the selected object. Automatic minor-body
+  arcs span one year; use **Sample resolver** for a longer interval.
 - Select an object, set trajectory start/end and 2–512 nominal samples, then
   **Sample resolver**. Suggested checks: Earth over one year, Moon relative to
   Earth over a month, New Horizons or Voyager over 2026–2250, and Oumuamua over
@@ -109,11 +120,17 @@ the selected primary asset. Previously furnished top-level kernels are restored
 on success or failure. This does not alter precedence, models or coverage.
 The adapter must not run alongside unmanaged concurrent SPICE calls or depend
 on manually injected, unfurnished kernel-pool variables. The local inspector
-uses a single request thread and governed assets exclusively.
+accepts concurrent HTTP requests so static resources and control responses do
+not queue behind trajectory work; governed SPICE evaluations retain the shared
+adapter lock and selected-source isolation.
 
-The bounded in-memory caches (8 snapshots, 16 paths, 8192 state records) are
-disposable presentation data. No trajectory/state cache is written to the
-database. No legacy Solar GIS code, orbit models or SQLite state is imported.
+The bounded in-memory caches (8 full and 8 compact snapshots, 16 paths, 8192
+state records) are disposable presentation data. Stable ledger metadata is
+projected once at startup and reused across trajectory samples. The compact
+scene/path HTTP views omit repeated detail while preserving the existing full
+state and trajectory endpoints for provenance inspection. No trajectory/state
+cache is written to the database. No legacy Solar GIS code, orbit models or
+SQLite state is imported.
 
 ## Compatibility, checks and recovery
 

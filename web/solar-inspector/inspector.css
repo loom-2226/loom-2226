@@ -1,5 +1,5 @@
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--loom-interface-surface-canvas); color: var(--loom-interface-text-primary); font-family: var(--loom-brand-font-family-primary); font-size: var(--loom-interface-type-size-caption); }
+body { margin: 0; height: 100vh; display: flex; flex-direction: column; background: var(--loom-interface-surface-canvas); color: var(--loom-interface-text-primary); font-family: var(--loom-brand-font-family-primary); font-size: var(--loom-interface-type-size-caption); }
 header { display: flex; gap: var(--loom-interface-space-5); align-items: center; padding: var(--loom-interface-space-4); }
 #mobileControls { display: none; margin-left: auto; }
 header img { width: 120px; margin: var(--loom-interface-space-4); }
@@ -9,6 +9,12 @@ small { font-size: inherit; color: var(--loom-interface-text-tertiary); }
 .toolbar { padding: var(--loom-interface-space-3) var(--loom-interface-space-4); background: var(--loom-interface-surface-panel); }
 .toolbar-head { display: none; align-items: center; justify-content: space-between; }
 .toolbar-body { display: flex; flex-wrap: wrap; align-items: end; gap: var(--loom-interface-space-2); }
+.toolbar-body > label { min-width: 150px; }
+#pathLayers { display: flex; flex-wrap: wrap; gap: var(--loom-interface-space-2); align-items: center; width: 100%; margin: 0; padding: var(--loom-interface-space-2); border: var(--loom-interface-size-hairline) solid var(--loom-interface-border-hairline); border-radius: var(--loom-interface-radius-frame); }
+#pathLayers legend { color: var(--loom-interface-text-label); font-size: var(--loom-interface-type-size-label); }
+#pathLayers label { display: inline-flex; align-items: center; gap: var(--loom-interface-space-1); min-height: var(--loom-interface-size-target-min); color: var(--loom-interface-text-secondary); }
+#pathLayers input { min-width: 18px; min-height: 18px; margin: 0; accent-color: var(--loom-interface-accent-primary); }
+#orbitStatus { color: var(--loom-interface-text-secondary); font-variant-numeric: tabular-nums; }
 label { display: block; color: var(--loom-interface-text-label); font-size: var(--loom-interface-type-size-label); }
 input,select,button { font: inherit; color: var(--loom-interface-text-secondary); background: var(--loom-interface-surface-panel); border: var(--loom-interface-size-hairline) solid var(--loom-interface-border-default); border-radius: var(--loom-interface-radius-frame); min-height: var(--loom-interface-size-target-min); min-width: var(--loom-interface-size-target-min); padding: var(--loom-interface-space-2); }
 input,select { display: block; max-width: 100%; }
@@ -20,7 +26,7 @@ button[aria-pressed="true"] { background: var(--loom-interface-control-chip-bg-a
 button:disabled { opacity: .55; cursor: wait; }
 #step,#samples { width: 96px; }
 #message { padding: var(--loom-interface-space-2) var(--loom-interface-space-4); min-height: var(--loom-interface-size-target-min); font-size: .62em; line-height: 1.25; }
-main { display: grid; grid-template-columns: minmax(0, 1fr) 380px; height: calc(100vh - 250px); min-height: 540px; }
+main { display: grid; grid-template-columns: minmax(0, 1fr) 380px; flex: 1; min-height: 0; overflow: hidden; }
 #stage { position: relative; min-width: 0; overflow: hidden; touch-action: none; }
 canvas { display: block; width: 100%; height: 100%; }
 #labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
@@ -29,6 +35,8 @@ canvas { display: block; width: 100%; height: 100%; }
 #sceneStatus,#help { position: absolute; left: var(--loom-interface-space-4); right: var(--loom-interface-space-4); background: var(--loom-interface-surface-canvas); padding: var(--loom-interface-space-2); pointer-events: none; }
 #sceneStatus { top: var(--loom-interface-space-2); font-size: .62em; line-height: 1.25; }
 #help { bottom: var(--loom-interface-space-2); font-size: .62em; line-height: 1.25; }
+#sceneActions { position: absolute; z-index: 10; left: var(--loom-interface-space-4); right: var(--loom-interface-space-4); bottom: var(--loom-interface-space-8); display: flex; gap: var(--loom-interface-space-2); justify-content: center; }
+#sceneActions button { background: var(--loom-interface-surface-panel); font-size: var(--loom-interface-type-size-label); }
 aside { overflow: auto; background: var(--loom-interface-surface-panel); border-left: var(--loom-interface-size-hairline) solid var(--loom-interface-border-hairline); }
 aside section { padding: var(--loom-interface-space-4); border-bottom: var(--loom-interface-size-hairline) solid var(--loom-interface-border-divider); }
 aside input, aside select, #catalog { width: 100%; }
@@ -39,25 +47,28 @@ summary { cursor: pointer; padding: var(--loom-interface-space-3) 0; min-height:
 #failures button { display: block; text-align: left; width: 100%; }
 #failures p { overflow-wrap: anywhere; }
 @media(max-width: 850px) {
-  body { font-size: 11px; }
-  header { height: 54px; padding: 4px 8px; gap: 8px; }
-  header img { width: 54px; margin: 0; }
-  header h1 { margin: 0; font-size: .9rem; line-height: 1.05; }
+  body { height: auto; min-height: 100vh; }
+  body { font-size: var(--loom-interface-type-size-caption); }
+  header { min-height: 64px; padding: var(--loom-interface-space-2); gap: var(--loom-interface-space-2); }
+  header img { width: 96px; margin: 0; }
+  header h1 { margin: 0; font-size: var(--loom-interface-type-size-subhead); line-height: 1.2; }
   header span { display: none; }
-  #mobileControls { display: block; flex: 0 0 auto; min-width: 72px; max-width: 84px; min-height: 34px; padding: 3px 8px; white-space: nowrap; }
-  .toolbar { display: none; position: absolute; z-index: 30; top: 54px; left: 0; right: 0; padding: 5px 8px 8px; border-bottom: 1px solid var(--loom-interface-border-default); box-shadow: 0 8px 24px var(--loom-interface-surface-canvas); }
+  #mobileControls { display: block; flex: 0 0 auto; min-width: var(--loom-interface-size-target-min); min-height: var(--loom-interface-size-target-min); padding: var(--loom-interface-space-2); white-space: nowrap; }
+  .toolbar { display: none; position: absolute; z-index: 30; top: 64px; left: 0; right: 0; max-height: calc(100dvh - 64px); overflow-y: auto; padding: var(--loom-interface-space-3); border-bottom: 1px solid var(--loom-interface-border-default); box-shadow: 0 8px 24px var(--loom-interface-surface-canvas); }
   .toolbar.mobile-open { display: block; }
   .toolbar-head { display: none; }
-  .toolbar-body { gap: 4px; }
-  .toolbar label { flex: 1 1 118px; font-size: 10px; }
-  .toolbar button { min-height: 34px; padding: 2px 7px; }
-  .toolbar input,.toolbar select { min-height: 34px; padding: 3px 7px; }
-  #message { height: 18px; min-height: 18px; padding: 2px 8px; font-size: 6px; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  main { display: block; height: auto; }
-  #stage { height: calc(100dvh - 72px); min-height: 600px; max-height: none; }
-  #sceneStatus,#help { left: 8px; right: 8px; padding: 3px 5px; font-size: 6px; line-height: 1.15; }
-  #sceneStatus { top: 4px; }
-  #help { bottom: 4px; }
-  .object-label { font-size: 10px; padding: 2px; }
+  .toolbar-body { gap: var(--loom-interface-space-2); }
+  .toolbar label { flex: 1 1 150px; font-size: var(--loom-interface-type-size-label); }
+  .toolbar button,.toolbar input,.toolbar select { min-height: var(--loom-interface-size-target-min); }
+  #pathLayers label { flex: 1 1 130px; }
+  #message { min-height: 44px; padding: var(--loom-interface-space-2); font-size: var(--loom-interface-type-size-label); line-height: 1.3; }
+  main { display: block; flex: none; overflow: visible; }
+  #stage { height: calc(100dvh - 108px); min-height: 480px; max-height: none; }
+  #sceneStatus,#help { left: var(--loom-interface-space-2); right: var(--loom-interface-space-2); padding: var(--loom-interface-space-1); font-size: var(--loom-interface-type-size-label); line-height: 1.3; }
+  #sceneStatus { top: var(--loom-interface-space-1); }
+  #help { bottom: var(--loom-interface-space-1); }
+  #sceneActions { left: var(--loom-interface-space-2); right: var(--loom-interface-space-2); bottom: var(--loom-interface-space-8); gap: var(--loom-interface-space-1); }
+  #sceneActions button { flex: 1; min-width: 0; min-height: var(--loom-interface-size-target-min); padding: var(--loom-interface-space-1); font-size: var(--loom-interface-type-size-label); }
+  .object-label { font-size: var(--loom-interface-type-size-label); padding: var(--loom-interface-space-1); }
   aside { overflow: visible; }
 }

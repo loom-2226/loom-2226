@@ -2,6 +2,7 @@
 const assert = require('node:assert/strict');
 const { chromium } = require('playwright');
 const { transform } = require('../web/solar-inspector/presentation.js');
+const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
 
 (async () => {
   const p = Object.freeze([149597870.7, 2, 3]);
@@ -14,15 +15,32 @@ const { transform } = require('../web/solar-inspector/presentation.js');
   const errors = [], external = [], snapshots = [], trajectoryRequests = [];
   let pathRequestsDuringPlay = null;
   page.on('pageerror', e => errors.push(e.message));
-  page.on('request', r => { if (!r.url().startsWith('http://127.0.0.1:8765/')) external.push(r.url()); });
+  page.on('crash', () => errors.push('browser page crashed'));
+  page.on('request', r => { if (!r.url().startsWith(baseUrl + '/')) external.push(r.url()); });
   page.on('request', r => { if (r.url().includes('/api/trajectory?')) trajectoryRequests.push(new URL(r.url()).searchParams); });
-  page.on('response', async r => { if (r.url().includes('/api/state?') && r.ok()) snapshots.push(await r.json()); });
+  page.on('response', async r => {
+    if (!r.url().includes('/api/state?') || !r.ok()) return;
+    try { snapshots.push(await r.json()); }
+    catch (error) { if (!page.isClosed()) errors.push(error.message); }
+  });
   async function settled() { await page.waitForFunction(() => document.querySelector('#message').textContent.startsWith('Exact resolver'), { timeout: 180000 }); await page.waitForFunction(() => !document.querySelector('#load').disabled); }
   async function year(y) { await page.click(`[data-year="${y}"]`); await settled(); assert.match(await page.locator('#sceneStatus').innerText(), new RegExp(y)); }
-  async function center(id) { await page.selectOption('#center', id); await settled(); assert.match(await page.locator('#sceneStatus').innerText(), new RegExp('Center: ' + id)); }
+  async function center(id) {
+    const system = id === 'SUN' ? 'SUN' : ['EARTH','MOON','EARTH_MOON_BARYCENTER'].includes(id) ? 'EARTH_MOON_BARYCENTER' :
+      ['JUPITER','PLUTO'].includes(id) ? id + '_SYSTEM_BARYCENTER' : 'OTHER';
+    if ((await page.locator('#system').inputValue()) !== system) { await page.selectOption('#system', system); await settled(); }
+    if ((await page.locator('#center').inputValue()) !== id) { await page.selectOption('#center', id); await settled(); }
+    assert.match(await page.locator('#sceneStatus').innerText(), new RegExp('Center: ' + id));
+  }
   try {
-    await page.goto('http://127.0.0.1:8765/'); await settled();
+    await page.goto(baseUrl + '/');
+    await page.waitForFunction(() => document.querySelector('#message').textContent.startsWith('Preview'));
+    assert.match(await page.locator('#counts').innerText(), /Preview (?:[5-9]|[1-9]\d)\/110/);
+    assert(snapshots.some(state => state.objects.length === 5 && !state.complete), 'initial resolver preview must contain five exact rows');
+    await settled();
+    console.log('browser: initial catalog ready');
     await page.selectOption('#catalog', 'EARTH');
+    await page.waitForFunction(() => document.querySelector('#detail').textContent.startsWith('{'));
     const exact = await page.locator('#detail').textContent();
     assert.equal(JSON.parse(exact).state.provenance.units, 'km,km/s');
     await page.selectOption('#mode', 'SCHEMATIC');
@@ -30,11 +48,17 @@ const { transform } = require('../web/solar-inspector/presentation.js');
     assert.equal(await page.locator('#detail').textContent(), exact);
     await page.screenshot({ path: '/tmp/solar-inspector-schematic.png' });
     await page.selectOption('#mode', 'PHYSICAL');
-    await center('EARTH'); await page.selectOption('#catalog', 'MOON');
+    await center('EARTH');
+    assert(snapshots.some(state => state.reference_center === 'EARTH' && state.objects.length === 5 && !state.complete),
+      'manual center navigation must use an exact resolver preview');
+    await page.selectOption('#catalog', 'MOON');
+    await page.waitForFunction(() => document.querySelector('#orbitStatus').textContent.includes('1/1'));
+    assert(trajectoryRequests.some(q => q.get('body') === 'MOON' && q.get('center') === 'EARTH' && q.get('view') === 'path'),
+      'Earth local view must automatically request the Moon relative to Earth');
     await page.screenshot({ path: '/tmp/solar-inspector-earth-moon.png' });
     const box = await page.locator('canvas').boundingBox();
     await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
-    assert.match(await page.locator('#selection').innerText(), /EARTH/);
+    assert.match(await page.locator('#selection').innerText(), /EARTH|MOON/);
     await page.selectOption('#catalog', 'MOON');
     let before = await page.locator('canvas').screenshot();
     await page.mouse.move(box.x + 200, box.y + 200); await page.mouse.down(); await page.mouse.move(box.x + 300, box.y + 260, { steps: 8 }); await page.mouse.up();
@@ -42,11 +66,28 @@ const { transform } = require('../web/solar-inspector/presentation.js');
     before = await page.locator('canvas').screenshot();
     await page.keyboard.down('Shift'); await page.mouse.down(); await page.mouse.move(box.x + 390, box.y + 240, { steps: 8 }); await page.mouse.up(); await page.keyboard.up('Shift');
     assert.notDeepEqual(await page.locator('canvas').screenshot(), before);
+    const distanceBeforeWheel = Number(await page.locator('#stage').getAttribute('data-camera-distance'));
     before = await page.locator('canvas').screenshot(); await page.mouse.wheel(0, -400); await page.waitForTimeout(100);
     assert.notDeepEqual(await page.locator('canvas').screenshot(), before);
+    const distanceAfterWheel = Number(await page.locator('#stage').getAttribute('data-camera-distance'));
+    assert(distanceAfterWheel / distanceBeforeWheel > .8 && distanceAfterWheel / distanceBeforeWheel < 1,
+      'a 400px zoom gesture should make a controlled camera step');
+    await center('EARTH_MOON_BARYCENTER');
+    await page.selectOption('#catalog', 'MOON');
+    await page.waitForFunction(() => document.querySelector('#orbitStatus').textContent.includes('2/2'));
+    assert(trajectoryRequests.some(q => q.get('body') === 'MOON' && q.get('center') === 'EARTH_MOON_BARYCENTER' && q.get('view') === 'path'),
+      'barycenter inspection must use a governed Moon-relative path');
+    await center('EARTH'); await page.selectOption('#catalog', 'COMET_67P');
+    await page.click('#fit');
+    const catalogFitDistance = Number(await page.locator('#stage').getAttribute('data-camera-distance'));
+    await page.click('#sceneSystem');
+    assert(Number(await page.locator('#stage').getAttribute('data-camera-distance')) < catalogFitDistance,
+      'system focus must frame the local family without a distant selected object');
     await center('JUPITER'); await center('PLUTO'); await center('IDA');
-    await page.selectOption('#catalog', 'DACTYL'); assert.match(await page.locator('#detail').textContent(), /UNRESOLVED/);
+    await page.selectOption('#catalog', 'DACTYL');
+    await page.waitForFunction(() => document.querySelector('#detail').textContent.includes('UNRESOLVED'));
     await center('SUN'); await year('2226'); await year('2250');
+    console.log('browser: center and epoch checks ready');
     assert.match(await page.locator('#failures').innerText(), /Proteus/);
     await year('2026');
     await page.fill('#epoch', '2026-07-03T12:34:56Z'); await page.click('#load'); await settled();
@@ -69,8 +110,12 @@ const { transform } = require('../web/solar-inspector/presentation.js');
     await traceBody('MOON', 'EARTH', '2026-01-01T00:00:00Z', '2026-02-01T00:00:00Z');
     await traceBody('CERES', 'SUN', '2026-01-01T00:00:00Z', '2027-01-01T00:00:00Z');
     await traceBody('COMET_67P', 'SUN', '2026-01-01T00:00:00Z', '2027-01-01T00:00:00Z');
-    const wholeCatalog = snapshots.at(-1).objects.filter(r => r.relative &&
-      !['STAR','BARYCENTER','SPACECRAFT'].includes(r.body_class)).map(r => r.body_id);
+    console.log('browser: selected trajectories ready');
+    const wholeCatalog = await page.evaluate(async () => {
+      const epoch = document.querySelector('#epoch').value;
+      const state = await (await fetch('/api/state?' + new URLSearchParams({epoch,center:'SUN',view:'scene'}))).json();
+      return state.objects.filter(r => r.relative && !['STAR','BARYCENTER','SPACECRAFT'].includes(r.body_class)).map(r => r.body_id);
+    });
     await page.selectOption('#scope', 'all');
     await page.waitForFunction(() => {
       const match = document.querySelector('#orbitStatus').textContent.match(/Resolver paths (\d+)\/(\d+)/);
@@ -81,6 +126,12 @@ const { transform } = require('../web/solar-inspector/presentation.js');
       assert(trajectoryRequests.some(q => q.get('body') === body && q.get('center') === 'SUN'),
         `Whole Catalog must request ${body} through the governed resolver`);
     }
+    console.log('browser: whole catalog paths ready');
+    const beforeLayers = trajectoryRequests.length;
+    await page.uncheck('#layerMinor');
+    assert(!await page.locator('#orbitStatus').innerText().then(text => text.includes(`/${wholeCatalog.length}`)));
+    await page.check('#layerMinor');
+    assert.equal(trajectoryRequests.length, beforeLayers, 'restoring a path layer must reuse its cached resolver samples');
     await center('SUN');
     await page.selectOption('#catalog', 'COMET_67P');
     await page.waitForTimeout(250);
@@ -90,6 +141,7 @@ const { transform } = require('../web/solar-inspector/presentation.js');
     await page.waitForFunction(() => Date.parse(document.querySelector('#epoch').value) >= Date.parse('2026-07-05T00:00:00Z'));
     const playAdvanceMs = Date.now() - playStarted;
     await page.click('#play'); await settled();
+    console.log('browser: playback ready');
     assert.equal(trajectoryRequests.length, pathsBeforePlay, 'Play must reuse cached paths and never resample them');
     pathRequestsDuringPlay = trajectoryRequests.length - pathsBeforePlay;
     await page.selectOption('#catalog', 'NEWHORIZONS');
@@ -110,13 +162,18 @@ const { transform } = require('../web/solar-inspector/presentation.js');
     const mobileErrors = [];
     mobile.on('pageerror', e => mobileErrors.push(e.message));
     const initialStart = Date.now();
-    await mobile.goto('http://127.0.0.1:8765/');
+    await mobile.goto(baseUrl + '/');
     await mobile.waitForFunction(() => document.querySelector('#message').textContent.startsWith('Exact resolver'), { timeout: 180000 });
     const initialLoadMs = Date.now() - initialStart;
     assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
     await mobile.click('#mobileControls');
     assert.equal(await mobile.locator('#controls').evaluate(el => getComputedStyle(el).display), 'block');
     assert.equal(await mobile.locator('canvas').evaluate(el => el.width > 0 && el.height > 0), true);
+    await mobile.click('#mobileControls');
+    await mobile.selectOption('#catalog','EARTH');
+    const unfocused = await mobile.locator('canvas').screenshot();
+    await mobile.click('#sceneFocus');
+    assert.notDeepEqual(await mobile.locator('canvas').screenshot(),unfocused,'mobile focus must change the view');
     assert.deepEqual(mobileErrors, []);
     await mobile.close();
     assert.deepEqual(errors, []); assert.deepEqual(external, []);

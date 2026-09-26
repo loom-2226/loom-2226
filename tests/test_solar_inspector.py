@@ -107,6 +107,41 @@ class SamplingTests(unittest.TestCase):
         self.assertNotIn('state', missing)
         self.assertNotIn('relative', missing)
 
+    def test_compact_scene_and_catalog_preserve_exact_state_boundary(self):
+        epoch = '2026-01-01T00:00:00Z'
+        catalog = self.inspector.catalog()
+        self.assertEqual(len(catalog['objects']), 3)
+        self.assertFalse(self.calls, 'catalog identity must not evaluate ephemerides')
+        with self.assertRaises(CelestialStateError):
+            self.inspector.catalog('not an epoch')
+        with self.assertRaises(CelestialStateError):
+            self.inspector.preview_ids('not an epoch')
+        self.inspector.bodies['BODY']['body_class'] = 'PLANET'
+        self.assertEqual(self.inspector.preview_ids(epoch), ('SUN', 'BODY'))
+        preview = self.inspector.scene_snapshot(epoch, 'SUN', ('SUN', 'BODY'))
+        self.assertFalse(preview['complete'])
+        self.assertEqual(preview['catalog_total'], 3)
+        self.assertEqual(preview['counts']['catalog'], 2)
+        full = self.inspector.scene_snapshot(epoch)
+        exact = self.inspector.snapshot(epoch)
+        self.assertTrue(full['complete'])
+        self.assertEqual(full['counts'], exact['counts'])
+        for compact, rich in zip(full['objects'], exact['objects']):
+            self.assertEqual(compact['body_id'], rich['body_id'])
+            self.assertEqual(compact.get('relative'), rich.get('relative'))
+            self.assertNotIn('state', compact)
+            self.assertNotIn('known_coverage', compact)
+
+    def test_compact_path_uses_exact_trajectory_geometry(self):
+        args = ('BODY', '2026-01-01T00:00:00Z', '2026-01-04T00:00:00Z')
+        compact = self.inspector.path(*args, samples=7)
+        exact = self.inspector.trajectory(*args, samples=7)
+        self.assertEqual(compact['segments'], exact['segments'])
+        self.assertEqual(compact['gap_indices'], exact['gap_indices'])
+        self.assertEqual([p.get('relative') for p in compact['points']],
+                         [p.get('relative') for p in exact['points']])
+        self.assertTrue(all('state' not in p and 'known_coverage' not in p for p in compact['points']))
+
     def test_samples_use_resolver_and_split_seams_and_gaps(self):
         result = self.inspector.trajectory('BODY', '2026-01-01T00:00:00Z', '2026-01-04T00:00:00Z', samples=7)
         for p in result['points']:
