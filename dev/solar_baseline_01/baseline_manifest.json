@@ -732,13 +732,13 @@
     "bodies_per_artifact": 1.69,
     "bodies_processed": 110,
     "candidate_assertions": 758,
-    "candidate_assertions_per_replay_compute_minute": 142125,
-    "replay_seconds": 0.32,
+    "candidate_assertions_per_replay_compute_minute": 105767,
+    "replay_seconds": 0.43,
     "runtime_network_required": false,
     "source_artifacts": 65
   },
-  "elapsed_wall_clock_minutes_approx": 61.3,
-  "elapsed_wall_clock_seconds_approx": 3677,
+  "elapsed_wall_clock_minutes_approx": 65.6,
+  "elapsed_wall_clock_seconds_approx": 3938,
   "existing_body_population": 110,
   "hostile_review_report": "reports/hostile_review.json",
   "identity_population_source_hash": "4f441987d0d881363092f30bc01c1c294fbb485d39c213fdf5017e528488bd52",
@@ -756,7 +756,7 @@
     "after": 0,
     "before": 0
   },
-  "qualification_completed_at_utc": "2026-09-26T09:58:07.611944+00:00",
+  "qualification_completed_at_utc": "2026-09-26T10:02:28.562923+00:00",
   "qualification_verdict": "SOLAR_BASELINE_01_PASS_WITH_LIENS",
   "qualified_sf03_database_sha256": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
   "qualified_sf03_whole_semantic_digest": "382f7871cdfc42526eddcc84bd17fcfdd1a6a78cafa129c5feb21546cdfa8581",
@@ -769,6 +769,13 @@
     "source_reconnaissance.md"
   ],
   "repository_classification": "class:data",
+  "repository_gate": {
+    "check": "loom-gate",
+    "merge_commit": "c539c961f37cd913a30e4a85307992188a7d3c59",
+    "merged_at_utc": "2026-09-26T10:00:38Z",
+    "pull_request": 303,
+    "result": "PASS"
+  },
   "runtime_llm_scientific_judgment": "NONE",
   "schema_changed": false,
   "sf03_body_digests_after": {

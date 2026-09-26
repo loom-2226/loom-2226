@@ -7,7 +7,7 @@
   ],
   "mission_id": "SOLAR-BASELINE-01",
   "overall": "PASS_WITH_LIENS",
-  "required_repository_gate": "pending PR; .github/workflows/loom-gate.yml",
+  "required_repository_gate": "PASS: PR #303 loom-gate; merge commit c539c961f37cd913a30e4a85307992188a7d3c59",
   "results": [
     {
       "detail": "27 dedicated identity, provenance, mapping, unit, source/payload cross-body constraint, firewall, replay, and control tests",
