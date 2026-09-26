@@ -91,7 +91,7 @@
   }
   const orbitDays = { MERCURY: 88, VENUS: 225, EARTH: 366, MARS: 687, JUPITER: 4333, SATURN: 10759, URANUS: 30687, NEPTUNE: 60190 };
   async function loadPlanetOrbits() {
-    if (!snapshot || snapshot.reference_center !== 'SUN' || $('scope').value !== 'planetary') return;
+    if (!snapshot || snapshot.reference_center !== 'SUN' || !['planetary','all'].includes($('scope').value)) return;
     const generation = ++orbitGeneration, epoch = Date.parse(snapshot.epoch_utc);
     await Promise.all(visibleRows().filter(r => orbitDays[r.body_id]).map(async row => {
       const half = orbitDays[row.body_id] * 86400000 / 2;
@@ -105,7 +105,7 @@
     if (generation === orbitGeneration) rebuild(false);
   }
   function renderPlanetOrbits() {
-    if (!snapshot || snapshot.reference_center !== 'SUN' || $('scope').value !== 'planetary') return;
+    if (!snapshot || snapshot.reference_center !== 'SUN' || !['planetary','all'].includes($('scope').value)) return;
     const epoch = Date.parse(snapshot.epoch_utc);
     for (const row of visibleRows().filter(r => orbitDays[r.body_id])) {
       const half=orbitDays[row.body_id]*86400000/2;
