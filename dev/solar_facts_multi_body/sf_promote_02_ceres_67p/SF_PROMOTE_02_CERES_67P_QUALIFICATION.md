@@ -1,5 +1,7 @@
 # SF-PROMOTE-02 — Ceres + 67P cross-body promotion qualification
 
+Change class: `class:research`
+
 Result: **SF_CROSS_BODY_PROMOTION_PASS_WITH_LIENS**
 
 This is a factual/evidentiary promotion qualification only. No new Ceres or 67P research, preferred facts, Phase 4/5 state, resource judgment, or canonical promotion was performed.
