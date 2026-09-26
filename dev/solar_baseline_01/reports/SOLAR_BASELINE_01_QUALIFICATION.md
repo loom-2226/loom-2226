@@ -2,13 +2,13 @@
 
 **Verdict: SOLAR_BASELINE_01_PASS_WITH_LIENS**
 
-The deterministic factory processed exactly 110 current `loom_solar.body` identities with no new identities and no LLM scientific judgment at runtime. It acquired 65 artifacts (8 source/product families plus the authority snapshot and documentation), generated 788 assertions (758 CANDIDATE, 30 HOLD, 0 REJECT), and retained 786 distinct lineage strings. The 2 repeated lineage strings remain separately source-artifact scoped.
+The deterministic factory processed exactly 110 current `loom_solar.body` identities with no new identities and no LLM scientific judgment at runtime. It acquired 65 artifacts (8 source/product families plus the authority snapshot and documentation), generated 788 assertions (758 CANDIDATE, 30 HOLD, 0 REJECT), and retained 786 distinct lineage strings. Two repeated source-lineage entries are not counted as independent support; one Charon radius disagreement is retained in the conflict report.
 
-The candidate database is `LOOM_SOLAR_BASELINE_01_CANDIDATE_V19.sqlite3` (SHA-256 `761b6aacb6330351467cfe356ed6a478872a912e2e95ce28b7af60fbdbd52921`; semantic digest `1a301ec39a0973a25122e4d41a677ef283eb43220f44ae3e73fbef74b46a6be5`). It is a separate staging candidate, not a mutation of SF-PROMOTE-03.
+The candidate database is `LOOM_SOLAR_BASELINE_01_CANDIDATE_V20.sqlite3` (SHA-256 `0608f9502e99d9fc72a48cc732b45618463228ce5ff06d59737cdcdeac2f612e`; semantic digest `eaa76ed502dfd96ab8d6f7eb6c294f0344a4d9abb68678f18d03f3a5af5c9cda`). It is a separate staging candidate, not a mutation of SF-PROMOTE-03.
 
 ## Coverage
 
-The machine-readable coverage table records `1980` body-property lanes across 110 bodies and 18 baseline coverage properties. Supported is not complete: 583 lanes had at least one candidate assertion. Other lanes remain explicitly `SOURCE_NOT_PRESENT` (480), `SOURCE_NOT_FOUND` (36), `SOURCE_DOES_NOT_COVER_BODY_CLASS` (553), `AMBIGUOUS_IDENTITY` (72), or `NOT_APPLICABLE` (256). Explicit `FIELD_NULL_IN_SOURCE`, `LEGITIMATE_UNKNOWN`, `SCHEMA_LIEN`, and `SEMANTIC_MAPPING_LIEN` are zero; no such conditions were evidenced in selected artifacts. See `coverage_by_body.md` and `.json`. There are no `BASELINE_SUFFICIENT` bodies under this limited source contract: 99 are eligible for targeted enrichment, 2 justify deeper research, 4 have unresolved identity, and 5 spacecraft are sparse but complete for currently selected source families.
+The machine-readable coverage table records `2970` body-property lanes across 110 bodies and 27 baseline coverage properties. Supported is not complete: 661 lanes had at least one candidate assertion. Other lanes remain explicitly `SOURCE_NOT_PRESENT` (870), `SOURCE_NOT_FOUND` (54), `SOURCE_DOES_NOT_COVER_BODY_CLASS` (1036), `AMBIGUOUS_IDENTITY` (108), or `NOT_APPLICABLE` (241). Explicit `FIELD_NULL_IN_SOURCE`, `LEGITIMATE_UNKNOWN`, `SCHEMA_LIEN`, and `SEMANTIC_MAPPING_LIEN` are zero; no such conditions were evidenced in selected artifacts. See `coverage_by_body.md` and `.json`. There are no `BASELINE_SUFFICIENT` bodies under this limited source contract: 99 are eligible for targeted enrichment, 2 justify deeper research, 4 have unresolved identity, and 5 spacecraft are sparse but complete for currently selected source families.
 
 ## Identity and controls
 
@@ -18,7 +18,7 @@ SF-PROMOTE-03 SHA-256 `f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21e
 
 ## Replay and hostile review
 
-Offline canonical and reverse insertion replays had the same semantic digest (`1a301ec39a0973a25122e4d41a677ef283eb43220f44ae3e73fbef74b46a6be5`); canonical output is byte-identical to the candidate, while reverse insertion changes SQLite bytes only. Builder runtime was 0.43 s, canonical replay 0.43 s, reverse replay 0.39 s. All 27 mission tests passed. Hostile identity, unit, epistemic, provenance, scope, and non-interference cases failed safely.
+Offline canonical and reverse insertion replays had the same semantic digest (`eaa76ed502dfd96ab8d6f7eb6c294f0344a4d9abb68678f18d03f3a5af5c9cda`); canonical output is byte-identical to the candidate, while reverse insertion changes SQLite bytes only. Builder runtime was 0.41 s, canonical replay 0.38 s, reverse replay 0.41 s. All 28 mission tests passed. Hostile identity, unit, epistemic, provenance, scope, and non-interference cases failed safely.
 
 ## Temporal boundary and reproducibility
 
@@ -37,10 +37,15 @@ Four system/primary identity crosswalks remain held. Upstream citations inside c
 
 ## Efficiency
 
-65 frozen artifacts total 742,606 bytes. They yielded 758 candidate assertions across 110 bodies: 11.66 candidate assertions per acquired artifact and 1.69 bodies per artifact. Offline replay took 0.43 s (about 105,767 assertions per compute-minute).
+65 frozen artifacts total 742,606 bytes. They yielded 758 candidate assertions across 110 bodies: 11.66 candidate assertions per acquired artifact and 1.69 bodies per artifact. Offline replay took 0.38 s (about 119,684 assertions per compute-minute).
 
 
 The candidate envelope now requires the source payload `loom_body_id` to equal the candidate body ID at SQLite constraint level. A hostile cross-body update is rejected. This is confined to the disposable candidate schema; SF-PROMOTE-03 remains unchanged.
 
 
-Repository governance: PR #303 passed the required `loom-gate` and merged to main at `c539c961f37cd913a30e4a85307992188a7d3c59`.
+Repository governance: PR #303 and report-closeout PR #304 passed `loom-gate`; #303 merged at `c539c961f37cd913a30e4a85307992188a7d3c59`, followed by #304 at `17a65e861c715bdf3bc8941b331a57f8cb117edd`.
+
+
+## Exact source-field semantics
+
+SBDB B–V, U–B and I–R indices; comet total/nuclear magnitude, slope and phase parameters; and Tholen versus SMASSII taxonomy are represented as separate property codes, using the source field metadata. They are not collapsed into broad shared codes. The audit preserves 36 body/property multi-value groups without a preferred-value choice, including one same-lineage Charon PCK radius conflict.

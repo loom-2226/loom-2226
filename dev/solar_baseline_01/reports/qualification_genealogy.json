@@ -39,6 +39,11 @@
       "disposition": "mutated test output preserved by hash outside worktree; exact origin/main artifact restored and verified",
       "event": "legacy SF-PROMOTE-03 unittest rebuilt its tracked output",
       "evidence": "reports/legacy_control_test_side_effect.json"
+    },
+    {
+      "disposition": "generic field mapping split by source-defined index, magnitude role, and taxonomy; candidate rebuilt; promoted baseline untouched",
+      "event": "semantic review found exact SBDB fields were initially grouped under broad COLOR_INDEX, COMET_MAGNITUDE_PARAMETER, and SPECTRAL_CLASS codes",
+      "evidence": "frozen SBDB field metadata plus tests/test_baseline.py::test_source_defined_color_comet_and_taxonomy_fields_stay_distinct"
     }
   ],
   "mission_id": "SOLAR-BASELINE-01"

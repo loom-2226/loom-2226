@@ -1,31 +1,31 @@
 {
   "canonical_and_candidate_byte_identical": true,
-  "canonical_semantic_digest": "cd04be96dde1e153ac98b720b6c385776035544d27f28e4f2b4b0c0ba630ebc7",
+  "canonical_semantic_digest": "eaa76ed502dfd96ab8d6f7eb6c294f0344a4d9abb68678f18d03f3a5af5c9cda",
   "mission_id": "SOLAR-BASELINE-01",
   "network_required": false,
   "outputs": {
     "candidate": {
-      "path": "dev/solar_baseline_01/LOOM_SOLAR_BASELINE_01_CANDIDATE_V19.sqlite3",
-      "semantic_digest": "cd04be96dde1e153ac98b720b6c385776035544d27f28e4f2b4b0c0ba630ebc7",
-      "sha256": "761b6aacb6330351467cfe356ed6a478872a912e2e95ce28b7af60fbdbd52921"
+      "path": "dev/solar_baseline_01/LOOM_SOLAR_BASELINE_01_CANDIDATE_V20.sqlite3",
+      "semantic_digest": "eaa76ed502dfd96ab8d6f7eb6c294f0344a4d9abb68678f18d03f3a5af5c9cda",
+      "sha256": "0608f9502e99d9fc72a48cc732b45618463228ce5ff06d59737cdcdeac2f612e"
     },
     "canonical": {
-      "path": "solar_baseline_01/LOOM_SOLAR_BASELINE_01_REPLAY_CANONICAL_CHECK.sqlite3",
-      "semantic_digest": "cd04be96dde1e153ac98b720b6c385776035544d27f28e4f2b4b0c0ba630ebc7",
-      "sha256": "761b6aacb6330351467cfe356ed6a478872a912e2e95ce28b7af60fbdbd52921"
+      "path": "dev/solar_baseline_01/LOOM_SOLAR_BASELINE_01_REPLAY_CANONICAL_V20.sqlite3",
+      "semantic_digest": "eaa76ed502dfd96ab8d6f7eb6c294f0344a4d9abb68678f18d03f3a5af5c9cda",
+      "sha256": "0608f9502e99d9fc72a48cc732b45618463228ce5ff06d59737cdcdeac2f612e"
     },
     "reverse": {
-      "path": "solar_baseline_01/LOOM_SOLAR_BASELINE_01_REPLAY_REVERSE_CHECK.sqlite3",
-      "semantic_digest": "cd04be96dde1e153ac98b720b6c385776035544d27f28e4f2b4b0c0ba630ebc7",
-      "sha256": "dfb70f3042c91e97fae3c186b86fb5a05f30be1dfad727d92b3bba08184fbf92"
+      "path": "dev/solar_baseline_01/LOOM_SOLAR_BASELINE_01_REPLAY_REVERSE_V20.sqlite3",
+      "semantic_digest": "eaa76ed502dfd96ab8d6f7eb6c294f0344a4d9abb68678f18d03f3a5af5c9cda",
+      "sha256": "e6eb699141966490b9f746a5be4314a8db7f5ee407113b9a775ad51c9b5e8a47"
     }
   },
   "replay_inputs_frozen": true,
   "reverse_order_byte_identical": false,
   "semantic_equivalence_across_replays": true,
   "timings_seconds": {
-    "candidate_replay": 0.43,
-    "canonical_replay": 0.43,
-    "reverse_replay": 0.39
+    "candidate_build": 0.41,
+    "canonical_replay": 0.38,
+    "reverse_replay": 0.41
   }
 }

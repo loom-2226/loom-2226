@@ -1,19 +1,19 @@
 {
   "history": "reports/qualification_genealogy.json",
-  "hostile_cases": 26,
+  "hostile_cases": 27,
   "limitations": [
     "ARP-QUAL-01B source artifacts are absent in this worktree; no frozen research was altered or fabricated.",
     "SF-PROMOTE-03 tests mutate their fixed output; output was preserved, and exact origin/main bytes restored. Do not rerun this suite against the promoted path."
   ],
   "mission_id": "SOLAR-BASELINE-01",
   "overall": "PASS_WITH_LIENS",
-  "required_repository_gate": "PASS: PR #303 loom-gate; merge commit c539c961f37cd913a30e4a85307992188a7d3c59",
+  "required_repository_gate": "PASS: PR #303 and #304 `loom-gate`; merged main through 17a65e861c715bdf3bc8941b331a57f8cb117edd",
   "results": [
     {
-      "detail": "27 dedicated identity, provenance, mapping, unit, source/payload cross-body constraint, firewall, replay, and control tests",
+      "detail": "28 dedicated identity, exact-field semantics, provenance, unit, cross-body payload integrity, firewall, replay, and control tests",
       "result": "PASS",
       "suite": "SOLAR-BASELINE-01",
-      "tests": 27
+      "tests": 28
     },
     {
       "result": "PASS",

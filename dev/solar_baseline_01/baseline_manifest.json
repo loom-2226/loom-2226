@@ -1,102 +1,77 @@
 {
+  "accepted": 758,
   "acquisition_started_at_utc": "2026-09-26T08:56:50.641263+00:00",
   "adapter_version": "solar-baseline-01-adapter-v1",
+  "artifact_hash_audit": "reports/artifact_hash_audit.json",
   "baseline_commit": "d85b260e51ffebd936cb83b85d0594fd07b9405c",
-  "body_payload_integrity_constraint": "generic SQLite JSON body binding",
-  "candidate_database": "LOOM_SOLAR_BASELINE_01_CANDIDATE_V18.sqlite3",
-  "candidate_database_path": "dev/solar_baseline_01/LOOM_SOLAR_BASELINE_01_CANDIDATE_V19.sqlite3",
-  "candidate_database_sha256": "761b6aacb6330351467cfe356ed6a478872a912e2e95ce28b7af60fbdbd52921",
-  "candidate_whole_semantic_digest": "cd04be96dde1e153ac98b720b6c385776035544d27f28e4f2b4b0c0ba630ebc7",
-  "control_non_interference_report": "reports/control_non_interference.json",
-  "corpora": [
+  "candidate_assertions": 788,
+  "candidate_body_payload_constraint": true,
+  "candidate_database_path": "dev/solar_baseline_01/LOOM_SOLAR_BASELINE_01_CANDIDATE_V20.sqlite3",
+  "candidate_database_sha256": "0608f9502e99d9fc72a48cc732b45618463228ce5ff06d59737cdcdeac2f612e",
+  "candidate_whole_semantic_digest": "eaa76ed502dfd96ab8d6f7eb6c294f0344a4d9abb68678f18d03f3a5af5c9cda",
+  "efficiency": {
+    "artifact_bytes": 742606,
+    "assertions_per_artifact": 11.66,
+    "bodies_per_artifact": 1.69,
+    "bodies_processed": 110,
+    "candidate_assertions": 758,
+    "candidate_assertions_per_compute_minute": 119684,
+    "canonical_replay_seconds": 0.38,
+    "runtime_network_required": false,
+    "source_artifacts": 65
+  },
+  "elapsed_wall_clock_minutes_approx": 74.8,
+  "elapsed_wall_clock_seconds_approx": 4490,
+  "existing_body_population": 110,
+  "external_crosswalk_match_percent": 90.0,
+  "held": 30,
+  "hostile_report": "reports/hostile_review.json",
+  "identity_snapshot_sha256": "4f441987d0d881363092f30bc01c1c294fbb485d39c213fdf5017e528488bd52",
+  "independent_lineages": 786,
+  "liens": [
+    "Four ambiguous identity assignments remain held (30 assertions).",
+    "Candidate source-value conflicts are preserved; see source_conflicts.json.",
+    "All cited source references are not separately acquired papers.",
+    "Source-specific redistribution terms were not embedded in every artifact.",
+    "Frozen ARP-QUAL-01B artifact bundle is absent in this checkout; see regression results."
+  ],
+  "mission_id": "SOLAR-BASELINE-01",
+  "non_interference_report": "reports/control_non_interference.json",
+  "parser_version": "build_baseline.py SHA256 67e1bbd9c93ae32fd58bd0a9b9542def3316b9e5e908dd786b89d7d3009dd4c1",
+  "phase4_ephemeris_imported": false,
+  "preferred_fact_count": 0,
+  "qualification_completed_at_utc": "2026-09-26T10:11:40.657089+00:00",
+  "qualification_verdict": "SOLAR_BASELINE_01_PASS_WITH_LIENS",
+  "qualified_sf03_database_sha256": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
+  "qualified_sf03_whole_semantic_digest": "382f7871cdfc42526eddcc84bd17fcfdd1a6a78cafa129c5feb21546cdfa8581",
+  "replay_report": "reports/determinism_report.json",
+  "repository_classification": "class:data",
+  "repository_gates": [
     {
-      "acquired_at_utc": "2026-09-26T09:11:05.102872+00:00",
-      "artifact_id": "4b647f8cc5f3101dc16011a51fe22c6beb8e5c2db49c7619cd11787a4eaf36c3",
-      "authority": "JPL/NAIF",
-      "byte_count": 54644,
-      "media_type": "text/html",
-      "product": "NAIF Integer ID codes Required Reading",
-      "sha256": "4b647f8cc5f3101dc16011a51fe22c6beb8e5c2db49c7619cd11787a4eaf36c3",
-      "source_url": "https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/req/naif_ids.html",
-      "version": "revised 2021-12-10"
+      "check": "loom-gate",
+      "merge_commit": "c539c961f37cd913a30e4a85307992188a7d3c59",
+      "pull_request": 303,
+      "result": "PASS"
     },
     {
-      "acquired_at_utc": "2026-09-26T08:55:54.505804+00:00",
-      "artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
-      "authority": "JPL/NAIF",
-      "byte_count": 12406,
-      "media_type": "text/plain",
-      "product": "generic PCK/GM text kernel",
-      "sha256": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
-      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/gm_de440.tpc",
-      "version": "DE440 GM kernel"
-    },
-    {
-      "acquired_at_utc": "2026-09-26T08:55:53.888734+00:00",
-      "artifact_id": "943e91ca95385bf8c40fbfc3a3cba5ef7452b951ca1da56c2e6207f8af7c719e",
-      "authority": "JPL/NAIF",
-      "byte_count": 132183,
-      "media_type": "text/plain",
-      "product": "generic PCK/GM text kernel",
-      "sha256": "943e91ca95385bf8c40fbfc3a3cba5ef7452b951ca1da56c2e6207f8af7c719e",
-      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011_n0066.tpc",
-      "version": "pck00011-n0066"
-    },
-    {
-      "acquired_at_utc": "2026-09-26T08:56:49.917170+00:00",
-      "artifact_id": "4f441987d0d881363092f30bc01c1c294fbb485d39c213fdf5017e528488bd52",
-      "authority": "LOOM/PostgreSQL",
-      "byte_count": 8224,
-      "media_type": "text/tab-separated-values",
-      "product": "loom_solar.body + body_identifier identity snapshot",
-      "sha256": "4f441987d0d881363092f30bc01c1c294fbb485d39c213fdf5017e528488bd52",
-      "source_url": "local governed PostgreSQL loom_dev; source authority is current main migration-backed identity state",
-      "version": "origin/main d85b260e51ffebd936cb83b85d0594fd07b9405c"
-    },
-    {
-      "acquired_at_utc": "2026-09-26T08:55:55.424746+00:00",
-      "artifact_id": "e49a487947295c389ba6e5833dd8fb04b63e826d39f70c123881882096e5e68b",
-      "authority": "NASA/JPL SSD",
-      "byte_count": 58244,
-      "media_type": "text/html",
-      "product": "Planetary Physical Parameters HTML",
-      "sha256": "e49a487947295c389ba6e5833dd8fb04b63e826d39f70c123881882096e5e68b",
-      "source_url": "https://ssd.jpl.nasa.gov/planets/phys_par.html",
-      "version": "mutable page snapshot"
-    },
-    {
-      "acquired_at_utc": "2026-09-26T08:55:56.183751+00:00",
-      "artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
-      "authority": "NASA/JPL SSD",
-      "byte_count": 95641,
-      "media_type": "text/html",
-      "product": "Planetary Satellite Physical Parameters HTML",
-      "sha256": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
-      "source_url": "https://ssd.jpl.nasa.gov/sats/phys_par/",
-      "version": "mutable page snapshot"
-    },
-    {
-      "acquired_at_utc": "2026-09-26T09:11:07.640703+00:00",
-      "artifact_id": "2391ad11bc94794951385545f09c90d3704c493e3d378a8aaa6c9d9a5d2535c3",
-      "authority": "NASA/JPL SSD",
-      "byte_count": 212,
-      "media_type": "application/json",
-      "product": "SBDB API count snapshot",
-      "sha256": "2391ad11bc94794951385545f09c90d3704c493e3d378a8aaa6c9d9a5d2535c3",
-      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb_query.api?info=count",
-      "version": "live response signature 1.3"
-    },
-    {
-      "acquired_at_utc": "2026-09-26T09:11:05.973879+00:00",
-      "artifact_id": "a7361e4de7c45407c2d929f3ec40db3bcedd4312fd322fe8a854b37065311390",
-      "authority": "NASA/JPL SSD",
-      "byte_count": 97329,
-      "media_type": "text/html",
-      "product": "SBDB API documentation",
-      "sha256": "a7361e4de7c45407c2d929f3ec40db3bcedd4312fd322fe8a854b37065311390",
-      "source_url": "https://ssd-api.jpl.nasa.gov/doc/sbdb.html",
-      "version": "published API docs; live signature recorded separately"
-    },
+      "check": "loom-gate",
+      "merge_commit": "17a65e861c715bdf3bc8941b331a57f8cb117edd",
+      "pull_request": 304,
+      "result": "PASS"
+    }
+  ],
+  "schema_changed_in_promoted_db": false,
+  "sf03_body_digests_after": {
+    "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+    "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+    "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+  },
+  "sf03_body_digests_before": {
+    "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+    "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+    "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+  },
+  "source_artifacts": [
     {
       "acquired_at_utc": "2026-09-26T08:57:07.441691+00:00",
       "artifact_id": "02b1e7d71228dace0123f1cc44ef0ede823ad53b5f2a508a80b9d1fb1331ddba",
@@ -118,6 +93,17 @@
       "sha256": "0a0264f4e0480860c865740af0846a7a0fb08788afb1ad8eae3452f91b1e7066",
       "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000216&phys-par=1&alt-des=1&full-prec=1",
       "version": "1.3"
+    },
+    {
+      "acquired_at_utc": "2026-09-26T08:55:56.183751+00:00",
+      "artifact_id": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+      "authority": "NASA/JPL SSD",
+      "byte_count": 95641,
+      "media_type": "text/html",
+      "product": "Planetary Satellite Physical Parameters HTML",
+      "sha256": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+      "source_url": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "version": "mutable page snapshot"
     },
     {
       "acquired_at_utc": "2026-09-26T08:56:59.914737+00:00",
@@ -151,6 +137,17 @@
       "sha256": "1f490ee4ad5fccae2710a7f79a981deeb74eb95aee443d19140f847d8c666084",
       "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20307261&phys-par=1&alt-des=1&full-prec=1",
       "version": "1.3"
+    },
+    {
+      "acquired_at_utc": "2026-09-26T09:11:07.640703+00:00",
+      "artifact_id": "2391ad11bc94794951385545f09c90d3704c493e3d378a8aaa6c9d9a5d2535c3",
+      "authority": "NASA/JPL SSD",
+      "byte_count": 212,
+      "media_type": "application/json",
+      "product": "SBDB API count snapshot",
+      "sha256": "2391ad11bc94794951385545f09c90d3704c493e3d378a8aaa6c9d9a5d2535c3",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb_query.api?info=count",
+      "version": "live response signature 1.3"
     },
     {
       "acquired_at_utc": "2026-09-26T08:57:01.756679+00:00",
@@ -283,6 +280,28 @@
       "sha256": "42b5e5830c651772dbc4ee4f30aee71fa3d801d224e016c3d4ae02d48976f03f",
       "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000003&phys-par=1&alt-des=1&full-prec=1",
       "version": "1.3"
+    },
+    {
+      "acquired_at_utc": "2026-09-26T09:11:05.102872+00:00",
+      "artifact_id": "4b647f8cc5f3101dc16011a51fe22c6beb8e5c2db49c7619cd11787a4eaf36c3",
+      "authority": "JPL/NAIF",
+      "byte_count": 54644,
+      "media_type": "text/html",
+      "product": "NAIF Integer ID codes Required Reading",
+      "sha256": "4b647f8cc5f3101dc16011a51fe22c6beb8e5c2db49c7619cd11787a4eaf36c3",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/req/naif_ids.html",
+      "version": "revised 2021-12-10"
+    },
+    {
+      "acquired_at_utc": "2026-09-26T08:56:49.917170+00:00",
+      "artifact_id": "4f441987d0d881363092f30bc01c1c294fbb485d39c213fdf5017e528488bd52",
+      "authority": "LOOM/PostgreSQL",
+      "byte_count": 8224,
+      "media_type": "text/tab-separated-values",
+      "product": "loom_solar.body + body_identifier identity snapshot",
+      "sha256": "4f441987d0d881363092f30bc01c1c294fbb485d39c213fdf5017e528488bd52",
+      "source_url": "local governed PostgreSQL loom_dev; source authority is current main migration-backed identity state",
+      "version": "origin/main d85b260e51ffebd936cb83b85d0594fd07b9405c"
     },
     {
       "acquired_at_utc": "2026-09-26T08:56:56.609846+00:00",
@@ -472,6 +491,28 @@
       "version": "1.3"
     },
     {
+      "acquired_at_utc": "2026-09-26T08:55:54.505804+00:00",
+      "artifact_id": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+      "authority": "JPL/NAIF",
+      "byte_count": 12406,
+      "media_type": "text/plain",
+      "product": "generic PCK/GM text kernel",
+      "sha256": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/gm_de440.tpc",
+      "version": "DE440 GM kernel"
+    },
+    {
+      "acquired_at_utc": "2026-09-26T08:55:53.888734+00:00",
+      "artifact_id": "943e91ca95385bf8c40fbfc3a3cba5ef7452b951ca1da56c2e6207f8af7c719e",
+      "authority": "JPL/NAIF",
+      "byte_count": 132183,
+      "media_type": "text/plain",
+      "product": "generic PCK/GM text kernel",
+      "sha256": "943e91ca95385bf8c40fbfc3a3cba5ef7452b951ca1da56c2e6207f8af7c719e",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011_n0066.tpc",
+      "version": "pck00011-n0066"
+    },
+    {
       "acquired_at_utc": "2026-09-26T08:56:55.683081+00:00",
       "artifact_id": "946dc18db4be9d3aef38bd4920f106296d00e2ef1d61eab39db347ba7d46d166",
       "authority": "NASA/JPL SSD",
@@ -492,6 +533,17 @@
       "sha256": "98dd79284b3ef159803f7c7f76f1aecdd7ca2712f1deac1390dd33883e8c3bc4",
       "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20003548&phys-par=1&alt-des=1&full-prec=1",
       "version": "1.3"
+    },
+    {
+      "acquired_at_utc": "2026-09-26T09:11:05.973879+00:00",
+      "artifact_id": "a7361e4de7c45407c2d929f3ec40db3bcedd4312fd322fe8a854b37065311390",
+      "authority": "NASA/JPL SSD",
+      "byte_count": 97329,
+      "media_type": "text/html",
+      "product": "SBDB API documentation",
+      "sha256": "a7361e4de7c45407c2d929f3ec40db3bcedd4312fd322fe8a854b37065311390",
+      "source_url": "https://ssd-api.jpl.nasa.gov/doc/sbdb.html",
+      "version": "published API docs; live signature recorded separately"
     },
     {
       "acquired_at_utc": "2026-09-26T08:56:57.542230+00:00",
@@ -626,6 +678,17 @@
       "version": "1.3"
     },
     {
+      "acquired_at_utc": "2026-09-26T09:11:07.006504+00:00",
+      "artifact_id": "d7988a8e0c1ae827002f20a5f71e00fad88229b44f82d73d29526ea1bbfff6e7",
+      "authority": "NASA/JPL SSD",
+      "byte_count": 8193,
+      "media_type": "application/json",
+      "product": "SBDB API field metadata",
+      "sha256": "d7988a8e0c1ae827002f20a5f71e00fad88229b44f82d73d29526ea1bbfff6e7",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb_query.api?info=field",
+      "version": "live response signature 1.3"
+    },
+    {
       "acquired_at_utc": "2026-09-26T08:57:11.615495+00:00",
       "artifact_id": "d7ac2114ca850a4e756328396f9975957cd3de866a8ce947c086d2df448db389",
       "authority": "NASA/JPL SSD",
@@ -670,6 +733,17 @@
       "version": "1.3"
     },
     {
+      "acquired_at_utc": "2026-09-26T08:55:55.424746+00:00",
+      "artifact_id": "e49a487947295c389ba6e5833dd8fb04b63e826d39f70c123881882096e5e68b",
+      "authority": "NASA/JPL SSD",
+      "byte_count": 58244,
+      "media_type": "text/html",
+      "product": "Planetary Physical Parameters HTML",
+      "sha256": "e49a487947295c389ba6e5833dd8fb04b63e826d39f70c123881882096e5e68b",
+      "source_url": "https://ssd.jpl.nasa.gov/planets/phys_par.html",
+      "version": "mutable page snapshot"
+    },
+    {
       "acquired_at_utc": "2026-09-26T08:57:08.807750+00:00",
       "artifact_id": "ebbb5d4878303692ea5f61264a433d96328f209eaaa0f7b89738ea7e4423a0ae",
       "authority": "NASA/JPL SSD",
@@ -679,6 +753,17 @@
       "sha256": "ebbb5d4878303692ea5f61264a433d96328f209eaaa0f7b89738ea7e4423a0ae",
       "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000002&phys-par=1&alt-des=1&full-prec=1",
       "version": "1.3"
+    },
+    {
+      "acquired_at_utc": "2026-09-26T09:11:06.554883+00:00",
+      "artifact_id": "f29f76995f982ba82e5e5c6e1527973ae76d3d5821ec7337314b8743bc7e37fb",
+      "authority": "NASA/JPL SSD",
+      "byte_count": 36332,
+      "media_type": "text/html",
+      "product": "SBDB Query API documentation",
+      "sha256": "f29f76995f982ba82e5e5c6e1527973ae76d3d5821ec7337314b8743bc7e37fb",
+      "source_url": "https://ssd-api.jpl.nasa.gov/doc/sbdb_query.html",
+      "version": "published API docs; live signature recorded separately"
     },
     {
       "acquired_at_utc": "2026-09-26T08:57:15.337135+00:00",
@@ -701,95 +786,9 @@
       "sha256": "f673ef6a9898212bfd70839e3e031230fd82fe6465224357a697a83e5acc6778",
       "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000021&phys-par=1&alt-des=1&full-prec=1",
       "version": "1.3"
-    },
-    {
-      "acquired_at_utc": "2026-09-26T09:11:07.006504+00:00",
-      "artifact_id": "d7988a8e0c1ae827002f20a5f71e00fad88229b44f82d73d29526ea1bbfff6e7",
-      "authority": "NASA/JPL SSD",
-      "byte_count": 8193,
-      "media_type": "application/json",
-      "product": "SBDB API field metadata",
-      "sha256": "d7988a8e0c1ae827002f20a5f71e00fad88229b44f82d73d29526ea1bbfff6e7",
-      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb_query.api?info=field",
-      "version": "live response signature 1.3"
-    },
-    {
-      "acquired_at_utc": "2026-09-26T09:11:06.554883+00:00",
-      "artifact_id": "f29f76995f982ba82e5e5c6e1527973ae76d3d5821ec7337314b8743bc7e37fb",
-      "authority": "NASA/JPL SSD",
-      "byte_count": 36332,
-      "media_type": "text/html",
-      "product": "SBDB Query API documentation",
-      "sha256": "f29f76995f982ba82e5e5c6e1527973ae76d3d5821ec7337314b8743bc7e37fb",
-      "source_url": "https://ssd-api.jpl.nasa.gov/doc/sbdb_query.html",
-      "version": "published API docs; live signature recorded separately"
     }
   ],
-  "determinism_report": "reports/determinism_report.json",
-  "efficiency": {
-    "artifact_bytes": 742606,
-    "assertions_per_artifact": 11.66,
-    "bodies_per_artifact": 1.69,
-    "bodies_processed": 110,
-    "candidate_assertions": 758,
-    "candidate_assertions_per_replay_compute_minute": 105767,
-    "replay_seconds": 0.43,
-    "runtime_network_required": false,
-    "source_artifacts": 65
-  },
-  "elapsed_wall_clock_minutes_approx": 65.6,
-  "elapsed_wall_clock_seconds_approx": 3938,
-  "existing_body_population": 110,
-  "hostile_review_report": "reports/hostile_review.json",
-  "identity_population_source_hash": "4f441987d0d881363092f30bc01c1c294fbb485d39c213fdf5017e528488bd52",
-  "known_liens": [
-    "NASA/JPL source-specific redistribution terms were not embedded in all selected artifacts; consult terms before redistribution beyond repository use.",
-    "Four body identifiers resolve to NAIF barycenter semantics while LOOM identity classes designate primaries; 30 corresponding candidate assertions remain HOLD.",
-    "Coverage is an empirical floor only; many unsupported lanes warrant targeted or deep research.",
-    "Candidate physical parameters are not uniformly direct observations; compiled/source value epistemics are retained but not all cited underlying literature was separately acquired."
-  ],
-  "mission_id": "SOLAR-BASELINE-01",
-  "new_bodies_created": 0,
-  "parser_version": "build_baseline.py SHA256 b1941884b4f3e3d63a6fe04d84d2c6732dd4b61f1f55ff6ef5622dffb95925dc",
-  "phase4_state_ingested": false,
-  "preferred_fact_counts": {
-    "after": 0,
-    "before": 0
-  },
-  "qualification_completed_at_utc": "2026-09-26T10:02:28.562923+00:00",
-  "qualification_verdict": "SOLAR_BASELINE_01_PASS_WITH_LIENS",
-  "qualified_sf03_database_sha256": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
-  "qualified_sf03_whole_semantic_digest": "382f7871cdfc42526eddcc84bd17fcfdd1a6a78cafa129c5feb21546cdfa8581",
-  "reports": [
-    "coverage_by_body.json",
-    "arp_targeting_report.json",
-    "control_comparison.json",
-    "determinism_report.json",
-    "hostile_review.json",
-    "source_reconnaissance.md"
-  ],
-  "repository_classification": "class:data",
-  "repository_gate": {
-    "check": "loom-gate",
-    "merge_commit": "c539c961f37cd913a30e4a85307992188a7d3c59",
-    "merged_at_utc": "2026-09-26T10:00:38Z",
-    "pull_request": 303,
-    "result": "PASS"
-  },
-  "runtime_llm_scientific_judgment": "NONE",
-  "schema_changed": false,
-  "sf03_body_digests_after": {
-    "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
-    "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
-    "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
-  },
-  "sf03_body_digests_before": {
-    "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
-    "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
-    "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
-  },
-  "source_artifact_hash_audit": "reports/artifact_hash_audit.json",
-  "temporal_capture_date": "2026-09-26 UTC",
-  "temporal_note": "Acquired 2026-09-26; these current reference snapshots are explicitly acquisition-time products. No pre-2026 temporal claim is made; publication/release epochs are recorded when available.",
-  "worktree_branch": "data/solar-baseline-01-factory-20260926"
+  "source_conflict_report": "reports/source_conflicts.json",
+  "worktree_branch": "data/solar-baseline-01-semantic-mapping-fix",
+  "worktree_path": "/tmp/loom-solar-baseline-01"
 }

@@ -6,7 +6,7 @@ from decimal import Decimal,InvalidOperation
 from html.parser import HTMLParser
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]; RAW=ROOT/'raw'; REPORTS=ROOT/'reports'
-OUT=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ROOT/'LOOM_SOLAR_BASELINE_01_CANDIDATE_V17.sqlite3'
+OUT=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ROOT/'LOOM_SOLAR_BASELINE_01_CANDIDATE_V20.sqlite3'
 REVERSE=os.environ.get('LOOM_BASELINE_REVERSE')=='1'
 NAIF_NAMES_TEXT=(RAW/'naif_ids_required_reading.html').read_text(errors='replace') if (RAW/'naif_ids_required_reading.html').exists() else ''
 NAIF_BARYCENTER_IDS={m.group(1) for m in re.finditer(r"(?m)^\s*(\d+)\s+'[^']*BARYCENTER[^']*'",NAIF_NAMES_TEXT,re.I)}
@@ -147,7 +147,18 @@ for rec in ordered(m['records']):
     for x in ordered(obj.get('phys_par') or []):
         name=x.get('name');raw=x.get('value')
         if raw is None:continue
-        mapping={'H':('ABSOLUTE_MAGNITUDE',None),'G':('MAGNITUDE_SLOPE_PARAMETER',None),'M1':('COMET_MAGNITUDE_PARAMETER',None),'K1':('COMET_MAGNITUDE_PARAMETER',None),'M2':('COMET_MAGNITUDE_PARAMETER',None),'K2':('COMET_MAGNITUDE_PARAMETER',None),'PC':('COMET_MAGNITUDE_PARAMETER',None),'diameter':('EFFECTIVE_DIAMETER','km'),'extent':('TRIAXIAL_DIMENSIONS','km'),'GM':('GM','km^3/s^2'),'density':('BULK_DENSITY','g/cm^3'),'rot_per':('ROTATION_PERIOD','h'),'pole':('POLE_ORIENTATION','deg'),'albedo':('GEOMETRIC_ALBEDO',None),'spec_T':('SPECTRAL_CLASS','text'),'spec_B':('SPECTRAL_CLASS','text'),'BV':('COLOR_INDEX','mag'),'UB':('COLOR_INDEX','mag'),'IR':('COLOR_INDEX','mag')}
+        # Exact SBDB fields are kept semantically distinct. A color index is
+        # not a generic scalar color; comet magnitude, slope, and phase-law
+        # parameters differ; taxonomy values retain their source taxonomy.
+        mapping={'H':('ABSOLUTE_MAGNITUDE',None),'G':('MAGNITUDE_SLOPE_PARAMETER',None),
+          'M1':('COMET_TOTAL_MAGNITUDE_PARAMETER',None),'M2':('COMET_NUCLEAR_MAGNITUDE_PARAMETER',None),
+          'K1':('COMET_TOTAL_MAGNITUDE_SLOPE_PARAMETER',None),'K2':('COMET_NUCLEAR_MAGNITUDE_SLOPE_PARAMETER',None),
+          'PC':('COMET_NUCLEAR_MAGNITUDE_PHASE_COEFFICIENT',None),
+          'diameter':('EFFECTIVE_DIAMETER','km'),'extent':('TRIAXIAL_DIMENSIONS','km'),
+          'GM':('GM','km^3/s^2'),'density':('BULK_DENSITY','g/cm^3'),'rot_per':('ROTATION_PERIOD','h'),
+          'pole':('POLE_ORIENTATION','deg'),'albedo':('GEOMETRIC_ALBEDO',None),
+          'spec_T':('SPECTRAL_CLASS_THOLEN','Tholen'),'spec_B':('SPECTRAL_CLASS_SMASSII','SMASSII'),
+          'BV':('COLOR_INDEX_B_V','mag'),'UB':('COLOR_INDEX_U_B','mag'),'IR':('COLOR_INDEX_I_R','mag')}
         if name not in mapping:continue
         prop,defaultunit=mapping[name];unit=x.get('units') or defaultunit
         norm,unc=parse_numeric(raw)
@@ -199,7 +210,7 @@ for row in ordered(s.rows):
         ep='DERIVED' if prop=='BULK_DENSITY' else ('DYNAMICAL_INFERENCE' if prop=='GM' else 'UNKNOWN')
         assertion(body,prop,value,unit,reported_unc,norm,unit,reported_unc,'deterministic scalar parse; reported uncertainty retained' if norm else 'none',ep,'BODY',sat_aid,f'JPL:SAT_PHYS:{row[2]}:{prop}:{ref}',ref,{'row':row,'reported_value':value,'reported_sigma':reported_unc,'reference':ref},'HOLD' if disp=='HOLD' else 'CANDIDATE')
 # coverage matrix
-properties=['GM','MASS','VOLUME','EFFECTIVE_DIAMETER','MEAN_RADIUS','EQUATORIAL_RADIUS','TRIAXIAL_DIMENSIONS','TRIAXIAL_RADII','BULK_DENSITY','GEOMETRIC_ALBEDO','ABSOLUTE_MAGNITUDE','ABSOLUTE_VISUAL_MAGNITUDE_V1_0','ROTATION_PERIOD','POLE_ORIENTATION','POLE_RIGHT_ASCENSION_MODEL','POLE_DECLINATION_MODEL','PRIME_MERIDIAN_MODEL','SPECTRAL_CLASS']
+properties=['GM','MASS','VOLUME','EFFECTIVE_DIAMETER','MEAN_RADIUS','EQUATORIAL_RADIUS','TRIAXIAL_DIMENSIONS','TRIAXIAL_RADII','BULK_DENSITY','GEOMETRIC_ALBEDO','ABSOLUTE_MAGNITUDE','ABSOLUTE_VISUAL_MAGNITUDE_V1_0','ROTATION_PERIOD','POLE_ORIENTATION','POLE_RIGHT_ASCENSION_MODEL','POLE_DECLINATION_MODEL','PRIME_MERIDIAN_MODEL','SPECTRAL_CLASS_THOLEN','SPECTRAL_CLASS_SMASSII','COLOR_INDEX_B_V','COLOR_INDEX_U_B','COLOR_INDEX_I_R','COMET_TOTAL_MAGNITUDE_PARAMETER','COMET_NUCLEAR_MAGNITUDE_PARAMETER','COMET_TOTAL_MAGNITUDE_SLOPE_PARAMETER','COMET_NUCLEAR_MAGNITUDE_SLOPE_PARAMETER','COMET_NUCLEAR_MAGNITUDE_PHASE_COEFFICIENT']
 assertions=c.execute("select body_id,property_code,sum(case when disposition='CANDIDATE' then 1 else 0 end),count(*) from candidate_assertion group by body_id,property_code").fetchall()
 counts={(b,p):(accepted,total) for b,p,accepted,total in assertions}
 for body,b in ordered(sorted(bodies.items())):
@@ -212,9 +223,10 @@ for body,b in ordered(sorted(bodies.items())):
         if accepted:disp='SUPPORTED';reason='one or more authoritative candidate assertions acquired; any held alternatives remain separately dispositioned'
         elif total:disp='AMBIGUOUS_IDENTITY';reason='evidence retained, but source identity is held and is not attributed to this body'
         elif id_state:disp=id_state;reason='identity crosswalk incomplete or ambiguous'
-        elif cls in SMALL and prop in ('GM','MASS','VOLUME','EFFECTIVE_DIAMETER','TRIAXIAL_DIMENSIONS','BULK_DENSITY','ROTATION_PERIOD','POLE_ORIENTATION','SPECTRAL_CLASS','ABSOLUTE_MAGNITUDE','GEOMETRIC_ALBEDO'):disp='SOURCE_NOT_PRESENT';reason='exact-ID source response/artifact was acquired, but this field was not present in its returned data'
+        elif cls in SMALL and prop in ('GM','MASS','VOLUME','EFFECTIVE_DIAMETER','TRIAXIAL_DIMENSIONS','BULK_DENSITY','ROTATION_PERIOD','POLE_ORIENTATION','SPECTRAL_CLASS_THOLEN','SPECTRAL_CLASS_SMASSII','COLOR_INDEX_B_V','COLOR_INDEX_U_B','COLOR_INDEX_I_R','ABSOLUTE_MAGNITUDE','GEOMETRIC_ALBEDO','COMET_TOTAL_MAGNITUDE_PARAMETER','COMET_NUCLEAR_MAGNITUDE_PARAMETER','COMET_TOTAL_MAGNITUDE_SLOPE_PARAMETER','COMET_NUCLEAR_MAGNITUDE_SLOPE_PARAMETER','COMET_NUCLEAR_MAGNITUDE_PHASE_COEFFICIENT'):disp='SOURCE_NOT_PRESENT';reason='exact-ID source response/artifact was acquired, but this exact source field was not present in its returned data'
         elif cls=='NATURAL_SATELLITE' and prop in ('GM','MASS','VOLUME','MEAN_RADIUS','BULK_DENSITY','TRIAXIAL_RADII','POLE_RIGHT_ASCENSION_MODEL','POLE_DECLINATION_MODEL','PRIME_MERIDIAN_MODEL'):disp='SOURCE_NOT_PRESENT';reason='acquired JPL/NAIF products do not contain this body/property field'
         elif cls in ('PLANET','DWARF_PLANET') and prop in ('GM','MASS','VOLUME','MEAN_RADIUS','EQUATORIAL_RADIUS','BULK_DENSITY','ROTATION_PERIOD','GEOMETRIC_ALBEDO','ABSOLUTE_MAGNITUDE','POLE_RIGHT_ASCENSION_MODEL','POLE_DECLINATION_MODEL','PRIME_MERIDIAN_MODEL'):disp='SOURCE_NOT_PRESENT';reason='selected JPL reference product does not contain a value for this field'
+        elif prop.startswith(('COLOR_INDEX_','SPECTRAL_CLASS_','COMET_')) and cls not in SMALL:disp='SOURCE_DOES_NOT_COVER_BODY_CLASS';reason='source field is defined for the small-body product and is not mapped to this body class'
         elif cls in ('BARYCENTER','SPACECRAFT','STAR'):disp='NOT_APPLICABLE';reason='baseline physical-body parameter mapping is not applicable to barycenter/spacecraft/star identity'
         else:disp='SOURCE_DOES_NOT_COVER_BODY_CLASS';reason='no selected corpus provides this class/property pairing'
         c.execute('insert into coverage values(?,?,?,?,?)',(body,prop,disp,reason,n))

@@ -1,122 +1,46 @@
 {
-  "adapter_version": "solar-baseline-01-adapter-v1",
-  "assertions": {
+  "body_identity_match_rate_percent": 90.0,
+  "candidate_assertions": {
     "candidate": 758,
-    "duplicate_lineage_rows": 2,
     "generated": 788,
     "held": 30,
-    "rejected": 0
+    "preferred_fact": 0,
+    "rejected": 0,
+    "unique_lineages": 786
   },
-  "candidate_database_path": "dev/solar_baseline_01/LOOM_SOLAR_BASELINE_01_CANDIDATE_V19.sqlite3",
-  "candidate_database_sha256": "761b6aacb6330351467cfe356ed6a478872a912e2e95ce28b7af60fbdbd52921",
-  "candidate_whole_semantic_digest": "cd04be96dde1e153ac98b720b6c385776035544d27f28e4f2b4b0c0ba630ebc7",
-  "control_comparison": {
-    "CONFLICT_REQUIRES_REVIEW": 0,
-    "EXACT_MATCH": 2,
-    "IDENTITY_ERROR": 0,
-    "NORMALIZATION_ERROR": 0,
-    "SEMANTICALLY_DISTINCT": 0,
-    "SEMANTIC_MATCH": 1,
-    "SOURCE_VERSION_DIFFERENCE": 0,
-    "SUPPORTED_DIFFERENCE": 1,
-    "UNCERTAINTY_DIFFERENCE": 9
-  },
-  "control_non_interference": "reports/control_non_interference.json",
-  "control_non_interference_report": "reports/control_non_interference.json",
-  "control_test_side_effect_record": "reports/legacy_control_test_side_effect.json",
-  "coverage": {
-    "AMBIGUOUS_IDENTITY": 72,
+  "candidate_database_path": "dev/solar_baseline_01/LOOM_SOLAR_BASELINE_01_CANDIDATE_V20.sqlite3",
+  "candidate_database_sha256": "0608f9502e99d9fc72a48cc732b45618463228ce5ff06d59737cdcdeac2f612e",
+  "candidate_payload_body_constraint": true,
+  "candidate_whole_semantic_digest": "eaa76ed502dfd96ab8d6f7eb6c294f0344a4d9abb68678f18d03f3a5af5c9cda",
+  "coverage_dispositions": {
+    "AMBIGUOUS_IDENTITY": 108,
     "FIELD_NULL_IN_SOURCE": 0,
     "LEGITIMATE_UNKNOWN": 0,
-    "NOT_APPLICABLE": 256,
+    "NOT_APPLICABLE": 241,
     "PARTIAL": 0,
     "SCHEMA_LIEN": 0,
     "SEMANTIC_MAPPING_LIEN": 0,
-    "SOURCE_DOES_NOT_COVER_BODY_CLASS": 553,
-    "SOURCE_NOT_FOUND": 36,
-    "SOURCE_NOT_PRESENT": 480,
-    "SUPPORTED": 583,
+    "SOURCE_DOES_NOT_COVER_BODY_CLASS": 1036,
+    "SOURCE_NOT_FOUND": 54,
+    "SOURCE_NOT_PRESENT": 870,
+    "SUPPORTED": 661,
     "UNKNOWN": 0
   },
-  "database": {
-    "foreign_key_violations": 0,
-    "integrity_check": "ok",
-    "path": "LOOM_SOLAR_BASELINE_01_CANDIDATE_V18.sqlite3",
-    "semantic_digest": "1a301ec39a0973a25122e4d41a677ef283eb43220f44ae3e73fbef74b46a6be5",
-    "sha256": "ed3b860d5dae0cfca52562bd9ccf72cd9fbd351b8b5143169e86b83c4de8765e"
-  },
-  "efficiency": {
-    "artifact_bytes": 742606,
-    "assertions_per_artifact": 11.66,
-    "bodies_per_artifact": 1.69,
-    "bodies_processed": 110,
-    "candidate_assertions": 758,
-    "candidate_assertions_per_replay_compute_minute": 105767,
-    "replay_seconds": 0.43,
-    "runtime_network_required": false,
-    "source_artifacts": 65
-  },
-  "elapsed_wall_clock_minutes_approx": 65.6,
-  "elapsed_wall_clock_seconds_approx": 3938,
-  "final_db_sha256": "ed3b860d5dae0cfca52562bd9ccf72cd9fbd351b8b5143169e86b83c4de8765e",
+  "elapsed_wall_clock_minutes_approx": 74.8,
+  "elapsed_wall_clock_seconds_approx": 4490,
   "genealogy": "reports/qualification_genealogy.json",
-  "hostile_cases": 26,
-  "identity": {
-    "active_identity_rows_matched_to_snapshot": 110,
-    "ambiguous_identity_bodies": 4,
-    "body_identity_rows_in_scope": 110,
-    "crosswalk_dispositions": {
-      "HOLD": 5,
-      "MATCH": 152,
-      "MATCH_ALIAS": 1,
-      "MATCH_EXACT": 50
-    },
-    "external_crosswalk_bodies_matched": 99,
-    "known_held": [
-      "DIDYMOS",
-      "EURYBATES",
-      "KLEOPATRA",
-      "PATROCLUS"
-    ],
-    "new_body_identities_created": 0,
-    "unmatched_external_bodies_imported": 0
-  },
-  "liens": [
-    "NASA/JPL source-specific redistribution terms were not embedded in all selected artifacts; consult terms before redistribution beyond repository use.",
-    "Four body identifiers resolve to NAIF barycenter semantics while LOOM identity classes designate primaries; 30 corresponding candidate assertions remain HOLD.",
-    "Coverage is an empirical floor only; many unsupported lanes warrant targeted or deep research.",
-    "Candidate physical parameters are not uniformly direct observations; compiled/source value epistemics are retained but not all cited underlying literature was separately acquired."
-  ],
+  "hostile_cases": 27,
   "manifest": "dev/solar_baseline_01/baseline_manifest.json",
   "mission_id": "SOLAR-BASELINE-01",
-  "mission_regression_tests": 27,
   "next_step_recommendation": "READY_FOR_BULK_SOLAR_BASELINE_POPULATION",
-  "parser_version": "build_baseline.py at source hash 14100252cf9db5d6c9bf3c402e7d928e16429d133038df7e12d7e5d4c356c8f1",
-  "phase4_ephemerides_duplicated": 0,
-  "preferred_fact": {
-    "67P": 0,
-    "Ceres": 0,
-    "Europa": 0,
-    "baseline_candidate": 0,
-    "total": 0
-  },
-  "qualification_completed_at_utc": "2026-09-26T10:02:28.562923+00:00",
+  "preferred_facts_total": 0,
+  "promoted_solar_facts_schema_changed": false,
+  "qualification_completed_at_utc": "2026-09-26T10:11:40.657089+00:00",
   "regression_results": "reports/regression_results.json",
-  "replay": {
-    "canonical_byte_identical": true,
-    "insertion_order_independent": true,
-    "reverse_byte_identical": false,
-    "semantic_equivalent": true
-  },
-  "schema_change": "candidate staging envelope check only: source payload body identity must equal assertion body; promoted SF03 schema unchanged",
-  "scope": "Deterministic candidate enrichment of exactly the existing 110 loom_solar.body identities; no body population expansion or qualified Solar Facts mutation.",
-  "sources": {
-    "acquired_artifacts": 65,
-    "artifacts_bytes": 742606,
-    "discovered": 8,
-    "independent_assertion_lineages": 786,
-    "rejected": 1
-  },
+  "replay_semantically_equivalent": true,
+  "scope": "Exactly current 110 loom_solar.body identities; no new identities; staging candidate only.",
+  "source_conflict_groups": 36,
+  "three_body_control_file_sha256": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
   "three_body_non_interference": true,
   "verdict": "SOLAR_BASELINE_01_PASS_WITH_LIENS",
   "zero_llm_runtime": true

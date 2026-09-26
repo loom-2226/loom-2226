@@ -1,7 +1,7 @@
 import hashlib,json,os,shutil,sqlite3,sys,tempfile,unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-DB=Path(os.environ.get('BASELINE_DB',ROOT/'LOOM_SOLAR_BASELINE_01_CANDIDATE_V19.sqlite3'))
+DB=Path(os.environ.get('BASELINE_DB',ROOT/'LOOM_SOLAR_BASELINE_01_CANDIDATE_V20.sqlite3'))
 CONTROL=Path(__file__).resolve().parents[3]/'dev/solar_facts_multi_body/sf_promote_03_europa_ceres_67p/LOOM_SOLAR_FACTS_MULTI_BODY_SF_PROMOTE_03_EUROPA_CERES_67P.sqlite3'
 sys.path.insert(0,str(ROOT/'scripts'))
 from semantic_digest import digest
@@ -64,6 +64,14 @@ class BaselineQualification(unittest.TestCase):
  def test_only_geometric_albedo_is_loaded(self):
   self.assertGreater(self.con.execute("select count(*) from candidate_assertion where property_code='GEOMETRIC_ALBEDO'").fetchone()[0],0)
   self.assertEqual(0,self.con.execute("select count(*) from candidate_assertion where property_code like '%BOND%'").fetchone()[0])
+ def test_source_defined_color_comet_and_taxonomy_fields_stay_distinct(self):
+  codes={r[0] for r in self.con.execute('select distinct property_code from candidate_assertion')}
+  for code in ('COLOR_INDEX_B_V','COLOR_INDEX_U_B','COLOR_INDEX_I_R','COMET_TOTAL_MAGNITUDE_PARAMETER','COMET_NUCLEAR_MAGNITUDE_PARAMETER','COMET_TOTAL_MAGNITUDE_SLOPE_PARAMETER','COMET_NUCLEAR_MAGNITUDE_SLOPE_PARAMETER','COMET_NUCLEAR_MAGNITUDE_PHASE_COEFFICIENT','SPECTRAL_CLASS_THOLEN','SPECTRAL_CLASS_SMASSII'):self.assertIn(code,codes)
+  self.assertFalse({'COLOR_INDEX','COMET_MAGNITUDE_PARAMETER','SPECTRAL_CLASS'} & codes)
+  self.assertEqual(1,self.con.execute("select count(*) from candidate_assertion where body_id='COMET_67P' and property_code='COMET_TOTAL_MAGNITUDE_PARAMETER'").fetchone()[0])
+  self.assertEqual(1,self.con.execute("select count(*) from candidate_assertion where body_id='COMET_67P' and property_code='COMET_TOTAL_MAGNITUDE_SLOPE_PARAMETER'").fetchone()[0])
+  self.assertGreater(self.con.execute("select count(*) from candidate_assertion where property_code='SPECTRAL_CLASS_SMASSII' and reported_unit='SMASSII'").fetchone()[0],0)
+  self.assertGreater(self.con.execute("select count(*) from candidate_assertion where property_code='SPECTRAL_CLASS_THOLEN' and reported_unit='Tholen'").fetchone()[0],0)
  def test_rotation_units_and_orientation_models_stay_separate(self):
   r=facts_by_body(self.con,'CERES'); periods=[x for x in r if x['property_code']=='ROTATION_PERIOD']
   self.assertIn('d',{x['reported_unit'] for x in periods});self.assertIn('h',{x['reported_unit'] for x in periods})
