@@ -1,0 +1,39 @@
+{
+  "contract_id": "DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT_V1",
+  "source": {
+    "citation": "Dorrington, S.; Olsen, J. (2026), Parametric economic modelling of asteroid mining architectures, Acta Astronautica 241, 19-47",
+    "doi": "10.1016/j.actaastro.2025.11.006",
+    "scope": "input-boundary assessment, not a reimplementation"
+  },
+  "object_empirical_inputs": [
+    {"name":"target_identity","needed_for":"join target facts, dynamics and later CIVPROP state","sqlite_expectation":"authority_body_ref","current":"SUPPORTED"},
+    {"name":"target_mass","paper_symbol":"M","needed_for":"whole-asteroid-return extraction mass; physical inventory ceiling","sqlite_expectation":"MASS or derivable from size+density","current_candidate_assertions":10,"current":"SPARSE"},
+    {"name":"target_size","needed_for":"whole-body target selection and mass inference when combined with density/shape","sqlite_expectation":"EFFECTIVE_DIAMETER/MEAN_RADIUS/TRIAXIAL_*","current":"PARTIAL"},
+    {"name":"bulk_density","needed_for":"mass inference from size/shape; whole-body physical inventory","sqlite_expectation":"BULK_DENSITY","current_candidate_assertions":49,"current":"PARTIAL"},
+    {"name":"taxonomy","needed_for":"paper's empirical proxy for resource-presence probability p_s","sqlite_expectation":"SPECTRAL_CLASS_SMASSII or SPECTRAL_CLASS_THOLEN","current":"PARTIAL"},
+    {"name":"resource_presence_and_abundance","needed_for":"CIVPROP resource inventory and defensible p_s / extractable mass; paper illustrates >6 wt% H2O but does not provide a target-specific abundance model","sqlite_expectation":"material evidence / abundance with scope and uncertainty","current":"NOT_IN_BULK_BASELINE"},
+    {"name":"rotation_orientation","needed_for":"operations/site access, not the paper's core economic equations","sqlite_expectation":"ROTATION_PERIOD + WGCCRE orientation models","current":"PARTIAL_BUT_BROADLY_ENRICHED"},
+    {"name":"surface_geotechnical_state","needed_for":"credible mining-rate/recovery model, not parameterized by this paper","sqlite_expectation":"regional/site factual layer","current":"NOT_IN_BULK_BASELINE"}
+  ],
+  "transport_inputs": [
+    {"name":"delta_v_EA","paper_symbol":"DeltaV_EA","owner":"Navigator/transport","sqlite_solar_facts":false},
+    {"name":"delta_v_AE","paper_symbol":"DeltaV_AE","owner":"Navigator/transport","sqlite_solar_facts":false},
+    {"name":"time_of_flight_EA","paper_symbol":"TOF_EA","owner":"Navigator/transport","sqlite_solar_facts":false},
+    {"name":"time_of_flight_AE","paper_symbol":"TOF_AE","owner":"Navigator/transport","sqlite_solar_facts":false},
+    {"name":"wait_or_launch_cadence","paper_symbol":"T_wait","owner":"Navigator/transport","sqlite_solar_facts":false}
+  ],
+  "technology_inputs": [
+    "spacecraft dry mass", "mining equipment mass", "specific impulse", "thrust",
+    "resource tank capacity", "spacecraft/mining power", "mining rate", "mission/stay/capture duration"
+  ],
+  "economic_inputs": [
+    "production cost per kg", "launch cost per kg", "propellant cost per kg",
+    "operations cost per year", "sale price per kg", "discount rate", "probability of success"
+  ],
+  "derived_outputs": [
+    "extraction mass", "return mass", "sellable mass", "propellant mass", "launch mass",
+    "capital cost", "revenue", "profit", "NPV", "expected profit", "expected NPV",
+    "mass payback ratio", "break-even return mass", "break-even mass ratio"
+  ],
+  "boundary": "Solar Facts supplies empirical object state. Navigator supplies transport. Technology and economics belong downstream. Dorrington-Olsen is an economic/architecture kernel, not a complete resource-inventory model."
+}
