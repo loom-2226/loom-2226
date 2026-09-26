@@ -1,0 +1,24 @@
+version: '1.0'
+date: '2026-09-27'
+decision: EXPLICIT_WIP_DISPLACEMENT
+authorized_by: project_owner
+incoming:
+  id: SOLAR-BASELINE-02-WGCCRE
+  class: data
+  branch: data/solar-baseline-02-wgccre
+  purpose: close already-qualified WGCCRE physical-baseline enrichment
+displaced:
+  slot: scientific_discovery
+  id: S4
+  name: Identity and Protected Observables
+  prior_state: RESERVED_PRE_PAUSE_WIP_AWAITING_PR19_DISPOSITION_AND_WIP_RELOAD
+  mutation_performed: false
+  preservation: exact authoritative state on main; no branch or artifact mutation
+  resumption: restore reserved scientific_discovery slot from authoritative main when capacity is available
+scope:
+  rerun_wgccre_research: false
+  authorize_fifth_stream: false
+  wgccre_slot_released_after_merge: true
+notes:
+  - Bounded displacement to complete already-qualified staged work.
+  - Does not authorize concurrent expansion of the Research Lab portfolio.

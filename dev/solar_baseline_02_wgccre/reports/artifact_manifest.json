@@ -1,0 +1,116 @@
+{
+  "change_class": "class:data",
+  "excluded_raw_sources": [
+    "WGCCRE_2019_correction_Springer.pdf",
+    "WGCCRE_2019_correction_Springer.txt",
+    "IAU_WGCCRE_authority_page.html"
+  ],
+  "exclusion_reason": "Publisher correction full-text is subscription content; IAU authority page snapshot is discovery-only. Hashes/provenance and a minimal formula excerpt are retained.",
+  "file_count": 20,
+  "files": [
+    {
+      "bytes": 15847,
+      "path": "dev/solar_baseline_02_wgccre/build_wgccre.py",
+      "sha256": "ea66a6a8f24146f9f568fb51f73bbb648c8a24ff1b8774ac802be1a73f9d66c9"
+    },
+    {
+      "bytes": 19693,
+      "path": "dev/solar_baseline_02_wgccre/qualify_wgccre.py",
+      "sha256": "bb2bcbce551adef4a01ea72f0cda816d492aa0f1942ecde0ad03666cdb8d3ec1"
+    },
+    {
+      "bytes": 5027,
+      "path": "dev/solar_baseline_02_wgccre/test_wgccre.py",
+      "sha256": "2bad9c2cb3a787a76cc20a684913bbdd6c7cf37bc394cdf8e4e427e5fbdd5781"
+    },
+    {
+      "bytes": 719,
+      "path": "dev/solar_baseline_02_wgccre/derived/WGCCRE_2019_Phobos_correction_excerpt.txt",
+      "sha256": "11cc6ee0c5d3286a13691e25b188f1b41663f5b7af34029f537ea31709c8bf8e"
+    },
+    {
+      "bytes": 727935,
+      "path": "dev/solar_baseline_02_wgccre/raw/WGCCRE_2015_report_USGS_d9wret.pdf",
+      "sha256": "4e446975d238b38aad5c1b4ed7ba6d62a4411d503fe5ebbd6100493a4ace7980"
+    },
+    {
+      "bytes": 182204,
+      "path": "dev/solar_baseline_02_wgccre/raw/WGCCRE_2015_report_USGS_d9wret.txt",
+      "sha256": "4055ce0857ebc54311d0c12046839aa959fce3976dc9c15f4edef28d3630511d"
+    },
+    {
+      "bytes": 1789952,
+      "path": "dev/solar_baseline_02_wgccre/LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V10.sqlite3",
+      "sha256": "fc14d9f37f47e990a458fb434fec0e3419a3a45f6ffb9d6b35db406e59c71ee5"
+    },
+    {
+      "bytes": 3109,
+      "path": "dev/solar_baseline_02_wgccre/reports/source_acquisition.json",
+      "sha256": "9458f6cff4eb6a26f2aa768a3aa37efafd5262b42776c74fc55911286bce55cb"
+    },
+    {
+      "bytes": 1302,
+      "path": "dev/solar_baseline_02_wgccre/reports/marginal_coverage_gain.json",
+      "sha256": "0faae070ff510c963b1472f754634ecdffbee3ff05b0f497dcc750cc69f8c412"
+    },
+    {
+      "bytes": 1532,
+      "path": "dev/solar_baseline_02_wgccre/reports/determinism_report.json",
+      "sha256": "85aebdd2366d5bf1c0637946da374b0bdd7dbc0c74ac324df0d61c87fc606d6c"
+    },
+    {
+      "bytes": 905,
+      "path": "dev/solar_baseline_02_wgccre/reports/non_interference_report.json",
+      "sha256": "a07ed98d9a6160737bda413fd43ad16258213a008920fcbe9420354668c6ae87"
+    },
+    {
+      "bytes": 4875,
+      "path": "dev/solar_baseline_02_wgccre/reports/qualification.json",
+      "sha256": "9a25dc798d31d5d5b621fa677399fc929175e5d219ba6cd61090e796fc1c7e35"
+    },
+    {
+      "bytes": 1894,
+      "path": "dev/solar_baseline_02_wgccre/reports/qualification_metrics.json",
+      "sha256": "e33514ea019e48c21f736b2d0bb22871686ce143cedb6aa37e5b67b1dee6ec41"
+    },
+    {
+      "bytes": 1349,
+      "path": "dev/solar_baseline_02_wgccre/reports/qualification_report.md",
+      "sha256": "49ada28fb9afde4bc3a80a34f6f7a321d323752d05286d3b9f3a218311c8efb2"
+    },
+    {
+      "bytes": 16462,
+      "path": "dev/solar_baseline_02_wgccre/reports/reconciliation_engine_report_unadjusted.json",
+      "sha256": "dc6947c6c7d9d8b7d2878744b873b1ec00ce0bb5397103347a534681f08563fb"
+    },
+    {
+      "bytes": 16789,
+      "path": "dev/solar_baseline_02_wgccre/reports/reconciliation_report.json",
+      "sha256": "5611d612560560708273aebfa2016ca52beb35cde3a977bcaffe8055d55a9256"
+    },
+    {
+      "bytes": 156979,
+      "path": "dev/solar_baseline_02_wgccre/reports/identity_resolution.json",
+      "sha256": "ca4b66dcefa21b80116f25c206aa93576a0e3f438b8df225bf09abeca4ee017f"
+    },
+    {
+      "bytes": 14170,
+      "path": "dev/solar_baseline_02_wgccre/reports/conflict_report.json",
+      "sha256": "1185227d773df898ff6df2907d067ae40c52cd455d7eabeb7df0504bc3c7a26a"
+    },
+    {
+      "bytes": 1277952,
+      "path": "dev/solar_baseline_02_wgccre/reports/SOLAR_BASELINE_02_WGCCRE_01R_RECONCILIATION_LEDGER.sqlite3",
+      "sha256": "2fe033ae0afc12aafca7da1f50fef475e1175c74dc13ef9a3142f38bbca235cd"
+    },
+    {
+      "bytes": 5745,
+      "path": "dev/solar_baseline_02_wgccre/reports/implementation_remediations.json",
+      "sha256": "21795a5a391eb48cbbb861279ce89ffd666eca75b9fcf25637aba6e583c48cc3"
+    }
+  ],
+  "manifest_self_hash_excluded": true,
+  "mission_id": "SOLAR-BASELINE-02-WGCCRE",
+  "starting_live_main": "a7b21f82067294be3e27e1715864f0932a13a8f5",
+  "verdict": "SOLAR_BASELINE_02_WGCCRE_PASS_WITH_LIENS"
+}

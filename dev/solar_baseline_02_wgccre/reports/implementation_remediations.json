@@ -1,0 +1,85 @@
+{
+  "attempts": [
+    {
+      "artifact": "LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE.sqlite3",
+      "note": "Preserved locally as an engineering attempt; not included in promoted artifact manifest. Its parser/extraction revisions are summarized below.",
+      "qualification_status": "NOT_QUALIFIED_INTERMEDIATE_BUILD_NOT_PROMOTED",
+      "sha256": "110592092de3b10254265b4e36a9cea35aebc60b6d454bce664f77d23b2adcf0"
+    },
+    {
+      "artifact": "LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V1.sqlite3",
+      "note": "Preserved locally as an engineering attempt; not included in promoted artifact manifest. Its parser/extraction revisions are summarized below.",
+      "qualification_status": "NOT_QUALIFIED_INTERMEDIATE_BUILD_NOT_PROMOTED",
+      "sha256": "110592092de3b10254265b4e36a9cea35aebc60b6d454bce664f77d23b2adcf0"
+    },
+    {
+      "artifact": "LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V2.sqlite3",
+      "note": "Preserved locally as an engineering attempt; not included in promoted artifact manifest. Its parser/extraction revisions are summarized below.",
+      "qualification_status": "NOT_QUALIFIED_INTERMEDIATE_BUILD_NOT_PROMOTED",
+      "sha256": "110592092de3b10254265b4e36a9cea35aebc60b6d454bce664f77d23b2adcf0"
+    },
+    {
+      "artifact": "LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V3.sqlite3",
+      "note": "Preserved locally as an engineering attempt; not included in promoted artifact manifest. Its parser/extraction revisions are summarized below.",
+      "qualification_status": "NOT_QUALIFIED_INTERMEDIATE_BUILD_NOT_PROMOTED",
+      "sha256": "0a352328e1eebbc5322361bf5b9635cd1c25bff6654784236b1556759fd66307"
+    },
+    {
+      "artifact": "LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V4.sqlite3",
+      "note": "Preserved locally as an engineering attempt; not included in promoted artifact manifest. Its parser/extraction revisions are summarized below.",
+      "qualification_status": "NOT_QUALIFIED_INTERMEDIATE_BUILD_NOT_PROMOTED",
+      "sha256": "9e316c15abe947dae5101dc9cf8d18fc4f208be1b1503d661ea1da685c92fd6d"
+    },
+    {
+      "artifact": "LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V5.sqlite3",
+      "note": "Preserved locally as an engineering attempt; not included in promoted artifact manifest. Its parser/extraction revisions are summarized below.",
+      "qualification_status": "NOT_QUALIFIED_INTERMEDIATE_BUILD_NOT_PROMOTED",
+      "sha256": "6f7aefc07f41958636882129bd74af7b06187f96fd3ad5c24e9a504719f69f09"
+    },
+    {
+      "artifact": "LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V6.sqlite3",
+      "note": "Preserved locally as an engineering attempt; not included in promoted artifact manifest. Its parser/extraction revisions are summarized below.",
+      "qualification_status": "NOT_QUALIFIED_INTERMEDIATE_BUILD_NOT_PROMOTED",
+      "sha256": "22ba188e235a926560e69c538097d23513b26018c8e53010269a814b468ecb10"
+    },
+    {
+      "artifact": "LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V7.sqlite3",
+      "note": "Preserved locally as an engineering attempt; not included in promoted artifact manifest. Its parser/extraction revisions are summarized below.",
+      "qualification_status": "NOT_QUALIFIED_INTERMEDIATE_BUILD_NOT_PROMOTED",
+      "sha256": "aa60bc75928c49945cc3645e5ef3fe5d2725e7b411a2639ee97ac4e130ef505f"
+    },
+    {
+      "artifact": "LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V8.sqlite3",
+      "note": "Preserved locally as an engineering attempt; not included in promoted artifact manifest. Its parser/extraction revisions are summarized below.",
+      "qualification_status": "NOT_QUALIFIED_INTERMEDIATE_BUILD_NOT_PROMOTED",
+      "sha256": "b373538050d27c9448db3745f4f19be3ca9321cf4383a5e477db47b0d131ca2e"
+    },
+    {
+      "artifact": "LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V9.sqlite3",
+      "note": "Preserved locally as an engineering attempt; not included in promoted artifact manifest. Its parser/extraction revisions are summarized below.",
+      "qualification_status": "NOT_QUALIFIED_INTERMEDIATE_BUILD_NOT_PROMOTED",
+      "sha256": "ced94e076b0babec4e33b8a780dafcb4dac73dfb1cc58bad25cc76a41131bb31"
+    }
+  ],
+  "mission_id": "SOLAR-BASELINE-02-WGCCRE",
+  "remediations": [
+    {
+      "correction": "Table-bounded extraction, source-row prefix checks, exact numbered asteroid designation matching, and parent-heading validation for satellites.",
+      "defect": "Initial broad text scanning selected table-heading prose and later mentions as body rows.",
+      "evidence": "Early isolated candidates contained incomplete Sun/Tempel/Neptune strings and a false Hartley 2 model.",
+      "regression": "test_wgccre.py table mapping, identity collision, parent scope, and no unsupported Hartley 2 mapping."
+    },
+    {
+      "correction": "Switched to a frozen minimal, attributed equation excerpt. Builder checks the derivative hash and exact W0/final-sign terms; full PDF/text stay excluded from repository.",
+      "defect": "The publisher PDF text extraction included an earlier image-text fragment matching the corrected Phobos W constant.",
+      "evidence": "Initial parse did not contain the 2019 table equation terms.",
+      "regression": "test_phobos_corrigendum_is_preserved_without_preference."
+    },
+    {
+      "correction": "The unresolved asteroid designation remains a numeric WGCCRE_MPC_NUMBER 52 with body_id NULL and HOLD; it cannot be released as the Europa moon.",
+      "defect": "Initial HOLD crosswalk used a descriptive text external ID, while qualified 01R v1.0 expects numeric external IDs for HOLD resolution.",
+      "evidence": "First reconciliation attempt stopped with a ValueError before producing a ledger.",
+      "regression": "test_europa_asteroid_collision_is_held_and_moon_parent_scoped; final 01R replay passes."
+    }
+  ]
+}

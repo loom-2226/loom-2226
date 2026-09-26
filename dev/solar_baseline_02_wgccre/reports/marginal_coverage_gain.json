@@ -1,0 +1,47 @@
+{
+  "body_count": 110,
+  "coverage_lanes_after": 2972,
+  "coverage_lanes_before": 2970,
+  "existing_lane_details": [
+    {
+      "body_id": "GASPRA",
+      "property_code": "POLE_DECLINATION_MODEL"
+    },
+    {
+      "body_id": "GASPRA",
+      "property_code": "POLE_RIGHT_ASCENSION_MODEL"
+    },
+    {
+      "body_id": "GASPRA",
+      "property_code": "PRIME_MERIDIAN_MODEL"
+    },
+    {
+      "body_id": "IDA",
+      "property_code": "POLE_DECLINATION_MODEL"
+    },
+    {
+      "body_id": "IDA",
+      "property_code": "POLE_RIGHT_ASCENSION_MODEL"
+    },
+    {
+      "body_id": "IDA",
+      "property_code": "PRIME_MERIDIAN_MODEL"
+    }
+  ],
+  "existing_lanes_newly_supported": 6,
+  "net_supported_gain": 8,
+  "new_lane_details": [
+    {
+      "body_id": "BORRELLY",
+      "property_code": "PRIME_MERIDIAN_RATE_MODEL"
+    },
+    {
+      "body_id": "TEMPEL1",
+      "property_code": "PRIME_MERIDIAN_RATE_MODEL"
+    }
+  ],
+  "new_property_lanes": 2,
+  "note": "Six already-defined asteroid pole/orientation lanes (Ida and Gaspra) were gained; two explicit prime-meridian-rate lanes were added for Borrelly and Tempel 1. Coverage gained here means the corpus supplied a candidate assertion, not selection of a preferred value.",
+  "supported_lanes_after_01R": 679,
+  "supported_lanes_before_01R": 671
+}

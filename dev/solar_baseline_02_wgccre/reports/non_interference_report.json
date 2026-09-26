@@ -1,0 +1,24 @@
+{
+  "SF_PROMOTE_03_sha256_before_after_equal": true,
+  "SF_PROMOTE_03_whole_semantic_digest_before_after_equal": true,
+  "body_digests_after": {
+    "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+    "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+    "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+  },
+  "body_digests_before": {
+    "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+    "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+    "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+  },
+  "each_body_exactly_unchanged": {
+    "CERES": true,
+    "COMET_67P": true,
+    "EUROPA": true
+  },
+  "preferred_fact_count_before_after": {
+    "after": 0,
+    "before": 0
+  },
+  "solar_baseline_01_input_sha_unchanged": true
+}

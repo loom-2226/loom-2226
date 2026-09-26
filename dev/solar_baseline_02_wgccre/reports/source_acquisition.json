@@ -1,0 +1,51 @@
+{
+  "acquired_at_utc": "2026-09-26T19:49:57.184006Z",
+  "latest_scientific_source_publication": "2019-12-02",
+  "mission_id": "SOLAR-BASELINE-02-WGCCRE",
+  "network_required_for_replay": false,
+  "scope": "WGCCRE Tables 1-3 rotation and orientation model rows applicable to existing loom_solar.body identities; shape tables 4-6 were inspected but not ingested in this rotation-model increment.",
+  "sources": [
+    {
+      "acquired_at_utc": "2026-09-26T19:51:43.107762Z",
+      "artifact": "raw/WGCCRE_2015_report_USGS_d9wret.pdf",
+      "authority": "International Astronomical Union Working Group on Cartographic Coordinates and Rotational Elements; USGS Astrogeology public-domain reprint",
+      "bytes": 727935,
+      "doi": "10.1007/s10569-017-9805-5",
+      "media_type": "application/pdf",
+      "product": "Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2015",
+      "publication": "2018 report edition representing WGCCRE recommendations through 2015",
+      "redistribution": "USGS identifies the report reprint as public domain",
+      "retrieval_url": "https://www.usgs.gov/media/files/report-iau-working-group",
+      "sha256": "4e446975d238b38aad5c1b4ed7ba6d62a4411d503fe5ebbd6100493a4ace7980",
+      "text_extraction": {
+        "arguments": "-layout",
+        "artifact": "raw/WGCCRE_2015_report_USGS_d9wret.txt",
+        "sha256": "4055ce0857ebc54311d0c12046839aa959fce3976dc9c15f4edef28d3630511d",
+        "tool": "pdftotext version 24.02.0"
+      }
+    },
+    {
+      "acquired_artifact_sha256": "3e571131c2923f4f1f781954af775bb858738fd40e89c99b8dcf0aed53e3545e",
+      "acquired_at_utc": "2026-09-26T19:49:57.184006Z",
+      "acquired_bytes": 1297263,
+      "authority": "IAU WGCCRE authors; Springer Nature publisher version of record",
+      "doi": "10.1007/s10569-019-9925-1",
+      "frozen_derivative": "derived/WGCCRE_2019_Phobos_correction_excerpt.txt",
+      "frozen_derivative_sha256": "11cc6ee0c5d3286a13691e25b188f1b41663f5b7af34029f537ea31709c8bf8e",
+      "media_type": "application/pdf",
+      "product": "Correction to: Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2015",
+      "publication_date": "2019-12-02",
+      "redistribution": "Publisher page identifies subscription content and provides rights/permissions route. Full PDF and full-text extraction are intentionally excluded from repository; only factual correction excerpt and source hash/provenance are frozen.",
+      "retrieval_url": "https://link.springer.com/article/10.1007/s10569-019-9925-1"
+    },
+    {
+      "acquired_bytes": 85500,
+      "authority": "International Astronomical Union WGCCRE",
+      "discovery_snapshot_sha256": "146da26d05041db0cd9d05952d04816d9b8721811a796552eb0c5997ad531c75",
+      "product": "Working group authority and outputs page",
+      "retrieval_url": "https://iauarchive.eso.org/science/scientific_bodies/working_groups/100/",
+      "use": "source discovery and authority confirmation only; no scientific assertions parsed"
+    }
+  ],
+  "temporally_admissible_cutoff": "2025-12-31T23:59:59Z"
+}
