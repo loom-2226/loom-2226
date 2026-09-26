@@ -18,7 +18,8 @@
   const camera = new THREE.PerspectiveCamera(45, 1, 1e-9, 1e8);
   const objects = new THREE.Group(), paths = new THREE.Group();
   scene.add(objects, paths);
-  let snapshot = null, trajectory = null, selected = 'EARTH', busy = false, playing = false, playGeneration = 0;
+  let snapshot = null, trajectory = null, selected = null, busy = false, playing = false, playGeneration = 0, orbitGeneration = 0;
+  const orbitPaths = new Map();
   let distance = 80, theta = .55, phi = .65, target = new THREE.Vector3();
   let markers = [], labels = [], drag = null, moved = false;
   const pointers = new Map(); let pinch = null;
@@ -88,6 +89,35 @@
       new THREE.MeshBasicMaterial({ color: palette.selected, side: THREE.DoubleSide }));
     mesh.position.copy(position); mesh.quaternion.copy(camera.quaternion); group.add(mesh);
   }
+  const orbitDays = { MERCURY: 88, VENUS: 225, EARTH: 366, MARS: 687, JUPITER: 4333, SATURN: 10759, URANUS: 30687, NEPTUNE: 60190 };
+  async function loadPlanetOrbits() {
+    if (!snapshot || snapshot.reference_center !== 'SUN' || $('scope').value !== 'planetary') return;
+    const generation = ++orbitGeneration, epoch = Date.parse(snapshot.epoch_utc);
+    await Promise.all(visibleRows().filter(r => orbitDays[r.body_id]).map(async row => {
+      const half = orbitDays[row.body_id] * 86400000 / 2;
+      const start = new Date(epoch-half).toISOString(), end = new Date(epoch+half).toISOString();
+      const key = [row.body_id,start,end,'SUN'].join('|');
+      if (!orbitPaths.has(key)) {
+        try { orbitPaths.set(key, await get('/api/trajectory', { body: row.body_id, start, end, center: 'SUN', samples: 72 })); }
+        catch (_) { orbitPaths.set(key, null); }
+      }
+    }));
+    if (generation === orbitGeneration) rebuild(false);
+  }
+  function renderPlanetOrbits() {
+    if (!snapshot || snapshot.reference_center !== 'SUN' || $('scope').value !== 'planetary') return;
+    const epoch = Date.parse(snapshot.epoch_utc);
+    for (const row of visibleRows().filter(r => orbitDays[r.body_id])) {
+      const half=orbitDays[row.body_id]*86400000/2;
+      const key=[row.body_id,new Date(epoch-half).toISOString(),new Date(epoch+half).toISOString(),'SUN'].join('|');
+      const path=orbitPaths.get(key); if (!path) continue;
+      for (const segment of path.segments) {
+        const pts=segment.indices.map(i => path.points[i].relative && vector(path.points[i].relative.position_km)).filter(Boolean);
+        if (pts.length < 2) continue;
+        paths.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: palette.node, transparent: true, opacity: .28 })));
+      }
+    }
+  }
   function rebuild(fit = false) {
     if (!snapshot) return;
     clear(objects); clear(paths); markers = []; labels = []; $('labels').replaceChildren();
@@ -104,6 +134,7 @@
         priority: row.body_id === selected ? 0 : row.body_id === 'SUN' ? 1 : row.body_class === 'PLANET' ? 2 : 3 });
     }
     labels.sort((a, b) => a.priority-b.priority);
+    renderPlanetOrbits();
     if (trajectory) {
       for (const segment of trajectory.segments) {
         const points = segment.indices.map(i => vector(trajectory.points[i].relative.position_km));
@@ -141,12 +172,18 @@
       const option = new Option(`${row.canonical_name} · ${row.resolution === 'RESOLVED' ? row.authority_class : 'UNRESOLVED'}`, row.body_id);
       $('catalog').add(option);
     }
-    $('catalog').value = selected;
+    $('catalog').value = selected || '';
+  }
+  function clearSelection() {
+    selected = null; trajectory = null; clear(paths);
+    $('catalog').selectedIndex = -1; $('selection').textContent = 'No object selected.';
+    $('detail').textContent = ''; $('pathStatus').textContent = ''; $('seams').replaceChildren(); $('sampleList').replaceChildren();
+    rebuild(false);
   }
   function select(id) {
     selected = id;
     const row = snapshot.objects.find(r => r.body_id === id);
-    if (!row) return;
+    if (!row) { clearSelection(); return; }
     $('catalog').value = id;
     $('selection').textContent = `${row.canonical_name} · ${row.body_id} · ${row.body_class} · Parent ${row.parent_body_id ?? 'NULL'} · ${row.resolution}` +
       (row.state ? ` · ${row.authority_class} · Navigation-grade: ${row.state.navigation_grade} · Uncertainty km: ${row.state.provenance.uncertainty_km ?? 'NULL (not supplied)'}` : ` · ${row.reason}`);
@@ -183,8 +220,9 @@
         $('failures').append(button, reason);
       }
       if (!$('failures').children.length) $('failures').textContent = 'No unresolved objects at this epoch.';
-      select(selected); rebuild(fit);
+      if (selected) select(selected); else { $('catalog').selectedIndex = -1; $('selection').textContent = 'No object selected.'; rebuild(fit); }
       $('message').textContent = `Exact resolver states evaluated at ${data.epoch_utc}. Read-only PostgreSQL snapshot ${data.authority.ledger_sha256.slice(0, 12)}. Restart to reload authority.`;
+      loadPlanetOrbits();
     } catch (e) { stopPlay(); $('message').textContent = 'Evaluation failed; previous scene retained: ' + e.message; }
     finally { setBusy(false); }
   }
@@ -193,7 +231,7 @@
     $('sampleDetail').textContent = ''; $('pathStatus').textContent = ''; draw();
   }
   async function trace() {
-    if (busy || !snapshot) return;
+    if (busy || !snapshot || !selected) { $('pathStatus').textContent = 'Select an object first.'; return; }
     setBusy(true); $('pathStatus').textContent = 'Sampling governed resolver…';
     try {
       trajectory = await get('/api/trajectory', { body: selected, start: $('start').value, end: $('end').value,
@@ -230,8 +268,15 @@
   $('load').onclick = () => load(); $('back').onclick = () => step(-1); $('forward').onclick = () => step(1);
   document.querySelectorAll('[data-year]').forEach(b => { b.onclick = () => { $('epoch').value = b.dataset.year + '-01-01T00:00:00Z'; load(); }; });
   $('center').onchange = () => { selected = $('center').value; $('scope').value = selected === 'SUN' ? 'planetary' : 'local'; load(true); };
-  $('mode').onchange = () => rebuild(true); $('scope').onchange = () => rebuild(true); $('fit').onclick = fitScene;
+  $('mode').onchange = () => rebuild(true); $('scope').onchange = () => { rebuild(true); loadPlanetOrbits(); }; $('fit').onclick = fitScene;
   $('catalog').onchange = () => select($('catalog').value); $('search').oninput = populateCatalog;
+  $('clearSelection').onclick = clearSelection;
+  $('toggleControls').onclick = () => {
+    const collapsed = $('controls').classList.toggle('collapsed');
+    $('toggleControls').textContent = collapsed ? 'Show' : 'Hide';
+    $('toggleControls').setAttribute('aria-expanded', String(!collapsed));
+    setTimeout(resize, 0);
+  };
   $('trace').onclick = trace; $('clearPath').onclick = clearPath;
   const canvas = renderer.domElement;
   canvas.oncontextmenu = e => e.preventDefault();

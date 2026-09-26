@@ -5,7 +5,9 @@ header img { width: 120px; margin: var(--loom-interface-space-4); }
 h1,h2 { margin: 0 0 var(--loom-interface-space-2); font-weight: 300; }
 header span, p, #help { color: var(--loom-interface-text-secondary); }
 small { font-size: inherit; color: var(--loom-interface-text-tertiary); }
-.toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: var(--loom-interface-space-2); padding: var(--loom-interface-space-3) var(--loom-interface-space-4); background: var(--loom-interface-surface-panel); }
+.toolbar { padding: var(--loom-interface-space-3) var(--loom-interface-space-4); background: var(--loom-interface-surface-panel); }
+.toolbar-head { display: none; align-items: center; justify-content: space-between; }
+.toolbar-body { display: flex; flex-wrap: wrap; align-items: end; gap: var(--loom-interface-space-2); }
 label { display: block; color: var(--loom-interface-text-label); font-size: var(--loom-interface-type-size-label); }
 input,select,button { font: inherit; color: var(--loom-interface-text-secondary); background: var(--loom-interface-surface-panel); border: var(--loom-interface-size-hairline) solid var(--loom-interface-border-default); border-radius: var(--loom-interface-radius-frame); min-height: var(--loom-interface-size-target-min); min-width: var(--loom-interface-size-target-min); padding: var(--loom-interface-space-2); }
 input,select { display: block; max-width: 100%; }
@@ -38,13 +40,20 @@ summary { cursor: pointer; padding: var(--loom-interface-space-3) 0; min-height:
   header img { width: 72px; margin: var(--loom-interface-space-2); }
   header h1 { font-size: 1.05rem; }
   header span { font-size: .78rem; }
-  .toolbar { gap: var(--loom-interface-space-1); padding: var(--loom-interface-space-2); }
-  .toolbar label { flex: 1 1 145px; }
+  .toolbar { padding: var(--loom-interface-space-1) var(--loom-interface-space-2); }
+  .toolbar-head { display: flex; min-height: 34px; }
+  .toolbar-head button { min-height: 32px; padding: 2px 10px; }
+  .toolbar-body { gap: var(--loom-interface-space-1); }
+  .toolbar.collapsed .toolbar-body { display: none; }
+  .toolbar label { flex: 1 1 120px; }
   .toolbar input,.toolbar select { width: 100%; }
-  .toolbar button { padding: var(--loom-interface-space-1) var(--loom-interface-space-2); }
+  .toolbar button { min-height: 38px; padding: 3px 8px; }
+  .toolbar input,.toolbar select { min-height: 38px; padding: 4px 8px; }
+  header { max-height: 112px; }
+  #controls.collapsed + #message { font-size: .7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #stage { height: 82dvh; min-height: 540px; max-height: none; }
   #message { padding: var(--loom-interface-space-1) var(--loom-interface-space-3); min-height: 0; font-size: .78rem; }
   main { display: block; height: auto; }
-  #stage { height: 72dvh; min-height: 480px; max-height: 760px; }
   #sceneStatus { font-size: .78rem; }
   #help { font-size: .72rem; }
   aside { overflow: visible; }

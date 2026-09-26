@@ -4,7 +4,9 @@
 <title>LOOM · Solar Ephemeris Inspector</title>
 <link rel="stylesheet" href="/design/loom-tokens.css"><link rel="stylesheet" href="/inspector.css">
 <header><img src="/design/loom-wordmark-white.svg" alt="LOOM"><div><h1 class="loom-type-title">Solar Ephemeris Inspector <small>v0.1</small></h1><span>Phase-4 authority qualification · PostgreSQL → governed resolver → scene</span></div></header>
-<section class="toolbar" aria-label="Epoch and reference controls">
+<section class="toolbar" id="controls" aria-label="Epoch and reference controls">
+  <div class="toolbar-head"><strong>Scene controls</strong><button id="toggleControls" type="button" aria-expanded="true">Hide</button></div>
+  <div class="toolbar-body">
   <label>UTC epoch<input id="epoch" value="2026-01-01T00:00:00Z" aria-label="UTC epoch"></label><button id="load">Evaluate</button>
   <button data-year="2026">2026</button><button data-year="2226">2226</button><button data-year="2250">2250</button>
   <label>Step days<input id="step" type="number" value="1" min="0.000001" step="any"></label>
@@ -13,6 +15,8 @@
   <label>Presentation<select id="mode"><option>PHYSICAL</option><option>SCHEMATIC</option></select></label>
   <label>Scene scope<select id="scope"><option value="planetary" selected>Planetary system</option><option value="all">Whole catalog</option><option value="local">Center + family + selection</option></select></label>
   <button id="fit">Fit scene</button>
+  <button id="clearSelection" type="button">Clear selection</button>
+  </div>
 </section>
 <div id="message" role="status">Loading governed catalog; first evaluation verifies pinned local assets…</div>
 <main>
