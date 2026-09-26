@@ -13,13 +13,26 @@ def _dt(value: str) -> datetime:
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 def load_phase4_coverage(manifest_dir: Path) -> dict[str, list[dict]]:
-    out = {}
-    for path in sorted(manifest_dir.glob("SOLAR_PHASE4*.json")):
-        doc=json.loads(path.read_text())
-        rows=doc.get("coverage") or (doc.get("registry") or {}).get("coverage") or []
-        for row in rows:
+    out: dict[str, list[dict]] = {}
+    for path in sorted(manifest_dir.glob("*.json")):
+        try: doc=json.loads(path.read_text())
+        except (json.JSONDecodeError,UnicodeDecodeError): continue
+        pools=[]
+        if isinstance(doc.get("coverage"),list): pools.extend(doc["coverage"])
+        registry=doc.get("registry") or {}
+        if isinstance(registry.get("coverage"),list): pools.extend(registry["coverage"])
+        for row in pools:
             if row.get("body_id") and row.get("status")=="QUALIFIED":
                 out.setdefault(row["body_id"],[]).append({**row,"manifest":str(path)})
+        if doc.get("manifest_id")=="SOLAR_PHASE4_EARNED_AUTHORITY_V1":
+            horizon=doc["horizon_contract"]
+            for row in doc.get("targets",[]):
+                if row.get("full_2250"):
+                    out.setdefault(row["body_id"],[]).append({
+                        "ephemeris_source_id":row["source"],"body_id":row["body_id"],
+                        "valid_from":horizon["modeled_start"],"valid_until":horizon["full_2250_gate"],
+                        "reference_frame":"ECLIPJ2000","units":"km,km/s",
+                        "coverage_class":"EARNED_AUTHORITY_TARGET","status":"QUALIFIED","manifest":str(path)})
     return out
 
 def assess(db_path: Path, manifest_dir: Path, epoch_utc: str=NAV1_EPOCH_UTC) -> dict:
