@@ -350,11 +350,13 @@
       "body_class": "PLANET",
       "body_id": "EARTH",
       "canonical_name": "Earth",
-      "ephemeris_sources": [],
+      "ephemeris_sources": [
+        "DE440"
+      ],
       "nav0": "SUPPORTED",
-      "nav1": "MISSING",
+      "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 0
+      "qualified_ephemeris_at_epoch": 1
     },
     {
       "active_naif_ids": [
@@ -363,11 +365,13 @@
       "body_class": "BARYCENTER",
       "body_id": "EARTH_MOON_BARYCENTER",
       "canonical_name": "Earth-Moon barycenter",
-      "ephemeris_sources": [],
+      "ephemeris_sources": [
+        "DE440"
+      ],
       "nav0": "SUPPORTED",
-      "nav1": "MISSING",
+      "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 0
+      "qualified_ephemeris_at_epoch": 1
     },
     {
       "active_naif_ids": [
@@ -690,12 +694,13 @@
       "body_id": "JUPITER_SYSTEM_BARYCENTER",
       "canonical_name": "Jupiter system barycenter",
       "ephemeris_sources": [
+        "DE440",
         "DE440"
       ],
       "nav0": "SUPPORTED",
       "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 1
+      "qualified_ephemeris_at_epoch": 2
     },
     {
       "active_naif_ids": [
@@ -777,11 +782,14 @@
       "body_class": "PLANET",
       "body_id": "MARS",
       "canonical_name": "Mars",
-      "ephemeris_sources": [],
+      "ephemeris_sources": [
+        "JPL_MAR099",
+        "JPL_MAR099"
+      ],
       "nav0": "SUPPORTED",
-      "nav1": "MISSING",
+      "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 0
+      "qualified_ephemeris_at_epoch": 2
     },
     {
       "active_naif_ids": [
@@ -791,12 +799,14 @@
       "body_id": "MARS_SYSTEM_BARYCENTER",
       "canonical_name": "Mars system barycenter",
       "ephemeris_sources": [
+        "DE440",
+        "DE440",
         "DE440"
       ],
       "nav0": "SUPPORTED",
       "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 1
+      "qualified_ephemeris_at_epoch": 3
     },
     {
       "active_naif_ids": [
@@ -820,11 +830,13 @@
       "body_class": "PLANET",
       "body_id": "MERCURY",
       "canonical_name": "Mercury",
-      "ephemeris_sources": [],
+      "ephemeris_sources": [
+        "DE440"
+      ],
       "nav0": "SUPPORTED",
-      "nav1": "MISSING",
+      "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 0
+      "qualified_ephemeris_at_epoch": 1
     },
     {
       "active_naif_ids": [
@@ -833,11 +845,13 @@
       "body_class": "BARYCENTER",
       "body_id": "MERCURY_SYSTEM_BARYCENTER",
       "canonical_name": "Mercury system barycenter",
-      "ephemeris_sources": [],
+      "ephemeris_sources": [
+        "DE440"
+      ],
       "nav0": "SUPPORTED",
-      "nav1": "MISSING",
+      "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 0
+      "qualified_ephemeris_at_epoch": 1
     },
     {
       "active_naif_ids": [
@@ -876,11 +890,13 @@
       "body_class": "NATURAL_SATELLITE",
       "body_id": "MOON",
       "canonical_name": "Moon",
-      "ephemeris_sources": [],
+      "ephemeris_sources": [
+        "DE440"
+      ],
       "nav0": "SUPPORTED",
-      "nav1": "MISSING",
+      "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 0
+      "qualified_ephemeris_at_epoch": 1
     },
     {
       "active_naif_ids": [
@@ -904,11 +920,14 @@
       "body_class": "PLANET",
       "body_id": "NEPTUNE",
       "canonical_name": "Neptune",
-      "ephemeris_sources": [],
+      "ephemeris_sources": [
+        "JPL_NEP097",
+        "JPL_NEP097"
+      ],
       "nav0": "SUPPORTED",
-      "nav1": "MISSING",
+      "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 0
+      "qualified_ephemeris_at_epoch": 2
     },
     {
       "active_naif_ids": [
@@ -918,12 +937,14 @@
       "body_id": "NEPTUNE_SYSTEM_BARYCENTER",
       "canonical_name": "Neptune system barycenter",
       "ephemeris_sources": [
+        "DE440",
+        "DE440",
         "DE440"
       ],
       "nav0": "SUPPORTED",
       "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 1
+      "qualified_ephemeris_at_epoch": 3
     },
     {
       "active_naif_ids": [
@@ -1141,12 +1162,13 @@
       "body_id": "PLUTO_SYSTEM_BARYCENTER",
       "canonical_name": "Pluto system barycenter",
       "ephemeris_sources": [
+        "DE440",
         "DE440"
       ],
       "nav0": "SUPPORTED",
       "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 1
+      "qualified_ephemeris_at_epoch": 2
     },
     {
       "active_naif_ids": [
@@ -1259,12 +1281,13 @@
       "body_id": "SATURN",
       "canonical_name": "Saturn",
       "ephemeris_sources": [
+        "JPL_SAT441",
         "JPL_SAT441XL_PART2"
       ],
       "nav0": "SUPPORTED",
       "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 1
+      "qualified_ephemeris_at_epoch": 2
     },
     {
       "active_naif_ids": [
@@ -1274,12 +1297,14 @@
       "body_id": "SATURN_SYSTEM_BARYCENTER",
       "canonical_name": "Saturn system barycenter",
       "ephemeris_sources": [
+        "DE440",
+        "DE440",
         "DE440"
       ],
       "nav0": "SUPPORTED",
       "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 1
+      "qualified_ephemeris_at_epoch": 3
     },
     {
       "active_naif_ids": [
@@ -1342,11 +1367,13 @@
       "body_class": "STAR",
       "body_id": "SUN",
       "canonical_name": "Sun",
-      "ephemeris_sources": [],
+      "ephemeris_sources": [
+        "DE440"
+      ],
       "nav0": "SUPPORTED",
-      "nav1": "MISSING",
+      "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 0
+      "qualified_ephemeris_at_epoch": 1
     },
     {
       "active_naif_ids": [
@@ -1490,11 +1517,14 @@
       "body_class": "PLANET",
       "body_id": "URANUS",
       "canonical_name": "Uranus",
-      "ephemeris_sources": [],
+      "ephemeris_sources": [
+        "JPL_URA184_PART_3",
+        "JPL_URA184_PART_3"
+      ],
       "nav0": "SUPPORTED",
-      "nav1": "MISSING",
+      "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 0
+      "qualified_ephemeris_at_epoch": 2
     },
     {
       "active_naif_ids": [
@@ -1504,12 +1534,14 @@
       "body_id": "URANUS_SYSTEM_BARYCENTER",
       "canonical_name": "Uranus system barycenter",
       "ephemeris_sources": [
+        "DE440",
+        "DE440",
         "DE440"
       ],
       "nav0": "SUPPORTED",
       "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 1
+      "qualified_ephemeris_at_epoch": 3
     },
     {
       "active_naif_ids": [
@@ -1533,11 +1565,13 @@
       "body_class": "PLANET",
       "body_id": "VENUS",
       "canonical_name": "Venus",
-      "ephemeris_sources": [],
+      "ephemeris_sources": [
+        "DE440"
+      ],
       "nav0": "SUPPORTED",
-      "nav1": "MISSING",
+      "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 0
+      "qualified_ephemeris_at_epoch": 1
     },
     {
       "active_naif_ids": [
@@ -1546,11 +1580,13 @@
       "body_class": "BARYCENTER",
       "body_id": "VENUS_SYSTEM_BARYCENTER",
       "canonical_name": "Venus system barycenter",
-      "ephemeris_sources": [],
+      "ephemeris_sources": [
+        "DE440"
+      ],
       "nav0": "SUPPORTED",
-      "nav1": "MISSING",
+      "nav1": "SUPPORTED",
       "parent_body_id": null,
-      "qualified_ephemeris_at_epoch": 0
+      "qualified_ephemeris_at_epoch": 1
     },
     {
       "active_naif_ids": [
@@ -1617,8 +1653,8 @@
   "counts": {
     "bodies": 110,
     "nav0_supported": 108,
-    "nav1_missing": 18,
-    "nav1_supported": 92
+    "nav1_missing": 7,
+    "nav1_supported": 103
   },
   "nav1_not_required_by_current_direct_solver": [
     "GM",

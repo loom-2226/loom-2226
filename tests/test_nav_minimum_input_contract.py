@@ -13,7 +13,7 @@ class TestNavContract(unittest.TestCase):
         r=assess(DB,MAN)
         self.assertEqual(r["counts"]["bodies"],110)
         self.assertEqual(r["counts"]["nav0_supported"],108)
-        self.assertGreater(r["counts"]["nav1_supported"],0)
+        self.assertEqual(r["counts"]["nav1_supported"],103)
         self.assertEqual(r["counts"]["nav1_supported"]+r["counts"]["nav1_missing"],110)
     def test_no_candidate_fact_promoted_by_readiness(self):
         self.assertEqual(assess(DB,MAN)["authority_rule"],"MEASURE_EXISTING_AUTHORITY_ONLY_NO_PROMOTION")
