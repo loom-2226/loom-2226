@@ -1,0 +1,10 @@
+{
+  "after_test_preserved_outside_worktree": "/tmp/solar-baseline-01-audit/SF03_after_legacy_test.sqlite3",
+  "after_test_sha256": "10aaef24f578f357be69d623d122c452c46aa5c3626202540e59abe813292ce6",
+  "current_worktree_sha256": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
+  "finding": "legacy SF-PROMOTE-03 test modified the tracked qualified database in-place during validation",
+  "pre_test_expected_sha256": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
+  "restoration_verified": true,
+  "restored_authority_sha256": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
+  "restored_from": "exact git show HEAD bytes"
+}

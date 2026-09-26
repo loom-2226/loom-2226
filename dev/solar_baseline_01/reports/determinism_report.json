@@ -1,0 +1,31 @@
+{
+  "canonical_and_candidate_byte_identical": true,
+  "canonical_semantic_digest": "cd04be96dde1e153ac98b720b6c385776035544d27f28e4f2b4b0c0ba630ebc7",
+  "mission_id": "SOLAR-BASELINE-01",
+  "network_required": false,
+  "outputs": {
+    "candidate": {
+      "path": "dev/solar_baseline_01/LOOM_SOLAR_BASELINE_01_CANDIDATE_V19.sqlite3",
+      "semantic_digest": "cd04be96dde1e153ac98b720b6c385776035544d27f28e4f2b4b0c0ba630ebc7",
+      "sha256": "761b6aacb6330351467cfe356ed6a478872a912e2e95ce28b7af60fbdbd52921"
+    },
+    "canonical": {
+      "path": "solar_baseline_01/LOOM_SOLAR_BASELINE_01_REPLAY_CANONICAL_CHECK.sqlite3",
+      "semantic_digest": "cd04be96dde1e153ac98b720b6c385776035544d27f28e4f2b4b0c0ba630ebc7",
+      "sha256": "761b6aacb6330351467cfe356ed6a478872a912e2e95ce28b7af60fbdbd52921"
+    },
+    "reverse": {
+      "path": "solar_baseline_01/LOOM_SOLAR_BASELINE_01_REPLAY_REVERSE_CHECK.sqlite3",
+      "semantic_digest": "cd04be96dde1e153ac98b720b6c385776035544d27f28e4f2b4b0c0ba630ebc7",
+      "sha256": "dfb70f3042c91e97fae3c186b86fb5a05f30be1dfad727d92b3bba08184fbf92"
+    }
+  },
+  "replay_inputs_frozen": true,
+  "reverse_order_byte_identical": false,
+  "semantic_equivalence_across_replays": true,
+  "timings_seconds": {
+    "candidate_replay": 0.43,
+    "canonical_replay": 0.43,
+    "reverse_replay": 0.39
+  }
+}

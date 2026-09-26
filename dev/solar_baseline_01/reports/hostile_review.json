@@ -1,0 +1,141 @@
+{
+  "attacks": [
+    {
+      "attack": "Europa moon vs asteroid 52 Europa",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_collision_europa_moon_and_asteroid_52"
+    },
+    {
+      "attack": "body vs barycenter collision",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_barycenter_primary_identity_holds"
+    },
+    {
+      "attack": "comet aliases and designations",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_comet_aliases_do_not_create_new_identities"
+    },
+    {
+      "attack": "name-only identity collision",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_name_only_crosswalk_is_not_used_for_small_bodies"
+    },
+    {
+      "attack": "diameter vs radius",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_diameter_radius_and_shape_remain_distinct"
+    },
+    {
+      "attack": "km vs m normalization",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_km_m_and_radius_terrain_semantics_do_not_launder"
+    },
+    {
+      "attack": "GM vs mass",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_gm_mass_and_volume_are_not_conflated"
+    },
+    {
+      "attack": "geometric vs Bond albedo",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_only_geometric_albedo_is_loaded"
+    },
+    {
+      "attack": "reference radius vs local terrain",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_km_m_and_radius_terrain_semantics_do_not_launder"
+    },
+    {
+      "attack": "triaxial dimensions vs mean radius",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_diameter_radius_and_shape_remain_distinct"
+    },
+    {
+      "attack": "rotation period unit conversion",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_rotation_units_and_orientation_models_stay_separate"
+    },
+    {
+      "attack": "model coefficient vs observation",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_density_and_reference_value_semantics_are_preserved"
+    },
+    {
+      "attack": "source NULL or absence vs zero",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_unknowns_never_become_zero"
+    },
+    {
+      "attack": "range or limit vs midpoint",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_ranges_limits_and_vector_uncertainties_are_preserved"
+    },
+    {
+      "attack": "uncertainty dropped during normalization",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_ranges_limits_and_vector_uncertainties_are_preserved"
+    },
+    {
+      "attack": "source-version replacement without provenance",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_live_api_version_difference_and_temporal_capture_are_recorded; test_sources_and_hashes_are_complete"
+    },
+    {
+      "attack": "Phase-4 ephemeris duplicated into Solar Facts",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_phase4_ephemerides_not_duplicated"
+    },
+    {
+      "attack": "source conflict silently resolved",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_conflicts_are_preserved_without_preference"
+    },
+    {
+      "attack": "missing field fabricated from model knowledge",
+      "disposition": "FAIL_SAFE",
+      "evidence": "coverage disposition constraints + test_unknowns_never_become_zero"
+    },
+    {
+      "attack": "new external body inserted into loom_solar.body",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_existing_identity_population_exactly_110"
+    },
+    {
+      "attack": "qualified-body semantic mutation",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_three_body_baseline_file_and_semantics_unchanged + control_non_interference.json"
+    },
+    {
+      "attack": "nondeterministic replay",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_replay_semantic_digest_matches_frozen_report"
+    },
+    {
+      "attack": "insertion-order semantic drift",
+      "disposition": "FAIL_SAFE",
+      "evidence": "determinism_report.json canonical/reverse digest comparison"
+    },
+    {
+      "attack": "cross-body assertion/payload contamination",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_cross_body_source_payload_mutation_fails_closed"
+    },
+    {
+      "attack": "shared-source provenance collision",
+      "disposition": "FAIL_SAFE",
+      "evidence": "test_shared_source_artifacts_do_not_merge_body_lineages"
+    },
+    {
+      "attack": "cross-body derivation/model/region input",
+      "disposition": "FAIL_SAFE",
+      "evidence": "not representable in candidate schema; no relational derivation/model/region inputs are admitted"
+    }
+  ],
+  "candidate_assertion_payload_body_integrity": "SQLite CHECK constraint; mismatched payload/body update rejected",
+  "mission_id": "SOLAR-BASELINE-01",
+  "new_body_identities": 0,
+  "phase4_ephemeris_import": false,
+  "preferred_fact_selection": false,
+  "qualified_control_mutation": "none after exact restoration; body digests equal",
+  "result": "PASS_WITH_LIENS"
+}

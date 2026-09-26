@@ -1,0 +1,3 @@
+# Preserve the acquired NAIF text kernel byte-for-byte; its source-defined
+# trailing spaces are covered by the frozen artifact SHA-256.
+raw/gm_de440.tpc -diff -text

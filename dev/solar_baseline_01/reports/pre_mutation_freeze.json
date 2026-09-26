@@ -1,0 +1,19 @@
+{
+  "identity_snapshot_active_identifiers": 110,
+  "identity_snapshot_body_count": 110,
+  "identity_snapshot_sha256": "4f441987d0d881363092f30bc01c1c294fbb485d39c213fdf5017e528488bd52",
+  "identity_snapshot_source": "local PostgreSQL loom_dev; SELECT from loom_solar.body and body_identifier; read-only snapshot",
+  "live_main_commit": "d85b260e51ffebd936cb83b85d0594fd07b9405c",
+  "mission_id": "SOLAR-BASELINE-01",
+  "qualified_sf03_body_digests": {
+    "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+    "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+    "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+  },
+  "qualified_sf03_body_rows": 3,
+  "qualified_sf03_database_path": "dev/solar_facts_multi_body/sf_promote_03_europa_ceres_67p/LOOM_SOLAR_FACTS_MULTI_BODY_SF_PROMOTE_03_EUROPA_CERES_67P.sqlite3",
+  "qualified_sf03_database_sha256": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
+  "qualified_sf03_preferred_fact_count": 0,
+  "qualified_sf03_whole_semantic_digest": "382f7871cdfc42526eddcc84bd17fcfdd1a6a78cafa129c5feb21546cdfa8581",
+  "worktree_branch": "data/solar-baseline-01-factory-20260926"
+}

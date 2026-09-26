@@ -1,0 +1,893 @@
+{
+  "bodies": {
+    "AMUN": {
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "candidate_assertions": 6,
+      "canonical_name": "3554 Amun",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "APOPHIS": {
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "candidate_assertions": 6,
+      "canonical_name": "99942 Apophis",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "ARIEL": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Ariel",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "ARROKOTH": {
+      "body_class": "TRANS_NEPTUNIAN_OBJECT",
+      "candidate_assertions": 2,
+      "canonical_name": "486958 Arrokoth",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "ASTEROID_6178": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 6,
+      "canonical_name": "6178 (1986 DA)",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "ATLAS3I": {
+      "body_class": "INTERSTELLAR_OBJECT",
+      "candidate_assertions": 2,
+      "canonical_name": "3I/ATLAS",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "BENNU": {
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "candidate_assertions": 13,
+      "canonical_name": "101955 Bennu",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "BORISOV": {
+      "body_class": "INTERSTELLAR_OBJECT",
+      "candidate_assertions": 2,
+      "canonical_name": "2I/Borisov",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "BORRELLY": {
+      "body_class": "COMET",
+      "candidate_assertions": 12,
+      "canonical_name": "19P/Borrelly",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "BRAILLE": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 4,
+      "canonical_name": "9969 Braille",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "CALLISTO": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Callisto",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "CERES": {
+      "body_class": "DWARF_PLANET",
+      "candidate_assertions": 26,
+      "canonical_name": "Ceres",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "CHARON": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 10,
+      "canonical_name": "Charon",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "CHIRON": {
+      "body_class": "CENTAUR",
+      "candidate_assertions": 8,
+      "canonical_name": "2060 Chiron",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "COMET_67P": {
+      "body_class": "COMET",
+      "candidate_assertions": 12,
+      "canonical_name": "67P/Churyumov-Gerasimenko",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "COMET_HALLEY": {
+      "body_class": "COMET",
+      "candidate_assertions": 9,
+      "canonical_name": "1P/Halley",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "DACTYL": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 0,
+      "canonical_name": "Dactyl",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "DEEP_RESEARCH_JUSTIFIED"
+    },
+    "DAVIDA": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 15,
+      "canonical_name": "511 Davida",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "DEIMOS": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Deimos",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "DIDYMOS": {
+      "body_class": "BINARY_ASTEROID_PRIMARY",
+      "candidate_assertions": 0,
+      "canonical_name": "65803 Didymos",
+      "held_assertions": 8,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "IDENTITY_UNRESOLVED"
+    },
+    "DINKINESH": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 5,
+      "canonical_name": "152830 Dinkinesh",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "DIONE": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Dione",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "DONALDJOHANSON": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 3,
+      "canonical_name": "52246 Donaldjohanson",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "EARTH": {
+      "body_class": "PLANET",
+      "candidate_assertions": 14,
+      "canonical_name": "Earth",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "EARTH_MOON_BARYCENTER": {
+      "body_class": "BARYCENTER",
+      "candidate_assertions": 1,
+      "canonical_name": "Earth-Moon barycenter",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "ENCELADUS": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Enceladus",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "ERIS": {
+      "body_class": "DWARF_PLANET",
+      "candidate_assertions": 3,
+      "canonical_name": "136199 Eris",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "EROS": {
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "candidate_assertions": 19,
+      "canonical_name": "433 Eros",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "EUROPA": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Europa",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "EURYBATES": {
+      "body_class": "TROJAN_ASTEROID",
+      "candidate_assertions": 0,
+      "canonical_name": "3548 Eurybates",
+      "held_assertions": 4,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "IDENTITY_UNRESOLVED"
+    },
+    "GANYMEDE": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Ganymede",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "GASPRA": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 9,
+      "canonical_name": "951 Gaspra",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "GONGGONG": {
+      "body_class": "DWARF_PLANET",
+      "candidate_assertions": 2,
+      "canonical_name": "225088 Gonggong",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "HARTLEY2": {
+      "body_class": "COMET",
+      "candidate_assertions": 5,
+      "canonical_name": "103P/Hartley 2",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "HAUMEA": {
+      "body_class": "DWARF_PLANET",
+      "candidate_assertions": 3,
+      "canonical_name": "136108 Haumea",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "HYDRA": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 4,
+      "canonical_name": "Hydra",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "HYGIEA": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 10,
+      "canonical_name": "10 Hygiea",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "HYPERION": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 5,
+      "canonical_name": "Hyperion",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "IAPETUS": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Iapetus",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "IDA": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 11,
+      "canonical_name": "243 Ida",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "INTERAMNIA": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 11,
+      "canonical_name": "704 Interamnia",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "IO": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Io",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "ITOKAWA": {
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "candidate_assertions": 13,
+      "canonical_name": "25143 Itokawa",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "IXION": {
+      "body_class": "TRANS_NEPTUNIAN_OBJECT",
+      "candidate_assertions": 1,
+      "canonical_name": "28978 Ixion",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "JUNO": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 10,
+      "canonical_name": "3 Juno",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "JUPITER": {
+      "body_class": "PLANET",
+      "candidate_assertions": 13,
+      "canonical_name": "Jupiter",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "JUPITER_SYSTEM_BARYCENTER": {
+      "body_class": "BARYCENTER",
+      "candidate_assertions": 1,
+      "canonical_name": "Jupiter system barycenter",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "KERBEROS": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 3,
+      "canonical_name": "Kerberos",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "KLEOPATRA": {
+      "body_class": "BINARY_ASTEROID_PRIMARY",
+      "candidate_assertions": 0,
+      "canonical_name": "216 Kleopatra",
+      "held_assertions": 11,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "IDENTITY_UNRESOLVED"
+    },
+    "LEUCUS": {
+      "body_class": "TROJAN_ASTEROID",
+      "candidate_assertions": 4,
+      "canonical_name": "11351 Leucus",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "LUTETIA": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 18,
+      "canonical_name": "21 Lutetia",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "MAKEMAKE": {
+      "body_class": "DWARF_PLANET",
+      "candidate_assertions": 2,
+      "canonical_name": "136472 Makemake",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "MARS": {
+      "body_class": "PLANET",
+      "candidate_assertions": 12,
+      "canonical_name": "Mars",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "MARS_SYSTEM_BARYCENTER": {
+      "body_class": "BARYCENTER",
+      "candidate_assertions": 1,
+      "canonical_name": "Mars system barycenter",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "MATHILDE": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 8,
+      "canonical_name": "253 Mathilde",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "MERCURY": {
+      "body_class": "PLANET",
+      "candidate_assertions": 13,
+      "canonical_name": "Mercury",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "MERCURY_SYSTEM_BARYCENTER": {
+      "body_class": "BARYCENTER",
+      "candidate_assertions": 1,
+      "canonical_name": "Mercury system barycenter",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "MIMAS": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Mimas",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "MIRANDA": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Miranda",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "MOON": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Moon",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "MS4": {
+      "body_class": "TRANS_NEPTUNIAN_OBJECT",
+      "candidate_assertions": 1,
+      "canonical_name": "2002 MS4",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "NEPTUNE": {
+      "body_class": "PLANET",
+      "candidate_assertions": 13,
+      "canonical_name": "Neptune",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "NEPTUNE_SYSTEM_BARYCENTER": {
+      "body_class": "BARYCENTER",
+      "candidate_assertions": 1,
+      "canonical_name": "Neptune system barycenter",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "NEREID": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 3,
+      "canonical_name": "Nereid",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "NEWHORIZONS": {
+      "body_class": "SPACECRAFT",
+      "candidate_assertions": 0,
+      "canonical_name": "New Horizons",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "SPARSE_BUT_COMPLETE_FOR_KNOWN_EVIDENCE"
+    },
+    "NIX": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 4,
+      "canonical_name": "Nix",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "OBERON": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Oberon",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "ORCUS": {
+      "body_class": "DWARF_PLANET",
+      "candidate_assertions": 3,
+      "canonical_name": "90482 Orcus",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "ORUS": {
+      "body_class": "TROJAN_ASTEROID",
+      "candidate_assertions": 4,
+      "canonical_name": "21900 Orus",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "OUMUAMUA": {
+      "body_class": "INTERSTELLAR_OBJECT",
+      "candidate_assertions": 2,
+      "canonical_name": "1I/\u02bbOumuamua",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "PALLAS": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 18,
+      "canonical_name": "2 Pallas",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "PATROCLUS": {
+      "body_class": "BINARY_ASTEROID_PRIMARY",
+      "candidate_assertions": 0,
+      "canonical_name": "617 Patroclus",
+      "held_assertions": 7,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "IDENTITY_UNRESOLVED"
+    },
+    "PHOBOS": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Phobos",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "PHOEBE": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Phoebe",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "PIONEER10": {
+      "body_class": "SPACECRAFT",
+      "candidate_assertions": 0,
+      "canonical_name": "Pioneer 10",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "SPARSE_BUT_COMPLETE_FOR_KNOWN_EVIDENCE"
+    },
+    "PIONEER11": {
+      "body_class": "SPACECRAFT",
+      "candidate_assertions": 0,
+      "canonical_name": "Pioneer 11",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "SPARSE_BUT_COMPLETE_FOR_KNOWN_EVIDENCE"
+    },
+    "PLUTO": {
+      "body_class": "DWARF_PLANET",
+      "candidate_assertions": 13,
+      "canonical_name": "Pluto",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "PLUTO_SYSTEM_BARYCENTER": {
+      "body_class": "BARYCENTER",
+      "candidate_assertions": 1,
+      "canonical_name": "Pluto system barycenter",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "POLYMELE": {
+      "body_class": "TROJAN_ASTEROID",
+      "candidate_assertions": 5,
+      "canonical_name": "15094 Polymele",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "PROTEUS": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Proteus",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "PSYCHE": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 14,
+      "canonical_name": "16 Psyche",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "QUAOAR": {
+      "body_class": "DWARF_PLANET",
+      "candidate_assertions": 3,
+      "canonical_name": "50000 Quaoar",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "RHEA": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Rhea",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "RYUGU": {
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "candidate_assertions": 9,
+      "canonical_name": "162173 Ryugu",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "SALACIA": {
+      "body_class": "DWARF_PLANET",
+      "candidate_assertions": 3,
+      "canonical_name": "120347 Salacia",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "SATURN": {
+      "body_class": "PLANET",
+      "candidate_assertions": 13,
+      "canonical_name": "Saturn",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "SATURN_SYSTEM_BARYCENTER": {
+      "body_class": "BARYCENTER",
+      "candidate_assertions": 1,
+      "canonical_name": "Saturn system barycenter",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "SEDNA": {
+      "body_class": "DWARF_PLANET",
+      "candidate_assertions": 2,
+      "canonical_name": "90377 Sedna",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "SELAM": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 0,
+      "canonical_name": "Selam",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "DEEP_RESEARCH_JUSTIFIED"
+    },
+    "STEINS": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 9,
+      "canonical_name": "2867 \u0160teins",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "STYX": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 3,
+      "canonical_name": "Styx",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "SUN": {
+      "body_class": "STAR",
+      "candidate_assertions": 6,
+      "canonical_name": "Sun",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "SWIFTTUTTLE": {
+      "body_class": "COMET",
+      "candidate_assertions": 5,
+      "canonical_name": "109P/Swift\u2013Tuttle",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "TEMPEL1": {
+      "body_class": "COMET",
+      "candidate_assertions": 11,
+      "canonical_name": "9P/Tempel 1",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "TETHYS": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Tethys",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "THEMIS": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 9,
+      "canonical_name": "24 Themis",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "TITAN": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Titan",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "TITANIA": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Titania",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "TOUTATIS": {
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "candidate_assertions": 8,
+      "canonical_name": "4179 Toutatis",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "TRITON": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Triton",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "UMBRIEL": {
+      "body_class": "NATURAL_SATELLITE",
+      "candidate_assertions": 9,
+      "canonical_name": "Umbriel",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "URANUS": {
+      "body_class": "PLANET",
+      "candidate_assertions": 13,
+      "canonical_name": "Uranus",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "URANUS_SYSTEM_BARYCENTER": {
+      "body_class": "BARYCENTER",
+      "candidate_assertions": 1,
+      "canonical_name": "Uranus system barycenter",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "VARUNA": {
+      "body_class": "DWARF_PLANET",
+      "candidate_assertions": 4,
+      "canonical_name": "20000 Varuna",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "VENUS": {
+      "body_class": "PLANET",
+      "candidate_assertions": 13,
+      "canonical_name": "Venus",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "VENUS_SYSTEM_BARYCENTER": {
+      "body_class": "BARYCENTER",
+      "candidate_assertions": 1,
+      "canonical_name": "Venus system barycenter",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "VESTA": {
+      "body_class": "ASTEROID",
+      "candidate_assertions": 19,
+      "canonical_name": "4 Vesta",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    },
+    "VOYAGER1": {
+      "body_class": "SPACECRAFT",
+      "candidate_assertions": 0,
+      "canonical_name": "Voyager 1",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "SPARSE_BUT_COMPLETE_FOR_KNOWN_EVIDENCE"
+    },
+    "VOYAGER2": {
+      "body_class": "SPACECRAFT",
+      "candidate_assertions": 0,
+      "canonical_name": "Voyager 2",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "SPARSE_BUT_COMPLETE_FOR_KNOWN_EVIDENCE"
+    },
+    "WILD2": {
+      "body_class": "COMET",
+      "candidate_assertions": 7,
+      "canonical_name": "81P/Wild 2",
+      "held_assertions": 0,
+      "scope_note": "Coverage-prioritization only; no resource, economic, engineering, or habitability judgment.",
+      "targeting": "TARGETED_ENRICHMENT_USEFUL"
+    }
+  },
+  "body_count": 110,
+  "classifications": {
+    "DEEP_RESEARCH_JUSTIFIED": 2,
+    "IDENTITY_UNRESOLVED": 4,
+    "SPARSE_BUT_COMPLETE_FOR_KNOWN_EVIDENCE": 5,
+    "TARGETED_ENRICHMENT_USEFUL": 99
+  },
+  "interpretation": "Research prioritization from baseline field coverage only; not an assessment of scientific or downstream importance.",
+  "mission_id": "SOLAR-BASELINE-01"
+}

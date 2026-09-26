@@ -1,0 +1,1030 @@
+{
+  "assertions": {
+    "accepted_candidate": 758,
+    "duplicate_lineage_groups": [
+      {
+        "body_id": "EARTH",
+        "n": 2,
+        "property_code": "TRIAXIAL_RADII",
+        "source_artifact_id": "943e91ca95385bf8c40fbfc3a3cba5ef7452b951ca1da56c2e6207f8af7c719e",
+        "source_lineage": "NAIF:pck00011_n0066.tpc:399:RADII"
+      },
+      {
+        "body_id": "CHARON",
+        "n": 2,
+        "property_code": "TRIAXIAL_RADII",
+        "source_artifact_id": "943e91ca95385bf8c40fbfc3a3cba5ef7452b951ca1da56c2e6207f8af7c719e",
+        "source_lineage": "NAIF:pck00011_n0066.tpc:901:RADII"
+      }
+    ],
+    "duplicate_source_lineage_assertions": 2,
+    "generated": 788,
+    "held": 30,
+    "independent_lineages": 786,
+    "preferred_fact": 0,
+    "rejected": 0
+  },
+  "by_body_class": {
+    "ASTEROID": {
+      "bodies": 17,
+      "with_candidate_assertions": 17,
+      "with_candidate_assertions_percent": 100.0,
+      "withheld_body_count": 0
+    },
+    "BARYCENTER": {
+      "bodies": 9,
+      "with_candidate_assertions": 9,
+      "with_candidate_assertions_percent": 100.0,
+      "withheld_body_count": 0
+    },
+    "BINARY_ASTEROID_PRIMARY": {
+      "bodies": 3,
+      "with_candidate_assertions": 0,
+      "with_candidate_assertions_percent": 0.0,
+      "withheld_body_count": 3
+    },
+    "CENTAUR": {
+      "bodies": 1,
+      "with_candidate_assertions": 1,
+      "with_candidate_assertions_percent": 100.0,
+      "withheld_body_count": 0
+    },
+    "COMET": {
+      "bodies": 7,
+      "with_candidate_assertions": 7,
+      "with_candidate_assertions_percent": 100.0,
+      "withheld_body_count": 0
+    },
+    "DWARF_PLANET": {
+      "bodies": 11,
+      "with_candidate_assertions": 11,
+      "with_candidate_assertions_percent": 100.0,
+      "withheld_body_count": 0
+    },
+    "INTERSTELLAR_OBJECT": {
+      "bodies": 3,
+      "with_candidate_assertions": 3,
+      "with_candidate_assertions_percent": 100.0,
+      "withheld_body_count": 0
+    },
+    "NATURAL_SATELLITE": {
+      "bodies": 31,
+      "with_candidate_assertions": 29,
+      "with_candidate_assertions_percent": 93.55,
+      "withheld_body_count": 0
+    },
+    "NEAR_EARTH_ASTEROID": {
+      "bodies": 7,
+      "with_candidate_assertions": 7,
+      "with_candidate_assertions_percent": 100.0,
+      "withheld_body_count": 0
+    },
+    "PLANET": {
+      "bodies": 8,
+      "with_candidate_assertions": 8,
+      "with_candidate_assertions_percent": 100.0,
+      "withheld_body_count": 0
+    },
+    "SPACECRAFT": {
+      "bodies": 5,
+      "with_candidate_assertions": 0,
+      "with_candidate_assertions_percent": 0.0,
+      "withheld_body_count": 0
+    },
+    "STAR": {
+      "bodies": 1,
+      "with_candidate_assertions": 1,
+      "with_candidate_assertions_percent": 100.0,
+      "withheld_body_count": 0
+    },
+    "TRANS_NEPTUNIAN_OBJECT": {
+      "bodies": 3,
+      "with_candidate_assertions": 3,
+      "with_candidate_assertions_percent": 100.0,
+      "withheld_body_count": 0
+    },
+    "TROJAN_ASTEROID": {
+      "bodies": 4,
+      "with_candidate_assertions": 3,
+      "with_candidate_assertions_percent": 75.0,
+      "withheld_body_count": 1
+    }
+  },
+  "by_property": {
+    "ABSOLUTE_MAGNITUDE": {
+      "assertions": 42,
+      "bodies": 42,
+      "body_coverage_percent": 38.18
+    },
+    "ABSOLUTE_VISUAL_MAGNITUDE_V1_0": {
+      "assertions": 10,
+      "bodies": 10,
+      "body_coverage_percent": 9.09
+    },
+    "BULK_DENSITY": {
+      "assertions": 49,
+      "bodies": 48,
+      "body_coverage_percent": 43.64
+    },
+    "COLOR_INDEX": {
+      "assertions": 35,
+      "bodies": 17,
+      "body_coverage_percent": 15.45
+    },
+    "COMET_MAGNITUDE_PARAMETER": {
+      "assertions": 29,
+      "bodies": 9,
+      "body_coverage_percent": 8.18
+    },
+    "EFFECTIVE_DIAMETER": {
+      "assertions": 36,
+      "bodies": 36,
+      "body_coverage_percent": 32.73
+    },
+    "EQUATORIAL_RADIUS": {
+      "assertions": 10,
+      "bodies": 10,
+      "body_coverage_percent": 9.09
+    },
+    "GEOMETRIC_ALBEDO": {
+      "assertions": 40,
+      "bodies": 39,
+      "body_coverage_percent": 35.45
+    },
+    "GM": {
+      "assertions": 105,
+      "bodies": 70,
+      "body_coverage_percent": 63.64
+    },
+    "LONG_AXIS": {
+      "assertions": 43,
+      "bodies": 43,
+      "body_coverage_percent": 39.09
+    },
+    "MAGNITUDE_SLOPE_PARAMETER": {
+      "assertions": 14,
+      "bodies": 14,
+      "body_coverage_percent": 12.73
+    },
+    "MASS": {
+      "assertions": 10,
+      "bodies": 10,
+      "body_coverage_percent": 9.09
+    },
+    "MEAN_RADIUS": {
+      "assertions": 39,
+      "bodies": 39,
+      "body_coverage_percent": 35.45
+    },
+    "POLE_DECLINATION_MODEL": {
+      "assertions": 44,
+      "bodies": 44,
+      "body_coverage_percent": 40.0
+    },
+    "POLE_ORIENTATION": {
+      "assertions": 9,
+      "bodies": 9,
+      "body_coverage_percent": 8.18
+    },
+    "POLE_RIGHT_ASCENSION_MODEL": {
+      "assertions": 44,
+      "bodies": 44,
+      "body_coverage_percent": 40.0
+    },
+    "PRIME_MERIDIAN_MODEL": {
+      "assertions": 44,
+      "bodies": 44,
+      "body_coverage_percent": 40.0
+    },
+    "ROTATION_PERIOD": {
+      "assertions": 52,
+      "bodies": 51,
+      "body_coverage_percent": 46.36
+    },
+    "SPECTRAL_CLASS": {
+      "assertions": 35,
+      "bodies": 21,
+      "body_coverage_percent": 19.09
+    },
+    "TRIAXIAL_DIMENSIONS": {
+      "assertions": 15,
+      "bodies": 15,
+      "body_coverage_percent": 13.64
+    },
+    "TRIAXIAL_RADII": {
+      "assertions": 53,
+      "bodies": 51,
+      "body_coverage_percent": 46.36
+    },
+    "VOLUME": {
+      "assertions": 0,
+      "bodies": 0,
+      "body_coverage_percent": 0.0
+    }
+  },
+  "by_requested_body_class": {
+    "ASTEROIDS": {
+      "bodies": 31,
+      "with_candidate_assertions": 27,
+      "with_candidate_assertions_percent": 87.1
+    },
+    "COMETS": {
+      "bodies": 7,
+      "with_candidate_assertions": 7,
+      "with_candidate_assertions_percent": 100.0
+    },
+    "DWARF_PLANETS": {
+      "bodies": 11,
+      "with_candidate_assertions": 11,
+      "with_candidate_assertions_percent": 100.0
+    },
+    "NATURAL_SATELLITES": {
+      "bodies": 31,
+      "with_candidate_assertions": 29,
+      "with_candidate_assertions_percent": 93.55
+    },
+    "OTHER": {
+      "bodies": 22,
+      "with_candidate_assertions": 17,
+      "with_candidate_assertions_percent": 77.27
+    },
+    "PLANETS": {
+      "bodies": 8,
+      "with_candidate_assertions": 8,
+      "with_candidate_assertions_percent": 100.0
+    }
+  },
+  "coverage_is_not_completeness": true,
+  "identity": {
+    "active_identity_rows_matched_to_snapshot": 110,
+    "ambiguous_identity_bodies": 4,
+    "body_identity_rows_in_scope": 110,
+    "crosswalk_dispositions": {
+      "HOLD": 5,
+      "MATCH": 152,
+      "MATCH_ALIAS": 1,
+      "MATCH_EXACT": 50
+    },
+    "external_crosswalk_bodies_matched": 99,
+    "external_crosswalk_match_percent": 90.0,
+    "known_held": [
+      "DIDYMOS",
+      "EURYBATES",
+      "KLEOPATRA",
+      "PATROCLUS"
+    ],
+    "new_body_identities_created": 0,
+    "unmatched_external_bodies_imported": 0
+  },
+  "missingness_dispositions": {
+    "AMBIGUOUS_IDENTITY": 72,
+    "FIELD_NULL_IN_SOURCE": 0,
+    "LEGITIMATE_UNKNOWN": 0,
+    "NOT_APPLICABLE": 256,
+    "PARTIAL": 0,
+    "SCHEMA_LIEN": 0,
+    "SEMANTIC_MAPPING_LIEN": 0,
+    "SOURCE_DOES_NOT_COVER_BODY_CLASS": 553,
+    "SOURCE_NOT_FOUND": 36,
+    "SOURCE_NOT_PRESENT": 480,
+    "SUPPORTED": 583,
+    "UNKNOWN": 0
+  },
+  "mission_id": "SOLAR-BASELINE-01",
+  "phase4_ephemeris_duplicate_count": 0,
+  "schema_change": "NONE",
+  "sources": {
+    "acquired_artifacts": 65,
+    "by_source": [
+      {
+        "assertions": 0,
+        "authority": "JPL/NAIF",
+        "bodies_served": 0,
+        "byte_count": 54644,
+        "lineages": 0,
+        "product": "NAIF Integer ID codes Required Reading",
+        "sha256": "4b647f8cc5f3101dc16011a51fe22c6beb8e5c2db49c7619cd11787a4eaf36c3",
+        "unique_properties": 0,
+        "version": "revised 2021-12-10"
+      },
+      {
+        "assertions": 62,
+        "authority": "JPL/NAIF",
+        "bodies_served": 62,
+        "byte_count": 12406,
+        "lineages": 62,
+        "product": "generic PCK/GM text kernel",
+        "sha256": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+        "unique_properties": 1,
+        "version": "DE440 GM kernel"
+      },
+      {
+        "assertions": 228,
+        "authority": "JPL/NAIF",
+        "bodies_served": 52,
+        "byte_count": 132183,
+        "lineages": 226,
+        "product": "generic PCK/GM text kernel",
+        "sha256": "943e91ca95385bf8c40fbfc3a3cba5ef7452b951ca1da56c2e6207f8af7c719e",
+        "unique_properties": 5,
+        "version": "pck00011-n0066"
+      },
+      {
+        "assertions": 0,
+        "authority": "LOOM/PostgreSQL",
+        "bodies_served": 0,
+        "byte_count": 8224,
+        "lineages": 0,
+        "product": "loom_solar.body + body_identifier identity snapshot",
+        "sha256": "4f441987d0d881363092f30bc01c1c294fbb485d39c213fdf5017e528488bd52",
+        "unique_properties": 0,
+        "version": "origin/main d85b260e51ffebd936cb83b85d0594fd07b9405c"
+      },
+      {
+        "assertions": 70,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 10,
+        "byte_count": 58244,
+        "lineages": 70,
+        "product": "Planetary Physical Parameters HTML",
+        "sha256": "e49a487947295c389ba6e5833dd8fb04b63e826d39f70c123881882096e5e68b",
+        "unique_properties": 7,
+        "version": "mutable page snapshot"
+      },
+      {
+        "assertions": 84,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 29,
+        "byte_count": 95641,
+        "lineages": 84,
+        "product": "Planetary Satellite Physical Parameters HTML",
+        "sha256": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+        "unique_properties": 3,
+        "version": "mutable page snapshot"
+      },
+      {
+        "assertions": 0,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 0,
+        "byte_count": 212,
+        "lineages": 0,
+        "product": "SBDB API count snapshot",
+        "sha256": "2391ad11bc94794951385545f09c90d3704c493e3d378a8aaa6c9d9a5d2535c3",
+        "unique_properties": 0,
+        "version": "live response signature 1.3"
+      },
+      {
+        "assertions": 0,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 0,
+        "byte_count": 97329,
+        "lineages": 0,
+        "product": "SBDB API documentation",
+        "sha256": "a7361e4de7c45407c2d929f3ec40db3bcedd4312fd322fe8a854b37065311390",
+        "unique_properties": 0,
+        "version": "published API docs; live signature recorded separately"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 2785,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "02b1e7d71228dace0123f1cc44ef0ede823ad53b5f2a508a80b9d1fb1331ddba",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 11,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 7507,
+        "lineages": 11,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "0a0264f4e0480860c865740af0846a7a0fb08788afb1ad8eae3452f91b1e7066",
+        "unique_properties": 9,
+        "version": "1.3"
+      },
+      {
+        "assertions": 9,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 5338,
+        "lineages": 9,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "14268972dc25f3dc138397af58d8d57f4d4f617fd26c6cd0f36937efc9830117",
+        "unique_properties": 7,
+        "version": "1.3"
+      },
+      {
+        "assertions": 13,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 6581,
+        "lineages": 13,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "1d329990e7e4c2864756c8cd2a79f00803da2134002e79acca9ce821a78b9d6b",
+        "unique_properties": 11,
+        "version": "1.3"
+      },
+      {
+        "assertions": 1,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 2400,
+        "lineages": 1,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "1f490ee4ad5fccae2710a7f79a981deeb74eb95aee443d19140f847d8c666084",
+        "unique_properties": 1,
+        "version": "1.3"
+      },
+      {
+        "assertions": 9,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4550,
+        "lineages": 9,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "25027ac34088141f04aadacca63c2635ae1d5facf4fd7b6e05d4ba04d7633546",
+        "unique_properties": 7,
+        "version": "1.3"
+      },
+      {
+        "assertions": 13,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 5225,
+        "lineages": 13,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "25518748dcaf0bb7b4878d1c6ba4cbffb49467e706c7f35bfe0d6fe6fef82053",
+        "unique_properties": 11,
+        "version": "1.3"
+      },
+      {
+        "assertions": 6,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4268,
+        "lineages": 6,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "261e766b5720002cf9243cf864dfd9b26c547f605bd518980a5bfaf9a6e76220",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 3,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 2934,
+        "lineages": 3,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "2b4ab060010a43a1c2311f41e73e6ed51535d9b9c51ab893b48ee43de89af6bc",
+        "unique_properties": 3,
+        "version": "1.3"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 2792,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "2fd42cc25f92f62ece3d825b19828e3d5cb965a84e0d12fe5de50e72cb11348b",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 4,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 3285,
+        "lineages": 4,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "3391d6c165d34f0aba6d16ee0791a5146395c2dcdbbef130b2d01b7c444a586f",
+        "unique_properties": 4,
+        "version": "1.3"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 3550,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "351e00eec33a1e76afe5f2eb4682f5ec99cf61579d1ce00af2f26a0774d5c775",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4096,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "39b15a7186334e3420e234429953eaad022211927c23b1f0e9ac376295538ec0",
+        "unique_properties": 1,
+        "version": "1.3"
+      },
+      {
+        "assertions": 4,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 3423,
+        "lineages": 4,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "3acd942664fb0b80525350b6ec71f59d2404311d124bb965ed3fcdd2a05c3461",
+        "unique_properties": 4,
+        "version": "1.3"
+      },
+      {
+        "assertions": 10,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 5794,
+        "lineages": 10,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "41135abc1517eb2321bdc19a70454dd92e3b1d13185a06fe0df167d2c0eee712",
+        "unique_properties": 8,
+        "version": "1.3"
+      },
+      {
+        "assertions": 4,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4123,
+        "lineages": 4,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "41327cca0ff79fdaa9998d3943d9fcccd36e5aef70fb9e688d65c33693ca4799",
+        "unique_properties": 3,
+        "version": "1.3"
+      },
+      {
+        "assertions": 9,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 6209,
+        "lineages": 9,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "42b5e5830c651772dbc4ee4f30aee71fa3d801d224e016c3d4ae02d48976f03f",
+        "unique_properties": 7,
+        "version": "1.3"
+      },
+      {
+        "assertions": 9,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 6304,
+        "lineages": 9,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "5210c638e3487b06edf3781f526e63a4fd6839106f0dfd51d3d5c71e02304df4",
+        "unique_properties": 7,
+        "version": "1.3"
+      },
+      {
+        "assertions": 4,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 3459,
+        "lineages": 4,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "66622134ef1f0ddcd1f3cb671261a2e08d4d07ea78a01e3dfaaeaa11b9152757",
+        "unique_properties": 4,
+        "version": "1.3"
+      },
+      {
+        "assertions": 12,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 7634,
+        "lineages": 12,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "6e3d60420addbaab1ef4f75d6b188b1b48fcc4f3b95e05e2da1f12d1a7b327f2",
+        "unique_properties": 10,
+        "version": "1.3"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4141,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "6e5e0702335810416c001700148b5fd30524c1edef881a59ba0b5dd4d2c31c77",
+        "unique_properties": 1,
+        "version": "1.3"
+      },
+      {
+        "assertions": 4,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4227,
+        "lineages": 4,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "757eddb17e7ad56e061dbec25b2e768b3101b43fb1a6eb137aef9dd40def00fd",
+        "unique_properties": 4,
+        "version": "1.3"
+      },
+      {
+        "assertions": 7,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4365,
+        "lineages": 7,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "78ce68e60fb414847fd1596c881a0c56e8343e0e5f8da9e5b58fd0dd6c4195a5",
+        "unique_properties": 6,
+        "version": "1.3"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 2960,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "7e83f943a82e6bb60b1482a7c614b4d1641a54d4cffddd219e16993537f8977b",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 1,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 2395,
+        "lineages": 1,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "81b81f20ca05f452d18d48ed57fcfd64c2be78e852041d45830eed7b9e236f3d",
+        "unique_properties": 1,
+        "version": "1.3"
+      },
+      {
+        "assertions": 5,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 3394,
+        "lineages": 5,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "81c0b87fd145b230489a079e48f88904ec83f0e65591430e8a9c358d9f985426",
+        "unique_properties": 5,
+        "version": "1.3"
+      },
+      {
+        "assertions": 8,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 5950,
+        "lineages": 8,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "82dd3b6315bd850331fda1ffff9abefdbacefe8c49221789ffd99f30376b4378",
+        "unique_properties": 8,
+        "version": "1.3"
+      },
+      {
+        "assertions": 6,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4082,
+        "lineages": 6,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "837a3e39d0dcea9c03745f3730474b011c55e9c77c9baf19e572795437629133",
+        "unique_properties": 5,
+        "version": "1.3"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 2788,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "83d25dfb6c7af83fe2a77f560f4964bcec0b939af2c9bb9358bce75a2cad569c",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 13,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 5154,
+        "lineages": 13,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "8608c02b36f107ee488c256167001945f9f87cc8d90dec91d5db37d9cff58bd3",
+        "unique_properties": 11,
+        "version": "1.3"
+      },
+      {
+        "assertions": 5,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 3302,
+        "lineages": 5,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "882eb39ec825aed480fc0c33c8c26724dceba8df6e589a84e3dc8758b8cef1c1",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 7,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4042,
+        "lineages": 7,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "8f8eee76d2e5401ebbb173f453734f099764c19138c9d0646f0f7638b5a04e99",
+        "unique_properties": 7,
+        "version": "1.3"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 2772,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "8fe0cda5fe1b7546e80c108bb51a14a5a7fb930da413f2f81cefe37011b916a5",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4601,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "911a1aa75ebcde856b465caac7c435af5d19b020d0e129e9c4bb0c2162af00b0",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 7,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4591,
+        "lineages": 7,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "946dc18db4be9d3aef38bd4920f106296d00e2ef1d61eab39db347ba7d46d166",
+        "unique_properties": 6,
+        "version": "1.3"
+      },
+      {
+        "assertions": 4,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 3592,
+        "lineages": 4,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "98dd79284b3ef159803f7c7f76f1aecdd7ca2712f1deac1390dd33883e8c3bc4",
+        "unique_properties": 4,
+        "version": "1.3"
+      },
+      {
+        "assertions": 5,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 3337,
+        "lineages": 5,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "ab3b276f4d63d39674ced400e2236b094bb61ed059d50f179f3f3a219ef47c7a",
+        "unique_properties": 5,
+        "version": "1.3"
+      },
+      {
+        "assertions": 6,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4258,
+        "lineages": 6,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "b04b2c4d07ac17bbdd5fa242e30e87378b588df174ffcbbc47332be61fb18ef5",
+        "unique_properties": 5,
+        "version": "1.3"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 2824,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "b1441050e57c5abe95416141c36ea70ae7c97bb97864f9fd0905a3609d545023",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 9,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 5418,
+        "lineages": 9,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "b85ed058e8a65b29af2ac792ad454f29e6d7ab7284527830d80cf3cbd85c2caf",
+        "unique_properties": 7,
+        "version": "1.3"
+      },
+      {
+        "assertions": 7,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4310,
+        "lineages": 7,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "ba96d530c241cd862e3f1b639a2eee49f17ac750ccad273373ecaa8b7070adc9",
+        "unique_properties": 7,
+        "version": "1.3"
+      },
+      {
+        "assertions": 13,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 5766,
+        "lineages": 13,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "c231497894034d73ac6e89aed30bfe7ce8da4d9e96b531a808a49e38a66b7ca9",
+        "unique_properties": 11,
+        "version": "1.3"
+      },
+      {
+        "assertions": 6,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 3669,
+        "lineages": 6,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "c28be682a82045cf0810374c3cc775571477d0e332450e40de8e18d02d9eb558",
+        "unique_properties": 5,
+        "version": "1.3"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 2809,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "c375b9a172b344607bf0ae5b0009b1d7b01238b5e1f1d55fdd2da13ed86a4836",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 8,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4354,
+        "lineages": 8,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "c76e68d6589e50b46d35e4053e2e83dcbc9c416f10e3314a5ef65e5221988ab3",
+        "unique_properties": 6,
+        "version": "1.3"
+      },
+      {
+        "assertions": 6,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4759,
+        "lineages": 6,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "cd367d256c1b97c47672073dd001e5dc1c07e12cb5c1644077832e2d17fc7f90",
+        "unique_properties": 6,
+        "version": "1.3"
+      },
+      {
+        "assertions": 2,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 2809,
+        "lineages": 2,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "d03618f04e92c2f1f727afe952d230ea78ee11a6b1d4674cc8675f202aa19b6f",
+        "unique_properties": 2,
+        "version": "1.3"
+      },
+      {
+        "assertions": 7,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4347,
+        "lineages": 7,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "d27acb14a1d0b3be56dabc69f10a20e155642013b036670abd696ed7f2b988fa",
+        "unique_properties": 3,
+        "version": "1.3"
+      },
+      {
+        "assertions": 9,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 5201,
+        "lineages": 9,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "d7ac2114ca850a4e756328396f9975957cd3de866a8ce947c086d2df448db389",
+        "unique_properties": 9,
+        "version": "1.3"
+      },
+      {
+        "assertions": 7,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4129,
+        "lineages": 7,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "db86827c2ec5336513e96822b0ed00d55bc0427c29a3af82b4f2dfecded24830",
+        "unique_properties": 7,
+        "version": "1.3"
+      },
+      {
+        "assertions": 11,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 5605,
+        "lineages": 11,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "dd6092b32b760490175fc544a99105ced423a1804c2a434d96a6ebfb360bfcdf",
+        "unique_properties": 9,
+        "version": "1.3"
+      },
+      {
+        "assertions": 8,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 5357,
+        "lineages": 8,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "e398ea4dc734d06fd0c39b419d122947ae7f48591f4c71d8f602c61cecab4cab",
+        "unique_properties": 4,
+        "version": "1.3"
+      },
+      {
+        "assertions": 13,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 4925,
+        "lineages": 13,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "ebbb5d4878303692ea5f61264a433d96328f209eaaa0f7b89738ea7e4423a0ae",
+        "unique_properties": 11,
+        "version": "1.3"
+      },
+      {
+        "assertions": 4,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 3917,
+        "lineages": 4,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "f46bbb4e7d3e98d28805d81a08d12ab500f208caec0fb94f0d52742c491a294e",
+        "unique_properties": 4,
+        "version": "1.3"
+      },
+      {
+        "assertions": 13,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 1,
+        "byte_count": 6791,
+        "lineages": 13,
+        "product": "SBDB API exact-SPK object response",
+        "sha256": "f673ef6a9898212bfd70839e3e031230fd82fe6465224357a697a83e5acc6778",
+        "unique_properties": 11,
+        "version": "1.3"
+      },
+      {
+        "assertions": 0,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 0,
+        "byte_count": 8193,
+        "lineages": 0,
+        "product": "SBDB API field metadata",
+        "sha256": "d7988a8e0c1ae827002f20a5f71e00fad88229b44f82d73d29526ea1bbfff6e7",
+        "unique_properties": 0,
+        "version": "live response signature 1.3"
+      },
+      {
+        "assertions": 0,
+        "authority": "NASA/JPL SSD",
+        "bodies_served": 0,
+        "byte_count": 36332,
+        "lineages": 0,
+        "product": "SBDB Query API documentation",
+        "sha256": "f29f76995f982ba82e5e5c6e1527973ae76d3d5821ec7337314b8743bc7e37fb",
+        "unique_properties": 0,
+        "version": "published API docs; live signature recorded separately"
+      }
+    ],
+    "discovered": 8,
+    "rejected_source_records": 1,
+    "total_acquired_bytes": 742606
+  },
+  "three_body_control": {
+    "body_semantic_digests": {
+      "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+      "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+      "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+    },
+    "database_sha256": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
+    "preferred_fact": 0,
+    "whole_semantic_digest": "382f7871cdfc42526eddcc84bd17fcfdd1a6a78cafa129c5feb21546cdfa8581"
+  },
+  "total_existing_bodies": 110
+}
