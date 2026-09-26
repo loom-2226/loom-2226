@@ -1,0 +1,87 @@
+{
+  "manifest_id": "SOLAR_CIVPROP_M4A_POPULATION_MANIFEST_V1",
+  "purpose": "Finite research questions for autonomous population of empirical Solar resource state for CIVPROP.",
+  "authority": {
+    "body_cohort": "authority_body_ref in LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V10.sqlite3",
+    "resource_schema": "SOLAR_CIVPROP_RESOURCE_STATE_V1",
+    "evidence_destination": "existing Solar Facts material_evidence semantics",
+    "coverage_destination": "separate epistemic coverage/frontier ledger; UNKNOWN must not be fabricated as material evidence"
+  },
+  "eligibility": {
+    "included_body_classes": ["ASTEROID","BINARY_ASTEROID_PRIMARY","CENTAUR","COMET","DWARF_PLANET","INTERSTELLAR_OBJECT","NATURAL_SATELLITE","NEAR_EARTH_ASTEROID","PLANET","TRANS_NEPTUNIAN_OBJECT","TROJAN_ASTEROID"],
+    "excluded_body_classes": {
+      "BARYCENTER": "mathematical/dynamical reference point, not a material body",
+      "SPACECRAFT": "artifact, not a natural resource body",
+      "STAR": "outside this solid/small-body extraction-resource contract"
+    }
+  },
+  "required_questions": [
+    {
+      "resource_family": "VOLATILES",
+      "question": "What empirical evidence exists for volatile-bearing material on or in this body, with what abundance, form, spatial scope and uncertainty?",
+      "priority_materials": ["H2O_ICE","H2O_OH_BOUND_OR_HYDRATED","H2O_VAPOR","CO2","CO","NH3_OR_AMMONIATED_PHASES","CH4","OTHER_IDENTIFIED_VOLATILE"],
+      "open_vocabulary": true
+    },
+    {
+      "resource_family": "METALS",
+      "question": "What empirical evidence exists for metallic or economically relevant metal-bearing material on or in this body, with what abundance, form, spatial scope and uncertainty?",
+      "priority_materials": ["FE","NI","CO","FE_NI_METAL","PGM_GROUP","OTHER_IDENTIFIED_METAL_OR_METAL_BEARING_PHASE"],
+      "open_vocabulary": true
+    },
+    {
+      "resource_family": "SILICATES_ROCK",
+      "question": "What empirical evidence exists for silicate/rock-forming material on or in this body, with what abundance, mineralogy, spatial scope and uncertainty?",
+      "priority_materials": ["OLIVINE","PYROXENE","PLAGIOCLASE_FELDSPAR","PHYLLOSILICATES","SILICATE_ROCK_ASSEMBLAGE","OTHER_IDENTIFIED_ROCK_FORMING_PHASE"],
+      "open_vocabulary": true
+    },
+    {
+      "resource_family": "CARBONACEOUS_ORGANICS",
+      "question": "What empirical evidence exists for carbonaceous or organic material on or in this body, with what abundance, form, spatial scope and uncertainty?",
+      "priority_materials": ["ELEMENTAL_OR_CARBONACEOUS_CARBON","MACROMOLECULAR_OR_REFRACTORY_ORGANICS","IDENTIFIED_ORGANIC_COMPOUND","OTHER_CARBON_BEARING_MATERIAL"],
+      "open_vocabulary": true
+    }
+  ],
+  "source_hierarchy": [
+    "DIRECT_SAMPLE_OR_CURATED_SAMPLE_ANALYSIS",
+    "IN_SITU_MISSION_PRODUCT_OR_ARCHIVE",
+    "OFFICIAL_PLANETARY_DATA_SYSTEM_OR_MISSION_REFERENCE",
+    "PEER_REVIEWED_BODY_SPECIFIC_MEASUREMENT",
+    "AUTHORITATIVE_STRUCTURED_COMPOSITION_OR_TAXONOMY_CATALOG",
+    "PEER_REVIEWED_MODEL_OR_ANALOG_INFERENCE"
+  ],
+  "execution_order": [
+    "reuse already-qualified Solar Facts material evidence",
+    "map already-frozen structured authoritative sources",
+    "acquire scalable authoritative structured sources once and resolve identities deterministically",
+    "extract body/material assertions with provenance and scope",
+    "perform targeted body-specific research only for decision-relevant unresolved lanes",
+    "assign explicit coverage/frontier disposition for every required body-family lane",
+    "hostile validation",
+    "freeze candidate database, coverage matrix, artifact manifest and unresolved frontier"
+  ],
+  "coverage_dispositions": [
+    "SUPPORTED_QUANTIFIED",
+    "SUPPORTED_BOUNDED",
+    "SUPPORTED_PRESENT_UNQUANTIFIED",
+    "SUPPORTED_NONDETECTION_OR_ABSENCE",
+    "SUPPORTED_UPPER_LIMIT",
+    "SUPPORTED_INFERRED_OR_MODELLED",
+    "UNKNOWN_AFTER_SEARCH",
+    "SOURCE_NOT_FOUND",
+    "NOT_APPLICABLE"
+  ],
+  "hard_rules": [
+    "A required question is family-level; priority materials guide discovery but do not close the material vocabulary.",
+    "Do not create a material_evidence row merely to encode UNKNOWN.",
+    "No row and UNKNOWN are distinct states; UNKNOWN belongs in coverage/frontier accounting.",
+    "Taxonomy may be retained as taxonomy or a downstream prior but may not be converted to target-specific abundance.",
+    "Regional/site evidence may not be globalized.",
+    "A model or analog inference may not be relabelled as direct measurement.",
+    "Conflicting evidence must coexist; autonomous research may not silently select a winner.",
+    "Do not infer resource grade, recoverability, extraction efficiency, economic value, settlement value, delta-v or flight time.",
+    "Do not redesign Solar Facts DDL during this campaign.",
+    "Do not modify Navigator, CIVPROP, technology assumptions or economic models."
+  ],
+  "stop_rule": "Stop when every eligible body x required resource-family lane has an explicit coverage disposition and all scalable authoritative sources selected for this campaign have been exhausted. UNKNOWN_AFTER_SEARCH is a valid terminal result. Do not initiate further source discovery solely to reduce UNKNOWN count.",
+  "success_metric": "100 percent coverage accounting, not 100 percent resource knowledge."
+}
