@@ -1,6 +1,7 @@
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--loom-interface-surface-canvas); color: var(--loom-interface-text-primary); font-family: var(--loom-brand-font-family-primary); font-size: var(--loom-interface-type-size-caption); }
 header { display: flex; gap: var(--loom-interface-space-5); align-items: center; padding: var(--loom-interface-space-4); }
+#mobileControls { display: none; margin-left: auto; }
 header img { width: 120px; margin: var(--loom-interface-space-4); }
 h1,h2 { margin: 0 0 var(--loom-interface-space-2); font-weight: 300; }
 header span, p, #help { color: var(--loom-interface-text-secondary); }
@@ -36,25 +37,25 @@ summary { cursor: pointer; padding: var(--loom-interface-space-3) 0; min-height:
 #failures button { display: block; text-align: left; width: 100%; }
 #failures p { overflow-wrap: anywhere; }
 @media(max-width: 850px) {
-  header { padding: var(--loom-interface-space-2) var(--loom-interface-space-3); gap: var(--loom-interface-space-2); }
-  header img { width: 72px; margin: var(--loom-interface-space-2); }
-  header h1 { font-size: 1.05rem; }
-  header span { font-size: .78rem; }
-  .toolbar { padding: var(--loom-interface-space-1) var(--loom-interface-space-2); }
-  .toolbar-head { display: flex; min-height: 34px; }
-  .toolbar-head button { min-height: 32px; padding: 2px 10px; }
-  .toolbar-body { gap: var(--loom-interface-space-1); }
-  .toolbar.collapsed .toolbar-body { display: none; }
-  .toolbar label { flex: 1 1 120px; }
-  .toolbar input,.toolbar select { width: 100%; }
-  .toolbar button { min-height: 38px; padding: 3px 8px; }
-  .toolbar input,.toolbar select { min-height: 38px; padding: 4px 8px; }
-  header { max-height: 112px; }
-  #controls.collapsed + #message { font-size: .7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  #stage { height: 82dvh; min-height: 540px; max-height: none; }
-  #message { padding: var(--loom-interface-space-1) var(--loom-interface-space-3); min-height: 0; font-size: .62em; }
+  body { font-size: 11px; }
+  header { height: 54px; padding: 4px 8px; gap: 8px; }
+  header img { width: 54px; margin: 0; }
+  header h1 { margin: 0; font-size: .9rem; line-height: 1.05; }
+  header span { display: none; }
+  #mobileControls { display: block; min-height: 34px; padding: 3px 9px; }
+  .toolbar { display: none; position: absolute; z-index: 30; top: 54px; left: 0; right: 0; padding: 5px 8px 8px; border-bottom: 1px solid var(--loom-interface-border-default); box-shadow: 0 8px 24px var(--loom-interface-surface-canvas); }
+  .toolbar.mobile-open { display: block; }
+  .toolbar-head { display: none; }
+  .toolbar-body { gap: 4px; }
+  .toolbar label { flex: 1 1 118px; font-size: 10px; }
+  .toolbar button { min-height: 34px; padding: 2px 7px; }
+  .toolbar input,.toolbar select { min-height: 34px; padding: 3px 7px; }
+  #message { height: 18px; min-height: 18px; padding: 2px 8px; font-size: 6px; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   main { display: block; height: auto; }
-  #sceneStatus { font-size: .62em; }
-  #help { font-size: .62em; }
+  #stage { height: calc(100dvh - 72px); min-height: 600px; max-height: none; }
+  #sceneStatus,#help { left: 8px; right: 8px; padding: 3px 5px; font-size: 6px; line-height: 1.15; }
+  #sceneStatus { top: 4px; }
+  #help { bottom: 4px; }
+  .object-label { font-size: 10px; padding: 2px; }
   aside { overflow: visible; }
 }

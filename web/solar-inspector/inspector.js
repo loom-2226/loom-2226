@@ -271,6 +271,11 @@
   $('mode').onchange = () => rebuild(true); $('scope').onchange = () => { rebuild(true); loadPlanetOrbits(); }; $('fit').onclick = fitScene;
   $('catalog').onchange = () => select($('catalog').value); $('search').oninput = populateCatalog;
   $('clearSelection').onclick = clearSelection;
+  $('mobileControls').onclick = () => {
+    const open = $('controls').classList.toggle('mobile-open');
+    $('mobileControls').textContent = open ? 'Close' : 'Controls';
+    $('mobileControls').setAttribute('aria-expanded', String(open));
+  };
   $('toggleControls').onclick = () => {
     const collapsed = $('controls').classList.toggle('collapsed');
     $('toggleControls').textContent = collapsed ? 'Show' : 'Hide';
