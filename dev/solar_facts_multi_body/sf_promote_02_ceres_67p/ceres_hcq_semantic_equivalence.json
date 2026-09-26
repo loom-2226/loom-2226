@@ -1,0 +1,39 @@
+{
+  "blocking_categories": {
+    "ERROR": 0,
+    "SEMANTIC_DRIFT": 0
+  },
+  "categories": {
+    "ERROR": [],
+    "EXPECTED_NORMALIZATION": [
+      "reported and canonical units coexist; no uncertainty or range collapse"
+    ],
+    "EXPECTED_STRUCTURAL_MERGE": [
+      "none"
+    ],
+    "EXPECTED_STRUCTURAL_SPLIT": [
+      "gravity/orientation/model products remain typed products rather than scalar facts"
+    ],
+    "HELD_WITH_REASON": [
+      "none"
+    ],
+    "REPRESENTATION_ONLY_DIFFERENCE": [
+      "HCQ raw envelope retained in promotion_assertion JSON",
+      "Ceres frozen-container artifact carrier is distinct from scientific source rows"
+    ],
+    "SCHEMA_LIEN": [
+      "ordinary legacy tables do not carry every HCQ field; ledger preserves raw records"
+    ],
+    "SEMANTICALLY_EQUIVALENT": [
+      "all typed facts, observations, material evidence, activity interpretations, body/region/model records, gravity/orientation metadata, derivation rows, source assertions and knowledge events"
+    ],
+    "SEMANTIC_DRIFT": []
+  },
+  "preferred_fact_count": 0,
+  "promotion_dispositions": {
+    "PROMOTE": 69
+  },
+  "result": "SEMANTICALLY_EQUIVALENT",
+  "source": "frozen HCQ-01 Ceres v0.3-R1",
+  "source_sha256": "0bbbfd5ae2ab287900ff4e356f9571d21aff4593cc78e0cd69bf1610def9adc6"
+}

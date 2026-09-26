@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "body_isolation": true,
+    "candidate_preferred_distinction": true,
+    "cross_body_property_scope": true,
+    "derivation_isolation": true,
+    "interpretation_direct_distinction": true,
+    "model_observation_distinction": true,
+    "preferred_fact_firewall": true,
+    "provenance": true,
+    "range_semantics": true,
+    "region_isolation": true,
+    "source_isolation": true,
+    "temporal_isolation": true,
+    "uncertainty": true,
+    "unknown_semantics": true
+  },
+  "status": "PASS"
+}
