@@ -1,0 +1,526 @@
+{
+  "all_verified": true,
+  "artifact_count": 65,
+  "artifacts": [
+    {
+      "bytes": 2785,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20090482.json",
+      "sha256": "02b1e7d71228dace0123f1cc44ef0ede823ad53b5f2a508a80b9d1fb1331ddba",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20090482&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 7507,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000216.json",
+      "sha256": "0a0264f4e0480860c865740af0846a7a0fb08788afb1ad8eae3452f91b1e7066",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000216&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 95641,
+      "product": "Planetary Satellite Physical Parameters HTML",
+      "raw_file": "jpl_satellite_physical_parameters.html",
+      "sha256": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10",
+      "source_url": "https://ssd.jpl.nasa.gov/sats/phys_par/",
+      "verified": true
+    },
+    {
+      "bytes": 5338,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000951.json",
+      "sha256": "14268972dc25f3dc138397af58d8d57f4d4f617fd26c6cd0f36937efc9830117",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000951&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 6581,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000433.json",
+      "sha256": "1d329990e7e4c2864756c8cd2a79f00803da2134002e79acca9ce821a78b9d6b",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000433&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 2400,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20307261.json",
+      "sha256": "1f490ee4ad5fccae2710a7f79a981deeb74eb95aee443d19140f847d8c666084",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20307261&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 212,
+      "product": "SBDB API count snapshot",
+      "raw_file": "jpl_sbdb_api_count_snapshot.json",
+      "sha256": "2391ad11bc94794951385545f09c90d3704c493e3d378a8aaa6c9d9a5d2535c3",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb_query.api?info=count",
+      "verified": true
+    },
+    {
+      "bytes": 4550,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000010.json",
+      "sha256": "25027ac34088141f04aadacca63c2635ae1d5facf4fd7b6e05d4ba04d7633546",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000010&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 5225,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000004.json",
+      "sha256": "25518748dcaf0bb7b4878d1c6ba4cbffb49467e706c7f35bfe0d6fe6fef82053",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000004&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4268,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_1000107.json",
+      "sha256": "261e766b5720002cf9243cf864dfd9b26c547f605bd518980a5bfaf9a6e76220",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000107&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 2934,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20052246.json",
+      "sha256": "2b4ab060010a43a1c2311f41e73e6ed51535d9b9c51ab893b48ee43de89af6bc",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20052246&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 2792,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20050000.json",
+      "sha256": "2fd42cc25f92f62ece3d825b19828e3d5cb965a84e0d12fe5de50e72cb11348b",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20050000&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 3285,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20009969.json",
+      "sha256": "3391d6c165d34f0aba6d16ee0791a5146395c2dcdbbef130b2d01b7c444a586f",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20009969&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 3550,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20136108.json",
+      "sha256": "351e00eec33a1e76afe5f2eb4682f5ec99cf61579d1ce00af2f26a0774d5c775",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20136108&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4096,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_1003639.json",
+      "sha256": "39b15a7186334e3420e234429953eaad022211927c23b1f0e9ac376295538ec0",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1003639&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 3423,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20021900.json",
+      "sha256": "3acd942664fb0b80525350b6ec71f59d2404311d124bb965ed3fcdd2a05c3461",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20021900&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 5794,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000704.json",
+      "sha256": "41135abc1517eb2321bdc19a70454dd92e3b1d13185a06fe0df167d2c0eee712",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000704&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4123,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_1000041.json",
+      "sha256": "41327cca0ff79fdaa9998d3943d9fcccd36e5aef70fb9e688d65c33693ca4799",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000041&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 6209,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000003.json",
+      "sha256": "42b5e5830c651772dbc4ee4f30aee71fa3d801d224e016c3d4ae02d48976f03f",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000003&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 54644,
+      "product": "NAIF Integer ID codes Required Reading",
+      "raw_file": "naif_ids_required_reading.html",
+      "sha256": "4b647f8cc5f3101dc16011a51fe22c6beb8e5c2db49c7619cd11787a4eaf36c3",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/req/naif_ids.html",
+      "verified": true
+    },
+    {
+      "bytes": 8224,
+      "product": "loom_solar.body + body_identifier identity snapshot",
+      "raw_file": "loom_solar_identity_snapshot.tsv",
+      "sha256": "4f441987d0d881363092f30bc01c1c294fbb485d39c213fdf5017e528488bd52",
+      "source_url": "local governed PostgreSQL loom_dev; source authority is current main migration-backed identity state",
+      "verified": true
+    },
+    {
+      "bytes": 6304,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000511.json",
+      "sha256": "5210c638e3487b06edf3781f526e63a4fd6839106f0dfd51d3d5c71e02304df4",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000511&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 3459,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20011351.json",
+      "sha256": "66622134ef1f0ddcd1f3cb671261a2e08d4d07ea78a01e3dfaaeaa11b9152757",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20011351&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 7634,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000016.json",
+      "sha256": "6e3d60420addbaab1ef4f75d6b188b1b48fcc4f3b95e05e2da1f12d1a7b327f2",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000016&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4141,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_1004083.json",
+      "sha256": "6e5e0702335810416c001700148b5fd30524c1edef881a59ba0b5dd4d2c31c77",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1004083&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4227,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20002867.json",
+      "sha256": "757eddb17e7ad56e061dbec25b2e768b3101b43fb1a6eb137aef9dd40def00fd",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20002867&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4365,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000617.json",
+      "sha256": "78ce68e60fb414847fd1596c881a0c56e8343e0e5f8da9e5b58fd0dd6c4195a5",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000617&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 2960,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20486958.json",
+      "sha256": "7e83f943a82e6bb60b1482a7c614b4d1641a54d4cffddd219e16993537f8977b",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20486958&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 2395,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20028978.json",
+      "sha256": "81b81f20ca05f452d18d48ed57fcfd64c2be78e852041d45830eed7b9e236f3d",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20028978&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 3394,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20015094.json",
+      "sha256": "81c0b87fd145b230489a079e48f88904ec83f0e65591430e8a9c358d9f985426",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20015094&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 5950,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20025143.json",
+      "sha256": "82dd3b6315bd850331fda1ffff9abefdbacefe8c49221789ffd99f30376b4378",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20025143&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4082,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_1000093.json",
+      "sha256": "837a3e39d0dcea9c03745f3730474b011c55e9c77c9baf19e572795437629133",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000093&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 2788,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20225088.json",
+      "sha256": "83d25dfb6c7af83fe2a77f560f4964bcec0b939af2c9bb9358bce75a2cad569c",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20225088&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 5154,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000001.json",
+      "sha256": "8608c02b36f107ee488c256167001945f9f87cc8d90dec91d5db37d9cff58bd3",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000001&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 3302,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_1000140.json",
+      "sha256": "882eb39ec825aed480fc0c33c8c26724dceba8df6e589a84e3dc8758b8cef1c1",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000140&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4042,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20065803.json",
+      "sha256": "8f8eee76d2e5401ebbb173f453734f099764c19138c9d0646f0f7638b5a04e99",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20065803&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 2772,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20136199.json",
+      "sha256": "8fe0cda5fe1b7546e80c108bb51a14a5a7fb930da413f2f81cefe37011b916a5",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20136199&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4601,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_50788063.json",
+      "sha256": "911a1aa75ebcde856b465caac7c435af5d19b020d0e129e9c4bb0c2162af00b0",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=50788063&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 12406,
+      "product": "generic PCK/GM text kernel",
+      "raw_file": "gm_de440.tpc",
+      "sha256": "924ddf4fb9ead9fe8a1aa55780bcabde40b09d00065d58226e24b68d8092f140",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/gm_de440.tpc",
+      "verified": true
+    },
+    {
+      "bytes": 132183,
+      "product": "generic PCK/GM text kernel",
+      "raw_file": "pck00011_n0066.tpc",
+      "sha256": "943e91ca95385bf8c40fbfc3a3cba5ef7452b951ca1da56c2e6207f8af7c719e",
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011_n0066.tpc",
+      "verified": true
+    },
+    {
+      "bytes": 4591,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_1000012.json",
+      "sha256": "946dc18db4be9d3aef38bd4920f106296d00e2ef1d61eab39db347ba7d46d166",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000012&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 3592,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20003548.json",
+      "sha256": "98dd79284b3ef159803f7c7f76f1aecdd7ca2712f1deac1390dd33883e8c3bc4",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20003548&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 97329,
+      "product": "SBDB API documentation",
+      "raw_file": "jpl_sbdb_api_doc.html",
+      "sha256": "a7361e4de7c45407c2d929f3ec40db3bcedd4312fd322fe8a854b37065311390",
+      "source_url": "https://ssd-api.jpl.nasa.gov/doc/sbdb.html",
+      "verified": true
+    },
+    {
+      "bytes": 3337,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20152830.json",
+      "sha256": "ab3b276f4d63d39674ced400e2236b094bb61ed059d50f179f3f3a219ef47c7a",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20152830&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4258,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20003554.json",
+      "sha256": "b04b2c4d07ac17bbdd5fa242e30e87378b588df174ffcbbc47332be61fb18ef5",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20003554&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 2824,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20136472.json",
+      "sha256": "b1441050e57c5abe95416141c36ea70ae7c97bb97864f9fd0905a3609d545023",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20136472&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 5418,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000024.json",
+      "sha256": "b85ed058e8a65b29af2ac792ad454f29e6d7ab7284527830d80cf3cbd85c2caf",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000024&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4310,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20004179.json",
+      "sha256": "ba96d530c241cd862e3f1b639a2eee49f17ac750ccad273373ecaa8b7070adc9",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20004179&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 5766,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_2101955.json",
+      "sha256": "c231497894034d73ac6e89aed30bfe7ce8da4d9e96b531a808a49e38a66b7ca9",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=2101955&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 3669,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20006178.json",
+      "sha256": "c28be682a82045cf0810374c3cc775571477d0e332450e40de8e18d02d9eb558",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20006178&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 2809,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20090377.json",
+      "sha256": "c375b9a172b344607bf0ae5b0009b1d7b01238b5e1f1d55fdd2da13ed86a4836",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20090377&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4354,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20002060.json",
+      "sha256": "c76e68d6589e50b46d35e4053e2e83dcbc9c416f10e3314a5ef65e5221988ab3",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20002060&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4759,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20099942.json",
+      "sha256": "cd367d256c1b97c47672073dd001e5dc1c07e12cb5c1644077832e2d17fc7f90",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20099942&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 2809,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20120347.json",
+      "sha256": "d03618f04e92c2f1f727afe952d230ea78ee11a6b1d4674cc8675f202aa19b6f",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20120347&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4347,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_1000005.json",
+      "sha256": "d27acb14a1d0b3be56dabc69f10a20e155642013b036670abd696ed7f2b988fa",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000005&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 8193,
+      "product": "SBDB API field metadata",
+      "raw_file": "jpl_sbdb_api_field_metadata.json",
+      "sha256": "d7988a8e0c1ae827002f20a5f71e00fad88229b44f82d73d29526ea1bbfff6e7",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb_query.api?info=field",
+      "verified": true
+    },
+    {
+      "bytes": 5201,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20162173.json",
+      "sha256": "d7ac2114ca850a4e756328396f9975957cd3de866a8ce947c086d2df448db389",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20162173&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 4129,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000253.json",
+      "sha256": "db86827c2ec5336513e96822b0ed00d55bc0427c29a3af82b4f2dfecded24830",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000253&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 5605,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000243.json",
+      "sha256": "dd6092b32b760490175fc544a99105ced423a1804c2a434d96a6ebfb360bfcdf",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000243&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 5357,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_1000036.json",
+      "sha256": "e398ea4dc734d06fd0c39b419d122947ae7f48591f4c71d8f602c61cecab4cab",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=1000036&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 58244,
+      "product": "Planetary Physical Parameters HTML",
+      "raw_file": "jpl_planet_physical_parameters.html",
+      "sha256": "e49a487947295c389ba6e5833dd8fb04b63e826d39f70c123881882096e5e68b",
+      "source_url": "https://ssd.jpl.nasa.gov/planets/phys_par.html",
+      "verified": true
+    },
+    {
+      "bytes": 4925,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000002.json",
+      "sha256": "ebbb5d4878303692ea5f61264a433d96328f209eaaa0f7b89738ea7e4423a0ae",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000002&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 36332,
+      "product": "SBDB Query API documentation",
+      "raw_file": "jpl_sbdb_query_api_doc.html",
+      "sha256": "f29f76995f982ba82e5e5c6e1527973ae76d3d5821ec7337314b8743bc7e37fb",
+      "source_url": "https://ssd-api.jpl.nasa.gov/doc/sbdb_query.html",
+      "verified": true
+    },
+    {
+      "bytes": 3917,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20020000.json",
+      "sha256": "f46bbb4e7d3e98d28805d81a08d12ab500f208caec0fb94f0d52742c491a294e",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20020000&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    },
+    {
+      "bytes": 6791,
+      "product": "SBDB API exact-SPK object response",
+      "raw_file": "sbdb_spk_20000021.json",
+      "sha256": "f673ef6a9898212bfd70839e3e031230fd82fe6465224357a697a83e5acc6778",
+      "source_url": "https://ssd-api.jpl.nasa.gov/sbdb.api?spk=20000021&phys-par=1&alt-des=1&full-prec=1",
+      "verified": true
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "development": {
+    "B01_HTML_artifacts_reacquired_and_hash_verified": 4,
+    "NAIF_identity_reference_reacquired": 1,
+    "elapsed_seconds_including_three_replays_and_reports": 0.9877819289686158,
+    "runtime_LLM_calls": 0,
+    "scientific_source_requests_for_reconciliation": 0,
+    "source_families_ranked": 5
+  },
+  "frozen_input": {
+    "baseline_artifacts": 65,
+    "candidate_assertions": 788,
+    "existing_bodies": 110,
+    "revalidated_reference_artifacts": 5
+  },
+  "production_replay": {
+    "assertions_per_second_approx": 6662.6,
+    "bodies_per_second_approx": 930.1,
+    "ledger_bytes": 933888,
+    "network_required": false,
+    "note": "runtime includes identity resolution, comparisons, and effective coverage; standalone timers are not instrumented",
+    "one_complete_identity_reconciliation_coverage_run_seconds": 0.11827231396455318,
+    "three_runs_seconds": 0.31247434997931123
+  }
+}

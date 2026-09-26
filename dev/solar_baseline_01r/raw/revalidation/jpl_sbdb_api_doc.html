@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>SBDB API</title>
+    <meta name="description" content="SBDB APIVersion: 1.3 (2021 September)change logThe SBDB (Small-Body DataBase) API provides a method of requesting machine-readable data for a specifiedsmall ...">
+  
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="canonical" href="https://ssd-api.jpl.nasa.gov/doc/sbdb.html">
+
+    <script type="text/javascript" src="/js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/vendor/fastclick.js"></script>
+    <script type="text/javascript" src="/js/vendor/foundation.min.js"></script>
+
+    <link rel="stylesheet" href="/css/github-markdown.css">
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </head>
+
+  <body>
+
+
+
+
+
+    <!-- force this div to stay at the top of the page to ensure we can always see the menu -->
+    <div class="sticky">
+      <!-- alert when Javascript is disabled -->
+      <noscript>
+        <div data-alert class="alert-box alert">
+          <a href="#" class="close">&times;</a>This site requires JavaScript for most of its functionality.
+          See <a href="http://www.enable-javascript.com">these instructions</a> for enabling JavaScript in your web browser.
+        </div>
+      </noscript>
+      <!-- Top Nav-Bar (begin) -->
+      <nav class="top-bar" role="navigation" data-topbar>
+        <!-- here is the left-side site-logo-go-to-our-home-page button/label -->
+        <ul class="title-area">
+          <li class="name">
+          
+            <div class="logo-container">
+              <div class="nasa-logo">
+                <a id="logo_link_nasa" href="https://www.nasa.gov/">
+                  <img src="/images/transparent.gif" class="hidden-image" alt="NASA Home" />
+                </a>
+                <a id="logo_link_jpl" href="http://www.jpl.nasa.gov/">
+                  <img src="/images/transparent.gif" class="hidden-image" alt="JPL Home" />
+                </a>
+                <a id="logo_link_caltech" href="http://www.caltech.edu/">
+                  <img src="/images/transparent.gif" class="hidden-image" alt="Caltech Home" />
+                </a>
+              </div>
+            </div>
+          </li>
+          
+          <li class="toggle-topbar menu-icon"><a href="/"><span><img id="gear_logo" src="/images/logo_gears.png" alt="Home" /></span></a></li>
+        </ul>
+        <!-- start of main navigation buttons -->
+        <section class="top-bar-section">
+          <ul class="right">
+            <li><a href="/"><div id="api_logo"><img src="/images/api_logo.png" alt="Home" /></div></a></li>
+            <li class="divider"></li>
+            <li><a href="/about/">About</a></li>
+            <li class="divider"></li>
+            <li><a href="/doc/">Documents</a></li>
+          </ul>
+        </section>
+      </nav>
+      <!-- Top Nav-Bar (end) -->
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+<!-- page content: begin -->
+
+
+<div class="markdown-body">
+<div class="row">
+  <div class="small-12 columns">
+
+
+
+
+
+
+<h1 id="sbdb-api">SBDB API</h1>
+<p><strong>Version: 1.3</strong> (2021 September)<br /><a href="#change_log">change log</a></p>
+
+<p>The SBDB (Small-Body DataBase) API provides a method of requesting machine-readable data for a specified
+small body within JPL’s SSD/CNEOS Small-Body DataBase (SBDB). The SBDB contains object
+identification and naming information, orbital data, and selected physical data for
+all known asteroids and comets within the solar system. A rich set of ancillary data,
+such as close approach and virtual impactor information, are also available through this API.</p>
+
+<p>Orbits for almost all the small bodies in the SBDB are computed by JPL’s Solar System
+Dynamics (SSD) group. Those computations use high-precision dynamical and measurement models,
+based on the most up-to-date set of observational data published by the Minor Planet
+Center (MPC), including radar astrometry when available, and using sophisticated data
+weighting schemes and data editing algorithms.</p>
+
+<p>For more information about JPL’s SBDB,
+see the <a href="https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html">SBDB Lookup Tool</a>
+on the <a href="https://ssd.jpl.nasa.gov/">SSD website</a>.</p>
+
+<p><a id="request"></a></p>
+<h2>HTTP Request</h2>
+
+<p><span class="label">GET</span>
+<code>https://ssd-api.jpl.nasa.gov/sbdb.api</code></p>
+
+<h3 id="example-queries">Example Queries</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=2015ab</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=Eros</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://ssd-api.jpl.nasa.gov/sbdb.api?spk=2000433&amp;phys-par=1</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://ssd-api.jpl.nasa.gov/sbdb.api?des=73P&amp;alt-des=1&amp;cd-epoch=1</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://ssd-api.jpl.nasa.gov/sbdb.api?des=2009%20FD&amp;neo=1</code></li>
+</ul>
+
+<h2 id="-query-parameters"><a name="par" class="page-anchor"></a> Query Parameters</h2>
+
+<p>One, and only one, of the following query parameters is required: <code class="language-plaintext highlighter-rouge">sstr</code>, <code class="language-plaintext highlighter-rouge">spk</code>, or <code class="language-plaintext highlighter-rouge">des</code>.
+All other parameters are optional.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th style="text-align: center">Type</th>
+      <th style="text-align: center">Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sstr</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center"> </td>
+      <td>object search string: designation in various forms (including MPC packed form) or case-insensitive name; any provisional designation associated with the object may be used; examples: <code class="language-plaintext highlighter-rouge">atira</code>, <code class="language-plaintext highlighter-rouge">2003 CP20</code>, <code class="language-plaintext highlighter-rouge">2003cp20</code>, <code class="language-plaintext highlighter-rouge">K03C20P</code>, <code class="language-plaintext highlighter-rouge">163693</code>; although the wildcard character <code class="language-plaintext highlighter-rouge">*</code> is allowed, users are encouraged to use the <a href="/doc/sbdb_query.html">SBDB Query API</a> to find objects matching user-specified constraints</td>
+    </tr>
+    <tr>
+      <td>spk</td>
+      <td style="text-align: center">int</td>
+      <td style="text-align: center"> </td>
+      <td>object SPK-ID (e.g., <code class="language-plaintext highlighter-rouge">2000433</code>)</td>
+    </tr>
+    <tr>
+      <td>des</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center"> </td>
+      <td>object designation (e.g., <code class="language-plaintext highlighter-rouge">2015 AB</code>, <code class="language-plaintext highlighter-rouge">141P</code>, <code class="language-plaintext highlighter-rouge">73P-C</code>, <code class="language-plaintext highlighter-rouge">1995 O1</code>) or IAU number (for numbered asteroids, e.g., <code class="language-plaintext highlighter-rouge">4</code>); unnumbered comet designations do not require a prefix (e.g., <code class="language-plaintext highlighter-rouge">1995 O1</code> works as well as <code class="language-plaintext highlighter-rouge">C/1995 O1</code>)</td>
+    </tr>
+    <tr>
+      <td>neo</td>
+      <td style="text-align: center">int</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>limit to NEOs only if set to <code class="language-plaintext highlighter-rouge">1</code> or <code class="language-plaintext highlighter-rouge">2</code>. If set to <code class="language-plaintext highlighter-rouge">2</code> and the search does not match any NEO but matches one or more non-NEOs, a list of matching primary designations is returned (along with a few additional parameters)</td>
+    </tr>
+    <tr>
+      <td>alt-des</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>include alternate designations (if any) in object section output</td>
+    </tr>
+    <tr>
+      <td>alt-spk</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>include alternate SPK-IDs (if any) in object section output</td>
+    </tr>
+    <tr>
+      <td>full-prec</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output data in full precision (normally, data are returned in reduced precision for display purposes; covariance data, if requested, are always output in full precision unless <code class="language-plaintext highlighter-rouge">cov=mat</code>)</td>
+    </tr>
+    <tr>
+      <td>soln-epoch</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output the orbit data at the JPL orbit-solution epoch instead of the standard MPC epoch (applies to asteroids only); default orbit only; if the covariance is requested, this parameter is ignored (the covariance is only appropriate at the JPL orbit-solution epoch) [note: some asteroid orbits are only available at the JPL orbit-solution epoch]</td>
+    </tr>
+    <tr>
+      <td>cd-epoch</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>add the calendar date/time formatted version of the orbit epoch</td>
+    </tr>
+    <tr>
+      <td>cd-tp</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>add the calendar date/time formatted version of the time-of-perihelion-passage to the orbital element output (see <a href="#elem">Orbit Elements Subsection</a> below for details)</td>
+    </tr>
+    <tr>
+      <td>cov</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center"> </td>
+      <td>output the orbital covariance (if available), in the form specified: <code class="language-plaintext highlighter-rouge">mat</code>=full matrix form, <code class="language-plaintext highlighter-rouge">vec</code>=upper-triangular vector-stored form, <code class="language-plaintext highlighter-rouge">src</code>=upper-triangular vector-stored square-root form (see <a href="#cov">Orbit Subsection</a> below for details)</td>
+    </tr>
+    <tr>
+      <td>nv-fmt</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center"> </td>
+      <td>output <code class="language-plaintext highlighter-rouge">not_valid_before</code> and <code class="language-plaintext highlighter-rouge">not_valid_after</code> date/time values (when defined) in the specified format: <code class="language-plaintext highlighter-rouge">jd</code> for Julian day format or <code class="language-plaintext highlighter-rouge">cd</code> for calendar date/time (see <a href="#orbit">Orbit Data Section</a> below for details)</td>
+    </tr>
+    <tr>
+      <td>anc-data</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output availability of ancillary data sets (see <a href="#object">Object Data Section</a> below for details)</td>
+    </tr>
+    <tr>
+      <td>no-orbit</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>suppress output of the default orbit</td>
+    </tr>
+    <tr>
+      <td>alt-orbits</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output alternate (non-default) orbits, if any (typically only for comets)</td>
+    </tr>
+    <tr>
+      <td>orbit-defs</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output orbit parameter definitions</td>
+    </tr>
+    <tr>
+      <td>sat</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output satellite data (if any, see <a href="#sat">Satellite Data Section</a> below for details)</td>
+    </tr>
+    <tr>
+      <td>phys-par</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output physical parameters (e.g., absolute magnitude: H; see <a href="#phys_par">Physical Parameters Section</a> below for details)</td>
+    </tr>
+    <tr>
+      <td>ca-data</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output close approach data (if any)</td>
+    </tr>
+    <tr>
+      <td>ca-body</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center"> </td>
+      <td>limit close approach data to those for the specified body (e.g. <code class="language-plaintext highlighter-rouge">Earth</code>)</td>
+    </tr>
+    <tr>
+      <td>ca-time</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">cd</code></td>
+      <td>format to use for close-approach date/time output: <code class="language-plaintext highlighter-rouge">cd</code>=calendar date/time format <code class="language-plaintext highlighter-rouge">YYYY-MMM-DD hh:mm</code>, <code class="language-plaintext highlighter-rouge">jd</code>=Julian date format, <code class="language-plaintext highlighter-rouge">both</code>=<code class="language-plaintext highlighter-rouge">cd</code> and <code class="language-plaintext highlighter-rouge">jd</code></td>
+    </tr>
+    <tr>
+      <td>ca-tunc</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">num</code></td>
+      <td>include close approach time uncertainty formatted as requested: <code class="language-plaintext highlighter-rouge">num</code>=numeric, <code class="language-plaintext highlighter-rouge">fmt</code>= formatted, <code class="language-plaintext highlighter-rouge">both</code>=<code class="language-plaintext highlighter-rouge">num</code> and <code class="language-plaintext highlighter-rouge">fmt</code> (see <a href="#cad">Close Approach Data Section</a> below for details)</td>
+    </tr>
+    <tr>
+      <td>ca-unc</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>include close approach distance uncertainty ellipse parameters</td>
+    </tr>
+    <tr>
+      <td>radar-obs</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output radar astrometry data (if any; see <a href="#radar">Radar Astrometry Data Section</a> below for details)</td>
+    </tr>
+    <tr>
+      <td>r-name</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>include radar station names in radar astrometry data</td>
+    </tr>
+    <tr>
+      <td>r-observer</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>include observer field in radar astrometry data</td>
+    </tr>
+    <tr>
+      <td>r-notes</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>include notes field in radar astrometry data</td>
+    </tr>
+    <tr>
+      <td>vi-data</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output VI (virtual impactor) data (if any) from JPL’s <a href="https://cneos.jpl.nasa.gov/sentry/">Sentry system</a> (see <a href="#vi">VI (Virtual Impactor) Data Section</a> below for details)</td>
+    </tr>
+    <tr>
+      <td>discovery</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output discovery circumstances and IAU name citation data (if available)</td>
+    </tr>
+    <tr>
+      <td>raw-citation</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>output IAU name citation data (when available) in raw LaTex-like format (normally, special characters are formatted in HTML); requires <code class="language-plaintext highlighter-rouge">discovery</code> parameter set true</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="data-output">Data Output</h2>
+
+<blockquote>
+  <p>Please <strong>always check</strong> the JSON payload “signature” object for the API “version”.
+  If the version does not match the version in this document (at the top),
+  there is no guarantee that the format has not changed.</p>
+  <p>Example "signature" object with "version" value "1.0":
+  <code>"signature":{"version":"1.0","source":"NASA/JPL ... API"}</code>
+  </p>
+</blockquote>
+
+<p>A valid SBDB API query returns one of the following:</p>
+
+<ul>
+  <li>data for the requested object, if the object was unambiguously specified</li>
+  <li>a list of objects matching the non-unique object specification</li>
+  <li>a message indicating that no object was found that matched the request</li>
+</ul>
+
+<h3 id="neos-only-mode">NEOs-Only Mode</h3>
+
+<p>To support NEOs-only use cases, a NEO-filter (query parameter <code class="language-plaintext highlighter-rouge">neo</code>)
+is available to limit results to NEOs.
+This mode supports an additional option which returns limited data on all matching non-NEOs,
+allowing the client to redirect to a new API call (if required) without setting the <code class="language-plaintext highlighter-rouge">neo</code> parameter.</p>
+
+<p>See the next section for an example with <code class="language-plaintext highlighter-rouge">neo=2</code>.</p>
+
+<h3 id="multiple-objects-matching-sstr">Multiple Objects Matching <code class="language-plaintext highlighter-rouge">sstr</code></h3>
+
+<p>For normal cases where the query matches a single object,
+the complete data set from the SBDB is returned in JSON-format.
+See the next section for details on the data provided.</p>
+
+<p>In cases where more than one object matches, a list is returned
+with a primary designation <code class="language-plaintext highlighter-rouge">pdes</code> and corresponding full-name for each matching object.
+From <code class="language-plaintext highlighter-rouge">pdes</code>, it should be possible to submit a new query with <code class="language-plaintext highlighter-rouge">des</code>
+set to the <code class="language-plaintext highlighter-rouge">pdes</code> of interest.
+Here’s an example result from the query <code class="language-plaintext highlighter-rouge">sstr=141P</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "signature":{"version":"1.0","source":"NASA/JPL Small-Body Database (SBDB) API"},
+  "code": 300,
+  "message": "specified query matched more than one object",
+  "list": [
+    { "pdes": "141P", "name": "141P/Machholz 2" },
+    { "pdes": "141P-A", "name": "141P/Machholz 2-A" },
+    { "pdes": "141P-D", "name": "141P/Machholz 2-D" }
+  ]
+}
+</code></pre></div></div>
+
+<p>A user who wanted only the parent comet 141P could parse this list and submit a new
+request specifying <code class="language-plaintext highlighter-rouge">des=141P</code> which will match only the parent.</p>
+
+<p>Similarly, for <code class="language-plaintext highlighter-rouge">neo=2</code> results matching one or more non-NEO, a list of matching objects
+is returned. In addition to <code class="language-plaintext highlighter-rouge">pdes</code> and <code class="language-plaintext highlighter-rouge">name</code>, the perihelion distance <code class="language-plaintext highlighter-rouge">q</code>,
+Earth MOID <code class="language-plaintext highlighter-rouge">moid</code>, and orbital class code <code class="language-plaintext highlighter-rouge">class</code> are returned.
+For example, the query <code class="language-plaintext highlighter-rouge">sstr=2016%20AA3%2A&amp;neo=2</code>
+(where <code class="language-plaintext highlighter-rouge">2016%20AA3%2A</code> is the URL-encoded form of “2016 AA3*”) might result in the following:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "signature":{"version":"1.0","source":"NASA/JPL Small-Body Database (SBDB) API"},
+  "info" : "specified object matched one or more non-NEO: see list",
+  "count" : 4,
+  "list" : [
+    {
+       "pdes" : "2016 AA30",
+       "q" : "2.57",
+       "name" : "(2016 AA30)",
+       "moid" : "1.57",
+       "class" : "MBA"
+    },
+    {
+       "pdes" : "2016 AA33",
+       "q" : "1.88",
+       "name" : "(2016 AA33)",
+       "moid" : "0.887",
+       "class" : "MBA"
+    },
+    {
+       "pdes" : "2016 AA35",
+       "q" : "2.91",
+       "name" : "(2016 AA35)",
+       "moid" : "1.93",
+       "class" : "MBA"
+    },
+    {
+       "pdes" : "2016 AA36",
+       "q" : "2.12",
+       "name" : "(2016 AA36)",
+       "moid" : "1.13",
+       "class" : "MBA"
+    }
+  ]
+}
+</code></pre></div></div>
+
+<h2 id="normal-data-payload">Normal Data Payload</h2>
+
+<p>This output is the result of specifying a unique object.</p>
+
+<p>The following example query
+<code class="language-plaintext highlighter-rouge">https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=Eros</code>
+returns the following payload containing data sections <code class="language-plaintext highlighter-rouge">object</code> and <code class="language-plaintext highlighter-rouge">orbit</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  “signature": { "source":"NASA/JPL Small-Body Database (SBDB) API", "version":"1.0" },
+  "object": {
+    "shortname":"433 Eros",
+    "neo":true,
+    "orbit_class": { "name":"Amor", "code":"AMO" },
+    "pha":false,
+    "spkid":"2000433",
+    "kind":"an",
+    "orbit_id":"614",
+    "fullname":"433 Eros (1898 DQ)",
+    "des":"433",
+    "prefix":null
+  },
+  "orbit": {
+    "source":"JPL",
+    "cov_epoch":"2451960.5",
+    "moid_jup":"3.29",
+    "t_jup":"4.583",
+    "condition_code":"0",
+    "not_valid_before":null,
+    "model_pars":[],
+    "rms":"0.36",
+    "orbit_id":"614",
+    "producer":"Otto Matic",
+    "first_obs":"1963-07-15",
+    "soln_date":"2018-05-29 06:21:04",
+    "two_body":null,
+    "epoch":"2458200.5",
+    "elements": [
+      { "value":"0.223", "sigma":"1.2e-08", "name":"e", "title":"eccentricity", "label":"e", "units":null },
+      { "value":"1.46", "sigma":"4.8e-10", "name":"a", "title":"semi-major axis", "label":"a", "units":"au" },
+      { "value":"1.13", "sigma":"1.8e-08", "name":"q", "title":"perihelion distance", "label":"q", "units":"au" },
+      { "value":"10.8", "sigma":"2.8e-06", "name":"i", "title":"inclination", "label":"i", "units":"deg" },
+      { "value":"304", "sigma":"1.2e-05", "name":"om", "title":"longitude of the ascending node", "label":"node", "units":"deg" },
+      { "value":"179", "sigma":"1.3e-05", "name":"w", "title":"argument of perihelion", "label":"peri", "units":"deg" },
+      { "value":"183", "sigma":"5.7e-06", "name":"ma", "title":"mean anomaly", "label":"M", "units":"deg" },
+      { "value":"2458516.099", "sigma":"1e-05", "name":"tp", "title":"time of perihelion passage", "label":"tp", "units":"TDB" },
+      { "value":"643", "sigma":"3.1e-07", "name":"per", "title":"orbital period", "label":"period", "units":"d" },
+      { "value":"0.56", "sigma":"2.7e-10", "name":"n", "title":"mean motion", "label":"n", "units":"deg/d" },
+      { "value":"1.78", "sigma":"5.8e-10", "name":"ad", "title":"aphelion distance", "label":"Q", "units":"au" }
+    ],
+    "equinox":"J2000",
+    "data_arc":"20041",
+    "not_valid_after":null,
+    "n_del_obs_used":"1",
+    "sb_used":"SB431-N16",
+    "n_obs_used":"6090",
+    "comment":null,
+    "last_obs":"2018-05-28",
+    "pe_used":"DE431",
+    "moid":"0.148",
+    "n_dop_obs_used":"3"
+  }
+}
+</code></pre></div></div>
+
+<h3 id="sections-output">Sections Output</h3>
+
+<p>The following sections are available for output.
+The “object” section is always output.
+The “orbit” section is output unless
+specifically excluded by setting query parameter <code class="language-plaintext highlighter-rouge">no-orbit=1</code>.
+All other sections are output only when explicitly requested
+via the appropriate query parameter, described in table below.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Section</th>
+      <th style="text-align: center">Parameter</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">object</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">Object details, including designation, name, orbit class, etc.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">orbit</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">no-orbit</code></td>
+      <td style="text-align: left">Orbit details, including elements, model parameters, covariance (optional), etc.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">alt_orbits</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">alt-orbits</code></td>
+      <td style="text-align: left">Orbital elements at alternate epochs, if any (comets only), sorted by epoch</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">orbit_defs</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">orbit-defs</code></td>
+      <td style="text-align: left">Orbit parameter definitions: title, units, description, etc.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">satellites</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">sat</code></td>
+      <td style="text-align: left">Satellite data (if any): designation, orbits, physical parameters, etc.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">phys_par</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">phys-par</code></td>
+      <td style="text-align: left">Physical parameters: absolute magnitude (H), rotation period, etc.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">ca_data</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">ca-data</code></td>
+      <td style="text-align: left">Close approach data, if any</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">radar_obs</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">radar-obs</code></td>
+      <td style="text-align: left">Radar astrometry, if any</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">vi_data</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">vi-data</code></td>
+      <td style="text-align: left">Virtual impactor (VI) data, if any</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">discovery</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">discovery</code></td>
+      <td style="text-align: left">Discovery data, if any, including name citation when known</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="structure-of-sections">Structure of Sections</h3>
+
+<p>The following shows the JSON structure of a normal data payload containing all possible sections.
+The detailed structure of the contents within each section are described in corresponding
+document sections below.
+For example, see the <a href="#object">Object Subsection</a> for details on the <code class="language-plaintext highlighter-rouge">object fields ...</code> data structure.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"object": {
+  object fields ...
+},
+"orbit": {
+  default orbit fields ...
+},
+"alt_orbits": [
+  {
+    first alternate (non-default) orbit fields ...
+  },
+  {
+    second alternate (non-default) orbit fields ...
+  },
+  ...
+],
+"orbit-defs": {
+  { first orbit parameter definition object },
+  ...
+  { last orbit parameter definition object }
+},
+"sat": [
+  { satellite record fields ... },
+  ...
+],
+"phys_par": [
+  { physical parameter fields ... },
+  ...
+],
+"ca_data": [
+  { close approach record fields ... },
+  ...
+],
+"radar_obs": [
+  { radar obs record fields ... },
+  ...
+],
+"vi_data": [
+  { vi record fields },
+  ...
+],
+"discovery": {
+  discovery data fields ...
+}
+</code></pre></div></div>
+
+<h3 id="-object-data-section"><a name="object" class="page-anchor"></a> Object Data Section</h3>
+
+<p>The object data section contains general information about the small body, such as
+its general category (asteroid or comet, numbered or unnumbered), IAU number, primary and alternate provisional designations,
+SPK identifier, orbit class, etc.</p>
+
+<p>The following fields are provided in the <code class="language-plaintext highlighter-rouge">object</code> section:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field Name</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">des</td>
+      <td style="text-align: left">primary designation (e.g., “4”, “73P-C”, “2009 FD”, “1995 O1”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">spkid</td>
+      <td style="text-align: left">primary SPK ID</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">des_alt</td>
+      <td style="text-align: left">list of alternate designations (included only if <code class="language-plaintext highlighter-rouge">alt-des=1</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">spkid_alt</td>
+      <td style="text-align: left">list of alternate SPK IDs (included only if <code class="language-plaintext highlighter-rouge">alt-spk=1</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">fullname</td>
+      <td style="text-align: left">full object name</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">shortname</td>
+      <td style="text-align: left">object name without matching alternate designation (included only if different from fullname)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">prefix</td>
+      <td style="text-align: left">designation prefix (e.g., “C”, “P”, “D”); <code class="language-plaintext highlighter-rouge">null</code> for asteroids</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">kind</td>
+      <td style="text-align: left">object kind code: <code class="language-plaintext highlighter-rouge">an</code>=”numbered asteroid”, <code class="language-plaintext highlighter-rouge">au</code>=”unnumbered asteroid”, <code class="language-plaintext highlighter-rouge">cn</code>=”numbered comet”, <code class="language-plaintext highlighter-rouge">cu</code>=”unnumbered comet”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">neo</td>
+      <td style="text-align: left">NEO flag (<code class="language-plaintext highlighter-rouge">true</code> or <code class="language-plaintext highlighter-rouge">false</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">pha</td>
+      <td style="text-align: left">PHA flag (<code class="language-plaintext highlighter-rouge">true</code> or <code class="language-plaintext highlighter-rouge">false</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">orbit_class</td>
+      <td style="text-align: left">data object containing orbit class name and code (e.g., “Jupiter-family Comet”, “JFc”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">orbit_id</td>
+      <td style="text-align: left">orbit solution identifier (e.g., “102”, “K153/2”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">anc_data</td>
+      <td style="text-align: left">ancillary data summary: a set of key/value pairs indicating whether or not a specific data set is available (see below; included only if <code class="language-plaintext highlighter-rouge">anc-data=1</code>)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If alternate designations are requested (<code class="language-plaintext highlighter-rouge">alt-des=1</code>), the field “des_alt” will contain
+an array of alternate designations in reverse chronological order,
+or an emtpy array if no alternates are available.
+Each element in the array contains one or more key/value pair where the key
+is one of the following:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">key</th>
+      <th style="text-align: left">description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">pri</td>
+      <td style="text-align: left">primary provisional designation</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">com</td>
+      <td style="text-align: left">numbered comet designation for dual-classification asteroids</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">des</td>
+      <td style="text-align: left">alternate new-sytle designation</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">rn</td>
+      <td style="text-align: left">roman-numeral comet designation</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">yl</td>
+      <td style="text-align: left">year-letter old-style comet designation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For example, here is the “des_alt” content for numbered asteroid 5000 IAU:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+  { "des":"1989 EA11" },
+  { "pri":"1987 QN7" },
+  { "des":"1979 UK1" }
+]
+</code></pre></div></div>
+
+<p>Numbered asteroid 7968 Elst-Pizarro has a dual classification as comet 133P/Elst-Pizarro:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+  { "pri":"1996 N2" },
+  { "des":"1979 OW7" },
+  { "com":"133P" }
+]
+</code></pre></div></div>
+
+<p>Here is the “des_alt” content for unnumbered asteroid 2002 GU191:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+  { "des":"2015 FE344" },
+  { "des":"2010 JE129" },
+  { "des":"2008 CO93" },
+  { "des":"2005 VP12" }
+]
+</code></pre></div></div>
+
+<p>Numbered comet 1P/Halley has a long list of alternate designations,
+and its “des_alt” partial (not all designations included) content is as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+  { "des":"1P/1982 U1","rn":"1986 III","yl":"1982i" },
+  { "des":"1P/1909 R1","rn":"1910 II","yl":"1909c" },
+  ...
+  { "des":"1P/1682 Q1","rn":"1682" },
+  ...
+  { "des":"1P/  66 B1","rn":"66" },
+  ...
+  { "des":"1P/-239 K1","rn":"-239" }
+]
+</code></pre></div></div>
+
+<p>Here is an example of “des_alt” content for unnumbered comet C/2001 C1:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+  { "des":"C/2000 HR81" }
+]
+</code></pre></div></div>
+
+<p>If ancillary data sets are requested via query parameter <code class="language-plaintext highlighter-rouge">anc_data</code>,
+a list of available data sets is returned.
+For each data set, <code class="language-plaintext highlighter-rouge">count</code> represents the number of data records available
+(for NHATS data, <code class="language-plaintext highlighter-rouge">count</code> indicates the number of viable trajectories)
+and <code class="language-plaintext highlighter-rouge">ref_url</code> points to a webpage describing the data set.
+Any or all of the following data sets could be included:</p>
+
+<ul>
+  <li>close approach data (<code class="language-plaintext highlighter-rouge">ca_data</code>)</li>
+  <li>radar astrometry data (<code class="language-plaintext highlighter-rouge">ra_data</code>)</li>
+  <li>Sentry virtual impactor (VI) data (<code class="language-plaintext highlighter-rouge">vi_data</code>)</li>
+  <li>NHATS data (<code class="language-plaintext highlighter-rouge">nhats_data</code>)</li>
+</ul>
+
+<p>Here is an example of the <code class="language-plaintext highlighter-rouge">anc_data</code> object field:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "ca_data" : { "count" : 12, "ref_url" : "https://cneos.jpl.nasa.gov/ca/" },
+  "ra_data" : { "count" : 4, "ref_url" : "https://ssd.jpl.nasa.gov/sb/radar.html" },
+  "vi_data" : { "count" : 1, "ref_url" : "https://cneos.jpl.nasa.gov/sentry/" },
+  "nhats_data" : { "count" : 3302718, "ref_url" : "https://cneos.jpl.nasa.gov/nhats/" },
+}
+</code></pre></div></div>
+
+<h3 id="-orbit-data-section"><a name="orbit" class="page-anchor"></a> Orbit Data Section</h3>
+
+<blockquote>
+  <p>It is assumed the user has a basic understanding of osculating orbital elements.
+Definitions of elements (for example, “perihelion distance”) can be found in the
+appropriate literature.</p>
+</blockquote>
+
+<p>The orbit data section contains information about the orbit of the small body, including:</p>
+
+<ul>
+  <li>estimated orbit parameters with uncertainties</li>
+  <li>full covariance information on the primary orbit parameters (optional)</li>
+  <li>orbit-related quantities (e.g. MOID: minimum orbital intersection distance, orbit condition code, etc.)</li>
+  <li>information about the set of observations upon which the orbit estimate is based (data arc, number of observations, etc.)</li>
+  <li>information about the models used for the orbit determination (dynamical model parameters, perturbing body ephemerides, etc.)</li>
+  <li>orbit solution information (solution identifier, date/time of solution, producer, comment)</li>
+</ul>
+
+<p>Note that almost all of the orbits in the JPL SBDB are computed by the JPL’s Solar System Dynamics (SSD) group and will therefore
+have a “source” of JPL and a JPL-assigned “orbit_id”, which for asteroids is usually a simple integer.</p>
+
+<p>The contents of the orbit data section are as follows (the entry in the Optional column indicates the request parameter that controls the field):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field Name</th>
+      <th style="text-align: center">Optional</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">orbit_id</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">orbit solution identifier; in most cases, the JPL solution number; for short-period comets, prefixed by a perihelion identifier</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">epoch</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">epoch of osculation (TDB) in Julian day form</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cd_epoch</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">cd-epoch</code></td>
+      <td style="text-align: left">epoch in calendar date format (<code class="language-plaintext highlighter-rouge">YYYY-MMM-DD.D</code>); included only if <code class="language-plaintext highlighter-rouge">cd-epoch</code> query parameter is set true</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">equinox</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">date of the heliocentric IAU76/80 ecliptic reference system (e.g., <code class="language-plaintext highlighter-rouge">J2000</code> meaning reference date <code class="language-plaintext highlighter-rouge">J2000.0</code>, 2000-Jan-1 12:00 TT, and obliquity angle with respect to ICRF of 84381.448 arcseconds)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">elements</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">array of data objects for heliocentric ecliptic osculating orbital elements (see “elements” subsection below)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">model_pars</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">array of data objects for OD model parameters (if any; see “model_pars” subsection below)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">covariance</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">cov</code></td>
+      <td style="text-align: left">data object containing orbit covariance in one of three user-selected forms (optional: use <code class="language-plaintext highlighter-rouge">cov</code>; see <a href="#cov">covariance subsection</a> below)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cov_epoch</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">epoch of the covariance (TDB) in Julian day form</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">moid</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">MOID relative to Earth (au)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">moid_jup</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">MOID relative to Jupiter (au)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">t_jup</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">Jupiter Tisserand invariant</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">condition_code</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">orbit condition code (OCC)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">rms</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">Normalized RMS of orbit fit</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">first_obs</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">date of the first (earliest) observation used in the fit (<code class="language-plaintext highlighter-rouge">YYYY-MM-DD</code> where <code class="language-plaintext highlighter-rouge">DD</code> and/or <code class="language-plaintext highlighter-rouge">MM</code> may be <code class="language-plaintext highlighter-rouge">??</code> when the day and/or month is not known; e.g., <code class="language-plaintext highlighter-rouge">1919-??-??</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">last_obs</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">date of the last (latest) observation used in the fit (<code class="language-plaintext highlighter-rouge">YYYY-MM-DD</code> where <code class="language-plaintext highlighter-rouge">DD</code> and/or <code class="language-plaintext highlighter-rouge">MM</code> may be <code class="language-plaintext highlighter-rouge">??</code> when the day and/or month is not known; e.g., <code class="language-plaintext highlighter-rouge">1919-??-??</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">data_arc</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">number of days spanned by the observations used in the fit</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">n_obs_used</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">total number of observations used (optical and radar)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">n_del_obs_used</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">number of radar delay observations used</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">n_dop_obs_used</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">number of radar Doppler observations used</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">pe_used</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">name of the JPL planetary ephemeris used</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sb_used</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">name of the JPL small-body perturber ephemeris used</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">two_body</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">flag indicating simple 2-body model was used in the fit</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">soln_date</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">date/time of the orbit solution (pacific local time)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">source</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">source of the orbit solution: JPL, MPC, SAO</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">producer</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">name of the orbit producer (if any)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">not_valid_before</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">nv-fmt</code></td>
+      <td style="text-align: left">date/time, UTC, before which the orbit is not valid; typically <code class="language-plaintext highlighter-rouge">null</code> (see below for details on <code class="language-plaintext highlighter-rouge">nv-fmt</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">not_valid_after</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">nv-fmt</code></td>
+      <td style="text-align: left">date/time, UTC, after which the orbit is not valid; typically <code class="language-plaintext highlighter-rouge">null</code> (see below for details on <code class="language-plaintext highlighter-rouge">nv-fmt</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">comment</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">comments related to this orbit</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>By default, <code class="language-plaintext highlighter-rouge">not_valid_before</code> and <code class="language-plaintext highlighter-rouge">not_valid_after</code> fields (when not <code class="language-plaintext highlighter-rouge">null</code>) are output in their original format
+(either Julian date or calendar date/time where the time may be fractional days or time).
+If <code class="language-plaintext highlighter-rouge">nv-fmt=jd</code>, output is formatted as Julian date. If <code class="language-plaintext highlighter-rouge">nv-fmt=cd</code> output is formatted as calendar date/time <code class="language-plaintext highlighter-rouge">YYYY-MMM-DD hh:mm</code>.</p>
+
+<h4 id="-orbit-subsection-elements"><a name="elem" class="page-anchor"></a> Orbit Subsection: <code class="language-plaintext highlighter-rouge">elements</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">elements</code> field is an array of data objects, one array element for each satellite orbital element.<br />
+These elements parameterize the orbit of the satellite centered on the primary and measured with respect to either the ICRF (<code class="language-plaintext highlighter-rouge">EQ</code>), or Earth mean-ecliptic frame (<code class="language-plaintext highlighter-rouge">EC</code>) specified in the field <code class="language-plaintext highlighter-rouge">equinox</code> (e.g., <code class="language-plaintext highlighter-rouge">J2000</code> meaning reference date <code class="language-plaintext highlighter-rouge">J2000.0</code>, 2000-Jan-1 12:00 TT, where the ecliptic is defined by a rotation around the ICRF x-axis by the IAU76/80 obliquity angle of 84381.448 arcseconds).</p>
+
+<p>The returned orbital elements are “osculating”, which means they apply at a particular time
+called the “epoch”; this field is output in the orbit data section (see above). The default
+epoch used for orbital elements returned by the SBDB API is the “standard MPC epoch”. But elements
+are also available at the JPL “solution epoch”, which is usually different. Elements will be
+returned at this epoch if the <code class="language-plaintext highlighter-rouge">soln-epoch</code> parameter is set in the SBDB API request. Note that the 
+orbital element uncertainties reported in the <code class="language-plaintext highlighter-rouge">sigma</code> field refer to the same epoch as the elements.
+On the other hand, covariance data, requested by setting the <code class="language-plaintext highlighter-rouge">cov</code> request parameter, is only 
+available at the solution epoch (see <code class="language-plaintext highlighter-rouge">covariance</code> subsection below).</p>
+
+<p>The orbital elements returned by the SBDB API are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Short-name</th>
+      <th style="text-align: left">Label</th>
+      <th style="text-align: center">Optional</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">e</td>
+      <td style="text-align: left">e</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">eccentricity</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">q</td>
+      <td style="text-align: left">q</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">perihelion distance (au)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">tp</td>
+      <td style="text-align: left">tp</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">time of perihelion passage (TDB) formatted as Julian day</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cd_tp</td>
+      <td style="text-align: left">tp</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">cd-tp</code></td>
+      <td style="text-align: left">time of perihelion passage (TDB) formatted as calendar date/time</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">om</td>
+      <td style="text-align: left">node</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">longitude of the ascending node (deg)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">w</td>
+      <td style="text-align: left">peri</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">argument of perihelion (deg)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">i</td>
+      <td style="text-align: left">i</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">inclination (deg)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">a</td>
+      <td style="text-align: left">a</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">semi-major axis (au)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ma</td>
+      <td style="text-align: left">M</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">mean anomaly (deg)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">per</td>
+      <td style="text-align: left">period</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">orbital period (d)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">n</td>
+      <td style="text-align: left">n</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">mean motion (deg/d)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ad</td>
+      <td style="text-align: left">Q</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">aphelion distance (au)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Only the first 6 of these elements are returned if the epoch is not the standard MPC epoch.</p>
+
+<p>The data object for each orbital element has the following fields:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">short-name of element</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">label</td>
+      <td style="text-align: left">label for element</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">title</td>
+      <td style="text-align: left">title for element</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">value</td>
+      <td style="text-align: left">value of element</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sigma</td>
+      <td style="text-align: left">1-sigma uncertainty in element value</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">units</td>
+      <td style="text-align: left">units (if any)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>By default, the API returns data values in reduced precision, generally 3 significant digits (or 3 decimal digits for <code class="language-plaintext highlighter-rouge">tp</code>),
+and sigmas use 2 significant digits. If the <code class="language-plaintext highlighter-rouge">full-prec</code> parameter is specified in the API request, all data
+values are returned in full precision (16 significant digits).</p>
+
+<h4 id="orbit-subsection-model_pars">Orbit Subsection: <code class="language-plaintext highlighter-rouge">model_pars</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">model_pars</code> field is an array of data objects defining the orbit model parameters.
+These include the non-gravitational parameters for comets, modeling the rocket-like
+forces due to outgassing (e.g., “A1”, “A2”, etc.). Most asteroids do not use <code class="language-plaintext highlighter-rouge">model-pars</code>.
+A model parameter can be treated in one of 3 ways, as indicated by the <code class="language-plaintext highlighter-rouge">kind</code> field:</p>
+
+<ul>
+  <li>set to a fixed, exact value,</li>
+  <li>estimated as part of the orbit solution, or</li>
+  <li>set to a fixed value with fixed uncertainty, which is “considered” when estimating the
+other parameters.</li>
+</ul>
+
+<p>The data object for each model parameters has the following fields:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">n</td>
+      <td style="text-align: left">index within the list of estimated and considered parameters, or 0 if simply set</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">kind</td>
+      <td style="text-align: left">“SET”, “EST”, “CON”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">short-name of model parameter (e.g., “A2”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">value</td>
+      <td style="text-align: left">value of parameter</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">title</td>
+      <td style="text-align: left">title for parameter</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">desc</td>
+      <td style="text-align: left">definition of parameter</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sigma</td>
+      <td style="text-align: left">1-sigma uncertainty in parameter value</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">units</td>
+      <td style="text-align: left">units for parameter (if any)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="-orbit-subsection-covariance"><a name="cov" class="page-anchor"></a> Orbit Subsection: <code class="language-plaintext highlighter-rouge">covariance</code></h4>
+
+<p>This data object provides the covariance matrix (or square root thereof) for the orbital elements and estimated model parameters.
+This subsection is only included when the <code class="language-plaintext highlighter-rouge">cov</code> parameter is set in the API request. In the few rare cases when no
+covariance is available in the SBDB, this subsection is null.
+The form used for the covariance matrix is determined by the parameter value, as follows:
+The covariance matrix will be in one of the following forms selected by the <code class="language-plaintext highlighter-rouge">cov</code> query parameter:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">cov=mat</code> selects full matrix covariance; units: au, deg, d</li>
+  <li><code class="language-plaintext highlighter-rouge">cov=vec</code> selects upper-triangular vector-stored covariance; units: au, deg, d</li>
+  <li><code class="language-plaintext highlighter-rouge">cov=src</code> selects upper-triangular vector-stored square-root covariance; units: au, rad, d</li>
+</ul>
+
+<p>Here, “upper-triangular vector-stored” indicates that only the elements of the upper-triangular
+portion of the square matrix are returned, and they are listed in column-major order. In other words,
+if the matrix elements are denoted as <code class="language-plaintext highlighter-rouge">(row,column)</code>, they are specified in the order
+(1:1), (1:2), (2:2), (1:3), (2:3), (3:3), and so on. The contents of “covariance” data item are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">epoch</td>
+      <td style="text-align: left">epoch of the covariance (TDB) in Julian day form</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">data</td>
+      <td style="text-align: left">array of values for the elements of the covariance in the requested form (see below)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">labels</td>
+      <td style="text-align: left">array of labels for the columns of the covariance matrix, 6 orbital elements followed by the estimated dynamical model parameters, if any</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">elements</td>
+      <td style="text-align: left">elements at the solution epoch corresponding to the covariance data (output only if the main orbit <code class="language-plaintext highlighter-rouge">epoch</code> is different from the solution epoch)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The dimension of the covariance matrix is usually 6x6 for asteroids, although it is sometimes 7x7 or more.
+The matrix is often 8x8 for comets because of the estimated non-gravitational parameters. The dimension can
+be inferred from the length of the <code class="language-plaintext highlighter-rouge">labels</code> array.</p>
+
+<p>If the <code class="language-plaintext highlighter-rouge">elements</code> field is output, it will be an array of 6 osculating elements at the solution epoch,
+as described in the parent data object.</p>
+
+<h3 id="-satellite-data-sat-section"><a name="sat" class="page-anchor"></a> Satellite Data (sat) Section</h3>
+
+<p>The small-body satellite data section is included in the output if requested via the <code class="language-plaintext highlighter-rouge">sat</code> request parameter.
+This section is an array of data objects, one for each satellite of the selected small-body
+(a.k.a. primary body).</p>
+
+<p>The contents of the data object for each satellite record are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field Name</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">fullname</td>
+      <td style="text-align: left">full designation with name (if any) of the satellite (e.g., <code class="language-plaintext highlighter-rouge">(243) Ida I Dactyl</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">prov_des</td>
+      <td style="text-align: left">provisional designation of the satellite (e.g., <code class="language-plaintext highlighter-rouge">S/2008 (41) 1</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">year</td>
+      <td style="text-align: left">year of discovery</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">iau_num</td>
+      <td style="text-align: left">IAU number assigned to this satellite</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">iau_name</td>
+      <td style="text-align: left">IAU name assigned to this satellite</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">oid</td>
+      <td style="text-align: left">orbit ID of the default satellite orbit</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">orbit</td>
+      <td style="text-align: left">object containing available satellite orbits (see satellite orbit subsection below)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">notes</td>
+      <td style="text-align: left">notes related to this satellite</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ref</td>
+      <td style="text-align: left">reference for this satellite</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note that any field above (other than <code class="language-plaintext highlighter-rouge">fullname</code>, <code class="language-plaintext highlighter-rouge">prov_des</code> and <code class="language-plaintext highlighter-rouge">year</code>) may be <code class="language-plaintext highlighter-rouge">null</code>
+indicating its value is not known or not yet defined.
+When <code class="language-plaintext highlighter-rouge">iau_num</code> is <code class="language-plaintext highlighter-rouge">null</code>, <code class="language-plaintext highlighter-rouge">fullname</code> will be the same as <code class="language-plaintext highlighter-rouge">prov_des</code>.
+In cases where there is no known satellite orbit, the <code class="language-plaintext highlighter-rouge">orbit</code> object will be empty (<code class="language-plaintext highlighter-rouge">{}</code>).</p>
+
+<h4 id="satellite-orbit-subsection-orbit">Satellite Orbit Subsection: <code class="language-plaintext highlighter-rouge">orbit</code></h4>
+
+<p>The contents of the data object for each satellite <code class="language-plaintext highlighter-rouge">orbit</code> record are as follows.
+The object key is the orbit ID <code class="language-plaintext highlighter-rouge">oid</code>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field Name</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">epoch</td>
+      <td style="text-align: left">epoch of osculation (TDB) in Julian day form</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">equinox</td>
+      <td style="text-align: left">equinox date of the reference system (e.g., <code class="language-plaintext highlighter-rouge">J2000</code> meaning reference date <code class="language-plaintext highlighter-rouge">J2000.0</code>, 2000-Jan-1 12:00 TT)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">frame</td>
+      <td style="text-align: left">Reference frame (example, <code class="language-plaintext highlighter-rouge">EQ</code> for equatorial, <code class="language-plaintext highlighter-rouge">EC</code> for ecliptic)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">elements</td>
+      <td style="text-align: left">array of data objects for satellite orbital elements (see satellite “elements” subsection below)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">notes</td>
+      <td style="text-align: left">notes related to this satellite orbit</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ref</td>
+      <td style="text-align: left">reference for this satellite orbit</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="-satellite-subsection-elements"><a name="sat_elem" class="page-anchor"></a> Satellite Subsection: <code class="language-plaintext highlighter-rouge">elements</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">elements</code> field is an array of data objects, one for each satellite orbital element.
+These elements parameterize the bodycentric orbit of the small body measured with respect to
+the Earth-mean-ecliptic frame <code class="language-plaintext highlighter-rouge">EC</code> or the body-equatorial frame <code class="language-plaintext highlighter-rouge">EQ</code>
+at the equinox date specified in the field <code class="language-plaintext highlighter-rouge">equinox</code> (e.g., <code class="language-plaintext highlighter-rouge">J2000</code> meaning reference date <code class="language-plaintext highlighter-rouge">J2000.0</code>, 2000-Jan-1 12:00 TT).</p>
+
+<p>The satellite orbital elements returned by the SBDB API are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Short-name</th>
+      <th style="text-align: left">Label</th>
+      <th style="text-align: center">Optional</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">e</td>
+      <td style="text-align: left">e</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">eccentricity</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">q</td>
+      <td style="text-align: left">q</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">perihelion distance (m)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">tp</td>
+      <td style="text-align: left">tp</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">time of perihelion passage (TDB) formatted as Julian day</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cd_tp</td>
+      <td style="text-align: left">tp</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">cd-tp</code></td>
+      <td style="text-align: left">time of perihelion passage (TDB) formatted as calendar date/time</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">om</td>
+      <td style="text-align: left">node</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">longitude of the ascending node (deg)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">w</td>
+      <td style="text-align: left">peri</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">argument of perihelion (deg)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">i</td>
+      <td style="text-align: left">i</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">inclination (deg)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">a</td>
+      <td style="text-align: left">a</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">semi-major axis (m)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ma</td>
+      <td style="text-align: left">M</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">mean anomaly (deg)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">per</td>
+      <td style="text-align: left">period</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">orbital period (d)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">n</td>
+      <td style="text-align: left">n</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">mean motion (deg/d)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">a_D</td>
+      <td style="text-align: left">a/D</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">ratio of semi-major axis to primary diameter</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">dn_dt</td>
+      <td style="text-align: left">dn/dt</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">time rate of change of mean motion  (deg/y<sup>2</sup>)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For many satellite orbits, only a few (perhaps even only one) parameter is known.
+Elements without known values will have the <code class="language-plaintext highlighter-rouge">value</code> field set to <code class="language-plaintext highlighter-rouge">null</code>.
+Similarly, very view orbits will have known uncertainties for their parameters so
+in almost all cases, the <code class="language-plaintext highlighter-rouge">sigma</code> field (see below) will be <code class="language-plaintext highlighter-rouge">null</code>.
+Note also that the units for semi-major axis and perihelion distance are in meters (m)
+instead of au.</p>
+
+<p>The data object for each satellite orbital element has the following fields:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">short-name of element</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">label</td>
+      <td style="text-align: left">label for element</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">title</td>
+      <td style="text-align: left">title for element</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">value</td>
+      <td style="text-align: left">value of element</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sigma</td>
+      <td style="text-align: left">1-sigma uncertainty in element value</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">units</td>
+      <td style="text-align: left">units (if any)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="-physical-parameters-phys_par-section"><a name="phys_par" class="page-anchor"></a> Physical Parameters (phys_par) Section</h3>
+
+<p>The physical parameters data section contains information about the physical parameters of the small body, such as
+the absolute magnitude parameters H and G, diameter, rotation period, spectral class, etc.
+This information is collected from external sources and provided in the SBDB for reference, and for
+use in the SBDB Query API.</p>
+
+<p>The contents of the physical parameters data section are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field Name</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">name/symbol of physical parameter (e.g. “H”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">value</td>
+      <td style="text-align: left">value of the parameter</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sigma</td>
+      <td style="text-align: left">1-sigma value of the parameter (if any)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">units</td>
+      <td style="text-align: left">units of the value (if any)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ref</td>
+      <td style="text-align: left">reference (if any)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">notes</td>
+      <td style="text-align: left">special notes (if any)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">title</td>
+      <td style="text-align: left">short descriptive name (if any) (e.g., “absolute magnitude”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">desc</td>
+      <td style="text-align: left">description of the parameter (e.g., “absolute magnitude (magnitude at 1AU from Sun and observer)”)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="-close-approach-data-section"><a name="cad" class="page-anchor"></a> Close Approach Data Section</h3>
+
+<p>The close approach data section <code class="language-plaintext highlighter-rouge">ca_data</code> is included if requested via the <code class="language-plaintext highlighter-rouge">ca-data</code> request parameter.
+This section is an array of data objects, one for each close approach that the small body
+makes to the Earth, the Moon or any of the other planets. Specifically, these are the close approaches
+of the small body on its nominal orbit integrated forwards and backwards in time. Various quantities
+are computed at each close approach, such as the time and close approach distance, and the 1-sigma
+formal uncertainties in these quantities are also computed and made available.</p>
+
+<p>Close approaches are only included in the list if they are reasonably certain. Specifically, close approaches
+with 3-sigma time uncertainty greater than 10 days or 3-sigma nominal-distance uncertainty greater than 0.1 au
+are excluded. Since uncertainties typically grow with time away from epoch, this filter puts an implicit
+limit on the time period over which the close approaches are listed. The start time of the list goes back
+as far as the year 1900, but the forward time limit is mostly determined by the uncertainties.</p>
+
+<p>The contents of the data object for each close approach are listed in the following table. Fields
+listed as Optional in this table are controlled by the listed request parameter. If they are desired, the
+date/times of the close approaches can be requested, either as Julian dates (jd) or calendar dates (cd), or both, via
+the <code class="language-plaintext highlighter-rouge">ca-time</code> query parameter defined above. The close approach time uncertainties are always output, either
+in minutes or in a ‘d:hh:mm’ format, or both, according to query parameter <code class="language-plaintext highlighter-rouge">ca-tunc</code> (see query parameters above).
+If the close approach uncertainty ellipse parameters are desired, they are requested via query parameter <code class="language-plaintext highlighter-rouge">ca-unc</code>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field Name</th>
+      <th style="text-align: left">Optional</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">body</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">short-name of the close approach body (e.g., “Earth”, “Juptr”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">jd</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ca-time</code></td>
+      <td style="text-align: left">Julian date of close approach (TDB: days) (optional)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cd</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ca-time</code></td>
+      <td style="text-align: left">data and time of close approach (TDB: <code class="language-plaintext highlighter-rouge">YYYY-MMM-DD hh:mm</code>) (optional)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sigma_t</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ca-tunc</code></td>
+      <td style="text-align: left">3-sigma formal uncertainty in the time of close-approach (minutes)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sigma_tf</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ca-tunc</code></td>
+      <td style="text-align: left">formatted 3-sigma format uncertainty in the time of close-approach (<code class="language-plaintext highlighter-rouge">d_hh:mm</code> where <code class="language-plaintext highlighter-rouge">d</code> is days, <code class="language-plaintext highlighter-rouge">hh:mm</code>, or <code class="language-plaintext highlighter-rouge">&lt; 00:01</code> meaning less than one minute)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">dist</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">nominal close approach distance (au)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">dist_min</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">3-sigma minimum close approach distance (au)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">dist_max</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">3-sigma maximum close approach distance (au)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">v_rel</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">velocity relative to the body at close approach (km/s)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">v_inf</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">velocity relative to a massless body at close approach (km/s)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">unc_major</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ca-unc</code></td>
+      <td style="text-align: left">semi-major axis of the close approach uncertainty ellipse (km)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">unc_minor</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ca-unc</code></td>
+      <td style="text-align: left">semi-minor axis of the close approach uncertainty ellipse (km)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">unc_angle</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ca-unc</code></td>
+      <td style="text-align: left">angle between the range-LOV and the major axis of the distance uncertainty ellipse (deg)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">orbit_ref</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">JPL internal orbit ID used for these results</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="close-approach-bodies">Close Approach Bodies</h4>
+
+<p>The list of close approaches can be restricted to only those for a selected body (e.g. Earth) by specifying
+that body using the <code class="language-plaintext highlighter-rouge">ca-body</code> query parameter; the recognized body names are shortened to 5 characters:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Merc</td>
+      <td>Mercury</td>
+    </tr>
+    <tr>
+      <td>Venus</td>
+      <td>Venus</td>
+    </tr>
+    <tr>
+      <td>Earth</td>
+      <td>Earth</td>
+    </tr>
+    <tr>
+      <td>Mars</td>
+      <td>Mars</td>
+    </tr>
+    <tr>
+      <td>Juptr</td>
+      <td>Jupiter</td>
+    </tr>
+    <tr>
+      <td>Satrn</td>
+      <td>Saturn</td>
+    </tr>
+    <tr>
+      <td>Urnus</td>
+      <td>Uranus</td>
+    </tr>
+    <tr>
+      <td>Neptn</td>
+      <td>Neptune</td>
+    </tr>
+    <tr>
+      <td>Pluto</td>
+      <td>Pluto</td>
+    </tr>
+    <tr>
+      <td>Moon</td>
+      <td>Moon</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="-radar-astrometry-data-section"><a name="radar" class="page-anchor"></a> Radar Astrometry Data Section</h3>
+
+<p>The radar astrometry data section is included in the output if requested via the <code class="language-plaintext highlighter-rouge">radar-obs</code> request parameter.
+This section is an array of data objects, one for each radar astrometric measurement used in the JPL/SSD orbit
+solution. These data are provided to the JPL Solar System Dynamics group (https://ssd.jpl.nasa.gov/) by the JPL radar group.</p>
+
+<p>The contents of the data object for each radar measurement are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field Name</th>
+      <th style="text-align: left">Optional</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">epoch</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">epoch of the radar measurement (<code class="language-plaintext highlighter-rouge">YYYY-MM-DD hh:mm:ss</code> UT)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">value</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">value of the radar measurement</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sigma</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">1-sigma uncertainty in the measurement</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">units</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">units of the measurement value and sigma (above): <code class="language-plaintext highlighter-rouge">us</code>=microseconds (implies radar delay-type measurement), <code class="language-plaintext highlighter-rouge">Hz</code>=Hertz (implies radar Doppler-type measurement)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">freq</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">transmitter frequency (MHz)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">rcvr</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">receiver station code (e.g., “-1”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">xmit</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">transmitter station code (e.g., “-14”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">rcvr_name</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">r-name</code></td>
+      <td style="text-align: left">receiver station name (e.g., “Arecibo”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">xmit_name</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">r-name</code></td>
+      <td style="text-align: left">transmitter station name (e.g., “DSS-14”, Goldstone)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">bp</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">radar bounce-point: <code class="language-plaintext highlighter-rouge">C</code>=center-of-mass, <code class="language-plaintext highlighter-rouge">P</code>=peak-power</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">observer</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">r-observer</code></td>
+      <td style="text-align: left">observer name(s), or <code class="language-plaintext highlighter-rouge">null</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">notes</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">r-notes</code></td>
+      <td style="text-align: left">notes related to this observation, or <code class="language-plaintext highlighter-rouge">null</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="-vi-virtual-impactor-data-section"><a name="vi" class="page-anchor"></a> VI (Virtual Impactor) Data Section</h3>
+
+<p>The Virtual Impactor data section summarizes the <em>potential</em> Earth impacts found by JPL’s Sentry impact monitoring system (https://cneos.jpl.nasa.gov/sentry/) for the selected small body. This section is included in the output only
+if requested via the <code class="language-plaintext highlighter-rouge">vi-data</code> request parameter. The section consists of an array of
+data objects, one for each potential impact found for the small body.</p>
+
+<p>The contents of the data object for each potential impact are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field Name</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">date</td>
+      <td style="text-align: left">calendar date of the <em>potential</em> impact (UTC) <code class="language-plaintext highlighter-rouge">YYYY-MM-DD.DD</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">dt</td>
+      <td style="text-align: left">delta-time (in Julian years) between the <em>potential</em> impact data and the date of computation</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ps</td>
+      <td style="text-align: left">hazard rating of potential impact on the Palermo scale</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ts</td>
+      <td style="text-align: left">hazard rating of potential impact on the Torino scale</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ip</td>
+      <td style="text-align: left">impact probability of potential impact</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">width</td>
+      <td style="text-align: left">one-sigma semi-width of the LOV uncertainty region, in Earth radii; a value of <code class="language-plaintext highlighter-rouge">0.000</code> should not be interpreted as exactly zero, but rather as &lt; 1e-4 (defined only for LOV method)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">energy</td>
+      <td style="text-align: left">kinetic energy of potential impact (in megatons of TNT equivalent), based upon size from computed absolute magnitude and impact velocity, and computed in accordance with the guidelines stated for the Palermo Technical Scale. Uncertainty in this value is dominated by mass uncertainty and the stated value will generally be good to within a factor of three</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">stretch</td>
+      <td style="text-align: left">stretching, related to the semimajor axis of the linear uncertainty region in the target b-plane. It describes how fast one moves across the target plane as sigma_lov changes, and is measured in Earth radii per sigma. The local probability density varies inversely with the stretching, and thus larger stretching values will generally lead to lower impact probabilities (defined only for LOV method)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">dist</td>
+      <td style="text-align: left">minimum distance on the target plane (scaled b-plane) from the LOV to the geocenter, measured in Earth radii. For these purposes the radius of the Earth, 6420 km, includes some allowance for the thickness of the atmosphere (defined only for LOV method)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sigma_vi</td>
+      <td style="text-align: left">Mahalanobis distance between the VI and the nominal orbit. The further from zero, the less likely the event. It is computed in a N-dimensional space based on the number of parameters of the orbital solution, typically 6 (not defined for LOV method)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sigma_lov</td>
+      <td style="text-align: left">sigma coordinate along the Line Of Variations (LOV), with respect to the nominal at zero. This is a measure of how well the impacting orbit fits the available observations; the further from zero, the less likely the event. Roughly 99% of all the uncertainty region lies between -3 and +3. Sentry searches for potential impacts out to sigma_lov = +/-5 (defined only for LOV method)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">sigma_imp</td>
+      <td style="text-align: left">lateral distance in sigmas from the LOV to the Earth’s atmosphere. Zero indicates that the LOV intersects the Earth. It is computed from (Distance - 1)/Width (defined only for LOV method)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">v_inf</td>
+      <td style="text-align: left">relative velocity (km/s) of potential impact at atmospheric entry neglecting the acceleration caused by the Earth’s gravity field, often called the hyperbolic excess velocity</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">v_imp</td>
+      <td style="text-align: left">velocity (km/s) of potential impact at atmospheric entry</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">h</td>
+      <td style="text-align: left">absolute magnitude, H</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">diam</td>
+      <td style="text-align: left">estimated diameter (km), derived from <code class="language-plaintext highlighter-rouge">h</code> using an assumed albedo</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">mass</td>
+      <td style="text-align: left">estimated mass (kg), derived from <code class="language-plaintext highlighter-rouge">diam</code> using an assumed density</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">method</td>
+      <td style="text-align: left">method used to find the potential impact: <code class="language-plaintext highlighter-rouge">IOBS</code>=impact observation method, <code class="language-plaintext highlighter-rouge">LOV</code>=line-of-variation, <code class="language-plaintext highlighter-rouge">MC</code>=Monte Carlo</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="discovery-data-section">Discovery Data Section</h3>
+
+<p>The discovery data section <code class="language-plaintext highlighter-rouge">discovery</code> provides information about the discovery circumstances of the small body, if available.
+This section is included only if requested via the <code class="language-plaintext highlighter-rouge">discovery</code> request parameter (see above).
+This information is only available for numbered asteroids and numbered comets.
+The official IAU name citation is provided only for asteroids, and it is not available for most asteroids named before
+discovery data became machine readable.</p>
+
+<p>The contents of the discovery data section are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Field Name</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">date</td>
+      <td style="text-align: left">discovery date <code class="language-plaintext highlighter-rouge">YYYY-MMM-DD</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">location</td>
+      <td style="text-align: left">discovery location, if defined (e.g., “Kitt Peak”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">site</td>
+      <td style="text-align: left">MPC observatory code, if defined</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">who</td>
+      <td style="text-align: left">name of the person, persons, or group credited with the discovery</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ref</td>
+      <td style="text-align: left">reference for discovery data (e.g., “20050622/Numbers.arc”)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left">official IAU name (if available)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">discovery</td>
+      <td style="text-align: left">official IAU discovery text (if available)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">citation</td>
+      <td style="text-align: left">naming citation issued by the IAU (if available)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cref</td>
+      <td style="text-align: left">reference for citation data (e.g., “20050721/MPCPages.arc”)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>By default, the <code class="language-plaintext highlighter-rouge">citation</code> field contains HTML special characters, as needed.
+But if the <code class="language-plaintext highlighter-rouge">raw-citation</code> query parameter is set, the API returns the original
+LaTex-like markup as published by the MPC in their plain text format distribution of their monthly circulars.</p>
+
+<h2 id="http-response-codes">HTTP Response Codes</h2>
+
+<p>All errors are returned via appropriate HTTP response codes.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">HTTP Code</th>
+      <th style="text-align: center">Description</th>
+      <th>Typical Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">200</td>
+      <td style="text-align: center">OK</td>
+      <td>normal successful result for a single object: object data returned (an error message is returned if the object was not found)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">300</td>
+      <td style="text-align: center">Multiple Choices</td>
+      <td>the specified parameters matched more than one object: matching list provided</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">400</td>
+      <td style="text-align: center">Bad Request</td>
+      <td>the request contained invalid keywords and/or content: details returned</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">405</td>
+      <td style="text-align: center">Method Not Allowed</td>
+      <td>the request used an incorrect method (see the <a href="#request">HTTP Request</a> section)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">500</td>
+      <td style="text-align: center">Internal Server Error</td>
+      <td>the database is not available at the time of the request</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">503</td>
+      <td style="text-align: center">Service Unavailable</td>
+      <td>the server is currently unable to handle the request due to a temporary overloading or maintenance of the server, which will likely be alleviated after some delay</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="-change-log"><a name="change_log" class="page-anchor"></a> Change Log</h2>
+
+<h3 id="version-13-2021-september">Version 1.3 (2021 September)</h3>
+
+<ul>
+  <li>Additional output fields available in <a href="#vi">VI Data Section</a></li>
+</ul>
+
+<h3 id="version-12-2020-january">Version 1.2 (2020 January)</h3>
+
+<ul>
+  <li>Added query parameter <code class="language-plaintext highlighter-rouge">sat</code> (see <a href="#par">Query Parameters</a> section and <a href="#sat">Satellite Section</a> for details)</li>
+</ul>
+
+<h3 id="version-11-2018-august">Version 1.1 (2018 August)</h3>
+
+<ul>
+  <li>Added query parameter <code class="language-plaintext highlighter-rouge">cd-tp</code> (see <a href="#par">Query Parameters</a> section for details)</li>
+</ul>
+
+<h3 id="version-10-2018-july">Version 1.0 (2018 July)</h3>
+
+<ul>
+  <li>Initial release</li>
+</ul>
+
+
+  </div>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <ul class="hide-for-small-only inline-list">
+      <li><a href="http://www.jpl.nasa.gov/copyrights.php">Privacy</a></li>
+      <li><a>|</a></li>
+      <li><a href="http://www.jpl.nasa.gov/imagepolicy">Image Policy</a></li>
+    </ul>
+    <ul class="show-for-small-only no-bullet">
+      <li><a href="http://www.jpl.nasa.gov/copyrights.php">Privacy</a></li>
+      <li><a href="http://www.jpl.nasa.gov/imagepolicy">Image Policy</a></li>
+    </ul>
+  </div>
+  <div class="footer-people">
+    <table id="footer-people-table" role="presentation">
+      <tr>
+        <td class="people-label text-right">Site Manager :</td>
+        <td class="text-left">Ryan Park</td>
+      </tr>
+      <tr>
+        <td class="people-label text-right">Webmaster :</td>
+        <td class="text-left">Alan Chamberlin</td>
+      </tr>
+      <tr>
+        <td class="people-label text-right">URS Clearance :</td>
+        <td class="text-left">CL#16-5242</td>
+      </tr>
+    </table>
+  </div>
+
+
+</footer>
+
+<script>
+var name = 'contact-ssd-api';
+var domain = 'jpl.nasa.gov';
+var maddr = name + String.fromCharCode(64) + domain;
+var html = '<tr><td class="people-label text-right">Contact :</td>';
+html += '<td class="text-left">' + maddr + '</td></tr>';
+$('#footer-people-table').append(html);
+</script>
+
+<!-- Initialize Foundation JS at the end of the BODY section -->
+<script>
+$(document).foundation({
+  accordion: {
+    multi_expand: true
+  }
+});
+//
+// Force external links to open in a new tab/window (A.Chamberlin)
+$(document).ready(function() {
+  $('a[href^="http"]').attr('target','_blank');
+});
+</script>
+
+  </body>
+</html>
