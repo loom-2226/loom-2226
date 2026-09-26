@@ -24,7 +24,7 @@ Europa digest: `730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d
 
 Existing-body non-interference passed exactly for 67P and Ceres. SQLite integrity and foreign keys pass. Preferred facts: 67P=0, Ceres=0, Europa=0, total=0. Europa campaign has 17 explicit reviews: PROMOTE=11, HOLD=1, SCHEMA_LIEN=5. Every candidate assertion remains in the promotion ledger with raw JSON/hash and provenance references. No schema change was made.
 
-Body counts (fact / observation / material / model / activity): 67P 4 / 4 / 0 / 0 / 2; Ceres 8 / 8 / 3 / 1 / 0; Europa 2 / 10 / 1 / 2 / 3. Six Europa frontier records remain unresolved. Body-neutral retrieval, provenance, regional/material/model/activity/frontier/history queries and shared-GM lineage separation passed. Narrator output preserves candidate/unknown language and adds no predicates. Fourteen adversarial promotion mutations and 25 Gate A hostile attacks were refused.
+Body counts (fact / observation / material / body-model-product / orientation-model / gravity-model / activity): 67P 4 / 4 / 0 / 1 / 0 / 0 / 2; Ceres 8 / 8 / 6 / 9 / 1 / 1 / 2; Europa 2 / 10 / 1 / 1 / 1 / 0 / 3; total 14 / 22 / 7 / 11 / 2 / 1 / 7. Six Europa frontier records remain unresolved. Body-neutral retrieval, provenance, regional/material/model/activity/frontier/history queries and shared-GM lineage separation passed. Narrator output preserves candidate/unknown language and adds no predicates. Fourteen adversarial promotion mutations and 25 Gate A hostile attacks were refused.
 
 ## Replay, limitations, and liens
 
