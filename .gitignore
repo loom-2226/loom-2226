@@ -30,3 +30,6 @@ web/three/three.min.js
 Thumbs.db
 .vscode/
 .idea/
+# Node/browser qualification tooling
+node_modules/
+.playwright/

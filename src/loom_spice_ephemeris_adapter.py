@@ -7,11 +7,13 @@ coverage, frame, unit, or provenance checks.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from contextlib import contextmanager
 from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
 from typing import Iterable, Mapping
+from threading import RLock
 
 from src.loom_spatial_state_authority import (
     CANONICAL_FRAME,
@@ -24,6 +26,8 @@ from src.loom_spatial_state_authority import (
 SPICE_FRAME = "ECLIPJ2000"
 SPICE_ABERRATION = "NONE"
 STATE_UNITS = "km,km/s"
+# SPICE's kernel pool is process-global, including across adapter instances.
+_EVALUATION_LOCK = RLock()
 
 
 def _epoch(value: str) -> datetime:
@@ -180,7 +184,6 @@ class SpiceEphemerisAdapter:
 
     def __init__(self, registry: SolarEphemerisRegistry):
         self.registry = registry
-        self._loaded: set[str] = set()
         self._verified_assets: dict[Path, tuple[str, int]] = {}
         self._service = HybridCelestialStateService(self._direct_lookup, {})
 
@@ -254,13 +257,30 @@ class SpiceEphemerisAdapter:
                 "at the requested epoch"
             )
 
-    def _load_source(self, source: EphemerisSource) -> None:
-        if source.ephemeris_source_id in self._loaded:
-            return
-        spice = self._spice()
-        for asset in source.kernel_assets:
-            spice.furnsh(str(self._verify_asset(asset)))
-        self._loaded.add(source.ephemeris_source_id)
+    @contextmanager
+    def _source_pool(self, source: EphemerisSource):
+        """Evaluate only the selected, ordered dependency closure.
+
+        Restore previously furnished top-level kernels (including metakernels)
+        on success or failure. Never cache pool ownership per adapter: another
+        instance, or an external caller, may have changed this global state.
+        All governed adapter evaluations share the lock. Unmanaged concurrent
+        SPICE calls must not run alongside this adapter.
+        """
+        with _EVALUATION_LOCK:
+            spice = self._spice()
+            paths = [str(self._verify_asset(a)) for a in source.kernel_assets]
+            previous = [spice.kdata(i, "ALL") for i in range(spice.ktotal("ALL"))]
+            try:
+                spice.kclear()
+                for path in paths:
+                    spice.furnsh(path)
+                yield spice
+            finally:
+                spice.kclear()
+                for path, _, parent, _ in previous:
+                    if not parent:
+                        spice.furnsh(path)
 
     def _direct_lookup(self, body_id: str, epoch_utc: str) -> SpatialState | None:
         identifier = self.registry.body_identifier(body_id)
@@ -271,16 +291,22 @@ class SpiceEphemerisAdapter:
         except ValueError as exc:
             raise CelestialStateError(f"NAIF identifier is not an integer for {body_id}") from exc
         source, coverage = self.registry.source_for(body_id, epoch_utc)
-        self._load_source(source)
-        spice = self._spice()
         requested = _iso(_epoch(epoch_utc))
         try:
-            et = float(spice.str2et(requested))
-            self._require_source_object_coverage(source, target, et)
-            # spkgeo is the geometric (aberration-free) state API: target,
-            # ET, frame, observer. Keep the explicit NONE contract in the
-            # metadata even though this API has no aberration argument.
-            state, _ = spice.spkgeo(target, et, SPICE_FRAME, 10)
+            with self._source_pool(source) as spice:
+                et = float(spice.str2et(requested))
+                self._require_source_object_coverage(source, target, et)
+                # Coverage alone is insufficient: require the selected target
+                # segment to belong to the primary source, not a dependency.
+                handle, _, _ = spice.spksfs(target, et, 256)
+                primary = self._source_asset(source)
+                actual = {Path(spice.kdata(i, "SPK")[0]).resolve()
+                          for i in range(spice.ktotal("SPK"))
+                          if spice.kdata(i, "SPK")[3] == handle}
+                if actual != {primary}:
+                    raise CelestialStateError("evaluated SPK differs from selected source")
+                # Geometric state, canonical inertial frame, Sun observer.
+                state, _ = spice.spkgeo(target, et, SPICE_FRAME, 10)
         except Exception as exc:
             raise CelestialStateError(
                 f"SPICE state unavailable for LOOM body {body_id} from {source.ephemeris_source_id}"
