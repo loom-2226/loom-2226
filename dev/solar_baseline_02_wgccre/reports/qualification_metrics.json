@@ -1,0 +1,77 @@
+{
+  "B01_assertions": 788,
+  "B02_assertions": 922,
+  "SF_PROMOTE_03_preferred_fact_count": 0,
+  "WGCCRE_assertion_lineage_ids": 134,
+  "WGCCRE_assertions_added": 134,
+  "WGCCRE_dispositions": {
+    "CANDIDATE": 133,
+    "HOLD": 1
+  },
+  "WGCCRE_identity_crosswalk_dispositions": {
+    "HOLD": 1,
+    "MATCH": 45
+  },
+  "WGCCRE_matched_body_classes": {
+    "ASTEROID": 7,
+    "COMET": 3,
+    "DWARF_PLANET": 2,
+    "NATURAL_SATELLITE": 22,
+    "NEAR_EARTH_ASTEROID": 2,
+    "PLANET": 7,
+    "STAR": 1
+  },
+  "WGCCRE_matched_body_count": 44,
+  "WGCCRE_property_coverage": {
+    "POLE_DECLINATION_MODEL": {
+      "assertions": 44,
+      "bodies": 44
+    },
+    "POLE_RIGHT_ASCENSION_MODEL": {
+      "assertions": 44,
+      "bodies": 44
+    },
+    "PRIME_MERIDIAN_MODEL": {
+      "assertions": 44,
+      "bodies": 43
+    },
+    "PRIME_MERIDIAN_RATE_MODEL": {
+      "assertions": 2,
+      "bodies": 2
+    }
+  },
+  "baseline_conflict_set_unchanged": true,
+  "classification_counts_after": {
+    "CONFLICT": 6,
+    "DISTINCT_BUT_COMPATIBLE": 5,
+    "EXACT_EQUIVALENT": 2,
+    "LIMIT_COMPATIBLE": 1,
+    "LIMIT_CONFLICT": 1,
+    "NOT_COMPARABLE": 130,
+    "PRECISION_EQUIVALENT": 22
+  },
+  "classification_counts_before": {
+    "CONFLICT": 6,
+    "DISTINCT_BUT_COMPATIBLE": 5,
+    "EXACT_EQUIVALENT": 2,
+    "LIMIT_COMPATIBLE": 1,
+    "LIMIT_CONFLICT": 1,
+    "NOT_COMPARABLE": 3,
+    "PRECISION_EQUIVALENT": 22
+  },
+  "coverage_lanes_after": 2972,
+  "coverage_lanes_before": 2970,
+  "foreign_key_violations": 0,
+  "identity_holds_after": 5,
+  "identity_holds_before": 6,
+  "independent_confirmation_lineages_established": 0,
+  "new_NOT_COMPARABLE": 127,
+  "new_conflicts": 0,
+  "new_limit_conflicts": 0,
+  "pairwise_comparisons": 167,
+  "preferred_fact_count_candidate": 0,
+  "reconciliation_groups": 756,
+  "sqlite_integrity": "ok",
+  "supported_lanes_after": 679,
+  "supported_lanes_before": 671
+}

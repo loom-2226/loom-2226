@@ -1,0 +1,31 @@
+{
+  "01r_runtime_seconds": {
+    "forward": 0.13627471402287483,
+    "repeat": 0.14648487698286772,
+    "reverse": 0.13252500002272427
+  },
+  "build_replay_database_sha256": {
+    "normal.sqlite3": "fc14d9f37f47e990a458fb434fec0e3419a3a45f6ffb9d6b35db406e59c71ee5",
+    "repeat.sqlite3": "fc14d9f37f47e990a458fb434fec0e3419a3a45f6ffb9d6b35db406e59c71ee5",
+    "reverse.sqlite3": "4a41c8fd2b268720b6a23d83347803abd41193f3f0475dc1cc9a1e27b41de491"
+  },
+  "build_replay_semantic_digests": {
+    "normal.sqlite3": "3d478338d1651492de68a8422673bc5ce35bca521fe6a131ee0768278a00372e",
+    "repeat.sqlite3": "3d478338d1651492de68a8422673bc5ce35bca521fe6a131ee0768278a00372e",
+    "reverse.sqlite3": "3d478338d1651492de68a8422673bc5ce35bca521fe6a131ee0768278a00372e"
+  },
+  "build_replay_semantically_equal": true,
+  "candidate_semantic_digest": "3d478338d1651492de68a8422673bc5ce35bca521fe6a131ee0768278a00372e",
+  "candidate_sha256": "fc14d9f37f47e990a458fb434fec0e3419a3a45f6ffb9d6b35db406e59c71ee5",
+  "canonical_build_bytes_equal": true,
+  "network_required": false,
+  "reconciler_classification_counts_equal": true,
+  "reconciler_identity_resolution_equal": true,
+  "reconciler_semantic_digests": {
+    "forward": "1f63148ef4614da5ff44b957635f20cbe67beabcfa6572a0057e1f64f69bd452",
+    "repeat": "1f63148ef4614da5ff44b957635f20cbe67beabcfa6572a0057e1f64f69bd452",
+    "reverse": "1f63148ef4614da5ff44b957635f20cbe67beabcfa6572a0057e1f64f69bd452"
+  },
+  "reconciler_semantically_equal": true,
+  "reverse_insertion_order_tested": true
+}

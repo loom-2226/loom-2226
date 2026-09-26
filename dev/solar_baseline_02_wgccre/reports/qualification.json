@@ -1,0 +1,99 @@
+{
+  "added_conflicts": 0,
+  "added_limit_conflicts": 0,
+  "baseline_inputs": {
+    "body_digests_before": {
+      "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+      "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+      "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+    },
+    "sf_promote_03_sha256_before": "f25681e27ec3beb320c4983f4a59436f8471e8322208157039be0d21ecea6f53",
+    "sf_promote_03_whole_semantic_digest_before": "382f7871cdfc42526eddcc84bd17fcfdd1a6a78cafa129c5feb21546cdfa8581",
+    "solar_baseline_01_semantic_digest": "eaa76ed502dfd96ab8d6f7eb6c294f0344a4d9abb68678f18d03f3a5af5c9cda",
+    "solar_baseline_01_sha256": "0608f9502e99d9fc72a48cc732b45618463228ce5ff06d59737cdcdeac2f612e"
+  },
+  "branch": "data/solar-baseline-02-wgccre",
+  "candidate_database": "dev/solar_baseline_02_wgccre/LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V10.sqlite3",
+  "candidate_semantic_digest": "3d478338d1651492de68a8422673bc5ce35bca521fe6a131ee0768278a00372e",
+  "candidate_sha256": "fc14d9f37f47e990a458fb434fec0e3419a3a45f6ffb9d6b35db406e59c71ee5",
+  "change_class": "class:data",
+  "coverage_gain_report": "marginal_coverage_gain.json",
+  "determinism_report": "determinism_report.json",
+  "elapsed_seconds": 2.124461582978256,
+  "hostile_identity_collision": "TABLE_3 (52) Europa remains HOLD; no body identity was created",
+  "liens": [
+    "The qualified 01R v1.0 raw report has a fixed B01 semantic-digest field; raw report is retained and the campaign-level report records the actual B02 digest.",
+    "The WGCCRE 2019 correction source is subscription content; its full PDF and text extraction are not redistributed. The acquired PDF SHA-256, DOI, publication metadata, and a minimal corrected-equation excerpt are frozen.",
+    "WGCCRE source equations remain opaque model strings. 01R conservatively marks 127 additional source-to-source model comparisons NOT_COMPARABLE; it does not evaluate formulas or choose a source.",
+    "WGCCRE tables 4–6 shape/size columns were inspected but were outside this rotation/orientation model ingestion scope."
+  ],
+  "metrics": "qualification_metrics.json",
+  "mission_id": "SOLAR-BASELINE-02-WGCCRE",
+  "non_interference": {
+    "SF_PROMOTE_03_sha256_before_after_equal": true,
+    "SF_PROMOTE_03_whole_semantic_digest_before_after_equal": true,
+    "body_digests_after": {
+      "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+      "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+      "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+    },
+    "body_digests_before": {
+      "CERES": "2c6ac5e1c6841122eb9b0b6ab27330eaf7f806b1ad9083e6b7c42860ee79e067",
+      "COMET_67P": "9e4139deb7182ce4c87176bc27e3510ffb075421e34cbca7bdb5a2a700ad9525",
+      "EUROPA": "730378a6094082f8afbe23b41b213989e2552520801074d3387beb5d67c8b07d"
+    },
+    "each_body_exactly_unchanged": {
+      "CERES": true,
+      "COMET_67P": true,
+      "EUROPA": true
+    },
+    "preferred_fact_count_before_after": {
+      "after": 0,
+      "before": 0
+    },
+    "solar_baseline_01_input_sha_unchanged": true
+  },
+  "non_interference_report": "non_interference_report.json",
+  "preferred_fact_count": 0,
+  "reconciliation_report": "reconciliation_report.json",
+  "source_acquisition": "source_acquisition.json",
+  "source_checks": [
+    {
+      "frozen_sha256": "4e446975d238b38aad5c1b4ed7ba6d62a4411d503fe5ebbd6100493a4ace7980",
+      "local_artifact_hash_matches": true,
+      "source": "Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2015"
+    },
+    {
+      "acquired_hash_verified_before_repository_freeze": true,
+      "frozen_derivative_hash_matches": true,
+      "frozen_sha256": "3e571131c2923f4f1f781954af775bb858738fd40e89c99b8dcf0aed53e3545e",
+      "local_full_artifact_available": true,
+      "local_full_artifact_hash_matches": true,
+      "redistributed": false,
+      "source": "Correction to: Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2015"
+    }
+  ],
+  "starting_live_main": "a7b21f82067294be3e27e1715864f0932a13a8f5",
+  "tests": {
+    "SF_PROMOTE_03": {
+      "status": "CONTROL_READ_ONLY_SHA_DIGEST_PREFERRED_FACT_VERIFIED",
+      "tests": "not run because prior suite mutates promoted control database; it was verified read-only before and after"
+    },
+    "SOLAR_BASELINE_01": {
+      "status": "PASS",
+      "tests": 28
+    },
+    "SOLAR_BASELINE_01R": {
+      "status": "PASS",
+      "tests": 18
+    },
+    "SOLAR_BASELINE_02_WGCCRE": {
+      "status": "PASS",
+      "tests": 6
+    },
+    "loom_gate": "PENDING_PULL_REQUEST_CI"
+  },
+  "tier1_started": false,
+  "verdict": "SOLAR_BASELINE_02_WGCCRE_PASS_WITH_LIENS",
+  "worktree": "/tmp/loom-solar-baseline-02"
+}
