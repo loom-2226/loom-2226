@@ -1,0 +1,130 @@
+{
+  "change_class": "class:data",
+  "file_count": 24,
+  "files": [
+    {
+      "bytes": 933888,
+      "path": "dev/solar_baseline_01r/LOOM_SOLAR_BASELINE_01R_RECONCILIATION_LEDGER.sqlite3",
+      "sha256": "409ae27ef0d343df15bcb0b1a07b84d2da073213deb95abbe5368a5667586c9d"
+    },
+    {
+      "bytes": 7396,
+      "path": "dev/solar_baseline_01r/capture_inputs.py",
+      "sha256": "a30b7756b336ec42e433c95d9719a4e0090b14a972314ee1f27fde93c1082d95"
+    },
+    {
+      "bytes": 14848,
+      "path": "dev/solar_baseline_01r/qualify.py",
+      "sha256": "fdaa003b4f06fa99b12adf76194a0715a78155adac82ad272a6403048fd373b9"
+    },
+    {
+      "bytes": 54644,
+      "path": "dev/solar_baseline_01r/raw/naif_ids_required_reading.html",
+      "sha256": "4b647f8cc5f3101dc16011a51fe22c6beb8e5c2db49c7619cd11787a4eaf36c3"
+    },
+    {
+      "bytes": 58244,
+      "path": "dev/solar_baseline_01r/raw/revalidation/jpl_planet_physical_parameters.html",
+      "sha256": "e49a487947295c389ba6e5833dd8fb04b63e826d39f70c123881882096e5e68b"
+    },
+    {
+      "bytes": 95641,
+      "path": "dev/solar_baseline_01r/raw/revalidation/jpl_satellite_physical_parameters.html",
+      "sha256": "0c6323f469e48ac654f7d4dd263ed6c62ad14689218c5451a98da29d625aaf10"
+    },
+    {
+      "bytes": 97329,
+      "path": "dev/solar_baseline_01r/raw/revalidation/jpl_sbdb_api_doc.html",
+      "sha256": "a7361e4de7c45407c2d929f3ec40db3bcedd4312fd322fe8a854b37065311390"
+    },
+    {
+      "bytes": 36332,
+      "path": "dev/solar_baseline_01r/raw/revalidation/jpl_sbdb_query_api_doc.html",
+      "sha256": "f29f76995f982ba82e5e5c6e1527973ae76d3d5821ec7337314b8743bc7e37fb"
+    },
+    {
+      "bytes": 34658,
+      "path": "dev/solar_baseline_01r/reconcile.py",
+      "sha256": "d8320595f7487a9632387354e45b310f0dda5aa4e5a1bafb074c437e39404f14"
+    },
+    {
+      "bytes": 22406,
+      "path": "dev/solar_baseline_01r/reports/baseline_artifact_hashes.json",
+      "sha256": "d1d4bf7bacd5d342a31adb071c0c19a1a51fe26080350b16e31d3290e35e2d3d"
+    },
+    {
+      "bytes": 14170,
+      "path": "dev/solar_baseline_01r/reports/conflict_report.json",
+      "sha256": "1185227d773df898ff6df2907d067ae40c52cd455d7eabeb7df0504bc3c7a26a"
+    },
+    {
+      "bytes": 483,
+      "path": "dev/solar_baseline_01r/reports/coverage_report.json",
+      "sha256": "21c0f491024ac215c9b5eb53ac959244a0584c4fbf9d7ea4c8c207236ce00a87"
+    },
+    {
+      "bytes": 695,
+      "path": "dev/solar_baseline_01r/reports/determinism_report.json",
+      "sha256": "0017c0d961db6640370ab10080d2528c945dd3673fb4800d04a569769edf8362"
+    },
+    {
+      "bytes": 915,
+      "path": "dev/solar_baseline_01r/reports/efficiency_report.json",
+      "sha256": "9cff90c8b1210afc166d17591aca25dfd319b04027860bbe72b961189190f83a"
+    },
+    {
+      "bytes": 1090,
+      "path": "dev/solar_baseline_01r/reports/hostile_review.json",
+      "sha256": "c2899cbfbb0688a948ea14cc3e0b25370abbd3ca5431d26b1687c27f59c5d448"
+    },
+    {
+      "bytes": 600,
+      "path": "dev/solar_baseline_01r/reports/identity_reference_artifact.json",
+      "sha256": "9a26b40b2389570bee3a5996e376493027fab96e336c956b16d1d39fd5b8c753"
+    },
+    {
+      "bytes": 125467,
+      "path": "dev/solar_baseline_01r/reports/identity_resolution.json",
+      "sha256": "7a42965daac07846dd3ae59e4edc252981ad4deff6778876748505a74d5ba862"
+    },
+    {
+      "bytes": 27784,
+      "path": "dev/solar_baseline_01r/reports/input_freeze.json",
+      "sha256": "fc693560be532b304a32b734a188bec6fea20171193b260319a359a29fe687d9"
+    },
+    {
+      "bytes": 48887,
+      "path": "dev/solar_baseline_01r/reports/qualification.json",
+      "sha256": "bb31ac1b66060b9933bb54d136e4935a5a5d975f072aa023f55cf97670a9762f"
+    },
+    {
+      "bytes": 1475,
+      "path": "dev/solar_baseline_01r/reports/qualification_report.md",
+      "sha256": "3f81876eec8f2cb3c0633d540334558e9f14109eea9813ddefc6f816c1c8d92e"
+    },
+    {
+      "bytes": 16439,
+      "path": "dev/solar_baseline_01r/reports/reconciliation_report.json",
+      "sha256": "616133b4e048f7a380895b0f6115140cc66d2e096ab2e713c343d011ac704a50"
+    },
+    {
+      "bytes": 1155,
+      "path": "dev/solar_baseline_01r/reports/regression_results.json",
+      "sha256": "39deb906a73b677791023e5e5ce0f9f97cd88340c7cfcefef4a4bad44b7b33eb"
+    },
+    {
+      "bytes": 5151,
+      "path": "dev/solar_baseline_01r/reports/source_gain_matrix.json",
+      "sha256": "795a7cf8abbe7b6c6e5cc3326370647e8c786580bdebbbb791ac7b9c4cb39774"
+    },
+    {
+      "bytes": 10834,
+      "path": "dev/solar_baseline_01r/test_reconcile.py",
+      "sha256": "15e40643f3002c1a7106816ab7ad0f6902668ee0b5149fdd6d5e8d055e3cb9bb"
+    }
+  ],
+  "manifest_self_hash_excluded": true,
+  "mission_id": "SOLAR-BASELINE-01R",
+  "qualification_verdict": "SOLAR_BASELINE_01R_PASS_WITH_LIENS",
+  "starting_live_main": "fc350353a3efd1c1826b1c584d846382ff828237"
+}

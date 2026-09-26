@@ -1,0 +1,115 @@
+{
+  "method": "weighted ordinal score (0-5 each): unresolved-lane gain 35%, bodies/acquisition 20%, primary authority 15%, machine readability 15%, deterministic mapping 10%, low cost 5%; estimates are qualitative and not lane counts",
+  "mission_id": "SOLAR-BASELINE-01R",
+  "no_tier1_ingestion": true,
+  "sources": [
+    {
+      "acquisition_granularity": "release/report",
+      "applicable_bodies": "planets, satellites, selected asteroids/comets; per-release table inventory required",
+      "authority": 5,
+      "basis": "official working-group products define systematic rotational/cartographic model coverage; no acquisition performed",
+      "body_breadth": 4,
+      "confidence": "ESTIMATED",
+      "cost": 3,
+      "family": "IAU/WGCCRE rotational and cartographic models",
+      "gain_lanes": 4,
+      "machine_readability": "published report tables / downloadable products; deterministic extraction feasibility moderate",
+      "machine_readability_score": 3,
+      "mapping": 3,
+      "potential_gain": "moderate, shared classes; exact uncovered-lane count UNKNOWN",
+      "rank": 1,
+      "score": 3.85,
+      "source_url": "https://www.iau.org/WG100/WG100/Home.aspx",
+      "target_properties": [
+        "orientation_model",
+        "rotation_state",
+        "pole",
+        "prime_meridian"
+      ]
+    },
+    {
+      "acquisition_granularity": "catalog/collection/product; prioritize registered bulk collections",
+      "applicable_bodies": "existing bodies represented in archived missions; exact body-property lanes UNKNOWN",
+      "authority": 5,
+      "basis": "official PDS search/standards reconnaissance; not acquired",
+      "body_breadth": 3,
+      "confidence": "ESTIMATED",
+      "cost": 2,
+      "family": "NASA PDS4 Registry / discipline node catalog products",
+      "gain_lanes": 3,
+      "machine_readability": "PDS4 labels and registry APIs are structured; scientific mapping remains product-specific",
+      "machine_readability_score": 4,
+      "mapping": 2,
+      "potential_gain": "high provenance and observation coverage, likely uneven by mission/body",
+      "rank": 2,
+      "score": 3.3,
+      "source_url": "https://pds.nasa.gov/services/search/",
+      "target_properties": [
+        "regional/site observations, measurements, instrument products, provenance"
+      ]
+    },
+    {
+      "acquisition_granularity": "feature collections / map products",
+      "applicable_bodies": "mapped planetary bodies; exact overlap with current baseline UNKNOWN",
+      "authority": 4,
+      "basis": "official service discovery; no collection harvest",
+      "body_breadth": 3,
+      "confidence": "ESTIMATED",
+      "cost": 3,
+      "family": "USGS Astrogeology planetary vector/catalog services",
+      "gain_lanes": 2,
+      "machine_readability": "OGC Features API is machine-readable; semantic mapping moderate",
+      "machine_readability_score": 4,
+      "mapping": 3,
+      "potential_gain": "moderate regional/geospatial lanes; limited physical-parameter coverage",
+      "rank": 3,
+      "score": 2.95,
+      "source_url": "https://astrogeology.usgs.gov/pygeoapi/?f=html",
+      "target_properties": [
+        "feature geometry, nomenclature, regional mapping metadata"
+      ]
+    },
+    {
+      "acquisition_granularity": "query with fields/pagination; existing Tier-0 contains SBDB snapshots",
+      "applicable_bodies": "existing minor bodies with resolvable SBDB identifiers",
+      "authority": 5,
+      "basis": "API docs verified; defer because chiefly overlap and orbital firewall constraints",
+      "body_breadth": 4,
+      "confidence": "VERIFIED",
+      "cost": 4,
+      "family": "JPL SBDB Query API bulk field refresh",
+      "gain_lanes": 1,
+      "machine_readability": "structured API; mutable endpoint must be frozen",
+      "machine_readability_score": 5,
+      "mapping": 4,
+      "potential_gain": "coverage refresh and source-version comparisons; incremental new-property lanes UNKNOWN/likely low",
+      "rank": 4,
+      "score": 3.25,
+      "source_url": "https://ssd-api.jpl.nasa.gov/doc/sbdb_query.html",
+      "target_properties": [
+        "asteroid/comet identity, orbit metadata, selected physical fields"
+      ]
+    },
+    {
+      "acquisition_granularity": "kernel file/release",
+      "applicable_bodies": "kernel coverage is explicit per release; current Tier-0 already includes PCK/GM products",
+      "authority": 5,
+      "basis": "official generic kernel catalog; current acquisition already covers a subset",
+      "body_breadth": 3,
+      "confidence": "VERIFIED",
+      "cost": 3,
+      "family": "NAIF generic PCK/SPK kernel extensions",
+      "gain_lanes": 1,
+      "machine_readability": "kernel syntax deterministic but parser/domain mapping needs explicit versioned adapter",
+      "machine_readability_score": 4,
+      "mapping": 4,
+      "potential_gain": "incremental version/model changes, new body-property lanes not yet measured",
+      "rank": 5,
+      "score": 2.85,
+      "source_url": "https://naif.jpl.nasa.gov/naif/data_generic.html",
+      "target_properties": [
+        "orientation/rotation models; selected GM constants"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "cases": [
+    "unit conversion and hours/days",
+    "radius/diameter semantic boundary",
+    "density conversion",
+    "GM/mass boundary",
+    "limits retain strict inequality",
+    "ranges are not midpointed",
+    "uncertainty not invented",
+    "inline uncertainty is parsed and preserved",
+    "precision is not exact equality",
+    "no averaging or source precedence",
+    "same lineage not independent",
+    "model/reference categories retained",
+    "zero not sentinel by intuition",
+    "identity uses exact NAIF IDs/names and ambiguity HOLD",
+    "source assertion inputs read-only",
+    "qualified three-body digests unchanged",
+    "preferred_fact remains zero",
+    "source/order/replay invariance"
+  ],
+  "liens": [
+    "Moon GM reported/normalized mismatch is held NOT_COMPARABLE; baseline source artifact/parser normalization must be corrected under separate governed change before trusting that value.",
+    "Distinct-source lineage is not proof of independent scientific evidence; independence remains unestablished."
+  ],
+  "result": "PASS_WITH_LIEN",
+  "tests": 18
+}

@@ -1,0 +1,48 @@
+{
+  "discovery_notes": [
+    "HCQ and versioned suite tests require suite-specific PYTHONPATH values.",
+    "SF-PROMOTE-03 suite has a database-mutating side effect; after suite pass the exact frozen file was restored from starting commit and SHA-verified."
+  ],
+  "results": {
+    "ARP_core": {
+      "status": "PASS",
+      "tests": 19
+    },
+    "HCQ01_ingest": {
+      "status": "PASS",
+      "tests": 14
+    },
+    "HCQ01_v0_3": {
+      "status": "PASS",
+      "tests": 9
+    },
+    "HCQ01_v0_3_R1": {
+      "status": "PASS",
+      "tests": 10
+    },
+    "SF_PROMOTE_01": {
+      "status": "PASS",
+      "tests": 3
+    },
+    "SF_PROMOTE_02": {
+      "status": "QUALIFICATION_ARTIFACT_VERIFIED",
+      "tests": "no dedicated test file present"
+    },
+    "SF_PROMOTE_03": {
+      "note": "test suite mutated control DB; exact frozen bytes restored and verified immediately",
+      "status": "PASS",
+      "tests": 10
+    },
+    "SOLAR_BASELINE_01": {
+      "status": "PASS",
+      "tests": 28
+    },
+    "SOLAR_BASELINE_01R": {
+      "status": "PASS",
+      "tests": 18
+    },
+    "loom_gate": {
+      "status": "PENDING_PULL_REQUEST_CI"
+    }
+  }
+}
