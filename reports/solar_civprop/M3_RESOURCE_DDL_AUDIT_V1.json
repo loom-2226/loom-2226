@@ -1,0 +1,16 @@
+{
+  "body_catalog_count": 110,
+  "ddl_decision": "NO_NEW_MATERIAL_TABLE_REQUIRED",
+  "existing_material_ddl_satisfies_contract": true,
+  "missing_material_ddl_columns": [],
+  "physical_inventory_assertions": {
+    "bulk_density": 49,
+    "effective_diameter": 36,
+    "mass": 10,
+    "mean_radius": 39
+  },
+  "population_decision": "RESOURCE_COVERAGE_POPULATION_REQUIRED",
+  "promoted_bodies_with_material_evidence": 2,
+  "promoted_bodies_without_material_evidence": 108,
+  "promoted_material_rows": 7
+}

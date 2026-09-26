@@ -1,0 +1,28 @@
+{
+  "contract_id": "SOLAR_CIVPROP_RESOURCE_STATE_V1",
+  "required_per_body": {
+    "physical_inventory": "MASS or derivable size/shape+density where scientifically supported",
+    "resource_classes": ["VOLATILES", "METALS", "SILICATES_ROCK", "CARBONACEOUS_ORGANICS"],
+    "state_values": ["QUANTIFIED", "BOUNDED", "PRESENT_UNQUANTIFIED", "ABSENT_OR_NONDETECTION", "UPPER_LIMIT", "INFERRED_OR_MODELLED", "UNKNOWN"]
+  },
+  "material_evidence_required_fields": [
+    "body_id", "material_family", "evidence_class", "abundance_semantics",
+    "confidence_class", "fact_status", "source_id"
+  ],
+  "conditional_fields": {
+    "regional_claim": "region_id required",
+    "quantified_abundance": "abundance_value or abundance_min/abundance_max plus abundance_unit",
+    "observational_claim": "observation_id where an observation record exists"
+  },
+  "firewall": [
+    "UNKNOWN is not zero",
+    "no row is not UNKNOWN",
+    "taxonomy is not abundance",
+    "regional evidence is not global inventory",
+    "modelled/inferred evidence is not direct measurement",
+    "resource evidence is not economic value",
+    "delta-v and TOF remain Navigator authority",
+    "mining rate and recovery efficiency remain technology authority",
+    "price/cost/NPV/BEMR remain economic/CIVPROP authority"
+  ]
+}
