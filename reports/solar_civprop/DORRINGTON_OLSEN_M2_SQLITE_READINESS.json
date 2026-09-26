@@ -1,0 +1,35 @@
+{
+  "database": "dev/solar_baseline_02_wgccre/LOOM_SOLAR_BASELINE_02_WGCCRE_CANDIDATE_V10.sqlite3",
+  "bodies": 110,
+  "empirical_object_lanes": {
+    "mass": {
+      "candidate_assertions": 10,
+      "assessment": "SPARSE"
+    },
+    "size_shape": {
+      "candidate_assertions": 143,
+      "assessment": "PARTIAL"
+    },
+    "bulk_density": {
+      "candidate_assertions": 49,
+      "assessment": "PARTIAL"
+    },
+    "taxonomy": {
+      "candidate_assertions": 35,
+      "assessment": "PARTIAL"
+    },
+    "rotation": {
+      "candidate_assertions": 52,
+      "assessment": "PARTIAL"
+    },
+    "resource_presence_abundance": {
+      "candidate_assertions": 0,
+      "assessment": "BLOCKING_FOR_RESOURCE_SPECIFIC_CIVPROP"
+    },
+    "surface_geotechnical": {
+      "candidate_assertions": 0,
+      "assessment": "UNKNOWN_IN_BULK_BASELINE"
+    }
+  },
+  "conclusion": "Current bulk Solar Facts is enough to identify and physically screen some objects, but not enough to drive resource-specific CIVPROP. The principal missing empirical bridge is target-specific material/resource evidence (presence, abundance, scope, uncertainty), followed by mining-relevant surface/geotechnical evidence. Delta-v and flight time belong to Navigator, not Solar Facts."
+}
