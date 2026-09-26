@@ -21,6 +21,7 @@
   let snapshot = null, trajectory = null, selected = 'EARTH', busy = false, playing = false, playGeneration = 0;
   let distance = 80, theta = .55, phi = .65, target = new THREE.Vector3();
   let markers = [], labels = [], drag = null, moved = false;
+  const pointers = new Map(); let pinch = null;
   const vector = p => new THREE.Vector3(...SolarPresentation.transform(p, $('mode').value));
   const disc = document.createElement('canvas'); disc.width = disc.height = 32;
   const ink = disc.getContext('2d'); ink.fillStyle = color('brand-color-neutral-white');
@@ -67,8 +68,14 @@
     const center = snapshot.objects.find(r => r.body_id === snapshot.reference_center);
     const parent = snapshot.objects.find(r => r.body_id === center.parent_body_id);
     const system = parent?.body_class === 'BARYCENTER' ? parent.body_id : center.body_id;
-    return snapshot.objects.filter(r => r.relative && ($('scope').value === 'all' ||
-      [center.body_id, system, selected].includes(r.body_id) || [center.body_id, system].includes(r.parent_body_id)));
+    return snapshot.objects.filter(r => {
+      if (!r.relative) return false;
+      const scope = $('scope').value;
+      if (scope === 'all') return true;
+      if (scope === 'planetary') return r.body_id === 'SUN' || r.body_class === 'PLANET' ||
+        r.body_id === selected || (r.parent_body_id && snapshot.objects.some(p => p.body_id === r.parent_body_id && p.body_class === 'PLANET'));
+      return [center.body_id, system, selected].includes(r.body_id) || [center.body_id, system].includes(r.parent_body_id);
+    });
   }
   function point(position, tint, size, group = objects) {
     const geometry = new THREE.BufferGeometry().setFromPoints([position]);
@@ -222,15 +229,42 @@
   };
   $('load').onclick = () => load(); $('back').onclick = () => step(-1); $('forward').onclick = () => step(1);
   document.querySelectorAll('[data-year]').forEach(b => { b.onclick = () => { $('epoch').value = b.dataset.year + '-01-01T00:00:00Z'; load(); }; });
-  $('center').onchange = () => { selected = $('center').value; $('scope').value = selected === 'SUN' ? 'all' : 'local'; load(true); };
+  $('center').onchange = () => { selected = $('center').value; $('scope').value = selected === 'SUN' ? 'planetary' : 'local'; load(true); };
   $('mode').onchange = () => rebuild(true); $('scope').onchange = () => rebuild(true); $('fit').onclick = fitScene;
   $('catalog').onchange = () => select($('catalog').value); $('search').oninput = populateCatalog;
   $('trace').onclick = trace; $('clearPath').onclick = clearPath;
   const canvas = renderer.domElement;
   canvas.oncontextmenu = e => e.preventDefault();
-  canvas.onpointerdown = e => { drag = { x: e.clientX, y: e.clientY, pan: e.shiftKey || e.button === 2 }; moved = false; canvas.setPointerCapture(e.pointerId); };
+  function pointerPair() {
+    const values = [...pointers.values()];
+    if (values.length < 2) return null;
+    const [a, b] = values;
+    return { distance: Math.hypot(a.x-b.x, a.y-b.y), x: (a.x+b.x)/2, y: (a.y+b.y)/2 };
+  }
+  canvas.onpointerdown = e => {
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    canvas.setPointerCapture(e.pointerId); moved = false;
+    if (pointers.size === 1) drag = { x: e.clientX, y: e.clientY, pan: e.shiftKey || e.button === 2 };
+    else { drag = null; pinch = pointerPair(); }
+  };
   canvas.onpointermove = e => {
-    if (!drag) return;
+    if (!pointers.has(e.pointerId)) return;
+    const previous = pointers.get(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size >= 2) {
+      const next = pointerPair();
+      if (pinch && next && pinch.distance > 0 && next.distance > 0) {
+        moved = true;
+        distance = Math.max(1e-10, Math.min(1e8, distance * pinch.distance / next.distance));
+        const dx = next.x - pinch.x, dy = next.y - pinch.y;
+        const right = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 0);
+        const up = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 1);
+        target.addScaledVector(right, -dx * distance / stage.clientHeight).addScaledVector(up, dy * distance / stage.clientHeight);
+        pinch = next; updateCamera();
+      }
+      return;
+    }
+    if (!drag) drag = { x: previous.x, y: previous.y, pan: e.shiftKey || e.button === 2 };
     const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
     if (Math.abs(dx) + Math.abs(dy) > 2) moved = true;
     if (drag.pan) {
@@ -240,7 +274,14 @@
     } else { theta -= dx * .006; phi = Math.max(-1.5, Math.min(1.5, phi + dy * .006)); }
     drag.x = e.clientX; drag.y = e.clientY; updateCamera();
   };
-  canvas.onpointerup = () => { drag = null; }; canvas.onpointercancel = () => { drag = null; };
+  function releasePointer(e) {
+    pointers.delete(e.pointerId); pinch = pointerPair(); drag = null;
+    if (pointers.size === 1) {
+      const only = [...pointers.values()][0];
+      drag = { x: only.x, y: only.y, pan: false };
+    }
+  }
+  canvas.onpointerup = releasePointer; canvas.onpointercancel = releasePointer;
   canvas.addEventListener('wheel', e => { e.preventDefault(); distance = Math.max(1e-10, Math.min(1e8, distance * Math.exp(e.deltaY * .001))); updateCamera(); }, { passive: false });
   canvas.onclick = e => {
     if (moved) return;

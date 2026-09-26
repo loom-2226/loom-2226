@@ -17,7 +17,7 @@ button:disabled { opacity: .55; cursor: wait; }
 #message { padding: var(--loom-interface-space-2) var(--loom-interface-space-4); min-height: var(--loom-interface-size-target-min); }
 main { display: grid; grid-template-columns: minmax(0, 1fr) 380px; height: calc(100vh - 250px); min-height: 540px; }
 #stage { position: relative; min-width: 0; overflow: hidden; touch-action: none; }
-canvas { display: block; }
+canvas { display: block; width: 100%; height: 100%; }
 #labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .object-label { position: absolute; font-size: var(--loom-interface-type-size-label); white-space: nowrap; background: var(--loom-interface-surface-canvas); padding: var(--loom-interface-space-1); }
 .selected { color: var(--loom-domain-selection-highlight); border-bottom: var(--loom-domain-selection-ring-width) solid var(--loom-domain-selection-highlight); }
@@ -33,4 +33,19 @@ summary { cursor: pointer; padding: var(--loom-interface-space-3) 0; min-height:
 #counts { font-variant-numeric: tabular-nums; line-height: 1.8; white-space: pre-line; }
 #failures button { display: block; text-align: left; width: 100%; }
 #failures p { overflow-wrap: anywhere; }
-@media(max-width: 850px) { main { display: block; height: auto; } #stage { height: 65vh; min-height: 400px; } aside { overflow: visible; } }
+@media(max-width: 850px) {
+  header { padding: var(--loom-interface-space-2) var(--loom-interface-space-3); gap: var(--loom-interface-space-2); }
+  header img { width: 72px; margin: var(--loom-interface-space-2); }
+  header h1 { font-size: 1.05rem; }
+  header span { font-size: .78rem; }
+  .toolbar { gap: var(--loom-interface-space-1); padding: var(--loom-interface-space-2); }
+  .toolbar label { flex: 1 1 145px; }
+  .toolbar input,.toolbar select { width: 100%; }
+  .toolbar button { padding: var(--loom-interface-space-1) var(--loom-interface-space-2); }
+  #message { padding: var(--loom-interface-space-1) var(--loom-interface-space-3); min-height: 0; font-size: .78rem; }
+  main { display: block; height: auto; }
+  #stage { height: 72dvh; min-height: 480px; max-height: 760px; }
+  #sceneStatus { font-size: .78rem; }
+  #help { font-size: .72rem; }
+  aside { overflow: visible; }
+}

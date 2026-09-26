@@ -11,14 +11,14 @@
   <button id="back">− Step</button><button id="forward">+ Step</button><button id="play" aria-pressed="false">Play</button>
   <label>Reference center<select id="center"><option>SUN</option></select></label>
   <label>Presentation<select id="mode"><option>PHYSICAL</option><option>SCHEMATIC</option></select></label>
-  <label>Scene scope<select id="scope"><option value="all">Whole catalog</option><option value="local">Center + family + selection</option></select></label>
+  <label>Scene scope<select id="scope"><option value="planetary" selected>Planetary system</option><option value="all">Whole catalog</option><option value="local">Center + family + selection</option></select></label>
   <button id="fit">Fit scene</button>
 </section>
 <div id="message" role="status">Loading governed catalog; first evaluation verifies pinned local assets…</div>
 <main>
   <section id="stage" aria-label="Interactive Solar System scene">
     <div id="labels"></div><div id="sceneStatus"></div>
-    <div id="help">Drag: rotate · Shift-drag / right-drag: pan · Wheel: zoom · Click: select<br>Point markers are enlarged for inspection; physical mode preserves positions.</div>
+    <div id="help">Drag: rotate · Two-finger drag: pan · Pinch / wheel: zoom · Click: select<br>Point markers are enlarged for inspection; physical mode preserves positions.</div>
   </section>
   <aside>
     <section><h2 class="loom-type-subhead">Reconciliation</h2><div id="counts"></div><p>Catalog = resolved + unresolved. Resolved = direct + propagated. Catalog-only and partial are catalog subsets. Rendered counts scene objects; labels may be hidden at distance. Local scope includes the selected object, including when its catalog parent is NULL.</p></section>
