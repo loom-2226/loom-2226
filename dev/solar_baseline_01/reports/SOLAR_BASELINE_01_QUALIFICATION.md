@@ -37,7 +37,10 @@ Four system/primary identity crosswalks remain held. Upstream citations inside c
 
 ## Efficiency
 
-65 frozen artifacts total 742,606 bytes. They yielded 758 candidate assertions across 110 bodies: 12.12 candidate assertions per acquired artifact and 1.69 bodies per artifact. Offline replay took 0.32 s (about 142,125 assertions per compute-minute).
+65 frozen artifacts total 742,606 bytes. They yielded 758 candidate assertions across 110 bodies: 11.66 candidate assertions per acquired artifact and 1.69 bodies per artifact. Offline replay took 0.43 s (about 105,767 assertions per compute-minute).
 
 
 The candidate envelope now requires the source payload `loom_body_id` to equal the candidate body ID at SQLite constraint level. A hostile cross-body update is rejected. This is confined to the disposable candidate schema; SF-PROMOTE-03 remains unchanged.
+
+
+Repository governance: PR #303 passed the required `loom-gate` and merged to main at `c539c961f37cd913a30e4a85307992188a7d3c59`.
