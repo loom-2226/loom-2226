@@ -1,0 +1,284 @@
+{
+  "acquisition_notes": [
+    "The Wiley landing page for DOI 10.1111/maps.14227 returned HTTP 403 in the initial acquisition attempt. The failure is preserved. Its abstract is visible through web discovery but the candidate relies on the independently acquired NASA NTRS 2024 mission analysis record and NASA-hosted 2025 NTRS peer-reviewed reprint for detailed Bennu claims."
+  ],
+  "campaign_id": "SOLAR_CIVPROP_M4B_2026",
+  "retrieval_policy": "Acquired once, frozen by SHA-256; replay reads only local frozen inputs.",
+  "sources": [
+    {
+      "acquisition_url": "https://onlinelibrary.wiley.com/doi/10.1111/maps.14227",
+      "authority": "OSIRIS-REx Sample Analysis Team / Meteoritics & Planetary Science",
+      "doi": "10.1111/maps.14227",
+      "license": "Publisher page; full text not redistributed. Public abstract and citation metadata snapshot only.",
+      "published": "2024-11-01",
+      "source_key": "BENNU_SAMPLE_PROPERTIES_2024",
+      "source_type": "PEER_REVIEWED",
+      "title": "Asteroid (101955) Bennu in the laboratory: Properties of the sample collected by OSIRIS-REx",
+      "url": "https://doi.org/10.1111/maps.14227"
+    },
+    {
+      "acquisition_url": "https://ntrs.nasa.gov/citations/20240012304",
+      "authority": "NASA Johnson Space Center / OSIRIS-REx Sample Analysis Team",
+      "doi": null,
+      "license": "NASA NTRS record states public use permitted; acquire record and linked public abstract.",
+      "published": "2024-10-29",
+      "source_key": "BENNU_SAMPLE_ANALYSIS_NTRS_2024",
+      "source_type": "NASA_TECHNICAL_REPORTS_SERVER_ABSTRACT",
+      "title": "Preliminary Analyses of Asteroid Bennu Samples Returned by NASA\u2019s OSIRIS-REx Mission",
+      "url": "https://ntrs.nasa.gov/citations/20240012304"
+    },
+    {
+      "acquisition_url": "https://global.jaxa.jp/press/2022/06/20220610-1_e.html",
+      "authority": "JAXA Hayabusa2 Initial Analysis Team",
+      "doi": "10.1126/science.abn7850",
+      "license": "JAXA institutional research release; acquired page snapshot.",
+      "published": "2022-09-23",
+      "source_key": "RYUGU_SAMPLE_INITIAL_2022",
+      "source_type": "PEER_REVIEWED",
+      "title": "Preliminary analysis of the Hayabusa2 samples returned from C-type asteroid Ryugu",
+      "url": "https://doi.org/10.1126/science.abn7850"
+    },
+    {
+      "acquisition_url": "https://global.jaxa.jp/press/2023/02/20230224-1_e.html",
+      "authority": "Hayabusa2 Initial Analysis Soluble Organic Matter Team / Science",
+      "doi": "10.1126/science.abn9033",
+      "license": "JAXA institutional research release; acquired page snapshot.",
+      "published": "2023-02-24",
+      "source_key": "RYUGU_ORGANIC_MOLECULES_2023",
+      "source_type": "PEER_REVIEWED",
+      "title": "Soluble organic molecules in samples of the carbonaceous asteroid (162173) Ryugu",
+      "url": "https://doi.org/10.1126/science.abn9033"
+    },
+    {
+      "acquisition_url": "https://darts.isas.jaxa.jp/en/topics/2022/20220124topic",
+      "authority": "JAXA DARTS / ISAS sample curation",
+      "doi": "10.17597/isas.darts/hyb2-00400",
+      "license": "Official data catalog landing page; data access remains at cited DARTS store.",
+      "published": "2022-01-24",
+      "source_key": "RYUGU_SAMPLE_CATALOG_2022",
+      "source_type": "DATA_PRODUCT",
+      "title": "Hayabusa2, Ryugu Sample Curatorial Dataset Description",
+      "url": "https://darts.isas.jaxa.jp/en/topics/2022/20220124topic"
+    },
+    {
+      "acquisition_url": "https://curation.isas.jaxa.jp/en/sample-curation/itokawa/",
+      "authority": "JAXA ISAS Astromaterials Science Research Group",
+      "doi": null,
+      "license": "Official institutional page; acquired page snapshot.",
+      "published": null,
+      "source_key": "ITOKAWA_SAMPLE_CURATION",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "Hayabusa Curation: Itokawa returned samples",
+      "url": "https://curation.isas.jaxa.jp/en/sample-curation/itokawa/"
+    },
+    {
+      "acquisition_url": "https://link.springer.com/article/10.1186/1880-5981-66-82",
+      "authority": "JAXA Hayabusa returned sample analysis / Earth, Planets and Space",
+      "doi": "10.1186/1880-5981-66-82",
+      "license": "Open-access article page; full article not duplicated in this packet.",
+      "published": "2014-07-24",
+      "source_key": "ITOKAWA_MINERALOGY_2014",
+      "source_type": "PEER_REVIEWED",
+      "title": "Mineralogy and crystallography of some Itokawa particles returned by the Hayabusa asteroidal sample return mission",
+      "url": "https://doi.org/10.1186/1880-5981-66-82"
+    },
+    {
+      "acquisition_url": "https://data.nasa.gov/dataset/stardust-sample-catalog",
+      "authority": "NASA Johnson Space Center / NASA Open Data",
+      "doi": null,
+      "license": "NASA Open Data record reports license not specified; catalog landing metadata only.",
+      "published": "2018-06-25",
+      "source_key": "STARDUST_SAMPLE_CATALOG",
+      "source_type": "DATA_PRODUCT",
+      "title": "Stardust Sample Catalog",
+      "url": "https://data.nasa.gov/dataset/stardust-sample-catalog"
+    },
+    {
+      "acquisition_url": "https://science.gsfc.nasa.gov/sed/content/uploadFiles/publication_files/BrownleeEtal2006.pdf",
+      "authority": "Stardust Preliminary Examination Team / Science",
+      "doi": "10.1126/science.1135840",
+      "license": "NASA-hosted publisher reprint; factual extraction and provenance retained, full text not redistributed.",
+      "published": "2006-12-15",
+      "source_key": "WILD2_MINERALOGY_2006",
+      "source_type": "PEER_REVIEWED",
+      "title": "Cometary and interstellar dust: Preliminary examination of Stardust samples",
+      "url": "https://doi.org/10.1126/science.1135840"
+    },
+    {
+      "acquisition_url": "https://science.gsfc.nasa.gov/sed/content/uploadFiles/publication_files/Sandfordetal2006.pdf",
+      "authority": "NASA Stardust Organics Preliminary Examination Team / Science",
+      "doi": "10.1126/science.1123638",
+      "license": "NASA-hosted publisher reprint; citation and factual extraction retained, no full-text redistribution.",
+      "published": "2006-12-15",
+      "source_key": "WILD2_ORGANICS_2006",
+      "source_type": "PEER_REVIEWED",
+      "title": "Organics Captured from Comet 81P/Wild 2",
+      "url": "https://doi.org/10.1126/science.1123638"
+    },
+    {
+      "acquisition_url": "https://science.nasa.gov/missions/cassini/the-moon-with-the-plume/",
+      "authority": "NASA Cassini mission",
+      "doi": null,
+      "license": "NASA public information page; acquired text snapshot.",
+      "published": null,
+      "source_key": "ENCELADUS_CASSINI_PLUME",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "The Moon with the Plume",
+      "url": "https://science.nasa.gov/missions/cassini/the-moon-with-the-plume/"
+    },
+    {
+      "acquisition_url": "https://www.nasa.gov/missions/cassini/nasa-cassini-study-finds-organics-fresh-from-ocean-of-enceladus/",
+      "authority": "Cassini INMS/CDA analysis team / NASA",
+      "doi": null,
+      "license": "NASA public information page; acquired text snapshot.",
+      "published": "2025-04-14",
+      "source_key": "ENCELADUS_ORGANICS_2025",
+      "source_type": "PEER_REVIEWED_SUMMARY",
+      "title": "NASA Cassini Study Finds Organics \u2018Fresh\u2019 From Ocean of Enceladus",
+      "url": "https://www.nasa.gov/missions/cassini/nasa-cassini-study-finds-organics-fresh-from-ocean-of-enceladus/"
+    },
+    {
+      "acquisition_url": "https://science.nasa.gov/mission/dawn/science/vesta/",
+      "authority": "NASA Dawn mission / PDS",
+      "doi": null,
+      "license": "NASA public information page; acquired text snapshot.",
+      "published": null,
+      "source_key": "VESTA_DAWN_MINERALOGY",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "Vesta: Dawn mission science summary",
+      "url": "https://science.nasa.gov/mission/dawn/science/vesta/"
+    },
+    {
+      "acquisition_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5114864/",
+      "authority": "NEAR Shoemaker X-ray/Gamma-Ray Spectrometer analysis",
+      "doi": "10.1002/2016JE005071",
+      "license": "PMC article landing/full text; reuse governed by article license; evidence summary retained.",
+      "published": "2016-10-25",
+      "source_key": "EROS_XRS_2016",
+      "source_type": "PEER_REVIEWED",
+      "title": "Hydrogen and major element concentrations on 433 Eros: Evidence for an L- or LL-chondrite-like surface composition",
+      "url": "https://doi.org/10.1002/2016JE005071"
+    },
+    {
+      "acquisition_url": "https://www.nasa.gov/missions/mars-science-laboratory/curiosity-rover/what-is-the-chemistry-and-mineralogy-instrument/",
+      "authority": "NASA Mars Science Laboratory / Curiosity",
+      "doi": null,
+      "license": "NASA public information page; acquired text snapshot.",
+      "published": null,
+      "source_key": "MARS_CURIOSITY_CHEMIN",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "What is the Chemistry and Mineralogy Instrument?",
+      "url": "https://www.nasa.gov/missions/mars-science-laboratory/curiosity-rover/what-is-the-chemistry-and-mineralogy-instrument/"
+    },
+    {
+      "acquisition_url": "https://science.nasa.gov/missions/mars-science-laboratory/nasas-curiosity-rover-detects-largest-organic-molecules-found-on-mars/",
+      "authority": "NASA Curiosity SAM science team",
+      "doi": null,
+      "license": "NASA public information page; acquired text snapshot.",
+      "published": "2025-03-24",
+      "source_key": "MARS_CURIOSITY_ORGANICS_2025",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "NASA's Curiosity Rover Detects Largest Organic Molecules Found on Mars",
+      "url": "https://science.nasa.gov/missions/mars-science-laboratory/nasas-curiosity-rover-detects-largest-organic-molecules-found-on-mars/"
+    },
+    {
+      "acquisition_url": "https://science.nasa.gov/moon/composition/",
+      "authority": "NASA lunar science",
+      "doi": null,
+      "license": "NASA public information page; acquired text snapshot.",
+      "published": null,
+      "source_key": "MOON_COMPOSITION_NASA",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "Moon Composition",
+      "url": "https://science.nasa.gov/moon/composition/"
+    },
+    {
+      "acquisition_url": "https://science.nasa.gov/moon/moon-water-and-ices/",
+      "authority": "NASA lunar science / LCROSS and LRO",
+      "doi": null,
+      "license": "NASA public information page; acquired text snapshot.",
+      "published": null,
+      "source_key": "MOON_WATER_NASA",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "Moon Water and Ices",
+      "url": "https://science.nasa.gov/moon/moon-water-and-ices/"
+    },
+    {
+      "acquisition_url": "https://science.nasa.gov/solar-system/revealing-titans-rugged-surface/",
+      "authority": "Cassini-Huygens mission / NASA",
+      "doi": null,
+      "license": "NASA public information page; acquired text snapshot.",
+      "published": null,
+      "source_key": "TITAN_SURFACE_NASA",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "Revealing Titan's Rugged Surface",
+      "url": "https://science.nasa.gov/solar-system/revealing-titans-rugged-surface/"
+    },
+    {
+      "acquisition_url": "https://science.nasa.gov/saturn/moons/titan/facts/",
+      "authority": "Cassini-Huygens mission / NASA",
+      "doi": null,
+      "license": "NASA public information page; acquired text snapshot.",
+      "published": null,
+      "source_key": "TITAN_FACTS_NASA",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "Titan: Facts",
+      "url": "https://science.nasa.gov/saturn/moons/titan/facts/"
+    },
+    {
+      "acquisition_url": "https://www.nasa.gov/missions/new-horizons-finds-blue-skies-and-water-ice-on-pluto/",
+      "authority": "NASA New Horizons mission",
+      "doi": null,
+      "license": "NASA public information page; acquired text snapshot.",
+      "published": "2015-10-08",
+      "source_key": "PLUTO_NEW_HORIZONS_NASA",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "New Horizons Finds Blue Skies and Water Ice on Pluto",
+      "url": "https://www.nasa.gov/missions/new-horizons-finds-blue-skies-and-water-ice-on-pluto/"
+    },
+    {
+      "acquisition_url": "https://pubmed.ncbi.nlm.nih.gov/28209893/",
+      "authority": "Dawn VIR science team / Science",
+      "doi": "10.1126/science.aaj2305",
+      "license": "PubMed abstract metadata snapshot; publisher full text not redistributed.",
+      "published": "2017-02-17",
+      "source_key": "CERES_ORGANICS_2017",
+      "source_type": "PEER_REVIEWED",
+      "title": "Localized aliphatic organic material on the surface of Ceres",
+      "url": "https://doi.org/10.1126/science.aaj2305"
+    },
+    {
+      "acquisition_url": "https://ntrs.nasa.gov/citations/20250010870",
+      "authority": "OSIRIS-REx sample-analysis team / Proceedings of the National Academy of Sciences / NASA NTRS",
+      "doi": "10.1073/pnas.2512461122",
+      "license": "Article reprint is labelled CC BY 4.0 in the PDF; NTRS record distribution notice separately states US Government-use permission.",
+      "published": "2025-11-24",
+      "source_key": "BENNU_ORGANICS_PNAS_2025",
+      "source_type": "PEER_REVIEWED",
+      "title": "Prebiotic Organic Compounds in Samples of Asteroid Bennu Indicate Heterogeneous Aqueous Alteration",
+      "url": "https://doi.org/10.1073/pnas.2512461122"
+    },
+    {
+      "acquisition_url": "https://www.nature.com/articles/s41550-024-02472-9",
+      "authority": "OSIRIS-REx Sample Analysis Team / Nature Astronomy",
+      "doi": "10.1038/s41550-024-02472-9",
+      "license": "Publisher full text not redistributed; public article page and abstract metadata acquired.",
+      "published": "2025-02-06",
+      "source_key": "BENNU_PHYLLOSILICATE_2025",
+      "source_type": "PEER_REVIEWED",
+      "title": "Abundant ammonia and nitrogen-rich soluble organic matter in samples from asteroid (101955) Bennu",
+      "url": "https://doi.org/10.1038/s41550-024-02472-9"
+    },
+    {
+      "acquisition_url": "https://www.nasa.gov/centers-and-facilities/ames/nasas-curiosity-rover-may-have-solved-mars-missing-carbonate-mystery/",
+      "authority": "NASA Ames Research Center / Curiosity CheMin science team",
+      "doi": null,
+      "license": "NASA public information page; acquired text snapshot.",
+      "published": "2025-04-17",
+      "source_key": "MARS_SIDERITE_2025",
+      "source_type": "OFFICIAL_REFERENCE",
+      "title": "NASA\u2019s Curiosity Rover May Have Solved Mars' Missing Carbonate Mystery (NASA article, 2025-04-17)",
+      "url": "https://www.nasa.gov/centers-and-facilities/ames/nasas-curiosity-rover-may-have-solved-mars-missing-carbonate-mystery/"
+    }
+  ]
+}
