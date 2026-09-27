@@ -101,6 +101,12 @@ cross them. Add known source/coverage boundaries for both body and anchor before
 sampling; use the existing boundary-adjacent probe policy. No segment crosses an
 unresolved ET window just because its endpoints happen to resolve.
 
+Each sample-audit resource carries its schema identifier, requested body and
+cartographic anchor, epoch ET, ECLIPJ2000 frame, km units, aberration `NONE`,
+physical-state center `SUN`, and cartographic semantic. This keeps archived
+SPICE states distinct from the anchor-relative reference geometry derived from
+their subtraction. Its sample count equals the retained exact-state rows.
+
 Deterministic build identity is defined in PRODUCT_CONTRACT. Two builds from the
 same pinned environment and input snapshot must be byte-identical (gzip mtime 0).
 Cross-platform SPICE arithmetic is not presumed byte-identical: pin toolchain for
