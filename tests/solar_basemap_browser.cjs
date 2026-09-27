@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const {chromium}=require('/home/ubuntu/LOOM_SOLAR_INSPECTOR/node_modules/playwright');
+const args=process.argv.slice(2);function option(name,def){const i=args.indexOf(name);return i>=0?args[i+1]:def;}
+const profile=option('--profile','pixel'),delivery=option('--delivery','progressive'),base=process.env.SOLAR_BASEMAP_URL||'http://127.0.0.1:8770';
+if(!['pixel','desktop'].includes(profile)||!['progressive','monolithic'].includes(delivery))throw Error('invalid profile/delivery');
+const evidence=process.env.SOLAR_BASEMAP_EVIDENCE||'/tmp/solar-basemap-browser';fs.mkdirSync(evidence,{recursive:true});
+const width=profile==='pixel'?412:1280,height=profile==='pixel'?915:800,dpr=profile==='pixel'?3:1,AU=149597870.7;
+async function main(){
+ const browser=await chromium.launch({headless:true});const trials=[];
+ try{
+  for(const throttled of [false,true])for(let n=0;n<5;n++){
+   const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:dpr});const page=await context.newPage();const cdp=await context.newCDPSession(page);await cdp.send('Network.enable');
+   if(throttled)await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:80,downloadThroughput:10*1024*1024/8,uploadThroughput:2*1024*1024/8,connectionType:'cellular3g'});
+   if(throttled)await cdp.send('Emulation.setCPUThrottlingRate',{rate:4});
+   const productRequests=[];page.on('request',r=>{if(r.url().includes('/product/'))productRequests.push({url:r.url(),time:Date.now()})});
+   const consoleErrors=[];page.on('pageerror',e=>consoleErrors.push(String(e)));
+   const t0=Date.now();await page.goto(`${base}${base.includes('?')?'&':'?'}delivery=${delivery}`,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.__solarBasemapReady||window.__solarBasemapError,{timeout:120000});
+   if(await page.evaluate(()=>!!window.__solarBasemapError))throw Error(await page.evaluate(()=>window.__solarBasemapError));
+   await page.waitForFunction(()=>window.__solarBasemapScene&&window.__solarBasemapScene.markers>0,{timeout:30000});
+   const usefulMs=Date.now()-t0;const initial=await page.evaluate(()=>({scene:window.__solarBasemapScene,report:window.__solarBasemapReport(),product:performance.getEntriesByType('resource').filter(x=>x.name.includes('/product/')).map(x=>({name:x.name,transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration})),shell:performance.getEntriesByType('resource').filter(x=>!x.name.includes('/product/')&&x.name.startsWith(location.origin)).map(x=>({name:x.name.replace(location.origin,''),transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration}))}));
+   assert.equal(productRequests.length,delivery==='progressive'?2:1,'initial scene must require only manifest/root or the monolithic control');
+   const cold={index:n,throttled,useful_ms:usefulMs,requests:productRequests.length,product_resources:initial.product,shell_requests:initial.shell,shell_request_count:initial.shell.length,scene:initial.scene,cache:initial.report.cache,transfer_bytes:initial.product.reduce((s,x)=>s+x.transfer,0)};
+   async function cameraSequence(tag){
+    const route=[],tMars=Date.now();route.push(await page.evaluate(()=>window.LoomRenderer.replayApproach('MARS',50*149597870.7,100000,60)));
+    await page.waitForFunction(()=>window.__solarBasemapScene&&window.__solarBasemapScene.lines.some(x=>x.feature_id==='PHOBOS'),{timeout:120000});const marsReadyMs=Date.now()-tMars;
+    await page.screenshot({path:path.join(evidence,`${profile}-${delivery}-${throttled?'throttled':'plain'}-${n}-${tag}-mars.png`)});
+    const mars=await page.evaluate(async()=>{window.LoomRenderer.isolate('PHOBOS');await new Promise(requestAnimationFrame);const isolatedPixels=window.__solarBasemapReadPixels();window.LoomRenderer.isolate(null);await new Promise(requestAnimationFrame);return {report:window.__solarBasemapReport(),pixels:window.__solarBasemapReadPixels(),isolatedPixels,reconcile:window.__solarBasemapReconcile()};});
+    assert(mars.isolatedPixels.mint_line_pixels>0,'Phobos reference curve must contribute visible pixels when isolated');
+    const tPluto=Date.now();route.push(await page.evaluate(()=>{LoomRenderer.fit();return new Promise(resolve=>requestAnimationFrame(()=>resolve(LoomRenderer.replayApproach('PLUTO',50*149597870.7,250000,60))))}));
+    await page.waitForFunction(()=>window.__solarBasemapScene&&window.__solarBasemapScene.lines.some(x=>x.feature_id==='CHARON'),{timeout:120000});const plutoReadyMs=Date.now()-tPluto;
+    await page.screenshot({path:path.join(evidence,`${profile}-${delivery}-${throttled?'throttled':'plain'}-${n}-${tag}-pluto.png`)});
+    const end=await page.evaluate(async()=>{window.LoomRenderer.isolate('CHARON');await new Promise(requestAnimationFrame);const isolatedPixels=window.__solarBasemapReadPixels();window.LoomRenderer.isolate(null);await new Promise(requestAnimationFrame);return {report:window.__solarBasemapReport(),pixels:window.__solarBasemapReadPixels(),isolatedPixels,reconcile:window.__solarBasemapReconcile()};});
+    assert(end.isolatedPixels.mint_line_pixels>0,'Charon reference curve must contribute visible pixels when isolated');
+    return {route,marsReadyMs,plutoReadyMs,mars:{selected:mars.report.draw_list.filter(x=>['PHOBOS','DEIMOS'].includes(x.feature_id)),scene:mars.report.scene,pixels:mars.pixels,isolated:mars.isolatedPixels,reconcile:mars.reconcile},
+      pluto:{selected:end.report.draw_list.filter(x=>x.feature_id==='CHARON'),scene:end.report.scene,pixels:end.pixels,isolated:end.isolatedPixels,reconcile:end.reconcile},cache:end.report.cache};
+   }
+   const coldPath=await cameraSequence('cold');
+   // A same-context revisit after the complete Mars and Pluto routes exercises retained HTTP/browser caches.
+   await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.__solarBasemapReady,{timeout:120000});await page.waitForTimeout(50);
+   const before=productRequests.length;const warmPath=await cameraSequence('warm');
+   const warmResources=await page.evaluate(()=>performance.getEntriesByType('resource').filter(x=>x.name.includes('/product/')).map(x=>({name:x.name,transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration})));
+   const warm={index:n,throttled,cold_path:coldPath,warm_path:warmPath,additional_requests:productRequests.length-before,resources:warmResources,
+     immutable_chunk_transfer_bytes:warmResources.filter(x=>/\/objects\//.test(x.name)).reduce((s,x)=>s+x.transfer,0),
+     diagnostics:{catalog:warmPath.catalog,authority_calls:productRequests.filter(x=>!x.url.includes('/product/')).length,console_errors:consoleErrors}};
+   trials.push({profile,delivery,cold,warm});
+   await context.close();
+   fs.writeFileSync(path.join(evidence,`${profile}-${delivery}-partial.json`),JSON.stringify({profile,delivery,trials},null,2));
+  }
+ } finally {await browser.close();}
+ const series=(key)=>trials.map(t=>key(t)).filter(Number.isFinite).sort((a,b)=>a-b);const stats=a=>a.length?({n:a.length,median:a[(a.length-1)>>1],p95:a[Math.ceil(a.length*.95)-1],max:a[a.length-1],values:a}):({n:0,values:[]});
+ const result={schema:'loom.solar-basemap.browser-evidence/0.1',profile,delivery,viewport:{width,height,dpr,render_dpr_cap:2},network_profiles:['unthrottled','10Mbps_80ms_cpu4'],trials,
+   summary:{cold_useful_ms_plain:stats(series(t=>t.cold.throttled?NaN:t.cold.useful_ms)),cold_useful_ms_throttled:stats(series(t=>t.cold.throttled?t.cold.useful_ms:NaN)),
+   warm_product_requests:stats(series(t=>t.warm.additional_requests)),frame_intervals_plain:stats(series(t=>t.warm.warm_path.pluto.scene?.max_frame_interval_ms))}};
+ const target=path.join(evidence,`${profile}-${delivery}.json`);fs.writeFileSync(target,JSON.stringify(result,null,2));console.log(JSON.stringify({evidence:target,trials:trials.length,summary:result.summary}));
+}
+main().catch(e=>{console.error(e);process.exitCode=1});
