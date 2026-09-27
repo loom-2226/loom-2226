@@ -577,3 +577,117 @@ over later Solar changes without reconciliation. Returning to pre-repair code
 would restore its UTC time-selection defect. No HUMAN-Q8, unrelated
 performance change, canon change, SPK replacement or coverage/status
 promotion occurred.
+
+## HUMAN-Q8 Whole Catalog visual reconciliation — 2026-09-27
+
+Primary class: `class:runtime`. This qualification uses the live read-only
+`loom_dev` Solar authority and the existing PR #299 Inspector at explicit UTC
+`2026-07-03T12:34:56Z` (governed ET `836354165.1840523`, displayed as
+`2026 JUL 03 12:36:05.184 TDB`). The Pixel reproduction is a 412×915 CSS
+viewport at 3× device scale; the current renderer caps its internal pixel
+ratio at 2. The read-only ledger SHA-256 was
+`fd0784e9fdcaea22d9e8e8b8c93b6ca5db8e6cd84ce293be1bdf4310c8db23a7`.
+The repeatable browser check is
+`node tests/solar_inspector_q8_browser.cjs`. Its per-object and per-path
+authority, eligibility, LOD, scene-submission, geometry, material, frustum,
+projection, label and composed/isolated canvas-pixel observations are in
+[`evidence/SOLAR_INSPECTOR_HUMAN_Q8_RECONCILIATION.json`](evidence/SOLAR_INSPECTOR_HUMAN_Q8_RECONCILIATION.json).
+The check uses only returned resolver positions and paths; no samples or
+trajectories are generated in the browser.
+
+The complete 110-object catalog had 108 governed relative positions: 106
+direct and two propagated. Dactyl and Selam remained unresolved catalog-only
+objects with the exact resolver reasons `LOOM body must have exactly one active
+governed identifier: DACTYL` and `LOOM body must have exactly one active governed
+identifier: SELAM`. They were
+retained in the catalog/failure list and were never turned into markers or
+automatic paths. With the Whole Catalog defaults, nine resolved barycenters
+were intentionally hidden by the barycenter layer, leaving 99 scene-eligible
+objects: the Sun and all 98 automatic-path candidates. Every eligible marker
+was submitted. The 98 distinct candidate requests all returned successfully
+with drawable governed segments; there were zero failed responses, zero
+zero-geometry paths, zero request/submission mismatches and zero gaps at this
+epoch. The exact request set is in the evidence file.
+
+| 412px state | Scene-eligible positions in camera clip | Marker pixels in composed canvas | Automatic paths submitted | Paths with composed canvas pixels |
+|---|---:|---:|---:|---:|
+| Whole Catalog overview before manual Fit Scene | 42/99; six of nine LOD-visible markers | 6/9 | 8/98 | 7/8 |
+| After corrected Fit Scene | 99/99; nine of nine LOD-visible markers | 5/9 | 8/98 | 4/8 |
+
+In the overview, Saturn, Uranus and Neptune markers were outside the Pixel
+projection; Neptune's submitted path was also clipped. The other 90 paths
+were resolver-ready but omitted by the existing overview LOD policy, as were
+90 non-priority eligible markers. All eight submitted planetary
+paths had nonempty geometry and visible material. Four planet labels showed
+in the overview; after the wide fit, only Earth's label survived the existing
+label-overlap budget. All labels remained in the catalog. The 98 request
+keys matched the current ET and Sun center, and the layer-toggle regression
+reused those keyed responses without stale-cache substitution. Before the fix, the old
+`radius × 2.8` Fit Scene rule still clipped Pioneer 10 and Voyager 1 at 412px;
+the full pre-fix trace is
+[`evidence/SOLAR_INSPECTOR_HUMAN_Q8_PRE_FIX_RECONCILIATION.json`](evidence/SOLAR_INSPECTOR_HUMAN_Q8_PRE_FIX_RECONCILIATION.json).
+Fit Scene now accounts for the narrower of the camera's horizontal and
+vertical half angles and includes a 20% framing margin. After the fix,
+all 99 eligible governed positions and all eight submitted path segments
+project into the camera clip. The
+[`before`](evidence/SOLAR_INSPECTOR_HUMAN_Q8_PIXEL_BEFORE_FIT.png) and
+[`after`](evidence/SOLAR_INSPECTOR_HUMAN_Q8_PIXEL_AFTER_FIT.png) Pixel captures
+are from the corrected client.
+
+At the much wider fitted distance, Mercury, Venus, Earth and Mars paths span
+only about 0.76–2.97 CSS pixels. Each produces pixels when rendered alone,
+but produces no distinct pixels in the composed scene because the enlarged
+Sun marker covers the compressed inner system. Their markers show the same
+isolated-versus-composed result. Jupiter, Saturn, Uranus and Neptune paths and
+their markers still contribute composed pixels. This is projection overlap,
+not missing authority, stale cache, absent renderer submission, empty
+geometry or hidden material. A user can focus or zoom to inspect the inner
+system; Fit Scene preserves physical positions rather than moving objects to
+make every path separately visible.
+
+Automatic horizon outcomes for the 98 current paths were 75
+`REVOLUTION_COMPLETE`, eight `OPEN_YEAR`, and 15
+`MAX_HORIZON_TRUNCATED`. The truncated body IDs were `NEPTUNE`, `ARROKOTH`,
+`ERIS`, `GONGGONG`, `HAUMEA`, `IXION`, `MAKEMAKE`, `MS4`, `ORCUS`, `PLUTO`,
+`QUAOAR`, `SALACIA`, `SEDNA`, `SWIFTTUTTLE` and `VARUNA`.
+Each truncated path was request-ready and drawable; truncation means its
+resolver-measured revolution did not complete inside the governed 100-year
+display horizon. None is counted as a path failure. No current path had an
+unresolved horizon or missing segment at this epoch.
+
+The single historically reported unavailable automatic path was **Earth
+relative to Sun**, from HUMAN-Q7: the then-running pre-Q6 server lacked the
+`view=auto` route and sent the omitted `end` parameter as `None` to the manual
+epoch parser, producing HTTP 400 `invalid epoch_utc: None`. The Q7 server
+restart restored the current route. Q8 re-requested Earth/Sun through the
+governed resolver and found a complete, drawable path. It would be incorrect
+to label one of the current 98 paths unavailable merely because its horizon
+is truncated or its overview pixels are hidden.
+
+The exact historical Earth/Sun UTC request was rechecked after Q8 against
+the live server: HTTP 200, `REVOLUTION_COMPLETE`, one governed segment,
+zero gaps, and `closed_by_renderer: false`.
+
+The client now retains the exact HTTP status/error for any future failed
+automatic request in the horizon detail instead of reducing it to an
+unexplained “unavailable” label. The diagnostic hook
+`window.__solarInspectorReconcile(true)` snapshots all catalog objects and
+path candidates and, only when requested, temporarily renders each submitted
+item alone and in the composed scene before restoring the scene. The browser
+regression asserts complete request coverage, governed drawable geometry,
+submission parity, explicit classification and Pixel Fit Scene inclusion.
+No PostgreSQL schema, coverage, source, resolver policy, canon, kernel asset,
+browser propagation, authority threshold or qualification gate changed.
+
+**Regression results.** The final Q8 Chromium run passed at 412×915/3×:
+110/110 objects and 98/98 target-epoch requests reconciled, zero failed
+responses or page errors, and no horizontal overflow. The existing desktop
+plus Pixel browser suite passed with 196 exact scene responses, 98 Whole
+Catalog paths, zero requests during Play, zero page errors and zero external
+requests. The live `test_solar_inspector` plus `test_solar_native_et` run
+passed **31 tests, zero skips**. JavaScript syntax checks on both browser
+tests and the Inspector client, plus `git diff --check`, passed. These Pixel
+observations are from headless Chromium/SwiftShader at the Pixel-sized
+viewport, not a physical handset. The existing server serves the current
+branch's static client; no service restart, PostgreSQL write, migration,
+coverage adjustment or recovery-anchor change was required for Q8.

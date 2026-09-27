@@ -21,6 +21,7 @@
   let catalog = null, snapshot = null, trajectory = null, selected = null, busy = false, playing = false;
   let playGeneration = 0, loadGeneration = 0, selectionGeneration = 0, trajectoryVersion = 0, detailKey = '', pendingDetailKey = '';
   const orbitPaths = new Map();
+  const orbitPathFailures = new Map();
   const orbitPathRequests = new Map();
   const orbitVisuals = new Map();
   const maxOrbitPaths = 256;
@@ -111,6 +112,7 @@
     while (orbitPaths.size > maxOrbitPaths) {
       const oldest = orbitPaths.keys().next().value;
       orbitPaths.delete(oldest);
+      orbitPathFailures.delete(oldest);
       for (const [visualKey, visual] of orbitVisuals) if (visualKey.startsWith(oldest + '|')) {
         paths.remove(visual); disposeVisual(visual); orbitVisuals.delete(visualKey);
       }
@@ -216,7 +218,9 @@
         const key = pathKey(next), center = snapshot.reference_center;
         if (!orbitPathRequests.has(key)) {
           const request = get('/api/trajectory', { body: next.body_id, start: snapshot.epoch_et, center, view: 'auto' })
-            .catch(() => null).then(path => { rememberOrbitPath(key, path); orbitPathRequests.delete(key); return path; });
+            .then(path => { orbitPathFailures.delete(key); return path; }, error => {
+              orbitPathFailures.set(key, error.message); return null;
+            }).then(path => { rememberOrbitPath(key, path); orbitPathRequests.delete(key); return path; });
           orbitPathRequests.set(key, request);
         }
         await orbitPathRequests.get(key);
@@ -252,6 +256,8 @@
           line=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),material);
           if (segment.authority_class === 'PROPAGATED') line.computeLineDistances();
           line.userData.cachedPathVisual=true;
+          line.userData.automaticPathKey=key;
+          line.userData.segmentIndex=i;
           orbitVisuals.set(visualKey,line);
         }
         line.material.color.set(row.body_id === selected ? palette.selected : segment.authority_class === 'PROPAGATED' ? palette.propagated : palette.node);
@@ -260,6 +266,179 @@
       }
     }
   }
+  // Read-only qualification hook. It reports governed inputs and the actual Three.js
+  // scene graph at the current camera; it never creates or extrapolates samples.
+  function reconcileScene(measurePixels = false) {
+    if (!catalog || !snapshot) return null;
+    camera.updateMatrixWorld();
+    const frustum = new THREE.Frustum().setFromProjectionMatrix(
+      new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
+    const inClip = p => Number.isFinite(p.x) && Number.isFinite(p.y) && Number.isFinite(p.z) &&
+      Math.abs(p.x) <= 1 && Math.abs(p.y) <= 1 && Math.abs(p.z) <= 1;
+    const projected = p => p.clone().project(camera);
+    const markerById = new Map(markers.map(marker => [marker.row.body_id, marker]));
+    const eligible = new Set(visibleRows().map(row => row.body_id));
+    const candidates = pathCandidates();
+    const pathIds = new Set(candidates.map(row => row.body_id));
+    const linesByKey = new Map();
+    for (const line of paths.children) if (line.userData.automaticPathKey) {
+      const key = line.userData.automaticPathKey;
+      if (!linesByKey.has(key)) linesByKey.set(key, []);
+      linesByKey.get(key).push(line);
+    }
+    const lineInClip = line => {
+      const positions = line.geometry.attributes.position;
+      if (!positions || positions.count < 2) return false;
+      const world = new THREE.Vector3(), prior = new THREE.Vector3();
+      const bounds = [[-1,1],[-1,1],[-1,1]];
+      for (let i = 0; i < positions.count; i++) {
+        world.fromBufferAttribute(positions,i).applyMatrix4(line.matrixWorld);
+        const next = projected(world);
+        if (inClip(next)) return true;
+        if (i) {
+          let low = 0, high = 1;
+          for (let axis = 0; axis < 3 && low <= high; axis++) {
+            const a = prior.getComponent(axis), delta = next.getComponent(axis) - a;
+            if (!Number.isFinite(a) || !Number.isFinite(delta)) { low = 2; break; }
+            if (delta === 0) { if (a < bounds[axis][0] || a > bounds[axis][1]) low = 2; }
+            else {
+              const enter = (bounds[axis][0] - a) / delta, leave = (bounds[axis][1] - a) / delta;
+              low = Math.max(low, Math.min(enter, leave));
+              high = Math.min(high, Math.max(enter, leave));
+            }
+          }
+          if (low <= high) return true;
+        }
+        prior.copy(next);
+      }
+      return false;
+    };
+    paths.updateMatrixWorld(true);
+    objects.updateMatrixWorld(true);
+    const objectsReport = snapshot.objects.map(row => {
+      const marker = markerById.get(row.body_id);
+      const p = marker && projected(marker.position);
+      const label = labels.find(item => item.id === row.body_id)?.element;
+      return { body_id: row.body_id, body_class: row.body_class, resolution: row.resolution,
+        authority_class: row.authority_class || null, reason: row.reason || null,
+        relative: Boolean(row.relative), sceneEligible: eligible.has(row.body_id),
+        markerSubmitted: Boolean(marker && objects.children.includes(marker.mesh)),
+        markerLodVisible: Boolean(marker?.mesh.visible), markerMaterialVisible: Boolean(marker?.mesh.material.visible),
+        markerInClip: Boolean(p && inClip(p)), markerFrustum: Boolean(marker && frustum.intersectsObject(marker.mesh)),
+        markerScreenPx: p ? [(p.x + 1) * stage.clientWidth / 2, (1 - p.y) * stage.clientHeight / 2] : null,
+        labelVisible: Boolean(label && !label.hidden), pathCandidate: pathIds.has(row.body_id),
+        markerPixelContribution: null, isolatedPixelContribution: null };
+    });
+    const pathsReport = candidates.map(row => {
+      const key = pathKey(row), path = orbitPaths.get(key), lines = linesByKey.get(key) || [];
+      const drawableSegments = path?.segments.filter(segment => segment.indices.length >= 2) || [];
+      const eligibleByLod = SolarPresentation.showMinorPath(row, selected, snapshot.reference_center, distance, $('mode').value);
+      const screenPoints = [];
+      for (const line of lines) {
+        const positions = line.geometry.attributes.position;
+        for (let i = 0; i < positions.count; i++) {
+          const p = projected(new THREE.Vector3().fromBufferAttribute(positions,i).applyMatrix4(line.matrixWorld));
+          if (inClip(p)) screenPoints.push([(p.x + 1) * stage.clientWidth / 2, (1 - p.y) * stage.clientHeight / 2]);
+        }
+      }
+      const screenBoundsPx = screenPoints.length ? {
+        minX: Math.min(...screenPoints.map(p => p[0])), maxX: Math.max(...screenPoints.map(p => p[0])),
+        minY: Math.min(...screenPoints.map(p => p[1])), maxY: Math.max(...screenPoints.map(p => p[1])) } : null;
+      return { body_id: row.body_id, requestKey: key,
+        requestState: orbitPathRequests.has(key) ? 'LOADING' : orbitPaths.has(key) ? path ? 'READY' : 'FAILED' : 'PENDING',
+        requestError: orbitPathFailures.get(key) || null,
+        horizonStatus: path?.horizon.status || null, horizonKind: path?.horizon.horizon_kind || null,
+        firstUnresolvedEt: path?.horizon.first_unresolved_et ?? null,
+        horizonEndEt: path?.horizon.end_et ?? null,
+        points: path?.points.length ?? 0, segments: path?.segments.length ?? 0,
+        drawableSegments: drawableSegments.length, gapCount: path?.gap_indices.length ?? 0,
+        lodEligible: eligibleByLod, submittedSegments: lines.length,
+        geometryVertices: lines.reduce((sum,line) => sum + (line.geometry.attributes.position?.count || 0),0),
+        materialVisible: lines.every(line => line.material.visible && line.material.opacity > 0),
+        frustumSegments: lines.filter(line => frustum.intersectsObject(line)).length,
+        projectedSegments: lines.filter(line => lineInClip(line)).length, screenBoundsPx,
+        pixelContribution: null, isolatedPixelContribution: null };
+    });
+    if (measurePixels) {
+      const gl = renderer.getContext(), width = gl.drawingBufferWidth, height = gl.drawingBufferHeight;
+      const baseline = new Uint8Array(width * height * 4), comparison = new Uint8Array(baseline.length);
+      const changedPixels = (a,b) => {
+        let changed = 0;
+        for (let i = 0; i < a.length; i += 4)
+          if (a[i] !== b[i] || a[i+1] !== b[i+1] || a[i+2] !== b[i+2]) changed++;
+        return changed;
+      };
+      renderer.render(scene,camera);
+      gl.readPixels(0,0,width,height,gl.RGBA,gl.UNSIGNED_BYTE,baseline);
+      for (const report of pathsReport) {
+        const lines = linesByKey.get(report.requestKey) || [];
+        if (!lines.length) { report.pixelContribution = 0; continue; }
+        for (const line of lines) line.visible = false;
+        renderer.render(scene,camera);
+        gl.readPixels(0,0,width,height,gl.RGBA,gl.UNSIGNED_BYTE,comparison);
+        report.pixelContribution = changedPixels(baseline,comparison);
+        for (const line of lines) line.visible = true;
+      }
+      for (const report of objectsReport) {
+        const marker = markerById.get(report.body_id);
+        if (!marker?.mesh.visible) { report.markerPixelContribution = 0; continue; }
+        marker.mesh.visible = false;
+        renderer.render(scene,camera);
+        gl.readPixels(0,0,width,height,gl.RGBA,gl.UNSIGNED_BYTE,comparison);
+        report.markerPixelContribution = changedPixels(baseline,comparison);
+        marker.mesh.visible = true;
+      }
+      const saved = [...objects.children,...paths.children].map(item => [item,item.visible]);
+      for (const [item] of saved) item.visible = false;
+      renderer.render(scene,camera);
+      const blank = new Uint8Array(baseline.length);
+      gl.readPixels(0,0,width,height,gl.RGBA,gl.UNSIGNED_BYTE,blank);
+      for (const report of pathsReport) {
+        const lines = linesByKey.get(report.requestKey) || [];
+        for (const line of lines) line.visible = true;
+        if (lines.length) {
+          renderer.render(scene,camera);
+          gl.readPixels(0,0,width,height,gl.RGBA,gl.UNSIGNED_BYTE,comparison);
+          report.isolatedPixelContribution = changedPixels(blank,comparison);
+        } else report.isolatedPixelContribution = 0;
+        for (const line of lines) line.visible = false;
+      }
+      for (const report of objectsReport) {
+        const marker = markerById.get(report.body_id);
+        if (marker?.mesh && report.markerLodVisible) {
+          marker.mesh.visible = true;
+          renderer.render(scene,camera);
+          gl.readPixels(0,0,width,height,gl.RGBA,gl.UNSIGNED_BYTE,comparison);
+          report.isolatedPixelContribution = changedPixels(blank,comparison);
+          marker.mesh.visible = false;
+        } else report.isolatedPixelContribution = 0;
+      }
+      for (const [item,visible] of saved) item.visible = visible;
+      renderer.render(scene,camera);
+    }
+    for (const report of objectsReport) {
+      report.visualState = !report.relative ? 'AUTHORITY_UNRESOLVED' : !report.sceneEligible ? 'LAYER_HIDDEN' :
+        !report.markerSubmitted ? 'NOT_SUBMITTED' : !report.markerLodVisible ? 'LOD_HIDDEN' :
+        !report.markerMaterialVisible ? 'MATERIAL_HIDDEN' : !report.markerInClip ? 'PROJECTION_CLIPPED' :
+        measurePixels ? report.markerPixelContribution ? 'CANVAS_VISIBLE' : report.isolatedPixelContribution ?
+          'CANVAS_OVERDRAWN' : 'SUBPIXEL_OR_RASTER_INVISIBLE' : 'PROJECTED';
+    }
+    for (const report of pathsReport) {
+      report.visualState = report.requestState === 'FAILED' ? 'REQUEST_FAILED' : report.requestState !== 'READY' ? 'REQUEST_PENDING' :
+        !report.drawableSegments ? 'NO_GOVERNED_DRAWABLE_SEGMENT' : !report.lodEligible ? 'LOD_HIDDEN' :
+        report.submittedSegments !== report.drawableSegments ? 'SUBMISSION_MISMATCH' :
+        !report.materialVisible ? 'MATERIAL_HIDDEN' : !report.projectedSegments ? 'PROJECTION_CLIPPED' :
+        measurePixels ? report.pixelContribution ? 'CANVAS_VISIBLE' : report.isolatedPixelContribution ?
+          'CANVAS_OVERDRAWN' : 'SUBPIXEL_OR_RASTER_INVISIBLE' : 'PROJECTED';
+    }
+    return { complete: snapshot.complete, catalogTotal: snapshot.catalog_total, epochEt: snapshot.epoch_et,
+      center: snapshot.reference_center, scope: $('scope').value, mode: $('mode').value, selected,
+      viewport: { width: innerWidth, height: innerHeight, stageWidth: stage.clientWidth,
+        stageHeight: stage.clientHeight, pixelRatio: renderer.getPixelRatio() },
+      camera: { distance, near: camera.near, far: camera.far, target: target.toArray(), lod: SolarPresentation.displayLod(distance,$('mode').value) },
+      renderCalls: renderer.info.render.calls, objects: objectsReport, paths: pathsReport };
+  }
+  window.__solarInspectorReconcile = reconcileScene;
   function updateOrbitStatus() {
     const candidates = pathCandidates();
     if (!candidates.length) { $('orbitStatus').textContent = ''; $('horizons').replaceChildren(); return; }
@@ -274,7 +453,7 @@
       const item = document.createElement('p'), path = orbitPaths.get(pathKey(row));
       const gaps = path?.gap_indices.map(index => path.points[index].epoch_tdb) || [];
       const seams = path?.seams?.map(seam => seam.time_bracket_tdb.join(' → ')) || [];
-      item.textContent = `${row.canonical_name}: ${path ? `${path.horizon.start} → ${path.horizon.end} · ${path.horizon.status} · orbital reference ${path.horizon.orbital_reference_center} · ${gaps.length} gaps${gaps.length ? ` (${gaps.slice(0,3).join(', ')}${gaps.length > 3 ? ', …' : ''})` : ''} · ${seams.length} source seams${seams.length ? ` (${seams.join(', ')})` : ''}` : orbitPaths.has(pathKey(row)) ? 'unavailable' : 'loading'}`;
+      item.textContent = `${row.canonical_name}: ${path ? `${path.horizon.start} → ${path.horizon.end} · ${path.horizon.status} · orbital reference ${path.horizon.orbital_reference_center} · ${gaps.length} gaps${gaps.length ? ` (${gaps.slice(0,3).join(', ')}${gaps.length > 3 ? ', …' : ''})` : ''} · ${seams.length} source seams${seams.length ? ` (${seams.join(', ')})` : ''}` : orbitPaths.has(pathKey(row)) ? `unavailable · ${orbitPathFailures.get(pathKey(row)) || 'unknown request failure'}` : 'loading'}`;
       return item;
     }));
   }
@@ -345,7 +524,10 @@
     const points = markers.map(m => m.position);
     if (trajectory) for (const p of trajectory.points) if (p.relative) points.push(vector(p.relative.position_km));
     target.set(0, 0, 0);
-    distance = Math.max(1e-8, ...points.map(p => p.length())) * 2.8;
+    const radius = Math.max(0, ...points.map(p => p.length()));
+    const halfVertical = THREE.MathUtils.degToRad(camera.fov / 2);
+    const halfHorizontal = Math.atan(Math.tan(halfVertical) * camera.aspect);
+    distance = Math.max(1e-8, radius / Math.sin(Math.min(halfVertical, halfHorizontal)) * 1.2);
     updateCamera();
   }
   function cancelInitialSystemFit() {
@@ -475,7 +657,7 @@
   async function get(path, query) {
     const response = await fetch(path + '?' + new URLSearchParams(query));
     const data = await response.json();
-    if (!response.ok) throw new Error(data.error || response.statusText);
+    if (!response.ok) throw new Error(`HTTP ${response.status}: ${data.error || response.statusText}`);
     return data;
   }
   let catalogPromise = null;

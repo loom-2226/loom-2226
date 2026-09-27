@@ -49,6 +49,15 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     if ((await page.locator('#center').inputValue()) !== id) { await page.selectOption('#center', id); await settled(); }
     assert.match(await page.locator('#sceneStatus').innerText(), new RegExp('Center: ' + id));
   }
+  async function observedAutomaticPath(body, centerId) {
+    const until = Date.now() + 180000;
+    while (Date.now() < until) {
+      const path = automaticPaths.find(item => item.body_id === body && item.reference_center === centerId);
+      if (path) return path;
+      await new Promise(resolve => setTimeout(resolve, 50));
+    }
+    assert.fail(`automatic path response missing: ${body}@${centerId}`);
+  }
   try {
     await page.goto(baseUrl + '/');
     await page.waitForFunction(() => document.querySelector('#message').textContent.startsWith('Preview'));
@@ -79,7 +88,7 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     assert(snapshots.some(state => state.reference_center === 'EARTH' && state.objects.length === 5 && !state.complete),
       'System action must request an exact Earth-centered preview');
     await page.waitForFunction(() => document.querySelector('#stage').dataset.systemFit === 'complete', {timeout: 180000});
-    const moonPath = automaticPaths.find(path => path.body_id === 'MOON' && path.reference_center === 'EARTH');
+    const moonPath = await observedAutomaticPath('MOON', 'EARTH');
     assert(moonPath && moonPath.horizon.status === 'REVOLUTION_COMPLETE');
     assert.equal(moonPath.horizon.start, '2026 JAN 01 00:00:00.000 TDB');
     assert(moonPath.horizon.end.startsWith('2026 JAN 28'));
@@ -146,6 +155,7 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
       'system focus must frame the selected local system');
     await center('SUN'); await page.selectOption('#catalog','JUPITER'); await page.click('#sceneSystem'); await settled();
     await page.waitForFunction(() => document.querySelector('#stage').dataset.systemFit === 'complete', {timeout: 180000});
+    await Promise.all(['IO','EUROPA','GANYMEDE','CALLISTO'].map(id => observedAutomaticPath(id, 'JUPITER')));
     assert.equal(await page.locator('#center').inputValue(), 'JUPITER');
     const jovianPaths = automaticPaths.filter(path => path.reference_center === 'JUPITER' &&
       ['IO','EUROPA','GANYMEDE','CALLISTO'].includes(path.body_id));
