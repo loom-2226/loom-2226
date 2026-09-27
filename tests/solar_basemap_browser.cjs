@@ -13,7 +13,7 @@ async function main(){
    const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:dpr});const page=await context.newPage();const cdp=await context.newCDPSession(page);await cdp.send('Network.enable');
    if(throttled)await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:80,downloadThroughput:10*1024*1024/8,uploadThroughput:2*1024*1024/8,connectionType:'cellular3g'});
    if(throttled)await cdp.send('Emulation.setCPUThrottlingRate',{rate:4});
-   const productRequests=[];page.on('request',r=>{if(r.url().includes('/product/'))productRequests.push({url:r.url(),time:Date.now()})});
+   const productRequests=[],allRequests=[];page.on('request',r=>{allRequests.push(r.url());if(r.url().includes('/product/'))productRequests.push({url:r.url(),time:Date.now()})});
    const consoleErrors=[];page.on('pageerror',e=>consoleErrors.push(String(e)));
    const t0=Date.now();await page.goto(`${base}${base.includes('?')?'&':'?'}delivery=${delivery}`,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.__solarBasemapReady||window.__solarBasemapError,{timeout:120000});
    if(await page.evaluate(()=>!!window.__solarBasemapError))throw Error(await page.evaluate(()=>window.__solarBasemapError));
@@ -26,12 +26,12 @@ async function main(){
     await page.waitForFunction(()=>window.__solarBasemapScene&&window.__solarBasemapScene.lines.some(x=>x.feature_id==='PHOBOS'),{timeout:120000});const marsReadyMs=Date.now()-tMars;
     await page.screenshot({path:path.join(evidence,`${profile}-${delivery}-${throttled?'throttled':'plain'}-${n}-${tag}-mars.png`)});
     const mars=await page.evaluate(async()=>{window.LoomRenderer.isolate('PHOBOS');await new Promise(requestAnimationFrame);const isolatedPixels=window.__solarBasemapReadPixels();window.LoomRenderer.isolate(null);await new Promise(requestAnimationFrame);return {report:window.__solarBasemapReport(),pixels:window.__solarBasemapReadPixels(),isolatedPixels,reconcile:window.__solarBasemapReconcile()};});
-    assert(mars.isolatedPixels.mint_line_pixels>0,'Phobos reference curve must contribute visible pixels when isolated');
+    assert(mars.isolatedPixels.mint_line_pixels>0,'Phobos reference curve must contribute visible pixels when isolated');assert.equal(mars.reconcile.features.length,110,'every governed catalog identity must reconcile');assert(mars.report.error_budget.max_gpu_conversion_css_px<.25,'Float32 camera-relative conversion must stay below 0.25 CSS px');assert(mars.report.error_budget.total_css_px<=1,'settled Mars view geometry debt must stay within 1 CSS px');
     const tPluto=Date.now();route.push(await page.evaluate(()=>{LoomRenderer.fit();return new Promise(resolve=>requestAnimationFrame(()=>resolve(LoomRenderer.replayApproach('PLUTO',50*149597870.7,250000,60))))}));
     await page.waitForFunction(()=>window.__solarBasemapScene&&window.__solarBasemapScene.lines.some(x=>x.feature_id==='CHARON'),{timeout:120000});const plutoReadyMs=Date.now()-tPluto;
     await page.screenshot({path:path.join(evidence,`${profile}-${delivery}-${throttled?'throttled':'plain'}-${n}-${tag}-pluto.png`)});
     const end=await page.evaluate(async()=>{window.LoomRenderer.isolate('CHARON');await new Promise(requestAnimationFrame);const isolatedPixels=window.__solarBasemapReadPixels();window.LoomRenderer.isolate(null);await new Promise(requestAnimationFrame);return {report:window.__solarBasemapReport(),pixels:window.__solarBasemapReadPixels(),isolatedPixels,reconcile:window.__solarBasemapReconcile()};});
-    assert(end.isolatedPixels.mint_line_pixels>0,'Charon reference curve must contribute visible pixels when isolated');
+    assert(end.isolatedPixels.mint_line_pixels>0,'Charon reference curve must contribute visible pixels when isolated');assert.equal(end.reconcile.features.length,110,'every governed catalog identity must reconcile');assert(end.report.error_budget.max_gpu_conversion_css_px<.25,'Float32 camera-relative conversion must stay below 0.25 CSS px');assert(end.report.error_budget.total_css_px<=1,'settled Pluto view geometry debt must stay within 1 CSS px');
     return {route,marsReadyMs,plutoReadyMs,mars:{selected:mars.report.draw_list.filter(x=>['PHOBOS','DEIMOS'].includes(x.feature_id)),scene:mars.report.scene,pixels:mars.pixels,isolated:mars.isolatedPixels,reconcile:mars.reconcile},
       pluto:{selected:end.report.draw_list.filter(x=>x.feature_id==='CHARON'),scene:end.report.scene,pixels:end.pixels,isolated:end.isolatedPixels,reconcile:end.reconcile},cache:end.report.cache};
    }
@@ -40,9 +40,10 @@ async function main(){
    await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.__solarBasemapReady,{timeout:120000});await page.waitForTimeout(50);
    const before=productRequests.length;const warmPath=await cameraSequence('warm');
    const warmResources=await page.evaluate(()=>performance.getEntriesByType('resource').filter(x=>x.name.includes('/product/')).map(x=>({name:x.name,transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration})));
+   assert.equal(allRequests.filter(x=>/authority|resolver|ephemeris|state-api/i.test(x)).length,0,'browser must never call authority/resolver/state APIs');
    const warm={index:n,throttled,cold_path:coldPath,warm_path:warmPath,additional_requests:productRequests.length-before,resources:warmResources,
      immutable_chunk_transfer_bytes:warmResources.filter(x=>/\/objects\//.test(x.name)).reduce((s,x)=>s+x.transfer,0),
-     diagnostics:{catalog:warmPath.catalog,authority_calls:productRequests.filter(x=>!x.url.includes('/product/')).length,console_errors:consoleErrors}};
+     diagnostics:{catalog:warmPath.catalog,authority_calls:allRequests.filter(x=>/authority|resolver|ephemeris|state-api/i.test(x)).length,console_errors:consoleErrors}};
    trials.push({profile,delivery,cold,warm});
    await context.close();
    fs.writeFileSync(path.join(evidence,`${profile}-${delivery}-partial.json`),JSON.stringify({profile,delivery,trials},null,2));
