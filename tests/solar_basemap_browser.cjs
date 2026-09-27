@@ -2,8 +2,9 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const {chromium}=require('/home/ubuntu/LOOM_SOLAR_INSPECTOR/node_modules/playwright');
 const args=process.argv.slice(2);function option(name,def){const i=args.indexOf(name);return i>=0?args[i+1]:def;}
-const profile=option('--profile','pixel'),delivery=option('--delivery','progressive'),base=process.env.SOLAR_BASEMAP_URL||'http://127.0.0.1:8770';
+const profile=option('--profile','pixel'),delivery=option('--delivery','progressive'),trialIndex=option('--trial-index',null),base=process.env.SOLAR_BASEMAP_URL||'http://127.0.0.1:8770';
 if(!['pixel','desktop'].includes(profile)||!['progressive','monolithic'].includes(delivery))throw Error('invalid profile/delivery');
+const trialIds=trialIndex===null?[0,1,2,3,4]:[Number(trialIndex)];if(trialIds.some(x=>!Number.isInteger(x)||x<0||x>4))throw Error('trial index must be 0..4');
 const evidence=process.env.SOLAR_BASEMAP_EVIDENCE||'/tmp/solar-basemap-browser';fs.mkdirSync(evidence,{recursive:true});
 const width=profile==='pixel'?412:1280,height=profile==='pixel'?915:800,dpr=profile==='pixel'?3:1,AU=149597870.7;
 function compactScene(s){return s?{...s,lines:(s.lines||[]).map(({float32Input,cameraRelativeKm,...line})=>line)}:null;}
@@ -11,7 +12,7 @@ function compactReconcile(r){return {...r,renderer_lines:(r.renderer_lines||[]).
 async function main(){
  const browser=await chromium.launch({headless:true});const trials=[];
  try{
-  for(const throttled of [false,true])for(let n=0;n<5;n++){
+  for(const throttled of [false,true])for(const n of trialIds){
    const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:dpr,hasTouch:profile==='pixel'});const page=await context.newPage();const cdp=await context.newCDPSession(page);await cdp.send('Network.enable');
    if(throttled)await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:80,downloadThroughput:10*1024*1024/8,uploadThroughput:2*1024*1024/8,connectionType:'cellular3g'});
    if(throttled)await cdp.send('Emulation.setCPUThrottlingRate',{rate:4});
@@ -73,6 +74,6 @@ async function main(){
    summary:{cold_useful_ms_plain:stats(series(t=>t.cold.throttled?NaN:t.cold.useful_ms)),cold_useful_ms_throttled:stats(series(t=>t.cold.throttled?t.cold.useful_ms:NaN)),
    warm_product_requests:stats(series(t=>t.warm.additional_requests)),frame_samples_plain:stats(trials.filter(t=>!t.throttled).flatMap(t=>t.warm.warm_path.pluto.scene?.frame_interval_ms||[]).sort((a,b)=>a-b)),
    frame_samples_throttled:stats(trials.filter(t=>t.throttled).flatMap(t=>t.warm.warm_path.pluto.scene?.frame_interval_ms||[]).sort((a,b)=>a-b)),trial_max_frame_interval_plain:stats(series(t=>t.throttled?NaN:t.warm.warm_path.pluto.scene?.max_frame_interval_ms)),trial_max_frame_interval_throttled:stats(series(t=>t.throttled?t.warm.warm_path.pluto.scene?.max_frame_interval_ms:NaN))}};
- const target=path.join(evidence,`${profile}-${delivery}.json`);fs.writeFileSync(target,JSON.stringify(result,null,2));console.log(JSON.stringify({evidence:target,trials:trials.length,summary:result.summary}));
+ const target=path.join(evidence,`${profile}-${delivery}${trialIndex===null?'':`-trial-${trialIndex}`}.json`);fs.writeFileSync(target,JSON.stringify(result,null,2));console.log(JSON.stringify({evidence:target,trials:trials.length,summary:result.summary}));
 }
 main().catch(e=>{console.error(e);process.exitCode=1});
