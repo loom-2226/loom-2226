@@ -25,6 +25,7 @@
   const orbitVisuals = new Map();
   const maxOrbitPaths = 256;
   let orbitLoading = false, orbitRefreshRequested = false;
+  let initialSystemFit = null;
   let renderedLod = null;
   let distance = 80, theta = .55, phi = .65, target = new THREE.Vector3();
   let markers = [], labels = [], drag = null, moved = false;
@@ -56,6 +57,20 @@
   function systemFor(id) {
     if (id === 'SUN') return 'SUN';
     return barycenters().find(row => membersOf(row.body_id).includes(id))?.body_id || 'OTHER';
+  }
+  function localFamily(centerId) {
+    const system = systemFor(centerId);
+    return new Set(system === 'OTHER'
+      ? [centerId,...catalog.objects.filter(row => row.parent_body_id === centerId).map(row => row.body_id)]
+      : membersOf(system));
+  }
+  function enterScope(scope) {
+    $('scope').value = scope;
+    const enabled = scope === 'all' ? ['layerSun','layerPlanets','layerMoons','layerMinor','layerSpacecraft']
+      : scope === 'local' ? ['layerPlanets','layerMoons','layerMinor','layerSpacecraft']
+      : ['layerSun','layerPlanets'];
+    for (const id of ['layerSun','layerPlanets','layerMoons','layerMinor','layerSpacecraft','layerBarycenters'])
+      $(id).checked = enabled.includes(id);
   }
   function populateCenters(centerId = 'SUN') {
     const system = systemFor(centerId);
@@ -114,9 +129,15 @@
   }
   function draw() {
     for (const item of paths.children) if (item.isMesh) item.quaternion.copy(camera.quaternion);
+    const lod = SolarPresentation.displayLod(distance, $('mode').value);
+    let visibleMarkers = 0;
+    for (const marker of markers) {
+      marker.mesh.visible = marker.priority <= lod || marker.row.body_id === selected;
+      if (marker.mesh.visible) visibleMarkers++;
+    }
+    stage.dataset.visibleMarkers = String(visibleMarkers);
     renderer.render(scene, camera);
     let shown = 0; const occupied = [];
-    const lod = SolarPresentation.displayLod(distance, $('mode').value);
     const budget = Math.max(8, Math.min(30, Math.floor(stage.clientWidth * stage.clientHeight / 25000)));
     for (const { element, position, id, priority } of labels) {
       const p = position.clone().project(camera);
@@ -140,18 +161,17 @@
   }
   function visibleRows() {
     if (!snapshot) return [];
-    const centerId = snapshot.reference_center;
-    const system = systemFor(centerId);
-    const family = system === 'OTHER' ? new Set([centerId,
-      ...catalog.objects.filter(row => row.parent_body_id === centerId).map(row => row.body_id)]) : new Set(membersOf(system));
+    const family = localFamily(snapshot.reference_center);
     return snapshot.objects.filter(r => {
       if (!r.relative) return false;
-      const scope = $('scope').value;
-      if (scope === 'all') return true;
-      if (scope === 'planetary') return r.body_id === 'SUN' || r.body_class === 'PLANET' ||
-        r.body_class === 'NATURAL_SATELLITE' || r.body_id === selected ||
-        (r.parent_body_id && catalog.objects.some(p => p.body_id === r.parent_body_id && p.body_class === 'PLANET'));
-      return family.has(r.body_id) || r.body_id === selected;
+      if ($('scope').value === 'local' && !family.has(r.body_id) && r.body_id !== selected) return false;
+      if (r.body_class === 'BARYCENTER') return $('layerBarycenters').checked;
+      if (r.body_id === selected) return true;
+      if (r.body_id === 'SUN') return $('layerSun').checked;
+      if (r.body_class === 'PLANET') return $('layerPlanets').checked;
+      if (r.body_class === 'NATURAL_SATELLITE') return $('layerMoons').checked;
+      if (r.body_class === 'SPACECRAFT' || r.body_class === 'INTERSTELLAR_OBJECT') return $('layerSpacecraft').checked;
+      return $('layerMinor').checked;
     });
   }
   function point(position, tint, size, group = objects) {
@@ -165,33 +185,21 @@
       new THREE.MeshBasicMaterial({ color: palette.selected, side: THREE.DoubleSide }));
     mesh.position.copy(position); mesh.quaternion.copy(camera.quaternion); group.add(mesh);
   }
-  const orbitDays = { MERCURY: 88, VENUS: 225, EARTH: 366, MARS: 687, JUPITER: 4333, SATURN: 10759, URANUS: 30687, NEPTUNE: 60190 };
-  const solarPathClasses = new Set(['PLANET','NATURAL_SATELLITE','ASTEROID','NEAR_EARTH_ASTEROID','TROJAN_ASTEROID','BINARY_ASTEROID_PRIMARY','DWARF_PLANET','CENTAUR','TRANS_NEPTUNIAN_OBJECT','COMET','INTERSTELLAR_OBJECT']);
+  const solarPathClasses = new Set(['PLANET','NATURAL_SATELLITE','ASTEROID','NEAR_EARTH_ASTEROID','TROJAN_ASTEROID','BINARY_ASTEROID_PRIMARY','DWARF_PLANET','CENTAUR','TRANS_NEPTUNIAN_OBJECT','COMET','INTERSTELLAR_OBJECT','SPACECRAFT']);
   function pathLayer(row) {
     if (row.body_class === 'PLANET') return 'layerPlanets';
     if (row.body_class === 'NATURAL_SATELLITE') return 'layerMoons';
+    if (row.body_class === 'SPACECRAFT' || row.body_class === 'INTERSTELLAR_OBJECT') return 'layerSpacecraft';
     return 'layerMinor';
   }
   function pathCandidates() {
     if (!snapshot) return [];
-    const scope = $('scope').value;
     return visibleRows().filter(r => r.body_id !== snapshot.reference_center && solarPathClasses.has(r.body_class) &&
-      (snapshot.reference_center !== 'SUN' || scope === 'all' || r.body_class === 'PLANET' || r.body_class === 'NATURAL_SATELLITE' || r.body_id === selected) &&
       ($(pathLayer(r)).checked || (r.body_id === selected && $('layerSelected').checked)))
       .sort((a,b) => (b.body_id === selected ? 1 : 0) - (a.body_id === selected ? 1 : 0) ||
         (a.body_class === 'PLANET' ? -1 : b.body_class === 'PLANET' ? 1 : 0));
   }
-  function pathWindow(row) {
-    // Presentation path only: every point still comes from the governed resolver.
-    // Fixed calendar windows keep Play on cached paths; no browser orbit model is involved.
-    const epoch = new Date(snapshot.epoch_utc), year = epoch.getUTCFullYear();
-    const local = snapshot.reference_center !== 'SUN';
-    const satellite = row.body_class === 'NATURAL_SATELLITE';
-    const anchor = local || satellite ? Date.UTC(year,epoch.getUTCMonth(),17) : Date.UTC(year,6,1);
-    const halfDays = local || satellite ? 16 : orbitDays[row.body_id] ? orbitDays[row.body_id] / 2 : 365.25 / 2;
-    return [new Date(anchor-halfDays*86400000).toISOString(), new Date(anchor+halfDays*86400000).toISOString()];
-  }
-  function pathKey(row) { return [row.body_id,...pathWindow(row),snapshot.reference_center].join('|'); }
+  function pathKey(row) { return [row.body_id,snapshot.epoch_utc,snapshot.reference_center,'auto'].join('|'); }
   function loadPlanetOrbits() {
     orbitRefreshRequested = true;
     if (orbitLoading || playing) return;
@@ -205,16 +213,16 @@
           if (orbitRefreshRequested) continue;
           break;
         }
-        const [start,end] = pathWindow(next);
         const key = pathKey(next), center = snapshot.reference_center;
         if (!orbitPathRequests.has(key)) {
-          const request = get('/api/trajectory', { body: next.body_id, start, end, center, view: 'path',
-            samples: center !== 'SUN' || orbitDays[next.body_id] || next.body_class === 'NATURAL_SATELLITE' ? 48 : 24 })
+          const request = get('/api/trajectory', { body: next.body_id, start: snapshot.epoch_utc, center, view: 'auto' })
             .catch(() => null).then(path => { rememberOrbitPath(key, path); orbitPathRequests.delete(key); return path; });
           orbitPathRequests.set(key, request);
         }
         await orbitPathRequests.get(key);
-        if (!playing && pathCandidates().some(row => row.body_id === next.body_id && pathKey(row) === key)) rebuild(false);
+        if (!playing && pathCandidates().some(row => row.body_id === next.body_id && pathKey(row) === key)) {
+          rebuild(false); advanceInitialSystemFit();
+        }
         await new Promise(resolve => setTimeout(resolve, 0));
       }
     })().finally(() => {
@@ -236,7 +244,7 @@
           const pts=segment.indices.map(j => path.points[j].relative && vector(path.points[j].relative.position_km)).filter(Boolean);
           if (pts.length < 2) continue;
           const options = { color: row.body_id === selected ? palette.selected : segment.authority_class === 'PROPAGATED' ? palette.propagated : palette.node,
-            transparent: true, opacity: row.body_id === selected ? .85 : orbitDays[row.body_id] ? .62 : .45,
+            transparent: true, opacity: row.body_id === selected ? .85 : row.body_class === 'PLANET' ? .62 : .45,
             depthTest: false };
           const material = segment.authority_class === 'PROPAGATED'
             ? new THREE.LineDashedMaterial({ ...options, dashSize: Math.max(distance / 150, 1e-10), gapSize: Math.max(distance / 250, 1e-10) })
@@ -247,37 +255,46 @@
           orbitVisuals.set(visualKey,line);
         }
         line.material.color.set(row.body_id === selected ? palette.selected : segment.authority_class === 'PROPAGATED' ? palette.propagated : palette.node);
-        line.material.opacity = row.body_id === selected ? .85 : orbitDays[row.body_id] ? .62 : .45;
+        line.material.opacity = row.body_id === selected ? .85 : row.body_class === 'PLANET' ? .62 : .45;
         paths.add(line);
       }
     }
   }
   function updateOrbitStatus() {
     const candidates = pathCandidates();
-    if (!candidates.length) { $('orbitStatus').textContent = ''; return; }
+    if (!candidates.length) { $('orbitStatus').textContent = ''; $('horizons').replaceChildren(); return; }
     const ready = candidates.filter(row => orbitPaths.get(pathKey(row))).length;
     const failed = candidates.filter(row => orbitPaths.has(pathKey(row)) && !orbitPaths.get(pathKey(row))).length;
-    $('orbitStatus').textContent = `Resolver paths ${ready}/${candidates.length}` + (failed ? ` · ${failed} unavailable` : '');
+    const capped = candidates.filter(row => orbitPaths.get(pathKey(row))?.horizon.status === 'MAX_HORIZON_TRUNCATED').length;
+    const gaps = candidates.filter(row => orbitPaths.get(pathKey(row))?.gap_indices.length).length;
+    $('orbitStatus').textContent = `Resolver paths ${ready}/${candidates.length}` +
+      (failed ? ` · ${failed} unavailable` : '') + (capped ? ` · ${capped} max-horizon truncated` : '') +
+      (gaps ? ` · ${gaps} with gaps` : '');
+    $('horizons').replaceChildren(...candidates.map(row => {
+      const item = document.createElement('p'), path = orbitPaths.get(pathKey(row));
+      const gaps = path?.gap_indices.map(index => path.points[index].epoch_utc) || [];
+      const seams = path?.seams?.map(seam => seam.time_bracket_utc.join(' → ')) || [];
+      item.textContent = `${row.canonical_name}: ${path ? `${path.horizon.start} → ${path.horizon.end} · ${path.horizon.status} · orbital reference ${path.horizon.orbital_reference_center} · ${gaps.length} gaps${gaps.length ? ` (${gaps.slice(0,3).join(', ')}${gaps.length > 3 ? ', …' : ''})` : ''} · ${seams.length} source seams${seams.length ? ` (${seams.join(', ')})` : ''}` : orbitPaths.has(pathKey(row)) ? 'unavailable' : 'loading'}`;
+      return item;
+    }));
   }
   function rebuild(fit = false) {
     if (!snapshot) return;
     renderedLod = SolarPresentation.displayLod(distance, $('mode').value);
     clear(objects); clear(paths); markers = []; labels = []; $('labels').replaceChildren();
     const rows = visibleRows();
-    const center = snapshot.reference_center, system = systemFor(center);
-    const localFamily = center === 'SUN' ? new Set() : system === 'OTHER'
-      ? new Set([center,...catalog.objects.filter(row => row.parent_body_id === center).map(row => row.body_id)])
-      : new Set(membersOf(system));
+    const center = snapshot.reference_center;
+    const localMembers = center === 'SUN' ? new Set() : localFamily(center);
     for (const row of rows) {
       const position = vector(row.relative.position_km);
-      point(position, row.body_id === selected ? palette.selected : row.body_id === 'SUN' ? palette.sun : palette.node,
+      const priority = SolarPresentation.labelRank(row, selected, localMembers, $('layerBarycenters').checked);
+      const mesh = point(position, row.body_id === selected ? palette.selected : row.body_id === 'SUN' ? palette.sun : palette.node,
         row.body_id === 'SUN' ? 12 : row.body_id === selected ? 9 : 5);
-      markers.push({ row, position });
+      markers.push({ row, position, mesh, priority });
       const element = document.createElement('div');
       element.className = 'object-label' + (row.body_id === selected ? ' selected' : '');
       element.textContent = row.canonical_name;
-      $('labels').append(element); labels.push({ element, position, id: row.body_id,
-        priority: SolarPresentation.labelRank(row, selected, localFamily) });
+      $('labels').append(element); labels.push({ element, position, id: row.body_id, priority });
     }
     labels.sort((a, b) => a.priority-b.priority || a.id.localeCompare(b.id));
     renderPlanetOrbits();
@@ -319,7 +336,7 @@
       }
     }
     const c = snapshot.counts;
-    $('counts').textContent = `${snapshot.complete ? 'Catalog' : 'Preview'} ${c.catalog}/${snapshot.catalog_total} · Resolved ${c.resolved} = Direct ${c.direct} + Propagated ${c.propagated}\nUnresolved ${c.unresolved} · Catalog-only ${c.catalog_only} · Partial catalog ${c.partial_catalog}\nRenderable ${c.renderable} · Rendered ${rows.length} · Scope-hidden ${c.renderable - rows.length}`;
+    $('counts').textContent = `${snapshot.complete ? 'Catalog' : 'Preview'} ${c.catalog}/${snapshot.catalog_total} · Resolved ${c.resolved} = Direct ${c.direct} + Propagated ${c.propagated}\nUnresolved ${c.unresolved} · Catalog-only ${c.catalog_only} · Partial catalog ${c.partial_catalog}\nRenderable ${c.renderable} · Scene eligible ${rows.length} · Scope/layer-hidden ${c.renderable - rows.length}`;
     $('sceneStatus').textContent = `${snapshot.epoch_utc} | Center: ${snapshot.reference_center} | ${snapshot.reference_frame} | ` +
       ($('mode').value === 'SCHEMATIC' ? 'SCHEMATIC · NOT TO SCALE · VISUAL COMPRESSION' : 'PHYSICAL · positions to scale (1 scene unit = 1 AU)');
     if (fit) fitScene(); else draw();
@@ -330,6 +347,32 @@
     target.set(0, 0, 0);
     distance = Math.max(1e-8, ...points.map(p => p.length())) * 2.8;
     updateCamera();
+  }
+  function cancelInitialSystemFit() {
+    if (initialSystemFit) { initialSystemFit = null; stage.dataset.systemFit = 'manual'; }
+  }
+  function frameLocalSystem() {
+    const points = markers.map(marker => marker.position);
+    for (const row of pathCandidates()) {
+      const path = orbitPaths.get(pathKey(row));
+      if (!path) continue;
+      for (const point of path.points) if (point.relative) points.push(vector(point.relative.position_km));
+    }
+    const radius = Math.max(1e-8, ...points.map(point => point.length()));
+    const halfVertical = THREE.MathUtils.degToRad(camera.fov / 2);
+    const halfHorizontal = Math.atan(Math.tan(halfVertical) * camera.aspect);
+    target.set(0,0,0);
+    distance = radius / Math.sin(Math.min(halfVertical, halfHorizontal)) * 1.2;
+    updateCamera();
+  }
+  function advanceInitialSystemFit() {
+    if (!initialSystemFit || !snapshot || snapshot.reference_center !== initialSystemFit.center ||
+        snapshot.epoch_utc !== initialSystemFit.epoch) return;
+    frameLocalSystem();
+    const present = new Set(snapshot.objects.map(row => row.body_id));
+    const expected = [...localFamily(initialSystemFit.center)].filter(id => byId(id)?.body_class !== 'BARYCENTER');
+    const ready = expected.every(id => present.has(id)) && pathCandidates().every(row => orbitPaths.has(pathKey(row)));
+    if (ready) { initialSystemFit = null; stage.dataset.systemFit = 'complete'; }
   }
   function focusOverview() {
     const planets = markers.filter(marker => marker.row.body_class === 'PLANET')
@@ -351,20 +394,20 @@
   }
   function frameSystem() {
     if (snapshot.reference_center === 'SUN') focusOverview();
-    else {
-      const center = snapshot.reference_center, system = systemFor(center);
-      const family = system === 'OTHER' ? new Set([center,...catalog.objects.filter(row => row.parent_body_id === center).map(row => row.body_id)])
-        : new Set(membersOf(system));
-      const radius = Math.max(1e-8,...markers.filter(marker => family.has(marker.row.body_id)).map(marker => marker.position.length()));
-      target.set(0,0,0); distance = radius * 2.8; updateCamera();
-    }
+    else frameLocalSystem();
   }
   function focusSystem() {
-    if (!snapshot || !selected || selected === snapshot.reference_center) { if (snapshot) frameSystem(); return; }
+    if (!snapshot || !selected) { if (snapshot) frameSystem(); return; }
     if (busy) return;
+    if (selected === snapshot.reference_center) {
+      initialSystemFit = {center:selected,epoch:snapshot.epoch_utc};
+      stage.dataset.systemFit = 'pending'; advanceInitialSystemFit(); return;
+    }
     populateCenters(selected);
-    $('scope').value = selected === 'SUN' ? 'planetary' : 'local';
-    load(true,true);
+    enterScope(selected === 'SUN' ? 'planetary' : 'local');
+    initialSystemFit = selected === 'SUN' ? null : {center:selected,epoch:$('epoch').value};
+    stage.dataset.systemFit = initialSystemFit ? 'pending' : 'none';
+    load(false,true);
   }
   function populateCatalog() {
     const term = $('search').value.toLowerCase(); $('catalog').replaceChildren();
@@ -397,7 +440,7 @@
       $('detail').textContent = 'Loading exact state and provenance…';
     }
     if (trajectory && trajectory.body_id !== id) clearPath();
-    rebuild($('scope').value === 'local');
+    rebuild(false);
     if (!playing) loadPlanetOrbits();
     if (playing || !snapshot || hasDetail || pendingDetail) return;
     pendingDetailKey = key;
@@ -468,6 +511,7 @@
     }
     if (!$('failures').children.length) $('failures').textContent = data.complete ? 'No unresolved objects at this epoch.' : 'Full catalog evaluation in progress.';
     rebuild(fit);
+    advanceInitialSystemFit();
     if (selected) {
       const key = `${selected}|${data.epoch_utc}|${data.reference_center}`;
       if (detailKey !== key && pendingDetailKey !== key && !playing) select(selected);
@@ -506,7 +550,7 @@
       applySnapshot(data,fit);
       if (preview && fit && center === 'SUN') focusOverview();
       if (preview) setTimeout(() => loadFull(generation,center,data.epoch_utc),150);
-    } catch (e) { stopPlay(); $('message').textContent = 'Evaluation failed; previous scene retained: ' + e.message; }
+    } catch (e) { cancelInitialSystemFit(); stopPlay(); $('message').textContent = 'Evaluation failed; previous scene retained: ' + e.message; }
     finally { setBusy(false); }
   }
   function clearPath() {
@@ -554,15 +598,19 @@
   $('system').onchange = () => {
     const system = $('system').value;
     const center = system === 'OTHER' ? membersOf('OTHER')[0] : system;
-    populateCenters(center); selected = center; $('scope').value = center === 'SUN' ? 'planetary' : 'local'; load(true,true);
+    cancelInitialSystemFit(); populateCenters(center); selected = center;
+    enterScope(center === 'SUN' ? 'planetary' : 'local'); load(true,true);
   };
-  $('center').onchange = () => { selected = $('center').value; $('scope').value = selected === 'SUN' ? 'planetary' : 'local'; load(true,true); };
-  $('mode').onchange = () => rebuild(true); $('scope').onchange = () => { rebuild(true); loadPlanetOrbits(); }; $('fit').onclick = fitScene;
-  for (const id of ['layerPlanets','layerMoons','layerMinor','layerSelected']) $(id).onchange = () => { rebuild(false); loadPlanetOrbits(); };
-  $('focusSelected').onclick = $('sceneFocus').onclick = $('catalogFocus').onclick = focusSelected;
+  $('center').onchange = () => { cancelInitialSystemFit(); selected = $('center').value;
+    enterScope(selected === 'SUN' ? 'planetary' : 'local'); load(true,true); };
+  $('mode').onchange = () => { rebuild(true); advanceInitialSystemFit(); };
+  $('scope').onchange = () => { cancelInitialSystemFit(); enterScope($('scope').value); rebuild(true); loadPlanetOrbits(); };
+  $('fit').onclick = () => { cancelInitialSystemFit(); fitScene(); };
+  for (const id of ['layerSun','layerPlanets','layerMoons','layerMinor','layerSpacecraft','layerBarycenters','layerSelected']) $(id).onchange = () => { rebuild(false); loadPlanetOrbits(); advanceInitialSystemFit(); };
+  $('focusSelected').onclick = $('sceneFocus').onclick = $('catalogFocus').onclick = () => { cancelInitialSystemFit(); focusSelected(); };
   $('focusSystem').onclick = $('sceneSystem').onclick = focusSystem;
-  $('zoomIn').onclick = () => { distance = Math.max(1e-10,distance*.6); updateCamera(); };
-  $('zoomOut').onclick = () => { distance = Math.min(1e8,distance/ .6); updateCamera(); };
+  $('zoomIn').onclick = () => { cancelInitialSystemFit(); distance = Math.max(1e-10,distance*.6); updateCamera(); };
+  $('zoomOut').onclick = () => { cancelInitialSystemFit(); distance = Math.min(1e8,distance/ .6); updateCamera(); };
   $('catalog').onchange = () => select($('catalog').value); $('search').oninput = populateCatalog;
   $('clearSelection').onclick = clearSelection;
   $('mobileControls').onclick = () => {
@@ -586,6 +634,7 @@
     return { distance: Math.hypot(a.x-b.x, a.y-b.y), x: (a.x+b.x)/2, y: (a.y+b.y)/2 };
   }
   canvas.onpointerdown = e => {
+    cancelInitialSystemFit();
     pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
     canvas.setPointerCapture(e.pointerId); moved = false;
     if (pointers.size === 1) drag = { x: e.clientX, y: e.clientY, pan: e.shiftKey || e.button === 2 };
@@ -626,11 +675,12 @@
     }
   }
   canvas.onpointerup = releasePointer; canvas.onpointercancel = releasePointer;
-  canvas.addEventListener('wheel', e => { e.preventDefault(); distance = Math.max(1e-10, Math.min(1e8, distance * Math.exp(e.deltaY * .0004))); updateCamera(); }, { passive: false });
+  canvas.addEventListener('wheel', e => { e.preventDefault(); cancelInitialSystemFit(); distance = Math.max(1e-10, Math.min(1e8, distance * Math.exp(e.deltaY * .0004))); updateCamera(); }, { passive: false });
   canvas.onclick = e => {
     if (moved) return;
     const bounds = canvas.getBoundingClientRect(); let best = null, nearest = 14;
     for (const marker of markers) {
+      if (!marker.mesh.visible) continue;
       const p = marker.position.clone().project(camera);
       if (Math.abs(p.z) > 1) continue;
       const d = Math.hypot((p.x + 1) / 2 * bounds.width - (e.clientX - bounds.left), (1 - p.y) / 2 * bounds.height - (e.clientY - bounds.top));

@@ -47,9 +47,12 @@ def handler_for(inspector, three_path):
                     result['catalog_only'] = projection['catalog_only']
                     result['partial_catalog'] = projection['partial_catalog']
                 elif url.path == '/api/trajectory':
-                    method = inspector.path if value('view') == 'path' else inspector.trajectory
-                    result = method(value('body'), value('start'), value('end'),
-                                    value('center', 'SUN'), int(value('samples', '96')))
+                    if value('view') == 'auto':
+                        result = inspector.automatic_path(value('body'), value('start'), value('center', 'SUN'))
+                    else:
+                        method = inspector.path if value('view') == 'path' else inspector.trajectory
+                        result = method(value('body'), value('start'), value('end'),
+                                        value('center', 'SUN'), int(value('samples', '96')))
                 elif url.path in static:
                     path = static[url.path]
                     if not path.is_file():
@@ -85,12 +88,14 @@ def main():
     parser.add_argument('--asset-root', type=Path, default=Path('/home/ubuntu/loom_solar_assets'))
     parser.add_argument('--three-js', type=Path, default=ROOT / 'web/three/three.min.js')
     parser.add_argument('--port', type=int, default=8765)
+    parser.add_argument('--max-orbit-years', type=float, default=100,
+                        help='maximum automatic bound-object horizon in Julian years (default: 100)')
     args = parser.parse_args()
     if not args.three_js.is_file():
         parser.error('local Three.js r149 required; see docs/solar_ephemeris_inspector_v0.1.md setup')
     if hashlib.sha256(args.three_js.read_bytes()).hexdigest() != THREE_SHA256:
         parser.error('Three.js asset hash mismatch; install the documented r149 build')
-    inspector = Inspector.connect(args.database, args.asset_root)
+    inspector = Inspector.connect(args.database, args.asset_root, args.max_orbit_years)
     with ThreadingHTTPServer(('127.0.0.1', args.port), handler_for(inspector, args.three_js)) as server:
         print(f'Solar inspector: http://127.0.0.1:{args.port} | {len(inspector.bodies)} catalog objects', flush=True)
         server.serve_forever()

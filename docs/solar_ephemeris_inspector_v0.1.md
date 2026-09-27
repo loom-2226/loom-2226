@@ -28,7 +28,9 @@ On the qualification host the existing environment can be used directly:
 ```
 
 Open `http://127.0.0.1:8765`. The server binds only to loopback. `--port`,
-`--database`, `--asset-root`, and `--three-js` are the only configuration flags.
+`--database`, `--asset-root`, `--three-js`, and `--max-orbit-years` are the
+configuration flags. The automatic bound-object horizon cap defaults to 100
+Julian years; `--max-orbit-years` accepts 1–500.
 Libpq connection settings and credentials follow normal `psql` conventions.
 The fixed query uses `REPEATABLE READ READ ONLY`, a statement timeout, and no
 interpolated SQL. It works with SELECT-only credentials.
@@ -54,9 +56,12 @@ Restart the inspector to reload the database snapshot or changed assets.
 - Drag to rotate, Shift-drag/right-drag or two-finger drag to pan, and pinch or
   wheel to zoom. **Focus object** frames the selected marker. **System** changes
   the reference center to the selected catalog object, switches to its local
-  scope, and requests new governed relative states and paths; when already
-  centered there, it frames that local family. Fit scene frames the visible
-  objects and any selected sampled path.
+  scope, and requests new governed relative states and paths. Its initial camera
+  fit continues as local satellite states and paths arrive, enclosing all
+  displayed resolved trajectory points with viewport-aware padding. Once those
+  local requests settle, the camera stops refitting; any user camera gesture
+  cancels a pending initial fit. When already centered, System frames that
+  local family. Fit scene frames the visible objects and any selected sampled path.
 - Select in the catalog or click a point. Expand **Exact state + provenance +
   catalog record** for physical km/km/s, identity, identifiers, parent, epoch,
   frame, navigation grade, uncertainty, coverage, source lineage and hashes.
@@ -68,14 +73,28 @@ Restart the inspector to reload the database snapshot or changed assets.
   the governed Earth/Moon barycenter, or Moon relative to Earth.
   Reference-center subtraction uses child and center states at identical epochs
   and frames, including velocity. The original absolute state remains intact.
-- Path layers control planets, moons, minor bodies and the selected trajectory.
-  Planetary and local scopes load only their visible automatic paths. Whole
-  Catalog progressively requests every renderable planet, moon and governed
-  minor-body path, rather than only the selected object. Automatic minor-body
-  arcs span one year; use **Sample resolver** for a longer interval. Display LOD
-  keeps planet paths at Solar overview scale, shows local moons in centered
-  systems, and reveals other moon/minor paths at close zoom. Selected paths
-  remain visible. Cached resolver samples are reused when zoom changes.
+- Scope selection applies display presets. Solar enables Sun, planets and their
+  paths. Local enables the selected primary and its governed physical family,
+  including satellites and local paths. Whole Catalog enables all physical
+  classes and their applicable paths, including spacecraft and interstellar
+  objects. The explicit **Barycenters** layer is OFF in every preset; enabling
+  it adds their markers and labels without changing their computational role.
+  Manual layer changes persist until another scope is entered.
+- Automatic bound-object paths begin at the selected T0 and attempt one future
+  revolution relative to the governed primary/reference center. The server
+  measures phase from successive resolver states to select a display horizon;
+  it never generates an orbit or claims that measured phase as new authority.
+  Open spacecraft/interstellar paths request one Julian Earth year. Bound paths
+  still incomplete at the configured maximum are labeled
+  `MAX_HORIZON_TRUNCATED`. Unresolved/ambiguous phase is labeled explicitly.
+  The **Automatic trajectory horizons and coverage** panel lists each requested
+  interval, its orbital reference, status, gap epochs and source-seam brackets.
+  Missing state never becomes a display segment.
+- Whole Catalog progressively requests every renderable physical-object path.
+  Its label and marker LOD keeps the overview legible; automatic moon/minor
+  paths appear as zoom permits. Selected paths remain visible. Cached resolver
+  samples are reused at the same T0, center and body. Play requests no path per
+  frame; pausing at a new T0 may request new paths.
 - Labels use deterministic priority: selection, Sun/planets, local moons,
   spacecraft/dwarf planets, then other bodies. Zoom bands and a viewport label
   budget admit lower-priority labels progressively; collision resolution uses
@@ -83,8 +102,10 @@ Restart the inspector to reload the database snapshot or changed assets.
 - Select an object, set trajectory start/end and 2–512 nominal samples, then
   **Sample resolver**. Suggested checks: Earth over one year, Moon relative to
   Earth over a month, New Horizons or Voyager over 2026–2250, and Oumuamua over
-  the same interval. No orbital periods, Kepler ellipses, or closing segments
-  are inferred. Sampling density is an inspection choice, not new authority.
+  the same interval. No Kepler ellipse or closing segment is generated. Automatic
+  paths use duration-responsive nominal samples and refine curved intervals at
+  resolver-evaluated midpoints, bounded at 512 samples. Manual sampling remains
+  an inspection choice, not new authority.
 - Direct paths are solid; propagated paths are dashed and labeled. Rings and
   expandable seam records expose before/after states and source provenance,
   including center-source transitions. Boundary-adjacent samples are added to
@@ -97,7 +118,8 @@ Restart the inspector to reload the database snapshot or changed assets.
   are enlarged in both modes. Changing mode does not change exact state data.
 - The failure panel always contains every unresolved catalog object, even if
   it is outside the current local view. Catalog = resolved + unresolved;
-  resolved = direct + propagated. Rendered + scope-hidden = renderable.
+  resolved = direct + propagated. Scene eligible + scope/layer-hidden = renderable;
+  marker/label LOD may hide some scene-eligible objects at distance.
   An unresolved reference center can reduce renderable below resolved; each
   affected record includes its presentation failure. Partial and catalog-only
   counts are catalog subsets, not additional objects.

@@ -15,8 +15,9 @@
     const schematic = mode === 'SCHEMATIC';
     return distance > (schematic ? 8 : 3) ? 1 : distance > (schematic ? 3 : .4) ? 3 : 4;
   }
-  function labelRank(row, selectedId, localFamily) {
+  function labelRank(row, selectedId, localFamily, barycentersEnabled = false) {
     if (row.body_id === selectedId) return 0;
+    if (row.body_class === 'BARYCENTER' && barycentersEnabled) return 1;
     if (row.body_id === 'SUN' || row.body_class === 'PLANET') return 1;
     if (row.body_class === 'NATURAL_SATELLITE') return localFamily.has(row.body_id) ? 2 : 4;
     if (row.body_class === 'SPACECRAFT' || row.body_class === 'DWARF_PLANET') return 3;

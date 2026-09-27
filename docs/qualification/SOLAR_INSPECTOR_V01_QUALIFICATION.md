@@ -274,3 +274,67 @@ external requests. The browser checked selected Earth -> System -> Earth center
 and local scope, Moon@Earth path requests, selected minor priority and Solar
 overview decluttering. The warm-server phone first exact scene was 2.063 s and
 Play advance 65 ms; these are host observations, not release thresholds.
+
+## Human Q3–Q6 correction — 2026-09-27
+
+Primary class remains `class:runtime` on PR #299. The Inspector now applies
+Solar, Local System and Whole Catalog display presets. Solar starts with Sun,
+planets and their resolver paths; Local System shows the primary and its
+governed family; Whole Catalog enables all physical object classes and their
+applicable paths. Deterministic zoom bands reduce markers, labels and path
+clutter while those class layers remain enabled. Barycenters have an explicit
+layer OFF by default in every
+preset. The layer changes markers, labels and ordinary camera-fit inputs only;
+it does not change catalog membership, selected reference centers, PostgreSQL,
+SPICE, provenance or resolver calculations. Manual layer changes persist until
+another scope is entered.
+
+System navigation now keeps an initial camera fit active while the relevant
+local family and its automatic path requests load. The fit uses the complete
+displayed resolved path extent plus viewport-aware padding. It stops when
+local rows and path requests settle; pointer, wheel and zoom actions cancel a
+pending fit. Browser qualification verified Earth with its full Moon path and
+Jupiter with four Galilean moon paths against the fitted camera distance, then verified
+that a later manual zoom was not reset. Unresolved satellite paths remain
+unresolved rather than expanding the fit with invented points.
+
+Automatic path policy is server-side. Each request starts at selected T0. For
+bound objects, the server measures phase from successive governed resolver
+states relative to the local primary/reference center and requests one future
+revolution where a complete phase is found. Spacecraft and interstellar
+objects request one open Julian Earth year. The configurable default maximum
+is 100 Julian years; a bound body that does not complete a measured revolution
+within it is explicitly `MAX_HORIZON_TRUNCATED`. Unresolved or ambiguous phase
+has separate status. This search determines a display horizon only; all
+rendered physical samples still come from the governed resolver. Nominal sample
+count responds to duration, and resolver-evaluated midpoints refine curved
+intervals up to 512 samples. Automatic responses retain direct/propagated
+segments, exact source seam brackets, gaps, and `closed_by_renderer: false`.
+
+Live 2026-01-01 T0 horizon checks against the read-only `loom_dev` snapshot:
+Earth 365.260 days, Moon 27.337 days, Jupiter 4,333.104 days, Io 1.769 days,
+and Ceres 1,681.011 days all returned `REVOLUTION_COMPLETE`; Sedna returned
+`MAX_HORIZON_TRUNCATED` at 100 years; New Horizons and Oumuamua returned
+`OPEN_ONE_EARTH_YEAR` at 365.25 days. These are resolver-phase display
+measurements, not promoted orbital constants.
+
+Qualification passed: 41 scoped unit tests with three existing PostgreSQL
+gated skips; 18 live Inspector tests against read-only `loom_dev`; Python and
+JavaScript syntax checks; and the desktop plus 412px/3x Chromium browser run.
+The browser observed 195 exact scene responses, 98/98 Whole Catalog automatic
+path requests, zero path requests during Play, zero page errors and zero
+external requests. It exercised Q1/Q2 navigation and decluttering, Q3
+Earth/Jupiter progressive local fit and manual camera retention, Q4 barycenter
+visibility toggle, Q5 scope defaults and manual override retention, and Q6
+complete, open and capped horizons. Existing live trajectory checks retained
+New Horizons direct/propagated seams, unresolved samples, source provenance and
+open interstellar geometry. The Pixel-sized first exact scene took 3.769 s and
+a Play advance 61 ms on the warm qualification host; these are observations,
+not release thresholds.
+
+No schema, SQLite, migration, canon, engineering authority, kernel asset,
+source selection, resolver-state shape, legacy Solar GIS fallback, launcher or
+release contract changed. The new automatic path response is an optional
+Inspector endpoint; the existing manual and compact path endpoints retain
+their prior request and response contracts. Recovery is to revert the PR
+branch commit. Promotion still targets protected `main` through PR #299.

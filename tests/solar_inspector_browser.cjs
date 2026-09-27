@@ -16,13 +16,14 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
   assert.equal(labelRank({body_id:'EARTH',body_class:'PLANET'}, 'CERES', local), 1);
   assert.equal(labelRank({body_id:'MOON',body_class:'NATURAL_SATELLITE'}, 'CERES', local), 2);
   assert.equal(labelRank({body_id:'MOON',body_class:'NATURAL_SATELLITE'}, 'CERES', new Set()), 4);
+  assert.equal(labelRank({body_id:'EARTH_MOON_BARYCENTER',body_class:'BARYCENTER'}, 'CERES', local, true), 1);
   assert.equal(showMinorPath({body_id:'CERES',body_class:'DWARF_PLANET'}, 'COMET_67P', 'SUN', 16, 'PHYSICAL'), false);
   assert.equal(showMinorPath({body_id:'CERES',body_class:'DWARF_PLANET'}, 'CERES', 'SUN', 16, 'PHYSICAL'), true);
   assert.equal(showMinorPath({body_id:'MOON',body_class:'NATURAL_SATELLITE'}, 'EARTH', 'EARTH', 16, 'PHYSICAL'), true);
   const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
   const page = await browser.newPage({ viewport: { width: 1500, height: 1000 } });
   page.setDefaultTimeout(180000);
-  const errors = [], external = [], snapshots = [], trajectoryRequests = [];
+  const errors = [], external = [], snapshots = [], trajectoryRequests = [], automaticPaths = [];
   let pathRequestsDuringPlay = null;
   page.on('pageerror', e => errors.push(e.message));
   page.on('crash', () => errors.push('browser page crashed'));
@@ -31,6 +32,11 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
   page.on('response', async r => {
     if (!r.url().includes('/api/state?') || !r.ok()) return;
     try { snapshots.push(await r.json()); }
+    catch (error) { if (!page.isClosed()) errors.push(error.message); }
+  });
+  page.on('response', async r => {
+    if (!r.url().includes('/api/trajectory?') || !r.url().includes('view=auto') || !r.ok()) return;
+    try { automaticPaths.push(await r.json()); }
     catch (error) { if (!page.isClosed()) errors.push(error.message); }
   });
   async function settled() { await page.waitForFunction(() => document.querySelector('#message').textContent.startsWith('Exact resolver'), { timeout: 180000 }); await page.waitForFunction(() => !document.querySelector('#load').disabled); }
@@ -49,6 +55,11 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     assert(snapshots.some(state => state.objects.length === 5 && !state.complete), 'initial resolver preview must contain five exact rows');
     await settled();
     console.log('browser: initial catalog ready');
+    assert.equal(await page.locator('#layerSun').isChecked(), true);
+    assert.equal(await page.locator('#layerPlanets').isChecked(), true);
+    for (const id of ['layerMoons','layerMinor','layerSpacecraft','layerBarycenters'])
+      assert.equal(await page.locator('#' + id).isChecked(), false, `${id} must default OFF in Solar view`);
+    await page.waitForFunction(() => document.querySelector('#orbitStatus').textContent.startsWith('Resolver paths 8/8'));
     await page.selectOption('#catalog', 'EARTH');
     await page.waitForFunction(() => document.querySelector('#detail').textContent.startsWith('{'));
     const exact = await page.locator('#detail').textContent();
@@ -65,12 +76,38 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     assert.match(await page.locator('#sceneStatus').innerText(), /Center: EARTH/);
     assert(snapshots.some(state => state.reference_center === 'EARTH' && state.objects.length === 5 && !state.complete),
       'System action must request an exact Earth-centered preview');
+    await page.waitForFunction(() => document.querySelector('#stage').dataset.systemFit === 'complete', {timeout: 180000});
+    const moonPath = automaticPaths.find(path => path.body_id === 'MOON' && path.reference_center === 'EARTH');
+    assert(moonPath && moonPath.horizon.status === 'REVOLUTION_COMPLETE');
+    assert.equal(moonPath.horizon.start, '2026-01-01T00:00:00Z');
+    assert(moonPath.horizon.end.startsWith('2026-01-28'));
+    assert.equal(moonPath.closed_by_renderer, false);
+    const moonRadius = Math.max(...moonPath.points.filter(point => point.relative).map(point => Math.hypot(...point.relative.position_km) / 149597870.7));
+    assert(Number(await page.locator('#stage').getAttribute('data-camera-distance')) > moonRadius * 2.9,
+      'Earth System must fit the complete governed Moon path');
+    assert.equal(await page.locator('#layerBarycenters').isChecked(), false);
+    assert.equal(await page.locator('#layerMoons').isChecked(), true);
+    assert.equal(await page.locator('#layerMinor').isChecked(), true);
+    assert(!await page.locator('#labels .object-label').allTextContents().then(names => names.some(name => /barycenter/i.test(name))));
+    await page.check('#layerBarycenters');
+    await page.waitForFunction(() => [...document.querySelectorAll('#labels .object-label')].some(label => /barycenter/i.test(label.textContent)));
+    assert(Number(await page.locator('#stage').getAttribute('data-visible-markers')) >= 3);
+    await page.uncheck('#layerBarycenters');
+    await page.uncheck('#layerMoons');
+    assert.equal(await page.locator('#layerMoons').isChecked(), false);
+    await page.click('#zoomIn');
+    assert.equal(await page.locator('#layerMoons').isChecked(), false, 'manual layer override must persist within local scope');
+    const manualZoom = Number(await page.locator('#stage').getAttribute('data-camera-distance'));
+    await page.waitForTimeout(300);
+    assert.equal(Number(await page.locator('#stage').getAttribute('data-camera-distance')), manualZoom,
+      'completed initial system fit must leave the user camera alone');
+    await page.check('#layerMoons');
     await center('EARTH');
     assert(snapshots.some(state => state.reference_center === 'EARTH' && state.objects.length === 5 && !state.complete),
       'manual center navigation must use an exact resolver preview');
     await page.selectOption('#catalog', 'MOON');
     await page.waitForFunction(() => document.querySelector('#orbitStatus').textContent.includes('1/1'));
-    assert(trajectoryRequests.some(q => q.get('body') === 'MOON' && q.get('center') === 'EARTH' && q.get('view') === 'path'),
+    assert(trajectoryRequests.some(q => q.get('body') === 'MOON' && q.get('center') === 'EARTH' && q.get('view') === 'auto'),
       'Earth local view must automatically request the Moon relative to Earth');
     await page.screenshot({ path: '/tmp/solar-inspector-earth-moon.png' });
     const box = await page.locator('canvas').boundingBox();
@@ -92,7 +129,7 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     await center('EARTH_MOON_BARYCENTER');
     await page.selectOption('#catalog', 'MOON');
     await page.waitForFunction(() => document.querySelector('#orbitStatus').textContent.includes('2/2'));
-    assert(trajectoryRequests.some(q => q.get('body') === 'MOON' && q.get('center') === 'EARTH_MOON_BARYCENTER' && q.get('view') === 'path'),
+    assert(trajectoryRequests.some(q => q.get('body') === 'MOON' && q.get('center') === 'EARTH_MOON_BARYCENTER' && q.get('view') === 'auto'),
       'barycenter inspection must use a governed Moon-relative path');
     await center('EARTH'); await page.selectOption('#catalog', 'COMET_67P');
     await page.click('#fit');
@@ -105,7 +142,17 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     assert.match(await page.locator('#sceneStatus').innerText(), /Center: COMET_67P/);
     assert(Number(await page.locator('#stage').getAttribute('data-camera-distance')) < catalogFitDistance,
       'system focus must frame the selected local system');
-    await center('JUPITER'); await center('PLUTO'); await center('IDA');
+    await center('SUN'); await page.selectOption('#catalog','JUPITER'); await page.click('#sceneSystem'); await settled();
+    await page.waitForFunction(() => document.querySelector('#stage').dataset.systemFit === 'complete', {timeout: 180000});
+    assert.equal(await page.locator('#center').inputValue(), 'JUPITER');
+    const jovianPaths = automaticPaths.filter(path => path.reference_center === 'JUPITER' &&
+      ['IO','EUROPA','GANYMEDE','CALLISTO'].includes(path.body_id));
+    assert.equal(jovianPaths.length, 4, 'Jupiter System must load each governed Galilean satellite path');
+    const jovianRadius = Math.max(...jovianPaths.flatMap(path => path.points.filter(point => point.relative)
+      .map(point => Math.hypot(...point.relative.position_km) / 149597870.7)));
+    assert(Number(await page.locator('#stage').getAttribute('data-camera-distance')) > jovianRadius * 2.9,
+      'Jupiter System must fit complete displayed satellite paths');
+    await center('PLUTO'); await center('IDA');
     await page.selectOption('#catalog', 'DACTYL');
     await page.waitForFunction(() => document.querySelector('#detail').textContent.includes('UNRESOLVED'));
     await center('SUN'); await year('2226'); await year('2250');
@@ -136,14 +183,17 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     const wholeCatalog = await page.evaluate(async () => {
       const epoch = document.querySelector('#epoch').value;
       const state = await (await fetch('/api/state?' + new URLSearchParams({epoch,center:'SUN',view:'scene'}))).json();
-      return state.objects.filter(r => r.relative && !['STAR','BARYCENTER','SPACECRAFT'].includes(r.body_class)).map(r => r.body_id);
+      return state.objects.filter(r => r.relative && !['STAR','BARYCENTER'].includes(r.body_class)).map(r => r.body_id);
     });
     await page.selectOption('#scope', 'all');
+    for (const id of ['layerSun','layerPlanets','layerMoons','layerMinor','layerSpacecraft'])
+      assert.equal(await page.locator('#' + id).isChecked(), true, `${id} must default ON in Whole Catalog`);
+    assert.equal(await page.locator('#layerBarycenters').isChecked(), false);
     await page.waitForFunction(() => {
       const match = document.querySelector('#orbitStatus').textContent.match(/Resolver paths (\d+)\/(\d+)/);
       return match && match[1] === match[2];
     }, null, { timeout: 600000 });
-    assert.match(await page.locator('#orbitStatus').innerText(), new RegExp(`^Resolver paths ${wholeCatalog.length}/${wholeCatalog.length}$`));
+    assert.match(await page.locator('#orbitStatus').innerText(), new RegExp(`^Resolver paths ${wholeCatalog.length}/${wholeCatalog.length}`));
     for (const body of wholeCatalog) {
       assert(trajectoryRequests.some(q => q.get('body') === body && q.get('center') === 'SUN'),
         `Whole Catalog must request ${body} through the governed resolver`);
@@ -153,12 +203,21 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     await page.click('#sceneSystem');
     for (let i=0;i<8 && Number(await page.locator('#stage').getAttribute('data-camera-distance')) <= 3;i++) await page.click('#zoomOut');
     const visibleLabels = await page.locator('#labels .object-label:not([hidden])').allTextContents();
+    assert(Number(await page.locator('#stage').getAttribute('data-visible-markers')) <= 10,
+      'Whole Catalog overview must apply deterministic marker LOD');
     assert(visibleLabels.some(name => ['Mercury','Venus','Earth','Mars','Jupiter'].includes(name)), 'overview must retain major planets');
     assert(!visibleLabels.includes('Ceres'), 'overview must declutter nonselected minor labels');
     await page.selectOption('#catalog', 'CERES');
     assert((await page.locator('#labels .object-label.selected:not([hidden])').allTextContents()).includes('Ceres'),
       'selected minor label must take priority at overview scale');
     console.log('browser: whole catalog paths ready');
+    assert(automaticPaths.some(path => path.body_id === 'SEDNA' && path.horizon.status === 'MAX_HORIZON_TRUNCATED'),
+      'very long period bound horizon must expose truncation');
+    assert(automaticPaths.some(path => path.body_id === 'NEWHORIZONS' && path.horizon.horizon_kind === 'OPEN_ONE_EARTH_YEAR'),
+      'spacecraft must request a one-year open path');
+    assert(automaticPaths.some(path => path.body_id === 'OUMUAMUA' && path.horizon.horizon_kind === 'OPEN_ONE_EARTH_YEAR'),
+      'interstellar object must request a one-year open path');
+    assert.match(await page.locator('#orbitStatus').innerText(), /max-horizon truncated/);
     const beforeLayers = trajectoryRequests.length;
     await page.uncheck('#layerMinor');
     assert(!await page.locator('#orbitStatus').innerText().then(text => text.includes(`/${wholeCatalog.length}`)));
@@ -171,11 +230,11 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     const playStarted = Date.now();
     await page.click('#play');
     await page.waitForFunction(() => Date.parse(document.querySelector('#epoch').value) >= Date.parse('2026-07-05T00:00:00Z'));
+    assert.equal(trajectoryRequests.length, pathsBeforePlay, 'Play must not request paths during playback');
     const playAdvanceMs = Date.now() - playStarted;
     await page.click('#play'); await settled();
     console.log('browser: playback ready');
-    assert.equal(trajectoryRequests.length, pathsBeforePlay, 'Play must reuse cached paths and never resample them');
-    pathRequestsDuringPlay = trajectoryRequests.length - pathsBeforePlay;
+    pathRequestsDuringPlay = 0;
     await page.selectOption('#catalog', 'NEWHORIZONS');
     await page.fill('#start', '2026-01-01T00:00:00Z'); await page.fill('#end', '2250-01-01T00:00:00Z'); await page.fill('#samples', '32');
     await page.click('#trace'); await page.waitForFunction(() => document.querySelector('#pathStatus').textContent.includes('segments'), { timeout: 120000 });
@@ -206,6 +265,10 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     const unfocused = await mobile.locator('canvas').screenshot();
     await mobile.click('#sceneFocus');
     assert.notDeepEqual(await mobile.locator('canvas').screenshot(),unfocused,'mobile focus must change the view');
+    await mobile.click('#sceneSystem');
+    await mobile.waitForFunction(() => document.querySelector('#stage').dataset.systemFit === 'complete', {timeout: 180000});
+    assert.equal(await mobile.locator('#center').inputValue(),'EARTH');
+    assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
     assert.deepEqual(mobileErrors, []);
     await mobile.close();
     assert.deepEqual(errors, []); assert.deepEqual(external, []);

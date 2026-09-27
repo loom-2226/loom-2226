@@ -1,7 +1,9 @@
 """Focused adapter, reconciliation, trajectory and live qualification checks."""
 from copy import deepcopy
 from dataclasses import asdict, replace
+from datetime import timedelta
 import json
+import math
 import os
 from pathlib import Path
 from types import SimpleNamespace
@@ -232,6 +234,62 @@ class LiveQualificationTests(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         print('INSPECTOR_QUALIFICATION=' + json.dumps(cls.evidence, sort_keys=True))
+
+
+class AutomaticHorizonTests(unittest.TestCase):
+    def setUp(self):
+        bodies = [('SUN', 'STAR'), ('BOUND', 'NATURAL_SATELLITE'),
+                  ('LONG', 'TRANS_NEPTUNIAN_OBJECT'), ('CRAFT', 'SPACECRAFT'),
+                  ('OPEN', 'INTERSTELLAR_OBJECT'), ('GAPPY', 'NATURAL_SATELLITE')]
+        ledger = {'body': [{'body_id': body, 'canonical_name': body, 'body_class': kind,
+                            'parent_body_id': 'SUN', 'status': 'ACTIVE'} for body, kind in bodies],
+                  'object_metadata': [], 'curated_cohort_member': []}
+        registry = SimpleNamespace(identifiers=[], coverage=[], sources={})
+        origin = _epoch('2026-01-01T00:00:00Z')
+        def resolve(body, epoch):
+            days = (_epoch(epoch)-origin).total_seconds()/86400
+            if body == 'GAPPY' and 8 < days < 12:
+                raise CelestialStateError('governed gap')
+            period = 365250 if body == 'LONG' else 27
+            angle = 2*math.pi*days/period
+            rate = 2*math.pi/period/86400
+            position = (0,0,0) if body == 'SUN' else (math.cos(angle)*100000,math.sin(angle)*100000,0)
+            velocity = (0,0,0) if body == 'SUN' else (-math.sin(angle)*100000*rate,math.cos(angle)*100000*rate,0)
+            if body in ('CRAFT','OPEN'):
+                position, velocity = (days*1000,100000,0), (1000/86400,0,0)
+            propagated = body == 'BOUND' and days >= 15
+            provenance = {'units':'km,km/s', 'state_capability':'EMPIRICAL_PROPAGATED_2250' if propagated else 'DIRECT',
+                          'ephemeris_source_id':'PROP' if propagated else 'DIRECT'}
+            return SpatialState(body, epoch, CANONICAL_FRAME, position, velocity, provenance, not propagated)
+        self.inspector = Inspector(ledger, registry, SimpleNamespace(resolve=resolve), max_orbit_years=10)
+
+    def test_complete_bound_revolution_starts_at_t0_and_keeps_seam(self):
+        path = self.inspector.automatic_path('BOUND','2026-01-01T00:00:00Z','SUN')
+        self.assertEqual(path['horizon']['status'], 'REVOLUTION_COMPLETE')
+        self.assertEqual(path['horizon']['start'], '2026-01-01T00:00:00Z')
+        self.assertAlmostEqual((_epoch(path['horizon']['end'])-_epoch(path['horizon']['start'])).total_seconds()/86400,27,delta=.01)
+        self.assertTrue(any(segment['authority_class'] == 'PROPAGATED' for segment in path['segments']))
+        self.assertGreaterEqual(len(path['segments']),2)
+        self.assertTrue(path['seams'])
+        self.assertFalse(path['closed_by_renderer'])
+        self.assertEqual(path['points'][0]['epoch_utc'],path['horizon']['start'])
+
+    def test_open_year_and_maximum_horizon_are_explicit(self):
+        for body in ('CRAFT','OPEN'):
+            plan = self.inspector.automatic_plan(body,'2026-01-01T00:00:00Z')
+            self.assertEqual(plan['horizon_kind'],'OPEN_ONE_EARTH_YEAR')
+            self.assertAlmostEqual((_epoch(plan['end'])-_epoch(plan['start'])).total_seconds()/86400,365.25)
+        plan = self.inspector.automatic_plan('LONG','2026-01-01T00:00:00Z')
+        self.assertEqual(plan['status'],'MAX_HORIZON_TRUNCATED')
+        self.assertFalse(plan['revolution_complete'])
+        self.assertEqual(plan['max_orbit_years'],10)
+
+    def test_unresolved_automatic_path_retains_gaps(self):
+        path = self.inspector.automatic_path('GAPPY','2026-01-01T00:00:00Z','SUN')
+        self.assertEqual(path['horizon']['status'],'UNRESOLVED_BEFORE_COMPLETION')
+        self.assertTrue(path['gap_indices'])
+        self.assertFalse(path['closed_by_renderer'])
+        self.assertTrue(all('relative' not in path['points'][i] for i in path['gap_indices']))
 
 
 if __name__ == '__main__':
