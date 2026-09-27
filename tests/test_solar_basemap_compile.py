@@ -2,10 +2,18 @@ import unittest
 import math
 from types import SimpleNamespace
 
-from src.loom_solar_basemap_compile import T, _rdp, _curve_sampling
+from src.loom_solar_basemap_compile import T, _rdp, _curve_sampling, _initial_curve_level
 
 
 class SamplingTests(unittest.TestCase):
+    def test_initial_solar_lod_is_selected_independently_per_curve(self):
+        levels=[{"level":0,"error":1.0},{"level":1,"error":.2},{"level":2,"error":.01}]
+        # A large orbit needs a finer level; a compact orbit can stay coarse.
+        self.assertEqual(_initial_curve_level(levels,.1,.8), (1,.30000000000000004))
+        self.assertEqual(_initial_curve_level(levels,.01,.5), (0,1.01))
+        with self.assertRaisesRegex(ValueError,"no level"):
+            _initial_curve_level(levels,2,.5)
+
     def test_rdp_keeps_open_endpoints_and_deviation(self):
         points = [[0,0,0,0], [1,1,0,0.01], [2,2,0,0], [3,3,0,0]]
         self.assertEqual(_rdp(points, .1), [0,3])

@@ -44,7 +44,9 @@
     const parents=new Map(root.nodes.map(n=>[n.node_id,n.parent_node_id]));for(const id of nodeIds){const seen=new Set();let at=id;while(at!=null){if(seen.has(at))throw Error("cyclic hierarchy");seen.add(at);at=parents.get(at);}}
     if(root.curves.some(c=>!['HELIOCENTRIC_REFERENCE_ORBIT','PARENT_RELATIVE_REFERENCE_ORBIT','PHYSICAL_TRAJECTORY'].includes(c.semantic)||c.closed))throw Error("unsupported curve semantics");
     let lastSelection=[];const loaded=new Map(),listeners=new Set(),active=new Map(),levelState={},inflight=new Map(),queue=[],priorities=new Map(),lastUsed=new Map();let running=0,maxRunning=0;
-    const solarEmbedded=root.extensions?.['org.loom.solar-basemap.client/0.1']?.solar_embedded_level??0;active.set('solar',solarEmbedded);
+    const clientExtension=root.extensions?.['org.loom.solar-basemap.client/0.1']||{};
+    const solarEmbedded=clientExtension.solar_embedded_level??0;
+    const solarEmbeddedCurves=clientExtension.solar_embedded_curves||{};active.set('solar',solarEmbedded);
     const frontierCost=root.nodes.map(n=>Math.max(0,...n.levels.map(l=>l.resource.bytes+l.vertices*36))).sort((a,b)=>b-a);
     const cacheBudgetBytes=manifest.root.bytes+frontierCost.slice(0,3).reduce((a,b)=>a+b,0);
     function touch(key){if(loaded.has(key)){const v=loaded.get(key);lastUsed.delete(key);lastUsed.set(key,Date.now());return v;}return null;}
@@ -62,7 +64,7 @@
       pending.forEach((d,i)=>priorities.set(`${manifest.build_id}:${d.resource.uri}:${d.resource.sha256}`,i));await Promise.all(pending.map(requestChunk));setActive(lastSelection);}
     return {manifest,root,catalog:()=>root.features,updateView:view=>{view={...view,levelState,activeLevels:Object.fromEntries(active)};lastSelection=nodeSelection(root,view);loadSelected(lastSelection).then(()=>{for(const fn of listeners)fn();});return Promise.resolve(lastSelection);},onChange:fn=>{listeners.add(fn);return ()=>listeners.delete(fn);},
       drawList:()=>{const out=[];const selected=lastSelection;const solarLevel=active.get('solar')??solarEmbedded;const solarDesc=root.nodes.find(n=>n.node_id==='solar')?.levels.find(l=>l.level===solarLevel);const solarChunk=solarDesc&&solarLevel>solarEmbedded?loaded.get(`${manifest.build_id}:${solarDesc.resource.uri}:${solarDesc.resource.sha256}`):null;
-        if(solarLevel<=solarEmbedded||!solarChunk?.curves)for(const c of root.curves)for(const s of c.segments||[])out.push({node_id:c.anchor_id==='SUN'?'solar':`system:${c.anchor_id}`,level:solarEmbedded,curve:c,segment:s,verified:true});
+        if(solarLevel<=solarEmbedded||!solarChunk?.curves)for(const c of root.curves)for(const s of c.segments||[])out.push({node_id:c.anchor_id==='SUN'?'solar':`system:${c.anchor_id}`,level:solarEmbeddedCurves[c.feature_id]?.level??solarEmbedded,curve:c,segment:s,verified:true});
         for(const nodeId of new Set(selected.map(x=>x.node_id).filter(x=>x!=='solar'))){const level=active.get(nodeId);if(level===undefined)continue;const d=root.nodes.find(n=>n.node_id===nodeId)?.levels.find(l=>l.level===level);const key=d&&`${manifest.build_id}:${d.resource.uri}:${d.resource.sha256}`,chunk=key&&touch(key);if(chunk?.curves)for(const c of chunk.curves)for(const s of c.segments||[])out.push({node_id:nodeId,level,curve:c,segment:s,verified:true});}return out;},
       inspect:id=>{const f=root.features.find(x=>x.body_id===id);if(!f)return {body_id:id,status:"UNKNOWN"};return {...f,visibility_reason:f.resolution==="UNRESOLVED"?"AUTHORITY_UNRESOLVED":"CAMERA_OR_LAYER_POLICY"};},
       selection:()=>lastSelection.map(d=>{const result=loaded.get(`${manifest.build_id}:${d.resource?.uri}:${d.resource?.sha256}`);return {...d,status:result?.status||'DETAIL_PENDING',error:result?.error||null,request_ms:result?.request_ms??null};}),cacheStats:()=>({entries:cache.size,loaded:loaded.size,active:Object.fromEntries(active),max_concurrent:maxRunning,queued:queue.length,...trimCache()}),dispose:()=>{loaded.clear();queue.length=0;}};

@@ -235,6 +235,43 @@ def validate_product(root):
         marker = next((s for s in audit["samples"] if s["et"] == manifest["epoch_et"] and s["body_state"]), None)
         if marker and features[body]["position_km"] != marker["body_state"]["position_km"]:
             raise ValueError(f"epoch marker differs from exact governed state for {body}")
+    client_ext=product_root.get("extensions",{}).get("org.loom.solar-basemap.client/0.1",{})
+    embedded=client_ext.get("solar_embedded_curves",{})
+    sun_bodies={body for body,anchor in required.items() if anchor=="SUN"}
+    if set(embedded)!=sun_bodies:
+        raise ValueError("initial Solar LOD inventory differs from Sun anchored curves")
+    root_basis=client_ext.get("root_error_basis",{})
+    if root_basis.get("max_sse_css_px")!=.75:
+        raise ValueError("initial Solar screen error limit differs from specification")
+    root_scale=root_basis.get("viewport_css_height",0)/(2*math.tan(math.radians(root_basis.get("vertical_fov_degrees",0)/2))*root_basis.get("camera_distance_km",0))
+    if not math.isfinite(root_scale) or root_scale<=0:
+        raise ValueError("invalid initial Solar projection basis")
+    if product_root.get("nodes"):
+        solar_node=next((n for n in product_root["nodes"] if n["node_id"]=="solar"),None)
+    else: solar_node=None
+    if solar_node is None:raise ValueError("missing Solar hierarchy root")
+    root_curves={c["feature_id"]:c for c in product_root["curves"]}
+    max_embedded_level=0
+    for body,info in embedded.items():
+        level=info.get("level"); error=info.get("measured_error_km")
+        if not isinstance(level,int) or not 0<=level<len(solar_node["levels"]) or not isinstance(error,(int,float)):
+            raise ValueError(f"invalid initial Solar LOD declaration for {body}")
+        if info.get("measured_error_css_px")!=error*root_scale or error*root_scale>.75:
+            raise ValueError(f"initial Solar LOD exceeds or misstates its screen error for {body}")
+        max_embedded_level=max(max_embedded_level,level)
+        compiled=json.loads((root/solar_node["levels"][level]["resource"]["uri"]).read_bytes())
+        chunk_curve=next((c for c in compiled["curves"] if c["feature_id"]==body),None)
+        root_curve=root_curves.get(body)
+        if chunk_curve is None or root_curve is None or chunk_curve["segments"]!=root_curve["segments"]:
+            raise ValueError(f"initial Solar geometry differs from selected compiled LOD for {body}")
+        audit=audits[body]["samples"]
+        for segment in root_curve["segments"]:
+            if len(segment["sample_indices"])!=len(segment["points"]):raise ValueError("initial Solar point/sample inventory mismatch")
+            for index,point in zip(segment["sample_indices"],segment["points"]):
+                if index>=len(audit) or point!=[audit[index]["et"],*audit[index]["relative_position_km"]]:
+                    raise ValueError(f"initial Solar geometry is not an archived governed sample: {body}")
+    if client_ext.get("solar_embedded_level")!=max_embedded_level:
+        raise ValueError("aggregate Solar embedded level differs from per-curve levels")
     expected_by_node = {}
     for node in product_root["nodes"]:
         node_curves = sorted(body for body, anchor in required.items() if ("solar" if anchor == "SUN" else f"system:{anchor}") == node["node_id"])

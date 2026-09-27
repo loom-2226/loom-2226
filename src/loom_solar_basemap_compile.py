@@ -65,6 +65,15 @@ def _rdp(points, tolerance):
     return sorted(keep)
 
 
+def _initial_curve_level(levels, probe_error_km, projection_scale, max_sse_css_px=.75):
+    """Pick each curve's own coarsest level meeting the fixed root-view SSE."""
+    for level_id, level in enumerate(levels):
+        error_km=probe_error_km+level["error"]
+        if error_km*projection_scale<=max_sse_css_px:
+            return level_id,error_km
+    raise ValueError("curve has no level meeting the initial Solar-view screen error budget")
+
+
 def _curve_sampling(inspector, body, anchor, plan):
     start, end = plan["start_et"], plan["end_et"]
     cache = {}
@@ -363,19 +372,20 @@ def compile_product(database, asset_root, output, epoch="2226-01-01T00:00:00 TDB
         # heliocentric packages remain lazy. Pixel-sized CSS viewport is the
         # conservative root error basis specified by the acceptance plan.
         root_scale=915/(2*math.tan(math.pi/8)*(50*149597870.7))
-        solar_levels=node_levels.get("solar",[])
-        embedded_level=next((x["level"] for x in solar_levels if x["measured_error_km"]*root_scale<=.75),
-                            solar_levels[-1]["level"] if solar_levels else 0)
-        coarse=[]
+        embedded_curve_levels={}; embedded_level=0; coarse=[]
         for body in sorted(requested):
             item=compiled_by_body[body]
             if item["node_id"]=="solar":
-                level=item["compiled"]["levels"][min(embedded_level,len(item["compiled"]["levels"])-1)]
+                curve_level,error_km=_initial_curve_level(item["compiled"]["levels"],item["compiled"]["probe_error"],root_scale,.75)
+                embedded_level=max(embedded_level,curve_level)
+                embedded_curve_levels[body]={"level":curve_level,"measured_error_km":error_km,"measured_error_css_px":error_km*root_scale}
+                level=item["compiled"]["levels"][curve_level]
                 coarse.append({**item["curve"],"segments":level["segments"]})
             else:
                 coarse.append({**item["curve"],"segments":[]})
         root={"schema":"loom.solar-basemap.root/0.1","build_spec_id":build_spec_id,"epoch_et":T,"features":sorted(features,key=lambda f:f["body_id"]),
               "nodes":root_nodes,"curves":coarse,"extensions":{"org.loom.solar-basemap.client/0.1":{"solar_embedded_level":embedded_level,
+              "solar_embedded_curves":embedded_curve_levels,
               "root_error_basis":{"viewport_css_height":915,"vertical_fov_degrees":45,"camera_distance_km":50*149597870.7,"max_sse_css_px":.75}}}}
         source_dict={"schema":"loom.solar-basemap.provenance/0.1","build_spec_id":build_spec_id,"sources":sorted(source_rows.values(),key=lambda x:x["source_ref"]),
                      "sample_resources":sorted(sample_resources,key=lambda x:x["sha256"]),"extensions":{}}
