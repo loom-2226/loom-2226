@@ -41,6 +41,7 @@
     const base=new URL(".",manifestURL);const root=await jsonVerified(base,manifest.root,monolithic?.resources,manifest.build_id);if(root.schema!=="loom.solar-basemap.root/0.1")throw Error("unsupported root schema");
     if(root.features.length!==manifest.counts.catalog||new Set(root.features.map(f=>f.body_id)).size!==root.features.length)throw Error("catalog identity mismatch");
     const nodeIds=new Set(root.nodes.map(n=>n.node_id));if(!nodeIds.has("solar")||root.nodes.some(n=>n.parent_node_id&&!nodeIds.has(n.parent_node_id)))throw Error("hierarchy mismatch");
+    const parents=new Map(root.nodes.map(n=>[n.node_id,n.parent_node_id]));for(const id of nodeIds){const seen=new Set();let at=id;while(at!=null){if(seen.has(at))throw Error("cyclic hierarchy");seen.add(at);at=parents.get(at);}}
     if(root.curves.some(c=>!['HELIOCENTRIC_REFERENCE_ORBIT','PARENT_RELATIVE_REFERENCE_ORBIT','PHYSICAL_TRAJECTORY'].includes(c.semantic)||c.closed))throw Error("unsupported curve semantics");
     let lastSelection=[];const loaded=new Map(),listeners=new Set(),active=new Map(),levelState={},inflight=new Map(),queue=[],priorities=new Map(),lastUsed=new Map();let running=0,maxRunning=0;
     const solarEmbedded=root.extensions?.['org.loom.solar-basemap.client/0.1']?.solar_embedded_level??0;active.set('solar',solarEmbedded);
@@ -64,7 +65,7 @@
         if(solarLevel<=solarEmbedded||!solarChunk?.curves)for(const c of root.curves)for(const s of c.segments||[])out.push({node_id:c.anchor_id==='SUN'?'solar':`system:${c.anchor_id}`,level:solarEmbedded,curve:c,segment:s,verified:true});
         for(const nodeId of new Set(selected.map(x=>x.node_id).filter(x=>x!=='solar'))){const level=active.get(nodeId);if(level===undefined)continue;const d=root.nodes.find(n=>n.node_id===nodeId)?.levels.find(l=>l.level===level);const key=d&&`${manifest.build_id}:${d.resource.uri}:${d.resource.sha256}`,chunk=key&&touch(key);if(chunk?.curves)for(const c of chunk.curves)for(const s of c.segments||[])out.push({node_id:nodeId,level,curve:c,segment:s,verified:true});}return out;},
       inspect:id=>{const f=root.features.find(x=>x.body_id===id);if(!f)return {body_id:id,status:"UNKNOWN"};return {...f,visibility_reason:f.resolution==="UNRESOLVED"?"AUTHORITY_UNRESOLVED":"CAMERA_OR_LAYER_POLICY"};},
-      selection:()=>lastSelection.map(d=>({...d,status:loaded.get(`${manifest.build_id}:${d.resource?.uri}:${d.resource?.sha256}`)?.status||'DETAIL_PENDING'})),cacheStats:()=>({entries:cache.size,loaded:loaded.size,active:Object.fromEntries(active),max_concurrent:maxRunning,queued:queue.length,...trimCache()}),dispose:()=>{loaded.clear();queue.length=0;}};
+      selection:()=>lastSelection.map(d=>{const result=loaded.get(`${manifest.build_id}:${d.resource?.uri}:${d.resource?.sha256}`);return {...d,status:result?.status||'DETAIL_PENDING',error:result?.error||null};}),cacheStats:()=>({entries:cache.size,loaded:loaded.size,active:Object.fromEntries(active),max_concurrent:maxRunning,queued:queue.length,...trimCache()}),dispose:()=>{loaded.clear();queue.length=0;}};
   }
   return {selectLevel,nodeSelection,loadBasemap,_cache:cache};
 });
