@@ -10,7 +10,7 @@ async function main(){
  const browser=await chromium.launch({headless:true});const trials=[];
  try{
   for(const throttled of [false,true])for(let n=0;n<5;n++){
-   const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:dpr});const page=await context.newPage();const cdp=await context.newCDPSession(page);await cdp.send('Network.enable');
+   const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:dpr,hasTouch:profile==='pixel'});const page=await context.newPage();const cdp=await context.newCDPSession(page);await cdp.send('Network.enable');
    if(throttled)await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:80,downloadThroughput:10*1024*1024/8,uploadThroughput:2*1024*1024/8,connectionType:'cellular3g'});
    if(throttled)await cdp.send('Emulation.setCPUThrottlingRate',{rate:4});
    const productRequests=[],allRequests=[];page.on('request',r=>{allRequests.push(r.url());if(r.url().includes('/product/'))productRequests.push({url:r.url(),time:Date.now()})});
@@ -40,11 +40,27 @@ async function main(){
    await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.__solarBasemapReady,{timeout:120000});await page.waitForTimeout(50);
    const before=productRequests.length;const warmPath=await cameraSequence('warm');
    let revisit=null;if(profile==='pixel'&&n===0&&!throttled){for(let i=0;i<10;i++){await page.evaluate(()=>LoomRenderer.replayApproach('MARS',50*149597870.7,100000,30));await page.waitForFunction(()=>window.__solarBasemapScene?.lines.some(x=>x.feature_id==='PHOBOS'),{timeout:30000});await page.evaluate(()=>LoomRenderer.fit());await page.evaluate(()=>LoomRenderer.replayApproach('PLUTO',50*149597870.7,250000,30));await page.waitForFunction(()=>window.__solarBasemapScene?.lines.some(x=>x.feature_id==='CHARON'),{timeout:30000});}revisit=await page.evaluate(()=>({cache:window.__solarBasemap.cacheStats(),frame:window.__solarBasemapScene.max_frame_interval_ms}));assert.equal(revisit.cache.memory_limit,false,'ten back/forth visits must stay within measured cache budget');}
+   let interaction=null;if(n===0&&!throttled){
+    await page.evaluate(()=>LoomRenderer.fit());await page.waitForTimeout(50);
+    const before=await page.evaluate(()=>({distance:LoomRenderer.state.distance,target:[...LoomRenderer.state.target],rotation:[...LoomRenderer.state.rotation]}));
+    await page.mouse.move(width/2,height/2);await page.mouse.wheel(0,-80);await page.waitForTimeout(80);
+    const wheeled=await page.evaluate(()=>LoomRenderer.state.distance);assert(wheeled<before.distance,'wheel zoom must continuously change camera distance');
+    await page.mouse.move(width/2,height/2);await page.mouse.down({button:'right'});await page.mouse.move(width/2+24,height/2+18,{steps:2});await page.mouse.up({button:'right'});
+    const panned=await page.evaluate(()=>[...LoomRenderer.state.target]);assert.notDeepEqual(panned,before.target,'pan must continuously move the scene target');
+    await page.mouse.move(width/2,height/2);await page.mouse.down({button:'left'});await page.mouse.move(width/2,height/2-100,{steps:3});await page.mouse.up({button:'left'});
+    const rotated=await page.evaluate(()=>[...LoomRenderer.state.rotation]);assert.notDeepEqual(rotated,before.rotation,'drag rotation must continuously change camera orientation');
+    let pinch=null;if(profile==='pixel'){
+      const d0=await page.evaluate(()=>LoomRenderer.state.distance);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:width/2-50,y:height/2,radiusX:2,radiusY:2,force:1,id:1},{x:width/2+50,y:height/2,radiusX:2,radiusY:2,force:1,id:2}]});
+      await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:width/2-90,y:height/2,radiusX:2,radiusY:2,force:1,id:1},{x:width/2+90,y:height/2,radiusX:2,radiusY:2,force:1,id:2}]});
+      await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await page.waitForTimeout(80);pinch=await page.evaluate(()=>LoomRenderer.state.distance);assert(pinch<d0,'two-finger pinch must continuously change camera distance');
+    }
+    const final=await page.evaluate(()=>({scene:window.__solarBasemapScene,overflow:document.documentElement.scrollWidth>innerWidth,report:window.__solarBasemapReport()}));assert.equal(final.overflow,false,'viewport must not overflow horizontally');assert(final.scene.markers>0,'camera gestures must not create an empty-frame transition');interaction={before,wheeled,panned,rotated,pinch,overflow:final.overflow,visible_markers:final.scene.markers,edge_on_error:final.report.error_budget};
+   }
    const warmResources=await page.evaluate(()=>performance.getEntriesByType('resource').filter(x=>x.name.includes('/product/')).map(x=>({name:x.name,transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration})));
-   assert.equal(warm.immutable_chunk_transfer_bytes,0,'warm visit must not redownload immutable product chunks');assert.equal(allRequests.filter(x=>/authority|resolver|ephemeris|state-api/i.test(x)).length,0,'browser must never call authority/resolver/state APIs');
-   const warm={index:n,throttled,cold_path:coldPath,warm_path:warmPath,additional_requests:productRequests.length-before,resources:warmResources,
+   assert.equal(allRequests.filter(x=>/authority|resolver|ephemeris|state-api/i.test(x)).length,0,'browser must never call authority/resolver/state APIs');
+   const warm={index:n,throttled,cold_path:coldPath,warm_path:warmPath,interaction,additional_requests:productRequests.length-before,resources:warmResources,
      immutable_chunk_transfer_bytes:warmResources.filter(x=>/\/objects\//.test(x.name)).reduce((s,x)=>s+x.transfer,0),revisit,
-     diagnostics:{catalog:warmPath.catalog,authority_calls:allRequests.filter(x=>/authority|resolver|ephemeris|state-api/i.test(x)).length,console_errors:consoleErrors}};
+     diagnostics:{catalog:warmPath.catalog,authority_calls:allRequests.filter(x=>/authority|resolver|ephemeris|state-api/i.test(x)).length,console_errors:consoleErrors}};assert.equal(warm.immutable_chunk_transfer_bytes,0,'warm visit must not redownload immutable product chunks');
    trials.push({profile,delivery,cold,warm});
    await context.close();
    fs.writeFileSync(path.join(evidence,`${profile}-${delivery}-partial.json`),JSON.stringify({profile,delivery,trials},null,2));
