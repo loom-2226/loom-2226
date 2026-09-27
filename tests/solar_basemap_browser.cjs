@@ -17,7 +17,7 @@ async function main(){
    const consoleErrors=[];page.on('pageerror',e=>consoleErrors.push(String(e)));
    const t0=Date.now();await page.goto(`${base}${base.includes('?')?'&':'?'}delivery=${delivery}`,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.__solarBasemapReady||window.__solarBasemapError,{timeout:120000});
    if(await page.evaluate(()=>!!window.__solarBasemapError))throw Error(await page.evaluate(()=>window.__solarBasemapError));
-   await page.waitForFunction(()=>window.__solarBasemapScene&&window.__solarBasemapScene.markers>0,{timeout:30000});
+   await page.waitForFunction(()=>window.__solarBasemapScene&&window.__solarBasemapScene.markers>0&&window.__solarBasemapScene.lines.length>0,{timeout:30000});
    const usefulMs=Date.now()-t0;const initial=await page.evaluate(()=>({scene:window.__solarBasemapScene,report:window.__solarBasemapReport(),product:performance.getEntriesByType('resource').filter(x=>x.name.includes('/product/')).map(x=>({name:x.name,transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration})),shell:performance.getEntriesByType('resource').filter(x=>!x.name.includes('/product/')&&x.name.startsWith(location.origin)).map(x=>({name:x.name.replace(location.origin,''),transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration}))}));
    assert.equal(productRequests.length,delivery==='progressive'?2:1,'initial scene must require only manifest/root or the monolithic control');
    const cold={index:n,throttled,useful_ms:usefulMs,requests:productRequests.length,product_resources:initial.product,shell_requests:initial.shell,shell_request_count:initial.shell.length,scene:initial.scene,cache:initial.report.cache,transfer_bytes:initial.product.reduce((s,x)=>s+x.transfer,0)};
@@ -39,10 +39,11 @@ async function main(){
    // A same-context revisit after the complete Mars and Pluto routes exercises retained HTTP/browser caches.
    await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.__solarBasemapReady,{timeout:120000});await page.waitForTimeout(50);
    const before=productRequests.length;const warmPath=await cameraSequence('warm');
+   let revisit=null;if(profile==='pixel'&&n===0&&!throttled){for(let i=0;i<10;i++){await page.evaluate(()=>LoomRenderer.replayApproach('MARS',50*149597870.7,100000,30));await page.waitForFunction(()=>window.__solarBasemapScene?.lines.some(x=>x.feature_id==='PHOBOS'),{timeout:30000});await page.evaluate(()=>LoomRenderer.fit());await page.evaluate(()=>LoomRenderer.replayApproach('PLUTO',50*149597870.7,250000,30));await page.waitForFunction(()=>window.__solarBasemapScene?.lines.some(x=>x.feature_id==='CHARON'),{timeout:30000});}revisit=await page.evaluate(()=>({cache:window.__solarBasemap.cacheStats(),frame:window.__solarBasemapScene.max_frame_interval_ms}));assert.equal(revisit.cache.memory_limit,false,'ten back/forth visits must stay within measured cache budget');}
    const warmResources=await page.evaluate(()=>performance.getEntriesByType('resource').filter(x=>x.name.includes('/product/')).map(x=>({name:x.name,transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration})));
-   assert.equal(allRequests.filter(x=>/authority|resolver|ephemeris|state-api/i.test(x)).length,0,'browser must never call authority/resolver/state APIs');
+   assert.equal(warm.immutable_chunk_transfer_bytes,0,'warm visit must not redownload immutable product chunks');assert.equal(allRequests.filter(x=>/authority|resolver|ephemeris|state-api/i.test(x)).length,0,'browser must never call authority/resolver/state APIs');
    const warm={index:n,throttled,cold_path:coldPath,warm_path:warmPath,additional_requests:productRequests.length-before,resources:warmResources,
-     immutable_chunk_transfer_bytes:warmResources.filter(x=>/\/objects\//.test(x.name)).reduce((s,x)=>s+x.transfer,0),
+     immutable_chunk_transfer_bytes:warmResources.filter(x=>/\/objects\//.test(x.name)).reduce((s,x)=>s+x.transfer,0),revisit,
      diagnostics:{catalog:warmPath.catalog,authority_calls:allRequests.filter(x=>/authority|resolver|ephemeris|state-api/i.test(x)).length,console_errors:consoleErrors}};
    trials.push({profile,delivery,cold,warm});
    await context.close();
