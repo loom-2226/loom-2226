@@ -1,0 +1,807 @@
+{
+  "browser": "153.0.8010.12",
+  "viewport": {
+    "width": 412,
+    "height": 915,
+    "dpr": 3
+  },
+  "physical_device": false,
+  "cpu_throttling": 1,
+  "network": "loopback, unthrottled",
+  "runs": [
+    {
+      "kind": "archive",
+      "run": 0,
+      "firstUsefulMs": 722.4064010000001,
+      "requests": [
+        {
+          "url": "http://archive.invalid/",
+          "method": "GET"
+        },
+        {
+          "url": "http://archive.invalid/__loom_report__",
+          "method": "POST"
+        }
+      ],
+      "errors": [],
+      "frames_ms": [
+        14.700000002980232,
+        16.799999997019768,
+        22.5,
+        11.5,
+        27.80000001192093,
+        11,
+        26.399999991059303,
+        0.29999999701976776,
+        23.700000002980232,
+        9.400000005960464,
+        21.099999994039536,
+        16.100000008940697,
+        13.799999997019768,
+        25.5,
+        6.299999997019768,
+        29.5,
+        2558.2000000029802,
+        12.299999997019768,
+        16.5,
+        16.799999997019768,
+        16.799999997019768,
+        16.700000002980232,
+        16.600000008940697,
+        16.69999998807907,
+        16.5,
+        17,
+        18,
+        16.600000008940697,
+        15.299999997019768,
+        17.5
+      ],
+      "heap_bytes": 12700000,
+      "svg_elements": 152,
+      "resources": [
+        {
+          "name": "http://archive.invalid/__loom_report__",
+          "bytes": 2,
+          "transfer": 302,
+          "duration": 15.200000002980232
+        }
+      ],
+      "scene": null
+    },
+    {
+      "kind": "archive",
+      "run": 1,
+      "firstUsefulMs": 477.0482000000002,
+      "requests": [
+        {
+          "url": "http://archive.invalid/",
+          "method": "GET"
+        },
+        {
+          "url": "http://archive.invalid/__loom_report__",
+          "method": "POST"
+        }
+      ],
+      "errors": [],
+      "frames_ms": [
+        16.600000008940697,
+        16.799999997019768,
+        16.5,
+        16.599999994039536,
+        16.799999997019768,
+        16.600000008940697,
+        16.700000002980232,
+        16.599999994039536,
+        16.700000002980232,
+        16.899999991059303,
+        16.400000005960464,
+        16.700000002980232,
+        16.599999994039536,
+        16.900000005960464,
+        16.599999994039536,
+        16.600000008940697,
+        16.599999994039536,
+        16.700000002980232,
+        16.700000002980232,
+        16.599999994039536,
+        16.700000002980232,
+        16.700000002980232,
+        16.69999998807907,
+        16.700000002980232,
+        16.600000008940697,
+        16.599999994039536,
+        16.799999997019768,
+        16.5,
+        17,
+        16.400000005960464
+      ],
+      "heap_bytes": 12700000,
+      "svg_elements": 152,
+      "resources": [
+        {
+          "name": "http://archive.invalid/__loom_report__",
+          "bytes": 2,
+          "transfer": 302,
+          "duration": 11.599999994039536
+        }
+      ],
+      "scene": null
+    },
+    {
+      "kind": "archive",
+      "run": 2,
+      "firstUsefulMs": 508.8252970000003,
+      "requests": [
+        {
+          "url": "http://archive.invalid/",
+          "method": "GET"
+        },
+        {
+          "url": "http://archive.invalid/__loom_report__",
+          "method": "POST"
+        }
+      ],
+      "errors": [],
+      "frames_ms": [
+        17.599999994039536,
+        15.900000005960464,
+        17.200000002980232,
+        16,
+        18.099999994039536,
+        15.200000002980232,
+        16.700000002980232,
+        16.599999994039536,
+        16.700000002980232,
+        16.700000002980232,
+        16.599999994039536,
+        16.799999997019768,
+        16.600000008940697,
+        16.599999994039536,
+        16.700000002980232,
+        16.700000002980232,
+        16.700000002980232,
+        17,
+        16.19999998807907,
+        16.700000002980232,
+        16.700000002980232,
+        16.599999994039536,
+        16.80000001192093,
+        16.5,
+        16.69999998807907,
+        16.700000002980232,
+        16.600000008940697,
+        16.799999997019768,
+        16.599999994039536,
+        17
+      ],
+      "heap_bytes": 11900000,
+      "svg_elements": 152,
+      "resources": [
+        {
+          "name": "http://archive.invalid/__loom_report__",
+          "bytes": 2,
+          "transfer": 302,
+          "duration": 13.899999991059303
+        }
+      ],
+      "scene": null
+    },
+    {
+      "kind": "inspector",
+      "run": 0,
+      "firstUsefulMs": 380.0617940000002,
+      "requests": [
+        {
+          "url": "http://127.0.0.1:8765/",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/design/loom-tokens.css",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/inspector.css",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/design/loom-wordmark-white.svg",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/three.min.js",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/presentation.js",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/inspector.js",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/design/Montserrat-VF.woff2",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/catalog?epoch=2026-01-01T00%3A00%3A00+TDB",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=2026-01-01T00%3A00%3A00+TDB&center=SUN&view=scene&preview=1",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/trajectory?body=VENUS&start=820497600&center=SUN&view=auto",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=CERES%2CEARTH_MOON_BARYCENTER%2CJUPITER_SYSTEM_BARYCENTER%2CMARS_SYSTEM_BARYCENTER%2CMERCURY_SYSTEM_BARYCENTER%2CNEPTUNE_SYSTEM_BARYCENTER%2CPLUTO_SYSTEM_BARYCENTER%2CSATURN_SYSTEM_BARYCENTER%2CURANUS_SYSTEM_BARYCENTER%2CVENUS_SYSTEM_BARYCENTER%2CSALACIA%2CAMUN",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=IXION%2CARROKOTH%2COUMUAMUA%2CCHIRON%2CATLAS3I%2CSEDNA%2CBORISOV%2CBORRELLY%2CVARUNA%2CGONGGONG%2CHAUMEA%2CLEUCUS",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=POLYMELE%2CMAKEMAKE%2CORCUS%2CTOUTATIS%2CSWIFTTUTTLE%2CGASPRA%2CPSYCHE%2CBRAILLE%2CMS4%2CINTERAMNIA%2CDINKINESH%2CDAVIDA",
+          "method": "GET"
+        }
+      ],
+      "errors": [],
+      "frames_ms": [
+        34.900000005960464,
+        6.5,
+        16.799999997019768,
+        16.599999994039536,
+        16.700000002980232,
+        16.700000002980232,
+        17.700000002980232,
+        15.899999991059303,
+        16.30000001192093,
+        16.69999998807907,
+        16.700000002980232,
+        16.600000008940697,
+        16.69999998807907,
+        18,
+        17.100000008940697,
+        14.799999997019768,
+        41.70000000298023,
+        7.5999999940395355,
+        1,
+        17.600000008940697,
+        15.5,
+        16.799999997019768,
+        16.599999994039536,
+        16.600000008940697,
+        16.69999998807907,
+        17,
+        18,
+        15,
+        16.900000005960464,
+        24
+      ],
+      "heap_bytes": 10000000,
+      "svg_elements": 0,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:8765/design/loom-tokens.css",
+          "bytes": 19617,
+          "transfer": 19917,
+          "duration": 26.100000008940697
+        },
+        {
+          "name": "http://127.0.0.1:8765/inspector.css",
+          "bytes": 8125,
+          "transfer": 8425,
+          "duration": 19.900000005960464
+        },
+        {
+          "name": "http://127.0.0.1:8765/design/loom-wordmark-white.svg",
+          "bytes": 8633,
+          "transfer": 8933,
+          "duration": 26.899999991059303
+        },
+        {
+          "name": "http://127.0.0.1:8765/three.min.js",
+          "bytes": 608081,
+          "transfer": 608381,
+          "duration": 30.400000005960464
+        },
+        {
+          "name": "http://127.0.0.1:8765/presentation.js",
+          "bytes": 1748,
+          "transfer": 2048,
+          "duration": 26.299999997019768
+        },
+        {
+          "name": "http://127.0.0.1:8765/inspector.js",
+          "bytes": 53597,
+          "transfer": 53897,
+          "duration": 21.80000001192093
+        },
+        {
+          "name": "http://127.0.0.1:8765/design/Montserrat-VF.woff2",
+          "bytes": 0,
+          "transfer": 300,
+          "duration": 3
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/catalog?epoch=2026-01-01T00%3A00%3A00+TDB",
+          "bytes": 19979,
+          "transfer": 20279,
+          "duration": 19.700000002980232
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=2026-01-01T00%3A00%3A00+TDB&center=SUN&view=scene&preview=1",
+          "bytes": 3634,
+          "transfer": 3934,
+          "duration": 44.5
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=CERES%2CEARTH_MOON_BARYCENTER%2CJUPITER_SYSTEM_BARYCENTER%2CMARS_SYSTEM_BARYCENTER%2CMERCURY_SYSTEM_BARYCENTER%2CNEPTUNE_SYSTEM_BARYCENTER%2CPLUTO_SYSTEM_BARYCENTER%2CSATURN_SYSTEM_BARYCENTER%2CURANUS_SYSTEM_BARYCENTER%2CVENUS_SYSTEM_BARYCENTER%2CSALACIA%2CAMUN",
+          "bytes": 7099,
+          "transfer": 7399,
+          "duration": 157.5
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=IXION%2CARROKOTH%2COUMUAMUA%2CCHIRON%2CATLAS3I%2CSEDNA%2CBORISOV%2CBORRELLY%2CVARUNA%2CGONGGONG%2CHAUMEA%2CLEUCUS",
+          "bytes": 6884,
+          "transfer": 7184,
+          "duration": 173.69999998807907
+        }
+      ],
+      "scene": {
+        "objects": 29,
+        "renderCalls": 4
+      }
+    },
+    {
+      "kind": "inspector",
+      "run": 1,
+      "firstUsefulMs": 381.8429359999991,
+      "requests": [
+        {
+          "url": "http://127.0.0.1:8765/",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/design/loom-tokens.css",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/inspector.css",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/design/loom-wordmark-white.svg",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/three.min.js",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/presentation.js",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/inspector.js",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/design/Montserrat-VF.woff2",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/catalog?epoch=2026-01-01T00%3A00%3A00+TDB",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=2026-01-01T00%3A00%3A00+TDB&center=SUN&view=scene&preview=1",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/trajectory?body=VENUS&start=820497600&center=SUN&view=auto",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/trajectory?body=MERCURY&start=820497600&center=SUN&view=auto",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=CERES%2CEARTH_MOON_BARYCENTER%2CJUPITER_SYSTEM_BARYCENTER%2CMARS_SYSTEM_BARYCENTER%2CMERCURY_SYSTEM_BARYCENTER%2CNEPTUNE_SYSTEM_BARYCENTER%2CPLUTO_SYSTEM_BARYCENTER%2CSATURN_SYSTEM_BARYCENTER%2CURANUS_SYSTEM_BARYCENTER%2CVENUS_SYSTEM_BARYCENTER%2CSALACIA%2CAMUN",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=IXION%2CARROKOTH%2COUMUAMUA%2CCHIRON%2CATLAS3I%2CSEDNA%2CBORISOV%2CBORRELLY%2CVARUNA%2CGONGGONG%2CHAUMEA%2CLEUCUS",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=POLYMELE%2CMAKEMAKE%2CORCUS%2CTOUTATIS%2CSWIFTTUTTLE%2CGASPRA%2CPSYCHE%2CBRAILLE%2CMS4%2CINTERAMNIA%2CDINKINESH%2CDAVIDA",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=EURYBATES%2CTHEMIS%2CASTEROID_6178%2CDIDYMOS%2CPALLAS%2CERIS%2CDONALDJOHANSON%2CHYGIEA%2CSTEINS%2CVESTA%2CIDA%2CHARTLEY2",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=LUTETIA%2CWILD2%2CJUNO%2CPATROCLUS%2CORUS%2CMATHILDE%2CKLEOPATRA%2CTEMPEL1%2CQUAOAR%2CEROS%2CITOKAWA%2CAPOPHIS",
+          "method": "GET"
+        }
+      ],
+      "errors": [],
+      "frames_ms": [
+        10.299999997019768,
+        16.400000005960464,
+        19.5,
+        14.399999991059303,
+        42.70000000298023,
+        8.600000008940697,
+        1.0999999940395355,
+        43.400000005960464,
+        8.899999991059303,
+        75.79999999701977,
+        9,
+        11.200000002980232,
+        15.299999997019768,
+        16.700000002980232,
+        16.700000002980232,
+        16.599999994039536,
+        18.5,
+        14.900000005960464,
+        18.299999997019768,
+        15,
+        29.799999997019768,
+        11.100000008940697,
+        12.899999991059303,
+        13,
+        16.600000008940697,
+        16.700000002980232,
+        16.69999998807907,
+        16.600000008940697,
+        18.599999994039536,
+        14.799999997019768
+      ],
+      "heap_bytes": 10000000,
+      "svg_elements": 0,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:8765/design/loom-tokens.css",
+          "bytes": 19617,
+          "transfer": 19917,
+          "duration": 33.099999994039536
+        },
+        {
+          "name": "http://127.0.0.1:8765/inspector.css",
+          "bytes": 8125,
+          "transfer": 8425,
+          "duration": 30.700000002980232
+        },
+        {
+          "name": "http://127.0.0.1:8765/design/loom-wordmark-white.svg",
+          "bytes": 8633,
+          "transfer": 8933,
+          "duration": 50
+        },
+        {
+          "name": "http://127.0.0.1:8765/three.min.js",
+          "bytes": 608081,
+          "transfer": 608381,
+          "duration": 56.599999994039536
+        },
+        {
+          "name": "http://127.0.0.1:8765/presentation.js",
+          "bytes": 1748,
+          "transfer": 2048,
+          "duration": 50.400000005960464
+        },
+        {
+          "name": "http://127.0.0.1:8765/inspector.js",
+          "bytes": 53597,
+          "transfer": 53897,
+          "duration": 54.29999999701977
+        },
+        {
+          "name": "http://127.0.0.1:8765/design/Montserrat-VF.woff2",
+          "bytes": 0,
+          "transfer": 300,
+          "duration": 4.100000008940697
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/catalog?epoch=2026-01-01T00%3A00%3A00+TDB",
+          "bytes": 19979,
+          "transfer": 20279,
+          "duration": 19.600000008940697
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=2026-01-01T00%3A00%3A00+TDB&center=SUN&view=scene&preview=1",
+          "bytes": 3634,
+          "transfer": 3934,
+          "duration": 8.299999997019768
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/trajectory?body=VENUS&start=820497600&center=SUN&view=auto",
+          "bytes": 13914,
+          "transfer": 14214,
+          "duration": 5.600000008940697
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=CERES%2CEARTH_MOON_BARYCENTER%2CJUPITER_SYSTEM_BARYCENTER%2CMARS_SYSTEM_BARYCENTER%2CMERCURY_SYSTEM_BARYCENTER%2CNEPTUNE_SYSTEM_BARYCENTER%2CPLUTO_SYSTEM_BARYCENTER%2CSATURN_SYSTEM_BARYCENTER%2CURANUS_SYSTEM_BARYCENTER%2CVENUS_SYSTEM_BARYCENTER%2CSALACIA%2CAMUN",
+          "bytes": 7099,
+          "transfer": 7399,
+          "duration": 7.299999997019768
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=IXION%2CARROKOTH%2COUMUAMUA%2CCHIRON%2CATLAS3I%2CSEDNA%2CBORISOV%2CBORRELLY%2CVARUNA%2CGONGGONG%2CHAUMEA%2CLEUCUS",
+          "bytes": 6884,
+          "transfer": 7184,
+          "duration": 12.599999994039536
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=POLYMELE%2CMAKEMAKE%2CORCUS%2CTOUTATIS%2CSWIFTTUTTLE%2CGASPRA%2CPSYCHE%2CBRAILLE%2CMS4%2CINTERAMNIA%2CDINKINESH%2CDAVIDA",
+          "bytes": 6877,
+          "transfer": 7177,
+          "duration": 11.699999988079071
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=EURYBATES%2CTHEMIS%2CASTEROID_6178%2CDIDYMOS%2CPALLAS%2CERIS%2CDONALDJOHANSON%2CHYGIEA%2CSTEINS%2CVESTA%2CIDA%2CHARTLEY2",
+          "bytes": 6843,
+          "transfer": 7143,
+          "duration": 162.70000000298023
+        }
+      ],
+      "scene": {
+        "objects": 53,
+        "renderCalls": 5
+      }
+    },
+    {
+      "kind": "inspector",
+      "run": 2,
+      "firstUsefulMs": 373.40771499999937,
+      "requests": [
+        {
+          "url": "http://127.0.0.1:8765/",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/design/loom-tokens.css",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/inspector.css",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/design/loom-wordmark-white.svg",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/three.min.js",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/presentation.js",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/inspector.js",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/design/Montserrat-VF.woff2",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/catalog?epoch=2026-01-01T00%3A00%3A00+TDB",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=2026-01-01T00%3A00%3A00+TDB&center=SUN&view=scene&preview=1",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/trajectory?body=VENUS&start=820497600&center=SUN&view=auto",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/trajectory?body=MERCURY&start=820497600&center=SUN&view=auto",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/trajectory?body=EARTH&start=820497600&center=SUN&view=auto",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=CERES%2CEARTH_MOON_BARYCENTER%2CJUPITER_SYSTEM_BARYCENTER%2CMARS_SYSTEM_BARYCENTER%2CMERCURY_SYSTEM_BARYCENTER%2CNEPTUNE_SYSTEM_BARYCENTER%2CPLUTO_SYSTEM_BARYCENTER%2CSATURN_SYSTEM_BARYCENTER%2CURANUS_SYSTEM_BARYCENTER%2CVENUS_SYSTEM_BARYCENTER%2CSALACIA%2CAMUN",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=IXION%2CARROKOTH%2COUMUAMUA%2CCHIRON%2CATLAS3I%2CSEDNA%2CBORISOV%2CBORRELLY%2CVARUNA%2CGONGGONG%2CHAUMEA%2CLEUCUS",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=POLYMELE%2CMAKEMAKE%2CORCUS%2CTOUTATIS%2CSWIFTTUTTLE%2CGASPRA%2CPSYCHE%2CBRAILLE%2CMS4%2CINTERAMNIA%2CDINKINESH%2CDAVIDA",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=EURYBATES%2CTHEMIS%2CASTEROID_6178%2CDIDYMOS%2CPALLAS%2CERIS%2CDONALDJOHANSON%2CHYGIEA%2CSTEINS%2CVESTA%2CIDA%2CHARTLEY2",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=LUTETIA%2CWILD2%2CJUNO%2CPATROCLUS%2CORUS%2CMATHILDE%2CKLEOPATRA%2CTEMPEL1%2CQUAOAR%2CEROS%2CITOKAWA%2CAPOPHIS",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=RYUGU%2CCOMET_67P%2CCOMET_HALLEY%2CNEWHORIZONS%2CVOYAGER2%2CVOYAGER1%2CBENNU%2CNEPTUNE%2CTRITON%2CCHARON%2CHYDRA%2CKERBEROS",
+          "method": "GET"
+        }
+      ],
+      "errors": [],
+      "frames_ms": [
+        18.100000008940697,
+        12.799999997019768,
+        28.700000002980232,
+        4.899999991059303,
+        35.80000001192093,
+        5.799999997019768,
+        12.899999991059303,
+        48.1000000089407,
+        11.599999994039536,
+        3.1000000089406967,
+        49,
+        6.799999997019768,
+        33.8999999910593,
+        5.300000011920929,
+        6.899999991059303,
+        30.600000008940697,
+        9.299999997019768,
+        14.299999997019768,
+        9.400000005960464,
+        16.69999998807907,
+        16.600000008940697,
+        17,
+        16.399999991059303,
+        16.700000002980232,
+        16.700000002980232,
+        18.200000002980232,
+        15,
+        16.700000002980232,
+        17.799999997019768,
+        16.599999994039536
+      ],
+      "heap_bytes": 10000000,
+      "svg_elements": 0,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:8765/design/loom-tokens.css",
+          "bytes": 19617,
+          "transfer": 19917,
+          "duration": 16.200000002980232
+        },
+        {
+          "name": "http://127.0.0.1:8765/inspector.css",
+          "bytes": 8125,
+          "transfer": 8425,
+          "duration": 14.799999997019768
+        },
+        {
+          "name": "http://127.0.0.1:8765/design/loom-wordmark-white.svg",
+          "bytes": 8633,
+          "transfer": 8933,
+          "duration": 19.900000005960464
+        },
+        {
+          "name": "http://127.0.0.1:8765/three.min.js",
+          "bytes": 608081,
+          "transfer": 608381,
+          "duration": 22.80000001192093
+        },
+        {
+          "name": "http://127.0.0.1:8765/presentation.js",
+          "bytes": 1748,
+          "transfer": 2048,
+          "duration": 19.399999991059303
+        },
+        {
+          "name": "http://127.0.0.1:8765/inspector.js",
+          "bytes": 53597,
+          "transfer": 53897,
+          "duration": 20.599999994039536
+        },
+        {
+          "name": "http://127.0.0.1:8765/design/Montserrat-VF.woff2",
+          "bytes": 0,
+          "transfer": 300,
+          "duration": 0.5
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/catalog?epoch=2026-01-01T00%3A00%3A00+TDB",
+          "bytes": 19979,
+          "transfer": 20279,
+          "duration": 15.599999994039536
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=2026-01-01T00%3A00%3A00+TDB&center=SUN&view=scene&preview=1",
+          "bytes": 3634,
+          "transfer": 3934,
+          "duration": 12
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/trajectory?body=VENUS&start=820497600&center=SUN&view=auto",
+          "bytes": 13914,
+          "transfer": 14214,
+          "duration": 8.400000005960464
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/trajectory?body=MERCURY&start=820497600&center=SUN&view=auto",
+          "bytes": 17833,
+          "transfer": 18133,
+          "duration": 10.5
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=CERES%2CEARTH_MOON_BARYCENTER%2CJUPITER_SYSTEM_BARYCENTER%2CMARS_SYSTEM_BARYCENTER%2CMERCURY_SYSTEM_BARYCENTER%2CNEPTUNE_SYSTEM_BARYCENTER%2CPLUTO_SYSTEM_BARYCENTER%2CSATURN_SYSTEM_BARYCENTER%2CURANUS_SYSTEM_BARYCENTER%2CVENUS_SYSTEM_BARYCENTER%2CSALACIA%2CAMUN",
+          "bytes": 7099,
+          "transfer": 7399,
+          "duration": 8.600000008940697
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=IXION%2CARROKOTH%2COUMUAMUA%2CCHIRON%2CATLAS3I%2CSEDNA%2CBORISOV%2CBORRELLY%2CVARUNA%2CGONGGONG%2CHAUMEA%2CLEUCUS",
+          "bytes": 6884,
+          "transfer": 7184,
+          "duration": 10.5
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=POLYMELE%2CMAKEMAKE%2CORCUS%2CTOUTATIS%2CSWIFTTUTTLE%2CGASPRA%2CPSYCHE%2CBRAILLE%2CMS4%2CINTERAMNIA%2CDINKINESH%2CDAVIDA",
+          "bytes": 6877,
+          "transfer": 7177,
+          "duration": 15.5
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=EURYBATES%2CTHEMIS%2CASTEROID_6178%2CDIDYMOS%2CPALLAS%2CERIS%2CDONALDJOHANSON%2CHYGIEA%2CSTEINS%2CVESTA%2CIDA%2CHARTLEY2",
+          "bytes": 6843,
+          "transfer": 7143,
+          "duration": 11.5
+        },
+        {
+          "name": "http://127.0.0.1:8765/api/state?epoch=820497600&center=SUN&view=scene&bodies=LUTETIA%2CWILD2%2CJUNO%2CPATROCLUS%2CORUS%2CMATHILDE%2CKLEOPATRA%2CTEMPEL1%2CQUAOAR%2CEROS%2CITOKAWA%2CAPOPHIS",
+          "bytes": 6856,
+          "transfer": 7156,
+          "duration": 7.299999997019768
+        }
+      ],
+      "scene": {
+        "objects": 65,
+        "renderCalls": 6
+      }
+    }
+  ],
+  "parse": [
+    {
+      "vertices": 512,
+      "median_ms": 0.29999999701976776,
+      "p95_ms": 0.4000000059604645
+    },
+    {
+      "vertices": 512,
+      "median_ms": 0.29999999701976776,
+      "p95_ms": 0.3999999910593033
+    },
+    {
+      "vertices": 512,
+      "median_ms": 0.29999999701976776,
+      "p95_ms": 0.4000000059604645
+    },
+    {
+      "vertices": 512,
+      "median_ms": 0.29999999701976776,
+      "p95_ms": 0.4000000059604645
+    },
+    {
+      "vertices": 512,
+      "median_ms": 0.29999999701976776,
+      "p95_ms": 0.4000000059604645
+    }
+  ]
+}
