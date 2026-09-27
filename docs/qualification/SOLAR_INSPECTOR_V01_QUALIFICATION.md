@@ -691,3 +691,99 @@ observations are from headless Chromium/SwiftShader at the Pixel-sized
 viewport, not a physical handset. The existing server serves the current
 branch's static client; no service restart, PostgreSQL write, migration,
 coverage adjustment or recovery-anchor change was required for Q8.
+
+## HUMAN-Q8 physical Pixel local-path follow-up — 2026-09-27
+
+Primary class: `class:runtime`. The reported Phobos/Mars view was examined
+against the same live read-only `loom_dev` ledger and Q8 epoch, ET
+`836354165.1840523` (`2026 JUL 03 12:36:05.184 TDB`). The governing
+catalog identifies Phobos as a `NATURAL_SATELLITE` whose parent is
+`MARS_SYSTEM_BARYCENTER`. Automatic horizon planning used that governed
+parent as `orbital_reference_center`; the requested scene center, independently,
+was `SUN`. The path response was `PHOBOS`, `ECLIPJ2000`, 32/32 resolved
+samples, one 32-index `DIRECT` segment, zero seams/gaps and
+`closed_by_renderer: false`. Its target source was `JPL_MAR099`, and its Sun
+center source was `DE440`. The horizon was `REVOLUTION_COMPLETE` from ET
+`836354165.1840523` to `836381719.9496773` (27,554.765625 seconds).
+
+The first Sun-relative sample was
+`[172271867.1931571, 130581251.78462145, -1488906.948525533] km`;
+the last was
+`[171893219.41369465, 131169669.8394079, -1467290.3801673204] km`.
+Their separation was **700,055.158 km**: this is Phobos's governed inertial
+track while Mars moves over one Phobos revolution, not a closed curve around
+Mars's position at T0. Mars itself moved **700,053.488 km** relative to Sun
+over the same interval. Phobos was **9,409.614 km** from Mars at T0. The
+client maps each Sun-relative sample to PHYSICAL scene units as
+`[x, z, -y] / 149597870.7` and submits the resulting `Float32` vertices
+without orbit closure, propagation or enlargement. The new browser
+qualification compared **all 32 submitted vertices**, by source index, with
+`Math.fround` of that transform and found exact agreement.
+
+At the committed Q8 Whole Catalog overview camera (412×915 CSS pixels,
+distance 16.88656 AU, renderer pixel ratio 2), the Phobos and Mars marker
+centers projected only **0.00360 CSS pixels** apart. Phobos's path was
+resolver-ready but **not submitted** under the existing overview LOD; its
+marker was also LOD-hidden. At the wide Fit Scene distance (992.07088 AU),
+their projected separation was about **0.000061 CSS pixels**. Thus a
+Mars-centered ring is far below a pixel in the heliocentric overview even
+before LOD. The Q8 trace states this explicitly; HTTP success alone was not
+used as visibility evidence.
+
+The Pixel browser follow-up then zoomed the Sun-centered Whole Catalog view
+near Mars to distance **0.00087360 AU**, with Phobos's marker inside the
+viewport. The same Sun-relative 32-vertex line was submitted and contributed
+**1,010 composed canvas pixels**. Its in-viewport sampled-vertex bounds
+were **128.87×232.04 CSS pixels**; it appeared as a track leaving the
+current Mars area, rather than a loop around a stationary Mars marker.
+This is the physically correct selected-frame trajectory: the planet moves
+about 700,000 km during the sampled interval. There was no stale cache,
+source mismatch, missing geometry, hidden material or browser-side
+reference substitution. The Sun and Mars requests had distinct cache keys
+`PHOBOS|836354165.1840523|SUN|auto` and
+`PHOBOS|836354165.1840523|MARS|auto`.
+The single-object **Focus Mars** camera initially used distance
+**0.00018870 AU** and put Phobos's projected marker at x≈507 CSS pixels,
+outside the 412-pixel viewport; three ordinary Zoom Out actions produced
+the comparable Sun-centered framing above. That initial clip is a camera
+framing state, not lost source data or an unsubmitted path.
+
+In **Mars System / center MARS / PHYSICAL**, the automatic path retained the
+same horizon and governed Phobos source but subtracted Mars at every sampled
+ET. The response had 53/53 resolved samples, one 53-index `DIRECT` segment,
+zero gaps/seams, `ECLIPJ2000`, and both body and center source
+`JPL_MAR099`. Its governed Mars-relative radius ranged from **9,233.758 to
+9,515.623 km**; after the measured revolution the first and last points
+were only **2.202 km** apart. The browser verified all **53** rendered
+vertices against those exact Mars-relative samples after the same PHYSICAL
+transform. At a comparable **0.00090968 AU** camera distance, the path
+surrounded the Mars marker, spanned **132.31×118.46 CSS pixels**, and
+contributed **1,332 composed canvas pixels**. The renderer did not close
+the curve; the near-return came from the governed samples.
+
+The live reference regression also checked Moon/Earth, Deimos/Mars,
+Io/Jupiter, Titan/Saturn, Triton/Neptune and Charon/Pluto at the same ET.
+For each, the automatic horizon reference matched its governed parent or
+the resolver's unique-primary association, while path points used the
+requested scene center. At start, middle and end sample ETs, both the
+local-primary and orbital-reference positions **and velocities** equaled
+the subtraction of governed Sun-relative states with **zero returned-value
+residual** across all seven satellites. Moon retains its catalog `NULL`
+parent with the explicit Earth presentation association; no parent data
+was rewritten.
+
+Evidence: [governed reference checks](evidence/SOLAR_INSPECTOR_HUMAN_Q8_LOCAL_PATH_AUTHORITY.json),
+[full Phobos API and submitted-vertex comparison](evidence/SOLAR_INSPECTOR_HUMAN_Q8_LOCAL_PATH_BROWSER.json),
+[Sun-centered Pixel capture](evidence/SOLAR_INSPECTOR_HUMAN_Q8_PHOBOS_SUN_CENTERED.png),
+and [Mars-centered Pixel capture](evidence/SOLAR_INSPECTOR_HUMAN_Q8_PHOBOS_MARS_CENTERED.png).
+Repeat with `python3 tests/solar_inspector_local_path_semantics_live.py` and
+`node tests/solar_inspector_local_path_browser.cjs` against the live
+read-only Inspector. The horizon detail and operator guide now distinguish
+the governed orbital reference from the chosen scene reference. **No
+trajectory/reference defect or Solar authority change was found, and no
+physical path geometry was altered.** The captures are headless Chromium
+at the Pixel-sized viewport; a physical handset was not connected to this
+qualification session. There was no schema/migration, resolver API shape,
+source precedence, kernel, coverage or launcher change. Reverting the
+follow-up client/documentation commit restores the earlier presentation
+without touching the existing ET migration or its recovery anchor.

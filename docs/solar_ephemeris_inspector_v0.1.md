@@ -100,6 +100,14 @@ Restart the inspector to reload the database snapshot or changed assets.
   The **Automatic trajectory horizons and coverage** panel lists each requested
   interval, its orbital reference, status, gap epochs and source-seam brackets.
   Missing state never becomes a display segment.
+- The orbital reference selects the automatic display horizon; it does not
+  replace the chosen scene reference. Each path point is the governed body
+  position minus the selected scene center at that sample's ET. In a
+  Sun-centered PHYSICAL scene, a moon's path therefore follows its moving
+  planetary system and need not form a loop around the planet's T0 marker.
+  Select the local primary as reference center (for example, Mars System /
+  Mars) to inspect the governed moon-relative loop. No local orbit is
+  synthesized or enlarged in the browser.
 - Whole Catalog progressively requests every renderable physical-object path.
   Its label and marker LOD keeps the overview legible; automatic moon/minor
   paths appear as zoom permits. Selected paths remain visible. Cached resolver

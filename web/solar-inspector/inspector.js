@@ -439,6 +439,28 @@
       renderCalls: renderer.info.render.calls, objects: objectsReport, paths: pathsReport };
   }
   window.__solarInspectorReconcile = reconcileScene;
+  window.__solarInspectorPathGeometry = bodyId => {
+    if (!snapshot) return null;
+    const row = snapshot.objects.find(item => item.body_id === bodyId);
+    if (!row) return null;
+    const key = pathKey(row), path = orbitPaths.get(key);
+    const marker = markers.find(item => item.row.body_id === bodyId);
+    return { body_id: bodyId, epoch_et: snapshot.epoch_et, scene_center: snapshot.reference_center,
+      scene_frame: snapshot.reference_frame, mode: $('mode').value,
+      marker: marker ? { source_position_km: row.relative.position_km, scene_position: marker.position.toArray(),
+        submitted: objects.children.includes(marker.mesh), visible: marker.mesh.visible } : null,
+      path: path ? { reference_center: path.reference_center, reference_frame: path.reference_frame,
+        horizon: path.horizon, closed_by_renderer: path.closed_by_renderer,
+        points: path.points.map(point => ({ epoch_et: point.epoch_et, relative: point.relative || null })),
+        segments: path.segments.map((segment,index) => {
+          const line = paths.children.find(item => item.userData.automaticPathKey === key && item.userData.segmentIndex === index);
+          const positions = line?.geometry.attributes.position;
+          return { index, authority_class: segment.authority_class, sources: segment.sources,
+            source_indices: segment.indices, submitted: Boolean(line), material_visible: Boolean(line?.material.visible),
+            scene_vertices: positions ? Array.from({length:positions.count},(_,i) =>
+              [positions.getX(i),positions.getY(i),positions.getZ(i)]) : [] };
+        }) } : null };
+  };
   function updateOrbitStatus() {
     const candidates = pathCandidates();
     if (!candidates.length) { $('orbitStatus').textContent = ''; $('horizons').replaceChildren(); return; }
@@ -453,7 +475,7 @@
       const item = document.createElement('p'), path = orbitPaths.get(pathKey(row));
       const gaps = path?.gap_indices.map(index => path.points[index].epoch_tdb) || [];
       const seams = path?.seams?.map(seam => seam.time_bracket_tdb.join(' → ')) || [];
-      item.textContent = `${row.canonical_name}: ${path ? `${path.horizon.start} → ${path.horizon.end} · ${path.horizon.status} · orbital reference ${path.horizon.orbital_reference_center} · ${gaps.length} gaps${gaps.length ? ` (${gaps.slice(0,3).join(', ')}${gaps.length > 3 ? ', …' : ''})` : ''} · ${seams.length} source seams${seams.length ? ` (${seams.join(', ')})` : ''}` : orbitPaths.has(pathKey(row)) ? `unavailable · ${orbitPathFailures.get(pathKey(row)) || 'unknown request failure'}` : 'loading'}`;
+      item.textContent = `${row.canonical_name}: ${path ? `${path.horizon.start} → ${path.horizon.end} · ${path.horizon.status} · orbital reference ${path.horizon.orbital_reference_center} · scene reference ${path.reference_center} · ${gaps.length} gaps${gaps.length ? ` (${gaps.slice(0,3).join(', ')}${gaps.length > 3 ? ', …' : ''})` : ''} · ${seams.length} source seams${seams.length ? ` (${seams.join(', ')})` : ''}` : orbitPaths.has(pathKey(row)) ? `unavailable · ${orbitPathFailures.get(pathKey(row)) || 'unknown request failure'}` : 'loading'}`;
       return item;
     }));
   }
