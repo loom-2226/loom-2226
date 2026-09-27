@@ -6,6 +6,8 @@ const profile=option('--profile','pixel'),delivery=option('--delivery','progress
 if(!['pixel','desktop'].includes(profile)||!['progressive','monolithic'].includes(delivery))throw Error('invalid profile/delivery');
 const evidence=process.env.SOLAR_BASEMAP_EVIDENCE||'/tmp/solar-basemap-browser';fs.mkdirSync(evidence,{recursive:true});
 const width=profile==='pixel'?412:1280,height=profile==='pixel'?915:800,dpr=profile==='pixel'?3:1,AU=149597870.7;
+function compactScene(s){return s?{...s,lines:(s.lines||[]).map(({float32Input,cameraRelativeKm,...line})=>line)}:null;}
+function compactReconcile(r){return {...r,renderer_lines:(r.renderer_lines||[]).map(({float32Input,cameraRelativeKm,...line})=>line)};}
 async function main(){
  const browser=await chromium.launch({headless:true});const trials=[];
  try{
@@ -18,7 +20,7 @@ async function main(){
    const t0=Date.now();await page.goto(`${base}${base.includes('?')?'&':'?'}delivery=${delivery}`,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.__solarBasemapReady||window.__solarBasemapError,{timeout:120000});
    if(await page.evaluate(()=>!!window.__solarBasemapError))throw Error(await page.evaluate(()=>window.__solarBasemapError));
    await page.waitForFunction(()=>window.__solarBasemapScene&&window.__solarBasemapScene.markers>0&&window.__solarBasemapScene.lines.length>0,{timeout:30000});
-   const usefulMs=Date.now()-t0;const initial=await page.evaluate(()=>({scene:window.__solarBasemapScene,report:window.__solarBasemapReport(),product:performance.getEntriesByType('resource').filter(x=>x.name.includes('/product/')).map(x=>({name:x.name,transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration})),shell:performance.getEntriesByType('resource').filter(x=>!x.name.includes('/product/')&&x.name.startsWith(location.origin)).map(x=>({name:x.name.replace(location.origin,''),transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration}))}));
+   const usefulMs=Date.now()-t0;const initial=await page.evaluate(()=>({scene:compactScene(window.__solarBasemapScene),report:window.__solarBasemapReport(),product:performance.getEntriesByType('resource').filter(x=>x.name.includes('/product/')).map(x=>({name:x.name,transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration})),shell:performance.getEntriesByType('resource').filter(x=>!x.name.includes('/product/')&&x.name.startsWith(location.origin)).map(x=>({name:x.name.replace(location.origin,''),transfer:x.transferSize,encoded:x.encodedBodySize,decoded:x.decodedBodySize,duration:x.duration}))}));
    assert.equal(productRequests.length,delivery==='progressive'?2:1,'initial scene must require only manifest/root or the monolithic control');if(delivery==='progressive')assert(initial.product.reduce((s,x)=>s+x.encoded,0)<=49920,'progressive manifest+root gzip bytes must meet the 49,920-byte coarse-context budget');
    const cold={index:n,throttled,useful_ms:usefulMs,requests:productRequests.length,product_resources:initial.product,shell_requests:initial.shell,shell_request_count:initial.shell.length,scene:initial.scene,cache:initial.report.cache,transfer_bytes:initial.product.reduce((s,x)=>s+x.transfer,0)};
    async function cameraSequence(tag){
@@ -32,8 +34,8 @@ async function main(){
     await page.screenshot({path:path.join(evidence,`${profile}-${delivery}-${throttled?'throttled':'plain'}-${n}-${tag}-pluto.png`)});
     const end=await page.evaluate(async()=>{window.LoomRenderer.isolate('CHARON');await new Promise(requestAnimationFrame);const isolatedPixels=window.__solarBasemapReadPixels();window.LoomRenderer.isolate(null);await new Promise(requestAnimationFrame);return {report:window.__solarBasemapReport(),pixels:window.__solarBasemapReadPixels(),isolatedPixels,reconcile:window.__solarBasemapReconcile()};});
     assert(end.isolatedPixels.mint_line_pixels>0,'Charon reference curve must contribute visible pixels when isolated');assert.equal(end.reconcile.features.length,110,'every governed catalog identity must reconcile');assert(end.report.error_budget.max_gpu_conversion_css_px<.25,'Float32 camera-relative conversion must stay below 0.25 CSS px');assert(end.report.error_budget.total_css_px<=1,'settled Pluto view geometry debt must stay within 1 CSS px');
-    return {route,marsReadyMs,plutoReadyMs,mars:{selected:mars.report.draw_list.filter(x=>['PHOBOS','DEIMOS'].includes(x.feature_id)),scene:mars.report.scene,pixels:mars.pixels,isolated:mars.isolatedPixels,reconcile:mars.reconcile},
-      pluto:{selected:end.report.draw_list.filter(x=>x.feature_id==='CHARON'),scene:end.report.scene,pixels:end.pixels,isolated:end.isolatedPixels,reconcile:end.reconcile},cache:end.report.cache};
+    return {route,marsReadyMs,plutoReadyMs,mars:{selected:mars.report.draw_list.filter(x=>['PHOBOS','DEIMOS'].includes(x.feature_id)),scene:compactScene(mars.report.scene),pixels:mars.pixels,isolated:mars.isolatedPixels,reconcile:compactReconcile(mars.reconcile)},
+      pluto:{selected:end.report.draw_list.filter(x=>x.feature_id==='CHARON'),scene:compactScene(end.report.scene),pixels:end.pixels,isolated:end.isolatedPixels,reconcile:compactReconcile(end.reconcile)},cache:end.report.cache};
    }
    const coldPath=await cameraSequence('cold');
    // A same-context revisit after the complete Mars and Pluto routes exercises retained HTTP/browser caches.
