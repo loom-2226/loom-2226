@@ -157,7 +157,9 @@ def validate_product(root):
     if hashlib.sha256(canonical_bytes(manifest)).hexdigest() != build_claim:
         raise ValueError("manifest build id mismatch")
     manifest["build_id"] = build_claim
-    for desc in (manifest["root"], manifest["provenance"]):
+    if manifest["authority"]["sample_source_dictionary"] != manifest["provenance"]:
+        raise ValueError("authority source dictionary pointer mismatch")
+    for desc in (manifest["root"], manifest["provenance"], manifest["generation"]["spec"]):
         _verify_resource(root, desc)
     product_root = json.loads((root / manifest["root"]["uri"]).read_bytes())
     validate_semantics(product_root)
