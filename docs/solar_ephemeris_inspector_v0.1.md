@@ -202,10 +202,15 @@ disposable qualification.
 
 See [qualification evidence](qualification/SOLAR_INSPECTOR_V01_QUALIFICATION.md)
 for commands, observed cases, endpoint limitations and results.
-Recovery is to stop this optional server and return to the prior code while
-retaining the additive ET columns and provenance. Reverting the code would
-reintroduce the prior UTC time-selection defect, so the migration and code
-should be promoted together only after governed review.
+To stop the optional Inspector, stop its server and retain the ET schema.
+The pre-repair Inspector cannot start against migration 020: its coverage
+record constructor does not accept the two added columns. A rollback to that
+code requires a compatible schema rollback first, after checking for any
+intervening Solar writes or new ET-column consumers. The 2026-09-27
+pre-migration `loom_solar` backup and a verified reverse transaction are
+recorded in the qualification evidence. Do not restore that snapshot over
+later Solar changes without reconciling them. Rolling back code and schema
+would reintroduce the prior UTC time-selection defect.
 
 Phase 5, CIVPROP/CIVSTATE, Atlas/Navigator integration, textures, decorative
 belts, screenshot/export features, packaging, production infrastructure and

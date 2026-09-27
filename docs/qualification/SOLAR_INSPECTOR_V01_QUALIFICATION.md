@@ -494,3 +494,86 @@ performance claims. Python compile checks, both JavaScript syntax checks and
 errors and two pre-existing warnings (optional Montserrat file; undefined
 operational status thresholds). No trajectory performance or cache/kernel-pool
 optimization is part of this repair.
+
+## Live `loom_dev` deployment — 2026-09-27
+
+**Scope and preflight.** PR #299 runtime commit
+`26ae273b699cabea0c5745904f63639c11301361` was the clean local and
+remote head; `loom-gate` had passed. This was an explicit deployment to the
+live development Solar authority, not a merge or a production release.
+PostgreSQL 16.15 `loom_dev` had 110 Solar bodies, 123 coverage rows (121
+qualified), and neither ET column. A read-only startup-ledger check matched
+all 123 source/body/status/UTC-label rows and source SHA-256 identities to the
+pinned overlay; no authority preimage drift was found. Port 8765 had no
+Inspector listener before startup.
+
+**Recovery anchor.** Before migration, `pg_dump -Fc -n loom_solar` wrote
+`/home/ubuntu/LOOM_ARCHIVE/POSTGRES/2026-09-27/SOLAR_ET_PR299/loom_solar_pre_et_020.dump`
+(28,916 bytes; mode 0600; SHA-256
+`6babcd3aa803c6087cd170bdc9a8f749417265aa08adead047e885727d7dd4d7`).
+`pg_restore --exit-on-error` into disposable
+`loom_solar_et_restore_check_20260927` succeeded; a read-only comparison of
+all six restored Solar ledger tables matched the live pre-migration snapshot
+exactly (110 bodies, 123 coverage rows). The archive and restored check
+database were retained. The backup is local to this host.
+
+**Migration and postflight.** Exact migration
+`020_solar_native_et_coverage.sql` SHA-256
+`f399dc84c4e085d489d94773c46ae69eb86fb45f74148b533fd1b5af2903550e`
+ran on live `loom_dev` with `ON_ERROR_STOP=1`; `BEGIN`, `ALTER TABLE`, the
+123-row preimage `DO` check, constraint/index creation and `COMMIT` all
+succeeded. Postflight found 123 overlay-matching ET rows, 121 qualified,
+zero NULL ET bounds, the `solar_et_coverage_order` constraint and
+`ephemeris_coverage_body_et_idx` index. DE440 Earth bounds were
+`[-14200747200.0, 20514081600.0]`. Removing the two new ET fields from the
+live read-only snapshot made all six Solar ledger tables identical to the
+restored pre-migration snapshot: no body, status, historical label, source
+identity, membership or other ledger value changed.
+
+**Live service and qualification.** The repaired code started in detached
+`tmux` session `solar-et-live-299` using the qualified Solar virtualenv,
+`--database loom_dev --asset-root /home/ubuntu/loom_solar_assets --port 8765`.
+PID 103081 bound only `127.0.0.1:8765` and remained running after testing.
+HTTP smoke passed: 2026/2226/2250 TDB mapped to ET
+`820497600.0`/`7131844800.0`/`7889227200.0`; catalog resolution was
+105/110, 103/110 and 103/110 respectively; Earth used DE440 and
+`ECLIPJ2000`; 2226 Jupiter and New Horizons used their expected propagated
+sources at identical object/center ET. Explicit `2226-01-01T00:00:00Z`
+projected through the pinned LSK to ET `7131844869.183806`, distinct from
+the TDB calendar input. A 12-sample Earth path retained numeric ET from start
+to end with no gaps.
+
+The live scoped ET/Inspector/adapter/official-center/Phase-4 B–E run was
+**83 tests OK, 3 skips**. The earned-authority, source-isolation, migration,
+shared SpatialState and SQLite-provider run was **26 tests OK, 8 skips**.
+The live desktop and 412px Pixel browser run **passed**: 196 exact scene
+responses, 98 Whole Catalog paths, zero path requests during Play, zero page
+errors and zero external requests. Pixel initial load 4173 ms and Play
+advance 1952 ms were host observations, not thresholds or optimization work.
+
+**Rollback compatibility correction.** The pre-repair Inspector's coverage
+constructor cannot accept the added ET columns. Stopping the optional server
+needs no database rollback; restarting pre-repair code does. After stopping
+the server and verifying that no intervening Solar writes or new ET consumers
+would be lost, the following reverse schema transaction removes only migration
+020's additive objects:
+
+```sql
+BEGIN;
+SET LOCAL lock_timeout = '5s';
+DROP INDEX loom_solar.ephemeris_coverage_body_et_idx;
+ALTER TABLE loom_solar.ephemeris_coverage
+    DROP CONSTRAINT solar_et_coverage_order,
+    DROP COLUMN coverage_start_et,
+    DROP COLUMN coverage_end_et;
+COMMIT;
+```
+
+This reverse transaction ran **only on a disposable live clone** and
+returned all six Solar ledger tables exactly to the restored pre-migration
+snapshot; the clone was then removed. It was **not** run on live `loom_dev`.
+The archived dump provides a second recovery anchor but must not be restored
+over later Solar changes without reconciliation. Returning to pre-repair code
+would restore its UTC time-selection defect. No HUMAN-Q8, unrelated
+performance change, canon change, SPK replacement or coverage/status
+promotion occurred.
