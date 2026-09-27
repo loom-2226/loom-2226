@@ -1,7 +1,7 @@
 import copy
 import unittest
 
-from src.loom_solar_basemap_contract import canonical_bytes, resource_bytes, validate_semantics
+from src.loom_solar_basemap_contract import canonical_bytes, resource_bytes, validate_audit_record, validate_semantics
 
 
 class ContractTests(unittest.TestCase):
@@ -54,6 +54,15 @@ class ContractTests(unittest.TestCase):
         chunk={"schema":"loom.solar-basemap.chunk/0.1","build_spec_id":"0"*64,
                "node_id":"solar","level":0,"curves":[],"extensions":{}}
         self.assertTrue(validate_semantics(chunk,kind="chunk"))
+
+    def test_audit_pins_frame_units_and_both_reference_semantics(self):
+        audit={"schema":"loom.solar-basemap.audit/0.1","body_id":"PHOBOS","anchor_id":"MARS",
+               "epoch_et":7131844800.0,"frame":"ECLIPJ2000","units":"km","aberration":"NONE",
+               "physical_state_center":"SUN","cartographic_semantic":"PARENT_RELATIVE_REFERENCE_ORBIT",
+               "sample_count":0,"samples":[]}
+        self.assertTrue(validate_audit_record(audit,body="PHOBOS",anchor="MARS",semantic="PARENT_RELATIVE_REFERENCE_ORBIT",epoch=7131844800.0))
+        with self.assertRaisesRegex(ValueError,"identity/frame/units/semantics"):
+            validate_audit_record({**audit,"frame":None},body="PHOBOS",anchor="MARS",semantic="PARENT_RELATIVE_REFERENCE_ORBIT",epoch=7131844800.0)
 
 
 if __name__ == "__main__": unittest.main()

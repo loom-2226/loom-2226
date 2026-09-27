@@ -291,10 +291,12 @@ def compile_product(database, asset_root, output, epoch="2226-01-01T00:00:00 TDB
         for body,anchor in sorted(requested.items()):
             plan=inspector.automatic_plan(body,et)
             compiled=_curve_sampling(inspector,body,anchor,plan)
-            audit_val={"schema":"loom.solar-basemap.audit/0.1","body_id":body,"anchor_id":anchor,"epoch_et":et,
-                       "horizon":plan,"sample_count":compiled["master_count"],"samples":compiled["audit"]["samples"],"extensions":{}}
-            audit_desc=_write_resource(stage,"provenance",audit_val); sample_resources.append(audit_desc)
             semantic="HELIOCENTRIC_REFERENCE_ORBIT" if anchor=="SUN" else "PARENT_RELATIVE_REFERENCE_ORBIT"
+            audit_val={"schema":"loom.solar-basemap.audit/0.1","body_id":body,"anchor_id":anchor,"epoch_et":et,
+                       "frame":SPICE_FRAME,"units":"km","aberration":"NONE","physical_state_center":"SUN",
+                       "cartographic_semantic":semantic,"horizon":plan,"sample_count":compiled["master_count"],
+                       "samples":compiled["audit"]["samples"],"extensions":{}}
+            audit_desc=_write_resource(stage,"provenance",audit_val); sample_resources.append(audit_desc)
             curve_base={"feature_id":body,"semantic":semantic,"anchor_id":anchor,"horizon_reference_id":plan["orbital_reference_center"],"frame":SPICE_FRAME,
                 "start_et":plan["start_et"],"end_et":plan["end_et"],"horizon_status":plan["status"],"closed":False,
                 "geometry_status":compiled["status"],"segments":[],"gaps":compiled["gaps"],"source_refs":[],"audit":audit_desc,

@@ -144,6 +144,18 @@ def _validate_curve(curve):
                 raise ValueError("invalid segment coordinate")
 
 
+def validate_audit_record(audit, *, body, anchor, semantic, epoch):
+    """Require the physical and derived-reference metadata beside exact states."""
+    expected={"schema":"loom.solar-basemap.audit/0.1","body_id":body,"anchor_id":anchor,
+              "epoch_et":epoch,"frame":"ECLIPJ2000","units":"km","aberration":"NONE",
+              "physical_state_center":"SUN","cartographic_semantic":semantic}
+    if any(audit.get(key)!=value for key,value in expected.items()):
+        raise ValueError(f"audit identity/frame/units/semantics mismatch for {body}")
+    if not isinstance(audit.get("samples"),list) or audit.get("sample_count")!=len(audit["samples"]):
+        raise ValueError(f"audit sample inventory mismatch for {body}")
+    return True
+
+
 def validate_product(root):
     """Verify immutable resource hashes, gzip variants and manifest identity."""
     root = Path(root)
@@ -208,8 +220,8 @@ def validate_product(root):
         _verify_resource(root, curve["audit"])
         audit = json.loads((root / curve["audit"]["uri"]).read_bytes())
         audits[body] = audit
-        if audit["body_id"] != body or audit["anchor_id"] != anchor or audit["frame"] != "ECLIPJ2000":
-            raise ValueError(f"audit identity/frame mismatch for {body}")
+        semantic="HELIOCENTRIC_REFERENCE_ORBIT" if anchor=="SUN" else "PARENT_RELATIVE_REFERENCE_ORBIT"
+        validate_audit_record(audit,body=body,anchor=anchor,semantic=semantic,epoch=manifest["epoch_et"])
         for sample in audit["samples"]:
             if sample["body_state"] is None or sample["anchor_state"] is None:
                 continue
