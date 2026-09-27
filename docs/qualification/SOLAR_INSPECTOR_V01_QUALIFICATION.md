@@ -338,3 +338,45 @@ release contract changed. The new automatic path response is an optional
 Inspector endpoint; the existing manual and compact path endpoints retain
 their prior request and response contracts. Recovery is to revert the PR
 branch commit. Promotion still targets protected `main` through PR #299.
+
+## HUMAN-Q7 automatic route regression — 2026-09-27
+
+Human qualification of `bf014c7` found `GET /api/trajectory?body=EARTH&center=SUN&start=2026-09-27T00:00:00Z&view=auto`
+returning HTTP 400, `{"error": "invalid epoch_utc: None"}`, while `/api/catalog`
+returned valid governed JSON. The Pixel UI reported `Resolver paths unavailable`.
+This is recorded as a Q6 human qualification failure, not a visual defect.
+
+The active server process on port 8765 had started at 10:00 local time, before
+the Q6 route was written at 12:46. The loaded pre-Q6 route treated `view=auto`
+as a manual trajectory and passed its absent `end` query value as `None` to
+`trajectory`/`_epoch`. The supplied `start` was intact. A direct call through
+the current `automatic_path` with the read-only live ledger returned a complete
+Earth revolution; no resolver or epoch parser defect was found. The stale
+process was stopped and the current branch server started on port 8765 using
+the Solar virtual environment. No default epoch, fallback path, browser
+propagation or fabricated state was introduced.
+
+A new test sends a real HTTP `view=auto` request without `end` to the current
+server handler. It requires HTTP 200, the supplied T0, a complete governed
+horizon, source segments and seam preservation. Browser qualification now
+records non-200 automatic responses and checks that neither desktop nor Pixel
+reports `Resolver paths unavailable`.
+
+After restart, the exact human reproduction URL returned HTTP 200: Earth/Sun,
+T0 `2026-09-27T00:00:00Z`, horizon `REVOLUTION_COMPLETE`, end
+`2027-09-27T06:16:53.089183Z`, 38/38 resolved points, one direct segment,
+zero seams and zero gaps. The first point had governed relative state and
+`closed_by_renderer` remained false. A temporary system-Python launch returned
+HTTP 200 with an explicitly unresolved path because that interpreter lacked
+the Solar SPICE environment; it was stopped and excluded from success evidence.
+
+The live Inspector suite passed 19/19. The Q3–Q6 scoped Inspector, spatial
+authority, SPICE adapter and source-isolation run passed 42/42 in the Solar
+virtual environment. An initial system-Python run had one environment error
+(`spiceypy` missing); the virtual-environment rerun passed. Python compile,
+JavaScript syntax and `git diff --check` passed. Desktop and 412px/3x Pixel
+Chromium passed: 195 exact scene responses, 98/98 Whole Catalog automatic
+paths, zero failed automatic responses, zero page errors, zero external
+requests and zero path requests during Play. Both views lacked the reported
+unavailable message. Seam, gap, truncation and unresolved behavior remains
+explicit; prior frozen scientific and governing source objects were untouched.

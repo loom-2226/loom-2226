@@ -2,16 +2,20 @@
 from copy import deepcopy
 from dataclasses import asdict, replace
 from datetime import timedelta
+from http.client import HTTPConnection
+from http.server import ThreadingHTTPServer
 import json
 import math
 import os
 from pathlib import Path
+from threading import Thread
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
 from src.loom_solar_postgres import read_ledger, registry_from_ledger, asset_recipes
 from src.loom_solar_inspector import Inspector, relative_state
+from src.solar_inspector_server import handler_for
 from src.loom_spatial_state_authority import SpatialState, CelestialStateError, CANONICAL_FRAME, _epoch
 from src.loom_spice_ephemeris_adapter import (
     EphemerisSource, EphemerisCoverage, KernelAsset, SpiceEphemerisAdapter,
@@ -262,6 +266,32 @@ class AutomaticHorizonTests(unittest.TestCase):
                           'ephemeris_source_id':'PROP' if propagated else 'DIRECT'}
             return SpatialState(body, epoch, CANONICAL_FRAME, position, velocity, provenance, not propagated)
         self.inspector = Inspector(ledger, registry, SimpleNamespace(resolve=resolve), max_orbit_years=10)
+
+    def test_http_auto_route_uses_start_as_governed_t0(self):
+        server = ThreadingHTTPServer(('127.0.0.1', 0), handler_for(self.inspector, ROOT / 'web/three/three.min.js'))
+        thread = Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            connection = HTTPConnection('127.0.0.1', server.server_port, timeout=10)
+            try:
+                connection.request('GET', '/api/trajectory?body=BOUND&center=SUN&start=2026-01-01T00:00:00Z&view=auto')
+                response = connection.getresponse()
+                body = json.loads(response.read())
+            finally:
+                connection.close()
+            self.assertEqual(response.status, 200, body)
+            self.assertEqual(body['horizon']['start'], '2026-01-01T00:00:00Z')
+            self.assertEqual(body['horizon']['status'], 'REVOLUTION_COMPLETE')
+            self.assertEqual(body['reference_center'], 'SUN')
+            self.assertTrue(body['segments'])
+            self.assertTrue(body['seams'])
+            self.assertFalse(body['closed_by_renderer'])
+            self.assertFalse({index for segment in body['segments'] for index in segment['indices']}
+                             & set(body['gap_indices']))
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join(timeout=10)
 
     def test_complete_bound_revolution_starts_at_t0_and_keeps_seam(self):
         path = self.inspector.automatic_path('BOUND','2026-01-01T00:00:00Z','SUN')

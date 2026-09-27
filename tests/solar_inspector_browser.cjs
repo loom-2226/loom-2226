@@ -23,7 +23,7 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
   const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
   const page = await browser.newPage({ viewport: { width: 1500, height: 1000 } });
   page.setDefaultTimeout(180000);
-  const errors = [], external = [], snapshots = [], trajectoryRequests = [], automaticPaths = [];
+  const errors = [], external = [], snapshots = [], trajectoryRequests = [], automaticPaths = [], failedAutomaticPaths = [];
   let pathRequestsDuringPlay = null;
   page.on('pageerror', e => errors.push(e.message));
   page.on('crash', () => errors.push('browser page crashed'));
@@ -35,7 +35,8 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     catch (error) { if (!page.isClosed()) errors.push(error.message); }
   });
   page.on('response', async r => {
-    if (!r.url().includes('/api/trajectory?') || !r.url().includes('view=auto') || !r.ok()) return;
+    if (!r.url().includes('/api/trajectory?') || !r.url().includes('view=auto')) return;
+    if (!r.ok()) { failedAutomaticPaths.push(`${r.status()} ${r.url()}`); return; }
     try { automaticPaths.push(await r.json()); }
     catch (error) { if (!page.isClosed()) errors.push(error.message); }
   });
@@ -60,6 +61,7 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     for (const id of ['layerMoons','layerMinor','layerSpacecraft','layerBarycenters'])
       assert.equal(await page.locator('#' + id).isChecked(), false, `${id} must default OFF in Solar view`);
     await page.waitForFunction(() => document.querySelector('#orbitStatus').textContent.startsWith('Resolver paths 8/8'));
+    assert.doesNotMatch(await page.locator('#orbitStatus').innerText(), /Resolver paths unavailable/);
     await page.selectOption('#catalog', 'EARTH');
     await page.waitForFunction(() => document.querySelector('#detail').textContent.startsWith('{'));
     const exact = await page.locator('#detail').textContent();
@@ -248,10 +250,16 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
       assert.equal(s.counts.resolved, s.counts.direct + s.counts.propagated);
       assert.equal(s.counts.renderable, s.objects.filter(r => r.relative).length);
     }
+    assert.deepEqual(failedAutomaticPaths, []);
+    assert.doesNotMatch(await page.locator('#orbitStatus').innerText(), /Resolver paths unavailable/);
     assert.deepEqual(errors, []); assert.deepEqual(external, []);
     const mobile = await browser.newPage({ viewport: { width: 412, height: 915 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true });
-    const mobileErrors = [];
+    const mobileErrors = [], mobileFailedAutomaticPaths = [];
     mobile.on('pageerror', e => mobileErrors.push(e.message));
+    mobile.on('response', r => {
+      if (r.url().includes('/api/trajectory?') && r.url().includes('view=auto') && !r.ok())
+        mobileFailedAutomaticPaths.push(`${r.status()} ${r.url()}`);
+    });
     const initialStart = Date.now();
     await mobile.goto(baseUrl + '/');
     await mobile.waitForFunction(() => document.querySelector('#message').textContent.startsWith('Exact resolver'), { timeout: 180000 });
@@ -268,6 +276,8 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     await mobile.click('#sceneSystem');
     await mobile.waitForFunction(() => document.querySelector('#stage').dataset.systemFit === 'complete', {timeout: 180000});
     assert.equal(await mobile.locator('#center').inputValue(),'EARTH');
+    assert.doesNotMatch(await mobile.locator('#orbitStatus').innerText(), /Resolver paths unavailable/);
+    assert.deepEqual(mobileFailedAutomaticPaths, []);
     assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
     assert.deepEqual(mobileErrors, []);
     await mobile.close();
