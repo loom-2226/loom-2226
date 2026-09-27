@@ -90,7 +90,8 @@ def validate_semantics(document, *, kind=None):
     if schema not in {"loom.solar-basemap.manifest/0.1", "loom.solar-basemap.root/0.1",
                       "loom.solar-basemap.chunk/0.1", "loom.solar-basemap.provenance/0.1"}:
         raise ValueError(f"unsupported product schema {schema}")
-    if kind and not schema.endswith("/" + kind + "/0.1"):
+    definition=schema.removeprefix("loom.solar-basemap.").split("/",1)[0]
+    if kind and definition != kind:
         raise ValueError(f"expected {kind} record")
     if schema.endswith("manifest/0.1"):
         if document.get("frame") != "ECLIPJ2000" or document.get("center") != "SUN" or document.get("units") != "km":
@@ -124,7 +125,7 @@ def validate_semantics(document, *, kind=None):
             if curve.get("semantic") == "PARENT_RELATIVE_REFERENCE_ORBIT" and curve.get("anchor_id") == "SUN":
                 raise ValueError("parent-relative curve cannot use Sun anchor")
             _validate_curve(curve)
-    _schema_validate(document,{"$ref":"#/$defs/"+schema.split(".")[-1].split("/")[0]})
+    _schema_validate(document,{"$ref":"#/$defs/"+definition})
     return True
 
 

@@ -50,5 +50,10 @@ class ContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"counts"):
             validate_semantics(doc)
 
+    def test_schema_version_suffix_maps_to_definition_name(self):
+        chunk={"schema":"loom.solar-basemap.chunk/0.1","build_spec_id":"0"*64,
+               "node_id":"solar","level":0,"curves":[],"extensions":{}}
+        self.assertTrue(validate_semantics(chunk,kind="chunk"))
+
 
 if __name__ == "__main__": unittest.main()
