@@ -1,33 +1,31 @@
-"""Governed local SPICE adapter for the Solar Phase-1 state authority.
+"""Governed local SPICE adapter for Solar numeric-ET state authority.
 
-SPICE is deliberately private to this module. Consumers receive the existing
-HybridCelestialStateService and therefore cannot bypass LOOM identity,
-coverage, frame, unit, or provenance checks.
+SPICE remains private to this module. Consumers receive the SolarStateService
+and cannot bypass identity, ET coverage, frame, unit, or provenance checks.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from contextlib import contextmanager
 from datetime import datetime, timezone
 import hashlib
 import json
+import math
 from pathlib import Path
 from typing import Iterable, Mapping
-from threading import RLock
 
 from src.loom_spatial_state_authority import (
-    CANONICAL_FRAME,
     CelestialStateError,
-    HybridCelestialStateService,
     SpatialState,
 )
+from src.loom_solar_time import SPICE_LOCK, codec_from_registry, finite_et
 
 
 SPICE_FRAME = "ECLIPJ2000"
 SPICE_ABERRATION = "NONE"
 STATE_UNITS = "km,km/s"
 # SPICE's kernel pool is process-global, including across adapter instances.
-_EVALUATION_LOCK = RLock()
+_EVALUATION_LOCK = SPICE_LOCK
 
 
 def _epoch(value: str) -> datetime:
@@ -98,6 +96,8 @@ class EphemerisCoverage:
     units: str = STATE_UNITS
     coverage_class: str = "BODY"
     status: str = "QUALIFIED"
+    coverage_start_et: float | None = None
+    coverage_end_et: float | None = None
 
 
 class SolarEphemerisRegistry:
@@ -127,8 +127,15 @@ class SolarEphemerisRegistry:
                 raise CelestialStateError(f"coverage references unknown source: {record.ephemeris_source_id}")
             if record.body_id is not None and record.body_id not in self.bodies:
                 raise CelestialStateError(f"coverage references unknown LOOM body: {record.body_id}")
-            if _epoch(record.valid_from) >= _epoch(record.valid_until):
-                raise CelestialStateError("ephemeris coverage must have valid_from < valid_until")
+            # UTC fields are audited provenance labels, never interval authority.
+            _epoch(record.valid_from)
+            _epoch(record.valid_until)
+            if record.coverage_start_et is not None or record.coverage_end_et is not None:
+                if (record.coverage_start_et is None or record.coverage_end_et is None
+                        or not math.isfinite(record.coverage_start_et)
+                        or not math.isfinite(record.coverage_end_et)
+                        or record.coverage_start_et >= record.coverage_end_et):
+                    raise CelestialStateError('invalid numeric SPICE ET coverage')
 
     def body_identifier(self, body_id: str) -> BodyIdentifier:
         matches = tuple(
@@ -139,10 +146,10 @@ class SolarEphemerisRegistry:
             raise CelestialStateError(f"LOOM body must have exactly one active governed identifier: {body_id}")
         return matches[0]
 
-    def source_for(self, body_id: str, epoch_utc: str) -> tuple[EphemerisSource, EphemerisCoverage]:
+    def source_for(self, body_id: str, epoch_et: float) -> tuple[EphemerisSource, EphemerisCoverage]:
         if body_id not in self.bodies:
             raise CelestialStateError(f"unknown LOOM body: {body_id}")
-        requested = _epoch(epoch_utc)
+        requested = finite_et(epoch_et)
         candidates: list[tuple[EphemerisSource, EphemerisCoverage]] = []
         for record in self.coverage:
             if record.status != "QUALIFIED" or record.reference_frame != SPICE_FRAME or record.units != STATE_UNITS:
@@ -152,10 +159,14 @@ class SolarEphemerisRegistry:
                 continue
             if record.body_id not in (None, body_id):
                 continue
-            if _epoch(record.valid_from) <= requested <= _epoch(record.valid_until):
+            if record.coverage_start_et is None or record.coverage_end_et is None:
+                if record.status == 'QUALIFIED':
+                    raise CelestialStateError('qualified source is missing numeric SPICE ET coverage')
+                continue
+            if record.coverage_start_et <= requested <= record.coverage_end_et:
                 candidates.append((source, record))
         if not candidates:
-            raise CelestialStateError(f"no qualified source coverage for LOOM body {body_id} at {_iso(requested)}")
+            raise CelestialStateError(f"no qualified source coverage for LOOM body {body_id} at ET {requested}")
         # Body-specific coverage outranks product coverage. Equal specificity
         # is an authority conflict; metadata input order is never a tiebreaker.
         specificity = max(record.body_id is not None for _, record in candidates)
@@ -173,26 +184,48 @@ class SolarEphemerisRegistry:
             source_ids = sorted(source.ephemeris_source_id for source, _ in candidates)
             raise CelestialStateError(
                 "ambiguous qualified ephemeris authority for "
-                f"LOOM body {body_id} at {_iso(requested)}: {source_ids}"
+                f"LOOM body {body_id} at ET {requested}: {source_ids}"
             )
         source, record = candidates[0]
         return source, record
 
 
+class SolarStateService:
+    """Solar-specific resolver: numeric ET throughout the physical path."""
+
+    def __init__(self, adapter):
+        self.adapter = adapter
+
+    def resolve_et(self, body_id, epoch_et):
+        et = finite_et(epoch_et)
+        state = self.adapter._direct_lookup(body_id, et)
+        if state.entity_id != body_id or state.epoch_et != et or state.reference_frame != SPICE_FRAME:
+            raise CelestialStateError('direct Solar provider returned wrong identity, ET or frame')
+        return state
+
+    def resolve(self, body_id, epoch):
+        et = self.adapter.time.parse(epoch)
+        state = self.resolve_et(body_id, et)
+        if isinstance(epoch, str) and self.adapter.time.representation(epoch) == 'UTC_LSK_PROJECTION':
+            return replace(state, epoch_utc=_iso(_epoch(epoch)))
+        return state
+
+
 class SpiceEphemerisAdapter:
-    """Private SPICE evaluator exposed only through HybridCelestialStateService."""
+    """Private SPICE evaluator exposed through the Solar ET resolver."""
 
     def __init__(self, registry: SolarEphemerisRegistry):
         self.registry = registry
         self._verified_assets: dict[Path, tuple[str, int]] = {}
-        self._service = HybridCelestialStateService(self._direct_lookup, {})
+        self.time = codec_from_registry(registry)
+        self._service = SolarStateService(self)
 
-    def service(self) -> HybridCelestialStateService:
+    def service(self) -> SolarStateService:
         return self._service
 
-    def resolve(self, body_id: str, epoch_utc: str) -> SpatialState:
-        """Convenience delegation; the returned state still comes from the shared authority."""
-        return self._service.resolve(body_id, epoch_utc)
+    def resolve(self, body_id: str, epoch) -> SpatialState:
+        """Convenience delegation through the Solar ET state authority."""
+        return self._service.resolve(body_id, epoch)
 
     def _spice(self):
         try:
@@ -282,7 +315,7 @@ class SpiceEphemerisAdapter:
                     if not parent:
                         spice.furnsh(path)
 
-    def _direct_lookup(self, body_id: str, epoch_utc: str) -> SpatialState | None:
+    def _direct_lookup(self, body_id: str, epoch_et: float) -> SpatialState:
         identifier = self.registry.body_identifier(body_id)
         if identifier.authority != "NAIF" or identifier.identifier_type != "NAIF_ID":
             raise CelestialStateError(f"unsupported governed identifier semantics for {body_id}")
@@ -290,11 +323,10 @@ class SpiceEphemerisAdapter:
             target = int(identifier.identifier_value)
         except ValueError as exc:
             raise CelestialStateError(f"NAIF identifier is not an integer for {body_id}") from exc
-        source, coverage = self.registry.source_for(body_id, epoch_utc)
-        requested = _iso(_epoch(epoch_utc))
+        et = finite_et(epoch_et)
+        source, coverage = self.registry.source_for(body_id, et)
         try:
             with self._source_pool(source) as spice:
-                et = float(spice.str2et(requested))
                 self._require_source_object_coverage(source, target, et)
                 # Coverage alone is insufficient: require the selected target
                 # segment to belong to the primary source, not a dependency.
@@ -313,8 +345,9 @@ class SpiceEphemerisAdapter:
             ) from exc
         return SpatialState(
             entity_id=body_id,
-            epoch_utc=requested,
-            reference_frame=CANONICAL_FRAME,
+            epoch_utc=None,
+            epoch_et=et,
+            reference_frame=SPICE_FRAME,
             position_km=tuple(float(v) for v in state[:3]),
             velocity_km_s=tuple(float(v) for v in state[3:]),
             provenance={
@@ -333,6 +366,8 @@ class SpiceEphemerisAdapter:
                 "coverage": {
                     "valid_from": coverage.valid_from,
                     "valid_until": coverage.valid_until,
+                    "coverage_start_et": coverage.coverage_start_et,
+                    "coverage_end_et": coverage.coverage_end_et,
                     "coverage_class": coverage.coverage_class,
                 },
                 "naif_identifier": identifier.identifier_value,
@@ -340,7 +375,7 @@ class SpiceEphemerisAdapter:
                 "spice_frame": SPICE_FRAME,
                 "aberration_correction": SPICE_ABERRATION,
                 "time_scale_internal": "SPICE ET/TDB",
-                "request_time_scale": "UTC",
+                "request_time_scale": "SPICE ET/TDB",
                 "units": STATE_UNITS,
                 "state_capability": source.state_capability,
                 "navigation_grade": source.navigation_grade,
@@ -415,12 +450,27 @@ def registry_from_manifest(
             )
             for record in registry_document["sources"]
         ]
+        overlay_path = Path(__file__).resolve().parents[1] / 'manifests/solar/SOLAR_NATIVE_ET_COVERAGE_V1.json'
+        overlay = {}
+        if overlay_path.is_file():
+            for record in json.loads(overlay_path.read_text())['rows']:
+                overlay[(record['ephemeris_source_id'], record['body_id'])] = record
         coverage = [
             EphemerisCoverage(**{key: record[key] for key in (
                 "ephemeris_source_id", "body_id", "valid_from", "valid_until",
-                "reference_frame", "units", "coverage_class", "status") if key in record})
+                "reference_frame", "units", "coverage_class", "status") if key in record},
+                **({"coverage_start_et": overlay[(record['ephemeris_source_id'], record['body_id'])]['coverage_start_et'],
+                    "coverage_end_et": overlay[(record['ephemeris_source_id'], record['body_id'])]['coverage_end_et']}
+                   if (record['ephemeris_source_id'], record['body_id']) in overlay else {}))
             for record in registry_document["coverage"]
         ]
+        source_by_id = {source.ephemeris_source_id: source for source in sources}
+        for record in coverage:
+            evidence = overlay.get((record.ephemeris_source_id, record.body_id))
+            if evidence is None and record.status == 'QUALIFIED':
+                raise CelestialStateError('qualified manifest coverage lacks numeric SPICE ET evidence')
+            if evidence and source_by_id[record.ephemeris_source_id].sha256 != evidence['primary_spk_sha256']:
+                raise CelestialStateError('manifest/ET overlay SPK hash mismatch')
         for source in sources:
             primary = tuple(
                 asset for asset in source.kernel_assets

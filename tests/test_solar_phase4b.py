@@ -81,7 +81,7 @@ class Phase4BQualificationTests(unittest.TestCase):
                 replay = self.service.resolve(body, epoch)
                 self.assertEqual(state, replay)
                 self.assertEqual(state.provenance["naif_identifier"], naif_id)
-                self.assertEqual(state.reference_frame, CANONICAL_FRAME)
+                self.assertEqual(state.reference_frame, "ECLIPJ2000")
                 self.assertEqual(state.provenance["units"], "km,km/s")
                 self.assertTrue(all(math.isfinite(v) for v in (*state.position_km, *state.velocity_km_s)))
                 self.assertEqual(len(state.position_km), 3)

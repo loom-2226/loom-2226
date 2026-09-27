@@ -49,16 +49,16 @@ class Phase4DQualificationTests(unittest.TestCase):
 
     def test_all_required_targets_resolve_through_end_2250(self):
         for body, record in TARGETS.items():
-            _, coverage = self.registry.source_for(body, EPOCHS[-1])
+            _, coverage = self.registry.source_for(body, self.service.adapter.time.parse(EPOCHS[-1]))
             self.assertGreaterEqual(_epoch(coverage.valid_until), _epoch("2251-01-01T00:00:00Z"))
             for epoch in EPOCHS:
-                source, _ = self.registry.source_for(body, epoch)
+                source, _ = self.registry.source_for(body, self.service.adapter.time.parse(epoch))
                 state = self.service.resolve(body, epoch)
                 replay = self.service.resolve(body, epoch)
                 self.assertEqual(state, replay)
                 self.assertEqual(state.provenance["naif_identifier"], record["naif_id"])
                 self.assertEqual(state.provenance["ephemeris_source_id"], source.ephemeris_source_id)
-                self.assertEqual(state.reference_frame, CANONICAL_FRAME)
+                self.assertEqual(state.reference_frame, "ECLIPJ2000")
                 self.assertEqual(state.provenance["spice_frame"], "ECLIPJ2000")
                 self.assertEqual(state.provenance["units"], "km,km/s")
                 self.assertTrue(all(math.isfinite(v) for v in (*state.position_km, *state.velocity_km_s)))
@@ -85,10 +85,10 @@ class Phase4DQualificationTests(unittest.TestCase):
 
     def test_outside_source_coverage_fails_closed(self):
         for body in TARGETS:
-            _, coverage = self.registry.source_for(body, EPOCHS[-1])
-            after = (_epoch(coverage.valid_until) + timedelta(seconds=1)).isoformat()
+            _, coverage = self.registry.source_for(body, self.service.adapter.time.parse(EPOCHS[-1]))
+            after = coverage.coverage_end_et + 1
             with self.assertRaises(CelestialStateError):
-                self.service.resolve(body, after)
+                self.service.resolve_et(body, after)
 
 
 @unittest.skipUnless(os.environ.get("SOLAR_PG_INTEGRATION") == "1", "Requires disposable PostgreSQL integration database")

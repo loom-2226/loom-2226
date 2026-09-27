@@ -115,11 +115,11 @@ class OfficialPlanetCenterQualificationTests(unittest.TestCase):
                 self.assertEqual(state.provenance["ephemeris_source_id"], source_id)
                 self.assertEqual(bary.provenance["naif_identifier"], barycenter_id)
                 self.assertEqual(bary.provenance["ephemeris_source_id"], "DE440")
-                self.assertEqual(state.reference_frame, CANONICAL_FRAME)
+                self.assertEqual(state.reference_frame, "ECLIPJ2000")
                 self.assertEqual(state.provenance["spice_frame"], "ECLIPJ2000")
                 self.assertEqual(state.provenance["units"], "km,km/s")
                 self.assertEqual(state.provenance["aberration_correction"], "NONE")
-                self.assertEqual(state.provenance["request_time_scale"], "UTC")
+                self.assertEqual(state.provenance["request_time_scale"], "SPICE ET/TDB")
                 self.assertEqual(state.provenance["time_scale_internal"], "SPICE ET/TDB")
                 self.assertTrue(all(math.isfinite(value) for value in (*state.position_km, *state.velocity_km_s)))
                 separation = math.sqrt(sum(
@@ -130,16 +130,16 @@ class OfficialPlanetCenterQualificationTests(unittest.TestCase):
 
     def test_exact_coverage_boundaries_resolve_and_outside_fails_closed(self):
         for body in CENTERS:
-            source, coverage = self.registry.source_for(body, "2250-01-01T00:00:00Z")
-            for boundary in (coverage.valid_from, coverage.valid_until):
-                state = self.service.resolve(body, boundary)
+            source, coverage = self.registry.source_for(body, self.service.adapter.time.parse("2250-01-01T00:00:00Z"))
+            for boundary in (coverage.coverage_start_et, coverage.coverage_end_et):
+                state = self.service.resolve_et(body, boundary)
                 self.assertEqual(state.provenance["ephemeris_source_id"], source.ephemeris_source_id)
-            before = (_epoch(coverage.valid_from) - timedelta(microseconds=1)).isoformat()
-            after = (_epoch(coverage.valid_until) + timedelta(microseconds=1)).isoformat()
+            before = coverage.coverage_start_et - .001
+            after = coverage.coverage_end_et + .001
             with self.assertRaises(CelestialStateError):
-                self.service.resolve(body, before)
+                self.service.resolve_et(body, before)
             with self.assertRaises(CelestialStateError):
-                self.service.resolve(body, after)
+                self.service.resolve_et(body, after)
 
     def test_metadata_cannot_claim_an_object_missing_from_primary_source(self):
         de440 = ASSET_ROOT / "kernels/spk/de440.bsp"
@@ -159,6 +159,7 @@ class OfficialPlanetCenterQualificationTests(unittest.TestCase):
             [false_source],
             [EphemerisCoverage(
                 "FALSE_899", "NEPTUNE", "2026-01-01T00:00:00Z", "2250-01-01T00:00:00Z",
+                coverage_start_et=820497600.0, coverage_end_et=7889227200.0,
             )],
         )
         with self.assertRaisesRegex(CelestialStateError, "SPICE state unavailable"):

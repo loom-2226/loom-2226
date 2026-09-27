@@ -9,6 +9,7 @@ small { font-size: inherit; color: var(--loom-interface-text-tertiary); }
 .toolbar { padding: var(--loom-interface-space-3) var(--loom-interface-space-4); background: var(--loom-interface-surface-panel); }
 .toolbar-head { display: none; align-items: center; justify-content: space-between; }
 .toolbar-body { display: flex; flex-wrap: wrap; align-items: end; gap: var(--loom-interface-space-2); }
+.time-help { flex: 1 1 100%; margin: 0; color: var(--loom-interface-text-secondary); }
 .toolbar-body > label { min-width: 150px; }
 #pathLayers { display: flex; flex-wrap: wrap; gap: var(--loom-interface-space-2); align-items: center; width: 100%; margin: 0; padding: var(--loom-interface-space-2); border: var(--loom-interface-size-hairline) solid var(--loom-interface-border-hairline); border-radius: var(--loom-interface-radius-frame); }
 #pathLayers legend { color: var(--loom-interface-text-label); font-size: var(--loom-interface-type-size-label); }

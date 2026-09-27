@@ -81,8 +81,8 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     await page.waitForFunction(() => document.querySelector('#stage').dataset.systemFit === 'complete', {timeout: 180000});
     const moonPath = automaticPaths.find(path => path.body_id === 'MOON' && path.reference_center === 'EARTH');
     assert(moonPath && moonPath.horizon.status === 'REVOLUTION_COMPLETE');
-    assert.equal(moonPath.horizon.start, '2026-01-01T00:00:00Z');
-    assert(moonPath.horizon.end.startsWith('2026-01-28'));
+    assert.equal(moonPath.horizon.start, '2026 JAN 01 00:00:00.000 TDB');
+    assert(moonPath.horizon.end.startsWith('2026 JAN 28'));
     assert.equal(moonPath.closed_by_renderer, false);
     const moonRadius = Math.max(...moonPath.points.filter(point => point.relative).map(point => Math.hypot(...point.relative.position_km) / 149597870.7));
     assert(Number(await page.locator('#stage').getAttribute('data-camera-distance')) > moonRadius * 2.9,
@@ -162,10 +162,11 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     assert.match(await page.locator('#failures').innerText(), /Proteus/);
     await year('2026');
     await page.fill('#epoch', '2026-07-03T12:34:56Z'); await page.click('#load'); await settled();
-    assert.match(await page.locator('#sceneStatus').innerText(), /2026-07-03T12:34:56Z/);
-    await page.click('#forward'); await settled(); assert.match(await page.locator('#epoch').inputValue(), /2026-07-04/);
-    await page.click('#back'); await settled(); assert.match(await page.locator('#epoch').inputValue(), /2026-07-03/);
-    await page.click('#play'); await page.waitForFunction(() => document.querySelector('#epoch').value.startsWith('2026-07-04')); await page.click('#play'); await settled();
+    assert.match(await page.locator('#sceneStatus').innerText(), /2026 JUL 03.*TDB/);
+    const definedEt = Number(await page.locator('#epoch').inputValue());
+    await page.click('#forward'); await settled(); assert.equal(Number(await page.locator('#epoch').inputValue()), definedEt + 86400);
+    await page.click('#back'); await settled(); assert.equal(Number(await page.locator('#epoch').inputValue()), definedEt);
+    await page.click('#play'); await page.waitForFunction(et => Number(document.querySelector('#epoch').value) > et, definedEt); await page.click('#play'); await settled();
     async function traceBody(body, centerId, start, end) {
       if ((await page.locator('#center').inputValue()) !== centerId) await center(centerId);
       await page.selectOption('#catalog', body);
@@ -231,14 +232,15 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
     const pathsBeforePlay = trajectoryRequests.length;
     const playStarted = Date.now();
     await page.click('#play');
-    await page.waitForFunction(() => Date.parse(document.querySelector('#epoch').value) >= Date.parse('2026-07-05T00:00:00Z'));
+    const playEt = Number(await page.locator('#epoch').inputValue());
+    await page.waitForFunction(et => Number(document.querySelector('#epoch').value) >= et + 86400, playEt);
     assert.equal(trajectoryRequests.length, pathsBeforePlay, 'Play must not request paths during playback');
     const playAdvanceMs = Date.now() - playStarted;
     await page.click('#play'); await settled();
     console.log('browser: playback ready');
     pathRequestsDuringPlay = 0;
     await page.selectOption('#catalog', 'NEWHORIZONS');
-    await page.fill('#start', '2026-01-01T00:00:00Z'); await page.fill('#end', '2250-01-01T00:00:00Z'); await page.fill('#samples', '32');
+    await page.fill('#start', '2026-01-01T00:00:00 TDB'); await page.fill('#end', '2250-01-01T00:00:00 TDB'); await page.fill('#samples', '32');
     await page.click('#trace'); await page.waitForFunction(() => document.querySelector('#pathStatus').textContent.includes('segments'), { timeout: 120000 });
     assert.match(await page.locator('#seams').innerText(), /SOURCE SEAM/);
     await page.screenshot({ path: '/tmp/solar-inspector-new-horizons.png' });
@@ -286,6 +288,6 @@ const baseUrl = process.env.SOLAR_INSPECTOR_URL || 'http://127.0.0.1:8765';
       performance: { pixelInitialLoadMs: initialLoadMs, playAdvanceMs },
       verifiedResolverPaths: ['EARTH@SUN', 'MOON@EARTH', 'CERES@SUN', 'COMET_67P@SUN'], wholeCatalogPaths: wholeCatalog.length,
       pathRequestsDuringPlay,
-      exercised: ['2026/2226/2250', 'arbitrary UTC', 'Earth/Moon', 'Jupiter', 'Pluto', 'Ida/Dactyl', 'physical/schematic immutability', 'rotate/pan/zoom', 'canvas and catalog selection', 'step/play/pause', 'New Horizons seam', 'open interstellar path', '412px mobile layout'] }, null, 2));
+      exercised: ['2026/2226/2250 TDB', 'explicit 2026 UTC projection', 'Earth/Moon', 'Jupiter', 'Pluto', 'Ida/Dactyl', 'physical/schematic immutability', 'rotate/pan/zoom', 'canvas and catalog selection', 'ET step/play/pause', 'New Horizons seam', 'open interstellar path', '412px mobile layout'] }, null, 2));
   } finally { await browser.close(); }
 })().catch(e => { console.error(e); process.exit(1); });

@@ -22,6 +22,7 @@ MANIFESTS = (
     'SOLAR_PHASE4D_STRATEGIC_BODIES_V1.json',
     'SOLAR_PHASE4E_CURATED_42_PLUS_5_V1.json',
 )
+ET_OVERLAY = ROOT / 'manifests/solar/SOLAR_NATIVE_ET_COVERAGE_V1.json'
 SOURCE_IDENTITY = ('provider', 'product_version', 'asset_filename', 'sha256', 'byte_count')
 
 
@@ -60,10 +61,12 @@ def asset_recipes(asset_root, manifest_dir=ROOT / 'manifests/solar'):
             if key in identifiers and identifiers[key] != ident.identifier_value:
                 raise CelestialStateError(f'conflicting manifest identifier: {key}')
             identifiers[key] = ident.identifier_value
+    if ET_OVERLAY.is_file():
+        hashes[ET_OVERLAY.name] = hashlib.sha256(ET_OVERLAY.read_bytes()).hexdigest()
     return sources, identifiers, hashes
 
 
-def registry_from_ledger(ledger, recipes, manifest_identifiers):
+def registry_from_ledger(ledger, recipes, manifest_identifiers, *, verify_et=True):
     bodies = [SolarBody(**{k: row[k] for k in ('body_id', 'canonical_name', 'body_class')})
               for row in ledger['body']]
     if len({b.body_id for b in bodies}) != len(bodies):
@@ -87,13 +90,32 @@ def registry_from_ledger(ledger, recipes, manifest_identifiers):
         # Display labels, lifecycle, capability, uncertainty and acquisition time
         # are read from the current ledger, not historical manifest defaults.
         sources.append(EphemerisSource(**row, kernel_assets=recipe.kernel_assets if recipe else ()))
+    sources_by_id = {s.ephemeris_source_id: s for s in sources}
     coverage = [EphemerisCoverage(**row) for row in ledger['ephemeris_coverage']]
+    if verify_et:
+        overlay = json.loads(ET_OVERLAY.read_text())
+        expected = {(r['ephemeris_source_id'], r['body_id'], r['status']): r for r in overlay['rows']}
+        if len(expected) != len(overlay['rows']) or len(coverage) != len(expected):
+            raise CelestialStateError('Solar ET coverage overlay/ledger row count mismatch')
     for row in coverage:
         if row.reference_frame != 'ECLIPJ2000' or row.units != 'km,km/s':
             raise CelestialStateError('noncanonical PostgreSQL coverage frame/units')
         if (row.body_id is None) != (row.coverage_class == 'PRODUCT'):
             raise CelestialStateError('invalid PostgreSQL coverage specificity')
+        if verify_et:
+            evidence = expected.get((row.ephemeris_source_id, row.body_id, row.status))
+            if evidence is None or row.coverage_start_et != evidence['coverage_start_et'] or row.coverage_end_et != evidence['coverage_end_et']:
+                raise CelestialStateError('PostgreSQL/native SPK ET coverage mismatch')
+            if sources_by_id[row.ephemeris_source_id].sha256 != evidence['primary_spk_sha256']:
+                raise CelestialStateError('PostgreSQL/ET overlay SPK hash mismatch')
+            if _same_label(row.valid_from, evidence['valid_from']) is False or _same_label(row.valid_until, evidence['valid_until']) is False:
+                raise CelestialStateError('PostgreSQL/ET overlay historical label mismatch')
     return SolarEphemerisRegistry(bodies, identifiers, sources, coverage)
+
+
+def _same_label(a, b):
+    from src.loom_spatial_state_authority import _epoch
+    return _epoch(a) == _epoch(b)
 
 
 def load_authority(database, asset_root):

@@ -380,3 +380,117 @@ paths, zero failed automatic responses, zero page errors, zero external
 requests and zero path requests during Play. Both views lacked the reported
 unavailable message. Seam, gap, truncation and unresolved behavior remains
 explicit; prior frozen scientific and governing source objects were untouched.
+
+## SPICE-native time authority repair v0.1 — 2026-09-27
+
+**Root defect.** The registry selected sources by comparing Python UTC
+datetimes from PostgreSQL `timestamptz` coverage labels. The adapter then
+converted each requested UTC text with `spice.str2et` under the furnished
+`naif0012.tls` LSK before an otherwise native `spkgeo` evaluation. Automatic
+planning and trajectory sampling also used Python UTC datetime arithmetic.
+Those future UTC labels cannot define an independently known 2226/2250
+physical epoch under today's LSK.
+
+**Corrected contract.** The HTTP boundary accepts numeric SPICE ET or an
+explicitly suffixed TDB calendar. CSPICE `tparse` maps TDB text once to ET;
+numeric ET then controls source selection, state resolution, relative-state
+identity, automatic horizon search and every trajectory sample. The adapter
+passes that ET directly to `spkgeo(target, et, 'ECLIPJ2000', 10)`. Browser
+step/play adds seconds to the numeric ET returned by the server. `etcal` TDB
+labels are display only and rounded to milliseconds; numeric ET remains in
+every state/path response. Explicit UTC input is still accepted at the
+interface as a **projection** through pinned LSK SHA-256
+`678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b`.
+Response authority identifies that policy and hash. Future UTC has no claim
+of known physical mapping; the UI shortcuts use TDB.
+
+**Data migration.** Live `loom_dev` was inspected read-only: 123 coverage rows,
+121 qualified, 110 bodies. A deterministic generator verified 84 exact pinned
+primary SPKs and extracted target `spkcov` ET windows. The static
+`SOLAR_NATIVE_ET_COVERAGE_V1` overlay records source/body, status, historical
+UTC label, native window, selected numeric ET window, SPK hash and derivation
+method for every row. Migration 020 adds `coverage_start_et` and
+`coverage_end_et`, matches the exact 123-row preimage and leaves historical UTC
+labels, statuses, membership, source identities and kernel artifacts intact.
+The migration passed in disposable `loom_solar_et_qual_299`, built by copying
+the live Solar schema/data without writing to live authority. The final SQL
+wraps preimage checks and schema mutation in one transaction; it was replayed
+successfully on a fresh disposable `loom_dev` clone,
+`loom_solar_et_tx_verify_299`. New startup
+checks reject PostgreSQL/overlay disagreement. Source selection ignores the
+UTC labels and compares ET; `spkcov` and selected-segment ownership still
+verify the chosen physical source at evaluation.
+
+118 rows take their ET interval directly from native SPK endpoints. Five
+qualified/narrowed intervals intersect the native SPK window with their
+historical qualification limit: Nereid/NEP101XL, New Horizons direct,
+New Horizons propagated, Pioneer 10 propagated and Pioneer 11 propagated.
+Four other historical labels differ slightly or lie outside an SPK endpoint;
+the native endpoint is retained. The historical qualification guard was
+projected under the pinned LSK once during artifact generation, is disclosed
+in the overlay, and is fixed as numeric ET thereafter. It cannot broaden
+native coverage. The New Horizons seam and any SPK-internal gaps remain
+explicit; no source status or qualification scope is promoted by migration.
+
+**Affected authority claims.** SPK bytes, source identities, NAIF target and
+observer identities, native ET coverage, direct SPICE vectors at a fixed ET,
+and km/km/s coordinates are unchanged. The authoritative frame label is now
+the exact CSPICE `ECLIPJ2000`; the previous generic
+`J2000/ECLIPTIC` label was an alias and no rotation was performed. Prior
+future-calendar state/path claims and UTC-labelled coverage boundaries do not
+by themselves qualify the new TDB epoch interface. Direct and derived states
+at canonical 2026/2226/2250 ET, ET source boundaries, center subtraction,
+automatic/manual paths and browser presentation were therefore rerun. The
+previous UTC labels remain historical LSK projections, not future civil-time
+authority. The five historically narrowed intervals retain their recorded
+qualification provenance; any new claim that those human UTC dates have an
+exact future civil meaning needs a separate scientific disposition.
+
+Representative TDB calendar inputs map to these canonical ET seconds past
+J2000: `2026-01-01T00:00:00 TDB` → `820497600.0`, `2226-01-01T00:00:00 TDB`
+→ `7131844800.0`, `2250-01-01T00:00:00 TDB` → `7889227200.0`. All three
+resolved Earth from DE440 with `ECLIPJ2000`; 2226/2250 also resolved tested
+direct and propagated sources at identical ET for object and center. DE440
+Earth native bounds `[-14200747200.0, 20514081600.0]` are inclusive; one
+second outside either bound fails closed. The direct New Horizons endpoint
+wins its intentional overlap; the next ET selects the propagated source.
+
+The new 2026 TDB shortcut is ET `820497600.0` and resolves 105/110 catalog
+objects. Nereid and Pioneer 10/11 are explicitly unresolved there because
+their prior qualified start is ET `820497669.18392`, 69.184 seconds later.
+The distinct explicit UTC projection `2026-01-01T00:00:00Z` maps to that later
+ET and retains the prior 108/110 resolution count. This is a changed calendar
+interpretation at a qualified boundary, not lost SPK data or a fabricated
+state. At 2226 and 2250 TDB the catalog resolves 103/110, with the same seven
+explicit unresolved objects as before.
+
+**Qualification results — 2026-09-27.** The disposable
+`loom_solar_et_qual_299` ledger contains 123 coverage rows, 121 qualified,
+and zero NULL ET bounds after migration 020. The static overlay SHA-256 is
+`ace8df81c7ddbb3657e43bd3d3ad7b5eed07ccbb3a3714df3902be7a06da7820`.
+The scoped ET, Inspector, adapter, official-center and Phase-4 B–E suites ran
+with `SOLAR_INSPECTOR_DB=loom_solar_et_qual_299` under the qualified
+`/home/ubuntu/loom_solar_assets/.venv/bin/python`: **83 tests OK,
+3 skips**. The additional Phase-4 earned-authority, source-isolation,
+migration, shared SpatialState and SQLite-provider regressions were
+**26 tests OK, 8 skips**. These are test skips, not failed qualifications.
+The native ET contract suite reran on the freshly migrated transaction clone:
+**12 tests OK, zero skips**. An earlier attempt to use the older
+`loom_solar_inspector_test_20260926` database as a migration preimage failed
+because that database had no `loom_solar` schema; that empty clone was removed
+and the fresh live-data clone was used instead.
+An initial invocation with system `python3` failed because that interpreter
+lacks `spiceypy`; the qualified virtualenv rerun is the reported result.
+
+The fresh-server Chromium desktop and 412px Pixel run passed with **196 exact
+scene responses, 98 Whole Catalog paths, zero path requests during Play,
+zero page errors and zero external requests**. It exercised 2026/2226/2250
+TDB, an explicit UTC projection, local center/trajectory fitting, ET
+step/play/pause, New Horizons seams, the open interstellar path and physical/
+schematic display. Pixel initial load was **4111 ms** and Play advance
+**2051 ms** on this host; these are observations, not release thresholds or
+performance claims. Python compile checks, both JavaScript syntax checks and
+`git diff --check` passed. `design/loom_design.py --check` passed with zero
+errors and two pre-existing warnings (optional Montserrat file; undefined
+operational status thresholds). No trajectory performance or cache/kernel-pool
+optimization is part of this repair.

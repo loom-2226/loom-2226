@@ -1,6 +1,7 @@
 # Solar Ephemeris Inspector v0.1
 
-Primary change class: `class:runtime`. Bounded Phase-4 qualification instrument,
+Primary change class: `class:runtime`; additive `class:data` schema impact in the
+ET authority repair. Bounded Phase-4 qualification instrument,
 authorized by Kevin, including the subsequent explicit authorization to correct
 SPICE source contamination. Representation consumes empirical authority; it
 does not establish new canon, membership, products, coverage, or scientific models.
@@ -8,7 +9,7 @@ does not establish new canon, membership, products, coverage, or scientific mode
 ## Launch locally
 
 Requires Python, PostgreSQL `psql` access to the governed `loom_solar` ledger
-through migration 019, and the already-qualified local Solar asset collection.
+through migration 020, and the already-qualified local Solar asset collection.
 The inspector does not create or migrate a database or acquire ephemerides.
 
 From the repository root:
@@ -50,8 +51,17 @@ Restart the inspector to reload the database snapshot or changed assets.
 
 ## Inspect
 
-- Choose arbitrary timezone-qualified UTC input or the 2026/2226/2250 shortcuts.
-  Step days, backward/forward, and play/pause evaluate exact resolver states.
+- Enter numeric SPICE ET seconds past J2000 or an explicitly suffixed TDB
+  calendar such as `2226-01-01T00:00:00 TDB`. The 2026/2226/2250 shortcuts
+  use TDB. After evaluation the input displays the canonical numeric ET; the
+  scene status displays its TDB calendar label. `etcal` rounds that label to
+  milliseconds, so the numeric ET retains exact request identity. Step days,
+  backward/forward, and play/pause add seconds to numeric ET and evaluate
+  exact resolver states.
+  Explicit timezone-qualified UTC is accepted as an interface projection under
+  the pinned `naif0012.tls` LSK. A future UTC label is **not** a known future
+  physical time definition; its resulting ET, LSK SHA-256 and projection policy
+  are exposed in the response. Prefer ET or TDB for 2226/2250.
   Play waits for each response; no SPICE evaluation runs per browser frame.
 - Drag to rotate, Shift-drag/right-drag or two-finger drag to pan, and pinch or
   wheel to zoom. **Focus object** frames the selected marker. **System** changes
@@ -127,8 +137,23 @@ Restart the inspector to reload the database snapshot or changed assets.
 ## Authority boundary
 
 `loom_solar_postgres.py` reads all six current Solar tables in one snapshot and
-constructs the existing `SolarEphemerisRegistry`, consumed unchanged by
-`SpiceEphemerisAdapter` and `HybridCelestialStateService`.
+constructs `SolarEphemerisRegistry` with numeric SPICE ET bounds. It checks
+every coverage row against the pinned ET overlay before startup. The Solar
+resolver and `SpiceEphemerisAdapter` receive numeric ET and pass it unchanged
+to `spkgeo(target, et, 'ECLIPJ2000', 10)`. The Solar state frame label is now
+exactly `ECLIPJ2000`; the historical generic `J2000/ECLIPTIC` label was an
+alias, not a coordinate rotation. Position remains km and velocity km/s.
+
+Migration 020 adds `coverage_start_et` and `coverage_end_et` to the PostgreSQL
+coverage table without deleting UTC labels or changing row status, membership,
+source identity, or physical vectors. `tools/build_solar_et_coverage.py` read
+the qualified ledger and verified each primary SPK hash and target `spkcov`
+window. The static overlay records native ET windows, the selected ET interval,
+the primary SPK hash and a derivation method for all 123 rows. Most intervals
+use exact native endpoints. Five rows use the intersection with their narrower
+historical qualification limit; the old UTC projection and pinned LSK hash are
+retained as provenance. Selection compares only numeric ET. Target coverage
+and selected-source segment ownership are still checked again at evaluation.
 
 PostgreSQL owns membership, canonical names/classes, identifiers, parent and
 mission metadata, source status/capability, uncertainty, source lineage and
@@ -165,19 +190,22 @@ SQLite state is imported.
 
 ## Compatibility, checks and recovery
 
-Existing resolver API and SpatialState fields: `UNCHANGED_COMPATIBLE`.
-Solar source evaluation: `REVALIDATION_REQUIRED`, completed by the relevant
-Phase-4 tests and new contamination regressions. The inspector is a new local
-consumer. Existing launchers, release manifests, databases, canon, legacy GIS,
-Wayfarer and other consumers have no interface/schema changes. The coarse
-dependency registry was inspected; no independence claim is inferred from
-unregistered inspector edges.
+Solar resolver and Inspector interface: `CHANGED`; numeric ET is canonical and
+the authoritative frame string is `ECLIPJ2000`. Shared `SpatialState` gains an
+optional `epoch_et` field; its other consumers retain their existing UTC and
+generic-frame contracts. PostgreSQL coverage schema: `ADDITIVE_MIGRATION_020`;
+the new code fails closed against an unmigrated ledger. The five source recipe
+manifests remain unchanged; the new ET overlay is a scoped additive artifact.
+Existing launchers, canon, legacy GIS and Wayfarer are not migrated by this
+Inspector change. Production database promotion is separate from this PR's
+disposable qualification.
 
 See [qualification evidence](qualification/SOLAR_INSPECTOR_V01_QUALIFICATION.md)
 for commands, observed cases, endpoint limitations and results.
-Recovery is to stop this optional server and revert the PR's code changes;
-there is no database rollback or data migration. Reverting the resolver fix
-would reintroduce the documented contamination defect.
+Recovery is to stop this optional server and return to the prior code while
+retaining the additive ET columns and provenance. Reverting the code would
+reintroduce the prior UTC time-selection defect, so the migration and code
+should be promoted together only after governed review.
 
 Phase 5, CIVPROP/CIVSTATE, Atlas/Navigator integration, textures, decorative
 belts, screenshot/export features, packaging, production infrastructure and

@@ -199,7 +199,7 @@
       .sort((a,b) => (b.body_id === selected ? 1 : 0) - (a.body_id === selected ? 1 : 0) ||
         (a.body_class === 'PLANET' ? -1 : b.body_class === 'PLANET' ? 1 : 0));
   }
-  function pathKey(row) { return [row.body_id,snapshot.epoch_utc,snapshot.reference_center,'auto'].join('|'); }
+  function pathKey(row) { return [row.body_id,snapshot.epoch_et,snapshot.reference_center,'auto'].join('|'); }
   function loadPlanetOrbits() {
     orbitRefreshRequested = true;
     if (orbitLoading || playing) return;
@@ -215,7 +215,7 @@
         }
         const key = pathKey(next), center = snapshot.reference_center;
         if (!orbitPathRequests.has(key)) {
-          const request = get('/api/trajectory', { body: next.body_id, start: snapshot.epoch_utc, center, view: 'auto' })
+          const request = get('/api/trajectory', { body: next.body_id, start: snapshot.epoch_et, center, view: 'auto' })
             .catch(() => null).then(path => { rememberOrbitPath(key, path); orbitPathRequests.delete(key); return path; });
           orbitPathRequests.set(key, request);
         }
@@ -272,8 +272,8 @@
       (gaps ? ` · ${gaps} with gaps` : '');
     $('horizons').replaceChildren(...candidates.map(row => {
       const item = document.createElement('p'), path = orbitPaths.get(pathKey(row));
-      const gaps = path?.gap_indices.map(index => path.points[index].epoch_utc) || [];
-      const seams = path?.seams?.map(seam => seam.time_bracket_utc.join(' → ')) || [];
+      const gaps = path?.gap_indices.map(index => path.points[index].epoch_tdb) || [];
+      const seams = path?.seams?.map(seam => seam.time_bracket_tdb.join(' → ')) || [];
       item.textContent = `${row.canonical_name}: ${path ? `${path.horizon.start} → ${path.horizon.end} · ${path.horizon.status} · orbital reference ${path.horizon.orbital_reference_center} · ${gaps.length} gaps${gaps.length ? ` (${gaps.slice(0,3).join(', ')}${gaps.length > 3 ? ', …' : ''})` : ''} · ${seams.length} source seams${seams.length ? ` (${seams.join(', ')})` : ''}` : orbitPaths.has(pathKey(row)) ? 'unavailable' : 'loading'}`;
       return item;
     }));
@@ -337,7 +337,7 @@
     }
     const c = snapshot.counts;
     $('counts').textContent = `${snapshot.complete ? 'Catalog' : 'Preview'} ${c.catalog}/${snapshot.catalog_total} · Resolved ${c.resolved} = Direct ${c.direct} + Propagated ${c.propagated}\nUnresolved ${c.unresolved} · Catalog-only ${c.catalog_only} · Partial catalog ${c.partial_catalog}\nRenderable ${c.renderable} · Scene eligible ${rows.length} · Scope/layer-hidden ${c.renderable - rows.length}`;
-    $('sceneStatus').textContent = `${snapshot.epoch_utc} | Center: ${snapshot.reference_center} | ${snapshot.reference_frame} | ` +
+    $('sceneStatus').textContent = `${snapshot.epoch_tdb} | ET ${snapshot.epoch_et} | Center: ${snapshot.reference_center} | ${snapshot.reference_frame} | ` +
       ($('mode').value === 'SCHEMATIC' ? 'SCHEMATIC · NOT TO SCALE · VISUAL COMPRESSION' : 'PHYSICAL · positions to scale (1 scene unit = 1 AU)');
     if (fit) fitScene(); else draw();
   }
@@ -367,7 +367,7 @@
   }
   function advanceInitialSystemFit() {
     if (!initialSystemFit || !snapshot || snapshot.reference_center !== initialSystemFit.center ||
-        snapshot.epoch_utc !== initialSystemFit.epoch) return;
+        snapshot.epoch_et !== initialSystemFit.epoch) return;
     frameLocalSystem();
     const present = new Set(snapshot.objects.map(row => row.body_id));
     const expected = [...localFamily(initialSystemFit.center)].filter(id => byId(id)?.body_class !== 'BARYCENTER');
@@ -400,12 +400,12 @@
     if (!snapshot || !selected) { if (snapshot) frameSystem(); return; }
     if (busy) return;
     if (selected === snapshot.reference_center) {
-      initialSystemFit = {center:selected,epoch:snapshot.epoch_utc};
+      initialSystemFit = {center:selected,epoch:snapshot.epoch_et};
       stage.dataset.systemFit = 'pending'; advanceInitialSystemFit(); return;
     }
     populateCenters(selected);
     enterScope(selected === 'SUN' ? 'planetary' : 'local');
-    initialSystemFit = selected === 'SUN' ? null : {center:selected,epoch:$('epoch').value};
+    initialSystemFit = selected === 'SUN' ? null : {center:selected,epoch:snapshot?.epoch_et};
     stage.dataset.systemFit = initialSystemFit ? 'pending' : 'none';
     load(false,true);
   }
@@ -432,7 +432,7 @@
     const row = snapshot?.objects.find(r => r.body_id === id) || byId(id);
     if (!row) { clearSelection(); return; }
     $('catalog').value = id;
-    const key = `${id}|${snapshot?.epoch_utc}|${snapshot?.reference_center}`;
+    const key = `${id}|${snapshot?.epoch_et}|${snapshot?.reference_center}`;
     const hasDetail = detailKey === key, pendingDetail = pendingDetailKey === key;
     const generation = pendingDetail ? selectionGeneration : ++selectionGeneration;
     if (!hasDetail) {
@@ -444,10 +444,10 @@
     if (!playing) loadPlanetOrbits();
     if (playing || !snapshot || hasDetail || pendingDetail) return;
     pendingDetailKey = key;
-    const epoch = snapshot.epoch_utc, center = snapshot.reference_center;
+    const epoch = snapshot.epoch_et, center = snapshot.reference_center;
     try {
       const detail = await get('/api/object', { body:id, epoch, center });
-      if (generation !== selectionGeneration || selected !== id || snapshot.epoch_utc !== epoch || snapshot.reference_center !== center) {
+      if (generation !== selectionGeneration || selected !== id || snapshot.epoch_et !== epoch || snapshot.reference_center !== center) {
         if (pendingDetailKey === key) pendingDetailKey = '';
         return;
       }
@@ -495,7 +495,7 @@
   }
   function applySnapshot(data, fit = false) {
     if (snapshot && snapshot.reference_center !== data.reference_center) clearPath();
-    if (!data.complete && snapshot?.epoch_utc === data.epoch_utc && snapshot.reference_center === data.reference_center) {
+    if (!data.complete && snapshot?.epoch_et === data.epoch_et && snapshot.reference_center === data.reference_center) {
       const byBody = new Map([...snapshot.objects,...data.objects].map(row => [row.body_id,row]));
       data = {...data,objects:catalog.objects.map(row => byBody.get(row.body_id)).filter(Boolean)};
       data.complete = data.objects.length === catalog.objects.length;
@@ -513,10 +513,10 @@
     rebuild(fit);
     advanceInitialSystemFit();
     if (selected) {
-      const key = `${selected}|${data.epoch_utc}|${data.reference_center}`;
+      const key = `${selected}|${data.epoch_et}|${data.reference_center}`;
       if (detailKey !== key && pendingDetailKey !== key && !playing) select(selected);
     } else { $('catalog').selectedIndex = -1; $('selection').textContent = 'No object selected.'; }
-    $('message').textContent = `${data.complete ? 'Exact resolver states evaluated' : 'Preview from exact resolver states'} at ${data.epoch_utc}. ` +
+    $('message').textContent = `${data.complete ? 'Exact resolver states evaluated' : 'Preview from exact resolver states'} at ${data.epoch_tdb} (ET ${data.epoch_et}). ` +
       `${data.complete ? 'Full catalog' : 'Full catalog loading'} · read-only ledger ${data.authority.ledger_sha256.slice(0,12)}.`;
     if (!playing) loadPlanetOrbits();
   }
@@ -546,10 +546,10 @@
       const epoch = $('epoch').value;
       const data = await get('/api/state', { epoch, center, view:'scene', ...(preview ? { preview:'1' } : {}) });
       if (generation !== loadGeneration) return;
-      $('epoch').value = data.epoch_utc;
+      $('epoch').value = String(data.epoch_et);
       applySnapshot(data,fit);
       if (preview && fit && center === 'SUN') focusOverview();
-      if (preview) setTimeout(() => loadFull(generation,center,data.epoch_utc),150);
+      if (preview) setTimeout(() => loadFull(generation,center,data.epoch_et),150);
     } catch (e) { cancelInitialSystemFit(); stopPlay(); $('message').textContent = 'Evaluation failed; previous scene retained: ' + e.message; }
     finally { setBusy(false); }
   }
@@ -568,11 +568,11 @@
       $('seams').replaceChildren();
       for (const seam of trajectory.seams) {
         const details = document.createElement('details'), summary = document.createElement('summary'), pre = document.createElement('pre');
-        summary.textContent = 'SOURCE SEAM ' + seam.time_bracket_utc.join(' → ');
+        summary.textContent = 'SOURCE SEAM ' + seam.time_bracket_tdb.join(' → ');
         pre.textContent = JSON.stringify({ ...seam, before: trajectory.points[seam.before_index], after: trajectory.points[seam.after_index] }, null, 2);
         details.append(summary, pre); $('seams').append(details);
       }
-      $('sampleList').replaceChildren(...trajectory.points.map((p, i) => new Option(`${p.epoch_utc} · ${p.authority_class || p.resolution}`, i)));
+      $('sampleList').replaceChildren(...trajectory.points.map((p, i) => new Option(`${p.epoch_tdb} · ET ${p.epoch_et} · ${p.authority_class || p.resolution}`, i)));
       $('sampleList').onchange = () => { $('sampleDetail').textContent = JSON.stringify(trajectory.points[$('sampleList').value], null, 2); };
       $('sampleList').onchange(); rebuild(true);
     } catch (e) { $('pathStatus').textContent = 'Trajectory failed: ' + e.message; }
@@ -581,10 +581,10 @@
   function stopPlay() { playing = false; playGeneration++; $('play').textContent = 'Play'; $('play').setAttribute('aria-pressed', 'false'); loadPlanetOrbits(); if (selected) select(selected); }
   async function step(direction) {
     if (busy) return;
-    const delta = Number($('step').value) * 86400000 * direction;
-    const date = new Date(Date.parse($('epoch').value) + delta);
-    if (!Number.isFinite(date.getTime()) || !Number.isFinite(delta) || !delta) { $('message').textContent = 'Enter a valid epoch and nonzero step.'; stopPlay(); return; }
-    $('epoch').value = date.toISOString(); await load();
+    const delta = Number($('step').value) * 86400 * direction;
+    const nextEt = Number(snapshot?.epoch_et) + delta;
+    if (!Number.isFinite(nextEt) || !Number.isFinite(delta) || !delta) { $('message').textContent = 'Evaluate an epoch and enter a nonzero step.'; stopPlay(); return; }
+    $('epoch').value = String(nextEt); await load();
   }
   $('play').onclick = async () => {
     if (playing) { stopPlay(); return; }
@@ -594,7 +594,7 @@
     tick();
   };
   $('load').onclick = () => load(false,true); $('back').onclick = () => step(-1); $('forward').onclick = () => step(1);
-  document.querySelectorAll('[data-year]').forEach(b => { b.onclick = () => { $('epoch').value = b.dataset.year + '-01-01T00:00:00Z'; load(false,true); }; });
+  document.querySelectorAll('[data-year]').forEach(b => { b.onclick = () => { $('epoch').value = b.dataset.year + '-01-01T00:00:00 TDB'; load(false,true); }; });
   $('system').onchange = () => {
     const system = $('system').value;
     const center = system === 'OTHER' ? membersOf('OTHER')[0] : system;
