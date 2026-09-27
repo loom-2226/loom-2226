@@ -44,5 +44,11 @@ class ContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "cyclic"):
             validate_semantics(doc)
 
+    def test_manifest_preserves_qualified_authority_counts(self):
+        doc={"schema":"loom.solar-basemap.manifest/0.1","frame":"ECLIPJ2000","center":"SUN","units":"km",
+             "epoch_et":7131844800.0,"counts":{"catalog":110,"resolved":102,"unresolved":8,"requested_curves":12,"available_curves":12}}
+        with self.assertRaisesRegex(ValueError,"counts"):
+            validate_semantics(doc)
+
 
 if __name__ == "__main__": unittest.main()

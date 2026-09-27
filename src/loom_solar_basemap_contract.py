@@ -97,8 +97,8 @@ def validate_semantics(document, *, kind=None):
             raise ValueError("manifest frame/center/units mismatch")
         if document.get("epoch_et") != 7131844800.0:
             raise ValueError("prototype epoch mismatch")
-        if document.get("counts", {}).get("catalog") != 110:
-            raise ValueError("catalog count does not match authority snapshot")
+        if document.get("counts") != {"catalog":110,"resolved":103,"unresolved":7,"requested_curves":12,"available_curves":12}:
+            raise ValueError("manifest catalog/coverage counts do not match qualified authority snapshot")
     if schema.endswith("root/0.1"):
         ids = [f.get("body_id") for f in document.get("features", [])]
         if len(ids) != len(set(ids)) or len(ids) != 110:
@@ -170,10 +170,16 @@ def validate_product(root):
     source_refs=set(source_records)
     features = {f["body_id"]: f for f in product_root["features"]}
     baseline = json.loads((Path(__file__).resolve().parents[1]/"engineering/solar_basemap/evidence/catalog_2226_snapshot.json").read_text())
+    if manifest["authority"]["ledger_sha256"] != baseline["authority"]["ledger_sha256"] or manifest["authority"]["manifest_sha256"] != baseline["authority"]["manifest_sha256"]:
+        raise ValueError("manifest authority identity differs from qualified baseline")
+    expected_counts={"catalog":baseline["counts"]["catalog"],"resolved":baseline["counts"]["resolved"],
+                     "unresolved":baseline["counts"]["unresolved"],"requested_curves":12,"available_curves":12}
+    if manifest["counts"] != expected_counts:
+        raise ValueError("manifest resolution or curve coverage differs from qualified baseline")
     baseline_rows={f["body_id"]:f for f in baseline["objects"]}
     for body,feature in features.items():
         expected=baseline_rows.get(body)
-        if not expected or feature["resolution"]!=expected["resolution"] or feature["catalog_parent_id"]!=expected["parent_body_id"]:
+        if not expected or feature["resolution"]!=expected["resolution"] or feature["catalog_parent_id"]!=expected["parent_body_id"] or feature["reason"]!=expected.get("reason"):
             raise ValueError(f"catalog status/parent changed from qualified baseline: {body}")
         expected_position=expected.get("relative",{}).get("position_km")
         if feature["position_km"]!=expected_position:
