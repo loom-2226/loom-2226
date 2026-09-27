@@ -69,7 +69,8 @@ async function main(){
  const series=(key)=>trials.map(t=>key(t)).filter(Number.isFinite).sort((a,b)=>a-b);const stats=a=>a.length?({n:a.length,median:a[(a.length-1)>>1],p95:a[Math.ceil(a.length*.95)-1],max:a[a.length-1],values:a}):({n:0,values:[]});
  const result={schema:'loom.solar-basemap.browser-evidence/0.1',profile,delivery,viewport:{width,height,dpr,render_dpr_cap:2},network_profiles:['unthrottled','10Mbps_80ms_cpu4'],trials,
    summary:{cold_useful_ms_plain:stats(series(t=>t.cold.throttled?NaN:t.cold.useful_ms)),cold_useful_ms_throttled:stats(series(t=>t.cold.throttled?t.cold.useful_ms:NaN)),
-   warm_product_requests:stats(series(t=>t.warm.additional_requests)),frame_intervals_plain:stats(series(t=>t.warm.warm_path.pluto.scene?.max_frame_interval_ms))}};
+   warm_product_requests:stats(series(t=>t.warm.additional_requests)),frame_samples_plain:stats(trials.filter(t=>!t.throttled).flatMap(t=>t.warm.warm_path.pluto.scene?.frame_interval_ms||[]).sort((a,b)=>a-b)),
+   frame_samples_throttled:stats(trials.filter(t=>t.throttled).flatMap(t=>t.warm.warm_path.pluto.scene?.frame_interval_ms||[]).sort((a,b)=>a-b)),trial_max_frame_interval_plain:stats(series(t=>t.throttled?NaN:t.warm.warm_path.pluto.scene?.max_frame_interval_ms)),trial_max_frame_interval_throttled:stats(series(t=>t.throttled?t.warm.warm_path.pluto.scene?.max_frame_interval_ms:NaN))}};
  const target=path.join(evidence,`${profile}-${delivery}.json`);fs.writeFileSync(target,JSON.stringify(result,null,2));console.log(JSON.stringify({evidence:target,trials:trials.length,summary:result.summary}));
 }
 main().catch(e=>{console.error(e);process.exitCode=1});
