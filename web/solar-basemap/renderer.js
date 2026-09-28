@@ -29,7 +29,11 @@
     const visibleNodes=new Set(['solar']);const errors={},positions={};
     for(const n of handle.root.nodes){const anchor=featureById[n.anchor_id];if(!anchor||!anchor.position_km)continue;positions[n.node_id]=anchor.position_km;
       const center=n.anchor_position_km.map((x,i)=>x+n.content_bound.center_km[i]),rel=center.map((x,i)=>x-eye[i]);const depth=-rel.reduce((s,x,i)=>s+x*dir[i],0),radius=n.content_bound.radius_km;
-      const radial=Math.sqrt(Math.max(0,rel.reduce((s,x)=>s+x*x,0)-depth*depth)),zmin=depth-radius;const near=zmin<=0;
+      const radial=Math.sqrt(Math.max(0,rel.reduce((s,x)=>s+x*x,0)-depth*depth)),zmin=depth-radius;
+      // A bound wholly behind the camera cannot contribute pixels. Do not turn
+      // its negative depth into infinite SSE and enqueue unrelated system LODs.
+      if(depth+radius<=0){errors[n.node_id]=0;continue;}
+      const near=zmin<=0;
       const K=near?Infinity:scale/zmin*Math.sqrt(1+Math.pow((radial+radius)/zmin,2));const diameter=2*radius*K;
       if(n.node_id==='solar'||diameter>=12)visibleNodes.add(n.node_id);
       errors[n.node_id]=(n.node_id==='solar'&&diameter>=16*diagonal)?0:K;
