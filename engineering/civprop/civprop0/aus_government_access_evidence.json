@@ -1,0 +1,55 @@
+{
+  "fixture_id": "AUS_ACCESS_1_ROO_VER_CLPS_V1",
+  "admitted_on": "2026-09-29",
+  "authority_class": "EMPIRICAL_ACTOR_ACCESS_ASSERTION",
+  "case": {
+    "actor_id": "AUS",
+    "actor_role": "Australian Government represented by the Australian Space Agency",
+    "capability": "LUNAR_PAYLOAD_DELIVERY_ACCESS",
+    "partner_id": "NASA",
+    "provider_id": "INTUITIVE_MACHINES",
+    "access_basis": "GOVERNMENT_MISSION_PARTNERSHIP_VIA_NASA_CLPS",
+    "evidence_status": "OBSERVED_ACCESS",
+    "mission": "ROO_VER_CLPS_CT4",
+    "payload": "ROO_VER_WITH_NASA_MNP",
+    "scope": "Australian Space Agency-led Roo-ver demonstration on NASA CLPS CT-4 with Intuitive Machines; South Pole region, targeted 2030; no entitlement for other Australian payloads or missions",
+    "observed_from": "2026-03-27",
+    "target_landing_year": 2030,
+    "sources": [
+      {
+        "id": "NASA_2026_03_27_CLPS_CT4_ROO_VER",
+        "publisher": "NASA",
+        "published": "2026-03-27",
+        "url": "https://www.nasa.gov/missions/artemis/clps/nasa-selects-intuitive-machines-to-deliver-artemis-science-tech-to-moon/",
+        "assertion": "NASA awarded Intuitive Machines CLPS delivery to the lunar South Pole region targeted for 2030; Roo-ver is included and Australian Space Agency is its lead organization."
+      },
+      {
+        "id": "AUS_GOV_2025_08_29_ROO_VER_MISSION",
+        "publisher": "Australian Government, Minister for Industry and Innovation",
+        "published": "2025-08-29",
+        "url": "https://www.minister.industry.gov.au/t-ayres/media/mission-confirmed-aussie-moon-rover-ready-roll",
+        "assertion": "The Government describes Roo-ver as a national mission, with AUD 42 million for its development, build and operation; ELO2 operates it in partnership with the Australian Space Agency on NASA CLPS CT-4."
+      },
+      {
+        "id": "ASA_2026_08_13_ROO_VER_TESTING",
+        "publisher": "Australian Space Agency",
+        "published": "2026-08-13",
+        "url": "https://www.space.gov.au/news-and-media/critical-testing-begins-for-roo-ver-before-moon-journey-in-2030",
+        "assertion": "The Agency reports Roo-ver mobility testing under way with ELO2, continued NASA payload integration, and a NASA CLPS South Pole region mission targeted for 2030."
+      },
+      {
+        "id": "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT",
+        "publisher": "NASA",
+        "published": "2021-10-12",
+        "url": "https://www.nasa.gov/missions/artemis/nasa-australia-sign-agreement-to-add-rover-to-future-moon-mission/",
+        "assertion": "NASA and the Australian Space Agency signed a rover-specific agreement for a future lunar mission, conditional on rover development."
+      }
+    ],
+    "limitations": [
+      "This is a government mission relationship for Roo-ver, not sovereign lunar transport or an open right to add arbitrary payloads",
+      "Intuitive Machines is NASA's selected CLPS provider; NASA, not AUS, awarded the delivery contract",
+      "The documented mission targets 2030 and a South Pole region, not CIVPROP-0's September 2026 departure or synthetic polar site",
+      "Delivery, site-specific operations, payload accommodation and price for a separate prospecting mission are unqualified"
+    ]
+  }
+}
