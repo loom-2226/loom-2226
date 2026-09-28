@@ -1,0 +1,844 @@
+{
+  "actor": {
+    "actor_id": "AUS",
+    "name": "Australia",
+    "source_snapshot": "earth-v0-1-9934d0ac-20260925",
+    "year": 2026
+  },
+  "audit": {
+    "authority_class": "HIDDEN_SCENARIO_REALIZATION_EVALUATOR_ONLY",
+    "generator": "SHA256_BERNOULLI_V1",
+    "key": [
+      "SHA256_BERNOULLI_V1",
+      "POLAR_TEST_PRIOR_V1",
+      "a7464676fcae902af56280a82623bda8d687041df6e7b1f4a0358c47aaa490cc",
+      1,
+      "MOON",
+      "SCENARIO:MOON_POLAR_PSR:SITE_0",
+      0.3
+    ],
+    "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+    "truth": true
+  },
+  "decisions": [
+    {
+      "action": "PROSPECT",
+      "authority_class": "SCENARIO_DECISION",
+      "expected_net_value": 2.5000000000000036,
+      "reason": "Expected value of sample information minus mission cost; feasible and affordable required"
+    },
+    {
+      "action": "CONTINUE",
+      "authority_class": "SCENARIO_DECISION",
+      "expected_net_value": 20.833333333333343,
+      "reason": "Expected continuation value minus cost; affordable and above threshold required"
+    }
+  ],
+  "ending_capital": 45,
+  "events": [
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:00",
+      "event_type": "RUN_INITIALIZED",
+      "parent_id": null,
+      "payload": {
+        "actor": {
+          "actor_id": "AUS",
+          "name": "Australia",
+          "source_snapshot": "earth-v0-1-9934d0ac-20260925",
+          "year": 2026
+        },
+        "capital": 100,
+        "capital_authority": "SCENARIO_ONLY_NOT_EARTH_WITHDRAWAL",
+        "input_sha256": "96c278608caa1f559dd0e2760f9bb8567220a15996447c4079687653de97f30c",
+        "knowledge": {
+          "authority_class": "SIMULATED_BELIEF",
+          "observation_ids": [],
+          "probability": 0.3,
+          "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+          "source": "POLAR_TEST_PRIOR_V1",
+          "time": "2026-09-28T00:00:00Z",
+          "visibility": "PRIVATE"
+        }
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-09-28T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:01",
+      "event_type": "OPPORTUNITY_EVALUATED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:00",
+      "payload": {
+        "arrival": "2026-10-03T00:00:00Z",
+        "authority_class": "SCENARIO_TRANSPORT_WITH_GOVERNED_CONTEXT",
+        "context_distance_km": 374908.06825488113,
+        "departure": "2026-09-28T00:00:00Z",
+        "duration_seconds": 432000.0,
+        "liens": [
+          "No qualified Earth surface-to-orbit trajectory consumed",
+          "Five-day transfer and polar landing success are scenario assumptions",
+          "No site coordinates, terrain, delta-v, payload or propulsion sizing qualified"
+        ],
+        "status": "FEASIBLE"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-09-28T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:02",
+      "event_type": "DECISION_MADE",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:01",
+      "payload": {
+        "action": "PROSPECT",
+        "authority_class": "SCENARIO_DECISION",
+        "economics": {
+          "authority_class": "SCENARIO_TEST_INPUT_NOT_DORRINGTON",
+          "continuation_cost": 50,
+          "false_positive": 0.15,
+          "mission_cost": 5,
+          "sensitivity": 0.85,
+          "success_value": 100,
+          "threshold": 0
+        },
+        "expected_net_value": 2.5000000000000036,
+        "reason": "Expected value of sample information minus mission cost; feasible and affordable required"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-09-28T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:03",
+      "event_type": "CAPITAL_COMMITTED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:02",
+      "payload": {
+        "amount": 5,
+        "authority_class": "SCENARIO_EXPENDITURE",
+        "purpose": "robotic prospecting mission and survey instrument",
+        "remaining_capital": 95,
+        "transaction_id": "civprop0:bac2160d334330bd25bea8dd:capital:0",
+        "unit": "SCENARIO_CREDIT (no currency conversion)"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-09-28T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:04",
+      "event_type": "MISSION_LAUNCHED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:03",
+      "payload": {
+        "actor_id": "AUS",
+        "arrival": "2026-10-03T00:00:00Z",
+        "departure": "2026-09-28T00:00:00Z",
+        "mission_class": "ROBOTIC_POLAR_PROSPECTING",
+        "mission_id": "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z",
+        "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-09-28T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:05",
+      "event_type": "MISSION_EXECUTED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:04",
+      "payload": {
+        "actor_id": "AUS",
+        "arrival": "2026-10-03T00:00:00Z",
+        "departure": "2026-09-28T00:00:00Z",
+        "execution_basis": "SCENARIO_SUCCESS_CONDITIONAL_ON_FEASIBILITY",
+        "mission_class": "ROBOTIC_POLAR_PROSPECTING",
+        "mission_id": "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z",
+        "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-10-03T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:06",
+      "event_type": "INFRASTRUCTURE_CHANGED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:05",
+      "payload": {
+        "asset_id": "civprop0:bac2160d334330bd25bea8dd:asset:0",
+        "authority_class": "SCENARIO_ASSET_NOT_MINING_CAPACITY",
+        "kind": "SURVEY_INSTRUMENT",
+        "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+        "transaction_id": "civprop0:bac2160d334330bd25bea8dd:capital:0"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-10-03T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:07",
+      "event_type": "OBSERVATION_PRODUCED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:06",
+      "payload": {
+        "authority_class": "SIMULATED_OBSERVATION",
+        "detected": true,
+        "error_model": "BERNOULLI_CONFUSION_MATRIX_V1",
+        "false_positive": 0.15,
+        "mission_id": "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z",
+        "observation_id": "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z:observation",
+        "quantity": "ice_detection",
+        "sensitivity": 0.85,
+        "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+        "time": "2026-10-03T00:00:00Z",
+        "units": "binary (not abundance or ore grade)"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-10-03T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:08",
+      "event_type": "OBSERVATION_RECEIVED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:07",
+      "payload": {
+        "observation_id": "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z:observation",
+        "visibility": "PRIVATE"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-10-03T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:09",
+      "event_type": "KNOWLEDGE_UPDATED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:08",
+      "payload": {
+        "authority_class": "SIMULATED_BELIEF",
+        "observation_ids": [
+          "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z:observation"
+        ],
+        "probability": 0.7083333333333334,
+        "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+        "source": "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z:observation",
+        "time": "2026-10-03T00:00:00Z",
+        "visibility": "PRIVATE"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-10-03T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:10",
+      "event_type": "DECISION_REEVALUATED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:09",
+      "payload": {
+        "action": "CONTINUE",
+        "authority_class": "SCENARIO_DECISION",
+        "expected_net_value": 20.833333333333343,
+        "reason": "Expected continuation value minus cost; affordable and above threshold required"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-10-03T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:11",
+      "event_type": "CAPITAL_COMMITTED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:10",
+      "payload": {
+        "amount": 50,
+        "authority_class": "SCENARIO_EXPENDITURE",
+        "purpose": "fund existing instrument site-analysis continuation",
+        "remaining_capital": 45,
+        "transaction_id": "civprop0:bac2160d334330bd25bea8dd:capital:1",
+        "unit": "SCENARIO_CREDIT (no currency conversion)"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-10-03T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:12",
+      "event_type": "INFRASTRUCTURE_CHANGED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:11",
+      "payload": {
+        "asset_id": "civprop0:bac2160d334330bd25bea8dd:asset:1",
+        "authority_class": "SCENARIO_ASSET_NOT_MINING_CAPACITY",
+        "kind": "FUNDED_SITE_ANALYSIS_CAPACITY",
+        "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+        "transaction_id": "civprop0:bac2160d334330bd25bea8dd:capital:1"
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-10-03T00:00:00Z"
+    },
+    {
+      "actor_id": "AUS",
+      "authority_class": "SIMULATION_EVENT",
+      "event_id": "civprop0:bac2160d334330bd25bea8dd:event:13",
+      "event_type": "RUN_COMPLETED",
+      "parent_id": "civprop0:bac2160d334330bd25bea8dd:event:12",
+      "payload": {
+        "action": "CONTINUE",
+        "ending_capital": 45
+      },
+      "run_id": "civprop0:bac2160d334330bd25bea8dd",
+      "time": "2026-10-03T00:00:00Z"
+    }
+  ],
+  "final_knowledge": {
+    "authority_class": "SIMULATED_BELIEF",
+    "observation_ids": [
+      "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z:observation"
+    ],
+    "probability": 0.7083333333333334,
+    "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+    "source": "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z:observation",
+    "time": "2026-10-03T00:00:00Z",
+    "visibility": "PRIVATE"
+  },
+  "implementation_sha256": {
+    "actor.py": "cdb1e5aa474d83441319bdef292d46a3a9ad2e535f6cca476f7bc13ca20dda51",
+    "experiment.py": "f4dba7452b3a1ff3df6e44a71d7584d191d2cc8232086b1d7c5845369ee3f703",
+    "model.py": "57a3322226f90dc718ea60506633f72a025da784a2a1b8b7b22fb793dfa2650a",
+    "observation.py": "9d810064a74dff316c246537ec10fc0d8c23e5791ef69f631f1f2cfb60107701",
+    "transport.py": "e5303a6deca9f679fd82f268a9520e9d99869ecc99e09d8e82582b81f4f6e52f"
+  },
+  "infrastructure": [
+    {
+      "asset_id": "civprop0:bac2160d334330bd25bea8dd:asset:0",
+      "authority_class": "SCENARIO_ASSET_NOT_MINING_CAPACITY",
+      "kind": "SURVEY_INSTRUMENT",
+      "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+      "transaction_id": "civprop0:bac2160d334330bd25bea8dd:capital:0"
+    },
+    {
+      "asset_id": "civprop0:bac2160d334330bd25bea8dd:asset:1",
+      "authority_class": "SCENARIO_ASSET_NOT_MINING_CAPACITY",
+      "kind": "FUNDED_SITE_ANALYSIS_CAPACITY",
+      "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+      "transaction_id": "civprop0:bac2160d334330bd25bea8dd:capital:1"
+    }
+  ],
+  "initial_knowledge": {
+    "authority_class": "SIMULATED_BELIEF",
+    "observation_ids": [],
+    "probability": 0.3,
+    "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+    "source": "POLAR_TEST_PRIOR_V1",
+    "time": "2026-09-28T00:00:00Z",
+    "visibility": "PRIVATE"
+  },
+  "input_sha256": "96c278608caa1f559dd0e2760f9bb8567220a15996447c4079687653de97f30c",
+  "inputs": {
+    "acquisition": "PostgreSQL repeatable-read READ ONLY + promoted SPICE adapter; 2026-09-28",
+    "architecture_basis": {
+      "commit": "bb117d933a863fab4dbedc2add3783c7cad004a1",
+      "pr": 321
+    },
+    "format": "CIVPROP0_INPUT_V1",
+    "main_commit": "b22703ab7ce5586fecfeda0998d19b7d1fbbfe30",
+    "records": {
+      "bodies": [
+        {
+          "body_class": "PLANET",
+          "body_id": "EARTH",
+          "canonical_name": "Earth",
+          "created_at": "2026-09-25T12:25:14.738844+00:00",
+          "parent_body_id": null,
+          "status": "ACTIVE"
+        },
+        {
+          "body_class": "NATURAL_SATELLITE",
+          "body_id": "MOON",
+          "canonical_name": "Moon",
+          "created_at": "2026-09-25T12:25:14.738844+00:00",
+          "parent_body_id": null,
+          "status": "ACTIVE"
+        }
+      ],
+      "coverage": [
+        {
+          "body_id": "EARTH",
+          "coverage_class": "BODY",
+          "coverage_end_et": 20514081600,
+          "coverage_start_et": -14200747200,
+          "ephemeris_source_id": "DE440",
+          "reference_frame": "ECLIPJ2000",
+          "status": "QUALIFIED",
+          "units": "km,km/s",
+          "valid_from": "1549-12-30T23:59:18.815889+00:00",
+          "valid_until": "2650-01-24T23:58:50.815708+00:00"
+        },
+        {
+          "body_id": "MOON",
+          "coverage_class": "BODY",
+          "coverage_end_et": 20514081600,
+          "coverage_start_et": -14200747200,
+          "ephemeris_source_id": "DE440",
+          "reference_frame": "ECLIPJ2000",
+          "status": "QUALIFIED",
+          "units": "km,km/s",
+          "valid_from": "1549-12-30T23:59:18.815889+00:00",
+          "valid_until": "2650-01-24T23:58:50.815708+00:00"
+        }
+      ],
+      "earth_actor": [
+        {
+          "display_name": "Australia",
+          "economic_qualified": true,
+          "iso3": "AUS",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "wpp_location_id": 36,
+          "wpp_location_type": "Country/Area"
+        }
+      ],
+      "earth_snapshot": [
+        {
+          "consumer_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+          "consumer_query_sha256": "7ab8445e129ba172e346bb1d82592814ef69b4ef2eafd77d3615d7f1d9ed9079",
+          "contract_sha256": "78cbfde6d391ecdded2ae584fb1cd90b853d40eb8af25ed02d1a8be6bb9c3eb6",
+          "created_at": "2026-09-24T18:43:16.840904+00:00",
+          "semantic_sha256": "2d84b0b9137b3147e09723dff8cffe952e39e7d55f8062a73c0b13b62baee3a0",
+          "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+          "state": "VALIDATED"
+        }
+      ],
+      "identifiers": [
+        {
+          "authority": "NAIF",
+          "body_id": "EARTH",
+          "identifier_type": "NAIF_ID",
+          "identifier_value": "399",
+          "status": "ACTIVE"
+        },
+        {
+          "authority": "NAIF",
+          "body_id": "MOON",
+          "identifier_type": "NAIF_ID",
+          "identifier_value": "301",
+          "status": "ACTIVE"
+        }
+      ],
+      "sources": [
+        {
+          "acquired_at": "2026-09-24T21:39:02.529102+00:00",
+          "asset_filename": "de440.bsp",
+          "byte_count": 119799808,
+          "ephemeris_source_id": "DE440",
+          "navigation_grade": true,
+          "product_name": "DE440",
+          "product_version": "440",
+          "provider": "JPL/NAIF",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+          "source_lineage": null,
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "status": "QUALIFIED",
+          "uncertainty_km": null
+        }
+      ],
+      "timeline_rules": [
+        {
+          "rule_key": "CANON_COMPARATOR_NOT_DESTINATION",
+          "rule_text_md": "Existing canon is a **comparator**, not a destination.",
+          "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+          "source_artifact_sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+          "source_section": "Technology Timeline \u00a7\u00a71,4"
+        },
+        {
+          "rule_key": "DATE_DOES_NOT_UNLOCK",
+          "rule_text_md": "The date alone does **not** unlock a technology, create capacity, give every agent access, establish profitability for another process, cause migration or colonize a location.",
+          "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+          "source_artifact_sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+          "source_section": "Technology Timeline \u00a7\u00a71,4"
+        },
+        {
+          "rule_key": "FOUR_TECH_STATES",
+          "rule_text_md": "Keep four separate states: `knowledge_or_demonstration`, `reliable_operational_design`, `installed_local_capacity`, `actor_access_and_adoption`.",
+          "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+          "source_artifact_sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+          "source_section": "Technology Timeline \u00a7\u00a71,4"
+        },
+        {
+          "rule_key": "SITE_SPECIFIC",
+          "rule_text_md": "Site specificity matters: a proven process at one site creates transferable knowledge, not capacity at other sites.",
+          "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+          "source_artifact_sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+          "source_section": "Technology Timeline \u00a7\u00a71,4"
+        },
+        {
+          "rule_key": "UNKNOWN_NOT_ZERO",
+          "rule_text_md": "Missing quantities remain `UNKNOWN` / null, not zero.",
+          "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+          "source_artifact_sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+          "source_section": "Technology Timeline \u00a7\u00a71,4"
+        }
+      ]
+    },
+    "resource": {
+      "admission": "Scenario context only; no production promotion or site measurement",
+      "assertion": {
+        "abundance_semantics": "PRESENT_UNQUANTIFIED",
+        "body_id": "MOON",
+        "confidence_class": "MODERATE",
+        "evidence_class": "IN_SITU_REMOTE",
+        "key": "MOON_POLAR_WATER_ICE",
+        "lineage": "LRO-LCROSS-LUNAR-WATER-OBSERVATIONS",
+        "location_context": "polar permanently shadowed regions and separate sunlit footprints; distinct detection contexts preserved",
+        "material_family": "VOLATILES",
+        "material_species": "water ice in permanently shadowed regions; separate sunlit-surface water detections",
+        "measurement_method": "LRO_LCROSS_AND_ORBITAL_SPECTRAL_OBSERVATIONS",
+        "notes": "Evidence supports water/ice at specified lunar footprints; the quantities, distribution and form vary by site. No global lunar water inventory is implied.",
+        "observation_key": "MOON_LRO_LCROSS_WATER",
+        "physical_form": "surface/subsurface ice or hydroxyl-bearing material, according to distinct observations",
+        "region_key": "MOON_POLAR_PSR",
+        "resource_families": [
+          "VOLATILES"
+        ],
+        "scope": "POLAR_AND_SELECTED_SURFACE_FOOTPRINTS",
+        "source_key": "MOON_WATER_NASA"
+      },
+      "scope": "POLAR_AND_SELECTED_SURFACE_FOOTPRINTS",
+      "site_abundance": null,
+      "site_status": "UNKNOWN",
+      "status": "CANDIDATE"
+    },
+    "source_hashes": {
+      "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
+      "dev/solar_civprop_m4b/campaign_assertions.json": "e87eb9f711ce508933e76c86a1d9f4314a13d6d4403940d21fa25cf6da700c39",
+      "dev/solar_civprop_m4b/reports/M4B_QUALIFICATION_REPORT.md": "a6a6be2f9140c6dc68971b81512decceb281633d063e3deff2d9a419982c63c2",
+      "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+      "manifests/solar/SOLAR_PHASE4B_AUTHORITY_V1.json": "e852b008acde377407f3b1ff011666f1d8f7a5ab21e9a2ed427b0e9694a93df6",
+      "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md": "a4b613a3514a385cbbd3ef3959e01ca22cd3b4736dcb893cc4213465655d4a37",
+      "src/loom_spatial_state_authority.py": "b00be37b5dbc9deff25dbf9bd837580caf8116f440dc15c2132d186ffbfda2b1",
+      "src/loom_spice_ephemeris_adapter.py": "c05b6e32956694926b7c9f10e36ebf3403230835546149ac1cea0e91fa4de521"
+    },
+    "states": [
+      {
+        "entity_id": "EARTH",
+        "epoch_utc": "2026-09-28T00:00:00Z",
+        "navigation_grade": true,
+        "payload": {
+          "ephemeris_quality": "QUALIFIED",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_class": "CELESTIAL"
+        },
+        "position_km": [
+          149454942.4099948,
+          11823850.247452276,
+          -1946.5825020316988
+        ],
+        "provenance": {
+          "aberration_correction": "NONE",
+          "asset_filename": "de440.bsp",
+          "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+          "coverage": {
+            "coverage_class": "BODY",
+            "valid_from": "1549-12-30T23:59:18.815889+00:00",
+            "valid_until": "2650-01-24T23:58:50.815708+00:00"
+          },
+          "ephemeris_source_id": "DE440",
+          "kernel_assets": [
+            {
+              "byte_count": 5257,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+              "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+            },
+            {
+              "byte_count": 119799808,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+              "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+            }
+          ],
+          "naif_identifier": "399",
+          "navigation_grade": true,
+          "observer_naif_identifier": "10",
+          "product_name": "DE440",
+          "product_version": "440",
+          "provider": "JPL/NAIF",
+          "request_time_scale": "UTC",
+          "source_lineage": null,
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+          "spice_frame": "ECLIPJ2000",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_source": "LOCAL_SPICE",
+          "time_scale_internal": "SPICE ET/TDB",
+          "uncertainty_km": null,
+          "units": "km,km/s"
+        },
+        "reference_frame": "J2000/ECLIPTIC",
+        "uncertainty": {},
+        "velocity_km_s": [
+          -2.8277325787784195,
+          29.572371815409046,
+          -0.0024537904510015807
+        ]
+      },
+      {
+        "entity_id": "MOON",
+        "epoch_utc": "2026-09-28T00:00:00Z",
+        "navigation_grade": true,
+        "payload": {
+          "ephemeris_quality": "QUALIFIED",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_class": "CELESTIAL"
+        },
+        "position_km": [
+          149803857.6648143,
+          11958392.378129162,
+          24748.35465440061
+        ],
+        "provenance": {
+          "aberration_correction": "NONE",
+          "asset_filename": "de440.bsp",
+          "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+          "coverage": {
+            "coverage_class": "BODY",
+            "valid_from": "1549-12-30T23:59:18.815889+00:00",
+            "valid_until": "2650-01-24T23:58:50.815708+00:00"
+          },
+          "ephemeris_source_id": "DE440",
+          "kernel_assets": [
+            {
+              "byte_count": 5257,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+              "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+            },
+            {
+              "byte_count": 119799808,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+              "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+            }
+          ],
+          "naif_identifier": "301",
+          "navigation_grade": true,
+          "observer_naif_identifier": "10",
+          "product_name": "DE440",
+          "product_version": "440",
+          "provider": "JPL/NAIF",
+          "request_time_scale": "UTC",
+          "source_lineage": null,
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+          "spice_frame": "ECLIPJ2000",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_source": "LOCAL_SPICE",
+          "time_scale_internal": "SPICE ET/TDB",
+          "uncertainty_km": null,
+          "units": "km,km/s"
+        },
+        "reference_frame": "J2000/ECLIPTIC",
+        "uncertainty": {},
+        "velocity_km_s": [
+          -3.2418523088888436,
+          30.538273207677086,
+          0.053221060372784734
+        ]
+      },
+      {
+        "entity_id": "EARTH",
+        "epoch_utc": "2026-10-03T00:00:00Z",
+        "navigation_grade": true,
+        "payload": {
+          "ephemeris_quality": "QUALIFIED",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_class": "CELESTIAL"
+        },
+        "position_km": [
+          147687426.29354817,
+          24542161.555680327,
+          -2722.512093089521
+        ],
+        "provenance": {
+          "aberration_correction": "NONE",
+          "asset_filename": "de440.bsp",
+          "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+          "coverage": {
+            "coverage_class": "BODY",
+            "valid_from": "1549-12-30T23:59:18.815889+00:00",
+            "valid_until": "2650-01-24T23:58:50.815708+00:00"
+          },
+          "ephemeris_source_id": "DE440",
+          "kernel_assets": [
+            {
+              "byte_count": 5257,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+              "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+            },
+            {
+              "byte_count": 119799808,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+              "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+            }
+          ],
+          "naif_identifier": "399",
+          "navigation_grade": true,
+          "observer_naif_identifier": "10",
+          "product_name": "DE440",
+          "product_version": "440",
+          "provider": "JPL/NAIF",
+          "request_time_scale": "UTC",
+          "source_lineage": null,
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+          "spice_frame": "ECLIPJ2000",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_source": "LOCAL_SPICE",
+          "time_scale_internal": "SPICE ET/TDB",
+          "uncertainty_km": null,
+          "units": "km,km/s"
+        },
+        "reference_frame": "J2000/ECLIPTIC",
+        "uncertainty": {},
+        "velocity_km_s": [
+          -5.354466871458321,
+          29.27406930392631,
+          -0.0011198822320324098
+        ]
+      },
+      {
+        "entity_id": "MOON",
+        "epoch_utc": "2026-10-03T00:00:00Z",
+        "navigation_grade": true,
+        "payload": {
+          "ephemeris_quality": "QUALIFIED",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_class": "CELESTIAL"
+        },
+        "position_km": [
+          147674230.04840326,
+          24910583.932947785,
+          25111.33124054596
+        ],
+        "provenance": {
+          "aberration_correction": "NONE",
+          "asset_filename": "de440.bsp",
+          "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+          "coverage": {
+            "coverage_class": "BODY",
+            "valid_from": "1549-12-30T23:59:18.815889+00:00",
+            "valid_until": "2650-01-24T23:58:50.815708+00:00"
+          },
+          "ephemeris_source_id": "DE440",
+          "kernel_assets": [
+            {
+              "byte_count": 5257,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+              "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+            },
+            {
+              "byte_count": 119799808,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+              "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+            }
+          ],
+          "naif_identifier": "301",
+          "navigation_grade": true,
+          "observer_naif_identifier": "10",
+          "product_name": "DE440",
+          "product_version": "440",
+          "provider": "JPL/NAIF",
+          "request_time_scale": "UTC",
+          "source_lineage": null,
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+          "spice_frame": "ECLIPJ2000",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_source": "LOCAL_SPICE",
+          "time_scale_internal": "SPICE ET/TDB",
+          "uncertainty_km": null,
+          "units": "km,km/s"
+        },
+        "reference_frame": "J2000/ECLIPTIC",
+        "uncertainty": {},
+        "velocity_km_s": [
+          -6.412108303218931,
+          29.247525898062356,
+          -0.05289104251976795
+        ]
+      }
+    ]
+  },
+  "mission": {
+    "actor_id": "AUS",
+    "arrival": "2026-10-03T00:00:00Z",
+    "departure": "2026-09-28T00:00:00Z",
+    "mission_class": "ROBOTIC_POLAR_PROSPECTING",
+    "mission_id": "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z",
+    "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0"
+  },
+  "observations": [
+    {
+      "authority_class": "SIMULATED_OBSERVATION",
+      "detected": true,
+      "error_model": "BERNOULLI_CONFUSION_MATRIX_V1",
+      "false_positive": 0.15,
+      "mission_id": "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z",
+      "observation_id": "mission:AUS:SCENARIO:MOON_POLAR_PSR:SITE_0:2026-09-28T00:00:00Z:observation",
+      "quantity": "ice_detection",
+      "sensitivity": 0.85,
+      "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+      "time": "2026-10-03T00:00:00Z",
+      "units": "binary (not abundance or ore grade)"
+    }
+  ],
+  "opportunity": {
+    "arrival": "2026-10-03T00:00:00Z",
+    "authority_class": "SCENARIO_TRANSPORT_WITH_GOVERNED_CONTEXT",
+    "context_distance_km": 374908.06825488113,
+    "departure": "2026-09-28T00:00:00Z",
+    "duration_seconds": 432000.0,
+    "liens": [
+      "No qualified Earth surface-to-orbit trajectory consumed",
+      "Five-day transfer and polar landing success are scenario assumptions",
+      "No site coordinates, terrain, delta-v, payload or propulsion sizing qualified"
+    ],
+    "status": "FEASIBLE"
+  },
+  "run_id": "civprop0:bac2160d334330bd25bea8dd",
+  "scenario": {
+    "arrival": "2026-10-03T00:00:00Z",
+    "authority_class": "SCENARIO_TEST_INPUT",
+    "body_id": "MOON",
+    "capital": 100,
+    "continuation_cost": 50,
+    "departure": "2026-09-28T00:00:00Z",
+    "false_positive": 0.15,
+    "generator": "SHA256_BERNOULLI_V1",
+    "mission_cost": 5,
+    "money_unit": "SCENARIO_CREDIT (no currency conversion)",
+    "prior": 0.3,
+    "prior_version": "POLAR_TEST_PRIOR_V1",
+    "sensitivity": 0.85,
+    "site_id": "SCENARIO:MOON_POLAR_PSR:SITE_0",
+    "success_value": 100,
+    "technology": true,
+    "threshold": 0,
+    "version": "CIVPROP0_SCENARIO_V1"
+  },
+  "seed": 1,
+  "transactions": [
+    {
+      "amount": 5,
+      "authority_class": "SCENARIO_EXPENDITURE",
+      "purpose": "robotic prospecting mission and survey instrument",
+      "transaction_id": "civprop0:bac2160d334330bd25bea8dd:capital:0",
+      "unit": "SCENARIO_CREDIT (no currency conversion)"
+    },
+    {
+      "amount": 50,
+      "authority_class": "SCENARIO_EXPENDITURE",
+      "purpose": "fund existing instrument site-analysis continuation",
+      "transaction_id": "civprop0:bac2160d334330bd25bea8dd:capital:1",
+      "unit": "SCENARIO_CREDIT (no currency conversion)"
+    }
+  ]
+}
