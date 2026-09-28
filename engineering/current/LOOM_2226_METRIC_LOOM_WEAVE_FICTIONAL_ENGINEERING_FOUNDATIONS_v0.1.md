@@ -2,7 +2,7 @@
 
 **Class:** ENGINEERING  
 **Status:** CURRENT FICTIONAL-ENGINEERING DEVELOPMENT BASELINE / NON-CANON  
-**Purpose:** Primary mathematical and engineering formulation for Weave dynamics, sustained subluminal Metric propulsion, Loom translation, M2 control synthesis, M1 Mc-299m coupling, and later Navigator/HUD implementation.
+**Purpose:** Primary mathematical and engineering formulation for Weave dynamics, sustained subluminal Metric propulsion, Loom translation, M1 relational-geometry permission, M2 matter/actuator coupling, Weave Control Synthesis, and later Navigator/HUD implementation.
 
 ## 0. Authority and scope
 
@@ -26,11 +26,13 @@ Development proceeds top-down:
 
 \[
 \boxed{
-\text{Metric/Loom operational mathematics}
+\text{Metric/Loom operational outcomes}
 \leftarrow
-\text{M2 control synthesis}
+\text{Weave Control Synthesis}
 \leftarrow
-\text{M1 actuator coupling}
+\text{M2 matter / actuator coupling}
+\leftarrow
+\text{M1 relational-geometry permission}
 }
 \]
 
@@ -609,7 +611,127 @@ Only then may:
 
 This provides a model reason for forbidding direct crew-rated mid-field Metric-to-Loom transition.
 
-## 15. M2 — inverse Weave control synthesis
+## 15. M1 — relational-geometry permission
+
+M1 is the first fictional physical permission.
+
+It states that physically meaningful relational configurations exist beyond ordinary spacetime description and that gauge-inequivalent/global relational state can determine an effective spacetime geometry.
+
+A useful effective state space is
+
+\[
+\boxed{
+\mathcal M_R
+=
+\frac{\{\text{admissible relational / Weave configurations}\}}
+{\{\text{local gauge equivalence}\}}.
+}
+\]
+
+Let \(\Lambda\) denote the global-sector data carried by a configuration, potentially including cohomology, holonomy, topological or other global invariants in a future mathematical realization.
+
+The effective geometric readout is then schematically
+
+\[
+\boxed{
+[\mathcal W]\in\mathcal M_R
+\longrightarrow
+g_{\mu\nu}^{\rm eff}.
+}
+\]
+
+The game-facing distinction is:
+
+\[
+\boxed{
+\text{Metric}
+=
+\text{controlled deformation with }\Lambda\text{ fixed}
+}
+\]
+
+versus
+
+\[
+\boxed{
+\text{Loom}
+=
+\text{controlled transition }\Lambda_A\rightarrow\Lambda_B.
+}
+\]
+
+This is an engineering placement of the fictional miracle, not an RF research result. Current foundations research has not established such a relational sector, an emergent metric map, or physical inter-sector transitions.
+
+## 16. M2 — matter / Mc-299m coupling permission
+
+M2 is the second fictional physical permission.
+
+It states that physical matter can source and controllably bias the M1 relational sector strongly enough to provide finite, calibratable macroscopic control authority.
+
+The ideal parent-theory form is schematically
+
+\[
+\boxed{
+S[\mathcal W,\Phi]
+=
+S_R[\mathcal W]
++
+S_{\rm matter}[\Phi,\mathcal W],
+}
+\]
+
+with relational response determined by variation of the same parent structure:
+
+\[
+\frac{\delta S}{\delta\mathcal W}
+=
+J_\Phi.
+\]
+
+For fictional engineering, Mc-299m supplies an unusually strong controllable source/current \(J_R\). A constitutive layer may be written
+
+\[
+\boxed{
+J_R
+=
+\mathcal C_{\rm Mc}
+(J,T,B,\rho_{\rm Mc},\text{tile state},\text{hardware state}).
+}
+\]
+
+or, in a linearized frequency-domain approximation,
+
+\[
+J_{R,\alpha}(\omega)
+=
+\sum_k
+\chi_{\alpha k}
+(\omega,T,B,\rho_{\rm Mc},\ldots)
+J_k(\omega).
+\]
+
+The existing reduced-order law
+
+\[
+\beta_{\rm machine}
+=
+\chi_M\frac{J_M}{N_{\rm eff}}
+\]
+
+is therefore interpreted as an operational constitutive/calibration projection of M2 through the controlled Weave response, not as the complete microscopic theory.
+
+Mc-299m is an actuator medium, not expendable reaction mass.
+
+The preferred research economy remains two fictional permissions:
+
+1. M1: the relational/geometric sector physically exists and admits inequivalent global states;
+2. M2: matter can exert usable control authority over that sector.
+
+Everything downstream should be engineering unless a separate physical permission is genuinely required.
+
+## 17. Weave Control Synthesis — inverse engineering controller
+
+Weave Control Synthesis (WCS) is **not** M2 and is not an additional miracle. It is the inverse-control engineering layer built on the assumed M1/M2 effective model.
 
 The forward model is
 
@@ -621,7 +743,7 @@ W_{n+1}
 g_{\mu\nu}.
 \]
 
-M2 solves the inverse problem.
+WCS solves the reverse problem.
 
 Given a desired metric field \(g^*_{\mu\nu}(x,t)\), find actuator-space controls \(u_k(t)\) such that
 
@@ -671,55 +793,9 @@ T_{AB}^*
 u^*.
 \]
 
-Therefore:
+WCS must be permitted to return infeasible rather than always manufacturing a solution.
 
-\[
-\boxed{
-\text{M2 = controlled synthesis of a requested Weave state or attachment operation.}
-}
-\]
-
-M2 must be permitted to return infeasible rather than always manufacturing a solution.
-
-## 16. M1 — Mc-299m constitutive coupling
-
-M2 requests abstract Weave controls \(u_\alpha\).
-
-M1 maps physical Mc-299m hardware commands into those controls.
-
-A candidate frequency-domain form is
-
-\[
-\boxed{
-u_\alpha(\omega)
-=
-\sum_k
-\chi_{\alpha k}
-(\omega,T,B,\rho_{\rm Mc},\text{tile state},\ldots)
-J_k(\omega).
-}
-\]
-
-Equivalent state form:
-
-\[
-u
-=
-\mathcal C_{\rm Mc}
-(J,T,B,\text{hardware state}).
-\]
-
-The susceptibility/kernel
-
-\[
-\chi_{\alpha k}
-\]
-
-is the fictional Mc-299m-to-Weave constitutive law.
-
-M1 is intentionally replaceable. Engineers may know the transfer law to extreme precision without possessing a final microscopic explanation for why Mc-299m couples to the Weave.
-
-## 17. Optional foundational ontology: Pauli/Jung-compatible formulation
+## 18. Optional foundational ontology: Pauli/Jung-compatible formulation
 
 This section is optional fictional ontology and has **no engineering-evidence authority**.
 
@@ -755,7 +831,7 @@ without either event causing the other.
 
 Engineering touches \(\mathcal W\), not consciousness.
 
-## 18. Natural Loom-like phenomena and seams
+## 19. Natural Loom-like phenomena and seams
 
 This section is fictional phenomenology only. Real anomaly reports do not calibrate M1/M2/M3 or physical parameters.
 
@@ -821,7 +897,7 @@ If internal proper-time and ordinary path-time differ, define a descriptive anom
 
 This remains fictional forward modeling only.
 
-## 19. Engineering interpretation of “sensitives”
+## 20. Engineering interpretation of “sensitives”
 
 Optional worldbuilding formulation:
 
@@ -837,7 +913,7 @@ A “sensitive” is not a privileged causal controller. In fiction, some nervou
 
 This concept has no role in Metric/Loom command authority, M1 calibration, or Navigator control.
 
-## 20. Navigator mathematical contract
+## 21. Navigator mathematical contract
 
 Navigator consumes:
 
@@ -876,7 +952,7 @@ Navigator remains the calculation/state-planning authority.
 
 Browser/HUD remains presentation, intent, review, and visualization only unless separately governed otherwise.
 
-## 21. HUD target
+## 22. HUD target
 
 A future engineering HUD should expose actual solver state, including:
 
@@ -901,7 +977,7 @@ A future engineering HUD should expose actual solver state, including:
 
 The HUD must not invent values absent from the deterministic model.
 
-## 22. Current status and non-claims
+## 23. Current status and non-claims
 
 This formulation establishes a coherent fictional-engineering architecture, not real physics.
 
@@ -916,8 +992,10 @@ It does not establish:
 - Pauli/Jung ontology as fact;
 - a solved conservation ledger;
 - a solved finite-RSET model;
-- a final M1 constitutive law;
-- a final M2 controller;
+- a real or scientifically derived M1 relational-geometry mechanism;
+- a real or scientifically derived M2 matter-coupling mechanism;
+- a final Mc-299m constitutive law;
+- a final Weave Control Synthesis controller;
 - Navigator runtime implementation.
 
 It does establish the preferred mathematical and software direction for future fictional engineering work:
@@ -950,9 +1028,11 @@ The engineering stack is then:
 
 \[
 \boxed{
-\text{M1 hardware coupling}
+\text{M1 relational-geometry permission}
 \rightarrow
-\text{M2 inverse control}
+\text{M2 matter / Mc coupling}
+\rightarrow
+\text{Weave Control Synthesis}
 \rightarrow
 \text{Tick/Tock Weave}
 \rightarrow

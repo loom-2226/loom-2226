@@ -11,9 +11,9 @@ Turn the fictional-engineering foundation into deterministic software that can:
 1. evolve a Weave state with Tick/Tock dynamics;
 2. generate an inspectable metric;
 3. reproduce current Metric operating cards as calibrated fictional control solutions;
-4. solve M2 inverse-control problems;
+4. solve Weave Control Synthesis inverse-control problems;
 5. evaluate Loom attachment candidates \(T_{AB}\);
-6. model M1 as a replaceable Mc-299m constitutive layer;
+6. model M2 as a replaceable Mc-299m constitutive coupling layer;
 7. expose all relevant state to Navigator;
 8. drive a HUD that shows actual solver outputs rather than decorative numbers.
 
@@ -71,6 +71,46 @@ Relational Foundations and anomaly research do not supply engineering authority 
 
 Any external or Research Lab work may inform options only through normal governed intake.
 
+## 1A. M1/M2 terminology alignment
+
+This work plan uses the established foundational-physics miracle placement:
+
+\[
+\boxed{
+\text{M1}
+=
+\text{existence of physically effective relational / embedding structure}
+}
+\]
+
+\[
+\boxed{
+\text{M2}
+=
+\text{usable finite matter coupling / control authority over M1}
+}
+\]
+
+The inverse flight-control optimizer is **Weave Control Synthesis (WCS)**, not M2.
+
+Operationally:
+
+\[
+\boxed{
+\text{M1}
+\rightarrow
+\text{M2}
+\rightarrow
+\text{WCS}
+\rightarrow
+W
+\rightarrow
+\text{Metric/Loom}.
+}
+\]
+
+For the current fictional-engineering placement, Metric is modeled as controlled intra-sector deformation while Loom is modeled as controlled inter-sector transition. This is an engineering closure only; RF research has not established either identification.
+
 ## 2. W0 — Vocabulary and schema freeze
 
 **Goal:** make every existing Metric/Loom term map to one mathematical object.
@@ -89,8 +129,9 @@ Freeze typed conceptual schemas for:
 - Loom coherence \(C_L\);
 - lattice coherence \(C_D\);
 - mismatch functional \(\mathcal J_{AB}\);
-- M2 abstract control vector \(u\);
-- M1 constitutive mapping \(\mathcal C_{\rm Mc}\).
+- M1 relational/global-sector state and effective-geometry readout;
+- M2 matter/Mc coupling current \(J_R\) and constitutive mapping \(\mathcal C_{\rm Mc}\);
+- Weave Control Synthesis command vector \(u\).
 
 ### Exit
 
@@ -228,9 +269,9 @@ Preserve:
 
 for Metric operation.
 
-## 6. W4 — M2 inverse-control solver
+## 6. W4 — Weave Control Synthesis inverse-control solver
 
-M2 solves:
+Weave Control Synthesis solves:
 
 \[
 g^*_{\mu\nu}
@@ -263,7 +304,7 @@ u^*
 
 Then consider nonlinear/model-predictive control only if required.
 
-### M2 must return
+### WCS must return
 
 - requested target;
 - achieved target;
@@ -373,9 +414,9 @@ Candidate components:
 
 A decision rule may be proposed only after all axes can be inspected separately.
 
-## 9. W7 — M1 replaceable constitutive layer
+## 9. W7 — M2 replaceable constitutive layer
 
-Define the Mc-299m hardware interface:
+Define the M2 Mc-299m hardware-to-relational coupling interface:
 
 \[
 u
@@ -395,7 +436,7 @@ u_\alpha(\omega)
 
 ### Architectural requirement
 
-Navigator and M2 must depend on an abstract M1 interface, not one hard-coded microscopic explanation.
+Navigator and Weave Control Synthesis must depend on an abstract M2 constitutive interface, not one hard-coded microscopic explanation.
 
 This allows alternate fictional formulations later without rewriting the entire flight stack.
 
@@ -608,11 +649,11 @@ If W0–W11 complete successfully, LOOM gains a traceable fictional-engineering 
 
 \[
 \boxed{
-\text{Mc hardware}
+\text{M1 relational-geometry permission}
 \rightarrow
-\text{M1}
+\text{M2 matter / Mc coupling}
 \rightarrow
-\text{M2}
+\text{Weave Control Synthesis}
 \rightarrow
 \text{Weave}
 \rightarrow
