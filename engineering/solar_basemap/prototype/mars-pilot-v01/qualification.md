@@ -29,7 +29,13 @@ deferred boundary: Mars detail must be present and Pluto/Charon detail must not
 be selected. The product contract does not prohibit visible Earth context. No
 acceptance threshold or product contract changed.
 
-## Automated Mars slice
+## Initial replay-based Mars slice (historical; not the pilot acceptance path)
+
+This first browser result used the QA `replayApproach` flight hook and therefore
+does not establish the governing real-user-path requirement. The focused
+DOM-touch acceptance and its complete authority audit are recorded in the
+`PILOT AUTHORITY completeness audit` below; that is the acceptance evidence for
+this repair.
 
 Command:
 
@@ -71,16 +77,17 @@ The retained evidence is `pixel-progressive-trial-0.json` and
 
 ## Limits and next gate
 
-This evidence is emulated only. Physical Pixel visual comprehension, touch
-behavior, handset frame timing and thermal behavior remain unqualified. The
-viewer is served from loopback at `http://127.0.0.1:8770/`; the existing
-quantifactus-to-Pixel route still needs host identity/access confirmation before
-an exact device URL can be asserted. The worktree also lacks the
+The browser evidence is emulated only. Physical Pixel visual comprehension,
+touch behavior, handset frame timing and thermal behavior remain unqualified.
+Live serving is now verified: `tailscale serve status` maps
+`https://quantifactus.tail94e5cb.ts.net:8443/` to `http://127.0.0.1:8770/`;
+the exact progressive-delivery URL returned HTTP 200 and served the committed
+repair HTML, renderer and basemap scripts. The worktree also lacks the
 `design/Montserrat-VF.woff2` asset referenced by the existing token CSS; the
 viewer uses that CSS font stack's platform fallback (the server log records the
 font request as HTTP 404). No token or font asset was changed. Stop here for
-physical Pixel human acceptance. Pluto/Charon, compiler regeneration, full Solar
-requalification and the large benchmark matrix remain deferred until that
+physical Pixel human acceptance. Pluto/Charon, compiler regeneration, full
+Solar requalification and the large benchmark matrix remain deferred until that
 acceptance passes.
 
 **Policy overrides:** none. Sandbox elevation was used only to launch the
