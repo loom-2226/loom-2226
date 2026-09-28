@@ -1,0 +1,43 @@
+{
+  "id": "BLUE_GHOST_1_CLPS_TO19D_COMPLETED_REFERENCE_V1",
+  "authority_class": "EMPIRICAL_COMPLETED_MISSION_REFERENCE",
+  "admitted_on": "2026-09-29",
+  "mission": "Firefly Blue Ghost Mission 1 / NASA CLPS TO19D",
+  "customer": "NASA",
+  "delivery_provider": "Firefly Aerospace",
+  "launch_provider": "SpaceX Falcon 9",
+  "payload_scope": "Ten NASA science and technology instruments; published manifest, not a mass-capacity certificate",
+  "destination": "Mare Crisium near Mons Latreille, lunar near side",
+  "events": [
+    {"id": "launch", "epoch_utc": "2025-01-15T06:11:00Z", "precision": "REPORTED_MINUTE", "source": "FIREFLY_LIVE", "local_report": "2025-01-15 01:11 EST"},
+    {"id": "lander_separation", "epoch_utc": "2025-01-15T07:17:00Z", "precision": "REPORTED_MINUTE", "source": "FIREFLY_LIVE", "local_report": "2025-01-15 02:17 EST; highly elliptical Earth orbit"},
+    {"id": "trans_lunar_injection", "reported_calendar_date": "2025-02-08", "precision": "REPORTED_DATE_ONLY_TIMEZONE_UNSPECIFIED", "source": "FIREFLY_LIVE"},
+    {"id": "lunar_orbit_insertion_burn_start", "epoch_utc": "2025-02-14T01:51:00Z", "precision": "REPORTED_MINUTE", "source": "FIREFLY_LIVE", "local_report": "2025-02-13 19:51 CST; 4 minute 15 second burn"},
+    {"id": "landing", "epoch_utc": "2025-03-02T08:34:00Z", "precision": "REPORTED_MINUTE", "source": "NASA_LANDING", "local_report": "2025-03-02 03:34 EST / 02:34 CST"},
+    {"id": "last_data", "epoch_utc": "2025-03-16T23:15:00Z", "precision": "APPROX_REPORTED_MINUTE", "source": "FIREFLY_LIVE", "local_report": "around 2025-03-16 18:15 CDT"}
+  ],
+  "observed_outcomes": {
+    "launch": "Falcon 9 launch and lander separation into Earth orbit reported",
+    "transfer": "Trans-lunar injection and successful lunar orbit insertion reported",
+    "lunar_delivery": "Landed upright near Mons Latreille on 2025-03-02",
+    "site_operations": "Ten NASA payloads activated and operated; mission ended 2025-03-16"
+  },
+  "source_reported_approximate_phase_days": {
+    "earth_orbit": 25,
+    "lunar_transit": 4,
+    "lunar_orbit": 16
+  },
+  "transport_quantities_not_admitted": [
+    "transfer delta-v",
+    "vehicle mass history and propulsion margin",
+    "certified spare payload capacity",
+    "Roo-ver/IM-5 launch or flight performance"
+  ],
+  "sources": [
+    {"id": "FIREFLY_LIVE", "publisher": "Firefly Aerospace", "url": "https://fireflyspace.com/news/blue-ghost-mission-1-live-updates/", "supports": "Launch and separation minutes, TLI date, LOI burn start and duration, approximate final-data time"},
+    {"id": "FIREFLY_MISSION", "publisher": "Firefly Aerospace", "url": "https://fireflyspace.com/missions/blue-ghost-mission-1/", "supports": "Completed mission, customer/provider/site, approximate 25+4+16-day phase description and surface duration"},
+    {"id": "NASA_LANDING", "publisher": "NASA", "published": "2025-03-02", "url": "https://www.nasa.gov/news-release/touchdown-carrying-nasa-science-fireflys-blue-ghost-lands-on-moon/", "supports": "03:34 EST successful upright landing near Mons Latreille in Mare Crisium"},
+    {"id": "NASA_CONCLUSION", "publisher": "NASA", "published": "2025-03-18", "url": "https://www.nasa.gov/news-release/nasa-science-continues-after-fireflys-first-moon-mission-concludes/", "supports": "Ten delivered instruments operated and mission concluded March 16 after about 14 surface days"},
+    {"id": "FIREFLY_LAUNCH", "publisher": "Firefly Aerospace", "published": "2025-01-15", "url": "https://fireflyspace.com/news/firefly-aerospaces-blue-ghost-mission-1-successfully-launches-and-begins-45-day-transit-to-the-moon/", "supports": "Falcon 9 launch provider and CLPS service mission"}
+  ]
+}
