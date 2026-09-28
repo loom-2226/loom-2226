@@ -1,0 +1,33 @@
+(async function(){
+  const status=document.getElementById('status'),report=document.getElementById('report');
+  try{
+    const depth=LoomRenderer.init();const base=`${location.origin}/product/current.json${location.search}`;const handle=await LoomBasemap.loadBasemap(base);LoomRenderer.configure(handle);
+    const r=handle.root;document.getElementById('counts').textContent=`${r.features.length} identities · ${r.features.filter(x=>x.resolution==='RESOLVED').length} resolved at epoch · ${r.features.filter(x=>x.resolution==='UNRESOLVED').length} unresolved · ET ${r.epoch_et}`;
+    status.textContent=`VERIFIED · build ${handle.manifest.build_id.slice(0,12)} · ${depth?'log depth supported':'log depth unavailable'}`;
+    const rows=document.getElementById('catalog');rows.innerHTML=r.features.map(f=>`<div class="catalog-row ${f.resolution==='UNRESOLVED'?'bad':''}"><b>${f.body_id}</b><span>${f.resolution}${f.reason?': '+f.reason:''}</span></div>`).join('');
+    document.getElementById('zoom').addEventListener('input',e=>LoomRenderer.setZoom(e.target.value));document.getElementById('fit').onclick=()=>LoomRenderer.fit();document.getElementById('mars').onclick=()=>LoomRenderer.moveToward('MARS',100000000);document.getElementById('pluto').onclick=()=>LoomRenderer.moveToward('PLUTO',10000000);
+    document.getElementById('diagnostics').onclick=()=>rows.classList.toggle('open');
+    window.__solarBasemap=handle;window.__solarBasemapReady=true;
+    window.__solarBasemapReport=()=>{
+      const draw_list=handle.drawList().map(d=>({feature_id:d.curve.feature_id,semantic:d.curve.semantic,anchor_id:d.curve.anchor_id,vertices:d.segment.points.length,node_id:d.node_id,level:d.level,source_refs:[d.segment.body_source_ref,d.segment.anchor_source_ref]}));
+      const view=window.__solarBasemapView||{errorScaleByNode:{}},sceneLines=window.__solarBasemapScene?.lines||[];
+      const clientExt=handle.root.extensions?.['org.loom.solar-basemap.client/0.1']||{},embedded=clientExt.solar_embedded_curves||{},basis=clientExt.root_error_basis||{},rootProjection=basis.viewport_css_height/(2*Math.tan((basis.vertical_fov_degrees||45)*Math.PI/360)*basis.camera_distance_km);
+      const pairs=[...new Map(draw_list.map(d=>[`${d.node_id}:${d.feature_id}:${d.level}`,d])).values()];
+      const errors=pairs.map(d=>{
+        const n=handle.root.nodes.find(x=>x.node_id===d.node_id),l=n?.levels.find(x=>x.level===d.level),rootInfo=embedded[d.feature_id];
+        const km=d.node_id==='solar'?(rootInfo?.measured_error_km||0):(l?.measured_error_km||0),factor=d.node_id==='solar'?rootProjection:(view.errorScaleByNode?.[d.node_id]||0);
+        const lines=sceneLines.filter(x=>x.feature_id===d.feature_id&&x.node_id===d.node_id),projected=lines.some(x=>x.clip_vertices>0);
+        const reason=projected?null:lines.length?'FRUSTUM_OR_DEPTH_CLIPPED':'CAMERA_OR_LAYER_SUPPRESSED';
+        return {feature_id:d.feature_id,node_id:d.node_id,level:d.level,representation_error_km:km,projection_factor:factor,representation_error_css_px:km*factor,included_in_visible_error_budget:projected,visibility_reason:reason};
+      });
+      const max_visible_error_css_px=Math.max(0,...errors.filter(x=>x.included_in_visible_error_budget).map(x=>x.representation_error_css_px));
+      const max_gpu_error_css_px=Math.max(0,...sceneLines.filter(x=>x.clip_vertices>0).map(x=>x.gpuConversionMaxCssPx||0),window.__solarBasemapScene?.markerGpuErrorCssPx||0);
+      return {build_id:handle.manifest.build_id,catalog:handle.catalog().length,features:handle.catalog().map(f=>({...handle.inspect(f.body_id),renderer:window.__solarBasemapScene?.features?.find(s=>s.body_id===f.body_id)||null})),draw_list,
+        curves:handle.root.curves.map(c=>({feature_id:c.feature_id,semantic:c.semantic,anchor_id:c.anchor_id,horizon_status:c.horizon_status,geometry_status:c.geometry_status,gap_count:c.gaps.length,source_refs:c.source_refs})),root_embedded_curves:embedded,
+        root_embedded_budget:{max_css_px:Math.max(0,...Object.values(embedded).map(x=>x.measured_error_css_px||0)),limit_css_px:basis.max_sse_css_px,projection_factor:rootProjection},selection:handle.selection(),
+        error_budget:{max_measured_representation_css_px:max_visible_error_css_px,max_gpu_conversion_css_px:max_gpu_error_css_px,total_css_px:max_visible_error_css_px+max_gpu_error_css_px,levels:errors},
+        cache:handle.cacheStats(),scene:window.__solarBasemapScene,view};
+    };
+    window.__solarBasemapReconcile=()=>{const r=window.__solarBasemapReport();return {build_id:r.build_id,features:r.features,curves:r.curves,draw_list:r.draw_list,renderer_lines:r.scene?.lines||[],view:r.view,cache:r.cache};};
+  }catch(error){status.textContent='ERROR · '+String(error);window.__solarBasemapError=String(error);}
+})();

@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict');
+const {selectLevel,nodeSelection}=require('../web/solar-basemap/basemap.js');
+const levels=[{level:0,measured_error_km:100,resource:{uri:'coarse'}},{level:1,measured_error_km:10,resource:{uri:'fine'}}];
+assert.equal(selectLevel(levels,.05).level,1);
+assert.equal(selectLevel(levels,.001).level,0);
+const selected=nodeSelection({nodes:[{node_id:'solar',levels}]},{errorScaleByNode:{solar:.05}});
+assert.equal(selected[0].level,1);
+const state={current_level:1,below_since:Date.now()-300};
+assert.equal(selectLevel(levels,.001,state).level,0,'coarsening is eligible only after the 250ms deadband');
+assert.equal(selectLevel(levels,.001,{current_level:1,below_since:Date.now()}).level,1,'recent zoom-in retains current LOD');
+console.log(JSON.stringify({selection_cases:5,pass:true}));
