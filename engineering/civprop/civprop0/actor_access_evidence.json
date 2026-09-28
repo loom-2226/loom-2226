@@ -1,0 +1,38 @@
+{
+  "fixture_id": "AUS_CAP_0_FLEET_SPIDER_V1",
+  "admitted_on": "2026-09-29",
+  "authority_class": "EMPIRICAL_ACTOR_ACCESS_ASSERTION",
+  "case": {
+    "actor_id": "FLEET_SPACE_TECHNOLOGIES",
+    "actor_country_iso3": "AUS",
+    "capability": "LUNAR_PAYLOAD_DELIVERY_ACCESS",
+    "provider_id": "FIREFLY_AEROSPACE",
+    "access_basis": "PROVIDER_AGREEMENT",
+    "evidence_status": "OBSERVED_ACCESS",
+    "mission": "BLUE_GHOST_MISSION_2",
+    "payload": "SPIDER",
+    "scope": "Fleet SPIDER delivery and provider-supported lunar surface operations on the far side; no general entitlement for other payloads, sites or actors",
+    "observed_from": "2023-11-08",
+    "sources": [
+      {
+        "id": "FIREFLY_2023_11_08_FLEET_AGREEMENT",
+        "publisher": "Firefly Aerospace",
+        "published": "2023-11-08",
+        "url": "https://fireflyspace.com/news/firefly-announces-agreement-with-fleet-space-to-deliver-payload-to-the-moon/",
+        "assertion": "Firefly announced an agreement with Australian Fleet Space to deliver and operate SPIDER on Blue Ghost Mission 2; the lander would provide power and communications."
+      },
+      {
+        "id": "FIREFLY_2026_03_19_Q4_2025_PRESENTATION_P10",
+        "publisher": "Firefly Aerospace investor relations",
+        "published": "2026-03-19",
+        "url": "https://investors.fireflyspace.com/static-files/4a40daaa-c23c-4253-9c67-ca6964087c35",
+        "assertion": "The Blue Ghost Mission 2 presentation reports that Fleet SPIDER had been delivered to Firefly for integration; the mission remained pre-launch."
+      }
+    ],
+    "limitations": [
+      "Agreement is for Fleet SPIDER, not the Australian state or an arbitrary lunar payload",
+      "Announcement does not establish a completed lunar delivery or a reserved slot for CIVPROP-0",
+      "No synthetic polar-site service, payload envelope, five-day transfer, exact launch date or price is established"
+    ]
+  }
+}
