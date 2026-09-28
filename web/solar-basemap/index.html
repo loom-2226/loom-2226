@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>LOOM · Solar Basemap QA</title><link rel="stylesheet" href="/design/loom-tokens.css"><link rel="stylesheet" href="/qa.css"></head>
+<title>LOOM · Solar Basemap</title><link rel="stylesheet" href="/design/loom-tokens.css"><link rel="stylesheet" href="/qa.css"></head>
 <body><main id="app">
-<canvas id="scene" aria-label="Continuous Sun-centered Solar basemap. Drag to pan; pinch to zoom around the focal point; twist two fingers to rotate."></canvas><div id="labels" aria-hidden="true"></div>
+<canvas id="scene" aria-label="Continuous Sun-centered Solar basemap. Tap a body to select; drag to pan; pinch to zoom; drag two fingers together to tilt and orbit."></canvas><div id="labels"></div><div id="selectionRing" role="img" hidden></div>
 <header class="pilot-chrome"><div class="brand"><img class="mark" src="/design/loom-mark-ion-blue.svg" alt="LOOM"><span>SOLAR BASEMAP</span></div><span class="epoch">2226-01-01 · TDB · SUN / ECLIPJ2000</span></header>
+<aside id="selectionBadge" hidden></aside>
 <aside id="scale" aria-label="Map scale"><span id="sceneContext">SUN-CENTERED SOLAR SCENE</span><span id="scaleText">Loading governed scale…</span><i id="scaleBar"></i></aside>
-<section class="hud"><div id="status">Loading verified basemap…</div><div id="counts"></div><div class="legend"><i class="dot sun"></i> Sun <i class="dot planet"></i> Planet <i class="dot minor"></i> Minor body <i class="line"></i> Reference orbit</div><small>One finger: pan · Pinch: focal zoom · Two-finger twist: rotate</small><button id="fit">Reset Sun-centered view</button><button id="diagnostics">Catalog</button></section>
+<section class="hud"><div class="hint">Tap body to focus · drag to pan · pinch to zoom · two-finger drag to tilt</div><div class="hud-controls"><button id="fit">Reset view</button><details id="details"><summary>Map details</summary><div id="status">Loading verified basemap…</div><div id="counts"></div><div class="legend"><i class="dot sun"></i> Sun <i class="dot planet"></i> Planet <i class="dot minor"></i> Minor body <i class="line"></i> Reference orbit</div><button id="diagnostics">Catalog</button></details></div></section>
 <section id="catalog" class="catalog"></section><section id="report" class="report" aria-live="polite"></section></main>
 <script src="/three.min.js"></script><script src="/basemap.js"></script><script src="/renderer.js"></script><script src="/qa.js"></script></body></html>

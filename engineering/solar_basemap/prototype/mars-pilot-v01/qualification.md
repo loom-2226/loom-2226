@@ -1,6 +1,10 @@
 # Mars basemap pilot v0.1
 
-**Result:** `EMULATED_MARS_PILOT_PASS`; `PHYSICAL_PIXEL_PENDING`.
+**Current result:** `AUTOMATED_PIXEL_REPAIR_PASS`; `PHYSICAL_PIXEL_PENDING`
+for a new human device test. The first physical Pixel acceptance failed on touch
+orientation, body selection, zoom sensitivity and presentation. It also
+physically demonstrated coherent Solar → Mars → Phobos/Deimos refinement.
+The current product did not develop Jupiter local moon-orbit context.
 
 **Primary change class:** `class:runtime`. This is a bounded repair stacked on
 PR #318. PR #319 (`9a6b87c0a83c27bc02432625718b529d16f403ec`) is included as a
@@ -75,10 +79,14 @@ The retained evidence is `pixel-progressive-trial-0.json` and
 - `tools/build_solar_basemap.py --verify-identical /tmp/loom-basemap-a /tmp/loom-basemap-b` — identical, 102 files.
 - `node --check tests/solar_basemap_browser.cjs` and `git diff --check` — passed.
 
-## Limits and next gate
+## First physical Pixel result and next gate
 
-The browser evidence is emulated only. Physical Pixel visual comprehension,
-touch behavior, handset frame timing and thermal behavior remain unqualified.
+The first physical Pixel test failed on mobile orientation, selection, zoom
+sensitivity and Navigator fidelity. The product's Mars hierarchy was observed
+working on the device; Jupiter's generalized hierarchy was not available.
+The bounded repairs and new automated touch evidence below are ready for a
+new human Pixel test. Handset visual comprehension, touch feel, frame timing
+and thermals have not yet passed that retest.
 Live serving is now verified: `tailscale serve status` maps
 `https://quantifactus.tail94e5cb.ts.net:8443/` to `http://127.0.0.1:8770/`;
 the exact progressive-delivery URL returned HTTP 200 and served the committed
@@ -95,7 +103,13 @@ read-only preflight process, the loopback viewer and Chromium required by the
 requested browser check; no LOOM rule, contract, threshold or authority gate was
 overridden.
 
-## PILOT AUTHORITY completeness audit
+## Historical pre-physical PILOT AUTHORITY audit — superseded
+
+The following automated audit preceded the failed physical Pixel test. Its
+reported PASS rows are preserved as historical evidence, not the current
+physical-gate verdict. The historical runner source is retained at commit
+`f298a9679999eb617c062a40b72821ed493606b3`; the current runner was revised
+for the repair. The updated audit after repair is below.
 
 The focused acceptance path is `tests/solar_basemap_mars_acceptance.cjs`. It
 drives only the viewer's DOM touch path in a 412×915 CSS-pixel viewport at DPR
@@ -139,3 +153,63 @@ threshold was changed:
 **Policy overrides recorded:** none. These bounded renderer decisions are
 within the authorized presentation work; no governance rule or inherited
 acceptance criterion was overridden. No pilot-authority item is deferred.
+
+## Physical Pixel repair — current PILOT AUTHORITY COMPLETENESS
+
+The physical Pixel trial failed the previous presentation/interaction gate. It
+also demonstrated that the qualified product can refine from the Solar scene
+into coherent Mars, Phobos and Deimos context. The current repair changes only
+the client renderer, touch interaction and QA presentation. The current
+qualifying run is `solar-basemap-pixel-repair-acceptance.json`, with overview and
+Mars-oblique screenshots in this directory. The 412×915 DPR3 browser runner
+uses actual canvas touch events for every navigation action; read-only
+instrumentation observes state and pixels. Human physical Pixel retest remains
+required.
+
+Focused deterministic checks on this repair: `node tests/solar_basemap_selection.cjs`
+(5/5), `node tests/solar_basemap_loader.cjs` (10/10, zero authority calls),
+`node tests/solar_basemap_mars_acceptance.cjs` (PASS with retained JSON and
+screenshots), `node --check` for the changed JavaScript files, and
+`git diff --check` (PASS). No Pluto/Charon flight, compiler regeneration, full
+Solar qualification or large benchmark matrix was run.
+
+| # | PILOT AUTHORITY item | Status | Evidence |
+|---:|---|---|---|
+| 1 | Fine Solar LOD | PASS | Touch trace drew level 3 in the Solar draw list and projected lines with 14,783 lit pixels; maximum sampled pre-fine coarse error was 0.371 CSS px, below the unchanged 0.75 CSS px bound. JSON `fine_solar_lod`. |
+| 2 | Mars parent/local context | PASS | At 383,373 km camera distance, a clipped Mars heliocentric arc remains at opacity 0.09 while Phobos and Deimos each project 33 curve vertices at opacity 0.56. All three have visible labels/markers at useful moon-orbit scale; 2,627 lit pixels and the Mars-oblique screenshot record the view. JSON `mars_context`. |
+| 3 | One-finger pan | PASS | One-finger DOM touch changes the target and leaves rotation unchanged. JSON `one_finger_pan`. |
+| 4 | Focal pinch zoom | PASS | The selected Mars marker stays at the focal point through 15 real touch pinches, with maximum measured drift 0 CSS px. Camera distance changes continuously from 7.48 billion to 383,373 km. JSON `pinch`. |
+| 5 | Controlled Pixel zoom sensitivity | PASS | A 4% pinch span change falls inside the 6 CSS px deadband and changes neither distance nor target. A full 2.4× span gesture produces a 0.518 distance ratio using 0.82 log gain; the test checks this absolute ratio once against alternating pointer events. Each gesture is bounded to at most 3×. JSON `pinch` and test assertion. |
+| 6 | Mobile yaw and pitch orientation | PASS | A parallel two-finger drag changes yaw from 0 to −0.15 radians and pitch from 0 to +0.35 radians while distance remains unchanged. The retained Mars-oblique screenshot shows the tilted local orbital plane. JSON `orientation`. |
+| 7 | Tap body selection/focus | PASS | Real marker taps select Sun, Earth, Mars, Jupiter and Saturn. Each has a visible selection ring and the same camera distance; non-Sun selection eases the target to the governed position without a jump in distance. JSON `focus`. |
+| 8 | Navigator-derived symbol hierarchy | PASS | Sun is a warm circular glow/core (17 CSS px), planets are filled ice circles (10 CSS px), and minor bodies are subdued steel diamonds (4 CSS px). Only existing LOOM token colors are used. JSON `presentation`; overview screenshot. |
+| 9 | Navigator-derived orbit/label styling | PASS | Heliocentric curves use subdued steel, local reference curves ice, parent context 0.09 opacity, and local curves up to 0.56 opacity. Labels are gray-white, prioritized and collision-checked; the selected body remains legible. Default map details are collapsed. JSON `presentation` and both screenshots. |
+| 10 | Truthful scale readout | PASS | Acceptance recomputes the center projection within 1% and the 1/2/5 scale-bar width within 2 CSS px of its labeled distance. At Mars orbit scale it reads about 347 km per CSS px with a 20,000 km bar. JSON `mars_context`. |
+| 11 | Ordinary-touch Solar → selected Mars → Phobos/Deimos route | PASS | The same viewer touch path pans, taps Mars, performs 15 bounded pinches, and reaches visible Mars/Phobos/Deimos labels, markers and governed local curves. No user-facing system mode changes. JSON `focus`, `pinch`, `mars_context`; Mars-oblique screenshot. |
+| 12 | No privileged acceptance shortcuts | PASS | The runner dispatches CDP touch events only; its evaluations read diagnostic state/pixels and append an observation trace. It does not invoke flight hooks, set camera/target, switch systems or call hidden fit-to-body routes. Source: `tests/solar_basemap_mars_acceptance.cjs`. |
+| 13 | Zero authority calls | PASS | Browser request instrumentation observed zero authority/resolver/ephemeris/state API calls and zero page errors. JSON `authority_calls`, `page_errors`. |
+| 14 | Jupiter limitation recorded as product-content scope | ESCALATED | Qualified product root SHA-256 `b6b6979f5de33d54620f54b2c12646a5e4ca13760a264ce88f1ba45ce1d9ff8c` has local nodes only for Earth, Mars and Pluto and no Jupiter parent-relative reference curves. The physical Jupiter observation is recorded in `JUPITER_PRODUCT_BOUNDARY_ESCALATION.md`; future generic product generation requires separate authorization. JSON `jupiter_product_limitation`. |
+
+### Current renderer presentation policy
+
+The 0.75 CSS px Solar refinement limit remains unchanged. Renderer-only choices
+for this Pixel repair are a 6 CSS px pinch deadband, 0.82 log-distance gain and
+3× maximum distance ratio per gesture; two-finger orientation begins after a
+9 CSS px shared-center movement or 0.12 radian turn and excludes zoom for that
+gesture. Tap hit radius is at least 18 CSS px. The selected body remains the
+focal anchor and target motion eases for 520 ms. These are user interaction
+controls, not new spatial authority or generated-product thresholds.
+
+The parent-context arc applies generically to product local nodes (Earth, Mars
+and Pluto): its radius is the greater of 5,000,000 km or 160 times the product
+node bound, and it activates only near that parent and at that camera scale.
+It clips existing governed orbit samples. Local reference curves retain the
+existing 16 CSS px admission and use a 0.5 opacity floor, rising to full by
+24 CSS px. Catalog satellites under `solar` without a local product node, and
+barycenters, remain inspectable in the catalog but do not masquerade as local
+map detail. No client-side orbit is synthesized.
+
+**Policy overrides:** none. Product build, compiler, Solar authority, schema,
+database, launcher and reference frame are unchanged. The Pixel retest is the
+remaining human gate. Jupiter product generation is a separate escalated
+successor; it does not block the bounded Mars retest.

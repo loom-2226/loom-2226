@@ -1,0 +1,408 @@
+{
+  "schema": "loom.solar-basemap.pixel-repair-acceptance/0.1",
+  "method": "CDP touch events on public viewer canvas; read-only diagnostics only",
+  "viewport": {
+    "width": 412,
+    "height": 915,
+    "dpr": 3
+  },
+  "product_build_id": "d9d4b4082049a979eabacac0fec400122f0ed3278d33b99f76758e8d2a003a4f",
+  "product_local_nodes": [
+    "system:EARTH",
+    "system:MARS",
+    "system:PLUTO"
+  ],
+  "jupiter_product_limitation": {
+    "system_node": false,
+    "local_reference_curves": false
+  },
+  "focus": [
+    {
+      "body_id": "SUN",
+      "tap_css_px": {
+        "x": 206,
+        "y": 457.5
+      },
+      "selected": "SUN",
+      "selection_visible": true,
+      "camera_distance_unchanged": true,
+      "focus_target_km": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "body_id": "EARTH",
+      "tap_css_px": {
+        "x": 203.4084168741682,
+        "y": 435.9286502178085
+      },
+      "selected": "EARTH",
+      "selection_visible": true,
+      "camera_distance_unchanged": true,
+      "focus_target_km": [
+        -17550845.860959154,
+        146086548.89993662,
+        -73644.70769377053
+      ]
+    },
+    {
+      "body_id": "MARS",
+      "tap_css_px": {
+        "x": 221.50571315779695,
+        "y": 428.2573495015609
+      },
+      "selected": "MARS",
+      "selection_visible": true,
+      "camera_distance_unchanged": true,
+      "focus_target_km": [
+        104984588.29486904,
+        197993319.75167057,
+        1633067.2325153053
+      ]
+    },
+    {
+      "body_id": "JUPITER",
+      "tap_css_px": {
+        "x": 267.3631989518729,
+        "y": 365.6160489065183
+      },
+      "selected": "JUPITER",
+      "selection_visible": true,
+      "camera_distance_unchanged": true,
+      "focus_target_km": [
+        416226251.65788376,
+        623248350.8747861,
+        -11942428.759039134
+      ]
+    },
+    {
+      "body_id": "SATURN",
+      "tap_css_px": {
+        "x": 284.43778285394444,
+        "y": 664.8194175388386
+      },
+      "selected": "SATURN",
+      "selection_visible": true,
+      "camera_distance_unchanged": true,
+      "focus_target_km": [
+        531008194.7021143,
+        -1403511236.9122307,
+        2629823.913877785
+      ]
+    }
+  ],
+  "one_finger_pan": {
+    "target_before": [
+      0,
+      0,
+      0
+    ],
+    "target_after": [
+      -81266186.15878904,
+      47405275.25929361,
+      0
+    ],
+    "rotation_unchanged": true
+  },
+  "pinch": {
+    "deadband_distance_unchanged": true,
+    "steps": [
+      {
+        "distance_km": 3871481059.184681,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 2003820712.352658,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 1037147640.8822002,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 536812112.15976405,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 277845923.18631834,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 143808895.66866186,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 74433334.26048428,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 38525580.93414456,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 19940264.68193937,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 10320782.865428517,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 5341882.901474252,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 2764878.7214242183,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 1431059.8875304207,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 740695.2015036915,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      },
+      {
+        "distance_km": 383372.7619026228,
+        "ratio": 0.5175850486466425,
+        "mars_anchor_drift_css_px": 0
+      }
+    ],
+    "max_focal_drift_css_px": 0,
+    "distance_before_km": 7479893534.999999,
+    "distance_after_km": 383372.7619026228
+  },
+  "orientation": {
+    "before": [
+      0,
+      0
+    ],
+    "after": [
+      -0.15,
+      0.35000000000000003
+    ],
+    "distance_unchanged": true
+  },
+  "fine_solar_lod": {
+    "step": 0,
+    "levels": [
+      3
+    ],
+    "draw_list": [
+      {
+        "feature_id": "EARTH",
+        "level": 3,
+        "vertices": 257
+      },
+      {
+        "feature_id": "JUPITER",
+        "level": 3,
+        "vertices": 257
+      },
+      {
+        "feature_id": "MARS",
+        "level": 3,
+        "vertices": 257
+      },
+      {
+        "feature_id": "MERCURY",
+        "level": 3,
+        "vertices": 257
+      },
+      {
+        "feature_id": "NEPTUNE",
+        "level": 3,
+        "vertices": 129
+      },
+      {
+        "feature_id": "SATURN",
+        "level": 3,
+        "vertices": 257
+      },
+      {
+        "feature_id": "URANUS",
+        "level": 3,
+        "vertices": 257
+      },
+      {
+        "feature_id": "VENUS",
+        "level": 3,
+        "vertices": 257
+      }
+    ],
+    "projected_lines": [
+      {
+        "feature_id": "EARTH",
+        "node_id": "solar",
+        "level": 3,
+        "clip_vertices": 257,
+        "vertices": 257,
+        "opacity": 0.24,
+        "color": "#8A97A6",
+        "presentation_context": null,
+        "context_radius_km": null
+      },
+      {
+        "feature_id": "JUPITER",
+        "node_id": "solar",
+        "level": 3,
+        "clip_vertices": 197,
+        "vertices": 257,
+        "opacity": 0.24,
+        "color": "#8A97A6",
+        "presentation_context": null,
+        "context_radius_km": null
+      },
+      {
+        "feature_id": "MARS",
+        "node_id": "solar",
+        "level": 3,
+        "clip_vertices": 257,
+        "vertices": 257,
+        "opacity": 0.24,
+        "color": "#8A97A6",
+        "presentation_context": null,
+        "context_radius_km": null
+      },
+      {
+        "feature_id": "MERCURY",
+        "node_id": "solar",
+        "level": 3,
+        "clip_vertices": 257,
+        "vertices": 257,
+        "opacity": 0.24,
+        "color": "#8A97A6",
+        "presentation_context": null,
+        "context_radius_km": null
+      },
+      {
+        "feature_id": "SATURN",
+        "node_id": "solar",
+        "level": 3,
+        "clip_vertices": 55,
+        "vertices": 257,
+        "opacity": 0.24,
+        "color": "#8A97A6",
+        "presentation_context": null,
+        "context_radius_km": null
+      },
+      {
+        "feature_id": "VENUS",
+        "node_id": "solar",
+        "level": 3,
+        "clip_vertices": 257,
+        "vertices": 257,
+        "opacity": 0.24,
+        "color": "#8A97A6",
+        "presentation_context": null,
+        "context_radius_km": null
+      }
+    ],
+    "lit_pixels": 14783,
+    "max_coarse_error_css_px": 0.3708118456141904,
+    "frame_samples": 128
+  },
+  "mars_context": {
+    "selected_body_id": "MARS",
+    "parent": {
+      "feature_id": "MARS",
+      "node_id": "solar",
+      "level": 8,
+      "clip_vertices": 1,
+      "vertices": 15,
+      "opacity": 0.09,
+      "color": "#8A97A6",
+      "presentation_context": "LOCAL_PARENT_ARC",
+      "context_radius_km": 5000000
+    },
+    "phobos": {
+      "feature_id": "PHOBOS",
+      "node_id": "system:MARS",
+      "level": 0,
+      "clip_vertices": 33,
+      "vertices": 33,
+      "opacity": 0.56,
+      "color": "#C7D3DF",
+      "presentation_context": null,
+      "context_radius_km": null
+    },
+    "deimos": {
+      "feature_id": "DEIMOS",
+      "node_id": "system:MARS",
+      "level": 0,
+      "clip_vertices": 33,
+      "vertices": 33,
+      "opacity": 0.56,
+      "color": "#C7D3DF",
+      "presentation_context": null,
+      "context_radius_km": null
+    },
+    "label": {
+      "body_id": "MARS",
+      "kind": "planet",
+      "text": "Mars",
+      "x": 217,
+      "y": 449.5
+    },
+    "scale": "1 px ≈ 347 km @ center",
+    "scale_bar_km": 20000,
+    "lit_pixels": 2627
+  },
+  "presentation": {
+    "sun_symbol": {
+      "body_id": "SUN",
+      "kind": "sun",
+      "size_css_px": 17,
+      "color": "#FF8703",
+      "clip": [
+        0,
+        0,
+        0.9999980199999802
+      ]
+    },
+    "planet_symbol": {
+      "body_id": "EARTH",
+      "kind": "planet",
+      "size_css_px": 10,
+      "color": "#C7D3DF",
+      "clip": [
+        -0.012580500610833982,
+        0.04715049132719454,
+        0.9999980200196713
+      ]
+    },
+    "minor_symbol": {
+      "body_id": "AMUN",
+      "kind": "minor",
+      "size_css_px": 4,
+      "color": "#8A97A6",
+      "clip": [
+        0.050795753586965434,
+        -0.026180223670296925,
+        0.9999980290370692
+      ]
+    },
+    "heliocentric_orbit_color": "#8A97A6",
+    "local_orbit_color": "#C7D3DF",
+    "details_collapsed_by_default": true
+  },
+  "authority_calls": 0,
+  "page_errors": []
+}
