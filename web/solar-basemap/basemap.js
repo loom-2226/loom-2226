@@ -24,7 +24,10 @@
         const state=levelState[n.node_id]||(levelState[n.node_id]={});if(view.activeLevels&&view.activeLevels[n.node_id]!==undefined)state.current_level=view.activeLevels[n.node_id];
         const d=selectLevel(n.levels,screenError,state);
         const current=state.current_level;const ci=sorted.findIndex(x=>x.level===current),next=ci>=0?sorted[ci+1]:null;
-        const active=ci>=0?sorted[ci]:null;const prefetch=active&&next&&active.measured_error_km*screenError>0.5&&active.measured_error_km*screenError<=0.75?next:null;
+        // Pilot presentation policy: fetch one level ahead once the active
+        // representation error exceeds 0.25 CSS px, leaving headroom before
+        // the fixed 0.75 CSS px refinement limit is reached.
+        const active=ci>=0?sorted[ci]:null;const prefetch=active&&next&&active.measured_error_km*screenError>0.25&&active.measured_error_km*screenError<=0.75?next:null;
         result.push({node_id:n.node_id,level:d?.level??null,resource:d?.resource||null,prefetch:prefetch||null});
       }
     }
@@ -65,6 +68,7 @@
     return {manifest,root,catalog:()=>root.features,updateView:view=>{view={...view,levelState,activeLevels:Object.fromEntries(active)};lastSelection=nodeSelection(root,view);loadSelected(lastSelection).then(()=>{for(const fn of listeners)fn();});return Promise.resolve(lastSelection);},onChange:fn=>{listeners.add(fn);return ()=>listeners.delete(fn);},
       drawList:()=>{const out=[];const selected=lastSelection;const solarLevel=active.get('solar')??solarEmbedded;const solarDesc=root.nodes.find(n=>n.node_id==='solar')?.levels.find(l=>l.level===solarLevel);const solarChunk=solarDesc&&solarLevel>solarEmbedded?loaded.get(`${manifest.build_id}:${solarDesc.resource.uri}:${solarDesc.resource.sha256}`):null;
         if(solarLevel<=solarEmbedded||!solarChunk?.curves)for(const c of root.curves)for(const s of c.segments||[])out.push({node_id:c.anchor_id==='SUN'?'solar':`system:${c.anchor_id}`,level:solarEmbeddedCurves[c.feature_id]?.level??solarEmbedded,curve:c,segment:s,verified:true});
+        else for(const c of solarChunk.curves)for(const s of c.segments||[])out.push({node_id:'solar',level:solarLevel,curve:c,segment:s,verified:true});
         for(const nodeId of new Set(selected.map(x=>x.node_id).filter(x=>x!=='solar'))){const level=active.get(nodeId);if(level===undefined)continue;const d=root.nodes.find(n=>n.node_id===nodeId)?.levels.find(l=>l.level===level);const key=d&&`${manifest.build_id}:${d.resource.uri}:${d.resource.sha256}`,chunk=key&&touch(key);if(chunk?.curves)for(const c of chunk.curves)for(const s of c.segments||[])out.push({node_id:nodeId,level,curve:c,segment:s,verified:true});}return out;},
       inspect:id=>{const f=root.features.find(x=>x.body_id===id);if(!f)return {body_id:id,status:"UNKNOWN"};return {...f,visibility_reason:f.resolution==="UNRESOLVED"?"AUTHORITY_UNRESOLVED":"CAMERA_OR_LAYER_POLICY"};},
       selection:()=>lastSelection.map(d=>{const result=loaded.get(`${manifest.build_id}:${d.resource?.uri}:${d.resource?.sha256}`);return {...d,status:result?.status||'DETAIL_PENDING',error:result?.error||null,request_ms:result?.request_ms??null};}),cacheStats:()=>({entries:cache.size,loaded:loaded.size,active:Object.fromEntries(active),max_concurrent:maxRunning,queued:queue.length,...trimCache()}),dispose:()=>{loaded.clear();queue.length=0;}};
