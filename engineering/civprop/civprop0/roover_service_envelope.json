@@ -1,0 +1,59 @@
+{
+  "id": "ROO_VER_CT4_IM5_SERVICE_2026_V1",
+  "as_of": "2026-09-28",
+  "authority_class": "EMPIRICAL_MISSION_ENVELOPE_WITH_PLANNED_TARGETS",
+  "actor_id": "AUS",
+  "mission_id": "ROO_VER_CLPS_CT4_IM5",
+  "payload_id": "ROO_VER_WITH_NASA_MNP",
+  "service_path": "NASA CLPS CT-4 / Intuitive Machines IM-5",
+  "vehicle_class": "NOVA_D_PLANNED",
+  "target_launch_period": "MID_2030_INITIAL_TARGET_NOT_BOOKED_WINDOW",
+  "target_landing_year": 2030,
+  "destination_scope": "LUNAR_SOUTH_POLE_REGION",
+  "provider_site_target": "MONS_MALAPERT_TARGET_NOT_FINAL_COORDINATES",
+  "rover_mass_kg_approx": 20,
+  "manifested_suite_mass_kg_approx": 75,
+  "surface_operations_days_expected": 14,
+  "delivery_capacity_kg": null,
+  "launch_vehicle": null,
+  "delta_v_km_s": null,
+  "transfer_duration_days": null,
+  "responsibilities": {
+    "nasa": "CLPS service buyer and MNP sensor owner",
+    "intuitive_machines": "End-to-end lunar delivery, lander and stated network/data service; Rover-specific interfaces and service levels unqualified",
+    "australian_space_agency": "Government mission lead for Roo-ver",
+    "elo2": "Rover development and remote surface operation from Australia"
+  },
+  "sources": [
+    {
+      "id": "NASA_2026_03_27_CT4",
+      "date": "2026-03-27",
+      "url": "https://www.nasa.gov/missions/artemis/clps/nasa-selects-intuitive-machines-to-deliver-artemis-science-tech-to-moon/",
+      "supports": "Roo-ver manifested on CLPS delivery; NASA selects Intuitive Machines for end-to-end surface delivery to South Pole region targeted 2030; all rovers/instruments collectively about 75 kg; Agency is Roo-ver lead"
+    },
+    {
+      "id": "IM_2026_03_24_IM5",
+      "date": "2026-03-24",
+      "url": "https://intuitivemachines.gcs-web.com/news-releases/news-release-details/intuitive-machines-expands-lunar-surface-operations-1804-million",
+      "supports": "Nova-D planned for IM-5; target Mons Malapert; lander and network/data service; MNP integrated with Roo-ver"
+    },
+    {
+      "id": "IM_2026_05_15_10Q",
+      "date": "2026-05-15",
+      "url": "https://www.sec.gov/Archives/edgar/data/1844452/000162828026035236/lunr-20260331.htm",
+      "supports": "IM-5 initial targeted launch mid-year 2030, not an allocated departure window"
+    },
+    {
+      "id": "ASA_2026_ROOVER_OBJECTIVES",
+      "date": null,
+      "url": "https://www.nasa.gov/wp-content/uploads/2026/03/ip-asa.pdf",
+      "supports": "Agency presentation: Roo-ver approximately 20 kg, integrated NASA payload, expected 14 days surface operations, operated from Australian centre"
+    },
+    {
+      "id": "AUS_GOV_2025_08_29_ELO2_OPERATIONS",
+      "date": "2025-08-29",
+      "url": "https://www.minister.industry.gov.au/t-ayres/media/mission-confirmed-aussie-moon-rover-ready-roll",
+      "supports": "ELO2 designs, builds and operates Roo-ver in partnership with the Agency; government funds rover development and operation"
+    }
+  ]
+}
