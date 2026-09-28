@@ -36,6 +36,7 @@
     }
     return {visibleNodes,errorScaleByNode:errors,eyeKm64:eye,orientation:state.rotation,verticalFov:45,widthCss:innerWidth,heightCss:innerHeight,dpr:devicePixelRatio||1};
   }
+  function curveExtentKm(curve){let extent=0;for(const segment of curve.segments||[])for(const point of segment.points||[])extent=Math.max(extent,Math.hypot(point[1],point[2],point[3]));return extent;}
   function clear(){while(geometryGroup.children.length){const x=geometryGroup.children[geometryGroup.children.length-1];geometryGroup.remove(x);x.geometry?.dispose();x.material?.dispose();}}
   function draw(){
     if(!renderer||!handle)return;const t=performance.now();if(state.lastTime)state.raf.push(t-state.lastTime);state.lastTime=t;state.frameCount++;
@@ -53,18 +54,34 @@
       const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(p,3));const m=new THREE.PointsMaterial({color:f.body_id==='SUN'?0xff8703:0x00d1ff,size:f.body_id==='SUN'?7:4,sizeAttenuation:false});geometryGroup.add(new THREE.Points(g,m));markers++;
     }
     for(const d of state.draws){if(state.isolatedFeature&&state.isolatedFeature!==d.curve.feature_id)continue;let opacity=.62;
-      if(d.curve.semantic==='HELIOCENTRIC_REFERENCE_ORBIT'){const rootNode=handle.root.nodes.find(n=>n.node_id==='solar');const dia=2*(rootNode?.content_bound?.radius_km||0)*innerHeight/(2*Math.tan(Math.PI/8)*state.distance);const diagonal=Math.hypot(innerWidth,innerHeight);if(dia>=16*diagonal)continue;if(dia>8*diagonal)opacity*=1-(dia-8*diagonal)/(8*diagonal);}
+      if(d.curve.semantic==='HELIOCENTRIC_REFERENCE_ORBIT'){const dia=2*curveExtentKm(d.curve)*innerHeight/(2*Math.tan(Math.PI/8)*state.distance);const diagonal=Math.hypot(innerWidth,innerHeight);if(dia>=16*diagonal)continue;if(dia>8*diagonal)opacity*=1-(dia-8*diagonal)/(8*diagonal);}
       else if(d.curve.semantic==='PARENT_RELATIVE_REFERENCE_ORBIT'){const node=handle.root.nodes.find(n=>n.anchor_id===d.curve.anchor_id&&n.node_id!=='solar');const dia=2*(node?.content_bound?.radius_km||0)*innerHeight/(2*Math.tan(Math.PI/8)*state.distance);if(dia<16)continue;opacity*=Math.min(1,(dia-16)/8);}
       const anchor=featureById[d.curve.anchor_id]?.position_km||[0,0,0];const pts=d.segment.points.map(p=>p.slice(1).map((v,i)=>(anchor[i]+v-eye[i])/unit));if(pts.length<2){lines.push({feature_id:d.curve.feature_id,semantic:d.curve.semantic,status:'SINGLE_POINT_NOT_DRAWN',vertices:pts.length});continue;}
       const clipPts=pts.map(p=>new THREE.Vector3(...p).project(camera));const inClip=clipPts.filter(p=>Math.abs(p.x)<=1&&Math.abs(p.y)<=1&&p.z>=-1&&p.z<=1).length;
       const arr=new Float32Array(pts.flat());const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(arr,3));const m=new THREE.LineBasicMaterial({color:d.curve.semantic==='PARENT_RELATIVE_REFERENCE_ORBIT'?0x7ee7d1:0xff8703,transparent:true,opacity});geometryGroup.add(new THREE.Line(g,m));const visibleIndices=clipPts.map((p,i)=>({p,i})).filter(x=>Math.abs(x.p.x)<=1&&Math.abs(x.p.y)<=1&&x.p.z>=-1&&x.p.z<=1).map(x=>x.i);let gpuError=0,gpuErrorCss=0;for(const i of visibleIndices){const cam=new THREE.Vector3(...pts[i]).applyMatrix4(camera.matrixWorldInverse),depth=-cam.z,K=depth>0?focal/(depth*unit)*Math.sqrt(1+Math.pow(Math.hypot(cam.x,cam.y)/depth,2)):Infinity;for(const v of pts[i]){const error=Math.abs(Math.fround(v)-v)*unit;gpuError=Math.max(gpuError,error);gpuErrorCss=Math.max(gpuErrorCss,error*K);}}lines.push({feature_id:d.curve.feature_id,node_id:d.node_id,semantic:d.curve.semantic,anchor_id:d.curve.anchor_id,status:inClip?'SUBMITTED_WITH_PROJECTED_VERTICES':'SUBMITTED_TO_GPU_CLIPPING',vertices:pts.length,clip_vertices:inClip,segment_id:d.segment.body_source_ref+'|'+d.segment.anchor_source_ref,float32Input:Array.from(arr),cameraRelativeKm:pts.map(p=>p.map(x=>Math.fround(x)*unit)),gpuConversionMaxKm:gpuError,gpuConversionMaxCssPx:gpuErrorCss});}
     camera.near=.0001;camera.far=10000;camera.updateProjectionMatrix();renderer.render(scene,camera);
-    const intervals=state.raf.slice(-200).sort((a,b)=>a-b);const vertices=renderer.info.render.points+renderer.info.render.lines;const report={eyeKm64:eye,targetKm64:state.target,cameraDistanceKm:state.distance,unitKmPerRenderUnit:unit,projectionPixelsPerKm:innerHeight/(2*Math.tan(Math.PI/8))/state.distance,markerGpuErrorKm,markerGpuErrorCssPx,features:featureStates,lines,drawCalls:renderer.info.render.calls,vertices,gpu_geometry_count:renderer.info.memory.geometries,gpu_buffer_bytes_estimate:vertices*3*4,frameCount:state.frameCount,frame_interval_ms:intervals,max_frame_interval_ms:intervals.at(-1)||0,frames_over_33ms:state.raf.filter(x=>x>33.4).length,near:camera.near,far:camera.far};
+    const intervals=state.raf.slice(-200).sort((a,b)=>a-b);const vertices=renderer.info.render.points+renderer.info.render.lines;const report={eyeKm64:eye,targetKm64:state.target,cameraDistanceKm:state.distance,unitKmPerRenderUnit:unit,projectionPixelsPerKm:innerHeight/(2*Math.tan(Math.PI/8))/state.distance,markers,markerGpuErrorKm,markerGpuErrorCssPx,features:featureStates,lines,drawCalls:renderer.info.render.calls,vertices,gpu_geometry_count:renderer.info.memory.geometries,gpu_buffer_bytes_estimate:vertices*3*4,frameCount:state.frameCount,frame_interval_ms:intervals,max_frame_interval_ms:intervals.at(-1)||0,frames_over_33ms:state.raf.filter(x=>x>33.4).length,near:camera.near,far:camera.far};
     window.__solarBasemapScene=report;return report;
   }
-  let scheduled=false;async function refresh(){state.zoom=distanceToZoom(state.distance);document.getElementById('zoom').value=String(state.zoom);if(!scheduled){scheduled=true;requestAnimationFrame(async()=>{scheduled=false;const view=currentView();state.draws=await handle.updateView(view);draw();window.__solarBasemapView=view;});}}
+  let scheduled=false;async function refresh(){state.zoom=distanceToZoom(state.distance);document.getElementById('zoom').value=String(state.zoom);if(!scheduled){scheduled=true;requestAnimationFrame(async()=>{scheduled=false;const view=currentView();await handle.updateView(view);state.draws=handle.drawList();draw();window.__solarBasemapView=view;});}}
   function moveToward(id, distance){const f=featureById[id];if(!f?.position_km)throw Error(`${id} has no governed epoch position`);state.target=[...f.position_km];state.distance=distance;refresh();}
-  async function replayApproach(id,startDistance,endDistance,steps=80){const f=featureById[id];if(!f?.position_km)throw Error(`${id} has no governed epoch position`);const initial=[0,0,0];for(let i=0;i<=steps;i++){const u=i/steps,s=u*u*(3-2*u);state.target=initial.map((x,k)=>x+(f.position_km[k]-x)*s);state.distance=startDistance*Math.pow(endDistance/startDistance,s);await new Promise(resolve=>requestAnimationFrame(resolve));}await refresh();return {id,steps,startDistance,endDistance,target:[...state.target]};}
+  async function replayApproach(id,startDistance,endDistance,steps=80){
+    const f=featureById[id];if(!f?.position_km)throw Error(`${id} has no governed epoch position`);
+    const initial=[0,0,0],initialFrame=state.frameCount;
+    for(let i=0;i<=steps;i++){
+      const u=i/steps,s=u*u*(3-2*u);
+      await new Promise(resolve=>requestAnimationFrame(()=>{
+        state.target=initial.map((x,k)=>x+(f.position_km[k]-x)*s);
+        state.distance=startDistance*Math.pow(endDistance/startDistance,s);
+        state.zoom=distanceToZoom(state.distance);
+        refresh();
+        draw();
+        resolve();
+      }));
+    }
+    await refresh();
+    return {id,steps,startDistance,endDistance,target:[...state.target],draw_frames:state.frameCount-initialFrame};
+  }
   function setZoom(value){const z=Number(value);state.zoom=z;state.distance=50*AU/Math.exp((z/1000)*Math.log(50*AU/10000));refresh();}
   function isolate(id){state.isolatedFeature=id||null;draw();}
   function fit(){state.target=[0,0,0];state.distance=50*AU;state.rotation=[0,0];refresh()}
