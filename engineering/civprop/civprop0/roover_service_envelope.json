@@ -1,6 +1,6 @@
 {
   "id": "ROO_VER_CT4_IM5_SERVICE_2026_V1",
-  "as_of": "2026-09-28",
+  "as_of": "2026-09-29",
   "authority_class": "EMPIRICAL_MISSION_ENVELOPE_WITH_PLANNED_TARGETS",
   "actor_id": "AUS",
   "mission_id": "ROO_VER_CLPS_CT4_IM5",
@@ -14,6 +14,7 @@
   "rover_mass_kg_approx": 20,
   "manifested_suite_mass_kg_approx": 75,
   "surface_operations_days_expected": 14,
+  "surface_operations_days_planned_max": 14,
   "delivery_capacity_kg": null,
   "launch_vehicle": null,
   "delta_v_km_s": null,
@@ -48,6 +49,13 @@
       "date": null,
       "url": "https://www.nasa.gov/wp-content/uploads/2026/03/ip-asa.pdf",
       "supports": "Agency presentation: Roo-ver approximately 20 kg, integrated NASA payload, expected 14 days surface operations, operated from Australian centre"
+    },
+    {
+      "id": "ASA_2026_MEET_ROOVER",
+      "date": null,
+      "retrieved": "2026-09-29",
+      "url": "https://www.space.gov.au/meet-roo-ver",
+      "supports": "Agency describes Roo-ver at around 20 kilograms and expected to operate for up to 14 Earth days; this is a planned mission envelope, not a certified physical limit"
     },
     {
       "id": "AUS_GOV_2025_08_29_ELO2_OPERATIONS",
