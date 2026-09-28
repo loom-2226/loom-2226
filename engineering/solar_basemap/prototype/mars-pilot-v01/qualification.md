@@ -75,9 +75,13 @@ This evidence is emulated only. Physical Pixel visual comprehension, touch
 behavior, handset frame timing and thermal behavior remain unqualified. The
 viewer is served from loopback at `http://127.0.0.1:8770/`; the existing
 quantifactus-to-Pixel route still needs host identity/access confirmation before
-an exact device URL can be asserted. Stop here for physical Pixel human
-acceptance. Pluto/Charon, compiler regeneration, full Solar requalification and
-the large benchmark matrix remain deferred until that acceptance passes.
+an exact device URL can be asserted. The worktree also lacks the
+`design/Montserrat-VF.woff2` asset referenced by the existing token CSS; the
+viewer uses that CSS font stack's platform fallback (the server log records the
+font request as HTTP 404). No token or font asset was changed. Stop here for
+physical Pixel human acceptance. Pluto/Charon, compiler regeneration, full Solar
+requalification and the large benchmark matrix remain deferred until that
+acceptance passes.
 
 **Policy overrides:** none. Sandbox elevation was used only to launch the
 read-only preflight process, the loopback viewer and Chromium required by the
