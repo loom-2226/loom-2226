@@ -1,7 +1,7 @@
-"""AUS-CAP-0: one dated, scoped actor/provider access assertion.
+"""Dated, scoped Fleet and Australian-government access assertions.
 
-The fixture is an admitted empirical claim about a provider agreement.
-It is not a trajectory, completed landing, country-owned capability, or a
+The fixtures admit one firm provider agreement and one government mission path.
+They are not trajectories, completed landings, owned lunar transport, or a
 general capability database. CIVPROP-0's original replay path stays frozen.
 """
 from dataclasses import asdict, dataclass, replace
@@ -15,6 +15,7 @@ from .model import Scenario
 
 
 EVIDENCE_PATH = Path(__file__).with_name('actor_access_evidence.json')
+GOVERNMENT_EVIDENCE_PATH = Path(__file__).with_name('aus_government_access_evidence.json')
 CAPABILITY = 'LUNAR_PAYLOAD_DELIVERY_ACCESS'
 
 
@@ -42,11 +43,11 @@ class CapabilityAssessment:
 
 
 def _evidence():
-    raw = EVIDENCE_PATH.read_bytes()
-    packet = json.loads(raw)
-    if packet['authority_class'] != 'EMPIRICAL_ACTOR_ACCESS_ASSERTION':
+    raws = (EVIDENCE_PATH.read_bytes(), GOVERNMENT_EVIDENCE_PATH.read_bytes())
+    packets = tuple(json.loads(raw) for raw in raws)
+    if any(packet['authority_class'] != 'EMPIRICAL_ACTOR_ACCESS_ASSERTION' for packet in packets):
         raise ValueError('invalid evidence authority class')
-    return packet, hashlib.sha256(raw).hexdigest()
+    return tuple(packet['case'] for packet in packets), hashlib.sha256(b''.join(raws)).hexdigest()
 
 
 def _date(value: str) -> date:
@@ -56,34 +57,37 @@ def _date(value: str) -> date:
 def resolve_actor_capability(actor: str, capability: str, epoch: str,
                              mission_requirements: MissionRequirements | None = None
                              ) -> CapabilityAssessment:
-    """Resolve only Fleet's dated SPIDER agreement; missing evidence is UNKNOWN.
+    """Resolve two bounded 2026 access relationships; missing evidence is UNKNOWN.
 
-    USABLE means the named actor has a documented access agreement for *one*
-    mission of this service class. It does not mean any requested mission is
-    qualified or that the transport has already flown.
+    USABLE means the named actor has a documented path for *one* mission of
+    this service class. It does not mean any requested mission is qualified
+    or that the transport has already flown.
     """
     _date(epoch)
     if mission_requirements is not None:
         _date(mission_requirements.departure)
-    packet, sha = _evidence()
-    case = packet['case']
+    cases, sha = _evidence()
+    case = next((item for item in cases if item['actor_id'] == actor and
+                 item['capability'] == capability and
+                 _date(epoch) >= _date(item['observed_from']) and _date(epoch).year == 2026), None)
     base = dict(actor_id=actor, capability=capability, epoch=epoch,
                 evidence_sha256=sha, actor_possesses_transport=False)
-    if (actor != case['actor_id'] or capability != case['capability'] or
-            _date(epoch) < _date(case['observed_from']) or _date(epoch).year != 2026):
+    if case is None:
         return CapabilityAssessment(**base, status='UNKNOWN', evidence_status='UNKNOWN',
                                     evidence_id=None, provider_id=None, access_basis=None,
                                     supported_scope=None, unresolved_requirements=())
 
     unresolved = []
     if mission_requirements is not None:
-        # The public agreement concerns SPIDER on a named far-side mission.
-        # None of these terms are established for CIVPROP-0's separate polar
-        # instrument, date and site. A supplied mass is not a provider limit.
+        # Both paths are for named payloads. Neither establishes a right to
+        # substitute CIVPROP-0's separate synthetic prospecting instrument.
         unresolved = ['mission-specific provider slot and schedule',
                       f'landing site coverage for {mission_requirements.site_id}', 'payload accommodation',
                       'mission-specific price and contract',
                       'operations support for requested payload']
+        target_year = case.get('target_landing_year')
+        if target_year is not None and _date(mission_requirements.departure).year != target_year:
+            unresolved.insert(0, f'documented pathway targets {target_year}, not requested departure')
     return CapabilityAssessment(**base, status='CONDITIONAL' if unresolved else 'USABLE',
                                 evidence_status=case['evidence_status'],
                                 evidence_id=case['sources'][0]['id'],
@@ -94,11 +98,7 @@ def resolve_actor_capability(actor: str, capability: str, epoch: str,
 
 
 def execute_with_actor_access(inputs: dict, scenario: Scenario = Scenario(), seed: int = 0) -> dict:
-    """Versioned evidence-backed entrypoint; old CIVPROP-0 artifacts stay valid.
-
-    The pinned Earth actor is AUS. Fleet's agreement cannot be assigned to
-    that actor, so its access status is UNKNOWN and transport is not cleared.
-    """
+    """Evidence-backed entrypoint; original CIVPROP-0 replay stays frozen."""
     actor = inputs['records']['earth_actor'][0]['iso3']
     requirements = MissionRequirements(scenario.departure, scenario.site_id)
     assessment = resolve_actor_capability(actor, CAPABILITY, scenario.departure, requirements)

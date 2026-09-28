@@ -31,8 +31,11 @@ class ActorAccessTests(unittest.TestCase):
 
     def test_country_actor_does_not_inherit_firm_contract(self):
         a = resolve_actor_capability('AUS', 'LUNAR_PAYLOAD_DELIVERY_ACCESS', '2026-09-28')
-        self.assertEqual(a.status, 'UNKNOWN')
-        self.assertIsNone(a.provider_id)
+        self.assertEqual(a.status, 'USABLE')
+        self.assertEqual(a.evidence_id, 'NASA_2026_03_27_CLPS_CT4_ROO_VER')
+        self.assertEqual(a.provider_id, 'INTUITIVE_MACHINES')
+        self.assertNotEqual(a.provider_id, 'FIREFLY_AEROSPACE')
+        self.assertFalse(a.actor_possesses_transport)
 
     def test_missing_evidence_is_unknown_not_unusable(self):
         for actor, capability in [('ZZZ', 'LUNAR_PAYLOAD_DELIVERY_ACCESS'),
@@ -51,7 +54,7 @@ class ActorAccessTests(unittest.TestCase):
 
     def test_country_experiment_waits_without_transport_claim(self):
         artifact = execute_with_actor_access(load_inputs(), Scenario(), 0)
-        self.assertEqual(artifact['assessment']['status'], 'UNKNOWN')
+        self.assertEqual(artifact['assessment']['status'], 'CONDITIONAL')
         self.assertEqual(artifact['run']['opportunity']['status'], 'UNKNOWN')
         self.assertEqual(artifact['run']['decisions'][0]['action'], 'WAIT')
         self.assertEqual(artifact['run']['transactions'], [])
