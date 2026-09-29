@@ -1,0 +1,235 @@
+{
+  "engines": {
+    "ACTOR_DISCRETE_EVENT": {
+      "decision_count": 22,
+      "event_count": 79,
+      "facilities_by_location": {
+        "CISLUNAR_FREE_SPACE": 9,
+        "EARTH_ORBIT": 10
+      },
+      "facilities_by_type": {
+        "HABITAT": 5,
+        "LOGISTICS_NODE": 12,
+        "POWER_PLANT": 2
+      },
+      "facility_count": 19,
+      "final_locations": {
+        "CISLUNAR_FREE_SPACE": {
+          "biological_population": 88.66250000000001,
+          "capacities": {
+            "habitat": 200.0,
+            "industrial": 0.0,
+            "power": 32.0,
+            "resource": 0.0,
+            "shipyard": 0.0,
+            "transport": 60.0
+          },
+          "capital": 118.0,
+          "transient_population": 0.0,
+          "workforce": 44.331250000000004
+        },
+        "EARTH_ORBIT": {
+          "biological_population": 105.291796875,
+          "capacities": {
+            "habitat": 350.0,
+            "industrial": 2.0,
+            "power": 37.0,
+            "resource": 0.0,
+            "shipyard": 0.0,
+            "transport": 68.0
+          },
+          "capital": 151.0,
+          "transient_population": 200.0,
+          "workforce": 52.6458984375
+        },
+        "EARTH_SURFACE": {
+          "biological_population": 999806.045703125,
+          "capacities": {
+            "habitat": 1000000.0,
+            "industrial": 100.0,
+            "power": 100.0,
+            "resource": 0.0,
+            "shipyard": 20.0,
+            "transport": 100.0
+          },
+          "capital": 200.0,
+          "transient_population": 0.0,
+          "workforce": 499903.0228515625
+        },
+        "LUNA_SURFACE": {
+          "biological_population": 0.0,
+          "capacities": {
+            "habitat": 0.0,
+            "industrial": 0.0,
+            "power": 0.0,
+            "resource": 0.0,
+            "shipyard": 0.0,
+            "transport": 0.0
+          },
+          "capital": 0.0,
+          "transient_population": 0.0,
+          "workforce": 0.0
+        }
+      },
+      "flow_count": 15,
+      "result_sha256": "2b609e87cfae9dbbc841c65145a776a87de0a8c64a975970e6c6be84754ee876"
+    },
+    "DYNAMIC_RECURSIVE": {
+      "decision_count": 22,
+      "event_count": 76,
+      "facilities_by_location": {
+        "CISLUNAR_FREE_SPACE": 9,
+        "EARTH_ORBIT": 10
+      },
+      "facilities_by_type": {
+        "HABITAT": 3,
+        "INDUSTRIAL_WORKSHOP": 2,
+        "LOGISTICS_NODE": 14
+      },
+      "facility_count": 19,
+      "final_locations": {
+        "CISLUNAR_FREE_SPACE": {
+          "biological_population": 34.99999999999999,
+          "capacities": {
+            "habitat": 100.0,
+            "industrial": 10.0,
+            "power": 14.0,
+            "resource": 0.0,
+            "shipyard": 0.0,
+            "transport": 70.0
+          },
+          "capital": 118.0,
+          "transient_population": 0.0,
+          "workforce": 17.499999999999996
+        },
+        "EARTH_ORBIT": {
+          "biological_population": 136.57496071011133,
+          "capacities": {
+            "habitat": 250.0,
+            "industrial": 12.0,
+            "power": 19.0,
+            "resource": 0.0,
+            "shipyard": 0.0,
+            "transport": 78.0
+          },
+          "capital": 151.0,
+          "transient_population": 200.0,
+          "workforce": 68.28748035505566
+        },
+        "EARTH_SURFACE": {
+          "biological_population": 999828.4250392899,
+          "capacities": {
+            "habitat": 1000000.0,
+            "industrial": 100.0,
+            "power": 100.0,
+            "resource": 0.0,
+            "shipyard": 20.0,
+            "transport": 100.0
+          },
+          "capital": 200.0,
+          "transient_population": 0.0,
+          "workforce": 499914.21251964493
+        },
+        "LUNA_SURFACE": {
+          "biological_population": 0.0,
+          "capacities": {
+            "habitat": 0.0,
+            "industrial": 0.0,
+            "power": 0.0,
+            "resource": 0.0,
+            "shipyard": 0.0,
+            "transport": 0.0
+          },
+          "capital": 0.0,
+          "transient_population": 0.0,
+          "workforce": 0.0
+        }
+      },
+      "flow_count": 11,
+      "result_sha256": "9b98d67de248e52ad31d3c3baf93d14a2339819015a1e55eb2882588ddbab408"
+    },
+    "SYSTEM_DYNAMICS_HEAVY": {
+      "decision_count": 22,
+      "event_count": 62,
+      "facilities_by_location": {
+        "CISLUNAR_FREE_SPACE": 5,
+        "EARTH_ORBIT": 7,
+        "LUNA_SURFACE": 1
+      },
+      "facilities_by_type": {
+        "HABITAT": 1,
+        "INDUSTRIAL_WORKSHOP": 1,
+        "LOGISTICS_NODE": 8,
+        "POWER_PLANT": 3
+      },
+      "facility_count": 13,
+      "final_locations": {
+        "CISLUNAR_FREE_SPACE": {
+          "biological_population": 0.0,
+          "capacities": {
+            "habitat": 0.0,
+            "industrial": 0.0,
+            "power": 28.0,
+            "resource": 0.0,
+            "shipyard": 0.0,
+            "transport": 40.0
+          },
+          "capital": 58.0,
+          "transient_population": 0.0,
+          "workforce": 0.0
+        },
+        "EARTH_ORBIT": {
+          "biological_population": 70.5536060726078,
+          "capacities": {
+            "habitat": 150.0,
+            "industrial": 12.0,
+            "power": 33.0,
+            "resource": 0.0,
+            "shipyard": 0.0,
+            "transport": 48.0
+          },
+          "capital": 107.0,
+          "transient_population": 200.0,
+          "workforce": 50.0
+        },
+        "EARTH_SURFACE": {
+          "biological_population": 999929.4463939274,
+          "capacities": {
+            "habitat": 1000000.0,
+            "industrial": 100.0,
+            "power": 100.0,
+            "resource": 0.0,
+            "shipyard": 20.0,
+            "transport": 100.0
+          },
+          "capital": 200.0,
+          "transient_population": 0.0,
+          "workforce": 499964.7231969637
+        },
+        "LUNA_SURFACE": {
+          "biological_population": 0.0,
+          "capacities": {
+            "habitat": 0.0,
+            "industrial": 0.0,
+            "power": 20.0,
+            "resource": 0.0,
+            "shipyard": 0.0,
+            "transport": 0.0
+          },
+          "capital": 10.0,
+          "transient_population": 0.0,
+          "workforce": 0.0
+        }
+      },
+      "flow_count": 10,
+      "result_sha256": "70b0f6dd040ab1f20b7854ed6af8eef543b4f9bf7be648b6d7b1093c8226a0e2"
+    }
+  },
+  "format": "CIVPROP_METHOD_LAB_PROTOTYPE_SUMMARY_V1",
+  "horizon": {
+    "end_year": 2036,
+    "start_year": 2026
+  },
+  "input_bundle_sha256": "482a7bd21c59c91381609d1a06398a408273c8a761f962e6c8421335f1ca5120",
+  "seed": 42
+}
