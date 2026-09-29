@@ -1,0 +1,17 @@
+{
+  "authority": "SYNTHETIC_METHOD_FIXTURE_ONLY",
+  "basis": {
+    "main_commit": "99e43bb4fbf58ba6a741e8ff05c91c6b98e90810",
+    "prior_hypothesis": "research/seeds/LOOM_SOLAR_EMERGENCE_V0_TEST_WORKPLAN_2026_09_24.md",
+    "requirements": "docs/civprop/CIVPROP_ENGINE_REQUIREMENTS_V1.md"
+  },
+  "bundle_sha256": "482a7bd21c59c91381609d1a06398a408273c8a761f962e6c8421335f1ca5120",
+  "fixture_id": "EARTH_ORBIT_LUNA_SYNTHETIC_V1",
+  "format": "CIVPROP_METHOD_LAB_BUNDLE_V1",
+  "scenario_file": "scenario_v1.json",
+  "sha256": {
+    "scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
+    "truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951"
+  },
+  "truth_file": "truth_v1.json"
+}

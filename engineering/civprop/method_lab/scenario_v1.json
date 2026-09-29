@@ -1,0 +1,915 @@
+{
+  "accessibility": [
+    {
+      "destination_location_id": "EARTH_ORBIT",
+      "origin_location_id": "EARTH_SURFACE",
+      "years": [
+        {
+          "generalized_cost": 3.0,
+          "status": "FEASIBLE",
+          "year": 2026
+        },
+        {
+          "generalized_cost": 2.9,
+          "status": "FEASIBLE",
+          "year": 2027
+        },
+        {
+          "generalized_cost": 2.8,
+          "status": "FEASIBLE",
+          "year": 2028
+        },
+        {
+          "generalized_cost": 2.7,
+          "status": "FEASIBLE",
+          "year": 2029
+        },
+        {
+          "generalized_cost": 2.6,
+          "status": "FEASIBLE",
+          "year": 2030
+        },
+        {
+          "generalized_cost": 2.5,
+          "status": "FEASIBLE",
+          "year": 2031
+        },
+        {
+          "generalized_cost": 2.4,
+          "status": "FEASIBLE",
+          "year": 2032
+        },
+        {
+          "generalized_cost": 2.3,
+          "status": "FEASIBLE",
+          "year": 2033
+        },
+        {
+          "generalized_cost": 2.2,
+          "status": "FEASIBLE",
+          "year": 2034
+        },
+        {
+          "generalized_cost": 2.1,
+          "status": "FEASIBLE",
+          "year": 2035
+        },
+        {
+          "generalized_cost": 2.0,
+          "status": "FEASIBLE",
+          "year": 2036
+        }
+      ]
+    },
+    {
+      "destination_location_id": "LUNA_SURFACE",
+      "origin_location_id": "EARTH_SURFACE",
+      "years": [
+        {
+          "generalized_cost": null,
+          "status": "UNKNOWN",
+          "year": 2026
+        },
+        {
+          "generalized_cost": null,
+          "status": "UNKNOWN",
+          "year": 2027
+        },
+        {
+          "generalized_cost": 12.0,
+          "status": "FEASIBLE",
+          "year": 2028
+        },
+        {
+          "generalized_cost": 11.3,
+          "status": "FEASIBLE",
+          "year": 2029
+        },
+        {
+          "generalized_cost": 10.6,
+          "status": "FEASIBLE",
+          "year": 2030
+        },
+        {
+          "generalized_cost": 9.9,
+          "status": "FEASIBLE",
+          "year": 2031
+        },
+        {
+          "generalized_cost": 9.2,
+          "status": "FEASIBLE",
+          "year": 2032
+        },
+        {
+          "generalized_cost": 8.5,
+          "status": "FEASIBLE",
+          "year": 2033
+        },
+        {
+          "generalized_cost": 7.8,
+          "status": "FEASIBLE",
+          "year": 2034
+        },
+        {
+          "generalized_cost": 7.1,
+          "status": "FEASIBLE",
+          "year": 2035
+        },
+        {
+          "generalized_cost": 6.4,
+          "status": "FEASIBLE",
+          "year": 2036
+        }
+      ]
+    },
+    {
+      "destination_location_id": "LUNA_SURFACE",
+      "origin_location_id": "EARTH_ORBIT",
+      "years": [
+        {
+          "generalized_cost": null,
+          "status": "UNKNOWN",
+          "year": 2026
+        },
+        {
+          "generalized_cost": null,
+          "status": "UNKNOWN",
+          "year": 2027
+        },
+        {
+          "generalized_cost": 10.0,
+          "status": "FEASIBLE",
+          "year": 2028
+        },
+        {
+          "generalized_cost": 9.4,
+          "status": "FEASIBLE",
+          "year": 2029
+        },
+        {
+          "generalized_cost": 8.8,
+          "status": "FEASIBLE",
+          "year": 2030
+        },
+        {
+          "generalized_cost": 8.2,
+          "status": "FEASIBLE",
+          "year": 2031
+        },
+        {
+          "generalized_cost": 7.6,
+          "status": "FEASIBLE",
+          "year": 2032
+        },
+        {
+          "generalized_cost": 7.0,
+          "status": "FEASIBLE",
+          "year": 2033
+        },
+        {
+          "generalized_cost": 6.4,
+          "status": "FEASIBLE",
+          "year": 2034
+        },
+        {
+          "generalized_cost": 5.8,
+          "status": "FEASIBLE",
+          "year": 2035
+        },
+        {
+          "generalized_cost": 5.2,
+          "status": "FEASIBLE",
+          "year": 2036
+        }
+      ]
+    },
+    {
+      "destination_location_id": "CISLUNAR_FREE_SPACE",
+      "origin_location_id": "EARTH_ORBIT",
+      "years": [
+        {
+          "generalized_cost": 4.0,
+          "status": "FEASIBLE",
+          "year": 2026
+        },
+        {
+          "generalized_cost": 3.85,
+          "status": "FEASIBLE",
+          "year": 2027
+        },
+        {
+          "generalized_cost": 3.7,
+          "status": "FEASIBLE",
+          "year": 2028
+        },
+        {
+          "generalized_cost": 3.55,
+          "status": "FEASIBLE",
+          "year": 2029
+        },
+        {
+          "generalized_cost": 3.4,
+          "status": "FEASIBLE",
+          "year": 2030
+        },
+        {
+          "generalized_cost": 3.25,
+          "status": "FEASIBLE",
+          "year": 2031
+        },
+        {
+          "generalized_cost": 3.1,
+          "status": "FEASIBLE",
+          "year": 2032
+        },
+        {
+          "generalized_cost": 2.95,
+          "status": "FEASIBLE",
+          "year": 2033
+        },
+        {
+          "generalized_cost": 2.8,
+          "status": "FEASIBLE",
+          "year": 2034
+        },
+        {
+          "generalized_cost": 2.65,
+          "status": "FEASIBLE",
+          "year": 2035
+        },
+        {
+          "generalized_cost": 2.5,
+          "status": "FEASIBLE",
+          "year": 2036
+        }
+      ]
+    },
+    {
+      "destination_location_id": "LUNA_SURFACE",
+      "origin_location_id": "CISLUNAR_FREE_SPACE",
+      "years": [
+        {
+          "generalized_cost": null,
+          "status": "UNKNOWN",
+          "year": 2026
+        },
+        {
+          "generalized_cost": null,
+          "status": "UNKNOWN",
+          "year": 2027
+        },
+        {
+          "generalized_cost": 6.0,
+          "status": "FEASIBLE",
+          "year": 2028
+        },
+        {
+          "generalized_cost": 5.7,
+          "status": "FEASIBLE",
+          "year": 2029
+        },
+        {
+          "generalized_cost": 5.4,
+          "status": "FEASIBLE",
+          "year": 2030
+        },
+        {
+          "generalized_cost": 5.1,
+          "status": "FEASIBLE",
+          "year": 2031
+        },
+        {
+          "generalized_cost": 4.8,
+          "status": "FEASIBLE",
+          "year": 2032
+        },
+        {
+          "generalized_cost": 4.5,
+          "status": "FEASIBLE",
+          "year": 2033
+        },
+        {
+          "generalized_cost": 4.2,
+          "status": "FEASIBLE",
+          "year": 2034
+        },
+        {
+          "generalized_cost": 3.9,
+          "status": "FEASIBLE",
+          "year": 2035
+        },
+        {
+          "generalized_cost": 3.6,
+          "status": "FEASIBLE",
+          "year": 2036
+        }
+      ]
+    },
+    {
+      "destination_location_id": "EARTH_SURFACE",
+      "origin_location_id": "LUNA_SURFACE",
+      "years": [
+        {
+          "generalized_cost": null,
+          "status": "UNKNOWN",
+          "year": 2026
+        },
+        {
+          "generalized_cost": null,
+          "status": "UNKNOWN",
+          "year": 2027
+        },
+        {
+          "generalized_cost": 11.0,
+          "status": "FEASIBLE",
+          "year": 2028
+        },
+        {
+          "generalized_cost": 10.4,
+          "status": "FEASIBLE",
+          "year": 2029
+        },
+        {
+          "generalized_cost": 9.8,
+          "status": "FEASIBLE",
+          "year": 2030
+        },
+        {
+          "generalized_cost": 9.2,
+          "status": "FEASIBLE",
+          "year": 2031
+        },
+        {
+          "generalized_cost": 8.6,
+          "status": "FEASIBLE",
+          "year": 2032
+        },
+        {
+          "generalized_cost": 8.0,
+          "status": "FEASIBLE",
+          "year": 2033
+        },
+        {
+          "generalized_cost": 7.4,
+          "status": "FEASIBLE",
+          "year": 2034
+        },
+        {
+          "generalized_cost": 6.8,
+          "status": "FEASIBLE",
+          "year": 2035
+        },
+        {
+          "generalized_cost": 6.2,
+          "status": "FEASIBLE",
+          "year": 2036
+        }
+      ]
+    }
+  ],
+  "actor_capability": [
+    {
+      "actor_id": "LAB_PUBLIC",
+      "conditions": [],
+      "status": "USABLE",
+      "tech_id": "ORBITAL_CONSTRUCTION",
+      "valid_from": 2026,
+      "valid_to": null
+    },
+    {
+      "actor_id": "LAB_COMMERCIAL",
+      "conditions": [],
+      "status": "USABLE",
+      "tech_id": "ORBITAL_CONSTRUCTION",
+      "valid_from": 2026,
+      "valid_to": null
+    },
+    {
+      "actor_id": "LAB_PUBLIC",
+      "conditions": [],
+      "status": "USABLE",
+      "tech_id": "OFFWORLD_POWER",
+      "valid_from": 2026,
+      "valid_to": null
+    },
+    {
+      "actor_id": "LAB_COMMERCIAL",
+      "conditions": [],
+      "status": "USABLE",
+      "tech_id": "OFFWORLD_POWER",
+      "valid_from": 2026,
+      "valid_to": null
+    },
+    {
+      "actor_id": "LAB_PUBLIC",
+      "conditions": [],
+      "status": "USABLE",
+      "tech_id": "OFFWORLD_HABITAT",
+      "valid_from": 2027,
+      "valid_to": null
+    },
+    {
+      "actor_id": "LAB_COMMERCIAL",
+      "conditions": [],
+      "status": "USABLE",
+      "tech_id": "OFFWORLD_HABITAT",
+      "valid_from": 2027,
+      "valid_to": null
+    },
+    {
+      "actor_id": "LAB_PUBLIC",
+      "conditions": [],
+      "status": "USABLE",
+      "tech_id": "LUNAR_SURFACE_OPERATIONS",
+      "valid_from": 2029,
+      "valid_to": null
+    },
+    {
+      "actor_id": "LAB_COMMERCIAL",
+      "conditions": [
+        "SERVICE_CONTRACT_REQUIRED"
+      ],
+      "status": "CONDITIONAL",
+      "tech_id": "LUNAR_SURFACE_OPERATIONS",
+      "valid_from": 2029,
+      "valid_to": null
+    },
+    {
+      "actor_id": "LAB_PUBLIC",
+      "conditions": [
+        "QUALIFIED_RESOURCE_EVIDENCE_REQUIRED"
+      ],
+      "status": "CONDITIONAL",
+      "tech_id": "LUNAR_RESOURCE_PROCESSING",
+      "valid_from": 2031,
+      "valid_to": null
+    },
+    {
+      "actor_id": "LAB_COMMERCIAL",
+      "conditions": [],
+      "status": "USABLE",
+      "tech_id": "LUNAR_RESOURCE_PROCESSING",
+      "valid_from": 2032,
+      "valid_to": null
+    }
+  ],
+  "actors": [
+    {
+      "actor_id": "LAB_PUBLIC",
+      "actor_type": "PUBLIC_FINANCER",
+      "annual_capital_inflow": 8,
+      "starting_capital": 70
+    },
+    {
+      "actor_id": "LAB_COMMERCIAL",
+      "actor_type": "COMMERCIAL_FINANCER",
+      "annual_capital_inflow": 10,
+      "starting_capital": 50
+    }
+  ],
+  "classification": "SYNTHETIC_METHOD_FIXTURE_NOT_CANON_NOT_EMPIRICAL",
+  "demand_signals": [
+    {
+      "signal_id": "OFFWORLD_TRANSPORT_DEMAND",
+      "unit": "scenario_demand_unit",
+      "values": [
+        {
+          "value": 5,
+          "year": 2026
+        },
+        {
+          "value": 8,
+          "year": 2027
+        },
+        {
+          "value": 11,
+          "year": 2028
+        },
+        {
+          "value": 14,
+          "year": 2029
+        },
+        {
+          "value": 17,
+          "year": 2030
+        },
+        {
+          "value": 20,
+          "year": 2031
+        },
+        {
+          "value": 23,
+          "year": 2032
+        },
+        {
+          "value": 26,
+          "year": 2033
+        },
+        {
+          "value": 29,
+          "year": 2034
+        },
+        {
+          "value": 32,
+          "year": 2035
+        },
+        {
+          "value": 35,
+          "year": 2036
+        }
+      ]
+    },
+    {
+      "signal_id": "OFFWORLD_INDUSTRIAL_DEMAND",
+      "unit": "scenario_demand_unit",
+      "values": [
+        {
+          "value": 0,
+          "year": 2026
+        },
+        {
+          "value": 2,
+          "year": 2027
+        },
+        {
+          "value": 4,
+          "year": 2028
+        },
+        {
+          "value": 6,
+          "year": 2029
+        },
+        {
+          "value": 8,
+          "year": 2030
+        },
+        {
+          "value": 10,
+          "year": 2031
+        },
+        {
+          "value": 12,
+          "year": 2032
+        },
+        {
+          "value": 14,
+          "year": 2033
+        },
+        {
+          "value": 16,
+          "year": 2034
+        },
+        {
+          "value": 18,
+          "year": 2035
+        },
+        {
+          "value": 20,
+          "year": 2036
+        }
+      ]
+    },
+    {
+      "signal_id": "OFFWORLD_HABITAT_INTEREST",
+      "unit": "person_interest_unit",
+      "values": [
+        {
+          "value": 0,
+          "year": 2026
+        },
+        {
+          "value": 15,
+          "year": 2027
+        },
+        {
+          "value": 30,
+          "year": 2028
+        },
+        {
+          "value": 45,
+          "year": 2029
+        },
+        {
+          "value": 60,
+          "year": 2030
+        },
+        {
+          "value": 75,
+          "year": 2031
+        },
+        {
+          "value": 90,
+          "year": 2032
+        },
+        {
+          "value": 105,
+          "year": 2033
+        },
+        {
+          "value": 120,
+          "year": 2034
+        },
+        {
+          "value": 135,
+          "year": 2035
+        },
+        {
+          "value": 150,
+          "year": 2036
+        }
+      ]
+    },
+    {
+      "signal_id": "WATER_RESOURCE_DEMAND",
+      "unit": "scenario_demand_unit",
+      "values": [
+        {
+          "value": 0,
+          "year": 2026
+        },
+        {
+          "value": 0,
+          "year": 2027
+        },
+        {
+          "value": 0,
+          "year": 2028
+        },
+        {
+          "value": 0,
+          "year": 2029
+        },
+        {
+          "value": 3,
+          "year": 2030
+        },
+        {
+          "value": 6,
+          "year": 2031
+        },
+        {
+          "value": 9,
+          "year": 2032
+        },
+        {
+          "value": 12,
+          "year": 2033
+        },
+        {
+          "value": 15,
+          "year": 2034
+        },
+        {
+          "value": 18,
+          "year": 2035
+        },
+        {
+          "value": 21,
+          "year": 2036
+        }
+      ]
+    }
+  ],
+  "fixture_id": "EARTH_ORBIT_LUNA_SYNTHETIC_V1",
+  "format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
+  "horizon": {
+    "end_year": 2036,
+    "snapshot_interval_years": 1,
+    "start_year": 2026
+  },
+  "locations": [
+    {
+      "initial_state": {
+        "biological_population": 1000000,
+        "capacities": {
+          "habitat": 1000000,
+          "industrial": 100,
+          "power": 100,
+          "resource": 0,
+          "shipyard": 20,
+          "transport": 100
+        },
+        "capital": 200,
+        "transient_population": 0,
+        "workforce": 500000
+      },
+      "location_id": "EARTH_SURFACE",
+      "parent_body_id": "EARTH",
+      "placement": "SURFACE"
+    },
+    {
+      "initial_state": {
+        "biological_population": 0,
+        "capacities": {
+          "habitat": 50,
+          "industrial": 2,
+          "power": 5,
+          "resource": 0,
+          "shipyard": 0,
+          "transport": 8
+        },
+        "capital": 15,
+        "transient_population": 200,
+        "workforce": 50
+      },
+      "location_id": "EARTH_ORBIT",
+      "parent_body_id": "EARTH",
+      "placement": "ORBITAL"
+    },
+    {
+      "initial_state": {
+        "biological_population": 0,
+        "capacities": {
+          "habitat": 0,
+          "industrial": 0,
+          "power": 0,
+          "resource": 0,
+          "shipyard": 0,
+          "transport": 0
+        },
+        "capital": 0,
+        "transient_population": 0,
+        "workforce": 0
+      },
+      "location_id": "LUNA_SURFACE",
+      "parent_body_id": "MOON",
+      "placement": "SURFACE"
+    },
+    {
+      "initial_state": {
+        "biological_population": 0,
+        "capacities": {
+          "habitat": 0,
+          "industrial": 0,
+          "power": 0,
+          "resource": 0,
+          "shipyard": 0,
+          "transport": 0
+        },
+        "capital": 0,
+        "transient_population": 0,
+        "workforce": 0
+      },
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "parent_body_id": null,
+      "placement": "FREE_SPACE"
+    }
+  ],
+  "project_archetypes": [
+    {
+      "allowed_placements": [
+        "SURFACE"
+      ],
+      "capital_cost": 4,
+      "construction_lag_years": 1,
+      "minimum_input_capacities": {
+        "transport": 2
+      },
+      "output_capacities": {},
+      "project_archetype_id": "PROSPECTING_SURVEY",
+      "project_kind": "MISSION",
+      "required_tech": [
+        "LUNAR_SURFACE_OPERATIONS"
+      ]
+    },
+    {
+      "allowed_placements": [
+        "ORBITAL",
+        "FREE_SPACE"
+      ],
+      "capital_cost": 12,
+      "construction_lag_years": 1,
+      "minimum_input_capacities": {},
+      "output_capacities": {
+        "power": 2,
+        "transport": 10
+      },
+      "project_archetype_id": "LOGISTICS_NODE",
+      "project_kind": "FACILITY",
+      "required_tech": [
+        "ORBITAL_CONSTRUCTION"
+      ]
+    },
+    {
+      "allowed_placements": [
+        "SURFACE",
+        "ORBITAL",
+        "FREE_SPACE"
+      ],
+      "capital_cost": 10,
+      "construction_lag_years": 1,
+      "minimum_input_capacities": {
+        "transport": 1
+      },
+      "output_capacities": {
+        "power": 20
+      },
+      "project_archetype_id": "POWER_PLANT",
+      "project_kind": "FACILITY",
+      "required_tech": [
+        "OFFWORLD_POWER"
+      ]
+    },
+    {
+      "allowed_placements": [
+        "SURFACE",
+        "ORBITAL",
+        "FREE_SPACE"
+      ],
+      "capital_cost": 18,
+      "construction_lag_years": 2,
+      "minimum_input_capacities": {
+        "power": 5,
+        "transport": 2
+      },
+      "output_capacities": {
+        "habitat": 100
+      },
+      "project_archetype_id": "HABITAT",
+      "project_kind": "FACILITY",
+      "required_tech": [
+        "OFFWORLD_HABITAT"
+      ]
+    },
+    {
+      "allowed_placements": [
+        "SURFACE"
+      ],
+      "capital_cost": 20,
+      "construction_lag_years": 2,
+      "minimum_input_capacities": {
+        "power": 10,
+        "transport": 3
+      },
+      "output_capacities": {
+        "industrial": 3,
+        "resource": 10
+      },
+      "project_archetype_id": "RESOURCE_PLANT",
+      "project_kind": "FACILITY",
+      "required_tech": [
+        "LUNAR_RESOURCE_PROCESSING"
+      ]
+    },
+    {
+      "allowed_placements": [
+        "SURFACE",
+        "ORBITAL",
+        "FREE_SPACE"
+      ],
+      "capital_cost": 16,
+      "construction_lag_years": 2,
+      "minimum_input_capacities": {
+        "power": 5,
+        "transport": 3
+      },
+      "output_capacities": {
+        "industrial": 10
+      },
+      "project_archetype_id": "INDUSTRIAL_WORKSHOP",
+      "project_kind": "FACILITY",
+      "required_tech": [
+        "ORBITAL_CONSTRUCTION"
+      ]
+    }
+  ],
+  "resource_beliefs": [
+    {
+      "evidence_status": "SCENARIO_PRIOR",
+      "false_positive_probability": 0.1,
+      "location_id": "LUNA_SURFACE",
+      "observation_sensitivity": 0.8,
+      "prior_probability": 0.45,
+      "resource_id": "MOON_POLAR_WATER"
+    }
+  ],
+  "technology_frontier": [
+    {
+      "frontier_year": 2026,
+      "tech_id": "ORBITAL_CONSTRUCTION"
+    },
+    {
+      "frontier_year": 2026,
+      "tech_id": "OFFWORLD_POWER"
+    },
+    {
+      "frontier_year": 2027,
+      "tech_id": "OFFWORLD_HABITAT"
+    },
+    {
+      "frontier_year": 2028,
+      "tech_id": "LUNAR_SURFACE_OPERATIONS"
+    },
+    {
+      "frontier_year": 2030,
+      "tech_id": "LUNAR_RESOURCE_PROCESSING"
+    }
+  ],
+  "units": {
+    "capacity": "scenario_capacity_unit",
+    "capital": "scenario_credit",
+    "generalized_cost": "scenario_cost_index",
+    "population": "person",
+    "power": "MW_equivalent"
+  }
+}
