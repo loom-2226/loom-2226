@@ -1,0 +1,93 @@
+{
+  "actor_access": {
+    "evidence_id": "NASA_2026_03_27_CLPS_CT4_ROO_VER",
+    "evidence_sha256": "b719daf90a9853976de9203aeea165b8904ebfff47a597b4e8ea520832b759c4",
+    "status": "USABLE"
+  },
+  "civprop0_reference": {
+    "action": "WAIT",
+    "ending_capital": 100,
+    "event_types": [
+      "RUN_INITIALIZED",
+      "OPPORTUNITY_EVALUATED",
+      "DECISION_MADE",
+      "RUN_COMPLETED"
+    ],
+    "mission": null,
+    "mission_access_status": "CONDITIONAL",
+    "opportunity_status": "UNKNOWN",
+    "replay_verified": true,
+    "run_id": "civprop0:2a440928932ffed514d43f7c",
+    "scope": "SYNTHETIC_2026_HARNESS_NOT_ROO_VER_EXECUTION",
+    "seed": 0,
+    "starting_capital": 100,
+    "transactions": []
+  },
+  "decision": {
+    "action": "WAIT",
+    "authority_class": "SCENARIO_DECISION",
+    "expected_net_value": 2.5000000000000036,
+    "reason": "Expected value of sample information minus mission cost; feasible and affordable required"
+  },
+  "precedent_use": "Blue Ghost 1 and IM-1 are observed references only; neither is a transport qualifier for IM-5",
+  "service_scope": {
+    "evidence_id": "ROO_VER_CT4_IM5_SERVICE_2026_V1",
+    "evidence_sha256": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
+    "status": "CONDITIONAL",
+    "unresolved": [
+      "exact launch window",
+      "final landing coordinates",
+      "final rover and deployer mass acceptance",
+      "rover-specific deployment, power, data and operations terms",
+      "launch vehicle, transfer duration and delta-v",
+      "surface operations duration guarantee",
+      "requested surface duration guarantee"
+    ]
+  },
+  "source_snapshot_sha256": "a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
+  "transport": {
+    "evidence_sha256": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
+    "segments": [
+      [
+        "launch",
+        "UNKNOWN"
+      ],
+      [
+        "transfer",
+        "UNKNOWN"
+      ],
+      [
+        "lunar_delivery",
+        "FEASIBLE"
+      ],
+      [
+        "site_operations",
+        "UNKNOWN"
+      ]
+    ],
+    "solar_registry_sha256": "a216459d6181ce0d99f359d15055afdc0e5899082c3fc8a7e6228f9700af544b",
+    "status": "UNKNOWN",
+    "unresolved": {
+      "launch": [
+        "launch date/window",
+        "launch vehicle",
+        "payload integration and mass margin"
+      ],
+      "lunar_delivery": [
+        "final landing coordinates",
+        "flight performance and landing outcome"
+      ],
+      "site_operations": [
+        "final site and terrain",
+        "deployment, power and data terms",
+        "operational duration assurance"
+      ],
+      "transfer": [
+        "departure and arrival epochs",
+        "trajectory and propulsion performance",
+        "transfer duration and delta-v"
+      ]
+    }
+  },
+  "version": "CIVPROP0E_READINESS_PROBE_V1"
+}
