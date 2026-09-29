@@ -12,7 +12,7 @@ def _hermite(inspector,body,center,a,b,tol):
  obj={'representation':'HERMITE_STATE_SEGMENT','body_id':body,'center_id':center,'reference_frame':'ECLIPJ2000','start_et':a,'end_et':b,'declared_error_km':tol,'observed_error_km':err,'samples':samples}
  return obj
 
-def compile_adaptive(inspector,body,center,start_et,end_et,error_km,degrees=(12,24,36),min_span_s=3600,max_depth=16,validation_points=129):
+def compile_adaptive(inspector,body,center,start_et,end_et,error_km,degrees=(12,24,36),min_span_s=3600,max_depth=16,validation_points=65):
  """Compile the longest qualified Chebyshev spans, Hermite only as fallback.
 
  Candidate functions are always checked against governed truth. A failed
@@ -23,9 +23,10 @@ def compile_adaptive(inspector,body,center,start_et,end_et,error_km,degrees=(12,
   for degree in degrees:
    try:
     c=compile_chebyshev(inspector,body,center,a,b,degree,error_km,validation_points)
-    c['representation']='CHEBYSHEV_STATE_SEGMENT'; qualified.append(c)
+    c['representation']='CHEBYSHEV_STATE_SEGMENT'; qualified.append(c); break
    except StateRuntimeError: pass
   if qualified:
+   # Lowest degree is normally cheapest; avoid needless higher-degree resolver calls.
    return [min(qualified,key=_size)]
   if depth<max_depth and b-a>2*min_span_s:
    m=(a+b)/2
