@@ -1,11 +1,38 @@
 import unittest
 import math
+import json
+from pathlib import Path
 from types import SimpleNamespace
 
-from src.loom_solar_basemap_compile import T, _rdp, _curve_sampling, _initial_curve_level
+from src.loom_solar_basemap_compile import T, _rdp, _curve_sampling, _initial_curve_level, _derive_curve_inventory
 
 
 class SamplingTests(unittest.TestCase):
+    def test_local_curve_inventory_uses_governed_parent_ids_and_records_omissions(self):
+        root=Path(__file__).resolve().parents[1]
+        snapshot=json.loads((root/"engineering/solar_basemap/evidence/catalog_2226_snapshot.json").read_text())
+        spec=json.loads((root/"engineering/solar_basemap/generation-spec.json").read_text())
+        rows={row["body_id"]:row for row in snapshot["objects"]}
+        requested,systems,omissions=_derive_curve_inventory(rows,spec)
+        family={row["anchor_id"]:row for row in systems}
+        self.assertEqual(requested["PHOBOS"],"MARS_SYSTEM_BARYCENTER")
+        self.assertEqual(requested["IO"],"JUPITER_SYSTEM_BARYCENTER")
+        self.assertEqual(requested["TITAN"],"SATURN_SYSTEM_BARYCENTER")
+        self.assertEqual(requested["ARIEL"],"URANUS_SYSTEM_BARYCENTER")
+        self.assertEqual(requested["TRITON"],"NEPTUNE_SYSTEM_BARYCENTER")
+        self.assertEqual(requested["CHARON"],"PLUTO_SYSTEM_BARYCENTER")
+        for anchor in ("MARS_SYSTEM_BARYCENTER","JUPITER_SYSTEM_BARYCENTER",
+                       "SATURN_SYSTEM_BARYCENTER","URANUS_SYSTEM_BARYCENTER",
+                       "NEPTUNE_SYSTEM_BARYCENTER","PLUTO_SYSTEM_BARYCENTER"):
+            self.assertEqual(requested[anchor],"SUN",f"qualified local anchor needs its own governed Solar parent arc: {anchor}")
+        self.assertEqual(requested["MOON"],"EARTH") # explicit inherited product relationship
+        self.assertEqual(len(family["JUPITER_SYSTEM_BARYCENTER"]["member_ids"]),4)
+        statuses={row["body_id"]:row["classification"] for row in omissions}
+        self.assertEqual(statuses["PROTEUS"],"MISSING_REQUIRED_SOURCE")
+        self.assertEqual(statuses["HYDRA"],"MISSING_REQUIRED_SOURCE")
+        self.assertEqual(statuses["DACTYL"],"UNRESOLVED_IDENTITY")
+        self.assertEqual(statuses["SELAM"],"UNRESOLVED_IDENTITY")
+
     def test_initial_solar_lod_is_selected_independently_per_curve(self):
         levels=[{"level":0,"error":1.0},{"level":1,"error":.2},{"level":2,"error":.01}]
         # A large orbit needs a finer level; a compact orbit can stay coarse.

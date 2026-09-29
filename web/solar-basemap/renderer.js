@@ -4,7 +4,6 @@
   let renderer,scene,camera,handle,featureById={},geometryGroup,symbolTextures={};
   const state={eye:[0,0,0],target:[0,0,0],distance:50*149597870.7,travel:0,zoom:0,rotation:[0,0],draws:[],frameCount:0,lastTime:0,raf:[],isolatedFeature:null,selectedBodyId:null};
   const AU=149597870.7;
-  const PLANETS=new Set(['MERCURY','VENUS','EARTH','MARS','JUPITER','SATURN','URANUS','NEPTUNE']);
   const SUN_LABEL_MIN_DIAMETER_CSS_PX=5,PLANET_LABEL_MIN_SEPARATION_CSS_PX=22,MINOR_LABEL_MIN_SEPARATION_CSS_PX=20;
   const LOCAL_CONTEXT_MIN_RADIUS_KM=5_000_000,LOCAL_CONTEXT_BOUND_MULTIPLIER=160;
   const PINCH_DEADBAND_CSS_PX=6,PINCH_LOG_GAIN=.82,PINCH_MAX_RATIO=3;
@@ -95,7 +94,8 @@
       // its negative depth into infinite SSE and enqueue unrelated system LODs.
       if(depth+radius<=0){errors[n.node_id]=0;continue;}
       const near=zmin<=0;
-      const K=near?Infinity:scale/zmin*Math.sqrt(1+Math.pow((radial+radius)/zmin,2));const diameter=2*radius*K;
+      let loadedCurveScale=0;if(near&&n.node_id!=='solar')for(const d of handle.drawList())if(d.node_id===n.node_id){const curveAnchor=featureById[d.curve.anchor_id]?.position_km;if(!curveAnchor)continue;for(const point of d.segment.points){const world=point.slice(1).map((v,i)=>curveAnchor[i]+v),pointRel=world.map((v,i)=>v-eye[i]),pointDepth=-pointRel.reduce((s,v,i)=>s+v*dir[i],0);if(pointDepth<=0)continue;const pointRadial=Math.sqrt(Math.max(0,pointRel.reduce((s,v)=>s+v*v,0)-pointDepth*pointDepth));loadedCurveScale=Math.max(loadedCurveScale,scale/pointDepth*Math.sqrt(1+Math.pow(pointRadial/pointDepth,2)));}}
+      const K=near?(n.node_id==='solar'?Infinity:loadedCurveScale||scale/state.distance):scale/zmin*Math.sqrt(1+Math.pow((radial+radius)/zmin,2));const diameter=2*radius*K;
       if(n.node_id==='solar'||diameter>=12)visibleNodes.add(n.node_id);
       errors[n.node_id]=(n.node_id==='solar'&&diameter>=16*diagonal)?0:K;
     }
@@ -126,7 +126,7 @@
       const p=f.position_km.map((x,i)=>(x-eye[i])/unit);
       const clip=new THREE.Vector3(...p).project(camera),inFrustum=Math.abs(clip.x)<=1&&Math.abs(clip.y)<=1&&clip.z>=-1&&clip.z<=1;
       if(markerAdmitted&&inFrustum){const cam=new THREE.Vector3(...p).applyMatrix4(camera.matrixWorldInverse),depth=-cam.z,K=depth>0?focal/(depth*unit)*Math.sqrt(1+Math.pow(Math.hypot(cam.x,cam.y)/depth,2)):Infinity;for(const x of p){const error=Math.abs(Math.fround(x)-x)*unit;markerGpuErrorKm=Math.max(markerGpuErrorKm,error);markerGpuErrorCssPx=Math.max(markerGpuErrorCssPx,error*K);}}
-      const symbolKind=f.body_id==='SUN'?'sun':PLANETS.has(f.body_id)?'planet':'minor',symbolSizeCssPx=symbolKind==='sun'?17:symbolKind==='planet'?10:4,symbolColor=symbolKind==='sun'?tokenColor('--loom-brand-color-accent-amber','#FF8703'):symbolKind==='planet'?tokenColor('--loom-domain-nav-node-color','#C7D3DF'):tokenColor('--loom-brand-color-secondary-steel','#8A97A6');
+      const symbolKind=f.body_id==='SUN'?'sun':f.body_class==='PLANET'?'planet':'minor',symbolSizeCssPx=symbolKind==='sun'?17:symbolKind==='planet'?10:4,symbolColor=symbolKind==='sun'?tokenColor('--loom-brand-color-accent-amber','#FF8703'):symbolKind==='planet'?tokenColor('--loom-domain-nav-node-color','#C7D3DF'):tokenColor('--loom-brand-color-secondary-steel','#8A97A6');
       featureStates.push({body_id:f.body_id,resolution:f.resolution,renderer_status:!markerAdmitted?'LOD_SUPPRESSED':inFrustum?'SUBMITTED_VISIBLE':'FRUSTUM_CLIPPED',presentation_reason:presentationReason,separation_css_px:separationPx,clip:[clip.x,clip.y,clip.z],submitted:markerAdmitted,visible:markerAdmitted&&inFrustum,symbol_kind:symbolKind,symbol_size_css_px:symbolSizeCssPx,symbol_color:symbolColor});
       if(!markerAdmitted||state.isolatedFeature&&state.isolatedFeature!==f.body_id)continue;
       const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(p,3));if(symbolKind==='sun'){const glow=new THREE.PointsMaterial({color:symbolColor,map:symbolTextures.glow,size:40,sizeAttenuation:false,transparent:true,opacity:.55,depthWrite:false});geometryGroup.add(new THREE.Points(g.clone(),glow));}
@@ -166,6 +166,6 @@
   function setZoom(value){const z=Number(value);state.zoom=z;state.distance=50*AU/Math.exp((z/1000)*Math.log(50*AU/10000));refresh();}
   function isolate(id){state.isolatedFeature=id||null;draw();}
   function fit(){if(focusMotion)focusMotion.cancelled=true;state.selectedBodyId=null;document.getElementById('selectionBadge').hidden=true;state.target=[0,0,0];state.distance=50*AU;state.rotation=[0,0];refresh()}
-  window.__solarBasemapReadPixels=()=>{const gl=renderer.getContext(),w=renderer.domElement.width,h=renderer.domElement.height,ratio=renderer.getPixelRatio(),p=new Uint8Array(w*h*4);gl.readPixels(0,0,w,h,gl.RGBA,gl.UNSIGNED_BYTE,p);const rects=[...document.querySelectorAll('header,.hud,.catalog.open,.report.open')].map(x=>x.getBoundingClientRect());let mint=0,amber=0,lit=0,excluded=0;for(let y=0;y<h;y++)for(let x=0;x<w;x++){const top=(h-1-y)/ratio,left=x/ratio;if(rects.some(r=>left>=r.left&&left<r.right&&top>=r.top&&top<r.bottom)){excluded++;continue;}const i=(y*w+x)*4,r=p[i],g=p[i+1],b=p[i+2];if(r>20||g>20||b>20)lit++;if(r>35&&g>r*1.2&&b>r*1.1)mint++;if(r>g*1.3&&g>b*1.05)amber++;}return {width:w,height:h,render_dpr:ratio,mint_line_pixels:mint,amber_line_pixels:amber,lit_pixels:lit,excluded_overlay_pixels:excluded};};
+  window.__solarBasemapReadPixels=()=>{const gl=renderer.getContext(),w=renderer.domElement.width,h=renderer.domElement.height,ratio=renderer.getPixelRatio(),p=new Uint8Array(w*h*4);gl.readPixels(0,0,w,h,gl.RGBA,gl.UNSIGNED_BYTE,p);const rects=[...document.querySelectorAll('header,.hud,.catalog.open,.report.open')].map(x=>x.getBoundingClientRect());let mint=0,amber=0,steel=0,lit=0,excluded=0;for(let y=0;y<h;y++)for(let x=0;x<w;x++){const top=(h-1-y)/ratio,left=x/ratio;if(rects.some(r=>left>=r.left&&left<r.right&&top>=r.top&&top<r.bottom)){excluded++;continue;}const i=(y*w+x)*4,r=p[i],g=p[i+1],b=p[i+2];if(r>20||g>20||b>20)lit++;if(r>35&&g>r*1.2&&b>r*1.1)mint++;if(r>g*1.3&&g>b*1.05)amber++;if(r>20&&r<80&&g>=r*1.05&&b>=g*1.03&&b<100)steel++;}return {width:w,height:h,render_dpr:ratio,mint_line_pixels:mint,amber_line_pixels:amber,steel_line_pixels:steel,lit_pixels:lit,excluded_overlay_pixels:excluded};};
   window.LoomRenderer={init,configure,moveToward,setZoom,fit,draw,refresh,replayApproach,isolate,state};
 })();

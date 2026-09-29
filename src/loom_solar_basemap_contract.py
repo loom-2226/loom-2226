@@ -98,8 +98,10 @@ def validate_semantics(document, *, kind=None):
             raise ValueError("manifest frame/center/units mismatch")
         if document.get("epoch_et") != 7131844800.0:
             raise ValueError("prototype epoch mismatch")
-        if document.get("counts") != {"catalog":110,"resolved":103,"unresolved":7,"requested_curves":12,"available_curves":12}:
-            raise ValueError("manifest catalog/coverage counts do not match qualified authority snapshot")
+        expected={"catalog":110,"resolved":103,"unresolved":7}
+        counts=document.get("counts",{})
+        if any(counts.get(k)!=v for k,v in expected.items()) or counts.get("requested_curves",-1)<8 or counts.get("available_curves",-1)>counts.get("requested_curves",-1):
+            raise ValueError("manifest counts do not match qualified authority snapshot or curve bounds")
     if schema.endswith("root/0.1"):
         ids = [f.get("body_id") for f in document.get("features", [])]
         if len(ids) != len(set(ids)) or len(ids) != 110:
@@ -188,13 +190,67 @@ def validate_product(root):
     if manifest["authority"]["ledger_sha256"] != baseline["authority"]["ledger_sha256"] or manifest["authority"]["manifest_sha256"] != baseline["authority"]["manifest_sha256"]:
         raise ValueError("manifest authority identity differs from qualified baseline")
     expected_counts={"catalog":baseline["counts"]["catalog"],"resolved":baseline["counts"]["resolved"],
-                     "unresolved":baseline["counts"]["unresolved"],"requested_curves":12,"available_curves":12}
-    if manifest["counts"] != expected_counts:
-        raise ValueError("manifest resolution or curve coverage differs from qualified baseline")
+                     "unresolved":baseline["counts"]["unresolved"]}
+    if any(manifest["counts"].get(k)!=v for k,v in expected_counts.items()):
+        raise ValueError("manifest counts resolution differs from qualified baseline")
     baseline_rows={f["body_id"]:f for f in baseline["objects"]}
+    spec = json.loads((root / manifest["generation"]["spec"]["uri"]).read_bytes())
+    policy=spec["reference_curve_policy"]
+    explicit=policy.get("explicit_relationships",{})
+    local_families={}
+    unresolved_relationships=[]
+    for body,row in sorted(baseline_rows.items()):
+        if row["body_class"] not in policy["local_member_body_classes"]:continue
+        anchor=(explicit.get(body) or {}).get("anchor_id") or row.get("parent_body_id")
+        if anchor not in baseline_rows or anchor==body or anchor=="SUN":
+            unresolved_relationships.append(body);continue
+        local_families.setdefault(anchor,[]).append(body)
+    required={body:"SUN" for body,row in baseline_rows.items() if row["body_class"] in policy["heliocentric_body_classes"]}
+    for anchor,members in local_families.items():
+        if baseline_rows[anchor]["resolution"]=="RESOLVED":
+            supported_members=[]
+            for body in members:
+                if baseline_rows[body]["resolution"]=="RESOLVED":
+                    required[body]=anchor
+                    supported_members.append(body)
+            if supported_members:required.setdefault(anchor,"SUN")
+    coverage_ext=product_root.get("extensions",{}).get("org.loom.solar-basemap.local-system-coverage/0.1")
+    if not isinstance(coverage_ext,dict) or coverage_ext.get("classification_values")!=[
+            "QUALIFIED_SOURCE_AVAILABLE","GOVERNED_POSITION_ONLY","MISSING_REQUIRED_SOURCE","UNRESOLVED_IDENTITY","OUT_OF_SCOPE_BY_CONTRACT"]:
+        raise ValueError("generic local-system classification inventory is missing or malformed")
+    systems=coverage_ext.get("systems")
+    if not isinstance(systems,list):raise ValueError("local-system inventory must be an array")
+    system_by_anchor={x.get("anchor_id"):x for x in systems if x.get("anchor_id") is not None}
+    if len(system_by_anchor)!=sum(x.get("anchor_id") is not None for x in systems):raise ValueError("duplicate local-system anchor")
+    if set(system_by_anchor)!=set(local_families):raise ValueError("local-system inventory differs from governed parent relationships")
+    expected_parent_curves=sorted(anchor for anchor,members in local_families.items()
+        if baseline_rows[anchor]["resolution"]=="RESOLVED"
+        and any(baseline_rows[b]["resolution"]=="RESOLVED" for b in members)
+        and baseline_rows[anchor]["body_class"] not in policy["heliocentric_body_classes"])
+    if coverage_ext.get("solar_parent_context_curve_ids")!=expected_parent_curves:
+        raise ValueError("Solar parent-context curve inventory differs from supported governed local anchors")
+    for anchor,members in local_families.items():
+        system=system_by_anchor[anchor]
+        if sorted(system.get("member_ids",[]))!=sorted(members):raise ValueError(f"local-system member inventory mismatch: {anchor}")
+        expected_generated=sorted(body for body in members if body in required)
+        if sorted(system.get("generated_curve_ids",[]))!=expected_generated:raise ValueError(f"local-system curve inventory mismatch: {anchor}")
+        expected_class=("QUALIFIED_SOURCE_AVAILABLE" if expected_generated else
+            "UNRESOLVED_IDENTITY" if members and all("exactly one active governed identifier" in (baseline_rows[b].get("reason") or "") for b in members) else
+            "MISSING_REQUIRED_SOURCE" if any(baseline_rows[b]["resolution"]!="RESOLVED" for b in members) or baseline_rows[anchor]["resolution"]!="RESOLVED" else
+            "GOVERNED_POSITION_ONLY")
+        if system.get("classification")!=expected_class:raise ValueError(f"local-system classification mismatch: {anchor}")
+    for body in unresolved_relationships:
+        if body not in {x.get("body_id") for x in coverage_ext.get("unanchored_member_omissions",[])}:
+            raise ValueError(f"unresolved local identity relationship was hidden: {body}")
+    expected_available=sum(c.get("geometry_status") in ("AVAILABLE","PARTIAL") for c in product_root["curves"])
+    expected_manifest_counts={**expected_counts,"requested_curves":len(required),"available_curves":expected_available}
+    if manifest["counts"]!=expected_manifest_counts:raise ValueError("manifest curve counts differ from generic product inventory")
+    omission_reasons={o["body_id"]:o for system in systems for o in system.get("omissions",[])}
+    omission_reasons.update({o["body_id"]:o for o in coverage_ext.get("unanchored_member_omissions",[])})
     for body,feature in features.items():
         expected=baseline_rows.get(body)
-        if not expected or feature["resolution"]!=expected["resolution"] or feature["catalog_parent_id"]!=expected["parent_body_id"] or feature["reason"]!=expected.get("reason"):
+        expected_reason=omission_reasons.get(body,{}).get("reason",expected.get("reason") if expected else None)
+        if not expected or feature["resolution"]!=expected["resolution"] or feature["catalog_parent_id"]!=expected["parent_body_id"] or feature["reason"]!=expected_reason:
             raise ValueError(f"catalog status/parent changed from qualified baseline: {body}")
         expected_position=expected.get("relative",{}).get("position_km")
         if feature["position_km"]!=expected_position:
@@ -208,8 +264,6 @@ def validate_product(root):
         elif feature["source_ref"] is not None:
             raise ValueError(f"unresolved identity carries a source reference: {body}")
     curves = {c["feature_id"]: c for c in product_root["curves"]}
-    spec = json.loads((root / manifest["generation"]["spec"]["uri"]).read_bytes())
-    required = spec["requested_reference_curves"]
     if set(curves) != set(required):
         raise ValueError("requested curve inventory mismatch")
     audits = {}
@@ -238,7 +292,11 @@ def validate_product(root):
     client_ext=product_root.get("extensions",{}).get("org.loom.solar-basemap.client/0.1",{})
     embedded=client_ext.get("solar_embedded_curves",{})
     sun_bodies={body for body,anchor in required.items() if anchor=="SUN"}
-    if set(embedded)!=sun_bodies:
+    coverage_ext=product_root.get("extensions",{}).get("org.loom.solar-basemap.local-system-coverage/0.1",{})
+    parent_context=set(coverage_ext.get("solar_parent_context_curve_ids",[]))
+    if not parent_context <= sun_bodies:
+        raise ValueError("Solar parent-context inventory contains a non-Sun-anchored curve")
+    if set(embedded)!=sun_bodies-parent_context:
         raise ValueError("initial Solar LOD inventory differs from Sun anchored curves")
     root_basis=client_ext.get("root_error_basis",{})
     if root_basis.get("max_sse_css_px")!=.75:

@@ -1,10 +1,9 @@
-# Progressive Solar basemap — architecture spike
+# Progressive Solar basemap
 
-Status: **architecture/specification complete; prototype NOT implemented or qualified**.
-Primary class: `class:engineering`. Work item: Kevin's Progressive Solar Basemap
-architecture / evidence / implementation-spec spike, 28 September 2026 (Melbourne).
-This is bounded runtime architecture and delivery engineering under the existing
-upstream Navigator lane, not successor scientific research or a new physical model.
+The original architecture spike below is followed by the qualified Mars pilot
+(PR #320) and its generic local-system successor. The successor is a
+`class:runtime` derived publication/client change under the existing upstream
+Navigator lane, not successor scientific research or a new physical model.
 
 Read [ADR](ADR-001.md), then [product contract](PRODUCT_CONTRACT.md),
 [authority contract](AUTHORITY_PROVENANCE.md), [refinement](LOD_REFINEMENT.md),
@@ -15,7 +14,7 @@ Evidence: [repository/external research](RESEARCH_EVIDENCE.md),
 Delivery: [prototype plan](PROTOTYPE_PLAN.md), [acceptance](ACCEPTANCE_BENCHMARKS.md),
 [production follow-on](PRODUCTION_FOLLOW_ON.md).
 
-## Verified starting authority
+## Original spike authority record
 
 - Main at bootstrap: `b22703ab7ce5586fecfeda0998d19b7d1fbbfe30`.
 - Dependency PR #299: OPEN, not draft; head
@@ -48,15 +47,17 @@ No CCR is needed for the declared representational/software contract.
 | Release, Android/Windows launchers, deployment, design tokens | UNCHANGED_COMPATIBLE; no release or service changes |
 | Future static facilities/routes | UNKNOWN_UNREGISTERED until their own authority/knowledge contracts exist |
 
-Mutations are restricted to this engineering directory: documents, a proposed
-schema, and disposable decision experiments. No production compiler, API,
-renderer or schema migration is added. Qualification evidence under Inspector's
-`docs/qualification` remains untouched. No PR is merged; no Phase 5 begins.
-Rollback: revert the specification commit; running services/data are unaffected.
+The original spike's scope and disposition above describe that work only. The
+Mars pilot and generic successor are separately governed runtime worktrees and
+do not change Solar authority, resolver, kernel, database, or campaign records.
+Their generated products are derived, immutable-addressed publications. The
+successor's pre-mutation inventory, build evidence, and qualification packet are
+recorded in `prototype/generic-local-systems-v1/`.
 
 ## Artifact index
 
-`generation-spec.json` pins the chosen prototype policies and twelve reference-curve requests.
+`generation-spec.json` pins the governed generic relationship-driven local-system
+curve selection and explicit omission policy.
 `product.schema.json` is a prototype serialization specification, not a registered
 Solar authority schema. `bench/measure.py` reads the existing API and generates
 legacy **test-only** fixtures in memory. `bench/browser.cjs` measures existing

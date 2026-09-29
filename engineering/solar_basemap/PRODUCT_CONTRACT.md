@@ -42,8 +42,20 @@ Prototype v0.1 rejects undeclared fields outside extensions so misspellings fail
 - **Resource**: relative `uri`, SHA256 of canonical uncompressed bytes,
   uncompressed byte count, gzip byte count; content encoding is transport only.
 - **Root**: schema, build_spec_id, epoch_et, all `features`, flat `nodes`, coarse
-  `curves`. Stable feature IDs are governed body IDs; node IDs use `system:MARS`,
-  `system:EARTH`, `system:PLUTO`, `solar` etc. Node IDs are presentation identity.
+  `curves`. Stable feature IDs are governed body IDs; node IDs use `solar` or
+  `system:<governed anchor body ID>`. Node IDs are presentation identity.
+  Namespaced extension `org.loom.solar-basemap.local-system-coverage/0.1`
+  records each candidate family, its classification, generated curve IDs, and
+  per-member omissions/reasons. Its vocabulary is `QUALIFIED_SOURCE_AVAILABLE`,
+  `GOVERNED_POSITION_ONLY`, `MISSING_REQUIRED_SOURCE`, `UNRESOLVED_IDENTITY`,
+  and `OUT_OF_SCOPE_BY_CONTRACT`. Curve counts derive from governed
+  relationships and qualified source resolution; they are not fixed to twelve.
+  A qualified local node's governed anchor also receives a Sun-relative curve
+  when needed for the accepted client to render that same anchor's parent arc;
+  the curve is resolved from the anchor identity itself, never a primary alias.
+  These parent-context curves stay in progressive Solar chunks and are omitted
+  from the initial root geometry payload; the ordinary planetary Solar overview
+  remains coarse and within its existing transfer and screen-error budgets.
 - **Feature**: body ID/name/class, unchanged catalog parent, resolution, reason,
   epoch position or null, source reference or null, geometry status and node ID.
   `geometry_status` = AVAILABLE / NOT_REQUESTED / UNRESOLVED / PARTIAL /
@@ -53,7 +65,10 @@ Prototype v0.1 rejects undeclared fields outside extensions so misspellings fail
   members, children, available level descriptors. Semantic parent does not imply
   the bound contains every descendant: explicit `subtree_bound` is unioned by
   the compiler; child traversal uses subtree bound; content culling uses content
-  bound. No invisible parent may suppress a visible child incorrectly.
+  bound. Local anchors come from governed `parent_body_id` relationships; no
+  barycenter-to-primary alias is inferred. The inherited Moon/Earth relationship
+  remains an explicit generation-spec exception because Moon has no catalog
+  parent ID. No invisible parent may suppress a visible child incorrectly.
 - **Level**: integer level (0 coarse), resource descriptor, maximum measured
   representation error km, vertex/segment counts. Sorted coarse→fine, errors
   nonincreasing. Per-curve errors are also retained inside the chunk.
