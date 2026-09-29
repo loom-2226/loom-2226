@@ -46,3 +46,5 @@ summary{cursor:pointer;list-style:none;border-bottom:1px dotted var(--minor)}sum
   .hud{left:8px;bottom:8px;width:min(290px,calc(100vw - 16px));padding:6px 8px}.hint{font-size:9px}.hud-controls{margin-top:3px}
   #details[open]{left:8px;bottom:61px}.catalog{top:112px}
 }
+
+#timeControls{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:8;display:flex;gap:6px;align-items:center;padding:7px 9px;background:#07101ddd;border:1px solid #29445b;border-radius:4px;font-size:11px}#timeControls button,#timeControls select{background:#0b1724;color:#d9e2ec;border:1px solid #36516a;padding:5px}#timeScrub{width:min(38vw,300px)}#timeEpoch{min-width:150px;font-variant-numeric:tabular-nums}@media(max-width:600px){#timeControls{bottom:86px;width:calc(100vw - 24px);box-sizing:border-box}#timeScrub{min-width:70px;flex:1}#timeEpoch{min-width:92px;font-size:9px}}
