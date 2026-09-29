@@ -15,9 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_THREE = "8a5f7249903b54d30f79f708699d2fed2d6a1d0741a4cd41377d1f01bb5a2271"
 
 
-def make_handler(product, three):
+def make_handler(product, three, temporal=None):
     class Handler(SimpleHTTPRequestHandler):
-        def __init__(self, *args, **kwargs): self.product=product; self.three=three; super().__init__(*args,directory=str(ROOT/"web/solar-basemap"),**kwargs)
+        def __init__(self, *args, **kwargs): self.product=product; self.three=three; self.temporal=temporal; super().__init__(*args,directory=str(ROOT/"web/solar-basemap"),**kwargs)
         def translate_path(self, path):
             path=unquote(path.split("?",1)[0])
             if path=="/" or path=="/index.html": return str(ROOT/"web/solar-basemap/index.html")
@@ -26,6 +26,12 @@ def make_handler(product, three):
                 relative=Path(path[len("/design/"):])
                 if relative.is_absolute() or ".." in relative.parts: return str(ROOT/"__blocked__")
                 return str(ROOT/"design"/relative)
+            if path.startswith("/temporal/") and self.temporal:
+                relative=Path(path[len("/temporal/"):]);
+                if relative.as_posix()=="current.json":
+                    pointer=json.loads((self.temporal/"current.json").read_text()); return str(self.temporal/pointer["manifest_uri"])
+                if relative.is_absolute() or ".." in relative.parts: return str(ROOT/"__blocked__")
+                return str(self.temporal/relative)
             if path.startswith("/product/"):
                 relative=Path(path[len("/product/"):])
                 if relative.as_posix()=="current.json":
@@ -76,12 +82,14 @@ def make_handler(product, three):
 
 def main():
     p=argparse.ArgumentParser(); p.add_argument("--product-root",type=Path,required=True); p.add_argument("--port",type=int,default=8770)
-    p.add_argument("--three-js",type=Path,default=ROOT/"web/three/three.min.js"); a=p.parse_args()
+    p.add_argument("--temporal-root",type=Path); p.add_argument("--three-js",type=Path,default=ROOT/"web/three/three.min.js"); a=p.parse_args()
     three=a.three_js.resolve()
     if not three.is_file() or hashlib.sha256(three.read_bytes()).hexdigest()!=EXPECTED_THREE: p.error("pinned Three.js r149 asset missing or hash mismatch")
     product=a.product_root.resolve()
     if not (product/"current.json").is_file(): p.error("product-root has no current.json")
-    server=ThreadingHTTPServer(("127.0.0.1",a.port),make_handler(product,three))
+    temporal=a.temporal_root.resolve() if a.temporal_root else None
+    if temporal and not (temporal/"current.json").is_file(): p.error("temporal-root has no current.json")
+    server=ThreadingHTTPServer(("127.0.0.1",a.port),make_handler(product,three,temporal))
     print(f"Serving QA shell and static product on http://127.0.0.1:{a.port}; no Solar authority API",flush=True)
     server.serve_forever()
 

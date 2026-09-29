@@ -83,6 +83,8 @@
   function distanceToZoom(d){return Math.max(0,Math.min(1000,1000*(Math.log(50*AU/d)/Math.log(50*AU/10000))))}
   function eyePosition(){const [yaw,pitch]=state.rotation,dir=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)];return state.target.map((x,i)=>x+dir[i]*state.distance)}
   function configure(h){handle=h;featureById=Object.fromEntries(h.catalog().map(f=>[f.body_id,f]));h.onChange(()=>{state.draws=h.drawList();draw();});state.target=[0,0,0];state.distance=50*AU;refresh();}
+  function setFeaturePositions(worldById){for(const [id,pos] of Object.entries(worldById||{}))if(featureById[id]&&Array.isArray(pos)&&pos.length===3)featureById[id].position_km=pos.map(Number);draw();}
+  function featurePosition(id){return featureById[id]?.position_km?[...featureById[id].position_km]:null}
   function point(feature){return feature?.position_km||[0,0,0]}
   function currentView(){
     const scale=innerHeight/(2*Math.tan(Math.PI/8));const eye=eyePosition(),[yaw,pitch]=state.rotation,dir=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)],diagonal=Math.hypot(innerWidth,innerHeight);
@@ -167,5 +169,5 @@
   function isolate(id){state.isolatedFeature=id||null;draw();}
   function fit(){if(focusMotion)focusMotion.cancelled=true;state.selectedBodyId=null;document.getElementById('selectionBadge').hidden=true;state.target=[0,0,0];state.distance=50*AU;state.rotation=[0,0];refresh()}
   window.__solarBasemapReadPixels=()=>{const gl=renderer.getContext(),w=renderer.domElement.width,h=renderer.domElement.height,ratio=renderer.getPixelRatio(),p=new Uint8Array(w*h*4);gl.readPixels(0,0,w,h,gl.RGBA,gl.UNSIGNED_BYTE,p);const rects=[...document.querySelectorAll('header,.hud,.catalog.open,.report.open')].map(x=>x.getBoundingClientRect());let mint=0,amber=0,steel=0,lit=0,excluded=0;for(let y=0;y<h;y++)for(let x=0;x<w;x++){const top=(h-1-y)/ratio,left=x/ratio;if(rects.some(r=>left>=r.left&&left<r.right&&top>=r.top&&top<r.bottom)){excluded++;continue;}const i=(y*w+x)*4,r=p[i],g=p[i+1],b=p[i+2];if(r>20||g>20||b>20)lit++;if(r>35&&g>r*1.2&&b>r*1.1)mint++;if(r>g*1.3&&g>b*1.05)amber++;if(r>20&&r<80&&g>=r*1.05&&b>=g*1.03&&b<100)steel++;}return {width:w,height:h,render_dpr:ratio,mint_line_pixels:mint,amber_line_pixels:amber,steel_line_pixels:steel,lit_pixels:lit,excluded_overlay_pixels:excluded};};
-  window.LoomRenderer={init,configure,moveToward,setZoom,fit,draw,refresh,replayApproach,isolate,state};
+  window.LoomRenderer={init,configure,setFeaturePositions,featurePosition,moveToward,setZoom,fit,draw,refresh,replayApproach,isolate,state};
 })();
