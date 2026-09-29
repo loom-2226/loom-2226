@@ -64,3 +64,22 @@ class SolarStateRuntime:
             memo[b]=tuple(x+y for x,y in zip(parent,s.position_km)); return memo[b]
         return world(body_id)
     def scene(self,et:float): return {b:self.world_position(b,et) for b in sorted(self.functions)}
+
+class PiecewiseStateFunction:
+    representation='PIECEWISE_STATE_FUNCTION'
+    def __init__(self,obj):
+        from src.loom_solar_chebyshev import ChebyshevStateFunction
+        self.body_id=obj['body_id']; self.center_id=obj['center_id']; self.frame=obj['reference_frame']
+        self.start_et=float(obj['start_et']); self.end_et=float(obj['end_et']); self.declared_error_km=float(obj['declared_error_km'])
+        self.segments=[]
+        for s in obj['segments']:
+            rep=s.get('representation')
+            if rep=='CHEBYSHEV_STATE_SEGMENT': self.segments.append(ChebyshevStateFunction(s))
+            elif rep=='HERMITE_STATE_SEGMENT': self.segments.append(HermiteStateFunction(s))
+            else: raise ValueError(f'unsupported state representation {rep}')
+        self.segments.sort(key=lambda x:x.start_et)
+    def state(self,et):
+        et=float(et)
+        for segment in self.segments:
+            if segment.start_et<=et<=segment.end_et: return segment.state(et)
+        raise StateRuntimeError('epoch outside piecewise function validity')
