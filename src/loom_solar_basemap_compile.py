@@ -24,6 +24,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SPEC_PATH = ROOT / "engineering/solar_basemap/generation-spec.json"
 T = 7131844800.0
 YEAR = 365.25 * 86400.0
+LOCAL_SYSTEM_CLASSES = ("QUALIFIED_SOURCE_AVAILABLE", "GOVERNED_POSITION_ONLY",
+                        "MISSING_REQUIRED_SOURCE", "UNRESOLVED_IDENTITY",
+                        "OUT_OF_SCOPE_BY_CONTRACT")
 
 
 def sha(path):
@@ -72,6 +75,81 @@ def _initial_curve_level(levels, probe_error_km, projection_scale, max_sse_css_p
         if error_km*projection_scale<=max_sse_css_px:
             return level_id,error_km
     raise ValueError("curve has no level meeting the initial Solar-view screen error budget")
+
+
+def _derive_curve_inventory(rows, spec):
+    """Derive curve anchors from governed identity relationships and source resolution."""
+    policy = spec["reference_curve_policy"]
+    by_id = rows
+    explicit = policy.get("explicit_relationships", {})
+    heliocentric = {
+        body: "SUN" for body, row in rows.items()
+        if row["body_class"] in policy["heliocentric_body_classes"]
+    }
+    families = {}
+    member_omissions = []
+    for body, row in sorted(rows.items()):
+        if row["body_class"] not in policy["local_member_body_classes"]:
+            continue
+        relationship = explicit.get(body)
+        anchor = relationship.get("anchor_id") if relationship else None
+        parent = row.get("parent_body_id")
+        relation_error = None
+        if anchor is None and parent in by_id:
+            # Preserve the exact governed parent identity. Barycenter-to-primary
+            # proximity or familiar naming is not a relationship edge.
+            anchor = parent
+        elif anchor is None:
+            relation_error = "no governed local parent relationship or qualified explicit relationship"
+        if anchor is not None and (anchor not in by_id or anchor == body or anchor == "SUN"):
+            relation_error = f"local anchor is absent or invalid: {anchor}"
+            anchor = None
+        if anchor is None:
+            unresolved_relation = parent is None or parent not in by_id
+            member_omissions.append({
+                "body_id": body,
+                "parent_body_id": parent,
+                "classification": "UNRESOLVED_IDENTITY" if unresolved_relation else "OUT_OF_SCOPE_BY_CONTRACT",
+                "reason": relation_error,
+            })
+            continue
+        family = families.setdefault(anchor, {"anchor_id": anchor, "member_ids": [], "explicit_relationships": []})
+        family["member_ids"].append(body)
+        if relationship:
+            family["explicit_relationships"].append({"body_id": body, **relationship})
+
+    requested = dict(heliocentric)
+    for anchor, family in sorted(families.items()):
+        anchor_row = by_id.get(anchor)
+        supported_members = []
+        for body in family["member_ids"]:
+            row = by_id[body]
+            if row["resolution"] != "RESOLVED":
+                reason = row.get("reason") or "governed resolver did not resolve member at publication epoch"
+                identity_issue = "exactly one active governed identifier" in reason
+                member_omissions.append({"body_id": body, "parent_body_id": row.get("parent_body_id"),
+                    "anchor_id": anchor, "classification": "UNRESOLVED_IDENTITY" if identity_issue else "MISSING_REQUIRED_SOURCE",
+                    "reason": reason})
+                continue
+            if not anchor_row or anchor_row["resolution"] != "RESOLVED":
+                member_omissions.append({"body_id": body, "parent_body_id": row.get("parent_body_id"),
+                    "anchor_id": anchor, "classification": "MISSING_REQUIRED_SOURCE",
+                    "reason": "governed local anchor has no resolved epoch position"})
+                continue
+            requested[body] = anchor
+            supported_members.append(body)
+        # The accepted client presents local context from the Solar curve whose
+        # identity matches a local node's governed anchor. When that anchor is
+        # a barycenter rather than a planet center, generate its own Sun-relative
+        # curve from that exact governed identity and source.
+        if supported_members and anchor_row and anchor_row["resolution"] == "RESOLVED":
+            requested.setdefault(anchor, "SUN")
+
+    inventory = []
+    for anchor, family in sorted(families.items()):
+        inventory.append({**family, "member_ids": sorted(family["member_ids"]),
+                          "explicit_relationships": sorted(family["explicit_relationships"], key=lambda x: x["body_id"])})
+    return requested, inventory, member_omissions
 
 
 def _curve_sampling(inspector, body, anchor, plan):
@@ -280,7 +358,8 @@ def compile_product(database, asset_root, output, epoch="2226-01-01T00:00:00 TDB
         spec=json.loads(SPEC_PATH.read_text())
         spec_bytes=canonical_bytes(spec); spec_desc=_write_resource(stage,"objects",spec)
         build_spec_id=hashlib.sha256(canonical_bytes({"authority":inspector.authority,"generation":spec})).hexdigest()
-        requested=spec["requested_reference_curves"]
+        requested,local_systems,omissions=_derive_curve_inventory(rows,spec)
+        family_anchor={body:family["anchor_id"] for family in local_systems for body in family["member_ids"]}
         curves_by_node={}; compiled_by_body={}; source_rows={}; sample_resources=[]; counts={}
         def add_source_ref(raw_source_id,owner):
             ref=f"{raw_source_id}::{owner}"
@@ -342,15 +421,52 @@ def compile_product(database, asset_root, output, epoch="2226-01-01T00:00:00 TDB
         root_nodes=[]
         features=[]
         body_to_node={}
+        omission_by_body={row["body_id"]:row for row in omissions}
+        generated_local_anchors={v["node_id"].removeprefix("system:") for v in compiled_by_body.values() if v["node_id"]!="solar"}
         for body,row in rows.items():
-            anchor=requested.get(body)
-            node_id=f"system:{anchor}" if anchor and anchor!="SUN" else ("solar" if anchor else "solar")
+            local_anchor=family_anchor.get(body)
+            node_id=f"system:{local_anchor}" if local_anchor in generated_local_anchors else "solar"
             body_to_node[body]=node_id
-            geom="UNRESOLVED" if row["resolution"]!="RESOLVED" else (counts[body]["status"] if body in requested else "NOT_REQUESTED")
+            geom=("UNRESOLVED" if row["resolution"]!="RESOLVED" or body in omission_by_body else
+                  counts[body]["status"] if body in requested else "NOT_REQUESTED")
+            reason=row.get("reason") or (omission_by_body.get(body) or {}).get("reason")
             features.append({"body_id":body,"name":row["canonical_name"],"body_class":row["body_class"],"catalog_parent_id":row.get("parent_body_id"),
-                "resolution":row["resolution"],"reason":row.get("reason"),"position_semantic":"PHYSICAL_EPOCH_POSITION",
+                "resolution":row["resolution"],"reason":reason,"position_semantic":"PHYSICAL_EPOCH_POSITION",
                 "position_km":positions.get(body),"source_ref":(f"{row['state']['provenance']['ephemeris_source_id']}::{body}" if row["resolution"]=="RESOLVED" else None),"geometry_status":geom,"node_id":node_id})
-        anchor_ids={"SUN"}|{a for a in requested.values() if a!="SUN"}
+        anchor_ids={"SUN"}|generated_local_anchors
+        inventory_by_anchor={x["anchor_id"]:x for x in local_systems}
+        for system in local_systems:
+            anchor=system["anchor_id"]
+            member_compiled=[counts[b] for b in system["member_ids"] if b in counts]
+            useful=any(any(len(seg["points"])>=2 for seg in level["segments"])
+                       for result in member_compiled for level in result["levels"])
+            resolved_member=any(rows[b]["resolution"]=="RESOLVED" for b in system["member_ids"])
+            member_omissions=[x for x in omissions if x.get("anchor_id")==anchor or x.get("body_id") in system["member_ids"]]
+            if useful:
+                system["classification"]="QUALIFIED_SOURCE_AVAILABLE"
+            elif any(x["classification"]=="UNRESOLVED_IDENTITY" for x in member_omissions) and not resolved_member:
+                system["classification"]="UNRESOLVED_IDENTITY"
+            elif any(x["classification"]=="MISSING_REQUIRED_SOURCE" for x in member_omissions):
+                system["classification"]="MISSING_REQUIRED_SOURCE"
+            elif resolved_member:
+                system["classification"]="GOVERNED_POSITION_ONLY"
+            else:
+                system["classification"]="OUT_OF_SCOPE_BY_CONTRACT"
+            system["node_id"]=f"system:{anchor}" if anchor in generated_local_anchors else None
+            system["generated_curve_ids"]=sorted(b for b in system["member_ids"] if b in counts)
+            system["omissions"]=sorted(member_omissions,key=lambda x:x["body_id"])
+        inventory_by_body={x["body_id"]:x for x in omissions}
+        for omission in omissions:
+            family_anchor_id=omission.get("anchor_id")
+            if family_anchor_id in inventory_by_anchor:
+                continue
+            # Preserve unanchored or ambiguous identities in the product inventory.
+            local_systems.append({"anchor_id":None,"candidate_parent_id":omission.get("parent_body_id"),
+                "candidate_id":f"unresolved:{omission['body_id']}","node_id":None,"member_ids":[omission["body_id"]],
+                "generated_curve_ids":[],"classification":omission["classification"],"omissions":[omission],"explicit_relationships":[]})
+        for system in local_systems:
+            for omission in system.get("omissions",[]):
+                omission.setdefault("anchor_id",system.get("anchor_id"))
         for anchor in sorted(anchor_ids):
             nid="solar" if anchor=="SUN" else f"system:{anchor}"
             if anchor not in positions:
@@ -358,24 +474,42 @@ def compile_product(database, asset_root, output, epoch="2226-01-01T00:00:00 TDB
             anchor_pos=positions[anchor]
             members=sorted(body for body in requested if requested[body]==anchor)
             levels=node_levels.get(nid,[])
+            local_position_bodies=[b for b in positions if body_to_node.get(b)==nid]
+            curve_points=[point[1:] for b,item in compiled_by_body.items() if item["node_id"]==nid
+                          for segment in item["compiled"]["levels"][-1]["segments"] for point in segment["points"]]
+            extent=max([math.dist(positions[b],anchor_pos) for b in local_position_bodies]+
+                       [math.dist(point,(0,0,0)) for point in curve_points],default=0)
+            if anchor=="SUN":
+                subtree_extent=max([math.dist(positions[b],anchor_pos) for b in positions]+
+                    [math.dist(positions[a],anchor_pos)+max((math.dist(point,(0,0,0)) for point in
+                     [p[1:] for b,item in compiled_by_body.items() if item["node_id"]==f"system:{a}"
+                      for seg in item["compiled"]["levels"][-1]["segments"] for p in seg["points"]]),default=0)
+                     for a in generated_local_anchors],default=0)
+                children=sorted(f"system:{a}" for a in generated_local_anchors)
+            else:
+                subtree_extent=extent
+                children=[]
             root_nodes.append({"node_id":nid,"parent_node_id":None if nid=="solar" else "solar","anchor_id":anchor,"anchor_position_km":anchor_pos,
-                "content_bound":{"center_km":[0,0,0],"radius_km":max(
-                    [math.dist(positions[b],anchor_pos) for b in positions if (anchor=="SUN" or body_to_node.get(b)==nid)]+[
-                     math.dist(point[1:],(0,0,0)) for b,item in compiled_by_body.items() if item["node_id"]==nid
-                     for segment in item["compiled"]["levels"][-1]["segments"] for point in segment["points"]],default=0)},
-                "subtree_bound":{"center_km":[0,0,0],"radius_km":max(
-                    [math.dist(positions[b],anchor_pos) for b in positions if anchor=="SUN"]+
-                    [math.dist(positions[b],anchor_pos)+max((math.dist(point[1:],(0,0,0)) for segment in compiled_by_body.get(b,{"compiled":{"levels":[{"segments":[]}]}})["compiled"]["levels"][-1]["segments"] for point in segment["points"]),default=0)
-                     for b in (body for body,a in requested.items() if a!="SUN") if b in positions],default=0)},
-                "members":members,"children":[],"levels":levels})
+                "content_bound":{"center_km":[0,0,0],"radius_km":extent},
+                "subtree_bound":{"center_km":[0,0,0],"radius_km":subtree_extent},
+                "members":members,"children":children,"levels":levels})
         # Ship only the heliocentric level useful at Solar overview; finer
         # heliocentric packages remain lazy. Pixel-sized CSS viewport is the
         # conservative root error basis specified by the acceptance plan.
         root_scale=915/(2*math.tan(math.pi/8)*(50*149597870.7))
+        planet_ids={body for body,row in rows.items()
+                    if row["body_class"] in spec["reference_curve_policy"]["heliocentric_body_classes"]}
+        local_parent_context_curve_ids=generated_local_anchors-planet_ids
         embedded_curve_levels={}; embedded_level=0; coarse=[]
         for body in sorted(requested):
             item=compiled_by_body[body]
             if item["node_id"]=="solar":
+                if body in local_parent_context_curve_ids:
+                    # These exact anchor arcs are parent-context ink for a
+                    # local-system approach. Keep them in progressive Solar
+                    # chunks, not the initial root payload.
+                    coarse.append({**item["curve"],"segments":[]})
+                    continue
                 curve_level,error_km=_initial_curve_level(item["compiled"]["levels"],item["compiled"]["probe_error"],root_scale,.75)
                 embedded_level=max(embedded_level,curve_level)
                 embedded_curve_levels[body]={"level":curve_level,"measured_error_km":error_km,"measured_error_css_px":error_km*root_scale}
@@ -383,10 +517,21 @@ def compile_product(database, asset_root, output, epoch="2226-01-01T00:00:00 TDB
                 coarse.append({**item["curve"],"segments":level["segments"]})
             else:
                 coarse.append({**item["curve"],"segments":[]})
+        omission_by_body={x["body_id"]:x for x in omissions}
+        for system in local_systems:
+            for body in system.get("member_ids",[]):
+                if body in omission_by_body:
+                    omission_by_body[body].setdefault("anchor_id",system.get("anchor_id"))
         root={"schema":"loom.solar-basemap.root/0.1","build_spec_id":build_spec_id,"epoch_et":T,"features":sorted(features,key=lambda f:f["body_id"]),
-              "nodes":root_nodes,"curves":coarse,"extensions":{"org.loom.solar-basemap.client/0.1":{"solar_embedded_level":embedded_level,
-              "solar_embedded_curves":embedded_curve_levels,
-              "root_error_basis":{"viewport_css_height":915,"vertical_fov_degrees":45,"camera_distance_km":50*149597870.7,"max_sse_css_px":.75}}}}
+              "nodes":root_nodes,"curves":coarse,"extensions":{
+                "org.loom.solar-basemap.client/0.1":{"solar_embedded_level":embedded_level,
+                  "solar_embedded_curves":embedded_curve_levels,
+                  "root_error_basis":{"viewport_css_height":915,"vertical_fov_degrees":45,
+                    "camera_distance_km":50*149597870.7,"max_sse_css_px":.75}},
+                "org.loom.solar-basemap.local-system-coverage/0.1":{"classification_values":list(LOCAL_SYSTEM_CLASSES),
+                  "systems":sorted(local_systems,key=lambda x:(x.get("anchor_id") or "",x.get("candidate_id") or "")),
+                  "solar_parent_context_curve_ids":sorted(local_parent_context_curve_ids),
+                  "unanchored_member_omissions":sorted([x for x in omissions if not x.get("anchor_id")],key=lambda x:x["body_id"])}}}
         source_dict={"schema":"loom.solar-basemap.provenance/0.1","build_spec_id":build_spec_id,"sources":sorted(source_rows.values(),key=lambda x:x["source_ref"]),
                      "sample_resources":sorted(sample_resources,key=lambda x:x["sha256"]),"extensions":{}}
         provenance_desc=_write_resource(stage,"provenance",source_dict)

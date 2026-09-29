@@ -8,12 +8,22 @@
   "units": "km",
   "aberration": "NONE",
   "catalog_policy": "ALL_GOVERNED_IDENTITIES_INCLUDING_UNRESOLVED",
-  "requested_reference_curves": {
-    "MERCURY": "SUN", "VENUS": "SUN", "EARTH": "SUN", "MARS": "SUN",
-    "JUPITER": "SUN", "SATURN": "SUN", "URANUS": "SUN", "NEPTUNE": "SUN",
-    "MOON": "EARTH", "PHOBOS": "MARS", "DEIMOS": "MARS", "CHARON": "PLUTO"
+  "reference_curve_policy": {
+    "heliocentric_body_classes": ["PLANET"],
+    "local_member_body_classes": ["NATURAL_SATELLITE"],
+    "local_anchor_policy": "GOVERNED_PARENT_BODY_ID_WITHOUT_PRIMARY_INFERENCE_V1",
+    "qualified_local_anchor_solar_curve": "GENERATE_FROM_ANCHOR_IDENTITY_WHEN_LOCAL_CURVE_IS_SUPPORTED_V1",
+    "explicit_relationships": {
+      "MOON": {
+        "anchor_id": "EARTH",
+        "basis": "Existing qualified Solar basemap product contract; catalog parent_body_id is null."
+      }
+    },
+    "ambiguous_or_missing_parent": "FAIL_CLOSED_WITH_EXPLICIT_OMISSION",
+    "unresolved_member": "OMIT_CURVE_AND_RECORD_CLASSIFICATION_AND_REASON",
+    "source_failure": "PRESERVE_PARTIAL_GOVERNED_ARCS_AND_GAPS; NEVER_SYNTHESIZE"
   },
-  "anchor_policy": "EXPLICIT_CARTOGRAPHIC_PRIMARY_V1_CATALOG_PARENT_UNCHANGED",
+  "anchor_policy": "DATA_DRIVEN_GOVERNED_LOCAL_SYSTEM_RELATIONSHIP_V1",
   "horizon_policy": "PINNED_INSPECTOR_AUTOMATIC_PLAN",
   "max_orbit_years": 100,
   "sampling_policy": {

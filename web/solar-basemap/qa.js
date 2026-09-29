@@ -16,9 +16,9 @@
       const errors=pairs.map(d=>{
         const n=handle.root.nodes.find(x=>x.node_id===d.node_id),l=n?.levels.find(x=>x.level===d.level),rootInfo=embedded[d.feature_id];
         const km=d.node_id==='solar'?(l?.measured_error_km??rootInfo?.measured_error_km??0):(l?.measured_error_km||0),factor=view.errorScaleByNode?.[d.node_id]||0;
-        const lines=sceneLines.filter(x=>x.feature_id===d.feature_id&&x.node_id===d.node_id),projected=lines.some(x=>x.clip_vertices>0);
-        const reason=projected?null:lines.length?'FRUSTUM_OR_DEPTH_CLIPPED':'CAMERA_OR_LAYER_SUPPRESSED';
-        return {feature_id:d.feature_id,node_id:d.node_id,level:d.level,representation_error_km:km,projection_factor:factor,representation_error_css_px:km*factor,included_in_visible_error_budget:projected,visibility_reason:reason};
+        const lines=sceneLines.filter(x=>x.feature_id===d.feature_id&&x.node_id===d.node_id),projected=lines.some(x=>x.clip_vertices>0),contextOnly=lines.some(x=>x.presentation_context==='LOCAL_PARENT_ARC');
+        const included=projected&&!contextOnly,reason=contextOnly?'LOCAL_PARENT_CONTEXT_ONLY':projected?null:lines.length?'FRUSTUM_OR_DEPTH_CLIPPED':'CAMERA_OR_LAYER_SUPPRESSED';
+        return {feature_id:d.feature_id,node_id:d.node_id,level:d.level,representation_error_km:km,projection_factor:factor,representation_error_css_px:km*factor,included_in_visible_error_budget:included,visibility_reason:reason};
       });
       const max_visible_error_css_px=Math.max(0,...errors.filter(x=>x.included_in_visible_error_budget).map(x=>x.representation_error_css_px));
       const max_gpu_error_css_px=Math.max(0,...sceneLines.filter(x=>x.clip_vertices>0).map(x=>x.gpuConversionMaxCssPx||0),window.__solarBasemapScene?.markerGpuErrorCssPx||0);

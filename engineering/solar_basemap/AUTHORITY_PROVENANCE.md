@@ -46,39 +46,33 @@ semantic contrast, not silently translated with a frozen non-Sun anchor.
 are copied from the governed horizon result. Endpoints remain endpoints; no line
 loop, no first-to-last edge, no completion of missing arcs.
 
-At T, Phobos's reference curve passes its epoch marker because
-`X_Mars(T)+(X_Phobos(T)-X_Mars(T))=X_Phobos(T)`.
-At another sample time the displayed curve deliberately freezes Mars at T;
-it is not `X_Phobos(t_i)`. The difference is `X_Mars(T)-X_Mars(t_i)`.
+For a governed local member b with parent p, its reference curve passes its
+epoch marker because `X_p(T)+(X_b(T)-X_p(T))=X_b(T)`. At another sample time
+the displayed curve deliberately freezes p at T; it is not `X_b(t_i)`. The
+difference is `X_p(T)-X_p(t_i)`.
 Keep this algebra in the roundtrip test and UI legend. All lengths remain physical
 km; only marker/label glyphs have screen size. No orbit enlargement.
 
-## Parent identity versus cartographic anchor
+## Parent identity and cartographic anchor
 
 Retain `catalog_parent_id` unmodified, `horizon_reference_id` from the planner,
-and `anchor_id` independently. The compiler may select a known physical primary
-as a **cartographic reference**, never rewrite catalog parentage.
+and `anchor_id` independently. Generic local-system generation uses the exact
+governed `parent_body_id` as the cartographic anchor and emits
+`system:<parent_body_id>`. It does not map a barycenter to a nearby physical
+primary because the qualified catalog does not register that relationship.
+Moon-to-Earth remains an explicit inherited generation-spec relationship
+because Moon's catalog `parent_body_id` is null and the previously qualified
+product contract names Earth. No other inferred parent alias is allowed.
 
-Prototype anchor policy v1, explicit generation-spec entries:
-
-| Bodies | Anchor | Basis |
-|---|---|---|
-| MOON | EARTH | Inspector's explicit association; catalog parent remains NULL |
-| PHOBOS, DEIMOS | MARS | Same physical primary selected in Q8; catalog/horizon reference may be MARS_SYSTEM_BARYCENTER |
-| IO, EUROPA, GANYMEDE, CALLISTO | JUPITER | Governed system plus explicitly declared primary |
-| CHARON | PLUTO | Preserve PLUTO_SYSTEM_BARYCENTER catalog relationship separately |
-| DIMORPHOS | DIDYMOS | Use only if both IDs and governed relationship resolve at T and over path span |
-| Other satellites | Catalog parent if it is a physical body, else explicit system-primary mapping in spec; otherwise no local reference geometry |
-
-The all-catalog prototype publishes positions/status for everyone, with reference
-curves required for Sun's eight planets, Moon, Phobos, Deimos and Charon. Other
-local families are a production coverage extension after this contract passes;
-mark their geometry `NOT_REQUESTED`, never failed or unresolved. The compiler
-must not infer parents from strings or fallback silently to Sun. No local arc
-when either body or anchor fails resolution. Giant moons/Triton/Titan and asteroid
-satellites use the same policy/mechanism when requested; Dactyl/Selam remain
-unresolved in the measured ledger. Pluto/Charon is an additional prototype case
-precisely because barycenter, physical primary and display origin differ.
+For every natural-satellite candidate, the publication records one of
+`QUALIFIED_SOURCE_AVAILABLE`, `GOVERNED_POSITION_ONLY`,
+`MISSING_REQUIRED_SOURCE`, `UNRESOLVED_IDENTITY`, or
+`OUT_OF_SCOPE_BY_CONTRACT`. A curve is generated only when governed identity,
+anchor, ET coverage and resolver states support it. Missing member coverage is
+retained as an omission with its exact identity or source reason; it never
+becomes a guessed arc. Partial valid spans keep their explicit gaps and horizon
+status. Earth/Moon, Mars, Pluto/Charon and every remaining family use the same
+curve sampling and provenance mechanism once admitted by those checks.
 
 ## Provenance and reproducibility
 
