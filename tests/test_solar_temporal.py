@@ -5,7 +5,7 @@ from src.loom_solar_temporal import hermite_position,adaptive_samples,compile_ch
 class Fake:
  def at(self,b,t,c):
   # exact quadratic: Hermite must reproduce it exactly with exact derivative
-  return {'relative':{'position_km':[t*t,2*t,0],'velocity_km_s':[2*t,2,0]},'authority_class':'DIRECT','state':{'provenance':{'ephemeris_source_id':'S'}}}
+  return {'resolution':'RESOLVED','relative':{'position_km':[t*t,2*t,0],'velocity_km_s':[2*t,2,0]},'authority_class':'DIRECT','state':{'provenance':{'ephemeris_source_id':'S'}}}
  def record(self,c,t): return {'state':{'provenance':{'ephemeris_source_id':'C'}}}
 
 class TemporalTests(unittest.TestCase):
@@ -19,3 +19,15 @@ class TemporalTests(unittest.TestCase):
   self.assertEqual(compile_chunk(*args),compile_chunk(*args))
 
 if __name__=='__main__':unittest.main()
+
+class PublishTests(unittest.TestCase):
+ def test_publication_is_content_addressed(self):
+  import tempfile,json
+  from pathlib import Path
+  from src.loom_solar_temporal_publish import publish
+  class P(Fake):
+   bodies={'B':{'body_class':'PLANET','parent_body_id':'SUN'},'SUN':{'body_class':'STAR','parent_body_id':None}}
+   authority={'ledger_sha256':'x'}
+   def orbital_center(self,b): return 'SUN'
+  with tempfile.TemporaryDirectory() as d:
+   m=publish(P(),Path(d),0,10,32,['B']); ptr=json.loads((Path(d)/'current.json').read_text()); self.assertEqual(ptr['build_id'],m['build_id']); self.assertTrue((Path(d)/m['chunks'][0]['uri']).is_file())
