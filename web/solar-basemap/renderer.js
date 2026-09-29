@@ -83,7 +83,13 @@
   function distanceToZoom(d){return Math.max(0,Math.min(1000,1000*(Math.log(50*AU/d)/Math.log(50*AU/10000))))}
   function eyePosition(){const [yaw,pitch]=state.rotation,dir=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)];return state.target.map((x,i)=>x+dir[i]*state.distance)}
   function configure(h){handle=h;featureById=Object.fromEntries(h.catalog().map(f=>[f.body_id,f]));h.onChange(()=>{state.draws=h.drawList();draw();});state.target=[0,0,0];state.distance=50*AU;refresh();}
-  function setFeaturePositions(worldById){for(const [id,pos] of Object.entries(worldById||{}))if(featureById[id]&&Array.isArray(pos)&&pos.length===3)featureById[id].position_km=pos.map(Number);draw();}
+  function setFeaturePositions(worldById){
+    const old={};for(const [id,pos] of Object.entries(worldById||{}))if(featureById[id]&&Array.isArray(pos)&&pos.length===3)old[id]=[...featureById[id].position_km];
+    // Mixed static/temporal LOD invariant: a frozen child inherits its moving
+    // system anchor's translation until its own temporal state is published.
+    for(const node of handle.root.nodes||[]){const anchor=node.anchor_id;if(!anchor||!old[anchor]||!worldById[anchor])continue;const d=worldById[anchor].map((v,i)=>v-old[anchor][i]);for(const child of node.members||[]){if(worldById[child]||!featureById[child]?.position_km)continue;featureById[child].position_km=featureById[child].position_km.map((v,i)=>v+d[i]);}}
+    for(const [id,pos] of Object.entries(worldById||{}))if(featureById[id]&&Array.isArray(pos)&&pos.length===3)featureById[id].position_km=pos.map(Number);draw();
+  }
   function featurePosition(id){return featureById[id]?.position_km?[...featureById[id].position_km]:null}
   function point(feature){return feature?.position_km||[0,0,0]}
   function currentView(){
