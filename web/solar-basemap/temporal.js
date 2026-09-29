@@ -1,7 +1,7 @@
 (function(){
   let manifest=null,chunks=new Map(),epoch=null;
   async function json(url){const r=await fetch(url,{cache:'no-cache'});if(!r.ok)throw Error(`temporal fetch ${r.status} ${url}`);return r.json()}
-  async function load(){const ptr=await json('/temporal/current.json'),m=await json('/temporal/'+ptr.manifest_uri);manifest=m;epoch=m.start_et;return m}
+  async function load(){const ptr=await json('/temporal/current.json');const manifestUri=ptr.manifest_uri||(`builds/${ptr.build_id}/manifest.json`);if(!manifestUri)throw Error('temporal pointer missing manifest locator');const m=await json('/temporal/'+manifestUri);manifest=m;epoch=m.start_et;return m}
   function descriptor(t){return manifest?.chunks.find(c=>t>=c.start_et&&t<=c.end_et)||null}
   async function chunk(t){const d=descriptor(t);if(!d)throw Error('epoch outside temporal publication');if(!chunks.has(d.sha256))chunks.set(d.sha256,await json('/temporal/'+d.uri));return chunks.get(d.sha256)}
   function hermite(a,b,t){const h=b.epoch_et-a.epoch_et,u=(t-a.epoch_et)/h,u2=u*u,u3=u2*u,h00=2*u3-3*u2+1,h10=u3-2*u2+u,h01=-2*u3+3*u2,h11=u3-u2;return a.position_km.map((p,i)=>h00*p+h10*h*a.velocity_km_s[i]+h01*b.position_km[i]+h11*h*b.velocity_km_s[i])}
