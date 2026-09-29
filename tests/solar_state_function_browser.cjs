@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+const assert=require('node:assert/strict');
+const {chromium}=require('/home/ubuntu/LOOM_SOLAR_INSPECTOR/node_modules/playwright');
+const base=process.env.SOLAR_BASEMAP_URL||'http://127.0.0.1:8770';
+const dist=(a,b)=>Math.hypot(...a.map((v,i)=>v-b[i]));
+async function main(){const browser=await chromium.launch({headless:true});try{const page=await browser.newPage({viewport:{width:412,height:915},deviceScaleFactor:3,hasTouch:true}),errors=[];page.on('pageerror',e=>errors.push(String(e)));await page.goto(base+'/?delivery=progressive',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.__solarBasemapReady&&window.__solarTemporalReady,{timeout:120000});
+ const m=await page.evaluate(()=>window.LoomTemporal.manifest),t0=m.start_et,t1=m.end_et;
+ const snap=async t=>page.evaluate(async t=>{await window.LoomTemporalClock.apply(t);const f=id=>window.LoomRenderer.featurePosition(id);const lines=window.__solarBasemapScene.lines.filter(x=>['IO','EUROPA','GANYMEDE','CALLISTO'].includes(x.feature_id)).map(x=>({id:x.feature_id,semantic:x.semantic,vertices:x.vertices}));return {io:f('IO'),j:f('JUPITER'),lines,header:document.querySelector('.epoch').textContent,clock:document.getElementById('timeEpoch').textContent}},t);
+ const a=await snap(t0),b=await snap(t1),curves=await page.evaluate(async t=>window.LoomTemporal.referenceCurves(t),t1);assert(dist(a.io,b.io)>1000,'Io must move over one day');assert(dist(a.j,b.j)>0,'Jupiter must move heliocentrically');for(const id of ['IO','EUROPA','GANYMEDE','CALLISTO'])assert((curves[id]||[]).length>2,id+' dynamic curve missing');assert.match(b.header,/BASEMAP EPOCH/);assert.match(b.clock,/\+1\.00 d/);assert.deepEqual(errors,[]);console.log(JSON.stringify({pass:true,io_world_delta_km:dist(a.io,b.io),jupiter_world_delta_km:dist(a.j,b.j),dynamic_curve_ids:Object.keys(curves).filter(id=>['IO','EUROPA','GANYMEDE','CALLISTO'].includes(id)),header:b.header,clock:b.clock,page_errors:errors}))}finally{await browser.close()}}
+main().catch(e=>{console.error(e);process.exitCode=1});
