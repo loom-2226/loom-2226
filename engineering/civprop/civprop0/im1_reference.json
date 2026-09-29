@@ -1,0 +1,41 @@
+{
+  "id": "IM1_CLPS_TO2IM_COMPLETED_PROVIDER_REFERENCE_V1",
+  "authority_class": "EMPIRICAL_COMPLETED_PROVIDER_MISSION_REFERENCE",
+  "admitted_on": "2026-09-29",
+  "mission": "Intuitive Machines IM-1 / Odysseus / NASA CLPS TO2-IM",
+  "customer": "NASA",
+  "delivery_provider": "Intuitive Machines",
+  "lander": "Nova-C",
+  "launch_provider": "SpaceX Falcon 9",
+  "payload_scope": "Six NASA instruments plus commercial payloads; company reported approximately 100 kg total payload, not certified capacity",
+  "destination": "Malapert A, lunar South Pole region; distinct from IM-5's targeted Mons Malapert",
+  "events": [
+    {"id": "launch", "epoch_utc": "2024-02-15T06:05:00Z", "precision": "REPORTED_MINUTE", "source": "NASA_LAUNCH", "local_report": "2024-02-15 01:05 EST"},
+    {"id": "lander_separation", "epoch_utc": "2024-02-15T06:53:00Z", "precision": "APPROX_REPORTED_MINUTE", "source": "NASA_SEPARATION", "local_report": "approximately 2024-02-15 01:53 EST"},
+    {"id": "lunar_orbit_insertion", "reported_calendar_date": "2024-02-21", "precision": "REPORTED_DATE_ONLY_TIMEZONE_UNSPECIFIED", "source": "NASA_LOI"},
+    {"id": "landing", "epoch_utc": "2024-02-22T23:24:00Z", "precision": "REPORTED_MINUTE", "source": "NASA_LANDING", "local_report": "2024-02-22 17:24 CST"},
+    {"id": "surface_end", "reported_calendar_date": "2024-02-29", "precision": "REPORTED_DATE_ONLY_TIMEZONE_UNSPECIFIED", "source": "NASA_SURFACE"}
+  ],
+  "observed_outcomes": {
+    "launch": "Falcon 9 launch and Nova-C separation into flight reported",
+    "transfer": "Lunar orbit insertion reported after Earth-to-Moon transit",
+    "lunar_delivery": "Soft landing and six NASA instruments delivered near Malapert A",
+    "site_operations": "Surface data returned, with operations limited by lander leaning/orientation; ceased after seven reported days"
+  },
+  "limits": [
+    "Nova-C on IM-1 is not the planned larger Nova-D on IM-5",
+    "Malapert A landing does not qualify Mons Malapert coordinates or local terrain",
+    "Reported approximately 100 kg carried is not spare capacity or an IM-5 payload allowance",
+    "Surface data return does not establish unconstrained deployment, power, data or 14-day operations for Roo-ver",
+    "IM-1 launch and transfer dates do not provide an IM-5 window, trajectory, delta-v or performance margin"
+  ],
+  "sources": [
+    {"id": "NASA_LAUNCH", "publisher": "NASA", "published": "2024-02-15", "url": "https://www.nasa.gov/news-release/nasa-artemis-science-first-intuitive-machines-flight-head-to-moon/", "supports": "01:05 EST Falcon 9 launch of IM-1 Nova-C with NASA payloads"},
+    {"id": "NASA_SEPARATION", "publisher": "NASA", "published": "2024-02-15", "url": "https://www.nasa.gov/blogs/artemis/2024/02/15/intuitive-machines-moon-lander-successfully-deploys/", "supports": "Approximately 01:53 EST separation of Nova-C from Falcon 9 second stage"},
+    {"id": "NASA_LOI", "publisher": "NASA", "published": "2024-02-21", "url": "https://www.nasa.gov/blogs/artemis/2024/02/21/intuitive-machines-nasa-science-progress-toward-moon-landing/", "supports": "Successful lunar orbit insertion on February 21; no burn event clock time admitted"},
+    {"id": "NASA_LANDING", "publisher": "NASA", "published": "2024-02-23", "url": "https://www.nasa.gov/news-release/nasa-tech-contributes-to-soft-moon-landing-agency-science-underway/", "supports": "17:24 CST soft landing near Malapert A and six NASA science/technology payloads"},
+    {"id": "NASA_SURFACE", "publisher": "NASA", "published": "2024-03-01", "url": "https://www.nasa.gov/missions/artemis/clps/nasa-collects-first-surface-science-in-decades-via-commercial-moon-mission/", "supports": "Six instruments collected data; ceased operations seven days after landing; lander orientation constrained communications and some objectives"},
+    {"id": "IM_COMPLETION", "publisher": "Intuitive Machines", "published": "2024-02-29", "url": "https://investors.intuitivemachines.com/news-releases/news-release-details/intuitive-machines-historic-im-1-mission-success-american", "supports": "Company reports payload data transmission, 144-hour operation objective exceeded and standby February 29"},
+    {"id": "IM_SEC_PAYLOAD", "publisher": "Intuitive Machines SEC filing", "date": null, "url": "https://investors.intuitivemachines.com/node/8786/html", "supports": "Company reports approximately 100 kg of payloads carried on IM-1 Nova-C; not a capacity specification"}
+  ]
+}

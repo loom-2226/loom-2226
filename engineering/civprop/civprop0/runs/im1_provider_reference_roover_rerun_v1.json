@@ -1,0 +1,499 @@
+{
+  "boundary": "IM-1 observed outcomes are not passed to the IM-5/Roo-ver assessor",
+  "im1_reference": {
+    "authority_class": "RETROSPECTIVE_PROVIDER_SPECIFIC_COMPLETED_MISSION",
+    "derived_intervals": {
+      "landing_to_surface_end_hours": null,
+      "launch_to_approx_separation_hours": 0.8,
+      "launch_to_landing_hours": 185.31666666666666,
+      "lien": "LOI and surface end are date-only; separation minute is approximate",
+      "loi_to_landing_hours": null
+    },
+    "does_not_establish": [
+      "Nova-C on IM-1 is not the planned larger Nova-D on IM-5",
+      "Malapert A landing does not qualify Mons Malapert coordinates or local terrain",
+      "Reported approximately 100 kg carried is not spare capacity or an IM-5 payload allowance",
+      "Surface data return does not establish unconstrained deployment, power, data or 14-day operations for Roo-ver",
+      "IM-1 launch and transfer dates do not provide an IM-5 window, trajectory, delta-v or performance margin"
+    ],
+    "fixture_sha256": "38e4023c52a446587ed2b0758e4dceabdcee474c0d792f2d868cdfa326268516",
+    "lander": "Nova-C",
+    "provider": "Intuitive Machines",
+    "reference_id": "IM1_CLPS_TO2IM_COMPLETED_PROVIDER_REFERENCE_V1",
+    "segments": [
+      {
+        "name": "launch",
+        "observed_outcome": "OBSERVED_COMPLETE",
+        "prospective_feasibility": "NOT_ASSESSED",
+        "supporting_events": [
+          "launch",
+          "lander_separation"
+        ]
+      },
+      {
+        "name": "transfer",
+        "observed_outcome": "OBSERVED_COMPLETE",
+        "prospective_feasibility": "NOT_ASSESSED",
+        "supporting_events": [
+          "lunar_orbit_insertion"
+        ]
+      },
+      {
+        "name": "lunar_delivery",
+        "observed_outcome": "OBSERVED_COMPLETE",
+        "prospective_feasibility": "NOT_ASSESSED",
+        "supporting_events": [
+          "landing"
+        ]
+      },
+      {
+        "name": "site_operations",
+        "observed_outcome": "OBSERVED_LIMITED",
+        "prospective_feasibility": "NOT_ASSESSED",
+        "supporting_events": [
+          "landing",
+          "surface_end"
+        ]
+      }
+    ],
+    "solar_geometry": {
+      "landing": {
+        "earth": {
+          "entity_id": "EARTH",
+          "epoch_utc": "2024-02-22T23:24:00Z",
+          "navigation_grade": true,
+          "payload": {
+            "ephemeris_quality": "QUALIFIED",
+            "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+            "state_class": "CELESTIAL"
+          },
+          "position_km": [
+            -132430044.35485055,
+            66033213.79633817,
+            -3270.995829138905
+          ],
+          "provenance": {
+            "aberration_correction": "NONE",
+            "asset_filename": "de440.bsp",
+            "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+            "coverage": {
+              "coverage_class": "BODY",
+              "valid_from": "1549-12-30T23:59:18.815889+00:00",
+              "valid_until": "2650-01-24T23:58:50.815708+00:00"
+            },
+            "ephemeris_source_id": "DE440",
+            "kernel_assets": [
+              {
+                "byte_count": 5257,
+                "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+                "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+              },
+              {
+                "byte_count": 119799808,
+                "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+                "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+              }
+            ],
+            "naif_identifier": "399",
+            "navigation_grade": true,
+            "observer_naif_identifier": "10",
+            "product_name": "DE440",
+            "product_version": "440",
+            "provider": "JPL/NAIF",
+            "request_time_scale": "UTC",
+            "source_lineage": null,
+            "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+            "spice_frame": "ECLIPJ2000",
+            "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+            "state_source": "LOCAL_SPICE",
+            "time_scale_internal": "SPICE ET/TDB",
+            "uncertainty_km": null,
+            "units": "km,km/s"
+          },
+          "reference_frame": "J2000/ECLIPTIC",
+          "uncertainty": {},
+          "velocity_km_s": [
+            -13.768768603614202,
+            -26.76193943785475,
+            0.0020898740648611636
+          ]
+        },
+        "earth_moon_distance_km": 404093.32879920537,
+        "earth_moon_relative_speed_km_s": 0.9767528735695712,
+        "manifest_sha256": "e852b008acde377407f3b1ff011666f1d8f7a5ab21e9a2ed427b0e9694a93df6",
+        "meaning": "simultaneous body geometry only; not spacecraft position, path, delta-v or flight speed",
+        "moon": {
+          "entity_id": "MOON",
+          "epoch_utc": "2024-02-22T23:24:00Z",
+          "navigation_grade": true,
+          "payload": {
+            "ephemeris_quality": "QUALIFIED",
+            "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+            "state_class": "CELESTIAL"
+          },
+          "position_km": [
+            -132722870.57102355,
+            66309929.75275199,
+            27914.016080528498
+          ],
+          "provenance": {
+            "aberration_correction": "NONE",
+            "asset_filename": "de440.bsp",
+            "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+            "coverage": {
+              "coverage_class": "BODY",
+              "valid_from": "1549-12-30T23:59:18.815889+00:00",
+              "valid_until": "2650-01-24T23:58:50.815708+00:00"
+            },
+            "ephemeris_source_id": "DE440",
+            "kernel_assets": [
+              {
+                "byte_count": 5257,
+                "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+                "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+              },
+              {
+                "byte_count": 119799808,
+                "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+                "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+              }
+            ],
+            "naif_identifier": "301",
+            "navigation_grade": true,
+            "observer_naif_identifier": "10",
+            "product_name": "DE440",
+            "product_version": "440",
+            "provider": "JPL/NAIF",
+            "request_time_scale": "UTC",
+            "source_lineage": null,
+            "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+            "spice_frame": "ECLIPJ2000",
+            "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+            "state_source": "LOCAL_SPICE",
+            "time_scale_internal": "SPICE ET/TDB",
+            "uncertainty_km": null,
+            "units": "km,km/s"
+          },
+          "reference_frame": "J2000/ECLIPTIC",
+          "uncertainty": {},
+          "velocity_km_s": [
+            -14.455161761302755,
+            -27.455530434411248,
+            -0.04083026806580037
+          ]
+        },
+        "reference_epoch_utc": "2024-02-22T23:24:00Z",
+        "registry_sha256": "a216459d6181ce0d99f359d15055afdc0e5899082c3fc8a7e6228f9700af544b"
+      },
+      "launch": {
+        "earth": {
+          "entity_id": "EARTH",
+          "epoch_utc": "2024-02-15T06:05:00Z",
+          "navigation_grade": true,
+          "payload": {
+            "ephemeris_quality": "QUALIFIED",
+            "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+            "state_class": "CELESTIAL"
+          },
+          "position_km": [
+            -122066784.33209072,
+            83237107.41267633,
+            -4059.969436030835
+          ],
+          "provenance": {
+            "aberration_correction": "NONE",
+            "asset_filename": "de440.bsp",
+            "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+            "coverage": {
+              "coverage_class": "BODY",
+              "valid_from": "1549-12-30T23:59:18.815889+00:00",
+              "valid_until": "2650-01-24T23:58:50.815708+00:00"
+            },
+            "ephemeris_source_id": "DE440",
+            "kernel_assets": [
+              {
+                "byte_count": 5257,
+                "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+                "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+              },
+              {
+                "byte_count": 119799808,
+                "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+                "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+              }
+            ],
+            "naif_identifier": "399",
+            "navigation_grade": true,
+            "observer_naif_identifier": "10",
+            "product_name": "DE440",
+            "product_version": "440",
+            "provider": "JPL/NAIF",
+            "request_time_scale": "UTC",
+            "source_lineage": null,
+            "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+            "spice_frame": "ECLIPJ2000",
+            "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+            "state_source": "LOCAL_SPICE",
+            "time_scale_internal": "SPICE ET/TDB",
+            "uncertainty_km": null,
+            "units": "km,km/s"
+          },
+          "reference_frame": "J2000/ECLIPTIC",
+          "uncertainty": {},
+          "velocity_km_s": [
+            -17.260094479658036,
+            -24.733238284027735,
+            0.0003914659062846937
+          ]
+        },
+        "earth_moon_distance_km": 373167.6823419511,
+        "earth_moon_relative_speed_km_s": 1.049925983131687,
+        "manifest_sha256": "e852b008acde377407f3b1ff011666f1d8f7a5ab21e9a2ed427b0e9694a93df6",
+        "meaning": "simultaneous body geometry only; not spacecraft position, path, delta-v or flight speed",
+        "moon": {
+          "entity_id": "MOON",
+          "epoch_utc": "2024-02-15T06:05:00Z",
+          "navigation_grade": true,
+          "payload": {
+            "ephemeris_quality": "QUALIFIED",
+            "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+            "state_class": "CELESTIAL"
+          },
+          "position_km": [
+            -121774636.30437967,
+            83468943.97859848,
+            8408.220105212182
+          ],
+          "provenance": {
+            "aberration_correction": "NONE",
+            "asset_filename": "de440.bsp",
+            "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+            "coverage": {
+              "coverage_class": "BODY",
+              "valid_from": "1549-12-30T23:59:18.815889+00:00",
+              "valid_until": "2650-01-24T23:58:50.815708+00:00"
+            },
+            "ephemeris_source_id": "DE440",
+            "kernel_assets": [
+              {
+                "byte_count": 5257,
+                "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+                "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+              },
+              {
+                "byte_count": 119799808,
+                "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+                "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+              }
+            ],
+            "naif_identifier": "301",
+            "navigation_grade": true,
+            "observer_naif_identifier": "10",
+            "product_name": "DE440",
+            "product_version": "440",
+            "provider": "JPL/NAIF",
+            "request_time_scale": "UTC",
+            "source_lineage": null,
+            "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+            "spice_frame": "ECLIPJ2000",
+            "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+            "state_source": "LOCAL_SPICE",
+            "time_scale_internal": "SPICE ET/TDB",
+            "uncertainty_km": null,
+            "units": "km,km/s"
+          },
+          "reference_frame": "J2000/ECLIPTIC",
+          "uncertainty": {},
+          "velocity_km_s": [
+            -17.86236185438422,
+            -23.87785498623886,
+            0.08948688250724857
+          ]
+        },
+        "reference_epoch_utc": "2024-02-15T06:05:00Z",
+        "registry_sha256": "a216459d6181ce0d99f359d15055afdc0e5899082c3fc8a7e6228f9700af544b"
+      }
+    }
+  },
+  "roover_rerun": {
+    "actor_access_status": "USABLE",
+    "authority_class": "BOUNDED_MISSION_TRANSPORT_SCREEN",
+    "documented_manifested_suite_mass_kg_approx": 75,
+    "documented_rover_mass_kg_approx": 20,
+    "documented_surface_plan_max_days": 14,
+    "earth_moon_distance_km": 401540.02139136905,
+    "earth_moon_relative_speed_km_s": 0.9836733938012038,
+    "mission_id": "ROO_VER_CLPS_CT4_IM5",
+    "reference_epoch_role": "MID_2030_GEOMETRY_SAMPLE_NOT_MISSION_EPOCH",
+    "reference_epoch_utc": "2030-07-01T00:00:00Z",
+    "segments": [
+      {
+        "basis": "Initial mid-2030 target; no booked launch epoch, vehicle or mass allocation.",
+        "name": "launch",
+        "status": "UNKNOWN",
+        "unresolved": [
+          "launch date/window",
+          "launch vehicle",
+          "payload integration and mass margin"
+        ]
+      },
+      {
+        "basis": "Qualified Earth/Moon states provide geometry context only.",
+        "name": "transfer",
+        "status": "UNKNOWN",
+        "unresolved": [
+          "departure and arrival epochs",
+          "trajectory and propulsion performance",
+          "transfer duration and delta-v"
+        ]
+      },
+      {
+        "basis": "NASA awarded Intuitive Machines end-to-end delivery of the named Roo-ver/MNP payload to the South Pole region; this is a planned service-scope result, not demonstrated flight success.",
+        "name": "lunar_delivery",
+        "status": "FEASIBLE",
+        "unresolved": [
+          "final landing coordinates",
+          "flight performance and landing outcome"
+        ]
+      },
+      {
+        "basis": "ELO2 is the planned rover operator, but deployment, site conditions and duration are not guaranteed.",
+        "name": "site_operations",
+        "status": "UNKNOWN",
+        "unresolved": [
+          "final site and terrain",
+          "deployment, power and data terms",
+          "operational duration assurance"
+        ]
+      }
+    ],
+    "service_evidence_id": "ROO_VER_CT4_IM5_SERVICE_2026_V1",
+    "service_evidence_sha256": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
+    "solar_context": {
+      "earth": {
+        "entity_id": "EARTH",
+        "epoch_utc": "2030-07-01T00:00:00Z",
+        "navigation_grade": true,
+        "payload": {
+          "ephemeris_quality": "QUALIFIED",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_class": "CELESTIAL"
+        },
+        "position_km": [
+          23309939.493425187,
+          -150297125.50252044,
+          10509.165595024824
+        ],
+        "provenance": {
+          "aberration_correction": "NONE",
+          "asset_filename": "de440.bsp",
+          "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+          "coverage": {
+            "coverage_class": "BODY",
+            "valid_from": "1549-12-30T23:59:18.815889+00:00",
+            "valid_until": "2650-01-24T23:58:50.815708+00:00"
+          },
+          "ephemeris_source_id": "DE440",
+          "kernel_assets": [
+            {
+              "byte_count": 5257,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+              "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+            },
+            {
+              "byte_count": 119799808,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+              "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+            }
+          ],
+          "naif_identifier": "399",
+          "navigation_grade": true,
+          "observer_naif_identifier": "10",
+          "product_name": "DE440",
+          "product_version": "440",
+          "provider": "JPL/NAIF",
+          "request_time_scale": "UTC",
+          "source_lineage": null,
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+          "spice_frame": "ECLIPJ2000",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_source": "LOCAL_SPICE",
+          "time_scale_internal": "SPICE ET/TDB",
+          "uncertainty_km": null,
+          "units": "km,km/s"
+        },
+        "reference_frame": "J2000/ECLIPTIC",
+        "uncertainty": {},
+        "velocity_km_s": [
+          28.964061527002027,
+          4.455048914734289,
+          0.0005035774988246811
+        ]
+      },
+      "manifest_sha256": "e852b008acde377407f3b1ff011666f1d8f7a5ab21e9a2ed427b0e9694a93df6",
+      "moon": {
+        "entity_id": "MOON",
+        "epoch_utc": "2030-07-01T00:00:00Z",
+        "navigation_grade": true,
+        "payload": {
+          "ephemeris_quality": "QUALIFIED",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_class": "CELESTIAL"
+        },
+        "position_km": [
+          23240710.737131104,
+          -149901884.42311674,
+          -4532.683784455061
+        ],
+        "provenance": {
+          "aberration_correction": "NONE",
+          "asset_filename": "de440.bsp",
+          "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+          "coverage": {
+            "coverage_class": "BODY",
+            "valid_from": "1549-12-30T23:59:18.815889+00:00",
+            "valid_until": "2650-01-24T23:58:50.815708+00:00"
+          },
+          "ephemeris_source_id": "DE440",
+          "kernel_assets": [
+            {
+              "byte_count": 5257,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+              "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+            },
+            {
+              "byte_count": 119799808,
+              "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+              "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+            }
+          ],
+          "naif_identifier": "301",
+          "navigation_grade": true,
+          "observer_naif_identifier": "10",
+          "product_name": "DE440",
+          "product_version": "440",
+          "provider": "JPL/NAIF",
+          "request_time_scale": "UTC",
+          "source_lineage": null,
+          "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+          "spice_frame": "ECLIPJ2000",
+          "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+          "state_source": "LOCAL_SPICE",
+          "time_scale_internal": "SPICE ET/TDB",
+          "uncertainty_km": null,
+          "units": "km,km/s"
+        },
+        "reference_frame": "J2000/ECLIPTIC",
+        "uncertainty": {},
+        "velocity_km_s": [
+          28.004002996386124,
+          4.256724018678932,
+          -0.08054084901307546
+        ]
+      },
+      "reference_epoch_utc": "2030-07-01T00:00:00Z",
+      "registry_sha256": "a216459d6181ce0d99f359d15055afdc0e5899082c3fc8a7e6228f9700af544b"
+    },
+    "status": "UNKNOWN"
+  }
+}
