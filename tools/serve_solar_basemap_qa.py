@@ -72,7 +72,6 @@ def make_handler(product, three, temporal=None):
                     self.send_header("Content-Length",str(gz.stat().st_size)); self.send_header("ETag",f'"{digest}"')
                     self.send_header("Cache-Control","public, max-age=31536000, immutable" if "/objects/" in path or "/provenance/" in path else "no-cache")
                     self.end_headers(); self.wfile.write(gz.read_bytes()); return
-            if path.endswith(".json") and "current.json" in path: self.send_header("Cache-Control","no-cache")
             return super().do_GET()
         def log_message(self, fmt, *args): print("[static] "+fmt%args)
     return Handler
