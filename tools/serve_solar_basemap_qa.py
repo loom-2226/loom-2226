@@ -27,9 +27,7 @@ def make_handler(product, three, temporal=None):
                 if relative.is_absolute() or ".." in relative.parts: return str(ROOT/"__blocked__")
                 return str(ROOT/"design"/relative)
             if path.startswith("/temporal/") and self.temporal:
-                relative=Path(path[len("/temporal/"):]);
-                if relative.as_posix()=="current.json":
-                    pointer=json.loads((self.temporal/"current.json").read_text()); return str(self.temporal/pointer["manifest_uri"])
+                relative=Path(path[len("/temporal/"):])
                 if relative.is_absolute() or ".." in relative.parts: return str(ROOT/"__blocked__")
                 return str(self.temporal/relative)
             if path.startswith("/product/"):
