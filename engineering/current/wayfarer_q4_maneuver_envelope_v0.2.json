@@ -1,0 +1,58 @@
+{
+  "standard_id": "WAYFARER_Q4_MANEUVER_ENVELOPE_V0.2",
+  "status": "ENGINEERING_CANDIDATE_NON_CANON",
+  "date": "2026-09-11",
+  "reference_mass_kg": 1158500.0,
+  "mass_properties": {
+    "wet_com_m": [26.6767, 0.0, 0.1481],
+    "transverse_inertia_lower_fidelity_kg_m2": 135000000.0,
+    "transverse_inertia_design_kg_m2": 320000000.0,
+    "roll_inertia_design_surrogate_kg_m2": 11700000.0,
+    "design_model": "HOMOGENEOUS_57M_X_9M_CYLINDER_SURROGATE",
+    "final_component_intrinsic_inertias_available": false
+  },
+  "rcs": {
+    "individual_thruster_max_N": 25000.0,
+    "thruster_count_candidate_range": [16, 24],
+    "aggregate_translation_N": {
+      "precision_low": 10000.0,
+      "precision_high": 25000.0,
+      "normal": 100000.0,
+      "abort": 200000.0
+    },
+    "translation_accel_m_s2_reference_wet": {
+      "precision_low": 0.00863,
+      "precision_high": 0.02158,
+      "normal": 0.08632,
+      "abort": 0.17264
+    },
+    "working_fluid": "OPEN_Q5",
+    "exhaust_velocity_km_s": null,
+    "power_thermal_status": "OPEN_Q5"
+  },
+  "attitude": {
+    "pitch_yaw_pair_separation_m": 40.0,
+    "effective_single_thruster_arm_m": 20.0,
+    "single_pair_torque_Nm": 1000000.0,
+    "conservative_pitch_yaw_alpha_rad_s2": 0.003125,
+    "conservative_pitch_yaw_alpha_deg_s2": 0.17905,
+    "ideal_bang_bang_slew_s": {
+      "30_deg": 25.89,
+      "90_deg": 44.84,
+      "180_deg": 63.41
+    },
+    "candidate_operational_slew_s": {
+      "90_deg": [50.0, 70.0],
+      "180_deg": [70.0, 100.0]
+    },
+    "fine_pointing": "INTERNAL_MOMENTUM_STORAGE",
+    "large_angle_slew": "RCS_COUPLE",
+    "roll_rate_limit": "OPEN_OPERATIONAL_CONSTRAINT"
+  },
+  "hard_gates": [
+    "component_intrinsic_inertia_required_before_final_canon",
+    "q5_power_thermal_closure_required_before_rcs_thrust_canon",
+    "radiator_and_launch_interference_matrix_required",
+    "one_cluster_out_controllability_required"
+  ]
+}

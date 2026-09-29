@@ -1,0 +1,127 @@
+{
+  "identity": {
+    "name": "WAYFARER_FLIGHT_SYSTEM_STANDARD",
+    "version": "DRAFT_v0.1",
+    "status": "NON_CANON_ENGINEERING_DRAFT",
+    "target": "WAYFARER_FLIGHT_SYSTEM_STANDARD_V1.0"
+  },
+  "mass_states": {
+    "reference_wet_mass_t": 1158.5,
+    "reference_dry_mass_t": 858.5,
+    "working_fluid_water_inventory_t": 300.0,
+    "normal_remass_comparison_baseline_t": 250.0,
+    "protected_life_support_water_t": 50.0,
+    "provenance": "CANON_II_v2.4 baseline retained during qualification"
+  },
+  "torch": {
+    "momentum_exchange": "ORDINARY_REACTION_MASS",
+    "hardware": "SINGLE_PRIMARY_AXIAL_FUSION_TORCH_MAGNETIC_NOZZLE",
+    "mode_cards": {
+      "ECON": {"acceleration_g": 0.3, "exhaust_velocity_km_s": 3000.0},
+      "CRUISE": {"acceleration_g": 1.0, "exhaust_velocity_km_s": 2000.0},
+      "EXPEDITE": {"acceleration_g": 2.0, "exhaust_velocity_km_s": 1000.0},
+      "FAST": {"acceleration_g": 3.0, "exhaust_velocity_km_s": 700.0},
+      "HARD": {"acceleration_g": 5.0, "exhaust_velocity_km_s": 450.0},
+      "LIMIT": {"acceleration_g": 7.5, "exhaust_velocity_km_s": 300.0}
+    },
+    "feedstock_interface": {
+      "primary_candidate": "H2O",
+      "alternate_candidates": ["NH3", "Ar", "N2", "CO2"],
+      "specialized_candidate": "H2",
+      "contingency_candidates": ["O2", "CH4"],
+      "deferred": ["CO"],
+      "status": "CANDIDATE"
+    },
+    "reserve_doctrine": {
+      "normal_dispatch_hypothesis_t": 150.0,
+      "minimum_dispatch_hypothesis_t": 100.0,
+      "protected_optimizer_reserve_hypothesis_t": 50.0,
+      "status": "CANDIDATE_PENDING_Q6"
+    }
+  },
+  "endurance": {
+    "implementation_class": "OPEN",
+    "supported_architecture_states": ["E0_NONE", "E1_LOW_REMASS", "E2_MOMENTUM_COUPLED"],
+    "baseline_compatibility_requirement": "E0_NONE must remain mission-compatible unless a later qualified system explicitly changes the standard",
+    "status": "OPEN"
+  },
+  "rcs": {
+    "individual_high_authority_thruster_N": 25000.0,
+    "normal_translation_N": 100000.0,
+    "abort_translation_N": 200000.0,
+    "screening_exhaust_velocity_km_s": 20.0,
+    "alternate_exhaust_velocity_km_s": 50.0,
+    "status": "CANDIDATE"
+  },
+  "attitude": {
+    "architecture": "INTERNAL_MOMENTUM_STORAGE_PLUS_DISTRIBUTED_EXTERNAL_RCS",
+    "screening_pitch_yaw_inertia_kg_m2": 320000000.0,
+    "screening_pitch_yaw_torque_Nm": 1000000.0,
+    "screening_angular_accel_deg_s2": 0.179,
+    "status": "CANDIDATE_PENDING_FULL_INTRINSIC_INERTIA"
+  },
+  "metric_interface": {
+    "sequence": ["ORDINARY_MANEUVER", "METRIC_ACQUISITION", "METRIC_TRANSPORT", "METRIC_COLLAPSE", "ORDINARY_TERMINAL_MANEUVER"],
+    "ordinary_velocity_reset_allowed": false,
+    "major_torch_and_high_metric_simultaneous": false,
+    "status": "BASELINE"
+  },
+  "power_thermal": {
+    "radiator_effective_area_screening_m2": [3000.0, 4000.0],
+    "thermal_buffer_screening_GJ": [50.0, 60.0],
+    "normal_torch_coupled_heat_limit_MW": 50.0,
+    "transient_torch_coupled_heat_sensitivity_MW": 100.0,
+    "high_drive_reject_temperature_K": 900.0,
+    "status": "CANDIDATE"
+  },
+  "configuration_states": {
+    "launch": ["DOCKED", "EXTRACTING", "ABSENT"],
+    "radiators": ["STOWED", "DEPLOYING", "DEPLOYED"],
+    "docking": ["FREE", "APPROACH", "SOFT_CAPTURE", "HARD_DOCKED"]
+  },
+  "failure_modes": {
+    "covered": [
+      "TORCH_UNAVAILABLE",
+      "ENDURANCE_UNAVAILABLE",
+      "METRIC_UNAVAILABLE_OR_UNCERTIFIED",
+      "RADIATOR_DEGRADED",
+      "REACTOR_OR_BUS_DEGRADED",
+      "ONE_MAJOR_TANK_ISOLATED",
+      "PRIMARY_REMASS_UNAVAILABLE",
+      "ALTERNATE_FEED_ONLY",
+      "RCS_CLUSTER_LOSS",
+      "ATTITUDE_MOMENTUM_SYSTEM_DEGRADED",
+      "LAUNCH_CONFIGURATION_ASYMMETRY"
+    ],
+    "status": "CANDIDATE_POLICY_IMPLEMENTED"
+  },
+  "provenance": {
+    "governing_canon": "LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4",
+    "qualification_plan": "LOOM_2226_Wayfarer_Flight_System_Qualification_Plan_v0.1",
+    "branch": "engineering/wayfarer-flight-system-qualification-v1",
+    "canon_changed": false
+  },
+  "qualification_status": {
+    "overall": "OPEN",
+    "gates": {
+      "Q1_MISSION_ARCHITECTURE": "QUALIFIED",
+      "Q2_TORCH_FEEDSTOCK": "OPEN",
+      "Q3_ENDURANCE": "OPEN",
+      "Q4_RCS_ATTITUDE": "CANDIDATE",
+      "Q5_POWER_THERMAL": "CANDIDATE",
+      "Q6_MISSION_REGRESSION": "OPEN",
+      "Q7_FAILURE_RESERVE_DISPATCH": "CANDIDATE",
+      "Q8_INTEGRATED_STANDARD": "OPEN"
+    },
+    "promotion_blocked": true,
+    "promotion_blockers": [
+      "Q2 final feedstock-by-mode certification",
+      "Q3 endurance disposition",
+      "Q4 final intrinsic inertia and actuator closure",
+      "Q5 final thermal/power duty-cycle closure",
+      "Q6 populated representative Navigator mission suite",
+      "Q7 final reserve quantities derived from Q6",
+      "independent hostile review"
+    ]
+  }
+}

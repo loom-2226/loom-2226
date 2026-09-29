@@ -1,0 +1,50 @@
+{
+  "schema": "LOOM.Wayfarer.Q7DispatchDoctrine",
+  "schema_version": "0.1",
+  "status": "CANDIDATE_NON_CANON",
+  "authority_boundary": "Screening policy only; final remass quantities require populated Q6 Navigator mission regression.",
+  "working_policy": {
+    "normal_dispatch_remass_t": 150.0,
+    "minimum_dispatch_remass_t": 100.0,
+    "protected_optimizer_reserve_t": 50.0,
+    "contingency_feed_reserve_t": 0.0,
+    "one_tank_isolation_fraction": 0.25
+  },
+  "working_policy_interpretation": {
+    "normal_dispatch_remass_t": "Hypothesis for Q6 scoring, not a replacement for the inherited 250 t governing comparison baseline.",
+    "minimum_dispatch_remass_t": "Below this screening value, dispatch is blocked pending explicit waiver/replan.",
+    "protected_optimizer_reserve_t": "Normal propulsion remass withheld from routine optimizer consumption; distinct from the 50 t protected life-support/water reserve in CANON II.",
+    "contingency_feed_reserve_t": "Zero until Q2/Q5 establish whether a separately carried alternate feed reserve is worthwhile.",
+    "one_tank_isolation_fraction": "Four equal major tanks imply a first-order 25% accessible-remass loss if one full tank is isolated; actual state must use measured tank fill distribution."
+  },
+  "torch_mode_authorization": {
+    "ECON": "ROUTINE",
+    "CRUISE": "ROUTINE",
+    "EXPEDITE": "TIME_CRITICAL",
+    "FAST": "EXCEPTIONAL",
+    "HARD": "EMERGENCY",
+    "LIMIT": "CONTINGENCY"
+  },
+  "optimizer_rules": [
+    "Routine optimizer may use ECON and CRUISE only unless a higher urgency class is explicit.",
+    "EXPEDITE requires time-critical authorization and must expose incremental remass/thermal cost.",
+    "FAST requires exceptional authorization.",
+    "HARD requires emergency or tactical authorization and must not be selected solely for schedule improvement.",
+    "LIMIT is contingency-only and requires explicit duration, thermal, structural and reserve closure.",
+    "Protected optimizer reserve is not available to routine route optimization.",
+    "Protected life-support/water reserve is never counted as routine propulsion remass."
+  ],
+  "dispatch_dispositions": [
+    "PASS",
+    "DIVERT_OR_REPLAN",
+    "MISSION_INFEASIBLE",
+    "NO_DISPATCH"
+  ],
+  "open_items": [
+    "Populate Q6 representative mission suite from live Navigator outputs.",
+    "Select final normal and minimum dispatch remass from mission distribution rather than screening values.",
+    "Define contingency-feed reserve only after alternate-feed certification closes.",
+    "Replace equal-tank isolation approximation with actual tank-state accessibility when Navigator exposes it.",
+    "Close degraded radiator/reactor/RCS states against Q5/Q4 card limits."
+  ]
+}

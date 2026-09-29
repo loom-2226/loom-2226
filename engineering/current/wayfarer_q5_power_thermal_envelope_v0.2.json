@@ -1,0 +1,46 @@
+{
+  "schema": "LOOM.Wayfarer.PowerThermalEnvelope",
+  "schema_version": "0.2",
+  "status": "ENGINEERING_CANDIDATE_NON_CANON",
+  "date": "2026-09-11",
+  "radiator": {
+    "reject_temperature_K": 900.0,
+    "emissivity_screening": 0.9,
+    "candidate_effective_area_m2": [3000.0, 3500.0, 4000.0],
+    "steady_rejection_MW": [100.5, 117.2, 134.0],
+    "physical_geometry_status": "OPEN"
+  },
+  "thermal_buffer": {
+    "usable_energy_GJ_screening": [50.0, 60.0],
+    "lead_usable_energy_GJ": 60.0,
+    "medium_status": "OPEN",
+    "stores_propulsion_energy": false
+  },
+  "torch": {
+    "normal_ship_coupled_heat_ceiling_MW": 50.0,
+    "transient_ship_coupled_heat_sensitivity_MW": 100.0,
+    "hard_limit_high_power_coupling_order": 4e-6,
+    "jet_power_is_electrical_bus_power": false,
+    "major_torch_high_metric_mutual_exclusion": true
+  },
+  "rcs": {
+    "individual_high_authority_thrust_kN": 25.0,
+    "normal_aggregate_thrust_kN": 100.0,
+    "abort_aggregate_thrust_kN": 200.0,
+    "lead_exhaust_velocity_km_s": 20.0,
+    "alternate_exhaust_velocity_km_s": 50.0,
+    "conversion_efficiency_screening": [0.9, 0.95],
+    "normal_100kN_20kms_jet_power_GW": 1.0,
+    "abort_200kN_20kms_jet_power_GW": 2.0,
+    "duty_class": "BOUNDED_SHORT_DUTY"
+  },
+  "power_architecture": {
+    "direct_torch_channel": true,
+    "main_electrical_bus_class": "TENS_OF_MW_CONTINUOUS_CANDIDATE",
+    "high_power_maneuver_branch": "GW_CLASS_SHORT_DUTY_CANDIDATE",
+    "relational_field_bank_GJ": 2.0,
+    "relational_field_bank_repurposed_for_rcs": false,
+    "thermal_buffer_is_energy_bank": false
+  },
+  "qualification_status": "OPEN_BOUNDED"
+}
