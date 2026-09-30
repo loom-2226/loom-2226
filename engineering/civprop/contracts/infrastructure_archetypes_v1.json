@@ -1,0 +1,247 @@
+{
+  "archetypes": [
+    {
+      "allowed_placements": [
+        "SURFACE"
+      ],
+      "archetype_id": "SURFACE_PORT",
+      "family": "TRANSPORT",
+      "input_capacity_dimensions": [],
+      "materialization_note": "Generic surface transport/handling module. A final Atlas surface-port facility may aggregate this with industrial, resource, habitat, power or other colocated modules.",
+      "module_semantics": "CAPACITY_BEARING_MODULE",
+      "output_capacity_dimensions": [
+        "transport"
+      ],
+      "required_capability_tags": [
+        "TRANSPORT",
+        "CONSTRUCTION"
+      ]
+    },
+    {
+      "allowed_placements": [
+        "ORBITAL",
+        "FREE_SPACE"
+      ],
+      "archetype_id": "LOGISTICS_NODE",
+      "family": "TRANSPORT",
+      "input_capacity_dimensions": [],
+      "materialization_note": "Generic orbital/free-space logistics module. It is not itself an Atlas answer such as ORBITAL_HABITAT_PORT or STRATEGIC_PORT.",
+      "module_semantics": "CAPACITY_BEARING_MODULE",
+      "output_capacity_dimensions": [
+        "power",
+        "transport"
+      ],
+      "required_capability_tags": [
+        "TRANSPORT",
+        "CONSTRUCTION"
+      ]
+    },
+    {
+      "allowed_placements": [
+        "SURFACE",
+        "ORBITAL",
+        "FREE_SPACE"
+      ],
+      "archetype_id": "POWER_PLANT",
+      "family": "POWER",
+      "input_capacity_dimensions": [
+        "transport"
+      ],
+      "materialization_note": "Power-generation capacity module. Generation technology, average output, peak output and fuel/resource closure are later parameter/model layers.",
+      "module_semantics": "CAPACITY_BEARING_MODULE",
+      "output_capacity_dimensions": [
+        "power"
+      ],
+      "required_capability_tags": [
+        "POWER",
+        "CONSTRUCTION"
+      ]
+    },
+    {
+      "allowed_placements": [
+        "SURFACE",
+        "ORBITAL",
+        "FREE_SPACE"
+      ],
+      "archetype_id": "HABITAT",
+      "family": "HABITAT",
+      "input_capacity_dimensions": [
+        "power",
+        "transport"
+      ],
+      "materialization_note": "Habitation-capacity module. Beds/accommodation do not by themselves create population, jobs, biological viability or settlement.",
+      "module_semantics": "CAPACITY_BEARING_MODULE",
+      "output_capacity_dimensions": [
+        "habitat"
+      ],
+      "required_capability_tags": [
+        "HABITATION",
+        "CONSTRUCTION"
+      ]
+    },
+    {
+      "allowed_placements": [
+        "SURFACE"
+      ],
+      "archetype_id": "RESOURCE_PLANT",
+      "family": "RESOURCE",
+      "input_capacity_dimensions": [
+        "power",
+        "transport"
+      ],
+      "materialization_note": "V1 combined extraction/processing module retained for continuity with Method Lab. Future contracts may split excavation, beneficiation and refining without changing historical V1 semantics.",
+      "module_semantics": "CAPACITY_BEARING_MODULE",
+      "output_capacity_dimensions": [
+        "resource",
+        "industrial"
+      ],
+      "required_capability_tags": [
+        "RESOURCE_EXTRACTION",
+        "RESOURCE_PROCESSING",
+        "CONSTRUCTION"
+      ]
+    },
+    {
+      "allowed_placements": [
+        "SURFACE",
+        "ORBITAL",
+        "FREE_SPACE"
+      ],
+      "archetype_id": "INDUSTRIAL_WORKSHOP",
+      "family": "MANUFACTURING",
+      "input_capacity_dimensions": [
+        "power",
+        "transport"
+      ],
+      "materialization_note": "Generic manufacturing/industrial-capacity module. Product mix, feedstock, tolerances and autonomy are later model layers.",
+      "module_semantics": "CAPACITY_BEARING_MODULE",
+      "output_capacity_dimensions": [
+        "industrial"
+      ],
+      "required_capability_tags": [
+        "MANUFACTURING",
+        "CONSTRUCTION"
+      ]
+    },
+    {
+      "allowed_placements": [
+        "ORBITAL",
+        "FREE_SPACE"
+      ],
+      "archetype_id": "SHIPYARD",
+      "family": "SHIPYARD",
+      "input_capacity_dimensions": [
+        "power",
+        "industrial",
+        "transport"
+      ],
+      "materialization_note": "Ship construction/major-repair capacity module. V1 defines semantics only; no numeric cost or capacity is invented until a parameter set is separately qualified or explicitly assumed.",
+      "module_semantics": "CAPACITY_BEARING_MODULE",
+      "output_capacity_dimensions": [
+        "shipyard",
+        "industrial"
+      ],
+      "required_capability_tags": [
+        "MANUFACTURING",
+        "TRANSPORT",
+        "CONSTRUCTION"
+      ]
+    }
+  ],
+  "assumptions": [
+    "An infrastructure archetype is a reusable capacity-bearing module, not necessarily a final Atlas facility identity.",
+    "Several modules may later be colocated or aggregated into one named Atlas facility.",
+    "Final Atlas facility type is a materialization result derived from placement, capability composition, lifecycle and relationships; it is not copied mechanically from archetype_id.",
+    "Archetype semantics are separated from numeric economics/capacity parameterizations so future parameter sets can change without renaming the infrastructure concept.",
+    "The METHOD_LAB_SYNTHETIC_V1 numeric parameter set preserves existing Method Lab assumptions exactly and is not empirical, canon, calibrated production economics or a 2226 forecast.",
+    "SURFACE_PORT and SHIPYARD are added as semantic modules needed by the Atlas infrastructure spine but intentionally have no V1 numeric parameterization.",
+    "RESOURCE_PLANT V1 remains a combined surface extraction/processing module for continuity; later versions may split the chain."
+  ],
+  "catalog_id": "CIVPROP_INFRASTRUCTURE_ARCHETYPES_V1",
+  "format": "CIVPROP_INFRASTRUCTURE_ARCHETYPE_CATALOG_V1",
+  "parameterizations": [
+    {
+      "archetype_id": "LOGISTICS_NODE",
+      "capital_cost": 12,
+      "capital_unit": "scenario_credit",
+      "construction_lag_years": 1,
+      "minimum_input_capacities": {},
+      "output_capacities": {
+        "power": 2,
+        "transport": 10
+      },
+      "parameter_set_id": "METHOD_LAB_SYNTHETIC_V1",
+      "parameter_status": "SYNTHETIC_METHOD_FIXTURE",
+      "provenance_ref": "engineering/civprop/method_lab/scenario_v1.json#project_archetypes/LOGISTICS_NODE",
+      "scope": "METHOD_LAB_EARTH_ORBIT_LUNA_2026_2036"
+    },
+    {
+      "archetype_id": "POWER_PLANT",
+      "capital_cost": 10,
+      "capital_unit": "scenario_credit",
+      "construction_lag_years": 1,
+      "minimum_input_capacities": {
+        "transport": 1
+      },
+      "output_capacities": {
+        "power": 20
+      },
+      "parameter_set_id": "METHOD_LAB_SYNTHETIC_V1",
+      "parameter_status": "SYNTHETIC_METHOD_FIXTURE",
+      "provenance_ref": "engineering/civprop/method_lab/scenario_v1.json#project_archetypes/POWER_PLANT",
+      "scope": "METHOD_LAB_EARTH_ORBIT_LUNA_2026_2036"
+    },
+    {
+      "archetype_id": "HABITAT",
+      "capital_cost": 18,
+      "capital_unit": "scenario_credit",
+      "construction_lag_years": 2,
+      "minimum_input_capacities": {
+        "power": 5,
+        "transport": 2
+      },
+      "output_capacities": {
+        "habitat": 100
+      },
+      "parameter_set_id": "METHOD_LAB_SYNTHETIC_V1",
+      "parameter_status": "SYNTHETIC_METHOD_FIXTURE",
+      "provenance_ref": "engineering/civprop/method_lab/scenario_v1.json#project_archetypes/HABITAT",
+      "scope": "METHOD_LAB_EARTH_ORBIT_LUNA_2026_2036"
+    },
+    {
+      "archetype_id": "RESOURCE_PLANT",
+      "capital_cost": 20,
+      "capital_unit": "scenario_credit",
+      "construction_lag_years": 2,
+      "minimum_input_capacities": {
+        "power": 10,
+        "transport": 3
+      },
+      "output_capacities": {
+        "industrial": 3,
+        "resource": 10
+      },
+      "parameter_set_id": "METHOD_LAB_SYNTHETIC_V1",
+      "parameter_status": "SYNTHETIC_METHOD_FIXTURE",
+      "provenance_ref": "engineering/civprop/method_lab/scenario_v1.json#project_archetypes/RESOURCE_PLANT",
+      "scope": "METHOD_LAB_EARTH_ORBIT_LUNA_2026_2036"
+    },
+    {
+      "archetype_id": "INDUSTRIAL_WORKSHOP",
+      "capital_cost": 16,
+      "capital_unit": "scenario_credit",
+      "construction_lag_years": 2,
+      "minimum_input_capacities": {
+        "power": 5,
+        "transport": 3
+      },
+      "output_capacities": {
+        "industrial": 10
+      },
+      "parameter_set_id": "METHOD_LAB_SYNTHETIC_V1",
+      "parameter_status": "SYNTHETIC_METHOD_FIXTURE",
+      "provenance_ref": "engineering/civprop/method_lab/scenario_v1.json#project_archetypes/INDUSTRIAL_WORKSHOP",
+      "scope": "METHOD_LAB_EARTH_ORBIT_LUNA_2026_2036"
+    }
+  ]
+}
