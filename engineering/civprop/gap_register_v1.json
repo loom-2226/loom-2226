@@ -1,20 +1,20 @@
 {
   "format": "CIVPROP_GAP_REGISTER_V1",
   "register_id": "CIVPROP_GAP_REGISTER_2026_09_30",
-  "as_of_main_commit": "3741fc0ea632de2fa0317b78e9789c95d63dfbfd",
+  "as_of_main_commit": "f70476fb6aeead4e495d1e234b5f351f4688f954",
   "status_semantics": {
     "CLOSED": "The gap has a tested, versioned mechanism adequate for the current CIVPROP development boundary. Closure does not claim every future production-scale value is already calibrated.",
     "OPEN": "The current default executable still contains a placeholder, missing state/output, or incomplete production mechanism owned by this gap.",
     "BLOCKED": "Work cannot proceed without an unresolved dependency outside the gap."
   },
   "current_baseline": {
-    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.5.0",
-    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.5.0",
-    "engine": "HYBRID_V1 method-reference-v3",
+    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.6.0",
+    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.6.0",
+    "engine": "HYBRID_V1 method-reference-v4",
     "default_fixture": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP5_PROJECT_ECONOMICS_SEED42.json",
-    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP5_BASELINE_MANIFEST.json"
+    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP6_MISSIONS_KNOWLEDGE_SEED42.json",
+    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP6_BASELINE_MANIFEST.json"
   },
   "gaps": [
     {
@@ -194,7 +194,7 @@
         "Dorrington-Olsen or other domain models are used only within their qualified scope.",
         "METHOD_LAB_SYNTHETIC_V1 values are absent from the default production path."
       ],
-      "next_action": "CLOSED. Preserve Project Economics V1 unit/provenance/uncertainty boundaries while proceeding to GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE; scenario ranges must not be relabeled empirical.",
+      "next_action": "CLOSED. Preserve Project Economics V1 unit/provenance/uncertainty boundaries while later gaps close; scenario ranges must not be relabeled empirical.",
       "output_or_contract_affected": [
         "infrastructure parameterizations",
         "capital transactions",
@@ -208,13 +208,29 @@
     {
       "gap_id": "GAP-006",
       "name": "MISSIONS_AND_KNOWLEDGE_UPDATE",
-      "current_status": "OPEN",
-      "meaning": "Hybrid V1 baseline does not execute prospecting missions or CIVPROP-0 observation/Bayesian knowledge updates.",
+      "current_status": "CLOSED",
+      "meaning": "Mission/Knowledge V1 separates mission actions from infrastructure, actor-visible belief from evaluator truth, keyed noisy observations from physical realization, and deterministic Bayesian knowledge updates from later decisions.",
       "current_evidence": [
+        "docs/civprop/CIVPROP_MISSIONS_AND_KNOWLEDGE_V1.md",
+        "engineering/civprop/contracts/mission_knowledge_v1.py",
+        "engineering/civprop/contracts/mission_knowledge_v1.json",
+        "engineering/civprop/contracts/test_mission_knowledge_v1.py",
+        "engineering/civprop/method_lab/mission_lane_v1.py",
+        "engineering/civprop/method_lab/contracts.py",
+        "engineering/civprop/method_lab/prototypes/common.py",
+        "engineering/civprop/method_lab/prototypes/hybrid_v1.py",
+        "engineering/civprop/method_lab/test_hybrid_v1.py",
+        "engineering/civprop/civprop0/actor.py",
         "engineering/civprop/civprop0/observation.py",
         "engineering/civprop/civprop0/experiment.py",
-        "engineering/civprop/civprop0/runs/adverse.json",
-        "engineering/civprop/civprop0/runs/favourable.json"
+        "engineering/civprop/compile_inputs_v1.py",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/compiler_manifest_v1.json",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json",
+        "engineering/civprop/run_civprop_v1.py",
+        "engineering/civprop/test_compile_inputs_v1.py",
+        "engineering/civprop/test_run_civprop_v1.py",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP6_MISSIONS_KNOWLEDGE_SEED42.json",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP6_BASELINE_MANIFEST.json"
       ],
       "exit_criteria": [
         "Mission/action archetypes are distinct from infrastructure archetypes.",
@@ -223,13 +239,15 @@
         "Knowledge updates are deterministic given seed/evidence and produce auditable events.",
         "Updated beliefs feed later economics/decisions without hidden-truth leakage."
       ],
-      "next_action": "Integrate the proven CIVPROP-0 observe/Bayes loop into Hybrid V1 as a mission/event lane.",
+      "next_action": "CLOSED. Preserve the hidden-truth firewall, keyed observation semantics and actor-scoped knowledge updates while proceeding to GAP-007 PRESSURE_OBSERVABILITY.",
       "output_or_contract_affected": [
         "missions",
         "observations",
         "knowledge state",
         "events",
-        "resource beliefs"
+        "resource beliefs",
+        "mission decisions",
+        "mission knowledge boundary"
       ]
     },
     {

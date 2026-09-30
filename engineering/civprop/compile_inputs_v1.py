@@ -39,6 +39,9 @@ from engineering.civprop.contracts.project_economics_v1 import (
     ProjectEconomicsRuntime,
     load_project_economics_package,
 )
+from engineering.civprop.contracts.mission_knowledge_v1 import (
+    load_mission_knowledge_package,
+)
 
 
 AUTHORITY_CAPTURE_FORMAT = "CIVPROP_AUTHORITY_CAPTURE_V1"
@@ -64,6 +67,7 @@ AUS_GOV_ACCESS_PATH = HERE / "civprop0/aus_government_access_evidence.json"
 ROOVER_PATH = HERE / "civprop0/roover_service_envelope.json"
 ROOVER_TRANSPORT_RUN_PATH = HERE / "civprop0/runs/roover_transport_mid2030_v1.json"
 PROJECT_ECONOMICS_PATH = HERE / "contracts/project_economics_v1.json"
+MISSION_KNOWLEDGE_PATH = HERE / "contracts/mission_knowledge_v1.json"
 DORRINGTON_CONTRACT_PATH = (
     REPO_ROOT
     / "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json"
@@ -314,6 +318,8 @@ def capture_live_authority(
     transport_reference = _validated_transport_reference(solar_capture)
     project_economics = json.loads(PROJECT_ECONOMICS_PATH.read_text())
     load_project_economics_package(project_economics)
+    mission_knowledge = json.loads(MISSION_KNOWLEDGE_PATH.read_text())
+    load_mission_knowledge_package(mission_knowledge)
 
     source_paths = [
         RESOURCE_PATH,
@@ -322,6 +328,7 @@ def capture_live_authority(
         ROOVER_PATH,
         ROOVER_TRANSPORT_RUN_PATH,
         PROJECT_ECONOMICS_PATH,
+        MISSION_KNOWLEDGE_PATH,
         DORRINGTON_CONTRACT_PATH,
         DORRINGTON_ASSESSMENT_PATH,
         METHOD_LAB_DIR / "scenario_v1.json",
@@ -345,7 +352,7 @@ def capture_live_authority(
         "captured_for_gap": (
             "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS"
             "_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE"
-            "_PLUS_GAP-005_PROJECT_ECONOMICS"
+            "_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE"
         ),
         "capture_semantics": (
             "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES"
@@ -370,6 +377,11 @@ def capture_live_authority(
             "project_economics_source": {
                 "path": str(PROJECT_ECONOMICS_PATH.relative_to(REPO_ROOT)),
                 "sha256": _sha256_path(PROJECT_ECONOMICS_PATH),
+            },
+            "mission_knowledge_v1": mission_knowledge,
+            "mission_knowledge_source": {
+                "path": str(MISSION_KNOWLEDGE_PATH.relative_to(REPO_ROOT)),
+                "sha256": _sha256_path(MISSION_KNOWLEDGE_PATH),
             },
             "dorrington_olsen_boundary": {
                 "contract_path": str(DORRINGTON_CONTRACT_PATH.relative_to(REPO_ROOT)),
@@ -406,16 +418,6 @@ def capture_live_authority(
 
 def _assumption_register() -> list[dict[str, str]]:
     return [
-        {
-            "assumption_id": "ASSUME-GAP006-RESOURCE-PRIOR",
-            "gap_id": "GAP-006",
-            "status": "EXPLICIT_PLACEHOLDER",
-            "semantics": (
-                "The empirical lunar-water assertion establishes presence in scoped "
-                "footprints but not a numeric site probability. Prior=0.45, sensitivity=0.80 "
-                "and false_positive=0.10 remain Method Lab observation fixtures."
-            ),
-        },
         {
             "assumption_id": "ASSUME-GAP012-OFFWORLD-INITIAL-STATE",
             "gap_id": "GAP-012",
@@ -809,6 +811,12 @@ def _compile_project_economics(capture: dict[str, Any]) -> dict[str, Any]:
     return raw
 
 
+def _compile_mission_knowledge(capture: dict[str, Any]) -> dict[str, Any]:
+    raw = copy.deepcopy(capture["model_parameters"]["mission_knowledge_v1"])
+    load_mission_knowledge_package(raw)
+    return raw
+
+
 def _migrate_capacity_units(scenario: dict[str, Any]) -> None:
     """Replace Method Lab normalized capacity units with explicit physical units."""
     multipliers = {
@@ -893,6 +901,14 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     belief["evidence_status"] = "EMPIRICAL_PRESENCE_PLUS_SCENARIO_PRIOR"
     scenario["resource_beliefs"] = [belief]
 
+    mission_knowledge = _compile_mission_knowledge(capture)
+    scenario["mission_knowledge_v1"] = mission_knowledge
+    scenario["project_archetypes"] = [
+        project
+        for project in scenario["project_archetypes"]
+        if project["project_kind"] != "MISSION"
+    ]
+
     scenario["authority_context"] = {
         "compiler": {
             "compiler_contract": "CIVPROP_INPUT_COMPILER_V1",
@@ -902,6 +918,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
                 "GAP-003": "CLOSED",
                 "GAP-004": "CLOSED",
                 "GAP-005": "CLOSED",
+                "GAP-006": "CLOSED",
             },
             "compatibility_envelope": (
                 "CIVPROP_METHOD_LAB_SCENARIO_V1 retained for locked runner compatibility"
@@ -938,8 +955,9 @@ def _compile_truth() -> dict[str, Any]:
         "EVALUATOR_ONLY_SYNTHETIC_TRUTH_FOR_COMPATIBILITY_NOT_RUNTIME_AUTHORITY"
     )
     truth["notes"] = [
-        "HYBRID_V1 does not consume this file for decisions or state transitions.",
-        "This evaluator-only realization remains synthetic until GAP-006/GAP-008 provide a qualified hidden physical realization contract.",
+        "Actor decisions never consume this evaluator-only realization directly.",
+        "Mission/Knowledge V1 permits only the observation runtime to read the hidden present/absent realization when an admitted mission executes.",
+        "The present/grade values remain synthetic compatibility truth and are not promoted Solar/resource authority.",
     ]
     return truth
 
@@ -991,10 +1009,11 @@ def compile_from_capture(
     gap_resolution["GAP-003"] = "CLOSED"
     gap_resolution["GAP-004"] = "CLOSED"
     gap_resolution["GAP-005"] = "CLOSED"
+    gap_resolution["GAP-006"] = "CLOSED"
     compiler_manifest = {
         "format": COMPILER_MANIFEST_FORMAT,
         "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-        "compiler_version": "1.4.0",
+        "compiler_version": "1.5.0",
         "compiler_source_sha256": _sha256_path(HERE / "compile_inputs_v1.py"),
         "runtime_input": {
             "fixture_id": COMPILED_FIXTURE_ID,
@@ -1062,12 +1081,20 @@ def compile_from_capture(
                 "technology-year adjustments and component provenance. The default runtime no "
                 "longer consumes METHOD_LAB_SYNTHETIC_V1 project economics."
             ),
+            "gap6_closed_means": (
+                "Mission/Knowledge V1 separates mission actions from infrastructure, preserves "
+                "actor-visible probabilistic knowledge, permits hidden physical realization only "
+                "inside the keyed observation runtime, applies deterministic Bayesian updates, "
+                "and feeds posterior resource belief into later project scoring. The first "
+                "admitted observation model is binary resource detection."
+            ),
             "does_not_mean": (
                 "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample "
                 "is a route, transfer solution, fleet allocation, service price, or actor entitlement; "
-                "the uncalibrated demand coefficients or scenario project-economic ranges are "
-                "empirical forecasts; Dorrington-Olsen is a lunar facility cost model; hidden truth, "
-                "off-world initial infrastructure, or demographic depth are production solved."
+                "the uncalibrated demand coefficients, mission priors/instrument model, or "
+                "scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a "
+                "lunar facility cost model; evaluator truth is actor-visible; off-world initial "
+                "infrastructure or demographic depth are production solved."
             ),
         },
     }
@@ -1103,6 +1130,7 @@ def main() -> None:
                 "gap_003": manifest["gap_resolution"]["GAP-003"],
                 "gap_004": manifest["gap_resolution"]["GAP-004"],
                 "gap_005": manifest["gap_resolution"]["GAP-005"],
+                "gap_006": manifest["gap_resolution"]["GAP-006"],
                 "output_dir": str(args.output_dir),
             },
             indent=2,

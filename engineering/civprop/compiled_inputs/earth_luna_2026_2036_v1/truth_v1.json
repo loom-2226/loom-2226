@@ -3,8 +3,9 @@
   "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
   "format": "CIVPROP_METHOD_LAB_TRUTH_V1",
   "notes": [
-    "HYBRID_V1 does not consume this file for decisions or state transitions.",
-    "This evaluator-only realization remains synthetic until GAP-006/GAP-008 provide a qualified hidden physical realization contract."
+    "Actor decisions never consume this evaluator-only realization directly.",
+    "Mission/Knowledge V1 permits only the observation runtime to read the hidden present/absent realization when an admitted mission executes.",
+    "The present/grade values remain synthetic compatibility truth and are not promoted Solar/resource authority."
   ],
   "resources": [
     {

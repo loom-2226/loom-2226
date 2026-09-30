@@ -174,6 +174,40 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         assumptions = {x["assumption_id"] for x in self.scenario["assumption_register"]}
         self.assertNotIn("ASSUME-GAP005-PROJECT-ECONOMICS", assumptions)
 
+    def test_gap6_compiles_general_mission_knowledge_boundary(self):
+        package = self.scenario["mission_knowledge_v1"]
+        self.assertEqual(package["format"], "CIVPROP_MISSION_KNOWLEDGE_V1")
+        self.assertEqual(package["contract_version"], "1.0.0")
+        self.assertEqual(
+            package["package_status"],
+            "GENERAL_CONTRACT_BINARY_RESOURCE_IMPLEMENTATION_V1",
+        )
+        self.assertEqual(
+            {x["action_kind"] for x in package["missions"]},
+            {"MISSION"},
+        )
+        self.assertEqual(
+            package["decision_models"][0]["success_value"]["status"],
+            "UNKNOWN",
+        )
+        self.assertNotIn(
+            "PROSPECTING_SURVEY",
+            {
+                x["project_archetype_id"]
+                for x in self.scenario["project_archetypes"]
+            },
+        )
+        self.assertFalse(
+            any(
+                x["project_kind"] == "MISSION"
+                for x in self.scenario["project_archetypes"]
+            )
+        )
+        assumptions = {
+            x["assumption_id"] for x in self.scenario["assumption_register"]
+        }
+        self.assertNotIn("ASSUME-GAP006-RESOURCE-PRIOR", assumptions)
+
     def test_other_unresolved_engine_inputs_are_not_disguised_as_authority(self):
         assumptions = self.scenario["assumption_register"]
         gaps = {x["gap_id"] for x in assumptions}
@@ -181,7 +215,8 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertNotIn("GAP-003", gaps)
         self.assertNotIn("GAP-004", gaps)
         self.assertNotIn("GAP-005", gaps)
-        self.assertIn("GAP-006", gaps)
+        self.assertNotIn("GAP-006", gaps)
+        self.assertIn("GAP-012", gaps)
         for row in assumptions:
             self.assertIn(row["status"], {"EXPLICIT_PLACEHOLDER", "COMPATIBILITY_BOUNDARY"})
             self.assertTrue(row["semantics"])
@@ -221,7 +256,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(access["subject_id"], "ROO_VER")
         self.assertNotEqual(access["subject_id"], "FLEET_SPACE_TECHNOLOGIES")
 
-    def test_compiler_manifest_closes_gap1_through_gap5(self):
+    def test_compiler_manifest_closes_gap1_through_gap6(self):
         manifest = self.compiler_manifest
         self.assertEqual(manifest["format"], "CIVPROP_INPUT_COMPILER_MANIFEST_V1")
         self.assertEqual(len(manifest["compiler_source_sha256"]), 64)
@@ -231,7 +266,8 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(manifest["gap_resolution"]["GAP-003"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-004"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-005"], "CLOSED")
-        self.assertEqual(manifest["gap_resolution"]["GAP-006"], "OPEN")
+        self.assertEqual(manifest["gap_resolution"]["GAP-006"], "CLOSED")
+        self.assertEqual(manifest["gap_resolution"]["GAP-007"], "OPEN")
         self.assertEqual(manifest["runtime_input"]["fixture_id"], COMPILED_FIXTURE_ID)
 
     def test_compiler_is_deterministic_from_frozen_capture(self):
@@ -292,11 +328,13 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         gap3 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-003")
         gap4 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-004")
         gap5 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-005")
+        gap6 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-006")
         self.assertEqual(gap1["status"], "CLOSED")
         self.assertEqual(gap2["status"], "CLOSED")
         self.assertEqual(gap3["status"], "CLOSED")
         self.assertEqual(gap4["status"], "CLOSED")
         self.assertEqual(gap5["status"], "CLOSED")
+        self.assertEqual(gap6["status"], "CLOSED")
         self.assertTrue(output["actor_states"])
         self.assertTrue(output["annual_states"])
         self.assertTrue(output["events"])

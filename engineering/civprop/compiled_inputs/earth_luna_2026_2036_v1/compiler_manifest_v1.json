@@ -1,12 +1,6 @@
 {
   "assumption_register": [
     {
-      "assumption_id": "ASSUME-GAP006-RESOURCE-PRIOR",
-      "gap_id": "GAP-006",
-      "semantics": "The empirical lunar-water assertion establishes presence in scoped footprints but not a numeric site probability. Prior=0.45, sensitivity=0.80 and false_positive=0.10 remain Method Lab observation fixtures.",
-      "status": "EXPLICIT_PLACEHOLDER"
-    },
-    {
       "assumption_id": "ASSUME-GAP012-OFFWORLD-INITIAL-STATE",
       "gap_id": "GAP-012",
       "semantics": "Initial Earth-orbit/Luna/cislunar engine capacities remain compatibility values inherited from the Method Lab and migrated into explicit physical units; the unit adapter does not make them a compiled empirical 2026 infrastructure inventory.",
@@ -22,12 +16,12 @@
   "authority_capture": {
     "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
     "path": "engineering/civprop/inputs/authority_capture_v1.json",
-    "sha256": "676592892fc3e56dcf388f7cfdeb9d7eaa59067767e39fceb01ed51a2c3fb76a",
-    "source_basis_commit": "3741fc0ea632de2fa0317b78e9789c95d63dfbfd"
+    "sha256": "73087be897011cda7dc315386078b3936dd0be82de4b6b058a86436d6e4b9939",
+    "source_basis_commit": "f70476fb6aeead4e495d1e234b5f351f4688f954"
   },
   "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-  "compiler_source_sha256": "99a46baa7b9e8e9596602e3880d10f58dda3ded097dcb08f08df10fb5ebe2202",
-  "compiler_version": "1.4.0",
+  "compiler_source_sha256": "19c4ef48dee4d15486af64cbf1f0031eb4d95ec77d6390241f406f28c6e39597",
+  "compiler_version": "1.5.0",
   "format": "CIVPROP_INPUT_COMPILER_MANIFEST_V1",
   "gap_resolution": {
     "GAP-001": "CLOSED",
@@ -35,7 +29,7 @@
     "GAP-003": "CLOSED",
     "GAP-004": "CLOSED",
     "GAP-005": "CLOSED",
-    "GAP-006": "OPEN",
+    "GAP-006": "CLOSED",
     "GAP-007": "OPEN",
     "GAP-008": "OPEN",
     "GAP-009": "OPEN",
@@ -47,9 +41,9 @@
     "GAP-015": "OPEN"
   },
   "package_files": {
-    "manifest_v1.json": "3e1af09bbd85f30846d78c179562b4ae0cea29ef904e4092e358406ee745db7c",
-    "scenario_v1.json": "4c1fc2e2c847a43ac1192331df610455ce2c077225fe4e76fdf0129ebe5cb212",
-    "truth_v1.json": "e3acab39409c3451acf2c18d285e0fb3228b837987072cae60eb44d983748aaa"
+    "manifest_v1.json": "a8c06a8b84038538ae253810efd4beda545cee833fc86ddf1808ed283109f6ad",
+    "scenario_v1.json": "8b605739d221e2d1572107861cd7a5eb5ac4699fca2382fa7b7ed5f111200eba",
+    "truth_v1.json": "5fc711e178ea39e78112620f589d1dab77da26dd8a40fdfe2f778fa98bad30d7"
   },
   "postgres_query_sha256": {
     "aus_area": "5fb6c3879ea3d4f5ed16cf701caf5a1cf817d6623ce6a4dd73175a52215ba4d3",
@@ -67,18 +61,19 @@
   },
   "runtime_input": {
     "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "bundle_sha256": "93aedfb80fc291bb09e7dc826067d2c9842f9da05034dab7dd13b6fb72dba0d9",
+    "bundle_sha256": "aa068bef5aba773d7b54f25457dad6c6eb7620146559bda33b8a7839d7005568",
     "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "scenario_format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
-    "scenario_sha256": "4c1fc2e2c847a43ac1192331df610455ce2c077225fe4e76fdf0129ebe5cb212"
+    "scenario_sha256": "8b605739d221e2d1572107861cd7a5eb5ac4699fca2382fa7b7ed5f111200eba"
   },
   "semantics": {
-    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients or scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a lunar facility cost model; hidden truth, off-world initial infrastructure, or demographic depth are production solved.",
+    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients, mission priors/instrument model, or scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a lunar facility cost model; evaluator truth is actor-visible; off-world initial infrastructure or demographic depth are production solved.",
     "gap1_closed_means": "Promoted Earth/Solar/Timeline/resource/actor authority is captured read-only, frozen with hashes, and deterministically compiled into the locked runner envelope. Other open gaps remain explicit placeholders.",
     "gap2_closed_means": "A versioned Actor State V1 separates identity, scoped rights/contracts, provider access, capability, experience and finance. AUS generic spendable allocation is explicitly UNKNOWN; the observed AUD 42 million Roo-ver commitment remains scoped and cannot fund generic CIVPROP projects.",
     "gap3_closed_means": "A versioned Accessibility V1 boundary combines qualified frozen Solar geometry with actor-scoped provider/service evidence, preserves FEASIBLE/INFEASIBLE/UNKNOWN, and exposes decomposed physical/service quantities without treating body-center separation as route length. The default synthetic accessibility table is removed.",
     "gap4_closed_means": "Demand/Pressure V1 derives requirements from current civilization stocks plus explicit scoped strategic requirements, compares them with installed capacity, and carries unmet demand into decaying pressure in the same channel unit. The default OFFWORLD_* and WATER_RESOURCE_DEMAND annual fixture curves are removed.",
-    "gap5_closed_means": "Project Economics V1 supplies a versioned Earth-Orbit-Luna parameter set with economic/physical units, low-nominal-high uncertainty, explicit scale behavior, technology-year adjustments and component provenance. The default runtime no longer consumes METHOD_LAB_SYNTHETIC_V1 project economics."
+    "gap5_closed_means": "Project Economics V1 supplies a versioned Earth-Orbit-Luna parameter set with economic/physical units, low-nominal-high uncertainty, explicit scale behavior, technology-year adjustments and component provenance. The default runtime no longer consumes METHOD_LAB_SYNTHETIC_V1 project economics.",
+    "gap6_closed_means": "Mission/Knowledge V1 separates mission actions from infrastructure, preserves actor-visible probabilistic knowledge, permits hidden physical realization only inside the keyed observation runtime, applies deterministic Bayesian updates, and feeds posterior resource belief into later project scoring. The first admitted observation model is binary resource detection."
   },
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
@@ -90,6 +85,7 @@
     "engineering/civprop/civprop0/aus_government_access_evidence.json": "2e9ebc2f6d497d42d74baea504cec45ba16922ea2d554940a5142b1d53ef60ce",
     "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
     "engineering/civprop/civprop0/runs/roover_transport_mid2030_v1.json": "a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
+    "engineering/civprop/contracts/mission_knowledge_v1.json": "e95f42820502e24ba638ba0e4b38cc7c3019ffc8551ee5848d5c6abdc940b6a7",
     "engineering/civprop/contracts/project_economics_v1.json": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
     "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951",

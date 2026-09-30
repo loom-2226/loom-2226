@@ -1,8 +1,8 @@
 # CIVPROP Input Compiler V1
 
-Date: 2026-09-30
+Date: 2026-10-01
 Class: `class:engineering`
-Status: GAP-001 closed / production-facing input compilation with explicit downstream assumptions
+Status: GAP-001 through GAP-006 closed / production-facing input compilation with explicit downstream assumptions
 
 ## Decision
 
@@ -27,9 +27,9 @@ The CIVPROP runner remains:
 engineering/civprop/run_civprop_v1.py
 ```
 
-Runner V1.5 defaults to the compiled package rather than the original synthetic
+Runner V1.6 defaults to the compiled package rather than the original synthetic
 Method Lab package and carries the closed Actor State, Accessibility,
-Demand/Pressure and Project Economics boundaries.
+Demand/Pressure, Project Economics and Mission/Knowledge boundaries.
 
 ## What GAP-001 closed means
 
@@ -109,7 +109,7 @@ EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036
 Source-basis commit:
 
 ```text
-3741fc0ea632de2fa0317b78e9789c95d63dfbfd
+f70476fb6aeead4e495d1e234b5f351f4688f954
 ```
 
 The capture records hashes for all SQL queries and promoted source files used.
@@ -276,7 +276,9 @@ observation_sensitivity = 0.80
 false_positive_probability = 0.10
 ```
 
-remain explicit Method Lab assumptions owned by GAP-006.
+remain explicit uncalibrated Mission/Knowledge V1 scenario parameters. GAP-006
+closes the mechanism and provenance boundary; it does not convert those values into
+empirical measurements.
 
 The compiled belief status is:
 
@@ -370,6 +372,38 @@ explicitly not applied to Earth-Luna facility costs.
 The default scenario carries a start-year resolved project view for compatibility,
 while Hybrid resolves project economics again at the actual opportunity year.
 
+## Mission / Knowledge V1 boundary
+
+GAP-006 adds:
+
+```text
+engineering/civprop/contracts/mission_knowledge_v1.json
+```
+
+The compiler captures and validates the package as:
+
+```text
+CIVPROP_MISSION_KNOWLEDGE_V1
+EARTH_LUNA_MISSION_KNOWLEDGE_V1_2026_2036
+```
+
+The first admitted mission is LUNAR_RESOURCE_PROSPECTING_SURVEY. It references the
+PROSPECTING_SURVEY economics row but is removed from runtime project_archetypes so a
+mission action cannot masquerade as commissioned infrastructure.
+
+The first actor-visible question is MOON_POLAR_WATER_PRESENT with a 0.45 scenario
+prior. The first observation model is binary detection with sensitivity 0.80 and
+false-positive probability 0.10. These are versioned uncalibrated scenario-model
+parameters, not empirical instrument calibration.
+
+The follow-on RESOURCE_PLANT success value remains UNKNOWN. This causes the default
+AUS mission decision to WAIT rather than inventing resource-development value.
+
+Evaluator truth remains a separate file. Mission/Knowledge V1 permits only the
+observation runtime to read the hidden present/absent realization when an admitted
+mission executes. Actor decisions and project scoring consume actor-visible
+knowledge, never the hidden realization.
+
 ## Remaining assumption register
 
 Every compiled scenario carries an `assumption_register`.
@@ -377,7 +411,6 @@ Every compiled scenario carries an `assumption_register`.
 Current explicit entries include:
 
 ```text
-ASSUME-GAP006-RESOURCE-PRIOR
 ASSUME-GAP012-OFFWORLD-INITIAL-STATE
 ASSUME-GAP014-EARTH-HABITAT-FLOOR
 ```
@@ -443,9 +476,13 @@ Contains:
 
 Evaluator-only compatibility realization.
 
-It remains synthetic and is not consumed by HYBRID_V1.
+It remains synthetic. Actor decisions cannot consume it. Mission/Knowledge V1 allows
+the observation runtime to read only the scoped hidden resource realization when an
+admitted mission actually executes, in order to generate a keyed noisy observation.
+The current seed-42 baseline executes no mission and therefore does not consume it.
 
-Its continued presence does not close GAP-006 or GAP-008.
+Its continued presence does not close GAP-008 or promote the synthetic realization
+to Solar/resource authority.
 
 ### manifest_v1.json
 
@@ -496,7 +533,7 @@ new authority capture
 
 No silent replacement.
 
-## Runner V1.5
+## Runner V1.6
 
 The single simulation entrypoint remains:
 
@@ -507,22 +544,22 @@ engineering/civprop/run_civprop_v1.py
 Runner version:
 
 ```text
-1.5.0
+1.6.0
 ```
 
 Output contract:
 
 ```text
-1.5.0
+1.6.0
 ```
 
 Compiler version:
 
 ```text
-1.4.0
+1.5.0
 ```
 
-The default input directory is now the GAP-001 through GAP-005 compiled package.
+The default input directory is now the GAP-001 through GAP-006 compiled package.
 
 Default command:
 
@@ -544,25 +581,30 @@ GAP-002 CLOSED
 GAP-003 CLOSED
 GAP-004 CLOSED
 GAP-005 CLOSED
-GAP-006 OPEN
+GAP-006 CLOSED
+GAP-007 OPEN
 ...
 GAP-015 OPEN
 ```
 
-GAP-005 closure is independent of later missions, pressure-observability,
+GAP-006 closure is independent of later pressure-observability,
 resource/production/power, fleet and materialization gaps.
 
 ## Current executable behavior
 
-With compiled input and seed 42, the current GAP-005 baseline produces:
+With compiled input and seed 42, the current GAP-006 baseline produces:
 
 ```text
 44 annual location states
 11 annual actor states
 0 commissioned facilities
-11 actor decisions
+11 project decisions
+11 mission decisions
+1 actor-visible knowledge state
+0 missions
+0 observations
 0 actor transactions
-35 events
+46 events
 0 migration flows
 ```
 
@@ -574,27 +616,27 @@ requirement. That behavior is intentional and is not a forecast.
 
 This is **not** a forecast.
 
-The result still depends materially on GAP-006 and later open mechanisms. Demand
-and project-economics scenario coefficients remain explicit uncalibrated model
-parameters where marked, not empirical forecasts.
+The result still depends materially on GAP-007 and later open mechanisms. Demand,
+mission-observation and project-economics scenario coefficients remain explicit
+uncalibrated model parameters where marked, not empirical forecasts.
 
 Its purpose is to prove that real promoted authority now reaches the same locked
 engine and output path.
 
-## Golden GAP-005 baseline
+## Golden GAP-006 baseline
 
 Output:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP5_PROJECT_ECONOMICS_SEED42.json
+CIVPROP_ENGINE_V1_GAP6_MISSIONS_KNOWLEDGE_SEED42.json
 ```
 
 Manifest:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP5_BASELINE_MANIFEST.json
+CIVPROP_ENGINE_V1_GAP6_BASELINE_MANIFEST.json
 ```
 
 The GAP-001 compiled baseline and previous synthetic V1.0 baseline remain in the
@@ -614,7 +656,7 @@ Unit/functional coverage proves:
 - compilation from frozen capture is byte deterministic;
 - the locked runner accepts the compiled package;
 - the default runner now uses the compiled package;
-- GAP-001 through GAP-005 are CLOSED in current output;
+- GAP-001 through GAP-006 are CLOSED in current output;
 - UNKNOWN actor budget does not become zero, national capital or scenario credit;
 - scoped provider/service evidence does not become generic actor capability;
 - future actor budget/capability changes require replayable events;
@@ -628,10 +670,10 @@ The authoritative current gap register and the post-gap handoff plan are:
     engineering/civprop/gap_register_v1.json
     docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
 
-GAP-001 through GAP-005 closure should be interpreted using that register's closure
-semantics. The next engineering target is GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE.
+GAP-001 through GAP-006 closure should be interpreted using that register's closure
+semantics. The next engineering target is GAP-007 PRESSURE_OBSERVABILITY.
 
-## Boundary after GAP-005
+## Boundary after GAP-006
 
 The executable pipeline is now:
 
@@ -656,6 +698,6 @@ HYBRID_V1
 CIVPROP_ENGINE_V1_OUTPUT
 ```
 
-GAP-006 can now add mission execution and knowledge updates without redesigning
-this path or weakening the closed actor, accessibility, demand/pressure or
-project-economics boundaries.
+GAP-007 can now expose pressure state and qualification provenance without
+redesigning this path or weakening the closed actor, accessibility, demand/pressure,
+project-economics or mission/knowledge boundaries.

@@ -30,6 +30,10 @@ from ..contracts import (
     LocationState,
     ProjectArchetype,
     RunMetadata,
+    KnowledgeStateV1,
+    MissionDecisionRecordV1,
+    MissionRecordV1,
+    ObservationRecordV1,
 )
 
 
@@ -124,6 +128,10 @@ class Recorder:
         self.decisions: list[DecisionRecord] = []
         self.flows: list[FlowRecord] = []
         self.facilities: list[FacilityRecord] = []
+        self.missions: list[MissionRecordV1] = []
+        self.observations: list[ObservationRecordV1] = []
+        self.knowledge_states: list[KnowledgeStateV1] = []
+        self.mission_decisions: list[MissionDecisionRecordV1] = []
         self._event_counter = 0
         self._decision_counter = 0
         self._flow_counter = 0
@@ -437,7 +445,21 @@ def best_access_cost(
     return min(candidates) if candidates else None
 
 
-def resource_probability(bundle: LabBundle, location_id: str) -> float:
+def resource_probability(
+    bundle: LabBundle,
+    location_id: str,
+    *,
+    actor_id: Optional[str] = None,
+    knowledge=None,
+) -> float:
+    if knowledge is not None and actor_id is not None:
+        probs = [
+            state.probability
+            for (owner, _subject, location), state in knowledge.items()
+            if owner == actor_id and location == location_id
+        ]
+        if probs:
+            return max(probs)
     probs = [
         x.prior_probability
         for x in bundle.scenario.resource_beliefs
@@ -531,6 +553,7 @@ def opportunities(
     *,
     include_missions: bool = False,
     demand_observations: Optional[tuple[DemandObservation, ...]] = None,
+    knowledge=None,
 ) -> list[Opportunity]:
     result = []
     placements = {x.location_id: x.placement for x in bundle.scenario.locations}
@@ -558,7 +581,12 @@ def opportunities(
                 continue
             if not local_minimums_met(state, project, access_cost):
                 continue
-            probability = resource_probability(bundle, location_id)
+            probability = resource_probability(
+                bundle,
+                location_id,
+                actor_id=actor_id,
+                knowledge=knowledge,
+            )
             if project.output_capacities.resource > 0 and probability <= 0:
                 continue
             demand = project_demand(
@@ -797,6 +825,10 @@ def finalize(
         decisions=tuple(recorder.decisions),
         events=tuple(recorder.events),
         flows=tuple(recorder.flows),
+        missions=tuple(recorder.missions),
+        observations=tuple(recorder.observations),
+        knowledge_states=tuple(recorder.knowledge_states),
+        mission_decisions=tuple(recorder.mission_decisions),
     )
 
 

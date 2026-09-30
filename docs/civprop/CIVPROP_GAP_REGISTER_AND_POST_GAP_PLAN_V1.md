@@ -1,16 +1,16 @@
 # CIVPROP Gap Register and Post-Gap Plan V1
 
-Date: 2026-09-30
+Date: 2026-10-01
 Class: class:engineering
 Status: current program register and post-gap handoff plan
 
 ## Authority boundary
 
-This document records the CIVPROP program state through GAP-005 closure.
+This document records the CIVPROP program state through GAP-006 closure.
 
 Authoritative repository basis at creation:
 
-    3741fc0ea632de2fa0317b78e9789c95d63dfbfd
+    f70476fb6aeead4e495d1e234b5f351f4688f954
 
 Machine-readable register:
 
@@ -30,12 +30,12 @@ Current default runtime package:
 
 Current runner/output contract:
 
-    CIVPROP_ENGINE_V1_RUNNER 1.5.0
-    CIVPROP_ENGINE_V1_OUTPUT 1.5.0
+    CIVPROP_ENGINE_V1_RUNNER 1.6.0
+    CIVPROP_ENGINE_V1_OUTPUT 1.6.0
 
 Current engine:
 
-    HYBRID_V1 method-reference-v3
+    HYBRID_V1 method-reference-v4
 
 Current input authority:
 
@@ -77,11 +77,17 @@ GAP-005 is CLOSED. Project Economics V1 now supplies versioned physical/economic
 units, uncertainty ranges, scale behavior, technology-year adjustments and
 provenance. Scenario-class components remain explicitly non-empirical.
 
-The current baseline is still not a forecast because GAP-006 through GAP-015 remain
-open. Demand and project-economics scenario coefficients remain uncalibrated where
-marked, and later mechanisms materially affect the result. The default seed-42
-baseline remains an engineering regression/reference artifact, not a 2036 prediction
-or 2226 canon.
+GAP-006 is CLOSED. Mission/Knowledge V1 separates mission actions from
+infrastructure, actor-visible belief from evaluator truth, keyed noisy observations
+from hidden realization, and deterministic Bayesian knowledge updates from later
+decisions. The first admitted observation model is deliberately narrow: binary lunar
+resource presence.
+
+The current baseline is still not a forecast because GAP-007 through GAP-015 remain
+open. Demand, mission-observation and project-economics scenario coefficients remain
+uncalibrated where marked, and later mechanisms materially affect the result. The
+default seed-42 baseline remains an engineering regression/reference artifact, not a
+2036 prediction or 2226 canon.
 
 ## Closure semantics
 
@@ -120,7 +126,7 @@ A gap may close only when its replacement has:
 | GAP-003 | TRANSPORT_ACCESSIBILITY | CLOSED | Preserve scoped physics/service tri-state semantics; no inferred routes or entitlements |
 | GAP-004 | DEMAND_AND_PRESSURE_MODEL | CLOSED | Preserve state-derived/unit-preserving demand semantics; no authored annual curves |
 | GAP-005 | PROJECT_ECONOMICS | CLOSED | Preserve unit/provenance/uncertainty boundaries; scenario ranges remain non-empirical |
-| GAP-006 | MISSIONS_AND_KNOWLEDGE_UPDATE | OPEN | Integrate prospecting/observation/Bayesian knowledge evolution |
+| GAP-006 | MISSIONS_AND_KNOWLEDGE_UPDATE | CLOSED | Preserve hidden-truth firewall, keyed observations and actor-scoped posterior handoff |
 | GAP-007 | PRESSURE_OBSERVABILITY | OPEN | Emit or reconstruct pressure state and causal components |
 | GAP-008 | RESOURCE_MASS_BALANCE | OPEN | Add stock/grade/yield/throughput/inventory/depletion closure |
 | GAP-009 | PRODUCTION_AND_VALUE_ADDED | OPEN | Generate off-world production, capital, investment and value added |
@@ -453,7 +459,8 @@ Current frontier:
     GAP-003 CLOSED
     GAP-004 CLOSED
     GAP-005 CLOSED
-    GAP-006 OPEN
+    GAP-006 CLOSED
+    GAP-007 OPEN
 
 GAP-002 removed the compiled-input assumptions:
 
@@ -486,9 +493,19 @@ and replaced Method Lab project economics with Project Economics V1, including
 physical/economic units, uncertainty ranges, scale behavior and year-resolved
 technology adjustments. Historical Method Lab economics remain regression-only.
 
+GAP-006 removed the compiled-input assumption:
+
+    ASSUME-GAP006-RESOURCE-PRIOR
+
+as an open-gap placeholder and replaced it with the versioned Mission/Knowledge V1
+boundary. The 0.45 prior and 0.80/0.10 observation model remain explicitly
+uncalibrated scenario parameters inside that closed mechanism. PROSPECTING_SURVEY is
+now a mission action, not an infrastructure/project archetype.
+
 The next implementation target is therefore:
 
-    GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE
+    GAP-007 PRESSURE_OBSERVABILITY
 
-That work must add causal mission execution and knowledge updates without reopening
-the closed actor, accessibility, demand or project-economics boundaries.
+That work must expose or exactly reconstruct pressure state and qualification
+provenance without changing Hybrid decisions, random draws or the closed
+mission/knowledge semantics.
