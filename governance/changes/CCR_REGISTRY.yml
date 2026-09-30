@@ -4,7 +4,7 @@ id_format: CCR-YYYY-NNNN
 
 allocation:
   current_year: 2026
-  next_sequence: 2
+  next_sequence: 3
   ids_are_never_reused: true
 
 allowed_statuses:
@@ -31,4 +31,13 @@ records:
     originating_issue: Kevin promotion directive, 2026-09-25
     approved_pr: 269
     implemented_pr: 269
+    supersedes: []
+
+  - id: CCR-2026-0002
+    path: governance/changes/CCR-2026-0002-synthetic-personhood-horizons.yml
+    status: APPROVED_FOR_IMPLEMENTATION
+    title: Establish synthetic personhood historical horizons and reopen exact synthetic demography
+    originating_issue: Kevin canonization directive, 2026-10-01
+    approved_pr: null
+    implemented_pr: null
     supersedes: []
