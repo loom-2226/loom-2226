@@ -183,16 +183,18 @@ GAP-014.
 
 ## Pressure observability
 
-Dynamic pressure reservoirs remain internal to Hybrid V1.
+GAP-007 is now CLOSED through Pressure Observability V1.
 
-The runner exposes the versioned Demand / Pressure V1 configuration boundary, but
-does not emit annual pressure trajectories.
+The runner exposes pressure_observability_boundary, pressure_states,
+pressure_contributions and pressure_qualifications. The observability layer mirrors
+and validates Demand/Pressure V1 arithmetic but does not mutate pressure or alter
+project decisions. Causal pressure records explicitly carry zero synthetic discharge;
+capacity relief continues to act through unmet demand and decay.
 
-That is intentional. GAP-007 PRESSURE_OBSERVABILITY remains OPEN and owns the
-versioned pressure-state output and decision trace surface.
+Historical Method Lab pressure remains a separate LEGACY_PROJECT_PRESSURE semantic
+and records its old cost-based discharge explicitly when observability is enabled.
 
-Closing GAP-004 does not steal GAP-007 by quietly emitting a half-designed pressure
-ledger.
+See docs/civprop/CIVPROP_PRESSURE_OBSERVABILITY_V1.md.
 
 ## Hostile cases
 
@@ -255,17 +257,18 @@ GAP-004 is closed because the default production-facing path now:
 5. removes OFFWORLD_* and WATER_RESOURCE_DEMAND series from the default compiled
    input.
 
-## What remains open
+## Downstream boundaries
 
-GAP-004 does not solve:
+GAP-004 did not itself solve the downstream project-economics, mission/knowledge or
+pressure-observability gaps; those mechanisms are now closed separately by GAP-005,
+GAP-006 and GAP-007.
 
-- calibrated project costs, lags or capacities: GAP-005;
-- missions and knowledge evolution: GAP-006;
-- emitted/reconstructable annual pressure state: GAP-007;
+The remaining frontier begins with:
+
 - resource mass balance: GAP-008;
 - production/value added: GAP-009;
 - power-system balance: GAP-010;
 - traffic and fleet utilization: GAP-011;
 - full demography and migration: GAP-014.
 
-The immediate engineering frontier is GAP-005 PROJECT_ECONOMICS.
+The immediate engineering frontier is GAP-008 RESOURCE_MASS_BALANCE.

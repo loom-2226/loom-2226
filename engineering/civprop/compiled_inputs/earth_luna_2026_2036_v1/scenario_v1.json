@@ -486,7 +486,8 @@
         "GAP-003": "CLOSED",
         "GAP-004": "CLOSED",
         "GAP-005": "CLOSED",
-        "GAP-006": "CLOSED"
+        "GAP-006": "CLOSED",
+        "GAP-007": "CLOSED"
       }
     },
     "earth": {
@@ -918,6 +919,17 @@
           }
         ],
         "scope": "EARTH_ORBIT_LUNA_RESOURCE_PROSPECTING_2026_2036"
+      },
+      "pressure_observability_source": {
+        "path": "engineering/civprop/contracts/pressure_observability_v1.json",
+        "sha256": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d"
+      },
+      "pressure_observability_v1": {
+        "contract_version": "1.0.0",
+        "emit_all_qualifications": true,
+        "emit_contributions": true,
+        "format": "CIVPROP_PRESSURE_OBSERVABILITY_V1",
+        "record_legacy_discharge": true
       },
       "project_economics_source": {
         "path": "engineering/civprop/contracts/project_economics_v1.json",
@@ -2152,6 +2164,13 @@
       }
     ],
     "scope": "EARTH_ORBIT_LUNA_RESOURCE_PROSPECTING_2026_2036"
+  },
+  "pressure_observability_v1": {
+    "contract_version": "1.0.0",
+    "emit_all_qualifications": true,
+    "emit_contributions": true,
+    "format": "CIVPROP_PRESSURE_OBSERVABILITY_V1",
+    "record_legacy_discharge": true
   },
   "project_archetypes": [
     {

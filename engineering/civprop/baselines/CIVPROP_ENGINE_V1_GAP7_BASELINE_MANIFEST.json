@@ -1,0 +1,177 @@
+{
+  "baseline_date": "2026-10-01",
+  "baseline_id": "CIVPROP_ENGINE_V1_GAP7_PRESSURE_OBSERVABILITY_BASELINE_2026_10_01",
+  "change_control": {
+    "engine_algorithm_change": "BUMP_ENGINE_VERSION",
+    "gap1_authority_capture_change": "NEW_CAPTURE_HASH_NEW_COMPILED_INPUT_HASH_NEW_GOLDEN_BASELINE",
+    "gap2_actor_state_change": "BUMP_ACTOR_STATE_CONTRACT_OR_COMPILER_SEMANTICS_AND_NEW_GOLDEN_BASELINE",
+    "gap3_accessibility_change": "BUMP_ACCESSIBILITY_CONTRACT_OR_COMPILER_SEMANTICS_AND_NEW_GOLDEN_BASELINE",
+    "gap4_demand_pressure_change": "BUMP_DEMAND_PRESSURE_CONTRACT_OR_MODEL_SEMANTICS_AND_NEW_GOLDEN_BASELINE",
+    "gap5_project_economics_change": "BUMP_PROJECT_ECONOMICS_CONTRACT_OR_PARAMETER_SET_AND_NEW_GOLDEN_BASELINE",
+    "gap6_mission_knowledge_change": "BUMP_MISSION_KNOWLEDGE_CONTRACT_OR_OBSERVATION_SEMANTICS_AND_NEW_GOLDEN_BASELINE",
+    "gap7_pressure_observability_change": "BUMP_PRESSURE_OBSERVABILITY_CONTRACT_OR_LEDGER_SEMANTICS_AND_NEW_GOLDEN_BASELINE",
+    "no_silent_rewrites": true,
+    "other_gap_placeholder_change": "MUST_IDENTIFY_OWNING_GAP_AND_VERSION_SEMANTICS_IF_MEANING_CHANGES",
+    "runner_or_output_semantic_change": "BUMP_RUNNER_OR_OUTPUT_CONTRACT_VERSION"
+  },
+  "engine": {
+    "architecture_ref": "docs/civprop/CIVPROP_ENGINE_V1_SELECTION.md",
+    "id": "HYBRID_V1",
+    "version": "method-reference-v5"
+  },
+  "evaluation_only_truth": {
+    "access_policy": "OBSERVATION_RUNTIME_ONLY_WHEN_ADMITTED_MISSION_EXECUTES",
+    "consumed_by_engine_in_golden_run": false,
+    "path": "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/truth_v1.json",
+    "role": "HIDDEN_SIMULATED_REALIZATION_OBSERVATION_RUNTIME_ONLY_NOT_ACTOR_INPUT",
+    "sha256": "5fc711e178ea39e78112620f589d1dab77da26dd8a40fdfe2f778fa98bad30d7"
+  },
+  "format": "CIVPROP_ENGINE_V1_EXECUTABLE_BASELINE_MANIFEST",
+  "gap_status": {
+    "GAP-001": "CLOSED",
+    "GAP-002": "CLOSED",
+    "GAP-003": "CLOSED",
+    "GAP-004": "CLOSED",
+    "GAP-005": "CLOSED",
+    "GAP-006": "CLOSED",
+    "GAP-007": "CLOSED",
+    "GAP-008": "OPEN",
+    "GAP-009": "OPEN",
+    "GAP-010": "OPEN",
+    "GAP-011": "OPEN",
+    "GAP-012": "OPEN",
+    "GAP-013": "OPEN",
+    "GAP-014": "OPEN",
+    "GAP-015": "OPEN"
+  },
+  "golden_output": {
+    "canonical_payload_sha256": "086462d33fc23f4aa53785383d5313ce7540d0b3adc496feb76517082242eb66",
+    "path": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_PRESSURE_OBSERVABILITY_SEED42.json",
+    "record_counts": {
+      "actor_state_events": 0,
+      "actor_states": 11,
+      "actor_transactions": 0,
+      "annual_states": 44,
+      "decisions": 11,
+      "events": 46,
+      "facilities": 0,
+      "flows": 0,
+      "knowledge_states": 1,
+      "mission_decisions": 11,
+      "missions": 0,
+      "observations": 0,
+      "pressure_contributions": 99,
+      "pressure_qualifications": 0,
+      "pressure_states": 165
+    },
+    "seed": 42,
+    "sha256": "8d76ad9cf68217b1d9c7f3537994257b02e9f7a25151b1124cb7c049cbbafc41"
+  },
+  "implementation": {
+    "accessibility_contract_sha256": "4df05ea52862c1803316089918f3c7d69c04d68c2c73a5bb6b71ef39314e0628",
+    "actor_state_contract_sha256": "aa09d20395a281dad18d170470b23fd504e8ea54f6ba45dc05f9f728030c5b27",
+    "common_helpers_sha256": "1dc00576b0cc5467ca46f34c608ca11a53e3060fad161c74688dfb31e1f50d14",
+    "demand_pressure_contract_sha256": "f0eb9303a3d7256a0163f2ecf5a67606c35e2e88174c967692fcf414110436c4",
+    "hybrid_engine_sha256": "c7b3f9c4ba1fa157473b91a0d025a9205023dc5c4235295b8332f897c1cefb11",
+    "infrastructure_contract_sha256": "bcbcc8705ed18b5acad98c78b87f229b94d6c0b590551b2326fb715520bf5273",
+    "method_lab_contracts_sha256": "46b8e3a5cd378fb43d2f07f8b2e06890987909cbb8de47a122a5dae06c2490e1",
+    "mission_knowledge_contract_sha256": "c393464d49ec1309bf84a12b0d932608f837a9ea79bebacd48219d3ae3b1d2ce",
+    "mission_knowledge_parameter_set_sha256": "e95f42820502e24ba638ba0e4b38cc7c3019ffc8551ee5848d5c6abdc940b6a7",
+    "mission_lane_sha256": "82d4564faafacaef6cb12eac8e7a1d71df273952b2738687b3690df5084ce1c7",
+    "pressure_lane_sha256": "fa6788bfa5d52a4ac4e402996b8c859f9ead5a5fdd70153f42e20d36c289a3f0",
+    "pressure_observability_contract_sha256": "45f4667cdd7e8db458cb4299adc813d987e2681ffc9b7996577d2573f54e26a2",
+    "pressure_observability_parameter_set_sha256": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d",
+    "project_economics_contract_sha256": "c0551314e05e8a468b722feddfa34d43f0e36707a59478789688b4de735961c6",
+    "project_economics_parameter_set_sha256": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
+    "runner_sha256": "807ad2f50fa7bea890a6fd7aa940892ab8ca25de48dc76e0e6685c64587db3b7"
+  },
+  "infrastructure": {
+    "catalog_format": "CIVPROP_INFRASTRUCTURE_ARCHETYPE_CATALOG_V1",
+    "catalog_id": "CIVPROP_INFRASTRUCTURE_ARCHETYPES_V1",
+    "catalog_path": "engineering/civprop/contracts/infrastructure_archetypes_v1.json",
+    "catalog_sha256": "a01c9f151909bbb1f23a2f3c093be5585f79e4198d5078ac8417b32818bad9c2",
+    "parameter_set_id": "EARTH_LUNA_PROJECT_ECONOMICS_V1_2026_2036",
+    "parameter_status": "PROJECT_ECONOMICS_V1_MIXED_STATUS",
+    "parameterized_archetypes": [
+      "HABITAT",
+      "INDUSTRIAL_WORKSHOP",
+      "LOGISTICS_NODE",
+      "POWER_PLANT",
+      "RESOURCE_PLANT"
+    ]
+  },
+  "input_compiler": {
+    "authority_capture": {
+      "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
+      "path": "engineering/civprop/inputs/authority_capture_v1.json",
+      "sha256": "9d623fefd931f5ae572b798ef9a0ee4159423358b82253e6c226e3106de8c86a",
+      "source_basis_commit": "95cac9a31b833a34c84d3be2f7b14e8e7804546e"
+    },
+    "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
+    "compiler_version": "1.6.0",
+    "gap_resolution": {
+      "GAP-001": "CLOSED",
+      "GAP-002": "CLOSED",
+      "GAP-003": "CLOSED",
+      "GAP-004": "CLOSED",
+      "GAP-005": "CLOSED",
+      "GAP-006": "CLOSED",
+      "GAP-007": "CLOSED",
+      "GAP-008": "OPEN",
+      "GAP-009": "OPEN",
+      "GAP-010": "OPEN",
+      "GAP-011": "OPEN",
+      "GAP-012": "OPEN",
+      "GAP-013": "OPEN",
+      "GAP-014": "OPEN",
+      "GAP-015": "OPEN"
+    },
+    "manifest_path": "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/compiler_manifest_v1.json",
+    "manifest_sha256": "853320ecdc4856db72f08621f80c9d7e9bcbf8832b5f6d45c576fc3a3b2e4a6e",
+    "path": "engineering/civprop/compile_inputs_v1.py",
+    "source_sha256": "49f30f76d68513711d0d3c71c9706274519349ae6f2b2fbc14a88d7286c187de"
+  },
+  "mission_knowledge": {
+    "contract_format": "CIVPROP_MISSION_KNOWLEDGE_V1",
+    "contract_path": "engineering/civprop/contracts/mission_knowledge_v1.py",
+    "contract_sha256": "c393464d49ec1309bf84a12b0d932608f837a9ea79bebacd48219d3ae3b1d2ce",
+    "contract_version": "1.0.0",
+    "default_success_value_status": "UNKNOWN",
+    "mission_count": 1,
+    "observation_model_count": 1,
+    "package_id": "EARTH_LUNA_MISSION_KNOWLEDGE_V1_2026_2036",
+    "package_status": "GENERAL_CONTRACT_BINARY_RESOURCE_IMPLEMENTATION_V1",
+    "parameter_set_path": "engineering/civprop/contracts/mission_knowledge_v1.json",
+    "parameter_set_sha256": "e95f42820502e24ba638ba0e4b38cc7c3019ffc8551ee5848d5c6abdc940b6a7",
+    "question_count": 1
+  },
+  "output_contract_version": "1.7.0",
+  "pressure_observability": {
+    "causal_discharge_in_golden_run": 0.0,
+    "contract_format": "CIVPROP_PRESSURE_OBSERVABILITY_V1",
+    "contract_path": "engineering/civprop/contracts/pressure_observability_v1.py",
+    "contract_sha256": "45f4667cdd7e8db458cb4299adc813d987e2681ffc9b7996577d2573f54e26a2",
+    "contract_version": "1.0.0",
+    "emit_all_qualifications": true,
+    "emit_contributions": true,
+    "gap6_behavioral_payload_identical": true,
+    "parameter_set_path": "engineering/civprop/contracts/pressure_observability_v1.json",
+    "parameter_set_sha256": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d",
+    "record_legacy_discharge": true
+  },
+  "recapture_compile_entrypoint": "python3 engineering/civprop/compile_inputs_v1.py --capture-live",
+  "run_entrypoint": "python3 engineering/civprop/run_civprop_v1.py --seed 42 --output /tmp/civprop_v1.json",
+  "runner": {
+    "id": "CIVPROP_ENGINE_V1_RUNNER",
+    "version": "1.7.0"
+  },
+  "runtime_input": {
+    "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
+    "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
+    "format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
+    "path": "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json",
+    "sha256": "17200aa2cd9d0272f3871fe3bd3806a03aa88af8698e9fbb7e2e93f7bcfcafb4"
+  },
+  "source_basis_commit": "95cac9a31b833a34c84d3be2f7b14e8e7804546e",
+  "status": "LOCKED_GAP7_PRESSURE_OBSERVABILITY_BASELINE_WITH_EXPLICIT_LATER_GAP_ASSUMPTIONS"
+}

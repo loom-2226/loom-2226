@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-Runner V1.6 keeps the selected HYBRID_V1 architecture and closed GAP-001
-through GAP-005 boundaries, then adds GAP-006 Mission/Knowledge V1 with explicit
-mission actions, actor-visible beliefs, keyed noisy observations and deterministic
-Bayesian updates. Later gaps remain explicit rather than being silently invented.
+Runner V1.7 keeps the selected HYBRID_V1 architecture and closed GAP-001
+through GAP-006 boundaries, then adds GAP-007 Pressure Observability V1 with
+reconstructable annual pressure transitions, quantified contributions and exact
+qualification provenance. The audit lane is read-only and does not change decisions
+or random draws. Later gaps remain explicit rather than being silently invented.
 """
 from __future__ import annotations
 
@@ -39,15 +40,18 @@ from engineering.civprop.method_lab.prototypes.common import (
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.6.0"
+OUTPUT_CONTRACT_VERSION = "1.7.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.6.0"
+RUNNER_VERSION = "1.7.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
 PROJECT_ECONOMICS_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "project_economics_v1.json"
 )
 MISSION_KNOWLEDGE_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "mission_knowledge_v1.json"
+)
+PRESSURE_OBSERVABILITY_PARAMETER_PATH = (
+    _CIVPROP_DIR / "contracts" / "pressure_observability_v1.json"
 )
 
 
@@ -164,8 +168,13 @@ def _implementation_hashes() -> dict[str, str]:
         infrastructure_v1,
         project_economics_v1,
         mission_knowledge_v1,
+        pressure_observability_v1,
     )
-    from engineering.civprop.method_lab import contracts, mission_lane_v1
+    from engineering.civprop.method_lab import (
+        contracts,
+        mission_lane_v1,
+        pressure_lane_v1,
+    )
     from engineering.civprop.method_lab.prototypes import common, hybrid_v1
 
     return {
@@ -188,6 +197,13 @@ def _implementation_hashes() -> dict[str, str]:
             MISSION_KNOWLEDGE_PARAMETER_PATH
         ),
         "mission_lane_sha256": _module_sha256(mission_lane_v1),
+        "pressure_observability_contract_sha256": _module_sha256(
+            pressure_observability_v1
+        ),
+        "pressure_observability_parameter_set_sha256": _sha256(
+            PRESSURE_OBSERVABILITY_PARAMETER_PATH
+        ),
+        "pressure_lane_sha256": _module_sha256(pressure_lane_v1),
     }
 
 
@@ -231,7 +247,16 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
             "STATE_DERIVED_REQUIREMENT_MINUS_CAPACITY_WITH_UNIT_PRESERVING_MEMORY"
         ),
         "pressure_state": (
-            "INTERNAL_NOT_EMITTED_ONLY_QUALIFICATION_EVENTS_VISIBLE"
+            "VERSIONED_IMMUTABLE_ANNUAL_LEDGER_WITH_RECONSTRUCTABLE_TRANSITIONS"
+        ),
+        "pressure_contributions": (
+            "QUANTIFIED_CAUSAL_REQUIREMENT_AND_CAPACITY_COMPONENTS_WITH_STABLE_IDS"
+        ),
+        "pressure_qualification": (
+            "PER_OPPORTUNITY_RATIO_TRACE_WITH_SELECTED_DECISION_PROVENANCE"
+        ),
+        "pressure_observability_effect": (
+            "READ_ONLY_INSTRUMENTATION_DECISIONS_AND_RANDOM_DRAWS_UNCHANGED"
         ),
         "pressure_memory": (
             "CHANNEL_PRESSURE_DECAYS_WHEN_UNMET_REQUIREMENT_DISAPPEARS"
@@ -310,7 +335,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-007",
             "name": "PRESSURE_OBSERVABILITY",
             "status": "OPEN",
-            "meaning": "Pressure levels are internal; only pressure-qualified events are emitted.",
+            "meaning": "Pressure Observability V1 emits immutable annual pressure transitions, quantified causal contributions and per-opportunity qualification traces with stable IDs; selected project decisions link to the exact qualifying record without changing Hybrid behavior.",
         },
         {
             "gap_id": "GAP-008",
@@ -683,6 +708,13 @@ def build_output(
             if bundle.scenario.mission_knowledge_v1 is None
             else json.loads(canonical_json(bundle.scenario.mission_knowledge_v1))
         ),
+        "pressure_observability_boundary": (
+            None
+            if bundle.scenario.pressure_observability_v1 is None
+            else json.loads(
+                canonical_json(bundle.scenario.pressure_observability_v1)
+            )
+        ),
         "actor_states": actor_states,
         "actor_transactions": actor_transactions,
         "actor_state_events": actor_state_events,
@@ -693,6 +725,15 @@ def build_output(
         "missions": result_dict.get("missions", []),
         "observations": result_dict.get("observations", []),
         "knowledge_states": result_dict.get("knowledge_states", []),
+        "pressure_states": result_dict.get("pressure_states", []),
+        "pressure_contributions": result_dict.get(
+            "pressure_contributions",
+            [],
+        ),
+        "pressure_qualifications": result_dict.get(
+            "pressure_qualifications",
+            [],
+        ),
         "events": result_dict["events"],
         "flows": result_dict["flows"],
     }
@@ -708,7 +749,7 @@ def main() -> None:
         "--input-dir",
         type=Path,
         default=default_input_dir,
-        help="Compatible frozen input directory (defaults to GAP-001 through GAP-006 compiled V1).",
+        help="Compatible frozen input directory (defaults to GAP-001 through GAP-007 compiled V1).",
     )
     parser.add_argument(
         "--infrastructure-catalog",

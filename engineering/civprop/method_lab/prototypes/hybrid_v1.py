@@ -13,6 +13,7 @@ from collections import defaultdict
 
 from engineering.civprop.contracts.demand_pressure_v1 import DemandPressureRuntime
 from ..mission_lane_v1 import MissionLaneV1
+from ..pressure_lane_v1 import PressureLaneV1
 
 from .common import (
     Recorder,
@@ -80,19 +81,19 @@ class HybridEngineV1:
         causal_demand = bundle.scenario.demand_pressure_v1 is not None
         production_economics = bundle.scenario.project_economics_v1 is not None
         mission_knowledge = bundle.scenario.mission_knowledge_v1 is not None
-        self.engine_version = (
-            "method-reference-v4"
-            if mission_knowledge
-            else (
-                "method-reference-v3"
-                if production_economics
-                else (
-                    "method-reference-v2"
-                    if causal_demand
-                    else "method-reference-v1"
-                )
-            )
+        pressure_observability = (
+            bundle.scenario.pressure_observability_v1 is not None
         )
+        if pressure_observability:
+            self.engine_version = "method-reference-v5"
+        elif mission_knowledge:
+            self.engine_version = "method-reference-v4"
+        elif production_economics:
+            self.engine_version = "method-reference-v3"
+        elif causal_demand:
+            self.engine_version = "method-reference-v2"
+        else:
+            self.engine_version = "method-reference-v1"
         demand_runtime = (
             DemandPressureRuntime(bundle.scenario.demand_pressure_v1)
             if causal_demand
@@ -109,6 +110,11 @@ class HybridEngineV1:
         mission_lane = (
             MissionLaneV1(bundle, seed, recorder)
             if mission_knowledge
+            else None
+        )
+        pressure_lane = (
+            PressureLaneV1(bundle.scenario, recorder)
+            if pressure_observability
             else None
         )
         annual_states = []
@@ -129,6 +135,7 @@ class HybridEngineV1:
                 )
 
             if causal_demand:
+                opening_pressure = dict(pressure)
                 demand_observations = demand_runtime.derive(
                     states,
                     year=year,
@@ -138,6 +145,13 @@ class HybridEngineV1:
                     pressure,
                     demand_observations,
                 )
+                if pressure_lane is not None:
+                    pressure_lane.causal_update(
+                        year=year,
+                        previous_pressure=opening_pressure,
+                        observations=demand_observations,
+                        resulting_pressure=pressure,
+                    )
                 actor_opportunities = {
                     actor_id: opportunities(
                         bundle,
@@ -154,6 +168,7 @@ class HybridEngineV1:
                     for actor_id in actor_ids
                 }
             else:
+                opening_pressure = dict(pressure)
                 # Historical Method Lab semantics are retained byte-for-byte:
                 # decay project pressure and replenish it from the old exogenous
                 # demand/utility fixture.
@@ -189,6 +204,15 @@ class HybridEngineV1:
 
                 for key, signal in structural.items():
                     pressure[key] += signal * self.pressure_gain
+                if pressure_lane is not None:
+                    pressure_lane.legacy_update(
+                        year=year,
+                        opening_pressure=opening_pressure,
+                        structural_signals=structural,
+                        resulting_pressure=pressure,
+                        decay=self.pressure_decay,
+                        gain=self.pressure_gain,
+                    )
 
             if mission_lane is not None:
                 mission_lane.evaluate_and_commit(
@@ -209,6 +233,25 @@ class HybridEngineV1:
                         continue
                     if already_pending(pending, *key):
                         continue
+
+                    audit_qualification = None
+                    if pressure_lane is not None:
+                        audit_qualification = (
+                            pressure_lane.causal_qualification(
+                                year=year,
+                                actor_id=actor_id,
+                                opportunity=opportunity,
+                                threshold=self.qualification_ratio,
+                            )
+                            if causal_demand
+                            else pressure_lane.legacy_qualification(
+                                year=year,
+                                actor_id=actor_id,
+                                opportunity=opportunity,
+                                threshold=self.qualification_ratio,
+                            )
+                        )
+
                     if not budget_can_afford(
                         bundle, budgets[actor_id], opportunity.project.capital_cost
                     ):
@@ -223,6 +266,16 @@ class HybridEngineV1:
                         if causal_demand
                         else pressure[key] / opportunity.project.capital_cost
                     )
+                    if (
+                        audit_qualification is not None
+                        and abs(
+                            audit_qualification.controlling_ratio - ratio
+                        )
+                        > 1e-12
+                    ):
+                        raise ValueError(
+                            "pressure qualification ledger diverges from engine ratio"
+                        )
                     if ratio < self.qualification_ratio:
                         continue
 
@@ -276,7 +329,7 @@ class HybridEngineV1:
                 schedule(
                     pending, recorder, self.engine_id, actor_id, choice, year
                 )
-                recorder.decision(
+                decision_id = recorder.decision(
                     year,
                     actor_id,
                     "COMMIT_PROJECT",
@@ -285,6 +338,14 @@ class HybridEngineV1:
                     choice.project.project_archetype_id,
                     rationale=("PRESSURE_QUALIFIED", "ACTOR_SELECTED"),
                 )
+                if pressure_lane is not None:
+                    pressure_lane.link_selected_decision(
+                        year=year,
+                        actor_id=actor_id,
+                        location_id=choice.location_id,
+                        project_archetype_id=choice.project.project_archetype_id,
+                        decision_id=decision_id,
+                    )
                 committed_keys.add(key)
 
                 if not causal_demand:
@@ -293,6 +354,11 @@ class HybridEngineV1:
                         pressure[key]
                         - choice.project.capital_cost * self.pressure_discharge,
                     )
+
+            if pressure_lane is not None and not causal_demand:
+                pressure_lane.close_legacy_year(
+                    resulting_pressure=pressure,
+                )
 
             migration_step(bundle, states, year, recorder, adjustment=0.30)
             annual_states.extend(snapshot(year, states))

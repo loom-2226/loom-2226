@@ -179,8 +179,9 @@ As of the register basis commit:
     GAP-004 DEMAND_AND_PRESSURE_MODEL CLOSED
     GAP-005 PROJECT_ECONOMICS         CLOSED
     GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE CLOSED
+    GAP-007 PRESSURE_OBSERVABILITY   CLOSED
 
-The selected Hybrid V1 architecture remains fixed while GAP-007 through GAP-015
+The selected Hybrid V1 architecture remains fixed while GAP-008 through GAP-015
 replace the remaining placeholders and missing state/output surfaces.
 
 The post-gap sequence is also frozen in that register so completion of the gap list

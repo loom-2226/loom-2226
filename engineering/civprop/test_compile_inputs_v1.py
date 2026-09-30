@@ -208,6 +208,17 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         }
         self.assertNotIn("ASSUME-GAP006-RESOURCE-PRIOR", assumptions)
 
+    def test_gap7_compiles_pressure_observability_boundary(self):
+        package = self.scenario["pressure_observability_v1"]
+        self.assertEqual(
+            package["format"],
+            "CIVPROP_PRESSURE_OBSERVABILITY_V1",
+        )
+        self.assertEqual(package["contract_version"], "1.0.0")
+        self.assertTrue(package["emit_contributions"])
+        self.assertTrue(package["emit_all_qualifications"])
+        self.assertTrue(package["record_legacy_discharge"])
+
     def test_other_unresolved_engine_inputs_are_not_disguised_as_authority(self):
         assumptions = self.scenario["assumption_register"]
         gaps = {x["gap_id"] for x in assumptions}
@@ -216,6 +227,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertNotIn("GAP-004", gaps)
         self.assertNotIn("GAP-005", gaps)
         self.assertNotIn("GAP-006", gaps)
+        self.assertNotIn("GAP-007", gaps)
         self.assertIn("GAP-012", gaps)
         for row in assumptions:
             self.assertIn(row["status"], {"EXPLICIT_PLACEHOLDER", "COMPATIBILITY_BOUNDARY"})
@@ -256,7 +268,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(access["subject_id"], "ROO_VER")
         self.assertNotEqual(access["subject_id"], "FLEET_SPACE_TECHNOLOGIES")
 
-    def test_compiler_manifest_closes_gap1_through_gap6(self):
+    def test_compiler_manifest_closes_gap1_through_gap7(self):
         manifest = self.compiler_manifest
         self.assertEqual(manifest["format"], "CIVPROP_INPUT_COMPILER_MANIFEST_V1")
         self.assertEqual(len(manifest["compiler_source_sha256"]), 64)
@@ -267,7 +279,8 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(manifest["gap_resolution"]["GAP-004"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-005"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-006"], "CLOSED")
-        self.assertEqual(manifest["gap_resolution"]["GAP-007"], "OPEN")
+        self.assertEqual(manifest["gap_resolution"]["GAP-007"], "CLOSED")
+        self.assertEqual(manifest["gap_resolution"]["GAP-008"], "OPEN")
         self.assertEqual(manifest["runtime_input"]["fixture_id"], COMPILED_FIXTURE_ID)
 
     def test_compiler_is_deterministic_from_frozen_capture(self):
@@ -329,12 +342,14 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         gap4 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-004")
         gap5 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-005")
         gap6 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-006")
+        gap7 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-007")
         self.assertEqual(gap1["status"], "CLOSED")
         self.assertEqual(gap2["status"], "CLOSED")
         self.assertEqual(gap3["status"], "CLOSED")
         self.assertEqual(gap4["status"], "CLOSED")
         self.assertEqual(gap5["status"], "CLOSED")
         self.assertEqual(gap6["status"], "CLOSED")
+        self.assertEqual(gap7["status"], "CLOSED")
         self.assertTrue(output["actor_states"])
         self.assertTrue(output["annual_states"])
         self.assertTrue(output["events"])

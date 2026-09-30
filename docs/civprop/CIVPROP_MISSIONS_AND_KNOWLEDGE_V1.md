@@ -447,7 +447,7 @@ not a facility.
 
 ## Output surface
 
-Runner V1.6 exposes:
+Runner V1.7 continues to expose:
 
     mission_knowledge_boundary
     mission_decisions
@@ -575,10 +575,13 @@ Closure does not mean:
 - multi-hypothesis scientific inference is solved;
 - knowledge sharing/classification policy is complete.
 
-## Immediate frontier
+## Pressure observability handoff
 
-GAP-007 PRESSURE_OBSERVABILITY is next.
+GAP-007 PRESSURE_OBSERVABILITY is CLOSED.
 
-Pressure already affects Hybrid decisions. GAP-007 owns making that internal causal
-state emitted or exactly reconstructable without changing decisions or keyed random
-draws.
+Pressure Observability V1 now emits reconstructable pressure state, quantified
+contributions and qualification provenance without changing the GAP-006 mission or
+knowledge behavior. The complete pre-existing GAP-006 behavioral arrays remain
+byte-identical under the GAP-007 baseline.
+
+The immediate frontier is GAP-008 RESOURCE_MASS_BALANCE.

@@ -6,13 +6,14 @@ Status: locked executable baseline; compiled authority with explicit open-gap as
 
 ## Current baseline status
 
-Runner V1.6.0 now defaults to the GAP-001 through GAP-006 compiled authority package
+Runner V1.7.0 now defaults to the GAP-001 through GAP-007 compiled authority package
 documented in docs/civprop/CIVPROP_INPUT_COMPILER_V1.md,
 docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md,
 docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md,
 docs/civprop/CIVPROP_DEMAND_PRESSURE_V1.md,
-docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md and
-docs/civprop/CIVPROP_MISSIONS_AND_KNOWLEDGE_V1.md.
+docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md,
+docs/civprop/CIVPROP_MISSIONS_AND_KNOWLEDGE_V1.md and
+docs/civprop/CIVPROP_PRESSURE_OBSERVABILITY_V1.md.
 
 The original V1.0 synthetic Method Lab baseline remains preserved as historical
 regression evidence. It was not overwritten.
@@ -29,7 +30,8 @@ Current gap state begins:
     GAP-004 CLOSED
     GAP-005 CLOSED
     GAP-006 CLOSED
-    GAP-007 through GAP-015 OPEN
+    GAP-007 CLOSED
+    GAP-008 through GAP-015 OPEN
 
 ## Purpose
 
@@ -66,7 +68,7 @@ From repository root:
 
     python3 engineering/civprop/run_civprop_v1.py       --seed 42       --output /tmp/civprop_v1.json
 
-With no path arguments, the runner uses the GAP-001 through GAP-006 compiled authority package and Infrastructure Archetype V1 catalog.
+With no path arguments, the runner uses the GAP-001 through GAP-007 compiled authority package and Infrastructure Archetype V1 catalog.
 
 The runner may later be pointed at another compatible frozen input package with --input-dir and --infrastructure-catalog.
 
@@ -76,15 +78,15 @@ Changing input values is allowed. Changing input meaning is not allowed silently
 
 Machine-readable manifest:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP6_BASELINE_MANIFEST.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_BASELINE_MANIFEST.json
 
 Golden output:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP6_MISSIONS_KNOWLEDGE_SEED42.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_PRESSURE_OBSERVABILITY_SEED42.json
 
 The current baseline contains real promoted authority plus explicit unresolved
 synthetic assumptions. It proves execution, contracts, provenance and causal
-bookkeeping. It is not yet a production forecast because GAP-007 onward remain open.
+bookkeeping. It is not yet a production forecast because GAP-008 onward remain open.
 
 The prior V1.0 synthetic manifest/golden files remain preserved as historical
 regression artifacts.
@@ -364,8 +366,9 @@ A project is qualified by comparing channel pressure with the capacity that proj
 would add in the same channel. Pressure alone never creates infrastructure: actor
 capability, accessibility, affordability and selection still apply.
 
-Dynamic pressure values remain internal. GAP-007 owns the eventual emitted/replayable
-pressure-state surface.
+Pressure Observability V1 now emits immutable annual pressure state, quantified
+causal contributions and per-opportunity qualification traces. The audit lane mirrors
+and verifies Hybrid arithmetic without feeding decisions or random draws.
 
 ## Actor decision semantics
 
@@ -424,20 +427,20 @@ Top-level output fields:
     flows
 
 Current format: CIVPROP_ENGINE_V1_OUTPUT.
-Current contract version: 1.6.0.
+Current contract version: 1.7.0.
 
 ## Metadata
 
-metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.6.0.
+metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.7.0.
 
-metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current default engine is HYBRID_V1 / method-reference-v4.
+metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current default engine is HYBRID_V1 / method-reference-v5.
 
 metadata.inputs records fixture_id, scenario_format, Method Lab manifest/bundle hashes, actor-visible scenario hash, runtime input hash, evaluator-truth hash, observation-only access policy and whether evaluator truth was actually consumed in the run, plus input authority and provenance basis.
 
 method_lab_bundle_sha256 identifies the complete evaluation package. runtime_input_sha256 identifies the actor-visible runtime scenario. They are intentionally separate.
 
 metadata.infrastructure records catalog id/format/hash, parameter-set id/status and parameterized archetypes.
-metadata.implementation pins SHA-256 values for the runner, hybrid engine, shared helpers, Method Lab contracts, infrastructure, actor-state, accessibility, demand/pressure, project-economics and mission/knowledge contracts plus the mission-lane adapter.
+metadata.implementation pins SHA-256 values for the runner, hybrid engine, shared helpers, Method Lab contracts, infrastructure, actor-state, accessibility, demand/pressure, project-economics, mission/knowledge and pressure-observability contracts plus the mission and pressure-lane adapters.
 
 The purpose is reproducibility independent of a vague statement such as "current main."
 
@@ -521,7 +524,7 @@ Current gap status:
     GAP-004 DEMAND_AND_PRESSURE_MODEL              CLOSED
     GAP-005 PROJECT_ECONOMICS                      CLOSED
     GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE          CLOSED
-    GAP-007 PRESSURE_OBSERVABILITY                 OPEN
+    GAP-007 PRESSURE_OBSERVABILITY                 CLOSED
     GAP-008 RESOURCE_MASS_BALANCE                  OPEN
     GAP-009 PRODUCTION_AND_VALUE_ADDED             OPEN
     GAP-010 POWER_BALANCE                          OPEN
@@ -541,7 +544,7 @@ for a more complete simulation than it is.
 
 # Golden Seed-42 Baseline
 
-The current GAP-006 mission/knowledge seed-42 baseline produces:
+The current GAP-007 pressure-observability seed-42 baseline produces:
 
     44 annual location-state rows
     11 annual actor-state rows
@@ -554,6 +557,9 @@ The current GAP-006 mission/knowledge seed-42 baseline produces:
     0 actor transactions
     46 events
     0 migration flows
+    165 pressure-state rows
+    99 pressure-contribution rows
+    0 pressure-qualification rows
 
 All 11 project decisions are WAIT and all 11 mission decisions are WAIT. The current
 AUS actor retains a private lunar-water prior at probability 0.45, but generic
@@ -564,6 +570,14 @@ executes and evaluator truth is not consumed in the golden run.
 Zero missions is thus a constraint result, not a dead mission subsystem. Hostile
 fixtures separately prove the commit -> execute -> observe -> Bayes-update path.
 
+All 165 default pressure states are causal channel pressure with zero synthetic
+discharge. The current AUS path produces no pressure-qualification rows because no
+ordinary project opportunity survives the already-closed actor/accessibility/
+capability/budget boundaries to pressure screening. Bounded hostile fixtures prove
+below-threshold and selected-decision qualification tracing.
+
+All pre-existing GAP-006 behavioral arrays are byte-identical under GAP-007.
+
 No significance should be attached to those numbers as a forecast.
 
 The golden output asks only: did the same executable contract still produce the same
@@ -571,7 +585,7 @@ result from the same pinned inputs, implementation and seed?
 
 # Baseline Metadata and Hashes
 
-Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP6_BASELINE_MANIFEST.json. GAP-005, GAP-004, GAP-003, GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
+Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP7_BASELINE_MANIFEST.json. GAP-006, GAP-005, GAP-004, GAP-003, GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
 
 The manifest pins source-basis commit, runner and engine identities, output-contract version, runtime-input and evaluator-truth hashes, infrastructure catalog and parameter set, implementation source hashes, golden-output hashes/counts, and change-control rules.
 # Change Control
