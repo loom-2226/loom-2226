@@ -1,12 +1,6 @@
 {
   "assumption_register": [
     {
-      "assumption_id": "ASSUME-GAP005-PROJECT-ECONOMICS",
-      "gap_id": "GAP-005",
-      "semantics": "Facility costs, construction lags and capacity quantities remain METHOD_LAB_SYNTHETIC_V1 parameter values.",
-      "status": "EXPLICIT_PLACEHOLDER"
-    },
-    {
       "assumption_id": "ASSUME-GAP006-RESOURCE-PRIOR",
       "gap_id": "GAP-006",
       "semantics": "The empirical lunar-water assertion establishes presence in scoped footprints but not a numeric site probability. Prior=0.45, sensitivity=0.80 and false_positive=0.10 remain Method Lab observation fixtures.",
@@ -15,7 +9,7 @@
     {
       "assumption_id": "ASSUME-GAP012-OFFWORLD-INITIAL-STATE",
       "gap_id": "GAP-012",
-      "semantics": "Initial Earth-orbit/Luna/cislunar engine capacities remain the Method Lab boundary fixture; they are not a compiled empirical 2026 infrastructure inventory.",
+      "semantics": "Initial Earth-orbit/Luna/cislunar engine capacities remain compatibility values inherited from the Method Lab and migrated into explicit physical units; the unit adapter does not make them a compiled empirical 2026 infrastructure inventory.",
       "status": "EXPLICIT_PLACEHOLDER"
     },
     {
@@ -28,19 +22,19 @@
   "authority_capture": {
     "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
     "path": "engineering/civprop/inputs/authority_capture_v1.json",
-    "sha256": "751dd5b5ceb9ddb5e67aaf9c588b74ba681869db77c203a7419ce250aada9969",
-    "source_basis_commit": "53cca0679f6e2bdd8aa8b3be22b387136bfe1bc3"
+    "sha256": "676592892fc3e56dcf388f7cfdeb9d7eaa59067767e39fceb01ed51a2c3fb76a",
+    "source_basis_commit": "3741fc0ea632de2fa0317b78e9789c95d63dfbfd"
   },
   "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-  "compiler_source_sha256": "58d6f40526934291996eb6d8d550564df98d6e89c339de9995b2901098fac500",
-  "compiler_version": "1.3.0",
+  "compiler_source_sha256": "99a46baa7b9e8e9596602e3880d10f58dda3ded097dcb08f08df10fb5ebe2202",
+  "compiler_version": "1.4.0",
   "format": "CIVPROP_INPUT_COMPILER_MANIFEST_V1",
   "gap_resolution": {
     "GAP-001": "CLOSED",
     "GAP-002": "CLOSED",
     "GAP-003": "CLOSED",
     "GAP-004": "CLOSED",
-    "GAP-005": "OPEN",
+    "GAP-005": "CLOSED",
     "GAP-006": "OPEN",
     "GAP-007": "OPEN",
     "GAP-008": "OPEN",
@@ -53,8 +47,8 @@
     "GAP-015": "OPEN"
   },
   "package_files": {
-    "manifest_v1.json": "780edf699b01d8593177c83dea43788fe4c9a24b486ace2c1c4dc4b002af9055",
-    "scenario_v1.json": "0af872f4c9ce24135bf33b6fc1c3c2dd8f8a222aef45fe4469fd92c6c9fd1f34",
+    "manifest_v1.json": "3e1af09bbd85f30846d78c179562b4ae0cea29ef904e4092e358406ee745db7c",
+    "scenario_v1.json": "4c1fc2e2c847a43ac1192331df610455ce2c077225fe4e76fdf0129ebe5cb212",
     "truth_v1.json": "e3acab39409c3451acf2c18d285e0fb3228b837987072cae60eb44d983748aaa"
   },
   "postgres_query_sha256": {
@@ -73,29 +67,33 @@
   },
   "runtime_input": {
     "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "bundle_sha256": "1e6410f9fed0e74d98aaa2a37f5797e6fee47350a5c791867e900c06838991a4",
+    "bundle_sha256": "93aedfb80fc291bb09e7dc826067d2c9842f9da05034dab7dd13b6fb72dba0d9",
     "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "scenario_format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
-    "scenario_sha256": "0af872f4c9ce24135bf33b6fc1c3c2dd8f8a222aef45fe4469fd92c6c9fd1f34"
+    "scenario_sha256": "4c1fc2e2c847a43ac1192331df610455ce2c077225fe4e76fdf0129ebe5cb212"
   },
   "semantics": {
-    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients are empirical forecasts; project economics, hidden truth, off-world initial infrastructure, or demographic depth are production solved.",
+    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients or scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a lunar facility cost model; hidden truth, off-world initial infrastructure, or demographic depth are production solved.",
     "gap1_closed_means": "Promoted Earth/Solar/Timeline/resource/actor authority is captured read-only, frozen with hashes, and deterministically compiled into the locked runner envelope. Other open gaps remain explicit placeholders.",
     "gap2_closed_means": "A versioned Actor State V1 separates identity, scoped rights/contracts, provider access, capability, experience and finance. AUS generic spendable allocation is explicitly UNKNOWN; the observed AUD 42 million Roo-ver commitment remains scoped and cannot fund generic CIVPROP projects.",
     "gap3_closed_means": "A versioned Accessibility V1 boundary combines qualified frozen Solar geometry with actor-scoped provider/service evidence, preserves FEASIBLE/INFEASIBLE/UNKNOWN, and exposes decomposed physical/service quantities without treating body-center separation as route length. The default synthetic accessibility table is removed.",
-    "gap4_closed_means": "Demand/Pressure V1 derives requirements from current civilization stocks plus explicit scoped strategic requirements, compares them with installed capacity, and carries unmet demand into decaying pressure in the same channel unit. The default OFFWORLD_* and WATER_RESOURCE_DEMAND annual fixture curves are removed."
+    "gap4_closed_means": "Demand/Pressure V1 derives requirements from current civilization stocks plus explicit scoped strategic requirements, compares them with installed capacity, and carries unmet demand into decaying pressure in the same channel unit. The default OFFWORLD_* and WATER_RESOURCE_DEMAND annual fixture curves are removed.",
+    "gap5_closed_means": "Project Economics V1 supplies a versioned Earth-Orbit-Luna parameter set with economic/physical units, low-nominal-high uncertainty, explicit scale behavior, technology-year adjustments and component provenance. The default runtime no longer consumes METHOD_LAB_SYNTHETIC_V1 project economics."
   },
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
     "data/postgres/timeline_projection_manifest.json": "524ac904a0d1ed4cdb1fae53ce4ac737d7640b71fe1be8ebf9c97ba8fbe56709",
+    "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json": "093f28ee4f3817c4573899b1f8032d617339307ef85691123ce9cec44dfdd369",
     "dev/solar_civprop_m4b/campaign_assertions.json": "e87eb9f711ce508933e76c86a1d9f4314a13d6d4403940d21fa25cf6da700c39",
     "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
     "engineering/civprop/civprop0/actor_access_evidence.json": "16581d2ad6eec747f4576d7dc836f00d24864683bba0431dc97c04360e15085d",
     "engineering/civprop/civprop0/aus_government_access_evidence.json": "2e9ebc2f6d497d42d74baea504cec45ba16922ea2d554940a5142b1d53ef60ce",
     "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
     "engineering/civprop/civprop0/runs/roover_transport_mid2030_v1.json": "a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
+    "engineering/civprop/contracts/project_economics_v1.json": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
-    "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951"
+    "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951",
+    "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md": "a4b613a3514a385cbbd3ef3959e01ca22cd3b4736dcb893cc4213465655d4a37"
   },
   "source_snapshots": {
     "earth": {

@@ -1,0 +1,2520 @@
+{
+  "accessibility_boundary": {
+    "contract_version": "1.0.0",
+    "epoch_policy": "ANNUAL_REFERENCE_EPOCH_JULY_01_UTC",
+    "format": "CIVPROP_ACCESSIBILITY_V1",
+    "geometry_samples": [
+      {
+        "destination_body_id": "MOON",
+        "distance_semantics": "BODY_CENTER_STRAIGHT_LINE_CONTEXT_NOT_ROUTE_LENGTH",
+        "epoch_utc": "2030-07-01T00:00:00Z",
+        "origin_body_id": "EARTH",
+        "provenance_refs": [
+          "ROOVER_TRANSPORT_RUN_SHA256:a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
+          "SERVICE_EVIDENCE:ROO_VER_CT4_IM5_SERVICE_2026_V1:e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
+          "DE440:a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        ],
+        "reference_frame": "J2000/ECLIPTIC",
+        "relative_speed_km_s": 0.9836733938012038,
+        "straight_line_separation_km": 401540.02139136905,
+        "uncertainty_km": null
+      }
+    ],
+    "location_bindings": [
+      {
+        "body_id": "EARTH",
+        "location_id": "EARTH_SURFACE"
+      },
+      {
+        "body_id": "EARTH",
+        "location_id": "EARTH_ORBIT"
+      },
+      {
+        "body_id": "MOON",
+        "location_id": "LUNA_SURFACE"
+      },
+      {
+        "body_id": null,
+        "location_id": "CISLUNAR_FREE_SPACE"
+      }
+    ],
+    "service_paths": [
+      {
+        "actor_id": "AUS",
+        "cost_components": [
+          {
+            "component_id": "ROUTE_LENGTH",
+            "status": "UNKNOWN",
+            "uncertainty": null,
+            "unit": "km",
+            "value": null
+          },
+          {
+            "component_id": "TRANSFER_DURATION",
+            "status": "UNKNOWN",
+            "uncertainty": null,
+            "unit": "s",
+            "value": null
+          },
+          {
+            "component_id": "DELTA_V",
+            "status": "UNKNOWN",
+            "uncertainty": null,
+            "unit": "km/s",
+            "value": null
+          },
+          {
+            "component_id": "SERVICE_PRICE",
+            "status": "UNKNOWN",
+            "uncertainty": null,
+            "unit": "currency/service-unit",
+            "value": null
+          }
+        ],
+        "destination_location_id": "LUNA_SURFACE",
+        "generalized_cost": {
+          "components": [],
+          "status": "UNKNOWN",
+          "uncertainty": null,
+          "unit": null,
+          "value": null
+        },
+        "limiting_constraints": [
+          "launch:launch date/window",
+          "launch:launch vehicle",
+          "launch:payload integration and mass margin",
+          "transfer:departure and arrival epochs",
+          "transfer:trajectory and propulsion performance",
+          "transfer:transfer duration and delta-v",
+          "site_operations:final site and terrain",
+          "site_operations:deployment, power and data terms",
+          "site_operations:operational duration assurance",
+          "END_TO_END_TRANSPORT_REMAINS_UNKNOWN"
+        ],
+        "mission_class": "NAMED_PAYLOAD_DELIVERY",
+        "origin_location_id": "EARTH_SURFACE",
+        "provenance_refs": [
+          "ROOVER_TRANSPORT_RUN_SHA256:a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
+          "SERVICE_EVIDENCE:ROO_VER_CT4_IM5_SERVICE_2026_V1:e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
+          "DE440:a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        ],
+        "provider_id": "INTUITIVE_MACHINES",
+        "required_technology_ids": [],
+        "service_class": "CLPS_LUNAR_DELIVERY",
+        "service_id": "AUS_ROOVER_CLPS_CT4_IM5",
+        "status": "UNKNOWN",
+        "subject_id": "ROO_VER_WITH_NASA_MNP",
+        "target_year": 2030,
+        "valid_from_year": 2026,
+        "valid_to_year": null
+      }
+    ]
+  },
+  "actor_state_boundary": {
+    "actors": [
+      {
+        "access_rights": {
+          "records": [
+            {
+              "capability_id": "LUNAR_PAYLOAD_DELIVERY_ACCESS",
+              "counterparty_id": "NASA",
+              "details": {},
+              "provenance_refs": [
+                "NASA_2026_03_27_CLPS_CT4_ROO_VER",
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION",
+                "ASA_2026_08_13_ROO_VER_TESTING",
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT"
+              ],
+              "provider_id": "INTUITIVE_MACHINES",
+              "record_id": "AUS_ROOVER_CLPS_ACCESS",
+              "scope": "Australian Space Agency-led Roo-ver demonstration on NASA CLPS CT-4 with Intuitive Machines; South Pole region, targeted 2030; no entitlement for other Australian payloads or missions",
+              "status": "OBSERVED_SCOPED_ACCESS",
+              "subject_id": "ROO_VER",
+              "valid_from": 2026,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "acquired_capability": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "actor_id": "AUS",
+        "actor_type": "STATE",
+        "budget": {
+          "committed_funds": [
+            {
+              "amount": 42000000.0,
+              "commitment_id": "AUS_ROOVER_42M_COMMITMENT",
+              "provenance_refs": [
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION"
+              ],
+              "scope": "ROO_VER_DEVELOPMENT_BUILD_OPERATION",
+              "status": "OBSERVED_COMMITTED",
+              "unit": "AUD"
+            }
+          ],
+          "spendable_allocation": {
+            "amount": null,
+            "provenance_refs": [],
+            "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+            "status": "UNKNOWN",
+            "unit": null
+          }
+        },
+        "contracts": {
+          "records": [
+            {
+              "capability_id": null,
+              "counterparty_id": "NASA",
+              "details": {},
+              "provenance_refs": [
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT"
+              ],
+              "provider_id": null,
+              "record_id": "AUS_NASA_ROVER_AGREEMENT",
+              "scope": "ROVER_SPECIFIC_FUTURE_LUNAR_MISSION",
+              "status": "OBSERVED_ROVER_SPECIFIC_AGREEMENT",
+              "subject_id": "ROO_VER",
+              "valid_from": 2021,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "experience": {
+          "records": [
+            {
+              "capability_id": null,
+              "counterparty_id": "ELO2",
+              "details": {},
+              "provenance_refs": [
+                "ASA_2026_08_13_ROO_VER_TESTING"
+              ],
+              "provider_id": null,
+              "record_id": "AUS_ROOVER_2026_TESTING",
+              "scope": "TERRESTRIAL_ROVER_MOBILITY_AND_INTEGRATION_TESTING",
+              "status": "OBSERVED_DEVELOPMENT_TESTING",
+              "subject_id": "ROO_VER",
+              "valid_from": 2026,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "identity": {
+          "display_name": "Australia",
+          "provenance_refs": [
+            "loom_earth:earth-v0-1-9934d0ac-20260925:earth_area:AUS"
+          ]
+        },
+        "installed_capability": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "operation": {
+          "records": [
+            {
+              "capability_id": null,
+              "counterparty_id": "ELO2",
+              "details": {},
+              "provenance_refs": [
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION"
+              ],
+              "provider_id": null,
+              "record_id": "AUS_ROOVER_OPERATION_RELATIONSHIP",
+              "scope": "ROO_VER_DEVELOPMENT_AND_REMOTE_SURFACE_OPERATION",
+              "status": "OBSERVED_OPERATOR_RELATIONSHIP",
+              "subject_id": "ROO_VER",
+              "valid_from": 2025,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "owned_infrastructure": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "ownership": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "provider_service_access": {
+          "records": [
+            {
+              "capability_id": "LUNAR_PAYLOAD_DELIVERY_ACCESS",
+              "counterparty_id": "NASA",
+              "details": {
+                "target_landing_year": 2030
+              },
+              "provenance_refs": [
+                "NASA_2026_03_27_CLPS_CT4_ROO_VER",
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION",
+                "ASA_2026_08_13_ROO_VER_TESTING",
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT"
+              ],
+              "provider_id": "INTUITIVE_MACHINES",
+              "record_id": "AUS_ROOVER_IM5_PROVIDER_PATH",
+              "scope": "NASA CLPS CT-4 / Intuitive Machines IM-5",
+              "status": "OBSERVED_INDIRECT_PROVIDER_SERVICE_PATH",
+              "subject_id": "ROO_VER_WITH_NASA_MNP",
+              "valid_from": 2026,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "relationships": {
+          "records": [
+            {
+              "capability_id": null,
+              "counterparty_id": "NASA",
+              "details": {},
+              "provenance_refs": [
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT",
+                "NASA_2026_03_27_CLPS_CT4_ROO_VER"
+              ],
+              "provider_id": null,
+              "record_id": "AUS_NASA_ROOVER_PARTNERSHIP",
+              "scope": "ROO_VER_CLPS_CT4",
+              "status": "OBSERVED_MISSION_PARTNERSHIP",
+              "subject_id": "ROO_VER",
+              "valid_from": 2021,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        }
+      }
+    ],
+    "as_of_year": 2026,
+    "contract_version": "1.0.0",
+    "events": [],
+    "format": "CIVPROP_ACTOR_STATE_V1"
+  },
+  "actor_state_events": [],
+  "actor_states": [
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2026
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2027
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2028
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2029
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2030
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2031
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2032
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2033
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2034
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2035
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2036
+    }
+  ],
+  "actor_transactions": [],
+  "annual_states": [
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2026
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 200.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 800.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2026
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 10000.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 2000.0,
+        "transport": 10000.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2026
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2026
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2027
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 200.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 800.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2027
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 10000.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 2000.0,
+        "transport": 10000.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2027
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2027
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2028
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 200.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 800.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2028
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 10000.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 2000.0,
+        "transport": 10000.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2028
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2028
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2029
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 200.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 800.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2029
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 10000.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 2000.0,
+        "transport": 10000.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2029
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2029
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2030
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 200.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 800.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2030
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 10000.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 2000.0,
+        "transport": 10000.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2030
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2030
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2031
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 200.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 800.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2031
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 10000.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 2000.0,
+        "transport": 10000.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2031
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2031
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2032
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 200.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 800.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2032
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 10000.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 2000.0,
+        "transport": 10000.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2032
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2032
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2033
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 200.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 800.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2033
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 10000.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 2000.0,
+        "transport": 10000.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2033
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2033
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2034
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 200.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 800.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2034
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 10000.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 2000.0,
+        "transport": 10000.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2034
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2034
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2035
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 200.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 800.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2035
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 10000.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 2000.0,
+        "transport": 10000.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2035
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2035
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2036
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 200.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 800.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2036
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 10000.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 2000.0,
+        "transport": 10000.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2036
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2036
+    }
+  ],
+  "contract_version": "1.5.0",
+  "decisions": [
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00001",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2026
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00002",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2027
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00003",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2028
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00004",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2029
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00005",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2030
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00006",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2031
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00007",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2032
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00008",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2033
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00009",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2034
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00010",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2035
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00011",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2036
+    }
+  ],
+  "demand_pressure_boundary": {
+    "channels": [
+      {
+        "available_field": "habitat",
+        "channel_id": "HABITAT",
+        "decay": 0.6,
+        "drivers": [
+          {
+            "coefficient": 1.0,
+            "coefficient_unit": "person/person",
+            "field": "biological_population"
+          },
+          {
+            "coefficient": 1.0,
+            "coefficient_unit": "person/person",
+            "field": "transient_population"
+          }
+        ],
+        "gain": 0.24,
+        "unit": "person"
+      },
+      {
+        "available_field": "transport",
+        "channel_id": "TRANSPORT",
+        "decay": 0.6,
+        "drivers": [
+          {
+            "coefficient": 4.0,
+            "coefficient_unit": "tonnes/year/person",
+            "field": "transient_population"
+          }
+        ],
+        "gain": 0.24,
+        "unit": "tonnes/year"
+      },
+      {
+        "available_field": "industrial",
+        "channel_id": "INDUSTRIAL",
+        "decay": 0.6,
+        "drivers": [
+          {
+            "coefficient": 4.0,
+            "coefficient_unit": "tonnes/year/person",
+            "field": "workforce"
+          }
+        ],
+        "gain": 0.24,
+        "unit": "tonnes/year"
+      },
+      {
+        "available_field": "resource",
+        "channel_id": "RESOURCE",
+        "decay": 0.6,
+        "drivers": [
+          {
+            "coefficient": 1.0,
+            "coefficient_unit": "tonnes/year/person",
+            "field": "biological_population"
+          },
+          {
+            "coefficient": 1.0,
+            "coefficient_unit": "tonnes/year/person",
+            "field": "transient_population"
+          }
+        ],
+        "gain": 0.24,
+        "unit": "tonnes/year"
+      },
+      {
+        "available_field": "power",
+        "channel_id": "POWER",
+        "decay": 0.6,
+        "drivers": [
+          {
+            "coefficient": 0.025,
+            "coefficient_unit": "MW/person",
+            "field": "biological_population"
+          },
+          {
+            "coefficient": 0.025,
+            "coefficient_unit": "MW/person",
+            "field": "transient_population"
+          }
+        ],
+        "gain": 0.24,
+        "unit": "MW"
+      }
+    ],
+    "contract_version": "1.0.0",
+    "excluded_location_ids": [
+      "EARTH_SURFACE"
+    ],
+    "format": "CIVPROP_DEMAND_PRESSURE_V1",
+    "parameter_status": "UNCALIBRATED_CAUSAL_MODEL_PARAMETER_V1",
+    "scope": "NON_EARTH_SURFACE",
+    "strategic_requirements": []
+  },
+  "events": [
+    {
+      "actor_id": null,
+      "event_id": "e00001",
+      "event_type": "RUN_STARTED",
+      "location_id": null,
+      "parent_event_ids": [],
+      "year": 2026
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00002",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00001"
+      ],
+      "year": 2026
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00003",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00002"
+      ],
+      "year": 2026
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00004",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00003"
+      ],
+      "year": 2026
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00005",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00004"
+      ],
+      "year": 2027
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00006",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00005"
+      ],
+      "year": 2027
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00007",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00006"
+      ],
+      "year": 2027
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00008",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00007"
+      ],
+      "year": 2028
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00009",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00008"
+      ],
+      "year": 2028
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00010",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00009"
+      ],
+      "year": 2028
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00011",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00010"
+      ],
+      "year": 2029
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00012",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00011"
+      ],
+      "year": 2029
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00013",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00012"
+      ],
+      "year": 2029
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00014",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00013"
+      ],
+      "year": 2030
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00015",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00014"
+      ],
+      "year": 2030
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00016",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00015"
+      ],
+      "year": 2030
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00017",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00016"
+      ],
+      "year": 2031
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00018",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00017"
+      ],
+      "year": 2031
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00019",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00018"
+      ],
+      "year": 2031
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00020",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00019"
+      ],
+      "year": 2032
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00021",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00020"
+      ],
+      "year": 2032
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00022",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00021"
+      ],
+      "year": 2032
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00023",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00022"
+      ],
+      "year": 2033
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00024",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00023"
+      ],
+      "year": 2033
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00025",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00024"
+      ],
+      "year": 2033
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00026",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00025"
+      ],
+      "year": 2034
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00027",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00026"
+      ],
+      "year": 2034
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00028",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00027"
+      ],
+      "year": 2034
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00029",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00028"
+      ],
+      "year": 2035
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00030",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00029"
+      ],
+      "year": 2035
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00031",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00030"
+      ],
+      "year": 2035
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00032",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00031"
+      ],
+      "year": 2036
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00033",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00032"
+      ],
+      "year": 2036
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00034",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00033"
+      ],
+      "year": 2036
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00035",
+      "event_type": "RUN_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00034"
+      ],
+      "year": 2036
+    }
+  ],
+  "facilities": [],
+  "flows": [],
+  "format": "CIVPROP_ENGINE_V1_OUTPUT",
+  "known_gaps": [
+    {
+      "gap_id": "GAP-001",
+      "meaning": "Replace synthetic Method Lab scenario with frozen adapters from loom_earth, loom_solar, loom_timeline, resource evidence and actor authority.",
+      "name": "REAL_INPUT_COMPILER",
+      "status": "CLOSED"
+    },
+    {
+      "gap_id": "GAP-002",
+      "meaning": "Versioned actor identity/state separates ownership, operation, scoped access/contracts, capability, experience and spendable allocation with replayable change events.",
+      "name": "ACTOR_STATE_AND_BUDGETS",
+      "status": "CLOSED"
+    },
+    {
+      "gap_id": "GAP-003",
+      "meaning": "Versioned accessibility separates qualified Solar geometry, scoped actor/provider service access and decomposed generalized cost while preserving FEASIBLE/INFEASIBLE/UNKNOWN.",
+      "name": "TRANSPORT_ACCESSIBILITY",
+      "status": "CLOSED"
+    },
+    {
+      "gap_id": "GAP-004",
+      "meaning": "Versioned demand/pressure derives scoped requirements from civilization state and explicit commitments, compares them with installed capacity, and carries unmet demand into decaying unit-preserving pressure.",
+      "name": "DEMAND_AND_PRESSURE_MODEL",
+      "status": "CLOSED"
+    },
+    {
+      "gap_id": "GAP-005",
+      "meaning": "Project Economics V1 provides versioned physical/economic units, uncertainty ranges, scale behavior, technology-year adjustments and provenance; scenario components remain explicitly non-empirical.",
+      "name": "PROJECT_ECONOMICS",
+      "status": "CLOSED"
+    },
+    {
+      "gap_id": "GAP-006",
+      "meaning": "Hybrid V1 baseline does not execute prospecting missions or CIVPROP-0 observation/Bayesian knowledge updates.",
+      "name": "MISSIONS_AND_KNOWLEDGE_UPDATE",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-007",
+      "meaning": "Pressure levels are internal; only pressure-qualified events are emitted.",
+      "name": "PRESSURE_OBSERVABILITY",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-008",
+      "meaning": "Resource capacity is abstract; stock, grade, throughput, yield, depletion and inventory are not yet modeled.",
+      "name": "RESOURCE_MASS_BALANCE",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-009",
+      "meaning": "Off-world sector production, value added, operating cost and investment flows are not yet generated.",
+      "name": "PRODUCTION_AND_VALUE_ADDED",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-010",
+      "meaning": "Power is abstract installed capacity; average demand, peak demand, storage, generation mix and energy closure are not yet modeled.",
+      "name": "POWER_BALANCE",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-011",
+      "meaning": "Cargo, passengers, ship calls, fleets, queues and route utilization are not yet generated.",
+      "name": "TRAFFIC_AND_FLEET",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-012",
+      "meaning": "Module colocation, named facilities, settlements, surface sites, orbital elements and Atlas facility types are not yet materialized.",
+      "name": "FACILITY_AND_SITE_MATERIALIZATION",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-013",
+      "meaning": "Infrastructure maintenance, depreciation, replacement, failure, retirement and abandonment are not yet production modeled.",
+      "name": "MAINTENANCE_DEPRECIATION_RETIREMENT",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-014",
+      "meaning": "Cohort demography, births/deaths, synthetic persons, biological viability and long-run settlement demographics are not yet connected.",
+      "name": "DEMOGRAPHIC_DEPTH",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-015",
+      "meaning": "Economic/transport centrality, strategic significance and other Atlas display metrics must be derived after physical/economic state exists.",
+      "name": "ATLAS_DERIVED_METRICS",
+      "status": "OPEN"
+    }
+  ],
+  "metadata": {
+    "engine": {
+      "end_year": 2036,
+      "id": "HYBRID_V1",
+      "run_id": "95a03cd1f529ba07f429ce9d",
+      "seed": 42,
+      "start_year": 2026,
+      "version": "method-reference-v3"
+    },
+    "implementation": {
+      "accessibility_contract_sha256": "4df05ea52862c1803316089918f3c7d69c04d68c2c73a5bb6b71ef39314e0628",
+      "actor_state_contract_sha256": "aa09d20395a281dad18d170470b23fd504e8ea54f6ba45dc05f9f728030c5b27",
+      "common_helpers_sha256": "8505108ee4289f6ba7847ae5a1d5cddc03cef9f8173edece62d392fe03cdd1c2",
+      "demand_pressure_contract_sha256": "1741694b3788adb559598ad6c1e1a157918c8156ccbbe5e35947623c6fb6bd63",
+      "hybrid_engine_sha256": "4ea2e2b723b7dddf6d73d0f4739dc88b092ed2f63987a0167fa817c880954da5",
+      "infrastructure_contract_sha256": "bcbcc8705ed18b5acad98c78b87f229b94d6c0b590551b2326fb715520bf5273",
+      "method_lab_contracts_sha256": "df85eda252dd767461e5891e75c16360fd054a89cf485dcb85865b8e35d7ce57",
+      "project_economics_contract_sha256": "c0551314e05e8a468b722feddfa34d43f0e36707a59478789688b4de735961c6",
+      "project_economics_parameter_set_sha256": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
+      "runner_sha256": "baf8c482abbfdd664d2c52ca7b1f75f5388ee95eb7d409832902cf57f9f2ad0d"
+    },
+    "infrastructure": {
+      "catalog_format": "CIVPROP_INFRASTRUCTURE_ARCHETYPE_CATALOG_V1",
+      "catalog_id": "CIVPROP_INFRASTRUCTURE_ARCHETYPES_V1",
+      "catalog_sha256": "a01c9f151909bbb1f23a2f3c093be5585f79e4198d5078ac8417b32818bad9c2",
+      "parameter_set_id": "EARTH_LUNA_PROJECT_ECONOMICS_V1_2026_2036",
+      "parameter_status": "PROJECT_ECONOMICS_V1_MIXED_STATUS",
+      "parameterized_archetypes": [
+        "HABITAT",
+        "INDUSTRIAL_WORKSHOP",
+        "LOGISTICS_NODE",
+        "POWER_PLANT",
+        "RESOURCE_PLANT"
+      ]
+    },
+    "inputs": {
+      "actor_visible_scenario_sha256": "4c1fc2e2c847a43ac1192331df610455ce2c077225fe4e76fdf0129ebe5cb212",
+      "basis": {
+        "authority_capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
+        "authority_capture_sha256": "676592892fc3e56dcf388f7cfdeb9d7eaa59067767e39fceb01ed51a2c3fb76a",
+        "compiler_contract": "CIVPROP_INPUT_COMPILER_V1",
+        "locked_runner_ref": "engineering/civprop/run_civprop_v1.py",
+        "source_basis_commit": "3741fc0ea632de2fa0317b78e9789c95d63dfbfd"
+      },
+      "compiler": {
+        "authority_capture": {
+          "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
+          "path": "engineering/civprop/inputs/authority_capture_v1.json",
+          "sha256": "676592892fc3e56dcf388f7cfdeb9d7eaa59067767e39fceb01ed51a2c3fb76a",
+          "source_basis_commit": "3741fc0ea632de2fa0317b78e9789c95d63dfbfd"
+        },
+        "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
+        "compiler_version": "1.4.0",
+        "gap_resolution": {
+          "GAP-001": "CLOSED",
+          "GAP-002": "CLOSED",
+          "GAP-003": "CLOSED",
+          "GAP-004": "CLOSED",
+          "GAP-005": "CLOSED",
+          "GAP-006": "OPEN",
+          "GAP-007": "OPEN",
+          "GAP-008": "OPEN",
+          "GAP-009": "OPEN",
+          "GAP-010": "OPEN",
+          "GAP-011": "OPEN",
+          "GAP-012": "OPEN",
+          "GAP-013": "OPEN",
+          "GAP-014": "OPEN",
+          "GAP-015": "OPEN"
+        },
+        "manifest_format": "CIVPROP_INPUT_COMPILER_MANIFEST_V1",
+        "manifest_sha256": "a45e17b9de0b5606d0fc149cd51708386d1e6de850214330b9c289985136844c"
+      },
+      "evaluator_truth_consumed_by_engine": false,
+      "evaluator_truth_sha256": "e3acab39409c3451acf2c18d285e0fb3228b837987072cae60eb44d983748aaa",
+      "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
+      "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
+      "method_lab_bundle_sha256": "93aedfb80fc291bb09e7dc826067d2c9842f9da05034dab7dd13b6fb72dba0d9",
+      "method_lab_manifest_sha256": "3e1af09bbd85f30846d78c179562b4ae0cea29ef904e4092e358406ee745db7c",
+      "runtime_input_sha256": "4c1fc2e2c847a43ac1192331df610455ce2c077225fe4e76fdf0129ebe5cb212",
+      "scenario_format": "CIVPROP_METHOD_LAB_SCENARIO_V1"
+    },
+    "runner": {
+      "id": "CIVPROP_ENGINE_V1_RUNNER",
+      "version": "1.5.0"
+    }
+  },
+  "project_economics_boundary": {
+    "capital_unit": "USD_2026_billion",
+    "contract_version": "1.0.0",
+    "dimension_units": {
+      "habitat": "person",
+      "industrial": "tonnes/year",
+      "power": "MW",
+      "resource": "tonnes/year",
+      "shipyard": "tonnes/year",
+      "transport": "tonnes/year"
+    },
+    "domain_model_boundaries": [
+      {
+        "model_id": "DORRINGTON_OLSEN_M2",
+        "provenance_refs": [
+          "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md"
+        ],
+        "reason": "The qualified LOOM assessment treats Dorrington-Olsen as an asteroid mining mission/economic kernel, not a lunar facility cost or mining-rate model.",
+        "use_status": "NOT_APPLIED_TO_EARTH_LUNA_FACILITY_COSTS"
+      },
+      {
+        "model_id": "NASA_FISSION_SURFACE_POWER_R03",
+        "provenance_refs": [
+          "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"
+        ],
+        "reason": "The 40-kW-class lunar demonstration objective is used only as the base POWER_PLANT output reference; project cost, lag and learning multipliers remain scenario assumptions.",
+        "use_status": "QUALIFIED_REFERENCE_COMPONENT_ONLY"
+      }
+    ],
+    "epoch_adjustments": [
+      {
+        "capacity_multiplier": 1.0,
+        "cost_multiplier": 1.0,
+        "lag_multiplier": 1.0,
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ],
+        "status": "SCENARIO_ASSUMPTION",
+        "year": 2026
+      },
+      {
+        "capacity_multiplier": 1.1,
+        "cost_multiplier": 0.92,
+        "lag_multiplier": 0.9,
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ],
+        "status": "SCENARIO_ASSUMPTION",
+        "year": 2031
+      },
+      {
+        "capacity_multiplier": 1.25,
+        "cost_multiplier": 0.84,
+        "lag_multiplier": 0.8,
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ],
+        "status": "SCENARIO_ASSUMPTION",
+        "year": 2036
+      }
+    ],
+    "format": "CIVPROP_PROJECT_ECONOMICS_V1",
+    "parameter_set_id": "EARTH_LUNA_PROJECT_ECONOMICS_V1_2026_2036",
+    "projects": [
+      {
+        "capital_cost": {
+          "high": 0.75,
+          "low": 0.1,
+          "nominal": 0.25,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "USD_2026_billion"
+        },
+        "construction_lag": {
+          "high": 4,
+          "low": 1,
+          "nominal": 2,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "year"
+        },
+        "outputs": {},
+        "parameter_status": "SCENARIO_ASSUMPTION",
+        "prerequisites": {
+          "transport": {
+            "high": 100.0,
+            "low": 25.0,
+            "nominal": 50.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          }
+        },
+        "project_archetype_id": "PROSPECTING_SURVEY",
+        "project_kind": "MISSION",
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ],
+        "scale_model": {
+          "capital_exponent": 1.0,
+          "lag_exponent": 0.0,
+          "output_exponent": 1.0,
+          "reference_scale": 1.0
+        }
+      },
+      {
+        "capital_cost": {
+          "high": 6.0,
+          "low": 1.0,
+          "nominal": 2.0,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "USD_2026_billion"
+        },
+        "construction_lag": {
+          "high": 7,
+          "low": 2,
+          "nominal": 4,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "year"
+        },
+        "outputs": {
+          "power": {
+            "high": 0.25,
+            "low": 0.05,
+            "nominal": 0.1,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "MW"
+          },
+          "transport": {
+            "high": 2500.0,
+            "low": 500.0,
+            "nominal": 1000.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          }
+        },
+        "parameter_status": "SCENARIO_ASSUMPTION",
+        "prerequisites": {},
+        "project_archetype_id": "LOGISTICS_NODE",
+        "project_kind": "FACILITY",
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ],
+        "scale_model": {
+          "capital_exponent": 0.9,
+          "lag_exponent": 0.15,
+          "output_exponent": 1.0,
+          "reference_scale": 1.0
+        }
+      },
+      {
+        "capital_cost": {
+          "high": 1.2,
+          "low": 0.1,
+          "nominal": 0.4,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "USD_2026_billion"
+        },
+        "construction_lag": {
+          "high": 7,
+          "low": 2,
+          "nominal": 4,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "year"
+        },
+        "outputs": {
+          "power": {
+            "high": 0.04,
+            "low": 0.04,
+            "nominal": 0.04,
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"
+            ],
+            "status": "QUALIFIED_REFERENCE",
+            "unit": "MW"
+          }
+        },
+        "parameter_status": "HYBRID_SCENARIO_WITH_QUALIFIED_COMPONENT",
+        "prerequisites": {
+          "transport": {
+            "high": 150.0,
+            "low": 25.0,
+            "nominal": 50.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          }
+        },
+        "project_archetype_id": "POWER_PLANT",
+        "project_kind": "FACILITY",
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ],
+        "scale_model": {
+          "capital_exponent": 0.9,
+          "lag_exponent": 0.15,
+          "output_exponent": 1.0,
+          "reference_scale": 1.0
+        }
+      },
+      {
+        "capital_cost": {
+          "high": 6.0,
+          "low": 0.8,
+          "nominal": 2.0,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "USD_2026_billion"
+        },
+        "construction_lag": {
+          "high": 8,
+          "low": 3,
+          "nominal": 5,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "year"
+        },
+        "outputs": {
+          "habitat": {
+            "high": 8.0,
+            "low": 2.0,
+            "nominal": 4.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "person"
+          }
+        },
+        "parameter_status": "SCENARIO_ASSUMPTION",
+        "prerequisites": {
+          "power": {
+            "high": 0.25,
+            "low": 0.04,
+            "nominal": 0.1,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "MW"
+          },
+          "transport": {
+            "high": 750.0,
+            "low": 100.0,
+            "nominal": 250.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          }
+        },
+        "project_archetype_id": "HABITAT",
+        "project_kind": "FACILITY",
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ],
+        "scale_model": {
+          "capital_exponent": 0.9,
+          "lag_exponent": 0.15,
+          "output_exponent": 1.0,
+          "reference_scale": 1.0
+        }
+      },
+      {
+        "capital_cost": {
+          "high": 10.0,
+          "low": 1.0,
+          "nominal": 3.0,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "USD_2026_billion"
+        },
+        "construction_lag": {
+          "high": 9,
+          "low": 3,
+          "nominal": 5,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "year"
+        },
+        "outputs": {
+          "industrial": {
+            "high": 100.0,
+            "low": 10.0,
+            "nominal": 25.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          },
+          "resource": {
+            "high": 500.0,
+            "low": 50.0,
+            "nominal": 100.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          }
+        },
+        "parameter_status": "SCENARIO_ASSUMPTION",
+        "prerequisites": {
+          "power": {
+            "high": 2.0,
+            "low": 0.25,
+            "nominal": 0.5,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "MW"
+          },
+          "transport": {
+            "high": 2000.0,
+            "low": 250.0,
+            "nominal": 500.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          }
+        },
+        "project_archetype_id": "RESOURCE_PLANT",
+        "project_kind": "FACILITY",
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ],
+        "scale_model": {
+          "capital_exponent": 0.9,
+          "lag_exponent": 0.15,
+          "output_exponent": 1.0,
+          "reference_scale": 1.0
+        }
+      },
+      {
+        "capital_cost": {
+          "high": 5.0,
+          "low": 0.5,
+          "nominal": 1.5,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "USD_2026_billion"
+        },
+        "construction_lag": {
+          "high": 7,
+          "low": 2,
+          "nominal": 4,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "year"
+        },
+        "outputs": {
+          "industrial": {
+            "high": 500.0,
+            "low": 50.0,
+            "nominal": 100.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          }
+        },
+        "parameter_status": "SCENARIO_ASSUMPTION",
+        "prerequisites": {
+          "power": {
+            "high": 2.0,
+            "low": 0.25,
+            "nominal": 0.5,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "MW"
+          },
+          "transport": {
+            "high": 1000.0,
+            "low": 100.0,
+            "nominal": 300.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          }
+        },
+        "project_archetype_id": "INDUSTRIAL_WORKSHOP",
+        "project_kind": "FACILITY",
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ],
+        "scale_model": {
+          "capital_exponent": 0.9,
+          "lag_exponent": 0.15,
+          "output_exponent": 1.0,
+          "reference_scale": 1.0
+        }
+      },
+      {
+        "capital_cost": {
+          "high": 5.0,
+          "low": 0.5,
+          "nominal": 1.5,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "USD_2026_billion"
+        },
+        "construction_lag": {
+          "high": 7,
+          "low": 2,
+          "nominal": 4,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "year"
+        },
+        "outputs": {
+          "transport": {
+            "high": 5000.0,
+            "low": 500.0,
+            "nominal": 1000.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          }
+        },
+        "parameter_status": "SCENARIO_ASSUMPTION",
+        "prerequisites": {},
+        "project_archetype_id": "SURFACE_PORT",
+        "project_kind": "FACILITY",
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ],
+        "scale_model": {
+          "capital_exponent": 0.9,
+          "lag_exponent": 0.15,
+          "output_exponent": 1.0,
+          "reference_scale": 1.0
+        }
+      },
+      {
+        "capital_cost": {
+          "high": 25.0,
+          "low": 3.0,
+          "nominal": 8.0,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "USD_2026_billion"
+        },
+        "construction_lag": {
+          "high": 12,
+          "low": 4,
+          "nominal": 7,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "unit": "year"
+        },
+        "outputs": {
+          "industrial": {
+            "high": 250.0,
+            "low": 25.0,
+            "nominal": 50.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          },
+          "shipyard": {
+            "high": 500.0,
+            "low": 50.0,
+            "nominal": 100.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          }
+        },
+        "parameter_status": "SCENARIO_ASSUMPTION",
+        "prerequisites": {
+          "industrial": {
+            "high": 250.0,
+            "low": 25.0,
+            "nominal": 50.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          },
+          "power": {
+            "high": 10.0,
+            "low": 1.0,
+            "nominal": 2.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "MW"
+          },
+          "transport": {
+            "high": 2500.0,
+            "low": 250.0,
+            "nominal": 500.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "tonnes/year"
+          }
+        },
+        "project_archetype_id": "SHIPYARD",
+        "project_kind": "FACILITY",
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ],
+        "scale_model": {
+          "capital_exponent": 0.9,
+          "lag_exponent": 0.15,
+          "output_exponent": 1.0,
+          "reference_scale": 1.0
+        }
+      }
+    ],
+    "scope": "EARTH_ORBIT_LUNA_CISLUNAR_2026_2036"
+  },
+  "semantics": {
+    "accessibility": "VERSIONED_PHYSICS_SERVICE_TRI_STATE_WITH_DECOMPOSED_COSTS",
+    "accessibility_geometry": "QUALIFIED_BODY_CENTER_GEOMETRY_IS_CONTEXT_NOT_ROUTE_LENGTH_OR_TRANSFER_SOLUTION",
+    "actor_budget_output": "ANNUAL_ACTOR_STATE_WITH_REPLAYABLE_TRANSACTIONS",
+    "actor_knowledge": "ACTOR_VISIBLE_SCENARIO_ONLY_HIDDEN_TRUTH_PROHIBITED",
+    "annual_snapshot_timing": "END_OF_YEAR_AFTER_DUE_COMMISSIONING_DECISIONS_AND_MIGRATION",
+    "atlas_role": "ENGINE_STATE_NOT_FINAL_ATLAS_MATERIALIZATION",
+    "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
+    "capital_accounting": "PROJECT_CAPITAL_USES_PROJECT_ECONOMICS_UNIT_ACTOR_BUDGET_DEBITED_AT_COMMITMENT_LOCATION_BOOK_CAPITAL_COMPATIBILITY_FIELD_UPDATED_AT_COMMISSIONING",
+    "demand_pressure": "STATE_DERIVED_REQUIREMENT_MINUS_CAPACITY_WITH_UNIT_PRESERVING_MEMORY",
+    "engine_architecture": "ANNUAL_DYNAMIC_RECURSIVE_PLUS_DECAYING_PRESSURE_PLUS_ACTOR_EVENT_DECISIONS",
+    "events": "APPEND_ORDER_EVENT_CHAIN_WITH_PREVIOUS_EVENT_PARENT_REFERENCE_CURRENT_SEMANTICS",
+    "facility_records": "COMMISSIONED_FACILITIES_ONLY",
+    "flows": "MIGRATION_ONLY_IN_EXECUTABLE_BASELINE",
+    "habitat": "BIOLOGICAL_POPULATION_MAY_NOT_EXCEED_HABITAT_CAPACITY",
+    "infrastructure": "GENERIC_CAPACITY_BEARING_MODULES_NOT_PREWRITTEN_ATLAS_FACILITIES",
+    "major_commitments": "REQUIRE_PRESSURE_QUALIFICATION_ACTOR_USABLE_CAPABILITY_AFFORDABILITY",
+    "pending_projects": "INTERNAL_AFTER_COMMITMENT_UNTIL_COMMISSIONING_NOT_EXPOSED_AS_STATE",
+    "population": "NO_BIRTHS_OR_DEATHS_IN_BASELINE_MIGRATION_IS_SOURCE_DEBITED_AND_CONSERVED",
+    "pressure_memory": "CHANNEL_PRESSURE_DECAYS_WHEN_UNMET_REQUIREMENT_DISAPPEARS",
+    "pressure_state": "INTERNAL_NOT_EMITTED_ONLY_QUALIFICATION_EVENTS_VISIBLE",
+    "project_economics": "VERSIONED_PHYSICAL_ECONOMIC_RANGES_WITH_SCALE_AND_EPOCH_RESOLUTION",
+    "resource_truth": "EVALUATOR_ONLY_FIXTURE_PRESENT_IN_PACKAGE_NOT_READ_BY_ENGINE",
+    "runtime_reasoning": "EXPLICIT_CODE_RULES_AND_KEYED_STOCHASTICITY_NO_LLM_AUTHORITY",
+    "technology": "FRONTIER_DATE_DOES_NOT_GRANT_ACTOR_CAPABILITY_ACTOR_ACCESS_IS_SEPARATE",
+    "time_step": "ANNUAL_INSPECTION_WITH_DISCRETE_PROJECT_COMMISSIONING_EVENTS",
+    "workforce": "CURRENT_ENGINE_RULE_NOT_PRODUCTION_LABOR_MODEL"
+  }
+}

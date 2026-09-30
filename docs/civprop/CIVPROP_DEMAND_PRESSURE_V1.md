@@ -69,10 +69,10 @@ The default Earth-Luna development slice defines:
 | Channel | Unit | Available state |
 |---|---|---|
 | HABITAT | person | habitat |
-| TRANSPORT | scenario_capacity_unit | transport |
-| INDUSTRIAL | scenario_capacity_unit | industrial |
-| RESOURCE | scenario_capacity_unit | resource |
-| POWER | MW_equivalent | power |
+| TRANSPORT | tonnes/year | transport |
+| INDUSTRIAL | tonnes/year | industrial |
+| RESOURCE | tonnes/year | resource |
+| POWER | MW | power |
 
 All current channels use:
 
@@ -84,10 +84,15 @@ These are versioned, uncalibrated model parameters.
 Current state drivers are:
 
 - HABITAT: biological population + transient population;
-- TRANSPORT: transient population at 0.04 capacity-unit/person;
-- INDUSTRIAL: workforce at 0.04 capacity-unit/person;
-- RESOURCE: biological + transient population at 0.01 capacity-unit/person;
-- POWER: biological + transient population at 0.025 MW-equivalent/person.
+- TRANSPORT: transient population at 4 tonnes/year/person;
+- INDUSTRIAL: workforce at 4 tonnes/year/person;
+- RESOURCE: biological + transient population at 1 tonne/year/person;
+- POWER: biological + transient population at 0.025 MW/person.
+
+GAP-005 migrated the normalized throughput dimensions into explicit physical units
+while preserving the GAP-004 causal structure. Those coefficients remain
+UNCALIBRATED_CAUSAL_MODEL_PARAMETER_V1; the unit migration does not make them
+empirical demand forecasts.
 
 EARTH_SURFACE is excluded from this off-world demand boundary.
 
@@ -216,10 +221,10 @@ The 2026 compiled state produces, internally:
       pressure = 36 person
 
     EARTH_ORBIT RESOURCE
-      required = 2 scenario_capacity_unit
-      available = 0
-      unmet = 2
-      pressure = 0.48 scenario_capacity_unit
+      required = 200 tonnes/year
+      available = 0 tonnes/year
+      unmet = 200 tonnes/year
+      pressure = 48 tonnes/year
 
 The default seed-42 output nevertheless remains:
 

@@ -10,7 +10,10 @@ GAP-002 adds a versioned actor-state boundary: real scoped AUS evidence is mappe
 where semantics match, generic spendable allocation remains UNKNOWN, and the old
 scenario-credit/generic-capability placeholders are removed. GAP-003 replaces the
 synthetic accessibility table with a versioned physics + scoped-service boundary.
-GAP-004+ compatibility values remain explicit assumptions owned by their registered gaps.
+GAP-004 replaces exogenous demand with causal state-derived pressure. GAP-005 adds
+a versioned hybrid project-economics parameter boundary with physical/economic units,
+uncertainty, scale behavior and technology-year dependence. Later compatibility
+values remain explicit assumptions owned by their registered gaps.
 
 This keeps input assembly deterministic without laundering unresolved model
 assumptions into authority.
@@ -24,7 +27,18 @@ import json
 import math
 from pathlib import Path
 import subprocess
+import sys
 from typing import Any
+
+_THIS_FILE = Path(__file__).resolve()
+_REPO_ROOT_FOR_IMPORT = _THIS_FILE.parents[2]
+if str(_REPO_ROOT_FOR_IMPORT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT_FOR_IMPORT))
+
+from engineering.civprop.contracts.project_economics_v1 import (
+    ProjectEconomicsRuntime,
+    load_project_economics_package,
+)
 
 
 AUTHORITY_CAPTURE_FORMAT = "CIVPROP_AUTHORITY_CAPTURE_V1"
@@ -49,6 +63,14 @@ FLEET_ACCESS_PATH = HERE / "civprop0/actor_access_evidence.json"
 AUS_GOV_ACCESS_PATH = HERE / "civprop0/aus_government_access_evidence.json"
 ROOVER_PATH = HERE / "civprop0/roover_service_envelope.json"
 ROOVER_TRANSPORT_RUN_PATH = HERE / "civprop0/runs/roover_transport_mid2030_v1.json"
+PROJECT_ECONOMICS_PATH = HERE / "contracts/project_economics_v1.json"
+DORRINGTON_CONTRACT_PATH = (
+    REPO_ROOT
+    / "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json"
+)
+DORRINGTON_ASSESSMENT_PATH = (
+    REPO_ROOT / "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md"
+)
 
 
 def _json_bytes(value: Any) -> bytes:
@@ -290,6 +312,8 @@ def capture_live_authority(
         "ephemeris_coverage": rows["ephemeris_coverage"],
     }
     transport_reference = _validated_transport_reference(solar_capture)
+    project_economics = json.loads(PROJECT_ECONOMICS_PATH.read_text())
+    load_project_economics_package(project_economics)
 
     source_paths = [
         RESOURCE_PATH,
@@ -297,6 +321,9 @@ def capture_live_authority(
         AUS_GOV_ACCESS_PATH,
         ROOVER_PATH,
         ROOVER_TRANSPORT_RUN_PATH,
+        PROJECT_ECONOMICS_PATH,
+        DORRINGTON_CONTRACT_PATH,
+        DORRINGTON_ASSESSMENT_PATH,
         METHOD_LAB_DIR / "scenario_v1.json",
         METHOD_LAB_DIR / "truth_v1.json",
         REPO_ROOT / "data/postgres/earth_temporal_projection_manifest.json",
@@ -318,6 +345,7 @@ def capture_live_authority(
         "captured_for_gap": (
             "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS"
             "_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE"
+            "_PLUS_GAP-005_PROJECT_ECONOMICS"
         ),
         "capture_semantics": (
             "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES"
@@ -336,6 +364,19 @@ def capture_live_authority(
         "solar": solar_capture,
         "transport": {
             "roover_reference": transport_reference,
+        },
+        "model_parameters": {
+            "project_economics_v1": project_economics,
+            "project_economics_source": {
+                "path": str(PROJECT_ECONOMICS_PATH.relative_to(REPO_ROOT)),
+                "sha256": _sha256_path(PROJECT_ECONOMICS_PATH),
+            },
+            "dorrington_olsen_boundary": {
+                "contract_path": str(DORRINGTON_CONTRACT_PATH.relative_to(REPO_ROOT)),
+                "contract_sha256": _sha256_path(DORRINGTON_CONTRACT_PATH),
+                "assessment_path": str(DORRINGTON_ASSESSMENT_PATH.relative_to(REPO_ROOT)),
+                "assessment_sha256": _sha256_path(DORRINGTON_ASSESSMENT_PATH),
+            },
         },
         "timeline": {
             "snapshot": rows["timeline_snapshot"][0],
@@ -366,15 +407,6 @@ def capture_live_authority(
 def _assumption_register() -> list[dict[str, str]]:
     return [
         {
-            "assumption_id": "ASSUME-GAP005-PROJECT-ECONOMICS",
-            "gap_id": "GAP-005",
-            "status": "EXPLICIT_PLACEHOLDER",
-            "semantics": (
-                "Facility costs, construction lags and capacity quantities remain "
-                "METHOD_LAB_SYNTHETIC_V1 parameter values."
-            ),
-        },
-        {
             "assumption_id": "ASSUME-GAP006-RESOURCE-PRIOR",
             "gap_id": "GAP-006",
             "status": "EXPLICIT_PLACEHOLDER",
@@ -389,8 +421,9 @@ def _assumption_register() -> list[dict[str, str]]:
             "gap_id": "GAP-012",
             "status": "EXPLICIT_PLACEHOLDER",
             "semantics": (
-                "Initial Earth-orbit/Luna/cislunar engine capacities remain the Method "
-                "Lab boundary fixture; they are not a compiled empirical 2026 infrastructure inventory."
+                "Initial Earth-orbit/Luna/cislunar engine capacities remain compatibility "
+                "values inherited from the Method Lab and migrated into explicit physical units; "
+                "the unit adapter does not make them a compiled empirical 2026 infrastructure inventory."
             ),
         },
         {
@@ -698,54 +731,54 @@ def _compile_demand_pressure() -> dict[str, Any]:
             },
             {
                 "channel_id": "TRANSPORT",
-                "unit": "scenario_capacity_unit",
+                "unit": "tonnes/year",
                 "available_field": "transport",
                 "decay": 0.60,
                 "gain": 0.24,
                 "drivers": [
                     {
                         "field": "transient_population",
-                        "coefficient": 0.04,
-                        "coefficient_unit": "scenario_capacity_unit/person",
+                        "coefficient": 4.0,
+                        "coefficient_unit": "tonnes/year/person",
                     }
                 ],
             },
             {
                 "channel_id": "INDUSTRIAL",
-                "unit": "scenario_capacity_unit",
+                "unit": "tonnes/year",
                 "available_field": "industrial",
                 "decay": 0.60,
                 "gain": 0.24,
                 "drivers": [
                     {
                         "field": "workforce",
-                        "coefficient": 0.04,
-                        "coefficient_unit": "scenario_capacity_unit/person",
+                        "coefficient": 4.0,
+                        "coefficient_unit": "tonnes/year/person",
                     }
                 ],
             },
             {
                 "channel_id": "RESOURCE",
-                "unit": "scenario_capacity_unit",
+                "unit": "tonnes/year",
                 "available_field": "resource",
                 "decay": 0.60,
                 "gain": 0.24,
                 "drivers": [
                     {
                         "field": "biological_population",
-                        "coefficient": 0.01,
-                        "coefficient_unit": "scenario_capacity_unit/person",
+                        "coefficient": 1.0,
+                        "coefficient_unit": "tonnes/year/person",
                     },
                     {
                         "field": "transient_population",
-                        "coefficient": 0.01,
-                        "coefficient_unit": "scenario_capacity_unit/person",
+                        "coefficient": 1.0,
+                        "coefficient_unit": "tonnes/year/person",
                     },
                 ],
             },
             {
                 "channel_id": "POWER",
-                "unit": "MW_equivalent",
+                "unit": "MW",
                 "available_field": "power",
                 "decay": 0.60,
                 "gain": 0.24,
@@ -753,12 +786,12 @@ def _compile_demand_pressure() -> dict[str, Any]:
                     {
                         "field": "biological_population",
                         "coefficient": 0.025,
-                        "coefficient_unit": "MW_equivalent/person",
+                        "coefficient_unit": "MW/person",
                     },
                     {
                         "field": "transient_population",
                         "coefficient": 0.025,
-                        "coefficient_unit": "MW_equivalent/person",
+                        "coefficient_unit": "MW/person",
                     },
                 ],
             },
@@ -768,6 +801,61 @@ def _compile_demand_pressure() -> dict[str, Any]:
         # does not silently become generic logistics demand.
         "strategic_requirements": [],
     }
+
+
+def _compile_project_economics(capture: dict[str, Any]) -> dict[str, Any]:
+    raw = copy.deepcopy(capture["model_parameters"]["project_economics_v1"])
+    load_project_economics_package(raw)
+    return raw
+
+
+def _migrate_capacity_units(scenario: dict[str, Any]) -> None:
+    """Replace Method Lab normalized capacity units with explicit physical units."""
+    multipliers = {
+        "power": 1.0,
+        "resource": 100.0,
+        "industrial": 100.0,
+        "habitat": 1.0,
+        "shipyard": 100.0,
+        "transport": 100.0,
+    }
+    for location in scenario["locations"]:
+        capacities = location["initial_state"]["capacities"]
+        for dimension, factor in multipliers.items():
+            capacities[dimension] = float(capacities.get(dimension, 0.0)) * factor
+
+    scenario["units"].update(
+        {
+            "capacity": "dimension_specific_physical_units",
+            "power": "MW",
+            "resource": "tonnes/year",
+            "industrial": "tonnes/year",
+            "habitat": "person",
+            "shipyard": "tonnes/year",
+            "transport": "tonnes/year",
+            "project_capital": "USD_2026_billion",
+        }
+    )
+
+
+def _apply_project_economics(
+    scenario: dict[str, Any],
+    package_raw: dict[str, Any],
+) -> None:
+    package = load_project_economics_package(package_raw)
+    runtime = ProjectEconomicsRuntime(package)
+    for project in scenario["project_archetypes"]:
+        resolved = runtime.resolve(
+            project["project_archetype_id"],
+            year=START_YEAR,
+        )
+        project["capital_cost"] = resolved.capital_cost
+        project["construction_lag_years"] = resolved.construction_lag_years
+        project["output_capacities"] = dict(resolved.output_capacities)
+        project["minimum_input_capacities"] = dict(
+            resolved.minimum_input_capacities
+        )
+    scenario["project_economics_v1"] = package_raw
 
 
 def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
@@ -789,6 +877,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     earth["initial_state"]["capacities"]["habitat"] = global_2026[
         "biological_population"
     ]
+    _migrate_capacity_units(scenario)
 
     scenario["actors"] = [{"actor_id": "AUS", "actor_type": "STATE"}]
     scenario["actor_state_v1"] = _compile_actor_state(capture)
@@ -797,6 +886,8 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     scenario.pop("accessibility", None)
     scenario["demand_pressure_v1"] = _compile_demand_pressure()
     scenario.pop("demand_signals", None)
+    project_economics = _compile_project_economics(capture)
+    _apply_project_economics(scenario, project_economics)
 
     belief = copy.deepcopy(base["resource_beliefs"][0])
     belief["evidence_status"] = "EMPIRICAL_PRESENCE_PLUS_SCENARIO_PRIOR"
@@ -810,6 +901,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
                 "GAP-002": "CLOSED",
                 "GAP-003": "CLOSED",
                 "GAP-004": "CLOSED",
+                "GAP-005": "CLOSED",
             },
             "compatibility_envelope": (
                 "CIVPROP_METHOD_LAB_SCENARIO_V1 retained for locked runner compatibility"
@@ -830,6 +922,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
         },
         "solar": capture["solar"],
         "transport": capture["transport"],
+        "model_parameters": capture["model_parameters"],
         "timeline": capture["timeline"],
         "resource": capture["resource"],
         "actor": capture["actor"],
@@ -897,10 +990,11 @@ def compile_from_capture(
     gap_resolution["GAP-002"] = "CLOSED"
     gap_resolution["GAP-003"] = "CLOSED"
     gap_resolution["GAP-004"] = "CLOSED"
+    gap_resolution["GAP-005"] = "CLOSED"
     compiler_manifest = {
         "format": COMPILER_MANIFEST_FORMAT,
         "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-        "compiler_version": "1.3.0",
+        "compiler_version": "1.4.0",
         "compiler_source_sha256": _sha256_path(HERE / "compile_inputs_v1.py"),
         "runtime_input": {
             "fixture_id": COMPILED_FIXTURE_ID,
@@ -962,11 +1056,18 @@ def compile_from_capture(
                 "and carries unmet demand into decaying pressure in the same channel unit. The "
                 "default OFFWORLD_* and WATER_RESOURCE_DEMAND annual fixture curves are removed."
             ),
+            "gap5_closed_means": (
+                "Project Economics V1 supplies a versioned Earth-Orbit-Luna parameter set with "
+                "economic/physical units, low-nominal-high uncertainty, explicit scale behavior, "
+                "technology-year adjustments and component provenance. The default runtime no "
+                "longer consumes METHOD_LAB_SYNTHETIC_V1 project economics."
+            ),
             "does_not_mean": (
                 "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample "
                 "is a route, transfer solution, fleet allocation, service price, or actor entitlement; "
-                "the uncalibrated demand coefficients are empirical forecasts; project economics, "
-                "hidden truth, off-world initial infrastructure, or demographic depth are production solved."
+                "the uncalibrated demand coefficients or scenario project-economic ranges are "
+                "empirical forecasts; Dorrington-Olsen is a lunar facility cost model; hidden truth, "
+                "off-world initial infrastructure, or demographic depth are production solved."
             ),
         },
     }
@@ -1001,6 +1102,7 @@ def main() -> None:
                 "gap_002": manifest["gap_resolution"]["GAP-002"],
                 "gap_003": manifest["gap_resolution"]["GAP-003"],
                 "gap_004": manifest["gap_resolution"]["GAP-004"],
+                "gap_005": manifest["gap_resolution"]["GAP-005"],
                 "output_dir": str(args.output_dir),
             },
             indent=2,

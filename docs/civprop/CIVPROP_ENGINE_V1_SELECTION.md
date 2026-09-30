@@ -173,12 +173,13 @@ Current promoted continuation authority is:
 
 As of the register basis commit:
 
-    GAP-001 REAL_INPUT_COMPILER       CLOSED
-    GAP-002 ACTOR_STATE_AND_BUDGETS  CLOSED
-    GAP-003 TRANSPORT_ACCESSIBILITY  CLOSED
+    GAP-001 REAL_INPUT_COMPILER        CLOSED
+    GAP-002 ACTOR_STATE_AND_BUDGETS   CLOSED
+    GAP-003 TRANSPORT_ACCESSIBILITY   CLOSED
     GAP-004 DEMAND_AND_PRESSURE_MODEL CLOSED
+    GAP-005 PROJECT_ECONOMICS         CLOSED
 
-The selected Hybrid V1 architecture remains fixed while GAP-005 through GAP-015
+The selected Hybrid V1 architecture remains fixed while GAP-006 through GAP-015
 replace the remaining placeholders and missing state/output surfaces.
 
 The post-gap sequence is also frozen in that register so completion of the gap list

@@ -110,9 +110,11 @@ causing those things by label.
 This prevents circular reasoning such as "the facility is strategically important
 because its archetype was strategic."
 
-## Preserved Method Lab assumptions
+## Historical Method Lab regression parameterization
 
-The catalog contains a parameter set named METHOD_LAB_SYNTHETIC_V1.
+The catalog still contains a parameter set named METHOD_LAB_SYNTHETIC_V1 for
+historical Method Lab regression only. The default compiled CIVPROP path no longer
+consumes it after GAP-005 closure.
 
 It preserves, value-for-value, the existing Method Lab assumptions for:
 
@@ -138,10 +140,21 @@ They are not:
 - production CIVPROP economics;
 - 2226 facility sizes.
 
-SURFACE_PORT and SHIPYARD intentionally have no numeric V1 parameterization.
-Their semantics are needed to cover the Atlas infrastructure spine, but inventing
-costs/capacity merely to make them runnable would violate the current evidence and
-model boundary.
+SURFACE_PORT and SHIPYARD intentionally have no METHOD_LAB_SYNTHETIC_V1 numeric
+parameterization.
+
+The current default project parameter authority is instead:
+
+    engineering/civprop/contracts/project_economics_v1.json
+    EARTH_LUNA_PROJECT_ECONOMICS_V1_2026_2036
+
+Project Economics V1 covers the full Earth-Orbit-Luna development project set,
+including SURFACE_PORT and SHIPYARD, with explicit units, uncertainty ranges,
+scale behavior, technology-year adjustments and provenance. Scenario-class values
+remain visibly non-empirical.
+
+The stable archetype semantics in this document remain independent from either the
+historical Method Lab parameter set or the current Project Economics V1 values.
 
 ## Explicit V1 assumptions
 
