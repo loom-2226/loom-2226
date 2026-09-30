@@ -36,6 +36,16 @@ from engineering.civprop.contracts.mission_knowledge_v1 import (
     ObservationRecordV1,
     load_mission_knowledge_package,
 )
+from engineering.civprop.contracts.pressure_observability_v1 import (
+    CAUSAL_SEMANTICS,
+    LEGACY_SEMANTICS,
+    PressureContributionV1,
+    PressureObservabilityPackage,
+    PressureObservabilityRuntime,
+    PressureQualificationV1,
+    PressureStateV1,
+    load_pressure_observability_package,
+)
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -158,6 +168,7 @@ class LabScenario:
     project_economics_v1: Optional[ProjectEconomicsPackage]
     project_archetypes: tuple[ProjectArchetype, ...]
     mission_knowledge_v1: Optional[MissionKnowledgePackage] = None
+    pressure_observability_v1: Optional[PressureObservabilityPackage] = None
 
 
 @dataclass(frozen=True)
@@ -264,6 +275,9 @@ class LabResult:
     observations: tuple[ObservationRecordV1, ...] = ()
     knowledge_states: tuple[KnowledgeStateV1, ...] = ()
     mission_decisions: tuple[MissionDecisionRecordV1, ...] = ()
+    pressure_states: tuple[PressureStateV1, ...] = ()
+    pressure_contributions: tuple[PressureContributionV1, ...] = ()
+    pressure_qualifications: tuple[PressureQualificationV1, ...] = ()
 
 
 @runtime_checkable
@@ -300,6 +314,19 @@ def canonical_json(value: Any) -> str:
             "observations",
             "knowledge_states",
             "mission_decisions",
+        ):
+            plain.pop(key, None)
+    if isinstance(value, LabResult) and not (
+        value.pressure_states
+        or value.pressure_contributions
+        or value.pressure_qualifications
+    ):
+        # Historical runs without Pressure Observability V1 keep their exact
+        # canonical result hash.
+        for key in (
+            "pressure_states",
+            "pressure_contributions",
+            "pressure_qualifications",
         ):
             plain.pop(key, None)
     return json.dumps(
@@ -448,6 +475,13 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             None
             if data.get("mission_knowledge_v1") is None
             else load_mission_knowledge_package(data["mission_knowledge_v1"])
+        ),
+        pressure_observability_v1=(
+            None
+            if data.get("pressure_observability_v1") is None
+            else load_pressure_observability_package(
+                data["pressure_observability_v1"]
+            )
         ),
     )
 
@@ -754,6 +788,231 @@ def validate_result(result: LabResult, bundle: LabBundle) -> None:
             raise ValueError("flow unknown actor")
         if not s.start_year <= flow.year <= s.end_year:
             raise ValueError("flow outside horizon")
+
+    if s.pressure_observability_v1 is None:
+        if (
+            result.pressure_states
+            or result.pressure_contributions
+            or result.pressure_qualifications
+        ):
+            raise ValueError(
+                "pressure outputs require Pressure Observability V1"
+            )
+    else:
+        pressure_runtime = PressureObservabilityRuntime(
+            s.pressure_observability_v1
+        )
+        _unique(
+            result.pressure_states,
+            lambda x: x.pressure_state_id,
+            "pressure state id",
+        )
+        state_by_id = {
+            x.pressure_state_id: x for x in result.pressure_states
+        }
+        channel_by_id = (
+            {}
+            if s.demand_pressure_v1 is None
+            else {
+                x.channel_id: x
+                for x in s.demand_pressure_v1.channels
+            }
+        )
+        project_ids = {
+            x.project_archetype_id for x in s.project_archetypes
+        }
+
+        for state in result.pressure_states:
+            pressure_runtime.validate_state(state)
+            if not s.start_year <= state.year <= s.end_year:
+                raise ValueError("pressure state outside horizon")
+            if state.location_id not in location_ids:
+                raise ValueError("pressure state unknown location")
+            if state.semantics == CAUSAL_SEMANTICS:
+                if state.channel_id not in channel_by_id:
+                    raise ValueError("pressure state unknown demand channel")
+                if state.unit != channel_by_id[state.channel_id].unit:
+                    raise ValueError("pressure state channel unit mismatch")
+            elif state.semantics == LEGACY_SEMANTICS:
+                if state.project_archetype_id not in project_ids:
+                    raise ValueError("legacy pressure state unknown project")
+            else:
+                raise ValueError("unknown pressure-state semantics")
+
+        _unique(
+            result.pressure_contributions,
+            lambda x: x.contribution_id,
+            "pressure contribution id",
+        )
+        for contribution in result.pressure_contributions:
+            if contribution.pressure_state_id not in state_by_id:
+                raise ValueError(
+                    "pressure contribution references unknown state"
+                )
+            state = state_by_id[contribution.pressure_state_id]
+            if (
+                contribution.year != state.year
+                or contribution.location_id != state.location_id
+                or contribution.semantics != state.semantics
+            ):
+                raise ValueError("pressure contribution/state scope mismatch")
+            if contribution.sign not in {-1, 1}:
+                raise ValueError("invalid pressure contribution sign")
+            if contribution.quantity < 0:
+                raise ValueError("negative pressure contribution quantity")
+            if state.semantics == CAUSAL_SEMANTICS:
+                if contribution.channel_id != state.channel_id:
+                    raise ValueError(
+                        "causal pressure contribution channel mismatch"
+                    )
+                if contribution.unit != state.unit:
+                    raise ValueError(
+                        "causal pressure contribution unit mismatch"
+                    )
+            else:
+                if (
+                    contribution.project_archetype_id
+                    != state.project_archetype_id
+                ):
+                    raise ValueError(
+                        "legacy pressure contribution project mismatch"
+                    )
+
+        _unique(
+            result.pressure_qualifications,
+            lambda x: x.qualification_id,
+            "pressure qualification id",
+        )
+        decision_by_id = {
+            x.decision_id: x for x in result.decisions
+        }
+        selected_by_decision = {}
+        for qualification in result.pressure_qualifications:
+            if qualification.actor_id not in actor_ids:
+                raise ValueError("pressure qualification unknown actor")
+            if qualification.location_id not in location_ids:
+                raise ValueError(
+                    "pressure qualification unknown location"
+                )
+            if qualification.project_archetype_id not in project_ids:
+                raise ValueError(
+                    "pressure qualification unknown project"
+                )
+            if not s.start_year <= qualification.year <= s.end_year:
+                raise ValueError(
+                    "pressure qualification outside horizon"
+                )
+            ratios = [
+                x.ratio for x in qualification.channel_ratios
+            ]
+            if ratios:
+                expected = max(ratios)
+                if abs(
+                    qualification.controlling_ratio - expected
+                ) > 1e-12:
+                    raise ValueError(
+                        "pressure controlling ratio mismatch"
+                    )
+                controls = [
+                    x
+                    for x in qualification.channel_ratios
+                    if abs(x.ratio - expected) <= 1e-12
+                ]
+                if qualification.controlling_channel_id not in {
+                    x.channel_id for x in controls
+                }:
+                    raise ValueError(
+                        "pressure controlling channel mismatch"
+                    )
+            elif qualification.semantics == CAUSAL_SEMANTICS:
+                if qualification.controlling_channel_id is not None:
+                    raise ValueError(
+                        "empty causal ratio set has controlling channel"
+                    )
+
+            for ratio in qualification.channel_ratios:
+                if ratio.pressure_state_id is None:
+                    continue
+                if ratio.pressure_state_id not in state_by_id:
+                    raise ValueError(
+                        "qualification references unknown pressure state"
+                    )
+                state = state_by_id[ratio.pressure_state_id]
+                if (
+                    state.year != qualification.year
+                    or state.location_id
+                    != qualification.location_id
+                    or state.channel_id != ratio.channel_id
+                ):
+                    raise ValueError(
+                        "qualification pressure-state scope mismatch"
+                    )
+                if ratio.unit != state.unit:
+                    raise ValueError(
+                        "qualification pressure-state unit mismatch"
+                    )
+                if abs(
+                    ratio.pressure
+                    - state.prequalification_pressure
+                ) > 1e-12:
+                    raise ValueError(
+                        "qualification pressure value mismatch"
+                    )
+
+            expected_qualified = (
+                qualification.controlling_ratio
+                >= qualification.threshold
+            )
+            if qualification.pressure_qualified != expected_qualified:
+                raise ValueError(
+                    "pressure qualification threshold mismatch"
+                )
+            if qualification.selected:
+                if not qualification.pressure_qualified:
+                    raise ValueError(
+                        "selected qualification is below threshold"
+                    )
+                if qualification.decision_id not in decision_by_id:
+                    raise ValueError(
+                        "selected qualification missing decision"
+                    )
+                decision = decision_by_id[
+                    qualification.decision_id
+                ]
+                if (
+                    decision.action != "COMMIT_PROJECT"
+                    or decision.status != "COMMITTED"
+                    or decision.year != qualification.year
+                    or decision.actor_id != qualification.actor_id
+                    or decision.target_location_id
+                    != qualification.location_id
+                    or decision.project_archetype_id
+                    != qualification.project_archetype_id
+                ):
+                    raise ValueError(
+                        "qualification/decision provenance mismatch"
+                    )
+                if decision.decision_id in selected_by_decision:
+                    raise ValueError(
+                        "decision has duplicate pressure provenance"
+                    )
+                selected_by_decision[decision.decision_id] = (
+                    qualification.qualification_id
+                )
+            elif qualification.decision_id is not None:
+                raise ValueError(
+                    "unselected qualification cannot link decision"
+                )
+
+        for decision in result.decisions:
+            if (
+                decision.action == "COMMIT_PROJECT"
+                and decision.status == "COMMITTED"
+                and decision.decision_id not in selected_by_decision
+            ):
+                raise ValueError(
+                    "committed project lacks pressure qualification trace"
+                )
 
     if s.mission_knowledge_v1 is None:
         if (

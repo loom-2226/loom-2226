@@ -6,11 +6,11 @@ Status: current program register and post-gap handoff plan
 
 ## Authority boundary
 
-This document records the CIVPROP program state through GAP-006 closure.
+This document records the CIVPROP program state through GAP-007 closure.
 
 Authoritative repository basis at creation:
 
-    f70476fb6aeead4e495d1e234b5f351f4688f954
+    95cac9a31b833a34c84d3be2f7b14e8e7804546e
 
 Machine-readable register:
 
@@ -30,12 +30,12 @@ Current default runtime package:
 
 Current runner/output contract:
 
-    CIVPROP_ENGINE_V1_RUNNER 1.6.0
-    CIVPROP_ENGINE_V1_OUTPUT 1.6.0
+    CIVPROP_ENGINE_V1_RUNNER 1.7.0
+    CIVPROP_ENGINE_V1_OUTPUT 1.7.0
 
 Current engine:
 
-    HYBRID_V1 method-reference-v4
+    HYBRID_V1 method-reference-v5
 
 Current input authority:
 
@@ -83,7 +83,12 @@ from hidden realization, and deterministic Bayesian knowledge updates from later
 decisions. The first admitted observation model is deliberately narrow: binary lunar
 resource presence.
 
-The current baseline is still not a forecast because GAP-007 through GAP-015 remain
+GAP-007 is CLOSED. Pressure Observability V1 emits immutable annual pressure
+transitions, quantified causal contributions and per-opportunity qualification traces
+with stable IDs. Selected project decisions link to the exact qualifying record, and
+hostile regression proves the audit lane does not alter decisions or random draws.
+
+The current baseline is still not a forecast because GAP-008 through GAP-015 remain
 open. Demand, mission-observation and project-economics scenario coefficients remain
 uncalibrated where marked, and later mechanisms materially affect the result. The
 default seed-42 baseline remains an engineering regression/reference artifact, not a
@@ -127,7 +132,7 @@ A gap may close only when its replacement has:
 | GAP-004 | DEMAND_AND_PRESSURE_MODEL | CLOSED | Preserve state-derived/unit-preserving demand semantics; no authored annual curves |
 | GAP-005 | PROJECT_ECONOMICS | CLOSED | Preserve unit/provenance/uncertainty boundaries; scenario ranges remain non-empirical |
 | GAP-006 | MISSIONS_AND_KNOWLEDGE_UPDATE | CLOSED | Preserve hidden-truth firewall, keyed observations and actor-scoped posterior handoff |
-| GAP-007 | PRESSURE_OBSERVABILITY | OPEN | Emit or reconstruct pressure state and causal components |
+| GAP-007 | PRESSURE_OBSERVABILITY | CLOSED | Preserve read-only reconstructable pressure ledger and exact decision provenance |
 | GAP-008 | RESOURCE_MASS_BALANCE | OPEN | Add stock/grade/yield/throughput/inventory/depletion closure |
 | GAP-009 | PRODUCTION_AND_VALUE_ADDED | OPEN | Generate off-world production, capital, investment and value added |
 | GAP-010 | POWER_BALANCE | OPEN | Add generation/load/storage/reserve/energy closure |
@@ -460,7 +465,8 @@ Current frontier:
     GAP-004 CLOSED
     GAP-005 CLOSED
     GAP-006 CLOSED
-    GAP-007 OPEN
+    GAP-007 CLOSED
+    GAP-008 OPEN
 
 GAP-002 removed the compiled-input assumptions:
 
@@ -483,7 +489,8 @@ GAP-004 removed the compiled-input assumption:
 
 and replaced hand-authored annual demand curves with Demand/Pressure V1 state-derived
 requirements, installed-capacity relief and decaying unit-preserving pressure.
-Dynamic pressure remains internal; GAP-007 still owns its observability surface.
+GAP-007 now exposes those pressure transitions without changing their causal
+semantics.
 
 GAP-005 removed the default compiled-input assumption:
 
@@ -502,10 +509,19 @@ boundary. The 0.45 prior and 0.80/0.10 observation model remain explicitly
 uncalibrated scenario parameters inside that closed mechanism. PROSPECTING_SURVEY is
 now a mission action, not an infrastructure/project archetype.
 
+GAP-007 adds:
+
+    CIVPROP_PRESSURE_OBSERVABILITY_V1
+
+with immutable annual pressure states, quantified contributions and qualification
+records. The causal path records zero synthetic discharge; the historical Method Lab
+path exposes its old cost-based discharge explicitly when observability is enabled.
+The GAP-006 golden behavioral surfaces remain byte-identical under GAP-007.
+
 The next implementation target is therefore:
 
-    GAP-007 PRESSURE_OBSERVABILITY
+    GAP-008 RESOURCE_MASS_BALANCE
 
-That work must expose or exactly reconstruct pressure state and qualification
-provenance without changing Hybrid decisions, random draws or the closed
-mission/knowledge semantics.
+That work must add stock/grade/yield/throughput/inventory/depletion closure without
+using the pressure ledger as an alternate decision path or weakening the closed
+knowledge/resource-evidence firewall.

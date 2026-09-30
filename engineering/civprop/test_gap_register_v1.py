@@ -59,7 +59,8 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         self.assertEqual(observed["GAP-004"], "CLOSED")
         self.assertEqual(observed["GAP-005"], "CLOSED")
         self.assertEqual(observed["GAP-006"], "CLOSED")
-        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(7, 16)))
+        self.assertEqual(observed["GAP-007"], "CLOSED")
+        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(8, 16)))
 
     def test_every_gap_has_exit_criteria_and_handoff(self):
         for gap in self.registry["gaps"]:
@@ -163,6 +164,32 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         )
         self.assertIn(
             "docs/civprop/CIVPROP_MISSIONS_AND_KNOWLEDGE_V1.md",
+            refs,
+        )
+
+    def test_gap7_closure_references_pressure_observability_artifacts(self):
+        gap7 = self.registry["gaps"][6]
+        self.assertEqual(gap7["current_status"], "CLOSED")
+        refs = set(gap7["current_evidence"])
+        self.assertIn(
+            "engineering/civprop/contracts/pressure_observability_v1.py",
+            refs,
+        )
+        self.assertIn(
+            "engineering/civprop/contracts/test_pressure_observability_v1.py",
+            refs,
+        )
+        self.assertIn(
+            "engineering/civprop/method_lab/pressure_lane_v1.py",
+            refs,
+        )
+        self.assertIn("engineering/civprop/run_civprop_v1.py", refs)
+        self.assertIn(
+            "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_BASELINE_MANIFEST.json",
+            refs,
+        )
+        self.assertIn(
+            "docs/civprop/CIVPROP_PRESSURE_OBSERVABILITY_V1.md",
             refs,
         )
 

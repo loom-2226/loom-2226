@@ -1,20 +1,20 @@
 {
   "format": "CIVPROP_GAP_REGISTER_V1",
   "register_id": "CIVPROP_GAP_REGISTER_2026_09_30",
-  "as_of_main_commit": "f70476fb6aeead4e495d1e234b5f351f4688f954",
+  "as_of_main_commit": "95cac9a31b833a34c84d3be2f7b14e8e7804546e",
   "status_semantics": {
     "CLOSED": "The gap has a tested, versioned mechanism adequate for the current CIVPROP development boundary. Closure does not claim every future production-scale value is already calibrated.",
     "OPEN": "The current default executable still contains a placeholder, missing state/output, or incomplete production mechanism owned by this gap.",
     "BLOCKED": "Work cannot proceed without an unresolved dependency outside the gap."
   },
   "current_baseline": {
-    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.6.0",
-    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.6.0",
-    "engine": "HYBRID_V1 method-reference-v4",
+    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.7.0",
+    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.7.0",
+    "engine": "HYBRID_V1 method-reference-v5",
     "default_fixture": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP6_MISSIONS_KNOWLEDGE_SEED42.json",
-    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP6_BASELINE_MANIFEST.json"
+    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_PRESSURE_OBSERVABILITY_SEED42.json",
+    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_BASELINE_MANIFEST.json"
   },
   "gaps": [
     {
@@ -239,7 +239,7 @@
         "Knowledge updates are deterministic given seed/evidence and produce auditable events.",
         "Updated beliefs feed later economics/decisions without hidden-truth leakage."
       ],
-      "next_action": "CLOSED. Preserve the hidden-truth firewall, keyed observation semantics and actor-scoped knowledge updates while proceeding to GAP-007 PRESSURE_OBSERVABILITY.",
+      "next_action": "CLOSED. Preserve the hidden-truth firewall, keyed observation semantics and actor-scoped knowledge updates while later gaps close.",
       "output_or_contract_affected": [
         "missions",
         "observations",
@@ -253,10 +253,27 @@
     {
       "gap_id": "GAP-007",
       "name": "PRESSURE_OBSERVABILITY",
-      "current_status": "OPEN",
-      "meaning": "Pressure levels are internal; only pressure-qualified events are emitted.",
+      "current_status": "CLOSED",
+      "meaning": "Pressure Observability V1 emits immutable annual pressure transitions, quantified causal contributions and per-opportunity qualification traces with stable IDs; selected project decisions link to the exact qualifying record without changing Hybrid behavior.",
       "current_evidence": [
-        "engineering/civprop/method_lab/prototypes/hybrid_v1.py"
+        "docs/civprop/CIVPROP_PRESSURE_OBSERVABILITY_V1.md",
+        "engineering/civprop/contracts/pressure_observability_v1.py",
+        "engineering/civprop/contracts/pressure_observability_v1.json",
+        "engineering/civprop/contracts/test_pressure_observability_v1.py",
+        "engineering/civprop/contracts/demand_pressure_v1.py",
+        "engineering/civprop/method_lab/pressure_lane_v1.py",
+        "engineering/civprop/method_lab/contracts.py",
+        "engineering/civprop/method_lab/prototypes/hybrid_v1.py",
+        "engineering/civprop/method_lab/test_hybrid_v1.py",
+        "engineering/civprop/compile_inputs_v1.py",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/compiler_manifest_v1.json",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json",
+        "engineering/civprop/run_civprop_v1.py",
+        "engineering/civprop/test_compile_inputs_v1.py",
+        "engineering/civprop/test_run_civprop_v1.py",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_PRESSURE_OBSERVABILITY_SEED42.json",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_BASELINE_MANIFEST.json",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP6_MISSIONS_KNOWLEDGE_SEED42.json"
       ],
       "exit_criteria": [
         "Pressure state is emitted or reproducibly reconstructable per year/location/archetype.",
@@ -264,10 +281,12 @@
         "A decision can be traced back to the exact pressure state that qualified it.",
         "Observability does not alter engine decisions or random draws."
       ],
-      "next_action": "Add a versioned pressure-state output surface and regression tests without changing Hybrid V1 behavior.",
+      "next_action": "CLOSED. Preserve read-only pressure instrumentation and decision provenance while proceeding to GAP-008 RESOURCE_MASS_BALANCE; observability must not become an alternate decision path.",
       "output_or_contract_affected": [
-        "annual pressure state",
-        "events",
+        "pressure_observability_boundary",
+        "pressure_states",
+        "pressure_contributions",
+        "pressure_qualifications",
         "decision provenance"
       ]
     },

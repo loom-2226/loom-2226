@@ -132,6 +132,9 @@ class Recorder:
         self.observations: list[ObservationRecordV1] = []
         self.knowledge_states: list[KnowledgeStateV1] = []
         self.mission_decisions: list[MissionDecisionRecordV1] = []
+        self.pressure_states = []
+        self.pressure_contributions = []
+        self.pressure_qualifications = []
         self._event_counter = 0
         self._decision_counter = 0
         self._flow_counter = 0
@@ -829,6 +832,9 @@ def finalize(
         observations=tuple(recorder.observations),
         knowledge_states=tuple(recorder.knowledge_states),
         mission_decisions=tuple(recorder.mission_decisions),
+        pressure_states=tuple(recorder.pressure_states),
+        pressure_contributions=tuple(recorder.pressure_contributions),
+        pressure_qualifications=tuple(recorder.pressure_qualifications),
     )
 
 

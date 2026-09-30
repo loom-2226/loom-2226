@@ -176,7 +176,7 @@
   },
   "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
   "capture_semantics": "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES",
-  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE",
+  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE_PLUS_GAP-007_PRESSURE_OBSERVABILITY",
   "earth": {
     "aus_area": {
       "display_name": "Australia",
@@ -607,6 +607,17 @@
         }
       ],
       "scope": "EARTH_ORBIT_LUNA_RESOURCE_PROSPECTING_2026_2036"
+    },
+    "pressure_observability_source": {
+      "path": "engineering/civprop/contracts/pressure_observability_v1.json",
+      "sha256": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d"
+    },
+    "pressure_observability_v1": {
+      "contract_version": "1.0.0",
+      "emit_all_qualifications": true,
+      "emit_contributions": true,
+      "format": "CIVPROP_PRESSURE_OBSERVABILITY_V1",
+      "record_legacy_discharge": true
     },
     "project_economics_source": {
       "path": "engineering/civprop/contracts/project_economics_v1.json",
@@ -1309,7 +1320,7 @@
       }
     ]
   },
-  "source_basis_commit": "f70476fb6aeead4e495d1e234b5f351f4688f954",
+  "source_basis_commit": "95cac9a31b833a34c84d3be2f7b14e8e7804546e",
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
     "data/postgres/timeline_projection_manifest.json": "524ac904a0d1ed4cdb1fae53ce4ac737d7640b71fe1be8ebf9c97ba8fbe56709",
@@ -1321,6 +1332,7 @@
     "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
     "engineering/civprop/civprop0/runs/roover_transport_mid2030_v1.json": "a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
     "engineering/civprop/contracts/mission_knowledge_v1.json": "e95f42820502e24ba638ba0e4b38cc7c3019ffc8551ee5848d5c6abdc940b6a7",
+    "engineering/civprop/contracts/pressure_observability_v1.json": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d",
     "engineering/civprop/contracts/project_economics_v1.json": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
     "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951",

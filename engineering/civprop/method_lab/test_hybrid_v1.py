@@ -14,6 +14,11 @@ from engineering.civprop.contracts.mission_knowledge_v1 import (
     MissionKnowledgeRuntime,
     load_mission_knowledge_package,
 )
+from engineering.civprop.contracts.pressure_observability_v1 import (
+    CAUSAL_SEMANTICS,
+    LEGACY_SEMANTICS,
+    load_pressure_observability_package,
+)
 from .contracts import PropagationEngine, canonical_json, load_bundle, validate_result
 from .mission_lane_v1 import MissionLaneV1
 from .prototypes.common import resource_probability
@@ -30,6 +35,23 @@ class HybridEngineV1Tests(unittest.TestCase):
 
     def run_seed(self, seed=42):
         return HybridEngineV1().run(self.bundle, seed)
+
+    def with_pressure_observability(self, bundle):
+        raw = json.loads(
+            (
+                HERE.parent
+                / "contracts"
+                / "pressure_observability_v1.json"
+            ).read_text()
+        )
+        package = load_pressure_observability_package(raw)
+        return replace(
+            bundle,
+            scenario=replace(
+                bundle.scenario,
+                pressure_observability_v1=package,
+            ),
+        )
 
     def mission_bundle(self, *, success_value=50.0, truth_present=None):
         raw = json.loads(
@@ -270,6 +292,150 @@ class HybridEngineV1Tests(unittest.TestCase):
         ]
         self.assertTrue(commits)
         self.assertEqual(commits[0].year, 2026)
+
+    def test_pressure_observability_does_not_change_legacy_behavior(self):
+        before = HybridEngineV1().run(self.bundle, 42)
+        observed_bundle = self.with_pressure_observability(self.bundle)
+        after = HybridEngineV1().run(observed_bundle, 42)
+
+        for field in (
+            "annual_states",
+            "facilities",
+            "decisions",
+            "events",
+            "flows",
+            "missions",
+            "observations",
+            "knowledge_states",
+            "mission_decisions",
+        ):
+            self.assertEqual(
+                getattr(before, field),
+                getattr(after, field),
+                field,
+            )
+        self.assertEqual(after.metadata.engine_version, "method-reference-v5")
+        self.assertTrue(after.pressure_states)
+        self.assertTrue(after.pressure_qualifications)
+        self.assertTrue(
+            all(x.semantics == LEGACY_SEMANTICS for x in after.pressure_states)
+        )
+
+    def test_legacy_pressure_discharge_is_explicit_and_reconstructable(self):
+        result = HybridEngineV1().run(
+            self.with_pressure_observability(self.bundle),
+            42,
+        )
+        discharged = [x for x in result.pressure_states if x.discharge > 0]
+        self.assertTrue(discharged)
+        for state in discharged:
+            self.assertEqual(state.semantics, LEGACY_SEMANTICS)
+            self.assertAlmostEqual(
+                state.closing_pressure,
+                max(
+                    0.0,
+                    state.prequalification_pressure - state.discharge,
+                ),
+                places=12,
+            )
+
+    def test_causal_pressure_ledger_is_behaviorally_inert_and_links_commit(self):
+        causal = self.causal_bundle(
+            channel={
+                "channel_id": "HABITAT",
+                "unit": "person",
+                "available_field": "habitat",
+                "decay": 0.60,
+                "gain": 1.0,
+                "drivers": [
+                    {
+                        "field": "biological_population",
+                        "coefficient": 1.0,
+                        "coefficient_unit": "person/person",
+                    },
+                    {
+                        "field": "transient_population",
+                        "coefficient": 1.0,
+                        "coefficient_unit": "person/person",
+                    },
+                ],
+            },
+        )
+        before = HybridEngineV1().run(causal, 42)
+        observed_bundle = self.with_pressure_observability(causal)
+        after = HybridEngineV1().run(observed_bundle, 42)
+
+        for field in (
+            "annual_states",
+            "facilities",
+            "decisions",
+            "events",
+            "flows",
+        ):
+            self.assertEqual(
+                getattr(before, field),
+                getattr(after, field),
+                field,
+            )
+
+        self.assertTrue(after.pressure_states)
+        self.assertTrue(
+            all(x.semantics == CAUSAL_SEMANTICS for x in after.pressure_states)
+        )
+        self.assertTrue(all(x.discharge == 0 for x in after.pressure_states))
+        self.assertTrue(after.pressure_contributions)
+
+        committed = next(
+            x for x in after.decisions if x.action == "COMMIT_PROJECT"
+        )
+        trace = next(
+            x
+            for x in after.pressure_qualifications
+            if x.decision_id == committed.decision_id
+        )
+        self.assertTrue(trace.selected)
+        self.assertTrue(trace.pressure_qualified)
+        self.assertEqual(
+            trace.project_archetype_id,
+            committed.project_archetype_id,
+        )
+        state_ids = {x.pressure_state_id for x in after.pressure_states}
+        referenced = {
+            x.pressure_state_id
+            for x in trace.channel_ratios
+            if x.pressure_state_id is not None
+        }
+        self.assertTrue(referenced)
+        self.assertTrue(referenced <= state_ids)
+
+    def test_pressure_ledger_records_below_threshold_qualification(self):
+        causal = self.causal_bundle(
+            channel={
+                "channel_id": "HABITAT",
+                "unit": "person",
+                "available_field": "habitat",
+                "decay": 0.60,
+                "gain": 0.001,
+                "drivers": [
+                    {
+                        "field": "transient_population",
+                        "coefficient": 1.0,
+                        "coefficient_unit": "person/person",
+                    }
+                ],
+            },
+        )
+        result = HybridEngineV1().run(
+            self.with_pressure_observability(causal),
+            42,
+        )
+        self.assertTrue(result.pressure_qualifications)
+        self.assertTrue(
+            any(
+                not x.pressure_qualified
+                for x in result.pressure_qualifications
+            )
+        )
 
     def test_mission_lane_executes_observes_and_updates_knowledge(self):
         bundle = self.mission_bundle()

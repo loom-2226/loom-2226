@@ -12,8 +12,11 @@ scenario-credit/generic-capability placeholders are removed. GAP-003 replaces th
 synthetic accessibility table with a versioned physics + scoped-service boundary.
 GAP-004 replaces exogenous demand with causal state-derived pressure. GAP-005 adds
 a versioned hybrid project-economics parameter boundary with physical/economic units,
-uncertainty, scale behavior and technology-year dependence. Later compatibility
-values remain explicit assumptions owned by their registered gaps.
+uncertainty, scale behavior and technology-year dependence. GAP-006 promotes missions,
+observations and actor-visible Bayesian knowledge updates behind a hidden-truth
+firewall. GAP-007 adds read-only, reconstructable pressure-state and qualification
+provenance. Later compatibility values remain explicit assumptions owned by their
+registered gaps.
 
 This keeps input assembly deterministic without laundering unresolved model
 assumptions into authority.
@@ -42,6 +45,9 @@ from engineering.civprop.contracts.project_economics_v1 import (
 from engineering.civprop.contracts.mission_knowledge_v1 import (
     load_mission_knowledge_package,
 )
+from engineering.civprop.contracts.pressure_observability_v1 import (
+    load_pressure_observability_package,
+)
 
 
 AUTHORITY_CAPTURE_FORMAT = "CIVPROP_AUTHORITY_CAPTURE_V1"
@@ -68,6 +74,9 @@ ROOVER_PATH = HERE / "civprop0/roover_service_envelope.json"
 ROOVER_TRANSPORT_RUN_PATH = HERE / "civprop0/runs/roover_transport_mid2030_v1.json"
 PROJECT_ECONOMICS_PATH = HERE / "contracts/project_economics_v1.json"
 MISSION_KNOWLEDGE_PATH = HERE / "contracts/mission_knowledge_v1.json"
+PRESSURE_OBSERVABILITY_PATH = (
+    HERE / "contracts/pressure_observability_v1.json"
+)
 DORRINGTON_CONTRACT_PATH = (
     REPO_ROOT
     / "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json"
@@ -320,6 +329,10 @@ def capture_live_authority(
     load_project_economics_package(project_economics)
     mission_knowledge = json.loads(MISSION_KNOWLEDGE_PATH.read_text())
     load_mission_knowledge_package(mission_knowledge)
+    pressure_observability = json.loads(
+        PRESSURE_OBSERVABILITY_PATH.read_text()
+    )
+    load_pressure_observability_package(pressure_observability)
 
     source_paths = [
         RESOURCE_PATH,
@@ -329,6 +342,7 @@ def capture_live_authority(
         ROOVER_TRANSPORT_RUN_PATH,
         PROJECT_ECONOMICS_PATH,
         MISSION_KNOWLEDGE_PATH,
+        PRESSURE_OBSERVABILITY_PATH,
         DORRINGTON_CONTRACT_PATH,
         DORRINGTON_ASSESSMENT_PATH,
         METHOD_LAB_DIR / "scenario_v1.json",
@@ -353,6 +367,7 @@ def capture_live_authority(
             "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS"
             "_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE"
             "_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE"
+            "_PLUS_GAP-007_PRESSURE_OBSERVABILITY"
         ),
         "capture_semantics": (
             "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES"
@@ -382,6 +397,13 @@ def capture_live_authority(
             "mission_knowledge_source": {
                 "path": str(MISSION_KNOWLEDGE_PATH.relative_to(REPO_ROOT)),
                 "sha256": _sha256_path(MISSION_KNOWLEDGE_PATH),
+            },
+            "pressure_observability_v1": pressure_observability,
+            "pressure_observability_source": {
+                "path": str(
+                    PRESSURE_OBSERVABILITY_PATH.relative_to(REPO_ROOT)
+                ),
+                "sha256": _sha256_path(PRESSURE_OBSERVABILITY_PATH),
             },
             "dorrington_olsen_boundary": {
                 "contract_path": str(DORRINGTON_CONTRACT_PATH.relative_to(REPO_ROOT)),
@@ -817,6 +839,16 @@ def _compile_mission_knowledge(capture: dict[str, Any]) -> dict[str, Any]:
     return raw
 
 
+def _compile_pressure_observability(
+    capture: dict[str, Any],
+) -> dict[str, Any]:
+    raw = copy.deepcopy(
+        capture["model_parameters"]["pressure_observability_v1"]
+    )
+    load_pressure_observability_package(raw)
+    return raw
+
+
 def _migrate_capacity_units(scenario: dict[str, Any]) -> None:
     """Replace Method Lab normalized capacity units with explicit physical units."""
     multipliers = {
@@ -903,6 +935,9 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
 
     mission_knowledge = _compile_mission_knowledge(capture)
     scenario["mission_knowledge_v1"] = mission_knowledge
+    scenario["pressure_observability_v1"] = (
+        _compile_pressure_observability(capture)
+    )
     scenario["project_archetypes"] = [
         project
         for project in scenario["project_archetypes"]
@@ -919,6 +954,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
                 "GAP-004": "CLOSED",
                 "GAP-005": "CLOSED",
                 "GAP-006": "CLOSED",
+                "GAP-007": "CLOSED",
             },
             "compatibility_envelope": (
                 "CIVPROP_METHOD_LAB_SCENARIO_V1 retained for locked runner compatibility"
@@ -1010,10 +1046,11 @@ def compile_from_capture(
     gap_resolution["GAP-004"] = "CLOSED"
     gap_resolution["GAP-005"] = "CLOSED"
     gap_resolution["GAP-006"] = "CLOSED"
+    gap_resolution["GAP-007"] = "CLOSED"
     compiler_manifest = {
         "format": COMPILER_MANIFEST_FORMAT,
         "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-        "compiler_version": "1.5.0",
+        "compiler_version": "1.6.0",
         "compiler_source_sha256": _sha256_path(HERE / "compile_inputs_v1.py"),
         "runtime_input": {
             "fixture_id": COMPILED_FIXTURE_ID,
@@ -1088,6 +1125,13 @@ def compile_from_capture(
                 "and feeds posterior resource belief into later project scoring. The first "
                 "admitted observation model is binary resource detection."
             ),
+            "gap7_closed_means": (
+                "Pressure Observability V1 emits reconstructable annual pressure transitions, "
+                "quantified contributions and per-opportunity qualification arithmetic with "
+                "stable provenance IDs. Selected project decisions link to the exact pressure "
+                "qualification record. The causal path records no synthetic discharge and the "
+                "legacy Method Lab path exposes its historical discharge explicitly."
+            ),
             "does_not_mean": (
                 "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample "
                 "is a route, transfer solution, fleet allocation, service price, or actor entitlement; "
@@ -1131,6 +1175,7 @@ def main() -> None:
                 "gap_004": manifest["gap_resolution"]["GAP-004"],
                 "gap_005": manifest["gap_resolution"]["GAP-005"],
                 "gap_006": manifest["gap_resolution"]["GAP-006"],
+                "gap_007": manifest["gap_resolution"]["GAP-007"],
                 "output_dir": str(args.output_dir),
             },
             indent=2,

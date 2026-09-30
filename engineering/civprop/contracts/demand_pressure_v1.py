@@ -84,6 +84,14 @@ class DemandPressurePackage:
 
 
 @dataclass(frozen=True)
+class DemandComponent:
+    component_type: str
+    source_id: str
+    quantity: float
+    unit: str
+
+
+@dataclass(frozen=True)
 class DemandObservation:
     year: int
     location_id: str
@@ -93,6 +101,7 @@ class DemandObservation:
     available: float
     unmet: float
     driver_components: tuple[str, ...]
+    quantified_components: tuple[DemandComponent, ...] = ()
 
 
 def _driver(data: Mapping[str, Any]) -> DemandDriver:
@@ -213,6 +222,7 @@ class DemandPressureRuntime:
             for channel in self.package.channels:
                 required = 0.0
                 components: list[str] = []
+                quantified: list[DemandComponent] = []
                 for driver in channel.drivers:
                     value = _nonnegative(
                         getattr(state, driver.field),
@@ -221,7 +231,16 @@ class DemandPressureRuntime:
                     contribution = value * driver.coefficient
                     if contribution:
                         required += contribution
-                        components.append(f"state:{driver.field}")
+                        source_id = f"state:{driver.field}"
+                        components.append(source_id)
+                        quantified.append(
+                            DemandComponent(
+                                component_type="STATE_DRIVER",
+                                source_id=source_id,
+                                quantity=contribution,
+                                unit=channel.unit,
+                            )
+                        )
 
                 for strategic in self.package.strategic_requirements:
                     if strategic.location_id != location_id:
@@ -236,7 +255,16 @@ class DemandPressureRuntime:
                     ):
                         continue
                     required += strategic.amount
-                    components.append(f"strategic:{strategic.requirement_id}")
+                    source_id = f"strategic:{strategic.requirement_id}"
+                    components.append(source_id)
+                    quantified.append(
+                        DemandComponent(
+                            component_type="STRATEGIC_REQUIREMENT",
+                            source_id=source_id,
+                            quantity=strategic.amount,
+                            unit=channel.unit,
+                        )
+                    )
 
                 extra = _nonnegative(
                     additional.get((location_id, channel.channel_id), 0.0),
@@ -244,7 +272,16 @@ class DemandPressureRuntime:
                 )
                 if extra:
                     required += extra
-                    components.append("pending_project_minimum_input")
+                    source_id = "pending_project_minimum_input"
+                    components.append(source_id)
+                    quantified.append(
+                        DemandComponent(
+                            component_type="PENDING_PROJECT_REQUIREMENT",
+                            source_id=source_id,
+                            quantity=extra,
+                            unit=channel.unit,
+                        )
+                    )
 
                 available = _nonnegative(
                     getattr(state, channel.available_field),
@@ -260,6 +297,7 @@ class DemandPressureRuntime:
                         available=available,
                         unmet=max(0.0, required - available),
                         driver_components=tuple(components),
+                        quantified_components=tuple(quantified),
                     )
                 )
         return tuple(rows)
@@ -295,6 +333,7 @@ __all__ = [
     "FORMAT",
     "PARAMETER_STATUS",
     "DemandChannel",
+    "DemandComponent",
     "DemandDriver",
     "DemandObservation",
     "DemandPressurePackage",
