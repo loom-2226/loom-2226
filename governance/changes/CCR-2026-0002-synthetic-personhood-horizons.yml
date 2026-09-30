@@ -1,0 +1,233 @@
+schema_version: '1.0'
+record_type: CANON_CHANGE_REQUEST
+
+id: CCR-2026-0002
+title: Establish synthetic personhood historical horizons and reopen exact synthetic demography
+status: APPROVED_FOR_IMPLEMENTATION
+proposal_revision: 1
+created_date: '2026-10-01'
+updated_date: '2026-10-01'
+
+origin:
+  issue: Kevin canonization directive, 2026-10-01
+  source_type: MIXED
+  source_references:
+    - https://www.anthropic.com/research/exploring-model-welfare
+    - https://www.anthropic.com/news/claude-new-constitution
+    - https://www.anthropic.com/constitution
+    - canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
+    - docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md
+    - engineering/civprop/gap_register_v1.json
+    - docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
+    - canon/current/LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md
+  evidentiary_status: MIXED_EXPLAINED
+  summary: >-
+    Public 2025-2026 frontier-AI work establishes that model welfare, possible
+    machine consciousness and moral status were already live institutional
+    questions in the empirical starting era, without establishing consciousness
+    or personhood. Existing LOOM canon already establishes the later Multiplicity
+    crisis and post-Crisis personhood doctrine. Kevin directs promotion of the
+    causal historical scaffold while preserving exact recognition timing and
+    synthetic demographics as open/model-derived.
+
+proposal:
+  reason: >-
+    Join the empirical 2020s antecedent to the existing Multiplicity-era canon
+    without inventing a precise rights calendar, and remove stale exact
+    synthetic-person demographic quantities from governing status while the
+    current CIVPROP demographic-depth lane remains explicitly open.
+  claims_added:
+    - >-
+      By the mid-2020s, frontier AI organizations and researchers were publicly
+      treating possible model welfare, moral status, agency and machine
+      consciousness as legitimate scientific, ethical and governance questions
+      under unresolved evidence.
+    - >-
+      Later synthetic-person history follows a causal sequence from unresolved
+      moral-status debate through increasingly persistent, autonomous,
+      socially participating machine intelligences, uneven legal recognition,
+      continuity/fork disputes, the Multiplicity crisis and the post-Crisis
+      rights order; exact intermediate dates remain open unless separately
+      promoted.
+    - >-
+      No universal first-recognition year is canonical. The 2090
+      first-jurisdiction recognition date remains an optional non-canon moderate
+      scenario anchor only.
+    - >-
+      Exact synthetic-person population, individuation rates, geographic
+      distribution, instantiation/retirement dynamics and recognition chronology
+      remain open/model-derived unless separately promoted by governing
+      demographic authority.
+    - >-
+      Current CIVPROP GAP-014 DEMOGRAPHIC_DEPTH remains an explicit open
+      implementation gap and is not itself canon authority.
+  claims_modified:
+    - >-
+      The existing circa-2100 subjective-experience research horizon remains a
+      broad canon horizon, not proof that consciousness was scientifically
+      solved.
+    - >-
+      Earth Biosynthetic Amendment v2.4b remains governing for biological
+      demography and unaffected scope, but its exact synthetic-person stock and
+      quantities directly dependent on that stock cease to be governing canon.
+  claims_retired:
+    - >-
+      Earth 2226 recognized synthetic-person population
+      9672505.78986048 as a governing exact canon quantity.
+    - >-
+      Earth 2226 total recognized-person population
+      7172954214.055734 where it depends on the retired exact synthetic-person
+      stock.
+    - >-
+      Earth 2226 synthetic effective labor 10881569.013593039 and total
+      effective labor 1519036674.8347554 as governing exact quantities where
+      they depend on the retired synthetic-person stock.
+    - >-
+      Any interpretation of the older 7.50M heliocentric synthetic-person
+      calibration, the later v2.4b Earth synthetic count, or intermediate
+      propagation-model figures as a fixed 2226 synthetic census.
+  affected_governing_sources:
+    - canon/current/LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md
+    - canon/current/LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md
+    - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
+    - governance/current/LOOM_2226_Baseline_File_Hashes_v2.4.md
+    - governance/current/LOOM_2226_Canon_v2.4_Validation_Report.md
+    - governance/current/LOOM_AUTHORITY_MODEL.yml
+    - governance/dependencies/component-map.yml
+    - manifests/current/LOOM_COMPATIBILITY.yml
+  proposed_authority_relationship:
+    type: SCOPED_GOVERNING_AMENDMENT
+    parent_source: canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
+    scope: >-
+      Synthetic-person historical horizons, legal-personhood chronology and
+      exact synthetic-person demographic authority. Within this narrow scope the
+      new amendment supersedes conflicting exact synthetic-person quantities in
+      Earth Biosynthetic Amendment v2.4b; outside the scope v2.4b remains
+      governing.
+  explicit_non_scope:
+    - No claim that any current AI system is conscious, sentient or a legal person.
+    - No promotion of the 2090 scenario anchor into canon history.
+    - No replacement synthetic-person population target or fitted 2226 endpoint.
+    - No retirement of v2.4b biological population or biological cohort authority.
+    - No change to WPP authority through 2100.
+    - No new off-Earth demographic simulation or census allocation.
+    - No change to propulsion, metric/Loom physics, xenoarchaeology or High-Strangeness ontology.
+    - No CIVPROP code, runtime, SQLite or data migration in this canon change.
+
+frozen_research:
+  involved: false
+  sources: []
+  qualification_state: NOT_APPLICABLE
+  rule: >-
+    This change does not rely on a frozen/preregistered scientific verdict.
+    External 2025-2026 AI-welfare material is provenance for historical
+    plausibility only; future LOOM chronology is a fictional design decision.
+
+downstream_impact:
+  component_map_reviewed: true
+  components:
+    - component_id: canon_baseline_v2_4
+      state: REVALIDATION_REQUIRED
+      rationale: Register and hash the v2.4c scoped amendment and its precedence.
+    - component_id: canon_i_world_history
+      state: REVIEW_REQUIRED
+      rationale: v2.4c extends the personhood historical scaffold without editing the frozen parent in place.
+    - component_id: earth_biosynthetic_amendment
+      state: REVIEW_REQUIRED
+      rationale: Exact synthetic-stock-dependent quantities are superseded only within the new amendment scope; biological authority remains.
+    - component_id: solar_atlas
+      state: REVIEW_REQUIRED
+      rationale: Older heliocentric synthetic counts remain provenance/provisional and must not be read as fixed census authority.
+    - component_id: runtime_campaign_core
+      state: REVIEW_REQUIRED
+      rationale: Canon-aware consumers must load v2.4c when personhood history or synthetic census authority is relevant.
+    - component_id: world_db
+      state: UNCHANGED_COMPATIBLE
+      rationale: No world-database bytes or schema are changed.
+    - component_id: civstate_db
+      state: REVIEW_REQUIRED
+      rationale: Existing CIVSTATE synthetic rows may retain legacy model quantities pending separate data work.
+    - component_id: navigator
+      state: UNCHANGED_COMPATIBLE
+      rationale: Navigation authority and route mechanics are unchanged.
+    - component_id: solar_gis
+      state: UNCHANGED_COMPATIBLE
+      rationale: Spatial runtime and GIS geometry are unchanged.
+
+baseline_obligations:
+  authority_registry_update_required: true
+  canon_baseline_manifest_update_required: true
+  file_hash_manifest_update_required: true
+  validation_report_update_required: true
+  compatibility_manifest_update_required: true
+  archive_or_supersession_update_required: true
+  notes: >-
+    Add v2.4c as a registered scoped amendment. Preserve v2.4b unchanged as
+    provenance and continuing authority outside the superseded synthetic-person
+    scope. Record exact synthetic demographic quantities as retired from
+    governing canon rather than deleting historical model results.
+
+validation:
+  required_tests:
+    - Documentation/canon authority consistency review.
+    - Scoped-amendment precedence review against v2.4b.
+    - Baseline hash verification for all registered governing files.
+    - Compatibility/authority registry consistency review.
+    - Confirm CIVPROP GAP-014 remains OPEN and no simulation output is promoted by implication.
+  required_qualification:
+    - External AI-welfare evidence is used only to establish a 2020s historical antecedent.
+    - No statement asserts current machine consciousness or moral patienthood as fact.
+    - No exact first-recognition date is promoted.
+    - No replacement synthetic-person census quantity is introduced.
+    - v2.4b biological demographic authority remains intact.
+  required_external_verification:
+    - Anthropic model-welfare program, 2025.
+    - Anthropic Claude constitution / moral-status uncertainty, 2026.
+
+assurance:
+  walter_required: true
+  status: WATCH
+  finding_ids:
+    - WALTER-CCR-2026-0002-AUTHORITY-LAYER-WATCH
+  concerns:
+    - >-
+      v2.4b exact synthetic quantities remain governing until v2.4c is actually
+      merged and registered; current CIVPROP GAP-014 does not supersede canon by
+      itself.
+    - >-
+      External vendor statements support only the empirical existence of the
+      debate, not machine consciousness or the fictional future trajectory.
+
+implementation:
+  implementation_pr: null
+  target_branch: main
+  merged_commit: null
+  implemented_date: null
+  changed_governing_sources: []
+  downstream_followup_issues:
+    - >-
+      GAP-014 may later produce a qualified demographic model; any future exact
+      synthetic census promotion requires a separate governed disposition/CCR.
+
+decision:
+  decision_authority: Kevin
+  decision_date: '2026-10-01'
+  rationale: >-
+    Promote the structural personhood trajectory and 2020s antecedent, retain
+    the existing post-Multiplicity doctrine, keep first-recognition timing open,
+    and deliberately leave synthetic demographics open under the new Earth/CIVPROP
+    architecture rather than preserving stale fitted-looking endpoint counts.
+  disposition: APPROVED_FOR_IMPLEMENTATION
+
+supersession:
+  supersedes: []
+  superseded_by: null
+
+history:
+  - date: '2026-10-01'
+    event: CREATED_AND_APPROVED
+    status: APPROVED_FOR_IMPLEMENTATION
+    actor: Kevin
+    note: >-
+      Kevin explicitly directed canonization of the personhood scaffold and
+      preservation of open synthetic demographics after live-Git authority review.
