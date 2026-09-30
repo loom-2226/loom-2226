@@ -1,0 +1,383 @@
+#!/usr/bin/env python3
+"""Locked executable baseline for CIVPROP Engine V1.
+
+One entrypoint:
+    actor-visible input fixture + infrastructure semantics + seed
+        -> selected HYBRID_V1 engine
+        -> complete deterministic CIVPROP Engine V1 output envelope
+
+This baseline intentionally runs the current synthetic Method Lab fixture. It does
+not pretend that the remaining production input gaps have already been solved.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import sys
+from typing import Any
+
+_THIS_FILE = Path(__file__).resolve()
+_CIVPROP_DIR = _THIS_FILE.parent
+_REPO_ROOT = _CIVPROP_DIR.parents[1]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+
+from engineering.civprop.contracts.infrastructure_v1 import (
+    PARAMETER_STATUS_METHOD_LAB,
+    load_infrastructure_catalog,
+)
+from engineering.civprop.method_lab.contracts import (
+    canonical_json,
+    load_bundle,
+    validate_result,
+)
+from engineering.civprop.method_lab.prototypes.hybrid_v1 import HybridEngineV1
+
+
+OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
+OUTPUT_CONTRACT_VERSION = "1.0.0"
+RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
+RUNNER_VERSION = "1.0.0"
+DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def _module_sha256(module) -> str:
+    return _sha256(Path(module.__file__).resolve())
+
+
+def default_paths() -> tuple[Path, Path]:
+    return (
+        _CIVPROP_DIR / "method_lab",
+        _CIVPROP_DIR / "contracts" / "infrastructure_archetypes_v1.json",
+    )
+
+
+def _validate_infrastructure_crosswalk(bundle, catalog) -> list[str]:
+    """Fail closed if the locked Method Lab project semantics drift from the catalog."""
+    parameterized: list[str] = []
+    parameter_by_archetype = {
+        p.archetype_id: p
+        for p in catalog.parameterizations
+        if p.parameter_set_id == DEFAULT_PARAMETER_SET_ID
+    }
+    archetype_by_id = {a.archetype_id: a for a in catalog.archetypes}
+
+    for project in bundle.scenario.project_archetypes:
+        if project.project_kind != "FACILITY":
+            continue
+
+        archetype_id = project.project_archetype_id
+        if archetype_id not in archetype_by_id:
+            raise ValueError(
+                f"facility project missing infrastructure semantics: {archetype_id}"
+            )
+        if archetype_id not in parameter_by_archetype:
+            raise ValueError(
+                f"facility project missing locked parameterization: {archetype_id}"
+            )
+
+        archetype = archetype_by_id[archetype_id]
+        parameter = parameter_by_archetype[archetype_id]
+
+        if tuple(project.allowed_placements) != tuple(archetype.allowed_placements):
+            raise ValueError(f"placement semantic drift: {archetype_id}")
+        if project.capital_cost != parameter.capital_cost:
+            raise ValueError(f"capital-cost drift: {archetype_id}")
+        if project.construction_lag_years != parameter.construction_lag_years:
+            raise ValueError(f"construction-lag drift: {archetype_id}")
+        if dict(project.minimum_input_capacities.__dict__) != {
+            key: float(parameter.minimum_input_capacities.get(key, 0.0))
+            for key in project.minimum_input_capacities.__dict__
+        }:
+            raise ValueError(f"minimum-input-capacity drift: {archetype_id}")
+        if dict(project.output_capacities.__dict__) != {
+            key: float(parameter.output_capacities.get(key, 0.0))
+            for key in project.output_capacities.__dict__
+        }:
+            raise ValueError(f"output-capacity drift: {archetype_id}")
+
+        parameterized.append(archetype_id)
+
+    return sorted(parameterized)
+
+
+def _implementation_hashes() -> dict[str, str]:
+    from engineering.civprop.contracts import infrastructure_v1
+    from engineering.civprop.method_lab import contracts
+    from engineering.civprop.method_lab.prototypes import common, hybrid_v1
+
+    return {
+        "runner_sha256": _sha256(_THIS_FILE),
+        "hybrid_engine_sha256": _module_sha256(hybrid_v1),
+        "common_helpers_sha256": _module_sha256(common),
+        "method_lab_contracts_sha256": _module_sha256(contracts),
+        "infrastructure_contract_sha256": _module_sha256(infrastructure_v1),
+    }
+
+
+def _semantics() -> dict[str, Any]:
+    return {
+        "time_step": "ANNUAL_INSPECTION_WITH_DISCRETE_PROJECT_COMMISSIONING_EVENTS",
+        "annual_snapshot_timing": (
+            "END_OF_YEAR_AFTER_DUE_COMMISSIONING_DECISIONS_AND_MIGRATION"
+        ),
+        "engine_architecture": (
+            "ANNUAL_DYNAMIC_RECURSIVE_PLUS_DECAYING_PRESSURE_PLUS_ACTOR_EVENT_DECISIONS"
+        ),
+        "runtime_reasoning": (
+            "EXPLICIT_CODE_RULES_AND_KEYED_STOCHASTICITY_NO_LLM_AUTHORITY"
+        ),
+        "actor_knowledge": "ACTOR_VISIBLE_SCENARIO_ONLY_HIDDEN_TRUTH_PROHIBITED",
+        "resource_truth": (
+            "EVALUATOR_ONLY_FIXTURE_PRESENT_IN_METHOD_LAB_PACKAGE_NOT_READ_BY_ENGINE"
+        ),
+        "technology": (
+            "FRONTIER_DATE_DOES_NOT_GRANT_ACTOR_CAPABILITY_ACTOR_ACCESS_IS_SEPARATE"
+        ),
+        "accessibility": (
+            "FEASIBLE_INFEASIBLE_UNKNOWN_PRESERVED_UNKNOWN_DOES_NOT_BECOME_ZERO"
+        ),
+        "pressure_state": (
+            "INTERNAL_NOT_EMITTED_ONLY_QUALIFICATION_EVENTS_VISIBLE"
+        ),
+        "pressure_memory": "DECAYS_ANNUALLY_WEAK_HISTORICAL_SIGNALS_ARE_NOT_IMMORTAL",
+        "major_commitments": (
+            "REQUIRE_PRESSURE_QUALIFICATION_ACTOR_USABLE_CAPABILITY_AFFORDABILITY"
+        ),
+        "facility_records": "COMMISSIONED_FACILITIES_ONLY",
+        "pending_projects": (
+            "INTERNAL_AFTER_COMMITMENT_UNTIL_COMMISSIONING_NOT_EXPOSED_AS_STATE"
+        ),
+        "capital_accounting": (
+            "ACTOR_BUDGET_DEBITED_AT_COMMITMENT_LOCATION_CAPITAL_ADDED_AT_COMMISSIONING"
+        ),
+        "actor_budget_output": "INTERNAL_NOT_EMITTED",
+        "population": (
+            "NO_BIRTHS_OR_DEATHS_IN_BASELINE_MIGRATION_IS_SOURCE_DEBITED_AND_CONSERVED"
+        ),
+        "habitat": "BIOLOGICAL_POPULATION_MAY_NOT_EXCEED_HABITAT_CAPACITY",
+        "workforce": "SYNTHETIC_METHOD_LAB_RULE_NOT_PRODUCTION_LABOR_MODEL",
+        "flows": "MIGRATION_ONLY_IN_EXECUTABLE_BASELINE",
+        "events": (
+            "APPEND_ORDER_EVENT_CHAIN_WITH_PREVIOUS_EVENT_PARENT_REFERENCE_METHOD_LAB_SEMANTICS"
+        ),
+        "infrastructure": (
+            "GENERIC_CAPACITY_BEARING_MODULES_NOT_PREWRITTEN_ATLAS_FACILITIES"
+        ),
+        "atlas_role": "ENGINE_STATE_NOT_FINAL_ATLAS_MATERIALIZATION",
+        "authority": "SYNTHETIC_METHOD_FIXTURE_NON_CANON_NON_PRODUCTION",
+    }
+
+
+def _known_gaps() -> list[dict[str, str]]:
+    return [
+        {
+            "gap_id": "GAP-001",
+            "name": "REAL_INPUT_COMPILER",
+            "status": "OPEN",
+            "meaning": "Replace synthetic Method Lab scenario with frozen adapters from loom_earth, loom_solar, loom_timeline, resource evidence and actor authority.",
+        },
+        {
+            "gap_id": "GAP-002",
+            "name": "ACTOR_STATE_AND_BUDGETS",
+            "status": "OPEN",
+            "meaning": "General actor identities, spendable allocations, access rights, contracts, owned capacity and budget state are not yet production modeled or emitted.",
+        },
+        {
+            "gap_id": "GAP-003",
+            "name": "TRANSPORT_ACCESSIBILITY",
+            "status": "OPEN",
+            "meaning": "Current accessibility/generalized costs are synthetic fixture inputs rather than a general Solar transport service.",
+        },
+        {
+            "gap_id": "GAP-004",
+            "name": "DEMAND_AND_PRESSURE_MODEL",
+            "status": "OPEN",
+            "meaning": "Transport, industrial, habitat and resource demand signals are synthetic exogenous series; production causal demand equations remain to be built.",
+        },
+        {
+            "gap_id": "GAP-005",
+            "name": "PROJECT_ECONOMICS",
+            "status": "OPEN",
+            "meaning": "Method Lab costs, lags and capacity units are preserved fixtures, not production economics or calibrated technology curves.",
+        },
+        {
+            "gap_id": "GAP-006",
+            "name": "MISSIONS_AND_KNOWLEDGE_UPDATE",
+            "status": "OPEN",
+            "meaning": "Hybrid V1 baseline does not execute prospecting missions or CIVPROP-0 observation/Bayesian knowledge updates.",
+        },
+        {
+            "gap_id": "GAP-007",
+            "name": "PRESSURE_OBSERVABILITY",
+            "status": "OPEN",
+            "meaning": "Pressure levels are internal; only pressure-qualified events are emitted.",
+        },
+        {
+            "gap_id": "GAP-008",
+            "name": "RESOURCE_MASS_BALANCE",
+            "status": "OPEN",
+            "meaning": "Resource capacity is abstract; stock, grade, throughput, yield, depletion and inventory are not yet modeled.",
+        },
+        {
+            "gap_id": "GAP-009",
+            "name": "PRODUCTION_AND_VALUE_ADDED",
+            "status": "OPEN",
+            "meaning": "Off-world sector production, value added, operating cost and investment flows are not yet generated.",
+        },
+        {
+            "gap_id": "GAP-010",
+            "name": "POWER_BALANCE",
+            "status": "OPEN",
+            "meaning": "Power is abstract installed capacity; average demand, peak demand, storage, generation mix and energy closure are not yet modeled.",
+        },
+        {
+            "gap_id": "GAP-011",
+            "name": "TRAFFIC_AND_FLEET",
+            "status": "OPEN",
+            "meaning": "Cargo, passengers, ship calls, fleets, queues and route utilization are not yet generated.",
+        },
+        {
+            "gap_id": "GAP-012",
+            "name": "FACILITY_AND_SITE_MATERIALIZATION",
+            "status": "OPEN",
+            "meaning": "Module colocation, named facilities, settlements, surface sites, orbital elements and Atlas facility types are not yet materialized.",
+        },
+        {
+            "gap_id": "GAP-013",
+            "name": "MAINTENANCE_DEPRECIATION_RETIREMENT",
+            "status": "OPEN",
+            "meaning": "Infrastructure maintenance, depreciation, replacement, failure, retirement and abandonment are not yet production modeled.",
+        },
+        {
+            "gap_id": "GAP-014",
+            "name": "DEMOGRAPHIC_DEPTH",
+            "status": "OPEN",
+            "meaning": "Cohort demography, births/deaths, synthetic persons, biological viability and long-run settlement demographics are not yet connected.",
+        },
+        {
+            "gap_id": "GAP-015",
+            "name": "ATLAS_DERIVED_METRICS",
+            "status": "OPEN",
+            "meaning": "Economic/transport centrality, strategic significance and other Atlas display metrics must be derived after physical/economic state exists.",
+        },
+    ]
+
+
+def build_output(
+    *,
+    input_dir: Path,
+    infrastructure_catalog_path: Path,
+    seed: int,
+) -> dict[str, Any]:
+    input_dir = Path(input_dir).resolve()
+    infrastructure_catalog_path = Path(infrastructure_catalog_path).resolve()
+
+    bundle = load_bundle(input_dir)
+    catalog = load_infrastructure_catalog(infrastructure_catalog_path)
+    parameterized_archetypes = _validate_infrastructure_crosswalk(bundle, catalog)
+
+    engine = HybridEngineV1()
+    result = engine.run(bundle, seed)
+    validate_result(result, bundle)
+    result_dict = json.loads(canonical_json(result))
+
+    scenario_path = input_dir / "scenario_v1.json"
+    truth_path = input_dir / "truth_v1.json"
+    manifest_path = input_dir / "manifest_v1.json"
+    scenario_sha = _sha256(scenario_path)
+
+    output = {
+        "format": OUTPUT_FORMAT,
+        "contract_version": OUTPUT_CONTRACT_VERSION,
+        "metadata": {
+            "runner": {
+                "id": RUNNER_ID,
+                "version": RUNNER_VERSION,
+            },
+            "engine": {
+                "id": engine.engine_id,
+                "version": engine.engine_version,
+                "run_id": result.metadata.run_id,
+                "seed": seed,
+                "start_year": bundle.scenario.start_year,
+                "end_year": bundle.scenario.end_year,
+            },
+            "inputs": {
+                "fixture_id": bundle.scenario.fixture_id,
+                "scenario_format": bundle.scenario.format,
+                "method_lab_manifest_sha256": _sha256(manifest_path),
+                "method_lab_bundle_sha256": bundle.bundle_sha256,
+                "actor_visible_scenario_sha256": scenario_sha,
+                "runtime_input_sha256": scenario_sha,
+                "evaluator_truth_sha256": _sha256(truth_path),
+                "evaluator_truth_consumed_by_engine": False,
+                "input_authority": bundle.manifest.get("authority"),
+                "basis": bundle.manifest.get("basis", {}),
+            },
+            "infrastructure": {
+                "catalog_id": catalog.catalog_id,
+                "catalog_format": catalog.format,
+                "catalog_sha256": _sha256(infrastructure_catalog_path),
+                "parameter_set_id": DEFAULT_PARAMETER_SET_ID,
+                "parameter_status": PARAMETER_STATUS_METHOD_LAB,
+                "parameterized_archetypes": parameterized_archetypes,
+            },
+            "implementation": _implementation_hashes(),
+        },
+        "semantics": _semantics(),
+        "known_gaps": _known_gaps(),
+        "annual_states": result_dict["annual_states"],
+        "facilities": result_dict["facilities"],
+        "decisions": result_dict["decisions"],
+        "events": result_dict["events"],
+        "flows": result_dict["flows"],
+    }
+    return output
+
+
+def main() -> None:
+    default_input_dir, default_catalog = default_paths()
+    parser = argparse.ArgumentParser(
+        description="Run the locked CIVPROP Engine V1 executable baseline."
+    )
+    parser.add_argument(
+        "--input-dir",
+        type=Path,
+        default=default_input_dir,
+        help="CIVPROP-compatible frozen input directory (defaults to Method Lab V1).",
+    )
+    parser.add_argument(
+        "--infrastructure-catalog",
+        type=Path,
+        default=default_catalog,
+        help="Infrastructure Archetype V1 catalog.",
+    )
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help="Write full deterministic output JSON here; stdout when omitted.",
+    )
+    args = parser.parse_args()
+
+    output = build_output(
+        input_dir=args.input_dir,
+        infrastructure_catalog_path=args.infrastructure_catalog,
+        seed=args.seed,
+    )
+    text = json.dumps(output, indent=2, sort_keys=True, allow_nan=False) + "\n"
+    if args.output is None:
+        print(text, end="")
+    else:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(text)
+
+
+if __name__ == "__main__":
+    main()
