@@ -1,0 +1,885 @@
+{
+  "schema": "loom.pluto6-jpl-model-reproduction/0.2-experiment",
+  "authority": "EXPERIMENT_ONLY_NOT_QUALIFIED",
+  "start": "2180 JAN 01 00:00:00 TDB",
+  "years": 19,
+  "frame": "J2000",
+  "center": 9,
+  "integrator": "scipy.DOP853",
+  "rtol": 1e-12,
+  "max_step_s": 43200.0,
+  "internal_gm": {
+    "999": 869.3261226311508,
+    "901": 106.1011388236118,
+    "902": 0.001496176095836919,
+    "903": 0.002007962473606101,
+    "904": 6.03845078026937e-05,
+    "905": 4.045391585487917e-05
+  },
+  "external_gm": {
+    "5": 126712761.8414429,
+    "6": 37940584.8418,
+    "7": 5794556.4,
+    "8": 6836531.640925204,
+    "10": 132713233263.3514
+  },
+  "rhs_calls": 401147,
+  "runtime_s": 553.6174385547638,
+  "annual": [
+    {
+      "year": 1,
+      "segment_s": 11.379835367202759,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 1.892180931443254e-06,
+      "barycenter_velocity_km_s": 1.2081116107137407e-13,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 3.080756509159734e-05,
+          "velocity_error_km_s": 3.6772006380828924e-10
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.00026655710660792556,
+          "velocity_error_km_s": 3.013382025847393e-09
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 4.956081723597536e-06,
+          "velocity_error_km_s": 2.1603586353663723e-09
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.0006998983653622884,
+          "velocity_error_km_s": 1.2427009316655442e-09
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 6.975462641020564e-05,
+          "velocity_error_km_s": 1.8937102667771908e-10
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 1.2495500958018464e-05,
+          "velocity_error_km_s": 3.2204751522575196e-11
+        }
+      ]
+    },
+    {
+      "year": 2,
+      "segment_s": 27.152230262756348,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 7.661712308582166e-06,
+      "barycenter_velocity_km_s": 2.4550155416869403e-13,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.00014625329093534886,
+          "velocity_error_km_s": 1.7327148569232002e-09
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.00125293658451162,
+          "velocity_error_km_s": 1.4195551627688694e-08
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 4.133577960527676e-05,
+          "velocity_error_km_s": 7.662239570283261e-11
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.0013686845552121185,
+          "velocity_error_km_s": 2.650634066523881e-09
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00013237841066425493,
+          "velocity_error_km_s": 2.3477613221342656e-10
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 7.022547056622139e-05,
+          "velocity_error_km_s": 3.265294014295463e-10
+        }
+      ]
+    },
+    {
+      "year": 3,
+      "segment_s": 29.794025421142578,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 1.7426310452078713e-05,
+      "barycenter_velocity_km_s": 3.7425916527159045e-13,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.0003634986929277077,
+          "velocity_error_km_s": 4.094248050814958e-09
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.002941504873135026,
+          "velocity_error_km_s": 3.354239781653195e-08
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0001274964262033119,
+          "velocity_error_km_s": 4.2147328403561194e-10
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.0020412529947688397,
+          "velocity_error_km_s": 7.770393076098352e-09
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00016615516849859916,
+          "velocity_error_km_s": 2.7657753021116473e-10
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.00016048599044124712,
+          "velocity_error_km_s": 1.1200229866421208e-09
+        }
+      ]
+    },
+    {
+      "year": 4,
+      "segment_s": 30.140411138534546,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 3.131596880624064e-05,
+      "barycenter_velocity_km_s": 5.073725160913564e-13,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.0006839814973066292,
+          "velocity_error_km_s": 7.452709742153765e-09
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.005332339145061518,
+          "velocity_error_km_s": 6.106216274654965e-08
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.00014330465612753015,
+          "velocity_error_km_s": 4.409396678882598e-10
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.002718059823984784,
+          "velocity_error_km_s": 5.0873299869095744e-09
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00021534660427530476,
+          "velocity_error_km_s": 4.3802235274599177e-10
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.0002957202332102601,
+          "velocity_error_km_s": 2.4352474415214126e-09
+        }
+      ]
+    },
+    {
+      "year": 5,
+      "segment_s": 30.510406255722046,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 4.947007565057498e-05,
+      "barycenter_velocity_km_s": 6.447266520777096e-13,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.0010635168852327999,
+          "velocity_error_km_s": 1.1805195497832557e-08
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.008470810124117273,
+          "velocity_error_km_s": 9.672926614244965e-08
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0003004743192577628,
+          "velocity_error_km_s": 2.3686275761367703e-09
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.003317898564006855,
+          "velocity_error_km_s": 6.2516353089691035e-09
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00023198118928873085,
+          "velocity_error_km_s": 7.602286199628707e-10
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.0005690197653048428,
+          "velocity_error_km_s": 3.403102312294845e-09
+        }
+      ]
+    },
+    {
+      "year": 6,
+      "segment_s": 30.606889009475708,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 7.203337120844646e-05,
+      "barycenter_velocity_km_s": 7.873730122474265e-13,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.0014698298596602366,
+          "velocity_error_km_s": 1.71541756610802e-08
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.0123869090638008,
+          "velocity_error_km_s": 1.4055585201241972e-07
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.00044773958828072015,
+          "velocity_error_km_s": 1.2473907596208194e-09
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.004045225482083258,
+          "velocity_error_km_s": 8.12198449310354e-09
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00018612545432904879,
+          "velocity_error_km_s": 2.775892121271744e-10
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.0010839778683403708,
+          "velocity_error_km_s": 7.2981984846600206e-09
+        }
+      ]
+    },
+    {
+      "year": 7,
+      "segment_s": 31.948072910308838,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 9.915177673921171e-05,
+      "barycenter_velocity_km_s": 9.346706371814774e-13,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.001972985652575539,
+          "velocity_error_km_s": 2.3505929251971685e-08
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.0170096060932608,
+          "velocity_error_km_s": 1.9259100644772023e-07
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0005641664680835107,
+          "velocity_error_km_s": 2.9292921462774757e-09
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.004500893526873204,
+          "velocity_error_km_s": 8.83708798090822e-09
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00036178075719043565,
+          "velocity_error_km_s": 1.0225310005252468e-08
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.0015934520394000242,
+          "velocity_error_km_s": 1.3772125332759103e-08
+        }
+      ]
+    },
+    {
+      "year": 8,
+      "segment_s": 30.22247004508972,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.00013097130046700944,
+      "barycenter_velocity_km_s": 1.086841629165667e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.0026889917458170452,
+          "velocity_error_km_s": 3.08600779554129e-08
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.022228446595871563,
+          "velocity_error_km_s": 2.52838795961033e-07
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0005703032866079112,
+          "velocity_error_km_s": 2.637850969590431e-09
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.005425192634549287,
+          "velocity_error_km_s": 9.469448261193119e-09
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00020849261782558318,
+          "velocity_error_km_s": 2.091442090402768e-09
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.0018583440574255013,
+          "velocity_error_km_s": 5.999591674184321e-09
+        }
+      ]
+    },
+    {
+      "year": 9,
+      "segment_s": 29.94314408302307,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.00016764123848798143,
+      "barycenter_velocity_km_s": 1.2437504958643192e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.0035753925022070972,
+          "velocity_error_km_s": 3.920698992011383e-08
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.028077078216225442,
+          "velocity_error_km_s": 3.212321357068269e-07
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0010230529884009355,
+          "velocity_error_km_s": 5.047071160241313e-09
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.005699096380579091,
+          "velocity_error_km_s": 1.0492086525504814e-08
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.0001615079045154066,
+          "velocity_error_km_s": 1.0262086897011211e-09
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.0019189945410064435,
+          "velocity_error_km_s": 1.1799290417558838e-08
+        }
+      ]
+    },
+    {
+      "year": 10,
+      "segment_s": 29.653701305389404,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.00020929713022622314,
+      "barycenter_velocity_km_s": 1.4055808757553351e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.0044287738046621195,
+          "velocity_error_km_s": 4.853689456462875e-08
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.03476419522938162,
+          "velocity_error_km_s": 3.9768837133729585e-07
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0010500568620754058,
+          "velocity_error_km_s": 4.7863581043509574e-09
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.006610673180943033,
+          "velocity_error_km_s": 1.3034093225649168e-08
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00036306923251347136,
+          "velocity_error_km_s": 1.0448960311736052e-09
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.0018366132067982356,
+          "velocity_error_km_s": 1.5516879787665547e-08
+        }
+      ]
+    },
+    {
+      "year": 11,
+      "segment_s": 30.810245513916016,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.00025608360134268224,
+      "barycenter_velocity_km_s": 1.5721615231081647e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.0051317113663517065,
+          "velocity_error_km_s": 5.885748266350123e-08
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.04240977940062912,
+          "velocity_error_km_s": 4.822538545106675e-07
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0010128291275044781,
+          "velocity_error_km_s": 8.542522569526753e-09
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.006902527243404633,
+          "velocity_error_km_s": 1.6985814974255398e-08
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00027682897726904337,
+          "velocity_error_km_s": 1.4316229002120731e-09
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.0021493795694270336,
+          "velocity_error_km_s": 1.3799673975507167e-08
+        }
+      ]
+    },
+    {
+      "year": 12,
+      "segment_s": 30.00239849090576,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.0003081380636079397,
+      "barycenter_velocity_km_s": 1.743759036002004e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.0058859577429171105,
+          "velocity_error_km_s": 7.019032546101045e-08
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.050801278655617566,
+          "velocity_error_km_s": 5.750969883036197e-07
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0015517405052994308,
+          "velocity_error_km_s": 7.770930888745693e-09
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.007727618258308078,
+          "velocity_error_km_s": 1.3627470517036203e-08
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00027707399143462474,
+          "velocity_error_km_s": 2.1578801181118197e-09
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.0027877175546959653,
+          "velocity_error_km_s": 1.6031777504872704e-08
+        }
+      ]
+    },
+    {
+      "year": 13,
+      "segment_s": 30.244054555892944,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.00036558923621389077,
+      "barycenter_velocity_km_s": 1.9197137878093816e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.007064462704745921,
+          "velocity_error_km_s": 8.254283359491746e-08
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.05958958378104841,
+          "velocity_error_km_s": 6.762901975890943e-07
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.00192335180766245,
+          "velocity_error_km_s": 1.2315982869230012e-08
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.008371211458855289,
+          "velocity_error_km_s": 1.4878243642396465e-08
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00031171140246185827,
+          "velocity_error_km_s": 3.0260771851474893e-09
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.003703167248032396,
+          "velocity_error_km_s": 1.2949581401415466e-08
+        }
+      ]
+    },
+    {
+      "year": 14,
+      "segment_s": 29.681819677352905,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.00042857826148363877,
+      "barycenter_velocity_km_s": 2.100981131069478e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.00864521199417283,
+          "velocity_error_km_s": 9.589130598639794e-08
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.06877579533331897,
+          "velocity_error_km_s": 7.856593293943225e-07
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0014695193300726962,
+          "velocity_error_km_s": 1.1677330126830364e-08
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.00842798322369837,
+          "velocity_error_km_s": 1.950624251698857e-08
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.0008033321150521855,
+          "velocity_error_km_s": 4.730522790610836e-09
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.004334896910401688,
+          "velocity_error_km_s": 8.222182703464746e-09
+        }
+      ]
+    },
+    {
+      "year": 15,
+      "segment_s": 30.459028959274292,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.0004972298889785325,
+      "barycenter_velocity_km_s": 2.286674550285335e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.010131506039852026,
+          "velocity_error_km_s": 1.1020302382786287e-07
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.07884545820151913,
+          "velocity_error_km_s": 9.029407187893904e-07
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.002062993956827774,
+          "velocity_error_km_s": 1.640345081629944e-08
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.009706822456130469,
+          "velocity_error_km_s": 1.853841452106617e-08
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.0004174147964649578,
+          "velocity_error_km_s": 4.433897933061549e-09
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.004890362866953065,
+          "velocity_error_km_s": 1.0149323715154322e-08
+        }
+      ]
+    },
+    {
+      "year": 16,
+      "segment_s": 29.76581382751465,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.0005716625803089144,
+      "barycenter_velocity_km_s": 2.4768946546490497e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.011145078385365666,
+          "velocity_error_km_s": 1.254845695127347e-07
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.09020609113558721,
+          "velocity_error_km_s": 1.0281620479125974e-06
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0028338681496042884,
+          "velocity_error_km_s": 1.650334187810007e-08
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.009527178566980987,
+          "velocity_error_km_s": 1.6435093587553775e-08
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.00028555272846498506,
+          "velocity_error_km_s": 2.260239691437263e-09
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.005060028188203116,
+          "velocity_error_km_s": 2.0256714759794406e-08
+        }
+      ]
+    },
+    {
+      "year": 17,
+      "segment_s": 31.502663135528564,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.0006520065721617123,
+      "barycenter_velocity_km_s": 2.6722396268423684e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.011968913428816648,
+          "velocity_error_km_s": 1.417808487971896e-07
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.10254452751879935,
+          "velocity_error_km_s": 1.1616725389188878e-06
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0023529874470854797,
+          "velocity_error_km_s": 2.070211072091945e-08
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.011014747658928733,
+          "velocity_error_km_s": 1.7447153043315098e-08
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.0012604516301702713,
+          "velocity_error_km_s": 2.283806375646237e-09
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.005187766679720568,
+          "velocity_error_km_s": 3.3726400188313154e-08
+        }
+      ]
+    },
+    {
+      "year": 18,
+      "segment_s": 29.56959366798401,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.000738370342897493,
+      "barycenter_velocity_km_s": 2.8720061780488514e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.01342030498385021,
+          "velocity_error_km_s": 1.591252072861077e-07
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.11508208498575614,
+          "velocity_error_km_s": 1.3037563291891268e-06
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.0026720279614446695,
+          "velocity_error_km_s": 2.2174939391915596e-08
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.010532201419668243,
+          "velocity_error_km_s": 2.2925862047195933e-08
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.0006808663155501763,
+          "velocity_error_km_s": 6.80773700493507e-09
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.005841638096148654,
+          "velocity_error_km_s": 4.817298800617163e-08
+        }
+      ]
+    },
+    {
+      "year": 19,
+      "segment_s": 30.229204177856445,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 0.0008308607416551032,
+      "barycenter_velocity_km_s": 3.0757604458887367e-12,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 0.01575022363217391,
+          "velocity_error_km_s": 1.7748894286240954e-07
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 0.12756615732487356,
+          "velocity_error_km_s": 1.4542090963712386e-06
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 0.003991951604247517,
+          "velocity_error_km_s": 2.4807930413884515e-08
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 0.011492038270619646,
+          "velocity_error_km_s": 2.5672608856138226e-08
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 0.0008034068865438571,
+          "velocity_error_km_s": 1.1123734551071561e-08
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 0.007909901946908727,
+          "velocity_error_km_s": 5.978364241196938e-08
+        }
+      ]
+    }
+  ]
+}
