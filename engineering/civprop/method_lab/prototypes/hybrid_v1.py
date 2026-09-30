@@ -77,8 +77,11 @@ class HybridEngineV1:
 
     def run(self, bundle, seed):
         causal_demand = bundle.scenario.demand_pressure_v1 is not None
+        production_economics = bundle.scenario.project_economics_v1 is not None
         self.engine_version = (
-            "method-reference-v2" if causal_demand else "method-reference-v1"
+            "method-reference-v3"
+            if production_economics
+            else ("method-reference-v2" if causal_demand else "method-reference-v1")
         )
         demand_runtime = (
             DemandPressureRuntime(bundle.scenario.demand_pressure_v1)

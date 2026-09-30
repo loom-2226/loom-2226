@@ -6,7 +6,7 @@ not three incompatible definitions of physics.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import hashlib
 import math
 from typing import Iterable, Optional
@@ -17,6 +17,7 @@ from engineering.civprop.contracts.accessibility_v1 import (
     AccessibilityRuntime,
 )
 from engineering.civprop.contracts.demand_pressure_v1 import DemandObservation
+from engineering.civprop.contracts.project_economics_v1 import ProjectEconomicsRuntime
 
 from ..contracts import (
     CapacityVector,
@@ -250,15 +251,21 @@ def apply_actor_budget_events(
         )
 
 
+def project_capital_unit(bundle: LabBundle) -> str:
+    if bundle.scenario.project_economics_v1 is not None:
+        return bundle.scenario.project_economics_v1.capital_unit
+    return bundle.scenario.units["capital"]
+
+
 def budget_can_afford(bundle: LabBundle, budget, cost: float) -> bool:
     if isinstance(budget, MutableActorBudget):
-        return budget.can_afford(cost, bundle.scenario.units["capital"])
+        return budget.can_afford(cost, project_capital_unit(bundle))
     return budget + 1e-9 >= cost
 
 
 def budget_debit(bundle: LabBundle, budget, cost: float):
     if isinstance(budget, MutableActorBudget):
-        if not budget.can_afford(cost, bundle.scenario.units["capital"]):
+        if not budget.can_afford(cost, project_capital_unit(bundle)):
             raise ValueError("cannot debit unknown, mismatched, or insufficient actor budget")
         budget.amount -= cost
         return budget
@@ -272,7 +279,7 @@ def budget_rationale(bundle: LabBundle, budget) -> tuple[str, ...]:
         return ()
     if budget.status == "UNKNOWN":
         return ("SPENDABLE_ALLOCATION_UNKNOWN",)
-    if budget.unit != bundle.scenario.units["capital"]:
+    if budget.unit != project_capital_unit(bundle):
         return ("BUDGET_UNIT_MISMATCH",)
     return ()
 
@@ -491,6 +498,31 @@ def complementarity(
     return score
 
 
+def resolved_project(
+    bundle: LabBundle,
+    project: ProjectArchetype,
+    year: int,
+) -> ProjectArchetype:
+    if bundle.scenario.project_economics_v1 is None:
+        return project
+    resolved = ProjectEconomicsRuntime(
+        bundle.scenario.project_economics_v1
+    ).resolve(project.project_archetype_id, year=year)
+    return replace(
+        project,
+        capital_cost=resolved.capital_cost,
+        construction_lag_years=resolved.construction_lag_years,
+        output_capacities=CapacityVector(**{
+            field: float(resolved.output_capacities.get(field, 0.0))
+            for field in CapacityVector.__dataclass_fields__
+        }),
+        minimum_input_capacities=CapacityVector(**{
+            field: float(resolved.minimum_input_capacities.get(field, 0.0))
+            for field in CapacityVector.__dataclass_fields__
+        }),
+    )
+
+
 def opportunities(
     bundle: LabBundle,
     states: dict[str, MutableLocation],
@@ -502,7 +534,8 @@ def opportunities(
 ) -> list[Opportunity]:
     result = []
     placements = {x.location_id: x.placement for x in bundle.scenario.locations}
-    for project in bundle.scenario.project_archetypes:
+    for base_project in bundle.scenario.project_archetypes:
+        project = resolved_project(bundle, base_project, year)
         if project.project_kind == "MISSION" and not include_missions:
             continue
         for location_id, state in states.items():

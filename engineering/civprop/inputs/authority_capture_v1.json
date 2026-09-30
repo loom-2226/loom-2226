@@ -176,7 +176,7 @@
   },
   "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
   "capture_semantics": "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES",
-  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE",
+  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE_PLUS_GAP-005_PROJECT_ECONOMICS",
   "earth": {
     "aus_area": {
       "display_name": "Australia",
@@ -517,6 +517,596 @@
     }
   },
   "format": "CIVPROP_AUTHORITY_CAPTURE_V1",
+  "model_parameters": {
+    "dorrington_olsen_boundary": {
+      "assessment_path": "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md",
+      "assessment_sha256": "a4b613a3514a385cbbd3ef3959e01ca22cd3b4736dcb893cc4213465655d4a37",
+      "contract_path": "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json",
+      "contract_sha256": "093f28ee4f3817c4573899b1f8032d617339307ef85691123ce9cec44dfdd369"
+    },
+    "project_economics_source": {
+      "path": "engineering/civprop/contracts/project_economics_v1.json",
+      "sha256": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb"
+    },
+    "project_economics_v1": {
+      "capital_unit": "USD_2026_billion",
+      "contract_version": "1.0.0",
+      "dimension_units": {
+        "habitat": "person",
+        "industrial": "tonnes/year",
+        "power": "MW",
+        "resource": "tonnes/year",
+        "shipyard": "tonnes/year",
+        "transport": "tonnes/year"
+      },
+      "domain_model_boundaries": [
+        {
+          "model_id": "DORRINGTON_OLSEN_M2",
+          "provenance_refs": [
+            "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md"
+          ],
+          "reason": "The qualified LOOM assessment treats Dorrington-Olsen as an asteroid mining mission/economic kernel, not a lunar facility cost or mining-rate model.",
+          "use_status": "NOT_APPLIED_TO_EARTH_LUNA_FACILITY_COSTS"
+        },
+        {
+          "model_id": "NASA_FISSION_SURFACE_POWER_R03",
+          "provenance_refs": [
+            "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"
+          ],
+          "reason": "The 40-kW-class lunar demonstration objective is used only as the base POWER_PLANT output reference; project cost, lag and learning multipliers remain scenario assumptions.",
+          "use_status": "QUALIFIED_REFERENCE_COMPONENT_ONLY"
+        }
+      ],
+      "epoch_adjustments": [
+        {
+          "capacity_multiplier": 1.0,
+          "cost_multiplier": 1.0,
+          "lag_multiplier": 1.0,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "year": 2026
+        },
+        {
+          "capacity_multiplier": 1.1,
+          "cost_multiplier": 0.92,
+          "lag_multiplier": 0.9,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "year": 2031
+        },
+        {
+          "capacity_multiplier": 1.25,
+          "cost_multiplier": 0.84,
+          "lag_multiplier": 0.8,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "status": "SCENARIO_ASSUMPTION",
+          "year": 2036
+        }
+      ],
+      "format": "CIVPROP_PROJECT_ECONOMICS_V1",
+      "parameter_set_id": "EARTH_LUNA_PROJECT_ECONOMICS_V1_2026_2036",
+      "projects": [
+        {
+          "capital_cost": {
+            "high": 0.75,
+            "low": 0.1,
+            "nominal": 0.25,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "USD_2026_billion"
+          },
+          "construction_lag": {
+            "high": 4,
+            "low": 1,
+            "nominal": 2,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "year"
+          },
+          "outputs": {},
+          "parameter_status": "SCENARIO_ASSUMPTION",
+          "prerequisites": {
+            "transport": {
+              "high": 100,
+              "low": 25,
+              "nominal": 50,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            }
+          },
+          "project_archetype_id": "PROSPECTING_SURVEY",
+          "project_kind": "MISSION",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "scale_model": {
+            "capital_exponent": 1.0,
+            "lag_exponent": 0.0,
+            "output_exponent": 1.0,
+            "reference_scale": 1.0
+          }
+        },
+        {
+          "capital_cost": {
+            "high": 6.0,
+            "low": 1.0,
+            "nominal": 2.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "USD_2026_billion"
+          },
+          "construction_lag": {
+            "high": 7,
+            "low": 2,
+            "nominal": 4,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "year"
+          },
+          "outputs": {
+            "power": {
+              "high": 0.25,
+              "low": 0.05,
+              "nominal": 0.1,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "MW"
+            },
+            "transport": {
+              "high": 2500,
+              "low": 500,
+              "nominal": 1000,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            }
+          },
+          "parameter_status": "SCENARIO_ASSUMPTION",
+          "prerequisites": {},
+          "project_archetype_id": "LOGISTICS_NODE",
+          "project_kind": "FACILITY",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "scale_model": {
+            "capital_exponent": 0.9,
+            "lag_exponent": 0.15,
+            "output_exponent": 1.0,
+            "reference_scale": 1.0
+          }
+        },
+        {
+          "capital_cost": {
+            "high": 1.2,
+            "low": 0.1,
+            "nominal": 0.4,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "USD_2026_billion"
+          },
+          "construction_lag": {
+            "high": 7,
+            "low": 2,
+            "nominal": 4,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "year"
+          },
+          "outputs": {
+            "power": {
+              "high": 0.04,
+              "low": 0.04,
+              "nominal": 0.04,
+              "provenance_refs": [
+                "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"
+              ],
+              "status": "QUALIFIED_REFERENCE",
+              "unit": "MW"
+            }
+          },
+          "parameter_status": "HYBRID_SCENARIO_WITH_QUALIFIED_COMPONENT",
+          "prerequisites": {
+            "transport": {
+              "high": 150,
+              "low": 25,
+              "nominal": 50,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            }
+          },
+          "project_archetype_id": "POWER_PLANT",
+          "project_kind": "FACILITY",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "scale_model": {
+            "capital_exponent": 0.9,
+            "lag_exponent": 0.15,
+            "output_exponent": 1.0,
+            "reference_scale": 1.0
+          }
+        },
+        {
+          "capital_cost": {
+            "high": 6.0,
+            "low": 0.8,
+            "nominal": 2.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "USD_2026_billion"
+          },
+          "construction_lag": {
+            "high": 8,
+            "low": 3,
+            "nominal": 5,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "year"
+          },
+          "outputs": {
+            "habitat": {
+              "high": 8,
+              "low": 2,
+              "nominal": 4,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "person"
+            }
+          },
+          "parameter_status": "SCENARIO_ASSUMPTION",
+          "prerequisites": {
+            "power": {
+              "high": 0.25,
+              "low": 0.04,
+              "nominal": 0.1,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "MW"
+            },
+            "transport": {
+              "high": 750,
+              "low": 100,
+              "nominal": 250,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            }
+          },
+          "project_archetype_id": "HABITAT",
+          "project_kind": "FACILITY",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "scale_model": {
+            "capital_exponent": 0.9,
+            "lag_exponent": 0.15,
+            "output_exponent": 1.0,
+            "reference_scale": 1.0
+          }
+        },
+        {
+          "capital_cost": {
+            "high": 10.0,
+            "low": 1.0,
+            "nominal": 3.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "USD_2026_billion"
+          },
+          "construction_lag": {
+            "high": 9,
+            "low": 3,
+            "nominal": 5,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "year"
+          },
+          "outputs": {
+            "industrial": {
+              "high": 100,
+              "low": 10,
+              "nominal": 25,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            },
+            "resource": {
+              "high": 500,
+              "low": 50,
+              "nominal": 100,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            }
+          },
+          "parameter_status": "SCENARIO_ASSUMPTION",
+          "prerequisites": {
+            "power": {
+              "high": 2.0,
+              "low": 0.25,
+              "nominal": 0.5,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "MW"
+            },
+            "transport": {
+              "high": 2000,
+              "low": 250,
+              "nominal": 500,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            }
+          },
+          "project_archetype_id": "RESOURCE_PLANT",
+          "project_kind": "FACILITY",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "scale_model": {
+            "capital_exponent": 0.9,
+            "lag_exponent": 0.15,
+            "output_exponent": 1.0,
+            "reference_scale": 1.0
+          }
+        },
+        {
+          "capital_cost": {
+            "high": 5.0,
+            "low": 0.5,
+            "nominal": 1.5,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "USD_2026_billion"
+          },
+          "construction_lag": {
+            "high": 7,
+            "low": 2,
+            "nominal": 4,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "year"
+          },
+          "outputs": {
+            "industrial": {
+              "high": 500,
+              "low": 50,
+              "nominal": 100,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            }
+          },
+          "parameter_status": "SCENARIO_ASSUMPTION",
+          "prerequisites": {
+            "power": {
+              "high": 2.0,
+              "low": 0.25,
+              "nominal": 0.5,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "MW"
+            },
+            "transport": {
+              "high": 1000,
+              "low": 100,
+              "nominal": 300,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            }
+          },
+          "project_archetype_id": "INDUSTRIAL_WORKSHOP",
+          "project_kind": "FACILITY",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "scale_model": {
+            "capital_exponent": 0.9,
+            "lag_exponent": 0.15,
+            "output_exponent": 1.0,
+            "reference_scale": 1.0
+          }
+        },
+        {
+          "capital_cost": {
+            "high": 5.0,
+            "low": 0.5,
+            "nominal": 1.5,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "USD_2026_billion"
+          },
+          "construction_lag": {
+            "high": 7,
+            "low": 2,
+            "nominal": 4,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "year"
+          },
+          "outputs": {
+            "transport": {
+              "high": 5000,
+              "low": 500,
+              "nominal": 1000,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            }
+          },
+          "parameter_status": "SCENARIO_ASSUMPTION",
+          "prerequisites": {},
+          "project_archetype_id": "SURFACE_PORT",
+          "project_kind": "FACILITY",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "scale_model": {
+            "capital_exponent": 0.9,
+            "lag_exponent": 0.15,
+            "output_exponent": 1.0,
+            "reference_scale": 1.0
+          }
+        },
+        {
+          "capital_cost": {
+            "high": 25.0,
+            "low": 3.0,
+            "nominal": 8.0,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "USD_2026_billion"
+          },
+          "construction_lag": {
+            "high": 12,
+            "low": 4,
+            "nominal": 7,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "SCENARIO_ASSUMPTION",
+            "unit": "year"
+          },
+          "outputs": {
+            "industrial": {
+              "high": 250,
+              "low": 25,
+              "nominal": 50,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            },
+            "shipyard": {
+              "high": 500,
+              "low": 50,
+              "nominal": 100,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            }
+          },
+          "parameter_status": "SCENARIO_ASSUMPTION",
+          "prerequisites": {
+            "industrial": {
+              "high": 250,
+              "low": 25,
+              "nominal": 50,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            },
+            "power": {
+              "high": 10,
+              "low": 1,
+              "nominal": 2,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "MW"
+            },
+            "transport": {
+              "high": 2500,
+              "low": 250,
+              "nominal": 500,
+              "provenance_refs": [
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+              ],
+              "status": "SCENARIO_ASSUMPTION",
+              "unit": "tonnes/year"
+            }
+          },
+          "project_archetype_id": "SHIPYARD",
+          "project_kind": "FACILITY",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "scale_model": {
+            "capital_exponent": 0.9,
+            "lag_exponent": 0.15,
+            "output_exponent": 1.0,
+            "reference_scale": 1.0
+          }
+        }
+      ],
+      "scope": "EARTH_ORBIT_LUNA_CISLUNAR_2026_2036"
+    }
+  },
   "postgres_database": "loom_dev",
   "postgres_query_sha256": {
     "aus_area": "5fb6c3879ea3d4f5ed16cf701caf5a1cf817d6623ce6a4dd73175a52215ba4d3",
@@ -635,18 +1225,21 @@
       }
     ]
   },
-  "source_basis_commit": "53cca0679f6e2bdd8aa8b3be22b387136bfe1bc3",
+  "source_basis_commit": "3741fc0ea632de2fa0317b78e9789c95d63dfbfd",
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
     "data/postgres/timeline_projection_manifest.json": "524ac904a0d1ed4cdb1fae53ce4ac737d7640b71fe1be8ebf9c97ba8fbe56709",
+    "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json": "093f28ee4f3817c4573899b1f8032d617339307ef85691123ce9cec44dfdd369",
     "dev/solar_civprop_m4b/campaign_assertions.json": "e87eb9f711ce508933e76c86a1d9f4314a13d6d4403940d21fa25cf6da700c39",
     "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
     "engineering/civprop/civprop0/actor_access_evidence.json": "16581d2ad6eec747f4576d7dc836f00d24864683bba0431dc97c04360e15085d",
     "engineering/civprop/civprop0/aus_government_access_evidence.json": "2e9ebc2f6d497d42d74baea504cec45ba16922ea2d554940a5142b1d53ef60ce",
     "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
     "engineering/civprop/civprop0/runs/roover_transport_mid2030_v1.json": "a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
+    "engineering/civprop/contracts/project_economics_v1.json": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
-    "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951"
+    "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951",
+    "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md": "a4b613a3514a385cbbd3ef3959e01ca22cd3b4736dcb893cc4213465655d4a37"
   },
   "timeline": {
     "interpretation_rules": [

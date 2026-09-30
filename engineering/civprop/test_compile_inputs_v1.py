@@ -148,9 +148,31 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
             {"HABITAT", "TRANSPORT", "INDUSTRIAL", "RESOURCE", "POWER"},
         )
         self.assertEqual(channels["HABITAT"]["unit"], "person")
-        self.assertEqual(channels["POWER"]["unit"], "MW_equivalent")
+        self.assertEqual(channels["POWER"]["unit"], "MW")
+        self.assertEqual(channels["TRANSPORT"]["unit"], "tonnes/year")
+        self.assertEqual(channels["INDUSTRIAL"]["unit"], "tonnes/year")
+        self.assertEqual(channels["RESOURCE"]["unit"], "tonnes/year")
         assumptions = {x["assumption_id"] for x in self.scenario["assumption_register"]}
         self.assertNotIn("ASSUME-GAP004-DEMAND", assumptions)
+
+    def test_gap5_replaces_method_lab_project_economics_with_typed_parameter_set(self):
+        package = self.scenario["project_economics_v1"]
+        self.assertEqual(package["format"], "CIVPROP_PROJECT_ECONOMICS_V1")
+        self.assertEqual(package["contract_version"], "1.0.0")
+        self.assertEqual(package["capital_unit"], "USD_2026_billion")
+        serialized = json.dumps(package, sort_keys=True)
+        self.assertNotIn("METHOD_LAB_SYNTHETIC_V1", serialized)
+        self.assertNotIn("scenario_credit", serialized)
+        self.assertNotIn("scenario_capacity_unit", serialized)
+        self.assertEqual(
+            self.scenario["units"]["project_capital"],
+            "USD_2026_billion",
+        )
+        self.assertEqual(self.scenario["units"]["transport"], "tonnes/year")
+        self.assertEqual(self.scenario["units"]["industrial"], "tonnes/year")
+        self.assertEqual(self.scenario["units"]["resource"], "tonnes/year")
+        assumptions = {x["assumption_id"] for x in self.scenario["assumption_register"]}
+        self.assertNotIn("ASSUME-GAP005-PROJECT-ECONOMICS", assumptions)
 
     def test_other_unresolved_engine_inputs_are_not_disguised_as_authority(self):
         assumptions = self.scenario["assumption_register"]
@@ -158,7 +180,8 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertNotIn("GAP-002", gaps)
         self.assertNotIn("GAP-003", gaps)
         self.assertNotIn("GAP-004", gaps)
-        self.assertIn("GAP-005", gaps)
+        self.assertNotIn("GAP-005", gaps)
+        self.assertIn("GAP-006", gaps)
         for row in assumptions:
             self.assertIn(row["status"], {"EXPLICIT_PLACEHOLDER", "COMPATIBILITY_BOUNDARY"})
             self.assertTrue(row["semantics"])
@@ -198,7 +221,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(access["subject_id"], "ROO_VER")
         self.assertNotEqual(access["subject_id"], "FLEET_SPACE_TECHNOLOGIES")
 
-    def test_compiler_manifest_closes_gap1_through_gap4(self):
+    def test_compiler_manifest_closes_gap1_through_gap5(self):
         manifest = self.compiler_manifest
         self.assertEqual(manifest["format"], "CIVPROP_INPUT_COMPILER_MANIFEST_V1")
         self.assertEqual(len(manifest["compiler_source_sha256"]), 64)
@@ -207,7 +230,8 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(manifest["gap_resolution"]["GAP-002"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-003"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-004"], "CLOSED")
-        self.assertEqual(manifest["gap_resolution"]["GAP-005"], "OPEN")
+        self.assertEqual(manifest["gap_resolution"]["GAP-005"], "CLOSED")
+        self.assertEqual(manifest["gap_resolution"]["GAP-006"], "OPEN")
         self.assertEqual(manifest["runtime_input"]["fixture_id"], COMPILED_FIXTURE_ID)
 
     def test_compiler_is_deterministic_from_frozen_capture(self):
@@ -267,10 +291,12 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         gap2 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-002")
         gap3 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-003")
         gap4 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-004")
+        gap5 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-005")
         self.assertEqual(gap1["status"], "CLOSED")
         self.assertEqual(gap2["status"], "CLOSED")
         self.assertEqual(gap3["status"], "CLOSED")
         self.assertEqual(gap4["status"], "CLOSED")
+        self.assertEqual(gap5["status"], "CLOSED")
         self.assertTrue(output["actor_states"])
         self.assertTrue(output["annual_states"])
         self.assertTrue(output["events"])

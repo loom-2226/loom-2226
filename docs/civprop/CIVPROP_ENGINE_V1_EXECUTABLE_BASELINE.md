@@ -6,11 +6,12 @@ Status: locked executable baseline; compiled authority with explicit open-gap as
 
 ## Current baseline status
 
-Runner V1.4.0 now defaults to the GAP-001 through GAP-004 compiled authority package
+Runner V1.5.0 now defaults to the GAP-001 through GAP-005 compiled authority package
 documented in docs/civprop/CIVPROP_INPUT_COMPILER_V1.md,
 docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md,
-docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md and
-docs/civprop/CIVPROP_DEMAND_PRESSURE_V1.md.
+docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md,
+docs/civprop/CIVPROP_DEMAND_PRESSURE_V1.md and
+docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md.
 
 The original V1.0 synthetic Method Lab baseline remains preserved as historical
 regression evidence. It was not overwritten.
@@ -25,7 +26,8 @@ Current gap state begins:
     GAP-002 CLOSED
     GAP-003 CLOSED
     GAP-004 CLOSED
-    GAP-005 through GAP-015 OPEN
+    GAP-005 CLOSED
+    GAP-006 through GAP-015 OPEN
 
 ## Purpose
 
@@ -62,7 +64,7 @@ From repository root:
 
     python3 engineering/civprop/run_civprop_v1.py       --seed 42       --output /tmp/civprop_v1.json
 
-With no path arguments, the runner uses the GAP-001 through GAP-004 compiled authority package and Infrastructure Archetype V1 catalog.
+With no path arguments, the runner uses the GAP-001 through GAP-005 compiled authority package and Infrastructure Archetype V1 catalog.
 
 The runner may later be pointed at another compatible frozen input package with --input-dir and --infrastructure-catalog.
 
@@ -72,15 +74,15 @@ Changing input values is allowed. Changing input meaning is not allowed silently
 
 Machine-readable manifest:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP4_BASELINE_MANIFEST.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP5_BASELINE_MANIFEST.json
 
 Golden output:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP4_DEMAND_PRESSURE_SEED42.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP5_PROJECT_ECONOMICS_SEED42.json
 
 The current baseline contains real promoted authority plus explicit unresolved
 synthetic assumptions. It proves execution, contracts, provenance and causal
-bookkeeping. It is not yet a production forecast because GAP-005 onward remain open.
+bookkeeping. It is not yet a production forecast because GAP-006 onward remain open.
 
 The prior V1.0 synthetic manifest/golden files remain preserved as historical
 regression artifacts.
@@ -146,10 +148,10 @@ The current classification is COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTI
 This distinguishes promoted/frozen authority from the explicit model assumptions
 still owned by open gaps.
 
-Some remaining units are still synthetic, including scenario_credit and
-scenario_capacity_unit. GAP-005 owns their replacement where they represent project
-economics or infrastructure parameterization. Power is currently represented as
-MW_equivalent and population as person.
+Project Economics V1 now uses USD_2026_billion for project capital and physical
+capacity units: MW, person and tonnes/year. The legacy location-book-capital field
+remains a compatibility value owned by later state/materialization work and is not
+relabelled as project capital.
 
 ## Actors
 
@@ -261,10 +263,17 @@ regression compatibility; the default compiled authority path does not consume t
 
 ## Runtime project archetypes
 
-Each project row contains project_archetype_id, project_kind, allowed_placements, required_tech, capital_cost, construction_lag_years, output_capacities and minimum_input_capacities.
-The runner validates every FACILITY row against Infrastructure Archetype V1 and the METHOD_LAB_SYNTHETIC_V1 parameter set before running.
+Each project row contains project_archetype_id, project_kind, allowed_placements,
+required_tech and a start-year resolved view of cost, lag, output and prerequisite
+capacity.
 
-This prevents semantic drift between the old Method Lab project rows and the infrastructure contract.
+The default runner validates facility semantics against Infrastructure Archetype V1
+and validates the numeric project layer against CIVPROP_PROJECT_ECONOMICS_V1. Project
+economics are then resolved again at the actual opportunity year, so technology-year
+adjustments are consumed rather than merely documented.
+
+Historical Method Lab fixtures still validate against METHOD_LAB_SYNTHETIC_V1 for
+regression only.
 
 PROSPECTING_SURVEY is a MISSION, not infrastructure, and is intentionally outside the infrastructure catalog.
 
@@ -362,7 +371,7 @@ Current Method Lab accounting is:
 
 Actor budget balances are currently internal and are not emitted.
 
-The synthetic scenario_credit is not a production currency.
+Project commitments on the default path use USD_2026_billion from Project Economics V1. The separate legacy location-capital compatibility field is not a production currency or actor budget.
 
 ## Population semantics
 
@@ -401,13 +410,13 @@ Top-level output fields:
     flows
 
 Current format: CIVPROP_ENGINE_V1_OUTPUT.
-Current contract version: 1.4.0.
+Current contract version: 1.5.0.
 
 ## Metadata
 
-metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.4.0.
+metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.5.0.
 
-metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current default engine is HYBRID_V1 / method-reference-v2.
+metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current default engine is HYBRID_V1 / method-reference-v3.
 
 metadata.inputs records fixture_id, scenario_format, Method Lab manifest/bundle hashes, actor-visible scenario hash, runtime input hash, evaluator-truth hash and non-consumption flag, input authority and provenance basis.
 
@@ -496,7 +505,7 @@ Current gap status:
     GAP-002 ACTOR_STATE_AND_BUDGETS               CLOSED
     GAP-003 TRANSPORT_ACCESSIBILITY               CLOSED
     GAP-004 DEMAND_AND_PRESSURE_MODEL              CLOSED
-    GAP-005 PROJECT_ECONOMICS                      OPEN
+    GAP-005 PROJECT_ECONOMICS                      CLOSED
     GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE          OPEN
     GAP-007 PRESSURE_OBSERVABILITY                 OPEN
     GAP-008 RESOURCE_MASS_BALANCE                  OPEN
@@ -518,7 +527,7 @@ for a more complete simulation than it is.
 
 # Golden Seed-42 Baseline
 
-The current GAP-004 demand/pressure seed-42 baseline produces:
+The current GAP-005 project-economics seed-42 baseline produces:
 
     44 annual location-state rows
     11 annual actor-state rows
@@ -528,14 +537,11 @@ The current GAP-004 demand/pressure seed-42 baseline produces:
     35 events
     0 migration flows
 
-All 11 current actor decisions are WAIT. The causal model nevertheless derives
-real internal unmet state requirement: at the 2026 Earth-orbit boundary, habitat
-requirement is 200 persons versus 50 capacity, and resource requirement is 2 model
-capacity units versus zero. Actors still cannot turn that need into generic projects
-because other actor/accessibility/budget constraints remain unsatisfied.
-
-Zero facilities therefore does not mean zero demand. It means need is no longer being
-confused with ability to act.
+All 11 current actor decisions are WAIT. Project Economics V1 now resolves
+year-specific costs, lags and physical capacities, but the current AUS actor still
+has UNKNOWN generic spendable allocation and no generic project access/capability
+path. Zero facilities therefore remains a constraint result, not an absence of
+demand or a claim that the projects have zero economic value.
 
 No significance should be attached to those numbers as a forecast.
 
@@ -544,7 +550,7 @@ result from the same pinned inputs, implementation and seed?
 
 # Baseline Metadata and Hashes
 
-Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP4_BASELINE_MANIFEST.json. GAP-003, GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
+Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP5_BASELINE_MANIFEST.json. GAP-004, GAP-003, GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
 
 The manifest pins source-basis commit, runner and engine identities, output-contract version, runtime-input and evaluator-truth hashes, infrastructure catalog and parameter set, implementation source hashes, golden-output hashes/counts, and change-control rules.
 # Change Control

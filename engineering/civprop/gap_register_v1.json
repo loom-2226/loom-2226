@@ -1,20 +1,20 @@
 {
   "format": "CIVPROP_GAP_REGISTER_V1",
   "register_id": "CIVPROP_GAP_REGISTER_2026_09_30",
-  "as_of_main_commit": "53cca0679f6e2bdd8aa8b3be22b387136bfe1bc3",
+  "as_of_main_commit": "3741fc0ea632de2fa0317b78e9789c95d63dfbfd",
   "status_semantics": {
     "CLOSED": "The gap has a tested, versioned mechanism adequate for the current CIVPROP development boundary. Closure does not claim every future production-scale value is already calibrated.",
     "OPEN": "The current default executable still contains a placeholder, missing state/output, or incomplete production mechanism owned by this gap.",
     "BLOCKED": "Work cannot proceed without an unresolved dependency outside the gap."
   },
   "current_baseline": {
-    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.4.0",
-    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.4.0",
-    "engine": "HYBRID_V1 method-reference-v2",
+    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.5.0",
+    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.5.0",
+    "engine": "HYBRID_V1 method-reference-v3",
     "default_fixture": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP4_DEMAND_PRESSURE_SEED42.json",
-    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP4_BASELINE_MANIFEST.json"
+    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP5_PROJECT_ECONOMICS_SEED42.json",
+    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP5_BASELINE_MANIFEST.json"
   },
   "gaps": [
     {
@@ -152,7 +152,7 @@
         "Pressure decay/relief responds correctly when underlying demand disappears.",
         "Current OFFWORLD_* and WATER_RESOURCE_DEMAND fixture series are removed from the default production path."
       ],
-      "next_action": "CLOSED. Preserve Demand/Pressure V1 causal/unit semantics while proceeding to GAP-005 PROJECT_ECONOMICS; do not reintroduce hand-authored annual demand curves or let synthetic project economics determine demand.",
+      "next_action": "CLOSED. Preserve Demand/Pressure V1 causal/unit semantics while later gaps close; do not reintroduce hand-authored annual demand curves.",
       "output_or_contract_affected": [
         "demand signals",
         "demand_pressure_boundary",
@@ -164,13 +164,28 @@
     {
       "gap_id": "GAP-005",
       "name": "PROJECT_ECONOMICS",
-      "current_status": "OPEN",
-      "meaning": "Method Lab costs, lags and capacity units are preserved fixtures, not production economics or calibrated technology curves.",
+      "current_status": "CLOSED",
+      "meaning": "Project Economics V1 provides versioned physical/economic units, uncertainty ranges, scale behavior, technology-year adjustments and provenance; scenario components remain explicitly non-empirical.",
       "current_evidence": [
+        "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
+        "engineering/civprop/contracts/project_economics_v1.py",
+        "engineering/civprop/contracts/project_economics_v1.json",
+        "engineering/civprop/contracts/test_project_economics_v1.py",
         "engineering/civprop/contracts/infrastructure_archetypes_v1.json",
-        "docs/civprop/CIVPROP_INFRASTRUCTURE_ARCHETYPE_V1.md",
+        "engineering/civprop/method_lab/contracts.py",
+        "engineering/civprop/method_lab/prototypes/common.py",
+        "engineering/civprop/method_lab/prototypes/hybrid_v1.py",
+        "engineering/civprop/compile_inputs_v1.py",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/compiler_manifest_v1.json",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json",
+        "engineering/civprop/run_civprop_v1.py",
+        "engineering/civprop/test_compile_inputs_v1.py",
+        "engineering/civprop/test_run_civprop_v1.py",
         "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json",
-        "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md"
+        "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md",
+        "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP5_PROJECT_ECONOMICS_SEED42.json",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP5_BASELINE_MANIFEST.json"
       ],
       "exit_criteria": [
         "Infrastructure archetypes have versioned parameter sets with physical/economic units and provenance.",
@@ -179,12 +194,15 @@
         "Dorrington-Olsen or other domain models are used only within their qualified scope.",
         "METHOD_LAB_SYNTHETIC_V1 values are absent from the default production path."
       ],
-      "next_action": "Create the first qualified/scenario production parameter set for the Earth-Orbit-Luna slice, then extend by archetype and technology epoch.",
+      "next_action": "CLOSED. Preserve Project Economics V1 unit/provenance/uncertainty boundaries while proceeding to GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE; scenario ranges must not be relabeled empirical.",
       "output_or_contract_affected": [
         "infrastructure parameterizations",
         "capital transactions",
         "construction",
-        "capacity"
+        "capacity",
+        "project_economics_boundary",
+        "project cost units",
+        "technology-year economics"
       ]
     },
     {

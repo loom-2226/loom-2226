@@ -24,6 +24,10 @@ from engineering.civprop.contracts.demand_pressure_v1 import (
     DemandPressurePackage,
     load_demand_pressure_package,
 )
+from engineering.civprop.contracts.project_economics_v1 import (
+    ProjectEconomicsPackage,
+    load_project_economics_package,
+)
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -143,6 +147,7 @@ class LabScenario:
     resource_beliefs: tuple[ResourceBelief, ...]
     demand_pressure_v1: Optional[DemandPressurePackage]
     demand_signals: tuple[DemandSignal, ...]
+    project_economics_v1: Optional[ProjectEconomicsPackage]
     project_archetypes: tuple[ProjectArchetype, ...]
 
 
@@ -387,6 +392,11 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             )
             for x in data.get("demand_signals", ())
         ),
+        project_economics_v1=(
+            None
+            if data.get("project_economics_v1") is None
+            else load_project_economics_package(data["project_economics_v1"])
+        ),
         project_archetypes=tuple(
             ProjectArchetype(
                 project_archetype_id=x["project_archetype_id"],
@@ -518,6 +528,16 @@ def _validate_scenario(s: LabScenario, truth: LabTruth) -> None:
             raise ValueError("duplicate demand-signal year")
         if any(not s.start_year <= x.year <= s.end_year or x.value < 0 for x in signal.values):
             raise ValueError("invalid demand signal")
+
+    if s.project_economics_v1 is not None:
+        economics_ids = {
+            x.project_archetype_id for x in s.project_economics_v1.projects
+        }
+        project_ids = {x.project_archetype_id for x in s.project_archetypes}
+        if not project_ids <= economics_ids:
+            raise ValueError("project economics missing runtime project")
+        if s.units.get("project_capital") != s.project_economics_v1.capital_unit:
+            raise ValueError("project economics capital unit mismatch")
 
     for project in s.project_archetypes:
         if project.capital_cost <= 0 or project.construction_lag_years < 1:

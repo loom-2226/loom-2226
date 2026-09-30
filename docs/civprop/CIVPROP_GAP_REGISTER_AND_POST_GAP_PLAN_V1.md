@@ -6,11 +6,11 @@ Status: current program register and post-gap handoff plan
 
 ## Authority boundary
 
-This document records the CIVPROP program state through GAP-004 closure.
+This document records the CIVPROP program state through GAP-005 closure.
 
 Authoritative repository basis at creation:
 
-    53cca0679f6e2bdd8aa8b3be22b387136bfe1bc3
+    3741fc0ea632de2fa0317b78e9789c95d63dfbfd
 
 Machine-readable register:
 
@@ -30,12 +30,12 @@ Current default runtime package:
 
 Current runner/output contract:
 
-    CIVPROP_ENGINE_V1_RUNNER 1.4.0
-    CIVPROP_ENGINE_V1_OUTPUT 1.4.0
+    CIVPROP_ENGINE_V1_RUNNER 1.5.0
+    CIVPROP_ENGINE_V1_OUTPUT 1.5.0
 
 Current engine:
 
-    HYBRID_V1 method-reference-v2
+    HYBRID_V1 method-reference-v3
 
 Current input authority:
 
@@ -73,11 +73,15 @@ civilization state and explicit scoped commitments, subtracts installed capacity
 carries unmet demand into decaying unit-preserving pressure. The default annual
 OFFWORLD_* and WATER_RESOURCE_DEMAND curves are gone.
 
-The current baseline is still not a forecast because GAP-005 through GAP-015 remain
-open. The demand coefficients are uncalibrated causal model parameters, project
-economics remain synthetic, and later mechanisms materially affect the result. The
-default seed-42 baseline remains an engineering regression/reference artifact, not a
-2036 prediction or 2226 canon.
+GAP-005 is CLOSED. Project Economics V1 now supplies versioned physical/economic
+units, uncertainty ranges, scale behavior, technology-year adjustments and
+provenance. Scenario-class components remain explicitly non-empirical.
+
+The current baseline is still not a forecast because GAP-006 through GAP-015 remain
+open. Demand and project-economics scenario coefficients remain uncalibrated where
+marked, and later mechanisms materially affect the result. The default seed-42
+baseline remains an engineering regression/reference artifact, not a 2036 prediction
+or 2226 canon.
 
 ## Closure semantics
 
@@ -115,7 +119,7 @@ A gap may close only when its replacement has:
 | GAP-002 | ACTOR_STATE_AND_BUDGETS | CLOSED | Preserve Actor State V1 semantics; proceed without inventing budget or capability |
 | GAP-003 | TRANSPORT_ACCESSIBILITY | CLOSED | Preserve scoped physics/service tri-state semantics; no inferred routes or entitlements |
 | GAP-004 | DEMAND_AND_PRESSURE_MODEL | CLOSED | Preserve state-derived/unit-preserving demand semantics; no authored annual curves |
-| GAP-005 | PROJECT_ECONOMICS | OPEN | Replace synthetic costs/lags/capacity units with versioned parameter sets |
+| GAP-005 | PROJECT_ECONOMICS | CLOSED | Preserve unit/provenance/uncertainty boundaries; scenario ranges remain non-empirical |
 | GAP-006 | MISSIONS_AND_KNOWLEDGE_UPDATE | OPEN | Integrate prospecting/observation/Bayesian knowledge evolution |
 | GAP-007 | PRESSURE_OBSERVABILITY | OPEN | Emit or reconstruct pressure state and causal components |
 | GAP-008 | RESOURCE_MASS_BALANCE | OPEN | Add stock/grade/yield/throughput/inventory/depletion closure |
@@ -448,7 +452,8 @@ Current frontier:
     GAP-002 CLOSED
     GAP-003 CLOSED
     GAP-004 CLOSED
-    GAP-005 OPEN
+    GAP-005 CLOSED
+    GAP-006 OPEN
 
 GAP-002 removed the compiled-input assumptions:
 
@@ -473,10 +478,17 @@ and replaced hand-authored annual demand curves with Demand/Pressure V1 state-de
 requirements, installed-capacity relief and decaying unit-preserving pressure.
 Dynamic pressure remains internal; GAP-007 still owns its observability surface.
 
+GAP-005 removed the default compiled-input assumption:
+
+    ASSUME-GAP005-PROJECT-ECONOMICS
+
+and replaced Method Lab project economics with Project Economics V1, including
+physical/economic units, uncertainty ranges, scale behavior and year-resolved
+technology adjustments. Historical Method Lab economics remain regression-only.
+
 The next implementation target is therefore:
 
-    GAP-005 PROJECT_ECONOMICS
+    GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE
 
-That work must replace synthetic costs, lags and capacity parameterizations without
-reopening GAP-002 actor semantics, GAP-003 accessibility semantics or GAP-004 causal
-demand semantics.
+That work must add causal mission execution and knowledge updates without reopening
+the closed actor, accessibility, demand or project-economics boundaries.

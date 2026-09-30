@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-Runner V1.4 keeps the selected HYBRID_V1 architecture, retains the GAP-001
-compiled authority path, GAP-002 Actor State V1 and GAP-003 Accessibility V1, and
-adds GAP-004 Demand/Pressure V1 state-derived causal demand. Later gaps remain
-explicit rather than being silently invented here.
+Runner V1.5 keeps the selected HYBRID_V1 architecture and the closed GAP-001
+through GAP-004 boundaries, then adds GAP-005 Project Economics V1 with versioned
+physical/economic units, uncertainty, scale behavior and technology-year resolution.
+Later gaps remain explicit rather than being silently invented here.
 """
 from __future__ import annotations
 
@@ -31,13 +31,20 @@ from engineering.civprop.method_lab.contracts import (
     validate_result,
 )
 from engineering.civprop.method_lab.prototypes.hybrid_v1 import HybridEngineV1
+from engineering.civprop.method_lab.prototypes.common import (
+    project_capital_unit,
+    resolved_project,
+)
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.4.0"
+OUTPUT_CONTRACT_VERSION = "1.5.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.4.0"
+RUNNER_VERSION = "1.5.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
+PROJECT_ECONOMICS_PARAMETER_PATH = (
+    _CIVPROP_DIR / "contracts" / "project_economics_v1.json"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -56,19 +63,65 @@ def default_paths() -> tuple[Path, Path]:
 
 
 def _validate_infrastructure_crosswalk(bundle, catalog) -> list[str]:
-    """Fail closed if runtime project semantics drift from the pinned catalog."""
+    """Fail closed if runtime project semantics drift from governed contracts."""
+    archetype_by_id = {a.archetype_id: a for a in catalog.archetypes}
     parameterized: list[str] = []
+
+    if bundle.scenario.project_economics_v1 is not None:
+        economics_ids = {
+            p.project_archetype_id
+            for p in bundle.scenario.project_economics_v1.projects
+        }
+        for project in bundle.scenario.project_archetypes:
+            if project.project_kind != "FACILITY":
+                continue
+            archetype_id = project.project_archetype_id
+            if archetype_id not in archetype_by_id:
+                raise ValueError(
+                    f"facility project missing infrastructure semantics: {archetype_id}"
+                )
+            if archetype_id not in economics_ids:
+                raise ValueError(
+                    f"facility project missing Project Economics V1 parameterization: {archetype_id}"
+                )
+            archetype = archetype_by_id[archetype_id]
+            if tuple(project.allowed_placements) != tuple(archetype.allowed_placements):
+                raise ValueError(f"placement semantic drift: {archetype_id}")
+
+            resolved = resolved_project(
+                bundle,
+                project,
+                bundle.scenario.start_year,
+            )
+            if resolved != project:
+                raise ValueError(
+                    f"compiled start-year economics drift: {archetype_id}"
+                )
+            outputs = {
+                key
+                for key, value in resolved.output_capacities.__dict__.items()
+                if value > 0
+            }
+            inputs = {
+                key
+                for key, value in resolved.minimum_input_capacities.__dict__.items()
+                if value > 0
+            }
+            if not outputs <= set(archetype.output_capacity_dimensions):
+                raise ValueError(f"output-capacity semantic drift: {archetype_id}")
+            if not inputs <= set(archetype.input_capacity_dimensions):
+                raise ValueError(f"input-capacity semantic drift: {archetype_id}")
+            parameterized.append(archetype_id)
+        return sorted(parameterized)
+
     parameter_by_archetype = {
         p.archetype_id: p
         for p in catalog.parameterizations
         if p.parameter_set_id == DEFAULT_PARAMETER_SET_ID
     }
-    archetype_by_id = {a.archetype_id: a for a in catalog.archetypes}
-
     for project in bundle.scenario.project_archetypes:
         if project.project_kind != "FACILITY":
             continue
-
         archetype_id = project.project_archetype_id
         if archetype_id not in archetype_by_id:
             raise ValueError(
@@ -78,10 +131,8 @@ def _validate_infrastructure_crosswalk(bundle, catalog) -> list[str]:
             raise ValueError(
                 f"facility project missing locked parameterization: {archetype_id}"
             )
-
         archetype = archetype_by_id[archetype_id]
         parameter = parameter_by_archetype[archetype_id]
-
         if tuple(project.allowed_placements) != tuple(archetype.allowed_placements):
             raise ValueError(f"placement semantic drift: {archetype_id}")
         if project.capital_cost != parameter.capital_cost:
@@ -98,11 +149,8 @@ def _validate_infrastructure_crosswalk(bundle, catalog) -> list[str]:
             for key in project.output_capacities.__dict__
         }:
             raise ValueError(f"output-capacity drift: {archetype_id}")
-
         parameterized.append(archetype_id)
-
     return sorted(parameterized)
-
 
 def _implementation_hashes() -> dict[str, str]:
     from engineering.civprop.contracts import (
@@ -110,6 +158,7 @@ def _implementation_hashes() -> dict[str, str]:
         actor_state_v1,
         demand_pressure_v1,
         infrastructure_v1,
+        project_economics_v1,
     )
     from engineering.civprop.method_lab import contracts
     from engineering.civprop.method_lab.prototypes import common, hybrid_v1
@@ -123,6 +172,10 @@ def _implementation_hashes() -> dict[str, str]:
         "actor_state_contract_sha256": _module_sha256(actor_state_v1),
         "accessibility_contract_sha256": _module_sha256(accessibility_v1),
         "demand_pressure_contract_sha256": _module_sha256(demand_pressure_v1),
+        "project_economics_contract_sha256": _module_sha256(project_economics_v1),
+        "project_economics_parameter_set_sha256": _sha256(
+            PROJECT_ECONOMICS_PARAMETER_PATH
+        ),
     }
 
 
@@ -160,6 +213,9 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
         "pressure_memory": (
             "CHANNEL_PRESSURE_DECAYS_WHEN_UNMET_REQUIREMENT_DISAPPEARS"
         ),
+        "project_economics": (
+            "VERSIONED_PHYSICAL_ECONOMIC_RANGES_WITH_SCALE_AND_EPOCH_RESOLUTION"
+        ),
         "major_commitments": (
             "REQUIRE_PRESSURE_QUALIFICATION_ACTOR_USABLE_CAPABILITY_AFFORDABILITY"
         ),
@@ -168,7 +224,8 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
             "INTERNAL_AFTER_COMMITMENT_UNTIL_COMMISSIONING_NOT_EXPOSED_AS_STATE"
         ),
         "capital_accounting": (
-            "ACTOR_BUDGET_DEBITED_AT_COMMITMENT_LOCATION_CAPITAL_ADDED_AT_COMMISSIONING"
+            "PROJECT_CAPITAL_USES_PROJECT_ECONOMICS_UNIT_ACTOR_BUDGET_DEBITED_AT_COMMITMENT_"
+            "LOCATION_BOOK_CAPITAL_COMPATIBILITY_FIELD_UPDATED_AT_COMMISSIONING"
         ),
         "actor_budget_output": "ANNUAL_ACTOR_STATE_WITH_REPLAYABLE_TRANSACTIONS",
         "population": (
@@ -218,7 +275,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-005",
             "name": "PROJECT_ECONOMICS",
             "status": "OPEN",
-            "meaning": "Method Lab costs, lags and capacity units are preserved fixtures, not production economics or calibrated technology curves.",
+            "meaning": "Project Economics V1 provides versioned physical/economic units, uncertainty ranges, scale behavior, technology-year adjustments and provenance; scenario components remain explicitly non-empirical.",
         },
         {
             "gap_id": "GAP-006",
@@ -371,9 +428,13 @@ def _actor_state_projection(bundle, result):
                 or decision.status != "COMMITTED"
             ):
                 continue
-            project = projects[decision.project_archetype_id]
+            project = resolved_project(
+                bundle,
+                projects[decision.project_archetype_id],
+                year,
+            )
             budget = budgets[decision.actor_id]
-            required_unit = bundle.scenario.units["capital"]
+            required_unit = project_capital_unit(bundle)
             if (
                 budget["status"] != "KNOWN"
                 or budget["amount"] is None
@@ -495,8 +556,16 @@ def build_output(
                 "catalog_id": catalog.catalog_id,
                 "catalog_format": catalog.format,
                 "catalog_sha256": _sha256(infrastructure_catalog_path),
-                "parameter_set_id": DEFAULT_PARAMETER_SET_ID,
-                "parameter_status": PARAMETER_STATUS_METHOD_LAB,
+                "parameter_set_id": (
+                    bundle.scenario.project_economics_v1.parameter_set_id
+                    if bundle.scenario.project_economics_v1 is not None
+                    else DEFAULT_PARAMETER_SET_ID
+                ),
+                "parameter_status": (
+                    "PROJECT_ECONOMICS_V1_MIXED_STATUS"
+                    if bundle.scenario.project_economics_v1 is not None
+                    else PARAMETER_STATUS_METHOD_LAB
+                ),
                 "parameterized_archetypes": parameterized_archetypes,
             },
             "implementation": _implementation_hashes(),
@@ -513,6 +582,11 @@ def build_output(
             None
             if bundle.scenario.demand_pressure_v1 is None
             else json.loads(canonical_json(bundle.scenario.demand_pressure_v1))
+        ),
+        "project_economics_boundary": (
+            None
+            if bundle.scenario.project_economics_v1 is None
+            else json.loads(canonical_json(bundle.scenario.project_economics_v1))
         ),
         "actor_states": actor_states,
         "actor_transactions": actor_transactions,
@@ -535,7 +609,7 @@ def main() -> None:
         "--input-dir",
         type=Path,
         default=default_input_dir,
-        help="Compatible frozen input directory (defaults to GAP-001 through GAP-004 compiled V1).",
+        help="Compatible frozen input directory (defaults to GAP-001 through GAP-005 compiled V1).",
     )
     parser.add_argument(
         "--infrastructure-catalog",
