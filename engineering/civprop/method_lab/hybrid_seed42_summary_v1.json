@@ -1,0 +1,79 @@
+{
+  "decision_count": 22,
+  "engine_id": "HYBRID_V1",
+  "engine_version": "method-reference-v1",
+  "event_count": 131,
+  "facilities_by_location": {
+    "CISLUNAR_FREE_SPACE": 5,
+    "EARTH_ORBIT": 6
+  },
+  "facilities_by_type": {
+    "HABITAT": 1,
+    "LOGISTICS_NODE": 10
+  },
+  "facility_count": 11,
+  "final_locations": {
+    "CISLUNAR_FREE_SPACE": {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 10.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 50.0
+      },
+      "capital": 60.0,
+      "transient_population": 0.0,
+      "workforce": 0.0
+    },
+    "EARTH_ORBIT": {
+      "biological_population": 65.7363184785,
+      "capacities": {
+        "habitat": 150.0,
+        "industrial": 2.0,
+        "power": 15.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 58.0
+      },
+      "capital": 93.0,
+      "transient_population": 200.0,
+      "workforce": 50.0
+    },
+    "EARTH_SURFACE": {
+      "biological_population": 999934.2636815214,
+      "capacities": {
+        "habitat": 1000000.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "transient_population": 0.0,
+      "workforce": 499967.1318407607
+    },
+    "LUNA_SURFACE": {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "transient_population": 0.0,
+      "workforce": 0.0
+    }
+  },
+  "flow_count": 10,
+  "format": "CIVPROP_HYBRID_V1_SUMMARY",
+  "full_result_sha256": "31bdf49fa36dd39231c01a9fce0bd1f3df6efde318b2ef5f14a21f81324ff7c7",
+  "input_bundle_sha256": "482a7bd21c59c91381609d1a06398a408273c8a761f962e6c8421335f1ca5120",
+  "result_sha256": "31bdf49fa36dd39231c01a9fce0bd1f3df6efde318b2ef5f14a21f81324ff7c7",
+  "seed": 42
+}
