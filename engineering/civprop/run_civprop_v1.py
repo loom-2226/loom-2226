@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-Runner V1.5 keeps the selected HYBRID_V1 architecture and the closed GAP-001
-through GAP-004 boundaries, then adds GAP-005 Project Economics V1 with versioned
-physical/economic units, uncertainty, scale behavior and technology-year resolution.
-Later gaps remain explicit rather than being silently invented here.
+Runner V1.6 keeps the selected HYBRID_V1 architecture and closed GAP-001
+through GAP-005 boundaries, then adds GAP-006 Mission/Knowledge V1 with explicit
+mission actions, actor-visible beliefs, keyed noisy observations and deterministic
+Bayesian updates. Later gaps remain explicit rather than being silently invented.
 """
 from __future__ import annotations
 
@@ -31,6 +31,7 @@ from engineering.civprop.method_lab.contracts import (
     validate_result,
 )
 from engineering.civprop.method_lab.prototypes.hybrid_v1 import HybridEngineV1
+from engineering.civprop.contracts.project_economics_v1 import ProjectEconomicsRuntime
 from engineering.civprop.method_lab.prototypes.common import (
     project_capital_unit,
     resolved_project,
@@ -38,12 +39,15 @@ from engineering.civprop.method_lab.prototypes.common import (
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.5.0"
+OUTPUT_CONTRACT_VERSION = "1.6.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.5.0"
+RUNNER_VERSION = "1.6.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
 PROJECT_ECONOMICS_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "project_economics_v1.json"
+)
+MISSION_KNOWLEDGE_PARAMETER_PATH = (
+    _CIVPROP_DIR / "contracts" / "mission_knowledge_v1.json"
 )
 
 
@@ -159,8 +163,9 @@ def _implementation_hashes() -> dict[str, str]:
         demand_pressure_v1,
         infrastructure_v1,
         project_economics_v1,
+        mission_knowledge_v1,
     )
-    from engineering.civprop.method_lab import contracts
+    from engineering.civprop.method_lab import contracts, mission_lane_v1
     from engineering.civprop.method_lab.prototypes import common, hybrid_v1
 
     return {
@@ -176,6 +181,13 @@ def _implementation_hashes() -> dict[str, str]:
         "project_economics_parameter_set_sha256": _sha256(
             PROJECT_ECONOMICS_PARAMETER_PATH
         ),
+        "mission_knowledge_contract_sha256": _module_sha256(
+            mission_knowledge_v1
+        ),
+        "mission_knowledge_parameter_set_sha256": _sha256(
+            MISSION_KNOWLEDGE_PARAMETER_PATH
+        ),
+        "mission_lane_sha256": _module_sha256(mission_lane_v1),
     }
 
 
@@ -191,9 +203,20 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
         "runtime_reasoning": (
             "EXPLICIT_CODE_RULES_AND_KEYED_STOCHASTICITY_NO_LLM_AUTHORITY"
         ),
-        "actor_knowledge": "ACTOR_VISIBLE_SCENARIO_ONLY_HIDDEN_TRUTH_PROHIBITED",
+        "actor_knowledge": (
+            "VERSIONED_ACTOR_SCOPED_BELIEF_UPDATED_ONLY_BY_RECEIVED_OBSERVATIONS"
+        ),
         "resource_truth": (
-            "EVALUATOR_ONLY_FIXTURE_PRESENT_IN_PACKAGE_NOT_READ_BY_ENGINE"
+            "EVALUATOR_ONLY_HIDDEN_REALIZATION_OBSERVATION_RUNTIME_ONLY"
+        ),
+        "mission_knowledge": (
+            "GENERAL_MISSION_ACTION_CONTRACT_WITH_BINARY_RESOURCE_OBSERVATION_V1"
+        ),
+        "observation_noise": (
+            "KEYED_SEED_EVIDENCE_MISSION_AND_MODEL_INSERTION_ORDER_INDEPENDENT"
+        ),
+        "knowledge_update": (
+            "DETERMINISTIC_BAYESIAN_UPDATE_WITH_DUPLICATE_SCOPE_AND_CHRONOLOGY_GUARDS"
         ),
         "technology": (
             "FRONTIER_DATE_DOES_NOT_GRANT_ACTOR_CAPABILITY_ACTOR_ACCESS_IS_SEPARATE"
@@ -281,7 +304,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-006",
             "name": "MISSIONS_AND_KNOWLEDGE_UPDATE",
             "status": "OPEN",
-            "meaning": "Hybrid V1 baseline does not execute prospecting missions or CIVPROP-0 observation/Bayesian knowledge updates.",
+            "meaning": "Mission/Knowledge V1 separates mission actions from infrastructure, actor-visible belief from evaluator truth, keyed noisy observations from physical realization, and deterministic Bayesian knowledge updates from later decisions.",
         },
         {
             "gap_id": "GAP-007",
@@ -460,6 +483,70 @@ def _actor_state_projection(bundle, result):
                 }
             )
 
+        if bundle.scenario.mission_knowledge_v1 is not None:
+            mission_by_id = {
+                x.mission_archetype_id: x
+                for x in bundle.scenario.mission_knowledge_v1.missions
+            }
+            economics = (
+                ProjectEconomicsRuntime(bundle.scenario.project_economics_v1)
+                if bundle.scenario.project_economics_v1 is not None
+                else None
+            )
+            legacy_projects = {
+                x.project_archetype_id: x
+                for x in bundle.scenario.project_archetypes
+            }
+            for decision in result.mission_decisions:
+                if (
+                    decision.year != year
+                    or decision.action != "COMMIT_MISSION"
+                    or decision.status != "COMMITTED"
+                ):
+                    continue
+                mission = mission_by_id[decision.mission_archetype_id]
+                if economics is not None:
+                    resolved = economics.resolve(
+                        mission.project_economics_id,
+                        year=year,
+                    )
+                    mission_cost = resolved.capital_cost
+                    required_unit = resolved.capital_unit
+                else:
+                    project = legacy_projects[mission.project_economics_id]
+                    mission_cost = project.capital_cost
+                    required_unit = bundle.scenario.units["capital"]
+
+                budget = budgets[decision.actor_id]
+                if (
+                    budget["status"] != "KNOWN"
+                    or budget["amount"] is None
+                    or budget["unit"] != required_unit
+                    or budget["amount"] + 1e-9 < mission_cost
+                ):
+                    raise ValueError(
+                        "mission commitment cannot be replayed from actor budget"
+                    )
+                budget["amount"] -= mission_cost
+                transaction_counter += 1
+                transactions.append(
+                    {
+                        "transaction_id": f"at{transaction_counter:05d}",
+                        "year": year,
+                        "actor_id": decision.actor_id,
+                        "transaction_type": "MISSION_COMMITMENT",
+                        "amount": mission_cost,
+                        "unit": required_unit,
+                        "scope": (
+                            f"{decision.mission_archetype_id}@"
+                            f"{decision.target_location_id}"
+                        ),
+                        "provenance_ref": (
+                            f"mission_decision:{decision.decision_id}"
+                        ),
+                    }
+                )
+
         for actor_id, actor in sorted(actors.items()):
             capability_ids = {
                 record.capability_id
@@ -547,7 +634,10 @@ def build_output(
                 "actor_visible_scenario_sha256": scenario_sha,
                 "runtime_input_sha256": scenario_sha,
                 "evaluator_truth_sha256": _sha256(truth_path),
-                "evaluator_truth_consumed_by_engine": False,
+                "evaluator_truth_consumed_by_engine": bool(result.observations),
+                "evaluator_truth_access_policy": (
+                    "OBSERVATION_RUNTIME_ONLY_WHEN_ADMITTED_MISSION_EXECUTES"
+                ),
                 "input_authority": bundle.manifest.get("authority"),
                 "basis": bundle.manifest.get("basis", {}),
                 "compiler": compiler_metadata,
@@ -588,12 +678,21 @@ def build_output(
             if bundle.scenario.project_economics_v1 is None
             else json.loads(canonical_json(bundle.scenario.project_economics_v1))
         ),
+        "mission_knowledge_boundary": (
+            None
+            if bundle.scenario.mission_knowledge_v1 is None
+            else json.loads(canonical_json(bundle.scenario.mission_knowledge_v1))
+        ),
         "actor_states": actor_states,
         "actor_transactions": actor_transactions,
         "actor_state_events": actor_state_events,
         "annual_states": result_dict["annual_states"],
         "facilities": result_dict["facilities"],
         "decisions": result_dict["decisions"],
+        "mission_decisions": result_dict.get("mission_decisions", []),
+        "missions": result_dict.get("missions", []),
+        "observations": result_dict.get("observations", []),
+        "knowledge_states": result_dict.get("knowledge_states", []),
         "events": result_dict["events"],
         "flows": result_dict["flows"],
     }
@@ -609,7 +708,7 @@ def main() -> None:
         "--input-dir",
         type=Path,
         default=default_input_dir,
-        help="Compatible frozen input directory (defaults to GAP-001 through GAP-005 compiled V1).",
+        help="Compatible frozen input directory (defaults to GAP-001 through GAP-006 compiled V1).",
     )
     parser.add_argument(
         "--infrastructure-catalog",

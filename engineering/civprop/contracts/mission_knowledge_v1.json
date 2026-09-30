@@ -1,0 +1,80 @@
+{
+  "capital_unit": "USD_2026_billion",
+  "contract_version": "1.0.0",
+  "decision_models": [
+    {
+      "decision_model_id": "LUNAR_RESOURCE_SURVEY_VOI_V1",
+      "follow_on_project_id": "RESOURCE_PLANT",
+      "mission_archetype_id": "LUNAR_RESOURCE_PROSPECTING_SURVEY",
+      "model_kind": "EXPECTED_VALUE_OF_SAMPLE_INFORMATION_V1",
+      "provenance_refs": [
+        "engineering/civprop/civprop0/actor.py",
+        "docs/civprop/CIVPROP_GAME_PLAN_VERIFICATION_V1.md"
+      ],
+      "success_value": {
+        "provenance_refs": [
+          "GAP-009:PRODUCTION_AND_VALUE_ADDED_OPEN"
+        ],
+        "status": "UNKNOWN",
+        "unit": "USD_2026_billion",
+        "value": null
+      },
+      "threshold": 0.0
+    }
+  ],
+  "format": "CIVPROP_MISSION_KNOWLEDGE_V1",
+  "missions": [
+    {
+      "action_kind": "MISSION",
+      "destination_location_id": "LUNA_SURFACE",
+      "mission_archetype_id": "LUNAR_RESOURCE_PROSPECTING_SURVEY",
+      "mission_class": "ROBOTIC_RESOURCE_PROSPECTING",
+      "observation_model_id": "LUNAR_WATER_BINARY_DETECTION_V1",
+      "origin_location_id": "EARTH_SURFACE",
+      "project_economics_id": "PROSPECTING_SURVEY",
+      "provenance_refs": [
+        "engineering/civprop/civprop0/experiment.py",
+        "engineering/civprop/contracts/project_economics_v1.json"
+      ],
+      "required_tech": [
+        "LUNAR_SURFACE_OPERATIONS"
+      ],
+      "service_class": "GENERIC_LOGISTICS",
+      "target_question_id": "MOON_POLAR_WATER_PRESENT",
+      "visibility": "PRIVATE"
+    }
+  ],
+  "observation_models": [
+    {
+      "false_positive_probability": 0.1,
+      "model_kind": "BERNOULLI_CONFUSION_MATRIX_V1",
+      "observation_model_id": "LUNAR_WATER_BINARY_DETECTION_V1",
+      "parameter_status": "UNCALIBRATED_SCENARIO_OBSERVATION_MODEL",
+      "provenance_refs": [
+        "engineering/civprop/civprop0/observation.py",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json#resource_beliefs"
+      ],
+      "quantity": "resource_presence_detection",
+      "sensitivity": 0.8,
+      "unit": "binary"
+    }
+  ],
+  "package_id": "EARTH_LUNA_MISSION_KNOWLEDGE_V1_2026_2036",
+  "package_status": "GENERAL_CONTRACT_BINARY_RESOURCE_IMPLEMENTATION_V1",
+  "questions": [
+    {
+      "location_id": "LUNA_SURFACE",
+      "prior_probability": 0.45,
+      "prior_status": "EMPIRICAL_PRESENCE_PLUS_SCENARIO_PRIOR",
+      "provenance_refs": [
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json#resource_beliefs",
+        "engineering/civprop/civprop0/inputs.json#MOON_LRO_LCROSS_WATER"
+      ],
+      "question_id": "MOON_POLAR_WATER_PRESENT",
+      "question_kind": "BINARY_PRESENCE",
+      "subject_id": "MOON_POLAR_WATER",
+      "visibility": "PRIVATE"
+    }
+  ],
+  "scope": "EARTH_ORBIT_LUNA_RESOURCE_PROSPECTING_2026_2036"
+}

@@ -12,6 +12,7 @@ from __future__ import annotations
 from collections import defaultdict
 
 from engineering.civprop.contracts.demand_pressure_v1 import DemandPressureRuntime
+from ..mission_lane_v1 import MissionLaneV1
 
 from .common import (
     Recorder,
@@ -78,10 +79,19 @@ class HybridEngineV1:
     def run(self, bundle, seed):
         causal_demand = bundle.scenario.demand_pressure_v1 is not None
         production_economics = bundle.scenario.project_economics_v1 is not None
+        mission_knowledge = bundle.scenario.mission_knowledge_v1 is not None
         self.engine_version = (
-            "method-reference-v3"
-            if production_economics
-            else ("method-reference-v2" if causal_demand else "method-reference-v1")
+            "method-reference-v4"
+            if mission_knowledge
+            else (
+                "method-reference-v3"
+                if production_economics
+                else (
+                    "method-reference-v2"
+                    if causal_demand
+                    else "method-reference-v1"
+                )
+            )
         )
         demand_runtime = (
             DemandPressureRuntime(bundle.scenario.demand_pressure_v1)
@@ -96,6 +106,11 @@ class HybridEngineV1:
         pending = []
         pressure = defaultdict(float)
         recorder = Recorder()
+        mission_lane = (
+            MissionLaneV1(bundle, seed, recorder)
+            if mission_knowledge
+            else None
+        )
         annual_states = []
 
         recorder.event(bundle.scenario.start_year, "RUN_STARTED")
@@ -106,6 +121,12 @@ class HybridEngineV1:
             apply_actor_budget_events(bundle, budgets, year, recorder)
 
             commission_due(year, pending, states, recorder)
+
+            if mission_lane is not None:
+                mission_lane.execute_due(
+                    year=year,
+                    recorder=recorder,
+                )
 
             if causal_demand:
                 demand_observations = demand_runtime.derive(
@@ -124,6 +145,11 @@ class HybridEngineV1:
                         actor_id,
                         year,
                         demand_observations=demand_observations,
+                        knowledge=(
+                            mission_lane.knowledge
+                            if mission_lane is not None
+                            else None
+                        ),
                     )
                     for actor_id in actor_ids
                 }
@@ -137,7 +163,17 @@ class HybridEngineV1:
                         pressure.pop(key, None)
 
                 actor_opportunities = {
-                    actor_id: opportunities(bundle, states, actor_id, year)
+                    actor_id: opportunities(
+                        bundle,
+                        states,
+                        actor_id,
+                        year,
+                        knowledge=(
+                            mission_lane.knowledge
+                            if mission_lane is not None
+                            else None
+                        ),
+                    )
                     for actor_id in actor_ids
                 }
                 structural = {}
@@ -153,6 +189,13 @@ class HybridEngineV1:
 
                 for key, signal in structural.items():
                     pressure[key] += signal * self.pressure_gain
+
+            if mission_lane is not None:
+                mission_lane.evaluate_and_commit(
+                    year=year,
+                    budgets=budgets,
+                    recorder=recorder,
+                )
 
             committed_keys = set()
             for actor_id in actor_ids:

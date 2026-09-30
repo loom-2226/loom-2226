@@ -28,6 +28,14 @@ from engineering.civprop.contracts.project_economics_v1 import (
     ProjectEconomicsPackage,
     load_project_economics_package,
 )
+from engineering.civprop.contracts.mission_knowledge_v1 import (
+    KnowledgeStateV1,
+    MissionDecisionRecordV1,
+    MissionKnowledgePackage,
+    MissionRecordV1,
+    ObservationRecordV1,
+    load_mission_knowledge_package,
+)
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -149,6 +157,7 @@ class LabScenario:
     demand_signals: tuple[DemandSignal, ...]
     project_economics_v1: Optional[ProjectEconomicsPackage]
     project_archetypes: tuple[ProjectArchetype, ...]
+    mission_knowledge_v1: Optional[MissionKnowledgePackage] = None
 
 
 @dataclass(frozen=True)
@@ -251,6 +260,10 @@ class LabResult:
     decisions: tuple[DecisionRecord, ...]
     events: tuple[EventRecord, ...]
     flows: tuple[FlowRecord, ...]
+    missions: tuple[MissionRecordV1, ...] = ()
+    observations: tuple[ObservationRecordV1, ...] = ()
+    knowledge_states: tuple[KnowledgeStateV1, ...] = ()
+    mission_decisions: tuple[MissionDecisionRecordV1, ...] = ()
 
 
 @runtime_checkable
@@ -273,7 +286,28 @@ def _plain(value: Any) -> Any:
 
 
 def canonical_json(value: Any) -> str:
-    return json.dumps(_plain(value), sort_keys=True, separators=(",", ":"), allow_nan=False)
+    plain = _plain(value)
+    if isinstance(value, LabResult) and not (
+        value.missions
+        or value.observations
+        or value.knowledge_states
+        or value.mission_decisions
+    ):
+        # Historical Method Lab result hashes remain byte-stable when the
+        # Mission/Knowledge V1 lane is absent.
+        for key in (
+            "missions",
+            "observations",
+            "knowledge_states",
+            "mission_decisions",
+        ):
+            plain.pop(key, None)
+    return json.dumps(
+        plain,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    )
 
 
 def _capacity(data: Mapping[str, Any] | None = None) -> CapacityVector:
@@ -410,6 +444,11 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             )
             for x in data["project_archetypes"]
         ),
+        mission_knowledge_v1=(
+            None
+            if data.get("mission_knowledge_v1") is None
+            else load_mission_knowledge_package(data["mission_knowledge_v1"])
+        ),
     )
 
 
@@ -539,6 +578,71 @@ def _validate_scenario(s: LabScenario, truth: LabTruth) -> None:
         if s.units.get("project_capital") != s.project_economics_v1.capital_unit:
             raise ValueError("project economics capital unit mismatch")
 
+    if s.mission_knowledge_v1 is not None:
+        mission_package = s.mission_knowledge_v1
+        if s.project_economics_v1 is not None:
+            if mission_package.capital_unit != s.project_economics_v1.capital_unit:
+                raise ValueError("mission/project economics capital unit mismatch")
+            if any(x.project_kind == "MISSION" for x in s.project_archetypes):
+                raise ValueError(
+                    "production mission archetypes must not remain in project_archetypes"
+                )
+            economics_ids = {
+                x.project_archetype_id for x in s.project_economics_v1.projects
+            }
+        else:
+            if mission_package.capital_unit != s.units.get("capital"):
+                raise ValueError("legacy mission capital unit mismatch")
+            economics_ids = {x.project_archetype_id for x in s.project_archetypes}
+
+        beliefs = {
+            (x.resource_id, x.location_id): x for x in s.resource_beliefs
+        }
+        observation_models = {
+            x.observation_model_id: x
+            for x in mission_package.observation_models
+        }
+        mission_by_question = {}
+        for mission in mission_package.missions:
+            if mission.origin_location_id not in location_ids:
+                raise ValueError("mission origin references unknown location")
+            if mission.destination_location_id not in location_ids:
+                raise ValueError("mission destination references unknown location")
+            if not set(mission.required_tech) <= tech_ids:
+                raise ValueError("mission requires unknown technology")
+            if mission.project_economics_id not in economics_ids:
+                raise ValueError("mission missing economics parameterization")
+            mission_by_question.setdefault(
+                mission.target_question_id,
+                mission,
+            )
+        for decision in mission_package.decision_models:
+            if decision.follow_on_project_id not in economics_ids:
+                raise ValueError("mission decision references unknown follow-on economics")
+
+        for question in mission_package.questions:
+            key = (question.subject_id, question.location_id)
+            if key not in beliefs:
+                raise ValueError("mission knowledge question has no resource belief")
+            belief = beliefs[key]
+            if abs(question.prior_probability - belief.prior_probability) > 1e-12:
+                raise ValueError("mission prior diverges from resource belief")
+            mission = mission_by_question.get(question.question_id)
+            if mission is None:
+                raise ValueError("knowledge question has no mission")
+            model = observation_models[mission.observation_model_id]
+            if (
+                abs(model.sensitivity - belief.observation_sensitivity) > 1e-12
+                or abs(
+                    model.false_positive_probability
+                    - belief.false_positive_probability
+                )
+                > 1e-12
+            ):
+                raise ValueError(
+                    "mission observation model diverges from resource belief"
+                )
+
     for project in s.project_archetypes:
         if project.capital_cost <= 0 or project.construction_lag_years < 1:
             raise ValueError("invalid project economics")
@@ -650,3 +754,110 @@ def validate_result(result: LabResult, bundle: LabBundle) -> None:
             raise ValueError("flow unknown actor")
         if not s.start_year <= flow.year <= s.end_year:
             raise ValueError("flow outside horizon")
+
+    if s.mission_knowledge_v1 is None:
+        if (
+            result.missions
+            or result.observations
+            or result.knowledge_states
+            or result.mission_decisions
+        ):
+            raise ValueError("mission outputs require Mission/Knowledge V1")
+        return
+
+    package = s.mission_knowledge_v1
+    mission_archetypes = {
+        x.mission_archetype_id: x for x in package.missions
+    }
+    question_ids = {x.question_id for x in package.questions}
+
+    _unique(result.missions, lambda x: x.mission_id, "mission id")
+    mission_by_id = {x.mission_id: x for x in result.missions}
+    for mission in result.missions:
+        if mission.mission_archetype_id not in mission_archetypes:
+            raise ValueError("mission unknown archetype")
+        if mission.actor_id not in actor_ids:
+            raise ValueError("mission unknown actor")
+        if mission.question_id not in question_ids:
+            raise ValueError("mission unknown question")
+        if mission.origin_location_id not in location_ids:
+            raise ValueError("mission unknown origin")
+        if mission.destination_location_id not in location_ids:
+            raise ValueError("mission unknown destination")
+        if not s.start_year <= mission.committed_year <= s.end_year:
+            raise ValueError("mission commitment outside horizon")
+        if not mission.committed_year <= mission.execution_year <= s.end_year:
+            raise ValueError("mission execution outside horizon")
+        if mission.capital_cost < 0:
+            raise ValueError("negative mission cost")
+        if mission.capital_unit != package.capital_unit:
+            raise ValueError("mission capital unit mismatch")
+        if mission.status not in {"COMMITTED", "EXECUTED"}:
+            raise ValueError("invalid mission status")
+
+    _unique(result.observations, lambda x: x.observation_id, "observation id")
+    observation_ids = {x.observation_id for x in result.observations}
+    for observation in result.observations:
+        if observation.mission_id not in mission_by_id:
+            raise ValueError("observation references unknown mission")
+        mission = mission_by_id[observation.mission_id]
+        if mission.status != "EXECUTED":
+            raise ValueError("observation requires executed mission")
+        if observation.actor_id != mission.actor_id:
+            raise ValueError("observation actor mismatch")
+        if observation.question_id != mission.question_id:
+            raise ValueError("observation question mismatch")
+        if observation.location_id != mission.destination_location_id:
+            raise ValueError("observation location mismatch")
+        if observation.year != mission.execution_year:
+            raise ValueError("observation timing mismatch")
+        if observation.authority_class != "SIMULATED_OBSERVATION":
+            raise ValueError("invalid observation authority")
+
+    knowledge_keys = [
+        (
+            x.actor_id,
+            x.question_id,
+            x.year,
+            x.source_id,
+        )
+        for x in result.knowledge_states
+    ]
+    if len(knowledge_keys) != len(set(knowledge_keys)):
+        raise ValueError("duplicate knowledge state")
+    for knowledge in result.knowledge_states:
+        if knowledge.actor_id not in actor_ids:
+            raise ValueError("knowledge unknown actor")
+        if knowledge.question_id not in question_ids:
+            raise ValueError("knowledge unknown question")
+        if knowledge.location_id not in location_ids:
+            raise ValueError("knowledge unknown location")
+        if not s.start_year <= knowledge.year <= s.end_year:
+            raise ValueError("knowledge outside horizon")
+        if not 0 < knowledge.probability < 1:
+            raise ValueError("invalid knowledge probability")
+        if not set(knowledge.observation_ids) <= observation_ids:
+            raise ValueError("knowledge references unknown observation")
+        if knowledge.authority_class != "SIMULATED_BELIEF":
+            raise ValueError("invalid knowledge authority")
+
+    _unique(
+        result.mission_decisions,
+        lambda x: x.decision_id,
+        "mission decision id",
+    )
+    for decision in result.mission_decisions:
+        if decision.actor_id not in actor_ids:
+            raise ValueError("mission decision unknown actor")
+        if decision.mission_archetype_id not in mission_archetypes:
+            raise ValueError("mission decision unknown archetype")
+        if decision.question_id not in question_ids:
+            raise ValueError("mission decision unknown question")
+        if decision.target_location_id not in location_ids:
+            raise ValueError("mission decision unknown target")
+        if not s.start_year <= decision.year <= s.end_year:
+            raise ValueError("mission decision outside horizon")
+        if decision.action not in {"WAIT", "COMMIT_MISSION", "CONTINUE", "REJECT"}:
+            raise ValueError("invalid mission decision action")
+        if decision.value_unit != package.capital_unit:
+            raise ValueError("mission decision value unit mismatch")

@@ -3,13 +3,20 @@ from __future__ import annotations
 
 from dataclasses import replace
 import inspect
+import json
 from pathlib import Path
 import unittest
 
 from engineering.civprop.contracts.demand_pressure_v1 import (
     load_demand_pressure_package,
 )
+from engineering.civprop.contracts.mission_knowledge_v1 import (
+    MissionKnowledgeRuntime,
+    load_mission_knowledge_package,
+)
 from .contracts import PropagationEngine, canonical_json, load_bundle, validate_result
+from .mission_lane_v1 import MissionLaneV1
+from .prototypes.common import resource_probability
 from .prototypes.hybrid_v1 import HybridEngineV1
 
 
@@ -23,6 +30,39 @@ class HybridEngineV1Tests(unittest.TestCase):
 
     def run_seed(self, seed=42):
         return HybridEngineV1().run(self.bundle, seed)
+
+    def mission_bundle(self, *, success_value=50.0, truth_present=None):
+        raw = json.loads(
+            (
+                HERE.parent
+                / "contracts"
+                / "mission_knowledge_v1.json"
+            ).read_text()
+        )
+        raw["capital_unit"] = self.bundle.scenario.units["capital"]
+        raw["decision_models"][0]["success_value"] = {
+            "status": "SCENARIO_ASSUMPTION",
+            "value": float(success_value),
+            "unit": self.bundle.scenario.units["capital"],
+            "provenance_refs": ["test:mission-value"],
+        }
+        package = load_mission_knowledge_package(raw)
+        scenario = replace(
+            self.bundle.scenario,
+            mission_knowledge_v1=package,
+        )
+        truth = self.bundle.truth
+        if truth_present is not None:
+            truth = replace(
+                truth,
+                resources=tuple(
+                    replace(resource, present=bool(truth_present))
+                    if resource.resource_id == "MOON_POLAR_WATER"
+                    else resource
+                    for resource in truth.resources
+                ),
+            )
+        return replace(self.bundle, scenario=scenario, truth=truth)
 
     def causal_bundle(self, *, channel, strategic_requirements=(), locations=None):
         package = load_demand_pressure_package({
@@ -65,6 +105,17 @@ class HybridEngineV1Tests(unittest.TestCase):
         source = inspect.getsource(module)
         self.assertNotIn(".truth", source)
         self.assertNotIn("TruthResource", source)
+
+        self.assertNotIn(
+            "hidden",
+            inspect.getsource(MissionKnowledgeRuntime.evaluate).lower(),
+        )
+        self.assertNotIn(
+            ".truth",
+            inspect.getsource(MissionLaneV1.evaluate_and_commit),
+        )
+        execution_source = inspect.getsource(MissionLaneV1.execute_due)
+        self.assertIn(".truth", execution_source)
 
     def test_three_selected_mechanisms_are_observable(self):
         result = self.run_seed()
@@ -219,6 +270,90 @@ class HybridEngineV1Tests(unittest.TestCase):
         ]
         self.assertTrue(commits)
         self.assertEqual(commits[0].year, 2026)
+
+    def test_mission_lane_executes_observes_and_updates_knowledge(self):
+        bundle = self.mission_bundle()
+        result = HybridEngineV1().run(bundle, 42)
+        validate_result(result, bundle)
+        self.assertEqual(result.metadata.engine_version, "method-reference-v4")
+        self.assertEqual(len(result.missions), 1)
+        mission = result.missions[0]
+        self.assertEqual(mission.actor_id, "LAB_PUBLIC")
+        self.assertEqual(mission.committed_year, 2029)
+        self.assertEqual(mission.execution_year, 2030)
+        self.assertEqual(mission.status, "EXECUTED")
+        self.assertEqual(len(result.observations), 1)
+        self.assertEqual(result.observations[0].mission_id, mission.mission_id)
+        updated = [
+            x
+            for x in result.knowledge_states
+            if x.actor_id == "LAB_PUBLIC" and x.observation_ids
+        ]
+        self.assertEqual(len(updated), 1)
+        self.assertGreater(updated[0].probability, 0.45)
+        event_types = {x.event_type for x in result.events}
+        for required in (
+            "MISSION_COMMITTED",
+            "MISSION_EXECUTED",
+            "OBSERVATION_PRODUCED",
+            "OBSERVATION_RECEIVED",
+            "KNOWLEDGE_UPDATED",
+        ):
+            self.assertIn(required, event_types)
+
+    def test_adverse_observation_lowers_posterior(self):
+        bundle = self.mission_bundle()
+        result = HybridEngineV1().run(bundle, 5)
+        observation = result.observations[0]
+        self.assertFalse(observation.detected)
+        updated = next(
+            x
+            for x in result.knowledge_states
+            if x.actor_id == "LAB_PUBLIC" and x.observation_ids
+        )
+        self.assertLess(updated.probability, 0.45)
+
+    def test_pre_observation_mission_choice_is_independent_of_hidden_truth(self):
+        present = HybridEngineV1().run(
+            self.mission_bundle(truth_present=True),
+            42,
+        )
+        absent = HybridEngineV1().run(
+            self.mission_bundle(truth_present=False),
+            42,
+        )
+        present_pre = [
+            x
+            for x in present.mission_decisions
+            if x.year <= 2029 and x.actor_id == "LAB_PUBLIC"
+        ]
+        absent_pre = [
+            x
+            for x in absent.mission_decisions
+            if x.year <= 2029 and x.actor_id == "LAB_PUBLIC"
+        ]
+        self.assertEqual(present_pre, absent_pre)
+        self.assertEqual(present_pre[-1].action, "COMMIT_MISSION")
+
+    def test_updated_knowledge_is_the_resource_probability_seen_by_project_scoring(self):
+        bundle = self.mission_bundle()
+        result = HybridEngineV1().run(bundle, 42)
+        latest = {}
+        for state in result.knowledge_states:
+            latest[(state.actor_id, state.subject_id, state.location_id)] = state
+        posterior = latest[
+            ("LAB_PUBLIC", "MOON_POLAR_WATER", "LUNA_SURFACE")
+        ].probability
+        consumed = resource_probability(
+            bundle,
+            "LUNA_SURFACE",
+            actor_id="LAB_PUBLIC",
+            knowledge=latest,
+        )
+        self.assertAlmostEqual(consumed, posterior, places=12)
+        self.assertNotAlmostEqual(consumed, 0.45, places=12)
+        hybrid_source = inspect.getsource(HybridEngineV1.run)
+        self.assertIn("mission_lane.knowledge", hybrid_source)
 
 
 if __name__ == "__main__":

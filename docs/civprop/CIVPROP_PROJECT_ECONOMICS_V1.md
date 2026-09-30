@@ -296,11 +296,13 @@ capability or transport entitlement.
 
     need != project economics != ability to act
 
-## Immediate frontier
+## Mission handoff after GAP-006
 
-GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE is next.
+GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE is now closed.
 
-That gap owns execution of prospecting/observation missions and causal updates to
-actor knowledge. Project Economics V1 provides a typed economics boundary for
-PROSPECTING_SURVEY, but GAP-005 does not make the mission occur or fabricate its
-scientific result.
+Project Economics V1 continues to parameterize PROSPECTING_SURVEY cost and duration,
+but Mission/Knowledge V1 owns its action identity, decision, execution, observation
+and knowledge update. The default follow-on resource-project success value remains
+UNKNOWN rather than being invented by the economics contract.
+
+The immediate engineering frontier is GAP-007 PRESSURE_OBSERVABILITY.
