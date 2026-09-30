@@ -113,11 +113,32 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertNotIn("ASSUME-GAP002-AUS-BUDGET", assumptions)
         self.assertNotIn("ASSUME-GAP002-AUS-CAPABILITIES", assumptions)
 
+    def test_gap3_replaces_synthetic_accessibility_with_versioned_service(self):
+        self.assertNotIn("accessibility", self.scenario)
+        package = self.scenario["accessibility_v1"]
+        self.assertEqual(package["format"], "CIVPROP_ACCESSIBILITY_V1")
+        self.assertEqual(package["contract_version"], "1.0.0")
+        self.assertEqual(package["epoch_policy"], "ANNUAL_REFERENCE_EPOCH_JULY_01_UTC")
+        sample = package["geometry_samples"][0]
+        self.assertEqual(sample["epoch_utc"], "2030-07-01T00:00:00Z")
+        self.assertEqual(sample["reference_frame"], "J2000/ECLIPTIC")
+        self.assertTrue(sample["navigation_grade"])
+        self.assertGreater(sample["straight_line_separation_km"], 0)
+        service = package["service_paths"][0]
+        self.assertEqual(service["actor_id"], "AUS")
+        self.assertEqual(service["subject_id"], "ROO_VER_WITH_NASA_MNP")
+        self.assertEqual(service["status"], "UNKNOWN")
+        self.assertEqual(service["generalized_cost"]["status"], "UNKNOWN")
+        self.assertIsNone(service["generalized_cost"]["value"])
+        assumptions = {x["assumption_id"] for x in self.scenario["assumption_register"]}
+        self.assertNotIn("ASSUME-GAP003-ACCESSIBILITY", assumptions)
+
     def test_other_unresolved_engine_inputs_are_not_disguised_as_authority(self):
         assumptions = self.scenario["assumption_register"]
         gaps = {x["gap_id"] for x in assumptions}
         self.assertNotIn("GAP-002", gaps)
-        self.assertTrue({"GAP-003", "GAP-004", "GAP-005"} <= gaps)
+        self.assertNotIn("GAP-003", gaps)
+        self.assertTrue({"GAP-004", "GAP-005"} <= gaps)
         for row in assumptions:
             self.assertIn(row["status"], {"EXPLICIT_PLACEHOLDER", "COMPATIBILITY_BOUNDARY"})
             self.assertTrue(row["semantics"])
@@ -157,14 +178,15 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(access["subject_id"], "ROO_VER")
         self.assertNotEqual(access["subject_id"], "FLEET_SPACE_TECHNOLOGIES")
 
-    def test_compiler_manifest_closes_gap1_and_gap2(self):
+    def test_compiler_manifest_closes_gap1_gap2_and_gap3(self):
         manifest = self.compiler_manifest
         self.assertEqual(manifest["format"], "CIVPROP_INPUT_COMPILER_MANIFEST_V1")
         self.assertEqual(len(manifest["compiler_source_sha256"]), 64)
         int(manifest["compiler_source_sha256"], 16)
         self.assertEqual(manifest["gap_resolution"]["GAP-001"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-002"], "CLOSED")
-        for gap in ("GAP-003", "GAP-004", "GAP-005"):
+        self.assertEqual(manifest["gap_resolution"]["GAP-003"], "CLOSED")
+        for gap in ("GAP-004", "GAP-005"):
             self.assertEqual(manifest["gap_resolution"][gap], "OPEN")
         self.assertEqual(manifest["runtime_input"]["fixture_id"], COMPILED_FIXTURE_ID)
 
@@ -223,8 +245,10 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         )
         gap1 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-001")
         gap2 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-002")
+        gap3 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-003")
         self.assertEqual(gap1["status"], "CLOSED")
         self.assertEqual(gap2["status"], "CLOSED")
+        self.assertEqual(gap3["status"], "CLOSED")
         self.assertTrue(output["actor_states"])
         self.assertTrue(output["annual_states"])
         self.assertTrue(output["events"])

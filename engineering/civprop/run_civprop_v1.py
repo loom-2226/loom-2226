@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-Runner V1.2 keeps the selected HYBRID_V1 propagation semantics, retains the GAP-001
-compiled authority path, and adds the GAP-002 Actor State V1 boundary. Later gaps
-remain explicit rather than being silently invented here.
+Runner V1.3 keeps the selected HYBRID_V1 propagation semantics, retains the GAP-001
+compiled authority path and GAP-002 Actor State V1 boundary, and adds the GAP-003
+Accessibility V1 physics + scoped-service boundary. Later gaps remain explicit rather
+than being silently invented here.
 """
 from __future__ import annotations
 
@@ -33,9 +34,9 @@ from engineering.civprop.method_lab.prototypes.hybrid_v1 import HybridEngineV1
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.2.0"
+OUTPUT_CONTRACT_VERSION = "1.3.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.2.0"
+RUNNER_VERSION = "1.3.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
 
 
@@ -104,7 +105,11 @@ def _validate_infrastructure_crosswalk(bundle, catalog) -> list[str]:
 
 
 def _implementation_hashes() -> dict[str, str]:
-    from engineering.civprop.contracts import actor_state_v1, infrastructure_v1
+    from engineering.civprop.contracts import (
+        accessibility_v1,
+        actor_state_v1,
+        infrastructure_v1,
+    )
     from engineering.civprop.method_lab import contracts
     from engineering.civprop.method_lab.prototypes import common, hybrid_v1
 
@@ -115,6 +120,7 @@ def _implementation_hashes() -> dict[str, str]:
         "method_lab_contracts_sha256": _module_sha256(contracts),
         "infrastructure_contract_sha256": _module_sha256(infrastructure_v1),
         "actor_state_contract_sha256": _module_sha256(actor_state_v1),
+        "accessibility_contract_sha256": _module_sha256(accessibility_v1),
     }
 
 
@@ -138,7 +144,10 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
             "FRONTIER_DATE_DOES_NOT_GRANT_ACTOR_CAPABILITY_ACTOR_ACCESS_IS_SEPARATE"
         ),
         "accessibility": (
-            "FEASIBLE_INFEASIBLE_UNKNOWN_PRESERVED_UNKNOWN_DOES_NOT_BECOME_ZERO"
+            "VERSIONED_PHYSICS_SERVICE_TRI_STATE_WITH_DECOMPOSED_COSTS"
+        ),
+        "accessibility_geometry": (
+            "QUALIFIED_BODY_CENTER_GEOMETRY_IS_CONTEXT_NOT_ROUTE_LENGTH_OR_TRANSFER_SOLUTION"
         ),
         "pressure_state": (
             "INTERNAL_NOT_EMITTED_ONLY_QUALIFICATION_EVENTS_VISIBLE"
@@ -190,7 +199,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-003",
             "name": "TRANSPORT_ACCESSIBILITY",
             "status": "OPEN",
-            "meaning": "Current accessibility/generalized costs are synthetic fixture inputs rather than a general Solar transport service.",
+            "meaning": "Versioned accessibility separates qualified Solar geometry, scoped actor/provider service access and decomposed generalized cost while preserving FEASIBLE/INFEASIBLE/UNKNOWN.",
         },
         {
             "gap_id": "GAP-004",
@@ -488,6 +497,11 @@ def build_output(
         "semantics": _semantics(bundle.manifest.get("authority")),
         "known_gaps": _known_gaps(input_dir),
         "actor_state_boundary": actor_state_boundary,
+        "accessibility_boundary": (
+            None
+            if bundle.scenario.accessibility_v1 is None
+            else json.loads(canonical_json(bundle.scenario.accessibility_v1))
+        ),
         "actor_states": actor_states,
         "actor_transactions": actor_transactions,
         "actor_state_events": actor_state_events,
@@ -509,7 +523,7 @@ def main() -> None:
         "--input-dir",
         type=Path,
         default=default_input_dir,
-        help="Compatible frozen input directory (defaults to GAP-001/GAP-002 compiled V1).",
+        help="Compatible frozen input directory (defaults to GAP-001/GAP-002/GAP-003 compiled V1).",
     )
     parser.add_argument(
         "--infrastructure-catalog",

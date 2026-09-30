@@ -207,11 +207,10 @@ navigation_grade = true
 
 Earth and Moon DE440 coverage rows are frozen in the authority context.
 
-The current Hybrid engine does not yet consume ephemeris geometry directly.
-Transport/accessibility remains GAP-003.
-
-The Solar capture is nevertheless part of the runtime input hash so future adapters
-can consume it without changing provenance history.
+Accessibility V1 now consumes qualified frozen Solar geometry when an exact
+body-pair/epoch sample is available. The current compiled slice admits the qualified
+2030-07-01 Earth-Moon Roo-ver reference geometry. Body-center separation remains
+context only and is never treated as route length, delta-v or transfer duration.
 
 ## Timeline authority
 
@@ -454,7 +453,7 @@ new authority capture
 
 No silent replacement.
 
-## Runner V1.2
+## Runner V1.3
 
 The single simulation entrypoint remains:
 
@@ -465,16 +464,16 @@ engineering/civprop/run_civprop_v1.py
 Runner version:
 
 ```text
-1.2.0
+1.3.0
 ```
 
 Output contract:
 
 ```text
-1.2.0
+1.3.0
 ```
 
-The default input directory is now the GAP-001/GAP-002 compiled package.
+The default input directory is now the GAP-001/GAP-002/GAP-003 compiled package.
 
 Default command:
 
@@ -493,17 +492,18 @@ For the default compiled package:
 ```text
 GAP-001 CLOSED
 GAP-002 CLOSED
-GAP-003 OPEN
+GAP-003 CLOSED
+GAP-004 OPEN
 ...
 GAP-015 OPEN
 ```
 
-GAP-002 closure is independent of later transport, demand, project-economics and
+GAP-003 closure is independent of later demand, project-economics, fleet and
 materialization gaps.
 
 ## Current executable behavior
 
-With compiled input and seed 42, the current GAP-002 baseline produces:
+With compiled input and seed 42, the current GAP-003 baseline produces:
 
 ```text
 44 annual location states
@@ -511,8 +511,8 @@ With compiled input and seed 42, the current GAP-002 baseline produces:
 0 commissioned facilities
 11 actor decisions
 0 actor transactions
-45 events
-10 migration flows
+35 events
+0 migration flows
 ```
 
 The current realization commissions no facility because AUS generic spendable
@@ -521,26 +521,26 @@ That behavior is intentional and is not a forecast.
 
 This is **not** a forecast.
 
-The result still depends materially on unresolved GAP-003 through GAP-005
+The result still depends materially on unresolved GAP-004 and GAP-005
 placeholders, plus later open mechanisms.
 
 Its purpose is to prove that real promoted authority now reaches the same locked
 engine and output path.
 
-## Golden GAP-002 baseline
+## Golden GAP-003 baseline
 
 Output:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP2_ACTOR_STATE_SEED42.json
+CIVPROP_ENGINE_V1_GAP3_TRANSPORT_ACCESSIBILITY_SEED42.json
 ```
 
 Manifest:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP2_BASELINE_MANIFEST.json
+CIVPROP_ENGINE_V1_GAP3_BASELINE_MANIFEST.json
 ```
 
 The GAP-001 compiled baseline and previous synthetic V1.0 baseline remain in the
@@ -574,10 +574,10 @@ The authoritative current gap register and the post-gap handoff plan are:
     engineering/civprop/gap_register_v1.json
     docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
 
-GAP-001 and GAP-002 closure should be interpreted using that register's closure
-semantics. The next engineering target is GAP-003 TRANSPORT_ACCESSIBILITY.
+GAP-001 through GAP-003 closure should be interpreted using that register's closure
+semantics. The next engineering target is GAP-004 DEMAND_AND_PRESSURE_MODEL.
 
-## Boundary after GAP-002
+## Boundary after GAP-003
 
 The executable pipeline is now:
 
@@ -602,4 +602,5 @@ HYBRID_V1
 CIVPROP_ENGINE_V1_OUTPUT
 ```
 
-The next gap can now replace one assumption family without redesigning this path.
+GAP-004 can now replace the exogenous demand/pressure assumption family without
+redesigning this path or weakening the closed actor/accessibility boundaries.

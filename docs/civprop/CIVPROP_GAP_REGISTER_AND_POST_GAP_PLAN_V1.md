@@ -6,11 +6,11 @@ Status: current program register and post-gap handoff plan
 
 ## Authority boundary
 
-This document records the CIVPROP program state through GAP-002 closure.
+This document records the CIVPROP program state through GAP-003 closure.
 
 Authoritative repository basis at creation:
 
-    3009bd4adf1a463fcef9c22f697741ce0c0e8ab5
+    0700407c68276207732292c9a3bc1fc55b703b42
 
 Machine-readable register:
 
@@ -30,8 +30,8 @@ Current default runtime package:
 
 Current runner/output contract:
 
-    CIVPROP_ENGINE_V1_RUNNER 1.1.0
-    CIVPROP_ENGINE_V1_OUTPUT 1.1.0
+    CIVPROP_ENGINE_V1_RUNNER 1.3.0
+    CIVPROP_ENGINE_V1_OUTPUT 1.3.0
 
 Current engine:
 
@@ -64,11 +64,15 @@ capability, experience, committed funds and generic spendable allocation. The ol
 AUS scenario-credit and generic-capability placeholders are gone; unsupported
 generic spendable allocation remains explicitly UNKNOWN.
 
-The current baseline is still not a forecast because GAP-003 through GAP-015 remain
-open. Accessibility, demand, project economics and other later mechanisms still
-contain explicit placeholders or missing production mechanisms and materially affect
-the result. The default seed-42 baseline remains an engineering regression/reference
-artifact, not a 2036 prediction or 2226 canon.
+GAP-003 is CLOSED. Accessibility V1 now separates qualified Solar geometry,
+scoped provider/service access and decomposed generalized cost while preserving
+FEASIBLE/INFEASIBLE/UNKNOWN. The synthetic default accessibility curves are gone.
+
+The current baseline is still not a forecast because GAP-004 through GAP-015 remain
+open. Demand, project economics and other later mechanisms still contain explicit
+placeholders or missing production mechanisms and materially affect the result. The
+default seed-42 baseline remains an engineering regression/reference artifact, not a
+2036 prediction or 2226 canon.
 
 ## Closure semantics
 
@@ -104,7 +108,7 @@ A gap may close only when its replacement has:
 |---|---|---|---|
 | GAP-001 | REAL_INPUT_COMPILER | CLOSED | Preserve compiler boundary; broaden coverage later without semantic drift |
 | GAP-002 | ACTOR_STATE_AND_BUDGETS | CLOSED | Preserve Actor State V1 semantics; proceed without inventing budget or capability |
-| GAP-003 | TRANSPORT_ACCESSIBILITY | OPEN | General Solar tri-state accessibility/service model |
+| GAP-003 | TRANSPORT_ACCESSIBILITY | CLOSED | Preserve scoped physics/service tri-state semantics; no inferred routes or entitlements |
 | GAP-004 | DEMAND_AND_PRESSURE_MODEL | OPEN | Replace exogenous demand fixtures with causal state-derived demand/pressure |
 | GAP-005 | PROJECT_ECONOMICS | OPEN | Replace synthetic costs/lags/capacity units with versioned parameter sets |
 | GAP-006 | MISSIONS_AND_KNOWLEDGE_UPDATE | OPEN | Integrate prospecting/observation/Bayesian knowledge evolution |
@@ -437,7 +441,8 @@ Current frontier:
 
     GAP-001 CLOSED
     GAP-002 CLOSED
-    GAP-003 OPEN
+    GAP-003 CLOSED
+    GAP-004 OPEN
 
 GAP-002 removed the compiled-input assumptions:
 
@@ -447,9 +452,16 @@ GAP-002 removed the compiled-input assumptions:
 and replaced them with Actor State V1, explicit UNKNOWN spendable allocation,
 scoped AUS evidence, replayable change events and runner-level actor-state output.
 
+GAP-003 removed the compiled-input assumption:
+
+    ASSUME-GAP003-ACCESSIBILITY
+
+and replaced the default synthetic accessibility curves with Accessibility V1,
+qualified frozen Solar geometry and scoped provider/service evidence.
+
 The next implementation target is therefore:
 
-    GAP-003 TRANSPORT_ACCESSIBILITY
+    GAP-004 DEMAND_AND_PRESSURE_MODEL
 
-That work must replace synthetic accessibility/generalized-cost fixtures without
-reopening GAP-002 semantics or granting capability through transport availability.
+That work must replace exogenous demand/pressure fixtures without reopening
+GAP-002 actor-state semantics or GAP-003 transport scoping.

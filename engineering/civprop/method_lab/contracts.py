@@ -16,6 +16,10 @@ from engineering.civprop.contracts.actor_state_v1 import (
     ActorStatePackage,
     load_actor_state_package,
 )
+from engineering.civprop.contracts.accessibility_v1 import (
+    AccessibilityPackage,
+    load_accessibility_package,
+)
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -130,6 +134,7 @@ class LabScenario:
     locations: tuple[LocationInput, ...]
     technology_frontier: tuple[TechnologyFrontier, ...]
     actor_capability: tuple[ActorCapability, ...]
+    accessibility_v1: Optional[AccessibilityPackage]
     accessibility: tuple[AccessibilityProfile, ...]
     resource_beliefs: tuple[ResourceBelief, ...]
     demand_signals: tuple[DemandSignal, ...]
@@ -333,6 +338,11 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             )
             for x in data["actor_capability"]
         ),
+        accessibility_v1=(
+            None
+            if data.get("accessibility_v1") is None
+            else load_accessibility_package(data["accessibility_v1"])
+        ),
         accessibility=tuple(
             AccessibilityProfile(
                 origin_location_id=x["origin_location_id"],
@@ -346,7 +356,7 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
                     for y in x["years"]
                 ),
             )
-            for x in data["accessibility"]
+            for x in data.get("accessibility", ())
         ),
         resource_beliefs=tuple(
             ResourceBelief(
@@ -448,6 +458,13 @@ def _validate_scenario(s: LabScenario, truth: LabTruth) -> None:
             raise ValueError("invalid capability status")
         if cap.valid_from < s.start_year or (cap.valid_to is not None and cap.valid_to < cap.valid_from):
             raise ValueError("invalid capability validity")
+
+    if s.accessibility_v1 is not None:
+        if s.accessibility:
+            raise ValueError("accessibility-v1 scenario cannot also carry legacy accessibility profiles")
+        bound_locations = {x.location_id for x in s.accessibility_v1.location_bindings}
+        if bound_locations != location_ids:
+            raise ValueError("accessibility-v1 location bindings do not match scenario locations")
 
     for profile in s.accessibility:
         if profile.origin_location_id not in location_ids or profile.destination_location_id not in location_ids:
