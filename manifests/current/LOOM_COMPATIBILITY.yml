@@ -17,7 +17,7 @@ source_state:
 canon:
   baseline_id: v2.4
   baseline_manifest: governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
-  baseline_manifest_blob_sha: 6ace1d7187bad5a393797c1f0d9be93e95e21f1d
+  baseline_manifest_blob_sha: add56afd9d879fe7c5954b7f88f8812ac718f4ae
   authority_index: governance/AUTHORITY.md
   active_sources:
     - path: canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
@@ -42,6 +42,13 @@ canon:
       status: EFFECTIVE_SCOPED_GOVERNING_AMENDMENT
       baseline_registration: REGISTERED_IN_CANON_BASELINE_2026_09_25
       authorization: CCR-2026-0001
+    - path: canon/current/LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md
+      version: v2.4c
+      parent: canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
+      status: EFFECTIVE_SCOPED_GOVERNING_AMENDMENT
+      baseline_registration: REGISTERED_IN_CANON_BASELINE_2026_10_01
+      authorization: CCR-2026-0002
+      supersedes_within_scope: canon/current/LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md exact synthetic-person demographic quantities
 
 engineering:
   runtime_architecture:
