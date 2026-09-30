@@ -11,6 +11,8 @@ import hashlib
 import math
 from typing import Iterable, Optional
 
+from engineering.civprop.contracts.actor_state_v1 import ActorStateRuntime
+
 from ..contracts import (
     CapacityVector,
     DecisionRecord,
@@ -23,6 +25,22 @@ from ..contracts import (
     ProjectArchetype,
     RunMetadata,
 )
+
+
+@dataclass
+class MutableActorBudget:
+    status: str
+    amount: Optional[float]
+    unit: Optional[str]
+    scope: str
+
+    def can_afford(self, cost: float, unit: str) -> bool:
+        return (
+            self.status == "KNOWN"
+            and self.amount is not None
+            and self.unit == unit
+            and self.amount + 1e-9 >= cost
+        )
 
 
 @dataclass
@@ -187,8 +205,71 @@ def project_map(bundle: LabBundle):
     return {x.project_archetype_id: x for x in bundle.scenario.project_archetypes}
 
 
-def actor_budget(bundle: LabBundle) -> dict[str, float]:
+def actor_budget(bundle: LabBundle):
+    """Return legacy numeric budgets unchanged, or ActorState budgets for V1 inputs."""
+    if bundle.scenario.actor_state_v1 is not None:
+        runtime = ActorStateRuntime(bundle.scenario.actor_state_v1)
+        result = {}
+        for actor in bundle.scenario.actors:
+            view = runtime.budget(actor.actor_id, bundle.scenario.start_year)
+            result[actor.actor_id] = MutableActorBudget(
+                status=view.status,
+                amount=view.amount,
+                unit=view.unit,
+                scope=view.scope,
+            )
+        return result
     return {x.actor_id: x.starting_capital for x in bundle.scenario.actors}
+
+
+def apply_actor_budget_events(
+    bundle: LabBundle,
+    budgets: dict[str, MutableActorBudget],
+    year: int,
+    recorder: Recorder,
+) -> None:
+    if bundle.scenario.actor_state_v1 is None:
+        if year > bundle.scenario.start_year:
+            for actor in bundle.scenario.actors:
+                budgets[actor.actor_id] += actor.annual_capital_inflow
+        return
+    for event in bundle.scenario.actor_state_v1.events:
+        if event.year != year or event.event_type != "BUDGET_ALLOCATION_SET":
+            continue
+        payload = event.payload
+        budgets[event.actor_id] = MutableActorBudget(
+            status="KNOWN",
+            amount=float(payload["amount"]),
+            unit=str(payload["unit"]),
+            scope=str(payload["scope"]),
+        )
+
+
+def budget_can_afford(bundle: LabBundle, budget, cost: float) -> bool:
+    if isinstance(budget, MutableActorBudget):
+        return budget.can_afford(cost, bundle.scenario.units["capital"])
+    return budget + 1e-9 >= cost
+
+
+def budget_debit(bundle: LabBundle, budget, cost: float):
+    if isinstance(budget, MutableActorBudget):
+        if not budget.can_afford(cost, bundle.scenario.units["capital"]):
+            raise ValueError("cannot debit unknown, mismatched, or insufficient actor budget")
+        budget.amount -= cost
+        return budget
+    if budget + 1e-9 < cost:
+        raise ValueError("insufficient actor budget")
+    return budget - cost
+
+
+def budget_rationale(bundle: LabBundle, budget) -> tuple[str, ...]:
+    if not isinstance(budget, MutableActorBudget):
+        return ()
+    if budget.status == "UNKNOWN":
+        return ("SPENDABLE_ALLOCATION_UNKNOWN",)
+    if budget.unit != bundle.scenario.units["capital"]:
+        return ("BUDGET_UNIT_MISMATCH",)
+    return ()
 
 
 def demand_value(bundle: LabBundle, signal_id: str, year: int) -> float:
@@ -228,6 +309,10 @@ def actor_tech_status(bundle: LabBundle, actor_id: str, tech_id: str, year: int)
     frontier = next(x for x in bundle.scenario.technology_frontier if x.tech_id == tech_id)
     if year < frontier.frontier_year:
         return "UNUSABLE"
+    if bundle.scenario.actor_state_v1 is not None:
+        return ActorStateRuntime(bundle.scenario.actor_state_v1).capability_status(
+            actor_id, tech_id, year
+        )
     for cap in bundle.scenario.actor_capability:
         if cap.actor_id == actor_id and cap.tech_id == tech_id:
             if year < cap.valid_from:
@@ -570,7 +655,8 @@ def finalize(
 
 
 def actor_inflow(bundle: LabBundle, actor_id: str) -> float:
-    return next(x.annual_capital_inflow for x in bundle.scenario.actors if x.actor_id == actor_id)
+    actor = next(x for x in bundle.scenario.actors if x.actor_id == actor_id)
+    return 0.0 if actor.annual_capital_inflow is None else actor.annual_capital_inflow
 
 
 def active_facility_count(recorder: Recorder, location_id: str, project_id: str) -> int:

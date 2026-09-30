@@ -367,71 +367,183 @@
       ]
     }
   ],
-  "actor_capability": [
-    {
-      "actor_id": "AUS",
-      "conditions": [],
-      "status": "USABLE",
-      "tech_id": "ORBITAL_CONSTRUCTION",
-      "valid_from": 2026,
-      "valid_to": null
-    },
-    {
-      "actor_id": "AUS",
-      "conditions": [],
-      "status": "USABLE",
-      "tech_id": "OFFWORLD_POWER",
-      "valid_from": 2026,
-      "valid_to": null
-    },
-    {
-      "actor_id": "AUS",
-      "conditions": [],
-      "status": "USABLE",
-      "tech_id": "OFFWORLD_HABITAT",
-      "valid_from": 2027,
-      "valid_to": null
-    },
-    {
-      "actor_id": "AUS",
-      "conditions": [],
-      "status": "USABLE",
-      "tech_id": "LUNAR_SURFACE_OPERATIONS",
-      "valid_from": 2029,
-      "valid_to": null
-    },
-    {
-      "actor_id": "AUS",
-      "conditions": [
-        "QUALIFIED_RESOURCE_EVIDENCE_REQUIRED"
-      ],
-      "status": "CONDITIONAL",
-      "tech_id": "LUNAR_RESOURCE_PROCESSING",
-      "valid_from": 2031,
-      "valid_to": null
-    }
-  ],
+  "actor_capability": [],
+  "actor_state_v1": {
+    "actors": [
+      {
+        "access_rights": {
+          "records": [
+            {
+              "capability_id": "LUNAR_PAYLOAD_DELIVERY_ACCESS",
+              "counterparty_id": "NASA",
+              "provenance_refs": [
+                "NASA_2026_03_27_CLPS_CT4_ROO_VER",
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION",
+                "ASA_2026_08_13_ROO_VER_TESTING",
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT"
+              ],
+              "provider_id": "INTUITIVE_MACHINES",
+              "record_id": "AUS_ROOVER_CLPS_ACCESS",
+              "scope": "Australian Space Agency-led Roo-ver demonstration on NASA CLPS CT-4 with Intuitive Machines; South Pole region, targeted 2030; no entitlement for other Australian payloads or missions",
+              "status": "OBSERVED_SCOPED_ACCESS",
+              "subject_id": "ROO_VER",
+              "valid_from": 2026,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "acquired_capability": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "actor_id": "AUS",
+        "actor_type": "STATE",
+        "budget": {
+          "committed_funds": [
+            {
+              "amount": 42000000,
+              "commitment_id": "AUS_ROOVER_42M_COMMITMENT",
+              "provenance_refs": [
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION"
+              ],
+              "scope": "ROO_VER_DEVELOPMENT_BUILD_OPERATION",
+              "status": "OBSERVED_COMMITTED",
+              "unit": "AUD"
+            }
+          ],
+          "spendable_allocation": {
+            "amount": null,
+            "provenance_refs": [],
+            "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+            "status": "UNKNOWN",
+            "unit": null
+          }
+        },
+        "contracts": {
+          "records": [
+            {
+              "counterparty_id": "NASA",
+              "provenance_refs": [
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT"
+              ],
+              "record_id": "AUS_NASA_ROVER_AGREEMENT",
+              "scope": "ROVER_SPECIFIC_FUTURE_LUNAR_MISSION",
+              "status": "OBSERVED_ROVER_SPECIFIC_AGREEMENT",
+              "subject_id": "ROO_VER",
+              "valid_from": 2021,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "experience": {
+          "records": [
+            {
+              "counterparty_id": "ELO2",
+              "provenance_refs": [
+                "ASA_2026_08_13_ROO_VER_TESTING"
+              ],
+              "record_id": "AUS_ROOVER_2026_TESTING",
+              "scope": "TERRESTRIAL_ROVER_MOBILITY_AND_INTEGRATION_TESTING",
+              "status": "OBSERVED_DEVELOPMENT_TESTING",
+              "subject_id": "ROO_VER",
+              "valid_from": 2026,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "identity": {
+          "display_name": "Australia",
+          "provenance_refs": [
+            "loom_earth:earth-v0-1-9934d0ac-20260925:earth_area:AUS"
+          ]
+        },
+        "installed_capability": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "operation": {
+          "records": [
+            {
+              "counterparty_id": "ELO2",
+              "provenance_refs": [
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION"
+              ],
+              "record_id": "AUS_ROOVER_OPERATION_RELATIONSHIP",
+              "scope": "ROO_VER_DEVELOPMENT_AND_REMOTE_SURFACE_OPERATION",
+              "status": "OBSERVED_OPERATOR_RELATIONSHIP",
+              "subject_id": "ROO_VER",
+              "valid_from": 2025,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "owned_infrastructure": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "ownership": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "provider_service_access": {
+          "records": [
+            {
+              "capability_id": "LUNAR_PAYLOAD_DELIVERY_ACCESS",
+              "counterparty_id": "NASA",
+              "provenance_refs": [
+                "NASA_2026_03_27_CLPS_CT4_ROO_VER",
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION",
+                "ASA_2026_08_13_ROO_VER_TESTING",
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT"
+              ],
+              "provider_id": "INTUITIVE_MACHINES",
+              "record_id": "AUS_ROOVER_IM5_PROVIDER_PATH",
+              "scope": "NASA CLPS CT-4 / Intuitive Machines IM-5",
+              "status": "OBSERVED_INDIRECT_PROVIDER_SERVICE_PATH",
+              "subject_id": "ROO_VER_WITH_NASA_MNP",
+              "target_landing_year": 2030,
+              "valid_from": 2026,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "relationships": {
+          "records": [
+            {
+              "counterparty_id": "NASA",
+              "provenance_refs": [
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT",
+                "NASA_2026_03_27_CLPS_CT4_ROO_VER"
+              ],
+              "record_id": "AUS_NASA_ROOVER_PARTNERSHIP",
+              "scope": "ROO_VER_CLPS_CT4",
+              "status": "OBSERVED_MISSION_PARTNERSHIP",
+              "subject_id": "ROO_VER",
+              "valid_from": 2021,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        }
+      }
+    ],
+    "as_of_year": 2026,
+    "contract_version": "1.0.0",
+    "events": [],
+    "format": "CIVPROP_ACTOR_STATE_V1"
+  },
   "actors": [
     {
       "actor_id": "AUS",
-      "actor_type": "PUBLIC_FINANCIER",
-      "annual_capital_inflow": 8,
-      "starting_capital": 70
+      "actor_type": "STATE"
     }
   ],
   "assumption_register": [
-    {
-      "assumption_id": "ASSUME-GAP002-AUS-BUDGET",
-      "gap_id": "GAP-002",
-      "semantics": "AUS starting_capital=70 and annual_capital_inflow=8 scenario_credit are copied from the Method Lab public-financier fixture; they are not Australian government spending, GDP, investment, or observed cash.",
-      "status": "EXPLICIT_PLACEHOLDER"
-    },
-    {
-      "assumption_id": "ASSUME-GAP002-AUS-CAPABILITIES",
-      "gap_id": "GAP-002",
-      "semantics": "Generic engine technology statuses are copied from the Method Lab public actor and relabeled AUS. Real Roo-ver/Fleet evidence is preserved separately and does not grant generic capability.",
-      "status": "EXPLICIT_PLACEHOLDER"
-    },
     {
       "assumption_id": "ASSUME-GAP003-ACCESSIBILITY",
       "gap_id": "GAP-003",
@@ -471,6 +583,61 @@
   ],
   "authority_context": {
     "actor": {
+      "aus_government_access": {
+        "admitted_on": "2026-09-29",
+        "authority_class": "EMPIRICAL_ACTOR_ACCESS_ASSERTION",
+        "case": {
+          "access_basis": "GOVERNMENT_MISSION_PARTNERSHIP_VIA_NASA_CLPS",
+          "actor_id": "AUS",
+          "actor_role": "Australian Government represented by the Australian Space Agency",
+          "capability": "LUNAR_PAYLOAD_DELIVERY_ACCESS",
+          "evidence_status": "OBSERVED_ACCESS",
+          "limitations": [
+            "This is a government mission relationship for Roo-ver, not sovereign lunar transport or an open right to add arbitrary payloads",
+            "Intuitive Machines is NASA's selected CLPS provider; NASA, not AUS, awarded the delivery contract",
+            "The documented mission targets 2030 and a South Pole region, not CIVPROP-0's September 2026 departure or synthetic polar site",
+            "Delivery, site-specific operations, payload accommodation and price for a separate prospecting mission are unqualified"
+          ],
+          "mission": "ROO_VER_CLPS_CT4",
+          "observed_from": "2026-03-27",
+          "partner_id": "NASA",
+          "payload": "ROO_VER_WITH_NASA_MNP",
+          "provider_id": "INTUITIVE_MACHINES",
+          "scope": "Australian Space Agency-led Roo-ver demonstration on NASA CLPS CT-4 with Intuitive Machines; South Pole region, targeted 2030; no entitlement for other Australian payloads or missions",
+          "sources": [
+            {
+              "assertion": "NASA awarded Intuitive Machines CLPS delivery to the lunar South Pole region targeted for 2030; Roo-ver is included and Australian Space Agency is its lead organization.",
+              "id": "NASA_2026_03_27_CLPS_CT4_ROO_VER",
+              "published": "2026-03-27",
+              "publisher": "NASA",
+              "url": "https://www.nasa.gov/missions/artemis/clps/nasa-selects-intuitive-machines-to-deliver-artemis-science-tech-to-moon/"
+            },
+            {
+              "assertion": "The Government describes Roo-ver as a national mission, with AUD 42 million for its development, build and operation; ELO2 operates it in partnership with the Australian Space Agency on NASA CLPS CT-4.",
+              "id": "AUS_GOV_2025_08_29_ROO_VER_MISSION",
+              "published": "2025-08-29",
+              "publisher": "Australian Government, Minister for Industry and Innovation",
+              "url": "https://www.minister.industry.gov.au/t-ayres/media/mission-confirmed-aussie-moon-rover-ready-roll"
+            },
+            {
+              "assertion": "The Agency reports Roo-ver mobility testing under way with ELO2, continued NASA payload integration, and a NASA CLPS South Pole region mission targeted for 2030.",
+              "id": "ASA_2026_08_13_ROO_VER_TESTING",
+              "published": "2026-08-13",
+              "publisher": "Australian Space Agency",
+              "url": "https://www.space.gov.au/news-and-media/critical-testing-begins-for-roo-ver-before-moon-journey-in-2030"
+            },
+            {
+              "assertion": "NASA and the Australian Space Agency signed a rover-specific agreement for a future lunar mission, conditional on rover development.",
+              "id": "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT",
+              "published": "2021-10-12",
+              "publisher": "NASA",
+              "url": "https://www.nasa.gov/missions/artemis/nasa-australia-sign-agreement-to-add-rover-to-future-moon-mission/"
+            }
+          ],
+          "target_landing_year": 2030
+        },
+        "fixture_id": "AUS_ACCESS_1_ROO_VER_CLPS_V1"
+      },
       "earth_area": {
         "display_name": "Australia",
         "economic_qualified": true,
@@ -585,6 +752,7 @@
         "vehicle_class": "NOVA_D_PLANNED"
       },
       "source_paths": {
+        "aus_government_access": "engineering/civprop/civprop0/aus_government_access_evidence.json",
         "fleet_access": "engineering/civprop/civprop0/actor_access_evidence.json",
         "roover_service": "engineering/civprop/civprop0/roover_service_envelope.json"
       }
@@ -594,7 +762,8 @@
       "compiler_contract": "CIVPROP_INPUT_COMPILER_V1",
       "engine_consumption_note": "Authority context is frozen/provenanced in runtime input but HYBRID_V1 currently consumes only fields represented in the compatibility envelope.",
       "gap_resolution": {
-        "GAP-001": "CLOSED"
+        "GAP-001": "CLOSED",
+        "GAP-002": "CLOSED"
       }
     },
     "earth": {

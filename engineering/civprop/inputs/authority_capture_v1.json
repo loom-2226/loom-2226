@@ -1,5 +1,60 @@
 {
   "actor": {
+    "aus_government_access": {
+      "admitted_on": "2026-09-29",
+      "authority_class": "EMPIRICAL_ACTOR_ACCESS_ASSERTION",
+      "case": {
+        "access_basis": "GOVERNMENT_MISSION_PARTNERSHIP_VIA_NASA_CLPS",
+        "actor_id": "AUS",
+        "actor_role": "Australian Government represented by the Australian Space Agency",
+        "capability": "LUNAR_PAYLOAD_DELIVERY_ACCESS",
+        "evidence_status": "OBSERVED_ACCESS",
+        "limitations": [
+          "This is a government mission relationship for Roo-ver, not sovereign lunar transport or an open right to add arbitrary payloads",
+          "Intuitive Machines is NASA's selected CLPS provider; NASA, not AUS, awarded the delivery contract",
+          "The documented mission targets 2030 and a South Pole region, not CIVPROP-0's September 2026 departure or synthetic polar site",
+          "Delivery, site-specific operations, payload accommodation and price for a separate prospecting mission are unqualified"
+        ],
+        "mission": "ROO_VER_CLPS_CT4",
+        "observed_from": "2026-03-27",
+        "partner_id": "NASA",
+        "payload": "ROO_VER_WITH_NASA_MNP",
+        "provider_id": "INTUITIVE_MACHINES",
+        "scope": "Australian Space Agency-led Roo-ver demonstration on NASA CLPS CT-4 with Intuitive Machines; South Pole region, targeted 2030; no entitlement for other Australian payloads or missions",
+        "sources": [
+          {
+            "assertion": "NASA awarded Intuitive Machines CLPS delivery to the lunar South Pole region targeted for 2030; Roo-ver is included and Australian Space Agency is its lead organization.",
+            "id": "NASA_2026_03_27_CLPS_CT4_ROO_VER",
+            "published": "2026-03-27",
+            "publisher": "NASA",
+            "url": "https://www.nasa.gov/missions/artemis/clps/nasa-selects-intuitive-machines-to-deliver-artemis-science-tech-to-moon/"
+          },
+          {
+            "assertion": "The Government describes Roo-ver as a national mission, with AUD 42 million for its development, build and operation; ELO2 operates it in partnership with the Australian Space Agency on NASA CLPS CT-4.",
+            "id": "AUS_GOV_2025_08_29_ROO_VER_MISSION",
+            "published": "2025-08-29",
+            "publisher": "Australian Government, Minister for Industry and Innovation",
+            "url": "https://www.minister.industry.gov.au/t-ayres/media/mission-confirmed-aussie-moon-rover-ready-roll"
+          },
+          {
+            "assertion": "The Agency reports Roo-ver mobility testing under way with ELO2, continued NASA payload integration, and a NASA CLPS South Pole region mission targeted for 2030.",
+            "id": "ASA_2026_08_13_ROO_VER_TESTING",
+            "published": "2026-08-13",
+            "publisher": "Australian Space Agency",
+            "url": "https://www.space.gov.au/news-and-media/critical-testing-begins-for-roo-ver-before-moon-journey-in-2030"
+          },
+          {
+            "assertion": "NASA and the Australian Space Agency signed a rover-specific agreement for a future lunar mission, conditional on rover development.",
+            "id": "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT",
+            "published": "2021-10-12",
+            "publisher": "NASA",
+            "url": "https://www.nasa.gov/missions/artemis/nasa-australia-sign-agreement-to-add-rover-to-future-moon-mission/"
+          }
+        ],
+        "target_landing_year": 2030
+      },
+      "fixture_id": "AUS_ACCESS_1_ROO_VER_CLPS_V1"
+    },
     "earth_area": {
       "display_name": "Australia",
       "economic_qualified": true,
@@ -114,13 +169,14 @@
       "vehicle_class": "NOVA_D_PLANNED"
     },
     "source_paths": {
+      "aus_government_access": "engineering/civprop/civprop0/aus_government_access_evidence.json",
       "fleet_access": "engineering/civprop/civprop0/actor_access_evidence.json",
       "roover_service": "engineering/civprop/civprop0/roover_service_envelope.json"
     }
   },
   "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
   "capture_semantics": "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES",
-  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER",
+  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS",
   "earth": {
     "aus_area": {
       "display_name": "Australia",
@@ -586,6 +642,7 @@
     "dev/solar_civprop_m4b/campaign_assertions.json": "e87eb9f711ce508933e76c86a1d9f4314a13d6d4403940d21fa25cf6da700c39",
     "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
     "engineering/civprop/civprop0/actor_access_evidence.json": "16581d2ad6eec747f4576d7dc836f00d24864683bba0431dc97c04360e15085d",
+    "engineering/civprop/civprop0/aus_government_access_evidence.json": "2e9ebc2f6d497d42d74baea504cec45ba16922ea2d554940a5142b1d53ef60ce",
     "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
     "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951"

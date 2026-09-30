@@ -6,11 +6,11 @@ Status: current program register and post-gap handoff plan
 
 ## Authority boundary
 
-This document records the CIVPROP program state immediately after GAP-001 closure.
+This document records the CIVPROP program state through GAP-002 closure.
 
 Authoritative repository basis at creation:
 
-    03ac1c554105a4f74e7197bb9604969b482fb8bf
+    3009bd4adf1a463fcef9c22f697741ce0c0e8ab5
 
 Machine-readable register:
 
@@ -59,13 +59,16 @@ GAP-001 is CLOSED: promoted Earth, Solar, Timeline, resource and actor evidence 
 now be captured read-only, frozen with provenance, and deterministically compiled
 into the locked runner envelope.
 
-The current baseline is still not a forecast because GAP-002 through GAP-015 remain
-open. In particular, actor budgets/capabilities, accessibility, demand and project
-economics still contain explicit placeholders and materially affect the current
-result.
+GAP-002 is also CLOSED. Actor State V1 now separates scoped rights/contracts,
+capability, experience, committed funds and generic spendable allocation. The old
+AUS scenario-credit and generic-capability placeholders are gone; unsupported
+generic spendable allocation remains explicitly UNKNOWN.
 
-The current default seed-42 compiled baseline therefore remains an engineering
-regression/reference artifact, not a 2036 prediction or 2226 canon.
+The current baseline is still not a forecast because GAP-003 through GAP-015 remain
+open. Accessibility, demand, project economics and other later mechanisms still
+contain explicit placeholders or missing production mechanisms and materially affect
+the result. The default seed-42 baseline remains an engineering regression/reference
+artifact, not a 2036 prediction or 2226 canon.
 
 ## Closure semantics
 
@@ -100,7 +103,7 @@ A gap may close only when its replacement has:
 | Gap | Name | Status | Immediate objective |
 |---|---|---|---|
 | GAP-001 | REAL_INPUT_COMPILER | CLOSED | Preserve compiler boundary; broaden coverage later without semantic drift |
-| GAP-002 | ACTOR_STATE_AND_BUDGETS | OPEN | Replace scenario-credit actors with explicit actor state, rights, capability and spendable allocation |
+| GAP-002 | ACTOR_STATE_AND_BUDGETS | CLOSED | Preserve Actor State V1 semantics; proceed without inventing budget or capability |
 | GAP-003 | TRANSPORT_ACCESSIBILITY | OPEN | General Solar tri-state accessibility/service model |
 | GAP-004 | DEMAND_AND_PRESSURE_MODEL | OPEN | Replace exogenous demand fixtures with causal state-derived demand/pressure |
 | GAP-005 | PROJECT_ECONOMICS | OPEN | Replace synthetic costs/lags/capacity units with versioned parameter sets |
@@ -433,18 +436,20 @@ its semantics, either:
 Current frontier:
 
     GAP-001 CLOSED
-    GAP-002 OPEN
+    GAP-002 CLOSED
+    GAP-003 OPEN
 
-The next implementation target is therefore:
-
-    GAP-002 ACTOR_STATE_AND_BUDGETS
-
-The concrete objective is to remove these compiled-input assumptions:
+GAP-002 removed the compiled-input assumptions:
 
     ASSUME-GAP002-AUS-BUDGET
     ASSUME-GAP002-AUS-CAPABILITIES
 
-and replace them with a versioned actor-state/budget/access mechanism whose
-provenance and semantics survive the full 2026-2226 run.
+and replaced them with Actor State V1, explicit UNKNOWN spendable allocation,
+scoped AUS evidence, replayable change events and runner-level actor-state output.
 
-That is where the next engineering thread should resume.
+The next implementation target is therefore:
+
+    GAP-003 TRANSPORT_ACCESSIBILITY
+
+That work must replace synthetic accessibility/generalized-cost fixtures without
+reopening GAP-002 semantics or granting capability through transport availability.

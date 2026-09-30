@@ -1,0 +1,1928 @@
+{
+  "actor_state_boundary": {
+    "actors": [
+      {
+        "access_rights": {
+          "records": [
+            {
+              "capability_id": "LUNAR_PAYLOAD_DELIVERY_ACCESS",
+              "counterparty_id": "NASA",
+              "details": {},
+              "provenance_refs": [
+                "NASA_2026_03_27_CLPS_CT4_ROO_VER",
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION",
+                "ASA_2026_08_13_ROO_VER_TESTING",
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT"
+              ],
+              "provider_id": "INTUITIVE_MACHINES",
+              "record_id": "AUS_ROOVER_CLPS_ACCESS",
+              "scope": "Australian Space Agency-led Roo-ver demonstration on NASA CLPS CT-4 with Intuitive Machines; South Pole region, targeted 2030; no entitlement for other Australian payloads or missions",
+              "status": "OBSERVED_SCOPED_ACCESS",
+              "subject_id": "ROO_VER",
+              "valid_from": 2026,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "acquired_capability": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "actor_id": "AUS",
+        "actor_type": "STATE",
+        "budget": {
+          "committed_funds": [
+            {
+              "amount": 42000000.0,
+              "commitment_id": "AUS_ROOVER_42M_COMMITMENT",
+              "provenance_refs": [
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION"
+              ],
+              "scope": "ROO_VER_DEVELOPMENT_BUILD_OPERATION",
+              "status": "OBSERVED_COMMITTED",
+              "unit": "AUD"
+            }
+          ],
+          "spendable_allocation": {
+            "amount": null,
+            "provenance_refs": [],
+            "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+            "status": "UNKNOWN",
+            "unit": null
+          }
+        },
+        "contracts": {
+          "records": [
+            {
+              "capability_id": null,
+              "counterparty_id": "NASA",
+              "details": {},
+              "provenance_refs": [
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT"
+              ],
+              "provider_id": null,
+              "record_id": "AUS_NASA_ROVER_AGREEMENT",
+              "scope": "ROVER_SPECIFIC_FUTURE_LUNAR_MISSION",
+              "status": "OBSERVED_ROVER_SPECIFIC_AGREEMENT",
+              "subject_id": "ROO_VER",
+              "valid_from": 2021,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "experience": {
+          "records": [
+            {
+              "capability_id": null,
+              "counterparty_id": "ELO2",
+              "details": {},
+              "provenance_refs": [
+                "ASA_2026_08_13_ROO_VER_TESTING"
+              ],
+              "provider_id": null,
+              "record_id": "AUS_ROOVER_2026_TESTING",
+              "scope": "TERRESTRIAL_ROVER_MOBILITY_AND_INTEGRATION_TESTING",
+              "status": "OBSERVED_DEVELOPMENT_TESTING",
+              "subject_id": "ROO_VER",
+              "valid_from": 2026,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "identity": {
+          "display_name": "Australia",
+          "provenance_refs": [
+            "loom_earth:earth-v0-1-9934d0ac-20260925:earth_area:AUS"
+          ]
+        },
+        "installed_capability": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "operation": {
+          "records": [
+            {
+              "capability_id": null,
+              "counterparty_id": "ELO2",
+              "details": {},
+              "provenance_refs": [
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION"
+              ],
+              "provider_id": null,
+              "record_id": "AUS_ROOVER_OPERATION_RELATIONSHIP",
+              "scope": "ROO_VER_DEVELOPMENT_AND_REMOTE_SURFACE_OPERATION",
+              "status": "OBSERVED_OPERATOR_RELATIONSHIP",
+              "subject_id": "ROO_VER",
+              "valid_from": 2025,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "owned_infrastructure": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "ownership": {
+          "records": [],
+          "status": "UNKNOWN"
+        },
+        "provider_service_access": {
+          "records": [
+            {
+              "capability_id": "LUNAR_PAYLOAD_DELIVERY_ACCESS",
+              "counterparty_id": "NASA",
+              "details": {
+                "target_landing_year": 2030
+              },
+              "provenance_refs": [
+                "NASA_2026_03_27_CLPS_CT4_ROO_VER",
+                "AUS_GOV_2025_08_29_ROO_VER_MISSION",
+                "ASA_2026_08_13_ROO_VER_TESTING",
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT"
+              ],
+              "provider_id": "INTUITIVE_MACHINES",
+              "record_id": "AUS_ROOVER_IM5_PROVIDER_PATH",
+              "scope": "NASA CLPS CT-4 / Intuitive Machines IM-5",
+              "status": "OBSERVED_INDIRECT_PROVIDER_SERVICE_PATH",
+              "subject_id": "ROO_VER_WITH_NASA_MNP",
+              "valid_from": 2026,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        },
+        "relationships": {
+          "records": [
+            {
+              "capability_id": null,
+              "counterparty_id": "NASA",
+              "details": {},
+              "provenance_refs": [
+                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT",
+                "NASA_2026_03_27_CLPS_CT4_ROO_VER"
+              ],
+              "provider_id": null,
+              "record_id": "AUS_NASA_ROOVER_PARTNERSHIP",
+              "scope": "ROO_VER_CLPS_CT4",
+              "status": "OBSERVED_MISSION_PARTNERSHIP",
+              "subject_id": "ROO_VER",
+              "valid_from": 2021,
+              "valid_to": null
+            }
+          ],
+          "status": "KNOWN_RECORDS"
+        }
+      }
+    ],
+    "as_of_year": 2026,
+    "contract_version": "1.0.0",
+    "events": [],
+    "format": "CIVPROP_ACTOR_STATE_V1"
+  },
+  "actor_state_events": [],
+  "actor_states": [
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2026
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2027
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2028
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2029
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2030
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2031
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2032
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2033
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2034
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2035
+    },
+    {
+      "actor_id": "AUS",
+      "actor_type": "STATE",
+      "capability_state": {},
+      "spendable_allocation": {
+        "amount": null,
+        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+        "status": "UNKNOWN",
+        "unit": null
+      },
+      "year": 2036
+    }
+  ],
+  "actor_transactions": [],
+  "annual_states": [
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2026
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 2.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 8.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2026
+    },
+    {
+      "biological_population": 8266245291.0,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2026
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2026
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2027
+    },
+    {
+      "biological_population": 4.5,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 2.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 8.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2027
+    },
+    {
+      "biological_population": 8266245286.5,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2027
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2027
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2028
+    },
+    {
+      "biological_population": 8.85,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 2.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 8.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2028
+    },
+    {
+      "biological_population": 8266245282.15,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2028
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2028
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2029
+    },
+    {
+      "biological_population": 11.895,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 2.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 8.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2029
+    },
+    {
+      "biological_population": 8266245279.105,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2029
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2029
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2030
+    },
+    {
+      "biological_population": 14.026499999999999,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 2.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 8.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2030
+    },
+    {
+      "biological_population": 8266245276.973499,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2030
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2030
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2031
+    },
+    {
+      "biological_population": 15.51855,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 2.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 8.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2031
+    },
+    {
+      "biological_population": 8266245275.481449,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2031
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2031
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2032
+    },
+    {
+      "biological_population": 16.562985,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 2.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 8.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2032
+    },
+    {
+      "biological_population": 8266245274.437015,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2032
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2032
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2033
+    },
+    {
+      "biological_population": 17.294089500000002,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 2.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 8.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2033
+    },
+    {
+      "biological_population": 8266245273.70591,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2033
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2033
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2034
+    },
+    {
+      "biological_population": 17.80586265,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 2.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 8.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2034
+    },
+    {
+      "biological_population": 8266245273.194137,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2034
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2034
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2035
+    },
+    {
+      "biological_population": 18.164103855,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 2.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 8.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2035
+    },
+    {
+      "biological_population": 8266245272.835896,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2035
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2035
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "CISLUNAR_FREE_SPACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2036
+    },
+    {
+      "biological_population": 18.4148726985,
+      "capacities": {
+        "habitat": 50.0,
+        "industrial": 2.0,
+        "power": 5.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 8.0
+      },
+      "capital": 15.0,
+      "location_id": "EARTH_ORBIT",
+      "transient_population": 200.0,
+      "workforce": 50.0,
+      "year": 2036
+    },
+    {
+      "biological_population": 8266245272.585127,
+      "capacities": {
+        "habitat": 8266245291.0,
+        "industrial": 100.0,
+        "power": 100.0,
+        "resource": 0.0,
+        "shipyard": 20.0,
+        "transport": 100.0
+      },
+      "capital": 200.0,
+      "location_id": "EARTH_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 2656643452.0,
+      "year": 2036
+    },
+    {
+      "biological_population": 0.0,
+      "capacities": {
+        "habitat": 0.0,
+        "industrial": 0.0,
+        "power": 0.0,
+        "resource": 0.0,
+        "shipyard": 0.0,
+        "transport": 0.0
+      },
+      "capital": 0.0,
+      "location_id": "LUNA_SURFACE",
+      "transient_population": 0.0,
+      "workforce": 0.0,
+      "year": 2036
+    }
+  ],
+  "contract_version": "1.2.0",
+  "decisions": [
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00001",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2026
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00002",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2027
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00003",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2028
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00004",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2029
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00005",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2030
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00006",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2031
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00007",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2032
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00008",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2033
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00009",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2034
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00010",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2035
+    },
+    {
+      "action": "WAIT",
+      "actor_id": "AUS",
+      "decision_id": "d00011",
+      "project_archetype_id": null,
+      "rationale_codes": [
+        "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+        "SPENDABLE_ALLOCATION_UNKNOWN"
+      ],
+      "status": "DECLINED",
+      "target_location_id": null,
+      "year": 2036
+    }
+  ],
+  "events": [
+    {
+      "actor_id": null,
+      "event_id": "e00001",
+      "event_type": "RUN_STARTED",
+      "location_id": null,
+      "parent_event_ids": [],
+      "year": 2026
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00002",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00001"
+      ],
+      "year": 2026
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00003",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00002"
+      ],
+      "year": 2026
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00004",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00003"
+      ],
+      "year": 2026
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00005",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00004"
+      ],
+      "year": 2027
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00006",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00005"
+      ],
+      "year": 2027
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00007",
+      "event_type": "MIGRATION_APPLIED",
+      "location_id": "EARTH_ORBIT",
+      "parent_event_ids": [
+        "e00006"
+      ],
+      "year": 2027
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00008",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00007"
+      ],
+      "year": 2027
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00009",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00008"
+      ],
+      "year": 2028
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00010",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00009"
+      ],
+      "year": 2028
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00011",
+      "event_type": "MIGRATION_APPLIED",
+      "location_id": "EARTH_ORBIT",
+      "parent_event_ids": [
+        "e00010"
+      ],
+      "year": 2028
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00012",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00011"
+      ],
+      "year": 2028
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00013",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00012"
+      ],
+      "year": 2029
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00014",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00013"
+      ],
+      "year": 2029
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00015",
+      "event_type": "MIGRATION_APPLIED",
+      "location_id": "EARTH_ORBIT",
+      "parent_event_ids": [
+        "e00014"
+      ],
+      "year": 2029
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00016",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00015"
+      ],
+      "year": 2029
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00017",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00016"
+      ],
+      "year": 2030
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00018",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00017"
+      ],
+      "year": 2030
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00019",
+      "event_type": "MIGRATION_APPLIED",
+      "location_id": "EARTH_ORBIT",
+      "parent_event_ids": [
+        "e00018"
+      ],
+      "year": 2030
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00020",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00019"
+      ],
+      "year": 2030
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00021",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00020"
+      ],
+      "year": 2031
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00022",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00021"
+      ],
+      "year": 2031
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00023",
+      "event_type": "MIGRATION_APPLIED",
+      "location_id": "EARTH_ORBIT",
+      "parent_event_ids": [
+        "e00022"
+      ],
+      "year": 2031
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00024",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00023"
+      ],
+      "year": 2031
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00025",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00024"
+      ],
+      "year": 2032
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00026",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00025"
+      ],
+      "year": 2032
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00027",
+      "event_type": "MIGRATION_APPLIED",
+      "location_id": "EARTH_ORBIT",
+      "parent_event_ids": [
+        "e00026"
+      ],
+      "year": 2032
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00028",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00027"
+      ],
+      "year": 2032
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00029",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00028"
+      ],
+      "year": 2033
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00030",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00029"
+      ],
+      "year": 2033
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00031",
+      "event_type": "MIGRATION_APPLIED",
+      "location_id": "EARTH_ORBIT",
+      "parent_event_ids": [
+        "e00030"
+      ],
+      "year": 2033
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00032",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00031"
+      ],
+      "year": 2033
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00033",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00032"
+      ],
+      "year": 2034
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00034",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00033"
+      ],
+      "year": 2034
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00035",
+      "event_type": "MIGRATION_APPLIED",
+      "location_id": "EARTH_ORBIT",
+      "parent_event_ids": [
+        "e00034"
+      ],
+      "year": 2034
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00036",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00035"
+      ],
+      "year": 2034
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00037",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00036"
+      ],
+      "year": 2035
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00038",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00037"
+      ],
+      "year": 2035
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00039",
+      "event_type": "MIGRATION_APPLIED",
+      "location_id": "EARTH_ORBIT",
+      "parent_event_ids": [
+        "e00038"
+      ],
+      "year": 2035
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00040",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00039"
+      ],
+      "year": 2035
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00041",
+      "event_type": "YEAR_STARTED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00040"
+      ],
+      "year": 2036
+    },
+    {
+      "actor_id": "AUS",
+      "event_id": "e00042",
+      "event_type": "DECISION_MADE",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00041"
+      ],
+      "year": 2036
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00043",
+      "event_type": "MIGRATION_APPLIED",
+      "location_id": "EARTH_ORBIT",
+      "parent_event_ids": [
+        "e00042"
+      ],
+      "year": 2036
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00044",
+      "event_type": "YEAR_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00043"
+      ],
+      "year": 2036
+    },
+    {
+      "actor_id": null,
+      "event_id": "e00045",
+      "event_type": "RUN_COMPLETED",
+      "location_id": null,
+      "parent_event_ids": [
+        "e00044"
+      ],
+      "year": 2036
+    }
+  ],
+  "facilities": [],
+  "flows": [
+    {
+      "actor_id": null,
+      "amount": 4.5,
+      "destination_location_id": "EARTH_ORBIT",
+      "flow_id": "f00001",
+      "flow_type": "MIGRATION",
+      "origin_location_id": "EARTH_SURFACE",
+      "unit": "person",
+      "year": 2027
+    },
+    {
+      "actor_id": null,
+      "amount": 4.35,
+      "destination_location_id": "EARTH_ORBIT",
+      "flow_id": "f00002",
+      "flow_type": "MIGRATION",
+      "origin_location_id": "EARTH_SURFACE",
+      "unit": "person",
+      "year": 2028
+    },
+    {
+      "actor_id": null,
+      "amount": 3.045,
+      "destination_location_id": "EARTH_ORBIT",
+      "flow_id": "f00003",
+      "flow_type": "MIGRATION",
+      "origin_location_id": "EARTH_SURFACE",
+      "unit": "person",
+      "year": 2029
+    },
+    {
+      "actor_id": null,
+      "amount": 2.1315,
+      "destination_location_id": "EARTH_ORBIT",
+      "flow_id": "f00004",
+      "flow_type": "MIGRATION",
+      "origin_location_id": "EARTH_SURFACE",
+      "unit": "person",
+      "year": 2030
+    },
+    {
+      "actor_id": null,
+      "amount": 1.4920500000000003,
+      "destination_location_id": "EARTH_ORBIT",
+      "flow_id": "f00005",
+      "flow_type": "MIGRATION",
+      "origin_location_id": "EARTH_SURFACE",
+      "unit": "person",
+      "year": 2031
+    },
+    {
+      "actor_id": null,
+      "amount": 1.0444350000000002,
+      "destination_location_id": "EARTH_ORBIT",
+      "flow_id": "f00006",
+      "flow_type": "MIGRATION",
+      "origin_location_id": "EARTH_SURFACE",
+      "unit": "person",
+      "year": 2032
+    },
+    {
+      "actor_id": null,
+      "amount": 0.7311044999999996,
+      "destination_location_id": "EARTH_ORBIT",
+      "flow_id": "f00007",
+      "flow_type": "MIGRATION",
+      "origin_location_id": "EARTH_SURFACE",
+      "unit": "person",
+      "year": 2033
+    },
+    {
+      "actor_id": null,
+      "amount": 0.5117731499999995,
+      "destination_location_id": "EARTH_ORBIT",
+      "flow_id": "f00008",
+      "flow_type": "MIGRATION",
+      "origin_location_id": "EARTH_SURFACE",
+      "unit": "person",
+      "year": 2034
+    },
+    {
+      "actor_id": null,
+      "amount": 0.3582412049999995,
+      "destination_location_id": "EARTH_ORBIT",
+      "flow_id": "f00009",
+      "flow_type": "MIGRATION",
+      "origin_location_id": "EARTH_SURFACE",
+      "unit": "person",
+      "year": 2035
+    },
+    {
+      "actor_id": null,
+      "amount": 0.25076884349999984,
+      "destination_location_id": "EARTH_ORBIT",
+      "flow_id": "f00010",
+      "flow_type": "MIGRATION",
+      "origin_location_id": "EARTH_SURFACE",
+      "unit": "person",
+      "year": 2036
+    }
+  ],
+  "format": "CIVPROP_ENGINE_V1_OUTPUT",
+  "known_gaps": [
+    {
+      "gap_id": "GAP-001",
+      "meaning": "Replace synthetic Method Lab scenario with frozen adapters from loom_earth, loom_solar, loom_timeline, resource evidence and actor authority.",
+      "name": "REAL_INPUT_COMPILER",
+      "status": "CLOSED"
+    },
+    {
+      "gap_id": "GAP-002",
+      "meaning": "Versioned actor identity/state separates ownership, operation, scoped access/contracts, capability, experience and spendable allocation with replayable change events.",
+      "name": "ACTOR_STATE_AND_BUDGETS",
+      "status": "CLOSED"
+    },
+    {
+      "gap_id": "GAP-003",
+      "meaning": "Current accessibility/generalized costs are synthetic fixture inputs rather than a general Solar transport service.",
+      "name": "TRANSPORT_ACCESSIBILITY",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-004",
+      "meaning": "Transport, industrial, habitat and resource demand signals are synthetic exogenous series; production causal demand equations remain to be built.",
+      "name": "DEMAND_AND_PRESSURE_MODEL",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-005",
+      "meaning": "Method Lab costs, lags and capacity units are preserved fixtures, not production economics or calibrated technology curves.",
+      "name": "PROJECT_ECONOMICS",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-006",
+      "meaning": "Hybrid V1 baseline does not execute prospecting missions or CIVPROP-0 observation/Bayesian knowledge updates.",
+      "name": "MISSIONS_AND_KNOWLEDGE_UPDATE",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-007",
+      "meaning": "Pressure levels are internal; only pressure-qualified events are emitted.",
+      "name": "PRESSURE_OBSERVABILITY",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-008",
+      "meaning": "Resource capacity is abstract; stock, grade, throughput, yield, depletion and inventory are not yet modeled.",
+      "name": "RESOURCE_MASS_BALANCE",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-009",
+      "meaning": "Off-world sector production, value added, operating cost and investment flows are not yet generated.",
+      "name": "PRODUCTION_AND_VALUE_ADDED",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-010",
+      "meaning": "Power is abstract installed capacity; average demand, peak demand, storage, generation mix and energy closure are not yet modeled.",
+      "name": "POWER_BALANCE",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-011",
+      "meaning": "Cargo, passengers, ship calls, fleets, queues and route utilization are not yet generated.",
+      "name": "TRAFFIC_AND_FLEET",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-012",
+      "meaning": "Module colocation, named facilities, settlements, surface sites, orbital elements and Atlas facility types are not yet materialized.",
+      "name": "FACILITY_AND_SITE_MATERIALIZATION",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-013",
+      "meaning": "Infrastructure maintenance, depreciation, replacement, failure, retirement and abandonment are not yet production modeled.",
+      "name": "MAINTENANCE_DEPRECIATION_RETIREMENT",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-014",
+      "meaning": "Cohort demography, births/deaths, synthetic persons, biological viability and long-run settlement demographics are not yet connected.",
+      "name": "DEMOGRAPHIC_DEPTH",
+      "status": "OPEN"
+    },
+    {
+      "gap_id": "GAP-015",
+      "meaning": "Economic/transport centrality, strategic significance and other Atlas display metrics must be derived after physical/economic state exists.",
+      "name": "ATLAS_DERIVED_METRICS",
+      "status": "OPEN"
+    }
+  ],
+  "metadata": {
+    "engine": {
+      "end_year": 2036,
+      "id": "HYBRID_V1",
+      "run_id": "e9d11556039bc4394d9500ac",
+      "seed": 42,
+      "start_year": 2026,
+      "version": "method-reference-v1"
+    },
+    "implementation": {
+      "actor_state_contract_sha256": "aa09d20395a281dad18d170470b23fd504e8ea54f6ba45dc05f9f728030c5b27",
+      "common_helpers_sha256": "b4533a58ac43ca6120653e435e9af1098d9c28d42f35f552cab50e40e1efba2f",
+      "hybrid_engine_sha256": "258606ad9f88ba20feb6e0d0e594343d0f5b699975e8a5131138513b0648e9db",
+      "infrastructure_contract_sha256": "bcbcc8705ed18b5acad98c78b87f229b94d6c0b590551b2326fb715520bf5273",
+      "method_lab_contracts_sha256": "bd32838ba4545636bf91180eeea76d1380825751b3c8e124bcd7a1313193e1e3",
+      "runner_sha256": "f5d20b6fe17e40883e3a014c3402ff30eaa00be9f4d5817b1daee505d6dd823e"
+    },
+    "infrastructure": {
+      "catalog_format": "CIVPROP_INFRASTRUCTURE_ARCHETYPE_CATALOG_V1",
+      "catalog_id": "CIVPROP_INFRASTRUCTURE_ARCHETYPES_V1",
+      "catalog_sha256": "a01c9f151909bbb1f23a2f3c093be5585f79e4198d5078ac8417b32818bad9c2",
+      "parameter_set_id": "METHOD_LAB_SYNTHETIC_V1",
+      "parameter_status": "SYNTHETIC_METHOD_FIXTURE",
+      "parameterized_archetypes": [
+        "HABITAT",
+        "INDUSTRIAL_WORKSHOP",
+        "LOGISTICS_NODE",
+        "POWER_PLANT",
+        "RESOURCE_PLANT"
+      ]
+    },
+    "inputs": {
+      "actor_visible_scenario_sha256": "8fc1abc05f44b296794f503f40e576e5a58aaf2530e4237cef164bc34abdb0f3",
+      "basis": {
+        "authority_capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
+        "authority_capture_sha256": "743a64011f4ca6890aa35161d9548a834e8cdad9d5ae9ec1a3ac996c3c6ea96c",
+        "compiler_contract": "CIVPROP_INPUT_COMPILER_V1",
+        "locked_runner_ref": "engineering/civprop/run_civprop_v1.py",
+        "source_basis_commit": "99dadcfb4276471c29aa3bf52650d0584ef03038"
+      },
+      "compiler": {
+        "authority_capture": {
+          "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
+          "path": "engineering/civprop/inputs/authority_capture_v1.json",
+          "sha256": "743a64011f4ca6890aa35161d9548a834e8cdad9d5ae9ec1a3ac996c3c6ea96c",
+          "source_basis_commit": "99dadcfb4276471c29aa3bf52650d0584ef03038"
+        },
+        "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
+        "compiler_version": "1.1.0",
+        "gap_resolution": {
+          "GAP-001": "CLOSED",
+          "GAP-002": "CLOSED",
+          "GAP-003": "OPEN",
+          "GAP-004": "OPEN",
+          "GAP-005": "OPEN",
+          "GAP-006": "OPEN",
+          "GAP-007": "OPEN",
+          "GAP-008": "OPEN",
+          "GAP-009": "OPEN",
+          "GAP-010": "OPEN",
+          "GAP-011": "OPEN",
+          "GAP-012": "OPEN",
+          "GAP-013": "OPEN",
+          "GAP-014": "OPEN",
+          "GAP-015": "OPEN"
+        },
+        "manifest_format": "CIVPROP_INPUT_COMPILER_MANIFEST_V1",
+        "manifest_sha256": "0fdaf276c56354e219cfb3380004118e69fb7fdd56f0612b39cbe1d434863a1c"
+      },
+      "evaluator_truth_consumed_by_engine": false,
+      "evaluator_truth_sha256": "e3acab39409c3451acf2c18d285e0fb3228b837987072cae60eb44d983748aaa",
+      "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
+      "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
+      "method_lab_bundle_sha256": "eda188942cec2f934ce819e12275177655618c4606e279c35be60553a12cfd64",
+      "method_lab_manifest_sha256": "ae73eac9500c53d9e593c7c622cddda1b3f7dceb9bf0e101d2d6a1d59b39052f",
+      "runtime_input_sha256": "8fc1abc05f44b296794f503f40e576e5a58aaf2530e4237cef164bc34abdb0f3",
+      "scenario_format": "CIVPROP_METHOD_LAB_SCENARIO_V1"
+    },
+    "runner": {
+      "id": "CIVPROP_ENGINE_V1_RUNNER",
+      "version": "1.2.0"
+    }
+  },
+  "semantics": {
+    "accessibility": "FEASIBLE_INFEASIBLE_UNKNOWN_PRESERVED_UNKNOWN_DOES_NOT_BECOME_ZERO",
+    "actor_budget_output": "ANNUAL_ACTOR_STATE_WITH_REPLAYABLE_TRANSACTIONS",
+    "actor_knowledge": "ACTOR_VISIBLE_SCENARIO_ONLY_HIDDEN_TRUTH_PROHIBITED",
+    "annual_snapshot_timing": "END_OF_YEAR_AFTER_DUE_COMMISSIONING_DECISIONS_AND_MIGRATION",
+    "atlas_role": "ENGINE_STATE_NOT_FINAL_ATLAS_MATERIALIZATION",
+    "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
+    "capital_accounting": "ACTOR_BUDGET_DEBITED_AT_COMMITMENT_LOCATION_CAPITAL_ADDED_AT_COMMISSIONING",
+    "engine_architecture": "ANNUAL_DYNAMIC_RECURSIVE_PLUS_DECAYING_PRESSURE_PLUS_ACTOR_EVENT_DECISIONS",
+    "events": "APPEND_ORDER_EVENT_CHAIN_WITH_PREVIOUS_EVENT_PARENT_REFERENCE_CURRENT_SEMANTICS",
+    "facility_records": "COMMISSIONED_FACILITIES_ONLY",
+    "flows": "MIGRATION_ONLY_IN_EXECUTABLE_BASELINE",
+    "habitat": "BIOLOGICAL_POPULATION_MAY_NOT_EXCEED_HABITAT_CAPACITY",
+    "infrastructure": "GENERIC_CAPACITY_BEARING_MODULES_NOT_PREWRITTEN_ATLAS_FACILITIES",
+    "major_commitments": "REQUIRE_PRESSURE_QUALIFICATION_ACTOR_USABLE_CAPABILITY_AFFORDABILITY",
+    "pending_projects": "INTERNAL_AFTER_COMMITMENT_UNTIL_COMMISSIONING_NOT_EXPOSED_AS_STATE",
+    "population": "NO_BIRTHS_OR_DEATHS_IN_BASELINE_MIGRATION_IS_SOURCE_DEBITED_AND_CONSERVED",
+    "pressure_memory": "DECAYS_ANNUALLY_WEAK_HISTORICAL_SIGNALS_ARE_NOT_IMMORTAL",
+    "pressure_state": "INTERNAL_NOT_EMITTED_ONLY_QUALIFICATION_EVENTS_VISIBLE",
+    "resource_truth": "EVALUATOR_ONLY_FIXTURE_PRESENT_IN_PACKAGE_NOT_READ_BY_ENGINE",
+    "runtime_reasoning": "EXPLICIT_CODE_RULES_AND_KEYED_STOCHASTICITY_NO_LLM_AUTHORITY",
+    "technology": "FRONTIER_DATE_DOES_NOT_GRANT_ACTOR_CAPABILITY_ACTOR_ACCESS_IS_SEPARATE",
+    "time_step": "ANNUAL_INSPECTION_WITH_DISCRETE_PROJECT_COMMISSIONING_EVENTS",
+    "workforce": "CURRENT_ENGINE_RULE_NOT_PRODUCTION_LABOR_MODEL"
+  }
+}
