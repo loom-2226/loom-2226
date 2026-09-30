@@ -3,6 +3,13 @@
 Date: 2026-09-29
 Class: class:engineering
 Status: architecture reconciliation / pre-method-fit
+
+Current-status note (2026-09-30): the method-fit phase described by this document has
+been completed for Engine V1. The selected architecture is recorded in
+docs/civprop/CIVPROP_ENGINE_V1_SELECTION.md. Current gap status and continuation are
+recorded in docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md and
+engineering/civprop/gap_register_v1.json. This document remains historical requirements
+evidence and is not the current work queue.
 Promoted basis inspected: origin/main at 4d7dfa53fe81f7f9936513aa8eb1df272b6dfef1
 
 ## Purpose

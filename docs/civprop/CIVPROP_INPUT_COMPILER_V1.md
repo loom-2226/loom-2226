@@ -564,6 +564,16 @@ Unit/functional coverage proves:
 - evaluator-only truth remains prohibited from runtime decisions;
 - current golden output reproduces exactly.
 
+## Program continuation
+
+The authoritative current gap register and the post-gap handoff plan are:
+
+    engineering/civprop/gap_register_v1.json
+    docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
+
+GAP-001 closure should be interpreted using that register's closure semantics. The
+next engineering target is GAP-002 ACTOR_STATE_AND_BUDGETS.
+
 ## Boundary after GAP-001
 
 The executable pipeline is now:
