@@ -288,12 +288,6 @@
   ],
   "assumption_register": [
     {
-      "assumption_id": "ASSUME-GAP004-DEMAND",
-      "gap_id": "GAP-004",
-      "semantics": "Transport, industrial, habitat-interest and water demand series are the existing Method Lab exogenous synthetic signals.",
-      "status": "EXPLICIT_PLACEHOLDER"
-    },
-    {
       "assumption_id": "ASSUME-GAP005-PROJECT-ECONOMICS",
       "gap_id": "GAP-005",
       "semantics": "Facility costs, construction lags and capacity quantities remain METHOD_LAB_SYNTHETIC_V1 parameter values.",
@@ -501,7 +495,8 @@
       "gap_resolution": {
         "GAP-001": "CLOSED",
         "GAP-002": "CLOSED",
-        "GAP-003": "CLOSED"
+        "GAP-003": "CLOSED",
+        "GAP-004": "CLOSED"
       }
     },
     "earth": {
@@ -1232,208 +1227,103 @@
     }
   },
   "classification": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-  "demand_signals": [
-    {
-      "signal_id": "OFFWORLD_TRANSPORT_DEMAND",
-      "unit": "scenario_demand_unit",
-      "values": [
-        {
-          "value": 5,
-          "year": 2026
-        },
-        {
-          "value": 8,
-          "year": 2027
-        },
-        {
-          "value": 11,
-          "year": 2028
-        },
-        {
-          "value": 14,
-          "year": 2029
-        },
-        {
-          "value": 17,
-          "year": 2030
-        },
-        {
-          "value": 20,
-          "year": 2031
-        },
-        {
-          "value": 23,
-          "year": 2032
-        },
-        {
-          "value": 26,
-          "year": 2033
-        },
-        {
-          "value": 29,
-          "year": 2034
-        },
-        {
-          "value": 32,
-          "year": 2035
-        },
-        {
-          "value": 35,
-          "year": 2036
-        }
-      ]
-    },
-    {
-      "signal_id": "OFFWORLD_INDUSTRIAL_DEMAND",
-      "unit": "scenario_demand_unit",
-      "values": [
-        {
-          "value": 0,
-          "year": 2026
-        },
-        {
-          "value": 2,
-          "year": 2027
-        },
-        {
-          "value": 4,
-          "year": 2028
-        },
-        {
-          "value": 6,
-          "year": 2029
-        },
-        {
-          "value": 8,
-          "year": 2030
-        },
-        {
-          "value": 10,
-          "year": 2031
-        },
-        {
-          "value": 12,
-          "year": 2032
-        },
-        {
-          "value": 14,
-          "year": 2033
-        },
-        {
-          "value": 16,
-          "year": 2034
-        },
-        {
-          "value": 18,
-          "year": 2035
-        },
-        {
-          "value": 20,
-          "year": 2036
-        }
-      ]
-    },
-    {
-      "signal_id": "OFFWORLD_HABITAT_INTEREST",
-      "unit": "person_interest_unit",
-      "values": [
-        {
-          "value": 0,
-          "year": 2026
-        },
-        {
-          "value": 15,
-          "year": 2027
-        },
-        {
-          "value": 30,
-          "year": 2028
-        },
-        {
-          "value": 45,
-          "year": 2029
-        },
-        {
-          "value": 60,
-          "year": 2030
-        },
-        {
-          "value": 75,
-          "year": 2031
-        },
-        {
-          "value": 90,
-          "year": 2032
-        },
-        {
-          "value": 105,
-          "year": 2033
-        },
-        {
-          "value": 120,
-          "year": 2034
-        },
-        {
-          "value": 135,
-          "year": 2035
-        },
-        {
-          "value": 150,
-          "year": 2036
-        }
-      ]
-    },
-    {
-      "signal_id": "WATER_RESOURCE_DEMAND",
-      "unit": "scenario_demand_unit",
-      "values": [
-        {
-          "value": 0,
-          "year": 2026
-        },
-        {
-          "value": 0,
-          "year": 2027
-        },
-        {
-          "value": 0,
-          "year": 2028
-        },
-        {
-          "value": 0,
-          "year": 2029
-        },
-        {
-          "value": 3,
-          "year": 2030
-        },
-        {
-          "value": 6,
-          "year": 2031
-        },
-        {
-          "value": 9,
-          "year": 2032
-        },
-        {
-          "value": 12,
-          "year": 2033
-        },
-        {
-          "value": 15,
-          "year": 2034
-        },
-        {
-          "value": 18,
-          "year": 2035
-        },
-        {
-          "value": 21,
-          "year": 2036
-        }
-      ]
-    }
-  ],
+  "demand_pressure_v1": {
+    "channels": [
+      {
+        "available_field": "habitat",
+        "channel_id": "HABITAT",
+        "decay": 0.6,
+        "drivers": [
+          {
+            "coefficient": 1.0,
+            "coefficient_unit": "person/person",
+            "field": "biological_population"
+          },
+          {
+            "coefficient": 1.0,
+            "coefficient_unit": "person/person",
+            "field": "transient_population"
+          }
+        ],
+        "gain": 0.24,
+        "unit": "person"
+      },
+      {
+        "available_field": "transport",
+        "channel_id": "TRANSPORT",
+        "decay": 0.6,
+        "drivers": [
+          {
+            "coefficient": 0.04,
+            "coefficient_unit": "scenario_capacity_unit/person",
+            "field": "transient_population"
+          }
+        ],
+        "gain": 0.24,
+        "unit": "scenario_capacity_unit"
+      },
+      {
+        "available_field": "industrial",
+        "channel_id": "INDUSTRIAL",
+        "decay": 0.6,
+        "drivers": [
+          {
+            "coefficient": 0.04,
+            "coefficient_unit": "scenario_capacity_unit/person",
+            "field": "workforce"
+          }
+        ],
+        "gain": 0.24,
+        "unit": "scenario_capacity_unit"
+      },
+      {
+        "available_field": "resource",
+        "channel_id": "RESOURCE",
+        "decay": 0.6,
+        "drivers": [
+          {
+            "coefficient": 0.01,
+            "coefficient_unit": "scenario_capacity_unit/person",
+            "field": "biological_population"
+          },
+          {
+            "coefficient": 0.01,
+            "coefficient_unit": "scenario_capacity_unit/person",
+            "field": "transient_population"
+          }
+        ],
+        "gain": 0.24,
+        "unit": "scenario_capacity_unit"
+      },
+      {
+        "available_field": "power",
+        "channel_id": "POWER",
+        "decay": 0.6,
+        "drivers": [
+          {
+            "coefficient": 0.025,
+            "coefficient_unit": "MW_equivalent/person",
+            "field": "biological_population"
+          },
+          {
+            "coefficient": 0.025,
+            "coefficient_unit": "MW_equivalent/person",
+            "field": "transient_population"
+          }
+        ],
+        "gain": 0.24,
+        "unit": "MW_equivalent"
+      }
+    ],
+    "contract_version": "1.0.0",
+    "excluded_location_ids": [
+      "EARTH_SURFACE"
+    ],
+    "format": "CIVPROP_DEMAND_PRESSURE_V1",
+    "parameter_status": "UNCALIBRATED_CAUSAL_MODEL_PARAMETER_V1",
+    "scope": "NON_EARTH_SURFACE",
+    "strategic_requirements": []
+  },
   "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
   "format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
   "horizon": {

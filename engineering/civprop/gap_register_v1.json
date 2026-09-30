@@ -1,20 +1,20 @@
 {
   "format": "CIVPROP_GAP_REGISTER_V1",
   "register_id": "CIVPROP_GAP_REGISTER_2026_09_30",
-  "as_of_main_commit": "0700407c68276207732292c9a3bc1fc55b703b42",
+  "as_of_main_commit": "53cca0679f6e2bdd8aa8b3be22b387136bfe1bc3",
   "status_semantics": {
     "CLOSED": "The gap has a tested, versioned mechanism adequate for the current CIVPROP development boundary. Closure does not claim every future production-scale value is already calibrated.",
     "OPEN": "The current default executable still contains a placeholder, missing state/output, or incomplete production mechanism owned by this gap.",
     "BLOCKED": "Work cannot proceed without an unresolved dependency outside the gap."
   },
   "current_baseline": {
-    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.3.0",
-    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.3.0",
-    "engine": "HYBRID_V1 method-reference-v1",
+    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.4.0",
+    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.4.0",
+    "engine": "HYBRID_V1 method-reference-v2",
     "default_fixture": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP3_TRANSPORT_ACCESSIBILITY_SEED42.json",
-    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP3_BASELINE_MANIFEST.json"
+    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP4_DEMAND_PRESSURE_SEED42.json",
+    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP4_BASELINE_MANIFEST.json"
   },
   "gaps": [
     {
@@ -114,7 +114,7 @@
         "Qualified Solar geometry is consumed without confusing straight-line separation with route length.",
         "Synthetic Method Lab accessibility profiles are removed from the default compiled input."
       ],
-      "next_action": "CLOSED. Preserve Accessibility V1 tri-state/scoping semantics while proceeding to GAP-004 DEMAND_AND_PRESSURE_MODEL; do not infer routes, service price, fleet allocation or generic actor entitlement.",
+      "next_action": "CLOSED. Preserve Accessibility V1 tri-state/scoping semantics while later gaps close; do not infer routes, service price, fleet allocation or generic actor entitlement.",
       "output_or_contract_affected": [
         "accessibility",
         "accessibility_boundary",
@@ -126,11 +126,24 @@
     {
       "gap_id": "GAP-004",
       "name": "DEMAND_AND_PRESSURE_MODEL",
-      "current_status": "OPEN",
-      "meaning": "Transport, industrial, habitat and resource demand signals are synthetic exogenous series; production causal demand equations remain to be built.",
+      "current_status": "CLOSED",
+      "meaning": "Versioned demand/pressure derives scoped requirements from civilization state and explicit commitments, compares them with installed capacity, and carries unmet demand into decaying unit-preserving pressure.",
       "current_evidence": [
+        "docs/civprop/CIVPROP_DEMAND_PRESSURE_V1.md",
+        "engineering/civprop/contracts/demand_pressure_v1.py",
+        "engineering/civprop/contracts/test_demand_pressure_v1.py",
+        "engineering/civprop/method_lab/contracts.py",
+        "engineering/civprop/method_lab/prototypes/common.py",
         "engineering/civprop/method_lab/prototypes/hybrid_v1.py",
-        "docs/civprop/CIVPROP_ENGINE_V1_SELECTION.md"
+        "engineering/civprop/method_lab/test_hybrid_v1.py",
+        "engineering/civprop/compile_inputs_v1.py",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/compiler_manifest_v1.json",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json",
+        "engineering/civprop/run_civprop_v1.py",
+        "engineering/civprop/test_compile_inputs_v1.py",
+        "engineering/civprop/test_run_civprop_v1.py",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP4_DEMAND_PRESSURE_SEED42.json",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP4_BASELINE_MANIFEST.json"
       ],
       "exit_criteria": [
         "Demand/pressure signals are derived from explicit civilization state rather than hand-authored annual series.",
@@ -139,9 +152,10 @@
         "Pressure decay/relief responds correctly when underlying demand disappears.",
         "Current OFFWORLD_* and WATER_RESOURCE_DEMAND fixture series are removed from the default production path."
       ],
-      "next_action": "Define Demand/Pressure V1 equations and hostile tests for no-demand, congestion relief, local-optimum and strategic-investment cases.",
+      "next_action": "CLOSED. Preserve Demand/Pressure V1 causal/unit semantics while proceeding to GAP-005 PROJECT_ECONOMICS; do not reintroduce hand-authored annual demand curves or let synthetic project economics determine demand.",
       "output_or_contract_affected": [
         "demand signals",
+        "demand_pressure_boundary",
         "pressure state",
         "opportunity qualification",
         "decisions"

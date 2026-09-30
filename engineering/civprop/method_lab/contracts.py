@@ -20,6 +20,10 @@ from engineering.civprop.contracts.accessibility_v1 import (
     AccessibilityPackage,
     load_accessibility_package,
 )
+from engineering.civprop.contracts.demand_pressure_v1 import (
+    DemandPressurePackage,
+    load_demand_pressure_package,
+)
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -137,6 +141,7 @@ class LabScenario:
     accessibility_v1: Optional[AccessibilityPackage]
     accessibility: tuple[AccessibilityProfile, ...]
     resource_beliefs: tuple[ResourceBelief, ...]
+    demand_pressure_v1: Optional[DemandPressurePackage]
     demand_signals: tuple[DemandSignal, ...]
     project_archetypes: tuple[ProjectArchetype, ...]
 
@@ -369,13 +374,18 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             )
             for x in data["resource_beliefs"]
         ),
+        demand_pressure_v1=(
+            None
+            if data.get("demand_pressure_v1") is None
+            else load_demand_pressure_package(data["demand_pressure_v1"])
+        ),
         demand_signals=tuple(
             DemandSignal(
                 signal_id=x["signal_id"],
                 unit=x["unit"],
                 values=tuple(AnnualValue(int(y["year"]), float(y["value"])) for y in x["values"]),
             )
-            for x in data["demand_signals"]
+            for x in data.get("demand_signals", ())
         ),
         project_archetypes=tuple(
             ProjectArchetype(
@@ -496,6 +506,11 @@ def _validate_scenario(s: LabScenario, truth: LabTruth) -> None:
             raise ValueError("truth resource has no visible question")
         if not 0 <= resource.grade_index <= 1:
             raise ValueError("invalid truth grade")
+
+    if s.demand_pressure_v1 is not None and s.demand_signals:
+        raise ValueError("demand-pressure-v1 scenario cannot also carry legacy demand signals")
+    if s.demand_pressure_v1 is None and not s.demand_signals:
+        raise ValueError("legacy scenario requires demand signals")
 
     for signal in s.demand_signals:
         years = [x.year for x in signal.values]

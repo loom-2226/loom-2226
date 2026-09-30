@@ -6,11 +6,11 @@ Status: current program register and post-gap handoff plan
 
 ## Authority boundary
 
-This document records the CIVPROP program state through GAP-003 closure.
+This document records the CIVPROP program state through GAP-004 closure.
 
 Authoritative repository basis at creation:
 
-    0700407c68276207732292c9a3bc1fc55b703b42
+    53cca0679f6e2bdd8aa8b3be22b387136bfe1bc3
 
 Machine-readable register:
 
@@ -30,12 +30,12 @@ Current default runtime package:
 
 Current runner/output contract:
 
-    CIVPROP_ENGINE_V1_RUNNER 1.3.0
-    CIVPROP_ENGINE_V1_OUTPUT 1.3.0
+    CIVPROP_ENGINE_V1_RUNNER 1.4.0
+    CIVPROP_ENGINE_V1_OUTPUT 1.4.0
 
 Current engine:
 
-    HYBRID_V1 method-reference-v1
+    HYBRID_V1 method-reference-v2
 
 Current input authority:
 
@@ -68,9 +68,14 @@ GAP-003 is CLOSED. Accessibility V1 now separates qualified Solar geometry,
 scoped provider/service access and decomposed generalized cost while preserving
 FEASIBLE/INFEASIBLE/UNKNOWN. The synthetic default accessibility curves are gone.
 
-The current baseline is still not a forecast because GAP-004 through GAP-015 remain
-open. Demand, project economics and other later mechanisms still contain explicit
-placeholders or missing production mechanisms and materially affect the result. The
+GAP-004 is CLOSED. Demand/Pressure V1 derives off-world requirements from current
+civilization state and explicit scoped commitments, subtracts installed capacity and
+carries unmet demand into decaying unit-preserving pressure. The default annual
+OFFWORLD_* and WATER_RESOURCE_DEMAND curves are gone.
+
+The current baseline is still not a forecast because GAP-005 through GAP-015 remain
+open. The demand coefficients are uncalibrated causal model parameters, project
+economics remain synthetic, and later mechanisms materially affect the result. The
 default seed-42 baseline remains an engineering regression/reference artifact, not a
 2036 prediction or 2226 canon.
 
@@ -109,7 +114,7 @@ A gap may close only when its replacement has:
 | GAP-001 | REAL_INPUT_COMPILER | CLOSED | Preserve compiler boundary; broaden coverage later without semantic drift |
 | GAP-002 | ACTOR_STATE_AND_BUDGETS | CLOSED | Preserve Actor State V1 semantics; proceed without inventing budget or capability |
 | GAP-003 | TRANSPORT_ACCESSIBILITY | CLOSED | Preserve scoped physics/service tri-state semantics; no inferred routes or entitlements |
-| GAP-004 | DEMAND_AND_PRESSURE_MODEL | OPEN | Replace exogenous demand fixtures with causal state-derived demand/pressure |
+| GAP-004 | DEMAND_AND_PRESSURE_MODEL | CLOSED | Preserve state-derived/unit-preserving demand semantics; no authored annual curves |
 | GAP-005 | PROJECT_ECONOMICS | OPEN | Replace synthetic costs/lags/capacity units with versioned parameter sets |
 | GAP-006 | MISSIONS_AND_KNOWLEDGE_UPDATE | OPEN | Integrate prospecting/observation/Bayesian knowledge evolution |
 | GAP-007 | PRESSURE_OBSERVABILITY | OPEN | Emit or reconstruct pressure state and causal components |
@@ -442,7 +447,8 @@ Current frontier:
     GAP-001 CLOSED
     GAP-002 CLOSED
     GAP-003 CLOSED
-    GAP-004 OPEN
+    GAP-004 CLOSED
+    GAP-005 OPEN
 
 GAP-002 removed the compiled-input assumptions:
 
@@ -459,9 +465,18 @@ GAP-003 removed the compiled-input assumption:
 and replaced the default synthetic accessibility curves with Accessibility V1,
 qualified frozen Solar geometry and scoped provider/service evidence.
 
+GAP-004 removed the compiled-input assumption:
+
+    ASSUME-GAP004-DEMAND
+
+and replaced hand-authored annual demand curves with Demand/Pressure V1 state-derived
+requirements, installed-capacity relief and decaying unit-preserving pressure.
+Dynamic pressure remains internal; GAP-007 still owns its observability surface.
+
 The next implementation target is therefore:
 
-    GAP-004 DEMAND_AND_PRESSURE_MODEL
+    GAP-005 PROJECT_ECONOMICS
 
-That work must replace exogenous demand/pressure fixtures without reopening
-GAP-002 actor-state semantics or GAP-003 transport scoping.
+That work must replace synthetic costs, lags and capacity parameterizations without
+reopening GAP-002 actor semantics, GAP-003 accessibility semantics or GAP-004 causal
+demand semantics.

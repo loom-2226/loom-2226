@@ -1,10 +1,14 @@
 """Acceptance tests for the selected CIVPROP Hybrid Engine V1 reference implementation."""
 from __future__ import annotations
 
+from dataclasses import replace
 import inspect
 from pathlib import Path
 import unittest
 
+from engineering.civprop.contracts.demand_pressure_v1 import (
+    load_demand_pressure_package,
+)
 from .contracts import PropagationEngine, canonical_json, load_bundle, validate_result
 from .prototypes.hybrid_v1 import HybridEngineV1
 
@@ -19,6 +23,24 @@ class HybridEngineV1Tests(unittest.TestCase):
 
     def run_seed(self, seed=42):
         return HybridEngineV1().run(self.bundle, seed)
+
+    def causal_bundle(self, *, channel, strategic_requirements=(), locations=None):
+        package = load_demand_pressure_package({
+            "format": "CIVPROP_DEMAND_PRESSURE_V1",
+            "contract_version": "1.0.0",
+            "scope": "NON_EARTH_SURFACE",
+            "excluded_location_ids": ["EARTH_SURFACE"],
+            "parameter_status": "UNCALIBRATED_CAUSAL_MODEL_PARAMETER_V1",
+            "channels": [channel],
+            "strategic_requirements": list(strategic_requirements),
+        })
+        scenario = replace(
+            self.bundle.scenario,
+            demand_pressure_v1=package,
+            demand_signals=(),
+            locations=tuple(locations or self.bundle.scenario.locations),
+        )
+        return replace(self.bundle, scenario=scenario)
 
     def test_implements_common_engine_protocol(self):
         engine = HybridEngineV1()
@@ -106,6 +128,97 @@ class HybridEngineV1Tests(unittest.TestCase):
         self.assertTrue(any(f.location_id != "EARTH_SURFACE" for f in result.facilities))
         self.assertGreater(len(result.decisions), 0)
         self.assertGreater(len(result.events), 0)
+
+    def test_causal_no_demand_produces_no_pressure_qualified_projects(self):
+        locations = [
+            replace(
+                location,
+                transient_population=0.0,
+            )
+            if location.location_id == "EARTH_ORBIT"
+            else location
+            for location in self.bundle.scenario.locations
+        ]
+        bundle = self.causal_bundle(
+            channel={
+                "channel_id": "HABITAT",
+                "unit": "person",
+                "available_field": "habitat",
+                "decay": 0.60,
+                "gain": 1.0,
+                "drivers": [
+                    {"field": "biological_population", "coefficient": 1.0,
+                     "coefficient_unit": "person/person"},
+                    {"field": "transient_population", "coefficient": 1.0,
+                     "coefficient_unit": "person/person"},
+                ],
+            },
+            locations=locations,
+        )
+        result = HybridEngineV1().run(bundle, 42)
+        self.assertEqual(result.metadata.engine_version, "method-reference-v2")
+        self.assertFalse(
+            any(e.event_type == "OPPORTUNITY_PRESSURE_QUALIFIED" for e in result.events)
+        )
+        self.assertFalse(any(d.action == "COMMIT_PROJECT" for d in result.decisions))
+
+    def test_causal_habitat_shortage_accumulates_and_qualifies_habitat(self):
+        bundle = self.causal_bundle(
+            channel={
+                "channel_id": "HABITAT",
+                "unit": "person",
+                "available_field": "habitat",
+                "decay": 0.60,
+                "gain": 1.0,
+                "drivers": [
+                    {"field": "biological_population", "coefficient": 1.0,
+                     "coefficient_unit": "person/person"},
+                    {"field": "transient_population", "coefficient": 1.0,
+                     "coefficient_unit": "person/person"},
+                ],
+            },
+        )
+        result = HybridEngineV1().run(bundle, 42)
+        habitat_commits = [
+            d for d in result.decisions
+            if d.action == "COMMIT_PROJECT"
+            and d.project_archetype_id == "HABITAT"
+            and d.target_location_id == "EARTH_ORBIT"
+        ]
+        self.assertTrue(habitat_commits)
+        self.assertGreaterEqual(habitat_commits[0].year, 2027)
+
+    def test_declared_strategic_requirement_can_qualify_logistics_without_population(self):
+        bundle = self.causal_bundle(
+            channel={
+                "channel_id": "TRANSPORT",
+                "unit": "scenario_capacity_unit",
+                "available_field": "transport",
+                "decay": 0.60,
+                "gain": 1.0,
+                "drivers": [],
+            },
+            strategic_requirements=[{
+                "requirement_id": "DECLARED_ORBIT_LOGISTICS",
+                "actor_id": "LAB_PUBLIC",
+                "location_id": "EARTH_ORBIT",
+                "channel_id": "TRANSPORT",
+                "amount": 20.0,
+                "unit": "scenario_capacity_unit",
+                "valid_from_year": 2026,
+                "valid_to_year": 2026,
+                "provenance_refs": ["test:declared"],
+            }],
+        )
+        result = HybridEngineV1().run(bundle, 42)
+        commits = [
+            d for d in result.decisions
+            if d.action == "COMMIT_PROJECT"
+            and d.project_archetype_id == "LOGISTICS_NODE"
+            and d.target_location_id == "EARTH_ORBIT"
+        ]
+        self.assertTrue(commits)
+        self.assertEqual(commits[0].year, 2026)
 
 
 if __name__ == "__main__":

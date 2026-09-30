@@ -6,10 +6,11 @@ Status: locked executable baseline; compiled authority with explicit open-gap as
 
 ## Current baseline status
 
-Runner V1.3.0 now defaults to the GAP-001/GAP-002/GAP-003 compiled authority package
+Runner V1.4.0 now defaults to the GAP-001 through GAP-004 compiled authority package
 documented in docs/civprop/CIVPROP_INPUT_COMPILER_V1.md,
-docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md and
-docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md.
+docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md,
+docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md and
+docs/civprop/CIVPROP_DEMAND_PRESSURE_V1.md.
 
 The original V1.0 synthetic Method Lab baseline remains preserved as historical
 regression evidence. It was not overwritten.
@@ -23,7 +24,8 @@ Current gap state begins:
     GAP-001 CLOSED
     GAP-002 CLOSED
     GAP-003 CLOSED
-    GAP-004 through GAP-015 OPEN
+    GAP-004 CLOSED
+    GAP-005 through GAP-015 OPEN
 
 ## Purpose
 
@@ -60,7 +62,7 @@ From repository root:
 
     python3 engineering/civprop/run_civprop_v1.py       --seed 42       --output /tmp/civprop_v1.json
 
-With no path arguments, the runner uses the GAP-001/GAP-002/GAP-003 compiled authority package and Infrastructure Archetype V1 catalog.
+With no path arguments, the runner uses the GAP-001 through GAP-004 compiled authority package and Infrastructure Archetype V1 catalog.
 
 The runner may later be pointed at another compatible frozen input package with --input-dir and --infrastructure-catalog.
 
@@ -70,15 +72,15 @@ Changing input values is allowed. Changing input meaning is not allowed silently
 
 Machine-readable manifest:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP3_BASELINE_MANIFEST.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP4_BASELINE_MANIFEST.json
 
 Golden output:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP3_TRANSPORT_ACCESSIBILITY_SEED42.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP4_DEMAND_PRESSURE_SEED42.json
 
 The current baseline contains real promoted authority plus explicit unresolved
 synthetic assumptions. It proves execution, contracts, provenance and causal
-bookkeeping. It is not yet a production forecast because GAP-004 onward remain open.
+bookkeeping. It is not yet a production forecast because GAP-005 onward remain open.
 
 The prior V1.0 synthetic manifest/golden files remain preserved as historical
 regression artifacts.
@@ -90,9 +92,9 @@ The current default input authority is:
     COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1
 
 The compiled package contains frozen promoted Earth, Solar, Timeline, resource and
-actor evidence. It remains non-canon and non-production because demand,
-project economics and other downstream models remain explicit placeholders or
-incomplete mechanisms.
+actor evidence. Demand/Pressure V1 now replaces the default annual demand fixtures,
+but its coefficients remain explicit uncalibrated model parameters. Project economics
+and other downstream models remain placeholders or incomplete mechanisms.
 
 The runner exists so those later gaps can be replaced without redesigning the engine
 entrypoint.
@@ -128,7 +130,7 @@ Meaning: schema/semantic identifier for the frozen scenario payload.
 
 ### fixture_id
 
-Current value: EARTH_ORBIT_LUNA_SYNTHETIC_V1.
+Current value: EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036.
 
 Meaning: identity of the frozen input realization. It is not a world/canon ID.
 
@@ -139,24 +141,28 @@ Fields: start_year, end_year, snapshot_interval_years.
 Current baseline: 2026 through 2036, annual snapshots. The production engine target remains 2026 through 2226.
 ### classification and units
 
-The fixture classification is SYNTHETIC_METHOD_FIXTURE_NOT_CANON_NOT_EMPIRICAL.
+The current classification is COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1.
 
-This prevents fixture quantities from acquiring fake authority.
+This distinguishes promoted/frozen authority from the explicit model assumptions
+still owned by open gaps.
 
-Units include synthetic values such as scenario_credit, scenario_capacity_unit and scenario_cost_index. These are not monetary or engineering units suitable for production use.
+Some remaining units are still synthetic, including scenario_credit and
+scenario_capacity_unit. GAP-005 owns their replacement where they represent project
+economics or infrastructure parameterization. Power is currently represented as
+MW_equivalent and population as person.
 
 ## Actors
 
-Each actor input contains:
+The current compiled actor list contains identity/type only and is paired with
+CIVPROP_ACTOR_STATE_V1.
 
-    actor_id
-    actor_type
-    starting_capital
-    annual_capital_inflow
+For AUS, generic spendable allocation remains UNKNOWN. The observed AUD 42 million
+Roo-ver commitment is preserved as a scoped committed fund and cannot finance
+unrelated CIVPROP projects.
 
-actor_id is stable within the run. actor_type is the bounded preference label used by Method Lab actor weighting. starting_capital and annual_capital_inflow are synthetic spendable run budgets.
-
-Current actor capital is not GDP, national capital stock, government appropriation or observed corporate cash. Production CIVPROP still needs a qualified actor-state/budget bridge.
+Ownership, operation, access/contracts, provider-service access, capability and
+experience remain distinct actor-state surfaces. The default path does not use the
+legacy Method Lab starting_capital or annual_capital_inflow fields.
 
 ## Locations
 
@@ -185,9 +191,11 @@ Current capacity dimensions:
 
 These are logical engine dimensions. Except where later explicitly calibrated, they are not automatically physical MW, tonnes/year, berths/year or equivalent real units.
 
-Current fixture locations are EARTH_SURFACE, EARTH_ORBIT, LUNA_SURFACE and CISLUNAR_FREE_SPACE.
+Current development-slice locations are EARTH_SURFACE, EARTH_ORBIT, LUNA_SURFACE
+and CISLUNAR_FREE_SPACE.
 
-Production CIVPROP must replace these with a compiled Solar/location universe.
+The Earth-Luna slice proves the mechanism. Full production coverage must broaden the
+compiled Solar/location universe before POST-01.
 
 ## Technology frontier
 
@@ -200,30 +208,30 @@ Actor capability/access is separate, preserving the Timeline rule DATE_DOES_NOT_
 
 ## Actor capability
 
-Each row contains actor_id, tech_id, status, valid_from, valid_to and conditions.
+The default compiled path uses Actor State V1 rather than legacy generic
+actor_capability rows.
 
-Current status vocabulary:
-
-    USABLE
-    CONDITIONAL
-    UNUSABLE
-    UNKNOWN
-
-The Hybrid V1 baseline admits a facility opportunity only when required capability resolves to USABLE.
+Capability status remains distinct from provider access or timeline frontier dates.
+A facility opportunity requiring a technology is admitted only when the actor's
+versioned capability state resolves to USABLE.
 
 ## Accessibility
 
-Each profile contains origin_location_id, destination_location_id and annual rows containing year, status and generalized_cost.
+The default compiled path uses CIVPROP_ACCESSIBILITY_V1 rather than annual synthetic
+accessibility profiles.
 
-Current status vocabulary:
+The service preserves:
 
     FEASIBLE
     INFEASIBLE
     UNKNOWN
 
-UNKNOWN is preserved and does not become zero-cost or impossible.
+and separates qualified Solar geometry, scoped provider/service access and
+decomposed generalized cost. Body-center separation is context, not route length.
+UNKNOWN does not become zero cost, impossibility or generic actor entitlement.
 
-For the Method Lab, generalized cost is a synthetic scalar used for opportunity screening. It is not yet a production transport tariff, delta-v, time or risk metric.
+Historical Method Lab accessibility profiles remain supported only for regression
+compatibility.
 ## Resource beliefs
 
 Each current belief contains resource_id, location_id, evidence_status, prior_probability, observation_sensitivity and false_positive_probability.
@@ -234,15 +242,22 @@ The executable baseline does not yet execute prospecting missions or update this
 
 Hidden truth remains prohibited from actor decisions.
 
-## Demand signals
+## Demand / Pressure V1
 
-Current fixture signals include OFFWORLD_TRANSPORT_DEMAND, OFFWORLD_INDUSTRIAL_DEMAND, OFFWORLD_HABITAT_INTEREST and WATER_RESOURCE_DEMAND.
+The default compiled path no longer contains annual demand_signals.
 
-Each contains signal_id, unit and annual year/value pairs.
+Instead it carries CIVPROP_DEMAND_PRESSURE_V1. Requirements are derived from current
+off-world civilization state plus explicit scoped strategic requirements and pending
+project prerequisites. Installed capacity satisfies those requirements; only unmet
+demand adds pressure.
 
-These are deliberate Method Lab fixtures. They are not the production demand model.
+The current channels are HABITAT, TRANSPORT, INDUSTRIAL, RESOURCE and POWER. Each
+channel declares its unit, state drivers, installed-capacity field, pressure gain and
+decay. Current coefficients are UNCALIBRATED_CAUSAL_MODEL_PARAMETER_V1, not empirical
+forecasts.
 
-Production CIVPROP must derive demand/pressure causally from state such as population, production, trade, scarcity, accessibility, infrastructure and strategic commitments.
+Historical Method Lab fixtures retain OFFWORLD_* and WATER_RESOURCE_DEMAND only for
+regression compatibility; the default compiled authority path does not consume them.
 
 ## Runtime project archetypes
 
@@ -294,34 +309,44 @@ Randomness is keyed so unrelated evaluation order should not silently redefine h
 
 # Engine Execution Semantics
 
-For each year Hybrid V1 performs, in order:
+For each year on the default causal path Hybrid V1 performs, in order:
 
     YEAR_STARTED
-    1. replenish actor synthetic capital after the first year
+    1. apply actor-budget events
     2. commission projects whose lag has completed
-    3. decay prior structural pressure
-    4. generate currently feasible opportunities
-    5. add current structural signal to pressure
-    6. pressure-qualify opportunities
-    7. actors rank qualified affordable opportunities
-    8. actors COMMIT_PROJECT or WAIT
-    9. apply bounded source-debited migration
+    3. derive state-driven requirements plus pending-project prerequisites
+    4. subtract installed capacity to obtain unmet demand
+    5. decay prior channel pressure and add current unmet demand
+    6. generate currently feasible opportunities
+    7. pressure-qualify projects against the capacity channels they would add
+    8. actors rank qualified affordable opportunities
+    9. actors COMMIT_PROJECT or WAIT
     10. emit annual location snapshots
     YEAR_COMPLETED
+
+The historical Method Lab path retains its original exogenous-demand and pressure
+logic only for regression compatibility.
 
 At the end of the horizon the runner emits RUN_COMPLETED.
 
 ## Pressure semantics
 
-Pressure represents accumulated structural incentive/need for a location/project pair.
+Pressure represents remembered unmet requirement in a declared channel and therefore
+carries that channel's unit.
 
-Current reference constants are implementation details, not calibrated social laws.
+For the causal path:
 
-Important invariant: pressure decays. A weak positive signal cannot accumulate forever after the underlying condition disappears.
+    pressure[t] = decay * pressure[t-1] + gain * unmet_demand[t]
 
-Pressure alone never creates infrastructure. It must qualify an opportunity, after which an eligible actor still decides whether to commit.
+Capacity relief removes new unmet demand; remembered pressure then decays. The current
+gain/decay coefficients are versioned model parameters, not calibrated social laws.
 
-Pressure values are currently internal. Only qualification events are emitted.
+A project is qualified by comparing channel pressure with the capacity that project
+would add in the same channel. Pressure alone never creates infrastructure: actor
+capability, accessibility, affordability and selection still apply.
+
+Dynamic pressure values remain internal. GAP-007 owns the eventual emitted/replayable
+pressure-state surface.
 
 ## Actor decision semantics
 
@@ -376,20 +401,20 @@ Top-level output fields:
     flows
 
 Current format: CIVPROP_ENGINE_V1_OUTPUT.
-Current contract version: 1.0.0.
+Current contract version: 1.4.0.
 
 ## Metadata
 
-metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.0.0.
+metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.4.0.
 
-metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current engine is HYBRID_V1 / method-reference-v1.
+metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current default engine is HYBRID_V1 / method-reference-v2.
 
 metadata.inputs records fixture_id, scenario_format, Method Lab manifest/bundle hashes, actor-visible scenario hash, runtime input hash, evaluator-truth hash and non-consumption flag, input authority and provenance basis.
 
 method_lab_bundle_sha256 identifies the complete evaluation package. runtime_input_sha256 identifies the actor-visible runtime scenario. They are intentionally separate.
 
 metadata.infrastructure records catalog id/format/hash, parameter-set id/status and parameterized archetypes.
-metadata.implementation pins SHA-256 values for the runner, hybrid engine, shared helpers, Method Lab contracts and infrastructure contract.
+metadata.implementation pins SHA-256 values for the runner, hybrid engine, shared helpers, Method Lab contracts, infrastructure, actor-state, accessibility and demand/pressure contracts.
 
 The purpose is reproducibility independent of a vague statement such as "current main."
 
@@ -470,7 +495,7 @@ Current gap status:
     GAP-001 REAL_INPUT_COMPILER                    CLOSED
     GAP-002 ACTOR_STATE_AND_BUDGETS               CLOSED
     GAP-003 TRANSPORT_ACCESSIBILITY               CLOSED
-    GAP-004 DEMAND_AND_PRESSURE_MODEL              OPEN
+    GAP-004 DEMAND_AND_PRESSURE_MODEL              CLOSED
     GAP-005 PROJECT_ECONOMICS                      OPEN
     GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE          OPEN
     GAP-007 PRESSURE_OBSERVABILITY                 OPEN
@@ -493,7 +518,7 @@ for a more complete simulation than it is.
 
 # Golden Seed-42 Baseline
 
-The current GAP-003 transport-accessibility seed-42 baseline produces:
+The current GAP-004 demand/pressure seed-42 baseline produces:
 
     44 annual location-state rows
     11 annual actor-state rows
@@ -503,11 +528,14 @@ The current GAP-003 transport-accessibility seed-42 baseline produces:
     35 events
     0 migration flows
 
-All 11 current actor decisions are WAIT. Generic AUS spendable allocation remains
-UNKNOWN, and generic project deployments no longer inherit the removed synthetic
-accessibility curves. The disappearance of the prior ten migration flows is the
-intended consequence of removing those curves, not a forecast that migration or
-off-world capability will never develop.
+All 11 current actor decisions are WAIT. The causal model nevertheless derives
+real internal unmet state requirement: at the 2026 Earth-orbit boundary, habitat
+requirement is 200 persons versus 50 capacity, and resource requirement is 2 model
+capacity units versus zero. Actors still cannot turn that need into generic projects
+because other actor/accessibility/budget constraints remain unsatisfied.
+
+Zero facilities therefore does not mean zero demand. It means need is no longer being
+confused with ability to act.
 
 No significance should be attached to those numbers as a forecast.
 
@@ -516,7 +544,7 @@ result from the same pinned inputs, implementation and seed?
 
 # Baseline Metadata and Hashes
 
-Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP3_BASELINE_MANIFEST.json. GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
+Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP4_BASELINE_MANIFEST.json. GAP-003, GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
 
 The manifest pins source-basis commit, runner and engine identities, output-contract version, runtime-input and evaluator-truth hashes, infrastructure catalog and parameter set, implementation source hashes, golden-output hashes/counts, and change-control rules.
 # Change Control

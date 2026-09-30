@@ -317,7 +317,7 @@ def capture_live_authority(
         "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
         "captured_for_gap": (
             "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS"
-            "_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY"
+            "_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE"
         ),
         "capture_semantics": (
             "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES"
@@ -365,15 +365,6 @@ def capture_live_authority(
 
 def _assumption_register() -> list[dict[str, str]]:
     return [
-        {
-            "assumption_id": "ASSUME-GAP004-DEMAND",
-            "gap_id": "GAP-004",
-            "status": "EXPLICIT_PLACEHOLDER",
-            "semantics": (
-                "Transport, industrial, habitat-interest and water demand series are "
-                "the existing Method Lab exogenous synthetic signals."
-            ),
-        },
         {
             "assumption_id": "ASSUME-GAP005-PROJECT-ECONOMICS",
             "gap_id": "GAP-005",
@@ -677,6 +668,108 @@ def _compile_accessibility(capture: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _compile_demand_pressure() -> dict[str, Any]:
+    """Compile causal stock-flow demand/pressure parameters; no annual demand curves."""
+    return {
+        "format": "CIVPROP_DEMAND_PRESSURE_V1",
+        "contract_version": "1.0.0",
+        "scope": "NON_EARTH_SURFACE",
+        "excluded_location_ids": ["EARTH_SURFACE"],
+        "parameter_status": "UNCALIBRATED_CAUSAL_MODEL_PARAMETER_V1",
+        "channels": [
+            {
+                "channel_id": "HABITAT",
+                "unit": "person",
+                "available_field": "habitat",
+                "decay": 0.60,
+                "gain": 0.24,
+                "drivers": [
+                    {
+                        "field": "biological_population",
+                        "coefficient": 1.0,
+                        "coefficient_unit": "person/person",
+                    },
+                    {
+                        "field": "transient_population",
+                        "coefficient": 1.0,
+                        "coefficient_unit": "person/person",
+                    },
+                ],
+            },
+            {
+                "channel_id": "TRANSPORT",
+                "unit": "scenario_capacity_unit",
+                "available_field": "transport",
+                "decay": 0.60,
+                "gain": 0.24,
+                "drivers": [
+                    {
+                        "field": "transient_population",
+                        "coefficient": 0.04,
+                        "coefficient_unit": "scenario_capacity_unit/person",
+                    }
+                ],
+            },
+            {
+                "channel_id": "INDUSTRIAL",
+                "unit": "scenario_capacity_unit",
+                "available_field": "industrial",
+                "decay": 0.60,
+                "gain": 0.24,
+                "drivers": [
+                    {
+                        "field": "workforce",
+                        "coefficient": 0.04,
+                        "coefficient_unit": "scenario_capacity_unit/person",
+                    }
+                ],
+            },
+            {
+                "channel_id": "RESOURCE",
+                "unit": "scenario_capacity_unit",
+                "available_field": "resource",
+                "decay": 0.60,
+                "gain": 0.24,
+                "drivers": [
+                    {
+                        "field": "biological_population",
+                        "coefficient": 0.01,
+                        "coefficient_unit": "scenario_capacity_unit/person",
+                    },
+                    {
+                        "field": "transient_population",
+                        "coefficient": 0.01,
+                        "coefficient_unit": "scenario_capacity_unit/person",
+                    },
+                ],
+            },
+            {
+                "channel_id": "POWER",
+                "unit": "MW_equivalent",
+                "available_field": "power",
+                "decay": 0.60,
+                "gain": 0.24,
+                "drivers": [
+                    {
+                        "field": "biological_population",
+                        "coefficient": 0.025,
+                        "coefficient_unit": "MW_equivalent/person",
+                    },
+                    {
+                        "field": "transient_population",
+                        "coefficient": 0.025,
+                        "coefficient_unit": "MW_equivalent/person",
+                    },
+                ],
+            },
+        ],
+        # Real commitments are not assigned numeric infrastructure requirements
+        # unless the admitted evidence actually supplies one. Roo-ver therefore
+        # does not silently become generic logistics demand.
+        "strategic_requirements": [],
+    }
+
+
 def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     base = json.loads((METHOD_LAB_DIR / "scenario_v1.json").read_text())
     scenario = copy.deepcopy(base)
@@ -702,6 +795,8 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     scenario["actor_capability"] = []
     scenario["accessibility_v1"] = _compile_accessibility(capture)
     scenario.pop("accessibility", None)
+    scenario["demand_pressure_v1"] = _compile_demand_pressure()
+    scenario.pop("demand_signals", None)
 
     belief = copy.deepcopy(base["resource_beliefs"][0])
     belief["evidence_status"] = "EMPIRICAL_PRESENCE_PLUS_SCENARIO_PRIOR"
@@ -714,6 +809,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
                 "GAP-001": "CLOSED",
                 "GAP-002": "CLOSED",
                 "GAP-003": "CLOSED",
+                "GAP-004": "CLOSED",
             },
             "compatibility_envelope": (
                 "CIVPROP_METHOD_LAB_SCENARIO_V1 retained for locked runner compatibility"
@@ -800,10 +896,11 @@ def compile_from_capture(
     gap_resolution["GAP-001"] = "CLOSED"
     gap_resolution["GAP-002"] = "CLOSED"
     gap_resolution["GAP-003"] = "CLOSED"
+    gap_resolution["GAP-004"] = "CLOSED"
     compiler_manifest = {
         "format": COMPILER_MANIFEST_FORMAT,
         "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-        "compiler_version": "1.2.0",
+        "compiler_version": "1.3.0",
         "compiler_source_sha256": _sha256_path(HERE / "compile_inputs_v1.py"),
         "runtime_input": {
             "fixture_id": COMPILED_FIXTURE_ID,
@@ -859,11 +956,17 @@ def compile_from_capture(
                 "and exposes decomposed physical/service quantities without treating body-center "
                 "separation as route length. The default synthetic accessibility table is removed."
             ),
+            "gap4_closed_means": (
+                "Demand/Pressure V1 derives requirements from current civilization stocks plus "
+                "explicit scoped strategic requirements, compares them with installed capacity, "
+                "and carries unmet demand into decaying pressure in the same channel unit. The "
+                "default OFFWORLD_* and WATER_RESOURCE_DEMAND annual fixture curves are removed."
+            ),
             "does_not_mean": (
                 "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample "
                 "is a route, transfer solution, fleet allocation, service price, or actor entitlement; "
-                "demand, project economics, hidden truth, off-world initial infrastructure, or "
-                "demographic depth are production solved."
+                "the uncalibrated demand coefficients are empirical forecasts; project economics, "
+                "hidden truth, off-world initial infrastructure, or demographic depth are production solved."
             ),
         },
     }
@@ -897,6 +1000,7 @@ def main() -> None:
                 "gap_001": manifest["gap_resolution"]["GAP-001"],
                 "gap_002": manifest["gap_resolution"]["GAP-002"],
                 "gap_003": manifest["gap_resolution"]["GAP-003"],
+                "gap_004": manifest["gap_resolution"]["GAP-004"],
                 "output_dir": str(args.output_dir),
             },
             indent=2,
