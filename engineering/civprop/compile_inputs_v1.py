@@ -6,12 +6,12 @@ The compiler does two distinct things:
 1. capture promoted/read-only authority into one frozen evidence artifact;
 2. compile that frozen artifact into the currently locked CIVPROP runner envelope.
 
-It intentionally does NOT solve later gaps. Where the engine still requires a value
-whose production semantics belong to GAP-002+ (budgets, accessibility, demand,
-project economics, etc.), the compiler carries forward the existing Method Lab
-fixture value and registers it explicitly as an assumption.
+GAP-002 adds a versioned actor-state boundary: real scoped AUS evidence is mapped
+where semantics match, generic spendable allocation remains UNKNOWN, and the old
+scenario-credit/generic-capability placeholders are removed. GAP-003+ compatibility
+values remain explicit assumptions owned by their registered gaps.
 
-This lets us replace ad-hoc input assembly without laundering unresolved model
+This keeps input assembly deterministic without laundering unresolved model
 assumptions into authority.
 """
 from __future__ import annotations
@@ -44,6 +44,7 @@ CANONICAL_CAPTURE_REPO_PATH = "engineering/civprop/inputs/authority_capture_v1.j
 
 RESOURCE_PATH = REPO_ROOT / "dev/solar_civprop_m4b/campaign_assertions.json"
 FLEET_ACCESS_PATH = HERE / "civprop0/actor_access_evidence.json"
+AUS_GOV_ACCESS_PATH = HERE / "civprop0/aus_government_access_evidence.json"
 ROOVER_PATH = HERE / "civprop0/roover_service_envelope.json"
 
 
@@ -227,11 +228,13 @@ def capture_live_authority(
         if x["key"] == "MOON_POLAR_WATER_ICE"
     )
     fleet_access = json.loads(FLEET_ACCESS_PATH.read_text())
+    aus_government_access = json.loads(AUS_GOV_ACCESS_PATH.read_text())
     roover = json.loads(ROOVER_PATH.read_text())
 
     source_paths = [
         RESOURCE_PATH,
         FLEET_ACCESS_PATH,
+        AUS_GOV_ACCESS_PATH,
         ROOVER_PATH,
         METHOD_LAB_DIR / "scenario_v1.json",
         METHOD_LAB_DIR / "truth_v1.json",
@@ -285,9 +288,11 @@ def capture_live_authority(
         "actor": {
             "earth_area": rows["aus_area"][0],
             "fleet_access": fleet_access,
+            "aus_government_access": aus_government_access,
             "roover_service": roover,
             "source_paths": {
                 "fleet_access": str(FLEET_ACCESS_PATH.relative_to(REPO_ROOT)),
+                "aus_government_access": str(AUS_GOV_ACCESS_PATH.relative_to(REPO_ROOT)),
                 "roover_service": str(ROOVER_PATH.relative_to(REPO_ROOT)),
             },
         },
@@ -298,26 +303,6 @@ def capture_live_authority(
 
 def _assumption_register() -> list[dict[str, str]]:
     return [
-        {
-            "assumption_id": "ASSUME-GAP002-AUS-BUDGET",
-            "gap_id": "GAP-002",
-            "status": "EXPLICIT_PLACEHOLDER",
-            "semantics": (
-                "AUS starting_capital=70 and annual_capital_inflow=8 scenario_credit "
-                "are copied from the Method Lab public-financier fixture; they are not "
-                "Australian government spending, GDP, investment, or observed cash."
-            ),
-        },
-        {
-            "assumption_id": "ASSUME-GAP002-AUS-CAPABILITIES",
-            "gap_id": "GAP-002",
-            "status": "EXPLICIT_PLACEHOLDER",
-            "semantics": (
-                "Generic engine technology statuses are copied from the Method Lab "
-                "public actor and relabeled AUS. Real Roo-ver/Fleet evidence is "
-                "preserved separately and does not grant generic capability."
-            ),
-        },
         {
             "assumption_id": "ASSUME-GAP003-ACCESSIBILITY",
             "gap_id": "GAP-003",
@@ -377,6 +362,163 @@ def _assumption_register() -> list[dict[str, str]]:
     ]
 
 
+def _compile_actor_state(capture: dict[str, Any]) -> dict[str, Any]:
+    """Compile only actor facts supported by admitted AUS evidence; unknowns stay unknown."""
+    actor = capture["actor"]
+    government = actor["aus_government_access"]["case"]
+    roover = actor["roover_service"]
+    source_ids = [x["id"] for x in government["sources"]]
+    area = actor["earth_area"]
+
+    return {
+        "format": "CIVPROP_ACTOR_STATE_V1",
+        "contract_version": "1.0.0",
+        "as_of_year": START_YEAR,
+        "actors": [
+            {
+                "actor_id": "AUS",
+                "actor_type": "STATE",
+                "identity": {
+                    "display_name": area["display_name"],
+                    "provenance_refs": [
+                        f"loom_earth:{area['snapshot_id']}:earth_area:AUS"
+                    ],
+                },
+                "budget": {
+                    "spendable_allocation": {
+                        "status": "UNKNOWN",
+                        "amount": None,
+                        "unit": None,
+                        "scope": "GENERAL_CIVPROP_PROJECT_DECISION_BUDGET",
+                        "provenance_refs": [],
+                    },
+                    "committed_funds": [
+                        {
+                            "commitment_id": "AUS_ROOVER_42M_COMMITMENT",
+                            "status": "OBSERVED_COMMITTED",
+                            "amount": 42000000,
+                            "unit": "AUD",
+                            "scope": "ROO_VER_DEVELOPMENT_BUILD_OPERATION",
+                            "provenance_refs": [
+                                "AUS_GOV_2025_08_29_ROO_VER_MISSION"
+                            ],
+                        }
+                    ],
+                },
+                "ownership": {"status": "UNKNOWN", "records": []},
+                "operation": {
+                    "status": "KNOWN_RECORDS",
+                    "records": [
+                        {
+                            "record_id": "AUS_ROOVER_OPERATION_RELATIONSHIP",
+                            "subject_id": "ROO_VER",
+                            "status": "OBSERVED_OPERATOR_RELATIONSHIP",
+                            "scope": "ROO_VER_DEVELOPMENT_AND_REMOTE_SURFACE_OPERATION",
+                            "counterparty_id": "ELO2",
+                            "valid_from": 2025,
+                            "valid_to": None,
+                            "provenance_refs": [
+                                "AUS_GOV_2025_08_29_ROO_VER_MISSION"
+                            ],
+                        }
+                    ],
+                },
+                "access_rights": {
+                    "status": "KNOWN_RECORDS",
+                    "records": [
+                        {
+                            "record_id": "AUS_ROOVER_CLPS_ACCESS",
+                            "subject_id": "ROO_VER",
+                            "status": "OBSERVED_SCOPED_ACCESS",
+                            "scope": government["scope"],
+                            "counterparty_id": government["partner_id"],
+                            "provider_id": government["provider_id"],
+                            "capability_id": government["capability"],
+                            "valid_from": int(government["observed_from"][:4]),
+                            "valid_to": None,
+                            "provenance_refs": source_ids,
+                        }
+                    ],
+                },
+                "contracts": {
+                    "status": "KNOWN_RECORDS",
+                    "records": [
+                        {
+                            "record_id": "AUS_NASA_ROVER_AGREEMENT",
+                            "subject_id": "ROO_VER",
+                            "status": "OBSERVED_ROVER_SPECIFIC_AGREEMENT",
+                            "scope": "ROVER_SPECIFIC_FUTURE_LUNAR_MISSION",
+                            "counterparty_id": "NASA",
+                            "valid_from": 2021,
+                            "valid_to": None,
+                            "provenance_refs": [
+                                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT"
+                            ],
+                        }
+                    ],
+                },
+                "provider_service_access": {
+                    "status": "KNOWN_RECORDS",
+                    "records": [
+                        {
+                            "record_id": "AUS_ROOVER_IM5_PROVIDER_PATH",
+                            "subject_id": roover["payload_id"],
+                            "status": "OBSERVED_INDIRECT_PROVIDER_SERVICE_PATH",
+                            "scope": roover["service_path"],
+                            "counterparty_id": "NASA",
+                            "provider_id": government["provider_id"],
+                            "capability_id": government["capability"],
+                            "valid_from": START_YEAR,
+                            "valid_to": None,
+                            "provenance_refs": source_ids,
+                            "target_landing_year": roover["target_landing_year"],
+                        }
+                    ],
+                },
+                "installed_capability": {"status": "UNKNOWN", "records": []},
+                "acquired_capability": {"status": "UNKNOWN", "records": []},
+                "experience": {
+                    "status": "KNOWN_RECORDS",
+                    "records": [
+                        {
+                            "record_id": "AUS_ROOVER_2026_TESTING",
+                            "subject_id": "ROO_VER",
+                            "status": "OBSERVED_DEVELOPMENT_TESTING",
+                            "scope": "TERRESTRIAL_ROVER_MOBILITY_AND_INTEGRATION_TESTING",
+                            "counterparty_id": "ELO2",
+                            "valid_from": START_YEAR,
+                            "valid_to": None,
+                            "provenance_refs": [
+                                "ASA_2026_08_13_ROO_VER_TESTING"
+                            ],
+                        }
+                    ],
+                },
+                "owned_infrastructure": {"status": "UNKNOWN", "records": []},
+                "relationships": {
+                    "status": "KNOWN_RECORDS",
+                    "records": [
+                        {
+                            "record_id": "AUS_NASA_ROOVER_PARTNERSHIP",
+                            "subject_id": "ROO_VER",
+                            "status": "OBSERVED_MISSION_PARTNERSHIP",
+                            "scope": "ROO_VER_CLPS_CT4",
+                            "counterparty_id": "NASA",
+                            "valid_from": 2021,
+                            "valid_to": None,
+                            "provenance_refs": [
+                                "NASA_2021_10_12_AUSTRALIA_ROVER_AGREEMENT",
+                                "NASA_2026_03_27_CLPS_CT4_ROO_VER",
+                            ],
+                        }
+                    ],
+                },
+            }
+        ],
+        "events": [],
+    }
+
+
 def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     base = json.loads((METHOD_LAB_DIR / "scenario_v1.json").read_text())
     scenario = copy.deepcopy(base)
@@ -397,26 +539,9 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
         "biological_population"
     ]
 
-    public_fixture = next(
-        x for x in base["actors"] if x["actor_id"] == "LAB_PUBLIC"
-    )
-    scenario["actors"] = [
-        {
-            "actor_id": "AUS",
-            "actor_type": "PUBLIC_FINANCIER",
-            "starting_capital": public_fixture["starting_capital"],
-            "annual_capital_inflow": public_fixture["annual_capital_inflow"],
-        }
-    ]
-
-    scenario["actor_capability"] = [
-        {
-            **row,
-            "actor_id": "AUS",
-        }
-        for row in base["actor_capability"]
-        if row["actor_id"] == "LAB_PUBLIC"
-    ]
+    scenario["actors"] = [{"actor_id": "AUS", "actor_type": "STATE"}]
+    scenario["actor_state_v1"] = _compile_actor_state(capture)
+    scenario["actor_capability"] = []
 
     belief = copy.deepcopy(base["resource_beliefs"][0])
     belief["evidence_status"] = "EMPIRICAL_PRESENCE_PLUS_SCENARIO_PRIOR"
@@ -425,7 +550,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     scenario["authority_context"] = {
         "compiler": {
             "compiler_contract": "CIVPROP_INPUT_COMPILER_V1",
-            "gap_resolution": {"GAP-001": "CLOSED"},
+            "gap_resolution": {"GAP-001": "CLOSED", "GAP-002": "CLOSED"},
             "compatibility_envelope": (
                 "CIVPROP_METHOD_LAB_SCENARIO_V1 retained for locked runner compatibility"
             ),
@@ -508,10 +633,11 @@ def compile_from_capture(
 
     gap_resolution = {f"GAP-{i:03d}": "OPEN" for i in range(1, 16)}
     gap_resolution["GAP-001"] = "CLOSED"
+    gap_resolution["GAP-002"] = "CLOSED"
     compiler_manifest = {
         "format": COMPILER_MANIFEST_FORMAT,
         "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-        "compiler_version": "1.0.0",
+        "compiler_version": "1.1.0",
         "compiler_source_sha256": _sha256_path(HERE / "compile_inputs_v1.py"),
         "runtime_input": {
             "fixture_id": COMPILED_FIXTURE_ID,
@@ -555,9 +681,16 @@ def compile_from_capture(
                 "read-only, frozen with hashes, and deterministically compiled into the "
                 "locked runner envelope. Other open gaps remain explicit placeholders."
             ),
+            "gap2_closed_means": (
+                "A versioned Actor State V1 separates identity, scoped rights/contracts, "
+                "provider access, capability, experience and finance. AUS generic spendable "
+                "allocation is explicitly UNKNOWN; the observed AUD 42 million Roo-ver "
+                "commitment remains scoped and cannot fund generic CIVPROP projects."
+            ),
             "does_not_mean": (
-                "Budgets, accessibility, demand, project economics, hidden truth, "
-                "off-world initial infrastructure, or demographic depth are production solved."
+                "An UNKNOWN allocation is zero or an inferred government budget; accessibility, "
+                "demand, project economics, hidden truth, off-world initial infrastructure, "
+                "or demographic depth are production solved."
             ),
         },
     }
@@ -589,6 +722,7 @@ def main() -> None:
                 "fixture_id": manifest["runtime_input"]["fixture_id"],
                 "runtime_input_sha256": manifest["runtime_input"]["scenario_sha256"],
                 "gap_001": manifest["gap_resolution"]["GAP-001"],
+                "gap_002": manifest["gap_resolution"]["GAP-002"],
                 "output_dir": str(args.output_dir),
             },
             indent=2,

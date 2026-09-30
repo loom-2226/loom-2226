@@ -1,18 +1,6 @@
 {
   "assumption_register": [
     {
-      "assumption_id": "ASSUME-GAP002-AUS-BUDGET",
-      "gap_id": "GAP-002",
-      "semantics": "AUS starting_capital=70 and annual_capital_inflow=8 scenario_credit are copied from the Method Lab public-financier fixture; they are not Australian government spending, GDP, investment, or observed cash.",
-      "status": "EXPLICIT_PLACEHOLDER"
-    },
-    {
-      "assumption_id": "ASSUME-GAP002-AUS-CAPABILITIES",
-      "gap_id": "GAP-002",
-      "semantics": "Generic engine technology statuses are copied from the Method Lab public actor and relabeled AUS. Real Roo-ver/Fleet evidence is preserved separately and does not grant generic capability.",
-      "status": "EXPLICIT_PLACEHOLDER"
-    },
-    {
       "assumption_id": "ASSUME-GAP003-ACCESSIBILITY",
       "gap_id": "GAP-003",
       "semantics": "Origin/destination FEASIBLE/UNKNOWN series and generalized_cost are the existing Method Lab synthetic transport fixture.",
@@ -52,16 +40,16 @@
   "authority_capture": {
     "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
     "path": "engineering/civprop/inputs/authority_capture_v1.json",
-    "sha256": "26a5b49fe2027cc241994afd81e2680ee6bae06c5100c74604a90af6e9e1ccdf",
+    "sha256": "743a64011f4ca6890aa35161d9548a834e8cdad9d5ae9ec1a3ac996c3c6ea96c",
     "source_basis_commit": "99dadcfb4276471c29aa3bf52650d0584ef03038"
   },
   "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-  "compiler_source_sha256": "a0642300326ad312c37485510fed7a7195e9741cf44e2d08f57373bfd804698e",
-  "compiler_version": "1.0.0",
+  "compiler_source_sha256": "3bc4722bcde6ce11f5b89bc1c6a3f28bc271619e4a318f68d598f91faa906dce",
+  "compiler_version": "1.1.0",
   "format": "CIVPROP_INPUT_COMPILER_MANIFEST_V1",
   "gap_resolution": {
     "GAP-001": "CLOSED",
-    "GAP-002": "OPEN",
+    "GAP-002": "CLOSED",
     "GAP-003": "OPEN",
     "GAP-004": "OPEN",
     "GAP-005": "OPEN",
@@ -77,8 +65,8 @@
     "GAP-015": "OPEN"
   },
   "package_files": {
-    "manifest_v1.json": "c3d5f9b2d63fba8068828c1e838616e550b327f3cf3f386ea4414b024441f6ff",
-    "scenario_v1.json": "8de25d1c03201dd6f5f5fcc44fd694f04a79310154f91c7220ca16adb5c4b7be",
+    "manifest_v1.json": "ae73eac9500c53d9e593c7c622cddda1b3f7dceb9bf0e101d2d6a1d59b39052f",
+    "scenario_v1.json": "8fc1abc05f44b296794f503f40e576e5a58aaf2530e4237cef164bc34abdb0f3",
     "truth_v1.json": "e3acab39409c3451acf2c18d285e0fb3228b837987072cae60eb44d983748aaa"
   },
   "postgres_query_sha256": {
@@ -97,14 +85,15 @@
   },
   "runtime_input": {
     "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "bundle_sha256": "91e4667c8929b91670e385eb5e55774f689f1fe76a9551c6e5ff9f18a3a9ba42",
+    "bundle_sha256": "eda188942cec2f934ce819e12275177655618c4606e279c35be60553a12cfd64",
     "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "scenario_format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
-    "scenario_sha256": "8de25d1c03201dd6f5f5fcc44fd694f04a79310154f91c7220ca16adb5c4b7be"
+    "scenario_sha256": "8fc1abc05f44b296794f503f40e576e5a58aaf2530e4237cef164bc34abdb0f3"
   },
   "semantics": {
-    "does_not_mean": "Budgets, accessibility, demand, project economics, hidden truth, off-world initial infrastructure, or demographic depth are production solved.",
-    "gap1_closed_means": "Promoted Earth/Solar/Timeline/resource/actor authority is captured read-only, frozen with hashes, and deterministically compiled into the locked runner envelope. Other open gaps remain explicit placeholders."
+    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; accessibility, demand, project economics, hidden truth, off-world initial infrastructure, or demographic depth are production solved.",
+    "gap1_closed_means": "Promoted Earth/Solar/Timeline/resource/actor authority is captured read-only, frozen with hashes, and deterministically compiled into the locked runner envelope. Other open gaps remain explicit placeholders.",
+    "gap2_closed_means": "A versioned Actor State V1 separates identity, scoped rights/contracts, provider access, capability, experience and finance. AUS generic spendable allocation is explicitly UNKNOWN; the observed AUD 42 million Roo-ver commitment remains scoped and cannot fund generic CIVPROP projects."
   },
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
@@ -112,6 +101,7 @@
     "dev/solar_civprop_m4b/campaign_assertions.json": "e87eb9f711ce508933e76c86a1d9f4314a13d6d4403940d21fa25cf6da700c39",
     "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
     "engineering/civprop/civprop0/actor_access_evidence.json": "16581d2ad6eec747f4576d7dc836f00d24864683bba0431dc97c04360e15085d",
+    "engineering/civprop/civprop0/aus_government_access_evidence.json": "2e9ebc2f6d497d42d74baea504cec45ba16922ea2d554940a5142b1d53ef60ce",
     "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
     "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951"

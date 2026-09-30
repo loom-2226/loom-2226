@@ -20,9 +20,9 @@ from .run_civprop_v1 import (
 
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
-GOLDEN = HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP1_COMPILED_SEED42.json"
+GOLDEN = HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP2_ACTOR_STATE_SEED42.json"
 BASELINE_MANIFEST = (
-    HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP1_BASELINE_MANIFEST.json"
+    HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP2_BASELINE_MANIFEST.json"
 )
 
 
@@ -42,10 +42,20 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
         self.assertEqual(output["metadata"]["runner"]["id"], RUNNER_ID)
         self.assertEqual(output["metadata"]["runner"]["version"], RUNNER_VERSION)
         self.assertEqual(output["metadata"]["engine"]["id"], "HYBRID_V1")
-        for key in ("annual_states", "facilities", "decisions", "events", "flows"):
+        for key in (
+            "actor_state_boundary",
+            "actor_states",
+            "actor_transactions",
+            "actor_state_events",
+            "annual_states",
+            "facilities",
+            "decisions",
+            "events",
+            "flows",
+        ):
             self.assertIn(key, output)
+        self.assertTrue(output["actor_states"])
         self.assertTrue(output["annual_states"])
-        self.assertTrue(output["facilities"])
         self.assertTrue(output["decisions"])
         self.assertTrue(output["events"])
 
@@ -70,7 +80,15 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
         payload = json.dumps(
             {
                 key: self.output[key]
-                for key in ("annual_states", "facilities", "decisions", "events", "flows")
+                for key in (
+                    "actor_states",
+                    "actor_transactions",
+                    "annual_states",
+                    "facilities",
+                    "decisions",
+                    "events",
+                    "flows",
+                )
             },
             sort_keys=True,
         )
@@ -102,10 +120,10 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
             },
         )
 
-    def test_gap1_is_closed_in_default_output_only(self):
+    def test_gap1_and_gap2_are_closed_in_default_output(self):
         statuses = {x["gap_id"]: x["status"] for x in self.output["known_gaps"]}
         self.assertEqual(statuses["GAP-001"], "CLOSED")
-        self.assertEqual(statuses["GAP-002"], "OPEN")
+        self.assertEqual(statuses["GAP-002"], "CLOSED")
         self.assertEqual(statuses["GAP-003"], "OPEN")
         self.assertEqual(statuses["GAP-004"], "OPEN")
         self.assertEqual(statuses["GAP-005"], "OPEN")
@@ -113,8 +131,9 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
     def test_default_input_has_compiler_provenance(self):
         compiler = self.output["metadata"]["inputs"]["compiler"]
         self.assertEqual(compiler["compiler_id"], "CIVPROP_INPUT_COMPILER_V1")
-        self.assertEqual(compiler["compiler_version"], "1.0.0")
+        self.assertEqual(compiler["compiler_version"], "1.1.0")
         self.assertEqual(compiler["gap_resolution"]["GAP-001"], "CLOSED")
+        self.assertEqual(compiler["gap_resolution"]["GAP-002"], "CLOSED")
         self.assertEqual(len(compiler["manifest_sha256"]), 64)
 
     def test_semantics_are_explicit_not_implied(self):
@@ -139,6 +158,36 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
             semantics["atlas_role"],
             "ENGINE_STATE_NOT_FINAL_ATLAS_MATERIALIZATION",
         )
+        self.assertEqual(
+            semantics["actor_budget_output"],
+            "ANNUAL_ACTOR_STATE_WITH_REPLAYABLE_TRANSACTIONS",
+        )
+
+    def test_gap2_actor_state_preserves_unknown_and_no_generic_capability_unlock(self):
+        states = [x for x in self.output["actor_states"] if x["actor_id"] == "AUS"]
+        self.assertEqual(len(states), 11)
+        self.assertTrue(all(x["spendable_allocation"]["status"] == "UNKNOWN" for x in states))
+        self.assertTrue(all(x["spendable_allocation"]["amount"] is None for x in states))
+        boundary = self.output["actor_state_boundary"]["actors"][0]
+        self.assertEqual(
+            boundary["budget"]["spendable_allocation"]["status"], "UNKNOWN"
+        )
+        self.assertEqual(
+            boundary["budget"]["committed_funds"][0]["amount"], 42000000.0
+        )
+        self.assertEqual(
+            boundary["budget"]["committed_funds"][0]["unit"], "AUD"
+        )
+        self.assertEqual(boundary["ownership"]["status"], "UNKNOWN")
+        self.assertEqual(boundary["access_rights"]["status"], "KNOWN_RECORDS")
+        self.assertEqual(boundary["installed_capability"]["status"], "UNKNOWN")
+        self.assertEqual(self.output["actor_state_events"], [])
+        self.assertEqual(self.output["actor_transactions"], [])
+        self.assertEqual(self.output["facilities"], [])
+        self.assertTrue(all(x["action"] == "WAIT" for x in self.output["decisions"]))
+        self.assertTrue(
+            all("SPENDABLE_ALLOCATION_UNKNOWN" in x["rationale_codes"] for x in self.output["decisions"])
+        )
 
     def test_implementation_fingerprint_pins_code(self):
         impl = self.output["metadata"]["implementation"]
@@ -150,6 +199,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
                 "common_helpers_sha256",
                 "method_lab_contracts_sha256",
                 "infrastructure_contract_sha256",
+                "actor_state_contract_sha256",
             },
         )
         for value in impl.values():
@@ -192,7 +242,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
     def test_baseline_manifest_pins_golden_output_and_runtime_contract(self):
         manifest = json.loads(BASELINE_MANIFEST.read_text())
         self.assertEqual(manifest["format"], "CIVPROP_ENGINE_V1_EXECUTABLE_BASELINE_MANIFEST")
-        self.assertEqual(manifest["baseline_id"], "CIVPROP_ENGINE_V1_GAP1_COMPILED_BASELINE_2026_09_30")
+        self.assertEqual(manifest["baseline_id"], "CIVPROP_ENGINE_V1_GAP2_ACTOR_STATE_BASELINE_2026_09_30")
         self.assertEqual(manifest["runner"]["version"], RUNNER_VERSION)
         self.assertEqual(manifest["output_contract_version"], OUTPUT_CONTRACT_VERSION)
         self.assertEqual(

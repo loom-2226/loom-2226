@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-Runner V1.1 keeps the selected HYBRID_V1 propagation semantics and switches the
-default runtime input to the GAP-001 compiled authority package. Later gaps remain
-explicitly open inside that package rather than being silently invented here.
+Runner V1.2 keeps the selected HYBRID_V1 propagation semantics, retains the GAP-001
+compiled authority path, and adds the GAP-002 Actor State V1 boundary. Later gaps
+remain explicit rather than being silently invented here.
 """
 from __future__ import annotations
 
@@ -33,9 +33,9 @@ from engineering.civprop.method_lab.prototypes.hybrid_v1 import HybridEngineV1
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.1.0"
+OUTPUT_CONTRACT_VERSION = "1.2.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.1.0"
+RUNNER_VERSION = "1.2.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
 
 
@@ -104,7 +104,7 @@ def _validate_infrastructure_crosswalk(bundle, catalog) -> list[str]:
 
 
 def _implementation_hashes() -> dict[str, str]:
-    from engineering.civprop.contracts import infrastructure_v1
+    from engineering.civprop.contracts import actor_state_v1, infrastructure_v1
     from engineering.civprop.method_lab import contracts
     from engineering.civprop.method_lab.prototypes import common, hybrid_v1
 
@@ -114,6 +114,7 @@ def _implementation_hashes() -> dict[str, str]:
         "common_helpers_sha256": _module_sha256(common),
         "method_lab_contracts_sha256": _module_sha256(contracts),
         "infrastructure_contract_sha256": _module_sha256(infrastructure_v1),
+        "actor_state_contract_sha256": _module_sha256(actor_state_v1),
     }
 
 
@@ -153,7 +154,7 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
         "capital_accounting": (
             "ACTOR_BUDGET_DEBITED_AT_COMMITMENT_LOCATION_CAPITAL_ADDED_AT_COMMISSIONING"
         ),
-        "actor_budget_output": "INTERNAL_NOT_EMITTED",
+        "actor_budget_output": "ANNUAL_ACTOR_STATE_WITH_REPLAYABLE_TRANSACTIONS",
         "population": (
             "NO_BIRTHS_OR_DEATHS_IN_BASELINE_MIGRATION_IS_SOURCE_DEBITED_AND_CONSERVED"
         ),
@@ -183,7 +184,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-002",
             "name": "ACTOR_STATE_AND_BUDGETS",
             "status": "OPEN",
-            "meaning": "General actor identities, spendable allocations, access rights, contracts, owned capacity and budget state are not yet production modeled or emitted.",
+            "meaning": "Versioned actor identity/state separates ownership, operation, scoped access/contracts, capability, experience and spendable allocation with replayable change events.",
         },
         {
             "gap_id": "GAP-003",
@@ -295,6 +296,126 @@ def _compiler_metadata(input_dir: Path) -> dict[str, Any] | None:
     }
 
 
+def _actor_state_projection(bundle, result):
+    """Replay actor finance/state at the runner boundary from declared inputs + decisions."""
+    package = bundle.scenario.actor_state_v1
+    if package is None:
+        return None, [], [], []
+
+    from engineering.civprop.contracts.actor_state_v1 import ActorStateRuntime
+
+    boundary = json.loads(canonical_json(package))
+    runtime = ActorStateRuntime(package)
+    actors = {x.actor_id: x for x in package.actors}
+    budgets = {
+        actor_id: {
+            "status": actor.budget.spendable_allocation.status,
+            "amount": actor.budget.spendable_allocation.amount,
+            "unit": actor.budget.spendable_allocation.unit,
+            "scope": actor.budget.spendable_allocation.scope,
+        }
+        for actor_id, actor in actors.items()
+    }
+    projects = {
+        x.project_archetype_id: x for x in bundle.scenario.project_archetypes
+    }
+    transactions = []
+    annual_states = []
+    transaction_counter = 0
+
+    for year in range(bundle.scenario.start_year, bundle.scenario.end_year + 1):
+        for event in package.events:
+            if event.year != year or event.event_type != "BUDGET_ALLOCATION_SET":
+                continue
+            payload = event.payload
+            budgets[event.actor_id] = {
+                "status": "KNOWN",
+                "amount": float(payload["amount"]),
+                "unit": str(payload["unit"]),
+                "scope": str(payload["scope"]),
+            }
+            transaction_counter += 1
+            transactions.append(
+                {
+                    "transaction_id": f"at{transaction_counter:05d}",
+                    "year": year,
+                    "actor_id": event.actor_id,
+                    "transaction_type": event.event_type,
+                    "amount": float(payload["amount"]),
+                    "unit": str(payload["unit"]),
+                    "scope": str(payload["scope"]),
+                    "provenance_ref": event.provenance_ref,
+                }
+            )
+
+        for decision in result.decisions:
+            if (
+                decision.year != year
+                or decision.action != "COMMIT_PROJECT"
+                or decision.status != "COMMITTED"
+            ):
+                continue
+            project = projects[decision.project_archetype_id]
+            budget = budgets[decision.actor_id]
+            required_unit = bundle.scenario.units["capital"]
+            if (
+                budget["status"] != "KNOWN"
+                or budget["amount"] is None
+                or budget["unit"] != required_unit
+                or budget["amount"] + 1e-9 < project.capital_cost
+            ):
+                raise ValueError("project commitment cannot be replayed from actor budget")
+            budget["amount"] -= project.capital_cost
+            transaction_counter += 1
+            transactions.append(
+                {
+                    "transaction_id": f"at{transaction_counter:05d}",
+                    "year": year,
+                    "actor_id": decision.actor_id,
+                    "transaction_type": "PROJECT_COMMITMENT",
+                    "amount": project.capital_cost,
+                    "unit": required_unit,
+                    "scope": (
+                        f"{decision.project_archetype_id}@"
+                        f"{decision.target_location_id}"
+                    ),
+                    "provenance_ref": f"decision:{decision.decision_id}",
+                }
+            )
+
+        for actor_id, actor in sorted(actors.items()):
+            capability_ids = {
+                record.capability_id
+                for facts in (actor.installed_capability, actor.acquired_capability)
+                for record in facts.records
+                if record.capability_id is not None
+            }
+            capability_ids.update(
+                str(event.payload["capability_id"])
+                for event in package.events
+                if event.actor_id == actor_id
+                and event.year <= year
+                and event.event_type == "CAPABILITY_SET"
+            )
+            annual_states.append(
+                {
+                    "year": year,
+                    "actor_id": actor_id,
+                    "actor_type": actor.actor_type,
+                    "spendable_allocation": dict(budgets[actor_id]),
+                    "capability_state": {
+                        capability_id: runtime.capability_status(
+                            actor_id, capability_id, year
+                        )
+                        for capability_id in sorted(capability_ids)
+                    },
+                }
+            )
+
+    state_events = json.loads(canonical_json(package.events))
+    return boundary, annual_states, transactions, state_events
+
+
 def build_output(
     *,
     input_dir: Path,
@@ -312,6 +433,12 @@ def build_output(
     result = engine.run(bundle, seed)
     validate_result(result, bundle)
     result_dict = json.loads(canonical_json(result))
+    (
+        actor_state_boundary,
+        actor_states,
+        actor_transactions,
+        actor_state_events,
+    ) = _actor_state_projection(bundle, result)
 
     scenario_path = input_dir / "scenario_v1.json"
     truth_path = input_dir / "truth_v1.json"
@@ -360,6 +487,10 @@ def build_output(
         },
         "semantics": _semantics(bundle.manifest.get("authority")),
         "known_gaps": _known_gaps(input_dir),
+        "actor_state_boundary": actor_state_boundary,
+        "actor_states": actor_states,
+        "actor_transactions": actor_transactions,
+        "actor_state_events": actor_state_events,
         "annual_states": result_dict["annual_states"],
         "facilities": result_dict["facilities"],
         "decisions": result_dict["decisions"],
@@ -378,7 +509,7 @@ def main() -> None:
         "--input-dir",
         type=Path,
         default=default_input_dir,
-        help="Compatible frozen input directory (defaults to GAP-001 compiled V1).",
+        help="Compatible frozen input directory (defaults to GAP-001/GAP-002 compiled V1).",
     )
     parser.add_argument(
         "--infrastructure-catalog",

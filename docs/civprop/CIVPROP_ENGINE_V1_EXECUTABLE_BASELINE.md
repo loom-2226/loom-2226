@@ -6,8 +6,9 @@ Status: locked executable baseline; compiled authority with explicit open-gap as
 
 ## Current baseline status
 
-Runner V1.1.0 now defaults to the GAP-001 compiled authority package documented in
-docs/civprop/CIVPROP_INPUT_COMPILER_V1.md.
+Runner V1.2.0 now defaults to the GAP-001/GAP-002 compiled authority package
+documented in docs/civprop/CIVPROP_INPUT_COMPILER_V1.md and
+docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md.
 
 The original V1.0 synthetic Method Lab baseline remains preserved as historical
 regression evidence. It was not overwritten.
@@ -19,7 +20,8 @@ Current default input authority:
 Current gap state begins:
 
     GAP-001 CLOSED
-    GAP-002 through GAP-015 OPEN
+    GAP-002 CLOSED
+    GAP-003 through GAP-015 OPEN
 
 ## Purpose
 
@@ -56,7 +58,7 @@ From repository root:
 
     python3 engineering/civprop/run_civprop_v1.py       --seed 42       --output /tmp/civprop_v1.json
 
-With no path arguments, the runner uses the GAP-001 compiled authority package and Infrastructure Archetype V1 catalog.
+With no path arguments, the runner uses the GAP-001/GAP-002 compiled authority package and Infrastructure Archetype V1 catalog.
 
 The runner may later be pointed at another compatible frozen input package with --input-dir and --infrastructure-catalog.
 
@@ -66,15 +68,15 @@ Changing input values is allowed. Changing input meaning is not allowed silently
 
 Machine-readable manifest:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP1_BASELINE_MANIFEST.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP2_BASELINE_MANIFEST.json
 
 Golden output:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP1_COMPILED_SEED42.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP2_ACTOR_STATE_SEED42.json
 
 The current baseline contains real promoted authority plus explicit unresolved
 synthetic assumptions. It proves execution, contracts, provenance and causal
-bookkeeping. It is not yet a production forecast because GAP-002 onward remain open.
+bookkeeping. It is not yet a production forecast because GAP-003 onward remain open.
 
 The prior V1.0 synthetic manifest/golden files remain preserved as historical
 regression artifacts.
@@ -464,7 +466,7 @@ Every output also carries explicit known_gaps.
 Current gap status:
 
     GAP-001 REAL_INPUT_COMPILER                    CLOSED
-    GAP-002 ACTOR_STATE_AND_BUDGETS               OPEN
+    GAP-002 ACTOR_STATE_AND_BUDGETS               CLOSED
     GAP-003 TRANSPORT_ACCESSIBILITY               OPEN
     GAP-004 DEMAND_AND_PRESSURE_MODEL              OPEN
     GAP-005 PROJECT_ECONOMICS                      OPEN
@@ -489,16 +491,20 @@ for a more complete simulation than it is.
 
 # Golden Seed-42 Baseline
 
-The current GAP-001 compiled seed-42 baseline produces:
+The current GAP-002 actor-state seed-42 baseline produces:
 
     44 annual location-state rows
-    7 commissioned facilities
+    11 annual actor-state rows
+    0 commissioned facilities
     11 actor decisions
-    87 events
+    0 actor transactions
+    45 events
     10 migration flows
 
-The current generated facilities occur in Earth orbit and cislunar free space and
-remain consequences of unresolved GAP-002 through GAP-005 assumptions.
+All 11 current actor decisions are WAIT because generic AUS spendable allocation
+remains UNKNOWN and generic Method Lab capability grants have been removed. This is
+the intended consequence of closing GAP-002, not a forecast that Australia will
+never develop off-world capability.
 
 No significance should be attached to those numbers as a forecast.
 
@@ -507,7 +513,7 @@ result from the same pinned inputs, implementation and seed?
 
 # Baseline Metadata and Hashes
 
-Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP1_BASELINE_MANIFEST.json. The earlier synthetic manifest remains historical evidence.
+Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP2_BASELINE_MANIFEST.json. GAP-001 and earlier synthetic manifests remain historical evidence.
 
 The manifest pins source-basis commit, runner and engine identities, output-contract version, runtime-input and evaluator-truth hashes, infrastructure catalog and parameter set, implementation source hashes, golden-output hashes/counts, and change-control rules.
 # Change Control

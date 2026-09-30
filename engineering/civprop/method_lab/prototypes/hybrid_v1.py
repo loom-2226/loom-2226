@@ -14,9 +14,12 @@ from collections import defaultdict
 from .common import (
     Recorder,
     actor_budget,
-    actor_inflow,
     already_pending,
+    apply_actor_budget_events,
     base_utility,
+    budget_can_afford,
+    budget_debit,
+    budget_rationale,
     commission_due,
     finalize,
     initial_state,
@@ -40,7 +43,7 @@ class HybridEngineV1:
 
     def _actor_weight(self, actor_type, opportunity):
         c = opportunity.project.output_capacities
-        if actor_type == "PUBLIC_FINANCER":
+        if actor_type in {"PUBLIC_FINANCER", "STATE"}:
             return (
                 0.08 * c.habitat
                 + 0.18 * c.power
@@ -69,9 +72,7 @@ class HybridEngineV1:
         for year in range(bundle.scenario.start_year, bundle.scenario.end_year + 1):
             recorder.event(year, "YEAR_STARTED")
 
-            if year > bundle.scenario.start_year:
-                for actor_id in actor_ids:
-                    budgets[actor_id] += actor_inflow(bundle, actor_id)
+            apply_actor_budget_events(bundle, budgets, year, recorder)
 
             commission_due(year, pending, states, recorder)
 
@@ -112,7 +113,9 @@ class HybridEngineV1:
                         continue
                     if already_pending(pending, *key):
                         continue
-                    if budgets[actor_id] + 1e-9 < opportunity.project.capital_cost:
+                    if not budget_can_afford(
+                        bundle, budgets[actor_id], opportunity.project.capital_cost
+                    ):
                         continue
 
                     ratio = pressure[key] / opportunity.project.capital_cost
@@ -147,7 +150,10 @@ class HybridEngineV1:
                         actor_id,
                         "WAIT",
                         "DECLINED",
-                        rationale=("NO_PRESSURE_QUALIFIED_OPPORTUNITY",),
+                        rationale=(
+                            "NO_PRESSURE_QUALIFIED_OPPORTUNITY",
+                            *budget_rationale(bundle, budgets[actor_id]),
+                        ),
                     )
                     continue
 
@@ -160,8 +166,12 @@ class HybridEngineV1:
                     reverse=True,
                 )
                 _, choice, key = choices[0]
-                budgets[actor_id] -= choice.project.capital_cost
-                schedule(pending, recorder, self.engine_id, actor_id, choice, year)
+                budgets[actor_id] = budget_debit(
+                    bundle, budgets[actor_id], choice.project.capital_cost
+                )
+                schedule(
+                    pending, recorder, self.engine_id, actor_id, choice, year
+                )
                 recorder.decision(
                     year,
                     actor_id,

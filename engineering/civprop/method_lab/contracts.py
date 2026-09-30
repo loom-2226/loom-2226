@@ -12,6 +12,11 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Optional, Protocol, runtime_checkable
 
+from engineering.civprop.contracts.actor_state_v1 import (
+    ActorStatePackage,
+    load_actor_state_package,
+)
+
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
 ALLOWED_CAPABILITY_STATUS = {"USABLE", "CONDITIONAL", "UNUSABLE", "UNKNOWN"}
@@ -32,8 +37,8 @@ class CapacityVector:
 class ActorInput:
     actor_id: str
     actor_type: str
-    starting_capital: float
-    annual_capital_inflow: float
+    starting_capital: Optional[float] = None
+    annual_capital_inflow: Optional[float] = None
 
 
 @dataclass(frozen=True)
@@ -121,6 +126,7 @@ class LabScenario:
     end_year: int
     units: Mapping[str, str]
     actors: tuple[ActorInput, ...]
+    actor_state_v1: Optional[ActorStatePackage]
     locations: tuple[LocationInput, ...]
     technology_frontier: tuple[TechnologyFrontier, ...]
     actor_capability: tuple[ActorCapability, ...]
@@ -283,10 +289,21 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             ActorInput(
                 actor_id=x["actor_id"],
                 actor_type=x["actor_type"],
-                starting_capital=float(x["starting_capital"]),
-                annual_capital_inflow=float(x["annual_capital_inflow"]),
+                starting_capital=(
+                    None if x.get("starting_capital") is None
+                    else float(x["starting_capital"])
+                ),
+                annual_capital_inflow=(
+                    None if x.get("annual_capital_inflow") is None
+                    else float(x["annual_capital_inflow"])
+                ),
             )
             for x in data["actors"]
+        ),
+        actor_state_v1=(
+            None
+            if data.get("actor_state_v1") is None
+            else load_actor_state_package(data["actor_state_v1"])
         ),
         locations=tuple(
             LocationInput(
@@ -402,9 +419,19 @@ def _validate_scenario(s: LabScenario, truth: LabTruth) -> None:
     location_ids = {x.location_id for x in s.locations}
     tech_ids = {x.tech_id for x in s.technology_frontier}
 
+    if s.actor_state_v1 is not None:
+        state_actor_ids = {x.actor_id for x in s.actor_state_v1.actors}
+        if state_actor_ids != actor_ids:
+            raise ValueError("actor-state identities do not match scenario actors")
     for actor in s.actors:
-        if actor.starting_capital < 0 or actor.annual_capital_inflow < 0:
-            raise ValueError("negative actor capital")
+        legacy_values = (actor.starting_capital, actor.annual_capital_inflow)
+        if s.actor_state_v1 is None:
+            if any(value is None for value in legacy_values):
+                raise ValueError("legacy actor budget fields required without actor-state contract")
+            if actor.starting_capital < 0 or actor.annual_capital_inflow < 0:
+                raise ValueError("negative actor capital")
+        elif any(value is not None for value in legacy_values):
+            raise ValueError("actor-state scenario cannot also carry legacy budget fields")
     for location in s.locations:
         if location.placement not in ALLOWED_PLACEMENTS:
             raise ValueError("invalid placement")

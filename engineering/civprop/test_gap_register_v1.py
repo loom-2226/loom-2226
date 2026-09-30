@@ -54,7 +54,8 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         }
         self.assertEqual(observed, expected)
         self.assertEqual(observed["GAP-001"], "CLOSED")
-        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(2, 16)))
+        self.assertEqual(observed["GAP-002"], "CLOSED")
+        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(3, 16)))
 
     def test_every_gap_has_exit_criteria_and_handoff(self):
         for gap in self.registry["gaps"]:
@@ -74,6 +75,19 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
             refs,
         )
         self.assertIn("docs/civprop/CIVPROP_INPUT_COMPILER_V1.md", refs)
+
+    def test_gap2_closure_references_promoted_artifacts(self):
+        gap2 = self.registry["gaps"][1]
+        self.assertEqual(gap2["current_status"], "CLOSED")
+        refs = set(gap2["current_evidence"])
+        self.assertIn("engineering/civprop/contracts/actor_state_v1.py", refs)
+        self.assertIn("engineering/civprop/compile_inputs_v1.py", refs)
+        self.assertIn("engineering/civprop/run_civprop_v1.py", refs)
+        self.assertIn(
+            "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP2_BASELINE_MANIFEST.json",
+            refs,
+        )
+        self.assertIn("docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md", refs)
 
     def test_post_gap_plan_has_ordered_gates(self):
         plan = self.registry["post_gap_plan"]
@@ -111,7 +125,7 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         self.assertIn("GAP-001", text)
         self.assertIn("POST-01", text)
         self.assertIn("POST-07", text)
-        self.assertIn("03ac1c554105a4f74e7197bb9604969b482fb8bf", text)
+        self.assertIn("3009bd4adf1a463fcef9c22f697741ce0c0e8ab5", text)
 
 
 if __name__ == "__main__":

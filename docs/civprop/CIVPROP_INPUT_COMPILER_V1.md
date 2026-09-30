@@ -27,8 +27,8 @@ The CIVPROP runner remains:
 engineering/civprop/run_civprop_v1.py
 ```
 
-Runner V1.1 defaults to the compiled package rather than the original synthetic
-Method Lab package.
+Runner V1.2 defaults to the compiled package rather than the original synthetic
+Method Lab package and emits the GAP-002 actor-state surfaces.
 
 ## What GAP-001 closed means
 
@@ -306,23 +306,24 @@ Roo-ver's planned service does not become generic lunar transport capacity.
 
 Unknown delivery capacity, launch vehicle, delta-v and transfer duration remain null.
 
-## Actor runtime placeholders
+## Actor State V1 boundary
 
-The current Hybrid engine requires actor budget and generic capability rows that are
-not yet production-resolved.
+GAP-002 removes the old scenario-credit budget and generic capability compatibility
+rows from the default compiled actor.
 
-Therefore:
+The compiled actor is now `AUS` / `STATE` with a versioned
+`CIVPROP_ACTOR_STATE_V1` boundary. Generic spendable allocation remains explicitly
+UNKNOWN because the admitted evidence does not establish a general off-world
+appropriation. The observed AUD 42 million Roo-ver commitment is preserved as a
+separate scoped committed fund and cannot be spent on unrelated CIVPROP projects.
 
-```text
-AUS starting_capital = 70 scenario_credit
-AUS annual_capital_inflow = 8 scenario_credit
-```
+Roo-ver access, provider path, agreement, operator relationship and development
+experience remain scoped facts. Fleet SPIDER evidence remains authority context and
+does not become an Australian state entitlement. No generic Method Lab capability
+row is relabeled as AUS.
 
-remain explicit GAP-002 placeholders copied from the original public-financier
-Method Lab actor.
-
-Generic capability rows are likewise compatibility placeholders and do not claim
-that the real Australian state owns those capabilities.
+Detailed semantics and closure evidence are in
+`docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md`.
 
 ## Remaining assumption register
 
@@ -331,8 +332,6 @@ Every compiled scenario carries an `assumption_register`.
 Current explicit entries include:
 
 ```text
-ASSUME-GAP002-AUS-BUDGET
-ASSUME-GAP002-AUS-CAPABILITIES
 ASSUME-GAP003-ACCESSIBILITY
 ASSUME-GAP004-DEMAND
 ASSUME-GAP005-PROJECT-ECONOMICS
@@ -455,7 +454,7 @@ new authority capture
 
 No silent replacement.
 
-## Runner V1.1
+## Runner V1.2
 
 The single simulation entrypoint remains:
 
@@ -466,16 +465,16 @@ engineering/civprop/run_civprop_v1.py
 Runner version:
 
 ```text
-1.1.0
+1.2.0
 ```
 
 Output contract:
 
 ```text
-1.1.0
+1.2.0
 ```
 
-The default input directory is now the GAP-001 compiled package.
+The default input directory is now the GAP-001/GAP-002 compiled package.
 
 Default command:
 
@@ -493,58 +492,59 @@ For the default compiled package:
 
 ```text
 GAP-001 CLOSED
-GAP-002 OPEN
+GAP-002 CLOSED
+GAP-003 OPEN
 ...
 GAP-015 OPEN
 ```
 
-Closing GAP-001 does not auto-close any downstream gap.
+GAP-002 closure is independent of later transport, demand, project-economics and
+materialization gaps.
 
 ## Current executable behavior
 
-With compiled input and seed 42, the current baseline produces:
+With compiled input and seed 42, the current GAP-002 baseline produces:
 
 ```text
-44 annual states
-7 commissioned facilities
+44 annual location states
+11 annual actor states
+0 commissioned facilities
 11 actor decisions
-87 events
+0 actor transactions
+45 events
 10 migration flows
 ```
 
-Current generated facility geography:
-
-```text
-EARTH_ORBIT
-CISLUNAR_FREE_SPACE
-```
+The current realization commissions no facility because AUS generic spendable
+allocation remains UNKNOWN and no generic Method Lab capability rows are granted.
+That behavior is intentional and is not a forecast.
 
 This is **not** a forecast.
 
-The result still depends materially on unresolved GAP-002 through GAP-005
-placeholders.
+The result still depends materially on unresolved GAP-003 through GAP-005
+placeholders, plus later open mechanisms.
 
 Its purpose is to prove that real promoted authority now reaches the same locked
 engine and output path.
 
-## Golden GAP-001 baseline
+## Golden GAP-002 baseline
 
 Output:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP1_COMPILED_SEED42.json
+CIVPROP_ENGINE_V1_GAP2_ACTOR_STATE_SEED42.json
 ```
 
 Manifest:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP1_BASELINE_MANIFEST.json
+CIVPROP_ENGINE_V1_GAP2_BASELINE_MANIFEST.json
 ```
 
-The previous synthetic V1.0 baseline remains in the repository as historical
-evidence. It is not overwritten.
+The GAP-001 compiled baseline and previous synthetic V1.0 baseline remain in the
+repository as historical evidence. They are not overwritten.
 
 ## Tests
 
@@ -560,7 +560,10 @@ Unit/functional coverage proves:
 - compilation from frozen capture is byte deterministic;
 - the locked runner accepts the compiled package;
 - the default runner now uses the compiled package;
-- GAP-001 is CLOSED in current output;
+- GAP-001 and GAP-002 are CLOSED in current output;
+- UNKNOWN actor budget does not become zero, national capital or scenario credit;
+- scoped provider/service evidence does not become generic actor capability;
+- future actor budget/capability changes require replayable events;
 - evaluator-only truth remains prohibited from runtime decisions;
 - current golden output reproduces exactly.
 
@@ -571,10 +574,10 @@ The authoritative current gap register and the post-gap handoff plan are:
     engineering/civprop/gap_register_v1.json
     docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
 
-GAP-001 closure should be interpreted using that register's closure semantics. The
-next engineering target is GAP-002 ACTOR_STATE_AND_BUDGETS.
+GAP-001 and GAP-002 closure should be interpreted using that register's closure
+semantics. The next engineering target is GAP-003 TRANSPORT_ACCESSIBILITY.
 
-## Boundary after GAP-001
+## Boundary after GAP-002
 
 The executable pipeline is now:
 
