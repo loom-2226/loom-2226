@@ -2,9 +2,10 @@
 
 **Frozen:** 22 August 2026  
 **Institutional amendment integrated:** 24 August 2026  
-**Earth biosynthetic amendment registered:** 25 September 2026
+**Earth biosynthetic amendment registered:** 25 September 2026  
+**Synthetic personhood horizons amendment registered:** 1 October 2026  
 **Status:** AUTHORITATIVE CONSOLIDATED BASELINE WITH REGISTERED SCOPED AMENDMENTS
-**Scope:** CANON I–III v2.4, Solar Atlas v3.2, Core Mechanics v0.5, Wayfarer amendment v2.4a, Earth biosynthetic amendment v2.4b, plus unchanged campaign-character and presentation companions.
+**Scope:** CANON I–III v2.4, Solar Atlas v3.2, Core Mechanics v0.5, Wayfarer amendment v2.4a, Earth biosynthetic amendment v2.4b, Synthetic Personhood Historical Horizons amendment v2.4c, plus unchanged campaign-character and presentation companions.
 
 # 1. Freeze meaning
 
@@ -16,7 +17,7 @@ It preserves the full v2.3 xenoarchaeology/world-history package and all certifi
 2. frozen metric environmental-certification architecture after hostile review;
 3. Solar trade/traffic/shipyard/accessibility consequences at the level actually earned.
 
-No exact traffic, fare, fleet, metric-terminal or Candidate-B number is promoted merely because a research packet calculated it. The 24 August institutional amendment is integrated into the existing runtime files only. The later v2.4a and v2.4b scoped amendments are separate governing sources and override their parents only within their declared scope.
+No exact traffic, fare, fleet, metric-terminal or Candidate-B number is promoted merely because a research packet calculated it. The 24 August institutional amendment is integrated into the existing runtime files only. The later v2.4a, v2.4b and v2.4c scoped amendments are separate governing sources and override their parents or earlier scoped authority only within their declared scope.
 
 # 2. What changes from v2.3
 
@@ -113,7 +114,8 @@ v2.4 does **not** alter:
 4. `LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md` — fast reader/LLM Solar narrative geography and future-modeling interface.
 5. `LOOM_2226_Core_Mechanics_v0.5.md` — table/LLM resolution and runtime procedure.
 6. `LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md` — scoped governing amendment for reference-courier launch packaging.
-7. `LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md` — scoped governing amendment for Earth post-2100 demography, personhood, labor, economics and dependent census arithmetic.
+7. `LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md` — scoped governing amendment for Earth post-2100 biological demography, personhood/labor/economic modeling and dependent census arithmetic, except where narrowly superseded by v2.4c.  
+8. `LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md` — scoped governing amendment for personhood historical horizons and exact synthetic-demographic authority.
 
 # 5. Minimal runtime load versus audit archive
 
@@ -129,12 +131,13 @@ CANON III v2.4
 Atlas v3.2
 Core Mechanics v0.5
 Wayfarer Schematic Amendment v2.4a when reference-courier packaging is relevant
-Earth Biosynthetic Amendment v2.4b for all 2226 Earth/Solar census or Earth labor/economic use
+Earth Biosynthetic Amendment v2.4b for post-2100 Earth biological demography and unaffected labor/economic scope
+Synthetic Personhood Historical Horizons Amendment v2.4c whenever synthetic-person history, recognition chronology or exact synthetic-demographic authority is relevant
 ```
 
 Add character sheets / Synthetic Speech Reference when those characters are active.
 
-The five parent volumes plus the manifest remain the base runtime set. The two scoped amendments must be loaded whenever their declared scope is relevant; within that scope they outrank conflicting parent text.
+The five parent volumes plus the manifest remain the base runtime set. The three scoped amendments must be loaded whenever their declared scope is relevant; within that scope they outrank conflicting parent text or earlier scoped authority.
 
 ## 5.2 Presentation companions — unchanged
 
@@ -230,8 +233,11 @@ Exact calls/day and fleet counts are model outputs. Atlas qualitative traffic/ya
 
 The endpoint-only `EARTH_2226_CANON_CONSTRAINED_COUNTRY_ALLOCATION`, Earth v4's
 post-2100 economic trajectory and conflicting parent-ledger census totals remain
-provenance only. Earth Biosynthetic Amendment v2.4b and its hash-pinned authority
-package govern 2101–2226. WPP 2024 remains authoritative through 2100.
+provenance only. Earth Biosynthetic Amendment v2.4b remains the scoped authority
+for post-2100 biological demography and unaffected scope. Synthetic Personhood
+Historical Horizons Amendment v2.4c supersedes v2.4b only for exact synthetic-person
+stock and the explicitly listed direct dependent quantities, leaving those values
+OPEN / MODEL-DERIVED pending separate promotion. WPP 2024 remains authoritative through 2100.
 
 # 9. Provisional model inventory
 
@@ -262,8 +268,9 @@ A later model may replace a provisional number without constituting a retcon if 
 Before a runtime answer or simulation, confirm:
 
 - current baseline is v2.4;
-- v2.4a and v2.4b are loaded when their scope is relevant;
-- Earth post-2100 authority resolves `MED_CENTRAL × SYNTH_CENTRAL` through the governed pointer;
+- v2.4a, v2.4b and v2.4c are loaded when their scope is relevant;
+- Earth post-2100 biological authority continues through v2.4b while exact synthetic-person demography is OPEN under v2.4c;
+- the `MED_CENTRAL × SYNTH_CENTRAL` package remains preserved model provenance and biological authority where applicable, not a fixed synthetic-person endpoint;
 - biological humans, recognized synthetic persons and machine-task capacity are never conflated;
 - no legacy 32 kg/64-cell/old metric speed card returned;
 - no old 3× clearance used as physical law;
@@ -276,7 +283,7 @@ Before a runtime answer or simulation, confirm:
 - provisional accessibility numbers are labeled;
 - a sub-c metric ship is never allowed to outrun Solar radio/laser information;
 - intra-Solar urgency/custody carriage is not mislabeled as interstellar causal arbitrage;
-- exact relational-fleet subdivisions, military OOB, synthetic-residency percentages, artifact custody shares and extreme-longevity cohorts remain open/provisional unless separately promoted;
+- exact relational-fleet subdivisions, military OOB, synthetic-person population/individuation/residency, artifact custody shares and extreme-longevity cohorts remain open/provisional unless separately promoted;
 - quiet flight is allowed;
 - Walter does not speak.
 

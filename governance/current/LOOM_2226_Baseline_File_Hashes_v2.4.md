@@ -1,12 +1,12 @@
 # LOOM 2226 — Baseline File Hashes v2.4
 
-**Generated:** 25 September 2026
+**Generated:** 1 October 2026
 **Algorithm:** SHA-256  
-**Scope:** v2.4 parent files plus registered scoped amendments v2.4a and v2.4b. Unchanged character/HUD/speech companions retain their prior files and are not re-hashed here.
+**Scope:** v2.4 parent files plus registered scoped amendments v2.4a, v2.4b and v2.4c. Unchanged character/HUD/speech companions retain their prior files and are not re-hashed here.
 
 | File | SHA-256 |
 |---|---|
-| `LOOM_2226_Canon_Baseline_Manifest_v2.4.md` | `f52ab71b7749160dc186270bf55b5b9f1458606103d9c6fd2867d67f14927bf6` |
+| `LOOM_2226_Canon_Baseline_Manifest_v2.4.md` | `c227de0b8a41a37bb5dba1b4a071efe158ff5ca4c7d320c1cc45a1bccdcdd950` |
 | `LOOM_2226_CANON_I_World_History_Frontier_v2.4.md` | `98a83f50b68b68931ad24cfec97c347cc506901973d0e0787c09f2baa27cd3a6` |
 | `LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md` | `02e2043a070e7fe312f3bcd190c4fff0d5aecb5ce09af0eea615950355f7d552` |
 | `LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.4.md` | `0bda6bd0e0ad5a800c60fb5973c406a61c41356f11a128c18692ff87308c11e5` |
@@ -14,7 +14,17 @@
 | `LOOM_2226_Core_Mechanics_v0.5.md` | `30c2d96a080668abafd9450df1e3acc0b2731313320ec8d601eaf83117a12cdd` |
 | `LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md` | `1141edc0e4efc5b81339274825139d60ccbff2cf1dcc5408d417c2dfbfec1996` |
 | `LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md` | `33a9302e8aabedc7214510bbe493a6770e8a4887dfb6913c582d585d6c18a47c` |
-| `LOOM_2226_Canon_v2.4_Validation_Report.md` | `bd1661818f7b8f0eb25ea599628dc3f557dc2349ca868ff74ee61a9e4fc9723e` |
+| `LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md` | `9c559065d6d3c85606dfcfc8e439f4ae716ecdde2caa1bc7484a8ee76b8ff995` |
+| `LOOM_2226_Canon_v2.4_Validation_Report.md` | `c8fc467654107f248d64146b578247967487fb7b1e41bc128695fe111e7a3504` |
+
+## 1 October 2026 scoped personhood-horizons registration
+
+This register adds the CCR-2026-0002 Synthetic Personhood Historical Horizons
+v2.4c amendment. Parent CANON I and v2.4b bytes remain preserved. Within its
+declared scope, v2.4c makes the historical personhood scaffold governing,
+keeps first-recognition timing intentionally open, and retires the exact
+v2.4b synthetic-person stock plus its explicitly listed direct dependent
+quantities from governing canon without promoting a replacement census.
 
 ## 25 September 2026 scoped-amendment registration
 

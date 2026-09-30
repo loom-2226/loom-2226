@@ -69,6 +69,15 @@ components:
     parent: canon_i_world_history
     baseline_registration_state: REGISTERED_IN_CANON_BASELINE_2026_09_25
 
+  synthetic_personhood_horizons_amendment:
+    tier: CANON
+    paths:
+      - canon/current/LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md
+    authority: SCOPED_GOVERNING_AMENDMENT
+    parent: canon_i_world_history
+    baseline_registration_state: REGISTERED_IN_CANON_BASELINE_2026_10_01
+    authorization: CCR-2026-0002
+
   canon_iii_authority_gm:
     tier: CANON
     paths:
@@ -294,11 +303,27 @@ edges:
     to: earth_biosynthetic_amendment
     type: PARENT_OF_SCOPED_AMENDMENT
     confidence: ESTABLISHED
+  - from: canon_i_world_history
+    to: synthetic_personhood_horizons_amendment
+    type: PARENT_OF_SCOPED_AMENDMENT
+    confidence: ESTABLISHED
+  - from: synthetic_personhood_horizons_amendment
+    to: earth_biosynthetic_amendment
+    type: SCOPED_SUPERSESSION_OF_EXACT_SYNTHETIC_DEMOGRAPHY
+    confidence: ESTABLISHED
   - from: earth_biosynthetic_amendment
     to: runtime_campaign_core
     type: GOVERNS_DECLARED_SCOPE
     confidence: ESTABLISHED
   - from: earth_biosynthetic_amendment
+    to: civstate_db
+    type: REVALIDATION_INPUT
+    confidence: REGISTERED_COARSE
+  - from: synthetic_personhood_horizons_amendment
+    to: runtime_campaign_core
+    type: GOVERNS_DECLARED_SCOPE
+    confidence: ESTABLISHED
+  - from: synthetic_personhood_horizons_amendment
     to: civstate_db
     type: REVALIDATION_INPUT
     confidence: REGISTERED_COARSE

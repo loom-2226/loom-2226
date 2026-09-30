@@ -1,8 +1,8 @@
 # LOOM 2226 — Canon v2.4 Validation Report
 
-**Date:** 22 August 2026; institutional amendment validated 24 August 2026; scoped amendments registered 25 September 2026
+**Date:** 22 August 2026; institutional amendment validated 24 August 2026; scoped amendments registered 25 September 2026 and 1 October 2026  
 **Result:** PASS  
-**Scope:** v2.4 replacement package, the in-place institutional amendment, Wayfarer amendment v2.4a and Earth biosynthetic amendment v2.4b.
+**Scope:** v2.4 replacement package, the in-place institutional amendment, Wayfarer amendment v2.4a, Earth biosynthetic amendment v2.4b and Synthetic Personhood Historical Horizons amendment v2.4c.
 
 # 1. Baseline integrity
 
@@ -84,21 +84,21 @@ PASS — Mara/Sol/Walter guardrails preserved; Walter remains nonverbal.
 
 # 7. Solar census / institutions / xenoarchaeology
 
-PASS — Earth post-2100 demographic, personhood, labor and economic authority is superseded only through registered scoped amendment v2.4b under `CCR-2026-0001`.
+PASS — Earth post-2100 biological demographic and unaffected labor/economic authority continues through registered scoped amendment v2.4b under `CCR-2026-0001`; synthetic-person historical horizons and exact synthetic-demographic authority are additionally governed by v2.4c under `CCR-2026-0002`.
 
 PASS — WPP 2024 remains authoritative through 2100; the selected modeled successor begins in 2101.
 
-PASS — the selected Earth state is exactly `MED_CENTRAL × SYNTH_CENTRAL`; all nine qualified sensitivity runs remain preserved.
+PASS — the v2.4b `MED_CENTRAL × SYNTH_CENTRAL` package and all nine qualified sensitivity runs remain preserved as model provenance and biological authority where applicable; v2.4c retires its exact synthetic-person endpoint and listed direct dependent quantities from governing canon without inserting a replacement number.
 
-PASS — biological humans, recognized synthetic persons and non-person machine-task capacity remain distinct and reconstruct the selected person/labor identities.
+PASS — biological humans, recognized synthetic persons and non-person machine-task capacity remain distinct categories; v2.4c does not permit synthetic persons to collapse into automation capital merely because their exact census is open.
 
-PASS — the workforce/population invariant passes for 80/80 economically qualified economies.
+PASS — the prior v2.4b workforce/population invariant remains a validated property of the preserved model package; its retired exact synthetic-stock-dependent outputs are not re-promoted by that historical validation.
 
-PASS — existing off-Earth body/system rows are unchanged. Solar totals are reconciled only by combining the new Earth state with the preserved off-Earth residual and are explicitly not a new off-Earth simulation.
+PASS — existing off-Earth body/system rows are unchanged. The former v2.4b Solar arithmetic totals remain preserved model provenance only where they depend on the retired exact synthetic-person stock; no replacement governing synthetic Solar total is introduced.
 
 PASS — 127-node Solar infrastructure graph unchanged.
 
-PASS — v3.1 role-weighted synthetic allocations and non-uniform regional governance preserved.
+PASS — v3.1 role-weighted synthetic allocations are preserved as provenance/provisional allocation work, not fixed synthetic census authority; non-uniform regional governance remains preserved.
 
 PASS — v2.3 xenoarchaeology truth ladder, three verified lineages, Great-Filter uncertainty and High-Strangeness firewall preserved.
 
@@ -136,7 +136,7 @@ PASS — prize/admiralty practice remains plural; no exclusive universal court l
 
 PASS — habitat life-support control is recognized as a coercive vector without claiming universal legal permission to weaponize atmosphere/heat/water.
 
-PASS — recognized-synthetic census totals remain unchanged; no 15/85 embodiment split is promoted.
+PASS — exact recognized-synthetic census totals are deliberately OPEN under v2.4c; no replacement count and no 15/85 embodiment split are promoted.
 
 PASS — longevity canon retains buying-the-bridge and gerontocratic pressure without promoting a fixed 0.5% quasi-immortal cohort.
 
@@ -148,7 +148,7 @@ PASS — CANON III v2.4 contains model registry, status precedence, conflict rul
 
 PASS — Atlas v3.2 includes future route-flow schema.
 
-PASS — Manifest defines the parent runtime set and requires scoped amendments v2.4a and v2.4b when their declared scope is relevant.
+PASS — Manifest defines the parent runtime set and requires scoped amendments v2.4a, v2.4b and v2.4c when their declared scope is relevant.
 
 # 10. Known non-failures / remaining open items
 
@@ -163,7 +163,7 @@ The following remain intentionally open and do not block v2.4:
 - exact 2226 fares/currency/value-of-time distribution;
 - exact gateway capacity/queues;
 - exact Mc production-site shares/industrial pathway;
-- heliocentric synthetic-person individuation closure;
+- exact synthetic-person population, individuation, instantiation/retirement, recognition chronology and heliocentric residency closure;
 - gas-giant light-isotope economics;
 - exact Earth bloc boundaries and military orders of battle;
 - exact relational-hull role allocation below provisional aggregate fleet outputs;
@@ -187,10 +187,12 @@ INSTITUTIONAL INTEGRATION   PASS
 SECURITY / AUXILIARY LAYER PASS
 XENO / HIDDEN GRAPH        PASS
 EARTH BIOSYNTHETIC AUTHORITY PASS
+SYNTHETIC PERSONHOOD HORIZONS PASS
+OPEN SYNTHETIC DEMOGRAPHY BOUNDARY PASS
 PERSONHOOD / LABOR SEPARATION PASS
 SCOPED AMENDMENT REGISTRATION PASS
 MODEL-STATUS HYGIENE       PASS
 LLM RUNTIME USABILITY      PASS
 ```
 
-**v2.4, including its in-place institutional integration and registered scoped amendments v2.4a and v2.4b, remains suitable as the governing baseline.**
+**v2.4, including its in-place institutional integration and registered scoped amendments v2.4a, v2.4b and v2.4c, remains suitable as the governing baseline.**

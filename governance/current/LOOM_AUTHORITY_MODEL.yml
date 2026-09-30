@@ -102,6 +102,15 @@ canon_amendments:
     effective_relationship: SCOPED_GOVERNING_AMENDMENT
     baseline_management_state: REGISTERED_IN_CANON_BASELINE_2026_09_25
     authorization: CCR-2026-0001
+  synthetic_personhood_horizons_v2_4c:
+    parent: canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
+    amendment: canon/current/LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md
+    effective_relationship: SCOPED_GOVERNING_AMENDMENT
+    baseline_management_state: REGISTERED_IN_CANON_BASELINE_2026_10_01
+    authorization: CCR-2026-0002
+    supersedes_within_scope:
+      source: canon/current/LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md
+      scope: exact synthetic-person stock and explicitly listed direct dependent quantities
 
 frozen_research:
   pr_19:
