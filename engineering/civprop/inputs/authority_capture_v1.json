@@ -176,7 +176,7 @@
   },
   "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
   "capture_semantics": "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES",
-  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS",
+  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY",
   "earth": {
     "aus_area": {
       "display_name": "Australia",
@@ -635,7 +635,7 @@
       }
     ]
   },
-  "source_basis_commit": "99dadcfb4276471c29aa3bf52650d0584ef03038",
+  "source_basis_commit": "0700407c68276207732292c9a3bc1fc55b703b42",
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
     "data/postgres/timeline_projection_manifest.json": "524ac904a0d1ed4cdb1fae53ce4ac737d7640b71fe1be8ebf9c97ba8fbe56709",
@@ -644,6 +644,7 @@
     "engineering/civprop/civprop0/actor_access_evidence.json": "16581d2ad6eec747f4576d7dc836f00d24864683bba0431dc97c04360e15085d",
     "engineering/civprop/civprop0/aus_government_access_evidence.json": "2e9ebc2f6d497d42d74baea504cec45ba16922ea2d554940a5142b1d53ef60ce",
     "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
+    "engineering/civprop/civprop0/runs/roover_transport_mid2030_v1.json": "a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
     "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951"
   },
@@ -729,6 +730,206 @@
       "semantic_sha256": "8543a0dde2248891fd1f0f1abd6480d2d30ba587e0e7dfea96580edee52b3636",
       "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
       "state": "VALIDATED"
+    }
+  },
+  "transport": {
+    "roover_reference": {
+      "document": {
+        "assessment": {
+          "actor_access_status": "USABLE",
+          "authority_class": "BOUNDED_MISSION_TRANSPORT_SCREEN",
+          "documented_manifested_suite_mass_kg_approx": 75,
+          "documented_rover_mass_kg_approx": 20,
+          "documented_surface_plan_max_days": 14,
+          "earth_moon_distance_km": 401540.02139136905,
+          "earth_moon_relative_speed_km_s": 0.9836733938012038,
+          "mission_id": "ROO_VER_CLPS_CT4_IM5",
+          "reference_epoch_role": "MID_2030_GEOMETRY_SAMPLE_NOT_MISSION_EPOCH",
+          "reference_epoch_utc": "2030-07-01T00:00:00Z",
+          "segments": [
+            {
+              "basis": "Initial mid-2030 target; no booked launch epoch, vehicle or mass allocation.",
+              "name": "launch",
+              "status": "UNKNOWN",
+              "unresolved": [
+                "launch date/window",
+                "launch vehicle",
+                "payload integration and mass margin"
+              ]
+            },
+            {
+              "basis": "Qualified Earth/Moon states provide geometry context only.",
+              "name": "transfer",
+              "status": "UNKNOWN",
+              "unresolved": [
+                "departure and arrival epochs",
+                "trajectory and propulsion performance",
+                "transfer duration and delta-v"
+              ]
+            },
+            {
+              "basis": "NASA awarded Intuitive Machines end-to-end delivery of the named Roo-ver/MNP payload to the South Pole region; this is a planned service-scope result, not demonstrated flight success.",
+              "name": "lunar_delivery",
+              "status": "FEASIBLE",
+              "unresolved": [
+                "final landing coordinates",
+                "flight performance and landing outcome"
+              ]
+            },
+            {
+              "basis": "ELO2 is the planned rover operator, but deployment, site conditions and duration are not guaranteed.",
+              "name": "site_operations",
+              "status": "UNKNOWN",
+              "unresolved": [
+                "final site and terrain",
+                "deployment, power and data terms",
+                "operational duration assurance"
+              ]
+            }
+          ],
+          "service_evidence_id": "ROO_VER_CT4_IM5_SERVICE_2026_V1",
+          "service_evidence_sha256": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
+          "solar_context": {
+            "earth": {
+              "entity_id": "EARTH",
+              "epoch_utc": "2030-07-01T00:00:00Z",
+              "navigation_grade": true,
+              "payload": {
+                "ephemeris_quality": "QUALIFIED",
+                "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+                "state_class": "CELESTIAL"
+              },
+              "position_km": [
+                23309939.493425187,
+                -150297125.50252044,
+                10509.165595024824
+              ],
+              "provenance": {
+                "aberration_correction": "NONE",
+                "asset_filename": "de440.bsp",
+                "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+                "coverage": {
+                  "coverage_class": "BODY",
+                  "valid_from": "1549-12-30T23:59:18.815889+00:00",
+                  "valid_until": "2650-01-24T23:58:50.815708+00:00"
+                },
+                "ephemeris_source_id": "DE440",
+                "kernel_assets": [
+                  {
+                    "byte_count": 5257,
+                    "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+                    "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+                  },
+                  {
+                    "byte_count": 119799808,
+                    "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+                    "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+                  }
+                ],
+                "naif_identifier": "399",
+                "navigation_grade": true,
+                "observer_naif_identifier": "10",
+                "product_name": "DE440",
+                "product_version": "440",
+                "provider": "JPL/NAIF",
+                "request_time_scale": "UTC",
+                "source_lineage": null,
+                "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+                "spice_frame": "ECLIPJ2000",
+                "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+                "state_source": "LOCAL_SPICE",
+                "time_scale_internal": "SPICE ET/TDB",
+                "uncertainty_km": null,
+                "units": "km,km/s"
+              },
+              "reference_frame": "J2000/ECLIPTIC",
+              "uncertainty": {},
+              "velocity_km_s": [
+                28.964061527002027,
+                4.455048914734289,
+                0.0005035774988246811
+              ]
+            },
+            "manifest_sha256": "e852b008acde377407f3b1ff011666f1d8f7a5ab21e9a2ed427b0e9694a93df6",
+            "moon": {
+              "entity_id": "MOON",
+              "epoch_utc": "2030-07-01T00:00:00Z",
+              "navigation_grade": true,
+              "payload": {
+                "ephemeris_quality": "QUALIFIED",
+                "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+                "state_class": "CELESTIAL"
+              },
+              "position_km": [
+                23240710.737131104,
+                -149901884.42311674,
+                -4532.683784455061
+              ],
+              "provenance": {
+                "aberration_correction": "NONE",
+                "asset_filename": "de440.bsp",
+                "asset_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+                "coverage": {
+                  "coverage_class": "BODY",
+                  "valid_from": "1549-12-30T23:59:18.815889+00:00",
+                  "valid_until": "2650-01-24T23:58:50.815708+00:00"
+                },
+                "ephemeris_source_id": "DE440",
+                "kernel_assets": [
+                  {
+                    "byte_count": 5257,
+                    "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+                    "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+                  },
+                  {
+                    "byte_count": 119799808,
+                    "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+                    "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+                  }
+                ],
+                "naif_identifier": "301",
+                "navigation_grade": true,
+                "observer_naif_identifier": "10",
+                "product_name": "DE440",
+                "product_version": "440",
+                "provider": "JPL/NAIF",
+                "request_time_scale": "UTC",
+                "source_lineage": null,
+                "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+                "spice_frame": "ECLIPJ2000",
+                "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+                "state_source": "LOCAL_SPICE",
+                "time_scale_internal": "SPICE ET/TDB",
+                "uncertainty_km": null,
+                "units": "km,km/s"
+              },
+              "reference_frame": "J2000/ECLIPTIC",
+              "uncertainty": {},
+              "velocity_km_s": [
+                28.004002996386124,
+                4.256724018678932,
+                -0.08054084901307546
+              ]
+            },
+            "reference_epoch_utc": "2030-07-01T00:00:00Z",
+            "registry_sha256": "a216459d6181ce0d99f359d15055afdc0e5899082c3fc8a7e6228f9700af544b"
+          },
+          "status": "UNKNOWN"
+        },
+        "request": {
+          "actor_id": "AUS",
+          "destination_scope": "LUNAR_SOUTH_POLE_REGION",
+          "exact_site_id": null,
+          "landing_year": 2030,
+          "launch_utc": null,
+          "mission_id": "ROO_VER_CLPS_CT4_IM5",
+          "payload_id": "ROO_VER_WITH_NASA_MNP",
+          "payload_mass_kg": null,
+          "required_surface_days": 14
+        }
+      },
+      "source_path": "engineering/civprop/civprop0/runs/roover_transport_mid2030_v1.json",
+      "source_sha256": "a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84"
     }
   }
 }

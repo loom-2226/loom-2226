@@ -1,20 +1,20 @@
 {
   "format": "CIVPROP_GAP_REGISTER_V1",
   "register_id": "CIVPROP_GAP_REGISTER_2026_09_30",
-  "as_of_main_commit": "3009bd4adf1a463fcef9c22f697741ce0c0e8ab5",
+  "as_of_main_commit": "0700407c68276207732292c9a3bc1fc55b703b42",
   "status_semantics": {
     "CLOSED": "The gap has a tested, versioned mechanism adequate for the current CIVPROP development boundary. Closure does not claim every future production-scale value is already calibrated.",
     "OPEN": "The current default executable still contains a placeholder, missing state/output, or incomplete production mechanism owned by this gap.",
     "BLOCKED": "Work cannot proceed without an unresolved dependency outside the gap."
   },
   "current_baseline": {
-    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.2.0",
-    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.2.0",
+    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.3.0",
+    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.3.0",
     "engine": "HYBRID_V1 method-reference-v1",
     "default_fixture": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP2_ACTOR_STATE_SEED42.json",
-    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP2_BASELINE_MANIFEST.json"
+    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP3_TRANSPORT_ACCESSIBILITY_SEED42.json",
+    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP3_BASELINE_MANIFEST.json"
   },
   "gaps": [
     {
@@ -72,7 +72,7 @@
         "Actor budgets are not GDP, national capital stock, or unscoped macro investment proxies.",
         "Current AUS scenario-credit and generic-capability placeholders are removed from the default compiled input."
       ],
-      "next_action": "CLOSED. Preserve Actor State V1 semantics while proceeding to GAP-003 TRANSPORT_ACCESSIBILITY; do not infer budget/capability while later gaps are closed.",
+      "next_action": "CLOSED. Preserve Actor State V1 semantics while later gaps close; do not infer budget/capability from access, macro capital or timeline dates.",
       "output_or_contract_affected": [
         "actors",
         "actor_state_boundary",
@@ -88,14 +88,24 @@
     {
       "gap_id": "GAP-003",
       "name": "TRANSPORT_ACCESSIBILITY",
-      "current_status": "OPEN",
-      "meaning": "Current accessibility/generalized costs are synthetic fixture inputs rather than a general Solar transport service.",
+      "current_status": "CLOSED",
+      "meaning": "Versioned accessibility separates qualified Solar geometry, scoped actor/provider service access and decomposed generalized cost while preserving FEASIBLE/INFEASIBLE/UNKNOWN.",
       "current_evidence": [
-        "engineering/civprop/civprop0/transport.py",
+        "docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md",
+        "engineering/civprop/contracts/accessibility_v1.py",
+        "engineering/civprop/contracts/test_accessibility_v1.py",
         "engineering/civprop/civprop0/ROOVER_TRANSPORT_ASSESSMENT_V1.md",
-        "engineering/civprop/civprop0/BLUE_GHOST_1_TRANSPORT_REFERENCE_V1.md",
-        "engineering/civprop/civprop0/IM1_PROVIDER_TRANSPORT_REFERENCE_V1.md",
-        "reports/solar_civprop/NAV_MINIMUM_INPUT_CONTRACT_V1.md"
+        "engineering/civprop/civprop0/runs/roover_transport_mid2030_v1.json",
+        "reports/solar_civprop/NAV_MINIMUM_INPUT_CONTRACT_V1.md",
+        "engineering/civprop/compile_inputs_v1.py",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/compiler_manifest_v1.json",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json",
+        "engineering/civprop/method_lab/prototypes/common.py",
+        "engineering/civprop/run_civprop_v1.py",
+        "engineering/civprop/test_compile_inputs_v1.py",
+        "engineering/civprop/test_run_civprop_v1.py",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP3_TRANSPORT_ACCESSIBILITY_SEED42.json",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP3_BASELINE_MANIFEST.json"
       ],
       "exit_criteria": [
         "A versioned accessibility service accepts origin, destination, epoch, mission/service class and technology/actor state.",
@@ -104,9 +114,10 @@
         "Qualified Solar geometry is consumed without confusing straight-line separation with route length.",
         "Synthetic Method Lab accessibility profiles are removed from the default compiled input."
       ],
-      "next_action": "Generalize the existing tri-state transport boundary into the Solar accessibility adapter used by Hybrid V1.",
+      "next_action": "CLOSED. Preserve Accessibility V1 tri-state/scoping semantics while proceeding to GAP-004 DEMAND_AND_PRESSURE_MODEL; do not infer routes, service price, fleet allocation or generic actor entitlement.",
       "output_or_contract_affected": [
         "accessibility",
+        "accessibility_boundary",
         "opportunity generation",
         "transport pressure",
         "flows"

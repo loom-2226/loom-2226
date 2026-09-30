@@ -175,9 +175,9 @@ As of the register basis commit:
 
     GAP-001 REAL_INPUT_COMPILER       CLOSED
     GAP-002 ACTOR_STATE_AND_BUDGETS  CLOSED
-    GAP-003 TRANSPORT_ACCESSIBILITY  OPEN
+    GAP-003 TRANSPORT_ACCESSIBILITY  CLOSED
 
-The selected Hybrid V1 architecture remains fixed while GAP-003 through GAP-015
+The selected Hybrid V1 architecture remains fixed while GAP-004 through GAP-015
 replace the remaining placeholders and missing state/output surfaces.
 
 The post-gap sequence is also frozen in that register so completion of the gap list

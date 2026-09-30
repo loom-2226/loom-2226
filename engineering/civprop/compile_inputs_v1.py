@@ -8,8 +8,9 @@ The compiler does two distinct things:
 
 GAP-002 adds a versioned actor-state boundary: real scoped AUS evidence is mapped
 where semantics match, generic spendable allocation remains UNKNOWN, and the old
-scenario-credit/generic-capability placeholders are removed. GAP-003+ compatibility
-values remain explicit assumptions owned by their registered gaps.
+scenario-credit/generic-capability placeholders are removed. GAP-003 replaces the
+synthetic accessibility table with a versioned physics + scoped-service boundary.
+GAP-004+ compatibility values remain explicit assumptions owned by their registered gaps.
 
 This keeps input assembly deterministic without laundering unresolved model
 assumptions into authority.
@@ -20,6 +21,7 @@ import argparse
 import copy
 import hashlib
 import json
+import math
 from pathlib import Path
 import subprocess
 from typing import Any
@@ -46,6 +48,7 @@ RESOURCE_PATH = REPO_ROOT / "dev/solar_civprop_m4b/campaign_assertions.json"
 FLEET_ACCESS_PATH = HERE / "civprop0/actor_access_evidence.json"
 AUS_GOV_ACCESS_PATH = HERE / "civprop0/aus_government_access_evidence.json"
 ROOVER_PATH = HERE / "civprop0/roover_service_envelope.json"
+ROOVER_TRANSPORT_RUN_PATH = HERE / "civprop0/runs/roover_transport_mid2030_v1.json"
 
 
 def _json_bytes(value: Any) -> bytes:
@@ -116,6 +119,56 @@ def _psql_json_records(database: str, queries: dict[str, str]) -> dict[str, list
     if missing:
         raise RuntimeError(f"missing PostgreSQL capture blocks: {sorted(missing)}")
     return rows
+
+
+def _validated_transport_reference(solar: dict[str, Any]) -> dict[str, Any]:
+    """Admit the frozen Roo-ver transport screen as geometry/service evidence."""
+    raw = ROOVER_TRANSPORT_RUN_PATH.read_bytes()
+    document = json.loads(raw)
+    assessment = document["assessment"]
+    context = assessment["solar_context"]
+    epoch = assessment["reference_epoch_utc"]
+
+    if assessment["authority_class"] != "BOUNDED_MISSION_TRANSPORT_SCREEN":
+        raise ValueError("unexpected Roo-ver transport authority class")
+    if assessment["status"] != "UNKNOWN":
+        raise ValueError("Roo-ver end-to-end transport screen must remain UNKNOWN")
+    if epoch != "2030-07-01T00:00:00Z":
+        raise ValueError("unexpected Roo-ver geometry reference epoch")
+    if context["reference_epoch_utc"] != epoch:
+        raise ValueError("Roo-ver Solar context epoch mismatch")
+
+    states = (context["earth"], context["moon"])
+    expected_sha = solar["ephemeris_source"]["sha256"]
+    for state in states:
+        provenance = state["provenance"]
+        if state["epoch_utc"] != epoch:
+            raise ValueError("Roo-ver state epoch mismatch")
+        if state["reference_frame"] != "J2000/ECLIPTIC":
+            raise ValueError("Roo-ver state frame is not qualified canonical frame")
+        if state["navigation_grade"] is not True:
+            raise ValueError("Roo-ver geometry state is not navigation grade")
+        if provenance.get("state_source") != "LOCAL_SPICE":
+            raise ValueError("Roo-ver geometry is not from qualified local SPICE")
+        if provenance.get("ephemeris_source_id") != "DE440":
+            raise ValueError("Roo-ver geometry is not DE440")
+        if provenance.get("asset_sha256") != expected_sha:
+            raise ValueError("Roo-ver DE440 hash does not match captured Solar authority")
+        if provenance.get("units") != "km,km/s":
+            raise ValueError("Roo-ver state units are not km,km/s")
+
+    separation = math.dist(states[0]["position_km"], states[1]["position_km"])
+    relative_speed = math.dist(states[0]["velocity_km_s"], states[1]["velocity_km_s"])
+    if not math.isclose(separation, assessment["earth_moon_distance_km"], rel_tol=0, abs_tol=1e-6):
+        raise ValueError("Roo-ver Earth/Moon separation does not reproduce")
+    if not math.isclose(relative_speed, assessment["earth_moon_relative_speed_km_s"], rel_tol=0, abs_tol=1e-12):
+        raise ValueError("Roo-ver Earth/Moon relative speed does not reproduce")
+
+    return {
+        "source_path": str(ROOVER_TRANSPORT_RUN_PATH.relative_to(REPO_ROOT)),
+        "source_sha256": _sha256_bytes(raw),
+        "document": document,
+    }
 
 
 def capture_live_authority(
@@ -230,12 +283,20 @@ def capture_live_authority(
     fleet_access = json.loads(FLEET_ACCESS_PATH.read_text())
     aus_government_access = json.loads(AUS_GOV_ACCESS_PATH.read_text())
     roover = json.loads(ROOVER_PATH.read_text())
+    solar_capture = {
+        "bodies": rows["solar_bodies"],
+        "identifiers": rows["solar_identifiers"],
+        "ephemeris_source": rows["ephemeris_source"][0],
+        "ephemeris_coverage": rows["ephemeris_coverage"],
+    }
+    transport_reference = _validated_transport_reference(solar_capture)
 
     source_paths = [
         RESOURCE_PATH,
         FLEET_ACCESS_PATH,
         AUS_GOV_ACCESS_PATH,
         ROOVER_PATH,
+        ROOVER_TRANSPORT_RUN_PATH,
         METHOD_LAB_DIR / "scenario_v1.json",
         METHOD_LAB_DIR / "truth_v1.json",
         REPO_ROOT / "data/postgres/earth_temporal_projection_manifest.json",
@@ -254,7 +315,10 @@ def capture_live_authority(
     capture = {
         "format": AUTHORITY_CAPTURE_FORMAT,
         "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
-        "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER",
+        "captured_for_gap": (
+            "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS"
+            "_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY"
+        ),
         "capture_semantics": (
             "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES"
         ),
@@ -269,11 +333,9 @@ def capture_live_authority(
             "aus_demographic_2026_2036": rows["aus_demographic"],
             "aus_economic_2026_2036": rows["aus_economic"],
         },
-        "solar": {
-            "bodies": rows["solar_bodies"],
-            "identifiers": rows["solar_identifiers"],
-            "ephemeris_source": rows["ephemeris_source"][0],
-            "ephemeris_coverage": rows["ephemeris_coverage"],
+        "solar": solar_capture,
+        "transport": {
+            "roover_reference": transport_reference,
         },
         "timeline": {
             "snapshot": rows["timeline_snapshot"][0],
@@ -303,15 +365,6 @@ def capture_live_authority(
 
 def _assumption_register() -> list[dict[str, str]]:
     return [
-        {
-            "assumption_id": "ASSUME-GAP003-ACCESSIBILITY",
-            "gap_id": "GAP-003",
-            "status": "EXPLICIT_PLACEHOLDER",
-            "semantics": (
-                "Origin/destination FEASIBLE/UNKNOWN series and generalized_cost are "
-                "the existing Method Lab synthetic transport fixture."
-            ),
-        },
         {
             "assumption_id": "ASSUME-GAP004-DEMAND",
             "gap_id": "GAP-004",
@@ -519,6 +572,111 @@ def _compile_actor_state(capture: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _compile_accessibility(capture: dict[str, Any]) -> dict[str, Any]:
+    """Compile qualified geometry plus scoped service evidence; unknown stays unknown."""
+    reference = capture["transport"]["roover_reference"]
+    run = reference["document"]
+    assessment = run["assessment"]
+    context = assessment["solar_context"]
+    roover = capture["actor"]["roover_service"]
+    government = capture["actor"]["aus_government_access"]["case"]
+
+    constraints: list[str] = []
+    for segment in assessment["segments"]:
+        if segment["status"] != "FEASIBLE":
+            constraints.extend(
+                f"{segment['name']}:{item}"
+                for item in segment.get("unresolved", ())
+            )
+    constraints.append("END_TO_END_TRANSPORT_REMAINS_UNKNOWN")
+
+    provenance = [
+        f"ROOVER_TRANSPORT_RUN_SHA256:{reference['source_sha256']}",
+        f"SERVICE_EVIDENCE:{assessment['service_evidence_id']}:{assessment['service_evidence_sha256']}",
+        f"DE440:{capture['solar']['ephemeris_source']['sha256']}",
+    ]
+    return {
+        "format": "CIVPROP_ACCESSIBILITY_V1",
+        "contract_version": "1.0.0",
+        "epoch_policy": "ANNUAL_REFERENCE_EPOCH_JULY_01_UTC",
+        "location_bindings": [
+            {"location_id": "EARTH_SURFACE", "body_id": "EARTH"},
+            {"location_id": "EARTH_ORBIT", "body_id": "EARTH"},
+            {"location_id": "LUNA_SURFACE", "body_id": "MOON"},
+            {"location_id": "CISLUNAR_FREE_SPACE", "body_id": None},
+        ],
+        "geometry_samples": [
+            {
+                "origin_body_id": "EARTH",
+                "destination_body_id": "MOON",
+                "epoch_utc": assessment["reference_epoch_utc"],
+                "straight_line_separation_km": assessment["earth_moon_distance_km"],
+                "relative_speed_km_s": assessment["earth_moon_relative_speed_km_s"],
+                "uncertainty_km": context["earth"]["provenance"].get("uncertainty_km"),
+                "reference_frame": context["earth"]["reference_frame"],
+                "source_status": "QUALIFIED",
+                "navigation_grade": True,
+                "provenance_refs": provenance,
+            }
+        ],
+        "service_paths": [
+            {
+                "service_id": "AUS_ROOVER_CLPS_CT4_IM5",
+                "actor_id": "AUS",
+                "provider_id": government["provider_id"],
+                "subject_id": roover["payload_id"],
+                "origin_location_id": "EARTH_SURFACE",
+                "destination_location_id": "LUNA_SURFACE",
+                "mission_class": "NAMED_PAYLOAD_DELIVERY",
+                "service_class": "CLPS_LUNAR_DELIVERY",
+                "valid_from_year": START_YEAR,
+                "valid_to_year": None,
+                "target_year": roover["target_landing_year"],
+                "status": assessment["status"],
+                "limiting_constraints": constraints,
+                "provenance_refs": provenance,
+                "required_technology_ids": [],
+                "cost_components": [
+                    {
+                        "component_id": "ROUTE_LENGTH",
+                        "status": "UNKNOWN",
+                        "value": None,
+                        "unit": "km",
+                        "uncertainty": None,
+                    },
+                    {
+                        "component_id": "TRANSFER_DURATION",
+                        "status": "UNKNOWN",
+                        "value": None,
+                        "unit": "s",
+                        "uncertainty": None,
+                    },
+                    {
+                        "component_id": "DELTA_V",
+                        "status": "UNKNOWN",
+                        "value": None,
+                        "unit": "km/s",
+                        "uncertainty": None,
+                    },
+                    {
+                        "component_id": "SERVICE_PRICE",
+                        "status": "UNKNOWN",
+                        "value": None,
+                        "unit": "currency/service-unit",
+                        "uncertainty": None,
+                    },
+                ],
+                "generalized_cost": {
+                    "status": "UNKNOWN",
+                    "value": None,
+                    "unit": None,
+                    "uncertainty": None,
+                },
+            }
+        ],
+    }
+
+
 def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     base = json.loads((METHOD_LAB_DIR / "scenario_v1.json").read_text())
     scenario = copy.deepcopy(base)
@@ -542,6 +700,8 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     scenario["actors"] = [{"actor_id": "AUS", "actor_type": "STATE"}]
     scenario["actor_state_v1"] = _compile_actor_state(capture)
     scenario["actor_capability"] = []
+    scenario["accessibility_v1"] = _compile_accessibility(capture)
+    scenario.pop("accessibility", None)
 
     belief = copy.deepcopy(base["resource_beliefs"][0])
     belief["evidence_status"] = "EMPIRICAL_PRESENCE_PLUS_SCENARIO_PRIOR"
@@ -550,7 +710,11 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     scenario["authority_context"] = {
         "compiler": {
             "compiler_contract": "CIVPROP_INPUT_COMPILER_V1",
-            "gap_resolution": {"GAP-001": "CLOSED", "GAP-002": "CLOSED"},
+            "gap_resolution": {
+                "GAP-001": "CLOSED",
+                "GAP-002": "CLOSED",
+                "GAP-003": "CLOSED",
+            },
             "compatibility_envelope": (
                 "CIVPROP_METHOD_LAB_SCENARIO_V1 retained for locked runner compatibility"
             ),
@@ -569,6 +733,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
             "aus_economic_2026_2036": capture["earth"]["aus_economic_2026_2036"],
         },
         "solar": capture["solar"],
+        "transport": capture["transport"],
         "timeline": capture["timeline"],
         "resource": capture["resource"],
         "actor": capture["actor"],
@@ -634,10 +799,11 @@ def compile_from_capture(
     gap_resolution = {f"GAP-{i:03d}": "OPEN" for i in range(1, 16)}
     gap_resolution["GAP-001"] = "CLOSED"
     gap_resolution["GAP-002"] = "CLOSED"
+    gap_resolution["GAP-003"] = "CLOSED"
     compiler_manifest = {
         "format": COMPILER_MANIFEST_FORMAT,
         "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-        "compiler_version": "1.1.0",
+        "compiler_version": "1.2.0",
         "compiler_source_sha256": _sha256_path(HERE / "compile_inputs_v1.py"),
         "runtime_input": {
             "fixture_id": COMPILED_FIXTURE_ID,
@@ -687,10 +853,17 @@ def compile_from_capture(
                 "allocation is explicitly UNKNOWN; the observed AUD 42 million Roo-ver "
                 "commitment remains scoped and cannot fund generic CIVPROP projects."
             ),
+            "gap3_closed_means": (
+                "A versioned Accessibility V1 boundary combines qualified frozen Solar geometry "
+                "with actor-scoped provider/service evidence, preserves FEASIBLE/INFEASIBLE/UNKNOWN, "
+                "and exposes decomposed physical/service quantities without treating body-center "
+                "separation as route length. The default synthetic accessibility table is removed."
+            ),
             "does_not_mean": (
-                "An UNKNOWN allocation is zero or an inferred government budget; accessibility, "
-                "demand, project economics, hidden truth, off-world initial infrastructure, "
-                "or demographic depth are production solved."
+                "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample "
+                "is a route, transfer solution, fleet allocation, service price, or actor entitlement; "
+                "demand, project economics, hidden truth, off-world initial infrastructure, or "
+                "demographic depth are production solved."
             ),
         },
     }
@@ -723,6 +896,7 @@ def main() -> None:
                 "runtime_input_sha256": manifest["runtime_input"]["scenario_sha256"],
                 "gap_001": manifest["gap_resolution"]["GAP-001"],
                 "gap_002": manifest["gap_resolution"]["GAP-002"],
+                "gap_003": manifest["gap_resolution"]["GAP-003"],
                 "output_dir": str(args.output_dir),
             },
             indent=2,

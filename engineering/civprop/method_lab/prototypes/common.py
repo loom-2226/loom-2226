@@ -12,6 +12,10 @@ import math
 from typing import Iterable, Optional
 
 from engineering.civprop.contracts.actor_state_v1 import ActorStateRuntime
+from engineering.civprop.contracts.accessibility_v1 import (
+    AccessibilityRequest,
+    AccessibilityRuntime,
+)
 
 from ..contracts import (
     CapacityVector,
@@ -335,9 +339,47 @@ def best_access_cost(
     states: dict[str, MutableLocation],
     destination: str,
     year: int,
+    *,
+    actor_id: Optional[str] = None,
+    project: Optional[ProjectArchetype] = None,
 ) -> Optional[float]:
     if destination == "EARTH_SURFACE":
         return 0.0
+
+    if bundle.scenario.accessibility_v1 is not None:
+        if actor_id is None or project is None or bundle.scenario.actor_state_v1 is None:
+            return None
+        actor_state = next(
+            (x for x in bundle.scenario.actor_state_v1.actors if x.actor_id == actor_id),
+            None,
+        )
+        if actor_state is None:
+            return None
+        runtime = AccessibilityRuntime(bundle.scenario.accessibility_v1)
+        candidates = []
+        for origin in sorted(states):
+            if origin == destination:
+                continue
+            if origin != "EARTH_SURFACE" and states[origin].transport <= 0:
+                continue
+            assessment = runtime.assess(
+                AccessibilityRequest(
+                    actor_id=actor_id,
+                    origin_location_id=origin,
+                    destination_location_id=destination,
+                    epoch_utc=f"{year:04d}-07-01T00:00:00Z",
+                    mission_class="PROJECT_DEPLOYMENT",
+                    service_class="GENERIC_LOGISTICS",
+                    subject_id=project.project_archetype_id,
+                ),
+                actor_state=actor_state,
+                technology_state={},
+            )
+            cost = assessment.generalized_cost
+            if assessment.status == "FEASIBLE" and cost.status == "KNOWN" and cost.value is not None:
+                candidates.append(cost.value)
+        return min(candidates) if candidates else None
+
     candidates = []
     for profile in bundle.scenario.accessibility:
         if profile.destination_location_id != destination:
@@ -435,7 +477,14 @@ def opportunities(
             techs = required_techs(project, location_id)
             if any(actor_tech_status(bundle, actor_id, tech, year) != "USABLE" for tech in techs):
                 continue
-            access_cost = best_access_cost(bundle, states, location_id, year)
+            access_cost = best_access_cost(
+                bundle,
+                states,
+                location_id,
+                year,
+                actor_id=actor_id,
+                project=project,
+            )
             if access_cost is None:
                 continue
             if not local_minimums_met(state, project, access_cost):
