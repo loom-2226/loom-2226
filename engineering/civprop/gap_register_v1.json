@@ -1,0 +1,474 @@
+{
+  "format": "CIVPROP_GAP_REGISTER_V1",
+  "register_id": "CIVPROP_GAP_REGISTER_2026_09_30",
+  "as_of_main_commit": "03ac1c554105a4f74e7197bb9604969b482fb8bf",
+  "status_semantics": {
+    "CLOSED": "The gap has a tested, versioned mechanism adequate for the current CIVPROP development boundary. Closure does not claim every future production-scale value is already calibrated.",
+    "OPEN": "The current default executable still contains a placeholder, missing state/output, or incomplete production mechanism owned by this gap.",
+    "BLOCKED": "Work cannot proceed without an unresolved dependency outside the gap."
+  },
+  "current_baseline": {
+    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.1.0",
+    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.1.0",
+    "engine": "HYBRID_V1 method-reference-v1",
+    "default_fixture": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
+    "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
+    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP1_COMPILED_SEED42.json",
+    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP1_BASELINE_MANIFEST.json"
+  },
+  "gaps": [
+    {
+      "gap_id": "GAP-001",
+      "name": "REAL_INPUT_COMPILER",
+      "current_status": "CLOSED",
+      "meaning": "Replace synthetic Method Lab scenario with frozen adapters from loom_earth, loom_solar, loom_timeline, resource evidence and actor authority.",
+      "current_evidence": [
+        "engineering/civprop/compile_inputs_v1.py",
+        "engineering/civprop/inputs/authority_capture_v1.json",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/compiler_manifest_v1.json",
+        "docs/civprop/CIVPROP_INPUT_COMPILER_V1.md",
+        "engineering/civprop/test_compile_inputs_v1.py"
+      ],
+      "exit_criteria": [
+        "Promoted authority is captured read-only with source/query/file hashes.",
+        "A frozen compiler deterministically produces a runner-compatible package.",
+        "Values are mapped only where semantics align; unresolved values remain named assumptions.",
+        "The default runner accepts the compiled package and reports compiler provenance.",
+        "Live recapture and deterministic recompilation are tested."
+      ],
+      "next_action": "Keep the compiler boundary stable while later gaps replace assumption-register entries. Before a full 2026-2226 production run, expand compiler coverage beyond the current Earth-Luna 2026-2036 development slice without changing semantics silently.",
+      "output_or_contract_affected": [
+        "runtime input package",
+        "input provenance",
+        "gap-resolution metadata"
+      ]
+    },
+    {
+      "gap_id": "GAP-002",
+      "name": "ACTOR_STATE_AND_BUDGETS",
+      "current_status": "OPEN",
+      "meaning": "General actor identities, spendable allocations, access rights, contracts, owned capacity and budget state are not yet production modeled or emitted.",
+      "current_evidence": [
+        "docs/civprop/CIVPROP_ACTOR_CAPABILITY_FOUNDATION_V1.md",
+        "engineering/civprop/civprop0/actor.py",
+        "engineering/civprop/civprop0/actor_access.py",
+        "engineering/civprop/civprop0/actor_access_evidence.json",
+        "engineering/civprop/civprop0/aus_government_access_evidence.json"
+      ],
+      "exit_criteria": [
+        "Versioned actor-state contract distinguishes identity, ownership, operation, access, rights/contracts, capability, experience and spendable allocation.",
+        "2026 boundary values have explicit authority or declared model provenance.",
+        "Future actor state changes only through auditable events/transactions.",
+        "Actor budgets are not GDP, national capital stock, or unscoped macro investment proxies.",
+        "Current AUS scenario-credit and generic-capability placeholders are removed from the default compiled input."
+      ],
+      "next_action": "Build ActorState/ActorBudget V1 and replace ASSUME-GAP002-AUS-BUDGET and ASSUME-GAP002-AUS-CAPABILITIES.",
+      "output_or_contract_affected": [
+        "actors",
+        "actor capability/access",
+        "actor budgets",
+        "decisions",
+        "ownership/operator relationships"
+      ]
+    },
+    {
+      "gap_id": "GAP-003",
+      "name": "TRANSPORT_ACCESSIBILITY",
+      "current_status": "OPEN",
+      "meaning": "Current accessibility/generalized costs are synthetic fixture inputs rather than a general Solar transport service.",
+      "current_evidence": [
+        "engineering/civprop/civprop0/transport.py",
+        "engineering/civprop/civprop0/ROOVER_TRANSPORT_ASSESSMENT_V1.md",
+        "engineering/civprop/civprop0/BLUE_GHOST_1_TRANSPORT_REFERENCE_V1.md",
+        "engineering/civprop/civprop0/IM1_PROVIDER_TRANSPORT_REFERENCE_V1.md",
+        "reports/solar_civprop/NAV_MINIMUM_INPUT_CONTRACT_V1.md"
+      ],
+      "exit_criteria": [
+        "A versioned accessibility service accepts origin, destination, epoch, mission/service class and technology/actor state.",
+        "It preserves FEASIBLE, INFEASIBLE and UNKNOWN and returns provenance plus limiting constraints.",
+        "Generalized cost is decomposable into physical/service quantities with units and uncertainty.",
+        "Qualified Solar geometry is consumed without confusing straight-line separation with route length.",
+        "Synthetic Method Lab accessibility profiles are removed from the default compiled input."
+      ],
+      "next_action": "Generalize the existing tri-state transport boundary into the Solar accessibility adapter used by Hybrid V1.",
+      "output_or_contract_affected": [
+        "accessibility",
+        "opportunity generation",
+        "transport pressure",
+        "flows"
+      ]
+    },
+    {
+      "gap_id": "GAP-004",
+      "name": "DEMAND_AND_PRESSURE_MODEL",
+      "current_status": "OPEN",
+      "meaning": "Transport, industrial, habitat and resource demand signals are synthetic exogenous series; production causal demand equations remain to be built.",
+      "current_evidence": [
+        "engineering/civprop/method_lab/prototypes/hybrid_v1.py",
+        "docs/civprop/CIVPROP_ENGINE_V1_SELECTION.md"
+      ],
+      "exit_criteria": [
+        "Demand/pressure signals are derived from explicit civilization state rather than hand-authored annual series.",
+        "Drivers include only versioned causal inputs such as population, production, scarcity, accessibility, installed capacity, trade or strategic commitments.",
+        "Pressure components and units are documented and testable.",
+        "Pressure decay/relief responds correctly when underlying demand disappears.",
+        "Current OFFWORLD_* and WATER_RESOURCE_DEMAND fixture series are removed from the default production path."
+      ],
+      "next_action": "Define Demand/Pressure V1 equations and hostile tests for no-demand, congestion relief, local-optimum and strategic-investment cases.",
+      "output_or_contract_affected": [
+        "demand signals",
+        "pressure state",
+        "opportunity qualification",
+        "decisions"
+      ]
+    },
+    {
+      "gap_id": "GAP-005",
+      "name": "PROJECT_ECONOMICS",
+      "current_status": "OPEN",
+      "meaning": "Method Lab costs, lags and capacity units are preserved fixtures, not production economics or calibrated technology curves.",
+      "current_evidence": [
+        "engineering/civprop/contracts/infrastructure_archetypes_v1.json",
+        "docs/civprop/CIVPROP_INFRASTRUCTURE_ARCHETYPE_V1.md",
+        "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json",
+        "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md"
+      ],
+      "exit_criteria": [
+        "Infrastructure archetypes have versioned parameter sets with physical/economic units and provenance.",
+        "Costs, construction lags, scale behavior, output capacity and prerequisite capacity are not scenario_credit fixtures.",
+        "Parameter uncertainty and technology-year dependence are represented explicitly where needed.",
+        "Dorrington-Olsen or other domain models are used only within their qualified scope.",
+        "METHOD_LAB_SYNTHETIC_V1 values are absent from the default production path."
+      ],
+      "next_action": "Create the first qualified/scenario production parameter set for the Earth-Orbit-Luna slice, then extend by archetype and technology epoch.",
+      "output_or_contract_affected": [
+        "infrastructure parameterizations",
+        "capital transactions",
+        "construction",
+        "capacity"
+      ]
+    },
+    {
+      "gap_id": "GAP-006",
+      "name": "MISSIONS_AND_KNOWLEDGE_UPDATE",
+      "current_status": "OPEN",
+      "meaning": "Hybrid V1 baseline does not execute prospecting missions or CIVPROP-0 observation/Bayesian knowledge updates.",
+      "current_evidence": [
+        "engineering/civprop/civprop0/observation.py",
+        "engineering/civprop/civprop0/experiment.py",
+        "engineering/civprop/civprop0/runs/adverse.json",
+        "engineering/civprop/civprop0/runs/favourable.json"
+      ],
+      "exit_criteria": [
+        "Mission/action archetypes are distinct from infrastructure archetypes.",
+        "Actors choose missions using actor-visible knowledge only.",
+        "Observations are noisy and conditioned on hidden physical realization plus instrument capability.",
+        "Knowledge updates are deterministic given seed/evidence and produce auditable events.",
+        "Updated beliefs feed later economics/decisions without hidden-truth leakage."
+      ],
+      "next_action": "Integrate the proven CIVPROP-0 observe/Bayes loop into Hybrid V1 as a mission/event lane.",
+      "output_or_contract_affected": [
+        "missions",
+        "observations",
+        "knowledge state",
+        "events",
+        "resource beliefs"
+      ]
+    },
+    {
+      "gap_id": "GAP-007",
+      "name": "PRESSURE_OBSERVABILITY",
+      "current_status": "OPEN",
+      "meaning": "Pressure levels are internal; only pressure-qualified events are emitted.",
+      "current_evidence": [
+        "engineering/civprop/method_lab/prototypes/hybrid_v1.py"
+      ],
+      "exit_criteria": [
+        "Pressure state is emitted or reproducibly reconstructable per year/location/archetype.",
+        "Pressure components, accumulation, decay, qualification threshold and discharge are inspectable.",
+        "A decision can be traced back to the exact pressure state that qualified it.",
+        "Observability does not alter engine decisions or random draws."
+      ],
+      "next_action": "Add a versioned pressure-state output surface and regression tests without changing Hybrid V1 behavior.",
+      "output_or_contract_affected": [
+        "annual pressure state",
+        "events",
+        "decision provenance"
+      ]
+    },
+    {
+      "gap_id": "GAP-008",
+      "name": "RESOURCE_MASS_BALANCE",
+      "current_status": "OPEN",
+      "meaning": "Resource capacity is abstract; stock, grade, throughput, yield, depletion and inventory are not yet modeled.",
+      "current_evidence": [
+        "dev/solar_civprop_resource_contract/RESOURCE_COVERAGE_CONTRACT_V1.json",
+        "dev/solar_civprop_resource_contract/RESOURCE_STATE_CONTRACT_V1.sql",
+        "dev/solar_civprop_m4b/campaign_assertions.json"
+      ],
+      "exit_criteria": [
+        "Resource state distinguishes evidence/belief from hidden physical realization.",
+        "Extraction and processing conserve mass through stock, grade, recovery/yield, inventory and depletion accounting.",
+        "UNKNOWN abundance remains unknown rather than becoming zero or an invented inventory.",
+        "Facilities cannot produce resource flows beyond qualified physical/model constraints."
+      ],
+      "next_action": "Promote the resource-state contract into CIVPROP runtime state and connect extraction/processing modules to mass-balance flows.",
+      "output_or_contract_affected": [
+        "resource state",
+        "resource flows",
+        "inventories",
+        "facility production"
+      ]
+    },
+    {
+      "gap_id": "GAP-009",
+      "name": "PRODUCTION_AND_VALUE_ADDED",
+      "current_status": "OPEN",
+      "meaning": "Off-world sector production, value added, operating cost and investment flows are not yet generated.",
+      "current_evidence": [
+        "loom_earth earth_sector_year / earth_sector_asset_year authority",
+        "docs/civprop/CIVPROP_GAME_PLAN_VERIFICATION_V1.md"
+      ],
+      "exit_criteria": [
+        "Off-world production has explicit inputs, outputs, capacity utilization and operating costs.",
+        "Value added, investment and productive capital have documented units and accounting identities.",
+        "Production is constrained by power, labor/automation, materials, transport and installed capacity as applicable.",
+        "Body/facility aggregates reconcile with underlying facility/sector flows."
+      ],
+      "next_action": "Define off-world sector/production accounting V1 using Earth accounting semantics where transferable and new off-world semantics where necessary.",
+      "output_or_contract_affected": [
+        "production",
+        "value added",
+        "investment",
+        "capital",
+        "industrial utilization"
+      ]
+    },
+    {
+      "gap_id": "GAP-010",
+      "name": "POWER_BALANCE",
+      "current_status": "OPEN",
+      "meaning": "Power is abstract installed capacity; average demand, peak demand, storage, generation mix and energy closure are not yet modeled.",
+      "current_evidence": [
+        "engineering/civprop/contracts/infrastructure_archetypes_v1.json",
+        "legacy Atlas/CIVSTATE power field semantics"
+      ],
+      "exit_criteria": [
+        "Installed generation capacity is distinct from average generation, peak demand and consumed energy.",
+        "Facilities and populations create explicit load.",
+        "Storage/reserve/availability assumptions are versioned where relevant.",
+        "Energy use closes within tolerance at each modeled location/time step.",
+        "Atlas average/peak power fields derive from runtime state rather than arbitrary capacity indexes."
+      ],
+      "next_action": "Add PowerState/PowerFlow V1 and connect infrastructure loads and generators.",
+      "output_or_contract_affected": [
+        "power state",
+        "energy flows",
+        "facility feasibility",
+        "Atlas avg/peak power"
+      ]
+    },
+    {
+      "gap_id": "GAP-011",
+      "name": "TRAFFIC_AND_FLEET",
+      "current_status": "OPEN",
+      "meaning": "Cargo, passengers, ship calls, fleets, queues and route utilization are not yet generated.",
+      "current_evidence": [
+        "legacy Atlas/CIVSTATE cargo/passenger/ship-call semantics",
+        "engineering/civprop/civprop0 transport references"
+      ],
+      "exit_criteria": [
+        "Transport demand becomes route/service flows with explicit cargo and passenger units.",
+        "Fleet/service capacity constrains realized movement.",
+        "Ship calls and utilization derive from flows and vehicle/service capacity.",
+        "Traffic reconciles across origin/destination and feeds transport pressure/economics."
+      ],
+      "next_action": "Define Traffic/Fleet V1 after GAP-003 accessibility and GAP-004 demand provide the necessary upstream signals.",
+      "output_or_contract_affected": [
+        "cargo",
+        "passengers",
+        "ship calls",
+        "route utilization",
+        "transport capacity"
+      ]
+    },
+    {
+      "gap_id": "GAP-012",
+      "name": "FACILITY_AND_SITE_MATERIALIZATION",
+      "current_status": "OPEN",
+      "meaning": "Module colocation, named facilities, settlements, surface sites, orbital elements and Atlas facility types are not yet materialized.",
+      "current_evidence": [
+        "docs/civprop/CIVPROP_INFRASTRUCTURE_ARCHETYPE_V1.md",
+        "legacy Ceres Atlas facility semantics"
+      ],
+      "exit_criteria": [
+        "Generated modules can colocate/aggregate into stable sites without copying the legacy Ceres answer sheet.",
+        "Surface sites and orbitals receive reproducible spatial identity/placement appropriate to available authority.",
+        "Facility lifecycle, owner/operator and module composition are preserved.",
+        "Atlas-facing facility types are derived/materialized from generated capability composition.",
+        "Naming is presentation metadata and cannot alter simulation state."
+      ],
+      "next_action": "Build the deterministic site/facility materializer from generated infrastructure module state.",
+      "output_or_contract_affected": [
+        "sites",
+        "facilities",
+        "orbitals",
+        "settlements",
+        "Atlas facility projection"
+      ]
+    },
+    {
+      "gap_id": "GAP-013",
+      "name": "MAINTENANCE_DEPRECIATION_RETIREMENT",
+      "current_status": "OPEN",
+      "meaning": "Infrastructure maintenance, depreciation, replacement, failure, retirement and abandonment are not yet production modeled.",
+      "current_evidence": [
+        "loom_earth sector asset semantics",
+        "legacy Atlas replacement-value semantics"
+      ],
+      "exit_criteria": [
+        "Infrastructure has age/lifecycle state and explicit maintenance/replacement requirements.",
+        "Depreciation, failure, retirement and abandonment alter usable capacity through events.",
+        "Replacement investment is separated from growth investment.",
+        "Facilities do not persist forever without operating/maintenance consequences."
+      ],
+      "next_action": "Define asset lifecycle V1 and connect it to project economics, production and event scheduling.",
+      "output_or_contract_affected": [
+        "facility lifecycle",
+        "capital",
+        "replacement value",
+        "capacity availability",
+        "events"
+      ]
+    },
+    {
+      "gap_id": "GAP-014",
+      "name": "DEMOGRAPHIC_DEPTH",
+      "current_status": "OPEN",
+      "meaning": "Cohort demography, births/deaths, synthetic persons, biological viability and long-run settlement demographics are not yet connected.",
+      "current_evidence": [
+        "loom_earth earth_demographic_year / earth_biological_cohort_year authority",
+        "loom_earth earth_labor_composition_year authority",
+        "legacy CIVSTATE biological/synthetic population semantics"
+      ],
+      "exit_criteria": [
+        "Off-world biological populations age, reproduce and die with explicit cohort/viability rules.",
+        "Migration integrates with rather than replaces demographic accounting.",
+        "Synthetic population/effective labor and machine task capacity have explicit semantics.",
+        "Workforce is derived from population/labor state rather than a Method Lab placeholder ratio.",
+        "Earth boundary demography remains reconciled with loom_earth."
+      ],
+      "next_action": "Extend the annual state spine with cohort/labor composition adapters and off-world settlement demography.",
+      "output_or_contract_affected": [
+        "population",
+        "synthetic persons",
+        "workforce",
+        "migration",
+        "settlement viability"
+      ]
+    },
+    {
+      "gap_id": "GAP-015",
+      "name": "ATLAS_DERIVED_METRICS",
+      "current_status": "OPEN",
+      "meaning": "Economic/transport centrality, strategic significance and other Atlas display metrics must be derived after physical/economic state exists.",
+      "current_evidence": [
+        "legacy Atlas/CIVSTATE centrality/strategic semantics",
+        "docs/civprop/CIVPROP_ENGINE_V1_EXECUTABLE_BASELINE.md"
+      ],
+      "exit_criteria": [
+        "Atlas derived metrics are deterministic functions of generated physical/economic/network state.",
+        "Metric formulas, normalization population and time scope are versioned and documented.",
+        "Derived scores never serve as circular primitive causes unless explicitly lagged and modeled.",
+        "Body/facility Atlas projections can be regenerated from a pinned CIVPROP run."
+      ],
+      "next_action": "Define Atlas Derived Metrics V1 after traffic, economy, facilities and network state are available.",
+      "output_or_contract_affected": [
+        "economic centrality",
+        "transport centrality",
+        "strategic significance",
+        "Atlas projections"
+      ]
+    }
+  ],
+  "post_gap_plan": [
+    {
+      "gate_id": "POST-01",
+      "name": "PRODUCTION_READINESS_FREEZE",
+      "purpose": "Declare Engine V1 production-ready only after GAP-001 through GAP-015 are CLOSED, no EXPLICIT_PLACEHOLDER assumptions remain in the default package, and input/engine/output semantics are version-pinned.",
+      "exit_criteria": [
+        "All 15 gaps CLOSED in the default executable output.",
+        "No unresolved scenario-credit or Method Lab production placeholders.",
+        "Full 2026-2226 horizon and required Solar/body coverage compile successfully.",
+        "One immutable production-readiness manifest pins all contracts and implementation hashes."
+      ]
+    },
+    {
+      "gate_id": "POST-02",
+      "name": "QUALIFICATION_CAMPAIGN",
+      "purpose": "Hostile-test the completed engine before trusting a 200-year Solar-system propagation: replay, conservation, no-oracle firewalls, sensitivity/ensemble behavior, stress cases, known historical/control cases, and answer-sheet independence.",
+      "exit_criteria": [
+        "Deterministic replay passes.",
+        "Mass/energy/population/economic accounting invariants pass where applicable.",
+        "No hidden truth leaks into actor decisions.",
+        "Stress and sensitivity suites expose bounded, interpretable behavior.",
+        "The old Ceres Atlas is not used as a target/calibration answer sheet."
+      ]
+    },
+    {
+      "gate_id": "POST-03",
+      "name": "REFERENCE_2026_2226_RUN",
+      "purpose": "Execute the qualified 2026-2226 propagation and a declared seed ensemble. Preserve one immutable reference realization for downstream materialization and review; it is a simulation reference, not canon by default.",
+      "exit_criteria": [
+        "Reference input package, engine version, seed/ensemble and output hashes are frozen.",
+        "Run completes over the full horizon without failed invariants.",
+        "Sensitivity across the declared seed set is summarized.",
+        "Reference realization selection, if one is selected, is documented without converting it into governing canon."
+      ]
+    },
+    {
+      "gate_id": "POST-04",
+      "name": "CIVPROP_RUN_AUTHORITY_AND_PERSISTENCE",
+      "purpose": "Persist the accepted simulation result as immutable run authority, preferably in a dedicated loom_civprop persistence layer, while keeping Earth/Solar/Timeline source authorities separate and read-only.",
+      "exit_criteria": [
+        "Run, events, state, facilities, flows, actors and provenance have stable persistent identities.",
+        "Source authority references remain external rather than copied as new truth.",
+        "A run can be reconstructed from the persisted manifest and immutable inputs.",
+        "Legacy CIVSTATE is treated as compatibility/projection, not propagation authority."
+      ]
+    },
+    {
+      "gate_id": "POST-05",
+      "name": "ATLAS_MATERIALIZATION_AND_COMPARATOR_REVIEW",
+      "purpose": "Materialize the reference run into the celestial-body/orbital/facility Atlas and compare it with the original Ceres/Atlas material only as a comparator, not a destination or answer sheet.",
+      "exit_criteria": [
+        "Every Atlas body/facility record traces to CIVPROP state or a transparent derived transform.",
+        "Centrality/strategic metrics derive from generated state.",
+        "Differences from legacy Ceres are reported and explained rather than force-fit.",
+        "Untouched/unsettled bodies remain valid outcomes."
+      ]
+    },
+    {
+      "gate_id": "POST-06",
+      "name": "SOLAR_COVERAGE_AND_RELEASE",
+      "purpose": "Expand/confirm coverage across Earth orbit, Luna, Mars, Belt/Ceres and the outer system, then publish a versioned Atlas/CIVPROP release with explicit scope and uncertainty.",
+      "exit_criteria": [
+        "Required Solar objects and placement classes are covered by the production input compiler.",
+        "No destination is forced to develop merely because it exists in the registry.",
+        "Release manifest pins run authority, Atlas materializer, derived metrics and source contracts.",
+        "Known residual limitations are published rather than hidden."
+      ]
+    },
+    {
+      "gate_id": "POST-07",
+      "name": "ENGINE_VARIANTS_AND_ITERATION",
+      "purpose": "Only after V1 produces a qualified end-to-end world should alternative propagation engines or improved V2 submodels be compared. They should consume the same input/output contracts where semantics permit, so engine choice becomes an experiment rather than another architecture reset.",
+      "exit_criteria": [
+        "V1 remains reproducible and preserved.",
+        "Any alternative engine declares contract compatibility or explicit version differences.",
+        "Comparisons use shared inputs, seeds/ensembles and Atlas materialization rules.",
+        "Promotion of a later engine follows the same qualification and immutable-run process."
+      ]
+    }
+  ]
+}

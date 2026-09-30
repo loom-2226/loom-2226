@@ -161,19 +161,27 @@ Still intentionally replaceable:
 - internal sub-annual scheduling;
 - persistence backend.
 
-## Revised next sequence
+## Current continuation
 
-The candidate bake-off is complete enough for architecture selection. The next work
-is no longer to choose among the three prototype philosophies.
+The method-selection sequence recorded above has now been executed far enough to
+select and lock Engine V1.
 
-Next:
+Current promoted continuation authority is:
 
-1. hostile-test the selected hybrid, especially pressure decay, local-optimum traps,
-   actor myopia, no-demand cases, access reversals and capital scarcity;
-2. derive stable CIVPROP INPUT / STATE / OUTPUT contracts from the selected engine;
-3. build the immutable input compiler from current authorities;
-4. extract the hybrid from Method Lab into the production Engine V1 package;
-5. run the first real Earth-Orbit-Luna propagation slice;
-6. expand outward only after the slice survives validation.
+    docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
+    engineering/civprop/gap_register_v1.json
+
+As of the register basis commit:
+
+    GAP-001 REAL_INPUT_COMPILER       CLOSED
+    GAP-002 ACTOR_STATE_AND_BUDGETS  OPEN
+
+The selected Hybrid V1 architecture remains fixed while GAP-002 through GAP-015
+replace the remaining placeholders and missing state/output surfaces.
+
+The post-gap sequence is also frozen in that register so completion of the gap list
+has an explicit destination: production-readiness freeze, qualification campaign,
+full 2026-2226 reference propagation, CIVPROP run persistence, Atlas materialization,
+Solar coverage/release, then optional alternative-engine comparison.
 
 Alternative engines remain a future supported option rather than a current blocker.

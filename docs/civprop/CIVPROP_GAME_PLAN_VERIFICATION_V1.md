@@ -4,6 +4,13 @@ Review date: 2026-09-28. Class: `class:engineering`, architecture review only.
 Verified GitHub `origin/main`: `b22703ab7ce5586fecfeda0998d19b7d1fbbfe30`.
 Repository evidence was inspected; live databases were not queried or modified.
 
+Current-status note (2026-09-30): this game-plan review remains historical architecture
+evidence. Engine V1 has since been selected, an executable baseline locked, and
+GAP-001 closed with the real-authority input compiler. Current status and the
+post-gap handoff are governed by
+docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md and
+engineering/civprop/gap_register_v1.json.
+
 ## Verdict
 
 **GAME PLAN CONFIRMED WITH MINOR CORRECTIONS.**

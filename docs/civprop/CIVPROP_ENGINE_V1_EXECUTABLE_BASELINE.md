@@ -461,48 +461,49 @@ Every output carries a semantics object so a detached data file still declares i
 
 Every output also carries explicit known_gaps.
 
-Current gap IDs:
+Current gap status:
 
-    GAP-001 REAL_INPUT_COMPILER
-    GAP-002 ACTOR_STATE_AND_BUDGETS
-    GAP-003 TRANSPORT_ACCESSIBILITY
-    GAP-004 DEMAND_AND_PRESSURE_MODEL
-    GAP-005 PROJECT_ECONOMICS
-    GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE
-    GAP-007 PRESSURE_OBSERVABILITY
-    GAP-008 RESOURCE_MASS_BALANCE
-    GAP-009 PRODUCTION_AND_VALUE_ADDED
-    GAP-010 POWER_BALANCE
-    GAP-011 TRAFFIC_AND_FLEET
-    GAP-012 FACILITY_AND_SITE_MATERIALIZATION
-    GAP-013 MAINTENANCE_DEPRECIATION_RETIREMENT
-    GAP-014 DEMOGRAPHIC_DEPTH
-    GAP-015 ATLAS_DERIVED_METRICS
-The gaps are part of output metadata so a future result cannot plausibly be mistaken for a more complete simulation than it is.
+    GAP-001 REAL_INPUT_COMPILER                    CLOSED
+    GAP-002 ACTOR_STATE_AND_BUDGETS               OPEN
+    GAP-003 TRANSPORT_ACCESSIBILITY               OPEN
+    GAP-004 DEMAND_AND_PRESSURE_MODEL              OPEN
+    GAP-005 PROJECT_ECONOMICS                      OPEN
+    GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE          OPEN
+    GAP-007 PRESSURE_OBSERVABILITY                 OPEN
+    GAP-008 RESOURCE_MASS_BALANCE                  OPEN
+    GAP-009 PRODUCTION_AND_VALUE_ADDED             OPEN
+    GAP-010 POWER_BALANCE                          OPEN
+    GAP-011 TRAFFIC_AND_FLEET                      OPEN
+    GAP-012 FACILITY_AND_SITE_MATERIALIZATION      OPEN
+    GAP-013 MAINTENANCE_DEPRECIATION_RETIREMENT    OPEN
+    GAP-014 DEMOGRAPHIC_DEPTH                      OPEN
+    GAP-015 ATLAS_DERIVED_METRICS                  OPEN
+
+The authoritative program register, detailed exit criteria and post-gap handoff are:
+
+    engineering/civprop/gap_register_v1.json
+    docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
+
+The gaps are part of output metadata so a future result cannot plausibly be mistaken
+for a more complete simulation than it is.
 
 # Golden Seed-42 Baseline
 
-The committed seed-42 baseline currently produces:
+The current GAP-001 compiled seed-42 baseline produces:
 
     44 annual location-state rows
-    11 commissioned facilities
-    22 actor decisions
-    131 events
+    7 commissioned facilities
+    11 actor decisions
+    87 events
     10 migration flows
 
-Facility geography:
+The current generated facilities occur in Earth orbit and cislunar free space and
+remain consequences of unresolved GAP-002 through GAP-005 assumptions.
 
-    EARTH_ORBIT          6
-    CISLUNAR_FREE_SPACE  5
+No significance should be attached to those numbers as a forecast.
 
-Facility archetypes:
-
-    LOGISTICS_NODE  10
-    HABITAT          1
-
-No significance should be attached to those numbers beyond regression behavior. They are consequences of the synthetic Method Lab inputs.
-
-The golden output asks only: did the same executable contract still produce the same result?
+The golden output asks only: did the same executable contract still produce the same
+result from the same pinned inputs, implementation and seed?
 
 # Baseline Metadata and Hashes
 
@@ -538,16 +539,17 @@ Infrastructure modules may be colocated and materialized into richer Atlas facil
 The executable boundary is now the thing to preserve.
 From here, replace synthetic input components one at a time while keeping the runner and output envelope stable where semantics permit.
 
-Highest-value gaps are:
+The real-input compiler is now closed as GAP-001.
 
-1. real input compiler;
-2. causal demand/pressure model;
-3. production project economics;
-4. general actor state/budgets/access;
-5. transport accessibility;
-6. mission/knowledge integration;
-7. richer physical/economic state needed by Atlas.
+The immediate continuation is GAP-002 ACTOR_STATE_AND_BUDGETS. The complete work
+queue, exit criteria, dependency guidance and the seven post-gap gates are recorded
+in:
 
-A gap is complete only when its replacement has defined semantics, units, authority/epistemic status, provenance, tests and deterministic handoff to this runner.
+    engineering/civprop/gap_register_v1.json
+    docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
 
-This is the executable stake in the ground.
+A gap is complete only when its replacement has defined semantics, units where
+applicable, authority/model provenance, tests and deterministic handoff to this
+runner.
+
+This remains the executable stake in the ground.
