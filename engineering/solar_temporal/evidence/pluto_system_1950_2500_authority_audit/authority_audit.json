@@ -1,0 +1,140 @@
+{
+  "CHARON": {
+    "center_id": "PLUTO",
+    "probes": {
+      "1950": {
+        "authority_class": "DIRECT",
+        "reason": null,
+        "resolution": "RESOLVED",
+        "source_ref": null
+      },
+      "2226": {
+        "authority_class": "PROPAGATED",
+        "reason": null,
+        "resolution": "RESOLVED",
+        "source_ref": null
+      },
+      "2500": {
+        "authority_class": null,
+        "reason": "no qualified source coverage for LOOM body CHARON at ET 15778497600.0",
+        "resolution": "UNRESOLVED",
+        "source_ref": null
+      }
+    }
+  },
+  "HYDRA": {
+    "center_id": "PLUTO",
+    "probes": {
+      "1950": {
+        "authority_class": "DIRECT",
+        "reason": null,
+        "resolution": "RESOLVED",
+        "source_ref": null
+      },
+      "2226": {
+        "authority_class": null,
+        "reason": "no qualified source coverage for LOOM body HYDRA at ET 7131844800.0",
+        "resolution": "UNRESOLVED",
+        "source_ref": null
+      },
+      "2500": {
+        "authority_class": null,
+        "reason": "no qualified source coverage for LOOM body HYDRA at ET 15778497600.0",
+        "resolution": "UNRESOLVED",
+        "source_ref": null
+      }
+    }
+  },
+  "KERBEROS": {
+    "center_id": "PLUTO",
+    "probes": {
+      "1950": {
+        "authority_class": "DIRECT",
+        "reason": null,
+        "resolution": "RESOLVED",
+        "source_ref": null
+      },
+      "2226": {
+        "authority_class": null,
+        "reason": "no qualified source coverage for LOOM body KERBEROS at ET 7131844800.0",
+        "resolution": "UNRESOLVED",
+        "source_ref": null
+      },
+      "2500": {
+        "authority_class": null,
+        "reason": "no qualified source coverage for LOOM body KERBEROS at ET 15778497600.0",
+        "resolution": "UNRESOLVED",
+        "source_ref": null
+      }
+    }
+  },
+  "NIX": {
+    "center_id": "PLUTO",
+    "probes": {
+      "1950": {
+        "authority_class": "DIRECT",
+        "reason": null,
+        "resolution": "RESOLVED",
+        "source_ref": null
+      },
+      "2226": {
+        "authority_class": null,
+        "reason": "no qualified source coverage for LOOM body NIX at ET 7131844800.0",
+        "resolution": "UNRESOLVED",
+        "source_ref": null
+      },
+      "2500": {
+        "authority_class": null,
+        "reason": "no qualified source coverage for LOOM body NIX at ET 15778497600.0",
+        "resolution": "UNRESOLVED",
+        "source_ref": null
+      }
+    }
+  },
+  "PLUTO": {
+    "center_id": "SUN",
+    "probes": {
+      "1950": {
+        "authority_class": "DIRECT",
+        "reason": null,
+        "resolution": "RESOLVED",
+        "source_ref": null
+      },
+      "2226": {
+        "authority_class": "PROPAGATED",
+        "reason": null,
+        "resolution": "RESOLVED",
+        "source_ref": null
+      },
+      "2500": {
+        "authority_class": null,
+        "reason": "no qualified source coverage for LOOM body PLUTO at ET 15778497600.0",
+        "resolution": "UNRESOLVED",
+        "source_ref": null
+      }
+    }
+  },
+  "STYX": {
+    "center_id": "PLUTO",
+    "probes": {
+      "1950": {
+        "authority_class": "DIRECT",
+        "reason": null,
+        "resolution": "RESOLVED",
+        "source_ref": null
+      },
+      "2226": {
+        "authority_class": null,
+        "reason": "no qualified source coverage for LOOM body STYX at ET 7131844800.0",
+        "resolution": "UNRESOLVED",
+        "source_ref": null
+      },
+      "2500": {
+        "authority_class": null,
+        "reason": "no qualified source coverage for LOOM body STYX at ET 15778497600.0",
+        "resolution": "UNRESOLVED",
+        "source_ref": null
+      }
+    }
+  }
+}
