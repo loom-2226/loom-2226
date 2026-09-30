@@ -1,0 +1,76 @@
+{
+  "schema": "loom.pluto6-jpl-model-reproduction/0.1-experiment",
+  "authority": "EXPERIMENT_ONLY_NOT_QUALIFIED",
+  "source_kernel": "/home/ubuntu/loom_solar_assets/kernels/spk/phase4b/plu060.bsp",
+  "planetary_kernel": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+  "epoch_et": 410270400.0,
+  "years": 1,
+  "integrator": "scipy.DOP853",
+  "rtol": 1e-12,
+  "max_step_s": 21600.0,
+  "internal_gm": {
+    "999": 869.3,
+    "901": 106.1,
+    "902": 0.0015,
+    "903": 0.002,
+    "904": 0.0,
+    "905": 0.0
+  },
+  "external_gm": {
+    "5": 126712761.8414429,
+    "6": 37940584.8418,
+    "7": 5794556.4,
+    "8": 6836531.640925204,
+    "10": 132713233263.3514
+  },
+  "rhs_calls": 21113,
+  "runtime_s": 25.385668516159058,
+  "annual": [
+    {
+      "year": 1,
+      "elapsed_s": 25.385536193847656,
+      "segment_s": 25.385507583618164,
+      "rhs_calls": 21113,
+      "barycenter_position_km": 12.972855221548684,
+      "barycenter_velocity_km_s": 4.109910304088295e-07,
+      "errors": [
+        {
+          "body_id": 999,
+          "body": "PLUTO",
+          "position_error_km": 49.49212317632288,
+          "velocity_error_km_s": 0.0004864768154163392
+        },
+        {
+          "body_id": 901,
+          "body": "CHARON",
+          "position_error_km": 344.6837123012886,
+          "velocity_error_km_s": 0.003989259901160498
+        },
+        {
+          "body_id": 902,
+          "body": "NIX",
+          "position_error_km": 201.72352118642783,
+          "velocity_error_km_s": 0.0005978750484578641
+        },
+        {
+          "body_id": 903,
+          "body": "HYDRA",
+          "position_error_km": 240.88109941188114,
+          "velocity_error_km_s": 0.00047370871062613106
+        },
+        {
+          "body_id": 904,
+          "body": "KERBEROS",
+          "position_error_km": 198.0292021711682,
+          "velocity_error_km_s": 0.00040995849252412406
+        },
+        {
+          "body_id": 905,
+          "body": "STYX",
+          "position_error_km": 275.5211907031889,
+          "velocity_error_km_s": 0.000997493967650299
+        }
+      ]
+    }
+  ]
+}

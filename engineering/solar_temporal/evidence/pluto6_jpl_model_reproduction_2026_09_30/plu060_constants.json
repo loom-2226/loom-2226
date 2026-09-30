@@ -1,0 +1,28 @@
+{
+  "schema": "loom.plu060-dynamical-constants-evidence/1.0",
+  "source": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/plu060.cmt",
+  "source_ephemeris": "PLU060",
+  "planetary_ephemeris": "DE440",
+  "frame": "ICRF/J2000",
+  "time_scale": "TDB",
+  "internal_gm_km3_s2": {
+    "999_PLUTO": 869.3261226311508,
+    "901_CHARON": 106.1011388236118,
+    "902_NIX": 0.001496176095836919,
+    "903_HYDRA": 0.002007962473606101,
+    "904_KERBEROS": 0.0000603845078026937,
+    "905_STYX": 0.00004045391585487917,
+    "9_SYSTEM": 975.4308664317557
+  },
+  "external_gm_km3_s2": {
+    "5_JOVIAN_SYSTEM": 126712761.8414429,
+    "6_SATURNIAN_SYSTEM": 37940584.8418,
+    "7_URANIAN_SYSTEM": 5794556.4,
+    "8_NEPTUNIAN_SYSTEM": 6836531.640925204,
+    "10_SUN": 132713233263.3514
+  },
+  "local_kernel_sha256": {
+    "plu060.bsp": "dfbb102491a26ed41ae08ca3f8963f22f0219df1d8f265ab87b9ad825a826fc6",
+    "de440.bsp": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+  }
+}
