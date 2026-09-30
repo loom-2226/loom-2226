@@ -94,7 +94,7 @@ PASS — biological humans, recognized synthetic persons and non-person machine-
 
 PASS — the prior v2.4b workforce/population invariant remains a validated property of the preserved model package; its retired exact synthetic-stock-dependent outputs are not re-promoted by that historical validation.
 
-PASS — existing off-Earth body/system rows are unchanged. Solar totals are reconciled only by combining the new Earth state with the preserved off-Earth residual and are explicitly not a new off-Earth simulation.
+PASS — existing off-Earth body/system rows are unchanged. The former v2.4b Solar arithmetic totals remain preserved model provenance only where they depend on the retired exact synthetic-person stock; no replacement governing synthetic Solar total is introduced.
 
 PASS — 127-node Solar infrastructure graph unchanged.
 
