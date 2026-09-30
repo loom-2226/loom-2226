@@ -1,0 +1,677 @@
+{
+  "actor": {
+    "earth_area": {
+      "display_name": "Australia",
+      "economic_qualified": true,
+      "iso3": "AUS",
+      "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+      "wpp_location_id": 36,
+      "wpp_location_type": "Country/Area"
+    },
+    "fleet_access": {
+      "admitted_on": "2026-09-29",
+      "authority_class": "EMPIRICAL_ACTOR_ACCESS_ASSERTION",
+      "case": {
+        "access_basis": "PROVIDER_AGREEMENT",
+        "actor_country_iso3": "AUS",
+        "actor_id": "FLEET_SPACE_TECHNOLOGIES",
+        "capability": "LUNAR_PAYLOAD_DELIVERY_ACCESS",
+        "evidence_status": "OBSERVED_ACCESS",
+        "limitations": [
+          "Agreement is for Fleet SPIDER, not the Australian state or an arbitrary lunar payload",
+          "Announcement does not establish a completed lunar delivery or a reserved slot for CIVPROP-0",
+          "No synthetic polar-site service, payload envelope, five-day transfer, exact launch date or price is established"
+        ],
+        "mission": "BLUE_GHOST_MISSION_2",
+        "observed_from": "2023-11-08",
+        "payload": "SPIDER",
+        "provider_id": "FIREFLY_AEROSPACE",
+        "scope": "Fleet SPIDER delivery and provider-supported lunar surface operations on the far side; no general entitlement for other payloads, sites or actors",
+        "sources": [
+          {
+            "assertion": "Firefly announced an agreement with Australian Fleet Space to deliver and operate SPIDER on Blue Ghost Mission 2; the lander would provide power and communications.",
+            "id": "FIREFLY_2023_11_08_FLEET_AGREEMENT",
+            "published": "2023-11-08",
+            "publisher": "Firefly Aerospace",
+            "url": "https://fireflyspace.com/news/firefly-announces-agreement-with-fleet-space-to-deliver-payload-to-the-moon/"
+          },
+          {
+            "assertion": "The Blue Ghost Mission 2 presentation reports that Fleet SPIDER had been delivered to Firefly for integration; the mission remained pre-launch.",
+            "id": "FIREFLY_2026_03_19_Q4_2025_PRESENTATION_P10",
+            "published": "2026-03-19",
+            "publisher": "Firefly Aerospace investor relations",
+            "url": "https://investors.fireflyspace.com/static-files/4a40daaa-c23c-4253-9c67-ca6964087c35"
+          }
+        ]
+      },
+      "fixture_id": "AUS_CAP_0_FLEET_SPIDER_V1"
+    },
+    "roover_service": {
+      "actor_id": "AUS",
+      "as_of": "2026-09-29",
+      "authority_class": "EMPIRICAL_MISSION_ENVELOPE_WITH_PLANNED_TARGETS",
+      "delivery_capacity_kg": null,
+      "delta_v_km_s": null,
+      "destination_scope": "LUNAR_SOUTH_POLE_REGION",
+      "id": "ROO_VER_CT4_IM5_SERVICE_2026_V1",
+      "launch_vehicle": null,
+      "manifested_suite_mass_kg_approx": 75,
+      "mission_id": "ROO_VER_CLPS_CT4_IM5",
+      "payload_id": "ROO_VER_WITH_NASA_MNP",
+      "provider_site_target": "MONS_MALAPERT_TARGET_NOT_FINAL_COORDINATES",
+      "responsibilities": {
+        "australian_space_agency": "Government mission lead for Roo-ver",
+        "elo2": "Rover development and remote surface operation from Australia",
+        "intuitive_machines": "End-to-end lunar delivery, lander and stated network/data service; Rover-specific interfaces and service levels unqualified",
+        "nasa": "CLPS service buyer and MNP sensor owner"
+      },
+      "rover_mass_kg_approx": 20,
+      "service_path": "NASA CLPS CT-4 / Intuitive Machines IM-5",
+      "sources": [
+        {
+          "date": "2026-03-27",
+          "id": "NASA_2026_03_27_CT4",
+          "supports": "Roo-ver manifested on CLPS delivery; NASA selects Intuitive Machines for end-to-end surface delivery to South Pole region targeted 2030; all rovers/instruments collectively about 75 kg; Agency is Roo-ver lead",
+          "url": "https://www.nasa.gov/missions/artemis/clps/nasa-selects-intuitive-machines-to-deliver-artemis-science-tech-to-moon/"
+        },
+        {
+          "date": "2026-03-24",
+          "id": "IM_2026_03_24_IM5",
+          "supports": "Nova-D planned for IM-5; target Mons Malapert; lander and network/data service; MNP integrated with Roo-ver",
+          "url": "https://intuitivemachines.gcs-web.com/news-releases/news-release-details/intuitive-machines-expands-lunar-surface-operations-1804-million"
+        },
+        {
+          "date": "2026-05-15",
+          "id": "IM_2026_05_15_10Q",
+          "supports": "IM-5 initial targeted launch mid-year 2030, not an allocated departure window",
+          "url": "https://www.sec.gov/Archives/edgar/data/1844452/000162828026035236/lunr-20260331.htm"
+        },
+        {
+          "date": null,
+          "id": "ASA_2026_ROOVER_OBJECTIVES",
+          "supports": "Agency presentation: Roo-ver approximately 20 kg, integrated NASA payload, expected 14 days surface operations, operated from Australian centre",
+          "url": "https://www.nasa.gov/wp-content/uploads/2026/03/ip-asa.pdf"
+        },
+        {
+          "date": null,
+          "id": "ASA_2026_MEET_ROOVER",
+          "retrieved": "2026-09-29",
+          "supports": "Agency describes Roo-ver at around 20 kilograms and expected to operate for up to 14 Earth days; this is a planned mission envelope, not a certified physical limit",
+          "url": "https://www.space.gov.au/meet-roo-ver"
+        },
+        {
+          "date": "2025-08-29",
+          "id": "AUS_GOV_2025_08_29_ELO2_OPERATIONS",
+          "supports": "ELO2 designs, builds and operates Roo-ver in partnership with the Agency; government funds rover development and operation",
+          "url": "https://www.minister.industry.gov.au/t-ayres/media/mission-confirmed-aussie-moon-rover-ready-roll"
+        }
+      ],
+      "surface_operations_days_expected": 14,
+      "surface_operations_days_planned_max": 14,
+      "target_landing_year": 2030,
+      "target_launch_period": "MID_2030_INITIAL_TARGET_NOT_BOOKED_WINDOW",
+      "transfer_duration_days": null,
+      "vehicle_class": "NOVA_D_PLANNED"
+    },
+    "source_paths": {
+      "fleet_access": "engineering/civprop/civprop0/actor_access_evidence.json",
+      "roover_service": "engineering/civprop/civprop0/roover_service_envelope.json"
+    }
+  },
+  "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
+  "capture_semantics": "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES",
+  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER",
+  "earth": {
+    "aus_area": {
+      "display_name": "Australia",
+      "economic_qualified": true,
+      "iso3": "AUS",
+      "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+      "wpp_location_id": 36,
+      "wpp_location_type": "Country/Area"
+    },
+    "aus_demographic_2026_2036": [
+      {
+        "age_100_plus": 6775.433228338583,
+        "age_120_plus": 0,
+        "age_150_plus": 0,
+        "age_20_64": 15675913.33441328,
+        "age_65_plus": 5004877.0171091445,
+        "age_80_plus": 1319854.3928803562,
+        "age_under_20": 6422297.648477577,
+        "biological_population": 27103088,
+        "births": 303345,
+        "deaths": 187033,
+        "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+        "iso3": "AUS",
+        "median_age": 39.52523789822094,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "year": 2026
+      },
+      {
+        "age_100_plus": 6837.912758255165,
+        "age_120_plus": 0,
+        "age_150_plus": 0,
+        "age_20_64": 15767132.75449509,
+        "age_65_plus": 5152230.505090102,
+        "age_80_plus": 1397122.3347666953,
+        "age_under_20": 6431740.740414808,
+        "biological_population": 27351104,
+        "births": 302373,
+        "deaths": 190716,
+        "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+        "iso3": "AUS",
+        "median_age": 39.7779936173165,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "year": 2027
+      },
+      {
+        "age_100_plus": 7175.190376192477,
+        "age_120_plus": 0,
+        "age_150_plus": 0,
+        "age_20_64": 15864621.890622187,
+        "age_65_plus": 5298050.186236275,
+        "age_80_plus": 1476433.4043319135,
+        "age_under_20": 6434765.923141537,
+        "biological_population": 27597438,
+        "births": 301452,
+        "deaths": 194605,
+        "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+        "iso3": "AUS",
+        "median_age": 40.02849002849002,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "year": 2028
+      },
+      {
+        "age_100_plus": 7516.86426,
+        "age_120_plus": 0,
+        "age_150_plus": 0,
+        "age_20_64": 15967490.10252,
+        "age_65_plus": 5437198.4814,
+        "age_80_plus": 1550422.8542199999,
+        "age_under_20": 6435549.41608,
+        "biological_population": 27840238,
+        "births": 299996,
+        "deaths": 198691,
+        "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+        "iso3": "AUS",
+        "median_age": 40.287651677373304,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "year": 2029
+      },
+      {
+        "age_100_plus": 7579.6843499999995,
+        "age_120_plus": 0,
+        "age_150_plus": 0,
+        "age_20_64": 16075106.8611,
+        "age_65_plus": 5564891.95815,
+        "age_80_plus": 1622613.909,
+        "age_under_20": 6432906.18075,
+        "biological_population": 28072905,
+        "births": 299017,
+        "deaths": 203343,
+        "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+        "iso3": "AUS",
+        "median_age": 40.549599771297885,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "year": 2030
+      },
+      {
+        "age_100_plus": 8208.456713701411,
+        "age_120_plus": 0,
+        "age_150_plus": 0,
+        "age_20_64": 16188774.940808225,
+        "age_65_plus": 5685346.950048502,
+        "age_80_plus": 1694055.6355690672,
+        "age_under_20": 6430052.109143275,
+        "biological_population": 28304174,
+        "births": 297931,
+        "deaths": 207946,
+        "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+        "iso3": "AUS",
+        "median_age": 40.803481874194006,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "year": 2031
+      },
+      {
+        "age_100_plus": 8274.27554551091,
+        "age_120_plus": 0,
+        "age_150_plus": 0,
+        "age_20_64": 16302890.703274064,
+        "age_65_plus": 5802549.716174323,
+        "age_80_plus": 1764417.9301186022,
+        "age_under_20": 6425973.580551611,
+        "biological_population": 28531414,
+        "births": 297674,
+        "deaths": 212726,
+        "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+        "iso3": "AUS",
+        "median_age": 41.04016700259142,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "year": 2032
+      },
+      {
+        "age_100_plus": 8338.28779287793,
+        "age_120_plus": 0,
+        "age_150_plus": 0,
+        "age_20_64": 16411475.539375395,
+        "age_65_plus": 5920184.33294333,
+        "age_80_plus": 1833560.7329373294,
+        "age_under_20": 6420769.127681277,
+        "biological_population": 28752429,
+        "births": 297938,
+        "deaths": 217740,
+        "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+        "iso3": "AUS",
+        "median_age": 41.26467178669758,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "year": 2033
+      },
+      {
+        "age_100_plus": 8401.272421827345,
+        "age_120_plus": 0,
+        "age_150_plus": 0,
+        "age_20_64": 16511107.60033199,
+        "age_65_plus": 6042542.76463706,
+        "age_80_plus": 1902453.6549703507,
+        "age_under_20": 6417123.6350309495,
+        "biological_population": 28970774,
+        "births": 299010,
+        "deaths": 222917,
+        "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+        "iso3": "AUS",
+        "median_age": 41.48436358322373,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "year": 2034
+      },
+      {
+        "age_100_plus": 9047.763357099288,
+        "age_120_plus": 0,
+        "age_150_plus": 0,
+        "age_20_64": 16601186.443606691,
+        "age_65_plus": 6169990.882873514,
+        "age_80_plus": 1971244.9585112447,
+        "age_under_20": 6416031.673519795,
+        "biological_population": 29187209,
+        "births": 300819,
+        "deaths": 227869,
+        "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+        "iso3": "AUS",
+        "median_age": 41.69290465631929,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "year": 2035
+      },
+      {
+        "age_100_plus": 9115.680526805269,
+        "age_120_plus": 0,
+        "age_150_plus": 0,
+        "age_20_64": 16682871.58089581,
+        "age_65_plus": 6303346.057180572,
+        "age_80_plus": 2040148.1127411274,
+        "age_under_20": 6418909.36192362,
+        "biological_population": 29405127.000000004,
+        "births": 302770,
+        "deaths": 233304,
+        "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+        "iso3": "AUS",
+        "median_age": 41.88165192624794,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "year": 2036
+      }
+    ],
+    "aus_economic_2026_2036": [
+      {
+        "capital": 8113842605984.885,
+        "derivation_id": "V4_2026_2030",
+        "gross_output": 3424446799800.9634,
+        "investment": 412288545182.134,
+        "iso3": "AUS",
+        "population": 27103088,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "value_added": 1728703629851.8467,
+        "year": 2026
+      },
+      {
+        "capital": 8257519782056.423,
+        "derivation_id": "V4_2026_2030",
+        "gross_output": 3482461863062.2617,
+        "investment": 419289204679.32666,
+        "iso3": "AUS",
+        "population": 27351104,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "value_added": 1758057017486.731,
+        "year": 2027
+      },
+      {
+        "capital": 8403958939463.336,
+        "derivation_id": "V4_2026_2030",
+        "gross_output": 3546927614872.2188,
+        "investment": 427067019426.1281,
+        "iso3": "AUS",
+        "population": 27597438,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "value_added": 1790668975161.1094,
+        "year": 2028
+      },
+      {
+        "capital": 8554070610065.174,
+        "derivation_id": "V4_2026_2030",
+        "gross_output": 3619751148490.322,
+        "investment": 435851788015.72363,
+        "iso3": "AUS",
+        "population": 27840238,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "value_added": 1827503035980.1733,
+        "year": 2029
+      },
+      {
+        "capital": 8708787708112.67,
+        "derivation_id": "V4_2026_2030",
+        "gross_output": 3701380720708.085,
+        "investment": 445697679906.9989,
+        "iso3": "AUS",
+        "population": 28072905,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "value_added": 1868786329562.9648,
+        "year": 2030
+      },
+      {
+        "capital": 8868466035274.613,
+        "derivation_id": "V4_2031_2059",
+        "gross_output": 3787293108197.644,
+        "investment": 456060150964.83673,
+        "iso3": "AUS",
+        "population": 28304174,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "value_added": 1912235611725.3037,
+        "year": 2031
+      },
+      {
+        "capital": 9022569921802.639,
+        "derivation_id": "V4_2031_2059",
+        "gross_output": 3881227985017.22,
+        "investment": 467259026712.0055,
+        "iso3": "AUS",
+        "population": 28531414,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "value_added": 1959191893631.7979,
+        "year": 2032
+      },
+      {
+        "capital": 9182856742392.135,
+        "derivation_id": "V4_2031_2059",
+        "gross_output": 3972976353469.4653,
+        "investment": 478146310471.8759,
+        "iso3": "AUS",
+        "population": 28752429,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "value_added": 2004841687143.768,
+        "year": 2033
+      },
+      {
+        "capital": 9348451654614.5,
+        "derivation_id": "V4_2031_2059",
+        "gross_output": 4064026735453.291,
+        "investment": 488932273950.7255,
+        "iso3": "AUS",
+        "population": 28970774,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "value_added": 2050066650182.9421,
+        "year": 2034
+      },
+      {
+        "capital": 9519068434997.12,
+        "derivation_id": "V4_2031_2059",
+        "gross_output": 4154787996362.8174,
+        "investment": 499676394393.9597,
+        "iso3": "AUS",
+        "population": 29187209,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "value_added": 2095116167630.921,
+        "year": 2035
+      },
+      {
+        "capital": 9694488582495.053,
+        "derivation_id": "V4_2031_2059",
+        "gross_output": 4245987406431.3965,
+        "investment": 510469646393.5589,
+        "iso3": "AUS",
+        "population": 29405127,
+        "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+        "value_added": 2140371691044.4326,
+        "year": 2036
+      }
+    ],
+    "global_2026": {
+      "biological_population": 8266245291,
+      "economic_capital": 432469075509846.3,
+      "economic_gross_output": 211514276597700.8,
+      "economic_investment": 25103965105580.805,
+      "economic_value_added": 97972106141060.23,
+      "legacy_employment": 2656643452
+    },
+    "snapshot": {
+      "consumer_git_commit": "d6372ece50976fecfaf76b382d9b682560b70273",
+      "consumer_query_sha256": "7ab8445e129ba172e346bb1d82592814ef69b4ef2eafd77d3615d7f1d9ed9079",
+      "contract_sha256": "78cbfde6d391ecdded2ae584fb1cd90b853d40eb8af25ed02d1a8be6bb9c3eb6",
+      "created_at": "2026-09-24T18:43:16.840904+00:00",
+      "semantic_sha256": "2d84b0b9137b3147e09723dff8cffe952e39e7d55f8062a73c0b13b62baee3a0",
+      "snapshot_id": "earth-v0-1-9934d0ac-20260925",
+      "state": "VALIDATED"
+    }
+  },
+  "format": "CIVPROP_AUTHORITY_CAPTURE_V1",
+  "postgres_database": "loom_dev",
+  "postgres_query_sha256": {
+    "aus_area": "5fb6c3879ea3d4f5ed16cf701caf5a1cf817d6623ce6a4dd73175a52215ba4d3",
+    "aus_demographic": "5889b601ad77759b2f17be50602c71d3646c3e2edb00b3f937dc5c8f7190597a",
+    "aus_economic": "50f601ac5d5603f6873995fec7f3655f3ef931ab2ec806375549fbd954474260",
+    "earth_snapshot": "9cb440d715ac8559791df63b8b2891fe8c36aca4ffeea65bc61de0f90b579806",
+    "ephemeris_coverage": "404fc3fe5189cf70c9c009b97dbcb57f53b87c915f30df4c189ca34c301cc282",
+    "ephemeris_source": "88904bf68c52303614e509d648a565b70aa05240a63527f573ce461cd24073b3",
+    "global_2026": "df3bc8bcb60b69e111bdc700e2d8745dc75661305d15d0080d5af292c43c4d22",
+    "solar_bodies": "c67f6b2bcabd12e89f67311568394276c1090610b135ba0b7bf0b3741000b6bb",
+    "solar_identifiers": "a18869308e1c048fba9de0816d2a027833ac1d27bdf9849939106e9e1e7d08cb",
+    "timeline_milestones": "67f8caa1bc935f6580ca59579437e76f30716bd5a4d5fa63c9865d5fc5307027",
+    "timeline_rules": "6553799573c333b220903fe47b9deaa6523d449596f7cb9f738fd2b3a0c4ebdf",
+    "timeline_snapshot": "549fb4b938c6a1a8224ab24102bcb21d9d0a9633fde3dbea7383578a766123e1"
+  },
+  "resource": {
+    "assertion": {
+      "abundance_semantics": "PRESENT_UNQUANTIFIED",
+      "body_id": "MOON",
+      "confidence_class": "MODERATE",
+      "evidence_class": "IN_SITU_REMOTE",
+      "key": "MOON_POLAR_WATER_ICE",
+      "lineage": "LRO-LCROSS-LUNAR-WATER-OBSERVATIONS",
+      "location_context": "polar permanently shadowed regions and separate sunlit footprints; distinct detection contexts preserved",
+      "material_family": "VOLATILES",
+      "material_species": "water ice in permanently shadowed regions; separate sunlit-surface water detections",
+      "measurement_method": "LRO_LCROSS_AND_ORBITAL_SPECTRAL_OBSERVATIONS",
+      "notes": "Evidence supports water/ice at specified lunar footprints; the quantities, distribution and form vary by site. No global lunar water inventory is implied.",
+      "observation_key": "MOON_LRO_LCROSS_WATER",
+      "physical_form": "surface/subsurface ice or hydroxyl-bearing material, according to distinct observations",
+      "region_key": "MOON_POLAR_PSR",
+      "resource_families": [
+        "VOLATILES"
+      ],
+      "scope": "POLAR_AND_SELECTED_SURFACE_FOOTPRINTS",
+      "source_key": "MOON_WATER_NASA"
+    },
+    "source_path": "dev/solar_civprop_m4b/campaign_assertions.json",
+    "source_sha256": "e87eb9f711ce508933e76c86a1d9f4314a13d6d4403940d21fa25cf6da700c39"
+  },
+  "solar": {
+    "bodies": [
+      {
+        "body_class": "PLANET",
+        "body_id": "EARTH",
+        "canonical_name": "Earth",
+        "created_at": "2026-09-25T12:25:14.738844+00:00",
+        "parent_body_id": null,
+        "status": "ACTIVE"
+      },
+      {
+        "body_class": "NATURAL_SATELLITE",
+        "body_id": "MOON",
+        "canonical_name": "Moon",
+        "created_at": "2026-09-25T12:25:14.738844+00:00",
+        "parent_body_id": null,
+        "status": "ACTIVE"
+      }
+    ],
+    "ephemeris_coverage": [
+      {
+        "body_id": "EARTH",
+        "coverage_class": "BODY",
+        "coverage_end_et": 20514081600,
+        "coverage_start_et": -14200747200,
+        "ephemeris_source_id": "DE440",
+        "reference_frame": "ECLIPJ2000",
+        "status": "QUALIFIED",
+        "units": "km,km/s",
+        "valid_from": "1549-12-30T23:59:18.815889+00:00",
+        "valid_until": "2650-01-24T23:58:50.815708+00:00"
+      },
+      {
+        "body_id": "MOON",
+        "coverage_class": "BODY",
+        "coverage_end_et": 20514081600,
+        "coverage_start_et": -14200747200,
+        "ephemeris_source_id": "DE440",
+        "reference_frame": "ECLIPJ2000",
+        "status": "QUALIFIED",
+        "units": "km,km/s",
+        "valid_from": "1549-12-30T23:59:18.815889+00:00",
+        "valid_until": "2650-01-24T23:58:50.815708+00:00"
+      }
+    ],
+    "ephemeris_source": {
+      "acquired_at": "2026-09-24T21:39:02.529102+00:00",
+      "asset_filename": "de440.bsp",
+      "byte_count": 119799808,
+      "ephemeris_source_id": "DE440",
+      "navigation_grade": true,
+      "product_name": "DE440",
+      "product_version": "440",
+      "provider": "JPL/NAIF",
+      "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "source_lineage": null,
+      "source_url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440.bsp",
+      "state_capability": "DIRECT_SPICE_2250_QUALIFIED",
+      "status": "QUALIFIED",
+      "uncertainty_km": null
+    },
+    "identifiers": [
+      {
+        "authority": "NAIF",
+        "body_id": "EARTH",
+        "identifier_type": "NAIF_ID",
+        "identifier_value": "399",
+        "status": "ACTIVE"
+      },
+      {
+        "authority": "NAIF",
+        "body_id": "MOON",
+        "identifier_type": "NAIF_ID",
+        "identifier_value": "301",
+        "status": "ACTIVE"
+      }
+    ]
+  },
+  "source_basis_commit": "99dadcfb4276471c29aa3bf52650d0584ef03038",
+  "source_file_sha256": {
+    "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
+    "data/postgres/timeline_projection_manifest.json": "524ac904a0d1ed4cdb1fae53ce4ac737d7640b71fe1be8ebf9c97ba8fbe56709",
+    "dev/solar_civprop_m4b/campaign_assertions.json": "e87eb9f711ce508933e76c86a1d9f4314a13d6d4403940d21fa25cf6da700c39",
+    "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+    "engineering/civprop/civprop0/actor_access_evidence.json": "16581d2ad6eec747f4576d7dc836f00d24864683bba0431dc97c04360e15085d",
+    "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
+    "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
+    "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951"
+  },
+  "timeline": {
+    "interpretation_rules": [
+      {
+        "rule_key": "CANON_COMPARATOR_NOT_DESTINATION",
+        "rule_text_md": "Existing canon is a **comparator**, not a destination.",
+        "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+        "source_artifact_sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+        "source_section": "Technology Timeline \u00a7\u00a71,4"
+      },
+      {
+        "rule_key": "DATE_DOES_NOT_UNLOCK",
+        "rule_text_md": "The date alone does **not** unlock a technology, create capacity, give every agent access, establish profitability for another process, cause migration or colonize a location.",
+        "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+        "source_artifact_sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+        "source_section": "Technology Timeline \u00a7\u00a71,4"
+      },
+      {
+        "rule_key": "FOUR_TECH_STATES",
+        "rule_text_md": "Keep four separate states: `knowledge_or_demonstration`, `reliable_operational_design`, `installed_local_capacity`, `actor_access_and_adoption`.",
+        "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+        "source_artifact_sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+        "source_section": "Technology Timeline \u00a7\u00a71,4"
+      },
+      {
+        "rule_key": "SITE_SPECIFIC",
+        "rule_text_md": "Site specificity matters: a proven process at one site creates transferable knowledge, not capacity at other sites.",
+        "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+        "source_artifact_sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+        "source_section": "Technology Timeline \u00a7\u00a71,4"
+      },
+      {
+        "rule_key": "UNKNOWN_NOT_ZERO",
+        "rule_text_md": "Missing quantities remain `UNKNOWN` / null, not zero.",
+        "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+        "source_artifact_sha256": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
+        "source_section": "Technology Timeline \u00a7\u00a71,4"
+      }
+    ],
+    "milestones_2026_2036": [
+      {
+        "authority_class": "GOVERNING_CANON",
+        "basis_uncertainty_md": null,
+        "capability_change_md": "**First Look** launches on a high-energy chemical/gravity/Oberth architecture to overtake 1I.",
+        "end_year": 2031,
+        "epistemic_status": "CANON_HISTORY",
+        "family": "TRN",
+        "milestone_id": "TRN-2031-LOOK",
+        "notes_md": "First Look chemical/gravity/Oberth mission launch; **mission**, not invention or a lift-cost datum",
+        "reference_period": "2031",
+        "sort_order": 2,
+        "source_section": "CANON I v2.4 \u00a72.1",
+        "start_year": 2031,
+        "temporal_precision": "EXACT_YEAR",
+        "threshold_gate_md": null,
+        "timeline_kind": "CANON_HISTORY"
+      },
+      {
+        "authority_class": "PROVISIONAL_SIMULATION_SCAFFOLD",
+        "basis_uncertainty_md": "[R14,R15]; NASA relay programs are real, 2035 is our broad-coverage extrapolation.",
+        "capability_change_md": "Reliable **lunar relay and navigation service** supports sustained autonomous industry",
+        "end_year": 2035,
+        "epistemic_status": "AUTHOR_SCENARIO_MODERATE",
+        "family": "COM",
+        "milestone_id": "COM-MOD-LUNAR",
+        "notes_md": null,
+        "reference_period": "2035",
+        "sort_order": 35,
+        "source_section": "Technology Timeline \u00a74",
+        "start_year": 2035,
+        "temporal_precision": "EXACT_YEAR",
+        "threshold_gate_md": "Verified coverage of named service region, uptime, PNT accuracy, interoperable users, DTN, bandwidth/latency and cost; no magical Moon-wide coverage",
+        "timeline_kind": "MODERATE_SCENARIO_ANCHOR"
+      }
+    ],
+    "snapshot": {
+      "consumer_git_commit": "ed6ad80ede743ab4dc527f4b6e5c5f3149773ae9",
+      "consumer_query_sha256": "bcfd5b606d0a79078175543392ccaa64642157cb58cf6f431f197ccb38a7767f",
+      "contract_sha256": "0232bf23494f7fe0c38bef18604e1605b9b10f5417572d3b0656891a89d69c86",
+      "created_at": "2026-09-25T07:03:01.028431+00:00",
+      "semantic_sha256": "8543a0dde2248891fd1f0f1abd6480d2d30ba587e0e7dfea96580edee52b3636",
+      "snapshot_id": "timeline-v0-1-0232bf23494f-20260925",
+      "state": "VALIDATED"
+    }
+  }
+}
