@@ -35,9 +35,9 @@ records:
 
   - id: CCR-2026-0002
     path: governance/changes/CCR-2026-0002-synthetic-personhood-horizons.yml
-    status: APPROVED_FOR_IMPLEMENTATION
+    status: IMPLEMENTED
     title: Establish synthetic personhood historical horizons and reopen exact synthetic demography
     originating_issue: Kevin canonization directive, 2026-10-01
-    approved_pr: null
-    implemented_pr: null
+    approved_pr: 345
+    implemented_pr: 346
     supersedes: []
