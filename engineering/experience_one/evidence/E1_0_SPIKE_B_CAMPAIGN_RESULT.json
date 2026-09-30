@@ -1,0 +1,64 @@
+{
+  "authority_path": "EXISTING_NAVIGATOR_CAMPAIGN_FLIGHT_PATH",
+  "authorized_plan_number": 1,
+  "committed_and_arrived_pass": true,
+  "committed_plan_sha256": "75de273b020d434a760f2c83f8c31c800773f59da07974d5c305303ca3986ad0",
+  "destination": "NEPTUNE_SYSTEM",
+  "disposable_mode_after_restart": "EXISTING",
+  "flight_id": "F000002",
+  "flight_record_types": [
+    "FLIGHT_COMMITTED",
+    "FLIGHT_PHASE",
+    "FLIGHT_PHASE",
+    "FLIGHT_ARRIVED"
+  ],
+  "kinematic_boundary": {
+    "source": "PYTHON_NAV_V1_A_TERMINAL_BOUNDARY",
+    "state_source_units": [
+      2461572.2080251905,
+      29.782649325799365,
+      2.191562499530217,
+      -0.731482983271015,
+      -0.00025483817188365473,
+      0.003145076730029739,
+      -5.8977764491271836e-05
+    ],
+    "status": "BODY_RENDEZVOUS"
+  },
+  "last_flight": {
+    "arrival_epoch_utc": "2027-06-15T16:59:33.376486Z",
+    "committed_plan_sha256": "75de273b020d434a760f2c83f8c31c800773f59da07974d5c305303ca3986ad0",
+    "departure_epoch_utc": "2027-06-15T08:57:51.391985Z",
+    "departure_state_id": "S000008-1f8140b205a7",
+    "flight_id": "F000002",
+    "metric": "HARD",
+    "remass_used_t": 15.111223232013344,
+    "route": "MARS>NEPTUNE_SYSTEM",
+    "runtime_sha256": "178b67b07aadc5bd80c574f78827fb3bb1fc031912859b846df6d77ebef00df0",
+    "strategy": "DIRECT_NAVIGATION",
+    "torch": "CRUISE"
+  },
+  "origin": "MARS",
+  "priority": "BALANCED",
+  "real_campaign_hashes_after": {
+    "LOOM_CAMPAIGN_HISTORY.jsonl.gz": "ba0bc0ae9b42d204ee4986b85088dc6d2b86b92f2f4471f70b66709517f9c4ec",
+    "LOOM_STATE_V1.bak": "421a07458103ab39b84601366fd9508499b9662ce8c6e4312016070d5bd2b92b",
+    "LOOM_STATE_V1.json": "4d89892fa9feed7a8f59e4cb10d4ee27df1b27268bfe2e68c19d70585697e48c"
+  },
+  "real_campaign_hashes_before": {
+    "LOOM_CAMPAIGN_HISTORY.jsonl.gz": "ba0bc0ae9b42d204ee4986b85088dc6d2b86b92f2f4471f70b66709517f9c4ec",
+    "LOOM_STATE_V1.bak": "421a07458103ab39b84601366fd9508499b9662ce8c6e4312016070d5bd2b92b",
+    "LOOM_STATE_V1.json": "4d89892fa9feed7a8f59e4cb10d4ee27df1b27268bfe2e68c19d70585697e48c"
+  },
+  "real_campaign_unchanged_pass": true,
+  "replay_pass": true,
+  "restart_destination_pass": true,
+  "restart_epoch_utc": "2027-06-15T16:59:33.376486Z",
+  "restart_location": "NEPTUNE_SYSTEM",
+  "restart_remass_t": 168.52038271644005,
+  "restart_state_id": "S000009-f76dfb43c8c5",
+  "restart_state_sha256": "f76dfb43c8c53727c50e1377fc6a485a3eade63f13de9c19f43dbb5b6cef5fa4",
+  "restart_wet_mass_t": 1077.02038271644,
+  "schema": "LOOM_E1_0_SPIKE_B_CAMPAIGN_RESULT_V1",
+  "spike_observation_pass": true
+}
