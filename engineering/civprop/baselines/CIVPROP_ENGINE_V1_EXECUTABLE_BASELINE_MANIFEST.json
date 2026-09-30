@@ -1,0 +1,82 @@
+{
+  "baseline_date": "2026-09-30",
+  "baseline_id": "CIVPROP_ENGINE_V1_EXECUTABLE_BASELINE_2026_09_30",
+  "change_control": {
+    "engine_algorithm_change": "BUMP_ENGINE_VERSION_AND_NEW_GOLDEN_BASELINE",
+    "infrastructure_semantic_change": "VERSION_INFRASTRUCTURE_CATALOG",
+    "input_semantic_change": "VERSION_INPUT_CONTRACT_BEFORE_USE",
+    "no_silent_rewrites": true,
+    "runner_envelope_or_output_semantic_change": "BUMP_RUNNER_OR_OUTPUT_CONTRACT_VERSION",
+    "value_only_input_change": "NEW_RUNTIME_INPUT_HASH_AND_NEW_GOLDEN_BASELINE"
+  },
+  "engine": {
+    "architecture_ref": "docs/civprop/CIVPROP_ENGINE_V1_SELECTION.md",
+    "id": "HYBRID_V1",
+    "version": "method-reference-v1"
+  },
+  "evaluation_only_truth": {
+    "consumed_by_engine": false,
+    "path": "engineering/civprop/method_lab/truth_v1.json",
+    "role": "METHOD_LAB_EVALUATOR_ONLY_NOT_RUNTIME_DECISION_INPUT",
+    "sha256": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951"
+  },
+  "format": "CIVPROP_ENGINE_V1_EXECUTABLE_BASELINE_MANIFEST",
+  "golden_output": {
+    "canonical_payload_sha256": "faf61da0a693e7fad123279d03eece364befa4611338e6922380b8a697c4c08c",
+    "path": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_SYNTHETIC_SEED42.json",
+    "record_counts": {
+      "annual_states": 44,
+      "decisions": 22,
+      "events": 131,
+      "facilities": 11,
+      "flows": 10
+    },
+    "seed": 42,
+    "sha256": "8fc57e5be4544291d6aebea6bc372333ab9656ae3f9af88992b7f964fe76b0ad"
+  },
+  "implementation": {
+    "common_helpers_sha256": "2657c836c4c869b991025d0c63497a37e503e93ea8de4eef616e131e8a09cbf3",
+    "hybrid_engine_sha256": "3e638b63691420912c616030bac7f9ff6ef2de743ef5fd05bf5bc3628d2beb97",
+    "infrastructure_contract_sha256": "bcbcc8705ed18b5acad98c78b87f229b94d6c0b590551b2326fb715520bf5273",
+    "method_lab_contracts_sha256": "6de8ef93de5e50519c2d6f2297965dda3571a175c6c543fba9c6d137f9e1591c",
+    "runner_sha256": "9873001d0f2affdfe9f890ae8649c0645ace607a7be719b059260633efaf8ffd"
+  },
+  "infrastructure": {
+    "catalog_format": "CIVPROP_INFRASTRUCTURE_ARCHETYPE_CATALOG_V1",
+    "catalog_id": "CIVPROP_INFRASTRUCTURE_ARCHETYPES_V1",
+    "catalog_path": "engineering/civprop/contracts/infrastructure_archetypes_v1.json",
+    "catalog_sha256": "a01c9f151909bbb1f23a2f3c093be5585f79e4198d5078ac8417b32818bad9c2",
+    "parameter_set_id": "METHOD_LAB_SYNTHETIC_V1",
+    "parameter_status": "SYNTHETIC_METHOD_FIXTURE",
+    "parameterized_archetypes": [
+      "HABITAT",
+      "INDUSTRIAL_WORKSHOP",
+      "LOGISTICS_NODE",
+      "POWER_PLANT",
+      "RESOURCE_PLANT"
+    ],
+    "semantics_ref": "docs/civprop/CIVPROP_INFRASTRUCTURE_ARCHETYPE_V1.md"
+  },
+  "method_lab_package": {
+    "bundle_sha256": "482a7bd21c59c91381609d1a06398a408273c8a761f962e6c8421335f1ca5120",
+    "manifest_path": "engineering/civprop/method_lab/manifest_v1.json",
+    "manifest_sha256": "dfd8abe394791e5f0d3421586b61033f3484c4b4f4986d7fc4987d9aa58722c2"
+  },
+  "output_contract_version": "1.0.0",
+  "run_entrypoint": "python3 engineering/civprop/run_civprop_v1.py --seed 42 --output /tmp/civprop_v1.json",
+  "runner": {
+    "id": "CIVPROP_ENGINE_V1_RUNNER",
+    "version": "1.0.0"
+  },
+  "runtime_input": {
+    "authority": "SYNTHETIC_METHOD_FIXTURE_ONLY",
+    "fixture_id": "EARTH_ORBIT_LUNA_SYNTHETIC_V1",
+    "format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
+    "path": "engineering/civprop/method_lab/scenario_v1.json",
+    "sha256": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee"
+  },
+  "semantics_ref": "docs/civprop/CIVPROP_ENGINE_V1_EXECUTABLE_BASELINE.md",
+  "source_basis_commit": "312fdb221aecfd141e1ffe8a227f056e02aece0c",
+  "status": "LOCKED_SYNTHETIC_EXECUTABLE_BASELINE_NON_CANON_NON_PRODUCTION",
+  "test_entrypoint": "python3 -m unittest engineering.civprop.test_run_civprop_v1 -v"
+}
