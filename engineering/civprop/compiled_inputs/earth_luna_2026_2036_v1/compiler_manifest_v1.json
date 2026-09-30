@@ -1,12 +1,6 @@
 {
   "assumption_register": [
     {
-      "assumption_id": "ASSUME-GAP004-DEMAND",
-      "gap_id": "GAP-004",
-      "semantics": "Transport, industrial, habitat-interest and water demand series are the existing Method Lab exogenous synthetic signals.",
-      "status": "EXPLICIT_PLACEHOLDER"
-    },
-    {
       "assumption_id": "ASSUME-GAP005-PROJECT-ECONOMICS",
       "gap_id": "GAP-005",
       "semantics": "Facility costs, construction lags and capacity quantities remain METHOD_LAB_SYNTHETIC_V1 parameter values.",
@@ -34,18 +28,18 @@
   "authority_capture": {
     "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
     "path": "engineering/civprop/inputs/authority_capture_v1.json",
-    "sha256": "8e1fce9b8f78183ed37b9753370c92ae39c10af5e9b60471085a073b12dcfb2e",
-    "source_basis_commit": "0700407c68276207732292c9a3bc1fc55b703b42"
+    "sha256": "751dd5b5ceb9ddb5e67aaf9c588b74ba681869db77c203a7419ce250aada9969",
+    "source_basis_commit": "53cca0679f6e2bdd8aa8b3be22b387136bfe1bc3"
   },
   "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-  "compiler_source_sha256": "e3f0f83cbec9e10b7225f5ec1ac9fa0b714f49c395eff15fec825249f743c0ed",
-  "compiler_version": "1.2.0",
+  "compiler_source_sha256": "58d6f40526934291996eb6d8d550564df98d6e89c339de9995b2901098fac500",
+  "compiler_version": "1.3.0",
   "format": "CIVPROP_INPUT_COMPILER_MANIFEST_V1",
   "gap_resolution": {
     "GAP-001": "CLOSED",
     "GAP-002": "CLOSED",
     "GAP-003": "CLOSED",
-    "GAP-004": "OPEN",
+    "GAP-004": "CLOSED",
     "GAP-005": "OPEN",
     "GAP-006": "OPEN",
     "GAP-007": "OPEN",
@@ -59,8 +53,8 @@
     "GAP-015": "OPEN"
   },
   "package_files": {
-    "manifest_v1.json": "e289a5128a0c30fb0d9e3c38035943814a8ae5801a211b11fc35dc70dd17cf56",
-    "scenario_v1.json": "337dab4676c3a9e001bfaf696d844fbbbb7c5f64e6df9290947c8bef29545abf",
+    "manifest_v1.json": "780edf699b01d8593177c83dea43788fe4c9a24b486ace2c1c4dc4b002af9055",
+    "scenario_v1.json": "0af872f4c9ce24135bf33b6fc1c3c2dd8f8a222aef45fe4469fd92c6c9fd1f34",
     "truth_v1.json": "e3acab39409c3451acf2c18d285e0fb3228b837987072cae60eb44d983748aaa"
   },
   "postgres_query_sha256": {
@@ -79,16 +73,17 @@
   },
   "runtime_input": {
     "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "bundle_sha256": "84fddf334a8818e55706bafa75fb018cd7a5625b850c80faaf1e89749872d931",
+    "bundle_sha256": "1e6410f9fed0e74d98aaa2a37f5797e6fee47350a5c791867e900c06838991a4",
     "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "scenario_format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
-    "scenario_sha256": "337dab4676c3a9e001bfaf696d844fbbbb7c5f64e6df9290947c8bef29545abf"
+    "scenario_sha256": "0af872f4c9ce24135bf33b6fc1c3c2dd8f8a222aef45fe4469fd92c6c9fd1f34"
   },
   "semantics": {
-    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; demand, project economics, hidden truth, off-world initial infrastructure, or demographic depth are production solved.",
+    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients are empirical forecasts; project economics, hidden truth, off-world initial infrastructure, or demographic depth are production solved.",
     "gap1_closed_means": "Promoted Earth/Solar/Timeline/resource/actor authority is captured read-only, frozen with hashes, and deterministically compiled into the locked runner envelope. Other open gaps remain explicit placeholders.",
     "gap2_closed_means": "A versioned Actor State V1 separates identity, scoped rights/contracts, provider access, capability, experience and finance. AUS generic spendable allocation is explicitly UNKNOWN; the observed AUD 42 million Roo-ver commitment remains scoped and cannot fund generic CIVPROP projects.",
-    "gap3_closed_means": "A versioned Accessibility V1 boundary combines qualified frozen Solar geometry with actor-scoped provider/service evidence, preserves FEASIBLE/INFEASIBLE/UNKNOWN, and exposes decomposed physical/service quantities without treating body-center separation as route length. The default synthetic accessibility table is removed."
+    "gap3_closed_means": "A versioned Accessibility V1 boundary combines qualified frozen Solar geometry with actor-scoped provider/service evidence, preserves FEASIBLE/INFEASIBLE/UNKNOWN, and exposes decomposed physical/service quantities without treating body-center separation as route length. The default synthetic accessibility table is removed.",
+    "gap4_closed_means": "Demand/Pressure V1 derives requirements from current civilization stocks plus explicit scoped strategic requirements, compares them with installed capacity, and carries unmet demand into decaying pressure in the same channel unit. The default OFFWORLD_* and WATER_RESOURCE_DEMAND annual fixture curves are removed."
   },
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",

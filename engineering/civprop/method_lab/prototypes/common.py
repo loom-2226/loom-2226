@@ -16,6 +16,7 @@ from engineering.civprop.contracts.accessibility_v1 import (
     AccessibilityRequest,
     AccessibilityRuntime,
 )
+from engineering.civprop.contracts.demand_pressure_v1 import DemandObservation
 
 from ..contracts import (
     CapacityVector,
@@ -285,7 +286,41 @@ def demand_value(bundle: LabBundle, signal_id: str, year: int) -> float:
     return 0.0
 
 
-def project_demand(bundle: LabBundle, project: ProjectArchetype, year: int) -> float:
+_DEMAND_CHANNEL_BY_CAPACITY_FIELD = {
+    "power": "POWER",
+    "resource": "RESOURCE",
+    "industrial": "INDUSTRIAL",
+    "habitat": "HABITAT",
+    "transport": "TRANSPORT",
+}
+
+
+def project_demand(
+    bundle: LabBundle,
+    project: ProjectArchetype,
+    year: int,
+    *,
+    location_id: Optional[str] = None,
+    demand_observations: Optional[tuple[DemandObservation, ...]] = None,
+) -> float:
+    if bundle.scenario.demand_pressure_v1 is not None:
+        if location_id is None or demand_observations is None:
+            return 0.0
+        by_channel = {
+            row.channel_id: row
+            for row in demand_observations
+            if row.location_id == location_id
+        }
+        ratios = []
+        for field, channel_id in _DEMAND_CHANNEL_BY_CAPACITY_FIELD.items():
+            output = float(getattr(project.output_capacities, field))
+            if output <= 0:
+                continue
+            row = by_channel.get(channel_id)
+            if row is not None:
+                ratios.append(row.unmet / output)
+        return max(ratios) if ratios else 0.0
+
     c = project.output_capacities
     values = []
     if c.transport > 0:
@@ -463,6 +498,7 @@ def opportunities(
     year: int,
     *,
     include_missions: bool = False,
+    demand_observations: Optional[tuple[DemandObservation, ...]] = None,
 ) -> list[Opportunity]:
     result = []
     placements = {x.location_id: x.placement for x in bundle.scenario.locations}
@@ -492,7 +528,13 @@ def opportunities(
             probability = resource_probability(bundle, location_id)
             if project.output_capacities.resource > 0 and probability <= 0:
                 continue
-            demand = project_demand(bundle, project, year)
+            demand = project_demand(
+                bundle,
+                project,
+                year,
+                location_id=location_id,
+                demand_observations=demand_observations,
+            )
             result.append(
                 Opportunity(
                     actor_id=actor_id,
@@ -607,6 +649,22 @@ def schedule(
     return item
 
 
+def pending_input_requirements(
+    pending: Iterable[PendingProject],
+) -> dict[tuple[str, str], float]:
+    """Aggregate declared minimum-input loads from projects not yet commissioned."""
+    result: dict[tuple[str, str], float] = {}
+    for item in pending:
+        minimums = item.project.minimum_input_capacities
+        for field, channel_id in _DEMAND_CHANNEL_BY_CAPACITY_FIELD.items():
+            amount = float(getattr(minimums, field))
+            if amount <= 0:
+                continue
+            key = (item.location_id, channel_id)
+            result[key] = result.get(key, 0.0) + amount
+    return result
+
+
 def job_capacity(state: MutableLocation) -> float:
     return (
         state.transport * 1.5
@@ -625,6 +683,12 @@ def migration_step(
     *,
     adjustment: float,
 ) -> None:
+    if bundle.scenario.demand_pressure_v1 is not None:
+        # V1 causal demand deliberately does not infer a desire to migrate from
+        # habitat scarcity or spare capacity. A causal relocation/demography
+        # driver belongs to the later demographic boundary.
+        return
+
     earth = states["EARTH_SURFACE"]
     interest = demand_value(bundle, "OFFWORLD_HABITAT_INTEREST", year)
     if interest <= 0 or earth.biological_population <= 0:

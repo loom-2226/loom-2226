@@ -27,8 +27,9 @@ The CIVPROP runner remains:
 engineering/civprop/run_civprop_v1.py
 ```
 
-Runner V1.2 defaults to the compiled package rather than the original synthetic
-Method Lab package and emits the GAP-002 actor-state surfaces.
+Runner V1.4 defaults to the compiled package rather than the original synthetic
+Method Lab package and carries the closed Actor State, Accessibility and
+Demand/Pressure boundaries.
 
 ## What GAP-001 closed means
 
@@ -108,7 +109,7 @@ EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036
 Source-basis commit:
 
 ```text
-99dadcfb4276471c29aa3bf52650d0584ef03038
+53cca0679f6e2bdd8aa8b3be22b387136bfe1bc3
 ```
 
 The capture records hashes for all SQL queries and promoted source files used.
@@ -331,8 +332,6 @@ Every compiled scenario carries an `assumption_register`.
 Current explicit entries include:
 
 ```text
-ASSUME-GAP003-ACCESSIBILITY
-ASSUME-GAP004-DEMAND
 ASSUME-GAP005-PROJECT-ECONOMICS
 ASSUME-GAP006-RESOURCE-PRIOR
 ASSUME-GAP012-OFFWORLD-INITIAL-STATE
@@ -453,7 +452,7 @@ new authority capture
 
 No silent replacement.
 
-## Runner V1.3
+## Runner V1.4
 
 The single simulation entrypoint remains:
 
@@ -464,16 +463,22 @@ engineering/civprop/run_civprop_v1.py
 Runner version:
 
 ```text
-1.3.0
+1.4.0
 ```
 
 Output contract:
 
 ```text
+1.4.0
+```
+
+Compiler version:
+
+```text
 1.3.0
 ```
 
-The default input directory is now the GAP-001/GAP-002/GAP-003 compiled package.
+The default input directory is now the GAP-001 through GAP-004 compiled package.
 
 Default command:
 
@@ -493,17 +498,18 @@ For the default compiled package:
 GAP-001 CLOSED
 GAP-002 CLOSED
 GAP-003 CLOSED
-GAP-004 OPEN
+GAP-004 CLOSED
+GAP-005 OPEN
 ...
 GAP-015 OPEN
 ```
 
-GAP-003 closure is independent of later demand, project-economics, fleet and
-materialization gaps.
+GAP-004 closure is independent of later project-economics, missions,
+pressure-observability, fleet and materialization gaps.
 
 ## Current executable behavior
 
-With compiled input and seed 42, the current GAP-003 baseline produces:
+With compiled input and seed 42, the current GAP-004 baseline produces:
 
 ```text
 44 annual location states
@@ -516,31 +522,34 @@ With compiled input and seed 42, the current GAP-003 baseline produces:
 ```
 
 The current realization commissions no facility because AUS generic spendable
-allocation remains UNKNOWN and no generic Method Lab capability rows are granted.
-That behavior is intentional and is not a forecast.
+allocation remains UNKNOWN and no generic project path satisfies the closed
+actor/accessibility boundaries. Demand still exists internally: 2026 Earth orbit has
+150 persons of unmet habitat requirement and 2 model capacity units of unmet resource
+requirement. That behavior is intentional and is not a forecast.
 
 This is **not** a forecast.
 
-The result still depends materially on unresolved GAP-004 and GAP-005
-placeholders, plus later open mechanisms.
+The result still depends materially on unresolved GAP-005 project economics and
+later open mechanisms. Demand coefficients are explicit uncalibrated model parameters,
+not empirical forecasts.
 
 Its purpose is to prove that real promoted authority now reaches the same locked
 engine and output path.
 
-## Golden GAP-003 baseline
+## Golden GAP-004 baseline
 
 Output:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP3_TRANSPORT_ACCESSIBILITY_SEED42.json
+CIVPROP_ENGINE_V1_GAP4_DEMAND_PRESSURE_SEED42.json
 ```
 
 Manifest:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP3_BASELINE_MANIFEST.json
+CIVPROP_ENGINE_V1_GAP4_BASELINE_MANIFEST.json
 ```
 
 The GAP-001 compiled baseline and previous synthetic V1.0 baseline remain in the
@@ -560,7 +569,7 @@ Unit/functional coverage proves:
 - compilation from frozen capture is byte deterministic;
 - the locked runner accepts the compiled package;
 - the default runner now uses the compiled package;
-- GAP-001 and GAP-002 are CLOSED in current output;
+- GAP-001 through GAP-004 are CLOSED in current output;
 - UNKNOWN actor budget does not become zero, national capital or scenario credit;
 - scoped provider/service evidence does not become generic actor capability;
 - future actor budget/capability changes require replayable events;
@@ -574,10 +583,10 @@ The authoritative current gap register and the post-gap handoff plan are:
     engineering/civprop/gap_register_v1.json
     docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
 
-GAP-001 through GAP-003 closure should be interpreted using that register's closure
-semantics. The next engineering target is GAP-004 DEMAND_AND_PRESSURE_MODEL.
+GAP-001 through GAP-004 closure should be interpreted using that register's closure
+semantics. The next engineering target is GAP-005 PROJECT_ECONOMICS.
 
-## Boundary after GAP-003
+## Boundary after GAP-004
 
 The executable pipeline is now:
 
@@ -602,5 +611,5 @@ HYBRID_V1
 CIVPROP_ENGINE_V1_OUTPUT
 ```
 
-GAP-004 can now replace the exogenous demand/pressure assumption family without
-redesigning this path or weakening the closed actor/accessibility boundaries.
+GAP-005 can now replace synthetic project economics without redesigning this path or
+weakening the closed actor, accessibility or demand/pressure boundaries.

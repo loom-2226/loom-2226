@@ -11,6 +11,8 @@ from __future__ import annotations
 
 from collections import defaultdict
 
+from engineering.civprop.contracts.demand_pressure_v1 import DemandPressureRuntime
+
 from .common import (
     Recorder,
     actor_budget,
@@ -25,6 +27,7 @@ from .common import (
     initial_state,
     migration_step,
     opportunities,
+    pending_input_requirements,
     schedule,
     snapshot,
     stable_unit,
@@ -57,7 +60,32 @@ class HybridEngineV1:
             + 0.04 * c.power
         )
 
+    def _project_pressure_ratio(self, scenario, pressure, opportunity):
+        ratios = []
+        for channel in scenario.demand_pressure_v1.channels:
+            output = float(
+                getattr(opportunity.project.output_capacities, channel.available_field)
+            )
+            if output <= 0:
+                continue
+            value = pressure.get(
+                (opportunity.location_id, channel.channel_id),
+                0.0,
+            )
+            ratios.append(value / output)
+        return max(ratios) if ratios else 0.0
+
     def run(self, bundle, seed):
+        causal_demand = bundle.scenario.demand_pressure_v1 is not None
+        self.engine_version = (
+            "method-reference-v2" if causal_demand else "method-reference-v1"
+        )
+        demand_runtime = (
+            DemandPressureRuntime(bundle.scenario.demand_pressure_v1)
+            if causal_demand
+            else None
+        )
+
         states = initial_state(bundle)
         budgets = actor_budget(bundle)
         actor_types = {x.actor_id: x.actor_type for x in bundle.scenario.actors}
@@ -76,30 +104,52 @@ class HybridEngineV1:
 
             commission_due(year, pending, states, recorder)
 
-            # System-dynamics layer: decay all remembered pressure, then add the
-            # strongest currently feasible structural signal for each location/project.
-            for key in tuple(pressure):
-                pressure[key] *= self.pressure_decay
-                if pressure[key] < 1e-12:
-                    pressure.pop(key, None)
-
-            actor_opportunities = {
-                actor_id: opportunities(bundle, states, actor_id, year)
-                for actor_id in actor_ids
-            }
-            structural = {}
-            for actor_id, rows in actor_opportunities.items():
-                for opportunity in rows:
-                    key = (
-                        opportunity.location_id,
-                        opportunity.project.project_archetype_id,
+            if causal_demand:
+                demand_observations = demand_runtime.derive(
+                    states,
+                    year=year,
+                    additional_requirements=pending_input_requirements(pending),
+                )
+                pressure = demand_runtime.advance_pressure(
+                    pressure,
+                    demand_observations,
+                )
+                actor_opportunities = {
+                    actor_id: opportunities(
+                        bundle,
+                        states,
+                        actor_id,
+                        year,
+                        demand_observations=demand_observations,
                     )
-                    signal = max(0.0, base_utility(opportunity) + 5.0)
-                    if key not in structural or signal > structural[key]:
-                        structural[key] = signal
+                    for actor_id in actor_ids
+                }
+            else:
+                # Historical Method Lab semantics are retained byte-for-byte:
+                # decay project pressure and replenish it from the old exogenous
+                # demand/utility fixture.
+                for key in tuple(pressure):
+                    pressure[key] *= self.pressure_decay
+                    if pressure[key] < 1e-12:
+                        pressure.pop(key, None)
 
-            for key, signal in structural.items():
-                pressure[key] += signal * self.pressure_gain
+                actor_opportunities = {
+                    actor_id: opportunities(bundle, states, actor_id, year)
+                    for actor_id in actor_ids
+                }
+                structural = {}
+                for actor_id, rows in actor_opportunities.items():
+                    for opportunity in rows:
+                        key = (
+                            opportunity.location_id,
+                            opportunity.project.project_archetype_id,
+                        )
+                        signal = max(0.0, base_utility(opportunity) + 5.0)
+                        if key not in structural or signal > structural[key]:
+                            structural[key] = signal
+
+                for key, signal in structural.items():
+                    pressure[key] += signal * self.pressure_gain
 
             committed_keys = set()
             for actor_id in actor_ids:
@@ -118,7 +168,15 @@ class HybridEngineV1:
                     ):
                         continue
 
-                    ratio = pressure[key] / opportunity.project.capital_cost
+                    ratio = (
+                        self._project_pressure_ratio(
+                            bundle.scenario,
+                            pressure,
+                            opportunity,
+                        )
+                        if causal_demand
+                        else pressure[key] / opportunity.project.capital_cost
+                    )
                     if ratio < self.qualification_ratio:
                         continue
 
@@ -182,11 +240,13 @@ class HybridEngineV1:
                     rationale=("PRESSURE_QUALIFIED", "ACTOR_SELECTED"),
                 )
                 committed_keys.add(key)
-                pressure[key] = max(
-                    0.0,
-                    pressure[key]
-                    - choice.project.capital_cost * self.pressure_discharge,
-                )
+
+                if not causal_demand:
+                    pressure[key] = max(
+                        0.0,
+                        pressure[key]
+                        - choice.project.capital_cost * self.pressure_discharge,
+                    )
 
             migration_step(bundle, states, year, recorder, adjustment=0.30)
             annual_states.extend(snapshot(year, states))
