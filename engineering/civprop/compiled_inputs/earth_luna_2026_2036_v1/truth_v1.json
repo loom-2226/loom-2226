@@ -1,0 +1,16 @@
+{
+  "classification": "EVALUATOR_ONLY_SYNTHETIC_TRUTH_FOR_COMPATIBILITY_NOT_RUNTIME_AUTHORITY",
+  "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
+  "format": "CIVPROP_METHOD_LAB_TRUTH_V1",
+  "notes": [
+    "HYBRID_V1 does not consume this file for decisions or state transitions.",
+    "This evaluator-only realization remains synthetic until GAP-006/GAP-008 provide a qualified hidden physical realization contract."
+  ],
+  "resources": [
+    {
+      "grade_index": 0.65,
+      "present": true,
+      "resource_id": "MOON_POLAR_WATER"
+    }
+  ]
+}

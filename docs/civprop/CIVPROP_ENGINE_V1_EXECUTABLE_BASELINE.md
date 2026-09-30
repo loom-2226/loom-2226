@@ -2,7 +2,24 @@
 
 Date: 2026-09-30
 Class: class:engineering
-Status: locked synthetic executable baseline; non-canon; non-production
+Status: locked executable baseline; compiled authority with explicit open-gap assumptions; non-canon; non-production
+
+## Current baseline status
+
+Runner V1.1.0 now defaults to the GAP-001 compiled authority package documented in
+docs/civprop/CIVPROP_INPUT_COMPILER_V1.md.
+
+The original V1.0 synthetic Method Lab baseline remains preserved as historical
+regression evidence. It was not overwritten.
+
+Current default input authority:
+
+    COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1
+
+Current gap state begins:
+
+    GAP-001 CLOSED
+    GAP-002 through GAP-015 OPEN
 
 ## Purpose
 
@@ -39,7 +56,7 @@ From repository root:
 
     python3 engineering/civprop/run_civprop_v1.py       --seed 42       --output /tmp/civprop_v1.json
 
-With no path arguments, the runner uses the frozen Method Lab V1 input package and Infrastructure Archetype V1 catalog.
+With no path arguments, the runner uses the GAP-001 compiled authority package and Infrastructure Archetype V1 catalog.
 
 The runner may later be pointed at another compatible frozen input package with --input-dir and --infrastructure-catalog.
 
@@ -49,33 +66,44 @@ Changing input values is allowed. Changing input meaning is not allowed silently
 
 Machine-readable manifest:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_EXECUTABLE_BASELINE_MANIFEST.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP1_BASELINE_MANIFEST.json
+
 Golden output:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_SYNTHETIC_SEED42.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP1_COMPILED_SEED42.json
 
-The baseline is intentionally synthetic. It proves execution, contracts, reproducibility and causal bookkeeping. It is not a 2026 empirical calibration or a 2226 forecast.
+The current baseline contains real promoted authority plus explicit unresolved
+synthetic assumptions. It proves execution, contracts, provenance and causal
+bookkeeping. It is not yet a production forecast because GAP-002 onward remain open.
+
+The prior V1.0 synthetic manifest/golden files remain preserved as historical
+regression artifacts.
 
 ## Authority and epistemic status
 
 The current default input authority is:
 
-    SYNTHETIC_METHOD_FIXTURE_ONLY
+    COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1
 
-The baseline is non-canon, non-production, not an empirical Earth-to-Solar forecast, not calibrated to the Ceres Atlas, and not a replacement for loom_earth, loom_solar, loom_timeline, Solar Facts or qualified actor/access evidence.
+The compiled package contains frozen promoted Earth, Solar, Timeline, resource and
+actor evidence. It remains non-canon and non-production because budgets,
+accessibility, demand, project economics and other downstream models remain explicit
+placeholders.
 
-Those authorities will later be compiled into a compatible CIVPROP input package.
-
-The runner exists so that filling those gaps does not require redesigning the engine entrypoint each time.
+The runner exists so those later gaps can be replaced without redesigning the engine
+entrypoint.
 
 # Input Contract
 
-The current runtime input is the actor-visible Method Lab scenario:
+The current runtime input is the actor-visible compiled scenario:
 
-    engineering/civprop/method_lab/scenario_v1.json
+    engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json
 
 Its runtime SHA-256 is recorded in every output.
-The Method Lab directory also contains truth_v1.json. That file is evaluator-only. It is used by Method Lab package validation, but HYBRID_V1 does not read hidden truth for decisions or state transitions.
+
+The compiled package also contains truth_v1.json. That file remains evaluator-only
+synthetic compatibility state. HYBRID_V1 does not read hidden truth for decisions or
+state transitions.
 
 The runner therefore records separately:
 
@@ -478,7 +506,7 @@ The golden output asks only: did the same executable contract still produce the 
 
 # Baseline Metadata and Hashes
 
-Authoritative machine-readable values live in CIVPROP_ENGINE_V1_EXECUTABLE_BASELINE_MANIFEST.json.
+Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP1_BASELINE_MANIFEST.json. The earlier synthetic manifest remains historical evidence.
 
 The manifest pins source-basis commit, runner and engine identities, output-contract version, runtime-input and evaluator-truth hashes, infrastructure catalog and parameter set, implementation source hashes, golden-output hashes/counts, and change-control rules.
 # Change Control

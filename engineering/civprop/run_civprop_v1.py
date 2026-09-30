@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-One entrypoint:
-    actor-visible input fixture + infrastructure semantics + seed
-        -> selected HYBRID_V1 engine
-        -> complete deterministic CIVPROP Engine V1 output envelope
-
-This baseline intentionally runs the current synthetic Method Lab fixture. It does
-not pretend that the remaining production input gaps have already been solved.
+Runner V1.1 keeps the selected HYBRID_V1 propagation semantics and switches the
+default runtime input to the GAP-001 compiled authority package. Later gaps remain
+explicitly open inside that package rather than being silently invented here.
 """
 from __future__ import annotations
 
@@ -37,10 +33,11 @@ from engineering.civprop.method_lab.prototypes.hybrid_v1 import HybridEngineV1
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.0.0"
+OUTPUT_CONTRACT_VERSION = "1.1.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.0.0"
+RUNNER_VERSION = "1.1.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
+
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -52,13 +49,13 @@ def _module_sha256(module) -> str:
 
 def default_paths() -> tuple[Path, Path]:
     return (
-        _CIVPROP_DIR / "method_lab",
+        _CIVPROP_DIR / "compiled_inputs" / "earth_luna_2026_2036_v1",
         _CIVPROP_DIR / "contracts" / "infrastructure_archetypes_v1.json",
     )
 
 
 def _validate_infrastructure_crosswalk(bundle, catalog) -> list[str]:
-    """Fail closed if the locked Method Lab project semantics drift from the catalog."""
+    """Fail closed if runtime project semantics drift from the pinned catalog."""
     parameterized: list[str] = []
     parameter_by_archetype = {
         p.archetype_id: p
@@ -120,7 +117,7 @@ def _implementation_hashes() -> dict[str, str]:
     }
 
 
-def _semantics() -> dict[str, Any]:
+def _semantics(input_authority: str | None) -> dict[str, Any]:
     return {
         "time_step": "ANNUAL_INSPECTION_WITH_DISCRETE_PROJECT_COMMISSIONING_EVENTS",
         "annual_snapshot_timing": (
@@ -134,7 +131,7 @@ def _semantics() -> dict[str, Any]:
         ),
         "actor_knowledge": "ACTOR_VISIBLE_SCENARIO_ONLY_HIDDEN_TRUTH_PROHIBITED",
         "resource_truth": (
-            "EVALUATOR_ONLY_FIXTURE_PRESENT_IN_METHOD_LAB_PACKAGE_NOT_READ_BY_ENGINE"
+            "EVALUATOR_ONLY_FIXTURE_PRESENT_IN_PACKAGE_NOT_READ_BY_ENGINE"
         ),
         "technology": (
             "FRONTIER_DATE_DOES_NOT_GRANT_ACTOR_CAPABILITY_ACTOR_ACCESS_IS_SEPARATE"
@@ -161,20 +158,20 @@ def _semantics() -> dict[str, Any]:
             "NO_BIRTHS_OR_DEATHS_IN_BASELINE_MIGRATION_IS_SOURCE_DEBITED_AND_CONSERVED"
         ),
         "habitat": "BIOLOGICAL_POPULATION_MAY_NOT_EXCEED_HABITAT_CAPACITY",
-        "workforce": "SYNTHETIC_METHOD_LAB_RULE_NOT_PRODUCTION_LABOR_MODEL",
+        "workforce": "CURRENT_ENGINE_RULE_NOT_PRODUCTION_LABOR_MODEL",
         "flows": "MIGRATION_ONLY_IN_EXECUTABLE_BASELINE",
         "events": (
-            "APPEND_ORDER_EVENT_CHAIN_WITH_PREVIOUS_EVENT_PARENT_REFERENCE_METHOD_LAB_SEMANTICS"
+            "APPEND_ORDER_EVENT_CHAIN_WITH_PREVIOUS_EVENT_PARENT_REFERENCE_CURRENT_SEMANTICS"
         ),
         "infrastructure": (
             "GENERIC_CAPACITY_BEARING_MODULES_NOT_PREWRITTEN_ATLAS_FACILITIES"
         ),
         "atlas_role": "ENGINE_STATE_NOT_FINAL_ATLAS_MATERIALIZATION",
-        "authority": "SYNTHETIC_METHOD_FIXTURE_NON_CANON_NON_PRODUCTION",
+        "authority": input_authority,
     }
 
 
-def _known_gaps() -> list[dict[str, str]]:
+def _base_gaps() -> list[dict[str, str]]:
     return [
         {
             "gap_id": "GAP-001",
@@ -269,6 +266,35 @@ def _known_gaps() -> list[dict[str, str]]:
     ]
 
 
+def _known_gaps(input_dir: Path) -> list[dict[str, str]]:
+    gaps = _base_gaps()
+    compiler_manifest = Path(input_dir) / "compiler_manifest_v1.json"
+    if not compiler_manifest.exists():
+        return gaps
+
+    manifest = json.loads(compiler_manifest.read_text())
+    statuses = manifest.get("gap_resolution", {})
+    for gap in gaps:
+        if gap["gap_id"] in statuses:
+            gap["status"] = statuses[gap["gap_id"]]
+    return gaps
+
+
+def _compiler_metadata(input_dir: Path) -> dict[str, Any] | None:
+    path = Path(input_dir) / "compiler_manifest_v1.json"
+    if not path.exists():
+        return None
+    manifest = json.loads(path.read_text())
+    return {
+        "manifest_format": manifest.get("format"),
+        "compiler_id": manifest.get("compiler_id"),
+        "compiler_version": manifest.get("compiler_version"),
+        "manifest_sha256": _sha256(path),
+        "authority_capture": manifest.get("authority_capture"),
+        "gap_resolution": manifest.get("gap_resolution"),
+    }
+
+
 def build_output(
     *,
     input_dir: Path,
@@ -291,6 +317,7 @@ def build_output(
     truth_path = input_dir / "truth_v1.json"
     manifest_path = input_dir / "manifest_v1.json"
     scenario_sha = _sha256(scenario_path)
+    compiler_metadata = _compiler_metadata(input_dir)
 
     output = {
         "format": OUTPUT_FORMAT,
@@ -319,6 +346,7 @@ def build_output(
                 "evaluator_truth_consumed_by_engine": False,
                 "input_authority": bundle.manifest.get("authority"),
                 "basis": bundle.manifest.get("basis", {}),
+                "compiler": compiler_metadata,
             },
             "infrastructure": {
                 "catalog_id": catalog.catalog_id,
@@ -330,8 +358,8 @@ def build_output(
             },
             "implementation": _implementation_hashes(),
         },
-        "semantics": _semantics(),
-        "known_gaps": _known_gaps(),
+        "semantics": _semantics(bundle.manifest.get("authority")),
+        "known_gaps": _known_gaps(input_dir),
         "annual_states": result_dict["annual_states"],
         "facilities": result_dict["facilities"],
         "decisions": result_dict["decisions"],
@@ -350,7 +378,7 @@ def main() -> None:
         "--input-dir",
         type=Path,
         default=default_input_dir,
-        help="CIVPROP-compatible frozen input directory (defaults to Method Lab V1).",
+        help="Compatible frozen input directory (defaults to GAP-001 compiled V1).",
     )
     parser.add_argument(
         "--infrastructure-catalog",
