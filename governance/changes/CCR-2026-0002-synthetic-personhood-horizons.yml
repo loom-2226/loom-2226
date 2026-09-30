@@ -3,7 +3,7 @@ record_type: CANON_CHANGE_REQUEST
 
 id: CCR-2026-0002
 title: Establish synthetic personhood historical horizons and reopen exact synthetic demography
-status: APPROVED_FOR_IMPLEMENTATION
+status: IMPLEMENTED
 proposal_revision: 1
 created_date: '2026-10-01'
 updated_date: '2026-10-01'
@@ -186,7 +186,7 @@ validation:
 
 assurance:
   walter_required: true
-  status: WATCH
+  status: PASS
   finding_ids:
     - WALTER-CCR-2026-0002-AUTHORITY-LAYER-WATCH
   concerns:
@@ -199,11 +199,18 @@ assurance:
       debate, not machine consciousness or the fictional future trajectory.
 
 implementation:
-  implementation_pr: null
+  implementation_pr: 346
   target_branch: main
-  merged_commit: null
-  implemented_date: null
-  changed_governing_sources: []
+  merged_commit: 5a4bafed938fad08b41849c661f78e98c8b7be3f
+  implemented_date: '2026-10-01'
+  changed_governing_sources:
+    - canon/current/LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md
+    - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
+    - governance/current/LOOM_2226_Baseline_File_Hashes_v2.4.md
+    - governance/current/LOOM_2226_Canon_v2.4_Validation_Report.md
+    - governance/current/LOOM_AUTHORITY_MODEL.yml
+    - governance/dependencies/component-map.yml
+    - manifests/current/LOOM_COMPATIBILITY.yml
   downstream_followup_issues:
     - >-
       GAP-014 may later produce a qualified demographic model; any future exact
@@ -217,7 +224,7 @@ decision:
     the existing post-Multiplicity doctrine, keep first-recognition timing open,
     and deliberately leave synthetic demographics open under the new Earth/CIVPROP
     architecture rather than preserving stale fitted-looking endpoint counts.
-  disposition: APPROVED_FOR_IMPLEMENTATION
+  disposition: IMPLEMENTED
 
 supersession:
   supersedes: []
@@ -231,3 +238,12 @@ history:
     note: >-
       Kevin explicitly directed canonization of the personhood scaffold and
       preservation of open synthetic demographics after live-Git authority review.
+  - date: '2026-10-01'
+    event: IMPLEMENTED
+    status: IMPLEMENTED
+    actor: Sol
+    note: >-
+      Canon implementation PR #346 merged to authoritative main at
+      5a4bafed938fad08b41849c661f78e98c8b7be3f after loom-gate PASS.
+      v2.4c is registered in the baseline, authority model, dependency map,
+      compatibility manifest, hash register and validation report.
