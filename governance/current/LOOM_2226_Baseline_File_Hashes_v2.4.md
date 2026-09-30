@@ -15,7 +15,7 @@
 | `LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md` | `1141edc0e4efc5b81339274825139d60ccbff2cf1dcc5408d417c2dfbfec1996` |
 | `LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md` | `33a9302e8aabedc7214510bbe493a6770e8a4887dfb6913c582d585d6c18a47c` |
 | `LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md` | `9c559065d6d3c85606dfcfc8e439f4ae716ecdde2caa1bc7484a8ee76b8ff995` |
-| `LOOM_2226_Canon_v2.4_Validation_Report.md` | `721874dcb630ebaf83e032f2680c29a3daefb0981089b64c19ab7934730f04f1` |
+| `LOOM_2226_Canon_v2.4_Validation_Report.md` | `c8fc467654107f248d64146b578247967487fb7b1e41bc128695fe111e7a3504` |
 
 ## 1 October 2026 scoped personhood-horizons registration
 
