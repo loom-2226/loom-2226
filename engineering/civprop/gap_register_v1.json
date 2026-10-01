@@ -1,20 +1,20 @@
 {
   "format": "CIVPROP_GAP_REGISTER_V1",
   "register_id": "CIVPROP_GAP_REGISTER_2026_09_30",
-  "as_of_main_commit": "95cac9a31b833a34c84d3be2f7b14e8e7804546e",
+  "as_of_main_commit": "6e5a3a4fddc985d5670f3b6da9b07122743221ae",
   "status_semantics": {
     "CLOSED": "The gap has a tested, versioned mechanism adequate for the current CIVPROP development boundary. Closure does not claim every future production-scale value is already calibrated.",
     "OPEN": "The current default executable still contains a placeholder, missing state/output, or incomplete production mechanism owned by this gap.",
     "BLOCKED": "Work cannot proceed without an unresolved dependency outside the gap."
   },
   "current_baseline": {
-    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.7.0",
-    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.7.0",
-    "engine": "HYBRID_V1 method-reference-v5",
+    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.8.0",
+    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.8.0",
+    "engine": "HYBRID_V1 method-reference-v6",
     "default_fixture": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_PRESSURE_OBSERVABILITY_SEED42.json",
-    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_BASELINE_MANIFEST.json"
+    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP8_RESOURCE_MASS_BALANCE_SEED42.json",
+    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP8_BASELINE_MANIFEST.json"
   },
   "gaps": [
     {
@@ -281,7 +281,7 @@
         "A decision can be traced back to the exact pressure state that qualified it.",
         "Observability does not alter engine decisions or random draws."
       ],
-      "next_action": "CLOSED. Preserve read-only pressure instrumentation and decision provenance while proceeding to GAP-008 RESOURCE_MASS_BALANCE; observability must not become an alternate decision path.",
+      "next_action": "CLOSED. Preserve read-only pressure instrumentation and exact decision provenance while later physical/economic gaps close.",
       "output_or_contract_affected": [
         "pressure_observability_boundary",
         "pressure_states",
@@ -293,12 +293,30 @@
     {
       "gap_id": "GAP-008",
       "name": "RESOURCE_MASS_BALANCE",
-      "current_status": "OPEN",
-      "meaning": "Resource capacity is abstract; stock, grade, throughput, yield, depletion and inventory are not yet modeled.",
+      "current_status": "CLOSED",
+      "meaning": "Resource Mass Balance V1 separates actor-visible evidence/belief from evaluator-only physical realization and conserves in-situ stock, extracted feed, grade, recovery, tailings, product inventory and depletion; unquantified abundance remains UNKNOWN rather than zero or invented inventory.",
       "current_evidence": [
+        "docs/civprop/CIVPROP_RESOURCE_MASS_BALANCE_V1.md",
+        "engineering/civprop/contracts/resource_mass_balance_v1.py",
+        "engineering/civprop/contracts/resource_mass_balance_v1.json",
+        "engineering/civprop/contracts/test_resource_mass_balance_v1.py",
+        "engineering/civprop/method_lab/resource_lane_v1.py",
+        "engineering/civprop/method_lab/contracts.py",
+        "engineering/civprop/method_lab/prototypes/common.py",
+        "engineering/civprop/method_lab/prototypes/hybrid_v1.py",
+        "engineering/civprop/method_lab/test_hybrid_v1.py",
+        "engineering/civprop/compile_inputs_v1.py",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/truth_v1.json",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/compiler_manifest_v1.json",
+        "engineering/civprop/run_civprop_v1.py",
+        "engineering/civprop/test_compile_inputs_v1.py",
+        "engineering/civprop/test_run_civprop_v1.py",
         "dev/solar_civprop_resource_contract/RESOURCE_COVERAGE_CONTRACT_V1.json",
         "dev/solar_civprop_resource_contract/RESOURCE_STATE_CONTRACT_V1.sql",
-        "dev/solar_civprop_m4b/campaign_assertions.json"
+        "dev/solar_civprop_m4b/campaign_assertions.json",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP8_RESOURCE_MASS_BALANCE_SEED42.json",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP8_BASELINE_MANIFEST.json"
       ],
       "exit_criteria": [
         "Resource state distinguishes evidence/belief from hidden physical realization.",
@@ -306,12 +324,13 @@
         "UNKNOWN abundance remains unknown rather than becoming zero or an invented inventory.",
         "Facilities cannot produce resource flows beyond qualified physical/model constraints."
       ],
-      "next_action": "Promote the resource-state contract into CIVPROP runtime state and connect extraction/processing modules to mass-balance flows.",
+      "next_action": "CLOSED. Preserve UNKNOWN-not-zero and evaluator/actor-knowledge separation while proceeding to GAP-009 PRODUCTION_AND_VALUE_ADDED; resource physical state must not become an economic-value shortcut.",
       "output_or_contract_affected": [
-        "resource state",
-        "resource flows",
-        "inventories",
-        "facility production"
+        "resource_mass_balance_boundary",
+        "resource_states",
+        "resource_flows",
+        "evaluator physical realization",
+        "facility resource production"
       ]
     },
     {
