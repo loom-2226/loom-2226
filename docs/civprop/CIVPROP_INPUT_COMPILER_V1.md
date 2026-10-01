@@ -646,7 +646,7 @@ requirement. That behavior is intentional and is not a forecast.
 
 This is **not** a forecast.
 
-The result still depends materially on GAP-013 and later open mechanisms. Demand,
+The result still depends materially on GAP-014 and GAP-015 open mechanisms. Demand,
 mission-observation and project-economics scenario coefficients remain explicit
 uncalibrated model parameters where marked, not empirical forecasts.
 
@@ -701,7 +701,7 @@ The authoritative current gap register and the post-gap handoff plan are:
     docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
 
 GAP-001 through GAP-012 closure should be interpreted using that register's closure
-semantics. The next engineering target is GAP-013 MAINTENANCE_DEPRECIATION_RETIREMENT.
+semantics. GAP-013 MAINTENANCE_DEPRECIATION_RETIREMENT is CLOSED. The next program targets are GAP-014 DEMOGRAPHIC_DEPTH and GAP-015 ATLAS_DERIVED_METRICS, with long-run integration qualification proceeding in parallel.
 
 ## Boundary after GAP-012
 

@@ -1,32 +1,118 @@
 {
-  "format": "CIVPROP_ACTOR_BRIDGE_PARAMETERS_V0_1",
-  "version": "0.1.0",
-  "status": "NON_CANON_MACHINERY_TEST_ASSUMPTIONS",
-  "capital_unit": "USD_2026_billion",
-  "public_investment_allocation_fraction": 0.0005,
-  "multinational_member_allocation_fraction": 0.00003,
-  "commercial_host_investment_allocation_fraction": 0.00008,
   "annual_budget_carry_fraction": 0.5,
-  "success_reinvestment_fraction": 0.1,
-  "decision_noise": 0.15,
-  "commit_threshold": 0.48,
-  "project_order": ["LOGISTICS_NODE", "SURFACE_PORT", "POWER_PLANT", "PROSPECTING_SURVEY", "HABITAT", "RESOURCE_PLANT", "INDUSTRIAL_WORKSHOP", "SHIPYARD"],
   "capability_requirements": {
-    "LOGISTICS_NODE": ["ORBITAL_LAUNCH", "SPACECRAFT_OPS"],
-    "SURFACE_PORT": ["LUNAR_DELIVERY", "SPACECRAFT_OPS"],
-    "POWER_PLANT": ["LUNAR_DELIVERY"],
-    "PROSPECTING_SURVEY": ["LUNAR_DELIVERY"],
-    "HABITAT": ["LUNAR_DELIVERY", "SURFACE_INFRASTRUCTURE"],
-    "RESOURCE_PLANT": ["LUNAR_DELIVERY", "SURFACE_INFRASTRUCTURE"],
-    "INDUSTRIAL_WORKSHOP": ["LUNAR_DELIVERY", "SURFACE_INFRASTRUCTURE"],
-    "SHIPYARD": ["HEAVY_LAUNCH", "SURFACE_INFRASTRUCTURE"]
+    "HABITAT": [
+      "LUNAR_DELIVERY",
+      "SURFACE_INFRASTRUCTURE"
+    ],
+    "INDUSTRIAL_WORKSHOP": [
+      "LUNAR_DELIVERY",
+      "SURFACE_INFRASTRUCTURE"
+    ],
+    "LOGISTICS_NODE": [
+      "ORBITAL_LAUNCH",
+      "SPACECRAFT_OPS"
+    ],
+    "POWER_PLANT": [
+      "LUNAR_DELIVERY"
+    ],
+    "PROSPECTING_SURVEY": [
+      "LUNAR_DELIVERY"
+    ],
+    "RESOURCE_PLANT": [
+      "LUNAR_DELIVERY",
+      "SURFACE_INFRASTRUCTURE"
+    ],
+    "SHIPYARD": [
+      "HEAVY_LAUNCH",
+      "SURFACE_INFRASTRUCTURE"
+    ],
+    "SURFACE_PORT": [
+      "LUNAR_DELIVERY",
+      "SPACECRAFT_OPS"
+    ]
   },
+  "capital_unit": "USD_2026_billion",
+  "commercial_host_investment_allocation_fraction": 8e-05,
+  "commit_threshold": 0.48,
+  "decision_noise": 0.15,
+  "format": "CIVPROP_ACTOR_BRIDGE_PARAMETERS_V0_1",
+  "multinational_member_allocation_fraction": 3e-05,
+  "project_order": [
+    "LOGISTICS_NODE",
+    "SURFACE_PORT",
+    "POWER_PLANT",
+    "PROSPECTING_SURVEY",
+    "HABITAT",
+    "RESOURCE_PLANT",
+    "INDUSTRIAL_WORKSHOP",
+    "SHIPYARD"
+  ],
+  "prospecting_follow_on_success_value_usd_2026_billion": 10.0,
+  "public_investment_allocation_fraction": 0.0005,
   "rules": [
     "All numeric allocation and decision parameters are authored machinery-test assumptions, not empirical actor behavior.",
     "Earth economic investment is only converted to test actor capacity through the explicit fractions above.",
     "OPERATIONAL and ACCESS satisfy a capability requirement; DEVELOPMENT and UNKNOWN do not.",
     "BUY/PARTNER seed edges may satisfy a missing capability only when the provider has OPERATIONAL capability.",
     "Project costs and lags come from CIVPROP Project Economics V1 nominal scenario assumptions.",
-    "This V0.1 bridge tests causal machinery; it is not a forecast or canon trajectory."
-  ]
+    "This V0.1 bridge tests causal machinery; it is not a forecast or canon trajectory.",
+    "V0.2 integrated long-run test admits an explicit 2026-2035 non-canon lunar strategic-requirement envelope to bootstrap Demand/Pressure V1 without forcing any project award.",
+    "V0.2 admits a non-canon prospecting follow-on success-value assumption solely so Mission/Knowledge V1 can exercise the prospect-observe-update path; it is sensitivity-required and not a forecast."
+  ],
+  "status": "NON_CANON_MACHINERY_TEST_ASSUMPTIONS",
+  "strategic_bootstrap_requirements": [
+    {
+      "actor_id": "NASA",
+      "amount": 3000.0,
+      "channel_id": "TRANSPORT",
+      "location_id": "LUNA_SURFACE",
+      "requirement_id": "MACHINERY_LUNA_TRANSPORT_2026",
+      "unit": "tonnes/year",
+      "valid_from_year": 2026,
+      "valid_to_year": 2035
+    },
+    {
+      "actor_id": "NASA",
+      "amount": 1.0,
+      "channel_id": "POWER",
+      "location_id": "LUNA_SURFACE",
+      "requirement_id": "MACHINERY_LUNA_POWER_2026",
+      "unit": "MW",
+      "valid_from_year": 2026,
+      "valid_to_year": 2035
+    },
+    {
+      "actor_id": "NASA",
+      "amount": 10.0,
+      "channel_id": "HABITAT",
+      "location_id": "LUNA_SURFACE",
+      "requirement_id": "MACHINERY_LUNA_HABITAT_2026",
+      "unit": "person",
+      "valid_from_year": 2026,
+      "valid_to_year": 2035
+    },
+    {
+      "actor_id": "NASA",
+      "amount": 100.0,
+      "channel_id": "INDUSTRIAL",
+      "location_id": "LUNA_SURFACE",
+      "requirement_id": "MACHINERY_LUNA_INDUSTRIAL_2026",
+      "unit": "tonnes/year",
+      "valid_from_year": 2026,
+      "valid_to_year": 2035
+    },
+    {
+      "actor_id": "NASA",
+      "amount": 100.0,
+      "channel_id": "RESOURCE",
+      "location_id": "LUNA_SURFACE",
+      "requirement_id": "MACHINERY_LUNA_RESOURCE_2026",
+      "unit": "tonnes/year",
+      "valid_from_year": 2026,
+      "valid_to_year": 2035
+    }
+  ],
+  "success_reinvestment_fraction": 0.1,
+  "version": "0.1.0"
 }

@@ -186,8 +186,8 @@ As of the register basis commit:
     GAP-011 TRAFFIC_AND_FLEET         CLOSED
     GAP-012 FACILITY_AND_SITE_MATERIALIZATION CLOSED
 
-The selected Hybrid V1 architecture remains fixed while GAP-013 through GAP-015
-replace the remaining placeholders and missing state/output surfaces.
+The selected Hybrid V1 architecture remains fixed while GAP-014 and GAP-015
+replace the remaining missing demographic and Atlas-derived state/output surfaces.
 
 The post-gap sequence is also frozen in that register so completion of the gap list
 has an explicit destination: production-readiness freeze, qualification campaign,
