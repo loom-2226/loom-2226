@@ -6,7 +6,7 @@ Status: locked executable baseline; compiled authority with explicit open-gap as
 
 ## Current baseline status
 
-Runner V1.10.0 now defaults to the GAP-001 through GAP-012 compiled authority package
+Runner V1.12.0 now defaults to the GAP-001 through GAP-012 compiled authority package
 documented in docs/civprop/CIVPROP_INPUT_COMPILER_V1.md,
 docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md,
 docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md,
