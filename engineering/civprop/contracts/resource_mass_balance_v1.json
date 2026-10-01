@@ -1,0 +1,51 @@
+{
+  "contract_version": "1.0.0",
+  "format": "CIVPROP_RESOURCE_MASS_BALANCE_V1",
+  "mass_unit": "tonne",
+  "package_id": "EARTH_LUNA_RESOURCE_MASS_BALANCE_V1_2026_2036",
+  "process_models": [
+    {
+      "extraction_feed_capacity_per_facility": {
+        "provenance_refs": [
+          "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R06"
+        ],
+        "status": "UNKNOWN",
+        "unit": "tonnes/year",
+        "value": null
+      },
+      "location_id": "LUNA_SURFACE",
+      "parameter_status": "UNRESOLVED_PROCESS_MODEL",
+      "process_model_id": "LUNAR_WATER_RESOURCE_PLANT_V1",
+      "processing_product_capacity_field": "resource",
+      "project_archetype_id": "RESOURCE_PLANT",
+      "provenance_refs": [
+        "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R06",
+        "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+      ],
+      "recovery_fraction": {
+        "provenance_refs": [
+          "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R06"
+        ],
+        "status": "UNKNOWN",
+        "unit": "fraction",
+        "value": null
+      },
+      "resource_id": "MOON_POLAR_WATER"
+    }
+  ],
+  "rate_unit": "tonnes/year",
+  "resources": [
+    {
+      "evidence_scope": "POLAR_AND_SELECTED_SURFACE_FOOTPRINTS",
+      "evidence_state": "PRESENT_UNQUANTIFIED",
+      "location_id": "LUNA_SURFACE",
+      "material_family": "VOLATILES",
+      "provenance_refs": [
+        "dev/solar_civprop_m4b/campaign_assertions.json#MOON_POLAR_WATER_ICE",
+        "dev/solar_civprop_resource_contract/RESOURCE_COVERAGE_CONTRACT_V1.json"
+      ],
+      "region_id": "MOON_POLAR_PSR",
+      "resource_id": "MOON_POLAR_WATER"
+    }
+  ]
+}
