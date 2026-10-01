@@ -12,7 +12,13 @@ def canonical(x):return json.dumps(x,sort_keys=True,separators=(',',':'),ensure_
 def write(root,kind,obj):
  raw=canonical(obj); h=hashlib.sha256(raw).hexdigest(); p=root/kind/f'{h}.json'; p.parent.mkdir(parents=True,exist_ok=True); p.write_bytes(raw); Path(str(p)+'.gz').write_bytes(gzip.compress(raw,mtime=0)); return {'uri':str(p.relative_to(root)),'sha256':h,'bytes':len(raw),'gzip_bytes':len(gzip.compress(raw,mtime=0))}
 def center_for(I,b): return I.orbital_center(b)
-def tolerance(I,b): return DEFAULT_TOL.get(I.bodies[b]['body_class'],5000.0)
+def tolerance(I,b):
+ base=DEFAULT_TOL.get(I.bodies[b]['body_class'],5000.0)
+ estimates=[I.registry.sources[c.ephemeris_source_id].uncertainty_km for c in I.registry.coverage
+            if c.body_id==b and c.status=='QUALIFIED'
+            and I.registry.sources[c.ephemeris_source_id].state_capability=='ESTIMATED_RELATIVE'
+            and I.registry.sources[c.ephemeris_source_id].uncertainty_km is not None]
+ return min(base,max(0.001,min(estimates)*0.01)) if estimates else base
 
 def publish(I,out,start,end,chunk_days=32,body_ids=None):
  ids=sorted(body_ids or I.bodies); out=Path(out); out.mkdir(parents=True,exist_ok=True); stage=Path(tempfile.mkdtemp(prefix='.temporal-',dir=out))
