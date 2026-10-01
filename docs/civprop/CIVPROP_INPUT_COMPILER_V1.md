@@ -2,7 +2,7 @@
 
 Date: 2026-10-01
 Class: `class:engineering`
-Status: GAP-001 through GAP-010 closed / production-facing input compilation with explicit downstream assumptions
+Status: GAP-001 through GAP-012 closed / production-facing input compilation with explicit downstream assumptions
 
 ## Decision
 
@@ -27,7 +27,7 @@ The CIVPROP runner remains:
 engineering/civprop/run_civprop_v1.py
 ```
 
-Runner V1.10 defaults to the compiled package rather than the original synthetic
+Runner V1.12 defaults to the compiled package rather than the original synthetic
 Method Lab package and carries the closed Actor State, Accessibility,
 Demand/Pressure, Project Economics, Mission/Knowledge, Pressure Observability,
 Resource Mass Balance and Production Accounting boundaries.
@@ -535,7 +535,7 @@ new authority capture
 
 No silent replacement.
 
-## Runner V1.10
+## Runner V1.12
 
 The single simulation entrypoint remains:
 
@@ -546,22 +546,22 @@ engineering/civprop/run_civprop_v1.py
 Runner version:
 
 ```text
-1.10.0
+1.12.0
 ```
 
 Output contract:
 
 ```text
-1.10.0
+1.12.0
 ```
 
 Compiler version:
 
 ```text
-1.9.0
+1.11.0
 ```
 
-The default input directory is now the GAP-001 through GAP-010 compiled package.
+The default input directory is now the GAP-001 through GAP-012 compiled package.
 
 Default command:
 
@@ -589,12 +589,13 @@ GAP-008 CLOSED
 GAP-009 CLOSED
 GAP-010 CLOSED
 GAP-011 CLOSED
-...
+GAP-012 CLOSED
+GAP-013 OPEN
+GAP-014 OPEN
 GAP-015 OPEN
 ```
 
-GAP-009 closure is independent of later power, fleet, materialization, lifecycle
-and demographic gaps.
+GAP-012 closure is independent of later lifecycle, demographic and derived-metric gaps.
 
 ## Current executable behavior
 
@@ -685,7 +686,7 @@ Unit/functional coverage proves:
 - compilation from frozen capture is byte deterministic;
 - the locked runner accepts the compiled package;
 - the default runner now uses the compiled package;
-- GAP-001 through GAP-010 are CLOSED in current output;
+- GAP-001 through GAP-012 are CLOSED in current output;
 - UNKNOWN actor budget does not become zero, national capital or scenario credit;
 - scoped provider/service evidence does not become generic actor capability;
 - future actor budget/capability changes require replayable events;
@@ -699,10 +700,10 @@ The authoritative current gap register and the post-gap handoff plan are:
     engineering/civprop/gap_register_v1.json
     docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
 
-GAP-001 through GAP-010 closure should be interpreted using that register's closure
-semantics. The next engineering target is GAP-011 TRAFFIC_AND_FLEET.
+GAP-001 through GAP-012 closure should be interpreted using that register's closure
+semantics. The next engineering target is GAP-013 MAINTENANCE_DEPRECIATION_RETIREMENT.
 
-## Boundary after GAP-009
+## Boundary after GAP-012
 
 The executable pipeline is now:
 
