@@ -546,13 +546,13 @@ engineering/civprop/run_civprop_v1.py
 Runner version:
 
 ```text
-1.12.0
+1.13.0
 ```
 
 Output contract:
 
 ```text
-1.12.0
+1.13.0
 ```
 
 Compiler version:
@@ -590,7 +590,7 @@ GAP-009 CLOSED
 GAP-010 CLOSED
 GAP-011 CLOSED
 GAP-012 CLOSED
-GAP-013 OPEN
+GAP-013 CLOSED
 GAP-014 OPEN
 GAP-015 OPEN
 ```

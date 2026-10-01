@@ -451,6 +451,15 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
             capture_model,
         )
 
+    def test_gap13_compiles_lifecycle_without_inventing_parameters(self):
+        package = self.scenario["asset_lifecycle_v1"]
+        self.assertEqual(package["format"], "CIVPROP_ASSET_LIFECYCLE_V1")
+        self.assertEqual(package["contract_version"], "1.0.0")
+        self.assertEqual(package["status"], "NO_EMPIRICAL_LIFECYCLE_PARAMETERS_ADMITTED")
+        self.assertEqual(package["policies"], [])
+        self.assertEqual(package["events"], [])
+        self.assertIn("asset_lifecycle_source", self.capture["model_parameters"])
+
     def test_other_unresolved_engine_inputs_are_not_disguised_as_authority(self):
         assumptions = self.scenario["assumption_register"]
         gaps = {x["gap_id"] for x in assumptions}
@@ -505,7 +514,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(access["subject_id"], "ROO_VER")
         self.assertNotEqual(access["subject_id"], "FLEET_SPACE_TECHNOLOGIES")
 
-    def test_compiler_manifest_closes_gap1_through_gap12(self):
+    def test_compiler_manifest_closes_gap1_through_gap13(self):
         manifest = self.compiler_manifest
         self.assertEqual(manifest["format"], "CIVPROP_INPUT_COMPILER_MANIFEST_V1")
         self.assertEqual(len(manifest["compiler_source_sha256"]), 64)
@@ -522,7 +531,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(manifest["gap_resolution"]["GAP-010"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-011"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-012"], "CLOSED")
-        self.assertEqual(manifest["gap_resolution"]["GAP-013"], "OPEN")
+        self.assertEqual(manifest["gap_resolution"]["GAP-013"], "CLOSED")
         self.assertEqual(manifest["runtime_input"]["fixture_id"], COMPILED_FIXTURE_ID)
 
     def test_compiler_is_deterministic_from_frozen_capture(self):

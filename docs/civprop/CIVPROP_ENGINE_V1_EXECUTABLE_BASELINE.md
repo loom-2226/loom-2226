@@ -6,7 +6,7 @@ Status: locked executable baseline; compiled authority with explicit open-gap as
 
 ## Current baseline status
 
-Runner V1.12.0 now defaults to the GAP-001 through GAP-012 compiled authority package
+Runner V1.13.0 now defaults to the GAP-001 through GAP-013 compiled authority package
 documented in docs/civprop/CIVPROP_INPUT_COMPILER_V1.md,
 docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md,
 docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md,
@@ -38,7 +38,7 @@ Current gap state begins:
     GAP-010 CLOSED
     GAP-011 CLOSED
     GAP-012 CLOSED
-    GAP-013 through GAP-015 OPEN
+    GAP-014 through GAP-015 OPEN
 
 ## Purpose
 
@@ -93,7 +93,7 @@ Golden output:
 
 The current baseline contains real promoted authority plus explicit unresolved
 synthetic assumptions. It proves execution, contracts, provenance and causal
-bookkeeping. It is not yet a production forecast because GAP-013 onward remain open.
+bookkeeping. It is not yet a production forecast because GAP-014 onward remain open.
 
 The prior V1.0 synthetic manifest/golden files remain preserved as historical
 regression artifacts.
@@ -456,11 +456,11 @@ Top-level output fields:
     flows
 
 Current format: CIVPROP_ENGINE_V1_OUTPUT.
-Current contract version: 1.12.0.
+Current contract version: 1.13.0.
 
 ## Metadata
 
-metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.12.0.
+metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.13.0.
 
 metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current default engine is HYBRID_V1 / method-reference-v9.
 
@@ -563,7 +563,7 @@ Current gap status:
     GAP-010 POWER_BALANCE                          CLOSED
     GAP-011 TRAFFIC_AND_FLEET                      CLOSED
     GAP-012 FACILITY_AND_SITE_MATERIALIZATION      CLOSED
-    GAP-013 MAINTENANCE_DEPRECIATION_RETIREMENT    OPEN
+    GAP-013 MAINTENANCE_DEPRECIATION_RETIREMENT    CLOSED
     GAP-014 DEMOGRAPHIC_DEPTH                      OPEN
     GAP-015 ATLAS_DERIVED_METRICS                  OPEN
 
@@ -577,7 +577,9 @@ for a more complete simulation than it is.
 
 # Golden Seed-42 Baseline
 
-The current GAP-009 production-accounting seed-42 baseline produces:
+The current GAP-013 asset-lifecycle seed-42 qualification baseline preserves the existing 2026-2036 causal result while adding explicit post-engine lifecycle and lifecycle-adjusted production projections. With no commissioned facilities in the default qualification path, lifecycle rows remain zero; hostile/unit fixtures exercise maintenance, depreciation, failure, retirement, abandonment, restoration, replacement and UNKNOWN propagation.
+
+The current seed-42 baseline produces:
 
     44 annual location-state rows
     11 annual actor-state rows
