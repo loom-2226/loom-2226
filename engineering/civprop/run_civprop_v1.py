@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-Runner V1.10 keeps the selected HYBRID_V1 architecture and closed GAP-001
-through GAP-009 boundaries, then adds GAP-010 Power Balance V1 with explicit
-installed generation, average/firm generation, peak/average load, annual energy,
-unserved/curtailed energy and runtime-derived Atlas average/peak load metrics.
-Later gaps remain explicit rather than being silently invented.
+Runner V1.11 keeps the selected HYBRID_V1 architecture and closed GAP-001
+through GAP-010 boundaries, then adds GAP-011 Traffic/Fleet V1 with explicit OD
+demand assignment, scoped services, versioned fleet assets, annual vehicle missions,
+cargo/passenger movement, ship calls, backlog, route utilization and Atlas node
+traffic incidence. Later gaps remain explicit rather than being silently invented.
 """
 from __future__ import annotations
 
@@ -40,9 +40,9 @@ from engineering.civprop.method_lab.prototypes.common import (
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.10.0"
+OUTPUT_CONTRACT_VERSION = "1.11.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.10.0"
+RUNNER_VERSION = "1.11.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
 PROJECT_ECONOMICS_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "project_economics_v1.json"
@@ -61,6 +61,9 @@ PRODUCTION_ACCOUNTING_PARAMETER_PATH = (
 )
 POWER_BALANCE_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "power_balance_v1.json"
+)
+TRAFFIC_FLEET_PARAMETER_PATH = (
+    _CIVPROP_DIR / "contracts" / "traffic_fleet_v1.json"
 )
 
 
@@ -181,6 +184,7 @@ def _implementation_hashes() -> dict[str, str]:
         resource_mass_balance_v1,
         production_accounting_v1,
         power_balance_v1,
+        traffic_fleet_v1,
     )
     from engineering.civprop.method_lab import (
         contracts,
@@ -189,6 +193,7 @@ def _implementation_hashes() -> dict[str, str]:
         resource_lane_v1,
         production_lane_v1,
         power_lane_v1,
+        traffic_lane_v1,
     )
     from engineering.civprop.method_lab.prototypes import common, hybrid_v1
 
@@ -240,6 +245,13 @@ def _implementation_hashes() -> dict[str, str]:
             POWER_BALANCE_PARAMETER_PATH
         ),
         "power_lane_sha256": _module_sha256(power_lane_v1),
+        "traffic_fleet_contract_sha256": _module_sha256(
+            traffic_fleet_v1
+        ),
+        "traffic_fleet_parameter_set_sha256": _sha256(
+            TRAFFIC_FLEET_PARAMETER_PATH
+        ),
+        "traffic_lane_sha256": _module_sha256(traffic_lane_v1),
     }
 
 
@@ -329,6 +341,18 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
         ),
         "atlas_power_metrics": (
             "POWER_AVERAGE_MW_AND_POWER_PEAK_MW_ARE_RUNTIME_ELECTRICAL_LOAD_DEMAND_METRICS"
+        ),
+        "traffic_fleet": (
+            "EXPLICIT_OD_ASSIGNMENT_ACCESSIBILITY_SERVICE_FLEET_VOYAGE_BACKLOG_ACCOUNTING"
+        ),
+        "transport_capacity": (
+            "LOCAL_HANDLING_CAPACITY_IS_NOT_REALIZED_OD_MOVEMENT"
+        ),
+        "traffic_timeline": (
+            "TRN_MOD_HEAVY_AND_TRN_MOD_NEP_ARE_CONTEXT_ONLY_NO_AUTO_FLEET_SPAWN"
+        ),
+        "atlas_traffic_metrics": (
+            "CARGO_PASSENGER_SHIP_CALL_FIELDS_ARE_ANNUAL_MODELED_NODE_INCIDENCE"
         ),
         "pressure_memory": (
             "CHANNEL_PRESSURE_DECAYS_WHEN_UNMET_REQUIREMENT_DISAPPEARS"
@@ -431,7 +455,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-011",
             "name": "TRAFFIC_AND_FLEET",
             "status": "OPEN",
-            "meaning": "Cargo, passengers, ship calls, fleets, queues and route utilization are not yet generated.",
+            "meaning": "Traffic/Fleet V1 separates local transport handling capacity from realized OD movement and generates explicit cargo/passenger demand assignment, scoped service state, fleet trip capacity, annual voyages, ship calls, backlog, route utilization and node-incidence metrics; unassigned demand remains UNASSIGNED_OD and timeline transport milestones never auto-spawn fleet.",
         },
         {
             "gap_id": "GAP-012",
@@ -815,6 +839,11 @@ def build_output(
             if bundle.scenario.power_balance_v1 is None
             else json.loads(canonical_json(bundle.scenario.power_balance_v1))
         ),
+        "traffic_fleet_boundary": (
+            None
+            if bundle.scenario.traffic_fleet_v1 is None
+            else json.loads(canonical_json(bundle.scenario.traffic_fleet_v1))
+        ),
         "actor_states": actor_states,
         "actor_transactions": actor_transactions,
         "actor_state_events": actor_state_events,
@@ -867,6 +896,46 @@ def build_output(
             }
             for row in result_dict.get("power_states", [])
         ],
+        "traffic_demand_states": result_dict.get(
+            "traffic_demand_states", []
+        ),
+        "traffic_service_states": result_dict.get(
+            "traffic_service_states", []
+        ),
+        "fleet_states": result_dict.get("fleet_states", []),
+        "voyage_states": result_dict.get("voyage_states", []),
+        "route_traffic_states": result_dict.get(
+            "route_traffic_states", []
+        ),
+        "location_traffic_states": result_dict.get(
+            "location_traffic_states", []
+        ),
+        "traffic_pressure_overrides": result_dict.get(
+            "traffic_pressure_overrides", []
+        ),
+        "atlas_traffic_metrics": [
+            {
+                "year": row["year"],
+                "location_id": row["location_id"],
+                "location_traffic_state_id": (
+                    row["location_traffic_state_id"]
+                ),
+                "cargo_throughput_tonnes_year": (
+                    row["cargo_throughput_tonnes_year"]
+                ),
+                "passenger_movements_year": (
+                    row["passenger_movements_year"]
+                ),
+                "ship_calls_year": row["ship_calls_year"],
+                "measurement_basis": (
+                    "ANNUAL_MODELED_NODE_TRAFFIC_INCIDENCE"
+                ),
+                "metric_scope": row["metric_scope"],
+            }
+            for row in result_dict.get(
+                "location_traffic_states", []
+            )
+        ],
         "events": result_dict["events"],
         "flows": result_dict["flows"],
     }
@@ -882,7 +951,7 @@ def main() -> None:
         "--input-dir",
         type=Path,
         default=default_input_dir,
-        help="Compatible frozen input directory (defaults to GAP-001 through GAP-010 compiled V1).",
+        help="Compatible frozen input directory (defaults to GAP-001 through GAP-011 compiled V1).",
     )
     parser.add_argument(
         "--infrastructure-catalog",

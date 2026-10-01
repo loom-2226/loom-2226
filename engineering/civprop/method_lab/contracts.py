@@ -71,6 +71,18 @@ from engineering.civprop.contracts.power_balance_v1 import (
     PowerStateV1,
     load_power_balance_package,
 )
+from engineering.civprop.contracts.traffic_fleet_v1 import (
+    FleetStateV1,
+    LocationTrafficStateV1,
+    RouteTrafficStateV1,
+    TrafficDemandStateV1,
+    TrafficFleetPackage,
+    TrafficFleetRuntime,
+    TrafficPressureOverrideV1,
+    TrafficServiceStateV1,
+    VoyageStateV1,
+    load_traffic_fleet_package,
+)
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -197,6 +209,7 @@ class LabScenario:
     resource_mass_balance_v1: Optional[ResourceMassBalancePackage] = None
     production_accounting_v1: Optional[ProductionAccountingPackage] = None
     power_balance_v1: Optional[PowerBalancePackage] = None
+    traffic_fleet_v1: Optional[TrafficFleetPackage] = None
 
 
 @dataclass(frozen=True)
@@ -245,6 +258,30 @@ class LocationState:
     workforce: float
     capital: float
     capacities: CapacityVector
+
+    @property
+    def power(self) -> float:
+        return self.capacities.power
+
+    @property
+    def resource(self) -> float:
+        return self.capacities.resource
+
+    @property
+    def industrial(self) -> float:
+        return self.capacities.industrial
+
+    @property
+    def habitat(self) -> float:
+        return self.capacities.habitat
+
+    @property
+    def shipyard(self) -> float:
+        return self.capacities.shipyard
+
+    @property
+    def transport(self) -> float:
+        return self.capacities.transport
 
 
 @dataclass(frozen=True)
@@ -317,6 +354,13 @@ class LabResult:
     body_production_states: tuple[BodyProductionStateV1, ...] = ()
     power_states: tuple[PowerStateV1, ...] = ()
     power_flows: tuple[PowerFlowV1, ...] = ()
+    traffic_demand_states: tuple[TrafficDemandStateV1, ...] = ()
+    traffic_service_states: tuple[TrafficServiceStateV1, ...] = ()
+    fleet_states: tuple[FleetStateV1, ...] = ()
+    voyage_states: tuple[VoyageStateV1, ...] = ()
+    route_traffic_states: tuple[RouteTrafficStateV1, ...] = ()
+    location_traffic_states: tuple[LocationTrafficStateV1, ...] = ()
+    traffic_pressure_overrides: tuple[TrafficPressureOverrideV1, ...] = ()
 
 
 @runtime_checkable
@@ -396,6 +440,26 @@ def canonical_json(value: Any) -> str:
         # Historical runs without Power Balance V1 retain their hashes.
         plain.pop("power_states", None)
         plain.pop("power_flows", None)
+    if isinstance(value, LabResult) and not (
+        value.traffic_demand_states
+        or value.traffic_service_states
+        or value.fleet_states
+        or value.voyage_states
+        or value.route_traffic_states
+        or value.location_traffic_states
+        or value.traffic_pressure_overrides
+    ):
+        # Historical runs without Traffic/Fleet V1 retain their hashes.
+        for key in (
+            "traffic_demand_states",
+            "traffic_service_states",
+            "fleet_states",
+            "voyage_states",
+            "route_traffic_states",
+            "location_traffic_states",
+            "traffic_pressure_overrides",
+        ):
+            plain.pop(key, None)
     return json.dumps(
         plain,
         sort_keys=True,
@@ -568,6 +632,11 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             None
             if data.get("power_balance_v1") is None
             else load_power_balance_package(data["power_balance_v1"])
+        ),
+        traffic_fleet_v1=(
+            None
+            if data.get("traffic_fleet_v1") is None
+            else load_traffic_fleet_package(data["traffic_fleet_v1"])
         ),
     )
 
@@ -940,6 +1009,55 @@ def _validate_scenario(s: LabScenario, truth: LabTruth) -> None:
             raise ValueError(
                 "power-balance exclusions reference unknown locations"
             )
+
+    if s.traffic_fleet_v1 is not None:
+        if s.accessibility_v1 is None or s.demand_pressure_v1 is None:
+            raise ValueError(
+                "Traffic/Fleet V1 requires Accessibility and Demand/Pressure V1"
+            )
+        traffic_runtime = TrafficFleetRuntime(
+            s.traffic_fleet_v1,
+            s.accessibility_v1,
+            s.demand_pressure_v1,
+        )
+        del traffic_runtime
+        if not set(
+            s.traffic_fleet_v1.excluded_demand_location_ids
+        ) <= location_ids:
+            raise ValueError(
+                "traffic/fleet exclusions reference unknown locations"
+            )
+        services = {
+            x.service_id: x
+            for x in s.accessibility_v1.service_paths
+        }
+        for allocation in s.traffic_fleet_v1.demand_allocations:
+            if allocation.actor_id not in actor_ids:
+                raise ValueError(
+                    "traffic demand allocation references unknown actor"
+                )
+            if (
+                allocation.origin_location_id not in location_ids
+                or allocation.destination_location_id not in location_ids
+            ):
+                raise ValueError(
+                    "traffic demand allocation references unknown location"
+                )
+            service = services.get(allocation.service_id)
+            if service is None:
+                raise ValueError(
+                    "traffic demand allocation references unknown service"
+                )
+            if (
+                service.actor_id != allocation.actor_id
+                or service.origin_location_id
+                != allocation.origin_location_id
+                or service.destination_location_id
+                != allocation.destination_location_id
+            ):
+                raise ValueError(
+                    "traffic demand allocation exceeds accessibility service scope"
+                )
 
     for project in s.project_archetypes:
         if project.capital_cost <= 0 or project.construction_lag_years < 1:
@@ -1631,6 +1749,228 @@ def validate_result(result: LabResult, bundle: LabBundle) -> None:
                 elif observed.utilization_ratio is not None:
                     raise ValueError(
                         "UNKNOWN POWER constraint cannot carry ratio"
+                    )
+
+    if s.traffic_fleet_v1 is None:
+        if (
+            result.traffic_demand_states
+            or result.traffic_service_states
+            or result.fleet_states
+            or result.voyage_states
+            or result.route_traffic_states
+            or result.location_traffic_states
+            or result.traffic_pressure_overrides
+        ):
+            raise ValueError(
+                "traffic outputs require Traffic/Fleet V1"
+            )
+    else:
+        if s.accessibility_v1 is None or s.demand_pressure_v1 is None:
+            raise ValueError(
+                "traffic outputs require Accessibility and Demand/Pressure V1"
+            )
+        traffic_runtime = TrafficFleetRuntime(
+            s.traffic_fleet_v1,
+            s.accessibility_v1,
+            s.demand_pressure_v1,
+        )
+        project_map = {
+            x.project_archetype_id: x
+            for x in s.project_archetypes
+        }
+        channel_by_field = {
+            "power": "POWER",
+            "resource": "RESOURCE",
+            "industrial": "INDUSTRIAL",
+            "habitat": "HABITAT",
+            "transport": "TRANSPORT",
+        }
+        committed = tuple(
+            x
+            for x in result.decisions
+            if x.action == "COMMIT_PROJECT"
+            and x.status == "COMMITTED"
+            and x.project_archetype_id is not None
+            and x.target_location_id is not None
+        )
+        annual_by_year = {
+            year: {
+                x.location_id: x
+                for x in result.annual_states
+                if x.year == year
+            }
+            for year in range(s.start_year, s.end_year + 1)
+        }
+        expected_traffic = [[] for _ in range(7)]
+        for year in range(s.start_year, s.end_year + 1):
+            additional: dict[tuple[str, str], float] = {}
+            for decision in committed:
+                project = project_map.get(
+                    decision.project_archetype_id
+                )
+                if project is None:
+                    raise ValueError(
+                        "committed decision references unknown project"
+                    )
+                commissioned_year = (
+                    decision.year + project.construction_lag_years
+                )
+                if not (
+                    decision.year < year < commissioned_year
+                ):
+                    continue
+                minimums = project.minimum_input_capacities
+                for field, channel_id in channel_by_field.items():
+                    amount = float(getattr(minimums, field))
+                    if amount <= 0:
+                        continue
+                    key = (
+                        decision.target_location_id,
+                        channel_id,
+                    )
+                    additional[key] = (
+                        additional.get(key, 0.0) + amount
+                    )
+            rows = traffic_runtime.step_year(
+                year=year,
+                states=annual_by_year[year],
+                additional_requirements=additional,
+            )
+            for target, emitted in zip(
+                expected_traffic,
+                rows,
+            ):
+                target.extend(emitted)
+
+        actual_traffic = (
+            result.traffic_demand_states,
+            result.traffic_service_states,
+            result.fleet_states,
+            result.voyage_states,
+            result.route_traffic_states,
+            result.location_traffic_states,
+            result.traffic_pressure_overrides,
+        )
+        names = (
+            "traffic demand states",
+            "traffic service states",
+            "fleet states",
+            "voyage states",
+            "route traffic states",
+            "location traffic states",
+            "traffic pressure overrides",
+        )
+        for expected, actual, name in zip(
+            expected_traffic,
+            actual_traffic,
+            names,
+        ):
+            if tuple(expected) != tuple(actual):
+                raise ValueError(
+                    f"{name} do not replay exactly"
+                )
+
+        _unique(
+            result.traffic_demand_states,
+            lambda x: x.traffic_demand_state_id,
+            "traffic demand state id",
+        )
+        _unique(
+            result.traffic_service_states,
+            lambda x: x.traffic_service_state_id,
+            "traffic service state id",
+        )
+        _unique(
+            result.fleet_states,
+            lambda x: x.fleet_state_id,
+            "fleet state id",
+        )
+        _unique(
+            result.voyage_states,
+            lambda x: x.voyage_id,
+            "voyage id",
+        )
+        _unique(
+            result.route_traffic_states,
+            lambda x: x.route_traffic_state_id,
+            "route traffic state id",
+        )
+        _unique(
+            result.location_traffic_states,
+            lambda x: x.location_traffic_state_id,
+            "location traffic state id",
+        )
+
+        if s.production_accounting_v1 is not None:
+            traffic_by_key = {
+                (x.year, x.location_id): x
+                for x in result.location_traffic_states
+            }
+            facility_by_id = {
+                x.facility_id: x
+                for x in result.facilities
+            }
+            production_models = {
+                x.project_archetype_id: x
+                for x in s.production_accounting_v1.facility_models
+            }
+            for production_state in result.facility_production_states:
+                facility = facility_by_id.get(
+                    production_state.facility_id
+                )
+                if facility is None:
+                    continue
+                model = production_models[
+                    facility.project_archetype_id
+                ]
+                if (
+                    "TRANSPORT"
+                    not in model.required_constraints
+                ):
+                    continue
+                observed = {
+                    x.constraint_id: x
+                    for x in production_state.constraint_observations
+                }.get("TRANSPORT")
+                if observed is None:
+                    raise ValueError(
+                        "production state lacks TRANSPORT constraint"
+                    )
+                traffic_state = traffic_by_key.get(
+                    (
+                        production_state.year,
+                        production_state.location_id,
+                    )
+                )
+                expected_ratio = (
+                    None
+                    if traffic_state is None
+                    else traffic_state.transport_service_ratio
+                )
+                expected_status = (
+                    "UNKNOWN"
+                    if expected_ratio is None
+                    else "KNOWN"
+                )
+                if observed.status != expected_status:
+                    raise ValueError(
+                        "production TRANSPORT constraint status mismatch"
+                    )
+                if expected_ratio is None:
+                    if observed.utilization_ratio is not None:
+                        raise ValueError(
+                            "UNKNOWN TRANSPORT constraint cannot carry ratio"
+                        )
+                elif (
+                    observed.utilization_ratio is None
+                    or abs(
+                        observed.utilization_ratio
+                        - expected_ratio
+                    )
+                    > 1e-12
+                ):
+                    raise ValueError(
+                        "production TRANSPORT constraint ratio mismatch"
                     )
 
     if s.production_accounting_v1 is None:

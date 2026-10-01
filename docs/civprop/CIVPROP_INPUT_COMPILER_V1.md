@@ -587,7 +587,7 @@ GAP-007 CLOSED
 GAP-008 CLOSED
 GAP-009 CLOSED
 GAP-010 CLOSED
-GAP-011 OPEN
+GAP-011 CLOSED
 ...
 GAP-015 OPEN
 ```
@@ -597,7 +597,7 @@ and demographic gaps.
 
 ## Current executable behavior
 
-With compiled input and seed 42, the current GAP-009 baseline produces:
+With compiled input and seed 42, the current GAP-011 baseline produces:
 
 ```text
 44 annual location states
@@ -617,6 +617,16 @@ With compiled input and seed 42, the current GAP-009 baseline produces:
 0 sector production states
 0 location production states
 0 body production states
+33 power states
+0 power flows
+33 traffic demand states
+11 traffic service states
+0 fleet states
+0 voyage states
+0 route traffic states
+33 location traffic states
+0 traffic pressure overrides
+33 Atlas traffic metric rows
 ```
 
 The current realization commissions no facility because AUS generic spendable
@@ -627,27 +637,27 @@ requirement. That behavior is intentional and is not a forecast.
 
 This is **not** a forecast.
 
-The result still depends materially on GAP-010 and later open mechanisms. Demand,
+The result still depends materially on GAP-012 and later open mechanisms. Demand,
 mission-observation and project-economics scenario coefficients remain explicit
 uncalibrated model parameters where marked, not empirical forecasts.
 
 Its purpose is to prove that real promoted authority now reaches the same locked
 engine and output path.
 
-## Golden GAP-009 baseline
+## Golden GAP-011 baseline
 
 Output:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP10_POWER_BALANCE_SEED42.json
+CIVPROP_ENGINE_V1_GAP11_TRAFFIC_FLEET_SEED42.json
 ```
 
 Manifest:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP10_BASELINE_MANIFEST.json
+CIVPROP_ENGINE_V1_GAP11_BASELINE_MANIFEST.json
 ```
 
 The GAP-001 compiled baseline and previous synthetic V1.0 baseline remain in the

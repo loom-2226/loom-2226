@@ -143,6 +143,13 @@ class Recorder:
         self.body_production_states = []
         self.power_states = []
         self.power_flows = []
+        self.traffic_demand_states = []
+        self.traffic_service_states = []
+        self.fleet_states = []
+        self.voyage_states = []
+        self.route_traffic_states = []
+        self.location_traffic_states = []
+        self.traffic_pressure_overrides = []
         self._event_counter = 0
         self._decision_counter = 0
         self._flow_counter = 0
@@ -857,6 +864,15 @@ def finalize(
         body_production_states=tuple(recorder.body_production_states),
         power_states=tuple(recorder.power_states),
         power_flows=tuple(recorder.power_flows),
+        traffic_demand_states=tuple(recorder.traffic_demand_states),
+        traffic_service_states=tuple(recorder.traffic_service_states),
+        fleet_states=tuple(recorder.fleet_states),
+        voyage_states=tuple(recorder.voyage_states),
+        route_traffic_states=tuple(recorder.route_traffic_states),
+        location_traffic_states=tuple(recorder.location_traffic_states),
+        traffic_pressure_overrides=tuple(
+            recorder.traffic_pressure_overrides
+        ),
     )
 
 

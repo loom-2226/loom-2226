@@ -89,8 +89,11 @@ class PressureLaneV1:
                         pressure_state_id=state.pressure_state_id,
                         year=year,
                         location_id=observation.location_id,
-                        component_type="INSTALLED_CAPACITY",
-                        source_id=f"state:{channel.available_field}",
+                        component_type=observation.available_component_type,
+                        source_id=(
+                            observation.available_source_id
+                            or f"state:{channel.available_field}"
+                        ),
                         quantity=observation.available,
                         unit=observation.unit,
                         sign=-1,
