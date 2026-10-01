@@ -19,8 +19,13 @@ from engineering.civprop.contracts.pressure_observability_v1 import (
     LEGACY_SEMANTICS,
     load_pressure_observability_package,
 )
+from engineering.civprop.contracts.resource_mass_balance_v1 import (
+    load_resource_mass_balance_package,
+    load_resource_physical_realization,
+)
 from .contracts import PropagationEngine, canonical_json, load_bundle, validate_result
 from .mission_lane_v1 import MissionLaneV1
+from .resource_lane_v1 import ResourceLaneV1
 from .prototypes.common import resource_probability
 from .prototypes.hybrid_v1 import HybridEngineV1
 
@@ -50,6 +55,48 @@ class HybridEngineV1Tests(unittest.TestCase):
             scenario=replace(
                 bundle.scenario,
                 pressure_observability_v1=package,
+            ),
+        )
+
+    def resource_bundle(self, bundle=None):
+        bundle = bundle or self.bundle
+        raw = json.loads(
+            (
+                HERE.parent
+                / "contracts"
+                / "resource_mass_balance_v1.json"
+            ).read_text()
+        )
+        package = load_resource_mass_balance_package(raw)
+        physical = load_resource_physical_realization(
+            {
+                "format": "CIVPROP_RESOURCE_PHYSICAL_REALIZATION_V1",
+                "contract_version": "1.0.0",
+                "resources": [
+                    {
+                        "resource_id": "MOON_POLAR_WATER",
+                        "location_id": "LUNA_SURFACE",
+                        "realization_status": "UNKNOWN",
+                        "stock_status": "UNKNOWN",
+                        "opening_stock_tonnes": None,
+                        "grade_status": "UNKNOWN",
+                        "grade_mass_fraction": None,
+                        "inventory_status": "UNKNOWN",
+                        "opening_inventory_tonnes": None,
+                        "provenance_refs": ["test:unknown-physical"],
+                    }
+                ],
+            }
+        )
+        return replace(
+            bundle,
+            scenario=replace(
+                bundle.scenario,
+                resource_mass_balance_v1=package,
+            ),
+            truth=replace(
+                bundle.truth,
+                resource_physical_realization_v1=physical,
             ),
         )
 
@@ -436,6 +483,61 @@ class HybridEngineV1Tests(unittest.TestCase):
                 for x in result.pressure_qualifications
             )
         )
+
+    def test_resource_mass_balance_lane_is_behaviorally_inert(self):
+        before = HybridEngineV1().run(self.bundle, 42)
+        bundle = self.resource_bundle()
+        after = HybridEngineV1().run(bundle, 42)
+        validate_result(after, bundle)
+
+        for field in (
+            "annual_states",
+            "facilities",
+            "decisions",
+            "events",
+            "flows",
+            "missions",
+            "observations",
+            "knowledge_states",
+            "mission_decisions",
+            "pressure_states",
+            "pressure_contributions",
+            "pressure_qualifications",
+        ):
+            self.assertEqual(
+                getattr(before, field),
+                getattr(after, field),
+                field,
+            )
+        self.assertEqual(after.metadata.engine_version, "method-reference-v6")
+        self.assertEqual(
+            len(after.resource_states),
+            self.bundle.scenario.end_year
+            - self.bundle.scenario.start_year
+            + 1,
+        )
+        self.assertEqual(after.resource_flows, ())
+        self.assertTrue(
+            all(not x.actor_visible for x in after.resource_states)
+        )
+        self.assertTrue(
+            all(x.opening_stock_tonnes is None for x in after.resource_states)
+        )
+        self.assertTrue(
+            all(x.grade_mass_fraction is None for x in after.resource_states)
+        )
+
+    def test_resource_lane_does_not_consume_actor_knowledge(self):
+        source = inspect.getsource(ResourceLaneV1)
+        self.assertNotIn("knowledge", source.lower())
+        runtime_source = inspect.getsource(
+            __import__(
+                "engineering.civprop.contracts.resource_mass_balance_v1",
+                fromlist=["ResourceMassBalanceRuntime"],
+            ).ResourceMassBalanceRuntime
+        )
+        self.assertNotIn("prior_probability", runtime_source)
+        self.assertNotIn("resource_probability", runtime_source)
 
     def test_mission_lane_executes_observes_and_updates_knowledge(self):
         bundle = self.mission_bundle()
