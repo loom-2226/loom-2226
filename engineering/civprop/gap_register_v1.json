@@ -1,20 +1,20 @@
 {
   "format": "CIVPROP_GAP_REGISTER_V1",
   "register_id": "CIVPROP_GAP_REGISTER_2026_09_30",
-  "as_of_main_commit": "56be7a4ee0e4be0b8eca5681a8905fd65c1ab19e",
+  "as_of_main_commit": "cdadbae2a8dee6571965afd5569782dd1db8f105",
   "status_semantics": {
     "CLOSED": "The gap has a tested, versioned mechanism adequate for the current CIVPROP development boundary. Closure does not claim every future production-scale value is already calibrated.",
     "OPEN": "The current default executable still contains a placeholder, missing state/output, or incomplete production mechanism owned by this gap.",
     "BLOCKED": "Work cannot proceed without an unresolved dependency outside the gap."
   },
   "current_baseline": {
-    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.10.0",
-    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.10.0",
-    "engine": "HYBRID_V1 method-reference-v8",
+    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.11.0",
+    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.11.0",
+    "engine": "HYBRID_V1 method-reference-v9",
     "default_fixture": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP10_POWER_BALANCE_SEED42.json",
-    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP10_BASELINE_MANIFEST.json"
+    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP11_TRAFFIC_FLEET_SEED42.json",
+    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP11_BASELINE_MANIFEST.json"
   },
   "gaps": [
     {
@@ -428,11 +428,18 @@
     {
       "gap_id": "GAP-011",
       "name": "TRAFFIC_AND_FLEET",
-      "current_status": "OPEN",
-      "meaning": "Cargo, passengers, ship calls, fleets, queues and route utilization are not yet generated.",
+      "current_status": "CLOSED",
+      "meaning": "Traffic/Fleet V1 separates local transport handling capacity from realized OD movement and generates explicit cargo/passenger demand assignment, scoped service state, fleet trip capacity, annual voyages, ship calls, backlog, route utilization and node-incidence metrics; unassigned demand remains UNASSIGNED_OD and timeline transport milestones never auto-spawn fleet.",
       "current_evidence": [
-        "legacy Atlas/CIVSTATE cargo/passenger/ship-call semantics",
-        "engineering/civprop/civprop0 transport references"
+        "engineering/civprop/contracts/traffic_fleet_v1.py",
+        "engineering/civprop/contracts/traffic_fleet_v1.json",
+        "engineering/civprop/contracts/test_traffic_fleet_v1.py",
+        "engineering/civprop/method_lab/traffic_lane_v1.py",
+        "engineering/civprop/method_lab/test_traffic_lane_v1.py",
+        "engineering/civprop/run_civprop_v1.py",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP11_BASELINE_MANIFEST.json",
+        "docs/civprop/CIVPROP_TRAFFIC_FLEET_V1.md",
+        "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md"
       ],
       "exit_criteria": [
         "Transport demand becomes route/service flows with explicit cargo and passenger units.",
@@ -440,7 +447,7 @@
         "Ship calls and utilization derive from flows and vehicle/service capacity.",
         "Traffic reconciles across origin/destination and feeds transport pressure/economics."
       ],
-      "next_action": "Define Traffic/Fleet V1 after GAP-003 accessibility and GAP-004 demand provide the necessary upstream signals.",
+      "next_action": "CLOSED. Preserve explicit-OD-only assignment, fleet/voyage reconciliation, backlog carry-forward, node-incidence metrics and no-auto-spawn Timeline semantics while proceeding to GAP-012 FACILITY_AND_SITE_MATERIALIZATION; do not infer facility ownership of route throughput.",
       "output_or_contract_affected": [
         "cargo",
         "passengers",

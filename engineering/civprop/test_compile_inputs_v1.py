@@ -306,7 +306,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         )
         self.assertEqual(
             models["LOGISTICS_NODE"]["downstream_gap"],
-            "GAP-011",
+            "GAP-012",
         )
         self.assertEqual(
             models["POWER_PLANT"]["output_source"],
@@ -388,6 +388,36 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertIn("power_balance_v1", capture_model)
         self.assertIn("atlas_power_field_semantics", capture_model)
 
+    def test_gap11_compiles_traffic_fleet_without_inventing_routes_or_vehicles(self):
+        package = self.scenario["traffic_fleet_v1"]
+        self.assertEqual(package["format"], "CIVPROP_TRAFFIC_FLEET_V1")
+        self.assertEqual(package["contract_version"], "1.0.0")
+        self.assertEqual(
+            package["demand_assignment_policy"],
+            "EXPLICIT_OD_ONLY",
+        )
+        self.assertFalse(
+            package["timeline_context"]["auto_spawn_fleet"]
+        )
+        self.assertEqual(
+            package["timeline_context"]["heavy_service_milestone_id"],
+            "TRN-MOD-HEAVY",
+        )
+        self.assertEqual(
+            package["timeline_context"]["nep_milestone_id"],
+            "TRN-MOD-NEP",
+        )
+        self.assertEqual(package["vehicle_classes"], [])
+        self.assertEqual(package["fleet_assets"], [])
+        self.assertEqual(package["demand_allocations"], [])
+        self.assertEqual(len(package["service_bindings"]), 1)
+        self.assertFalse(
+            package["service_bindings"][0]["generic_demand_eligible"]
+        )
+        capture_model = self.capture["model_parameters"]
+        self.assertIn("traffic_fleet_v1", capture_model)
+        self.assertIn("atlas_traffic_field_semantics", capture_model)
+
     def test_other_unresolved_engine_inputs_are_not_disguised_as_authority(self):
         assumptions = self.scenario["assumption_register"]
         gaps = {x["gap_id"] for x in assumptions}
@@ -400,6 +430,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertNotIn("GAP-008", gaps)
         self.assertNotIn("GAP-009", gaps)
         self.assertNotIn("GAP-010", gaps)
+        self.assertNotIn("GAP-011", gaps)
         self.assertIn("GAP-012", gaps)
         for row in assumptions:
             self.assertIn(row["status"], {"EXPLICIT_PLACEHOLDER", "COMPATIBILITY_BOUNDARY"})
@@ -440,7 +471,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(access["subject_id"], "ROO_VER")
         self.assertNotEqual(access["subject_id"], "FLEET_SPACE_TECHNOLOGIES")
 
-    def test_compiler_manifest_closes_gap1_through_gap10(self):
+    def test_compiler_manifest_closes_gap1_through_gap11(self):
         manifest = self.compiler_manifest
         self.assertEqual(manifest["format"], "CIVPROP_INPUT_COMPILER_MANIFEST_V1")
         self.assertEqual(len(manifest["compiler_source_sha256"]), 64)
@@ -455,7 +486,8 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(manifest["gap_resolution"]["GAP-008"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-009"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-010"], "CLOSED")
-        self.assertEqual(manifest["gap_resolution"]["GAP-011"], "OPEN")
+        self.assertEqual(manifest["gap_resolution"]["GAP-011"], "CLOSED")
+        self.assertEqual(manifest["gap_resolution"]["GAP-012"], "OPEN")
         self.assertEqual(manifest["runtime_input"]["fixture_id"], COMPILED_FIXTURE_ID)
 
     def test_compiler_is_deterministic_from_frozen_capture(self):
@@ -521,6 +553,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         gap8 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-008")
         gap9 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-009")
         gap10 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-010")
+        gap11 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-011")
         self.assertEqual(gap1["status"], "CLOSED")
         self.assertEqual(gap2["status"], "CLOSED")
         self.assertEqual(gap3["status"], "CLOSED")
@@ -531,6 +564,15 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(gap8["status"], "CLOSED")
         self.assertEqual(gap9["status"], "CLOSED")
         self.assertEqual(gap10["status"], "CLOSED")
+        self.assertEqual(gap11["status"], "CLOSED")
+        self.assertEqual(len(output["traffic_demand_states"]), 33)
+        self.assertEqual(len(output["traffic_service_states"]), 11)
+        self.assertEqual(output["fleet_states"], [])
+        self.assertEqual(output["voyage_states"], [])
+        self.assertEqual(output["route_traffic_states"], [])
+        self.assertEqual(len(output["location_traffic_states"]), 33)
+        self.assertEqual(output["traffic_pressure_overrides"], [])
+        self.assertEqual(len(output["atlas_traffic_metrics"]), 33)
         self.assertEqual(len(output["power_states"]), 33)
         self.assertEqual(output["power_flows"], [])
         self.assertEqual(len(output["atlas_power_metrics"]), 33)

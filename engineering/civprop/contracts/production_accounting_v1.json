@@ -13,7 +13,7 @@
       "output_field": null,
       "output_unit": null,
       "resource_id": null,
-      "downstream_gap": "GAP-011",
+      "downstream_gap": "GAP-012",
       "required_constraints": [
         "POWER",
         "LABOR_AUTOMATION"
@@ -47,7 +47,8 @@
       },
       "provenance_refs": [
         "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
-        "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+        "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+        "docs/civprop/CIVPROP_TRAFFIC_FLEET_V1.md"
       ]
     },
     {

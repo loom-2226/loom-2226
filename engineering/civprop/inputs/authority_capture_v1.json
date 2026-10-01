@@ -176,7 +176,7 @@
   },
   "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
   "capture_semantics": "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES",
-  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE_PLUS_GAP-007_PRESSURE_OBSERVABILITY_PLUS_GAP-008_RESOURCE_MASS_BALANCE_PLUS_GAP-009_PRODUCTION_ACCOUNTING_PLUS_GAP-010_POWER_BALANCE",
+  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE_PLUS_GAP-007_PRESSURE_OBSERVABILITY_PLUS_GAP-008_RESOURCE_MASS_BALANCE_PLUS_GAP-009_PRODUCTION_ACCOUNTING_PLUS_GAP-010_POWER_BALANCE_PLUS_GAP-011_TRAFFIC_FLEET",
   "earth": {
     "aus_area": {
       "display_name": "Australia",
@@ -523,6 +523,11 @@
       "sha256": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
       "transfer_scope": "FIELD_IDENTITIES_ONLY_RUNTIME_POWER_BALANCE_NOW_DEFINES_AVERAGE_AND_PEAK_LOAD"
     },
+    "atlas_traffic_field_semantics": {
+      "path": "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json",
+      "sha256": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
+      "transfer_scope": "NODE_INCIDENCE_FIELD_IDENTITIES_ONLY_NO_2026_TRAFFIC_OR_FLEET_VALUES_IMPORTED"
+    },
     "dorrington_olsen_boundary": {
       "assessment_path": "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md",
       "assessment_sha256": "a4b613a3514a385cbbd3ef3959e01ca22cd3b4736dcb893cc4213465655d4a37",
@@ -861,13 +866,13 @@
     },
     "production_accounting_source": {
       "path": "engineering/civprop/contracts/production_accounting_v1.json",
-      "sha256": "3defa74d2ea564365fc87b1ab32b8424decadc5e30ec2a4afcd8761c908b2abc"
+      "sha256": "61df5249717d4689869aa1f60c69c0669aa66b1484d4554ada9cd4b515e57c75"
     },
     "production_accounting_v1": {
       "contract_version": "1.1.0",
       "facility_models": [
         {
-          "downstream_gap": "GAP-011",
+          "downstream_gap": "GAP-012",
           "output_field": null,
           "output_source": "DEFERRED",
           "output_unit": null,
@@ -875,7 +880,8 @@
           "project_archetype_id": "LOGISTICS_NODE",
           "provenance_refs": [
             "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
-            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+            "docs/civprop/CIVPROP_TRAFFIC_FLEET_V1.md"
           ],
           "required_constraints": [
             "POWER",
@@ -1743,6 +1749,44 @@
       "coverage_sha256": "76a93ac3c36980b665dc243fd104d399fc7269dbfff016204d136c5753d690e4",
       "state_view_path": "dev/solar_civprop_resource_contract/RESOURCE_STATE_CONTRACT_V1.sql",
       "state_view_sha256": "012a5d71d178230b1c3a5344cfc06fd5218835f07d99a690460ae9ea90817ad6"
+    },
+    "traffic_fleet_source": {
+      "path": "engineering/civprop/contracts/traffic_fleet_v1.json",
+      "sha256": "691d6b1c7d555a1a261960b507d938b1743e90db892302340b8920f0953ddb86"
+    },
+    "traffic_fleet_v1": {
+      "contract_version": "1.0.0",
+      "demand_allocations": [],
+      "demand_assignment_policy": "EXPLICIT_OD_ONLY",
+      "excluded_demand_location_ids": [
+        "EARTH_SURFACE"
+      ],
+      "fleet_assets": [],
+      "format": "CIVPROP_TRAFFIC_FLEET_V1",
+      "package_id": "EARTH_LUNA_TRAFFIC_FLEET_V1_2026_2036",
+      "service_bindings": [
+        {
+          "generic_demand_eligible": false,
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md",
+            "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json#accessibility_v1"
+          ],
+          "service_id": "AUS_ROOVER_CLPS_CT4_IM5",
+          "traffic_role": "NAMED_PAYLOAD_ONLY"
+        }
+      ],
+      "timeline_context": {
+        "auto_spawn_fleet": false,
+        "heavy_service_milestone_id": "TRN-MOD-HEAVY",
+        "heavy_service_threshold_year": 2040,
+        "nep_milestone_id": "TRN-MOD-NEP",
+        "nep_threshold_year": 2050,
+        "provenance_refs": [
+          "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#TRN-MOD-HEAVY",
+          "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#TRN-MOD-NEP"
+        ]
+      },
+      "vehicle_classes": []
     }
   },
   "postgres_database": "loom_dev",
@@ -1863,7 +1907,7 @@
       }
     ]
   },
-  "source_basis_commit": "56be7a4ee0e4be0b8eca5681a8905fd65c1ab19e",
+  "source_basis_commit": "cdadbae2a8dee6571965afd5569782dd1db8f105",
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
     "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
@@ -1881,9 +1925,10 @@
     "engineering/civprop/contracts/mission_knowledge_v1.json": "e95f42820502e24ba638ba0e4b38cc7c3019ffc8551ee5848d5c6abdc940b6a7",
     "engineering/civprop/contracts/power_balance_v1.json": "02c8368ea10d6f45b47fa190a1c8e30e2895e4c1e46462100b424767430a75c5",
     "engineering/civprop/contracts/pressure_observability_v1.json": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d",
-    "engineering/civprop/contracts/production_accounting_v1.json": "3defa74d2ea564365fc87b1ab32b8424decadc5e30ec2a4afcd8761c908b2abc",
+    "engineering/civprop/contracts/production_accounting_v1.json": "61df5249717d4689869aa1f60c69c0669aa66b1484d4554ada9cd4b515e57c75",
     "engineering/civprop/contracts/project_economics_v1.json": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
     "engineering/civprop/contracts/resource_mass_balance_v1.json": "3ae6af47af6778c11bcc1519d75f988445b23bce8dad9b6c1e34ba0aaf42b963",
+    "engineering/civprop/contracts/traffic_fleet_v1.json": "691d6b1c7d555a1a261960b507d938b1743e90db892302340b8920f0953ddb86",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
     "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951",
     "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md": "a4b613a3514a385cbbd3ef3959e01ca22cd3b4736dcb893cc4213465655d4a37"

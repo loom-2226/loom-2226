@@ -17,6 +17,7 @@ from ..pressure_lane_v1 import PressureLaneV1
 from ..resource_lane_v1 import ResourceLaneV1
 from ..production_lane_v1 import ProductionLaneV1
 from ..power_lane_v1 import PowerLaneV1
+from ..traffic_lane_v1 import TrafficLaneV1
 
 from .common import (
     Recorder,
@@ -94,7 +95,10 @@ class HybridEngineV1:
             bundle.scenario.production_accounting_v1 is not None
         )
         power_balance = bundle.scenario.power_balance_v1 is not None
-        if power_balance:
+        traffic_fleet = bundle.scenario.traffic_fleet_v1 is not None
+        if traffic_fleet:
+            self.engine_version = "method-reference-v9"
+        elif power_balance:
             self.engine_version = "method-reference-v8"
         elif production_accounting:
             self.engine_version = "method-reference-v7"
@@ -143,6 +147,11 @@ class HybridEngineV1:
             if power_balance
             else None
         )
+        traffic_lane = (
+            TrafficLaneV1(bundle, recorder)
+            if traffic_fleet
+            else None
+        )
         production_lane = (
             ProductionLaneV1(bundle, recorder)
             if production_accounting
@@ -171,6 +180,15 @@ class HybridEngineV1:
             if power_lane is not None:
                 power_lane.step(year=year, states=states)
 
+            if traffic_lane is not None:
+                traffic_lane.step(
+                    year=year,
+                    states=states,
+                    additional_requirements=pending_input_requirements(
+                        pending
+                    ),
+                )
+
             if production_lane is not None:
                 production_lane.step(year=year)
 
@@ -181,6 +199,13 @@ class HybridEngineV1:
                     year=year,
                     additional_requirements=pending_input_requirements(pending),
                 )
+                if traffic_lane is not None:
+                    demand_observations = (
+                        traffic_lane.apply_pressure_overrides(
+                            year=year,
+                            observations=demand_observations,
+                        )
+                    )
                 pressure = demand_runtime.advance_pressure(
                     pressure,
                     demand_observations,

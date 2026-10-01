@@ -102,6 +102,8 @@ class DemandObservation:
     unmet: float
     driver_components: tuple[str, ...]
     quantified_components: tuple[DemandComponent, ...] = ()
+    available_component_type: str = "INSTALLED_CAPACITY"
+    available_source_id: str | None = None
 
 
 def _driver(data: Mapping[str, Any]) -> DemandDriver:

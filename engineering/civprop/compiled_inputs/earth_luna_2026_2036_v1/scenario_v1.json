@@ -490,7 +490,8 @@
         "GAP-007": "CLOSED",
         "GAP-008": "CLOSED",
         "GAP-009": "CLOSED",
-        "GAP-010": "CLOSED"
+        "GAP-010": "CLOSED",
+        "GAP-011": "CLOSED"
       }
     },
     "earth": {
@@ -838,6 +839,11 @@
         "sha256": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
         "transfer_scope": "FIELD_IDENTITIES_ONLY_RUNTIME_POWER_BALANCE_NOW_DEFINES_AVERAGE_AND_PEAK_LOAD"
       },
+      "atlas_traffic_field_semantics": {
+        "path": "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json",
+        "sha256": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
+        "transfer_scope": "NODE_INCIDENCE_FIELD_IDENTITIES_ONLY_NO_2026_TRAFFIC_OR_FLEET_VALUES_IMPORTED"
+      },
       "dorrington_olsen_boundary": {
         "assessment_path": "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md",
         "assessment_sha256": "a4b613a3514a385cbbd3ef3959e01ca22cd3b4736dcb893cc4213465655d4a37",
@@ -1176,13 +1182,13 @@
       },
       "production_accounting_source": {
         "path": "engineering/civprop/contracts/production_accounting_v1.json",
-        "sha256": "3defa74d2ea564365fc87b1ab32b8424decadc5e30ec2a4afcd8761c908b2abc"
+        "sha256": "61df5249717d4689869aa1f60c69c0669aa66b1484d4554ada9cd4b515e57c75"
       },
       "production_accounting_v1": {
         "contract_version": "1.1.0",
         "facility_models": [
           {
-            "downstream_gap": "GAP-011",
+            "downstream_gap": "GAP-012",
             "output_field": null,
             "output_source": "DEFERRED",
             "output_unit": null,
@@ -1190,7 +1196,8 @@
             "project_archetype_id": "LOGISTICS_NODE",
             "provenance_refs": [
               "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
-              "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+              "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+              "docs/civprop/CIVPROP_TRAFFIC_FLEET_V1.md"
             ],
             "required_constraints": [
               "POWER",
@@ -2058,6 +2065,44 @@
         "coverage_sha256": "76a93ac3c36980b665dc243fd104d399fc7269dbfff016204d136c5753d690e4",
         "state_view_path": "dev/solar_civprop_resource_contract/RESOURCE_STATE_CONTRACT_V1.sql",
         "state_view_sha256": "012a5d71d178230b1c3a5344cfc06fd5218835f07d99a690460ae9ea90817ad6"
+      },
+      "traffic_fleet_source": {
+        "path": "engineering/civprop/contracts/traffic_fleet_v1.json",
+        "sha256": "691d6b1c7d555a1a261960b507d938b1743e90db892302340b8920f0953ddb86"
+      },
+      "traffic_fleet_v1": {
+        "contract_version": "1.0.0",
+        "demand_allocations": [],
+        "demand_assignment_policy": "EXPLICIT_OD_ONLY",
+        "excluded_demand_location_ids": [
+          "EARTH_SURFACE"
+        ],
+        "fleet_assets": [],
+        "format": "CIVPROP_TRAFFIC_FLEET_V1",
+        "package_id": "EARTH_LUNA_TRAFFIC_FLEET_V1_2026_2036",
+        "service_bindings": [
+          {
+            "generic_demand_eligible": false,
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md",
+              "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json#accessibility_v1"
+            ],
+            "service_id": "AUS_ROOVER_CLPS_CT4_IM5",
+            "traffic_role": "NAMED_PAYLOAD_ONLY"
+          }
+        ],
+        "timeline_context": {
+          "auto_spawn_fleet": false,
+          "heavy_service_milestone_id": "TRN-MOD-HEAVY",
+          "heavy_service_threshold_year": 2040,
+          "nep_milestone_id": "TRN-MOD-NEP",
+          "nep_threshold_year": 2050,
+          "provenance_refs": [
+            "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#TRN-MOD-HEAVY",
+            "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#TRN-MOD-NEP"
+          ]
+        },
+        "vehicle_classes": []
       }
     },
     "resource": {
@@ -2948,7 +2993,7 @@
     "contract_version": "1.1.0",
     "facility_models": [
       {
-        "downstream_gap": "GAP-011",
+        "downstream_gap": "GAP-012",
         "output_field": null,
         "output_source": "DEFERRED",
         "output_unit": null,
@@ -2956,7 +3001,8 @@
         "project_archetype_id": "LOGISTICS_NODE",
         "provenance_refs": [
           "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
-          "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+          "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+          "docs/civprop/CIVPROP_TRAFFIC_FLEET_V1.md"
         ],
         "required_constraints": [
           "POWER",
@@ -3945,6 +3991,40 @@
       "tech_id": "LUNAR_RESOURCE_PROCESSING"
     }
   ],
+  "traffic_fleet_v1": {
+    "contract_version": "1.0.0",
+    "demand_allocations": [],
+    "demand_assignment_policy": "EXPLICIT_OD_ONLY",
+    "excluded_demand_location_ids": [
+      "EARTH_SURFACE"
+    ],
+    "fleet_assets": [],
+    "format": "CIVPROP_TRAFFIC_FLEET_V1",
+    "package_id": "EARTH_LUNA_TRAFFIC_FLEET_V1_2026_2036",
+    "service_bindings": [
+      {
+        "generic_demand_eligible": false,
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md",
+          "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json#accessibility_v1"
+        ],
+        "service_id": "AUS_ROOVER_CLPS_CT4_IM5",
+        "traffic_role": "NAMED_PAYLOAD_ONLY"
+      }
+    ],
+    "timeline_context": {
+      "auto_spawn_fleet": false,
+      "heavy_service_milestone_id": "TRN-MOD-HEAVY",
+      "heavy_service_threshold_year": 2040,
+      "nep_milestone_id": "TRN-MOD-NEP",
+      "nep_threshold_year": 2050,
+      "provenance_refs": [
+        "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#TRN-MOD-HEAVY",
+        "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#TRN-MOD-NEP"
+      ]
+    },
+    "vehicle_classes": []
+  },
   "units": {
     "capacity": "dimension_specific_physical_units",
     "capital": "scenario_credit",

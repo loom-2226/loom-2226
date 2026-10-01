@@ -20,9 +20,9 @@ from .run_civprop_v1 import (
 
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
-GOLDEN = HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP10_POWER_BALANCE_SEED42.json"
+GOLDEN = HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP11_TRAFFIC_FLEET_SEED42.json"
 BASELINE_MANIFEST = (
-    HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP10_BASELINE_MANIFEST.json"
+    HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP11_BASELINE_MANIFEST.json"
 )
 PREVIOUS_GOLDEN = (
     HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP7_PRESSURE_OBSERVABILITY_SEED42.json"
@@ -32,6 +32,9 @@ GAP8_GOLDEN = (
 )
 GAP9_GOLDEN = (
     HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP9_PRODUCTION_ACCOUNTING_SEED42.json"
+)
+GAP10_GOLDEN = (
+    HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP10_POWER_BALANCE_SEED42.json"
 )
 
 
@@ -51,7 +54,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
         self.assertEqual(output["metadata"]["runner"]["id"], RUNNER_ID)
         self.assertEqual(output["metadata"]["runner"]["version"], RUNNER_VERSION)
         self.assertEqual(output["metadata"]["engine"]["id"], "HYBRID_V1")
-        self.assertEqual(output["metadata"]["engine"]["version"], "method-reference-v8")
+        self.assertEqual(output["metadata"]["engine"]["version"], "method-reference-v9")
         for key in (
             "actor_state_boundary",
             "accessibility_boundary",
@@ -62,6 +65,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
             "resource_mass_balance_boundary",
             "production_accounting_boundary",
             "power_balance_boundary",
+            "traffic_fleet_boundary",
             "actor_states",
             "actor_transactions",
             "actor_state_events",
@@ -84,6 +88,14 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
             "power_states",
             "power_flows",
             "atlas_power_metrics",
+            "traffic_demand_states",
+            "traffic_service_states",
+            "fleet_states",
+            "voyage_states",
+            "route_traffic_states",
+            "location_traffic_states",
+            "traffic_pressure_overrides",
+            "atlas_traffic_metrics",
             "events",
             "flows",
         ):
@@ -169,7 +181,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
             },
         )
 
-    def test_gap1_through_gap10_are_closed_in_default_output(self):
+    def test_gap1_through_gap11_are_closed_in_default_output(self):
         statuses = {x["gap_id"]: x["status"] for x in self.output["known_gaps"]}
         self.assertEqual(statuses["GAP-001"], "CLOSED")
         self.assertEqual(statuses["GAP-002"], "CLOSED")
@@ -181,12 +193,13 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
         self.assertEqual(statuses["GAP-008"], "CLOSED")
         self.assertEqual(statuses["GAP-009"], "CLOSED")
         self.assertEqual(statuses["GAP-010"], "CLOSED")
-        self.assertEqual(statuses["GAP-011"], "OPEN")
+        self.assertEqual(statuses["GAP-011"], "CLOSED")
+        self.assertEqual(statuses["GAP-012"], "OPEN")
 
     def test_default_input_has_compiler_provenance(self):
         compiler = self.output["metadata"]["inputs"]["compiler"]
         self.assertEqual(compiler["compiler_id"], "CIVPROP_INPUT_COMPILER_V1")
-        self.assertEqual(compiler["compiler_version"], "1.9.0")
+        self.assertEqual(compiler["compiler_version"], "1.10.0")
         self.assertEqual(compiler["gap_resolution"]["GAP-001"], "CLOSED")
         self.assertEqual(compiler["gap_resolution"]["GAP-002"], "CLOSED")
         self.assertEqual(compiler["gap_resolution"]["GAP-003"], "CLOSED")
@@ -197,6 +210,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
         self.assertEqual(compiler["gap_resolution"]["GAP-008"], "CLOSED")
         self.assertEqual(compiler["gap_resolution"]["GAP-009"], "CLOSED")
         self.assertEqual(compiler["gap_resolution"]["GAP-010"], "CLOSED")
+        self.assertEqual(compiler["gap_resolution"]["GAP-011"], "CLOSED")
         self.assertEqual(len(compiler["manifest_sha256"]), 64)
 
     def test_semantics_are_explicit_not_implied(self):
@@ -469,7 +483,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
         )
         self.assertEqual(
             models["LOGISTICS_NODE"]["downstream_gap"],
-            "GAP-011",
+            "GAP-012",
         )
         self.assertEqual(
             models["HABITAT"]["downstream_gap"],
@@ -641,6 +655,140 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
                 f"GAP-010 changed pre-existing surface {key}",
             )
 
+    def test_gap11_traffic_fleet_preserves_unassigned_od_and_no_auto_spawn(self):
+        boundary = self.output["traffic_fleet_boundary"]
+        self.assertEqual(boundary["format"], "CIVPROP_TRAFFIC_FLEET_V1")
+        self.assertEqual(boundary["contract_version"], "1.0.0")
+        self.assertEqual(
+            boundary["demand_assignment_policy"],
+            "EXPLICIT_OD_ONLY",
+        )
+        self.assertFalse(
+            boundary["timeline_context"]["auto_spawn_fleet"]
+        )
+        self.assertEqual(boundary["vehicle_classes"], [])
+        self.assertEqual(boundary["fleet_assets"], [])
+        self.assertEqual(boundary["demand_allocations"], [])
+        self.assertEqual(len(boundary["service_bindings"]), 1)
+        self.assertFalse(
+            boundary["service_bindings"][0]["generic_demand_eligible"]
+        )
+
+        self.assertEqual(len(self.output["traffic_demand_states"]), 33)
+        self.assertEqual(len(self.output["traffic_service_states"]), 11)
+        self.assertEqual(self.output["fleet_states"], [])
+        self.assertEqual(self.output["voyage_states"], [])
+        self.assertEqual(self.output["route_traffic_states"], [])
+        self.assertEqual(len(self.output["location_traffic_states"]), 33)
+        self.assertEqual(self.output["traffic_pressure_overrides"], [])
+        self.assertEqual(len(self.output["atlas_traffic_metrics"]), 33)
+
+        orbit = next(
+            x
+            for x in self.output["traffic_demand_states"]
+            if x["year"] == 2026
+            and x["location_id"] == "EARTH_ORBIT"
+        )
+        self.assertEqual(
+            orbit["local_transport_requirement_tonnes_year"],
+            800.0,
+        )
+        self.assertEqual(
+            orbit["assigned_cargo_demand_tonnes_year"],
+            0.0,
+        )
+        self.assertEqual(
+            orbit["unassigned_cargo_demand_tonnes_year"],
+            800.0,
+        )
+        self.assertEqual(orbit["assignment_status"], "UNASSIGNED_OD")
+        self.assertEqual(orbit["passenger_demand_status"], "UNKNOWN")
+
+        service = self.output["traffic_service_states"][0]
+        self.assertEqual(
+            service["service_id"],
+            "AUS_ROOVER_CLPS_CT4_IM5",
+        )
+        self.assertEqual(service["accessibility_status"], "UNKNOWN")
+        self.assertFalse(service["generic_demand_eligible"])
+        self.assertEqual(service["active_fleet_count"], 0)
+        self.assertEqual(service["available_trips"], 0)
+        self.assertEqual(service["cargo_capacity_tonnes_year"], 0.0)
+        self.assertEqual(
+            service["passenger_capacity_persons_year"],
+            0.0,
+        )
+
+        metrics = {
+            (x["year"], x["location_id"]): x
+            for x in self.output["atlas_traffic_metrics"]
+        }
+        states = {
+            (x["year"], x["location_id"]): x
+            for x in self.output["location_traffic_states"]
+        }
+        self.assertEqual(set(metrics), set(states))
+        for key, state in states.items():
+            metric = metrics[key]
+            self.assertEqual(
+                state["metric_scope"],
+                "MODELED_GENERIC_TRAFFIC_ONLY",
+            )
+            self.assertEqual(state["cargo_throughput_tonnes_year"], 0)
+            self.assertEqual(state["passenger_movements_year"], 0)
+            self.assertEqual(state["ship_calls_year"], 0)
+            self.assertIsNone(state["transport_service_ratio"])
+            self.assertEqual(
+                metric["cargo_throughput_tonnes_year"],
+                state["cargo_throughput_tonnes_year"],
+            )
+            self.assertEqual(
+                metric["passenger_movements_year"],
+                state["passenger_movements_year"],
+            )
+            self.assertEqual(
+                metric["ship_calls_year"],
+                state["ship_calls_year"],
+            )
+            self.assertEqual(
+                metric["measurement_basis"],
+                "ANNUAL_MODELED_NODE_TRAFFIC_INCIDENCE",
+            )
+
+    def test_gap11_traffic_does_not_change_gap10_behavior(self):
+        previous = json.loads(GAP10_GOLDEN.read_text())
+        for key in (
+            "actor_states",
+            "actor_transactions",
+            "actor_state_events",
+            "annual_states",
+            "facilities",
+            "decisions",
+            "mission_decisions",
+            "missions",
+            "observations",
+            "knowledge_states",
+            "pressure_states",
+            "pressure_contributions",
+            "pressure_qualifications",
+            "resource_states",
+            "resource_flows",
+            "facility_production_states",
+            "sector_production_states",
+            "location_production_states",
+            "body_production_states",
+            "power_states",
+            "power_flows",
+            "atlas_power_metrics",
+            "events",
+            "flows",
+        ):
+            self.assertEqual(
+                self.output[key],
+                previous[key],
+                f"GAP-011 changed pre-existing surface {key}",
+            )
+
     def test_gap2_actor_state_preserves_unknown_and_no_generic_capability_unlock(self):
         states = [x for x in self.output["actor_states"] if x["actor_id"] == "AUS"]
         self.assertEqual(len(states), 11)
@@ -697,6 +845,9 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
                 "power_balance_contract_sha256",
                 "power_balance_parameter_set_sha256",
                 "power_lane_sha256",
+                "traffic_fleet_contract_sha256",
+                "traffic_fleet_parameter_set_sha256",
+                "traffic_lane_sha256",
             },
         )
         for value in impl.values():
@@ -739,7 +890,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
     def test_baseline_manifest_pins_golden_output_and_runtime_contract(self):
         manifest = json.loads(BASELINE_MANIFEST.read_text())
         self.assertEqual(manifest["format"], "CIVPROP_ENGINE_V1_EXECUTABLE_BASELINE_MANIFEST")
-        self.assertEqual(manifest["baseline_id"], "CIVPROP_ENGINE_V1_GAP10_POWER_BALANCE_BASELINE_2026_10_01")
+        self.assertEqual(manifest["baseline_id"], "CIVPROP_ENGINE_V1_GAP11_TRAFFIC_FLEET_BASELINE_2026_10_02")
         self.assertEqual(manifest["runner"]["version"], RUNNER_VERSION)
         self.assertEqual(manifest["output_contract_version"], OUTPUT_CONTRACT_VERSION)
         self.assertEqual(

@@ -41,6 +41,11 @@ class ProductionLaneV1:
             for x in self.recorder.power_states
             if x.year == year
         }
+        traffic_by_location = {
+            x.location_id: x
+            for x in self.recorder.location_traffic_states
+            if x.year == year
+        }
         rows = []
         for facility in sorted(
             active_facilities,
@@ -63,6 +68,29 @@ class ProductionLaneV1:
                         provenance_refs=(
                             "CIVPROP_POWER_BALANCE_V1",
                             power_state.power_state_id,
+                        ),
+                    )
+                )
+            traffic_state = traffic_by_location.get(
+                facility.location_id
+            )
+            if traffic_state is not None:
+                if traffic_state.transport_service_ratio is None:
+                    transport_status = "UNKNOWN"
+                    transport_ratio = None
+                else:
+                    transport_status = "KNOWN"
+                    transport_ratio = (
+                        traffic_state.transport_service_ratio
+                    )
+                constraint_observations["TRANSPORT"] = (
+                    ConstraintObservationV1(
+                        constraint_id="TRANSPORT",
+                        status=transport_status,
+                        utilization_ratio=transport_ratio,
+                        provenance_refs=(
+                            "CIVPROP_TRAFFIC_FLEET_V1",
+                            traffic_state.location_traffic_state_id,
                         ),
                     )
                 )

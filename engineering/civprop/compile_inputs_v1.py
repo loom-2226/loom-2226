@@ -58,6 +58,9 @@ from engineering.civprop.contracts.production_accounting_v1 import (
 from engineering.civprop.contracts.power_balance_v1 import (
     load_power_balance_package,
 )
+from engineering.civprop.contracts.traffic_fleet_v1 import (
+    load_traffic_fleet_package,
+)
 
 
 AUTHORITY_CAPTURE_FORMAT = "CIVPROP_AUTHORITY_CAPTURE_V1"
@@ -97,6 +100,7 @@ EARTH_SECTOR_SCHEMA_PATH = (
     REPO_ROOT / "data/postgres/migrations/004_earth_temporal_authority.sql"
 )
 POWER_BALANCE_PATH = HERE / "contracts/power_balance_v1.json"
+TRAFFIC_FLEET_PATH = HERE / "contracts/traffic_fleet_v1.json"
 ATLAS_POWER_QUALIFICATION_PATH = (
     REPO_ROOT
     / "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json"
@@ -375,6 +379,8 @@ def capture_live_authority(
     load_production_accounting_package(production_accounting)
     power_balance = json.loads(POWER_BALANCE_PATH.read_text())
     load_power_balance_package(power_balance)
+    traffic_fleet = json.loads(TRAFFIC_FLEET_PATH.read_text())
+    load_traffic_fleet_package(traffic_fleet)
 
     source_paths = [
         RESOURCE_PATH,
@@ -389,6 +395,7 @@ def capture_live_authority(
         PRODUCTION_ACCOUNTING_PATH,
         EARTH_SECTOR_SCHEMA_PATH,
         POWER_BALANCE_PATH,
+        TRAFFIC_FLEET_PATH,
         ATLAS_POWER_QUALIFICATION_PATH,
         RESOURCE_COVERAGE_CONTRACT_PATH,
         RESOURCE_STATE_CONTRACT_PATH,
@@ -420,6 +427,7 @@ def capture_live_authority(
             "_PLUS_GAP-008_RESOURCE_MASS_BALANCE"
             "_PLUS_GAP-009_PRODUCTION_ACCOUNTING"
             "_PLUS_GAP-010_POWER_BALANCE"
+            "_PLUS_GAP-011_TRAFFIC_FLEET"
         ),
         "capture_semantics": (
             "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES"
@@ -496,6 +504,25 @@ def capture_live_authority(
                 "transfer_scope": (
                     "FIELD_IDENTITIES_ONLY_RUNTIME_POWER_BALANCE_"
                     "NOW_DEFINES_AVERAGE_AND_PEAK_LOAD"
+                ),
+            },
+            "traffic_fleet_v1": traffic_fleet,
+            "traffic_fleet_source": {
+                "path": str(
+                    TRAFFIC_FLEET_PATH.relative_to(REPO_ROOT)
+                ),
+                "sha256": _sha256_path(TRAFFIC_FLEET_PATH),
+            },
+            "atlas_traffic_field_semantics": {
+                "path": str(
+                    ATLAS_POWER_QUALIFICATION_PATH.relative_to(REPO_ROOT)
+                ),
+                "sha256": _sha256_path(
+                    ATLAS_POWER_QUALIFICATION_PATH
+                ),
+                "transfer_scope": (
+                    "NODE_INCIDENCE_FIELD_IDENTITIES_ONLY_NO_2026_"
+                    "TRAFFIC_OR_FLEET_VALUES_IMPORTED"
                 ),
             },
             "resource_state_contracts": {
@@ -986,6 +1013,16 @@ def _compile_power_balance(
     return raw
 
 
+def _compile_traffic_fleet(
+    capture: dict[str, Any],
+) -> dict[str, Any]:
+    raw = copy.deepcopy(
+        capture["model_parameters"]["traffic_fleet_v1"]
+    )
+    load_traffic_fleet_package(raw)
+    return raw
+
+
 def _compile_resource_physical_realization(
     capture: dict[str, Any],
 ) -> dict[str, Any]:
@@ -1118,6 +1155,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
         _compile_production_accounting(capture)
     )
     scenario["power_balance_v1"] = _compile_power_balance(capture)
+    scenario["traffic_fleet_v1"] = _compile_traffic_fleet(capture)
     scenario["project_archetypes"] = [
         project
         for project in scenario["project_archetypes"]
@@ -1138,6 +1176,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
                 "GAP-008": "CLOSED",
                 "GAP-009": "CLOSED",
                 "GAP-010": "CLOSED",
+                "GAP-011": "CLOSED",
             },
             "compatibility_envelope": (
                 "CIVPROP_METHOD_LAB_SCENARIO_V1 retained for locked runner compatibility"
@@ -1237,10 +1276,11 @@ def compile_from_capture(
     gap_resolution["GAP-008"] = "CLOSED"
     gap_resolution["GAP-009"] = "CLOSED"
     gap_resolution["GAP-010"] = "CLOSED"
+    gap_resolution["GAP-011"] = "CLOSED"
     compiler_manifest = {
         "format": COMPILER_MANIFEST_FORMAT,
         "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-        "compiler_version": "1.9.0",
+        "compiler_version": "1.10.0",
         "compiler_source_sha256": _sha256_path(HERE / "compile_inputs_v1.py"),
         "runtime_input": {
             "fixture_id": COMPILED_FIXTURE_ID,
@@ -1343,6 +1383,14 @@ def compile_from_capture(
                 "remain UNKNOWN unless separately qualified. Timeline thresholds provide context "
                 "and never auto-create capacity."
             ),
+            "gap11_closed_means": (
+                "Traffic/Fleet V1 separates local transport handling capacity from actual OD "
+                "movement. Explicit OD allocations bind GAP-004 transport demand to GAP-003 "
+                "services and versioned fleet assets; vehicle mission duration, turnaround and "
+                "availability bound annual trips, cargo/passenger movement, ship calls, backlog "
+                "and route utilization. Unassigned demand remains UNASSIGNED_OD, and timeline "
+                "transport milestones never auto-spawn routes or vehicles."
+            ),
             "does_not_mean": (
                 "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample "
                 "is a route, transfer solution, fleet allocation, service price, or actor entitlement; "
@@ -1354,7 +1402,10 @@ def compile_from_capture(
                 "prices, productivity or utilization; project capital cost is operating cost or "
                 "output price; installed MW equals average generation or annual MWh; the "
                 "2040 ENE-MOD-INDUSTRIAL scenario threshold auto-builds or certifies generation; "
-                "off-world initial infrastructure or demographic depth are production solved."
+                "installed transport handling capacity is realized OD movement; TRN-MOD-HEAVY "
+                "or TRN-MOD-NEP auto-spawns routes, services or fleet assets; the named Roo-ver "
+                "CLPS path is generic freight entitlement; off-world initial infrastructure or "
+                "demographic depth are production solved."
             ),
         },
     }
@@ -1395,6 +1446,7 @@ def main() -> None:
                 "gap_008": manifest["gap_resolution"]["GAP-008"],
                 "gap_009": manifest["gap_resolution"]["GAP-009"],
                 "gap_010": manifest["gap_resolution"]["GAP-010"],
+                "gap_011": manifest["gap_resolution"]["GAP-011"],
                 "output_dir": str(args.output_dir),
             },
             indent=2,

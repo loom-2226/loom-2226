@@ -63,7 +63,8 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         self.assertEqual(observed["GAP-008"], "CLOSED")
         self.assertEqual(observed["GAP-009"], "CLOSED")
         self.assertEqual(observed["GAP-010"], "CLOSED")
-        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(11, 16)))
+        self.assertEqual(observed["GAP-011"], "CLOSED")
+        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(12, 16)))
 
     def test_every_gap_has_exit_criteria_and_handoff(self):
         for gap in self.registry["gaps"]:
@@ -286,6 +287,16 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
             "docs/civprop/CIVPROP_POWER_BALANCE_V1.md",
             refs,
         )
+
+    def test_gap11_closure_references_traffic_fleet_artifacts(self):
+        gap11 = self.registry["gaps"][10]
+        self.assertEqual(gap11["current_status"], "CLOSED")
+        refs = set(gap11["current_evidence"])
+        self.assertIn("engineering/civprop/contracts/traffic_fleet_v1.py", refs)
+        self.assertIn("engineering/civprop/contracts/test_traffic_fleet_v1.py", refs)
+        self.assertIn("engineering/civprop/method_lab/traffic_lane_v1.py", refs)
+        self.assertIn("engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP11_BASELINE_MANIFEST.json", refs)
+        self.assertIn("docs/civprop/CIVPROP_TRAFFIC_FLEET_V1.md", refs)
 
     def test_post_gap_plan_has_ordered_gates(self):
         plan = self.registry["post_gap_plan"]
