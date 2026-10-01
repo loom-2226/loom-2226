@@ -55,6 +55,15 @@ from engineering.civprop.contracts.resource_mass_balance_v1 import (
     load_resource_mass_balance_package,
     load_resource_physical_realization,
 )
+from engineering.civprop.contracts.production_accounting_v1 import (
+    BodyProductionStateV1,
+    FacilityProductionStateV1,
+    LocationProductionStateV1,
+    ProductionAccountingPackage,
+    ProductionAccountingRuntime,
+    SectorProductionStateV1,
+    load_production_accounting_package,
+)
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -179,6 +188,7 @@ class LabScenario:
     mission_knowledge_v1: Optional[MissionKnowledgePackage] = None
     pressure_observability_v1: Optional[PressureObservabilityPackage] = None
     resource_mass_balance_v1: Optional[ResourceMassBalancePackage] = None
+    production_accounting_v1: Optional[ProductionAccountingPackage] = None
 
 
 @dataclass(frozen=True)
@@ -293,6 +303,10 @@ class LabResult:
     pressure_qualifications: tuple[PressureQualificationV1, ...] = ()
     resource_states: tuple[ResourceStateV1, ...] = ()
     resource_flows: tuple[ResourceFlowV1, ...] = ()
+    facility_production_states: tuple[FacilityProductionStateV1, ...] = ()
+    sector_production_states: tuple[SectorProductionStateV1, ...] = ()
+    location_production_states: tuple[LocationProductionStateV1, ...] = ()
+    body_production_states: tuple[BodyProductionStateV1, ...] = ()
 
 
 @runtime_checkable
@@ -351,6 +365,21 @@ def canonical_json(value: Any) -> str:
         # canonical result hash.
         plain.pop("resource_states", None)
         plain.pop("resource_flows", None)
+    if isinstance(value, LabResult) and not (
+        value.facility_production_states
+        or value.sector_production_states
+        or value.location_production_states
+        or value.body_production_states
+    ):
+        # Historical runs without Production Accounting V1 retain their
+        # previous canonical result hashes.
+        for key in (
+            "facility_production_states",
+            "sector_production_states",
+            "location_production_states",
+            "body_production_states",
+        ):
+            plain.pop(key, None)
     return json.dumps(
         plain,
         sort_keys=True,
@@ -510,6 +539,13 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             if data.get("resource_mass_balance_v1") is None
             else load_resource_mass_balance_package(
                 data["resource_mass_balance_v1"]
+            )
+        ),
+        production_accounting_v1=(
+            None
+            if data.get("production_accounting_v1") is None
+            else load_production_accounting_package(
+                data["production_accounting_v1"]
             )
         ),
     )
@@ -758,6 +794,76 @@ def _validate_scenario(s: LabScenario, truth: LabTruth) -> None:
                 )
             if process.location_id not in location_ids:
                 raise ValueError("resource process unknown location")
+
+    if s.production_accounting_v1 is not None:
+        production = s.production_accounting_v1
+        if s.project_economics_v1 is None:
+            raise ValueError(
+                "Production Accounting V1 requires Project Economics V1"
+            )
+        if (
+            s.units.get("project_capital")
+            != production.monetary_stock_unit
+        ):
+            raise ValueError(
+                "production capital unit must match project capital unit"
+            )
+        model_by_project = {
+            x.project_archetype_id: x
+            for x in production.facility_models
+        }
+        facility_projects = {
+            x.project_archetype_id
+            for x in s.project_archetypes
+            if x.project_kind == "FACILITY"
+        }
+        if set(model_by_project) != facility_projects:
+            raise ValueError(
+                "production models must exactly cover facility archetypes"
+            )
+        resource_processes = (
+            {}
+            if s.resource_mass_balance_v1 is None
+            else {
+                (x.project_archetype_id, x.resource_id)
+                for x in s.resource_mass_balance_v1.process_models
+            }
+        )
+        for project_id, model in model_by_project.items():
+            project = projects_by_id[project_id]
+            if model.output_source == "CAPACITY_FIELD":
+                if model.output_field not in CapacityVector.__dataclass_fields__:
+                    raise ValueError(
+                        "production model references unknown capacity field"
+                    )
+                if getattr(
+                    project.output_capacities,
+                    model.output_field,
+                ) <= 0:
+                    raise ValueError(
+                        "production model capacity field has no project output"
+                    )
+            elif model.output_source == "RESOURCE_RECOVERED_PRODUCT":
+                if s.resource_mass_balance_v1 is None:
+                    raise ValueError(
+                        "resource production accounting requires GAP-008"
+                    )
+                if (
+                    model.project_archetype_id,
+                    model.resource_id,
+                ) not in resource_processes:
+                    raise ValueError(
+                        "production resource source lacks GAP-008 process"
+                    )
+                if model.output_field not in CapacityVector.__dataclass_fields__:
+                    raise ValueError(
+                        "resource production references unknown capacity field"
+                    )
+            elif model.output_source == "DEFERRED":
+                if model.downstream_gap is None:
+                    raise ValueError(
+                        "deferred production model lacks owning gap"
+                    )
 
     for project in s.project_archetypes:
         if project.capital_cost <= 0 or project.construction_lag_years < 1:
@@ -1306,6 +1412,106 @@ def validate_result(result: LabResult, bundle: LabBundle) -> None:
                     raise ValueError(
                         "resource flow does not reconcile with state"
                     )
+
+    if s.production_accounting_v1 is None:
+        if (
+            result.facility_production_states
+            or result.sector_production_states
+            or result.location_production_states
+            or result.body_production_states
+        ):
+            raise ValueError(
+                "production outputs require Production Accounting V1"
+            )
+    else:
+        runtime = ProductionAccountingRuntime(
+            s.production_accounting_v1
+        )
+        facility_by_id = {
+            x.facility_id: x for x in result.facilities
+        }
+        expected_keys = {
+            (year, facility.facility_id)
+            for facility in result.facilities
+            if facility.status == "ACTIVE"
+            for year in range(
+                facility.commissioned_year,
+                s.end_year + 1,
+            )
+        }
+        actual_keys = {
+            (x.year, x.facility_id)
+            for x in result.facility_production_states
+        }
+        if actual_keys != expected_keys:
+            raise ValueError(
+                "facility production annual coverage does not match facilities"
+            )
+        _unique(
+            result.facility_production_states,
+            lambda x: x.production_state_id,
+            "facility production state id",
+        )
+        for state in result.facility_production_states:
+            facility = facility_by_id.get(state.facility_id)
+            if facility is None:
+                raise ValueError(
+                    "production state references unknown facility"
+                )
+            constraints = {
+                x.constraint_id: x
+                for x in state.constraint_observations
+            }
+            reproduced = runtime.evaluate_facility(
+                year=state.year,
+                facility=facility,
+                constraint_observations=constraints,
+                resource_states=result.resource_states,
+                peer_facilities=tuple(
+                    peer
+                    for peer in result.facilities
+                    if peer.status == "ACTIVE"
+                    and peer.commissioned_year <= state.year
+                ),
+            )
+            if state != reproduced:
+                raise ValueError(
+                    "facility production state does not replay exactly"
+                )
+
+        location_to_body = {
+            x.location_id: x.parent_body_id
+            for x in s.locations
+        }
+        expected_sector = []
+        expected_location = []
+        expected_body = []
+        for year in range(s.start_year, s.end_year + 1):
+            rows = tuple(
+                x
+                for x in result.facility_production_states
+                if x.year == year
+            )
+            sectors, locations, bodies = runtime.aggregate(
+                year=year,
+                facility_states=rows,
+                location_to_body=location_to_body,
+            )
+            expected_sector.extend(sectors)
+            expected_location.extend(locations)
+            expected_body.extend(bodies)
+        if tuple(expected_sector) != result.sector_production_states:
+            raise ValueError(
+                "sector production aggregates do not reconcile"
+            )
+        if tuple(expected_location) != result.location_production_states:
+            raise ValueError(
+                "location production aggregates do not reconcile"
+            )
+        if tuple(expected_body) != result.body_production_states:
+            raise ValueError(
+                "body production aggregates do not reconcile"
+            )
 
     if s.mission_knowledge_v1 is None:
         if (

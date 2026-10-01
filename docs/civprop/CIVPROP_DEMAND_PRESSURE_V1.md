@@ -271,4 +271,4 @@ The remaining frontier begins with:
 - traffic and fleet utilization: GAP-011;
 - full demography and migration: GAP-014.
 
-GAP-008 RESOURCE_MASS_BALANCE is now CLOSED. The immediate engineering frontier is GAP-009 PRODUCTION_AND_VALUE_ADDED.
+GAP-008 RESOURCE_MASS_BALANCE and GAP-009 PRODUCTION_AND_VALUE_ADDED are now CLOSED. The immediate engineering frontier is GAP-010 POWER_BALANCE.

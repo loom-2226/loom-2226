@@ -137,6 +137,10 @@ class Recorder:
         self.pressure_qualifications = []
         self.resource_states = []
         self.resource_flows = []
+        self.facility_production_states = []
+        self.sector_production_states = []
+        self.location_production_states = []
+        self.body_production_states = []
         self._event_counter = 0
         self._decision_counter = 0
         self._flow_counter = 0
@@ -839,6 +843,16 @@ def finalize(
         pressure_qualifications=tuple(recorder.pressure_qualifications),
         resource_states=tuple(recorder.resource_states),
         resource_flows=tuple(recorder.resource_flows),
+        facility_production_states=tuple(
+            recorder.facility_production_states
+        ),
+        sector_production_states=tuple(
+            recorder.sector_production_states
+        ),
+        location_production_states=tuple(
+            recorder.location_production_states
+        ),
+        body_production_states=tuple(recorder.body_production_states),
     )
 
 

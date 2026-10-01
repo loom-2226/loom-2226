@@ -447,7 +447,7 @@ not a facility.
 
 ## Output surface
 
-Runner V1.8 continues to expose:
+Runner V1.9 continues to expose:
 
     mission_knowledge_boundary
     mission_decisions
@@ -584,4 +584,4 @@ contributions and qualification provenance without changing the GAP-006 mission 
 knowledge behavior. The complete pre-existing GAP-006 behavioral arrays remain
 byte-identical under the GAP-007 baseline.
 
-GAP-008 RESOURCE_MASS_BALANCE is now CLOSED. The immediate frontier is GAP-009 PRODUCTION_AND_VALUE_ADDED.
+GAP-008 RESOURCE_MASS_BALANCE and GAP-009 PRODUCTION_AND_VALUE_ADDED are now CLOSED. The immediate frontier is GAP-010 POWER_BALANCE.

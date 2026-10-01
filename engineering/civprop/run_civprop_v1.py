@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-Runner V1.8 keeps the selected HYBRID_V1 architecture and closed GAP-001
-through GAP-007 boundaries, then adds GAP-008 Resource Mass Balance V1 with
-evaluator-only physical stock, extraction, grade, recovery, tailings, inventory and
-depletion accounting. Actor-visible resource knowledge remains a separate GAP-006
-surface. Later gaps remain explicit rather than being silently invented.
+Runner V1.9 keeps the selected HYBRID_V1 architecture and closed GAP-001
+through GAP-008 boundaries, then adds GAP-009 Production Accounting V1 with
+separate physical-output feasibility, monetary valuation, value-added, investment
+and gross productive-capital accounting. Later gaps remain explicit rather than
+being silently invented.
 """
 from __future__ import annotations
 
@@ -40,9 +40,9 @@ from engineering.civprop.method_lab.prototypes.common import (
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.8.0"
+OUTPUT_CONTRACT_VERSION = "1.9.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.8.0"
+RUNNER_VERSION = "1.9.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
 PROJECT_ECONOMICS_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "project_economics_v1.json"
@@ -55,6 +55,9 @@ PRESSURE_OBSERVABILITY_PARAMETER_PATH = (
 )
 RESOURCE_MASS_BALANCE_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "resource_mass_balance_v1.json"
+)
+PRODUCTION_ACCOUNTING_PARAMETER_PATH = (
+    _CIVPROP_DIR / "contracts" / "production_accounting_v1.json"
 )
 
 
@@ -173,12 +176,14 @@ def _implementation_hashes() -> dict[str, str]:
         mission_knowledge_v1,
         pressure_observability_v1,
         resource_mass_balance_v1,
+        production_accounting_v1,
     )
     from engineering.civprop.method_lab import (
         contracts,
         mission_lane_v1,
         pressure_lane_v1,
         resource_lane_v1,
+        production_lane_v1,
     )
     from engineering.civprop.method_lab.prototypes import common, hybrid_v1
 
@@ -216,6 +221,13 @@ def _implementation_hashes() -> dict[str, str]:
             RESOURCE_MASS_BALANCE_PARAMETER_PATH
         ),
         "resource_lane_sha256": _module_sha256(resource_lane_v1),
+        "production_accounting_contract_sha256": _module_sha256(
+            production_accounting_v1
+        ),
+        "production_accounting_parameter_set_sha256": _sha256(
+            PRODUCTION_ACCOUNTING_PARAMETER_PATH
+        ),
+        "production_lane_sha256": _module_sha256(production_lane_v1),
     }
 
 
@@ -278,6 +290,18 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
         ),
         "resource_unknown": (
             "PRESENT_UNQUANTIFIED_OR_UNKNOWN_ABUNDANCE_NEVER_COERCED_TO_ZERO_OR_INVENTORY"
+        ),
+        "production_accounting": (
+            "PHYSICAL_OUTPUT_FEASIBILITY_SEPARATE_FROM_MONETARY_VALUATION_AND_CAPITAL_STOCK"
+        ),
+        "production_constraints": (
+            "MISSING_REQUIRED_POWER_LABOR_MATERIAL_TRANSPORT_CONSTRAINTS_PROPAGATE_UNKNOWN"
+        ),
+        "value_added": (
+            "GROSS_OUTPUT_MINUS_INTERMEDIATE_CONSUMPTION_OPERATING_COST_IS_DISTINCT"
+        ),
+        "productive_capital": (
+            "GROSS_COMMISSIONED_PROJECT_CAPITAL_NO_DEPRECIATION_BEFORE_GAP013"
         ),
         "pressure_memory": (
             "CHANNEL_PRESSURE_DECAYS_WHEN_UNMET_REQUIREMENT_DISAPPEARS"
@@ -368,7 +392,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-009",
             "name": "PRODUCTION_AND_VALUE_ADDED",
             "status": "OPEN",
-            "meaning": "Off-world sector production, value added, operating cost and investment flows are not yet generated.",
+            "meaning": "Production Accounting V1 separates physical output feasibility from monetary valuation and gross productive-capital accounting; unresolved required constraints remain UNKNOWN, value added is gross output minus intermediate consumption, and operating cost is distinct.",
         },
         {
             "gap_id": "GAP-010",
@@ -752,6 +776,13 @@ def build_output(
                 canonical_json(bundle.scenario.resource_mass_balance_v1)
             )
         ),
+        "production_accounting_boundary": (
+            None
+            if bundle.scenario.production_accounting_v1 is None
+            else json.loads(
+                canonical_json(bundle.scenario.production_accounting_v1)
+            )
+        ),
         "actor_states": actor_states,
         "actor_transactions": actor_transactions,
         "actor_state_events": actor_state_events,
@@ -773,6 +804,22 @@ def build_output(
         ),
         "resource_states": result_dict.get("resource_states", []),
         "resource_flows": result_dict.get("resource_flows", []),
+        "facility_production_states": result_dict.get(
+            "facility_production_states",
+            [],
+        ),
+        "sector_production_states": result_dict.get(
+            "sector_production_states",
+            [],
+        ),
+        "location_production_states": result_dict.get(
+            "location_production_states",
+            [],
+        ),
+        "body_production_states": result_dict.get(
+            "body_production_states",
+            [],
+        ),
         "events": result_dict["events"],
         "flows": result_dict["flows"],
     }
@@ -788,7 +835,7 @@ def main() -> None:
         "--input-dir",
         type=Path,
         default=default_input_dir,
-        help="Compatible frozen input directory (defaults to GAP-001 through GAP-008 compiled V1).",
+        help="Compatible frozen input directory (defaults to GAP-001 through GAP-009 compiled V1).",
     )
     parser.add_argument(
         "--infrastructure-catalog",

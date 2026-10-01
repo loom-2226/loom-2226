@@ -52,6 +52,9 @@ from engineering.civprop.contracts.resource_mass_balance_v1 import (
     load_resource_mass_balance_package,
     load_resource_physical_realization,
 )
+from engineering.civprop.contracts.production_accounting_v1 import (
+    load_production_accounting_package,
+)
 
 
 AUTHORITY_CAPTURE_FORMAT = "CIVPROP_AUTHORITY_CAPTURE_V1"
@@ -83,6 +86,12 @@ PRESSURE_OBSERVABILITY_PATH = (
 )
 RESOURCE_MASS_BALANCE_PATH = (
     HERE / "contracts/resource_mass_balance_v1.json"
+)
+PRODUCTION_ACCOUNTING_PATH = (
+    HERE / "contracts/production_accounting_v1.json"
+)
+EARTH_SECTOR_SCHEMA_PATH = (
+    REPO_ROOT / "data/postgres/migrations/004_earth_temporal_authority.sql"
 )
 RESOURCE_COVERAGE_CONTRACT_PATH = (
     REPO_ROOT
@@ -352,6 +361,10 @@ def capture_live_authority(
         RESOURCE_MASS_BALANCE_PATH.read_text()
     )
     load_resource_mass_balance_package(resource_mass_balance)
+    production_accounting = json.loads(
+        PRODUCTION_ACCOUNTING_PATH.read_text()
+    )
+    load_production_accounting_package(production_accounting)
 
     source_paths = [
         RESOURCE_PATH,
@@ -363,6 +376,8 @@ def capture_live_authority(
         MISSION_KNOWLEDGE_PATH,
         PRESSURE_OBSERVABILITY_PATH,
         RESOURCE_MASS_BALANCE_PATH,
+        PRODUCTION_ACCOUNTING_PATH,
+        EARTH_SECTOR_SCHEMA_PATH,
         RESOURCE_COVERAGE_CONTRACT_PATH,
         RESOURCE_STATE_CONTRACT_PATH,
         DORRINGTON_CONTRACT_PATH,
@@ -391,6 +406,7 @@ def capture_live_authority(
             "_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE"
             "_PLUS_GAP-007_PRESSURE_OBSERVABILITY"
             "_PLUS_GAP-008_RESOURCE_MASS_BALANCE"
+            "_PLUS_GAP-009_PRODUCTION_ACCOUNTING"
         ),
         "capture_semantics": (
             "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES"
@@ -434,6 +450,23 @@ def capture_live_authority(
                     RESOURCE_MASS_BALANCE_PATH.relative_to(REPO_ROOT)
                 ),
                 "sha256": _sha256_path(RESOURCE_MASS_BALANCE_PATH),
+            },
+            "production_accounting_v1": production_accounting,
+            "production_accounting_source": {
+                "path": str(
+                    PRODUCTION_ACCOUNTING_PATH.relative_to(REPO_ROOT)
+                ),
+                "sha256": _sha256_path(PRODUCTION_ACCOUNTING_PATH),
+            },
+            "earth_accounting_semantics": {
+                "path": str(
+                    EARTH_SECTOR_SCHEMA_PATH.relative_to(REPO_ROOT)
+                ),
+                "sha256": _sha256_path(EARTH_SECTOR_SCHEMA_PATH),
+                "transfer_scope": (
+                    "FIELD_NAMES_AND_ACCOUNTING_IDENTITIES_ONLY_"
+                    "NO_OFFWORLD_PRICE_PRODUCTIVITY_OR_UTILIZATION_COPY"
+                ),
             },
             "resource_state_contracts": {
                 "coverage_path": str(
@@ -903,6 +936,16 @@ def _compile_resource_mass_balance(
     return raw
 
 
+def _compile_production_accounting(
+    capture: dict[str, Any],
+) -> dict[str, Any]:
+    raw = copy.deepcopy(
+        capture["model_parameters"]["production_accounting_v1"]
+    )
+    load_production_accounting_package(raw)
+    return raw
+
+
 def _compile_resource_physical_realization(
     capture: dict[str, Any],
 ) -> dict[str, Any]:
@@ -1031,6 +1074,9 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     scenario["resource_mass_balance_v1"] = (
         _compile_resource_mass_balance(capture)
     )
+    scenario["production_accounting_v1"] = (
+        _compile_production_accounting(capture)
+    )
     scenario["project_archetypes"] = [
         project
         for project in scenario["project_archetypes"]
@@ -1049,6 +1095,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
                 "GAP-006": "CLOSED",
                 "GAP-007": "CLOSED",
                 "GAP-008": "CLOSED",
+                "GAP-009": "CLOSED",
             },
             "compatibility_envelope": (
                 "CIVPROP_METHOD_LAB_SCENARIO_V1 retained for locked runner compatibility"
@@ -1146,10 +1193,11 @@ def compile_from_capture(
     gap_resolution["GAP-006"] = "CLOSED"
     gap_resolution["GAP-007"] = "CLOSED"
     gap_resolution["GAP-008"] = "CLOSED"
+    gap_resolution["GAP-009"] = "CLOSED"
     compiler_manifest = {
         "format": COMPILER_MANIFEST_FORMAT,
         "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-        "compiler_version": "1.7.0",
+        "compiler_version": "1.8.0",
         "compiler_source_sha256": _sha256_path(HERE / "compile_inputs_v1.py"),
         "runtime_input": {
             "fixture_id": COMPILED_FIXTURE_ID,
@@ -1237,6 +1285,13 @@ def compile_from_capture(
                 "inventory and depletion accounting with hard capacity and conservation checks. "
                 "Unquantified lunar abundance remains UNKNOWN/null in the default physical state."
             ),
+            "gap9_closed_means": (
+                "Production Accounting V1 separates physical output feasibility from monetary "
+                "valuation and gross productive-capital accounting. Required unresolved service "
+                "constraints propagate UNKNOWN; value added is gross output minus intermediate "
+                "consumption; operating cost remains distinct; commissioned project capital is "
+                "investment and no depreciation is applied before GAP-013."
+            ),
             "does_not_mean": (
                 "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample "
                 "is a route, transfer solution, fleet allocation, service price, or actor entitlement; "
@@ -1244,8 +1299,10 @@ def compile_from_capture(
                 "scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a "
                 "lunar facility cost model; evaluator truth is actor-visible; lunar water "
                 "presence establishes a quantified mineable inventory, ore grade, extraction "
-                "rate or recovery efficiency; off-world initial infrastructure or demographic "
-                "depth are production solved."
+                "rate or recovery efficiency; Earth sector values or ratios are valid off-world "
+                "prices, productivity or utilization; project capital cost is operating cost or "
+                "output price; off-world initial infrastructure or demographic depth are "
+                "production solved."
             ),
         },
     }
@@ -1284,6 +1341,7 @@ def main() -> None:
                 "gap_006": manifest["gap_resolution"]["GAP-006"],
                 "gap_007": manifest["gap_resolution"]["GAP-007"],
                 "gap_008": manifest["gap_resolution"]["GAP-008"],
+                "gap_009": manifest["gap_resolution"]["GAP-009"],
                 "output_dir": str(args.output_dir),
             },
             indent=2,

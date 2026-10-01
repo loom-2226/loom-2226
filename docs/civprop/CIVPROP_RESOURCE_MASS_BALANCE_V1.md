@@ -471,10 +471,12 @@ Closure does not mean lunar stock, grade, mining rate or recovery have been meas
 
 ## Immediate frontier
 
-GAP-009 PRODUCTION_AND_VALUE_ADDED is next.
+GAP-009 PRODUCTION_AND_VALUE_ADDED is now CLOSED through Production Accounting V1.
 
-That gap may attach economic production, operating costs and value added to physically
-possible resource flows.
+The immediate engineering frontier is:
 
-It may not turn UNKNOWN physical resource quantities into economic output merely
-because a price model wants something to multiply.
+    GAP-010 POWER_BALANCE
+
+Production Accounting V1 may value physically possible resource output when valuation
+parameters are known, but it preserves UNKNOWN monetary valuation where they are not.
+Resource Mass Balance V1 remains authoritative for the underlying physical flow.

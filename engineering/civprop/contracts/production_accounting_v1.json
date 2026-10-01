@@ -1,0 +1,238 @@
+{
+  "format": "CIVPROP_PRODUCTION_ACCOUNTING_V1",
+  "contract_version": "1.0.0",
+  "package_id": "EARTH_LUNA_PRODUCTION_ACCOUNTING_V1_2026_2036",
+  "monetary_stock_unit": "USD_2026_billion",
+  "monetary_flow_unit": "USD_2026_billion/year",
+  "facility_models": [
+    {
+      "production_model_id": "LOGISTICS_NODE_PRODUCTION_V1",
+      "project_archetype_id": "LOGISTICS_NODE",
+      "sector_id": "TRANSPORT",
+      "output_source": "DEFERRED",
+      "output_field": null,
+      "output_unit": null,
+      "resource_id": null,
+      "downstream_gap": "GAP-011",
+      "required_constraints": [
+        "POWER",
+        "LABOR_AUTOMATION"
+      ],
+      "valuation": {
+        "unit_output_value": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/transport_service_unit",
+          "provenance_refs": [
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+            "docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md"
+          ]
+        },
+        "intermediate_consumption_per_output": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/transport_service_unit",
+          "provenance_refs": [
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+          ]
+        },
+        "operating_cost_per_output": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/transport_service_unit",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ]
+        }
+      },
+      "provenance_refs": [
+        "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
+        "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+      ]
+    },
+    {
+      "production_model_id": "POWER_PLANT_PRODUCTION_V1",
+      "project_archetype_id": "POWER_PLANT",
+      "sector_id": "ENERGY",
+      "output_source": "DEFERRED",
+      "output_field": null,
+      "output_unit": null,
+      "resource_id": null,
+      "downstream_gap": "GAP-010",
+      "required_constraints": [
+        "LABOR_AUTOMATION",
+        "MATERIALS",
+        "TRANSPORT"
+      ],
+      "valuation": {
+        "unit_output_value": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/GWh",
+          "provenance_refs": [
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+          ]
+        },
+        "intermediate_consumption_per_output": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/GWh",
+          "provenance_refs": [
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+          ]
+        },
+        "operating_cost_per_output": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/GWh",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ]
+        }
+      },
+      "provenance_refs": [
+        "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
+        "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+      ]
+    },
+    {
+      "production_model_id": "HABITAT_SERVICES_PRODUCTION_V1",
+      "project_archetype_id": "HABITAT",
+      "sector_id": "HABITAT_SERVICES",
+      "output_source": "DEFERRED",
+      "output_field": null,
+      "output_unit": null,
+      "resource_id": null,
+      "downstream_gap": "GAP-014",
+      "required_constraints": [
+        "POWER",
+        "LABOR_AUTOMATION",
+        "TRANSPORT"
+      ],
+      "valuation": {
+        "unit_output_value": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/habitat_service_unit",
+          "provenance_refs": [
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+          ]
+        },
+        "intermediate_consumption_per_output": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/habitat_service_unit",
+          "provenance_refs": [
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+          ]
+        },
+        "operating_cost_per_output": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/habitat_service_unit",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ]
+        }
+      },
+      "provenance_refs": [
+        "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
+        "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+      ]
+    },
+    {
+      "production_model_id": "LUNAR_WATER_PRODUCTION_ACCOUNTING_V1",
+      "project_archetype_id": "RESOURCE_PLANT",
+      "sector_id": "RESOURCE",
+      "output_source": "RESOURCE_RECOVERED_PRODUCT",
+      "output_field": "resource",
+      "output_unit": "tonnes/year",
+      "resource_id": "MOON_POLAR_WATER",
+      "downstream_gap": null,
+      "required_constraints": [
+        "POWER",
+        "LABOR_AUTOMATION",
+        "TRANSPORT"
+      ],
+      "valuation": {
+        "unit_output_value": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/tonne",
+          "provenance_refs": [
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+            "docs/civprop/CIVPROP_RESOURCE_MASS_BALANCE_V1.md"
+          ]
+        },
+        "intermediate_consumption_per_output": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/tonne",
+          "provenance_refs": [
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+          ]
+        },
+        "operating_cost_per_output": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/tonne",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
+            "docs/civprop/CIVPROP_RESOURCE_MASS_BALANCE_V1.md"
+          ]
+        }
+      },
+      "provenance_refs": [
+        "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
+        "docs/civprop/CIVPROP_RESOURCE_MASS_BALANCE_V1.md",
+        "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+      ]
+    },
+    {
+      "production_model_id": "INDUSTRIAL_WORKSHOP_PRODUCTION_V1",
+      "project_archetype_id": "INDUSTRIAL_WORKSHOP",
+      "sector_id": "INDUSTRY",
+      "output_source": "CAPACITY_FIELD",
+      "output_field": "industrial",
+      "output_unit": "tonnes/year",
+      "resource_id": null,
+      "downstream_gap": null,
+      "required_constraints": [
+        "POWER",
+        "LABOR_AUTOMATION",
+        "MATERIALS",
+        "TRANSPORT"
+      ],
+      "valuation": {
+        "unit_output_value": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/tonne",
+          "provenance_refs": [
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+          ]
+        },
+        "intermediate_consumption_per_output": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/tonne",
+          "provenance_refs": [
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+          ]
+        },
+        "operating_cost_per_output": {
+          "status": "UNKNOWN",
+          "value": null,
+          "unit": "USD_2026_billion/tonne",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ]
+        }
+      },
+      "provenance_refs": [
+        "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
+        "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+      ]
+    }
+  ]
+}

@@ -6,11 +6,11 @@ Status: current program register and post-gap handoff plan
 
 ## Authority boundary
 
-This document records the CIVPROP program state through GAP-008 closure.
+This document records the CIVPROP program state through GAP-009 closure.
 
 Authoritative repository basis at creation:
 
-    6e5a3a4fddc985d5670f3b6da9b07122743221ae
+    eb441db0e80f60660a08bc6ad2bab6c58a3318e2
 
 Machine-readable register:
 
@@ -30,12 +30,12 @@ Current default runtime package:
 
 Current runner/output contract:
 
-    CIVPROP_ENGINE_V1_RUNNER 1.8.0
-    CIVPROP_ENGINE_V1_OUTPUT 1.8.0
+    CIVPROP_ENGINE_V1_RUNNER 1.9.0
+    CIVPROP_ENGINE_V1_OUTPUT 1.9.0
 
 Current engine:
 
-    HYBRID_V1 method-reference-v6
+    HYBRID_V1 method-reference-v7
 
 Current input authority:
 
@@ -94,7 +94,13 @@ recovery, tailings, product-inventory and depletion accounting with hard mass an
 facility-capacity closure. Lunar water remains PRESENT_UNQUANTIFIED in evidence and
 UNKNOWN/null in numeric physical stock/grade/inventory.
 
-The current baseline is still not a forecast because GAP-009 through GAP-015 remain
+GAP-009 is CLOSED. Production Accounting V1 separates physical output feasibility
+from monetary valuation and gross productive-capital accounting. Required unresolved
+power/labor/material/transport constraints propagate UNKNOWN; value added is gross
+output minus intermediate consumption; operating cost remains distinct; commissioning
+creates investment/gross productive capital without depreciation before GAP-013.
+
+The current baseline is still not a forecast because GAP-010 through GAP-015 remain
 open. Demand, mission-observation and project-economics scenario coefficients remain
 uncalibrated where marked, and later mechanisms materially affect the result. The
 default seed-42 baseline remains an engineering regression/reference artifact, not a
@@ -140,7 +146,7 @@ A gap may close only when its replacement has:
 | GAP-006 | MISSIONS_AND_KNOWLEDGE_UPDATE | CLOSED | Preserve hidden-truth firewall, keyed observations and actor-scoped posterior handoff |
 | GAP-007 | PRESSURE_OBSERVABILITY | CLOSED | Preserve read-only reconstructable pressure ledger and exact decision provenance |
 | GAP-008 | RESOURCE_MASS_BALANCE | CLOSED | Preserve physical conservation, UNKNOWN-not-zero and actor/evaluator separation |
-| GAP-009 | PRODUCTION_AND_VALUE_ADDED | OPEN | Generate off-world production, capital, investment and value added |
+| GAP-009 | PRODUCTION_AND_VALUE_ADDED | CLOSED | Preserve physical/economic separation, UNKNOWN constraints and accounting reconciliation |
 | GAP-010 | POWER_BALANCE | OPEN | Add generation/load/storage/reserve/energy closure |
 | GAP-011 | TRAFFIC_AND_FLEET | OPEN | Generate cargo/passenger/ship-call/fleet/route utilization state |
 | GAP-012 | FACILITY_AND_SITE_MATERIALIZATION | OPEN | Convert modules into stable sites, orbitals, facilities and settlements |
@@ -473,7 +479,8 @@ Current frontier:
     GAP-006 CLOSED
     GAP-007 CLOSED
     GAP-008 CLOSED
-    GAP-009 OPEN
+    GAP-009 CLOSED
+    GAP-010 OPEN
 
 GAP-002 removed the compiled-input assumptions:
 
@@ -536,10 +543,22 @@ Synthetic hostile fixtures separately prove stock/feed/grade/recovery/tailings/
 inventory/depletion conservation and facility throughput constraints. The legacy
 Method Lab grade_index is not promoted into physical grade.
 
+GAP-009 adds:
+
+    CIVPROP_PRODUCTION_ACCOUNTING_V1
+
+with facility, sector, location and body accounting surfaces. Physical output
+feasibility remains separate from monetary valuation; all current off-world price,
+intermediate-consumption and operating-cost coefficients remain UNKNOWN in the
+default package. Commissioned project capital forms gross productive capital, with
+no depreciation before GAP-013. The default seed-42 generated-facility economy has
+no commissioned facilities and therefore emits no production rows.
+
 The next implementation target is therefore:
 
-    GAP-009 PRODUCTION_AND_VALUE_ADDED
+    GAP-010 POWER_BALANCE
 
-That work may attach production, operating-cost and value-added accounting only to
-physically admitted resource flows; it must not turn UNKNOWN physical quantities
-into economic output simply because a value model needs a number.
+That work must distinguish installed MW from actual generation, consumption, peak
+load, storage/reserve and energy closure. Production Accounting V1 must consume the
+future power-service boundary rather than treating installed capacity as delivered
+energy.
