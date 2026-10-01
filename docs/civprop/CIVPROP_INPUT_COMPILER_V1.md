@@ -412,8 +412,9 @@ Every compiled scenario carries an `assumption_register`.
 Current explicit entries include:
 
 ```text
-ASSUME-GAP012-OFFWORLD-INITIAL-STATE
 ASSUME-GAP014-EARTH-HABITAT-FLOOR
+
+The former GAP-012 off-world initial-state placeholder is no longer an open assumption. Facility/Site Materialization V1 classifies those inherited Earth-orbit/Luna/cislunar values as UNQUALIFIED_COMPATIBILITY and forbids materializing them into facilities without module provenance.
 ```
 
 Each assumption records:
@@ -597,7 +598,7 @@ and demographic gaps.
 
 ## Current executable behavior
 
-With compiled input and seed 42, the current GAP-011 baseline produces:
+With compiled input and seed 42, the current GAP-012 baseline produces:
 
 ```text
 44 annual location states
@@ -627,6 +628,13 @@ With compiled input and seed 42, the current GAP-011 baseline produces:
 33 location traffic states
 0 traffic pressure overrides
 33 Atlas traffic metric rows
+3 unqualified materialization compatibility-state rows
+0 materialized modules
+0 generated sites
+0 materialized facilities
+0 orbitals
+0 settlement candidates
+0 Atlas facilities
 ```
 
 The current realization commissions no facility because AUS generic spendable
@@ -637,27 +645,27 @@ requirement. That behavior is intentional and is not a forecast.
 
 This is **not** a forecast.
 
-The result still depends materially on GAP-012 and later open mechanisms. Demand,
+The result still depends materially on GAP-013 and later open mechanisms. Demand,
 mission-observation and project-economics scenario coefficients remain explicit
 uncalibrated model parameters where marked, not empirical forecasts.
 
 Its purpose is to prove that real promoted authority now reaches the same locked
 engine and output path.
 
-## Golden GAP-011 baseline
+## Golden GAP-012 baseline
 
 Output:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP11_TRAFFIC_FLEET_SEED42.json
+CIVPROP_ENGINE_V1_GAP12_MATERIALIZATION_SEED42.json
 ```
 
 Manifest:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP11_BASELINE_MANIFEST.json
+CIVPROP_ENGINE_V1_GAP12_BASELINE_MANIFEST.json
 ```
 
 The GAP-001 compiled baseline and previous synthetic V1.0 baseline remain in the

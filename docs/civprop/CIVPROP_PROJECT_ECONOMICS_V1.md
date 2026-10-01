@@ -219,10 +219,7 @@ The current adapter maps the old off-world compatibility state into explicit uni
 
 This does not make the inherited initial-state values empirical.
 
-Those initial off-world values remain owned by GAP-012
-FACILITY_AND_SITE_MATERIALIZATION and are explicitly registered as compatibility
-assumptions. GAP-005 changes their unit representation so the project/demand
-interfaces are dimensionally coherent.
+GAP-012 Facility/Site Materialization V1 now classifies those inherited off-world values as UNQUALIFIED_COMPATIBILITY with NEVER_MATERIALIZE_WITHOUT_MODULE_PROVENANCE. GAP-005 changes their unit representation so the project/demand interfaces are dimensionally coherent; GAP-012 does not convert them into an empirical facility inventory.
 
 Location book-capital is not relabeled as USD. It remains the later-gap compatibility
 capital field.

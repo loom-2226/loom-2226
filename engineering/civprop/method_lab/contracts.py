@@ -83,6 +83,10 @@ from engineering.civprop.contracts.traffic_fleet_v1 import (
     VoyageStateV1,
     load_traffic_fleet_package,
 )
+from engineering.civprop.contracts.facility_site_materialization_v1 import (
+    FacilitySiteMaterializationPackage,
+    load_facility_site_materialization_package,
+)
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -210,6 +214,9 @@ class LabScenario:
     production_accounting_v1: Optional[ProductionAccountingPackage] = None
     power_balance_v1: Optional[PowerBalancePackage] = None
     traffic_fleet_v1: Optional[TrafficFleetPackage] = None
+    facility_site_materialization_v1: Optional[
+        FacilitySiteMaterializationPackage
+    ] = None
 
 
 @dataclass(frozen=True)
@@ -637,6 +644,13 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             None
             if data.get("traffic_fleet_v1") is None
             else load_traffic_fleet_package(data["traffic_fleet_v1"])
+        ),
+        facility_site_materialization_v1=(
+            None
+            if data.get("facility_site_materialization_v1") is None
+            else load_facility_site_materialization_package(
+                data["facility_site_materialization_v1"]
+            )
         ),
     )
 

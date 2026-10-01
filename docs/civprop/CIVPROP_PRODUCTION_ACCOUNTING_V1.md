@@ -527,3 +527,7 @@ GAP-010 POWER_BALANCE is CLOSED and supplies the governed power-service/generati
 The immediate engineering frontier is:
 
     GAP-011 TRAFFIC_AND_FLEET
+
+## GAP-012 materialization handoff
+
+Production Accounting V1.2 moves LOGISTICS_NODE facility-output attribution from GAP-012 to GAP-015. GAP-011 produces route/node traffic, while GAP-012 materializes stable facility/site identity; neither contract proves which specific logistics facility owns a route-throughput flow. The default remains DEFERRED rather than smearing route traffic across colocated nodes.

@@ -61,6 +61,9 @@ from engineering.civprop.contracts.power_balance_v1 import (
 from engineering.civprop.contracts.traffic_fleet_v1 import (
     load_traffic_fleet_package,
 )
+from engineering.civprop.contracts.facility_site_materialization_v1 import (
+    load_facility_site_materialization_package,
+)
 
 
 AUTHORITY_CAPTURE_FORMAT = "CIVPROP_AUTHORITY_CAPTURE_V1"
@@ -101,6 +104,9 @@ EARTH_SECTOR_SCHEMA_PATH = (
 )
 POWER_BALANCE_PATH = HERE / "contracts/power_balance_v1.json"
 TRAFFIC_FLEET_PATH = HERE / "contracts/traffic_fleet_v1.json"
+FACILITY_SITE_MATERIALIZATION_PATH = (
+    HERE / "contracts/facility_site_materialization_v1.json"
+)
 ATLAS_POWER_QUALIFICATION_PATH = (
     REPO_ROOT
     / "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json"
@@ -381,6 +387,12 @@ def capture_live_authority(
     load_power_balance_package(power_balance)
     traffic_fleet = json.loads(TRAFFIC_FLEET_PATH.read_text())
     load_traffic_fleet_package(traffic_fleet)
+    facility_site_materialization = json.loads(
+        FACILITY_SITE_MATERIALIZATION_PATH.read_text()
+    )
+    load_facility_site_materialization_package(
+        facility_site_materialization
+    )
 
     source_paths = [
         RESOURCE_PATH,
@@ -396,6 +408,7 @@ def capture_live_authority(
         EARTH_SECTOR_SCHEMA_PATH,
         POWER_BALANCE_PATH,
         TRAFFIC_FLEET_PATH,
+        FACILITY_SITE_MATERIALIZATION_PATH,
         ATLAS_POWER_QUALIFICATION_PATH,
         RESOURCE_COVERAGE_CONTRACT_PATH,
         RESOURCE_STATE_CONTRACT_PATH,
@@ -428,6 +441,7 @@ def capture_live_authority(
             "_PLUS_GAP-009_PRODUCTION_ACCOUNTING"
             "_PLUS_GAP-010_POWER_BALANCE"
             "_PLUS_GAP-011_TRAFFIC_FLEET"
+            "_PLUS_GAP-012_FACILITY_SITE_MATERIALIZATION"
         ),
         "capture_semantics": (
             "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES"
@@ -513,6 +527,31 @@ def capture_live_authority(
                 ),
                 "sha256": _sha256_path(TRAFFIC_FLEET_PATH),
             },
+            "facility_site_materialization_v1": (
+                facility_site_materialization
+            ),
+            "facility_site_materialization_source": {
+                "path": str(
+                    FACILITY_SITE_MATERIALIZATION_PATH.relative_to(
+                        REPO_ROOT
+                    )
+                ),
+                "sha256": _sha256_path(
+                    FACILITY_SITE_MATERIALIZATION_PATH
+                ),
+            },
+            "atlas_facility_type_semantics": {
+                "path": str(
+                    ATLAS_POWER_QUALIFICATION_PATH.relative_to(REPO_ROOT)
+                ),
+                "sha256": _sha256_path(
+                    ATLAS_POWER_QUALIFICATION_PATH
+                ),
+                "transfer_scope": (
+                    "LEGACY_FACILITY_TYPE_VOCABULARY_ONLY_"
+                    "NO_LEGACY_CERES_FACILITY_IDENTITIES_OR_PLACEMENTS"
+                ),
+            },
             "atlas_traffic_field_semantics": {
                 "path": str(
                     ATLAS_POWER_QUALIFICATION_PATH.relative_to(REPO_ROOT)
@@ -574,16 +613,6 @@ def capture_live_authority(
 
 def _assumption_register() -> list[dict[str, str]]:
     return [
-        {
-            "assumption_id": "ASSUME-GAP012-OFFWORLD-INITIAL-STATE",
-            "gap_id": "GAP-012",
-            "status": "EXPLICIT_PLACEHOLDER",
-            "semantics": (
-                "Initial Earth-orbit/Luna/cislunar engine capacities remain compatibility "
-                "values inherited from the Method Lab and migrated into explicit physical units; "
-                "the unit adapter does not make them a compiled empirical 2026 infrastructure inventory."
-            ),
-        },
         {
             "assumption_id": "ASSUME-GAP014-EARTH-HABITAT-FLOOR",
             "gap_id": "GAP-014",
@@ -1023,6 +1052,18 @@ def _compile_traffic_fleet(
     return raw
 
 
+def _compile_facility_site_materialization(
+    capture: dict[str, Any],
+) -> dict[str, Any]:
+    raw = copy.deepcopy(
+        capture["model_parameters"][
+            "facility_site_materialization_v1"
+        ]
+    )
+    load_facility_site_materialization_package(raw)
+    return raw
+
+
 def _compile_resource_physical_realization(
     capture: dict[str, Any],
 ) -> dict[str, Any]:
@@ -1156,6 +1197,9 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     )
     scenario["power_balance_v1"] = _compile_power_balance(capture)
     scenario["traffic_fleet_v1"] = _compile_traffic_fleet(capture)
+    scenario["facility_site_materialization_v1"] = (
+        _compile_facility_site_materialization(capture)
+    )
     scenario["project_archetypes"] = [
         project
         for project in scenario["project_archetypes"]
@@ -1177,6 +1221,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
                 "GAP-009": "CLOSED",
                 "GAP-010": "CLOSED",
                 "GAP-011": "CLOSED",
+                "GAP-012": "CLOSED",
             },
             "compatibility_envelope": (
                 "CIVPROP_METHOD_LAB_SCENARIO_V1 retained for locked runner compatibility"
@@ -1277,10 +1322,11 @@ def compile_from_capture(
     gap_resolution["GAP-009"] = "CLOSED"
     gap_resolution["GAP-010"] = "CLOSED"
     gap_resolution["GAP-011"] = "CLOSED"
+    gap_resolution["GAP-012"] = "CLOSED"
     compiler_manifest = {
         "format": COMPILER_MANIFEST_FORMAT,
         "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-        "compiler_version": "1.10.0",
+        "compiler_version": "1.11.0",
         "compiler_source_sha256": _sha256_path(HERE / "compile_inputs_v1.py"),
         "runtime_input": {
             "fixture_id": COMPILED_FIXTURE_ID,
@@ -1391,6 +1437,14 @@ def compile_from_capture(
                 "and route utilization. Unassigned demand remains UNASSIGNED_OD, and timeline "
                 "transport milestones never auto-spawn routes or vehicles."
             ),
+            "gap12_closed_means": (
+                "Facility/Site Materialization V1 is a deterministic post-engine projection from "
+                "generated infrastructure modules to stable sites, materialized facilities, "
+                "orbitals, habitat settlement candidates and Atlas-facing facility classifications. "
+                "Colocation is explicit-only, precise spatial coordinates/elements remain UNKNOWN "
+                "unless admitted, owner and operator remain distinct, and presentation names cannot "
+                "change simulation or materialized identity."
+            ),
             "does_not_mean": (
                 "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample "
                 "is a route, transfer solution, fleet allocation, service price, or actor entitlement; "
@@ -1404,8 +1458,10 @@ def compile_from_capture(
                 "2040 ENE-MOD-INDUSTRIAL scenario threshold auto-builds or certifies generation; "
                 "installed transport handling capacity is realized OD movement; TRN-MOD-HEAVY "
                 "or TRN-MOD-NEP auto-spawns routes, services or fleet assets; the named Roo-ver "
-                "CLPS path is generic freight entitlement; off-world initial infrastructure or "
-                "demographic depth are production solved."
+                "CLPS path is generic freight entitlement; a shared broad location proves module "
+                "colocation; legacy Ceres facility identities, names or coordinates are valid generated "
+                "answers; owner implies operator; STRATEGIC_PORT is a primitive facility type; off-world "
+                "initial infrastructure or demographic depth are production solved."
             ),
         },
     }
@@ -1447,6 +1503,7 @@ def main() -> None:
                 "gap_009": manifest["gap_resolution"]["GAP-009"],
                 "gap_010": manifest["gap_resolution"]["GAP-010"],
                 "gap_011": manifest["gap_resolution"]["GAP-011"],
+                "gap_012": manifest["gap_resolution"]["GAP-012"],
                 "output_dir": str(args.output_dir),
             },
             indent=2,

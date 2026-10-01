@@ -1,0 +1,34 @@
+{
+  "format": "CIVPROP_FACILITY_SITE_MATERIALIZATION_V1",
+  "contract_version": "1.0.0",
+  "package_id": "EARTH_LUNA_FACILITY_SITE_MATERIALIZATION_V1_2026_2036",
+  "colocation_policy": "EXPLICIT_ONLY",
+  "naming_policy": "PRESENTATION_ONLY",
+  "atlas_type_rules": {
+    "allowed_outputs": [
+      "ORBITAL_HABITAT_PORT",
+      "ORBITAL_SHIPYARD",
+      "SURFACE_INBODY_PORT",
+      "SURFACE_RESOURCE_PORT"
+    ],
+    "provenance_refs": [
+      "docs/civprop/CIVPROP_INFRASTRUCTURE_ARCHETYPE_V1.md",
+      "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json#atlas.facilities[].identity.facility_type"
+    ]
+  },
+  "initial_state_policy": {
+    "status": "UNQUALIFIED_COMPATIBILITY",
+    "materialization_policy": "NEVER_MATERIALIZE_WITHOUT_MODULE_PROVENANCE",
+    "location_ids": [
+      "EARTH_ORBIT",
+      "LUNA_SURFACE",
+      "CISLUNAR_FREE_SPACE"
+    ],
+    "provenance_refs": [
+      "engineering/civprop/method_lab/scenario_v1.json#locations",
+      "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md#Capacity-unit-migration"
+    ]
+  },
+  "site_bindings": [],
+  "presentation_names": []
+}

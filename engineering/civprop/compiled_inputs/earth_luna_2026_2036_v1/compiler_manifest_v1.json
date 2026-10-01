@@ -1,12 +1,6 @@
 {
   "assumption_register": [
     {
-      "assumption_id": "ASSUME-GAP012-OFFWORLD-INITIAL-STATE",
-      "gap_id": "GAP-012",
-      "semantics": "Initial Earth-orbit/Luna/cislunar engine capacities remain compatibility values inherited from the Method Lab and migrated into explicit physical units; the unit adapter does not make them a compiled empirical 2026 infrastructure inventory.",
-      "status": "EXPLICIT_PLACEHOLDER"
-    },
-    {
       "assumption_id": "ASSUME-GAP014-EARTH-HABITAT-FLOOR",
       "gap_id": "GAP-014",
       "semantics": "EARTH_SURFACE habitat is set equal to compiled 2026 biological population so the engine does not reject its inherited terrestrial population. This is a boundary-capacity floor, not an inventory of terrestrial beds/housing.",
@@ -16,12 +10,12 @@
   "authority_capture": {
     "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
     "path": "engineering/civprop/inputs/authority_capture_v1.json",
-    "sha256": "9e65e3ac54a1a05fe6a32d40ddf874aafae0aa0b1f38e6396a1373bb67f8f77c",
-    "source_basis_commit": "cdadbae2a8dee6571965afd5569782dd1db8f105"
+    "sha256": "ade6b92d401b7cc60cc66a15b191c1d5a0714ad3bf004d93f2a4646f4b10ce17",
+    "source_basis_commit": "d3af8e96a1ef132b7edeb5d28f23d56e238cbc5b"
   },
   "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-  "compiler_source_sha256": "4a840390e83cc849d350027bee070ac933197098db20a6a8ec1d8a44b60fa72e",
-  "compiler_version": "1.10.0",
+  "compiler_source_sha256": "f4811e7ba2a87d863b6c1bb03776aefaecc97fde5f078b1e4e4fa95f23e6fab7",
+  "compiler_version": "1.11.0",
   "format": "CIVPROP_INPUT_COMPILER_MANIFEST_V1",
   "gap_resolution": {
     "GAP-001": "CLOSED",
@@ -35,14 +29,14 @@
     "GAP-009": "CLOSED",
     "GAP-010": "CLOSED",
     "GAP-011": "CLOSED",
-    "GAP-012": "OPEN",
+    "GAP-012": "CLOSED",
     "GAP-013": "OPEN",
     "GAP-014": "OPEN",
     "GAP-015": "OPEN"
   },
   "package_files": {
-    "manifest_v1.json": "6d6a02583a1123391ca905700eca2b2e39c7279b4290d989cdc377ece134595a",
-    "scenario_v1.json": "99149929620018e268b5747d3feb3fff684e220a96e3ba06690dc2f55c239602",
+    "manifest_v1.json": "7ddd39ccc4e0ab6a01ec4968e25a28954f7d180ce2716791bfff8ca2dcab6360",
+    "scenario_v1.json": "ff361d064928df5aa63723350cb43a6b9972265c0a0a51827531690b8049c1b8",
     "truth_v1.json": "55c7db7b5f542451a45801c857b245648225d2d29b140dfc4c2bcedbe34c5909"
   },
   "postgres_query_sha256": {
@@ -61,15 +55,16 @@
   },
   "runtime_input": {
     "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "bundle_sha256": "1039ea19a1968f56c6699beeb58e8d59312ce86a3d6b642cf9d8aca8bcf4d4b5",
+    "bundle_sha256": "92ec107c6ab38bfe71e710d73e39c419b26ff108cccffb764a5a91f5d295c6c3",
     "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "scenario_format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
-    "scenario_sha256": "99149929620018e268b5747d3feb3fff684e220a96e3ba06690dc2f55c239602"
+    "scenario_sha256": "ff361d064928df5aa63723350cb43a6b9972265c0a0a51827531690b8049c1b8"
   },
   "semantics": {
-    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients, mission priors/instrument model, or scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a lunar facility cost model; evaluator truth is actor-visible; lunar water presence establishes a quantified mineable inventory, ore grade, extraction rate or recovery efficiency; Earth sector values or ratios are valid off-world prices, productivity or utilization; project capital cost is operating cost or output price; installed MW equals average generation or annual MWh; the 2040 ENE-MOD-INDUSTRIAL scenario threshold auto-builds or certifies generation; installed transport handling capacity is realized OD movement; TRN-MOD-HEAVY or TRN-MOD-NEP auto-spawns routes, services or fleet assets; the named Roo-ver CLPS path is generic freight entitlement; off-world initial infrastructure or demographic depth are production solved.",
+    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients, mission priors/instrument model, or scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a lunar facility cost model; evaluator truth is actor-visible; lunar water presence establishes a quantified mineable inventory, ore grade, extraction rate or recovery efficiency; Earth sector values or ratios are valid off-world prices, productivity or utilization; project capital cost is operating cost or output price; installed MW equals average generation or annual MWh; the 2040 ENE-MOD-INDUSTRIAL scenario threshold auto-builds or certifies generation; installed transport handling capacity is realized OD movement; TRN-MOD-HEAVY or TRN-MOD-NEP auto-spawns routes, services or fleet assets; the named Roo-ver CLPS path is generic freight entitlement; a shared broad location proves module colocation; legacy Ceres facility identities, names or coordinates are valid generated answers; owner implies operator; STRATEGIC_PORT is a primitive facility type; off-world initial infrastructure or demographic depth are production solved.",
     "gap10_closed_means": "Power Balance V1 separates installed MW, average generation, peak and average load, firm capacity, reserve assumptions, annual MWh, unserved energy and curtailment. Population peak load reuses the POWER demand state drivers; facility operating loads, average-load factors and generator availability/firmness remain UNKNOWN unless separately qualified. Timeline thresholds provide context and never auto-create capacity.",
     "gap11_closed_means": "Traffic/Fleet V1 separates local transport handling capacity from actual OD movement. Explicit OD allocations bind GAP-004 transport demand to GAP-003 services and versioned fleet assets; vehicle mission duration, turnaround and availability bound annual trips, cargo/passenger movement, ship calls, backlog and route utilization. Unassigned demand remains UNASSIGNED_OD, and timeline transport milestones never auto-spawn routes or vehicles.",
+    "gap12_closed_means": "Facility/Site Materialization V1 is a deterministic post-engine projection from generated infrastructure modules to stable sites, materialized facilities, orbitals, habitat settlement candidates and Atlas-facing facility classifications. Colocation is explicit-only, precise spatial coordinates/elements remain UNKNOWN unless admitted, owner and operator remain distinct, and presentation names cannot change simulation or materialized identity.",
     "gap1_closed_means": "Promoted Earth/Solar/Timeline/resource/actor authority is captured read-only, frozen with hashes, and deterministically compiled into the locked runner envelope. Other open gaps remain explicit placeholders.",
     "gap2_closed_means": "A versioned Actor State V1 separates identity, scoped rights/contracts, provider access, capability, experience and finance. AUS generic spendable allocation is explicitly UNKNOWN; the observed AUD 42 million Roo-ver commitment remains scoped and cannot fund generic CIVPROP projects.",
     "gap3_closed_means": "A versioned Accessibility V1 boundary combines qualified frozen Solar geometry with actor-scoped provider/service evidence, preserves FEASIBLE/INFEASIBLE/UNKNOWN, and exposes decomposed physical/service quantities without treating body-center separation as route length. The default synthetic accessibility table is removed.",
@@ -94,10 +89,11 @@
     "engineering/civprop/civprop0/aus_government_access_evidence.json": "2e9ebc2f6d497d42d74baea504cec45ba16922ea2d554940a5142b1d53ef60ce",
     "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
     "engineering/civprop/civprop0/runs/roover_transport_mid2030_v1.json": "a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
+    "engineering/civprop/contracts/facility_site_materialization_v1.json": "ea93fbfa35bedd6303156f62245dfaa52cf6700581b5365987d14610d1a4f25c",
     "engineering/civprop/contracts/mission_knowledge_v1.json": "e95f42820502e24ba638ba0e4b38cc7c3019ffc8551ee5848d5c6abdc940b6a7",
     "engineering/civprop/contracts/power_balance_v1.json": "02c8368ea10d6f45b47fa190a1c8e30e2895e4c1e46462100b424767430a75c5",
     "engineering/civprop/contracts/pressure_observability_v1.json": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d",
-    "engineering/civprop/contracts/production_accounting_v1.json": "61df5249717d4689869aa1f60c69c0669aa66b1484d4554ada9cd4b515e57c75",
+    "engineering/civprop/contracts/production_accounting_v1.json": "ae0384c635c42c4ad8901ab0a3e51522208f1f46fa4b4ea0766338ca6b2fd869",
     "engineering/civprop/contracts/project_economics_v1.json": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
     "engineering/civprop/contracts/resource_mass_balance_v1.json": "3ae6af47af6778c11bcc1519d75f988445b23bce8dad9b6c1e34ba0aaf42b963",
     "engineering/civprop/contracts/traffic_fleet_v1.json": "691d6b1c7d555a1a261960b507d938b1743e90db892302340b8920f0953ddb86",

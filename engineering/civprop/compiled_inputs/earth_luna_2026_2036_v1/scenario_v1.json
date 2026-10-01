@@ -288,12 +288,6 @@
   ],
   "assumption_register": [
     {
-      "assumption_id": "ASSUME-GAP012-OFFWORLD-INITIAL-STATE",
-      "gap_id": "GAP-012",
-      "semantics": "Initial Earth-orbit/Luna/cislunar engine capacities remain compatibility values inherited from the Method Lab and migrated into explicit physical units; the unit adapter does not make them a compiled empirical 2026 infrastructure inventory.",
-      "status": "EXPLICIT_PLACEHOLDER"
-    },
-    {
       "assumption_id": "ASSUME-GAP014-EARTH-HABITAT-FLOOR",
       "gap_id": "GAP-014",
       "semantics": "EARTH_SURFACE habitat is set equal to compiled 2026 biological population so the engine does not reject its inherited terrestrial population. This is a boundary-capacity floor, not an inventory of terrestrial beds/housing.",
@@ -491,7 +485,8 @@
         "GAP-008": "CLOSED",
         "GAP-009": "CLOSED",
         "GAP-010": "CLOSED",
-        "GAP-011": "CLOSED"
+        "GAP-011": "CLOSED",
+        "GAP-012": "CLOSED"
       }
     },
     "earth": {
@@ -834,6 +829,11 @@
       }
     },
     "model_parameters": {
+      "atlas_facility_type_semantics": {
+        "path": "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json",
+        "sha256": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
+        "transfer_scope": "LEGACY_FACILITY_TYPE_VOCABULARY_ONLY_NO_LEGACY_CERES_FACILITY_IDENTITIES_OR_PLACEMENTS"
+      },
       "atlas_power_field_semantics": {
         "path": "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json",
         "sha256": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
@@ -854,6 +854,44 @@
         "path": "data/postgres/migrations/004_earth_temporal_authority.sql",
         "sha256": "ff7a873fc14b0ed1c128673253ea52e65524bd2c3734ca016c5f722345168ecd",
         "transfer_scope": "FIELD_NAMES_AND_ACCOUNTING_IDENTITIES_ONLY_NO_OFFWORLD_PRICE_PRODUCTIVITY_OR_UTILIZATION_COPY"
+      },
+      "facility_site_materialization_source": {
+        "path": "engineering/civprop/contracts/facility_site_materialization_v1.json",
+        "sha256": "ea93fbfa35bedd6303156f62245dfaa52cf6700581b5365987d14610d1a4f25c"
+      },
+      "facility_site_materialization_v1": {
+        "atlas_type_rules": {
+          "allowed_outputs": [
+            "ORBITAL_HABITAT_PORT",
+            "ORBITAL_SHIPYARD",
+            "SURFACE_INBODY_PORT",
+            "SURFACE_RESOURCE_PORT"
+          ],
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_INFRASTRUCTURE_ARCHETYPE_V1.md",
+            "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json#atlas.facilities[].identity.facility_type"
+          ]
+        },
+        "colocation_policy": "EXPLICIT_ONLY",
+        "contract_version": "1.0.0",
+        "format": "CIVPROP_FACILITY_SITE_MATERIALIZATION_V1",
+        "initial_state_policy": {
+          "location_ids": [
+            "EARTH_ORBIT",
+            "LUNA_SURFACE",
+            "CISLUNAR_FREE_SPACE"
+          ],
+          "materialization_policy": "NEVER_MATERIALIZE_WITHOUT_MODULE_PROVENANCE",
+          "provenance_refs": [
+            "engineering/civprop/method_lab/scenario_v1.json#locations",
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md#Capacity-unit-migration"
+          ],
+          "status": "UNQUALIFIED_COMPATIBILITY"
+        },
+        "naming_policy": "PRESENTATION_ONLY",
+        "package_id": "EARTH_LUNA_FACILITY_SITE_MATERIALIZATION_V1_2026_2036",
+        "presentation_names": [],
+        "site_bindings": []
       },
       "mission_knowledge_source": {
         "path": "engineering/civprop/contracts/mission_knowledge_v1.json",
@@ -1182,13 +1220,13 @@
       },
       "production_accounting_source": {
         "path": "engineering/civprop/contracts/production_accounting_v1.json",
-        "sha256": "61df5249717d4689869aa1f60c69c0669aa66b1484d4554ada9cd4b515e57c75"
+        "sha256": "ae0384c635c42c4ad8901ab0a3e51522208f1f46fa4b4ea0766338ca6b2fd869"
       },
       "production_accounting_v1": {
-        "contract_version": "1.1.0",
+        "contract_version": "1.2.0",
         "facility_models": [
           {
-            "downstream_gap": "GAP-012",
+            "downstream_gap": "GAP-015",
             "output_field": null,
             "output_source": "DEFERRED",
             "output_unit": null,
@@ -2591,6 +2629,40 @@
     "scope": "NON_EARTH_SURFACE",
     "strategic_requirements": []
   },
+  "facility_site_materialization_v1": {
+    "atlas_type_rules": {
+      "allowed_outputs": [
+        "ORBITAL_HABITAT_PORT",
+        "ORBITAL_SHIPYARD",
+        "SURFACE_INBODY_PORT",
+        "SURFACE_RESOURCE_PORT"
+      ],
+      "provenance_refs": [
+        "docs/civprop/CIVPROP_INFRASTRUCTURE_ARCHETYPE_V1.md",
+        "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json#atlas.facilities[].identity.facility_type"
+      ]
+    },
+    "colocation_policy": "EXPLICIT_ONLY",
+    "contract_version": "1.0.0",
+    "format": "CIVPROP_FACILITY_SITE_MATERIALIZATION_V1",
+    "initial_state_policy": {
+      "location_ids": [
+        "EARTH_ORBIT",
+        "LUNA_SURFACE",
+        "CISLUNAR_FREE_SPACE"
+      ],
+      "materialization_policy": "NEVER_MATERIALIZE_WITHOUT_MODULE_PROVENANCE",
+      "provenance_refs": [
+        "engineering/civprop/method_lab/scenario_v1.json#locations",
+        "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md#Capacity-unit-migration"
+      ],
+      "status": "UNQUALIFIED_COMPATIBILITY"
+    },
+    "naming_policy": "PRESENTATION_ONLY",
+    "package_id": "EARTH_LUNA_FACILITY_SITE_MATERIALIZATION_V1_2026_2036",
+    "presentation_names": [],
+    "site_bindings": []
+  },
   "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
   "format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
   "horizon": {
@@ -2990,10 +3062,10 @@
     "record_legacy_discharge": true
   },
   "production_accounting_v1": {
-    "contract_version": "1.1.0",
+    "contract_version": "1.2.0",
     "facility_models": [
       {
-        "downstream_gap": "GAP-012",
+        "downstream_gap": "GAP-015",
         "output_field": null,
         "output_source": "DEFERRED",
         "output_unit": null,
