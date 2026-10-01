@@ -277,6 +277,11 @@ def load_resource_mass_balance_package(
     process_ids = [x.process_model_id for x in process_models]
     if len(process_ids) != len(set(process_ids)):
         raise ValueError("duplicate resource process model")
+    process_keys = [
+        (x.resource_id, x.location_id) for x in process_models
+    ]
+    if len(process_keys) != len(set(process_keys)):
+        raise ValueError("duplicate resource/location process model")
     defined = set(resource_keys)
     for process in process_models:
         if (process.resource_id, process.location_id) not in defined:
