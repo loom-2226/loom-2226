@@ -53,14 +53,13 @@ def tasks_for(I,bodies,start,end,max_days):
             # only the first post-seam unit starts one representable ET later.
             n=max(1,math.ceil((b-a)/max_s))
             seam_shift=False
-            if cut_index>0:
-                after=math.nextafter(a,math.inf)
-                try:
-                    left=tuple(I.registry.source_for(t,a)[0].ephemeris_source_id for t in (body,center))
-                    right=tuple(I.registry.source_for(t,after)[0].ephemeris_source_id for t in (body,center))
-                    seam_shift=(left!=right)
-                except (KeyError,ValueError):
-                    seam_shift=False
+            after=math.nextafter(a,math.inf)
+            try:
+                left=tuple(I.registry.source_for(t,a)[0].ephemeris_source_id for t in (body,center))
+                right=tuple(I.registry.source_for(t,after)[0].ephemeris_source_id for t in (body,center))
+                seam_shift=(left!=right)
+            except (KeyError,ValueError):
+                seam_shift=False
             for j in range(n):
                 x=a+(b-a)*j/n; y=a+(b-a)*(j+1)/n
                 if j==0 and seam_shift: x=math.nextafter(x,math.inf)

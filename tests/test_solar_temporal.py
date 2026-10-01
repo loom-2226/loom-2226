@@ -66,3 +66,34 @@ def test_v1_shared_pluto_small_moon_seams_have_unique_representable_ownership():
     for body, continuation in expected.items():
         assert inspector.registry.source_for(body, seam)[0].ephemeris_source_id == 'NAIF_PLU060_4E'
         assert inspector.registry.source_for(body, after)[0].ephemeris_source_id == continuation
+
+def test_gate2_planner_shifts_campaign_start_off_outgoing_inclusive_seam():
+    import importlib.util, math
+    from pathlib import Path
+    from src.loom_solar_inspector import Inspector
+    path=Path(__file__).resolve().parents[1]/'tools'/'qualify_solar_functions_v1.py'
+    spec=importlib.util.spec_from_file_location('qualify_solar_functions_v1_test',path)
+    mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    I=Inspector.connect('loom_dev','/home/ubuntu/loom_solar_assets')
+    seam=4283755200.0
+    tasks=mod.tasks_for(I,['BENNU'],seam,seam+256*86400,256)
+    assert tasks
+    assert tasks[0][2] == math.nextafter(seam,math.inf)
+    assert I.registry.source_for('BENNU',seam)[0].ephemeris_source_id == 'JPL_BENNU_SB441'
+    assert I.registry.source_for('BENNU',tasks[0][2])[0].ephemeris_source_id == 'PROP_BENNU_2101955_PHASE4D'
+
+def test_gate2_bennu_tasks_never_mix_governed_sources():
+    import importlib.util, math
+    from pathlib import Path
+    from src.loom_solar_inspector import Inspector
+    path=Path(__file__).resolve().parents[1]/'tools'/'qualify_solar_functions_v1.py'
+    spec=importlib.util.spec_from_file_location('qualify_solar_functions_v1_plan_test',path)
+    mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    I=Inspector.connect('loom_dev','/home/ubuntu/loom_solar_assets')
+    start=I.time.parse('2026 JAN 01 TDB'); end=I.time.parse('2251 JAN 01 TDB')
+    for body,center,a,b,_ in mod.tasks_for(I,['BENNU'],start,end,256):
+        points=(a,math.nextafter(a,math.inf),(a+b)/2,math.nextafter(b,-math.inf),b)
+        body_sources={I.registry.source_for(body,t)[0].ephemeris_source_id for t in points}
+        center_sources={I.registry.source_for(center,t)[0].ephemeris_source_id for t in points}
+        assert len(body_sources)==1
+        assert len(center_sources)==1
