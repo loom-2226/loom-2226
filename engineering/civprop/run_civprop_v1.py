@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-Runner V1.7 keeps the selected HYBRID_V1 architecture and closed GAP-001
-through GAP-006 boundaries, then adds GAP-007 Pressure Observability V1 with
-reconstructable annual pressure transitions, quantified contributions and exact
-qualification provenance. The audit lane is read-only and does not change decisions
-or random draws. Later gaps remain explicit rather than being silently invented.
+Runner V1.8 keeps the selected HYBRID_V1 architecture and closed GAP-001
+through GAP-007 boundaries, then adds GAP-008 Resource Mass Balance V1 with
+evaluator-only physical stock, extraction, grade, recovery, tailings, inventory and
+depletion accounting. Actor-visible resource knowledge remains a separate GAP-006
+surface. Later gaps remain explicit rather than being silently invented.
 """
 from __future__ import annotations
 
@@ -40,9 +40,9 @@ from engineering.civprop.method_lab.prototypes.common import (
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.7.0"
+OUTPUT_CONTRACT_VERSION = "1.8.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.7.0"
+RUNNER_VERSION = "1.8.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
 PROJECT_ECONOMICS_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "project_economics_v1.json"
@@ -52,6 +52,9 @@ MISSION_KNOWLEDGE_PARAMETER_PATH = (
 )
 PRESSURE_OBSERVABILITY_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "pressure_observability_v1.json"
+)
+RESOURCE_MASS_BALANCE_PARAMETER_PATH = (
+    _CIVPROP_DIR / "contracts" / "resource_mass_balance_v1.json"
 )
 
 
@@ -169,11 +172,13 @@ def _implementation_hashes() -> dict[str, str]:
         project_economics_v1,
         mission_knowledge_v1,
         pressure_observability_v1,
+        resource_mass_balance_v1,
     )
     from engineering.civprop.method_lab import (
         contracts,
         mission_lane_v1,
         pressure_lane_v1,
+        resource_lane_v1,
     )
     from engineering.civprop.method_lab.prototypes import common, hybrid_v1
 
@@ -204,6 +209,13 @@ def _implementation_hashes() -> dict[str, str]:
             PRESSURE_OBSERVABILITY_PARAMETER_PATH
         ),
         "pressure_lane_sha256": _module_sha256(pressure_lane_v1),
+        "resource_mass_balance_contract_sha256": _module_sha256(
+            resource_mass_balance_v1
+        ),
+        "resource_mass_balance_parameter_set_sha256": _sha256(
+            RESOURCE_MASS_BALANCE_PARAMETER_PATH
+        ),
+        "resource_lane_sha256": _module_sha256(resource_lane_v1),
     }
 
 
@@ -257,6 +269,15 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
         ),
         "pressure_observability_effect": (
             "READ_ONLY_INSTRUMENTATION_DECISIONS_AND_RANDOM_DRAWS_UNCHANGED"
+        ),
+        "resource_mass_balance": (
+            "EVALUATOR_ONLY_STOCK_FEED_GRADE_RECOVERY_TAILINGS_INVENTORY_DEPLETION"
+        ),
+        "resource_physical_state": (
+            "SEPARATE_FROM_ACTOR_VISIBLE_RESOURCE_KNOWLEDGE"
+        ),
+        "resource_unknown": (
+            "PRESENT_UNQUANTIFIED_OR_UNKNOWN_ABUNDANCE_NEVER_COERCED_TO_ZERO_OR_INVENTORY"
         ),
         "pressure_memory": (
             "CHANNEL_PRESSURE_DECAYS_WHEN_UNMET_REQUIREMENT_DISAPPEARS"
@@ -341,7 +362,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-008",
             "name": "RESOURCE_MASS_BALANCE",
             "status": "OPEN",
-            "meaning": "Resource capacity is abstract; stock, grade, throughput, yield, depletion and inventory are not yet modeled.",
+            "meaning": "Resource Mass Balance V1 separates actor-visible evidence/belief from evaluator-only physical realization and conserves stock, extraction feed, grade, recovery, tailings, inventory and depletion; unquantified abundance remains UNKNOWN.",
         },
         {
             "gap_id": "GAP-009",
@@ -659,9 +680,18 @@ def build_output(
                 "actor_visible_scenario_sha256": scenario_sha,
                 "runtime_input_sha256": scenario_sha,
                 "evaluator_truth_sha256": _sha256(truth_path),
-                "evaluator_truth_consumed_by_engine": bool(result.observations),
+                "mission_observation_truth_consumed": bool(
+                    result.observations
+                ),
+                "resource_physical_realization_consumed": bool(
+                    bundle.scenario.resource_mass_balance_v1 is not None
+                    and result.resource_states
+                ),
+                "evaluator_truth_consumed_by_engine": bool(
+                    result.observations or result.resource_states
+                ),
                 "evaluator_truth_access_policy": (
-                    "OBSERVATION_RUNTIME_ONLY_WHEN_ADMITTED_MISSION_EXECUTES"
+                    "OBSERVATION_RUNTIME_AND_RESOURCE_MASS_BALANCE_LANE_ONLY_NOT_ACTOR_INPUT"
                 ),
                 "input_authority": bundle.manifest.get("authority"),
                 "basis": bundle.manifest.get("basis", {}),
@@ -715,6 +745,13 @@ def build_output(
                 canonical_json(bundle.scenario.pressure_observability_v1)
             )
         ),
+        "resource_mass_balance_boundary": (
+            None
+            if bundle.scenario.resource_mass_balance_v1 is None
+            else json.loads(
+                canonical_json(bundle.scenario.resource_mass_balance_v1)
+            )
+        ),
         "actor_states": actor_states,
         "actor_transactions": actor_transactions,
         "actor_state_events": actor_state_events,
@@ -734,6 +771,8 @@ def build_output(
             "pressure_qualifications",
             [],
         ),
+        "resource_states": result_dict.get("resource_states", []),
+        "resource_flows": result_dict.get("resource_flows", []),
         "events": result_dict["events"],
         "flows": result_dict["flows"],
     }
@@ -749,7 +788,7 @@ def main() -> None:
         "--input-dir",
         type=Path,
         default=default_input_dir,
-        help="Compatible frozen input directory (defaults to GAP-001 through GAP-007 compiled V1).",
+        help="Compatible frozen input directory (defaults to GAP-001 through GAP-008 compiled V1).",
     )
     parser.add_argument(
         "--infrastructure-catalog",
