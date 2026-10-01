@@ -252,6 +252,14 @@ class ResourceMassBalanceV1Tests(unittest.TestCase):
                 consumption_tonnes={key: 60.0},
             )
 
+    def test_duplicate_process_scope_fails_closed(self):
+        raw = json.loads(PARAMETERS.read_text())
+        duplicate = copy.deepcopy(raw["process_models"][0])
+        duplicate["process_model_id"] = "DUPLICATE_PROCESS_MODEL"
+        raw["process_models"].append(duplicate)
+        with self.assertRaises(ValueError):
+            load_resource_mass_balance_package(raw)
+
     def test_invalid_recovery_and_grade_fail_closed(self):
         raw = json.loads(PARAMETERS.read_text())
         raw["process_models"][0]["recovery_fraction"] = {
