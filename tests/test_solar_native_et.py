@@ -188,3 +188,12 @@ class SolarNativeEtTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+def test_v1_tdb_start_boundary_is_resolvable_for_corrected_rows():
+    from src.loom_solar_inspector import Inspector
+    inspector = Inspector.connect('loom_dev', '/home/ubuntu/loom_solar_assets')
+    assert inspector.time.parse('2026 JAN 01 TDB') == 820497600.0
+    for body_id in ('NEREID', 'PIONEER10', 'PIONEER11'):
+        row = inspector.record(body_id, 820497600.0)
+        assert row['resolution'] == 'RESOLVED'
+        assert row['state']['provenance']['coverage']['coverage_start_et'] == 820497600.0

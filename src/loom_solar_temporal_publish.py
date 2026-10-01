@@ -14,10 +14,13 @@ def write(root,kind,obj):
 def center_for(I,b): return I.orbital_center(b)
 def tolerance(I,b):
  base=DEFAULT_TOL.get(I.bodies[b]['body_class'],5000.0)
- estimates=[I.registry.sources[c.ephemeris_source_id].uncertainty_km for c in I.registry.coverage
+ registry=getattr(I,'registry',None)
+ if registry is None:
+  return base
+ estimates=[registry.sources[c.ephemeris_source_id].uncertainty_km for c in registry.coverage
             if c.body_id==b and c.status=='QUALIFIED'
-            and I.registry.sources[c.ephemeris_source_id].state_capability=='ESTIMATED_RELATIVE'
-            and I.registry.sources[c.ephemeris_source_id].uncertainty_km is not None]
+            and registry.sources[c.ephemeris_source_id].state_capability=='ESTIMATED_RELATIVE'
+            and registry.sources[c.ephemeris_source_id].uncertainty_km is not None]
  return min(base,max(0.001,min(estimates)*0.01)) if estimates else base
 
 def publish(I,out,start,end,chunk_days=32,body_ids=None):
