@@ -8,13 +8,13 @@
     "BLOCKED": "Work cannot proceed without an unresolved dependency outside the gap."
   },
   "current_baseline": {
-    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.12.0",
-    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.12.0",
+    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.13.0",
+    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.13.0",
     "engine": "HYBRID_V1 method-reference-v9",
     "default_fixture": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP12_MATERIALIZATION_SEED42.json",
-    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP12_BASELINE_MANIFEST.json"
+    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP13_ASSET_LIFECYCLE_SEED42.json",
+    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP13_BASELINE_MANIFEST.json"
   },
   "gaps": [
     {
@@ -490,11 +490,13 @@
     {
       "gap_id": "GAP-013",
       "name": "MAINTENANCE_DEPRECIATION_RETIREMENT",
-      "current_status": "OPEN",
-      "meaning": "Infrastructure maintenance, depreciation, replacement, failure, retirement and abandonment are not yet production modeled.",
+      "current_status": "CLOSED",
+      "meaning": "Asset Lifecycle V1 projects explicit age, maintenance, depreciation, failure, retirement, abandonment, restoration and replacement into usable capacity and a post-engine production projection; missing lifecycle authority remains UNKNOWN rather than inferred.",
       "current_evidence": [
-        "loom_earth sector asset semantics",
-        "legacy Atlas replacement-value semantics"
+        "engineering/civprop/contracts/asset_lifecycle_v1.py",
+        "engineering/civprop/contracts/asset_lifecycle_v1.json",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP13_BASELINE_MANIFEST.json",
+        "legacy Atlas replacement-value semantics retained as reference only"
       ],
       "exit_criteria": [
         "Infrastructure has age/lifecycle state and explicit maintenance/replacement requirements.",
@@ -502,7 +504,7 @@
         "Replacement investment is separated from growth investment.",
         "Facilities do not persist forever without operating/maintenance consequences."
       ],
-      "next_action": "Define asset lifecycle V1 and connect it to project economics, production and event scheduling.",
+      "next_action": "CLOSED. Preserve explicit-only lifecycle authority, UNKNOWN propagation, physical/accounting separation, terminal-state persistence and replacement-vs-growth accounting while proceeding to GAP-014 DEMOGRAPHIC_DEPTH.",
       "output_or_contract_affected": [
         "facility lifecycle",
         "capital",

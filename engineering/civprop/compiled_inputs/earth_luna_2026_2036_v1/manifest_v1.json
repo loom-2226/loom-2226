@@ -2,17 +2,17 @@
   "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
   "basis": {
     "authority_capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
-    "authority_capture_sha256": "ade6b92d401b7cc60cc66a15b191c1d5a0714ad3bf004d93f2a4646f4b10ce17",
+    "authority_capture_sha256": "e56219d4bc7f58cd6fa55fa9ae6cb798aea5a45c0317fef4065264b99b66c490",
     "compiler_contract": "CIVPROP_INPUT_COMPILER_V1",
     "locked_runner_ref": "engineering/civprop/run_civprop_v1.py",
     "source_basis_commit": "d3af8e96a1ef132b7edeb5d28f23d56e238cbc5b"
   },
-  "bundle_sha256": "92ec107c6ab38bfe71e710d73e39c419b26ff108cccffb764a5a91f5d295c6c3",
+  "bundle_sha256": "f07a9c9461a3ca7422e45afbda5ef48d7129a4843dfd1569dc0f9203ef9af84e",
   "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
   "format": "CIVPROP_METHOD_LAB_BUNDLE_V1",
   "scenario_file": "scenario_v1.json",
   "sha256": {
-    "scenario_v1.json": "ff361d064928df5aa63723350cb43a6b9972265c0a0a51827531690b8049c1b8",
+    "scenario_v1.json": "97baf394e20746cc6babce27f116e895bdcfce30f6fcbfcf2764d169f72dbe53",
     "truth_v1.json": "55c7db7b5f542451a45801c857b245648225d2d29b140dfc4c2bcedbe34c5909"
   },
   "truth_file": "truth_v1.json"

@@ -518,6 +518,18 @@
   },
   "format": "CIVPROP_AUTHORITY_CAPTURE_V1",
   "model_parameters": {
+    "asset_lifecycle_source": {
+      "path": "engineering/civprop/contracts/asset_lifecycle_v1.json",
+      "sha256": "4961d2baaf253bddc411d6acbe0ba6c49d8761af90c60d9c1f477f5d0796d2f2"
+    },
+    "asset_lifecycle_v1": {
+      "contract_version": "1.0.0",
+      "events": [],
+      "format": "CIVPROP_ASSET_LIFECYCLE_V1",
+      "parameter_set_id": "CIVPROP_ASSET_LIFECYCLE_V1_DEFAULT",
+      "policies": [],
+      "status": "NO_EMPIRICAL_LIFECYCLE_PARAMETERS_ADMITTED"
+    },
     "atlas_facility_type_semantics": {
       "path": "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json",
       "sha256": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",

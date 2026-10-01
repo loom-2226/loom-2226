@@ -87,6 +87,7 @@ from engineering.civprop.contracts.facility_site_materialization_v1 import (
     FacilitySiteMaterializationPackage,
     load_facility_site_materialization_package,
 )
+from engineering.civprop.contracts.asset_lifecycle_v1 import load_asset_lifecycle_data
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -217,6 +218,7 @@ class LabScenario:
     facility_site_materialization_v1: Optional[
         FacilitySiteMaterializationPackage
     ] = None
+    asset_lifecycle_v1: Optional[Mapping[str, Any]] = None
 
 
 @dataclass(frozen=True)
@@ -651,6 +653,11 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             else load_facility_site_materialization_package(
                 data["facility_site_materialization_v1"]
             )
+        ),
+        asset_lifecycle_v1=(
+            None
+            if data.get("asset_lifecycle_v1") is None
+            else load_asset_lifecycle_data(data["asset_lifecycle_v1"])[2]
         ),
     )
 

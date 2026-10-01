@@ -30,8 +30,8 @@ Current default runtime package:
 
 Current runner/output contract:
 
-    CIVPROP_ENGINE_V1_RUNNER 1.12.0
-    CIVPROP_ENGINE_V1_OUTPUT 1.12.0
+    CIVPROP_ENGINE_V1_RUNNER 1.13.0
+    CIVPROP_ENGINE_V1_OUTPUT 1.13.0
 
 Current engine:
 
@@ -156,7 +156,7 @@ A gap may close only when its replacement has:
 | GAP-010 | POWER_BALANCE | CLOSED | Preserve installed-MW versus generation/load/MWh separation and Timeline no-auto-unlock |
 | GAP-011 | TRAFFIC_AND_FLEET | CLOSED | Preserve explicit OD/fleet/voyage/backlog reconciliation and Timeline no-auto-spawn semantics |
 | GAP-012 | FACILITY_AND_SITE_MATERIALIZATION | CLOSED | Preserve deterministic materialization, explicit colocation/spatial authority and compatibility-state firewall |
-| GAP-013 | MAINTENANCE_DEPRECIATION_RETIREMENT | OPEN | Add asset lifecycle, replacement, failure and retirement |
+| GAP-013 | MAINTENANCE_DEPRECIATION_RETIREMENT | CLOSED | Asset Lifecycle V1: explicit maintenance, depreciation, failure, retirement, abandonment, restoration and replacement |
 | GAP-014 | DEMOGRAPHIC_DEPTH | OPEN | Add cohorts, births/deaths, synthetic persons, labor and settlement viability |
 | GAP-015 | ATLAS_DERIVED_METRICS | OPEN | Derive centrality/strategic/display metrics from generated state |
 

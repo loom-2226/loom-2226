@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-Runner V1.12 keeps the selected HYBRID_V1 propagation architecture and closed
-GAP-001 through GAP-011 boundaries, then adds GAP-012 Facility/Site Materialization
+Runner V1.13 keeps the selected HYBRID_V1 propagation architecture and closed
+GAP-001 through GAP-013 boundaries, including Facility/Site Materialization and Asset Lifecycle V1
 V1 as a deterministic post-engine projection from generated infrastructure modules
 to stable sites, materialized facilities, orbitals, settlement candidates and
 Atlas-facing facility classifications. Later gaps remain explicit.
@@ -36,6 +36,10 @@ from engineering.civprop.contracts.project_economics_v1 import ProjectEconomicsR
 from engineering.civprop.contracts.facility_site_materialization_v1 import (
     FacilitySiteMaterializerV1,
 )
+from engineering.civprop.contracts.asset_lifecycle_v1 import (
+    AssetLifecycleRuntimeV1, load_asset_lifecycle_data, to_dicts as lifecycle_to_dicts,
+    project_production_through_lifecycle,
+)
 from engineering.civprop.method_lab.prototypes.common import (
     project_capital_unit,
     resolved_project,
@@ -43,9 +47,9 @@ from engineering.civprop.method_lab.prototypes.common import (
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.12.0"
+OUTPUT_CONTRACT_VERSION = "1.13.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.12.0"
+RUNNER_VERSION = "1.13.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
 PROJECT_ECONOMICS_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "project_economics_v1.json"
@@ -68,6 +72,7 @@ POWER_BALANCE_PARAMETER_PATH = (
 TRAFFIC_FLEET_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "traffic_fleet_v1.json"
 )
+ASSET_LIFECYCLE_PARAMETER_PATH = _CIVPROP_DIR / "contracts" / "asset_lifecycle_v1.json"
 FACILITY_SITE_MATERIALIZATION_PARAMETER_PATH = (
     _CIVPROP_DIR
     / "contracts"
@@ -194,6 +199,7 @@ def _implementation_hashes() -> dict[str, str]:
         power_balance_v1,
         traffic_fleet_v1,
         facility_site_materialization_v1,
+        asset_lifecycle_v1,
     )
     from engineering.civprop.method_lab import (
         contracts,
@@ -264,6 +270,8 @@ def _implementation_hashes() -> dict[str, str]:
         "facility_site_materialization_contract_sha256": _module_sha256(
             facility_site_materialization_v1
         ),
+        "asset_lifecycle_contract_sha256": _module_sha256(asset_lifecycle_v1),
+        "asset_lifecycle_parameter_set_sha256": _sha256(ASSET_LIFECYCLE_PARAMETER_PATH),
         "facility_site_materialization_parameter_set_sha256": _sha256(
             FACILITY_SITE_MATERIALIZATION_PARAMETER_PATH
         ),
@@ -340,7 +348,7 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
             "GROSS_OUTPUT_MINUS_INTERMEDIATE_CONSUMPTION_OPERATING_COST_IS_DISTINCT"
         ),
         "productive_capital": (
-            "GROSS_COMMISSIONED_PROJECT_CAPITAL_NO_DEPRECIATION_BEFORE_GAP013"
+            "GROSS_COMMISSIONED_PROJECT_CAPITAL_WITH_EXPLICIT_GAP013_LIFECYCLE_PROJECTION"
         ),
         "power_balance": (
             "INSTALLED_MW_SEPARATE_FROM_AVERAGE_GENERATION_PEAK_LOAD_AND_ANNUAL_MWH"
@@ -383,6 +391,12 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
         ),
         "atlas_facility_types": (
             "DERIVED_FROM_MODULE_COMPOSITION_STRATEGIC_PORT_DEFERRED_TO_GAP015"
+        ),
+        "asset_lifecycle": (
+            "EXPLICIT_PARAMETERS_AND_EVENTS_ONLY_UNKNOWN_LIFECYCLE_NEVER_INVENTED"
+        ),
+        "asset_lifecycle_effect": (
+            "RUNNER_PROJECTION_ONLY_HYBRID_V1_CAUSAL_BEHAVIOR_UNCHANGED_IN_INITIAL_INTEGRATION"
         ),
         "pressure_memory": (
             "CHANNEL_PRESSURE_DECAYS_WHEN_UNMET_REQUIREMENT_DISAPPEARS"
@@ -500,7 +514,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-013",
             "name": "MAINTENANCE_DEPRECIATION_RETIREMENT",
             "status": "OPEN",
-            "meaning": "Infrastructure maintenance, depreciation, replacement, failure, retirement and abandonment are not yet production modeled.",
+            "meaning": "Asset Lifecycle V1 projects explicit age, maintenance, depreciation, failure, retirement, abandonment, restoration and replacement into usable capacity and a post-engine production projection; missing lifecycle authority remains UNKNOWN rather than inferred.",
         },
         {
             "gap_id": "GAP-014",
@@ -771,6 +785,18 @@ def build_output(
         materialization_dict = json.loads(
             canonical_json(materialization)
         )
+    if bundle.scenario.asset_lifecycle_v1 is None:
+        raise ValueError("compiled scenario missing required GAP-013 asset_lifecycle_v1 package")
+    lifecycle_policies, lifecycle_events, lifecycle_boundary = load_asset_lifecycle_data(
+        bundle.scenario.asset_lifecycle_v1
+    )
+    lifecycle_states = AssetLifecycleRuntimeV1(lifecycle_policies, lifecycle_events).project(
+        result.facilities, bundle.scenario.start_year, bundle.scenario.end_year
+    )
+    lifecycle_production_states = project_production_through_lifecycle(
+        result.facility_production_states, lifecycle_states
+    )
+
     (
         actor_state_boundary,
         actor_states,
@@ -845,6 +871,9 @@ def build_output(
         },
         "semantics": _semantics(bundle.manifest.get("authority")),
         "known_gaps": _known_gaps(input_dir),
+        "asset_lifecycle_boundary": lifecycle_boundary,
+        "asset_lifecycle_states": lifecycle_to_dicts(lifecycle_states),
+        "lifecycle_production_states": lifecycle_to_dicts(lifecycle_production_states),
         "actor_state_boundary": actor_state_boundary,
         "accessibility_boundary": (
             None
@@ -1022,7 +1051,7 @@ def main() -> None:
         "--input-dir",
         type=Path,
         default=default_input_dir,
-        help="Compatible frozen input directory (defaults to GAP-001 through GAP-011 compiled V1).",
+        help="Compatible frozen input directory (defaults to the current compiled CIVPROP qualification fixture).",
     )
     parser.add_argument(
         "--infrastructure-catalog",
