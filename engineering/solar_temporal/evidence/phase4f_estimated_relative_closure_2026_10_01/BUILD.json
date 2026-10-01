@@ -1,0 +1,49 @@
+{
+  "schema": "loom.estimated-relative/1.0",
+  "authority": "ESTIMATED_RELATIVE",
+  "navigation_grade": false,
+  "rows": [
+    {
+      "body_id": "PROTEUS",
+      "target": 808,
+      "center": 8,
+      "path": "/home/ubuntu/loom_solar_assets/kernels/spk/phase4f_estimated_relative/estimated_proteus_808_2199_2251.bsp",
+      "samples": 447097,
+      "radius_km": 117763.31760730846,
+      "period_days": 1.122315,
+      "uncertainty_km": 235526.63521461692,
+      "anchor": "NEP098 direct endpoint",
+      "basis": "JPL satellite mean period; nominal circular continuation only",
+      "sha256": "417a08649bafeb79c22139d57bfbfac9e1203e1c69893781d922cbee71f81bcc",
+      "byte_count": 25078784
+    },
+    {
+      "body_id": "DACTYL",
+      "target": 920000243,
+      "center": 20000243,
+      "path": "/home/ubuntu/loom_solar_assets/kernels/spk/phase4f_estimated_relative/estimated_dactyl_920000243_2026_2251.bsp",
+      "samples": 1972321,
+      "radius_km": 90.0,
+      "period_hours": 24.7,
+      "uncertainty_km": 180.0,
+      "anchor": "nominal phase at 2026-01-01",
+      "basis": "Galileo-era approximate separation/period; phase not known at game epoch",
+      "sha256": "13da938aa1d7e6bf6b531e38eee759fd53306728a785d48840ba91dcb546b0fc",
+      "byte_count": 110613504
+    },
+    {
+      "body_id": "SELAM",
+      "target": 920152830,
+      "center": 20152830,
+      "path": "/home/ubuntu/loom_solar_assets/kernels/spk/phase4f_estimated_relative/estimated_selam_920152830_2026_2251.bsp",
+      "samples": 1972321,
+      "radius_km": 3.1,
+      "period_hours": 53,
+      "uncertainty_km": 6.2,
+      "anchor": "nominal phase at 2026-01-01",
+      "basis": "NASA Lucy approximate 3.1 km separation / 53 h synchronous orbit; phase not known at game epoch",
+      "sha256": "f0d779d38c9fe24d38960ef371da5dcf9f5863bf243f29ad4204f415b3e02c5d",
+      "byte_count": 110613504
+    }
+  ]
+}

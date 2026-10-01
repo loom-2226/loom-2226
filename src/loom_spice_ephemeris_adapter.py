@@ -140,10 +140,13 @@ class SolarEphemerisRegistry:
     def body_identifier(self, body_id: str) -> BodyIdentifier:
         matches = tuple(
             v for v in self._by_body.get(body_id, ())
-            if v.status == "ACTIVE" and v.authority == "NAIF" and v.identifier_type == "NAIF_ID"
+            if v.status == "ACTIVE" and (
+                (v.authority == "NAIF" and v.identifier_type == "NAIF_ID")
+                or (v.authority == "LOOM" and v.identifier_type == "SPK_TARGET_ID")
+            )
         )
         if len(matches) != 1:
-            raise CelestialStateError(f"LOOM body must have exactly one active governed identifier: {body_id}")
+            raise CelestialStateError(f"LOOM body must have exactly one active state identifier: {body_id}")
         return matches[0]
 
     def source_for(self, body_id: str, epoch_et: float) -> tuple[EphemerisSource, EphemerisCoverage]:
@@ -180,6 +183,11 @@ class SolarEphemerisRegistry:
                   if source.state_capability.startswith(("DIRECT_", "HORIZONS_"))]
         if direct:
             candidates = direct
+        else:
+            stronger = [(source, record) for source, record in candidates
+                        if source.state_capability != "ESTIMATED_RELATIVE"]
+            if stronger:
+                candidates = stronger
         if len(candidates) != 1:
             source_ids = sorted(source.ephemeris_source_id for source, _ in candidates)
             raise CelestialStateError(
@@ -317,12 +325,16 @@ class SpiceEphemerisAdapter:
 
     def _direct_lookup(self, body_id: str, epoch_et: float) -> SpatialState:
         identifier = self.registry.body_identifier(body_id)
-        if identifier.authority != "NAIF" or identifier.identifier_type != "NAIF_ID":
+        allowed = (
+            (identifier.authority == "NAIF" and identifier.identifier_type == "NAIF_ID")
+            or (identifier.authority == "LOOM" and identifier.identifier_type == "SPK_TARGET_ID")
+        )
+        if not allowed:
             raise CelestialStateError(f"unsupported governed identifier semantics for {body_id}")
         try:
             target = int(identifier.identifier_value)
         except ValueError as exc:
-            raise CelestialStateError(f"NAIF identifier is not an integer for {body_id}") from exc
+            raise CelestialStateError(f"SPK target identifier is not an integer for {body_id}") from exc
         et = finite_et(epoch_et)
         source, coverage = self.registry.source_for(body_id, et)
         try:
@@ -370,7 +382,10 @@ class SpiceEphemerisAdapter:
                     "coverage_end_et": coverage.coverage_end_et,
                     "coverage_class": coverage.coverage_class,
                 },
-                "naif_identifier": identifier.identifier_value,
+                "state_identifier_authority": identifier.authority,
+                "state_identifier_type": identifier.identifier_type,
+                "state_identifier": identifier.identifier_value,
+                "naif_identifier": (identifier.identifier_value if identifier.authority == "NAIF" else None),
                 "observer_naif_identifier": "10",
                 "spice_frame": SPICE_FRAME,
                 "aberration_correction": SPICE_ABERRATION,

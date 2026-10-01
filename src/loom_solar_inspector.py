@@ -71,9 +71,11 @@ class Inspector:
             state = self.service.resolve_et(body_id, et)
             if state.epoch_et != et or state.reference_frame != SPICE_FRAME or state.provenance.get('units') != 'km,km/s':
                 raise CelestialStateError('noncanonical resolver frame/units')
-            row.update(resolution='RESOLVED', state=asdict(state),
-                       authority_class=('PROPAGATED' if state.provenance['state_capability'].startswith('EMPIRICAL_PROPAGATED')
-                                        else 'DIRECT'))
+            capability = state.provenance['state_capability']
+            authority_class = ('PROPAGATED' if capability.startswith('EMPIRICAL_PROPAGATED')
+                               else 'ESTIMATED_RELATIVE' if capability == 'ESTIMATED_RELATIVE'
+                               else 'DIRECT')
+            row.update(resolution='RESOLVED', state=asdict(state), authority_class=authority_class)
         except CelestialStateError as exc:
             reasons = []
             while exc is not None:
@@ -153,7 +155,9 @@ class Inspector:
             'units': 'km,km/s', 'authority': self.authority, 'objects': scene_rows,
             'complete': body_ids is None, 'catalog_total': len(self.bodies),
             'counts': {'catalog': len(rows), 'resolved': resolved, 'direct': direct,
-                       'propagated': resolved-direct, 'unresolved': len(rows)-resolved,
+                       'propagated': sum(row.get('authority_class') == 'PROPAGATED' for row in rows),
+                       'estimated_relative': sum(row.get('authority_class') == 'ESTIMATED_RELATIVE' for row in rows),
+                       'unresolved': len(rows)-resolved,
                        'catalog_only': sum(row['catalog_only'] for row in scene_rows),
                        'partial_catalog': sum(row['partial_catalog'] for row in scene_rows),
                        'renderable': sum('relative' in row for row in scene_rows)},
@@ -290,7 +294,9 @@ class Inspector:
             'reference_center': center_id, 'reference_frame': SPICE_FRAME,
             'units': 'km,km/s', 'authority': self.authority, 'objects': rows,
             'counts': {'catalog': len(rows), 'resolved': resolved, 'direct': direct,
-                       'propagated': resolved-direct, 'unresolved': len(rows)-resolved,
+                       'propagated': sum(row.get('authority_class') == 'PROPAGATED' for row in rows),
+                       'estimated_relative': sum(row.get('authority_class') == 'ESTIMATED_RELATIVE' for row in rows),
+                       'unresolved': len(rows)-resolved,
                        'catalog_only': catalog_only,
                        'partial_catalog': sum(any(c['final_outcome'] == 'PARTIAL' for c in r['cohorts']) for r in rows),
                        'renderable': sum('relative' in r for r in rows)},

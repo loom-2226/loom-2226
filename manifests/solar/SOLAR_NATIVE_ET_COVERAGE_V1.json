@@ -212,6 +212,45 @@
       "method": "NATIVE_SPK_ENDPOINTS"
     },
     {
+      "ephemeris_source_id": "EST_DACTYL_PHASE4F",
+      "body_id": "DACTYL",
+      "valid_from": "2025-12-31T23:58:50.816+00:00",
+      "valid_until": "2251-01-01T23:58:50.816+00:00",
+      "status": "QUALIFIED",
+      "coverage_start_et": 820497600.0,
+      "coverage_end_et": 7920849600.0,
+      "native_start_et": 820497600.0,
+      "native_end_et": 7920849600.0,
+      "primary_spk_sha256": "13da938aa1d7e6bf6b531e38eee759fd53306728a785d48840ba91dcb546b0fc",
+      "method": "NATIVE_SPK_ENDPOINTS"
+    },
+    {
+      "ephemeris_source_id": "EST_PROTEUS_808_PHASE4F",
+      "body_id": "PROTEUS",
+      "valid_from": "2199-12-30T23:58:50.816+00:00",
+      "valid_until": "2251-01-01T23:58:50.816+00:00",
+      "status": "QUALIFIED",
+      "coverage_start_et": 6311304000.0,
+      "coverage_end_et": 7920849600.0,
+      "native_start_et": 6311304000.0,
+      "native_end_et": 7920849600.0,
+      "primary_spk_sha256": "417a08649bafeb79c22139d57bfbfac9e1203e1c69893781d922cbee71f81bcc",
+      "method": "NATIVE_SPK_ENDPOINTS"
+    },
+    {
+      "ephemeris_source_id": "EST_SELAM_PHASE4F",
+      "body_id": "SELAM",
+      "valid_from": "2025-12-31T23:58:50.816+00:00",
+      "valid_until": "2251-01-01T23:58:50.816+00:00",
+      "status": "QUALIFIED",
+      "coverage_start_et": 820497600.0,
+      "coverage_end_et": 7920849600.0,
+      "native_start_et": 820497600.0,
+      "native_end_et": 7920849600.0,
+      "primary_spk_sha256": "f0d779d38c9fe24d38960ef371da5dcf9f5863bf243f29ad4204f415b3e02c5d",
+      "method": "NATIVE_SPK_ENDPOINTS"
+    },
+    {
       "ephemeris_source_id": "HORIZONS_4E_APOPHIS",
       "body_id": "APOPHIS",
       "valid_from": "2025-12-31T23:58:50.816+00:00",
