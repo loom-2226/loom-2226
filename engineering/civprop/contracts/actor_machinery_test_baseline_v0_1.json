@@ -1,0 +1,464 @@
+{
+  "format": "CIVPROP_ACTOR_MACHINERY_TEST_BASELINE_V0_1",
+  "version": "0.1.0",
+  "as_of_date": "2026-10-02",
+  "class": "engineering",
+  "status": "NON_CANON_MACHINERY_TEST_FIXTURE",
+  "purpose": "Minimum heterogeneous 2026 actor population for testing CIVPROP long-run actor/capability/economic interaction machinery. Not a final actor census, behavioral calibration, or forecast.",
+  "authority_rules": [
+    "Observed capability/access claims require dated source provenance.",
+    "Behavior parameters are authored non-empirical test assumptions and require sensitivity analysis.",
+    "Country/economy linkage is support context, never actor identity or automatic entitlement to national GDP/capital/investment.",
+    "Budget is derived at runtime from actor support/capital/revenue, allocation rules, commitments, maintenance and replacement; this fixture does not invent private balance sheets.",
+    "Capability is not inferred from GDP, geography, timeline dates, investment alone, or consortium membership.",
+    "UNKNOWN is preserved where evidence is insufficient.",
+    "Future capability changes only through auditable simulated events/transactions."
+  ],
+  "capability_states": [
+    "OPERATIONAL",
+    "DEVELOPMENT",
+    "ACCESS",
+    "UNKNOWN"
+  ],
+  "capabilities": [
+    "ORBITAL_LAUNCH",
+    "HEAVY_LAUNCH",
+    "CREWED_SPACEFLIGHT",
+    "SPACECRAFT_OPS",
+    "DEEP_SPACE",
+    "LUNAR_DELIVERY",
+    "SURFACE_INFRASTRUCTURE"
+  ],
+  "behavior_scale": {
+    "values": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "meaning": "LOW/MEDIUM/HIGH authored machinery-test weights; not empirical psychology."
+  },
+  "budget_model": {
+    "public": "available_budget = public_support_capacity * allocation_rule - commitments - maintenance - replacement",
+    "multinational": "available_budget = sum(member_support_capacity * contribution_rule) - commitments - maintenance - replacement",
+    "commercial": "available_budget = retained_actor_capacity + revenue + admitted_external_capital - commitments - operating_costs - maintenance - replacement",
+    "precedence": [
+      "maintenance",
+      "replacement",
+      "existing_commitments",
+      "discretionary_growth"
+    ],
+    "prohibition": "Do not substitute GDP, national capital, aggregate macro investment, market capitalization, or valuation for spendable actor budget."
+  },
+  "actors": [
+    {
+      "actor_id": "NASA",
+      "actor_class": "PUBLIC_AGENCY",
+      "earth_economy_links": [
+        "USA"
+      ],
+      "capacity_rule": "PUBLIC_ECONOMY_SUPPORT",
+      "behavior": {
+        "investment_propensity": 0.75,
+        "risk_tolerance": 0.5,
+        "exploration_weight": 0.75,
+        "commercial_weight": 0.25,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "ACCESS",
+        "HEAVY_LAUNCH": "ACCESS",
+        "CREWED_SPACEFLIGHT": "ACCESS",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "OPERATIONAL",
+        "LUNAR_DELIVERY": "ACCESS",
+        "SURFACE_INFRASTRUCTURE": "DEVELOPMENT"
+      }
+    },
+    {
+      "actor_id": "CNSA",
+      "actor_class": "PUBLIC_AGENCY",
+      "earth_economy_links": [
+        "CHN"
+      ],
+      "capacity_rule": "PUBLIC_ECONOMY_SUPPORT",
+      "behavior": {
+        "investment_propensity": 0.75,
+        "risk_tolerance": 0.5,
+        "exploration_weight": 0.75,
+        "commercial_weight": 0.25,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "OPERATIONAL",
+        "HEAVY_LAUNCH": "OPERATIONAL",
+        "CREWED_SPACEFLIGHT": "OPERATIONAL",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "OPERATIONAL",
+        "LUNAR_DELIVERY": "OPERATIONAL",
+        "SURFACE_INFRASTRUCTURE": "DEVELOPMENT"
+      }
+    },
+    {
+      "actor_id": "ESA",
+      "actor_class": "MULTINATIONAL_AGENCY",
+      "earth_economy_links": [
+        "AUT",
+        "BEL",
+        "CZE",
+        "DNK",
+        "EST",
+        "FIN",
+        "FRA",
+        "DEU",
+        "GRC",
+        "HUN",
+        "IRL",
+        "ITA",
+        "LUX",
+        "NLD",
+        "NOR",
+        "POL",
+        "PRT",
+        "ROU",
+        "SVN",
+        "ESP",
+        "SWE",
+        "CHE",
+        "GBR"
+      ],
+      "capacity_rule": "MULTINATIONAL_MEMBER_SUPPORT",
+      "behavior": {
+        "investment_propensity": 0.5,
+        "risk_tolerance": 0.25,
+        "exploration_weight": 0.75,
+        "commercial_weight": 0.25,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "ACCESS",
+        "HEAVY_LAUNCH": "ACCESS",
+        "CREWED_SPACEFLIGHT": "ACCESS",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "OPERATIONAL",
+        "LUNAR_DELIVERY": "DEVELOPMENT",
+        "SURFACE_INFRASTRUCTURE": "DEVELOPMENT"
+      }
+    },
+    {
+      "actor_id": "ROSCOSMOS",
+      "actor_class": "PUBLIC_CORPORATION",
+      "earth_economy_links": [
+        "RUS"
+      ],
+      "capacity_rule": "PUBLIC_ECONOMY_SUPPORT",
+      "behavior": {
+        "investment_propensity": 0.5,
+        "risk_tolerance": 0.5,
+        "exploration_weight": 0.5,
+        "commercial_weight": 0.25,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "OPERATIONAL",
+        "HEAVY_LAUNCH": "OPERATIONAL",
+        "CREWED_SPACEFLIGHT": "OPERATIONAL",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "DEVELOPMENT",
+        "LUNAR_DELIVERY": "DEVELOPMENT",
+        "SURFACE_INFRASTRUCTURE": "DEVELOPMENT"
+      }
+    },
+    {
+      "actor_id": "ISRO",
+      "actor_class": "PUBLIC_AGENCY",
+      "earth_economy_links": [
+        "IND"
+      ],
+      "capacity_rule": "PUBLIC_ECONOMY_SUPPORT",
+      "behavior": {
+        "investment_propensity": 0.5,
+        "risk_tolerance": 0.5,
+        "exploration_weight": 0.75,
+        "commercial_weight": 0.25,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "OPERATIONAL",
+        "HEAVY_LAUNCH": "OPERATIONAL",
+        "CREWED_SPACEFLIGHT": "DEVELOPMENT",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "OPERATIONAL",
+        "LUNAR_DELIVERY": "OPERATIONAL",
+        "SURFACE_INFRASTRUCTURE": "DEVELOPMENT"
+      }
+    },
+    {
+      "actor_id": "JAXA",
+      "actor_class": "PUBLIC_AGENCY",
+      "earth_economy_links": [
+        "JPN"
+      ],
+      "capacity_rule": "PUBLIC_ECONOMY_SUPPORT",
+      "behavior": {
+        "investment_propensity": 0.5,
+        "risk_tolerance": 0.25,
+        "exploration_weight": 0.75,
+        "commercial_weight": 0.25,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "ACCESS",
+        "HEAVY_LAUNCH": "ACCESS",
+        "CREWED_SPACEFLIGHT": "ACCESS",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "OPERATIONAL",
+        "LUNAR_DELIVERY": "OPERATIONAL",
+        "SURFACE_INFRASTRUCTURE": "DEVELOPMENT"
+      }
+    },
+    {
+      "actor_id": "SPACEX",
+      "actor_class": "COMMERCIAL",
+      "earth_economy_links": [
+        "USA"
+      ],
+      "capacity_rule": "COMMERCIAL_REVENUE_CAPITAL",
+      "behavior": {
+        "investment_propensity": 0.75,
+        "risk_tolerance": 0.75,
+        "exploration_weight": 0.5,
+        "commercial_weight": 0.75,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "OPERATIONAL",
+        "HEAVY_LAUNCH": "OPERATIONAL",
+        "CREWED_SPACEFLIGHT": "OPERATIONAL",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "DEVELOPMENT",
+        "LUNAR_DELIVERY": "DEVELOPMENT",
+        "SURFACE_INFRASTRUCTURE": "DEVELOPMENT"
+      }
+    },
+    {
+      "actor_id": "BLUE_ORIGIN",
+      "actor_class": "COMMERCIAL",
+      "earth_economy_links": [
+        "USA"
+      ],
+      "capacity_rule": "COMMERCIAL_REVENUE_CAPITAL",
+      "behavior": {
+        "investment_propensity": 0.75,
+        "risk_tolerance": 0.75,
+        "exploration_weight": 0.5,
+        "commercial_weight": 0.75,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "OPERATIONAL",
+        "HEAVY_LAUNCH": "OPERATIONAL",
+        "CREWED_SPACEFLIGHT": "OPERATIONAL",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "DEVELOPMENT",
+        "LUNAR_DELIVERY": "DEVELOPMENT",
+        "SURFACE_INFRASTRUCTURE": "DEVELOPMENT"
+      }
+    },
+    {
+      "actor_id": "ROCKET_LAB",
+      "actor_class": "COMMERCIAL",
+      "earth_economy_links": [
+        "USA",
+        "NZL"
+      ],
+      "capacity_rule": "COMMERCIAL_REVENUE_CAPITAL",
+      "behavior": {
+        "investment_propensity": 0.75,
+        "risk_tolerance": 0.5,
+        "exploration_weight": 0.25,
+        "commercial_weight": 0.75,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "OPERATIONAL",
+        "HEAVY_LAUNCH": "DEVELOPMENT",
+        "CREWED_SPACEFLIGHT": "UNKNOWN",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "ACCESS",
+        "LUNAR_DELIVERY": "ACCESS",
+        "SURFACE_INFRASTRUCTURE": "UNKNOWN"
+      }
+    },
+    {
+      "actor_id": "FIREFLY_AEROSPACE",
+      "actor_class": "COMMERCIAL",
+      "earth_economy_links": [
+        "USA"
+      ],
+      "capacity_rule": "COMMERCIAL_REVENUE_CAPITAL",
+      "behavior": {
+        "investment_propensity": 0.75,
+        "risk_tolerance": 0.75,
+        "exploration_weight": 0.5,
+        "commercial_weight": 0.75,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "OPERATIONAL",
+        "HEAVY_LAUNCH": "UNKNOWN",
+        "CREWED_SPACEFLIGHT": "UNKNOWN",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "OPERATIONAL",
+        "LUNAR_DELIVERY": "OPERATIONAL",
+        "SURFACE_INFRASTRUCTURE": "DEVELOPMENT"
+      }
+    },
+    {
+      "actor_id": "INTUITIVE_MACHINES",
+      "actor_class": "COMMERCIAL",
+      "earth_economy_links": [
+        "USA"
+      ],
+      "capacity_rule": "COMMERCIAL_REVENUE_CAPITAL",
+      "behavior": {
+        "investment_propensity": 0.75,
+        "risk_tolerance": 0.75,
+        "exploration_weight": 0.5,
+        "commercial_weight": 0.75,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "ACCESS",
+        "HEAVY_LAUNCH": "UNKNOWN",
+        "CREWED_SPACEFLIGHT": "UNKNOWN",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "OPERATIONAL",
+        "LUNAR_DELIVERY": "OPERATIONAL",
+        "SURFACE_INFRASTRUCTURE": "DEVELOPMENT"
+      }
+    },
+    {
+      "actor_id": "ASTROBOTIC",
+      "actor_class": "COMMERCIAL",
+      "earth_economy_links": [
+        "USA"
+      ],
+      "capacity_rule": "COMMERCIAL_REVENUE_CAPITAL",
+      "behavior": {
+        "investment_propensity": 0.5,
+        "risk_tolerance": 0.75,
+        "exploration_weight": 0.5,
+        "commercial_weight": 0.75,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "ACCESS",
+        "HEAVY_LAUNCH": "UNKNOWN",
+        "CREWED_SPACEFLIGHT": "UNKNOWN",
+        "SPACECRAFT_OPS": "OPERATIONAL",
+        "DEEP_SPACE": "DEVELOPMENT",
+        "LUNAR_DELIVERY": "DEVELOPMENT",
+        "SURFACE_INFRASTRUCTURE": "DEVELOPMENT"
+      }
+    },
+    {
+      "actor_id": "ISAR_AEROSPACE",
+      "actor_class": "COMMERCIAL",
+      "earth_economy_links": [
+        "DEU"
+      ],
+      "capacity_rule": "COMMERCIAL_REVENUE_CAPITAL",
+      "behavior": {
+        "investment_propensity": 0.75,
+        "risk_tolerance": 0.75,
+        "exploration_weight": 0.25,
+        "commercial_weight": 0.75,
+        "provenance": "AUTHORED_MACHINERY_TEST_ASSUMPTION_V0_1"
+      },
+      "capability": {
+        "ORBITAL_LAUNCH": "OPERATIONAL",
+        "HEAVY_LAUNCH": "UNKNOWN",
+        "CREWED_SPACEFLIGHT": "UNKNOWN",
+        "SPACECRAFT_OPS": "ACCESS",
+        "DEEP_SPACE": "UNKNOWN",
+        "LUNAR_DELIVERY": "UNKNOWN",
+        "SURFACE_INFRASTRUCTURE": "UNKNOWN"
+      }
+    }
+  ],
+  "interaction_types": {
+    "BUY": "Purchase a scoped service/capability from another actor/provider; transfers resources and grants only the contracted right.",
+    "PARTNER": "Pool explicitly committed resources/capabilities for a project; no automatic transfer of all partner capabilities.",
+    "COMPETE": "Pursue the same opportunity independently; no hostility score required.",
+    "LEARN": "Completed or failed activity updates experience; capability changes require explicit qualification/commissioning events."
+  },
+  "seed_edges": [
+    {
+      "from": "NASA",
+      "to": "SPACEX",
+      "type": "BUY/PARTNER",
+      "scope": "crew transport, launch and HLS development"
+    },
+    {
+      "from": "NASA",
+      "to": "BLUE_ORIGIN",
+      "type": "BUY/PARTNER",
+      "scope": "launch and HLS/lunar development"
+    },
+    {
+      "from": "NASA",
+      "to": "FIREFLY_AEROSPACE",
+      "type": "BUY",
+      "scope": "CLPS lunar delivery"
+    },
+    {
+      "from": "NASA",
+      "to": "INTUITIVE_MACHINES",
+      "type": "BUY",
+      "scope": "CLPS lunar delivery and services"
+    },
+    {
+      "from": "NASA",
+      "to": "ASTROBOTIC",
+      "type": "BUY",
+      "scope": "CLPS lunar delivery"
+    },
+    {
+      "from": "ESA",
+      "to": "ISAR_AEROSPACE",
+      "type": "BUY/PARTNER",
+      "scope": "European commercial launch support/access"
+    },
+    {
+      "from": "JAXA",
+      "to": "ROCKET_LAB",
+      "type": "BUY",
+      "scope": "orbital launch service"
+    }
+  ],
+  "source_refs": {
+    "NASA_FY2026": "https://www.nasa.gov/fy-2026-budget-request/",
+    "NASA_HLS": "https://www.nasa.gov/reference/human-landing-systems-2/",
+    "NASA_CLPS": "https://www.nasa.gov/reference/commercial-lunar-payload-services/",
+    "NASA_CLPS_PROVIDERS": "https://www.nasa.gov/commercial-lunar-payload-services/clps-providers/",
+    "ESA_FUNDING": "https://www.esa.int/About_Us/Corporate_news/Funding",
+    "ESA_LAUNCHER_CHALLENGE": "https://www.esa.int/Enabling_Support/Space_Transportation/European_Launcher_Challenge",
+    "ESA_MEMBER_STATES": "https://www.esa.int/content/view/full/481227",
+    "ISRO_ANNUAL_REPORTS": "https://www.isro.gov.in/AnnualReports.html",
+    "ISRO_GAGANYAAN_2026": "https://www.isro.gov.in/ISRO_SOLVE.html",
+    "ROCKET_LAB_LAUNCHES": "https://rocketlabcorp.com/missions/launches/",
+    "BLUE_ORIGIN_NEW_GLENN": "https://www.blueorigin.com/new-glenn",
+    "INTUITIVE_MACHINES_LUNAR": "https://www.intuitivemachines.com/missions/lunar",
+    "ISAR_ESA_ORBIT_2026": "https://www.esa.int/Enabling_Support/Space_Transportation/Boost/Isar_Aerospace_achieves_first_launch_to_orbit_from_continental_Europe"
+  },
+  "known_limitations": [
+    "Actor list is intentionally non-exhaustive and selected for machinery coverage, not ranking or market completeness.",
+    "Capability cells are coarse and may collapse multiple mission/service envelopes; runtime qualification must still use scoped requirements.",
+    "Behavior weights are authored assumptions and must be sensitivity-tested.",
+    "Commercial finance is intentionally unresolved unless admitted from comparable evidence.",
+    "ESA member links describe institutional support context; programme participation varies by optional programme.",
+    "Rocket Lab USA/NZ links distinguish corporate/economic and operational geography without assigning national ownership.",
+    "CNSA and Roscosmos are simplified organizational boundaries for v0.1; subordinate providers and state-owned enterprises are not separately modeled.",
+    "No geopolitics, sanctions, elections, alliance score, ideology, organizational birth/death, merger, or actor mortality is modeled in v0.1."
+  ]
+}
