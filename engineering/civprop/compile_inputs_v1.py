@@ -64,6 +64,7 @@ from engineering.civprop.contracts.traffic_fleet_v1 import (
 from engineering.civprop.contracts.facility_site_materialization_v1 import (
     load_facility_site_materialization_package,
 )
+from engineering.civprop.contracts.asset_lifecycle_v1 import load_asset_lifecycle_package
 
 
 AUTHORITY_CAPTURE_FORMAT = "CIVPROP_AUTHORITY_CAPTURE_V1"
@@ -107,6 +108,7 @@ TRAFFIC_FLEET_PATH = HERE / "contracts/traffic_fleet_v1.json"
 FACILITY_SITE_MATERIALIZATION_PATH = (
     HERE / "contracts/facility_site_materialization_v1.json"
 )
+ASSET_LIFECYCLE_PATH = HERE / "contracts/asset_lifecycle_v1.json"
 ATLAS_POWER_QUALIFICATION_PATH = (
     REPO_ROOT
     / "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json"
@@ -393,6 +395,8 @@ def capture_live_authority(
     load_facility_site_materialization_package(
         facility_site_materialization
     )
+    asset_lifecycle = json.loads(ASSET_LIFECYCLE_PATH.read_text())
+    load_asset_lifecycle_package(ASSET_LIFECYCLE_PATH)
 
     source_paths = [
         RESOURCE_PATH,
@@ -409,6 +413,7 @@ def capture_live_authority(
         POWER_BALANCE_PATH,
         TRAFFIC_FLEET_PATH,
         FACILITY_SITE_MATERIALIZATION_PATH,
+        ASSET_LIFECYCLE_PATH,
         ATLAS_POWER_QUALIFICATION_PATH,
         RESOURCE_COVERAGE_CONTRACT_PATH,
         RESOURCE_STATE_CONTRACT_PATH,
@@ -530,6 +535,11 @@ def capture_live_authority(
             "facility_site_materialization_v1": (
                 facility_site_materialization
             ),
+            "asset_lifecycle_v1": asset_lifecycle,
+            "asset_lifecycle_source": {
+                "path": str(ASSET_LIFECYCLE_PATH.relative_to(REPO_ROOT)),
+                "sha256": _sha256_path(ASSET_LIFECYCLE_PATH),
+            },
             "facility_site_materialization_source": {
                 "path": str(
                     FACILITY_SITE_MATERIALIZATION_PATH.relative_to(
@@ -1064,6 +1074,13 @@ def _compile_facility_site_materialization(
     return raw
 
 
+def _compile_asset_lifecycle(capture: dict[str, Any]) -> dict[str, Any]:
+    raw = copy.deepcopy(capture["model_parameters"]["asset_lifecycle_v1"])
+    if raw.get("format") != "CIVPROP_ASSET_LIFECYCLE_V1":
+        raise ValueError("invalid asset lifecycle format")
+    return raw
+
+
 def _compile_resource_physical_realization(
     capture: dict[str, Any],
 ) -> dict[str, Any]:
@@ -1200,6 +1217,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     scenario["facility_site_materialization_v1"] = (
         _compile_facility_site_materialization(capture)
     )
+    scenario["asset_lifecycle_v1"] = _compile_asset_lifecycle(capture)
     scenario["project_archetypes"] = [
         project
         for project in scenario["project_archetypes"]
@@ -1323,10 +1341,11 @@ def compile_from_capture(
     gap_resolution["GAP-010"] = "CLOSED"
     gap_resolution["GAP-011"] = "CLOSED"
     gap_resolution["GAP-012"] = "CLOSED"
+    gap_resolution["GAP-013"] = "CLOSED"
     compiler_manifest = {
         "format": COMPILER_MANIFEST_FORMAT,
         "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-        "compiler_version": "1.11.0",
+        "compiler_version": "1.13.0",
         "compiler_source_sha256": _sha256_path(HERE / "compile_inputs_v1.py"),
         "runtime_input": {
             "fixture_id": COMPILED_FIXTURE_ID,
@@ -1419,7 +1438,7 @@ def compile_from_capture(
                 "valuation and gross productive-capital accounting. Required unresolved service "
                 "constraints propagate UNKNOWN; value added is gross output minus intermediate "
                 "consumption; operating cost remains distinct; commissioned project capital is "
-                "investment and no depreciation is applied before GAP-013."
+                "investment. GAP-013 lifecycle projection separately applies only explicit depreciation, maintenance, failure, retirement, abandonment, restoration and replacement authority; accounting depreciation is not inferred from age."
             ),
             "gap10_closed_means": (
                 "Power Balance V1 separates installed MW, average generation, peak and average "
@@ -1504,6 +1523,7 @@ def main() -> None:
                 "gap_010": manifest["gap_resolution"]["GAP-010"],
                 "gap_011": manifest["gap_resolution"]["GAP-011"],
                 "gap_012": manifest["gap_resolution"]["GAP-012"],
+                "gap_013": manifest["gap_resolution"]["GAP-013"],
                 "output_dir": str(args.output_dir),
             },
             indent=2,

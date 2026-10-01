@@ -10,12 +10,12 @@
   "authority_capture": {
     "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
     "path": "engineering/civprop/inputs/authority_capture_v1.json",
-    "sha256": "ade6b92d401b7cc60cc66a15b191c1d5a0714ad3bf004d93f2a4646f4b10ce17",
+    "sha256": "e56219d4bc7f58cd6fa55fa9ae6cb798aea5a45c0317fef4065264b99b66c490",
     "source_basis_commit": "d3af8e96a1ef132b7edeb5d28f23d56e238cbc5b"
   },
   "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-  "compiler_source_sha256": "f4811e7ba2a87d863b6c1bb03776aefaecc97fde5f078b1e4e4fa95f23e6fab7",
-  "compiler_version": "1.11.0",
+  "compiler_source_sha256": "1118f403bd15beedd7cc0b7c4bb39ac0f1002e97a25b0f04716c8829b4f926a4",
+  "compiler_version": "1.13.0",
   "format": "CIVPROP_INPUT_COMPILER_MANIFEST_V1",
   "gap_resolution": {
     "GAP-001": "CLOSED",
@@ -30,13 +30,13 @@
     "GAP-010": "CLOSED",
     "GAP-011": "CLOSED",
     "GAP-012": "CLOSED",
-    "GAP-013": "OPEN",
+    "GAP-013": "CLOSED",
     "GAP-014": "OPEN",
     "GAP-015": "OPEN"
   },
   "package_files": {
-    "manifest_v1.json": "7ddd39ccc4e0ab6a01ec4968e25a28954f7d180ce2716791bfff8ca2dcab6360",
-    "scenario_v1.json": "ff361d064928df5aa63723350cb43a6b9972265c0a0a51827531690b8049c1b8",
+    "manifest_v1.json": "06c42ba80cab18a6edd34976404a7c82079b205aacb055e15c19f1771c194a0c",
+    "scenario_v1.json": "97baf394e20746cc6babce27f116e895bdcfce30f6fcbfcf2764d169f72dbe53",
     "truth_v1.json": "55c7db7b5f542451a45801c857b245648225d2d29b140dfc4c2bcedbe34c5909"
   },
   "postgres_query_sha256": {
@@ -55,10 +55,10 @@
   },
   "runtime_input": {
     "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "bundle_sha256": "92ec107c6ab38bfe71e710d73e39c419b26ff108cccffb764a5a91f5d295c6c3",
+    "bundle_sha256": "f07a9c9461a3ca7422e45afbda5ef48d7129a4843dfd1569dc0f9203ef9af84e",
     "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "scenario_format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
-    "scenario_sha256": "ff361d064928df5aa63723350cb43a6b9972265c0a0a51827531690b8049c1b8"
+    "scenario_sha256": "97baf394e20746cc6babce27f116e895bdcfce30f6fcbfcf2764d169f72dbe53"
   },
   "semantics": {
     "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients, mission priors/instrument model, or scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a lunar facility cost model; evaluator truth is actor-visible; lunar water presence establishes a quantified mineable inventory, ore grade, extraction rate or recovery efficiency; Earth sector values or ratios are valid off-world prices, productivity or utilization; project capital cost is operating cost or output price; installed MW equals average generation or annual MWh; the 2040 ENE-MOD-INDUSTRIAL scenario threshold auto-builds or certifies generation; installed transport handling capacity is realized OD movement; TRN-MOD-HEAVY or TRN-MOD-NEP auto-spawns routes, services or fleet assets; the named Roo-ver CLPS path is generic freight entitlement; a shared broad location proves module colocation; legacy Ceres facility identities, names or coordinates are valid generated answers; owner implies operator; STRATEGIC_PORT is a primitive facility type; off-world initial infrastructure or demographic depth are production solved.",
@@ -73,7 +73,7 @@
     "gap6_closed_means": "Mission/Knowledge V1 separates mission actions from infrastructure, preserves actor-visible probabilistic knowledge, permits hidden physical realization only inside the keyed observation runtime, applies deterministic Bayesian updates, and feeds posterior resource belief into later project scoring. The first admitted observation model is binary resource detection.",
     "gap7_closed_means": "Pressure Observability V1 emits reconstructable annual pressure transitions, quantified contributions and per-opportunity qualification arithmetic with stable provenance IDs. Selected project decisions link to the exact pressure qualification record. The causal path records no synthetic discharge and the legacy Method Lab path exposes its historical discharge explicitly.",
     "gap8_closed_means": "Resource Mass Balance V1 separates evidence/belief from evaluator-only physical realization and provides stock, feed extraction, grade, recovery, tailings, inventory and depletion accounting with hard capacity and conservation checks. Unquantified lunar abundance remains UNKNOWN/null in the default physical state.",
-    "gap9_closed_means": "Production Accounting V1 separates physical output feasibility from monetary valuation and gross productive-capital accounting. Required unresolved service constraints propagate UNKNOWN; value added is gross output minus intermediate consumption; operating cost remains distinct; commissioned project capital is investment and no depreciation is applied before GAP-013."
+    "gap9_closed_means": "Production Accounting V1 separates physical output feasibility from monetary valuation and gross productive-capital accounting. Required unresolved service constraints propagate UNKNOWN; value added is gross output minus intermediate consumption; operating cost remains distinct; commissioned project capital is investment. GAP-013 lifecycle projection separately applies only explicit depreciation, maintenance, failure, retirement, abandonment, restoration and replacement authority; accounting depreciation is not inferred from age."
   },
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",

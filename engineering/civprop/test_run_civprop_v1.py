@@ -20,9 +20,9 @@ from .run_civprop_v1 import (
 
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
-GOLDEN = HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP12_MATERIALIZATION_SEED42.json"
+GOLDEN = HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP13_ASSET_LIFECYCLE_SEED42.json"
 BASELINE_MANIFEST = (
-    HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP12_BASELINE_MANIFEST.json"
+    HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP13_BASELINE_MANIFEST.json"
 )
 GAP11_GOLDEN = (
     HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP11_TRAFFIC_FLEET_SEED42.json"
@@ -192,7 +192,15 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
             },
         )
 
-    def test_gap1_through_gap12_are_closed_in_default_output(self):
+    def test_gap13_initial_integration_is_noncausal_and_conservative(self):
+        self.assertEqual(self.output["asset_lifecycle_boundary"]["format"], "CIVPROP_ASSET_LIFECYCLE_V1")
+        self.assertEqual(self.output["asset_lifecycle_boundary"]["policies"], [])
+        self.assertEqual(self.output["asset_lifecycle_boundary"]["events"], [])
+        self.assertEqual(self.output["asset_lifecycle_states"], [])
+        statuses = {x["gap_id"]: x["status"] for x in self.output["known_gaps"]}
+        self.assertEqual(statuses["GAP-013"], "CLOSED")
+
+    def test_gap1_through_gap13_are_closed_in_default_output(self):
         statuses = {x["gap_id"]: x["status"] for x in self.output["known_gaps"]}
         self.assertEqual(statuses["GAP-001"], "CLOSED")
         self.assertEqual(statuses["GAP-002"], "CLOSED")
@@ -206,12 +214,12 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
         self.assertEqual(statuses["GAP-010"], "CLOSED")
         self.assertEqual(statuses["GAP-011"], "CLOSED")
         self.assertEqual(statuses["GAP-012"], "CLOSED")
-        self.assertEqual(statuses["GAP-013"], "OPEN")
+        self.assertEqual(statuses["GAP-013"], "CLOSED")
 
     def test_default_input_has_compiler_provenance(self):
         compiler = self.output["metadata"]["inputs"]["compiler"]
         self.assertEqual(compiler["compiler_id"], "CIVPROP_INPUT_COMPILER_V1")
-        self.assertEqual(compiler["compiler_version"], "1.11.0")
+        self.assertEqual(compiler["compiler_version"], "1.13.0")
         self.assertEqual(compiler["gap_resolution"]["GAP-001"], "CLOSED")
         self.assertEqual(compiler["gap_resolution"]["GAP-002"], "CLOSED")
         self.assertEqual(compiler["gap_resolution"]["GAP-003"], "CLOSED")
@@ -526,7 +534,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
         )
         self.assertEqual(
             semantics["productive_capital"],
-            "GROSS_COMMISSIONED_PROJECT_CAPITAL_NO_DEPRECIATION_BEFORE_GAP013",
+            "GROSS_COMMISSIONED_PROJECT_CAPITAL_WITH_EXPLICIT_GAP013_LIFECYCLE_PROJECTION",
         )
 
     def test_gap9_accounting_does_not_change_gap8_behavior(self):
@@ -965,6 +973,8 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
                 "traffic_lane_sha256",
                 "facility_site_materialization_contract_sha256",
                 "facility_site_materialization_parameter_set_sha256",
+                "asset_lifecycle_contract_sha256",
+                "asset_lifecycle_parameter_set_sha256",
             },
         )
         for value in impl.values():
@@ -1007,7 +1017,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
     def test_baseline_manifest_pins_golden_output_and_runtime_contract(self):
         manifest = json.loads(BASELINE_MANIFEST.read_text())
         self.assertEqual(manifest["format"], "CIVPROP_ENGINE_V1_EXECUTABLE_BASELINE_MANIFEST")
-        self.assertEqual(manifest["baseline_id"], "CIVPROP_ENGINE_V1_GAP12_MATERIALIZATION_BASELINE_2026_10_02")
+        self.assertEqual(manifest["baseline_id"], "CIVPROP_ENGINE_V1_GAP13_ASSET_LIFECYCLE_BASELINE_2026_10_02")
         self.assertEqual(manifest["runner"]["version"], RUNNER_VERSION)
         self.assertEqual(manifest["output_contract_version"], OUTPUT_CONTRACT_VERSION)
         self.assertEqual(

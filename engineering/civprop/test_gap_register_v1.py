@@ -65,7 +65,8 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         self.assertEqual(observed["GAP-010"], "CLOSED")
         self.assertEqual(observed["GAP-011"], "CLOSED")
         self.assertEqual(observed["GAP-012"], "CLOSED")
-        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(13, 16)))
+        self.assertEqual(observed["GAP-013"], "CLOSED")
+        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(14, 16)))
 
     def test_every_gap_has_exit_criteria_and_handoff(self):
         for gap in self.registry["gaps"]:
@@ -74,6 +75,17 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
             self.assertTrue(gap["next_action"], gap["gap_id"])
             self.assertTrue(gap["output_or_contract_affected"], gap["gap_id"])
             self.assertIn(gap["current_status"], {"OPEN", "CLOSED", "BLOCKED"})
+
+    def test_gap13_closure_references_asset_lifecycle_artifacts(self):
+        gap13 = self.registry["gaps"][12]
+        self.assertEqual(gap13["current_status"], "CLOSED")
+        refs = set(gap13["current_evidence"])
+        self.assertIn("engineering/civprop/contracts/asset_lifecycle_v1.py", refs)
+        self.assertIn("engineering/civprop/contracts/asset_lifecycle_v1.json", refs)
+        self.assertIn(
+            "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP13_BASELINE_MANIFEST.json",
+            refs,
+        )
 
     def test_gap1_closure_references_promoted_artifacts(self):
         gap1 = self.registry["gaps"][0]
