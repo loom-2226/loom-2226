@@ -1,0 +1,43 @@
+{
+  "authority_effect": "AUDIT_ONLY_NO_AUTHORITY_MUTATION",
+  "direct_truth": "JPL/NAIF PLU060",
+  "game_gate_et": 7920763200.0,
+  "note": "Native SPK segments are J2000; LOOM resolver may request ECLIPJ2000. Both frames independently checked.",
+  "pass": true,
+  "rows": [
+    {
+      "game_gate_state_finite": true,
+      "naif_id": 902,
+      "seam_position_error_m_eclipj2000": 0.0013966091075923851,
+      "seam_position_error_m_j2000": 0.0013966071962646161,
+      "seam_velocity_error_mm_s_j2000": 1.7423376220380186e-05,
+      "sha256": "6407d31c7bc467a66c47f5bf1af90c6008dc5a78ea1322339d0418a9791eab09"
+    },
+    {
+      "game_gate_state_finite": true,
+      "naif_id": 903,
+      "seam_position_error_m_eclipj2000": 7.005607161947003e-05,
+      "seam_position_error_m_j2000": 7.005515601984965e-05,
+      "seam_velocity_error_mm_s_j2000": 1.0148942672875004e-06,
+      "sha256": "97b9760392c29545e0bc9507bcc07952af989765d8245ffdb712b2f247a846e8"
+    },
+    {
+      "game_gate_state_finite": true,
+      "naif_id": 904,
+      "seam_position_error_m_eclipj2000": 2.9999541770795336e-08,
+      "seam_position_error_m_j2000": 2.7765668205527157e-08,
+      "seam_velocity_error_mm_s_j2000": 2.4330948494555917e-09,
+      "sha256": "32fc93254e6f4052ce242922991554738c6d3618b0adaf816a23d1331aa6fcd3"
+    },
+    {
+      "game_gate_state_finite": true,
+      "naif_id": 905,
+      "seam_position_error_m_eclipj2000": 7.717318452922492e-08,
+      "seam_position_error_m_j2000": 7.786145843356094e-08,
+      "seam_velocity_error_mm_s_j2000": 3.4903726988199833e-09,
+      "sha256": "733b1c0783625d53ed7ac1c9378c74657bf192b767b9551eee6c3ade5890f326"
+    }
+  ],
+  "schema": "loom.phase4f-pluto-small-moon-independent-seam-audit/1.0",
+  "seam_et": 6311217600.0
+}
