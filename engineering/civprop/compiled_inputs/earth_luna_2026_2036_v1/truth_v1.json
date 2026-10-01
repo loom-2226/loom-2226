@@ -4,9 +4,32 @@
   "format": "CIVPROP_METHOD_LAB_TRUTH_V1",
   "notes": [
     "Actor decisions never consume this evaluator-only realization directly.",
-    "Mission/Knowledge V1 permits only the observation runtime to read the hidden present/absent realization when an admitted mission executes.",
-    "The present/grade values remain synthetic compatibility truth and are not promoted Solar/resource authority."
+    "Mission/Knowledge V1 permits only the observation runtime to read the legacy hidden present/absent realization when an admitted mission executes.",
+    "The legacy present/grade_index values remain synthetic Mission/Knowledge compatibility truth and are not Resource Mass Balance stock or grade.",
+    "Resource Mass Balance V1 uses the separate evaluator physical-realization boundary below; the default lunar stock, grade and inventory remain UNKNOWN."
   ],
+  "resource_physical_realization_v1": {
+    "contract_version": "1.0.0",
+    "format": "CIVPROP_RESOURCE_PHYSICAL_REALIZATION_V1",
+    "resources": [
+      {
+        "grade_mass_fraction": null,
+        "grade_status": "UNKNOWN",
+        "inventory_status": "UNKNOWN",
+        "location_id": "LUNA_SURFACE",
+        "opening_inventory_tonnes": null,
+        "opening_stock_tonnes": null,
+        "provenance_refs": [
+          "dev/solar_civprop_m4b/campaign_assertions.json#MOON_POLAR_WATER_ICE",
+          "dev/solar_civprop_resource_contract/RESOURCE_STATE_CONTRACT_V1.sql",
+          "dev/solar_civprop_resource_contract/RESOURCE_COVERAGE_CONTRACT_V1.json"
+        ],
+        "realization_status": "UNKNOWN",
+        "resource_id": "MOON_POLAR_WATER",
+        "stock_status": "UNKNOWN"
+      }
+    ]
+  },
   "resources": [
     {
       "grade_index": 0.65,

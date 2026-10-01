@@ -362,7 +362,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-008",
             "name": "RESOURCE_MASS_BALANCE",
             "status": "OPEN",
-            "meaning": "Resource Mass Balance V1 separates actor-visible evidence/belief from evaluator-only physical realization and conserves stock, extraction feed, grade, recovery, tailings, inventory and depletion; unquantified abundance remains UNKNOWN.",
+            "meaning": "Resource Mass Balance V1 separates actor-visible evidence/belief from evaluator-only physical realization and conserves in-situ stock, extracted feed, grade, recovery, tailings, product inventory and depletion; unquantified abundance remains UNKNOWN rather than zero or invented inventory.",
         },
         {
             "gap_id": "GAP-009",

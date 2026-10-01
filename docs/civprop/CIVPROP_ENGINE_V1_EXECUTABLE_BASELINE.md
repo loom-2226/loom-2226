@@ -6,14 +6,15 @@ Status: locked executable baseline; compiled authority with explicit open-gap as
 
 ## Current baseline status
 
-Runner V1.7.0 now defaults to the GAP-001 through GAP-007 compiled authority package
+Runner V1.8.0 now defaults to the GAP-001 through GAP-008 compiled authority package
 documented in docs/civprop/CIVPROP_INPUT_COMPILER_V1.md,
 docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md,
 docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md,
 docs/civprop/CIVPROP_DEMAND_PRESSURE_V1.md,
 docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md,
-docs/civprop/CIVPROP_MISSIONS_AND_KNOWLEDGE_V1.md and
-docs/civprop/CIVPROP_PRESSURE_OBSERVABILITY_V1.md.
+docs/civprop/CIVPROP_MISSIONS_AND_KNOWLEDGE_V1.md,
+docs/civprop/CIVPROP_PRESSURE_OBSERVABILITY_V1.md and
+docs/civprop/CIVPROP_RESOURCE_MASS_BALANCE_V1.md.
 
 The original V1.0 synthetic Method Lab baseline remains preserved as historical
 regression evidence. It was not overwritten.
@@ -31,7 +32,8 @@ Current gap state begins:
     GAP-005 CLOSED
     GAP-006 CLOSED
     GAP-007 CLOSED
-    GAP-008 through GAP-015 OPEN
+    GAP-008 CLOSED
+    GAP-009 through GAP-015 OPEN
 
 ## Purpose
 
@@ -68,7 +70,7 @@ From repository root:
 
     python3 engineering/civprop/run_civprop_v1.py       --seed 42       --output /tmp/civprop_v1.json
 
-With no path arguments, the runner uses the GAP-001 through GAP-007 compiled authority package and Infrastructure Archetype V1 catalog.
+With no path arguments, the runner uses the GAP-001 through GAP-008 compiled authority package and Infrastructure Archetype V1 catalog.
 
 The runner may later be pointed at another compatible frozen input package with --input-dir and --infrastructure-catalog.
 
@@ -78,15 +80,15 @@ Changing input values is allowed. Changing input meaning is not allowed silently
 
 Machine-readable manifest:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_BASELINE_MANIFEST.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP8_BASELINE_MANIFEST.json
 
 Golden output:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP7_PRESSURE_OBSERVABILITY_SEED42.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP8_RESOURCE_MASS_BALANCE_SEED42.json
 
 The current baseline contains real promoted authority plus explicit unresolved
 synthetic assumptions. It proves execution, contracts, provenance and causal
-bookkeeping. It is not yet a production forecast because GAP-008 onward remain open.
+bookkeeping. It is not yet a production forecast because GAP-009 onward remain open.
 
 The prior V1.0 synthetic manifest/golden files remain preserved as historical
 regression artifacts.
@@ -100,8 +102,10 @@ The current default input authority is:
 The compiled package contains frozen promoted Earth, Solar, Timeline, resource and
 actor evidence. Demand/Pressure V1 uses explicit uncalibrated causal parameters,
 Project Economics V1 carries versioned physical/economic ranges with scenario-class
-components, and Mission/Knowledge V1 carries an uncalibrated binary observation
-model. Later open mechanisms remain explicit rather than being silently invented.
+components, Mission/Knowledge V1 carries an uncalibrated binary observation model,
+and Resource Mass Balance V1 preserves unquantified lunar stock/grade/inventory as
+UNKNOWN while enforcing physical conservation when quantities are known. Later open
+mechanisms remain explicit rather than being silently invented.
 
 The runner exists so those later gaps can be replaced without redesigning the engine
 entrypoint.
@@ -114,21 +118,30 @@ The current runtime input is the actor-visible compiled scenario:
 
 Its runtime SHA-256 is recorded in every output.
 
-The compiled package also contains truth_v1.json. That file remains evaluator-only
-synthetic compatibility state. Actor mission/project decisions cannot read hidden
-truth. Mission/Knowledge V1 permits exactly one bounded use: when an admitted mission
-executes, the observation runtime may read the scoped hidden physical realization to
-produce a keyed noisy observation. Actors receive the observation, never the answer
-key.
+The compiled package also contains truth_v1.json. That file remains evaluator-only.
+Actor mission/project decisions cannot read hidden truth.
+
+Two bounded runtime lanes may consume evaluator state:
+
+- Mission/Knowledge V1 observation runtime, when an admitted mission executes;
+- Resource Mass Balance V1 physical accounting.
+
+The legacy present/grade_index compatibility row remains distinct from the new
+Resource Physical Realization V1 boundary. The default physical boundary carries
+UNKNOWN/null stock, grade and opening inventory.
 
 The runner therefore records separately:
 
     actor_visible_scenario_sha256
     runtime_input_sha256
     evaluator_truth_sha256
+    mission_observation_truth_consumed
+    resource_physical_realization_consumed
     evaluator_truth_consumed_by_engine
 
-For the current seed-42 baseline the final value is false because no mission executes.
+For the current seed-42 baseline the mission-observation value is false, the resource
+physical-realization value is true, and the combined value is true. This does not make
+evaluator physical state actor-visible.
 
 The first two hashes are currently identical because the actor-visible scenario is the actual runtime decision input.
 
@@ -423,24 +436,29 @@ Top-level output fields:
     missions
     observations
     knowledge_states
+    pressure_states
+    pressure_contributions
+    pressure_qualifications
+    resource_states
+    resource_flows
     events
     flows
 
 Current format: CIVPROP_ENGINE_V1_OUTPUT.
-Current contract version: 1.7.0.
+Current contract version: 1.8.0.
 
 ## Metadata
 
-metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.7.0.
+metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.8.0.
 
-metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current default engine is HYBRID_V1 / method-reference-v5.
+metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current default engine is HYBRID_V1 / method-reference-v6.
 
-metadata.inputs records fixture_id, scenario_format, Method Lab manifest/bundle hashes, actor-visible scenario hash, runtime input hash, evaluator-truth hash, observation-only access policy and whether evaluator truth was actually consumed in the run, plus input authority and provenance basis.
+metadata.inputs records fixture_id, scenario_format, Method Lab manifest/bundle hashes, actor-visible scenario hash, runtime input hash, evaluator-truth hash, bounded evaluator access policy, separate mission-observation/resource-physical consumption flags, combined evaluator-consumption status, plus input authority and provenance basis.
 
 method_lab_bundle_sha256 identifies the complete evaluation package. runtime_input_sha256 identifies the actor-visible runtime scenario. They are intentionally separate.
 
 metadata.infrastructure records catalog id/format/hash, parameter-set id/status and parameterized archetypes.
-metadata.implementation pins SHA-256 values for the runner, hybrid engine, shared helpers, Method Lab contracts, infrastructure, actor-state, accessibility, demand/pressure, project-economics, mission/knowledge and pressure-observability contracts plus the mission and pressure-lane adapters.
+metadata.implementation pins SHA-256 values for the runner, hybrid engine, shared helpers, Method Lab contracts, infrastructure, actor-state, accessibility, demand/pressure, project-economics, mission/knowledge, pressure-observability and resource-mass-balance contracts plus the mission, pressure and resource-lane adapters.
 
 The purpose is reproducibility independent of a vague statement such as "current main."
 
@@ -507,8 +525,12 @@ Current Method Lab recorder creates an append-order parent chain using the previ
 
 Fields are flow_id, year, flow_type, origin_location_id, destination_location_id, amount, unit and actor_id.
 
-Current executable baseline emits migration flows only.
-Future material, freight, passenger, energy or financial flows are not part of the current locked semantics.
+The legacy flows surface continues to represent migration only.
+
+Resource Mass Balance V1 emits physical material accounting separately through
+resource_flows, including extracted feed, recovered product, process tailings and
+optional inventory-consumption/outbound flows. Freight/passenger, energy and
+financial flows remain later-gap work.
 
 # Embedded Semantics and Gap Register
 
@@ -525,7 +547,7 @@ Current gap status:
     GAP-005 PROJECT_ECONOMICS                      CLOSED
     GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE          CLOSED
     GAP-007 PRESSURE_OBSERVABILITY                 CLOSED
-    GAP-008 RESOURCE_MASS_BALANCE                  OPEN
+    GAP-008 RESOURCE_MASS_BALANCE                  CLOSED
     GAP-009 PRODUCTION_AND_VALUE_ADDED             OPEN
     GAP-010 POWER_BALANCE                          OPEN
     GAP-011 TRAFFIC_AND_FLEET                      OPEN
@@ -544,7 +566,7 @@ for a more complete simulation than it is.
 
 # Golden Seed-42 Baseline
 
-The current GAP-007 pressure-observability seed-42 baseline produces:
+The current GAP-008 resource-mass-balance seed-42 baseline produces:
 
     44 annual location-state rows
     11 annual actor-state rows
@@ -560,12 +582,16 @@ The current GAP-007 pressure-observability seed-42 baseline produces:
     165 pressure-state rows
     99 pressure-contribution rows
     0 pressure-qualification rows
+    11 evaluator-only resource-state rows
+    0 resource-flow rows
 
 All 11 project decisions are WAIT and all 11 mission decisions are WAIT. The current
 AUS actor retains a private lunar-water prior at probability 0.45, but generic
 spendable allocation is UNKNOWN, the mission path remains unresolved, and the
 follow-on resource-project success value is explicitly UNKNOWN. No mission therefore
-executes and evaluator truth is not consumed in the golden run.
+executes. The resource physical lane does run, but lunar stock, grade and opening
+inventory remain UNKNOWN/null and no active resource plant exists, so it emits no
+resource flows.
 
 Zero missions is thus a constraint result, not a dead mission subsystem. Hostile
 fixtures separately prove the commit -> execute -> observe -> Bayes-update path.
@@ -576,7 +602,13 @@ ordinary project opportunity survives the already-closed actor/accessibility/
 capability/budget boundaries to pressure screening. Bounded hostile fixtures prove
 below-threshold and selected-decision qualification tracing.
 
-All pre-existing GAP-006 behavioral arrays are byte-identical under GAP-007.
+The 11 resource-state rows retain MOON_POLAR_WATER stock, grade and inventory as
+UNKNOWN/null. Extracted feed and recovered product are zero only because there is no
+active RESOURCE_PLANT, not because the resource itself is asserted absent. Hostile
+fixtures separately prove stock, grade, recovery, throughput, tailings, inventory and
+depletion conservation.
+
+All pre-existing GAP-007 behavioral arrays are byte-identical under GAP-008.
 
 No significance should be attached to those numbers as a forecast.
 
@@ -585,7 +617,7 @@ result from the same pinned inputs, implementation and seed?
 
 # Baseline Metadata and Hashes
 
-Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP7_BASELINE_MANIFEST.json. GAP-006, GAP-005, GAP-004, GAP-003, GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
+Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP8_BASELINE_MANIFEST.json. GAP-007, GAP-006, GAP-005, GAP-004, GAP-003, GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
 
 The manifest pins source-basis commit, runner and engine identities, output-contract version, runtime-input and evaluator-truth hashes, infrastructure catalog and parameter set, implementation source hashes, golden-output hashes/counts, and change-control rules.
 # Change Control

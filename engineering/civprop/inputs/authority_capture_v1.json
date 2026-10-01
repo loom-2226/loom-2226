@@ -176,7 +176,7 @@
   },
   "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
   "capture_semantics": "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES",
-  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE_PLUS_GAP-007_PRESSURE_OBSERVABILITY",
+  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE_PLUS_GAP-007_PRESSURE_OBSERVABILITY_PLUS_GAP-008_RESOURCE_MASS_BALANCE",
   "earth": {
     "aus_area": {
       "display_name": "Australia",
@@ -1200,6 +1200,67 @@
         }
       ],
       "scope": "EARTH_ORBIT_LUNA_CISLUNAR_2026_2036"
+    },
+    "resource_mass_balance_source": {
+      "path": "engineering/civprop/contracts/resource_mass_balance_v1.json",
+      "sha256": "3ae6af47af6778c11bcc1519d75f988445b23bce8dad9b6c1e34ba0aaf42b963"
+    },
+    "resource_mass_balance_v1": {
+      "contract_version": "1.0.0",
+      "format": "CIVPROP_RESOURCE_MASS_BALANCE_V1",
+      "mass_unit": "tonne",
+      "package_id": "EARTH_LUNA_RESOURCE_MASS_BALANCE_V1_2026_2036",
+      "process_models": [
+        {
+          "extraction_feed_capacity_per_facility": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R06"
+            ],
+            "status": "UNKNOWN",
+            "unit": "tonnes/year",
+            "value": null
+          },
+          "location_id": "LUNA_SURFACE",
+          "parameter_status": "UNRESOLVED_PROCESS_MODEL",
+          "process_model_id": "LUNAR_WATER_RESOURCE_PLANT_V1",
+          "processing_product_capacity_field": "resource",
+          "project_archetype_id": "RESOURCE_PLANT",
+          "provenance_refs": [
+            "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R06",
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ],
+          "recovery_fraction": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R06"
+            ],
+            "status": "UNKNOWN",
+            "unit": "fraction",
+            "value": null
+          },
+          "resource_id": "MOON_POLAR_WATER"
+        }
+      ],
+      "rate_unit": "tonnes/year",
+      "resources": [
+        {
+          "evidence_scope": "POLAR_AND_SELECTED_SURFACE_FOOTPRINTS",
+          "evidence_state": "PRESENT_UNQUANTIFIED",
+          "location_id": "LUNA_SURFACE",
+          "material_family": "VOLATILES",
+          "provenance_refs": [
+            "dev/solar_civprop_m4b/campaign_assertions.json#MOON_POLAR_WATER_ICE",
+            "dev/solar_civprop_resource_contract/RESOURCE_COVERAGE_CONTRACT_V1.json"
+          ],
+          "region_id": "MOON_POLAR_PSR",
+          "resource_id": "MOON_POLAR_WATER"
+        }
+      ]
+    },
+    "resource_state_contracts": {
+      "coverage_path": "dev/solar_civprop_resource_contract/RESOURCE_COVERAGE_CONTRACT_V1.json",
+      "coverage_sha256": "76a93ac3c36980b665dc243fd104d399fc7269dbfff016204d136c5753d690e4",
+      "state_view_path": "dev/solar_civprop_resource_contract/RESOURCE_STATE_CONTRACT_V1.sql",
+      "state_view_sha256": "012a5d71d178230b1c3a5344cfc06fd5218835f07d99a690460ae9ea90817ad6"
     }
   },
   "postgres_database": "loom_dev",
@@ -1320,12 +1381,14 @@
       }
     ]
   },
-  "source_basis_commit": "95cac9a31b833a34c84d3be2f7b14e8e7804546e",
+  "source_basis_commit": "6e5a3a4fddc985d5670f3b6da9b07122743221ae",
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
     "data/postgres/timeline_projection_manifest.json": "524ac904a0d1ed4cdb1fae53ce4ac737d7640b71fe1be8ebf9c97ba8fbe56709",
     "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json": "093f28ee4f3817c4573899b1f8032d617339307ef85691123ce9cec44dfdd369",
     "dev/solar_civprop_m4b/campaign_assertions.json": "e87eb9f711ce508933e76c86a1d9f4314a13d6d4403940d21fa25cf6da700c39",
+    "dev/solar_civprop_resource_contract/RESOURCE_COVERAGE_CONTRACT_V1.json": "76a93ac3c36980b665dc243fd104d399fc7269dbfff016204d136c5753d690e4",
+    "dev/solar_civprop_resource_contract/RESOURCE_STATE_CONTRACT_V1.sql": "012a5d71d178230b1c3a5344cfc06fd5218835f07d99a690460ae9ea90817ad6",
     "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
     "engineering/civprop/civprop0/actor_access_evidence.json": "16581d2ad6eec747f4576d7dc836f00d24864683bba0431dc97c04360e15085d",
     "engineering/civprop/civprop0/aus_government_access_evidence.json": "2e9ebc2f6d497d42d74baea504cec45ba16922ea2d554940a5142b1d53ef60ce",
@@ -1334,6 +1397,7 @@
     "engineering/civprop/contracts/mission_knowledge_v1.json": "e95f42820502e24ba638ba0e4b38cc7c3019ffc8551ee5848d5c6abdc940b6a7",
     "engineering/civprop/contracts/pressure_observability_v1.json": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d",
     "engineering/civprop/contracts/project_economics_v1.json": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
+    "engineering/civprop/contracts/resource_mass_balance_v1.json": "3ae6af47af6778c11bcc1519d75f988445b23bce8dad9b6c1e34ba0aaf42b963",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
     "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951",
     "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md": "a4b613a3514a385cbbd3ef3959e01ca22cd3b4736dcb893cc4213465655d4a37"
