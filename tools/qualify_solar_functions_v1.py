@@ -38,11 +38,23 @@ def tasks_for(I,bodies,start,end,max_days):
     for body in bodies:
         center=center_for(I,body)
         cuts=source_boundaries(I,body,center,start,end)
-        for a,b in zip(cuts,cuts[1:]):
-            # checkpoint partitions; never cross an authority/source cut
+        for cut_index,(a,b) in enumerate(zip(cuts,cuts[1:])):
+            # Keep legacy partition arithmetic stable for checkpoint identity.
+            # If resolver priority changes immediately after an inclusive seam,
+            # only the first post-seam unit starts one representable ET later.
             n=max(1,math.ceil((b-a)/max_s))
+            seam_shift=False
+            if cut_index>0:
+                after=math.nextafter(a,math.inf)
+                try:
+                    left=tuple(I.registry.source_for(t,a)[0].ephemeris_source_id for t in (body,center))
+                    right=tuple(I.registry.source_for(t,after)[0].ephemeris_source_id for t in (body,center))
+                    seam_shift=(left!=right)
+                except (KeyError,ValueError):
+                    seam_shift=False
             for j in range(n):
                 x=a+(b-a)*j/n; y=a+(b-a)*(j+1)/n
+                if j==0 and seam_shift: x=math.nextafter(x,math.inf)
                 key=hashlib.sha256(f'{body}|{center}|{x:.9f}|{y:.9f}'.encode()).hexdigest()[:20]
                 tasks.append((body,center,x,y,key))
     return tasks

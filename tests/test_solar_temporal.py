@@ -31,3 +31,21 @@ class PublishTests(unittest.TestCase):
    def orbital_center(self,b): return 'SUN'
   with tempfile.TemporaryDirectory() as d:
    m=publish(P(),Path(d),0,10,32,['B']); ptr=json.loads((Path(d)/'current.json').read_text()); self.assertEqual(ptr['build_id'],m['build_id']); self.assertTrue((Path(d)/m['chunks'][0]['uri']).is_file())
+
+def test_v1_campaign_shared_source_seam_assigns_exact_et_to_left_interval():
+    import importlib.util, math
+    from pathlib import Path
+    from src.loom_solar_inspector import Inspector
+    path=Path(__file__).resolve().parents[1]/'tools'/'qualify_solar_functions_v1.py'
+    spec=importlib.util.spec_from_file_location('qualify_solar_functions_v1_test',path)
+    mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    I=Inspector.connect('loom_dev','/home/ubuntu/loom_solar_assets')
+    start=I.time.parse('2026 JAN 01 TDB'); end=I.time.parse('2251 JAN 01 TDB')
+    tasks=mod.tasks_for(I,['BENNU'],start,end,256)
+    seam=4283755200.0
+    left=[t for t in tasks if t[3]==seam]
+    right=[t for t in tasks if t[2]==math.nextafter(seam,math.inf)]
+    assert len(left)==1 and len(right)==1
+    assert left[0][4]=='76bc8b4e1495e2cc2bde'
+    assert I.registry.source_for('BENNU',left[0][3])[0].ephemeris_source_id=='JPL_BENNU_SB441'
+    assert I.registry.source_for('BENNU',right[0][2])[0].ephemeris_source_id=='PROP_BENNU_2101955_PHASE4D'
