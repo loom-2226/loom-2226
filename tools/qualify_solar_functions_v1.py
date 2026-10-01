@@ -14,7 +14,7 @@ from src.loom_solar_inspector import Inspector
 from src.loom_solar_function_compile import compile_adaptive
 from src.loom_solar_state_runtime import PiecewiseStateFunction
 from src.loom_solar_temporal_publish import DAY, center_for, tolerance
-from src.loom_solar_spk_index import IndexedDirectSpk
+from src.loom_solar_spk_index import IndexedDirectSpk, IndexedCommonCenterRelativeSpk
 
 FRACTIONS=(0.017,0.071,0.193,0.337,0.503,0.677,0.829,0.941,0.991)
 
@@ -96,20 +96,30 @@ def run_task(task):
         try:
             mid=(s+e)/2
             source,_=_WI.registry.source_for(body,mid)
-            cache_key=(body,source.ephemeris_source_id)
-            idx=_WINDEX.get(cache_key)
-            if idx is None:
-                idx=IndexedDirectSpk(_WI.service.adapter,body,mid)
-                _WINDEX[cache_key]=idx
-            if center!='SUN':
-                raise ValueError('indexed fast path only represents Sun-relative state')
             center_source=_WI.registry.source_for(center,mid)[0].ephemeris_source_id
             authority='DIRECT'
-            def sample_many(times):
-                states=idx.evaluate_many(times)
-                return [({'authority_class':authority,'relative':{'position_km':state[:3]}},
-                         idx.source.ephemeris_source_id,center_source) for state in states]
-            acceleration='INDEXED_DIRECT_SPK'
+            if center=='SUN':
+                cache_key=(body,source.ephemeris_source_id)
+                idx=_WINDEX.get(cache_key)
+                if idx is None:
+                    idx=IndexedDirectSpk(_WI.service.adapter,body,mid)
+                    _WINDEX[cache_key]=idx
+                def sample_many(times):
+                    states=idx.evaluate_many(times)
+                    return [({'authority_class':authority,'relative':{'position_km':state[:3]}},
+                             idx.source.ephemeris_source_id,center_source) for state in states]
+                acceleration='INDEXED_DIRECT_SPK'
+            else:
+                rel_key=(body,center,source.ephemeris_source_id)
+                rel=_WINDEX.get(rel_key)
+                if rel is None:
+                    rel=IndexedCommonCenterRelativeSpk(_WI.service.adapter,body,center,mid)
+                    _WINDEX[rel_key]=rel
+                def sample_many(times):
+                    states=rel.evaluate_many(times)
+                    return [({'authority_class':authority,'relative':{'position_km':state[:3]}},
+                             rel.source.ephemeris_source_id,center_source) for state in states]
+                acceleration='INDEXED_COMMON_CENTER_SPK'
         except (ValueError,KeyError):
             sample_many=None
         compiled=compile_adaptive(_WI,body,center,s,e,tol,sample_many=sample_many)

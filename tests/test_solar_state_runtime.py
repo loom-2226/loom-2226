@@ -20,3 +20,26 @@ def test_outside_validity_fails_closed():
 def test_transition_fails_closed():
  o=obj('EARTH','SUN',[0,0,0],[10,0,0]); o['samples'][1]['source_ref']='other'; f=HermiteStateFunction(o)
  with pytest.raises(StateRuntimeError): f.state(5)
+
+def test_indexed_common_center_callisto_matches_governed_resolver():
+    import math
+    from src.loom_solar_inspector import Inspector
+    from src.loom_solar_spk_index import IndexedCommonCenterRelativeSpk
+    I=Inspector.connect('loom_dev','/home/ubuntu/loom_solar_assets')
+    start=I.time.parse('2100 JAN 01 TDB')
+    fast=IndexedCommonCenterRelativeSpk(I.service.adapter,'CALLISTO','JUPITER',start)
+    epochs=[start+i*31.7*86400 for i in range(5)]
+    states=fast.evaluate_many(epochs)
+    for et,state in zip(epochs,states):
+        truth=I.at('CALLISTO',et,'JUPITER')['relative']
+        assert math.dist(state[:3],truth['position_km']) < 1e-6
+        assert math.dist(state[3:],truth['velocity_km_s']) < 1e-12
+
+def test_indexed_common_center_rejects_different_governed_sources():
+    import pytest
+    from src.loom_solar_inspector import Inspector
+    from src.loom_solar_spk_index import IndexedCommonCenterRelativeSpk
+    I=Inspector.connect('loom_dev','/home/ubuntu/loom_solar_assets')
+    start=I.time.parse('2100 JAN 01 TDB')
+    with pytest.raises(ValueError):
+        IndexedCommonCenterRelativeSpk(I.service.adapter,'CALLISTO','SUN',start)
