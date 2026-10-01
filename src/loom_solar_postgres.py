@@ -22,6 +22,7 @@ MANIFESTS = (
     'SOLAR_PHASE4D_STRATEGIC_BODIES_V1.json',
     'SOLAR_PHASE4E_CURATED_42_PLUS_5_V1.json',
     'SOLAR_PHASE4F_ESTIMATED_RELATIVE_V1.json',
+    'SOLAR_PHASE4F_PLUTO6_CONTINUATION_V1.json',
 )
 ET_OVERLAY = ROOT / 'manifests/solar/SOLAR_NATIVE_ET_COVERAGE_V1.json'
 SOURCE_IDENTITY = ('provider', 'product_version', 'asset_filename', 'sha256', 'byte_count')

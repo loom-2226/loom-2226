@@ -1,0 +1,31 @@
+{
+  "schema": "loom.pluto6-production-continuation/1.0",
+  "authority": "PROPAGATED_ESTIMATE",
+  "model": "published PLU060 six-body dynamics independently reproduced with scipy DOP853",
+  "start_et": 6311131200.0,
+  "end_et": 7920849600.0,
+  "frame": "J2000",
+  "center": 9,
+  "integrator": "scipy.DOP853",
+  "rtol": 1e-12,
+  "max_step_s": 10800.0,
+  "sample_step_s": 21600.0,
+  "internal_gm": {
+    "999": 869.3261226311508,
+    "901": 106.1011388236118,
+    "902": 0.001496176095836919,
+    "903": 0.002007962473606101,
+    "904": 6.03845078026937e-05,
+    "905": 4.045391585487917e-05
+  },
+  "external_gm": {
+    "5": 126712761.8414429,
+    "6": 37940584.8418,
+    "7": 5794556.4,
+    "8": 6836531.640925204,
+    "10": 132713233263.3514
+  },
+  "rhs_calls": 2012225,
+  "runtime_s": 1235.0542526245117,
+  "qualification_basis": "998f7b0/642c702: 2180-2199 withheld-truth <=13.289 m annual-sampled at 5400 s; 2013-2199 <=46.631 m annual-sampled"
+}

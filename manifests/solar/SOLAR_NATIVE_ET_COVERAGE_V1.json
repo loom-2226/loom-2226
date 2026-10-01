@@ -1629,6 +1629,58 @@
       "method": "NATIVE_SPK_ENDPOINTS"
     },
     {
+      "ephemeris_source_id": "PROP_PLU060_EXACT_902_PHASE4F",
+      "body_id": "NIX",
+      "valid_from": "2199-12-29T23:58:50.816+00:00",
+      "valid_until": "2251-01-01T23:58:50.816+00:00",
+      "status": "QUALIFIED",
+      "coverage_start_et": 6311217600.0,
+      "coverage_end_et": 7920849600.0,
+      "native_start_et": 6311131200.0,
+      "native_end_et": 7920849600.0,
+      "primary_spk_sha256": "6407d31c7bc467a66c47f5bf1af90c6008dc5a78ea1322339d0418a9791eab09",
+      "method": "NATIVE_SPK_INTERSECT_HISTORICAL_QUALIFICATION_LIMIT"
+    },
+    {
+      "ephemeris_source_id": "PROP_PLU060_EXACT_903_PHASE4F",
+      "body_id": "HYDRA",
+      "valid_from": "2199-12-29T23:58:50.816+00:00",
+      "valid_until": "2251-01-01T23:58:50.816+00:00",
+      "status": "QUALIFIED",
+      "coverage_start_et": 6311217600.0,
+      "coverage_end_et": 7920849600.0,
+      "native_start_et": 6311131200.0,
+      "native_end_et": 7920849600.0,
+      "primary_spk_sha256": "97b9760392c29545e0bc9507bcc07952af989765d8245ffdb712b2f247a846e8",
+      "method": "NATIVE_SPK_INTERSECT_HISTORICAL_QUALIFICATION_LIMIT"
+    },
+    {
+      "ephemeris_source_id": "PROP_PLU060_EXACT_904_PHASE4F",
+      "body_id": "KERBEROS",
+      "valid_from": "2199-12-29T23:58:50.816+00:00",
+      "valid_until": "2251-01-01T23:58:50.816+00:00",
+      "status": "QUALIFIED",
+      "coverage_start_et": 6311217600.0,
+      "coverage_end_et": 7920849600.0,
+      "native_start_et": 6311131200.0,
+      "native_end_et": 7920849600.0,
+      "primary_spk_sha256": "32fc93254e6f4052ce242922991554738c6d3618b0adaf816a23d1331aa6fcd3",
+      "method": "NATIVE_SPK_INTERSECT_HISTORICAL_QUALIFICATION_LIMIT"
+    },
+    {
+      "ephemeris_source_id": "PROP_PLU060_EXACT_905_PHASE4F",
+      "body_id": "STYX",
+      "valid_from": "2199-12-29T23:58:50.816+00:00",
+      "valid_until": "2251-01-01T23:58:50.816+00:00",
+      "status": "QUALIFIED",
+      "coverage_start_et": 6311217600.0,
+      "coverage_end_et": 7920849600.0,
+      "native_start_et": 6311131200.0,
+      "native_end_et": 7920849600.0,
+      "primary_spk_sha256": "733b1c0783625d53ed7ac1c9378c74657bf192b767b9551eee6c3ade5890f326",
+      "method": "NATIVE_SPK_INTERSECT_HISTORICAL_QUALIFICATION_LIMIT"
+    },
+    {
       "ephemeris_source_id": "PROP_PLUTO_999_PHASE4B",
       "body_id": "PLUTO",
       "valid_from": "2199-12-29T23:58:50.816+00:00",
