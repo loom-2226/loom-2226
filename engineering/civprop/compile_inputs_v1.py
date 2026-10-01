@@ -893,6 +893,52 @@ def _compile_pressure_observability(
     return raw
 
 
+def _compile_resource_mass_balance(
+    capture: dict[str, Any],
+) -> dict[str, Any]:
+    raw = copy.deepcopy(
+        capture["model_parameters"]["resource_mass_balance_v1"]
+    )
+    load_resource_mass_balance_package(raw)
+    return raw
+
+
+def _compile_resource_physical_realization(
+    capture: dict[str, Any],
+) -> dict[str, Any]:
+    assertion = capture["resource"]["assertion"]
+    if assertion["key"] != "MOON_POLAR_WATER_ICE":
+        raise ValueError("unexpected lunar resource assertion")
+    if assertion["abundance_semantics"] != "PRESENT_UNQUANTIFIED":
+        raise ValueError(
+            "GAP-008 default physical boundary expects unquantified abundance"
+        )
+    raw = {
+        "format": "CIVPROP_RESOURCE_PHYSICAL_REALIZATION_V1",
+        "contract_version": "1.0.0",
+        "resources": [
+            {
+                "resource_id": "MOON_POLAR_WATER",
+                "location_id": "LUNA_SURFACE",
+                "realization_status": "UNKNOWN",
+                "stock_status": "UNKNOWN",
+                "opening_stock_tonnes": None,
+                "grade_status": "UNKNOWN",
+                "grade_mass_fraction": None,
+                "inventory_status": "UNKNOWN",
+                "opening_inventory_tonnes": None,
+                "provenance_refs": [
+                    "dev/solar_civprop_m4b/campaign_assertions.json#MOON_POLAR_WATER_ICE",
+                    "dev/solar_civprop_resource_contract/RESOURCE_STATE_CONTRACT_V1.sql",
+                    "dev/solar_civprop_resource_contract/RESOURCE_COVERAGE_CONTRACT_V1.json",
+                ],
+            }
+        ],
+    }
+    load_resource_physical_realization(raw)
+    return raw
+
+
 def _migrate_capacity_units(scenario: dict[str, Any]) -> None:
     """Replace Method Lab normalized capacity units with explicit physical units."""
     multipliers = {
@@ -982,6 +1028,9 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     scenario["pressure_observability_v1"] = (
         _compile_pressure_observability(capture)
     )
+    scenario["resource_mass_balance_v1"] = (
+        _compile_resource_mass_balance(capture)
+    )
     scenario["project_archetypes"] = [
         project
         for project in scenario["project_archetypes"]
@@ -999,6 +1048,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
                 "GAP-005": "CLOSED",
                 "GAP-006": "CLOSED",
                 "GAP-007": "CLOSED",
+                "GAP-008": "CLOSED",
             },
             "compatibility_envelope": (
                 "CIVPROP_METHOD_LAB_SCENARIO_V1 retained for locked runner compatibility"
@@ -1028,7 +1078,7 @@ def _compile_scenario(capture: dict[str, Any]) -> dict[str, Any]:
     return scenario
 
 
-def _compile_truth() -> dict[str, Any]:
+def _compile_truth(capture: dict[str, Any]) -> dict[str, Any]:
     truth = json.loads((METHOD_LAB_DIR / "truth_v1.json").read_text())
     truth["fixture_id"] = COMPILED_FIXTURE_ID
     truth["classification"] = (
@@ -1036,9 +1086,13 @@ def _compile_truth() -> dict[str, Any]:
     )
     truth["notes"] = [
         "Actor decisions never consume this evaluator-only realization directly.",
-        "Mission/Knowledge V1 permits only the observation runtime to read the hidden present/absent realization when an admitted mission executes.",
-        "The present/grade values remain synthetic compatibility truth and are not promoted Solar/resource authority.",
+        "Mission/Knowledge V1 permits only the observation runtime to read the legacy hidden present/absent realization when an admitted mission executes.",
+        "The legacy present/grade_index values remain synthetic Mission/Knowledge compatibility truth and are not Resource Mass Balance stock or grade.",
+        "Resource Mass Balance V1 uses the separate evaluator physical-realization boundary below; the default lunar stock, grade and inventory remain UNKNOWN.",
     ]
+    truth["resource_physical_realization_v1"] = (
+        _compile_resource_physical_realization(capture)
+    )
     return truth
 
 
@@ -1053,7 +1107,7 @@ def compile_from_capture(
         raise ValueError("unexpected authority capture format")
 
     scenario = _compile_scenario(capture)
-    truth = _compile_truth()
+    truth = _compile_truth(capture)
 
     output_dir.mkdir(parents=True, exist_ok=True)
     scenario_bytes = _write_json(output_dir / "scenario_v1.json", scenario)
@@ -1091,10 +1145,11 @@ def compile_from_capture(
     gap_resolution["GAP-005"] = "CLOSED"
     gap_resolution["GAP-006"] = "CLOSED"
     gap_resolution["GAP-007"] = "CLOSED"
+    gap_resolution["GAP-008"] = "CLOSED"
     compiler_manifest = {
         "format": COMPILER_MANIFEST_FORMAT,
         "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-        "compiler_version": "1.6.0",
+        "compiler_version": "1.7.0",
         "compiler_source_sha256": _sha256_path(HERE / "compile_inputs_v1.py"),
         "runtime_input": {
             "fixture_id": COMPILED_FIXTURE_ID,
@@ -1176,13 +1231,21 @@ def compile_from_capture(
                 "qualification record. The causal path records no synthetic discharge and the "
                 "legacy Method Lab path exposes its historical discharge explicitly."
             ),
+            "gap8_closed_means": (
+                "Resource Mass Balance V1 separates evidence/belief from evaluator-only physical "
+                "realization and provides stock, feed extraction, grade, recovery, tailings, "
+                "inventory and depletion accounting with hard capacity and conservation checks. "
+                "Unquantified lunar abundance remains UNKNOWN/null in the default physical state."
+            ),
             "does_not_mean": (
                 "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample "
                 "is a route, transfer solution, fleet allocation, service price, or actor entitlement; "
                 "the uncalibrated demand coefficients, mission priors/instrument model, or "
                 "scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a "
-                "lunar facility cost model; evaluator truth is actor-visible; off-world initial "
-                "infrastructure or demographic depth are production solved."
+                "lunar facility cost model; evaluator truth is actor-visible; lunar water "
+                "presence establishes a quantified mineable inventory, ore grade, extraction "
+                "rate or recovery efficiency; off-world initial infrastructure or demographic "
+                "depth are production solved."
             ),
         },
     }
@@ -1220,6 +1283,7 @@ def main() -> None:
                 "gap_005": manifest["gap_resolution"]["GAP-005"],
                 "gap_006": manifest["gap_resolution"]["GAP-006"],
                 "gap_007": manifest["gap_resolution"]["GAP-007"],
+                "gap_008": manifest["gap_resolution"]["GAP-008"],
                 "output_dir": str(args.output_dir),
             },
             indent=2,
