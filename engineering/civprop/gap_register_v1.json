@@ -1,20 +1,20 @@
 {
   "format": "CIVPROP_GAP_REGISTER_V1",
   "register_id": "CIVPROP_GAP_REGISTER_2026_09_30",
-  "as_of_main_commit": "eb441db0e80f60660a08bc6ad2bab6c58a3318e2",
+  "as_of_main_commit": "56be7a4ee0e4be0b8eca5681a8905fd65c1ab19e",
   "status_semantics": {
     "CLOSED": "The gap has a tested, versioned mechanism adequate for the current CIVPROP development boundary. Closure does not claim every future production-scale value is already calibrated.",
     "OPEN": "The current default executable still contains a placeholder, missing state/output, or incomplete production mechanism owned by this gap.",
     "BLOCKED": "Work cannot proceed without an unresolved dependency outside the gap."
   },
   "current_baseline": {
-    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.9.0",
-    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.9.0",
-    "engine": "HYBRID_V1 method-reference-v7",
+    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.10.0",
+    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.10.0",
+    "engine": "HYBRID_V1 method-reference-v8",
     "default_fixture": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP9_PRODUCTION_ACCOUNTING_SEED42.json",
-    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP9_BASELINE_MANIFEST.json"
+    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP10_POWER_BALANCE_SEED42.json",
+    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP10_BASELINE_MANIFEST.json"
   },
   "gaps": [
     {
@@ -365,7 +365,7 @@
         "Production is constrained by power, labor/automation, materials, transport and installed capacity as applicable.",
         "Body/facility aggregates reconcile with underlying facility/sector flows."
       ],
-      "next_action": "CLOSED. Preserve physical/economic separation and UNKNOWN constraint propagation while proceeding to GAP-010 POWER_BALANCE; do not infer output price, operating cost or utilization from project capital or Earth sector ratios.",
+      "next_action": "CLOSED. Preserve physical/economic separation, the Power Balance V1 generation handoff and UNKNOWN constraint propagation while later service gaps close; do not infer prices, costs or utilization from capital.",
       "output_or_contract_affected": [
         "production_accounting_boundary",
         "facility_production_states",
@@ -381,11 +381,32 @@
     {
       "gap_id": "GAP-010",
       "name": "POWER_BALANCE",
-      "current_status": "OPEN",
-      "meaning": "Power is abstract installed capacity; average demand, peak demand, storage, generation mix and energy closure are not yet modeled.",
+      "current_status": "CLOSED",
+      "meaning": "Power Balance V1 separates installed generation capacity from average/firm generation, explicit population/facility load, peak and average demand, annual MWh, reserve/storage assumptions, unserved/curtailed energy and runtime-derived Atlas average/peak load metrics; timeline power milestones never auto-unlock capacity.",
       "current_evidence": [
-        "engineering/civprop/contracts/infrastructure_archetypes_v1.json",
-        "legacy Atlas/CIVSTATE power field semantics"
+        "docs/civprop/CIVPROP_POWER_BALANCE_V1.md",
+        "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md",
+        "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json",
+        "engineering/civprop/contracts/power_balance_v1.py",
+        "engineering/civprop/contracts/power_balance_v1.json",
+        "engineering/civprop/contracts/test_power_balance_v1.py",
+        "engineering/civprop/contracts/demand_pressure_v1.py",
+        "engineering/civprop/contracts/production_accounting_v1.py",
+        "engineering/civprop/contracts/production_accounting_v1.json",
+        "engineering/civprop/contracts/test_production_accounting_v1.py",
+        "engineering/civprop/method_lab/power_lane_v1.py",
+        "engineering/civprop/method_lab/production_lane_v1.py",
+        "engineering/civprop/method_lab/contracts.py",
+        "engineering/civprop/method_lab/prototypes/common.py",
+        "engineering/civprop/method_lab/prototypes/hybrid_v1.py",
+        "engineering/civprop/compile_inputs_v1.py",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/compiler_manifest_v1.json",
+        "engineering/civprop/run_civprop_v1.py",
+        "engineering/civprop/test_compile_inputs_v1.py",
+        "engineering/civprop/test_run_civprop_v1.py",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP10_POWER_BALANCE_SEED42.json",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP10_BASELINE_MANIFEST.json"
       ],
       "exit_criteria": [
         "Installed generation capacity is distinct from average generation, peak demand and consumed energy.",
@@ -394,12 +415,14 @@
         "Energy use closes within tolerance at each modeled location/time step.",
         "Atlas average/peak power fields derive from runtime state rather than arbitrary capacity indexes."
       ],
-      "next_action": "Add PowerState/PowerFlow V1 and connect infrastructure loads and generators.",
+      "next_action": "CLOSED. Preserve installed-MW versus generation/load/MWh separation, UNKNOWN availability/load-factor semantics and timeline no-auto-unlock while proceeding to GAP-011 TRAFFIC_AND_FLEET.",
       "output_or_contract_affected": [
-        "power state",
-        "energy flows",
-        "facility feasibility",
-        "Atlas avg/peak power"
+        "power_balance_boundary",
+        "power_states",
+        "power_flows",
+        "atlas_power_metrics",
+        "production POWER constraint",
+        "POWER_PLANT physical output"
       ]
     },
     {

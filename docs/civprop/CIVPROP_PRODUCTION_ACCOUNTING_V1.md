@@ -203,9 +203,7 @@ It does not become full utilization.
 
 ## Current downstream constraint boundary
 
-GAP-010 POWER_BALANCE remains open.
-
-Therefore current installed MW is not treated as annual energy availability.
+GAP-010 POWER_BALANCE is CLOSED. Production Accounting V1 is now version 1.1.0; POWER_PLANT physical output derives from GAP-010 facility generation in MWh/year. Installed MW is still not treated as annual energy availability.
 
 GAP-011 TRAFFIC_AND_FLEET remains open.
 
@@ -247,13 +245,13 @@ Sector:
 
 Physical output source:
 
-    DEFERRED
+    POWER_GENERATION
 
-Owning downstream gap:
+Output unit:
 
-    GAP-010 POWER_BALANCE
+    MWh/year
 
-Installed MW is not annual generated energy.
+The source is the exact GAP-010 FACILITY_GENERATOR component. Unknown generator availability preserves UNKNOWN annual production.
 
 ### HABITAT
 
@@ -524,12 +522,8 @@ transport service or labor availability are empirically calibrated.
 
 ## Immediate frontier
 
+GAP-010 POWER_BALANCE is CLOSED and supplies the governed power-service/generation boundary.
+
 The immediate engineering frontier is:
 
-    GAP-010 POWER_BALANCE
-
-Power must distinguish installed generation capacity from actual generation,
-consumption, peak demand, storage/reserve and energy closure.
-
-Production Accounting V1 must consume that future service boundary rather than
-treating installed MW as realized annual production.
+    GAP-011 TRAFFIC_AND_FLEET

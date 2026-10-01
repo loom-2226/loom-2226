@@ -141,6 +141,8 @@ class Recorder:
         self.sector_production_states = []
         self.location_production_states = []
         self.body_production_states = []
+        self.power_states = []
+        self.power_flows = []
         self._event_counter = 0
         self._decision_counter = 0
         self._flow_counter = 0
@@ -853,6 +855,8 @@ def finalize(
             recorder.location_production_states
         ),
         body_production_states=tuple(recorder.body_production_states),
+        power_states=tuple(recorder.power_states),
+        power_flows=tuple(recorder.power_flows),
     )
 
 

@@ -475,7 +475,7 @@ GAP-009 PRODUCTION_AND_VALUE_ADDED is now CLOSED through Production Accounting V
 
 The immediate engineering frontier is:
 
-    GAP-010 POWER_BALANCE
+    GAP-011 TRAFFIC_AND_FLEET
 
 Production Accounting V1 may value physically possible resource output when valuation
 parameters are known, but it preserves UNKNOWN monetary valuation where they are not.

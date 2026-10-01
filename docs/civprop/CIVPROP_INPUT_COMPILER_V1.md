@@ -2,7 +2,7 @@
 
 Date: 2026-10-01
 Class: `class:engineering`
-Status: GAP-001 through GAP-009 closed / production-facing input compilation with explicit downstream assumptions
+Status: GAP-001 through GAP-010 closed / production-facing input compilation with explicit downstream assumptions
 
 ## Decision
 
@@ -27,7 +27,7 @@ The CIVPROP runner remains:
 engineering/civprop/run_civprop_v1.py
 ```
 
-Runner V1.9 defaults to the compiled package rather than the original synthetic
+Runner V1.10 defaults to the compiled package rather than the original synthetic
 Method Lab package and carries the closed Actor State, Accessibility,
 Demand/Pressure, Project Economics, Mission/Knowledge, Pressure Observability,
 Resource Mass Balance and Production Accounting boundaries.
@@ -534,7 +534,7 @@ new authority capture
 
 No silent replacement.
 
-## Runner V1.9
+## Runner V1.10
 
 The single simulation entrypoint remains:
 
@@ -545,22 +545,22 @@ engineering/civprop/run_civprop_v1.py
 Runner version:
 
 ```text
-1.9.0
+1.10.0
 ```
 
 Output contract:
 
 ```text
-1.9.0
+1.10.0
 ```
 
 Compiler version:
 
 ```text
-1.8.0
+1.9.0
 ```
 
-The default input directory is now the GAP-001 through GAP-009 compiled package.
+The default input directory is now the GAP-001 through GAP-010 compiled package.
 
 Default command:
 
@@ -586,7 +586,8 @@ GAP-006 CLOSED
 GAP-007 CLOSED
 GAP-008 CLOSED
 GAP-009 CLOSED
-GAP-010 OPEN
+GAP-010 CLOSED
+GAP-011 OPEN
 ...
 GAP-015 OPEN
 ```
@@ -639,14 +640,14 @@ Output:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP9_PRODUCTION_ACCOUNTING_SEED42.json
+CIVPROP_ENGINE_V1_GAP10_POWER_BALANCE_SEED42.json
 ```
 
 Manifest:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP9_BASELINE_MANIFEST.json
+CIVPROP_ENGINE_V1_GAP10_BASELINE_MANIFEST.json
 ```
 
 The GAP-001 compiled baseline and previous synthetic V1.0 baseline remain in the
@@ -666,7 +667,7 @@ Unit/functional coverage proves:
 - compilation from frozen capture is byte deterministic;
 - the locked runner accepts the compiled package;
 - the default runner now uses the compiled package;
-- GAP-001 through GAP-009 are CLOSED in current output;
+- GAP-001 through GAP-010 are CLOSED in current output;
 - UNKNOWN actor budget does not become zero, national capital or scenario credit;
 - scoped provider/service evidence does not become generic actor capability;
 - future actor budget/capability changes require replayable events;
@@ -680,8 +681,8 @@ The authoritative current gap register and the post-gap handoff plan are:
     engineering/civprop/gap_register_v1.json
     docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
 
-GAP-001 through GAP-009 closure should be interpreted using that register's closure
-semantics. The next engineering target is GAP-010 POWER_BALANCE.
+GAP-001 through GAP-010 closure should be interpreted using that register's closure
+semantics. The next engineering target is GAP-011 TRAFFIC_AND_FLEET.
 
 ## Boundary after GAP-009
 

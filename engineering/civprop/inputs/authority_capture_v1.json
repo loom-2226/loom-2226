@@ -176,7 +176,7 @@
   },
   "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
   "capture_semantics": "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES",
-  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE_PLUS_GAP-007_PRESSURE_OBSERVABILITY_PLUS_GAP-008_RESOURCE_MASS_BALANCE_PLUS_GAP-009_PRODUCTION_ACCOUNTING",
+  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE_PLUS_GAP-007_PRESSURE_OBSERVABILITY_PLUS_GAP-008_RESOURCE_MASS_BALANCE_PLUS_GAP-009_PRODUCTION_ACCOUNTING_PLUS_GAP-010_POWER_BALANCE",
   "earth": {
     "aus_area": {
       "display_name": "Australia",
@@ -518,6 +518,11 @@
   },
   "format": "CIVPROP_AUTHORITY_CAPTURE_V1",
   "model_parameters": {
+    "atlas_power_field_semantics": {
+      "path": "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json",
+      "sha256": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
+      "transfer_scope": "FIELD_IDENTITIES_ONLY_RUNTIME_POWER_BALANCE_NOW_DEFINES_AVERAGE_AND_PEAK_LOAD"
+    },
     "dorrington_olsen_boundary": {
       "assessment_path": "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md",
       "assessment_sha256": "a4b613a3514a385cbbd3ef3959e01ca22cd3b4736dcb893cc4213465655d4a37",
@@ -613,6 +618,236 @@
       ],
       "scope": "EARTH_ORBIT_LUNA_RESOURCE_PROSPECTING_2026_2036"
     },
+    "power_balance_source": {
+      "path": "engineering/civprop/contracts/power_balance_v1.json",
+      "sha256": "02c8368ea10d6f45b47fa190a1c8e30e2895e4c1e46462100b424767430a75c5"
+    },
+    "power_balance_v1": {
+      "contract_version": "1.0.0",
+      "excluded_location_ids": [
+        "EARTH_SURFACE"
+      ],
+      "facility_load_models": [
+        {
+          "average_to_peak_factor": {
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "UNKNOWN",
+            "unit": "fraction",
+            "value": null
+          },
+          "peak_load_mw_per_facility": {
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "UNKNOWN",
+            "unit": "MW/facility",
+            "value": null
+          },
+          "project_archetype_id": "LOGISTICS_NODE",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ]
+        },
+        {
+          "average_to_peak_factor": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"
+            ],
+            "status": "UNKNOWN",
+            "unit": "fraction",
+            "value": null
+          },
+          "peak_load_mw_per_facility": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"
+            ],
+            "status": "UNKNOWN",
+            "unit": "MW/facility",
+            "value": null
+          },
+          "project_archetype_id": "POWER_PLANT",
+          "provenance_refs": [
+            "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"
+          ]
+        },
+        {
+          "average_to_peak_factor": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+            ],
+            "status": "UNKNOWN",
+            "unit": "fraction",
+            "value": null
+          },
+          "peak_load_mw_per_facility": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+            ],
+            "status": "UNKNOWN",
+            "unit": "MW/facility",
+            "value": null
+          },
+          "project_archetype_id": "HABITAT",
+          "provenance_refs": [
+            "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+          ]
+        },
+        {
+          "average_to_peak_factor": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+            ],
+            "status": "UNKNOWN",
+            "unit": "fraction",
+            "value": null
+          },
+          "peak_load_mw_per_facility": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+            ],
+            "status": "UNKNOWN",
+            "unit": "MW/facility",
+            "value": null
+          },
+          "project_archetype_id": "RESOURCE_PLANT",
+          "provenance_refs": [
+            "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+          ]
+        },
+        {
+          "average_to_peak_factor": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+            ],
+            "status": "UNKNOWN",
+            "unit": "fraction",
+            "value": null
+          },
+          "peak_load_mw_per_facility": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+            ],
+            "status": "UNKNOWN",
+            "unit": "MW/facility",
+            "value": null
+          },
+          "project_archetype_id": "INDUSTRIAL_WORKSHOP",
+          "provenance_refs": [
+            "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+          ]
+        }
+      ],
+      "format": "CIVPROP_POWER_BALANCE_V1",
+      "generation_models": [
+        {
+          "availability_factor": {
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "UNKNOWN",
+            "unit": "fraction",
+            "value": null
+          },
+          "firm_capacity_fraction": {
+            "provenance_refs": [
+              "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            ],
+            "status": "UNKNOWN",
+            "unit": "fraction",
+            "value": null
+          },
+          "project_archetype_id": "LOGISTICS_NODE",
+          "provenance_refs": [
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ]
+        },
+        {
+          "availability_factor": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"
+            ],
+            "status": "UNKNOWN",
+            "unit": "fraction",
+            "value": null
+          },
+          "firm_capacity_fraction": {
+            "provenance_refs": [
+              "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+            ],
+            "status": "UNKNOWN",
+            "unit": "fraction",
+            "value": null
+          },
+          "project_archetype_id": "POWER_PLANT",
+          "provenance_refs": [
+            "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03",
+            "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL",
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+          ]
+        }
+      ],
+      "hours_basis": "GREGORIAN_CALENDAR_YEAR",
+      "initial_compatibility_generation": {
+        "availability_factor": {
+          "provenance_refs": [
+            "engineering/civprop/gap_register_v1.json#GAP-012"
+          ],
+          "status": "UNKNOWN",
+          "unit": "fraction",
+          "value": null
+        },
+        "firm_capacity_fraction": {
+          "provenance_refs": [
+            "engineering/civprop/gap_register_v1.json#GAP-012"
+          ],
+          "status": "UNKNOWN",
+          "unit": "fraction",
+          "value": null
+        },
+        "provenance_refs": [
+          "engineering/civprop/gap_register_v1.json#GAP-012"
+        ]
+      },
+      "package_id": "EARTH_LUNA_POWER_BALANCE_V1_2026_2036",
+      "population_average_to_peak_factor": {
+        "provenance_refs": [
+          "engineering/civprop/contracts/demand_pressure_v1.json#POWER"
+        ],
+        "status": "UNKNOWN",
+        "unit": "fraction",
+        "value": null
+      },
+      "population_peak_source": "DEMAND_PRESSURE_POWER_STATE_DRIVERS",
+      "reserve_margin_fraction": {
+        "provenance_refs": [
+          "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+        ],
+        "status": "UNKNOWN",
+        "unit": "fraction",
+        "value": null
+      },
+      "scope": "NON_EARTH_SURFACE",
+      "storage_model": {
+        "modeled_energy_capacity_mwh": 0.0,
+        "modeled_power_capacity_mw": 0.0,
+        "provenance_refs": [
+          "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+        ],
+        "status": "NOT_MODELED_V1"
+      },
+      "timeline_context": {
+        "auto_unlock": false,
+        "demonstrator_reference_id": "R03",
+        "industrial_milestone_id": "ENE-MOD-INDUSTRIAL",
+        "industrial_threshold_year": 2040,
+        "provenance_refs": [
+          "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03",
+          "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+        ]
+      }
+    },
     "pressure_observability_source": {
       "path": "engineering/civprop/contracts/pressure_observability_v1.json",
       "sha256": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d"
@@ -626,10 +861,10 @@
     },
     "production_accounting_source": {
       "path": "engineering/civprop/contracts/production_accounting_v1.json",
-      "sha256": "e74255bb19d9c545bd18225282393f5885b70c3b60ed2c389350fb6d6e54453e"
+      "sha256": "3defa74d2ea564365fc87b1ab32b8424decadc5e30ec2a4afcd8761c908b2abc"
     },
     "production_accounting_v1": {
-      "contract_version": "1.0.0",
+      "contract_version": "1.1.0",
       "facility_models": [
         {
           "downstream_gap": "GAP-011",
@@ -677,46 +912,46 @@
           }
         },
         {
-          "downstream_gap": "GAP-010",
-          "output_field": null,
-          "output_source": "DEFERRED",
-          "output_unit": null,
+          "downstream_gap": null,
+          "output_field": "power",
+          "output_source": "POWER_GENERATION",
+          "output_unit": "MWh/year",
           "production_model_id": "POWER_PLANT_PRODUCTION_V1",
           "project_archetype_id": "POWER_PLANT",
           "provenance_refs": [
             "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
-            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+            "docs/civprop/CIVPROP_POWER_BALANCE_V1.md"
           ],
-          "required_constraints": [
-            "LABOR_AUTOMATION",
-            "MATERIALS",
-            "TRANSPORT"
-          ],
+          "required_constraints": [],
           "resource_id": null,
           "sector_id": "ENERGY",
           "valuation": {
             "intermediate_consumption_per_output": {
               "provenance_refs": [
-                "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+                "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+                "docs/civprop/CIVPROP_POWER_BALANCE_V1.md"
               ],
               "status": "UNKNOWN",
-              "unit": "USD_2026_billion/GWh",
+              "unit": "USD_2026_billion/MWh",
               "value": null
             },
             "operating_cost_per_output": {
               "provenance_refs": [
-                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+                "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
+                "docs/civprop/CIVPROP_POWER_BALANCE_V1.md"
               ],
               "status": "UNKNOWN",
-              "unit": "USD_2026_billion/GWh",
+              "unit": "USD_2026_billion/MWh",
               "value": null
             },
             "unit_output_value": {
               "provenance_refs": [
-                "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+                "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+                "docs/civprop/CIVPROP_POWER_BALANCE_V1.md"
               ],
               "status": "UNKNOWN",
-              "unit": "USD_2026_billion/GWh",
+              "unit": "USD_2026_billion/MWh",
               "value": null
             }
           }
@@ -1628,9 +1863,10 @@
       }
     ]
   },
-  "source_basis_commit": "eb441db0e80f60660a08bc6ad2bab6c58a3318e2",
+  "source_basis_commit": "56be7a4ee0e4be0b8eca5681a8905fd65c1ab19e",
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
+    "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
     "data/postgres/migrations/004_earth_temporal_authority.sql": "ff7a873fc14b0ed1c128673253ea52e65524bd2c3734ca016c5f722345168ecd",
     "data/postgres/timeline_projection_manifest.json": "524ac904a0d1ed4cdb1fae53ce4ac737d7640b71fe1be8ebf9c97ba8fbe56709",
     "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json": "093f28ee4f3817c4573899b1f8032d617339307ef85691123ce9cec44dfdd369",
@@ -1643,8 +1879,9 @@
     "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
     "engineering/civprop/civprop0/runs/roover_transport_mid2030_v1.json": "a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
     "engineering/civprop/contracts/mission_knowledge_v1.json": "e95f42820502e24ba638ba0e4b38cc7c3019ffc8551ee5848d5c6abdc940b6a7",
+    "engineering/civprop/contracts/power_balance_v1.json": "02c8368ea10d6f45b47fa190a1c8e30e2895e4c1e46462100b424767430a75c5",
     "engineering/civprop/contracts/pressure_observability_v1.json": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d",
-    "engineering/civprop/contracts/production_accounting_v1.json": "e74255bb19d9c545bd18225282393f5885b70c3b60ed2c389350fb6d6e54453e",
+    "engineering/civprop/contracts/production_accounting_v1.json": "3defa74d2ea564365fc87b1ab32b8424decadc5e30ec2a4afcd8761c908b2abc",
     "engineering/civprop/contracts/project_economics_v1.json": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
     "engineering/civprop/contracts/resource_mass_balance_v1.json": "3ae6af47af6778c11bcc1519d75f988445b23bce8dad9b6c1e34ba0aaf42b963",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",

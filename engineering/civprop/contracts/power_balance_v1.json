@@ -1,0 +1,194 @@
+{
+  "format": "CIVPROP_POWER_BALANCE_V1",
+  "contract_version": "1.0.0",
+  "package_id": "EARTH_LUNA_POWER_BALANCE_V1_2026_2036",
+  "scope": "NON_EARTH_SURFACE",
+  "excluded_location_ids": ["EARTH_SURFACE"],
+  "hours_basis": "GREGORIAN_CALENDAR_YEAR",
+  "population_peak_source": "DEMAND_PRESSURE_POWER_STATE_DRIVERS",
+  "population_average_to_peak_factor": {
+    "status": "UNKNOWN",
+    "value": null,
+    "unit": "fraction",
+    "provenance_refs": [
+      "engineering/civprop/contracts/demand_pressure_v1.json#POWER"
+    ]
+  },
+  "initial_compatibility_generation": {
+    "availability_factor": {
+      "status": "UNKNOWN",
+      "value": null,
+      "unit": "fraction",
+      "provenance_refs": [
+        "engineering/civprop/gap_register_v1.json#GAP-012"
+      ]
+    },
+    "firm_capacity_fraction": {
+      "status": "UNKNOWN",
+      "value": null,
+      "unit": "fraction",
+      "provenance_refs": [
+        "engineering/civprop/gap_register_v1.json#GAP-012"
+      ]
+    },
+    "provenance_refs": [
+      "engineering/civprop/gap_register_v1.json#GAP-012"
+    ]
+  },
+  "generation_models": [
+    {
+      "project_archetype_id": "LOGISTICS_NODE",
+      "availability_factor": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "fraction",
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ]
+      },
+      "firm_capacity_fraction": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "fraction",
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+        ]
+      },
+      "provenance_refs": [
+        "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+      ]
+    },
+    {
+      "project_archetype_id": "POWER_PLANT",
+      "availability_factor": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "fraction",
+        "provenance_refs": [
+          "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"
+        ]
+      },
+      "firm_capacity_fraction": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "fraction",
+        "provenance_refs": [
+          "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+        ]
+      },
+      "provenance_refs": [
+        "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03",
+        "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL",
+        "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+      ]
+    }
+  ],
+  "facility_load_models": [
+    {
+      "project_archetype_id": "LOGISTICS_NODE",
+      "peak_load_mw_per_facility": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "MW/facility",
+        "provenance_refs": ["docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"]
+      },
+      "average_to_peak_factor": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "fraction",
+        "provenance_refs": ["docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"]
+      },
+      "provenance_refs": ["docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"]
+    },
+    {
+      "project_archetype_id": "POWER_PLANT",
+      "peak_load_mw_per_facility": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "MW/facility",
+        "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"]
+      },
+      "average_to_peak_factor": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "fraction",
+        "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"]
+      },
+      "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03"]
+    },
+    {
+      "project_archetype_id": "HABITAT",
+      "peak_load_mw_per_facility": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "MW/facility",
+        "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"]
+      },
+      "average_to_peak_factor": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "fraction",
+        "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"]
+      },
+      "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"]
+    },
+    {
+      "project_archetype_id": "RESOURCE_PLANT",
+      "peak_load_mw_per_facility": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "MW/facility",
+        "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"]
+      },
+      "average_to_peak_factor": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "fraction",
+        "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"]
+      },
+      "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"]
+    },
+    {
+      "project_archetype_id": "INDUSTRIAL_WORKSHOP",
+      "peak_load_mw_per_facility": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "MW/facility",
+        "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"]
+      },
+      "average_to_peak_factor": {
+        "status": "UNKNOWN",
+        "value": null,
+        "unit": "fraction",
+        "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"]
+      },
+      "provenance_refs": ["docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"]
+    }
+  ],
+  "reserve_margin_fraction": {
+    "status": "UNKNOWN",
+    "value": null,
+    "unit": "fraction",
+    "provenance_refs": [
+      "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+    ]
+  },
+  "storage_model": {
+    "status": "NOT_MODELED_V1",
+    "modeled_power_capacity_mw": 0.0,
+    "modeled_energy_capacity_mwh": 0.0,
+    "provenance_refs": [
+      "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+    ]
+  },
+  "timeline_context": {
+    "demonstrator_reference_id": "R03",
+    "industrial_milestone_id": "ENE-MOD-INDUSTRIAL",
+    "industrial_threshold_year": 2040,
+    "auto_unlock": false,
+    "provenance_refs": [
+      "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#R03",
+      "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md#ENE-MOD-INDUSTRIAL"
+    ]
+  }
+}
