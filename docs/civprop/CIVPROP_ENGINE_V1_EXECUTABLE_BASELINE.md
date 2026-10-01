@@ -6,7 +6,7 @@ Status: locked executable baseline; compiled authority with explicit open-gap as
 
 ## Current baseline status
 
-Runner V1.10.0 now defaults to the GAP-001 through GAP-011 compiled authority package
+Runner V1.10.0 now defaults to the GAP-001 through GAP-012 compiled authority package
 documented in docs/civprop/CIVPROP_INPUT_COMPILER_V1.md,
 docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md,
 docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md,
@@ -37,7 +37,8 @@ Current gap state begins:
     GAP-009 CLOSED
     GAP-010 CLOSED
     GAP-011 CLOSED
-    GAP-012 through GAP-015 OPEN
+    GAP-012 CLOSED
+    GAP-013 through GAP-015 OPEN
 
 ## Purpose
 
@@ -74,7 +75,7 @@ From repository root:
 
     python3 engineering/civprop/run_civprop_v1.py       --seed 42       --output /tmp/civprop_v1.json
 
-With no path arguments, the runner uses the GAP-001 through GAP-011 compiled authority package and Infrastructure Archetype V1 catalog.
+With no path arguments, the runner uses the GAP-001 through GAP-012 compiled authority package and Infrastructure Archetype V1 catalog.
 
 The runner may later be pointed at another compatible frozen input package with --input-dir and --infrastructure-catalog.
 
@@ -84,15 +85,15 @@ Changing input values is allowed. Changing input meaning is not allowed silently
 
 Machine-readable manifest:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP11_BASELINE_MANIFEST.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP12_BASELINE_MANIFEST.json
 
 Golden output:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP11_TRAFFIC_FLEET_SEED42.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP12_MATERIALIZATION_SEED42.json
 
 The current baseline contains real promoted authority plus explicit unresolved
 synthetic assumptions. It proves execution, contracts, provenance and causal
-bookkeeping. It is not yet a production forecast because GAP-012 onward remain open.
+bookkeeping. It is not yet a production forecast because GAP-013 onward remain open.
 
 The prior V1.0 synthetic manifest/golden files remain preserved as historical
 regression artifacts.
@@ -455,11 +456,11 @@ Top-level output fields:
     flows
 
 Current format: CIVPROP_ENGINE_V1_OUTPUT.
-Current contract version: 1.11.0.
+Current contract version: 1.12.0.
 
 ## Metadata
 
-metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.11.0.
+metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.12.0.
 
 metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current default engine is HYBRID_V1 / method-reference-v9.
 
@@ -468,7 +469,7 @@ metadata.inputs records fixture_id, scenario_format, Method Lab manifest/bundle 
 method_lab_bundle_sha256 identifies the complete evaluation package. runtime_input_sha256 identifies the actor-visible runtime scenario. They are intentionally separate.
 
 metadata.infrastructure records catalog id/format/hash, parameter-set id/status and parameterized archetypes.
-metadata.implementation pins SHA-256 values for the runner, hybrid engine, shared helpers, Method Lab contracts, infrastructure, actor-state, accessibility, demand/pressure, project-economics, mission/knowledge, pressure-observability, resource-mass-balance and production-accounting and traffic/fleet contracts plus the mission, pressure, resource, production, power and traffic-lane adapters.
+metadata.implementation pins SHA-256 values for the runner, hybrid engine, shared helpers, Method Lab contracts, infrastructure, actor-state, accessibility, demand/pressure, project-economics, mission/knowledge, pressure-observability, resource-mass-balance, production-accounting, traffic/fleet and facility/site-materialization contracts plus the mission, pressure, resource, production, power and traffic-lane adapters.
 
 The purpose is reproducibility independent of a vague statement such as "current main."
 
@@ -498,7 +499,7 @@ Each commissioned facility contains facility_id, project_archetype_id, location_
 
 facility_id is deterministic for the Method Lab engine path.
 
-The facility is a generated infrastructure module instance. It is not yet a named settlement, final Atlas facility type, surface coordinate, orbital-element record or complete industrial balance sheet.
+The facility is a generated causal infrastructure module instance. GAP-012 now projects such modules deterministically into materialized sites/facilities after propagation; names remain presentation-only and precise spatial values require explicit authority.
 # Decision Output
 
 Fields:
@@ -561,7 +562,7 @@ Current gap status:
     GAP-009 PRODUCTION_AND_VALUE_ADDED             CLOSED
     GAP-010 POWER_BALANCE                          CLOSED
     GAP-011 TRAFFIC_AND_FLEET                      CLOSED
-    GAP-012 FACILITY_AND_SITE_MATERIALIZATION      OPEN
+    GAP-012 FACILITY_AND_SITE_MATERIALIZATION      CLOSED
     GAP-013 MAINTENANCE_DEPRECIATION_RETIREMENT    OPEN
     GAP-014 DEMOGRAPHIC_DEPTH                      OPEN
     GAP-015 ATLAS_DERIVED_METRICS                  OPEN
@@ -631,7 +632,7 @@ result from the same pinned inputs, implementation and seed?
 
 # Baseline Metadata and Hashes
 
-Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP11_BASELINE_MANIFEST.json. GAP-009, GAP-008, GAP-007, GAP-006, GAP-005, GAP-004, GAP-003, GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
+Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP12_BASELINE_MANIFEST.json. GAP-009, GAP-008, GAP-007, GAP-006, GAP-005, GAP-004, GAP-003, GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
 
 The manifest pins source-basis commit, runner and engine identities, output-contract version, runtime-input and evaluator-truth hashes, infrastructure catalog and parameter set, implementation source hashes, golden-output hashes/counts, and change-control rules.
 # Change Control

@@ -6,11 +6,11 @@ Status: current program register and post-gap handoff plan
 
 ## Authority boundary
 
-This document records the CIVPROP program state through GAP-011 closure.
+This document records the CIVPROP program state through GAP-012 closure.
 
 Authoritative repository basis at creation:
 
-    cdadbae2a8dee6571965afd5569782dd1db8f105
+    d3af8e96a1ef132b7edeb5d28f23d56e238cbc5b
 
 Machine-readable register:
 
@@ -30,8 +30,8 @@ Current default runtime package:
 
 Current runner/output contract:
 
-    CIVPROP_ENGINE_V1_RUNNER 1.11.0
-    CIVPROP_ENGINE_V1_OUTPUT 1.11.0
+    CIVPROP_ENGINE_V1_RUNNER 1.12.0
+    CIVPROP_ENGINE_V1_OUTPUT 1.12.0
 
 Current engine:
 
@@ -104,7 +104,9 @@ GAP-010 is CLOSED. Power Balance V1 separates installed capacity, average/firm g
 
 GAP-011 is CLOSED. Traffic/Fleet V1 separates installed local transport handling capacity from realized OD movement, preserves explicit UNASSIGNED_OD demand, derives fleet trip capacity/voyages/ship calls/backlog/node-incidence metrics from scoped services and fleet assets, and never auto-spawns fleet from Timeline milestones.
 
-The current baseline is still not a forecast because GAP-012 through GAP-015 remain
+GAP-012 is CLOSED. Facility/Site Materialization V1 deterministically projects commissioned modules into stable sites/facilities after propagation, requires explicit colocation and spatial authority, preserves owner/operator separation and presentation-only naming, and keeps inherited off-world starting state visibly UNQUALIFIED_COMPATIBILITY rather than manufacturing facilities from it.
+
+The current baseline is still not a forecast because GAP-013 through GAP-015 remain
 open. Demand, mission-observation and project-economics scenario coefficients remain
 uncalibrated where marked, and later mechanisms materially affect the result. The
 default seed-42 baseline remains an engineering regression/reference artifact, not a
@@ -153,7 +155,7 @@ A gap may close only when its replacement has:
 | GAP-009 | PRODUCTION_AND_VALUE_ADDED | CLOSED | Preserve physical/economic separation, UNKNOWN constraints and accounting reconciliation |
 | GAP-010 | POWER_BALANCE | CLOSED | Preserve installed-MW versus generation/load/MWh separation and Timeline no-auto-unlock |
 | GAP-011 | TRAFFIC_AND_FLEET | CLOSED | Preserve explicit OD/fleet/voyage/backlog reconciliation and Timeline no-auto-spawn semantics |
-| GAP-012 | FACILITY_AND_SITE_MATERIALIZATION | OPEN | Convert modules into stable sites, orbitals, facilities and settlements |
+| GAP-012 | FACILITY_AND_SITE_MATERIALIZATION | CLOSED | Preserve deterministic materialization, explicit colocation/spatial authority and compatibility-state firewall |
 | GAP-013 | MAINTENANCE_DEPRECIATION_RETIREMENT | OPEN | Add asset lifecycle, replacement, failure and retirement |
 | GAP-014 | DEMOGRAPHIC_DEPTH | OPEN | Add cohorts, births/deaths, synthetic persons, labor and settlement viability |
 | GAP-015 | ATLAS_DERIVED_METRICS | OPEN | Derive centrality/strategic/display metrics from generated state |
@@ -486,6 +488,7 @@ Current frontier:
     GAP-009 CLOSED
     GAP-010 CLOSED
     GAP-011 CLOSED
+    GAP-012 CLOSED
 
 GAP-002 removed the compiled-input assumptions:
 
@@ -567,4 +570,4 @@ and versions Production Accounting V1 to 1.1.0 so POWER_PLANT physical output de
 
 The next implementation target is therefore:
 
-    GAP-012 FACILITY_AND_SITE_MATERIALIZATION
+    GAP-013 MAINTENANCE_DEPRECIATION_RETIREMENT

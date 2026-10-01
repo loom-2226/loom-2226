@@ -277,7 +277,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
             package["format"],
             "CIVPROP_PRODUCTION_ACCOUNTING_V1",
         )
-        self.assertEqual(package["contract_version"], "1.1.0")
+        self.assertEqual(package["contract_version"], "1.2.0")
         self.assertEqual(
             package["monetary_stock_unit"],
             "USD_2026_billion",
@@ -306,7 +306,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         )
         self.assertEqual(
             models["LOGISTICS_NODE"]["downstream_gap"],
-            "GAP-012",
+            "GAP-015",
         )
         self.assertEqual(
             models["POWER_PLANT"]["output_source"],
@@ -418,6 +418,39 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertIn("traffic_fleet_v1", capture_model)
         self.assertIn("atlas_traffic_field_semantics", capture_model)
 
+    def test_gap12_compiles_materialization_without_copying_legacy_sites(self):
+        package = self.scenario["facility_site_materialization_v1"]
+        self.assertEqual(
+            package["format"],
+            "CIVPROP_FACILITY_SITE_MATERIALIZATION_V1",
+        )
+        self.assertEqual(package["contract_version"], "1.0.0")
+        self.assertEqual(package["colocation_policy"], "EXPLICIT_ONLY")
+        self.assertEqual(package["naming_policy"], "PRESENTATION_ONLY")
+        self.assertEqual(package["site_bindings"], [])
+        self.assertEqual(package["presentation_names"], [])
+        self.assertEqual(
+            package["initial_state_policy"]["status"],
+            "UNQUALIFIED_COMPATIBILITY",
+        )
+        self.assertEqual(
+            package["initial_state_policy"]["materialization_policy"],
+            "NEVER_MATERIALIZE_WITHOUT_MODULE_PROVENANCE",
+        )
+        self.assertNotIn(
+            "STRATEGIC_PORT",
+            package["atlas_type_rules"]["allowed_outputs"],
+        )
+        capture_model = self.capture["model_parameters"]
+        self.assertIn(
+            "facility_site_materialization_v1",
+            capture_model,
+        )
+        self.assertIn(
+            "atlas_facility_type_semantics",
+            capture_model,
+        )
+
     def test_other_unresolved_engine_inputs_are_not_disguised_as_authority(self):
         assumptions = self.scenario["assumption_register"]
         gaps = {x["gap_id"] for x in assumptions}
@@ -431,7 +464,8 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertNotIn("GAP-009", gaps)
         self.assertNotIn("GAP-010", gaps)
         self.assertNotIn("GAP-011", gaps)
-        self.assertIn("GAP-012", gaps)
+        self.assertNotIn("GAP-012", gaps)
+        self.assertIn("GAP-014", gaps)
         for row in assumptions:
             self.assertIn(row["status"], {"EXPLICIT_PLACEHOLDER", "COMPATIBILITY_BOUNDARY"})
             self.assertTrue(row["semantics"])
@@ -471,7 +505,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(access["subject_id"], "ROO_VER")
         self.assertNotEqual(access["subject_id"], "FLEET_SPACE_TECHNOLOGIES")
 
-    def test_compiler_manifest_closes_gap1_through_gap11(self):
+    def test_compiler_manifest_closes_gap1_through_gap12(self):
         manifest = self.compiler_manifest
         self.assertEqual(manifest["format"], "CIVPROP_INPUT_COMPILER_MANIFEST_V1")
         self.assertEqual(len(manifest["compiler_source_sha256"]), 64)
@@ -487,7 +521,8 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(manifest["gap_resolution"]["GAP-009"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-010"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-011"], "CLOSED")
-        self.assertEqual(manifest["gap_resolution"]["GAP-012"], "OPEN")
+        self.assertEqual(manifest["gap_resolution"]["GAP-012"], "CLOSED")
+        self.assertEqual(manifest["gap_resolution"]["GAP-013"], "OPEN")
         self.assertEqual(manifest["runtime_input"]["fixture_id"], COMPILED_FIXTURE_ID)
 
     def test_compiler_is_deterministic_from_frozen_capture(self):
@@ -554,6 +589,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         gap9 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-009")
         gap10 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-010")
         gap11 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-011")
+        gap12 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-012")
         self.assertEqual(gap1["status"], "CLOSED")
         self.assertEqual(gap2["status"], "CLOSED")
         self.assertEqual(gap3["status"], "CLOSED")
@@ -565,6 +601,17 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(gap9["status"], "CLOSED")
         self.assertEqual(gap10["status"], "CLOSED")
         self.assertEqual(gap11["status"], "CLOSED")
+        self.assertEqual(gap12["status"], "CLOSED")
+        self.assertEqual(
+            len(output["materialization_compatibility_states"]),
+            3,
+        )
+        self.assertEqual(output["materialized_modules"], [])
+        self.assertEqual(output["sites"], [])
+        self.assertEqual(output["materialized_facilities"], [])
+        self.assertEqual(output["orbitals"], [])
+        self.assertEqual(output["settlements"], [])
+        self.assertEqual(output["atlas_facilities"], [])
         self.assertEqual(len(output["traffic_demand_states"]), 33)
         self.assertEqual(len(output["traffic_service_states"]), 11)
         self.assertEqual(output["fleet_states"], [])

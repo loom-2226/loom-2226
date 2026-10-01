@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-Runner V1.11 keeps the selected HYBRID_V1 architecture and closed GAP-001
-through GAP-010 boundaries, then adds GAP-011 Traffic/Fleet V1 with explicit OD
-demand assignment, scoped services, versioned fleet assets, annual vehicle missions,
-cargo/passenger movement, ship calls, backlog, route utilization and Atlas node
-traffic incidence. Later gaps remain explicit rather than being silently invented.
+Runner V1.12 keeps the selected HYBRID_V1 propagation architecture and closed
+GAP-001 through GAP-011 boundaries, then adds GAP-012 Facility/Site Materialization
+V1 as a deterministic post-engine projection from generated infrastructure modules
+to stable sites, materialized facilities, orbitals, settlement candidates and
+Atlas-facing facility classifications. Later gaps remain explicit.
 """
 from __future__ import annotations
 
@@ -33,6 +33,9 @@ from engineering.civprop.method_lab.contracts import (
 )
 from engineering.civprop.method_lab.prototypes.hybrid_v1 import HybridEngineV1
 from engineering.civprop.contracts.project_economics_v1 import ProjectEconomicsRuntime
+from engineering.civprop.contracts.facility_site_materialization_v1 import (
+    FacilitySiteMaterializerV1,
+)
 from engineering.civprop.method_lab.prototypes.common import (
     project_capital_unit,
     resolved_project,
@@ -40,9 +43,9 @@ from engineering.civprop.method_lab.prototypes.common import (
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.11.0"
+OUTPUT_CONTRACT_VERSION = "1.12.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.11.0"
+RUNNER_VERSION = "1.12.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
 PROJECT_ECONOMICS_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "project_economics_v1.json"
@@ -64,6 +67,11 @@ POWER_BALANCE_PARAMETER_PATH = (
 )
 TRAFFIC_FLEET_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "traffic_fleet_v1.json"
+)
+FACILITY_SITE_MATERIALIZATION_PARAMETER_PATH = (
+    _CIVPROP_DIR
+    / "contracts"
+    / "facility_site_materialization_v1.json"
 )
 
 
@@ -185,6 +193,7 @@ def _implementation_hashes() -> dict[str, str]:
         production_accounting_v1,
         power_balance_v1,
         traffic_fleet_v1,
+        facility_site_materialization_v1,
     )
     from engineering.civprop.method_lab import (
         contracts,
@@ -252,6 +261,12 @@ def _implementation_hashes() -> dict[str, str]:
             TRAFFIC_FLEET_PARAMETER_PATH
         ),
         "traffic_lane_sha256": _module_sha256(traffic_lane_v1),
+        "facility_site_materialization_contract_sha256": _module_sha256(
+            facility_site_materialization_v1
+        ),
+        "facility_site_materialization_parameter_set_sha256": _sha256(
+            FACILITY_SITE_MATERIALIZATION_PARAMETER_PATH
+        ),
     }
 
 
@@ -354,6 +369,21 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
         "atlas_traffic_metrics": (
             "CARGO_PASSENGER_SHIP_CALL_FIELDS_ARE_ANNUAL_MODELED_NODE_INCIDENCE"
         ),
+        "facility_site_materialization": (
+            "POST_ENGINE_EXPLICIT_ONLY_COLOCATION_STABLE_IDENTITY_NO_CAUSAL_FEEDBACK"
+        ),
+        "materialization_spatial_authority": (
+            "LOCATION_CLASS_ONLY_UNLESS_EXACT_SURFACE_OR_ORBITAL_AUTHORITY_IS_EXPLICIT"
+        ),
+        "materialization_ownership": (
+            "MODULE_OWNER_PRESERVED_OPERATOR_NEVER_INFERRED_FROM_OWNER"
+        ),
+        "materialization_naming": (
+            "PRESENTATION_ONLY_NAMES_DO_NOT_CHANGE_SITE_OR_FACILITY_IDENTITY"
+        ),
+        "atlas_facility_types": (
+            "DERIVED_FROM_MODULE_COMPOSITION_STRATEGIC_PORT_DEFERRED_TO_GAP015"
+        ),
         "pressure_memory": (
             "CHANNEL_PRESSURE_DECAYS_WHEN_UNMET_REQUIREMENT_DISAPPEARS"
         ),
@@ -384,7 +414,10 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
         "infrastructure": (
             "GENERIC_CAPACITY_BEARING_MODULES_NOT_PREWRITTEN_ATLAS_FACILITIES"
         ),
-        "atlas_role": "ENGINE_STATE_NOT_FINAL_ATLAS_MATERIALIZATION",
+        "atlas_role": (
+            "ENGINE_STATE_PLUS_DETERMINISTIC_GAP012_MATERIALIZATION_"
+            "DERIVED_STRATEGIC_METRICS_REMAIN_GAP015"
+        ),
         "authority": input_authority,
     }
 
@@ -461,7 +494,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-012",
             "name": "FACILITY_AND_SITE_MATERIALIZATION",
             "status": "OPEN",
-            "meaning": "Module colocation, named facilities, settlements, surface sites, orbital elements and Atlas facility types are not yet materialized.",
+            "meaning": "Facility/Site Materialization V1 deterministically projects generated infrastructure modules into stable sites, materialized facilities, orbital/site projections, habitat settlement candidates and Atlas-facing facility classifications. Colocation is explicit-only; inherited off-world initial state remains UNQUALIFIED_COMPATIBILITY and is never materialized without module provenance; exact spatial values require admitted authority; owner/operator remain distinct; names are presentation-only.",
         },
         {
             "gap_id": "GAP-013",
@@ -718,6 +751,26 @@ def build_output(
     result = engine.run(bundle, seed)
     validate_result(result, bundle)
     result_dict = json.loads(canonical_json(result))
+    if bundle.scenario.facility_site_materialization_v1 is None:
+        materialization = None
+        materialization_dict = {
+            "compatibility_states": [],
+            "modules": [],
+            "sites": [],
+            "facilities": [],
+            "orbitals": [],
+            "settlements": [],
+            "atlas_facilities": [],
+        }
+    else:
+        materialization = FacilitySiteMaterializerV1(
+            bundle.scenario.facility_site_materialization_v1,
+            catalog,
+            bundle.scenario.locations,
+        ).materialize(result.facilities)
+        materialization_dict = json.loads(
+            canonical_json(materialization)
+        )
     (
         actor_state_boundary,
         actor_states,
@@ -844,6 +897,15 @@ def build_output(
             if bundle.scenario.traffic_fleet_v1 is None
             else json.loads(canonical_json(bundle.scenario.traffic_fleet_v1))
         ),
+        "facility_site_materialization_boundary": (
+            None
+            if bundle.scenario.facility_site_materialization_v1 is None
+            else json.loads(
+                canonical_json(
+                    bundle.scenario.facility_site_materialization_v1
+                )
+            )
+        ),
         "actor_states": actor_states,
         "actor_transactions": actor_transactions,
         "actor_state_events": actor_state_events,
@@ -936,6 +998,15 @@ def build_output(
                 "location_traffic_states", []
             )
         ],
+        "materialization_compatibility_states": (
+            materialization_dict["compatibility_states"]
+        ),
+        "materialized_modules": materialization_dict["modules"],
+        "sites": materialization_dict["sites"],
+        "materialized_facilities": materialization_dict["facilities"],
+        "orbitals": materialization_dict["orbitals"],
+        "settlements": materialization_dict["settlements"],
+        "atlas_facilities": materialization_dict["atlas_facilities"],
         "events": result_dict["events"],
         "flows": result_dict["flows"],
     }

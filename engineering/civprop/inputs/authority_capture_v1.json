@@ -176,7 +176,7 @@
   },
   "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
   "capture_semantics": "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES",
-  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE_PLUS_GAP-007_PRESSURE_OBSERVABILITY_PLUS_GAP-008_RESOURCE_MASS_BALANCE_PLUS_GAP-009_PRODUCTION_ACCOUNTING_PLUS_GAP-010_POWER_BALANCE_PLUS_GAP-011_TRAFFIC_FLEET",
+  "captured_for_gap": "GAP-001_REAL_INPUT_COMPILER_PLUS_GAP-002_ACTOR_STATE_AND_BUDGETS_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE_PLUS_GAP-007_PRESSURE_OBSERVABILITY_PLUS_GAP-008_RESOURCE_MASS_BALANCE_PLUS_GAP-009_PRODUCTION_ACCOUNTING_PLUS_GAP-010_POWER_BALANCE_PLUS_GAP-011_TRAFFIC_FLEET_PLUS_GAP-012_FACILITY_SITE_MATERIALIZATION",
   "earth": {
     "aus_area": {
       "display_name": "Australia",
@@ -518,6 +518,11 @@
   },
   "format": "CIVPROP_AUTHORITY_CAPTURE_V1",
   "model_parameters": {
+    "atlas_facility_type_semantics": {
+      "path": "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json",
+      "sha256": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
+      "transfer_scope": "LEGACY_FACILITY_TYPE_VOCABULARY_ONLY_NO_LEGACY_CERES_FACILITY_IDENTITIES_OR_PLACEMENTS"
+    },
     "atlas_power_field_semantics": {
       "path": "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json",
       "sha256": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
@@ -538,6 +543,44 @@
       "path": "data/postgres/migrations/004_earth_temporal_authority.sql",
       "sha256": "ff7a873fc14b0ed1c128673253ea52e65524bd2c3734ca016c5f722345168ecd",
       "transfer_scope": "FIELD_NAMES_AND_ACCOUNTING_IDENTITIES_ONLY_NO_OFFWORLD_PRICE_PRODUCTIVITY_OR_UTILIZATION_COPY"
+    },
+    "facility_site_materialization_source": {
+      "path": "engineering/civprop/contracts/facility_site_materialization_v1.json",
+      "sha256": "ea93fbfa35bedd6303156f62245dfaa52cf6700581b5365987d14610d1a4f25c"
+    },
+    "facility_site_materialization_v1": {
+      "atlas_type_rules": {
+        "allowed_outputs": [
+          "ORBITAL_HABITAT_PORT",
+          "ORBITAL_SHIPYARD",
+          "SURFACE_INBODY_PORT",
+          "SURFACE_RESOURCE_PORT"
+        ],
+        "provenance_refs": [
+          "docs/civprop/CIVPROP_INFRASTRUCTURE_ARCHETYPE_V1.md",
+          "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json#atlas.facilities[].identity.facility_type"
+        ]
+      },
+      "colocation_policy": "EXPLICIT_ONLY",
+      "contract_version": "1.0.0",
+      "format": "CIVPROP_FACILITY_SITE_MATERIALIZATION_V1",
+      "initial_state_policy": {
+        "location_ids": [
+          "EARTH_ORBIT",
+          "LUNA_SURFACE",
+          "CISLUNAR_FREE_SPACE"
+        ],
+        "materialization_policy": "NEVER_MATERIALIZE_WITHOUT_MODULE_PROVENANCE",
+        "provenance_refs": [
+          "engineering/civprop/method_lab/scenario_v1.json#locations",
+          "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md#Capacity-unit-migration"
+        ],
+        "status": "UNQUALIFIED_COMPATIBILITY"
+      },
+      "naming_policy": "PRESENTATION_ONLY",
+      "package_id": "EARTH_LUNA_FACILITY_SITE_MATERIALIZATION_V1_2026_2036",
+      "presentation_names": [],
+      "site_bindings": []
     },
     "mission_knowledge_source": {
       "path": "engineering/civprop/contracts/mission_knowledge_v1.json",
@@ -866,13 +909,13 @@
     },
     "production_accounting_source": {
       "path": "engineering/civprop/contracts/production_accounting_v1.json",
-      "sha256": "61df5249717d4689869aa1f60c69c0669aa66b1484d4554ada9cd4b515e57c75"
+      "sha256": "ae0384c635c42c4ad8901ab0a3e51522208f1f46fa4b4ea0766338ca6b2fd869"
     },
     "production_accounting_v1": {
-      "contract_version": "1.1.0",
+      "contract_version": "1.2.0",
       "facility_models": [
         {
-          "downstream_gap": "GAP-012",
+          "downstream_gap": "GAP-015",
           "output_field": null,
           "output_source": "DEFERRED",
           "output_unit": null,
@@ -1907,7 +1950,7 @@
       }
     ]
   },
-  "source_basis_commit": "cdadbae2a8dee6571965afd5569782dd1db8f105",
+  "source_basis_commit": "d3af8e96a1ef132b7edeb5d28f23d56e238cbc5b",
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
     "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
@@ -1922,10 +1965,11 @@
     "engineering/civprop/civprop0/aus_government_access_evidence.json": "2e9ebc2f6d497d42d74baea504cec45ba16922ea2d554940a5142b1d53ef60ce",
     "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
     "engineering/civprop/civprop0/runs/roover_transport_mid2030_v1.json": "a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
+    "engineering/civprop/contracts/facility_site_materialization_v1.json": "ea93fbfa35bedd6303156f62245dfaa52cf6700581b5365987d14610d1a4f25c",
     "engineering/civprop/contracts/mission_knowledge_v1.json": "e95f42820502e24ba638ba0e4b38cc7c3019ffc8551ee5848d5c6abdc940b6a7",
     "engineering/civprop/contracts/power_balance_v1.json": "02c8368ea10d6f45b47fa190a1c8e30e2895e4c1e46462100b424767430a75c5",
     "engineering/civprop/contracts/pressure_observability_v1.json": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d",
-    "engineering/civprop/contracts/production_accounting_v1.json": "61df5249717d4689869aa1f60c69c0669aa66b1484d4554ada9cd4b515e57c75",
+    "engineering/civprop/contracts/production_accounting_v1.json": "ae0384c635c42c4ad8901ab0a3e51522208f1f46fa4b4ea0766338ca6b2fd869",
     "engineering/civprop/contracts/project_economics_v1.json": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
     "engineering/civprop/contracts/resource_mass_balance_v1.json": "3ae6af47af6778c11bcc1519d75f988445b23bce8dad9b6c1e34ba0aaf42b963",
     "engineering/civprop/contracts/traffic_fleet_v1.json": "691d6b1c7d555a1a261960b507d938b1743e90db892302340b8920f0953ddb86",

@@ -228,8 +228,7 @@ and:
         !=
     annual generated MWh
 
-The inherited off-world initial power capacity is still owned by GAP-012's
-compatibility boundary. Its availability and firmness remain UNKNOWN.
+The inherited off-world initial power capacity is governed by GAP-012 Facility/Site Materialization V1 as UNQUALIFIED_COMPATIBILITY and is never materialized into a facility without module provenance. Its availability and firmness remain UNKNOWN.
 
 ## Time and energy
 
