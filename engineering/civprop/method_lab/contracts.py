@@ -46,6 +46,15 @@ from engineering.civprop.contracts.pressure_observability_v1 import (
     PressureStateV1,
     load_pressure_observability_package,
 )
+from engineering.civprop.contracts.resource_mass_balance_v1 import (
+    ResourceFlowV1,
+    ResourceMassBalancePackage,
+    ResourceMassBalanceRuntime,
+    ResourcePhysicalRealizationPackage,
+    ResourceStateV1,
+    load_resource_mass_balance_package,
+    load_resource_physical_realization,
+)
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -169,6 +178,7 @@ class LabScenario:
     project_archetypes: tuple[ProjectArchetype, ...]
     mission_knowledge_v1: Optional[MissionKnowledgePackage] = None
     pressure_observability_v1: Optional[PressureObservabilityPackage] = None
+    resource_mass_balance_v1: Optional[ResourceMassBalancePackage] = None
 
 
 @dataclass(frozen=True)
@@ -183,6 +193,9 @@ class LabTruth:
     format: str
     fixture_id: str
     resources: tuple[TruthResource, ...]
+    resource_physical_realization_v1: Optional[
+        ResourcePhysicalRealizationPackage
+    ] = None
 
 
 @dataclass(frozen=True)
@@ -278,6 +291,8 @@ class LabResult:
     pressure_states: tuple[PressureStateV1, ...] = ()
     pressure_contributions: tuple[PressureContributionV1, ...] = ()
     pressure_qualifications: tuple[PressureQualificationV1, ...] = ()
+    resource_states: tuple[ResourceStateV1, ...] = ()
+    resource_flows: tuple[ResourceFlowV1, ...] = ()
 
 
 @runtime_checkable
@@ -329,6 +344,13 @@ def canonical_json(value: Any) -> str:
             "pressure_qualifications",
         ):
             plain.pop(key, None)
+    if isinstance(value, LabResult) and not (
+        value.resource_states or value.resource_flows
+    ):
+        # Historical runs without Resource Mass Balance V1 keep their exact
+        # canonical result hash.
+        plain.pop("resource_states", None)
+        plain.pop("resource_flows", None)
     return json.dumps(
         plain,
         sort_keys=True,
@@ -483,6 +505,13 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
                 data["pressure_observability_v1"]
             )
         ),
+        resource_mass_balance_v1=(
+            None
+            if data.get("resource_mass_balance_v1") is None
+            else load_resource_mass_balance_package(
+                data["resource_mass_balance_v1"]
+            )
+        ),
     )
 
 
@@ -497,6 +526,13 @@ def _parse_truth(data: Mapping[str, Any]) -> LabTruth:
                 grade_index=float(x["grade_index"]),
             )
             for x in data["resources"]
+        ),
+        resource_physical_realization_v1=(
+            None
+            if data.get("resource_physical_realization_v1") is None
+            else load_resource_physical_realization(
+                data["resource_physical_realization_v1"]
+            )
         ),
     )
 
