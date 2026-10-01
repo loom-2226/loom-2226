@@ -61,7 +61,8 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         self.assertEqual(observed["GAP-006"], "CLOSED")
         self.assertEqual(observed["GAP-007"], "CLOSED")
         self.assertEqual(observed["GAP-008"], "CLOSED")
-        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(9, 16)))
+        self.assertEqual(observed["GAP-009"], "CLOSED")
+        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(10, 16)))
 
     def test_every_gap_has_exit_criteria_and_handoff(self):
         for gap in self.registry["gaps"]:
@@ -220,6 +221,35 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         )
         self.assertIn(
             "docs/civprop/CIVPROP_RESOURCE_MASS_BALANCE_V1.md",
+            refs,
+        )
+
+    def test_gap9_closure_references_production_accounting_artifacts(self):
+        gap9 = self.registry["gaps"][8]
+        self.assertEqual(gap9["current_status"], "CLOSED")
+        refs = set(gap9["current_evidence"])
+        self.assertIn(
+            "engineering/civprop/contracts/production_accounting_v1.py",
+            refs,
+        )
+        self.assertIn(
+            "engineering/civprop/contracts/test_production_accounting_v1.py",
+            refs,
+        )
+        self.assertIn(
+            "engineering/civprop/method_lab/production_lane_v1.py",
+            refs,
+        )
+        self.assertIn(
+            "data/postgres/migrations/004_earth_temporal_authority.sql",
+            refs,
+        )
+        self.assertIn(
+            "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP9_BASELINE_MANIFEST.json",
+            refs,
+        )
+        self.assertIn(
+            "docs/civprop/CIVPROP_PRODUCTION_ACCOUNTING_V1.md",
             refs,
         )
 

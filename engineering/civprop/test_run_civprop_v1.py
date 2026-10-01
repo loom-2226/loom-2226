@@ -20,12 +20,15 @@ from .run_civprop_v1 import (
 
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
-GOLDEN = HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP8_RESOURCE_MASS_BALANCE_SEED42.json"
+GOLDEN = HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP9_PRODUCTION_ACCOUNTING_SEED42.json"
 BASELINE_MANIFEST = (
-    HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP8_BASELINE_MANIFEST.json"
+    HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP9_BASELINE_MANIFEST.json"
 )
 PREVIOUS_GOLDEN = (
     HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP7_PRESSURE_OBSERVABILITY_SEED42.json"
+)
+GAP8_GOLDEN = (
+    HERE / "baselines" / "CIVPROP_ENGINE_V1_GAP8_RESOURCE_MASS_BALANCE_SEED42.json"
 )
 
 
@@ -45,7 +48,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
         self.assertEqual(output["metadata"]["runner"]["id"], RUNNER_ID)
         self.assertEqual(output["metadata"]["runner"]["version"], RUNNER_VERSION)
         self.assertEqual(output["metadata"]["engine"]["id"], "HYBRID_V1")
-        self.assertEqual(output["metadata"]["engine"]["version"], "method-reference-v6")
+        self.assertEqual(output["metadata"]["engine"]["version"], "method-reference-v7")
         for key in (
             "actor_state_boundary",
             "accessibility_boundary",
@@ -54,6 +57,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
             "mission_knowledge_boundary",
             "pressure_observability_boundary",
             "resource_mass_balance_boundary",
+            "production_accounting_boundary",
             "actor_states",
             "actor_transactions",
             "actor_state_events",
@@ -69,6 +73,10 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
             "pressure_qualifications",
             "resource_states",
             "resource_flows",
+            "facility_production_states",
+            "sector_production_states",
+            "location_production_states",
+            "body_production_states",
             "events",
             "flows",
         ):
@@ -154,7 +162,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
             },
         )
 
-    def test_gap1_through_gap8_are_closed_in_default_output(self):
+    def test_gap1_through_gap9_are_closed_in_default_output(self):
         statuses = {x["gap_id"]: x["status"] for x in self.output["known_gaps"]}
         self.assertEqual(statuses["GAP-001"], "CLOSED")
         self.assertEqual(statuses["GAP-002"], "CLOSED")
@@ -164,12 +172,13 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
         self.assertEqual(statuses["GAP-006"], "CLOSED")
         self.assertEqual(statuses["GAP-007"], "CLOSED")
         self.assertEqual(statuses["GAP-008"], "CLOSED")
-        self.assertEqual(statuses["GAP-009"], "OPEN")
+        self.assertEqual(statuses["GAP-009"], "CLOSED")
+        self.assertEqual(statuses["GAP-010"], "OPEN")
 
     def test_default_input_has_compiler_provenance(self):
         compiler = self.output["metadata"]["inputs"]["compiler"]
         self.assertEqual(compiler["compiler_id"], "CIVPROP_INPUT_COMPILER_V1")
-        self.assertEqual(compiler["compiler_version"], "1.7.0")
+        self.assertEqual(compiler["compiler_version"], "1.8.0")
         self.assertEqual(compiler["gap_resolution"]["GAP-001"], "CLOSED")
         self.assertEqual(compiler["gap_resolution"]["GAP-002"], "CLOSED")
         self.assertEqual(compiler["gap_resolution"]["GAP-003"], "CLOSED")
@@ -178,6 +187,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
         self.assertEqual(compiler["gap_resolution"]["GAP-006"], "CLOSED")
         self.assertEqual(compiler["gap_resolution"]["GAP-007"], "CLOSED")
         self.assertEqual(compiler["gap_resolution"]["GAP-008"], "CLOSED")
+        self.assertEqual(compiler["gap_resolution"]["GAP-009"], "CLOSED")
         self.assertEqual(len(compiler["manifest_sha256"]), 64)
 
     def test_semantics_are_explicit_not_implied(self):
@@ -410,6 +420,102 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
                 f"GAP-008 changed behavioral surface {key}",
             )
 
+    def test_gap9_production_accounting_preserves_physical_economic_separation(self):
+        boundary = self.output["production_accounting_boundary"]
+        self.assertEqual(
+            boundary["format"],
+            "CIVPROP_PRODUCTION_ACCOUNTING_V1",
+        )
+        self.assertEqual(boundary["contract_version"], "1.0.0")
+        self.assertEqual(
+            boundary["monetary_stock_unit"],
+            "USD_2026_billion",
+        )
+        self.assertEqual(
+            boundary["monetary_flow_unit"],
+            "USD_2026_billion/year",
+        )
+        models = {
+            x["project_archetype_id"]: x
+            for x in boundary["facility_models"]
+        }
+        self.assertEqual(
+            set(models),
+            {
+                "LOGISTICS_NODE",
+                "POWER_PLANT",
+                "HABITAT",
+                "RESOURCE_PLANT",
+                "INDUSTRIAL_WORKSHOP",
+            },
+        )
+        self.assertEqual(
+            models["POWER_PLANT"]["downstream_gap"],
+            "GAP-010",
+        )
+        self.assertEqual(
+            models["LOGISTICS_NODE"]["downstream_gap"],
+            "GAP-011",
+        )
+        self.assertEqual(
+            models["HABITAT"]["downstream_gap"],
+            "GAP-014",
+        )
+        for model in models.values():
+            self.assertTrue(
+                all(
+                    model["valuation"][name]["status"] == "UNKNOWN"
+                    and model["valuation"][name]["value"] is None
+                    for name in (
+                        "unit_output_value",
+                        "intermediate_consumption_per_output",
+                        "operating_cost_per_output",
+                    )
+                )
+            )
+        self.assertEqual(self.output["facility_production_states"], [])
+        self.assertEqual(self.output["sector_production_states"], [])
+        self.assertEqual(self.output["location_production_states"], [])
+        self.assertEqual(self.output["body_production_states"], [])
+        self.assertEqual(self.output["facilities"], [])
+
+        semantics = self.output["semantics"]
+        self.assertEqual(
+            semantics["value_added"],
+            "GROSS_OUTPUT_MINUS_INTERMEDIATE_CONSUMPTION_OPERATING_COST_IS_DISTINCT",
+        )
+        self.assertEqual(
+            semantics["productive_capital"],
+            "GROSS_COMMISSIONED_PROJECT_CAPITAL_NO_DEPRECIATION_BEFORE_GAP013",
+        )
+
+    def test_gap9_accounting_does_not_change_gap8_behavior(self):
+        previous = json.loads(GAP8_GOLDEN.read_text())
+        for key in (
+            "actor_states",
+            "actor_transactions",
+            "actor_state_events",
+            "annual_states",
+            "facilities",
+            "decisions",
+            "mission_decisions",
+            "missions",
+            "observations",
+            "knowledge_states",
+            "pressure_states",
+            "pressure_contributions",
+            "pressure_qualifications",
+            "resource_states",
+            "resource_flows",
+            "events",
+            "flows",
+        ):
+            self.assertEqual(
+                self.output[key],
+                previous[key],
+                f"GAP-009 changed behavioral surface {key}",
+            )
+
     def test_gap2_actor_state_preserves_unknown_and_no_generic_capability_unlock(self):
         states = [x for x in self.output["actor_states"] if x["actor_id"] == "AUS"]
         self.assertEqual(len(states), 11)
@@ -460,6 +566,9 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
                 "resource_mass_balance_contract_sha256",
                 "resource_mass_balance_parameter_set_sha256",
                 "resource_lane_sha256",
+                "production_accounting_contract_sha256",
+                "production_accounting_parameter_set_sha256",
+                "production_lane_sha256",
             },
         )
         for value in impl.values():
@@ -502,7 +611,7 @@ class CivpropEngineV1ExecutableBaselineTests(unittest.TestCase):
     def test_baseline_manifest_pins_golden_output_and_runtime_contract(self):
         manifest = json.loads(BASELINE_MANIFEST.read_text())
         self.assertEqual(manifest["format"], "CIVPROP_ENGINE_V1_EXECUTABLE_BASELINE_MANIFEST")
-        self.assertEqual(manifest["baseline_id"], "CIVPROP_ENGINE_V1_GAP8_RESOURCE_MASS_BALANCE_BASELINE_2026_10_01")
+        self.assertEqual(manifest["baseline_id"], "CIVPROP_ENGINE_V1_GAP9_PRODUCTION_ACCOUNTING_BASELINE_2026_10_01")
         self.assertEqual(manifest["runner"]["version"], RUNNER_VERSION)
         self.assertEqual(manifest["output_contract_version"], OUTPUT_CONTRACT_VERSION)
         self.assertEqual(

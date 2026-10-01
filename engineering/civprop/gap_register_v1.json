@@ -1,20 +1,20 @@
 {
   "format": "CIVPROP_GAP_REGISTER_V1",
   "register_id": "CIVPROP_GAP_REGISTER_2026_09_30",
-  "as_of_main_commit": "6e5a3a4fddc985d5670f3b6da9b07122743221ae",
+  "as_of_main_commit": "eb441db0e80f60660a08bc6ad2bab6c58a3318e2",
   "status_semantics": {
     "CLOSED": "The gap has a tested, versioned mechanism adequate for the current CIVPROP development boundary. Closure does not claim every future production-scale value is already calibrated.",
     "OPEN": "The current default executable still contains a placeholder, missing state/output, or incomplete production mechanism owned by this gap.",
     "BLOCKED": "Work cannot proceed without an unresolved dependency outside the gap."
   },
   "current_baseline": {
-    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.8.0",
-    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.8.0",
-    "engine": "HYBRID_V1 method-reference-v6",
+    "runner": "CIVPROP_ENGINE_V1_RUNNER 1.9.0",
+    "output_contract": "CIVPROP_ENGINE_V1_OUTPUT 1.9.0",
+    "engine": "HYBRID_V1 method-reference-v7",
     "default_fixture": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "input_authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP8_RESOURCE_MASS_BALANCE_SEED42.json",
-    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP8_BASELINE_MANIFEST.json"
+    "golden_output": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP9_PRODUCTION_ACCOUNTING_SEED42.json",
+    "baseline_manifest": "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP9_BASELINE_MANIFEST.json"
   },
   "gaps": [
     {
@@ -324,7 +324,7 @@
         "UNKNOWN abundance remains unknown rather than becoming zero or an invented inventory.",
         "Facilities cannot produce resource flows beyond qualified physical/model constraints."
       ],
-      "next_action": "CLOSED. Preserve UNKNOWN-not-zero and evaluator/actor-knowledge separation while proceeding to GAP-009 PRODUCTION_AND_VALUE_ADDED; resource physical state must not become an economic-value shortcut.",
+      "next_action": "CLOSED. Preserve UNKNOWN-not-zero and evaluator/actor-knowledge separation while later economic/service gaps close.",
       "output_or_contract_affected": [
         "resource_mass_balance_boundary",
         "resource_states",
@@ -336,11 +336,28 @@
     {
       "gap_id": "GAP-009",
       "name": "PRODUCTION_AND_VALUE_ADDED",
-      "current_status": "OPEN",
-      "meaning": "Off-world sector production, value added, operating cost and investment flows are not yet generated.",
+      "current_status": "CLOSED",
+      "meaning": "Production Accounting V1 separates physical output feasibility from monetary valuation and gross productive-capital accounting; unresolved required constraints remain UNKNOWN, value added is gross output minus intermediate consumption, and operating cost is distinct.",
       "current_evidence": [
-        "loom_earth earth_sector_year / earth_sector_asset_year authority",
-        "docs/civprop/CIVPROP_GAME_PLAN_VERIFICATION_V1.md"
+        "docs/civprop/CIVPROP_PRODUCTION_ACCOUNTING_V1.md",
+        "engineering/civprop/contracts/production_accounting_v1.py",
+        "engineering/civprop/contracts/production_accounting_v1.json",
+        "engineering/civprop/contracts/test_production_accounting_v1.py",
+        "engineering/civprop/method_lab/production_lane_v1.py",
+        "engineering/civprop/method_lab/contracts.py",
+        "engineering/civprop/method_lab/prototypes/common.py",
+        "engineering/civprop/method_lab/prototypes/hybrid_v1.py",
+        "engineering/civprop/compile_inputs_v1.py",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/scenario_v1.json",
+        "engineering/civprop/compiled_inputs/earth_luna_2026_2036_v1/compiler_manifest_v1.json",
+        "engineering/civprop/run_civprop_v1.py",
+        "engineering/civprop/test_compile_inputs_v1.py",
+        "engineering/civprop/test_run_civprop_v1.py",
+        "data/postgres/migrations/004_earth_temporal_authority.sql",
+        "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
+        "docs/civprop/CIVPROP_RESOURCE_MASS_BALANCE_V1.md",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP9_PRODUCTION_ACCOUNTING_SEED42.json",
+        "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP9_BASELINE_MANIFEST.json"
       ],
       "exit_criteria": [
         "Off-world production has explicit inputs, outputs, capacity utilization and operating costs.",
@@ -348,12 +365,16 @@
         "Production is constrained by power, labor/automation, materials, transport and installed capacity as applicable.",
         "Body/facility aggregates reconcile with underlying facility/sector flows."
       ],
-      "next_action": "Define off-world sector/production accounting V1 using Earth accounting semantics where transferable and new off-world semantics where necessary.",
+      "next_action": "CLOSED. Preserve physical/economic separation and UNKNOWN constraint propagation while proceeding to GAP-010 POWER_BALANCE; do not infer output price, operating cost or utilization from project capital or Earth sector ratios.",
       "output_or_contract_affected": [
-        "production",
+        "production_accounting_boundary",
+        "facility_production_states",
+        "sector_production_states",
+        "location_production_states",
+        "body_production_states",
         "value added",
         "investment",
-        "capital",
+        "gross productive capital",
         "industrial utilization"
       ]
     },

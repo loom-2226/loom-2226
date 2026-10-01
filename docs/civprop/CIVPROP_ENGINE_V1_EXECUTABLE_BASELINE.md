@@ -6,15 +6,16 @@ Status: locked executable baseline; compiled authority with explicit open-gap as
 
 ## Current baseline status
 
-Runner V1.8.0 now defaults to the GAP-001 through GAP-008 compiled authority package
+Runner V1.9.0 now defaults to the GAP-001 through GAP-009 compiled authority package
 documented in docs/civprop/CIVPROP_INPUT_COMPILER_V1.md,
 docs/civprop/CIVPROP_ACTOR_STATE_AND_BUDGETS_V1.md,
 docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md,
 docs/civprop/CIVPROP_DEMAND_PRESSURE_V1.md,
 docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md,
 docs/civprop/CIVPROP_MISSIONS_AND_KNOWLEDGE_V1.md,
-docs/civprop/CIVPROP_PRESSURE_OBSERVABILITY_V1.md and
-docs/civprop/CIVPROP_RESOURCE_MASS_BALANCE_V1.md.
+docs/civprop/CIVPROP_PRESSURE_OBSERVABILITY_V1.md,
+docs/civprop/CIVPROP_RESOURCE_MASS_BALANCE_V1.md and
+docs/civprop/CIVPROP_PRODUCTION_ACCOUNTING_V1.md.
 
 The original V1.0 synthetic Method Lab baseline remains preserved as historical
 regression evidence. It was not overwritten.
@@ -33,7 +34,8 @@ Current gap state begins:
     GAP-006 CLOSED
     GAP-007 CLOSED
     GAP-008 CLOSED
-    GAP-009 through GAP-015 OPEN
+    GAP-009 CLOSED
+    GAP-010 through GAP-015 OPEN
 
 ## Purpose
 
@@ -70,7 +72,7 @@ From repository root:
 
     python3 engineering/civprop/run_civprop_v1.py       --seed 42       --output /tmp/civprop_v1.json
 
-With no path arguments, the runner uses the GAP-001 through GAP-008 compiled authority package and Infrastructure Archetype V1 catalog.
+With no path arguments, the runner uses the GAP-001 through GAP-009 compiled authority package and Infrastructure Archetype V1 catalog.
 
 The runner may later be pointed at another compatible frozen input package with --input-dir and --infrastructure-catalog.
 
@@ -80,15 +82,15 @@ Changing input values is allowed. Changing input meaning is not allowed silently
 
 Machine-readable manifest:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP8_BASELINE_MANIFEST.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP9_BASELINE_MANIFEST.json
 
 Golden output:
 
-    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP8_RESOURCE_MASS_BALANCE_SEED42.json
+    engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP9_PRODUCTION_ACCOUNTING_SEED42.json
 
 The current baseline contains real promoted authority plus explicit unresolved
 synthetic assumptions. It proves execution, contracts, provenance and causal
-bookkeeping. It is not yet a production forecast because GAP-009 onward remain open.
+bookkeeping. It is not yet a production forecast because GAP-010 onward remain open.
 
 The prior V1.0 synthetic manifest/golden files remain preserved as historical
 regression artifacts.
@@ -103,9 +105,11 @@ The compiled package contains frozen promoted Earth, Solar, Timeline, resource a
 actor evidence. Demand/Pressure V1 uses explicit uncalibrated causal parameters,
 Project Economics V1 carries versioned physical/economic ranges with scenario-class
 components, Mission/Knowledge V1 carries an uncalibrated binary observation model,
-and Resource Mass Balance V1 preserves unquantified lunar stock/grade/inventory as
-UNKNOWN while enforcing physical conservation when quantities are known. Later open
-mechanisms remain explicit rather than being silently invented.
+Resource Mass Balance V1 preserves unquantified lunar stock/grade/inventory as
+UNKNOWN while enforcing physical conservation when quantities are known, and
+Production Accounting V1 separates physical feasibility from monetary valuation and
+gross productive capital. Later open mechanisms remain explicit rather than being
+silently invented.
 
 The runner exists so those later gaps can be replaced without redesigning the engine
 entrypoint.
@@ -441,24 +445,28 @@ Top-level output fields:
     pressure_qualifications
     resource_states
     resource_flows
+    facility_production_states
+    sector_production_states
+    location_production_states
+    body_production_states
     events
     flows
 
 Current format: CIVPROP_ENGINE_V1_OUTPUT.
-Current contract version: 1.8.0.
+Current contract version: 1.9.0.
 
 ## Metadata
 
-metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.8.0.
+metadata.runner records runner id and version. Current values are CIVPROP_ENGINE_V1_RUNNER and 1.9.0.
 
-metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current default engine is HYBRID_V1 / method-reference-v6.
+metadata.engine records engine id/version, deterministic run_id, seed and horizon. Current default engine is HYBRID_V1 / method-reference-v7.
 
 metadata.inputs records fixture_id, scenario_format, Method Lab manifest/bundle hashes, actor-visible scenario hash, runtime input hash, evaluator-truth hash, bounded evaluator access policy, separate mission-observation/resource-physical consumption flags, combined evaluator-consumption status, plus input authority and provenance basis.
 
 method_lab_bundle_sha256 identifies the complete evaluation package. runtime_input_sha256 identifies the actor-visible runtime scenario. They are intentionally separate.
 
 metadata.infrastructure records catalog id/format/hash, parameter-set id/status and parameterized archetypes.
-metadata.implementation pins SHA-256 values for the runner, hybrid engine, shared helpers, Method Lab contracts, infrastructure, actor-state, accessibility, demand/pressure, project-economics, mission/knowledge, pressure-observability and resource-mass-balance contracts plus the mission, pressure and resource-lane adapters.
+metadata.implementation pins SHA-256 values for the runner, hybrid engine, shared helpers, Method Lab contracts, infrastructure, actor-state, accessibility, demand/pressure, project-economics, mission/knowledge, pressure-observability, resource-mass-balance and production-accounting contracts plus the mission, pressure, resource and production-lane adapters.
 
 The purpose is reproducibility independent of a vague statement such as "current main."
 
@@ -548,7 +556,7 @@ Current gap status:
     GAP-006 MISSIONS_AND_KNOWLEDGE_UPDATE          CLOSED
     GAP-007 PRESSURE_OBSERVABILITY                 CLOSED
     GAP-008 RESOURCE_MASS_BALANCE                  CLOSED
-    GAP-009 PRODUCTION_AND_VALUE_ADDED             OPEN
+    GAP-009 PRODUCTION_AND_VALUE_ADDED             CLOSED
     GAP-010 POWER_BALANCE                          OPEN
     GAP-011 TRAFFIC_AND_FLEET                      OPEN
     GAP-012 FACILITY_AND_SITE_MATERIALIZATION      OPEN
@@ -566,7 +574,7 @@ for a more complete simulation than it is.
 
 # Golden Seed-42 Baseline
 
-The current GAP-008 resource-mass-balance seed-42 baseline produces:
+The current GAP-009 production-accounting seed-42 baseline produces:
 
     44 annual location-state rows
     11 annual actor-state rows
@@ -584,6 +592,10 @@ The current GAP-008 resource-mass-balance seed-42 baseline produces:
     0 pressure-qualification rows
     11 evaluator-only resource-state rows
     0 resource-flow rows
+    0 facility-production rows
+    0 sector-production rows
+    0 location-production rows
+    0 body-production rows
 
 All 11 project decisions are WAIT and all 11 mission decisions are WAIT. The current
 AUS actor retains a private lunar-water prior at probability 0.45, but generic
@@ -608,7 +620,7 @@ active RESOURCE_PLANT, not because the resource itself is asserted absent. Hosti
 fixtures separately prove stock, grade, recovery, throughput, tailings, inventory and
 depletion conservation.
 
-All pre-existing GAP-007 behavioral arrays are byte-identical under GAP-008.
+All pre-existing GAP-008 behavioral arrays are byte-identical under GAP-009.
 
 No significance should be attached to those numbers as a forecast.
 
@@ -617,7 +629,7 @@ result from the same pinned inputs, implementation and seed?
 
 # Baseline Metadata and Hashes
 
-Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP8_BASELINE_MANIFEST.json. GAP-007, GAP-006, GAP-005, GAP-004, GAP-003, GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
+Authoritative current machine-readable values live in CIVPROP_ENGINE_V1_GAP9_BASELINE_MANIFEST.json. GAP-008, GAP-007, GAP-006, GAP-005, GAP-004, GAP-003, GAP-002, GAP-001 and earlier synthetic manifests remain historical evidence.
 
 The manifest pins source-basis commit, runner and engine identities, output-contract version, runtime-input and evaluator-truth hashes, infrastructure catalog and parameter set, implementation source hashes, golden-output hashes/counts, and change-control rules.
 # Change Control

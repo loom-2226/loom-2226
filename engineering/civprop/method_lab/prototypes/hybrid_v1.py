@@ -15,6 +15,7 @@ from engineering.civprop.contracts.demand_pressure_v1 import DemandPressureRunti
 from ..mission_lane_v1 import MissionLaneV1
 from ..pressure_lane_v1 import PressureLaneV1
 from ..resource_lane_v1 import ResourceLaneV1
+from ..production_lane_v1 import ProductionLaneV1
 
 from .common import (
     Recorder,
@@ -88,7 +89,12 @@ class HybridEngineV1:
         resource_mass_balance = (
             bundle.scenario.resource_mass_balance_v1 is not None
         )
-        if resource_mass_balance:
+        production_accounting = (
+            bundle.scenario.production_accounting_v1 is not None
+        )
+        if production_accounting:
+            self.engine_version = "method-reference-v7"
+        elif resource_mass_balance:
             self.engine_version = "method-reference-v6"
         elif pressure_observability:
             self.engine_version = "method-reference-v5"
@@ -128,6 +134,11 @@ class HybridEngineV1:
             if resource_mass_balance
             else None
         )
+        production_lane = (
+            ProductionLaneV1(bundle, recorder)
+            if production_accounting
+            else None
+        )
         annual_states = []
 
         recorder.event(bundle.scenario.start_year, "RUN_STARTED")
@@ -147,6 +158,9 @@ class HybridEngineV1:
 
             if resource_lane is not None:
                 resource_lane.step(year=year)
+
+            if production_lane is not None:
+                production_lane.step(year=year)
 
             if causal_demand:
                 opening_pressure = dict(pressure)
