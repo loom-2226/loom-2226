@@ -49,3 +49,20 @@ def test_v1_campaign_shared_source_seam_assigns_exact_et_to_left_interval():
     assert left[0][4]=='76bc8b4e1495e2cc2bde'
     assert I.registry.source_for('BENNU',left[0][3])[0].ephemeris_source_id=='JPL_BENNU_SB441'
     assert I.registry.source_for('BENNU',right[0][2])[0].ephemeris_source_id=='PROP_BENNU_2101955_PHASE4D'
+
+def test_v1_shared_pluto_small_moon_seams_have_unique_representable_ownership():
+    """Exact native seam belongs to PLU060; next binary64 ET belongs to continuation."""
+    import math
+    from src.loom_solar_inspector import Inspector
+    inspector = Inspector.connect('loom_dev', '/home/ubuntu/loom_solar_assets')
+    seam = 6311217600.0
+    after = math.nextafter(seam, math.inf)
+    expected = {
+        'NIX': 'PROP_PLU060_EXACT_902_PHASE4F',
+        'HYDRA': 'PROP_PLU060_EXACT_903_PHASE4F',
+        'KERBEROS': 'PROP_PLU060_EXACT_904_PHASE4F',
+        'STYX': 'PROP_PLU060_EXACT_905_PHASE4F',
+    }
+    for body, continuation in expected.items():
+        assert inspector.registry.source_for(body, seam)[0].ephemeris_source_id == 'NAIF_PLU060_4E'
+        assert inspector.registry.source_for(body, after)[0].ephemeris_source_id == continuation
