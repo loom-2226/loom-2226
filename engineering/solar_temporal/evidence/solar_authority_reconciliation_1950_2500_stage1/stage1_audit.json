@@ -1,0 +1,1266 @@
+{
+  "checks": {
+    "actual_file_count": 101,
+    "all_nonzero_segments": false,
+    "duplicate_sha_groups": 2,
+    "governed_hashed_rows_missing_local_count": 0,
+    "governed_hashed_sources": 85,
+    "governed_hashes_present_locally": 84,
+    "governed_source_rows": 85,
+    "inventory_file_count": 101,
+    "path_set_equal": true,
+    "unknown_count": 12
+  },
+  "duplicate_sha_groups": {
+    "dbf016c01ba4d022154838000cf3f06962cf958ddc503a366f7fe8f81495c5cb": [
+      "kernels/spk/phase4b/jup365.bsp",
+      "kernels/spk/satellites/candidate/jup365.bsp"
+    ],
+    "dfbb102491a26ed41ae08ca3f8963f22f0219df1d8f265ab87b9ad825a826fc6": [
+      "kernels/spk/phase4b/plu060.bsp",
+      "kernels/spk/satellites/candidate/plu060.bsp"
+    ]
+  },
+  "governed_hashed_rows_missing_local": [],
+  "schema": "LOOM_SOLAR_STAGE1_RECONCILIATION_AUDIT_V1",
+  "unknown_files": [
+    {
+      "byte_count": 4106240,
+      "relative_path": "kernels/spk/phase4b/2000001_ceres_2025_2251.bsp",
+      "sha256": "fea2bac750c9116f9a4b00c0054bd8e652b7488e4f4aae547e1b6bf66655b6e2",
+      "targets": [
+        {
+          "centers": [
+            10
+          ],
+          "end_et": 7920763200.0,
+          "frames": [
+            1
+          ],
+          "segments": 11,
+          "spk_types": [
+            21
+          ],
+          "start_et": 788961600.0,
+          "target": 20000001
+        }
+      ]
+    },
+    {
+      "byte_count": 4050944,
+      "relative_path": "kernels/spk/phase4d/2000016_psyche.bsp",
+      "sha256": "a8ad99ce1a8ce3af6b7a95782d232fba30e4eb1162b1edf55f35dea711b4e687",
+      "targets": [
+        {
+          "centers": [
+            10
+          ],
+          "end_et": 7920849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 11,
+          "spk_types": [
+            21
+          ],
+          "start_et": 820497600.0,
+          "target": 20000016
+        }
+      ]
+    },
+    {
+      "byte_count": 4107264,
+      "relative_path": "kernels/spk/phase4e/kleopatra_2026_2251.bsp",
+      "sha256": "62534586377d27166b890ed9c44530057edc78572b0c784092d6f9c567264853",
+      "targets": [
+        {
+          "centers": [
+            10
+          ],
+          "end_et": 7920849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 11,
+          "spk_types": [
+            21
+          ],
+          "start_et": 820497600.0,
+          "target": 20000216
+        }
+      ]
+    },
+    {
+      "byte_count": 821838848,
+      "relative_path": "kernels/spk/phase4e/nep098_part-1.bsp",
+      "sha256": "5327f47abba438d993237ff676ab03b728778a965bb238f86de883c0ad7790b8",
+      "targets": [
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 3
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 8
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 10
+        },
+        {
+          "centers": [
+            3
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 399
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 801
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 802
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 803
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 899
+        }
+      ]
+    },
+    {
+      "byte_count": 1791917056,
+      "relative_path": "kernels/spk/phase4e/nep098_part-2.bsp",
+      "sha256": "7f1ddadea0661822d47e41b8086f45720aa40900567bdcd565e65c14d62db52e",
+      "targets": [
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 3
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 8
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 10
+        },
+        {
+          "centers": [
+            3
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 399
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 804
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 805
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 806
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 6311304000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -6311390400.0,
+          "target": 899
+        }
+      ]
+    },
+    {
+      "byte_count": 1299623871,
+      "relative_path": "kernels/spk/phase4e/nep101xl.bsp",
+      "sha256": "b9f895d07c57f99ba40afd270914e87674844f8c40a0fc95a3165e0485bed98b",
+      "targets": [
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 473355144000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -473353848000.0,
+          "target": 809
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 473355144000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -473353848000.0,
+          "target": 810
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 473355144000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -473353848000.0,
+          "target": 811
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 473355144000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -473353848000.0,
+          "target": 812
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 473355144000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -473353848000.0,
+          "target": 813
+        }
+      ]
+    },
+    {
+      "byte_count": 333170688,
+      "relative_path": "kernels/spk/phase4e/nep104.bsp",
+      "sha256": "ef1906c0693f30952eb42b8d9640e9a3e4a6aa03cd899ffd94f7c3e8e1f6c8a0",
+      "targets": [
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 3
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 8
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 10
+        },
+        {
+          "centers": [
+            3
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 399
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 809
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 810
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 811
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 812
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 813
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 899
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 85051
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 12622132800.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 85052
+        }
+      ]
+    },
+    {
+      "byte_count": 210456576,
+      "relative_path": "kernels/spk/phase4e/nep105.bsp",
+      "sha256": "be2ea8cd16658c957e803c7896731c81ad1a8afe2caca6fbf87d7b68bc4392c7",
+      "targets": [
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 12622824000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 3
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 12622824000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 8
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 12622824000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 10
+        },
+        {
+          "centers": [
+            3
+          ],
+          "end_et": 12622824000.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 399
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 12622824000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 802
+        },
+        {
+          "centers": [
+            8
+          ],
+          "end_et": 12622824000.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            2
+          ],
+          "start_et": -12622564800.0,
+          "target": 899
+        }
+      ]
+    },
+    {
+      "byte_count": 16430080,
+      "relative_path": "kernels/spk/phase4e/nh_de433_od161.bsp",
+      "sha256": "76f5dbe0a8e13b3cc4f8c54e4a70eabf1000ba595ccc9ec37c44f98a72279404",
+      "targets": [
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 1
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 2
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 3
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 4
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 5
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 6
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 7
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 8
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 9
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 10
+        },
+        {
+          "centers": [
+            1
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 199
+        },
+        {
+          "centers": [
+            2
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 299
+        },
+        {
+          "centers": [
+            3
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 301
+        },
+        {
+          "centers": [
+            3
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 399
+        },
+        {
+          "centers": [
+            4
+          ],
+          "end_et": 1602849600.0,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -3158136000.0,
+          "target": 499
+        }
+      ]
+    },
+    {
+      "byte_count": 3035136,
+      "relative_path": "kernels/spk/phase4e/nh_extras.bsp",
+      "sha256": "c036c8133dcd3a7816456a762882428468afa0d840562df27dc6c55a09db30ef",
+      "targets": [
+        {
+          "centers": [
+            5
+          ],
+          "end_et": 788961667.1839275,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            3
+          ],
+          "start_et": 157809664.1839331,
+          "target": 517
+        },
+        {
+          "centers": [
+            9
+          ],
+          "end_et": 788961667.1839275,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            3
+          ],
+          "start_et": 157809664.1839331,
+          "target": 904
+        },
+        {
+          "centers": [
+            9
+          ],
+          "end_et": 788961667.1839275,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            3
+          ],
+          "start_et": 157809664.1839331,
+          "target": 905
+        }
+      ]
+    },
+    {
+      "byte_count": 9897984,
+      "relative_path": "kernels/spk/phase4e/nh_pred_alleph_od161.bsp",
+      "sha256": "02c39b765987ac5332d09c3aa5abdeb162d48241d301b21f3aa818e77025b63a",
+      "targets": [
+        {
+          "centers": [
+            10
+          ],
+          "end_et": 946771200.0,
+          "frames": [
+            1
+          ],
+          "segments": 2,
+          "spk_types": [
+            1
+          ],
+          "start_et": 599592940.7559215,
+          "target": -98
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 1
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 2
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 3
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 4
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 5
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 6
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 7
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 8
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 9
+        },
+        {
+          "centers": [
+            0
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 10
+        },
+        {
+          "centers": [
+            1
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 199
+        },
+        {
+          "centers": [
+            2
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 299
+        },
+        {
+          "centers": [
+            3
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 301
+        },
+        {
+          "centers": [
+            3
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 399
+        },
+        {
+          "centers": [
+            4
+          ],
+          "end_et": 1073563269.1841205,
+          "frames": [
+            1
+          ],
+          "segments": 1,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 499
+        },
+        {
+          "centers": [
+            10
+          ],
+          "end_et": 1073563200.0,
+          "frames": [
+            1
+          ],
+          "segments": 457,
+          "spk_types": [
+            2
+          ],
+          "start_et": -189950339.81627268,
+          "target": 2486958
+        }
+      ]
+    },
+    {
+      "byte_count": 5096,
+      "relative_path": "kernels/spk/phase4e/testp10.bsp",
+      "sha256": "e52b9b820b77aa268aff1183ba63331feee1e145b1a098b47be836736b9d39eb",
+      "targets": []
+    }
+  ]
+}
