@@ -6,7 +6,7 @@ Status: current program register and post-gap handoff plan
 
 ## Authority boundary
 
-This document records the CIVPROP program state through GAP-012 closure.
+This document records the CIVPROP program state through GAP-013 closure and the integrated long-run machinery-test handoff.
 
 Authoritative repository basis at creation:
 
@@ -106,7 +106,7 @@ GAP-011 is CLOSED. Traffic/Fleet V1 separates installed local transport handling
 
 GAP-012 is CLOSED. Facility/Site Materialization V1 deterministically projects commissioned modules into stable sites/facilities after propagation, requires explicit colocation and spatial authority, preserves owner/operator separation and presentation-only naming, and keeps inherited off-world starting state visibly UNQUALIFIED_COMPATIBILITY rather than manufacturing facilities from it.
 
-The current baseline is still not a forecast because GAP-013 through GAP-015 remain
+The current baseline is still not a forecast because GAP-014 and GAP-015 remain
 open. Demand, mission-observation and project-economics scenario coefficients remain
 uncalibrated where marked, and later mechanisms materially affect the result. The
 default seed-42 baseline remains an engineering regression/reference artifact, not a

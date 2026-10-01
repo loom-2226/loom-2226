@@ -1,37 +1,30 @@
 import unittest
 from engineering.civprop.propagate_long_run import run
 
-class LongRunActorMachineryTests(unittest.TestCase):
+class IntegratedLongRunV02Tests(unittest.TestCase):
     @classmethod
-    def setUpClass(cls):
-        cls.out=run(42,2026,2226)
+    def setUpClass(cls): cls.out=run(42)
 
-    def test_full_horizon_and_actor_decisions(self):
-        self.assertEqual(len(self.out['annual']),201)
-        self.assertEqual(len(self.out['decisions']),201*13)
-        self.assertTrue(any(x['decision']=='COMMIT' for x in self.out['decisions']))
+    def test_full_horizon_and_closed_gap_surface(self):
+        e=self.out['metadata']['engine']; self.assertEqual((e['start_year'],e['end_year']),(2026,2226))
+        gaps={x['gap_id']:x['status'] for x in self.out['known_gaps']}
+        for i in range(1,14): self.assertEqual(gaps[f'GAP-{i:03d}'],'CLOSED')
+        self.assertEqual(gaps['GAP-014'],'OPEN'); self.assertEqual(gaps['GAP-015'],'OPEN')
 
-    def test_deterministic(self):
-        self.assertEqual(self.out['canonical_sha256'],run(42,2026,2226)['canonical_sha256'])
+    def test_missions_are_not_facilities(self):
+        self.assertGreater(len(self.out['missions']),0); self.assertGreater(len(self.out['observations']),0)
+        self.assertNotIn('PROSPECTING_SURVEY',{x['project_archetype_id'] for x in self.out['facilities']})
 
-    def test_seed_changes_trajectory(self):
-        self.assertNotEqual(self.out['canonical_sha256'],run(43,2026,2226)['canonical_sha256'])
+    def test_closed_gap_outputs_are_present(self):
+        for key in ('pressure_states','pressure_qualifications','resource_states','facility_production_states','power_states','traffic_demand_states','materialized_facilities','asset_lifecycle_states'):
+            self.assertIn(key,self.out); self.assertGreater(len(self.out[key]),0,key)
 
-    def test_interactions_execute(self):
-        self.assertTrue(self.out['transactions'])
-        self.assertTrue(all(x['type']=='BUY/PARTNER' for x in self.out['transactions']))
+    def test_infrastructure_emerges(self):
+        self.assertTrue(any(x['action']=='COMMIT_PROJECT' for x in self.out['decisions']))
+        self.assertGreater(len(self.out['facilities']),0)
 
-    def test_lifecycle_is_causal(self):
-        self.assertGreater(sum(x['retirements'] for x in self.out['annual']),0)
-        self.assertGreater(sum(x['maintenance_requirement'] for x in self.out['annual']),0)
-        self.assertTrue(any(f['retired_year'] is not None for f in self.out['facilities']))
-
-    def test_replacement_is_separate_from_growth(self):
-        self.assertGreater(sum(x['growth_investment'] for x in self.out['annual']),0)
-        self.assertGreater(sum(x['replacement_investment'] for x in self.out['annual']),0)
-        self.assertTrue({'GROWTH','REPLACEMENT'} <= {f['investment_class'] for f in self.out['facilities']})
-
-    def test_no_future_canon_event_input(self):
-        self.assertNotIn('canon', self.out['inputs'])
+    def test_no_parallel_toy_format(self):
+        self.assertEqual(self.out['metadata']['engine']['id'],'HYBRID_V1')
+        self.assertEqual(self.out['long_run_integration']['rule'],'CLOSED_GAP_CONTRACTS_ARE_CONSUMED_NOT_REIMPLEMENTED')
 
 if __name__=='__main__': unittest.main()

@@ -26,6 +26,7 @@ from engineering.civprop.contracts.demand_pressure_v1 import (
 )
 from engineering.civprop.contracts.project_economics_v1 import (
     ProjectEconomicsPackage,
+    ProjectEconomicsRuntime,
     load_project_economics_package,
 )
 from engineering.civprop.contracts.mission_knowledge_v1 import (
@@ -1833,16 +1834,23 @@ def validate_result(result: LabResult, bundle: LabBundle) -> None:
                     raise ValueError(
                         "committed decision references unknown project"
                     )
-                commissioned_year = (
-                    decision.year + project.construction_lag_years
-                )
-                if not (
-                    decision.year < year < commissioned_year
-                ):
+                if s.project_economics_v1 is not None:
+                    resolved = ProjectEconomicsRuntime(s.project_economics_v1).resolve(
+                        project.project_archetype_id, year=decision.year
+                    )
+                    lag = resolved.construction_lag_years
+                    minimum_values = resolved.minimum_input_capacities
+                else:
+                    lag = project.construction_lag_years
+                    minimum_values = {
+                        field: float(getattr(project.minimum_input_capacities, field))
+                        for field in CapacityVector.__dataclass_fields__
+                    }
+                commissioned_year = decision.year + lag
+                if not (decision.year < year < commissioned_year):
                     continue
-                minimums = project.minimum_input_capacities
                 for field, channel_id in channel_by_field.items():
-                    amount = float(getattr(minimums, field))
+                    amount = float(minimum_values.get(field, 0.0))
                     if amount <= 0:
                         continue
                     key = (
