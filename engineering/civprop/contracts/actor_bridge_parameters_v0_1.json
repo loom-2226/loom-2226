@@ -1,0 +1,32 @@
+{
+  "format": "CIVPROP_ACTOR_BRIDGE_PARAMETERS_V0_1",
+  "version": "0.1.0",
+  "status": "NON_CANON_MACHINERY_TEST_ASSUMPTIONS",
+  "capital_unit": "USD_2026_billion",
+  "public_investment_allocation_fraction": 0.0005,
+  "multinational_member_allocation_fraction": 0.00003,
+  "commercial_host_investment_allocation_fraction": 0.00008,
+  "annual_budget_carry_fraction": 0.5,
+  "success_reinvestment_fraction": 0.1,
+  "decision_noise": 0.15,
+  "commit_threshold": 0.48,
+  "project_order": ["LOGISTICS_NODE", "SURFACE_PORT", "POWER_PLANT", "PROSPECTING_SURVEY", "HABITAT", "RESOURCE_PLANT", "INDUSTRIAL_WORKSHOP", "SHIPYARD"],
+  "capability_requirements": {
+    "LOGISTICS_NODE": ["ORBITAL_LAUNCH", "SPACECRAFT_OPS"],
+    "SURFACE_PORT": ["LUNAR_DELIVERY", "SPACECRAFT_OPS"],
+    "POWER_PLANT": ["LUNAR_DELIVERY"],
+    "PROSPECTING_SURVEY": ["LUNAR_DELIVERY"],
+    "HABITAT": ["LUNAR_DELIVERY", "SURFACE_INFRASTRUCTURE"],
+    "RESOURCE_PLANT": ["LUNAR_DELIVERY", "SURFACE_INFRASTRUCTURE"],
+    "INDUSTRIAL_WORKSHOP": ["LUNAR_DELIVERY", "SURFACE_INFRASTRUCTURE"],
+    "SHIPYARD": ["HEAVY_LAUNCH", "SURFACE_INFRASTRUCTURE"]
+  },
+  "rules": [
+    "All numeric allocation and decision parameters are authored machinery-test assumptions, not empirical actor behavior.",
+    "Earth economic investment is only converted to test actor capacity through the explicit fractions above.",
+    "OPERATIONAL and ACCESS satisfy a capability requirement; DEVELOPMENT and UNKNOWN do not.",
+    "BUY/PARTNER seed edges may satisfy a missing capability only when the provider has OPERATIONAL capability.",
+    "Project costs and lags come from CIVPROP Project Economics V1 nominal scenario assumptions.",
+    "This V0.1 bridge tests causal machinery; it is not a forecast or canon trajectory."
+  ]
+}
