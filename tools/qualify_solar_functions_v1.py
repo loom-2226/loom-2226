@@ -30,7 +30,16 @@ def source_boundaries(I,body,center,start,end):
             if c.body_id==target and c.status=='QUALIFIED':
                 for t in (float(c.coverage_start_et),float(c.coverage_end_et)):
                     if start < t < end: cuts.add(t)
-    return sorted(cuts)
+    ordered=sorted(cuts)
+    # A source may begin at nextafter(previous_source_end,+inf) to assign
+    # exact shared-seam ownership deterministically. There is no binary64 ET
+    # between such adjacent values, so represent them as one logical cut.
+    collapsed=[]
+    for t in ordered:
+        if collapsed and t == math.nextafter(collapsed[-1],math.inf):
+            continue
+        collapsed.append(t)
+    return collapsed
 
 def tasks_for(I,bodies,start,end,max_days):
     max_s=max_days*DAY
