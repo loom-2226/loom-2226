@@ -16,6 +16,7 @@ from ..mission_lane_v1 import MissionLaneV1
 from ..pressure_lane_v1 import PressureLaneV1
 from ..resource_lane_v1 import ResourceLaneV1
 from ..production_lane_v1 import ProductionLaneV1
+from ..power_lane_v1 import PowerLaneV1
 
 from .common import (
     Recorder,
@@ -92,7 +93,10 @@ class HybridEngineV1:
         production_accounting = (
             bundle.scenario.production_accounting_v1 is not None
         )
-        if production_accounting:
+        power_balance = bundle.scenario.power_balance_v1 is not None
+        if power_balance:
+            self.engine_version = "method-reference-v8"
+        elif production_accounting:
             self.engine_version = "method-reference-v7"
         elif resource_mass_balance:
             self.engine_version = "method-reference-v6"
@@ -134,6 +138,11 @@ class HybridEngineV1:
             if resource_mass_balance
             else None
         )
+        power_lane = (
+            PowerLaneV1(bundle, recorder)
+            if power_balance
+            else None
+        )
         production_lane = (
             ProductionLaneV1(bundle, recorder)
             if production_accounting
@@ -158,6 +167,9 @@ class HybridEngineV1:
 
             if resource_lane is not None:
                 resource_lane.step(year=year)
+
+            if power_lane is not None:
+                power_lane.step(year=year, states=states)
 
             if production_lane is not None:
                 production_lane.step(year=year)

@@ -277,7 +277,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
             package["format"],
             "CIVPROP_PRODUCTION_ACCOUNTING_V1",
         )
-        self.assertEqual(package["contract_version"], "1.0.0")
+        self.assertEqual(package["contract_version"], "1.1.0")
         self.assertEqual(
             package["monetary_stock_unit"],
             "USD_2026_billion",
@@ -309,8 +309,13 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
             "GAP-011",
         )
         self.assertEqual(
-            models["POWER_PLANT"]["downstream_gap"],
-            "GAP-010",
+            models["POWER_PLANT"]["output_source"],
+            "POWER_GENERATION",
+        )
+        self.assertIsNone(models["POWER_PLANT"]["downstream_gap"])
+        self.assertEqual(
+            models["POWER_PLANT"]["output_unit"],
+            "MWh/year",
         )
         self.assertEqual(
             models["HABITAT"]["downstream_gap"],
@@ -346,6 +351,43 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
             "NO_OFFWORLD_PRICE_PRODUCTIVITY_OR_UTILIZATION_COPY",
         )
 
+    def test_gap10_compiles_power_balance_without_inventing_generation(self):
+        package = self.scenario["power_balance_v1"]
+        self.assertEqual(package["format"], "CIVPROP_POWER_BALANCE_V1")
+        self.assertEqual(package["contract_version"], "1.0.0")
+        self.assertEqual(package["scope"], "NON_EARTH_SURFACE")
+        self.assertEqual(
+            package["population_peak_source"],
+            "DEMAND_PRESSURE_POWER_STATE_DRIVERS",
+        )
+        self.assertEqual(
+            package["population_average_to_peak_factor"]["status"],
+            "UNKNOWN",
+        )
+        self.assertIsNone(
+            package["population_average_to_peak_factor"]["value"]
+        )
+        self.assertEqual(
+            package["initial_compatibility_generation"]["availability_factor"]["status"],
+            "UNKNOWN",
+        )
+        self.assertEqual(
+            package["reserve_margin_fraction"]["status"],
+            "UNKNOWN",
+        )
+        self.assertEqual(
+            package["storage_model"]["status"],
+            "NOT_MODELED_V1",
+        )
+        self.assertFalse(package["timeline_context"]["auto_unlock"])
+        self.assertEqual(
+            package["timeline_context"]["industrial_milestone_id"],
+            "ENE-MOD-INDUSTRIAL",
+        )
+        capture_model = self.capture["model_parameters"]
+        self.assertIn("power_balance_v1", capture_model)
+        self.assertIn("atlas_power_field_semantics", capture_model)
+
     def test_other_unresolved_engine_inputs_are_not_disguised_as_authority(self):
         assumptions = self.scenario["assumption_register"]
         gaps = {x["gap_id"] for x in assumptions}
@@ -357,6 +399,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertNotIn("GAP-007", gaps)
         self.assertNotIn("GAP-008", gaps)
         self.assertNotIn("GAP-009", gaps)
+        self.assertNotIn("GAP-010", gaps)
         self.assertIn("GAP-012", gaps)
         for row in assumptions:
             self.assertIn(row["status"], {"EXPLICIT_PLACEHOLDER", "COMPATIBILITY_BOUNDARY"})
@@ -397,7 +440,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(access["subject_id"], "ROO_VER")
         self.assertNotEqual(access["subject_id"], "FLEET_SPACE_TECHNOLOGIES")
 
-    def test_compiler_manifest_closes_gap1_through_gap9(self):
+    def test_compiler_manifest_closes_gap1_through_gap10(self):
         manifest = self.compiler_manifest
         self.assertEqual(manifest["format"], "CIVPROP_INPUT_COMPILER_MANIFEST_V1")
         self.assertEqual(len(manifest["compiler_source_sha256"]), 64)
@@ -411,7 +454,8 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(manifest["gap_resolution"]["GAP-007"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-008"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-009"], "CLOSED")
-        self.assertEqual(manifest["gap_resolution"]["GAP-010"], "OPEN")
+        self.assertEqual(manifest["gap_resolution"]["GAP-010"], "CLOSED")
+        self.assertEqual(manifest["gap_resolution"]["GAP-011"], "OPEN")
         self.assertEqual(manifest["runtime_input"]["fixture_id"], COMPILED_FIXTURE_ID)
 
     def test_compiler_is_deterministic_from_frozen_capture(self):
@@ -476,6 +520,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         gap7 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-007")
         gap8 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-008")
         gap9 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-009")
+        gap10 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-010")
         self.assertEqual(gap1["status"], "CLOSED")
         self.assertEqual(gap2["status"], "CLOSED")
         self.assertEqual(gap3["status"], "CLOSED")
@@ -485,6 +530,10 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(gap7["status"], "CLOSED")
         self.assertEqual(gap8["status"], "CLOSED")
         self.assertEqual(gap9["status"], "CLOSED")
+        self.assertEqual(gap10["status"], "CLOSED")
+        self.assertEqual(len(output["power_states"]), 33)
+        self.assertEqual(output["power_flows"], [])
+        self.assertEqual(len(output["atlas_power_metrics"]), 33)
         self.assertEqual(output["facility_production_states"], [])
         self.assertEqual(output["sector_production_states"], [])
         self.assertEqual(output["location_production_states"], [])

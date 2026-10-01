@@ -62,7 +62,8 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         self.assertEqual(observed["GAP-007"], "CLOSED")
         self.assertEqual(observed["GAP-008"], "CLOSED")
         self.assertEqual(observed["GAP-009"], "CLOSED")
-        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(10, 16)))
+        self.assertEqual(observed["GAP-010"], "CLOSED")
+        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(11, 16)))
 
     def test_every_gap_has_exit_criteria_and_handoff(self):
         for gap in self.registry["gaps"]:
@@ -250,6 +251,39 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         )
         self.assertIn(
             "docs/civprop/CIVPROP_PRODUCTION_ACCOUNTING_V1.md",
+            refs,
+        )
+
+    def test_gap10_closure_references_power_balance_artifacts(self):
+        gap10 = self.registry["gaps"][9]
+        self.assertEqual(gap10["current_status"], "CLOSED")
+        refs = set(gap10["current_evidence"])
+        self.assertIn(
+            "engineering/civprop/contracts/power_balance_v1.py",
+            refs,
+        )
+        self.assertIn(
+            "engineering/civprop/contracts/test_power_balance_v1.py",
+            refs,
+        )
+        self.assertIn(
+            "engineering/civprop/method_lab/power_lane_v1.py",
+            refs,
+        )
+        self.assertIn(
+            "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md",
+            refs,
+        )
+        self.assertIn(
+            "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json",
+            refs,
+        )
+        self.assertIn(
+            "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP10_BASELINE_MANIFEST.json",
+            refs,
+        )
+        self.assertIn(
+            "docs/civprop/CIVPROP_POWER_BALANCE_V1.md",
             refs,
         )
 

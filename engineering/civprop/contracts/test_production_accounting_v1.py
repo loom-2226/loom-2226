@@ -357,6 +357,54 @@ class ProductionAccountingV1Tests(unittest.TestCase):
         self.assertAlmostEqual(location.gross_output, sector.gross_output)
         self.assertAlmostEqual(body.gross_output, sector.gross_output)
 
+    def test_power_generation_uses_gap10_facility_generation_mwh(self):
+        package = load_production_accounting_package(
+            json.loads(PARAMETERS.read_text())
+        )
+        runtime = ProductionAccountingRuntime(package)
+        facility = _facility(
+            archetype="POWER_PLANT",
+            facility_id="power-1",
+            capital=0.4,
+            industrial=0.0,
+        )
+        facility.capacities.power = 0.04
+        power_state = SimpleNamespace(
+            year=2030,
+            location_id="LUNA_SURFACE",
+            interval_hours=8760,
+            generation_components=(
+                SimpleNamespace(
+                    source_type="FACILITY_GENERATOR",
+                    source_id="power-1",
+                    average_generation_mw=0.02,
+                ),
+            ),
+        )
+        state = runtime.evaluate_facility(
+            year=2030,
+            facility=facility,
+            constraint_observations={},
+            resource_states=(),
+            power_states=(power_state,),
+        )
+        self.assertEqual(state.output_source, "POWER_GENERATION")
+        self.assertEqual(state.physical_output_unit, "MWh/year")
+        self.assertEqual(state.physical_output_status, "KNOWN")
+        self.assertAlmostEqual(
+            state.installed_output_capacity,
+            0.04 * 8760,
+        )
+        self.assertAlmostEqual(
+            state.physical_output_ceiling,
+            0.02 * 8760,
+        )
+        self.assertAlmostEqual(
+            state.physical_output_quantity,
+            0.02 * 8760,
+        )
+        self.assertEqual(state.valuation_status, "UNKNOWN")
+
     def test_invalid_constraint_ratio_fails_closed(self):
         with self.assertRaises(ValueError):
             ConstraintObservationV1(

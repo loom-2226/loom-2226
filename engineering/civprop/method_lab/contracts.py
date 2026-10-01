@@ -64,6 +64,13 @@ from engineering.civprop.contracts.production_accounting_v1 import (
     SectorProductionStateV1,
     load_production_accounting_package,
 )
+from engineering.civprop.contracts.power_balance_v1 import (
+    PowerBalancePackage,
+    PowerBalanceRuntime,
+    PowerFlowV1,
+    PowerStateV1,
+    load_power_balance_package,
+)
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -189,6 +196,7 @@ class LabScenario:
     pressure_observability_v1: Optional[PressureObservabilityPackage] = None
     resource_mass_balance_v1: Optional[ResourceMassBalancePackage] = None
     production_accounting_v1: Optional[ProductionAccountingPackage] = None
+    power_balance_v1: Optional[PowerBalancePackage] = None
 
 
 @dataclass(frozen=True)
@@ -307,6 +315,8 @@ class LabResult:
     sector_production_states: tuple[SectorProductionStateV1, ...] = ()
     location_production_states: tuple[LocationProductionStateV1, ...] = ()
     body_production_states: tuple[BodyProductionStateV1, ...] = ()
+    power_states: tuple[PowerStateV1, ...] = ()
+    power_flows: tuple[PowerFlowV1, ...] = ()
 
 
 @runtime_checkable
@@ -380,6 +390,12 @@ def canonical_json(value: Any) -> str:
             "body_production_states",
         ):
             plain.pop(key, None)
+    if isinstance(value, LabResult) and not (
+        value.power_states or value.power_flows
+    ):
+        # Historical runs without Power Balance V1 retain their hashes.
+        plain.pop("power_states", None)
+        plain.pop("power_flows", None)
     return json.dumps(
         plain,
         sort_keys=True,
@@ -547,6 +563,11 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             else load_production_accounting_package(
                 data["production_accounting_v1"]
             )
+        ),
+        power_balance_v1=(
+            None
+            if data.get("power_balance_v1") is None
+            else load_power_balance_package(data["power_balance_v1"])
         ),
     )
 
@@ -859,11 +880,66 @@ def _validate_scenario(s: LabScenario, truth: LabTruth) -> None:
                     raise ValueError(
                         "resource production references unknown capacity field"
                     )
+            elif model.output_source == "POWER_GENERATION":
+                if s.power_balance_v1 is None:
+                    raise ValueError(
+                        "power production accounting requires GAP-010"
+                    )
+                if model.output_field != "power":
+                    raise ValueError(
+                        "power production must reference power capacity"
+                    )
+                if project.output_capacities.power <= 0:
+                    raise ValueError(
+                        "power production project lacks installed power capacity"
+                    )
             elif model.output_source == "DEFERRED":
                 if model.downstream_gap is None:
                     raise ValueError(
                         "deferred production model lacks owning gap"
                     )
+
+    if s.power_balance_v1 is not None:
+        if s.demand_pressure_v1 is None:
+            raise ValueError(
+                "Power Balance V1 requires Demand/Pressure V1"
+            )
+        power_runtime = PowerBalanceRuntime(
+            s.power_balance_v1,
+            s.demand_pressure_v1,
+        )
+        del power_runtime
+        facility_projects = {
+            x.project_archetype_id
+            for x in s.project_archetypes
+            if x.project_kind == "FACILITY"
+        }
+        load_models = {
+            x.project_archetype_id
+            for x in s.power_balance_v1.facility_load_models
+        }
+        if load_models != facility_projects:
+            raise ValueError(
+                "power load models must exactly cover facility archetypes"
+            )
+        power_projects = {
+            x.project_archetype_id
+            for x in s.project_archetypes
+            if x.project_kind == "FACILITY"
+            and x.output_capacities.power > 0
+        }
+        generation_models = {
+            x.project_archetype_id
+            for x in s.power_balance_v1.generation_models
+        }
+        if generation_models != power_projects:
+            raise ValueError(
+                "generation models must exactly cover power-producing facilities"
+            )
+        if not set(s.power_balance_v1.excluded_location_ids) <= location_ids:
+            raise ValueError(
+                "power-balance exclusions reference unknown locations"
+            )
 
     for project in s.project_archetypes:
         if project.capital_cost <= 0 or project.construction_lag_years < 1:
@@ -1413,6 +1489,150 @@ def validate_result(result: LabResult, bundle: LabBundle) -> None:
                         "resource flow does not reconcile with state"
                     )
 
+    if s.power_balance_v1 is None:
+        if result.power_states or result.power_flows:
+            raise ValueError(
+                "power outputs require Power Balance V1"
+            )
+    else:
+        if s.demand_pressure_v1 is None:
+            raise ValueError(
+                "power outputs require Demand/Pressure V1"
+            )
+        power_runtime = PowerBalanceRuntime(
+            s.power_balance_v1,
+            s.demand_pressure_v1,
+        )
+        excluded = set(s.power_balance_v1.excluded_location_ids)
+        expected_keys = {
+            (year, location_id)
+            for year in range(s.start_year, s.end_year + 1)
+            for location_id in location_ids
+            if location_id not in excluded
+        }
+        actual_keys = {
+            (x.year, x.location_id)
+            for x in result.power_states
+        }
+        if actual_keys != expected_keys:
+            raise ValueError(
+                "power-state annual coverage does not match scope"
+            )
+        _unique(
+            result.power_states,
+            lambda x: x.power_state_id,
+            "power state id",
+        )
+        annual_by_key = {
+            (x.year, x.location_id): x
+            for x in result.annual_states
+        }
+        expected_power_flows = []
+        power_by_key = {}
+        for power_state in result.power_states:
+            annual = annual_by_key.get(
+                (power_state.year, power_state.location_id)
+            )
+            if annual is None:
+                raise ValueError(
+                    "power state lacks annual location state"
+                )
+            active = tuple(
+                facility
+                for facility in result.facilities
+                if facility.status == "ACTIVE"
+                and facility.location_id == power_state.location_id
+                and facility.commissioned_year <= power_state.year
+            )
+            reproduced, flows = power_runtime.step_location(
+                year=power_state.year,
+                location_id=power_state.location_id,
+                state=annual,
+                facilities=active,
+            )
+            if reproduced != power_state:
+                raise ValueError(
+                    "power state does not replay exactly"
+                )
+            expected_power_flows.extend(flows)
+            power_by_key[
+                (power_state.year, power_state.location_id)
+            ] = power_state
+        if tuple(expected_power_flows) != result.power_flows:
+            raise ValueError(
+                "power flows do not reconcile with power states"
+            )
+        _unique(
+            result.power_flows,
+            lambda x: x.power_flow_id,
+            "power flow id",
+        )
+
+        if s.production_accounting_v1 is not None:
+            production_models = {
+                x.project_archetype_id: x
+                for x in s.production_accounting_v1.facility_models
+            }
+            facility_by_id = {
+                x.facility_id: x for x in result.facilities
+            }
+            for production_state in result.facility_production_states:
+                facility = facility_by_id.get(
+                    production_state.facility_id
+                )
+                if facility is None:
+                    continue
+                model = production_models[
+                    facility.project_archetype_id
+                ]
+                if "POWER" not in model.required_constraints:
+                    continue
+                if production_state.location_id in excluded:
+                    continue
+                power_state = power_by_key.get(
+                    (
+                        production_state.year,
+                        production_state.location_id,
+                    )
+                )
+                if power_state is None:
+                    raise ValueError(
+                        "production POWER constraint lacks power state"
+                    )
+                observed = {
+                    x.constraint_id: x
+                    for x in production_state.constraint_observations
+                }.get("POWER")
+                if observed is None:
+                    raise ValueError(
+                        "production state lacks POWER constraint observation"
+                    )
+                expected_status = (
+                    "UNKNOWN"
+                    if power_state.power_service_ratio is None
+                    else "KNOWN"
+                )
+                if observed.status != expected_status:
+                    raise ValueError(
+                        "production POWER constraint status mismatch"
+                    )
+                if expected_status == "KNOWN":
+                    if (
+                        observed.utilization_ratio is None
+                        or abs(
+                            observed.utilization_ratio
+                            - power_state.power_service_ratio
+                        )
+                        > 1e-12
+                    ):
+                        raise ValueError(
+                            "production POWER constraint ratio mismatch"
+                        )
+                elif observed.utilization_ratio is not None:
+                    raise ValueError(
+                        "UNKNOWN POWER constraint cannot carry ratio"
+                    )
+
     if s.production_accounting_v1 is None:
         if (
             result.facility_production_states
@@ -1473,6 +1693,7 @@ def validate_result(result: LabResult, bundle: LabBundle) -> None:
                     if peer.status == "ACTIVE"
                     and peer.commissioned_year <= state.year
                 ),
+                power_states=result.power_states,
             )
             if state != reproduced:
                 raise ValueError(

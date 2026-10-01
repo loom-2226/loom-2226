@@ -6,11 +6,11 @@ Status: current program register and post-gap handoff plan
 
 ## Authority boundary
 
-This document records the CIVPROP program state through GAP-009 closure.
+This document records the CIVPROP program state through GAP-010 closure.
 
 Authoritative repository basis at creation:
 
-    eb441db0e80f60660a08bc6ad2bab6c58a3318e2
+    56be7a4ee0e4be0b8eca5681a8905fd65c1ab19e
 
 Machine-readable register:
 
@@ -30,12 +30,12 @@ Current default runtime package:
 
 Current runner/output contract:
 
-    CIVPROP_ENGINE_V1_RUNNER 1.9.0
-    CIVPROP_ENGINE_V1_OUTPUT 1.9.0
+    CIVPROP_ENGINE_V1_RUNNER 1.10.0
+    CIVPROP_ENGINE_V1_OUTPUT 1.10.0
 
 Current engine:
 
-    HYBRID_V1 method-reference-v7
+    HYBRID_V1 method-reference-v8
 
 Current input authority:
 
@@ -100,7 +100,9 @@ power/labor/material/transport constraints propagate UNKNOWN; value added is gro
 output minus intermediate consumption; operating cost remains distinct; commissioning
 creates investment/gross productive capital without depreciation before GAP-013.
 
-The current baseline is still not a forecast because GAP-010 through GAP-015 remain
+GAP-010 is CLOSED. Power Balance V1 separates installed capacity, average/firm generation, explicit peak/average load and annual energy while preserving UNKNOWN availability/load factors and Timeline no-auto-unlock semantics.
+
+The current baseline is still not a forecast because GAP-011 through GAP-015 remain
 open. Demand, mission-observation and project-economics scenario coefficients remain
 uncalibrated where marked, and later mechanisms materially affect the result. The
 default seed-42 baseline remains an engineering regression/reference artifact, not a
@@ -147,7 +149,7 @@ A gap may close only when its replacement has:
 | GAP-007 | PRESSURE_OBSERVABILITY | CLOSED | Preserve read-only reconstructable pressure ledger and exact decision provenance |
 | GAP-008 | RESOURCE_MASS_BALANCE | CLOSED | Preserve physical conservation, UNKNOWN-not-zero and actor/evaluator separation |
 | GAP-009 | PRODUCTION_AND_VALUE_ADDED | CLOSED | Preserve physical/economic separation, UNKNOWN constraints and accounting reconciliation |
-| GAP-010 | POWER_BALANCE | OPEN | Add generation/load/storage/reserve/energy closure |
+| GAP-010 | POWER_BALANCE | CLOSED | Preserve installed-MW versus generation/load/MWh separation and Timeline no-auto-unlock |
 | GAP-011 | TRAFFIC_AND_FLEET | OPEN | Generate cargo/passenger/ship-call/fleet/route utilization state |
 | GAP-012 | FACILITY_AND_SITE_MATERIALIZATION | OPEN | Convert modules into stable sites, orbitals, facilities and settlements |
 | GAP-013 | MAINTENANCE_DEPRECIATION_RETIREMENT | OPEN | Add asset lifecycle, replacement, failure and retirement |
@@ -480,7 +482,8 @@ Current frontier:
     GAP-007 CLOSED
     GAP-008 CLOSED
     GAP-009 CLOSED
-    GAP-010 OPEN
+    GAP-010 CLOSED
+    GAP-011 OPEN
 
 GAP-002 removed the compiled-input assumptions:
 
@@ -554,11 +557,12 @@ default package. Commissioned project capital forms gross productive capital, wi
 no depreciation before GAP-013. The default seed-42 generated-facility economy has
 no commissioned facilities and therefore emits no production rows.
 
+GAP-010 adds:
+
+    CIVPROP_POWER_BALANCE_V1
+
+and versions Production Accounting V1 to 1.1.0 so POWER_PLANT physical output derives from GAP-010 facility generation in MWh/year. Timeline R03 and ENE-MOD-INDUSTRIAL remain context only and never auto-unlock capacity.
+
 The next implementation target is therefore:
 
-    GAP-010 POWER_BALANCE
-
-That work must distinguish installed MW from actual generation, consumption, peak
-load, storage/reserve and energy closure. Production Accounting V1 must consume the
-future power-service boundary rather than treating installed capacity as delivered
-energy.
+    GAP-011 TRAFFIC_AND_FLEET

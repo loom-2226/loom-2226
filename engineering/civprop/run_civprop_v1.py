@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Locked executable baseline for CIVPROP Engine V1.
 
-Runner V1.9 keeps the selected HYBRID_V1 architecture and closed GAP-001
-through GAP-008 boundaries, then adds GAP-009 Production Accounting V1 with
-separate physical-output feasibility, monetary valuation, value-added, investment
-and gross productive-capital accounting. Later gaps remain explicit rather than
-being silently invented.
+Runner V1.10 keeps the selected HYBRID_V1 architecture and closed GAP-001
+through GAP-009 boundaries, then adds GAP-010 Power Balance V1 with explicit
+installed generation, average/firm generation, peak/average load, annual energy,
+unserved/curtailed energy and runtime-derived Atlas average/peak load metrics.
+Later gaps remain explicit rather than being silently invented.
 """
 from __future__ import annotations
 
@@ -40,9 +40,9 @@ from engineering.civprop.method_lab.prototypes.common import (
 
 
 OUTPUT_FORMAT = "CIVPROP_ENGINE_V1_OUTPUT"
-OUTPUT_CONTRACT_VERSION = "1.9.0"
+OUTPUT_CONTRACT_VERSION = "1.10.0"
 RUNNER_ID = "CIVPROP_ENGINE_V1_RUNNER"
-RUNNER_VERSION = "1.9.0"
+RUNNER_VERSION = "1.10.0"
 DEFAULT_PARAMETER_SET_ID = "METHOD_LAB_SYNTHETIC_V1"
 PROJECT_ECONOMICS_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "project_economics_v1.json"
@@ -58,6 +58,9 @@ RESOURCE_MASS_BALANCE_PARAMETER_PATH = (
 )
 PRODUCTION_ACCOUNTING_PARAMETER_PATH = (
     _CIVPROP_DIR / "contracts" / "production_accounting_v1.json"
+)
+POWER_BALANCE_PARAMETER_PATH = (
+    _CIVPROP_DIR / "contracts" / "power_balance_v1.json"
 )
 
 
@@ -177,6 +180,7 @@ def _implementation_hashes() -> dict[str, str]:
         pressure_observability_v1,
         resource_mass_balance_v1,
         production_accounting_v1,
+        power_balance_v1,
     )
     from engineering.civprop.method_lab import (
         contracts,
@@ -184,6 +188,7 @@ def _implementation_hashes() -> dict[str, str]:
         pressure_lane_v1,
         resource_lane_v1,
         production_lane_v1,
+        power_lane_v1,
     )
     from engineering.civprop.method_lab.prototypes import common, hybrid_v1
 
@@ -228,6 +233,13 @@ def _implementation_hashes() -> dict[str, str]:
             PRODUCTION_ACCOUNTING_PARAMETER_PATH
         ),
         "production_lane_sha256": _module_sha256(production_lane_v1),
+        "power_balance_contract_sha256": _module_sha256(
+            power_balance_v1
+        ),
+        "power_balance_parameter_set_sha256": _sha256(
+            POWER_BALANCE_PARAMETER_PATH
+        ),
+        "power_lane_sha256": _module_sha256(power_lane_v1),
     }
 
 
@@ -302,6 +314,21 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
         ),
         "productive_capital": (
             "GROSS_COMMISSIONED_PROJECT_CAPITAL_NO_DEPRECIATION_BEFORE_GAP013"
+        ),
+        "power_balance": (
+            "INSTALLED_MW_SEPARATE_FROM_AVERAGE_GENERATION_PEAK_LOAD_AND_ANNUAL_MWH"
+        ),
+        "power_energy_interval": (
+            "GREGORIAN_CALENDAR_YEAR_8760_OR_8784_HOURS"
+        ),
+        "power_unknowns": (
+            "AVERAGE_LOAD_GENERATOR_AVAILABILITY_FIRMNESS_FACILITY_LOADS_AND_RESERVE_REMAIN_UNKNOWN_UNLESS_QUALIFIED"
+        ),
+        "power_timeline": (
+            "R03_AND_ENE_MOD_INDUSTRIAL_ARE_CONTEXT_ONLY_NO_AUTO_UNLOCK"
+        ),
+        "atlas_power_metrics": (
+            "POWER_AVERAGE_MW_AND_POWER_PEAK_MW_ARE_RUNTIME_ELECTRICAL_LOAD_DEMAND_METRICS"
         ),
         "pressure_memory": (
             "CHANNEL_PRESSURE_DECAYS_WHEN_UNMET_REQUIREMENT_DISAPPEARS"
@@ -398,7 +425,7 @@ def _base_gaps() -> list[dict[str, str]]:
             "gap_id": "GAP-010",
             "name": "POWER_BALANCE",
             "status": "OPEN",
-            "meaning": "Power is abstract installed capacity; average demand, peak demand, storage, generation mix and energy closure are not yet modeled.",
+            "meaning": "Power Balance V1 separates installed generation capacity from average/firm generation, explicit population/facility load, peak and average demand, annual MWh, reserve/storage assumptions, unserved/curtailed energy and runtime-derived Atlas average/peak load metrics; timeline power milestones never auto-unlock capacity.",
         },
         {
             "gap_id": "GAP-011",
@@ -783,6 +810,11 @@ def build_output(
                 canonical_json(bundle.scenario.production_accounting_v1)
             )
         ),
+        "power_balance_boundary": (
+            None
+            if bundle.scenario.power_balance_v1 is None
+            else json.loads(canonical_json(bundle.scenario.power_balance_v1))
+        ),
         "actor_states": actor_states,
         "actor_transactions": actor_transactions,
         "actor_state_events": actor_state_events,
@@ -820,6 +852,21 @@ def build_output(
             "body_production_states",
             [],
         ),
+        "power_states": result_dict.get("power_states", []),
+        "power_flows": result_dict.get("power_flows", []),
+        "atlas_power_metrics": [
+            {
+                "year": row["year"],
+                "location_id": row["location_id"],
+                "power_state_id": row["power_state_id"],
+                "power_average_mw": row["atlas_power_average_mw"],
+                "power_peak_mw": row["atlas_power_peak_mw"],
+                "measurement_basis": (
+                    "ANNUAL_AVERAGE_AND_PEAK_ELECTRICAL_LOAD_DEMAND"
+                ),
+            }
+            for row in result_dict.get("power_states", [])
+        ],
         "events": result_dict["events"],
         "flows": result_dict["flows"],
     }
@@ -835,7 +882,7 @@ def main() -> None:
         "--input-dir",
         type=Path,
         default=default_input_dir,
-        help="Compatible frozen input directory (defaults to GAP-001 through GAP-009 compiled V1).",
+        help="Compatible frozen input directory (defaults to GAP-001 through GAP-010 compiled V1).",
     )
     parser.add_argument(
         "--infrastructure-catalog",

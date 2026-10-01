@@ -1,6 +1,6 @@
 {
   "format": "CIVPROP_PRODUCTION_ACCOUNTING_V1",
-  "contract_version": "1.0.0",
+  "contract_version": "1.1.0",
   "package_id": "EARTH_LUNA_PRODUCTION_ACCOUNTING_V1_2026_2036",
   "monetary_stock_unit": "USD_2026_billion",
   "monetary_flow_unit": "USD_2026_billion/year",
@@ -54,45 +54,45 @@
       "production_model_id": "POWER_PLANT_PRODUCTION_V1",
       "project_archetype_id": "POWER_PLANT",
       "sector_id": "ENERGY",
-      "output_source": "DEFERRED",
-      "output_field": null,
-      "output_unit": null,
+      "output_source": "POWER_GENERATION",
+      "output_field": "power",
+      "output_unit": "MWh/year",
       "resource_id": null,
-      "downstream_gap": "GAP-010",
-      "required_constraints": [
-        "LABOR_AUTOMATION",
-        "MATERIALS",
-        "TRANSPORT"
-      ],
+      "downstream_gap": null,
+      "required_constraints": [],
       "valuation": {
         "unit_output_value": {
           "status": "UNKNOWN",
           "value": null,
-          "unit": "USD_2026_billion/GWh",
+          "unit": "USD_2026_billion/MWh",
           "provenance_refs": [
-            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+            "docs/civprop/CIVPROP_POWER_BALANCE_V1.md"
           ]
         },
         "intermediate_consumption_per_output": {
           "status": "UNKNOWN",
           "value": null,
-          "unit": "USD_2026_billion/GWh",
+          "unit": "USD_2026_billion/MWh",
           "provenance_refs": [
-            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+            "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+            "docs/civprop/CIVPROP_POWER_BALANCE_V1.md"
           ]
         },
         "operating_cost_per_output": {
           "status": "UNKNOWN",
           "value": null,
-          "unit": "USD_2026_billion/GWh",
+          "unit": "USD_2026_billion/MWh",
           "provenance_refs": [
-            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md"
+            "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
+            "docs/civprop/CIVPROP_POWER_BALANCE_V1.md"
           ]
         }
       },
       "provenance_refs": [
         "docs/civprop/CIVPROP_PROJECT_ECONOMICS_V1.md",
-        "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year"
+        "data/postgres/migrations/004_earth_temporal_authority.sql#earth_sector_year",
+        "docs/civprop/CIVPROP_POWER_BALANCE_V1.md"
       ]
     },
     {

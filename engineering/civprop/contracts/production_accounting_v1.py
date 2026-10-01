@@ -17,13 +17,14 @@ from typing import Any, Mapping, Optional, Sequence
 
 
 FORMAT = "CIVPROP_PRODUCTION_ACCOUNTING_V1"
-CONTRACT_VERSION = "1.0.0"
+CONTRACT_VERSION = "1.1.0"
 
 VALUE_STATUS = {"KNOWN", "UNKNOWN"}
 CONSTRAINT_STATUS = {"KNOWN", "UNKNOWN", "NOT_APPLICABLE"}
 OUTPUT_SOURCE = {
     "CAPACITY_FIELD",
     "RESOURCE_RECOVERED_PRODUCT",
+    "POWER_GENERATION",
     "DEFERRED",
 }
 STATE_STATUS = {"KNOWN", "UNKNOWN", "DEFERRED"}
@@ -400,6 +401,7 @@ class ProductionAccountingRuntime:
         constraint_observations: Mapping[str, ConstraintObservationV1],
         resource_states: Sequence[Any],
         peer_facilities: Sequence[Any] = (),
+        power_states: Sequence[Any] = (),
     ) -> FacilityProductionStateV1:
         model = self._models.get(facility.project_archetype_id)
         if model is None:
@@ -441,6 +443,38 @@ class ProductionAccountingRuntime:
             )
             if model.output_source == "CAPACITY_FIELD":
                 ceiling = installed_capacity
+            elif model.output_source == "POWER_GENERATION":
+                power_matches = [
+                    x
+                    for x in power_states
+                    if int(x.year) == int(year)
+                    and x.location_id == facility.location_id
+                ]
+                if len(power_matches) != 1:
+                    ceiling = None
+                else:
+                    power_state = power_matches[0]
+                    installed_capacity = (
+                        installed_capacity * power_state.interval_hours
+                    )
+                    components = [
+                        x
+                        for x in power_state.generation_components
+                        if x.source_type == "FACILITY_GENERATOR"
+                        and x.source_id == facility.facility_id
+                    ]
+                    if len(components) != 1:
+                        ceiling = None
+                    else:
+                        average_generation = (
+                            components[0].average_generation_mw
+                        )
+                        ceiling = (
+                            None
+                            if average_generation is None
+                            else average_generation
+                            * power_state.interval_hours
+                        )
             else:
                 matches = [
                     x

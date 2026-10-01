@@ -16,12 +16,12 @@
   "authority_capture": {
     "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
     "path": "engineering/civprop/inputs/authority_capture_v1.json",
-    "sha256": "d605b411e3a0e2e1e0b25577ff123ddeac1d7493cdcb98df5d2ef4b2d61590f9",
-    "source_basis_commit": "eb441db0e80f60660a08bc6ad2bab6c58a3318e2"
+    "sha256": "73302510f289db4e88ca5b9b10fbd85b7180242afcc35970f1365805b95de72e",
+    "source_basis_commit": "56be7a4ee0e4be0b8eca5681a8905fd65c1ab19e"
   },
   "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-  "compiler_source_sha256": "80500b3659b8bda5d90fb2a8761ee73309343974eb1b040159d86bff027e33a7",
-  "compiler_version": "1.8.0",
+  "compiler_source_sha256": "49189ca0b868c96a8123dadab6e5f2d31031ee1ca0ae56f9d50e7192b15e3ce6",
+  "compiler_version": "1.9.0",
   "format": "CIVPROP_INPUT_COMPILER_MANIFEST_V1",
   "gap_resolution": {
     "GAP-001": "CLOSED",
@@ -33,7 +33,7 @@
     "GAP-007": "CLOSED",
     "GAP-008": "CLOSED",
     "GAP-009": "CLOSED",
-    "GAP-010": "OPEN",
+    "GAP-010": "CLOSED",
     "GAP-011": "OPEN",
     "GAP-012": "OPEN",
     "GAP-013": "OPEN",
@@ -41,8 +41,8 @@
     "GAP-015": "OPEN"
   },
   "package_files": {
-    "manifest_v1.json": "7e76e7a7c41348b66f66497ba2c7f18d1396ba6c4eca0fe1950ba4ba89e667dd",
-    "scenario_v1.json": "1929279d52de14f9e7e4f151b9a60190ffcb5b9fe116a04848bc791673d827ec",
+    "manifest_v1.json": "9732dcee427bd7246b35fd43dc411732c4055084aaffd8e251bbfca137b4858c",
+    "scenario_v1.json": "3d05b44d6de9f98961f111b32e3bc514cce75e694464514a2955b88faae3bf0b",
     "truth_v1.json": "55c7db7b5f542451a45801c857b245648225d2d29b140dfc4c2bcedbe34c5909"
   },
   "postgres_query_sha256": {
@@ -61,13 +61,14 @@
   },
   "runtime_input": {
     "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "bundle_sha256": "8af3fb5bfd87ff1a973c6adfe8816f88760b4d2572063138e18dd72fca6e3b68",
+    "bundle_sha256": "42ff83b788b510c00ebf1272f9a3d466593fe438e84233b1954df8438f17d4b9",
     "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "scenario_format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
-    "scenario_sha256": "1929279d52de14f9e7e4f151b9a60190ffcb5b9fe116a04848bc791673d827ec"
+    "scenario_sha256": "3d05b44d6de9f98961f111b32e3bc514cce75e694464514a2955b88faae3bf0b"
   },
   "semantics": {
-    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients, mission priors/instrument model, or scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a lunar facility cost model; evaluator truth is actor-visible; lunar water presence establishes a quantified mineable inventory, ore grade, extraction rate or recovery efficiency; Earth sector values or ratios are valid off-world prices, productivity or utilization; project capital cost is operating cost or output price; off-world initial infrastructure or demographic depth are production solved.",
+    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients, mission priors/instrument model, or scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a lunar facility cost model; evaluator truth is actor-visible; lunar water presence establishes a quantified mineable inventory, ore grade, extraction rate or recovery efficiency; Earth sector values or ratios are valid off-world prices, productivity or utilization; project capital cost is operating cost or output price; installed MW equals average generation or annual MWh; the 2040 ENE-MOD-INDUSTRIAL scenario threshold auto-builds or certifies generation; off-world initial infrastructure or demographic depth are production solved.",
+    "gap10_closed_means": "Power Balance V1 separates installed MW, average generation, peak and average load, firm capacity, reserve assumptions, annual MWh, unserved energy and curtailment. Population peak load reuses the POWER demand state drivers; facility operating loads, average-load factors and generator availability/firmness remain UNKNOWN unless separately qualified. Timeline thresholds provide context and never auto-create capacity.",
     "gap1_closed_means": "Promoted Earth/Solar/Timeline/resource/actor authority is captured read-only, frozen with hashes, and deterministically compiled into the locked runner envelope. Other open gaps remain explicit placeholders.",
     "gap2_closed_means": "A versioned Actor State V1 separates identity, scoped rights/contracts, provider access, capability, experience and finance. AUS generic spendable allocation is explicitly UNKNOWN; the observed AUD 42 million Roo-ver commitment remains scoped and cannot fund generic CIVPROP projects.",
     "gap3_closed_means": "A versioned Accessibility V1 boundary combines qualified frozen Solar geometry with actor-scoped provider/service evidence, preserves FEASIBLE/INFEASIBLE/UNKNOWN, and exposes decomposed physical/service quantities without treating body-center separation as route length. The default synthetic accessibility table is removed.",
@@ -80,6 +81,7 @@
   },
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
+    "data/postgres/evidence/LOOM_CERES_MVP_A_FIELD_QUALIFICATION_v0.1.json": "2cf54b1626793e70f36c0412e0a4f6677d6c227c6455ed3b07fbbdb78c4be885",
     "data/postgres/migrations/004_earth_temporal_authority.sql": "ff7a873fc14b0ed1c128673253ea52e65524bd2c3734ca016c5f722345168ecd",
     "data/postgres/timeline_projection_manifest.json": "524ac904a0d1ed4cdb1fae53ce4ac737d7640b71fe1be8ebf9c97ba8fbe56709",
     "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json": "093f28ee4f3817c4573899b1f8032d617339307ef85691123ce9cec44dfdd369",
@@ -92,8 +94,9 @@
     "engineering/civprop/civprop0/roover_service_envelope.json": "e4a6a8e1e0149f18fdddcedfe0fb3621102e8cc8fa00a8075cb0ec8e33383ed6",
     "engineering/civprop/civprop0/runs/roover_transport_mid2030_v1.json": "a4420cdf0e8cc9b0bf85231459da315ee7bac9ca7a11bbb5ee8036afe9aceb84",
     "engineering/civprop/contracts/mission_knowledge_v1.json": "e95f42820502e24ba638ba0e4b38cc7c3019ffc8551ee5848d5c6abdc940b6a7",
+    "engineering/civprop/contracts/power_balance_v1.json": "02c8368ea10d6f45b47fa190a1c8e30e2895e4c1e46462100b424767430a75c5",
     "engineering/civprop/contracts/pressure_observability_v1.json": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d",
-    "engineering/civprop/contracts/production_accounting_v1.json": "e74255bb19d9c545bd18225282393f5885b70c3b60ed2c389350fb6d6e54453e",
+    "engineering/civprop/contracts/production_accounting_v1.json": "3defa74d2ea564365fc87b1ab32b8424decadc5e30ec2a4afcd8761c908b2abc",
     "engineering/civprop/contracts/project_economics_v1.json": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
     "engineering/civprop/contracts/resource_mass_balance_v1.json": "3ae6af47af6778c11bcc1519d75f988445b23bce8dad9b6c1e34ba0aaf42b963",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
