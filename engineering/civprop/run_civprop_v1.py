@@ -235,7 +235,7 @@ def _semantics(input_authority: str | None) -> dict[str, Any]:
             "VERSIONED_ACTOR_SCOPED_BELIEF_UPDATED_ONLY_BY_RECEIVED_OBSERVATIONS"
         ),
         "resource_truth": (
-            "EVALUATOR_ONLY_HIDDEN_REALIZATION_OBSERVATION_RUNTIME_ONLY"
+            "EVALUATOR_ONLY_HIDDEN_REALIZATION_BOUNDED_RUNTIME_LANES_ONLY"
         ),
         "mission_knowledge": (
             "GENERAL_MISSION_ACTION_CONTRACT_WITH_BINARY_RESOURCE_OBSERVATION_V1"
