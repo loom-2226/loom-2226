@@ -60,7 +60,8 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         self.assertEqual(observed["GAP-005"], "CLOSED")
         self.assertEqual(observed["GAP-006"], "CLOSED")
         self.assertEqual(observed["GAP-007"], "CLOSED")
-        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(8, 16)))
+        self.assertEqual(observed["GAP-008"], "CLOSED")
+        self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(9, 16)))
 
     def test_every_gap_has_exit_criteria_and_handoff(self):
         for gap in self.registry["gaps"]:
@@ -190,6 +191,35 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         )
         self.assertIn(
             "docs/civprop/CIVPROP_PRESSURE_OBSERVABILITY_V1.md",
+            refs,
+        )
+
+    def test_gap8_closure_references_resource_mass_balance_artifacts(self):
+        gap8 = self.registry["gaps"][7]
+        self.assertEqual(gap8["current_status"], "CLOSED")
+        refs = set(gap8["current_evidence"])
+        self.assertIn(
+            "engineering/civprop/contracts/resource_mass_balance_v1.py",
+            refs,
+        )
+        self.assertIn(
+            "engineering/civprop/contracts/test_resource_mass_balance_v1.py",
+            refs,
+        )
+        self.assertIn(
+            "engineering/civprop/method_lab/resource_lane_v1.py",
+            refs,
+        )
+        self.assertIn(
+            "dev/solar_civprop_resource_contract/RESOURCE_STATE_CONTRACT_V1.sql",
+            refs,
+        )
+        self.assertIn(
+            "engineering/civprop/baselines/CIVPROP_ENGINE_V1_GAP8_BASELINE_MANIFEST.json",
+            refs,
+        )
+        self.assertIn(
+            "docs/civprop/CIVPROP_RESOURCE_MASS_BALANCE_V1.md",
             refs,
         )
 

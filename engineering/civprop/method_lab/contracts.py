@@ -46,6 +46,15 @@ from engineering.civprop.contracts.pressure_observability_v1 import (
     PressureStateV1,
     load_pressure_observability_package,
 )
+from engineering.civprop.contracts.resource_mass_balance_v1 import (
+    ResourceFlowV1,
+    ResourceMassBalancePackage,
+    ResourceMassBalanceRuntime,
+    ResourcePhysicalRealizationPackage,
+    ResourceStateV1,
+    load_resource_mass_balance_package,
+    load_resource_physical_realization,
+)
 
 
 ALLOWED_PLACEMENTS = {"SURFACE", "ORBITAL", "FREE_SPACE"}
@@ -169,6 +178,7 @@ class LabScenario:
     project_archetypes: tuple[ProjectArchetype, ...]
     mission_knowledge_v1: Optional[MissionKnowledgePackage] = None
     pressure_observability_v1: Optional[PressureObservabilityPackage] = None
+    resource_mass_balance_v1: Optional[ResourceMassBalancePackage] = None
 
 
 @dataclass(frozen=True)
@@ -183,6 +193,9 @@ class LabTruth:
     format: str
     fixture_id: str
     resources: tuple[TruthResource, ...]
+    resource_physical_realization_v1: Optional[
+        ResourcePhysicalRealizationPackage
+    ] = None
 
 
 @dataclass(frozen=True)
@@ -278,6 +291,8 @@ class LabResult:
     pressure_states: tuple[PressureStateV1, ...] = ()
     pressure_contributions: tuple[PressureContributionV1, ...] = ()
     pressure_qualifications: tuple[PressureQualificationV1, ...] = ()
+    resource_states: tuple[ResourceStateV1, ...] = ()
+    resource_flows: tuple[ResourceFlowV1, ...] = ()
 
 
 @runtime_checkable
@@ -329,6 +344,13 @@ def canonical_json(value: Any) -> str:
             "pressure_qualifications",
         ):
             plain.pop(key, None)
+    if isinstance(value, LabResult) and not (
+        value.resource_states or value.resource_flows
+    ):
+        # Historical runs without Resource Mass Balance V1 keep their exact
+        # canonical result hash.
+        plain.pop("resource_states", None)
+        plain.pop("resource_flows", None)
     return json.dumps(
         plain,
         sort_keys=True,
@@ -483,6 +505,13 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
                 data["pressure_observability_v1"]
             )
         ),
+        resource_mass_balance_v1=(
+            None
+            if data.get("resource_mass_balance_v1") is None
+            else load_resource_mass_balance_package(
+                data["resource_mass_balance_v1"]
+            )
+        ),
     )
 
 
@@ -497,6 +526,13 @@ def _parse_truth(data: Mapping[str, Any]) -> LabTruth:
                 grade_index=float(x["grade_index"]),
             )
             for x in data["resources"]
+        ),
+        resource_physical_realization_v1=(
+            None
+            if data.get("resource_physical_realization_v1") is None
+            else load_resource_physical_realization(
+                data["resource_physical_realization_v1"]
+            )
         ),
     )
 
@@ -521,6 +557,9 @@ def _validate_scenario(s: LabScenario, truth: LabTruth) -> None:
     actor_ids = {x.actor_id for x in s.actors}
     location_ids = {x.location_id for x in s.locations}
     tech_ids = {x.tech_id for x in s.technology_frontier}
+    projects_by_id = {
+        x.project_archetype_id: x for x in s.project_archetypes
+    }
 
     if s.actor_state_v1 is not None:
         state_actor_ids = {x.actor_id for x in s.actor_state_v1.actors}
@@ -676,6 +715,49 @@ def _validate_scenario(s: LabScenario, truth: LabTruth) -> None:
                 raise ValueError(
                     "mission observation model diverges from resource belief"
                 )
+
+    if s.resource_mass_balance_v1 is None:
+        if truth.resource_physical_realization_v1 is not None:
+            raise ValueError(
+                "resource physical realization requires Resource Mass Balance V1"
+            )
+    else:
+        if truth.resource_physical_realization_v1 is None:
+            raise ValueError(
+                "Resource Mass Balance V1 requires evaluator physical realization"
+            )
+        resource_runtime = ResourceMassBalanceRuntime(
+            s.resource_mass_balance_v1,
+            truth.resource_physical_realization_v1,
+        )
+        del resource_runtime
+        beliefs = {
+            (x.resource_id, x.location_id)
+            for x in s.resource_beliefs
+        }
+        for resource in s.resource_mass_balance_v1.resources:
+            if resource.location_id not in location_ids:
+                raise ValueError("resource mass-balance unknown location")
+            if (resource.resource_id, resource.location_id) not in beliefs:
+                raise ValueError(
+                    "resource mass-balance resource lacks actor-visible belief"
+                )
+        for process in s.resource_mass_balance_v1.process_models:
+            if process.project_archetype_id not in projects_by_id:
+                raise ValueError(
+                    "resource process references unknown project archetype"
+                )
+            project = projects_by_id[process.project_archetype_id]
+            if project.project_kind != "FACILITY":
+                raise ValueError(
+                    "resource process must reference facility archetype"
+                )
+            if project.output_capacities.resource <= 0:
+                raise ValueError(
+                    "resource process facility lacks resource product capacity"
+                )
+            if process.location_id not in location_ids:
+                raise ValueError("resource process unknown location")
 
     for project in s.project_archetypes:
         if project.capital_cost <= 0 or project.construction_lag_years < 1:
@@ -1013,6 +1095,217 @@ def validate_result(result: LabResult, bundle: LabBundle) -> None:
                 raise ValueError(
                     "committed project lacks pressure qualification trace"
                 )
+
+    if s.resource_mass_balance_v1 is None:
+        if result.resource_states or result.resource_flows:
+            raise ValueError(
+                "resource outputs require Resource Mass Balance V1"
+            )
+    else:
+        if bundle.truth.resource_physical_realization_v1 is None:
+            raise ValueError(
+                "resource outputs require evaluator physical realization"
+            )
+        resource_runtime = ResourceMassBalanceRuntime(
+            s.resource_mass_balance_v1,
+            bundle.truth.resource_physical_realization_v1,
+        )
+        resource_defs = {
+            (x.resource_id, x.location_id): x
+            for x in s.resource_mass_balance_v1.resources
+        }
+        process_by_key = {
+            (x.resource_id, x.location_id): x
+            for x in s.resource_mass_balance_v1.process_models
+        }
+        expected_state_keys = {
+            (year, resource_id, location_id)
+            for year in range(s.start_year, s.end_year + 1)
+            for resource_id, location_id in resource_defs
+        }
+        state_keys = {
+            (x.year, x.resource_id, x.location_id)
+            for x in result.resource_states
+        }
+        if state_keys != expected_state_keys:
+            raise ValueError(
+                "resource-state annual coverage does not match contract"
+            )
+        _unique(
+            result.resource_states,
+            lambda x: x.resource_state_id,
+            "resource state id",
+        )
+        state_by_id = {
+            x.resource_state_id: x for x in result.resource_states
+        }
+        facility_by_id = {
+            x.facility_id: x for x in result.facilities
+        }
+
+        series = {}
+        for state in result.resource_states:
+            resource_runtime.validate_state(state)
+            key = (state.resource_id, state.location_id)
+            if key not in resource_defs:
+                raise ValueError("resource state unknown resource/location")
+            definition = resource_defs[key]
+            if state.material_family != definition.material_family:
+                raise ValueError("resource-state material family mismatch")
+            if state.region_id != definition.region_id:
+                raise ValueError("resource-state region mismatch")
+            if not s.start_year <= state.year <= s.end_year:
+                raise ValueError("resource state outside horizon")
+
+            process = process_by_key[key]
+            active = [
+                facility
+                for facility in result.facilities
+                if facility.status == "ACTIVE"
+                and facility.project_archetype_id
+                == process.project_archetype_id
+                and facility.location_id == process.location_id
+                and facility.commissioned_year <= state.year
+            ]
+            if state.active_process_facilities != len(active):
+                raise ValueError(
+                    "resource-state active facility count mismatch"
+                )
+            product_capacity = sum(
+                facility.capacities.resource for facility in active
+            )
+            if abs(
+                state.processing_product_capacity_tpy
+                - product_capacity
+            ) > 1e-9:
+                raise ValueError(
+                    "resource-state processing capacity mismatch"
+                )
+            feed_parameter = (
+                process.extraction_feed_capacity_per_facility
+            )
+            expected_feed_capacity = (
+                0.0
+                if not active
+                else (
+                    None
+                    if feed_parameter.status == "UNKNOWN"
+                    else len(active) * float(feed_parameter.value)
+                )
+            )
+            if (
+                expected_feed_capacity is None
+                and state.extraction_feed_capacity_tpy is not None
+            ):
+                raise ValueError(
+                    "resource-state invented extraction capacity"
+                )
+            if (
+                expected_feed_capacity is not None
+                and (
+                    state.extraction_feed_capacity_tpy is None
+                    or abs(
+                        state.extraction_feed_capacity_tpy
+                        - expected_feed_capacity
+                    ) > 1e-9
+                )
+            ):
+                raise ValueError(
+                    "resource-state extraction capacity mismatch"
+                )
+            series.setdefault(key, []).append(state)
+
+        for key, rows in series.items():
+            rows.sort(key=lambda x: x.year)
+            for previous, current in zip(rows, rows[1:]):
+                if (
+                    previous.closing_stock_tonnes is not None
+                    and current.opening_stock_tonnes is not None
+                    and abs(
+                        previous.closing_stock_tonnes
+                        - current.opening_stock_tonnes
+                    ) > 1e-9
+                ):
+                    raise ValueError(
+                        "resource stock continuity does not close"
+                    )
+                if (
+                    previous.closing_inventory_tonnes is not None
+                    and current.opening_inventory_tonnes is not None
+                    and abs(
+                        previous.closing_inventory_tonnes
+                        - current.opening_inventory_tonnes
+                    ) > 1e-9
+                ):
+                    raise ValueError(
+                        "resource inventory continuity does not close"
+                    )
+
+        _unique(
+            result.resource_flows,
+            lambda x: x.resource_flow_id,
+            "resource flow id",
+        )
+        flows_by_state = {}
+        for flow in result.resource_flows:
+            if flow.resource_state_id not in state_by_id:
+                raise ValueError(
+                    "resource flow references unknown resource state"
+                )
+            state = state_by_id[flow.resource_state_id]
+            if (
+                flow.year != state.year
+                or flow.location_id != state.location_id
+                or flow.resource_id != state.resource_id
+            ):
+                raise ValueError("resource flow/state scope mismatch")
+            if flow.amount_tonnes < 0:
+                raise ValueError("negative resource flow")
+            for facility_id in flow.facility_ids:
+                facility = facility_by_id.get(facility_id)
+                if facility is None:
+                    raise ValueError(
+                        "resource flow references unknown facility"
+                    )
+                if facility.location_id != flow.location_id:
+                    raise ValueError(
+                        "resource flow facility location mismatch"
+                    )
+                if facility.commissioned_year > flow.year:
+                    raise ValueError(
+                        "resource flow uses uncommissioned facility"
+                    )
+            flows_by_state.setdefault(
+                flow.resource_state_id,
+                {},
+            )[flow.flow_type] = (
+                flows_by_state.setdefault(
+                    flow.resource_state_id,
+                    {},
+                ).get(flow.flow_type, 0.0)
+                + flow.amount_tonnes
+            )
+
+        field_by_flow = {
+            "EXTRACTED_FEED": "extracted_feed_tonnes",
+            "RECOVERED_PRODUCT": "recovered_product_tonnes",
+            "PROCESS_TAILINGS": "process_tailings_tonnes",
+            "INVENTORY_CONSUMPTION": "consumption_tonnes",
+            "INVENTORY_OUTBOUND": "outbound_tonnes",
+        }
+        for state in result.resource_states:
+            emitted = flows_by_state.get(
+                state.resource_state_id,
+                {},
+            )
+            for flow_type, field in field_by_flow.items():
+                value = getattr(state, field)
+                expected = 0.0 if value is None else value
+                actual = emitted.get(flow_type, 0.0)
+                if abs(actual - expected) > 1e-9:
+                    raise ValueError(
+                        "resource flow does not reconcile with state"
+                    )
 
     if s.mission_knowledge_v1 is None:
         if (

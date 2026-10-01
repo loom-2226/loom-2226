@@ -30,6 +30,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         cls.output_dir = default_output_dir()
         cls.bundle = load_bundle(cls.output_dir)
         cls.scenario = json.loads((cls.output_dir / "scenario_v1.json").read_text())
+        cls.truth = json.loads((cls.output_dir / "truth_v1.json").read_text())
         cls.compiler_manifest = json.loads(
             (cls.output_dir / "compiler_manifest_v1.json").read_text()
         )
@@ -219,6 +220,57 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertTrue(package["emit_all_qualifications"])
         self.assertTrue(package["record_legacy_discharge"])
 
+    def test_gap8_compiles_resource_mass_balance_without_inventing_abundance(self):
+        package = self.scenario["resource_mass_balance_v1"]
+        self.assertEqual(
+            package["format"],
+            "CIVPROP_RESOURCE_MASS_BALANCE_V1",
+        )
+        self.assertEqual(package["contract_version"], "1.0.0")
+        resource = package["resources"][0]
+        self.assertEqual(resource["resource_id"], "MOON_POLAR_WATER")
+        self.assertEqual(resource["location_id"], "LUNA_SURFACE")
+        self.assertEqual(resource["region_id"], "MOON_POLAR_PSR")
+        self.assertEqual(resource["evidence_state"], "PRESENT_UNQUANTIFIED")
+
+        process = package["process_models"][0]
+        self.assertEqual(
+            process["extraction_feed_capacity_per_facility"]["status"],
+            "UNKNOWN",
+        )
+        self.assertIsNone(
+            process["extraction_feed_capacity_per_facility"]["value"]
+        )
+        self.assertEqual(
+            process["recovery_fraction"]["status"],
+            "UNKNOWN",
+        )
+        self.assertIsNone(process["recovery_fraction"]["value"])
+
+        physical = self.truth["resource_physical_realization_v1"]
+        self.assertEqual(
+            physical["format"],
+            "CIVPROP_RESOURCE_PHYSICAL_REALIZATION_V1",
+        )
+        realization = physical["resources"][0]
+        self.assertEqual(realization["realization_status"], "UNKNOWN")
+        self.assertEqual(realization["stock_status"], "UNKNOWN")
+        self.assertIsNone(realization["opening_stock_tonnes"])
+        self.assertEqual(realization["grade_status"], "UNKNOWN")
+        self.assertIsNone(realization["grade_mass_fraction"])
+        self.assertEqual(realization["inventory_status"], "UNKNOWN")
+        self.assertIsNone(realization["opening_inventory_tonnes"])
+
+        # The legacy Method Lab grade_index is Mission/Knowledge compatibility
+        # truth only. It is not promoted into Resource Mass Balance grade.
+        legacy = self.truth["resources"][0]
+        self.assertEqual(legacy["grade_index"], 0.65)
+        self.assertIsNone(realization["grade_mass_fraction"])
+
+        capture_model = self.capture["model_parameters"]
+        self.assertIn("resource_mass_balance_v1", capture_model)
+        self.assertIn("resource_state_contracts", capture_model)
+
     def test_other_unresolved_engine_inputs_are_not_disguised_as_authority(self):
         assumptions = self.scenario["assumption_register"]
         gaps = {x["gap_id"] for x in assumptions}
@@ -228,6 +280,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertNotIn("GAP-005", gaps)
         self.assertNotIn("GAP-006", gaps)
         self.assertNotIn("GAP-007", gaps)
+        self.assertNotIn("GAP-008", gaps)
         self.assertIn("GAP-012", gaps)
         for row in assumptions:
             self.assertIn(row["status"], {"EXPLICIT_PLACEHOLDER", "COMPATIBILITY_BOUNDARY"})
@@ -268,7 +321,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(access["subject_id"], "ROO_VER")
         self.assertNotEqual(access["subject_id"], "FLEET_SPACE_TECHNOLOGIES")
 
-    def test_compiler_manifest_closes_gap1_through_gap7(self):
+    def test_compiler_manifest_closes_gap1_through_gap8(self):
         manifest = self.compiler_manifest
         self.assertEqual(manifest["format"], "CIVPROP_INPUT_COMPILER_MANIFEST_V1")
         self.assertEqual(len(manifest["compiler_source_sha256"]), 64)
@@ -280,7 +333,8 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(manifest["gap_resolution"]["GAP-005"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-006"], "CLOSED")
         self.assertEqual(manifest["gap_resolution"]["GAP-007"], "CLOSED")
-        self.assertEqual(manifest["gap_resolution"]["GAP-008"], "OPEN")
+        self.assertEqual(manifest["gap_resolution"]["GAP-008"], "CLOSED")
+        self.assertEqual(manifest["gap_resolution"]["GAP-009"], "OPEN")
         self.assertEqual(manifest["runtime_input"]["fixture_id"], COMPILED_FIXTURE_ID)
 
     def test_compiler_is_deterministic_from_frozen_capture(self):
@@ -343,6 +397,7 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         gap5 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-005")
         gap6 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-006")
         gap7 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-007")
+        gap8 = next(x for x in output["known_gaps"] if x["gap_id"] == "GAP-008")
         self.assertEqual(gap1["status"], "CLOSED")
         self.assertEqual(gap2["status"], "CLOSED")
         self.assertEqual(gap3["status"], "CLOSED")
@@ -350,6 +405,15 @@ class CivpropRealInputCompilerV1Tests(unittest.TestCase):
         self.assertEqual(gap5["status"], "CLOSED")
         self.assertEqual(gap6["status"], "CLOSED")
         self.assertEqual(gap7["status"], "CLOSED")
+        self.assertEqual(gap8["status"], "CLOSED")
+        self.assertEqual(len(output["resource_states"]), 11)
+        self.assertEqual(output["resource_flows"], [])
+        self.assertTrue(
+            all(
+                x["opening_stock_tonnes"] is None
+                for x in output["resource_states"]
+            )
+        )
         self.assertTrue(output["actor_states"])
         self.assertTrue(output["annual_states"])
         self.assertTrue(output["events"])

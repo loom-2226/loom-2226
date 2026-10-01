@@ -400,9 +400,11 @@ GAP-007 does not solve:
 - deeper demography;
 - final Atlas-derived metrics.
 
+GAP-008 RESOURCE_MASS_BALANCE is now CLOSED.
+
 The immediate engineering frontier is:
 
-    GAP-008 RESOURCE_MASS_BALANCE
+    GAP-009 PRODUCTION_AND_VALUE_ADDED
 
-Pressure observability must remain an audit surface while those mechanisms are
+Pressure observability must remain an audit surface while later mechanisms are
 added. It must not become an alternate source of decisions.

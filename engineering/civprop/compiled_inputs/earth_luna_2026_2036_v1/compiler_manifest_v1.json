@@ -16,12 +16,12 @@
   "authority_capture": {
     "capture_id": "EARTH_LUNA_AUTHORITY_CAPTURE_V1_2026_2036",
     "path": "engineering/civprop/inputs/authority_capture_v1.json",
-    "sha256": "9d623fefd931f5ae572b798ef9a0ee4159423358b82253e6c226e3106de8c86a",
-    "source_basis_commit": "95cac9a31b833a34c84d3be2f7b14e8e7804546e"
+    "sha256": "dda48bf6d835d1b3f4066cb0712aed708cc011502ee95c7dde2e3802c99f09c3",
+    "source_basis_commit": "6e5a3a4fddc985d5670f3b6da9b07122743221ae"
   },
   "compiler_id": "CIVPROP_INPUT_COMPILER_V1",
-  "compiler_source_sha256": "49f30f76d68513711d0d3c71c9706274519349ae6f2b2fbc14a88d7286c187de",
-  "compiler_version": "1.6.0",
+  "compiler_source_sha256": "532deba46c9c4f8d5eac5fadb2c8ab96f592960b2e9ab0e24abff3dce09ea934",
+  "compiler_version": "1.7.0",
   "format": "CIVPROP_INPUT_COMPILER_MANIFEST_V1",
   "gap_resolution": {
     "GAP-001": "CLOSED",
@@ -31,7 +31,7 @@
     "GAP-005": "CLOSED",
     "GAP-006": "CLOSED",
     "GAP-007": "CLOSED",
-    "GAP-008": "OPEN",
+    "GAP-008": "CLOSED",
     "GAP-009": "OPEN",
     "GAP-010": "OPEN",
     "GAP-011": "OPEN",
@@ -41,9 +41,9 @@
     "GAP-015": "OPEN"
   },
   "package_files": {
-    "manifest_v1.json": "2feb42f3318dac5d32d97d4e11a722881b1557adceb8f14ffde4f12d8167d72b",
-    "scenario_v1.json": "17200aa2cd9d0272f3871fe3bd3806a03aa88af8698e9fbb7e2e93f7bcfcafb4",
-    "truth_v1.json": "5fc711e178ea39e78112620f589d1dab77da26dd8a40fdfe2f778fa98bad30d7"
+    "manifest_v1.json": "79160115cf9ee33d0a35b31a2a3dd695f050a555275676a30b7ee00345fb464c",
+    "scenario_v1.json": "f34d6904f20e1e17facab6ed4d55e28ea36499571eeee37cc5abed432e3cc54f",
+    "truth_v1.json": "55c7db7b5f542451a45801c857b245648225d2d29b140dfc4c2bcedbe34c5909"
   },
   "postgres_query_sha256": {
     "aus_area": "5fb6c3879ea3d4f5ed16cf701caf5a1cf817d6623ce6a4dd73175a52215ba4d3",
@@ -61,26 +61,29 @@
   },
   "runtime_input": {
     "authority": "COMPILED_AUTHORITY_WITH_EXPLICIT_OPEN_GAP_ASSUMPTIONS_V1",
-    "bundle_sha256": "6cf6d84abaaa8d49ebfd0572943b3d9b245a3c0b31d7206fbb0a23f7bd0215bb",
+    "bundle_sha256": "63d788aaa215e5e8e2b0e39a4459070a8ee32c5ab818bcd7a5ed35c230c8be47",
     "fixture_id": "EARTH_LUNA_COMPILED_AUTHORITY_V1_2026_2036",
     "scenario_format": "CIVPROP_METHOD_LAB_SCENARIO_V1",
-    "scenario_sha256": "17200aa2cd9d0272f3871fe3bd3806a03aa88af8698e9fbb7e2e93f7bcfcafb4"
+    "scenario_sha256": "f34d6904f20e1e17facab6ed4d55e28ea36499571eeee37cc5abed432e3cc54f"
   },
   "semantics": {
-    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients, mission priors/instrument model, or scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a lunar facility cost model; evaluator truth is actor-visible; off-world initial infrastructure or demographic depth are production solved.",
+    "does_not_mean": "An UNKNOWN allocation is zero or an inferred government budget; a geometry sample is a route, transfer solution, fleet allocation, service price, or actor entitlement; the uncalibrated demand coefficients, mission priors/instrument model, or scenario project-economic ranges are empirical forecasts; Dorrington-Olsen is a lunar facility cost model; evaluator truth is actor-visible; lunar water presence establishes a quantified mineable inventory, ore grade, extraction rate or recovery efficiency; off-world initial infrastructure or demographic depth are production solved.",
     "gap1_closed_means": "Promoted Earth/Solar/Timeline/resource/actor authority is captured read-only, frozen with hashes, and deterministically compiled into the locked runner envelope. Other open gaps remain explicit placeholders.",
     "gap2_closed_means": "A versioned Actor State V1 separates identity, scoped rights/contracts, provider access, capability, experience and finance. AUS generic spendable allocation is explicitly UNKNOWN; the observed AUD 42 million Roo-ver commitment remains scoped and cannot fund generic CIVPROP projects.",
     "gap3_closed_means": "A versioned Accessibility V1 boundary combines qualified frozen Solar geometry with actor-scoped provider/service evidence, preserves FEASIBLE/INFEASIBLE/UNKNOWN, and exposes decomposed physical/service quantities without treating body-center separation as route length. The default synthetic accessibility table is removed.",
     "gap4_closed_means": "Demand/Pressure V1 derives requirements from current civilization stocks plus explicit scoped strategic requirements, compares them with installed capacity, and carries unmet demand into decaying pressure in the same channel unit. The default OFFWORLD_* and WATER_RESOURCE_DEMAND annual fixture curves are removed.",
     "gap5_closed_means": "Project Economics V1 supplies a versioned Earth-Orbit-Luna parameter set with economic/physical units, low-nominal-high uncertainty, explicit scale behavior, technology-year adjustments and component provenance. The default runtime no longer consumes METHOD_LAB_SYNTHETIC_V1 project economics.",
     "gap6_closed_means": "Mission/Knowledge V1 separates mission actions from infrastructure, preserves actor-visible probabilistic knowledge, permits hidden physical realization only inside the keyed observation runtime, applies deterministic Bayesian updates, and feeds posterior resource belief into later project scoring. The first admitted observation model is binary resource detection.",
-    "gap7_closed_means": "Pressure Observability V1 emits reconstructable annual pressure transitions, quantified contributions and per-opportunity qualification arithmetic with stable provenance IDs. Selected project decisions link to the exact pressure qualification record. The causal path records no synthetic discharge and the legacy Method Lab path exposes its historical discharge explicitly."
+    "gap7_closed_means": "Pressure Observability V1 emits reconstructable annual pressure transitions, quantified contributions and per-opportunity qualification arithmetic with stable provenance IDs. Selected project decisions link to the exact pressure qualification record. The causal path records no synthetic discharge and the legacy Method Lab path exposes its historical discharge explicitly.",
+    "gap8_closed_means": "Resource Mass Balance V1 separates evidence/belief from evaluator-only physical realization and provides stock, feed extraction, grade, recovery, tailings, inventory and depletion accounting with hard capacity and conservation checks. Unquantified lunar abundance remains UNKNOWN/null in the default physical state."
   },
   "source_file_sha256": {
     "data/postgres/earth_temporal_projection_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
     "data/postgres/timeline_projection_manifest.json": "524ac904a0d1ed4cdb1fae53ce4ac737d7640b71fe1be8ebf9c97ba8fbe56709",
     "dev/resource_economics/dorrington_olsen/m2/DORRINGTON_OLSEN_CIVPROP_INPUT_CONTRACT.json": "093f28ee4f3817c4573899b1f8032d617339307ef85691123ce9cec44dfdd369",
     "dev/solar_civprop_m4b/campaign_assertions.json": "e87eb9f711ce508933e76c86a1d9f4314a13d6d4403940d21fa25cf6da700c39",
+    "dev/solar_civprop_resource_contract/RESOURCE_COVERAGE_CONTRACT_V1.json": "76a93ac3c36980b665dc243fd104d399fc7269dbfff016204d136c5753d690e4",
+    "dev/solar_civprop_resource_contract/RESOURCE_STATE_CONTRACT_V1.sql": "012a5d71d178230b1c3a5344cfc06fd5218835f07d99a690460ae9ea90817ad6",
     "docs/architecture/LOOM_TECHNOLOGY_TIMELINE_REGISTER_v0.1.md": "96c87881ca2f525b1de9fbfdb0aa3306c84dc0a76ae8c1c30ef4c972ae12f7eb",
     "engineering/civprop/civprop0/actor_access_evidence.json": "16581d2ad6eec747f4576d7dc836f00d24864683bba0431dc97c04360e15085d",
     "engineering/civprop/civprop0/aus_government_access_evidence.json": "2e9ebc2f6d497d42d74baea504cec45ba16922ea2d554940a5142b1d53ef60ce",
@@ -89,6 +92,7 @@
     "engineering/civprop/contracts/mission_knowledge_v1.json": "e95f42820502e24ba638ba0e4b38cc7c3019ffc8551ee5848d5c6abdc940b6a7",
     "engineering/civprop/contracts/pressure_observability_v1.json": "888d5d929eddedb9e5a9f9258f722cc59932a829a0bb387b23095d46f1006a3d",
     "engineering/civprop/contracts/project_economics_v1.json": "cbe4705fc637dc3b068e4b192ea601f940d8fa6c3c65cd1016089c68c771e7eb",
+    "engineering/civprop/contracts/resource_mass_balance_v1.json": "3ae6af47af6778c11bcc1519d75f988445b23bce8dad9b6c1e34ba0aaf42b963",
     "engineering/civprop/method_lab/scenario_v1.json": "b878e3ce6e3e850e1a852e657f29b8b2d45b5485c3fd6c08b1f61e0fb1247cee",
     "engineering/civprop/method_lab/truth_v1.json": "e668a2839e0fd1e4af1f98e03960c2ec33d7930ba7fbafc2b429c0ec0ec75951",
     "reports/solar_civprop/DORRINGTON_OLSEN_M2_CIVPROP_ASSESSMENT.md": "a4b613a3514a385cbbd3ef3959e01ca22cd3b4736dcb893cc4213465655d4a37"

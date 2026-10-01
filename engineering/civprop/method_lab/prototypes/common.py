@@ -135,6 +135,8 @@ class Recorder:
         self.pressure_states = []
         self.pressure_contributions = []
         self.pressure_qualifications = []
+        self.resource_states = []
+        self.resource_flows = []
         self._event_counter = 0
         self._decision_counter = 0
         self._flow_counter = 0
@@ -835,6 +837,8 @@ def finalize(
         pressure_states=tuple(recorder.pressure_states),
         pressure_contributions=tuple(recorder.pressure_contributions),
         pressure_qualifications=tuple(recorder.pressure_qualifications),
+        resource_states=tuple(recorder.resource_states),
+        resource_flows=tuple(recorder.resource_flows),
     )
 
 

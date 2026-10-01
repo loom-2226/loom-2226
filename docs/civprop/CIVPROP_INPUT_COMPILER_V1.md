@@ -2,7 +2,7 @@
 
 Date: 2026-10-01
 Class: `class:engineering`
-Status: GAP-001 through GAP-006 closed / production-facing input compilation with explicit downstream assumptions
+Status: GAP-001 through GAP-008 closed / production-facing input compilation with explicit downstream assumptions
 
 ## Decision
 
@@ -27,10 +27,10 @@ The CIVPROP runner remains:
 engineering/civprop/run_civprop_v1.py
 ```
 
-Runner V1.7 defaults to the compiled package rather than the original synthetic
+Runner V1.8 defaults to the compiled package rather than the original synthetic
 Method Lab package and carries the closed Actor State, Accessibility,
-Demand/Pressure, Project Economics, Mission/Knowledge and Pressure Observability
-boundaries.
+Demand/Pressure, Project Economics, Mission/Knowledge, Pressure Observability and
+Resource Mass Balance boundaries.
 
 ## What GAP-001 closed means
 
@@ -534,7 +534,7 @@ new authority capture
 
 No silent replacement.
 
-## Runner V1.7
+## Runner V1.8
 
 The single simulation entrypoint remains:
 
@@ -545,22 +545,22 @@ engineering/civprop/run_civprop_v1.py
 Runner version:
 
 ```text
-1.7.0
+1.8.0
 ```
 
 Output contract:
 
 ```text
-1.7.0
+1.8.0
 ```
 
 Compiler version:
 
 ```text
-1.6.0
+1.7.0
 ```
 
-The default input directory is now the GAP-001 through GAP-007 compiled package.
+The default input directory is now the GAP-001 through GAP-008 compiled package.
 
 Default command:
 
@@ -584,17 +584,18 @@ GAP-004 CLOSED
 GAP-005 CLOSED
 GAP-006 CLOSED
 GAP-007 CLOSED
-GAP-008 OPEN
+GAP-008 CLOSED
+GAP-009 OPEN
 ...
 GAP-015 OPEN
 ```
 
-GAP-007 closure is independent of later resource/production/power, fleet,
+GAP-008 closure is independent of later production/value-added, power, fleet,
 materialization, lifecycle and demographic gaps.
 
 ## Current executable behavior
 
-With compiled input and seed 42, the current GAP-007 baseline produces:
+With compiled input and seed 42, the current GAP-008 baseline produces:
 
 ```text
 44 annual location states
@@ -608,6 +609,8 @@ With compiled input and seed 42, the current GAP-007 baseline produces:
 0 actor transactions
 46 events
 0 migration flows
+11 evaluator-only resource states
+0 resource flows
 ```
 
 The current realization commissions no facility because AUS generic spendable
@@ -618,27 +621,27 @@ requirement. That behavior is intentional and is not a forecast.
 
 This is **not** a forecast.
 
-The result still depends materially on GAP-008 and later open mechanisms. Demand,
+The result still depends materially on GAP-009 and later open mechanisms. Demand,
 mission-observation and project-economics scenario coefficients remain explicit
 uncalibrated model parameters where marked, not empirical forecasts.
 
 Its purpose is to prove that real promoted authority now reaches the same locked
 engine and output path.
 
-## Golden GAP-007 baseline
+## Golden GAP-008 baseline
 
 Output:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP7_PRESSURE_OBSERVABILITY_SEED42.json
+CIVPROP_ENGINE_V1_GAP8_RESOURCE_MASS_BALANCE_SEED42.json
 ```
 
 Manifest:
 
 ```text
 engineering/civprop/baselines/
-CIVPROP_ENGINE_V1_GAP7_BASELINE_MANIFEST.json
+CIVPROP_ENGINE_V1_GAP8_BASELINE_MANIFEST.json
 ```
 
 The GAP-001 compiled baseline and previous synthetic V1.0 baseline remain in the
@@ -658,11 +661,11 @@ Unit/functional coverage proves:
 - compilation from frozen capture is byte deterministic;
 - the locked runner accepts the compiled package;
 - the default runner now uses the compiled package;
-- GAP-001 through GAP-007 are CLOSED in current output;
+- GAP-001 through GAP-008 are CLOSED in current output;
 - UNKNOWN actor budget does not become zero, national capital or scenario credit;
 - scoped provider/service evidence does not become generic actor capability;
 - future actor budget/capability changes require replayable events;
-- evaluator-only truth remains prohibited from runtime decisions;
+- evaluator-only truth is confined to the mission-observation and resource-physical lanes and remains prohibited from actor decisions;
 - current golden output reproduces exactly.
 
 ## Program continuation
@@ -672,10 +675,10 @@ The authoritative current gap register and the post-gap handoff plan are:
     engineering/civprop/gap_register_v1.json
     docs/civprop/CIVPROP_GAP_REGISTER_AND_POST_GAP_PLAN_V1.md
 
-GAP-001 through GAP-007 closure should be interpreted using that register's closure
-semantics. The next engineering target is GAP-008 RESOURCE_MASS_BALANCE.
+GAP-001 through GAP-008 closure should be interpreted using that register's closure
+semantics. The next engineering target is GAP-009 PRODUCTION_AND_VALUE_ADDED.
 
-## Boundary after GAP-007
+## Boundary after GAP-008
 
 The executable pipeline is now:
 
@@ -700,6 +703,7 @@ HYBRID_V1
 CIVPROP_ENGINE_V1_OUTPUT
 ```
 
-GAP-008 can now add resource mass-balance state and flows without redesigning this
-path or weakening the closed actor, accessibility, demand/pressure, project-economics,
-mission/knowledge or pressure-observability boundaries.
+GAP-009 can now attach production, operating-cost and value-added accounting to
+physically admitted resource flows without redesigning this path or weakening the
+closed actor, accessibility, demand/pressure, project-economics, mission/knowledge,
+pressure-observability or resource-conservation boundaries.

@@ -6,11 +6,11 @@ Status: current program register and post-gap handoff plan
 
 ## Authority boundary
 
-This document records the CIVPROP program state through GAP-007 closure.
+This document records the CIVPROP program state through GAP-008 closure.
 
 Authoritative repository basis at creation:
 
-    95cac9a31b833a34c84d3be2f7b14e8e7804546e
+    6e5a3a4fddc985d5670f3b6da9b07122743221ae
 
 Machine-readable register:
 
@@ -30,12 +30,12 @@ Current default runtime package:
 
 Current runner/output contract:
 
-    CIVPROP_ENGINE_V1_RUNNER 1.7.0
-    CIVPROP_ENGINE_V1_OUTPUT 1.7.0
+    CIVPROP_ENGINE_V1_RUNNER 1.8.0
+    CIVPROP_ENGINE_V1_OUTPUT 1.8.0
 
 Current engine:
 
-    HYBRID_V1 method-reference-v5
+    HYBRID_V1 method-reference-v6
 
 Current input authority:
 
@@ -88,7 +88,13 @@ transitions, quantified causal contributions and per-opportunity qualification t
 with stable IDs. Selected project decisions link to the exact qualifying record, and
 hostile regression proves the audit lane does not alter decisions or random draws.
 
-The current baseline is still not a forecast because GAP-008 through GAP-015 remain
+GAP-008 is CLOSED. Resource Mass Balance V1 separates actor-visible evidence/belief
+from evaluator-only physical realization and provides stock, extracted-feed, grade,
+recovery, tailings, product-inventory and depletion accounting with hard mass and
+facility-capacity closure. Lunar water remains PRESENT_UNQUANTIFIED in evidence and
+UNKNOWN/null in numeric physical stock/grade/inventory.
+
+The current baseline is still not a forecast because GAP-009 through GAP-015 remain
 open. Demand, mission-observation and project-economics scenario coefficients remain
 uncalibrated where marked, and later mechanisms materially affect the result. The
 default seed-42 baseline remains an engineering regression/reference artifact, not a
@@ -133,7 +139,7 @@ A gap may close only when its replacement has:
 | GAP-005 | PROJECT_ECONOMICS | CLOSED | Preserve unit/provenance/uncertainty boundaries; scenario ranges remain non-empirical |
 | GAP-006 | MISSIONS_AND_KNOWLEDGE_UPDATE | CLOSED | Preserve hidden-truth firewall, keyed observations and actor-scoped posterior handoff |
 | GAP-007 | PRESSURE_OBSERVABILITY | CLOSED | Preserve read-only reconstructable pressure ledger and exact decision provenance |
-| GAP-008 | RESOURCE_MASS_BALANCE | OPEN | Add stock/grade/yield/throughput/inventory/depletion closure |
+| GAP-008 | RESOURCE_MASS_BALANCE | CLOSED | Preserve physical conservation, UNKNOWN-not-zero and actor/evaluator separation |
 | GAP-009 | PRODUCTION_AND_VALUE_ADDED | OPEN | Generate off-world production, capital, investment and value added |
 | GAP-010 | POWER_BALANCE | OPEN | Add generation/load/storage/reserve/energy closure |
 | GAP-011 | TRAFFIC_AND_FLEET | OPEN | Generate cargo/passenger/ship-call/fleet/route utilization state |
@@ -466,7 +472,8 @@ Current frontier:
     GAP-005 CLOSED
     GAP-006 CLOSED
     GAP-007 CLOSED
-    GAP-008 OPEN
+    GAP-008 CLOSED
+    GAP-009 OPEN
 
 GAP-002 removed the compiled-input assumptions:
 
@@ -518,10 +525,21 @@ records. The causal path records zero synthetic discharge; the historical Method
 path exposes its old cost-based discharge explicitly when observability is enabled.
 The GAP-006 golden behavioral surfaces remain byte-identical under GAP-007.
 
+GAP-008 adds:
+
+    CIVPROP_RESOURCE_MASS_BALANCE_V1
+    CIVPROP_RESOURCE_PHYSICAL_REALIZATION_V1
+
+The default lunar-water physical realization preserves stock, grade and opening
+inventory as UNKNOWN/null because admitted evidence is PRESENT_UNQUANTIFIED.
+Synthetic hostile fixtures separately prove stock/feed/grade/recovery/tailings/
+inventory/depletion conservation and facility throughput constraints. The legacy
+Method Lab grade_index is not promoted into physical grade.
+
 The next implementation target is therefore:
 
-    GAP-008 RESOURCE_MASS_BALANCE
+    GAP-009 PRODUCTION_AND_VALUE_ADDED
 
-That work must add stock/grade/yield/throughput/inventory/depletion closure without
-using the pressure ledger as an alternate decision path or weakening the closed
-knowledge/resource-evidence firewall.
+That work may attach production, operating-cost and value-added accounting only to
+physically admitted resource flows; it must not turn UNKNOWN physical quantities
+into economic output simply because a value model needs a number.
