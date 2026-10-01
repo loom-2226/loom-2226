@@ -1,0 +1,16 @@
+{
+  "format": "CIVPROP_ASSET_LIFECYCLE_V1",
+  "contract_version": "1.0.0",
+  "parameter_set_id": "CIVPROP_ASSET_LIFECYCLE_MACHINERY_TEST_V0_1",
+  "status": "NON_CANON_MACHINERY_TEST_ASSUMPTIONS",
+  "policies": [
+    {"project_archetype_id":"LOGISTICS_NODE","annual_depreciation_rate":0.02,"maintenance_interval_years":5,"maintenance_cost_fraction":0.03,"service_life_years":30},
+    {"project_archetype_id":"POWER_PLANT","annual_depreciation_rate":0.02,"maintenance_interval_years":5,"maintenance_cost_fraction":0.03,"service_life_years":30},
+    {"project_archetype_id":"HABITAT","annual_depreciation_rate":0.02,"maintenance_interval_years":5,"maintenance_cost_fraction":0.03,"service_life_years":30},
+    {"project_archetype_id":"RESOURCE_PLANT","annual_depreciation_rate":0.02,"maintenance_interval_years":5,"maintenance_cost_fraction":0.03,"service_life_years":30},
+    {"project_archetype_id":"INDUSTRIAL_WORKSHOP","annual_depreciation_rate":0.02,"maintenance_interval_years":5,"maintenance_cost_fraction":0.03,"service_life_years":30},
+    {"project_archetype_id":"SURFACE_PORT","annual_depreciation_rate":0.02,"maintenance_interval_years":5,"maintenance_cost_fraction":0.03,"service_life_years":30},
+    {"project_archetype_id":"SHIPYARD","annual_depreciation_rate":0.02,"maintenance_interval_years":5,"maintenance_cost_fraction":0.03,"service_life_years":30}
+  ],
+  "events": []
+}
