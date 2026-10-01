@@ -48,6 +48,10 @@ from engineering.civprop.contracts.mission_knowledge_v1 import (
 from engineering.civprop.contracts.pressure_observability_v1 import (
     load_pressure_observability_package,
 )
+from engineering.civprop.contracts.resource_mass_balance_v1 import (
+    load_resource_mass_balance_package,
+    load_resource_physical_realization,
+)
 
 
 AUTHORITY_CAPTURE_FORMAT = "CIVPROP_AUTHORITY_CAPTURE_V1"
@@ -76,6 +80,17 @@ PROJECT_ECONOMICS_PATH = HERE / "contracts/project_economics_v1.json"
 MISSION_KNOWLEDGE_PATH = HERE / "contracts/mission_knowledge_v1.json"
 PRESSURE_OBSERVABILITY_PATH = (
     HERE / "contracts/pressure_observability_v1.json"
+)
+RESOURCE_MASS_BALANCE_PATH = (
+    HERE / "contracts/resource_mass_balance_v1.json"
+)
+RESOURCE_COVERAGE_CONTRACT_PATH = (
+    REPO_ROOT
+    / "dev/solar_civprop_resource_contract/RESOURCE_COVERAGE_CONTRACT_V1.json"
+)
+RESOURCE_STATE_CONTRACT_PATH = (
+    REPO_ROOT
+    / "dev/solar_civprop_resource_contract/RESOURCE_STATE_CONTRACT_V1.sql"
 )
 DORRINGTON_CONTRACT_PATH = (
     REPO_ROOT
@@ -333,6 +348,10 @@ def capture_live_authority(
         PRESSURE_OBSERVABILITY_PATH.read_text()
     )
     load_pressure_observability_package(pressure_observability)
+    resource_mass_balance = json.loads(
+        RESOURCE_MASS_BALANCE_PATH.read_text()
+    )
+    load_resource_mass_balance_package(resource_mass_balance)
 
     source_paths = [
         RESOURCE_PATH,
@@ -343,6 +362,9 @@ def capture_live_authority(
         PROJECT_ECONOMICS_PATH,
         MISSION_KNOWLEDGE_PATH,
         PRESSURE_OBSERVABILITY_PATH,
+        RESOURCE_MASS_BALANCE_PATH,
+        RESOURCE_COVERAGE_CONTRACT_PATH,
+        RESOURCE_STATE_CONTRACT_PATH,
         DORRINGTON_CONTRACT_PATH,
         DORRINGTON_ASSESSMENT_PATH,
         METHOD_LAB_DIR / "scenario_v1.json",
@@ -368,6 +390,7 @@ def capture_live_authority(
             "_PLUS_GAP-003_TRANSPORT_ACCESSIBILITY_PLUS_GAP-004_DEMAND_PRESSURE"
             "_PLUS_GAP-005_PROJECT_ECONOMICS_PLUS_GAP-006_MISSIONS_KNOWLEDGE"
             "_PLUS_GAP-007_PRESSURE_OBSERVABILITY"
+            "_PLUS_GAP-008_RESOURCE_MASS_BALANCE"
         ),
         "capture_semantics": (
             "READ_ONLY_PROMOTED_AUTHORITY_PLUS_REPOSITORY_EVIDENCE_NO_DATABASE_WRITES"
@@ -404,6 +427,27 @@ def capture_live_authority(
                     PRESSURE_OBSERVABILITY_PATH.relative_to(REPO_ROOT)
                 ),
                 "sha256": _sha256_path(PRESSURE_OBSERVABILITY_PATH),
+            },
+            "resource_mass_balance_v1": resource_mass_balance,
+            "resource_mass_balance_source": {
+                "path": str(
+                    RESOURCE_MASS_BALANCE_PATH.relative_to(REPO_ROOT)
+                ),
+                "sha256": _sha256_path(RESOURCE_MASS_BALANCE_PATH),
+            },
+            "resource_state_contracts": {
+                "coverage_path": str(
+                    RESOURCE_COVERAGE_CONTRACT_PATH.relative_to(REPO_ROOT)
+                ),
+                "coverage_sha256": _sha256_path(
+                    RESOURCE_COVERAGE_CONTRACT_PATH
+                ),
+                "state_view_path": str(
+                    RESOURCE_STATE_CONTRACT_PATH.relative_to(REPO_ROOT)
+                ),
+                "state_view_sha256": _sha256_path(
+                    RESOURCE_STATE_CONTRACT_PATH
+                ),
             },
             "dorrington_olsen_boundary": {
                 "contract_path": str(DORRINGTON_CONTRACT_PATH.relative_to(REPO_ROOT)),
