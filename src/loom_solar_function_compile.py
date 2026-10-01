@@ -5,7 +5,7 @@ from src.loom_solar_state_runtime import StateRuntimeError
 
 DEFAULT_DEGREES=(12,24,36,48)
 
-def compile_adaptive(inspector,body,center,start_et,end_et,error_km,degrees=DEFAULT_DEGREES,min_span_s=3600,max_depth=16,validation_points=65):
+def compile_adaptive(inspector,body,center,start_et,end_et,error_km,degrees=DEFAULT_DEGREES,min_span_s=3600,max_depth=16,validation_points=65,sample_many=None):
  """Compile governed state(T) to piecewise Chebyshev functions.
 
  Hermite is intentionally not a production fallback. If no qualified
@@ -15,7 +15,7 @@ def compile_adaptive(inspector,body,center,start_et,end_et,error_km,degrees=DEFA
   failures=[]
   for degree in degrees:
    try:
-    c=compile_chebyshev(inspector,body,center,a,b,degree,error_km,validation_points)
+    c=compile_chebyshev(inspector,body,center,a,b,degree,error_km,validation_points,sample_many)
     c['representation']='CHEBYSHEV_STATE_SEGMENT'
     return [c]
    except StateRuntimeError as e: failures.append(str(e))

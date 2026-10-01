@@ -14,6 +14,7 @@ from src.loom_solar_inspector import Inspector
 from src.loom_solar_function_compile import compile_adaptive
 from src.loom_solar_state_runtime import PiecewiseStateFunction
 from src.loom_solar_temporal_publish import DAY, center_for, tolerance
+from src.loom_solar_spk_index import IndexedDirectSpk
 
 FRACTIONS=(0.017,0.071,0.193,0.337,0.503,0.677,0.829,0.941,0.991)
 
@@ -48,10 +49,12 @@ def tasks_for(I,bodies,start,end,max_days):
 
 _WI = None
 _WOUT = None
+_WINDEX = {}
 
 def worker_init(database,asset_root,output):
-    global _WI,_WOUT
+    global _WI,_WOUT,_WINDEX
     _WI=Inspector.connect(database,asset_root)
+    _WINDEX={}
     _WOUT=Path(output)
     (_WOUT/'units').mkdir(parents=True,exist_ok=True)
 
@@ -67,7 +70,29 @@ def run_task(task):
             pass
     t0=time.time(); tol=tolerance(_WI,body)
     try:
-        compiled=compile_adaptive(_WI,body,center,s,e,tol)
+        sample_many=None; acceleration='GOVERNED_RESOLVER'
+        # Optional acceleration only for structurally eligible direct SPKs.
+        # Failure to prove eligibility is a normal fallback, never a relaxation.
+        try:
+            mid=(s+e)/2
+            source,_=_WI.registry.source_for(body,mid)
+            cache_key=(body,source.ephemeris_source_id)
+            idx=_WINDEX.get(cache_key)
+            if idx is None:
+                idx=IndexedDirectSpk(_WI.service.adapter,body,mid)
+                _WINDEX[cache_key]=idx
+            if center!='SUN':
+                raise ValueError('indexed fast path only represents Sun-relative state')
+            center_source=_WI.registry.source_for(center,mid)[0].ephemeris_source_id
+            authority='DIRECT'
+            def sample_many(times):
+                states=idx.evaluate_many(times)
+                return [({'authority_class':authority,'relative':{'position_km':state[:3]}},
+                         idx.source.ephemeris_source_id,center_source) for state in states]
+            acceleration='INDEXED_DIRECT_SPK'
+        except (ValueError,KeyError):
+            sample_many=None
+        compiled=compile_adaptive(_WI,body,center,s,e,tol,sample_many=sample_many)
         f=PiecewiseStateFunction(compiled); worst=0.0
         for q in FRACTIONS:
             t=s+q*(e-s); truth=_WI.at(body,t,center)
@@ -80,7 +105,7 @@ def run_task(task):
         row={'schema':'loom.solar-v1-function-work-unit/1.0','status':'PASS','body_id':body,'center_id':center,
              'start_et':s,'end_et':e,'work_partition_only':True,'tolerance_km':tol,
              'independent_worst_error_km':worst,'segment_count':len(compiled['segments']),
-             'elapsed_s':time.time()-t0,'compiled':compiled}
+             'elapsed_s':time.time()-t0,'acceleration':acceleration,'compiled':compiled}
         atomic_json(dest,row)
         return ('PASS',body,row)
     except Exception as exc:
@@ -129,7 +154,7 @@ def main():
                     print(f'[{i:05d}/{len(tasks):05d}] {body:<28} SKIP persisted',flush=True)
                 elif status=='PASS':
                     passed+=1
-                    print(f'[{i:05d}/{len(tasks):05d}] {body:<28} PASS seg={row["segment_count"]:4d} worst={row["independent_worst_error_km"]:.6g}km t={row["elapsed_s"]:.1f}s',flush=True)
+                    print(f'[{i:05d}/{len(tasks):05d}] {body:<28} PASS seg={row["segment_count"]:4d} worst={row["independent_worst_error_km"]:.6g}km t={row["elapsed_s"]:.1f}s mode={row.get("acceleration","LEGACY")}',flush=True)
                 else:
                     failed+=1
                     print(f'[{i:05d}/{len(tasks):05d}] {body:<28} FAIL {row["reason"]}',flush=True)
