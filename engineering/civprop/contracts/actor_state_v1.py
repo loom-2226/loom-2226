@@ -259,6 +259,12 @@ class ActorStateRuntime:
     def __init__(self, package: ActorStatePackage):
         self.package = package
         self._actors = {x.actor_id: x for x in package.actors}
+        self._events_by_actor={}
+        self._capability_events={}
+        for event in package.events:
+            self._events_by_actor.setdefault(event.actor_id,[]).append(event)
+            if event.event_type=="CAPABILITY_SET":
+                self._capability_events.setdefault((event.actor_id,str(event.payload["capability_id"])),[]).append(event)
 
     def actor(self, actor_id: str) -> ActorState:
         try:
@@ -272,8 +278,8 @@ class ActorStateRuntime:
     def budget(self, actor_id: str, year: int) -> SpendableAllocation:
         actor = self.actor(actor_id)
         current = actor.budget.spendable_allocation
-        for event in self.package.events:
-            if event.actor_id != actor_id or event.year > year:
+        for event in self._events_by_actor.get(actor_id,()):
+            if event.year > year:
                 continue
             if event.event_type == "BUDGET_ALLOCATION_SET":
                 current = SpendableAllocation(
@@ -298,10 +304,17 @@ class ActorStateRuntime:
                     continue
                 if record.status in CAPABILITY_STATUS:
                     status = record.status
-        for event in self.package.events:
-            if event.actor_id != actor_id or event.year > year:
+        for event in self._capability_events.get((actor_id,capability_id),()):
+            if event.year > year:
                 continue
-            if event.event_type == "CAPABILITY_SET":
-                if event.payload["capability_id"] == capability_id:
-                    status = str(event.payload["status"])
+            status=str(event.payload["status"])
         return status
+
+
+_ACTOR_RUNTIME_CACHE={}
+def actor_state_runtime(package):
+    key=id(package); cached=_ACTOR_RUNTIME_CACHE.get(key)
+    if cached is not None and cached[0] is package: return cached[1]
+    runtime=ActorStateRuntime(package)
+    if len(_ACTOR_RUNTIME_CACHE)>=16: _ACTOR_RUNTIME_CACHE.pop(next(iter(_ACTOR_RUNTIME_CACHE)))
+    _ACTOR_RUNTIME_CACHE[key]=(package,runtime); return runtime

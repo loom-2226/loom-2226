@@ -11,10 +11,11 @@ import hashlib
 import math
 from typing import Iterable, Optional
 
-from engineering.civprop.contracts.actor_state_v1 import ActorStateRuntime
+from engineering.civprop.contracts.actor_state_v1 import ActorStateRuntime, actor_state_runtime
 from engineering.civprop.contracts.accessibility_v1 import (
     AccessibilityRequest,
     AccessibilityRuntime,
+    accessibility_runtime,
 )
 from engineering.civprop.contracts.demand_pressure_v1 import DemandObservation
 from engineering.civprop.contracts.project_economics_v1 import ProjectEconomicsRuntime
@@ -240,7 +241,7 @@ def project_map(bundle: LabBundle):
 def actor_budget(bundle: LabBundle):
     """Return legacy numeric budgets unchanged, or ActorState budgets for V1 inputs."""
     if bundle.scenario.actor_state_v1 is not None:
-        runtime = ActorStateRuntime(bundle.scenario.actor_state_v1)
+        runtime = actor_state_runtime(bundle.scenario.actor_state_v1)
         result = {}
         for actor in bundle.scenario.actors:
             view = runtime.budget(actor.actor_id, bundle.scenario.start_year)
@@ -382,7 +383,7 @@ def actor_tech_status(bundle: LabBundle, actor_id: str, tech_id: str, year: int)
     if year < frontier.frontier_year:
         return "UNUSABLE"
     if bundle.scenario.actor_state_v1 is not None:
-        return ActorStateRuntime(bundle.scenario.actor_state_v1).capability_status(
+        return actor_state_runtime(bundle.scenario.actor_state_v1).capability_status(
             actor_id, tech_id, year
         )
     for cap in bundle.scenario.actor_capability:
@@ -410,6 +411,7 @@ def best_access_cost(
     *,
     actor_id: Optional[str] = None,
     project: Optional[ProjectArchetype] = None,
+    available_origins: Optional[tuple[str, ...]] = None,
 ) -> Optional[float]:
     if destination == "EARTH_SURFACE":
         return 0.0
@@ -423,12 +425,12 @@ def best_access_cost(
         )
         if actor_state is None:
             return None
-        runtime = AccessibilityRuntime(bundle.scenario.accessibility_v1)
+        runtime = accessibility_runtime(bundle.scenario.accessibility_v1)
         candidates = []
-        for origin in sorted(states):
+        origins=available_origins if available_origins is not None else tuple(
+            o for o in sorted(states) if o=="EARTH_SURFACE" or states[o].transport>0)
+        for origin in origins:
             if origin == destination:
-                continue
-            if origin != "EARTH_SURFACE" and states[origin].transport <= 0:
                 continue
             assessment = runtime.assess(
                 AccessibilityRequest(
@@ -575,6 +577,7 @@ def opportunities(
 ) -> list[Opportunity]:
     result = []
     placements = {x.location_id: x.placement for x in bundle.scenario.locations}
+    available_origins=tuple(o for o in sorted(states) if o=="EARTH_SURFACE" or states[o].transport>0)
     for base_project in bundle.scenario.project_archetypes:
         project = resolved_project(bundle, base_project, year)
         if project.project_kind == "MISSION" and not include_missions:
@@ -594,6 +597,7 @@ def opportunities(
                 year,
                 actor_id=actor_id,
                 project=project,
+                available_origins=available_origins,
             )
             if access_cost is None:
                 continue

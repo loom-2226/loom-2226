@@ -273,20 +273,23 @@ class AccessibilityRuntime:
         self.package = package
         self._bodies = {x.location_id: x.body_id for x in package.location_bindings}
         self._services = {x.service_id: x for x in package.service_paths}
+        idx = {}
+        for service in package.service_paths:
+            key=(service.actor_id,service.origin_location_id,service.destination_location_id,
+                 service.mission_class,service.service_class)
+            idx.setdefault(key,[]).append(service)
+        self._service_index={k:tuple(sorted(v,key=lambda x:x.service_id)) for k,v in idx.items()}
+        self._geometry_index={}
+        for row in package.geometry_samples:
+            self._geometry_index[(row.origin_body_id,row.destination_body_id,row.epoch_utc)]=row
+            self._geometry_index[(row.destination_body_id,row.origin_body_id,row.epoch_utc)]=row
 
     def _geometry_for(self, request: AccessibilityRequest) -> Optional[GeometryContext]:
         origin = self._bodies.get(request.origin_location_id)
         destination = self._bodies.get(request.destination_location_id)
         if not origin or not destination or origin == destination:
             return None
-        for row in self.package.geometry_samples:
-            bodies_match = (
-                (row.origin_body_id, row.destination_body_id) == (origin, destination)
-                or (row.origin_body_id, row.destination_body_id) == (destination, origin)
-            )
-            if bodies_match and row.epoch_utc == request.epoch_utc:
-                return row
-        return None
+        return self._geometry_index.get((origin,destination,request.epoch_utc))
 
     @staticmethod
     def _actor_has_service(actor_state: ActorState, service: ServicePath, year: int) -> bool:
@@ -382,17 +385,13 @@ class AccessibilityRuntime:
                 )
             candidates = (service,)
         else:
-            candidates = tuple(
-                service for service in self.package.service_paths
-                if service.actor_id == request.actor_id
-                and service.origin_location_id == request.origin_location_id
-                and service.destination_location_id == request.destination_location_id
-                and service.mission_class == request.mission_class
-                and service.service_class == request.service_class
-                and (service.subject_id is None or service.subject_id == request.subject_id)
+            scoped=self._service_index.get((
+                request.actor_id,request.origin_location_id,request.destination_location_id,
+                request.mission_class,request.service_class),())
+            candidates=tuple(service for service in scoped
+                if (service.subject_id is None or service.subject_id == request.subject_id)
                 and service.valid_from_year <= year
-                and (service.valid_to_year is None or year <= service.valid_to_year)
-            )
+                and (service.valid_to_year is None or year <= service.valid_to_year))
 
         if not candidates:
             constraints = ["NO_MATCHING_SCOPED_SERVICE_PATH"]
@@ -461,9 +460,18 @@ class AccessibilityRuntime:
         )
 
 
+_RUNTIME_CACHE={}
+def accessibility_runtime(package: AccessibilityPackage) -> AccessibilityRuntime:
+    key=id(package); cached=_RUNTIME_CACHE.get(key)
+    if cached is not None and cached[0] is package: return cached[1]
+    runtime=AccessibilityRuntime(package)
+    if len(_RUNTIME_CACHE)>=16: _RUNTIME_CACHE.pop(next(iter(_RUNTIME_CACHE)))
+    _RUNTIME_CACHE[key]=(package,runtime); return runtime
+
+
 __all__ = [
     "ACCESS_STATUS", "CONTRACT_VERSION", "DISTANCE_SEMANTICS", "FORMAT",
     "AccessibilityAssessment", "AccessibilityPackage", "AccessibilityRequest",
-    "AccessibilityRuntime", "CostComponent", "GeneralizedCost", "GeometryContext",
+    "AccessibilityRuntime", "accessibility_runtime", "CostComponent", "GeneralizedCost", "GeometryContext",
     "LocationBinding", "ServicePath", "load_accessibility_package",
 ]
