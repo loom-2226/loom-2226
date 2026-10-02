@@ -1,0 +1,3490 @@
+{
+  "format": "LOOM_CIVPROP_GROUP_AGENT_SEED_2026_V0_3",
+  "classification": "NON_CANON_SEED_CANDIDATE",
+  "prepared": "2026-10-02",
+  "purpose": "Candidate 2026 group-level actor roster for CIVPROP Solar (v0.3: adds a CERTIFICATION category for how claims become bankable; includes search-checked rows and Claude importance rankings). Group agents are institutions. Individual NPCs are promoted from them on demand (see npc_roles). Not wired to the engine. Not canon. Nothing here is a resource claim.\n",
+  "grounding": {
+    "basis": "Public knowledge through roughly mid-2026 plus targeted web searches on 2026-10-02.",
+    "verified_by_search_2026_10_02": [
+      "Interlune / Bluefors / Maybell / DOE Isotope Program helium-3 chain; Interlune Cold Capture (20 Jul 2026); Interlune $5M SAFE (Sep 2026)",
+      "AstroForge Odin loss (2025); Vestri is a rideshare on IM-3, which one secondary source lists as NET Q1 2027",
+      "Rio Tinto and Glencore merger talks ended 5 Feb 2026; Rio CEO Simon Trott since Aug 2025",
+      "2026 Iran war from 28 Feb; Strait of Hormuz closure; Qatar Ras Laffan outage; helium shortage; Airgas force majeure (17 Mar)",
+      "Gulf sovereign funds deployed roughly $25-26B in Mar-May 2026 despite the war (Global SWF via Semafor); QIA slowed",
+      "NASA-DOE MOU (13 Jan 2026) targeting a lunar surface reactor by 2030; Artemis II has flown",
+      "L3Harris sale of 60% of Space Propulsion and Power Systems to AE Industrial ($845M EV, close expected 2H 2026)",
+      "Maxar rebranded Vantor and Lanteris (1 Oct 2025); Intuitive Machines announced intent to buy Lanteris ($800M, 4 Nov 2025)",
+      "Vast Haven-1 NET Q1 2027; Axiom and Starlab two-module stations targeted 2028 and 2029",
+      "EXIM $300M CesiumAstro credit agreement (9 Sep 2026); UKEF space role hire (Jul 2026)",
+      "LandSpace Zhuque-3 booster landing (18 Aug 2026, per Wikipedia); Isar Spectrum orbit (5 Sep 2026, per Euronews)",
+      "JORC Code review status (draft Aug 2024, finalization targeted Q1 2026, webinar 20 Aug 2026, AFRY acquired AMC on 1 May 2026); CRIRSCO membership; UNFC E-F-G axes and CRIRSCO bridging document; PERC course series Jun-Jul 2026; LORS-101 lunar reporting code proposal (IAC 2020)"
+    ],
+    "everything_else": "From background knowledge. Each actor carries conf (HIGH/MEDIUM/LOW). Rows spot-verified this session carry verified_by_search: true. Others may carry verify notes.",
+    "caution_on_sources": "Several verifications rest on trade press, company releases or secondary summaries. Treat them as leads to confirm against primary documents before seeding.",
+    "numbers_policy": "No budgets, fund sizes, prices or probabilities are assigned. Every budget is status UNKNOWN until sourced. Numbers appear only as quoted contract or transaction facts from the verified items above.\n"
+  },
+  "world_state_2026": {
+    "note": "Exogenous conditions that make 2026 specific. They are context for seeding, not agents.",
+    "items": [
+      {
+        "id": "WS_IRAN_WAR",
+        "fact": "A US-Israel and Iran war began 28 Feb 2026. The Strait of Hormuz was effectively closed for periods, hitting LNG, fertilizer and helium flows.",
+        "conf": "HIGH"
+      },
+      {
+        "id": "WS_HELIUM_SHOCK",
+        "fact": "Qatar supplied roughly a third of world helium. Its LNG output halted in March and missile strikes damaged Ras Laffan facilities. Helium prices reportedly doubled. Airgas declared force majeure. One industry source says recovery could take years.",
+        "conf": "MEDIUM",
+        "verify": "Recovery timeline comes from a distributor blog. Check against USGS and producers.",
+        "relevance": "Strengthens the case for any non-Qatar helium source and raises scrutiny of helium-3 supply claims."
+      },
+      {
+        "id": "WS_GULF_CAPITAL",
+        "fact": "Gulf sovereign funds kept deploying capital during the war (about $26B across five funds Mar-May 2026). QIA slowed. Analysts flagged possible refocus on domestic resilience.",
+        "conf": "MEDIUM"
+      },
+      {
+        "id": "WS_MINING_CONSOLIDATION",
+        "fact": "Rio Tinto walked away from a Glencore merger on 5 Feb 2026 over valuation and governance. Copper hit record highs near $13,300/t in Jan 2026. Anglo American and Teck merger status is reported inconsistently.",
+        "conf": "MEDIUM"
+      },
+      {
+        "id": "WS_LUNAR_POWER_PUSH",
+        "fact": "NASA and DOE signed an MOU on 13 Jan 2026 to deliver a lunar surface fission reactor by 2030, building on a 2025 directive for a 100 kWe system. NASA Administrator is Jared Isaacman. Artemis II has flown.",
+        "conf": "HIGH"
+      },
+      {
+        "id": "WS_PROPULSION_RESHUFFLE",
+        "fact": "L3Harris is selling 60% of its space propulsion and power unit to AE Industrial, relaunching the Rocketdyne name. US official communications now use Department of War for the Defense Department.",
+        "conf": "HIGH"
+      },
+      {
+        "id": "WS_COMMERCIAL_STATIONS",
+        "fact": "Vast Haven-1 slipped to NET Q1 2027. Axiom and Starlab plan two-module stations for 2028 and 2029. ISS retires in 2030.",
+        "conf": "HIGH"
+      },
+      {
+        "id": "WS_LUNAR_SLIPS",
+        "fact": "IM-3 slipped from 2026 to NET Q1 2027 per one secondary source, carrying AstroForge's Vestri as a rideshare.",
+        "conf": "MEDIUM",
+        "verify": "Confirm with Intuitive Machines or NASA."
+      },
+      {
+        "id": "WS_LAUNCH_COMPETITION",
+        "fact": "LandSpace reportedly landed an orbital booster on 18 Aug 2026. Isar Aerospace's Spectrum reached orbit on 5 Sep 2026. Starship flew its 13th test (V3).",
+        "conf": "MEDIUM",
+        "verify": "Confirm each against primary launch reports."
+      },
+      {
+        "id": "WS_REPORTING_CODES",
+        "fact": "The JORC Code (last revised 2012) is under review. A draft was issued Aug 2024 and finalization with ASX, ASIC and CRIRSCO was targeted for Q1 2026. No adopted reporting code for space resources exists. LORS-101 (2020) is only a proposal.",
+        "conf": "MEDIUM",
+        "verify": "Confirm whether the revised JORC Code has been released."
+      }
+    ]
+  },
+  "relationship_to_existing_roster": "The existing 13 actors (NASA, CNSA, ISRO and others) are NOT duplicated here. STATES below are the policy layer (law, export control, subsidy, treaty position), distinct from their space agencies. Where a row names an existing actor, it is referenced as existing_actor.\n",
+  "agent_contract": {
+    "R1": "Acts only on its own belief store. Every belief carries source_id, year and visibility.",
+    "R2": "Spends only its own budget. Budget status UNKNOWN means it cannot commit. No free money.",
+    "R3": "Cannot create resource truth. Presence is not abundance, abundance is not recoverability, recoverability is not value.",
+    "R4": "Must be able to decline. Declines are stored as counters by reason code, with full records only for near-misses.",
+    "R5": "Information leaves an actor only through a declared channel (publication, sale, contract, leak, treaty filing) with a lag class.",
+    "R6": "Technology existing does not mean the actor has access to it.",
+    "R7": "Authored parameters are tagged AUTHORED_MACHINERY_TEST_ASSUMPTION. Empirical parameters need provenance.",
+    "R8": "Institutions persist, merge, split and fail. A 2026 identity is not guaranteed in 2226. Seed rows are starting points, not destinies.",
+    "R9": "A promoted NPC holds only what its institution holds plus declared personal knowledge. Dialogue can add color but never canon."
+  },
+  "lag_classes": {
+    "note": "Ordinal bins only. Year values are deliberately not set here (machinery-test choice for later).",
+    "L0": "Effectively current: sees its own operations and public feeds",
+    "L1": "Short lag: commercial data purchase or reporting cycle",
+    "L2": "Medium lag: committee, budget or underwriting cycle",
+    "L3": "Long lag: legislative, treaty or consensus cycle"
+  },
+  "categories": {
+    "CAPITAL": {
+      "engine_actor_type_hint": "FINANCER",
+      "decision_rule": "Fund only if expected return clears the hurdle rate with a reserve left over, within mandate and risk limits.",
+      "decline_codes": [
+        "HURDLE_NOT_MET",
+        "MANDATE_EXCLUDED",
+        "RESERVE_BREACH",
+        "TITLE_UNCLEAR",
+        "UNINSURABLE",
+        "NO_OFFTAKER",
+        "BUDGET_UNKNOWN"
+      ],
+      "belief_lag": "L2",
+      "publishes": "Annual reports and deal announcements. Diligence stays private.",
+      "npc_roles": [
+        "investment_committee_chair",
+        "deal_associate",
+        "risk_officer",
+        "portfolio_company_founder"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "capital allocation by mandate",
+        "acquire": "annual reports, fund disclosures"
+      }
+    },
+    "OFFTAKER": {
+      "engine_actor_type_hint": "INDUSTRIAL_BUYER",
+      "decision_rule": "Buy only if a stated need, price ceiling, delivery window and quality spec are all met. No buyer, no value.",
+      "decline_codes": [
+        "PRICE_ABOVE_CEILING",
+        "SPEC_NOT_CERTIFIED",
+        "WINDOW_MISSED",
+        "COUNTERPARTY_UNPROVEN",
+        "TITLE_UNCLEAR",
+        "BUDGET_UNKNOWN"
+      ],
+      "belief_lag": "L1",
+      "publishes": "Procurement announcements and supply agreements. Specs and ceilings stay private.",
+      "npc_roles": [
+        "procurement_lead",
+        "assay_lab_head",
+        "supply_chain_analyst",
+        "plant_manager"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "procurement budget",
+        "acquire": "annual reports, contract disclosures"
+      }
+    },
+    "INSURER": {
+      "engine_actor_type_hint": "ASSURER",
+      "decision_rule": "Price from observed loss history and decline what cannot be priced. Premiums move before anyone explains why.",
+      "decline_codes": [
+        "UNPRICEABLE_RISK",
+        "ACCUMULATION_LIMIT",
+        "NO_LOSS_HISTORY",
+        "SANCTIONS_EXCLUSION",
+        "TITLE_UNCLEAR",
+        "BUDGET_UNKNOWN"
+      ],
+      "belief_lag": "L2",
+      "publishes": "Market capacity signals and rate commentary. Claims data stays private.",
+      "npc_roles": [
+        "lead_underwriter",
+        "claims_adjuster",
+        "loss_modeller",
+        "broker_placement_lead"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "underwriting capacity and accumulation limits",
+        "acquire": "reinsurance reports, Lloyd's disclosures"
+      }
+    },
+    "CARRIER": {
+      "engine_actor_type_hint": "TRANSPORT_OPERATOR",
+      "decision_rule": "Sell capacity by slot and window. Fly only with cargo, cover and a feasible window. Capacity is scarce.",
+      "decline_codes": [
+        "NO_WINDOW",
+        "NO_PAYLOAD_FIT",
+        "NO_INSURANCE",
+        "NO_CLEARANCE",
+        "CAPACITY_COMMITTED",
+        "BUDGET_UNKNOWN"
+      ],
+      "belief_lag": "L0",
+      "publishes": "Manifests, schedules and rate cards. Margins and failure analyses stay private.",
+      "npc_roles": [
+        "launch_director",
+        "mission_manager",
+        "dispatcher",
+        "hull_captain"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "fleet and facility capital",
+        "acquire": "filings, program disclosures"
+      }
+    },
+    "REGISTRY": {
+      "engine_actor_type_hint": "LEGAL_AUTHORITY",
+      "decision_rule": "Record, license and rule. Slow, precedent-bound, must give reasons. Title is a state variable.",
+      "decline_codes": [
+        "NO_JURISDICTION",
+        "INSUFFICIENT_FILING",
+        "PRECEDENT_CONFLICT",
+        "TREATY_BAR",
+        "PENDING_DISPUTE"
+      ],
+      "belief_lag": "L3",
+      "publishes": "Registers, rulings and notices. Deliberations stay private.",
+      "npc_roles": [
+        "registrar",
+        "arbitrator",
+        "licensing_officer",
+        "treaty_delegate"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "institutional operating budget",
+        "acquire": "agency or treaty-body budgets"
+      }
+    },
+    "STATE": {
+      "engine_actor_type_hint": "STATE",
+      "decision_rule": "Change constraints for everyone at once, slowly, on political and budget cycles. Never directly operate missions.",
+      "decline_codes": [
+        "POLITICAL_COST",
+        "TREATY_CONFLICT",
+        "BUDGET_CYCLE",
+        "COALITION_ABSENT",
+        "SANCTIONS_REGIME"
+      ],
+      "belief_lag": "L3",
+      "publishes": "Laws, policy papers and budget lines. Intelligence assessments stay private.",
+      "npc_roles": [
+        "minister",
+        "regulator",
+        "trade_negotiator",
+        "legislative_aide"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "national space and industrial policy budgets",
+        "acquire": "national budget documents"
+      }
+    },
+    "SETTLEMENT_LABOR": {
+      "engine_actor_type_hint": "COMMUNITY_OR_LABOR",
+      "decision_rule": "People move toward capacity and away from risk. Labor can withhold. Governance follows jurisdiction. All current rows are terrestrial analogs because no off-world settlement exists in 2026.",
+      "decline_codes": [
+        "UNSAFE_CONDITIONS",
+        "REPATRIATION_UNFUNDED",
+        "JURISDICTION_UNCLEAR",
+        "WAGE_BELOW_THRESHOLD",
+        "ROTATION_BREACH"
+      ],
+      "belief_lag": "L1",
+      "publishes": "Rules, schedules and incident reports. Disputes often stay private.",
+      "npc_roles": [
+        "station_chief",
+        "union_steward",
+        "medic",
+        "camp_boss"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "operating and welfare budget",
+        "acquire": "operator or treaty disclosures"
+      }
+    },
+    "INFORMATION": {
+      "engine_actor_type_hint": "BROKER_OR_INTELLIGENCE",
+      "decision_rule": "Sell, withhold or leak beliefs. Every belief has a source and an age. No omniscience. Value decays with lag.",
+      "decline_codes": [
+        "CLASSIFICATION_BAR",
+        "CUSTOMER_UNVETTED",
+        "SOURCE_EXPOSURE_RISK",
+        "LEGAL_BAR",
+        "NO_COLLECTION_ASSET"
+      ],
+      "belief_lag": "L1",
+      "publishes": "Commercial products for sale. Collection methods and customer lists stay private.",
+      "npc_roles": [
+        "analyst",
+        "account_manager",
+        "collection_tasker",
+        "whistleblower"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "collection and analytics budget",
+        "acquire": "company filings, program disclosures"
+      }
+    },
+    "PROSPECTOR": {
+      "engine_actor_type_hint": "COMMERCIAL_OPERATOR",
+      "decision_rule": "Mount a mission only if funded, insured, carried, and tied to a buyer or a financing milestone. Failure is common and must be representable.",
+      "decline_codes": [
+        "NO_FUNDING",
+        "NO_CARRIER",
+        "NO_BUYER",
+        "NO_INSURANCE",
+        "TITLE_UNCLEAR",
+        "TECHNOLOGY_NOT_ACCESSIBLE",
+        "BUDGET_UNKNOWN"
+      ],
+      "belief_lag": "L0",
+      "publishes": "Press milestones and selective data. Raw survey data stays private unless sold or required by a contract.",
+      "npc_roles": [
+        "founder_ceo",
+        "mission_lead",
+        "geologist",
+        "investor_relations_head"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "venture and contract funding",
+        "acquire": "company announcements, filings"
+      }
+    },
+    "INCUMBENT_INDUSTRY": {
+      "engine_actor_type_hint": "INDUSTRIAL_INCUMBENT",
+      "decision_rule": "Hold capability, equipment, workforce and permits. Enter a new frontier only through partnership or acquisition when returns beat the core business. Defend core markets from substitutes.",
+      "decline_codes": [
+        "CORE_BUSINESS_PRIORITY",
+        "SHAREHOLDER_RETURN_SHORTFALL",
+        "HSE_CASE_UNPROVEN",
+        "NO_PARTNER_WITH_TITLE",
+        "TECHNOLOGY_NOT_TRANSFERABLE",
+        "BUDGET_UNKNOWN"
+      ],
+      "belief_lag": "L2",
+      "publishes": "Annual reports, technical papers and deal announcements. Reserves data and bids stay private.",
+      "npc_roles": [
+        "chief_geologist",
+        "mine_manager",
+        "hse_officer",
+        "head_of_strategy"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "corporate capital allocation",
+        "acquire": "annual reports, capex guidance"
+      }
+    },
+    "SUPPLIER_PRIME": {
+      "engine_actor_type_hint": "PRIME_OR_SUPPLIER",
+      "decision_rule": "Build to specification under contract. Bid where funded demand exists. Protect incumbency and comply with export controls.",
+      "decline_codes": [
+        "NO_FUNDED_CONTRACT",
+        "EXPORT_CONTROL_BAR",
+        "CAPACITY_COMMITTED",
+        "QUALIFICATION_NOT_MET",
+        "BUDGET_UNKNOWN"
+      ],
+      "belief_lag": "L1",
+      "publishes": "Contract awards, product announcements and program milestones. Pricing and defects stay private.",
+      "npc_roles": [
+        "program_manager",
+        "chief_engineer",
+        "contracts_lead",
+        "test_director"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "company capital and independent R&D",
+        "acquire": "company filings"
+      }
+    },
+    "INFRASTRUCTURE": {
+      "engine_actor_type_hint": "SHARED_SERVICE_PROVIDER",
+      "decision_rule": "Provide a shared service (communications, navigation, ground, power, stations, ports) under capacity limits and sell by contract. Outages are visible to all customers.",
+      "decline_codes": [
+        "CAPACITY_COMMITTED",
+        "NO_COVERAGE",
+        "SPECTRUM_NOT_COORDINATED",
+        "SECURITY_BAR",
+        "BUDGET_UNKNOWN"
+      ],
+      "belief_lag": "L1",
+      "publishes": "Service catalogs, schedules and outage notices. Customer lists and security posture stay private.",
+      "npc_roles": [
+        "network_controller",
+        "ground_station_chief",
+        "station_commander",
+        "port_authority_officer"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "network and facility capital",
+        "acquire": "agency budgets, company filings"
+      }
+    },
+    "SOFT_POWER": {
+      "engine_actor_type_hint": "STANDARDS_OR_ADVOCACY",
+      "decision_rule": "Influence by adoption. Publish standards, research, rankings and reporting that other actors cite in their own decision rules. Cannot fund missions. Credibility is the asset and error is costly.",
+      "decline_codes": [
+        "OUTSIDE_SCOPE",
+        "CONFLICT_OF_INTEREST",
+        "INSUFFICIENT_EVIDENCE",
+        "FUNDING_DEPENDENCE"
+      ],
+      "belief_lag": "L2",
+      "publishes": "Standards, papers, reports and coverage. Sources and drafts may stay private.",
+      "npc_roles": [
+        "standards_editor",
+        "lead_researcher",
+        "reporter",
+        "policy_analyst"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "operating budget and grants",
+        "acquire": "annual reports"
+      }
+    },
+    "CERTIFICATION": {
+      "engine_actor_type_hint": "CERTIFIER_OR_CODE_BODY",
+      "decision_rule": "Certify or report only against a published code, using evidence from a qualified person with a chain of custody. Decline when data is insufficient. Certificates and codes are revised slowly and can be challenged.",
+      "decline_codes": [
+        "INSUFFICIENT_SAMPLING",
+        "UNQUALIFIED_PERSON",
+        "NO_CHAIN_OF_CUSTODY",
+        "JURISDICTION_MISMATCH",
+        "CONFLICT_OF_INTEREST",
+        "DATA_NOT_AUDITABLE"
+      ],
+      "belief_lag": "L3",
+      "publishes": "Codes, definitions, guidance notes, member lists and certificates. Draft deliberations and client data stay private.",
+      "npc_roles": [
+        "competent_person",
+        "assay_lab_manager",
+        "code_committee_chair",
+        "exchange_listings_officer"
+      ],
+      "budget": {
+        "status": "UNKNOWN",
+        "scope": "membership fees, certification fees, exchange funding",
+        "acquire": "annual reports of each body"
+      }
+    }
+  },
+  "actors": [
+    {
+      "id": "CAP_NBIM",
+      "category": "CAPITAL",
+      "name": "Norway Government Pension Fund Global (NBIM)",
+      "basis_2026": "Very large sovereign fund. Mostly listed equities and bonds, plus unlisted real estate and renewable infrastructure.",
+      "conf": "HIGH",
+      "twist": "Ethics-council exclusions. No frontier direct stakes. Exposure to space is through listed issuers only.",
+      "decline_extra": [
+        "EXCLUSION_LIST_HIT",
+        "ILLIQUID_FRONTIER_ASSET"
+      ],
+      "hook": "A resource-claims dispute puts a listed miner on the exclusion list overnight."
+    },
+    {
+      "id": "CAP_GIC",
+      "category": "CAPITAL",
+      "name": "GIC (Singapore)",
+      "basis_2026": "Sovereign investor with long horizons and selective direct private investments.",
+      "conf": "HIGH",
+      "twist": "Patient and diversified. Wants governance rights in any frontier stake.",
+      "hook": "A governance clause nobody read decides who controls a depot."
+    },
+    {
+      "id": "CAP_MUBADALA",
+      "category": "CAPITAL",
+      "name": "Mubadala (Abu Dhabi)",
+      "basis_2026": "State investor with aerospace holdings. UAE runs a national space strategy.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current space-sector holdings. 2026 context: Gulf funds kept deploying capital during the Iran war.",
+      "twist": "Strategic stakes tied to national capability goals.",
+      "hook": "A state backer prefers prestige milestones to returns."
+    },
+    {
+      "id": "CAP_PIF",
+      "category": "CAPITAL",
+      "name": "Saudi Public Investment Fund",
+      "basis_2026": "Very large state fund that makes concentrated, priority-driven bets.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current space-related investments. 2026 context: PIF stayed the most active Gulf investor Mar-May 2026 while pulling back on some ambitious bets.",
+      "twist": "Will fund big and fast if aligned with state priorities. Retreats if priorities shift.",
+      "hook": "A mega-project cancelled mid-construction strands a supplier."
+    },
+    {
+      "id": "CAP_CPPIB",
+      "category": "CAPITAL",
+      "name": "CPP Investments (Canada)",
+      "basis_2026": "Large pension investor with long-dated liabilities.",
+      "conf": "HIGH",
+      "twist": "Low appetite for unproven technology. Prefers infrastructure with contracted revenue.",
+      "decline_extra": [
+        "TECHNOLOGY_UNPROVEN"
+      ],
+      "hook": "It will finance the depot after the first customer signs, not before."
+    },
+    {
+      "id": "CAP_DOD_OSC",
+      "category": "CAPITAL",
+      "name": "US Department of Defense Office of Strategic Capital",
+      "basis_2026": "Defense lending office for critical technologies and supply chains, created 2022.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current scope and any space eligibility.",
+      "twist": "Loans, not grants. Supply-chain security framing.",
+      "hook": "A loan condition requires a domestic supplier that does not yet exist."
+    },
+    {
+      "id": "CAP_IQT",
+      "category": "CAPITAL",
+      "name": "In-Q-Tel",
+      "basis_2026": "Venture arm that funds technology for the US intelligence community.",
+      "conf": "HIGH",
+      "twist": "Invests for access to capability. Its backing is itself a signal.",
+      "hook": "A startup's investor list tells a competitor what the buyer wants."
+    },
+    {
+      "id": "CAP_SPACE_VC",
+      "category": "CAPITAL",
+      "name": "Space-focused venture funds (exemplars: Seraphim Space, Space Capital, Founders Fund)",
+      "basis_2026": "Funds with a fixed life that must exit, backing pre-revenue space companies.",
+      "conf": "HIGH",
+      "twist": "Fund life forces exits within roughly a decade. Down rounds are common.",
+      "hook": "A fund's 10-year clock decides when a patient project dies."
+    },
+    {
+      "id": "CAP_PUBLIC_EQUITY",
+      "category": "CAPITAL",
+      "name": "Public equity market for small and mid-cap space issuers",
+      "basis_2026": "Listed space firms such as Rocket Lab and Intuitive Machines raise through public markets.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current issuers, including Firefly's 2025 listing.",
+      "twist": "Sentiment can fund or starve a program in one quarter.",
+      "hook": "One failed landing and the financing window closes."
+    },
+    {
+      "id": "OFF_BLUEFORS",
+      "category": "OFFTAKER",
+      "name": "Bluefors",
+      "basis_2026": "Finnish maker of dilution refrigerators for quantum computing. Reported agreement with Interlune for up to 10,000 liters per year of helium-3, 2028 to 2037, reported at around $300M.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Forward purchase commitment. Real only if Interlune can deliver.",
+      "decline_extra": [
+        "DELIVERY_NOT_DEMONSTRATED"
+      ],
+      "hook": "A customer holding a binding order for a resource nobody has harvested."
+    },
+    {
+      "id": "OFF_MAYBELL",
+      "category": "OFFTAKER",
+      "name": "Maybell Quantum",
+      "basis_2026": "Quantum refrigeration company. Interlune's first commercial customer, with thousands of liters per year of helium-3 from 2029 to 2035.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Demand scales with quantum machine counts, which are uncertain.",
+      "hook": "Demand forecasts that assume a thousand fridges."
+    },
+    {
+      "id": "OFF_DOE_ISOTOPE",
+      "category": "OFFTAKER",
+      "name": "US DOE Isotope Program",
+      "basis_2026": "Agreed to buy 3 liters of lunar helium-3 by April 2029 at about market price. Reported as the first government purchase of a non-terrestrial resource.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Small, symbolic and precedent-setting. Signals government appetite for space resources.",
+      "hook": "The precedent clause that a later dispute leans on."
+    },
+    {
+      "id": "OFF_UMICORE",
+      "category": "OFFTAKER",
+      "name": "Umicore",
+      "basis_2026": "Materials group with large precious-metals refining and recycling.",
+      "conf": "HIGH",
+      "twist": "Buys by assay. Rejects uncertified lots.",
+      "decline_extra": [
+        "ASSAY_NOT_CERTIFIED"
+      ],
+      "hook": "An assay dispute over a cargo that traveled a billion kilometers."
+    },
+    {
+      "id": "OFF_JM",
+      "category": "OFFTAKER",
+      "name": "Johnson Matthey",
+      "basis_2026": "Long-established PGM refiner and catalyst supplier.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current business scope after recent divestments.",
+      "twist": "Same assay gate. Price-taker on PGM markets.",
+      "hook": "A refiner with a century of records and no appetite for surprises."
+    },
+    {
+      "id": "OFF_CATL",
+      "category": "OFFTAKER",
+      "name": "CATL",
+      "basis_2026": "Largest battery maker, buying nickel, cobalt, lithium and other battery metals.",
+      "conf": "HIGH",
+      "twist": "Buys only at cost parity with Earth supply. Delivered cost decides.",
+      "hook": "Space metals priced out by a new Earth deposit."
+    },
+    {
+      "id": "OFF_ARCELOR",
+      "category": "OFFTAKER",
+      "name": "ArcelorMittal",
+      "basis_2026": "Largest steel producer outside China.",
+      "conf": "HIGH",
+      "twist": "Price-taker in bulk commodities. Only buys if delivered cost beats Earth.",
+      "hook": "A bulk metals idea that never clears the freight line."
+    },
+    {
+      "id": "OFF_AIRBUS",
+      "category": "OFFTAKER",
+      "name": "Airbus",
+      "basis_2026": "Aerospace manufacturer with large titanium and alloy needs.",
+      "conf": "HIGH",
+      "twist": "Certification makes any new supply source very slow to qualify.",
+      "decline_extra": [
+        "CERTIFICATION_PENDING"
+      ],
+      "hook": "A supplier waits a decade for a certificate."
+    },
+    {
+      "id": "OFF_FUSION",
+      "category": "OFFTAKER",
+      "name": "Fusion developers (exemplar: Helion, with a stated D-He3 fuel path)",
+      "basis_2026": "Some fusion firms discuss helium-3 as an eventual fuel.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current fuel plans before using as demand.",
+      "twist": "Speculative long-run demand. Counts only if the reactor path is credible.",
+      "hook": "A demand curve built on a reactor that has not run."
+    },
+    {
+      "id": "INS_LLOYDS",
+      "category": "INSURER",
+      "name": "Lloyd's of London syndicates",
+      "basis_2026": "Market of syndicates writing specialty risks including space.",
+      "conf": "HIGH",
+      "twist": "Lead and follow structure. Capacity comes from many bearers.",
+      "hook": "A lead underwriter's refusal is read as a signal by the whole market."
+    },
+    {
+      "id": "INS_ATRIUM",
+      "category": "INSURER",
+      "name": "Atrium Space Insurance Consortium",
+      "basis_2026": "Pooled space insurance capacity, linked to Lloyd's.",
+      "conf": "HIGH",
+      "twist": "Pooled capacity, per-risk limits.",
+      "hook": "A pool that reprices every route after one loss."
+    },
+    {
+      "id": "INS_AXA_XL",
+      "category": "INSURER",
+      "name": "AXA XL",
+      "basis_2026": "Large commercial and specialty insurer.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current space underwriting appetite.",
+      "twist": "Appetite moves with portfolio results.",
+      "hook": "An insurer quietly exits and the premium for everyone else jumps."
+    },
+    {
+      "id": "INS_ALLIANZ",
+      "category": "INSURER",
+      "name": "Allianz Commercial",
+      "basis_2026": "Large corporate insurer with aviation and space lines.",
+      "conf": "HIGH",
+      "twist": "Conservative accumulation limits.",
+      "hook": "A clause excluding anything not previously flown."
+    },
+    {
+      "id": "INS_MUNICH_RE",
+      "category": "INSURER",
+      "name": "Munich Re",
+      "basis_2026": "Major reinsurer. Models tail risk.",
+      "conf": "HIGH",
+      "twist": "Reinsurance sets the ceiling on what primary insurers can write.",
+      "hook": "A reinsurer's model says a loss class is correlated and cuts capacity."
+    },
+    {
+      "id": "INS_SWISS_RE",
+      "category": "INSURER",
+      "name": "Swiss Re",
+      "basis_2026": "Major reinsurer.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current space reinsurance activity.",
+      "twist": "Accumulation and tail limits.",
+      "hook": "A treaty renewal that reshapes the market."
+    },
+    {
+      "id": "INS_MARSH",
+      "category": "INSURER",
+      "name": "Marsh",
+      "basis_2026": "Insurance broker.",
+      "conf": "HIGH",
+      "twist": "Sells placement and information, not capacity. Sees many clients' risk.",
+      "decline_extra": [
+        "CONFLICT_OF_INTEREST"
+      ],
+      "hook": "A broker who knows which operator is quietly failing."
+    },
+    {
+      "id": "INS_AON",
+      "category": "INSURER",
+      "name": "Aon",
+      "basis_2026": "Insurance broker.",
+      "conf": "HIGH",
+      "twist": "Same information role as Marsh, with a different client book.",
+      "hook": "Two brokers disagree on what a loss means."
+    },
+    {
+      "id": "CAR_SPACEX",
+      "category": "CARRIER",
+      "name": "SpaceX",
+      "basis_2026": "Dominant launch provider with high cadence and reusable boosters.",
+      "conf": "HIGH",
+      "twist": "Sets the price floor. Deep-space cargo needs refueling and depots.",
+      "hook": "Everyone prices against a company that is also a competitor."
+    },
+    {
+      "id": "CAR_BLUE_ORIGIN",
+      "category": "CARRIER",
+      "name": "Blue Origin",
+      "basis_2026": "Heavy-lift and lunar lander developer. Owns Honeybee Robotics.",
+      "conf": "HIGH",
+      "twist": "Schedule slips are normal.",
+      "hook": "A lander promised on a date that moves."
+    },
+    {
+      "id": "CAR_ROCKET_LAB",
+      "category": "CARRIER",
+      "name": "Rocket Lab",
+      "basis_2026": "Small and medium launch plus spacecraft buses.",
+      "conf": "HIGH",
+      "twist": "Vertically integrated. Sells buses to deep-space customers.",
+      "hook": "A spacecraft bus that became the standard prospector body."
+    },
+    {
+      "id": "CAR_ULA",
+      "category": "CARRIER",
+      "name": "United Launch Alliance",
+      "basis_2026": "US launch provider for national security and civil missions.",
+      "conf": "HIGH",
+      "twist": "Government-anchored customers. Slower cadence.",
+      "hook": "A reliable carrier too expensive for commercial prospectors."
+    },
+    {
+      "id": "CAR_ARIANE",
+      "category": "CARRIER",
+      "name": "Arianespace",
+      "basis_2026": "European launch provider.",
+      "conf": "HIGH",
+      "twist": "Politically routed access. Sovereign access to space matters.",
+      "hook": "A launch slot allocated by diplomacy."
+    },
+    {
+      "id": "CAR_CASC",
+      "category": "CARRIER",
+      "name": "China Aerospace Science and Technology Corporation (CASC)",
+      "basis_2026": "State launch and spacecraft prime.",
+      "conf": "HIGH",
+      "twist": "Priorities set by the state. Limited access for outside customers.",
+      "hook": "A capable carrier with no commercial route for foreign cargo."
+    },
+    {
+      "id": "CAR_NSIL",
+      "category": "CARRIER",
+      "name": "NewSpace India Limited (NSIL)",
+      "basis_2026": "Commercial arm of India's space program.",
+      "conf": "HIGH",
+      "existing_actor_link": "ISRO",
+      "twist": "Low-cost access tied to state capacity.",
+      "hook": "A cheap ride with a long queue."
+    },
+    {
+      "id": "CAR_INTUITIVE",
+      "category": "CARRIER",
+      "name": "Intuitive Machines",
+      "basis_2026": "Commercial lunar lander operator. IM-2 landed on its side in 2025. IM-3 is planned.",
+      "conf": "HIGH",
+      "twist": "Thin margins. Rideshare slots matter to small prospectors.",
+      "hook": "A small prospector's whole mission rides on someone else's landing.",
+      "note_2026": "Announced intent on 4 Nov 2025 to buy Lanteris Space Systems for $800M (completion unverified). IM-3 is reported NET Q1 2027. Its IX joint venture with X-energy was among three NASA-DOE fission surface power design awardees in an earlier program phase.",
+      "verified_by_search": true
+    },
+    {
+      "id": "CAR_FIREFLY",
+      "category": "CARRIER",
+      "name": "Firefly Aerospace",
+      "basis_2026": "Launch provider and lunar lander operator. Blue Ghost 1 landed in 2025.",
+      "conf": "HIGH",
+      "twist": "Proven lunar landing is a rare commodity.",
+      "hook": "The only operator with a clean landing record sets its own terms.",
+      "note_2026": "Backed by AE Industrial, which is also buying L3Harris propulsion (verified)."
+    },
+    {
+      "id": "CAR_ASTROBOTIC",
+      "category": "CARRIER",
+      "name": "Astrobotic",
+      "basis_2026": "Lunar delivery company. Peregrine failed in 2024. Griffin is planned.",
+      "conf": "HIGH",
+      "twist": "Recovering from a failed first mission.",
+      "hook": "A failure report that every insurer has read."
+    },
+    {
+      "id": "CAR_ISPACE",
+      "category": "CARRIER",
+      "name": "ispace",
+      "basis_2026": "Japanese lunar lander company with failed landings in 2023 and 2025.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current mission plans.",
+      "twist": "Public company. Also signed an early NASA contract to sell lunar regolith.",
+      "hook": "A history of near-misses priced into every premium."
+    },
+    {
+      "id": "REG_UNOOSA",
+      "category": "REGISTRY",
+      "name": "UN Office for Outer Space Affairs (registry of objects)",
+      "basis_2026": "Records space objects launched. Grants no resource title.",
+      "conf": "HIGH",
+      "twist": "Registration is jurisdiction, not ownership.",
+      "hook": "Two states register the same object."
+    },
+    {
+      "id": "REG_ITU",
+      "category": "REGISTRY",
+      "name": "International Telecommunication Union",
+      "basis_2026": "Coordinates orbital slots and spectrum filings.",
+      "conf": "HIGH",
+      "twist": "First-filed advantage. Slow.",
+      "hook": "A filing placed decades early that blocks a new route."
+    },
+    {
+      "id": "REG_PCA",
+      "category": "REGISTRY",
+      "name": "Permanent Court of Arbitration (Optional Rules for outer space disputes)",
+      "basis_2026": "Has procedural rules for space-related arbitration, adopted in 2011.",
+      "conf": "HIGH",
+      "twist": "Rarely used. Needs consent of parties.",
+      "hook": "The first real case under rules nobody tested."
+    },
+    {
+      "id": "REG_COPUOS",
+      "category": "REGISTRY",
+      "name": "UN COPUOS Legal Subcommittee",
+      "basis_2026": "Forum on space law with a working group on space resources.",
+      "conf": "HIGH",
+      "verify": "Confirm current working group status.",
+      "twist": "Consensus rule. Slow.",
+      "hook": "A consensus text that means different things to each signer."
+    },
+    {
+      "id": "REG_HAGUE_WG",
+      "category": "REGISTRY",
+      "name": "Hague International Space Resources Governance Working Group",
+      "basis_2026": "Published building blocks for a resource governance framework in 2019.",
+      "conf": "HIGH",
+      "twist": "Soft law and influential, not binding.",
+      "hook": "A draft framework that becomes custom without ever being ratified."
+    },
+    {
+      "id": "REG_LUX",
+      "category": "REGISTRY",
+      "name": "Luxembourg Space Agency and the 2017 space resources law",
+      "basis_2026": "Law grants ownership of resources extracted from space by licensed operators.",
+      "conf": "HIGH",
+      "twist": "Licensing jurisdiction with a small state's flexibility.",
+      "hook": "A flag of convenience for resource claims."
+    },
+    {
+      "id": "REG_UAE",
+      "category": "REGISTRY",
+      "name": "UAE Space Agency and 2019 space law",
+      "basis_2026": "National space law with provisions on space resources.",
+      "conf": "HIGH",
+      "twist": "Active state partner for commercial and exploration activity.",
+      "hook": "A fast licensing regime that rivals ask hard questions about."
+    },
+    {
+      "id": "REG_JAPAN",
+      "category": "REGISTRY",
+      "name": "Japan Space Resources Act (2021)",
+      "basis_2026": "Licensed operators may own resources they extract.",
+      "conf": "HIGH",
+      "twist": "Cautious, licensing-based.",
+      "hook": "A license issued for a deposit someone else already surveyed."
+    },
+    {
+      "id": "REG_US",
+      "category": "REGISTRY",
+      "name": "US commercial resource-rights regime (2015 law, FAA and Commerce licensing)",
+      "basis_2026": "US law grants citizens rights to resources they obtain. Licensing is split across agencies.",
+      "conf": "HIGH",
+      "verify": "Confirm any 2025-2026 changes to mission authorization.",
+      "twist": "Domestic rights without international recognition.",
+      "hook": "A US title that other states decline to honor."
+    },
+    {
+      "id": "REG_ARTEMIS",
+      "category": "REGISTRY",
+      "name": "Artemis Accords signatory group",
+      "basis_2026": "A growing group of states endorsing common practices, including safety zones and resource extraction principles.",
+      "conf": "HIGH",
+      "twist": "Practice-based regime built by participation, not treaty.",
+      "hook": "A safety zone that is also a claim in all but name."
+    },
+    {
+      "id": "REG_ISA_ANALOG",
+      "category": "REGISTRY",
+      "name": "International Seabed Authority (analog regime)",
+      "basis_2026": "Governs deep-seabed minerals under a common-heritage principle. Mining code still contested.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "Shows how a common-heritage regime for a new frontier gets stuck.",
+      "hook": "A mining code that never gets finished while operators wait."
+    },
+    {
+      "id": "STA_US",
+      "category": "STATE",
+      "name": "United States (policy layer)",
+      "basis_2026": "Artemis Accords sponsor. Export controls, subsidies, procurement and licensing.",
+      "conf": "HIGH",
+      "twist": "Budget cycles and politics change commitments.",
+      "hook": "An export control that strands a partner."
+    },
+    {
+      "id": "STA_CHINA",
+      "category": "STATE",
+      "name": "China (policy layer)",
+      "basis_2026": "State-directed space program with five-year plans and an alternative partner network.",
+      "conf": "HIGH",
+      "twist": "Long planning horizon. Lunar and deep-space ambitions announced.",
+      "hook": "A partner network that competes for the same legal ground."
+    },
+    {
+      "id": "STA_EU_ESA",
+      "category": "STATE",
+      "name": "European Union and ESA member states (policy layer)",
+      "basis_2026": "Multi-state consensus, ministerial budget cycles.",
+      "conf": "HIGH",
+      "twist": "Slow, but sets standards others adopt.",
+      "hook": "A regulation that sets the global default."
+    },
+    {
+      "id": "STA_INDIA",
+      "category": "STATE",
+      "name": "India (policy layer)",
+      "basis_2026": "Cost-constrained program with growing private sector.",
+      "conf": "HIGH",
+      "twist": "Opening to private firms.",
+      "hook": "A low-cost entrant that undercuts established carriers."
+    },
+    {
+      "id": "STA_RUSSIA",
+      "category": "STATE",
+      "name": "Russia (policy layer)",
+      "basis_2026": "Sanctions-constrained program with reduced partners.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current partnerships.",
+      "twist": "Limited access to markets and finance.",
+      "hook": "A capable program without customers."
+    },
+    {
+      "id": "STA_JAPAN",
+      "category": "STATE",
+      "name": "Japan (policy layer)",
+      "basis_2026": "Cautious program with a resource law and strong industrial partners.",
+      "conf": "HIGH",
+      "twist": "Methodical and reliability-driven.",
+      "hook": "An ally who moves late but never fails."
+    },
+    {
+      "id": "STA_AUSTRALIA",
+      "category": "STATE",
+      "name": "Australia (policy layer)",
+      "basis_2026": "Small agency with a mining heritage and growing role as a partner and ground-segment host.",
+      "conf": "HIGH",
+      "twist": "Mining expertise and remote-operations skills are the contribution.",
+      "hook": "A mining nation asked to regulate asteroid mining."
+    },
+    {
+      "id": "STA_UAE",
+      "category": "STATE",
+      "name": "United Arab Emirates (policy layer)",
+      "basis_2026": "Fast-moving national space strategy with sovereign funding.",
+      "conf": "HIGH",
+      "twist": "Willing to take early positions on law and partnerships.",
+      "hook": "A small state with a large checkbook and a seat at every table."
+    },
+    {
+      "id": "STA_UK",
+      "category": "STATE",
+      "name": "United Kingdom (policy layer)",
+      "basis_2026": "Regulator and financial center for space insurance (London market).",
+      "conf": "HIGH",
+      "twist": "Influence through finance and law more than launch.",
+      "hook": "A courtroom in London decides a dispute between two planets."
+    },
+    {
+      "id": "SET_SVALBARD",
+      "category": "SETTLEMENT_LABOR",
+      "name": "Longyearbyen, Svalbard (Svalbard Treaty)",
+      "basis_2026": "Remote mining-origin settlement under a treaty with equal-access terms.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "Multi-state rights in a place one state governs.",
+      "hook": "A town where no one is allowed to be born or buried."
+    },
+    {
+      "id": "SET_ANTARCTIC",
+      "category": "SETTLEMENT_LABOR",
+      "name": "Antarctic Treaty System",
+      "basis_2026": "Consensus governance with a ban on mining and weak enforcement.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "A governance model that bans resource extraction by agreement.",
+      "hook": "A treaty that holds because nobody has needed it to fail."
+    },
+    {
+      "id": "SET_MCMURDO",
+      "category": "SETTLEMENT_LABOR",
+      "name": "US Antarctic Program (McMurdo Station)",
+      "basis_2026": "Operator-run station with a seasonal contractor workforce.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "Everything is supplied. Workforce rotates.",
+      "hook": "A supply window missed and a whole season changes."
+    },
+    {
+      "id": "SET_ISS",
+      "category": "SETTLEMENT_LABOR",
+      "name": "ISS Intergovernmental Agreement",
+      "basis_2026": "Jurisdiction follows module and flag. Shared operations among several partners.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "A template for mixed jurisdiction in a closed habitat.",
+      "hook": "A crime committed in a hallway between two flags."
+    },
+    {
+      "id": "SET_STARBASE",
+      "category": "SETTLEMENT_LABOR",
+      "name": "Starbase, Texas",
+      "basis_2026": "Company-adjacent town incorporated by residents in 2025.",
+      "conf": "MEDIUM",
+      "verify": "Confirm incorporation details and current governance.",
+      "analog": true,
+      "twist": "An operator that shapes its own municipal rules.",
+      "hook": "A mayor who is also a department head."
+    },
+    {
+      "id": "SET_MLC_ITF",
+      "category": "SETTLEMENT_LABOR",
+      "name": "Maritime Labour Convention and seafarer unions (ITF)",
+      "basis_2026": "International standards for seafarer rights, repatriation and welfare.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "A ready-made rights framework for crew in isolated, flagged vessels.",
+      "hook": "A crew stranded because an owner stopped paying."
+    },
+    {
+      "id": "SET_PILBARA",
+      "category": "SETTLEMENT_LABOR",
+      "name": "Pilbara fly-in fly-out mining workforce",
+      "basis_2026": "Rotation-based remote mining labor with camps, high turnover and strong safety regimes.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "Closest working model of remote mining labor.",
+      "hook": "A roster that decides who is home for which birth."
+    },
+    {
+      "id": "INF_PLANET",
+      "category": "INFORMATION",
+      "name": "Planet Labs",
+      "basis_2026": "Daily commercial Earth imagery sold to many customers.",
+      "conf": "HIGH",
+      "twist": "Sells to anyone who is vetted.",
+      "hook": "The buyer list is itself intelligence."
+    },
+    {
+      "id": "INF_BLACKSKY",
+      "category": "INFORMATION",
+      "name": "BlackSky",
+      "basis_2026": "High-revisit imagery with strong defense and intelligence customers.",
+      "conf": "HIGH",
+      "twist": "Priority goes to government customers.",
+      "hook": "A rush tasking that reveals what a customer cares about."
+    },
+    {
+      "id": "INF_LEOLABS",
+      "category": "INFORMATION",
+      "name": "LeoLabs",
+      "basis_2026": "Commercial radar tracking of objects in low Earth orbit.",
+      "conf": "HIGH",
+      "twist": "Sells a public-good-like picture of the orbital environment.",
+      "hook": "A track that proves a satellite moved when it was not supposed to."
+    },
+    {
+      "id": "INF_SLINGSHOT",
+      "category": "INFORMATION",
+      "name": "Slingshot Aerospace",
+      "basis_2026": "Space domain awareness analytics.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current product lines.",
+      "twist": "Sells analysis built on others' tracks.",
+      "hook": "An analyst who knows a maneuver was a test."
+    },
+    {
+      "id": "INF_SPACETRACK",
+      "category": "INFORMATION",
+      "name": "US Space Force public object catalog (Space-Track)",
+      "basis_2026": "Public catalog of tracked orbital objects.",
+      "conf": "HIGH",
+      "twist": "Free, authoritative and incomplete. Absence is not proof.",
+      "hook": "An object that was never in the catalog."
+    },
+    {
+      "id": "INF_KPLER",
+      "category": "INFORMATION",
+      "name": "Kpler",
+      "basis_2026": "Cargo and commodity flow intelligence, largely from ship tracking.",
+      "conf": "HIGH",
+      "twist": "Reads trade flows from observable signals.",
+      "hook": "A flow chart that exposes a stockpile."
+    },
+    {
+      "id": "INF_SPGLOBAL",
+      "category": "INFORMATION",
+      "name": "S&P Global Commodity Insights",
+      "basis_2026": "Price benchmark provider.",
+      "conf": "HIGH",
+      "twist": "Benchmarks set what a contract is worth.",
+      "hook": "A benchmark that has no assessment for a commodity that does not yet exist."
+    },
+    {
+      "id": "INF_ARGUS",
+      "category": "INFORMATION",
+      "name": "Argus Media",
+      "basis_2026": "Price reporting agency for energy and metals.",
+      "conf": "HIGH",
+      "twist": "Prices come from reported deals, so a new market starts blind.",
+      "hook": "The first reported deal in a new market moves everything."
+    },
+    {
+      "id": "INF_KOBOLD",
+      "category": "INFORMATION",
+      "name": "KoBold Metals",
+      "basis_2026": "AI-driven mineral exploration company. Data is the core asset.",
+      "conf": "HIGH",
+      "twist": "An analog for survey data as a tradeable and guarded asset.",
+      "hook": "A dataset worth more than the claims it points to."
+    },
+    {
+      "id": "INF_STATE_INTEL",
+      "category": "INFORMATION",
+      "name": "State intelligence and military space-awareness services (US, China and others)",
+      "basis_2026": "Classified collection and space-domain awareness, shared selectively with allies.",
+      "conf": "HIGH",
+      "twist": "Never omniscient. Shares with allies at a lag and only when it costs nothing.",
+      "decline_extra": [
+        "CLASSIFICATION_BAR"
+      ],
+      "hook": "An ally told something late, on purpose."
+    },
+    {
+      "id": "PRO_INTERLUNE",
+      "category": "PROSPECTOR",
+      "name": "Interlune",
+      "basis_2026": "Space resources company planning to harvest lunar helium-3. Reports nearly $500M in binding purchase agreements. On 20 Jul 2026 announced a terrestrial method (Cold Capture) producing 99% pure helium-3 from Grade A helium. A $5M SAFE to one investor was reported in Sep 2026.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Customer commitments far exceed demonstrated production. Terrestrial bridge buys time before any lunar harvest.",
+      "decline_extra": [
+        "PRODUCTION_NOT_DEMONSTRATED"
+      ],
+      "hook": "Binding orders for a resource nobody has yet harvested."
+    },
+    {
+      "id": "PRO_ASTROFORGE",
+      "category": "PROSPECTOR",
+      "name": "AstroForge",
+      "basis_2026": "Asteroid mining startup. Brokkr-1 (2023) and Odin (2025) both lost contact. Vestri, a landing attempt at asteroid 2022 OB5, is a rideshare on IM-3 and has not launched. Safran supplies its electric propulsion.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "verify": "One secondary source lists IM-3, the Vestri rideshare, as NET Q1 2027, so Vestri has not launched. Reconfirm.",
+      "twist": "Cheap, fast and fragile. Learns by failing.",
+      "hook": "A third attempt financed on the story of the first two."
+    },
+    {
+      "id": "PRO_KARMAN",
+      "category": "PROSPECTOR",
+      "name": "Karman+",
+      "basis_2026": "Asteroid startup targeting hydrated-mineral bodies. First mission, High Frontier, reported as soon as 2027, no sample return.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm schedule.",
+      "twist": "Targets water-bearing bodies rather than metals.",
+      "hook": "A volatiles bet in a market built on platinum."
+    },
+    {
+      "id": "PRO_TRANSASTRA",
+      "category": "PROSPECTOR",
+      "name": "TransAstra",
+      "basis_2026": "Developer of asteroid capture and optical mining concepts.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current programs.",
+      "twist": "Technology-first with long timelines.",
+      "hook": "A patent portfolio worth more than the hardware."
+    },
+    {
+      "id": "PRO_LUNAR_OUTPOST",
+      "category": "PROSPECTOR",
+      "name": "Lunar Outpost",
+      "basis_2026": "Lunar rover developer.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current NASA awards.",
+      "twist": "Provides mobility and surface survey for others.",
+      "hook": "A rover that drove past something it was not tasked to look at."
+    },
+    {
+      "id": "PRO_HONEYBEE",
+      "category": "PROSPECTOR",
+      "name": "Honeybee Robotics (Blue Origin)",
+      "basis_2026": "Space robotics and sampling systems maker, owned by Blue Origin.",
+      "conf": "HIGH",
+      "twist": "Sells drills and samplers. A supplier for surveys, not a miner.",
+      "hook": "A drill bit that is the only tool for a hundred missions."
+    },
+    {
+      "id": "PRO_ORIGIN_SPACE",
+      "category": "PROSPECTOR",
+      "name": "Origin Space (China)",
+      "basis_2026": "Chinese commercial space-resources startup.",
+      "conf": "MEDIUM",
+      "verify": "Confirm status and ownership.",
+      "twist": "Commercial front end of a state-driven ecosystem.",
+      "hook": "A startup with a state that is also a customer."
+    },
+    {
+      "id": "PRO_PLANETARY_RESOURCES",
+      "category": "PROSPECTOR",
+      "status_2026": "HISTORICAL",
+      "name": "Planetary Resources (defunct)",
+      "basis_2026": "Early asteroid mining company that wound down after 2018 and left assets and patents behind.",
+      "conf": "HIGH",
+      "seed_as": "HISTORICAL_PRECEDENT",
+      "twist": "Not an active agent. Seeds cultural memory that asteroid mining has failed before.",
+      "hook": "Investors who remember it ask a hard first question."
+    },
+    {
+      "id": "CAP_EXIM_US",
+      "category": "CAPITAL",
+      "name": "US Export-Import Bank (EXIM)",
+      "basis_2026": "US export credit agency with a history of financing satellite launches and manufacturing exports. Signed a $300M credit agreement with CesiumAstro on 9 Sep 2026, including a revolving line from JPMorgan, under its Make More in America initiative.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Lends against exports and US content. Historically financed launches before on-orbit assets.",
+      "decline_extra": [
+        "US_CONTENT_SHORTFALL"
+      ],
+      "hook": "A credit clause that needs US content the supply chain cannot yet provide."
+    },
+    {
+      "id": "CAP_UKEF",
+      "category": "CAPITAL",
+      "name": "UK Export Finance (UKEF)",
+      "basis_2026": "UK export credit agency. Space deals have been rare, with its largest reported space loan at $325M to Turkey. A defence, space and shipping role was reported hired in July 2026.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Acts where private finance or insurance is lacking. Slower and less used in space than US or French peers.",
+      "hook": "A launcher start-up discovers the state will insure a sale but not a prototype."
+    },
+    {
+      "id": "CAP_BPI_EXPORT",
+      "category": "CAPITAL",
+      "name": "French export credit (Bpifrance Assurance Export)",
+      "basis_2026": "State export-guarantee arm that took over from Coface's state role. France is a major satellite and launcher exporter.",
+      "conf": "MEDIUM",
+      "verify": "Confirm institutional arrangement and recent space deals.",
+      "twist": "Long record backing satellite exports.",
+      "hook": "A guarantee that makes a European launcher competitive abroad."
+    },
+    {
+      "id": "CAP_EDC",
+      "category": "CAPITAL",
+      "name": "Export Development Canada",
+      "basis_2026": "Canadian export credit agency. Canada has a space-robotics and satellite industry.",
+      "conf": "MEDIUM",
+      "verify": "Confirm recent space deals.",
+      "twist": "Backs Canadian space exports.",
+      "hook": "A robotics arm financed for a lunar customer."
+    },
+    {
+      "id": "CAP_SINOSURE",
+      "category": "CAPITAL",
+      "name": "China Export and Credit Insurance Corporation (Sinosure) and policy banks",
+      "basis_2026": "Chinese state export insurer and lenders. Trade press has described non-OECD export credit offers for domestic space exports as aggressive.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current space export deals.",
+      "twist": "Financing terms follow state priorities, not market rules.",
+      "hook": "A launch customer who cannot refuse the loan terms."
+    },
+    {
+      "id": "CAP_JPM",
+      "category": "CAPITAL",
+      "name": "JPMorgan Chase",
+      "basis_2026": "Large bank active in structured and export-backed lending. Provided a revolving line alongside the 2026 EXIM-CesiumAstro agreement.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Prices risk and syndicates it. Will not hold frontier risk alone.",
+      "hook": "A syndicate of seven banks that all read the same insurer report."
+    },
+    {
+      "id": "CAP_BANKS",
+      "category": "CAPITAL",
+      "name": "Large investment banks (exemplars: Goldman Sachs, Morgan Stanley, Citigroup)",
+      "basis_2026": "Underwrite space IPOs and sovereign-fund deals. In 2026 several offered Gulf staff temporary relocation during the Iran war.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "twist": "Open or close the public-equity window. Follow sentiment.",
+      "hook": "The window shuts the week after a failed landing."
+    },
+    {
+      "id": "CAP_MACQUARIE",
+      "category": "CAPITAL",
+      "name": "Macquarie Group",
+      "basis_2026": "Australian bank with a large resources and infrastructure finance franchise.",
+      "conf": "HIGH",
+      "twist": "Finances remote capital-intensive sites against contracted revenue.",
+      "hook": "A banker who has financed a thousand remote mines asks what the haul road is."
+    },
+    {
+      "id": "CAP_ADIA",
+      "category": "CAPITAL",
+      "name": "Abu Dhabi Investment Authority (ADIA)",
+      "basis_2026": "One of the largest sovereign funds. Reported to have increased private-credit exposure in Europe and Asia in 2026.",
+      "conf": "HIGH",
+      "twist": "Rebalances toward liquid markets in a crisis. Rarely takes frontier technology risk directly.",
+      "hook": "A fund that is the lender of choice and the buyer of last resort."
+    },
+    {
+      "id": "CAP_QIA",
+      "category": "CAPITAL",
+      "name": "Qatar Investment Authority",
+      "basis_2026": "Sovereign fund. Reported as the only major Gulf fund to slow its pace of investing in Mar-May 2026. Qatar's helium and LNG output was hit by the Iran war.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "twist": "Home-country revenue shock plus global holdings.",
+      "hook": "A fund exposed to the very shortage that makes space helium interesting."
+    },
+    {
+      "id": "CAP_AEI",
+      "category": "CAPITAL",
+      "name": "AE Industrial Partners",
+      "basis_2026": "Private equity firm specialising in aerospace and defense. Holds stakes in Firefly, Redwire and York Space Systems. In Jan 2026 agreed to buy a controlling interest in L3Harris's Space Propulsion and Power Systems business at $845M enterprise value, with closing expected in 2H 2026.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Builds a portfolio of space suppliers. Exit pressure typical of private equity.",
+      "hook": "A portfolio that owns the engines, the lander and the buyer's supplier."
+    },
+    {
+      "id": "CAP_ADVENT",
+      "category": "CAPITAL",
+      "name": "Advent International",
+      "basis_2026": "Private equity owner of Vantor (ex Maxar Intelligence). Owned Lanteris Space Systems (ex Maxar Space Systems), which Intuitive Machines announced it would acquire for $800M in Nov 2025.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm Lanteris sale completion.",
+      "twist": "Carve-outs repriced as defense software. Exit via sale or listing.",
+      "hook": "A sale that moves an imagery company's biggest customer relationship."
+    },
+    {
+      "id": "CAP_CHN_GUIDANCE",
+      "category": "CAPITAL",
+      "name": "Chinese state and local guidance funds",
+      "basis_2026": "Government-backed funds financing commercial space companies.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current fund names and activity.",
+      "twist": "Capital follows state priorities and local industrial policy.",
+      "hook": "A startup whose largest investor also writes its permits."
+    },
+    {
+      "id": "CAP_STAR_MARKET",
+      "category": "CAPITAL",
+      "name": "Shanghai STAR Market",
+      "basis_2026": "Technology-focused listing venue. LandSpace was reported to be planning an IPO there in early 2026.",
+      "conf": "MEDIUM",
+      "verify": "Confirm whether the LandSpace listing completed.",
+      "twist": "Gives Chinese space firms a domestic public-capital route.",
+      "hook": "A listing that values reusability more than revenue."
+    },
+    {
+      "id": "OFF_SEMI_FABS",
+      "category": "OFFTAKER",
+      "name": "Semiconductor fabs (exemplars: TSMC, Samsung, SK hynix)",
+      "basis_2026": "Fabs depend on helium for manufacturing. South Korea and Taiwan were reported hardest hit by the 2026 Qatar helium outage, with some reportedly relying on Qatar for up to half of their helium.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "twist": "Helium-4 rather than He-3, but this is the demand that shows what a supply shock does.",
+      "decline_extra": [
+        "SPEC_DRIFT"
+      ],
+      "hook": "A fab manager who now sleeps better knowing exactly where every liter comes from."
+    },
+    {
+      "id": "OFF_MRI",
+      "category": "OFFTAKER",
+      "name": "MRI makers and hospital systems (exemplars: Siemens Healthineers, GE HealthCare, Philips)",
+      "basis_2026": "MRI magnets use liquid helium. Low-helium designs exist but are newer.",
+      "conf": "MEDIUM",
+      "verify": "Confirm helium-light magnet adoption rates.",
+      "twist": "Inelastic demand that substitutes slowly.",
+      "hook": "A hospital that pays any price rather than let a magnet quench."
+    },
+    {
+      "id": "OFF_QUANTUM_OEMS",
+      "category": "OFFTAKER",
+      "name": "Quantum computer builders (exemplars: IBM, Google Quantum AI, Rigetti)",
+      "basis_2026": "Dilution refrigerators cooling superconducting machines depend on helium-3.",
+      "conf": "MEDIUM",
+      "verify": "Confirm each firm's He-3 exposure and contracts.",
+      "twist": "Real demand scales with the number of machines, which is uncertain.",
+      "hook": "A roadmap that quietly assumes a supply nobody has built."
+    },
+    {
+      "id": "OFF_NEUTRON_DETECTION",
+      "category": "OFFTAKER",
+      "name": "Neutron detection users (security and science)",
+      "basis_2026": "Historically dependent on helium-3 from tritium-decay stockpiles.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current He-3 allocation process.",
+      "twist": "Small steady demand allocated by government.",
+      "hook": "A shortage that already rewrote a detection standard once."
+    },
+    {
+      "id": "OFF_MP_MATERIALS",
+      "category": "OFFTAKER",
+      "name": "MP Materials",
+      "basis_2026": "Main US rare-earth miner. Its 2025 arrangement with the US Department of Defense reportedly included an equity stake and a price floor.",
+      "conf": "MEDIUM",
+      "verify": "Confirm terms and any later changes.",
+      "twist": "Precedent for state-backed offtake with a price floor for strategic minerals.",
+      "hook": "A price floor that someone will ask for on asteroid metals."
+    },
+    {
+      "id": "INS_JWC",
+      "category": "INSURER",
+      "name": "Joint War Committee (London market)",
+      "basis_2026": "Designates listed areas where war and related risks to shipping need additional cover. Gulf waters were the 2026 stress case.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current listed areas.",
+      "twist": "A listed area changes premiums and cover overnight.",
+      "hook": "A line on a map that doubles the cost of a voyage."
+    },
+    {
+      "id": "INS_PICC",
+      "category": "INSURER",
+      "name": "PICC (People's Insurance Company of China)",
+      "basis_2026": "Large Chinese state insurer. Active in domestic launch and satellite cover.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current space lines.",
+      "twist": "Cover tied to national programs.",
+      "hook": "A launch insured at home that Western reinsurers cannot read."
+    },
+    {
+      "id": "INS_IG_PI",
+      "category": "INSURER",
+      "name": "International Group of P&I Clubs",
+      "basis_2026": "Mutual insurers of shipowners' liabilities, pooling large claims.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "Mutual pooling is a model for crew and liability cover in flagged hulls.",
+      "hook": "A club that covers a crew stranded at a port the owner abandoned."
+    },
+    {
+      "id": "CAR_ORBIT_FAB",
+      "category": "CARRIER",
+      "name": "Orbit Fab",
+      "basis_2026": "Orbital refueling company.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current demonstrations and customers.",
+      "twist": "Depots are a precondition for deep-space cargo at scale.",
+      "hook": "The only fuel for a thousand million kilometers is in a tank somebody forgot to inspect."
+    },
+    {
+      "id": "CAR_IMPULSE",
+      "category": "CARRIER",
+      "name": "Impulse Space",
+      "basis_2026": "In-space transfer vehicles that move payloads beyond low Earth orbit.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current vehicles and missions.",
+      "twist": "Last-leg mobility for small prospectors.",
+      "hook": "A tug that decides which asteroids are reachable."
+    },
+    {
+      "id": "CAR_ISAR",
+      "category": "CARRIER",
+      "name": "Isar Aerospace",
+      "basis_2026": "German launch company. Its Spectrum rocket reached low Earth orbit on its second attempt on 5 Sep 2026, launching from Andoya, Norway.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Based on one news report. Confirm with ESA or the company.",
+      "twist": "Part of ESA's European Launcher Challenge. Gives Europe a non-state commercial launcher.",
+      "hook": "A first for continental Europe that makes a sovereign launch debate suddenly real."
+    },
+    {
+      "id": "CAR_LANDSPACE",
+      "category": "CARRIER",
+      "name": "LandSpace",
+      "basis_2026": "Chinese commercial launch company. Zhuque-3 reached orbit on its first flight in Dec 2025 but the booster crashed. A booster landing was reported on 18 Aug 2026 on its second flight.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm the landing with a primary report.",
+      "twist": "Reusable methalox launcher with a state-linked market.",
+      "hook": "A price floor that China's own competitors now chase."
+    },
+    {
+      "id": "CAR_MHI",
+      "category": "CARRIER",
+      "name": "Mitsubishi Heavy Industries (H3)",
+      "basis_2026": "Japanese heavy-industry builder of the H3 launcher.",
+      "conf": "HIGH",
+      "twist": "Reliability-led, state-aligned.",
+      "hook": "A launch that Japan's ministry will not let slip."
+    },
+    {
+      "id": "CAR_ROSCOSMOS",
+      "category": "CARRIER",
+      "name": "Roscosmos",
+      "basis_2026": "Russian state space corporation operating under sanctions.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current partnerships and launch rate.",
+      "twist": "Capable but cut off from many customers and finance.",
+      "hook": "A launch provider with a seat no one wants to be seen at."
+    },
+    {
+      "id": "CAR_PLD",
+      "category": "CARRIER",
+      "name": "PLD Space",
+      "basis_2026": "Spanish small-launcher company reported to have won contracts under ESA's European Launcher Challenge.",
+      "conf": "MEDIUM",
+      "verify": "Confirm contract details.",
+      "twist": "Part of Europe's push for sovereign microlaunch.",
+      "hook": "A small launcher whose backer is a government with a long memory."
+    },
+    {
+      "id": "REG_CLASS_SOCIETIES",
+      "category": "REGISTRY",
+      "name": "Classification societies (DNV, Lloyd's Register, ABS)",
+      "basis_2026": "Certify ships against technical rules. A ready analog for certifying deep-space hulls.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "Class certificate is the key to insurance and port access.",
+      "hook": "A surveyor who will not sign off on a hull nobody has seen."
+    },
+    {
+      "id": "REG_IMO",
+      "category": "REGISTRY",
+      "name": "International Maritime Organization (analog)",
+      "basis_2026": "Sets global rules for shipping safety and pollution.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "Shows how a technical body becomes a de facto regulator.",
+      "hook": "A convention that outlives every ship it was written for."
+    },
+    {
+      "id": "REG_PSC",
+      "category": "REGISTRY",
+      "name": "Port state control regimes (Paris MoU, Tokyo MoU)",
+      "basis_2026": "Port states inspect and detain foreign ships. Blacklists change behavior.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "Enforcement happens at the destination, not at the flag.",
+      "hook": "A hull detained at a port for a deficiency that is also an accusation."
+    },
+    {
+      "id": "REG_FCC",
+      "category": "REGISTRY",
+      "name": "US Federal Communications Commission",
+      "basis_2026": "Licenses US spectrum and satellite operators.",
+      "conf": "HIGH",
+      "twist": "Spectrum is a gate to any communication relay.",
+      "hook": "A relay waits eighteen months for a license."
+    },
+    {
+      "id": "REG_EXPORT_CONTROL",
+      "category": "REGISTRY",
+      "name": "US export control regimes (State Department ITAR, Commerce EAR)",
+      "basis_2026": "Control space hardware and technical data. Shape who can buy, build and work on what.",
+      "conf": "HIGH",
+      "twist": "Controls where hardware can be sold and who may handle it.",
+      "decline_extra": [
+        "EXPORT_CONTROL_BAR"
+      ],
+      "hook": "An engineer who cannot read the drawing she helped write."
+    },
+    {
+      "id": "REG_EU_SPACE_ACT",
+      "category": "REGISTRY",
+      "name": "Proposed EU Space Act",
+      "basis_2026": "A European Commission proposal (2025) to harmonize safety, resilience and sustainability rules for space operators.",
+      "conf": "MEDIUM",
+      "verify": "Confirm legislative status in 2026.",
+      "twist": "Could set a global default the way earlier EU regulation did.",
+      "hook": "A rule that every non-EU operator quietly adopts to sell in Europe."
+    },
+    {
+      "id": "STA_KOREA",
+      "category": "STATE",
+      "name": "South Korea (policy layer)",
+      "basis_2026": "Has a space agency (KASA, 2024) and flies science payloads on US lunar missions, including an instrument on IM-3.",
+      "conf": "MEDIUM",
+      "verify": "Confirm KASA details.",
+      "twist": "Industrial policy plus alliance-driven partnership.",
+      "hook": "A fab-heavy economy that feels every helium shock."
+    },
+    {
+      "id": "STA_CANADA",
+      "category": "STATE",
+      "name": "Canada (policy layer)",
+      "basis_2026": "Space robotics heritage and a mining sector. Artemis Accords signatory.",
+      "conf": "MEDIUM",
+      "verify": "Confirm accords status.",
+      "twist": "Mining expertise and robotics, limited launch.",
+      "hook": "A mining nation that builds the arm."
+    },
+    {
+      "id": "STA_SAUDI",
+      "category": "STATE",
+      "name": "Saudi Arabia (policy layer)",
+      "basis_2026": "Has a space agency and a sovereign fund prioritising AI, mining and manufacturing in its 2026-30 strategy.",
+      "conf": "MEDIUM",
+      "verify": "Confirm space program scope.",
+      "twist": "Wants to diversify away from oil. Direction can shift quickly.",
+      "hook": "A state that sees resources as a policy goal first and a market second."
+    },
+    {
+      "id": "SET_NORTH_SEA",
+      "category": "SETTLEMENT_LABOR",
+      "name": "North Sea offshore workforce and safety-case regime",
+      "basis_2026": "Platform workers on rotation under a safety regime built after the Piper Alpha disaster.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "Template for operator-must-prove-safety regimes in isolated hazardous sites.",
+      "hook": "A safety case that must be re-argued after every incident anywhere."
+    },
+    {
+      "id": "SET_KAFALA",
+      "category": "SETTLEMENT_LABOR",
+      "name": "Sponsorship-based migrant labor systems (Gulf analog)",
+      "basis_2026": "Employer-sponsored migrant labor systems that tie workers to sponsors. Reform status varies.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current reforms by state.",
+      "analog": true,
+      "twist": "A model of contract labor lock-in that settlement governments might drift toward or reject.",
+      "hook": "A passport held by a company that holds the air."
+    },
+    {
+      "id": "SET_INDUSTRIALL",
+      "category": "SETTLEMENT_LABOR",
+      "name": "IndustriALL Global Union",
+      "basis_2026": "Global union federation covering mining, energy and manufacturing workers.",
+      "conf": "HIGH",
+      "twist": "Can organize across employers and borders.",
+      "hook": "A strike notice served across two light-minutes."
+    },
+    {
+      "id": "INF_LME",
+      "category": "INFORMATION",
+      "name": "London Metal Exchange (owned by HKEX)",
+      "basis_2026": "Benchmark market for base metals.",
+      "conf": "HIGH",
+      "twist": "Price discovery for metals, with warehouse and grade rules that gate what can be delivered.",
+      "hook": "A delivery grade that no asteroid cargo meets."
+    },
+    {
+      "id": "INF_CME",
+      "category": "INFORMATION",
+      "name": "CME Group (including COMEX)",
+      "basis_2026": "Futures markets including precious metals.",
+      "conf": "HIGH",
+      "twist": "Hedging venue and price signal for PGMs and other metals.",
+      "hook": "A hedge that makes a risky mission fundable."
+    },
+    {
+      "id": "INF_FASTMARKETS",
+      "category": "INFORMATION",
+      "name": "Fastmarkets",
+      "basis_2026": "Price-reporting agency for metals, minerals and forest products.",
+      "conf": "HIGH",
+      "twist": "Prices come from reported deals, so a new market starts blind.",
+      "hook": "The first assessment published for a space-sourced grade."
+    },
+    {
+      "id": "INF_USGS",
+      "category": "INFORMATION",
+      "name": "US Geological Survey (Mineral Commodity Summaries)",
+      "basis_2026": "Publishes global mineral and helium statistics. Cited for Qatar's roughly 36% share of world helium in 2024.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Authoritative public numbers that other actors cite. Revisions matter.",
+      "hook": "A revised table that changes who is a price-taker."
+    },
+    {
+      "id": "INF_VANTOR",
+      "category": "INFORMATION",
+      "name": "Vantor (formerly Maxar Intelligence)",
+      "basis_2026": "Earth imagery and spatial intelligence company, rebranded 1 Oct 2025 and owned by Advent. Major supplier to US intelligence agencies.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Government-heavy customer base. Priority tasking goes to the biggest buyer.",
+      "hook": "A commercial image that someone with clearance has already seen."
+    },
+    {
+      "id": "INF_ICEYE",
+      "category": "INFORMATION",
+      "name": "ICEYE",
+      "basis_2026": "Finnish operator of synthetic-aperture-radar satellites with all-weather imaging.",
+      "conf": "HIGH",
+      "twist": "Sees through cloud. Sells rapid revisit to commercial and defense customers.",
+      "hook": "A stockpile that cannot hide from radar."
+    },
+    {
+      "id": "INF_SPIRE",
+      "category": "INFORMATION",
+      "name": "Spire Global",
+      "basis_2026": "Operates satellites collecting ship-tracking (AIS) and radio data.",
+      "conf": "HIGH",
+      "twist": "Reads shipping and radio signals. Spoofing is its adversary.",
+      "hook": "A vessel that turned its transponder off at the wrong place."
+    },
+    {
+      "id": "INF_WOODMAC",
+      "category": "INFORMATION",
+      "name": "Wood Mackenzie",
+      "basis_2026": "Research firm covering energy, metals and mining.",
+      "conf": "HIGH",
+      "twist": "Its supply and demand models are cited in investment decisions.",
+      "hook": "A forecast that became the number every board repeats."
+    },
+    {
+      "id": "INF_CHANGGUANG",
+      "category": "INFORMATION",
+      "name": "Chang Guang Satellite Technology (Jilin-1)",
+      "basis_2026": "Chinese commercial Earth-observation constellation operator.",
+      "conf": "HIGH",
+      "twist": "Commercial imagery from a state-aligned ecosystem.",
+      "hook": "An image that is for sale to everyone except one party."
+    },
+    {
+      "id": "PRO_TERRESTRIAL_HELIUM",
+      "category": "PROSPECTOR",
+      "name": "Terrestrial helium explorers (exemplar: Pulsar Helium)",
+      "basis_2026": "Junior companies drilling for primary helium sources on Earth. Their prospects gained attention after the 2026 Qatar outage.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current projects and funding.",
+      "analog": true,
+      "twist": "Direct competitor and analog. Shows how a shortage turns into a funding round.",
+      "hook": "A drill hole on Earth that undercuts the case for one on the Moon."
+    },
+    {
+      "id": "PRO_DEEP_SPACE_INDUSTRIES",
+      "category": "PROSPECTOR",
+      "status_2026": "HISTORICAL",
+      "name": "Deep Space Industries (absorbed into Bradford Space)",
+      "basis_2026": "Early asteroid mining startup. Acquired by Bradford Space in 2019 and pivoted away from mining.",
+      "conf": "HIGH",
+      "seed_as": "HISTORICAL_PRECEDENT",
+      "twist": "A second precedent that pivoting is the usual end of an asteroid-mining company.",
+      "hook": "A founder who left the field and still gets email from investors."
+    },
+    {
+      "id": "INC_RIO",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Rio Tinto",
+      "basis_2026": "Large diversified miner and autonomous-mining pioneer. Its Glencore merger talks ended 5 Feb 2026. CEO Simon Trott since Aug 2025, with focus on iron ore, aluminium, lithium and copper.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Deep remote-operations know-how. Treats space as a distraction unless a customer pays.",
+      "hook": "A mine manager who already runs trucks by remote from another continent."
+    },
+    {
+      "id": "INC_BHP",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "BHP",
+      "basis_2026": "World's largest listed miner by market value as of early 2026 reports.",
+      "conf": "HIGH",
+      "twist": "Disciplined capital allocator that avoids frontier risk.",
+      "hook": "A board paper that dismisses off-world mining as a pre-feasibility study."
+    },
+    {
+      "id": "INC_GLENCORE",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Glencore",
+      "basis_2026": "Mining and trading group. Rio Tinto walked away from a merger on 5 Feb 2026. CEO Gary Nagle.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Trading arm gives price information that miners lack.",
+      "hook": "A trader who knows a buyer before the miner does."
+    },
+    {
+      "id": "INC_VALE",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Vale",
+      "basis_2026": "Brazilian iron-ore and nickel producer.",
+      "conf": "HIGH",
+      "twist": "Bulk producer with a tailings-dam safety legacy.",
+      "hook": "A safety culture built from a disaster."
+    },
+    {
+      "id": "INC_FREEPORT",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Freeport-McMoRan",
+      "basis_2026": "Large copper and gold producer.",
+      "conf": "HIGH",
+      "twist": "Copper-heavy exposure at record prices in 2026.",
+      "hook": "A price spike that makes terrestrial expansion more attractive than a moon."
+    },
+    {
+      "id": "INC_NORNICKEL",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Nornickel",
+      "basis_2026": "Russian producer of nickel and palladium, operating in a sanctions environment.",
+      "conf": "HIGH",
+      "twist": "PGM supply concentrated in a sanctioned jurisdiction raises the value of alternatives.",
+      "hook": "A buyer who needs palladium and cannot say from where."
+    },
+    {
+      "id": "INC_SIBANYE",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Sibanye-Stillwater",
+      "basis_2026": "South African and US PGM and gold producer.",
+      "conf": "HIGH",
+      "twist": "High cost deep-level mines, price-sensitive.",
+      "hook": "A mine that closes when the price of rhodium falls."
+    },
+    {
+      "id": "INC_VALTERRA",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Valterra Platinum (formerly Anglo American Platinum)",
+      "basis_2026": "Large PGM producer, demerged from Anglo American in 2025.",
+      "conf": "MEDIUM",
+      "verify": "Confirm name and ownership.",
+      "twist": "Largest PGM supplier by some measures.",
+      "hook": "The incumbent whose margin an asteroid cargo would erase."
+    },
+    {
+      "id": "INC_ANGLO_TECK",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Anglo Teck (Anglo American and Teck Resources merger)",
+      "basis_2026": "A roughly $53B merger to form a large copper producer. Reports differ on whether it had completed by early 2026.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm completion date and legal name.",
+      "twist": "Consolidation driven by copper.",
+      "hook": "A merger that kept the old logo on half the trucks."
+    },
+    {
+      "id": "INC_LINDE",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Linde",
+      "basis_2026": "One of the largest industrial gas companies, supplying and distributing helium.",
+      "conf": "HIGH",
+      "twist": "Holds cryogenic and distribution know-how that any helium supply chain needs.",
+      "hook": "A logistics team that can move liquid helium and a rival that cannot."
+    },
+    {
+      "id": "INC_AIR_LIQUIDE",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Air Liquide (owner of Airgas)",
+      "basis_2026": "Major industrial gas company. Its US subsidiary Airgas was reported to have declared force majeure on helium shipments from 17 Mar 2026.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm force majeure details and duration.",
+      "twist": "Holds helium contracts and customers. Shortages shift customers to alternatives.",
+      "hook": "A force majeure notice that tells every customer who is first in line."
+    },
+    {
+      "id": "INC_AIR_PRODUCTS",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Air Products",
+      "basis_2026": "Industrial gas company with large helium and LNG-related activity.",
+      "conf": "HIGH",
+      "twist": "Exposed to the same Gulf and helium shocks.",
+      "hook": "A helium contract that now contains a clause nobody wrote carefully."
+    },
+    {
+      "id": "INC_QATARENERGY",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "QatarEnergy",
+      "basis_2026": "State energy company. Its LNG output halted in March 2026 and facilities at Ras Laffan were damaged. Qatar supplied roughly a third of world helium.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Helium is a byproduct of gas, so helium follows LNG.",
+      "hook": "A shortage that the whole world blames on a gas plant."
+    },
+    {
+      "id": "INC_EXXON_SHUTE_CREEK",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "ExxonMobil Shute Creek (Wyoming)",
+      "basis_2026": "A gas processing plant reported to produce about a fifth of global helium.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm production share.",
+      "twist": "Domestic US supply gains value in a Gulf crisis.",
+      "hook": "A single plant whose maintenance schedule moves a global price."
+    },
+    {
+      "id": "INC_GAZPROM_AMUR",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Gazprom Amur gas processing (Russia)",
+      "basis_2026": "Large helium-producing plant in Russia, sanctions-exposed.",
+      "conf": "MEDIUM",
+      "verify": "Confirm status and export routes.",
+      "twist": "A major source that many buyers cannot use.",
+      "hook": "A helium cargo that finds a buyer through three intermediaries."
+    },
+    {
+      "id": "INC_CATERPILLAR",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Caterpillar",
+      "basis_2026": "Largest maker of mining and construction equipment, with autonomous haulage.",
+      "conf": "HIGH",
+      "twist": "Holds the autonomy and service networks other miners rely on.",
+      "hook": "A service contract that cannot be performed across a vacuum."
+    },
+    {
+      "id": "INC_VERMEER",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Vermeer",
+      "basis_2026": "Builder of excavation and trenching equipment, reported in 2025 as connected to Interlune's lunar excavator prototype.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm nature of the partnership.",
+      "twist": "A terrestrial equipment maker as the actual hardware partner for a lunar miner.",
+      "hook": "A machine that has dug in a farm field and will dig in a crater."
+    },
+    {
+      "id": "INC_BECHTEL",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Bechtel",
+      "basis_2026": "Engineering and construction firm that builds mega-projects.",
+      "conf": "HIGH",
+      "twist": "Knows how to deliver a remote megaproject on schedule, or explain why not.",
+      "hook": "A scope document with a line item for a planet."
+    },
+    {
+      "id": "INC_SLB",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "SLB (Schlumberger)",
+      "basis_2026": "Oilfield services leader in drilling, subsurface data and measurement.",
+      "conf": "HIGH",
+      "analog": true,
+      "twist": "Subsurface measurement and drilling expertise is the closest analog to asteroid sampling.",
+      "hook": "A well log that looks like a lunar core."
+    },
+    {
+      "id": "INC_CHART",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Chart Industries",
+      "basis_2026": "Maker of cryogenic and gas-handling equipment.",
+      "conf": "HIGH",
+      "twist": "Holds the tanks and heat exchangers that helium and propellant handling need.",
+      "hook": "A tank order that tells the market which depot is real."
+    },
+    {
+      "id": "INC_MITSUI",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Mitsui and Co. (Japanese trading house)",
+      "basis_2026": "Trading house with deep stakes in mining, energy and logistics.",
+      "conf": "HIGH",
+      "twist": "Takes long-dated offtake positions and finances projects through trading relationships.",
+      "hook": "A trading house with an office in every port that matters."
+    },
+    {
+      "id": "INC_TRAFIGURA",
+      "category": "INCUMBENT_INDUSTRY",
+      "name": "Trafigura",
+      "basis_2026": "Global commodity trader in metals and energy.",
+      "conf": "HIGH",
+      "twist": "Takes price and logistics risk that miners avoid.",
+      "hook": "A trader who would buy anything with a delivery date."
+    },
+    {
+      "id": "SUP_LOCKHEED",
+      "category": "SUPPLIER_PRIME",
+      "name": "Lockheed Martin",
+      "basis_2026": "Prime contractor for the Orion crew capsule and many defense and space systems.",
+      "conf": "HIGH",
+      "twist": "Government-anchored. Slow to commit its own capital.",
+      "hook": "A capsule that carries people and a prime that carries a thousand liens."
+    },
+    {
+      "id": "SUP_BOEING",
+      "category": "SUPPLIER_PRIME",
+      "name": "Boeing",
+      "basis_2026": "Prime contractor for the SLS core stage and other space systems.",
+      "conf": "HIGH",
+      "twist": "Large government programs and cost scrutiny.",
+      "hook": "A program review that decides whose rocket carries whose cargo."
+    },
+    {
+      "id": "SUP_NORTHROP",
+      "category": "SUPPLIER_PRIME",
+      "name": "Northrop Grumman",
+      "basis_2026": "Defense and space prime. A partner in the Starlab commercial station with Voyager and Airbus.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Builds the cargo vehicle and solid motors others depend on.",
+      "hook": "A supplier who is also a partner and a competitor."
+    },
+    {
+      "id": "SUP_L3HARRIS",
+      "category": "SUPPLIER_PRIME",
+      "name": "L3Harris",
+      "basis_2026": "Defense and space company. Retains the RS-25 engine business while selling 60% of its Space Propulsion and Power Systems business to AE Industrial (close expected 2H 2026). Supplied propulsion and avionics for the Artemis II launch.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Refocusing on defense priorities. Keeps a 40% stake in the new propulsion business.",
+      "hook": "An engine line that changed owners mid-contract."
+    },
+    {
+      "id": "SUP_ROCKETDYNE",
+      "category": "SUPPLIER_PRIME",
+      "name": "Rocketdyne (new AE Industrial-controlled propulsion company, pending)",
+      "basis_2026": "Planned successor to L3Harris's space propulsion and power unit, to take the Rocketdyne name. Focus on the RL10 upper-stage engine, in-space propulsion, power and avionics.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm deal closing and name.",
+      "twist": "Wants new launch customers for the RL10.",
+      "hook": "A historic engine company with new owners and old tooling."
+    },
+    {
+      "id": "SUP_AIRBUS_DS",
+      "category": "SUPPLIER_PRIME",
+      "name": "Airbus Defence and Space",
+      "basis_2026": "European prime. A partner in Starlab, and maker of the European Service Module for Orion.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "European strategic autonomy and ESA contract flow.",
+      "hook": "A module that has Europe's flag on a US spacecraft."
+    },
+    {
+      "id": "SUP_THALES_ALENIA",
+      "category": "SUPPLIER_PRIME",
+      "name": "Thales Alenia Space",
+      "basis_2026": "European builder of pressurized modules and satellites.",
+      "conf": "HIGH",
+      "twist": "Habitat and module heritage.",
+      "hook": "A module design that has flown more than any rival."
+    },
+    {
+      "id": "SUP_OHB",
+      "category": "SUPPLIER_PRIME",
+      "name": "OHB",
+      "basis_2026": "German satellite and space systems company.",
+      "conf": "HIGH",
+      "twist": "Mid-sized prime with national ties.",
+      "hook": "A supplier who sells to everyone and leaks nothing."
+    },
+    {
+      "id": "SUP_ARIANEGROUP",
+      "category": "SUPPLIER_PRIME",
+      "name": "ArianeGroup",
+      "basis_2026": "Builder of Ariane launchers and propulsion.",
+      "conf": "HIGH",
+      "twist": "Industrial base for European sovereign launch.",
+      "hook": "A rocket that is also a jobs program."
+    },
+    {
+      "id": "SUP_SAFRAN_DSI",
+      "category": "SUPPLIER_PRIME",
+      "name": "Safran Defense and Space (electric propulsion)",
+      "basis_2026": "Selected to supply two EPS X00 electric propulsion systems for AstroForge's Vestri mission. Building a Colorado factory with initial deliveries expected in late 2026.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Small-satellite electric propulsion supplier with a US factory.",
+      "hook": "A thruster order that tells everyone a startup is serious."
+    },
+    {
+      "id": "SUP_REDWIRE",
+      "category": "SUPPLIER_PRIME",
+      "name": "Redwire",
+      "basis_2026": "Space infrastructure company created by AE Industrial in 2020.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Builds solar arrays, structures and in-space manufacturing.",
+      "hook": "A supplier whose parts show up in every program."
+    },
+    {
+      "id": "SUP_VOYAGER",
+      "category": "SUPPLIER_PRIME",
+      "name": "Voyager Technologies (Starlab lead)",
+      "basis_2026": "Leads the Starlab commercial station consortium with Airbus and Northrop Grumman.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "A station builder whose business depends on a NASA commercial program.",
+      "hook": "A station that will not launch without a contract."
+    },
+    {
+      "id": "SUP_SIERRA",
+      "category": "SUPPLIER_PRIME",
+      "name": "Sierra Space",
+      "basis_2026": "Builder of the Dream Chaser spaceplane and station modules.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current program status.",
+      "twist": "Cargo vehicle and habitat developer.",
+      "hook": "A spaceplane that waits for a launch date."
+    },
+    {
+      "id": "SUP_LANTERIS",
+      "category": "SUPPLIER_PRIME",
+      "name": "Lanteris Space Systems (formerly Maxar Space Systems)",
+      "basis_2026": "Satellite and spacecraft manufacturer, rebranded 1 Oct 2025. Intuitive Machines announced on 4 Nov 2025 it would acquire it for $800M.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm acquisition completion.",
+      "twist": "Would give a lunar-lander company a satellite manufacturing arm.",
+      "hook": "A factory whose buyer is also a customer."
+    },
+    {
+      "id": "SUP_YORK",
+      "category": "SUPPLIER_PRIME",
+      "name": "York Space Systems",
+      "basis_2026": "Satellite manufacturer backed by AE Industrial.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm current status.",
+      "twist": "Mass-produces small satellites for government constellations.",
+      "hook": "A line that scales when the customer is the Pentagon."
+    },
+    {
+      "id": "SUP_BWXT",
+      "category": "SUPPLIER_PRIME",
+      "name": "BWX Technologies",
+      "basis_2026": "Nuclear components and fuel manufacturer, with space nuclear work.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current space nuclear programs.",
+      "twist": "Few suppliers can handle space-grade nuclear fuel.",
+      "hook": "A fuel supplier that is also a regulator's favorite."
+    },
+    {
+      "id": "SUP_WESTINGHOUSE",
+      "category": "SUPPLIER_PRIME",
+      "name": "Westinghouse (eVinci microreactor)",
+      "basis_2026": "Nuclear technology company developing a microreactor.",
+      "conf": "MEDIUM",
+      "verify": "Confirm any space application.",
+      "twist": "Terrestrial microreactor with possible adaptation.",
+      "hook": "A reactor that sells first to a mine."
+    },
+    {
+      "id": "SUP_XENERGY",
+      "category": "SUPPLIER_PRIME",
+      "name": "X-energy (IX joint venture with Intuitive Machines)",
+      "basis_2026": "Nuclear technology company. IX was one of three teams that won NASA and DOE fission surface power design awards in an earlier phase of the program.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "The program was restructured in 2025. Confirm current awards.",
+      "twist": "Pairs nuclear design with a lunar lander company.",
+      "hook": "A reactor concept that had a customer before it had a license."
+    },
+    {
+      "id": "SUP_CESIUMASTRO",
+      "category": "SUPPLIER_PRIME",
+      "name": "CesiumAstro",
+      "basis_2026": "Austin-area space and defense electronics maker. Signed a $300M EXIM credit agreement on 9 Sep 2026.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Financed against export sales.",
+      "hook": "A factory built on a state loan and a promise."
+    },
+    {
+      "id": "SUP_CAST",
+      "category": "SUPPLIER_PRIME",
+      "name": "China Academy of Space Technology (CAST)",
+      "basis_2026": "Chinese state spacecraft prime.",
+      "conf": "HIGH",
+      "twist": "Builds the state's lunar and deep-space missions.",
+      "hook": "A spacecraft with a schedule that moves only by decree."
+    },
+    {
+      "id": "SUP_MDA",
+      "category": "SUPPLIER_PRIME",
+      "name": "MDA Space",
+      "basis_2026": "Canadian space robotics and satellite company.",
+      "conf": "HIGH",
+      "twist": "Robotic arms and mobility.",
+      "hook": "An arm that every station in the West borrows."
+    },
+    {
+      "id": "INFRA_NASA_DSN",
+      "category": "INFRASTRUCTURE",
+      "name": "NASA Deep Space Network and Near Space Network (service layer)",
+      "basis_2026": "Ground antenna networks used by most deep-space missions.",
+      "conf": "HIGH",
+      "existing_actor_link": "NASA",
+      "twist": "Scarce antenna time. Allocates by priority.",
+      "hook": "A prospector's probe queued behind a flagship."
+    },
+    {
+      "id": "INFRA_ESTRACK",
+      "category": "INFRASTRUCTURE",
+      "name": "ESA ESTRACK",
+      "basis_2026": "European ground station network for tracking and communications.",
+      "conf": "HIGH",
+      "twist": "Alternative to US networks for partners.",
+      "hook": "A handoff between two networks that fails once and everyone remembers."
+    },
+    {
+      "id": "INFRA_KSAT",
+      "category": "INFRASTRUCTURE",
+      "name": "KSAT (Kongsberg Satellite Services)",
+      "basis_2026": "Commercial ground station provider with polar sites including Svalbard.",
+      "conf": "HIGH",
+      "twist": "Sells ground contacts commercially. Polar sites see satellites often.",
+      "hook": "A ground station in a town governed by a treaty."
+    },
+    {
+      "id": "INFRA_SSC",
+      "category": "INFRASTRUCTURE",
+      "name": "Swedish Space Corporation",
+      "basis_2026": "Commercial ground station and launch-support provider.",
+      "conf": "HIGH",
+      "twist": "Global ground network and range services.",
+      "hook": "A downlink contract that quietly serves a rival."
+    },
+    {
+      "id": "INFRA_INTUITIVE_NSN",
+      "category": "INFRASTRUCTURE",
+      "name": "Intuitive Machines lunar communications services (Near Space Network)",
+      "basis_2026": "Provides communications at lunar distance as part of its lunar services offering.",
+      "conf": "MEDIUM",
+      "verify": "Confirm contract status and relay satellite schedule.",
+      "existing_actor_link": "NASA",
+      "twist": "Relay as a commercial service line.",
+      "hook": "A relay that decides who talks to a rover and when."
+    },
+    {
+      "id": "INFRA_MOONLIGHT",
+      "category": "INFRASTRUCTURE",
+      "name": "ESA Moonlight lunar communications and navigation initiative",
+      "basis_2026": "Planned European lunar relay and navigation services.",
+      "conf": "MEDIUM",
+      "verify": "Confirm schedule and industry team.",
+      "twist": "Intended to serve multiple users and missions.",
+      "hook": "A signal timing standard that becomes a diplomatic dispute."
+    },
+    {
+      "id": "INFRA_LUNANET",
+      "category": "INFRASTRUCTURE",
+      "name": "LunaNet interoperability specification",
+      "basis_2026": "Cooperative framework for lunar communications and navigation interoperability.",
+      "conf": "MEDIUM",
+      "verify": "Confirm participating agencies.",
+      "twist": "A standard more than a network.",
+      "hook": "A protocol that is in practice the rule of the road."
+    },
+    {
+      "id": "INFRA_STARLINK",
+      "category": "INFRASTRUCTURE",
+      "name": "Starlink (SpaceX)",
+      "basis_2026": "Largest commercial satellite communications constellation.",
+      "conf": "HIGH",
+      "twist": "Backbone for many commercial customers and a competitor to others.",
+      "hook": "A link that a commercial prospector cannot do without."
+    },
+    {
+      "id": "INFRA_SES",
+      "category": "INFRASTRUCTURE",
+      "name": "SES",
+      "basis_2026": "Satellite operator across GEO and medium Earth orbit.",
+      "conf": "HIGH",
+      "twist": "Operator with lunar and cislunar service ambitions.",
+      "hook": "A partner who sells capacity to a company's competitor."
+    },
+    {
+      "id": "INFRA_EUTELSAT",
+      "category": "INFRASTRUCTURE",
+      "name": "Eutelsat OneWeb",
+      "basis_2026": "European satellite operator with a low-Earth-orbit broadband constellation.",
+      "conf": "HIGH",
+      "twist": "State-backed European alternative.",
+      "hook": "A sovereignty argument that becomes a service contract."
+    },
+    {
+      "id": "INFRA_AXIOM",
+      "category": "INFRASTRUCTURE",
+      "name": "Axiom Space (commercial station)",
+      "basis_2026": "Plans a two-module station by around 2028 and has flown private missions to the ISS. Reports have mentioned financial pressures.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm finances and schedule.",
+      "twist": "Needs NASA anchor demand to fund modules.",
+      "hook": "A module launched on a promise."
+    },
+    {
+      "id": "INFRA_VAST",
+      "category": "INFRASTRUCTURE",
+      "name": "Vast (Haven-1 station)",
+      "basis_2026": "Single-module commercial station Haven-1 planned NET Q1 2027, launched by SpaceX Falcon 9 and visited by Dragon. Haven-2 is the NASA-bid multi-module follow-on.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Privately funded first module, dependent on SpaceX for launch and crew.",
+      "hook": "A station that cannot open until a rival's capsule agrees it is safe."
+    },
+    {
+      "id": "INFRA_STARLAB",
+      "category": "INFRASTRUCTURE",
+      "name": "Starlab (Voyager, Airbus, Northrop Grumman and partners)",
+      "basis_2026": "Commercial station planned to launch on Starship, with a two-module station reported for around 2029.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm schedule.",
+      "twist": "Consortium with European and Japanese partners.",
+      "hook": "A station that is also a treaty among companies."
+    },
+    {
+      "id": "INFRA_ORBITAL_REEF",
+      "category": "INFRASTRUCTURE",
+      "name": "Orbital Reef (Blue Origin and Sierra Space)",
+      "basis_2026": "Commercial station concept competing for NASA commercial LEO destination funding.",
+      "conf": "MEDIUM",
+      "verify": "Confirm program status.",
+      "twist": "Competing concept with a slower profile.",
+      "hook": "A station that exists as a render and a contract line."
+    },
+    {
+      "id": "INFRA_CAPE",
+      "category": "INFRASTRUCTURE",
+      "name": "Cape Canaveral and Kennedy Space Center launch complex",
+      "basis_2026": "Primary US launch site complex for civil, commercial and national security missions.",
+      "conf": "HIGH",
+      "twist": "Range capacity and schedule constrain cadence.",
+      "hook": "A range slot lost to a bigger customer."
+    },
+    {
+      "id": "INFRA_KOUROU",
+      "category": "INFRASTRUCTURE",
+      "name": "Guiana Space Centre (Kourou)",
+      "basis_2026": "European launch site in French Guiana.",
+      "conf": "HIGH",
+      "twist": "Equatorial advantage. State-run.",
+      "hook": "A launch site that Europe will not lose to anyone."
+    },
+    {
+      "id": "INFRA_ANDOYA",
+      "category": "INFRASTRUCTURE",
+      "name": "Andoya Spaceport (Norway)",
+      "basis_2026": "Continental-European launch site. Isar Aerospace's Spectrum reached orbit from there on 5 Sep 2026, as reported.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm with ESA.",
+      "twist": "Gives Europe a non-Guiana launch option.",
+      "hook": "A fjord that became a launch pad."
+    },
+    {
+      "id": "INFRA_AUS_GROUND",
+      "category": "INFRASTRUCTURE",
+      "name": "Australian deep-space ground stations (Canberra complex, New Norcia)",
+      "basis_2026": "Southern Hemisphere antennas used by NASA and ESA deep-space networks.",
+      "conf": "HIGH",
+      "twist": "Geography gives continuous coverage. Hosted by a mining-heavy partner nation.",
+      "hook": "A dish in the outback that holds the only link to a lander."
+    },
+    {
+      "id": "SOFT_MINES",
+      "category": "SOFT_POWER",
+      "name": "Colorado School of Mines Space Resources Program",
+      "basis_2026": "University program in space resources and related engineering.",
+      "conf": "HIGH",
+      "twist": "Trains the practitioners and publishes the early feasibility studies.",
+      "hook": "A graduate thesis that becomes the standard assumption."
+    },
+    {
+      "id": "SOFT_ISO_TC20",
+      "category": "SOFT_POWER",
+      "name": "ISO Technical Committee 20 / Subcommittee 14 (Space systems)",
+      "basis_2026": "Develops international standards for space systems.",
+      "conf": "HIGH",
+      "twist": "Standards that other actors cite in contracts.",
+      "hook": "A clause that makes a design unbuildable by half the market."
+    },
+    {
+      "id": "SOFT_CCSDS",
+      "category": "SOFT_POWER",
+      "name": "Consultative Committee for Space Data Systems (CCSDS)",
+      "basis_2026": "Develops space data and communications standards used by agencies.",
+      "conf": "HIGH",
+      "twist": "Protocol standards that quietly set interoperability.",
+      "hook": "A standard that decides which data can be shared."
+    },
+    {
+      "id": "SOFT_SWF",
+      "category": "SOFT_POWER",
+      "name": "Secure World Foundation",
+      "basis_2026": "Nonprofit focused on space sustainability and governance.",
+      "conf": "HIGH",
+      "twist": "Convenes and publishes. Moves norms rather than money.",
+      "hook": "A white paper that changes how a ministry writes its position."
+    },
+    {
+      "id": "SOFT_IISL",
+      "category": "SOFT_POWER",
+      "name": "International Institute of Space Law",
+      "basis_2026": "Learned society for space lawyers and scholars.",
+      "conf": "HIGH",
+      "twist": "Scholarly opinion that courts and states cite.",
+      "hook": "A footnote that decides a claim."
+    },
+    {
+      "id": "SOFT_CSIS",
+      "category": "SOFT_POWER",
+      "name": "CSIS Aerospace Security Project (think tank)",
+      "basis_2026": "Policy research center that publishes on space security and commercial space.",
+      "conf": "MEDIUM",
+      "verify": "Confirm program name.",
+      "twist": "Shapes the policy debate in the US.",
+      "hook": "A report that a senator quotes in a hearing."
+    },
+    {
+      "id": "SOFT_AEROSPACE_CORP",
+      "category": "SOFT_POWER",
+      "name": "The Aerospace Corporation",
+      "basis_2026": "US federally funded research center for space systems.",
+      "conf": "HIGH",
+      "twist": "Technical advisor to government customers.",
+      "hook": "An engineer whose review stops a procurement."
+    },
+    {
+      "id": "SOFT_ISECG",
+      "category": "SOFT_POWER",
+      "name": "International Space Exploration Coordination Group",
+      "basis_2026": "Forum where agencies coordinate exploration plans.",
+      "conf": "MEDIUM",
+      "verify": "Confirm membership and activity.",
+      "twist": "Soft coordination without binding authority.",
+      "hook": "A roadmap that everyone cites and nobody owns."
+    },
+    {
+      "id": "SOFT_LPI",
+      "category": "SOFT_POWER",
+      "name": "Lunar and Planetary Institute and the Lunar and Planetary Science Conference",
+      "basis_2026": "Research institute and annual conference where planetary science results are presented.",
+      "conf": "HIGH",
+      "twist": "A place where survey claims are tested.",
+      "hook": "A poster session that kills a funding round."
+    },
+    {
+      "id": "SOFT_SPACENEWS",
+      "category": "SOFT_POWER",
+      "name": "SpaceNews",
+      "basis_2026": "Leading trade publication on space business and policy.",
+      "conf": "HIGH",
+      "twist": "Sets the narrative for investors and officials.",
+      "hook": "A headline that moves a stock."
+    },
+    {
+      "id": "SOFT_PAYLOAD",
+      "category": "SOFT_POWER",
+      "name": "Payload",
+      "basis_2026": "Trade newsletter and site covering the space industry.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Fast, investor-oriented coverage.",
+      "hook": "A newsletter that scoops an acquisition."
+    },
+    {
+      "id": "SOFT_CSF",
+      "category": "SOFT_POWER",
+      "name": "Commercial Space Federation",
+      "basis_2026": "US trade association representing commercial space companies.",
+      "conf": "MEDIUM",
+      "verify": "Confirm name and membership.",
+      "twist": "Lobbies Congress and agencies.",
+      "hook": "A letter signed by every company that is trying to be first."
+    },
+    {
+      "id": "SOFT_PLANETARY_SOCIETY",
+      "category": "SOFT_POWER",
+      "name": "The Planetary Society",
+      "basis_2026": "Nonprofit advocacy group for planetary exploration.",
+      "conf": "HIGH",
+      "twist": "Public support and lobbying for science funding.",
+      "hook": "A petition that moves a budget line."
+    },
+    {
+      "id": "CERT_CRIRSCO",
+      "category": "CERTIFICATION",
+      "name": "CRIRSCO (Committee for Mineral Reserves International Reporting Standards)",
+      "basis_2026": "International forum whose template harmonizes national mineral resource and reserve reporting codes. Founding members include JORC (Australasia), CIM (Canada), PERC (Europe), SAMREC (South Africa), SME (USA), plus Chile and Russia. Its template dates from Nov 2019. A JORC executive member is its deputy chair.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Sets the vocabulary of resources versus reserves that investors and exchanges accept.",
+      "hook": "A definition that decides whether a deposit can be called a resource at all."
+    },
+    {
+      "id": "CERT_JORC",
+      "category": "CERTIFICATION",
+      "name": "JORC (Joint Ore Reserves Committee, Australasia)",
+      "basis_2026": "Maintains the JORC Code. The 2012 edition is being replaced. A draft was issued 1 Aug 2024 and JORC said it intended to finalize with ASX, ASIC and CRIRSCO in Q1 2026. A webinar on the review was held 20 Aug 2026 and the committee had a new chair in 2026.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "verify": "Confirm whether the final revised code has been released and its transition date.",
+      "twist": "Slow revision cycle. Competent Person rules are a key lever.",
+      "hook": "A competent person who signs a number that moves a share price."
+    },
+    {
+      "id": "CERT_CSA_CIM",
+      "category": "CERTIFICATION",
+      "name": "Canadian Securities Administrators (NI 43-101) and CIM definition standards",
+      "basis_2026": "Canadian securities rule NI 43-101 governs public disclosure of mineral projects, using CIM definition standards. Canada is a major venue for mining finance.",
+      "conf": "HIGH",
+      "twist": "Qualified person and technical report rules gate who can raise money.",
+      "hook": "A technical report that costs more than the drilling it describes."
+    },
+    {
+      "id": "CERT_SEC_SK1300",
+      "category": "CERTIFICATION",
+      "name": "US SEC mining disclosure rules (Regulation S-K Subpart 1300)",
+      "basis_2026": "SEC rules aligning US mining company disclosure with CRIRSCO-style definitions.",
+      "conf": "HIGH",
+      "verify": "Confirm any 2025-2026 SEC changes.",
+      "twist": "Defines what a US-listed miner may call a reserve.",
+      "hook": "A footnote rule that stops a company from calling something a reserve."
+    },
+    {
+      "id": "CERT_SME",
+      "category": "CERTIFICATION",
+      "name": "Society for Mining, Metallurgy and Exploration (SME)",
+      "basis_2026": "US professional society and CRIRSCO member. Its guide supports SEC-aligned reporting.",
+      "conf": "HIGH",
+      "twist": "Professional gatekeeper for US qualified persons.",
+      "hook": "A membership card that decides who can sign."
+    },
+    {
+      "id": "CERT_PERC",
+      "category": "CERTIFICATION",
+      "name": "PERC (Pan-European Reserves and Resources Reporting Committee)",
+      "basis_2026": "European CRIRSCO-family code body. Ran a June-July 2026 course series that included the UNFC and CRIRSCO bridging document.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Connects stock-exchange reporting to government resource accounting.",
+      "hook": "A bridge document that makes two systems say the same thing about one deposit."
+    },
+    {
+      "id": "CERT_SAMREC",
+      "category": "CERTIFICATION",
+      "name": "SAMREC and the South African SAMCODES committee",
+      "basis_2026": "South African reporting code. Its committee publishes material on alignment with UNFC and on an African classification initiative.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Home code of a major PGM-producing jurisdiction.",
+      "hook": "A code written for platinum that someone applies to asteroids."
+    },
+    {
+      "id": "CERT_UNFC",
+      "category": "CERTIFICATION",
+      "name": "United Nations Framework Classification for Resources (UNFC)",
+      "basis_2026": "UNECE project-based classification with three axes for environmental-socio-economic viability (E), technical feasibility and maturity (F) and geological knowledge (G). Updated in 2019. It is not a public reporting standard and has no securities recognition. Bridging documents link it to CRIRSCO-type codes.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Governments and agencies use it to aggregate resources across countries and commodity types.",
+      "hook": "A three-number code that a ministry reads and a stock exchange does not."
+    },
+    {
+      "id": "CERT_LORS101",
+      "category": "CERTIFICATION",
+      "name": "Lunar Ore Reserves Standards 101 (LORS-101) proposal",
+      "basis_2026": "A proposed first code for reporting lunar exploration results, resources and reserves, presented at IAC 2020 by Carlos Espejel (Luxembourg, ispace). It came from research with the University of Luxembourg, ispace Europe, ESA and UNSW. It considers geological uncertainty, project and technology maturity and socio-political and economic viability.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "verify": "Confirm whether any body has adopted or extended it. Treat as an unadopted proposal.",
+      "status_2026": "PROPOSAL_NOT_ADOPTED",
+      "twist": "The closest thing to a space-resource reporting code, with no adopter and no legal force.",
+      "hook": "A code that exists in a paper and in the minds of three investors."
+    },
+    {
+      "id": "CERT_AUSIMM",
+      "category": "CERTIFICATION",
+      "name": "AusIMM (Australasian Institute of Mining and Metallurgy)",
+      "basis_2026": "Professional body whose members include Competent Persons under JORC. Hosts JORC code-review events.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Controls the professional credential that the code depends on.",
+      "hook": "A disciplinary hearing for a geologist whose estimate was wrong."
+    },
+    {
+      "id": "CERT_AIG",
+      "category": "CERTIFICATION",
+      "name": "Australian Institute of Geoscientists (AIG)",
+      "basis_2026": "Professional body for geoscientists and a JORC sponsor. Formed a joint taskforce with AusIMM on reporting.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Second credential route for JORC competent persons.",
+      "hook": "A taskforce that spends two years on a definition of reconciliation."
+    },
+    {
+      "id": "CERT_SRK",
+      "category": "CERTIFICATION",
+      "name": "SRK Consulting",
+      "basis_2026": "Independent consultancy producing mineral resource and reserve estimates and technical reports.",
+      "conf": "HIGH",
+      "lag_override": "L1",
+      "twist": "Its signature gives an estimate credibility. Fees depend on clients.",
+      "hook": "An estimate that is only as honest as the sample it was given."
+    },
+    {
+      "id": "CERT_AFRY_AMC",
+      "category": "CERTIFICATION",
+      "name": "AFRY (including AMC Consultants)",
+      "basis_2026": "AFRY acquired AMC Consultants on 1 May 2026, according to a JORC event biography.",
+      "conf": "MEDIUM",
+      "verified_by_search": true,
+      "verify": "Confirm acquisition details.",
+      "lag_override": "L1",
+      "twist": "A mining-consultancy brand folded into a larger engineering group.",
+      "hook": "A consultancy whose new parent also designs the plant it is estimating for."
+    },
+    {
+      "id": "CERT_SGS",
+      "category": "CERTIFICATION",
+      "name": "SGS",
+      "basis_2026": "Global inspection, testing and certification company with mining assay and cargo inspection services.",
+      "conf": "HIGH",
+      "lag_override": "L1",
+      "twist": "Chain of custody and independent assay for commodity trades.",
+      "hook": "A cargo inspector who has to certify something that has never touched Earth."
+    },
+    {
+      "id": "CERT_BUREAU_VERITAS",
+      "category": "CERTIFICATION",
+      "name": "Bureau Veritas",
+      "basis_2026": "Global inspection and certification company.",
+      "conf": "HIGH",
+      "lag_override": "L1",
+      "twist": "Competing assay and inspection provider.",
+      "hook": "Two inspectors who read the same bag differently."
+    },
+    {
+      "id": "CERT_INTERTEK",
+      "category": "CERTIFICATION",
+      "name": "Intertek",
+      "basis_2026": "Global inspection, testing and certification company with commodity services.",
+      "conf": "HIGH",
+      "lag_override": "L1",
+      "twist": "Third major assay and inspection provider.",
+      "hook": "An umpire assay that decides a dispute worth billions."
+    },
+    {
+      "id": "CERT_ALS",
+      "category": "CERTIFICATION",
+      "name": "ALS Limited",
+      "basis_2026": "Testing company with a large geochemistry and mining laboratory network.",
+      "conf": "HIGH",
+      "lag_override": "L1",
+      "twist": "Runs the labs that most explorers send samples to.",
+      "hook": "A sample queue that determines the pace of exploration."
+    },
+    {
+      "id": "CERT_LPPM",
+      "category": "CERTIFICATION",
+      "name": "London Platinum and Palladium Market (LPPM)",
+      "basis_2026": "Trade body for the platinum and palladium market, associated with Good Delivery standards.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current role and standards.",
+      "twist": "Defines what counts as deliverable PGM metal.",
+      "hook": "A bar stamp that an asteroid refinery has to earn."
+    },
+    {
+      "id": "CERT_ICMM",
+      "category": "CERTIFICATION",
+      "name": "International Council on Mining and Metals (ICMM)",
+      "basis_2026": "Industry body with performance expectations for member mining companies.",
+      "conf": "HIGH",
+      "twist": "Soft norms that large miners adopt and use as reputational shields.",
+      "hook": "A principle that a member quietly violates on a Tuesday."
+    },
+    {
+      "id": "CERT_IRMA",
+      "category": "CERTIFICATION",
+      "name": "Initiative for Responsible Mining Assurance (IRMA)",
+      "basis_2026": "Multi-stakeholder body with an independently audited standard for responsible mining.",
+      "conf": "HIGH",
+      "twist": "Third-party audit that buyers can cite.",
+      "hook": "An audit that a buyer demands and a mine cannot afford."
+    },
+    {
+      "id": "CERT_EITI",
+      "category": "CERTIFICATION",
+      "name": "Extractive Industries Transparency Initiative (EITI)",
+      "basis_2026": "Global standard for transparency in extractive sector payments and contracts.",
+      "conf": "HIGH",
+      "twist": "Transparency norm that could extend to any new resource regime.",
+      "hook": "A disclosed payment that a journalist reads in the wrong order."
+    },
+    {
+      "id": "CERT_OECD_DD",
+      "category": "CERTIFICATION",
+      "name": "OECD Due Diligence Guidance for Responsible Supply Chains of Minerals",
+      "basis_2026": "Guidance used by buyers and regulators to manage mineral supply chain risk.",
+      "conf": "HIGH",
+      "twist": "Turns supply-chain risk into a procurement requirement.",
+      "hook": "A due-diligence form with a column for provenance that has no answer."
+    },
+    {
+      "id": "CERT_RMI",
+      "category": "CERTIFICATION",
+      "name": "Responsible Minerals Initiative (RMI)",
+      "basis_2026": "Industry initiative auditing smelters and refiners for responsible sourcing.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current scope.",
+      "twist": "Audit lists that downstream buyers rely on.",
+      "hook": "A refinery list that a new refiner cannot get onto."
+    },
+    {
+      "id": "CERT_ASX",
+      "category": "CERTIFICATION",
+      "name": "ASX (Australian Securities Exchange) listing rules for mining",
+      "basis_2026": "Listing rules require JORC-compliant public reporting for mining and exploration companies.",
+      "conf": "HIGH",
+      "verified_by_search": true,
+      "twist": "Makes the code legally binding for issuers.",
+      "hook": "A trading halt triggered by one drill result."
+    },
+    {
+      "id": "CERT_HKEX",
+      "category": "CERTIFICATION",
+      "name": "HKEX listing rules for mining companies (also owner of the LME)",
+      "basis_2026": "Exchange with its own rules for mineral companies and ownership of the London Metal Exchange.",
+      "conf": "MEDIUM",
+      "verify": "Confirm current listing chapter details.",
+      "twist": "Bridge between Chinese capital and global metals markets.",
+      "hook": "A rule change that moves where a company chooses to list."
+    }
+  ],
+  "relations": {
+    "note": "Seed edges. Each is a candidate contract, dependency or influence, not a guarantee.",
+    "edges": [
+      {
+        "from": "OFF_BLUEFORS",
+        "to": "PRO_INTERLUNE",
+        "kind": "BUYER_FORWARD_PURCHASE",
+        "conf": "HIGH"
+      },
+      {
+        "from": "OFF_MAYBELL",
+        "to": "PRO_INTERLUNE",
+        "kind": "BUYER_FORWARD_PURCHASE",
+        "conf": "HIGH"
+      },
+      {
+        "from": "OFF_DOE_ISOTOPE",
+        "to": "PRO_INTERLUNE",
+        "kind": "BUYER_FORWARD_PURCHASE",
+        "conf": "HIGH"
+      },
+      {
+        "from": "PRO_ASTROFORGE",
+        "to": "CAR_INTUITIVE",
+        "kind": "RIDESHARE_CUSTOMER",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CAR_BLUE_ORIGIN",
+        "to": "PRO_HONEYBEE",
+        "kind": "OWNERSHIP",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CAR_NSIL",
+        "to": "ISRO",
+        "kind": "COMMERCIAL_ARM_OF",
+        "existing_actor": true,
+        "conf": "HIGH"
+      },
+      {
+        "from": "INS_MARSH",
+        "to": "INS_LLOYDS",
+        "kind": "PLACES_RISK_WITH",
+        "conf": "HIGH"
+      },
+      {
+        "from": "INS_AON",
+        "to": "INS_LLOYDS",
+        "kind": "PLACES_RISK_WITH",
+        "conf": "HIGH"
+      },
+      {
+        "from": "INS_MUNICH_RE",
+        "to": "INS_ALLIANZ",
+        "kind": "REINSURES",
+        "conf": "MEDIUM"
+      },
+      {
+        "from": "REG_LUX",
+        "to": "PRO_INTERLUNE",
+        "kind": "JURISDICTION_CANDIDATE",
+        "conf": "LOW",
+        "verify": "Interlune is US-based. Included only as an alternative licensing venue."
+      },
+      {
+        "from": "REG_US",
+        "to": "PRO_INTERLUNE",
+        "kind": "LICENSING_JURISDICTION",
+        "conf": "MEDIUM"
+      },
+      {
+        "from": "REG_ARTEMIS",
+        "to": "STA_US",
+        "kind": "SPONSORED_BY",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CAP_IQT",
+        "to": "STA_US",
+        "kind": "INTELLIGENCE_COMMUNITY_VENTURE_ARM",
+        "conf": "HIGH"
+      },
+      {
+        "from": "INF_SPACETRACK",
+        "to": "INF_LEOLABS",
+        "kind": "PUBLIC_VS_COMMERCIAL_TRACKING_OVERLAP",
+        "conf": "MEDIUM"
+      },
+      {
+        "from": "OFF_UMICORE",
+        "to": "PRO_ASTROFORGE",
+        "kind": "POTENTIAL_PGM_OFFTAKER",
+        "conf": "LOW",
+        "verify": "Hypothetical link. No known agreement."
+      },
+      {
+        "from": "CAP_AEI",
+        "to": "CAR_FIREFLY",
+        "kind": "INVESTOR_IN",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CAP_AEI",
+        "to": "SUP_REDWIRE",
+        "kind": "INVESTOR_IN_AND_FOUNDER",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CAP_AEI",
+        "to": "SUP_YORK",
+        "kind": "INVESTOR_IN",
+        "conf": "MEDIUM"
+      },
+      {
+        "from": "CAP_AEI",
+        "to": "SUP_ROCKETDYNE",
+        "kind": "PENDING_MAJORITY_OWNER",
+        "conf": "HIGH"
+      },
+      {
+        "from": "SUP_L3HARRIS",
+        "to": "SUP_ROCKETDYNE",
+        "kind": "RETAINS_MINORITY_STAKE_ABOUT_40_PERCENT",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CAR_INTUITIVE",
+        "to": "SUP_LANTERIS",
+        "kind": "ANNOUNCED_ACQUISITION",
+        "conf": "MEDIUM",
+        "verify": "Confirm closing."
+      },
+      {
+        "from": "CAP_ADVENT",
+        "to": "SUP_LANTERIS",
+        "kind": "OWNER_PENDING_SALE",
+        "conf": "MEDIUM"
+      },
+      {
+        "from": "CAP_ADVENT",
+        "to": "INF_VANTOR",
+        "kind": "OWNER",
+        "conf": "HIGH"
+      },
+      {
+        "from": "SUP_SAFRAN_DSI",
+        "to": "PRO_ASTROFORGE",
+        "kind": "SUPPLIES_PROPULSION",
+        "conf": "HIGH"
+      },
+      {
+        "from": "INC_VERMEER",
+        "to": "PRO_INTERLUNE",
+        "kind": "EQUIPMENT_PARTNER",
+        "conf": "MEDIUM",
+        "verify": "Confirm."
+      },
+      {
+        "from": "SUP_XENERGY",
+        "to": "CAR_INTUITIVE",
+        "kind": "JOINT_VENTURE_IX",
+        "conf": "MEDIUM"
+      },
+      {
+        "from": "INC_QATARENERGY",
+        "to": "OFF_SEMI_FABS",
+        "kind": "HELIUM_SUPPLY_DISRUPTED_2026",
+        "conf": "HIGH"
+      },
+      {
+        "from": "INC_AIR_LIQUIDE",
+        "to": "OFF_SEMI_FABS",
+        "kind": "DISTRIBUTOR_FORCE_MAJEURE_2026",
+        "conf": "MEDIUM"
+      },
+      {
+        "from": "INC_EXXON_SHUTE_CREEK",
+        "to": "OFF_SEMI_FABS",
+        "kind": "DOMESTIC_ALTERNATIVE_SUPPLY",
+        "conf": "LOW"
+      },
+      {
+        "from": "CAP_EXIM_US",
+        "to": "SUP_CESIUMASTRO",
+        "kind": "CREDIT_AGREEMENT_2026_09",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CAP_JPM",
+        "to": "SUP_CESIUMASTRO",
+        "kind": "REVOLVING_LINE",
+        "conf": "HIGH"
+      },
+      {
+        "from": "INC_RIO",
+        "to": "INC_GLENCORE",
+        "kind": "MERGER_TALKS_ENDED_2026_02",
+        "conf": "HIGH"
+      },
+      {
+        "from": "INFRA_VAST",
+        "to": "CAR_SPACEX",
+        "kind": "LAUNCH_AND_CREW_DEPENDENCY",
+        "conf": "HIGH"
+      },
+      {
+        "from": "SUP_VOYAGER",
+        "to": "INFRA_STARLAB",
+        "kind": "LEAD",
+        "conf": "HIGH"
+      },
+      {
+        "from": "SUP_AIRBUS_DS",
+        "to": "INFRA_STARLAB",
+        "kind": "PARTNER",
+        "conf": "HIGH"
+      },
+      {
+        "from": "SUP_NORTHROP",
+        "to": "INFRA_STARLAB",
+        "kind": "PARTNER",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CAR_ISAR",
+        "to": "INFRA_ANDOYA",
+        "kind": "LAUNCH_SITE",
+        "conf": "MEDIUM"
+      },
+      {
+        "from": "INFRA_KSAT",
+        "to": "SET_SVALBARD",
+        "kind": "GROUND_STATION_LOCATION_ANALOG",
+        "conf": "MEDIUM"
+      },
+      {
+        "from": "INC_QATARENERGY",
+        "to": "INF_USGS",
+        "kind": "SHARE_REPORTED_BY",
+        "conf": "MEDIUM"
+      },
+      {
+        "from": "OFF_DOE_ISOTOPE",
+        "to": "OFF_NEUTRON_DETECTION",
+        "kind": "ALLOCATES_ISOTOPE_SUPPLY",
+        "conf": "LOW",
+        "verify": "Hypothesis from program role."
+      },
+      {
+        "from": "CERT_JORC",
+        "to": "CERT_CRIRSCO",
+        "kind": "MEMBER",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CERT_PERC",
+        "to": "CERT_CRIRSCO",
+        "kind": "MEMBER",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CERT_SAMREC",
+        "to": "CERT_CRIRSCO",
+        "kind": "MEMBER",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CERT_SME",
+        "to": "CERT_CRIRSCO",
+        "kind": "MEMBER",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CERT_CSA_CIM",
+        "to": "CERT_CRIRSCO",
+        "kind": "MEMBER_VIA_CIM",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CERT_UNFC",
+        "to": "CERT_CRIRSCO",
+        "kind": "BRIDGING_DOCUMENT",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CERT_ASX",
+        "to": "CERT_JORC",
+        "kind": "LISTING_RULES_REQUIRE",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CERT_AUSIMM",
+        "to": "CERT_JORC",
+        "kind": "SPONSOR_AND_CREDENTIAL",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CERT_AIG",
+        "to": "CERT_JORC",
+        "kind": "SPONSOR_AND_CREDENTIAL",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CERT_SEC_SK1300",
+        "to": "CERT_CRIRSCO",
+        "kind": "ALIGNED_WITH",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CERT_LORS101",
+        "to": "CERT_CRIRSCO",
+        "kind": "PROPOSES_EXTENSION_OF_FRAMEWORK",
+        "conf": "MEDIUM"
+      },
+      {
+        "from": "CERT_LORS101",
+        "to": "CAR_ISPACE",
+        "kind": "AUTHOR_AFFILIATION",
+        "conf": "HIGH"
+      },
+      {
+        "from": "CERT_AFRY_AMC",
+        "to": "CERT_JORC",
+        "kind": "DEPUTY_CHAIR_AFFILIATION",
+        "conf": "MEDIUM",
+        "verify": "Deputy chair is described as head of a unit at AFRY."
+      },
+      {
+        "from": "INF_LME",
+        "to": "CERT_HKEX",
+        "kind": "OWNED_BY",
+        "conf": "HIGH"
+      },
+      {
+        "from": "OFF_UMICORE",
+        "to": "CERT_SGS",
+        "kind": "ASSAY_AND_INSPECTION_CANDIDATE",
+        "conf": "LOW",
+        "verify": "Hypothesis. No known contract."
+      },
+      {
+        "from": "OFF_UMICORE",
+        "to": "CERT_LPPM",
+        "kind": "PGM_DELIVERY_STANDARD",
+        "conf": "LOW",
+        "verify": "Hypothesis from market role."
+      }
+    ]
+  },
+  "known_gaps": [
+    "No Ceres or Belt operators exist in 2026. Belt Transit Authority, Concord and Ferrum Meridian from the pilot remain fictional 2226 entities that these rows would have to evolve into.",
+    "Offtaker rows for water and propellant are missing because no 2026 buyers exist yet. Candidate: orbital depot operators once real.",
+    "Non-US coverage is thinner than US coverage, especially China, India, Korea, Japan, the Gulf and Africa. Add with sources.",
+    "Certification now covers resource reporting codes, assay labs and responsible-sourcing bodies. Still missing: individual competent-person firms, auditors, and exchange listing departments beyond ASX and HKEX.",
+    "No adopted space-resource reporting code exists. LORS-101 is an unadopted proposal.",
+    "Not yet covered: space-law NGOs and universities beyond a few exemplars, and commodity-specific institutions (LBMA, platinum associations).",
+    "Several rows rest on a single source. Rows with verify notes need primary-source checks before seeding.",
+    "No financial values are assigned anywhere. Budget acquisition is a separate sourced task.",
+    "Influence is deliberately not assigned. Derive it from capital, capacity, legal standing, information centrality and substitutability, then test by ablation."
+  ],
+  "rankings": {
+    "basis": "CLAUDE_JUDGMENT_NOT_ENGINE_INPUT",
+    "engine_use": "None. These lists must not be consumed by the simulation. Influence in the model is to be derived from capital, capacity, legal standing, information centrality and substitutability, then checked by ablation.",
+    "criteria": "Importance in isolation: how much the actor matters, in the 2026 real world, to the space-resources and off-world economy as a standalone entity. Weighs scale, irreplaceability, ability to shape other actors' options, and precedent-setting power. Ignores specific relationships to other listed actors and ignores any simulation outcome. Ranks are within a category only, and cannot be compared across categories.\n",
+    "caveats": [
+      "Judgment from background knowledge plus the spot checks listed under grounding. Reasonable people would reorder the middle of every list.",
+      "Several categories mix real operators and terrestrial analogs. Analogs rank by usefulness as models, not by direct impact.",
+      "Rankings reflect 2026 conditions and will age quickly."
+    ],
+    "by_category": {
+      "CAPITAL": {
+        "order": [
+          "CAP_PUBLIC_EQUITY",
+          "CAP_SPACE_VC",
+          "CAP_AEI",
+          "CAP_PIF",
+          "CAP_MUBADALA",
+          "CAP_ADIA",
+          "CAP_DOD_OSC",
+          "CAP_EXIM_US",
+          "CAP_CHN_GUIDANCE",
+          "CAP_JPM",
+          "CAP_BANKS",
+          "CAP_IQT",
+          "CAP_GIC",
+          "CAP_NBIM",
+          "CAP_CPPIB",
+          "CAP_QIA",
+          "CAP_ADVENT",
+          "CAP_UKEF",
+          "CAP_MACQUARIE",
+          "CAP_STAR_MARKET",
+          "CAP_SINOSURE",
+          "CAP_BPI_EXPORT",
+          "CAP_EDC"
+        ],
+        "top3_rationale": [
+          "Public markets set the cost of capital for listed space firms and decide who can raise in a quarter.",
+          "Venture funds seed nearly every frontier company before revenue exists.",
+          "AE Industrial is a space-specialist owner across engines, landers and suppliers, with the biggest 2026 deal."
+        ]
+      },
+      "OFFTAKER": {
+        "order": [
+          "OFF_BLUEFORS",
+          "OFF_MAYBELL",
+          "OFF_DOE_ISOTOPE",
+          "OFF_SEMI_FABS",
+          "OFF_QUANTUM_OEMS",
+          "OFF_UMICORE",
+          "OFF_CATL",
+          "OFF_MP_MATERIALS",
+          "OFF_ARCELOR",
+          "OFF_MRI",
+          "OFF_JM",
+          "OFF_FUSION",
+          "OFF_AIRBUS",
+          "OFF_NEUTRON_DETECTION"
+        ],
+        "top3_rationale": [
+          "Largest reported binding forward purchase of a space-sourced resource.",
+          "First commercial customer and a second binding purchase on the same resource.",
+          "First government purchase of a non-terrestrial resource. Precedent power exceeds its volume."
+        ]
+      },
+      "INSURER": {
+        "order": [
+          "INS_LLOYDS",
+          "INS_MUNICH_RE",
+          "INS_ATRIUM",
+          "INS_SWISS_RE",
+          "INS_ALLIANZ",
+          "INS_AXA_XL",
+          "INS_MARSH",
+          "INS_AON",
+          "INS_PICC",
+          "INS_JWC",
+          "INS_IG_PI"
+        ],
+        "top3_rationale": [
+          "The market where most specialty space risk is led and priced.",
+          "Reinsurance capacity sets the ceiling for primary insurers.",
+          "Pooled space capacity with dedicated underwriting."
+        ]
+      },
+      "CARRIER": {
+        "order": [
+          "CAR_SPACEX",
+          "CAR_CASC",
+          "CAR_BLUE_ORIGIN",
+          "CAR_ROCKET_LAB",
+          "CAR_ULA",
+          "CAR_ARIANE",
+          "CAR_INTUITIVE",
+          "CAR_FIREFLY",
+          "CAR_LANDSPACE",
+          "CAR_NSIL",
+          "CAR_MHI",
+          "CAR_ASTROBOTIC",
+          "CAR_IMPULSE",
+          "CAR_ISPACE",
+          "CAR_ROSCOSMOS",
+          "CAR_ISAR",
+          "CAR_ORBIT_FAB",
+          "CAR_PLD"
+        ],
+        "top3_rationale": [
+          "Dominant cadence and price floor for Western access to orbit.",
+          "State carrier with large and growing capacity, mostly closed to foreign cargo.",
+          "Deep-pocketed heavy-lift and lander developer, with schedule risk."
+        ]
+      },
+      "REGISTRY": {
+        "order": [
+          "REG_US",
+          "REG_ARTEMIS",
+          "REG_ITU",
+          "REG_UNOOSA",
+          "REG_EXPORT_CONTROL",
+          "REG_COPUOS",
+          "REG_LUX",
+          "REG_JAPAN",
+          "REG_UAE",
+          "REG_FCC",
+          "REG_EU_SPACE_ACT",
+          "REG_HAGUE_WG",
+          "REG_PCA",
+          "REG_ISA_ANALOG",
+          "REG_CLASS_SOCIETIES",
+          "REG_IMO",
+          "REG_PSC"
+        ],
+        "top3_rationale": [
+          "US law and licensing cover most commercial activity and set the model others copy or resist.",
+          "Practice-based regime with a growing signatory group and safety-zone concept.",
+          "Spectrum and orbit filings gate every communication link."
+        ]
+      },
+      "STATE": {
+        "order": [
+          "STA_US",
+          "STA_CHINA",
+          "STA_EU_ESA",
+          "STA_INDIA",
+          "STA_JAPAN",
+          "STA_RUSSIA",
+          "STA_UAE",
+          "STA_UK",
+          "STA_CANADA",
+          "STA_AUSTRALIA",
+          "STA_KOREA",
+          "STA_SAUDI"
+        ],
+        "top3_rationale": [
+          "Largest budget, the Artemis Accords, export controls and licensing.",
+          "Large state-directed program and an alternative partner network.",
+          "Consensus bloc whose rules often become global defaults."
+        ]
+      },
+      "SETTLEMENT_LABOR": {
+        "order": [
+          "SET_ISS",
+          "SET_ANTARCTIC",
+          "SET_PILBARA",
+          "SET_MLC_ITF",
+          "SET_NORTH_SEA",
+          "SET_SVALBARD",
+          "SET_MCMURDO",
+          "SET_STARBASE",
+          "SET_INDUSTRIALL",
+          "SET_KAFALA"
+        ],
+        "top3_rationale": [
+          "The only existing governed multi-flag crewed habitat.",
+          "A consensus governance regime that bans resource extraction.",
+          "Closest working model of remote rotation mining labor."
+        ]
+      },
+      "INFORMATION": {
+        "order": [
+          "INF_STATE_INTEL",
+          "INF_SPGLOBAL",
+          "INF_LME",
+          "INF_USGS",
+          "INF_VANTOR",
+          "INF_PLANET",
+          "INF_SPACETRACK",
+          "INF_ARGUS",
+          "INF_CME",
+          "INF_KPLER",
+          "INF_KOBOLD",
+          "INF_LEOLABS",
+          "INF_WOODMAC",
+          "INF_FASTMARKETS",
+          "INF_BLACKSKY",
+          "INF_CHANGGUANG",
+          "INF_ICEYE",
+          "INF_SLINGSHOT",
+          "INF_SPIRE"
+        ],
+        "top3_rationale": [
+          "Holds the largest collection and analysis capacity, though shared selectively.",
+          "Benchmarks set what contracts across commodities are worth.",
+          "Base-metal price discovery and delivery standards."
+        ]
+      },
+      "PROSPECTOR": {
+        "order": [
+          "PRO_INTERLUNE",
+          "PRO_ASTROFORGE",
+          "PRO_KARMAN",
+          "PRO_TRANSASTRA",
+          "PRO_HONEYBEE",
+          "PRO_ORIGIN_SPACE",
+          "PRO_LUNAR_OUTPOST",
+          "PRO_TERRESTRIAL_HELIUM",
+          "PRO_PLANETARY_RESOURCES",
+          "PRO_DEEP_SPACE_INDUSTRIES"
+        ],
+        "top3_rationale": [
+          "Has real binding purchase agreements and a terrestrial bridge business.",
+          "Flew actual deep-space missions, two of which failed, and has a third planned.",
+          "Targets water-bearing bodies with a first mission reported for 2027."
+        ]
+      },
+      "INCUMBENT_INDUSTRY": {
+        "order": [
+          "INC_RIO",
+          "INC_BHP",
+          "INC_LINDE",
+          "INC_QATARENERGY",
+          "INC_AIR_LIQUIDE",
+          "INC_GLENCORE",
+          "INC_VALE",
+          "INC_AIR_PRODUCTS",
+          "INC_EXXON_SHUTE_CREEK",
+          "INC_ANGLO_TECK",
+          "INC_FREEPORT",
+          "INC_CATERPILLAR",
+          "INC_NORNICKEL",
+          "INC_SIBANYE",
+          "INC_VALTERRA",
+          "INC_BECHTEL",
+          "INC_SLB",
+          "INC_CHART",
+          "INC_VERMEER",
+          "INC_MITSUI",
+          "INC_TRAFIGURA",
+          "INC_GAZPROM_AMUR"
+        ],
+        "top3_rationale": [
+          "Deepest remote and autonomous-operation know-how among miners.",
+          "Largest miner by market value and capital allocator.",
+          "Cryogenic, helium handling and distribution know-how that any supply chain needs."
+        ]
+      },
+      "SUPPLIER_PRIME": {
+        "order": [
+          "SUP_LOCKHEED",
+          "SUP_BOEING",
+          "SUP_NORTHROP",
+          "SUP_AIRBUS_DS",
+          "SUP_L3HARRIS",
+          "SUP_ROCKETDYNE",
+          "SUP_THALES_ALENIA",
+          "SUP_CAST",
+          "SUP_ARIANEGROUP",
+          "SUP_LANTERIS",
+          "SUP_BWXT",
+          "SUP_WESTINGHOUSE",
+          "SUP_REDWIRE",
+          "SUP_MDA",
+          "SUP_SIERRA",
+          "SUP_VOYAGER",
+          "SUP_OHB",
+          "SUP_SAFRAN_DSI",
+          "SUP_XENERGY",
+          "SUP_YORK",
+          "SUP_CESIUMASTRO"
+        ],
+        "top3_rationale": [
+          "Orion prime and a long program record.",
+          "SLS core stage prime.",
+          "Cargo, solid motors and station partnership across several programs."
+        ]
+      },
+      "INFRASTRUCTURE": {
+        "order": [
+          "INFRA_STARLINK",
+          "INFRA_NASA_DSN",
+          "INFRA_CAPE",
+          "INFRA_KOUROU",
+          "INFRA_ESTRACK",
+          "INFRA_KSAT",
+          "INFRA_VAST",
+          "INFRA_AXIOM",
+          "INFRA_STARLAB",
+          "INFRA_INTUITIVE_NSN",
+          "INFRA_AUS_GROUND",
+          "INFRA_SES",
+          "INFRA_EUTELSAT",
+          "INFRA_MOONLIGHT",
+          "INFRA_LUNANET",
+          "INFRA_SSC",
+          "INFRA_ANDOYA",
+          "INFRA_ORBITAL_REEF"
+        ],
+        "top3_rationale": [
+          "Largest operating commercial constellation and backbone for many customers.",
+          "Scarce deep-space antenna capacity that most deep-space missions need.",
+          "Primary launch complex for US civil and commercial missions."
+        ]
+      },
+      "SOFT_POWER": {
+        "order": [
+          "SOFT_CCSDS",
+          "SOFT_ISO_TC20",
+          "SOFT_MINES",
+          "SOFT_SPACENEWS",
+          "SOFT_SWF",
+          "SOFT_IISL",
+          "SOFT_CSIS",
+          "SOFT_AEROSPACE_CORP",
+          "SOFT_ISECG",
+          "SOFT_LPI",
+          "SOFT_PAYLOAD",
+          "SOFT_CSF",
+          "SOFT_PLANETARY_SOCIETY"
+        ],
+        "top3_rationale": [
+          "Data and communications standards quietly decide interoperability.",
+          "Space systems standards cited in contracts.",
+          "Trains the practitioners and publishes the feasibility studies others rely on."
+        ]
+      },
+      "CERTIFICATION": {
+        "order": [
+          "CERT_CRIRSCO",
+          "CERT_JORC",
+          "CERT_CSA_CIM",
+          "CERT_SEC_SK1300",
+          "CERT_UNFC",
+          "CERT_SGS",
+          "CERT_BUREAU_VERITAS",
+          "CERT_INTERTEK",
+          "CERT_ALS",
+          "CERT_SRK",
+          "CERT_AUSIMM",
+          "CERT_LPPM",
+          "CERT_ASX",
+          "CERT_HKEX",
+          "CERT_ICMM",
+          "CERT_PERC",
+          "CERT_SAMREC",
+          "CERT_SME",
+          "CERT_OECD_DD",
+          "CERT_IRMA",
+          "CERT_EITI",
+          "CERT_RMI",
+          "CERT_AFRY_AMC",
+          "CERT_AIG",
+          "CERT_LORS101"
+        ],
+        "top3_rationale": [
+          "Sets the common vocabulary for resources versus reserves that investors and exchanges accept.",
+          "Governs reporting for a major mining-finance jurisdiction and is mid-revision.",
+          "Canada's securities rule gates disclosure for many of the world's exploration companies."
+        ]
+      }
+    }
+  },
+  "design_suggestions": {
+    "status": "SUGGESTION_NOT_CANON",
+    "note": "Offered for the CIVPROP evidence ladder. Not wired. Treat as a hypothesis for review.",
+    "firewall_to_unfc_axes": [
+      "Your firewall EVIDENCE != ABUNDANCE != RECOVERABILITY != ECONOMIC VALUE lines up with UNFC's three axes: G (geological knowledge), F (technical feasibility and project maturity), E (environmental, socio-economic viability).",
+      "Evidence and abundance sit on G. Recoverability and technology access sit on F. Economic value, legal title and social license sit on E."
+    ],
+    "ladder_to_crirsco": [
+      "CRIRSCO-style codes separate exploration results and targets from mineral resources (inferred, indicated, measured by geological confidence), and resources from reserves (which add modifying factors such as mining, processing, economic, legal and social).",
+      "M4-B SUPPORTED_PRESENT_UNQUANTIFIED and returned-sample SUPPORTED_QUANTIFIED rows are at most exploration-result-level evidence. Neither supports a resource estimate by itself, because sampling density and scope are insufficient.",
+      "A mission that characterizes a body could be modelled as raising G confidence by a rung, with certification by a competent person as a separate event that can fail or be disputed."
+    ],
+    "space_gap": [
+      "No adopted space-resource reporting code exists in 2026. LORS-101 is an unadopted proposal. A natural simulation question is who adopts one first (an exchange, a state registry or an industry body) and what it does to financing."
+    ],
+    "ops_note": "A certifier agent can decline (INSUFFICIENT_SAMPLING, UNQUALIFIED_PERSON, NO_CHAIN_OF_CUSTODY). That gives the model a native way to represent claims that exist but are not bankable."
+  }
+}

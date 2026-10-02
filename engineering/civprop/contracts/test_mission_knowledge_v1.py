@@ -228,6 +228,32 @@ class MissionKnowledgeV1Tests(unittest.TestCase):
         with self.assertRaises(ValueError):
             KnowledgeRuntime.update(state, backward)
 
+    def test_unresolved_characterization_admits_no_numeric_prior(self):
+        raw = copy.deepcopy(self.raw)
+        raw["questions"][0]["question_kind"] = "UNRESOLVED_CHARACTERIZATION"
+        raw["questions"][0]["prior_probability"] = 0.99
+        raw["missions"][0]["observation_model_id"] = None
+        raw["decision_models"][0]["model_kind"] = "AUTHORED_EXPLORATION_PRIORITY_V1"
+        package = load_mission_knowledge_package(raw)
+        question = package.questions[0]
+        self.assertIsNone(question.prior_probability)
+        runtime = MissionKnowledgeRuntime(package)
+        with self.assertRaisesRegex(ValueError, "no numeric prior may be inferred"):
+            runtime.initial_knowledge(
+                actor_id="AUS", question_id=question.question_id, year=2026
+            )
+
+    def test_characterization_mission_requires_no_binary_observation_model(self):
+        raw = copy.deepcopy(self.raw)
+        raw["contract_version"] = "1.1.0"
+        raw["questions"][0]["question_kind"] = "UNRESOLVED_CHARACTERIZATION"
+        raw["questions"][0]["prior_probability"] = None
+        raw["missions"][0]["observation_model_id"] = None
+        raw["decision_models"][0]["model_kind"] = "AUTHORED_EXPLORATION_PRIORITY_V1"
+        package = load_mission_knowledge_package(raw)
+        self.assertIsNone(package.missions[0].observation_model_id)
+        self.assertEqual(package.decision_models[0].model_kind, "AUTHORED_EXPLORATION_PRIORITY_V1")
+
     def test_success_value_unit_must_match_project_capital_unit(self):
         raw = copy.deepcopy(self.raw)
         raw["decision_models"][0]["success_value"]["unit"] = "AUD"

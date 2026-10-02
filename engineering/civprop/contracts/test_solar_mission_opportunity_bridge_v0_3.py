@@ -10,8 +10,10 @@ class SolarMissionOpportunityV03Tests(unittest.TestCase):
   cls.p=build_solar_mission_opportunity_catalog(NAV,M4B)
   cls.m={(x["destination_body_id"],x["resource_family"]):x for x in cls.p["mission_opportunities"]}
   cls.q={(x["body_id"],x["resource_family"]):x for x in cls.p["questions"]}
- def test_all_m4b_lanes_become_questions_not_resource_claims(self):
-  self.assertEqual(len(self.p["questions"]),380); self.assertEqual(len(self.p["mission_opportunities"]),380)
+ def test_extraterrestrial_m4b_lanes_become_questions_not_resource_claims(self):
+  self.assertEqual(len(self.p["questions"]),376); self.assertEqual(len(self.p["mission_opportunities"]),376)
+  self.assertFalse(any(x["body_id"]=="EARTH" for x in self.p["questions"]))
+  self.assertFalse(any(x["destination_body_id"]=="EARTH" for x in self.p["mission_opportunities"]))
  def test_unknown_after_search_remains_unresolved_not_zero(self):
   q=self.q[("AMUN","VOLATILES")]
   self.assertEqual(q["knowledge_state"],"UNRESOLVED_AFTER_SEARCH"); self.assertIsNone(q["prior_probability"])

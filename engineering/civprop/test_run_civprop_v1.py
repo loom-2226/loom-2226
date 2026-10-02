@@ -8,7 +8,7 @@ import subprocess
 import tempfile
 import unittest
 
-from .run_civprop_v1 import (
+from engineering.civprop.run_civprop_v1 import (
     OUTPUT_CONTRACT_VERSION,
     OUTPUT_FORMAT,
     RUNNER_ID,

@@ -28,6 +28,12 @@ class ProductionLaneV1:
             x.location_id: x.parent_body_id
             for x in bundle.scenario.locations
         }
+        # Historical recorder lists remain append-only provenance.  Production only
+        # needs the newly appended current-year physical states, so cursors prevent
+        # O(total-history) rescans every year.
+        self._power_cursor = 0
+        self._traffic_cursor = 0
+        self._resource_cursor = 0
 
     def step(self, *, year: int) -> None:
         active_facilities = tuple(
@@ -36,16 +42,17 @@ class ProductionLaneV1:
             if facility.status == "ACTIVE"
             and facility.commissioned_year <= year
         )
-        power_by_location = {
-            x.location_id: x
-            for x in self.recorder.power_states
-            if x.year == year
-        }
-        traffic_by_location = {
-            x.location_id: x
-            for x in self.recorder.location_traffic_states
-            if x.year == year
-        }
+        new_power = self.recorder.power_states[self._power_cursor:]
+        new_traffic = self.recorder.location_traffic_states[self._traffic_cursor:]
+        new_resources = self.recorder.resource_states[self._resource_cursor:]
+        self._power_cursor = len(self.recorder.power_states)
+        self._traffic_cursor = len(self.recorder.location_traffic_states)
+        self._resource_cursor = len(self.recorder.resource_states)
+        current_power = tuple(x for x in new_power if x.year == year)
+        current_traffic = tuple(x for x in new_traffic if x.year == year)
+        current_resources = tuple(x for x in new_resources if x.year == year)
+        power_by_location = {x.location_id: x for x in current_power}
+        traffic_by_location = {x.location_id: x for x in current_traffic}
         rows = []
         for facility in sorted(
             active_facilities,
@@ -99,9 +106,9 @@ class ProductionLaneV1:
                     year=year,
                     facility=facility,
                     constraint_observations=constraint_observations,
-                    resource_states=tuple(self.recorder.resource_states),
+                    resource_states=current_resources,
                     peer_facilities=active_facilities,
-                    power_states=tuple(self.recorder.power_states),
+                    power_states=current_power,
                 )
             )
 

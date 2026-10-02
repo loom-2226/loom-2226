@@ -24,7 +24,9 @@ class PowerLaneV1:
         self.runtime = PowerBalanceRuntime(package, demand)
 
     def step(self, *, year: int, states) -> None:
-        facilities = tuple(self.recorder.facilities)
+        facilities_by_location = {}
+        for facility in self.recorder.facilities:
+            facilities_by_location.setdefault(facility.location_id, []).append(facility)
         for location_id in sorted(states):
             if self.runtime.is_excluded(location_id):
                 continue
@@ -32,7 +34,7 @@ class PowerLaneV1:
                 year=year,
                 location_id=location_id,
                 state=states[location_id],
-                facilities=facilities,
+                facilities=tuple(facilities_by_location.get(location_id, ())),
             )
             self.recorder.power_states.append(state)
             self.recorder.power_flows.extend(flows)

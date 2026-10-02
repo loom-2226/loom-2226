@@ -6,7 +6,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from .compile_inputs_v1 import (
+from engineering.civprop.compile_inputs_v1 import (
     AUTHORITY_CAPTURE_FORMAT,
     COMPILED_AUTHORITY,
     COMPILED_FIXTURE_ID,
@@ -14,8 +14,8 @@ from .compile_inputs_v1 import (
     default_capture_path,
     default_output_dir,
 )
-from .method_lab.contracts import load_bundle
-from .run_civprop_v1 import build_output, default_paths as runner_default_paths
+from engineering.civprop.method_lab.contracts import load_bundle
+from engineering.civprop.run_civprop_v1 import build_output, default_paths as runner_default_paths
 
 
 HERE = Path(__file__).resolve().parent

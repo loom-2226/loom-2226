@@ -220,6 +220,8 @@ class LabScenario:
         FacilitySiteMaterializationPackage
     ] = None
     asset_lifecycle_v1: Optional[Mapping[str, Any]] = None
+    demographic_authority_v1: Optional[Mapping[str, Any]] = None
+    migration_demand_v1: Optional[Mapping[str, Any]] = None
 
 
 @dataclass(frozen=True)
@@ -353,6 +355,7 @@ class LabResult:
     observations: tuple[ObservationRecordV1, ...] = ()
     knowledge_states: tuple[KnowledgeStateV1, ...] = ()
     mission_decisions: tuple[MissionDecisionRecordV1, ...] = ()
+    mission_opportunity_dispositions: tuple[Mapping[str, Any], ...] = ()
     pressure_states: tuple[PressureStateV1, ...] = ()
     pressure_contributions: tuple[PressureContributionV1, ...] = ()
     pressure_qualifications: tuple[PressureQualificationV1, ...] = ()
@@ -660,6 +663,14 @@ def _parse_scenario(data: Mapping[str, Any]) -> LabScenario:
             if data.get("asset_lifecycle_v1") is None
             else load_asset_lifecycle_data(data["asset_lifecycle_v1"])[2]
         ),
+        demographic_authority_v1=(
+            None if data.get("demographic_authority_v1") is None
+            else dict(data["demographic_authority_v1"])
+        ),
+        migration_demand_v1=(
+            None if data.get("migration_demand_v1") is None
+            else dict(data["migration_demand_v1"])
+        ),
     )
 
 
@@ -842,27 +853,29 @@ def _validate_scenario(s: LabScenario, truth: LabTruth) -> None:
                 raise ValueError("mission decision references unknown follow-on economics")
 
         for question in mission_package.questions:
-            key = (question.subject_id, question.location_id)
-            if key not in beliefs:
-                raise ValueError("mission knowledge question has no resource belief")
-            belief = beliefs[key]
-            if abs(question.prior_probability - belief.prior_probability) > 1e-12:
-                raise ValueError("mission prior diverges from resource belief")
             mission = mission_by_question.get(question.question_id)
             if mission is None:
                 raise ValueError("knowledge question has no mission")
-            model = observation_models[mission.observation_model_id]
-            if (
-                abs(model.sensitivity - belief.observation_sensitivity) > 1e-12
-                or abs(
-                    model.false_positive_probability
-                    - belief.false_positive_probability
-                )
-                > 1e-12
-            ):
-                raise ValueError(
-                    "mission observation model diverges from resource belief"
-                )
+            if question.question_kind == "BINARY_PRESENCE":
+                key = (question.subject_id, question.location_id)
+                if key not in beliefs:
+                    raise ValueError("binary mission knowledge question has no resource belief")
+                belief = beliefs[key]
+                if question.prior_probability is None or abs(question.prior_probability - belief.prior_probability) > 1e-12:
+                    raise ValueError("mission prior diverges from resource belief")
+                model = observation_models[mission.observation_model_id]
+                if (
+                    abs(model.sensitivity - belief.observation_sensitivity) > 1e-12
+                    or abs(model.false_positive_probability - belief.false_positive_probability) > 1e-12
+                ):
+                    raise ValueError("mission observation model diverges from resource belief")
+            elif question.question_kind == "UNRESOLVED_CHARACTERIZATION":
+                if question.prior_probability is not None:
+                    raise ValueError("characterization question cannot carry numeric prior")
+                # Characterization is explicitly not a resource-belief assertion.
+                # No belief or hidden realization may be synthesized merely to satisfy validation.
+            else:
+                raise ValueError("unsupported mission knowledge question kind")
 
     if s.resource_mass_balance_v1 is None:
         if truth.resource_physical_realization_v1 is not None:
@@ -2118,6 +2131,7 @@ def validate_result(result: LabResult, bundle: LabBundle) -> None:
         x.mission_archetype_id: x for x in package.missions
     }
     question_ids = {x.question_id for x in package.questions}
+    question_by_id = {x.question_id: x for x in package.questions}
 
     _unique(result.missions, lambda x: x.mission_id, "mission id")
     mission_by_id = {x.mission_id: x for x in result.missions}
@@ -2159,8 +2173,17 @@ def validate_result(result: LabResult, bundle: LabBundle) -> None:
             raise ValueError("observation location mismatch")
         if observation.year != mission.execution_year:
             raise ValueError("observation timing mismatch")
-        if observation.authority_class != "SIMULATED_OBSERVATION":
-            raise ValueError("invalid observation authority")
+        q=question_by_id[observation.question_id]
+        if q.question_kind == "BINARY_PRESENCE":
+            if observation.authority_class != "SIMULATED_OBSERVATION":
+                raise ValueError("invalid binary observation authority")
+        else:
+            if observation.authority_class != "SIMULATED_CHARACTERIZATION_OBSERVATION":
+                raise ValueError("invalid characterization observation authority")
+            if observation.characterization_status != "CHARACTERIZATION_COMPLETED":
+                raise ValueError("invalid characterization observation status")
+            if observation.resource_result_status != "UNRESOLVED_WITHOUT_AUTHORIZED_OBSERVATION_RESULT":
+                raise ValueError("characterization observation invented resource result")
 
     knowledge_keys = [
         (
@@ -2182,12 +2205,19 @@ def validate_result(result: LabResult, bundle: LabBundle) -> None:
             raise ValueError("knowledge unknown location")
         if not s.start_year <= knowledge.year <= s.end_year:
             raise ValueError("knowledge outside horizon")
-        if not 0 < knowledge.probability < 1:
-            raise ValueError("invalid knowledge probability")
+        q=question_by_id[knowledge.question_id]
+        if q.question_kind == "BINARY_PRESENCE":
+            if not 0 < knowledge.probability < 1:
+                raise ValueError("invalid knowledge probability")
+            if knowledge.authority_class != "SIMULATED_BELIEF":
+                raise ValueError("invalid knowledge authority")
+        else:
+            if knowledge.authority_class != "SIMULATED_CHARACTERIZATION_STATE":
+                raise ValueError("invalid characterization knowledge authority")
+            if knowledge.characterization_status not in {"UNRESOLVED","CHARACTERIZATION_COMPLETED"}:
+                raise ValueError("invalid characterization knowledge state")
         if not set(knowledge.observation_ids) <= observation_ids:
             raise ValueError("knowledge references unknown observation")
-        if knowledge.authority_class != "SIMULATED_BELIEF":
-            raise ValueError("invalid knowledge authority")
 
     _unique(
         result.mission_decisions,

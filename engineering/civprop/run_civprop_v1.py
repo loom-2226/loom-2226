@@ -528,6 +528,12 @@ def _base_gaps() -> list[dict[str, str]]:
             "status": "OPEN",
             "meaning": "Economic/transport centrality, strategic significance and other Atlas display metrics must be derived after physical/economic state exists.",
         },
+        {
+            "gap_id": "GAP-016",
+            "name": "GENERIC_PHYSICAL_TRANSPORT_SERVICE",
+            "status": "OPEN",
+            "meaning": "Generalized trajectory, vehicle, propulsion, power, propellant/remass, payload and infrastructure coupling has not yet earned physical transport service feasibility or capacity.",
+        },
     ]
 
 
@@ -543,6 +549,32 @@ def _known_gaps(input_dir: Path) -> list[dict[str, str]]:
         if gap["gap_id"] in statuses:
             gap["status"] = statuses[gap["gap_id"]]
     return gaps
+
+
+def _apply_demographic_output_semantics(result_dict: dict[str, Any], bundle) -> dict[str, Any]:
+    """Fail closed for Earth fields not governed by GAP-014 demographic authority.
+
+    The promoted Earth lane governs biological population only.  The legacy
+    Method-Lab fixture also carries 2026 workforce and habitat numbers; carrying
+    those unchanged beside a moving 2026-2226 population makes stale values look
+    authoritative.  Earth is excluded from V1 demand/pressure, so this boundary
+    changes publication semantics without changing Hybrid decisions.
+    """
+    authority = bundle.scenario.demographic_authority_v1
+    if authority is None:
+        return result_dict
+    for row in result_dict.get("annual_states", []):
+        if row.get("location_id") != "EARTH_SURFACE":
+            continue
+        row["workforce"] = None
+        capacities = row.get("capacities") or {}
+        capacities["habitat"] = None
+        row["state_authority"] = {
+            "biological_population": "EARTH_PROMOTED_DEMOGRAPHIC_AUTHORITY",
+            "workforce": "UNKNOWN_NOT_GOVERNED_BY_DEMOGRAPHIC_AUTHORITY",
+            "habitat": "UNKNOWN_NOT_GOVERNED_BY_DEMOGRAPHIC_AUTHORITY",
+        }
+    return result_dict
 
 
 def _compiler_metadata(input_dir: Path) -> dict[str, Any] | None:
@@ -764,6 +796,7 @@ def build_output(
     input_dir: Path,
     infrastructure_catalog_path: Path,
     seed: int,
+    trace_decisions: bool = False,
 ) -> dict[str, Any]:
     input_dir = Path(input_dir).resolve()
     infrastructure_catalog_path = Path(infrastructure_catalog_path).resolve()
@@ -773,9 +806,10 @@ def build_output(
     parameterized_archetypes = _validate_infrastructure_crosswalk(bundle, catalog)
 
     engine = HybridEngineV1()
-    result = engine.run(bundle, seed)
+    result = engine.run(bundle, seed, trace_decisions=trace_decisions)
     validate_result(result, bundle)
     result_dict = json.loads(canonical_json(result))
+    result_dict = _apply_demographic_output_semantics(result_dict, bundle)
     if bundle.scenario.facility_site_materialization_v1 is None:
         materialization = None
         materialization_dict = {
@@ -953,6 +987,7 @@ def build_output(
         "facilities": result_dict["facilities"],
         "decisions": result_dict["decisions"],
         "mission_decisions": result_dict.get("mission_decisions", []),
+        "mission_opportunity_dispositions": result_dict.get("mission_opportunity_dispositions", []),
         "missions": result_dict.get("missions", []),
         "observations": result_dict.get("observations", []),
         "knowledge_states": result_dict.get("knowledge_states", []),

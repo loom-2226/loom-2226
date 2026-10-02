@@ -383,9 +383,10 @@ class PowerBalanceRuntime:
         self.facility_load_models = {
             x.project_archetype_id: x for x in package.facility_load_models
         }
+        self._excluded_location_ids = frozenset(package.excluded_location_ids)
 
     def is_excluded(self, location_id: str) -> bool:
-        return location_id in set(self.package.excluded_location_ids)
+        return location_id in self._excluded_location_ids
 
     @staticmethod
     def _hours(year: int) -> int:

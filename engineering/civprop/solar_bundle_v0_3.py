@@ -51,22 +51,62 @@ def build_bundle_dir(target:Path)->Path:
   aid=a['actor_id']; provider=f'MACHINERY_TEST_PROVIDER::{aid}'
   for x in added:
    friction=friction_for_body(x['body_id'],x['body_class'])
-   # Map the dimensionless friction monotonically into the existing machinery-test
-   # generalized-cost channel. This is explicitly NOT a physical or empirical price.
-   placeholder_cost=round(friction,6)
-   component={'component_id':'SOLAR_V03_GAP016_FRICTION_PROXY','status':'KNOWN','value':placeholder_cost,'unit':'USD_2026_billion','uncertainty':None}
-   gc={'status':'KNOWN','value':placeholder_cost,'unit':'USD_2026_billion','uncertainty':None}
-   for mission_class in ('PROJECT_DEPLOYMENT','ROBOTIC_RESOURCE_PROSPECTING'):
+   # GAP-016 friction is diagnostic ordering metadata only. It is not money.
+   # Keep the scalar visible as a dimensionless component while the monetary
+   # generalized-cost channel remains explicitly UNKNOWN.
+   component={'component_id':'SOLAR_V03_GAP016_FRICTION_PROXY','status':'KNOWN','value':round(friction,6),'unit':'DIMENSIONLESS_GENERALIZED_FRICTION_PLACEHOLDER','uncertainty':None}
+   gc={'status':'UNKNOWN','value':None,'unit':None,'uncertainty':None}
+   for mission_class in ('PROJECT_DEPLOYMENT','ROBOTIC_RESOURCE_PROSPECTING','ROBOTIC_RESOURCE_RECONNAISSANCE'):
     services.append({'service_id':f'{aid}_{x["location_id"]}_{mission_class}_SOLAR_V03',
       'actor_id':aid,'provider_id':provider,'subject_id':None,'origin_location_id':'EARTH_SURFACE',
       'destination_location_id':x['location_id'],'mission_class':mission_class,'service_class':'GENERIC_LOGISTICS',
-      'valid_from_year':2026,'valid_to_year':2226,'target_year':None,'status':'FEASIBLE',
-      'limiting_constraints':[],'required_technology_ids':[],
+      'valid_from_year':2026,'valid_to_year':2226,'target_year':None,'status':'UNKNOWN',
+      'limiting_constraints':['REQUIRED_TRANSPORT_TECHNOLOGY_UNKNOWN'],'required_technology_ids':[],
       'provenance_refs':['EXPLICIT_PLACEHOLDER:GAP-016','NON_CANON_SOLAR_V03_PROPAGATION_TEST'],
       'cost_components':[component],'generalized_cost':gc})
  catalog=build_solar_mission_opportunity_catalog(NAV,M4B)
+ # Compile qualified Solar characterization opportunities into the existing
+ # GAP-006 Mission/Knowledge package. These are characterization questions, not
+ # binary resource assertions: no numeric prior, binary detector, hidden truth,
+ # abundance, or economic resource value is introduced here.
+ mk=s['mission_knowledge_v1']; mk['contract_version']='1.1.0'
+ mk['package_id']='SOLAR_MISSION_KNOWLEDGE_V1_1_V0_3'
+ mk['scope']='SOLAR_NAV1_RESOURCE_CHARACTERIZATION_NON_CANON_V0_3'
+ added_by_body={x['body_id']:x for x in added if x['placement']=='ORBITAL'}
+ question_by_id={q['question_id']:q for q in catalog['questions']}
+ compiled=0
+ for opp in catalog['mission_opportunities']:
+  if opp['status']!='CANDIDATE_KNOWLEDGE_OPPORTUNITY': continue
+  loc=added_by_body.get(opp['destination_body_id'])
+  if loc is None: continue
+  q=question_by_id[opp['target_question_id']]
+  qid=q['question_id']; mid=f'SOLAR_RECON::{qid}'
+  mk['questions'].append({'question_id':qid,'question_kind':'UNRESOLVED_CHARACTERIZATION',
+    'subject_id':f"{q['body_id']}::{q['resource_family']}",'location_id':loc['location_id'],
+    'prior_probability':None,'prior_status':'NOT_AUTHORIZED_FOR_GENERIC_SOLAR_V03',
+    'evidence_disposition':q['coverage_disposition'],'visibility':'PRIVATE','provenance_refs':q['provenance_refs']})
+  mk['missions'].append({'mission_archetype_id':mid,'action_kind':'MISSION',
+    'mission_class':opp['mission_class'],'project_economics_id':'PROSPECTING_SURVEY',
+    'target_question_id':qid,'observation_model_id':None,'origin_location_id':'EARTH_SURFACE',
+    'destination_location_id':loc['location_id'],'service_class':'GENERIC_LOGISTICS',
+    'required_tech':[],'visibility':'PRIVATE','provenance_refs':opp['provenance_refs']})
+  mk['decision_models'].append({'decision_model_id':f'SOLAR_RECON_DECISION::{qid}',
+    'mission_archetype_id':mid,'model_kind':'AUTHORED_EXPLORATION_PRIORITY_V1',
+    'follow_on_project_id':'RESOURCE_PLANT','success_value':{'status':'UNKNOWN','value':None,
+      'unit':'USD_2026_billion','provenance_refs':['NO_RESOURCE_ECONOMIC_VALUE_INFERRED_SOLAR_V03']},
+    'threshold':0.0,'provenance_refs':['ACTOR_MACHINERY_TEST_EXPLORATION_WEIGHT_V0_1','SOLAR_MISSION_OPPORTUNITY_BRIDGE_V0_3']})
+  compiled+=1
  s['fixture_id']='SOLAR_LONG_RUN_PROPAGATION_V0_3_2026_2226'
  truth=_load(tp); truth['fixture_id']=s['fixture_id']; _dump(tp,truth)
+ # Carry the already-authored machinery-test exploration weight through Actor
+ # State as actor-visible behavior authority. This is priority, never resource value.
+ actor_source={x['actor_id']:x for x in actors}
+ for state in s['actor_state_v1']['actors']:
+  weight=float(actor_source[state['actor_id']]['behavior']['exploration_weight'])
+  state['experience']={'status':'KNOWN_RECORDS','records':[{'record_id':f"{state['actor_id']}_EXPLORATION_PRIORITY_V03",
+    'subject_id':None,'status':'AUTHORED_MACHINERY_TEST_ASSUMPTION','scope':'SOLAR_CHARACTERIZATION_PRIORITY_V0_3',
+    'counterparty_id':None,'provider_id':None,'capability_id':None,'valid_from':2026,'valid_to':2226,
+    'provenance_refs':['actor_machinery_test_baseline_v0_1'],'exploration_weight':weight}]}
  s['classification']='NON_CANON_MACHINERY_TEST_EXPLICIT_GAP016_PLACEHOLDER'
  s['authority_context']['solar_v0_3']={
    'status':'NON_CANON_PROPAGATION_TEST',
@@ -75,11 +115,13 @@ def build_bundle_dir(target:Path)->Path:
    'mission_opportunity_catalog':catalog['format'],
    'knowledge_questions':catalog['counts']['questions'],
    'candidate_mission_opportunities':catalog['counts']['candidate'],
+   'compiled_characterization_missions':compiled,
+   'catalog_candidates_excluded_existing_earth_moon_identity':catalog['counts']['candidate']-compiled,
    'transport_opportunity_surface':{
       'status':'EXPLICIT_AUTHORED_FRICTION_PLACEHOLDER','unit':'DIMENSIONLESS_GENERALIZED_FRICTION_PLACEHOLDER',
       'earth_reference':1.0,'examples':{'MARS':6.0,'CERES':18.0,'PLUTO':500.0},
       'gap_owner':'GAP-016','semantics':placeholder_semantics()},
-   'service_price_boundary':'GAP016_FRICTION_MONOTONIC_PROXY_IN_EXISTING_COST_CHANNEL_NOT_EMPIRICAL_PRICE',
+   'service_price_boundary':'GAP016_FRICTION_DIAGNOSTIC_ONLY_MONETARY_GENERALIZED_COST_UNKNOWN',
    'gap_014':'OPEN_UNTOUCHED','gap_015':'OPEN_UNTOUCHED','gap_016':'OPEN_PLACEHOLDER_ACTIVE',
    'spice_consumed':False,
  }

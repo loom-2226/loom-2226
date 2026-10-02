@@ -18,6 +18,7 @@ from ..resource_lane_v1 import ResourceLaneV1
 from ..production_lane_v1 import ProductionLaneV1
 from ..power_lane_v1 import PowerLaneV1
 from ..traffic_lane_v1 import TrafficLaneV1
+from ..demographic_lane_v1 import DemographicRuntimeV1
 
 from .common import (
     Recorder,
@@ -33,6 +34,7 @@ from .common import (
     initial_state,
     migration_step,
     opportunities,
+    opportunity_context,
     pending_input_requirements,
     schedule,
     snapshot,
@@ -81,7 +83,7 @@ class HybridEngineV1:
             ratios.append(value / output)
         return max(ratios) if ratios else 0.0
 
-    def run(self, bundle, seed):
+    def run(self, bundle, seed, *, trace_decisions=False):
         causal_demand = bundle.scenario.demand_pressure_v1 is not None
         production_economics = bundle.scenario.project_economics_v1 is not None
         mission_knowledge = bundle.scenario.mission_knowledge_v1 is not None
@@ -96,6 +98,7 @@ class HybridEngineV1:
         )
         power_balance = bundle.scenario.power_balance_v1 is not None
         traffic_fleet = bundle.scenario.traffic_fleet_v1 is not None
+        demographic_authority = bundle.scenario.demographic_authority_v1 is not None
         if traffic_fleet:
             self.engine_version = "method-reference-v9"
         elif power_balance:
@@ -157,14 +160,27 @@ class HybridEngineV1:
             if production_accounting
             else None
         )
+        demographic_lane = (
+            DemographicRuntimeV1(
+                bundle.scenario.demographic_authority_v1,
+                bundle.scenario.migration_demand_v1,
+            )
+            if demographic_authority else None
+        )
         annual_states = []
 
         recorder.event(bundle.scenario.start_year, "RUN_STARTED")
 
         for year in range(bundle.scenario.start_year, bundle.scenario.end_year + 1):
             recorder.event(year, "YEAR_STARTED")
+            trace_decision_start = len(recorder.decisions)
+            trace_mission_start = len(recorder.mission_decisions)
+            trace_observation_start = len(recorder.observations)
 
             apply_actor_budget_events(bundle, budgets, year, recorder)
+
+            if demographic_lane is not None:
+                demographic_lane.apply_earth_baseline(year=year, states=states)
 
             commission_due(year, pending, states, recorder)
 
@@ -217,6 +233,9 @@ class HybridEngineV1:
                         observations=demand_observations,
                         resulting_pressure=pressure,
                     )
+                shared_context = opportunity_context(
+                    bundle, states, year, demand_observations=demand_observations
+                )
                 actor_opportunities = {
                     actor_id: opportunities(
                         bundle,
@@ -229,6 +248,7 @@ class HybridEngineV1:
                             if mission_lane is not None
                             else None
                         ),
+                        shared_context=shared_context,
                     )
                     for actor_id in actor_ids
                 }
@@ -242,6 +262,7 @@ class HybridEngineV1:
                     if pressure[key] < 1e-12:
                         pressure.pop(key, None)
 
+                shared_context = opportunity_context(bundle, states, year)
                 actor_opportunities = {
                     actor_id: opportunities(
                         bundle,
@@ -253,6 +274,7 @@ class HybridEngineV1:
                             if mission_lane is not None
                             else None
                         ),
+                        shared_context=shared_context,
                     )
                     for actor_id in actor_ids
                 }
@@ -425,7 +447,69 @@ class HybridEngineV1:
                     resulting_pressure=pressure,
                 )
 
-            migration_step(bundle, states, year, recorder, adjustment=0.30)
+            if trace_decisions:
+                # Presentation-only trace. Read recorder state after all decisions;
+                # never feeds back into simulation state, ordering, or scoring.
+                for row in recorder.mission_decisions[trace_mission_start:]:
+                    if row.action != "WAIT":
+                        print(
+                            f"{year}  {row.actor_id:<20} {row.action:<15} "
+                            f"{row.mission_archetype_id} @ {row.target_location_id} "
+                            f"voi={row.expected_value_of_information}",
+                            flush=True,
+                        )
+                for row in recorder.decisions[trace_decision_start:]:
+                    if row.action != "WAIT":
+                        print(
+                            f"{year}  {row.actor_id:<20} {row.action:<15} "
+                            f"{row.project_archetype_id} @ {row.target_location_id}",
+                            flush=True,
+                        )
+                for row in recorder.observations[trace_observation_start:]:
+                    if hasattr(row, "detected"):
+                        detail = f"detected={row.detected}"
+                    else:
+                        detail = (
+                            f"status={row.characterization_status} "
+                            f"resource_result={row.resource_result_status}"
+                        )
+                    print(
+                        f"{year}  {row.actor_id:<20} OBSERVE         "
+                        f"{row.subject_id} @ {row.location_id} {detail}",
+                        flush=True,
+                    )
+                if (year - bundle.scenario.start_year) % 10 == 0:
+                    active = sum(1 for rows in actor_opportunities.values() if rows)
+                    candidates = sum(len(rows) for rows in actor_opportunities.values())
+                    year_qualifications = [
+                        q for q in recorder.pressure_qualifications if q.year == year
+                    ]
+                    pressure_pass = sum(q.pressure_qualified for q in year_qualifications)
+                    selected = sum(q.selected for q in year_qualifications)
+                    pressure_wait = len(year_qualifications) - pressure_pass
+                    # Opportunities absent from the qualification ledger were rejected
+                    # earlier (for example budget/pending/duplicate guards). Keep that
+                    # bucket descriptive rather than inventing a more specific cause.
+                    prequalification_reject = max(
+                        0, candidates - len(year_qualifications)
+                    )
+                    print(
+                        f"{year}  YEAR  candidates={candidates} actors_with_options={active} "
+                        f"qualified={pressure_pass} pressure_wait={pressure_wait} "
+                        f"prequal_reject={prequalification_reject} selected={selected} "
+                        f"facilities={len(recorder.facilities)} missions={len(recorder.missions)}",
+                        flush=True,
+                    )
+
+            if demographic_lane is not None:
+                demographic_lane.migrate(
+                    year=year,
+                    states=states,
+                    route_traffic_states=recorder.route_traffic_states,
+                    recorder=recorder,
+                )
+            else:
+                migration_step(bundle, states, year, recorder, adjustment=0.30)
             annual_states.extend(snapshot(year, states))
             recorder.event(year, "YEAR_COMPLETED")
 

@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import unittest
 
-from .run_civprop_v1 import _base_gaps, build_output, default_paths
+from engineering.civprop.run_civprop_v1 import _base_gaps, build_output, default_paths
 
 
 HERE = Path(__file__).resolve().parent

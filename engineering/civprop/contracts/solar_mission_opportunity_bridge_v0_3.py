@@ -30,6 +30,11 @@ def build_solar_mission_opportunity_catalog(nav_path:Path, coverage_path:Path,
     for row in sorted(rows,key=lambda x:(x["body_id"],x["resource_family"])):
         bid=row["body_id"]; fam=row["resource_family"]; b=bodies.get(bid)
         if b is None: continue
+        # Earth evidence remains part of the qualified evidence matrix, but Earth is
+        # not an extraterrestrial Solar reconnaissance destination. Earth has its
+        # own CIVPROP baseline/resource machinery and must not generate missions here.
+        if bid == "EARTH":
+            continue
         disp=row["coverage_disposition"]; nav1=b["nav1"]=="SUPPORTED"
         transport=(transport_assessments or {}).get((bid,fam))
         transport_status=getattr(transport,"status",None) if transport is not None else "NOT_EVALUATED"

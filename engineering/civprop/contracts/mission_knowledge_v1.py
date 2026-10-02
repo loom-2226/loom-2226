@@ -17,11 +17,14 @@ from typing import Any, Mapping, Optional
 
 
 FORMAT = "CIVPROP_MISSION_KNOWLEDGE_V1"
-CONTRACT_VERSION = "1.0.0"
+CONTRACT_VERSION = "1.1.0"
 PACKAGE_STATUS = "GENERAL_CONTRACT_BINARY_RESOURCE_IMPLEMENTATION_V1"
 QUESTION_KIND = "BINARY_PRESENCE"
+QUESTION_KINDS = {"BINARY_PRESENCE", "UNRESOLVED_CHARACTERIZATION"}
 OBSERVATION_MODEL_KIND = "BERNOULLI_CONFUSION_MATRIX_V1"
 DECISION_MODEL_KIND = "EXPECTED_VALUE_OF_SAMPLE_INFORMATION_V1"
+CHARACTERIZATION_DECISION_MODEL_KIND = "AUTHORED_EXPLORATION_PRIORITY_V1"
+DECISION_MODEL_KINDS = {DECISION_MODEL_KIND, CHARACTERIZATION_DECISION_MODEL_KIND}
 VALUE_STATUS = {"UNKNOWN", "SCENARIO_ASSUMPTION", "QUALIFIED_REFERENCE"}
 VISIBILITY = {"PRIVATE", "PUBLIC", "PARTNER"}
 ACCESS_STATUS = {"FEASIBLE", "INFEASIBLE", "UNKNOWN"}
@@ -64,15 +67,37 @@ class KnowledgeQuestion:
     question_kind: str
     subject_id: str
     location_id: str
-    prior_probability: float
+    prior_probability: Optional[float]
     prior_status: str
     visibility: str
     provenance_refs: tuple[str, ...]
+    evidence_disposition: Optional[str] = None
+
+
+@dataclass(frozen=True)
+class KnowledgeClaimV1:
+    """Actor-owned claim derived from evidence/knowledge, not evaluator truth.
+
+    A claim is deliberately distinct from a knowledge question and from a mission.
+    Qualification/certification is a later institutional layer.
+    """
+    claim_id: str
+    actor_id: str
+    question_id: str
+    subject_id: str
+    location_id: str
+    claim_kind: str
+    claim_status: str
+    evidence_disposition: Optional[str]
+    source_ids: tuple[str, ...]
+    year: int
+    visibility: str = "PRIVATE"
+    authority_class: str = "SIMULATED_CLAIM"
 
 
 @dataclass(frozen=True)
 class ObservationModel:
-    observation_model_id: str
+    observation_model_id: Optional[str]
     model_kind: str
     quantity: str
     unit: str
@@ -89,7 +114,7 @@ class MissionArchetype:
     mission_class: str
     project_economics_id: str
     target_question_id: str
-    observation_model_id: str
+    observation_model_id: Optional[str]
     origin_location_id: str
     destination_location_id: str
     service_class: str
@@ -135,6 +160,36 @@ class KnowledgeStateV1:
     observation_ids: tuple[str, ...] = ()
     visibility: str = "PRIVATE"
     authority_class: str = "SIMULATED_BELIEF"
+
+
+@dataclass(frozen=True)
+class CharacterizationKnowledgeStateV1:
+    actor_id: str
+    question_id: str
+    subject_id: str
+    location_id: str
+    characterization_status: str
+    source_id: str
+    year: int
+    observation_ids: tuple[str, ...] = ()
+    visibility: str = "PRIVATE"
+    authority_class: str = "SIMULATED_CHARACTERIZATION_STATE"
+    evidence_disposition: Optional[str] = None
+
+
+@dataclass(frozen=True)
+class CharacterizationObservationRecordV1:
+    observation_id: str
+    mission_id: str
+    actor_id: str
+    question_id: str
+    subject_id: str
+    location_id: str
+    year: int
+    characterization_status: str
+    resource_result_status: str
+    visibility: str
+    authority_class: str = "SIMULATED_CHARACTERIZATION_OBSERVATION"
 
 
 @dataclass(frozen=True)
@@ -228,7 +283,7 @@ def _value(data: Mapping[str, Any], capital_unit: str, name: str) -> DecisionVal
 
 
 def load_mission_knowledge_package(data: Mapping[str, Any]) -> MissionKnowledgePackage:
-    if data.get("format") != FORMAT or data.get("contract_version") != CONTRACT_VERSION:
+    if data.get("format") != FORMAT or data.get("contract_version") not in {"1.0.0", CONTRACT_VERSION}:
         raise ValueError("unexpected mission/knowledge contract")
     if data.get("package_status") != PACKAGE_STATUS:
         raise ValueError("unexpected mission/knowledge package status")
@@ -239,21 +294,29 @@ def load_mission_knowledge_package(data: Mapping[str, Any]) -> MissionKnowledgeP
     questions = []
     for row in data.get("questions", ()):
         kind = str(row["question_kind"])
-        if kind != QUESTION_KIND:
-            raise ValueError("only binary-presence questions are admitted in V1")
+        if kind not in QUESTION_KINDS:
+            raise ValueError("unsupported knowledge question kind")
         visibility = str(row["visibility"])
         if visibility not in VISIBILITY:
             raise ValueError("invalid knowledge visibility")
+        evidence_disposition=row.get("evidence_disposition")
+        if kind == "UNRESOLVED_CHARACTERIZATION" and evidence_disposition is not None and str(evidence_disposition) not in {"UNKNOWN_AFTER_SEARCH","SUPPORTED_PRESENT_UNQUANTIFIED","SUPPORTED_QUANTIFIED","SUPPORTED_INFERRED_OR_MODELLED"}:
+            raise ValueError("invalid characterization evidence disposition")
         questions.append(
             KnowledgeQuestion(
                 question_id=str(row["question_id"]),
                 question_kind=kind,
                 subject_id=str(row["subject_id"]),
                 location_id=str(row["location_id"]),
-                prior_probability=_prob(row["prior_probability"], "prior probability"),
+                prior_probability=(
+                    _prob(row["prior_probability"], "prior probability")
+                    if kind == QUESTION_KIND
+                    else None
+                ),
                 prior_status=str(row["prior_status"]),
                 visibility=visibility,
                 provenance_refs=_refs(row, "knowledge question"),
+                evidence_disposition=(str(row['evidence_disposition']) if row.get('evidence_disposition') is not None else None),
             )
         )
 
@@ -271,7 +334,7 @@ def load_mission_knowledge_package(data: Mapping[str, Any]) -> MissionKnowledgeP
             raise ValueError("observation model must be informative")
         observation_models.append(
             ObservationModel(
-                observation_model_id=str(row["observation_model_id"]),
+                observation_model_id=(None if row.get("observation_model_id") is None else str(row["observation_model_id"])) ,
                 model_kind=kind,
                 quantity=str(row["quantity"]),
                 unit=str(row["unit"]),
@@ -296,7 +359,7 @@ def load_mission_knowledge_package(data: Mapping[str, Any]) -> MissionKnowledgeP
                 mission_class=str(row["mission_class"]),
                 project_economics_id=str(row["project_economics_id"]),
                 target_question_id=str(row["target_question_id"]),
-                observation_model_id=str(row["observation_model_id"]),
+                observation_model_id=(None if row.get("observation_model_id") is None else str(row["observation_model_id"])) ,
                 origin_location_id=str(row["origin_location_id"]),
                 destination_location_id=str(row["destination_location_id"]),
                 service_class=str(row["service_class"]),
@@ -308,14 +371,14 @@ def load_mission_knowledge_package(data: Mapping[str, Any]) -> MissionKnowledgeP
 
     decision_models = []
     for row in data.get("decision_models", ()):
-        if row.get("model_kind") != DECISION_MODEL_KIND:
+        if row.get("model_kind") not in DECISION_MODEL_KINDS:
             raise ValueError("unsupported mission decision model")
         threshold = _nonnegative(row["threshold"], "mission decision threshold")
         decision_models.append(
             MissionDecisionModel(
                 decision_model_id=str(row["decision_model_id"]),
                 mission_archetype_id=str(row["mission_archetype_id"]),
-                model_kind=DECISION_MODEL_KIND,
+                model_kind=str(row["model_kind"]),
                 follow_on_project_id=str(row["follow_on_project_id"]),
                 success_value=_value(
                     row["success_value"],
@@ -340,11 +403,17 @@ def load_mission_knowledge_package(data: Mapping[str, Any]) -> MissionKnowledgeP
     question_ids = {x.question_id for x in questions}
     model_ids = {x.observation_model_id for x in observation_models}
     mission_ids = {x.mission_archetype_id for x in missions}
+    question_by_id = {x.question_id: x for x in questions}
     for mission in missions:
         if mission.target_question_id not in question_ids:
             raise ValueError("mission references unknown knowledge question")
-        if mission.observation_model_id not in model_ids:
-            raise ValueError("mission references unknown observation model")
+        question = question_by_id[mission.target_question_id]
+        if question.question_kind == QUESTION_KIND:
+            if mission.observation_model_id not in model_ids:
+                raise ValueError("binary mission references unknown observation model")
+        elif question.question_kind == "UNRESOLVED_CHARACTERIZATION":
+            if mission.observation_model_id is not None:
+                raise ValueError("characterization mission cannot claim binary observation model")
     for decision in decision_models:
         if decision.mission_archetype_id not in mission_ids:
             raise ValueError("decision model references unknown mission")
@@ -434,6 +503,11 @@ class MissionKnowledgeRuntime:
         year: int,
     ) -> KnowledgeStateV1:
         q = self._questions[question_id]
+        if q.question_kind != QUESTION_KIND or q.prior_probability is None:
+            raise ValueError(
+                "unresolved-characterization questions require the characterization lane; "
+                "no numeric prior may be inferred"
+            )
         return KnowledgeStateV1(
             actor_id=actor_id,
             question_id=q.question_id,

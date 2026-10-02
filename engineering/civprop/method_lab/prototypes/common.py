@@ -133,6 +133,11 @@ class Recorder:
         self.observations: list[ObservationRecordV1] = []
         self.knowledge_states: list[KnowledgeStateV1] = []
         self.mission_decisions: list[MissionDecisionRecordV1] = []
+        self.mission_opportunity_dispositions = []
+        self.mission_opportunity_disposition_summaries = []
+        # Causal-world campaigns compact non-consequential characterization
+        # exclusions; legacy/gate tests retain row-level recording by default.
+        self.compact_mission_opportunity_dispositions = False
         self.pressure_states = []
         self.pressure_contributions = []
         self.pressure_qualifications = []
@@ -336,11 +341,12 @@ def project_demand(
     *,
     location_id: Optional[str] = None,
     demand_observations: Optional[tuple[DemandObservation, ...]] = None,
+    demand_by_location: Optional[dict[str, dict[str, DemandObservation]]] = None,
 ) -> float:
     if bundle.scenario.demand_pressure_v1 is not None:
         if location_id is None or demand_observations is None:
             return 0.0
-        by_channel = {
+        by_channel = demand_by_location.get(location_id, {}) if demand_by_location is not None else {
             row.channel_id: row
             for row in demand_observations
             if row.location_id == location_id
@@ -391,7 +397,10 @@ def _frontier_map(bundle: LabBundle):
     return value
 
 def actor_tech_status(bundle: LabBundle, actor_id: str, tech_id: str, year: int) -> str:
-    frontier = _frontier_map(bundle)[tech_id]
+    frontier = _frontier_map(bundle).get(tech_id)
+    # Missing frontier authority is UNKNOWN, never an implicit date unlock.
+    if frontier is None:
+        return "UNKNOWN"
     if year < frontier.frontier_year:
         return "UNUSABLE"
     if bundle.scenario.actor_state_v1 is not None:
@@ -438,31 +447,19 @@ def best_access_cost(
         if actor_state is None:
             return None
         runtime = accessibility_runtime(bundle.scenario.accessibility_v1)
-        candidates = []
         origins=available_origins if available_origins is not None else tuple(
             o for o in sorted(states) if o=="EARTH_SURFACE" or states[o].transport>0)
-        for origin in origins:
-            if origin == destination:
-                continue
-            if not runtime.has_scoped_service(actor_id, origin, destination, "PROJECT_DEPLOYMENT", "GENERIC_LOGISTICS"):
-                continue
-            assessment = runtime.assess(
-                AccessibilityRequest(
-                    actor_id=actor_id,
-                    origin_location_id=origin,
-                    destination_location_id=destination,
-                    epoch_utc=f"{year:04d}-07-01T00:00:00Z",
-                    mission_class="PROJECT_DEPLOYMENT",
-                    service_class="GENERIC_LOGISTICS",
-                    subject_id=project.project_archetype_id,
-                ),
-                actor_state=actor_state,
-                technology_state={},
-            )
-            cost = assessment.generalized_cost
-            if assessment.status == "FEASIBLE" and cost.status == "KNOWN" and cost.value is not None:
-                candidates.append(cost.value)
-        return min(candidates) if candidates else None
+        return runtime.best_known_feasible_cost(
+            actor_id=actor_id,
+            actor_state=actor_state,
+            origins=origins,
+            destination_location_id=destination,
+            year=year,
+            mission_class="PROJECT_DEPLOYMENT",
+            service_class="GENERIC_LOGISTICS",
+            subject_id=project.project_archetype_id,
+            technology_state={},
+        )
 
     candidates = []
     for profile in bundle.scenario.accessibility:
@@ -582,6 +579,60 @@ def resolved_project(
     )
 
 
+@dataclass
+class OpportunityContext:
+    """Facts shared only during one predecision snapshot of locations/demand.
+
+    Rebuild after commissioning, lane updates or new demand observations. The
+    location references remain live; access origins and demand are snapshots.
+    Knowledge and actor capability are deliberately outside this shared cache.
+    """
+
+    locations_by_placement: dict[str, list[tuple[str, MutableLocation]]]
+    available_origins: tuple[str, ...]
+    resolved_projects: tuple[ProjectArchetype, ...]
+    demand_observations: Optional[tuple[DemandObservation, ...]]
+    demand_by_location: dict[str, dict[str, DemandObservation]]
+    resource_priors: dict[str, float]
+    project_demands: dict[tuple[str, str], float]
+
+
+def opportunity_context(bundle, states, year, *, demand_observations=None):
+    placements = {x.location_id: x.placement for x in bundle.scenario.locations}
+    locations_by_placement = {}
+    for location_id, state in states.items():
+        if location_id != "EARTH_SURFACE":
+            locations_by_placement.setdefault(placements[location_id], []).append(
+                (location_id, state)
+            )
+    demand_by_location = {}
+    for row in demand_observations or ():
+        # Same last-row-wins rule as project_demand's original comprehension.
+        demand_by_location.setdefault(row.location_id, {})[row.channel_id] = row
+    resource_priors = {}
+    for row in bundle.scenario.resource_beliefs:
+        if row.location_id not in resource_priors:
+            resource_priors[row.location_id] = row.prior_probability
+        else:
+            resource_priors[row.location_id] = max(
+                resource_priors[row.location_id], row.prior_probability
+            )
+    return OpportunityContext(
+        locations_by_placement=locations_by_placement,
+        available_origins=tuple(
+            o for o in sorted(states) if o == "EARTH_SURFACE" or states[o].transport > 0
+        ),
+        resolved_projects=tuple(
+            resolved_project(bundle, project, year)
+            for project in bundle.scenario.project_archetypes
+        ),
+        demand_observations=demand_observations,
+        demand_by_location=demand_by_location,
+        resource_priors=resource_priors,
+        project_demands={},
+    )
+
+
 def opportunities(
     bundle: LabBundle,
     states: dict[str, MutableLocation],
@@ -591,32 +642,53 @@ def opportunities(
     include_missions: bool = False,
     demand_observations: Optional[tuple[DemandObservation, ...]] = None,
     knowledge=None,
+    shared_context: Optional[OpportunityContext] = None,
 ) -> list[Opportunity]:
     result = []
-    # Per-call immutable views. More importantly, resolve each project once per
-    # actor/year, not once per destination. This preserves exact arithmetic.
-    placements = {x.location_id: x.placement for x in bundle.scenario.locations}
-    locations_by_placement = {}
-    for location_id, state in states.items():
-        if location_id == "EARTH_SURFACE":
-            continue
-        locations_by_placement.setdefault(placements[location_id], []).append((location_id, state))
-    available_origins=tuple(o for o in sorted(states) if o=="EARTH_SURFACE" or states[o].transport>0)
-    for base_project in bundle.scenario.project_archetypes:
-        project = resolved_project(bundle, base_project, year)
+    if shared_context is None:
+        shared_context = opportunity_context(
+            bundle, states, year, demand_observations=demand_observations
+        )
+    # Each call reads current actor knowledge, including observations added since
+    # a previous call. Never retain this view across actors or simulation steps.
+    probabilities = dict(shared_context.resource_priors)
+    knowledge_probabilities = {}
+    if knowledge is not None:
+        for (owner, _subject, location), state in knowledge.items():
+            if owner == actor_id and hasattr(state, "probability"):
+                # Only probabilistic resource beliefs feed project opportunity priors.
+                # Characterization state is epistemic state, not a probability/value proxy.
+                if location not in knowledge_probabilities:
+                    knowledge_probabilities[location] = state.probability
+                else:
+                    knowledge_probabilities[location] = max(
+                        knowledge_probabilities[location], state.probability
+                    )
+    probabilities.update(knowledge_probabilities)
+    tech_status = {}
+
+    def usable(tech):
+        if tech not in tech_status:
+            tech_status[tech] = actor_tech_status(bundle, actor_id, tech, year)
+        return tech_status[tech] == "USABLE"
+
+    for project in shared_context.resolved_projects:
         if project.project_kind == "MISSION" and not include_missions:
             continue
-        if any(actor_tech_status(bundle, actor_id, tech, year) != "USABLE" for tech in project.required_tech):
+        if any(not usable(tech) for tech in project.required_tech):
             continue
         candidate_locations = (
             item
             for placement in project.allowed_placements
-            for item in locations_by_placement.get(placement, ())
+            for item in shared_context.locations_by_placement.get(placement, ())
         )
         for location_id, state in candidate_locations:
-            if location_id == "LUNA_SURFACE" and "LUNAR_SURFACE_OPERATIONS" not in project.required_tech:
-                if actor_tech_status(bundle, actor_id, "LUNAR_SURFACE_OPERATIONS", year) != "USABLE":
-                    continue
+            if (
+                location_id == "LUNA_SURFACE"
+                and "LUNAR_SURFACE_OPERATIONS" not in project.required_tech
+                and not usable("LUNAR_SURFACE_OPERATIONS")
+            ):
+                continue
             access_cost = best_access_cost(
                 bundle,
                 states,
@@ -624,27 +696,23 @@ def opportunities(
                 year,
                 actor_id=actor_id,
                 project=project,
-                available_origins=available_origins,
+                available_origins=shared_context.available_origins,
             )
             if access_cost is None:
                 continue
             if not local_minimums_met(state, project, access_cost):
                 continue
-            probability = resource_probability(
-                bundle,
-                location_id,
-                actor_id=actor_id,
-                knowledge=knowledge,
-            )
+            probability = probabilities.get(location_id, 0.0)
             if project.output_capacities.resource > 0 and probability <= 0:
                 continue
-            demand = project_demand(
-                bundle,
-                project,
-                year,
-                location_id=location_id,
-                demand_observations=demand_observations,
-            )
+            demand_key = (project.project_archetype_id, location_id)
+            if demand_key not in shared_context.project_demands:
+                shared_context.project_demands[demand_key] = project_demand(
+                    bundle, project, year, location_id=location_id,
+                    demand_observations=shared_context.demand_observations,
+                    demand_by_location=shared_context.demand_by_location,
+                )
+            demand = shared_context.project_demands[demand_key]
             result.append(
                 Opportunity(
                     actor_id=actor_id,
@@ -878,6 +946,7 @@ def finalize(
         observations=tuple(recorder.observations),
         knowledge_states=tuple(recorder.knowledge_states),
         mission_decisions=tuple(recorder.mission_decisions),
+        mission_opportunity_dispositions=tuple(recorder.mission_opportunity_dispositions),
         pressure_states=tuple(recorder.pressure_states),
         pressure_contributions=tuple(recorder.pressure_contributions),
         pressure_qualifications=tuple(recorder.pressure_qualifications),

@@ -287,6 +287,66 @@ class AccessibilityRuntime:
     def has_scoped_service(self, actor_id: str, origin_location_id: str, destination_location_id: str, mission_class: str, service_class: str) -> bool:
         return (actor_id,origin_location_id,destination_location_id,mission_class,service_class) in self._service_index
 
+    def best_known_feasible_cost(
+        self,
+        *,
+        actor_id: str,
+        actor_state: ActorState,
+        origins: tuple[str, ...],
+        destination_location_id: str,
+        year: int,
+        mission_class: str,
+        service_class: str,
+        subject_id: str,
+        technology_state: Mapping[str, str],
+    ) -> Optional[float]:
+        """Fast-path the exact cost query used by Method Lab opportunity screening.
+
+        This intentionally mirrors assess() service selection/access/technology
+        semantics but avoids constructing request/assessment dataclasses for
+        destinations with explicit scoped services.
+        """
+        best = None
+        for origin in origins:
+            if origin == destination_location_id:
+                continue
+            scoped = self._service_index.get(
+                (actor_id, origin, destination_location_id, mission_class, service_class),
+                (),
+            )
+            service = next((
+                service for service in scoped
+                if (service.subject_id is None or service.subject_id == subject_id)
+                and service.valid_from_year <= year
+                and (service.valid_to_year is None or year <= service.valid_to_year)
+            ), None)
+            if service is None:
+                continue
+            # The first matching ID wins even if a later service is feasible.
+            if not self._actor_has_service(actor_state, service, year):
+                continue
+            tech_values = [
+                technology_state.get(tech_id, "UNKNOWN")
+                for tech_id in service.required_technology_ids
+            ]
+            if any(value != "USABLE" for value in tech_values):
+                continue
+            if service.target_year is not None and year != service.target_year:
+                continue
+            if service.status != "FEASIBLE":
+                continue
+            if any(code in service.limiting_constraints for code in (
+                "REQUIRED_TRANSPORT_TECHNOLOGY_UNKNOWN",
+                "REQUEST_EPOCH_OUTSIDE_DOCUMENTED_TARGET_YEAR",
+            )):
+                continue
+            cost = service.generalized_cost
+            if cost.status != "KNOWN" or cost.value is None:
+                continue
+            value = float(cost.value)
+            best = value if best is None else min(best, value)
+        return best
+
     def _geometry_for(self, request: AccessibilityRequest) -> Optional[GeometryContext]:
         origin = self._bodies.get(request.origin_location_id)
         destination = self._bodies.get(request.destination_location_id)

@@ -479,19 +479,21 @@ class ResourceMassBalanceRuntime:
         outbound_tonnes = outbound_tonnes or {}
         states = []
         flows = []
+        active_by_model_location = {}
+        for facility in facilities:
+            if getattr(facility, "status", None) != "ACTIVE":
+                continue
+            active_by_model_location.setdefault(
+                (getattr(facility, "project_archetype_id", None), getattr(facility, "location_id", None)), []
+            ).append(facility)
 
         for key in sorted(self._resource):
             resource = self._resource[key]
             process = self._process[key]
             physical = self._state[key]
-            active = tuple(
-                facility
-                for facility in facilities
-                if getattr(facility, "status", None) == "ACTIVE"
-                and getattr(facility, "project_archetype_id", None)
-                == process.project_archetype_id
-                and getattr(facility, "location_id", None) == process.location_id
-            )
+            active = tuple(active_by_model_location.get(
+                (process.project_archetype_id, process.location_id), ()
+            ))
             facility_ids = tuple(
                 sorted(str(getattr(x, "facility_id")) for x in active)
             )

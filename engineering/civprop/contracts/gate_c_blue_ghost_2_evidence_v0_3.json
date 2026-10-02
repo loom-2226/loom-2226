@@ -1,0 +1,37 @@
+{
+  "service_id": "NASA_LUSEE_NIGHT_BLUE_GHOST_2",
+  "payload_id": "LUSEE_NIGHT",
+  "observed_from_year": 2023,
+  "geometry_status": "QUALIFIED_EARTH_MOON_NAMED_ROUTE",
+  "payload_mass_kg": 90.0,
+  "provider_surface_capacity_kg": 240.0,
+  "payload_manifest_status": "NAMED_ON_PROVIDER_MISSION",
+  "launch_qualification_status": "STRUCTURAL_QUALIFICATION_COMPLETE_FOR_FALCON_9",
+  "surface_service_status": "CONTRACTED_NASA_CLPS_DELIVERY",
+  "interpretation": {
+    "geometry": "Named Earth-to-lunar-far-side route contracted by NASA and published by provider; trajectory epochs and delta-v remain provider-controlled and are not inferred.",
+    "capacity": "Firefly public Blue Ghost payload resource: up to 240 kg mass to surface. This is a provider service envelope, not a reconstructed vehicle mass ratio.",
+    "payload_mass": "NASA 2022 LuSEE-Night program material reports 90 kg payload mass.",
+    "scope": "Only NASA LuSEE-Night on Blue Ghost Mission 2. No generic payload, actor, date, trajectory, spare-capacity or arbitrary-site entitlement."
+  },
+  "provenance_refs": [
+    "NASA_2023_03_14_BLUE_GHOST_2_CLPS_CONTRACT",
+    "FIREFLY_BLUE_GHOST_PAYLOAD_RESOURCES_240KG_SURFACE",
+    "FIREFLY_BLUE_GHOST_MISSION_2_LUSEE_NIGHT_MANIFEST",
+    "NASA_JPL_2025_BLUE_GHOST_2_FALCON9_STRUCTURAL_QUALIFICATION",
+    "NASA_AAS_2022_LUSEE_NIGHT_90KG"
+  ],
+  "source_urls": {
+    "NASA_2023_03_14_BLUE_GHOST_2_CLPS_CONTRACT": "https://www.nasa.gov/news-release/nasa-picks-firefly-aerospace-for-robotic-delivery-to-far-side-of-moon/",
+    "FIREFLY_BLUE_GHOST_PAYLOAD_RESOURCES_240KG_SURFACE": "https://fireflyspace.com/blue-ghost/",
+    "FIREFLY_BLUE_GHOST_MISSION_2_LUSEE_NIGHT_MANIFEST": "https://fireflyspace.com/missions/blue-ghost-mission-2/",
+    "NASA_JPL_2025_BLUE_GHOST_2_FALCON9_STRUCTURAL_QUALIFICATION": "https://www.nasa.gov/centers-and-facilities/jpl/nasa-jpl-shakes-things-up-testing-future-commercial-lunar-spacecraft/",
+    "NASA_AAS_2022_LUSEE_NIGHT_90KG": "https://science.nasa.gov/wp-content/uploads/2023/04/June2022_AAS_TownHall-V8_with_bonus_material.pdf"
+  },
+  "customer_actor_id": "NASA",
+  "provider_actor_id": "FIREFLY_AEROSPACE",
+  "causal_neighborhood_actor_ids": [
+    "NASA",
+    "FIREFLY_AEROSPACE"
+  ]
+}

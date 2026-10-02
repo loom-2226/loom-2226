@@ -266,9 +266,35 @@ def capture_live_authority(
             "SELECT * FROM loom_control.snapshot "
             f"WHERE snapshot_id='{TIMELINE_SNAPSHOT_ID}'"
         ),
+        "earth_temporal_coverage": (
+            "SELECT * FROM loom_control.temporal_coverage "
+            f"WHERE snapshot_id='{EARTH_SNAPSHOT_ID}' ORDER BY fact_family,variable_key"
+        ),
+        "earth_variable_semantics": (
+            "SELECT * FROM loom_control.variable_semantics "
+            f"WHERE snapshot_id='{EARTH_SNAPSHOT_ID}' ORDER BY variable_key"
+        ),
+        "earth_derivations": (
+            "SELECT * FROM loom_earth.earth_derivation "
+            f"WHERE snapshot_id='{EARTH_SNAPSHOT_ID}' ORDER BY derivation_id"
+        ),
+        "earth_snapshot_sources": (
+            "SELECT ss.snapshot_id,ss.artifact_sha256,ss.source_role,"
+            "sa.source_path,sa.byte_count,sa.source_git_commit,sa.retained_location "
+            "FROM loom_control.snapshot_source ss "
+            "JOIN loom_control.source_artifact sa USING(artifact_sha256) "
+            f"WHERE ss.snapshot_id='{EARTH_SNAPSHOT_ID}' "
+            "ORDER BY ss.source_role,ss.artifact_sha256"
+        ),
         "aus_area": (
             "SELECT * FROM loom_earth.earth_area "
             f"WHERE snapshot_id='{EARTH_SNAPSHOT_ID}' AND iso3='AUS'"
+        ),
+        "earth_global_demographic_2026_2226": (
+            "SELECT year,SUM(biological_population)::double precision AS biological_population "
+            "FROM loom_earth.earth_demographic_year "
+            f"WHERE snapshot_id='{EARTH_SNAPSHOT_ID}' AND year BETWEEN 2026 AND 2226 "
+            "GROUP BY year ORDER BY year"
         ),
         "aus_demographic": (
             "SELECT * FROM loom_earth.earth_demographic_year "
@@ -337,6 +363,16 @@ def capture_live_authority(
         raise RuntimeError("Earth snapshot is not uniquely VALIDATED")
     if len(rows["timeline_snapshot"]) != 1 or rows["timeline_snapshot"][0]["state"] != "VALIDATED":
         raise RuntimeError("Timeline snapshot is not uniquely VALIDATED")
+    if not rows["earth_temporal_coverage"]:
+        raise RuntimeError("Earth temporal coverage authority missing")
+    if not rows["earth_variable_semantics"]:
+        raise RuntimeError("Earth variable semantics authority missing")
+    if not rows["earth_derivations"]:
+        raise RuntimeError("Earth derivation authority missing")
+    if not rows["earth_snapshot_sources"]:
+        raise RuntimeError("Earth snapshot source lineage missing")
+    if len(rows["earth_global_demographic_2026_2226"]) != 201:
+        raise RuntimeError("Earth global demographic authority horizon incomplete")
     if len(rows["aus_area"]) != 1:
         raise RuntimeError("AUS Earth area identity not unique")
     if len(rows["aus_demographic"]) != END_YEAR - START_YEAR + 1:
@@ -457,8 +493,13 @@ def capture_live_authority(
         "source_file_sha256": source_hashes,
         "earth": {
             "snapshot": rows["earth_snapshot"][0],
+            "temporal_coverage": rows["earth_temporal_coverage"],
+            "variable_semantics": rows["earth_variable_semantics"],
+            "derivations": rows["earth_derivations"],
+            "snapshot_sources": rows["earth_snapshot_sources"],
             "aus_area": rows["aus_area"][0],
             "global_2026": rows["global_2026"][0],
+            "global_demographic_2026_2226": rows["earth_global_demographic_2026_2226"],
             "aus_demographic_2026_2036": rows["aus_demographic"],
             "aus_economic_2026_2036": rows["aus_economic"],
         },

@@ -22,8 +22,8 @@ def qualify():
  gs={x["gap_id"]:x.get("current_status",x.get("closure_status",x.get("status"))) for x in gaps["gaps"]}
  checks={
   "SOLAR_LOCATIONS_EXPANDED":len(loc["locations"])==187,
-  "M4B_ALL_LANES_DISPOSITIONED":len(mis["questions"])==380,
-  "UNKNOWN_NOT_ZERO":sum(x["knowledge_state"]=="UNRESOLVED_AFTER_SEARCH" for x in mis["questions"])==343,
+  "M4B_ALL_LANES_DISPOSITIONED":len(mis["questions"])==376,
+  "UNKNOWN_NOT_ZERO":sum(x["knowledge_state"]=="UNRESOLVED_AFTER_SEARCH" for x in mis["questions"])==339,
   "MISSION_NOT_FACILITY":all(x["facility_materialization"]=="FORBIDDEN" for x in mis["mission_opportunities"]),
   "RESOURCE_PRESENCE_NOT_ECONOMIC_RESOURCE":all(x["economic_claim_status"]=="NONE" for x in mis["mission_opportunities"]),
   "GENERIC_PRIORS_NOT_INVENTED":all(x["prior_probability"] is None for x in mis["questions"]),
