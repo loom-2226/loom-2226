@@ -43,3 +43,31 @@ def test_indexed_common_center_rejects_different_governed_sources():
     start=I.time.parse('2100 JAN 01 TDB')
     with pytest.raises(ValueError):
         IndexedCommonCenterRelativeSpk(I.service.adapter,'CALLISTO','SUN',start)
+
+def test_indexed_parent_relative_dactyl_matches_governed_resolver():
+    import math
+    from src.loom_solar_inspector import Inspector
+    from src.loom_solar_spk_index import IndexedParentRelativeSpk
+    I=Inspector.connect('loom_dev','/home/ubuntu/loom_solar_assets')
+    start=I.time.parse('2100 JAN 01 TDB')
+    fast=IndexedParentRelativeSpk(I.service.adapter,'DACTYL','IDA',start)
+    assert fast.source.state_capability == 'ESTIMATED_RELATIVE'
+    epochs=[start+i*31.7*86400 for i in range(5)]
+    with fast.session():
+        states=fast.evaluate_many(epochs)
+        truths=fast.truth_many(epochs)
+    for state,truth_spice in zip(states,truths):
+        assert math.dist(state[:3],truth_spice[:3]) < 1e-9
+        assert math.dist(state[3:],truth_spice[3:]) < 1e-12
+    truth=I.at('DACTYL',epochs[0],'IDA')['relative']
+    assert math.dist(states[0][:3],truth['position_km']) < 1e-6
+    assert math.dist(truths[0][:3],truth['position_km']) < 1e-6
+
+def test_indexed_parent_relative_rejects_wrong_parent():
+    import pytest
+    from src.loom_solar_inspector import Inspector
+    from src.loom_solar_spk_index import IndexedParentRelativeSpk
+    I=Inspector.connect('loom_dev','/home/ubuntu/loom_solar_assets')
+    start=I.time.parse('2100 JAN 01 TDB')
+    with pytest.raises(ValueError):
+        IndexedParentRelativeSpk(I.service.adapter,'DACTYL','SUN',start)

@@ -7,6 +7,7 @@ are ineligible and callers must use the ordinary governed resolver.
 """
 from __future__ import annotations
 from bisect import bisect_right
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from src.loom_spice_ephemeris_adapter import SPICE_FRAME
@@ -159,3 +160,85 @@ class IndexedCommonCenterRelativeSpk:
                 elif fa!=17: raise ValueError(f'unsupported indexed SPK frame {fa}')
                 out.append(tuple(float(v) for v in rel))
             return tuple(out)
+
+class IndexedParentRelativeSpk:
+    """Evaluate a governed SPK target whose encoded center is the requested parent."""
+    def __init__(self,adapter,body_id,center_id,epoch_et):
+        self.adapter=adapter; self.body_id=body_id; self.center_id=center_id
+        bi=adapter.registry.body_identifier(body_id); ci=adapter.registry.body_identifier(center_id)
+        if bi.identifier_type not in ('NAIF_ID','SPK_TARGET_ID') or ci.authority!='NAIF' or ci.identifier_type!='NAIF_ID':
+            raise ValueError('indexed parent-relative SPK requires governed SPK target and NAIF parent')
+        self.target=int(bi.identifier_value); self.center=int(ci.identifier_value)
+        self.source,self.coverage=adapter.registry.source_for(body_id,epoch_et)
+        self.primary=adapter._source_asset(self.source)
+        self.segments=self._index(); self.starts=[x.start_et for x in self.segments]
+        if not self.segments: raise ValueError('primary SPK has no target segments')
+        if any(x.center!=self.center for x in self.segments): raise ValueError('SPK encoded center is not requested parent')
+        if any(x.frame not in (1,17) for x in self.segments): raise ValueError('unsupported indexed SPK frame')
+
+    def _index(self):
+        spice=self.adapter._spice(); h=spice.dafopr(str(self.primary)); out=[]
+        try:
+            spice.dafbfs(h)
+            while spice.daffna():
+                summary=spice.dafgs(); dc,ic=spice.dafus(summary,2,6)
+                if int(ic[0])==self.target:
+                    out.append(IndexedSegment(float(dc[0]),float(dc[1]),summary[:5].copy(),int(ic[1]),int(ic[2]),int(ic[3])))
+        finally: spice.dafcls(h)
+        out.sort(key=lambda x:(x.start_et,x.end_et)); return tuple(out)
+
+    @contextmanager
+    def session(self):
+        with self.adapter._source_pool(self.source) as spice:
+            handles=[spice.kdata(i,'SPK') for i in range(spice.ktotal('SPK'))]
+            ph=[x[3] for x in handles if Path(x[0]).resolve()==self.primary]
+            if len(ph)!=1: raise ValueError('selected primary SPK is not uniquely furnished')
+            self._session_spice=spice; self._session_handle=ph[0]
+            try: yield self
+            finally:
+                self._session_spice=None; self._session_handle=None
+
+    def _evaluate_furnished(self,epochs):
+        spice=self._session_spice; ph=self._session_handle; out=[]
+        for et in epochs:
+            j=bisect_right(self.starts,et)-1
+            if j<0 or not(self.segments[j].start_et<=et<=self.segments[j].end_et): raise ValueError('epoch falls in indexed SPK gap')
+            seg=self.segments[j]; frame,state,center=spice.spkpvn(ph,seg.descriptor,et)
+            if center!=self.center or frame!=seg.frame: raise ValueError('indexed descriptor metadata mismatch')
+            if frame==1: state=spice.mxvg(spice.sxform('J2000',SPICE_FRAME,et),state)
+            elif frame!=17: raise ValueError(f'unsupported indexed SPK frame {frame}')
+            out.append(tuple(float(v) for v in state))
+        return tuple(out)
+
+    def evaluate_many(self,epochs):
+        epochs=tuple(float(x) for x in epochs)
+        if getattr(self,'_session_spice',None) is not None: return self._evaluate_furnished(epochs)
+        if not epochs:return tuple()
+        if self.coverage.coverage_start_et is None or self.coverage.coverage_end_et is None or any(not(self.coverage.coverage_start_et<=t<=self.coverage.coverage_end_et) for t in epochs):
+            raise ValueError('epoch outside governed source coverage')
+        for t in (min(epochs),max(epochs)):
+            s,_=self.adapter.registry.source_for(self.body_id,t)
+            if s.ephemeris_source_id!=self.source.ephemeris_source_id: raise ValueError('batch crosses governed source authority seam')
+        with self.adapter._source_pool(self.source) as spice:
+            handles=[spice.kdata(i,'SPK') for i in range(spice.ktotal('SPK'))]
+            ph=[x[3] for x in handles if Path(x[0]).resolve()==self.primary]
+            if len(ph)!=1: raise ValueError('selected primary SPK is not uniquely furnished')
+            ph=ph[0]; out=[]
+            for et in epochs:
+                j=bisect_right(self.starts,et)-1
+                if j<0 or not(self.segments[j].start_et<=et<=self.segments[j].end_et): raise ValueError('epoch falls in indexed SPK gap')
+                seg=self.segments[j]; frame,state,center=spice.spkpvn(ph,seg.descriptor,et)
+                if center!=self.center or frame!=seg.frame: raise ValueError('indexed descriptor metadata mismatch')
+                if frame==1: state=spice.mxvg(spice.sxform('J2000',SPICE_FRAME,et),state)
+                elif frame!=17: raise ValueError(f'unsupported indexed SPK frame {frame}')
+                out.append(tuple(float(v) for v in state))
+            return tuple(out)
+
+    def truth_many(self,epochs):
+        """Independent high-level SPICE truth path for the same governed parent-relative artifact."""
+        epochs=tuple(float(x) for x in epochs)
+        if getattr(self,'_session_spice',None) is not None:
+            return tuple(tuple(float(v) for v in self._session_spice.spkezr(str(self.target),et,SPICE_FRAME,'NONE',str(self.center))[0]) for et in epochs)
+        with self.adapter._source_pool(self.source) as spice:
+            return tuple(tuple(float(v) for v in spice.spkezr(str(self.target),et,SPICE_FRAME,'NONE',str(self.center))[0])
+                         for et in epochs)

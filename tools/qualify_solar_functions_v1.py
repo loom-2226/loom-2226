@@ -8,13 +8,14 @@ may cross a governed source transition.
 import argparse, hashlib, json, math, os, sys, time
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
+from contextlib import nullcontext
 REPO=Path(__file__).resolve().parents[1]
 if str(REPO) not in sys.path: sys.path.insert(0,str(REPO))
 from src.loom_solar_inspector import Inspector
 from src.loom_solar_function_compile import compile_adaptive
 from src.loom_solar_state_runtime import PiecewiseStateFunction
 from src.loom_solar_temporal_publish import DAY, center_for, tolerance
-from src.loom_solar_spk_index import IndexedDirectSpk, IndexedCommonCenterRelativeSpk
+from src.loom_solar_spk_index import IndexedDirectSpk, IndexedCommonCenterRelativeSpk, IndexedParentRelativeSpk
 
 FRACTIONS=(0.017,0.071,0.193,0.337,0.503,0.677,0.829,0.941,0.991)
 COMPILE_GUARD_BAND=0.80
@@ -91,15 +92,29 @@ def run_task(task):
             pass
     t0=time.time(); tol=tolerance(_WI,body); compile_tol=tol*COMPILE_GUARD_BAND
     try:
-        sample_many=None; acceleration='GOVERNED_RESOLVER'
+        sample_many=None; independent_many=None; compile_session=nullcontext(); acceleration='GOVERNED_RESOLVER'
         # Optional acceleration only for structurally eligible direct SPKs.
         # Failure to prove eligibility is a normal fallback, never a relaxation.
         try:
             mid=(s+e)/2
             source,_=_WI.registry.source_for(body,mid)
             center_source=_WI.registry.source_for(center,mid)[0].ephemeris_source_id
-            authority='DIRECT'
-            if center=='SUN':
+            authority=('ESTIMATED_RELATIVE' if source.state_capability=='ESTIMATED_RELATIVE' else 'DIRECT')
+            if source.state_capability=='ESTIMATED_RELATIVE':
+                rel_key=('parent',body,center,source.ephemeris_source_id)
+                rel=_WINDEX.get(rel_key)
+                if rel is None:
+                    rel=IndexedParentRelativeSpk(_WI.service.adapter,body,center,mid)
+                    _WINDEX[rel_key]=rel
+                def sample_many(times):
+                    states=rel.evaluate_many(times)
+                    return [({'authority_class':authority,'relative':{'position_km':state[:3]}},
+                             rel.source.ephemeris_source_id,center_source) for state in states]
+                def independent_many(times):
+                    return rel.truth_many(times)
+                compile_session=rel.session()
+                acceleration='INDEXED_PARENT_RELATIVE_SPK'
+            elif center=='SUN':
                 cache_key=(body,source.ephemeris_source_id)
                 idx=_WINDEX.get(cache_key)
                 if idx is None:
@@ -123,16 +138,23 @@ def run_task(task):
                 acceleration='INDEXED_COMMON_CENTER_SPK'
         except (ValueError,KeyError):
             sample_many=None
-        compiled=compile_adaptive(_WI,body,center,s,e,compile_tol,sample_many=sample_many)
-        # The guard band is a construction criterion, not the product contract.
-        compiled['declared_error_km']=tol
-        for segment in compiled['segments']: segment['declared_error_km']=tol
-        f=PiecewiseStateFunction(compiled); worst=0.0
-        for q in FRACTIONS:
-            t=s+q*(e-s); truth=_WI.at(body,t,center)
-            if truth.get('resolution')!='RESOLVED' or 'relative' not in truth:
-                raise RuntimeError(f'unresolved independent truth at ET {t}')
-            worst=max(worst,math.dist(f.state(t).position_km,truth['relative']['position_km']))
+        with compile_session:
+            compiled=compile_adaptive(_WI,body,center,s,e,compile_tol,sample_many=sample_many)
+            # The guard band is a construction criterion, not the product contract.
+            compiled['declared_error_km']=tol
+            for segment in compiled['segments']: segment['declared_error_km']=tol
+            f=PiecewiseStateFunction(compiled); worst=0.0
+            hostile_times=[s+q*(e-s) for q in FRACTIONS]
+            if independent_many is not None:
+                truths=independent_many(hostile_times)
+                for t,truth_state in zip(hostile_times,truths):
+                    worst=max(worst,math.dist(f.state(t).position_km,truth_state[:3]))
+            else:
+                for t in hostile_times:
+                    truth=_WI.at(body,t,center)
+                    if truth.get('resolution')!='RESOLVED' or 'relative' not in truth:
+                        raise RuntimeError(f'unresolved independent truth at ET {t}')
+                    worst=max(worst,math.dist(f.state(t).position_km,truth['relative']['position_km']))
         if worst>tol: raise RuntimeError(f'independent error {worst} km > tolerance {tol} km')
         reps={z['representation'] for z in compiled['segments']}
         if reps!={'CHEBYSHEV_STATE_SEGMENT'}: raise RuntimeError(f'unexpected representations {reps}')
