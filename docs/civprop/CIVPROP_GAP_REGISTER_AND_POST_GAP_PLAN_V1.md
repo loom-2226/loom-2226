@@ -106,7 +106,7 @@ GAP-011 is CLOSED. Traffic/Fleet V1 separates installed local transport handling
 
 GAP-012 is CLOSED. Facility/Site Materialization V1 deterministically projects commissioned modules into stable sites/facilities after propagation, requires explicit colocation and spatial authority, preserves owner/operator separation and presentation-only naming, and keeps inherited off-world starting state visibly UNQUALIFIED_COMPATIBILITY rather than manufacturing facilities from it.
 
-The current baseline is still not a forecast because GAP-014 and GAP-015 remain
+The current baseline is still not a forecast because GAP-014, GAP-015 and GAP-016 remain
 open. Demand, mission-observation and project-economics scenario coefficients remain
 uncalibrated where marked, and later mechanisms materially affect the result. The
 default seed-42 baseline remains an engineering regression/reference artifact, not a
@@ -159,6 +159,7 @@ A gap may close only when its replacement has:
 | GAP-013 | MAINTENANCE_DEPRECIATION_RETIREMENT | CLOSED | Asset Lifecycle V1: explicit maintenance, depreciation, failure, retirement, abandonment, restoration and replacement |
 | GAP-014 | DEMOGRAPHIC_DEPTH | OPEN | Add cohorts, births/deaths, synthetic persons, labor and settlement viability |
 | GAP-015 | ATLAS_DERIVED_METRICS | OPEN | Derive centrality/strategic/display metrics from generated state |
+| GAP-016 | SOLAR_TRANSPORT_OPPORTUNITY_SURFACE | OPEN | Replace V0.3 scalar transport placeholder with governed time-dependent transport opportunity |
 
 Detailed exit criteria and current evidence live in
 engineering/civprop/gap_register_v1.json and are regression-tested against the
@@ -255,7 +256,7 @@ Current answers are fixed for V1:
 - Real authority enters through the compiler.
 - Historical baselines are immutable artifacts.
 
-## What happens after GAP-015 closes
+## What happens after GAP-016 closes
 
 Finishing the gap list is not the end of CIVPROP. It is the point at which we are
 allowed to trust an end-to-end production candidate enough to qualify and use it.
@@ -266,12 +267,12 @@ The ordered post-gap sequence is frozen below and in the machine-readable regist
 
 Purpose:
 
-Declare Engine V1 production-ready only after all fifteen gaps are CLOSED and the
+Declare Engine V1 production-ready only after all sixteen gaps are CLOSED and the
 default input package contains no EXPLICIT_PLACEHOLDER assumptions.
 
 Required outcomes:
 
-- GAP-001 through GAP-015 CLOSED in default executable output;
+- GAP-001 through GAP-016 CLOSED in default executable output;
 - no Method Lab/scenario-credit production placeholders;
 - full 2026-2226 horizon compiles;
 - required Solar/body/actor coverage exists;

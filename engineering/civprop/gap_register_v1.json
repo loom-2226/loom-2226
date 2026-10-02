@@ -561,15 +561,44 @@
         "strategic significance",
         "Atlas projections"
       ]
+    },
+    {
+      "gap_id": "GAP-016",
+      "name": "SOLAR_TRANSPORT_OPPORTUNITY_SURFACE",
+      "current_status": "OPEN",
+      "meaning": "Replace the explicit non-physical Solar V0.3 transport placeholder with a governed time-dependent transport opportunity surface binding qualified ephemeris geometry, transfer mechanics, propulsion regimes and actor-scoped access.",
+      "current_evidence": [
+        "engineering/civprop/contracts/solar_transport_opportunity_v0_3.py",
+        "engineering/civprop/contracts/solar_transport_actor_access_v0_3.py",
+        "engineering/civprop/contracts/placeholder_transport_opportunity_surface_v0_3.py",
+        "manifests/solar/SOLAR_PHASE4_EARNED_AUTHORITY_V1.json",
+        "reports/solar_civprop/NAV_READINESS_V1.json"
+      ],
+      "exit_criteria": [
+        "Production transport consumes governed ephemeris/navigation authority rather than the V0.3 scalar placeholder.",
+        "Transfer mechanics and propulsion regimes are explicit/versioned; unsupported advanced propulsion remains UNKNOWN.",
+        "Technology dates do not grant actor access and actor capability does not manufacture physical performance.",
+        "Decision, departure and arrival epochs remain distinct and provenance-bearing.",
+        "UNKNOWN transport fails closed without erasing bodies or becoming zero cost.",
+        "Production readiness rejects the explicit placeholder surface."
+      ],
+      "next_action": "Hold while GAP-014 proceeds; after GAP-014 replace the scalar placeholder with the governed SPICE/trajectory/propulsion surface.",
+      "output_or_contract_affected": [
+        "Solar transport opportunity surface",
+        "Accessibility V1 Solar service paths",
+        "mission accessibility",
+        "project accessibility",
+        "actor transport screening"
+      ]
     }
   ],
   "post_gap_plan": [
     {
       "gate_id": "POST-01",
       "name": "PRODUCTION_READINESS_FREEZE",
-      "purpose": "Declare Engine V1 production-ready only after GAP-001 through GAP-015 are CLOSED, no EXPLICIT_PLACEHOLDER assumptions remain in the default package, and input/engine/output semantics are version-pinned.",
+      "purpose": "Declare Engine V1 production-ready only after GAP-001 through GAP-016 are CLOSED, no EXPLICIT_PLACEHOLDER assumptions remain in the default package, and input/engine/output semantics are version-pinned.",
       "exit_criteria": [
-        "All 15 gaps CLOSED in the default executable output.",
+        "All 16 gaps CLOSED in the default executable output.",
         "No unresolved scenario-credit or Method Lab production placeholders.",
         "Full 2026-2226 horizon and required Solar/body coverage compile successfully.",
         "One immutable production-readiness manifest pins all contracts and implementation hashes."

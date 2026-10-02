@@ -24,12 +24,12 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
             seed=42,
         )
 
-    def test_registry_has_all_15_gaps_once(self):
+    def test_registry_has_all_16_gaps_once(self):
         gaps = self.registry["gaps"]
-        self.assertEqual(len(gaps), 15)
+        self.assertEqual(len(gaps), 16)
         self.assertEqual(
             [g["gap_id"] for g in gaps],
-            [f"GAP-{i:03d}" for i in range(1, 16)],
+            [f"GAP-{i:03d}" for i in range(1, 17)],
         )
 
     def test_names_and_meanings_match_locked_runner(self):
@@ -39,7 +39,7 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         }
         observed = {
             g["gap_id"]: (g["name"], g["meaning"])
-            for g in self.registry["gaps"]
+            for g in self.registry["gaps"][:15]
         }
         self.assertEqual(observed, expected)
 
@@ -50,7 +50,7 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         }
         observed = {
             g["gap_id"]: g["current_status"]
-            for g in self.registry["gaps"]
+            for g in self.registry["gaps"][:15]
         }
         self.assertEqual(observed, expected)
         self.assertEqual(observed["GAP-001"], "CLOSED")
@@ -67,6 +67,8 @@ class CivpropGapRegisterV1Tests(unittest.TestCase):
         self.assertEqual(observed["GAP-012"], "CLOSED")
         self.assertEqual(observed["GAP-013"], "CLOSED")
         self.assertTrue(all(observed[f"GAP-{i:03d}"] == "OPEN" for i in range(14, 16)))
+        self.assertEqual(self.registry["gaps"][15]["gap_id"], "GAP-016")
+        self.assertEqual(self.registry["gaps"][15]["current_status"], "OPEN")
 
     def test_every_gap_has_exit_criteria_and_handoff(self):
         for gap in self.registry["gaps"]:
