@@ -1,0 +1,39 @@
+{
+  "schema": "LOOM_E1_MARA_TYPED_INTENT_QUALIFICATION_V1",
+  "captured_from": "Pixel 10 Pro / Termux user-run output",
+  "captured_date": "2026-09-13",
+  "model": "gpt-5.6-luna",
+  "prompt": "Take us to Neptune, balanced profile.",
+  "typed_intent": {
+    "contract": "LOOM_E1_FLIGHT_INTENT_V1",
+    "destination": "NEPTUNE_SYSTEM",
+    "priority": "BALANCED",
+    "origin": "MARA",
+    "requested_by": "MARA",
+    "calculation_authority": "ZERO",
+    "state_authority": "ZERO",
+    "execution_authority": "ZERO"
+  },
+  "intent_pass": true,
+  "real_campaign_hashes_before": {
+    "LOOM_CAMPAIGN_HISTORY.jsonl.gz": "ba0bc0ae9b42d204ee4986b85088dc6d2b86b92f2f4471f70b66709517f9c4ec",
+    "LOOM_STATE_V1.bak": "421a07458103ab39b84601366fd9508499b9662ce8c6e4312016070d5bd2b92b",
+    "LOOM_STATE_V1.json": "4d89892fa9feed7a8f59e4cb10d4ee27df1b27268bfe2e68c19d70585697e48c"
+  },
+  "real_campaign_hashes_after": {
+    "LOOM_CAMPAIGN_HISTORY.jsonl.gz": "ba0bc0ae9b42d204ee4986b85088dc6d2b86b92f2f4471f70b66709517f9c4ec",
+    "LOOM_STATE_V1.bak": "421a07458103ab39b84601366fd9508499b9662ce8c6e4312016070d5bd2b92b",
+    "LOOM_STATE_V1.json": "4d89892fa9feed7a8f59e4cb10d4ee27df1b27268bfe2e68c19d70585697e48c"
+  },
+  "real_campaign_unchanged_pass": true,
+  "audit": {
+    "schema": "LOOM_OPENAI_DEV_AUDIT_V1",
+    "entries_written_this_session": 1,
+    "last_entry_sha256": "fc664d8ec8c338e459aee070c43c8cc001f924b705ab5e599106004b978a4bbc",
+    "session_id": "37b256dce9194542952f9aa8576c1f13",
+    "raw_key_recorded": false,
+    "public_audit_log_preserved": false,
+    "note": "Raw append-only OpenAI audit remains local development evidence; this public evidence records only the qualification summary and terminal-reported audit metadata."
+  },
+  "qualification_pass": true
+}
