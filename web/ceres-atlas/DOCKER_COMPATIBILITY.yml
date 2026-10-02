@@ -1,0 +1,98 @@
+schema_version: 1
+artifact: private-ceres-atlas-docker-qualification
+change_class: class:runtime
+image:
+  dockerfile: Dockerfile
+  base_image: python:3.13.7-slim-bookworm
+  base_digest: sha256:adafcc17694d715c905b4c7bebd96907a1fd5cf183395f0ebc4d3428bd22d92d
+  publication: NOT_PUBLISHED
+  image_digest: sha256:797c3193209a50ccc75c7947cf3690ec2f385a096197beee7a17c10d4c01b4b5
+runtime:
+  listener:
+    host_env: CERES_HOST
+    port_env: CERES_PORT
+    default_host: 0.0.0.0_in_container
+    default_port: 8768
+  databases:
+    world:
+      env: CERES_WORLD_DB
+      mode: read_only_immutable
+      required_identity: WORLD entities/infrastructure_nodes and image_assets
+    civstate:
+      env: CERES_CIVSTATE_DB
+      mode: read_only_immutable
+      required_schema: LOOM_2226_CIVSTATE 1.2-runtime-compatible projection
+    media:
+      env: CERES_MEDIA_DB
+      mode: read_only_immutable
+      required_table: media_assets.original_blob
+  startup: verify_all_analytical_rows_and_six_approved_media_assets
+  healthcheck: GET_/healthz
+  state: no_mutable_campaign_state_in_image
+source_contract:
+  manifest: docs/ceres/manifest.json
+  world_snapshot:
+    path: data/LOOM_2226.sqlite3
+    sha256: e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde
+  civstate_snapshot:
+    path: data/LOOM_2226_CIVSTATE.sqlite3
+    schema: LOOM_2226_CIVSTATE 1.2-runtime
+    sha256: 9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560
+  media_snapshot: external_release_or_pixel_mount_only
+  restricted_payloads_in_image: forbidden
+qualification:
+  workflow: .github/workflows/ceres-atlas-docker.yml
+  latest_successful_run: https://github.com/loom-2226/loom-2226/actions/runs/35414410309
+  browser_requirement: seven_real_playwright_passes_zero_skips
+  ghcr_push: prohibited_without_separate_publication_authorization
+  pages_deploy: prohibited
+rollback:
+  method: remove_local_image_and_revert_qualification_branch
+  source_databases_modified: false
+
+private_artifact_publication:
+  status: DESIGNED_NOT_AUTHORIZED
+  mechanism: >-
+    After explicit Kevin authorization, publish the locally qualified image to a
+    private GHCR package using a short-lived GitHub Actions token with packages:write;
+    record the registry manifest digest (sha256 of the OCI manifest), immutable tag,
+    source commit, base digest and compatibility manifest in the PR. Never publish
+    canonical SQLite files, MEDIA blobs, credentials or campaign state in the image.
+  distinction: >-
+    The Docker image ID emitted by docker build identifies the local image config/layers.
+    A registry manifest digest identifies the pushed multi-platform or single-platform
+    manifest. They are different identifiers; no registry digest exists while publication
+    is withheld.
+  authorization_required: Kevin_explicit_written_approval
+production_contract:
+  status: NOT_AUTHORIZED_NOT_PROVISIONED
+  authorization: >-
+    Kevin must explicitly approve the exact PR commit, image reference/digest, WORLD,
+    CIVSTATE and MEDIA identities, private registry/package ACL, deployment target,
+    HTTPS certificate/termination, access-control policy and rollback window.
+  inputs: >-
+    Exact immutable image manifest digest plus compatibility manifest, exact database
+    paths and SHA-256 identities, read-only mounts, and a documented release timestamp.
+  rollback: >-
+    Stop the running revision, restore the previous approved image manifest and its
+    matching database identities, then verify /healthz and representative Atlas
+    responses before reopening access.
+  backup_restore: >-
+    Independently restore tested encrypted backups of WORLD, CIVSTATE and MEDIA into
+    isolated read-only release mounts; verify hashes and schema/identity contracts
+    before startup. Runtime never writes campaign or source databases.
+  transport_access: >-
+    HTTPS is mandatory at the authorized ingress with certificate renewal, private
+    network exposure, authenticated access control, audit logging and least-privilege
+    service credentials. No infrastructure is provisioned by this PR.
+
+private_publication:
+  status: PUBLISHED_PRIVATE
+  source_commit: 5263648fe39efe8e7588998b9f7f92e2cf0e3bca
+  image: ghcr.io/loom-2226/ceres-atlas
+  immutable_tag: sha-5263648fe39efe8e7588998b9f7f92e2cf0e3bca
+  registry_manifest_digest: sha256:4d81c96c3a2fd7cac678670f2aa8f88df4a6bf30fbffcbdf798898985031856b
+  qualification_run: https://github.com/loom-2226/loom-2226/actions/runs/35415378704
+  visibility_evidence: anonymous_GHCR_manifest_HTTP_401_and_authenticated_pull
+  canonical_databases_published: false
+  media_blobs_published: false

@@ -1,0 +1,47 @@
+name: Ceres Atlas browser verification
+
+# Verification only. No Pages, environments, artifact publication or write token.
+on:
+  push:
+    branches:
+      - feature/ceres-atlas-private-20260919
+    paths:
+      - '.github/workflows/ceres-atlas-browser.yml'
+      - 'tests/ceres_atlas_browser.test.mjs'
+      - 'tests/test_ceres_browser_tap.py'
+      - 'tools/check_ceres_browser_tap.py'
+      - 'tools/serve_ceres_atlas.py'
+      - 'web/ceres-atlas/**'
+      - '!web/ceres-atlas/*.md'
+      - 'docs/ceres/manifest.json'
+      - 'docs/ceres/*.png'
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    if: github.ref == 'refs/heads/feature/ceres-atlas-private-20260919'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - name: Install pinned Playwright and Chromium
+        run: |
+          npm install --no-save --package-lock=false --ignore-scripts playwright@1.63.0
+          ./node_modules/.bin/playwright install --with-deps chromium
+      - name: Run existing browser suite and require seven actual passes
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test --test-reporter=tap tests/ceres_atlas_browser.test.mjs | tee "$RUNNER_TEMP/ceres-browser.tap"
+          python tools/check_ceres_browser_tap.py "$RUNNER_TEMP/ceres-browser.tap"
