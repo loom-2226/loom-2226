@@ -9,7 +9,7 @@ from pathlib import Path
 from engineering.civprop.long_run_integration_v0_2 import build_bundle_dir as build_v02
 from engineering.civprop.contracts.solar_object_location_bridge_v0_3 import build_solar_candidate_locations
 from engineering.civprop.contracts.solar_mission_opportunity_bridge_v0_3 import build_solar_mission_opportunity_catalog
-from engineering.civprop.contracts.placeholder_transport_opportunity_surface_v0_3 import PLACEHOLDER_TRANSPORT_OPPORTUNITY,semantics as placeholder_semantics
+from engineering.civprop.contracts.placeholder_transport_opportunity_surface_v0_3 import friction_for_body,semantics as placeholder_semantics
 
 ROOT=Path(__file__).resolve().parents[2]
 NAV=ROOT/'reports/solar_civprop/NAV_READINESS_V1.json'
@@ -47,12 +47,15 @@ def build_bundle_dir(target:Path)->Path:
  for x in added:
   if x['location_id'] not in bound:
    acc['location_bindings'].append({'location_id':x['location_id'],'body_id':x['body_id']}); bound.add(x['location_id'])
- component={'component_id':'SOLAR_V03_MACHINERY_TEST_SERVICE_PRICE','status':'KNOWN','value':1.0,
-            'unit':'USD_2026_billion','uncertainty':None}
- gc={'status':'KNOWN','value':1.0,'unit':'USD_2026_billion','uncertainty':None}
  for a in actors:
   aid=a['actor_id']; provider=f'MACHINERY_TEST_PROVIDER::{aid}'
   for x in added:
+   friction=friction_for_body(x['body_id'],x['body_class'])
+   # Map the dimensionless friction monotonically into the existing machinery-test
+   # generalized-cost channel. This is explicitly NOT a physical or empirical price.
+   placeholder_cost=round(friction,6)
+   component={'component_id':'SOLAR_V03_GAP016_FRICTION_PROXY','status':'KNOWN','value':placeholder_cost,'unit':'USD_2026_billion','uncertainty':None}
+   gc={'status':'KNOWN','value':placeholder_cost,'unit':'USD_2026_billion','uncertainty':None}
    for mission_class in ('PROJECT_DEPLOYMENT','ROBOTIC_RESOURCE_PROSPECTING'):
     services.append({'service_id':f'{aid}_{x["location_id"]}_{mission_class}_SOLAR_V03',
       'actor_id':aid,'provider_id':provider,'subject_id':None,'origin_location_id':'EARTH_SURFACE',
@@ -73,9 +76,10 @@ def build_bundle_dir(target:Path)->Path:
    'knowledge_questions':catalog['counts']['questions'],
    'candidate_mission_opportunities':catalog['counts']['candidate'],
    'transport_opportunity_surface':{
-      'status':'EXPLICIT_PLACEHOLDER','value':PLACEHOLDER_TRANSPORT_OPPORTUNITY,
-      'unit':'DIMENSIONLESS_PLACEHOLDER','gap_owner':'GAP-016','semantics':placeholder_semantics()},
-   'service_price_boundary':'SEPARATE_NON_EMPIRICAL_V02_MACHINERY_TEST_ASSUMPTION',
+      'status':'EXPLICIT_AUTHORED_FRICTION_PLACEHOLDER','unit':'DIMENSIONLESS_GENERALIZED_FRICTION_PLACEHOLDER',
+      'earth_reference':1.0,'examples':{'MARS':6.0,'CERES':18.0,'PLUTO':500.0},
+      'gap_owner':'GAP-016','semantics':placeholder_semantics()},
+   'service_price_boundary':'GAP016_FRICTION_MONOTONIC_PROXY_IN_EXISTING_COST_CHANNEL_NOT_EMPIRICAL_PRICE',
    'gap_014':'OPEN_UNTOUCHED','gap_015':'OPEN_UNTOUCHED','gap_016':'OPEN_PLACEHOLDER_ACTIVE',
    'spice_consumed':False,
  }

@@ -20,7 +20,7 @@ def run(seed=42):
   out=build_output(input_dir=p,infrastructure_catalog_path=CATALOG,seed=seed)
   out['solar_v0_3_execution']={
    'classification':'NON_CANON_MACHINERY_TEST',
-   'transport_opportunity_surface':'EXPLICIT_DIMENSIONLESS_PLACEHOLDER_1.0',
+   'transport_opportunity_surface':'EXPLICIT_AUTHORED_NONLINEAR_GAP016_FRICTION_PLACEHOLDER',
    'transport_gap':'GAP-016_OPEN',
    'gap_014':'OPEN_UNTOUCHED','gap_015':'OPEN_UNTOUCHED',
    'spice_consumed':False,

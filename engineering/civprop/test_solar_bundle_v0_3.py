@@ -15,7 +15,7 @@ class SolarBundleV03Tests(unittest.TestCase):
   self.assertEqual(ceres['initial_state']['capital'],0); self.assertEqual(ceres['initial_state']['biological_population'],0)
  def test_placeholder_is_explicit_and_spice_absent(self):
   x=self.s['authority_context']['solar_v0_3']['transport_opportunity_surface']
-  self.assertEqual(x['value'],1.0); self.assertEqual(x['gap_owner'],'GAP-016')
+  self.assertEqual(x['examples'],{'MARS':6.0,'CERES':18.0,'PLUTO':500.0}); self.assertEqual(x['gap_owner'],'GAP-016')
   self.assertFalse(self.s['authority_context']['solar_v0_3']['spice_consumed'])
  def test_gap14_held(self):
   self.assertEqual(self.c['gap_resolution']['GAP-014'],'OPEN')
