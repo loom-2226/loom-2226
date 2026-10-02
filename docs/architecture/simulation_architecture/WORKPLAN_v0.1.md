@@ -57,3 +57,13 @@ Completed before Step 8 actor behavior:
 Qualification: 72-test pre-actor regression PASS. A full indexed 2026–2226 seed-42 run was byte-for-byte identical to frozen Step 7.7: 318437183 bytes, raw SHA-256 63604d8939a87889756db9dffe6bff115bbd8ba930a3dde62f31c30b486a9d83, conductor SHA-256 b2dc84b3a55a34c547e9fe781fc5c4c44e0fe3804cd43baee132cf1701081e0b, final-state digest 7420782e6d1ae81d3f5275e34d642218d6fd81ecf0921d7942301104cfd62702.
 
 Step 8 actor behavior must first consume/derive from existing validated PostgreSQL and causal state. New generic capital/economic/labor data sources are prohibited while those authorities can answer the question; named-actor values remain UNKNOWN when aggregate state cannot legitimately identify them.
+
+## 2026-10-03 Step 8.0 — functional actor baseline
+
+ACTOR_BASELINE_2026_V0_3 materializes all 233 candidate institutions against the validated 2026 Earth sector authority. It is a NON_CANON derived/estimated initialization, not a claim of exact historical actor finances.
+
+Result: 228 active/operating actors are eligible for later causal relevance; 2 historical and 3 proposal/pending actors are retained as evidence/analog nodes but cannot transact at the 2026 boundary. Each actor has role-specific financial-capacity semantics, a central/low/high estimate, scale class, lifecycle state, confidence, derivation method and source references.
+
+No new external capital/economic dataset was introduced. Estimates are anchored to validated 2026 PostgreSQL sector investment and explicit category/scale parameters. They seed 2026 only and must not recur as annual grants.
+
+The adaptive registry can now load this baseline while keeping all actors DORMANT_CANDIDATE. Step 8.1 should connect typed world/economic/transport/knowledge triggers to relevance only, preserving zero physical consequence until role-specific action gates are qualified.

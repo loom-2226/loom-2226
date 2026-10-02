@@ -36,6 +36,13 @@ class ActorIdentityV03:
     category:str
     candidate_status:str="NON_CANON_2026_ACTOR_CANDIDATE"
     budget_status:str="UNKNOWN"
+    lifecycle_status:str="ACTIVE_OR_OPERATING"
+    functional_2026:bool=True
+    financial_capacity_estimate:float|None=None
+    financial_capacity_low:float|None=None
+    financial_capacity_high:float|None=None
+    capacity_semantics:str|None=None
+    estimate_status:str="UNKNOWN"
 
 @dataclass(frozen=True)
 class ActorActivationStateV03:
@@ -64,6 +71,19 @@ class ActorRegistryV03:
             actor_id=str(a["id"]),name=str(a["name"]),category=str(a["category"]))
             for a in seed["actors"])
 
+    @classmethod
+    def from_actor_baseline(cls,baseline:Mapping[str,object]):
+        return cls(ActorIdentityV03(
+            actor_id=str(a["actor_id"]),name=str(a["name"]),category=str(a["category"]),
+            candidate_status="NON_CANON_DERIVED_ESTIMATED_2026_INITIALIZATION",
+            budget_status="ESTIMATED_INITIAL_CAPACITY" if a["functional_2026"] else "INACTIVE",
+            lifecycle_status=str(a["lifecycle_status"]),functional_2026=bool(a["functional_2026"]),
+            financial_capacity_estimate=float(a["financial_capacity_estimate"]),
+            financial_capacity_low=float(a["financial_capacity_low"]),
+            financial_capacity_high=float(a["financial_capacity_high"]),
+            capacity_semantics=str(a["capacity_semantics"]),estimate_status=str(a["evidence_status"]))
+            for a in baseline["actors"])
+
     def state(self,actor_id:str)->ActorActivationStateV03:
         return self._states[actor_id]
 
@@ -76,6 +96,7 @@ class ActorRegistryV03:
         eligible=None if eligible_actor_ids is None else set(eligible_actor_ids)
         return tuple(k for k in sorted(self._states)
                      if self._states[k].identity.category in cats
+                     and self._states[k].identity.functional_2026
                      and (eligible is None or k in eligible))
 
     def mark_relevant(self,*,trigger_type:str,context_id:str,

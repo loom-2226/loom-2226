@@ -15,6 +15,16 @@ class ActorActivationTests(unittest.TestCase):
         self.assertTrue(all(x.level==ActivationLevel.DORMANT_CANDIDATE for x in r.states()))
         self.assertTrue(all(x.identity.budget_status=="UNKNOWN" for x in r.states()))
 
+    def test_materialized_baseline_loads_functional_capacity_without_activating(self):
+        bp=P.parent/"ACTOR_BASELINE_2026_V0_3.json"
+        with open(bp) as f: baseline=json.load(f)
+        r=ActorRegistryV03.from_actor_baseline(baseline)
+        self.assertEqual(len(r.states()),233)
+        self.assertEqual(sum(x.identity.functional_2026 for x in r.states()),228)
+        self.assertTrue(all(x.level==ActivationLevel.DORMANT_CANDIDATE for x in r.states()))
+        self.assertGreater(r.state("CAR_SPACEX").identity.financial_capacity_estimate,0)
+        self.assertFalse(r.state("PRO_PLANETARY_RESOURCES").identity.functional_2026)
+
     def test_trigger_activates_only_category_relevance(self):
         r=ActorRegistryV03.from_candidate_seed(self.seed)
         out=r.mark_relevant(trigger_type="FINANCING_REQUEST",context_id="X",provenance_refs=("TEST",))
