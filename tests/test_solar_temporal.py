@@ -97,3 +97,12 @@ def test_gate2_bennu_tasks_never_mix_governed_sources():
         center_sources={I.registry.source_for(center,t)[0].ephemeris_source_id for t in points}
         assert len(body_sources)==1
         assert len(center_sources)==1
+
+def test_gate2_compile_guard_band_is_stricter_than_product_contract():
+    import importlib.util
+    from pathlib import Path
+    path=Path(__file__).resolve().parents[1]/'tools'/'qualify_solar_functions_v1.py'
+    spec=importlib.util.spec_from_file_location('qualify_solar_functions_v1_guard_test',path)
+    mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    assert 0.0 < mod.COMPILE_GUARD_BAND < 1.0
+    assert mod.COMPILE_GUARD_BAND == 0.80

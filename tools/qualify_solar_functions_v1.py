@@ -17,6 +17,7 @@ from src.loom_solar_temporal_publish import DAY, center_for, tolerance
 from src.loom_solar_spk_index import IndexedDirectSpk, IndexedCommonCenterRelativeSpk
 
 FRACTIONS=(0.017,0.071,0.193,0.337,0.503,0.677,0.829,0.941,0.991)
+COMPILE_GUARD_BAND=0.80
 
 def atomic_json(path,obj):
     tmp=path.with_suffix(path.suffix+'.tmp')
@@ -88,7 +89,7 @@ def run_task(task):
                 return ('SKIP',body,old)
         except Exception:
             pass
-    t0=time.time(); tol=tolerance(_WI,body)
+    t0=time.time(); tol=tolerance(_WI,body); compile_tol=tol*COMPILE_GUARD_BAND
     try:
         sample_many=None; acceleration='GOVERNED_RESOLVER'
         # Optional acceleration only for structurally eligible direct SPKs.
@@ -122,7 +123,10 @@ def run_task(task):
                 acceleration='INDEXED_COMMON_CENTER_SPK'
         except (ValueError,KeyError):
             sample_many=None
-        compiled=compile_adaptive(_WI,body,center,s,e,tol,sample_many=sample_many)
+        compiled=compile_adaptive(_WI,body,center,s,e,compile_tol,sample_many=sample_many)
+        # The guard band is a construction criterion, not the product contract.
+        compiled['declared_error_km']=tol
+        for segment in compiled['segments']: segment['declared_error_km']=tol
         f=PiecewiseStateFunction(compiled); worst=0.0
         for q in FRACTIONS:
             t=s+q*(e-s); truth=_WI.at(body,t,center)
@@ -133,14 +137,14 @@ def run_task(task):
         reps={z['representation'] for z in compiled['segments']}
         if reps!={'CHEBYSHEV_STATE_SEGMENT'}: raise RuntimeError(f'unexpected representations {reps}')
         row={'schema':'loom.solar-v1-function-work-unit/1.0','status':'PASS','body_id':body,'center_id':center,
-             'start_et':s,'end_et':e,'work_partition_only':True,'tolerance_km':tol,
+             'start_et':s,'end_et':e,'work_partition_only':True,'tolerance_km':tol,'compile_guard_band_km':compile_tol,
              'independent_worst_error_km':worst,'segment_count':len(compiled['segments']),
              'elapsed_s':time.time()-t0,'acceleration':acceleration,'compiled':compiled}
         atomic_json(dest,row)
         return ('PASS',body,row)
     except Exception as exc:
         row={'schema':'loom.solar-v1-function-work-unit/1.0','status':'FAIL','body_id':body,'center_id':center,
-             'start_et':s,'end_et':e,'work_partition_only':True,'tolerance_km':tol,
+             'start_et':s,'end_et':e,'work_partition_only':True,'tolerance_km':tol,'compile_guard_band_km':compile_tol,
              'elapsed_s':time.time()-t0,'reason':str(exc)}
         atomic_json(dest,row)
         return ('FAIL',body,row)
