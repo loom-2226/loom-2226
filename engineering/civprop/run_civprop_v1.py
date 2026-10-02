@@ -587,10 +587,54 @@ def _actor_state_projection(bundle, result):
     annual_states = []
     transaction_counter = 0
 
+    # Immutable replay indexes. Preserve source order within each year while
+    # avoiding repeated full-history scans across the 201-year projection.
+    budget_events_by_year = {}
+    capability_events_by_actor_year = {}
+    for event in package.events:
+        if event.event_type == "BUDGET_ALLOCATION_SET":
+            budget_events_by_year.setdefault(event.year, []).append(event)
+        elif event.event_type == "CAPABILITY_SET":
+            capability_events_by_actor_year.setdefault(
+                (event.actor_id, event.year), []
+            ).append(event)
+
+    committed_projects_by_year = {}
+    for decision in result.decisions:
+        if decision.action == "COMMIT_PROJECT" and decision.status == "COMMITTED":
+            committed_projects_by_year.setdefault(decision.year, []).append(decision)
+
+    committed_missions_by_year = {}
+    for decision in result.mission_decisions:
+        if decision.action == "COMMIT_MISSION" and decision.status == "COMMITTED":
+            committed_missions_by_year.setdefault(decision.year, []).append(decision)
+
+    base_capability_ids = {
+        actor_id: {
+            record.capability_id
+            for facts in (actor.installed_capability, actor.acquired_capability)
+            for record in facts.records
+            if record.capability_id is not None
+        }
+        for actor_id, actor in actors.items()
+    }
+    cumulative_capability_ids = {
+        actor_id: set(ids) for actor_id, ids in base_capability_ids.items()
+    }
+
+    mission_by_id = (
+        {x.mission_archetype_id: x for x in bundle.scenario.mission_knowledge_v1.missions}
+        if bundle.scenario.mission_knowledge_v1 is not None else {}
+    )
+    economics = (
+        ProjectEconomicsRuntime(bundle.scenario.project_economics_v1)
+        if bundle.scenario.mission_knowledge_v1 is not None
+        and bundle.scenario.project_economics_v1 is not None else None
+    )
+    legacy_projects = projects
+
     for year in range(bundle.scenario.start_year, bundle.scenario.end_year + 1):
-        for event in package.events:
-            if event.year != year or event.event_type != "BUDGET_ALLOCATION_SET":
-                continue
+        for event in budget_events_by_year.get(year, ()):
             payload = event.payload
             budgets[event.actor_id] = {
                 "status": "KNOWN",
@@ -612,13 +656,7 @@ def _actor_state_projection(bundle, result):
                 }
             )
 
-        for decision in result.decisions:
-            if (
-                decision.year != year
-                or decision.action != "COMMIT_PROJECT"
-                or decision.status != "COMMITTED"
-            ):
-                continue
+        for decision in committed_projects_by_year.get(year, ()):
             project = resolved_project(
                 bundle,
                 projects[decision.project_archetype_id],
@@ -652,26 +690,7 @@ def _actor_state_projection(bundle, result):
             )
 
         if bundle.scenario.mission_knowledge_v1 is not None:
-            mission_by_id = {
-                x.mission_archetype_id: x
-                for x in bundle.scenario.mission_knowledge_v1.missions
-            }
-            economics = (
-                ProjectEconomicsRuntime(bundle.scenario.project_economics_v1)
-                if bundle.scenario.project_economics_v1 is not None
-                else None
-            )
-            legacy_projects = {
-                x.project_archetype_id: x
-                for x in bundle.scenario.project_archetypes
-            }
-            for decision in result.mission_decisions:
-                if (
-                    decision.year != year
-                    or decision.action != "COMMIT_MISSION"
-                    or decision.status != "COMMITTED"
-                ):
-                    continue
+            for decision in committed_missions_by_year.get(year, ()):
                 mission = mission_by_id[decision.mission_archetype_id]
                 if economics is not None:
                     resolved = economics.resolve(
@@ -716,19 +735,11 @@ def _actor_state_projection(bundle, result):
                 )
 
         for actor_id, actor in sorted(actors.items()):
-            capability_ids = {
-                record.capability_id
-                for facts in (actor.installed_capability, actor.acquired_capability)
-                for record in facts.records
-                if record.capability_id is not None
-            }
-            capability_ids.update(
+            cumulative_capability_ids[actor_id].update(
                 str(event.payload["capability_id"])
-                for event in package.events
-                if event.actor_id == actor_id
-                and event.year <= year
-                and event.event_type == "CAPABILITY_SET"
+                for event in capability_events_by_actor_year.get((actor_id, year), ())
             )
+            capability_ids = cumulative_capability_ids[actor_id]
             annual_states.append(
                 {
                     "year": year,
