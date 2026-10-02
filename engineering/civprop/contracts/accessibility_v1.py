@@ -284,6 +284,9 @@ class AccessibilityRuntime:
             self._geometry_index[(row.origin_body_id,row.destination_body_id,row.epoch_utc)]=row
             self._geometry_index[(row.destination_body_id,row.origin_body_id,row.epoch_utc)]=row
 
+    def has_scoped_service(self, actor_id: str, origin_location_id: str, destination_location_id: str, mission_class: str, service_class: str) -> bool:
+        return (actor_id,origin_location_id,destination_location_id,mission_class,service_class) in self._service_index
+
     def _geometry_for(self, request: AccessibilityRequest) -> Optional[GeometryContext]:
         origin = self._bodies.get(request.origin_location_id)
         destination = self._bodies.get(request.destination_location_id)

@@ -432,6 +432,8 @@ def best_access_cost(
         for origin in origins:
             if origin == destination:
                 continue
+            if not runtime.has_scoped_service(actor_id, origin, destination, "PROJECT_DEPLOYMENT", "GENERIC_LOGISTICS"):
+                continue
             assessment = runtime.assess(
                 AccessibilityRequest(
                     actor_id=actor_id,
