@@ -12,7 +12,7 @@ from engineering.civprop.contracts.power_balance_v1 import (
 
 
 class PowerLaneV1:
-    def __init__(self, bundle, recorder):
+    def __init__(self, bundle, recorder, current_index=None):
         package = bundle.scenario.power_balance_v1
         demand = bundle.scenario.demand_pressure_v1
         if package is None or demand is None:
@@ -21,12 +21,18 @@ class PowerLaneV1:
             )
         self.bundle = bundle
         self.recorder = recorder
+        self.current_index = current_index
         self.runtime = PowerBalanceRuntime(package, demand)
 
     def step(self, *, year: int, states) -> None:
-        facilities_by_location = {}
-        for facility in self.recorder.facilities:
-            facilities_by_location.setdefault(facility.location_id, []).append(facility)
+        if self.current_index is not None:
+            self.current_index.sync_facilities(self.recorder.facilities, year=year)
+            facilities_by_location = self.current_index.active_facilities_by_location
+        else:
+            facilities_by_location = {}
+            for facility in self.recorder.facilities:
+                if facility.status == "ACTIVE" and facility.commissioned_year <= year:
+                    facilities_by_location.setdefault(facility.location_id, []).append(facility)
         for location_id in sorted(states):
             if self.runtime.is_excluded(location_id):
                 continue

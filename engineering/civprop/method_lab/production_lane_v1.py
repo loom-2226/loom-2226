@@ -15,7 +15,7 @@ from engineering.civprop.contracts.production_accounting_v1 import (
 
 
 class ProductionLaneV1:
-    def __init__(self, bundle, recorder):
+    def __init__(self, bundle, recorder, current_index=None):
         package = bundle.scenario.production_accounting_v1
         if package is None:
             raise ValueError(
@@ -23,6 +23,7 @@ class ProductionLaneV1:
             )
         self.bundle = bundle
         self.recorder = recorder
+        self.current_index = current_index
         self.runtime = ProductionAccountingRuntime(package)
         self.location_to_body = {
             x.location_id: x.parent_body_id
@@ -36,12 +37,15 @@ class ProductionLaneV1:
         self._resource_cursor = 0
 
     def step(self, *, year: int) -> None:
-        active_facilities = tuple(
-            facility
-            for facility in self.recorder.facilities
-            if facility.status == "ACTIVE"
-            and facility.commissioned_year <= year
-        )
+        if self.current_index is not None:
+            self.current_index.sync_facilities(self.recorder.facilities, year=year)
+            self.current_index.sync_physical_states(self.recorder)
+            active_facilities = self.current_index.active_facilities()
+        else:
+            active_facilities = tuple(
+                facility for facility in self.recorder.facilities
+                if facility.status == "ACTIVE" and facility.commissioned_year <= year
+            )
         new_power = self.recorder.power_states[self._power_cursor:]
         new_traffic = self.recorder.location_traffic_states[self._traffic_cursor:]
         new_resources = self.recorder.resource_states[self._resource_cursor:]
@@ -51,8 +55,10 @@ class ProductionLaneV1:
         current_power = tuple(x for x in new_power if x.year == year)
         current_traffic = tuple(x for x in new_traffic if x.year == year)
         current_resources = tuple(x for x in new_resources if x.year == year)
-        power_by_location = {x.location_id: x for x in current_power}
-        traffic_by_location = {x.location_id: x for x in current_traffic}
+        power_by_location = ({k:v for k,v in self.current_index.latest_power_by_location.items() if v.year == year}
+                             if self.current_index is not None else {x.location_id:x for x in current_power})
+        traffic_by_location = ({k:v for k,v in self.current_index.latest_traffic_by_location.items() if v.year == year}
+                               if self.current_index is not None else {x.location_id:x for x in current_traffic})
         rows = []
         for facility in sorted(
             active_facilities,

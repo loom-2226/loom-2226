@@ -10,6 +10,7 @@ import hashlib, json
 from typing import Mapping, Sequence
 
 from .causal_conductor_v0_3 import run_conductor
+from .current_state_index_v0_3 import CurrentStateIndexV03
 from .demographic_lane_v1 import DemographicRuntimeV1
 from .mission_lane_v1 import MissionLaneV1
 from .resource_lane_v1 import ResourceLaneV1
@@ -78,6 +79,7 @@ class _WorldContext:
         self.budgets=actor_budget(bundle)
         self.pending=[]
         self.recorder=Recorder()
+        self.current_index=CurrentStateIndexV03()
         self.recorder.compact_mission_opportunity_dispositions=True
         self.annual_states=[]
         self.demand=(DemandPressureRuntime(bundle.scenario.demand_pressure_v1)
@@ -89,13 +91,13 @@ class _WorldContext:
                          if bundle.scenario.demographic_authority_v1 else None)
         self.mission=(MissionLaneV1(bundle,seed,self.recorder)
                       if bundle.scenario.mission_knowledge_v1 else None)
-        self.resource=(ResourceLaneV1(bundle,self.recorder)
+        self.resource=(ResourceLaneV1(bundle,self.recorder,self.current_index)
                        if bundle.scenario.resource_mass_balance_v1 else None)
-        self.power=(PowerLaneV1(bundle,self.recorder)
+        self.power=(PowerLaneV1(bundle,self.recorder,self.current_index)
                     if bundle.scenario.power_balance_v1 else None)
         self.traffic=(TrafficLaneV1(bundle,self.recorder)
                       if bundle.scenario.traffic_fleet_v1 else None)
-        self.production=(ProductionLaneV1(bundle,self.recorder)
+        self.production=(ProductionLaneV1(bundle,self.recorder,self.current_index)
                          if bundle.scenario.production_accounting_v1 else None)
 
 

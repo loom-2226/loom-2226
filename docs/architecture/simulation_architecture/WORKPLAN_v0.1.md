@@ -45,3 +45,15 @@ The architecture has advanced beyond the original ordering above while retaining
 - Step 8 must use adaptive event-driven activation rather than blanket annual activation. See STEP_8_233_ACTOR_FIT_AUDIT_2026_10_03.md.
 
 The next implementation sequence is Step 8.1 adaptive registry/activation, 8.2 lossless execution-relevant candidate compilation and typed relation discovery, then category-specific vertical slices before a full 233-actor run.
+
+## 2026-10-03 pre-actor hardening checkpoint
+
+Completed before Step 8 actor behavior:
+
+- **A — adaptive actor activation boundary:** method_lab/actor_activation_v0_3.py loads candidate identities dormant and supports deterministic typed relevance/promotion/demotion without granting budget, capability, access or action authority. It schedules no actor heartbeat.
+- **B — current-state indexes:** method_lab/current_state_index_v0_3.py provides incremental facility/power/traffic/resource current views over append-only ledgers. Power, resource and production lanes consume the derived index in the causal world.
+- **C — formal model specification:** LOOM_CAUSAL_MODEL_SPEC_V0_3.md records state ownership, authority hierarchy, event semantics, UNKNOWN behavior, PostgreSQL reuse rules and V&V requirements.
+
+Qualification: 72-test pre-actor regression PASS. A full indexed 2026–2226 seed-42 run was byte-for-byte identical to frozen Step 7.7: 318437183 bytes, raw SHA-256 63604d8939a87889756db9dffe6bff115bbd8ba930a3dde62f31c30b486a9d83, conductor SHA-256 b2dc84b3a55a34c547e9fe781fc5c4c44e0fe3804cd43baee132cf1701081e0b, final-state digest 7420782e6d1ae81d3f5275e34d642218d6fd81ecf0921d7942301104cfd62702.
+
+Step 8 actor behavior must first consume/derive from existing validated PostgreSQL and causal state. New generic capital/economic/labor data sources are prohibited while those authorities can answer the question; named-actor values remain UNKNOWN when aggregate state cannot legitimately identify them.

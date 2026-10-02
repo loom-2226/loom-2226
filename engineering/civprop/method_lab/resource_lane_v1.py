@@ -15,7 +15,7 @@ from engineering.civprop.contracts.resource_mass_balance_v1 import (
 
 
 class ResourceLaneV1:
-    def __init__(self, bundle, recorder):
+    def __init__(self, bundle, recorder, current_index=None):
         package = bundle.scenario.resource_mass_balance_v1
         physical = bundle.truth.resource_physical_realization_v1
         if package is None:
@@ -26,12 +26,15 @@ class ResourceLaneV1:
             )
         self.runtime = ResourceMassBalanceRuntime(package, physical)
         self.recorder = recorder
+        self.current_index = current_index
 
     def step(self, *, year: int) -> None:
-        states, flows = self.runtime.step(
-            year=year,
-            facilities=tuple(self.recorder.facilities),
-        )
+        if self.current_index is not None:
+            self.current_index.sync_facilities(self.recorder.facilities, year=year)
+            facilities = self.current_index.active_facilities()
+        else:
+            facilities = tuple(self.recorder.facilities)
+        states, flows = self.runtime.step(year=year, facilities=facilities)
         self.recorder.resource_states.extend(states)
         self.recorder.resource_flows.extend(flows)
 

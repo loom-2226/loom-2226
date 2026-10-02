@@ -37,3 +37,7 @@ The large runtime JSON is intentionally retained outside Git under .performance/
 ## Pre-purge comparison
 
 The Step 7.5 control was deterministic but contained three legacy-machinery-induced lunar prospecting missions. Step 7.6 traced and quarantined their authored causal ancestry. Step 7.7 therefore supersedes Step 7.5 as the clean pre-actor-expansion control; Step 7.5 remains historical regression evidence, not a baseline.
+
+## Pre-actor hardening equivalence — 2026-10-03
+
+After adding the adaptive actor activation boundary and incremental current-state indexes, the full 2026–2226 seed-42 control remained byte-for-byte identical to this frozen result. This proves the index is a derived cache rather than a new causal authority and that dormant actor infrastructure does not alter the pre-actor world.
