@@ -378,8 +378,20 @@ def project_demand(
     return max(values) if values else 0.0
 
 
+_FRONTIER_CACHE = {}
+
+def _frontier_map(bundle: LabBundle):
+    key=id(bundle.scenario)
+    cached=_FRONTIER_CACHE.get(key)
+    if cached is not None and cached[0] is bundle.scenario:
+        return cached[1]
+    value={x.tech_id:x for x in bundle.scenario.technology_frontier}
+    if len(_FRONTIER_CACHE)>=16: _FRONTIER_CACHE.pop(next(iter(_FRONTIER_CACHE)))
+    _FRONTIER_CACHE[key]=(bundle.scenario,value)
+    return value
+
 def actor_tech_status(bundle: LabBundle, actor_id: str, tech_id: str, year: int) -> str:
-    frontier = next(x for x in bundle.scenario.technology_frontier if x.tech_id == tech_id)
+    frontier = _frontier_map(bundle)[tech_id]
     if year < frontier.frontier_year:
         return "UNUSABLE"
     if bundle.scenario.actor_state_v1 is not None:
@@ -475,6 +487,9 @@ def resource_probability(
     knowledge=None,
 ) -> float:
     if knowledge is not None and actor_id is not None:
+        # Knowledge dictionaries can become large at Solar scale. The semantic
+        # operation is still max probability for actor/location; callers may
+        # supply a pre-indexed cache through the dictionary's exact contents.
         probs = [
             state.probability
             for (owner, _subject, location), state in knowledge.items()
