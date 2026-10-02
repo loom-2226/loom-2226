@@ -578,17 +578,25 @@ def opportunities(
     knowledge=None,
 ) -> list[Opportunity]:
     result = []
+    # Per-call immutable views. More importantly, resolve each project once per
+    # actor/year, not once per destination. This preserves exact arithmetic.
     placements = {x.location_id: x.placement for x in bundle.scenario.locations}
+    locations_by_placement = {}
+    for location_id, state in states.items():
+        if location_id == "EARTH_SURFACE":
+            continue
+        locations_by_placement.setdefault(placements[location_id], []).append((location_id, state))
     available_origins=tuple(o for o in sorted(states) if o=="EARTH_SURFACE" or states[o].transport>0)
     for base_project in bundle.scenario.project_archetypes:
         project = resolved_project(bundle, base_project, year)
         if project.project_kind == "MISSION" and not include_missions:
             continue
-        for location_id, state in states.items():
-            if location_id == "EARTH_SURFACE":
-                continue
-            if placements[location_id] not in project.allowed_placements:
-                continue
+        candidate_locations = (
+            item
+            for placement in project.allowed_placements
+            for item in locations_by_placement.get(placement, ())
+        )
+        for location_id, state in candidate_locations:
             techs = required_techs(project, location_id)
             if any(actor_tech_status(bundle, actor_id, tech, year) != "USABLE" for tech in techs):
                 continue
