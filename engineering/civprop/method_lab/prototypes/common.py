@@ -591,15 +591,17 @@ def opportunities(
         project = resolved_project(bundle, base_project, year)
         if project.project_kind == "MISSION" and not include_missions:
             continue
+        if any(actor_tech_status(bundle, actor_id, tech, year) != "USABLE" for tech in project.required_tech):
+            continue
         candidate_locations = (
             item
             for placement in project.allowed_placements
             for item in locations_by_placement.get(placement, ())
         )
         for location_id, state in candidate_locations:
-            techs = required_techs(project, location_id)
-            if any(actor_tech_status(bundle, actor_id, tech, year) != "USABLE" for tech in techs):
-                continue
+            if location_id == "LUNA_SURFACE" and "LUNAR_SURFACE_OPERATIONS" not in project.required_tech:
+                if actor_tech_status(bundle, actor_id, "LUNAR_SURFACE_OPERATIONS", year) != "USABLE":
+                    continue
             access_cost = best_access_cost(
                 bundle,
                 states,

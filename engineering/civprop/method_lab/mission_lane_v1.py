@@ -12,6 +12,7 @@ from typing import Optional
 from engineering.civprop.contracts.accessibility_v1 import (
     AccessibilityRequest,
     AccessibilityRuntime,
+    accessibility_runtime,
 )
 from engineering.civprop.contracts.project_economics_v1 import (
     ProjectEconomicsRuntime,
@@ -54,6 +55,16 @@ class MissionLaneV1:
         self._decision_by_mission = {
             x.mission_archetype_id: x for x in package.decision_models
         }
+        self._question_by_id = {x.question_id: x for x in package.questions}
+        self._actor_state_by_id = (
+            {x.actor_id: x for x in bundle.scenario.actor_state_v1.actors}
+            if bundle.scenario.actor_state_v1 is not None else {}
+        )
+        self._completed_mission_keys = set()
+        self._economics_runtime = (
+            ProjectEconomicsRuntime(bundle.scenario.project_economics_v1)
+            if bundle.scenario.project_economics_v1 is not None else None
+        )
         self._initialize_knowledge(recorder)
 
     def _initialize_knowledge(self, recorder) -> None:
@@ -79,10 +90,8 @@ class MissionLaneV1:
     def _economics(self, mission_archetype_id: str, year: int):
         mission = self._mission_by_id[mission_archetype_id]
         decision = self._decision_by_mission[mission_archetype_id]
-        if self.bundle.scenario.project_economics_v1 is not None:
-            economics = ProjectEconomicsRuntime(
-                self.bundle.scenario.project_economics_v1
-            )
+        if self._economics_runtime is not None:
+            economics = self._economics_runtime
             mission_economics = economics.resolve(
                 mission.project_economics_id,
                 year=year,
@@ -125,17 +134,10 @@ class MissionLaneV1:
         if self.bundle.scenario.accessibility_v1 is not None:
             if self.bundle.scenario.actor_state_v1 is None:
                 return "UNKNOWN"
-            actor_state = next(
-                (
-                    x
-                    for x in self.bundle.scenario.actor_state_v1.actors
-                    if x.actor_id == actor_id
-                ),
-                None,
-            )
+            actor_state = self._actor_state_by_id.get(actor_id)
             if actor_state is None:
                 return "UNKNOWN"
-            assessment = AccessibilityRuntime(
+            assessment = accessibility_runtime(
                 self.bundle.scenario.accessibility_v1
             ).assess(
                 AccessibilityRequest(
@@ -210,20 +212,12 @@ class MissionLaneV1:
                 self.package.missions,
                 key=lambda x: x.mission_archetype_id,
             ):
-                if any(
-                    x.actor_id == actor_id
-                    and x.mission_archetype_id == mission.mission_archetype_id
-                    for x in recorder.missions
-                ):
+                if (actor_id, mission.mission_archetype_id) in self._completed_mission_keys:
                     continue
 
                 key = (
                     actor_id,
-                    next(
-                        q.subject_id
-                        for q in self.package.questions
-                        if q.question_id == mission.target_question_id
-                    ),
+                    self._question_by_id[mission.target_question_id].subject_id,
                     mission.destination_location_id,
                 )
                 knowledge = self.knowledge[key]
@@ -297,6 +291,7 @@ class MissionLaneV1:
                     capital_unit=capital_unit,
                 )
                 recorder.missions.append(record)
+                self._completed_mission_keys.add((actor_id, mission.mission_archetype_id))
                 recorder.event(
                     year,
                     "MISSION_COMMITTED",
@@ -314,11 +309,7 @@ class MissionLaneV1:
             if mission.status != "COMMITTED" or mission.execution_year != year:
                 continue
 
-            question = next(
-                x
-                for x in self.package.questions
-                if x.question_id == mission.question_id
-            )
+            question = self._question_by_id[mission.question_id]
 
             # Epistemic firewall: this is the sole Hybrid integration point that
             # reads evaluator-only physical realization.
