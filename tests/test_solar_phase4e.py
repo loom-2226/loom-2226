@@ -48,7 +48,7 @@ class Phase4EQualificationTests(unittest.TestCase):
             for epoch in EPOCHS:
                 state = self.service.resolve(row["body_id"], epoch)
                 self.assertEqual(state.provenance["naif_identifier"], str(row["naif_id"]))
-                self.assertEqual(state.reference_frame, "J2000/ECLIPTIC")
+                self.assertEqual(state.reference_frame, "ECLIPJ2000")
                 self.assertEqual(state.provenance["units"], "km,km/s")
                 self.assertEqual(state, self.service.resolve(row["body_id"], epoch))
                 self.assertEqual(len(state.position_km), 3)

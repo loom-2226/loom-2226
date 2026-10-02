@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "test:solar-inspector-browser": "node tests/solar_inspector_browser.cjs",
+    "install:playwright-chromium": "playwright install chromium"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}

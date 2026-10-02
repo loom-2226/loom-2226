@@ -4,8 +4,9 @@ import os
 import unittest
 from pathlib import Path
 
-from src.loom_spatial_state_authority import CANONICAL_FRAME, CelestialStateError
+from src.loom_spatial_state_authority import CelestialStateError
 from src.loom_spice_ephemeris_adapter import (
+    SPICE_FRAME,
     BodyIdentifier,
     EphemerisCoverage,
     EphemerisSource,
@@ -18,6 +19,14 @@ from src.loom_spice_ephemeris_adapter import (
 
 ASSET_ROOT = Path("/home/ubuntu/loom_solar_assets")
 EVIDENCE = ASSET_ROOT / "qualification/EPHEMERIS_FOUNDATION_V1/qualification_evidence.json"
+ET_ROWS = json.loads(Path('manifests/solar/SOLAR_NATIVE_ET_COVERAGE_V1.json').read_text())['rows']
+
+
+def et_coverage(source_id, body_id, start, end, **kwargs):
+    row = next(r for r in ET_ROWS if r['ephemeris_source_id'] == source_id and r['body_id'] == body_id)
+    return EphemerisCoverage(source_id, body_id, start, end,
+                             coverage_start_et=row['coverage_start_et'], coverage_end_et=row['coverage_end_et'],
+                             **kwargs)
 
 
 def _asset(path: Path, digest: str) -> KernelAsset:
@@ -62,8 +71,8 @@ class SpiceEphemerisQualificationTests(unittest.TestCase):
         )
         sources = [de_source]
         coverage = [
-            EphemerisCoverage("DE440", "EARTH", "1550-01-01T00:00:00Z", "2650-01-01T00:00:00Z"),
-            EphemerisCoverage("DE440", "NEPTUNE_SYSTEM_BARYCENTER", "1550-01-01T00:00:00Z", "2650-01-01T00:00:00Z"),
+            et_coverage("DE440", "EARTH", "1550-01-01T00:00:00Z", "2650-01-01T00:00:00Z"),
+            et_coverage("DE440", "NEPTUNE_SYSTEM_BARYCENTER", "1550-01-01T00:00:00Z", "2650-01-01T00:00:00Z"),
         ]
         if include_ceres:
             ceres_source = EphemerisSource(
@@ -74,7 +83,7 @@ class SpiceEphemerisQualificationTests(unittest.TestCase):
                  _asset(self.ceres, self.evidence["assets"]["ceres"]["sha256"])),
             )
             sources.append(ceres_source)
-            coverage.append(EphemerisCoverage(
+            coverage.append(et_coverage(
                 "CERES_SPK_2025_2227", "CERES", "2024-12-31T23:58:50.816Z", "2226-12-31T23:58:50.816Z",
             ))
         return SolarEphemerisRegistry(bodies, identifiers, sources, coverage)
@@ -86,7 +95,7 @@ class SpiceEphemerisQualificationTests(unittest.TestCase):
             state = service.resolve("EARTH", case["epoch_utc"])
             for actual, expected in zip((*state.position_km, *state.velocity_km_s), case["reference"]):
                 self.assertAlmostEqual(actual, expected, delta=0.001 if abs(expected) > 100 else 1e-8)
-            self.assertEqual(state.reference_frame, CANONICAL_FRAME)
+            self.assertEqual(state.reference_frame, SPICE_FRAME)
             self.assertTrue(state.navigation_grade)
 
     def test_neptune_barycenter_is_exact_target(self):
@@ -102,7 +111,7 @@ class SpiceEphemerisQualificationTests(unittest.TestCase):
             state = service.resolve("CERES", epoch)
             self.assertEqual(state.provenance["naif_identifier"], "20000001")
             self.assertEqual(state.provenance["ephemeris_source_id"], "CERES_SPK_2025_2227")
-            self.assertEqual(state.reference_frame, CANONICAL_FRAME)
+            self.assertEqual(state.reference_frame, SPICE_FRAME)
             self.assertEqual(state.provenance["units"], "km,km/s")
 
     def test_de440_only_ceres_and_neptune_center_fail_closed(self):
@@ -137,6 +146,7 @@ class SolarEphemerisContractTests(unittest.TestCase):
     def _coverage(self, source_id, body_id):
         return EphemerisCoverage(
             source_id, body_id, "2026-01-01T00:00:00Z", "2226-01-01T00:00:00Z",
+            coverage_start_et=820497600.0, coverage_end_et=7131844800.0,
         )
 
     def _registry(self, sources, coverage):
@@ -163,7 +173,7 @@ class SolarEphemerisContractTests(unittest.TestCase):
         registry = self._registry(
             [product, body], [self._coverage("PRODUCT", None), self._coverage("BODY", "EARTH")],
         )
-        source, record = registry.source_for("EARTH", "2026-01-01T00:00:00Z")
+        source, record = registry.source_for("EARTH", 820497600.0)
         self.assertEqual(source.ephemeris_source_id, "BODY")
         self.assertEqual(record.body_id, "EARTH")
 
@@ -172,7 +182,7 @@ class SolarEphemerisContractTests(unittest.TestCase):
             [self._source("CANDIDATE", "CANDIDATE")], [self._coverage("CANDIDATE", "EARTH")],
         )
         with self.assertRaisesRegex(CelestialStateError, "no qualified source coverage"):
-            registry.source_for("EARTH", "2026-01-01T00:00:00Z")
+            registry.source_for("EARTH", 820497600.0)
 
     def test_equally_preferred_body_sources_fail_closed(self):
         registry = self._registry(
@@ -180,7 +190,7 @@ class SolarEphemerisContractTests(unittest.TestCase):
             [self._coverage("BODY_A", "EARTH"), self._coverage("BODY_B", "EARTH")],
         )
         with self.assertRaisesRegex(CelestialStateError, "ambiguous qualified ephemeris authority"):
-            registry.source_for("EARTH", "2026-01-01T00:00:00Z")
+            registry.source_for("EARTH", 820497600.0)
 
     def test_equally_preferred_product_sources_fail_closed(self):
         registry = self._registry(
@@ -188,7 +198,7 @@ class SolarEphemerisContractTests(unittest.TestCase):
             [self._coverage("PRODUCT_A", None), self._coverage("PRODUCT_B", None)],
         )
         with self.assertRaisesRegex(CelestialStateError, "ambiguous qualified ephemeris authority"):
-            registry.source_for("EARTH", "2026-01-01T00:00:00Z")
+            registry.source_for("EARTH", 820497600.0)
 
     def test_candidate_order_does_not_tiebreak_authority(self):
         sources = [self._source("PRODUCT_A"), self._source("PRODUCT_B")]
@@ -196,7 +206,7 @@ class SolarEphemerisContractTests(unittest.TestCase):
         for ordered_sources, ordered_coverage in ((sources, coverage), (sources[::-1], coverage[::-1])):
             registry = self._registry(ordered_sources, ordered_coverage)
             with self.assertRaisesRegex(CelestialStateError, "ambiguous qualified ephemeris authority"):
-                registry.source_for("EARTH", "2026-01-01T00:00:00Z")
+                registry.source_for("EARTH", 820497600.0)
 
 
 if __name__ == "__main__":

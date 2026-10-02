@@ -61,13 +61,13 @@ class Phase4CQualificationTests(unittest.TestCase):
             self.assertEqual(_sha256(path), asset["sha256"])
             self.assertEqual(path.stat().st_size, asset["byte_count"])
         for body in TARGETS:
-            source, _ = self.registry.source_for(body, EPOCHS[-1])
+            source, _ = self.registry.source_for(body, self.service.adapter.time.parse(EPOCHS[-1]))
             self.assertEqual(source.state_capability, "DIRECT_SPICE_2250_QUALIFIED")
             self.assertTrue(source.provider.startswith("JPL/"))
 
     def test_all_required_targets_resolve_object_level_horizon(self):
         for body, naif_id in TARGETS.items():
-            source, coverage = self.registry.source_for(body, EPOCHS[-1])
+            source, coverage = self.registry.source_for(body, self.service.adapter.time.parse(EPOCHS[-1]))
             self.assertLessEqual(_epoch(coverage.valid_from), _epoch(EPOCHS[0]))
             self.assertGreaterEqual(_epoch(coverage.valid_until), _epoch("2251-01-01T00:00:00Z"))
             for epoch in EPOCHS:
@@ -76,7 +76,7 @@ class Phase4CQualificationTests(unittest.TestCase):
                 self.assertEqual(state, replay)
                 self.assertEqual(state.provenance["naif_identifier"], naif_id)
                 self.assertEqual(state.provenance["ephemeris_source_id"], source.ephemeris_source_id)
-                self.assertEqual(state.reference_frame, CANONICAL_FRAME)
+                self.assertEqual(state.reference_frame, "ECLIPJ2000")
                 self.assertEqual(state.provenance["spice_frame"], "ECLIPJ2000")
                 self.assertEqual(state.provenance["units"], "km,km/s")
                 self.assertTrue(all(math.isfinite(value) for value in (*state.position_km, *state.velocity_km_s)))
@@ -94,14 +94,14 @@ class Phase4CQualificationTests(unittest.TestCase):
 
     def test_exact_boundary_and_outside_coverage_fail_closed(self):
         for body in TARGETS:
-            _, coverage = self.registry.source_for(body, EPOCHS[-1])
-            self.service.resolve(body, coverage.valid_from)
+            _, coverage = self.registry.source_for(body, self.service.adapter.time.parse(EPOCHS[-1]))
+            self.service.resolve_et(body, coverage.coverage_start_et)
             # State qualification uses the modeled horizon checkpoints above.
             # The source endpoint itself may include a planetary-backbone guard
             # that cannot be evaluated relative to the Sun beyond DE440.
-            after = (_epoch(coverage.valid_until) + timedelta(seconds=1)).isoformat()
+            after = coverage.coverage_end_et + 1
             with self.assertRaises(CelestialStateError):
-                self.service.resolve(body, after)
+                self.service.resolve_et(body, after)
 
 
 @unittest.skipUnless(os.environ.get("SOLAR_PG_INTEGRATION") == "1", "Requires disposable PostgreSQL integration database")
