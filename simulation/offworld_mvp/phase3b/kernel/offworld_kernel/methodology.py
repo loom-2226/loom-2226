@@ -4,7 +4,7 @@ from decimal import Decimal
 from hashlib import sha256
 import json
 from typing import Dict, Tuple
-from .build4 import Build4Kernel
+from .build4 import Build4Kernel, OwnershipStake
 from .kernel import InvariantError
 from .model import D
 from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState
@@ -82,6 +82,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if v<0 or agg.resource_holdings.get(k,D('0'))<v: raise InvariantError('aggregate resource allocation unavailable')
         for k,v in claims.items():
             if v<0 or agg.claim_holdings.get(k,D('0'))<v: raise InvariantError('aggregate claim allocation unavailable')
+            live=[s for s in self.ownership_stakes if s.vehicle_id==k and s.owner_id==agg.id]
+            if live and sum((s.share for s in live),D('0'))<v:
+                raise InvariantError('live ownership stake insufficient for resolution')
         if not set(histories).issubset(set(agg.history_refs)):
             raise InvariantError('aggregate history lineage unavailable')
 
@@ -98,6 +101,16 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         for k,v in claims.items():
             agg.claim_holdings[k]=agg.claim_holdings.get(k,D('0'))-v
             agent.claim_holdings[k]=agent.claim_holdings.get(k,D('0'))+v
+            live=[s for s in self.ownership_stakes if s.vehicle_id==k and s.owner_id==agg.id]
+            if live:
+                remaining=v
+                for s in live:
+                    take=min(s.share,remaining)
+                    s.share-=take; remaining-=take
+                    if remaining==0: break
+                self.ownership_stakes=[s for s in self.ownership_stakes if s.share!=0]
+                self.ownership_stakes.append(OwnershipStake(k,agent.id,agent.node_id,v))
+                self.assert_vehicle_ownership(k)
 
         rid=self._id('resolution')
         agent.lineage_refs.extend([*histories,rid])
