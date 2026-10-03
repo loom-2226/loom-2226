@@ -395,3 +395,192 @@ The next pass shall target the remaining `NOT ESTABLISHED` areas and convert bro
 - Q40 knowledge-time/temporal-leakage audit.
 
 No repair is authorized by Pass 2.
+
+
+## 9. Pass 3 — Structural Risk Audit
+
+Pass 3 targeted the unresolved structural questions rather than attempting repairs. Evidence was taken from current GitHub `main` and the already-inspected VM/PostgreSQL holdings. Old CIVPROP material remains archaeology only.
+
+### Q8 deepening — parameter inventory
+**ESTABLISHED — material parameter families located; exhaustive enumeration still incomplete.**
+
+Historical CIVPROP contains explicit parameter-bearing contracts rather than one parameter authority. Located examples include:
+
+- `CIVPROP_DEMAND_PRESSURE_V1` with status `UNCALIBRATED_CAUSAL_MODEL_PARAMETER_V1`;
+- `CIVPROP_PROJECT_ECONOMICS_V1` parameter sets;
+- mission-knowledge observation parameters marked `UNCALIBRATED_SCENARIO_OBSERVATION_MODEL`;
+- infrastructure Method Lab parameter sets marked `SYNTHETIC_METHOD_FIXTURE`;
+- unresolved resource-process parameters marked `UNRESOLVED_PROCESS_MODEL`;
+- actor-bridge parameters including allocation fractions, commit threshold and decision noise;
+- CIVPROP-0 synthetic scenario prior, sensitivity, false-positive rate, costs, value and decision threshold;
+- Earth long-run model parameters and explicit inherited assumptions, including a 10-year TFP transition half-life;
+- biosynthetic/demographic parameters including age schedules, medical-health recovery fraction and calibration boundaries.
+
+Finding: parameter status is already heterogeneous and often explicitly labeled. No single parameter registry or human-authorization ledger has been established.
+
+### Q16 deepening — producer/consumer graph
+**ESTABLISHED — architectural spine; exhaustive graph incomplete.**
+
+A recoverable historical spine exists:
+
+`source artifacts -> domain-specific builders/importers -> Earth/Solar/timeline projections or compiled CIVPROP inputs -> historical propagation engine -> event/state outputs -> Atlas/GIS/materialized consumers`.
+
+The historical engine requirements explicitly specify a replaceable boundary:
+
+`authoritative inputs -> compiled/frozen CIVPROP input -> propagation engine -> stable CIVPROP output -> Atlas/GIS/materialized consumers`.
+
+Actor-capability work documents direct read-only consumption of `loom_earth` and `loom_timeline`; CIVPROP input compilation reads timeline and other governed/context records. A machine-complete file/table/function dependency graph has not yet been produced.
+
+### Q20 deepening — incompatible identifiers/semantics
+**ESTABLISHED — incompatibility classes located.**
+
+At minimum:
+
+- LOOM technical-agent IDs are not CIVPROP civilization-actor IDs by semantics;
+- country identity does not imply authority over domestic firms/providers;
+- Solar canonical `body_id`, NAIF identifiers and external source identifiers require explicit crosswalks;
+- timeline aliases are identity mappings, not duplicate inventions;
+- Earth demographic coverage (237 WPP areas) and economic coverage (80 modeled economies) are not interchangeable populations;
+- `model proxy monetary units`, `SCENARIO_CREDIT`, and physical/currency-denominated quantities are not directly fungible;
+- technology milestone date, installed capability, actor access and mission feasibility are distinct states.
+
+These are contract incompatibilities even where strings or years happen to align.
+
+### Q22 deepening — expected but unlocated authorities
+**ESTABLISHED — bounded list.**
+
+Historical CIVPROP documentation explicitly identifies missing or unresolved authorities for:
+- actor-access/capability at mission scope;
+- observed/authorized spendable mission budgets;
+- provider contracts/service slots;
+- payload/service envelopes and prices;
+- several process/resource capacities;
+- lifecycle/failure parameters;
+- complete physical/economic parameterization for infrastructure archetypes.
+
+The actor-capability foundation states that Earth aggregate economics cannot establish accessible cash, spacecraft, launch service, specialist competence or access rights. These gaps are therefore documented absences, not merely search failure.
+
+### Q23 deepening — undocumented/weakly governed assumptions
+**ESTABLISHED — material examples.**
+
+CIVPROP-0 embeds synthetic scenario values directly in its `Scenario` dataclass: prior 0.3, sensitivity 0.85, false-positive 0.15, capital 100, mission cost 5, continuation cost 50, success value 100, threshold 0 and technology=true, all explicitly scoped as scenario test inputs/credits. Later historical contracts improve labeling but still contain uncalibrated or synthetic parameter sets.
+
+Earth code also contains inherited forecast assumptions such as `TFP_TRANSITION_HALF_LIFE_YEARS = 10.0`, explicitly described as pending direct persistence calibration.
+
+Finding: the main risk is not always hidden values; many values are honestly labeled but lack a common authorization/standing model.
+
+### Q25 deepening — causal reproducibility
+**ESTABLISHED — mixed standing.**
+
+Positive cases:
+- CIVPROP-0 `Run` records seed, scenario, inputs, input SHA-256, implementation SHA-256 map, events and audit state.
+- actor-state runtime replays versioned events and rejects invalid/unknown-state inventions.
+- Earth packages preserve run manifests, parameter hashes, exact runner bytes and determinism reports; one successor reports 18 primary artifacts byte-identical across rerun.
+
+Negative/unresolved:
+- no evidence establishes this standard across all historical LOOM outputs;
+- local mutable worktrees and numerous generated VM directories cannot be treated as reproducible merely because they still exist.
+
+Thus causal reproducibility is demonstrably achievable but not universally inherited.
+
+### Q26 deepening — AI/automation provenance
+**NOT ESTABLISHED — governance gap confirmed.**
+
+Automated builders, importers, validators and generated manifests are readily identifiable from code. The inspected artifact metadata does not provide a systematic field distinguishing human-authored, AI-assisted, AI-generated or automated classification decisions. Absence of such a marker cannot establish human authorship.
+
+This is a genuine Phase 2 governance requirement, not a defect that Phase 1 may repair.
+
+### Q27 deepening — human approvals
+**NOT ESTABLISHED — governance gap confirmed.**
+
+Owner decisions exist in Git history, governance documents and promotion records, but no common machine-readable approval ledger was located that records human identity, authorized act, scope, basis and time across assumptions, parameters, promotions and classifications.
+
+### Q28 deepening — fallback/default audit
+**ESTABLISHED — material classes located; exhaustive static audit remains future tooling work.**
+
+Earth contains explicit fallback/imputation and inherited fallback provenance. Examples include:
+- the corrected investment-rate pooled WDI median imputation;
+- PWT boundary fallback noted for ARE;
+- historical OECD ICIO fallback provenance for Nigeria, later replaced;
+- long-horizon transition assumptions rather than country-specific endpoint tuning.
+
+CIVPROP historical contracts frequently fail closed instead of defaulting UNKNOWN to numeric values. Examples reject UNKNOWN accessibility values, UNKNOWN budgets with amount/unit, and UNKNOWN actor fact sets containing asserted records.
+
+Finding: LOOM contains both fallback-bearing scientific models and fail-closed operational contracts. v1 must distinguish authorized scientific substitution from silent runtime default.
+
+### Q31 deepening — crosswalks
+**ESTABLISHED — important crosswalks present; no universal registry.**
+
+Solar identity crosswalks explicitly hold ambiguity rather than applying name fallback. Timeline aliases are explicit. Earth area/economy/sector identifiers are stable within their projections. No common registry establishes every cross-domain mapping and its author/validation basis.
+
+### Q32 deepening — feedback graph
+**ESTABLISHED — feedback-capable historical models exist; CIVPROP-to-Earth closed loop not established as current authority.**
+
+Earth successor models couple demographic/labor/economic state internally and carry restored calibration/trade state. Historical CIVPROP requirements anticipate path dependence and accumulated state affecting later opportunity. No evidence in this pass establishes a currently governed two-way CIVPROP ↔ Earth realized-state loop. Therefore such a loop must not be presumed to exist.
+
+### Q33 deepening — fitting and validation reuse
+**ESTABLISHED — controlled examples plus unresolved inventory.**
+
+Earth records explicitly distinguish calibration from endpoint fitting:
+- Nigeria's 2226 share is documented as a diagnostic, never a calibration target;
+- the repaired v3 states there was no country outcome cap, ranking target or 2226 Atlas calibration;
+- the medical longevity schedule is described as setting calibration and explicitly “not fitted to an endpoint”;
+- demographic code performs a WPP mortality boundary calibration.
+
+This is positive evidence of anti-target-fitting discipline in named models, but there is no LOOM-wide fitted-parameter ledger proving that all validation targets are independent of fitting targets.
+
+### Q35 deepening — test-to-claim coverage
+**ESTABLISHED — mechanisms rich, common coverage model absent.**
+
+Historical artifacts include negative fixtures, deterministic reruns, unit/regression tests, qualification reports, promotion validators, coverage matrices and explicit liens. M4-B's UNKNOWN-to-zero hostile fixture is a particularly direct semantic test. PostgreSQL field qualification evidence can explicitly record `NOT_TESTED`.
+
+No universal mapping currently answers “which test establishes which claim under which contract version.”
+
+### Q37 deepening — unknown/null loss
+**NOT ESTABLISHED — requires mechanical code/query audit.**
+
+Strong fail-closed contracts exist, but they do not prove that every SQL join, Python filter, aggregation or serialization path preserves UNKNOWN/NULL semantics. No complete null-loss audit was located. This remains one of the highest-value technical audits before qualified input compilation.
+
+### Q40 deepening — temporal leakage
+**ESTABLISHED — prevention mechanisms exist; system-wide absence NOT ESTABLISHED.**
+
+The actor-capability foundation explicitly freezes an as-of date and states that later evidence must not leak into initial knowledge. Solar research qualification uses predeclared source cutoffs/blindness boundaries. These are positive controls.
+
+No system-wide audit proves that every Earth, Solar, timeline, actor or historical CIVPROP consumer respects knowledge time. Temporal-leakage absence therefore remains unproven.
+
+## 10. Pass 3 Synthesis
+
+The archaeology no longer supports a picture of LOOM as four clean authoritative databases. The evidence instead supports a **network of claims, models, scenario material, projections, physical/mathematical transforms, compiled interfaces, qualification artifacts and simulated state with uneven governance maturity**.
+
+The most important result is also slightly less dramatic than discovering a smoking crater in the database: many historical designers already knew these distinctions mattered. UNKNOWN is often protected; scenario values are frequently labeled; Earth calibration records often disclose fallback and anti-endpoint-fitting rules; Solar qualification preserves ambiguity and scope.
+
+The failure mode is therefore primarily **lack of one common authority contract and common consumption boundary**, not universal scientific sloppiness.
+
+### High-risk unresolved items before Phase 1 can close
+
+1. **Q26 AI/automation authorship and classification provenance** — no common record.
+2. **Q27 human authorization ledger** — no common record.
+3. **Q37 null/UNKNOWN-loss audit** — no complete mechanical audit.
+4. **Q40 system-wide temporal leakage** — prevention exists locally, absence not proven.
+5. **Q16 complete producer-consumer graph** — architectural spine established, machine-complete graph not yet built.
+6. **Q8 complete parameter inventory** — families established, exhaustive enumeration not yet built.
+7. **Q33 universal fit-vs-validation independence** — good named examples, no universal ledger.
+
+These do not justify repairing old systems during archaeology. They determine what Phase 2 must govern and what tooling/qualification must later test.
+
+## 11. Phase 1 Closure Readiness
+
+**NOT YET CLOSED.**
+
+The 40 archaeology questions have now all been investigated beyond the initial inventory, and the major authority families and failure modes are visible. However, closing Phase 1 now would silently convert several “absence not proven” findings into assumed safety.
+
+A final Pass 4 should be narrow and mechanical rather than another architecture essay:
+
+- enumerate parameter-bearing CIVPROP/Earth artifacts and status labels;
+- enumerate direct domain consumers/importers;
+- scan SQL/Python consumption paths for null-dropping/default/coalescing behavior;
+- inventory explicit as-of/cutoff fields and rules;
+- inventory human/AI/automation provenance fields actually present;
+- produce a compact unresolved-risk register.
+
+No repairs, schema changes or model changes are authorized by this Pass 3 record.
