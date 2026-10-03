@@ -579,3 +579,191 @@ With D2.1 adopted, the next Phase 2 task is to derive the minimum candidate voca
 5. governance status/role.
 
 That pass shall test whether each distinction changes standing or permitted use before asking the owner to adopt D2.2/D2.3 vocabulary.
+
+
+## 23. Mechanical Vocabulary Pass — Minimum Dimensions
+
+**Status:** MECHANICAL ANALYSIS / NO NEW OWNER DECISION
+
+This pass tests the D2.1 dimensional model against current-main vocabulary already present in Solar, Earth, timeline, actor, simulation and governance holdings. Historical labels are evidence, not automatically adopted v1 vocabulary.
+
+### 23.1 Proposition kind
+
+A proposition kind answers **what is being asserted**, not why it is believed.
+
+The minimum candidate kinds forced by current holdings are:
+
+- **STATE_VALUE** — a value/state/property of an entity or system;
+- **EVENT** — an occurrence or state transition;
+- **IDENTITY** — an assertion that identifiers/entities correspond or do not correspond;
+- **RELATIONSHIP** — a relation among entities not reducible to identity;
+- **RULE_NORM** — a legal, institutional, governance, canon or other normative/stipulative rule;
+- **PARAMETER** — a value used to govern model/process behavior;
+- **MODEL_RELATION** — a mathematical/physical/model relationship used to transform inputs;
+- **AUTHORIZATION** — a governance act permitting a defined action/use;
+- **QUALIFICATION_ASSERTION** — an assertion about satisfaction of a governed qualification regime.
+
+This list is deliberately semantic rather than storage-shaped. Coverage, source artifact, provenance record and evidence packet are not proposition kinds merely because tables exist for them.
+
+**Pressure:** `AUTHORIZATION` and `QUALIFICATION_ASSERTION` may ultimately be modeled as governance events rather than ordinary claim kinds. They remain candidates until the State Model clarifies event semantics.
+
+### 23.2 Epistemic mode
+
+Epistemic mode answers **what relationship the proposition purports to have to reality or a stipulated world**.
+
+Minimum candidate modes:
+
+- **EMPIRICAL** — purports to report/represent an observed or recorded empirical state/event;
+- **PROJECTION** — estimates an unknown future state from evidence/model;
+- **SCENARIO_STIPULATION** — declared true within a scenario without forecast claim;
+- **SIMULATED** — produced within simulated realized state;
+- **NORMATIVE** — purports to state an effective rule, authorization, standard, institutional act or canon stipulation rather than describe an empirical physical state;
+- **FORMAL** — mathematical/logical/formal relationship whose warrant is not an observation of world state.
+
+**Finding:** the earlier label `OBSERVATION` is too narrow as a top-level mode. Current Solar holdings distinguish direct sample, in-situ direct/remote, Earth remote, dynamical inference, physical model and theoretical expectation. These are better handled through derivation/evidence method while `EMPIRICAL` states the proposition's intended relationship to reality.
+
+**Open pressure:** whether `NORMATIVE` and `FORMAL` are true epistemic modes or warrant/proposition dimensions remains unresolved. Do not adopt them yet.
+
+### 23.3 Derivation/evidence mode
+
+This dimension answers **how the asserted content was obtained**.
+
+Current holdings force at least these candidate families:
+
+- **DIRECT_REPORTED** — admitted directly from a source record/report;
+- **DIRECT_SAMPLE**;
+- **IN_SITU_DIRECT**;
+- **IN_SITU_REMOTE**;
+- **EARTH_REMOTE**;
+- **INFERRED** — including dynamical/analog inference with subtype retained;
+- **PHYSICAL_MODEL**;
+- **THEORETICAL_EXPECTATION**;
+- **DETERMINISTIC_DERIVATION**;
+- **FITTED_OR_CALIBRATED**;
+- **IMPUTED_OR_SUBSTITUTED**;
+- **SIMULATED_TRANSITION**.
+
+The exact vocabulary should not blindly copy Solar's historical `epistemic_class`; however, that schema proves that evidence/acquisition method matters independently of proposition mode.
+
+A claim may have more than one derivation stage. Therefore derivation is likely lineage/transform history, not necessarily a single enum on the final claim.
+
+### 23.4 Knowledge/value state
+
+D0.3 and Phase 1 require a value-state dimension independent of epistemic mode.
+
+Minimum candidate states:
+
+- **ASSERTED** — an admitted value/proposition is present;
+- **UNKNOWN** — no authorized asserted value is available for the question/scope;
+- **NOT_APPLICABLE** — the question does not semantically apply;
+- **QUARANTINED** — relevant material exists but is not admissible for the intended use pending resolution.
+
+**Rejected as value states:** zero, false and empty. Those are possible asserted contents, not substitutes for UNKNOWN.
+
+`SOURCE_NOT_FOUND`, `NOT_SEARCHED`, and `UNKNOWN_AFTER_SEARCH` are not proposed as peer value states. They describe investigation/search condition associated with UNKNOWN.
+
+### 23.5 Investigation/search state
+
+Minimum candidate search states for an UNKNOWN:
+
+- **NOT_ASSESSED** — no governed search/assessment is established;
+- **BOUNDED_ASSESSMENT_NO_ADMITTED_VALUE** — a recorded bounded scope was assessed and yielded no admissible value;
+- **DEFINED_SOURCE_NOT_FOUND** — a named endpoint/archive/source expected by the search rule did not yield the relevant source/material;
+- **EVIDENCE_FOUND_NOT_ADMITTED** — potentially relevant evidence was found but held/rejected/quarantined;
+- **SEARCH_STATE_UNKNOWN** — historical holding is UNKNOWN but the search condition itself is not established.
+
+Every non-`NOT_ASSESSED` search state requires a reference to its recorded search scope. This directly incorporates the Phase 1 R-01 lien.
+
+**Important:** this vocabulary does not create a `CONFIRMED_ABSENT` state. Confirmed absence would be an asserted negative proposition with its own evidence and scope, not a flavor of UNKNOWN.
+
+### 23.6 Governance status and role
+
+Current holdings show that several governance concepts are independent and must not become one status enum.
+
+Candidate axes:
+
+**Admission/disposition**
+- CANDIDATE
+- ADMITTED
+- HOLD
+- REJECTED
+- QUARANTINED
+
+**Adoption/reference role**
+- NOT_ADOPTED
+- ADOPTED_REFERENCE
+- GOVERNING_SCENARIO
+- GOVERNING_CANON
+
+**Qualification**
+- NOT_EVALUATED
+- QUALIFIED
+- QUALIFIED_WITH_LIMITATIONS
+- NOT_QUALIFIED
+
+**Conflict**
+- UNCONFLICTED_OR_NOT_ASSESSED
+- CONFLICTED
+- RESOLVED_BY_AUTHORIZED_RULE
+
+**Authorization**
+- NOT_REQUIRED
+- REQUIRED_NOT_AUTHORIZED
+- AUTHORIZED
+- DELEGATED_AUTHORIZED
+- POST_HOC_AUTHORIZED
+
+These are candidate conceptual axes, not final tokens. Historical `PROMOTE`, `preferred_fact`, `GOVERNING_CANON`, `AUTHOR_SCENARIO_MODERATE` and qualification labels demonstrate why one status field would be lossy.
+
+### 23.7 Temporal condition
+
+The vocabulary pass confirms that time must be dimensional:
+
+- validity interval may be known, bounded, open-ended or UNKNOWN;
+- knowledge time may be known or UNKNOWN;
+- source publication/acquisition time is provenance and is not automatically validity time;
+- future validity does not itself distinguish PROJECTION from SCENARIO_STIPULATION.
+
+### 23.8 Stress-test conclusion
+
+No archaeological exemplar found in this pass requires returning to a single `epistemic_class`.
+
+The smallest model that preserves current distinctions is:
+
+`PROPOSITION KIND`
++ `EPISTEMIC MODE`
++ `VALUE/KNOWLEDGE STATE`
++ `DERIVATION LINEAGE`
++ `SCOPE/TIME`
++ `WARRANT`
++ independent `GOVERNANCE AXES`
++ `UNCERTAINTY`
++ `SUPPORT/CONFLICT RELATIONS`.
+
+The pass also produces three constraints for the next owner decision:
+
+1. UNKNOWN is not an epistemic mode in the same sense as EMPIRICAL/PROJECTION/SIMULATED; it is a knowledge/value state.
+2. DERIVED is not an epistemic mode; derivation may be multi-stage lineage.
+3. MODEL_PARAMETER is primarily proposition/functional role, not a statement about whether its value is observed, fitted, authored, projected or synthetic.
+
+## 24. D2.2 — Dimensional vocabulary architecture
+
+**Status:** READY FOR OWNER DECISION
+
+**Option A — Adopt the dimensional vocabulary architecture.**
+
+Adopt the category separation in §23 as the governing Phase 2 architecture, while keeping the individual token lists candidate until each is stress-tested further. In particular:
+
+- proposition kind, epistemic mode, knowledge/value state, derivation lineage and governance axes are distinct;
+- UNKNOWN is a knowledge/value state;
+- DERIVED belongs to derivation lineage;
+- MODEL_PARAMETER is a proposition/functional role;
+- governance status is multi-axis rather than a single lifecycle enum.
+
+This decides the architecture of the vocabulary without prematurely freezing every label.
+
+**Option B — Collapse selected dimensions before proceeding.**
+
+Require Phase 2 to combine two or more of the above dimensions into a smaller taxonomy before continuing.
+
+**Mechanical recommendation:** Option A. The current holdings already demonstrate independent variation among these dimensions; collapsing them now would recreate the compound-label problem rejected by D2.1.
