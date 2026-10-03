@@ -50,7 +50,7 @@ The original five accounting/kernel tests remain green. Five Build-2 tests addit
 | SPARSE | POSITIVE | approved | 15 | 10 | 100 | 60 Earth-supplied + 40 local |
 | RICH | POSITIVE | approved | 95 | 10 | 100 | 60 Earth-supplied + 40 local |
 
-The SPARSE and RICH runs remain behaviorally identical after the coarse positive observation because the observation does not distinguish their quantities. Their hidden remaining resource differs because extraction acts on fixed scenario truth. This is intentional and demonstrates that hidden quantity does not directly drive agent decisions.
+The SPARSE and RICH scripted fixtures remain behaviorally identical after the coarse positive observation because the fixture exposes no quantity distinction to agent-view objects and the scripted extraction request does not bind against either stock. This is a regression check on state/interface separation only. It does **not** demonstrate that a future autonomous policy cannot leak or otherwise depend on hidden truth; that stronger claim must be retested when autonomous policies exist.
 
 Run fingerprints:
 
@@ -91,6 +91,7 @@ The Build-2 fixture deliberately still abstracts or omits:
 - births/deaths;
 - endogenous price/demand;
 - autonomous underwriting/operating policies;
+- Build-2 fingerprints do not include a complete parameter registry, universe-version identifier, code version or explicit input-snapshot identity;
 - full causal snapshots of prior/new state;
 - governed Earth-reference data ingestion.
 
