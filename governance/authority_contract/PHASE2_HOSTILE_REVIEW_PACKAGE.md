@@ -1,0 +1,1787 @@
+# LOOM Authority and State Contract v1
+## Phase 2 Hostile Review Package
+
+**Status:** PRE-CONTRACT / REVIEW PACKAGE
+**Date:** 2026-10-04
+**Branch:** authority-contract-v1-phase0
+
+## Review target
+
+Review the Phase 2 Claim and Authority Model in `03_PHASE2_CLAIM_AUTHORITY_MODEL.md` against the Phase 0 constraints and Phase 1 liens. The review must be hostile: seek contradictions, category collapse, authority laundering, missing dimensions, non-reproducible semantics, and cases where the model would permit evidence, scenario truth, agent belief or simulated state to acquire another layer's standing.
+
+## Required questions
+
+1. Do D2.1-D2.10 form a coherent model, or do any adopted decisions contradict one another or Phase 0?
+2. Is the distinction among proposition content, support, epistemic mode, derivation, warrant, governance role, uncertainty and standing sufficient and non-circular?
+3. Does scoped UNKNOWN preserve absence, zero, stale, conflict, inapplicability and bounded-search semantics without creating loopholes?
+4. Are the proposed warrant roots genuine roots? In particular, should formal, institutional/normative or canon warrant instead be modeled as authorization or another relation?
+5. Does use-relative standing become so contextual that reproducibility or deterministic qualification becomes impossible?
+6. Is epistemic perspective/admissibility a legitimate claim-model dimension or should it be deferred entirely to the State Model/runtime access control?
+7. Can reference adoption occur without laundering projection/scenario/simulation ancestry?
+8. Are conflict semantics precise enough to distinguish genuine contradiction from time, scope, scenario and perspective differences?
+9. Are uncertainty, scenario variability, simulation randomness and agent belief sufficiently separated?
+10. Does D2.10 correctly separate formal entailment, empirical physical models and computational correctness?
+11. Does the offworld adversarial case expose any missing dimension, especially hidden scenario truth -> simulated observation -> agent belief -> decision -> realized state?
+12. Have Phase 1 liens been resolved or carried to the correct later phase rather than dismissed?
+13. Identify any term whose meaning is still overloaded enough to make a v1 contract unsafe.
+14. Identify any requirement that belongs in Phase 3 State Model, Phase 4 Runtime Boundary or Phase 5 Qualification rather than Phase 2.
+15. State whether Phase 2 is ready to close, ready with liens, or requires substantive redesign.
+
+## Evidence supplied
+
+### Phase 2 candidate
+
+# LOOM AUTHORITY AND STATE CONTRACT v1
+## Phase 2 — Claim and Authority Model
+
+**Document:** `03_PHASE2_CLAIM_AUTHORITY_MODEL.md`  
+**Status:** PRE-CONTRACT / PHASE 2 IN PROGRESS / SINGLE-AUTHORITY  
+**Date opened:** 2026-10-03  
+**Owner:** @kT  
+**Authority basis:** Phase 0 D0.1–D0.20; closed Phase 1 archaeology; Phase 1 review addendum and D0.20 Option B  
+**Purpose:** Define the conceptual model by which LOOM identifies claims, represents their epistemic standing, records warrant and authorization, propagates dependency limitations, and distinguishes unknown, conflict, reference, projection, scenario and simulation.  
+**Non-purpose:** This document does not select a database schema, qualify existing holdings, define the full state model, define the runtime snapshot format, or adopt historical CIVPROP architecture.
+
+## 1. Phase 2 entry condition
+
+Phase 2 is authorized to proceed under `PRE-CONTRACT / SINGLE-AUTHORITY`.
+
+This permits candidate ontology and governance design. It does not satisfy any future requirement for independent authorization and does not grant v1 qualification to any existing holding.
+
+The Phase 1 review liens are inputs to this phase, not optional cleanup.
+
+## 2. Design constraints inherited from Phase 0
+
+The Claim and Authority Model must preserve these already-decided principles:
+
+1. authority ultimately attaches to claims;
+2. storage, computation, automation, AI origin and repeated use do not create authority;
+3. unknown remains distinct from zero, false, empty, absence and omission;
+4. unknown blocks dependent use unless an explicitly authorized bridge applies;
+5. computed standing cannot silently exceed the standing and scope of necessary dependencies;
+6. simulation does not become evidence by inheritance;
+7. projection and scenario assumption are distinct;
+8. conflicts remain visible unless an authorized resolution rule applies;
+9. reference and realized state remain distinguishable;
+10. known uncertainty survives transformation and uncharacterized uncertainty is not zero uncertainty;
+11. qualification is scoped, graduated and versioned;
+12. human authorization is the root of governance acts unless a later approved delegation mechanism applies;
+13. authorization, provenance, authority, qualification, standing and truth are distinct concepts;
+14. replay and causal audit are distinct;
+15. governed status requires epistemic, reproducibility/audit and causal integrity;
+16. authority-root types remain extensible pending Phase 2 adjudication.
+
+## 3. Phase 1 evidence constraints
+
+Phase 2 must be capable of representing at least the following archaeological realities:
+
+- empirical/source claims;
+- derived claims;
+- future projections;
+- scenario assumptions;
+- model parameters, including fitted, inherited, synthetic and uncalibrated parameters;
+- explicit unknowns with bounded search scope;
+- stale observations distinct from missing observations;
+- candidate and historically promoted claims;
+- conflicting claims;
+- uncertainty and uncharacterized uncertainty;
+- simulated state and simulation events;
+- reference trajectories;
+- physical/mathematical calculations;
+- identity and crosswalk assertions;
+- institutional/canon/governance assertions;
+- human authorization records;
+- bounded delegated technical-agent authority;
+- qualification and promotion records;
+- transformations and compiled interfaces;
+- claims with unknown temporal extent or unknown knowledge time.
+
+The model must not assume that every current holding already exposes all required metadata.
+
+## 4. Core conceptual separation
+
+Phase 2 begins from a five-part separation:
+
+### 4.1 Claim
+
+A **Claim** is an identifiable assertion about a subject within some scope.
+
+A claim is not defined by its storage representation. One claim may occupy a row, cell, JSON object, document statement or derived result. One artifact may contain many claims.
+
+A claim has content. Its warrant and governance are represented separately.
+
+### 4.2 Provenance
+
+**Provenance** records origin and transformation history.
+
+It answers questions such as:
+
+- where did this assertion come from?
+- what source artifact or prior claim supplied it?
+- what transformation produced it?
+- which code/model/version participated?
+- when was the relevant source or transformation available?
+
+Provenance does not by itself authorize use.
+
+### 4.3 Epistemic character
+
+**Epistemic character** describes what kind of assertion the claim is and what relationship it purports to have to reality or a stipulated world.
+
+It must not be inferred from storage location or source prestige.
+
+The final taxonomy is not yet adopted. Candidate classes are developed in §7.
+
+### 4.4 Authority / warrant
+
+**Authority** is the warrant under which LOOM may rely on a claim for a specified scope and use.
+
+Authority is relational rather than an intrinsic quality score:
+
+`AUTHORITY = warrant to rely on CLAIM for USE within SCOPE under GOVERNANCE`
+
+A claim may therefore be usable for one purpose and unusable for another without contradiction.
+
+### 4.5 Standing
+
+**Standing** is the effective governed condition of a claim for a particular use after considering epistemic character, warrant, scope, temporal extent, knowledge time, uncertainty, dependencies, qualification, conflicts, limitations and applicable authorization.
+
+Standing is not reducible to a single ordinal confidence score.
+
+## 5. Claim identity
+
+A claim must be distinguishable from another claim when a material difference exists in any of the following:
+
+- subject;
+- predicate/quantity;
+- asserted value or state;
+- applicable spatial/entity scope;
+- applicable temporal scope;
+- scenario/reference context where semantically necessary.
+
+Two identical numeric values can therefore represent different claims if their subject, scope or scenario differs.
+
+A new source asserting the same proposition does not automatically create a new proposition, but it creates distinct provenance/evidentiary support that must remain representable.
+
+The eventual identity/key implementation is deferred.
+
+## 6. Scope model
+
+Scope is not optional decoration. It constrains what a claim says.
+
+Candidate scope dimensions, included where applicable, are:
+
+- **entity scope** — the object, actor, institution, body, country, facility or other subject;
+- **spatial scope** — global, national, regional, local, sampled site, sampled material, etc.;
+- **temporal validity scope** — when the asserted condition applies;
+- **knowledge-time scope** — when LOOM/source could legitimately know the information;
+- **scenario/reference scope** — which stipulated/reference world the assertion belongs to;
+- **population/cohort scope** — where a claim concerns a subset;
+- **measurement/sample scope** — what was actually measured or sampled;
+- **intended-use scope** — uses for which authority/qualification applies.
+
+Unknown scope is not widened by convenience.
+
+### 6.1 Unknown time
+
+Temporal validity and knowledge time may themselves be unknown.
+
+Missing date metadata does not imply timeless validity, current validity, start-of-simulation knowledge, or permission to back-propagate the claim.
+
+### 6.2 Search scope for unknowns
+
+An unknown produced by investigation must preserve the scope of that investigation.
+
+At minimum, LOOM must be able to distinguish:
+
+- no search/assessment established;
+- bounded search/assessment performed;
+- defined source/endpoint searched but relevant evidence not located;
+- evidence exists but is quarantined/unusable;
+- question is not applicable.
+
+The exact vocabulary remains a Phase 2 decision.
+
+`UNKNOWN_AFTER_SEARCH` without its search scope is insufficient standing information.
+
+## 7. Candidate epistemic taxonomy
+
+This section is a candidate model, not yet an owner-adopted Phase 2 decision.
+
+### 7.1 OBSERVATION
+
+An assertion grounded in an observation, measurement, record or report purporting to describe an empirical state.
+
+Observation does not imply correctness, precision, completeness, current validity or universal scope.
+
+### 7.2 DERIVED
+
+An assertion computed or logically derived from other claims through an identified transformation.
+
+Its standing depends on both the transformation and necessary inputs.
+
+A derived claim does not become observational merely because all inputs are observations.
+
+### 7.3 PROJECTION
+
+An evidence/model-derived estimate of an unknown future state.
+
+This definition is inherited from D0.7.
+
+A future ephemeris state generated from a fitted ephemeris solution is therefore a candidate example of projection rather than automatically a physical-law fact.
+
+### 7.4 SCENARIO_ASSUMPTION
+
+A condition explicitly stipulated as true within a scenario without claiming to be an empirical forecast.
+
+This definition is inherited from D0.7.
+
+### 7.5 MODEL_PARAMETER
+
+A value governing model behavior rather than directly asserting an empirical state of the modeled world.
+
+Parameter substanding may need to distinguish sourced, fitted, calibrated, inherited, authored, synthetic/test, and uncalibrated values. Whether these are subclasses or metadata is undecided.
+
+### 7.6 SIMULATED
+
+A state/event/result produced by simulation.
+
+Simulated state may parent later simulated state but does not become evidence through inheritance.
+
+### 7.7 UNKNOWN
+
+An explicit representation that LOOM lacks an authorized asserted value/state for the relevant question and scope.
+
+UNKNOWN is not a weak observation and is not a numeric value.
+
+Unknown reason/search state is represented separately from the fact of unknownness.
+
+### 7.8 Candidate additional classes
+
+Phase 1 exposes material that may not fit cleanly into the seven classes above:
+
+- normative/institutional rule;
+- identity assertion;
+- canon declaration;
+- mathematical/physical relationship;
+- verified deterministic computation;
+- reference/adopted baseline.
+
+Phase 2 must decide whether these are epistemic classes, authority-root/warrant types, contextual roles, or combinations. They are not promoted to classes merely because archaeology found them.
+
+## 8. Claim condition dimensions that must not be collapsed into epistemic class
+
+The following are orthogonal or potentially orthogonal to epistemic class and should not be encoded by proliferating class labels unless later evidence requires it:
+
+- candidate vs promoted/adopted;
+- qualified vs unqualified;
+- current vs stale;
+- known vs conflicted;
+- uncertainty characterized vs uncharacterized;
+- source accepted vs quarantined;
+- direct vs inherited metadata;
+- human-authored vs AI-assisted vs automated;
+- fitted/outcome-conditioned status;
+- reference vs realized role;
+- replay status;
+- authorization status.
+
+This prevents labels such as `QUALIFIED_OBSERVATION_PROMOTED_CURRENT` from becoming a substitute for an actual model.
+
+## 9. Candidate authority-root question
+
+D0.18 deliberately left authority roots extensible. Phase 1 found evidence requiring adjudication of at least:
+
+1. **Evidentiary warrant** — reliance grounded in an empirical source/observation and its accepted provenance.
+2. **Explicit human authorization** — governance authority for assumptions, parameters, classifications, qualification, promotion and resolution rules.
+3. **Physical/mathematical relationship** — established law, mathematical identity or formal relationship used to derive a claim.
+4. **Standard/institutional authority** — an external institution or standard is itself authoritative for the proposition at issue, such as an official identifier or legally effective rule.
+5. **Canon authority** — an authorized fictional/worldbuilding declaration governing a stipulated LOOM scenario/world.
+6. **Verified deterministic computation** — a computation whose warrant may derive from accepted inputs plus an accepted transformation rather than from a new empirical source.
+
+These are **candidates**. Phase 2 must test whether items 3–6 are genuine authority roots or instead derive their authority from other roots plus transformations/authorization.
+
+No root may be created merely because a model needs a value.
+
+## 10. Dependency model
+
+A claim may depend on:
+
+- source claims;
+- prior simulated state;
+- parameters;
+- scenario assumptions;
+- transformations;
+- physical/mathematical relationships;
+- identity/crosswalk claims;
+- authorization decisions;
+- conflict-resolution rules.
+
+Necessary dependencies must remain traversable.
+
+### 10.1 Computed standing
+
+For a dependent claim:
+
+- scope cannot silently widen beyond necessary dependencies;
+- permitted use cannot silently widen;
+- unknown necessary input blocks unless an authorized bridge applies;
+- conflict cannot silently resolve;
+- uncertainty cannot silently disappear;
+- simulation ancestry remains visible;
+- a fitted/outcome-conditioned dependency remains visible;
+- qualification does not propagate merely because a parent is qualified.
+
+The phrase "weakest input wins" is insufficient where dimensions are non-ordinal. Standing must compose dimension by dimension.
+
+## 11. Authorized bridges
+
+An **authorized bridge** is a governed decision/rule that permits an operation to proceed where ordinary dependency semantics would block or where one epistemic role is intentionally substituted for another.
+
+Examples may include:
+
+- an authorized imputation for missing empirical input;
+- a scenario assumption replacing an unknown for a named scenario;
+- an adopted projection used as a reference trajectory;
+- a governed conflict-resolution rule;
+- a qualified crosswalk resolving identity between systems.
+
+A bridge must preserve:
+
+- what condition it bridges;
+- authorizer and authorization basis;
+- scope and intended use;
+- effective version/time;
+- replacement/substitution method;
+- resulting limitations;
+- provenance to the original blocked/unknown/conflicting condition.
+
+A bridge does not rewrite the original claim.
+
+## 12. Conflict model
+
+Conflict exists when claims that purport to apply to the same relevant proposition/scope cannot simultaneously hold under their semantics.
+
+Potentially different conditions include:
+
+- two empirical observations disagreeing;
+- an observation and projection disagreeing for overlapping time;
+- two projections disagreeing;
+- scenario assumption deliberately diverging from projection;
+- identity mappings disagreeing;
+- institutional authorities disagreeing or changing over time.
+
+Phase 2 must define conflict detection and resolution semantics without treating all disagreement as the same phenomenon.
+
+## 13. Uncertainty model
+
+Uncertainty is not identical to epistemic class or confidence.
+
+The model must preserve:
+
+- characterized quantitative uncertainty where supplied;
+- qualitative/source uncertainty where supplied;
+- uncharacterized uncertainty as uncharacterized;
+- projection uncertainty as conditional on model/input assumptions;
+- simulation variability separately from epistemic uncertainty;
+- scope uncertainty where relevant;
+- uncertainty introduced by transformation.
+
+No uncertainty field may default to zero merely because no estimate exists.
+
+## 14. Authorization and delegation
+
+Governance acts require human authorization unless an approved delegation rule explicitly permits otherwise.
+
+An authorization must ultimately identify:
+
+- human authority;
+- date/time;
+- subject/action authorized;
+- scope and permitted use;
+- relevant version/scenario;
+- basis;
+- whether authorization is prospective or post-hoc;
+- independence status where required.
+
+Delegation is bounded authority to perform specified governance actions under specified deterministic rules. It is not a transfer of epistemic judgment to an AI.
+
+The existing WALTER registry/creation-review mechanism is Phase 2 evidence for bounded delegation but is not automatically adopted as the v1 mechanism.
+
+## 15. Reference, adoption and simulation
+
+`REFERENCE`, `REALIZED`, `SIMULATED`, `PROJECTION` and `SCENARIO_ASSUMPTION` answer different questions.
+
+A reference is a role played by a versioned state/trajectory used for comparison or initialization. It is not necessarily an epistemic class.
+
+A projection can be adopted as a reference while remaining a projection.
+
+A scenario assumption can define a reference scenario while remaining a scenario assumption.
+
+A simulated result can become an adopted reference only through an explicit governance event; adoption does not erase simulation ancestry.
+
+This separation is a candidate Phase 2 principle to be tested before adoption.
+
+## 16. Physical and mathematical standing problem
+
+Phase 1 and its review establish that "physical authority" is too coarse.
+
+Phase 2 must distinguish at least:
+
+1. measured/source quantities;
+2. accepted physical constants or empirical model parameters;
+3. mathematical identities and formal relationships;
+4. fitted physical solutions/models such as an ephemeris solution;
+5. deterministic evaluation of such a model at an epoch;
+6. future extrapolated state produced by that model;
+7. engineering/transport calculations using physical inputs and additional assumptions.
+
+A future state does not become an observation merely because the computation producing it is deterministic.
+
+This section records the problem; it does not yet adjudicate root authority.
+
+## 17. Qualification boundary
+
+Qualification is not an epistemic class and not an intrinsic truth label.
+
+Phase 2's claim model must make it possible for later qualification machinery to state:
+
+- what claim/collection/interface/process was qualified;
+- under which contract/version;
+- for which use and scope;
+- against which requirements;
+- by whom;
+- with what evidence;
+- with what limitations and coverage;
+- with what replay/audit status.
+
+The qualification framework itself belongs to a later phase.
+
+## 18. Phase 2 decision register
+
+No Phase 2 design decision is treated as owner-adopted merely because it appears in this working document.
+
+### D2.1 — Core decomposition
+**Status:** CANDIDATE  
+Question: Should v1 adopt the separation `Claim / Provenance / Epistemic Character / Authority-Warrant / Standing`, with qualification and authorization represented as governance relationships/events rather than properties that redefine the claim?
+
+### D2.2 — Epistemic taxonomy
+**Status:** OPEN  
+Question: Which of the candidate classes in §7 are first-class epistemic classes, and which concepts belong in orthogonal dimensions?
+
+### D2.3 — Unknown semantics
+**Status:** OPEN  
+Question: What minimum unknown/search-state vocabulary is required, given the Phase 1 M4-B evidence and D0.3?
+
+### D2.4 — Authority roots
+**Status:** OPEN  
+Question: Which candidate warrants in §9 are genuine roots, which are derivative, and what makes each legitimate?
+
+### D2.5 — Reference role
+**Status:** OPEN  
+Question: Is REFERENCE a role/context rather than an epistemic class?
+
+### D2.6 — Dependency standing
+**Status:** OPEN  
+Question: What exact dimension-by-dimension composition rules govern derived claims?
+
+### D2.7 — Authorization/delegation
+**Status:** OPEN  
+Question: What governance acts require direct human authorization, which may be delegated, and what independence requirements apply?
+
+### D2.8 — Conflict
+**Status:** OPEN  
+Question: What constitutes conflict across epistemic classes and contexts, and what resolution mechanisms are permitted?
+
+### D2.9 — Uncertainty
+**Status:** OPEN  
+Question: What uncertainty dimensions are mandatory or optional, and how does unknown uncertainty propagate?
+
+### D2.10 — Physical/mathematical standing
+**Status:** OPEN  
+Question: How should physical law, fitted models, deterministic computation and future extrapolation receive and propagate warrant?
+
+## 19. Mechanical work before owner decisions
+
+Before asking the owner to resolve D2.1–D2.10, Phase 2 should mechanically stress-test this candidate model against concrete archaeological exemplars:
+
+1. M4-B supported material lane;
+2. M4-B bounded unknown lane;
+3. Earth pooled-median imputation;
+4. Earth late-horizon projected state;
+5. Moderate technology scenario milestone;
+6. actor empirical capability/access claim;
+7. actor unknown budget/access claim;
+8. SPICE/ephemeris future state;
+9. Lambert/transport derived result;
+10. simulated CIVPROP state/event;
+11. identity/crosswalk claim;
+12. WALTER delegated-governance record.
+
+The purpose is to expose missing dimensions and category errors before freezing vocabulary.
+
+## 20. Phase 2 exit condition
+
+Phase 2 may close only when:
+
+- the claim/authority conceptual model is owner-adopted;
+- authority roots are adjudicated;
+- unknown/search-scope semantics are adopted;
+- temporal/knowledge-time semantics are adopted;
+- dependency standing rules are defined;
+- authorization/delegation semantics are defined;
+- conflict and uncertainty semantics are defined sufficiently for the later State Model and Runtime Boundary;
+- Phase 1 review liens assigned to Phase 2 are resolved or explicitly carried forward;
+- hostile review is completed with limitations recorded;
+- SINGLE-AUTHORITY status is either accepted for closure under an explicit rule or replaced by the required independent mechanism.
+
+Until then:
+
+`PHASE 2: IN PROGRESS / PRE-CONTRACT / SINGLE-AUTHORITY`
+
+
+## 21. D2.1 — Core Decomposition
+
+**Status:** OWNER-ADOPTED  
+**Decision date:** 2026-10-03  
+**Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY
+
+Following mechanical stress testing against Phase 1 archaeological exemplars, the owner selected **Option A: dimensional claim model**.
+
+LOOM v1 shall model a claim as an identifiable **proposition with scope/context**. The following remain separately representable rather than being collapsed into one universal epistemic-class label:
+
+- provenance;
+- epistemic mode;
+- derivation mode;
+- warrant;
+- governance status/role;
+- uncertainty;
+- dependencies and lineage.
+
+Effective **standing** is evaluated for a specified use, time and governing contract. It is not a universal scalar quality attached to the proposition.
+
+Qualification and authorization remain governance acts/relationships. They do not redefine claim content merely by occurring.
+
+### D2.1 mapping consequence
+
+The initial Phase 2 candidate labels are provisionally remapped for subsequent design:
+
+- `OBSERVATION` → epistemic mode;
+- `PROJECTION` → epistemic mode;
+- `SCENARIO_ASSUMPTION` → epistemic mode;
+- `SIMULATED` → epistemic mode;
+- `DERIVED` → derivation mode;
+- `MODEL_PARAMETER` → proposition/functional role whose own epistemic and derivation metadata remain separately representable;
+- `UNKNOWN` → explicit knowledge/value state whose reason and search/assessment scope remain separately representable.
+
+This mapping does not by itself close D2.2. It constrains D2.2 by rejecting a single mutually-exclusive `epistemic_class` enum as the governing conceptual model.
+
+### Claim content versus claim support
+
+D2.1 also adopts the distinction:
+
+`CLAIM CONTENT ≠ CLAIM SUPPORT`
+
+Multiple source assertions may support, contradict, constrain or otherwise bear on one proposition. Evidence records, coverage statements and normalized propositions must remain conceptually distinguishable even where an implementation later chooses to colocate them.
+
+### Non-decisions
+
+D2.1 does not select:
+
+- a database schema;
+- serialization format;
+- identifier/key design;
+- final epistemic-mode vocabulary;
+- final derivation-mode vocabulary;
+- authority roots;
+- qualification mechanics;
+- conflict-resolution mechanics;
+- uncertainty schema;
+- runtime representation.
+
+Those remain later Phase 2 or subsequent-phase decisions.
+
+## 22. Next mechanical pass
+
+With D2.1 adopted, the next Phase 2 task is to derive the minimum candidate vocabularies for:
+
+1. proposition kind;
+2. epistemic mode;
+3. derivation mode;
+4. knowledge/unknown state and search scope;
+5. governance status/role.
+
+That pass shall test whether each distinction changes standing or permitted use before asking the owner to adopt D2.2/D2.3 vocabulary.
+
+
+## 23. Mechanical Vocabulary Pass — Minimum Dimensions
+
+**Status:** MECHANICAL ANALYSIS / NO NEW OWNER DECISION
+
+This pass tests the D2.1 dimensional model against current-main vocabulary already present in Solar, Earth, timeline, actor, simulation and governance holdings. Historical labels are evidence, not automatically adopted v1 vocabulary.
+
+### 23.1 Proposition kind
+
+A proposition kind answers **what is being asserted**, not why it is believed.
+
+The minimum candidate kinds forced by current holdings are:
+
+- **STATE_VALUE** — a value/state/property of an entity or system;
+- **EVENT** — an occurrence or state transition;
+- **IDENTITY** — an assertion that identifiers/entities correspond or do not correspond;
+- **RELATIONSHIP** — a relation among entities not reducible to identity;
+- **RULE_NORM** — a legal, institutional, governance, canon or other normative/stipulative rule;
+- **PARAMETER** — a value used to govern model/process behavior;
+- **MODEL_RELATION** — a mathematical/physical/model relationship used to transform inputs;
+- **AUTHORIZATION** — a governance act permitting a defined action/use;
+- **QUALIFICATION_ASSERTION** — an assertion about satisfaction of a governed qualification regime.
+
+This list is deliberately semantic rather than storage-shaped. Coverage, source artifact, provenance record and evidence packet are not proposition kinds merely because tables exist for them.
+
+**Pressure:** `AUTHORIZATION` and `QUALIFICATION_ASSERTION` may ultimately be modeled as governance events rather than ordinary claim kinds. They remain candidates until the State Model clarifies event semantics.
+
+### 23.2 Epistemic mode
+
+Epistemic mode answers **what relationship the proposition purports to have to reality or a stipulated world**.
+
+Minimum candidate modes:
+
+- **EMPIRICAL** — purports to report/represent an observed or recorded empirical state/event;
+- **PROJECTION** — estimates an unknown future state from evidence/model;
+- **SCENARIO_STIPULATION** — declared true within a scenario without forecast claim;
+- **SIMULATED** — produced within simulated realized state;
+- **NORMATIVE** — purports to state an effective rule, authorization, standard, institutional act or canon stipulation rather than describe an empirical physical state;
+- **FORMAL** — mathematical/logical/formal relationship whose warrant is not an observation of world state.
+
+**Finding:** the earlier label `OBSERVATION` is too narrow as a top-level mode. Current Solar holdings distinguish direct sample, in-situ direct/remote, Earth remote, dynamical inference, physical model and theoretical expectation. These are better handled through derivation/evidence method while `EMPIRICAL` states the proposition's intended relationship to reality.
+
+**Open pressure:** whether `NORMATIVE` and `FORMAL` are true epistemic modes or warrant/proposition dimensions remains unresolved. Do not adopt them yet.
+
+### 23.3 Derivation/evidence mode
+
+This dimension answers **how the asserted content was obtained**.
+
+Current holdings force at least these candidate families:
+
+- **DIRECT_REPORTED** — admitted directly from a source record/report;
+- **DIRECT_SAMPLE**;
+- **IN_SITU_DIRECT**;
+- **IN_SITU_REMOTE**;
+- **EARTH_REMOTE**;
+- **INFERRED** — including dynamical/analog inference with subtype retained;
+- **PHYSICAL_MODEL**;
+- **THEORETICAL_EXPECTATION**;
+- **DETERMINISTIC_DERIVATION**;
+- **FITTED_OR_CALIBRATED**;
+- **IMPUTED_OR_SUBSTITUTED**;
+- **SIMULATED_TRANSITION**.
+
+The exact vocabulary should not blindly copy Solar's historical `epistemic_class`; however, that schema proves that evidence/acquisition method matters independently of proposition mode.
+
+A claim may have more than one derivation stage. Therefore derivation is likely lineage/transform history, not necessarily a single enum on the final claim.
+
+### 23.4 Knowledge/value state
+
+D0.3 and Phase 1 require a value-state dimension independent of epistemic mode.
+
+Minimum candidate states:
+
+- **ASSERTED** — an admitted value/proposition is present;
+- **UNKNOWN** — no authorized asserted value is available for the question/scope;
+- **NOT_APPLICABLE** — the question does not semantically apply;
+- **QUARANTINED** — relevant material exists but is not admissible for the intended use pending resolution.
+
+**Rejected as value states:** zero, false and empty. Those are possible asserted contents, not substitutes for UNKNOWN.
+
+`SOURCE_NOT_FOUND`, `NOT_SEARCHED`, and `UNKNOWN_AFTER_SEARCH` are not proposed as peer value states. They describe investigation/search condition associated with UNKNOWN.
+
+### 23.5 Investigation/search state
+
+Minimum candidate search states for an UNKNOWN:
+
+- **NOT_ASSESSED** — no governed search/assessment is established;
+- **BOUNDED_ASSESSMENT_NO_ADMITTED_VALUE** — a recorded bounded scope was assessed and yielded no admissible value;
+- **DEFINED_SOURCE_NOT_FOUND** — a named endpoint/archive/source expected by the search rule did not yield the relevant source/material;
+- **EVIDENCE_FOUND_NOT_ADMITTED** — potentially relevant evidence was found but held/rejected/quarantined;
+- **SEARCH_STATE_UNKNOWN** — historical holding is UNKNOWN but the search condition itself is not established.
+
+Every non-`NOT_ASSESSED` search state requires a reference to its recorded search scope. This directly incorporates the Phase 1 R-01 lien.
+
+**Important:** this vocabulary does not create a `CONFIRMED_ABSENT` state. Confirmed absence would be an asserted negative proposition with its own evidence and scope, not a flavor of UNKNOWN.
+
+### 23.6 Governance status and role
+
+Current holdings show that several governance concepts are independent and must not become one status enum.
+
+Candidate axes:
+
+**Admission/disposition**
+- CANDIDATE
+- ADMITTED
+- HOLD
+- REJECTED
+- QUARANTINED
+
+**Adoption/reference role**
+- NOT_ADOPTED
+- ADOPTED_REFERENCE
+- GOVERNING_SCENARIO
+- GOVERNING_CANON
+
+**Qualification**
+- NOT_EVALUATED
+- QUALIFIED
+- QUALIFIED_WITH_LIMITATIONS
+- NOT_QUALIFIED
+
+**Conflict**
+- UNCONFLICTED_OR_NOT_ASSESSED
+- CONFLICTED
+- RESOLVED_BY_AUTHORIZED_RULE
+
+**Authorization**
+- NOT_REQUIRED
+- REQUIRED_NOT_AUTHORIZED
+- AUTHORIZED
+- DELEGATED_AUTHORIZED
+- POST_HOC_AUTHORIZED
+
+These are candidate conceptual axes, not final tokens. Historical `PROMOTE`, `preferred_fact`, `GOVERNING_CANON`, `AUTHOR_SCENARIO_MODERATE` and qualification labels demonstrate why one status field would be lossy.
+
+### 23.7 Temporal condition
+
+The vocabulary pass confirms that time must be dimensional:
+
+- validity interval may be known, bounded, open-ended or UNKNOWN;
+- knowledge time may be known or UNKNOWN;
+- source publication/acquisition time is provenance and is not automatically validity time;
+- future validity does not itself distinguish PROJECTION from SCENARIO_STIPULATION.
+
+### 23.8 Stress-test conclusion
+
+No archaeological exemplar found in this pass requires returning to a single `epistemic_class`.
+
+The smallest model that preserves current distinctions is:
+
+`PROPOSITION KIND`
++ `EPISTEMIC MODE`
++ `VALUE/KNOWLEDGE STATE`
++ `DERIVATION LINEAGE`
++ `SCOPE/TIME`
++ `WARRANT`
++ independent `GOVERNANCE AXES`
++ `UNCERTAINTY`
++ `SUPPORT/CONFLICT RELATIONS`.
+
+The pass also produces three constraints for the next owner decision:
+
+1. UNKNOWN is not an epistemic mode in the same sense as EMPIRICAL/PROJECTION/SIMULATED; it is a knowledge/value state.
+2. DERIVED is not an epistemic mode; derivation may be multi-stage lineage.
+3. MODEL_PARAMETER is primarily proposition/functional role, not a statement about whether its value is observed, fitted, authored, projected or synthetic.
+
+## 24. D2.2 — Dimensional vocabulary architecture
+
+**Status:** READY FOR OWNER DECISION
+
+**Option A — Adopt the dimensional vocabulary architecture.**
+
+Adopt the category separation in §23 as the governing Phase 2 architecture, while keeping the individual token lists candidate until each is stress-tested further. In particular:
+
+- proposition kind, epistemic mode, knowledge/value state, derivation lineage and governance axes are distinct;
+- UNKNOWN is a knowledge/value state;
+- DERIVED belongs to derivation lineage;
+- MODEL_PARAMETER is a proposition/functional role;
+- governance status is multi-axis rather than a single lifecycle enum.
+
+This decides the architecture of the vocabulary without prematurely freezing every label.
+
+**Option B — Collapse selected dimensions before proceeding.**
+
+Require Phase 2 to combine two or more of the above dimensions into a smaller taxonomy before continuing.
+
+**Mechanical recommendation:** Option A. The current holdings already demonstrate independent variation among these dimensions; collapsing them now would recreate the compound-label problem rejected by D2.1.
+
+
+## 25. D2.2 — Dimensional Vocabulary Architecture
+
+**Status:** OWNER-ADOPTED
+**Decision date:** 2026-10-04
+**Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY
+
+The owner selected Option A.
+
+LOOM v1 shall keep these conceptually distinct: proposition kind; epistemic mode; knowledge/value state; derivation lineage; scope and temporal context; warrant; governance status/role axes; uncertainty; and support/contradiction/conflict relationships.
+
+This decides vocabulary architecture, not the final controlled tokens.
+
+Consequences:
+
+- UNKNOWN is a knowledge/value state, not a peer epistemic mode.
+- DERIVED belongs to derivation lineage.
+- MODEL_PARAMETER is principally a proposition/functional role; how its value was obtained and warranted remains separately represented.
+- admission/disposition, adoption/reference role, qualification, conflict and authorization shall not be collapsed into one universal status lifecycle.
+- implementations may colocate dimensions only where semantic round-trip preserves these distinctions.
+
+The exact controlled vocabularies remain candidate.
+
+## 26. Next Phase 2 task
+
+The next mechanical pass addresses D2.3, minimum UNKNOWN semantics, including unsearched questions, bounded unsuccessful searches, missing named sources, unadmitted evidence, unknown time, evidenced absence, asserted zero/false/empty, stale values, conflict and not-applicable questions. UNKNOWN must not become a miscellaneous bucket for those distinct conditions.
+
+
+## 27. Mechanical UNKNOWN Semantics Pass
+
+**Status:** MECHANICAL ANALYSIS / NO NEW OWNER DECISION
+
+D2.3 was tested against current-main Solar, Earth, timeline and CIVPROP holdings.
+
+### Core finding
+
+UNKNOWN means: **for the specified proposition/question and scope, LOOM does not have an admissible asserted value available for the intended use.**
+
+UNKNOWN does not mean false, zero, empty, absent, stale, contradicted, rejected, not applicable or not yet selected. The reason an admissible value is unavailable is separately represented.
+
+### Tested distinctions
+
+- No search established: UNKNOWN with NOT_ASSESSED.
+- Bounded search with no admissible value: UNKNOWN with BOUNDED_ASSESSMENT_NO_ADMITTED_VALUE and recorded scope.
+- Defined source/endpoint yields no relevant source: UNKNOWN with DEFINED_SOURCE_NOT_FOUND and recorded source/search scope.
+- Relevant evidence exists but is held/rejected/quarantined: UNKNOWN for the intended use with EVIDENCE_FOUND_NOT_ADMITTED and links to that evidence/disposition.
+- Missing temporal metadata: the value may remain asserted while the temporal dimension is UNKNOWN. This does not automatically make the whole proposition UNKNOWN.
+- Supported non-detection or absence: an asserted negative/bounded proposition with evidence, not UNKNOWN.
+- Numeric zero and boolean false: asserted values, not UNKNOWN.
+- Empty collection: asserted empty only when domain semantics establish completeness; otherwise it cannot silently mean none exist.
+- Stale/superseded value: preserve the historical assertion and mark its temporal/governance condition; do not erase it into UNKNOWN.
+- Conflicting values: preserve the assertions and conflict relationship; conflict is not UNKNOWN.
+- Semantically inapplicable question: NOT_APPLICABLE, not UNKNOWN.
+- Source does not cover the relevant class: a source/coverage limitation, not by itself scientific absence.
+
+M4-B explicitly states that UNKNOWN_AFTER_SEARCH is absence of sufficient admitted evidence after a bounded campaign, not zero or material absence. It separately defines SOURCE_NOT_FOUND for a defined endpoint/archive. Existing resource vocabulary also separates supported non-detection/absence.
+
+Solar holdings separately preserve NOT_APPLICABLE, contradictory/superseding relationships and temporal metadata. Earth temporal coverage separately records SUPERSEDED_SEMANTIC and NOT_MODELED_BY_THIS_AUTHORITY. These distinctions would be lost by broad UNKNOWN coercion.
+
+### Partial unknowns
+
+Unknownness attaches to the dimension actually unknown. Examples include: presence known but abundance unknown; value known but validity end unknown; scoped service access known but generic access unknown; quantity known but uncertainty characterization unknown.
+
+A known adjacent dimension cannot fill an unknown one.
+
+### Minimum candidate search states
+
+1. NOT_ASSESSED
+2. BOUNDED_ASSESSMENT_NO_ADMITTED_VALUE
+3. DEFINED_SOURCE_NOT_FOUND
+4. EVIDENCE_FOUND_NOT_ADMITTED
+5. SEARCH_STATE_UNKNOWN
+
+States 2 through 4 require references to the assessment/search/evidence scope. State 5 covers historical holdings where the reason for UNKNOWN cannot itself be established. Token names remain candidate.
+
+### Blocking
+
+UNKNOWN blocks an operation only when that operation requires the unknown dimension. An authorized substitution may bridge it only through governed substitution/assumption machinery. The substitute never becomes a recovered observation and the original UNKNOWN remains in lineage.
+
+## 28. D2.3 — UNKNOWN Semantics
+
+**Status:** READY FOR OWNER DECISION
+
+**Option A:** adopt the scoped UNKNOWN semantics in §27.
+
+**Option B:** permit stale, conflicted, temporally incomplete or otherwise unusable values to collapse into a broader UNKNOWN state for consumers.
+
+**Mechanical recommendation:** Option A. Current holdings already preserve the distinctions that Option B would destroy, and A is consistent with Phase 0 local-blocking, claim-scope, conflict and uncertainty rules.
+
+
+## 29. Owner Disposition — D2.3 through D2.10
+
+**Status:** OWNER-ADOPTED
+**Decision date:** 2026-10-04
+**Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY
+
+The owner adopted the remaining Phase 2 choice slate as an integrated package. The offworld capital/resource/colony/agent proposal remains mutable, non-canon and non-implementing; it is a stress case and gains no authority through this adoption.
+
+- **D2.3 Scoped UNKNOWN:** adopt Option A. UNKNOWN is scoped and dimension-local. Its search/reason state is separate. Scenario state cannot silently satisfy evidence-plane UNKNOWN.
+- **D2.4 Warrant roots:** adopt plural, use-relative warrant. Candidate root families are evidentiary warrant, explicit authorization, formal warrant, institutional/normative warrant and canon warrant. Deterministic computation is derivative rather than an independent truth root. Storage, AI, automation, repetition and model need are not roots.
+- **D2.5 Reference:** REFERENCE is a governed adoption/use role, not an epistemic mode. Adoption does not erase projection, scenario or simulation ancestry. Reference and realized state remain distinct.
+- **D2.6 Dependency standing and admissibility:** standing is evaluated for consumer, intended use, time and context and composes across relevant dimensions. Epistemic perspective/admissibility is explicit. Agent belief does not assert the believed proposition as LOOM fact.
+- **D2.7 Authorization/delegation:** distinguish authorization of propositions/stipulations, models/transformations, governance/adoption acts and world/agent actions. Delegation is explicit, bounded and non-self-expanding. Outcome-conditioned changes create new lineage and do not retroactively validate outputs used to choose them.
+- **D2.8 Conflict:** conflict requires proposition-level incompatibility after relevant scope/time/scenario/context alignment. Mere difference is not conflict. Resolution preserves provenance and displaced assertions.
+- **D2.9 Uncertainty/variability:** preserve empirical/epistemic, projection, model/parameter, observation/measurement, agent-belief, simulation-stochastic, scenario/universe and uncharacterized uncertainty/variability as distinct concepts. Scenario-seed variation is not automatically epistemic uncertainty; generator distributions are not agent priors.
+- **D2.10 Physical/formal/computational standing:** distinguish formal relationships, empirical physical quantities/laws, fitted models, engineering approximations, deterministic evaluations, future extrapolations, scenario state and simulated state. Correct computation establishes consequence from declared inputs/rules; it does not establish that those inputs describe reality.
+
+### Integrated Phase 2 architecture
+
+The adopted conceptual decomposition is:
+
+PROPOSITION + KIND + EPISTEMIC MODE + VALUE/KNOWLEDGE STATE + DERIVATION LINEAGE + SCOPE/TIME/SCENARIO + EPISTEMIC PERSPECTIVE/ADMISSIBILITY + WARRANT + GOVERNANCE AXES + UNCERTAINTY/VARIABILITY + SUPPORT/CONFLICT + DEPENDENCIES.
+
+Effective standing is use-relative, not a universal scalar attached to a row.
+
+Authored hidden-scenario starting values may be scenario stipulations; values produced by an authorized generator are derived scenario-world state; later values changed by simulation transitions are realized simulated state. These categories must not be collapsed.
+
+### Phase 2 status after this disposition
+
+The owner-decision portion of Phase 2 is complete. Phase 2 is **not yet closed**. Remaining closure work is mechanical/review work: integrate the adopted model, map or carry Phase 1 liens, run the integrated archaeological and offworld adversarial stress tests, obtain hostile review, disposition findings, and record final owner closure including PRE-CONTRACT / SINGLE-AUTHORITY limitations.
+
+
+## 30. Phase 1 Lien Mapping After Owner Decisions
+
+**Status:** MECHANICAL DISPOSITION / NOT PHASE 2 CLOSURE
+
+1. **Unknown search scope:** RESOLVED AT CONCEPTUAL-MODEL LEVEL by D2.3. Search/assessment state is separate and bounded-search states require scope. Implementation enforcement remains downstream.
+2. **Unknown temporal extent/knowledge time:** RESOLVED AT CONCEPTUAL-MODEL LEVEL by D2.3 plus the dimensional time model. Missing time metadata remains unknown rather than inferred.
+3. **Current Earth lineage / pooled-median bridge:** CARRIED TO QUALIFIED INPUTS. Phase 2 establishes how imputation/substitution is represented but does not establish whether that historical bridge survives in the current Earth reference.
+4. **Mechanical NULL/default audit:** CARRIED TO QUALIFICATION / QUALIFIED INPUT COMPILATION. D2.3 supplies the semantics the audit must protect.
+5. **Parameter authorization, producer-consumer, fit/validation, AI provenance, human approval:** PARTLY RESOLVED CONCEPTUALLY by D2.4, D2.6, D2.7 and D2.10; concrete holdings still require later qualification and lineage checks.
+6. **Existing delegation instruments:** RESOLVED AT CLASSIFICATION LEVEL by D2.7. Existing WALTER material is evidence of bounded delegation but gains no v1 authority automatically.
+7. **Physical/mathematical standing:** RESOLVED AT CONCEPTUAL-MODEL LEVEL by D2.10.
+8. **Independent check of four-domain finding:** CARRIED AS INDEPENDENCE LIEN. It is not necessary to pretend the shorthand is independently disproven in order to use the richer model; any future claim requiring independent confirmation must obtain it.
+9. **Reproducible negative searches:** CARRIED TO QUALIFICATION/ARCHAEOLOGY METHOD. Phase 2 requires search scope semantics; rerunnable mechanics belong to the later framework.
+
+No carried lien is silently treated as resolved by ontology alone.
+
+
+## 31. Integrated Adversarial Stress Test
+
+**Status:** MECHANICAL PASS / NO NEW OWNER DECISION
+
+The adopted D2.1-D2.10 model was re-tested against current-main archaeological exemplars and the mutable offworld proposal.
+
+### Results
+
+1. **M4-B supported material lane — PASS.** Evidence-bearing assertions remain empirical propositions with acquisition/derivation lineage and bounded scope. Coverage status does not become the proposition's epistemic mode.
+2. **M4-B UNKNOWN_AFTER_SEARCH — PASS.** Current-main explicitly preserves 343 bounded unknown lanes, distinguishes supported non-detection/absence, SOURCE_NOT_FOUND and NOT_APPLICABLE, and states that unsupported lanes are not zero or scientific absence. D2.3 preserves these distinctions.
+3. **Earth imputation exemplar — PASS WITH CARRIED LINEAGE LIEN.** An imputed value can be represented as a parameter/state proposition with IMPUTED_OR_SUBSTITUTED derivation and bridge lineage without becoming observation. Whether the historical pooled-median bridge survives in the current promoted reference remains downstream evidence work.
+4. **Earth late-horizon projection/reference — PASS.** Projection and ADOPTED_REFERENCE can coexist without laundering projection into observation. Reference and realized scenario state remain separate.
+5. **Moderate technology milestone — PASS.** Current-main marks the threshold authority as AUTHOR_SCENARIO_MODERATE and the period as MODERATE_SCENARIO_ANCHOR. D2.5 permits governing-scenario/reference roles without changing epistemic ancestry.
+6. **Actor empirical capability/access — PASS.** Empirical access propositions can remain evidence-plane claims with actor/time/scope limitations and can be consumed only where standing permits.
+7. **Actor unknown budget/access — PASS.** Unknown amount/access blocks only dependent actions; adjacent known actor attributes do not fill it.
+8. **Future ephemeris/model state — PASS.** D2.10 distinguishes deterministic model evaluation from observation and from formal truth.
+9. **Transport/engineering derivation — PASS.** A deterministic or engineering result inherits bounded standing from inputs/model and does not manufacture empirical warrant.
+10. **CIVPROP simulated event/state — PASS.** Current-main CIVPROP0 explicitly labels events SIMULATION_EVENT. D2.1/D2.10 preserve simulated ancestry rather than promoting it to evidence.
+11. **Identity/crosswalk — PASS.** Identity propositions and their match basis remain distinct from source evidence, admission and conflict/disposition.
+12. **WALTER delegation — PASS WITH GOVERNANCE LIMIT.** Current-main identifies WALTER as a bounded autonomous assurance agent with an agent-creation review. D2.7 can classify this as delegation evidence without treating historical delegation as automatic v1 authorization.
+
+### Offworld adversarial case
+
+The model can represent simultaneously:
+
+- empirical Solar UNKNOWN;
+- a hidden scenario-world value for the same property;
+- a simulated noisy observation generated from that hidden state;
+- an agent-relative belief updated from the observation;
+- an agent decision that may consume only admissible information;
+- a realized extraction/state transition;
+- and an immutable adopted BAU reference used for comparison.
+
+No contradiction is created because evidence scope, scenario context, epistemic perspective, derivation and governance role remain separate. No scenario value repairs the empirical UNKNOWN. No agent belief becomes evidence. No simulated observation becomes a real-world observation by inheritance. No realized state overwrites reference state.
+
+### Adversarial mutations
+
+The candidate model rejects the following semantic mutations:
+
+- treating hidden scenario quantity as Solar evidence;
+- allowing agent code to consume hidden state merely because it exists in the same store;
+- converting UNKNOWN to zero;
+- treating a negative bounded search as confirmed absence;
+- treating a generator distribution as an agent prior;
+- treating scenario-seed spread as measured epistemic uncertainty;
+- treating deterministic computation as an independent authority root;
+- treating reference adoption as reclassification to empirical truth;
+- treating differing scenario universes as conflicts;
+- treating an agent belief as LOOM endorsement of its object;
+- treating a post-output parameter/universe change as retroactive validation.
+
+### Mechanical verdict
+
+**PASS WITH CARRIED LIENS.** No tested exemplar forces reopening D2.1-D2.10. The remaining liens concern concrete qualification, lineage, reproducible search/audit mechanics and independence rather than a missing conceptual dimension.
+
+## 32. Phase 2 Review Readiness
+
+The candidate Claim and Authority Model is mechanically ready for hostile review. It remains PRE-CONTRACT / SINGLE-AUTHORITY and does not qualify any underlying holding.
+
+
+---
+
+### Phase 1 review addendum / carried liens
+
+# LOOM AUTHORITY AND STATE CONTRACT v1
+## Phase 1 Review Addendum and D0.20 Disposition
+
+**Document:** `02_PHASE1_REVIEW_ADDENDUM.md`  
+**Status:** PRE-CONTRACT / OWNER-AUTHORIZED PHASE 1 ADDENDUM  
+**Date:** 2026-10-03  
+**Owner:** @kT  
+**Parent:** `01_PHASE1_AUTHORITY_ARCHAEOLOGY.md`  
+**Review basis:** Claude, `Phase 1 Archaeology — Independent Review`, final verdict `ACCEPT WITH LIENS`  
+**Normative effect:** This addendum refines the closed Phase 1 archaeological record without editing or reopening the closed parent text. It does not qualify any underlying LOOM holding and does not release `LOOM_AUTHORITY_AND_STATE_CONTRACT_v1`.
+
+## 1. Review disposition
+
+The final Claude review returned:
+
+`ACCEPT WITH LIENS`
+
+The review found no CRITICAL findings, four MAJOR findings, four MINOR findings and three NOTES. It concluded that no new archaeology is required before Phase 2, provided the Phase 1 record is corrected through preserved-lineage addendum and the owner records the D0.20 decision.
+
+The reviewer also disclosed an independence limitation: the same reviewer participated in the earlier architecture/Phase 0 work and therefore is not independent of the four-domain/four-pillar criticism in the strongest sense. That limitation remains recorded and becomes a later independent-check lien.
+
+## 2. R-01 — Scoped meaning of UNKNOWN_AFTER_SEARCH
+
+Phase 1 previously summarized M4-B `UNKNOWN_AFTER_SEARCH` too broadly.
+
+Corrected archaeological finding:
+
+- M4-B `UNKNOWN_AFTER_SEARCH` is relative to a **recorded bounded search scope**.
+- 343 lanes carry that disposition.
+- 324 lanes, covering 81 bodies × four resource families, were assessed against four earlier LOOM corpora recorded in the M4-B coverage matrix.
+- 19 unknown lanes, on the bounded-pass-B target bodies, record an additional external source.
+- The disposition is not evidence of absence and must not be interpreted as an exhaustive external search.
+- M4-B does not establish a general representation for confirmed negative material evidence; the hostile `NONDETECTION_TO_ABSENCE` case is not an admitted positive semantics.
+
+**Phase 2 lien:** an unknown state must reference the search/assessment scope that produced it. The epistemic label alone is insufficient.
+
+## 3. R-02 — NULL/default audit correction
+
+Phase 1 section 12.3 identified one consequential `or 0.0` site in `engineering/civprop/contracts/asset_lifecycle_v1.py` but missed a second.
+
+The two relevant sites are:
+
+1. replacement capital:
+   `sum((e.replacement_capital or 0.0) ...)`
+2. closing capital:
+   `capital=max(0.0, opening-(depreciation or 0.0)+replacement)`
+
+The second can convert `depreciation=None` into zero in the closing-capital calculation. The same module permits a `REPLACEMENT` event to restore ACTIVE status even when replacement capital is not supplied.
+
+These observations do not establish a pervasive LOOM-wide UNKNOWN-to-zero convention. They do establish that the bounded Phase 1 search was incomplete.
+
+**Q37 remains NOT ESTABLISHED.**
+
+**Qualification lien:** before qualified input compilation, conduct a mechanical NULL/default audit covering at least `or 0`, `.get(k, 0)`, SQL `DEFAULT 0`, null-skipping aggregates, joins and filters, with scope and search mechanics recorded.
+
+## 4. R-03 — Earth investment imputation version scope
+
+The 22.3283039488531% pooled-median investment-rate imputation is established as an archaeological exemplar in the package:
+
+`manifests/earth_long_run_economic_baseline/investment_rate_source_round1_2026_09_23/`
+
+It applies in that package to ARE, JOR, LAO, MMR, NGA and TWN and is explicitly described there as an authored pooled imputation rather than an observation.
+
+Phase 1 did **not** establish that this exact imputation survives into the currently promoted Earth reference.
+
+Its relation to the promoted Earth reference is therefore:
+
+`NOT ESTABLISHED`
+
+The evidence bundle also demonstrates substantial late-horizon sensitivity across successive Earth repairs. Nigeria's 2226 VA share appears as 26.23% in the earlier alpha=.60 comparison, 17.56% in the national-GFCF successor, and 7.58% in repaired v3. This is archaeological evidence of model/version sensitivity, not a calibrated reliability statement.
+
+The source record also distinguishes missing-current-value fallback from stale historical observations. Phase 2 must not collapse `STALE` and `MISSING` into one condition merely because a later substitution rule treated both operationally.
+
+**Phase 2 lien:** establish current Earth version lineage and whether the pooled-median bridge survives before relying on that bridge as current input authority.
+
+## 5. R-05 — Knowledge-time scope correction
+
+Phase 1 established local knowledge-time controls but described their coverage too broadly.
+
+Corrected finding:
+
+- knowledge-time/as-of controls exist in multiple LOOM holdings;
+- those controls apply only where relevant dates or validity metadata are actually present;
+- M4-B contains records with missing temporal fields;
+- absence of temporal metadata must not be converted into an implied date.
+
+**Phase 2 lien:** time itself may be UNKNOWN. The claim/state model must support unknown temporal extent or knowledge time where warranted.
+
+## 6. R-06 — Common-contract wording
+
+The Phase 1 diagnosis is narrowed.
+
+LOOM does have a partial common provenance/control plane for at least Earth and timeline holdings through `loom_control`, including snapshots, source artifacts and temporal coverage.
+
+The stronger supported conclusion is:
+
+> LOOM does not yet have one common LOOM-wide **authority and qualification contract** governing all relevant holdings and governed consumption boundaries.
+
+Phase 2 shall use that narrower formulation.
+
+## 7. R-07 — Existing delegation instrument
+
+Phase 1 under-read `governance/agents/AGENT_REGISTRY.yml`.
+
+The registry is not a civilization-actor registry, but it is relevant governance evidence. It records bounded technical-agent delegation, including WALTER's human-approved creation-review scope, deterministic blocking boundaries and restrictions against treating LLM judgment as evidence.
+
+This does not supersede D0.8 default-deny. It is an existing candidate delegation instrument to classify under the Phase 2 authorization/delegation model.
+
+## 8. R-08 — Reproducible negative searches
+
+Phase 1 bounded negative searches did not consistently preserve enough mechanics to rerun each negative result.
+
+Future archaeology/qualification searches that support `NOT LOCATED`, `NOT ESTABLISHED`, or equivalent negative findings should record, where applicable:
+
+- repository/holding version or commit;
+- searched paths;
+- exact patterns/query classes;
+- tool/method used;
+- material exclusions or limits.
+
+This is a methodological lien, not a reason to reopen Phase 1.
+
+## 9. Review independence lien
+
+The Claude review is hostile and evidence-bearing but is not independent of every challenged proposition. In particular, Claude participated in the earlier architecture work that produced the four-domain/four-pillar criticism.
+
+Therefore:
+
+- the Phase 1 finding that the four-domain shorthand is inadequate remains usable as archaeological evidence for Phase 2 design;
+- it must not be represented as independently confirmed by this Claude review;
+- a reviewer without that history should later check the finding before any governance claim requiring independent confirmation relies on it.
+
+## 10. D0.20 owner disposition
+
+On 2026-10-03 the owner selected **Option B**:
+
+> Phase 2 Claim and Authority Model design may proceed under `SINGLE-AUTHORITY`.
+
+This authorization is deliberately limited.
+
+Phase 2 may, under `SINGLE-AUTHORITY`:
+
+- construct and revise the candidate Claim and Authority Model;
+- define candidate epistemic classes, scope semantics and dependency rules;
+- adjudicate candidate authority-root types for design purposes;
+- define candidate authorization, delegation, conflict, uncertainty and temporal semantics;
+- carry forward and formalize the liens identified by Phase 1 and its review;
+- inspect existing holdings as evidence for those design decisions.
+
+While this disposition applies:
+
+- all Phase 2 work remains `PRE-CONTRACT`;
+- Phase 2 work requiring independence carries `SINGLE-AUTHORITY` rather than an independence claim;
+- no Phase 2 design decision by itself qualifies, promotes or reclassifies an underlying LOOM holding;
+- no AI or automated process acquires governance authority;
+- the owner acting as authorizer and eventual consumer is disclosed rather than treated as independent review;
+- a second-authorizer mechanism or an explicit later independent-review mechanism must be established before any act whose governing rule requires independent authorization can claim that requirement is satisfied.
+
+This disposition satisfies the pre-Phase-2 decision required by D0.20. It does not satisfy future requirements for independent authorization.
+
+## 11. Liens carried into Phase 2
+
+Phase 2 begins with the following explicit liens:
+
+1. unknowns must carry the scope of the search/assessment that produced them;
+2. temporal fields and knowledge time may themselves be unknown;
+3. current Earth version lineage and the standing of the pooled-median imputation remain to be established before governed consumption;
+4. a mechanical NULL/default audit is required before qualified input compilation;
+5. Phase 1's parameter-authorization, producer-consumer, fit/validation, AI-provenance and human-approval risks remain open;
+6. existing delegation instruments must be classified under D0.8;
+7. physical/mathematical standing must distinguish at least measured/source quantities, fitted model solutions, deterministic transforms and future extrapolated/projected state rather than treating them as one class;
+8. a later reviewer without the existing Claude architecture history must independently check the four-domain finding where independent confirmation is required;
+9. negative-search evidence should become mechanically rerunnable.
+
+## 12. Phase transition
+
+With this addendum and the D0.20 owner disposition recorded:
+
+`PHASE 1: CLOSED WITH REVIEW LIENS PRESERVED`
+
+`PHASE 2: CLEARED TO BEGIN UNDER PRE-CONTRACT / SINGLE-AUTHORITY`
+
+Nothing in this addendum qualifies existing LOOM holdings, releases Contract v1, or adopts historical CIVPROP architecture.
+
+
+---
+
+### Phase 0 authority statement
+
+# LOOM AUTHORITY AND STATE CONTRACT v1
+## Phase 0: Authority Problem Statement
+### Revision 3
+
+**Document:** `00_AUTHORITY_PROBLEM_STATEMENT.md`  
+**Status:** PHASE 0 CLOSED — OWNER-AUTHORIZED AND INDEPENDENTLY REVIEWED/ACCEPTED  
+**Phase:** 0  
+**Date:** 2026-10-03  
+**Owner:** @kT  
+**Scope:** LOOM-level governance for new and newly coupled work  
+**Normative status:** Phase 0 principles bind any work that claims governed status or consumes governed work. No technical mechanism is normative.  
+**Phase 0 decisions:** D0.1–D0.20  
+**First hostile review:** Claude, `Phase 0 Authority Statement — Hostile Review`  
+**Review disposition:** F-01–F-22 and N-1–N-4 OWNER ACCEPTED on 2026-10-03. Independent hostile review subsequently completed and accepted by the owner on 2026-10-03; no unresolved critical contradiction remains.
+
+## 1. Purpose
+
+LOOM requires a common authority and state framework before new simulation systems are permitted to consume existing LOOM information and generate consequential simulated state.
+
+The immediate pressure for this work arises from CIVPROP, but this document does not define CIVPROP architecture.
+
+CIVPROP is understood here as a causal simulation system that may consume governed information about Earth, technology, the Solar System, actors, physical constraints, institutions and other relevant LOOM authorities, then propagate civilization through actor decisions, processes and consequences.
+
+The authority problem exists upstream of CIVPROP.
+
+LOOM already contains or may contain observations, derived information, projections, scenario declarations, model parameters, explicit unknowns, authored material, physical-law products and simulated results. These are not epistemically equivalent merely because they coexist in a database, repository or model.
+
+The purpose of `LOOM_AUTHORITY_AND_STATE_CONTRACT_v1` is to establish how LOOM represents, qualifies, preserves, transforms and consumes information without allowing its epistemic meaning, permitted use or causal lineage to drift.
+
+This Phase 0 document establishes the governing principles the later contract must satisfy. It does **not** prescribe their technical implementation.
+
+## 2. Vocabulary
+
+**Claim.** An identifiable assertion about a subject, with content and applicable scope, to which provenance and authority can be attached independently. A claim need not correspond to one database cell. The eventual technical representation is undecided.
+
+**Authority.** The warrant under which LOOM may rely upon a claim for a specified scope and use. Authority is not synonymous with truth.
+
+**Authorization.** An explicit governance act permitting a claim, assumption, parameter, classification, rule or transformation to be used for a defined purpose.
+
+**Provenance.** Records where a claim came from and the relevant history by which it reached its present form. Provenance describes origin and transformation. It does not by itself establish authority.
+
+**Qualification.** A governed determination that a claim, collection, interface or process satisfies specified requirements for a stated use and scope. Qualification does not certify universal correctness.
+
+**Standing.** The combination of a claim's epistemic class, evidentiary extent, temporal extent, permitted use, qualification status and limitations. Dependency rules compare standing. Standing is not truth.
+
+**Truth.** Correspondence with reality. LOOM governance does not claim to certify truth merely by qualifying information or producing a governed result.
+
+**Trust.** A human or institutional judgment concerning reliance on a source, process or system. Trust may contribute to governance decisions but is not itself a substitute for recorded authority.
+
+**Governed.** A result produced in accordance with the applicable LOOM authority contract and its recorded qualification requirements. Governed status certifies the applicable warrant, reproducibility/audit properties and causal traceability required by the contract. It does **not** certify truth, empirical correctness, model validity, predictive success or scientific acceptance.
+
+A governed model can be wrong. It must not be mysterious about how it became wrong.
+
+## 3. Problem Statement
+
+LOOM must combine heterogeneous information without silently changing what that information means.
+
+Without explicit authority rules, transformations such as these become possible:
+
+```text
+projection → observation
+scenario assumption → prediction
+unknown → zero
+unknown → excluded row
+unknown → false condition
+missing → interpolated fact
+simulation → evidence
+qualified-for-X → qualified-for-everything
+database membership → authority
+conflict → silent winner
+missing uncertainty → certainty
+reference trajectory → rewritten history
+model output → adopted reference without authorization
+```
+
+Each can produce plausible outputs while violating the meaning of the underlying information.
+
+For governed information LOOM must be able to establish what the claim is and means; why it may be relied upon; its evidentiary, temporal and intended-use scope; when it was known; its provenance and transformations; its dependencies and uncertainty; treatment of unknowns and conflicts; assumptions and simulation ancestry; who authorized relevant judgments; the governing qualification rules; replay/audit status; and reconstructable causal path.
+
+## 4. D0.1 — Scope
+
+The authority contract belongs at the **LOOM level**, not inside CIVPROP.
+
+It governs new work subject to the contract, new interfaces between existing LOOM components, and existing claims when newly consumed through a governed interface.
+
+Existing work is neither presumed compliant nor presumed defective merely because the new contract exists. Qualification follows governed consumption.
+
+## 5. D0.2 — Three Coequal Integrity Requirements
+
+A governed LOOM result must preserve:
+
+1. **Epistemic integrity:** LOOM must not represent information as better known, more empirical, more certain or broader than its warrant supports.
+2. **Reproducibility and audit integrity:** LOOM must preserve sufficient identity, inputs, transformations and computational context to satisfy its declared replay mode and permit causal audit.
+3. **Causal integrity:** simulated consequences must trace to legitimate prior state, rules, decisions, processes and events.
+
+No requirement substitutes for another.
+
+## 6. D0.3 — Unknowns Block Their Dependents
+
+UNKNOWN remains UNKNOWN. A dependent operation **shall block unless an explicitly authorized bridge applies**. Unrelated operations may continue only where no governed dependency or invariant couples them to the blocked operation.
+
+```text
+UNKNOWN ≠ 0
+UNKNOWN ≠ FALSE
+UNKNOWN ≠ average
+UNKNOWN ≠ default
+UNKNOWN ≠ empty
+UNKNOWN ≠ excluded
+UNKNOWN ≠ interpolated fact
+UNKNOWN ≠ permission to infer
+```
+
+An aggregate containing relevant unknown members cannot silently report the aggregate of only known members as the complete aggregate. It may instead produce an explicitly partial result, bound, interval or unknown result when governing rules authorize that interpretation.
+
+Logical treatment of unknown must preserve a state distinct from TRUE and FALSE where relevant. Representation changes must preserve semantic distinctions among unknown, zero, false, empty and not present.
+
+An assumption may bridge an unknown only through authorized governance.
+
+> **The model's need for a value does not create authority to supply one.**
+
+Dependencies and invariants that couple operations, including conservation, accounting and identity invariants, shall be declared through authorized governance before a result relies on the independence of those operations. A coupling discovered after a result was produced is a defect against that result, and its governed status is suspended until the coupling is declared and the result re-evaluated. The absence of a declared coupling is not evidence that none exists.
+
+## 7. D0.4 — Claim Authority and Computed Standing
+
+Authority ultimately attaches to claims.
+
+Common metadata may be inherited from a qualified parent structure only when the parent explicitly states which members are covered, how that coverage was established, applicable scope and use, and known exceptions. Absence of a recorded exception is not itself evidence that a member conforms.
+
+A claim-specific override may **weaken** inherited standing. It may not strengthen standing without an independently authorized governance act.
+
+A computed claim cannot silently acquire stronger standing than its dependencies. Its standing may not exceed the weakest applicable standing, narrowest applicable evidentiary or temporal extent, and most restrictive permitted use among dependencies necessary to produce it, unless an independently governed process explicitly authorizes otherwise.
+
+Where dependency classes are not meaningfully rankable, their contribution must remain visible rather than being collapsed into a falsely stronger single class.
+
+A scenario assumption that happens to match an observation remains a scenario assumption unless independently sourced and explicitly reclassified.
+
+## 8. D0.5 — Simulation Is Not Evidence by Inheritance
+
+Simulated state may legitimately parent later simulated state within a governed lineage. Simulation does not become empirical evidence merely through persistence, reuse, storage, merging, repetition or agreement with observation.
+
+A governed result's required ancestry must itself be governed or explicitly adopted through an authorized process. An ungoverned result cannot silently enter a governed lineage.
+
+Any epistemic class change is a lineage-recorded governance event, never an in-place relabeling. A model output becomes an adopted projection or reference only through an explicit adoption decision identifying the producing model/version and applicable scope.
+
+## 9. D0.6 — Existing Artifacts and Interface Qualification
+
+Existing LOOM artifacts retain their historical status. Historical qualification labels are provenance about the governance mechanism that produced them. They do **not** constitute qualification under v1.
+
+When governed work consumes an existing artifact, the relevant claims, collections or interface must satisfy applicable v1 requirements.
+
+Qualification must not silently create a filtered world. A governed result must disclose coverage of its intended domain, including excluded, blocked, quarantined or unqualified portions where those omissions affect interpretation. Coverage representation is deferred. The default treatment of insufficient or undefined coverage is established in D0.15.
+
+## 10. D0.7 — Projection and Scenario Assumption
+
+**PROJECTION** is an evidence/model-derived estimate of an unknown future state.
+
+**SCENARIO_ASSUMPTION** is a condition declared true within a defined scenario without claiming it is an empirical forecast.
+
+These distinctions are binding. A scenario may intentionally contradict a projection. That does not automatically constitute an evidentiary conflict because the scenario describes a counterfactual or stipulated world. A scenario purporting to describe past or present empirical reality while contradicting accepted evidence requires explicit treatment.
+
+## 11. D0.8 — Human-Rooted Authorization
+
+New assumptions, model parameters and governance judgments require explicit authorization. Classification, qualification, promotion, source acceptance, epistemic reclassification and conflict-resolution rules are governance acts and require human authorization.
+
+Until a later delegation framework is explicitly approved:
+
+> **Delegation is default-deny.**
+
+No AI system, automated process, optimizer or software component possesses independent governance authority. Its outputs may become candidates for human acceptance. They acquire no authority merely because of their origin.
+
+A fitted parameter must preserve its fitting basis. A value must not be validated against the same target used to fit it without that dependency being explicitly represented and the validation claim correspondingly limited.
+
+A value chosen or adjusted after observing the output it influences, whether by fitting, manual tuning or selection among alternatives, is **outcome-conditioned**. Its authorization shall record that condition and the outputs observed when it was chosen. Validation against those outputs is invalid, and results depending on the value shall disclose the condition.
+
+Authorizations must ultimately record the authorizing human, date, subject, permitted scope/use, applicable version/scenario where relevant, and basis.
+
+Post-hoc authorization is permitted only as a new governance event and must remain visible as such. A failed or blocked run is not retroactively rewritten as though authorization existed beforehand.
+
+## 12. D0.9 — Conflicts Remain Information
+
+Contradictory qualified claims remain visible as conflict unless a governed resolution rule applies.
+
+Resolution rules are explicit authorizations, are versioned, state the class of conflicts to which they apply, operate prospectively, and preserve their use in lineage. A run retains the rule set under which it operated. Broad convenience rules do not receive unlimited implied scope.
+
+Different epistemic classes may conflict differently. A scenario versus a future projection may represent deliberate counterfactual divergence, while two competing observations of the same quantity may constitute evidentiary conflict.
+
+> **Conflict is information.**
+
+## 13. D0.10 — Storage Cannot Create Authority
+
+PostgreSQL is not authority. SQLite is not non-authority. A Git merge is not truth. YAML is not provisional by definition. JSON is not governed by definition.
+
+Storage may preserve identity, integrity, version, immutability, transactionality and provenance. It cannot create epistemic warrant.
+
+Moving claims between approved representations must preserve semantics, not merely bytes. Semantic round-trip testing must eventually address distinctions such as unknown, zero, false, empty, identity, unit and applicable metadata. Implementation is deferred.
+
+## 14. D0.11 — Reference and Realized State Remain Distinct
+
+Reference state and realized simulated state are permanently distinguishable and independently queryable. A simulation may diverge from reference. It may never overwrite the historical identity of the reference it consumed.
+
+Every realized run must identify the exact reference version from which it diverged.
+
+No Earth delta architecture, coupling mechanism or storage implementation is selected here.
+
+`REFERENCE ≠ REALIZED`
+
+## 15. D0.12 — Replay and Audit Are Distinct
+
+Every governed computational result must declare its reproducibility mode and acceptance criterion. Candidate modes include `REPLAY_EXACT`, `REPLAY_WITHIN_TOLERANCE` and `AUDIT_ONLY`; final vocabulary is deferred.
+
+**Replay** concerns whether recomputation reproduces the result according to a declared criterion.
+
+**Audit** concerns whether recorded causal history explains how the result arose.
+
+Causal audit is mandatory for governed simulation regardless of replay mode.
+
+The applicable record must identify, as necessary, governed inputs, model/code version, parameters, assumptions, random state/seed where applicable, reference version, causal history, governing contract version and declared replay criterion.
+
+Bitwise cross-platform determinism remains undecided.
+
+## 16. D0.13 — Qualification Is Graduated, Scoped and Explicit
+
+Qualification is not universal.
+
+Its eventual representation must capture at least what was qualified; evidentiary extent; temporal validity; intended use; who authorized qualification; basis; contract/version; and applicable limitations.
+
+The earlier pseudo-signature `Qualification(claim, scope, intended_use, contract_version)` is withdrawn because it prematurely implied a schema.
+
+Qualification vocabulary remains provisional. Use restrictions propagate through dependency standing under D0.4.
+
+## 17. D0.14 — Contract Versions Are Immutable
+
+A released contract version does not silently change meaning. Changed normative rules require a new version. Migration or requalification is governed.
+
+`QUALIFIED_v1 ≠ automatically QUALIFIED_v2`
+
+`QUALIFIED_v1 ≠ automatically INVALID_v2`
+
+Discovery of a defect in a released contract does not rewrite history. The defect must be recorded against the affected version and affected governed outputs must be identifiable and flaggable. Correction occurs through an explicit new version or other governed remedial mechanism.
+
+## 18. D0.15 — Local Failure Versus Result Failure
+
+Failures affecting unconsumed or irrelevant claims need not invalidate an otherwise governed result. Failures affecting claims actually consumed by a result may compromise that result.
+
+Whole-result governed status fails where required epistemic, replay/audit or causal guarantees cannot be established.
+
+A blocked operation must generate an explicit **BLOCKED** outcome where its absence could otherwise be mistaken for a negative decision or nonexistent opportunity.
+
+Operations coupled through conservation, accounting, identity or other invariants block together where proceeding independently would violate those invariants.
+
+Every governed result shall report its coverage of its intended domain. A governed result may claim to represent a phenomenon only where an authorized coverage threshold exists for that phenomenon and the result's coverage meets it. Where no authorized threshold exists, the result shall report its coverage and shall not claim representation. The threshold mechanism is deferred. The default is not.
+
+Dependencies and invariants that couple operations, including conservation, accounting and identity invariants, shall be declared through authorized governance before a result relies on the independence of those operations. A coupling discovered after a result was produced is a defect against that result, and its governed status is suspended until the coupling is declared and the result re-evaluated. The absence of a declared coupling is not evidence that none exists.
+
+A diagnostic or experimental computation may still execute after governed status is lost, but its outputs remain explicitly non-governed unless subsequently adopted through a governed process.
+
+`COMPUTATION COMPLETED ≠ GOVERNED RESULT`
+
+## 19. D0.16 — Inspectable Explanation
+
+Every governed material result must permit traversal through sufficient stable lineage to explain its causal ancestry:
+
+`RESULT → EVENT/STATE TRANSITION → DECISION OR PROCESS → INPUTS + RULES → SOURCES/ASSUMPTIONS/PRIOR STATE`
+
+Governed systems must also preserve causally relevant non-events, including BLOCKED outcomes, when their absence would otherwise be indistinguishable from a deliberate decision not to act.
+
+The determination that lineage is “sufficient” is itself governed. An approved criterion may operationalize that judgment under §27. No ledger implementation is selected here.
+
+## 20. D0.17 — Uncertainty Is Preserved, Not Invented
+
+Known uncertainty must survive legitimate transformation. Unknown or uncharacterized uncertainty must not be represented as zero uncertainty.
+
+Simulation variability is not automatically epistemic uncertainty. Spread across random seeds or ensemble runs describes variability within the model under those conditions. It does not by itself measure uncertainty about reality.
+
+Scenario assumptions do not acquire probabilities merely because simulations can be run over them. Projection uncertainty is conditional on the model, assumptions and evidence underlying the projection.
+
+Determinations of material uncertainty require authorized criteria rather than implementer convenience.
+
+## 21. D0.18 — Authority Roots Are Explicit but Extensible
+
+Authority must have an explicit root.
+
+Phase 0 recognizes two **known** legitimate authority-root forms:
+
+1. **Evidentiary warrant:** an identified source accepted through an explicit governance decision for defined scope and use.
+2. **Explicit authorization:** an assumption, parameter or imposed model condition authorized through governance.
+
+These are not declared exhaustive.
+
+Phase 1 must investigate whether existing LOOM holdings require additional legitimate authority-root types, particularly around physical law, mathematical relationships, standards, institutional or legal authority, entity identity and internally verified computation.
+
+Until another root type is explicitly recognized:
+
+> **An implementation may not invent a new authority root merely because a claim does not fit an existing one.**
+
+Computation, storage, automation, AI generation, inheritance and repeated use are not authority roots by themselves.
+
+## 22. D0.19 — Interim Governance
+
+Until `LOOM_AUTHORITY_AND_STATE_CONTRACT_v1` is released, no work can hold v1-governed status.
+
+All new work is **PRE-CONTRACT** and shall carry that label in its outputs and manifests.
+
+Work may continue.
+
+PRE-CONTRACT work shall not describe itself as governed, qualified or authoritative under LOOM governance.
+
+Phase 0 principles are the standard against which PRE-CONTRACT work is later qualified, and a violation is a finding under §26.
+
+The §34 sequence is a plan for the work, and a gate only on governed status.
+
+If PRE-CONTRACT work is later consumed by governed work, it must satisfy applicable qualification requirements like any other pre-contract artifact.
+
+Historical qualification labels remain historical provenance and do not automatically satisfy v1.
+
+There is no grandfathering window between Phase 0 and v1.
+
+## 23. D0.20 — Single-Authority Disclosure Pending Governance Design
+
+Where the same person both authors a claim and consumes it, independence requires a second person.
+
+Until a second authorizer is named, such claims and any result depending on them carry `SINGLE-AUTHORITY`.
+
+The label discloses a governance limitation; does not invalidate the underlying claim merely by existing; does not constitute independent review; cannot be silently removed; propagates to dependent standing where independence is required; and is resolved only through recorded independent authorization.
+
+No second authorizer is appointed during Phase 0 merely to manufacture procedural independence.
+
+Before Phase 2 begins, LOOM must either establish the second-authorizer mechanism or explicitly decide which Phase 2 activities may proceed under `SINGLE-AUTHORITY`.
+
+## 24. Meaning Is Part of the Claim
+
+Where applicable, claim meaning includes units, physical dimensions, currency, currency basis/base year, entity identity, temporal identity, identifier mappings, unit conversions and ontology mappings.
+
+Mappings and crosswalks are themselves claims and therefore require provenance, authority and applicable scope.
+
+A transformation joining two claims through an incorrect identity mapping has not preserved authority merely because both source claims were individually qualified.
+
+Physical-law implementations and mathematical transformations are subject to dependency standing and qualification even where Phase 1 establishes that their authority root differs from ordinary empirical evidence.
+
+## 25. Scope Has Multiple Dimensions
+
+Phase 0 distinguishes:
+
+- **Contract scope:** which LOOM work the governance contract applies to.
+- **Evidentiary extent:** the population, entity, location, sample or other domain over which a claim is warranted.
+- **Temporal validity:** when the claim applies.
+- **Knowledge time:** when information became available to the modeled or governing system.
+- **Intended use:** purposes for which the claim has been qualified.
+
+Extending a claim beyond evidentiary or temporal extent is an inference and requires authority.
+
+A simulation must not permit information unavailable at modeled time `t` to influence an actor at `t` merely because the information exists in the modern database.
+
+## 26. Architecture Must Not Weaken the Principles
+
+Later architecture should be informed by what Phase 1 discovers. That does **not** permit existing artifacts to redefine Phase 0 principles.
+
+If archaeology discovers an existing artifact conflates unknown and zero, lacks provenance, mixes scenario and evidence, lacks unit semantics, cannot reproduce its derivation, or violates another Phase 0 principle, that is a finding about the artifact.
+
+The artifact may subsequently be qualified, qualified with limitations, remediated, quarantined, excluded or superseded depending on later governance.
+
+Its non-compliance is not evidence that the principle should be weakened.
+
+Established Phase 0 distinctions may be refined. They may not be silently merged. Changing a Phase 0 principle requires governed amendment under D0.14 and human approval.
+
+## 27. Judgment, Materiality and Independence
+
+Terms requiring judgment, including material, sufficient, independent, applicable, representative and relevant, do not grant implicit discretion to an implementer.
+
+Authorization of a judgment may take the form of an approved criterion stating the term it governs, the conditions under which it applies and the evidence it requires. Applying an approved criterion without discretion is not itself a governance act. Each application shall be recorded with the criterion and version applied.
+
+Where no approved criterion covers a judgment affecting authority, qualification or governed status, the dependent operation blocks. Human authorization of an individual application is required only where the criterion calls for discretion.
+
+For Phase 0, **independent** means independent of both the consumer requiring the claim or value and the author or process whose claim is being independently justified.
+
+Where one person both authors a claim and consumes it, independence requires a second person. Until a second authorizer is named, such claims and any result depending on them carry `SINGLE-AUTHORITY`. The label discloses the limit and does not remove it.
+
+## 28. Established Phase 0 Distinctions
+
+Phase 0 does **not** establish a complete epistemic taxonomy. It **does** establish binding distinctions:
+
+- UNKNOWN vs known
+- OBSERVED/empirical warrant vs SIMULATED
+- PROJECTION vs SCENARIO_ASSUMPTION
+- REFERENCE vs REALIZED
+- authority vs authorization
+- provenance vs authority
+- qualification vs truth
+- standing vs truth
+- replay vs audit
+- governed vs non-governed
+- PRE-CONTRACT vs v1-governed
+- independent vs SINGLE-AUTHORITY
+
+Later phases may refine these distinctions. They may not silently merge distinctions established by Phase 0.
+
+## 29. Explicit Non-Decisions
+
+Phase 0 does not select a complete epistemic taxonomy; UNKNOWN subtypes; an L0-L5 or other layer architecture; runtime snapshot implementation; PostgreSQL, SQLite, Git, YAML or JSON as universal authority representation; canonical agent representation; Earth reference-plus-delta architecture; Earth/CIVPROP coupling mechanics; final qualification vocabulary; domain-specific qualification gates; CIVPROP decision/budget/diffusion/commitment behavior; bitwise determinism; a delegation hierarchy; coverage thresholds; uncertainty mathematics; a lineage/ledger schema; or the complete set of authority-root types.
+
+Until delegation is designed, delegation remains default-deny.
+
+## 30. Phase 1 Archaeology Questions
+
+Phase 1 must establish from actual LOOM holdings:
+
+1. What artifacts supply Earth information?
+2. What artifacts supply technology/scenario information?
+3. What artifacts supply Solar information?
+4. What artifacts define actors?
+5. What relevant sources exist outside those domains?
+6. Where do physical-law and transport authorities reside?
+7. What institutional/governance rules exist?
+8. What model parameters exist explicitly or implicitly?
+9. Which artifacts carry provenance?
+10. Which carry qualification or promotion status?
+11. Which distinguish observation from projection?
+12. Which distinguish unknown from zero/absence?
+13. Which contain uncertainty?
+14. Which distinguish candidate from promoted information?
+15. Which mix simulated and reference information?
+16. What consumes each artifact?
+17. What transformations create derived claims?
+18. What qualification mechanisms exist?
+19. Which identifiers/vocabularies are shared?
+20. Which are incompatible?
+21. Which artifacts rely on authority by convention?
+22. Which apparent authorities cannot be located?
+23. Which claims depend on undocumented assumptions?
+24. Which artifacts are mutable?
+25. Which outputs cannot presently be causally reproduced?
+26. Which artifacts were produced, modified or classified by AI or automation, and what record exists?
+27. What explicit human approvals exist for assumptions, parameters, promotions or classifications?
+28. Which pipelines contain fallback, imputation, interpolation, clamping, default or null-coalescing logic, and what values did they produce?
+29. For every relevant quantity, are unit, currency and base year explicit or implied?
+30. Which artifacts carry as-of/knowledge-time information?
+31. Which identifier crosswalks exist, who authored them and how were they checked?
+32. Do downstream outputs feed back into upstream inputs, calibration or parameter choices?
+33. Which parameters were fitted, to what, and were they later validated against the same target?
+34. Which code versions produced derived artifacts, and can those versions be recovered?
+35. Which tests, gates or validation reports exist, and what do they not cover?
+36. Where do conflicting claims already exist, and how were they resolved?
+37. Which joins, filters and aggregations drop unknown/null rows?
+38. Do existing holdings expose authority-root types not covered by D0.18?
+39. Where are physical-law or mathematical outputs treated as authority, and on what basis?
+40. Which artifacts contain temporal leakage, where later knowledge can affect earlier modeled state?
+
+Every answer must be classified as `ESTABLISHED`, `NOT LOCATED` or `NOT ESTABLISHED`.
+
+An `ESTABLISHED` answer requires identifiable supporting evidence. Archaeological classifications are candidates until human acceptance.
+
+## 31. First Hostile Review Disposition
+
+The owner accepts the following dispositions:
+
+| Finding | Disposition | Revision 3 treatment |
+|---|---|---|
+| F-01 | AMEND | D0.18 explicit but extensible authority roots; D0.8 human authorization |
+| F-02 | AMEND | D0.4 computed standing; D0.5 governed ancestry |
+| F-03 | AMEND | D0.3 SHALL block; UNKNOWN escape routes closed |
+| F-04 | AMEND | BLOCKED outcomes, coupling and coverage |
+| F-05 | AMEND | Class changes governed; model-output adoption explicit |
+| F-06 | AMEND | §25 separates scope dimensions and knowledge time |
+| F-07 | AMEND | Claim defined; inheritance obligations established |
+| F-08 | AMEND | §27 governs judgment criteria |
+| F-09 | AMEND | Delegation default-deny; fitting and outcome-conditioning governed |
+| F-10 | AMEND | Conflict rules scoped, versioned and prospective |
+| F-11 | AMEND | Replay and audit separated |
+| F-12 | AMEND | D0.19 PRE-CONTRACT rule |
+| F-13 | AMEND | §24 units, identity and mappings |
+| F-14 | AMEND | §26 prevents evidence from weakening principles |
+| F-15 | AMEND | §2 vocabulary |
+| F-16 | AMEND | §28 lists established distinctions |
+| F-17 | AMEND | Simulation variability separated from epistemic uncertainty |
+| F-18 | AMEND | Contract defects recorded without historical rewriting |
+| F-19 | AMEND | Premature qualification pseudo-schema removed |
+| F-20 | AMEND | Consumed/unconsumed failures distinguished |
+| F-21 | AMEND | Review adjudication and stopping rule |
+| F-22 | AMEND | D0.1–D0.20 explicitly represented |
+| N-1 | DEFER TO PHASE 1 | Archaeology Q6, Q7, Q38, Q39 |
+| N-2 | DEFER TO LATER PHASE | Successor/co-owner governance |
+| N-3 | ACCEPT | Exact reference version required |
+| N-4 | ACCEPT | Independent second hostile review required |
+
+Dispositions in this section, and any text in this document not authored directly by the owner, are CANDIDATE until the owner records acceptance under D0.8. The record names the accepting human, date and sections accepted. A section without such a record has no authority.
+
+The Owner Acceptance Record below supplies that acceptance for this Revision 3.
+
+## 32. Review Adjudication and Stopping Rule
+
+1. The owner records each hostile-review finding as `ACCEPT`, `AMEND`, `REJECT` or `DEFER`.
+2. `AMEND` and `REJECT` require rationale.
+3. Critical findings must be resolved before Phase 0 closes.
+4. Revision 3 receives one additional hostile review from a reviewer that did not materially shape the architecture or questions leading to this document.
+5. That review is the final planned hostile-review round for Phase 0 unless it discovers a new `CRITICAL` contradiction.
+6. A new critical finding requires remediation and one targeted re-review of the amended area.
+7. Minor disagreement alone does not create an endless review loop.
+8. Dispositions in §31, and any text in this document not authored directly by the owner, are CANDIDATE until the owner records acceptance under D0.8. The record names the accepting human, the date and the sections accepted. A section without such a record has no authority.
+
+## 33. Phase 0 Exit Criteria
+
+Phase 0 closes when:
+
+1. the authority problem is stated independently of implementation;
+2. contract scope is established;
+3. integrity requirements are established;
+4. authority has an explicit root requirement;
+5. computed-claim standing is constrained;
+6. unknowns cannot silently disappear;
+7. reference and realized state are separated;
+8. projection and scenario are distinguished;
+9. human authorization boundaries are explicit;
+10. interim governance prevents grandfathering;
+11. architecture cannot weaken principles merely to accommodate existing artifacts;
+12. unresolved empirical questions are assigned to Phase 1;
+13. all first-review findings have recorded owner adjudication;
+14. all hostile-review critical findings are resolved;
+15. the second independent hostile review has been adjudicated;
+16. no unresolved critical contradiction remains;
+17. Revision 3 or its successor has an explicit owner acceptance record.
+
+Phase 0 completion does **not** qualify existing LOOM holdings. It authorizes archaeology.
+
+## 34. Phase 1 Boundary
+
+Phase 1 is **LOOM Authority Archaeology and Source Inventory**.
+
+It is descriptive. It must inspect actual holdings. It may identify defects. It may not silently repair them. It may propose classifications, mappings and authority roots. Those proposals remain candidates until governed human acceptance.
+
+Missing evidence is recorded as missing. Memory does not substitute for archaeology.
+
+Planned sequence:
+
+```text
+PHASE 0
+Authority Constitution
+        ↓
+PHASE 1
+Authority Archaeology
+        ↓
+Claim / Authority Model
+        ↓
+State Model
+        ↓
+Runtime Boundary
+        ↓
+Qualification Framework
+        ↓
+LOOM Authority and State Contract v1
+        ↓
+Qualified Inputs
+        ↓
+CIVPROP FRD / DLD
+        ↓
+Agent Engine
+```
+
+This sequence is a work plan, not a prohibition on PRE-CONTRACT exploratory work. It is a gate on governed status.
+
+The evidence informs later architecture.
+
+**The principles constrain what architectures are permissible.**
+
+Those statements are intentionally different.
+
+---
+
+# Owner Acceptance Record
+
+**Artifact:** `00_AUTHORITY_PROBLEM_STATEMENT.md`, Revision 3  
+**Owner:** @kT  
+**Acceptance date:** 2026-10-03  
+**Accepted scope:** D0.1–D0.20, §§1–34, and dispositions F-01–F-22 and N-1–N-4.
+
+> I accept `00_AUTHORITY_PROBLEM_STATEMENT.md`, Revision 3, including D0.1–D0.20, §§1–34, and the proposed dispositions of F-01–F-22 and N-1–N-4, as the Phase 0 candidate authority statement to be submitted for independent hostile review. This acceptance establishes the document as owner-authorized Phase 0 governance but does not close Phase 0, qualify existing LOOM holdings, or release `LOOM_AUTHORITY_AND_STATE_CONTRACT_v1`.
+
+## Independent Hostile Review and Phase 0 Closure
+
+**Review status:** COMPLETED AND OWNER ACCEPTED  
+**Closure date:** 2026-10-03  
+**Owner:** @kT
+
+The owner records that the required independent hostile review of Revision 3 was completed and accepted. No unresolved critical contradiction remains from that review.
+
+All Phase 0 exit criteria in §33 are therefore recorded as satisfied.
+
+**PHASE 0: CLOSED.**
+
+Phase 0 closure does **not** qualify existing LOOM holdings and does **not** release `LOOM_AUTHORITY_AND_STATE_CONTRACT_v1`.
+
+The authorized next phase is **Phase 1 — LOOM Authority Archaeology and Source Inventory**. New work remains PRE-CONTRACT under D0.19 until the v1 contract is released and applicable qualification is completed.
+
