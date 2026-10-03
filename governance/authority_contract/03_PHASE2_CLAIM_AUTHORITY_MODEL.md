@@ -1219,3 +1219,59 @@ The existing delegation-instrument classification and producer-consumer findings
 Where earlier Phase 2 candidate/mechanical text conflicts with owner-adopted D2.1-D2.10, §33 repairs or this §36 adoption, the later owner-adopted text governs Phase 2 semantics. Superseded candidate vocabulary remains archaeological rationale only and must not be implemented as normative v1 semantics.
 
 A consolidated normative Phase 2 specification shall be produced before closure so implementations are not required to reconstruct precedence from document history.
+
+
+## 37. Worked Encoding 1 — Earth Imputation Bridge
+
+**Purpose:** demonstrate that a stale/missing empirical input, an authorized imputation and an adopted reference can coexist without epistemic laundering.
+
+| Object | World-context | Perspective | Proposition/role | Mode | Derivation | Assertion/admission | Warrant path | Result for governed reference use |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Historical country investment observation | REAL | GOVERNANCE | country investment-rate state | EMPIRICAL | DIRECT_REPORTED | recorded; temporal/use status evaluated separately | evidentiary root | may be BLOCKED as stale for a use without becoming UNKNOWN |
+| Missing current admissible input | REAL | GOVERNANCE | required current investment-rate state | EMPIRICAL question | n/a | UNKNOWN over the named assertion set/scope | none | BLOCKED |
+| Pooled-median bridge application | REAL | GOVERNANCE | dependent substitute for named modeling use | parameter/state dependent | IMPUTED_OR_SUBSTITUTED | asserted dependent; bridge lineage retained | authorization root + admitted source dependencies | usable only for bridge-authorized use |
+| Adopted Earth reference value | REAL | GOVERNANCE | reference trajectory input | retains dependent ancestry | model/bridge lineage | adopted for specified reference use | inherited derivation paths + adoption authorization | RETURN for specified reference use; never observation by adoption |
+
+Required query behavior:
+- query for empirical observation returns the historical assertion with its time/scope, not the imputed value;
+- query for an admissible current empirical value returns BLOCKED/UNKNOWN as applicable to the declared assertion set and rule;
+- query for the authorized reference-model input may return the bridge-dependent value with bridge lineage;
+- no query may describe the bridge output as a recovered observation.
+
+This encoding is structural. Whether the historical pooled-median bridge survives in the current promoted Earth reference remains an open qualified-input lineage question.
+
+## 38. Worked Encoding 2 — Solar UNKNOWN, Hidden Deposit, Observation and Belief
+
+| Object | World-context | Perspective | Proposition/role | Mode | Derivation | Assertion/admission | Warrant path | Visibility/use |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| M4-B resource quantity lane | REAL | GOVERNANCE | body/resource quantity | EMPIRICAL question | bounded evidence campaign | UNKNOWN for bounded assertion set/scope where no quantity assertion exists | evidentiary search lineage, no quantity warrant | empirical quantity query remains UNKNOWN |
+| Planted deposit quantity | SCENARIO(S17) | WORLD_SIM | hidden deposit quantity | SCENARIO_STIPULATION or derived scenario realization | owner-authored or authorized generator | asserted in scenario world | authorization root | world processes only unless observation channel exposes information |
+| Prospecting observation | SCENARIO(S17) | AGENT(A12) after observation | instrument result about deposit | SIMULATED observation-state | observation model + hidden world + world random stream | asserted as simulated observation | scenario authorization + transformation lineage | agent may consume observation, not hidden quantity |
+| Agent belief | SCENARIO(S17) | AGENT(A12) | A12 belief distribution about deposit | agent-state proposition | belief update from prior + agent-side likelihood model + observation | asserted as agent belief state | simulation/governance lineage | decision may consume belief; LOOM does not assert belief-object as world truth |
+| Remaining deposit after extraction | REALIZED(R17) | WORLD_SIM | remaining quantity | SIMULATED | simulated transition | asserted realized state | scenario inputs + transformation + prior realized state | realized-run queries only |
+
+Required query behavior:
+- REAL/GOVERNANCE empirical quantity query does not return the S17 planted value;
+- AGENT(A12) pre-observation query cannot access planted truth or world seed;
+- after observation, agent query returns the observation/belief allowed in its perspective, not hidden truth;
+- equality of agent likelihood/noise parameters with world parameters is permitted only if separately represented or explicitly stipulated as known to the agent;
+- extraction changes REALIZED(R17), never the REAL evidence plane.
+
+## 39. Worked Encoding 3 — Projection as Reference Beside Realized Run
+
+| Object | World-context | Perspective | Proposition/role | Mode | Derivation | Governance role | Warrant path | Use |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| BAU future economic trajectory | REAL | GOVERNANCE | future economic-state projection | PROJECTION | fitted/model-derived | ADOPTED_REFERENCE for comparison and/or initialization as declared | evidentiary/model lineage + adoption authorization | immutable comparator/initializer within adoption scope |
+| Scenario forcing, if any | SCENARIO(S17) | WORLD_SIM | stipulated forcing | SCENARIO_STIPULATION | authored | GOVERNING_SCENARIO | authorization root | scenario only |
+| Realized simulated trajectory | REALIZED(R17) | WORLD_SIM | realized economic/civilization state | SIMULATED | simulation transitions | REALIZED RUN STATE | simulation lineage | run state |
+| Difference from BAU | REALIZED(R17) compared with adopted REAL reference | GOVERNANCE | comparison result | derived comparison | DETERMINISTIC_DERIVATION | diagnostic/comparison | both inputs + transformation | comparison only; does not mutate either parent |
+
+Required query behavior:
+- reference query returns the adopted projection while preserving PROJECTION ancestry;
+- realized-state query returns R17, not the reference;
+- comparison query may consume both only through an explicit cross-context comparison operation;
+- a run cannot validate itself against a reference adopted from that same run or an outcome-conditioned equivalent.
+
+## 40. Worked-Encoding Verdict
+
+The three encodings demonstrate distinct expected RETURN, BLOCKED and EXCLUDE behavior without requiring a single scalar authority score. They are Phase 2 conceptual encodings and Phase 3 test seeds, not executable qualification tests. Earlier §§31 and 34 are therefore interpreted as **conceptual adversarial passes**, not mechanical executable tests.
