@@ -5,6 +5,7 @@ from hashlib import sha256
 import json
 from typing import Dict
 from .mvp_kernel import MVPKernel
+from .kernel import InvariantError
 from .mvp_state import *
 from .model import *
 
