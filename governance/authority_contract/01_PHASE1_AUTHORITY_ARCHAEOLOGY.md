@@ -695,7 +695,7 @@ Phase 2 therefore needs a general rule requiring fit target and validation targe
 
 ## 13. Phase 1 Exit Assessment
 
-**PHASE 1 ARCHAEOLOGY: READY FOR OWNER ACCEPTANCE AND CLOSURE.**
+**PHASE 1 ARCHAEOLOGY: OWNER ACCEPTED AND CLOSED.**
 
 Reason:
 
@@ -738,3 +738,34 @@ Its findings remain **PRE-CONTRACT** and descriptive. They constrain Phase 2 by 
 The next authorized work item is **Phase 2 — Claim and Authority Model**, beginning with the root-authority question deliberately left extensible in D0.18 and using the archaeological evidence above rather than inventing a taxonomy in the abstract.
 
 No source holding was modified by Phase 1 archaeology.
+
+
+## 14. Owner Acceptance and Phase 1 Closure
+
+**Closure date:** 2026-10-03  
+**Owner:** @kT  
+**Disposition:** ACCEPTED AS SUFFICIENT ARCHAEOLOGICAL BASIS FOR PHASE 2
+
+Owner acceptance:
+
+> I accept that the Phase 1 archaeology was conducted with sufficient scope and discipline to serve as the evidence base for Phase 2, subject to its recorded limitations and unresolved findings. I do not independently certify every archaeological finding, nor does this acceptance qualify any underlying LOOM holding.
+
+### Acceptance semantics
+
+This acceptance establishes **evidence sufficiency to proceed**, not independent verification of every Phase 1 finding.
+
+It does not:
+- assert that every archaeological finding is exhaustive or correct;
+- convert `NOT LOCATED` or `NOT ESTABLISHED` into proof of absence;
+- qualify, promote, repair or reclassify any underlying LOOM holding;
+- make historical `QUALIFIED` equivalent to qualification under the future v1 contract;
+- release `LOOM_AUTHORITY_AND_STATE_CONTRACT_v1`;
+- adopt previous CIVPROP architecture.
+
+Phase 1 findings remain descriptive, PRE-CONTRACT evidence with their recorded limitations.
+
+If later evidence contradicts or materially refines a Phase 1 finding, that finding may be amended with preserved lineage without reopening Phase 1 as a whole. Material changes that affect a downstream governed decision must be disclosed to that decision.
+
+**PHASE 1: CLOSED.**
+
+The authorized next work item is **Phase 2 — Claim and Authority Model**. D0.20 remains applicable: before Phase 2 performs activities for which independent authorization is required, the second-authorizer mechanism must be established or the applicable activity must explicitly proceed under `SINGLE-AUTHORITY`.
