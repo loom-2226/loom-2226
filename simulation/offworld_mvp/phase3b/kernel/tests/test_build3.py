@@ -1,6 +1,7 @@
 import unittest
 from decimal import Decimal as D
 from offworld_kernel.build3_fixture import *
+from offworld_kernel.kernel import InvariantError
 
 class Build3Tests(unittest.TestCase):
     def test_paid_exploration_and_knowledge_asset(self):
