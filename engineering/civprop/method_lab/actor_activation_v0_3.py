@@ -38,6 +38,7 @@ class ActorIdentityV03:
     budget_status:str="UNKNOWN"
     lifecycle_status:str="ACTIVE_OR_OPERATING"
     functional_2026:bool=True
+    scale_score:float=1.0
     financial_capacity_estimate:float|None=None
     financial_capacity_low:float|None=None
     financial_capacity_high:float|None=None
@@ -81,6 +82,7 @@ class ActorRegistryV03:
             candidate_status="NON_CANON_DERIVED_ESTIMATED_2026_INITIALIZATION",
             budget_status="ESTIMATED_INITIAL_CAPACITY" if a["functional_2026"] else "INACTIVE",
             lifecycle_status=str(a["lifecycle_status"]),functional_2026=bool(a["functional_2026"]),
+            scale_score=float(a["scale_score"]),
             financial_capacity_estimate=float(a["financial_capacity_estimate"]),
             financial_capacity_low=float(a["financial_capacity_low"]),
             financial_capacity_high=float(a["financial_capacity_high"]),

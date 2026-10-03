@@ -83,3 +83,7 @@ Audit confirms 80 economically qualified Earth economies, each with 10-sector 20
 Added EARTH_COUNTRY_OPPORTUNITY_2026_V0_3: 800 country-sector rows derived only from validated Earth authority, preserving opportunity/capability separation and explicit unavailable fields.
 
 Step 8.1 must use year-specific Earth state to emit typed country/sector opportunity triggers, then recruit relevant autonomous actors. Actor geography requires typed jurisdiction links before domestic preference or legal scope may be used. No generic country space agencies are to be invented.
+
+## 2026-10-03 Step 8.1 - bounded proposition formation + portfolio competition
+
+Implemented deterministic staged proposition screening and finite actor exploration portfolios. First governed Australia-2026 test produces 121 viable decisions across 57 actors: 65 EXPLORE and 56 DEFER. Portfolio competition is causal and observable; exploratory intent grants no transactional/project/physical authority. Next: proposition dependency decomposition and typed counterparty recruitment.
