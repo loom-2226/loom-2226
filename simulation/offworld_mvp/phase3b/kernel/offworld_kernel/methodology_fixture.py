@@ -1,5 +1,6 @@
 from decimal import Decimal as D
 from .build3 import RunIdentity
+from .build4 import OwnershipStake
 from .ensemble import AxisKind, EnsembleHarness, ExperimentAxis
 from .methodology import MethodologyHardenedBuild4Kernel
 from .model import AccountKind, Asset, AssetKind, NodeKind
@@ -14,6 +15,7 @@ def scheduled_resolution_fixture():
     k.add_account('sector_cash','FIRM_SECTOR','EARTH:X',AccountKind.FUNDS,D('100'))
     k.add_account('firm_cash','FIRM_01','EARTH:X',AccountKind.FUNDS,D('0'))
     k.add_aggregate(AggregateState('FIRM_SECTOR','EARTH:X','sector_cash',10,{'A1'},{'R':D('10')},{'VEH':D('1')},['H1']))
+    k.ownership_stakes.append(OwnershipStake('VEH','FIRM_SECTOR','EARTH:X',D('1')))
     k.add_system(SystemState('RESOLUTION_SYSTEM','RUNTIME_RESOLUTION',{'aggregate','accounts','agent_registry','resolution'}))
     k.add_system(SystemState('INVARIANT_SYSTEM','CONSERVATION_CHECK',set()))
     k.add_system(SystemState('SNAPSHOT_SYSTEM','SNAPSHOT',set()))
