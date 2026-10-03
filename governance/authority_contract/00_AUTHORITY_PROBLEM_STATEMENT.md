@@ -3,7 +3,7 @@
 ### Revision 3
 
 **Document:** `00_AUTHORITY_PROBLEM_STATEMENT.md`  
-**Status:** OWNER-AUTHORIZED FOR INDEPENDENT HOSTILE REVIEW  
+**Status:** PHASE 0 CLOSED — OWNER-AUTHORIZED AND INDEPENDENTLY REVIEWED/ACCEPTED  
 **Phase:** 0  
 **Date:** 2026-10-03  
 **Owner:** @kT  
@@ -11,7 +11,7 @@
 **Normative status:** Phase 0 principles bind any work that claims governed status or consumes governed work. No technical mechanism is normative.  
 **Phase 0 decisions:** D0.1–D0.20  
 **First hostile review:** Claude, `Phase 0 Authority Statement — Hostile Review`  
-**Review disposition:** F-01–F-22 and N-1–N-4 OWNER ACCEPTED on 2026-10-03.
+**Review disposition:** F-01–F-22 and N-1–N-4 OWNER ACCEPTED on 2026-10-03. Independent hostile review subsequently completed and accepted by the owner on 2026-10-03; no unresolved critical contradiction remains.
 
 ## 1. Purpose
 
@@ -574,6 +574,18 @@ Those statements are intentionally different.
 
 > I accept `00_AUTHORITY_PROBLEM_STATEMENT.md`, Revision 3, including D0.1–D0.20, §§1–34, and the proposed dispositions of F-01–F-22 and N-1–N-4, as the Phase 0 candidate authority statement to be submitted for independent hostile review. This acceptance establishes the document as owner-authorized Phase 0 governance but does not close Phase 0, qualify existing LOOM holdings, or release `LOOM_AUTHORITY_AND_STATE_CONTRACT_v1`.
 
-## Current Gate
+## Independent Hostile Review and Phase 0 Closure
 
-Phase 0 remains open pending independent hostile review and owner adjudication of that review.
+**Review status:** COMPLETED AND OWNER ACCEPTED  
+**Closure date:** 2026-10-03  
+**Owner:** @kT
+
+The owner records that the required independent hostile review of Revision 3 was completed and accepted. No unresolved critical contradiction remains from that review.
+
+All Phase 0 exit criteria in §33 are therefore recorded as satisfied.
+
+**PHASE 0: CLOSED.**
+
+Phase 0 closure does **not** qualify existing LOOM holdings and does **not** release `LOOM_AUTHORITY_AND_STATE_CONTRACT_v1`.
+
+The authorized next phase is **Phase 1 — LOOM Authority Archaeology and Source Inventory**. New work remains PRE-CONTRACT under D0.19 until the v1 contract is released and applicable qualification is completed.
