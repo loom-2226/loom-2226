@@ -52,6 +52,7 @@ def ownership_fixture():
     k.transfer(1,'fin1','local_vehicle',D('60'),TxPurpose.LOCAL_REINVESTMENT)
     k.transfer(1,'fin2','local_vehicle',D('40'),TxPurpose.LOCAL_REINVESTMENT)
     k.register_vehicle_ownership('LV',[('F1',D('60'),'EARTH:X'),('F2',D('40'),'EARTH:Y')])
+    k.distribute_vehicle_to_owners(2,'LV','local_vehicle',{'F1':'fin1','F2':'fin2'},D('50'))
     k.assert_build4_invariants(); return k
 
 def boundary_fixture():
@@ -64,13 +65,28 @@ def boundary_fixture():
 def property_sequence(seed=2226,steps=250):
     import random
     k=build4_base('PROP'); rng=random.Random(seed)
-    # Generate state-aware valid transfers only; invalid actions are tested separately.
     accounts=['fin1','fin2','p1cash','p2cash','local_vehicle','local_supplier','earth_supplier']
     initial=sum((k.state.accounts[a].balance for a in accounts),D('0'))
-    for year in range(1,steps+1):
-        sources=[a for a in accounts if k.state.accounts[a].balance>D('0')]
-        src=rng.choice(sources); dst=rng.choice([a for a in accounts if a!=src])
-        max_amt=min(k.state.accounts[src].balance,D('5')); amount=D(str(rng.randint(1,int(max_amt)))) if max_amt>=1 else max_amt
-        k.transfer(year,src,dst,amount,TxPurpose.OPEX); k.assert_build4_invariants()
+    # Two open commitments give the generator non-transaction state to exercise.
+    k.add_commitment('G1','F1','P1',D('80')); k.add_commitment('G2','F2','P2',D('80'))
+    for step in range(1,steps+1):
+        choices=['transfer']
+        open_c=[x for x in k.state.commitments.values() if x.outstanding>D('0')]
+        if open_c: choices+=['commitment']
+        action=rng.choice(choices)
+        if action=='commitment':
+            cm=rng.choice(open_c); src='fin1' if cm.financier_id=='F1' else 'fin2'
+            max_amt=min(cm.outstanding,k.state.accounts[src].balance,D('5'))
+            if max_amt>=D('1') and rng.random()<0.7:
+                k.disburse(step,cm.id,src,D(rng.randint(1,int(max_amt))))
+            else:
+                k.lapse_commitment(step,cm.id,min(cm.outstanding,D('1')))
+        else:
+            sources=[a for a in accounts if k.state.accounts[a].balance>D('0')]
+            src=rng.choice(sources); dst=rng.choice([a for a in accounts if a!=src])
+            max_amt=min(k.state.accounts[src].balance,D('5'))
+            amount=D(rng.randint(1,int(max_amt))) if max_amt>=1 else max_amt
+            k.transfer(step,src,dst,amount,TxPurpose.OPEX)
+        k.assert_build4_invariants()
         assert sum((k.state.accounts[a].balance for a in accounts),D('0'))==initial
     return k
