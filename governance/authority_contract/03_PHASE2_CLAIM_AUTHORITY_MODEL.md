@@ -888,3 +888,20 @@ Authored hidden-scenario starting values may be scenario stipulations; values pr
 ### Phase 2 status after this disposition
 
 The owner-decision portion of Phase 2 is complete. Phase 2 is **not yet closed**. Remaining closure work is mechanical/review work: integrate the adopted model, map or carry Phase 1 liens, run the integrated archaeological and offworld adversarial stress tests, obtain hostile review, disposition findings, and record final owner closure including PRE-CONTRACT / SINGLE-AUTHORITY limitations.
+
+
+## 30. Phase 1 Lien Mapping After Owner Decisions
+
+**Status:** MECHANICAL DISPOSITION / NOT PHASE 2 CLOSURE
+
+1. **Unknown search scope:** RESOLVED AT CONCEPTUAL-MODEL LEVEL by D2.3. Search/assessment state is separate and bounded-search states require scope. Implementation enforcement remains downstream.
+2. **Unknown temporal extent/knowledge time:** RESOLVED AT CONCEPTUAL-MODEL LEVEL by D2.3 plus the dimensional time model. Missing time metadata remains unknown rather than inferred.
+3. **Current Earth lineage / pooled-median bridge:** CARRIED TO QUALIFIED INPUTS. Phase 2 establishes how imputation/substitution is represented but does not establish whether that historical bridge survives in the current Earth reference.
+4. **Mechanical NULL/default audit:** CARRIED TO QUALIFICATION / QUALIFIED INPUT COMPILATION. D2.3 supplies the semantics the audit must protect.
+5. **Parameter authorization, producer-consumer, fit/validation, AI provenance, human approval:** PARTLY RESOLVED CONCEPTUALLY by D2.4, D2.6, D2.7 and D2.10; concrete holdings still require later qualification and lineage checks.
+6. **Existing delegation instruments:** RESOLVED AT CLASSIFICATION LEVEL by D2.7. Existing WALTER material is evidence of bounded delegation but gains no v1 authority automatically.
+7. **Physical/mathematical standing:** RESOLVED AT CONCEPTUAL-MODEL LEVEL by D2.10.
+8. **Independent check of four-domain finding:** CARRIED AS INDEPENDENCE LIEN. It is not necessary to pretend the shorthand is independently disproven in order to use the richer model; any future claim requiring independent confirmation must obtain it.
+9. **Reproducible negative searches:** CARRIED TO QUALIFICATION/ARCHAEOLOGY METHOD. Phase 2 requires search scope semantics; rerunnable mechanics belong to the later framework.
+
+No carried lien is silently treated as resolved by ontology alone.
