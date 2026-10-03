@@ -29,6 +29,9 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual(agg.member_count,9); self.assertEqual(agg.asset_refs,{'A2'}); self.assertEqual(ag.asset_refs,{'A1'})
         self.assertEqual(agg.resource_holdings['R'],D('45')); self.assertEqual(ag.resource_holdings['R'],D('5'))
         self.assertEqual(agg.claim_holdings['VEH'],D('0.8')); self.assertEqual(ag.claim_holdings['VEH'],D('0.2'))
+        live={(s.owner_id,s.vehicle_id):s.share for s in k.ownership_stakes}
+        self.assertEqual(live[('FIRM_SECTOR','VEH')],D('0.8')); self.assertEqual(live[('FIRM_01','VEH')],D('0.2'))
+        self.assertEqual(sum((s.share for s in k.ownership_stakes if s.vehicle_id=='VEH'),D('0')),D('1'))
         self.assertIn('H1',ag.lineage_refs); self.assertIn(rec.resolution_id,ag.lineage_refs)
         self.assertEqual(rec.transaction_count_before,rec.transaction_count_after)
         self.assertEqual(rec.cash_total_before,rec.cash_total_after)
