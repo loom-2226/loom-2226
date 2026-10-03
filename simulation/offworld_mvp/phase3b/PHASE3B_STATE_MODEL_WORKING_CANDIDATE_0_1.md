@@ -1,4 +1,4 @@
-# Phase 3B State Model — Working Candidate 0.1
+# Phase 3B State Model — Working Candidate 0.2
 
 **Status:** PHASE 3B OPEN / PRE-CONTRACT / SINGLE-AUTHORITY  
 **Purpose:** Define the minimum state ontology required for the Offworld MVP  
@@ -76,21 +76,21 @@ Root identity is extensible under Phase 2 Erratum 001. Implementations may not e
 Phase 3B must represent at minimum:
 
 1. **Location**: Earth country/area, celestial body, site or facility.
-2. **Actor**: public, private or later admitted actor type.
-3. **Account**: conserved economic/accounting balance or clearing relation.
+2. **AgentState**: persistent public, private or later admitted actor state including assets, information references, belief references, capabilities, objectives, decision policy, available actions and persistent history.
+3. **Account / Transaction / ClearingAccount**: conserved balances and explicit double-sided transfers, including an MVP external-market clearing boundary where used.
 4. **Asset**: owned productive or transport asset.
 5. **Project**: proposed/authorized/executing/completed/failed investment activity.
 6. **Infrastructure**: realized physical capability at a location.
-7. **ResourceState**: in-situ, accessible, recoverable, reserved and extracted quantities with context.
+7. **ResourceState**: explicitly typed in-situ, accessible, technically recoverable, economic-reserve, extracted and remaining quantities with context; these are not interchangeable.
 8. **Observation**: agent-accessible measurement/information event.
 9. **BeliefState**: agent interpretation derived from admissible information.
 10. **TechnologyState**: scenario-available technical possibility and actor-accessible/adopted capability kept distinct.
 11. **PopulationState**: Earth reference biological population and realized settlement/population state without conflating synthetic-person concepts.
-12. **ColonyState**: computed settlement stage from realized stocks/flows, not an independently editable magic label.
+12. **ColonyState**: transparent stock-flow state containing at minimum population, cash, productive capital, infrastructure, resource inventory, import inventory, production capacity, operating need, external subsidy and a stage computed from realized state.
 13. **DecisionRequest / Decision**: bounded choice context and selected action.
 14. **Event**: causal transition record.
 15. **Parameter**: explicit model/scenario parameter with lineage and authorization status.
-16. **RandomState**: keyed deterministic stochastic state isolated from agent information unless observed.
+16. **RandomState**: keyed deterministic stochastic state isolated from agent information unless observed.\n17. **TransportRelation**: directed location-to-location relation with distinct cost, travel time, energy, loss risk and capacity, potentially dependent on technology and time.\n18. **EarthImpactLedger**: explicit shadow-accounting state for causal deviations from Earth reference, including capital diversion/return, Earth/offworld purchases and population departure/return.
 
 ## 5. Earth reference / realized relation
 
@@ -213,6 +213,38 @@ A stochastic draw is world-side state unless and until its result becomes observ
 
 Same pinned inputs, scenario, parameters and random keys must reproduce the same realized trajectory.
 
+
+## 14A. MVP abstractions and deferred subsystem stubs
+
+The MVP may simplify a subsystem when full fidelity is unnecessary to test the causal architecture. Simplification must preserve the subsystem's semantic role and interface.
+
+Three categories remain distinct:
+
+1. **Scenario stipulation**: authored truth inside a named SCENARIO(id), such as the hidden quantity of a planted resource deposit. This is not an MVP abstraction and not REAL evidence.
+2. **MVP abstraction**: a deliberately simplified but functional representation behind a stable interface, such as simplified transport cost/time/capacity.
+3. **Deferred subsystem stub**: an explicit boundary standing in for a subsystem not yet modeled, such as an external Earth market clearing account.
+
+There is no generic PLACEHOLDER epistemic mode.
+
+A value that is merely unknown may not be filled for convenience. It remains UNKNOWN/BLOCKED unless an explicit scenario stipulation or authorized model/abstraction creates a distinct dependent state.
+
+Every MVP abstraction or stub must be registered with:
+
+- abstraction_id;
+- subsystem;
+- category;
+- temporary representation;
+- interface/consumers;
+- preserved invariants;
+- explicit non-claims;
+- parameter and authorization lineage;
+- replacement/revisit trigger;
+- intended future subsystem where known.
+
+Initial expected register entries include `MVP_TRANSPORT_v0`, `EARTH_MARKET_v0`, `MVP_COLONY_OPERATIONS_v0`, `MVP_OBSERVATION_MODEL_v0`, and `MVP_PROJECT_COST_v0`. These names reserve conceptual roles only; their numerical contents are not authorized by this document.
+
+Guiding rule: **simplify the subsystem, not the semantics**.
+
 ## 15. Minimum MVP conservation invariants
 
 Phase 3B shall design for at least:
@@ -262,6 +294,10 @@ The fixture must trace:
 - one belief update;
 - one decision;
 - one causal chain from reference to realized state.
+
+## 16A. FRD traceability requirement
+
+Before Phase 3B closes, every normative MVP requirement in `OFFWORLD_MVP_GUIDING_FRD.md` must map to an explicit state object, transition rule, invariant, registered abstraction/stub, or declared non-state requirement. No FRD requirement may disappear merely because the MVP implementation is simplified.
 
 ## 17. Immediate Phase 3B work packages
 
