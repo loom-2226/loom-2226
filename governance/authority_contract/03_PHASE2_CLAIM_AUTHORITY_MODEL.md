@@ -1043,3 +1043,45 @@ An authorized bridge does not mutate the blocked/unknown/conflicted source propo
 ### 33.8 Independence
 
 These repairs do not satisfy the independent-review lien. They are internal hostile-review repairs under PRE-CONTRACT / SINGLE-AUTHORITY.
+
+
+## 34. Post-Repair Adversarial Re-Test
+
+**Status:** MECHANICAL RE-TEST / NO NEW OWNER DECISION
+
+The repaired model in §33 was re-run conceptually against the twelve archaeological exemplars and the mutable offworld hidden-world case.
+
+### Repair-specific tests
+
+1. **Known but inadmissible evidence:** PASS. A source assertion can remain represented while qualification/quarantine blocks a consumer. The proposition is not coerced to UNKNOWN merely because use is inadmissible.
+2. **Empirical UNKNOWN plus scenario truth:** PASS. Evidence-plane UNKNOWN remains intact while a scenario-scoped proposition carries a stipulated or derived hidden-world value.
+3. **World knowledge versus agent access:** PASS. Hidden scenario state can exist in the world information domain while being inadmissible to the agent decision process. A simulated observation creates information in the agent's perspective without exposing hidden truth.
+4. **Agent belief:** PASS. LOOM can assert that an agent holds a belief without asserting the belief-object as LOOM evidence or scenario truth.
+5. **Qualification circularity:** PASS conceptually. Pre-qualification standing can be evaluated before qualification; qualification then contributes to effective standing for use without recursive self-dependence.
+6. **Formal/computational warrant:** PASS. Correct derivation remains distinct from empirical applicability of premises.
+7. **Canon/institutional warrant:** PASS WITH LATER RECOGNITION RULES. The model can represent these warrant families without pretending they are all primitive roots. Recognition mechanics remain Contract-v1 work.
+8. **Authorized bridge:** PASS. A substitution/imputation/scenario bridge yields a new dependent with bridge lineage; the original unknown/conflicted assertion is preserved.
+9. **Conflict:** PASS conceptually. The overlap test prevents alternative universes, changed historical states and different perspectives from becoming false conflicts while retaining true incompatible assertions.
+10. **Reference versus realized:** PASS. Adoption as reference remains a governance role and does not erase projection/scenario/simulation ancestry.
+
+### Twelve-exemplar regression
+
+M4-B supported lanes, bounded unknown lanes, Earth imputation, late-horizon Earth projection/reference, Moderate technology milestones, actor empirical access, actor unknown budget/access, future ephemeris/model state, transport derivations, CIVPROP simulated events/state, identity/crosswalk and WALTER delegation remain representable without reopening D2.1-D2.10.
+
+### Offworld regression
+
+The full chain remains coherent after repair:
+
+`SOLAR EVIDENCE -> SCENARIO WORLD -> OBSERVATION -> AGENT INFORMATION/BELIEF -> DECISION -> ACTION -> REALIZED STATE`
+
+with BAU/reference state independently retained. The repair strengthens rather than weakens the firewall because information possession and permission-to-use are no longer the same concept.
+
+### Re-test verdict
+
+**PASS WITH CARRIED IMPLEMENTATION / QUALIFICATION / INDEPENDENCE LIENS.**
+
+No new conceptual defect was found that requires another owner ontology decision.
+
+## 35. External Review Readiness
+
+The Phase 2 model is ready for external hostile review as a PRE-CONTRACT / SINGLE-AUTHORITY candidate. External review must receive the internal hostile review and §33 repairs rather than reviewing the superseded pre-repair candidate alone.
