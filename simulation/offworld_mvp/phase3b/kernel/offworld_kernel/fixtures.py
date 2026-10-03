@@ -37,7 +37,7 @@ def recursive_fixture(policy,years=50):
         if policy=='ENCLAVE': k.transfer(year,'mine_cash','earth_return',surplus,TxPurpose.RETURN_TO_EARTH)
         else:
             reinvest=surplus*D('0.80'); returned=surplus-reinvest; aid=f'reinvest_{year:03d}'
-            k.spend_capex(year,'mine','c1_supplier',reinvest,aid,'OFF:C1'); k.capitalize(aid,reinvest)
+            k.spend_capex(year,'mine','c1_supplier',reinvest,aid,'OFF:C1',financing_origin_nodes=('OFF:C1',)); k.capitalize(aid,reinvest)
             k.transfer(year,'mine_cash','earth_return',returned,TxPurpose.RETURN_TO_EARTH)
         k.assert_invariants()
     return {'productive_capital':k.productive_capital('OFF:C1'),'earth_returns':k.state.accounts['earth_return'].balance,
