@@ -794,3 +794,65 @@ The exact controlled vocabularies remain candidate.
 ## 26. Next Phase 2 task
 
 The next mechanical pass addresses D2.3, minimum UNKNOWN semantics, including unsearched questions, bounded unsuccessful searches, missing named sources, unadmitted evidence, unknown time, evidenced absence, asserted zero/false/empty, stale values, conflict and not-applicable questions. UNKNOWN must not become a miscellaneous bucket for those distinct conditions.
+
+
+## 27. Mechanical UNKNOWN Semantics Pass
+
+**Status:** MECHANICAL ANALYSIS / NO NEW OWNER DECISION
+
+D2.3 was tested against current-main Solar, Earth, timeline and CIVPROP holdings.
+
+### Core finding
+
+UNKNOWN means: **for the specified proposition/question and scope, LOOM does not have an admissible asserted value available for the intended use.**
+
+UNKNOWN does not mean false, zero, empty, absent, stale, contradicted, rejected, not applicable or not yet selected. The reason an admissible value is unavailable is separately represented.
+
+### Tested distinctions
+
+- No search established: UNKNOWN with NOT_ASSESSED.
+- Bounded search with no admissible value: UNKNOWN with BOUNDED_ASSESSMENT_NO_ADMITTED_VALUE and recorded scope.
+- Defined source/endpoint yields no relevant source: UNKNOWN with DEFINED_SOURCE_NOT_FOUND and recorded source/search scope.
+- Relevant evidence exists but is held/rejected/quarantined: UNKNOWN for the intended use with EVIDENCE_FOUND_NOT_ADMITTED and links to that evidence/disposition.
+- Missing temporal metadata: the value may remain asserted while the temporal dimension is UNKNOWN. This does not automatically make the whole proposition UNKNOWN.
+- Supported non-detection or absence: an asserted negative/bounded proposition with evidence, not UNKNOWN.
+- Numeric zero and boolean false: asserted values, not UNKNOWN.
+- Empty collection: asserted empty only when domain semantics establish completeness; otherwise it cannot silently mean none exist.
+- Stale/superseded value: preserve the historical assertion and mark its temporal/governance condition; do not erase it into UNKNOWN.
+- Conflicting values: preserve the assertions and conflict relationship; conflict is not UNKNOWN.
+- Semantically inapplicable question: NOT_APPLICABLE, not UNKNOWN.
+- Source does not cover the relevant class: a source/coverage limitation, not by itself scientific absence.
+
+M4-B explicitly states that UNKNOWN_AFTER_SEARCH is absence of sufficient admitted evidence after a bounded campaign, not zero or material absence. It separately defines SOURCE_NOT_FOUND for a defined endpoint/archive. Existing resource vocabulary also separates supported non-detection/absence.
+
+Solar holdings separately preserve NOT_APPLICABLE, contradictory/superseding relationships and temporal metadata. Earth temporal coverage separately records SUPERSEDED_SEMANTIC and NOT_MODELED_BY_THIS_AUTHORITY. These distinctions would be lost by broad UNKNOWN coercion.
+
+### Partial unknowns
+
+Unknownness attaches to the dimension actually unknown. Examples include: presence known but abundance unknown; value known but validity end unknown; scoped service access known but generic access unknown; quantity known but uncertainty characterization unknown.
+
+A known adjacent dimension cannot fill an unknown one.
+
+### Minimum candidate search states
+
+1. NOT_ASSESSED
+2. BOUNDED_ASSESSMENT_NO_ADMITTED_VALUE
+3. DEFINED_SOURCE_NOT_FOUND
+4. EVIDENCE_FOUND_NOT_ADMITTED
+5. SEARCH_STATE_UNKNOWN
+
+States 2 through 4 require references to the assessment/search/evidence scope. State 5 covers historical holdings where the reason for UNKNOWN cannot itself be established. Token names remain candidate.
+
+### Blocking
+
+UNKNOWN blocks an operation only when that operation requires the unknown dimension. An authorized substitution may bridge it only through governed substitution/assumption machinery. The substitute never becomes a recovered observation and the original UNKNOWN remains in lineage.
+
+## 28. D2.3 — UNKNOWN Semantics
+
+**Status:** READY FOR OWNER DECISION
+
+**Option A:** adopt the scoped UNKNOWN semantics in §27.
+
+**Option B:** permit stale, conflicted, temporally incomplete or otherwise unusable values to collapse into a broader UNKNOWN state for consumers.
+
+**Mechanical recommendation:** Option A. Current holdings already preserve the distinctions that Option B would destroy, and A is consistent with Phase 0 local-blocking, claim-scope, conflict and uncertainty rules.
