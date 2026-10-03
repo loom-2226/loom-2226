@@ -965,3 +965,81 @@ The candidate model rejects the following semantic mutations:
 ## 32. Phase 2 Review Readiness
 
 The candidate Claim and Authority Model is mechanically ready for hostile review. It remains PRE-CONTRACT / SINGLE-AUTHORITY and does not qualify any underlying holding.
+
+
+## 33. Internal Hostile Review Repair Addendum
+
+**Status:** CANDIDATE REPAIR / PRE-CONTRACT / SINGLE-AUTHORITY
+
+An internal hostile review found four major semantic defects that can be repaired without reopening D2.1-D2.10. Because the reviewer participated in model development, this is not independent review.
+
+### 33.1 UNKNOWN versus admissibility
+
+D2.3 is refined as follows:
+
+> UNKNOWN means that no asserted value is established for the specified proposition/question within the relevant epistemic perspective and scope.
+
+UNKNOWN is not defined by whether a particular consumer is permitted to use a value. A source assertion may exist while being quarantined, unqualified or otherwise inadmissible for a use. In that case the assertion is not erased into UNKNOWN; use is blocked by governance/admissibility standing.
+
+Search/investigation state remains separate. Evidence found but not admitted describes investigation/governance condition and does not automatically make the source assertion UNKNOWN.
+
+This refinement preserves the owner-selected scoped-UNKNOWN architecture while removing governance admissibility from the definition of knowledge state.
+
+### 33.2 Warrant families versus primitive roots
+
+D2.4 is refined: evidentiary, explicit-authorization, formal, institutional/normative and canon categories are adopted as **warrant families/sources**, not a claim that all five are ontologically primitive roots.
+
+- formal warrant establishes entailment under definitions/premises, not empirical applicability of those premises;
+- canon warrant normally derives through an authorized canon-governance act;
+- institutional/normative warrant requires recognition of the institution's competence/jurisdiction for the proposition at issue;
+- deterministic computation remains derivative rather than a primitive truth source.
+
+The exact primitive-root ontology may remain open so long as Contract v1 defines recognition and derivation rules without allowing need, storage, automation or computation to manufacture warrant.
+
+### 33.3 Pre-qualification and effective standing
+
+To prevent circularity:
+
+1. **pre-qualification standing** is evaluated from proposition semantics, scope/time/context, warrant, dependencies, authorization, conflict and uncertainty without using the qualification decision being sought;
+2. **qualification** is a separate governed assessment of an identified object/interface against an identified contract/use;
+3. **effective standing for use** may incorporate the resulting qualification outcome.
+
+A qualification decision may not depend on an effective-standing result that already depends on that same qualification decision.
+
+### 33.4 Epistemic perspective versus use admissibility
+
+The combined phrase `epistemic perspective/admissibility` is split conceptually:
+
+- **epistemic perspective / information domain:** where and for whom a proposition is represented as known, observed, believed or available;
+- **use admissibility:** whether a specified consumer/process may consume that proposition for a specified operation.
+
+Phase 3 defines concrete knowledge/information state. Phase 4 enforces runtime access. Phase 2 establishes only that the concepts are distinct and standing may depend on both.
+
+### 33.5 Proposition, assertion and claim
+
+For Phase 2 semantics:
+
+- **PROPOSITION** = semantic content capable of being asserted within stated scope/context;
+- **ASSERTION** = a source, actor, process or governance occurrence that asserts a proposition;
+- **CLAIM** = the governed LOOM representation through which a proposition, its assertions/support, scope, lineage and governance relations are addressed.
+
+Multiple assertions may support or contradict one proposition. A new source does not create a new proposition merely because it creates a new assertion.
+
+### 33.6 Conflict overlap rule
+
+Candidate conflict requires:
+
+1. compatible normalized subject and predicate;
+2. overlapping applicable scope, time and scenario/reference context;
+3. semantic roles that purport to answer the same question; and
+4. asserted contents that cannot simultaneously hold over that overlap.
+
+Exact normalization/detection algorithms remain downstream.
+
+### 33.7 Authorized bridge output
+
+An authorized bridge does not mutate the blocked/unknown/conflicted source proposition. It produces a new lineage-bearing dependent claim/state for the authorized use, retaining the original condition and bridge authorization in lineage.
+
+### 33.8 Independence
+
+These repairs do not satisfy the independent-review lien. They are internal hostile-review repairs under PRE-CONTRACT / SINGLE-AUTHORITY.
