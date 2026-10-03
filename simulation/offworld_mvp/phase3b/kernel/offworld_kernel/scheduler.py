@@ -35,6 +35,7 @@ class ScheduledEvent:
     process_id: str
     payload: Tuple[Tuple[str,str],...]=()
     parent_ids: Tuple[str,...]=()
+    snapshot_ref: str=''
 
     @property
     def order_key(self):
@@ -71,12 +72,19 @@ class DeterministicScheduler:
     _events: Dict[str,ScheduledEvent]=field(default_factory=dict)
     _couplings: Dict[str,CouplingSpec]=field(default_factory=dict)
     execution_log: List[str]=field(default_factory=list)
+    decision_snapshots: Dict[str,str]=field(default_factory=dict)
 
     def register_coupling(self,spec:CouplingSpec):
         spec.validate()
         if spec.process_id in self._couplings:
             raise InvariantError('duplicate coupling process')
         self._couplings[spec.process_id]=spec
+
+    def open_decision_window(self,period_key,state_fingerprint):
+        key=str(period_key)
+        if key in self.decision_snapshots: raise InvariantError('decision window snapshot already frozen')
+        self.decision_snapshots[key]=str(state_fingerprint)
+        return f'decision-snapshot:{key}:{state_fingerprint}'
 
     def schedule(self,event:ScheduledEvent):
         if event.event_id in self._events:
@@ -85,6 +93,8 @@ class DeterministicScheduler:
             raise InvariantError('unregistered scheduler process')
         if event.phase!=self._couplings[event.process_id].phase:
             raise InvariantError('event phase differs from coupling contract')
+        if event.phase==Phase.DECISION_WINDOW and not event.snapshot_ref:
+            raise InvariantError('decision-window event requires pinned snapshot reference')
         self._events[event.event_id]=event
 
     def ordered_events(self)->List[ScheduledEvent]:
@@ -102,6 +112,7 @@ class DeterministicScheduler:
         payload={
           'contract_version':self.contract_version,
           'couplings':sorted((s.process_id,s.version,s.runtime_class.value,s.owned_state,s.read_set,s.write_set,s.cadence_or_trigger,int(s.phase),s.unit_basis,s.world_context,s.perspective,s.direction,s.transition_interfaces) for s in self._couplings.values()),
-          'events':[(e.event_id,str(e.effective_time),int(e.phase),e.priority,e.stable_key,e.process_id,e.payload,e.parent_ids) for e in self.ordered_events()],
+          'events':[(e.event_id,str(e.effective_time),int(e.phase),e.priority,e.stable_key,e.process_id,e.payload,e.parent_ids,e.snapshot_ref) for e in self.ordered_events()],
+          'decision_snapshots':sorted(self.decision_snapshots.items()),
           'execution_log':tuple(self.execution_log)}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
