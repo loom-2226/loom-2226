@@ -96,7 +96,7 @@ Named assertion sets include at minimum:
 - `ALL_RECORDED`: all recorded assertions relevant to the proposition/scope regardless of admission disposition;
 - `ADMITTED`: assertions admitted for the governed context/use under applicable admission rules.
 
-If relevant recorded assertions exist but all are quarantined or otherwise inadmissible, a governed consumer receives `BLOCKED` with the reason. It does not receive UNKNOWN merely because use is inadmissible.
+If `ALL_RECORDED` contains one or more relevant assertions but the evaluated assertion set (including `ADMITTED`) is empty because admission, quarantine, qualification, staleness or other use-admissibility/disposition rules excluded those assertions, the evaluation MUST return `BLOCKED` with the applicable reason and MUST NOT return `UNKNOWN`. `UNKNOWN` is permitted only when the evaluated knowledge question has no asserted value in the relevant assertion set for reasons that are not themselves a governance/admissibility exclusion. Implementations evaluating a restricted assertion set MUST inspect the corresponding `ALL_RECORDED` set sufficiently to distinguish epistemic absence from governance exclusion.
 
 UNKNOWN is not false, zero, empty, confirmed absence, stale, conflict, rejected, quarantined or not-applicable. Confirmed absence is an asserted negative proposition with evidence and scope. An empty collection is asserted empty only where completeness is established.
 
@@ -275,7 +275,7 @@ Conflict requires:
 
 Where available uncertainty is insufficient to decide compatibility, the result is `INDETERMINATE_CONFLICT`, not silent no-conflict.
 
-Alternative scenarios, perspectives or non-overlapping epochs are not conflicts merely because values differ. Exact detection belongs to Phase 5.
+Alternative scenarios, perspectives or non-overlapping epochs are not conflicts merely because values differ. A consumer MUST NOT narrow query scope below the natural scope required by its declared governed use for the purpose or effect of evading otherwise applicable conflict evaluation. Phase 5 conflict detection MUST evaluate relevant `ALL_RECORDED` assertions over the broadest intersection of the declared use scope and their applicable scopes before admission/use filtering, then separately determine which assertions are admissible for consumption. Exact detection belongs to Phase 5.
 
 ## 20. Uncertainty and variability
 
@@ -290,7 +290,7 @@ Preserve separately where applicable:
 - scenario/universe variability;
 - uncharacterized uncertainty.
 
-A transformation states how relevant uncertainty propagates or declares output uncertainty uncharacterized. Uncharacterized uncertainty cannot silently become characterized or zero.
+A transformation states how relevant uncertainty propagates or declares output uncertainty uncharacterized. Uncharacterized uncertainty cannot be converted to zero or to characterized uncertainty merely by derivation, even when the transformation explicitly declares such a conversion. Such conversion requires a separate explicit AUTHORIZATION-root governance act that recognizes an identified bounding/uncertainty model for the specified use and records its assumptions, scope and lineage. The resulting characterization is bridge/model-dependent and does not erase the original uncharacterized uncertainty.
 
 Scenario alternatives have no probability merely by existing. Weighting scenarios or treating run frequencies as epistemic probabilities requires explicit authorization and an identified basis. Scenario-seed spread is simulation/scenario variability unless separately justified as an epistemic uncertainty model.
 
@@ -451,6 +451,8 @@ Required behavior:
 15. Scenario frequencies are not epistemic probabilities without explicit authorization and basis.
 16. Qualification cannot recursively establish the standing it consumes.
 17. Transformation/model standing is a necessary dependency of derived results.
+18. Governance/admissibility exclusion cannot be represented as epistemic UNKNOWN when relevant recorded assertions exist.
+19. Query-scope narrowing cannot be used to evade conflict evaluation for the natural scope of the declared governed use.
 
 ## 32. Phase 2 status
 
@@ -459,3 +461,39 @@ Owner decisions D2.1-D2.10, including the adopted amendments to D2.3, D2.4, D2.6
 The model remains **PRE-CONTRACT / SINGLE-AUTHORITY**. It does not qualify existing LOOM holdings and does not release `LOOM_AUTHORITY_AND_STATE_CONTRACT_v1`.
 
 Phase 2 is **NOT CLOSED** until the changed areas receive the required independent hostile review and review findings are dispositioned. Final closure must explicitly preserve PRE-CONTRACT/SINGLE-AUTHORITY limits and carried liens.
+
+
+## 33. Independent Hostile Review Disposition
+
+**Reviewer independence statement:** the reviewer declared no prior involvement in authoring or materially shaping Phase 0, Phase 1, the Phase 2 development record, the offworld stress proposal, or the hostile reviews that produced Repair Package A.
+
+**Review verdict:** REPAIR REQUIRED.
+
+The reviewer identified three findings. No finding reopens an owner ontology decision.
+
+### 33.1 FND-PH2-001 — ACCEPTED AND REPAIRED
+
+The empty-`ADMITTED` ambiguity is closed in §6. When relevant `ALL_RECORDED` assertions exist but the evaluated set is empty because governance/admissibility/disposition excluded them, the result is `BLOCKED`, never `UNKNOWN`. Restricted-set evaluation must inspect `ALL_RECORDED` sufficiently to distinguish epistemic absence from governance exclusion.
+
+### 33.2 FND-PH2-002 — ACCEPTED AND REPAIRED
+
+The uncertainty rule in §20 is strengthened. Explicit declaration by a deterministic transformation cannot convert uncharacterized uncertainty to zero or characterized uncertainty. Such characterization requires a separate AUTHORIZATION-root governance act recognizing an identified bounding/uncertainty model. The original uncharacterized uncertainty remains in lineage.
+
+### 33.3 FND-PH2-003 — ACCEPTED AND REPAIRED / ENFORCEMENT CARRIED TO PHASE 5
+
+The conflict rule in §19 and invariant set in §31 now prohibit query-scope narrowing that evades conflict evaluation for the natural scope of the declared governed use. Phase 5 owns executable detection and must evaluate relevant `ALL_RECORDED` assertions over the broadest intersection of declared use scope and applicable assertion scopes before admission/use filtering.
+
+### 33.4 Worked-encoding ambiguities
+
+The review also identified two encoding clarifications that do not alter the adopted ontology:
+
+- A simulated observation and resulting agent-belief state retain their full derivation lineage, including scenario/simulation dependencies and applicable authorization-root paths. Authorization does not replace SIMULATED ancestry.
+- A cross-context comparison output is a derived proposition whose epistemic mode is determined by what the proposition asserts and its context; `DERIVED` remains a derivation mode, never an epistemic mode. A deterministic comparison does not automatically become `NORMATIVE` or `FORMAL`.
+
+These clarifications are binding Phase 2 semantics and must be represented consistently in Phase 3.
+
+### 33.5 Review disposition
+
+All three independent-review findings are accepted. FND-PH2-001 and FND-PH2-002 are repaired at the Phase 2 semantic level. FND-PH2-003 is repaired at the Phase 2 invariant level with executable conflict detection correctly carried to Phase 5.
+
+The review's stated condition is therefore met at the conceptual-model level: Phase 2 may close after disposition of these findings, while preserving PRE-CONTRACT / SINGLE-AUTHORITY limitations and all carried liens.
