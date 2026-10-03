@@ -39,12 +39,12 @@ class Kernel:
         if amount>c.outstanding: raise InvariantError('disbursement exceeds commitment')
         p=self.state.projects[c.project_id]
         tx=self.transfer(year,source_account,p.cash_account_id,amount,TxPurpose.DISBURSE,parent_ids=(commitment_id,)); c.disbursed+=amount; return tx
-    def spend_capex(self,year,project_id,supplier_account,amount,asset_id,asset_node,asset_class='PRODUCTIVE'):
+    def spend_capex(self,year,project_id,supplier_account,amount,asset_id,asset_node,asset_class='PRODUCTIVE',financing_origin_nodes=None):
         if asset_id in self.state.assets: raise InvariantError('duplicate asset')
         p=self.state.projects[project_id]; supplier_node=self.state.accounts[supplier_account].node_id; amount=D(amount)
         tx=self.transfer(year,p.cash_account_id,supplier_account,amount,TxPurpose.CAPEX,supplier_node,asset_node,(project_id,))
         self.state.assets[asset_id]=Asset(asset_id,project_id,asset_node,AssetKind.WIP,amount)
-        origins=tuple(sorted({t.source_location for t in self.state.transactions if t.destination_account==p.cash_account_id and t.purpose in {TxPurpose.DISBURSE,TxPurpose.LOCAL_REINVESTMENT,TxPurpose.OTHER_INVESTMENT}}))
+        origins=tuple(sorted(financing_origin_nodes)) if financing_origin_nodes is not None else tuple(sorted({t.source_location for t in self.state.transactions if t.destination_account==p.cash_account_id and t.purpose in {TxPurpose.DISBURSE,TxPurpose.LOCAL_REINVESTMENT,TxPurpose.OTHER_INVESTMENT}}))
         fcf=FixedCapitalFormationEvent(self._id('fcf'),year,project_id,asset_id,tuple(sorted(p.owners)),origins,supplier_node,asset_node,amount,asset_class,(tx.id,))
         self.state.fcf_events.append(fcf)
         if self.state.nodes[supplier_node].kind==NodeKind.EARTH:
