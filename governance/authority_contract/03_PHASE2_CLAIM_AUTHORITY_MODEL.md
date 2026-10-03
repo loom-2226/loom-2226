@@ -856,3 +856,35 @@ UNKNOWN blocks an operation only when that operation requires the unknown dimens
 **Option B:** permit stale, conflicted, temporally incomplete or otherwise unusable values to collapse into a broader UNKNOWN state for consumers.
 
 **Mechanical recommendation:** Option A. Current holdings already preserve the distinctions that Option B would destroy, and A is consistent with Phase 0 local-blocking, claim-scope, conflict and uncertainty rules.
+
+
+## 29. Owner Disposition — D2.3 through D2.10
+
+**Status:** OWNER-ADOPTED
+**Decision date:** 2026-10-04
+**Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY
+
+The owner adopted the remaining Phase 2 choice slate as an integrated package. The offworld capital/resource/colony/agent proposal remains mutable, non-canon and non-implementing; it is a stress case and gains no authority through this adoption.
+
+- **D2.3 Scoped UNKNOWN:** adopt Option A. UNKNOWN is scoped and dimension-local. Its search/reason state is separate. Scenario state cannot silently satisfy evidence-plane UNKNOWN.
+- **D2.4 Warrant roots:** adopt plural, use-relative warrant. Candidate root families are evidentiary warrant, explicit authorization, formal warrant, institutional/normative warrant and canon warrant. Deterministic computation is derivative rather than an independent truth root. Storage, AI, automation, repetition and model need are not roots.
+- **D2.5 Reference:** REFERENCE is a governed adoption/use role, not an epistemic mode. Adoption does not erase projection, scenario or simulation ancestry. Reference and realized state remain distinct.
+- **D2.6 Dependency standing and admissibility:** standing is evaluated for consumer, intended use, time and context and composes across relevant dimensions. Epistemic perspective/admissibility is explicit. Agent belief does not assert the believed proposition as LOOM fact.
+- **D2.7 Authorization/delegation:** distinguish authorization of propositions/stipulations, models/transformations, governance/adoption acts and world/agent actions. Delegation is explicit, bounded and non-self-expanding. Outcome-conditioned changes create new lineage and do not retroactively validate outputs used to choose them.
+- **D2.8 Conflict:** conflict requires proposition-level incompatibility after relevant scope/time/scenario/context alignment. Mere difference is not conflict. Resolution preserves provenance and displaced assertions.
+- **D2.9 Uncertainty/variability:** preserve empirical/epistemic, projection, model/parameter, observation/measurement, agent-belief, simulation-stochastic, scenario/universe and uncharacterized uncertainty/variability as distinct concepts. Scenario-seed variation is not automatically epistemic uncertainty; generator distributions are not agent priors.
+- **D2.10 Physical/formal/computational standing:** distinguish formal relationships, empirical physical quantities/laws, fitted models, engineering approximations, deterministic evaluations, future extrapolations, scenario state and simulated state. Correct computation establishes consequence from declared inputs/rules; it does not establish that those inputs describe reality.
+
+### Integrated Phase 2 architecture
+
+The adopted conceptual decomposition is:
+
+PROPOSITION + KIND + EPISTEMIC MODE + VALUE/KNOWLEDGE STATE + DERIVATION LINEAGE + SCOPE/TIME/SCENARIO + EPISTEMIC PERSPECTIVE/ADMISSIBILITY + WARRANT + GOVERNANCE AXES + UNCERTAINTY/VARIABILITY + SUPPORT/CONFLICT + DEPENDENCIES.
+
+Effective standing is use-relative, not a universal scalar attached to a row.
+
+Authored hidden-scenario starting values may be scenario stipulations; values produced by an authorized generator are derived scenario-world state; later values changed by simulation transitions are realized simulated state. These categories must not be collapsed.
+
+### Phase 2 status after this disposition
+
+The owner-decision portion of Phase 2 is complete. Phase 2 is **not yet closed**. Remaining closure work is mechanical/review work: integrate the adopted model, map or carry Phase 1 liens, run the integrated archaeological and offworld adversarial stress tests, obtain hostile review, disposition findings, and record final owner closure including PRE-CONTRACT / SINGLE-AUTHORITY limitations.
