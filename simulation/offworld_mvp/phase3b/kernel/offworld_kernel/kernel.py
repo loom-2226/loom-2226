@@ -62,8 +62,12 @@ class Kernel:
             if min(c.committed,c.disbursed,c.lapsed,c.outstanding)<0: raise InvariantError(f'commitment reconciliation {c.id}')
         for p in self.state.projects.values():
             if p.owners and sum(p.owners.values(),D('0'))!=D('1'): raise InvariantError(f'ownership {p.id}')
-        ids=[e.asset_id for e in self.state.fcf_events]
-        if len(ids)!=len(set(ids)): raise InvariantError('asset formed more than once')
+        # Multi-period WIP may receive multiple FCF additions under one construction id.
+        # What is forbidden is cloning the same formation target across economic locations.
+        locations={}
+        for e in self.state.fcf_events:
+            if e.asset_id in locations and locations[e.asset_id]!=e.asset_node: raise InvariantError('asset formation target cloned across locations')
+            locations[e.asset_id]=e.asset_node
     def fingerprint(self):
         payload={'accounts':sorted((k,str(v.balance),v.node_id,v.kind.value) for k,v in self.state.accounts.items()),
                  'assets':sorted((k,str(v.book_value),str(v.capacity),v.node_id,v.kind.value) for k,v in self.state.assets.items()),
