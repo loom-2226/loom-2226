@@ -30,6 +30,17 @@ class SchedulerTests(unittest.TestCase):
         self.assertEqual(make([0,1]).fingerprint(),make([1,0]).fingerprint())
 
 
+
+    def test_period_end_adjustments_precede_accounting_close(self):
+        s=DeterministicScheduler()
+        s.register_coupling(self.spec('dep',Phase.DEPRECIATION_AMORTIZATION))
+        s.register_coupling(self.spec('close',Phase.ACCOUNTING_CLOSE))
+        s.register_coupling(self.spec('snap',Phase.SNAPSHOT_CLOSE))
+        s.schedule(ScheduledEvent('snap',D('1'),Phase.SNAPSHOT_CLOSE,0,'snap','snap'))
+        s.schedule(ScheduledEvent('close',D('1'),Phase.ACCOUNTING_CLOSE,0,'close','close'))
+        s.schedule(ScheduledEvent('dep',D('1'),Phase.DEPRECIATION_AMORTIZATION,0,'dep','dep'))
+        self.assertEqual([e.event_id for e in s.ordered_events()],['dep','close','snap'])
+
     def test_decision_window_requires_pinned_snapshot(self):
         s=DeterministicScheduler(); s.register_coupling(self.spec('decision_orchestrator',Phase.DECISION_WINDOW))
         with self.assertRaises(InvariantError):
