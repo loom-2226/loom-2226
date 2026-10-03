@@ -183,6 +183,78 @@ At minimum the implementation metadata must be capable of preserving:
 
 Exception metadata does not automatically invalidate a reference value. It tells the consumer what kind of modeled assertion it is.
 
+
+## 8A. Source aberrations, remediation, and non-fabrication
+
+The selected Earth reference contains documented remediations where source-data or source-to-model semantics produced pathological modeled state.
+
+These remediations must not be described as tuning countries toward desired outcomes. They are lineage events responding to identifiable source-data aberrations or invalid source-to-model transformations. The original source observations remain preserved.
+
+### Nigeria investment provenance
+
+The frozen 2026 Nigeria seed inherited an OECD-ICIO fallback investment/value-added ratio of approximately **30.704%** because the ordinary national WDI GFCF/GDP source path was unavailable in that seed construction.
+
+That fallback was not evidence that Nigeria's long-run investment rate should be 30.704%. It was a source-coverage fallback whose repeated use became materially consequential when propagated over the long horizon.
+
+The later baseline architecture replaced that provenance with the governed national WDI GFCF/GDP policy, using the declared same-series pooled-median imputation when a direct WDI rate was unavailable. This correction occurred before v2.
+
+A separate later remediation addressed the structural problem of holding national investment ratios and high factor shares effectively fixed over centuries. That later long-run transition was not a Nigeria-specific correction and Nigeria's eventual output share was never a calibration target.
+
+Required interpretation:
+
+- original 30.704% value = historical fallback provenance, not a long-run empirical truth;
+- replacement = source-policy remediation, not outcome tuning;
+- later investment/K-Y transition = general model-structure remediation, not a Nigeria override.
+
+### Taiwan ENERGY source-accounting aberration
+
+The qualified OECD 2024 source contains signed Taiwan ENERGY current-price value added of **-1,474.8229150813295 USD million** while simultaneously reporting positive current-price gross output of **65,382.8595 USD million**. The same source family reports positive previous-year-price value added (**4,792.9530 USD million**) and gross output (**52,908.1834 USD million**). The qualified 2026 model seed also has positive modeled gross output and employment.
+
+The old seed transformation clamped the negative current-price VA to zero. In the production model this caused the chain:
+
+`zero VA -> zero assigned capital -> Cobb-Douglas A = 0 -> permanent zero production`.
+
+That was a model artifact produced by treating a signed accounting observation as evidence of no productive activity.
+
+The remediation **did not alter the signed OECD observation**. It preserved the source value and reconstructed modeled accounting state using positive previous-year-price VA/output evidence plus the positive modeled activity evidence. The reconstruction rule was written generically and tested over the complete 80 x 10 sector matrix; **TWN/ENERGY was the only node satisfying its conditions**.
+
+The reconstruction preserved country-level 2060 value added, gross output, capital, employment and investment totals by redistributing within-country sector shares.
+
+Required interpretation:
+
+- negative source VA remains negative in source provenance;
+- negative accounting VA != zero physical/economic activity;
+- reconstructed Taiwan ENERGY state is modeled accounting state, not a corrected observation;
+- it is not an observed physical energy-capacity estimate;
+- it is not a Taiwan-specific target or magic number.
+
+### Other source/fallback remediations
+
+The model also contains declared source-coverage treatments including:
+
+- 2026 investment fallbacks where direct source coverage was unavailable;
+- factor-share fallback for eight economies;
+- post-WEO TFP-anchor fallback for ten economies;
+- explicit replacement-underfunding rather than silently fabricating replacement investment;
+- later demographic and biosynthetic transition assumptions.
+
+These are not all the same epistemic operation. A source aberration, missing-source imputation, modeled reconstruction, structural assumption, and scenario assumption must remain distinguishable in provenance.
+
+### Contract rule
+
+Every admitted assertion affected by a remediation must preserve enough metadata to answer:
+
+1. what original source value or absence triggered the treatment;
+2. why direct propagation was invalid or unavailable;
+3. what rule was applied;
+4. whether the rule was general or country-specific;
+5. which values remained immutable source evidence;
+6. which values became modeled/reconstructed state;
+7. what downstream rows were invalidated and recomputed;
+8. whether the remediation changes epistemic standing or uncertainty.
+
+A remediation may correct a source-to-model failure. It may **not** retroactively convert the repaired modeled value into an observation or scientific fact.
+
 ## 9. Reference immutability
 
 The Earth reference is immutable during Offworld simulation.
