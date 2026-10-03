@@ -43,6 +43,8 @@ class ActorIdentityV03:
     financial_capacity_high:float|None=None
     capacity_semantics:str|None=None
     estimate_status:str="UNKNOWN"
+    execution_ontology:str="AUTONOMOUS_ACTOR"
+    autonomous_eligible:bool=True
 
 @dataclass(frozen=True)
 class ActorActivationStateV03:
@@ -72,7 +74,8 @@ class ActorRegistryV03:
             for a in seed["actors"])
 
     @classmethod
-    def from_actor_baseline(cls,baseline:Mapping[str,object]):
+    def from_actor_baseline(cls,baseline:Mapping[str,object],roster_audit:Mapping[str,object]|None=None):
+        audit_by={} if roster_audit is None else {x["actor_id"]:x for x in roster_audit["nodes"]}
         return cls(ActorIdentityV03(
             actor_id=str(a["actor_id"]),name=str(a["name"]),category=str(a["category"]),
             candidate_status="NON_CANON_DERIVED_ESTIMATED_2026_INITIALIZATION",
@@ -81,7 +84,9 @@ class ActorRegistryV03:
             financial_capacity_estimate=float(a["financial_capacity_estimate"]),
             financial_capacity_low=float(a["financial_capacity_low"]),
             financial_capacity_high=float(a["financial_capacity_high"]),
-            capacity_semantics=str(a["capacity_semantics"]),estimate_status=str(a["evidence_status"]))
+            capacity_semantics=str(a["capacity_semantics"]),estimate_status=str(a["evidence_status"]),
+            execution_ontology=str(audit_by.get(a["actor_id"],{}).get("ontology","AUTONOMOUS_ACTOR")),
+            autonomous_eligible=bool(audit_by.get(a["actor_id"],{}).get("autonomous_eligible",True)))
             for a in baseline["actors"])
 
     def state(self,actor_id:str)->ActorActivationStateV03:
@@ -97,6 +102,7 @@ class ActorRegistryV03:
         return tuple(k for k in sorted(self._states)
                      if self._states[k].identity.category in cats
                      and self._states[k].identity.functional_2026
+                     and self._states[k].identity.autonomous_eligible
                      and (eligible is None or k in eligible))
 
     def mark_relevant(self,*,trigger_type:str,context_id:str,

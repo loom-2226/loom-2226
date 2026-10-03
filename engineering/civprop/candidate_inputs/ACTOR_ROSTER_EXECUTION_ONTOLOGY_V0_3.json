@@ -1,0 +1,2854 @@
+{
+  "audit_id": "ACTOR_ROSTER_EXECUTION_ONTOLOGY_V0_3",
+  "autonomous_actor_count": 190,
+  "classification": "NON_CANON_PRE_ACTOR_EXECUTION_AUDIT",
+  "node_count": 233,
+  "nodes": [
+    {
+      "actor_id": "CAP_ADIA",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Abu Dhabi Investment Authority (ADIA)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_ADVENT",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Advent International",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_AEI",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "AE Industrial Partners",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_BANKS",
+      "autonomous_eligible": false,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Large investment banks (exemplars: Goldman Sachs, Morgan Stanley, Citigroup)",
+      "ontology": "COMPOSITE_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "CAP_BPI_EXPORT",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "French export credit (Bpifrance Assurance Export)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_CHN_GUIDANCE",
+      "autonomous_eligible": false,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Chinese state and local guidance funds",
+      "ontology": "COMPOSITE_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "CAP_CPPIB",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "CPP Investments (Canada)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_DOD_OSC",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "US Department of Defense Office of Strategic Capital",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_EDC",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Export Development Canada",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_EXIM_US",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "US Export-Import Bank (EXIM)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_GIC",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "GIC (Singapore)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_IQT",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "In-Q-Tel",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_JPM",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "JPMorgan Chase",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_MACQUARIE",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Macquarie Group",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_MUBADALA",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Mubadala (Abu Dhabi)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_NBIM",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Norway Government Pension Fund Global (NBIM)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_PIF",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Saudi Public Investment Fund",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_PUBLIC_EQUITY",
+      "autonomous_eligible": false,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Public equity market for small and mid-cap space issuers",
+      "ontology": "MARKET_MECHANISM",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "CAP_QIA",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Qatar Investment Authority",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_SINOSURE",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "China Export and Credit Insurance Corporation (Sinosure) and policy banks",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAP_SPACE_VC",
+      "autonomous_eligible": false,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Space-focused venture funds (exemplars: Seraphim Space, Space Capital, Founders Fund)",
+      "ontology": "COMPOSITE_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "CAP_STAR_MARKET",
+      "autonomous_eligible": false,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "Shanghai STAR Market",
+      "ontology": "MARKET_MECHANISM",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "CAP_UKEF",
+      "autonomous_eligible": true,
+      "category": "CAPITAL",
+      "causal_roles": [
+        "CAPITAL"
+      ],
+      "name": "UK Export Finance (UKEF)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_ARIANE",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "Arianespace",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_ASTROBOTIC",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "Astrobotic",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_BLUE_ORIGIN",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "Blue Origin",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_CASC",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "China Aerospace Science and Technology Corporation (CASC)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_FIREFLY",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "Firefly Aerospace",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_IMPULSE",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "Impulse Space",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_INTUITIVE",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "Intuitive Machines",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_ISAR",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "Isar Aerospace",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_ISPACE",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "ispace",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_LANDSPACE",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "LandSpace",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_MHI",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "Mitsubishi Heavy Industries (H3)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_NSIL",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "NewSpace India Limited (NSIL)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_ORBIT_FAB",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "Orbit Fab",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_PLD",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "PLD Space",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_ROCKET_LAB",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "Rocket Lab",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_ROSCOSMOS",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "Roscosmos",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_SPACEX",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "SpaceX",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CAR_ULA",
+      "autonomous_eligible": true,
+      "category": "CARRIER",
+      "causal_roles": [
+        "TRANSPORT"
+      ],
+      "name": "United Launch Alliance",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_AFRY_AMC",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "AFRY (including AMC Consultants)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_AIG",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "Australian Institute of Geoscientists (AIG)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_ALS",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "ALS Limited",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_ASX",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "ASX (Australian Securities Exchange) listing rules for mining",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_AUSIMM",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "AusIMM (Australasian Institute of Mining and Metallurgy)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_BUREAU_VERITAS",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "Bureau Veritas",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_CRIRSCO",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "CRIRSCO (Committee for Mineral Reserves International Reporting Standards)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_CSA_CIM",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "Canadian Securities Administrators (NI 43-101) and CIM definition standards",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_EITI",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "Extractive Industries Transparency Initiative (EITI)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_HKEX",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "HKEX listing rules for mining companies (also owner of the LME)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_ICMM",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "International Council on Mining and Metals (ICMM)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_INTERTEK",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "Intertek",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_IRMA",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "Initiative for Responsible Mining Assurance (IRMA)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_JORC",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "JORC (Joint Ore Reserves Committee, Australasia)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_LORS101",
+      "autonomous_eligible": false,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "Lunar Ore Reserves Standards 101 (LORS-101) proposal",
+      "ontology": "PROPOSAL",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "CERT_LPPM",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "London Platinum and Palladium Market (LPPM)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_OECD_DD",
+      "autonomous_eligible": false,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "OECD Due Diligence Guidance for Responsible Supply Chains of Minerals",
+      "ontology": "REGIME_RULE",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "CERT_PERC",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "PERC (Pan-European Reserves and Resources Reporting Committee)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_RMI",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "Responsible Minerals Initiative (RMI)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_SAMREC",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "SAMREC and the South African SAMCODES committee",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_SEC_SK1300",
+      "autonomous_eligible": false,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "US SEC mining disclosure rules (Regulation S-K Subpart 1300)",
+      "ontology": "REGIME_RULE",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "CERT_SGS",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "SGS",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_SME",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "Society for Mining, Metallurgy and Exploration (SME)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_SRK",
+      "autonomous_eligible": true,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "SRK Consulting",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "CERT_UNFC",
+      "autonomous_eligible": false,
+      "category": "CERTIFICATION",
+      "causal_roles": [
+        "CERTIFICATION"
+      ],
+      "name": "United Nations Framework Classification for Resources (UNFC)",
+      "ontology": "REGIME_RULE",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INC_AIR_LIQUIDE",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Air Liquide (owner of Airgas)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_AIR_PRODUCTS",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Air Products",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_ANGLO_TECK",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Anglo Teck (Anglo American and Teck Resources merger)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_BECHTEL",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Bechtel",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_BHP",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "BHP",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_CATERPILLAR",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Caterpillar",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_CHART",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Chart Industries",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_EXXON_SHUTE_CREEK",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "ExxonMobil Shute Creek (Wyoming)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_FREEPORT",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Freeport-McMoRan",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_GAZPROM_AMUR",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Gazprom Amur gas processing (Russia)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_GLENCORE",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Glencore",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_LINDE",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Linde",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_MITSUI",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Mitsui and Co. (Japanese trading house)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_NORNICKEL",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Nornickel",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_QATARENERGY",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "QatarEnergy",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_RIO",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Rio Tinto",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_SIBANYE",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Sibanye-Stillwater",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_SLB",
+      "autonomous_eligible": false,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "SLB (Schlumberger)",
+      "ontology": "ANALOG_CONTEXT",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_TRAFIGURA",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Trafigura",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_VALE",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Vale",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_VALTERRA",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Valterra Platinum (formerly Anglo American Platinum)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INC_VERMEER",
+      "autonomous_eligible": true,
+      "category": "INCUMBENT_INDUSTRY",
+      "causal_roles": [
+        "MANUFACTURING",
+        "DEMAND"
+      ],
+      "name": "Vermeer",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INFRA_ANDOYA",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Andoya Spaceport (Norway)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INFRA_AUS_GROUND",
+      "autonomous_eligible": false,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Australian deep-space ground stations (Canberra complex, New Norcia)",
+      "ontology": "INFRASTRUCTURE_OBJECT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_AXIOM",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Axiom Space (commercial station)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_CAPE",
+      "autonomous_eligible": false,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Cape Canaveral and Kennedy Space Center launch complex",
+      "ontology": "INFRASTRUCTURE_OBJECT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_ESTRACK",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "ESA ESTRACK",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_EUTELSAT",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Eutelsat OneWeb",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_INTUITIVE_NSN",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Intuitive Machines lunar communications services (Near Space Network)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_KOUROU",
+      "autonomous_eligible": false,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Guiana Space Centre (Kourou)",
+      "ontology": "INFRASTRUCTURE_OBJECT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_KSAT",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "KSAT (Kongsberg Satellite Services)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_LUNANET",
+      "autonomous_eligible": false,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "LunaNet interoperability specification",
+      "ontology": "INFRASTRUCTURE_OBJECT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_MOONLIGHT",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "ESA Moonlight lunar communications and navigation initiative",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_NASA_DSN",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "NASA Deep Space Network and Near Space Network (service layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_ORBITAL_REEF",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Orbital Reef (Blue Origin and Sierra Space)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_SES",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "SES",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_SSC",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Swedish Space Corporation",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_STARLAB",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Starlab (Voyager, Airbus, Northrop Grumman and partners)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_STARLINK",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Starlink (SpaceX)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INFRA_VAST",
+      "autonomous_eligible": true,
+      "category": "INFRASTRUCTURE",
+      "causal_roles": [
+        "INFRASTRUCTURE"
+      ],
+      "name": "Vast (Haven-1 station)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INF_ARGUS",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Argus Media",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_BLACKSKY",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "BlackSky",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_CHANGGUANG",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Chang Guang Satellite Technology (Jilin-1)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_CME",
+      "autonomous_eligible": false,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "CME Group (including COMEX)",
+      "ontology": "MARKET_MECHANISM",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INF_FASTMARKETS",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Fastmarkets",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_ICEYE",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "ICEYE",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_KOBOLD",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "KoBold Metals",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_KPLER",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Kpler",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_LEOLABS",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "LeoLabs",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_LME",
+      "autonomous_eligible": false,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "London Metal Exchange (owned by HKEX)",
+      "ontology": "MARKET_MECHANISM",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INF_PLANET",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Planet Labs",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_SLINGSHOT",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Slingshot Aerospace",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_SPACETRACK",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "US Space Force public object catalog (Space-Track)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_SPGLOBAL",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "S&P Global Commodity Insights",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_SPIRE",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Spire Global",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_STATE_INTEL",
+      "autonomous_eligible": false,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "State intelligence and military space-awareness services (US, China and others)",
+      "ontology": "COMPOSITE_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INF_USGS",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "US Geological Survey (Mineral Commodity Summaries)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_VANTOR",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Vantor (formerly Maxar Intelligence)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INF_WOODMAC",
+      "autonomous_eligible": true,
+      "category": "INFORMATION",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Wood Mackenzie",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INS_ALLIANZ",
+      "autonomous_eligible": true,
+      "category": "INSURER",
+      "causal_roles": [
+        "RISK"
+      ],
+      "name": "Allianz Commercial",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INS_AON",
+      "autonomous_eligible": true,
+      "category": "INSURER",
+      "causal_roles": [
+        "RISK"
+      ],
+      "name": "Aon",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INS_ATRIUM",
+      "autonomous_eligible": true,
+      "category": "INSURER",
+      "causal_roles": [
+        "RISK"
+      ],
+      "name": "Atrium Space Insurance Consortium",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INS_AXA_XL",
+      "autonomous_eligible": true,
+      "category": "INSURER",
+      "causal_roles": [
+        "RISK"
+      ],
+      "name": "AXA XL",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INS_IG_PI",
+      "autonomous_eligible": false,
+      "category": "INSURER",
+      "causal_roles": [
+        "RISK"
+      ],
+      "name": "International Group of P&I Clubs",
+      "ontology": "ANALOG_CONTEXT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "INS_JWC",
+      "autonomous_eligible": true,
+      "category": "INSURER",
+      "causal_roles": [
+        "RISK"
+      ],
+      "name": "Joint War Committee (London market)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INS_LLOYDS",
+      "autonomous_eligible": true,
+      "category": "INSURER",
+      "causal_roles": [
+        "RISK"
+      ],
+      "name": "Lloyd's of London syndicates",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INS_MARSH",
+      "autonomous_eligible": true,
+      "category": "INSURER",
+      "causal_roles": [
+        "RISK"
+      ],
+      "name": "Marsh",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INS_MUNICH_RE",
+      "autonomous_eligible": true,
+      "category": "INSURER",
+      "causal_roles": [
+        "RISK"
+      ],
+      "name": "Munich Re",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INS_PICC",
+      "autonomous_eligible": true,
+      "category": "INSURER",
+      "causal_roles": [
+        "RISK"
+      ],
+      "name": "PICC (People's Insurance Company of China)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "INS_SWISS_RE",
+      "autonomous_eligible": true,
+      "category": "INSURER",
+      "causal_roles": [
+        "RISK"
+      ],
+      "name": "Swiss Re",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "OFF_AIRBUS",
+      "autonomous_eligible": true,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "Airbus",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "OFF_ARCELOR",
+      "autonomous_eligible": true,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "ArcelorMittal",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "OFF_BLUEFORS",
+      "autonomous_eligible": true,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "Bluefors",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "OFF_CATL",
+      "autonomous_eligible": true,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "CATL",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "OFF_DOE_ISOTOPE",
+      "autonomous_eligible": true,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "US DOE Isotope Program",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "OFF_FUSION",
+      "autonomous_eligible": false,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "Fusion developers (exemplar: Helion, with a stated D-He3 fuel path)",
+      "ontology": "COMPOSITE_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "OFF_JM",
+      "autonomous_eligible": true,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "Johnson Matthey",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "OFF_MAYBELL",
+      "autonomous_eligible": true,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "Maybell Quantum",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "OFF_MP_MATERIALS",
+      "autonomous_eligible": true,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "MP Materials",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "OFF_MRI",
+      "autonomous_eligible": false,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "MRI makers and hospital systems (exemplars: Siemens Healthineers, GE HealthCare, Philips)",
+      "ontology": "COMPOSITE_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "OFF_NEUTRON_DETECTION",
+      "autonomous_eligible": false,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "Neutron detection users (security and science)",
+      "ontology": "COMPOSITE_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "OFF_QUANTUM_OEMS",
+      "autonomous_eligible": false,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "Quantum computer builders (exemplars: IBM, Google Quantum AI, Rigetti)",
+      "ontology": "COMPOSITE_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "OFF_SEMI_FABS",
+      "autonomous_eligible": false,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "Semiconductor fabs (exemplars: TSMC, Samsung, SK hynix)",
+      "ontology": "COMPOSITE_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "OFF_UMICORE",
+      "autonomous_eligible": true,
+      "category": "OFFTAKER",
+      "causal_roles": [
+        "DEMAND"
+      ],
+      "name": "Umicore",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "PRO_ASTROFORGE",
+      "autonomous_eligible": true,
+      "category": "PROSPECTOR",
+      "causal_roles": [
+        "PROJECT_DEVELOPMENT"
+      ],
+      "name": "AstroForge",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "PRO_DEEP_SPACE_INDUSTRIES",
+      "autonomous_eligible": false,
+      "category": "PROSPECTOR",
+      "causal_roles": [
+        "PROJECT_DEVELOPMENT"
+      ],
+      "name": "Deep Space Industries (absorbed into Bradford Space)",
+      "ontology": "HISTORICAL",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "PRO_HONEYBEE",
+      "autonomous_eligible": true,
+      "category": "PROSPECTOR",
+      "causal_roles": [
+        "PROJECT_DEVELOPMENT"
+      ],
+      "name": "Honeybee Robotics (Blue Origin)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "PRO_INTERLUNE",
+      "autonomous_eligible": true,
+      "category": "PROSPECTOR",
+      "causal_roles": [
+        "PROJECT_DEVELOPMENT"
+      ],
+      "name": "Interlune",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "PRO_KARMAN",
+      "autonomous_eligible": true,
+      "category": "PROSPECTOR",
+      "causal_roles": [
+        "PROJECT_DEVELOPMENT"
+      ],
+      "name": "Karman+",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "PRO_LUNAR_OUTPOST",
+      "autonomous_eligible": true,
+      "category": "PROSPECTOR",
+      "causal_roles": [
+        "PROJECT_DEVELOPMENT"
+      ],
+      "name": "Lunar Outpost",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "PRO_ORIGIN_SPACE",
+      "autonomous_eligible": true,
+      "category": "PROSPECTOR",
+      "causal_roles": [
+        "PROJECT_DEVELOPMENT"
+      ],
+      "name": "Origin Space (China)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "PRO_PLANETARY_RESOURCES",
+      "autonomous_eligible": false,
+      "category": "PROSPECTOR",
+      "causal_roles": [
+        "PROJECT_DEVELOPMENT"
+      ],
+      "name": "Planetary Resources (defunct)",
+      "ontology": "HISTORICAL",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "PRO_TERRESTRIAL_HELIUM",
+      "autonomous_eligible": false,
+      "category": "PROSPECTOR",
+      "causal_roles": [
+        "PROJECT_DEVELOPMENT"
+      ],
+      "name": "Terrestrial helium explorers (exemplar: Pulsar Helium)",
+      "ontology": "ANALOG_CONTEXT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "PRO_TRANSASTRA",
+      "autonomous_eligible": true,
+      "category": "PROSPECTOR",
+      "causal_roles": [
+        "PROJECT_DEVELOPMENT"
+      ],
+      "name": "TransAstra",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "REG_ARTEMIS",
+      "autonomous_eligible": false,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "Artemis Accords signatory group",
+      "ontology": "REGIME_RULE",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "REG_CLASS_SOCIETIES",
+      "autonomous_eligible": false,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "Classification societies (DNV, Lloyd's Register, ABS)",
+      "ontology": "COMPOSITE_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "REG_COPUOS",
+      "autonomous_eligible": true,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "UN COPUOS Legal Subcommittee",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "REG_EU_SPACE_ACT",
+      "autonomous_eligible": false,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "Proposed EU Space Act",
+      "ontology": "PROPOSAL",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "REG_EXPORT_CONTROL",
+      "autonomous_eligible": false,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "US export control regimes (State Department ITAR, Commerce EAR)",
+      "ontology": "REGIME_RULE",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "REG_FCC",
+      "autonomous_eligible": true,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "US Federal Communications Commission",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "REG_HAGUE_WG",
+      "autonomous_eligible": true,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "Hague International Space Resources Governance Working Group",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "REG_IMO",
+      "autonomous_eligible": false,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "International Maritime Organization (analog)",
+      "ontology": "ANALOG_CONTEXT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "REG_ISA_ANALOG",
+      "autonomous_eligible": false,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "International Seabed Authority (analog regime)",
+      "ontology": "ANALOG_CONTEXT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "REG_ITU",
+      "autonomous_eligible": true,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "International Telecommunication Union",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "REG_JAPAN",
+      "autonomous_eligible": true,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "Japan Space Resources Act (2021)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "REG_LUX",
+      "autonomous_eligible": true,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "Luxembourg Space Agency and the 2017 space resources law",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "REG_PCA",
+      "autonomous_eligible": true,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "Permanent Court of Arbitration (Optional Rules for outer space disputes)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "REG_PSC",
+      "autonomous_eligible": false,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "Port state control regimes (Paris MoU, Tokyo MoU)",
+      "ontology": "COMPOSITE_ACTOR",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "REG_UAE",
+      "autonomous_eligible": true,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "UAE Space Agency and 2019 space law",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "REG_UNOOSA",
+      "autonomous_eligible": true,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "UN Office for Outer Space Affairs (registry of objects)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "REG_US",
+      "autonomous_eligible": true,
+      "category": "REGISTRY",
+      "causal_roles": [
+        "REGULATION"
+      ],
+      "name": "US commercial resource-rights regime (2015 law, FAA and Commerce licensing)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SET_ANTARCTIC",
+      "autonomous_eligible": false,
+      "category": "SETTLEMENT_LABOR",
+      "causal_roles": [
+        "LABOR"
+      ],
+      "name": "Antarctic Treaty System",
+      "ontology": "REGIME_RULE",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "SET_INDUSTRIALL",
+      "autonomous_eligible": true,
+      "category": "SETTLEMENT_LABOR",
+      "causal_roles": [
+        "LABOR"
+      ],
+      "name": "IndustriALL Global Union",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SET_ISS",
+      "autonomous_eligible": false,
+      "category": "SETTLEMENT_LABOR",
+      "causal_roles": [
+        "LABOR"
+      ],
+      "name": "ISS Intergovernmental Agreement",
+      "ontology": "REGIME_RULE",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "SET_KAFALA",
+      "autonomous_eligible": false,
+      "category": "SETTLEMENT_LABOR",
+      "causal_roles": [
+        "LABOR"
+      ],
+      "name": "Sponsorship-based migrant labor systems (Gulf analog)",
+      "ontology": "REGIME_RULE",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "SET_MCMURDO",
+      "autonomous_eligible": false,
+      "category": "SETTLEMENT_LABOR",
+      "causal_roles": [
+        "LABOR"
+      ],
+      "name": "US Antarctic Program (McMurdo Station)",
+      "ontology": "ANALOG_CONTEXT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "SET_MLC_ITF",
+      "autonomous_eligible": false,
+      "category": "SETTLEMENT_LABOR",
+      "causal_roles": [
+        "LABOR"
+      ],
+      "name": "Maritime Labour Convention and seafarer unions (ITF)",
+      "ontology": "REGIME_RULE",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "SET_NORTH_SEA",
+      "autonomous_eligible": false,
+      "category": "SETTLEMENT_LABOR",
+      "causal_roles": [
+        "LABOR"
+      ],
+      "name": "North Sea offshore workforce and safety-case regime",
+      "ontology": "ANALOG_CONTEXT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "SET_PILBARA",
+      "autonomous_eligible": false,
+      "category": "SETTLEMENT_LABOR",
+      "causal_roles": [
+        "LABOR"
+      ],
+      "name": "Pilbara fly-in fly-out mining workforce",
+      "ontology": "ANALOG_CONTEXT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "SET_STARBASE",
+      "autonomous_eligible": false,
+      "category": "SETTLEMENT_LABOR",
+      "causal_roles": [
+        "LABOR"
+      ],
+      "name": "Starbase, Texas",
+      "ontology": "ANALOG_CONTEXT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "SET_SVALBARD",
+      "autonomous_eligible": false,
+      "category": "SETTLEMENT_LABOR",
+      "causal_roles": [
+        "LABOR"
+      ],
+      "name": "Longyearbyen, Svalbard (Svalbard Treaty)",
+      "ontology": "ANALOG_CONTEXT",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "SOFT_AEROSPACE_CORP",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "The Aerospace Corporation",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_CCSDS",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Consultative Committee for Space Data Systems (CCSDS)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_CSF",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Commercial Space Federation",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_CSIS",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "CSIS Aerospace Security Project (think tank)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_IISL",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "International Institute of Space Law",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_ISECG",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "International Space Exploration Coordination Group",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_ISO_TC20",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "ISO Technical Committee 20 / Subcommittee 14 (Space systems)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_LPI",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Lunar and Planetary Institute and the Lunar and Planetary Science Conference",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_MINES",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Colorado School of Mines Space Resources Program",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_PAYLOAD",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Payload",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_PLANETARY_SOCIETY",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "The Planetary Society",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_SPACENEWS",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "SpaceNews",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SOFT_SWF",
+      "autonomous_eligible": true,
+      "category": "SOFT_POWER",
+      "causal_roles": [
+        "INFORMATION"
+      ],
+      "name": "Secure World Foundation",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_AUSTRALIA",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "Australia (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_CANADA",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "Canada (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_CHINA",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "China (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_EU_ESA",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "European Union and ESA member states (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_INDIA",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "India (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_JAPAN",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "Japan (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_KOREA",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "South Korea (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_RUSSIA",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "Russia (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_SAUDI",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "Saudi Arabia (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_UAE",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "United Arab Emirates (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_UK",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "United Kingdom (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "STA_US",
+      "autonomous_eligible": true,
+      "category": "STATE",
+      "causal_roles": [
+        "STATE",
+        "REGULATION"
+      ],
+      "name": "United States (policy layer)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_AIRBUS_DS",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Airbus Defence and Space",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_ARIANEGROUP",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "ArianeGroup",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_BOEING",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Boeing",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_BWXT",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "BWX Technologies",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_CAST",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "China Academy of Space Technology (CAST)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_CESIUMASTRO",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "CesiumAstro",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_L3HARRIS",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "L3Harris",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_LANTERIS",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Lanteris Space Systems (formerly Maxar Space Systems)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_LOCKHEED",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Lockheed Martin",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_MDA",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "MDA Space",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_NORTHROP",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Northrop Grumman",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_OHB",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "OHB",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_REDWIRE",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Redwire",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_ROCKETDYNE",
+      "autonomous_eligible": false,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Rocketdyne (new AE Industrial-controlled propulsion company, pending)",
+      "ontology": "PROPOSAL",
+      "reason": "EXPLICIT_ONTOLOGY_AUDIT"
+    },
+    {
+      "actor_id": "SUP_SAFRAN_DSI",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Safran Defense and Space (electric propulsion)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_SIERRA",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Sierra Space",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_THALES_ALENIA",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Thales Alenia Space",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_VOYAGER",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Voyager Technologies (Starlab lead)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_WESTINGHOUSE",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "Westinghouse (eVinci microreactor)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_XENERGY",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "X-energy (IX joint venture with Intuitive Machines)",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    },
+    {
+      "actor_id": "SUP_YORK",
+      "autonomous_eligible": true,
+      "category": "SUPPLIER_PRIME",
+      "causal_roles": [
+        "MANUFACTURING"
+      ],
+      "name": "York Space Systems",
+      "ontology": "AUTONOMOUS_ACTOR",
+      "reason": "DEFAULT_NAMED_2026_INSTITUTION"
+    }
+  ],
+  "role_coverage": {
+    "CAPITAL": [
+      "CAP_ADIA",
+      "CAP_ADVENT",
+      "CAP_AEI",
+      "CAP_BPI_EXPORT",
+      "CAP_CPPIB",
+      "CAP_DOD_OSC",
+      "CAP_EDC",
+      "CAP_EXIM_US",
+      "CAP_GIC",
+      "CAP_IQT",
+      "CAP_JPM",
+      "CAP_MACQUARIE",
+      "CAP_MUBADALA",
+      "CAP_NBIM",
+      "CAP_PIF",
+      "CAP_QIA",
+      "CAP_SINOSURE",
+      "CAP_UKEF"
+    ],
+    "CERTIFICATION": [
+      "CERT_AFRY_AMC",
+      "CERT_AIG",
+      "CERT_ALS",
+      "CERT_ASX",
+      "CERT_AUSIMM",
+      "CERT_BUREAU_VERITAS",
+      "CERT_CRIRSCO",
+      "CERT_CSA_CIM",
+      "CERT_EITI",
+      "CERT_HKEX",
+      "CERT_ICMM",
+      "CERT_INTERTEK",
+      "CERT_IRMA",
+      "CERT_JORC",
+      "CERT_LPPM",
+      "CERT_PERC",
+      "CERT_RMI",
+      "CERT_SAMREC",
+      "CERT_SGS",
+      "CERT_SME",
+      "CERT_SRK"
+    ],
+    "DEMAND": [
+      "INC_AIR_LIQUIDE",
+      "INC_AIR_PRODUCTS",
+      "INC_ANGLO_TECK",
+      "INC_BECHTEL",
+      "INC_BHP",
+      "INC_CATERPILLAR",
+      "INC_CHART",
+      "INC_EXXON_SHUTE_CREEK",
+      "INC_FREEPORT",
+      "INC_GAZPROM_AMUR",
+      "INC_GLENCORE",
+      "INC_LINDE",
+      "INC_MITSUI",
+      "INC_NORNICKEL",
+      "INC_QATARENERGY",
+      "INC_RIO",
+      "INC_SIBANYE",
+      "INC_TRAFIGURA",
+      "INC_VALE",
+      "INC_VALTERRA",
+      "INC_VERMEER",
+      "OFF_AIRBUS",
+      "OFF_ARCELOR",
+      "OFF_BLUEFORS",
+      "OFF_CATL",
+      "OFF_DOE_ISOTOPE",
+      "OFF_JM",
+      "OFF_MAYBELL",
+      "OFF_MP_MATERIALS",
+      "OFF_UMICORE"
+    ],
+    "INFORMATION": [
+      "INF_ARGUS",
+      "INF_BLACKSKY",
+      "INF_CHANGGUANG",
+      "INF_FASTMARKETS",
+      "INF_ICEYE",
+      "INF_KOBOLD",
+      "INF_KPLER",
+      "INF_LEOLABS",
+      "INF_PLANET",
+      "INF_SLINGSHOT",
+      "INF_SPACETRACK",
+      "INF_SPGLOBAL",
+      "INF_SPIRE",
+      "INF_USGS",
+      "INF_VANTOR",
+      "INF_WOODMAC",
+      "SOFT_AEROSPACE_CORP",
+      "SOFT_CCSDS",
+      "SOFT_CSF",
+      "SOFT_CSIS",
+      "SOFT_IISL",
+      "SOFT_ISECG",
+      "SOFT_ISO_TC20",
+      "SOFT_LPI",
+      "SOFT_MINES",
+      "SOFT_PAYLOAD",
+      "SOFT_PLANETARY_SOCIETY",
+      "SOFT_SPACENEWS",
+      "SOFT_SWF"
+    ],
+    "INFRASTRUCTURE": [
+      "INFRA_ANDOYA",
+      "INFRA_AXIOM",
+      "INFRA_ESTRACK",
+      "INFRA_EUTELSAT",
+      "INFRA_INTUITIVE_NSN",
+      "INFRA_KSAT",
+      "INFRA_MOONLIGHT",
+      "INFRA_NASA_DSN",
+      "INFRA_ORBITAL_REEF",
+      "INFRA_SES",
+      "INFRA_SSC",
+      "INFRA_STARLAB",
+      "INFRA_STARLINK",
+      "INFRA_VAST"
+    ],
+    "LABOR": [
+      "SET_INDUSTRIALL"
+    ],
+    "MANUFACTURING": [
+      "INC_AIR_LIQUIDE",
+      "INC_AIR_PRODUCTS",
+      "INC_ANGLO_TECK",
+      "INC_BECHTEL",
+      "INC_BHP",
+      "INC_CATERPILLAR",
+      "INC_CHART",
+      "INC_EXXON_SHUTE_CREEK",
+      "INC_FREEPORT",
+      "INC_GAZPROM_AMUR",
+      "INC_GLENCORE",
+      "INC_LINDE",
+      "INC_MITSUI",
+      "INC_NORNICKEL",
+      "INC_QATARENERGY",
+      "INC_RIO",
+      "INC_SIBANYE",
+      "INC_TRAFIGURA",
+      "INC_VALE",
+      "INC_VALTERRA",
+      "INC_VERMEER",
+      "SUP_AIRBUS_DS",
+      "SUP_ARIANEGROUP",
+      "SUP_BOEING",
+      "SUP_BWXT",
+      "SUP_CAST",
+      "SUP_CESIUMASTRO",
+      "SUP_L3HARRIS",
+      "SUP_LANTERIS",
+      "SUP_LOCKHEED",
+      "SUP_MDA",
+      "SUP_NORTHROP",
+      "SUP_OHB",
+      "SUP_REDWIRE",
+      "SUP_SAFRAN_DSI",
+      "SUP_SIERRA",
+      "SUP_THALES_ALENIA",
+      "SUP_VOYAGER",
+      "SUP_WESTINGHOUSE",
+      "SUP_XENERGY",
+      "SUP_YORK"
+    ],
+    "PROJECT_DEVELOPMENT": [
+      "PRO_ASTROFORGE",
+      "PRO_HONEYBEE",
+      "PRO_INTERLUNE",
+      "PRO_KARMAN",
+      "PRO_LUNAR_OUTPOST",
+      "PRO_ORIGIN_SPACE",
+      "PRO_TRANSASTRA"
+    ],
+    "REGULATION": [
+      "REG_COPUOS",
+      "REG_FCC",
+      "REG_HAGUE_WG",
+      "REG_ITU",
+      "REG_JAPAN",
+      "REG_LUX",
+      "REG_PCA",
+      "REG_UAE",
+      "REG_UNOOSA",
+      "REG_US",
+      "STA_AUSTRALIA",
+      "STA_CANADA",
+      "STA_CHINA",
+      "STA_EU_ESA",
+      "STA_INDIA",
+      "STA_JAPAN",
+      "STA_KOREA",
+      "STA_RUSSIA",
+      "STA_SAUDI",
+      "STA_UAE",
+      "STA_UK",
+      "STA_US"
+    ],
+    "RISK": [
+      "INS_ALLIANZ",
+      "INS_AON",
+      "INS_ATRIUM",
+      "INS_AXA_XL",
+      "INS_JWC",
+      "INS_LLOYDS",
+      "INS_MARSH",
+      "INS_MUNICH_RE",
+      "INS_PICC",
+      "INS_SWISS_RE"
+    ],
+    "STATE": [
+      "STA_AUSTRALIA",
+      "STA_CANADA",
+      "STA_CHINA",
+      "STA_EU_ESA",
+      "STA_INDIA",
+      "STA_JAPAN",
+      "STA_KOREA",
+      "STA_RUSSIA",
+      "STA_SAUDI",
+      "STA_UAE",
+      "STA_UK",
+      "STA_US"
+    ],
+    "TRANSPORT": [
+      "CAR_ARIANE",
+      "CAR_ASTROBOTIC",
+      "CAR_BLUE_ORIGIN",
+      "CAR_CASC",
+      "CAR_FIREFLY",
+      "CAR_IMPULSE",
+      "CAR_INTUITIVE",
+      "CAR_ISAR",
+      "CAR_ISPACE",
+      "CAR_LANDSPACE",
+      "CAR_MHI",
+      "CAR_NSIL",
+      "CAR_ORBIT_FAB",
+      "CAR_PLD",
+      "CAR_ROCKET_LAB",
+      "CAR_ROSCOSMOS",
+      "CAR_SPACEX",
+      "CAR_ULA"
+    ]
+  }
+}

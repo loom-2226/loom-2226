@@ -25,6 +25,16 @@ class ActorActivationTests(unittest.TestCase):
         self.assertGreater(r.state("CAR_SPACEX").identity.financial_capacity_estimate,0)
         self.assertFalse(r.state("PRO_PLANETARY_RESOURCES").identity.functional_2026)
 
+    def test_roster_ontology_blocks_nonagents_from_relevance(self):
+        with open(P.parent/"ACTOR_BASELINE_2026_V0_3.json") as f: baseline=json.load(f)
+        with open(P.parent/"ACTOR_ROSTER_EXECUTION_ONTOLOGY_V0_3.json") as f: audit=json.load(f)
+        r=ActorRegistryV03.from_actor_baseline(baseline,audit)
+        out=r.mark_relevant(trigger_type="FINANCING_REQUEST",context_id="X")
+        self.assertNotIn("CAP_PUBLIC_EQUITY",out.actor_ids)
+        self.assertNotIn("CAP_STAR_MARKET",out.actor_ids)
+        self.assertIn("CAP_NBIM",out.actor_ids)
+        self.assertEqual(sum(x.identity.autonomous_eligible for x in r.states()),190)
+
     def test_trigger_activates_only_category_relevance(self):
         r=ActorRegistryV03.from_candidate_seed(self.seed)
         out=r.mark_relevant(trigger_type="FINANCING_REQUEST",context_id="X",provenance_refs=("TEST",))

@@ -67,3 +67,11 @@ Result: 228 active/operating actors are eligible for later causal relevance; 2 h
 No new external capital/economic dataset was introduced. Estimates are anchored to validated 2026 PostgreSQL sector investment and explicit category/scale parameters. They seed 2026 only and must not recur as annual grants.
 
 The adaptive registry can now load this baseline while keeping all actors DORMANT_CANDIDATE. Step 8.1 should connect typed world/economic/transport/knowledge triggers to relevance only, preserving zero physical consequence until role-specific action gates are qualified.
+
+## 2026-10-03 Step 8.0a — roster execution ontology
+
+The 233-node candidate ecology was audited before activation. Result: 190 autonomous actor candidates; 43 retained non-agent/context nodes (11 composite actors, 10 analog contexts, 9 regimes/rules, 4 markets, 4 infrastructure objects, 3 proposals, 2 historical).
+
+Activation now supports the ontology firewall: only a functional 2026 node classified AUTONOMOUS_ACTOR is eligible for relevance. The 43 other nodes remain available as institutional context/evidence and are not deleted.
+
+Core commercial causal roles retain multiple autonomous counterparties. LABOR has only one autonomous 2026 actor; no fictional off-world labor institution is added. Labor/governance institutions are expected to emerge later from actual settlement/population state.
