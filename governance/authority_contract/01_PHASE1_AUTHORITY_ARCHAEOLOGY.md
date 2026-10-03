@@ -174,7 +174,7 @@ Historical labels do not equal v1 qualification under D0.6/D0.19.
 6. **Actor authority remains structurally weak compared with Earth/Solar/timeline holdings.**
 7. **Previous CIVPROP code is evidence of prior design decisions and defects, not the architecture of the new CIVPROP.**
 
-## 5. Next Pass
+## 5. Pass 1 Next-Pass Plan (superseded by Pass 2 below)
 
 Pass 2 shall continue Q11–Q40 and deepen Q1–Q10 where current answers are explicitly partial. Priority targets are:
 
@@ -204,3 +204,194 @@ Pass 2 shall continue Q11–Q40 and deepen Q1–Q10 where current answers are ex
 - temporal leakage.
 
 No repair is authorized by this record.
+
+
+## 6. Pass 2 — Archaeology Questions Q11–Q40
+
+Pass 2 remains descriptive and PRE-CONTRACT. The classifications below are candidate archaeological findings, not v1 qualification.
+
+### Q11. Which distinguish observation from projection?
+**ESTABLISHED — partial inventory.**
+
+Earth records distinguish observed/source material from modeled future state in manifests, provenance and field semantics. Timeline records distinguish `CANON_HISTORY`, authored scenario anchors and speculative-fiction anchors. Solar M4-B distinguishes evidence assertions from unresolved lanes. The distinction exists, but no common LOOM-wide claim taxonomy has yet been established.
+
+### Q12. Which distinguish unknown from zero/absence?
+**ESTABLISHED — strong examples, incomplete system coverage.**
+
+M4-B explicitly defines `UNKNOWN_AFTER_SEARCH` as neither absence nor zero. Its hostile validation includes an `UNKNOWN_TO_ZERO` negative fixture. Solar baseline identity work also preserves `SOURCE_NOT_FOUND` and held/ambiguous identity states rather than name fallback. The PostgreSQL Ceres blueprint states that nullable admitted values remain SQL NULL and zero is preserved only when the source value is a qualified zero.
+
+System-wide UNKNOWN behavior is not yet established.
+
+### Q13. Which contain uncertainty?
+**ESTABLISHED — heterogeneous representation.**
+
+Solar M4-B carries unresolved uncertainty and assertion-level confidence/scope. Solar facts preserve intervals and model disagreement in promotion liens. Technology records include basis/uncertainty prose. Existing engineering/canon material sometimes separates deterministic limits from confidence layers. No common quantitative uncertainty model is established.
+
+### Q14. Which distinguish candidate from promoted information?
+**ESTABLISHED.**
+
+Solar Facts and Earth long-run baseline holdings explicitly distinguish candidates, qualification results, promotion recommendations/records and promoted packages. M4-B remains candidate despite successful qualification checks. Historical promotion is provenance and does not imply v1 qualification.
+
+### Q15. Which mix simulated and reference information?
+**ESTABLISHED — multiple historical interfaces require later classification.**
+
+Historical CIVPROP outputs carry `SIMULATION_EVENT`; Earth future trajectories are modeled reference products; canon chronology is preserved as a comparator; technology mixes governing canon history with provisional scenario anchors in one timeline projection while retaining class labels. The coexistence is explicit in several artifacts, but the complete set of mixed stores and consumer assumptions is not yet established.
+
+### Q16. What consumes each artifact?
+**NOT ESTABLISHED.**
+
+Individual consumers are identifiable in code and documentation, but a complete producer-consumer graph has not been recovered. This is a Phase 1 deliverable still outstanding.
+
+### Q17. What transformations create derived claims?
+**ESTABLISHED — partial inventory.**
+
+Earth runners and repair/successor pipelines, PostgreSQL import/projection migrations, Solar research/promotion builders, SPICE/transport calculations, timeline projection code and historical CIVPROP compilers all create derived records. Exact transformation lineage is recoverable for some promoted packages through manifests and hashes, but not yet mapped comprehensively.
+
+### Q18. What qualification mechanisms exist?
+**ESTABLISHED — heterogeneous historical mechanisms.**
+
+Located mechanisms include executable validators, qualification reports, hostile fixtures, promotion validators, lab gates, coverage matrices, manifests, hash checks, regression tests and historical CIVPROP gates. They do not constitute a common v1 qualification framework.
+
+### Q19. Which identifiers/vocabularies are shared?
+**ESTABLISHED — partial inventory.**
+
+Solar uses stable `body_id` plus identifier/crosswalk machinery including NAIF identifiers. Earth uses country/area and sector identifiers across annual relations. Timeline uses milestone/family identifiers. Historical CIVPROP binds actor IDs, body/location IDs, capability IDs and event IDs. A LOOM-wide identifier registry has not been established.
+
+### Q20. Which are incompatible?
+**NOT ESTABLISHED.**
+
+Known crosswalk/semantic boundaries exist, but Phase 1 has not yet proven a complete incompatibility set.
+
+### Q21. Which artifacts rely on authority by convention?
+**ESTABLISHED — examples identified.**
+
+Examples include governing canon chronology, historically selected/promoted model packages, authored scenario dates, and physical/mathematical machinery whose use has historically depended on accepted method/source contracts. The legitimacy and root type of each convention is not yet classified under v1.
+
+### Q22. Which apparent authorities cannot be located?
+**NOT ESTABLISHED.**
+
+No complete expected-authority register exists yet against which absence can be proven. Specific missing authorities may emerge from the producer-consumer graph.
+
+### Q23. Which claims depend on undocumented assumptions?
+**ESTABLISHED — existence; exhaustive set NOT ESTABLISHED.**
+
+Historical model and CIVPROP code necessarily contain parameters/rules not all represented as independent governed claims. Prior CIVPROP documentation itself records open capability, cost, budget and access gaps. A claim-level assumption inventory remains outstanding.
+
+### Q24. Which artifacts are mutable?
+**ESTABLISHED — classes identified; exhaustive set NOT ESTABLISHED.**
+
+The live `loom_dev` PostgreSQL database is mutable operational state. VM worktrees and generated artifact directories are mutable filesystem holdings. Git commits and content hashes provide immutable references to particular versions, but branch tips and working trees are mutable. The inspected `/home/ubuntu/LOOM_DEV` worktree was dirty and on a historical branch, demonstrating this distinction directly.
+
+### Q25. Which outputs cannot presently be causally reproduced?
+**NOT ESTABLISHED.**
+
+Some Earth packages preserve exact runner bytes, input hashes and run manifests; historical CIVPROP events preserve causal parents in some runs. That proves reproducibility mechanisms exist, not that all material outputs are reproducible. A negative inventory is still required.
+
+### Q26. Which artifacts were produced, modified or classified by AI or automation, and what record exists?
+**NOT ESTABLISHED.**
+
+Automation is evident from builders, validators, importers and generated manifests. AI authorship/classification is not consistently discoverable from artifact metadata in the material inspected so far. Phase 1 must not infer human authorship merely from absence of an AI marker.
+
+### Q27. What explicit human approvals exist for assumptions, parameters, promotions or classifications?
+**NOT ESTABLISHED.**
+
+Historical owner decisions and promotion records exist, but a complete approval ledger with human identity, scope and authorized act has not been located.
+
+### Q28. Which pipelines contain fallback, imputation, interpolation, clamping, default or null-coalescing logic, and what values did they produce?
+**ESTABLISHED — material example; exhaustive inventory outstanding.**
+
+The Earth investment-rate correction documents a prior fallback problem and an explicit replacement imputation. The old seed used projected OECD 2024 destination GFCF/value-added for Myanmar, Nigeria and Taiwan; its WEO bridge updated GDP without updating the already-provided GFCF amount. The replacement rule uses current WDI observations and, where missing, an authored pooled imputation equal to the unweighted median of 2024 WDI percentages for 74 modeled economies: **22.3283039488531%**. The record explicitly says this is an authored pooled imputation, not an observation.
+
+This proves fallback/imputation can materially alter long-run Earth state and must be inventoried mechanically before qualification.
+
+### Q29. For every relevant quantity, are unit, currency and base year explicit or implied?
+**ESTABLISHED — defects/ambiguities exist; exhaustive inventory outstanding.**
+
+The database-semantics blueprint explicitly forbids inventing country currency or price year. The data dictionary contains quantities expressed as `model currency/year`. Historical CIVPROP capability work labels monetary fields as model proxy monetary units rather than observed appropriations. CIVPROP engine documentation warns that logical dimensions are not automatically MW, tonnes/year or other physical units. Therefore semantic metadata exists but is not uniformly physical, monetary or observational.
+
+### Q30. Which artifacts carry as-of/knowledge-time information?
+**ESTABLISHED — examples; common model NOT ESTABLISHED.**
+
+Actor-capability documentation requires validity interval plus source/observation date and freezes an explicit as-of date. Solar qualification campaigns use source cutoffs/blindness boundaries. A common LOOM-wide knowledge-time field or rule has not yet been established.
+
+### Q31. Which identifier crosswalks exist, who authored them and how were they checked?
+**ESTABLISHED — Solar example; authorship completeness NOT ESTABLISHED.**
+
+Solar baseline contains `identity_crosswalk` logic, NAIF-ID handling, held ambiguous identities and an external-crosswalk coverage report. One report records 99/110 bodies matched externally (90%) with known held cases. A complete cross-domain crosswalk inventory, author list and validation basis remains outstanding.
+
+### Q32. Do downstream outputs feed back into upstream inputs, calibration or parameter choices?
+**NOT ESTABLISHED.**
+
+Historical simulation and successor pipelines exist, but Phase 1 has not yet demonstrated the complete feedback graph or established absence of circular calibration.
+
+### Q33. Which parameters were fitted, to what, and were they later validated against the same target?
+**NOT ESTABLISHED.**
+
+No complete fitted-parameter/validation-target ledger has been located. This remains a required hostile check because outcome-conditioned fitting can masquerade as validation.
+
+### Q34. Which code versions produced derived artifacts, and can those versions be recovered?
+**ESTABLISHED — substantial positive examples; not universal.**
+
+`loom_control.source_artifact` stores source Git commits for Earth and timeline source artifacts. Earth v3 provenance preserves the exact numerical runner bytes and SHA-256, distinguishes them from a later descriptor-only edit, and records output hashes. Promoted Earth source rows point to Git commit `d6372ece50976fecfaf76b382d9b682560b70273`; timeline source rows point to `c0b50afdd792cecf0b32a8752855e5afa8694ddd`. Universal recoverability is not established.
+
+### Q35. Which tests, gates or validation reports exist, and what do they not cover?
+**ESTABLISHED — broad inventory exists; coverage map incomplete.**
+
+Examples include M4-B qualification and hostile validation, Solar Facts promotion qualifications, Earth qualification/promotion validators, PostgreSQL field qualification evidence, historical CIVPROP gates and regression tests. Several reports explicitly preserve liens or `NOT_TESTED` dimensions. A unified test-to-claim coverage matrix does not yet exist.
+
+### Q36. Where do conflicting claims already exist, and how were they resolved?
+**ESTABLISHED — examples.**
+
+Solar Facts preserves competing model scopes/assumptions as liens rather than forcing a single scalar. Earth repair records preserve signed negative Taiwan ENERGY current-price value added alongside positive gross output and previous-year-price value added, and explicitly state that negative current-price VA does not imply no production. Historical resolution patterns therefore include preservation, scoped interpretation and modeled reconstruction rather than simple overwrite.
+
+### Q37. Which joins, filters and aggregations drop unknown/null rows?
+**NOT ESTABLISHED.**
+
+No systematic static/dynamic audit of joins, filters and aggregations has yet been completed. This is a concrete remaining archaeology task.
+
+### Q38. Do existing holdings expose authority-root types not covered by D0.18?
+**ESTABLISHED — candidates identified, classification deferred.**
+
+Candidate additional roots include physical law/mathematical relationship, standards/identity authority, governing canon/institutional authority and internally verified deterministic computation. Phase 0 anticipated these possibilities. Phase 1 evidence confirms they are not hypothetical categories, but whether each is a distinct root or a governed derivation from evidentiary/authorized roots belongs to Phase 2.
+
+### Q39. Where are physical-law or mathematical outputs treated as authority, and on what basis?
+**ESTABLISHED — partial inventory.**
+
+SPICE/DE440 ephemeris/state machinery, Lambert accessibility calculations and other engineering calculations are consumed as mathematically/physically constrained outputs under source/method contracts. Existing documentation distinguishes ephemeris truth from transport-model outputs and warns against extending one into another. Their precise standing under v1 remains a Phase 2 question.
+
+### Q40. Which artifacts contain temporal leakage, where later knowledge can affect earlier modeled state?
+**NOT ESTABLISHED.**
+
+Some campaigns explicitly prevent leakage using source cutoffs/blindness boundaries. That demonstrates awareness of the problem but does not prove absence elsewhere. A systematic knowledge-time audit remains required.
+
+## 7. Pass 2 Material Findings
+
+1. **UNKNOWN semantics are strongest in Solar M4-B, not yet LOOM-wide.** M4-B gives us executable evidence that unknown-to-zero corruption was anticipated and tested.
+2. **Earth contains documented imputation.** At least one current long-run economic repair uses an explicitly authored pooled imputation, correctly labeled as non-observational. This is legitimate archaeology evidence and exactly the sort of claim Phase 2 must classify rather than hide.
+3. **Historical qualification is heterogeneous.** There is no single meaning of “qualified” across Earth, Solar, PostgreSQL and CIVPROP holdings.
+4. **Knowledge time exists locally but not yet as a universal contract.** Solar blindness cutoffs and actor observation dates are positive precedents.
+5. **Reproducibility is unevenly strong.** Some Earth artifacts preserve exact executable bytes and hashes; we cannot infer the same for all holdings.
+6. **Physical/mathematical authority is real and must be handled explicitly.** It cannot be squeezed into “database source” merely because that would make the schema prettier.
+7. **The largest unresolved archaeology risks are now structural:** complete consumer graph, implicit assumptions/parameters, AI/human authorization history, feedback/fitting loops, null-dropping transformations and temporal leakage.
+
+## 8. Pass 3 Required Work
+
+The next pass shall target the remaining `NOT ESTABLISHED` areas and convert broad partial findings into evidence-backed inventories:
+
+- Q8 parameter inventory;
+- Q16 producer-consumer graph;
+- Q20 incompatible identifiers/semantics;
+- Q22 expected-but-unlocated authorities;
+- Q23 undocumented assumptions;
+- Q25 irreproducible outputs;
+- Q26 AI/automation provenance;
+- Q27 human approvals;
+- Q28 full fallback/imputation/default audit;
+- Q31 cross-domain crosswalks;
+- Q32 feedback graph;
+- Q33 fitting/validation reuse;
+- Q35 test-to-claim coverage;
+- Q37 unknown/null loss audit;
+- Q40 knowledge-time/temporal-leakage audit.
+
+No repair is authorized by Pass 2.
