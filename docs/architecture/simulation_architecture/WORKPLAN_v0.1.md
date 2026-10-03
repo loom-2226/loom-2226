@@ -44,7 +44,7 @@ The architecture has advanced beyond the original ordering above while retaining
 - The 233-actor candidate seed is now preserved durably under engineering/civprop/candidate_inputs/ with NON_CANON candidate status; it is not runtime authority.
 - Step 8 must use adaptive event-driven activation rather than blanket annual activation. See STEP_8_233_ACTOR_FIT_AUDIT_2026_10_03.md.
 
-The next implementation sequence is Step 8.1 adaptive registry/activation, 8.2 lossless execution-relevant candidate compilation and typed relation discovery, then category-specific vertical slices before a full 233-actor run.
+The original Step-8 sequence below has been superseded by the completed 2026-10-03 actor checkpoints. The current authoritative implementation runway is the "Next full actor run" section at the end of this workplan.
 
 ## 2026-10-03 pre-actor hardening checkpoint
 
@@ -87,3 +87,33 @@ Step 8.1 must use year-specific Earth state to emit typed country/sector opportu
 ## 2026-10-03 Step 8.1 - bounded proposition formation + portfolio competition
 
 Implemented deterministic staged proposition screening and finite actor exploration portfolios. First governed Australia-2026 test produces 121 viable decisions across 57 actors: 65 EXPLORE and 56 DEFER. Portfolio competition is causal and observable; exploratory intent grants no transactional/project/physical authority. Next: proposition dependency decomposition and typed counterparty recruitment.
+
+## Next full actor run — updated 2026-10-03
+
+**Target:** first governed 2026–2226 causal run with the 190 autonomous actors enabled inside the 233-node institutional ecology, followed by deterministic replay.
+
+### Step A — Counterparty loop
+
+Implement proposition dependency decomposition and typed recruitment. An EXPLORE proposition may request the counterparties it actually lacks (buyer/offtake, carrier, supplier/infrastructure, capital, insurer, certification/registry/information). Recruited actors run bounded response/portfolio choice and may accept exploration, defer, decline, or counter. No request or response grants project authority.
+
+**Acceptance:** one real Earth-derived proposition recruits at least two distinct role counterparties deterministically, with provenance and no physical consequence.
+
+### Step B — Commitment bridge
+
+Assemble accepted counterparties into a proposition feasibility state and connect it to existing qualified CIVPROP transaction/project/service gates. Required budget, capability, access, transport, insurance/certification/regulatory state remain independent authorities. Only a proposition that clears its required gates may commit resources and instantiate the existing project lifecycle.
+
+**Acceptance:** one positive-control proposition reaches COMMITTED and produces one downstream consequence through existing project machinery; matched negative/UNKNOWN controls block for the correct reason. No parallel actor project engine.
+
+### Step C — Close actor feedback + bounded shakedown
+
+Feed commitment, expenditure, success/failure, relationships, experience, information and changed Earth/world opportunity state back into actor state. Prevent duplicate proposition storms and repeated free exploration. Run the full 80-economy / 190-autonomous-actor model over a bounded horizon (nominally 2026–2035) and audit event growth, actor/resource accounting and causal ancestry.
+
+**Acceptance:** deterministic bounded replay; no actor heartbeat; no unsupported capability or spend; no unbounded proposition/recruitment fanout; at least one complete world -> actor -> counterparties -> commitment/project -> world feedback chain.
+
+### Step D — Full actor qualification run
+
+Run 2026–2226 seed 42 with actor expansion enabled, then replay it byte-for-byte or by the governed deterministic digest contract if output compaction makes raw-byte identity inappropriate. Compare against frozen Step 7.7 actorless control and preserve actor/proposition/transaction/project/world ledger counts, authority inventory, final-state digest, runtime and memory.
+
+**Acceptance:** deterministic replay; Hybrid production execution remains zero; all consequential actor actions have causal ancestry and cleared role-specific authorities; the run completes without invented annual actor grants or blanket activation.
+
+No additional behavioral sophistication is required before this run. Actor-specific psychology, richer learning, additional external financial datasets and detailed corporate accounting are post-run refinements unless a Step A–C failure proves one is causally necessary.
