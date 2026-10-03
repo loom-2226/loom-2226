@@ -16,6 +16,8 @@ class Build4Tests(unittest.TestCase):
     def test_owner_claims_conserved(self):
         k=ownership_fixture(); shares={s.owner_id:s.share for s in k.ownership_stakes}
         self.assertEqual(shares,{'F1':D('0.6'),'F2':D('0.4')}); self.assertEqual(sum(shares.values()),D('1'))
+        self.assertEqual(k.state.accounts['fin1'].balance,D('470')); self.assertEqual(k.state.accounts['fin2'].balance,D('480'))
+        self.assertEqual(k.state.accounts['local_vehicle'].balance,D('50'))
     def test_boundary_signed_position_and_consumption(self):
         k=boundary_fixture(); self.assertEqual(k.state.accounts['boundary'].balance,D('-100'))
         self.assertEqual(k.boundary_net['boundary'],D('-100')); self.assertEqual(k.market_resource_inventory[('EARTH:X','RES')],D('3'))
