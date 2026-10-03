@@ -767,3 +767,30 @@ This decides the architecture of the vocabulary without prematurely freezing eve
 Require Phase 2 to combine two or more of the above dimensions into a smaller taxonomy before continuing.
 
 **Mechanical recommendation:** Option A. The current holdings already demonstrate independent variation among these dimensions; collapsing them now would recreate the compound-label problem rejected by D2.1.
+
+
+## 25. D2.2 — Dimensional Vocabulary Architecture
+
+**Status:** OWNER-ADOPTED
+**Decision date:** 2026-10-04
+**Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY
+
+The owner selected Option A.
+
+LOOM v1 shall keep these conceptually distinct: proposition kind; epistemic mode; knowledge/value state; derivation lineage; scope and temporal context; warrant; governance status/role axes; uncertainty; and support/contradiction/conflict relationships.
+
+This decides vocabulary architecture, not the final controlled tokens.
+
+Consequences:
+
+- UNKNOWN is a knowledge/value state, not a peer epistemic mode.
+- DERIVED belongs to derivation lineage.
+- MODEL_PARAMETER is principally a proposition/functional role; how its value was obtained and warranted remains separately represented.
+- admission/disposition, adoption/reference role, qualification, conflict and authorization shall not be collapsed into one universal status lifecycle.
+- implementations may colocate dimensions only where semantic round-trip preserves these distinctions.
+
+The exact controlled vocabularies remain candidate.
+
+## 26. Next Phase 2 task
+
+The next mechanical pass addresses D2.3, minimum UNKNOWN semantics, including unsearched questions, bounded unsuccessful searches, missing named sources, unadmitted evidence, unknown time, evidenced absence, asserted zero/false/empty, stale values, conflict and not-applicable questions. UNKNOWN must not become a miscellaneous bucket for those distinct conditions.
