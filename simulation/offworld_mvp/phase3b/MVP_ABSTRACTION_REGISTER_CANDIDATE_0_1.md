@@ -1,4 +1,4 @@
-# MVP Abstraction Register — Candidate 0.1
+# MVP Abstraction Register — Candidate 0.2
 
 **Status:** PRE-CONTRACT / SINGLE-AUTHORITY / DESIGN REGISTER
 **Scope:** Offworld MVP Phase 3B
@@ -14,7 +14,22 @@ This register names deliberate MVP abstractions and deferred subsystem stubs. It
 | MVP_OBSERVATION_MODEL_v0 | MVP abstraction | Remote/surface prospecting observation channel | hidden-world firewall; noise; provenance; keyed randomness; agent-specific information | instrument-grade sensing physics | observation technology/instrument design becomes decision-critical |
 | MVP_PROJECT_COST_v0 | MVP abstraction | Simplified exploration/development/extraction/energy cost rules | explicit cost components; technology/transport dependencies where relevant; accounting conservation | mine-engineering estimate or empirical forecast | engineering detail changes feasibility/ranking or physical constraints |
 | MVP_PRICE_DEMAND_v0 | MVP abstraction | Exogenous authorized price/demand series consumed by EARTH_MARKET_v0 | versioning; units; demand ceiling; scenario/model lineage | prediction of future market prices | endogenous market behavior or feedback required |
-| MVP_CAPITAL_ACCESS_v0 | deferred design boundary | Future governed bridge from Earth investment proxy scale to actor-accessible financing | source/counterparty, displacement/additionality, conservation, timing, lineage | treating Earth INVESTMENT_REAL_PROXY as cash | **owner decision required before any financing is instantiated** |
+| FINANCING_AUTHORIZATION_v0 | MVP abstraction | Earth-side institutional authorization of financing claims without pretending that GFCF is cash | commitment/disbursement/expenditure separation; explicit accounts/counterparties; lineage; many-agent compatibility | savings model, bank balance sheet, deposits, credit creation, fiscal capacity, or cash derived from GFCF | explicit macro-financial subsystem is introduced |
+| EARTH_FCF_RESOURCE_PROXY_v0 | MVP abstraction | Bound otherwise-unmodeled Earth claims for offworld capital formation using an authored fraction of reference fixed-capital-formation scale | supplier/resource constraint remains separate from financing constraint and displacement; parameter lineage | empirical capital-goods supply capacity, industrial-output measure, financing capacity, saving or liquidity | industrial/supply capacity model becomes available or materially changes outcomes |
+| EARTH_FCF_DISPLACEMENT_v0 | MVP abstraction | Apply conservative Earth realized-capital-formation displacement from qualifying Earth-supplied offworld expenditure | reference/realized separation; explicit lambda; no silent post-2060 refill | economic identity or empirical estimate of displacement | saving/consumption/fiscal/credit/trade/price/idle-capacity responses are modeled |
+| MVP_EXPLORATION_ACCOUNTING_v0 | MVP abstraction | Preserve exploration spend as exploration WIP and resolve separately from productive mining capital | cost separate from hidden truth; observations/beliefs separate; write-off path | assertion that selected successful-efforts/full-cost convention is universal national-accounting truth | formal accounting boundary or intangible-asset fidelity becomes material |
+
+## Superseded entry
+
+MVP_CAPITAL_ACCESS_v0 is superseded by FINANCING_AUTHORIZATION_v0 plus EARTH_FCF_RESOURCE_PROXY_v0 and EARTH_FCF_DISPLACEMENT_v0.
+
+Earth INVESTMENT_REAL_PROXY / reference FCF is not actor cash and is not a standing financing pool.
+
+## Generic capital-formation rule
+
+The canonical simulation primitive is location-neutral FIXED_CAPITAL_FORMATION. Formal offworld GFCF is deferred until a governed accounting-boundary/residency contract exists.
+
+Financing origin, supplier location, asset location and owner domicile are separate dimensions.
 
 ## Scenario truth is not registered here
 
