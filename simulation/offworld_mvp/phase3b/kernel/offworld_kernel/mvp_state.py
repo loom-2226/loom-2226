@@ -20,8 +20,8 @@ class AgentState:
     kind: AgentKind
     node_id: str
     account_id: str
-    runtime_class: RuntimeObjectClass=RuntimeObjectClass.AGENT
     capabilities: set[str]=field(default_factory=set)
+    runtime_class: RuntimeObjectClass=RuntimeObjectClass.AGENT
     objectives: tuple[str,...]=()
     decision_policy: str='SCRIPTED_VALIDATION_ONLY'
     information: set[str]=field(default_factory=set)
