@@ -905,3 +905,63 @@ The owner-decision portion of Phase 2 is complete. Phase 2 is **not yet closed**
 9. **Reproducible negative searches:** CARRIED TO QUALIFICATION/ARCHAEOLOGY METHOD. Phase 2 requires search scope semantics; rerunnable mechanics belong to the later framework.
 
 No carried lien is silently treated as resolved by ontology alone.
+
+
+## 31. Integrated Adversarial Stress Test
+
+**Status:** MECHANICAL PASS / NO NEW OWNER DECISION
+
+The adopted D2.1-D2.10 model was re-tested against current-main archaeological exemplars and the mutable offworld proposal.
+
+### Results
+
+1. **M4-B supported material lane — PASS.** Evidence-bearing assertions remain empirical propositions with acquisition/derivation lineage and bounded scope. Coverage status does not become the proposition's epistemic mode.
+2. **M4-B UNKNOWN_AFTER_SEARCH — PASS.** Current-main explicitly preserves 343 bounded unknown lanes, distinguishes supported non-detection/absence, SOURCE_NOT_FOUND and NOT_APPLICABLE, and states that unsupported lanes are not zero or scientific absence. D2.3 preserves these distinctions.
+3. **Earth imputation exemplar — PASS WITH CARRIED LINEAGE LIEN.** An imputed value can be represented as a parameter/state proposition with IMPUTED_OR_SUBSTITUTED derivation and bridge lineage without becoming observation. Whether the historical pooled-median bridge survives in the current promoted reference remains downstream evidence work.
+4. **Earth late-horizon projection/reference — PASS.** Projection and ADOPTED_REFERENCE can coexist without laundering projection into observation. Reference and realized scenario state remain separate.
+5. **Moderate technology milestone — PASS.** Current-main marks the threshold authority as AUTHOR_SCENARIO_MODERATE and the period as MODERATE_SCENARIO_ANCHOR. D2.5 permits governing-scenario/reference roles without changing epistemic ancestry.
+6. **Actor empirical capability/access — PASS.** Empirical access propositions can remain evidence-plane claims with actor/time/scope limitations and can be consumed only where standing permits.
+7. **Actor unknown budget/access — PASS.** Unknown amount/access blocks only dependent actions; adjacent known actor attributes do not fill it.
+8. **Future ephemeris/model state — PASS.** D2.10 distinguishes deterministic model evaluation from observation and from formal truth.
+9. **Transport/engineering derivation — PASS.** A deterministic or engineering result inherits bounded standing from inputs/model and does not manufacture empirical warrant.
+10. **CIVPROP simulated event/state — PASS.** Current-main CIVPROP0 explicitly labels events SIMULATION_EVENT. D2.1/D2.10 preserve simulated ancestry rather than promoting it to evidence.
+11. **Identity/crosswalk — PASS.** Identity propositions and their match basis remain distinct from source evidence, admission and conflict/disposition.
+12. **WALTER delegation — PASS WITH GOVERNANCE LIMIT.** Current-main identifies WALTER as a bounded autonomous assurance agent with an agent-creation review. D2.7 can classify this as delegation evidence without treating historical delegation as automatic v1 authorization.
+
+### Offworld adversarial case
+
+The model can represent simultaneously:
+
+- empirical Solar UNKNOWN;
+- a hidden scenario-world value for the same property;
+- a simulated noisy observation generated from that hidden state;
+- an agent-relative belief updated from the observation;
+- an agent decision that may consume only admissible information;
+- a realized extraction/state transition;
+- and an immutable adopted BAU reference used for comparison.
+
+No contradiction is created because evidence scope, scenario context, epistemic perspective, derivation and governance role remain separate. No scenario value repairs the empirical UNKNOWN. No agent belief becomes evidence. No simulated observation becomes a real-world observation by inheritance. No realized state overwrites reference state.
+
+### Adversarial mutations
+
+The candidate model rejects the following semantic mutations:
+
+- treating hidden scenario quantity as Solar evidence;
+- allowing agent code to consume hidden state merely because it exists in the same store;
+- converting UNKNOWN to zero;
+- treating a negative bounded search as confirmed absence;
+- treating a generator distribution as an agent prior;
+- treating scenario-seed spread as measured epistemic uncertainty;
+- treating deterministic computation as an independent authority root;
+- treating reference adoption as reclassification to empirical truth;
+- treating differing scenario universes as conflicts;
+- treating an agent belief as LOOM endorsement of its object;
+- treating a post-output parameter/universe change as retroactive validation.
+
+### Mechanical verdict
+
+**PASS WITH CARRIED LIENS.** No tested exemplar forces reopening D2.1-D2.10. The remaining liens concern concrete qualification, lineage, reproducible search/audit mechanics and independence rather than a missing conceptual dimension.
+
+## 32. Phase 2 Review Readiness
+
+The candidate Claim and Authority Model is mechanically ready for hostile review. It remains PRE-CONTRACT / SINGLE-AUTHORITY and does not qualify any underlying holding.
