@@ -1,6 +1,7 @@
 import unittest
 from decimal import Decimal as D
 from offworld_kernel.methodology import MethodologyHardenedBuild4Kernel
+from offworld_kernel.build4 import OwnershipStake
 from offworld_kernel.build3 import RunIdentity
 from offworld_kernel.mvp_state import *
 from offworld_kernel.model import *
@@ -15,6 +16,7 @@ class MethodologyTests(unittest.TestCase):
         k.add_account('agent_cash','FIRM_01','EARTH:X',AccountKind.FUNDS,D('0'))
         k.add_account('market','EARTH_MARKET_v0','EARTH:X',AccountKind.EARTH_BOUNDARY,D('0'))
         k.add_aggregate(AggregateState('FIRM_SECTOR','EARTH:X','agg_cash',10,{'A1','A2'},{'R':D('50')},{'VEH':D('1')},['H1','H2']))
+        k.ownership_stakes.append(OwnershipStake('VEH','FIRM_SECTOR','EARTH:X',D('1')))
         k.add_system(SystemState('EARTH_MARKET_v0','EXTERNAL_CLEARING',{'market'}))
         return k
 
