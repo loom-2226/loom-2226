@@ -15,6 +15,7 @@ class MVPKernel(Kernel):
         self.events: List[CausalEvent]=[]; self.population: Optional[PopulationLedger]=None
 
     def add_agent(self,a:AgentState):
+        if a.runtime_class != RuntimeObjectClass.AGENT: raise InvariantError('non-agent cannot enter agent registry')
         if a.id in self.agents or a.account_id not in self.state.accounts: raise InvariantError('invalid agent')
         self.agents[a.id]=a
 
