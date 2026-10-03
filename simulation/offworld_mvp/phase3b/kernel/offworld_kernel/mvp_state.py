@@ -8,6 +8,32 @@ from .model import D
 class RuntimeObjectClass(str, Enum):
     SYSTEM='SYSTEM'; AGGREGATE='AGGREGATE'; AGENT='AGENT'; ENTITY_ASSET='ENTITY_ASSET'
 
+@dataclass
+class SystemState:
+    id: str
+    process_type: str
+    owned_state_refs: set[str]=field(default_factory=set)
+    runtime_class: RuntimeObjectClass=RuntimeObjectClass.SYSTEM
+
+@dataclass
+class AggregateState:
+    id: str
+    node_id: str
+    account_id: str
+    member_count: int
+    asset_refs: set[str]=field(default_factory=set)
+    resource_holdings: Dict[str,D]=field(default_factory=dict)
+    claim_holdings: Dict[str,D]=field(default_factory=dict)
+    history_refs: List[str]=field(default_factory=list)
+    runtime_class: RuntimeObjectClass=RuntimeObjectClass.AGGREGATE
+
+@dataclass
+class EntityAssetRef:
+    id: str
+    domain_type: str
+    state_ref: str
+    runtime_class: RuntimeObjectClass=RuntimeObjectClass.ENTITY_ASSET
+
 class AgentKind(str, Enum):
     PUBLIC='PUBLIC'; PRIVATE_SPONSOR='PRIVATE_SPONSOR'; PRIVATE_FINANCIER='PRIVATE_FINANCIER'; LOCAL_FINANCIER='LOCAL_FINANCIER'
 
@@ -27,6 +53,10 @@ class AgentState:
     information: set[str]=field(default_factory=set)
     beliefs: Dict[str,D]=field(default_factory=dict)
     history: List[str]=field(default_factory=list)
+    asset_refs: set[str]=field(default_factory=set)
+    resource_holdings: Dict[str,D]=field(default_factory=dict)
+    claim_holdings: Dict[str,D]=field(default_factory=dict)
+    lineage_refs: List[str]=field(default_factory=list)
 
 @dataclass(frozen=True)
 class FinancingRequest:
