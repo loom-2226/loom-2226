@@ -138,6 +138,8 @@ These shall not be collapsed into one generic SCENARIO_ASSUMPTION label.
 The first executable experiment should deliberately use:
 
 - one participating Earth economy;
+
+The participating economy is deliberately **UNSELECTED** at the architecture level. Historical CIVPROP use of `AUS`/Australia as a bounded Earth–Luna test actor creates no default, preference, capability inheritance, budget inheritance, access inheritance, or fixture-selection priority for this MVP. A concrete economy may be chosen only by an explicit documented fixture-selection act. All interfaces and rules remain country-neutral.
 - one target celestial body;
 - one resource family;
 - one public institutional agent;
