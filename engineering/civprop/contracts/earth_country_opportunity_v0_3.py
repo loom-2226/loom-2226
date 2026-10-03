@@ -19,6 +19,7 @@ class CountrySectorStateV03:
  age_under_20:float; age_20_64:float; age_65_plus:float
  legacy_labor_force:float; legacy_employment:float
  machinery_capital:float; structures_capital:float; transport_equipment_capital:float; other_assets_capital:float
+ asset_investment:float|None=None; replacement_need:float|None=None; replacement_funded:float|None=None; expansion_investment:float|None=None
  effective_labor:float|None=None; synthetic_effective_labor:float|None=None; machine_task_capacity:float|None=None
 @dataclass(frozen=True)
 class CountryOpportunityV03:
@@ -57,8 +58,11 @@ def derive(states):
   if s.effective_labor is None:unavailable.append("effective_labor")
   if s.synthetic_effective_labor is None:unavailable.append("synthetic_effective_labor")
   if s.machine_task_capacity is None:unavailable.append("machine_task_capacity")
-  unavailable.extend(("asset_investment","replacement_need","replacement_funded","expansion_investment"))
-  out.append(CountryOpportunityV03(s.iso3,s.name,s.year,s.sector,scale,ii,ci,es,None,None,ld,working,sig,productive,transport,
+  for field in ("asset_investment","replacement_need","replacement_funded","expansion_investment"):
+   if getattr(s,field) is None: unavailable.append(field)
+  replacement=None if s.replacement_need is None or not assets else s.replacement_need/assets
+  expansion=None if s.expansion_investment is None or not assets else s.expansion_investment/assets
+  out.append(CountryOpportunityV03(s.iso3,s.name,s.year,s.sector,scale,ii,ci,es,replacement,expansion,ld,working,sig,productive,transport,
    ("sector_value_added","sector_gross_output","sector_investment","sector_capital","sector_employment",
     "biological_population","births","deaths","median_age","age_bands","legacy_labor_force","legacy_employment",
     "asset_class_capital"),tuple(unavailable)))

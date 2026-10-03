@@ -1,0 +1,1769 @@
+{
+  "actor_count": 213,
+  "classification": "NON_CANON_2026_EVIDENCE_AND_BEST_ESTIMATE_INITIALIZATION",
+  "digest": "428ff4b235852baea018abc4ec2b162df6bad39d0e97a147a78961c46953c458",
+  "jurisdiction_id": "ACTOR_JURISDICTION_2026_V0_3",
+  "link_count": 220,
+  "links": [
+    {
+      "actor_id": "CAP_ADIA",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "ARE",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAP_ADIA"
+    },
+    {
+      "actor_id": "CAP_ADVENT",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAP_ADVENT"
+    },
+    {
+      "actor_id": "CAP_AEI",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAP_AEI"
+    },
+    {
+      "actor_id": "CAP_BPI_EXPORT",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "FRA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAP_BPI_EXPORT"
+    },
+    {
+      "actor_id": "CAP_CHN_GUIDANCE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAP_CHN_GUIDANCE"
+    },
+    {
+      "actor_id": "CAP_CPPIB",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CAN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAP_CPPIB"
+    },
+    {
+      "actor_id": "CAP_DOD_OSC",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAP_DOD_OSC"
+    },
+    {
+      "actor_id": "CAP_EDC",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CAN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAP_EDC"
+    },
+    {
+      "actor_id": "CAP_EXIM_US",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAP_EXIM_US"
+    },
+    {
+      "actor_id": "CAP_GIC",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "SGP",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAP_GIC"
+    },
+    {
+      "actor_id": "CAP_IQT",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAP_IQT"
+    },
+    {
+      "actor_id": "CAP_JPM",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAP_JPM"
+    },
+    {
+      "actor_id": "CAP_MACQUARIE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "AUS",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAP_MACQUARIE"
+    },
+    {
+      "actor_id": "CAP_MUBADALA",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "ARE",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAP_MUBADALA"
+    },
+    {
+      "actor_id": "CAP_NBIM",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "NOR",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAP_NBIM"
+    },
+    {
+      "actor_id": "CAP_PIF",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "SAU",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAP_PIF"
+    },
+    {
+      "actor_id": "CAP_QIA",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:CAP_QIA"
+    },
+    {
+      "actor_id": "CAP_SINOSURE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAP_SINOSURE"
+    },
+    {
+      "actor_id": "CAP_STAR_MARKET",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAP_STAR_MARKET"
+    },
+    {
+      "actor_id": "CAP_UKEF",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "GBR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAP_UKEF"
+    },
+    {
+      "actor_id": "CAP_UKEF",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "TUR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAP_UKEF"
+    },
+    {
+      "actor_id": "CAR_ARIANE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "FRA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAR_ARIANE"
+    },
+    {
+      "actor_id": "CAR_ASTROBOTIC",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAR_ASTROBOTIC"
+    },
+    {
+      "actor_id": "CAR_BLUE_ORIGIN",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAR_BLUE_ORIGIN"
+    },
+    {
+      "actor_id": "CAR_CASC",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAR_CASC"
+    },
+    {
+      "actor_id": "CAR_FIREFLY",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAR_FIREFLY"
+    },
+    {
+      "actor_id": "CAR_IMPULSE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAR_IMPULSE"
+    },
+    {
+      "actor_id": "CAR_INTUITIVE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAR_INTUITIVE"
+    },
+    {
+      "actor_id": "CAR_ISAR",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "DEU",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAR_ISAR"
+    },
+    {
+      "actor_id": "CAR_ISAR",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "NOR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAR_ISAR"
+    },
+    {
+      "actor_id": "CAR_ISPACE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "JPN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAR_ISPACE"
+    },
+    {
+      "actor_id": "CAR_LANDSPACE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAR_LANDSPACE"
+    },
+    {
+      "actor_id": "CAR_MHI",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "JPN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAR_MHI"
+    },
+    {
+      "actor_id": "CAR_NSIL",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "IND",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAR_NSIL"
+    },
+    {
+      "actor_id": "CAR_ORBIT_FAB",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAR_ORBIT_FAB"
+    },
+    {
+      "actor_id": "CAR_PLD",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "ESP",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAR_PLD"
+    },
+    {
+      "actor_id": "CAR_ROCKET_LAB",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAR_ROCKET_LAB"
+    },
+    {
+      "actor_id": "CAR_ROSCOSMOS",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "RUS",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CAR_ROSCOSMOS"
+    },
+    {
+      "actor_id": "CAR_SPACEX",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAR_SPACEX"
+    },
+    {
+      "actor_id": "CAR_ULA",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CAR_ULA"
+    },
+    {
+      "actor_id": "CERT_AFRY_AMC",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "SWE",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CERT_AFRY_AMC"
+    },
+    {
+      "actor_id": "CERT_AIG",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "AUS",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_AIG"
+    },
+    {
+      "actor_id": "CERT_ALS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "AUS",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CERT_ALS"
+    },
+    {
+      "actor_id": "CERT_ASX",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "AUS",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_ASX"
+    },
+    {
+      "actor_id": "CERT_AUSIMM",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "AUS",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CERT_AUSIMM"
+    },
+    {
+      "actor_id": "CERT_BUREAU_VERITAS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "FRA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CERT_BUREAU_VERITAS"
+    },
+    {
+      "actor_id": "CERT_CRIRSCO",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "AUS",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_CRIRSCO"
+    },
+    {
+      "actor_id": "CERT_CRIRSCO",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CAN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_CRIRSCO"
+    },
+    {
+      "actor_id": "CERT_CRIRSCO",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHL",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_CRIRSCO"
+    },
+    {
+      "actor_id": "CERT_CRIRSCO",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "RUS",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_CRIRSCO"
+    },
+    {
+      "actor_id": "CERT_CRIRSCO",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "ZAF",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_CRIRSCO"
+    },
+    {
+      "actor_id": "CERT_CSA_CIM",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CAN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_CSA_CIM"
+    },
+    {
+      "actor_id": "CERT_EITI",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:CERT_EITI"
+    },
+    {
+      "actor_id": "CERT_HKEX",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "GBR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_HKEX"
+    },
+    {
+      "actor_id": "CERT_ICMM",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:CERT_ICMM"
+    },
+    {
+      "actor_id": "CERT_INTERTEK",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "GBR",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CERT_INTERTEK"
+    },
+    {
+      "actor_id": "CERT_IRMA",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:CERT_IRMA"
+    },
+    {
+      "actor_id": "CERT_JORC",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "AUS",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CERT_JORC"
+    },
+    {
+      "actor_id": "CERT_LORS101",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "LUX",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_LORS101"
+    },
+    {
+      "actor_id": "CERT_LPPM",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "GBR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_LPPM"
+    },
+    {
+      "actor_id": "CERT_OECD_DD",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:CERT_OECD_DD"
+    },
+    {
+      "actor_id": "CERT_PERC",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:CERT_PERC"
+    },
+    {
+      "actor_id": "CERT_RMI",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:CERT_RMI"
+    },
+    {
+      "actor_id": "CERT_SAMREC",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "ZAF",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:CERT_SAMREC"
+    },
+    {
+      "actor_id": "CERT_SEC_SK1300",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CERT_SEC_SK1300"
+    },
+    {
+      "actor_id": "CERT_SGS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "CHE",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CERT_SGS"
+    },
+    {
+      "actor_id": "CERT_SME",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CERT_SME"
+    },
+    {
+      "actor_id": "CERT_SRK",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "GBR",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:CERT_SRK"
+    },
+    {
+      "actor_id": "CERT_UNFC",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:CERT_UNFC"
+    },
+    {
+      "actor_id": "INC_AIR_LIQUIDE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "FRA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_AIR_LIQUIDE"
+    },
+    {
+      "actor_id": "INC_AIR_PRODUCTS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_AIR_PRODUCTS"
+    },
+    {
+      "actor_id": "INC_ANGLO_TECK",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "USA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INC_ANGLO_TECK"
+    },
+    {
+      "actor_id": "INC_BECHTEL",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_BECHTEL"
+    },
+    {
+      "actor_id": "INC_BHP",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "AUS",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_BHP"
+    },
+    {
+      "actor_id": "INC_CATERPILLAR",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_CATERPILLAR"
+    },
+    {
+      "actor_id": "INC_CHART",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_CHART"
+    },
+    {
+      "actor_id": "INC_EXXON_SHUTE_CREEK",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_EXXON_SHUTE_CREEK"
+    },
+    {
+      "actor_id": "INC_FREEPORT",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_FREEPORT"
+    },
+    {
+      "actor_id": "INC_GAZPROM_AMUR",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "RUS",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INC_GAZPROM_AMUR"
+    },
+    {
+      "actor_id": "INC_GLENCORE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "CHE",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_GLENCORE"
+    },
+    {
+      "actor_id": "INC_LINDE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "GBR",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_LINDE"
+    },
+    {
+      "actor_id": "INC_MITSUI",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "JPN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INC_MITSUI"
+    },
+    {
+      "actor_id": "INC_NORNICKEL",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "RUS",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INC_NORNICKEL"
+    },
+    {
+      "actor_id": "INC_QATARENERGY",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:INC_QATARENERGY"
+    },
+    {
+      "actor_id": "INC_RIO",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "GBR",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_RIO"
+    },
+    {
+      "actor_id": "INC_SIBANYE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "ZAF",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INC_SIBANYE"
+    },
+    {
+      "actor_id": "INC_SLB",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_SLB"
+    },
+    {
+      "actor_id": "INC_TRAFIGURA",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "SGP",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_TRAFIGURA"
+    },
+    {
+      "actor_id": "INC_VALE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "BRA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INC_VALE"
+    },
+    {
+      "actor_id": "INC_VALTERRA",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "USA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INC_VALTERRA"
+    },
+    {
+      "actor_id": "INC_VERMEER",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INC_VERMEER"
+    },
+    {
+      "actor_id": "INFRA_ANDOYA",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "NOR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INFRA_ANDOYA"
+    },
+    {
+      "actor_id": "INFRA_AUS_GROUND",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "AUS",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INFRA_AUS_GROUND"
+    },
+    {
+      "actor_id": "INFRA_AXIOM",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INFRA_AXIOM"
+    },
+    {
+      "actor_id": "INFRA_CAPE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INFRA_CAPE"
+    },
+    {
+      "actor_id": "INFRA_ESTRACK",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:INFRA_ESTRACK"
+    },
+    {
+      "actor_id": "INFRA_EUTELSAT",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "FRA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INFRA_EUTELSAT"
+    },
+    {
+      "actor_id": "INFRA_INTUITIVE_NSN",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INFRA_INTUITIVE_NSN"
+    },
+    {
+      "actor_id": "INFRA_KOUROU",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "FRA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INFRA_KOUROU"
+    },
+    {
+      "actor_id": "INFRA_KSAT",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "NOR",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INFRA_KSAT"
+    },
+    {
+      "actor_id": "INFRA_MOONLIGHT",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:INFRA_MOONLIGHT"
+    },
+    {
+      "actor_id": "INFRA_NASA_DSN",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INFRA_NASA_DSN"
+    },
+    {
+      "actor_id": "INFRA_ORBITAL_REEF",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INFRA_ORBITAL_REEF"
+    },
+    {
+      "actor_id": "INFRA_SES",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "LUX",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INFRA_SES"
+    },
+    {
+      "actor_id": "INFRA_SSC",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "SWE",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INFRA_SSC"
+    },
+    {
+      "actor_id": "INFRA_STARLAB",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INFRA_STARLAB"
+    },
+    {
+      "actor_id": "INFRA_STARLINK",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INFRA_STARLINK"
+    },
+    {
+      "actor_id": "INFRA_VAST",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INFRA_VAST"
+    },
+    {
+      "actor_id": "INF_ARGUS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "GBR",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_ARGUS"
+    },
+    {
+      "actor_id": "INF_BLACKSKY",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_BLACKSKY"
+    },
+    {
+      "actor_id": "INF_CHANGGUANG",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INF_CHANGGUANG"
+    },
+    {
+      "actor_id": "INF_CME",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_CME"
+    },
+    {
+      "actor_id": "INF_FASTMARKETS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "GBR",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_FASTMARKETS"
+    },
+    {
+      "actor_id": "INF_ICEYE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "FIN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INF_ICEYE"
+    },
+    {
+      "actor_id": "INF_KOBOLD",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_KOBOLD"
+    },
+    {
+      "actor_id": "INF_KPLER",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "BEL",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_KPLER"
+    },
+    {
+      "actor_id": "INF_LEOLABS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_LEOLABS"
+    },
+    {
+      "actor_id": "INF_LME",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "GBR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INF_LME"
+    },
+    {
+      "actor_id": "INF_PLANET",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_PLANET"
+    },
+    {
+      "actor_id": "INF_SLINGSHOT",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_SLINGSHOT"
+    },
+    {
+      "actor_id": "INF_SPACETRACK",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "USA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INF_SPACETRACK"
+    },
+    {
+      "actor_id": "INF_SPGLOBAL",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_SPGLOBAL"
+    },
+    {
+      "actor_id": "INF_SPIRE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_SPIRE"
+    },
+    {
+      "actor_id": "INF_STATE_INTEL",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INF_STATE_INTEL"
+    },
+    {
+      "actor_id": "INF_USGS",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "USA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INF_USGS"
+    },
+    {
+      "actor_id": "INF_VANTOR",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_VANTOR"
+    },
+    {
+      "actor_id": "INF_WOODMAC",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "GBR",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INF_WOODMAC"
+    },
+    {
+      "actor_id": "INS_ALLIANZ",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "DEU",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INS_ALLIANZ"
+    },
+    {
+      "actor_id": "INS_AON",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "GBR",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INS_AON"
+    },
+    {
+      "actor_id": "INS_ATRIUM",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "GBR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INS_ATRIUM"
+    },
+    {
+      "actor_id": "INS_AXA_XL",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "FRA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INS_AXA_XL"
+    },
+    {
+      "actor_id": "INS_JWC",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "GBR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INS_JWC"
+    },
+    {
+      "actor_id": "INS_LLOYDS",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "GBR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INS_LLOYDS"
+    },
+    {
+      "actor_id": "INS_MARSH",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INS_MARSH"
+    },
+    {
+      "actor_id": "INS_MUNICH_RE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "DEU",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:INS_MUNICH_RE"
+    },
+    {
+      "actor_id": "INS_PICC",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INS_PICC"
+    },
+    {
+      "actor_id": "INS_SWISS_RE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHE",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:INS_SWISS_RE"
+    },
+    {
+      "actor_id": "OFF_AIRBUS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "FRA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:OFF_AIRBUS"
+    },
+    {
+      "actor_id": "OFF_ARCELOR",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:OFF_ARCELOR"
+    },
+    {
+      "actor_id": "OFF_BLUEFORS",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "FIN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:OFF_BLUEFORS"
+    },
+    {
+      "actor_id": "OFF_CATL",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "CHN",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:OFF_CATL"
+    },
+    {
+      "actor_id": "OFF_DOE_ISOTOPE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:OFF_DOE_ISOTOPE"
+    },
+    {
+      "actor_id": "OFF_JM",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "GBR",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:OFF_JM"
+    },
+    {
+      "actor_id": "OFF_MAYBELL",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:OFF_MAYBELL"
+    },
+    {
+      "actor_id": "OFF_MP_MATERIALS",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "USA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:OFF_MP_MATERIALS"
+    },
+    {
+      "actor_id": "OFF_SEMI_FABS",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "KOR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:OFF_SEMI_FABS"
+    },
+    {
+      "actor_id": "OFF_SEMI_FABS",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "TWN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:OFF_SEMI_FABS"
+    },
+    {
+      "actor_id": "OFF_UMICORE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "BEL",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:OFF_UMICORE"
+    },
+    {
+      "actor_id": "PRO_ASTROFORGE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:PRO_ASTROFORGE"
+    },
+    {
+      "actor_id": "PRO_HONEYBEE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:PRO_HONEYBEE"
+    },
+    {
+      "actor_id": "PRO_INTERLUNE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:PRO_INTERLUNE"
+    },
+    {
+      "actor_id": "PRO_KARMAN",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:PRO_KARMAN"
+    },
+    {
+      "actor_id": "PRO_LUNAR_OUTPOST",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:PRO_LUNAR_OUTPOST"
+    },
+    {
+      "actor_id": "PRO_ORIGIN_SPACE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:PRO_ORIGIN_SPACE"
+    },
+    {
+      "actor_id": "PRO_TRANSASTRA",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:PRO_TRANSASTRA"
+    },
+    {
+      "actor_id": "REG_ARTEMIS",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:REG_ARTEMIS"
+    },
+    {
+      "actor_id": "REG_CLASS_SOCIETIES",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "GBR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:REG_CLASS_SOCIETIES"
+    },
+    {
+      "actor_id": "REG_COPUOS",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:REG_COPUOS"
+    },
+    {
+      "actor_id": "REG_EU_SPACE_ACT",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:REG_EU_SPACE_ACT"
+    },
+    {
+      "actor_id": "REG_EXPORT_CONTROL",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "USA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:REG_EXPORT_CONTROL"
+    },
+    {
+      "actor_id": "REG_FCC",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "USA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:REG_FCC"
+    },
+    {
+      "actor_id": "REG_HAGUE_WG",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:REG_HAGUE_WG"
+    },
+    {
+      "actor_id": "REG_IMO",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:REG_IMO"
+    },
+    {
+      "actor_id": "REG_ISA_ANALOG",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:REG_ISA_ANALOG"
+    },
+    {
+      "actor_id": "REG_ITU",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:REG_ITU"
+    },
+    {
+      "actor_id": "REG_JAPAN",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "JPN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:REG_JAPAN"
+    },
+    {
+      "actor_id": "REG_LUX",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "LUX",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:REG_LUX"
+    },
+    {
+      "actor_id": "REG_PCA",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:REG_PCA"
+    },
+    {
+      "actor_id": "REG_PSC",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:REG_PSC"
+    },
+    {
+      "actor_id": "REG_UAE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "ARE",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:REG_UAE"
+    },
+    {
+      "actor_id": "REG_UNOOSA",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:REG_UNOOSA"
+    },
+    {
+      "actor_id": "REG_US",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:REG_US"
+    },
+    {
+      "actor_id": "SET_INDUSTRIALL",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:SET_INDUSTRIALL"
+    },
+    {
+      "actor_id": "SET_MCMURDO",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "USA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:SET_MCMURDO"
+    },
+    {
+      "actor_id": "SET_SVALBARD",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "NOR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:SET_SVALBARD"
+    },
+    {
+      "actor_id": "SOFT_AEROSPACE_CORP",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SOFT_AEROSPACE_CORP"
+    },
+    {
+      "actor_id": "SOFT_CCSDS",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:SOFT_CCSDS"
+    },
+    {
+      "actor_id": "SOFT_CSF",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SOFT_CSF"
+    },
+    {
+      "actor_id": "SOFT_CSIS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SOFT_CSIS"
+    },
+    {
+      "actor_id": "SOFT_IISL",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:SOFT_IISL"
+    },
+    {
+      "actor_id": "SOFT_ISECG",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:SOFT_ISECG"
+    },
+    {
+      "actor_id": "SOFT_ISO_TC20",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:SOFT_ISO_TC20"
+    },
+    {
+      "actor_id": "SOFT_LPI",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SOFT_LPI"
+    },
+    {
+      "actor_id": "SOFT_MINES",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SOFT_MINES"
+    },
+    {
+      "actor_id": "SOFT_PAYLOAD",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SOFT_PAYLOAD"
+    },
+    {
+      "actor_id": "SOFT_PLANETARY_SOCIETY",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SOFT_PLANETARY_SOCIETY"
+    },
+    {
+      "actor_id": "SOFT_SPACENEWS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SOFT_SPACENEWS"
+    },
+    {
+      "actor_id": "SOFT_SWF",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SOFT_SWF"
+    },
+    {
+      "actor_id": "STA_AUSTRALIA",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "AUS",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:STA_AUSTRALIA"
+    },
+    {
+      "actor_id": "STA_CANADA",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CAN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:STA_CANADA"
+    },
+    {
+      "actor_id": "STA_CHINA",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:STA_CHINA"
+    },
+    {
+      "actor_id": "STA_EU_ESA",
+      "confidence": "MEDIUM",
+      "evidence_status": "ONTOLOGY_DERIVED",
+      "iso3": "GLOBAL",
+      "relation": "MULTINATIONAL",
+      "source_ref": "candidate_seed:STA_EU_ESA"
+    },
+    {
+      "actor_id": "STA_INDIA",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "IND",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:STA_INDIA"
+    },
+    {
+      "actor_id": "STA_JAPAN",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "JPN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:STA_JAPAN"
+    },
+    {
+      "actor_id": "STA_KOREA",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "KOR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:STA_KOREA"
+    },
+    {
+      "actor_id": "STA_RUSSIA",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "RUS",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:STA_RUSSIA"
+    },
+    {
+      "actor_id": "STA_SAUDI",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "SAU",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:STA_SAUDI"
+    },
+    {
+      "actor_id": "STA_UAE",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "ARE",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:STA_UAE"
+    },
+    {
+      "actor_id": "STA_UK",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "GBR",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:STA_UK"
+    },
+    {
+      "actor_id": "STA_US",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "USA",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:STA_US"
+    },
+    {
+      "actor_id": "SUP_AIRBUS_DS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "FRA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_AIRBUS_DS"
+    },
+    {
+      "actor_id": "SUP_ARIANEGROUP",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "FRA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_ARIANEGROUP"
+    },
+    {
+      "actor_id": "SUP_BOEING",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_BOEING"
+    },
+    {
+      "actor_id": "SUP_BWXT",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_BWXT"
+    },
+    {
+      "actor_id": "SUP_CAST",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CHN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:SUP_CAST"
+    },
+    {
+      "actor_id": "SUP_CESIUMASTRO",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_CESIUMASTRO"
+    },
+    {
+      "actor_id": "SUP_L3HARRIS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_L3HARRIS"
+    },
+    {
+      "actor_id": "SUP_LANTERIS",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_LANTERIS"
+    },
+    {
+      "actor_id": "SUP_LOCKHEED",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_LOCKHEED"
+    },
+    {
+      "actor_id": "SUP_MDA",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "CAN",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:SUP_MDA"
+    },
+    {
+      "actor_id": "SUP_NORTHROP",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_NORTHROP"
+    },
+    {
+      "actor_id": "SUP_OHB",
+      "confidence": "HIGH",
+      "evidence_status": "SEED_TEXT_EXPLICIT",
+      "iso3": "DEU",
+      "relation": "OPERATING_OR_INSTITUTIONAL_LINK",
+      "source_ref": "candidate_seed:SUP_OHB"
+    },
+    {
+      "actor_id": "SUP_REDWIRE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_REDWIRE"
+    },
+    {
+      "actor_id": "SUP_SAFRAN_DSI",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "FRA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_SAFRAN_DSI"
+    },
+    {
+      "actor_id": "SUP_SIERRA",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_SIERRA"
+    },
+    {
+      "actor_id": "SUP_THALES_ALENIA",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "FRA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_THALES_ALENIA"
+    },
+    {
+      "actor_id": "SUP_VOYAGER",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_VOYAGER"
+    },
+    {
+      "actor_id": "SUP_WESTINGHOUSE",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_WESTINGHOUSE"
+    },
+    {
+      "actor_id": "SUP_XENERGY",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_XENERGY"
+    },
+    {
+      "actor_id": "SUP_YORK",
+      "confidence": "MEDIUM",
+      "evidence_status": "BEST_ESTIMATE_CURATED",
+      "iso3": "USA",
+      "relation": "HOME",
+      "source_ref": "model:CURATED_HOME:SUP_YORK"
+    }
+  ]
+}

@@ -31,10 +31,16 @@ CATEGORY_INVESTMENT_UNIT_SHARE={
 class SectorAuthority2026:
     sector:str; gross_output:float; investment:float; capital:float; employment:float
 @dataclass(frozen=True)
+class CountrySectorAuthority2026:
+    iso3:str; sector:str; gross_output:float; investment:float; capital:float; employment:float
+@dataclass(frozen=True)
 class ActorBaseline2026:
     actor_id:str; name:str; category:str; lifecycle_status:str
     functional_2026:bool; scale_class:str; scale_score:float
-    economic_sector:str; financial_capacity_estimate:float
+    economic_sector:str; home_iso3:str|None
+    home_sector_gross_output:float|None; home_sector_investment:float|None
+    home_sector_capital:float|None; home_sector_employment:float|None
+    financial_capacity_estimate:float
     financial_capacity_low:float; financial_capacity_high:float
     capacity_semantics:str; operating_capacity_index:float
     evidence_status:str; estimate_method:str; confidence:str
@@ -68,10 +74,14 @@ def _semantics(cat):
     "SUPPLIER_PRIME":"company_capital_and_independent_rd_capacity","INFRASTRUCTURE":"network_and_facility_investment_capacity",
     "SOFT_POWER":"institutional_operating_and_grant_capacity","CERTIFICATION":"certification_and_assurance_operating_capacity"}[cat]
 
-def build_actor_baseline_2026(seed,sector_authority):
-    by_sector={x.sector:x for x in sector_authority}; out=[]
+def build_actor_baseline_2026(seed,sector_authority,*,country_sector_authority=(),home_by_actor=None):
+    by_sector={x.sector:x for x in sector_authority}
+    by_country_sector={(x.iso3,x.sector):x for x in country_sector_authority}
+    home_by_actor={} if home_by_actor is None else dict(home_by_actor)
+    out=[]
     for a in sorted(seed["actors"],key=lambda x:x["id"]):
-        life=_lifecycle(a); cls,score=_scale(a); cat=a["category"]; sec=CATEGORY_SECTOR[cat]; auth=by_sector[sec]
+        life=_lifecycle(a); cls,score=_scale(a); cat=a["category"]; sec=CATEGORY_SECTOR[cat]
+        home=home_by_actor.get(a["id"]); home_auth=by_country_sector.get((home,sec)); auth=by_sector[sec]
         functional=life=="ACTIVE_OR_OPERATING"
         if functional:
             center=auth.investment*CATEGORY_INVESTMENT_UNIT_SHARE[cat]*score
@@ -79,14 +89,19 @@ def build_actor_baseline_2026(seed,sector_authority):
             low=center*0.25; high=center*4.0
             op=min(100.0,score*20.0)
             status="DERIVED_ESTIMATED"
-            method=f"2026_{sec}_INVESTMENT_X_CATEGORY_SHARE_X_TEXT_SCALE"
+            method=f"2026_GLOBAL_{sec}_INVESTMENT_X_CATEGORY_SHARE_X_TEXT_SCALE"
         else:
             center=low=high=op=0.0
             status="DIRECT_STATUS_DERIVED_ZERO_CURRENT_FUNCTION"
             method="SEED_LIFECYCLE_STATUS"
-        refs=(f"candidate_seed:{a['id']}",f"postgres:{EARTH_SNAPSHOT}:earth_sector_year:{sec}:2026")
-        out.append(ActorBaseline2026(a["id"],a["name"],cat,life,functional,cls,score,sec,
-            center,low,high,_semantics(cat),op,status,method,a.get("conf","UNKNOWN"),refs))
+        refs=[f"candidate_seed:{a['id']}",f"postgres:{EARTH_SNAPSHOT}:earth_sector_year:GLOBAL:{sec}:2026"]
+        if home_auth is not None: refs.append(f"postgres:{EARTH_SNAPSHOT}:earth_sector_year:{home}:{sec}:2026")
+        out.append(ActorBaseline2026(a["id"],a["name"],cat,life,functional,cls,score,sec,home,
+            None if home_auth is None else home_auth.gross_output,
+            None if home_auth is None else home_auth.investment,
+            None if home_auth is None else home_auth.capital,
+            None if home_auth is None else home_auth.employment,
+            center,low,high,_semantics(cat),op,status,method,a.get("conf","UNKNOWN"),tuple(refs)))
     return tuple(out)
 
 def baseline_digest(rows):
@@ -94,4 +109,4 @@ def baseline_digest(rows):
     return sha256(payload.encode()).hexdigest()
 
 __all__=["BASELINE_ID","EARTH_SNAPSHOT","SectorAuthority2026","ActorBaseline2026",
-         "build_actor_baseline_2026","baseline_digest","CATEGORY_SECTOR","CATEGORY_INVESTMENT_UNIT_SHARE"]
+         "build_actor_baseline_2026","baseline_digest","CATEGORY_SECTOR","CATEGORY_INVESTMENT_UNIT_SHARE","CountrySectorAuthority2026"]

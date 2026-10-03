@@ -118,6 +118,19 @@ class ActorRegistryV03:
             self._states[actor_id]=replace(old,level=level,causal_context_ids=contexts,provenance_refs=prov)
         return ActivationResultV03(trigger_type,context_id,ids,"CATEGORY_RELEVANCE_ONLY_NO_ACTION_AUTHORITY")
 
+    def mark_relevant_actor_ids(self,*,context_id:str,actor_ids:Sequence[str],
+                                provenance_refs:Sequence[str]=())->ActivationResultV03:
+        ids=tuple(sorted(set(actor_ids)))
+        for actor_id in ids:
+            old=self._states[actor_id]
+            if not old.identity.functional_2026 or not old.identity.autonomous_eligible:
+                raise ValueError("INELIGIBLE_ACTOR_RELEVANCE_REQUEST")
+            contexts=tuple(sorted(set(old.causal_context_ids+(context_id,))))
+            prov=tuple(sorted(set(old.provenance_refs+tuple(provenance_refs))))
+            level=old.level if old.level in (ActivationLevel.ACTIVE_LIGHT,ActivationLevel.ACTIVE_TRANSACTIONAL) else ActivationLevel.RELEVANT
+            self._states[actor_id]=replace(old,level=level,causal_context_ids=contexts,provenance_refs=prov)
+        return ActivationResultV03("EARTH_SECTOR_OPPORTUNITY",context_id,ids,"BOUNDED_EARTH_RELEVANCE_ONLY")
+
     def promote(self,actor_id:str,*,level:ActivationLevel,context_id:str,
                 provenance_refs:Sequence[str])->ActorActivationStateV03:
         if level not in (ActivationLevel.ACTIVE_LIGHT,ActivationLevel.ACTIVE_TRANSACTIONAL):
