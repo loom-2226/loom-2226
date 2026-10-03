@@ -60,7 +60,16 @@ class Build3Kernel(MVPKernel):
         a=self.agents[actor_id]; r=self.resources[resource_id]; cost=D(cost); fp=D(false_positive); fn=D(false_negative)
         if 'EXPLORE' not in a.capabilities or not (D('0')<=fp<=D('1')) or not (D('0')<=fn<=D('1')): raise InvariantError('invalid exploration')
         p=self.state.projects[project_id]
-        tx=self.transfer(year,p.cash_account_id,supplier_account,cost,TxPurpose.EXPLORATION,supplier_location=self.state.accounts[supplier_account].node_id,asset_location=r.node_id,parent_ids=(project_id,resource_id))
+        supplier_node=self.state.accounts[supplier_account].node_id
+        if self.state.nodes[supplier_node].kind==NodeKind.EARTH:
+            constraint=self.resource_constraints[(supplier_node,year)]
+            if cost>constraint.reserved: raise InvariantError('unreserved Earth-supplied exploration expenditure')
+            constraint.reserved-=cost; constraint.spent+=cost
+            key=(supplier_node,year)
+            total=self.state.earth_impact.qualifying_supplied_expenditure.get(key,D('0'))+cost
+            self.state.earth_impact.qualifying_supplied_expenditure[key]=total
+            self.state.earth_impact.terrestrial_fcf_delta[key]=-self.lambda_displacement*total
+        tx=self.transfer(year,p.cash_account_id,supplier_account,cost,TxPurpose.EXPLORATION,supplier_location=supplier_node,asset_location=r.node_id,parent_ids=(project_id,resource_id))
         aid=self._id('explore-wip'); self.state.assets[aid]=Asset(aid,project_id,r.node_id,AssetKind.EXPLORATION_WIP,cost)
         truth=r.remaining>D('0'); draw=self.keyed_draw('OBS',year,actor_id,resource_id,channel)
         positive=(draw>=fn) if truth else (draw<fp)
