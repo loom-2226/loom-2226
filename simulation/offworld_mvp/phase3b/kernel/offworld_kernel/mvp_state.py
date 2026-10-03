@@ -5,6 +5,9 @@ from enum import Enum
 from typing import Dict, List, Optional
 from .model import D
 
+class RuntimeObjectClass(str, Enum):
+    SYSTEM='SYSTEM'; AGGREGATE='AGGREGATE'; AGENT='AGENT'; ENTITY_ASSET='ENTITY_ASSET'
+
 class AgentKind(str, Enum):
     PUBLIC='PUBLIC'; PRIVATE_SPONSOR='PRIVATE_SPONSOR'; PRIVATE_FINANCIER='PRIVATE_FINANCIER'; LOCAL_FINANCIER='LOCAL_FINANCIER'
 
@@ -17,6 +20,7 @@ class AgentState:
     kind: AgentKind
     node_id: str
     account_id: str
+    runtime_class: RuntimeObjectClass=RuntimeObjectClass.AGENT
     capabilities: set[str]=field(default_factory=set)
     objectives: tuple[str,...]=()
     decision_policy: str='SCRIPTED_VALIDATION_ONLY'
