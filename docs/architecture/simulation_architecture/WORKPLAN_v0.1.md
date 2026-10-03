@@ -75,3 +75,11 @@ The 233-node candidate ecology was audited before activation. Result: 190 autono
 Activation now supports the ontology firewall: only a functional 2026 node classified AUTONOMOUS_ACTOR is eligible for relevance. The 43 other nodes remain available as institutional context/evidence and are not deleted.
 
 Core commercial causal roles retain multiple autonomous counterparties. LABOR has only one autonomous 2026 actor; no fictional off-world labor institution is added. Labor/governance institutions are expected to emerge later from actual settlement/population state.
+
+## 2026-10-03 Step 8.0b — Earth-80 opportunity integration
+
+Audit confirms 80 economically qualified Earth economies, each with 10-sector 2026–2226 economic state. The named actor roster is intentionally not used as the sole geographic participation mechanism.
+
+Added EARTH_COUNTRY_OPPORTUNITY_2026_V0_3: 800 country-sector rows derived only from validated Earth authority, preserving opportunity/capability separation and explicit unavailable fields.
+
+Step 8.1 must use year-specific Earth state to emit typed country/sector opportunity triggers, then recruit relevant autonomous actors. Actor geography requires typed jurisdiction links before domestic preference or legal scope may be used. No generic country space agencies are to be invented.
