@@ -29,6 +29,7 @@ def paid_exploration_fixture(universe_id='SPARSE',stock=D('20'),fp=D('0.20'),fn=
     k=build3_base(universe_id,stock,fp,fn)
     # Public financing -> explicit exploration project cash -> supplier expenditure.
     k.add_commitment('PUB-EXP','PUB','EXP',D('10')); k.disburse(1,'PUB-EXP','public_funds',D('10'))
+    k.reserve_earth_supply('EARTH:X',1,D('10'))
     obs,wip,draw=k.explore_paid(1,'PUB','RES','EXP','earth_supplier',D('10'),'REMOTE',True,fp,fn)
     return k,obs,wip,draw
 
