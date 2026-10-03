@@ -269,7 +269,7 @@ Phase 3B shall design for at least:
 
 The first complete fixture should contain:
 
-- one Earth economy;
+- one deliberately selected participating Earth economy;
 - one public actor;
 - one private actor;
 - one celestial body;
@@ -317,7 +317,7 @@ Define accounting, resource, population and ownership invariants.
 Define observation channels, admissibility and agent knowledge boundaries.
 
 **3B.6 Vertical-slice encoding**  
-Encode the one-economy/one-body fixture without yet building the full engine.
+Encode the one-economy/one-body fixture without yet building the full engine. The economy identity remains UNSELECTED until fixture selection is a deliberate, documented act; no legacy CIVPROP default actor may fill it implicitly.
 
 ## 18. Open decisions
 
@@ -341,3 +341,19 @@ These are design decisions, not invitations for implementation to invent conveni
 Phase 3B is now OPEN.
 
 Design may proceed under PRE-CONTRACT / SINGLE-AUTHORITY. No implementation may claim Authority Contract v1 governed/qualified status, and no production simulation implementation authority is granted by this document.
+
+
+## 19. Legacy actor-default firewall
+
+Historical CIVPROP experiments used `AUS` as a bounded test actor because Australia-specific lunar mission/access evidence was available. That historical fixture is archaeology only.
+
+For this State Model:
+
+- no country is the default participating economy;
+- `AUS`, Australia, Roo-ver, Fleet Space, SPIDER, and other legacy actor-specific fixtures confer no selection priority;
+- the MVP economy identity is `UNSELECTED` until an explicit fixture-selection act records the rationale;
+- architecture, schemas, transitions, accounting, abstractions and tests must be country-neutral;
+- selecting a country for a future fixture does not promote country-specific legacy CIVPROP assumptions, budgets, capabilities, access rights or mission evidence;
+- old CIVPROP components may be reused only component-by-component under the FRD archaeology rule.
+
+This firewall prevents a historical reference experiment from becoming an accidental architectural default.
