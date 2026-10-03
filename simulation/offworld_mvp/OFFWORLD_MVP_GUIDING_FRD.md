@@ -5,7 +5,7 @@
 **Status:** PRELIMINARY FRD / PRE-CONTRACT  
 **Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY  
 **Canonical status:** NON-CANON  
-**Implementation authority:** NOT YET GRANTED  
+**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
 **Phase basis:** Phase 2 Claim and Authority Model  
 **Purpose:** Define the minimum functional system required to demonstrate governed offworld civilization propagation without scripting historical outcomes.
 
@@ -188,13 +188,22 @@ Technology inputs shall retain scenario lineage and authorization.
 
 ## 13. Agent Contract
 
-All MVP institutional actors shall implement a common conceptual contract:
+MVP runtime objects shall be classified as one of:
+
+- SYSTEM;
+- AGGREGATE;
+- AGENT;
+- ENTITY_ASSET.
+
+Only AGENT represents a persistent decision-making unit. SYSTEM applies declared mechanisms/rules without beliefs or objectives. AGGREGATE represents many actors statistically/behaviorally without individual autonomous identities. ENTITY_ASSET carries persistent state/identity but does not decide.
+
+All admitted AGENT objects implement the conceptual contract:
 
 ```
 agent_id
 agent_type
 scope/location
-assets
+assets/accounts
 information
 beliefs/internal_state
 capabilities
@@ -202,35 +211,46 @@ objectives
 decision_policy
 available_actions
 persistent_history
+runtime_class = AGENT
 ```
 
 Interaction sequence:
 
-`World -> Observation -> Agent Information -> Belief -> Available Actions -> Decision -> Action Request -> World Transition`
+`World/System State -> Observation -> Agent Information -> Belief -> DecisionRequest -> Decision -> ActionRequest -> Kernel Validation -> World Transition`
 
-An agent submits an action request. It shall not directly mutate world state.
+An AGENT submits an action request. It shall not directly mutate world state.
+
+Runtime complexity, economic importance, ownership, counterparty status, or possession of an identifier do not by themselves confer AGENT status. Agency shall be used where explicit bounded choice materially affects the modeled causal question.
+
+Resolution may change only through explicit reconciliation. AGGREGATE -> AGENT exposure/promotion must preserve applicable money, ownership, population, resource, information-history and lineage state. Silent type mutation is prohibited.
+
+The normative runtime classification decision is `PHASE3B_RUNTIME_OBJECT_CLASSIFICATION_DECISION_001.md`.
 
 ## 14. MVP Agents
 
-### 14.1 Public Agent
+The MVP may contain multiple institutional AGENT roles while using SYSTEM/AGGREGATE representations for routine mechanisms and high-volume populations.
 
-The public agent represents an authorized public offworld program. It need not maximize financial return.
+Initial decision-bearing roles may include:
 
-It may fund or conduct exploration, publish observations, establish infrastructure, establish/support settlement, move population, and subsidize a dependent settlement.
+### 14.1 Public institutional agent
 
-It remains constrained by available budget, capability, technology, and action rules.
+Represents an authorized public offworld program where an explicit institutional choice is causally relevant. It may fund or conduct exploration, publish observations, establish/support infrastructure or settlement, move population, or subsidize activity subject to funding, capability, technology and action rules.
 
-### 14.2 Private Agent
+### 14.2 Sponsor/operator agent
 
-The private agent seeks financial return. Its decision policy shall consider at minimum available capital, agent belief, expected revenue, expected cost, risk, time horizon, hurdle rate, maximum capital at risk, and abandonment criteria.
+Represents a project sponsor/operator where explicit project initiation, continuation, abandonment, extraction, sale or reinvestment choices are required.
 
-Conceptually:
+### 14.3 Financier agent
 
-`Invest iff E[Return | B_i(t)] > H_i`
+Represents an institutional financier where explicit underwriting/allocation decisions are required. Financier information and beliefs are separate from hidden world truth.
 
-subject to available capital and capability.
+### 14.4 Local/offworld financier
 
-The private agent shall calculate expected value from **its belief state**, not hidden world truth.
+Represents an offworld financing institution only when its own decision process is explicitly modeled. A local financing vehicle that merely holds claims/accounts may remain ENTITY_ASSET/SYSTEM-managed state rather than an AGENT.
+
+The MVP shall not create autonomous Agents for ordinary market clearing, physical production, accounting, routine transport mechanics, households, workers, minor firms or every individual person merely because those phenomena exist. Those may remain SYSTEM or AGGREGATE representations until a causal need justifies higher resolution.
+
+Autonomous decision policies remain outside the current implementation authorization. Deterministic scripted policies may exercise the interfaces for validation only.
 
 ## 15. Agent Information Firewall
 
@@ -268,15 +288,21 @@ A proposition that an agent believes a resource exists with probability 0.72 doe
 
 ## 18. Capital Origin
 
-All MVP offworld capital shall originate from the participating Earth economy.
+The earlier shorthand `P_c(t)=f I_c(t)` is superseded for executable design.
 
-For declared reference investment flow:
+Earth `INVESTMENT_REAL_PROXY` / reference FCF is not spendable cash and shall not be converted directly into an actor balance.
 
-`P_c(t) = f I_c(t)`
+The current MVP semantic chain is:
 
-where `f` is an authorized scenario/model parameter.
+`Earth reference economic scale -> explicit financing/resource-allocation abstraction -> financing decision -> commitment -> disbursement -> expenditure -> WIP/FCF -> productive asset -> production/revenue -> surplus disposition -> later financing`.
 
-Capital allocation shall create an equal shadow debit against Earth-realized accounting. No capital may appear merely because an agent wants to undertake a project.
+Earth-side financing may use `FINANCING_AUTHORIZATION` as an explicit MVP abstraction for institutions not yet modeled. Separately, qualifying Earth-supplied expenditure may be bounded by an authored reference-FCF-scaled allocation constraint.
+
+These are model abstractions, not measurements of savings, banking liquidity, fiscal capacity or supplier output.
+
+Earth reference remains immutable. Any modeled displacement/impact is written to realized/shadow state and lineage, never by rewriting the reference trajectory.
+
+The governing financing design is `PHASE3B_FINANCING_RECURSIVE_FCF_FINALIZED_CANDIDATE_0_1.md`; the explicit accounting boundary is `PHASE3B_MVP_ACCOUNTING_BOUNDARY_CANDIDATE_0_1.md`.
 
 ## 19. Financial Conservation
 
@@ -528,17 +554,23 @@ These remain potential later capabilities.
 
 ## 34. Preserved Long-Term Architecture
 
-The MVP shall not preclude eventual progression:
+The MVP shall preserve scalable mixed resolution rather than requiring universal autonomy.
 
-`Macroeconomic Node <-> Institution <-> Population Aggregate <-> Persistent Agent`
+Long-term runtime composition may include:
 
-or:
+`SYSTEM <-> AGGREGATE <-> AGENT <-> ENTITY_ASSET`
 
-`Aggregate -> Cohort -> Persistent Individual -> High Fidelity`
+with multiple concurrent domain hierarchies such as:
 
-The generic Agent abstraction shall not assume biological humanity. Future specializations may include Institution, Human, Synthetic, Household, Firm, and Government.
+`Macroeconomic Node <-> Institution <-> Firm/Household Aggregate <-> Explicit Institution/Person`
 
-Promotion from aggregate population into explicit agents shall conserve corresponding macro quantities.
+and:
+
+`Population Aggregate <-> Cohort <-> Explicit Individual`.
+
+Resolution is experiment-dependent. A minor firm may remain inside an AGGREGATE while a causally dominant corporation is represented as an AGENT. Promotion/exposure and any later re-aggregation require explicit reconciliation and lineage.
+
+The generic AGENT abstraction shall not assume biological humanity. Future specializations may include Institution, Human, Synthetic, Household, Firm and Government where explicit agency is causally necessary.
 
 ## 35. Relationship to Existing CIVPROP Work
 
@@ -605,6 +637,96 @@ The MVP shall answer:
 If yes, the architectural spine exists. If no, the model is still deliberately small enough to establish why.
 
 ---
+
+## 39. Scheduler and Coupling Requirement
+
+The MVP shall use a deterministic scheduler contract rather than relying on incidental Python execution order.
+
+Global time is scheduler-owned. Processes declare cadence/trigger, phase, read/write sets, state ownership, units, context/perspective and invariants.
+
+The default macro-period phase order is:
+
+`OPEN_PERIOD -> EXOGENOUS_INPUTS -> OBSERVATION -> INFORMATION_UPDATE -> DECISION_WINDOW -> ACTION_VALIDATION -> COMMITMENT_DISBURSEMENT -> OPERATIONS -> MARKET_CLEARING -> ACCOUNTING_CLOSE -> DEPRECIATION_AMORTIZATION -> CONSERVATION_CHECK -> SNAPSHOT_CLOSE`.
+
+Sub-period mission/transport/operational events may occur at explicit deterministic timestamps.
+
+Same-time tie ordering shall be stable and explicit. Queue insertion order shall not change unrelated results or random draws.
+
+Normative candidate: `PHASE3B_SCHEDULER_COUPLING_CONTRACT_CANDIDATE_0_1.md`.
+
+## 40. ODD-Aligned Executable Specification
+
+The MVP shall maintain an ODD-aligned operational specification covering purpose/patterns, entities/state/scales, process overview and scheduling, design concepts, initialization, input data and submodels.
+
+This specification does not replace LOOM authority/governance records. It provides the reproducible executable-model view an independent reviewer needs to understand how a run works.
+
+Current candidate: `OFFWORLD_MVP_ODD_ALIGNED_SPEC_0_1.md`.
+
+## 41. Verification Versus Validation
+
+Passing kernel tests establishes only the behavior tested against declared specifications.
+
+The MVP shall distinguish:
+
+- software/model verification;
+- empirical/scientific validation;
+- calibration;
+- sensitivity analysis;
+- uncertainty analysis;
+- scenario exploration.
+
+No conservation/replay pass may be described as empirical validation of long-run civilization behavior.
+
+The methodology shall maintain validation standing by subsystem and disclose unvalidated mechanisms.
+
+Current protocol: `PHASE3B_VERIFICATION_VALIDATION_UNCERTAINTY_PROTOCOL_0_1.md`.
+
+## 42. Long-Horizon Uncertainty and Ensemble Requirement
+
+The 2026–2226 horizon shall initially be treated as deep-uncertainty scenario exploration, not as a single point forecast.
+
+Comparable runs shall vary declared scenario axes, authored parameters, characterized uncertainties and keyed stochastic realizations while preserving run identity.
+
+An ensemble result shall support identification of:
+
+- robust outcomes;
+- divergence drivers;
+- threshold/bifurcation behavior;
+- sensitivity to assumptions;
+- causal paths producing materially different trajectories.
+
+Sampling a scenario does not imply a probability for that scenario.
+
+## 43. Resolution-Reconciliation Requirement
+
+Before dynamic runtime resolution is used in an MVP trajectory, the executable kernel shall demonstrate a deterministic AGGREGATE -> AGENT split in which applicable conserved state reconciles exactly.
+
+At minimum the fixture shall reconcile:
+
+- financial/account balances;
+- ownership/beneficial claims where applicable;
+- population or membership counts where applicable;
+- assets/resources allocated to the exposed agent;
+- aggregate remainder;
+- history/lineage identity.
+
+If re-aggregation is implemented, it must pass the reciprocal reconciliation tests.
+
+## 44. Methodology-Hardening Revalidation Gate
+
+The frozen Build 4 branch is `offworld-mvp-build4-freeze-2026-10-04`.
+
+Before autonomous-agent authorization, the Build 4-derived development baseline shall be revalidated after:
+
+1. scheduler implementation;
+2. runtime resolution-reconciliation implementation;
+3. accounting-boundary enforcement;
+4. deterministic uncertainty/ensemble harness;
+5. ODD/FRD traceability update;
+6. verification/validation protocol adoption.
+
+The resulting validation record must state both what has been verified and what remains empirically unvalidated.
+
 
 ## Governance note
 
