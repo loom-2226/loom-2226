@@ -505,3 +505,77 @@ Phase 2 may close only when:
 Until then:
 
 `PHASE 2: IN PROGRESS / PRE-CONTRACT / SINGLE-AUTHORITY`
+
+
+## 21. D2.1 — Core Decomposition
+
+**Status:** OWNER-ADOPTED  
+**Decision date:** 2026-10-03  
+**Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY
+
+Following mechanical stress testing against Phase 1 archaeological exemplars, the owner selected **Option A: dimensional claim model**.
+
+LOOM v1 shall model a claim as an identifiable **proposition with scope/context**. The following remain separately representable rather than being collapsed into one universal epistemic-class label:
+
+- provenance;
+- epistemic mode;
+- derivation mode;
+- warrant;
+- governance status/role;
+- uncertainty;
+- dependencies and lineage.
+
+Effective **standing** is evaluated for a specified use, time and governing contract. It is not a universal scalar quality attached to the proposition.
+
+Qualification and authorization remain governance acts/relationships. They do not redefine claim content merely by occurring.
+
+### D2.1 mapping consequence
+
+The initial Phase 2 candidate labels are provisionally remapped for subsequent design:
+
+- `OBSERVATION` → epistemic mode;
+- `PROJECTION` → epistemic mode;
+- `SCENARIO_ASSUMPTION` → epistemic mode;
+- `SIMULATED` → epistemic mode;
+- `DERIVED` → derivation mode;
+- `MODEL_PARAMETER` → proposition/functional role whose own epistemic and derivation metadata remain separately representable;
+- `UNKNOWN` → explicit knowledge/value state whose reason and search/assessment scope remain separately representable.
+
+This mapping does not by itself close D2.2. It constrains D2.2 by rejecting a single mutually-exclusive `epistemic_class` enum as the governing conceptual model.
+
+### Claim content versus claim support
+
+D2.1 also adopts the distinction:
+
+`CLAIM CONTENT ≠ CLAIM SUPPORT`
+
+Multiple source assertions may support, contradict, constrain or otherwise bear on one proposition. Evidence records, coverage statements and normalized propositions must remain conceptually distinguishable even where an implementation later chooses to colocate them.
+
+### Non-decisions
+
+D2.1 does not select:
+
+- a database schema;
+- serialization format;
+- identifier/key design;
+- final epistemic-mode vocabulary;
+- final derivation-mode vocabulary;
+- authority roots;
+- qualification mechanics;
+- conflict-resolution mechanics;
+- uncertainty schema;
+- runtime representation.
+
+Those remain later Phase 2 or subsequent-phase decisions.
+
+## 22. Next mechanical pass
+
+With D2.1 adopted, the next Phase 2 task is to derive the minimum candidate vocabularies for:
+
+1. proposition kind;
+2. epistemic mode;
+3. derivation mode;
+4. knowledge/unknown state and search scope;
+5. governance status/role.
+
+That pass shall test whether each distinction changes standing or permitted use before asking the owner to adopt D2.2/D2.3 vocabulary.
