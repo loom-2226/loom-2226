@@ -1085,3 +1085,137 @@ No new conceptual defect was found that requires another owner ontology decision
 ## 35. External Review Readiness
 
 The Phase 2 model is ready for external hostile review as a PRE-CONTRACT / SINGLE-AUTHORITY candidate. External review must receive the internal hostile review and §33 repairs rather than reviewing the superseded pre-repair candidate alone.
+
+
+## 36. Owner Adoption — Hostile Review Repair Package A
+
+**Status:** OWNER-ADOPTED
+**Decision date:** 2026-10-04
+**Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY
+
+The owner selected Option A and adopts the hostile-review repair plan as a package. No D2 option is reversed. D2.3, D2.4, D2.6, D2.8 and D2.9 are amended as specified below; D2.1, D2.2, D2.5, D2.7 and D2.10 stand with the stated clarifications. The uploaded hostile review remains non-independent and does not discharge the independence lien.
+
+### 36.1 D2.3 amendment — assertion-set UNKNOWN
+
+UNKNOWN is evaluated as `UNKNOWN(proposition, assertion_set, scope)`.
+
+Named assertion sets include at minimum:
+- `ALL_RECORDED`: all recorded assertions relevant to the proposition/scope, regardless of admission disposition;
+- `ADMITTED`: assertions admitted for the governed context/use under the applicable admission rules.
+
+If recorded assertions exist but all relevant assertions are quarantined or otherwise inadmissible, the governed consumer receives `BLOCKED` with the applicable reason. It does not receive UNKNOWN merely because use is inadmissible.
+
+`QUARANTINED` is removed from knowledge/value state and remains on the admission/disposition axis. `EVIDENCE_FOUND_NOT_ADMITTED` is removed as an UNKNOWN search-state token; evidence discovery and admission disposition are represented separately.
+
+### 36.2 World-context, perspective and evidence plane
+
+Phase 2 adopts two separate coordinates:
+
+**World-context**
+- `REAL`
+- `SCENARIO(id)`
+- `REALIZED(run_id)`
+
+**Epistemic perspective / information domain**
+- `GOVERNANCE`
+- `WORLD_SIM`
+- `AGENT(actor_id)`
+
+Use admissibility remains a separate relation between a consumer/process, proposition/assertion set and operation.
+
+For Phase 2 semantics, the **evidence plane** means world-context `REAL` with evidentiary lineage containing no scenario-world value, simulated state or authorized substitution/bridge as an evidentiary input. A bridge may produce a dependent for a named use/context but cannot convert its non-evidentiary input into evidence-plane warrant.
+
+No consumer may cross world-contexts implicitly. Any permitted cross-context dependency must be explicit in lineage and authorized where required.
+
+### 36.3 Claim terminology and Phase 0 interpretation
+
+Phase 2 does not silently redefine the Phase 0 authority principle. For the v1 model:
+
+- **PROPOSITION** is semantic content within scope/context;
+- **ASSERTION** is an identifiable occurrence by which a source, actor, process or governance act asserts a proposition;
+- **GOVERNED CLAIM** is LOOM's governed representation linking a proposition to assertions/support, scope, lineage and governance relations.
+
+For interpretation of D0.4 in v1 design, evidentiary/support warrant attaches to identifiable assertions and their lineage; standing is evaluated for the governed proposition/claim for a specified use. This is recorded as a Phase 2 clarification requiring explicit preservation in Contract v1 rather than an unrecorded redefinition of Phase 0.
+
+### 36.4 D2.4 amendment — two primitive roots
+
+Phase 2 adjudicates two primitive authority roots:
+
+1. **EVIDENTIARY ROOT**: reliance ultimately grounded in admitted evidence/source material under an explicit root-recognition governance act;
+2. **AUTHORIZATION ROOT**: reliance ultimately grounded in an explicit human authorization or a valid bounded delegation derived from human authorization.
+
+Every warrant-family instance must have a traversable derivation path to at least one primitive root. No path means no governed warrant.
+
+Canon warrant derives through authorization. Institutional/normative warrant requires an authorization-root recognition of the institution's competence/jurisdiction plus the relevant institutional assertion. Formal warrant establishes entailment from premises/rules but does not independently establish empirical applicability; empirical premises retain their evidentiary path and stipulated premises their authorization path. Deterministic computation remains derivative.
+
+Source acceptance/root recognition is classified as an authorization governance act, distinct from later qualification of a claim/interface for a use. Phase 5 must require an acyclic dependency/qualification graph.
+
+### 36.5 D2.6 amendment — standing composition
+
+Standing composition follows these minimum rules:
+
+- necessary dependencies compose conjunctively: every required dependency must possess sufficient pre-qualification standing for the operation;
+- scope, applicable time and permitted use intersect rather than widen;
+- required UNKNOWN dimensions block unless an authorized bridge explicitly creates a dependent substitute;
+- unresolved conflict propagates to dependent use; indeterminate conflict propagates as indeterminate unless a governed rule permits otherwise;
+- uncertainty propagates according to the transformation; uncharacterized uncertainty may not be silently replaced by zero or a characterized estimate and dominates any result requiring characterization;
+- warrant retains its derivation paths/families and is never collapsed into a scalar confidence;
+- qualification and authorization do not automatically propagate from dependencies to outputs;
+- the transformation/model itself is a necessary dependency with its own identity, version and standing;
+- several alternative supports are not automatically combined, selected by best case or selected by worst case. Aggregation/resolution among supports requires an explicit governed rule under D0.9;
+- evidence profile is determined from traversable lineage, not solely from the final proposition's epistemic-mode field.
+
+Every governed consumption request must declare at minimum intended use, applicable time/clock, world-context and perspective. An undeclared consumption profile receives no governed standing.
+
+### 36.6 Candidate legality matrix rule
+
+Phase 2 adopts the invariant that combinations of epistemic mode, warrant path and derivation must be semantically legal for the requested use. In particular, an empirical/evidence-plane result cannot be supported solely by an authorization-root scenario stipulation unless the result is explicitly represented as a bridge-dependent non-evidence claim. Phase 3 owns representation of the matrix and Phase 4 owns enforcement.
+
+### 36.7 D2.8 amendment — conflict including uncertainty
+
+Conflict evaluation has at least three outcomes: `NO_CONFLICT`, `CONFLICT`, `INDETERMINATE_CONFLICT`.
+
+A conflict test requires compatible subject/predicate, overlapping applicable scope/world-context/time and semantic role, then evaluates whether asserted contents can simultaneously hold given characterized uncertainty. Where the available uncertainty is itself insufficient to decide compatibility, the result is `INDETERMINATE_CONFLICT`, not silent no-conflict. Exact detection belongs to Phase 5.
+
+### 36.8 D2.9 amendment — uncertainty propagation and scenario weighting
+
+Uncertainty/variability families remain distinct. A transformation must state how relevant input uncertainty is propagated or state that resulting uncertainty is uncharacterized. Uncharacterized uncertainty cannot silently become characterized or zero.
+
+Scenario/universe alternatives carry no probability merely by existing. Weighting scenarios or interpreting run frequencies as epistemic probabilities requires explicit authorization and an identified basis. Scenario-seed spread remains scenario/simulation variability unless separately justified as an epistemic uncertainty model.
+
+### 36.9 Shared world/agent parameter firewall
+
+A parameter used on both world and agent sides must be either:
+
+1. represented as a separate declared agent-side parameter with its own lineage; or
+2. explicitly stipulated as information known to the agent.
+
+Equality between world truth and agent-side priors, likelihoods, detection rates, false-positive rates, noise models, cost distributions or analogous parameters is itself a scenario assumption where it matters. Such a run must disclose the corresponding perfect-information/perfect-calibration assumption. World seeds and world random streams are not agent information.
+
+### 36.10 Reference adoption and circular validation
+
+Reference adoption is use-scoped, including at least comparison, initialization and forcing where applicable. Adoption does not erase epistemic ancestry. A run may not be validated against a reference adopted from that same run or against a reference whose construction creates an undisclosed outcome-conditioned dependency on the result being validated.
+
+### 36.11 Time and staleness
+
+Temporal fields must identify their clock where ambiguity exists, including real-world time and simulation/run time. Knowledge time is tied to the applicable information domain/clock.
+
+Staleness is a use-relative admissibility condition over temporal validity/age under a recorded rule. A stale assertion remains an assertion and is not converted to UNKNOWN.
+
+### 36.12 Bridge identity and rule-applied authorization
+
+Bridge context is part of the identity/lineage of the dependent produced by a bridge. A bridge rule may be authorized prospectively for a bounded class of applications; each application records the rule/version, triggering condition, inputs, output and scope. The original proposition/assertions remain unchanged.
+
+### 36.13 D2.10 clarifications
+
+Retrodiction from a fitted model is distinguished from observation even when evaluated at a past epoch. Defined-by-convention constants/units may have formal or normative standing rather than measured empirical standing. Transformation standing is a necessary dependency of every derived result.
+
+### 36.14 Carried liens correction
+
+The existing delegation-instrument classification and producer-consumer findings remain OPEN LIENS for later qualified-input/qualification work. They are not considered resolved merely because Phase 2 can represent them.
+
+### 36.15 Supersession and precedence
+
+Where earlier Phase 2 candidate/mechanical text conflicts with owner-adopted D2.1-D2.10, §33 repairs or this §36 adoption, the later owner-adopted text governs Phase 2 semantics. Superseded candidate vocabulary remains archaeological rationale only and must not be implemented as normative v1 semantics.
+
+A consolidated normative Phase 2 specification shall be produced before closure so implementations are not required to reconstruct precedence from document history.
