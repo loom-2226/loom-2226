@@ -21,8 +21,8 @@ class AgentState:
     node_id: str
     account_id: str
     capabilities: set[str]=field(default_factory=set)
-    runtime_class: RuntimeObjectClass=RuntimeObjectClass.AGENT
     objectives: tuple[str,...]=()
+    runtime_class: RuntimeObjectClass=RuntimeObjectClass.AGENT
     decision_policy: str='SCRIPTED_VALIDATION_ONLY'
     information: set[str]=field(default_factory=set)
     beliefs: Dict[str,D]=field(default_factory=dict)
