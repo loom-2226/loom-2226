@@ -117,3 +117,7 @@ Run 2026–2226 seed 42 with actor expansion enabled, then replay it byte-for-by
 **Acceptance:** deterministic replay; Hybrid production execution remains zero; all consequential actor actions have causal ancestry and cleared role-specific authorities; the run completes without invented annual actor grants or blanket activation.
 
 No additional behavioral sophistication is required before this run. Actor-specific psychology, richer learning, additional external financial datasets and detailed corporate accounting are post-run refinements unless a Step A–C failure proves one is causally necessary.
+
+## 2026-10-03 Step A completion — counterparty loop
+
+Implemented typed proposition dependency discovery, bounded jurisdiction-aware counterparty recruitment and bounded exploratory responses. First real-Earth acceptance test uses Honeybee Robotics (Blue Origin) on EARTH:2026:AUS:BULK_MATERIALS: 11 typed requests across 11 roles recruit 21 autonomous counterparties, with 21 exploratory acceptances, deterministic replay and zero consequential-action authority. Step B commitment bridge remains blocked until concrete feasibility gates are independently proven.
