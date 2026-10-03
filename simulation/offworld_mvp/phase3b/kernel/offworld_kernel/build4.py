@@ -72,6 +72,21 @@ class Build4Kernel(Build3Kernel):
         total=sum((s.share for s in self.ownership_stakes if s.vehicle_id==vehicle_id),D('0'))
         if total!=D('1'): raise InvariantError('A7 ownership reconciliation')
 
+
+
+    def distribute_vehicle_to_owners(self,year,vehicle_id,vehicle_account,owner_accounts,amount):
+        amount=D(amount); stakes=[s for s in self.ownership_stakes if s.vehicle_id==vehicle_id]
+        self.assert_vehicle_ownership(vehicle_id)
+        if self.state.accounts[vehicle_account].balance<amount: raise InvariantError('vehicle funds unavailable')
+        paid=D('0')
+        for i,s in enumerate(stakes):
+            part=amount-paid if i==len(stakes)-1 else amount*s.share
+            self.transfer(year,vehicle_account,owner_accounts[s.owner_id],part,TxPurpose.RETURN_TO_EARTH)
+            paid+=part
+        if paid!=amount: raise InvariantError('A6 disposition not exhaustive')
+        self.audit('OWNER_DISTRIBUTION',year,vehicle=vehicle_id,amount=amount)
+        return paid
+
     def set_supply_capacity(self,node_id,year,capacity):
         self.supply[(node_id,year)]=SupplyCapacity(node_id,year,D(capacity))
 
