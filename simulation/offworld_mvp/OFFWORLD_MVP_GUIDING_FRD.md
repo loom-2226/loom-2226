@@ -714,9 +714,11 @@ If re-aggregation is implemented, it must pass the reciprocal reconciliation tes
 
 ## 44. Methodology-Hardening Revalidation Gate
 
-The frozen Build 4 branch is `offworld-mvp-build4-freeze-2026-10-04`.
+The pre-hardening Build 4 baseline remains frozen at:
 
-Before autonomous-agent authorization, the Build 4-derived development baseline shall be revalidated after:
+`offworld-mvp-build4-freeze-2026-10-04`.
+
+The methodology-hardening gate has now been executed. The Build 4-derived baseline was revalidated after:
 
 1. scheduler implementation;
 2. runtime resolution-reconciliation implementation;
@@ -725,7 +727,19 @@ Before autonomous-agent authorization, the Build 4-derived development baseline 
 5. ODD/FRD traceability update;
 6. verification/validation protocol adoption.
 
-The resulting validation record must state both what has been verified and what remains empirically unvalidated.
+Validation record:
+
+`PHASE3B_KERNEL_VALIDATION_RECORD_005_BUILD4_MVP_METHODOLOGY_REVALIDATION.md`.
+
+The methodology-hardened baseline is frozen at:
+
+`offworld-mvp-build4-mvp-r1-2026-10-04`
+
+commit:
+
+`82e31aaa218b36bbd1ba7ce75313fdccd0169c1a`.
+
+This satisfies the methodology-hardening gate only. It does not close Phase 3B and does not itself authorize autonomous decision policies. Remaining liens in Validation Record 005 must be addressed or explicitly accepted before any later autonomous-agent authorization.
 
 
 ## Governance note
