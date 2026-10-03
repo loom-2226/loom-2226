@@ -584,3 +584,157 @@ A final Pass 4 should be narrow and mechanical rather than another architecture 
 - produce a compact unresolved-risk register.
 
 No repairs, schema changes or model changes are authorized by this Pass 3 record.
+
+
+## 12. Pass 4 — Mechanical Inventory and Closure Assessment
+
+Pass 4 was intentionally narrow. It searched current-main code and manifests for parameter status, direct consumers, null/default handling, knowledge-time controls, and approval/authorship records. It does not certify absence where search coverage cannot prove absence.
+
+### 12.1 Parameter-bearing artifact inventory
+
+**ESTABLISHED — sufficient for Phase 1 architectural purposes, not an exhaustive value catalog.**
+
+Distinct parameter standings found in current-main CIVPROP/Earth material include:
+
+| Family | Located standing/example |
+|---|---|
+| Demand pressure | `UNCALIBRATED_CAUSAL_MODEL_PARAMETER_V1` |
+| Mission observation | `UNCALIBRATED_SCENARIO_OBSERVATION_MODEL` |
+| Infrastructure Method Lab | `SYNTHETIC_METHOD_FIXTURE` |
+| Resource/process | `UNRESOLVED_PROCESS_MODEL` |
+| Asset lifecycle | `NO_EMPIRICAL_LIFECYCLE_PARAMETERS_ADMITTED` |
+| Actor bridge | explicit allocation fractions, commitment threshold and decision noise in a versioned parameter JSON |
+| CIVPROP-0 | explicit synthetic prior, error rates, costs/value and threshold under `SCENARIO_TEST_INPUT` |
+| Earth TFP | inherited 10-year transition half-life explicitly described as a forecast assumption pending direct calibration |
+| Earth demography/biosynthetic successor | explicit parameter JSON plus setting-calibration schedules |
+
+Conclusion: Phase 2 must govern parameter **standing and authorization**, not merely whether a number is stored in a parameter file.
+
+### 12.2 Direct consumer/importer inventory
+
+**ESTABLISHED — architectural consumption classes recovered.**
+
+Current-main evidence identifies:
+- read-only PostgreSQL capture from Earth/timeline/Solar context into frozen CIVPROP experiment/compiler inputs;
+- actor-state and capability consumers;
+- transport/accessibility consumers;
+- historical propagation runners consuming compiled contracts;
+- stable event/state outputs intended for Atlas/GIS/materialized consumers.
+
+Historical requirements explicitly demand that future propagation not depend directly on mutable live table layouts. This is evidence for the later runtime-boundary design, not an automatic v1 rule.
+
+### 12.3 Null/default/coalescing audit
+
+**ESTABLISHED — bounded mechanical findings; no evidence of a universal UNKNOWN-to-zero policy.**
+
+Search located PostgreSQL `COALESCE` in CIVPROP capture/compiler paths only around `json_agg`, converting a missing result set to JSON `[]`. That is a collection-serialization default, not a numeric claim substitution.
+
+Two explicit Python `or 0` patterns were located in historical CIVPROP contracts:
+
+1. `traffic_fleet_v1.py` sums `x[1] or 0` **only after** an `all(x[1] is not None ...)` guard; if any required value is unknown, the branch returns `None` instead. This does not convert unknown trips to zero.
+2. `asset_lifecycle_v1.py` sums `replacement_capital or 0.0` for explicit replacement events. The semantic safety of treating a missing replacement-event amount as zero is not established by this search and must be reviewed if that contract is ever adopted.
+
+No `fillna` or `dropna` hits were located in the searched current-main CIVPROP or Earth-baseline paths.
+
+This is **not** proof that all SQL/Python paths preserve NULL/UNKNOWN. It is enough to reject the stronger hypothesis that current-main CIVPROP obviously contains a pervasive numeric null-coalescing convention.
+
+### 12.4 Knowledge-time/as-of inventory
+
+**ESTABLISHED — multiple explicit mechanisms, no universal field.**
+
+Located controls include:
+- actor-state `as_of_year`;
+- empirical Roo-ver service evidence `as_of`;
+- actor machinery fixture `as_of_date`;
+- gap register `as_of_main_commit`;
+- actor-capability rules requiring validity interval and source/observation date and forbidding later evidence from leaking backward;
+- Solar research source cutoffs/blindness boundaries already recorded in earlier passes.
+
+No common LOOM-wide knowledge-time schema is established.
+
+### 12.5 Human approval and AI/automation provenance inventory
+
+**ESTABLISHED — human approval examples exist; common ledger does not.**
+
+Concrete human-authorization evidence exists in Earth governance:
+- Earth v4 promotion records name **Kevin's explicit 2026-09-24 promotion-scope decision** as decision authority;
+- `LAB_DISPOSITION_INTAKE.yml` records that Kevin separately approved controlled implementation on 2026-09-25;
+- promotion/change-control records preserve CCR linkage.
+
+This changes Q27 from a pure `NOT ESTABLISHED` to: **ESTABLISHED examples / NOT ESTABLISHED common mechanism**.
+
+By contrast, current-main searches did not locate systematic `Codex`, `Claude`, or equivalent AI-authorship metadata in the historical CIVPROP artifacts inspected. Builders and validators expose automation mechanically, but authorship/classification provenance remains non-uniform.
+
+Absence of an AI marker is not evidence of human authorship.
+
+### 12.6 Fit-versus-validation independence
+
+**ESTABLISHED — named positive controls; universal independence remains unproven.**
+
+The archaeology found explicit anti-outcome-tuning statements and calibration boundaries, including:
+- Nigeria's 2226 share recorded as a diagnostic rather than calibration target;
+- no country-specific cap/ranking/2226 Atlas calibration in the repaired Earth baseline;
+- medical longevity schedule explicitly not fitted to an endpoint;
+- WPP mortality boundary calibration identified as calibration rather than independent validation.
+
+Phase 2 therefore needs a general rule requiring fit target and validation target disclosure rather than a presumption that historical validation is independent.
+
+### 12.7 Mechanical unresolved-risk register
+
+| Risk | Phase 1 finding | Required downstream treatment |
+|---|---|---|
+| Parameter authorization | Multiple explicit standings, no common authorization model | Phase 2 claim/authority model |
+| Producer-consumer dependency | Architectural spine established, exhaustive machine graph absent | Snapshot/interface tooling |
+| AI/automation provenance | Non-uniform | Phase 2 provenance requirement |
+| Human approvals | Explicit examples, no common ledger | Phase 2 authorization model |
+| NULL/UNKNOWN loss | Strong fail-closed examples; one lifecycle pattern requires scoped review | Qualification/static tests |
+| Fit/validation reuse | Good named controls, no universal ledger | Phase 2 rule + qualification |
+| Temporal leakage | Local controls, no universal knowledge-time contract | Phase 2 scope/time model + qualification |
+| Identifier compatibility | Known incompatibility classes, no universal registry | Phase 2 semantics + later crosswalk qualification |
+| Physical/mathematical standing | Real and consumed, root treatment unresolved | Phase 2 authority-root adjudication |
+
+## 13. Phase 1 Exit Assessment
+
+**PHASE 1 ARCHAEOLOGY: READY FOR OWNER ACCEPTANCE AND CLOSURE.**
+
+Reason:
+
+Phase 1's purpose was to discover the authority landscape, not to make every historical artifact compliant with a contract that does not yet exist. The archaeology has now established:
+
+1. the major source and state families;
+2. the material distinctions among evidence, projection, scenario, model parameters and simulation;
+3. existing UNKNOWN/conflict/candidate/promotion practices;
+4. the main producer-consumer architecture;
+5. material parameter and substitution classes;
+6. existing qualification/reproducibility mechanisms;
+7. known identifier and semantic incompatibilities;
+8. human-authorization examples and the absence of a common approval ledger;
+9. the existence of physical/mathematical authority outside the original four-domain shorthand;
+10. the principal unresolved risks that the next governance/modeling phases must address.
+
+The remaining gaps are no longer failures of archaeology. They are requirements for the claim/authority model, state model, runtime boundary and qualification framework.
+
+### Phase 1 non-findings that must survive closure
+
+Closure must **not** be interpreted as establishing that:
+- historical `QUALIFIED` equals v1-qualified;
+- all historical outputs are reproducible;
+- all NULL/UNKNOWN paths are safe;
+- all parameters are independently authorized;
+- all validation targets are independent of fitting;
+- all artifacts have knowledge-time protection;
+- all AI/automation involvement is recorded;
+- PostgreSQL, GitHub or the VM creates epistemic authority;
+- previous CIVPROP architecture is adopted.
+
+### Proposed Phase 1 disposition
+
+If accepted by the owner:
+
+`01_PHASE1_AUTHORITY_ARCHAEOLOGY.md` becomes the owner-accepted descriptive archaeology record.
+
+Its findings remain **PRE-CONTRACT** and descriptive. They constrain Phase 2 by evidence but do not themselves release `LOOM_AUTHORITY_AND_STATE_CONTRACT_v1`, qualify existing holdings, or authorize repair/migration.
+
+The next authorized work item is **Phase 2 — Claim and Authority Model**, beginning with the root-authority question deliberately left extensible in D0.18 and using the archaeological evidence above rather than inventing a taxonomy in the abstract.
+
+No source holding was modified by Phase 1 archaeology.
