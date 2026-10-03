@@ -3,6 +3,8 @@ from decimal import Decimal as D
 from offworld_kernel.scheduler import *
 from offworld_kernel.mvp_state import RuntimeObjectClass
 from offworld_kernel.kernel import InvariantError
+from offworld_kernel.build3 import RunIdentity
+from offworld_kernel.methodology import MethodologyHardenedBuild4Kernel
 
 class SchedulerTests(unittest.TestCase):
     def spec(self,pid,phase,owned=('x',),read=(),write=('x',),runtime=RuntimeObjectClass.SYSTEM,interfaces=()):
@@ -26,6 +28,30 @@ class SchedulerTests(unittest.TestCase):
             for i in order: s.schedule(ev[i])
             return s
         self.assertEqual(make([0,1]).fingerprint(),make([1,0]).fingerprint())
+
+
+    def test_decision_window_requires_pinned_snapshot(self):
+        s=DeterministicScheduler(); s.register_coupling(self.spec('decision_orchestrator',Phase.DECISION_WINDOW))
+        with self.assertRaises(InvariantError):
+            s.schedule(ScheduledEvent('d0',D('1'),Phase.DECISION_WINDOW,0,'D','decision_orchestrator'))
+        snap=s.open_decision_window('1','STATE-ABC')
+        s.schedule(ScheduledEvent('d1',D('1'),Phase.DECISION_WINDOW,0,'D','decision_orchestrator',snapshot_ref=snap))
+        self.assertEqual(s.ordered_events()[0].snapshot_ref,snap)
+        with self.assertRaises(InvariantError): s.open_decision_window('1','OTHER')
+
+    def test_keyed_randomness_independent_of_queue_insertion(self):
+        rid=RunIdentity('SCHED','v1','SYNTH','SCHED_TEST',())
+        a=MethodologyHardenedBuild4Kernel(rid); b=MethodologyHardenedBuild4Kernel(rid)
+        for k,order in ((a,['e1','e2']),(b,['e2','e1'])):
+            k.scheduler.register_coupling(self.spec('ops',Phase.OPERATIONS))
+            events={
+              'e1':ScheduledEvent('e1',D('1.2'),Phase.OPERATIONS,0,'K1','ops'),
+              'e2':ScheduledEvent('e2',D('1.1'),Phase.OPERATIONS,0,'K2','ops')}
+            for eid in order: k.scheduler.schedule(events[eid])
+        draws_a={e.event_id:a.keyed_draw('SCHEDULED',e.process_id,e.stable_key,e.effective_time) for e in a.scheduler.ordered_events()}
+        draws_b={e.event_id:b.keyed_draw('SCHEDULED',e.process_id,e.stable_key,e.effective_time) for e in b.scheduler.ordered_events()}
+        self.assertEqual(draws_a,draws_b)
+        self.assertEqual(a.scheduler.fingerprint(),b.scheduler.fingerprint())
 
     def test_unowned_write_rejected(self):
         with self.assertRaises(InvariantError):
