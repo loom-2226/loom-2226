@@ -10,9 +10,11 @@ from typing import Tuple
 
 from .financing_protocol import build_financing_decision, required_unknown_inputs
 from .exploration_protocol import build_exploration_decision, required_unknown_exploration_inputs
+from .publication_protocol import build_publication_decision
 from .mvp_state import (
     FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest,
     ExplorationDecisionOutcome, ExplorationReasonCode, ExplorationRequest,
+    PublicationDecisionOutcome, PublicationReasonCode, PublicationRequest,
 )
 from .policy import DecisionSnapshot
 from .policies.manifest import FinancierPolicyManifest, policy_source_bytes
@@ -20,6 +22,11 @@ from .policies.public_explorer_v1 import (
     POLICY_CONTRACT as PUBLIC_EXPLORER_CONTRACT,
     POLICY_ID as PUBLIC_EXPLORER_POLICY_ID,
     SEMANTIC_VERSION as PUBLIC_EXPLORER_SEMANTIC_VERSION,
+)
+from .policies.public_publisher_v1 import (
+    POLICY_CONTRACT as PUBLIC_PUBLISHER_CONTRACT,
+    POLICY_ID as PUBLIC_PUBLISHER_POLICY_ID,
+    SEMANTIC_VERSION as PUBLIC_PUBLISHER_SEMANTIC_VERSION,
 )
 
 FORBIDDEN_IMPORT_ROOTS={
@@ -113,6 +120,26 @@ def exploration_request_to_wire(q:ExplorationRequest):
         'channel':q.channel,'required_fact_keys':list(q.required_fact_keys),
         'currency_unit':q.currency_unit,'request_version':q.request_version,
     }
+
+def publication_request_to_wire(q:PublicationRequest):
+    return {
+        'id':q.id,'year':q.year,'observation_id':q.observation_id,
+        'audience':q.audience,'request_version':q.request_version,
+    }
+
+def public_publisher_source_bytes()->bytes:
+    return (Path(__file__).resolve().parent/'policies'/'public_publisher_v1.py').read_bytes()
+
+def public_publisher_contract_hash()->str:
+    raw=json.dumps(PUBLIC_PUBLISHER_CONTRACT,sort_keys=True,separators=(',',':')).encode()
+    return sha256(raw).hexdigest()
+
+def public_publisher_policy_version(source:bytes|None=None)->str:
+    source=source if source is not None else public_publisher_source_bytes()
+    h=sha256()
+    h.update(source)
+    h.update(public_publisher_contract_hash().encode())
+    return f'{PUBLIC_PUBLISHER_POLICY_ID}:{PUBLIC_PUBLISHER_SEMANTIC_VERSION}:{h.hexdigest()}'
 
 def public_explorer_source_bytes()->bytes:
     return (Path(__file__).resolve().parent/'policies'/'public_explorer_v1.py').read_bytes()
@@ -250,6 +277,40 @@ def run_public_explorer_policy(snapshot:DecisionSnapshot,request:ExplorationRequ
     decision=build_exploration_decision(
         decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
         snapshot,version,authorized_cost=authorized_cost)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
+
+def run_public_publisher_policy(snapshot:DecisionSnapshot,request:PublicationRequest,
+                                decision_key:str)->PolicyExecutionResult:
+    request.validate_protocol()
+    source=public_publisher_source_bytes()
+    assert_policy_source_safe(source)
+    version=public_publisher_policy_version(source)
+    contract_hash=public_publisher_contract_hash()
+    decision_id='PDEC-'+sha256(
+        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
+    ).hexdigest()[:20]
+
+    payload={
+        'mode':'EVALUATE',
+        'policy_id':PUBLIC_PUBLISHER_POLICY_ID,
+        'snapshot':snapshot_to_wire(snapshot),
+        'request':publication_request_to_wire(request),
+        'manifest':PUBLIC_PUBLISHER_CONTRACT,
+        'decision_key':str(decision_key),
+    }
+    out,worker_fp=_run_worker(payload)
+    try:
+        outcome=PublicationDecisionOutcome(out['outcome'])
+        reason_code=PublicationReasonCode(out['reason_code'])
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as e:
+        raise RuntimeError('public publisher worker returned invalid decision payload') from e
+
+    decision=build_publication_decision(
+        decision_id,request,snapshot.agent_id,outcome,reason_code,reason,snapshot,version)
     return PolicyExecutionResult(
         decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
 

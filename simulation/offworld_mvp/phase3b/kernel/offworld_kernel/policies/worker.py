@@ -15,6 +15,7 @@ def _load_policy(filename,name):
 POLICIES={
     'FINANCIER_SCREENING_V1':_load_policy('financier_v1.py','_loom_financier_v1'),
     'PUBLIC_EXPLORER_V1':_load_policy('public_explorer_v1.py','_loom_public_explorer_v1'),
+    'PUBLIC_PUBLISHER_V1':_load_policy('public_publisher_v1.py','_loom_public_publisher_v1'),
 }
 
 def _deny(*args,**kwargs):

@@ -9,8 +9,10 @@ from .model import (
 )
 from .mvp_state import (
     SystemState, AggregateState, EntityAssetRef, AgentState, FinancingRequest, FinancingDecision,
-    ExplorationRequest, ExplorationDecision, ScenarioResource, Observation, ColonyState, PopulationLedger, RuntimeObjectClass, AgentKind,
+    ExplorationRequest, ExplorationDecision, PublicationRequest, PublicationDecision, PublicInformationArtifact,
+    ScenarioResource, Observation, ColonyState, PopulationLedger, RuntimeObjectClass, AgentKind,
     ActionKind, FinancingDecisionOutcome, FinancingReasonCode, ExplorationDecisionOutcome, ExplorationReasonCode,
+    PublicationDecisionOutcome, PublicationReasonCode,
 )
 from .policy import SnapshotFact, DecisionSnapshot, PolicyContext, FactState
 from .scheduler import ScheduledEvent, CouplingSpec, Phase
@@ -27,11 +29,12 @@ from .runtime import ScheduledRunResult
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_4'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_5'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
-    SystemState,AggregateState,EntityAssetRef,AgentState,FinancingRequest,FinancingDecision,ExplorationRequest,ExplorationDecision,ScenarioResource,Observation,
+    SystemState,AggregateState,EntityAssetRef,AgentState,FinancingRequest,FinancingDecision,ExplorationRequest,ExplorationDecision,
+    PublicationRequest,PublicationDecision,PublicInformationArtifact,ScenarioResource,Observation,
     ColonyState,PopulationLedger,SnapshotFact,DecisionSnapshot,PolicyContext,ScheduledEvent,CouplingSpec,
     UnderwritingInput,UnderwritingTable,ResolutionExposurePlan,ResolutionExposureRecord,
     ReplayProvenance,ScheduledRunResult,PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
@@ -40,6 +43,7 @@ ODD_SCHEMA_TYPES=(
 ODD_ENUM_TYPES=(
     NodeKind,AccountKind,TxPurpose,AssetKind,
     RuntimeObjectClass,AgentKind,ActionKind,FinancingDecisionOutcome,FinancingReasonCode,ExplorationDecisionOutcome,ExplorationReasonCode,
+    PublicationDecisionOutcome,PublicationReasonCode,
     FactState,Phase,UnderwritingInputKind,UnderwritingInputStatus,
     ExposureSelectionBasis,ExposureAllocationBasis,AxisKind,SpreadMeaning,
     VerificationLevel,ValidationLevel,OutOfSampleStatus,PolicyParameterStatus,ObservationKnowledgeRelation,
@@ -68,6 +72,8 @@ ODD_UNIT_CONTRACTS={
     'FinancingDecision.amount':'REQUEST_CURRENCY_UNIT',
     'ExplorationRequest.year':'SIM_YEAR',
     'ExplorationDecision.authorized_cost':'REQUEST_CURRENCY_UNIT',
+    'PublicationRequest.year':'SIM_YEAR',
+    'PublicInformationArtifact.year':'SIM_YEAR',
     'ScenarioResource.in_situ':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'ScenarioResource.accessible':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'ScenarioResource.recoverable':'MODEL_RESOURCE_UNIT_BY_FAMILY',

@@ -10,7 +10,7 @@ class MVPKernel(Kernel):
     def __init__(self, *a, **kw):
         super().__init__(*a, **kw)
         self.agents: Dict[str,AgentState]={}; self.resources: Dict[str,ScenarioResource]={}
-        self.observations: Dict[str,Observation]={}; self.financing_requests: Dict[str,FinancingRequest]={}
+        self.observations: Dict[str,Observation]={}; self.public_information: Dict[str,PublicInformationArtifact]={}; self.financing_requests: Dict[str,FinancingRequest]={}
         self.financing_decisions: Dict[str,FinancingDecision]={}; self.colonies: Dict[str,ColonyState]={}
         self.events: List[CausalEvent]=[]; self.population: Optional[PopulationLedger]=None
 
@@ -41,6 +41,59 @@ class MVPKernel(Kernel):
             prior=x.beliefs.get(resource_id,D('0.5'))
             x.beliefs[resource_id]=min(D('0.95'),prior+D('0.30')) if signal=='POSITIVE' else max(D('0.05'),prior-D('0.30'))
         self.event(year,actor_id,ActionKind.EXPLORE,signal,(resource_id,o.id)); return o
+
+    def publish_observation(self,year,actor_id,observation_id,audience,recipient_models):
+        """SYSTEM-side publication/transfer of an observation already possessed by the publisher.
+
+        recipient_models entries are (agent_id, belief_key, detection_rate, false_positive_rate).
+        They are recipient-side informational parameters. Hidden resource truth is not consulted here.
+        """
+        if actor_id not in self.agents:
+            raise InvariantError('publisher agent missing')
+        publisher=self.agents[actor_id]
+        if observation_id not in self.observations or observation_id not in publisher.information:
+            raise InvariantError('publisher does not possess observation')
+        obs=self.observations[observation_id]
+        recipients=[]
+        for entry in recipient_models:
+            if len(entry)!=4:
+                raise InvariantError('recipient observation model malformed')
+            recipient_id,belief_key,detection_rate,false_positive_rate=entry
+            if recipient_id not in self.agents:
+                raise InvariantError('publication recipient missing')
+            detection=D(detection_rate); fp=D(false_positive_rate)
+            if not (D('0')<=detection<=D('1')) or not (D('0')<=fp<=D('1')):
+                raise InvariantError('recipient observation likelihood outside [0,1]')
+            recipient=self.agents[recipient_id]
+            if belief_key not in recipient.priors and belief_key not in recipient.beliefs:
+                raise InvariantError('recipient prior/belief missing for published observation')
+            prior=D(recipient.beliefs.get(belief_key,recipient.priors.get(belief_key)))
+            if not (D('0')<=prior<=D('1')):
+                raise InvariantError('recipient prior outside [0,1]')
+            if obs.signal=='POSITIVE':
+                num=detection*prior
+                den=num+fp*(D('1')-prior)
+            elif obs.signal=='NEGATIVE':
+                num=(D('1')-detection)*prior
+                den=num+(D('1')-fp)*(D('1')-prior)
+            else:
+                raise InvariantError('unsupported published observation signal')
+            if den==0:
+                raise InvariantError('degenerate recipient observation likelihood')
+            recipient.beliefs[belief_key]=num/den
+            recipients.append(str(recipient_id))
+
+        artifact=PublicInformationArtifact(
+            self._id('pubinfo'),int(year),str(actor_id),obs.id,obs.resource_id,obs.channel,
+            obs.signal,str(audience),tuple(sorted(recipients)))
+        self.public_information[artifact.id]=artifact
+        for recipient_id in artifact.recipient_ids:
+            recipient=self.agents[recipient_id]
+            recipient.information.add(obs.id)
+            recipient.information.add(artifact.id)
+        self.event(year,actor_id,ActionKind.PUBLISH,'PUBLISHED',
+                   (obs.id,artifact.id,artifact.audience,*artifact.recipient_ids))
+        return artifact
 
     def request_finance(self,year,sponsor_id,project_id,amount,stage,disclosed=()):
         if self.agents[sponsor_id].kind!=AgentKind.PRIVATE_SPONSOR: raise InvariantError('requester not sponsor')
@@ -100,6 +153,7 @@ class MVPKernel(Kernel):
         payload={'base':self.fingerprint(),'agents':sorted((a.id,a.kind.value,a.node_id,sorted(a.information),sorted((k,str(v)) for k,v in a.beliefs.items()),a.history) for a in self.agents.values()),
         'resources':sorted((r.id,str(r.in_situ),str(r.accessible),str(r.recoverable),str(r.remaining)) for r in self.resources.values()),
         'obs':sorted((o.id,o.actor_id,o.resource_id,o.signal,o.public) for o in self.observations.values()),
+        'public_information':sorted((a.id,a.publisher_id,a.source_observation_id,a.resource_id,a.channel,a.signal,a.audience,a.recipient_ids) for a in self.public_information.values()),
         'events':[(e.id,e.year,e.actor_id,e.action.value,e.result,e.inputs,e.parent_ids) for e in self.events],
         'population':None if self.population is None else (self.population.earth,sorted(self.population.offworld.items()))}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()

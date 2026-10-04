@@ -38,7 +38,7 @@ class AgentKind(str, Enum):
     PUBLIC='PUBLIC'; PRIVATE_SPONSOR='PRIVATE_SPONSOR'; PRIVATE_FINANCIER='PRIVATE_FINANCIER'; LOCAL_FINANCIER='LOCAL_FINANCIER'
 
 class ActionKind(str, Enum):
-    EXPLORE='EXPLORE'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; REINVEST='REINVEST'
+    EXPLORE='EXPLORE'; PUBLISH='PUBLISH'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; REINVEST='REINVEST'
 
 @dataclass
 class AgentState:
@@ -258,6 +258,70 @@ class ExplorationDecision:
             if self.channel!=request.channel:
                 raise ValueError('exploration decision/request channel mismatch')
         return self
+
+
+class PublicationDecisionOutcome(str, Enum):
+    PUBLISH='PUBLISH'
+    WITHHOLD='WITHHOLD'
+
+class PublicationReasonCode(str, Enum):
+    PUBLISH_PUBLIC_INFORMATION='PUBLISH_PUBLIC_INFORMATION'
+    OBSERVATION_NOT_POSSESSED='OBSERVATION_NOT_POSSESSED'
+    OBJECTIVE_OR_CLASS_BLOCK='OBJECTIVE_OR_CLASS_BLOCK'
+
+@dataclass(frozen=True)
+class PublicationRequest:
+    id: str
+    year: int
+    observation_id: str
+    audience: str='PUBLIC_FINANCIERS'
+    request_version: str='PUBLICATION_REQUEST_V1'
+
+    def validate_protocol(self):
+        if not self.id or not self.observation_id or not self.audience:
+            raise ValueError('publication request identity incomplete')
+        if self.year<0:
+            raise ValueError('publication request year invalid')
+        return self
+
+@dataclass(frozen=True)
+class PublicationDecision:
+    id: str
+    request_id: str
+    actor_id: str
+    publish: bool
+    reason: str
+    outcome: PublicationDecisionOutcome
+    reason_code: PublicationReasonCode
+    input_snapshot_ref: str
+    policy_version: str
+    decision_version: str='PUBLICATION_DECISION_V1'
+
+    def validate_protocol(self,request:PublicationRequest|None=None):
+        if not self.id or not self.request_id or not self.actor_id:
+            raise ValueError('publication decision identity incomplete')
+        if not self.input_snapshot_ref or not self.policy_version:
+            raise ValueError('publication decision requires snapshot and policy version')
+        if self.publish!=(self.outcome==PublicationDecisionOutcome.PUBLISH):
+            raise ValueError('publication decision boolean/outcome mismatch')
+        if request is not None:
+            request.validate_protocol()
+            if request.id!=self.request_id:
+                raise ValueError('publication decision/request lineage mismatch')
+        return self
+
+@dataclass(frozen=True)
+class PublicInformationArtifact:
+    id: str
+    year: int
+    publisher_id: str
+    source_observation_id: str
+    resource_id: str
+    channel: str
+    signal: str
+    audience: str
+    recipient_ids: tuple[str,...]
+    artifact_version: str='PUBLIC_INFORMATION_ARTIFACT_V1'
 
 @dataclass
 class ScenarioResource:
