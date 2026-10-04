@@ -12,11 +12,13 @@ from .financing_protocol import build_financing_decision, required_unknown_input
 from .exploration_protocol import build_exploration_decision, required_unknown_exploration_inputs
 from .publication_protocol import build_publication_decision
 from .sponsor_protocol import build_sponsor_project_decision, required_unknown_sponsor_inputs
+from .operating_protocol import build_operating_cycle_decision, required_unknown_operating_inputs
 from .mvp_state import (
     FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest,
     ExplorationDecisionOutcome, ExplorationReasonCode, ExplorationRequest,
     PublicationDecisionOutcome, PublicationReasonCode, PublicationRequest,
     SponsorProjectDecisionOutcome, SponsorProjectReasonCode, SponsorProjectDecisionRequest,
+    OperatingCycleDecisionOutcome, OperatingCycleReasonCode, OperatingCycleRequest,
 )
 from .policy import DecisionSnapshot
 from .policies.manifest import FinancierPolicyManifest, policy_source_bytes
@@ -39,6 +41,11 @@ from .policies.sponsor_operator_v1 import (
     POLICY_CONTRACT as SPONSOR_OPERATOR_CONTRACT,
     POLICY_ID as SPONSOR_OPERATOR_POLICY_ID,
     SEMANTIC_VERSION as SPONSOR_OPERATOR_SEMANTIC_VERSION,
+)
+from .policies.sponsor_operating_v1 import (
+    POLICY_CONTRACT as SPONSOR_OPERATING_CONTRACT,
+    POLICY_ID as SPONSOR_OPERATING_POLICY_ID,
+    SEMANTIC_VERSION as SPONSOR_OPERATING_SEMANTIC_VERSION,
 )
 
 FORBIDDEN_IMPORT_ROOTS={
@@ -177,6 +184,31 @@ def public_surface_prospector_policy_version(source:bytes|None=None)->str:
     h.update(source)
     h.update(public_surface_prospector_contract_hash().encode())
     return f'{PUBLIC_SURFACE_PROSPECTOR_POLICY_ID}:{PUBLIC_SURFACE_PROSPECTOR_SEMANTIC_VERSION}:{h.hexdigest()}'
+
+def operating_request_to_wire(q:OperatingCycleRequest):
+    return {
+        'id':q.id,'year':q.year,'project_id':q.project_id,'resource_id':q.resource_id,
+        'asset_id':q.asset_id,'observation_id':q.observation_id,
+        'required_fact_keys':list(q.required_fact_keys),
+        'required_belief_keys':list(q.required_belief_keys),
+        'required_prior_keys':list(q.required_prior_keys),
+        'currency_unit':q.currency_unit,'quantity_unit':q.quantity_unit,
+        'request_version':q.request_version,
+    }
+
+def sponsor_operating_source_bytes()->bytes:
+    return (Path(__file__).resolve().parent/'policies'/'sponsor_operating_v1.py').read_bytes()
+
+def sponsor_operating_contract_hash()->str:
+    raw=json.dumps(SPONSOR_OPERATING_CONTRACT,sort_keys=True,separators=(',',':')).encode()
+    return sha256(raw).hexdigest()
+
+def sponsor_operating_policy_version(source:bytes|None=None)->str:
+    source=source if source is not None else sponsor_operating_source_bytes()
+    h=sha256()
+    h.update(source)
+    h.update(sponsor_operating_contract_hash().encode())
+    return f'{SPONSOR_OPERATING_POLICY_ID}:{SPONSOR_OPERATING_SEMANTIC_VERSION}:{h.hexdigest()}'
 
 def public_publisher_source_bytes()->bytes:
     return (Path(__file__).resolve().parent/'policies'/'public_publisher_v1.py').read_bytes()
@@ -465,6 +497,61 @@ def run_sponsor_operator_policy(snapshot:DecisionSnapshot,
     decision=build_sponsor_project_decision(
         decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
         snapshot,version,requested_financing=requested_financing)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
+
+def run_sponsor_operating_policy(snapshot:DecisionSnapshot,
+                                 request:OperatingCycleRequest,
+                                 decision_key:str)->PolicyExecutionResult:
+    request.validate_protocol()
+    source=sponsor_operating_source_bytes()
+    assert_policy_source_safe(source)
+    version=sponsor_operating_policy_version(source)
+    contract_hash=sponsor_operating_contract_hash()
+
+    unknowns=required_unknown_operating_inputs(request,snapshot)
+    decision_id='ODEC-'+sha256(
+        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
+    ).hexdigest()[:20]
+
+    if unknowns:
+        decision=build_operating_cycle_decision(
+            decision_id,request,snapshot.agent_id,
+            OperatingCycleDecisionOutcome.BLOCKED_UNKNOWN,
+            OperatingCycleReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required admitted operating inputs are unknown',
+            snapshot,version)
+        return PolicyExecutionResult(
+            decision,version,'CONTRACT_SHA256:'+contract_hash,
+            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
+            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
+            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+
+    payload={
+        'mode':'EVALUATE',
+        'policy_id':SPONSOR_OPERATING_POLICY_ID,
+        'snapshot':snapshot_to_wire(snapshot),
+        'request':operating_request_to_wire(request),
+        'manifest':SPONSOR_OPERATING_CONTRACT,
+        'decision_key':str(decision_key),
+    }
+    out,worker_fp=_run_worker(payload)
+    try:
+        outcome=OperatingCycleDecisionOutcome(out['outcome'])
+        reason_code=OperatingCycleReasonCode(out['reason_code'])
+        requested_financing=out.get('requested_financing','0')
+        planned_quantity=out.get('planned_quantity','0')
+        authorized_opex=out.get('authorized_opex','0')
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as e:
+        raise RuntimeError('sponsor operating worker returned invalid decision payload') from e
+
+    decision=build_operating_cycle_decision(
+        decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
+        snapshot,version,requested_financing=requested_financing,
+        planned_quantity=planned_quantity,authorized_opex=authorized_opex)
     return PolicyExecutionResult(
         decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
 

@@ -18,6 +18,7 @@ POLICIES={
     'PUBLIC_SURFACE_PROSPECTOR_V1':_load_policy('public_surface_prospector_v1.py','_loom_public_surface_prospector_v1'),
     'PUBLIC_PUBLISHER_V1':_load_policy('public_publisher_v1.py','_loom_public_publisher_v1'),
     'SPONSOR_OPERATOR_V1':_load_policy('sponsor_operator_v1.py','_loom_sponsor_operator_v1'),
+    'SPONSOR_OPERATING_V1':_load_policy('sponsor_operating_v1.py','_loom_sponsor_operating_v1'),
 }
 
 def _deny(*args,**kwargs):

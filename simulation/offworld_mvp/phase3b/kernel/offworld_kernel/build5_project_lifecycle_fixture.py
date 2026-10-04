@@ -7,8 +7,11 @@ from .project_lifecycle import ProjectDevelopmentPlan
 from .underwriting import UnderwritingInputKind
 
 def project_lifecycle_kernel(universe_id='RICH_PUBLIC_3',stock='20',
-                             year7_earth_ceiling='100'):
-    values=sponsor_operator_kernel(universe_id,stock)
+                             year7_earth_ceiling='100',
+                             commissioned_capacity='10',
+                             sponsor_capabilities=('REQUEST_FINANCE','DEVELOP')):
+    values=sponsor_operator_kernel(
+        universe_id,stock,sponsor_capabilities=sponsor_capabilities)
     k,pub_snapshot,pub_request,manifest,obs,wip,draw,table,sponsor_request=values
 
     k.add_system(SystemState(
@@ -30,7 +33,7 @@ def project_lifecycle_kernel(universe_id='RICH_PUBLIC_3',stock='20',
 
     plan=ProjectDevelopmentPlan(
         'DEVPLAN-006A','P','WIP-P','MINE-P','earth_supplier','OFF:T1',
-        D(dev.value),((6,D('30')),(7,D('30'))),8,D('10'),
+        D(dev.value),((6,D('30')),(7,D('30'))),8,D(commissioned_capacity),
         f'{table.table_id}:{table.version}:{dev.input_id}:{lead.input_id}:TEST_ONLY_EXPLICIT_STAGE_SCHEDULE_30_30')
     k.register_development_plan(plan)
 

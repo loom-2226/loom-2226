@@ -38,7 +38,7 @@ class AgentKind(str, Enum):
     PUBLIC='PUBLIC'; PRIVATE_SPONSOR='PRIVATE_SPONSOR'; PRIVATE_FINANCIER='PRIVATE_FINANCIER'; LOCAL_FINANCIER='LOCAL_FINANCIER'
 
 class ActionKind(str, Enum):
-    EXPLORE='EXPLORE'; PUBLISH='PUBLISH'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; CONSTRUCT='CONSTRUCT'; FAIL='FAIL'; ABANDON='ABANDON'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; REINVEST='REINVEST'
+    EXPLORE='EXPLORE'; PUBLISH='PUBLISH'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; CONSTRUCT='CONSTRUCT'; OPERATE='OPERATE'; FAIL='FAIL'; ABANDON='ABANDON'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; REINVEST='REINVEST'
 
 @dataclass
 class AgentState:
@@ -148,6 +148,108 @@ class SponsorProjectDecision:
             request.validate_protocol()
             if request.id!=self.request_id:
                 raise ValueError('sponsor decision/request lineage mismatch')
+        return self
+
+BUILD5_OPERATING_REQUIRED_FACT_KEYS=(
+    'project.STATUS',
+    'project.CASH_BALANCE',
+    'asset.CAPACITY',
+    'underwriting.OPERATING_COST',
+)
+BUILD5_OPERATING_REQUIRED_BELIEF_KEYS=('resource_exists',)
+BUILD5_OPERATING_REQUIRED_PRIOR_KEYS=('resource_exists',)
+
+class OperatingCycleDecisionOutcome(str, Enum):
+    REQUEST_FINANCE='REQUEST_FINANCE'
+    OPERATE='OPERATE'
+    DEFER='DEFER'
+    BLOCKED_UNKNOWN='BLOCKED_UNKNOWN'
+
+class OperatingCycleReasonCode(str, Enum):
+    POSITIVE_EVIDENCE_FINANCE_REQUIRED='POSITIVE_EVIDENCE_FINANCE_REQUIRED'
+    OPERATING_CYCLE_AUTHORIZED='OPERATING_CYCLE_AUTHORIZED'
+    NONPOSITIVE_EVIDENCE='NONPOSITIVE_EVIDENCE'
+    NO_RELEVANT_INFORMATION='NO_RELEVANT_INFORMATION'
+    CAPABILITY_OR_OBJECTIVE_BLOCK='CAPABILITY_OR_OBJECTIVE_BLOCK'
+    PROJECT_STATE_BLOCK='PROJECT_STATE_BLOCK'
+    ASSET_OR_CAPACITY_BLOCK='ASSET_OR_CAPACITY_BLOCK'
+    BLOCKED_REQUIRED_INPUT_UNKNOWN='BLOCKED_REQUIRED_INPUT_UNKNOWN'
+
+@dataclass(frozen=True)
+class OperatingCycleRequest:
+    id: str
+    year: int
+    project_id: str
+    resource_id: str
+    asset_id: str
+    observation_id: str
+    required_fact_keys: tuple[str,...]=()
+    required_belief_keys: tuple[str,...]=()
+    required_prior_keys: tuple[str,...]=()
+    currency_unit: str='MODEL_CURRENCY'
+    quantity_unit: str='MODEL_RESOURCE_UNIT_BY_FAMILY'
+    request_version: str='OPERATING_CYCLE_REQUEST_V1'
+
+    def validate_protocol(self):
+        if not self.id or not self.project_id or not self.resource_id or not self.asset_id:
+            raise ValueError('operating-cycle request identity incomplete')
+        if self.year<0:
+            raise ValueError('operating-cycle request year invalid')
+        if tuple(self.required_fact_keys)!=BUILD5_OPERATING_REQUIRED_FACT_KEYS:
+            raise ValueError('operating request must declare exact Test 008A fact contract')
+        if tuple(self.required_belief_keys)!=BUILD5_OPERATING_REQUIRED_BELIEF_KEYS:
+            raise ValueError('operating request must declare exact Test 008A belief contract')
+        if tuple(self.required_prior_keys)!=BUILD5_OPERATING_REQUIRED_PRIOR_KEYS:
+            raise ValueError('operating request must declare exact Test 008A prior contract')
+        if not self.currency_unit or not self.quantity_unit:
+            raise ValueError('operating request unit contract missing')
+        return self
+
+@dataclass(frozen=True)
+class OperatingCycleDecision:
+    id: str
+    request_id: str
+    actor_id: str
+    outcome: OperatingCycleDecisionOutcome
+    requested_financing: D
+    planned_quantity: D
+    authorized_opex: D
+    reason: str
+    reason_code: OperatingCycleReasonCode
+    unknown_input_keys: tuple[str,...]=()
+    input_snapshot_ref: str=''
+    policy_version: str=''
+    decision_version: str='OPERATING_CYCLE_DECISION_V1'
+
+    def validate_protocol(self,request:OperatingCycleRequest|None=None):
+        financing=D(self.requested_financing)
+        quantity=D(self.planned_quantity)
+        opex=D(self.authorized_opex)
+        if not self.id or not self.request_id or not self.actor_id:
+            raise ValueError('operating-cycle decision identity incomplete')
+        if not self.input_snapshot_ref or not self.policy_version:
+            raise ValueError('operating-cycle decision requires snapshot and policy version')
+        if min(financing,quantity,opex)<0:
+            raise ValueError('negative operating-cycle decision value')
+        if self.outcome==OperatingCycleDecisionOutcome.REQUEST_FINANCE:
+            if financing<=0 or quantity!=0 or opex!=0:
+                raise ValueError('REQUEST_FINANCE requires positive finance and no operation authorization')
+        elif self.outcome==OperatingCycleDecisionOutcome.OPERATE:
+            if financing!=0 or quantity<=0:
+                raise ValueError('OPERATE requires positive planned quantity and no financing request')
+        elif financing!=0 or quantity!=0 or opex!=0:
+            raise ValueError('non-operating/non-financing outcome cannot authorize values')
+        if self.unknown_input_keys and self.outcome!=OperatingCycleDecisionOutcome.BLOCKED_UNKNOWN:
+            raise ValueError('required unknown operating inputs must produce BLOCKED_UNKNOWN')
+        if self.outcome==OperatingCycleDecisionOutcome.BLOCKED_UNKNOWN:
+            if not self.unknown_input_keys:
+                raise ValueError('BLOCKED_UNKNOWN requires unknown operating inputs')
+            if self.reason_code!=OperatingCycleReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN:
+                raise ValueError('BLOCKED_UNKNOWN requires blocked-unknown reason code')
+        if request is not None:
+            request.validate_protocol()
+            if request.id!=self.request_id:
+                raise ValueError('operating decision/request lineage mismatch')
         return self
 
 BUILD5_REQUIRED_UNDERWRITING_KEYS=(

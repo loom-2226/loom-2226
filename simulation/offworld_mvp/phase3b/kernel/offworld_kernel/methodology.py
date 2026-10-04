@@ -7,8 +7,8 @@ import json
 from typing import Dict, Tuple
 from .build4 import Build4Kernel, OwnershipStake
 from .kernel import InvariantError
-from .model import D, TxPurpose
-from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState
+from .model import D, TxPurpose, AssetKind, NodeKind
+from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome
 from .scheduler import DeterministicScheduler
 from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
 from .accounting import SurplusDecompositionRecord
@@ -20,6 +20,7 @@ from .surface_prospecting import (
     SurfaceProspectingModel, SurfaceProspectingWorldRecord,
     ObservationBeliefUpdateRecord,
 )
+from .operating import OperatingCostRecord, ExtractionResolutionRecord
 from .mvp_state import ActionKind
 
 @dataclass(frozen=True)
@@ -64,7 +65,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'create_carry_reservation','spend_carry_reservation','lapse_carry_reservation','lapse_commitment',
         'boundary_purchase','consume_market_resource',
         'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan','record_surplus_decomposition',
-        'register_development_plan','execute_development_stage','resolve_development_plan'
+        'register_development_plan','execute_development_stage','resolve_development_plan',
+        'spend_operating_cycle','resolve_operating_extraction'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
@@ -93,6 +95,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.development_resolution_records: list[DevelopmentResolutionRecord]=[]
         self.surface_prospecting_records: list[SurfaceProspectingWorldRecord]=[]
         self.observation_belief_update_records: list[ObservationBeliefUpdateRecord]=[]
+        self.operating_cost_records: list[OperatingCostRecord]=[]
+        self.extraction_resolution_records: list[ExtractionResolutionRecord]=[]
         self.decision_epoch_chain_id: str|None=None
         self.active_decision_epoch_id: str|None=None
         self._decision_epoch_open_state_fingerprint=None
@@ -198,6 +202,108 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             year,agent_id,observation_id,belief_key,prior,posterior,det,fp,
             str(model_id),str(source_ref),evt.id)
         self.observation_belief_update_records.append(rec)
+        return rec
+
+    def spend_operating_cycle(self,year,actor_id,request,decision,supplier_account,unit_opex):
+        year=int(year); unit_opex=D(unit_opex)
+        request.validate_protocol(); decision.validate_protocol(request)
+        if decision.outcome!=OperatingCycleDecisionOutcome.OPERATE:
+            raise InvariantError('operating cost spend requires OPERATE decision')
+        if actor_id!=decision.actor_id or actor_id not in self.agents:
+            raise InvariantError('operating actor/decision mismatch')
+        actor=self.agents[actor_id]
+        if actor.kind.value!='PRIVATE_SPONSOR':
+            raise InvariantError('operating actor not private sponsor')
+        if 'OPERATE' not in actor.capabilities or 'EXTRACT' not in actor.capabilities:
+            raise InvariantError('operating actor lacks capability')
+        if request.project_id not in self.state.projects:
+            raise InvariantError('operating project missing')
+        project=self.state.projects[request.project_id]
+        if project.status!='OPERATING':
+            raise InvariantError('operating cycle requires OPERATING project')
+        if request.asset_id not in self.state.assets:
+            raise InvariantError('operating asset missing')
+        asset=self.state.assets[request.asset_id]
+        if asset.kind!=AssetKind.PRODUCTIVE or asset.project_id!=project.id or asset.node_id!=project.node_id:
+            raise InvariantError('operating asset/project mismatch')
+        planned=D(decision.planned_quantity)
+        if planned<=0 or planned>D(asset.capacity):
+            raise InvariantError('planned operating quantity exceeds productive capacity')
+        if unit_opex<0:
+            raise InvariantError('negative unit operating cost')
+        total=planned*unit_opex
+        if total!=D(decision.authorized_opex):
+            raise InvariantError('authorized operating cost does not reconcile quantity*unit cost')
+        if self.state.accounts[project.cash_account_id].balance<total:
+            raise InvariantError('project cash below authorized operating cost')
+        if supplier_account not in self.state.accounts:
+            raise InvariantError('operating supplier missing')
+        supplier_node=self.state.accounts[supplier_account].node_id
+        if self.state.nodes[supplier_node].kind==NodeKind.EARTH and total>0:
+            constraint=self.resource_constraints.get((supplier_node,year))
+            if constraint is None or total>constraint.available:
+                raise InvariantError('operating supplier capacity unavailable')
+            self.reserve_earth_supply(supplier_node,year,total)
+            constraint.reserved-=total
+            constraint.spent+=total
+        elif total>0:
+            self.consume_supply(supplier_node,year,total)
+
+        tx=self.transfer(
+            year,project.cash_account_id,supplier_account,total,TxPurpose.OPEX,
+            supplier_location=supplier_node,asset_location=asset.node_id,
+            parent_ids=(decision.id,request.id,asset.id))
+        evt=self.event(
+            year,actor_id,ActionKind.OPERATE,'OPEX_SPENT',
+            (request.project_id,request.asset_id,str(planned),str(unit_opex),str(total),tx.id),
+            (decision.id,))
+        rec=OperatingCostRecord(
+            year,actor_id,decision.id,request.project_id,request.asset_id,
+            supplier_account,planned,unit_opex,total,tx.id,evt.id)
+        self.operating_cost_records.append(rec)
+        return rec
+
+    def resolve_operating_extraction(self,year,actor_id,request,decision,cost_record):
+        year=int(year)
+        request.validate_protocol(); decision.validate_protocol(request)
+        if decision.outcome!=OperatingCycleDecisionOutcome.OPERATE:
+            raise InvariantError('extraction resolution requires OPERATE decision')
+        if cost_record.decision_id!=decision.id or cost_record.actor_id!=actor_id:
+            raise InvariantError('operating cost/extraction decision lineage mismatch')
+        if any(r.decision_id==decision.id for r in self.extraction_resolution_records):
+            raise InvariantError('operating extraction already resolved')
+        project=self.state.projects[request.project_id]
+        if project.status!='OPERATING':
+            raise InvariantError('extraction requires OPERATING project')
+        asset=self.state.assets.get(request.asset_id)
+        if asset is None or asset.kind!=AssetKind.PRODUCTIVE or asset.project_id!=project.id:
+            raise InvariantError('extraction productive asset invalid')
+        if request.resource_id not in self.resources:
+            raise InvariantError('extraction resource missing')
+        resource=self.resources[request.resource_id]
+        if resource.node_id!=project.node_id:
+            raise InvariantError('extraction resource/project location mismatch')
+        planned=D(decision.planned_quantity)
+        if planned>D(asset.capacity):
+            raise InvariantError('extraction plan exceeds productive capacity')
+        before_resource=D(resource.remaining)
+        colony=self.colonies.setdefault(resource.node_id,ColonyState(resource.node_id))
+        before_inventory=D(colony.resource_inventory)
+        actual=min(planned,before_resource)
+        if actual<0:
+            raise InvariantError('negative realized extraction')
+        resource.remaining-=actual
+        colony.resource_inventory+=actual
+        result='FULL_OUTPUT' if actual==planned else ('ZERO_OUTPUT' if actual==0 else 'PARTIAL_OUTPUT')
+        evt=self.event(
+            year,actor_id,ActionKind.EXTRACT,result,
+            (request.resource_id,str(actual),str(planned),request.project_id,request.asset_id),
+            (decision.id,cost_record.event_id))
+        rec=ExtractionResolutionRecord(
+            year,actor_id,decision.id,request.project_id,request.asset_id,request.resource_id,
+            planned,actual,before_resource,D(resource.remaining),before_inventory,
+            D(colony.resource_inventory),evt.id)
+        self.extraction_resolution_records.append(rec)
         return rec
 
     def register_development_plan(self,plan:ProjectDevelopmentPlan):
@@ -582,6 +688,28 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if r.cash_total_before!=r.cash_total_after: raise InvariantError('resolution cash reconciliation')
         if 'EARTH_MARKET_v0' in self.agents: raise InvariantError('EARTH_MARKET_v0 cannot be agent')
         for r in self.surplus_decompositions: r.validate()
+        txids={t.id:t for t in self.state.transactions}
+        seen_operating=set()
+        for r in self.operating_cost_records:
+            if r.decision_id in seen_operating:
+                raise InvariantError('duplicate operating cost decision')
+            seen_operating.add(r.decision_id)
+            if D(r.total_opex)!=D(r.planned_quantity)*D(r.unit_opex):
+                raise InvariantError('operating cost arithmetic drift')
+            tx=txids.get(r.transaction_id)
+            if tx is None or tx.purpose!=TxPurpose.OPEX or D(tx.amount)!=D(r.total_opex):
+                raise InvariantError('operating cost transaction drift')
+        seen_extract=set()
+        for r in self.extraction_resolution_records:
+            if r.decision_id in seen_extract:
+                raise InvariantError('duplicate extraction resolution')
+            seen_extract.add(r.decision_id)
+            if D(r.actual_extracted)<0 or D(r.actual_extracted)>D(r.planned_quantity):
+                raise InvariantError('extraction quantity drift')
+            if D(r.resource_after)!=D(r.resource_before)-D(r.actual_extracted):
+                raise InvariantError('extraction resource rollforward drift')
+            if D(r.inventory_after)!=D(r.inventory_before)+D(r.actual_extracted):
+                raise InvariantError('extraction inventory rollforward drift')
         for r in self.surface_prospecting_records:
             if r.observation_id not in self.observations:
                 raise InvariantError('surface observation record missing observation')
@@ -668,7 +796,14 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
              for r in self.surface_prospecting_records],
           'observation_belief_update_records':[(r.year,r.agent_id,r.observation_id,r.belief_key,str(r.prior),
              str(r.posterior),str(r.detection_rate),str(r.false_positive_rate),r.model_id,r.source_ref,
-             r.event_id,r.record_version) for r in self.observation_belief_update_records]}
+             r.event_id,r.record_version) for r in self.observation_belief_update_records],
+          'operating_cost_records':[(r.year,r.actor_id,r.decision_id,r.project_id,r.asset_id,r.supplier_account_id,
+             str(r.planned_quantity),str(r.unit_opex),str(r.total_opex),r.transaction_id,r.event_id,r.record_version)
+             for r in self.operating_cost_records],
+          'extraction_resolution_records':[(r.year,r.actor_id,r.decision_id,r.project_id,r.asset_id,r.resource_id,
+             str(r.planned_quantity),str(r.actual_extracted),str(r.resource_before),str(r.resource_after),
+             str(r.inventory_before),str(r.inventory_after),r.extraction_event_id,r.record_version)
+             for r in self.extraction_resolution_records]}
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload
