@@ -760,7 +760,21 @@ Validation record:
 
 For an integrated MVP run, initialization occurs before seal. After seal, guarded world-state mutations are admitted only inside scheduler-dispatched runtime contexts carrying the private execution token. State or plan tampering invalidates the run, and the scheduled runtime is single-use.
 
-This closes the scheduler-bypass lien. It does not close Phase 3B and does not authorize autonomous decision policies.
+This closes the scheduler-bypass lien.
+
+The first two autonomous-policy pre-gate blockers have since been closed and frozen as:
+
+`offworld-mvp-build4-mvp-r3-policy-firewall-2026-10-04`
+
+at commit:
+
+`5f3285b28e4ce05979afc52f29930f9966e79983`.
+
+Validation record:
+
+`PHASE3B_KERNEL_VALIDATION_RECORD_007_MUTATOR_AND_POLICY_FIREWALL.md`.
+
+R3 adds exhaustive inherited-mutator sealing evidence and the immutable DECISION_WINDOW DecisionSnapshot/PolicyContext firewall. It does not close Phase 3B and does not authorize autonomous decision policies.
 
 
 ## Governance note
