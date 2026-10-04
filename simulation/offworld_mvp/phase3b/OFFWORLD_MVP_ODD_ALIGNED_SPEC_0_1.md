@@ -197,6 +197,8 @@ The ODD state/interface registry below is machine-checked against executable dat
       "REQUEST_FINANCE",
       "FINANCE",
       "DEVELOP",
+      "CONSTRUCT",
+      "FAIL",
       "ABANDON",
       "EXTRACT",
       "SELL",
@@ -220,6 +222,15 @@ The ODD state/interface registry below is machine-checked against executable dat
       "PARAMETER",
       "UNCERTAINTY",
       "STOCHASTIC_KEY"
+    ],
+    "DevelopmentResolutionOutcome": [
+      "OPERATING",
+      "FAILED"
+    ],
+    "DevelopmentStageOutcome": [
+      "SPENT",
+      "BLOCKED_PROJECT_CASH",
+      "BLOCKED_SUPPLY"
     ],
     "ExplorationDecisionOutcome": [
       "AUTHORIZE",
@@ -384,7 +395,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_7",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_8",
   "types": {
     "Account": [
       {
@@ -766,6 +777,94 @@ The ODD state/interface registry below is machine-checked against executable dat
       {
         "name": "admitted_facts",
         "type": "Tuple[SnapshotFact, ...]"
+      }
+    ],
+    "DevelopmentResolutionRecord": [
+      {
+        "name": "plan_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "outcome",
+        "type": "DevelopmentResolutionOutcome"
+      },
+      {
+        "name": "required_cost",
+        "type": "D"
+      },
+      {
+        "name": "accumulated_cost",
+        "type": "D"
+      },
+      {
+        "name": "commissioned",
+        "type": "D"
+      },
+      {
+        "name": "written_off",
+        "type": "D"
+      },
+      {
+        "name": "asset_id",
+        "type": "str"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "DevelopmentStageRecord": [
+      {
+        "name": "plan_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "planned_amount",
+        "type": "D"
+      },
+      {
+        "name": "outcome",
+        "type": "DevelopmentStageOutcome"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "transaction_id",
+        "type": "str"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
       }
     ],
     "EarthImpactLedger": [
@@ -1261,6 +1360,56 @@ The ODD state/interface registry below is machine-checked against executable dat
       },
       {
         "name": "status",
+        "type": "str"
+      }
+    ],
+    "ProjectDevelopmentPlan": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "wip_id",
+        "type": "str"
+      },
+      {
+        "name": "asset_id",
+        "type": "str"
+      },
+      {
+        "name": "supplier_account_id",
+        "type": "str"
+      },
+      {
+        "name": "asset_node_id",
+        "type": "str"
+      },
+      {
+        "name": "required_cost",
+        "type": "D"
+      },
+      {
+        "name": "stage_schedule",
+        "type": "tuple[tuple[int, D], ...]"
+      },
+      {
+        "name": "completion_year",
+        "type": "int"
+      },
+      {
+        "name": "commissioned_capacity",
+        "type": "D"
+      },
+      {
+        "name": "source_ref",
+        "type": "str"
+      },
+      {
+        "name": "plan_version",
         "type": "str"
       }
     ],
@@ -1886,6 +2035,13 @@ The ODD state/interface registry below is machine-checked against executable dat
     "Commitment.disbursed": "MODEL_CURRENCY",
     "Commitment.lapsed": "MODEL_CURRENCY",
     "DecisionSnapshot.effective_time": "SIM_TIME",
+    "DevelopmentResolutionRecord.accumulated_cost": "MODEL_CURRENCY",
+    "DevelopmentResolutionRecord.commissioned": "MODEL_CURRENCY",
+    "DevelopmentResolutionRecord.required_cost": "MODEL_CURRENCY",
+    "DevelopmentResolutionRecord.written_off": "MODEL_CURRENCY",
+    "DevelopmentResolutionRecord.year": "SIM_YEAR",
+    "DevelopmentStageRecord.planned_amount": "MODEL_CURRENCY",
+    "DevelopmentStageRecord.year": "SIM_YEAR",
     "EarthImpactLedger.qualifying_supplied_expenditure": "MODEL_CURRENCY",
     "EarthImpactLedger.terrestrial_fcf_delta": "MODEL_CURRENCY",
     "ExplorationDecision.authorized_cost": "REQUEST_CURRENCY_UNIT",
@@ -1903,6 +2059,10 @@ The ODD state/interface registry below is machine-checked against executable dat
     "PolicyParameter.sensitivity_low": "FIELD:PolicyParameter.unit",
     "PolicyParameter.value": "FIELD:PolicyParameter.unit",
     "Project": "NO_INTRINSIC_SCALAR_UNIT",
+    "ProjectDevelopmentPlan.commissioned_capacity": "ASSET_CLASS_CAPACITY_UNIT",
+    "ProjectDevelopmentPlan.completion_year": "SIM_YEAR",
+    "ProjectDevelopmentPlan.required_cost": "MODEL_CURRENCY",
+    "ProjectDevelopmentPlan.stage_schedule": "SIM_YEAR_AND_MODEL_CURRENCY_SCHEDULE",
     "PublicInformationArtifact.year": "SIM_YEAR",
     "PublicationRequest.year": "SIM_YEAR",
     "ResolutionExposureRecord.allocation_fraction": "DIMENSIONLESS_SHARE",
