@@ -81,7 +81,7 @@
           "source_path": "dev/solar_civprop_m4b/reports/M4B_ASSERTION_PROVENANCE_LEDGER.csv",
           "evidence_class": "EARTH_REMOTE",
           "confidence_class": "QUALIFIED_REUSED",
-          "abundance_semantics": "PRODUCTION_RATE_6_KG_S",
+          "abundance_semantics": "production_rate",
           "scope": "SOURCE_ROW_SCOPE",
           "admitted_claim": "Reported water-vapor production rate is preserved as a production rate and is not converted to surface abundance."
         },
@@ -162,7 +162,7 @@
       "activity_type": "POLAR_SURFACE_PROSPECTING",
       "priority": 3,
       "cost": "35",
-      "earliest_start": "2026.50",
+      "earliest_start": "2026.25",
       "duration_years": "1.50",
       "opportunity_window": {
         "id": "MOON-W1",
@@ -181,7 +181,7 @@
       "activity_type": "DEDICATED_VOLATILE_SURFACE_CHARACTERIZATION",
       "priority": 4,
       "cost": "70",
-      "earliest_start": "2027.00",
+      "earliest_start": "2026.25",
       "duration_years": "6.00",
       "opportunity_window": {
         "id": "CERES-W1",

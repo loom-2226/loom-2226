@@ -73,10 +73,13 @@ from .project_study import (
     ProjectStudyMaturity,ProjectStudyResultStanding,ProjectStudyReviewOutcome,
     ProjectStudyReviewReasonCode,
 )
+from .named_portfolio import (
+    NamedBodyEvidenceRecord,BodyPortfolioBinding,Build6CActivitySpec,Build6CPortfolioScenario,
+)
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_18'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_19'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
@@ -94,6 +97,7 @@ ODD_SCHEMA_TYPES=(
     SponsorPortfolioDecisionRequest,SponsorPortfolioDecision,
     ProjectStudyState,ProjectStudyPlan,ProjectActivityExpenseRecord,ProjectStudyResultRecord,
     ProjectStudyReviewRequest,ProjectStudyReviewDecision,ProjectStudyReviewExecutionRecord,
+    NamedBodyEvidenceRecord,BodyPortfolioBinding,Build6CActivitySpec,Build6CPortfolioScenario,
     PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
 )
 
@@ -141,6 +145,14 @@ ODD_UNIT_CONTRACTS={
     'ProjectActivityExpenseRecord.spent_at':'SIM_TIME',
     'ProjectStudyResultRecord.completed_at':'SIM_TIME',
     'ProjectStudyReviewExecutionRecord.effective_time':'SIM_TIME',
+    'Build6CActivitySpec.cost':'MODEL_CURRENCY',
+    'Build6CActivitySpec.earliest_start':'CALENDAR_YEAR_FRACTION',
+    'Build6CActivitySpec.duration_years':'YEAR_DURATION',
+    'Build6CActivitySpec.window_open':'CALENDAR_YEAR_FRACTION',
+    'Build6CActivitySpec.window_close':'CALENDAR_YEAR_FRACTION',
+    'Build6CPortfolioScenario.horizon_start':'CALENDAR_YEAR_FRACTION',
+    'Build6CPortfolioScenario.horizon_end':'CALENDAR_YEAR_FRACTION',
+    'Build6CPortfolioScenario.opening_capital':'MODEL_CURRENCY',
     'Asset.book_value':'MODEL_CURRENCY',
     'Asset.capacity':'ASSET_CLASS_CAPACITY_UNIT',
     'FixedCapitalFormationEvent.amount':'MODEL_CURRENCY',
