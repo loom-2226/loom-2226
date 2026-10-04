@@ -62,3 +62,19 @@ Lifecycle:
 `initialize -> register scheduler couplings/events -> register runtime handlers -> seal -> run`.
 
 Once sealed, guarded state-changing kernel methods reject direct calls. The runtime pins the initial state and scheduler plan, executes handlers only inside token-bearing scheduler contexts, rejects pre-run tampering, rejects plan mutation, and is single-use. Direct low-level calls on an unsealed kernel remain unit/fixture mechanisms only.
+
+
+## R5 Underwriting / Accounting hardening
+
+Frozen baseline:
+
+- branch: `offworld-mvp-build4-mvp-r5-underwriting-accounting-2026-10-04`;
+- commit: `e952025366da44f84943fae0a9f00f4ed931fd92`.
+
+Validation record:
+
+`PHASE3B_KERNEL_VALIDATION_RECORD_009_ITEMS_1_4_HARDENING.md`.
+
+R5 adds authored underwriting validation inputs, ensemble reporting guardrails, executable A1–A9 identity auditing with scheduler-valid seeded property testing, signed-boundary reconciliation, staged multi-year WIP/depreciation, and a day/quarter/year multi-rate synchronization fixture.
+
+The underwriting values are validation-only authored scenario inputs. Autonomous policy authority remains gated.
