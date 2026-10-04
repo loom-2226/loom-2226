@@ -11,13 +11,20 @@ from offworld_kernel.provenance import (
 )
 
 class ProvenanceLinkageTests(unittest.TestCase):
-    def test_git_object_hash_matches_current_executable_tree_in_checkout(self):
+    def test_commit_code_linkage_uses_git_object_or_release_attestation(self):
         commit=os.environ.get('LOOM_GIT_COMMIT')
         if not commit:
             import subprocess
             commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
-        self.assertEqual(git_object_source_tree_hash(commit),source_tree_hash())
-        self.assertEqual(verify_commit_code_linkage(commit,source_tree_hash()),'GIT_OBJECT_VERIFIED')
+        current=source_tree_hash()
+        try:
+            object_hash=git_object_source_tree_hash(commit)
+        except InvariantError:
+            self.assertEqual(os.environ.get('LOOM_EXPECTED_CODE_TREE_SHA256'),current)
+            self.assertEqual(verify_commit_code_linkage(commit,current),'EXPORTED_CODE_HASH_ATTESTED')
+        else:
+            self.assertEqual(object_hash,current)
+            self.assertEqual(verify_commit_code_linkage(commit,current),'GIT_OBJECT_VERIFIED')
 
     def test_exported_hash_attestation_rejects_mismatch(self):
         current=source_tree_hash()
