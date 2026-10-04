@@ -652,7 +652,16 @@ Sub-period mission/transport/operational events may occur at explicit determinis
 
 Same-time tie ordering shall be stable and explicit. Queue insertion order shall not change unrelated results or random draws.
 
-Normative candidate: `PHASE3B_SCHEDULER_COUPLING_CONTRACT_CANDIDATE_0_1.md`.
+For any integrated MVP simulation run, the supported execution lifecycle is:
+
+`initialize -> register couplings/events/handlers -> seal -> scheduled run -> immutable run result`.
+
+After seal, state-changing kernel methods shall reject direct calls unless they are executing inside an admitted scheduled-event context carrying the runtime execution token. Raw state or scheduler-plan mutation after seal shall invalidate the run. Legacy unsealed direct calls remain permitted only for bounded unit/validation fixtures and do not constitute a supported simulation-run pathway.
+
+Normative candidates/decisions:
+
+- `PHASE3B_SCHEDULER_COUPLING_CONTRACT_CANDIDATE_0_1.md`;
+- `PHASE3B_SCHEDULED_EXECUTION_GATE_DECISION_001.md`.
 
 ## 40. ODD-Aligned Executable Specification
 
