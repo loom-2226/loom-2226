@@ -200,6 +200,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       "FINANCE",
       "DEVELOP",
       "CONSTRUCT",
+      "OPERATE",
       "FAIL",
       "ABANDON",
       "EXTRACT",
@@ -291,6 +292,22 @@ The ODD state/interface registry below is machine-checked against executable dat
     "ObservationKnowledgeRelation": [
       "PERFECT_OBSERVATION_MODEL_KNOWLEDGE_ASSUMPTION",
       "INDEPENDENT_AGENT_LIKELIHOOD_MODEL"
+    ],
+    "OperatingCycleDecisionOutcome": [
+      "REQUEST_FINANCE",
+      "OPERATE",
+      "DEFER",
+      "BLOCKED_UNKNOWN"
+    ],
+    "OperatingCycleReasonCode": [
+      "POSITIVE_EVIDENCE_FINANCE_REQUIRED",
+      "OPERATING_CYCLE_AUTHORIZED",
+      "NONPOSITIVE_EVIDENCE",
+      "NO_RELEVANT_INFORMATION",
+      "CAPABILITY_OR_OBJECTIVE_BLOCK",
+      "PROJECT_STATE_BLOCK",
+      "ASSET_OR_CAPACITY_BLOCK",
+      "BLOCKED_REQUIRED_INPUT_UNKNOWN"
     ],
     "OutOfSampleStatus": [
       0,
@@ -399,7 +416,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_9",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_10",
   "types": {
     "Account": [
       {
@@ -991,6 +1008,64 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "str"
       }
     ],
+    "ExtractionResolutionRecord": [
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "decision_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "asset_id",
+        "type": "str"
+      },
+      {
+        "name": "resource_id",
+        "type": "str"
+      },
+      {
+        "name": "planned_quantity",
+        "type": "D"
+      },
+      {
+        "name": "actual_extracted",
+        "type": "D"
+      },
+      {
+        "name": "resource_before",
+        "type": "D"
+      },
+      {
+        "name": "resource_after",
+        "type": "D"
+      },
+      {
+        "name": "inventory_before",
+        "type": "D"
+      },
+      {
+        "name": "inventory_after",
+        "type": "D"
+      },
+      {
+        "name": "extraction_event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
     "FinancierPolicyManifest": [
       {
         "name": "manifest_id",
@@ -1300,6 +1375,160 @@ The ODD state/interface registry below is machine-checked against executable dat
       },
       {
         "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "OperatingCostRecord": [
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "decision_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "asset_id",
+        "type": "str"
+      },
+      {
+        "name": "supplier_account_id",
+        "type": "str"
+      },
+      {
+        "name": "planned_quantity",
+        "type": "D"
+      },
+      {
+        "name": "unit_opex",
+        "type": "D"
+      },
+      {
+        "name": "total_opex",
+        "type": "D"
+      },
+      {
+        "name": "transaction_id",
+        "type": "str"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "OperatingCycleDecision": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "OperatingCycleDecisionOutcome"
+      },
+      {
+        "name": "requested_financing",
+        "type": "D"
+      },
+      {
+        "name": "planned_quantity",
+        "type": "D"
+      },
+      {
+        "name": "authorized_opex",
+        "type": "D"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "reason_code",
+        "type": "OperatingCycleReasonCode"
+      },
+      {
+        "name": "unknown_input_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
+    ],
+    "OperatingCycleRequest": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "resource_id",
+        "type": "str"
+      },
+      {
+        "name": "asset_id",
+        "type": "str"
+      },
+      {
+        "name": "observation_id",
+        "type": "str"
+      },
+      {
+        "name": "required_fact_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "required_belief_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "required_prior_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "currency_unit",
+        "type": "str"
+      },
+      {
+        "name": "quantity_unit",
+        "type": "str"
+      },
+      {
+        "name": "request_version",
         "type": "str"
       }
     ],
@@ -2200,6 +2429,13 @@ The ODD state/interface registry below is machine-checked against executable dat
     "EarthImpactLedger.terrestrial_fcf_delta": "MODEL_CURRENCY",
     "ExplorationDecision.authorized_cost": "REQUEST_CURRENCY_UNIT",
     "ExplorationRequest.year": "SIM_YEAR",
+    "ExtractionResolutionRecord.actual_extracted": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "ExtractionResolutionRecord.inventory_after": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "ExtractionResolutionRecord.inventory_before": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "ExtractionResolutionRecord.planned_quantity": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "ExtractionResolutionRecord.resource_after": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "ExtractionResolutionRecord.resource_before": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "ExtractionResolutionRecord.year": "SIM_YEAR",
     "FinancierPolicyManifest.world_detection_rate": "PROBABILITY",
     "FinancierPolicyManifest.world_false_positive_rate": "PROBABILITY",
     "FinancingDecision.amount": "REQUEST_CURRENCY_UNIT",
@@ -2213,6 +2449,14 @@ The ODD state/interface registry below is machine-checked against executable dat
     "ObservationBeliefUpdateRecord.posterior": "PROBABILITY",
     "ObservationBeliefUpdateRecord.prior": "PROBABILITY",
     "ObservationBeliefUpdateRecord.year": "SIM_YEAR",
+    "OperatingCostRecord.planned_quantity": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "OperatingCostRecord.total_opex": "MODEL_CURRENCY",
+    "OperatingCostRecord.unit_opex": "MODEL_CURRENCY_PER_RESOURCE_UNIT",
+    "OperatingCostRecord.year": "SIM_YEAR",
+    "OperatingCycleDecision.authorized_opex": "FIELD:OperatingCycleRequest.currency_unit",
+    "OperatingCycleDecision.planned_quantity": "FIELD:OperatingCycleRequest.quantity_unit",
+    "OperatingCycleDecision.requested_financing": "REQUEST_CURRENCY_UNIT",
+    "OperatingCycleRequest.year": "SIM_YEAR",
     "PolicyParameter.local_perturbation": "FIELD:PolicyParameter.unit",
     "PolicyParameter.sensitivity_high": "FIELD:PolicyParameter.unit",
     "PolicyParameter.sensitivity_low": "FIELD:PolicyParameter.unit",
