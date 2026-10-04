@@ -25,6 +25,11 @@ from .policies.public_explorer_v1 import (
     POLICY_ID as PUBLIC_EXPLORER_POLICY_ID,
     SEMANTIC_VERSION as PUBLIC_EXPLORER_SEMANTIC_VERSION,
 )
+from .policies.public_surface_prospector_v1 import (
+    POLICY_CONTRACT as PUBLIC_SURFACE_PROSPECTOR_CONTRACT,
+    POLICY_ID as PUBLIC_SURFACE_PROSPECTOR_POLICY_ID,
+    SEMANTIC_VERSION as PUBLIC_SURFACE_PROSPECTOR_SEMANTIC_VERSION,
+)
 from .policies.public_publisher_v1 import (
     POLICY_CONTRACT as PUBLIC_PUBLISHER_CONTRACT,
     POLICY_ID as PUBLIC_PUBLISHER_POLICY_ID,
@@ -125,6 +130,7 @@ def exploration_request_to_wire(q:ExplorationRequest):
     return {
         'id':q.id,'year':q.year,'project_id':q.project_id,'resource_id':q.resource_id,
         'channel':q.channel,'required_fact_keys':list(q.required_fact_keys),
+        'prerequisite_observation_id':q.prerequisite_observation_id,
         'currency_unit':q.currency_unit,'request_version':q.request_version,
     }
 
@@ -157,6 +163,20 @@ def sponsor_operator_policy_version(source:bytes|None=None)->str:
     h.update(source)
     h.update(sponsor_operator_contract_hash().encode())
     return f'{SPONSOR_OPERATOR_POLICY_ID}:{SPONSOR_OPERATOR_SEMANTIC_VERSION}:{h.hexdigest()}'
+
+def public_surface_prospector_source_bytes()->bytes:
+    return (Path(__file__).resolve().parent/'policies'/'public_surface_prospector_v1.py').read_bytes()
+
+def public_surface_prospector_contract_hash()->str:
+    raw=json.dumps(PUBLIC_SURFACE_PROSPECTOR_CONTRACT,sort_keys=True,separators=(',',':')).encode()
+    return sha256(raw).hexdigest()
+
+def public_surface_prospector_policy_version(source:bytes|None=None)->str:
+    source=source if source is not None else public_surface_prospector_source_bytes()
+    h=sha256()
+    h.update(source)
+    h.update(public_surface_prospector_contract_hash().encode())
+    return f'{PUBLIC_SURFACE_PROSPECTOR_POLICY_ID}:{PUBLIC_SURFACE_PROSPECTOR_SEMANTIC_VERSION}:{h.hexdigest()}'
 
 def public_publisher_source_bytes()->bytes:
     return (Path(__file__).resolve().parent/'policies'/'public_publisher_v1.py').read_bytes()
@@ -304,6 +324,57 @@ def run_public_explorer_policy(snapshot:DecisionSnapshot,request:ExplorationRequ
         metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
     except Exception as e:
         raise RuntimeError('public explorer worker returned invalid decision payload') from e
+
+    decision=build_exploration_decision(
+        decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
+        snapshot,version,authorized_cost=authorized_cost)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
+
+def run_public_surface_prospector_policy(snapshot:DecisionSnapshot,request:ExplorationRequest,
+                                         decision_key:str)->PolicyExecutionResult:
+    request.validate_protocol()
+    source=public_surface_prospector_source_bytes()
+    assert_policy_source_safe(source)
+    version=public_surface_prospector_policy_version(source)
+    contract_hash=public_surface_prospector_contract_hash()
+
+    unknowns=required_unknown_exploration_inputs(request,snapshot)
+    decision_id='XDEC-'+sha256(
+        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
+    ).hexdigest()[:20]
+
+    if unknowns:
+        decision=build_exploration_decision(
+            decision_id,request,snapshot.agent_id,
+            ExplorationDecisionOutcome.BLOCKED_UNKNOWN,
+            ExplorationReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required admitted surface-prospecting inputs are unknown',
+            snapshot,version)
+        return PolicyExecutionResult(
+            decision,version,'CONTRACT_SHA256:'+contract_hash,
+            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
+            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
+            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+
+    payload={
+        'mode':'EVALUATE',
+        'policy_id':PUBLIC_SURFACE_PROSPECTOR_POLICY_ID,
+        'snapshot':snapshot_to_wire(snapshot),
+        'request':exploration_request_to_wire(request),
+        'manifest':PUBLIC_SURFACE_PROSPECTOR_CONTRACT,
+        'decision_key':str(decision_key),
+    }
+    out,worker_fp=_run_worker(payload)
+    try:
+        outcome=ExplorationDecisionOutcome(out['outcome'])
+        reason_code=ExplorationReasonCode(out['reason_code'])
+        authorized_cost=out.get('authorized_cost','0')
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as e:
+        raise RuntimeError('public surface prospector worker returned invalid decision payload') from e
 
     decision=build_exploration_decision(
         decision_id,request,snapshot.agent_id,outcome,reason_code,reason,

@@ -16,6 +16,10 @@ from .project_lifecycle import (
     ProjectDevelopmentPlan, DevelopmentStageRecord, DevelopmentStageOutcome,
     DevelopmentResolutionRecord, DevelopmentResolutionOutcome,
 )
+from .surface_prospecting import (
+    SurfaceProspectingModel, SurfaceProspectingWorldRecord,
+    ObservationBeliefUpdateRecord,
+)
 from .mvp_state import ActionKind
 
 @dataclass(frozen=True)
@@ -53,7 +57,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
     SCHEDULED_MUTATION_METHODS=frozenset({
         'add_node','add_account','add_project','add_commitment','transfer','disburse','spend_capex','capitalize',
         'add_agent','add_resource','event','observe','publish_observation','submit_financing_request','transition_project_status','request_finance','decide_finance','extract','sell','migrate',
-        'set_resource_constraint','reserve_earth_supply','spend_reserved_capex','explore_paid','resolve_exploration',
+        'set_resource_constraint','reserve_earth_supply','spend_reserved_capex','explore_paid','surface_prospect_paid','update_agent_belief_from_observation','resolve_exploration',
         'extract_bounded','sell_to_market','dispose_surplus',
         'audit','register_vehicle_ownership','distribute_vehicle_to_owners','set_supply_capacity','consume_supply',
         'create_wip','add_wip_expenditure','commission_wip','write_off_wip','depreciate','amortize_knowledge',
@@ -87,6 +91,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.development_plans: Dict[str,ProjectDevelopmentPlan]={}
         self.development_stage_records: list[DevelopmentStageRecord]=[]
         self.development_resolution_records: list[DevelopmentResolutionRecord]=[]
+        self.surface_prospecting_records: list[SurfaceProspectingWorldRecord]=[]
+        self.observation_belief_update_records: list[ObservationBeliefUpdateRecord]=[]
         self.decision_epoch_chain_id: str|None=None
         self.active_decision_epoch_id: str|None=None
         self._decision_epoch_open_state_fingerprint=None
@@ -115,6 +121,84 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 raise InvariantError(f'direct mutation blocked in {mode} mode: {name}')
             return blocked
         return attr
+
+    def surface_prospect_paid(self,year,actor_id,resource_id,project_id,supplier_account,
+                             cost,prerequisite_observation_id,model:SurfaceProspectingModel,
+                             parent_ids=()):
+        model.validate()
+        year=int(year); cost=D(cost)
+        if actor_id not in self.agents:
+            raise InvariantError('surface prospector agent missing')
+        actor=self.agents[actor_id]
+        if actor.kind.value!='PUBLIC':
+            raise InvariantError('surface prospecting fixture requires public Agent')
+        if 'EXPLORE' not in actor.capabilities or 'SURFACE_PROSPECT' not in actor.capabilities:
+            raise InvariantError('agent lacks surface prospecting capability')
+        if prerequisite_observation_id not in self.observations:
+            raise InvariantError('surface prerequisite observation missing')
+        if prerequisite_observation_id not in actor.information:
+            raise InvariantError('surface prerequisite observation not possessed')
+        prior_obs=self.observations[prerequisite_observation_id]
+        if prior_obs.channel!='REMOTE':
+            raise InvariantError('surface prerequisite must be REMOTE observation')
+        if prior_obs.resource_id!=resource_id:
+            raise InvariantError('surface prerequisite resource mismatch')
+        if cost<=0:
+            raise InvariantError('surface prospecting cost must be positive')
+
+        parents=tuple(dict.fromkeys((prerequisite_observation_id,*tuple(parent_ids))))
+        obs,asset_id,draw=self.explore_paid(
+            year,actor_id,resource_id,project_id,supplier_account,cost,
+            channel='SURFACE',public=False,
+            false_positive=D(model.world_false_positive),
+            false_negative=D(model.world_false_negative),
+            update_belief=False,parent_ids=parents)
+        tx_id=self.state.transactions[-1].id
+        rec=SurfaceProspectingWorldRecord(
+            year,actor_id,resource_id,prerequisite_observation_id,obs.id,
+            model.model_id,D(model.world_false_positive),D(model.world_false_negative),
+            D(draw),obs.signal,tx_id,asset_id)
+        self.surface_prospecting_records.append(rec)
+        return obs,asset_id,draw,rec
+
+    def update_agent_belief_from_observation(self,year,agent_id,observation_id,belief_key,
+                                             detection_rate,false_positive_rate,
+                                             model_id,source_ref):
+        year=int(year); det=D(detection_rate); fp=D(false_positive_rate)
+        if agent_id not in self.agents:
+            raise InvariantError('belief update agent missing')
+        if observation_id not in self.observations:
+            raise InvariantError('belief update observation missing')
+        actor=self.agents[agent_id]
+        if observation_id not in actor.information:
+            raise InvariantError('belief update observation not admitted')
+        if not (D('0')<=det<=D('1') and D('0')<=fp<=D('1')) or det<=fp:
+            raise InvariantError('invalid agent-side observation likelihoods')
+        obs=self.observations[observation_id]
+        prior=D(actor.beliefs.get(belief_key,actor.priors.get(belief_key,D('0.5'))))
+        if not D('0')<=prior<=D('1'):
+            raise InvariantError('belief prior outside [0,1]')
+        if obs.signal=='POSITIVE':
+            numerator=det*prior
+            denominator=numerator+fp*(D('1')-prior)
+        elif obs.signal=='NEGATIVE':
+            numerator=(D('1')-det)*prior
+            denominator=numerator+(D('1')-fp)*(D('1')-prior)
+        else:
+            raise InvariantError('unsupported observation signal for belief update')
+        if denominator==0:
+            raise InvariantError('belief update denominator zero')
+        posterior=numerator/denominator
+        actor.beliefs[belief_key]=posterior
+        evt=self.event(
+            year,agent_id,ActionKind.EXPLORE,'BELIEF_UPDATED',
+            (observation_id,belief_key,str(prior),str(posterior),str(model_id)),
+            (observation_id,))
+        rec=ObservationBeliefUpdateRecord(
+            year,agent_id,observation_id,belief_key,prior,posterior,det,fp,
+            str(model_id),str(source_ref),evt.id)
+        self.observation_belief_update_records.append(rec)
+        return rec
 
     def register_development_plan(self,plan:ProjectDevelopmentPlan):
         plan.validate()
@@ -498,6 +582,19 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if r.cash_total_before!=r.cash_total_after: raise InvariantError('resolution cash reconciliation')
         if 'EARTH_MARKET_v0' in self.agents: raise InvariantError('EARTH_MARKET_v0 cannot be agent')
         for r in self.surplus_decompositions: r.validate()
+        for r in self.surface_prospecting_records:
+            if r.observation_id not in self.observations:
+                raise InvariantError('surface observation record missing observation')
+            o=self.observations[r.observation_id]
+            if o.channel!='SURFACE' or o.resource_id!=r.resource_id or o.actor_id!=r.actor_id:
+                raise InvariantError('surface observation record drift')
+            if r.prerequisite_observation_id not in self.observations:
+                raise InvariantError('surface prerequisite lineage missing')
+        for r in self.observation_belief_update_records:
+            if r.observation_id not in self.observations or r.agent_id not in self.agents:
+                raise InvariantError('belief update lineage missing')
+            if not (D('0')<=D(r.prior)<=D('1') and D('0')<=D(r.posterior)<=D('1')):
+                raise InvariantError('belief update probability drift')
         for plan in self.development_plans.values():
             plan.validate()
         seen_stage=set()
@@ -564,7 +661,14 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
              r.reason,r.transaction_id,r.event_id,r.record_version) for r in self.development_stage_records],
           'development_resolution_records':[(r.plan_id,r.project_id,r.year,r.outcome.value,str(r.required_cost),
              str(r.accumulated_cost),str(r.commissioned),str(r.written_off),r.asset_id,r.reason,r.event_id,r.record_version)
-             for r in self.development_resolution_records]}
+             for r in self.development_resolution_records],
+          'surface_prospecting_records':[(r.year,r.actor_id,r.resource_id,r.prerequisite_observation_id,
+             r.observation_id,r.world_model_id,str(r.world_false_positive),str(r.world_false_negative),
+             str(r.deterministic_draw),r.signal,r.expenditure_transaction_id,r.exploration_asset_id,r.record_version)
+             for r in self.surface_prospecting_records],
+          'observation_belief_update_records':[(r.year,r.agent_id,r.observation_id,r.belief_key,str(r.prior),
+             str(r.posterior),str(r.detection_rate),str(r.false_positive_rate),r.model_id,r.source_ref,
+             r.event_id,r.record_version) for r in self.observation_belief_update_records]}
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload

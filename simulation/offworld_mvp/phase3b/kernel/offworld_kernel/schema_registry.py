@@ -33,10 +33,14 @@ from .project_lifecycle import (
     ProjectDevelopmentPlan, DevelopmentStageRecord, DevelopmentResolutionRecord,
     DevelopmentStageOutcome, DevelopmentResolutionOutcome,
 )
+from .surface_prospecting import (
+    SurfaceProspectingModel, SurfaceProspectingWorldRecord,
+    ObservationBeliefUpdateRecord,
+)
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_8'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_9'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
@@ -45,6 +49,7 @@ ODD_SCHEMA_TYPES=(
     ColonyState,PopulationLedger,SnapshotFact,DecisionSnapshot,PolicyContext,ScheduledEvent,CouplingSpec,
     UnderwritingInput,UnderwritingTable,ResolutionExposurePlan,ResolutionExposureRecord,
     ReplayProvenance,ScheduledRunResult,DecisionEpochRecord,ProjectDevelopmentPlan,DevelopmentStageRecord,DevelopmentResolutionRecord,
+    SurfaceProspectingModel,SurfaceProspectingWorldRecord,ObservationBeliefUpdateRecord,
     PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
 )
 
@@ -95,6 +100,21 @@ ODD_UNIT_CONTRACTS={
     'DevelopmentResolutionRecord.accumulated_cost':'MODEL_CURRENCY',
     'DevelopmentResolutionRecord.commissioned':'MODEL_CURRENCY',
     'DevelopmentResolutionRecord.written_off':'MODEL_CURRENCY',
+    'SurfaceProspectingModel.world_false_positive':'PROBABILITY',
+    'SurfaceProspectingModel.world_false_negative':'PROBABILITY',
+    'SurfaceProspectingModel.agent_detection_rate':'PROBABILITY',
+    'SurfaceProspectingModel.agent_false_positive_rate':'PROBABILITY',
+    'SurfaceProspectingModel.remote_world_false_positive_reference':'PROBABILITY',
+    'SurfaceProspectingModel.remote_world_false_negative_reference':'PROBABILITY',
+    'SurfaceProspectingWorldRecord.year':'SIM_YEAR',
+    'SurfaceProspectingWorldRecord.world_false_positive':'PROBABILITY',
+    'SurfaceProspectingWorldRecord.world_false_negative':'PROBABILITY',
+    'SurfaceProspectingWorldRecord.deterministic_draw':'UNIT_INTERVAL_DRAW',
+    'ObservationBeliefUpdateRecord.year':'SIM_YEAR',
+    'ObservationBeliefUpdateRecord.prior':'PROBABILITY',
+    'ObservationBeliefUpdateRecord.posterior':'PROBABILITY',
+    'ObservationBeliefUpdateRecord.detection_rate':'PROBABILITY',
+    'ObservationBeliefUpdateRecord.false_positive_rate':'PROBABILITY',
     'PublicInformationArtifact.year':'SIM_YEAR',
     'ScenarioResource.in_situ':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'ScenarioResource.accessible':'MODEL_RESOURCE_UNIT_BY_FAMILY',

@@ -264,9 +264,12 @@ class FinancingDecision:
         return self
 
 
-BUILD5_PUBLIC_EXPLORATION_REQUIRED_FACT_KEYS=(
-    'exploration.REMOTE_COST',
-)
+BUILD5_PUBLIC_EXPLORATION_REQUIRED_FACT_KEYS_BY_CHANNEL={
+    'REMOTE':('exploration.REMOTE_COST',),
+    'SURFACE':('exploration.SURFACE_COST',),
+}
+# Historical Test 002A compatibility alias.
+BUILD5_PUBLIC_EXPLORATION_REQUIRED_FACT_KEYS=BUILD5_PUBLIC_EXPLORATION_REQUIRED_FACT_KEYS_BY_CHANNEL['REMOTE']
 
 class ExplorationDecisionOutcome(str, Enum):
     AUTHORIZE='AUTHORIZE'
@@ -276,9 +279,11 @@ class ExplorationDecisionOutcome(str, Enum):
 
 class ExplorationReasonCode(str, Enum):
     APPROVED_PUBLIC_INFORMATION_MISSION='APPROVED_PUBLIC_INFORMATION_MISSION'
+    APPROVED_SURFACE_INFORMATION_MISSION='APPROVED_SURFACE_INFORMATION_MISSION'
     INSUFFICIENT_BUDGET='INSUFFICIENT_BUDGET'
     CAPABILITY_OR_OBJECTIVE_BLOCK='CAPABILITY_OR_OBJECTIVE_BLOCK'
     DEFER_UNSUPPORTED_CHANNEL='DEFER_UNSUPPORTED_CHANNEL'
+    DEFER_PREREQUISITE_OBSERVATION='DEFER_PREREQUISITE_OBSERVATION'
     BLOCKED_REQUIRED_INPUT_UNKNOWN='BLOCKED_REQUIRED_INPUT_UNKNOWN'
 
 @dataclass(frozen=True)
@@ -289,6 +294,7 @@ class ExplorationRequest:
     resource_id: str
     channel: str
     required_fact_keys: tuple[str,...]=()
+    prerequisite_observation_id: str=''
     currency_unit: str='MODEL_CURRENCY'
     request_version: str='EXPLORATION_REQUEST_V1'
 
@@ -297,10 +303,17 @@ class ExplorationRequest:
             raise ValueError('exploration request identity incomplete')
         if self.year<0:
             raise ValueError('exploration request year invalid')
-        if self.channel not in {'REMOTE','SURFACE'}:
+        if self.channel not in BUILD5_PUBLIC_EXPLORATION_REQUIRED_FACT_KEYS_BY_CHANNEL:
             raise ValueError('unsupported exploration channel')
-        if tuple(self.required_fact_keys)!=BUILD5_PUBLIC_EXPLORATION_REQUIRED_FACT_KEYS:
-            raise ValueError('exploration request must declare exact Test 002A fact contract')
+        expected=BUILD5_PUBLIC_EXPLORATION_REQUIRED_FACT_KEYS_BY_CHANNEL[self.channel]
+        if tuple(self.required_fact_keys)!=tuple(expected):
+            raise ValueError('exploration request fact contract/channel mismatch')
+        if self.channel=='REMOTE':
+            if self.prerequisite_observation_id:
+                raise ValueError('REMOTE request cannot require prior observation')
+        elif self.channel=='SURFACE':
+            if not self.prerequisite_observation_id:
+                raise ValueError('SURFACE request requires prior observation')
         if not self.currency_unit:
             raise ValueError('exploration request currency/unit missing')
         return self
