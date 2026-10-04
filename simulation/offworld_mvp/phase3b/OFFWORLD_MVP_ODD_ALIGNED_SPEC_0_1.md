@@ -59,6 +59,8 @@ Sub-period mission/transport/operational events may occur inside declared phases
 
 Integrated simulation runs use a sealed `ScheduledSimulationRuntime`. Model initialization occurs before seal. After seal, state-changing kernel operations are legal only inside scheduler-dispatched event contexts; direct kernel mutation is rejected. The run pins both initial-state and scheduler-plan fingerprints and is single-use.
 
+DECISION_WINDOW policy execution is separated from kernel-bearing system handlers. Policy code receives only a frozen/slotted `PolicyContext` containing a deeply copied `DecisionSnapshot`, pinned snapshot reference and deterministic decision key. Hidden scenario resources, world/run identity, scheduler and seed state are not part of that interface.
+
 ## 4. Design concepts
 
 ### Emergence
