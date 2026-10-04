@@ -196,6 +196,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       "REQUEST_FINANCE",
       "FINANCE",
       "DEVELOP",
+      "ABANDON",
       "EXTRACT",
       "SELL",
       "MIGRATE",
@@ -316,6 +317,22 @@ The ODD state/interface registry below is machine-checked against executable dat
       "AGENT",
       "ENTITY_ASSET"
     ],
+    "SponsorProjectDecisionOutcome": [
+      "REQUEST_FINANCE",
+      "DEVELOP",
+      "DEFER",
+      "ABANDON",
+      "BLOCKED_UNKNOWN"
+    ],
+    "SponsorProjectReasonCode": [
+      "POSITIVE_EVIDENCE_FINANCE_REQUIRED",
+      "POSITIVE_EVIDENCE_FUNDED",
+      "NO_RELEVANT_INFORMATION",
+      "NONPOSITIVE_EVIDENCE",
+      "CAPABILITY_OR_OBJECTIVE_BLOCK",
+      "PROJECT_STATE_BLOCK",
+      "BLOCKED_REQUIRED_INPUT_UNKNOWN"
+    ],
     "SpreadMeaning": [
       "SCENARIO_SPREAD_NOT_PROBABILITY",
       "PARAMETER_SENSITIVITY",
@@ -366,7 +383,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_6",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_7",
   "types": {
     "Account": [
       {
@@ -1638,6 +1655,94 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "str"
       }
     ],
+    "SponsorProjectDecision": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "SponsorProjectDecisionOutcome"
+      },
+      {
+        "name": "requested_financing",
+        "type": "D"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "reason_code",
+        "type": "SponsorProjectReasonCode"
+      },
+      {
+        "name": "unknown_input_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
+    ],
+    "SponsorProjectDecisionRequest": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "resource_id",
+        "type": "str"
+      },
+      {
+        "name": "observation_id",
+        "type": "str"
+      },
+      {
+        "name": "required_fact_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "required_belief_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "required_prior_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "currency_unit",
+        "type": "str"
+      },
+      {
+        "name": "request_version",
+        "type": "str"
+      }
+    ],
     "SystemState": [
       {
         "name": "id",
@@ -1805,6 +1910,8 @@ The ODD state/interface registry below is machine-checked against executable dat
     "ScenarioResource.recoverable": "MODEL_RESOURCE_UNIT_BY_FAMILY",
     "ScenarioResource.remaining": "MODEL_RESOURCE_UNIT_BY_FAMILY",
     "ScheduledEvent.effective_time": "SIM_TIME",
+    "SponsorProjectDecision.requested_financing": "REQUEST_CURRENCY_UNIT",
+    "SponsorProjectDecisionRequest.year": "SIM_YEAR",
     "Transaction.amount": "MODEL_CURRENCY",
     "Transaction.year": "SIM_YEAR",
     "UnderwritingInput.basis_year": "SIM_YEAR",
