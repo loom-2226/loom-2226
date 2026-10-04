@@ -150,9 +150,13 @@ class Build5ProjectLifecycleTests(unittest.TestCase):
     def test_stage_and_resolution_lineage_reaches_sponsor_develop_decision(self):
         k,h=self.success_chain()
         sponsor_decision=h['EPOCH-4-SPONSOR-DEVELOP_policy'].decision.id
+        develop_event=next(
+            e for e in k.events
+            if e.action.value=='DEVELOP' and e.result=='DEVELOPMENT' and 'P' in e.inputs)
+        self.assertIn(sponsor_decision,develop_event.parent_ids)
         stage_events=[e for e in k.events if e.action.value=='CONSTRUCT' and e.result=='SPENT']
         self.assertEqual(len(stage_events),2)
-        self.assertTrue(all(sponsor_decision in e.parent_ids for e in stage_events))
+        self.assertTrue(all(develop_event.id in e.parent_ids for e in stage_events))
         resolution_event=next(
             e for e in k.events
             if e.actor=='DEVELOPMENT_RESOLUTION_SYSTEM' and e.result=='OPERATING')
