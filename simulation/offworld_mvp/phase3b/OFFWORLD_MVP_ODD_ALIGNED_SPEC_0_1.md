@@ -241,9 +241,11 @@ The ODD state/interface registry below is machine-checked against executable dat
     ],
     "ExplorationReasonCode": [
       "APPROVED_PUBLIC_INFORMATION_MISSION",
+      "APPROVED_SURFACE_INFORMATION_MISSION",
       "INSUFFICIENT_BUDGET",
       "CAPABILITY_OR_OBJECTIVE_BLOCK",
       "DEFER_UNSUPPORTED_CHANNEL",
+      "DEFER_PREREQUISITE_OBSERVATION",
       "BLOCKED_REQUIRED_INPUT_UNKNOWN"
     ],
     "ExposureAllocationBasis": [
@@ -396,7 +398,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_8",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_9",
   "types": {
     "Account": [
       {
@@ -976,6 +978,10 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "tuple[str, ...]"
       },
       {
+        "name": "prerequisite_observation_id",
+        "type": "str"
+      },
+      {
         "name": "currency_unit",
         "type": "str"
       },
@@ -1244,6 +1250,56 @@ The ODD state/interface registry below is machine-checked against executable dat
       {
         "name": "public",
         "type": "bool"
+      }
+    ],
+    "ObservationBeliefUpdateRecord": [
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "agent_id",
+        "type": "str"
+      },
+      {
+        "name": "observation_id",
+        "type": "str"
+      },
+      {
+        "name": "belief_key",
+        "type": "str"
+      },
+      {
+        "name": "prior",
+        "type": "D"
+      },
+      {
+        "name": "posterior",
+        "type": "D"
+      },
+      {
+        "name": "detection_rate",
+        "type": "D"
+      },
+      {
+        "name": "false_positive_rate",
+        "type": "D"
+      },
+      {
+        "name": "model_id",
+        "type": "str"
+      },
+      {
+        "name": "source_ref",
+        "type": "str"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
       }
     ],
     "PolicyContext": [
@@ -1894,6 +1950,102 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "str"
       }
     ],
+    "SurfaceProspectingModel": [
+      {
+        "name": "model_id",
+        "type": "str"
+      },
+      {
+        "name": "world_false_positive",
+        "type": "D"
+      },
+      {
+        "name": "world_false_negative",
+        "type": "D"
+      },
+      {
+        "name": "agent_detection_rate",
+        "type": "D"
+      },
+      {
+        "name": "agent_false_positive_rate",
+        "type": "D"
+      },
+      {
+        "name": "remote_world_false_positive_reference",
+        "type": "D"
+      },
+      {
+        "name": "remote_world_false_negative_reference",
+        "type": "D"
+      },
+      {
+        "name": "epistemic_status",
+        "type": "str"
+      },
+      {
+        "name": "source_ref",
+        "type": "str"
+      },
+      {
+        "name": "model_version",
+        "type": "str"
+      }
+    ],
+    "SurfaceProspectingWorldRecord": [
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "resource_id",
+        "type": "str"
+      },
+      {
+        "name": "prerequisite_observation_id",
+        "type": "str"
+      },
+      {
+        "name": "observation_id",
+        "type": "str"
+      },
+      {
+        "name": "world_model_id",
+        "type": "str"
+      },
+      {
+        "name": "world_false_positive",
+        "type": "D"
+      },
+      {
+        "name": "world_false_negative",
+        "type": "D"
+      },
+      {
+        "name": "deterministic_draw",
+        "type": "D"
+      },
+      {
+        "name": "signal",
+        "type": "str"
+      },
+      {
+        "name": "expenditure_transaction_id",
+        "type": "str"
+      },
+      {
+        "name": "exploration_asset_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
     "SystemState": [
       {
         "name": "id",
@@ -2055,6 +2207,11 @@ The ODD state/interface registry below is machine-checked against executable dat
     "FixedCapitalFormationEvent.amount": "MODEL_CURRENCY",
     "FixedCapitalFormationEvent.year": "SIM_YEAR",
     "Observation.year": "SIM_YEAR",
+    "ObservationBeliefUpdateRecord.detection_rate": "PROBABILITY",
+    "ObservationBeliefUpdateRecord.false_positive_rate": "PROBABILITY",
+    "ObservationBeliefUpdateRecord.posterior": "PROBABILITY",
+    "ObservationBeliefUpdateRecord.prior": "PROBABILITY",
+    "ObservationBeliefUpdateRecord.year": "SIM_YEAR",
     "PolicyParameter.local_perturbation": "FIELD:PolicyParameter.unit",
     "PolicyParameter.sensitivity_high": "FIELD:PolicyParameter.unit",
     "PolicyParameter.sensitivity_low": "FIELD:PolicyParameter.unit",
@@ -2074,6 +2231,16 @@ The ODD state/interface registry below is machine-checked against executable dat
     "ScheduledEvent.effective_time": "SIM_TIME",
     "SponsorProjectDecision.requested_financing": "REQUEST_CURRENCY_UNIT",
     "SponsorProjectDecisionRequest.year": "SIM_YEAR",
+    "SurfaceProspectingModel.agent_detection_rate": "PROBABILITY",
+    "SurfaceProspectingModel.agent_false_positive_rate": "PROBABILITY",
+    "SurfaceProspectingModel.remote_world_false_negative_reference": "PROBABILITY",
+    "SurfaceProspectingModel.remote_world_false_positive_reference": "PROBABILITY",
+    "SurfaceProspectingModel.world_false_negative": "PROBABILITY",
+    "SurfaceProspectingModel.world_false_positive": "PROBABILITY",
+    "SurfaceProspectingWorldRecord.deterministic_draw": "UNIT_INTERVAL_DRAW",
+    "SurfaceProspectingWorldRecord.world_false_negative": "PROBABILITY",
+    "SurfaceProspectingWorldRecord.world_false_positive": "PROBABILITY",
+    "SurfaceProspectingWorldRecord.year": "SIM_YEAR",
     "Transaction.amount": "MODEL_CURRENCY",
     "Transaction.year": "SIM_YEAR",
     "UnderwritingInput.basis_year": "SIM_YEAR",
