@@ -2,8 +2,11 @@
 
 **Status:** BUILD 4 CLOSED / PRE-CONTRACT / SINGLE-AUTHORITY
 **Date:** 2026-10-04
-**Final frozen branch:** `offworld-mvp-build4-final-2026-10-04`
-**Build 5 branch to create:** `offworld-mvp-build5-autonomous-financier`
+**Original frozen branch:** `offworld-mvp-build4-final-2026-10-04` @ `830ca12f4f2a7a497b55dcb2705a338768956c91`
+**Corrected final freeze tag:** `build4-final-v2-2026-10-04`
+**Corrected final freeze commit:** `4cb0158d71ce77affbcead68c946056baa9e817a`
+**Corrected final branch mirror:** `offworld-mvp-build4-final-v2-2026-10-04`
+**Build 5 branch:** `offworld-mvp-build5-autonomous-financier`
 
 ## 1. Closure basis
 
@@ -29,7 +32,9 @@ The executable/documentation head actually tested was:
 
 `d78c7379d295b3f3cf25771f02a68e166a9ccdbb`
 
-with **92/92 tests passing** from a fresh archive. Commits after that tested head in this closure sequence add validation/governance records only and do not change executable Python or the machine-checked ODD schema registry.
+with **92/92 tests passing** from a fresh archive. The original closure sequence from that head to `830ca12f4f2a7a497b55dcb2705a338768956c91` changed exactly three Markdown records and no `.py` files or schema registry. The empty diff evidence is preserved in `PHASE3B_BUILD4_CLOSURE_DIFF_EVIDENCE.md`.
+
+A later hostile review identified additional closure hardening. Because the first freeze was already historical, it was not rewritten. The corrected v2 freeze was instead created and pinned by immutable tag `build4-final-v2-2026-10-04` at commit `4cb0158d71ce77affbcead68c946056baa9e817a`. That exact commit passed **99/99 tests** from a Git checkout and its executable source-tree SHA-256 matched the source-tree SHA-256 reconstructed from the pinned Git object: `16b0d0247cf55b8a8b2d5f61799666f4bb89a15acedaffa883ad9bd00f998038` (`GIT_OBJECT_VERIFIED`).
 
 ## 2. Build 4 final scope
 
@@ -68,7 +73,7 @@ In particular it does not claim:
 
 ## 4. Freeze rule
 
-The final Build 4 branch is historical and read-only.
+The original Build 4 freeze and the corrected v2 tag/branch are historical and read-only. The v2 tag is the controlling final Build 4 freeze.
 
 Future autonomous-policy work shall branch from the final Build 4 baseline rather than mutate/reopen Build 4.
 
