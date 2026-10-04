@@ -91,10 +91,18 @@ A run/report intended for interpretation carries:
 - verified components/tests;
 - validation level by subsystem;
 - calibration targets used;
+- calibration-set references;
+- validation-set references;
+- held-out/out-of-sample set references where applicable;
+- explicit out-of-sample standing and disclosure;
 - uncertainty axes varied;
 - scenario assumptions;
 - coverage/limitations;
 - known unvalidated mechanisms.
+
+An empirical validation claim may not omit held-out/out-of-sample standing. `NOT_EMPIRICALLY_VALIDATED` uses `NOT_APPLICABLE`; empirical validation uses an explicit status such as `IN_SAMPLE_ONLY`, `HELD_OUT`, `OUT_OF_SAMPLE`, or `MIXED`.
+
+`VAL6_OUT_OF_SAMPLE` requires actual out-of-sample or mixed standing and referenced held-out material.
 
 ## 10. Current standing
 
