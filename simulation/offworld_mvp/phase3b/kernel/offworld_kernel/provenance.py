@@ -85,6 +85,7 @@ class ReplayProvenance:
     input_snapshot_ids:Tuple[str,...]
     parameter_manifest_ids:Tuple[str,...]
     table_manifest_ids:Tuple[str,...]
+    policy_manifest_ids:Tuple[str,...]
     commit_code_linkage:str
     provenance_source:str='CURRENT_CHECKOUT_OR_EXPORTED_COMMIT'
 
@@ -98,12 +99,14 @@ class ReplayProvenance:
             raise InvariantError('replay parameter manifest identity missing')
         if not self.table_manifest_ids or any(not x for x in self.table_manifest_ids):
             raise InvariantError('replay table manifest identity missing')
+        if not self.policy_manifest_ids or any(not x for x in self.policy_manifest_ids):
+            raise InvariantError('replay policy manifest identity missing')
         if self.commit_code_linkage not in {'GIT_OBJECT_VERIFIED','EXPORTED_CODE_HASH_ATTESTED'}:
             raise InvariantError('replay commit/code linkage not verified')
         return self
 
     @classmethod
-    def from_kernel(cls,kernel,table_manifest_ids=('NO_EXTERNAL_TABLES',)):
+    def from_kernel(cls,kernel,table_manifest_ids=('NO_EXTERNAL_TABLES',),policy_manifest_ids=('NO_AUTONOMOUS_POLICY',)):
         rid=kernel.run_identity
         commit=_git_commit()
         code_hash=source_tree_hash()
@@ -115,6 +118,7 @@ class ReplayProvenance:
             (rid.input_snapshot_id,),
             (parameter_manifest_id(rid.parameters),),
             tuple(table_manifest_ids),
+            tuple(policy_manifest_ids),
             linkage,
         ).validate()
 
@@ -122,6 +126,7 @@ class ReplayProvenance:
         payload={
           'repository':self.repository,'git_commit':self.git_commit,'code_tree_sha256':self.code_tree_sha256,
           'input_snapshot_ids':self.input_snapshot_ids,'parameter_manifest_ids':self.parameter_manifest_ids,
-          'table_manifest_ids':self.table_manifest_ids,'commit_code_linkage':self.commit_code_linkage,
+          'table_manifest_ids':self.table_manifest_ids,'policy_manifest_ids':self.policy_manifest_ids,
+          'commit_code_linkage':self.commit_code_linkage,
           'provenance_source':self.provenance_source}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()

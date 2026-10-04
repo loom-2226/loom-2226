@@ -88,6 +88,7 @@ class ScheduledRuntimeTests(unittest.TestCase):
         self.assertEqual(len(result.parameter_manifest_ids),1)
         self.assertTrue(result.parameter_manifest_ids[0].startswith('PARAMS_SHA256:'))
         self.assertEqual(result.table_manifest_ids,('NO_EXTERNAL_TABLES',))
+        self.assertEqual(result.policy_manifest_ids,('NO_AUTONOMOUS_POLICY',))
         self.assertIn(result.commit_code_linkage,('GIT_OBJECT_VERIFIED','EXPORTED_CODE_HASH_ATTESTED'))
         self.assertRegex(result.provenance_fingerprint,r'^[0-9a-f]{64}$')
         self.assertRegex(result.execution_fingerprint,r'^[0-9a-f]{64}$')

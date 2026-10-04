@@ -22,14 +22,19 @@ from .resolution import (
 )
 from .ensemble import AxisKind, SpreadMeaning
 from .validation import VerificationLevel, ValidationLevel, OutOfSampleStatus
+from .provenance import ReplayProvenance
+from .runtime import ScheduledRunResult
+from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
+from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_2'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_3'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
     SystemState,AggregateState,EntityAssetRef,AgentState,FinancingRequest,FinancingDecision,ScenarioResource,Observation,
     ColonyState,PopulationLedger,SnapshotFact,DecisionSnapshot,PolicyContext,ScheduledEvent,CouplingSpec,
     UnderwritingInput,UnderwritingTable,ResolutionExposurePlan,ResolutionExposureRecord,
+    ReplayProvenance,ScheduledRunResult,PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
 )
 
 ODD_ENUM_TYPES=(
@@ -37,7 +42,7 @@ ODD_ENUM_TYPES=(
     RuntimeObjectClass,AgentKind,ActionKind,FinancingDecisionOutcome,FinancingReasonCode,
     FactState,Phase,UnderwritingInputKind,UnderwritingInputStatus,
     ExposureSelectionBasis,ExposureAllocationBasis,AxisKind,SpreadMeaning,
-    VerificationLevel,ValidationLevel,OutOfSampleStatus,
+    VerificationLevel,ValidationLevel,OutOfSampleStatus,PolicyParameterStatus,ObservationKnowledgeRelation,
 )
 
 # These are semantic unit contracts, not a claim that every current logical field has an SI unit.
@@ -75,7 +80,14 @@ ODD_UNIT_CONTRACTS={
     'UnderwritingInput.valid_from':'SIM_YEAR',
     'UnderwritingInput.valid_to':'SIM_YEAR',
     'ResolutionExposureRecord.allocation_fraction':'DIMENSIONLESS_SHARE',
+    'PolicyParameter.value':'FIELD:PolicyParameter.unit',
+    'PolicyParameter.sensitivity_low':'FIELD:PolicyParameter.unit',
+    'PolicyParameter.sensitivity_high':'FIELD:PolicyParameter.unit',
+    'PolicyParameter.local_perturbation':'FIELD:PolicyParameter.unit',
+    'FinancierPolicyManifest.world_detection_rate':'PROBABILITY',
+    'FinancierPolicyManifest.world_false_positive_rate':'PROBABILITY',
 }
+
 
 def _type_repr(t):
     if isinstance(t,str):

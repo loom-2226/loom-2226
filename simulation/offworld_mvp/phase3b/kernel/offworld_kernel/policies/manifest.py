@@ -49,6 +49,8 @@ class FinancierPolicyManifest:
     parameters:Tuple[PolicyParameter,...]
     observation_knowledge_relation:ObservationKnowledgeRelation
     world_observation_model_ref:str
+    world_detection_rate:D|None
+    world_false_positive_rate:D|None
     manifest_status:PolicyParameterStatus
 
     REQUIRED_PARAMETERS=(
@@ -84,6 +86,13 @@ class FinancierPolicyManifest:
                 raise ValueError(f'probability/rate parameter outside [0,1]: {name}')
         if by_name['horizon_years'].value<=0 or by_name['normalized_throughput'].value<=0:
             raise ValueError('horizon and normalized throughput must be positive')
+        if self.observation_knowledge_relation==ObservationKnowledgeRelation.PERFECT_OBSERVATION_MODEL_KNOWLEDGE_ASSUMPTION:
+            if self.world_detection_rate is None or self.world_false_positive_rate is None:
+                raise ValueError('perfect observation-model knowledge requires world likelihood values')
+            if by_name['agent_detection_rate'].value!=self.world_detection_rate:
+                raise ValueError('agent detection rate differs from world under declared equality')
+            if by_name['agent_false_positive_rate'].value!=self.world_false_positive_rate:
+                raise ValueError('agent false-positive rate differs from world under declared equality')
         return self
 
     def parameter(self,name:str)->PolicyParameter:
@@ -100,6 +109,8 @@ class FinancierPolicyManifest:
             'manifest_status':self.manifest_status.value,
             'observation_knowledge_relation':self.observation_knowledge_relation.value,
             'world_observation_model_ref':self.world_observation_model_ref,
+            'world_detection_rate':None if self.world_detection_rate is None else str(self.world_detection_rate),
+            'world_false_positive_rate':None if self.world_false_positive_rate is None else str(self.world_false_positive_rate),
             'parameters':[{
                 'parameter_id':p.parameter_id,
                 'semantic_name':p.semantic_name,
@@ -151,5 +162,6 @@ def test_only_manifest()->FinancierPolicyManifest:
         ),
         ObservationKnowledgeRelation.PERFECT_OBSERVATION_MODEL_KNOWLEDGE_ASSUMPTION,
         'WORLD_OBSERVATION_MODEL:BUILD3_VALIDATION_FP0.20_DETECTION0.80',
+        D('0.80'),D('0.20'),
         status,
     ).validate(require_authorized=False)
