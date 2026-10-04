@@ -26,6 +26,11 @@ from .project_activity import (
     SponsorPortfolioDecisionRequest, build_sponsor_portfolio_decision,
     required_unknown_portfolio_inputs,
 )
+from .project_study import (
+    ProjectStudyReviewOutcome, ProjectStudyReviewReasonCode,
+    ProjectStudyReviewRequest, build_project_study_review_decision,
+    required_unknown_study_review_inputs,
+)
 from .mvp_state import (
     FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest,
     ExplorationDecisionOutcome, ExplorationReasonCode, ExplorationRequest,
@@ -95,6 +100,11 @@ from .policies.sponsor_portfolio_v1 import (
     POLICY_CONTRACT as SPONSOR_PORTFOLIO_CONTRACT,
     POLICY_ID as SPONSOR_PORTFOLIO_POLICY_ID,
     SEMANTIC_VERSION as SPONSOR_PORTFOLIO_SEMANTIC_VERSION,
+)
+from .policies.sponsor_study_review_v1 import (
+    POLICY_CONTRACT as SPONSOR_STUDY_REVIEW_CONTRACT,
+    POLICY_ID as SPONSOR_STUDY_REVIEW_POLICY_ID,
+    SEMANTIC_VERSION as SPONSOR_STUDY_REVIEW_SEMANTIC_VERSION,
 )
 
 FORBIDDEN_IMPORT_ROOTS={
@@ -206,6 +216,13 @@ def sponsor_request_to_wire(q:SponsorProjectDecisionRequest):
         'currency_unit':q.currency_unit,'request_version':q.request_version,
     }
 
+def project_study_review_request_to_wire(q:ProjectStudyReviewRequest):
+    return {
+        'id':q.id,'project_id':q.project_id,'activity_id':q.activity_id,
+        'result_ref':q.result_ref,'required_fact_keys':list(q.required_fact_keys),
+        'request_version':q.request_version,
+    }
+
 def sponsor_portfolio_request_to_wire(q:SponsorPortfolioDecisionRequest):
     return {
         'id':q.id,'effective_time':str(q.effective_time),
@@ -227,6 +244,17 @@ def _policy_version(policy_id:str,semantic_version:str,contract,filename:str,sou
     h.update(source)
     h.update(_contract_hash(contract).encode())
     return f'{policy_id}:{semantic_version}:{h.hexdigest()}'
+
+def sponsor_study_review_source_bytes()->bytes:
+    return _policy_source_bytes('sponsor_study_review_v1.py')
+
+def sponsor_study_review_contract_hash()->str:
+    return _contract_hash(SPONSOR_STUDY_REVIEW_CONTRACT)
+
+def sponsor_study_review_policy_version(source:bytes|None=None)->str:
+    return _policy_version(
+        SPONSOR_STUDY_REVIEW_POLICY_ID,SPONSOR_STUDY_REVIEW_SEMANTIC_VERSION,
+        SPONSOR_STUDY_REVIEW_CONTRACT,'sponsor_study_review_v1.py',source)
 
 def sponsor_portfolio_source_bytes()->bytes:
     return _policy_source_bytes('sponsor_portfolio_v1.py')
@@ -580,6 +608,44 @@ def run_public_publisher_policy(snapshot:DecisionSnapshot,request:PublicationReq
 
     decision=build_publication_decision(
         decision_id,request,snapshot.agent_id,outcome,reason_code,reason,snapshot,version)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
+
+def run_sponsor_study_review_policy(snapshot:DecisionSnapshot,
+                                    request:ProjectStudyReviewRequest,
+                                    decision_key:str)->PolicyExecutionResult:
+    version,contract_hash=_policy_identity_context(
+        request,sponsor_study_review_source_bytes,sponsor_study_review_policy_version,
+        sponsor_study_review_contract_hash)
+
+    unknowns=required_unknown_study_review_inputs(request,snapshot)
+    decision_id=_decision_id('STDEC-',request,snapshot,version,decision_key)
+
+    if unknowns:
+        decision=build_project_study_review_decision(
+            decision_id,request,snapshot.agent_id,
+            ProjectStudyReviewOutcome.BLOCKED_UNKNOWN,
+            ProjectStudyReviewReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required admitted study-review inputs are unknown',
+            snapshot,version)
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
+
+    out,worker_fp=_run_contract_worker(
+        SPONSOR_STUDY_REVIEW_POLICY_ID,snapshot,
+        project_study_review_request_to_wire(request),
+        SPONSOR_STUDY_REVIEW_CONTRACT,decision_key)
+    try:
+        outcome=ProjectStudyReviewOutcome(out['outcome'])
+        reason_code=ProjectStudyReviewReasonCode(out['reason_code'])
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as e:
+        raise RuntimeError('sponsor study review worker returned invalid decision payload') from e
+
+    decision=build_project_study_review_decision(
+        decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
+        snapshot,version)
     return PolicyExecutionResult(
         decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
 

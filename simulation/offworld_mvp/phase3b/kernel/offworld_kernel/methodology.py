@@ -8,7 +8,7 @@ from typing import Dict, Tuple
 from .build4 import Build4Kernel, OwnershipStake
 from .kernel import InvariantError
 from .model import D, TxPurpose, AssetKind, NodeKind, AccountKind
-from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome, SaleDecisionOutcome, SurplusDistributionDecisionOutcome, SettlementSupportDecisionOutcome
+from .mvp_state import AgentKind, AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome, SaleDecisionOutcome, SurplusDistributionDecisionOutcome, SettlementSupportDecisionOutcome
 from .scheduler import DeterministicScheduler
 from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
 from .accounting import SurplusDecompositionRecord
@@ -42,6 +42,12 @@ from .project_activity import (
     ProjectActivity, ProjectActivityStatus, ProjectActivityTransitionRecord,
     ProjectActivityInformationRecord, SponsorPortfolioDecision,
     SponsorPortfolioDecisionOutcome,
+)
+from .project_study import (
+    ProjectStudyMaturity, ProjectStudyResultStanding, ProjectStudyReviewOutcome,
+    ProjectStudyState, ProjectStudyPlan, ProjectActivityExpenseRecord,
+    ProjectStudyResultRecord, ProjectStudyReviewRequest, ProjectStudyReviewDecision,
+    ProjectStudyReviewExecutionRecord,
 )
 
 @dataclass(frozen=True)
@@ -94,7 +100,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'register_technology_capability_state','register_transport_relationship',
         'execute_transport_settlement_departure','execute_passenger_transport_arrival',
         'register_project_activity','authorize_project_activity','start_project_activity',
-        'complete_project_activity','admit_project_activity_result','cancel_project_activity'
+        'complete_project_activity','admit_project_activity_result','cancel_project_activity',
+        'register_project_study_state','register_project_study_plan',
+        'authorize_project_study_activity','spend_exploration_wip','spend_project_study_activity',
+        'complete_project_study_activity','execute_project_study_review'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
@@ -102,7 +111,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'assert_vehicle_ownership','assert_build4_invariants','build4_fingerprint','uniformity_sample',
         'assert_methodology_invariants','methodology_fingerprint','decision_epoch_state_fingerprint','market_remaining_demand','financing_return_remaining',
         'settlement_habitat_headroom','settlement_stage_for','transport_qualification','earth_shadow_at',
-        'project_activity_reserved_capital','project_activity_available_capital'
+        'project_activity_reserved_capital','project_activity_available_capital',
+        'project_activity_spent_capital'
     })
     SCHEDULED_CONTROL_METHODS=frozenset({
         'seal_for_scheduled_execution','scheduled_event_context','begin_decision_epoch','complete_decision_epoch'
@@ -143,6 +153,11 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.project_activities: Dict[str,ProjectActivity]={}
         self.project_activity_transition_records: list[ProjectActivityTransitionRecord]=[]
         self.project_activity_information_records: list[ProjectActivityInformationRecord]=[]
+        self.project_study_states: Dict[str,ProjectStudyState]={}
+        self.project_study_plans: Dict[str,ProjectStudyPlan]={}
+        self.project_activity_expense_records: list[ProjectActivityExpenseRecord]=[]
+        self.project_study_result_records: list[ProjectStudyResultRecord]=[]
+        self.project_study_review_records: list[ProjectStudyReviewExecutionRecord]=[]
         self.decision_epoch_chain_id: str|None=None
         self.active_decision_epoch_id: str|None=None
         self._decision_epoch_open_state_fingerprint=None
@@ -1200,14 +1215,92 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.project_activities[activity.id]=activity
         return activity
 
+    def project_activity_spent_capital(self,activity_id):
+        if activity_id not in self.project_activities:
+            raise InvariantError('project activity missing')
+        return sum(
+            (D(r.amount) for r in self.project_activity_expense_records
+             if r.activity_id==activity_id),
+            D('0')
+        )
+
     def project_activity_reserved_capital(self,actor_id):
         if actor_id not in self.agents:
             raise InvariantError('project activity capital actor missing')
-        return sum(
-            (D(a.capital_commitment) for a in self.project_activities.values()
-             if a.actor_id==actor_id and a.reserves_capital),
-            D('0')
-        )
+        total=D('0')
+        for state in self.project_study_states.values():
+            try:
+                state.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if state.project_id not in self.state.projects:
+                raise InvariantError('project study state lineage missing')
+        for plan in self.project_study_plans.values():
+            try:
+                plan.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if plan.activity_id not in self.project_activities or plan.project_id not in self.project_study_states:
+                raise InvariantError('project study plan lineage missing')
+            a=self.project_activities[plan.activity_id]
+            if a.project_id!=plan.project_id or a.result_type!=plan.result_type:
+                raise InvariantError('project study plan/activity invariant drift')
+        txids={t.id:t for t in self.state.transactions}
+        seen_expense=set()
+        for r in self.project_activity_expense_records:
+            try:
+                r.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if r.activity_id in seen_expense:
+                raise InvariantError('duplicate project activity expense')
+            seen_expense.add(r.activity_id)
+            if r.activity_id not in self.project_activities or r.wip_asset_id not in self.state.assets:
+                raise InvariantError('project activity expense lineage missing')
+            a=self.project_activities[r.activity_id]
+            if D(r.amount)>D(a.capital_commitment):
+                raise InvariantError('project activity expense exceeds commitment')
+            itx=txids.get(r.investment_transaction_id); etx=txids.get(r.exploration_transaction_id)
+            if itx is None or etx is None or D(itx.amount)!=D(r.amount) or D(etx.amount)!=D(r.amount):
+                raise InvariantError('project activity expense transaction drift')
+            if itx.purpose!=TxPurpose.OTHER_INVESTMENT or etx.purpose!=TxPurpose.EXPLORATION:
+                raise InvariantError('project activity expense purpose drift')
+            asset=self.state.assets[r.wip_asset_id]
+            if asset.project_id!=r.project_id or D(asset.book_value)!=D(r.amount):
+                raise InvariantError('project activity expense asset drift')
+        seen_result=set()
+        for r in self.project_study_result_records:
+            try:
+                r.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if r.activity_id in seen_result:
+                raise InvariantError('duplicate project study result')
+            seen_result.add(r.activity_id)
+            if r.activity_id not in self.project_activities or r.plan_id not in self.project_study_plans:
+                raise InvariantError('project study result lineage missing')
+            a=self.project_activities[r.activity_id]
+            if a.status!=ProjectActivityStatus.COMPLETED or a.result_ref!=r.result_ref:
+                raise InvariantError('project study result/activity drift')
+            asset=self.state.assets.get(r.knowledge_asset_id)
+            if asset is None or asset.kind!=AssetKind.KNOWLEDGE:
+                raise InvariantError('project study result knowledge asset missing')
+        seen_review=set()
+        for r in self.project_study_review_records:
+            if r.activity_id in seen_review:
+                raise InvariantError('duplicate project study review record')
+            seen_review.add(r.activity_id)
+            if r.project_id not in self.project_study_states or r.activity_id not in self.project_activities:
+                raise InvariantError('project study review lineage missing')
+
+        for a in self.project_activities.values():
+            if a.actor_id!=actor_id or not a.reserves_capital:
+                continue
+            remaining=D(a.capital_commitment)-self.project_activity_spent_capital(a.id)
+            if remaining<0:
+                raise InvariantError('project activity spend exceeds commitment')
+            total+=remaining
+        return total
 
     def project_activity_available_capital(self,actor_id):
         if actor_id not in self.agents:
@@ -1354,6 +1447,181 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             (a.id,a.project_id,str(t)),
             tuple(x for x in (str(reason_ref),) if x))
         rec=self._project_activity_transition(a,t,ProjectActivityStatus.CANCELED,evt.id,str(reason_ref))
+        return rec
+
+    def register_project_study_state(self,state:ProjectStudyState):
+        try:
+            state.validate()
+        except ValueError as e:
+            raise InvariantError(str(e)) from e
+        if state.project_id not in self.state.projects:
+            raise InvariantError('project study state project missing')
+        if state.project_id in self.project_study_states:
+            raise InvariantError('duplicate project study state')
+        self.project_study_states[state.project_id]=state
+        return state
+
+    def register_project_study_plan(self,plan:ProjectStudyPlan):
+        try:
+            plan.validate()
+        except ValueError as e:
+            raise InvariantError(str(e)) from e
+        if plan.id in self.project_study_plans:
+            raise InvariantError('duplicate project study plan')
+        if plan.activity_id not in self.project_activities:
+            raise InvariantError('project study plan activity missing')
+        a=self.project_activities[plan.activity_id]
+        if a.project_id!=plan.project_id or a.result_type!=plan.result_type:
+            raise InvariantError('project study plan/activity drift')
+        if plan.project_id not in self.project_study_states:
+            raise InvariantError('project study plan state missing')
+        if plan.supplier_account_id not in self.state.accounts:
+            raise InvariantError('project study supplier missing')
+        self.project_study_plans[plan.id]=plan
+        return plan
+
+    def _project_study_plan_for_activity(self,activity_id):
+        plans=[p for p in self.project_study_plans.values() if p.activity_id==activity_id]
+        if len(plans)!=1:
+            raise InvariantError('project study activity must have exactly one plan')
+        return plans[0]
+
+    def authorize_project_study_activity(self,effective_time,decision:SponsorPortfolioDecision):
+        if decision.outcome!=SponsorPortfolioDecisionOutcome.AUTHORIZE:
+            raise InvariantError('project study authorization requires AUTHORIZE decision')
+        if decision.selected_activity_id not in self.project_activities:
+            raise InvariantError('project study selected activity missing')
+        plan=self._project_study_plan_for_activity(decision.selected_activity_id)
+        state=self.project_study_states[plan.project_id]
+        if state.maturity!=plan.required_maturity:
+            raise InvariantError('project study predecessor maturity not satisfied at authorization')
+        if str(self.state.projects[plan.project_id].status)!='EXPLORING':
+            raise InvariantError('project study authorization requires EXPLORING project')
+        return self.authorize_project_activity(effective_time,decision)
+
+    def spend_project_study_activity(self,effective_time,activity_id):
+        if activity_id not in self.project_activities:
+            raise InvariantError('project study activity missing')
+        a=self.project_activities[activity_id]
+        if a.status!=ProjectActivityStatus.ACTIVE:
+            raise InvariantError('project study spend requires ACTIVE activity')
+        if any(r.activity_id==activity_id for r in self.project_activity_expense_records):
+            raise InvariantError('project study activity already spent')
+        plan=self._project_study_plan_for_activity(activity_id)
+        state=self.project_study_states[plan.project_id]
+        if state.maturity!=plan.required_maturity:
+            raise InvariantError('project study predecessor maturity not satisfied')
+        project=self.state.projects[plan.project_id]
+        if str(project.status)!='EXPLORING':
+            raise InvariantError('project study spend requires EXPLORING project')
+        actor=self.agents[a.actor_id]
+        amount=D(a.capital_commitment)
+        if self.state.accounts[actor.account_id].balance<amount:
+            raise InvariantError('project study sponsor cash insufficient at spend')
+        t=D(str(effective_time)); year=int(t)
+        supplier_node=self.state.accounts[plan.supplier_account_id].node_id
+        if self.state.nodes[supplier_node].kind==NodeKind.EARTH:
+            key=(supplier_node,year)
+            if key not in self.resource_constraints:
+                raise InvariantError('project study Earth supply constraint missing')
+            if amount>self.resource_constraints[key].available:
+                raise InvariantError('project study Earth supply unavailable')
+            self.reserve_earth_supply(supplier_node,year,amount)
+        investment=self.transfer(
+            year,actor.account_id,project.cash_account_id,amount,TxPurpose.OTHER_INVESTMENT,
+            parent_ids=(a.id,plan.id))
+        exploration,wip=self.spend_exploration_wip(
+            year,plan.project_id,plan.supplier_account_id,amount,project.node_id,
+            parent_ids=(a.id,plan.id,investment.id))
+        rec=ProjectActivityExpenseRecord(
+            a.id,a.project_id,a.actor_id,amount,t,investment.id,exploration.id,wip)
+        try:
+            rec.validate()
+        except ValueError as e:
+            raise InvariantError(str(e)) from e
+        self.project_activity_expense_records.append(rec)
+        self.event(
+            year,a.actor_id,ActionKind.SPEND_STUDY,'SPENT',
+            (a.id,plan.id,str(amount),investment.id,exploration.id,wip),
+            (a.authorization_decision_id,))
+        return rec
+
+    def complete_project_study_activity(self,effective_time,activity_id,standing,result_ref):
+        plan=self._project_study_plan_for_activity(activity_id)
+        expenses=[r for r in self.project_activity_expense_records if r.activity_id==activity_id]
+        if len(expenses)!=1:
+            raise InvariantError('project study completion requires exactly one expense record')
+        expense=expenses[0]
+        completion=self.complete_project_activity(effective_time,activity_id,result_ref)
+        if expense.wip_asset_id not in self.state.assets:
+            raise InvariantError('project study exploration WIP missing')
+        if self.state.assets[expense.wip_asset_id].kind!=AssetKind.EXPLORATION_WIP:
+            raise InvariantError('project study WIP state invalid')
+        self.resolve_exploration(expense.wip_asset_id,True)
+        rec=ProjectStudyResultRecord(
+            activity_id,plan.id,plan.project_id,str(result_ref),
+            ProjectStudyResultStanding(standing),D(str(effective_time)),
+            expense.wip_asset_id)
+        try:
+            rec.validate()
+        except ValueError as e:
+            raise InvariantError(str(e)) from e
+        self.project_study_result_records.append(rec)
+        return rec
+
+    def execute_project_study_review(self,effective_time,request:ProjectStudyReviewRequest,
+                                     decision:ProjectStudyReviewDecision):
+        request.validate_protocol()
+        decision.validate_protocol(request)
+        if decision.actor_id not in self.agents:
+            raise InvariantError('study review actor missing')
+        actor=self.agents[decision.actor_id]
+        if actor.kind!=AgentKind.PRIVATE_SPONSOR or 'REVIEW_STUDY' not in actor.capabilities:
+            raise InvariantError('study review requires sponsor review capability')
+        if request.activity_id not in self.project_activities:
+            raise InvariantError('study review activity missing')
+        if any(r.activity_id==request.activity_id for r in self.project_study_review_records):
+            raise InvariantError('duplicate project study review')
+        a=self.project_activities[request.activity_id]
+        if a.project_id!=request.project_id or a.status!=ProjectActivityStatus.COMPLETED:
+            raise InvariantError('study review activity/project state drift')
+        plan=self._project_study_plan_for_activity(a.id)
+        results=[r for r in self.project_study_result_records if r.activity_id==a.id]
+        if len(results)!=1:
+            raise InvariantError('study review result lineage missing')
+        result=results[0]
+        if result.result_ref!=request.result_ref or result.result_ref not in actor.information:
+            raise InvariantError('study review result not admitted to sponsor')
+        state=self.project_study_states[plan.project_id]
+        project=self.state.projects[plan.project_id]
+        if state.maturity!=plan.required_maturity:
+            raise InvariantError('study review predecessor maturity drift')
+        expected={
+            ProjectStudyResultStanding.SUPPORTS_ADVANCE:ProjectStudyReviewOutcome.ADVANCE,
+            ProjectStudyResultStanding.INSUFFICIENT:ProjectStudyReviewOutcome.DEFER,
+            ProjectStudyResultStanding.NEGATIVE:ProjectStudyReviewOutcome.ABANDON,
+        }[result.standing]
+        if decision.outcome!=expected:
+            raise InvariantError('study review decision/result standing mismatch')
+        prior=state.maturity
+        status_before=str(project.status)
+        t=D(str(effective_time))
+        if decision.outcome==ProjectStudyReviewOutcome.ADVANCE:
+            state.maturity=plan.next_maturity
+        elif decision.outcome==ProjectStudyReviewOutcome.ABANDON:
+            self.transition_project_status(int(t),decision.actor_id,plan.project_id,'ABANDONED',decision.id)
+        elif decision.outcome!=ProjectStudyReviewOutcome.DEFER:
+            raise InvariantError('non-executable study review outcome')
+        state.last_review_decision_id=decision.id
+        status_after=str(self.state.projects[plan.project_id].status)
+        evt=self.event(
+            int(t),decision.actor_id,ActionKind.REVIEW_STUDY,decision.outcome.value,
+            (plan.project_id,a.id,result.result_ref,prior.value,state.maturity.value),
+            (decision.id,a.id,result.result_ref))
+        rec=ProjectStudyReviewExecutionRecord(
+            decision.id,request.id,plan.project_id,a.id,result.result_ref,
+            prior,state.maturity,status_before,status_after,decision.outcome,t,evt.id)
+        self.project_study_review_records.append(rec)
         return rec
 
     def seal_for_scheduled_execution(self,state_fingerprint,plan_fingerprint):
@@ -1893,6 +2161,27 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
           'surplus_decompositions':[(r.year,r.project_id,str(r.surplus),str(r.reserve),str(r.local_reinvest),
              str(r.return_to_earth),str(r.local_retention),str(r.other_investment),r.transaction_ids)
              for r in self.surplus_decompositions],
+          'project_study_states':sorted((
+             s.project_id,s.maturity.value,s.last_review_decision_id,s.state_version
+             ) for s in self.project_study_states.values()),
+          'project_study_plans':sorted((
+             p.id,p.activity_id,p.project_id,p.required_maturity.value,p.next_maturity.value,
+             p.supplier_account_id,p.result_type,p.plan_version
+             ) for p in self.project_study_plans.values()),
+          'project_activity_expense_records':[(
+             r.activity_id,r.project_id,r.actor_id,str(r.amount),str(r.spent_at),
+             r.investment_transaction_id,r.exploration_transaction_id,r.wip_asset_id,
+             r.record_version) for r in self.project_activity_expense_records],
+          'project_study_result_records':[(
+             r.activity_id,r.plan_id,r.project_id,r.result_ref,r.standing.value,
+             str(r.completed_at),r.knowledge_asset_id,r.record_version
+             ) for r in self.project_study_result_records],
+          'project_study_review_records':[(
+             r.decision_id,r.request_id,r.project_id,r.activity_id,r.result_ref,
+             r.prior_maturity.value,r.resulting_maturity.value,
+             r.project_status_before,r.project_status_after,r.outcome.value,
+             str(r.effective_time),r.event_id,r.record_version
+             ) for r in self.project_study_review_records],
           'project_activities':sorted((
              a.id,a.project_id,a.activity_type,a.actor_id,a.priority,str(a.earliest_start),
              str(a.planned_duration),str(a.capital_commitment),a.result_type,

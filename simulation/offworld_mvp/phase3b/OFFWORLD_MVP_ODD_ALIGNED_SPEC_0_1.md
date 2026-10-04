@@ -2,7 +2,7 @@
 
 **Status:** DESIGN CANDIDATE / PRE-CONTRACT / SINGLE-AUTHORITY
 **Basis:** ODD 2020 structure adapted to LOOM governance
-**Scope:** Frozen Build 5 Offworld MVP plus authorized Build 6A temporal multi-project structural expansion
+**Scope:** Frozen Build 5 Offworld MVP plus authorized Build 6A temporal multi-project and Build 6B staged prospecting/project-study structural expansions
 
 ## 1. Purpose and patterns
 
@@ -165,6 +165,8 @@ The multi-rate synchronization fixture combines day-scale mission observations, 
 
 Build 6A Test 001A adds a structurally bounded multi-project temporal seam. Generic candidate project activities are explicit time-bearing ENTITY_ASSET-like project state controlled by SYSTEM execution after a sponsor decision. Authorization, start, completion and information admission are distinct causal steps. Active/authorized/waiting activities reserve declared sponsor capital without creating expenditure; reserved capital is excluded from later portfolio availability until the activity completes or is canceled. Opportunity windows may hold an authorized activity in `WAITING_WINDOW`, and deterministic completion releases its reservation. The sponsor portfolio policy is Test-only and ranks admitted candidates solely by authored priority and stable project identity subject to project/activity eligibility, window validity and admitted uncommitted capital. It receives no hidden resource truth or future result. Build 6A uses generic projects on the existing single target/body fixture; named Solar targets, staged resource/project-study maturity, stochastic schedule risk and multiple economies remain outside Test 001A.
 
+Build 6B Test 001A adds orthogonal project-study maturity while retaining the existing Project lifecycle. Generic EXPLORING projects may fund time-bearing study/prospecting activities through the existing transaction ledger, `TxPurpose.EXPLORATION`, `EXPLORATION_WIP` and `KNOWLEDGE` asset classes. Study maturity progresses only across declared adjacent edges after a completed result is admitted to the sponsor and a separate bounded Test-only sponsor review returns `ADVANCE`; `INSUFFICIENT` evidence defers without advancement and `NEGATIVE` evidence may reuse the existing governed `EXPLORING -> ABANDONED` transition. Spending is sunk ledger expenditure, not a reservation release: sponsor cash falls, completed negative/insufficient work may still remain as knowledge, and no result is visible before completion/admission. Build 6B remains generic and does not instantiate named Solar targets, calibrated resource confidence, empirical PFS/FS costs/durations, stochastic schedule risk or development construction.
+
 Dynamic economic reserve conversion, mature colony service/reliability operations, labour/skill matching, cohorts/households/individual persons, DIVERSIFYING_SETTLEMENT and HANDOFF_CANDIDATE mechanics, grade/quantity prospecting estimates, autonomous sponsor prospecting, empirical financing terms and debt/equity waterfalls, endogenous reinvestment-opportunity search, endogenous price formation, price-responsive demand, multi-buyer/multi-seller competition, country-policy market intervention, empirical sensor calibration, empirical construction calibration, empirical mining calibration, empirical habitat/migration calibration, and empirical market calibration remain incomplete unless separately implemented and validated. Test 012A separately earns exogenous technology-qualified passenger transport; Test 014A earns bounded repeated operating lifecycle review and `OPERATING -> CLOSED` after zero realized output. Neither result implies the unimplemented broader mechanisms above.
 
 ## 8. Reproducibility package
@@ -290,7 +292,9 @@ changed by integrated qualification R1.
       "START_ACTIVITY",
       "COMPLETE_ACTIVITY",
       "CANCEL_ACTIVITY",
-      "ADMIT_INFORMATION"
+      "ADMIT_INFORMATION",
+      "SPEND_STUDY",
+      "REVIEW_STUDY"
     ],
     "AgentKind": [
       "PUBLIC",
@@ -442,6 +446,34 @@ changed by integrated qualification R1.
       "COMPLETED",
       "CANCELED",
       "FAILED"
+    ],
+    "ProjectStudyMaturity": [
+      "SCREENED",
+      "REMOTE_CHARACTERIZED",
+      "SURFACE_OR_SAMPLE_CHARACTERIZED",
+      "RESOURCE_ASSESSMENT",
+      "CONCEPT_SCOPING",
+      "PREFEASIBILITY",
+      "FEASIBILITY",
+      "DEVELOPMENT_READY"
+    ],
+    "ProjectStudyResultStanding": [
+      "SUPPORTS_ADVANCE",
+      "INSUFFICIENT",
+      "NEGATIVE"
+    ],
+    "ProjectStudyReviewOutcome": [
+      "ADVANCE",
+      "DEFER",
+      "ABANDON",
+      "BLOCKED_UNKNOWN"
+    ],
+    "ProjectStudyReviewReasonCode": [
+      "SUPPORTS_DECLARED_ADVANCE",
+      "INSUFFICIENT_EVIDENCE",
+      "NEGATIVE_EVIDENCE",
+      "PROJECT_OR_CAPABILITY_BLOCK",
+      "BLOCKED_REQUIRED_INPUT_UNKNOWN"
     ],
     "PublicationDecisionOutcome": [
       "PUBLISH",
@@ -600,7 +632,7 @@ changed by integrated qualification R1.
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_17",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_18",
   "types": {
     "Account": [
       {
@@ -2418,6 +2450,44 @@ changed by integrated qualification R1.
         "type": "str"
       }
     ],
+    "ProjectActivityExpenseRecord": [
+      {
+        "name": "activity_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "D"
+      },
+      {
+        "name": "spent_at",
+        "type": "D"
+      },
+      {
+        "name": "investment_transaction_id",
+        "type": "str"
+      },
+      {
+        "name": "exploration_transaction_id",
+        "type": "str"
+      },
+      {
+        "name": "wip_asset_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
     "ProjectActivityInformationRecord": [
       {
         "name": "activity_id",
@@ -2537,6 +2607,214 @@ changed by integrated qualification R1.
       },
       {
         "name": "plan_version",
+        "type": "str"
+      }
+    ],
+    "ProjectStudyPlan": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "activity_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "required_maturity",
+        "type": "ProjectStudyMaturity"
+      },
+      {
+        "name": "next_maturity",
+        "type": "ProjectStudyMaturity"
+      },
+      {
+        "name": "supplier_account_id",
+        "type": "str"
+      },
+      {
+        "name": "result_type",
+        "type": "str"
+      },
+      {
+        "name": "plan_version",
+        "type": "str"
+      }
+    ],
+    "ProjectStudyResultRecord": [
+      {
+        "name": "activity_id",
+        "type": "str"
+      },
+      {
+        "name": "plan_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "result_ref",
+        "type": "str"
+      },
+      {
+        "name": "standing",
+        "type": "ProjectStudyResultStanding"
+      },
+      {
+        "name": "completed_at",
+        "type": "D"
+      },
+      {
+        "name": "knowledge_asset_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "ProjectStudyReviewDecision": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "ProjectStudyReviewOutcome"
+      },
+      {
+        "name": "reason_code",
+        "type": "ProjectStudyReviewReasonCode"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "unknown_input_keys",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
+    ],
+    "ProjectStudyReviewExecutionRecord": [
+      {
+        "name": "decision_id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "activity_id",
+        "type": "str"
+      },
+      {
+        "name": "result_ref",
+        "type": "str"
+      },
+      {
+        "name": "prior_maturity",
+        "type": "ProjectStudyMaturity"
+      },
+      {
+        "name": "resulting_maturity",
+        "type": "ProjectStudyMaturity"
+      },
+      {
+        "name": "project_status_before",
+        "type": "str"
+      },
+      {
+        "name": "project_status_after",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "ProjectStudyReviewOutcome"
+      },
+      {
+        "name": "effective_time",
+        "type": "D"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "ProjectStudyReviewRequest": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "activity_id",
+        "type": "str"
+      },
+      {
+        "name": "result_ref",
+        "type": "str"
+      },
+      {
+        "name": "required_fact_keys",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "request_version",
+        "type": "str"
+      }
+    ],
+    "ProjectStudyState": [
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "maturity",
+        "type": "ProjectStudyMaturity"
+      },
+      {
+        "name": "last_review_decision_id",
+        "type": "str"
+      },
+      {
+        "name": "state_version",
         "type": "str"
       }
     ],
@@ -4248,12 +4526,16 @@ changed by integrated qualification R1.
     "ProjectActivity.planned_duration": "SIM_TIME_DURATION",
     "ProjectActivity.window_close": "SIM_TIME",
     "ProjectActivity.window_open": "SIM_TIME",
+    "ProjectActivityExpenseRecord.amount": "MODEL_CURRENCY",
+    "ProjectActivityExpenseRecord.spent_at": "SIM_TIME",
     "ProjectActivityInformationRecord.admitted_at": "SIM_TIME",
     "ProjectActivityTransitionRecord.effective_time": "SIM_TIME",
     "ProjectDevelopmentPlan.commissioned_capacity": "ASSET_CLASS_CAPACITY_UNIT",
     "ProjectDevelopmentPlan.completion_year": "SIM_YEAR",
     "ProjectDevelopmentPlan.required_cost": "MODEL_CURRENCY",
     "ProjectDevelopmentPlan.stage_schedule": "SIM_YEAR_AND_MODEL_CURRENCY_SCHEDULE",
+    "ProjectStudyResultRecord.completed_at": "SIM_TIME",
+    "ProjectStudyReviewExecutionRecord.effective_time": "SIM_TIME",
     "PublicInformationArtifact.year": "SIM_YEAR",
     "PublicationRequest.year": "SIM_YEAR",
     "ResolutionExposureRecord.allocation_fraction": "DIMENSIONLESS_SHARE",
