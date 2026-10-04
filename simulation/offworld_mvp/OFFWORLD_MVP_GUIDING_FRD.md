@@ -803,7 +803,23 @@ Validation record:
 
 `PHASE3B_KERNEL_VALIDATION_RECORD_007_MUTATOR_AND_POLICY_FIREWALL.md`.
 
-R3 adds exhaustive inherited-mutator sealing evidence and the immutable DECISION_WINDOW DecisionSnapshot/PolicyContext firewall. It does not close Phase 3B and does not authorize autonomous decision policies.
+R3 adds exhaustive inherited-mutator sealing evidence and the immutable DECISION_WINDOW DecisionSnapshot/PolicyContext firewall.
+
+The resolution-invariance pre-gate has since been closed and frozen as:
+
+`offworld-mvp-build4-mvp-r4-resolution-invariance-2026-10-04`
+
+at commit:
+
+`bba276b3eff69a0101fed1235f5958cd4186e6d0`.
+
+Validation record:
+
+`PHASE3B_KERNEL_VALIDATION_RECORD_008_RESOLUTION_INVARIANCE.md`.
+
+R4 adds explicit exposure-selection/allocation plans and demonstrates five-period pathwise equivalence between aggregate-only and exposed-Agent representations when the Agent follows the aggregate-equivalent rule.
+
+It does not close Phase 3B and does not authorize autonomous decision policies.
 
 
 ## Governance note
