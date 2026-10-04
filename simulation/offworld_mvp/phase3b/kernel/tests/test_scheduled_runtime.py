@@ -1,4 +1,5 @@
 import inspect
+import re
 import unittest
 from decimal import Decimal as D
 
@@ -76,6 +77,247 @@ class ScheduledRuntimeTests(unittest.TestCase):
                 blocked.append(name)
 
         self.assertEqual(set(blocked),set(k.SCHEDULED_MUTATION_METHODS))
+
+
+    def test_replay_manifest_pins_git_code_inputs_parameters_tables_and_execution(self):
+        k,rt=self.fixture()
+        rt.seal()
+        result=rt.run()
+        self.assertRegex(result.git_commit,r'^[0-9a-f]{40}
+        k,rt=self.fixture()
+        rt.seal()
+        with self.assertRaises(InvariantError):
+            with k.scheduled_event_context('fake',None):
+                pass
+
+    def test_missing_handler_blocks_seal(self):
+        k,rt=self.fixture()
+        rt2=ScheduledSimulationRuntime(k)
+        with self.assertRaises(InvariantError):
+            rt2.seal()
+
+    def test_plan_mutation_after_seal_blocks_run(self):
+        k,rt=self.fixture()
+        rt.seal()
+        k.scheduler.schedule(ScheduledEvent('pay-2',D('2'),Phase.OPERATIONS,0,'pay-2','PAYMENT_SYSTEM'))
+        with self.assertRaises(InvariantError):
+            rt.run()
+        self.assertEqual(k.state.accounts['source'].balance,D('10'))
+
+    def test_raw_state_tamper_after_seal_blocks_run(self):
+        k,rt=self.fixture()
+        rt.seal()
+        k.state.accounts['source'].balance+=D('1')
+        with self.assertRaises(InvariantError):
+            rt.run()
+
+    def test_runtime_single_use_and_replay(self):
+        k1,r1=self.fixture()
+        r1.seal()
+        a=r1.run()
+
+        k2,r2=self.fixture()
+        r2.seal()
+        b=r2.run()
+
+        self.assertEqual(a.result_fingerprint,b.result_fingerprint)
+        self.assertEqual(a.final_fingerprint,b.final_fingerprint)
+        with self.assertRaises(InvariantError):
+            r1.run()
+
+
+if __name__=='__main__':
+    unittest.main()
+)
+        self.assertRegex(result.code_tree_sha256,r'^[0-9a-f]{64}
+        k,rt=self.fixture()
+        rt.seal()
+        with self.assertRaises(InvariantError):
+            with k.scheduled_event_context('fake',None):
+                pass
+
+    def test_missing_handler_blocks_seal(self):
+        k,rt=self.fixture()
+        rt2=ScheduledSimulationRuntime(k)
+        with self.assertRaises(InvariantError):
+            rt2.seal()
+
+    def test_plan_mutation_after_seal_blocks_run(self):
+        k,rt=self.fixture()
+        rt.seal()
+        k.scheduler.schedule(ScheduledEvent('pay-2',D('2'),Phase.OPERATIONS,0,'pay-2','PAYMENT_SYSTEM'))
+        with self.assertRaises(InvariantError):
+            rt.run()
+        self.assertEqual(k.state.accounts['source'].balance,D('10'))
+
+    def test_raw_state_tamper_after_seal_blocks_run(self):
+        k,rt=self.fixture()
+        rt.seal()
+        k.state.accounts['source'].balance+=D('1')
+        with self.assertRaises(InvariantError):
+            rt.run()
+
+    def test_runtime_single_use_and_replay(self):
+        k1,r1=self.fixture()
+        r1.seal()
+        a=r1.run()
+
+        k2,r2=self.fixture()
+        r2.seal()
+        b=r2.run()
+
+        self.assertEqual(a.result_fingerprint,b.result_fingerprint)
+        self.assertEqual(a.final_fingerprint,b.final_fingerprint)
+        with self.assertRaises(InvariantError):
+            r1.run()
+
+
+if __name__=='__main__':
+    unittest.main()
+)
+        self.assertEqual(result.repository,'loom-2226/loom-2226')
+        self.assertEqual(result.input_snapshot_ids,('SYNTH_STRICT',))
+        self.assertEqual(len(result.parameter_manifest_ids),1)
+        self.assertTrue(result.parameter_manifest_ids[0].startswith('PARAMS_SHA256:'))
+        self.assertEqual(result.table_manifest_ids,('NO_EXTERNAL_TABLES',))
+        self.assertRegex(result.provenance_fingerprint,r'^[0-9a-f]{64}
+        k,rt=self.fixture()
+        rt.seal()
+        with self.assertRaises(InvariantError):
+            with k.scheduled_event_context('fake',None):
+                pass
+
+    def test_missing_handler_blocks_seal(self):
+        k,rt=self.fixture()
+        rt2=ScheduledSimulationRuntime(k)
+        with self.assertRaises(InvariantError):
+            rt2.seal()
+
+    def test_plan_mutation_after_seal_blocks_run(self):
+        k,rt=self.fixture()
+        rt.seal()
+        k.scheduler.schedule(ScheduledEvent('pay-2',D('2'),Phase.OPERATIONS,0,'pay-2','PAYMENT_SYSTEM'))
+        with self.assertRaises(InvariantError):
+            rt.run()
+        self.assertEqual(k.state.accounts['source'].balance,D('10'))
+
+    def test_raw_state_tamper_after_seal_blocks_run(self):
+        k,rt=self.fixture()
+        rt.seal()
+        k.state.accounts['source'].balance+=D('1')
+        with self.assertRaises(InvariantError):
+            rt.run()
+
+    def test_runtime_single_use_and_replay(self):
+        k1,r1=self.fixture()
+        r1.seal()
+        a=r1.run()
+
+        k2,r2=self.fixture()
+        r2.seal()
+        b=r2.run()
+
+        self.assertEqual(a.result_fingerprint,b.result_fingerprint)
+        self.assertEqual(a.final_fingerprint,b.final_fingerprint)
+        with self.assertRaises(InvariantError):
+            r1.run()
+
+
+if __name__=='__main__':
+    unittest.main()
+)
+        self.assertRegex(result.execution_fingerprint,r'^[0-9a-f]{64}
+        k,rt=self.fixture()
+        rt.seal()
+        with self.assertRaises(InvariantError):
+            with k.scheduled_event_context('fake',None):
+                pass
+
+    def test_missing_handler_blocks_seal(self):
+        k,rt=self.fixture()
+        rt2=ScheduledSimulationRuntime(k)
+        with self.assertRaises(InvariantError):
+            rt2.seal()
+
+    def test_plan_mutation_after_seal_blocks_run(self):
+        k,rt=self.fixture()
+        rt.seal()
+        k.scheduler.schedule(ScheduledEvent('pay-2',D('2'),Phase.OPERATIONS,0,'pay-2','PAYMENT_SYSTEM'))
+        with self.assertRaises(InvariantError):
+            rt.run()
+        self.assertEqual(k.state.accounts['source'].balance,D('10'))
+
+    def test_raw_state_tamper_after_seal_blocks_run(self):
+        k,rt=self.fixture()
+        rt.seal()
+        k.state.accounts['source'].balance+=D('1')
+        with self.assertRaises(InvariantError):
+            rt.run()
+
+    def test_runtime_single_use_and_replay(self):
+        k1,r1=self.fixture()
+        r1.seal()
+        a=r1.run()
+
+        k2,r2=self.fixture()
+        r2.seal()
+        b=r2.run()
+
+        self.assertEqual(a.result_fingerprint,b.result_fingerprint)
+        self.assertEqual(a.final_fingerprint,b.final_fingerprint)
+        with self.assertRaises(InvariantError):
+            r1.run()
+
+
+if __name__=='__main__':
+    unittest.main()
+)
+        self.assertRegex(result.result_fingerprint,r'^[0-9a-f]{64}
+        k,rt=self.fixture()
+        rt.seal()
+        with self.assertRaises(InvariantError):
+            with k.scheduled_event_context('fake',None):
+                pass
+
+    def test_missing_handler_blocks_seal(self):
+        k,rt=self.fixture()
+        rt2=ScheduledSimulationRuntime(k)
+        with self.assertRaises(InvariantError):
+            rt2.seal()
+
+    def test_plan_mutation_after_seal_blocks_run(self):
+        k,rt=self.fixture()
+        rt.seal()
+        k.scheduler.schedule(ScheduledEvent('pay-2',D('2'),Phase.OPERATIONS,0,'pay-2','PAYMENT_SYSTEM'))
+        with self.assertRaises(InvariantError):
+            rt.run()
+        self.assertEqual(k.state.accounts['source'].balance,D('10'))
+
+    def test_raw_state_tamper_after_seal_blocks_run(self):
+        k,rt=self.fixture()
+        rt.seal()
+        k.state.accounts['source'].balance+=D('1')
+        with self.assertRaises(InvariantError):
+            rt.run()
+
+    def test_runtime_single_use_and_replay(self):
+        k1,r1=self.fixture()
+        r1.seal()
+        a=r1.run()
+
+        k2,r2=self.fixture()
+        r2.seal()
+        b=r2.run()
+
+        self.assertEqual(a.result_fingerprint,b.result_fingerprint)
+        self.assertEqual(a.final_fingerprint,b.final_fingerprint)
+        with self.assertRaises(InvariantError):
+            r1.run()
+
+
+if __name__=='__main__':
+    unittest.main()
+)
 
     def test_runtime_context_token_cannot_be_omitted(self):
         k,rt=self.fixture()
