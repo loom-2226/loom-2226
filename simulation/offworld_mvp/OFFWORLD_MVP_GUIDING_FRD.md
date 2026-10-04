@@ -822,6 +822,97 @@ R4 adds explicit exposure-selection/allocation plans and demonstrates five-perio
 It does not close Phase 3B and does not authorize autonomous decision policies.
 
 
+## 45. Underwriting Input Contract
+
+Before an underwriting policy is authorized, its required economic inputs shall exist outside the policy implementation.
+
+The minimum MVP underwriting input set per project archetype is:
+
+- PRICE / revenue basis;
+- EXPLORATION_CAPEX;
+- DEVELOPMENT_CAPEX;
+- OPERATING_COST;
+- LEAD_TIME.
+
+Every input shall carry stable identity, unit, status, source or explicit scenario rationale, sensitivity range where characterized, and applicable validity/scope.
+
+UNKNOWN is a legal input state and shall not be converted to a fallback number by a policy.
+
+The initial executable table is explicitly a PRE-CONTRACT authored validation scenario, not empirical calibration:
+
+`phase3b/inputs/OFFWORLD_MVP_UNDERWRITING_VALIDATION_V0_1.json`.
+
+Normative candidate:
+
+`PHASE3B_UNDERWRITING_INPUT_CONTRACT_CANDIDATE_0_1.md`.
+
+## 46. Ensemble Reporting Semantics
+
+Generating an ensemble shall not imply a probability distribution over futures.
+
+Reporting semantics shall preserve axis meaning:
+
+- SCENARIO -> scenario spread, not probability;
+- PARAMETER -> sensitivity;
+- UNCERTAINTY -> uncertainty spread;
+- STOCHASTIC_KEY -> stochastic variability.
+
+Probability-weighted summaries require an explicit weight-authority reference and complete normalized case weights. There is no default equal-probability interpretation of scenario cases.
+
+Mean-with-interval reporting remains prohibited until both probability authority and an interval method are explicitly governed.
+
+Normative candidate:
+
+`PHASE3B_ENSEMBLE_REPORTING_GUARDRAILS_0_1.md`.
+
+## 47. Executable A1–A9 Accounting Identities
+
+The MVP adopts the A1–A9 accounting/physical identity set preserved in:
+
+`PHASE3B_ACCOUNTING_IDENTITY_REGISTER_0_1.md`.
+
+The executable kernel shall be able to check all nine identities against a pinned pre-transition state.
+
+For scheduler-valid property testing, a deterministic seeded validation SYSTEM shall:
+
+1. choose only transitions valid in current state;
+2. execute them through the sealed scheduler runtime;
+3. capture a pre-transition accounting snapshot;
+4. check A1 through A9 immediately after every transition;
+5. cover commitment/disbursement, WIP/spend/commissioning, depreciation, extraction, revenue, surplus disposition and lapse across the seeded suite.
+
+This verification does not imply empirical validity.
+
+## 48. Accounting and Multi-Rate Edge Requirements
+
+The MVP shall explicitly verify the following edge cases:
+
+### 48.1 Signed boundary reconciliation
+
+For each Earth boundary account, the signed boundary mirror shall equal both:
+
+- account closing balance minus registered opening balance; and
+- cumulative transaction-ledger inflows minus outflows.
+
+A mismatch is an invariant failure.
+
+### 48.2 Staged multi-year WIP
+
+At least one deterministic fixture shall carry the same WIP identity across multiple spending years before commissioning and then apply nonzero depreciation in a later period.
+
+### 48.3 Genuine multi-rate synchronization
+
+At least one deterministic fixture shall couple distinct cadences rather than merely sort fractional timestamps.
+
+The current MVP test couples:
+
+- day-scale mission observation events;
+- quarterly financing events;
+- annual Earth-system events.
+
+At a shared effective timestamp, scheduler phase semantics determine which state each process observes.
+
+
 ## Governance note
 
 This FRD is a build-guiding candidate on a branch created from the closed Phase 2 governance branch. It does not reopen Phase 2, release Contract v1, qualify inputs, or grant implementation authority. Phase 3 state-model work must consume the consolidated Phase 2 normative model and preserve its carried liens.
