@@ -120,7 +120,10 @@ Input categories remain distinct:
 - technology scenario inputs;
 - authored scenario-world hidden state;
 - authored model parameters;
-- deterministic validation fixtures.
+- deterministic validation fixtures;
+- underwriting input tables carrying value, unit, status, source/rationale, sensitivity range and scope.
+
+The current underwriting table is explicitly PRE-CONTRACT authored validation scenario data, not empirical calibration. UNKNOWN underwriting inputs remain non-numeric.
 
 Reference/projection/scenario/simulated status must not collapse merely because all are serialized in one run package.
 
@@ -139,7 +142,15 @@ Current MVP submodels/interfaces include:
 - population movement;
 - scheduler/coupling;
 - aggregate-resolution reconciliation;
-- uncertainty/ensemble runner.
+- uncertainty/ensemble runner;
+- ensemble reporting guardrails that distinguish scenario spread, parameter sensitivity, uncertainty spread and stochastic variability;
+- executable A1–A9 accounting/physical identity auditor;
+- signed Earth-boundary reconciliation;
+- staged multi-year WIP and multi-rate synchronization fixtures.
+
+The A1–A9 property fixture captures state before every scheduler-valid transition and evaluates all nine identities immediately after each transition. Current generative coverage includes disbursement, WIP spend, commissioning, depreciation, extraction, revenue, surplus disposition and commitment lapse.
+
+The multi-rate synchronization fixture combines day-scale mission observations, quarterly finance and annual Earth-system events under one deterministic scheduler.
 
 Transport, technology gating, dynamic economic reserve conversion, mature colony operations and autonomous policies remain incomplete unless separately implemented and validated.
 
