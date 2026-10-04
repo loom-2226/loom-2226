@@ -14,7 +14,10 @@
       "status": "AUTHORED_SCENARIO",
       "source_or_rationale_ref": "AUTHORED:MVP_VALIDATION_NOT_EMPIRICAL",
       "sensitivity_low": "10",
-      "sensitivity_high": "40"
+      "sensitivity_high": "40",
+      "basis_year": 1,
+      "valid_from": 1,
+      "valid_to": 1
     },
     {
       "input_id": "exp-capex-001",
@@ -24,7 +27,10 @@
       "status": "AUTHORED_SCENARIO",
       "source_or_rationale_ref": "AUTHORED:MVP_VALIDATION_NOT_EMPIRICAL",
       "sensitivity_low": "5",
-      "sensitivity_high": "20"
+      "sensitivity_high": "20",
+      "basis_year": 1,
+      "valid_from": 1,
+      "valid_to": 1
     },
     {
       "input_id": "dev-capex-001",
@@ -34,7 +40,10 @@
       "status": "AUTHORED_SCENARIO",
       "source_or_rationale_ref": "AUTHORED:MVP_VALIDATION_NOT_EMPIRICAL",
       "sensitivity_low": "30",
-      "sensitivity_high": "120"
+      "sensitivity_high": "120",
+      "basis_year": 1,
+      "valid_from": 1,
+      "valid_to": 1
     },
     {
       "input_id": "opex-001",
@@ -44,7 +53,10 @@
       "status": "AUTHORED_SCENARIO",
       "source_or_rationale_ref": "AUTHORED:MVP_VALIDATION_NOT_EMPIRICAL",
       "sensitivity_low": "2",
-      "sensitivity_high": "8"
+      "sensitivity_high": "8",
+      "basis_year": 1,
+      "valid_from": 1,
+      "valid_to": 1
     },
     {
       "input_id": "lead-001",
@@ -54,12 +66,17 @@
       "status": "AUTHORED_SCENARIO",
       "source_or_rationale_ref": "AUTHORED:MVP_VALIDATION_NOT_EMPIRICAL",
       "sensitivity_low": "1",
-      "sensitivity_high": "5"
+      "sensitivity_high": "5",
+      "basis_year": 1,
+      "valid_from": 1,
+      "valid_to": 1
     }
   ],
   "non_claims": [
     "Values are synthetic authored MVP validation parameters.",
     "They are not empirical estimates or production calibration.",
-    "A future production underwriting table requires admitted source or governed scenario authorization."
-  ]
+    "A future production underwriting table requires admitted source or governed scenario authorization.",
+    "All validation inputs are scoped to SIM_YEAR 1; they are not timeless constants."
+  ],
+  "time_basis": "SIM_YEAR"
 }
