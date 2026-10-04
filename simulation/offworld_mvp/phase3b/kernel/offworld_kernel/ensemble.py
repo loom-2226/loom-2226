@@ -66,3 +66,79 @@ class EnsembleHarness:
           'cases':[(c.case_id,c.coordinates) for c in self.cases()],
           'results':[(r.case_id,r.outcome_fingerprint,r.summary,r.verification_status,r.validation_status) for r in results]}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+
+
+class SpreadMeaning(str,Enum):
+    SCENARIO_SPREAD_NOT_PROBABILITY='SCENARIO_SPREAD_NOT_PROBABILITY'
+    PARAMETER_SENSITIVITY='PARAMETER_SENSITIVITY'
+    UNCERTAINTY_SPREAD='UNCERTAINTY_SPREAD'
+    STOCHASTIC_VARIABILITY='STOCHASTIC_VARIABILITY'
+
+@dataclass(frozen=True)
+class ProbabilityWeightAuthority:
+    authority_ref: str
+    weights: Tuple[Tuple[str,str],...]
+
+    def normalized(self,case_ids):
+        if not self.authority_ref: raise ValueError('probability weights require explicit authority reference')
+        d={cid:float(w) for cid,w in self.weights}
+        if set(d)!=set(case_ids): raise ValueError('probability weights must cover exactly all cases')
+        if any(v<0 for v in d.values()): raise ValueError('negative probability weight')
+        total=sum(d.values())
+        if abs(total-1.0)>1e-12: raise ValueError('probability weights must sum to one')
+        return d
+
+@dataclass(frozen=True)
+class EnsembleSpreadReport:
+    metric: str
+    axis_name: str
+    axis_kind: str
+    meaning: str
+    minimum: str
+    maximum: str
+    values: Tuple[str,...]
+    probability_weighted: bool=False
+    authority_ref: str=''
+
+class EnsembleReporter:
+    def __init__(self,harness:'EnsembleHarness'):
+        self.harness=harness
+
+    def _axis(self,name):
+        for a in self.harness.axes:
+            if a.name==name: return a
+        raise ValueError('unknown ensemble axis')
+
+    def spread(self,results:Iterable[EnsembleResult],metric,axis_name):
+        axis=self._axis(axis_name)
+        rs=tuple(results)
+        vals=[]
+        for r in rs:
+            d=dict(r.summary)
+            if metric not in d: raise ValueError('metric missing from ensemble result')
+            vals.append(d[metric])
+        nums=[float(v) for v in vals]
+        meaning={
+          AxisKind.SCENARIO:SpreadMeaning.SCENARIO_SPREAD_NOT_PROBABILITY,
+          AxisKind.PARAMETER:SpreadMeaning.PARAMETER_SENSITIVITY,
+          AxisKind.UNCERTAINTY:SpreadMeaning.UNCERTAINTY_SPREAD,
+          AxisKind.STOCHASTIC_KEY:SpreadMeaning.STOCHASTIC_VARIABILITY}[axis.kind]
+        return EnsembleSpreadReport(metric,axis.name,axis.kind.value,meaning.value,
+                                    str(min(nums)),str(max(nums)),tuple(vals),False,'')
+
+    def weighted_mean(self,results:Iterable[EnsembleResult],metric,authority:ProbabilityWeightAuthority|None=None):
+        if authority is None:
+            raise ValueError('probability-weighted summary forbidden without explicit authority')
+        rs=tuple(results)
+        weights=authority.normalized([r.case_id for r in rs])
+        total=0.0
+        for r in rs:
+            d=dict(r.summary)
+            if metric not in d: raise ValueError('metric missing from ensemble result')
+            total+=weights[r.case_id]*float(d[metric])
+        return {'metric':metric,'weighted_mean':total,'probability_weighted':True,'authority_ref':authority.authority_ref}
+
+    def mean_with_interval(self,*args,authority:ProbabilityWeightAuthority|None=None,**kwargs):
+        if authority is None:
+            raise ValueError('mean-with-interval forbidden without explicit probability authority')
+        raise NotImplementedError('authorized probability interval method not yet implemented')
