@@ -88,7 +88,9 @@ Interactions occur through action requests, transactions, observations, ownershi
 Randomness is keyed and replayable. Random identities are independent of execution order.
 
 ### Collectives
-AGGREGATE state may represent many actors. Split/promotion into explicit AGENT state requires deterministic reconciliation and lineage.
+AGGREGATE state may represent many actors. Split/promotion into explicit AGENT state requires deterministic reconciliation, explicit exposure-selection/allocation basis, lineage, and a resolution-invariance test.
+
+When the exposed AGENT is constrained to follow the same rule as its source AGGREGATE representation, represented system totals must remain pathwise equivalent over the comparison horizon. Divergence is permitted only after an admitted difference in information, beliefs, objectives or policy.
 
 ### Observation
 Model outputs must expose events, state snapshots, invariant failures, run identity and uncertainty/parameter identity.
