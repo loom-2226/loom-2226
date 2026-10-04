@@ -5,7 +5,8 @@ import json
 from typing import Any, Callable, Dict, Tuple
 from .kernel import InvariantError
 from .methodology import MethodologyHardenedBuild4Kernel
-from .scheduler import ScheduledEvent
+from .scheduler import ScheduledEvent, Phase
+from .policy import DecisionSnapshot, PolicyContext, build_decision_snapshot
 
 @dataclass(frozen=True)
 class ScheduledRunResult:
@@ -33,6 +34,7 @@ class ScheduledSimulationRuntime:
             raise InvariantError('kernel already sealed by another scheduled runtime')
         self.kernel=kernel
         self._handlers: Dict[str,Callable[[MethodologyHardenedBuild4Kernel,ScheduledEvent],Any]]={}
+        self._policy_bindings: Dict[str,tuple[str,DecisionSnapshot,str,Callable[[PolicyContext],Any]]]={}
         self._sealed=False
         self._ran=False
         self._initial_fingerprint=None
@@ -44,13 +46,42 @@ class ScheduledSimulationRuntime:
         if process_id in self._handlers: raise InvariantError('duplicate runtime handler')
         if process_id not in self.kernel.scheduler.process_ids:
             raise InvariantError('handler process not registered in scheduler')
+        if self.kernel.scheduler.coupling(process_id).phase==Phase.DECISION_WINDOW:
+            raise InvariantError('DECISION_WINDOW requires policy handler; kernel-bearing handler forbidden')
         self._handlers[process_id]=handler
+
+    def register_policy_handler(self,event_id,agent_id,snapshot:DecisionSnapshot,decision_key,policy):
+        if self._sealed: raise InvariantError('cannot register policy after runtime seal')
+        if event_id in self._policy_bindings: raise InvariantError('duplicate policy event binding')
+        events={e.event_id:e for e in self.kernel.scheduler.ordered_events()}
+        if event_id not in events: raise InvariantError('policy event not scheduled')
+        event=events[event_id]
+        if event.phase!=Phase.DECISION_WINDOW:
+            raise InvariantError('policy handler may bind only DECISION_WINDOW event')
+        if agent_id not in self.kernel.agents or snapshot.agent_id!=agent_id:
+            raise InvariantError('policy snapshot agent mismatch')
+        expected=build_decision_snapshot(
+            self.kernel,agent_id,snapshot.period_key,snapshot.effective_time,snapshot.admitted_facts)
+        if expected.fingerprint()!=snapshot.fingerprint():
+            raise InvariantError('policy snapshot does not match current admitted agent-visible state')
+        expected_ref=f'decision-snapshot:{snapshot.period_key}:{snapshot.fingerprint()}'
+        if event.snapshot_ref!=expected_ref:
+            raise InvariantError('scheduled decision snapshot reference mismatch')
+        if self.kernel.scheduler.decision_snapshots.get(snapshot.period_key)!=snapshot.fingerprint():
+            raise InvariantError('scheduler decision snapshot not pinned')
+        if str(event.effective_time)!=snapshot.effective_time:
+            raise InvariantError('policy snapshot effective time mismatch')
+        self._policy_bindings[event_id]=(agent_id,snapshot,str(decision_key),policy)
 
     def seal(self):
         if self._sealed: raise InvariantError('runtime already sealed')
-        event_processes={e.process_id for e in self.kernel.scheduler.ordered_events()}
-        missing=sorted(event_processes-set(self._handlers))
-        if missing: raise InvariantError(f'missing scheduled handlers: {missing}')
+        missing=[]
+        for e in self.kernel.scheduler.ordered_events():
+            if e.phase==Phase.DECISION_WINDOW:
+                if e.event_id not in self._policy_bindings: missing.append(f'policy:{e.event_id}')
+            elif e.process_id not in self._handlers:
+                missing.append(f'handler:{e.process_id}')
+        if missing: raise InvariantError(f'missing scheduled handlers: {sorted(set(missing))}')
         self._plan_fingerprint=self.kernel.scheduler.plan_fingerprint()
         self._initial_fingerprint=self.kernel.methodology_fingerprint()
         self._execution_token=self.kernel.seal_for_scheduled_execution(
@@ -59,6 +90,15 @@ class ScheduledSimulationRuntime:
         return self._initial_fingerprint,self._plan_fingerprint
 
     def _dispatch(self,event):
+        if event.phase==Phase.DECISION_WINDOW:
+            binding=self._policy_bindings.get(event.event_id)
+            if binding is None: raise InvariantError(f'no policy binding for event {event.event_id}')
+            agent_id,snapshot,decision_key,policy=binding
+            if event.snapshot_ref!=f'decision-snapshot:{snapshot.period_key}:{snapshot.fingerprint()}':
+                raise InvariantError('decision event snapshot drift')
+            context=PolicyContext(snapshot,event.snapshot_ref,decision_key)
+            return policy(context)
+
         handler=self._handlers.get(event.process_id)
         if handler is None: raise InvariantError(f'no handler for process {event.process_id}')
         with self.kernel.scheduled_event_context(event.event_id,self._execution_token):
