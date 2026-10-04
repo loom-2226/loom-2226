@@ -142,7 +142,10 @@ class Build5PublicationFinancierTests(unittest.TestCase):
         nk,nh=self.run_publication('NULL_PUBLIC_1','0')
         r=self.finance_after_publication(rk,rh)
         n=self.finance_after_publication(nk,nh)
-        self.assertEqual(rh['publication_policy'].decision,nh['publication_policy'].decision)
+        self.assertEqual(rh['publication_policy'].decision.outcome,nh['publication_policy'].decision.outcome)
+        self.assertEqual(rh['publication_policy'].decision.reason_code,nh['publication_policy'].decision.reason_code)
+        self.assertEqual(rh['publication_policy'].worker_fingerprint,nh['publication_policy'].worker_fingerprint)
+        self.assertNotEqual(rh['publication_policy'].decision.input_snapshot_ref,nh['publication_policy'].decision.input_snapshot_ref)
         self.assertNotEqual(
             dict(rh['financier_snapshot'].beliefs)['resource_exists'],
             dict(nh['financier_snapshot'].beliefs)['resource_exists'])
