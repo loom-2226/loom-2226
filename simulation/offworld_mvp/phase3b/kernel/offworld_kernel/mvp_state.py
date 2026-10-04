@@ -172,6 +172,93 @@ class FinancingDecision:
                 raise ValueError('approved amount exceeds request')
         return self
 
+
+BUILD5_PUBLIC_EXPLORATION_REQUIRED_FACT_KEYS=(
+    'exploration.REMOTE_COST',
+)
+
+class ExplorationDecisionOutcome(str, Enum):
+    AUTHORIZE='AUTHORIZE'
+    DECLINE='DECLINE'
+    DEFER='DEFER'
+    BLOCKED_UNKNOWN='BLOCKED_UNKNOWN'
+
+class ExplorationReasonCode(str, Enum):
+    APPROVED_PUBLIC_INFORMATION_MISSION='APPROVED_PUBLIC_INFORMATION_MISSION'
+    INSUFFICIENT_BUDGET='INSUFFICIENT_BUDGET'
+    CAPABILITY_OR_OBJECTIVE_BLOCK='CAPABILITY_OR_OBJECTIVE_BLOCK'
+    DEFER_UNSUPPORTED_CHANNEL='DEFER_UNSUPPORTED_CHANNEL'
+    BLOCKED_REQUIRED_INPUT_UNKNOWN='BLOCKED_REQUIRED_INPUT_UNKNOWN'
+
+@dataclass(frozen=True)
+class ExplorationRequest:
+    id: str
+    year: int
+    project_id: str
+    resource_id: str
+    channel: str
+    required_fact_keys: tuple[str,...]=()
+    currency_unit: str='MODEL_CURRENCY'
+    request_version: str='EXPLORATION_REQUEST_V1'
+
+    def validate_protocol(self):
+        if not self.id or not self.project_id or not self.resource_id:
+            raise ValueError('exploration request identity incomplete')
+        if self.year<0:
+            raise ValueError('exploration request year invalid')
+        if self.channel not in {'REMOTE','SURFACE'}:
+            raise ValueError('unsupported exploration channel')
+        if tuple(self.required_fact_keys)!=BUILD5_PUBLIC_EXPLORATION_REQUIRED_FACT_KEYS:
+            raise ValueError('exploration request must declare exact Test 002A fact contract')
+        if not self.currency_unit:
+            raise ValueError('exploration request currency/unit missing')
+        return self
+
+@dataclass(frozen=True)
+class ExplorationDecision:
+    id: str
+    request_id: str
+    actor_id: str
+    authorized: bool
+    authorized_cost: D
+    channel: str
+    reason: str
+    outcome: ExplorationDecisionOutcome
+    reason_code: ExplorationReasonCode
+    unknown_input_keys: tuple[str,...]=()
+    input_snapshot_ref: str=''
+    policy_version: str=''
+    decision_version: str='EXPLORATION_DECISION_V1'
+
+    def validate_protocol(self,request:ExplorationRequest|None=None):
+        cost=D(self.authorized_cost)
+        if not self.id or not self.request_id or not self.actor_id:
+            raise ValueError('exploration decision identity incomplete')
+        if not self.input_snapshot_ref or not self.policy_version:
+            raise ValueError('exploration decision requires snapshot and policy version')
+        if self.outcome==ExplorationDecisionOutcome.AUTHORIZE:
+            if not self.authorized or cost<=0:
+                raise ValueError('AUTHORIZE requires authorized=true and positive cost')
+            if self.channel not in {'REMOTE','SURFACE'}:
+                raise ValueError('AUTHORIZE channel invalid')
+        else:
+            if self.authorized or cost!=D('0'):
+                raise ValueError('non-AUTHORIZE exploration decision cannot authorize spending')
+        if self.unknown_input_keys and self.outcome!=ExplorationDecisionOutcome.BLOCKED_UNKNOWN:
+            raise ValueError('required unknown exploration inputs must produce BLOCKED_UNKNOWN')
+        if self.outcome==ExplorationDecisionOutcome.BLOCKED_UNKNOWN:
+            if not self.unknown_input_keys:
+                raise ValueError('BLOCKED_UNKNOWN requires unknown input keys')
+            if self.reason_code!=ExplorationReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN:
+                raise ValueError('BLOCKED_UNKNOWN requires blocked-unknown reason code')
+        if request is not None:
+            request.validate_protocol()
+            if request.id!=self.request_id:
+                raise ValueError('exploration decision/request lineage mismatch')
+            if self.channel!=request.channel:
+                raise ValueError('exploration decision/request channel mismatch')
+        return self
+
 @dataclass
 class ScenarioResource:
     id: str; node_id: str; family: str; in_situ: D; accessible: D; recoverable: D; remaining: D

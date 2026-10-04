@@ -5,14 +5,17 @@ import json
 from pathlib import Path
 import sys
 
-def _load_policy():
-    path=Path(__file__).resolve().parent/'financier_v1.py'
-    spec=importlib.util.spec_from_file_location('_loom_financier_v1',path)
+def _load_policy(filename,name):
+    path=Path(__file__).resolve().parent/filename
+    spec=importlib.util.spec_from_file_location(name,path)
     module=importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
 
-POLICY=_load_policy()
+POLICIES={
+    'FINANCIER_SCREENING_V1':_load_policy('financier_v1.py','_loom_financier_v1'),
+    'PUBLIC_EXPLORER_V1':_load_policy('public_explorer_v1.py','_loom_public_explorer_v1'),
+}
 
 def _deny(*args,**kwargs):
     raise PermissionError('policy sandbox denied operation')
@@ -54,7 +57,11 @@ def main():
     if mode=='HOSTILE_ACCESS_PROBE':
         result=_hostile_probe(payload)
     elif mode=='EVALUATE':
-        result=POLICY.evaluate(payload['snapshot'],payload['request'],payload['manifest'],payload['decision_key'])
+        policy_id=payload['policy_id']
+        if policy_id not in POLICIES:
+            raise ValueError('unsupported policy id')
+        result=POLICIES[policy_id].evaluate(
+            payload['snapshot'],payload['request'],payload['manifest'],payload['decision_key'])
     else:
         raise ValueError('unsupported worker mode')
     sys.stdout.write(json.dumps(result,sort_keys=True,separators=(',',':')))

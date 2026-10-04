@@ -9,9 +9,18 @@ import sys
 from typing import Tuple
 
 from .financing_protocol import build_financing_decision, required_unknown_inputs
-from .mvp_state import FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest
+from .exploration_protocol import build_exploration_decision, required_unknown_exploration_inputs
+from .mvp_state import (
+    FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest,
+    ExplorationDecisionOutcome, ExplorationReasonCode, ExplorationRequest,
+)
 from .policy import DecisionSnapshot
 from .policies.manifest import FinancierPolicyManifest, policy_source_bytes
+from .policies.public_explorer_v1 import (
+    POLICY_CONTRACT as PUBLIC_EXPLORER_CONTRACT,
+    POLICY_ID as PUBLIC_EXPLORER_POLICY_ID,
+    SEMANTIC_VERSION as PUBLIC_EXPLORER_SEMANTIC_VERSION,
+)
 
 FORBIDDEN_IMPORT_ROOTS={
     'os','sys','time','datetime','random','secrets','socket','subprocess','pathlib',
@@ -97,6 +106,28 @@ def request_to_wire(q:FinancingRequest):
         'currency_unit':q.currency_unit,'request_version':q.request_version,
     }
 
+
+def exploration_request_to_wire(q:ExplorationRequest):
+    return {
+        'id':q.id,'year':q.year,'project_id':q.project_id,'resource_id':q.resource_id,
+        'channel':q.channel,'required_fact_keys':list(q.required_fact_keys),
+        'currency_unit':q.currency_unit,'request_version':q.request_version,
+    }
+
+def public_explorer_source_bytes()->bytes:
+    return (Path(__file__).resolve().parent/'policies'/'public_explorer_v1.py').read_bytes()
+
+def public_explorer_contract_hash()->str:
+    raw=json.dumps(PUBLIC_EXPLORER_CONTRACT,sort_keys=True,separators=(',',':')).encode()
+    return sha256(raw).hexdigest()
+
+def public_explorer_policy_version(source:bytes|None=None)->str:
+    source=source if source is not None else public_explorer_source_bytes()
+    h=sha256()
+    h.update(source)
+    h.update(public_explorer_contract_hash().encode())
+    return f'{PUBLIC_EXPLORER_POLICY_ID}:{PUBLIC_EXPLORER_SEMANTIC_VERSION}:{h.hexdigest()}'
+
 def _worker_path():
     return Path(__file__).resolve().parent/'policies'/'worker.py'
 
@@ -150,6 +181,7 @@ def run_financier_policy(snapshot:DecisionSnapshot,request:FinancingRequest,
 
     payload={
         'mode':'EVALUATE',
+        'policy_id':manifest.policy_id,
         'snapshot':snapshot_to_wire(snapshot),
         'request':request_to_wire(request),
         'manifest':manifest.wire_dict(),
@@ -170,3 +202,54 @@ def run_financier_policy(snapshot:DecisionSnapshot,request:FinancingRequest,
         decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
         snapshot,version,amount=amount,instrument=instrument)
     return PolicyExecutionResult(decision,version,manifest_hash,worker_fp,metrics)
+
+def run_public_explorer_policy(snapshot:DecisionSnapshot,request:ExplorationRequest,
+                               decision_key:str)->PolicyExecutionResult:
+    request.validate_protocol()
+    source=public_explorer_source_bytes()
+    assert_policy_source_safe(source)
+    version=public_explorer_policy_version(source)
+    contract_hash=public_explorer_contract_hash()
+
+    unknowns=required_unknown_exploration_inputs(request,snapshot)
+    decision_id='XDEC-'+sha256(
+        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
+    ).hexdigest()[:20]
+
+    if unknowns:
+        decision=build_exploration_decision(
+            decision_id,request,snapshot.agent_id,
+            ExplorationDecisionOutcome.BLOCKED_UNKNOWN,
+            ExplorationReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required admitted exploration inputs are unknown',
+            snapshot,version)
+        return PolicyExecutionResult(
+            decision,version,'CONTRACT_SHA256:'+contract_hash,
+            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
+            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
+            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+
+    payload={
+        'mode':'EVALUATE',
+        'policy_id':PUBLIC_EXPLORER_POLICY_ID,
+        'snapshot':snapshot_to_wire(snapshot),
+        'request':exploration_request_to_wire(request),
+        'manifest':PUBLIC_EXPLORER_CONTRACT,
+        'decision_key':str(decision_key),
+    }
+    out,worker_fp=_run_worker(payload)
+    try:
+        outcome=ExplorationDecisionOutcome(out['outcome'])
+        reason_code=ExplorationReasonCode(out['reason_code'])
+        authorized_cost=out.get('authorized_cost','0')
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as e:
+        raise RuntimeError('public explorer worker returned invalid decision payload') from e
+
+    decision=build_exploration_decision(
+        decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
+        snapshot,version,authorized_cost=authorized_cost)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
