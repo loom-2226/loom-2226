@@ -12,11 +12,13 @@ from .mvp_state import (
     ExplorationRequest, ExplorationDecision, PublicationRequest, PublicationDecision, PublicInformationArtifact,
     SponsorProjectDecisionRequest, SponsorProjectDecision,
     OperatingCycleRequest, OperatingCycleDecision,
+    SaleDecisionRequest, SaleDecision,
     ScenarioResource, Observation, ColonyState, PopulationLedger, RuntimeObjectClass, AgentKind,
     ActionKind, FinancingDecisionOutcome, FinancingReasonCode, ExplorationDecisionOutcome, ExplorationReasonCode,
     PublicationDecisionOutcome, PublicationReasonCode,
     SponsorProjectDecisionOutcome, SponsorProjectReasonCode,
     OperatingCycleDecisionOutcome, OperatingCycleReasonCode,
+    SaleDecisionOutcome, SaleReasonCode,
 )
 from .policy import SnapshotFact, DecisionSnapshot, PolicyContext, FactState
 from .scheduler import ScheduledEvent, CouplingSpec, Phase
@@ -40,20 +42,21 @@ from .surface_prospecting import (
     ObservationBeliefUpdateRecord,
 )
 from .operating import OperatingCostRecord, ExtractionResolutionRecord
+from .market import CommodityMarketEnvelope, MarketClearingRecord
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_10'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_11'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
     SystemState,AggregateState,EntityAssetRef,AgentState,FinancingRequest,FinancingDecision,ExplorationRequest,ExplorationDecision,
-    PublicationRequest,PublicationDecision,PublicInformationArtifact,SponsorProjectDecisionRequest,SponsorProjectDecision,OperatingCycleRequest,OperatingCycleDecision,ScenarioResource,Observation,
+    PublicationRequest,PublicationDecision,PublicInformationArtifact,SponsorProjectDecisionRequest,SponsorProjectDecision,OperatingCycleRequest,OperatingCycleDecision,SaleDecisionRequest,SaleDecision,ScenarioResource,Observation,
     ColonyState,PopulationLedger,SnapshotFact,DecisionSnapshot,PolicyContext,ScheduledEvent,CouplingSpec,
     UnderwritingInput,UnderwritingTable,ResolutionExposurePlan,ResolutionExposureRecord,
     ReplayProvenance,ScheduledRunResult,DecisionEpochRecord,ProjectDevelopmentPlan,DevelopmentStageRecord,DevelopmentResolutionRecord,
     SurfaceProspectingModel,SurfaceProspectingWorldRecord,ObservationBeliefUpdateRecord,
-    OperatingCostRecord,ExtractionResolutionRecord,
+    OperatingCostRecord,ExtractionResolutionRecord,CommodityMarketEnvelope,MarketClearingRecord,
     PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
 )
 
@@ -61,7 +64,7 @@ ODD_ENUM_TYPES=(
     NodeKind,AccountKind,TxPurpose,AssetKind,
     RuntimeObjectClass,AgentKind,ActionKind,FinancingDecisionOutcome,FinancingReasonCode,ExplorationDecisionOutcome,ExplorationReasonCode,
     PublicationDecisionOutcome,PublicationReasonCode,SponsorProjectDecisionOutcome,SponsorProjectReasonCode,
-    OperatingCycleDecisionOutcome,OperatingCycleReasonCode,
+    OperatingCycleDecisionOutcome,OperatingCycleReasonCode,SaleDecisionOutcome,SaleReasonCode,
     DevelopmentStageOutcome,DevelopmentResolutionOutcome,
     FactState,Phase,UnderwritingInputKind,UnderwritingInputStatus,
     ExposureSelectionBasis,ExposureAllocationBasis,AxisKind,SpreadMeaning,
@@ -109,6 +112,22 @@ ODD_UNIT_CONTRACTS={
     'ExtractionResolutionRecord.resource_after':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'ExtractionResolutionRecord.inventory_before':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'ExtractionResolutionRecord.inventory_after':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'SaleDecisionRequest.year':'SIM_YEAR',
+    'SaleDecision.offered_quantity':'FIELD:SaleDecisionRequest.quantity_unit',
+    'CommodityMarketEnvelope.year':'SIM_YEAR',
+    'CommodityMarketEnvelope.unit_price':'MODEL_CURRENCY_PER_RESOURCE_UNIT',
+    'CommodityMarketEnvelope.demand_quantity':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'MarketClearingRecord.year':'SIM_YEAR',
+    'MarketClearingRecord.offered_quantity':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'MarketClearingRecord.demand_before':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'MarketClearingRecord.cleared_quantity':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'MarketClearingRecord.demand_after':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'MarketClearingRecord.unit_price':'MODEL_CURRENCY_PER_RESOURCE_UNIT',
+    'MarketClearingRecord.transaction_value':'MODEL_CURRENCY',
+    'MarketClearingRecord.local_inventory_before':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'MarketClearingRecord.local_inventory_after':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'MarketClearingRecord.market_inventory_before':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'MarketClearingRecord.market_inventory_after':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'ProjectDevelopmentPlan.required_cost':'MODEL_CURRENCY',
     'ProjectDevelopmentPlan.stage_schedule':'SIM_YEAR_AND_MODEL_CURRENCY_SCHEDULE',
     'ProjectDevelopmentPlan.completion_year':'SIM_YEAR',
