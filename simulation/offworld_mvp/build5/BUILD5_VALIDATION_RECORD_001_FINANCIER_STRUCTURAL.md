@@ -4,7 +4,7 @@
 **Date:** 2026-10-04
 **Branch:** `offworld-mvp-build5-autonomous-financier`
 **Implementation head originally validated:** `4045201018e4c35266cd17fe62a08234099eef8b`
-**Current branch head re-verified:** `1a4c854a364f1646367356ba1ab883727d170b6f`
+**Live branch head used for re-verification:** `1a4c854a364f1646367356ba1ab883727d170b6f`
 **Authorization:** `BUILD5_IMPLEMENTATION_AUTHORIZATION_001_FINANCIER_TEST001.md`
 
 ## 1. Result
@@ -17,7 +17,7 @@ No synthetic fixture value has been promoted by repeated use.
 
 ## 2. Regression result
 
-Originally executed on `quantifactus` at implementation head `4045201018e4c35266cd17fe62a08234099eef8b` and re-executed from a fresh detached worktree at current branch head `1a4c854a364f1646367356ba1ab883727d170b6f`.
+Originally executed on `quantifactus` at implementation head `4045201018e4c35266cd17fe62a08234099eef8b` and re-executed from a fresh detached worktree at live branch head `1a4c854a364f1646367356ba1ab883727d170b6f`.
 
 The governed suite is run from:
 
@@ -27,13 +27,13 @@ using:
 
 `python3 -m unittest discover -s tests`
 
-Current live re-verification result:
+Live re-verification result:
 
 **117 tests executed; 117 passed in 8.208 seconds.**
 
 This includes all inherited Build 3/4 verification tests and the new Build 5 autonomous-financier tests.
 
-Between the original implementation head and the current re-verification head, Git shows only two added Markdown records:
+Between the original implementation head and the re-verification anchor, Git shows only two added Markdown records:
 
 - `simulation/offworld_mvp/build5/BUILD5_VALIDATION_RECORD_001_FINANCIER_STRUCTURAL.md`;
 - `simulation/offworld_mvp/build5/BUILD5_FINANCIER_POLICY_PARAMETER_PROPOSAL_0_1.md`.
@@ -46,19 +46,15 @@ Original implementation Git commit:
 
 `4045201018e4c35266cd17fe62a08234099eef8b`
 
-Current re-verification Git commit:
+Re-verification anchor Git commit:
 
 `1a4c854a364f1646367356ba1ab883727d170b6f`
 
-Executable `offworld_kernel` source-tree SHA-256 at the current re-verification head:
+Executable `offworld_kernel` source-tree SHA-256 at the re-verification anchor:
 
 `48393762bf0f151c826e4734d9c8caf0e73a9205b27a20a19e311bba7202014c`
 
-Git-object source-tree SHA-256:
-
-`48393762bf0f151c826e4734d9c8caf0e73a9205b27a20a19e311bba7202014c`
-
-Git-object reconstructed source-tree SHA-256 at the current re-verification head:
+Git-object reconstructed source-tree SHA-256 at the re-verification anchor:
 
 `48393762bf0f151c826e4734d9c8caf0e73a9205b27a20a19e311bba7202014c`
 
