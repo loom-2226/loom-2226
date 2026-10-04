@@ -13,6 +13,7 @@ from .mvp_state import (
     ScenarioResource, Observation, ColonyState, PopulationLedger, RuntimeObjectClass, AgentKind,
     ActionKind, FinancingDecisionOutcome, FinancingReasonCode, ExplorationDecisionOutcome, ExplorationReasonCode,
     PublicationDecisionOutcome, PublicationReasonCode,
+    SponsorProjectDecisionOutcome, SponsorProjectReasonCode,
 )
 from .policy import SnapshotFact, DecisionSnapshot, PolicyContext, FactState
 from .scheduler import ScheduledEvent, CouplingSpec, Phase
@@ -30,12 +31,12 @@ from .methodology import DecisionEpochRecord
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_6'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_7'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
     SystemState,AggregateState,EntityAssetRef,AgentState,FinancingRequest,FinancingDecision,ExplorationRequest,ExplorationDecision,
-    PublicationRequest,PublicationDecision,PublicInformationArtifact,ScenarioResource,Observation,
+    PublicationRequest,PublicationDecision,PublicInformationArtifact,SponsorProjectDecisionRequest,SponsorProjectDecision,ScenarioResource,Observation,
     ColonyState,PopulationLedger,SnapshotFact,DecisionSnapshot,PolicyContext,ScheduledEvent,CouplingSpec,
     UnderwritingInput,UnderwritingTable,ResolutionExposurePlan,ResolutionExposureRecord,
     ReplayProvenance,ScheduledRunResult,DecisionEpochRecord,PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
@@ -44,7 +45,7 @@ ODD_SCHEMA_TYPES=(
 ODD_ENUM_TYPES=(
     NodeKind,AccountKind,TxPurpose,AssetKind,
     RuntimeObjectClass,AgentKind,ActionKind,FinancingDecisionOutcome,FinancingReasonCode,ExplorationDecisionOutcome,ExplorationReasonCode,
-    PublicationDecisionOutcome,PublicationReasonCode,
+    PublicationDecisionOutcome,PublicationReasonCode,SponsorProjectDecisionOutcome,SponsorProjectReasonCode,
     FactState,Phase,UnderwritingInputKind,UnderwritingInputStatus,
     ExposureSelectionBasis,ExposureAllocationBasis,AxisKind,SpreadMeaning,
     VerificationLevel,ValidationLevel,OutOfSampleStatus,PolicyParameterStatus,ObservationKnowledgeRelation,
@@ -74,6 +75,8 @@ ODD_UNIT_CONTRACTS={
     'ExplorationRequest.year':'SIM_YEAR',
     'ExplorationDecision.authorized_cost':'REQUEST_CURRENCY_UNIT',
     'PublicationRequest.year':'SIM_YEAR',
+    'SponsorProjectDecisionRequest.year':'SIM_YEAR',
+    'SponsorProjectDecision.requested_financing':'REQUEST_CURRENCY_UNIT',
     'PublicInformationArtifact.year':'SIM_YEAR',
     'ScenarioResource.in_situ':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'ScenarioResource.accessible':'MODEL_RESOURCE_UNIT_BY_FAMILY',

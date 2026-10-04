@@ -47,7 +47,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
 
     SCHEDULED_MUTATION_METHODS=frozenset({
         'add_node','add_account','add_project','add_commitment','transfer','disburse','spend_capex','capitalize',
-        'add_agent','add_resource','event','observe','publish_observation','request_finance','decide_finance','extract','sell','migrate',
+        'add_agent','add_resource','event','observe','publish_observation','submit_financing_request','transition_project_status','request_finance','decide_finance','extract','sell','migrate',
         'set_resource_constraint','reserve_earth_supply','spend_reserved_capex','explore_paid','resolve_exploration',
         'extract_bounded','sell_to_market','dispose_surplus',
         'audit','register_vehicle_ownership','distribute_vehicle_to_owners','set_supply_capacity','consume_supply',

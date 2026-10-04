@@ -38,7 +38,7 @@ class AgentKind(str, Enum):
     PUBLIC='PUBLIC'; PRIVATE_SPONSOR='PRIVATE_SPONSOR'; PRIVATE_FINANCIER='PRIVATE_FINANCIER'; LOCAL_FINANCIER='LOCAL_FINANCIER'
 
 class ActionKind(str, Enum):
-    EXPLORE='EXPLORE'; PUBLISH='PUBLISH'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; REINVEST='REINVEST'
+    EXPLORE='EXPLORE'; PUBLISH='PUBLISH'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; ABANDON='ABANDON'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; REINVEST='REINVEST'
 
 @dataclass
 class AgentState:
@@ -58,6 +58,97 @@ class AgentState:
     claim_holdings: Dict[str,D]=field(default_factory=dict)
     lineage_refs: List[str]=field(default_factory=list)
     priors: Dict[str,D]=field(default_factory=dict)
+
+
+BUILD5_SPONSOR_REQUIRED_FACT_KEYS=(
+    'project.STATUS',
+    'project.CASH_BALANCE',
+    'underwriting.DEVELOPMENT_CAPEX',
+)
+BUILD5_SPONSOR_REQUIRED_BELIEF_KEYS=('resource_exists',)
+BUILD5_SPONSOR_REQUIRED_PRIOR_KEYS=('resource_exists',)
+
+class SponsorProjectDecisionOutcome(str, Enum):
+    REQUEST_FINANCE='REQUEST_FINANCE'
+    DEVELOP='DEVELOP'
+    DEFER='DEFER'
+    ABANDON='ABANDON'
+    BLOCKED_UNKNOWN='BLOCKED_UNKNOWN'
+
+class SponsorProjectReasonCode(str, Enum):
+    POSITIVE_EVIDENCE_FINANCE_REQUIRED='POSITIVE_EVIDENCE_FINANCE_REQUIRED'
+    POSITIVE_EVIDENCE_FUNDED='POSITIVE_EVIDENCE_FUNDED'
+    NO_RELEVANT_INFORMATION='NO_RELEVANT_INFORMATION'
+    NONPOSITIVE_EVIDENCE='NONPOSITIVE_EVIDENCE'
+    CAPABILITY_OR_OBJECTIVE_BLOCK='CAPABILITY_OR_OBJECTIVE_BLOCK'
+    PROJECT_STATE_BLOCK='PROJECT_STATE_BLOCK'
+    BLOCKED_REQUIRED_INPUT_UNKNOWN='BLOCKED_REQUIRED_INPUT_UNKNOWN'
+
+@dataclass(frozen=True)
+class SponsorProjectDecisionRequest:
+    id: str
+    year: int
+    project_id: str
+    resource_id: str
+    observation_id: str
+    required_fact_keys: tuple[str,...]=()
+    required_belief_keys: tuple[str,...]=()
+    required_prior_keys: tuple[str,...]=()
+    currency_unit: str='MODEL_CURRENCY'
+    request_version: str='SPONSOR_PROJECT_DECISION_REQUEST_V1'
+
+    def validate_protocol(self):
+        if not self.id or not self.project_id or not self.resource_id:
+            raise ValueError('sponsor project decision request identity incomplete')
+        if self.year<0:
+            raise ValueError('sponsor project decision request year invalid')
+        if tuple(self.required_fact_keys)!=BUILD5_SPONSOR_REQUIRED_FACT_KEYS:
+            raise ValueError('sponsor request must declare exact Test 005A fact contract')
+        if tuple(self.required_belief_keys)!=BUILD5_SPONSOR_REQUIRED_BELIEF_KEYS:
+            raise ValueError('sponsor request must declare exact Test 005A belief contract')
+        if tuple(self.required_prior_keys)!=BUILD5_SPONSOR_REQUIRED_PRIOR_KEYS:
+            raise ValueError('sponsor request must declare exact Test 005A prior contract')
+        if not self.currency_unit:
+            raise ValueError('sponsor request currency/unit missing')
+        return self
+
+@dataclass(frozen=True)
+class SponsorProjectDecision:
+    id: str
+    request_id: str
+    actor_id: str
+    outcome: SponsorProjectDecisionOutcome
+    requested_financing: D
+    reason: str
+    reason_code: SponsorProjectReasonCode
+    unknown_input_keys: tuple[str,...]=()
+    input_snapshot_ref: str=''
+    policy_version: str=''
+    decision_version: str='SPONSOR_PROJECT_DECISION_V1'
+
+    def validate_protocol(self,request:SponsorProjectDecisionRequest|None=None):
+        amount=D(self.requested_financing)
+        if not self.id or not self.request_id or not self.actor_id:
+            raise ValueError('sponsor project decision identity incomplete')
+        if not self.input_snapshot_ref or not self.policy_version:
+            raise ValueError('sponsor project decision requires snapshot and policy version')
+        if self.outcome==SponsorProjectDecisionOutcome.REQUEST_FINANCE:
+            if amount<=0:
+                raise ValueError('REQUEST_FINANCE requires positive requested financing')
+        elif amount!=D('0'):
+            raise ValueError('non-financing sponsor outcome cannot request financing')
+        if self.unknown_input_keys and self.outcome!=SponsorProjectDecisionOutcome.BLOCKED_UNKNOWN:
+            raise ValueError('required unknown sponsor inputs must produce BLOCKED_UNKNOWN')
+        if self.outcome==SponsorProjectDecisionOutcome.BLOCKED_UNKNOWN:
+            if not self.unknown_input_keys:
+                raise ValueError('BLOCKED_UNKNOWN requires unknown sponsor inputs')
+            if self.reason_code!=SponsorProjectReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN:
+                raise ValueError('BLOCKED_UNKNOWN requires blocked-unknown reason code')
+        if request is not None:
+            request.validate_protocol()
+            if request.id!=self.request_id:
+                raise ValueError('sponsor decision/request lineage mismatch')
+        return self
 
 BUILD5_REQUIRED_UNDERWRITING_KEYS=(
     'underwriting.PRICE',

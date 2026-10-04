@@ -95,6 +95,53 @@ class MVPKernel(Kernel):
                    (obs.id,artifact.id,artifact.audience,*artifact.recipient_ids))
         return artifact
 
+    def submit_financing_request(self,request:FinancingRequest,parent_ids=()):
+        request.validate_protocol()
+        if request.id in self.financing_requests:
+            raise InvariantError('duplicate financing request')
+        if request.sponsor_id not in self.agents:
+            raise InvariantError('financing request sponsor missing')
+        sponsor=self.agents[request.sponsor_id]
+        if sponsor.kind!=AgentKind.PRIVATE_SPONSOR:
+            raise InvariantError('requester not sponsor')
+        if request.project_id not in self.state.projects:
+            raise InvariantError('financing request project missing')
+        for oid in request.disclosed_observation_ids:
+            if oid not in sponsor.information:
+                raise InvariantError('cannot disclose unknown observation')
+        self.financing_requests[request.id]=request
+        self.event(request.year,request.sponsor_id,ActionKind.REQUEST_FINANCE,'REQUESTED',
+                   (request.id,request.project_id,str(request.amount)),tuple(parent_ids))
+        return request
+
+    def transition_project_status(self,year,actor_id,project_id,new_status,reason_ref=''):
+        if actor_id not in self.agents:
+            raise InvariantError('project transition actor missing')
+        if project_id not in self.state.projects:
+            raise InvariantError('project transition project missing')
+        actor=self.agents[actor_id]
+        if actor.kind!=AgentKind.PRIVATE_SPONSOR:
+            raise InvariantError('project transition requires sponsor')
+        p=self.state.projects[project_id]
+        old=str(p.status); new=str(new_status)
+        allowed={
+            'PROPOSED':{'EXPLORING','DEVELOPMENT','ABANDONED'},
+            'EXPLORING':{'DEVELOPMENT','ABANDONED','FAILED'},
+            'DEVELOPMENT':{'OPERATING','ABANDONED','FAILED'},
+            'OPERATING':{'CLOSED','FAILED'},
+            'ABANDONED':set(),
+            'FAILED':{'CLOSED'},
+            'CLOSED':set(),
+        }
+        if old not in allowed or new not in allowed[old]:
+            raise InvariantError(f'invalid project lifecycle transition: {old}->{new}')
+        if new=='DEVELOPMENT' and 'DEVELOP' not in actor.capabilities:
+            raise InvariantError('sponsor lacks development capability')
+        p.status=new
+        action=ActionKind.DEVELOP if new=='DEVELOPMENT' else ActionKind.ABANDON if new=='ABANDONED' else ActionKind.DEVELOP
+        self.event(year,actor_id,action,new,(project_id,old,new,str(reason_ref)),())
+        return p
+
     def request_finance(self,year,sponsor_id,project_id,amount,stage,disclosed=()):
         if self.agents[sponsor_id].kind!=AgentKind.PRIVATE_SPONSOR: raise InvariantError('requester not sponsor')
         for oid in disclosed:
@@ -150,8 +197,10 @@ class MVPKernel(Kernel):
             if d.request_id not in self.financing_requests or d.financier_id not in self.agents: raise InvariantError('decision lineage')
 
     def mvp_fingerprint(self):
-        payload={'base':self.fingerprint(),'agents':sorted((a.id,a.kind.value,a.node_id,sorted(a.information),sorted((k,str(v)) for k,v in a.beliefs.items()),a.history) for a in self.agents.values()),
-        'resources':sorted((r.id,str(r.in_situ),str(r.accessible),str(r.recoverable),str(r.remaining)) for r in self.resources.values()),
+        payload={'base':self.fingerprint(),'agents':sorted((a.id,a.kind.value,a.node_id,a.account_id,tuple(sorted(a.capabilities)),tuple(a.objectives),a.runtime_class.value,a.decision_policy,tuple(sorted(a.information)),tuple(sorted((k,str(v)) for k,v in a.beliefs.items())),tuple(sorted((k,str(v)) for k,v in a.priors.items())),tuple(a.history),tuple(sorted(a.asset_refs)),tuple(sorted((k,str(v)) for k,v in a.resource_holdings.items())),tuple(sorted((k,str(v)) for k,v in a.claim_holdings.items())),tuple(a.lineage_refs)) for a in self.agents.values()),
+        'projects':sorted((p.id,p.node_id,p.cash_account_id,tuple(sorted((k,str(v)) for k,v in p.owners.items())),p.status) for p in self.state.projects.values()),
+        'commitments':sorted((c.id,c.financier_id,c.project_id,str(c.amount),str(c.committed),str(c.disbursed),str(c.lapsed)) for c in self.state.commitments.values()),
+        'resources':sorted((r.id,r.node_id,r.family,str(r.in_situ),str(r.accessible),str(r.recoverable),str(r.remaining)) for r in self.resources.values()),
         'obs':sorted((o.id,o.actor_id,o.resource_id,o.signal,o.public) for o in self.observations.values()),
         'public_information':sorted((a.id,a.publisher_id,a.source_observation_id,a.resource_id,a.channel,a.signal,a.audience,a.recipient_ids) for a in self.public_information.values()),
         'events':[(e.id,e.year,e.actor_id,e.action.value,e.result,e.inputs,e.parent_ids) for e in self.events],

@@ -11,10 +11,12 @@ from typing import Tuple
 from .financing_protocol import build_financing_decision, required_unknown_inputs
 from .exploration_protocol import build_exploration_decision, required_unknown_exploration_inputs
 from .publication_protocol import build_publication_decision
+from .sponsor_protocol import build_sponsor_project_decision, required_unknown_sponsor_inputs
 from .mvp_state import (
     FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest,
     ExplorationDecisionOutcome, ExplorationReasonCode, ExplorationRequest,
     PublicationDecisionOutcome, PublicationReasonCode, PublicationRequest,
+    SponsorProjectDecisionOutcome, SponsorProjectReasonCode, SponsorProjectDecisionRequest,
 )
 from .policy import DecisionSnapshot
 from .policies.manifest import FinancierPolicyManifest, policy_source_bytes
@@ -27,6 +29,11 @@ from .policies.public_publisher_v1 import (
     POLICY_CONTRACT as PUBLIC_PUBLISHER_CONTRACT,
     POLICY_ID as PUBLIC_PUBLISHER_POLICY_ID,
     SEMANTIC_VERSION as PUBLIC_PUBLISHER_SEMANTIC_VERSION,
+)
+from .policies.sponsor_operator_v1 import (
+    POLICY_CONTRACT as SPONSOR_OPERATOR_CONTRACT,
+    POLICY_ID as SPONSOR_OPERATOR_POLICY_ID,
+    SEMANTIC_VERSION as SPONSOR_OPERATOR_SEMANTIC_VERSION,
 )
 
 FORBIDDEN_IMPORT_ROOTS={
@@ -126,6 +133,30 @@ def publication_request_to_wire(q:PublicationRequest):
         'id':q.id,'year':q.year,'observation_id':q.observation_id,
         'audience':q.audience,'request_version':q.request_version,
     }
+
+def sponsor_request_to_wire(q:SponsorProjectDecisionRequest):
+    return {
+        'id':q.id,'year':q.year,'project_id':q.project_id,'resource_id':q.resource_id,
+        'observation_id':q.observation_id,
+        'required_fact_keys':list(q.required_fact_keys),
+        'required_belief_keys':list(q.required_belief_keys),
+        'required_prior_keys':list(q.required_prior_keys),
+        'currency_unit':q.currency_unit,'request_version':q.request_version,
+    }
+
+def sponsor_operator_source_bytes()->bytes:
+    return (Path(__file__).resolve().parent/'policies'/'sponsor_operator_v1.py').read_bytes()
+
+def sponsor_operator_contract_hash()->str:
+    raw=json.dumps(SPONSOR_OPERATOR_CONTRACT,sort_keys=True,separators=(',',':')).encode()
+    return sha256(raw).hexdigest()
+
+def sponsor_operator_policy_version(source:bytes|None=None)->str:
+    source=source if source is not None else sponsor_operator_source_bytes()
+    h=sha256()
+    h.update(source)
+    h.update(sponsor_operator_contract_hash().encode())
+    return f'{SPONSOR_OPERATOR_POLICY_ID}:{SPONSOR_OPERATOR_SEMANTIC_VERSION}:{h.hexdigest()}'
 
 def public_publisher_source_bytes()->bytes:
     return (Path(__file__).resolve().parent/'policies'/'public_publisher_v1.py').read_bytes()
@@ -311,6 +342,58 @@ def run_public_publisher_policy(snapshot:DecisionSnapshot,request:PublicationReq
 
     decision=build_publication_decision(
         decision_id,request,snapshot.agent_id,outcome,reason_code,reason,snapshot,version)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
+
+def run_sponsor_operator_policy(snapshot:DecisionSnapshot,
+                                request:SponsorProjectDecisionRequest,
+                                decision_key:str)->PolicyExecutionResult:
+    request.validate_protocol()
+    source=sponsor_operator_source_bytes()
+    assert_policy_source_safe(source)
+    version=sponsor_operator_policy_version(source)
+    contract_hash=sponsor_operator_contract_hash()
+
+    unknowns=required_unknown_sponsor_inputs(request,snapshot)
+    decision_id='SDEC-'+sha256(
+        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
+    ).hexdigest()[:20]
+
+    if unknowns:
+        decision=build_sponsor_project_decision(
+            decision_id,request,snapshot.agent_id,
+            SponsorProjectDecisionOutcome.BLOCKED_UNKNOWN,
+            SponsorProjectReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required admitted sponsor inputs are unknown',
+            snapshot,version)
+        return PolicyExecutionResult(
+            decision,version,'CONTRACT_SHA256:'+contract_hash,
+            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
+            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
+            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+
+    payload={
+        'mode':'EVALUATE',
+        'policy_id':SPONSOR_OPERATOR_POLICY_ID,
+        'snapshot':snapshot_to_wire(snapshot),
+        'request':sponsor_request_to_wire(request),
+        'manifest':SPONSOR_OPERATOR_CONTRACT,
+        'decision_key':str(decision_key),
+    }
+    out,worker_fp=_run_worker(payload)
+    try:
+        outcome=SponsorProjectDecisionOutcome(out['outcome'])
+        reason_code=SponsorProjectReasonCode(out['reason_code'])
+        requested_financing=out.get('requested_financing','0')
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as e:
+        raise RuntimeError('sponsor operator worker returned invalid decision payload') from e
+
+    decision=build_sponsor_project_decision(
+        decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
+        snapshot,version,requested_financing=requested_financing)
     return PolicyExecutionResult(
         decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
 
