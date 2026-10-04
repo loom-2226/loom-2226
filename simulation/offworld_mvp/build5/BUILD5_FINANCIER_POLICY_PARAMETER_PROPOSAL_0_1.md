@@ -1,9 +1,9 @@
 # Build 5 Financier Policy Parameter Proposal 0.1
 
-**Status:** PROPOSED / NOT AUTHORIZED / TEST-ONLY VALUES
+**Status:** SUPERSEDED FOR TEST 001 CLOSURE / NOT AUTHORIZED / TEST-ONLY VALUES
 **Date:** 2026-10-04
 
-This document isolates the only remaining human-authority decision for Build 5 Test 001.
+This document formerly isolated a possible human-authority decision for Build 5 Test 001. That closure approach was superseded on 2026-10-04 by the decision to keep the synthetic values un-authorized and record an operator-observed scenario instead.
 
 The implementation already uses the following values as synthetic verification fixtures. They are proposed as the initial **MVP validation-policy baseline**, not as empirical estimates of real financiers or real offworld projects.
 
@@ -35,3 +35,14 @@ Its return measure is explicitly:
 `max_concentration_fraction` exists to exercise the CONCENTRATION branch. It is not claimed to represent a real institutional portfolio limit.
 
 Authorizing this proposal would authorize these numbers **only for the Build 5 Test 001 MVP validation policy**. It would not promote them to empirical truth or production calibration.
+
+
+## Supersession note
+
+Build 5 Test 001 structural closure no longer depends on authorizing this parameter proposal.
+
+The synthetic values remain `TEST_ONLY / NOT_POLICY_BASELINE` and were used only in an operator-observed scenario preserved in:
+
+`BUILD5_OPERATOR_RUN_RECORD_001_SYNTHETIC_FINANCIER.md`
+
+This proposal remains in repository history for provenance. It is not an active authorization request and must not be interpreted as a policy baseline.
