@@ -11,11 +11,13 @@ from offworld_kernel.financing_protocol import build_financing_request
 from offworld_kernel.kernel import InvariantError
 from offworld_kernel.mvp_state import (
     FinancingDecisionOutcome,
+    OperatingCycleDecision,
     OperatingCycleDecisionOutcome,
     OperatingCycleReasonCode,
     RuntimeObjectClass,
 )
 from offworld_kernel.policy import build_decision_snapshot
+from offworld_kernel.model import Asset, AssetKind
 from offworld_kernel.policy_runner import (
     run_financier_policy,
     run_hostile_access_probe,
@@ -33,6 +35,14 @@ from tests import test_build5_project_lifecycle as lifecycle_tests
 
 
 class Build5OperatingExtractionTests(unittest.TestCase):
+    def synthetic_operate_decision(self,request,quantity='5',opex='20'):
+        return OperatingCycleDecision(
+            'ODEC-SYNTHETIC-HOSTILE',request.id,'SPN',
+            OperatingCycleDecisionOutcome.OPERATE,D('0'),D(quantity),D(opex),
+            'hostile boundary fixture',OperatingCycleReasonCode.OPERATING_CYCLE_AUTHORIZED,
+            (), 'decision-snapshot:HOSTILE:fixture','HOSTILE_POLICY_V1'
+        ).validate_protocol(request)
+
     def reach_operating(self,universe_id='RICH_PUBLIC_3',stock='20',
                         sponsor_capabilities=('REQUEST_FINANCE','DEVELOP','OPERATE','EXTRACT')):
         k,h=operating_extraction_kernel(
@@ -327,6 +337,45 @@ class Build5OperatingExtractionTests(unittest.TestCase):
         self.assertEqual([h['extraction_record'].actual_extracted for _,h in cases],
                          [D('5'),D('3'),D('0')])
 
+    def test_non_operating_project_cannot_execute_cycle(self):
+        k,h=operating_extraction_kernel(
+            'RICH_PUBLIC_3','20',
+            sponsor_capabilities=('REQUEST_FINANCE','DEVELOP','OPERATE','EXTRACT'))
+        req=operating_request(h['obs'].id,'OPREQ-HOSTILE-NONOPERATING',9)
+        d=self.synthetic_operate_decision(req)
+        with self.assertRaisesRegex(InvariantError,'requires OPERATING project'):
+            k.spend_operating_cycle(9,'SPN',req,d,'earth_supplier',D('4'))
+        self.assertEqual(k.state.projects['P'].status,'PROPOSED')
+        self.assertEqual(k.state.accounts['project_cash'].balance,D('0'))
+
+    def test_wrong_productive_asset_is_rejected_before_spend(self):
+        k,h=operating_extraction_kernel(
+            'RICH_PUBLIC_3','20',
+            sponsor_capabilities=('REQUEST_FINANCE','DEVELOP','OPERATE','EXTRACT'))
+        k.state.projects['P'].status='OPERATING'
+        k.state.accounts['project_cash'].balance=D('20')
+        k.state.assets['MINE-P']=Asset(
+            'MINE-P','WRONG-PROJECT','OFF:T1',AssetKind.PRODUCTIVE,D('60'),D('5'))
+        req=operating_request(h['obs'].id,'OPREQ-HOSTILE-ASSET',9)
+        d=self.synthetic_operate_decision(req)
+        with self.assertRaisesRegex(InvariantError,'operating asset/project mismatch'):
+            k.spend_operating_cycle(9,'SPN',req,d,'earth_supplier',D('4'))
+        self.assertEqual(k.state.accounts['project_cash'].balance,D('20'))
+
+    def test_forged_plan_above_productive_capacity_is_rejected(self):
+        k,h=operating_extraction_kernel(
+            'RICH_PUBLIC_3','20',
+            sponsor_capabilities=('REQUEST_FINANCE','DEVELOP','OPERATE','EXTRACT'))
+        k.state.projects['P'].status='OPERATING'
+        k.state.accounts['project_cash'].balance=D('24')
+        k.state.assets['MINE-P']=Asset(
+            'MINE-P','P','OFF:T1',AssetKind.PRODUCTIVE,D('60'),D('5'))
+        req=operating_request(h['obs'].id,'OPREQ-HOSTILE-CAPACITY',9)
+        d=self.synthetic_operate_decision(req,quantity='6',opex='24')
+        with self.assertRaisesRegex(InvariantError,'exceeds productive capacity'):
+            k.spend_operating_cycle(9,'SPN',req,d,'earth_supplier',D('4'))
+        self.assertEqual(k.state.accounts['project_cash'].balance,D('24'))
+
     def test_operating_policy_decision_alone_does_not_mutate_world(self):
         k,h=self.reach_operating()
         snap=operating_snapshot(k,h['operating_table'],'NO-MUTATE','9')
@@ -401,6 +450,12 @@ class Build5OperatingExtractionTests(unittest.TestCase):
                 self.assertEqual(
                     tuple(sorted(h[key])),
                     ('A1','A2','A3','A4','A5','A6','A7','A8','A9'))
+
+    def test_productive_capacity_raw_tamper_is_detected_between_epochs(self):
+        k,h=self.full_case()
+        k.state.assets['MINE-P'].capacity+=D('1')
+        with self.assertRaisesRegex(InvariantError,'tampered between decision epochs'):
+            k.begin_decision_epoch('TAMPER-CAPACITY')
 
     def test_inventory_raw_tamper_is_detected_between_epochs(self):
         k,h=self.full_case()
