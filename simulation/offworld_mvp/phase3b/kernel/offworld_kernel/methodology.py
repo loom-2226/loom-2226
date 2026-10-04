@@ -7,7 +7,7 @@ import json
 from typing import Dict, Tuple
 from .build4 import Build4Kernel, OwnershipStake
 from .kernel import InvariantError
-from .model import D
+from .model import D, TxPurpose
 from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState
 from .scheduler import DeterministicScheduler
 from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
