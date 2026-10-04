@@ -96,7 +96,7 @@ def resolution_invariant_totals(kernel,aggregate_id,source_account_id)->Resoluti
             claims[key]=claims.get(key,D('0'))+D(value)
 
     participant_accounts={agg.account_id}|{kernel.agents[x].account_id for x in agent_ids}
-    paid=sum((tx.amount for tx in kernel.state.transactions if tx.src_account==source_account_id and tx.dst_account in participant_accounts),D('0'))
+    paid=sum((tx.amount for tx in kernel.state.transactions if tx.source_account==source_account_id and tx.destination_account in participant_accounts),D('0'))
     all_cash=sum((a.balance for a in kernel.state.accounts.values() if a.kind!=AccountKind.EARTH_BOUNDARY),D('0'))
 
     vehicles=sorted({s.vehicle_id for s in kernel.ownership_stakes})
