@@ -253,6 +253,10 @@ The ODD state/interface registry below is machine-checked against executable dat
       "EARTH",
       "OFFWORLD"
     ],
+    "ObservationKnowledgeRelation": [
+      "PERFECT_OBSERVATION_MODEL_KNOWLEDGE_ASSUMPTION",
+      "INDEPENDENT_AGENT_LIKELIHOOD_MODEL"
+    ],
     "OutOfSampleStatus": [
       0,
       1,
@@ -274,6 +278,10 @@ The ODD state/interface registry below is machine-checked against executable dat
       110,
       120,
       130
+    ],
+    "PolicyParameterStatus": [
+      "AUTHORIZED",
+      "TEST_ONLY"
     ],
     "RuntimeObjectClass": [
       "SYSTEM",
@@ -331,7 +339,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_2",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_3",
   "types": {
     "Account": [
       {
@@ -705,6 +713,44 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "RuntimeObjectClass"
       }
     ],
+    "FinancierPolicyManifest": [
+      {
+        "name": "manifest_id",
+        "type": "str"
+      },
+      {
+        "name": "policy_id",
+        "type": "str"
+      },
+      {
+        "name": "semantic_version",
+        "type": "str"
+      },
+      {
+        "name": "parameters",
+        "type": "Tuple[PolicyParameter, ...]"
+      },
+      {
+        "name": "observation_knowledge_relation",
+        "type": "ObservationKnowledgeRelation"
+      },
+      {
+        "name": "world_observation_model_ref",
+        "type": "str"
+      },
+      {
+        "name": "world_detection_rate",
+        "type": "D | None"
+      },
+      {
+        "name": "world_false_positive_rate",
+        "type": "D | None"
+      },
+      {
+        "name": "manifest_status",
+        "type": "PolicyParameterStatus"
+      }
+    ],
     "FinancingDecision": [
       {
         "name": "id",
@@ -943,6 +989,78 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "str"
       }
     ],
+    "PolicyExecutionResult": [
+      {
+        "name": "decision",
+        "type": "object"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "parameter_manifest_hash",
+        "type": "str"
+      },
+      {
+        "name": "worker_fingerprint",
+        "type": "str"
+      },
+      {
+        "name": "metrics",
+        "type": "Tuple[Tuple[str, str], ...]"
+      },
+      {
+        "name": "sandbox_mode",
+        "type": "str"
+      }
+    ],
+    "PolicyParameter": [
+      {
+        "name": "parameter_id",
+        "type": "str"
+      },
+      {
+        "name": "semantic_name",
+        "type": "str"
+      },
+      {
+        "name": "value",
+        "type": "D"
+      },
+      {
+        "name": "unit",
+        "type": "str"
+      },
+      {
+        "name": "authorization_ref",
+        "type": "str"
+      },
+      {
+        "name": "status",
+        "type": "PolicyParameterStatus"
+      },
+      {
+        "name": "sensitivity_low",
+        "type": "D"
+      },
+      {
+        "name": "sensitivity_high",
+        "type": "D"
+      },
+      {
+        "name": "local_perturbation",
+        "type": "D"
+      },
+      {
+        "name": "valid_from_version",
+        "type": "str"
+      },
+      {
+        "name": "valid_to_version",
+        "type": "str"
+      }
+    ],
     "PopulationLedger": [
       {
         "name": "earth",
@@ -972,6 +1090,44 @@ The ODD state/interface registry below is machine-checked against executable dat
       },
       {
         "name": "status",
+        "type": "str"
+      }
+    ],
+    "ReplayProvenance": [
+      {
+        "name": "repository",
+        "type": "str"
+      },
+      {
+        "name": "git_commit",
+        "type": "str"
+      },
+      {
+        "name": "code_tree_sha256",
+        "type": "str"
+      },
+      {
+        "name": "input_snapshot_ids",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "parameter_manifest_ids",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "table_manifest_ids",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "policy_manifest_ids",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "commit_code_linkage",
+        "type": "str"
+      },
+      {
+        "name": "provenance_source",
         "type": "str"
       }
     ],
@@ -1120,6 +1276,88 @@ The ODD state/interface registry below is machine-checked against executable dat
       },
       {
         "name": "snapshot_ref",
+        "type": "str"
+      }
+    ],
+    "ScheduledRunResult": [
+      {
+        "name": "run_mode",
+        "type": "str"
+      },
+      {
+        "name": "scheduler_contract_version",
+        "type": "str"
+      },
+      {
+        "name": "plan_fingerprint",
+        "type": "str"
+      },
+      {
+        "name": "initial_fingerprint",
+        "type": "str"
+      },
+      {
+        "name": "final_fingerprint",
+        "type": "str"
+      },
+      {
+        "name": "execution_log",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "event_results",
+        "type": "Tuple[Tuple[str, str], ...]"
+      },
+      {
+        "name": "verification_status",
+        "type": "str"
+      },
+      {
+        "name": "validation_status",
+        "type": "str"
+      },
+      {
+        "name": "repository",
+        "type": "str"
+      },
+      {
+        "name": "git_commit",
+        "type": "str"
+      },
+      {
+        "name": "code_tree_sha256",
+        "type": "str"
+      },
+      {
+        "name": "input_snapshot_ids",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "parameter_manifest_ids",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "table_manifest_ids",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "policy_manifest_ids",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "commit_code_linkage",
+        "type": "str"
+      },
+      {
+        "name": "provenance_fingerprint",
+        "type": "str"
+      },
+      {
+        "name": "execution_fingerprint",
+        "type": "str"
+      },
+      {
+        "name": "result_fingerprint",
         "type": "str"
       }
     ],
@@ -1285,12 +1523,18 @@ The ODD state/interface registry below is machine-checked against executable dat
     "DecisionSnapshot.effective_time": "SIM_TIME",
     "EarthImpactLedger.qualifying_supplied_expenditure": "MODEL_CURRENCY",
     "EarthImpactLedger.terrestrial_fcf_delta": "MODEL_CURRENCY",
+    "FinancierPolicyManifest.world_detection_rate": "PROBABILITY",
+    "FinancierPolicyManifest.world_false_positive_rate": "PROBABILITY",
     "FinancingDecision.amount": "REQUEST_CURRENCY_UNIT",
     "FinancingRequest.amount": "FIELD:FinancingRequest.currency_unit",
     "FinancingRequest.year": "SIM_YEAR",
     "FixedCapitalFormationEvent.amount": "MODEL_CURRENCY",
     "FixedCapitalFormationEvent.year": "SIM_YEAR",
     "Observation.year": "SIM_YEAR",
+    "PolicyParameter.local_perturbation": "FIELD:PolicyParameter.unit",
+    "PolicyParameter.sensitivity_high": "FIELD:PolicyParameter.unit",
+    "PolicyParameter.sensitivity_low": "FIELD:PolicyParameter.unit",
+    "PolicyParameter.value": "FIELD:PolicyParameter.unit",
     "Project": "NO_INTRINSIC_SCALAR_UNIT",
     "ResolutionExposureRecord.allocation_fraction": "DIMENSIONLESS_SHARE",
     "ScenarioResource.accessible": "MODEL_RESOURCE_UNIT_BY_FAMILY",
