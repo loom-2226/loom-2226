@@ -69,7 +69,7 @@ DECISION_WINDOW policy execution is separated from kernel-bearing system handler
 Settlement, capital stock, ownership distribution, extraction and financing recursion are realized outcomes, not scripted historical milestones.
 
 ### Adaptation
-General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier, public institutional remote explorer/surface prospector/publisher, and private sponsor/operator including project advancement and operating-cycle decisions. Additional Agent roles or materially expanded policies require separate governance.
+General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier, public institutional remote explorer/surface prospector/publisher, and private sponsor/operator including project advancement, operating-cycle and inventory-sale decisions. Additional Agent roles or materially expanded policies require separate governance.
 
 ### Objectives
 Agent objective state exists conceptually. No common utility function is assumed.
@@ -84,7 +84,7 @@ Agents may later form expectations from their own information. WORLD_SIM truth m
 Only declared observation/information channels cross the hidden-world firewall.
 
 ### Interaction
-Interactions occur through action requests, transactions, observations, ownership claims and system-mediated processes. Agents do not mutate world state.
+Interactions occur through action requests, transactions, observations, ownership claims and system-mediated processes. Agents do not mutate world state. Test 009A keeps commodity clearing as a SYSTEM process: the sponsor may offer realized inventory from admitted exogenous price/demand state, while the market SYSTEM validates current inventory and remaining demand and records the physical/financial clearing. It does not read hidden scenario resource truth.
 
 ### Stochasticity
 Randomness is keyed and replayable. Random identities are independent of execution order.
@@ -149,6 +149,7 @@ Current MVP submodels/interfaces include:
 - bounded sponsor/operator project advancement, financing-request and abandonment decisions;
 - explicit staged project-development plans, construction WIP, commissioning, failure and WIP write-off;
 - bounded sponsor operating working-capital decisions, OPEX execution and WORLD_SIM resource-bounded extraction into offworld inventory;
+- bounded sponsor inventory-sale decisions plus immutable exogenous commodity-market envelopes, signed Earth-boundary clearing, physical inventory transfer and project revenue;
 - aggregate-resolution reconciliation;
 - uncertainty/ensemble runner;
 - ensemble reporting guardrails that distinguish scenario spread, parameter sensitivity, uncertainty spread and stochastic variability;
@@ -160,7 +161,7 @@ The A1–A9 property fixture captures state before every scheduler-valid transit
 
 The multi-rate synchronization fixture combines day-scale mission observations, quarterly finance and annual Earth-system events under one deterministic scheduler.
 
-Transport, technology gating, dynamic economic reserve conversion, mature colony operations, grade/quantity prospecting estimates, `CLOSED` and post-failure/zero-output lifecycle semantics, autonomous sponsor prospecting, repeated operating cycles, sale/reinvestment decisions, market-demand clearing, empirical sensor calibration, empirical construction calibration, and empirical mining calibration remain incomplete unless separately implemented and validated.
+Transport, technology gating, dynamic economic reserve conversion, mature colony operations, grade/quantity prospecting estimates, `CLOSED` and post-failure/zero-output lifecycle semantics, autonomous sponsor prospecting, repeated operating cycles, surplus/reinvestment decisions, endogenous price formation, price-responsive demand, multi-buyer/multi-seller competition, country-policy market intervention, empirical sensor calibration, empirical construction calibration, empirical mining calibration, and empirical market calibration remain incomplete unless separately implemented and validated.
 
 ## 8. Reproducibility package
 
@@ -351,6 +352,21 @@ The ODD state/interface registry below is machine-checked against executable dat
       "AGENT",
       "ENTITY_ASSET"
     ],
+    "SaleDecisionOutcome": [
+      "OFFER",
+      "DEFER",
+      "BLOCKED_UNKNOWN"
+    ],
+    "SaleReasonCode": [
+      "MARKET_OFFER_AUTHORIZED",
+      "NO_SELLABLE_INVENTORY",
+      "NO_POSITIVE_PRICE",
+      "NO_MARKET_DEMAND",
+      "NO_RELEVANT_INFORMATION",
+      "CAPABILITY_OR_OBJECTIVE_BLOCK",
+      "PROJECT_STATE_BLOCK",
+      "BLOCKED_REQUIRED_INPUT_UNKNOWN"
+    ],
     "SponsorProjectDecisionOutcome": [
       "REQUEST_FINANCE",
       "DEVELOP",
@@ -417,7 +433,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_10",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_11",
   "types": {
     "Account": [
       {
@@ -645,6 +661,52 @@ The ODD state/interface registry below is machine-checked against executable dat
       {
         "name": "lapsed",
         "type": "D"
+      }
+    ],
+    "CommodityMarketEnvelope": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "resource_id",
+        "type": "str"
+      },
+      {
+        "name": "buyer_account_id",
+        "type": "str"
+      },
+      {
+        "name": "unit_price",
+        "type": "D"
+      },
+      {
+        "name": "demand_quantity",
+        "type": "D"
+      },
+      {
+        "name": "currency_unit",
+        "type": "str"
+      },
+      {
+        "name": "quantity_unit",
+        "type": "str"
+      },
+      {
+        "name": "source_ref",
+        "type": "str"
+      },
+      {
+        "name": "epistemic_status",
+        "type": "str"
+      },
+      {
+        "name": "envelope_version",
+        "type": "str"
       }
     ],
     "CouplingSpec": [
@@ -1289,6 +1351,84 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "EarthImpactLedger"
       }
     ],
+    "MarketClearingRecord": [
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "market_state_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "decision_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "resource_id",
+        "type": "str"
+      },
+      {
+        "name": "offered_quantity",
+        "type": "D"
+      },
+      {
+        "name": "demand_before",
+        "type": "D"
+      },
+      {
+        "name": "cleared_quantity",
+        "type": "D"
+      },
+      {
+        "name": "demand_after",
+        "type": "D"
+      },
+      {
+        "name": "unit_price",
+        "type": "D"
+      },
+      {
+        "name": "transaction_value",
+        "type": "D"
+      },
+      {
+        "name": "local_inventory_before",
+        "type": "D"
+      },
+      {
+        "name": "local_inventory_after",
+        "type": "D"
+      },
+      {
+        "name": "market_inventory_before",
+        "type": "D"
+      },
+      {
+        "name": "market_inventory_after",
+        "type": "D"
+      },
+      {
+        "name": "transaction_id",
+        "type": "str"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
     "Node": [
       {
         "name": "id",
@@ -1925,6 +2065,94 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "D"
       }
     ],
+    "SaleDecision": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "SaleDecisionOutcome"
+      },
+      {
+        "name": "offered_quantity",
+        "type": "D"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "reason_code",
+        "type": "SaleReasonCode"
+      },
+      {
+        "name": "unknown_input_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
+    ],
+    "SaleDecisionRequest": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "resource_id",
+        "type": "str"
+      },
+      {
+        "name": "market_state_id",
+        "type": "str"
+      },
+      {
+        "name": "observation_id",
+        "type": "str"
+      },
+      {
+        "name": "required_fact_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "currency_unit",
+        "type": "str"
+      },
+      {
+        "name": "quantity_unit",
+        "type": "str"
+      },
+      {
+        "name": "request_version",
+        "type": "str"
+      }
+    ],
     "ScenarioResource": [
       {
         "name": "id",
@@ -2418,6 +2646,9 @@ The ODD state/interface registry below is machine-checked against executable dat
     "Commitment.committed": "MODEL_CURRENCY",
     "Commitment.disbursed": "MODEL_CURRENCY",
     "Commitment.lapsed": "MODEL_CURRENCY",
+    "CommodityMarketEnvelope.demand_quantity": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "CommodityMarketEnvelope.unit_price": "MODEL_CURRENCY_PER_RESOURCE_UNIT",
+    "CommodityMarketEnvelope.year": "SIM_YEAR",
     "DecisionSnapshot.effective_time": "SIM_TIME",
     "DevelopmentResolutionRecord.accumulated_cost": "MODEL_CURRENCY",
     "DevelopmentResolutionRecord.commissioned": "MODEL_CURRENCY",
@@ -2444,6 +2675,17 @@ The ODD state/interface registry below is machine-checked against executable dat
     "FinancingRequest.year": "SIM_YEAR",
     "FixedCapitalFormationEvent.amount": "MODEL_CURRENCY",
     "FixedCapitalFormationEvent.year": "SIM_YEAR",
+    "MarketClearingRecord.cleared_quantity": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "MarketClearingRecord.demand_after": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "MarketClearingRecord.demand_before": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "MarketClearingRecord.local_inventory_after": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "MarketClearingRecord.local_inventory_before": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "MarketClearingRecord.market_inventory_after": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "MarketClearingRecord.market_inventory_before": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "MarketClearingRecord.offered_quantity": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "MarketClearingRecord.transaction_value": "MODEL_CURRENCY",
+    "MarketClearingRecord.unit_price": "MODEL_CURRENCY_PER_RESOURCE_UNIT",
+    "MarketClearingRecord.year": "SIM_YEAR",
     "Observation.year": "SIM_YEAR",
     "ObservationBeliefUpdateRecord.detection_rate": "PROBABILITY",
     "ObservationBeliefUpdateRecord.false_positive_rate": "PROBABILITY",
@@ -2470,6 +2712,8 @@ The ODD state/interface registry below is machine-checked against executable dat
     "PublicInformationArtifact.year": "SIM_YEAR",
     "PublicationRequest.year": "SIM_YEAR",
     "ResolutionExposureRecord.allocation_fraction": "DIMENSIONLESS_SHARE",
+    "SaleDecision.offered_quantity": "FIELD:SaleDecisionRequest.quantity_unit",
+    "SaleDecisionRequest.year": "SIM_YEAR",
     "ScenarioResource.accessible": "MODEL_RESOURCE_UNIT_BY_FAMILY",
     "ScenarioResource.in_situ": "MODEL_RESOURCE_UNIT_BY_FAMILY",
     "ScenarioResource.recoverable": "MODEL_RESOURCE_UNIT_BY_FAMILY",
