@@ -69,7 +69,7 @@ DECISION_WINDOW policy execution is separated from kernel-bearing system handler
 Settlement, capital stock, ownership distribution, extraction and financing recursion are realized outcomes, not scripted historical milestones.
 
 ### Adaptation
-General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier, public institutional remote explorer/surface prospector/publisher, and private sponsor/operator. Additional Agent roles or materially expanded policies require separate governance.
+General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier, public institutional remote explorer/surface prospector/publisher, and private sponsor/operator including project advancement and operating-cycle decisions. Additional Agent roles or materially expanded policies require separate governance.
 
 ### Objectives
 Agent objective state exists conceptually. No common utility function is assumed.
@@ -148,6 +148,7 @@ Current MVP submodels/interfaces include:
 - public observation publication and cross-Agent information transfer;
 - bounded sponsor/operator project advancement, financing-request and abandonment decisions;
 - explicit staged project-development plans, construction WIP, commissioning, failure and WIP write-off;
+- bounded sponsor operating working-capital decisions, OPEX execution and WORLD_SIM resource-bounded extraction into offworld inventory;
 - aggregate-resolution reconciliation;
 - uncertainty/ensemble runner;
 - ensemble reporting guardrails that distinguish scenario spread, parameter sensitivity, uncertainty spread and stochastic variability;
@@ -159,7 +160,7 @@ The A1–A9 property fixture captures state before every scheduler-valid transit
 
 The multi-rate synchronization fixture combines day-scale mission observations, quarterly finance and annual Earth-system events under one deterministic scheduler.
 
-Transport, technology gating, dynamic economic reserve conversion, mature colony operations, grade/quantity prospecting estimates, `CLOSED` and post-failure lifecycle semantics, autonomous sponsor prospecting/operating/extraction/sale/reinvestment decisions, empirical sensor calibration, and empirical construction calibration remain incomplete unless separately implemented and validated.
+Transport, technology gating, dynamic economic reserve conversion, mature colony operations, grade/quantity prospecting estimates, `CLOSED` and post-failure/zero-output lifecycle semantics, autonomous sponsor prospecting, repeated operating cycles, sale/reinvestment decisions, market-demand clearing, empirical sensor calibration, empirical construction calibration, and empirical mining calibration remain incomplete unless separately implemented and validated.
 
 ## 8. Reproducibility package
 

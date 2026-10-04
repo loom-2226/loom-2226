@@ -5,7 +5,7 @@
 **Status:** PRELIMINARY FRD / PRE-CONTRACT  
 **Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY  
 **Canonical status:** NON-CANON  
-**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002/003/004/005/006/007; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
+**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002/003/004/005/006/007/008; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
 **Phase basis:** Phase 2 Claim and Authority Model  
 **Purpose:** Define the minimum functional system required to demonstrate governed offworld civilization propagation without scripting historical outcomes.
 
@@ -350,7 +350,7 @@ CLOSED
 
 Transitions occur through governed world actions. Proposal or funding shall not imply successful development.
 
-Build 5 Test 005A structurally closes bounded sponsor-controlled entry from `PROPOSED`/`EXPLORING` to `DEVELOPMENT` or `ABANDONED`. Test 006A then closes bounded SYSTEM execution from `DEVELOPMENT` through an explicit staged construction plan and persistent WIP to either `OPERATING` after full commissioning or `FAILED` after incomplete construction. `OPERATING` means the declared productive facility has been commissioned; it does not establish that hidden resource truth is favorable, extraction will succeed, or the venture is economically successful. Test 006A does not yet close `CLOSED`, sponsor decisions from `FAILED`, or autonomous operating/extraction transitions.
+Build 5 Test 005A structurally closes bounded sponsor-controlled entry from `PROPOSED`/`EXPLORING` to `DEVELOPMENT` or `ABANDONED`. Test 006A then closes bounded SYSTEM execution from `DEVELOPMENT` through an explicit staged construction plan and persistent WIP to either `OPERATING` after full commissioning or `FAILED` after incomplete construction. `OPERATING` means the declared productive facility has been commissioned; it does not establish that hidden resource truth is favorable, extraction will succeed, or the venture is economically successful. Test 008A subsequently closes the first bounded sponsor operating-cycle decision and WORLD_SIM resource-bounded extraction from an `OPERATING` project. `CLOSED`, sponsor response after failed/zero/partial output, and repeated operating-cycle lifecycle semantics remain separately gated.
 
 ## 21. MVP Project Economics
 
@@ -365,6 +365,8 @@ A simplified model may use:
 subject to appropriate difficulty/technology multipliers.
 
 These relationships are model scaffolding, not future empirical claims. The transformation itself is a dependency with version and standing.
+
+Build 5 Test 008A structurally implements a bounded operating-cost/extraction slice. Planned production equals admitted productive-asset capacity; planned cycle OPEX equals planned quantity times the admitted Test-only unit operating cost; OPEX is spent before WORLD_SIM resolves actual recovery; and actual extraction is bounded by realized resource remaining. Full, partial and zero-output cycles are therefore possible from identical Agent-side operating decisions. This does not calibrate real mining throughput, recovery, or cost.
 
 ## 22. Prices and Demand
 
@@ -433,7 +435,7 @@ Examples:
 - exploration changes agent information;
 - construction changes project/infrastructure state;
 - migration changes realized population location;
-- extraction changes realized resource stock;
+- extraction changes realized resource stock and corresponding offworld resource inventory;
 - sale changes inventories and financial accounts.
 
 None modifies REAL evidence.
@@ -1093,7 +1095,26 @@ Normative records:
 - `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_007_SURFACE_PROSPECTING_TEST007A.md`;
 - `build5/BUILD5_VALIDATION_RECORD_007_SURFACE_PROSPECTING_STRUCTURAL.md`.
 
-Test 007A does not implement grade/quantity estimation, autonomous sponsor prospecting, empirical sensor calibration, extraction, operating economics, transport/technology economics, settlement, or production forecasting.
+Test 007A does not implement grade/quantity estimation, autonomous sponsor prospecting, empirical sensor calibration, extraction, operating economics, transport/technology economics, settlement, or production forecasting. The subsequent Test 008A closes the first bounded sponsor operating-cost/extraction slice only.
+
+### 50.8 Sponsor operating cycle and physical extraction — Test 008A
+
+Build 5 now contains a bounded autonomous `SPONSOR_OPERATING_V1` policy using the same generic `AGENT -> DecisionSnapshot -> isolated policy -> immutable Decision -> scheduled SYSTEM consequence` architecture. From admitted project status, cash, productive-asset capacity, operating cost, relevant information and sponsor belief/prior, it may `REQUEST_FINANCE`, `OPERATE`, `DEFER`, or `BLOCKED_UNKNOWN`. It receives no hidden resource quantity.
+
+The Test-only operating fixture commissions capacity `5` and carries unit operating cost `4`, so one full planned cycle costs `20`. With project cash exhausted by construction, the sponsor first requests exactly `20` of operating finance. The existing bounded financier independently approves that formal request, after which a fresh sponsor snapshot authorizes `OPERATE` for planned quantity `5` and OPEX `20`.
+
+A later SYSTEM spends the full authorized OPEX before physical recovery is known. Only the subsequent WORLD_SIM extraction transition may consult resource remaining, using `actual_extracted = min(planned_quantity, resource.remaining)`. The qualification cases preserve identical sponsor and financier decisions while producing RICH `5`, SPARSE `3`, and NULL `0` actual output. Resource depletion and offworld inventory increase reconcile exactly to actual output. Extraction creates no revenue.
+
+The NULL false-positive case therefore spends the same `20` operating cost as RICH, yet recovers zero material. Project status remains `OPERATING`; Test 008A does not automatically infer shutdown from one zero-output cycle.
+
+Test 008A also adds colony stock-flow state, including resource inventory, to persistent decision-epoch fingerprints, so raw inventory edits between epochs are detected as tampering.
+
+Normative records:
+
+- `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_008_OPERATING_EXTRACTION_TEST008A.md`;
+- `build5/BUILD5_VALIDATION_RECORD_008_OPERATING_EXTRACTION_STRUCTURAL.md`.
+
+Test 008A does not close sale/revenue, demand/market clearing, sponsor response to zero/partial output, repeated operating cycles, maintenance/repair, `CLOSED`, surplus distribution/reinvestment, transport/energy economics, empirical mining calibration, settlement, or production forecasting.
 
 The full autonomous-agent engine remains gated. Each additional Agent role or materially expanded policy requires its own governed scope.
 
