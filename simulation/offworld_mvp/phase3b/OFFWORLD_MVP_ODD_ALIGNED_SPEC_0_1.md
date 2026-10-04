@@ -69,7 +69,7 @@ DECISION_WINDOW policy execution is separated from kernel-bearing system handler
 Settlement, capital stock, ownership distribution, extraction and financing recursion are realized outcomes, not scripted historical milestones.
 
 ### Adaptation
-General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier, public institutional remote explorer/surface prospector/publisher, and private sponsor/operator including project advancement, operating-cycle, inventory-sale and project-surplus allocation decisions. Additional Agent roles or materially expanded policies require separate governance.
+General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier, public institutional remote explorer/surface prospector/publisher/settlement-support role, and private sponsor/operator including project advancement, operating-cycle, inventory-sale and project-surplus allocation decisions. Settlement itself remains an AGGREGATE; it is not promoted to an Agent merely because it contains population, infrastructure and economic state. Additional Agent roles or materially expanded policies require separate governance.
 
 ### Objectives
 Agent objective state exists conceptually. No common utility function is assumed.
@@ -84,7 +84,7 @@ Agents may later form expectations from their own information. WORLD_SIM truth m
 Only declared observation/information channels cross the hidden-world firewall.
 
 ### Interaction
-Interactions occur through action requests, transactions, observations, ownership claims and system-mediated processes. Agents do not mutate world state. Test 009A keeps commodity clearing as a SYSTEM process: the sponsor may offer realized inventory from admitted exogenous price/demand state, while the market SYSTEM validates current inventory and remaining demand and records the physical/financial clearing. It does not read hidden scenario resource truth. Test 010A separately distinguishes financing-return claims from project ownership claims: the sponsor chooses bounded category totals from admitted project cash/obligations, while the distribution SYSTEM validates disbursed-financing lineage, preserves reserve cash, executes local reinvestment, and routes owner residual strictly by the ownership ledger.
+Interactions occur through action requests, transactions, observations, ownership claims and system-mediated processes. Agents do not mutate world state. Test 009A keeps commodity clearing as a SYSTEM process: the sponsor may offer realized inventory from admitted exogenous price/demand state, while the market SYSTEM validates current inventory and remaining demand and records the physical/financial clearing. It does not read hidden scenario resource truth. Test 010A separately distinguishes financing-return claims from project ownership claims: the sponsor chooses bounded category totals from admitted project cash/obligations, while the distribution SYSTEM validates disbursed-financing lineage, preserves reserve cash, executes local reinvestment, and routes owner residual strictly by the ownership ledger. Test 011A consumes already-realized local reinvestment through a bounded settlement-infrastructure SYSTEM, derives settlement stage from realized productive/infrastructure/population/support state, and permits the existing public institutional Agent to authorize migration only within realized habitat headroom, Earth population and public funding. Migration remains aggregate and population-conserving.
 
 ### Stochasticity
 Randomness is keyed and replayable. Random identities are independent of execution order.
@@ -151,6 +151,7 @@ Current MVP submodels/interfaces include:
 - bounded sponsor operating working-capital decisions, OPEX execution and WORLD_SIM resource-bounded extraction into offworld inventory;
 - bounded sponsor inventory-sale decisions plus immutable exogenous commodity-market envelopes, signed Earth-boundary clearing, physical inventory transfer and project revenue;
 - bounded sponsor project-surplus allocation with separately declared financing-return claims, retained operating reserve, local reinvestment and ownership-ledger-pro-rata owner distributions;
+- bounded settlement formation using realized local-reinvestment-funded infrastructure stock, explicit people-equivalent habitat capacity, aggregate conserved Earth-to-offworld migration, explicit public subsidy, and state-derived EXTRACTION_ENCLAVE / DEPENDENT_SETTLEMENT stages;
 - aggregate-resolution reconciliation;
 - uncertainty/ensemble runner;
 - ensemble reporting guardrails that distinguish scenario spread, parameter sensitivity, uncertainty spread and stochastic variability;
@@ -162,7 +163,7 @@ The A1–A9 property fixture captures state before every scheduler-valid transit
 
 The multi-rate synchronization fixture combines day-scale mission observations, quarterly finance and annual Earth-system events under one deterministic scheduler.
 
-Transport, technology gating, dynamic economic reserve conversion, mature colony operations, grade/quantity prospecting estimates, `CLOSED` and post-failure/zero-output lifecycle semantics, autonomous sponsor prospecting, repeated operating/sale/distribution cycles, empirical financing terms and debt/equity waterfalls, endogenous reinvestment-opportunity search, endogenous price formation, price-responsive demand, multi-buyer/multi-seller competition, country-policy market intervention, empirical sensor calibration, empirical construction calibration, empirical mining calibration, and empirical market calibration remain incomplete unless separately implemented and validated.
+Transport, technology gating, dynamic economic reserve conversion, mature colony service/reliability operations, labour/skill matching, cohorts/households/individual persons, DIVERSIFYING_SETTLEMENT and HANDOFF_CANDIDATE mechanics, grade/quantity prospecting estimates, `CLOSED` and post-failure/zero-output lifecycle semantics, autonomous sponsor prospecting, repeated operating/sale/distribution cycles, empirical financing terms and debt/equity waterfalls, endogenous reinvestment-opportunity search, endogenous price formation, price-responsive demand, multi-buyer/multi-seller competition, country-policy market intervention, empirical sensor calibration, empirical construction calibration, empirical mining calibration, empirical habitat/migration calibration, and empirical market calibration remain incomplete unless separately implemented and validated.
 
 ## 8. Reproducibility package
 
@@ -210,7 +211,8 @@ The ODD state/interface registry below is machine-checked against executable dat
       "SELL",
       "MIGRATE",
       "REINVEST",
-      "DISTRIBUTE"
+      "DISTRIBUTE",
+      "SETTLE"
     ],
     "AgentKind": [
       "PUBLIC",
@@ -369,6 +371,21 @@ The ODD state/interface registry below is machine-checked against executable dat
       "PROJECT_STATE_BLOCK",
       "BLOCKED_REQUIRED_INPUT_UNKNOWN"
     ],
+    "SettlementSupportDecisionOutcome": [
+      "AUTHORIZE",
+      "DEFER",
+      "BLOCKED_UNKNOWN"
+    ],
+    "SettlementSupportReasonCode": [
+      "SETTLEMENT_SUPPORT_AUTHORIZED",
+      "STAGE_BLOCK",
+      "NO_REQUESTED_RESIDENTS",
+      "HABITAT_CAPACITY_LIMIT",
+      "ORIGIN_POPULATION_LIMIT",
+      "INSUFFICIENT_PUBLIC_FUNDS",
+      "CAPABILITY_OR_OBJECTIVE_BLOCK",
+      "BLOCKED_REQUIRED_INPUT_UNKNOWN"
+    ],
     "SponsorProjectDecisionOutcome": [
       "REQUEST_FINANCE",
       "DEVELOP",
@@ -415,7 +432,8 @@ The ODD state/interface registry below is machine-checked against executable dat
       "OTHER_INVESTMENT",
       "RESERVE",
       "FINANCIER_RETURN",
-      "OWNER_DISTRIBUTION"
+      "OWNER_DISTRIBUTION",
+      "PUBLIC_SUBSIDY"
     ],
     "UnderwritingInputKind": [
       "PRICE",
@@ -449,7 +467,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_12",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_13",
   "types": {
     "Account": [
       {
@@ -623,6 +641,10 @@ The ODD state/interface registry below is machine-checked against executable dat
       {
         "name": "infrastructure",
         "type": "D"
+      },
+      {
+        "name": "habitat_capacity",
+        "type": "int"
       },
       {
         "name": "resource_inventory",
@@ -2379,6 +2401,318 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "str"
       }
     ],
+    "SettlementInfrastructurePlan": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "source_account_id",
+        "type": "str"
+      },
+      {
+        "name": "supplier_account_id",
+        "type": "str"
+      },
+      {
+        "name": "infrastructure_cost",
+        "type": "D"
+      },
+      {
+        "name": "habitat_capacity",
+        "type": "int"
+      },
+      {
+        "name": "source_ref",
+        "type": "str"
+      },
+      {
+        "name": "epistemic_status",
+        "type": "str"
+      },
+      {
+        "name": "plan_version",
+        "type": "str"
+      }
+    ],
+    "SettlementInfrastructureRecord": [
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "plan_id",
+        "type": "str"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "str"
+      },
+      {
+        "name": "cost",
+        "type": "D"
+      },
+      {
+        "name": "habitat_capacity_added",
+        "type": "int"
+      },
+      {
+        "name": "infrastructure_before",
+        "type": "D"
+      },
+      {
+        "name": "infrastructure_after",
+        "type": "D"
+      },
+      {
+        "name": "habitat_capacity_before",
+        "type": "int"
+      },
+      {
+        "name": "habitat_capacity_after",
+        "type": "int"
+      },
+      {
+        "name": "transaction_id",
+        "type": "str"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "SettlementStageRecord": [
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "prior_stage",
+        "type": "str"
+      },
+      {
+        "name": "new_stage",
+        "type": "str"
+      },
+      {
+        "name": "productive_capital",
+        "type": "D"
+      },
+      {
+        "name": "production_capacity",
+        "type": "D"
+      },
+      {
+        "name": "population",
+        "type": "int"
+      },
+      {
+        "name": "infrastructure",
+        "type": "D"
+      },
+      {
+        "name": "habitat_capacity",
+        "type": "int"
+      },
+      {
+        "name": "external_subsidy",
+        "type": "D"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "rule_version",
+        "type": "str"
+      }
+    ],
+    "SettlementSupportDecision": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "SettlementSupportDecisionOutcome"
+      },
+      {
+        "name": "authorized_residents",
+        "type": "int"
+      },
+      {
+        "name": "support_amount",
+        "type": "D"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "reason_code",
+        "type": "SettlementSupportReasonCode"
+      },
+      {
+        "name": "unknown_input_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
+    ],
+    "SettlementSupportExecutionRecord": [
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "decision_id",
+        "type": "str"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "authorized_residents",
+        "type": "int"
+      },
+      {
+        "name": "support_amount",
+        "type": "D"
+      },
+      {
+        "name": "earth_population_before",
+        "type": "int"
+      },
+      {
+        "name": "earth_population_after",
+        "type": "int"
+      },
+      {
+        "name": "offworld_population_before",
+        "type": "int"
+      },
+      {
+        "name": "offworld_population_after",
+        "type": "int"
+      },
+      {
+        "name": "total_population_before",
+        "type": "int"
+      },
+      {
+        "name": "total_population_after",
+        "type": "int"
+      },
+      {
+        "name": "subsidy_before",
+        "type": "D"
+      },
+      {
+        "name": "subsidy_after",
+        "type": "D"
+      },
+      {
+        "name": "support_transaction_id",
+        "type": "str"
+      },
+      {
+        "name": "migration_event_id",
+        "type": "str"
+      },
+      {
+        "name": "stage_event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "SettlementSupportRequest": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "support_account_id",
+        "type": "str"
+      },
+      {
+        "name": "requested_residents",
+        "type": "int"
+      },
+      {
+        "name": "support_cost",
+        "type": "D"
+      },
+      {
+        "name": "required_fact_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "currency_unit",
+        "type": "str"
+      },
+      {
+        "name": "population_unit",
+        "type": "str"
+      },
+      {
+        "name": "request_version",
+        "type": "str"
+      }
+    ],
     "SnapshotFact": [
       {
         "name": "key",
@@ -2872,6 +3206,8 @@ The ODD state/interface registry below is machine-checked against executable dat
     "Account.balance": "MODEL_CURRENCY",
     "Asset.book_value": "MODEL_CURRENCY",
     "Asset.capacity": "ASSET_CLASS_CAPACITY_UNIT",
+    "ColonyState.habitat_capacity": "PEOPLE_EQUIVALENT",
+    "ColonyState.population": "PEOPLE_EQUIVALENT",
     "Commitment.amount": "MODEL_CURRENCY",
     "Commitment.committed": "MODEL_CURRENCY",
     "Commitment.disbursed": "MODEL_CURRENCY",
@@ -2952,6 +3288,39 @@ The ODD state/interface registry below is machine-checked against executable dat
     "ScenarioResource.recoverable": "MODEL_RESOURCE_UNIT_BY_FAMILY",
     "ScenarioResource.remaining": "MODEL_RESOURCE_UNIT_BY_FAMILY",
     "ScheduledEvent.effective_time": "SIM_TIME",
+    "SettlementInfrastructurePlan.habitat_capacity": "PEOPLE_EQUIVALENT",
+    "SettlementInfrastructurePlan.infrastructure_cost": "MODEL_CURRENCY",
+    "SettlementInfrastructurePlan.year": "SIM_YEAR",
+    "SettlementInfrastructureRecord.cost": "MODEL_CURRENCY",
+    "SettlementInfrastructureRecord.habitat_capacity_added": "PEOPLE_EQUIVALENT",
+    "SettlementInfrastructureRecord.habitat_capacity_after": "PEOPLE_EQUIVALENT",
+    "SettlementInfrastructureRecord.habitat_capacity_before": "PEOPLE_EQUIVALENT",
+    "SettlementInfrastructureRecord.infrastructure_after": "MODEL_CURRENCY",
+    "SettlementInfrastructureRecord.infrastructure_before": "MODEL_CURRENCY",
+    "SettlementInfrastructureRecord.year": "SIM_YEAR",
+    "SettlementStageRecord.external_subsidy": "MODEL_CURRENCY",
+    "SettlementStageRecord.habitat_capacity": "PEOPLE_EQUIVALENT",
+    "SettlementStageRecord.infrastructure": "MODEL_CURRENCY",
+    "SettlementStageRecord.population": "PEOPLE_EQUIVALENT",
+    "SettlementStageRecord.production_capacity": "ASSET_CLASS_CAPACITY_UNIT",
+    "SettlementStageRecord.productive_capital": "MODEL_CURRENCY",
+    "SettlementStageRecord.year": "SIM_YEAR",
+    "SettlementSupportDecision.authorized_residents": "REQUEST_POPULATION_UNIT",
+    "SettlementSupportDecision.support_amount": "REQUEST_CURRENCY_UNIT",
+    "SettlementSupportExecutionRecord.authorized_residents": "PEOPLE_EQUIVALENT",
+    "SettlementSupportExecutionRecord.earth_population_after": "PEOPLE_EQUIVALENT",
+    "SettlementSupportExecutionRecord.earth_population_before": "PEOPLE_EQUIVALENT",
+    "SettlementSupportExecutionRecord.offworld_population_after": "PEOPLE_EQUIVALENT",
+    "SettlementSupportExecutionRecord.offworld_population_before": "PEOPLE_EQUIVALENT",
+    "SettlementSupportExecutionRecord.subsidy_after": "MODEL_CURRENCY",
+    "SettlementSupportExecutionRecord.subsidy_before": "MODEL_CURRENCY",
+    "SettlementSupportExecutionRecord.support_amount": "MODEL_CURRENCY",
+    "SettlementSupportExecutionRecord.total_population_after": "PEOPLE_EQUIVALENT",
+    "SettlementSupportExecutionRecord.total_population_before": "PEOPLE_EQUIVALENT",
+    "SettlementSupportExecutionRecord.year": "SIM_YEAR",
+    "SettlementSupportRequest.requested_residents": "FIELD:SettlementSupportRequest.population_unit",
+    "SettlementSupportRequest.support_cost": "FIELD:SettlementSupportRequest.currency_unit",
+    "SettlementSupportRequest.year": "SIM_YEAR",
     "SponsorProjectDecision.requested_financing": "REQUEST_CURRENCY_UNIT",
     "SponsorProjectDecisionRequest.year": "SIM_YEAR",
     "SurfaceProspectingModel.agent_detection_rate": "PROBABILITY",
