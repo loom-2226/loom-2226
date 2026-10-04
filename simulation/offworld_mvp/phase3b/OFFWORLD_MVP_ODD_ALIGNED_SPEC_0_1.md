@@ -146,6 +146,7 @@ Current MVP submodels/interfaces include:
 - governed persistent decision-epoch chaining;
 - public observation publication and cross-Agent information transfer;
 - bounded sponsor/operator project advancement, financing-request and abandonment decisions;
+- explicit staged project-development plans, construction WIP, commissioning, failure and WIP write-off;
 - aggregate-resolution reconciliation;
 - uncertainty/ensemble runner;
 - ensemble reporting guardrails that distinguish scenario spread, parameter sensitivity, uncertainty spread and stochastic variability;
@@ -157,7 +158,7 @@ The A1–A9 property fixture captures state before every scheduler-valid transit
 
 The multi-rate synchronization fixture combines day-scale mission observations, quarterly finance and annual Earth-system events under one deterministic scheduler.
 
-Transport, technology gating, dynamic economic reserve conversion, mature colony operations, surface prospecting, construction execution after sponsor `DEVELOP`, later project lifecycle transitions, and autonomous sponsor extraction/sale/reinvestment remain incomplete unless separately implemented and validated.
+Transport, technology gating, dynamic economic reserve conversion, mature colony operations, surface prospecting, `CLOSED` and post-failure lifecycle semantics, autonomous operating/extraction/sale/reinvestment decisions, and empirical construction calibration remain incomplete unless separately implemented and validated.
 
 ## 8. Reproducibility package
 

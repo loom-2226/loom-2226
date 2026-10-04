@@ -5,7 +5,7 @@
 **Status:** PRELIMINARY FRD / PRE-CONTRACT  
 **Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY  
 **Canonical status:** NON-CANON  
-**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002/003/004/005; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
+**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002/003/004/005/006; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
 **Phase basis:** Phase 2 Claim and Authority Model  
 **Purpose:** Define the minimum functional system required to demonstrate governed offworld civilization propagation without scripting historical outcomes.
 
@@ -344,7 +344,7 @@ CLOSED
 
 Transitions occur through governed world actions. Proposal or funding shall not imply successful development.
 
-Build 5 Test 005A structurally closes only bounded sponsor-controlled entry from `PROPOSED`/`EXPLORING` to `DEVELOPMENT` or `ABANDONED`. The `DEVELOPMENT` transition records an Agent decision to advance the project; it does not itself create WIP, productive assets, operating capacity, successful construction, or `OPERATING` status. Later lifecycle transitions remain separately gated.
+Build 5 Test 005A structurally closes bounded sponsor-controlled entry from `PROPOSED`/`EXPLORING` to `DEVELOPMENT` or `ABANDONED`. Test 006A then closes bounded SYSTEM execution from `DEVELOPMENT` through an explicit staged construction plan and persistent WIP to either `OPERATING` after full commissioning or `FAILED` after incomplete construction. `OPERATING` means the declared productive facility has been commissioned; it does not establish that hidden resource truth is favorable, extraction will succeed, or the venture is economically successful. Test 006A does not yet close `CLOSED`, sponsor decisions from `FAILED`, or autonomous operating/extraction transitions.
 
 ## 21. MVP Project Economics
 
@@ -981,7 +981,7 @@ This FRD is a build-guiding candidate on a branch created from the closed Phase 
 
 ## 50. Build 5 Bounded Autonomous-Agent Standing
 
-Build 5 has now admitted three individually scoped autonomous policy slices across two institutional Agents under the PRE-CONTRACT / SINGLE-AUTHORITY model.
+Build 5 has now admitted individually scoped bounded autonomous policies across three institutional Agents together with governed decision-epoch and project-development lifecycle infrastructure under the PRE-CONTRACT / SINGLE-AUTHORITY model.
 
 ### 50.1 Private financier — Test 001
 
@@ -1053,7 +1053,26 @@ Normative records:
 - `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_005_SPONSOR_OPERATOR_TEST005A.md`;
 - `build5/BUILD5_VALIDATION_RECORD_005_SPONSOR_OPERATOR_STRUCTURAL.md`.
 
-Test 005A does not close surface prospecting, construction/WIP execution after `DEVELOPMENT`, later lifecycle transitions, autonomous extraction/sale/reinvestment, transport/technology economics, empirical sponsor calibration, or production forecasting.
+Test 005A by itself does not close surface prospecting, construction/WIP execution after `DEVELOPMENT`, later lifecycle transitions, autonomous extraction/sale/reinvestment, transport/technology economics, empirical sponsor calibration, or production forecasting. The subsequent Test 006A closes the bounded staged-construction execution portion only.
+
+### 50.6 Project development lifecycle — Test 006A
+
+Build 5 now executes an explicit immutable development plan after the sponsor has entered `DEVELOPMENT`. The lifecycle SYSTEM reuses the existing Build 4 staged-WIP, FCF, supply/resource-allocation, commissioning and accounting machinery rather than creating a parallel construction model.
+
+The successful structural case spends `30` in year 6 and `30` in year 7 against a declared development cost of `60`, then commissions one PRODUCTIVE asset with book value `60` and structural capacity `10` at year-8 completion. The project transitions `DEVELOPMENT -> OPERATING` only after all declared stages are spent and full WIP is commissioned.
+
+The constrained-supply structural case spends `30` in year 6, blocks the indivisible year-7 `30` stage against a Test-only Earth allocation ceiling of `20`, and resolves at completion as `FAILED`. The existing `30` WIP is explicitly written off, no productive asset is created, and the unspent `30` project cash remains reconciled. WIP now satisfies `accumulated_cost = commissioned + written_off + remaining_wip`.
+
+Construction does not query hidden resource truth. A NULL-world false-positive case with zero hidden resource reaches the same successfully commissioned `OPERATING` facility as the otherwise-equivalent RICH case when construction inputs are identical. `OPERATING` therefore denotes a commissioned facility, not a claim that extraction will succeed or the venture is profitable.
+
+The successful RICH history now spans five cryptographically parent-linked epochs: publication -> sponsor financing request -> financier funding -> sponsor `DEVELOP` -> staged construction/commissioning. A1-A9 and deterministic replay remain satisfied.
+
+Normative records:
+
+- `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_006_PROJECT_LIFECYCLE_TEST006A.md`;
+- `build5/BUILD5_VALIDATION_RECORD_006_PROJECT_LIFECYCLE_STRUCTURAL.md`.
+
+Test 006A does not close surface prospecting, `CLOSED`, sponsor choices after `FAILED`, autonomous extraction/sale/reinvestment, operating-cost execution, transport/technology economics, empirical construction calibration, settlement, or production forecasting.
 
 The full autonomous-agent engine remains gated. Each additional Agent role or materially expanded policy requires its own governed scope.
 
