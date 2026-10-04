@@ -6,6 +6,7 @@ from .methodology import MethodologyHardenedBuild4Kernel
 from .model import AccountKind, Asset, AssetKind, NodeKind
 from .mvp_state import AggregateState, AgentKind, AgentState, ScenarioResource, SystemState
 from .scheduler import CouplingSpec, Phase, ScheduledEvent
+from .runtime import ScheduledSimulationRuntime
 from .mvp_state import RuntimeObjectClass
 
 def scheduled_resolution_fixture():
@@ -36,16 +37,27 @@ def scheduled_resolution_fixture():
     k.scheduler.schedule(ScheduledEvent('resolve',D('1'),Phase.EXOGENOUS_INPUTS,0,'resolve','RESOLUTION_SYSTEM'))
 
     snapshots=[]
-    def handler(e):
-        if e.event_id=='resolve':
-            agent=AgentState('FIRM_01',AgentKind.PRIVATE_SPONSOR,'EARTH:X','firm_cash')
-            return k.expose_agent_from_aggregate(1,'FIRM_SECTOR',agent,D('25'),1,('A1',),{'R':D('2')},{'VEH':D('0.25')},('H1',))
-        if e.event_id=='check':
-            k.assert_methodology_invariants(); return 'CHECKED'
-        if e.event_id=='snapshot':
-            fp=k.methodology_fingerprint(); snapshots.append(fp); return fp
-    results=k.scheduler.run(handler)
-    return k,results,tuple(snapshots)
+    rt=ScheduledSimulationRuntime(k)
+
+    def resolution_handler(kernel,e):
+        agent=AgentState('FIRM_01',AgentKind.PRIVATE_SPONSOR,'EARTH:X','firm_cash')
+        return kernel.expose_agent_from_aggregate(1,'FIRM_SECTOR',agent,D('25'),1,('A1',),{'R':D('2')},{'VEH':D('0.25')},('H1',)).resolution_id
+
+    def invariant_handler(kernel,e):
+        kernel.assert_methodology_invariants()
+        return 'CHECKED'
+
+    def snapshot_handler(kernel,e):
+        fp=kernel.methodology_fingerprint()
+        snapshots.append(fp)
+        return fp
+
+    rt.register_handler('RESOLUTION_SYSTEM',resolution_handler)
+    rt.register_handler('INVARIANT_SYSTEM',invariant_handler)
+    rt.register_handler('SNAPSHOT_SYSTEM',snapshot_handler)
+    rt.seal()
+    run_result=rt.run()
+    return k,run_result,tuple(snapshots)
 
 def methodology_ensemble_fixture():
     axes=(
