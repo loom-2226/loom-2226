@@ -1,0 +1,264 @@
+{
+  "schema_version": "BUILD6C_PORTFOLIO_SCENARIO_V0_1",
+  "standing": "PRE_CONTRACT_AUTHORED_STRUCTURAL_SCENARIO_NOT_EMPIRICALLY_VALIDATED",
+  "calendar": {
+    "reference": "2026-01-01",
+    "time_semantics": "FRACTIONAL_CALENDAR_YEAR",
+    "horizon_start": "2026.0",
+    "horizon_end": "2041.999"
+  },
+  "authority": {
+    "main_commit": "1581138edb2c5536b8f92aa42e47a92e6d2f78e1",
+    "campaign_assertions_blob": "b936825faafb3efde094533a57ba2803747e8b37",
+    "assertion_ledger_blob": "a02bcbb6e724d3d1bd236cf9d6179ad6b6acfb4e",
+    "coverage_matrix_blob": "94e8925fe2ef8fcb18a53f6f251b01326388171f",
+    "technology_timeline_blob": "3767610b337dde737eac5ef4147590b5ff3878c5",
+    "research_commit": "3825917e18f021f27e576b48ef87fbad897dd96e",
+    "lead_time_research_blob": "0125560433e8318a6ba6c5141288d02faa194fd1",
+    "prospecting_gate_research_blob": "543bd739a2b513e00e29d083f5de167687799923"
+  },
+  "capital": {
+    "sponsor_id": "SPN",
+    "opening_model_currency": "220",
+    "replenishment": "NONE",
+    "multiple_economies": false
+  },
+  "bodies": [
+    {
+      "body_id": "MOON",
+      "node_id": "SOL:MOON",
+      "project_id": "PROJ:MOON:POLAR_VOLATILES",
+      "opportunity_family": "POLAR_VOLATILES",
+      "opening_maturity": "REMOTE_CHARACTERIZED",
+      "evidence": [
+        {
+          "evidence_id": "MOON_POLAR_WATER_ICE",
+          "source_path": "dev/solar_civprop_m4b/campaign_assertions.json",
+          "evidence_class": "IN_SITU_REMOTE",
+          "confidence_class": "MODERATE",
+          "abundance_semantics": "PRESENT_UNQUANTIFIED",
+          "scope": "POLAR_AND_SELECTED_SURFACE_FOOTPRINTS",
+          "admitted_claim": "Water/ice evidence exists at specified lunar footprints; no global inventory or project-site abundance is inferred."
+        }
+      ]
+    },
+    {
+      "body_id": "MARS",
+      "node_id": "SOL:MARS",
+      "project_id": "PROJ:MARS:WATER_ISRU",
+      "opportunity_family": "HYDRATED_OR_WATER_BEARING_MATERIAL_ISRU",
+      "opening_maturity": "SCREENED",
+      "evidence": [
+        {
+          "evidence_id": "MARS_GALE_HYDRATED_MINERALS",
+          "source_path": "dev/solar_civprop_m4b/campaign_assertions.json",
+          "evidence_class": "IN_SITU_DIRECT",
+          "confidence_class": "HIGH",
+          "abundance_semantics": "PRESENT_UNQUANTIFIED",
+          "scope": "SITE_SCALE_SAMPLES",
+          "admitted_claim": "Hydrated minerals are confirmed in Gale samples; this is not free-water abundance, a global Mars inventory, or proof of an accessible project-site ice deposit."
+        }
+      ]
+    },
+    {
+      "body_id": "CERES",
+      "node_id": "SOL:CERES",
+      "project_id": "PROJ:CERES:VOLATILES",
+      "opportunity_family": "VOLATILES",
+      "opening_maturity": "REMOTE_CHARACTERIZED",
+      "evidence": [
+        {
+          "evidence_id": "SF3_MATERIAL_1",
+          "source_path": "dev/solar_civprop_m4b/reports/M4B_ASSERTION_PROVENANCE_LEDGER.csv",
+          "evidence_class": "IN_SITU_REMOTE",
+          "confidence_class": "QUALIFIED_REUSED",
+          "abundance_semantics": "UNKNOWN",
+          "scope": "SOURCE_ROW_SCOPE",
+          "admitted_claim": "Enhanced hydrogen is consistent with exposed water ice; no abundance scalar is inferred."
+        },
+        {
+          "evidence_id": "SF3_MATERIAL_2",
+          "source_path": "dev/solar_civprop_m4b/reports/M4B_ASSERTION_PROVENANCE_LEDGER.csv",
+          "evidence_class": "EARTH_REMOTE",
+          "confidence_class": "QUALIFIED_REUSED",
+          "abundance_semantics": "PRODUCTION_RATE_6_KG_S",
+          "scope": "SOURCE_ROW_SCOPE",
+          "admitted_claim": "Reported water-vapor production rate is preserved as a production rate and is not converted to surface abundance."
+        },
+        {
+          "evidence_id": "SF3_MATERIAL_6",
+          "source_path": "dev/solar_civprop_m4b/reports/M4B_ASSERTION_PROVENANCE_LEDGER.csv",
+          "evidence_class": "PHYSICAL_MODEL",
+          "confidence_class": "QUALIFIED_REUSED",
+          "abundance_semantics": "UNKNOWN",
+          "scope": "SOURCE_ROW_SCOPE",
+          "admitted_claim": "A volatile-rich-shell interpretation is admitted as a physical model, not as resource potential or recoverable inventory."
+        }
+      ]
+    },
+    {
+      "body_id": "BENNU",
+      "node_id": "SOL:BENNU",
+      "project_id": "PROJ:BENNU:HYDRATED_CARBONACEOUS",
+      "opportunity_family": "HYDRATED_AND_CARBONACEOUS_MATERIAL",
+      "opening_maturity": "SURFACE_OR_SAMPLE_CHARACTERIZED",
+      "evidence": [
+        {
+          "evidence_id": "BENNU_HYDRATED_PHYLLOSILICATES",
+          "source_path": "dev/solar_civprop_m4b/campaign_assertions.json",
+          "evidence_class": "DIRECT_SAMPLE",
+          "confidence_class": "HIGH",
+          "abundance_semantics": "PRESENT_UNQUANTIFIED",
+          "scope": "RETURNED_SAMPLE",
+          "admitted_claim": "Hydrated phyllosilicates are confirmed in returned sample material; no whole-body free-water inventory or recoverable tonnage is inferred."
+        },
+        {
+          "evidence_id": "BENNU_ORGANICS",
+          "source_path": "dev/solar_civprop_m4b/campaign_assertions.json",
+          "evidence_class": "DIRECT_SAMPLE",
+          "confidence_class": "HIGH",
+          "abundance_semantics": "PRESENT_UNQUANTIFIED",
+          "scope": "RETURNED_SAMPLE_HETEROGENEOUS",
+          "admitted_claim": "Organic compounds are confirmed in returned material with sample heterogeneity preserved; no whole-body concentration is inferred."
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "activity_id": "BENNU-A1-RESOURCE",
+      "body_id": "BENNU",
+      "project_id": "PROJ:BENNU:HYDRATED_CARBONACEOUS",
+      "required_maturity": "SURFACE_OR_SAMPLE_CHARACTERIZED",
+      "next_maturity": "RESOURCE_ASSESSMENT",
+      "activity_type": "RETURNED_SAMPLE_RESOURCE_ASSESSMENT",
+      "priority": 1,
+      "cost": "15",
+      "earliest_start": "2026.25",
+      "duration_years": "0.75",
+      "result_standing": "SUPPORTS_ADVANCE",
+      "rationale": "Returned material permits comparatively short-cycle Earth-based characterization; duration and cost are authored structural scenario values."
+    },
+    {
+      "activity_id": "MARS-A1-REMOTE",
+      "body_id": "MARS",
+      "project_id": "PROJ:MARS:WATER_ISRU",
+      "required_maturity": "SCREENED",
+      "next_maturity": "REMOTE_CHARACTERIZED",
+      "activity_type": "REGIONAL_WATER_ISRU_SITE_SCREENING",
+      "priority": 2,
+      "cost": "20",
+      "earliest_start": "2026.25",
+      "duration_years": "1.50",
+      "result_standing": "SUPPORTS_ADVANCE",
+      "rationale": "Uses existing orbital/in-situ evidence to perform a project-specific regional screen before any new landed campaign."
+    },
+    {
+      "activity_id": "MOON-A1-SURFACE",
+      "body_id": "MOON",
+      "project_id": "PROJ:MOON:POLAR_VOLATILES",
+      "required_maturity": "REMOTE_CHARACTERIZED",
+      "next_maturity": "SURFACE_OR_SAMPLE_CHARACTERIZED",
+      "activity_type": "POLAR_SURFACE_PROSPECTING",
+      "priority": 3,
+      "cost": "35",
+      "earliest_start": "2026.50",
+      "duration_years": "1.50",
+      "opportunity_window": {
+        "id": "MOON-W1",
+        "open": "2027.50",
+        "close": "2028.25"
+      },
+      "result_standing": "SUPPORTS_ADVANCE",
+      "rationale": "Represents a bounded lunar surface-prospecting campaign; the window and values are authored structural inputs, not a prediction."
+    },
+    {
+      "activity_id": "CERES-A1-SURFACE",
+      "body_id": "CERES",
+      "project_id": "PROJ:CERES:VOLATILES",
+      "required_maturity": "REMOTE_CHARACTERIZED",
+      "next_maturity": "SURFACE_OR_SAMPLE_CHARACTERIZED",
+      "activity_type": "DEDICATED_VOLATILE_SURFACE_CHARACTERIZATION",
+      "priority": 4,
+      "cost": "70",
+      "earliest_start": "2027.00",
+      "duration_years": "6.00",
+      "opportunity_window": {
+        "id": "CERES-W1",
+        "open": "2028.50",
+        "close": "2029.25"
+      },
+      "result_standing": "SUPPORTS_ADVANCE",
+      "rationale": "Long deep-space mission-development/transit/campaign composite used to exercise asynchronous information arrival; authored structural scenario."
+    },
+    {
+      "activity_id": "BENNU-A2-CONCEPT",
+      "body_id": "BENNU",
+      "project_id": "PROJ:BENNU:HYDRATED_CARBONACEOUS",
+      "required_maturity": "RESOURCE_ASSESSMENT",
+      "next_maturity": "CONCEPT_SCOPING",
+      "activity_type": "RESOURCE_USE_CONCEPT_SCOPING",
+      "priority": 1,
+      "cost": "25",
+      "earliest_start": "2027.10",
+      "duration_years": "1.00",
+      "result_standing": "INSUFFICIENT",
+      "rationale": "Tests whether strong sample knowledge still fails to justify the next project-study gate when body-wide/site-scale engineering information is incomplete."
+    },
+    {
+      "activity_id": "MARS-A2-SURFACE",
+      "body_id": "MARS",
+      "project_id": "PROJ:MARS:WATER_ISRU",
+      "required_maturity": "REMOTE_CHARACTERIZED",
+      "next_maturity": "SURFACE_OR_SAMPLE_CHARACTERIZED",
+      "activity_type": "LANDED_WATER_RESOURCE_CHARACTERIZATION",
+      "priority": 2,
+      "cost": "60",
+      "earliest_start": "2028.00",
+      "duration_years": "2.50",
+      "opportunity_window": {
+        "id": "MARS-W1",
+        "open": "2030.50",
+        "close": "2031.00"
+      },
+      "result_standing": "INSUFFICIENT",
+      "rationale": "Represents a landed campaign gated by an authored Mars departure opportunity. The opportunity is structural and literature-informed, not SPICE-derived."
+    },
+    {
+      "activity_id": "MOON-A2-ASSESS",
+      "body_id": "MOON",
+      "project_id": "PROJ:MOON:POLAR_VOLATILES",
+      "required_maturity": "SURFACE_OR_SAMPLE_CHARACTERIZED",
+      "next_maturity": "RESOURCE_ASSESSMENT",
+      "activity_type": "POLAR_RESOURCE_ASSESSMENT",
+      "priority": 1,
+      "cost": "30",
+      "earliest_start": "2029.10",
+      "duration_years": "1.50",
+      "result_standing": "INSUFFICIENT",
+      "rationale": "A second lunar tranche tests whether local characterization is sufficient to define a decision-grade resource; this scenario deliberately says no."
+    },
+    {
+      "activity_id": "CERES-A2-ASSESS",
+      "body_id": "CERES",
+      "project_id": "PROJ:CERES:VOLATILES",
+      "required_maturity": "SURFACE_OR_SAMPLE_CHARACTERIZED",
+      "next_maturity": "RESOURCE_ASSESSMENT",
+      "activity_type": "CERES_VOLATILE_RESOURCE_ASSESSMENT",
+      "priority": 1,
+      "cost": "25",
+      "earliest_start": "2034.60",
+      "duration_years": "1.00",
+      "result_standing": "SUPPORTS_ADVANCE",
+      "rationale": "Follow-up analysis after the long Ceres campaign; authored structural scenario."
+    }
+  ],
+  "expected_structural_properties": [
+    "All initial evidence is scope-limited and no opening recoverable tonnage exists.",
+    "Bennu produces the earliest new decision-grade information because returned samples already exist.",
+    "Ceres ties up large capital for a long interval before new information arrives.",
+    "Mars advances through regional screening but its later landed campaign can be capital-blocked.",
+    "Moon advances through a surface study but may still fail to earn RESOURCE_ASSESSMENT.",
+    "No project automatically enters DEVELOPMENT and no mine is built by 2041."
+  ]
+}
