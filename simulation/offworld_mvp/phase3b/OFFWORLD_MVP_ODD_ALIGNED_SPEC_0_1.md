@@ -84,7 +84,7 @@ Agents may later form expectations from their own information. WORLD_SIM truth m
 Only declared observation/information channels cross the hidden-world firewall.
 
 ### Interaction
-Interactions occur through action requests, transactions, observations, ownership claims and system-mediated processes. Agents do not mutate world state. Test 009A keeps commodity clearing as a SYSTEM process: the sponsor may offer realized inventory from admitted exogenous price/demand state, while the market SYSTEM validates current inventory and remaining demand and records the physical/financial clearing. It does not read hidden scenario resource truth. Test 010A separately distinguishes financing-return claims from project ownership claims: the sponsor chooses bounded category totals from admitted project cash/obligations, while the distribution SYSTEM validates disbursed-financing lineage, preserves reserve cash, executes local reinvestment, and routes owner residual strictly by the ownership ledger. Test 011A consumes already-realized local reinvestment through a bounded settlement-infrastructure SYSTEM, derives settlement stage from realized productive/infrastructure/population/support state, and permits the existing public institutional Agent to authorize migration only within realized habitat headroom, Earth population and public funding. Migration remains aggregate and population-conserving.
+Interactions occur through action requests, transactions, observations, ownership claims and system-mediated processes. Agents do not mutate world state. Test 009A keeps commodity clearing as a SYSTEM process: the sponsor may offer realized inventory from admitted exogenous price/demand state, while the market SYSTEM validates current inventory and remaining demand and records the physical/financial clearing. It does not read hidden scenario resource truth. Test 010A separately distinguishes financing-return claims from project ownership claims: the sponsor chooses bounded category totals from admitted project cash/obligations, while the distribution SYSTEM validates disbursed-financing lineage, preserves reserve cash, executes local reinvestment, and routes owner residual strictly by the ownership ledger. Test 011A consumes already-realized local reinvestment through a bounded settlement-infrastructure SYSTEM, derives settlement stage from realized productive/infrastructure/population/support state, and permits the existing public institutional Agent to authorize migration only within realized habitat headroom, Earth population and public funding. Migration remains aggregate and population-conserving. Test 012A adds an exogenous capability-qualified Earth-to-offworld passenger transport relationship with separately represented Cost, TravelTime, Energy, LossRisk and Capacity; the public Agent authorizes use from admitted service state, while SYSTEM execution separately charges support and transport, holds passengers in aggregate in-transit population until deterministic arrival, and preserves total population exactly.
 
 ### Stochasticity
 Randomness is keyed and replayable. Random identities are independent of execution order.
@@ -210,6 +210,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       "EXTRACT",
       "SELL",
       "MIGRATE",
+      "TRANSPORT",
       "REINVEST",
       "DISTRIBUTE",
       "SETTLE"
@@ -420,6 +421,24 @@ The ODD state/interface registry below is machine-checked against executable dat
       "CAPABILITY_OR_OBJECTIVE_BLOCK",
       "BLOCKED_REQUIRED_INPUT_UNKNOWN"
     ],
+    "TransportSettlementDecisionOutcome": [
+      "AUTHORIZE",
+      "DEFER",
+      "BLOCKED_UNKNOWN"
+    ],
+    "TransportSettlementReasonCode": [
+      "SETTLEMENT_TRANSPORT_AUTHORIZED",
+      "STAGE_BLOCK",
+      "NO_REQUESTED_RESIDENTS",
+      "HABITAT_CAPACITY_LIMIT",
+      "ORIGIN_POPULATION_LIMIT",
+      "TRANSPORT_UNAVAILABLE",
+      "TRANSPORT_CAPACITY_LIMIT",
+      "LOSS_RISK_UNSUPPORTED",
+      "INSUFFICIENT_PUBLIC_FUNDS",
+      "CAPABILITY_OR_OBJECTIVE_BLOCK",
+      "BLOCKED_REQUIRED_INPUT_UNKNOWN"
+    ],
     "TxPurpose": [
       "DISBURSE",
       "CAPEX",
@@ -433,7 +452,8 @@ The ODD state/interface registry below is machine-checked against executable dat
       "RESERVE",
       "FINANCIER_RETURN",
       "OWNER_DISTRIBUTION",
-      "PUBLIC_SUBSIDY"
+      "PUBLIC_SUBSIDY",
+      "TRANSPORT_PAYMENT"
     ],
     "UnderwritingInputKind": [
       "PRICE",
@@ -467,7 +487,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_13",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_14",
   "types": {
     "Account": [
       {
@@ -1771,6 +1791,166 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "str"
       }
     ],
+    "PassengerTransportArrivalRecord": [
+      {
+        "name": "departure_id",
+        "type": "str"
+      },
+      {
+        "name": "relationship_id",
+        "type": "str"
+      },
+      {
+        "name": "destination_node_id",
+        "type": "str"
+      },
+      {
+        "name": "passengers",
+        "type": "int"
+      },
+      {
+        "name": "arrival_time",
+        "type": "D"
+      },
+      {
+        "name": "in_transit_before",
+        "type": "int"
+      },
+      {
+        "name": "in_transit_after",
+        "type": "int"
+      },
+      {
+        "name": "offworld_population_before",
+        "type": "int"
+      },
+      {
+        "name": "offworld_population_after",
+        "type": "int"
+      },
+      {
+        "name": "total_population_before",
+        "type": "int"
+      },
+      {
+        "name": "total_population_after",
+        "type": "int"
+      },
+      {
+        "name": "arrival_event_id",
+        "type": "str"
+      },
+      {
+        "name": "stage_event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "PassengerTransportDepartureRecord": [
+      {
+        "name": "departure_id",
+        "type": "str"
+      },
+      {
+        "name": "decision_id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "technology_state_id",
+        "type": "str"
+      },
+      {
+        "name": "relationship_id",
+        "type": "str"
+      },
+      {
+        "name": "origin_node_id",
+        "type": "str"
+      },
+      {
+        "name": "destination_node_id",
+        "type": "str"
+      },
+      {
+        "name": "passengers",
+        "type": "int"
+      },
+      {
+        "name": "support_amount",
+        "type": "D"
+      },
+      {
+        "name": "transport_amount",
+        "type": "D"
+      },
+      {
+        "name": "departure_time",
+        "type": "D"
+      },
+      {
+        "name": "arrival_time",
+        "type": "D"
+      },
+      {
+        "name": "earth_population_before",
+        "type": "int"
+      },
+      {
+        "name": "earth_population_after",
+        "type": "int"
+      },
+      {
+        "name": "in_transit_before",
+        "type": "int"
+      },
+      {
+        "name": "in_transit_after",
+        "type": "int"
+      },
+      {
+        "name": "total_population_before",
+        "type": "int"
+      },
+      {
+        "name": "total_population_after",
+        "type": "int"
+      },
+      {
+        "name": "subsidy_before",
+        "type": "D"
+      },
+      {
+        "name": "subsidy_after",
+        "type": "D"
+      },
+      {
+        "name": "support_transaction_id",
+        "type": "str"
+      },
+      {
+        "name": "transport_transaction_id",
+        "type": "str"
+      },
+      {
+        "name": "departure_event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
     "PolicyContext": [
       {
         "name": "snapshot",
@@ -1864,6 +2044,10 @@ The ODD state/interface registry below is machine-checked against executable dat
       },
       {
         "name": "offworld",
+        "type": "Dict[str, int]"
+      },
+      {
+        "name": "in_transit",
         "type": "Dict[str, int]"
       }
     ],
@@ -3087,6 +3271,36 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "RuntimeObjectClass"
       }
     ],
+    "TechnologyCapabilityState": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "effective_from",
+        "type": "D"
+      },
+      {
+        "name": "effective_to",
+        "type": "D"
+      },
+      {
+        "name": "qualified_capabilities",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "source_ref",
+        "type": "str"
+      },
+      {
+        "name": "epistemic_status",
+        "type": "str"
+      },
+      {
+        "name": "state_version",
+        "type": "str"
+      }
+    ],
     "Transaction": [
       {
         "name": "id",
@@ -3131,6 +3345,230 @@ The ODD state/interface registry below is machine-checked against executable dat
       {
         "name": "parent_ids",
         "type": "tuple[str, ...]"
+      }
+    ],
+    "TransportQualificationRecord": [
+      {
+        "name": "technology_state_id",
+        "type": "str"
+      },
+      {
+        "name": "relationship_id",
+        "type": "str"
+      },
+      {
+        "name": "effective_time",
+        "type": "D"
+      },
+      {
+        "name": "available",
+        "type": "bool"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "required_capability_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "TransportRelationship": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "origin_node_id",
+        "type": "str"
+      },
+      {
+        "name": "destination_node_id",
+        "type": "str"
+      },
+      {
+        "name": "effective_from",
+        "type": "D"
+      },
+      {
+        "name": "effective_to",
+        "type": "D"
+      },
+      {
+        "name": "required_capability_id",
+        "type": "str"
+      },
+      {
+        "name": "cost_per_passenger",
+        "type": "D"
+      },
+      {
+        "name": "travel_time",
+        "type": "D"
+      },
+      {
+        "name": "energy_per_passenger",
+        "type": "D"
+      },
+      {
+        "name": "loss_risk",
+        "type": "D"
+      },
+      {
+        "name": "capacity",
+        "type": "int"
+      },
+      {
+        "name": "passenger_class",
+        "type": "str"
+      },
+      {
+        "name": "source_ref",
+        "type": "str"
+      },
+      {
+        "name": "epistemic_status",
+        "type": "str"
+      },
+      {
+        "name": "relationship_version",
+        "type": "str"
+      }
+    ],
+    "TransportSettlementDecision": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "TransportSettlementDecisionOutcome"
+      },
+      {
+        "name": "authorized_residents",
+        "type": "int"
+      },
+      {
+        "name": "support_amount",
+        "type": "D"
+      },
+      {
+        "name": "transport_amount",
+        "type": "D"
+      },
+      {
+        "name": "relationship_id",
+        "type": "str"
+      },
+      {
+        "name": "technology_state_id",
+        "type": "str"
+      },
+      {
+        "name": "departure_time",
+        "type": "D"
+      },
+      {
+        "name": "arrival_time",
+        "type": "D"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "reason_code",
+        "type": "TransportSettlementReasonCode"
+      },
+      {
+        "name": "unknown_input_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
+    ],
+    "TransportSettlementRequest": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "departure_time",
+        "type": "D"
+      },
+      {
+        "name": "origin_node_id",
+        "type": "str"
+      },
+      {
+        "name": "destination_node_id",
+        "type": "str"
+      },
+      {
+        "name": "support_account_id",
+        "type": "str"
+      },
+      {
+        "name": "transport_account_id",
+        "type": "str"
+      },
+      {
+        "name": "requested_residents",
+        "type": "int"
+      },
+      {
+        "name": "support_cost",
+        "type": "D"
+      },
+      {
+        "name": "transport_relationship_id",
+        "type": "str"
+      },
+      {
+        "name": "technology_state_id",
+        "type": "str"
+      },
+      {
+        "name": "required_fact_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "currency_unit",
+        "type": "str"
+      },
+      {
+        "name": "population_unit",
+        "type": "str"
+      },
+      {
+        "name": "time_unit",
+        "type": "str"
+      },
+      {
+        "name": "request_version",
+        "type": "str"
       }
     ],
     "UnderwritingInput": [
@@ -3269,10 +3707,34 @@ The ODD state/interface registry below is machine-checked against executable dat
     "OperatingCycleRequest.year": "SIM_YEAR",
     "OwnerDistributionAllocation.amount": "MODEL_CURRENCY",
     "OwnerDistributionAllocation.ownership_share": "DIMENSIONLESS_SHARE",
+    "PassengerTransportArrivalRecord.arrival_time": "SIM_TIME",
+    "PassengerTransportArrivalRecord.in_transit_after": "PEOPLE_EQUIVALENT",
+    "PassengerTransportArrivalRecord.in_transit_before": "PEOPLE_EQUIVALENT",
+    "PassengerTransportArrivalRecord.offworld_population_after": "PEOPLE_EQUIVALENT",
+    "PassengerTransportArrivalRecord.offworld_population_before": "PEOPLE_EQUIVALENT",
+    "PassengerTransportArrivalRecord.passengers": "PEOPLE_EQUIVALENT",
+    "PassengerTransportArrivalRecord.total_population_after": "PEOPLE_EQUIVALENT",
+    "PassengerTransportArrivalRecord.total_population_before": "PEOPLE_EQUIVALENT",
+    "PassengerTransportDepartureRecord.arrival_time": "SIM_TIME",
+    "PassengerTransportDepartureRecord.departure_time": "SIM_TIME",
+    "PassengerTransportDepartureRecord.earth_population_after": "PEOPLE_EQUIVALENT",
+    "PassengerTransportDepartureRecord.earth_population_before": "PEOPLE_EQUIVALENT",
+    "PassengerTransportDepartureRecord.in_transit_after": "PEOPLE_EQUIVALENT",
+    "PassengerTransportDepartureRecord.in_transit_before": "PEOPLE_EQUIVALENT",
+    "PassengerTransportDepartureRecord.passengers": "PEOPLE_EQUIVALENT",
+    "PassengerTransportDepartureRecord.subsidy_after": "MODEL_CURRENCY",
+    "PassengerTransportDepartureRecord.subsidy_before": "MODEL_CURRENCY",
+    "PassengerTransportDepartureRecord.support_amount": "MODEL_CURRENCY",
+    "PassengerTransportDepartureRecord.total_population_after": "PEOPLE_EQUIVALENT",
+    "PassengerTransportDepartureRecord.total_population_before": "PEOPLE_EQUIVALENT",
+    "PassengerTransportDepartureRecord.transport_amount": "MODEL_CURRENCY",
     "PolicyParameter.local_perturbation": "FIELD:PolicyParameter.unit",
     "PolicyParameter.sensitivity_high": "FIELD:PolicyParameter.unit",
     "PolicyParameter.sensitivity_low": "FIELD:PolicyParameter.unit",
     "PolicyParameter.value": "FIELD:PolicyParameter.unit",
+    "PopulationLedger.earth": "PEOPLE_EQUIVALENT",
+    "PopulationLedger.in_transit": "PEOPLE_EQUIVALENT_BY_TRANSPORT_BATCH",
+    "PopulationLedger.offworld": "PEOPLE_EQUIVALENT_BY_NODE",
     "Project": "NO_INTRINSIC_SCALAR_UNIT",
     "ProjectDevelopmentPlan.commissioned_capacity": "ASSET_CLASS_CAPACITY_UNIT",
     "ProjectDevelopmentPlan.completion_year": "SIM_YEAR",
@@ -3345,8 +3807,26 @@ The ODD state/interface registry below is machine-checked against executable dat
     "SurplusDistributionRecord.reserve": "MODEL_CURRENCY",
     "SurplusDistributionRecord.year": "SIM_YEAR",
     "SurplusDistributionRequest.year": "SIM_YEAR",
+    "TechnologyCapabilityState.effective_from": "SIM_TIME",
+    "TechnologyCapabilityState.effective_to": "SIM_TIME",
     "Transaction.amount": "MODEL_CURRENCY",
     "Transaction.year": "SIM_YEAR",
+    "TransportQualificationRecord.effective_time": "SIM_TIME",
+    "TransportRelationship.capacity": "PEOPLE_EQUIVALENT",
+    "TransportRelationship.cost_per_passenger": "MODEL_CURRENCY_PER_PERSON",
+    "TransportRelationship.effective_from": "SIM_TIME",
+    "TransportRelationship.effective_to": "SIM_TIME",
+    "TransportRelationship.energy_per_passenger": "MODEL_ENERGY_PER_PERSON",
+    "TransportRelationship.loss_risk": "PROBABILITY",
+    "TransportRelationship.travel_time": "SIM_TIME_DURATION",
+    "TransportSettlementDecision.arrival_time": "SIM_TIME",
+    "TransportSettlementDecision.authorized_residents": "REQUEST_POPULATION_UNIT",
+    "TransportSettlementDecision.departure_time": "SIM_TIME",
+    "TransportSettlementDecision.support_amount": "REQUEST_CURRENCY_UNIT",
+    "TransportSettlementDecision.transport_amount": "REQUEST_CURRENCY_UNIT",
+    "TransportSettlementRequest.departure_time": "SIM_TIME",
+    "TransportSettlementRequest.requested_residents": "FIELD:TransportSettlementRequest.population_unit",
+    "TransportSettlementRequest.support_cost": "FIELD:TransportSettlementRequest.currency_unit",
     "UnderwritingInput.basis_year": "SIM_YEAR",
     "UnderwritingInput.sensitivity_high": "FIELD:UnderwritingInput.unit",
     "UnderwritingInput.sensitivity_low": "FIELD:UnderwritingInput.unit",

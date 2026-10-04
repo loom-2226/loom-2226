@@ -291,7 +291,7 @@ class Build5TransportTechnologyTests(unittest.TestCase):
         self.assertEqual(k.population.in_transit,{})
 
     def test_insufficient_funding_includes_transport_and_support_separately(self):
-        k,h=self.reach_infrastructure(public_balance='35')
+        k,h=self.reach_infrastructure(public_balance='20')
         self.transport_epoch(k,h)
         d=h['transport_settlement_policy'].decision
         self.assertEqual(d.outcome,TransportSettlementDecisionOutcome.DEFER)
