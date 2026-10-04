@@ -56,7 +56,7 @@ class Build3Kernel(MVPKernel):
             c.reserved-=amount; c.spent+=amount
         return self.spend_capex(year,project_id,supplier_account,amount,asset_id,asset_node,asset_class,financing_origin_nodes)
 
-    def explore_paid(self,year,actor_id,resource_id,project_id,supplier_account,cost,channel='REMOTE',public=True,false_positive=D('0'),false_negative=D('0')):
+    def explore_paid(self,year,actor_id,resource_id,project_id,supplier_account,cost,channel='REMOTE',public=True,false_positive=D('0'),false_negative=D('0'),update_belief=True,parent_ids=()):
         a=self.agents[actor_id]; r=self.resources[resource_id]; cost=D(cost); fp=D(false_positive); fn=D(false_negative)
         if 'EXPLORE' not in a.capabilities or not (D('0')<=fp<=D('1')) or not (D('0')<=fn<=D('1')): raise InvariantError('invalid exploration')
         p=self.state.projects[project_id]
@@ -69,7 +69,9 @@ class Build3Kernel(MVPKernel):
             total=self.state.earth_impact.qualifying_supplied_expenditure.get(key,D('0'))+cost
             self.state.earth_impact.qualifying_supplied_expenditure[key]=total
             self.state.earth_impact.terrestrial_fcf_delta[key]=-self.lambda_displacement*total
-        tx=self.transfer(year,p.cash_account_id,supplier_account,cost,TxPurpose.EXPLORATION,supplier_location=supplier_node,asset_location=r.node_id,parent_ids=(project_id,resource_id))
+        tx=self.transfer(year,p.cash_account_id,supplier_account,cost,TxPurpose.EXPLORATION,
+                         supplier_location=supplier_node,asset_location=r.node_id,
+                         parent_ids=(project_id,resource_id,*tuple(parent_ids)))
         aid=self._id('explore-wip'); self.state.assets[aid]=Asset(aid,project_id,r.node_id,AssetKind.EXPLORATION_WIP,cost)
         truth=r.remaining>D('0'); draw=self.keyed_draw('OBS',year,actor_id,resource_id,channel)
         positive=(draw>=fn) if truth else (draw<fp)
@@ -77,9 +79,11 @@ class Build3Kernel(MVPKernel):
         o=Observation(self._id('obs'),year,actor_id,resource_id,channel,signal,public); self.observations[o.id]=o
         recipients=self.agents.values() if public else (a,)
         for x in recipients:
-            x.information.add(o.id); prior=x.beliefs.get(resource_id,D('0.5'))
-            x.beliefs[resource_id]=min(D('0.95'),prior+D('0.30')) if positive else max(D('0.05'),prior-D('0.30'))
-        self.event(year,actor_id,ActionKind.EXPLORE,signal,(resource_id,o.id,tx.id,aid),())
+            x.information.add(o.id)
+            if update_belief:
+                prior=x.beliefs.get(resource_id,D('0.5'))
+                x.beliefs[resource_id]=min(D('0.95'),prior+D('0.30')) if positive else max(D('0.05'),prior-D('0.30'))
+        self.event(year,actor_id,ActionKind.EXPLORE,signal,(resource_id,o.id,tx.id,aid),tuple(parent_ids))
         return o,aid,draw
 
     def resolve_exploration(self,asset_id,usable):
