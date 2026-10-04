@@ -279,8 +279,13 @@ class Build5SponsorOperatorTests(unittest.TestCase):
         self.assertEqual(
             d2.reason_code,SponsorProjectReasonCode.POSITIVE_EVIDENCE_FUNDED)
         self.assertEqual(k.state.projects['P'].status,'DEVELOPMENT')
+        self.assertFalse(any(a.project_id=='P' for a in k.state.assets.values()))
         self.assertEqual(k.state.accounts['fin_funds'].balance,D('40'))
         self.assertEqual(k.state.accounts['project_cash'].balance,D('60'))
+        request_events=[e for e in k.events if e.action.value=='REQUEST_FINANCE']
+        develop_events=[e for e in k.events if e.action.value=='DEVELOP']
+        self.assertIn(d1.id,request_events[-1].parent_ids)
+        self.assertIn(d2.id,develop_events[-1].parent_ids)
         self.assertEqual(len(k.decision_epoch_records),4)
 
     def test_negative_chain_abandons_without_finance(self):
@@ -292,6 +297,8 @@ class Build5SponsorOperatorTests(unittest.TestCase):
         self.assertNotIn('financing_request',h)
         self.assertEqual(k.state.accounts['fin_funds'].balance,D('100'))
         self.assertEqual(k.state.accounts['project_cash'].balance,D('0'))
+        abandon_events=[e for e in k.events if e.action.value=='ABANDON']
+        self.assertIn(d.id,abandon_events[-1].parent_ids)
         self.assertEqual(len(k.decision_epoch_records),2)
 
     def test_requested_amount_is_exact_development_cash_shortfall(self):

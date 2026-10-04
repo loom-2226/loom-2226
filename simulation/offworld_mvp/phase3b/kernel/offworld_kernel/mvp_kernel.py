@@ -124,22 +124,21 @@ class MVPKernel(Kernel):
             raise InvariantError('project transition requires sponsor')
         p=self.state.projects[project_id]
         old=str(p.status); new=str(new_status)
+        # Test 005A earns only sponsor-controlled entry to DEVELOPMENT or
+        # ABANDONED from pre-development states. Later lifecycle transitions
+        # require their own governed semantics rather than inheriting a guess.
         allowed={
-            'PROPOSED':{'EXPLORING','DEVELOPMENT','ABANDONED'},
-            'EXPLORING':{'DEVELOPMENT','ABANDONED','FAILED'},
-            'DEVELOPMENT':{'OPERATING','ABANDONED','FAILED'},
-            'OPERATING':{'CLOSED','FAILED'},
-            'ABANDONED':set(),
-            'FAILED':{'CLOSED'},
-            'CLOSED':set(),
+            'PROPOSED':{'DEVELOPMENT','ABANDONED'},
+            'EXPLORING':{'DEVELOPMENT','ABANDONED'},
         }
         if old not in allowed or new not in allowed[old]:
-            raise InvariantError(f'invalid project lifecycle transition: {old}->{new}')
+            raise InvariantError(f'invalid bounded sponsor project transition: {old}->{new}')
         if new=='DEVELOPMENT' and 'DEVELOP' not in actor.capabilities:
             raise InvariantError('sponsor lacks development capability')
         p.status=new
-        action=ActionKind.DEVELOP if new=='DEVELOPMENT' else ActionKind.ABANDON if new=='ABANDONED' else ActionKind.DEVELOP
-        self.event(year,actor_id,action,new,(project_id,old,new,str(reason_ref)),())
+        action=ActionKind.DEVELOP if new=='DEVELOPMENT' else ActionKind.ABANDON
+        parents=(str(reason_ref),) if reason_ref else ()
+        self.event(year,actor_id,action,new,(project_id,old,new),parents)
         return p
 
     def request_finance(self,year,sponsor_id,project_id,amount,stage,disclosed=()):
