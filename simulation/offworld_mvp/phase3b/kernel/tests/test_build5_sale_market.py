@@ -348,7 +348,8 @@ class Build5SaleMarketTests(unittest.TestCase):
         self.assertEqual(tx.purpose.value,'REVENUE')
         self.assertEqual(tx.source_account,'earth_market')
         self.assertEqual(tx.destination_account,'project_cash')
-        self.assertEqual(k.state.accounts['spn_cash'].balance,D('0'))
+        sponsor_account=k.agents['SPN'].account_id
+        self.assertEqual(k.state.accounts[sponsor_account].balance,D('0'))
         self.assertEqual(k.state.accounts['project_cash'].balance,D('80'))
 
     def test_sale_preserves_A1_A9_and_physical_transfer_identity(self):
