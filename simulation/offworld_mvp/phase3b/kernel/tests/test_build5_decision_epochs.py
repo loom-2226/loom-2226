@@ -66,7 +66,7 @@ class Build5DecisionEpochTests(unittest.TestCase):
             'EVENT',Phase.INFORMATION_UPDATE,perspective='WORLD_SIM'))
 
         snap=h['pub_snapshot']
-        snap_ref=k.scheduler.open_decision_window('PUB-E1',snap.fingerprint())
+        snap_ref=k.scheduler.open_decision_window(snap.period_key,snap.fingerprint())
         k.scheduler.schedule(ScheduledEvent(
             'epoch1-publication-decision',D('1'),Phase.DECISION_WINDOW,0,'PUB',
             'PUBLICATION_DECISION_ORCHESTRATOR',snapshot_ref=snap_ref))
@@ -127,7 +127,7 @@ class Build5DecisionEpochTests(unittest.TestCase):
             ('accounts','commitments'),('financing_decision',),
             ('accounts','commitments'),'EVENT',Phase.COMMITMENT_DISBURSEMENT))
 
-        snap_ref=k.scheduler.open_decision_window('FIN-E2',fresh_snapshot.fingerprint())
+        snap_ref=k.scheduler.open_decision_window(fresh_snapshot.period_key,fresh_snapshot.fingerprint())
         k.scheduler.schedule(ScheduledEvent(
             'epoch2-financier-decision',D('3'),Phase.DECISION_WINDOW,0,'FIN',
             'FINANCE_DECISION_ORCHESTRATOR_EPOCH',snapshot_ref=snap_ref))
@@ -224,7 +224,7 @@ class Build5DecisionEpochTests(unittest.TestCase):
         k.scheduler.register_coupling(CouplingSpec(
             'FINANCE_DECISION_ORCHESTRATOR_EPOCH','v1',RuntimeObjectClass.SYSTEM,
             (),('agent_snapshot',),(),'EVENT',Phase.DECISION_WINDOW))
-        ref=k.scheduler.open_decision_window('FIN-E2',fresh.fingerprint())
+        ref=k.scheduler.open_decision_window(fresh.period_key,fresh.fingerprint())
         k.scheduler.schedule(ScheduledEvent(
             'epoch2-financier-decision',D('3'),Phase.DECISION_WINDOW,0,'FIN',
             'FINANCE_DECISION_ORCHESTRATOR_EPOCH',snapshot_ref=ref))
@@ -243,7 +243,7 @@ class Build5DecisionEpochTests(unittest.TestCase):
         k.scheduler.register_coupling(CouplingSpec(
             'FINANCE_DECISION_ORCHESTRATOR_EPOCH','v1',RuntimeObjectClass.SYSTEM,
             (),('agent_snapshot',),(),'EVENT',Phase.DECISION_WINDOW))
-        ref=k.scheduler.open_decision_window('FIN-E2',stale.fingerprint())
+        ref=k.scheduler.open_decision_window(stale.period_key,stale.fingerprint())
         k.scheduler.schedule(ScheduledEvent(
             'epoch2-financier-decision',D('3'),Phase.DECISION_WINDOW,0,'FIN',
             'FINANCE_DECISION_ORCHESTRATOR_EPOCH',snapshot_ref=ref))
