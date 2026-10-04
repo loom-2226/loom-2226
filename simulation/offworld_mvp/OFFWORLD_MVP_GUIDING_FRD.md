@@ -819,6 +819,20 @@ Validation record:
 
 R4 adds explicit exposure-selection/allocation plans and demonstrates five-period pathwise equivalence between aggregate-only and exposed-Agent representations when the Agent follows the aggregate-equivalent rule.
 
+The next four autonomous-policy pre-gate items have since been implemented and frozen as:
+
+`offworld-mvp-build4-mvp-r5-underwriting-accounting-2026-10-04`
+
+at commit:
+
+`e952025366da44f84943fae0a9f00f4ed931fd92`.
+
+Validation record:
+
+`PHASE3B_KERNEL_VALIDATION_RECORD_009_ITEMS_1_4_HARDENING.md`.
+
+R5 adds the authored underwriting input layer, ensemble reporting guardrails, scheduler-valid A1–A9 property verification, signed-boundary reconciliation, true staged multi-year WIP/depreciation, and genuine multi-rate synchronization.
+
 It does not close Phase 3B and does not authorize autonomous decision policies.
 
 
