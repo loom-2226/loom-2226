@@ -18,12 +18,17 @@ The historical Build 4 executable baseline is frozen at:
 
 The active development branch extended that baseline with methodology hardening. The frozen branch was not rewritten.
 
-The revalidated methodology-hardened baseline is separately frozen at:
+The first methodology-hardened baseline is preserved at:
 
 - branch: `offworld-mvp-build4-mvp-r1-2026-10-04`;
 - commit: `82e31aaa218b36bbd1ba7ce75313fdccd0169c1a`.
 
-Its validation record is `PHASE3B_KERNEL_VALIDATION_RECORD_005_BUILD4_MVP_METHODOLOGY_REVALIDATION.md`.
+The scheduler-enforced baseline is now frozen at:
+
+- branch: `offworld-mvp-build4-mvp-r2-scheduled-2026-10-04`;
+- commit: `edae7053081db20e96a00e77b752ca4c4bcecebb`.
+
+Its validation record is `PHASE3B_KERNEL_VALIDATION_RECORD_006_SCHEDULED_RUNTIME.md`.
 
 ## Active Build 4-derived methodology baseline
 
