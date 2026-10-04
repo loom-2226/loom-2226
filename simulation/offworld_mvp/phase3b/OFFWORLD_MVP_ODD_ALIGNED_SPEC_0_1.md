@@ -214,6 +214,19 @@ The ODD state/interface registry below is machine-checked against executable dat
       "UNCERTAINTY",
       "STOCHASTIC_KEY"
     ],
+    "ExplorationDecisionOutcome": [
+      "AUTHORIZE",
+      "DECLINE",
+      "DEFER",
+      "BLOCKED_UNKNOWN"
+    ],
+    "ExplorationReasonCode": [
+      "APPROVED_PUBLIC_INFORMATION_MISSION",
+      "INSUFFICIENT_BUDGET",
+      "CAPABILITY_OR_OBJECTIVE_BLOCK",
+      "DEFER_UNSUPPORTED_CHANNEL",
+      "BLOCKED_REQUIRED_INPUT_UNKNOWN"
+    ],
     "ExposureAllocationBasis": [
       "EQUAL_MEMBER_PRO_RATA",
       "EXPLICIT_AUTHORIZED_SHARE",
@@ -339,7 +352,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_3",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_4",
   "types": {
     "Account": [
       {
@@ -711,6 +724,94 @@ The ODD state/interface registry below is machine-checked against executable dat
       {
         "name": "runtime_class",
         "type": "RuntimeObjectClass"
+      }
+    ],
+    "ExplorationDecision": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "authorized",
+        "type": "bool"
+      },
+      {
+        "name": "authorized_cost",
+        "type": "D"
+      },
+      {
+        "name": "channel",
+        "type": "str"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "ExplorationDecisionOutcome"
+      },
+      {
+        "name": "reason_code",
+        "type": "ExplorationReasonCode"
+      },
+      {
+        "name": "unknown_input_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
+    ],
+    "ExplorationRequest": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "resource_id",
+        "type": "str"
+      },
+      {
+        "name": "channel",
+        "type": "str"
+      },
+      {
+        "name": "required_fact_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "currency_unit",
+        "type": "str"
+      },
+      {
+        "name": "request_version",
+        "type": "str"
       }
     ],
     "FinancierPolicyManifest": [
@@ -1523,6 +1624,8 @@ The ODD state/interface registry below is machine-checked against executable dat
     "DecisionSnapshot.effective_time": "SIM_TIME",
     "EarthImpactLedger.qualifying_supplied_expenditure": "MODEL_CURRENCY",
     "EarthImpactLedger.terrestrial_fcf_delta": "MODEL_CURRENCY",
+    "ExplorationDecision.authorized_cost": "REQUEST_CURRENCY_UNIT",
+    "ExplorationRequest.year": "SIM_YEAR",
     "FinancierPolicyManifest.world_detection_rate": "PROBABILITY",
     "FinancierPolicyManifest.world_false_positive_rate": "PROBABILITY",
     "FinancingDecision.amount": "REQUEST_CURRENCY_UNIT",
