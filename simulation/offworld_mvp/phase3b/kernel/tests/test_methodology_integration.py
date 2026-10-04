@@ -4,13 +4,15 @@ from offworld_kernel.methodology_fixture import *
 
 class MethodologyIntegrationTests(unittest.TestCase):
     def test_scheduled_build4_resolution_and_snapshot(self):
-        k,results,snapshots=scheduled_resolution_fixture()
+        k,run_result,snapshots=scheduled_resolution_fixture()
         self.assertEqual(k.scheduler.execution_log,['resolve','check','snapshot'])
         self.assertEqual(k.state.accounts['sector_cash'].balance,D('75'))
         self.assertEqual(k.state.accounts['firm_cash'].balance,D('25'))
         self.assertEqual(k.aggregates['FIRM_SECTOR'].member_count,9)
         self.assertEqual(len(snapshots),1)
-        self.assertEqual(results[-1],snapshots[0])
+        self.assertEqual(dict(run_result.event_results)['snapshot'],snapshots[0])
+        self.assertEqual(run_result.run_mode,'SCHEDULED_MVP')
+        self.assertEqual(run_result.validation_status,'NOT_EMPIRICALLY_VALIDATED')
         self.assertEqual(scheduled_resolution_fixture()[2],snapshots)
 
     def test_real_kernel_ensemble_replays(self):
