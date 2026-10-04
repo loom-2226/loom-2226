@@ -432,12 +432,9 @@ class Build6BStagedProspectingTests(unittest.TestCase):
             k,'E03-C','ACT-A-REMOTE','2','2.05',
             ProjectStudyResultStanding.SUPPORTS_ADVANCE)
         self.review_epoch(k,'E04-R','ACT-A-REMOTE','2.1')
-        # Same completed activity cannot be reviewed a second time.
-        snapshot=study_review_snapshot(k,'DUP','2.2','ACT-A-REMOTE')
-        request=study_review_request('Q-DUP',k,'ACT-A-REMOTE')
-        d=run_sponsor_study_review_policy(snapshot,request,'DUP').decision
+        # Same completed activity cannot be reviewed a second time through the governed scheduler.
         with self.assertRaisesRegex(InvariantError,'duplicate project study review'):
-            k.execute_project_study_review('2.2',request,d)
+            self.review_epoch(k,'E05-DUP','ACT-A-REMOTE','2.2')
 
     def test_forged_advance_against_negative_result_is_rejected(self):
         k,_=staged_prospecting_kernel()
