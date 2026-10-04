@@ -3,7 +3,8 @@
 **Status:** STRUCTURAL PASS / PARAMETER AUTHORIZATION PENDING / PRE-CONTRACT / SINGLE-AUTHORITY
 **Date:** 2026-10-04
 **Branch:** `offworld-mvp-build5-autonomous-financier`
-**Tested executable/documentation head:** `4045201018e4c35266cd17fe62a08234099eef8b`
+**Implementation head originally validated:** `4045201018e4c35266cd17fe62a08234099eef8b`
+**Current branch head re-verified:** `1a4c854a364f1646367356ba1ab883727d170b6f`
 **Authorization:** `BUILD5_IMPLEMENTATION_AUTHORIZATION_001_FINANCIER_TEST001.md`
 
 ## 1. Result
@@ -16,21 +17,40 @@ No synthetic fixture value has been promoted by repeated use.
 
 ## 2. Regression result
 
-Executed on `quantifactus` from the Build 5 Git checkout:
+Originally executed on `quantifactus` at implementation head `4045201018e4c35266cd17fe62a08234099eef8b` and re-executed from a fresh detached worktree at current branch head `1a4c854a364f1646367356ba1ab883727d170b6f`.
+
+The governed suite is run from:
+
+`simulation/offworld_mvp/phase3b/kernel`
+
+using:
 
 `python3 -m unittest discover -s tests`
 
-**117 tests executed; 117 passed.**
+Current live re-verification result:
+
+**117 tests executed; 117 passed in 8.208 seconds.**
 
 This includes all inherited Build 3/4 verification tests and the new Build 5 autonomous-financier tests.
 
+Between the original implementation head and the current re-verification head, Git shows only two added Markdown records:
+
+- `simulation/offworld_mvp/build5/BUILD5_VALIDATION_RECORD_001_FINANCIER_STRUCTURAL.md`;
+- `simulation/offworld_mvp/build5/BUILD5_FINANCIER_POLICY_PARAMETER_PROPOSAL_0_1.md`.
+
+No executable file changed in that interval.
+
 ## 3. Executable identity
 
-Tested Git commit:
+Original implementation Git commit:
 
 `4045201018e4c35266cd17fe62a08234099eef8b`
 
-Executable `offworld_kernel` source-tree SHA-256:
+Current re-verification Git commit:
+
+`1a4c854a364f1646367356ba1ab883727d170b6f`
+
+Executable `offworld_kernel` source-tree SHA-256 at the current re-verification head:
 
 `48393762bf0f151c826e4734d9c8caf0e73a9205b27a20a19e311bba7202014c`
 
@@ -38,9 +58,15 @@ Git-object source-tree SHA-256:
 
 `48393762bf0f151c826e4734d9c8caf0e73a9205b27a20a19e311bba7202014c`
 
+Git-object reconstructed source-tree SHA-256 at the current re-verification head:
+
+`48393762bf0f151c826e4734d9c8caf0e73a9205b27a20a19e311bba7202014c`
+
 Commit/code linkage:
 
 `GIT_OBJECT_VERIFIED`.
+
+The executable hash is unchanged from the original implementation head because the intervening commits are documentation-only.
 
 ## 4. Policy identity
 
