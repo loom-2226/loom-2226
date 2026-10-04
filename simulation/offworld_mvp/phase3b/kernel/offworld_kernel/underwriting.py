@@ -31,6 +31,7 @@ class UnderwritingInput:
     unit:str
     status:UnderwritingInputStatus
     source_or_rationale_ref:str
+    basis_year:int
     sensitivity_low:D|None=None
     sensitivity_high:D|None=None
     valid_from:int|None=None
@@ -44,14 +45,20 @@ class UnderwritingInput:
         else:
             if self.value is None: raise InvariantError('known underwriting input requires value')
             if self.value<0: raise InvariantError('negative underwriting input')
+        if self.basis_year is None:
+            raise InvariantError('underwriting input basis year missing')
+        if self.valid_from is None or self.valid_to is None:
+            raise InvariantError('underwriting input validity years missing')
+        if self.valid_from>self.valid_to:
+            raise InvariantError('invalid underwriting validity interval')
+        if not self.valid_from<=self.basis_year<=self.valid_to:
+            raise InvariantError('underwriting basis year outside validity interval')
         if (self.sensitivity_low is None)!=(self.sensitivity_high is None):
             raise InvariantError('underwriting sensitivity range incomplete')
         if self.sensitivity_low is not None:
             if self.value is None: raise InvariantError('UNKNOWN input cannot carry sensitivity range')
             if self.sensitivity_low>self.value or self.value>self.sensitivity_high:
                 raise InvariantError('underwriting value outside sensitivity range')
-        if self.valid_from is not None and self.valid_to is not None and self.valid_from>self.valid_to:
-            raise InvariantError('invalid underwriting validity interval')
         return self
 
 @dataclass(frozen=True,slots=True)
@@ -84,7 +91,7 @@ class UnderwritingTable:
     def fingerprint(self):
         payload={'table_id':self.table_id,'version':self.version,'epistemic_status':self.epistemic_status,
           'inputs':[(x.input_id,x.archetype_id,x.kind.value,None if x.value is None else str(x.value),x.unit,
-                     x.status.value,x.source_or_rationale_ref,
+                     x.status.value,x.source_or_rationale_ref,x.basis_year,
                      None if x.sensitivity_low is None else str(x.sensitivity_low),
                      None if x.sensitivity_high is None else str(x.sensitivity_high),
                      x.valid_from,x.valid_to) for x in self.inputs]}
@@ -95,24 +102,27 @@ def mvp_validation_underwriting_table():
     rationale='AUTHORED:MVP_VALIDATION_NOT_EMPIRICAL'
     return UnderwritingTable(
       'OFFWORLD_MVP_UNDERWRITING_VALIDATION_V0_1','0.1','PRE_CONTRACT_AUTHORED_SCENARIO',(
-        UnderwritingInput('price-001',arch,UnderwritingInputKind.PRICE,D('20'),'MODEL_CURRENCY_PER_RESOURCE_UNIT',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,D('10'),D('40')),
-        UnderwritingInput('exp-capex-001',arch,UnderwritingInputKind.EXPLORATION_CAPEX,D('10'),'MODEL_CURRENCY',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,D('5'),D('20')),
-        UnderwritingInput('dev-capex-001',arch,UnderwritingInputKind.DEVELOPMENT_CAPEX,D('60'),'MODEL_CURRENCY',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,D('30'),D('120')),
-        UnderwritingInput('opex-001',arch,UnderwritingInputKind.OPERATING_COST,D('4'),'MODEL_CURRENCY_PER_RESOURCE_UNIT',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,D('2'),D('8')),
-        UnderwritingInput('lead-001',arch,UnderwritingInputKind.LEAD_TIME,D('2'),'YEARS',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,D('1'),D('5')),
+        UnderwritingInput('price-001',arch,UnderwritingInputKind.PRICE,D('20'),'MODEL_CURRENCY_PER_RESOURCE_UNIT',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,1,D('10'),D('40'),1,1),
+        UnderwritingInput('exp-capex-001',arch,UnderwritingInputKind.EXPLORATION_CAPEX,D('10'),'MODEL_CURRENCY',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,1,D('5'),D('20'),1,1),
+        UnderwritingInput('dev-capex-001',arch,UnderwritingInputKind.DEVELOPMENT_CAPEX,D('60'),'MODEL_CURRENCY',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,1,D('30'),D('120'),1,1),
+        UnderwritingInput('opex-001',arch,UnderwritingInputKind.OPERATING_COST,D('4'),'MODEL_CURRENCY_PER_RESOURCE_UNIT',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,1,D('2'),D('8'),1,1),
+        UnderwritingInput('lead-001',arch,UnderwritingInputKind.LEAD_TIME,D('2'),'YEARS',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,1,D('1'),D('5'),1,1),
       )).validate()
 
 
-def underwriting_snapshot_facts(table:UnderwritingTable,archetype_id):
+def underwriting_snapshot_facts(table:UnderwritingTable,archetype_id,year):
     table.validate()
+    year=int(year)
     facts=[]
     for kind in UnderwritingInputKind:
         x=table.get(archetype_id,kind)
+        if not x.valid_from<=year<=x.valid_to:
+            raise InvariantError(f'underwriting input not valid for decision year: {kind.value}')
         state=FactState.UNKNOWN if x.status==UnderwritingInputStatus.UNKNOWN else FactState.KNOWN
         value=None if x.value is None else str(x.value)
         facts.append(SnapshotFact(
             f'underwriting.{kind.value}',
             state,
             value,
-            f'{table.table_id}:{x.input_id}:{x.source_or_rationale_ref}:{x.unit}'))
+            f'{table.table_id}:{x.input_id}:{x.source_or_rationale_ref}:{x.unit}:basis_year={x.basis_year}:valid={x.valid_from}-{x.valid_to}'))
     return tuple(facts)
