@@ -30,4 +30,14 @@ class UnderwritingTests(unittest.TestCase):
         with self.assertRaisesRegex(InvariantError,'archetype incomplete'):
             UnderwritingTable('T','1','PRE_CONTRACT_AUTHORED_SCENARIO',(x,)).validate()
 
+
+    def test_table_can_be_admitted_as_snapshot_facts_without_policy_invention(self):
+        t=mvp_validation_underwriting_table()
+        facts=underwriting_snapshot_facts(t,'GENERIC_RESOURCE_PROJECT_MVP')
+        self.assertEqual(len(facts),5)
+        by_key={f.key:f for f in facts}
+        self.assertEqual(by_key['underwriting.PRICE'].value,'20')
+        self.assertIn('MODEL_CURRENCY_PER_RESOURCE_UNIT',by_key['underwriting.PRICE'].source_ref)
+        self.assertTrue(all(f.state.value=='KNOWN' for f in facts))
+
 if __name__=='__main__': unittest.main()
