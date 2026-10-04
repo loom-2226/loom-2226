@@ -13,6 +13,13 @@ class VerificationLevel(IntEnum):
     V6_PROPERTY_METAMORPHIC=6
     V7_INDEPENDENT_CALC=7
 
+class OutOfSampleStatus(IntEnum):
+    NOT_APPLICABLE=0
+    IN_SAMPLE_ONLY=1
+    HELD_OUT=2
+    OUT_OF_SAMPLE=3
+    MIXED=4
+
 class ValidationLevel(IntEnum):
     NOT_EMPIRICALLY_VALIDATED=0
     VAL1_FACE_DOMAIN=1
@@ -31,6 +38,11 @@ class ValidationManifest:
     empirical_evidence_refs: Tuple[str,...]=()
     calibration_targets: Tuple[str,...]=()
     validation_targets: Tuple[str,...]=()
+    calibration_set_refs: Tuple[str,...]=()
+    validation_set_refs: Tuple[str,...]=()
+    held_out_set_refs: Tuple[str,...]=()
+    out_of_sample_status: OutOfSampleStatus=OutOfSampleStatus.NOT_APPLICABLE
+    out_of_sample_disclosure: str=''
     overlap_disclosure: str=''
     uncertainty_axes: Tuple[str,...]=()
     scenario_assumptions: Tuple[str,...]=()
@@ -44,6 +56,18 @@ class ValidationManifest:
             raise InvariantError('calibration/validation target overlap requires disclosure')
         if len(set(self.verification_levels))!=len(self.verification_levels):
             raise InvariantError('duplicate verification level')
+        if self.validation_level==ValidationLevel.NOT_EMPIRICALLY_VALIDATED:
+            if self.out_of_sample_status!=OutOfSampleStatus.NOT_APPLICABLE:
+                raise InvariantError('non-empirical validation manifest must use NOT_APPLICABLE out-of-sample status')
+        else:
+            if self.out_of_sample_status==OutOfSampleStatus.NOT_APPLICABLE:
+                raise InvariantError('empirical validation claim requires explicit held-out/out-of-sample status')
+            if not self.out_of_sample_disclosure:
+                raise InvariantError('empirical validation claim requires held-out/out-of-sample disclosure')
+            if self.out_of_sample_status in {OutOfSampleStatus.HELD_OUT,OutOfSampleStatus.OUT_OF_SAMPLE,OutOfSampleStatus.MIXED} and not self.held_out_set_refs:
+                raise InvariantError('held-out/out-of-sample status requires held-out set references')
+        if self.validation_level==ValidationLevel.VAL6_OUT_OF_SAMPLE and self.out_of_sample_status not in {OutOfSampleStatus.OUT_OF_SAMPLE,OutOfSampleStatus.MIXED}:
+            raise InvariantError('VAL6_OUT_OF_SAMPLE requires OUT_OF_SAMPLE or MIXED status')
         return self
 
     @property
