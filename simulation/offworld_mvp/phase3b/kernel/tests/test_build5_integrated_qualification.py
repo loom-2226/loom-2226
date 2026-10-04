@@ -4,6 +4,7 @@ from decimal import Decimal as D
 from offworld_kernel.accounting import AccountingIdentityAuditor, AccountingPeriodSnapshot
 from offworld_kernel.build5_surface_prospecting_fixture import test007a_surface_model
 from offworld_kernel.build5_transport_technology_fixture import transport_technology_kernel
+from offworld_kernel.kernel import InvariantError
 from offworld_kernel.mvp_state import (
     PublicationDecisionOutcome,
     RuntimeObjectClass,
@@ -361,6 +362,17 @@ class Build5IntegratedQualificationTests(unittest.TestCase):
         self.assertEqual(rich_shadow['returning_population'],D('0'))
         self.assertEqual(sparse_shadow['returning_population'],D('0'))
         self.assertEqual(null_shadow['returning_population'],D('0'))
+
+    def test_zero_earth_allocation_blocks_positive_offworld_supply_reservation(self):
+        k,_=self.base('RICH_PUBLIC_3','20')
+        k.set_resource_constraint('EARTH:X',99,D('1000'),D('0'))
+        c=k.resource_constraints[('EARTH:X',99)]
+        self.assertEqual(c.ceiling,D('0'))
+        self.assertEqual(c.available,D('0'))
+        with self.assertRaisesRegex(InvariantError,'Earth FCF resource proxy ceiling exceeded'):
+            k.reserve_earth_supply('EARTH:X',99,D('0.01'))
+        self.assertEqual(c.reserved,D('0'))
+        self.assertEqual(c.spent,D('0'))
 
     def test_integrated_semantic_replay_is_deterministic(self):
         for label,uid,stock in self.CASES:
