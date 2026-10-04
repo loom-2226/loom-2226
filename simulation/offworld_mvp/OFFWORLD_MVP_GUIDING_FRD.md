@@ -5,7 +5,7 @@
 **Status:** PRELIMINARY FRD / PRE-CONTRACT  
 **Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY  
 **Canonical status:** NON-CANON  
-**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002/003; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
+**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002/003/004; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
 **Phase basis:** Phase 2 Claim and Authority Model  
 **Purpose:** Define the minimum functional system required to demonstrate governed offworld civilization propagation without scripting historical outcomes.
 
@@ -664,7 +664,13 @@ For any integrated MVP simulation run, the supported execution lifecycle is:
 
 `initialize -> register couplings/events/handlers -> seal -> scheduled run -> immutable run result`.
 
-After seal, state-changing kernel methods shall reject direct calls unless they are executing inside an admitted scheduled-event context carrying the runtime execution token. Raw state or scheduler-plan mutation after seal shall invalidate the run. Legacy unsealed direct calls remain permitted only for bounded unit/validation fixtures and do not constitute a supported simulation-run pathway.
+Build 5 additionally supports a governed persistent decision-epoch lifecycle for repeated autonomous decisions over one kernel/world state:
+
+`persistent state -> begin epoch -> configure fresh scheduler plan -> freeze fresh DecisionSnapshot(s) -> seal -> scheduled run -> immutable epoch result -> verified epoch completion -> persistent state -> next epoch`.
+
+Each completed epoch records chain identity, epoch identity/ordinal, parent result fingerprint, scheduler-plan fingerprint, initial/final fingerprints, execution fingerprint and result fingerprint. Once an epoch chain starts, governed world mutators remain blocked between epochs. Persistent-state fingerprints exclude scheduler-plan state so legitimate next-epoch planning is allowed while raw world-state tampering between epochs or after epoch-open before seal is detected.
+
+After seal, state-changing kernel methods shall reject direct calls unless they are executing inside an admitted scheduled-event context carrying the runtime execution token. Raw state or scheduler-plan mutation after seal shall invalidate the run. Legacy unsealed direct calls remain permitted only for bounded unit/validation fixtures before a decision-epoch chain starts and do not constitute a supported simulation-run pathway.
 
 Normative candidates/decisions:
 
@@ -1011,7 +1017,22 @@ Normative records:
 - `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_003_PUBLICATION_FINANCIER_TEST002B.md`;
 - `build5/BUILD5_VALIDATION_RECORD_003_PUBLICATION_FINANCIER_STRUCTURAL.md`.
 
-Test 002B does not close surface prospecting, sponsor/operator autonomy, empirical observation-model calibration, or a general multi-decision-window scheduler contract.
+Test 002B does not close surface prospecting, sponsor/operator autonomy, or empirical observation-model calibration. The subsequent governed decision-epoch runtime authorization closes the bounded repeated-decision seam without creating a mutable live-policy interface.
+
+### 50.4 Governed persistent decision epochs — Test 004
+
+Build 5 now supports repeated autonomous decision cycles over one persistent kernel/world state. Each epoch uses a fresh scheduler plan and fresh immutable DecisionSnapshot references, executes through the existing sealed ScheduledSimulationRuntime, and records cryptographically linked epoch provenance before the seal is released for preparation of the next epoch.
+
+Once an epoch chain starts, governed world mutators remain blocked outside scheduled-event context, including between epochs. Persistent-state fingerprints distinguish legitimate scheduler-plan construction from world-state mutation and reject raw-state tampering between epochs or after epoch-open before seal. Stale pre-consequence Agent snapshots are rejected when later epoch registration compares them with current admitted Agent-visible state.
+
+The structural qualification chain executes public publication in Epoch 1 and a fresh post-publication financier decision plus scheduled financing consequence in Epoch 2 on the same persistent kernel. RICH produces post-publication financier belief `0.5`, `APPROVE`, financier cash `40`, project cash `60`; NULL produces belief `0.05882352941176470588235294118`, `REJECT`, financier cash `100`, project cash `0`.
+
+Normative records:
+
+- `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_004_DECISION_EPOCH_RUNTIME.md`;
+- `build5/BUILD5_VALIDATION_RECORD_004_DECISION_EPOCH_RUNTIME.md`.
+
+This closes the bounded repeated-decision runtime prerequisite for sponsor/operator autonomy and iterative exploration. It does not authorize additional Agent roles or empirical parameters.
 
 The full autonomous-agent engine remains gated. Each additional Agent role or materially expanded policy requires its own governed scope.
 

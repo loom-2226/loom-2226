@@ -2,7 +2,7 @@
 
 **Status:** DESIGN CANDIDATE / PRE-CONTRACT / SINGLE-AUTHORITY
 **Basis:** ODD 2020 structure adapted to LOOM governance
-**Scope:** Build 4-derived Offworld MVP before autonomous policies
+**Scope:** Build 5 Offworld MVP with bounded autonomous institutional policies and governed decision epochs
 
 ## 1. Purpose and patterns
 
@@ -59,6 +59,8 @@ Sub-period mission/transport/operational events may occur inside declared phases
 
 Integrated simulation runs use a sealed `ScheduledSimulationRuntime`. Model initialization occurs before seal. After seal, state-changing kernel operations are legal only inside scheduler-dispatched event contexts; direct kernel mutation is rejected. The run pins both initial-state and scheduler-plan fingerprints and is single-use.
 
+Build 5 decision-epoch mode chains multiple such sealed runs over one persistent kernel state. Each epoch resets only scheduler-plan state, freezes new DecisionSnapshot references from the verified post-epoch world state, and records chain id, epoch id/ordinal, parent result fingerprint, plan fingerprint, initial/final fingerprints, execution fingerprint and result fingerprint. Successful epoch completion is the only path that releases the seal for preparation of the next epoch. Once an epoch chain starts, governed world mutators remain blocked between epochs, and persistent-state fingerprints detect raw state tampering both between epochs and after epoch-open before seal.
+
 DECISION_WINDOW policy execution is separated from kernel-bearing system handlers. Policy code receives only a frozen/slotted `PolicyContext` containing a deeply copied `DecisionSnapshot`, pinned snapshot reference and deterministic decision key. Hidden scenario resources, world/run identity, scheduler and seed state are not part of that interface.
 
 ## 4. Design concepts
@@ -67,7 +69,7 @@ DECISION_WINDOW policy execution is separated from kernel-bearing system handler
 Settlement, capital stock, ownership distribution, extraction and financing recursion are realized outcomes, not scripted historical milestones.
 
 ### Adaptation
-Autonomous adaptation is not yet authorized. Scripted deterministic policies may exercise interfaces. Future Agent policies will be separately governed.
+General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier and public institutional explorer/publisher. Additional Agent roles or materially expanded policies require separate governance.
 
 ### Objectives
 Agent objective state exists conceptually. No common utility function is assumed.
@@ -141,6 +143,8 @@ Current MVP submodels/interfaces include:
 - market boundary;
 - population movement;
 - scheduler/coupling;
+- governed persistent decision-epoch chaining;
+- public observation publication and cross-Agent information transfer;
 - aggregate-resolution reconciliation;
 - uncertainty/ensemble runner;
 - ensemble reporting guardrails that distinguish scenario spread, parameter sensitivity, uncertainty spread and stochastic variability;
@@ -152,7 +156,7 @@ The A1–A9 property fixture captures state before every scheduler-valid transit
 
 The multi-rate synchronization fixture combines day-scale mission observations, quarterly finance and annual Earth-system events under one deterministic scheduler.
 
-Transport, technology gating, dynamic economic reserve conversion, mature colony operations and autonomous policies remain incomplete unless separately implemented and validated.
+Transport, technology gating, dynamic economic reserve conversion, mature colony operations, sponsor/operator autonomy and surface prospecting remain incomplete unless separately implemented and validated.
 
 ## 8. Reproducibility package
 
