@@ -57,6 +57,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self._scheduled_current_event_id=None
         self._scheduled_seal_state_fingerprint=None
         self._scheduled_seal_plan_fingerprint=None
+        self._scheduled_execution_token=None
 
     def __getattribute__(self,name):
         attr=super().__getattribute__(name)
@@ -79,12 +80,16 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             raise InvariantError('kernel already sealed for scheduled execution')
         self._scheduled_seal_state_fingerprint=str(state_fingerprint)
         self._scheduled_seal_plan_fingerprint=str(plan_fingerprint)
+        self._scheduled_execution_token=object()
         self._strict_scheduled_execution=True
+        return self._scheduled_execution_token
 
     @contextmanager
-    def scheduled_event_context(self,event_id):
+    def scheduled_event_context(self,event_id,execution_token):
         if not self._strict_scheduled_execution:
             raise InvariantError('scheduled event context requires sealed scheduled-run mode')
+        if execution_token is not self._scheduled_execution_token:
+            raise InvariantError('scheduled event context requires runtime execution token')
         self._scheduled_execution_depth+=1
         prior=self._scheduled_current_event_id
         self._scheduled_current_event_id=str(event_id)
