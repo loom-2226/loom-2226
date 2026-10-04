@@ -6,6 +6,7 @@ from hashlib import sha256
 import json
 from typing import Tuple
 from .kernel import InvariantError
+from .policy import SnapshotFact, FactState
 
 D=Decimal
 
@@ -100,3 +101,18 @@ def mvp_validation_underwriting_table():
         UnderwritingInput('opex-001',arch,UnderwritingInputKind.OPERATING_COST,D('4'),'MODEL_CURRENCY_PER_RESOURCE_UNIT',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,D('2'),D('8')),
         UnderwritingInput('lead-001',arch,UnderwritingInputKind.LEAD_TIME,D('2'),'YEARS',UnderwritingInputStatus.AUTHORED_SCENARIO,rationale,D('1'),D('5')),
       )).validate()
+
+
+def underwriting_snapshot_facts(table:UnderwritingTable,archetype_id):
+    table.validate()
+    facts=[]
+    for kind in UnderwritingInputKind:
+        x=table.get(archetype_id,kind)
+        state=FactState.UNKNOWN if x.status==UnderwritingInputStatus.UNKNOWN else FactState.KNOWN
+        value=None if x.value is None else str(x.value)
+        facts.append(SnapshotFact(
+            f'underwriting.{kind.value}',
+            state,
+            value,
+            f'{table.table_id}:{x.input_id}:{x.source_or_rationale_ref}:{x.unit}'))
+    return tuple(facts)
