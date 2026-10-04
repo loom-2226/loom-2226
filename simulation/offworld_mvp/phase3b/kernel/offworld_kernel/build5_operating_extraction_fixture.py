@@ -24,7 +24,7 @@ def operating_validation_underwriting_table():
     )
     return UnderwritingTable(
         'OFFWORLD_MVP_OPERATING_VALIDATION_V0_1','0.1',
-        'PRE_CONTRACT_AUTHORED_SCENARIO_TEST008A',inputs
+        'PRE_CONTRACT_AUTHORED_SCENARIO',inputs
     ).validate()
 
 def operating_extraction_kernel(universe_id='RICH_PUBLIC_3',stock='20',
