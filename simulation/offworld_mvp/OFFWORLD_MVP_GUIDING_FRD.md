@@ -727,28 +727,33 @@ The pre-hardening Build 4 baseline remains frozen at:
 
 `offworld-mvp-build4-freeze-2026-10-04`.
 
-The methodology-hardening gate has now been executed. The Build 4-derived baseline was revalidated after:
-
-1. scheduler implementation;
-2. runtime resolution-reconciliation implementation;
-3. accounting-boundary enforcement;
-4. deterministic uncertainty/ensemble harness;
-5. ODD/FRD traceability update;
-6. verification/validation protocol adoption.
-
-Validation record:
-
-`PHASE3B_KERNEL_VALIDATION_RECORD_005_BUILD4_MVP_METHODOLOGY_REVALIDATION.md`.
-
-The methodology-hardened baseline is frozen at:
+The first methodology-hardening pass produced:
 
 `offworld-mvp-build4-mvp-r1-2026-10-04`
 
-commit:
+at commit:
 
 `82e31aaa218b36bbd1ba7ce75313fdccd0169c1a`.
 
-This satisfies the methodology-hardening gate only. It does not close Phase 3B and does not itself authorize autonomous decision policies. Remaining liens in Validation Record 005 must be addressed or explicitly accepted before any later autonomous-agent authorization.
+Validation Record 005 identified one remaining execution-boundary lien: the scheduler existed and integrated fixtures used it, but inherited low-level mutation methods were still directly callable.
+
+That lien has now been closed for integrated runs.
+
+The scheduler-enforced Build 4-derived baseline is frozen at:
+
+`offworld-mvp-build4-mvp-r2-scheduled-2026-10-04`
+
+commit:
+
+`edae7053081db20e96a00e77b752ca4c4bcecebb`.
+
+Validation record:
+
+`PHASE3B_KERNEL_VALIDATION_RECORD_006_SCHEDULED_RUNTIME.md`.
+
+For an integrated MVP run, initialization occurs before seal. After seal, guarded world-state mutations are admitted only inside scheduler-dispatched runtime contexts carrying the private execution token. State or plan tampering invalidates the run, and the scheduled runtime is single-use.
+
+This closes the scheduler-bypass lien. It does not close Phase 3B and does not authorize autonomous decision policies.
 
 
 ## Governance note
