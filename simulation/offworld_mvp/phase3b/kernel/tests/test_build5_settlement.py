@@ -11,6 +11,7 @@ from offworld_kernel.build5_settlement_fixture import (
 )
 from offworld_kernel.kernel import InvariantError
 from offworld_kernel.mvp_state import (
+    ColonyState,
     RuntimeObjectClass,
     SettlementSupportDecision,
     SettlementSupportDecisionOutcome,
@@ -422,8 +423,13 @@ class Build5SettlementTests(unittest.TestCase):
         self.assertEqual(before,after)
 
     def test_forged_authorization_cannot_exceed_real_habitat_headroom(self):
-        k,h=self.reach_distribution()
-        self.infrastructure_epoch(k,h)
+        # Pre-chain hostile fixture: exercise the system-side headroom check
+        # without bypassing the decision-epoch mutation guard.
+        k,h=settlement_kernel()
+        k.colonies['OFF:T1']=ColonyState(
+            'OFF:T1',population=0,productive_capital=D('60'),
+            infrastructure=D('10'),habitat_capacity=10,
+            production_capacity=D('5'),stage='EXTRACTION_ENCLAVE')
         req=build_settlement_support_request(
             'SETREQ-HOSTILE',12,'OFF:T1','settlement_support',11,D('10'))
         d=SettlementSupportDecision(
