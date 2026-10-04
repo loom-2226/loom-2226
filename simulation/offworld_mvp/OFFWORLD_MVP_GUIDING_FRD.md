@@ -927,6 +927,44 @@ The current MVP test couples:
 At a shared effective timestamp, scheduler phase semantics determine which state each process observes.
 
 
+## 49. Build 5 Entry Gates
+
+Build 4 may close and Build 5 may branch only after all four entry gates pass:
+
+### G5-1 Replay provenance
+
+Every integrated run manifest shall include exact Git commit and executable-code SHA-256 together with input, parameter and table manifest identities, scheduler-plan identity, execution fingerprint, and final result fingerprint.
+
+Normative candidate:
+
+`PHASE3B_REPLAY_PROVENANCE_CONTRACT_0_1.md`.
+
+### G5-2 Validation standing
+
+Validation manifests shall distinguish calibration, validation, held-out and out-of-sample material. Empirical validation claims require explicit held-out/out-of-sample standing and disclosure. `NOT_EMPIRICALLY_VALIDATED` remains distinct.
+
+### G5-3 Executable-to-ODD drift
+
+The ODD specification shall contain a machine-readable registry of the executable runtime/interface dataclass fields. The regression suite shall compare that registry exactly against the executable schema and fail on undeclared additions, removals or renames.
+
+### G5-4 Financing request / decision protocol
+
+The pre-policy financing interface shall define immutable request and decision artifacts. Decision outcomes are exactly:
+
+- APPROVE;
+- REJECT;
+- DEFER;
+- BLOCKED_UNKNOWN.
+
+Required UNKNOWN inputs shall produce BLOCKED_UNKNOWN rather than zero substitution, generic rejection, or silent defer.
+
+Normative candidate:
+
+`PHASE3B_FINANCING_REQUEST_DECISION_PROTOCOL_0_1.md`.
+
+Passing these gates authorizes Build 4 closure and creation of a Build 5 branch only. It does not itself authorize autonomous policy behavior.
+
+
 ## Governance note
 
 This FRD is a build-guiding candidate on a branch created from the closed Phase 2 governance branch. It does not reopen Phase 2, release Contract v1, qualify inputs, or grant implementation authority. Phase 3 state-model work must consume the consolidated Phase 2 normative model and preserve its carried liens.
