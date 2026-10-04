@@ -14,6 +14,7 @@ from .mvp_state import (
     OperatingCycleRequest, OperatingCycleDecision,
     SaleDecisionRequest, SaleDecision,
     SurplusDistributionRequest, SurplusDistributionDecision,
+    SettlementSupportRequest, SettlementSupportDecision,
     ScenarioResource, Observation, ColonyState, PopulationLedger, RuntimeObjectClass, AgentKind,
     ActionKind, FinancingDecisionOutcome, FinancingReasonCode, ExplorationDecisionOutcome, ExplorationReasonCode,
     PublicationDecisionOutcome, PublicationReasonCode,
@@ -21,6 +22,7 @@ from .mvp_state import (
     OperatingCycleDecisionOutcome, OperatingCycleReasonCode,
     SaleDecisionOutcome, SaleReasonCode,
     SurplusDistributionDecisionOutcome, SurplusDistributionReasonCode,
+    SettlementSupportDecisionOutcome, SettlementSupportReasonCode,
 )
 from .policy import SnapshotFact, DecisionSnapshot, PolicyContext, FactState
 from .scheduler import ScheduledEvent, CouplingSpec, Phase
@@ -46,20 +48,24 @@ from .surface_prospecting import (
 from .operating import OperatingCostRecord, ExtractionResolutionRecord
 from .market import CommodityMarketEnvelope, MarketClearingRecord
 from .distribution import FinancingReturnClaim, OwnerDistributionAllocation, SurplusDistributionRecord
+from .settlement import (
+    SettlementInfrastructurePlan, SettlementInfrastructureRecord,
+    SettlementStageRecord, SettlementSupportExecutionRecord,
+)
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_12'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_13'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
     SystemState,AggregateState,EntityAssetRef,AgentState,FinancingRequest,FinancingDecision,ExplorationRequest,ExplorationDecision,
-    PublicationRequest,PublicationDecision,PublicInformationArtifact,SponsorProjectDecisionRequest,SponsorProjectDecision,OperatingCycleRequest,OperatingCycleDecision,SaleDecisionRequest,SaleDecision,SurplusDistributionRequest,SurplusDistributionDecision,ScenarioResource,Observation,
+    PublicationRequest,PublicationDecision,PublicInformationArtifact,SponsorProjectDecisionRequest,SponsorProjectDecision,OperatingCycleRequest,OperatingCycleDecision,SaleDecisionRequest,SaleDecision,SurplusDistributionRequest,SurplusDistributionDecision,SettlementSupportRequest,SettlementSupportDecision,ScenarioResource,Observation,
     ColonyState,PopulationLedger,SnapshotFact,DecisionSnapshot,PolicyContext,ScheduledEvent,CouplingSpec,
     UnderwritingInput,UnderwritingTable,ResolutionExposurePlan,ResolutionExposureRecord,
     ReplayProvenance,ScheduledRunResult,DecisionEpochRecord,ProjectDevelopmentPlan,DevelopmentStageRecord,DevelopmentResolutionRecord,
     SurfaceProspectingModel,SurfaceProspectingWorldRecord,ObservationBeliefUpdateRecord,
-    OperatingCostRecord,ExtractionResolutionRecord,CommodityMarketEnvelope,MarketClearingRecord,FinancingReturnClaim,OwnerDistributionAllocation,SurplusDistributionRecord,
+    OperatingCostRecord,ExtractionResolutionRecord,CommodityMarketEnvelope,MarketClearingRecord,FinancingReturnClaim,OwnerDistributionAllocation,SurplusDistributionRecord,SettlementInfrastructurePlan,SettlementInfrastructureRecord,SettlementStageRecord,SettlementSupportExecutionRecord,
     PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
 )
 
@@ -67,7 +73,7 @@ ODD_ENUM_TYPES=(
     NodeKind,AccountKind,TxPurpose,AssetKind,
     RuntimeObjectClass,AgentKind,ActionKind,FinancingDecisionOutcome,FinancingReasonCode,ExplorationDecisionOutcome,ExplorationReasonCode,
     PublicationDecisionOutcome,PublicationReasonCode,SponsorProjectDecisionOutcome,SponsorProjectReasonCode,
-    OperatingCycleDecisionOutcome,OperatingCycleReasonCode,SaleDecisionOutcome,SaleReasonCode,SurplusDistributionDecisionOutcome,SurplusDistributionReasonCode,
+    OperatingCycleDecisionOutcome,OperatingCycleReasonCode,SaleDecisionOutcome,SaleReasonCode,SurplusDistributionDecisionOutcome,SurplusDistributionReasonCode,SettlementSupportDecisionOutcome,SettlementSupportReasonCode,
     DevelopmentStageOutcome,DevelopmentResolutionOutcome,
     FactState,Phase,UnderwritingInputKind,UnderwritingInputStatus,
     ExposureSelectionBasis,ExposureAllocationBasis,AxisKind,SpreadMeaning,
@@ -146,6 +152,41 @@ ODD_UNIT_CONTRACTS={
     'SurplusDistributionRecord.local_reinvestment':'MODEL_CURRENCY',
     'SurplusDistributionRecord.owner_distribution':'MODEL_CURRENCY',
     'SurplusDistributionRecord.closing_project_cash':'MODEL_CURRENCY',
+    'ColonyState.population':'PEOPLE_EQUIVALENT',
+    'ColonyState.habitat_capacity':'PEOPLE_EQUIVALENT',
+    'SettlementSupportRequest.year':'SIM_YEAR',
+    'SettlementSupportRequest.requested_residents':'FIELD:SettlementSupportRequest.population_unit',
+    'SettlementSupportRequest.support_cost':'FIELD:SettlementSupportRequest.currency_unit',
+    'SettlementSupportDecision.authorized_residents':'REQUEST_POPULATION_UNIT',
+    'SettlementSupportDecision.support_amount':'REQUEST_CURRENCY_UNIT',
+    'SettlementInfrastructurePlan.year':'SIM_YEAR',
+    'SettlementInfrastructurePlan.infrastructure_cost':'MODEL_CURRENCY',
+    'SettlementInfrastructurePlan.habitat_capacity':'PEOPLE_EQUIVALENT',
+    'SettlementInfrastructureRecord.year':'SIM_YEAR',
+    'SettlementInfrastructureRecord.cost':'MODEL_CURRENCY',
+    'SettlementInfrastructureRecord.habitat_capacity_added':'PEOPLE_EQUIVALENT',
+    'SettlementInfrastructureRecord.infrastructure_before':'MODEL_CURRENCY',
+    'SettlementInfrastructureRecord.infrastructure_after':'MODEL_CURRENCY',
+    'SettlementInfrastructureRecord.habitat_capacity_before':'PEOPLE_EQUIVALENT',
+    'SettlementInfrastructureRecord.habitat_capacity_after':'PEOPLE_EQUIVALENT',
+    'SettlementStageRecord.year':'SIM_YEAR',
+    'SettlementStageRecord.productive_capital':'MODEL_CURRENCY',
+    'SettlementStageRecord.production_capacity':'ASSET_CLASS_CAPACITY_UNIT',
+    'SettlementStageRecord.population':'PEOPLE_EQUIVALENT',
+    'SettlementStageRecord.infrastructure':'MODEL_CURRENCY',
+    'SettlementStageRecord.habitat_capacity':'PEOPLE_EQUIVALENT',
+    'SettlementStageRecord.external_subsidy':'MODEL_CURRENCY',
+    'SettlementSupportExecutionRecord.year':'SIM_YEAR',
+    'SettlementSupportExecutionRecord.authorized_residents':'PEOPLE_EQUIVALENT',
+    'SettlementSupportExecutionRecord.support_amount':'MODEL_CURRENCY',
+    'SettlementSupportExecutionRecord.earth_population_before':'PEOPLE_EQUIVALENT',
+    'SettlementSupportExecutionRecord.earth_population_after':'PEOPLE_EQUIVALENT',
+    'SettlementSupportExecutionRecord.offworld_population_before':'PEOPLE_EQUIVALENT',
+    'SettlementSupportExecutionRecord.offworld_population_after':'PEOPLE_EQUIVALENT',
+    'SettlementSupportExecutionRecord.total_population_before':'PEOPLE_EQUIVALENT',
+    'SettlementSupportExecutionRecord.total_population_after':'PEOPLE_EQUIVALENT',
+    'SettlementSupportExecutionRecord.subsidy_before':'MODEL_CURRENCY',
+    'SettlementSupportExecutionRecord.subsidy_after':'MODEL_CURRENCY',
     'ProjectDevelopmentPlan.required_cost':'MODEL_CURRENCY',
     'ProjectDevelopmentPlan.stage_schedule':'SIM_YEAR_AND_MODEL_CURRENCY_SCHEDULE',
     'ProjectDevelopmentPlan.completion_year':'SIM_YEAR',
