@@ -108,6 +108,15 @@ class DeterministicScheduler:
             self.execution_log.append(e.event_id)
         return out
 
+    def coupling(self,process_id):
+        try:
+            return self._couplings[process_id]
+        except KeyError:
+            raise InvariantError(f'unknown coupling process {process_id}')
+
+    def events_for_process(self,process_id):
+        return tuple(e for e in self.ordered_events() if e.process_id==process_id)
+
     @property
     def process_ids(self):
         return tuple(sorted(self._couplings))
