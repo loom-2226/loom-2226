@@ -159,11 +159,16 @@ Transport, technology gating, dynamic economic reserve conversion, mature colony
 Every executable result intended for comparison must preserve:
 
 - run manifest;
-- scheduler version and event ordering;
-- complete parameter values;
-- universe/input snapshot identities;
-- event-log fingerprint;
-- terminal-state fingerprint;
+- exact repository and Git commit identity;
+- SHA-256 of the executable Python source tree;
+- input snapshot id(s);
+- parameter-manifest id(s);
+- table-manifest id(s), or explicit NO_EXTERNAL_TABLES;
+- scheduler version and scheduler-plan fingerprint;
+- event ordering and execution/event-results fingerprint;
+- initial and terminal-state fingerprints;
+- provenance fingerprint;
+- final result fingerprint;
 - test/validation record;
 - known limitations.
 
@@ -457,6 +462,6 @@ The ODD state/interface registry below is machine-checked against the executable
 
 This ODD-aligned specification is operational documentation, not epistemic authority. It does not qualify inputs or convert validation fixtures into evidence. TRACE-like rationale, testing and validation status are carried by the Phase 3B design/validation records and the V&V protocol.
 
-## 10. Current validation boundary
+## 11. Current validation boundary
 
 The executable kernel is verified against selected invariants and deterministic fixtures. It is not yet empirically validated as a civilization/economic forecasting model. Behavioral calibration, historical/backcast validation and out-of-sample validation are future gates.
