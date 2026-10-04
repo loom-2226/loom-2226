@@ -42,6 +42,15 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'boundary_purchase','consume_market_resource',
         'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate'
     })
+    SCHEDULED_READONLY_METHODS=frozenset({
+        'realized_fcf','productive_capital','assert_invariants','fingerprint',
+        'assert_mvp_invariants','mvp_fingerprint','keyed_draw','build3_fingerprint',
+        'assert_vehicle_ownership','assert_build4_invariants','build4_fingerprint','uniformity_sample',
+        'assert_methodology_invariants','methodology_fingerprint'
+    })
+    SCHEDULED_CONTROL_METHODS=frozenset({
+        'seal_for_scheduled_execution','scheduled_event_context'
+    })
     methodology_version='BUILD4_MVP_METHODOLOGY_R1'
     accounting_boundary_version='PHASE3B_MVP_ACCOUNTING_BOUNDARY_0_1'
 
