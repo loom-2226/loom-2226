@@ -47,3 +47,13 @@ From this directory:
 `python3 -m unittest discover -s tests -v`
 
 Fixtures remain scripted deterministic validation drivers. They are not autonomous agents, forecasts, empirical calibration, or evidence that the resulting civilization trajectories are scientifically validated.
+
+## Scheduled run gate
+
+Integrated MVP simulation runs must use `offworld_kernel.runtime.ScheduledSimulationRuntime`.
+
+Lifecycle:
+
+`initialize -> register scheduler couplings/events -> register runtime handlers -> seal -> run`.
+
+Once sealed, guarded state-changing kernel methods reject direct calls. The runtime pins the initial state and scheduler plan, executes handlers only inside token-bearing scheduler contexts, rejects pre-run tampering, rejects plan mutation, and is single-use. Direct low-level calls on an unsealed kernel remain unit/fixture mechanisms only.
