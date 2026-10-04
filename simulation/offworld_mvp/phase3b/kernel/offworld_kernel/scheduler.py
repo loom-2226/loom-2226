@@ -108,6 +108,24 @@ class DeterministicScheduler:
             self.execution_log.append(e.event_id)
         return out
 
+    @property
+    def process_ids(self):
+        return tuple(sorted(self._couplings))
+
+    @property
+    def event_ids(self):
+        return tuple(e.event_id for e in self.ordered_events())
+
+    def plan_fingerprint(self)->str:
+        payload={
+          'contract_version':self.contract_version,
+          'couplings':sorted((s.process_id,s.version,s.runtime_class.value,s.owned_state,s.read_set,s.write_set,
+             s.cadence_or_trigger,int(s.phase),s.unit_basis,s.world_context,s.perspective,s.direction,
+             s.transition_interfaces) for s in self._couplings.values()),
+          'events':[(e.event_id,str(e.effective_time),int(e.phase),e.priority,e.stable_key,e.process_id,e.payload,
+             e.parent_ids,e.snapshot_ref) for e in self.ordered_events()]}
+        return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+
     def fingerprint(self)->str:
         payload={
           'contract_version':self.contract_version,
