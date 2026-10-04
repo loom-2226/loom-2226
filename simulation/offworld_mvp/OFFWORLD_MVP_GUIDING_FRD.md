@@ -5,7 +5,7 @@
 **Status:** PRELIMINARY FRD / PRE-CONTRACT  
 **Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY  
 **Canonical status:** NON-CANON  
-**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002/003/004/005/006; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
+**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002/003/004/005/006/007; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
 **Phase basis:** Phase 2 Claim and Authority Model  
 **Purpose:** Define the minimum functional system required to demonstrate governed offworld civilization propagation without scripting historical outcomes.
 
@@ -284,13 +284,19 @@ Development may reveal additional physical state required for operation.
 
 > **Extraction changes realized physical state.**
 
-Build 5 Test 002A structurally implements the first bounded autonomous public REMOTE-observation decision path. The Agent decides whether to acquire information from admitted mission/capability/budget/cost state; a later WORLD_SIM/SYSTEM transition generates the imperfect observation from hidden scenario state. Surface prospecting remains an MVP requirement not closed by Test 002A.
+Build 5 Test 002A structurally implements the first bounded autonomous public REMOTE-observation decision path. The Agent decides whether to acquire information from admitted mission/capability/budget/cost state; a later WORLD_SIM/SYSTEM transition generates the imperfect observation from hidden scenario state.
+
+Build 5 Test 007A structurally implements second-stage SURFACE prospecting by the same public Agent. SURFACE requires a legitimately possessed prior REMOTE observation, a separately declared cost, admitted capability and budget. WORLD_SIM generates the SURFACE signal with an explicitly versioned higher-quality Test-only error model; a later Agent-side information update uses separately declared likelihood parameters and does not query hidden truth. The qualification fixture demonstrates a NULL-world REMOTE false positive corrected by a later SURFACE negative observation while hidden resource state remains unchanged.
+
+Test 007A closes the mandatory higher-quality surface-information path. The optional grade/quantity estimate is not implemented and shall require its own measurement/unit/uncertainty contract if later needed.
 
 ## 17. Beliefs
 
 Each agent shall maintain an internal belief state concerning uncertain target properties. The MVP may use a simple Bayesian model.
 
 Exact belief models and parameters are model/scenario-governed inputs requiring authorization.
+
+Build 5 Test 007A adds the first explicit Bayesian Agent-side observation update for SURFACE prospecting. Its likelihood parameters are separately declared Test-only informational inputs and are not inferred from hidden WORLD_SIM truth. Earlier validation paths using deliberately crude belief updates remain historical structural fixtures rather than calibrated learning models.
 
 A proposition that an agent believes a resource exists with probability 0.72 does **not** assert that probability on the REAL evidence plane or as hidden scenario truth. Belief is agent state.
 
@@ -999,7 +1005,7 @@ The bounded public institutional explorer is authorized as a generic `PUBLIC_INS
 
 If authorized, later scheduler phases ledger public funding/expenditure and invoke a WORLD_SIM observation mechanism. The policy itself receives neither hidden resource truth nor world random state. Hidden NULL/RICH state therefore cannot alter the pre-observation decision when admitted Agent state is identical; Agent information/belief may diverge only after the distinguishing observation.
 
-Test 002A does not close publication to other Agents, surface prospecting, sponsor/operator autonomy, empirical observation-model calibration, or real-institution fidelity.
+Test 002A by itself does not close publication to other Agents, surface prospecting, sponsor/operator autonomy, empirical observation-model calibration, or real-institution fidelity. Publication is subsequently closed structurally by Test 002B, and the bounded higher-quality SURFACE information path is subsequently closed structurally by Test 007A.
 
 Normative records:
 
@@ -1072,7 +1078,22 @@ Normative records:
 - `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_006_PROJECT_LIFECYCLE_TEST006A.md`;
 - `build5/BUILD5_VALIDATION_RECORD_006_PROJECT_LIFECYCLE_STRUCTURAL.md`.
 
-Test 006A does not close surface prospecting, `CLOSED`, sponsor choices after `FAILED`, autonomous extraction/sale/reinvestment, operating-cost execution, transport/technology economics, empirical construction calibration, settlement, or production forecasting.
+Test 006A does not by itself close surface prospecting, `CLOSED`, sponsor choices after `FAILED`, autonomous extraction/sale/reinvestment, operating-cost execution, transport/technology economics, empirical construction calibration, settlement, or production forecasting. Surface prospecting is subsequently closed structurally by Test 007A.
+
+### 50.7 Public surface prospecting — Test 007A
+
+Build 5 now implements second-stage SURFACE prospecting through the existing generic public Agent and exploration request architecture. A SURFACE request names a prior REMOTE observation and uses channel-specific admitted cost facts. The bounded surface policy contains no probability threshold; it authorizes only when the Agent has the public-information objective, `EXPLORE` and `SURFACE_PROSPECT` capabilities, possession of the prerequisite observation, known cost and sufficient budget.
+
+WORLD_SIM then independently validates that the prerequisite exists, is possessed, concerns the same resource and is REMOTE. The structural surface model has Test-only world false-positive/false-negative rates of `0.05/0.05`, strictly lower than the Test 002A remote references of `0.20/0.20`. Agent-side likelihood parameters remain separately declared and drive a later Bayesian information update without access to hidden truth.
+
+The RICH qualification path is REMOTE `POSITIVE`, belief `0.20 -> 0.50`, SURFACE `POSITIVE`, belief `0.50 -> 0.95`. The pinned `NULL_SURFACE_1` path produces a legitimate REMOTE false positive from draw `0.1668687604247574150957700301`, reaches an identical pre-SURFACE Agent state and identical SURFACE decision, then produces a SURFACE `NEGATIVE` from independently keyed draw `0.1556196131252563241448988451`, updating belief `0.50 -> 0.05`. Resource quantity remains unchanged in both paths.
+
+Normative records:
+
+- `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_007_SURFACE_PROSPECTING_TEST007A.md`;
+- `build5/BUILD5_VALIDATION_RECORD_007_SURFACE_PROSPECTING_STRUCTURAL.md`.
+
+Test 007A does not implement grade/quantity estimation, autonomous sponsor prospecting, empirical sensor calibration, extraction, operating economics, transport/technology economics, settlement, or production forecasting.
 
 The full autonomous-agent engine remains gated. Each additional Agent role or materially expanded policy requires its own governed scope.
 

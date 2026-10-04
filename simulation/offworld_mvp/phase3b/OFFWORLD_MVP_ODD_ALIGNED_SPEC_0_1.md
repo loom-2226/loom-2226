@@ -69,13 +69,13 @@ DECISION_WINDOW policy execution is separated from kernel-bearing system handler
 Settlement, capital stock, ownership distribution, extraction and financing recursion are realized outcomes, not scripted historical milestones.
 
 ### Adaptation
-General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier, public institutional explorer/publisher, and private sponsor/operator. Additional Agent roles or materially expanded policies require separate governance.
+General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier, public institutional remote explorer/surface prospector/publisher, and private sponsor/operator. Additional Agent roles or materially expanded policies require separate governance.
 
 ### Objectives
 Agent objective state exists conceptually. No common utility function is assumed.
 
 ### Learning
-Observation -> information -> belief is permitted. Build 4 uses a deliberately crude validation update and does not claim calibrated Bayesian learning.
+Observation -> information -> belief is permitted. Legacy Build 4/early Build 5 fixtures retain deliberately crude validation updates. Build 5 Test 007A additionally implements a bounded Bayesian Agent-side update for SURFACE observations using separately declared Test-only likelihood parameters. No current belief-update path is empirically calibrated.
 
 ### Prediction
 Agents may later form expectations from their own information. WORLD_SIM truth may not be substituted for those expectations.
@@ -144,6 +144,7 @@ Current MVP submodels/interfaces include:
 - population movement;
 - scheduler/coupling;
 - governed persistent decision-epoch chaining;
+- public REMOTE and second-stage higher-quality SURFACE information acquisition with separate world/Agent likelihood semantics;
 - public observation publication and cross-Agent information transfer;
 - bounded sponsor/operator project advancement, financing-request and abandonment decisions;
 - explicit staged project-development plans, construction WIP, commissioning, failure and WIP write-off;
@@ -158,7 +159,7 @@ The A1–A9 property fixture captures state before every scheduler-valid transit
 
 The multi-rate synchronization fixture combines day-scale mission observations, quarterly finance and annual Earth-system events under one deterministic scheduler.
 
-Transport, technology gating, dynamic economic reserve conversion, mature colony operations, surface prospecting, `CLOSED` and post-failure lifecycle semantics, autonomous operating/extraction/sale/reinvestment decisions, and empirical construction calibration remain incomplete unless separately implemented and validated.
+Transport, technology gating, dynamic economic reserve conversion, mature colony operations, grade/quantity prospecting estimates, `CLOSED` and post-failure lifecycle semantics, autonomous sponsor prospecting/operating/extraction/sale/reinvestment decisions, empirical sensor calibration, and empirical construction calibration remain incomplete unless separately implemented and validated.
 
 ## 8. Reproducibility package
 
