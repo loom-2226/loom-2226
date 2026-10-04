@@ -103,7 +103,7 @@ class Build5SettlementTests(unittest.TestCase):
                 'RESEARCH_ADVISORY_POP:'+RESEARCH_POPULATION_REF,
                 'RESEARCH_ADVISORY_SETTLEMENT:'+RESEARCH_SETTLEMENT_REF,
             ),
-            policy_manifest_ids=())
+            policy_manifest_ids=('NO_POLICY_THIS_EPOCH',))
         rt=ScheduledSimulationRuntime(k,prov)
 
         def infrastructure(kernel,event):
