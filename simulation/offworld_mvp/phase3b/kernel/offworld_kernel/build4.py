@@ -20,6 +20,11 @@ class ConstructionWIP:
     node_id: str
     accumulated_cost: D = D('0')
     commissioned: D = D('0')
+    written_off: D = D('0')
+
+    @property
+    def remaining_wip(self):
+        return self.accumulated_cost-self.commissioned-self.written_off
 
 @dataclass
 class SupplyCapacity:
@@ -117,8 +122,20 @@ class Build4Kernel(Build3Kernel):
 
     def add_wip_expenditure(self,year,wip_id,supplier_account,amount,financing_origin_nodes=()):
         w=self.wip[wip_id]; p=self.state.projects[w.project_id]; amount=D(amount)
+        if amount<=0 or w.commissioned!=0 or w.written_off!=0:
+            raise InvariantError('invalid WIP expenditure')
         supplier=self.state.accounts[supplier_account].node_id
-        if self.state.nodes[supplier].kind==NodeKind.OFFWORLD: self.consume_supply(supplier,year,amount)
+        if self.state.nodes[supplier].kind==NodeKind.OFFWORLD:
+            self.consume_supply(supplier,year,amount)
+        else:
+            constraint=self.resource_constraints.get((supplier,year))
+            if constraint is None or amount>constraint.reserved:
+                raise InvariantError('unreserved Earth-supplied WIP expenditure')
+            constraint.reserved-=amount; constraint.spent+=amount
+            key=(supplier,year)
+            total=self.state.earth_impact.qualifying_supplied_expenditure.get(key,D('0'))+amount
+            self.state.earth_impact.qualifying_supplied_expenditure[key]=total
+            self.state.earth_impact.terrestrial_fcf_delta[key]=-self.lambda_displacement*total
         tx=self.transfer(year,p.cash_account_id,supplier_account,amount,TxPurpose.CAPEX,
                          supplier_location=supplier,asset_location=w.node_id,parent_ids=(w.project_id,wip_id))
         w.accumulated_cost+=amount
@@ -129,10 +146,24 @@ class Build4Kernel(Build3Kernel):
 
     def commission_wip(self,year,wip_id,asset_id,capacity=D('0')):
         w=self.wip[wip_id]
-        if w.accumulated_cost<=0 or w.commissioned!=0: raise InvariantError('invalid commissioning')
+        if w.accumulated_cost<=0 or w.commissioned!=0 or w.written_off!=0 or w.remaining_wip!=w.accumulated_cost:
+            raise InvariantError('invalid commissioning')
+        if asset_id in self.state.assets:
+            raise InvariantError('duplicate commissioned asset')
         self.state.assets[asset_id]=Asset(asset_id,w.project_id,w.node_id,AssetKind.PRODUCTIVE,w.accumulated_cost,D(capacity))
         w.commissioned=w.accumulated_cost
         self.audit('COMMISSION',year,wip=wip_id,asset=asset_id,value=w.commissioned)
+
+    def write_off_wip(self,year,wip_id,reason='DEVELOPMENT_FAILED'):
+        w=self.wip[wip_id]
+        amount=w.remaining_wip
+        if amount<0:
+            raise InvariantError('negative WIP remaining')
+        if amount==0:
+            return D('0')
+        w.written_off+=amount
+        self.audit('WIP_WRITE_OFF',year,wip=wip_id,amount=amount,reason=str(reason))
+        return amount
 
     def depreciate(self,year,asset_id,rate):
         a=self.state.assets[asset_id]; rate=D(rate)
@@ -205,7 +236,7 @@ class Build4Kernel(Build3Kernel):
         for c in self.state.commitments.values():
             if c.committed!=c.disbursed+c.lapsed+c.outstanding: raise InvariantError('A3 commitment identity')
         for w in self.wip.values():
-            if w.accumulated_cost<0 or w.commissioned<0 or w.commissioned>w.accumulated_cost: raise InvariantError('A5 WIP rollforward')
+            if w.accumulated_cost<0 or w.commissioned<0 or w.written_off<0 or w.commissioned+w.written_off>w.accumulated_cost: raise InvariantError('A5 WIP rollforward')
         for vehicle in {s.vehicle_id for s in self.ownership_stakes}: self.assert_vehicle_ownership(vehicle)
         for s in self.supply.values():
             if s.used<0 or s.used>s.capacity: raise InvariantError('M2 supply')
@@ -217,7 +248,7 @@ class Build4Kernel(Build3Kernel):
     def build4_fingerprint(self):
         payload={'build3':self.build3_fingerprint(),'events':self.event_log,
           'ownership':sorted((s.vehicle_id,s.owner_id,s.owner_domicile,str(s.share)) for s in self.ownership_stakes),
-          'wip':sorted((w.id,w.project_id,w.node_id,str(w.accumulated_cost),str(w.commissioned)) for w in self.wip.values()),
+          'wip':sorted((w.id,w.project_id,w.node_id,str(w.accumulated_cost),str(w.commissioned),str(w.written_off)) for w in self.wip.values()),
           'supply':sorted((n,y,str(s.capacity),str(s.used)) for (n,y),s in self.supply.items()),
           'carry':sorted((r.id,r.node_id,r.project_id,str(r.amount),r.reserved_year,r.expiry_year,str(r.spent),str(r.lapsed)) for r in self.carry_reservations.values()),
           'boundary':sorted((k,str(v)) for k,v in self.boundary_net.items()),

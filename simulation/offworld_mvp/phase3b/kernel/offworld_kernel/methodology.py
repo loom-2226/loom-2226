@@ -12,6 +12,11 @@ from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObject
 from .scheduler import DeterministicScheduler
 from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
 from .accounting import SurplusDecompositionRecord
+from .project_lifecycle import (
+    ProjectDevelopmentPlan, DevelopmentStageRecord, DevelopmentStageOutcome,
+    DevelopmentResolutionRecord, DevelopmentResolutionOutcome,
+)
+from .mvp_state import ActionKind
 
 @dataclass(frozen=True)
 class ResolutionRecord:
@@ -51,10 +56,11 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'set_resource_constraint','reserve_earth_supply','spend_reserved_capex','explore_paid','resolve_exploration',
         'extract_bounded','sell_to_market','dispose_surplus',
         'audit','register_vehicle_ownership','distribute_vehicle_to_owners','set_supply_capacity','consume_supply',
-        'create_wip','add_wip_expenditure','commission_wip','depreciate','amortize_knowledge',
+        'create_wip','add_wip_expenditure','commission_wip','write_off_wip','depreciate','amortize_knowledge',
         'create_carry_reservation','spend_carry_reservation','lapse_carry_reservation','lapse_commitment',
         'boundary_purchase','consume_market_resource',
-        'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan','record_surplus_decomposition'
+        'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan','record_surplus_decomposition',
+        'register_development_plan','execute_development_stage','resolve_development_plan'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
@@ -78,6 +84,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.resolution_exposure_records: list[ResolutionExposureRecord]=[]
         self.surplus_decompositions: list[SurplusDecompositionRecord]=[]
         self.decision_epoch_records: list[DecisionEpochRecord]=[]
+        self.development_plans: Dict[str,ProjectDevelopmentPlan]={}
+        self.development_stage_records: list[DevelopmentStageRecord]=[]
+        self.development_resolution_records: list[DevelopmentResolutionRecord]=[]
         self.decision_epoch_chain_id: str|None=None
         self.active_decision_epoch_id: str|None=None
         self._decision_epoch_open_state_fingerprint=None
@@ -106,6 +115,144 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 raise InvariantError(f'direct mutation blocked in {mode} mode: {name}')
             return blocked
         return attr
+
+    def register_development_plan(self,plan:ProjectDevelopmentPlan):
+        plan.validate()
+        if plan.id in self.development_plans:
+            raise InvariantError('duplicate development plan')
+        if plan.project_id not in self.state.projects:
+            raise InvariantError('development plan project missing')
+        if plan.supplier_account_id not in self.state.accounts:
+            raise InvariantError('development plan supplier missing')
+        if plan.asset_node_id not in self.state.nodes:
+            raise InvariantError('development plan asset node missing')
+        if any(w.id==plan.wip_id for w in self.wip.values()):
+            raise InvariantError('development plan WIP identity already exists')
+        if plan.asset_id in self.state.assets:
+            raise InvariantError('development plan asset identity already exists')
+        self.development_plans[plan.id]=plan
+        return plan
+
+    def execute_development_stage(self,year,plan_id):
+        year=int(year)
+        if plan_id not in self.development_plans:
+            raise InvariantError('development plan missing')
+        plan=self.development_plans[plan_id]
+        project=self.state.projects[plan.project_id]
+        if project.status!='DEVELOPMENT':
+            raise InvariantError('construction stage requires DEVELOPMENT project')
+        planned=dict(plan.stage_schedule)
+        if year not in planned:
+            raise InvariantError('construction stage year not declared by plan')
+        if any(r.plan_id==plan_id and r.year==year for r in self.development_stage_records):
+            raise InvariantError('development stage already resolved')
+        amount=D(planned[year])
+        reason='SPENT'
+        outcome=DevelopmentStageOutcome.SPENT
+        tx_id=''
+
+        if self.state.accounts[project.cash_account_id].balance<amount:
+            outcome=DevelopmentStageOutcome.BLOCKED_PROJECT_CASH
+            reason='PROJECT_CASH_BELOW_DECLARED_STAGE'
+        else:
+            supplier_node=self.state.accounts[plan.supplier_account_id].node_id
+            if self.state.nodes[supplier_node].kind.value=='EARTH':
+                c=self.resource_constraints.get((supplier_node,year))
+                if c is None or amount>c.available:
+                    outcome=DevelopmentStageOutcome.BLOCKED_SUPPLY
+                    reason='EARTH_RESOURCE_ALLOCATION_CAPACITY'
+                else:
+                    self.reserve_earth_supply(supplier_node,year,amount)
+            else:
+                supply=self.supply.get((supplier_node,year))
+                if supply is None or amount>supply.available:
+                    outcome=DevelopmentStageOutcome.BLOCKED_SUPPLY
+                    reason='OFFWORLD_SUPPLY_CAPACITY'
+
+        if outcome==DevelopmentStageOutcome.SPENT:
+            if plan.wip_id not in self.wip:
+                self.create_wip(plan.wip_id,plan.project_id,plan.asset_node_id)
+            origins=tuple(sorted({
+                t.source_location for t in self.state.transactions
+                if t.destination_account==project.cash_account_id
+                and t.purpose in {TxPurpose.DISBURSE,TxPurpose.LOCAL_REINVESTMENT,TxPurpose.OTHER_INVESTMENT}
+            }))
+            tx=self.add_wip_expenditure(
+                year,plan.wip_id,plan.supplier_account_id,amount,
+                financing_origin_nodes=origins)
+            tx_id=tx.id
+
+        develop_parent=next((
+            e.id for e in reversed(self.events)
+            if e.action==ActionKind.DEVELOP and e.result=='DEVELOPMENT'
+            and plan.project_id in e.inputs
+        ),'')
+        parents=tuple(x for x in (plan.id,develop_parent) if x)
+        evt=self.event(
+            year,'CONSTRUCTION_SYSTEM',ActionKind.CONSTRUCT,outcome.value,
+            (plan.id,plan.project_id,plan.wip_id,str(amount),reason,tx_id),parents)
+        rec=DevelopmentStageRecord(
+            plan.id,plan.project_id,year,amount,outcome,reason,tx_id,evt.id)
+        self.development_stage_records.append(rec)
+        return rec
+
+    def resolve_development_plan(self,year,plan_id):
+        year=int(year)
+        if plan_id not in self.development_plans:
+            raise InvariantError('development plan missing')
+        if any(r.plan_id==plan_id for r in self.development_resolution_records):
+            raise InvariantError('development plan already resolved')
+        plan=self.development_plans[plan_id]
+        if year<int(plan.completion_year):
+            raise InvariantError('development completion resolved too early')
+        project=self.state.projects[plan.project_id]
+        if project.status!='DEVELOPMENT':
+            raise InvariantError('development resolution requires DEVELOPMENT project')
+
+        stages=[r for r in self.development_stage_records if r.plan_id==plan_id]
+        spent_years={r.year for r in stages if r.outcome==DevelopmentStageOutcome.SPENT}
+        required_years={int(y) for y,_ in plan.stage_schedule}
+        w=self.wip.get(plan.wip_id)
+        accumulated=D('0') if w is None else D(w.accumulated_cost)
+        success=(
+            spent_years==required_years
+            and w is not None
+            and accumulated==D(plan.required_cost)
+            and w.remaining_wip==D(plan.required_cost)
+        )
+
+        if success:
+            self.commission_wip(year,plan.wip_id,plan.asset_id,D(plan.commissioned_capacity))
+            project.status='OPERATING'
+            w=self.wip[plan.wip_id]
+            stage_parents=tuple(r.event_id for r in stages if r.event_id)
+            evt=self.event(
+                year,'DEVELOPMENT_RESOLUTION_SYSTEM',ActionKind.CONSTRUCT,'OPERATING',
+                (plan.id,plan.project_id,plan.asset_id,str(plan.required_cost)),
+                (plan.id,*stage_parents))
+            rec=DevelopmentResolutionRecord(
+                plan.id,plan.project_id,year,DevelopmentResolutionOutcome.OPERATING,
+                D(plan.required_cost),D(w.accumulated_cost),D(w.commissioned),D(w.written_off),
+                plan.asset_id,'FULL_DECLARED_DEVELOPMENT_COST_COMMISSIONED',evt.id)
+        else:
+            written=D('0')
+            if w is not None:
+                written=self.write_off_wip(year,plan.wip_id,'INCOMPLETE_DEVELOPMENT')
+            project.status='FAILED'
+            accumulated=D('0') if w is None else D(w.accumulated_cost)
+            commissioned=D('0') if w is None else D(w.commissioned)
+            written_total=D('0') if w is None else D(w.written_off)
+            stage_parents=tuple(r.event_id for r in stages if r.event_id)
+            evt=self.event(
+                year,'DEVELOPMENT_RESOLUTION_SYSTEM',ActionKind.FAIL,'FAILED',
+                (plan.id,plan.project_id,str(accumulated),str(written),str(plan.required_cost)),
+                (plan.id,*stage_parents))
+            rec=DevelopmentResolutionRecord(
+                plan.id,plan.project_id,year,DevelopmentResolutionOutcome.FAILED,
+                D(plan.required_cost),accumulated,commissioned,written_total,'',
+                'INCOMPLETE_DECLARED_DEVELOPMENT',evt.id)
+        self.development_resolution_records.append(rec)
+        return rec
 
     def seal_for_scheduled_execution(self,state_fingerprint,plan_fingerprint):
         if self._strict_scheduled_execution:
@@ -351,6 +498,39 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if r.cash_total_before!=r.cash_total_after: raise InvariantError('resolution cash reconciliation')
         if 'EARTH_MARKET_v0' in self.agents: raise InvariantError('EARTH_MARKET_v0 cannot be agent')
         for r in self.surplus_decompositions: r.validate()
+        for plan in self.development_plans.values():
+            plan.validate()
+        seen_stage=set()
+        txids={t.id for t in self.state.transactions}
+        for r in self.development_stage_records:
+            if r.plan_id not in self.development_plans:
+                raise InvariantError('development stage plan missing')
+            key=(r.plan_id,r.year)
+            if key in seen_stage:
+                raise InvariantError('duplicate development stage record')
+            seen_stage.add(key)
+            planned=dict(self.development_plans[r.plan_id].stage_schedule)
+            if r.year not in planned or D(r.planned_amount)!=D(planned[r.year]):
+                raise InvariantError('development stage amount/year drift')
+            if r.outcome==DevelopmentStageOutcome.SPENT:
+                if not r.transaction_id or r.transaction_id not in txids:
+                    raise InvariantError('spent development stage transaction missing')
+            elif r.transaction_id:
+                raise InvariantError('blocked development stage cannot carry transaction')
+        seen_resolution=set()
+        for r in self.development_resolution_records:
+            if r.plan_id not in self.development_plans or r.plan_id in seen_resolution:
+                raise InvariantError('development resolution identity drift')
+            seen_resolution.add(r.plan_id)
+            plan=self.development_plans[r.plan_id]
+            if D(r.required_cost)!=D(plan.required_cost):
+                raise InvariantError('development resolution required-cost drift')
+            if r.outcome==DevelopmentResolutionOutcome.OPERATING:
+                if not r.asset_id or D(r.commissioned)!=D(plan.required_cost) or D(r.written_off)!=0:
+                    raise InvariantError('operating development resolution invalid')
+            elif r.outcome==DevelopmentResolutionOutcome.FAILED:
+                if r.asset_id or D(r.commissioned)!=0 or D(r.accumulated_cost)!=D(r.written_off):
+                    raise InvariantError('failed development resolution invalid')
 
     def _methodology_payload(self,include_scheduler=True):
         payload={
@@ -376,7 +556,15 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
           'active_decision_epoch_id':self.active_decision_epoch_id,
           'decision_epoch_records':[(r.chain_id,r.epoch_id,r.ordinal,r.parent_result_fingerprint,
              r.plan_fingerprint,r.initial_fingerprint,r.final_fingerprint,r.execution_fingerprint,r.result_fingerprint)
-             for r in self.decision_epoch_records]}
+             for r in self.decision_epoch_records],
+          'development_plans':sorted((p.id,p.project_id,p.wip_id,p.asset_id,p.supplier_account_id,p.asset_node_id,
+             str(p.required_cost),tuple((int(y),str(a)) for y,a in p.stage_schedule),p.completion_year,
+             str(p.commissioned_capacity),p.source_ref,p.plan_version) for p in self.development_plans.values()),
+          'development_stage_records':[(r.plan_id,r.project_id,r.year,str(r.planned_amount),r.outcome.value,
+             r.reason,r.transaction_id,r.event_id,r.record_version) for r in self.development_stage_records],
+          'development_resolution_records':[(r.plan_id,r.project_id,r.year,r.outcome.value,str(r.required_cost),
+             str(r.accumulated_cost),str(r.commissioned),str(r.written_off),r.asset_id,r.reason,r.event_id,r.record_version)
+             for r in self.development_resolution_records]}
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload

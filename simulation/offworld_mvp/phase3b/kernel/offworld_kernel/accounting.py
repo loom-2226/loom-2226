@@ -47,7 +47,7 @@ class AccountingPeriodSnapshot:
             len(getattr(kernel,'surplus_decompositions',())),
             tuple(sorted((k,D(v.balance)) for k,v in kernel.state.accounts.items())),
             tuple(sorted((p.id,D(kernel.state.accounts[p.cash_account_id].balance)) for p in kernel.state.projects.values())),
-            tuple(sorted((w.id,D(w.accumulated_cost-w.commissioned)) for w in kernel.wip.values())),
+            tuple(sorted((w.id,D(w.remaining_wip)) for w in kernel.wip.values())),
             sum((D(a.book_value) for a in kernel.state.assets.values() if a.kind==AssetKind.PRODUCTIVE),D('0')),
             sum((D(a.book_value) for a in kernel.state.assets.values() if a.kind==AssetKind.KNOWLEDGE),D('0')),
             tuple(sorted((rid,D(r.remaining)) for rid,r in kernel.resources.items())))
@@ -111,10 +111,13 @@ class AccountingIdentityAuditor:
     def check_A5(self):
         opening_wip=self._open_wip()
         additions={}
+        writeoffs={}
         capitalization=D('0'); depreciation=D('0'); amortization=D('0')
         for e in self.audit:
             if e['kind']=='WIP_ADDITION':
                 additions[e['wip']]=additions.get(e['wip'],D('0'))+D(e['amount'])
+            elif e['kind']=='WIP_WRITE_OFF':
+                writeoffs[e['wip']]=writeoffs.get(e['wip'],D('0'))+D(e['amount'])
             elif e['kind']=='COMMISSION':
                 capitalization+=D(e['value'])
             elif e['kind']=='DEPRECIATE':
@@ -123,9 +126,10 @@ class AccountingIdentityAuditor:
                 amortization+=D(e['amount'])
         for wid,w in self.k.wip.items():
             opening=opening_wip.get(wid,D('0'))
-            current=D(w.accumulated_cost-w.commissioned)
+            current=D(w.remaining_wip)
             commissioned=sum((D(e['value']) for e in self.audit if e['kind']=='COMMISSION' and e['wip']==wid),D('0'))
-            if current!=opening+additions.get(wid,D('0'))-commissioned:
+            written_off=writeoffs.get(wid,D('0'))
+            if current!=opening+additions.get(wid,D('0'))-commissioned-written_off:
                 raise InvariantError(f'A5 WIP rollforward {wid}')
         productive=sum((D(a.book_value) for a in self.k.state.assets.values() if a.kind==AssetKind.PRODUCTIVE),D('0'))
         if productive!=self.s.productive_total+capitalization-depreciation:

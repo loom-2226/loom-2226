@@ -29,10 +29,14 @@ from .validation import VerificationLevel, ValidationLevel, OutOfSampleStatus
 from .provenance import ReplayProvenance
 from .runtime import ScheduledRunResult
 from .methodology import DecisionEpochRecord
+from .project_lifecycle import (
+    ProjectDevelopmentPlan, DevelopmentStageRecord, DevelopmentResolutionRecord,
+    DevelopmentStageOutcome, DevelopmentResolutionOutcome,
+)
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_7'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_8'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
@@ -40,13 +44,15 @@ ODD_SCHEMA_TYPES=(
     PublicationRequest,PublicationDecision,PublicInformationArtifact,SponsorProjectDecisionRequest,SponsorProjectDecision,ScenarioResource,Observation,
     ColonyState,PopulationLedger,SnapshotFact,DecisionSnapshot,PolicyContext,ScheduledEvent,CouplingSpec,
     UnderwritingInput,UnderwritingTable,ResolutionExposurePlan,ResolutionExposureRecord,
-    ReplayProvenance,ScheduledRunResult,DecisionEpochRecord,PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
+    ReplayProvenance,ScheduledRunResult,DecisionEpochRecord,ProjectDevelopmentPlan,DevelopmentStageRecord,DevelopmentResolutionRecord,
+    PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
 )
 
 ODD_ENUM_TYPES=(
     NodeKind,AccountKind,TxPurpose,AssetKind,
     RuntimeObjectClass,AgentKind,ActionKind,FinancingDecisionOutcome,FinancingReasonCode,ExplorationDecisionOutcome,ExplorationReasonCode,
     PublicationDecisionOutcome,PublicationReasonCode,SponsorProjectDecisionOutcome,SponsorProjectReasonCode,
+    DevelopmentStageOutcome,DevelopmentResolutionOutcome,
     FactState,Phase,UnderwritingInputKind,UnderwritingInputStatus,
     ExposureSelectionBasis,ExposureAllocationBasis,AxisKind,SpreadMeaning,
     VerificationLevel,ValidationLevel,OutOfSampleStatus,PolicyParameterStatus,ObservationKnowledgeRelation,
@@ -78,6 +84,17 @@ ODD_UNIT_CONTRACTS={
     'PublicationRequest.year':'SIM_YEAR',
     'SponsorProjectDecisionRequest.year':'SIM_YEAR',
     'SponsorProjectDecision.requested_financing':'REQUEST_CURRENCY_UNIT',
+    'ProjectDevelopmentPlan.required_cost':'MODEL_CURRENCY',
+    'ProjectDevelopmentPlan.stage_schedule':'SIM_YEAR_AND_MODEL_CURRENCY_SCHEDULE',
+    'ProjectDevelopmentPlan.completion_year':'SIM_YEAR',
+    'ProjectDevelopmentPlan.commissioned_capacity':'ASSET_CLASS_CAPACITY_UNIT',
+    'DevelopmentStageRecord.year':'SIM_YEAR',
+    'DevelopmentStageRecord.planned_amount':'MODEL_CURRENCY',
+    'DevelopmentResolutionRecord.year':'SIM_YEAR',
+    'DevelopmentResolutionRecord.required_cost':'MODEL_CURRENCY',
+    'DevelopmentResolutionRecord.accumulated_cost':'MODEL_CURRENCY',
+    'DevelopmentResolutionRecord.commissioned':'MODEL_CURRENCY',
+    'DevelopmentResolutionRecord.written_off':'MODEL_CURRENCY',
     'PublicInformationArtifact.year':'SIM_YEAR',
     'ScenarioResource.in_situ':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'ScenarioResource.accessible':'MODEL_RESOURCE_UNIT_BY_FAMILY',
