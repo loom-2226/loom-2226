@@ -103,7 +103,15 @@ Blocked events produce no partial mutation unless the modeled process explicitly
 
 Scheduler validation failure aborts governed comparison output. Diagnostic execution may continue only under an explicit non-governed/experimental status.
 
-## 10. Required executable tests
+## 10. Sealed execution requirement
+
+Integrated MVP runs shall execute through the sealed scheduled runtime. Before seal, direct kernel construction is initialization. After seal, guarded state mutation requires the runtime's private scheduled-event token.
+
+The runtime pins the initial methodology fingerprint and scheduler plan fingerprint. Any direct/raw state change or scheduler-plan change after seal invalidates the run. The runtime is single-use and leaves the kernel in strict mode after completion.
+
+Direct low-level mutation on an unsealed kernel remains a component/unit-validation mechanism only.
+
+## 11. Required executable tests
 
 - deterministic phase order;
 - stable same-time tie order;
