@@ -10,6 +10,7 @@ from .model import (
 from .mvp_state import (
     SystemState, AggregateState, EntityAssetRef, AgentState, FinancingRequest, FinancingDecision,
     ExplorationRequest, ExplorationDecision, PublicationRequest, PublicationDecision, PublicInformationArtifact,
+    SponsorProjectDecisionRequest, SponsorProjectDecision,
     ScenarioResource, Observation, ColonyState, PopulationLedger, RuntimeObjectClass, AgentKind,
     ActionKind, FinancingDecisionOutcome, FinancingReasonCode, ExplorationDecisionOutcome, ExplorationReasonCode,
     PublicationDecisionOutcome, PublicationReasonCode,
