@@ -179,280 +179,1133 @@ The ODD state/interface registry below is machine-checked against the executable
 <!-- ODD_SCHEMA_REGISTRY_BEGIN -->
 ```json
 {
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_1",
+  "enums": {
+    "AccountKind": [
+      "FUNDS",
+      "PROJECT_CASH",
+      "EARTH_BOUNDARY",
+      "SUPPLIER"
+    ],
+    "ActionKind": [
+      "EXPLORE",
+      "REQUEST_FINANCE",
+      "FINANCE",
+      "DEVELOP",
+      "EXTRACT",
+      "SELL",
+      "MIGRATE",
+      "REINVEST"
+    ],
+    "AgentKind": [
+      "PUBLIC",
+      "PRIVATE_SPONSOR",
+      "PRIVATE_FINANCIER",
+      "LOCAL_FINANCIER"
+    ],
+    "AssetKind": [
+      "WIP",
+      "EXPLORATION_WIP",
+      "KNOWLEDGE",
+      "PRODUCTIVE"
+    ],
+    "AxisKind": [
+      "SCENARIO",
+      "PARAMETER",
+      "UNCERTAINTY",
+      "STOCHASTIC_KEY"
+    ],
+    "ExposureAllocationBasis": [
+      "EQUAL_MEMBER_PRO_RATA",
+      "EXPLICIT_AUTHORIZED_SHARE",
+      "EVIDENCE_DERIVED_SHARE"
+    ],
+    "ExposureSelectionBasis": [
+      "VALIDATION_FIXTURE_STABLE_ID",
+      "EXPLICIT_AUTHORIZED_ID",
+      "EVIDENCE_RULE"
+    ],
+    "FactState": [
+      "KNOWN",
+      "UNKNOWN",
+      "BLOCKED"
+    ],
+    "FinancingDecisionOutcome": [
+      "APPROVE",
+      "REJECT",
+      "DEFER",
+      "BLOCKED_UNKNOWN"
+    ],
+    "FinancingReasonCode": [
+      "SCRIPTED_VALIDATION",
+      "APPROVED_POLICY_RULE",
+      "REJECTED_RETURN",
+      "REJECTED_RISK",
+      "BELOW_RETURN",
+      "CEILING",
+      "CONCENTRATION",
+      "DEFER_MORE_INFORMATION",
+      "BLOCKED_REQUIRED_INPUT_UNKNOWN",
+      "REQUEST_INVALID",
+      "INSUFFICIENT_CAPITAL",
+      "CAPABILITY_OR_AUTHORITY_BLOCK"
+    ],
+    "NodeKind": [
+      "EARTH",
+      "OFFWORLD"
+    ],
+    "OutOfSampleStatus": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "Phase": [
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      70,
+      80,
+      90,
+      100,
+      110,
+      120,
+      130
+    ],
+    "RuntimeObjectClass": [
+      "SYSTEM",
+      "AGGREGATE",
+      "AGENT",
+      "ENTITY_ASSET"
+    ],
+    "SpreadMeaning": [
+      "SCENARIO_SPREAD_NOT_PROBABILITY",
+      "PARAMETER_SENSITIVITY",
+      "UNCERTAINTY_SPREAD",
+      "STOCHASTIC_VARIABILITY"
+    ],
+    "TxPurpose": [
+      "DISBURSE",
+      "CAPEX",
+      "EXPLORATION",
+      "OPEX",
+      "REVENUE",
+      "RETURN_TO_EARTH",
+      "LOCAL_RETENTION",
+      "LOCAL_REINVESTMENT",
+      "OTHER_INVESTMENT",
+      "RESERVE"
+    ],
+    "UnderwritingInputKind": [
+      "PRICE",
+      "EXPLORATION_CAPEX",
+      "DEVELOPMENT_CAPEX",
+      "OPERATING_COST",
+      "LEAD_TIME"
+    ],
+    "UnderwritingInputStatus": [
+      "AUTHORED_SCENARIO",
+      "EVIDENCE_DERIVED",
+      "UNKNOWN"
+    ],
+    "ValidationLevel": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "VerificationLevel": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_2",
   "types": {
     "Account": [
-      "id",
-      "owner_id",
-      "node_id",
-      "kind",
-      "balance"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "owner_id",
+        "type": "str"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "kind",
+        "type": "AccountKind"
+      },
+      {
+        "name": "balance",
+        "type": "D"
+      }
     ],
     "AgentState": [
-      "id",
-      "kind",
-      "node_id",
-      "account_id",
-      "capabilities",
-      "objectives",
-      "runtime_class",
-      "decision_policy",
-      "information",
-      "beliefs",
-      "history",
-      "asset_refs",
-      "resource_holdings",
-      "claim_holdings",
-      "lineage_refs"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "kind",
+        "type": "AgentKind"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "account_id",
+        "type": "str"
+      },
+      {
+        "name": "capabilities",
+        "type": "set[str]"
+      },
+      {
+        "name": "objectives",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "runtime_class",
+        "type": "RuntimeObjectClass"
+      },
+      {
+        "name": "decision_policy",
+        "type": "str"
+      },
+      {
+        "name": "information",
+        "type": "set[str]"
+      },
+      {
+        "name": "beliefs",
+        "type": "Dict[str, D]"
+      },
+      {
+        "name": "history",
+        "type": "List[str]"
+      },
+      {
+        "name": "asset_refs",
+        "type": "set[str]"
+      },
+      {
+        "name": "resource_holdings",
+        "type": "Dict[str, D]"
+      },
+      {
+        "name": "claim_holdings",
+        "type": "Dict[str, D]"
+      },
+      {
+        "name": "lineage_refs",
+        "type": "List[str]"
+      },
+      {
+        "name": "priors",
+        "type": "Dict[str, D]"
+      }
     ],
     "AggregateState": [
-      "id",
-      "node_id",
-      "account_id",
-      "member_count",
-      "asset_refs",
-      "resource_holdings",
-      "claim_holdings",
-      "history_refs",
-      "runtime_class"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "account_id",
+        "type": "str"
+      },
+      {
+        "name": "member_count",
+        "type": "int"
+      },
+      {
+        "name": "asset_refs",
+        "type": "set[str]"
+      },
+      {
+        "name": "resource_holdings",
+        "type": "Dict[str, D]"
+      },
+      {
+        "name": "claim_holdings",
+        "type": "Dict[str, D]"
+      },
+      {
+        "name": "history_refs",
+        "type": "List[str]"
+      },
+      {
+        "name": "runtime_class",
+        "type": "RuntimeObjectClass"
+      }
     ],
     "Asset": [
-      "id",
-      "project_id",
-      "node_id",
-      "kind",
-      "book_value",
-      "capacity"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "kind",
+        "type": "AssetKind"
+      },
+      {
+        "name": "book_value",
+        "type": "D"
+      },
+      {
+        "name": "capacity",
+        "type": "D"
+      }
     ],
     "ColonyState": [
-      "node_id",
-      "population",
-      "cash",
-      "productive_capital",
-      "infrastructure",
-      "resource_inventory",
-      "import_inventory",
-      "production_capacity",
-      "operating_need",
-      "external_subsidy",
-      "stage"
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "population",
+        "type": "int"
+      },
+      {
+        "name": "cash",
+        "type": "D"
+      },
+      {
+        "name": "productive_capital",
+        "type": "D"
+      },
+      {
+        "name": "infrastructure",
+        "type": "D"
+      },
+      {
+        "name": "resource_inventory",
+        "type": "D"
+      },
+      {
+        "name": "import_inventory",
+        "type": "D"
+      },
+      {
+        "name": "production_capacity",
+        "type": "D"
+      },
+      {
+        "name": "operating_need",
+        "type": "D"
+      },
+      {
+        "name": "external_subsidy",
+        "type": "D"
+      },
+      {
+        "name": "stage",
+        "type": "str"
+      }
     ],
     "Commitment": [
-      "id",
-      "financier_id",
-      "project_id",
-      "amount",
-      "committed",
-      "disbursed",
-      "lapsed"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "financier_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "D"
+      },
+      {
+        "name": "committed",
+        "type": "D"
+      },
+      {
+        "name": "disbursed",
+        "type": "D"
+      },
+      {
+        "name": "lapsed",
+        "type": "D"
+      }
     ],
     "CouplingSpec": [
-      "process_id",
-      "version",
-      "runtime_class",
-      "owned_state",
-      "read_set",
-      "write_set",
-      "cadence_or_trigger",
-      "phase",
-      "unit_basis",
-      "world_context",
-      "perspective",
-      "direction",
-      "transition_interfaces"
+      {
+        "name": "process_id",
+        "type": "str"
+      },
+      {
+        "name": "version",
+        "type": "str"
+      },
+      {
+        "name": "runtime_class",
+        "type": "RuntimeObjectClass"
+      },
+      {
+        "name": "owned_state",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "read_set",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "write_set",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "cadence_or_trigger",
+        "type": "str"
+      },
+      {
+        "name": "phase",
+        "type": "Phase"
+      },
+      {
+        "name": "unit_basis",
+        "type": "Tuple[Tuple[str, str], ...]"
+      },
+      {
+        "name": "world_context",
+        "type": "str"
+      },
+      {
+        "name": "perspective",
+        "type": "str"
+      },
+      {
+        "name": "direction",
+        "type": "str"
+      },
+      {
+        "name": "transition_interfaces",
+        "type": "Tuple[str, ...]"
+      }
     ],
     "DecisionSnapshot": [
-      "agent_id",
-      "agent_kind",
-      "node_id",
-      "period_key",
-      "effective_time",
-      "account_balance",
-      "capabilities",
-      "objectives",
-      "information_refs",
-      "beliefs",
-      "asset_refs",
-      "resource_holdings",
-      "claim_holdings",
-      "admitted_facts"
+      {
+        "name": "agent_id",
+        "type": "str"
+      },
+      {
+        "name": "agent_kind",
+        "type": "str"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "period_key",
+        "type": "str"
+      },
+      {
+        "name": "effective_time",
+        "type": "str"
+      },
+      {
+        "name": "account_balance",
+        "type": "D"
+      },
+      {
+        "name": "capabilities",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "objectives",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "information_refs",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "beliefs",
+        "type": "Tuple[Tuple[str, D], ...]"
+      },
+      {
+        "name": "priors",
+        "type": "Tuple[Tuple[str, D], ...]"
+      },
+      {
+        "name": "asset_refs",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "resource_holdings",
+        "type": "Tuple[Tuple[str, D], ...]"
+      },
+      {
+        "name": "claim_holdings",
+        "type": "Tuple[Tuple[str, D], ...]"
+      },
+      {
+        "name": "admitted_facts",
+        "type": "Tuple[SnapshotFact, ...]"
+      }
     ],
     "EarthImpactLedger": [
-      "qualifying_supplied_expenditure",
-      "terrestrial_fcf_delta"
+      {
+        "name": "qualifying_supplied_expenditure",
+        "type": "Dict[tuple[str, int], D]"
+      },
+      {
+        "name": "terrestrial_fcf_delta",
+        "type": "Dict[tuple[str, int], D]"
+      }
     ],
     "EntityAssetRef": [
-      "id",
-      "domain_type",
-      "state_ref",
-      "runtime_class"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "domain_type",
+        "type": "str"
+      },
+      {
+        "name": "state_ref",
+        "type": "str"
+      },
+      {
+        "name": "runtime_class",
+        "type": "RuntimeObjectClass"
+      }
     ],
     "FinancingDecision": [
-      "id",
-      "request_id",
-      "financier_id",
-      "approved",
-      "amount",
-      "instrument",
-      "reason",
-      "outcome",
-      "reason_code",
-      "unknown_input_keys",
-      "input_snapshot_ref",
-      "policy_version",
-      "decision_version"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "financier_id",
+        "type": "str"
+      },
+      {
+        "name": "approved",
+        "type": "bool"
+      },
+      {
+        "name": "amount",
+        "type": "D"
+      },
+      {
+        "name": "instrument",
+        "type": "str"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "FinancingDecisionOutcome | None"
+      },
+      {
+        "name": "reason_code",
+        "type": "FinancingReasonCode | None"
+      },
+      {
+        "name": "unknown_input_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
     ],
     "FinancingRequest": [
-      "id",
-      "year",
-      "sponsor_id",
-      "project_id",
-      "amount",
-      "stage",
-      "disclosed_observation_ids",
-      "required_underwriting_keys",
-      "currency_unit",
-      "request_version"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "sponsor_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "D"
+      },
+      {
+        "name": "stage",
+        "type": "str"
+      },
+      {
+        "name": "disclosed_observation_ids",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "required_underwriting_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "required_belief_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "required_prior_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "currency_unit",
+        "type": "str"
+      },
+      {
+        "name": "request_version",
+        "type": "str"
+      }
     ],
     "FixedCapitalFormationEvent": [
-      "id",
-      "year",
-      "project_id",
-      "asset_id",
-      "owner_ids",
-      "financing_origin_nodes",
-      "supplier_node",
-      "asset_node",
-      "amount",
-      "asset_class",
-      "parent_ids"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "asset_id",
+        "type": "str"
+      },
+      {
+        "name": "owner_ids",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "financing_origin_nodes",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "supplier_node",
+        "type": "str"
+      },
+      {
+        "name": "asset_node",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "D"
+      },
+      {
+        "name": "asset_class",
+        "type": "str"
+      },
+      {
+        "name": "parent_ids",
+        "type": "tuple[str, ...]"
+      }
     ],
     "KernelState": [
-      "nodes",
-      "accounts",
-      "commitments",
-      "projects",
-      "assets",
-      "transactions",
-      "fcf_events",
-      "earth_impact"
+      {
+        "name": "nodes",
+        "type": "Dict[str, Node]"
+      },
+      {
+        "name": "accounts",
+        "type": "Dict[str, Account]"
+      },
+      {
+        "name": "commitments",
+        "type": "Dict[str, Commitment]"
+      },
+      {
+        "name": "projects",
+        "type": "Dict[str, Project]"
+      },
+      {
+        "name": "assets",
+        "type": "Dict[str, Asset]"
+      },
+      {
+        "name": "transactions",
+        "type": "List[Transaction]"
+      },
+      {
+        "name": "fcf_events",
+        "type": "List[FixedCapitalFormationEvent]"
+      },
+      {
+        "name": "earth_impact",
+        "type": "EarthImpactLedger"
+      }
     ],
     "Node": [
-      "id",
-      "kind"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "kind",
+        "type": "NodeKind"
+      }
     ],
     "Observation": [
-      "id",
-      "year",
-      "actor_id",
-      "resource_id",
-      "channel",
-      "signal",
-      "public"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "resource_id",
+        "type": "str"
+      },
+      {
+        "name": "channel",
+        "type": "str"
+      },
+      {
+        "name": "signal",
+        "type": "str"
+      },
+      {
+        "name": "public",
+        "type": "bool"
+      }
     ],
     "PolicyContext": [
-      "snapshot",
-      "snapshot_ref",
-      "decision_key"
+      {
+        "name": "snapshot",
+        "type": "DecisionSnapshot"
+      },
+      {
+        "name": "snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "decision_key",
+        "type": "str"
+      }
     ],
     "PopulationLedger": [
-      "earth",
-      "offworld"
+      {
+        "name": "earth",
+        "type": "int"
+      },
+      {
+        "name": "offworld",
+        "type": "Dict[str, int]"
+      }
     ],
     "Project": [
-      "id",
-      "node_id",
-      "cash_account_id",
-      "owners",
-      "status"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "cash_account_id",
+        "type": "str"
+      },
+      {
+        "name": "owners",
+        "type": "Dict[str, D]"
+      },
+      {
+        "name": "status",
+        "type": "str"
+      }
     ],
     "ResolutionExposurePlan": [
-      "plan_id",
-      "aggregate_id",
-      "selected_agent_id",
-      "members_exposed",
-      "selection_basis",
-      "selection_ref",
-      "allocation_basis",
-      "allocation_ref",
-      "explicit_share"
+      {
+        "name": "plan_id",
+        "type": "str"
+      },
+      {
+        "name": "aggregate_id",
+        "type": "str"
+      },
+      {
+        "name": "selected_agent_id",
+        "type": "str"
+      },
+      {
+        "name": "members_exposed",
+        "type": "int"
+      },
+      {
+        "name": "selection_basis",
+        "type": "ExposureSelectionBasis"
+      },
+      {
+        "name": "selection_ref",
+        "type": "str"
+      },
+      {
+        "name": "allocation_basis",
+        "type": "ExposureAllocationBasis"
+      },
+      {
+        "name": "allocation_ref",
+        "type": "str"
+      },
+      {
+        "name": "explicit_share",
+        "type": "D | None"
+      }
     ],
     "ResolutionExposureRecord": [
-      "plan_id",
-      "resolution_id",
-      "aggregate_id",
-      "agent_id",
-      "members_exposed",
-      "selection_basis",
-      "selection_ref",
-      "allocation_basis",
-      "allocation_ref",
-      "allocation_fraction"
+      {
+        "name": "plan_id",
+        "type": "str"
+      },
+      {
+        "name": "resolution_id",
+        "type": "str"
+      },
+      {
+        "name": "aggregate_id",
+        "type": "str"
+      },
+      {
+        "name": "agent_id",
+        "type": "str"
+      },
+      {
+        "name": "members_exposed",
+        "type": "int"
+      },
+      {
+        "name": "selection_basis",
+        "type": "str"
+      },
+      {
+        "name": "selection_ref",
+        "type": "str"
+      },
+      {
+        "name": "allocation_basis",
+        "type": "str"
+      },
+      {
+        "name": "allocation_ref",
+        "type": "str"
+      },
+      {
+        "name": "allocation_fraction",
+        "type": "D"
+      }
     ],
     "ScenarioResource": [
-      "id",
-      "node_id",
-      "family",
-      "in_situ",
-      "accessible",
-      "recoverable",
-      "remaining"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "family",
+        "type": "str"
+      },
+      {
+        "name": "in_situ",
+        "type": "D"
+      },
+      {
+        "name": "accessible",
+        "type": "D"
+      },
+      {
+        "name": "recoverable",
+        "type": "D"
+      },
+      {
+        "name": "remaining",
+        "type": "D"
+      }
     ],
     "ScheduledEvent": [
-      "event_id",
-      "effective_time",
-      "phase",
-      "priority",
-      "stable_key",
-      "process_id",
-      "payload",
-      "parent_ids",
-      "snapshot_ref"
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "effective_time",
+        "type": "D"
+      },
+      {
+        "name": "phase",
+        "type": "Phase"
+      },
+      {
+        "name": "priority",
+        "type": "int"
+      },
+      {
+        "name": "stable_key",
+        "type": "str"
+      },
+      {
+        "name": "process_id",
+        "type": "str"
+      },
+      {
+        "name": "payload",
+        "type": "Tuple[Tuple[str, str], ...]"
+      },
+      {
+        "name": "parent_ids",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "snapshot_ref",
+        "type": "str"
+      }
     ],
     "SnapshotFact": [
-      "key",
-      "state",
-      "value",
-      "source_ref"
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "state",
+        "type": "FactState"
+      },
+      {
+        "name": "value",
+        "type": "str | None"
+      },
+      {
+        "name": "source_ref",
+        "type": "str"
+      }
     ],
     "SystemState": [
-      "id",
-      "process_type",
-      "owned_state_refs",
-      "runtime_class"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "process_type",
+        "type": "str"
+      },
+      {
+        "name": "owned_state_refs",
+        "type": "set[str]"
+      },
+      {
+        "name": "runtime_class",
+        "type": "RuntimeObjectClass"
+      }
     ],
     "Transaction": [
-      "id",
-      "year",
-      "source_account",
-      "destination_account",
-      "amount",
-      "purpose",
-      "source_location",
-      "destination_location",
-      "supplier_location",
-      "asset_location",
-      "parent_ids"
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "source_account",
+        "type": "str"
+      },
+      {
+        "name": "destination_account",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "D"
+      },
+      {
+        "name": "purpose",
+        "type": "TxPurpose"
+      },
+      {
+        "name": "source_location",
+        "type": "str"
+      },
+      {
+        "name": "destination_location",
+        "type": "str"
+      },
+      {
+        "name": "supplier_location",
+        "type": "Optional[str]"
+      },
+      {
+        "name": "asset_location",
+        "type": "Optional[str]"
+      },
+      {
+        "name": "parent_ids",
+        "type": "tuple[str, ...]"
+      }
     ],
     "UnderwritingInput": [
-      "input_id",
-      "archetype_id",
-      "kind",
-      "value",
-      "unit",
-      "status",
-      "source_or_rationale_ref",
-      "sensitivity_low",
-      "sensitivity_high",
-      "valid_from",
-      "valid_to"
+      {
+        "name": "input_id",
+        "type": "str"
+      },
+      {
+        "name": "archetype_id",
+        "type": "str"
+      },
+      {
+        "name": "kind",
+        "type": "UnderwritingInputKind"
+      },
+      {
+        "name": "value",
+        "type": "D | None"
+      },
+      {
+        "name": "unit",
+        "type": "str"
+      },
+      {
+        "name": "status",
+        "type": "UnderwritingInputStatus"
+      },
+      {
+        "name": "source_or_rationale_ref",
+        "type": "str"
+      },
+      {
+        "name": "basis_year",
+        "type": "int"
+      },
+      {
+        "name": "sensitivity_low",
+        "type": "D | None"
+      },
+      {
+        "name": "sensitivity_high",
+        "type": "D | None"
+      },
+      {
+        "name": "valid_from",
+        "type": "int | None"
+      },
+      {
+        "name": "valid_to",
+        "type": "int | None"
+      }
     ],
     "UnderwritingTable": [
-      "table_id",
-      "version",
-      "epistemic_status",
-      "inputs"
+      {
+        "name": "table_id",
+        "type": "str"
+      },
+      {
+        "name": "version",
+        "type": "str"
+      },
+      {
+        "name": "epistemic_status",
+        "type": "str"
+      },
+      {
+        "name": "inputs",
+        "type": "Tuple[UnderwritingInput, ...]"
+      }
     ]
+  },
+  "units": {
+    "Account.balance": "MODEL_CURRENCY",
+    "Asset.book_value": "MODEL_CURRENCY",
+    "Asset.capacity": "ASSET_CLASS_CAPACITY_UNIT",
+    "Commitment.amount": "MODEL_CURRENCY",
+    "Commitment.committed": "MODEL_CURRENCY",
+    "Commitment.disbursed": "MODEL_CURRENCY",
+    "Commitment.lapsed": "MODEL_CURRENCY",
+    "DecisionSnapshot.effective_time": "SIM_TIME",
+    "EarthImpactLedger.qualifying_supplied_expenditure": "MODEL_CURRENCY",
+    "EarthImpactLedger.terrestrial_fcf_delta": "MODEL_CURRENCY",
+    "FinancingDecision.amount": "REQUEST_CURRENCY_UNIT",
+    "FinancingRequest.amount": "FIELD:FinancingRequest.currency_unit",
+    "FinancingRequest.year": "SIM_YEAR",
+    "FixedCapitalFormationEvent.amount": "MODEL_CURRENCY",
+    "FixedCapitalFormationEvent.year": "SIM_YEAR",
+    "Observation.year": "SIM_YEAR",
+    "Project": "NO_INTRINSIC_SCALAR_UNIT",
+    "ResolutionExposureRecord.allocation_fraction": "DIMENSIONLESS_SHARE",
+    "ScenarioResource.accessible": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "ScenarioResource.in_situ": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "ScenarioResource.recoverable": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "ScenarioResource.remaining": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "ScheduledEvent.effective_time": "SIM_TIME",
+    "Transaction.amount": "MODEL_CURRENCY",
+    "Transaction.year": "SIM_YEAR",
+    "UnderwritingInput.basis_year": "SIM_YEAR",
+    "UnderwritingInput.sensitivity_high": "FIELD:UnderwritingInput.unit",
+    "UnderwritingInput.sensitivity_low": "FIELD:UnderwritingInput.unit",
+    "UnderwritingInput.valid_from": "SIM_YEAR",
+    "UnderwritingInput.valid_to": "SIM_YEAR",
+    "UnderwritingInput.value": "FIELD:UnderwritingInput.unit"
   }
 }
 ```
