@@ -57,6 +57,7 @@ class AgentState:
     resource_holdings: Dict[str,D]=field(default_factory=dict)
     claim_holdings: Dict[str,D]=field(default_factory=dict)
     lineage_refs: List[str]=field(default_factory=list)
+    priors: Dict[str,D]=field(default_factory=dict)
 
 BUILD5_REQUIRED_UNDERWRITING_KEYS=(
     'underwriting.PRICE',
@@ -65,6 +66,8 @@ BUILD5_REQUIRED_UNDERWRITING_KEYS=(
     'underwriting.OPERATING_COST',
     'underwriting.LEAD_TIME',
 )
+BUILD5_REQUIRED_BELIEF_KEYS=('resource_exists',)
+BUILD5_REQUIRED_PRIOR_KEYS=('resource_exists',)
 
 class FinancingDecisionOutcome(str, Enum):
     APPROVE='APPROVE'
@@ -77,6 +80,9 @@ class FinancingReasonCode(str, Enum):
     APPROVED_POLICY_RULE='APPROVED_POLICY_RULE'
     REJECTED_RETURN='REJECTED_RETURN'
     REJECTED_RISK='REJECTED_RISK'
+    BELOW_RETURN='BELOW_RETURN'
+    CEILING='CEILING'
+    CONCENTRATION='CONCENTRATION'
     DEFER_MORE_INFORMATION='DEFER_MORE_INFORMATION'
     BLOCKED_REQUIRED_INPUT_UNKNOWN='BLOCKED_REQUIRED_INPUT_UNKNOWN'
     REQUEST_INVALID='REQUEST_INVALID'
@@ -93,6 +99,8 @@ class FinancingRequest:
     stage: str
     disclosed_observation_ids: tuple[str,...]=()
     required_underwriting_keys: tuple[str,...]=()
+    required_belief_keys: tuple[str,...]=()
+    required_prior_keys: tuple[str,...]=()
     currency_unit: str='MODEL_CURRENCY'
     request_version: str='FINANCING_REQUEST_V1'
 
@@ -105,6 +113,10 @@ class FinancingRequest:
             raise ValueError('financing request currency/unit missing')
         if tuple(self.required_underwriting_keys)!=BUILD5_REQUIRED_UNDERWRITING_KEYS:
             raise ValueError('financing request must declare exact Build 5 underwriting input contract')
+        if tuple(self.required_belief_keys)!=BUILD5_REQUIRED_BELIEF_KEYS:
+            raise ValueError('financing request must declare exact Build 5 belief contract')
+        if tuple(self.required_prior_keys)!=BUILD5_REQUIRED_PRIOR_KEYS:
+            raise ValueError('financing request must declare exact Build 5 prior contract')
         if len(set(self.disclosed_observation_ids))!=len(self.disclosed_observation_ids):
             raise ValueError('duplicate disclosed observation id')
         return self
