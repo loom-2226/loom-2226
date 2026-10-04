@@ -250,7 +250,7 @@ Represents an offworld financing institution only when its own decision process 
 
 The MVP shall not create autonomous Agents for ordinary market clearing, physical production, accounting, routine transport mechanics, households, workers, minor firms or every individual person merely because those phenomena exist. Those may remain SYSTEM or AGGREGATE representations until a causal need justifies higher resolution.
 
-Autonomous decision policies remain outside the current implementation authorization. Deterministic scripted policies may exercise the interfaces for validation only.
+General autonomous decision-policy authority remains gated. Build 5 has individually authorized bounded autonomous policies for the private financier (Test 001) and public institutional explorer (Test 002A). Those scoped authorizations do not authorize other Agent roles or a general autonomous-agent engine. Deterministic scripted policies may continue to exercise other interfaces for validation only.
 
 ## 15. Agent Information Firewall
 
@@ -283,6 +283,8 @@ Development may reveal additional physical state required for operation.
 > **Exploration changes information, not physical reality.**
 
 > **Extraction changes realized physical state.**
+
+Build 5 Test 002A structurally implements the first bounded autonomous public REMOTE-observation decision path. The Agent decides whether to acquire information from admitted mission/capability/budget/cost state; a later WORLD_SIM/SYSTEM transition generates the imperfect observation from hidden scenario state. Surface prospecting remains an MVP requirement not closed by Test 002A.
 
 ## 17. Beliefs
 
@@ -968,3 +970,33 @@ Passing these gates authorizes Build 4 closure and creation of a Build 5 branch 
 ## Governance note
 
 This FRD is a build-guiding candidate on a branch created from the closed Phase 2 governance branch. It does not reopen Phase 2, release Contract v1, qualify inputs, or grant implementation authority. Phase 3 state-model work must consume the consolidated Phase 2 normative model and preserve its carried liens.
+
+## 50. Build 5 Bounded Autonomous-Agent Standing
+
+Build 5 has now admitted two individually scoped autonomous institutional-Agent slices under the PRE-CONTRACT / SINGLE-AUTHORITY model.
+
+### 50.1 Private financier — Test 001
+
+The bounded private-financier policy is structurally verified. It consumes only admitted Agent-visible state and a formal financing request, emits an immutable financing decision, and relies on later scheduler/kernel transitions for world consequences. Its synthetic numeric parameters remain `TEST_ONLY / NOT_POLICY_BASELINE`; operator-observed scenario output is descriptive rather than empirical validation.
+
+Normative records:
+
+- `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_001_FINANCIER_TEST001.md`;
+- `build5/BUILD5_VALIDATION_RECORD_001_FINANCIER_STRUCTURAL.md`;
+- `build5/BUILD5_OPERATOR_RUN_RECORD_001_SYNTHETIC_FINANCIER.md`.
+
+### 50.2 Public institutional explorer — Test 002A
+
+The bounded public institutional explorer is authorized as a generic `PUBLIC_INSTITUTIONAL_AGENT`; “NASA-like” is design shorthand only. The first policy decides whether to authorize a REMOTE information-acquisition action from admitted mission objective, capability, budget and known cost. It contains no consequential numeric behavioral threshold.
+
+If authorized, later scheduler phases ledger public funding/expenditure and invoke a WORLD_SIM observation mechanism. The policy itself receives neither hidden resource truth nor world random state. Hidden NULL/RICH state therefore cannot alter the pre-observation decision when admitted Agent state is identical; Agent information/belief may diverge only after the distinguishing observation.
+
+Test 002A does not close publication to other Agents, surface prospecting, sponsor/operator autonomy, empirical observation-model calibration, or real-institution fidelity.
+
+Normative records:
+
+- `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_002_PUBLIC_EXPLORER_TEST002A.md`;
+- `build5/BUILD5_VALIDATION_RECORD_002_PUBLIC_EXPLORER_STRUCTURAL.md`.
+
+The full autonomous-agent engine remains gated. Each additional Agent role or materially expanded policy requires its own governed scope.
+
