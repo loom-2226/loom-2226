@@ -44,7 +44,7 @@ class Kernel:
             elif tx.purpose in {TxPurpose.CAPEX,TxPurpose.EXPLORATION,TxPurpose.OPEX,TxPurpose.TRANSPORT_PAYMENT}:
                 self._earth_shadow_add_currency('offworld_purchases_from_earth',tx.destination_location,tx.year,tx.amount)
 
-    def record_earth_migration(self,year,count):
+    def _record_earth_migration(self,year,count):
         count=int(count)
         if count<0: raise InvariantError('negative Earth migration shadow flow')
         ledger=self.state.earth_impact.migration_from_earth; year=int(year)

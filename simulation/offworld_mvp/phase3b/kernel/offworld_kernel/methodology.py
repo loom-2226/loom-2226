@@ -90,7 +90,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'assert_mvp_invariants','mvp_fingerprint','keyed_draw','build3_fingerprint',
         'assert_vehicle_ownership','assert_build4_invariants','build4_fingerprint','uniformity_sample',
         'assert_methodology_invariants','methodology_fingerprint','decision_epoch_state_fingerprint','market_remaining_demand','financing_return_remaining',
-        'settlement_habitat_headroom','settlement_stage_for','transport_qualification'
+        'settlement_habitat_headroom','settlement_stage_for','transport_qualification','earth_shadow_at'
     })
     SCHEDULED_CONTROL_METHODS=frozenset({
         'seal_for_scheduled_execution','scheduled_event_context','begin_decision_epoch','complete_decision_epoch'
@@ -664,7 +664,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             transport_txid=tx.id
 
         self.population.earth-=residents
-        self.record_earth_migration(int(D(request.departure_time)),residents)
+        self._record_earth_migration(int(D(request.departure_time)),residents)
         self.population.in_transit[departure_id]=residents
         if self.population.total()!=total_before:
             raise InvariantError('population conservation failure at transport departure')

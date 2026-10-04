@@ -183,7 +183,7 @@ class MVPKernel(Kernel):
         if self.population is None or count<0 or self.population.earth<count: raise InvariantError('invalid migration')
         if 'MIGRATE' not in self.agents[actor_id].capabilities: raise InvariantError('agent lacks migration capability')
         before=self.population.total(); self.population.earth-=count; self.population.offworld[node_id]=self.population.offworld.get(node_id,0)+count
-        self.record_earth_migration(year,count)
+        self._record_earth_migration(year,count)
         self.colonies.setdefault(node_id,ColonyState(node_id)).population+=count
         if self.population.total()!=before: raise InvariantError('population conservation')
         return self.event(year,actor_id,ActionKind.MIGRATE,'MIGRATED',(node_id,str(count)),tuple(parent_ids))
