@@ -1,4 +1,5 @@
 from __future__ import annotations
+from contextlib import contextmanager
 from dataclasses import dataclass
 from decimal import Decimal
 from hashlib import sha256
@@ -29,6 +30,18 @@ class ResolutionRecord:
 
 class MethodologyHardenedBuild4Kernel(Build4Kernel):
     """Build-4-derived methodology baseline. No autonomous decision-policy authority."""
+
+    SCHEDULED_MUTATION_METHODS=frozenset({
+        'add_node','add_account','add_project','add_commitment','transfer','disburse','spend_capex','capitalize',
+        'add_agent','add_resource','event','observe','request_finance','decide_finance','extract','sell','migrate',
+        'set_resource_constraint','reserve_earth_supply','spend_reserved_capex','explore_paid','resolve_exploration',
+        'extract_bounded','sell_to_market','dispose_surplus',
+        'audit','register_vehicle_ownership','distribute_vehicle_to_owners','set_supply_capacity','consume_supply',
+        'create_wip','add_wip_expenditure','commission_wip','depreciate','amortize_knowledge',
+        'create_carry_reservation','spend_carry_reservation','lapse_carry_reservation','lapse_commitment',
+        'boundary_purchase','consume_market_resource',
+        'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate'
+    })
     methodology_version='BUILD4_MVP_METHODOLOGY_R1'
     accounting_boundary_version='PHASE3B_MVP_ACCOUNTING_BOUNDARY_0_1'
 
@@ -39,6 +52,55 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.aggregates: Dict[str,AggregateState]={}
         self.entity_asset_refs: Dict[str,EntityAssetRef]={}
         self.resolution_records: list[ResolutionRecord]=[]
+        self._strict_scheduled_execution=False
+        self._scheduled_execution_depth=0
+        self._scheduled_current_event_id=None
+        self._scheduled_seal_state_fingerprint=None
+        self._scheduled_seal_plan_fingerprint=None
+
+    def __getattribute__(self,name):
+        attr=super().__getattribute__(name)
+        if name.startswith('_') or not callable(attr):
+            return attr
+        try:
+            guarded=name in super().__getattribute__('SCHEDULED_MUTATION_METHODS')
+            strict=super().__getattribute__('_strict_scheduled_execution')
+            depth=super().__getattribute__('_scheduled_execution_depth')
+        except AttributeError:
+            return attr
+        if guarded and strict and depth<=0:
+            def blocked(*args,**kwargs):
+                raise InvariantError(f'direct mutation blocked in scheduled-run mode: {name}')
+            return blocked
+        return attr
+
+    def seal_for_scheduled_execution(self,state_fingerprint,plan_fingerprint):
+        if self._strict_scheduled_execution:
+            raise InvariantError('kernel already sealed for scheduled execution')
+        self._scheduled_seal_state_fingerprint=str(state_fingerprint)
+        self._scheduled_seal_plan_fingerprint=str(plan_fingerprint)
+        self._strict_scheduled_execution=True
+
+    @contextmanager
+    def scheduled_event_context(self,event_id):
+        if not self._strict_scheduled_execution:
+            raise InvariantError('scheduled event context requires sealed scheduled-run mode')
+        self._scheduled_execution_depth+=1
+        prior=self._scheduled_current_event_id
+        self._scheduled_current_event_id=str(event_id)
+        try:
+            yield
+        finally:
+            self._scheduled_current_event_id=prior
+            self._scheduled_execution_depth-=1
+
+    @property
+    def strict_scheduled_execution(self):
+        return self._strict_scheduled_execution
+
+    @property
+    def scheduled_current_event_id(self):
+        return self._scheduled_current_event_id
 
     def add_system(self,s:SystemState):
         if s.runtime_class!=RuntimeObjectClass.SYSTEM or s.id in self.systems:
