@@ -67,10 +67,16 @@ from .project_activity import (
     SponsorPortfolioDecisionRequest, SponsorPortfolioDecision,
     ProjectActivityStatus, SponsorPortfolioDecisionOutcome, SponsorPortfolioReasonCode,
 )
+from .project_study import (
+    ProjectStudyState,ProjectStudyPlan,ProjectActivityExpenseRecord,ProjectStudyResultRecord,
+    ProjectStudyReviewRequest,ProjectStudyReviewDecision,ProjectStudyReviewExecutionRecord,
+    ProjectStudyMaturity,ProjectStudyResultStanding,ProjectStudyReviewOutcome,
+    ProjectStudyReviewReasonCode,
+)
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_17'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_18'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
@@ -86,6 +92,8 @@ ODD_SCHEMA_TYPES=(
     PassengerTransportDepartureRecord,PassengerTransportArrivalRecord,
     ProjectActivity,ProjectActivityTransitionRecord,ProjectActivityInformationRecord,
     SponsorPortfolioDecisionRequest,SponsorPortfolioDecision,
+    ProjectStudyState,ProjectStudyPlan,ProjectActivityExpenseRecord,ProjectStudyResultRecord,
+    ProjectStudyReviewRequest,ProjectStudyReviewDecision,ProjectStudyReviewExecutionRecord,
     PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
 )
 
@@ -96,6 +104,8 @@ ODD_ENUM_TYPES=(
     OperatingCycleDecisionOutcome,OperatingCycleReasonCode,EnterpriseReviewDecisionOutcome,EnterpriseReviewReasonCode,SaleDecisionOutcome,SaleReasonCode,SurplusDistributionDecisionOutcome,SurplusDistributionReasonCode,SettlementSupportDecisionOutcome,SettlementSupportReasonCode,
     TransportSettlementDecisionOutcome,TransportSettlementReasonCode,
     ProjectActivityStatus,SponsorPortfolioDecisionOutcome,SponsorPortfolioReasonCode,
+    ProjectStudyMaturity,ProjectStudyResultStanding,ProjectStudyReviewOutcome,
+    ProjectStudyReviewReasonCode,
     DevelopmentStageOutcome,DevelopmentResolutionOutcome,
     FactState,Phase,UnderwritingInputKind,UnderwritingInputStatus,
     ExposureSelectionBasis,ExposureAllocationBasis,AxisKind,SpreadMeaning,
@@ -127,6 +137,10 @@ ODD_UNIT_CONTRACTS={
     'ProjectActivityInformationRecord.admitted_at':'SIM_TIME',
     'SponsorPortfolioDecisionRequest.effective_time':'SIM_TIME',
     'SponsorPortfolioDecision.reserved_capital':'FIELD:SponsorPortfolioDecisionRequest.currency_unit',
+    'ProjectActivityExpenseRecord.amount':'MODEL_CURRENCY',
+    'ProjectActivityExpenseRecord.spent_at':'SIM_TIME',
+    'ProjectStudyResultRecord.completed_at':'SIM_TIME',
+    'ProjectStudyReviewExecutionRecord.effective_time':'SIM_TIME',
     'Asset.book_value':'MODEL_CURRENCY',
     'Asset.capacity':'ASSET_CLASS_CAPACITY_UNIT',
     'FixedCapitalFormationEvent.amount':'MODEL_CURRENCY',
