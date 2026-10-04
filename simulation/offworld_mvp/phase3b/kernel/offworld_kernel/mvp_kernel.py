@@ -179,13 +179,13 @@ class MVPKernel(Kernel):
         tx=self.transfer(year,market_account,a.account_id,value,TxPurpose.REVENUE,parent_ids=(resource_id,))
         self.event(year,actor_id,ActionKind.SELL,'SOLD',(resource_id,str(q),tx.id)); return value
 
-    def migrate(self,year,actor_id,node_id,count):
+    def migrate(self,year,actor_id,node_id,count,parent_ids=()):
         if self.population is None or count<0 or self.population.earth<count: raise InvariantError('invalid migration')
         if 'MIGRATE' not in self.agents[actor_id].capabilities: raise InvariantError('agent lacks migration capability')
         before=self.population.total(); self.population.earth-=count; self.population.offworld[node_id]=self.population.offworld.get(node_id,0)+count
         self.colonies.setdefault(node_id,ColonyState(node_id)).population+=count
         if self.population.total()!=before: raise InvariantError('population conservation')
-        return self.event(year,actor_id,ActionKind.MIGRATE,'MIGRATED',(node_id,str(count)))
+        return self.event(year,actor_id,ActionKind.MIGRATE,'MIGRATED',(node_id,str(count)),tuple(parent_ids))
 
     def assert_mvp_invariants(self):
         self.assert_invariants()
@@ -202,7 +202,7 @@ class MVPKernel(Kernel):
         'resources':sorted((r.id,r.node_id,r.family,str(r.in_situ),str(r.accessible),str(r.recoverable),str(r.remaining)) for r in self.resources.values()),
         'obs':sorted((o.id,o.actor_id,o.resource_id,o.signal,o.public) for o in self.observations.values()),
         'public_information':sorted((a.id,a.publisher_id,a.source_observation_id,a.resource_id,a.channel,a.signal,a.audience,a.recipient_ids) for a in self.public_information.values()),
-        'colonies':sorted((c.node_id,c.population,str(c.cash),str(c.productive_capital),str(c.infrastructure),str(c.resource_inventory),str(c.import_inventory),str(c.production_capacity),str(c.operating_need),str(c.external_subsidy),c.stage) for c in self.colonies.values()),
+        'colonies':sorted((c.node_id,c.population,str(c.cash),str(c.productive_capital),str(c.infrastructure),c.habitat_capacity,str(c.resource_inventory),str(c.import_inventory),str(c.production_capacity),str(c.operating_need),str(c.external_subsidy),c.stage) for c in self.colonies.values()),
         'events':[(e.id,e.year,e.actor_id,e.action.value,e.result,e.inputs,e.parent_ids) for e in self.events],
         'population':None if self.population is None else (self.population.earth,sorted(self.population.offworld.items()))}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()

@@ -38,7 +38,7 @@ class AgentKind(str, Enum):
     PUBLIC='PUBLIC'; PRIVATE_SPONSOR='PRIVATE_SPONSOR'; PRIVATE_FINANCIER='PRIVATE_FINANCIER'; LOCAL_FINANCIER='LOCAL_FINANCIER'
 
 class ActionKind(str, Enum):
-    EXPLORE='EXPLORE'; PUBLISH='PUBLISH'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; CONSTRUCT='CONSTRUCT'; OPERATE='OPERATE'; FAIL='FAIL'; ABANDON='ABANDON'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; REINVEST='REINVEST'; DISTRIBUTE='DISTRIBUTE'
+    EXPLORE='EXPLORE'; PUBLISH='PUBLISH'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; CONSTRUCT='CONSTRUCT'; OPERATE='OPERATE'; FAIL='FAIL'; ABANDON='ABANDON'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; REINVEST='REINVEST'; DISTRIBUTE='DISTRIBUTE'; SETTLE='SETTLE'
 
 @dataclass
 class AgentState:
@@ -424,6 +424,98 @@ class SurplusDistributionDecision:
                 raise ValueError('surplus distribution decision/request lineage mismatch')
         return self
 
+BUILD5_SETTLEMENT_SUPPORT_REQUIRED_FACT_KEYS=(
+    'settlement.STAGE',
+    'settlement.HABITAT_HEADROOM',
+    'settlement.REQUESTED_RESIDENTS',
+    'population.EARTH_AVAILABLE',
+    'settlement.PUBLIC_SUPPORT_COST',
+)
+
+class SettlementSupportDecisionOutcome(str, Enum):
+    AUTHORIZE='AUTHORIZE'
+    DEFER='DEFER'
+    BLOCKED_UNKNOWN='BLOCKED_UNKNOWN'
+
+class SettlementSupportReasonCode(str, Enum):
+    SETTLEMENT_SUPPORT_AUTHORIZED='SETTLEMENT_SUPPORT_AUTHORIZED'
+    STAGE_BLOCK='STAGE_BLOCK'
+    NO_REQUESTED_RESIDENTS='NO_REQUESTED_RESIDENTS'
+    HABITAT_CAPACITY_LIMIT='HABITAT_CAPACITY_LIMIT'
+    ORIGIN_POPULATION_LIMIT='ORIGIN_POPULATION_LIMIT'
+    INSUFFICIENT_PUBLIC_FUNDS='INSUFFICIENT_PUBLIC_FUNDS'
+    CAPABILITY_OR_OBJECTIVE_BLOCK='CAPABILITY_OR_OBJECTIVE_BLOCK'
+    BLOCKED_REQUIRED_INPUT_UNKNOWN='BLOCKED_REQUIRED_INPUT_UNKNOWN'
+
+@dataclass(frozen=True)
+class SettlementSupportRequest:
+    id: str
+    year: int
+    node_id: str
+    support_account_id: str
+    requested_residents: int
+    support_cost: D
+    required_fact_keys: tuple[str,...]=()
+    currency_unit: str='MODEL_CURRENCY'
+    population_unit: str='PEOPLE_EQUIVALENT'
+    request_version: str='SETTLEMENT_SUPPORT_REQUEST_V1'
+
+    def validate_protocol(self):
+        if not self.id or not self.node_id or not self.support_account_id:
+            raise ValueError('settlement support request identity incomplete')
+        if self.year<0 or self.requested_residents<0 or D(self.support_cost)<0:
+            raise ValueError('settlement support request values invalid')
+        if tuple(self.required_fact_keys)!=BUILD5_SETTLEMENT_SUPPORT_REQUIRED_FACT_KEYS:
+            raise ValueError('settlement support request must declare exact Test 011A fact contract')
+        if not self.currency_unit or not self.population_unit:
+            raise ValueError('settlement support request units missing')
+        return self
+
+@dataclass(frozen=True)
+class SettlementSupportDecision:
+    id: str
+    request_id: str
+    actor_id: str
+    outcome: SettlementSupportDecisionOutcome
+    authorized_residents: int
+    support_amount: D
+    reason: str
+    reason_code: SettlementSupportReasonCode
+    unknown_input_keys: tuple[str,...]=()
+    input_snapshot_ref: str=''
+    policy_version: str=''
+    decision_version: str='SETTLEMENT_SUPPORT_DECISION_V1'
+
+    def validate_protocol(self,request:SettlementSupportRequest|None=None):
+        if not self.id or not self.request_id or not self.actor_id:
+            raise ValueError('settlement support decision identity incomplete')
+        if not self.input_snapshot_ref or not self.policy_version:
+            raise ValueError('settlement support decision requires snapshot and policy version')
+        if self.authorized_residents<0 or D(self.support_amount)<0:
+            raise ValueError('negative settlement support authorization')
+        if self.outcome==SettlementSupportDecisionOutcome.AUTHORIZE:
+            if self.authorized_residents<=0:
+                raise ValueError('AUTHORIZE requires positive resident count')
+        elif self.authorized_residents!=0 or D(self.support_amount)!=D('0'):
+            raise ValueError('non-AUTHORIZE settlement decision cannot authorize values')
+        if self.unknown_input_keys and self.outcome!=SettlementSupportDecisionOutcome.BLOCKED_UNKNOWN:
+            raise ValueError('required unknown settlement inputs must produce BLOCKED_UNKNOWN')
+        if self.outcome==SettlementSupportDecisionOutcome.BLOCKED_UNKNOWN:
+            if not self.unknown_input_keys:
+                raise ValueError('BLOCKED_UNKNOWN requires unknown settlement inputs')
+            if self.reason_code!=SettlementSupportReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN:
+                raise ValueError('BLOCKED_UNKNOWN requires blocked-unknown reason code')
+        if request is not None:
+            request.validate_protocol()
+            if request.id!=self.request_id:
+                raise ValueError('settlement support decision/request lineage mismatch')
+            if self.outcome==SettlementSupportDecisionOutcome.AUTHORIZE:
+                if self.authorized_residents>request.requested_residents:
+                    raise ValueError('settlement support authorization exceeds request')
+                if D(self.support_amount)!=D(request.support_cost):
+                    raise ValueError('settlement support amount/request mismatch')
+        return self
+
 BUILD5_REQUIRED_UNDERWRITING_KEYS=(
     'underwriting.PRICE',
     'underwriting.EXPLORATION_CAPEX',
@@ -716,6 +808,7 @@ class ColonyState:
     cash: D=D('0')
     productive_capital: D=D('0')
     infrastructure: D=D('0')
+    habitat_capacity: int=0
     resource_inventory: D=D('0')
     import_inventory: D=D('0')
     production_capacity: D=D('0')

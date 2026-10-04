@@ -8,7 +8,7 @@ from typing import Dict, Tuple
 from .build4 import Build4Kernel, OwnershipStake
 from .kernel import InvariantError
 from .model import D, TxPurpose, AssetKind, NodeKind, AccountKind
-from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome, SaleDecisionOutcome, SurplusDistributionDecisionOutcome
+from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome, SaleDecisionOutcome, SurplusDistributionDecisionOutcome, SettlementSupportDecisionOutcome
 from .scheduler import DeterministicScheduler
 from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
 from .accounting import SurplusDecompositionRecord
@@ -23,6 +23,11 @@ from .surface_prospecting import (
 from .operating import OperatingCostRecord, ExtractionResolutionRecord
 from .market import CommodityMarketEnvelope, MarketClearingRecord
 from .distribution import FinancingReturnClaim, OwnerDistributionAllocation, SurplusDistributionRecord
+from .settlement import (
+    SettlementInfrastructurePlan, SettlementInfrastructureRecord,
+    SettlementStageRecord, SettlementSupportExecutionRecord,
+    derive_settlement_stage,
+)
 from .mvp_state import ActionKind
 
 @dataclass(frozen=True)
@@ -69,13 +74,16 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan','record_surplus_decomposition',
         'register_development_plan','execute_development_stage','resolve_development_plan',
         'spend_operating_cycle','resolve_operating_extraction','register_market_envelope','clear_market_sale',
-        'register_financing_return_claim','execute_surplus_distribution'
+        'register_financing_return_claim','execute_surplus_distribution',
+        'register_settlement_infrastructure_plan','execute_settlement_infrastructure',
+        'update_settlement_stage','execute_public_settlement_support'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
         'assert_mvp_invariants','mvp_fingerprint','keyed_draw','build3_fingerprint',
         'assert_vehicle_ownership','assert_build4_invariants','build4_fingerprint','uniformity_sample',
-        'assert_methodology_invariants','methodology_fingerprint','decision_epoch_state_fingerprint','market_remaining_demand','financing_return_remaining'
+        'assert_methodology_invariants','methodology_fingerprint','decision_epoch_state_fingerprint','market_remaining_demand','financing_return_remaining',
+        'settlement_habitat_headroom','settlement_stage_for'
     })
     SCHEDULED_CONTROL_METHODS=frozenset({
         'seal_for_scheduled_execution','scheduled_event_context','begin_decision_epoch','complete_decision_epoch'
@@ -104,6 +112,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.market_clearing_records: list[MarketClearingRecord]=[]
         self.financing_return_claims: Dict[str,FinancingReturnClaim]={}
         self.surplus_distribution_records: list[SurplusDistributionRecord]=[]
+        self.settlement_infrastructure_plans: Dict[str,SettlementInfrastructurePlan]={}
+        self.settlement_infrastructure_records: list[SettlementInfrastructureRecord]=[]
+        self.settlement_stage_records: list[SettlementStageRecord]=[]
+        self.settlement_support_records: list[SettlementSupportExecutionRecord]=[]
         self.decision_epoch_chain_id: str|None=None
         self.active_decision_epoch_id: str|None=None
         self._decision_epoch_open_state_fingerprint=None
@@ -311,6 +323,187 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             planned,actual,before_resource,D(resource.remaining),before_inventory,
             D(colony.resource_inventory),evt.id)
         self.extraction_resolution_records.append(rec)
+        return rec
+
+    def register_settlement_infrastructure_plan(self,plan:SettlementInfrastructurePlan):
+        plan.validate()
+        if plan.id in self.settlement_infrastructure_plans:
+            raise InvariantError('duplicate settlement infrastructure plan')
+        if plan.node_id not in self.state.nodes or self.state.nodes[plan.node_id].kind!=NodeKind.OFFWORLD:
+            raise InvariantError('settlement infrastructure plan requires offworld node')
+        for aid in (plan.source_account_id,plan.supplier_account_id):
+            if aid not in self.state.accounts:
+                raise InvariantError('settlement infrastructure plan account missing')
+            if self.state.accounts[aid].node_id!=plan.node_id:
+                raise InvariantError('settlement infrastructure plan account/node mismatch')
+        self.settlement_infrastructure_plans[plan.id]=plan
+        return plan
+
+    def settlement_habitat_headroom(self,node_id):
+        c=self.colonies.setdefault(node_id,ColonyState(node_id))
+        return max(0,int(c.habitat_capacity)-int(c.population))
+
+    def settlement_stage_for(self,node_id):
+        c=self.colonies.setdefault(node_id,ColonyState(node_id))
+        return derive_settlement_stage(
+            c.production_capacity,c.population,c.infrastructure,
+            c.habitat_capacity,c.external_subsidy)
+
+    def execute_settlement_infrastructure(self,year,plan_id,actor_id='SPN',parent_ids=()):
+        year=int(year)
+        if plan_id not in self.settlement_infrastructure_plans:
+            raise InvariantError('settlement infrastructure plan missing')
+        plan=self.settlement_infrastructure_plans[plan_id]
+        plan.validate()
+        if year!=plan.year:
+            raise InvariantError('settlement infrastructure plan year mismatch')
+        if any(r.plan_id==plan.id and r.outcome=='INSTALLED'
+               for r in self.settlement_infrastructure_records):
+            raise InvariantError('settlement infrastructure plan already installed')
+        source=self.state.accounts.get(plan.source_account_id)
+        supplier=self.state.accounts.get(plan.supplier_account_id)
+        if source is None or supplier is None:
+            raise InvariantError('settlement infrastructure account missing')
+        if source.node_id!=plan.node_id or supplier.node_id!=plan.node_id:
+            raise InvariantError('settlement infrastructure account/node mismatch')
+        colony=self.colonies.setdefault(plan.node_id,ColonyState(plan.node_id))
+        before_infra=D(colony.infrastructure)
+        before_capacity=int(colony.habitat_capacity)
+        cost=D(plan.infrastructure_cost)
+        if source.balance<cost:
+            evt=self.event(
+                year,actor_id,ActionKind.CONSTRUCT,'BLOCKED_INSUFFICIENT_FUNDS',
+                (plan.id,str(cost),str(source.balance)),tuple(parent_ids))
+            rec=SettlementInfrastructureRecord(
+                year,plan.id,plan.node_id,'BLOCKED_INSUFFICIENT_FUNDS',
+                D('0'),0,before_infra,before_infra,before_capacity,before_capacity,
+                '',evt.id)
+            rec.validate()
+            self.settlement_infrastructure_records.append(rec)
+            return rec
+
+        tx=self.transfer(
+            year,plan.source_account_id,plan.supplier_account_id,cost,TxPurpose.CAPEX,
+            supplier_location=supplier.node_id,asset_location=plan.node_id,
+            parent_ids=(plan.id,*tuple(parent_ids)))
+        colony.infrastructure+=cost
+        colony.habitat_capacity+=int(plan.habitat_capacity)
+        evt=self.event(
+            year,actor_id,ActionKind.CONSTRUCT,'SETTLEMENT_INFRASTRUCTURE_INSTALLED',
+            (plan.id,str(cost),str(plan.habitat_capacity),tx.id),tuple(parent_ids))
+        rec=SettlementInfrastructureRecord(
+            year,plan.id,plan.node_id,'INSTALLED',cost,int(plan.habitat_capacity),
+            before_infra,D(colony.infrastructure),before_capacity,int(colony.habitat_capacity),
+            tx.id,evt.id)
+        rec.validate()
+        self.settlement_infrastructure_records.append(rec)
+        return rec
+
+    def update_settlement_stage(self,year,node_id,actor_id='SETTLEMENT_STAGE_SYSTEM',parent_ids=()):
+        year=int(year)
+        if node_id not in self.state.nodes or self.state.nodes[node_id].kind!=NodeKind.OFFWORLD:
+            raise InvariantError('settlement stage requires offworld node')
+        colony=self.colonies.setdefault(node_id,ColonyState(node_id))
+        productive=[
+            a for a in self.state.assets.values()
+            if a.node_id==node_id and a.kind==AssetKind.PRODUCTIVE
+        ]
+        colony.productive_capital=sum((D(a.book_value) for a in productive),D('0'))
+        colony.production_capacity=sum((D(a.capacity) for a in productive),D('0'))
+        prior=colony.stage
+        stage=derive_settlement_stage(
+            colony.production_capacity,colony.population,colony.infrastructure,
+            colony.habitat_capacity,colony.external_subsidy)
+        colony.stage=stage
+        evt=self.event(
+            year,actor_id,ActionKind.SETTLE,stage,
+            (node_id,str(colony.population),str(colony.infrastructure),
+             str(colony.habitat_capacity),str(colony.productive_capital),
+             str(colony.production_capacity),str(colony.external_subsidy)),
+            tuple(parent_ids))
+        rec=SettlementStageRecord(
+            year,node_id,prior,stage,D(colony.productive_capital),
+            D(colony.production_capacity),int(colony.population),
+            D(colony.infrastructure),int(colony.habitat_capacity),
+            D(colony.external_subsidy),evt.id)
+        rec.validate()
+        self.settlement_stage_records.append(rec)
+        return rec
+
+    def execute_public_settlement_support(self,year,actor_id,request,decision,parent_ids=()):
+        year=int(year)
+        request.validate_protocol(); decision.validate_protocol(request)
+        if decision.outcome!=SettlementSupportDecisionOutcome.AUTHORIZE:
+            raise InvariantError('settlement support execution requires AUTHORIZE decision')
+        if any(r.decision_id==decision.id for r in self.settlement_support_records):
+            raise InvariantError('settlement support decision already executed')
+        if actor_id!=decision.actor_id or actor_id not in self.agents:
+            raise InvariantError('settlement support actor/decision mismatch')
+        actor=self.agents[actor_id]
+        if actor.kind.value!='PUBLIC':
+            raise InvariantError('settlement support actor must be public')
+        if 'MIGRATE' not in actor.capabilities or 'SETTLEMENT_SUPPORT' not in actor.capabilities:
+            raise InvariantError('public Agent lacks settlement support capability')
+        if 'PUBLIC_SETTLEMENT' not in actor.objectives:
+            raise InvariantError('public Agent lacks settlement support objective')
+        if request.year!=year:
+            raise InvariantError('settlement support year mismatch')
+        if request.node_id not in self.colonies:
+            raise InvariantError('settlement colony missing')
+        colony=self.colonies[request.node_id]
+        if colony.stage!='EXTRACTION_ENCLAVE':
+            raise InvariantError('settlement support requires EXTRACTION_ENCLAVE')
+        if request.support_account_id not in self.state.accounts:
+            raise InvariantError('settlement support account missing')
+        support_account=self.state.accounts[request.support_account_id]
+        if support_account.node_id!=request.node_id:
+            raise InvariantError('settlement support account/node mismatch')
+        if self.population is None:
+            raise InvariantError('settlement support population ledger missing')
+        residents=int(decision.authorized_residents)
+        if residents<=0 or residents>request.requested_residents:
+            raise InvariantError('invalid authorized settlement population')
+        if residents>self.settlement_habitat_headroom(request.node_id):
+            raise InvariantError('settlement migration exceeds habitat headroom')
+        if residents>self.population.earth:
+            raise InvariantError('settlement migration exceeds Earth population')
+        support=D(decision.support_amount)
+        if support!=D(request.support_cost):
+            raise InvariantError('settlement support amount/request mismatch')
+        if self.state.accounts[actor.account_id].balance<support:
+            raise InvariantError('public settlement support funds unavailable')
+
+        earth_before=int(self.population.earth)
+        off_before=int(self.population.offworld.get(request.node_id,0))
+        total_before=int(self.population.total())
+        subsidy_before=D(colony.external_subsidy)
+
+        txid=''
+        if support>0:
+            tx=self.transfer(
+                year,actor.account_id,request.support_account_id,support,
+                TxPurpose.PUBLIC_SUBSIDY,
+                parent_ids=(decision.id,request.id,*tuple(parent_ids)))
+            txid=tx.id
+            colony.external_subsidy+=support
+            colony.cash+=support
+
+        migration_event=self.migrate(
+            year,actor_id,request.node_id,residents,
+            parent_ids=(decision.id,request.id,*((txid,) if txid else ()),*tuple(parent_ids)))
+        stage_record=self.update_settlement_stage(
+            year,request.node_id,parent_ids=(decision.id,migration_event.id,*tuple(parent_ids)))
+        if stage_record.new_stage!='DEPENDENT_SETTLEMENT':
+            raise InvariantError('authorized settlement support did not produce dependent settlement')
+
+        rec=SettlementSupportExecutionRecord(
+            year,actor_id,decision.id,request.node_id,residents,support,
+            earth_before,int(self.population.earth),off_before,
+            int(self.population.offworld.get(request.node_id,0)),
+            total_before,int(self.population.total()),subsidy_before,
+            D(colony.external_subsidy),txid,migration_event.id,stage_record.event_id)
+        rec.validate()
+        self.settlement_support_records.append(rec)
         return rec
 
     def register_financing_return_claim(self,claim:FinancingReturnClaim):
@@ -942,6 +1135,64 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if r.cash_total_before!=r.cash_total_after: raise InvariantError('resolution cash reconciliation')
         if 'EARTH_MARKET_v0' in self.agents: raise InvariantError('EARTH_MARKET_v0 cannot be agent')
         for r in self.surplus_decompositions: r.validate()
+        for c in self.colonies.values():
+            if c.population<0 or c.habitat_capacity<0:
+                raise InvariantError('negative colony population/habitat capacity')
+            if min(D(c.cash),D(c.productive_capital),D(c.infrastructure),
+                   D(c.resource_inventory),D(c.import_inventory),
+                   D(c.production_capacity),D(c.operating_need),D(c.external_subsidy))<0:
+                raise InvariantError('negative colony stock-flow state')
+        if self.population is not None:
+            if self.population.earth<0 or any(v<0 for v in self.population.offworld.values()):
+                raise InvariantError('negative population ledger')
+            for node,count in self.population.offworld.items():
+                colony=self.colonies.get(node)
+                if colony is not None and colony.population!=count:
+                    raise InvariantError('population ledger/colony mismatch')
+        for plan in self.settlement_infrastructure_plans.values():
+            try:
+                plan.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+        successful_plans=set()
+        txids_all={t.id:t for t in self.state.transactions}
+        for r in self.settlement_infrastructure_records:
+            try:
+                r.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if r.outcome=='INSTALLED':
+                if r.plan_id in successful_plans:
+                    raise InvariantError('duplicate installed settlement infrastructure plan')
+                successful_plans.add(r.plan_id)
+                tx=txids_all.get(r.transaction_id)
+                if tx is None or tx.purpose!=TxPurpose.CAPEX or D(tx.amount)!=D(r.cost):
+                    raise InvariantError('settlement infrastructure transaction drift')
+        for r in self.settlement_stage_records:
+            try:
+                r.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+        for node in {r.node_id for r in self.settlement_stage_records}:
+            colony=self.colonies[node]
+            expected=derive_settlement_stage(
+                colony.production_capacity,colony.population,colony.infrastructure,
+                colony.habitat_capacity,colony.external_subsidy)
+            if colony.stage!=expected:
+                raise InvariantError('settlement stage drift')
+        seen_support=set()
+        for r in self.settlement_support_records:
+            if r.decision_id in seen_support:
+                raise InvariantError('duplicate settlement support decision')
+            seen_support.add(r.decision_id)
+            try:
+                r.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if r.support_amount>0:
+                tx=txids_all.get(r.support_transaction_id)
+                if tx is None or tx.purpose!=TxPurpose.PUBLIC_SUBSIDY or D(tx.amount)!=D(r.support_amount):
+                    raise InvariantError('settlement support transaction drift')
         for c in self.financing_return_claims.values():
             try:
                 c.validate()
@@ -1134,7 +1385,24 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
              tuple((a.owner_id,a.destination_account_id,str(a.ownership_share),str(a.amount),a.transaction_id)
                    for a in r.owner_allocations),
              str(r.closing_project_cash),r.transaction_ids,r.event_id,r.record_version)
-             for r in self.surplus_distribution_records]}
+             for r in self.surplus_distribution_records],
+          'settlement_infrastructure_plans':sorted((x.id,x.year,x.node_id,x.source_account_id,x.supplier_account_id,
+             str(x.infrastructure_cost),x.habitat_capacity,x.source_ref,x.epistemic_status,x.plan_version)
+             for x in self.settlement_infrastructure_plans.values()),
+          'settlement_infrastructure_records':[(r.year,r.plan_id,r.node_id,r.outcome,str(r.cost),
+             r.habitat_capacity_added,str(r.infrastructure_before),str(r.infrastructure_after),
+             r.habitat_capacity_before,r.habitat_capacity_after,r.transaction_id,r.event_id,r.record_version)
+             for r in self.settlement_infrastructure_records],
+          'settlement_stage_records':[(r.year,r.node_id,r.prior_stage,r.new_stage,str(r.productive_capital),
+             str(r.production_capacity),r.population,str(r.infrastructure),r.habitat_capacity,
+             str(r.external_subsidy),r.event_id,r.rule_version)
+             for r in self.settlement_stage_records],
+          'settlement_support_records':[(r.year,r.actor_id,r.decision_id,r.node_id,r.authorized_residents,
+             str(r.support_amount),r.earth_population_before,r.earth_population_after,
+             r.offworld_population_before,r.offworld_population_after,r.total_population_before,
+             r.total_population_after,str(r.subsidy_before),str(r.subsidy_after),
+             r.support_transaction_id,r.migration_event_id,r.stage_event_id,r.record_version)
+             for r in self.settlement_support_records]}
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload
