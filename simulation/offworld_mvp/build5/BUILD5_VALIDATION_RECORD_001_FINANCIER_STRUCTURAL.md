@@ -1,6 +1,6 @@
 # Build 5 Validation Record 001 — Autonomous Financier Structural Test
 
-**Status:** STRUCTURAL PASS / PARAMETER AUTHORIZATION PENDING / PRE-CONTRACT / SINGLE-AUTHORITY
+**Status:** STRUCTURAL PASS / OPERATOR RUN RECORDED / PARAMETERS TEST_ONLY / PRE-CONTRACT / SINGLE-AUTHORITY
 **Date:** 2026-10-04
 **Branch:** `offworld-mvp-build5-autonomous-financier`
 **Implementation head originally validated:** `4045201018e4c35266cd17fe62a08234099eef8b`
@@ -11,9 +11,15 @@
 
 The first bounded autonomous private-financier implementation is executable and passes its structural, isolation, behavioral, replay, and accounting tests.
 
-It is **not yet a final Test 001 PASS** because the consequential policy parameter values used by the verification fixture remain explicitly `TEST_ONLY`, not project-owner-authorized policy baseline values.
+**Build 5 Test 001 is closed as a structural autonomous-Agent mechanics result.**
 
-No synthetic fixture value has been promoted by repeated use.
+Its synthetic numeric policy parameters remain explicitly `TEST_ONLY / NOT_POLICY_BASELINE`. Parameter authorization is not required for this structural closure because the synthetic scenario values are not being asserted as calibrated policy or forecast inputs.
+
+The project owner separately executed the synthetic scenario at commit `0553b11440f794da4c8c3fb1ad0dc3fe8c91653e`. That descriptive observation is preserved in:
+
+`BUILD5_OPERATOR_RUN_RECORD_001_SYNTHETIC_FINANCIER.md`
+
+The operator-run record is not formal qualification evidence and does not promote any synthetic fixture value.
 
 ## 2. Regression result
 
@@ -228,7 +234,7 @@ and:
 
 These are diagnostic fixture statistics, not estimates of real-world frequencies or uncertainty.
 
-## 13. Remaining gate
+## 13. Parameter standing
 
 The current parameter manifest is deliberately:
 
@@ -247,16 +253,22 @@ Current synthetic fixture values are:
 
 These values have **not** been interpreted as authorized by the statement "Agent authorized", because that statement authorized implementation, not unspecified numbers.
 
-A final Test 001 PASS requires an explicit project-owner act authorizing these values or replacements.
+They also were **not** authorized by the project owner's subsequent operator run. The run records observed behavior under the synthetic fixture only.
+
+Parameter calibration and any future policy-baseline authorization are separate work from Test 001 structural closure. No empirical, forecast, or production policy authority is earned here.
 
 ## 14. Standing
 
 Build 5 autonomous-financier code is now implemented and structurally verified.
 
-Current standing remains:
+Current standing is:
 
 - PRE-CONTRACT;
 - SINGLE-AUTHORITY;
 - NOT_EMPIRICALLY_VALIDATED;
 - AUTONOMOUS FINANCIER IMPLEMENTATION AUTHORIZED;
-- POLICY PARAMETER BASELINE NOT YET AUTHORIZED.
+- BUILD 5 TEST 001 STRUCTURAL OBJECTIVE: PASS;
+- SYNTHETIC OPERATOR SCENARIO: RECORDED DESCRIPTIVELY;
+- POLICY PARAMETERS: TEST_ONLY / NOT_POLICY_BASELINE;
+- POLICY PARAMETER CALIBRATION: UNEARNED;
+- PRODUCTION FORECAST STATUS: UNEARNED.
