@@ -26,6 +26,7 @@ class ScheduledRunResult:
     input_snapshot_ids: Tuple[str,...]
     parameter_manifest_ids: Tuple[str,...]
     table_manifest_ids: Tuple[str,...]
+    commit_code_linkage: str
     provenance_fingerprint: str
     execution_fingerprint: str
     result_fingerprint: str
@@ -151,6 +152,7 @@ class ScheduledSimulationRuntime:
           'input_snapshot_ids':self.provenance.input_snapshot_ids,
           'parameter_manifest_ids':self.provenance.parameter_manifest_ids,
           'table_manifest_ids':self.provenance.table_manifest_ids,
+          'commit_code_linkage':self.provenance.commit_code_linkage,
           'provenance_fingerprint':provenance_fp,
           'verification_status':'SCHEDULED_EXECUTION_VERIFIED',
           'validation_status':'NOT_EMPIRICALLY_VALIDATED'}
@@ -161,4 +163,5 @@ class ScheduledSimulationRuntime:
             event_results,'SCHEDULED_EXECUTION_VERIFIED','NOT_EMPIRICALLY_VALIDATED',
             self.provenance.repository,self.provenance.git_commit,self.provenance.code_tree_sha256,
             self.provenance.input_snapshot_ids,self.provenance.parameter_manifest_ids,
-            self.provenance.table_manifest_ids,provenance_fp,execution_fp,result_fp)
+            self.provenance.table_manifest_ids,self.provenance.commit_code_linkage,
+            provenance_fp,execution_fp,result_fp)
