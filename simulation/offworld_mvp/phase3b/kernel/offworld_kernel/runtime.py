@@ -7,6 +7,7 @@ from .kernel import InvariantError
 from .methodology import MethodologyHardenedBuild4Kernel
 from .scheduler import ScheduledEvent, Phase
 from .policy import DecisionSnapshot, PolicyContext, build_decision_snapshot
+from .provenance import ReplayProvenance
 
 @dataclass(frozen=True)
 class ScheduledRunResult:
@@ -19,6 +20,14 @@ class ScheduledRunResult:
     event_results: Tuple[Tuple[str,str],...]
     verification_status: str
     validation_status: str
+    repository: str
+    git_commit: str
+    code_tree_sha256: str
+    input_snapshot_ids: Tuple[str,...]
+    parameter_manifest_ids: Tuple[str,...]
+    table_manifest_ids: Tuple[str,...]
+    provenance_fingerprint: str
+    execution_fingerprint: str
     result_fingerprint: str
 
 class ScheduledSimulationRuntime:
@@ -29,10 +38,11 @@ class ScheduledSimulationRuntime:
     """
     runtime_version='PHASE3B_SCHEDULED_RUNTIME_0_1'
 
-    def __init__(self,kernel:MethodologyHardenedBuild4Kernel):
+    def __init__(self,kernel:MethodologyHardenedBuild4Kernel,provenance:ReplayProvenance|None=None):
         if kernel.strict_scheduled_execution:
             raise InvariantError('kernel already sealed by another scheduled runtime')
         self.kernel=kernel
+        self.provenance=(provenance or ReplayProvenance.from_kernel(kernel)).validate()
         self._handlers: Dict[str,Callable[[MethodologyHardenedBuild4Kernel,ScheduledEvent],Any]]={}
         self._policy_bindings: Dict[str,tuple[str,DecisionSnapshot,str,Callable[[PolicyContext],Any]]]={}
         self._sealed=False
@@ -121,6 +131,12 @@ class ScheduledSimulationRuntime:
         self._ran=True
         final_fp=self.kernel.methodology_fingerprint()
         event_results=tuple((eid,str(result)) for eid,result in zip(self.kernel.scheduler.execution_log,raw))
+        execution_payload={
+          'execution_log':tuple(self.kernel.scheduler.execution_log),
+          'event_results':event_results,
+          'final_fingerprint':final_fp}
+        execution_fp=sha256(json.dumps(execution_payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+        provenance_fp=self.provenance.fingerprint()
         payload={
           'runtime_version':self.runtime_version,
           'run_mode':'SCHEDULED_MVP',
@@ -128,12 +144,21 @@ class ScheduledSimulationRuntime:
           'plan_fingerprint':self._plan_fingerprint,
           'initial_fingerprint':self._initial_fingerprint,
           'final_fingerprint':final_fp,
-          'execution_log':tuple(self.kernel.scheduler.execution_log),
-          'event_results':event_results,
+          'execution_fingerprint':execution_fp,
+          'repository':self.provenance.repository,
+          'git_commit':self.provenance.git_commit,
+          'code_tree_sha256':self.provenance.code_tree_sha256,
+          'input_snapshot_ids':self.provenance.input_snapshot_ids,
+          'parameter_manifest_ids':self.provenance.parameter_manifest_ids,
+          'table_manifest_ids':self.provenance.table_manifest_ids,
+          'provenance_fingerprint':provenance_fp,
           'verification_status':'SCHEDULED_EXECUTION_VERIFIED',
           'validation_status':'NOT_EMPIRICALLY_VALIDATED'}
         result_fp=sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
         return ScheduledRunResult(
             'SCHEDULED_MVP',self.kernel.scheduler.contract_version,self._plan_fingerprint,
             self._initial_fingerprint,final_fp,tuple(self.kernel.scheduler.execution_log),
-            event_results,'SCHEDULED_EXECUTION_VERIFIED','NOT_EMPIRICALLY_VALIDATED',result_fp)
+            event_results,'SCHEDULED_EXECUTION_VERIFIED','NOT_EMPIRICALLY_VALIDATED',
+            self.provenance.repository,self.provenance.git_commit,self.provenance.code_tree_sha256,
+            self.provenance.input_snapshot_ids,self.provenance.parameter_manifest_ids,
+            self.provenance.table_manifest_ids,provenance_fp,execution_fp,result_fp)
