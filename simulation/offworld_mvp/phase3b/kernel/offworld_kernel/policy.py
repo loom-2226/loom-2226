@@ -15,7 +15,7 @@ class FactState(str,Enum):
     UNKNOWN='UNKNOWN'
     BLOCKED='BLOCKED'
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class SnapshotFact:
     key: str
     state: FactState
@@ -28,7 +28,7 @@ class SnapshotFact:
         if self.state==FactState.KNOWN and self.value is None:
             raise InvariantError('KNOWN snapshot fact requires value')
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class DecisionSnapshot:
     agent_id: str
     agent_kind: str
@@ -59,7 +59,7 @@ class DecisionSnapshot:
           'admitted_facts':tuple((f.key,f.state.value,f.value,f.source_ref) for f in self.admitted_facts)}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class PolicyContext:
     snapshot: DecisionSnapshot
     snapshot_ref: str
