@@ -10,6 +10,7 @@ from .kernel import InvariantError
 from .model import D
 from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState
 from .scheduler import DeterministicScheduler
+from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
 
 @dataclass(frozen=True)
 class ResolutionRecord:
@@ -40,7 +41,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'create_wip','add_wip_expenditure','commission_wip','depreciate','amortize_knowledge',
         'create_carry_reservation','spend_carry_reservation','lapse_carry_reservation','lapse_commitment',
         'boundary_purchase','consume_market_resource',
-        'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate'
+        'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
@@ -61,6 +62,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.aggregates: Dict[str,AggregateState]={}
         self.entity_asset_refs: Dict[str,EntityAssetRef]={}
         self.resolution_records: list[ResolutionRecord]=[]
+        self.resolution_exposure_records: list[ResolutionExposureRecord]=[]
         self._strict_scheduled_execution=False
         self._scheduled_execution_depth=0
         self._scheduled_current_event_id=None
@@ -200,6 +202,36 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                    cash=cash,members=members,assets=','.join(sorted(assets)))
         return record
 
+    def expose_agent_by_plan(self,year,plan:ResolutionExposurePlan,agent:AgentState,asset_refs=()):
+        if plan.aggregate_id not in self.aggregates:
+            raise InvariantError('resolution exposure aggregate missing')
+        if plan.selected_agent_id!=agent.id:
+            raise InvariantError('resolution exposure selected agent mismatch')
+        agg=self.aggregates[plan.aggregate_id]
+        fraction=plan.validate_and_fraction(agg.member_count)
+
+        cash=self.state.accounts[agg.account_id].balance*fraction
+        resources={k:D(v)*fraction for k,v in agg.resource_holdings.items()}
+        claims={k:D(v)*fraction for k,v in agg.claim_holdings.items()}
+        histories=tuple(agg.history_refs)
+
+        record=self.expose_agent_from_aggregate(
+            year,plan.aggregate_id,agent,cash,plan.members_exposed,
+            tuple(asset_refs),resources,claims,histories)
+
+        exposure=ResolutionExposureRecord(
+            plan.plan_id,record.resolution_id,plan.aggregate_id,agent.id,plan.members_exposed,
+            plan.selection_basis.value,plan.selection_ref,plan.allocation_basis.value,
+            plan.allocation_ref,fraction)
+        self.resolution_exposure_records.append(exposure)
+        self.audit('AGGREGATE_TO_AGENT_EXPOSURE_PLAN',year,
+                   plan_id=plan.plan_id,resolution_id=record.resolution_id,
+                   aggregate=plan.aggregate_id,agent=agent.id,
+                   members=plan.members_exposed,selection_basis=plan.selection_basis.value,
+                   selection_ref=plan.selection_ref,allocation_basis=plan.allocation_basis.value,
+                   allocation_ref=plan.allocation_ref,allocation_fraction=fraction)
+        return exposure
+
     def assert_methodology_invariants(self):
         self.assert_build4_invariants()
         for s in self.systems.values():
@@ -227,5 +259,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
           'resolutions':[(r.resolution_id,r.year,r.aggregate_id,r.agent_id,str(r.cash_reclassified),r.members_reclassified,
              r.asset_refs,tuple((k,str(v)) for k,v in r.resource_reclassified),tuple((k,str(v)) for k,v in r.claim_reclassified),
              r.history_refs,r.transaction_count_before,r.transaction_count_after,str(r.cash_total_before),str(r.cash_total_after))
-             for r in self.resolution_records]}
+             for r in self.resolution_records],
+          'resolution_exposure_records':[(r.plan_id,r.resolution_id,r.aggregate_id,r.agent_id,r.members_exposed,
+             r.selection_basis,r.selection_ref,r.allocation_basis,r.allocation_ref,str(r.allocation_fraction))
+             for r in self.resolution_exposure_records]}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
