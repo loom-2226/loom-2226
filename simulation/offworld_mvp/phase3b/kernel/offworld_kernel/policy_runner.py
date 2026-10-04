@@ -16,6 +16,7 @@ from .operating_protocol import build_operating_cycle_decision, required_unknown
 from .market_protocol import build_sale_decision, required_unknown_sale_inputs
 from .distribution_protocol import build_surplus_distribution_decision, required_unknown_surplus_inputs
 from .settlement_protocol import build_settlement_support_decision, required_unknown_settlement_inputs
+from .transport_protocol import build_transport_settlement_decision, required_unknown_transport_settlement_inputs
 from .mvp_state import (
     FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest,
     ExplorationDecisionOutcome, ExplorationReasonCode, ExplorationRequest,
@@ -25,6 +26,9 @@ from .mvp_state import (
     SaleDecisionOutcome, SaleReasonCode, SaleDecisionRequest,
     SurplusDistributionDecisionOutcome, SurplusDistributionReasonCode, SurplusDistributionRequest,
     SettlementSupportDecisionOutcome, SettlementSupportReasonCode, SettlementSupportRequest,
+)
+from .transport import (
+    TransportSettlementDecisionOutcome, TransportSettlementReasonCode, TransportSettlementRequest,
 )
 from .policy import DecisionSnapshot
 from .policies.manifest import FinancierPolicyManifest, policy_source_bytes
@@ -67,6 +71,11 @@ from .policies.public_settlement_v1 import (
     POLICY_CONTRACT as PUBLIC_SETTLEMENT_CONTRACT,
     POLICY_ID as PUBLIC_SETTLEMENT_POLICY_ID,
     SEMANTIC_VERSION as PUBLIC_SETTLEMENT_SEMANTIC_VERSION,
+)
+from .policies.public_settlement_transport_v1 import (
+    POLICY_CONTRACT as PUBLIC_SETTLEMENT_TRANSPORT_CONTRACT,
+    POLICY_ID as PUBLIC_SETTLEMENT_TRANSPORT_POLICY_ID,
+    SEMANTIC_VERSION as PUBLIC_SETTLEMENT_TRANSPORT_SEMANTIC_VERSION,
 )
 
 FORBIDDEN_IMPORT_ROOTS={
@@ -300,6 +309,35 @@ def public_settlement_policy_version(source:bytes|None=None)->str:
     h.update(source)
     h.update(public_settlement_contract_hash().encode())
     return f'{PUBLIC_SETTLEMENT_POLICY_ID}:{PUBLIC_SETTLEMENT_SEMANTIC_VERSION}:{h.hexdigest()}'
+
+def transport_settlement_request_to_wire(q:TransportSettlementRequest):
+    return {
+        'id':q.id,'departure_time':str(q.departure_time),
+        'origin_node_id':q.origin_node_id,'destination_node_id':q.destination_node_id,
+        'support_account_id':q.support_account_id,
+        'transport_account_id':q.transport_account_id,
+        'requested_residents':q.requested_residents,
+        'support_cost':str(q.support_cost),
+        'transport_relationship_id':q.transport_relationship_id,
+        'technology_state_id':q.technology_state_id,
+        'required_fact_keys':list(q.required_fact_keys),
+        'currency_unit':q.currency_unit,'population_unit':q.population_unit,
+        'time_unit':q.time_unit,'request_version':q.request_version,
+    }
+
+def public_settlement_transport_source_bytes()->bytes:
+    return (Path(__file__).resolve().parent/'policies'/'public_settlement_transport_v1.py').read_bytes()
+
+def public_settlement_transport_contract_hash()->str:
+    raw=json.dumps(PUBLIC_SETTLEMENT_TRANSPORT_CONTRACT,sort_keys=True,separators=(',',':')).encode()
+    return sha256(raw).hexdigest()
+
+def public_settlement_transport_policy_version(source:bytes|None=None)->str:
+    source=source if source is not None else public_settlement_transport_source_bytes()
+    h=sha256()
+    h.update(source)
+    h.update(public_settlement_transport_contract_hash().encode())
+    return f'{PUBLIC_SETTLEMENT_TRANSPORT_POLICY_ID}:{PUBLIC_SETTLEMENT_TRANSPORT_SEMANTIC_VERSION}:{h.hexdigest()}'
 
 def public_publisher_source_bytes()->bytes:
     return (Path(__file__).resolve().parent/'policies'/'public_publisher_v1.py').read_bytes()
@@ -807,3 +845,64 @@ def run_public_settlement_policy(snapshot:DecisionSnapshot,
     return PolicyExecutionResult(
         decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
 
+
+
+def run_public_settlement_transport_policy(snapshot:DecisionSnapshot,
+                                           request:TransportSettlementRequest,
+                                           decision_key:str)->PolicyExecutionResult:
+    request.validate_protocol()
+    source=public_settlement_transport_source_bytes()
+    assert_policy_source_safe(source)
+    version=public_settlement_transport_policy_version(source)
+    contract_hash=public_settlement_transport_contract_hash()
+
+    unknowns=required_unknown_transport_settlement_inputs(request,snapshot)
+    decision_id='TRSETDEC-'+sha256(
+        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
+    ).hexdigest()[:20]
+
+    if unknowns:
+        decision=build_transport_settlement_decision(
+            decision_id,request,snapshot.agent_id,
+            TransportSettlementDecisionOutcome.BLOCKED_UNKNOWN,
+            TransportSettlementReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required admitted transport-settlement inputs are unknown',
+            snapshot,version)
+        return PolicyExecutionResult(
+            decision,version,'CONTRACT_SHA256:'+contract_hash,
+            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
+            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
+            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+
+    payload={
+        'mode':'EVALUATE',
+        'policy_id':PUBLIC_SETTLEMENT_TRANSPORT_POLICY_ID,
+        'snapshot':snapshot_to_wire(snapshot),
+        'request':transport_settlement_request_to_wire(request),
+        'manifest':PUBLIC_SETTLEMENT_TRANSPORT_CONTRACT,
+        'decision_key':str(decision_key),
+    }
+    out,worker_fp=_run_worker(payload)
+    try:
+        outcome=TransportSettlementDecisionOutcome(out['outcome'])
+        reason_code=TransportSettlementReasonCode(out['reason_code'])
+        residents=int(out.get('authorized_residents',0))
+        support=out.get('support_amount','0')
+        transport=out.get('transport_amount','0')
+        relationship_id=out.get('relationship_id','')
+        technology_state_id=out.get('technology_state_id','')
+        departure_time=out.get('departure_time','0')
+        arrival_time=out.get('arrival_time','0')
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as e:
+        raise RuntimeError('public transport-settlement worker returned invalid decision payload') from e
+
+    decision=build_transport_settlement_decision(
+        decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
+        snapshot,version,authorized_residents=residents,
+        support_amount=support,transport_amount=transport,
+        relationship_id=relationship_id,technology_state_id=technology_state_id,
+        departure_time=departure_time,arrival_time=arrival_time)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)

@@ -38,7 +38,7 @@ class AgentKind(str, Enum):
     PUBLIC='PUBLIC'; PRIVATE_SPONSOR='PRIVATE_SPONSOR'; PRIVATE_FINANCIER='PRIVATE_FINANCIER'; LOCAL_FINANCIER='LOCAL_FINANCIER'
 
 class ActionKind(str, Enum):
-    EXPLORE='EXPLORE'; PUBLISH='PUBLISH'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; CONSTRUCT='CONSTRUCT'; OPERATE='OPERATE'; FAIL='FAIL'; ABANDON='ABANDON'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; REINVEST='REINVEST'; DISTRIBUTE='DISTRIBUTE'; SETTLE='SETTLE'
+    EXPLORE='EXPLORE'; PUBLISH='PUBLISH'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; CONSTRUCT='CONSTRUCT'; OPERATE='OPERATE'; FAIL='FAIL'; ABANDON='ABANDON'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; TRANSPORT='TRANSPORT'; REINVEST='REINVEST'; DISTRIBUTE='DISTRIBUTE'; SETTLE='SETTLE'
 
 @dataclass
 class AgentState:
@@ -824,4 +824,5 @@ class CausalEvent:
 class PopulationLedger:
     earth: int
     offworld: Dict[str,int]=field(default_factory=dict)
-    def total(self): return self.earth + sum(self.offworld.values())
+    in_transit: Dict[str,int]=field(default_factory=dict)
+    def total(self): return self.earth + sum(self.offworld.values()) + sum(self.in_transit.values())

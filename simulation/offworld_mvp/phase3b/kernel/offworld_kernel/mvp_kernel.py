@@ -204,5 +204,5 @@ class MVPKernel(Kernel):
         'public_information':sorted((a.id,a.publisher_id,a.source_observation_id,a.resource_id,a.channel,a.signal,a.audience,a.recipient_ids) for a in self.public_information.values()),
         'colonies':sorted((c.node_id,c.population,str(c.cash),str(c.productive_capital),str(c.infrastructure),c.habitat_capacity,str(c.resource_inventory),str(c.import_inventory),str(c.production_capacity),str(c.operating_need),str(c.external_subsidy),c.stage) for c in self.colonies.values()),
         'events':[(e.id,e.year,e.actor_id,e.action.value,e.result,e.inputs,e.parent_ids) for e in self.events],
-        'population':None if self.population is None else (self.population.earth,sorted(self.population.offworld.items()))}
+        'population':None if self.population is None else (self.population.earth,sorted(self.population.offworld.items()),sorted(self.population.in_transit.items()))}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()

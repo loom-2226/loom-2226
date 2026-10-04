@@ -29,6 +29,11 @@ from .settlement import (
     derive_settlement_stage,
 )
 from .mvp_state import ActionKind
+from .transport import (
+    TechnologyCapabilityState, TransportRelationship, TransportQualificationRecord,
+    TransportSettlementDecisionOutcome, TransportSettlementRequest, TransportSettlementDecision,
+    PassengerTransportDepartureRecord, PassengerTransportArrivalRecord,
+)
 
 @dataclass(frozen=True)
 class ResolutionRecord:
@@ -76,14 +81,16 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'spend_operating_cycle','resolve_operating_extraction','register_market_envelope','clear_market_sale',
         'register_financing_return_claim','execute_surplus_distribution',
         'register_settlement_infrastructure_plan','execute_settlement_infrastructure',
-        'update_settlement_stage','execute_public_settlement_support'
+        'update_settlement_stage','execute_public_settlement_support',
+        'register_technology_capability_state','register_transport_relationship',
+        'execute_transport_settlement_departure','execute_passenger_transport_arrival'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
         'assert_mvp_invariants','mvp_fingerprint','keyed_draw','build3_fingerprint',
         'assert_vehicle_ownership','assert_build4_invariants','build4_fingerprint','uniformity_sample',
         'assert_methodology_invariants','methodology_fingerprint','decision_epoch_state_fingerprint','market_remaining_demand','financing_return_remaining',
-        'settlement_habitat_headroom','settlement_stage_for'
+        'settlement_habitat_headroom','settlement_stage_for','transport_qualification'
     })
     SCHEDULED_CONTROL_METHODS=frozenset({
         'seal_for_scheduled_execution','scheduled_event_context','begin_decision_epoch','complete_decision_epoch'
@@ -116,6 +123,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.settlement_infrastructure_records: list[SettlementInfrastructureRecord]=[]
         self.settlement_stage_records: list[SettlementStageRecord]=[]
         self.settlement_support_records: list[SettlementSupportExecutionRecord]=[]
+        self.technology_capability_states: Dict[str,TechnologyCapabilityState]={}
+        self.transport_relationships: Dict[str,TransportRelationship]={}
+        self.passenger_transport_departures: list[PassengerTransportDepartureRecord]=[]
+        self.passenger_transport_arrivals: list[PassengerTransportArrivalRecord]=[]
         self.decision_epoch_chain_id: str|None=None
         self.active_decision_epoch_id: str|None=None
         self._decision_epoch_open_state_fingerprint=None
@@ -504,6 +515,222 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             D(colony.external_subsidy),txid,migration_event.id,stage_record.event_id)
         rec.validate()
         self.settlement_support_records.append(rec)
+        return rec
+
+    def register_technology_capability_state(self,state:TechnologyCapabilityState):
+        state.validate()
+        if state.id in self.technology_capability_states:
+            raise InvariantError('duplicate technology capability state')
+        self.technology_capability_states[state.id]=state
+        return state
+
+    def register_transport_relationship(self,relationship:TransportRelationship):
+        relationship.validate()
+        if relationship.id in self.transport_relationships:
+            raise InvariantError('duplicate transport relationship')
+        origin=self.state.nodes.get(relationship.origin_node_id)
+        destination=self.state.nodes.get(relationship.destination_node_id)
+        if origin is None or destination is None:
+            raise InvariantError('transport relationship node missing')
+        if origin.kind!=NodeKind.EARTH or destination.kind!=NodeKind.OFFWORLD:
+            raise InvariantError('Test 012A passenger transport requires EARTH -> OFFWORLD direction')
+        self.transport_relationships[relationship.id]=relationship
+        return relationship
+
+    def transport_qualification(self,technology_state_id,relationship_id,effective_time):
+        t=D(effective_time)
+        state=self.technology_capability_states.get(str(technology_state_id))
+        relationship=self.transport_relationships.get(str(relationship_id))
+        if relationship is None:
+            return TransportQualificationRecord(
+                str(technology_state_id),str(relationship_id),t,False,
+                'RELATIONSHIP_MISSING','')
+        if state is None:
+            return TransportQualificationRecord(
+                str(technology_state_id),str(relationship_id),t,False,
+                'TECHNOLOGY_STATE_MISSING',relationship.required_capability_id)
+        state.validate(); relationship.validate()
+        if not relationship.applies(t):
+            return TransportQualificationRecord(
+                state.id,relationship.id,t,False,'RELATIONSHIP_OUTSIDE_EFFECTIVE_PERIOD',
+                relationship.required_capability_id)
+        if not state.applies(t):
+            return TransportQualificationRecord(
+                state.id,relationship.id,t,False,'TECHNOLOGY_STATE_OUTSIDE_EFFECTIVE_PERIOD',
+                relationship.required_capability_id)
+        if not state.qualifies(relationship.required_capability_id,t):
+            return TransportQualificationRecord(
+                state.id,relationship.id,t,False,'REQUIRED_CAPABILITY_NOT_QUALIFIED',
+                relationship.required_capability_id)
+        return TransportQualificationRecord(
+            state.id,relationship.id,t,True,'QUALIFIED',
+            relationship.required_capability_id)
+
+    def execute_transport_settlement_departure(
+            self,actor_id,request:TransportSettlementRequest,
+            decision:TransportSettlementDecision,parent_ids=()):
+        request.validate_protocol(); decision.validate_protocol(request)
+        if decision.outcome!=TransportSettlementDecisionOutcome.AUTHORIZE:
+            raise InvariantError('passenger transport departure requires AUTHORIZE decision')
+        if any(r.decision_id==decision.id for r in self.passenger_transport_departures):
+            raise InvariantError('transport settlement decision already departed')
+        if actor_id!=decision.actor_id or actor_id not in self.agents:
+            raise InvariantError('transport settlement actor/decision mismatch')
+        actor=self.agents[actor_id]
+        if actor.kind.value!='PUBLIC':
+            raise InvariantError('transport settlement actor must be public')
+        if 'MIGRATE' not in actor.capabilities or 'SETTLEMENT_SUPPORT' not in actor.capabilities:
+            raise InvariantError('public Agent lacks settlement transport capability')
+        if 'PUBLIC_SETTLEMENT' not in actor.objectives:
+            raise InvariantError('public Agent lacks settlement support objective')
+
+        relationship=self.transport_relationships.get(request.transport_relationship_id)
+        state=self.technology_capability_states.get(request.technology_state_id)
+        if relationship is None or state is None:
+            raise InvariantError('transport/technology state missing at execution')
+        q=self.transport_qualification(state.id,relationship.id,request.departure_time)
+        if not q.available:
+            raise InvariantError('transport relationship not technology-qualified at execution')
+        if relationship.origin_node_id!=request.origin_node_id or relationship.destination_node_id!=request.destination_node_id:
+            raise InvariantError('transport request direction/relationship mismatch')
+        if relationship.loss_risk!=D('0'):
+            raise InvariantError('Test 012A execution requires zero loss risk')
+
+        origin=self.state.nodes.get(request.origin_node_id)
+        destination=self.state.nodes.get(request.destination_node_id)
+        if origin is None or destination is None or origin.kind!=NodeKind.EARTH or destination.kind!=NodeKind.OFFWORLD:
+            raise InvariantError('transport request node direction invalid')
+        colony=self.colonies.get(request.destination_node_id)
+        if colony is None or colony.stage!='EXTRACTION_ENCLAVE':
+            raise InvariantError('transport settlement departure requires EXTRACTION_ENCLAVE')
+
+        residents=int(decision.authorized_residents)
+        if residents<=0 or residents>request.requested_residents:
+            raise InvariantError('invalid authorized passenger count')
+        if residents>relationship.capacity:
+            raise InvariantError('passenger transport exceeds relationship capacity')
+        if residents>self.settlement_habitat_headroom(request.destination_node_id):
+            raise InvariantError('passenger transport exceeds habitat headroom')
+        if self.population is None or residents>self.population.earth:
+            raise InvariantError('passenger transport exceeds Earth population')
+
+        expected_support=D(request.support_cost)
+        expected_transport=D(relationship.cost_per_passenger)*D(residents)
+        expected_arrival=D(request.departure_time)+D(relationship.travel_time)
+        if D(decision.support_amount)!=expected_support:
+            raise InvariantError('transport settlement support amount drift')
+        if D(decision.transport_amount)!=expected_transport:
+            raise InvariantError('transport charge/relationship mismatch')
+        if D(decision.departure_time)!=D(request.departure_time) or D(decision.arrival_time)!=expected_arrival:
+            raise InvariantError('transport timing/relationship mismatch')
+
+        if request.support_account_id not in self.state.accounts or request.transport_account_id not in self.state.accounts:
+            raise InvariantError('transport settlement destination account missing')
+        if self.state.accounts[request.support_account_id].node_id!=request.destination_node_id:
+            raise InvariantError('settlement support account/node mismatch')
+        if self.state.accounts[request.transport_account_id].node_id!=request.origin_node_id:
+            raise InvariantError('transport provider account/origin mismatch')
+        total_cost=expected_support+expected_transport
+        if self.state.accounts[actor.account_id].balance<total_cost:
+            raise InvariantError('public funds unavailable for support plus transport')
+
+        departure_id='TRDEP-'+sha256(
+            ('|'.join((decision.id,relationship.id,str(request.departure_time)))).encode()
+        ).hexdigest()[:20]
+        if departure_id in self.population.in_transit:
+            raise InvariantError('duplicate passenger departure identity')
+
+        earth_before=int(self.population.earth)
+        transit_before=int(self.population.in_transit.get(departure_id,0))
+        total_before=int(self.population.total())
+        subsidy_before=D(colony.external_subsidy)
+
+        support_txid=''
+        if expected_support>0:
+            tx=self.transfer(
+                int(D(request.departure_time)),actor.account_id,request.support_account_id,
+                expected_support,TxPurpose.PUBLIC_SUBSIDY,
+                parent_ids=(decision.id,request.id,relationship.id,state.id,*tuple(parent_ids)))
+            support_txid=tx.id
+            colony.external_subsidy+=expected_support
+            colony.cash+=expected_support
+
+        transport_txid=''
+        if expected_transport>0:
+            tx=self.transfer(
+                int(D(request.departure_time)),actor.account_id,request.transport_account_id,
+                expected_transport,TxPurpose.TRANSPORT_PAYMENT,
+                parent_ids=(decision.id,request.id,relationship.id,state.id,*tuple(parent_ids)))
+            transport_txid=tx.id
+
+        self.population.earth-=residents
+        self.population.in_transit[departure_id]=residents
+        if self.population.total()!=total_before:
+            raise InvariantError('population conservation failure at transport departure')
+
+        evt=self.event(
+            int(D(request.departure_time)),actor_id,ActionKind.TRANSPORT,'PASSENGER_DEPARTURE',
+            (departure_id,relationship.id,state.id,request.origin_node_id,
+             request.destination_node_id,str(residents),str(request.departure_time),
+             str(expected_arrival),str(relationship.cost_per_passenger),
+             str(relationship.travel_time),str(relationship.energy_per_passenger),
+             str(relationship.loss_risk),str(relationship.capacity)),
+            tuple(parent_ids))
+
+        rec=PassengerTransportDepartureRecord(
+            departure_id,decision.id,request.id,actor_id,state.id,relationship.id,
+            request.origin_node_id,request.destination_node_id,residents,
+            expected_support,expected_transport,D(request.departure_time),expected_arrival,
+            earth_before,int(self.population.earth),transit_before,
+            int(self.population.in_transit[departure_id]),total_before,int(self.population.total()),
+            subsidy_before,D(colony.external_subsidy),support_txid,transport_txid,evt.id)
+        rec.validate()
+        self.passenger_transport_departures.append(rec)
+        return rec
+
+    def execute_passenger_transport_arrival(self,effective_time,departure_id,parent_ids=()):
+        t=D(effective_time)
+        departures=[r for r in self.passenger_transport_departures if r.departure_id==departure_id]
+        if len(departures)!=1:
+            raise InvariantError('passenger transport departure missing or ambiguous')
+        if any(r.departure_id==departure_id for r in self.passenger_transport_arrivals):
+            raise InvariantError('passenger transport departure already arrived')
+        dep=departures[0]
+        if t!=D(dep.arrival_time):
+            raise InvariantError('passenger transport arrival time mismatch')
+        if self.population is None:
+            raise InvariantError('passenger transport population ledger missing')
+        transit_before=int(self.population.in_transit.get(departure_id,0))
+        if transit_before!=dep.passengers:
+            raise InvariantError('passenger in-transit stock does not match departure')
+        off_before=int(self.population.offworld.get(dep.destination_node_id,0))
+        total_before=int(self.population.total())
+
+        self.population.in_transit.pop(departure_id)
+        self.population.offworld[dep.destination_node_id]=off_before+dep.passengers
+        colony=self.colonies.setdefault(dep.destination_node_id,ColonyState(dep.destination_node_id))
+        colony.population+=dep.passengers
+        if self.population.total()!=total_before:
+            raise InvariantError('population conservation failure at transport arrival')
+
+        evt=self.event(
+            int(t),dep.actor_id,ActionKind.TRANSPORT,'PASSENGER_ARRIVAL',
+            (departure_id,dep.relationship_id,dep.destination_node_id,
+             str(dep.passengers),str(t)),
+            (dep.departure_event_id,*tuple(parent_ids)))
+        stage=self.update_settlement_stage(
+            int(t),dep.destination_node_id,
+            parent_ids=(evt.id,dep.departure_event_id,*tuple(parent_ids)))
+        if stage.new_stage!='DEPENDENT_SETTLEMENT':
+            raise InvariantError('passenger arrival did not produce dependent settlement')
+
+        rec=PassengerTransportArrivalRecord(
+            departure_id,dep.relationship_id,dep.destination_node_id,dep.passengers,t,
+            transit_before,int(self.population.in_transit.get(departure_id,0)),
+            off_before,int(self.population.offworld[dep.destination_node_id]),
+            total_before,int(self.population.total()),evt.id,stage.event_id)
+        rec.validate()
+        self.passenger_transport_arrivals.append(rec)
         return rec
 
     def register_financing_return_claim(self,claim:FinancingReturnClaim):
@@ -1143,7 +1370,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                    D(c.production_capacity),D(c.operating_need),D(c.external_subsidy))<0:
                 raise InvariantError('negative colony stock-flow state')
         if self.population is not None:
-            if self.population.earth<0 or any(v<0 for v in self.population.offworld.values()):
+            if (self.population.earth<0 or any(v<0 for v in self.population.offworld.values())
+                    or any(v<0 for v in self.population.in_transit.values())):
                 raise InvariantError('negative population ledger')
             for node,count in self.population.offworld.items():
                 colony=self.colonies.get(node)
@@ -1193,6 +1421,53 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 tx=txids_all.get(r.support_transaction_id)
                 if tx is None or tx.purpose!=TxPurpose.PUBLIC_SUBSIDY or D(tx.amount)!=D(r.support_amount):
                     raise InvariantError('settlement support transaction drift')
+        for state in self.technology_capability_states.values():
+            try:
+                state.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+        for relationship in self.transport_relationships.values():
+            try:
+                relationship.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            origin=self.state.nodes.get(relationship.origin_node_id)
+            destination=self.state.nodes.get(relationship.destination_node_id)
+            if origin is None or destination is None or origin.kind!=NodeKind.EARTH or destination.kind!=NodeKind.OFFWORLD:
+                raise InvariantError('transport relationship direction/node drift')
+        arrival_by_departure={r.departure_id:r for r in self.passenger_transport_arrivals}
+        if len(arrival_by_departure)!=len(self.passenger_transport_arrivals):
+            raise InvariantError('duplicate passenger transport arrival')
+        seen_transport_decisions=set()
+        for r in self.passenger_transport_departures:
+            if r.decision_id in seen_transport_decisions:
+                raise InvariantError('duplicate transport settlement decision departure')
+            seen_transport_decisions.add(r.decision_id)
+            try:
+                r.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if r.support_amount>0:
+                tx=txids_all.get(r.support_transaction_id)
+                if tx is None or tx.purpose!=TxPurpose.PUBLIC_SUBSIDY or D(tx.amount)!=D(r.support_amount):
+                    raise InvariantError('transport settlement support transaction drift')
+            if r.transport_amount>0:
+                tx=txids_all.get(r.transport_transaction_id)
+                if tx is None or tx.purpose!=TxPurpose.TRANSPORT_PAYMENT or D(tx.amount)!=D(r.transport_amount):
+                    raise InvariantError('passenger transport payment transaction drift')
+            if r.departure_id in arrival_by_departure:
+                if self.population is not None and self.population.in_transit.get(r.departure_id,0)!=0:
+                    raise InvariantError('arrived passenger batch remains in transit')
+            else:
+                if self.population is None or self.population.in_transit.get(r.departure_id,0)!=r.passengers:
+                    raise InvariantError('pending passenger batch in-transit stock drift')
+        for r in self.passenger_transport_arrivals:
+            try:
+                r.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if not any(d.departure_id==r.departure_id for d in self.passenger_transport_departures):
+                raise InvariantError('passenger arrival missing departure lineage')
         for c in self.financing_return_claims.values():
             try:
                 c.validate()
@@ -1402,7 +1677,31 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
              r.offworld_population_before,r.offworld_population_after,r.total_population_before,
              r.total_population_after,str(r.subsidy_before),str(r.subsidy_after),
              r.support_transaction_id,r.migration_event_id,r.stage_event_id,r.record_version)
-             for r in self.settlement_support_records]}
+             for r in self.settlement_support_records],
+          'technology_capability_states':sorted((
+             x.id,str(x.effective_from),str(x.effective_to),x.qualified_capabilities,
+             x.source_ref,x.epistemic_status,x.state_version)
+             for x in self.technology_capability_states.values()),
+          'transport_relationships':sorted((
+             x.id,x.origin_node_id,x.destination_node_id,str(x.effective_from),str(x.effective_to),
+             x.required_capability_id,str(x.cost_per_passenger),str(x.travel_time),
+             str(x.energy_per_passenger),str(x.loss_risk),x.capacity,x.passenger_class,
+             x.source_ref,x.epistemic_status,x.relationship_version)
+             for x in self.transport_relationships.values()),
+          'passenger_transport_departures':[(
+             r.departure_id,r.decision_id,r.request_id,r.actor_id,r.technology_state_id,
+             r.relationship_id,r.origin_node_id,r.destination_node_id,r.passengers,
+             str(r.support_amount),str(r.transport_amount),str(r.departure_time),str(r.arrival_time),
+             r.earth_population_before,r.earth_population_after,r.in_transit_before,r.in_transit_after,
+             r.total_population_before,r.total_population_after,str(r.subsidy_before),str(r.subsidy_after),
+             r.support_transaction_id,r.transport_transaction_id,r.departure_event_id,r.record_version)
+             for r in self.passenger_transport_departures],
+          'passenger_transport_arrivals':[(
+             r.departure_id,r.relationship_id,r.destination_node_id,r.passengers,str(r.arrival_time),
+             r.in_transit_before,r.in_transit_after,r.offworld_population_before,
+             r.offworld_population_after,r.total_population_before,r.total_population_after,
+             r.arrival_event_id,r.stage_event_id,r.record_version)
+             for r in self.passenger_transport_arrivals]}
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload
