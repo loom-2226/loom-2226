@@ -225,6 +225,7 @@ class Build5TransportTechnologyTests(unittest.TestCase):
         self.assertEqual(k.population.earth,990)
         self.assertEqual(k.population.offworld['OFF:T1'],0)
         self.assertEqual(k.population.in_transit,{dep.departure_id:10})
+        self.assertEqual(k.earth_shadow_at(12)['migration_from_earth'],10)
         self.assertEqual(k.population.total(),1000)
         self.assertEqual(k.colonies['OFF:T1'].stage,'EXTRACTION_ENCLAVE')
         self.arrival_epoch(k,h)

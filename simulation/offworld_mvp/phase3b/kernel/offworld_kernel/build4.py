@@ -210,6 +210,9 @@ class Build4Kernel(Build3Kernel):
         parents=(resource_id,*tuple(parent_ids))
         tx=Transaction(self._id('tx'),year,boundary_account,seller_account,amount,TxPurpose.REVENUE,b.node_id,s.node_id,parent_ids=parents)
         self.state.transactions.append(tx)
+        seller_project_offworld=(s.kind==AccountKind.PROJECT_CASH and self.state.nodes[s.node_id].kind==NodeKind.OFFWORLD)
+        if seller_project_offworld:
+            self._earth_shadow_add_currency('earth_purchases_from_offworld',b.node_id,year,amount)
         key=(b.node_id,resource_id); self.market_resource_inventory[key]=self.market_resource_inventory.get(key,D('0'))+q
         self.audit('BOUNDARY_PURCHASE',year,account=boundary_account,amount=amount,resource=resource_id,quantity=q)
         return tx

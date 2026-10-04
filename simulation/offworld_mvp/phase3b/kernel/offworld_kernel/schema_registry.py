@@ -61,7 +61,7 @@ from .transport import (
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_14'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_15'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
@@ -108,6 +108,12 @@ ODD_UNIT_CONTRACTS={
     'FixedCapitalFormationEvent.year':'SIM_YEAR',
     'EarthImpactLedger.qualifying_supplied_expenditure':'MODEL_CURRENCY',
     'EarthImpactLedger.terrestrial_fcf_delta':'MODEL_CURRENCY',
+    'EarthImpactLedger.capital_diverted_to_offworld':'MODEL_CURRENCY',
+    'EarthImpactLedger.capital_returned_to_earth':'MODEL_CURRENCY',
+    'EarthImpactLedger.offworld_purchases_from_earth':'MODEL_CURRENCY',
+    'EarthImpactLedger.earth_purchases_from_offworld':'MODEL_CURRENCY',
+    'EarthImpactLedger.migration_from_earth':'PEOPLE_EQUIVALENT',
+    'EarthImpactLedger.returning_population':'PEOPLE_EQUIVALENT',
     'FinancingRequest.amount':'FIELD:FinancingRequest.currency_unit',
     'FinancingRequest.year':'SIM_YEAR',
     'FinancingDecision.amount':'REQUEST_CURRENCY_UNIT',

@@ -38,6 +38,12 @@ class FixedCapitalFormationEvent:
 class EarthImpactLedger:
     qualifying_supplied_expenditure: Dict[tuple[str,int],D]=field(default_factory=dict)
     terrestrial_fcf_delta: Dict[tuple[str,int],D]=field(default_factory=dict)
+    capital_diverted_to_offworld: Dict[tuple[str,int],D]=field(default_factory=dict)
+    capital_returned_to_earth: Dict[tuple[str,int],D]=field(default_factory=dict)
+    offworld_purchases_from_earth: Dict[tuple[str,int],D]=field(default_factory=dict)
+    earth_purchases_from_offworld: Dict[tuple[str,int],D]=field(default_factory=dict)
+    migration_from_earth: Dict[int,int]=field(default_factory=dict)
+    returning_population: Dict[int,int]=field(default_factory=dict)
 @dataclass
 class KernelState:
     nodes: Dict[str,Node]=field(default_factory=dict); accounts: Dict[str,Account]=field(default_factory=dict)

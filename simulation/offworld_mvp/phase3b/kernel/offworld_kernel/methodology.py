@@ -664,6 +664,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             transport_txid=tx.id
 
         self.population.earth-=residents
+        self.record_earth_migration(int(D(request.departure_time)),residents)
         self.population.in_transit[departure_id]=residents
         if self.population.total()!=total_before:
             raise InvariantError('population conservation failure at transport departure')

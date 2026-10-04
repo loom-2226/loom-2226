@@ -187,6 +187,22 @@ Every executable result intended for comparison must preserve:
 
 The ODD state/interface registry below is machine-checked against executable dataclass field names **and field types**, registered enum values, and declared unit semantics. A field addition/removal/rename, type change, enum-value change, or unit-contract change without an ODD update fails the regression suite.
 
+
+### 50.13 Earth reference / realized shadow accounting — Test 013A
+
+Build 5 now records realized offworld-caused Earth consequences in the existing
+`EarthImpactLedger` without mutating the adopted Earth reference lineage. The shadow
+layer separately records capital diverted to offworld activity, capital returned to
+Earth, offworld purchases from Earth, Earth purchases from offworld ventures, migration
+from Earth, and the explicit returning-population channel, alongside the pre-existing
+qualifying Earth-supplied expenditure and terrestrial-FCF displacement view.
+
+Shadow entries are derived from realized ledger/population transitions and do not emit
+transactions, create decisions, or feed back into Earth propagation. Hidden scenario
+resource truth does not alter shadow classification when realized flows are held fixed.
+Test 013A does not authorize a return-transport transition; returning population remains
+zero unless a separately authorized transition exists.
+
 <!-- ODD_SCHEMA_REGISTRY_BEGIN -->
 ```json
 {
@@ -487,7 +503,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_14",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_15",
   "types": {
     "Account": [
       {
@@ -1017,6 +1033,30 @@ The ODD state/interface registry below is machine-checked against executable dat
       {
         "name": "terrestrial_fcf_delta",
         "type": "Dict[tuple[str, int], D]"
+      },
+      {
+        "name": "capital_diverted_to_offworld",
+        "type": "Dict[tuple[str, int], D]"
+      },
+      {
+        "name": "capital_returned_to_earth",
+        "type": "Dict[tuple[str, int], D]"
+      },
+      {
+        "name": "offworld_purchases_from_earth",
+        "type": "Dict[tuple[str, int], D]"
+      },
+      {
+        "name": "earth_purchases_from_offworld",
+        "type": "Dict[tuple[str, int], D]"
+      },
+      {
+        "name": "migration_from_earth",
+        "type": "Dict[int, int]"
+      },
+      {
+        "name": "returning_population",
+        "type": "Dict[int, int]"
       }
     ],
     "EntityAssetRef": [
@@ -3661,7 +3701,13 @@ The ODD state/interface registry below is machine-checked against executable dat
     "DevelopmentResolutionRecord.year": "SIM_YEAR",
     "DevelopmentStageRecord.planned_amount": "MODEL_CURRENCY",
     "DevelopmentStageRecord.year": "SIM_YEAR",
+    "EarthImpactLedger.capital_diverted_to_offworld": "MODEL_CURRENCY",
+    "EarthImpactLedger.capital_returned_to_earth": "MODEL_CURRENCY",
+    "EarthImpactLedger.earth_purchases_from_offworld": "MODEL_CURRENCY",
+    "EarthImpactLedger.migration_from_earth": "PEOPLE_EQUIVALENT",
+    "EarthImpactLedger.offworld_purchases_from_earth": "MODEL_CURRENCY",
     "EarthImpactLedger.qualifying_supplied_expenditure": "MODEL_CURRENCY",
+    "EarthImpactLedger.returning_population": "PEOPLE_EQUIVALENT",
     "EarthImpactLedger.terrestrial_fcf_delta": "MODEL_CURRENCY",
     "ExplorationDecision.authorized_cost": "REQUEST_CURRENCY_UNIT",
     "ExplorationRequest.year": "SIM_YEAR",
