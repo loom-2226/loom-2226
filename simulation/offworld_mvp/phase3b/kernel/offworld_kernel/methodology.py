@@ -8,7 +8,7 @@ from typing import Dict, Tuple
 from .build4 import Build4Kernel, OwnershipStake
 from .kernel import InvariantError
 from .model import D, TxPurpose, AssetKind, NodeKind, AccountKind
-from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome, SaleDecisionOutcome, SurplusDistributionDecisionOutcome, SettlementSupportDecisionOutcome
+from .mvp_state import AgentKind, AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome, SaleDecisionOutcome, SurplusDistributionDecisionOutcome, SettlementSupportDecisionOutcome
 from .scheduler import DeterministicScheduler
 from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
 from .accounting import SurplusDecompositionRecord

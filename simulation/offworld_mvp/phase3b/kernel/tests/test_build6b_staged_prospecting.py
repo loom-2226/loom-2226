@@ -397,7 +397,11 @@ class Build6BStagedProspectingTests(unittest.TestCase):
         self.start_and_spend_epoch(k,'E02-S','ACT-A-REMOTE','1')
         self.assertEqual(k.state.accounts['sponsor_funds'].balance,D('120'))
         with self.assertRaisesRegex(InvariantError,'already spent'):
-            k.spend_project_study_activity('1.1','ACT-A-REMOTE')
+            self.one_event_epoch(
+                k,'E03-DUP-SPEND','PROJECT_STUDY_STARTER',Phase.OPERATIONS,'1.1',
+                lambda kernel,event: kernel.spend_project_study_activity(
+                    '1.1','ACT-A-REMOTE'),
+                'DUP-SPEND:ACT-A-REMOTE')
         self.assertEqual(k.state.accounts['sponsor_funds'].balance,D('120'))
 
     def test_unknown_review_input_blocks_before_worker(self):
