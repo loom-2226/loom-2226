@@ -298,3 +298,22 @@ Build 6C does not earn multiple Earth economies, country policy, empirical predi
 Build 6C structurally earns a deterministic named-body project-study portfolio across Moon, Mars, Ceres and Bennu from 2026 through 2041.
 
 The result is deliberately not a mine forecast. The four opportunities consume finite capital on different information calendars and end at different knowledge/maturity states. Strong evidence can still produce an insufficient study; a promising Mars campaign can remain unfunded; a long Ceres campaign can dominate capital for years; and no positive result automatically creates a mine.
+
+## Post-validation closure rerun
+
+After the validation-record commit, the complete governed suite was rerun against branch HEAD with no executable changes.
+
+Command:
+`python3 -m unittest discover -s tests`
+
+Result:
+
+- 337 tests;
+- 337 passed;
+- 0 failures;
+- 0 errors;
+- runtime `728.836 s`;
+- process runtime `729.17 s`.
+
+The executable filesystem and Git-object source-tree SHA-256 remained:
+`069a798b0a4ce89b854d351134e7bc74c60d38c110790bc5d786f6400bc9c052`.
