@@ -199,7 +199,7 @@ class Build4Kernel(Build3Kernel):
         if amount<0 or amount>c.outstanding: raise InvariantError('invalid lapse')
         c.lapsed+=amount; self.audit('COMMITMENT_LAPSE',year,commitment=cid,amount=amount)
 
-    def boundary_purchase(self,year,boundary_account,seller_account,amount,resource_id,quantity):
+    def boundary_purchase(self,year,boundary_account,seller_account,amount,resource_id,quantity,parent_ids=()):
         amount=D(amount); q=D(quantity); b=self.state.accounts[boundary_account]; s=self.state.accounts[seller_account]
         if b.kind!=AccountKind.EARTH_BOUNDARY or amount<0 or q<0: raise InvariantError('invalid boundary purchase')
         if boundary_account not in self.boundary_opening_balance:
@@ -207,7 +207,8 @@ class Build4Kernel(Build3Kernel):
             self.boundary_opening_balance[boundary_account]=b.balance-prior_ledger
         b.balance-=amount; s.balance+=amount
         self.boundary_net[boundary_account]=self.boundary_net.get(boundary_account,D('0'))-amount
-        tx=Transaction(self._id('tx'),year,boundary_account,seller_account,amount,TxPurpose.REVENUE,b.node_id,s.node_id,parent_ids=(resource_id,))
+        parents=(resource_id,*tuple(parent_ids))
+        tx=Transaction(self._id('tx'),year,boundary_account,seller_account,amount,TxPurpose.REVENUE,b.node_id,s.node_id,parent_ids=parents)
         self.state.transactions.append(tx)
         key=(b.node_id,resource_id); self.market_resource_inventory[key]=self.market_resource_inventory.get(key,D('0'))+q
         self.audit('BOUNDARY_PURCHASE',year,account=boundary_account,amount=amount,resource=resource_id,quantity=q)

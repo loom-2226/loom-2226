@@ -252,6 +252,92 @@ class OperatingCycleDecision:
                 raise ValueError('operating decision/request lineage mismatch')
         return self
 
+BUILD5_SALE_REQUIRED_FACT_KEYS=(
+    'project.STATUS',
+    'inventory.AVAILABLE',
+    'market.UNIT_PRICE',
+    'market.REMAINING_DEMAND',
+)
+
+class SaleDecisionOutcome(str, Enum):
+    OFFER='OFFER'
+    DEFER='DEFER'
+    BLOCKED_UNKNOWN='BLOCKED_UNKNOWN'
+
+class SaleReasonCode(str, Enum):
+    MARKET_OFFER_AUTHORIZED='MARKET_OFFER_AUTHORIZED'
+    NO_SELLABLE_INVENTORY='NO_SELLABLE_INVENTORY'
+    NO_POSITIVE_PRICE='NO_POSITIVE_PRICE'
+    NO_MARKET_DEMAND='NO_MARKET_DEMAND'
+    NO_RELEVANT_INFORMATION='NO_RELEVANT_INFORMATION'
+    CAPABILITY_OR_OBJECTIVE_BLOCK='CAPABILITY_OR_OBJECTIVE_BLOCK'
+    PROJECT_STATE_BLOCK='PROJECT_STATE_BLOCK'
+    BLOCKED_REQUIRED_INPUT_UNKNOWN='BLOCKED_REQUIRED_INPUT_UNKNOWN'
+
+@dataclass(frozen=True)
+class SaleDecisionRequest:
+    id: str
+    year: int
+    project_id: str
+    resource_id: str
+    market_state_id: str
+    observation_id: str
+    required_fact_keys: tuple[str,...]=()
+    currency_unit: str='MODEL_CURRENCY'
+    quantity_unit: str='MODEL_RESOURCE_UNIT_BY_FAMILY'
+    request_version: str='SALE_DECISION_REQUEST_V1'
+
+    def validate_protocol(self):
+        if not self.id or not self.project_id or not self.resource_id or not self.market_state_id:
+            raise ValueError('sale request identity incomplete')
+        if self.year<0:
+            raise ValueError('sale request year invalid')
+        if tuple(self.required_fact_keys)!=BUILD5_SALE_REQUIRED_FACT_KEYS:
+            raise ValueError('sale request must declare exact Test 009A fact contract')
+        if not self.currency_unit or not self.quantity_unit:
+            raise ValueError('sale request unit contract missing')
+        return self
+
+@dataclass(frozen=True)
+class SaleDecision:
+    id: str
+    request_id: str
+    actor_id: str
+    outcome: SaleDecisionOutcome
+    offered_quantity: D
+    reason: str
+    reason_code: SaleReasonCode
+    unknown_input_keys: tuple[str,...]=()
+    input_snapshot_ref: str=''
+    policy_version: str=''
+    decision_version: str='SALE_DECISION_V1'
+
+    def validate_protocol(self,request:SaleDecisionRequest|None=None):
+        q=D(self.offered_quantity)
+        if not self.id or not self.request_id or not self.actor_id:
+            raise ValueError('sale decision identity incomplete')
+        if not self.input_snapshot_ref or not self.policy_version:
+            raise ValueError('sale decision requires snapshot and policy version')
+        if q<0:
+            raise ValueError('negative sale offer')
+        if self.outcome==SaleDecisionOutcome.OFFER:
+            if q<=0:
+                raise ValueError('OFFER requires positive offered quantity')
+        elif q!=D('0'):
+            raise ValueError('non-OFFER sale decision cannot offer quantity')
+        if self.unknown_input_keys and self.outcome!=SaleDecisionOutcome.BLOCKED_UNKNOWN:
+            raise ValueError('required unknown sale inputs must produce BLOCKED_UNKNOWN')
+        if self.outcome==SaleDecisionOutcome.BLOCKED_UNKNOWN:
+            if not self.unknown_input_keys:
+                raise ValueError('BLOCKED_UNKNOWN requires unknown sale inputs')
+            if self.reason_code!=SaleReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN:
+                raise ValueError('BLOCKED_UNKNOWN requires blocked-unknown reason code')
+        if request is not None:
+            request.validate_protocol()
+            if request.id!=self.request_id:
+                raise ValueError('sale decision/request lineage mismatch')
+        return self
+
 BUILD5_REQUIRED_UNDERWRITING_KEYS=(
     'underwriting.PRICE',
     'underwriting.EXPLORATION_CAPEX',

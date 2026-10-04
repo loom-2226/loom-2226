@@ -13,12 +13,14 @@ from .exploration_protocol import build_exploration_decision, required_unknown_e
 from .publication_protocol import build_publication_decision
 from .sponsor_protocol import build_sponsor_project_decision, required_unknown_sponsor_inputs
 from .operating_protocol import build_operating_cycle_decision, required_unknown_operating_inputs
+from .market_protocol import build_sale_decision, required_unknown_sale_inputs
 from .mvp_state import (
     FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest,
     ExplorationDecisionOutcome, ExplorationReasonCode, ExplorationRequest,
     PublicationDecisionOutcome, PublicationReasonCode, PublicationRequest,
     SponsorProjectDecisionOutcome, SponsorProjectReasonCode, SponsorProjectDecisionRequest,
     OperatingCycleDecisionOutcome, OperatingCycleReasonCode, OperatingCycleRequest,
+    SaleDecisionOutcome, SaleReasonCode, SaleDecisionRequest,
 )
 from .policy import DecisionSnapshot
 from .policies.manifest import FinancierPolicyManifest, policy_source_bytes
@@ -46,6 +48,11 @@ from .policies.sponsor_operating_v1 import (
     POLICY_CONTRACT as SPONSOR_OPERATING_CONTRACT,
     POLICY_ID as SPONSOR_OPERATING_POLICY_ID,
     SEMANTIC_VERSION as SPONSOR_OPERATING_SEMANTIC_VERSION,
+)
+from .policies.sponsor_sale_v1 import (
+    POLICY_CONTRACT as SPONSOR_SALE_CONTRACT,
+    POLICY_ID as SPONSOR_SALE_POLICY_ID,
+    SEMANTIC_VERSION as SPONSOR_SALE_SEMANTIC_VERSION,
 )
 
 FORBIDDEN_IMPORT_ROOTS={
@@ -209,6 +216,29 @@ def sponsor_operating_policy_version(source:bytes|None=None)->str:
     h.update(source)
     h.update(sponsor_operating_contract_hash().encode())
     return f'{SPONSOR_OPERATING_POLICY_ID}:{SPONSOR_OPERATING_SEMANTIC_VERSION}:{h.hexdigest()}'
+
+def sale_request_to_wire(q:SaleDecisionRequest):
+    return {
+        'id':q.id,'year':q.year,'project_id':q.project_id,'resource_id':q.resource_id,
+        'market_state_id':q.market_state_id,'observation_id':q.observation_id,
+        'required_fact_keys':list(q.required_fact_keys),
+        'currency_unit':q.currency_unit,'quantity_unit':q.quantity_unit,
+        'request_version':q.request_version,
+    }
+
+def sponsor_sale_source_bytes()->bytes:
+    return (Path(__file__).resolve().parent/'policies'/'sponsor_sale_v1.py').read_bytes()
+
+def sponsor_sale_contract_hash()->str:
+    raw=json.dumps(SPONSOR_SALE_CONTRACT,sort_keys=True,separators=(',',':')).encode()
+    return sha256(raw).hexdigest()
+
+def sponsor_sale_policy_version(source:bytes|None=None)->str:
+    source=source if source is not None else sponsor_sale_source_bytes()
+    h=sha256()
+    h.update(source)
+    h.update(sponsor_sale_contract_hash().encode())
+    return f'{SPONSOR_SALE_POLICY_ID}:{SPONSOR_SALE_SEMANTIC_VERSION}:{h.hexdigest()}'
 
 def public_publisher_source_bytes()->bytes:
     return (Path(__file__).resolve().parent/'policies'/'public_publisher_v1.py').read_bytes()
@@ -552,6 +582,58 @@ def run_sponsor_operating_policy(snapshot:DecisionSnapshot,
         decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
         snapshot,version,requested_financing=requested_financing,
         planned_quantity=planned_quantity,authorized_opex=authorized_opex)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
+
+def run_sponsor_sale_policy(snapshot:DecisionSnapshot,
+                            request:SaleDecisionRequest,
+                            decision_key:str)->PolicyExecutionResult:
+    request.validate_protocol()
+    source=sponsor_sale_source_bytes()
+    assert_policy_source_safe(source)
+    version=sponsor_sale_policy_version(source)
+    contract_hash=sponsor_sale_contract_hash()
+
+    unknowns=required_unknown_sale_inputs(request,snapshot)
+    decision_id='SDEC-'+sha256(
+        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
+    ).hexdigest()[:20]
+
+    if unknowns:
+        decision=build_sale_decision(
+            decision_id,request,snapshot.agent_id,
+            SaleDecisionOutcome.BLOCKED_UNKNOWN,
+            SaleReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required admitted sale inputs are unknown',
+            snapshot,version)
+        return PolicyExecutionResult(
+            decision,version,'CONTRACT_SHA256:'+contract_hash,
+            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
+            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
+            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+
+    payload={
+        'mode':'EVALUATE',
+        'policy_id':SPONSOR_SALE_POLICY_ID,
+        'snapshot':snapshot_to_wire(snapshot),
+        'request':sale_request_to_wire(request),
+        'manifest':SPONSOR_SALE_CONTRACT,
+        'decision_key':str(decision_key),
+    }
+    out,worker_fp=_run_worker(payload)
+    try:
+        outcome=SaleDecisionOutcome(out['outcome'])
+        reason_code=SaleReasonCode(out['reason_code'])
+        offered_quantity=out.get('offered_quantity','0')
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as e:
+        raise RuntimeError('sponsor sale worker returned invalid decision payload') from e
+
+    decision=build_sale_decision(
+        decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
+        snapshot,version,offered_quantity=offered_quantity)
     return PolicyExecutionResult(
         decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
 

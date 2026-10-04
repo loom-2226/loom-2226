@@ -8,7 +8,7 @@ from typing import Dict, Tuple
 from .build4 import Build4Kernel, OwnershipStake
 from .kernel import InvariantError
 from .model import D, TxPurpose, AssetKind, NodeKind
-from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome
+from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome, SaleDecisionOutcome
 from .scheduler import DeterministicScheduler
 from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
 from .accounting import SurplusDecompositionRecord
@@ -21,6 +21,7 @@ from .surface_prospecting import (
     ObservationBeliefUpdateRecord,
 )
 from .operating import OperatingCostRecord, ExtractionResolutionRecord
+from .market import CommodityMarketEnvelope, MarketClearingRecord
 from .mvp_state import ActionKind
 
 @dataclass(frozen=True)
@@ -66,13 +67,13 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'boundary_purchase','consume_market_resource',
         'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan','record_surplus_decomposition',
         'register_development_plan','execute_development_stage','resolve_development_plan',
-        'spend_operating_cycle','resolve_operating_extraction'
+        'spend_operating_cycle','resolve_operating_extraction','register_market_envelope','clear_market_sale'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
         'assert_mvp_invariants','mvp_fingerprint','keyed_draw','build3_fingerprint',
         'assert_vehicle_ownership','assert_build4_invariants','build4_fingerprint','uniformity_sample',
-        'assert_methodology_invariants','methodology_fingerprint','decision_epoch_state_fingerprint'
+        'assert_methodology_invariants','methodology_fingerprint','decision_epoch_state_fingerprint','market_remaining_demand'
     })
     SCHEDULED_CONTROL_METHODS=frozenset({
         'seal_for_scheduled_execution','scheduled_event_context','begin_decision_epoch','complete_decision_epoch'
@@ -97,6 +98,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.observation_belief_update_records: list[ObservationBeliefUpdateRecord]=[]
         self.operating_cost_records: list[OperatingCostRecord]=[]
         self.extraction_resolution_records: list[ExtractionResolutionRecord]=[]
+        self.market_envelopes: Dict[str,CommodityMarketEnvelope]={}
+        self.market_clearing_records: list[MarketClearingRecord]=[]
         self.decision_epoch_chain_id: str|None=None
         self.active_decision_epoch_id: str|None=None
         self._decision_epoch_open_state_fingerprint=None
@@ -304,6 +307,101 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             planned,actual,before_resource,D(resource.remaining),before_inventory,
             D(colony.resource_inventory),evt.id)
         self.extraction_resolution_records.append(rec)
+        return rec
+
+    def register_market_envelope(self,envelope:CommodityMarketEnvelope):
+        envelope.validate()
+        if envelope.id in self.market_envelopes:
+            raise InvariantError('duplicate market envelope')
+        if envelope.resource_id not in self.resources:
+            raise InvariantError('market envelope resource missing')
+        if envelope.buyer_account_id not in self.state.accounts:
+            raise InvariantError('market envelope buyer account missing')
+        if self.state.accounts[envelope.buyer_account_id].kind!=AccountKind.EARTH_BOUNDARY:
+            raise InvariantError('market envelope buyer must be EARTH_BOUNDARY')
+        self.market_envelopes[envelope.id]=envelope
+        return envelope
+
+    def market_remaining_demand(self,market_state_id):
+        if market_state_id not in self.market_envelopes:
+            raise InvariantError('market envelope missing')
+        envelope=self.market_envelopes[market_state_id]
+        cleared=sum((D(r.cleared_quantity) for r in self.market_clearing_records
+                     if r.market_state_id==market_state_id),D('0'))
+        remaining=D(envelope.demand_quantity)-cleared
+        if remaining<0:
+            raise InvariantError('market demand over-cleared')
+        return remaining
+
+    def clear_market_sale(self,year,actor_id,request,decision):
+        year=int(year)
+        request.validate_protocol(); decision.validate_protocol(request)
+        if decision.outcome!=SaleDecisionOutcome.OFFER:
+            raise InvariantError('market clearing requires OFFER decision')
+        if any(r.decision_id==decision.id for r in self.market_clearing_records):
+            raise InvariantError('sale decision already cleared')
+        if actor_id!=decision.actor_id or actor_id not in self.agents:
+            raise InvariantError('market actor/decision mismatch')
+        actor=self.agents[actor_id]
+        if actor.kind.value!='PRIVATE_SPONSOR' or 'SELL' not in actor.capabilities:
+            raise InvariantError('market actor lacks sponsor SELL authority')
+        if request.observation_id not in self.observations or request.observation_id not in actor.information:
+            raise InvariantError('sale information prerequisite unavailable')
+        if request.market_state_id not in self.market_envelopes:
+            raise InvariantError('sale market envelope missing')
+        envelope=self.market_envelopes[request.market_state_id]
+        envelope.validate()
+        if envelope.year!=year or request.year!=year:
+            raise InvariantError('sale year/market envelope mismatch')
+        if envelope.resource_id!=request.resource_id:
+            raise InvariantError('sale resource/market envelope mismatch')
+        if request.project_id not in self.state.projects:
+            raise InvariantError('sale project missing')
+        project=self.state.projects[request.project_id]
+        if project.status!='OPERATING':
+            raise InvariantError('sale requires OPERATING project')
+        if request.resource_id not in self.resources:
+            raise InvariantError('sale resource missing')
+        resource=self.resources[request.resource_id]
+        if resource.node_id!=project.node_id:
+            raise InvariantError('sale resource/project location mismatch')
+        buyer=self.state.accounts.get(envelope.buyer_account_id)
+        if buyer is None or buyer.kind!=AccountKind.EARTH_BOUNDARY:
+            raise InvariantError('sale buyer must be EARTH_BOUNDARY')
+        if D(envelope.unit_price)<=0:
+            raise InvariantError('market clearing requires positive price')
+
+        colony=self.colonies.setdefault(resource.node_id,ColonyState(resource.node_id))
+        local_before=D(colony.resource_inventory)
+        demand_before=self.market_remaining_demand(envelope.id)
+        offered=D(decision.offered_quantity)
+        if offered<=0:
+            raise InvariantError('sale offer must be positive')
+        cleared=min(offered,local_before,demand_before)
+        if cleared<=0:
+            raise InvariantError('no market-clearing quantity available')
+
+        market_key=(buyer.node_id,request.resource_id)
+        market_before=D(self.market_resource_inventory.get(market_key,D('0')))
+        value=cleared*D(envelope.unit_price)
+        tx=self.boundary_purchase(
+            year,envelope.buyer_account_id,project.cash_account_id,value,
+            request.resource_id,cleared,
+            parent_ids=(decision.id,request.id,envelope.id))
+        colony.resource_inventory-=cleared
+        local_after=D(colony.resource_inventory)
+        market_after=D(self.market_resource_inventory.get(market_key,D('0')))
+        demand_after=demand_before-cleared
+        evt=self.event(
+            year,actor_id,ActionKind.SELL,'CLEARED',
+            (request.resource_id,str(cleared),str(envelope.unit_price),str(value),
+             tx.id,envelope.id,request.project_id),
+            (decision.id,))
+        rec=MarketClearingRecord(
+            year,envelope.id,actor_id,decision.id,request.project_id,request.resource_id,
+            offered,demand_before,cleared,demand_after,D(envelope.unit_price),value,
+            local_before,local_after,market_before,market_after,tx.id,evt.id)
+        self.market_clearing_records.append(rec)
         return rec
 
     def register_development_plan(self,plan:ProjectDevelopmentPlan):
@@ -688,7 +786,38 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if r.cash_total_before!=r.cash_total_after: raise InvariantError('resolution cash reconciliation')
         if 'EARTH_MARKET_v0' in self.agents: raise InvariantError('EARTH_MARKET_v0 cannot be agent')
         for r in self.surplus_decompositions: r.validate()
+        for e in self.market_envelopes.values():
+            e.validate()
+            if e.resource_id not in self.resources or e.buyer_account_id not in self.state.accounts:
+                raise InvariantError('market envelope lineage missing')
+            if self.state.accounts[e.buyer_account_id].kind!=AccountKind.EARTH_BOUNDARY:
+                raise InvariantError('market envelope buyer-kind drift')
+            if self.market_remaining_demand(e.id)<0:
+                raise InvariantError('negative remaining market demand')
         txids={t.id:t for t in self.state.transactions}
+        seen_sale=set()
+        for r in self.market_clearing_records:
+            if r.decision_id in seen_sale:
+                raise InvariantError('duplicate market clearing decision')
+            seen_sale.add(r.decision_id)
+            if r.market_state_id not in self.market_envelopes:
+                raise InvariantError('market clearing envelope missing')
+            env=self.market_envelopes[r.market_state_id]
+            if D(r.cleared_quantity)<=0 or D(r.cleared_quantity)>D(r.offered_quantity):
+                raise InvariantError('market cleared quantity invalid')
+            if D(r.demand_after)!=D(r.demand_before)-D(r.cleared_quantity):
+                raise InvariantError('market demand rollforward drift')
+            if D(r.local_inventory_after)!=D(r.local_inventory_before)-D(r.cleared_quantity):
+                raise InvariantError('local sale inventory rollforward drift')
+            if D(r.market_inventory_after)!=D(r.market_inventory_before)+D(r.cleared_quantity):
+                raise InvariantError('market inventory rollforward drift')
+            if D(r.transaction_value)!=D(r.cleared_quantity)*D(r.unit_price):
+                raise InvariantError('market value arithmetic drift')
+            tx=txids.get(r.transaction_id)
+            if tx is None or tx.purpose!=TxPurpose.REVENUE or D(tx.amount)!=D(r.transaction_value):
+                raise InvariantError('market revenue transaction drift')
+            if tx.source_account!=env.buyer_account_id or tx.destination_account!=self.state.projects[r.project_id].cash_account_id:
+                raise InvariantError('market revenue counterparty drift')
         seen_operating=set()
         for r in self.operating_cost_records:
             if r.decision_id in seen_operating:
@@ -803,7 +932,15 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
           'extraction_resolution_records':[(r.year,r.actor_id,r.decision_id,r.project_id,r.asset_id,r.resource_id,
              str(r.planned_quantity),str(r.actual_extracted),str(r.resource_before),str(r.resource_after),
              str(r.inventory_before),str(r.inventory_after),r.extraction_event_id,r.record_version)
-             for r in self.extraction_resolution_records]}
+             for r in self.extraction_resolution_records],
+          'market_envelopes':sorted((e.id,e.year,e.resource_id,e.buyer_account_id,str(e.unit_price),
+             str(e.demand_quantity),e.currency_unit,e.quantity_unit,e.source_ref,e.epistemic_status,e.envelope_version)
+             for e in self.market_envelopes.values()),
+          'market_clearing_records':[(r.year,r.market_state_id,r.actor_id,r.decision_id,r.project_id,r.resource_id,
+             str(r.offered_quantity),str(r.demand_before),str(r.cleared_quantity),str(r.demand_after),
+             str(r.unit_price),str(r.transaction_value),str(r.local_inventory_before),str(r.local_inventory_after),
+             str(r.market_inventory_before),str(r.market_inventory_after),r.transaction_id,r.event_id,r.record_version)
+             for r in self.market_clearing_records]}
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload
