@@ -167,7 +167,293 @@ Every executable result intended for comparison must preserve:
 - test/validation record;
 - known limitations.
 
-## 9. Relationship to governance
+## 9. Executable Schema Registry
+
+The ODD state/interface registry below is machine-checked against the executable dataclass schemas. A field added, removed, or renamed in a registered runtime type without an ODD update fails the regression suite.
+
+<!-- ODD_SCHEMA_REGISTRY_BEGIN -->
+```json
+{
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_1",
+  "types": {
+    "Account": [
+      "id",
+      "owner_id",
+      "node_id",
+      "kind",
+      "balance"
+    ],
+    "AgentState": [
+      "id",
+      "kind",
+      "node_id",
+      "account_id",
+      "capabilities",
+      "objectives",
+      "runtime_class",
+      "decision_policy",
+      "information",
+      "beliefs",
+      "history",
+      "asset_refs",
+      "resource_holdings",
+      "claim_holdings",
+      "lineage_refs"
+    ],
+    "AggregateState": [
+      "id",
+      "node_id",
+      "account_id",
+      "member_count",
+      "asset_refs",
+      "resource_holdings",
+      "claim_holdings",
+      "history_refs",
+      "runtime_class"
+    ],
+    "Asset": [
+      "id",
+      "project_id",
+      "node_id",
+      "kind",
+      "book_value",
+      "capacity"
+    ],
+    "ColonyState": [
+      "node_id",
+      "population",
+      "cash",
+      "productive_capital",
+      "infrastructure",
+      "resource_inventory",
+      "import_inventory",
+      "production_capacity",
+      "operating_need",
+      "external_subsidy",
+      "stage"
+    ],
+    "Commitment": [
+      "id",
+      "financier_id",
+      "project_id",
+      "amount",
+      "committed",
+      "disbursed",
+      "lapsed"
+    ],
+    "CouplingSpec": [
+      "process_id",
+      "version",
+      "runtime_class",
+      "owned_state",
+      "read_set",
+      "write_set",
+      "cadence_or_trigger",
+      "phase",
+      "unit_basis",
+      "world_context",
+      "perspective",
+      "direction",
+      "transition_interfaces"
+    ],
+    "DecisionSnapshot": [
+      "agent_id",
+      "agent_kind",
+      "node_id",
+      "period_key",
+      "effective_time",
+      "account_balance",
+      "capabilities",
+      "objectives",
+      "information_refs",
+      "beliefs",
+      "asset_refs",
+      "resource_holdings",
+      "claim_holdings",
+      "admitted_facts"
+    ],
+    "EarthImpactLedger": [
+      "qualifying_supplied_expenditure",
+      "terrestrial_fcf_delta"
+    ],
+    "EntityAssetRef": [
+      "id",
+      "domain_type",
+      "state_ref",
+      "runtime_class"
+    ],
+    "FinancingDecision": [
+      "id",
+      "request_id",
+      "financier_id",
+      "approved",
+      "amount",
+      "instrument",
+      "reason",
+      "outcome",
+      "reason_code",
+      "unknown_input_keys",
+      "input_snapshot_ref",
+      "policy_version",
+      "decision_version"
+    ],
+    "FinancingRequest": [
+      "id",
+      "year",
+      "sponsor_id",
+      "project_id",
+      "amount",
+      "stage",
+      "disclosed_observation_ids",
+      "required_underwriting_keys",
+      "currency_unit",
+      "request_version"
+    ],
+    "FixedCapitalFormationEvent": [
+      "id",
+      "year",
+      "project_id",
+      "asset_id",
+      "owner_ids",
+      "financing_origin_nodes",
+      "supplier_node",
+      "asset_node",
+      "amount",
+      "asset_class",
+      "parent_ids"
+    ],
+    "KernelState": [
+      "nodes",
+      "accounts",
+      "commitments",
+      "projects",
+      "assets",
+      "transactions",
+      "fcf_events",
+      "earth_impact"
+    ],
+    "Node": [
+      "id",
+      "kind"
+    ],
+    "Observation": [
+      "id",
+      "year",
+      "actor_id",
+      "resource_id",
+      "channel",
+      "signal",
+      "public"
+    ],
+    "PolicyContext": [
+      "snapshot",
+      "snapshot_ref",
+      "decision_key"
+    ],
+    "PopulationLedger": [
+      "earth",
+      "offworld"
+    ],
+    "Project": [
+      "id",
+      "node_id",
+      "cash_account_id",
+      "owners",
+      "status"
+    ],
+    "ResolutionExposurePlan": [
+      "plan_id",
+      "aggregate_id",
+      "selected_agent_id",
+      "members_exposed",
+      "selection_basis",
+      "selection_ref",
+      "allocation_basis",
+      "allocation_ref",
+      "explicit_share"
+    ],
+    "ResolutionExposureRecord": [
+      "plan_id",
+      "resolution_id",
+      "aggregate_id",
+      "agent_id",
+      "members_exposed",
+      "selection_basis",
+      "selection_ref",
+      "allocation_basis",
+      "allocation_ref",
+      "allocation_fraction"
+    ],
+    "ScenarioResource": [
+      "id",
+      "node_id",
+      "family",
+      "in_situ",
+      "accessible",
+      "recoverable",
+      "remaining"
+    ],
+    "ScheduledEvent": [
+      "event_id",
+      "effective_time",
+      "phase",
+      "priority",
+      "stable_key",
+      "process_id",
+      "payload",
+      "parent_ids",
+      "snapshot_ref"
+    ],
+    "SnapshotFact": [
+      "key",
+      "state",
+      "value",
+      "source_ref"
+    ],
+    "SystemState": [
+      "id",
+      "process_type",
+      "owned_state_refs",
+      "runtime_class"
+    ],
+    "Transaction": [
+      "id",
+      "year",
+      "source_account",
+      "destination_account",
+      "amount",
+      "purpose",
+      "source_location",
+      "destination_location",
+      "supplier_location",
+      "asset_location",
+      "parent_ids"
+    ],
+    "UnderwritingInput": [
+      "input_id",
+      "archetype_id",
+      "kind",
+      "value",
+      "unit",
+      "status",
+      "source_or_rationale_ref",
+      "sensitivity_low",
+      "sensitivity_high",
+      "valid_from",
+      "valid_to"
+    ],
+    "UnderwritingTable": [
+      "table_id",
+      "version",
+      "epistemic_status",
+      "inputs"
+    ]
+  }
+}
+```
+<!-- ODD_SCHEMA_REGISTRY_END -->
+
+## 10. Relationship to governance
 
 This ODD-aligned specification is operational documentation, not epistemic authority. It does not qualify inputs or convert validation fixtures into evidence. TRACE-like rationale, testing and validation status are carried by the Phase 3B design/validation records and the V&V protocol.
 
