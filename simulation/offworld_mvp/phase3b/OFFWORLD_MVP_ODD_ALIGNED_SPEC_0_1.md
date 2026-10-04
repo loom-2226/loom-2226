@@ -69,7 +69,7 @@ DECISION_WINDOW policy execution is separated from kernel-bearing system handler
 Settlement, capital stock, ownership distribution, extraction and financing recursion are realized outcomes, not scripted historical milestones.
 
 ### Adaptation
-General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier, public institutional remote explorer/surface prospector/publisher, and private sponsor/operator including project advancement, operating-cycle and inventory-sale decisions. Additional Agent roles or materially expanded policies require separate governance.
+General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier, public institutional remote explorer/surface prospector/publisher, and private sponsor/operator including project advancement, operating-cycle, inventory-sale and project-surplus allocation decisions. Additional Agent roles or materially expanded policies require separate governance.
 
 ### Objectives
 Agent objective state exists conceptually. No common utility function is assumed.
@@ -84,7 +84,7 @@ Agents may later form expectations from their own information. WORLD_SIM truth m
 Only declared observation/information channels cross the hidden-world firewall.
 
 ### Interaction
-Interactions occur through action requests, transactions, observations, ownership claims and system-mediated processes. Agents do not mutate world state. Test 009A keeps commodity clearing as a SYSTEM process: the sponsor may offer realized inventory from admitted exogenous price/demand state, while the market SYSTEM validates current inventory and remaining demand and records the physical/financial clearing. It does not read hidden scenario resource truth.
+Interactions occur through action requests, transactions, observations, ownership claims and system-mediated processes. Agents do not mutate world state. Test 009A keeps commodity clearing as a SYSTEM process: the sponsor may offer realized inventory from admitted exogenous price/demand state, while the market SYSTEM validates current inventory and remaining demand and records the physical/financial clearing. It does not read hidden scenario resource truth. Test 010A separately distinguishes financing-return claims from project ownership claims: the sponsor chooses bounded category totals from admitted project cash/obligations, while the distribution SYSTEM validates disbursed-financing lineage, preserves reserve cash, executes local reinvestment, and routes owner residual strictly by the ownership ledger.
 
 ### Stochasticity
 Randomness is keyed and replayable. Random identities are independent of execution order.
@@ -150,6 +150,7 @@ Current MVP submodels/interfaces include:
 - explicit staged project-development plans, construction WIP, commissioning, failure and WIP write-off;
 - bounded sponsor operating working-capital decisions, OPEX execution and WORLD_SIM resource-bounded extraction into offworld inventory;
 - bounded sponsor inventory-sale decisions plus immutable exogenous commodity-market envelopes, signed Earth-boundary clearing, physical inventory transfer and project revenue;
+- bounded sponsor project-surplus allocation with separately declared financing-return claims, retained operating reserve, local reinvestment and ownership-ledger-pro-rata owner distributions;
 - aggregate-resolution reconciliation;
 - uncertainty/ensemble runner;
 - ensemble reporting guardrails that distinguish scenario spread, parameter sensitivity, uncertainty spread and stochastic variability;
@@ -161,7 +162,7 @@ The A1–A9 property fixture captures state before every scheduler-valid transit
 
 The multi-rate synchronization fixture combines day-scale mission observations, quarterly finance and annual Earth-system events under one deterministic scheduler.
 
-Transport, technology gating, dynamic economic reserve conversion, mature colony operations, grade/quantity prospecting estimates, `CLOSED` and post-failure/zero-output lifecycle semantics, autonomous sponsor prospecting, repeated operating cycles, surplus/reinvestment decisions, endogenous price formation, price-responsive demand, multi-buyer/multi-seller competition, country-policy market intervention, empirical sensor calibration, empirical construction calibration, empirical mining calibration, and empirical market calibration remain incomplete unless separately implemented and validated.
+Transport, technology gating, dynamic economic reserve conversion, mature colony operations, grade/quantity prospecting estimates, `CLOSED` and post-failure/zero-output lifecycle semantics, autonomous sponsor prospecting, repeated operating/sale/distribution cycles, empirical financing terms and debt/equity waterfalls, endogenous reinvestment-opportunity search, endogenous price formation, price-responsive demand, multi-buyer/multi-seller competition, country-policy market intervention, empirical sensor calibration, empirical construction calibration, empirical mining calibration, and empirical market calibration remain incomplete unless separately implemented and validated.
 
 ## 8. Reproducibility package
 
@@ -208,7 +209,8 @@ The ODD state/interface registry below is machine-checked against executable dat
       "EXTRACT",
       "SELL",
       "MIGRATE",
-      "REINVEST"
+      "REINVEST",
+      "DISTRIBUTE"
     ],
     "AgentKind": [
       "PUBLIC",
@@ -389,6 +391,18 @@ The ODD state/interface registry below is machine-checked against executable dat
       "UNCERTAINTY_SPREAD",
       "STOCHASTIC_VARIABILITY"
     ],
+    "SurplusDistributionDecisionOutcome": [
+      "DISTRIBUTE",
+      "DEFER",
+      "BLOCKED_UNKNOWN"
+    ],
+    "SurplusDistributionReasonCode": [
+      "DISTRIBUTION_AUTHORIZED",
+      "NO_DISTRIBUTABLE_CASH",
+      "PROJECT_STATE_BLOCK",
+      "CAPABILITY_OR_OBJECTIVE_BLOCK",
+      "BLOCKED_REQUIRED_INPUT_UNKNOWN"
+    ],
     "TxPurpose": [
       "DISBURSE",
       "CAPEX",
@@ -399,7 +413,9 @@ The ODD state/interface registry below is machine-checked against executable dat
       "LOCAL_RETENTION",
       "LOCAL_REINVESTMENT",
       "OTHER_INVESTMENT",
-      "RESERVE"
+      "RESERVE",
+      "FINANCIER_RETURN",
+      "OWNER_DISTRIBUTION"
     ],
     "UnderwritingInputKind": [
       "PRICE",
@@ -433,7 +449,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_11",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_12",
   "types": {
     "Account": [
       {
@@ -1271,6 +1287,44 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "str"
       }
     ],
+    "FinancingReturnClaim": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "financier_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "destination_account_id",
+        "type": "str"
+      },
+      {
+        "name": "maximum_return_amount",
+        "type": "D"
+      },
+      {
+        "name": "source_commitment_ids",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "source_ref",
+        "type": "str"
+      },
+      {
+        "name": "epistemic_status",
+        "type": "str"
+      },
+      {
+        "name": "claim_version",
+        "type": "str"
+      }
+    ],
     "FixedCapitalFormationEvent": [
       {
         "name": "id",
@@ -1670,6 +1724,28 @@ The ODD state/interface registry below is machine-checked against executable dat
       },
       {
         "name": "request_version",
+        "type": "str"
+      }
+    ],
+    "OwnerDistributionAllocation": [
+      {
+        "name": "owner_id",
+        "type": "str"
+      },
+      {
+        "name": "destination_account_id",
+        "type": "str"
+      },
+      {
+        "name": "ownership_share",
+        "type": "D"
+      },
+      {
+        "name": "amount",
+        "type": "D"
+      },
+      {
+        "name": "transaction_id",
         "type": "str"
       }
     ],
@@ -2505,6 +2581,160 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "str"
       }
     ],
+    "SurplusDistributionDecision": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "SurplusDistributionDecisionOutcome"
+      },
+      {
+        "name": "reserve",
+        "type": "D"
+      },
+      {
+        "name": "financier_return",
+        "type": "D"
+      },
+      {
+        "name": "local_reinvestment",
+        "type": "D"
+      },
+      {
+        "name": "owner_distribution",
+        "type": "D"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "reason_code",
+        "type": "SurplusDistributionReasonCode"
+      },
+      {
+        "name": "unknown_input_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
+    ],
+    "SurplusDistributionRecord": [
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "decision_id",
+        "type": "str"
+      },
+      {
+        "name": "financing_return_claim_id",
+        "type": "str"
+      },
+      {
+        "name": "opening_project_cash",
+        "type": "D"
+      },
+      {
+        "name": "reserve",
+        "type": "D"
+      },
+      {
+        "name": "financier_return",
+        "type": "D"
+      },
+      {
+        "name": "local_reinvestment",
+        "type": "D"
+      },
+      {
+        "name": "local_reinvestment_account_id",
+        "type": "str"
+      },
+      {
+        "name": "owner_distribution",
+        "type": "D"
+      },
+      {
+        "name": "owner_allocations",
+        "type": "tuple[OwnerDistributionAllocation, ...]"
+      },
+      {
+        "name": "closing_project_cash",
+        "type": "D"
+      },
+      {
+        "name": "transaction_ids",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "SurplusDistributionRequest": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "financing_return_claim_id",
+        "type": "str"
+      },
+      {
+        "name": "required_fact_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "currency_unit",
+        "type": "str"
+      },
+      {
+        "name": "request_version",
+        "type": "str"
+      }
+    ],
     "SystemState": [
       {
         "name": "id",
@@ -2673,6 +2903,7 @@ The ODD state/interface registry below is machine-checked against executable dat
     "FinancingDecision.amount": "REQUEST_CURRENCY_UNIT",
     "FinancingRequest.amount": "FIELD:FinancingRequest.currency_unit",
     "FinancingRequest.year": "SIM_YEAR",
+    "FinancingReturnClaim.maximum_return_amount": "MODEL_CURRENCY",
     "FixedCapitalFormationEvent.amount": "MODEL_CURRENCY",
     "FixedCapitalFormationEvent.year": "SIM_YEAR",
     "MarketClearingRecord.cleared_quantity": "MODEL_RESOURCE_UNIT_BY_FAMILY",
@@ -2700,6 +2931,8 @@ The ODD state/interface registry below is machine-checked against executable dat
     "OperatingCycleDecision.planned_quantity": "FIELD:OperatingCycleRequest.quantity_unit",
     "OperatingCycleDecision.requested_financing": "REQUEST_CURRENCY_UNIT",
     "OperatingCycleRequest.year": "SIM_YEAR",
+    "OwnerDistributionAllocation.amount": "MODEL_CURRENCY",
+    "OwnerDistributionAllocation.ownership_share": "DIMENSIONLESS_SHARE",
     "PolicyParameter.local_perturbation": "FIELD:PolicyParameter.unit",
     "PolicyParameter.sensitivity_high": "FIELD:PolicyParameter.unit",
     "PolicyParameter.sensitivity_low": "FIELD:PolicyParameter.unit",
@@ -2731,6 +2964,18 @@ The ODD state/interface registry below is machine-checked against executable dat
     "SurfaceProspectingWorldRecord.world_false_negative": "PROBABILITY",
     "SurfaceProspectingWorldRecord.world_false_positive": "PROBABILITY",
     "SurfaceProspectingWorldRecord.year": "SIM_YEAR",
+    "SurplusDistributionDecision.financier_return": "FIELD:SurplusDistributionRequest.currency_unit",
+    "SurplusDistributionDecision.local_reinvestment": "FIELD:SurplusDistributionRequest.currency_unit",
+    "SurplusDistributionDecision.owner_distribution": "FIELD:SurplusDistributionRequest.currency_unit",
+    "SurplusDistributionDecision.reserve": "FIELD:SurplusDistributionRequest.currency_unit",
+    "SurplusDistributionRecord.closing_project_cash": "MODEL_CURRENCY",
+    "SurplusDistributionRecord.financier_return": "MODEL_CURRENCY",
+    "SurplusDistributionRecord.local_reinvestment": "MODEL_CURRENCY",
+    "SurplusDistributionRecord.opening_project_cash": "MODEL_CURRENCY",
+    "SurplusDistributionRecord.owner_distribution": "MODEL_CURRENCY",
+    "SurplusDistributionRecord.reserve": "MODEL_CURRENCY",
+    "SurplusDistributionRecord.year": "SIM_YEAR",
+    "SurplusDistributionRequest.year": "SIM_YEAR",
     "Transaction.amount": "MODEL_CURRENCY",
     "Transaction.year": "SIM_YEAR",
     "UnderwritingInput.basis_year": "SIM_YEAR",
