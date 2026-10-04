@@ -11,10 +11,12 @@ from .mvp_state import (
     SystemState, AggregateState, EntityAssetRef, AgentState, FinancingRequest, FinancingDecision,
     ExplorationRequest, ExplorationDecision, PublicationRequest, PublicationDecision, PublicInformationArtifact,
     SponsorProjectDecisionRequest, SponsorProjectDecision,
+    OperatingCycleRequest, OperatingCycleDecision,
     ScenarioResource, Observation, ColonyState, PopulationLedger, RuntimeObjectClass, AgentKind,
     ActionKind, FinancingDecisionOutcome, FinancingReasonCode, ExplorationDecisionOutcome, ExplorationReasonCode,
     PublicationDecisionOutcome, PublicationReasonCode,
     SponsorProjectDecisionOutcome, SponsorProjectReasonCode,
+    OperatingCycleDecisionOutcome, OperatingCycleReasonCode,
 )
 from .policy import SnapshotFact, DecisionSnapshot, PolicyContext, FactState
 from .scheduler import ScheduledEvent, CouplingSpec, Phase
@@ -37,19 +39,21 @@ from .surface_prospecting import (
     SurfaceProspectingModel, SurfaceProspectingWorldRecord,
     ObservationBeliefUpdateRecord,
 )
+from .operating import OperatingCostRecord, ExtractionResolutionRecord
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_9'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_10'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
     SystemState,AggregateState,EntityAssetRef,AgentState,FinancingRequest,FinancingDecision,ExplorationRequest,ExplorationDecision,
-    PublicationRequest,PublicationDecision,PublicInformationArtifact,SponsorProjectDecisionRequest,SponsorProjectDecision,ScenarioResource,Observation,
+    PublicationRequest,PublicationDecision,PublicInformationArtifact,SponsorProjectDecisionRequest,SponsorProjectDecision,OperatingCycleRequest,OperatingCycleDecision,ScenarioResource,Observation,
     ColonyState,PopulationLedger,SnapshotFact,DecisionSnapshot,PolicyContext,ScheduledEvent,CouplingSpec,
     UnderwritingInput,UnderwritingTable,ResolutionExposurePlan,ResolutionExposureRecord,
     ReplayProvenance,ScheduledRunResult,DecisionEpochRecord,ProjectDevelopmentPlan,DevelopmentStageRecord,DevelopmentResolutionRecord,
     SurfaceProspectingModel,SurfaceProspectingWorldRecord,ObservationBeliefUpdateRecord,
+    OperatingCostRecord,ExtractionResolutionRecord,
     PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
 )
 
@@ -57,6 +61,7 @@ ODD_ENUM_TYPES=(
     NodeKind,AccountKind,TxPurpose,AssetKind,
     RuntimeObjectClass,AgentKind,ActionKind,FinancingDecisionOutcome,FinancingReasonCode,ExplorationDecisionOutcome,ExplorationReasonCode,
     PublicationDecisionOutcome,PublicationReasonCode,SponsorProjectDecisionOutcome,SponsorProjectReasonCode,
+    OperatingCycleDecisionOutcome,OperatingCycleReasonCode,
     DevelopmentStageOutcome,DevelopmentResolutionOutcome,
     FactState,Phase,UnderwritingInputKind,UnderwritingInputStatus,
     ExposureSelectionBasis,ExposureAllocationBasis,AxisKind,SpreadMeaning,
@@ -89,6 +94,21 @@ ODD_UNIT_CONTRACTS={
     'PublicationRequest.year':'SIM_YEAR',
     'SponsorProjectDecisionRequest.year':'SIM_YEAR',
     'SponsorProjectDecision.requested_financing':'REQUEST_CURRENCY_UNIT',
+    'OperatingCycleRequest.year':'SIM_YEAR',
+    'OperatingCycleDecision.requested_financing':'REQUEST_CURRENCY_UNIT',
+    'OperatingCycleDecision.planned_quantity':'FIELD:OperatingCycleRequest.quantity_unit',
+    'OperatingCycleDecision.authorized_opex':'FIELD:OperatingCycleRequest.currency_unit',
+    'OperatingCostRecord.year':'SIM_YEAR',
+    'OperatingCostRecord.planned_quantity':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'OperatingCostRecord.unit_opex':'MODEL_CURRENCY_PER_RESOURCE_UNIT',
+    'OperatingCostRecord.total_opex':'MODEL_CURRENCY',
+    'ExtractionResolutionRecord.year':'SIM_YEAR',
+    'ExtractionResolutionRecord.planned_quantity':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'ExtractionResolutionRecord.actual_extracted':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'ExtractionResolutionRecord.resource_before':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'ExtractionResolutionRecord.resource_after':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'ExtractionResolutionRecord.inventory_before':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'ExtractionResolutionRecord.inventory_after':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'ProjectDevelopmentPlan.required_cost':'MODEL_CURRENCY',
     'ProjectDevelopmentPlan.stage_schedule':'SIM_YEAR_AND_MODEL_CURRENCY_SCHEDULE',
     'ProjectDevelopmentPlan.completion_year':'SIM_YEAR',
