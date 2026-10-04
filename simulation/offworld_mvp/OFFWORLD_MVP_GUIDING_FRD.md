@@ -5,7 +5,7 @@
 **Status:** PRELIMINARY FRD / PRE-CONTRACT  
 **Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY  
 **Canonical status:** NON-CANON  
-**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
+**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002/003; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
 **Phase basis:** Phase 2 Claim and Authority Model  
 **Purpose:** Define the minimum functional system required to demonstrate governed offworld civilization propagation without scripting historical outcomes.
 
@@ -250,7 +250,7 @@ Represents an offworld financing institution only when its own decision process 
 
 The MVP shall not create autonomous Agents for ordinary market clearing, physical production, accounting, routine transport mechanics, households, workers, minor firms or every individual person merely because those phenomena exist. Those may remain SYSTEM or AGGREGATE representations until a causal need justifies higher resolution.
 
-General autonomous decision-policy authority remains gated. Build 5 has individually authorized bounded autonomous policies for the private financier (Test 001) and public institutional explorer (Test 002A). Those scoped authorizations do not authorize other Agent roles or a general autonomous-agent engine. Deterministic scripted policies may continue to exercise other interfaces for validation only.
+General autonomous decision-policy authority remains gated. Build 5 has individually authorized bounded autonomous policies for the private financier (Test 001), public institutional explorer (Test 002A), and public observation publisher (Test 002B). Those scoped authorizations do not authorize other Agent roles or a general autonomous-agent engine. Deterministic scripted policies may continue to exercise other interfaces for validation only.
 
 ## 15. Agent Information Firewall
 
@@ -973,7 +973,7 @@ This FRD is a build-guiding candidate on a branch created from the closed Phase 
 
 ## 50. Build 5 Bounded Autonomous-Agent Standing
 
-Build 5 has now admitted two individually scoped autonomous institutional-Agent slices under the PRE-CONTRACT / SINGLE-AUTHORITY model.
+Build 5 has now admitted three individually scoped autonomous policy slices across two institutional Agents under the PRE-CONTRACT / SINGLE-AUTHORITY model.
 
 ### 50.1 Private financier — Test 001
 
@@ -997,6 +997,21 @@ Normative records:
 
 - `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_002_PUBLIC_EXPLORER_TEST002A.md`;
 - `build5/BUILD5_VALIDATION_RECORD_002_PUBLIC_EXPLORER_STRUCTURAL.md`.
+
+### 50.3 Public observation publication and financier response — Test 002B
+
+The bounded public publisher policy is structurally verified as a second policy of the existing public institutional Agent. Under the declared `PUBLIC_INFORMATION` objective it may publish a legitimately possessed positive or negative observation; it does not receive hidden scenario truth and it does not use a numeric publication threshold.
+
+A later scheduled publication SYSTEM creates an immutable public-information artifact, preserves source-observation and publisher lineage, and transfers the observation to declared recipients. The recipient financier updates its own belief using explicitly admitted financier-side likelihood parameters. Hidden NULL/RICH state cannot alter financier behavior before publication when admitted financier state is identical.
+
+The structural fixtures demonstrate positive publication -> financier belief `0.50` -> `APPROVE`, negative publication -> financier belief `0.05882352941176470588235294118` -> `REJECT`, and a NULL-world false positive that legitimately yields financier `APPROVE` while hidden resource truth remains zero.
+
+Normative records:
+
+- `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_003_PUBLICATION_FINANCIER_TEST002B.md`;
+- `build5/BUILD5_VALIDATION_RECORD_003_PUBLICATION_FINANCIER_STRUCTURAL.md`.
+
+Test 002B does not close surface prospecting, sponsor/operator autonomy, empirical observation-model calibration, or a general multi-decision-window scheduler contract.
 
 The full autonomous-agent engine remains gated. Each additional Agent role or materially expanded policy requires its own governed scope.
 
