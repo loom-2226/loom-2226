@@ -13,7 +13,7 @@ from offworld_kernel.project_lifecycle import (
 from offworld_kernel.provenance import ReplayProvenance
 from offworld_kernel.runtime import ScheduledSimulationRuntime
 from offworld_kernel.scheduler import CouplingSpec, Phase, ScheduledEvent
-from tests.test_build5_sponsor_operator import Build5SponsorOperatorTests
+from tests import test_build5_sponsor_operator as sponsor_tests
 
 
 class Build5ProjectLifecycleTests(unittest.TestCase):
@@ -21,7 +21,7 @@ class Build5ProjectLifecycleTests(unittest.TestCase):
                           year7_earth_ceiling='100'):
         k,h=project_lifecycle_kernel(
             universe_id,stock,year7_earth_ceiling=year7_earth_ceiling)
-        helper=Build5SponsorOperatorTests()
+        helper=sponsor_tests.Build5SponsorOperatorTests()
         helper.publication_epoch(k,h,chain_id='CHAIN-LIFECYCLE-006A')
         helper.sponsor_epoch(
             k,h,'EPOCH-2-SPONSOR-FINANCE','SPREQ-006A-FINANCE',3)
