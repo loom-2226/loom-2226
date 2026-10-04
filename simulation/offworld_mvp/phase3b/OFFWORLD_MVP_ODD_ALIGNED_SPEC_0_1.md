@@ -2,7 +2,7 @@
 
 **Status:** DESIGN CANDIDATE / PRE-CONTRACT / SINGLE-AUTHORITY
 **Basis:** ODD 2020 structure adapted to LOOM governance
-**Scope:** Frozen Build 5 Offworld MVP plus authorized Build 6A temporal multi-project and Build 6B staged prospecting/project-study structural expansions
+**Scope:** Frozen Build 5 Offworld MVP plus authorized Build 6A temporal multi-project, Build 6B staged prospecting/project-study, and Build 6C named-body portfolio structural expansions
 
 ## 1. Purpose and patterns
 
@@ -166,6 +166,8 @@ The multi-rate synchronization fixture combines day-scale mission observations, 
 Build 6A Test 001A adds a structurally bounded multi-project temporal seam. Generic candidate project activities are explicit time-bearing ENTITY_ASSET-like project state controlled by SYSTEM execution after a sponsor decision. Authorization, start, completion and information admission are distinct causal steps. Active/authorized/waiting activities reserve declared sponsor capital without creating expenditure; reserved capital is excluded from later portfolio availability until the activity completes or is canceled. Opportunity windows may hold an authorized activity in `WAITING_WINDOW`, and deterministic completion releases its reservation. The sponsor portfolio policy is Test-only and ranks admitted candidates solely by authored priority and stable project identity subject to project/activity eligibility, window validity and admitted uncommitted capital. It receives no hidden resource truth or future result. Build 6A uses generic projects on the existing single target/body fixture; named Solar targets, staged resource/project-study maturity, stochastic schedule risk and multiple economies remain outside Test 001A.
 
 Build 6B Test 001A adds orthogonal project-study maturity while retaining the existing Project lifecycle. Generic EXPLORING projects may fund time-bearing study/prospecting activities through the existing transaction ledger, `TxPurpose.EXPLORATION`, `EXPLORATION_WIP` and `KNOWLEDGE` asset classes. Study maturity progresses only across declared adjacent edges after a completed result is admitted to the sponsor and a separate bounded Test-only sponsor review returns `ADVANCE`; `INSUFFICIENT` evidence defers without advancement and `NEGATIVE` evidence may reuse the existing governed `EXPLORING -> ABANDONED` transition. Spending is sunk ledger expenditure, not a reservation release: sponsor cash falls, completed negative/insufficient work may still remain as knowledge, and no result is visible before completion/admission. Build 6B remains generic and does not instantiate named Solar targets, calibrated resource confidence, empirical PFS/FS costs/durations, stochastic schedule risk or development construction.
+
+Build 6C Test 001A activates a bounded four-body portfolio under an explicit expansion-gate disposition that defers, but does not delete, the FRD multiple-economies rung. Moon, Mars, Ceres and Bennu are distinct OFFWORLD nodes with provenance-pinned 2026 evidence records and body/project bindings. Their opening study maturity may differ because admitted evidence quality differs. Build 6C uses one Earth economy, one finite sponsor capital pool, deterministic fractional calendar years from 2026 through 2041, authored structural activity costs/durations/opportunity windows, and existing Build 6A/6B project-activity, spending, knowledge and review semantics. The named-body evidence layer preserves scope and epistemic limits from promoted Solar evidence; it does not infer opening recoverable tonnage, mineable grade or global inventory. No TechnologyCapabilityState or transport relationship is created in the qualification fixture, and no Technology Timeline date is an automatic unlock. The first four-body scenario is explicitly PRE_CONTRACT / SCENARIO_NOT_CALIBRATED and does not claim to predict what humanity will do.
 
 Dynamic economic reserve conversion, mature colony service/reliability operations, labour/skill matching, cohorts/households/individual persons, DIVERSIFYING_SETTLEMENT and HANDOFF_CANDIDATE mechanics, grade/quantity prospecting estimates, autonomous sponsor prospecting, empirical financing terms and debt/equity waterfalls, endogenous reinvestment-opportunity search, endogenous price formation, price-responsive demand, multi-buyer/multi-seller competition, country-policy market intervention, empirical sensor calibration, empirical construction calibration, empirical mining calibration, empirical habitat/migration calibration, and empirical market calibration remain incomplete unless separately implemented and validated. Test 012A separately earns exogenous technology-qualified passenger transport; Test 014A earns bounded repeated operating lifecycle review and `OPERATING -> CLOSED` after zero realized output. Neither result implies the unimplemented broader mechanisms above.
 
@@ -632,7 +634,7 @@ changed by integrated qualification R1.
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_18",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_19",
   "types": {
     "Account": [
       {
@@ -784,6 +786,156 @@ changed by integrated qualification R1.
       {
         "name": "capacity",
         "type": "D"
+      }
+    ],
+    "BodyPortfolioBinding": [
+      {
+        "name": "body_id",
+        "type": "str"
+      },
+      {
+        "name": "node_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "opportunity_family",
+        "type": "str"
+      },
+      {
+        "name": "opening_maturity",
+        "type": "ProjectStudyMaturity"
+      },
+      {
+        "name": "evidence_ids",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "Build6CActivitySpec": [
+      {
+        "name": "activity_id",
+        "type": "str"
+      },
+      {
+        "name": "body_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "required_maturity",
+        "type": "ProjectStudyMaturity"
+      },
+      {
+        "name": "next_maturity",
+        "type": "ProjectStudyMaturity"
+      },
+      {
+        "name": "activity_type",
+        "type": "str"
+      },
+      {
+        "name": "priority",
+        "type": "int"
+      },
+      {
+        "name": "cost",
+        "type": "D"
+      },
+      {
+        "name": "earliest_start",
+        "type": "D"
+      },
+      {
+        "name": "duration_years",
+        "type": "D"
+      },
+      {
+        "name": "result_standing",
+        "type": "ProjectStudyResultStanding"
+      },
+      {
+        "name": "rationale",
+        "type": "str"
+      },
+      {
+        "name": "opportunity_window_id",
+        "type": "str"
+      },
+      {
+        "name": "window_open",
+        "type": "D | None"
+      },
+      {
+        "name": "window_close",
+        "type": "D | None"
+      },
+      {
+        "name": "spec_version",
+        "type": "str"
+      }
+    ],
+    "Build6CPortfolioScenario": [
+      {
+        "name": "path",
+        "type": "str"
+      },
+      {
+        "name": "schema_version",
+        "type": "str"
+      },
+      {
+        "name": "standing",
+        "type": "str"
+      },
+      {
+        "name": "reference_calendar",
+        "type": "str"
+      },
+      {
+        "name": "horizon_start",
+        "type": "D"
+      },
+      {
+        "name": "horizon_end",
+        "type": "D"
+      },
+      {
+        "name": "opening_capital",
+        "type": "D"
+      },
+      {
+        "name": "sponsor_id",
+        "type": "str"
+      },
+      {
+        "name": "authority",
+        "type": "Tuple[Tuple[str, str], ...]"
+      },
+      {
+        "name": "body_bindings",
+        "type": "Tuple[BodyPortfolioBinding, ...]"
+      },
+      {
+        "name": "evidence_records",
+        "type": "Tuple[NamedBodyEvidenceRecord, ...]"
+      },
+      {
+        "name": "activity_specs",
+        "type": "Tuple[Build6CActivitySpec, ...]"
+      },
+      {
+        "name": "scenario_sha256",
+        "type": "str"
       }
     ],
     "ColonyState": [
@@ -1813,6 +1965,52 @@ changed by integrated qualification R1.
       },
       {
         "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "NamedBodyEvidenceRecord": [
+      {
+        "name": "evidence_id",
+        "type": "str"
+      },
+      {
+        "name": "body_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "source_path",
+        "type": "str"
+      },
+      {
+        "name": "evidence_class",
+        "type": "str"
+      },
+      {
+        "name": "confidence_class",
+        "type": "str"
+      },
+      {
+        "name": "abundance_semantics",
+        "type": "str"
+      },
+      {
+        "name": "scope",
+        "type": "str"
+      },
+      {
+        "name": "admitted_claim",
+        "type": "str"
+      },
+      {
+        "name": "source_blob_sha",
         "type": "str"
       },
       {
@@ -4415,6 +4613,14 @@ changed by integrated qualification R1.
     "Account.balance": "MODEL_CURRENCY",
     "Asset.book_value": "MODEL_CURRENCY",
     "Asset.capacity": "ASSET_CLASS_CAPACITY_UNIT",
+    "Build6CActivitySpec.cost": "MODEL_CURRENCY",
+    "Build6CActivitySpec.duration_years": "YEAR_DURATION",
+    "Build6CActivitySpec.earliest_start": "CALENDAR_YEAR_FRACTION",
+    "Build6CActivitySpec.window_close": "CALENDAR_YEAR_FRACTION",
+    "Build6CActivitySpec.window_open": "CALENDAR_YEAR_FRACTION",
+    "Build6CPortfolioScenario.horizon_end": "CALENDAR_YEAR_FRACTION",
+    "Build6CPortfolioScenario.horizon_start": "CALENDAR_YEAR_FRACTION",
+    "Build6CPortfolioScenario.opening_capital": "MODEL_CURRENCY",
     "ColonyState.habitat_capacity": "PEOPLE_EQUIVALENT",
     "ColonyState.population": "PEOPLE_EQUIVALENT",
     "Commitment.amount": "MODEL_CURRENCY",

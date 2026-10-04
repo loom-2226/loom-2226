@@ -49,6 +49,7 @@ from .project_study import (
     ProjectStudyResultRecord, ProjectStudyReviewRequest, ProjectStudyReviewDecision,
     ProjectStudyReviewExecutionRecord,
 )
+from .named_portfolio import NamedBodyEvidenceRecord, BodyPortfolioBinding
 
 @dataclass(frozen=True)
 class ResolutionRecord:
@@ -103,7 +104,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'complete_project_activity','admit_project_activity_result','cancel_project_activity',
         'register_project_study_state','register_project_study_plan',
         'authorize_project_study_activity','spend_exploration_wip','spend_project_study_activity',
-        'complete_project_study_activity','execute_project_study_review'
+        'complete_project_study_activity','execute_project_study_review',
+        'register_named_body_evidence','register_body_portfolio_binding'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
@@ -158,6 +160,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.project_activity_expense_records: list[ProjectActivityExpenseRecord]=[]
         self.project_study_result_records: list[ProjectStudyResultRecord]=[]
         self.project_study_review_records: list[ProjectStudyReviewExecutionRecord]=[]
+        self.named_body_evidence_records: Dict[str,NamedBodyEvidenceRecord]={}
+        self.body_portfolio_bindings: Dict[str,BodyPortfolioBinding]={}
         self.decision_epoch_chain_id: str|None=None
         self.active_decision_epoch_id: str|None=None
         self._decision_epoch_open_state_fingerprint=None
@@ -1228,6 +1232,27 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if actor_id not in self.agents:
             raise InvariantError('project activity capital actor missing')
         total=D('0')
+        for rec in self.named_body_evidence_records.values():
+            try:
+                rec.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if rec.project_id not in self.state.projects:
+                raise InvariantError('named body evidence project missing')
+        for binding in self.body_portfolio_bindings.values():
+            try:
+                binding.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if binding.node_id not in self.state.nodes or binding.project_id not in self.state.projects:
+                raise InvariantError('body portfolio binding lineage missing')
+            if self.state.projects[binding.project_id].node_id!=binding.node_id:
+                raise InvariantError('body portfolio binding project/node drift')
+            for evidence_id in binding.evidence_ids:
+                rec=self.named_body_evidence_records.get(evidence_id)
+                if rec is None or rec.body_id!=binding.body_id or rec.project_id!=binding.project_id:
+                    raise InvariantError('body portfolio binding evidence drift')
+
         for state in self.project_study_states.values():
             try:
                 state.validate()
@@ -1448,6 +1473,36 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             tuple(x for x in (str(reason_ref),) if x))
         rec=self._project_activity_transition(a,t,ProjectActivityStatus.CANCELED,evt.id,str(reason_ref))
         return rec
+
+    def register_named_body_evidence(self,record:NamedBodyEvidenceRecord):
+        try:
+            record.validate()
+        except ValueError as e:
+            raise InvariantError(str(e)) from e
+        if record.evidence_id in self.named_body_evidence_records:
+            raise InvariantError('duplicate named body evidence')
+        self.named_body_evidence_records[record.evidence_id]=record
+        return record
+
+    def register_body_portfolio_binding(self,binding:BodyPortfolioBinding):
+        try:
+            binding.validate()
+        except ValueError as e:
+            raise InvariantError(str(e)) from e
+        if binding.body_id in self.body_portfolio_bindings:
+            raise InvariantError('duplicate body portfolio binding')
+        if binding.node_id not in self.state.nodes or binding.project_id not in self.state.projects:
+            raise InvariantError('body portfolio node/project missing')
+        if self.state.projects[binding.project_id].node_id!=binding.node_id:
+            raise InvariantError('body portfolio project/node drift')
+        for evidence_id in binding.evidence_ids:
+            if evidence_id not in self.named_body_evidence_records:
+                raise InvariantError('body portfolio evidence missing')
+            rec=self.named_body_evidence_records[evidence_id]
+            if rec.body_id!=binding.body_id or rec.project_id!=binding.project_id:
+                raise InvariantError('body portfolio evidence lineage drift')
+        self.body_portfolio_bindings[binding.body_id]=binding
+        return binding
 
     def register_project_study_state(self,state:ProjectStudyState):
         try:
@@ -2161,6 +2216,15 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
           'surplus_decompositions':[(r.year,r.project_id,str(r.surplus),str(r.reserve),str(r.local_reinvest),
              str(r.return_to_earth),str(r.local_retention),str(r.other_investment),r.transaction_ids)
              for r in self.surplus_decompositions],
+          'named_body_evidence_records':sorted((
+             r.evidence_id,r.body_id,r.project_id,r.source_path,r.evidence_class,
+             r.confidence_class,r.abundance_semantics,r.scope,r.admitted_claim,
+             r.source_blob_sha,r.record_version
+             ) for r in self.named_body_evidence_records.values()),
+          'body_portfolio_bindings':sorted((
+             b.body_id,b.node_id,b.project_id,b.opportunity_family,
+             b.opening_maturity.value,b.evidence_ids,b.record_version
+             ) for b in self.body_portfolio_bindings.values()),
           'project_study_states':sorted((
              s.project_id,s.maturity.value,s.last_review_decision_id,s.state_version
              ) for s in self.project_study_states.values()),
