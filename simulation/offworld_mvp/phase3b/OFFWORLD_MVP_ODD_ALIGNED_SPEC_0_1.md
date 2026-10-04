@@ -362,7 +362,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_5",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_6",
   "types": {
     "Account": [
       {
@@ -644,6 +644,44 @@ The ODD state/interface registry below is machine-checked against executable dat
       {
         "name": "transition_interfaces",
         "type": "Tuple[str, ...]"
+      }
+    ],
+    "DecisionEpochRecord": [
+      {
+        "name": "chain_id",
+        "type": "str"
+      },
+      {
+        "name": "epoch_id",
+        "type": "str"
+      },
+      {
+        "name": "ordinal",
+        "type": "int"
+      },
+      {
+        "name": "parent_result_fingerprint",
+        "type": "str"
+      },
+      {
+        "name": "plan_fingerprint",
+        "type": "str"
+      },
+      {
+        "name": "initial_fingerprint",
+        "type": "str"
+      },
+      {
+        "name": "final_fingerprint",
+        "type": "str"
+      },
+      {
+        "name": "execution_fingerprint",
+        "type": "str"
+      },
+      {
+        "name": "result_fingerprint",
+        "type": "str"
       }
     ],
     "DecisionSnapshot": [
