@@ -31,6 +31,11 @@ def settlement_kernel(universe_id='RICH_PUBLIC_3',stock='20',
     if public_balance is not None:
         k.state.accounts['public_funds'].balance=D(public_balance)
 
+    # Settlement authority is added before the first governed epoch. Re-freeze
+    # the publication snapshot so the decision firewall sees the actual
+    # admitted public-Agent state rather than the parent fixture's stale copy.
+    h['pub_snapshot']=build_decision_snapshot(k,'PUB','1',D('1'),())
+
     k.population=PopulationLedger(
         earth=int(earth_population),offworld={'OFF:T1':0})
 
