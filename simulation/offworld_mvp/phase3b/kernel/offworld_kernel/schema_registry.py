@@ -26,10 +26,11 @@ from .ensemble import AxisKind, SpreadMeaning
 from .validation import VerificationLevel, ValidationLevel, OutOfSampleStatus
 from .provenance import ReplayProvenance
 from .runtime import ScheduledRunResult
+from .methodology import DecisionEpochRecord
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_5'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_6'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
@@ -37,7 +38,7 @@ ODD_SCHEMA_TYPES=(
     PublicationRequest,PublicationDecision,PublicInformationArtifact,ScenarioResource,Observation,
     ColonyState,PopulationLedger,SnapshotFact,DecisionSnapshot,PolicyContext,ScheduledEvent,CouplingSpec,
     UnderwritingInput,UnderwritingTable,ResolutionExposurePlan,ResolutionExposureRecord,
-    ReplayProvenance,ScheduledRunResult,PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
+    ReplayProvenance,ScheduledRunResult,DecisionEpochRecord,PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
 )
 
 ODD_ENUM_TYPES=(

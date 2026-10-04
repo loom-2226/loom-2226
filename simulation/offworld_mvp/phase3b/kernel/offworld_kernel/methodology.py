@@ -30,6 +30,18 @@ class ResolutionRecord:
     cash_total_before: D
     cash_total_after: D
 
+@dataclass(frozen=True)
+class DecisionEpochRecord:
+    chain_id: str
+    epoch_id: str
+    ordinal: int
+    parent_result_fingerprint: str
+    plan_fingerprint: str
+    initial_fingerprint: str
+    final_fingerprint: str
+    execution_fingerprint: str
+    result_fingerprint: str
+
 class MethodologyHardenedBuild4Kernel(Build4Kernel):
     """Build-4-derived methodology baseline. No autonomous decision-policy authority."""
 
@@ -48,10 +60,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
         'assert_mvp_invariants','mvp_fingerprint','keyed_draw','build3_fingerprint',
         'assert_vehicle_ownership','assert_build4_invariants','build4_fingerprint','uniformity_sample',
-        'assert_methodology_invariants','methodology_fingerprint'
+        'assert_methodology_invariants','methodology_fingerprint','decision_epoch_state_fingerprint'
     })
     SCHEDULED_CONTROL_METHODS=frozenset({
-        'seal_for_scheduled_execution','scheduled_event_context'
+        'seal_for_scheduled_execution','scheduled_event_context','begin_decision_epoch','complete_decision_epoch'
     })
     methodology_version='BUILD4_MVP_METHODOLOGY_R1'
     accounting_boundary_version='PHASE3B_MVP_ACCOUNTING_BOUNDARY_0_1'
@@ -65,6 +77,11 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.resolution_records: list[ResolutionRecord]=[]
         self.resolution_exposure_records: list[ResolutionExposureRecord]=[]
         self.surplus_decompositions: list[SurplusDecompositionRecord]=[]
+        self.decision_epoch_records: list[DecisionEpochRecord]=[]
+        self.decision_epoch_chain_id: str|None=None
+        self.active_decision_epoch_id: str|None=None
+        self._decision_epoch_open_state_fingerprint=None
+        self._decision_epoch_expected_between_fingerprint=None
         self._strict_scheduled_execution=False
         self._scheduled_execution_depth=0
         self._scheduled_current_event_id=None
@@ -80,22 +97,78 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             guarded=name in super().__getattribute__('SCHEDULED_MUTATION_METHODS')
             strict=super().__getattribute__('_strict_scheduled_execution')
             depth=super().__getattribute__('_scheduled_execution_depth')
+            epoch_chain=super().__getattribute__('decision_epoch_chain_id') is not None
         except AttributeError:
             return attr
-        if guarded and strict and depth<=0:
+        if guarded and depth<=0 and (strict or epoch_chain):
             def blocked(*args,**kwargs):
-                raise InvariantError(f'direct mutation blocked in scheduled-run mode: {name}')
+                mode='scheduled-run' if strict else 'decision-epoch chain'
+                raise InvariantError(f'direct mutation blocked in {mode} mode: {name}')
             return blocked
         return attr
 
     def seal_for_scheduled_execution(self,state_fingerprint,plan_fingerprint):
         if self._strict_scheduled_execution:
             raise InvariantError('kernel already sealed for scheduled execution')
+        if self.active_decision_epoch_id is not None:
+            current=self.decision_epoch_state_fingerprint()
+            if current!=self._decision_epoch_open_state_fingerprint:
+                raise InvariantError('decision-epoch persistent state changed before seal')
         self._scheduled_seal_state_fingerprint=str(state_fingerprint)
         self._scheduled_seal_plan_fingerprint=str(plan_fingerprint)
         self._scheduled_execution_token=object()
         self._strict_scheduled_execution=True
         return self._scheduled_execution_token
+
+    def begin_decision_epoch(self,epoch_id,chain_id=None):
+        if self._strict_scheduled_execution:
+            raise InvariantError('cannot begin decision epoch while kernel sealed')
+        if self.active_decision_epoch_id is not None:
+            raise InvariantError('decision epoch already active')
+        epoch_id=str(epoch_id)
+        if not epoch_id:
+            raise InvariantError('decision epoch id required')
+        if any(r.epoch_id==epoch_id for r in self.decision_epoch_records):
+            raise InvariantError('duplicate decision epoch id')
+        if self.decision_epoch_chain_id is None:
+            if not chain_id:
+                raise InvariantError('first decision epoch requires chain id')
+            self.decision_epoch_chain_id=str(chain_id)
+        elif chain_id is not None and str(chain_id)!=self.decision_epoch_chain_id:
+            raise InvariantError('decision epoch chain id mismatch')
+        if self._decision_epoch_expected_between_fingerprint is not None:
+            if self.decision_epoch_state_fingerprint()!=self._decision_epoch_expected_between_fingerprint:
+                raise InvariantError('persistent state tampered between decision epochs')
+        self.scheduler=DeterministicScheduler()
+        self.active_decision_epoch_id=epoch_id
+        self._decision_epoch_open_state_fingerprint=self.decision_epoch_state_fingerprint()
+        return self._decision_epoch_open_state_fingerprint
+
+    def complete_decision_epoch(self,execution_token,run_result):
+        if self.active_decision_epoch_id is None:
+            raise InvariantError('no active decision epoch')
+        if not self._strict_scheduled_execution or execution_token is not self._scheduled_execution_token:
+            raise InvariantError('decision epoch completion requires active runtime token')
+        if self._scheduled_execution_depth!=0:
+            raise InvariantError('cannot complete decision epoch inside scheduled event')
+        if run_result.plan_fingerprint!=self._scheduled_seal_plan_fingerprint:
+            raise InvariantError('decision epoch plan fingerprint mismatch')
+        if run_result.final_fingerprint!=self.methodology_fingerprint():
+            raise InvariantError('decision epoch final fingerprint mismatch')
+        parent=self.decision_epoch_records[-1].result_fingerprint if self.decision_epoch_records else ''
+        record=DecisionEpochRecord(
+            self.decision_epoch_chain_id,self.active_decision_epoch_id,len(self.decision_epoch_records)+1,parent,
+            run_result.plan_fingerprint,run_result.initial_fingerprint,run_result.final_fingerprint,
+            run_result.execution_fingerprint,run_result.result_fingerprint)
+        self.decision_epoch_records.append(record)
+        self._strict_scheduled_execution=False
+        self._scheduled_execution_token=None
+        self._scheduled_seal_state_fingerprint=None
+        self._scheduled_seal_plan_fingerprint=None
+        self.active_decision_epoch_id=None
+        self._decision_epoch_open_state_fingerprint=None
+        self._decision_epoch_expected_between_fingerprint=self.decision_epoch_state_fingerprint()
+        return record
 
     @contextmanager
     def scheduled_event_context(self,event_id,execution_token):
@@ -279,12 +352,11 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if 'EARTH_MARKET_v0' in self.agents: raise InvariantError('EARTH_MARKET_v0 cannot be agent')
         for r in self.surplus_decompositions: r.validate()
 
-    def methodology_fingerprint(self):
+    def _methodology_payload(self,include_scheduler=True):
         payload={
           'methodology_version':self.methodology_version,
           'accounting_boundary_version':self.accounting_boundary_version,
           'build4':self.build4_fingerprint(),
-          'scheduler':self.scheduler.fingerprint(),
           'systems':sorted((s.id,s.process_type,tuple(sorted(s.owned_state_refs))) for s in self.systems.values()),
           'aggregates':sorted((a.id,a.node_id,a.account_id,a.member_count,tuple(sorted(a.asset_refs)),
              tuple(sorted((k,str(v)) for k,v in a.resource_holdings.items())),
@@ -299,5 +371,20 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
              for r in self.resolution_exposure_records],
           'surplus_decompositions':[(r.year,r.project_id,str(r.surplus),str(r.reserve),str(r.local_reinvest),
              str(r.return_to_earth),str(r.local_retention),str(r.other_investment),r.transaction_ids)
-             for r in self.surplus_decompositions]}
+             for r in self.surplus_decompositions],
+          'decision_epoch_chain_id':self.decision_epoch_chain_id,
+          'active_decision_epoch_id':self.active_decision_epoch_id,
+          'decision_epoch_records':[(r.chain_id,r.epoch_id,r.ordinal,r.parent_result_fingerprint,
+             r.plan_fingerprint,r.initial_fingerprint,r.final_fingerprint,r.execution_fingerprint,r.result_fingerprint)
+             for r in self.decision_epoch_records]}
+        if include_scheduler:
+            payload['scheduler']=self.scheduler.fingerprint()
+        return payload
+
+    def decision_epoch_state_fingerprint(self):
+        payload=self._methodology_payload(include_scheduler=False)
+        return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+
+    def methodology_fingerprint(self):
+        payload=self._methodology_payload(include_scheduler=True)
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()

@@ -159,7 +159,7 @@ class ScheduledSimulationRuntime:
           'verification_status':'SCHEDULED_EXECUTION_VERIFIED',
           'validation_status':'NOT_EMPIRICALLY_VALIDATED'}
         result_fp=sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-        return ScheduledRunResult(
+        result=ScheduledRunResult(
             'SCHEDULED_MVP',self.kernel.scheduler.contract_version,self._plan_fingerprint,
             self._initial_fingerprint,final_fp,tuple(self.kernel.scheduler.execution_log),
             event_results,'SCHEDULED_EXECUTION_VERIFIED','NOT_EMPIRICALLY_VALIDATED',
@@ -167,3 +167,6 @@ class ScheduledSimulationRuntime:
             self.provenance.input_snapshot_ids,self.provenance.parameter_manifest_ids,
             self.provenance.table_manifest_ids,self.provenance.policy_manifest_ids,
             self.provenance.commit_code_linkage,provenance_fp,execution_fp,result_fp)
+        if self.kernel.active_decision_epoch_id is not None:
+            self.kernel.complete_decision_epoch(self._execution_token,result)
+        return result
