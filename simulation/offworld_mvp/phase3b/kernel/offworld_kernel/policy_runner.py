@@ -187,33 +187,37 @@ def sponsor_request_to_wire(q:SponsorProjectDecisionRequest):
         'currency_unit':q.currency_unit,'request_version':q.request_version,
     }
 
+def _policy_source_bytes(filename:str)->bytes:
+    return (Path(__file__).resolve().parent/'policies'/filename).read_bytes()
+
+def _contract_hash(contract)->str:
+    raw=json.dumps(contract,sort_keys=True,separators=(',',':')).encode()
+    return sha256(raw).hexdigest()
+
+def _policy_version(policy_id:str,semantic_version:str,contract,filename:str,source:bytes|None=None)->str:
+    source=source if source is not None else _policy_source_bytes(filename)
+    h=sha256()
+    h.update(source)
+    h.update(_contract_hash(contract).encode())
+    return f'{policy_id}:{semantic_version}:{h.hexdigest()}'
+
 def sponsor_operator_source_bytes()->bytes:
-    return (Path(__file__).resolve().parent/'policies'/'sponsor_operator_v1.py').read_bytes()
+    return _policy_source_bytes('sponsor_operator_v1.py')
 
 def sponsor_operator_contract_hash()->str:
-    raw=json.dumps(SPONSOR_OPERATOR_CONTRACT,sort_keys=True,separators=(',',':')).encode()
-    return sha256(raw).hexdigest()
+    return _contract_hash(SPONSOR_OPERATOR_CONTRACT)
 
 def sponsor_operator_policy_version(source:bytes|None=None)->str:
-    source=source if source is not None else sponsor_operator_source_bytes()
-    h=sha256()
-    h.update(source)
-    h.update(sponsor_operator_contract_hash().encode())
-    return f'{SPONSOR_OPERATOR_POLICY_ID}:{SPONSOR_OPERATOR_SEMANTIC_VERSION}:{h.hexdigest()}'
+    return _policy_version(SPONSOR_OPERATOR_POLICY_ID,SPONSOR_OPERATOR_SEMANTIC_VERSION,SPONSOR_OPERATOR_CONTRACT,'sponsor_operator_v1.py',source)
 
 def public_surface_prospector_source_bytes()->bytes:
-    return (Path(__file__).resolve().parent/'policies'/'public_surface_prospector_v1.py').read_bytes()
+    return _policy_source_bytes('public_surface_prospector_v1.py')
 
 def public_surface_prospector_contract_hash()->str:
-    raw=json.dumps(PUBLIC_SURFACE_PROSPECTOR_CONTRACT,sort_keys=True,separators=(',',':')).encode()
-    return sha256(raw).hexdigest()
+    return _contract_hash(PUBLIC_SURFACE_PROSPECTOR_CONTRACT)
 
 def public_surface_prospector_policy_version(source:bytes|None=None)->str:
-    source=source if source is not None else public_surface_prospector_source_bytes()
-    h=sha256()
-    h.update(source)
-    h.update(public_surface_prospector_contract_hash().encode())
-    return f'{PUBLIC_SURFACE_PROSPECTOR_POLICY_ID}:{PUBLIC_SURFACE_PROSPECTOR_SEMANTIC_VERSION}:{h.hexdigest()}'
+    return _policy_version(PUBLIC_SURFACE_PROSPECTOR_POLICY_ID,PUBLIC_SURFACE_PROSPECTOR_SEMANTIC_VERSION,PUBLIC_SURFACE_PROSPECTOR_CONTRACT,'public_surface_prospector_v1.py',source)
 
 def operating_request_to_wire(q:OperatingCycleRequest):
     return {
@@ -227,18 +231,13 @@ def operating_request_to_wire(q:OperatingCycleRequest):
     }
 
 def sponsor_operating_source_bytes()->bytes:
-    return (Path(__file__).resolve().parent/'policies'/'sponsor_operating_v1.py').read_bytes()
+    return _policy_source_bytes('sponsor_operating_v1.py')
 
 def sponsor_operating_contract_hash()->str:
-    raw=json.dumps(SPONSOR_OPERATING_CONTRACT,sort_keys=True,separators=(',',':')).encode()
-    return sha256(raw).hexdigest()
+    return _contract_hash(SPONSOR_OPERATING_CONTRACT)
 
 def sponsor_operating_policy_version(source:bytes|None=None)->str:
-    source=source if source is not None else sponsor_operating_source_bytes()
-    h=sha256()
-    h.update(source)
-    h.update(sponsor_operating_contract_hash().encode())
-    return f'{SPONSOR_OPERATING_POLICY_ID}:{SPONSOR_OPERATING_SEMANTIC_VERSION}:{h.hexdigest()}'
+    return _policy_version(SPONSOR_OPERATING_POLICY_ID,SPONSOR_OPERATING_SEMANTIC_VERSION,SPONSOR_OPERATING_CONTRACT,'sponsor_operating_v1.py',source)
 
 def sale_request_to_wire(q:SaleDecisionRequest):
     return {
@@ -250,18 +249,13 @@ def sale_request_to_wire(q:SaleDecisionRequest):
     }
 
 def sponsor_sale_source_bytes()->bytes:
-    return (Path(__file__).resolve().parent/'policies'/'sponsor_sale_v1.py').read_bytes()
+    return _policy_source_bytes('sponsor_sale_v1.py')
 
 def sponsor_sale_contract_hash()->str:
-    raw=json.dumps(SPONSOR_SALE_CONTRACT,sort_keys=True,separators=(',',':')).encode()
-    return sha256(raw).hexdigest()
+    return _contract_hash(SPONSOR_SALE_CONTRACT)
 
 def sponsor_sale_policy_version(source:bytes|None=None)->str:
-    source=source if source is not None else sponsor_sale_source_bytes()
-    h=sha256()
-    h.update(source)
-    h.update(sponsor_sale_contract_hash().encode())
-    return f'{SPONSOR_SALE_POLICY_ID}:{SPONSOR_SALE_SEMANTIC_VERSION}:{h.hexdigest()}'
+    return _policy_version(SPONSOR_SALE_POLICY_ID,SPONSOR_SALE_SEMANTIC_VERSION,SPONSOR_SALE_CONTRACT,'sponsor_sale_v1.py',source)
 
 def surplus_request_to_wire(q:SurplusDistributionRequest):
     return {
@@ -272,18 +266,13 @@ def surplus_request_to_wire(q:SurplusDistributionRequest):
     }
 
 def sponsor_surplus_source_bytes()->bytes:
-    return (Path(__file__).resolve().parent/'policies'/'sponsor_surplus_v1.py').read_bytes()
+    return _policy_source_bytes('sponsor_surplus_v1.py')
 
 def sponsor_surplus_contract_hash()->str:
-    raw=json.dumps(SPONSOR_SURPLUS_CONTRACT,sort_keys=True,separators=(',',':')).encode()
-    return sha256(raw).hexdigest()
+    return _contract_hash(SPONSOR_SURPLUS_CONTRACT)
 
 def sponsor_surplus_policy_version(source:bytes|None=None)->str:
-    source=source if source is not None else sponsor_surplus_source_bytes()
-    h=sha256()
-    h.update(source)
-    h.update(sponsor_surplus_contract_hash().encode())
-    return f'{SPONSOR_SURPLUS_POLICY_ID}:{SPONSOR_SURPLUS_SEMANTIC_VERSION}:{h.hexdigest()}'
+    return _policy_version(SPONSOR_SURPLUS_POLICY_ID,SPONSOR_SURPLUS_SEMANTIC_VERSION,SPONSOR_SURPLUS_CONTRACT,'sponsor_surplus_v1.py',source)
 
 def settlement_request_to_wire(q:SettlementSupportRequest):
     return {
@@ -297,18 +286,13 @@ def settlement_request_to_wire(q:SettlementSupportRequest):
     }
 
 def public_settlement_source_bytes()->bytes:
-    return (Path(__file__).resolve().parent/'policies'/'public_settlement_v1.py').read_bytes()
+    return _policy_source_bytes('public_settlement_v1.py')
 
 def public_settlement_contract_hash()->str:
-    raw=json.dumps(PUBLIC_SETTLEMENT_CONTRACT,sort_keys=True,separators=(',',':')).encode()
-    return sha256(raw).hexdigest()
+    return _contract_hash(PUBLIC_SETTLEMENT_CONTRACT)
 
 def public_settlement_policy_version(source:bytes|None=None)->str:
-    source=source if source is not None else public_settlement_source_bytes()
-    h=sha256()
-    h.update(source)
-    h.update(public_settlement_contract_hash().encode())
-    return f'{PUBLIC_SETTLEMENT_POLICY_ID}:{PUBLIC_SETTLEMENT_SEMANTIC_VERSION}:{h.hexdigest()}'
+    return _policy_version(PUBLIC_SETTLEMENT_POLICY_ID,PUBLIC_SETTLEMENT_SEMANTIC_VERSION,PUBLIC_SETTLEMENT_CONTRACT,'public_settlement_v1.py',source)
 
 def transport_settlement_request_to_wire(q:TransportSettlementRequest):
     return {
@@ -326,46 +310,31 @@ def transport_settlement_request_to_wire(q:TransportSettlementRequest):
     }
 
 def public_settlement_transport_source_bytes()->bytes:
-    return (Path(__file__).resolve().parent/'policies'/'public_settlement_transport_v1.py').read_bytes()
+    return _policy_source_bytes('public_settlement_transport_v1.py')
 
 def public_settlement_transport_contract_hash()->str:
-    raw=json.dumps(PUBLIC_SETTLEMENT_TRANSPORT_CONTRACT,sort_keys=True,separators=(',',':')).encode()
-    return sha256(raw).hexdigest()
+    return _contract_hash(PUBLIC_SETTLEMENT_TRANSPORT_CONTRACT)
 
 def public_settlement_transport_policy_version(source:bytes|None=None)->str:
-    source=source if source is not None else public_settlement_transport_source_bytes()
-    h=sha256()
-    h.update(source)
-    h.update(public_settlement_transport_contract_hash().encode())
-    return f'{PUBLIC_SETTLEMENT_TRANSPORT_POLICY_ID}:{PUBLIC_SETTLEMENT_TRANSPORT_SEMANTIC_VERSION}:{h.hexdigest()}'
+    return _policy_version(PUBLIC_SETTLEMENT_TRANSPORT_POLICY_ID,PUBLIC_SETTLEMENT_TRANSPORT_SEMANTIC_VERSION,PUBLIC_SETTLEMENT_TRANSPORT_CONTRACT,'public_settlement_transport_v1.py',source)
 
 def public_publisher_source_bytes()->bytes:
-    return (Path(__file__).resolve().parent/'policies'/'public_publisher_v1.py').read_bytes()
+    return _policy_source_bytes('public_publisher_v1.py')
 
 def public_publisher_contract_hash()->str:
-    raw=json.dumps(PUBLIC_PUBLISHER_CONTRACT,sort_keys=True,separators=(',',':')).encode()
-    return sha256(raw).hexdigest()
+    return _contract_hash(PUBLIC_PUBLISHER_CONTRACT)
 
 def public_publisher_policy_version(source:bytes|None=None)->str:
-    source=source if source is not None else public_publisher_source_bytes()
-    h=sha256()
-    h.update(source)
-    h.update(public_publisher_contract_hash().encode())
-    return f'{PUBLIC_PUBLISHER_POLICY_ID}:{PUBLIC_PUBLISHER_SEMANTIC_VERSION}:{h.hexdigest()}'
+    return _policy_version(PUBLIC_PUBLISHER_POLICY_ID,PUBLIC_PUBLISHER_SEMANTIC_VERSION,PUBLIC_PUBLISHER_CONTRACT,'public_publisher_v1.py',source)
 
 def public_explorer_source_bytes()->bytes:
-    return (Path(__file__).resolve().parent/'policies'/'public_explorer_v1.py').read_bytes()
+    return _policy_source_bytes('public_explorer_v1.py')
 
 def public_explorer_contract_hash()->str:
-    raw=json.dumps(PUBLIC_EXPLORER_CONTRACT,sort_keys=True,separators=(',',':')).encode()
-    return sha256(raw).hexdigest()
+    return _contract_hash(PUBLIC_EXPLORER_CONTRACT)
 
 def public_explorer_policy_version(source:bytes|None=None)->str:
-    source=source if source is not None else public_explorer_source_bytes()
-    h=sha256()
-    h.update(source)
-    h.update(public_explorer_contract_hash().encode())
-    return f'{PUBLIC_EXPLORER_POLICY_ID}:{PUBLIC_EXPLORER_SEMANTIC_VERSION}:{h.hexdigest()}'
+    return _policy_version(PUBLIC_EXPLORER_POLICY_ID,PUBLIC_EXPLORER_SEMANTIC_VERSION,PUBLIC_EXPLORER_CONTRACT,'public_explorer_v1.py',source)
 
 def _worker_path():
     return Path(__file__).resolve().parent/'policies'/'worker.py'
@@ -385,6 +354,30 @@ def _run_worker(payload,timeout_seconds=3):
         raise RuntimeError('policy worker returned invalid JSON') from e
     fp=sha256(cp.stdout.encode()).hexdigest()
     return result,fp
+
+
+def _policy_identity_context(request,source_fn,version_fn,contract_hash_fn):
+    request.validate_protocol()
+    source=source_fn()
+    assert_policy_source_safe(source)
+    return version_fn(source),contract_hash_fn()
+
+def _decision_id(prefix,request,snapshot,version,decision_key):
+    material='|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))
+    return prefix+sha256(material.encode()).hexdigest()[:20]
+
+def _run_contract_worker(policy_id,snapshot,request_wire,contract,decision_key):
+    return _run_worker({
+        'mode':'EVALUATE','policy_id':policy_id,'snapshot':snapshot_to_wire(snapshot),
+        'request':request_wire,'manifest':contract,'decision_key':str(decision_key),
+    })
+
+def _blocked_contract_result(decision,version,contract_hash,unknowns):
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,
+        sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
+        tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
+        'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
 
 def run_hostile_access_probe(snapshot:DecisionSnapshot):
     payload={'mode':'HOSTILE_ACCESS_PROBE','snapshot':snapshot_to_wire(snapshot)}
@@ -444,16 +437,11 @@ def run_financier_policy(snapshot:DecisionSnapshot,request:FinancingRequest,
 
 def run_public_explorer_policy(snapshot:DecisionSnapshot,request:ExplorationRequest,
                                decision_key:str)->PolicyExecutionResult:
-    request.validate_protocol()
-    source=public_explorer_source_bytes()
-    assert_policy_source_safe(source)
-    version=public_explorer_policy_version(source)
-    contract_hash=public_explorer_contract_hash()
+    version,contract_hash=_policy_identity_context(
+        request,public_explorer_source_bytes,public_explorer_policy_version,public_explorer_contract_hash)
 
     unknowns=required_unknown_exploration_inputs(request,snapshot)
-    decision_id='XDEC-'+sha256(
-        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
-    ).hexdigest()[:20]
+    decision_id=_decision_id('XDEC-',request,snapshot,version,decision_key)
 
     if unknowns:
         decision=build_exploration_decision(
@@ -462,21 +450,10 @@ def run_public_explorer_policy(snapshot:DecisionSnapshot,request:ExplorationRequ
             ExplorationReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
             'one or more required admitted exploration inputs are unknown',
             snapshot,version)
-        return PolicyExecutionResult(
-            decision,version,'CONTRACT_SHA256:'+contract_hash,
-            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
-            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
-            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
 
-    payload={
-        'mode':'EVALUATE',
-        'policy_id':PUBLIC_EXPLORER_POLICY_ID,
-        'snapshot':snapshot_to_wire(snapshot),
-        'request':exploration_request_to_wire(request),
-        'manifest':PUBLIC_EXPLORER_CONTRACT,
-        'decision_key':str(decision_key),
-    }
-    out,worker_fp=_run_worker(payload)
+    out,worker_fp=_run_contract_worker(
+        PUBLIC_EXPLORER_POLICY_ID,snapshot,exploration_request_to_wire(request),PUBLIC_EXPLORER_CONTRACT,decision_key)
     try:
         outcome=ExplorationDecisionOutcome(out['outcome'])
         reason_code=ExplorationReasonCode(out['reason_code'])
@@ -495,16 +472,11 @@ def run_public_explorer_policy(snapshot:DecisionSnapshot,request:ExplorationRequ
 
 def run_public_surface_prospector_policy(snapshot:DecisionSnapshot,request:ExplorationRequest,
                                          decision_key:str)->PolicyExecutionResult:
-    request.validate_protocol()
-    source=public_surface_prospector_source_bytes()
-    assert_policy_source_safe(source)
-    version=public_surface_prospector_policy_version(source)
-    contract_hash=public_surface_prospector_contract_hash()
+    version,contract_hash=_policy_identity_context(
+        request,public_surface_prospector_source_bytes,public_surface_prospector_policy_version,public_surface_prospector_contract_hash)
 
     unknowns=required_unknown_exploration_inputs(request,snapshot)
-    decision_id='XDEC-'+sha256(
-        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
-    ).hexdigest()[:20]
+    decision_id=_decision_id('XDEC-',request,snapshot,version,decision_key)
 
     if unknowns:
         decision=build_exploration_decision(
@@ -513,21 +485,10 @@ def run_public_surface_prospector_policy(snapshot:DecisionSnapshot,request:Explo
             ExplorationReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
             'one or more required admitted surface-prospecting inputs are unknown',
             snapshot,version)
-        return PolicyExecutionResult(
-            decision,version,'CONTRACT_SHA256:'+contract_hash,
-            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
-            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
-            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
 
-    payload={
-        'mode':'EVALUATE',
-        'policy_id':PUBLIC_SURFACE_PROSPECTOR_POLICY_ID,
-        'snapshot':snapshot_to_wire(snapshot),
-        'request':exploration_request_to_wire(request),
-        'manifest':PUBLIC_SURFACE_PROSPECTOR_CONTRACT,
-        'decision_key':str(decision_key),
-    }
-    out,worker_fp=_run_worker(payload)
+    out,worker_fp=_run_contract_worker(
+        PUBLIC_SURFACE_PROSPECTOR_POLICY_ID,snapshot,exploration_request_to_wire(request),PUBLIC_SURFACE_PROSPECTOR_CONTRACT,decision_key)
     try:
         outcome=ExplorationDecisionOutcome(out['outcome'])
         reason_code=ExplorationReasonCode(out['reason_code'])
@@ -546,24 +507,12 @@ def run_public_surface_prospector_policy(snapshot:DecisionSnapshot,request:Explo
 
 def run_public_publisher_policy(snapshot:DecisionSnapshot,request:PublicationRequest,
                                 decision_key:str)->PolicyExecutionResult:
-    request.validate_protocol()
-    source=public_publisher_source_bytes()
-    assert_policy_source_safe(source)
-    version=public_publisher_policy_version(source)
-    contract_hash=public_publisher_contract_hash()
-    decision_id='PDEC-'+sha256(
-        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
-    ).hexdigest()[:20]
+    version,contract_hash=_policy_identity_context(
+        request,public_publisher_source_bytes,public_publisher_policy_version,public_publisher_contract_hash)
+    decision_id=_decision_id('PDEC-',request,snapshot,version,decision_key)
 
-    payload={
-        'mode':'EVALUATE',
-        'policy_id':PUBLIC_PUBLISHER_POLICY_ID,
-        'snapshot':snapshot_to_wire(snapshot),
-        'request':publication_request_to_wire(request),
-        'manifest':PUBLIC_PUBLISHER_CONTRACT,
-        'decision_key':str(decision_key),
-    }
-    out,worker_fp=_run_worker(payload)
+    out,worker_fp=_run_contract_worker(
+        PUBLIC_PUBLISHER_POLICY_ID,snapshot,publication_request_to_wire(request),PUBLIC_PUBLISHER_CONTRACT,decision_key)
     try:
         outcome=PublicationDecisionOutcome(out['outcome'])
         reason_code=PublicationReasonCode(out['reason_code'])
@@ -581,16 +530,11 @@ def run_public_publisher_policy(snapshot:DecisionSnapshot,request:PublicationReq
 def run_sponsor_operator_policy(snapshot:DecisionSnapshot,
                                 request:SponsorProjectDecisionRequest,
                                 decision_key:str)->PolicyExecutionResult:
-    request.validate_protocol()
-    source=sponsor_operator_source_bytes()
-    assert_policy_source_safe(source)
-    version=sponsor_operator_policy_version(source)
-    contract_hash=sponsor_operator_contract_hash()
+    version,contract_hash=_policy_identity_context(
+        request,sponsor_operator_source_bytes,sponsor_operator_policy_version,sponsor_operator_contract_hash)
 
     unknowns=required_unknown_sponsor_inputs(request,snapshot)
-    decision_id='SDEC-'+sha256(
-        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
-    ).hexdigest()[:20]
+    decision_id=_decision_id('SDEC-',request,snapshot,version,decision_key)
 
     if unknowns:
         decision=build_sponsor_project_decision(
@@ -599,21 +543,10 @@ def run_sponsor_operator_policy(snapshot:DecisionSnapshot,
             SponsorProjectReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
             'one or more required admitted sponsor inputs are unknown',
             snapshot,version)
-        return PolicyExecutionResult(
-            decision,version,'CONTRACT_SHA256:'+contract_hash,
-            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
-            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
-            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
 
-    payload={
-        'mode':'EVALUATE',
-        'policy_id':SPONSOR_OPERATOR_POLICY_ID,
-        'snapshot':snapshot_to_wire(snapshot),
-        'request':sponsor_request_to_wire(request),
-        'manifest':SPONSOR_OPERATOR_CONTRACT,
-        'decision_key':str(decision_key),
-    }
-    out,worker_fp=_run_worker(payload)
+    out,worker_fp=_run_contract_worker(
+        SPONSOR_OPERATOR_POLICY_ID,snapshot,sponsor_request_to_wire(request),SPONSOR_OPERATOR_CONTRACT,decision_key)
     try:
         outcome=SponsorProjectDecisionOutcome(out['outcome'])
         reason_code=SponsorProjectReasonCode(out['reason_code'])
@@ -633,16 +566,11 @@ def run_sponsor_operator_policy(snapshot:DecisionSnapshot,
 def run_sponsor_operating_policy(snapshot:DecisionSnapshot,
                                  request:OperatingCycleRequest,
                                  decision_key:str)->PolicyExecutionResult:
-    request.validate_protocol()
-    source=sponsor_operating_source_bytes()
-    assert_policy_source_safe(source)
-    version=sponsor_operating_policy_version(source)
-    contract_hash=sponsor_operating_contract_hash()
+    version,contract_hash=_policy_identity_context(
+        request,sponsor_operating_source_bytes,sponsor_operating_policy_version,sponsor_operating_contract_hash)
 
     unknowns=required_unknown_operating_inputs(request,snapshot)
-    decision_id='ODEC-'+sha256(
-        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
-    ).hexdigest()[:20]
+    decision_id=_decision_id('ODEC-',request,snapshot,version,decision_key)
 
     if unknowns:
         decision=build_operating_cycle_decision(
@@ -651,21 +579,10 @@ def run_sponsor_operating_policy(snapshot:DecisionSnapshot,
             OperatingCycleReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
             'one or more required admitted operating inputs are unknown',
             snapshot,version)
-        return PolicyExecutionResult(
-            decision,version,'CONTRACT_SHA256:'+contract_hash,
-            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
-            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
-            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
 
-    payload={
-        'mode':'EVALUATE',
-        'policy_id':SPONSOR_OPERATING_POLICY_ID,
-        'snapshot':snapshot_to_wire(snapshot),
-        'request':operating_request_to_wire(request),
-        'manifest':SPONSOR_OPERATING_CONTRACT,
-        'decision_key':str(decision_key),
-    }
-    out,worker_fp=_run_worker(payload)
+    out,worker_fp=_run_contract_worker(
+        SPONSOR_OPERATING_POLICY_ID,snapshot,operating_request_to_wire(request),SPONSOR_OPERATING_CONTRACT,decision_key)
     try:
         outcome=OperatingCycleDecisionOutcome(out['outcome'])
         reason_code=OperatingCycleReasonCode(out['reason_code'])
@@ -688,16 +605,11 @@ def run_sponsor_operating_policy(snapshot:DecisionSnapshot,
 def run_sponsor_sale_policy(snapshot:DecisionSnapshot,
                             request:SaleDecisionRequest,
                             decision_key:str)->PolicyExecutionResult:
-    request.validate_protocol()
-    source=sponsor_sale_source_bytes()
-    assert_policy_source_safe(source)
-    version=sponsor_sale_policy_version(source)
-    contract_hash=sponsor_sale_contract_hash()
+    version,contract_hash=_policy_identity_context(
+        request,sponsor_sale_source_bytes,sponsor_sale_policy_version,sponsor_sale_contract_hash)
 
     unknowns=required_unknown_sale_inputs(request,snapshot)
-    decision_id='SDEC-'+sha256(
-        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
-    ).hexdigest()[:20]
+    decision_id=_decision_id('SDEC-',request,snapshot,version,decision_key)
 
     if unknowns:
         decision=build_sale_decision(
@@ -706,21 +618,10 @@ def run_sponsor_sale_policy(snapshot:DecisionSnapshot,
             SaleReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
             'one or more required admitted sale inputs are unknown',
             snapshot,version)
-        return PolicyExecutionResult(
-            decision,version,'CONTRACT_SHA256:'+contract_hash,
-            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
-            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
-            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
 
-    payload={
-        'mode':'EVALUATE',
-        'policy_id':SPONSOR_SALE_POLICY_ID,
-        'snapshot':snapshot_to_wire(snapshot),
-        'request':sale_request_to_wire(request),
-        'manifest':SPONSOR_SALE_CONTRACT,
-        'decision_key':str(decision_key),
-    }
-    out,worker_fp=_run_worker(payload)
+    out,worker_fp=_run_contract_worker(
+        SPONSOR_SALE_POLICY_ID,snapshot,sale_request_to_wire(request),SPONSOR_SALE_CONTRACT,decision_key)
     try:
         outcome=SaleDecisionOutcome(out['outcome'])
         reason_code=SaleReasonCode(out['reason_code'])
@@ -740,16 +641,11 @@ def run_sponsor_sale_policy(snapshot:DecisionSnapshot,
 def run_sponsor_surplus_policy(snapshot:DecisionSnapshot,
                                request:SurplusDistributionRequest,
                                decision_key:str)->PolicyExecutionResult:
-    request.validate_protocol()
-    source=sponsor_surplus_source_bytes()
-    assert_policy_source_safe(source)
-    version=sponsor_surplus_policy_version(source)
-    contract_hash=sponsor_surplus_contract_hash()
+    version,contract_hash=_policy_identity_context(
+        request,sponsor_surplus_source_bytes,sponsor_surplus_policy_version,sponsor_surplus_contract_hash)
 
     unknowns=required_unknown_surplus_inputs(request,snapshot)
-    decision_id='DDEC-'+sha256(
-        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
-    ).hexdigest()[:20]
+    decision_id=_decision_id('DDEC-',request,snapshot,version,decision_key)
 
     if unknowns:
         decision=build_surplus_distribution_decision(
@@ -758,21 +654,10 @@ def run_sponsor_surplus_policy(snapshot:DecisionSnapshot,
             SurplusDistributionReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
             'one or more required admitted surplus-allocation inputs are unknown',
             snapshot,version)
-        return PolicyExecutionResult(
-            decision,version,'CONTRACT_SHA256:'+contract_hash,
-            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
-            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
-            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
 
-    payload={
-        'mode':'EVALUATE',
-        'policy_id':SPONSOR_SURPLUS_POLICY_ID,
-        'snapshot':snapshot_to_wire(snapshot),
-        'request':surplus_request_to_wire(request),
-        'manifest':SPONSOR_SURPLUS_CONTRACT,
-        'decision_key':str(decision_key),
-    }
-    out,worker_fp=_run_worker(payload)
+    out,worker_fp=_run_contract_worker(
+        SPONSOR_SURPLUS_POLICY_ID,snapshot,surplus_request_to_wire(request),SPONSOR_SURPLUS_CONTRACT,decision_key)
     try:
         outcome=SurplusDistributionDecisionOutcome(out['outcome'])
         reason_code=SurplusDistributionReasonCode(out['reason_code'])
@@ -796,16 +681,11 @@ def run_sponsor_surplus_policy(snapshot:DecisionSnapshot,
 def run_public_settlement_policy(snapshot:DecisionSnapshot,
                                  request:SettlementSupportRequest,
                                  decision_key:str)->PolicyExecutionResult:
-    request.validate_protocol()
-    source=public_settlement_source_bytes()
-    assert_policy_source_safe(source)
-    version=public_settlement_policy_version(source)
-    contract_hash=public_settlement_contract_hash()
+    version,contract_hash=_policy_identity_context(
+        request,public_settlement_source_bytes,public_settlement_policy_version,public_settlement_contract_hash)
 
     unknowns=required_unknown_settlement_inputs(request,snapshot)
-    decision_id='SETDEC-'+sha256(
-        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
-    ).hexdigest()[:20]
+    decision_id=_decision_id('SETDEC-',request,snapshot,version,decision_key)
 
     if unknowns:
         decision=build_settlement_support_decision(
@@ -814,21 +694,10 @@ def run_public_settlement_policy(snapshot:DecisionSnapshot,
             SettlementSupportReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
             'one or more required admitted settlement-support inputs are unknown',
             snapshot,version)
-        return PolicyExecutionResult(
-            decision,version,'CONTRACT_SHA256:'+contract_hash,
-            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
-            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
-            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
 
-    payload={
-        'mode':'EVALUATE',
-        'policy_id':PUBLIC_SETTLEMENT_POLICY_ID,
-        'snapshot':snapshot_to_wire(snapshot),
-        'request':settlement_request_to_wire(request),
-        'manifest':PUBLIC_SETTLEMENT_CONTRACT,
-        'decision_key':str(decision_key),
-    }
-    out,worker_fp=_run_worker(payload)
+    out,worker_fp=_run_contract_worker(
+        PUBLIC_SETTLEMENT_POLICY_ID,snapshot,settlement_request_to_wire(request),PUBLIC_SETTLEMENT_CONTRACT,decision_key)
     try:
         outcome=SettlementSupportDecisionOutcome(out['outcome'])
         reason_code=SettlementSupportReasonCode(out['reason_code'])
@@ -850,16 +719,11 @@ def run_public_settlement_policy(snapshot:DecisionSnapshot,
 def run_public_settlement_transport_policy(snapshot:DecisionSnapshot,
                                            request:TransportSettlementRequest,
                                            decision_key:str)->PolicyExecutionResult:
-    request.validate_protocol()
-    source=public_settlement_transport_source_bytes()
-    assert_policy_source_safe(source)
-    version=public_settlement_transport_policy_version(source)
-    contract_hash=public_settlement_transport_contract_hash()
+    version,contract_hash=_policy_identity_context(
+        request,public_settlement_transport_source_bytes,public_settlement_transport_policy_version,public_settlement_transport_contract_hash)
 
     unknowns=required_unknown_transport_settlement_inputs(request,snapshot)
-    decision_id='TRSETDEC-'+sha256(
-        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
-    ).hexdigest()[:20]
+    decision_id=_decision_id('TRSETDEC-',request,snapshot,version,decision_key)
 
     if unknowns:
         decision=build_transport_settlement_decision(
@@ -868,21 +732,10 @@ def run_public_settlement_transport_policy(snapshot:DecisionSnapshot,
             TransportSettlementReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
             'one or more required admitted transport-settlement inputs are unknown',
             snapshot,version)
-        return PolicyExecutionResult(
-            decision,version,'CONTRACT_SHA256:'+contract_hash,
-            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
-            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
-            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
 
-    payload={
-        'mode':'EVALUATE',
-        'policy_id':PUBLIC_SETTLEMENT_TRANSPORT_POLICY_ID,
-        'snapshot':snapshot_to_wire(snapshot),
-        'request':transport_settlement_request_to_wire(request),
-        'manifest':PUBLIC_SETTLEMENT_TRANSPORT_CONTRACT,
-        'decision_key':str(decision_key),
-    }
-    out,worker_fp=_run_worker(payload)
+    out,worker_fp=_run_contract_worker(
+        PUBLIC_SETTLEMENT_TRANSPORT_POLICY_ID,snapshot,transport_settlement_request_to_wire(request),PUBLIC_SETTLEMENT_TRANSPORT_CONTRACT,decision_key)
     try:
         outcome=TransportSettlementDecisionOutcome(out['outcome'])
         reason_code=TransportSettlementReasonCode(out['reason_code'])
