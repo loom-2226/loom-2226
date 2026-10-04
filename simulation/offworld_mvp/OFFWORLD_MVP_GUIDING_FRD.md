@@ -713,11 +713,25 @@ An ensemble result shall support identification of:
 
 Sampling a scenario does not imply a probability for that scenario.
 
-## 43. Resolution-Reconciliation Requirement
+## 43. Resolution-Reconciliation and Invariance Requirement
 
-Before dynamic runtime resolution is used in an MVP trajectory, the executable kernel shall demonstrate a deterministic AGGREGATE -> AGENT split in which applicable conserved state reconciles exactly.
+Before dynamic runtime resolution is used in an MVP trajectory, the executable kernel shall demonstrate both:
 
-At minimum the fixture shall reconcile:
+1. deterministic AGGREGATE -> AGENT reconciliation; and
+2. resolution invariance when the exposed Agent is constrained to follow the same rule as its source Aggregate representation.
+
+Every governed exposure shall use an explicit `ResolutionExposurePlan` declaring:
+
+- source aggregate;
+- selected agent identity;
+- represented member count exposed;
+- selection basis and source/authorization reference;
+- allocation basis and source/authorization reference;
+- explicit allocation share only when the allocation basis requires one.
+
+Selection identity and allocation share shall not be silently invented inside the resolution transition.
+
+At minimum the reconciliation fixture shall preserve:
 
 - financial/account balances;
 - ownership/beneficial claims where applicable;
@@ -726,7 +740,22 @@ At minimum the fixture shall reconcile:
 - aggregate remainder;
 - history/lineage identity.
 
-If re-aggregation is implemented, it must pass the reciprocal reconciliation tests.
+At minimum the invariance fixture shall run the same horizon twice:
+
+- aggregate-only representation;
+- aggregate plus exposed Agent representation.
+
+While the exposed Agent follows the aggregate-equivalent rule, pathwise represented system totals shall match. Byte-identical run fingerprints are not required because representation and transaction partition may differ.
+
+For the current validation fixture, one of four equal represented members is exposed, so the 25% share is derived as `1/4` under `EQUAL_MEMBER_PRO_RATA`, not independently authored.
+
+Once an authorized autonomous Agent follows a different information/belief/objective/policy path, divergence is permitted only as a causally attributable consequence of those admitted differences.
+
+If re-aggregation is implemented, it must pass reciprocal reconciliation/invariance tests where applicable.
+
+Normative decision:
+
+`PHASE3B_RESOLUTION_EXPOSURE_INVARIANCE_DECISION_001.md`.
 
 ## 44. Methodology-Hardening Revalidation Gate
 
