@@ -17,6 +17,10 @@ from .market_protocol import build_sale_decision, required_unknown_sale_inputs
 from .distribution_protocol import build_surplus_distribution_decision, required_unknown_surplus_inputs
 from .settlement_protocol import build_settlement_support_decision, required_unknown_settlement_inputs
 from .transport_protocol import build_transport_settlement_decision, required_unknown_transport_settlement_inputs
+from .enterprise import (
+    EnterpriseReviewDecisionOutcome, EnterpriseReviewReasonCode, EnterpriseReviewRequest,
+    build_enterprise_review_decision, required_unknown_enterprise_review_inputs,
+)
 from .mvp_state import (
     FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest,
     ExplorationDecisionOutcome, ExplorationReasonCode, ExplorationRequest,
@@ -56,6 +60,11 @@ from .policies.sponsor_operating_v1 import (
     POLICY_CONTRACT as SPONSOR_OPERATING_CONTRACT,
     POLICY_ID as SPONSOR_OPERATING_POLICY_ID,
     SEMANTIC_VERSION as SPONSOR_OPERATING_SEMANTIC_VERSION,
+)
+from .policies.sponsor_enterprise_review_v1 import (
+    POLICY_CONTRACT as SPONSOR_ENTERPRISE_REVIEW_CONTRACT,
+    POLICY_ID as SPONSOR_ENTERPRISE_REVIEW_POLICY_ID,
+    SEMANTIC_VERSION as SPONSOR_ENTERPRISE_REVIEW_SEMANTIC_VERSION,
 )
 from .policies.sponsor_sale_v1 import (
     POLICY_CONTRACT as SPONSOR_SALE_CONTRACT,
@@ -238,6 +247,25 @@ def sponsor_operating_contract_hash()->str:
 
 def sponsor_operating_policy_version(source:bytes|None=None)->str:
     return _policy_version(SPONSOR_OPERATING_POLICY_ID,SPONSOR_OPERATING_SEMANTIC_VERSION,SPONSOR_OPERATING_CONTRACT,'sponsor_operating_v1.py',source)
+
+def enterprise_review_request_to_wire(q:EnterpriseReviewRequest):
+    return {
+        'id':q.id,'year':q.year,'project_id':q.project_id,
+        'extraction_event_id':q.extraction_event_id,
+        'required_fact_keys':list(q.required_fact_keys),
+        'quantity_unit':q.quantity_unit,'request_version':q.request_version,
+    }
+
+def sponsor_enterprise_review_source_bytes()->bytes:
+    return _policy_source_bytes('sponsor_enterprise_review_v1.py')
+
+def sponsor_enterprise_review_contract_hash()->str:
+    return _contract_hash(SPONSOR_ENTERPRISE_REVIEW_CONTRACT)
+
+def sponsor_enterprise_review_policy_version(source:bytes|None=None)->str:
+    return _policy_version(
+        SPONSOR_ENTERPRISE_REVIEW_POLICY_ID,SPONSOR_ENTERPRISE_REVIEW_SEMANTIC_VERSION,
+        SPONSOR_ENTERPRISE_REVIEW_CONTRACT,'sponsor_enterprise_review_v1.py',source)
 
 def sale_request_to_wire(q:SaleDecisionRequest):
     return {
@@ -598,6 +626,38 @@ def run_sponsor_operating_policy(snapshot:DecisionSnapshot,
         decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
         snapshot,version,requested_financing=requested_financing,
         planned_quantity=planned_quantity,authorized_opex=authorized_opex)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
+
+def run_sponsor_enterprise_review_policy(snapshot:DecisionSnapshot,
+                                         request:EnterpriseReviewRequest,
+                                         decision_key:str)->PolicyExecutionResult:
+    version,contract_hash=_policy_identity_context(
+        request,sponsor_enterprise_review_source_bytes,
+        sponsor_enterprise_review_policy_version,sponsor_enterprise_review_contract_hash)
+    unknowns=required_unknown_enterprise_review_inputs(request,snapshot)
+    decision_id=_decision_id('ERDEC-',request,snapshot,version,decision_key)
+    if unknowns:
+        decision=build_enterprise_review_decision(
+            decision_id,request,snapshot.agent_id,
+            EnterpriseReviewDecisionOutcome.BLOCKED_UNKNOWN,
+            EnterpriseReviewReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required admitted enterprise-review inputs are unknown',
+            snapshot,version)
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
+    out,worker_fp=_run_contract_worker(
+        SPONSOR_ENTERPRISE_REVIEW_POLICY_ID,snapshot,enterprise_review_request_to_wire(request),
+        SPONSOR_ENTERPRISE_REVIEW_CONTRACT,decision_key)
+    try:
+        outcome=EnterpriseReviewDecisionOutcome(out['outcome'])
+        reason_code=EnterpriseReviewReasonCode(out['reason_code'])
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as e:
+        raise RuntimeError('sponsor enterprise-review worker returned invalid decision payload') from e
+    decision=build_enterprise_review_decision(
+        decision_id,request,snapshot.agent_id,outcome,reason_code,reason,snapshot,version)
     return PolicyExecutionResult(
         decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
 

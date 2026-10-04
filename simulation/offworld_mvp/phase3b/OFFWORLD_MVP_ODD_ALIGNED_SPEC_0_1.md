@@ -203,6 +203,30 @@ resource truth does not alter shadow classification when realized flows are held
 Test 013A does not authorize a return-transport transition; returning population remains
 zero unless a separately authorized transition exists.
 
+
+### 50.14 Repeated enterprise operating lifecycle — Test 014A
+
+Build 5 now supports repeated sponsor operating cycles over one persistent kernel/world
+state by reusing the existing operating, extraction, market, surplus-reserve, financing,
+and decision-epoch machinery. A new bounded post-cycle sponsor review consumes only
+admitted project status plus planned and realized output from a completed extraction
+record. Under the Test-only structural strategy, positive realized output authorizes
+`CONTINUE`; zero realized output authorizes `CLOSE`. No profitability threshold or
+hidden resource state is exposed to the sponsor.
+
+`CONTINUE` does not mutate project lifecycle state. `CLOSE` is the only newly earned
+world transition and is executable only after SYSTEM validation of exact extraction
+lineage, zero realized output, sponsor identity, and `CLOSE_PROJECT` capability. The
+generic historical sponsor project-transition method is not widened; `OPERATING ->
+CLOSED` remains confined to the Test 014A review executor.
+
+The qualification chain reuses the Test 010 next-cycle operating reserve. RICH and
+SPARSE therefore attempt a later operating cycle from retained reserve without synthetic
+new financing. After reserve exhaustion, the unchanged operating policy may request the
+exact next-cycle finance shortfall and the unchanged financier machinery may recapitalize
+a still-open venture. Test 014A does not add maintenance, repair, bankruptcy, salvage,
+reopening, endogenous pricing, or a calibrated closure strategy.
+
 <!-- ODD_SCHEMA_REGISTRY_BEGIN -->
 ```json
 {
@@ -221,6 +245,7 @@ zero unless a separately authorized transition exists.
       "DEVELOP",
       "CONSTRUCT",
       "OPERATE",
+      "CLOSE",
       "FAIL",
       "ABANDON",
       "EXTRACT",
@@ -257,6 +282,20 @@ zero unless a separately authorized transition exists.
       "SPENT",
       "BLOCKED_PROJECT_CASH",
       "BLOCKED_SUPPLY"
+    ],
+    "EnterpriseReviewDecisionOutcome": [
+      "CONTINUE",
+      "CLOSE",
+      "DEFER",
+      "BLOCKED_UNKNOWN"
+    ],
+    "EnterpriseReviewReasonCode": [
+      "POSITIVE_OUTPUT_CONTINUE",
+      "ZERO_OUTPUT_CLOSE",
+      "CAPABILITY_OR_OBJECTIVE_BLOCK",
+      "PROJECT_STATE_BLOCK",
+      "OUTPUT_RECORD_INVALID",
+      "BLOCKED_REQUIRED_INPUT_UNKNOWN"
     ],
     "ExplorationDecisionOutcome": [
       "AUTHORIZE",
@@ -503,7 +542,7 @@ zero unless a separately authorized transition exists.
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_15",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_16",
   "types": {
     "Account": [
       {
@@ -1057,6 +1096,132 @@ zero unless a separately authorized transition exists.
       {
         "name": "returning_population",
         "type": "Dict[int, int]"
+      }
+    ],
+    "EnterpriseReviewDecision": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "EnterpriseReviewDecisionOutcome"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "reason_code",
+        "type": "EnterpriseReviewReasonCode"
+      },
+      {
+        "name": "unknown_input_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
+    ],
+    "EnterpriseReviewRecord": [
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "decision_id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "extraction_event_id",
+        "type": "str"
+      },
+      {
+        "name": "planned_quantity",
+        "type": "D"
+      },
+      {
+        "name": "actual_output",
+        "type": "D"
+      },
+      {
+        "name": "outcome",
+        "type": "EnterpriseReviewDecisionOutcome"
+      },
+      {
+        "name": "status_before",
+        "type": "str"
+      },
+      {
+        "name": "status_after",
+        "type": "str"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "EnterpriseReviewRequest": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "extraction_event_id",
+        "type": "str"
+      },
+      {
+        "name": "required_fact_keys",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "quantity_unit",
+        "type": "str"
+      },
+      {
+        "name": "request_version",
+        "type": "str"
       }
     ],
     "EntityAssetRef": [
@@ -3709,6 +3874,10 @@ zero unless a separately authorized transition exists.
     "EarthImpactLedger.qualifying_supplied_expenditure": "MODEL_CURRENCY",
     "EarthImpactLedger.returning_population": "PEOPLE_EQUIVALENT",
     "EarthImpactLedger.terrestrial_fcf_delta": "MODEL_CURRENCY",
+    "EnterpriseReviewRecord.actual_output": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "EnterpriseReviewRecord.planned_quantity": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "EnterpriseReviewRecord.year": "SIM_YEAR",
+    "EnterpriseReviewRequest.year": "SIM_YEAR",
     "ExplorationDecision.authorized_cost": "REQUEST_CURRENCY_UNIT",
     "ExplorationRequest.year": "SIM_YEAR",
     "ExtractionResolutionRecord.actual_extracted": "MODEL_RESOURCE_UNIT_BY_FAMILY",

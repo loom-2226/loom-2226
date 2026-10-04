@@ -46,6 +46,10 @@ from .surface_prospecting import (
     ObservationBeliefUpdateRecord,
 )
 from .operating import OperatingCostRecord, ExtractionResolutionRecord
+from .enterprise import (
+    EnterpriseReviewRequest, EnterpriseReviewDecision, EnterpriseReviewRecord,
+    EnterpriseReviewDecisionOutcome, EnterpriseReviewReasonCode,
+)
 from .market import CommodityMarketEnvelope, MarketClearingRecord
 from .distribution import FinancingReturnClaim, OwnerDistributionAllocation, SurplusDistributionRecord
 from .settlement import (
@@ -61,7 +65,7 @@ from .transport import (
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_15'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_16'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
@@ -71,7 +75,7 @@ ODD_SCHEMA_TYPES=(
     UnderwritingInput,UnderwritingTable,ResolutionExposurePlan,ResolutionExposureRecord,
     ReplayProvenance,ScheduledRunResult,DecisionEpochRecord,ProjectDevelopmentPlan,DevelopmentStageRecord,DevelopmentResolutionRecord,
     SurfaceProspectingModel,SurfaceProspectingWorldRecord,ObservationBeliefUpdateRecord,
-    OperatingCostRecord,ExtractionResolutionRecord,CommodityMarketEnvelope,MarketClearingRecord,FinancingReturnClaim,OwnerDistributionAllocation,SurplusDistributionRecord,SettlementInfrastructurePlan,SettlementInfrastructureRecord,SettlementStageRecord,SettlementSupportExecutionRecord,
+    OperatingCostRecord,ExtractionResolutionRecord,EnterpriseReviewRequest,EnterpriseReviewDecision,EnterpriseReviewRecord,CommodityMarketEnvelope,MarketClearingRecord,FinancingReturnClaim,OwnerDistributionAllocation,SurplusDistributionRecord,SettlementInfrastructurePlan,SettlementInfrastructureRecord,SettlementStageRecord,SettlementSupportExecutionRecord,
     TechnologyCapabilityState,TransportRelationship,TransportQualificationRecord,
     TransportSettlementRequest,TransportSettlementDecision,
     PassengerTransportDepartureRecord,PassengerTransportArrivalRecord,
@@ -82,7 +86,7 @@ ODD_ENUM_TYPES=(
     NodeKind,AccountKind,TxPurpose,AssetKind,
     RuntimeObjectClass,AgentKind,ActionKind,FinancingDecisionOutcome,FinancingReasonCode,ExplorationDecisionOutcome,ExplorationReasonCode,
     PublicationDecisionOutcome,PublicationReasonCode,SponsorProjectDecisionOutcome,SponsorProjectReasonCode,
-    OperatingCycleDecisionOutcome,OperatingCycleReasonCode,SaleDecisionOutcome,SaleReasonCode,SurplusDistributionDecisionOutcome,SurplusDistributionReasonCode,SettlementSupportDecisionOutcome,SettlementSupportReasonCode,
+    OperatingCycleDecisionOutcome,OperatingCycleReasonCode,EnterpriseReviewDecisionOutcome,EnterpriseReviewReasonCode,SaleDecisionOutcome,SaleReasonCode,SurplusDistributionDecisionOutcome,SurplusDistributionReasonCode,SettlementSupportDecisionOutcome,SettlementSupportReasonCode,
     TransportSettlementDecisionOutcome,TransportSettlementReasonCode,
     DevelopmentStageOutcome,DevelopmentResolutionOutcome,
     FactState,Phase,UnderwritingInputKind,UnderwritingInputStatus,
@@ -137,6 +141,10 @@ ODD_UNIT_CONTRACTS={
     'ExtractionResolutionRecord.resource_after':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'ExtractionResolutionRecord.inventory_before':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'ExtractionResolutionRecord.inventory_after':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'EnterpriseReviewRequest.year':'SIM_YEAR',
+    'EnterpriseReviewRecord.year':'SIM_YEAR',
+    'EnterpriseReviewRecord.planned_quantity':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'EnterpriseReviewRecord.actual_output':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'SaleDecisionRequest.year':'SIM_YEAR',
     'SaleDecision.offered_quantity':'FIELD:SaleDecisionRequest.quantity_unit',
     'CommodityMarketEnvelope.year':'SIM_YEAR',

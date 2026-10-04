@@ -21,6 +21,10 @@ from .surface_prospecting import (
     ObservationBeliefUpdateRecord,
 )
 from .operating import OperatingCostRecord, ExtractionResolutionRecord
+from .enterprise import (
+    EnterpriseReviewDecisionOutcome, EnterpriseReviewRequest, EnterpriseReviewDecision,
+    EnterpriseReviewRecord,
+)
 from .market import CommodityMarketEnvelope, MarketClearingRecord
 from .distribution import FinancingReturnClaim, OwnerDistributionAllocation, SurplusDistributionRecord
 from .settlement import (
@@ -78,7 +82,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'boundary_purchase','consume_market_resource',
         'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan','record_surplus_decomposition',
         'register_development_plan','execute_development_stage','resolve_development_plan',
-        'spend_operating_cycle','resolve_operating_extraction','register_market_envelope','clear_market_sale',
+        'spend_operating_cycle','resolve_operating_extraction','execute_enterprise_review','register_market_envelope','clear_market_sale',
         'register_financing_return_claim','execute_surplus_distribution',
         'register_settlement_infrastructure_plan','execute_settlement_infrastructure',
         'update_settlement_stage','execute_public_settlement_support',
@@ -115,6 +119,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.observation_belief_update_records: list[ObservationBeliefUpdateRecord]=[]
         self.operating_cost_records: list[OperatingCostRecord]=[]
         self.extraction_resolution_records: list[ExtractionResolutionRecord]=[]
+        self.enterprise_review_records: list[EnterpriseReviewRecord]=[]
         self.market_envelopes: Dict[str,CommodityMarketEnvelope]={}
         self.market_clearing_records: list[MarketClearingRecord]=[]
         self.financing_return_claims: Dict[str,FinancingReturnClaim]={}
@@ -334,6 +339,55 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             planned,actual,before_resource,D(resource.remaining),before_inventory,
             D(colony.resource_inventory),evt.id)
         self.extraction_resolution_records.append(rec)
+        return rec
+
+    def execute_enterprise_review(self,year,actor_id,request:EnterpriseReviewRequest,
+                                  decision:EnterpriseReviewDecision):
+        year=int(year); request.validate_protocol(); decision.validate_protocol(request)
+        if decision.outcome not in {EnterpriseReviewDecisionOutcome.CONTINUE,EnterpriseReviewDecisionOutcome.CLOSE}:
+            raise InvariantError('enterprise-review execution requires CONTINUE/CLOSE decision')
+        if year!=request.year:
+            raise InvariantError('enterprise-review year mismatch')
+        if any(r.decision_id==decision.id or r.extraction_event_id==request.extraction_event_id
+               for r in self.enterprise_review_records):
+            raise InvariantError('enterprise-review already executed')
+        if actor_id!=decision.actor_id or actor_id not in self.agents:
+            raise InvariantError('enterprise-review actor/decision mismatch')
+        actor=self.agents[actor_id]
+        if actor.kind.value!='PRIVATE_SPONSOR':
+            raise InvariantError('enterprise-review actor must be private sponsor')
+        project=self.state.projects.get(request.project_id)
+        if project is None or project.status!='OPERATING':
+            raise InvariantError('enterprise-review requires OPERATING project')
+        extraction=next((r for r in self.extraction_resolution_records
+                         if r.extraction_event_id==request.extraction_event_id),None)
+        if extraction is None or extraction.project_id!=request.project_id:
+            raise InvariantError('enterprise-review extraction lineage missing')
+        if extraction.year>year:
+            raise InvariantError('enterprise-review precedes extraction')
+        planned=D(extraction.planned_quantity); actual=D(extraction.actual_extracted)
+        status_before=project.status
+        if decision.outcome==EnterpriseReviewDecisionOutcome.CONTINUE:
+            if actual<=0 or 'OPERATE' not in actor.capabilities:
+                raise InvariantError('enterprise-review CONTINUE not supported by realized output/capability')
+            action=ActionKind.OPERATE; result='ENTERPRISE_CONTINUE'
+        else:
+            if actual!=0 or 'CLOSE_PROJECT' not in actor.capabilities:
+                raise InvariantError('enterprise-review CLOSE not supported by realized output/capability')
+            project.status='CLOSED'
+            action=ActionKind.CLOSE; result='CLOSED'
+        evt=self.event(
+            year,actor_id,action,result,
+            (request.project_id,request.extraction_event_id,str(planned),str(actual)),
+            (decision.id,request.extraction_event_id))
+        rec=EnterpriseReviewRecord(
+            year,actor_id,decision.id,request.id,request.project_id,request.extraction_event_id,
+            planned,actual,decision.outcome,status_before,project.status,evt.id)
+        try:
+            rec.validate()
+        except ValueError as e:
+            raise InvariantError(str(e)) from e
+        self.enterprise_review_records.append(rec)
         return rec
 
     def register_settlement_infrastructure_plan(self,plan:SettlementInfrastructurePlan):
@@ -1550,6 +1604,20 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 raise InvariantError('extraction resource rollforward drift')
             if D(r.inventory_after)!=D(r.inventory_before)+D(r.actual_extracted):
                 raise InvariantError('extraction inventory rollforward drift')
+        extraction_by_event={r.extraction_event_id:r for r in self.extraction_resolution_records}
+        reviewed=set()
+        for r in self.enterprise_review_records:
+            if r.extraction_event_id in reviewed or r.extraction_event_id not in extraction_by_event:
+                raise InvariantError('enterprise-review extraction lineage drift')
+            reviewed.add(r.extraction_event_id)
+            try:
+                r.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            x=extraction_by_event[r.extraction_event_id]
+            if (x.project_id!=r.project_id or D(x.planned_quantity)!=D(r.planned_quantity)
+                    or D(x.actual_extracted)!=D(r.actual_output)):
+                raise InvariantError('enterprise-review output lineage drift')
         for r in self.surface_prospecting_records:
             if r.observation_id not in self.observations:
                 raise InvariantError('surface observation record missing observation')
@@ -1644,6 +1712,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
              str(r.planned_quantity),str(r.actual_extracted),str(r.resource_before),str(r.resource_after),
              str(r.inventory_before),str(r.inventory_after),r.extraction_event_id,r.record_version)
              for r in self.extraction_resolution_records],
+          'enterprise_review_records':[(r.year,r.actor_id,r.decision_id,r.request_id,r.project_id,
+             r.extraction_event_id,str(r.planned_quantity),str(r.actual_output),r.outcome.value,
+             r.status_before,r.status_after,r.event_id,r.record_version)
+             for r in self.enterprise_review_records],
           'market_envelopes':sorted((e.id,e.year,e.resource_id,e.buyer_account_id,str(e.unit_price),
              str(e.demand_quantity),e.currency_unit,e.quantity_unit,e.source_ref,e.epistemic_status,e.envelope_version)
              for e in self.market_envelopes.values()),

@@ -19,6 +19,7 @@ POLICIES={
     'PUBLIC_PUBLISHER_V1':_load_policy('public_publisher_v1.py','_loom_public_publisher_v1'),
     'SPONSOR_OPERATOR_V1':_load_policy('sponsor_operator_v1.py','_loom_sponsor_operator_v1'),
     'SPONSOR_OPERATING_V1':_load_policy('sponsor_operating_v1.py','_loom_sponsor_operating_v1'),
+    'SPONSOR_ENTERPRISE_REVIEW_V1':_load_policy('sponsor_enterprise_review_v1.py','_loom_sponsor_enterprise_review_v1'),
     'SPONSOR_SALE_V1':_load_policy('sponsor_sale_v1.py','_loom_sponsor_sale_v1'),
     'SPONSOR_SURPLUS_V1':_load_policy('sponsor_surplus_v1.py','_loom_sponsor_surplus_v1'),
     'PUBLIC_SETTLEMENT_V1':_load_policy('public_settlement_v1.py','_loom_public_settlement_v1'),
