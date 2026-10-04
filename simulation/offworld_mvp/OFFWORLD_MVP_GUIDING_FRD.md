@@ -5,7 +5,7 @@
 **Status:** PRELIMINARY FRD / PRE-CONTRACT  
 **Authority status:** PRE-CONTRACT / SINGLE-AUTHORITY  
 **Canonical status:** NON-CANON  
-**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002/003/004; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
+**Implementation authority:** SCOPED PHASE 3B AUTHORIZATIONS 001/002/003/004/005; FULL AUTONOMOUS AGENT ENGINE REMAINS GATED  
 **Phase basis:** Phase 2 Claim and Authority Model  
 **Purpose:** Define the minimum functional system required to demonstrate governed offworld civilization propagation without scripting historical outcomes.
 
@@ -250,7 +250,7 @@ Represents an offworld financing institution only when its own decision process 
 
 The MVP shall not create autonomous Agents for ordinary market clearing, physical production, accounting, routine transport mechanics, households, workers, minor firms or every individual person merely because those phenomena exist. Those may remain SYSTEM or AGGREGATE representations until a causal need justifies higher resolution.
 
-General autonomous decision-policy authority remains gated. Build 5 has individually authorized bounded autonomous policies for the private financier (Test 001), public institutional explorer (Test 002A), and public observation publisher (Test 002B). Those scoped authorizations do not authorize other Agent roles or a general autonomous-agent engine. Deterministic scripted policies may continue to exercise other interfaces for validation only.
+General autonomous decision-policy authority remains gated. Build 5 has individually authorized bounded autonomous policies for the private financier (Test 001), public institutional explorer (Test 002A), public observation publisher (Test 002B), and private sponsor/operator (Test 005A). Those scoped authorizations do not authorize other Agent roles or a general autonomous-agent engine. Deterministic scripted policies may continue to exercise other interfaces for validation only.
 
 ## 15. Agent Information Firewall
 
@@ -343,6 +343,8 @@ CLOSED
 ```
 
 Transitions occur through governed world actions. Proposal or funding shall not imply successful development.
+
+Build 5 Test 005A structurally closes only bounded sponsor-controlled entry from `PROPOSED`/`EXPLORING` to `DEVELOPMENT` or `ABANDONED`. The `DEVELOPMENT` transition records an Agent decision to advance the project; it does not itself create WIP, productive assets, operating capacity, successful construction, or `OPERATING` status. Later lifecycle transitions remain separately gated.
 
 ## 21. MVP Project Economics
 
@@ -1033,6 +1035,25 @@ Normative records:
 - `build5/BUILD5_VALIDATION_RECORD_004_DECISION_EPOCH_RUNTIME.md`.
 
 This closes the bounded repeated-decision runtime prerequisite for sponsor/operator autonomy and iterative exploration. It does not authorize additional Agent roles or empirical parameters.
+
+### 50.5 Private sponsor/operator — Test 005A
+
+Build 5 now contains the first bounded autonomous private sponsor/operator policy using the same generic `AGENT -> DecisionSnapshot -> PolicyContext -> Decision -> scheduled SYSTEM transition` architecture as the previously qualified institutional Agents.
+
+The policy introduces no arbitrary probability threshold. From admitted information, beliefs/priors, project status, project cash and known development cost, it may `DEFER`, `ABANDON`, `REQUEST_FINANCE`, `DEVELOP`, or `BLOCKED_UNKNOWN`. Legitimate evidence that does not improve the sponsor's current resource belief above its prior leads to `ABANDON`; improved belief with a funding shortfall leads to a financing request for the exact shortfall; improved belief with sufficient project cash leads to `DEVELOP` when the Agent has the admitted capability.
+
+The positive structural chain spans four persistent decision epochs: public publication -> sponsor `REQUEST_FINANCE` for `60` -> financier `APPROVE` and scheduled funding -> fresh sponsor `DEVELOP` -> governed `PROPOSED -> DEVELOPMENT`. At the end of Test 005A the project owns no WIP/productive asset, so `DEVELOPMENT` records the sponsor's decision to advance rather than successful construction or operation.
+
+The negative structural chain publishes a negative observation, lowers sponsor belief from `0.20` to `0.05882352941176470588235294118`, and produces sponsor `ABANDON` -> governed `PROPOSED -> ABANDONED` with no financing request or funding.
+
+Test 005A also hardens decision-epoch persistent-state fingerprints to include the full currently modeled Agent state plus project lifecycle/ownership and commitment state. Raw sponsor-capability or project-status edits between epochs are therefore detected as tampering.
+
+Normative records:
+
+- `build5/BUILD5_IMPLEMENTATION_AUTHORIZATION_005_SPONSOR_OPERATOR_TEST005A.md`;
+- `build5/BUILD5_VALIDATION_RECORD_005_SPONSOR_OPERATOR_STRUCTURAL.md`.
+
+Test 005A does not close surface prospecting, construction/WIP execution after `DEVELOPMENT`, later lifecycle transitions, autonomous extraction/sale/reinvestment, transport/technology economics, empirical sponsor calibration, or production forecasting.
 
 The full autonomous-agent engine remains gated. Each additional Agent role or materially expanded policy requires its own governed scope.
 

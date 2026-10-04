@@ -69,7 +69,7 @@ DECISION_WINDOW policy execution is separated from kernel-bearing system handler
 Settlement, capital stock, ownership distribution, extraction and financing recursion are realized outcomes, not scripted historical milestones.
 
 ### Adaptation
-General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier and public institutional explorer/publisher. Additional Agent roles or materially expanded policies require separate governance.
+General autonomous adaptation remains gated. Build 5 currently contains individually authorized bounded autonomous policies for the private financier, public institutional explorer/publisher, and private sponsor/operator. Additional Agent roles or materially expanded policies require separate governance.
 
 ### Objectives
 Agent objective state exists conceptually. No common utility function is assumed.
@@ -145,6 +145,7 @@ Current MVP submodels/interfaces include:
 - scheduler/coupling;
 - governed persistent decision-epoch chaining;
 - public observation publication and cross-Agent information transfer;
+- bounded sponsor/operator project advancement, financing-request and abandonment decisions;
 - aggregate-resolution reconciliation;
 - uncertainty/ensemble runner;
 - ensemble reporting guardrails that distinguish scenario spread, parameter sensitivity, uncertainty spread and stochastic variability;
@@ -156,7 +157,7 @@ The A1–A9 property fixture captures state before every scheduler-valid transit
 
 The multi-rate synchronization fixture combines day-scale mission observations, quarterly finance and annual Earth-system events under one deterministic scheduler.
 
-Transport, technology gating, dynamic economic reserve conversion, mature colony operations, sponsor/operator autonomy and surface prospecting remain incomplete unless separately implemented and validated.
+Transport, technology gating, dynamic economic reserve conversion, mature colony operations, surface prospecting, construction execution after sponsor `DEVELOP`, later project lifecycle transitions, and autonomous sponsor extraction/sale/reinvestment remain incomplete unless separately implemented and validated.
 
 ## 8. Reproducibility package
 
