@@ -188,6 +188,7 @@ The ODD state/interface registry below is machine-checked against executable dat
     ],
     "ActionKind": [
       "EXPLORE",
+      "PUBLISH",
       "REQUEST_FINANCE",
       "FINANCE",
       "DEVELOP",
@@ -296,6 +297,15 @@ The ODD state/interface registry below is machine-checked against executable dat
       "AUTHORIZED",
       "TEST_ONLY"
     ],
+    "PublicationDecisionOutcome": [
+      "PUBLISH",
+      "WITHHOLD"
+    ],
+    "PublicationReasonCode": [
+      "PUBLISH_PUBLIC_INFORMATION",
+      "OBSERVATION_NOT_POSSESSED",
+      "OBJECTIVE_OR_CLASS_BLOCK"
+    ],
     "RuntimeObjectClass": [
       "SYSTEM",
       "AGGREGATE",
@@ -352,7 +362,7 @@ The ODD state/interface registry below is machine-checked against executable dat
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_4",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_5",
   "types": {
     "Account": [
       {
@@ -1194,6 +1204,112 @@ The ODD state/interface registry below is machine-checked against executable dat
         "type": "str"
       }
     ],
+    "PublicInformationArtifact": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "publisher_id",
+        "type": "str"
+      },
+      {
+        "name": "source_observation_id",
+        "type": "str"
+      },
+      {
+        "name": "resource_id",
+        "type": "str"
+      },
+      {
+        "name": "channel",
+        "type": "str"
+      },
+      {
+        "name": "signal",
+        "type": "str"
+      },
+      {
+        "name": "audience",
+        "type": "str"
+      },
+      {
+        "name": "recipient_ids",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "artifact_version",
+        "type": "str"
+      }
+    ],
+    "PublicationDecision": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "publish",
+        "type": "bool"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "PublicationDecisionOutcome"
+      },
+      {
+        "name": "reason_code",
+        "type": "PublicationReasonCode"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
+    ],
+    "PublicationRequest": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "year",
+        "type": "int"
+      },
+      {
+        "name": "observation_id",
+        "type": "str"
+      },
+      {
+        "name": "audience",
+        "type": "str"
+      },
+      {
+        "name": "request_version",
+        "type": "str"
+      }
+    ],
     "ReplayProvenance": [
       {
         "name": "repository",
@@ -1639,6 +1755,8 @@ The ODD state/interface registry below is machine-checked against executable dat
     "PolicyParameter.sensitivity_low": "FIELD:PolicyParameter.unit",
     "PolicyParameter.value": "FIELD:PolicyParameter.unit",
     "Project": "NO_INTRINSIC_SCALAR_UNIT",
+    "PublicInformationArtifact.year": "SIM_YEAR",
+    "PublicationRequest.year": "SIM_YEAR",
     "ResolutionExposureRecord.allocation_fraction": "DIMENSIONLESS_SHARE",
     "ScenarioResource.accessible": "MODEL_RESOURCE_UNIT_BY_FAMILY",
     "ScenarioResource.in_situ": "MODEL_RESOURCE_UNIT_BY_FAMILY",

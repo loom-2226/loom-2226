@@ -137,6 +137,19 @@ class Build5PublicationFinancierTests(unittest.TestCase):
         self.assertEqual(dict(h['financier_snapshot'].beliefs)['resource_exists'],expected)
         self.assertEqual(result.decision.outcome,FinancingDecisionOutcome.REJECT)
 
+    def test_hidden_world_cannot_change_financier_before_publication(self):
+        rk,_,_,rm,robs,_,_,_=publication_handoff_kernel('RICH_PUBLIC_3','20')
+        nk,_,_,nm,nobs,_,_,_=publication_handoff_kernel('NULL_PUBLIC_1','0')
+        rs,rr,_=financier_snapshot_after_publication(rk,robs.id)
+        ns,nr,_=financier_snapshot_after_publication(nk,nobs.id)
+        self.assertEqual(rs,ns)
+        self.assertEqual(rr,nr)
+        r=run_financier_policy(rs,rr,rm,'PREPUBLICATION-SAME-KEY',allow_test_fixture=True)
+        n=run_financier_policy(ns,nr,nm,'PREPUBLICATION-SAME-KEY',allow_test_fixture=True)
+        self.assertEqual(r.decision,n.decision)
+        self.assertEqual(r.worker_fingerprint,n.worker_fingerprint)
+        self.assertEqual(r.decision.outcome,FinancingDecisionOutcome.DEFER)
+
     def test_same_financier_state_diverges_only_after_published_signal(self):
         rk,rh=self.run_publication('RICH_PUBLIC_3','20')
         nk,nh=self.run_publication('NULL_PUBLIC_1','0')
