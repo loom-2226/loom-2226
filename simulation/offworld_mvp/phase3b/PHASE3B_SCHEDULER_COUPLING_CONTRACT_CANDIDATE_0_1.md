@@ -85,6 +85,10 @@ Future autonomous decisions must specify whether agents observe:
 
 Until separately authorized, validation fixtures use snapshot decision semantics: all scripted decisions in a decision window consume a pinned pre-decision snapshot unless an explicit causal dependency orders them.
 
+DECISION_WINDOW execution has a stricter interface than other scheduler phases. A generic handler receiving the kernel is forbidden. Each decision event binds to an immutable `DecisionSnapshot`, a pinned snapshot reference, an agent id and a deterministic decision key. The policy callable receives only `PolicyContext`; it does not execute inside the token-bearing kernel mutation context.
+
+At policy binding, the runtime verifies that the snapshot matches the current admitted agent-visible state, the scheduler has pinned its fingerprint, and effective time matches the event.
+
 ## 7. Randomness
 
 Random keys include semantic identities and time keys, not scheduler queue position.
