@@ -159,7 +159,7 @@ class Build5ProjectLifecycleTests(unittest.TestCase):
         self.assertTrue(all(develop_event.id in e.parent_ids for e in stage_events))
         resolution_event=next(
             e for e in k.events
-            if e.actor=='DEVELOPMENT_RESOLUTION_SYSTEM' and e.result=='OPERATING')
+            if e.actor_id=='DEVELOPMENT_RESOLUTION_SYSTEM' and e.result=='OPERATING')
         self.assertTrue(all(r.event_id in resolution_event.parent_ids for r in h['stage_records']))
 
     def test_construction_does_not_query_hidden_resource_truth(self):
