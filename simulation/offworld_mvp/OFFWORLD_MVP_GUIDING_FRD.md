@@ -265,6 +265,12 @@ This applies to priors, detection rates, false-positive rates, likelihood functi
 
 World seeds and world random streams shall never constitute agent information. Equality between a world parameter and an agent-side parameter is itself an explicit scenario assumption where material.
 
+DECISION_WINDOW policies shall not receive the kernel, scheduler, world state, scenario-resource registry, run identity, universe identity, world seed, or hidden state. They shall receive only an immutable `DecisionSnapshot` plus an opaque deterministic decision key through `PolicyContext`.
+
+`DecisionSnapshot` is a copied value object containing only admitted agent-visible state and explicitly admitted facts. UNKNOWN and BLOCKED facts carry no value. Generic kernel-bearing handlers are prohibited in DECISION_WINDOW.
+
+Normative decision: `PHASE3B_DECISION_SNAPSHOT_POLICY_FIREWALL_DECISION_001.md`.
+
 ## 16. Exploration and Observation
 
 The MVP shall implement at least:
@@ -661,7 +667,8 @@ After seal, state-changing kernel methods shall reject direct calls unless they 
 Normative candidates/decisions:
 
 - `PHASE3B_SCHEDULER_COUPLING_CONTRACT_CANDIDATE_0_1.md`;
-- `PHASE3B_SCHEDULED_EXECUTION_GATE_DECISION_001.md`.
+- `PHASE3B_SCHEDULED_EXECUTION_GATE_DECISION_001.md`;
+- `PHASE3B_DECISION_SNAPSHOT_POLICY_FIREWALL_DECISION_001.md`.
 
 ## 40. ODD-Aligned Executable Specification
 
