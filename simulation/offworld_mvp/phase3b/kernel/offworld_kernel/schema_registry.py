@@ -13,12 +13,14 @@ from .mvp_state import (
     SponsorProjectDecisionRequest, SponsorProjectDecision,
     OperatingCycleRequest, OperatingCycleDecision,
     SaleDecisionRequest, SaleDecision,
+    SurplusDistributionRequest, SurplusDistributionDecision,
     ScenarioResource, Observation, ColonyState, PopulationLedger, RuntimeObjectClass, AgentKind,
     ActionKind, FinancingDecisionOutcome, FinancingReasonCode, ExplorationDecisionOutcome, ExplorationReasonCode,
     PublicationDecisionOutcome, PublicationReasonCode,
     SponsorProjectDecisionOutcome, SponsorProjectReasonCode,
     OperatingCycleDecisionOutcome, OperatingCycleReasonCode,
     SaleDecisionOutcome, SaleReasonCode,
+    SurplusDistributionDecisionOutcome, SurplusDistributionReasonCode,
 )
 from .policy import SnapshotFact, DecisionSnapshot, PolicyContext, FactState
 from .scheduler import ScheduledEvent, CouplingSpec, Phase
@@ -43,20 +45,21 @@ from .surface_prospecting import (
 )
 from .operating import OperatingCostRecord, ExtractionResolutionRecord
 from .market import CommodityMarketEnvelope, MarketClearingRecord
+from .distribution import FinancingReturnClaim, OwnerDistributionAllocation, SurplusDistributionRecord
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_11'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_12'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
     SystemState,AggregateState,EntityAssetRef,AgentState,FinancingRequest,FinancingDecision,ExplorationRequest,ExplorationDecision,
-    PublicationRequest,PublicationDecision,PublicInformationArtifact,SponsorProjectDecisionRequest,SponsorProjectDecision,OperatingCycleRequest,OperatingCycleDecision,SaleDecisionRequest,SaleDecision,ScenarioResource,Observation,
+    PublicationRequest,PublicationDecision,PublicInformationArtifact,SponsorProjectDecisionRequest,SponsorProjectDecision,OperatingCycleRequest,OperatingCycleDecision,SaleDecisionRequest,SaleDecision,SurplusDistributionRequest,SurplusDistributionDecision,ScenarioResource,Observation,
     ColonyState,PopulationLedger,SnapshotFact,DecisionSnapshot,PolicyContext,ScheduledEvent,CouplingSpec,
     UnderwritingInput,UnderwritingTable,ResolutionExposurePlan,ResolutionExposureRecord,
     ReplayProvenance,ScheduledRunResult,DecisionEpochRecord,ProjectDevelopmentPlan,DevelopmentStageRecord,DevelopmentResolutionRecord,
     SurfaceProspectingModel,SurfaceProspectingWorldRecord,ObservationBeliefUpdateRecord,
-    OperatingCostRecord,ExtractionResolutionRecord,CommodityMarketEnvelope,MarketClearingRecord,
+    OperatingCostRecord,ExtractionResolutionRecord,CommodityMarketEnvelope,MarketClearingRecord,FinancingReturnClaim,OwnerDistributionAllocation,SurplusDistributionRecord,
     PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
 )
 
@@ -64,7 +67,7 @@ ODD_ENUM_TYPES=(
     NodeKind,AccountKind,TxPurpose,AssetKind,
     RuntimeObjectClass,AgentKind,ActionKind,FinancingDecisionOutcome,FinancingReasonCode,ExplorationDecisionOutcome,ExplorationReasonCode,
     PublicationDecisionOutcome,PublicationReasonCode,SponsorProjectDecisionOutcome,SponsorProjectReasonCode,
-    OperatingCycleDecisionOutcome,OperatingCycleReasonCode,SaleDecisionOutcome,SaleReasonCode,
+    OperatingCycleDecisionOutcome,OperatingCycleReasonCode,SaleDecisionOutcome,SaleReasonCode,SurplusDistributionDecisionOutcome,SurplusDistributionReasonCode,
     DevelopmentStageOutcome,DevelopmentResolutionOutcome,
     FactState,Phase,UnderwritingInputKind,UnderwritingInputStatus,
     ExposureSelectionBasis,ExposureAllocationBasis,AxisKind,SpreadMeaning,
@@ -128,6 +131,21 @@ ODD_UNIT_CONTRACTS={
     'MarketClearingRecord.local_inventory_after':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'MarketClearingRecord.market_inventory_before':'MODEL_RESOURCE_UNIT_BY_FAMILY',
     'MarketClearingRecord.market_inventory_after':'MODEL_RESOURCE_UNIT_BY_FAMILY',
+    'SurplusDistributionRequest.year':'SIM_YEAR',
+    'SurplusDistributionDecision.reserve':'FIELD:SurplusDistributionRequest.currency_unit',
+    'SurplusDistributionDecision.financier_return':'FIELD:SurplusDistributionRequest.currency_unit',
+    'SurplusDistributionDecision.local_reinvestment':'FIELD:SurplusDistributionRequest.currency_unit',
+    'SurplusDistributionDecision.owner_distribution':'FIELD:SurplusDistributionRequest.currency_unit',
+    'FinancingReturnClaim.maximum_return_amount':'MODEL_CURRENCY',
+    'OwnerDistributionAllocation.ownership_share':'DIMENSIONLESS_SHARE',
+    'OwnerDistributionAllocation.amount':'MODEL_CURRENCY',
+    'SurplusDistributionRecord.year':'SIM_YEAR',
+    'SurplusDistributionRecord.opening_project_cash':'MODEL_CURRENCY',
+    'SurplusDistributionRecord.reserve':'MODEL_CURRENCY',
+    'SurplusDistributionRecord.financier_return':'MODEL_CURRENCY',
+    'SurplusDistributionRecord.local_reinvestment':'MODEL_CURRENCY',
+    'SurplusDistributionRecord.owner_distribution':'MODEL_CURRENCY',
+    'SurplusDistributionRecord.closing_project_cash':'MODEL_CURRENCY',
     'ProjectDevelopmentPlan.required_cost':'MODEL_CURRENCY',
     'ProjectDevelopmentPlan.stage_schedule':'SIM_YEAR_AND_MODEL_CURRENCY_SCHEDULE',
     'ProjectDevelopmentPlan.completion_year':'SIM_YEAR',
