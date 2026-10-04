@@ -21,6 +21,11 @@ from .enterprise import (
     EnterpriseReviewDecisionOutcome, EnterpriseReviewReasonCode, EnterpriseReviewRequest,
     build_enterprise_review_decision, required_unknown_enterprise_review_inputs,
 )
+from .project_activity import (
+    SponsorPortfolioDecisionOutcome, SponsorPortfolioReasonCode,
+    SponsorPortfolioDecisionRequest, build_sponsor_portfolio_decision,
+    required_unknown_portfolio_inputs,
+)
 from .mvp_state import (
     FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest,
     ExplorationDecisionOutcome, ExplorationReasonCode, ExplorationRequest,
@@ -85,6 +90,11 @@ from .policies.public_settlement_transport_v1 import (
     POLICY_CONTRACT as PUBLIC_SETTLEMENT_TRANSPORT_CONTRACT,
     POLICY_ID as PUBLIC_SETTLEMENT_TRANSPORT_POLICY_ID,
     SEMANTIC_VERSION as PUBLIC_SETTLEMENT_TRANSPORT_SEMANTIC_VERSION,
+)
+from .policies.sponsor_portfolio_v1 import (
+    POLICY_CONTRACT as SPONSOR_PORTFOLIO_CONTRACT,
+    POLICY_ID as SPONSOR_PORTFOLIO_POLICY_ID,
+    SEMANTIC_VERSION as SPONSOR_PORTFOLIO_SEMANTIC_VERSION,
 )
 
 FORBIDDEN_IMPORT_ROOTS={
@@ -196,6 +206,14 @@ def sponsor_request_to_wire(q:SponsorProjectDecisionRequest):
         'currency_unit':q.currency_unit,'request_version':q.request_version,
     }
 
+def sponsor_portfolio_request_to_wire(q:SponsorPortfolioDecisionRequest):
+    return {
+        'id':q.id,'effective_time':str(q.effective_time),
+        'candidate_activity_ids':list(q.candidate_activity_ids),
+        'required_fact_keys':list(q.required_fact_keys),
+        'currency_unit':q.currency_unit,'request_version':q.request_version,
+    }
+
 def _policy_source_bytes(filename:str)->bytes:
     return (Path(__file__).resolve().parent/'policies'/filename).read_bytes()
 
@@ -209,6 +227,17 @@ def _policy_version(policy_id:str,semantic_version:str,contract,filename:str,sou
     h.update(source)
     h.update(_contract_hash(contract).encode())
     return f'{policy_id}:{semantic_version}:{h.hexdigest()}'
+
+def sponsor_portfolio_source_bytes()->bytes:
+    return _policy_source_bytes('sponsor_portfolio_v1.py')
+
+def sponsor_portfolio_contract_hash()->str:
+    return _contract_hash(SPONSOR_PORTFOLIO_CONTRACT)
+
+def sponsor_portfolio_policy_version(source:bytes|None=None)->str:
+    return _policy_version(
+        SPONSOR_PORTFOLIO_POLICY_ID,SPONSOR_PORTFOLIO_SEMANTIC_VERSION,
+        SPONSOR_PORTFOLIO_CONTRACT,'sponsor_portfolio_v1.py',source)
 
 def sponsor_operator_source_bytes()->bytes:
     return _policy_source_bytes('sponsor_operator_v1.py')
@@ -551,6 +580,47 @@ def run_public_publisher_policy(snapshot:DecisionSnapshot,request:PublicationReq
 
     decision=build_publication_decision(
         decision_id,request,snapshot.agent_id,outcome,reason_code,reason,snapshot,version)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
+
+def run_sponsor_portfolio_policy(snapshot:DecisionSnapshot,
+                                 request:SponsorPortfolioDecisionRequest,
+                                 decision_key:str)->PolicyExecutionResult:
+    version,contract_hash=_policy_identity_context(
+        request,sponsor_portfolio_source_bytes,sponsor_portfolio_policy_version,
+        sponsor_portfolio_contract_hash)
+
+    unknowns=required_unknown_portfolio_inputs(request,snapshot)
+    decision_id=_decision_id('PFDEC-',request,snapshot,version,decision_key)
+
+    if unknowns:
+        decision=build_sponsor_portfolio_decision(
+            decision_id,request,snapshot.agent_id,
+            SponsorPortfolioDecisionOutcome.BLOCKED_UNKNOWN,
+            SponsorPortfolioReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required admitted portfolio inputs are unknown',
+            snapshot,version)
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
+
+    out,worker_fp=_run_contract_worker(
+        SPONSOR_PORTFOLIO_POLICY_ID,snapshot,
+        sponsor_portfolio_request_to_wire(request),
+        SPONSOR_PORTFOLIO_CONTRACT,decision_key)
+    try:
+        outcome=SponsorPortfolioDecisionOutcome(out['outcome'])
+        reason_code=SponsorPortfolioReasonCode(out['reason_code'])
+        selected_activity_id=out.get('selected_activity_id','')
+        reserved_capital=out.get('reserved_capital','0')
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as e:
+        raise RuntimeError('sponsor portfolio worker returned invalid decision payload') from e
+
+    decision=build_sponsor_portfolio_decision(
+        decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
+        snapshot,version,selected_activity_id=selected_activity_id,
+        reserved_capital=reserved_capital)
     return PolicyExecutionResult(
         decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
 

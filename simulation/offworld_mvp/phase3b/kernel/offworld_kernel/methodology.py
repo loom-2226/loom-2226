@@ -38,6 +38,11 @@ from .transport import (
     TransportSettlementDecisionOutcome, TransportSettlementRequest, TransportSettlementDecision,
     PassengerTransportDepartureRecord, PassengerTransportArrivalRecord,
 )
+from .project_activity import (
+    ProjectActivity, ProjectActivityStatus, ProjectActivityTransitionRecord,
+    ProjectActivityInformationRecord, SponsorPortfolioDecision,
+    SponsorPortfolioDecisionOutcome,
+)
 
 @dataclass(frozen=True)
 class ResolutionRecord:
@@ -87,14 +92,17 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'register_settlement_infrastructure_plan','execute_settlement_infrastructure',
         'update_settlement_stage','execute_public_settlement_support',
         'register_technology_capability_state','register_transport_relationship',
-        'execute_transport_settlement_departure','execute_passenger_transport_arrival'
+        'execute_transport_settlement_departure','execute_passenger_transport_arrival',
+        'register_project_activity','authorize_project_activity','start_project_activity',
+        'complete_project_activity','admit_project_activity_result','cancel_project_activity'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
         'assert_mvp_invariants','mvp_fingerprint','keyed_draw','build3_fingerprint',
         'assert_vehicle_ownership','assert_build4_invariants','build4_fingerprint','uniformity_sample',
         'assert_methodology_invariants','methodology_fingerprint','decision_epoch_state_fingerprint','market_remaining_demand','financing_return_remaining',
-        'settlement_habitat_headroom','settlement_stage_for','transport_qualification','earth_shadow_at'
+        'settlement_habitat_headroom','settlement_stage_for','transport_qualification','earth_shadow_at',
+        'project_activity_reserved_capital','project_activity_available_capital'
     })
     SCHEDULED_CONTROL_METHODS=frozenset({
         'seal_for_scheduled_execution','scheduled_event_context','begin_decision_epoch','complete_decision_epoch'
@@ -132,6 +140,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.transport_relationships: Dict[str,TransportRelationship]={}
         self.passenger_transport_departures: list[PassengerTransportDepartureRecord]=[]
         self.passenger_transport_arrivals: list[PassengerTransportArrivalRecord]=[]
+        self.project_activities: Dict[str,ProjectActivity]={}
+        self.project_activity_transition_records: list[ProjectActivityTransitionRecord]=[]
+        self.project_activity_information_records: list[ProjectActivityInformationRecord]=[]
         self.decision_epoch_chain_id: str|None=None
         self.active_decision_epoch_id: str|None=None
         self._decision_epoch_open_state_fingerprint=None
@@ -1173,6 +1184,178 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.development_resolution_records.append(rec)
         return rec
 
+    def register_project_activity(self,activity:ProjectActivity):
+        try:
+            activity.validate()
+        except ValueError as e:
+            raise InvariantError(str(e)) from e
+        if activity.id in self.project_activities:
+            raise InvariantError('duplicate project activity')
+        if activity.project_id not in self.state.projects:
+            raise InvariantError('project activity project missing')
+        if activity.actor_id not in self.agents:
+            raise InvariantError('project activity actor missing')
+        if activity.status!=ProjectActivityStatus.PROPOSED:
+            raise InvariantError('registered project activity must begin PROPOSED')
+        self.project_activities[activity.id]=activity
+        return activity
+
+    def project_activity_reserved_capital(self,actor_id):
+        if actor_id not in self.agents:
+            raise InvariantError('project activity capital actor missing')
+        return sum(
+            (D(a.capital_commitment) for a in self.project_activities.values()
+             if a.actor_id==actor_id and a.reserves_capital),
+            D('0')
+        )
+
+    def project_activity_available_capital(self,actor_id):
+        if actor_id not in self.agents:
+            raise InvariantError('project activity capital actor missing')
+        agent=self.agents[actor_id]
+        if agent.account_id not in self.state.accounts:
+            raise InvariantError('project activity actor account missing')
+        balance=D(self.state.accounts[agent.account_id].balance)
+        reserved=self.project_activity_reserved_capital(actor_id)
+        available=balance-reserved
+        if available<0:
+            raise InvariantError('project activity reservations exceed actor cash')
+        return available
+
+    def _project_activity_transition(self,activity,effective_time,new_status,event_id,decision_id='',result_ref=''):
+        prior=activity.status
+        activity.status=ProjectActivityStatus(new_status)
+        rec=ProjectActivityTransitionRecord(
+            activity.id,activity.project_id,activity.actor_id,D(str(effective_time)),
+            prior,activity.status,str(event_id),str(decision_id),str(result_ref))
+        self.project_activity_transition_records.append(rec)
+        return rec
+
+    def authorize_project_activity(self,effective_time,decision:SponsorPortfolioDecision):
+        if decision.outcome!=SponsorPortfolioDecisionOutcome.AUTHORIZE:
+            raise InvariantError('project activity authorization requires AUTHORIZE decision')
+        aid=decision.selected_activity_id
+        if aid not in self.project_activities:
+            raise InvariantError('selected project activity missing')
+        a=self.project_activities[aid]
+        if a.status!=ProjectActivityStatus.PROPOSED:
+            raise InvariantError('project activity not PROPOSED')
+        if decision.actor_id!=a.actor_id:
+            raise InvariantError('project activity decision actor mismatch')
+        if D(decision.reserved_capital)!=D(a.capital_commitment):
+            raise InvariantError('project activity reservation/decision drift')
+        project=self.state.projects[a.project_id]
+        if str(project.status) not in {'PROPOSED','EXPLORING'}:
+            raise InvariantError('project activity project state not eligible')
+        t=D(str(effective_time))
+        if t<D('0'):
+            raise InvariantError('project activity authorization time invalid')
+        if self.project_activity_available_capital(a.actor_id)<D(a.capital_commitment):
+            raise InvariantError('insufficient uncommitted sponsor capital')
+        if a.opportunity_window_id and t>D(a.window_close):
+            raise InvariantError('project activity opportunity window already closed')
+        a.authorized_at=t
+        a.authorization_decision_id=decision.id
+        if t<D(a.earliest_start):
+            new=ProjectActivityStatus.WAITING_PREREQUISITES
+        elif a.opportunity_window_id and t<D(a.window_open):
+            new=ProjectActivityStatus.WAITING_WINDOW
+        else:
+            new=ProjectActivityStatus.AUTHORIZED
+        evt=self.event(
+            int(t),a.actor_id,ActionKind.AUTHORIZE_ACTIVITY,new.value,
+            (a.id,a.project_id,str(t),str(a.capital_commitment),a.opportunity_window_id),
+            (decision.id,))
+        rec=self._project_activity_transition(a,t,new,evt.id,decision.id)
+        a.validate()
+        return rec
+
+    def start_project_activity(self,effective_time,activity_id):
+        if activity_id not in self.project_activities:
+            raise InvariantError('project activity missing')
+        a=self.project_activities[activity_id]
+        if a.status not in {
+            ProjectActivityStatus.AUTHORIZED,
+            ProjectActivityStatus.WAITING_PREREQUISITES,
+            ProjectActivityStatus.WAITING_WINDOW,
+        }:
+            raise InvariantError('project activity not startable')
+        t=D(str(effective_time))
+        if t<D(a.earliest_start):
+            raise InvariantError('project activity prerequisite time not reached')
+        if a.opportunity_window_id and not (D(a.window_open)<=t<=D(a.window_close)):
+            raise InvariantError('project activity outside opportunity window')
+        a.actual_start=t
+        a.planned_completion=t+D(a.planned_duration)
+        evt=self.event(
+            int(t),a.actor_id,ActionKind.START_ACTIVITY,'ACTIVE',
+            (a.id,a.project_id,str(t),str(a.planned_completion)),
+            (a.authorization_decision_id,))
+        rec=self._project_activity_transition(a,t,ProjectActivityStatus.ACTIVE,evt.id,a.authorization_decision_id)
+        a.validate()
+        return rec
+
+    def complete_project_activity(self,effective_time,activity_id,result_ref):
+        if activity_id not in self.project_activities:
+            raise InvariantError('project activity missing')
+        a=self.project_activities[activity_id]
+        if a.status!=ProjectActivityStatus.ACTIVE:
+            raise InvariantError('project activity not ACTIVE')
+        t=D(str(effective_time))
+        if t!=D(a.planned_completion):
+            raise InvariantError('project activity completion differs from deterministic plan')
+        if not result_ref:
+            raise InvariantError('project activity result reference required')
+        a.actual_completion=t
+        a.result_ref=str(result_ref)
+        evt=self.event(
+            int(t),a.actor_id,ActionKind.COMPLETE_ACTIVITY,'COMPLETED',
+            (a.id,a.project_id,a.result_type,a.result_ref,str(t)),
+            (a.authorization_decision_id,))
+        rec=self._project_activity_transition(
+            a,t,ProjectActivityStatus.COMPLETED,evt.id,a.authorization_decision_id,a.result_ref)
+        a.validate()
+        return rec
+
+    def admit_project_activity_result(self,effective_time,activity_id,agent_id):
+        if activity_id not in self.project_activities:
+            raise InvariantError('project activity missing')
+        if agent_id not in self.agents:
+            raise InvariantError('project activity information recipient missing')
+        a=self.project_activities[activity_id]
+        if a.status!=ProjectActivityStatus.COMPLETED or not a.result_ref or a.actual_completion is None:
+            raise InvariantError('project activity result not complete')
+        t=D(str(effective_time))
+        if t<D(a.actual_completion):
+            raise InvariantError('project activity result admitted before completion')
+        if any(r.activity_id==a.id and r.agent_id==agent_id for r in self.project_activity_information_records):
+            raise InvariantError('duplicate project activity information admission')
+        self.agents[agent_id].information.add(a.result_ref)
+        evt=self.event(
+            int(t),agent_id,ActionKind.ADMIT_INFORMATION,'ADMITTED',
+            (a.id,a.project_id,a.result_ref,str(t)),
+            tuple(x for x in (a.authorization_decision_id,) if x))
+        rec=ProjectActivityInformationRecord(
+            a.id,a.project_id,agent_id,a.result_ref,t,evt.id)
+        self.project_activity_information_records.append(rec)
+        return rec
+
+    def cancel_project_activity(self,effective_time,activity_id,actor_id,reason_ref=''):
+        if activity_id not in self.project_activities:
+            raise InvariantError('project activity missing')
+        a=self.project_activities[activity_id]
+        if a.actor_id!=actor_id:
+            raise InvariantError('project activity cancellation actor mismatch')
+        if a.status in {ProjectActivityStatus.COMPLETED,ProjectActivityStatus.CANCELED,ProjectActivityStatus.FAILED}:
+            raise InvariantError('terminal project activity cannot be canceled')
+        t=D(str(effective_time))
+        evt=self.event(
+            int(t),actor_id,ActionKind.CANCEL_ACTIVITY,'CANCELED',
+            (a.id,a.project_id,str(t)),
+            tuple(x for x in (str(reason_ref),) if x))
+        rec=self._project_activity_transition(a,t,ProjectActivityStatus.CANCELED,evt.id,str(reason_ref))
+        return rec
+
     def seal_for_scheduled_execution(self,state_fingerprint,plan_fingerprint):
         if self._strict_scheduled_execution:
             raise InvariantError('kernel already sealed for scheduled execution')
@@ -1665,6 +1848,31 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 if r.asset_id or D(r.commissioned)!=0 or D(r.accumulated_cost)!=D(r.written_off):
                     raise InvariantError('failed development resolution invalid')
 
+        for a in self.project_activities.values():
+            try:
+                a.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if a.project_id not in self.state.projects or a.actor_id not in self.agents:
+                raise InvariantError('project activity lineage missing')
+        for actor_id in {a.actor_id for a in self.project_activities.values()}:
+            self.project_activity_available_capital(actor_id)
+        seen_activity_info=set()
+        for r in self.project_activity_information_records:
+            key=(r.activity_id,r.agent_id)
+            if key in seen_activity_info:
+                raise InvariantError('duplicate project activity information record')
+            seen_activity_info.add(key)
+            if r.activity_id not in self.project_activities or r.agent_id not in self.agents:
+                raise InvariantError('project activity information lineage missing')
+            a=self.project_activities[r.activity_id]
+            if a.status!=ProjectActivityStatus.COMPLETED or a.result_ref!=r.result_ref:
+                raise InvariantError('project activity information/result drift')
+            if D(r.admitted_at)<D(a.actual_completion):
+                raise InvariantError('project activity information precedes completion')
+            if r.result_ref not in self.agents[r.agent_id].information:
+                raise InvariantError('project activity admitted result missing from agent information')
+
     def _methodology_payload(self,include_scheduler=True):
         payload={
           'methodology_version':self.methodology_version,
@@ -1685,6 +1893,24 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
           'surplus_decompositions':[(r.year,r.project_id,str(r.surplus),str(r.reserve),str(r.local_reinvest),
              str(r.return_to_earth),str(r.local_retention),str(r.other_investment),r.transaction_ids)
              for r in self.surplus_decompositions],
+          'project_activities':sorted((
+             a.id,a.project_id,a.activity_type,a.actor_id,a.priority,str(a.earliest_start),
+             str(a.planned_duration),str(a.capital_commitment),a.result_type,
+             a.opportunity_window_id,None if a.window_open is None else str(a.window_open),
+             None if a.window_close is None else str(a.window_close),a.status.value,
+             None if a.authorized_at is None else str(a.authorized_at),
+             None if a.actual_start is None else str(a.actual_start),
+             None if a.planned_completion is None else str(a.planned_completion),
+             None if a.actual_completion is None else str(a.actual_completion),
+             a.result_ref,a.authorization_decision_id,a.activity_version
+             ) for a in self.project_activities.values()),
+          'project_activity_transition_records':[(
+             r.activity_id,r.project_id,r.actor_id,str(r.effective_time),
+             r.prior_status.value,r.new_status.value,r.event_id,r.decision_id,
+             r.result_ref,r.record_version) for r in self.project_activity_transition_records],
+          'project_activity_information_records':[(
+             r.activity_id,r.project_id,r.agent_id,r.result_ref,str(r.admitted_at),
+             r.event_id,r.record_version) for r in self.project_activity_information_records],
           'decision_epoch_chain_id':self.decision_epoch_chain_id,
           'active_decision_epoch_id':self.active_decision_epoch_id,
           'decision_epoch_records':[(r.chain_id,r.epoch_id,r.ordinal,r.parent_result_fingerprint,

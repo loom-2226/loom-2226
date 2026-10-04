@@ -62,10 +62,15 @@ from .transport import (
     PassengerTransportDepartureRecord, PassengerTransportArrivalRecord,
     TransportSettlementDecisionOutcome, TransportSettlementReasonCode,
 )
+from .project_activity import (
+    ProjectActivity, ProjectActivityTransitionRecord, ProjectActivityInformationRecord,
+    SponsorPortfolioDecisionRequest, SponsorPortfolioDecision,
+    ProjectActivityStatus, SponsorPortfolioDecisionOutcome, SponsorPortfolioReasonCode,
+)
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_16'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_17'
 
 ODD_SCHEMA_TYPES=(
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
@@ -79,6 +84,8 @@ ODD_SCHEMA_TYPES=(
     TechnologyCapabilityState,TransportRelationship,TransportQualificationRecord,
     TransportSettlementRequest,TransportSettlementDecision,
     PassengerTransportDepartureRecord,PassengerTransportArrivalRecord,
+    ProjectActivity,ProjectActivityTransitionRecord,ProjectActivityInformationRecord,
+    SponsorPortfolioDecisionRequest,SponsorPortfolioDecision,
     PolicyParameter,FinancierPolicyManifest,PolicyExecutionResult,
 )
 
@@ -88,6 +95,7 @@ ODD_ENUM_TYPES=(
     PublicationDecisionOutcome,PublicationReasonCode,SponsorProjectDecisionOutcome,SponsorProjectReasonCode,
     OperatingCycleDecisionOutcome,OperatingCycleReasonCode,EnterpriseReviewDecisionOutcome,EnterpriseReviewReasonCode,SaleDecisionOutcome,SaleReasonCode,SurplusDistributionDecisionOutcome,SurplusDistributionReasonCode,SettlementSupportDecisionOutcome,SettlementSupportReasonCode,
     TransportSettlementDecisionOutcome,TransportSettlementReasonCode,
+    ProjectActivityStatus,SponsorPortfolioDecisionOutcome,SponsorPortfolioReasonCode,
     DevelopmentStageOutcome,DevelopmentResolutionOutcome,
     FactState,Phase,UnderwritingInputKind,UnderwritingInputStatus,
     ExposureSelectionBasis,ExposureAllocationBasis,AxisKind,SpreadMeaning,
@@ -106,6 +114,19 @@ ODD_UNIT_CONTRACTS={
     'Commitment.disbursed':'MODEL_CURRENCY',
     'Commitment.lapsed':'MODEL_CURRENCY',
     'Project':'NO_INTRINSIC_SCALAR_UNIT',
+    'ProjectActivity.earliest_start':'SIM_TIME',
+    'ProjectActivity.planned_duration':'SIM_TIME_DURATION',
+    'ProjectActivity.capital_commitment':'MODEL_CURRENCY',
+    'ProjectActivity.window_open':'SIM_TIME',
+    'ProjectActivity.window_close':'SIM_TIME',
+    'ProjectActivity.authorized_at':'SIM_TIME',
+    'ProjectActivity.actual_start':'SIM_TIME',
+    'ProjectActivity.planned_completion':'SIM_TIME',
+    'ProjectActivity.actual_completion':'SIM_TIME',
+    'ProjectActivityTransitionRecord.effective_time':'SIM_TIME',
+    'ProjectActivityInformationRecord.admitted_at':'SIM_TIME',
+    'SponsorPortfolioDecisionRequest.effective_time':'SIM_TIME',
+    'SponsorPortfolioDecision.reserved_capital':'FIELD:SponsorPortfolioDecisionRequest.currency_unit',
     'Asset.book_value':'MODEL_CURRENCY',
     'Asset.capacity':'ASSET_CLASS_CAPACITY_UNIT',
     'FixedCapitalFormationEvent.amount':'MODEL_CURRENCY',

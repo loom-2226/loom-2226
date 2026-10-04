@@ -2,7 +2,7 @@
 
 **Status:** DESIGN CANDIDATE / PRE-CONTRACT / SINGLE-AUTHORITY
 **Basis:** ODD 2020 structure adapted to LOOM governance
-**Scope:** Build 5 Offworld MVP with bounded autonomous institutional policies and governed decision epochs
+**Scope:** Frozen Build 5 Offworld MVP plus authorized Build 6A temporal multi-project structural expansion
 
 ## 1. Purpose and patterns
 
@@ -163,6 +163,8 @@ The A1–A9 property fixture captures state before every scheduler-valid transit
 
 The multi-rate synchronization fixture combines day-scale mission observations, quarterly finance and annual Earth-system events under one deterministic scheduler.
 
+Build 6A Test 001A adds a structurally bounded multi-project temporal seam. Generic candidate project activities are explicit time-bearing ENTITY_ASSET-like project state controlled by SYSTEM execution after a sponsor decision. Authorization, start, completion and information admission are distinct causal steps. Active/authorized/waiting activities reserve declared sponsor capital without creating expenditure; reserved capital is excluded from later portfolio availability until the activity completes or is canceled. Opportunity windows may hold an authorized activity in `WAITING_WINDOW`, and deterministic completion releases its reservation. The sponsor portfolio policy is Test-only and ranks admitted candidates solely by authored priority and stable project identity subject to project/activity eligibility, window validity and admitted uncommitted capital. It receives no hidden resource truth or future result. Build 6A uses generic projects on the existing single target/body fixture; named Solar targets, staged resource/project-study maturity, stochastic schedule risk and multiple economies remain outside Test 001A.
+
 Dynamic economic reserve conversion, mature colony service/reliability operations, labour/skill matching, cohorts/households/individual persons, DIVERSIFYING_SETTLEMENT and HANDOFF_CANDIDATE mechanics, grade/quantity prospecting estimates, autonomous sponsor prospecting, empirical financing terms and debt/equity waterfalls, endogenous reinvestment-opportunity search, endogenous price formation, price-responsive demand, multi-buyer/multi-seller competition, country-policy market intervention, empirical sensor calibration, empirical construction calibration, empirical mining calibration, empirical habitat/migration calibration, and empirical market calibration remain incomplete unless separately implemented and validated. Test 012A separately earns exogenous technology-qualified passenger transport; Test 014A earns bounded repeated operating lifecycle review and `OPERATING -> CLOSED` after zero realized output. Neither result implies the unimplemented broader mechanisms above.
 
 ## 8. Reproducibility package
@@ -283,7 +285,12 @@ changed by integrated qualification R1.
       "TRANSPORT",
       "REINVEST",
       "DISTRIBUTE",
-      "SETTLE"
+      "SETTLE",
+      "AUTHORIZE_ACTIVITY",
+      "START_ACTIVITY",
+      "COMPLETE_ACTIVITY",
+      "CANCEL_ACTIVITY",
+      "ADMIT_INFORMATION"
     ],
     "AgentKind": [
       "PUBLIC",
@@ -426,6 +433,16 @@ changed by integrated qualification R1.
       "AUTHORIZED",
       "TEST_ONLY"
     ],
+    "ProjectActivityStatus": [
+      "PROPOSED",
+      "AUTHORIZED",
+      "WAITING_PREREQUISITES",
+      "WAITING_WINDOW",
+      "ACTIVE",
+      "COMPLETED",
+      "CANCELED",
+      "FAILED"
+    ],
     "PublicationDecisionOutcome": [
       "PUBLISH",
       "WITHHOLD"
@@ -468,6 +485,18 @@ changed by integrated qualification R1.
       "HABITAT_CAPACITY_LIMIT",
       "ORIGIN_POPULATION_LIMIT",
       "INSUFFICIENT_PUBLIC_FUNDS",
+      "CAPABILITY_OR_OBJECTIVE_BLOCK",
+      "BLOCKED_REQUIRED_INPUT_UNKNOWN"
+    ],
+    "SponsorPortfolioDecisionOutcome": [
+      "AUTHORIZE",
+      "DEFER",
+      "BLOCKED_UNKNOWN"
+    ],
+    "SponsorPortfolioReasonCode": [
+      "SELECTED_PRIORITY_AFFORDABLE",
+      "INSUFFICIENT_AVAILABLE_CAPITAL",
+      "NO_ELIGIBLE_ACTIVITY",
       "CAPABILITY_OR_OBJECTIVE_BLOCK",
       "BLOCKED_REQUIRED_INPUT_UNKNOWN"
     ],
@@ -571,7 +600,7 @@ changed by integrated qualification R1.
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_16",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_17",
   "types": {
     "Account": [
       {
@@ -2307,6 +2336,160 @@ changed by integrated qualification R1.
         "type": "str"
       }
     ],
+    "ProjectActivity": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "activity_type",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "priority",
+        "type": "int"
+      },
+      {
+        "name": "earliest_start",
+        "type": "D"
+      },
+      {
+        "name": "planned_duration",
+        "type": "D"
+      },
+      {
+        "name": "capital_commitment",
+        "type": "D"
+      },
+      {
+        "name": "result_type",
+        "type": "str"
+      },
+      {
+        "name": "opportunity_window_id",
+        "type": "str"
+      },
+      {
+        "name": "window_open",
+        "type": "D | None"
+      },
+      {
+        "name": "window_close",
+        "type": "D | None"
+      },
+      {
+        "name": "status",
+        "type": "ProjectActivityStatus"
+      },
+      {
+        "name": "authorized_at",
+        "type": "D | None"
+      },
+      {
+        "name": "actual_start",
+        "type": "D | None"
+      },
+      {
+        "name": "planned_completion",
+        "type": "D | None"
+      },
+      {
+        "name": "actual_completion",
+        "type": "D | None"
+      },
+      {
+        "name": "result_ref",
+        "type": "str"
+      },
+      {
+        "name": "authorization_decision_id",
+        "type": "str"
+      },
+      {
+        "name": "activity_version",
+        "type": "str"
+      }
+    ],
+    "ProjectActivityInformationRecord": [
+      {
+        "name": "activity_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "agent_id",
+        "type": "str"
+      },
+      {
+        "name": "result_ref",
+        "type": "str"
+      },
+      {
+        "name": "admitted_at",
+        "type": "D"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
+    "ProjectActivityTransitionRecord": [
+      {
+        "name": "activity_id",
+        "type": "str"
+      },
+      {
+        "name": "project_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "effective_time",
+        "type": "D"
+      },
+      {
+        "name": "prior_status",
+        "type": "ProjectActivityStatus"
+      },
+      {
+        "name": "new_status",
+        "type": "ProjectActivityStatus"
+      },
+      {
+        "name": "event_id",
+        "type": "str"
+      },
+      {
+        "name": "decision_id",
+        "type": "str"
+      },
+      {
+        "name": "result_ref",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      }
+    ],
     "ProjectDevelopmentPlan": [
       {
         "name": "id",
@@ -3149,6 +3332,82 @@ changed by integrated qualification R1.
         "type": "str"
       }
     ],
+    "SponsorPortfolioDecision": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "outcome",
+        "type": "SponsorPortfolioDecisionOutcome"
+      },
+      {
+        "name": "selected_activity_id",
+        "type": "str"
+      },
+      {
+        "name": "reserved_capital",
+        "type": "D"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "reason_code",
+        "type": "SponsorPortfolioReasonCode"
+      },
+      {
+        "name": "unknown_input_keys",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "input_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "policy_version",
+        "type": "str"
+      },
+      {
+        "name": "decision_version",
+        "type": "str"
+      }
+    ],
+    "SponsorPortfolioDecisionRequest": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "effective_time",
+        "type": "D"
+      },
+      {
+        "name": "candidate_activity_ids",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "required_fact_keys",
+        "type": "Tuple[str, ...]"
+      },
+      {
+        "name": "currency_unit",
+        "type": "str"
+      },
+      {
+        "name": "request_version",
+        "type": "str"
+      }
+    ],
     "SponsorProjectDecision": [
       {
         "name": "id",
@@ -3980,6 +4239,17 @@ changed by integrated qualification R1.
     "PopulationLedger.in_transit": "PEOPLE_EQUIVALENT_BY_TRANSPORT_BATCH",
     "PopulationLedger.offworld": "PEOPLE_EQUIVALENT_BY_NODE",
     "Project": "NO_INTRINSIC_SCALAR_UNIT",
+    "ProjectActivity.actual_completion": "SIM_TIME",
+    "ProjectActivity.actual_start": "SIM_TIME",
+    "ProjectActivity.authorized_at": "SIM_TIME",
+    "ProjectActivity.capital_commitment": "MODEL_CURRENCY",
+    "ProjectActivity.earliest_start": "SIM_TIME",
+    "ProjectActivity.planned_completion": "SIM_TIME",
+    "ProjectActivity.planned_duration": "SIM_TIME_DURATION",
+    "ProjectActivity.window_close": "SIM_TIME",
+    "ProjectActivity.window_open": "SIM_TIME",
+    "ProjectActivityInformationRecord.admitted_at": "SIM_TIME",
+    "ProjectActivityTransitionRecord.effective_time": "SIM_TIME",
     "ProjectDevelopmentPlan.commissioned_capacity": "ASSET_CLASS_CAPACITY_UNIT",
     "ProjectDevelopmentPlan.completion_year": "SIM_YEAR",
     "ProjectDevelopmentPlan.required_cost": "MODEL_CURRENCY",
@@ -4027,6 +4297,8 @@ changed by integrated qualification R1.
     "SettlementSupportRequest.requested_residents": "FIELD:SettlementSupportRequest.population_unit",
     "SettlementSupportRequest.support_cost": "FIELD:SettlementSupportRequest.currency_unit",
     "SettlementSupportRequest.year": "SIM_YEAR",
+    "SponsorPortfolioDecision.reserved_capital": "FIELD:SponsorPortfolioDecisionRequest.currency_unit",
+    "SponsorPortfolioDecisionRequest.effective_time": "SIM_TIME",
     "SponsorProjectDecision.requested_financing": "REQUEST_CURRENCY_UNIT",
     "SponsorProjectDecisionRequest.year": "SIM_YEAR",
     "SurfaceProspectingModel.agent_detection_rate": "PROBABILITY",
