@@ -8,7 +8,7 @@ from typing import Dict, Tuple
 from .build4 import Build4Kernel, OwnershipStake
 from .kernel import InvariantError
 from .model import D, TxPurpose, AssetKind, NodeKind, AccountKind
-from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome, SaleDecisionOutcome
+from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome, SaleDecisionOutcome, SurplusDistributionDecisionOutcome
 from .scheduler import DeterministicScheduler
 from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
 from .accounting import SurplusDecompositionRecord
@@ -22,6 +22,7 @@ from .surface_prospecting import (
 )
 from .operating import OperatingCostRecord, ExtractionResolutionRecord
 from .market import CommodityMarketEnvelope, MarketClearingRecord
+from .distribution import FinancingReturnClaim, OwnerDistributionAllocation, SurplusDistributionRecord
 from .mvp_state import ActionKind
 
 @dataclass(frozen=True)
@@ -67,13 +68,14 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'boundary_purchase','consume_market_resource',
         'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan','record_surplus_decomposition',
         'register_development_plan','execute_development_stage','resolve_development_plan',
-        'spend_operating_cycle','resolve_operating_extraction','register_market_envelope','clear_market_sale'
+        'spend_operating_cycle','resolve_operating_extraction','register_market_envelope','clear_market_sale',
+        'register_financing_return_claim','execute_surplus_distribution'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
         'assert_mvp_invariants','mvp_fingerprint','keyed_draw','build3_fingerprint',
         'assert_vehicle_ownership','assert_build4_invariants','build4_fingerprint','uniformity_sample',
-        'assert_methodology_invariants','methodology_fingerprint','decision_epoch_state_fingerprint','market_remaining_demand'
+        'assert_methodology_invariants','methodology_fingerprint','decision_epoch_state_fingerprint','market_remaining_demand','financing_return_remaining'
     })
     SCHEDULED_CONTROL_METHODS=frozenset({
         'seal_for_scheduled_execution','scheduled_event_context','begin_decision_epoch','complete_decision_epoch'
@@ -100,6 +102,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.extraction_resolution_records: list[ExtractionResolutionRecord]=[]
         self.market_envelopes: Dict[str,CommodityMarketEnvelope]={}
         self.market_clearing_records: list[MarketClearingRecord]=[]
+        self.financing_return_claims: Dict[str,FinancingReturnClaim]={}
+        self.surplus_distribution_records: list[SurplusDistributionRecord]=[]
         self.decision_epoch_chain_id: str|None=None
         self.active_decision_epoch_id: str|None=None
         self._decision_epoch_open_state_fingerprint=None
@@ -307,6 +311,158 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             planned,actual,before_resource,D(resource.remaining),before_inventory,
             D(colony.resource_inventory),evt.id)
         self.extraction_resolution_records.append(rec)
+        return rec
+
+    def register_financing_return_claim(self,claim:FinancingReturnClaim):
+        claim.validate()
+        if claim.id in self.financing_return_claims:
+            raise InvariantError('duplicate financing return claim')
+        if claim.project_id not in self.state.projects:
+            raise InvariantError('financing return claim project missing')
+        if claim.financier_id not in self.agents:
+            raise InvariantError('financing return claim financier missing')
+        financier=self.agents[claim.financier_id]
+        if financier.kind.value!='PRIVATE_FINANCIER':
+            raise InvariantError('financing return claim actor not private financier')
+        if claim.destination_account_id not in self.state.accounts:
+            raise InvariantError('financing return destination account missing')
+        destination=self.state.accounts[claim.destination_account_id]
+        if destination.owner_id!=claim.financier_id:
+            raise InvariantError('financing return destination ownership mismatch')
+        self.financing_return_claims[claim.id]=claim
+        return claim
+
+    def financing_return_remaining(self,claim_id):
+        if claim_id not in self.financing_return_claims:
+            raise InvariantError('financing return claim missing')
+        claim=self.financing_return_claims[claim_id]
+        settled=sum((D(r.financier_return) for r in self.surplus_distribution_records
+                     if r.financing_return_claim_id==claim_id),D('0'))
+        remaining=D(claim.maximum_return_amount)-settled
+        if remaining<0:
+            raise InvariantError('financing return claim over-settled')
+        return remaining
+
+    def _distribution_owner_account(self,owner_id):
+        if owner_id in self.agents:
+            aid=self.agents[owner_id].account_id
+            if aid not in self.state.accounts:
+                raise InvariantError('owner agent account missing')
+            return aid
+        candidates=[
+            aid for aid,a in self.state.accounts.items()
+            if a.owner_id==owner_id and a.kind==AccountKind.FUNDS
+        ]
+        if len(candidates)!=1:
+            raise InvariantError('owner distribution account is not uniquely resolvable')
+        return candidates[0]
+
+    def execute_surplus_distribution(self,year,actor_id,request,decision,
+                                     local_reinvestment_account_id):
+        year=int(year)
+        request.validate_protocol(); decision.validate_protocol(request)
+        if decision.outcome!=SurplusDistributionDecisionOutcome.DISTRIBUTE:
+            raise InvariantError('surplus execution requires DISTRIBUTE decision')
+        if any(r.decision_id==decision.id for r in self.surplus_distribution_records):
+            raise InvariantError('surplus distribution decision already executed')
+        if actor_id!=decision.actor_id or actor_id not in self.agents:
+            raise InvariantError('surplus actor/decision mismatch')
+        actor=self.agents[actor_id]
+        if actor.kind.value!='PRIVATE_SPONSOR' or 'DISTRIBUTE_SURPLUS' not in actor.capabilities:
+            raise InvariantError('surplus actor lacks sponsor distribution authority')
+        if request.project_id not in self.state.projects:
+            raise InvariantError('surplus project missing')
+        project=self.state.projects[request.project_id]
+        if project.status!='OPERATING':
+            raise InvariantError('surplus distribution requires OPERATING project')
+        if request.financing_return_claim_id not in self.financing_return_claims:
+            raise InvariantError('surplus financing-return claim missing')
+        claim=self.financing_return_claims[request.financing_return_claim_id]
+        if claim.project_id!=project.id:
+            raise InvariantError('financing-return claim/project mismatch')
+        destination=self.state.accounts.get(claim.destination_account_id)
+        if destination is None or destination.owner_id!=claim.financier_id:
+            raise InvariantError('financing-return destination mismatch')
+        for cid in claim.source_commitment_ids:
+            c=self.state.commitments.get(cid)
+            if c is None:
+                raise InvariantError('financing-return source commitment missing')
+            if c.project_id!=project.id or c.financier_id!=claim.financier_id:
+                raise InvariantError('financing-return source commitment mismatch')
+            if D(c.disbursed)<=0:
+                raise InvariantError('financing-return source commitment has no disbursed capital')
+        remaining_claim=self.financing_return_remaining(claim.id)
+        if D(decision.financier_return)>remaining_claim:
+            raise InvariantError('financing return exceeds remaining claim')
+        if local_reinvestment_account_id not in self.state.accounts:
+            raise InvariantError('local reinvestment account missing')
+        local_account=self.state.accounts[local_reinvestment_account_id]
+        if local_account.node_id!=project.node_id:
+            raise InvariantError('local reinvestment account location mismatch')
+
+        opening=D(self.state.accounts[project.cash_account_id].balance)
+        reserve=D(decision.reserve)
+        financier_return=D(decision.financier_return)
+        local_reinvestment=D(decision.local_reinvestment)
+        owner_distribution=D(decision.owner_distribution)
+        allocated=reserve+financier_return+local_reinvestment+owner_distribution
+        if opening!=allocated:
+            raise InvariantError('surplus decision no longer matches current project cash')
+        if not project.owners or sum((D(v) for v in project.owners.values()),D('0'))!=D('1'):
+            raise InvariantError('surplus project ownership invalid')
+
+        txids=[]
+        if financier_return>0:
+            tx=self.transfer(
+                year,project.cash_account_id,claim.destination_account_id,
+                financier_return,TxPurpose.FINANCIER_RETURN,
+                parent_ids=(decision.id,request.id,claim.id))
+            txids.append(tx.id)
+
+        if local_reinvestment>0:
+            tx=self.transfer(
+                year,project.cash_account_id,local_reinvestment_account_id,
+                local_reinvestment,TxPurpose.LOCAL_REINVESTMENT,
+                parent_ids=(decision.id,request.id,project.id))
+            txids.append(tx.id)
+
+        owner_allocations=[]
+        owners=tuple(sorted(project.owners.items()))
+        remaining_owner=owner_distribution
+        for i,(owner_id,share) in enumerate(owners):
+            share=D(share)
+            amount=remaining_owner if i==len(owners)-1 else owner_distribution*share
+            remaining_owner-=amount
+            if amount<0:
+                raise InvariantError('negative owner distribution')
+            if amount==0:
+                continue
+            account_id=self._distribution_owner_account(owner_id)
+            tx=self.transfer(
+                year,project.cash_account_id,account_id,amount,
+                TxPurpose.OWNER_DISTRIBUTION,
+                parent_ids=(decision.id,request.id,project.id,owner_id))
+            txids.append(tx.id)
+            owner_allocations.append(
+                OwnerDistributionAllocation(owner_id,account_id,share,amount,tx.id))
+
+        closing=D(self.state.accounts[project.cash_account_id].balance)
+        if closing!=reserve:
+            raise InvariantError('surplus reserve/cash reconciliation failed')
+        evt=self.event(
+            year,actor_id,ActionKind.DISTRIBUTE,'SURPLUS_ALLOCATED',
+            (project.id,str(opening),str(reserve),str(financier_return),
+             str(local_reinvestment),str(owner_distribution),claim.id),
+            (decision.id,))
+        rec=SurplusDistributionRecord(
+            year,project.id,actor_id,decision.id,claim.id,opening,reserve,
+            financier_return,local_reinvestment,local_reinvestment_account_id,
+            owner_distribution,tuple(owner_allocations),closing,tuple(txids),evt.id)
+        try:
+            rec.validate()
+        except ValueError as e:
+            raise InvariantError(str(e)) from e
+        self.surplus_distribution_records.append(rec)
         return rec
 
     def register_market_envelope(self,envelope:CommodityMarketEnvelope):
@@ -786,6 +942,34 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if r.cash_total_before!=r.cash_total_after: raise InvariantError('resolution cash reconciliation')
         if 'EARTH_MARKET_v0' in self.agents: raise InvariantError('EARTH_MARKET_v0 cannot be agent')
         for r in self.surplus_decompositions: r.validate()
+        for c in self.financing_return_claims.values():
+            try:
+                c.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if c.project_id not in self.state.projects:
+                raise InvariantError('financing return claim project drift')
+            if c.destination_account_id not in self.state.accounts:
+                raise InvariantError('financing return destination drift')
+            if self.financing_return_remaining(c.id)<0:
+                raise InvariantError('negative financing return remaining')
+        seen_distributions=set()
+        for r in self.surplus_distribution_records:
+            if r.decision_id in seen_distributions:
+                raise InvariantError('duplicate surplus distribution decision')
+            seen_distributions.add(r.decision_id)
+            try:
+                r.validate()
+            except ValueError as e:
+                raise InvariantError(str(e)) from e
+            if r.financing_return_claim_id not in self.financing_return_claims:
+                raise InvariantError('surplus distribution claim lineage missing')
+            p=self.state.projects.get(r.project_id)
+            if p is None:
+                raise InvariantError('surplus distribution project missing')
+            if sum((D(a.ownership_share) for a in r.owner_allocations),D('0')) not in (D('0'),D('1')):
+                # Zero is legal when no owner residual was paid.
+                raise InvariantError('owner allocation share reconciliation')
         for e in self.market_envelopes.values():
             e.validate()
             if e.resource_id not in self.resources or e.buyer_account_id not in self.state.accounts:
@@ -940,7 +1124,17 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
              str(r.offered_quantity),str(r.demand_before),str(r.cleared_quantity),str(r.demand_after),
              str(r.unit_price),str(r.transaction_value),str(r.local_inventory_before),str(r.local_inventory_after),
              str(r.market_inventory_before),str(r.market_inventory_after),r.transaction_id,r.event_id,r.record_version)
-             for r in self.market_clearing_records]}
+             for r in self.market_clearing_records],
+          'financing_return_claims':sorted((c.id,c.financier_id,c.project_id,c.destination_account_id,
+             str(c.maximum_return_amount),c.source_commitment_ids,c.source_ref,c.epistemic_status,c.claim_version)
+             for c in self.financing_return_claims.values()),
+          'surplus_distribution_records':[(r.year,r.project_id,r.actor_id,r.decision_id,r.financing_return_claim_id,
+             str(r.opening_project_cash),str(r.reserve),str(r.financier_return),str(r.local_reinvestment),
+             r.local_reinvestment_account_id,str(r.owner_distribution),
+             tuple((a.owner_id,a.destination_account_id,str(a.ownership_share),str(a.amount),a.transaction_id)
+                   for a in r.owner_allocations),
+             str(r.closing_project_cash),r.transaction_ids,r.event_id,r.record_version)
+             for r in self.surplus_distribution_records]}
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload

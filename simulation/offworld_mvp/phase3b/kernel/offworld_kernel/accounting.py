@@ -33,6 +33,7 @@ class AccountingPeriodSnapshot:
     event_index:int
     audit_index:int
     surplus_index:int
+    distribution_index:int
     account_balances:Tuple[Tuple[str,D],...]
     project_cash:Tuple[Tuple[str,D],...]
     wip_net:Tuple[Tuple[str,D],...]
@@ -45,6 +46,7 @@ class AccountingPeriodSnapshot:
         return AccountingPeriodSnapshot(
             int(period),len(kernel.state.transactions),len(kernel.events),len(kernel.event_log),
             len(getattr(kernel,'surplus_decompositions',())),
+            len(getattr(kernel,'surplus_distribution_records',())),
             tuple(sorted((k,D(v.balance)) for k,v in kernel.state.accounts.items())),
             tuple(sorted((p.id,D(kernel.state.accounts[p.cash_account_id].balance)) for p in kernel.state.projects.values())),
             tuple(sorted((w.id,D(w.remaining_wip)) for w in kernel.wip.values())),
@@ -61,6 +63,7 @@ class AccountingIdentityAuditor:
         self.events=self.k.events[self.s.event_index:]
         self.audit=self.k.event_log[self.s.audit_index:]
         self.surplus=getattr(self.k,'surplus_decompositions',[])[self.s.surplus_index:]
+        self.distributions=getattr(self.k,'surplus_distribution_records',[])[self.s.distribution_index:]
 
     def _open_accounts(self): return dict(self.s.account_balances)
     def _open_project_cash(self): return dict(self.s.project_cash)
@@ -141,6 +144,7 @@ class AccountingIdentityAuditor:
 
     def check_A6(self):
         for r in self.surplus: r.validate()
+        for r in self.distributions: r.validate()
         return True
 
     def check_A7(self):

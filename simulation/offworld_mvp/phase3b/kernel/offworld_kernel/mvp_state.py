@@ -38,7 +38,7 @@ class AgentKind(str, Enum):
     PUBLIC='PUBLIC'; PRIVATE_SPONSOR='PRIVATE_SPONSOR'; PRIVATE_FINANCIER='PRIVATE_FINANCIER'; LOCAL_FINANCIER='LOCAL_FINANCIER'
 
 class ActionKind(str, Enum):
-    EXPLORE='EXPLORE'; PUBLISH='PUBLISH'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; CONSTRUCT='CONSTRUCT'; OPERATE='OPERATE'; FAIL='FAIL'; ABANDON='ABANDON'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; REINVEST='REINVEST'
+    EXPLORE='EXPLORE'; PUBLISH='PUBLISH'; REQUEST_FINANCE='REQUEST_FINANCE'; FINANCE='FINANCE'; DEVELOP='DEVELOP'; CONSTRUCT='CONSTRUCT'; OPERATE='OPERATE'; FAIL='FAIL'; ABANDON='ABANDON'; EXTRACT='EXTRACT'; SELL='SELL'; MIGRATE='MIGRATE'; REINVEST='REINVEST'; DISTRIBUTE='DISTRIBUTE'
 
 @dataclass
 class AgentState:
@@ -336,6 +336,92 @@ class SaleDecision:
             request.validate_protocol()
             if request.id!=self.request_id:
                 raise ValueError('sale decision/request lineage mismatch')
+        return self
+
+BUILD5_SURPLUS_REQUIRED_FACT_KEYS=(
+    'project.STATUS',
+    'project.CASH_BALANCE',
+    'project.RESERVE_REQUIREMENT',
+    'financing.RETURN_CLAIM_REMAINING',
+    'project.REINVESTMENT_REQUIREMENT',
+)
+
+class SurplusDistributionDecisionOutcome(str, Enum):
+    DISTRIBUTE='DISTRIBUTE'
+    DEFER='DEFER'
+    BLOCKED_UNKNOWN='BLOCKED_UNKNOWN'
+
+class SurplusDistributionReasonCode(str, Enum):
+    DISTRIBUTION_AUTHORIZED='DISTRIBUTION_AUTHORIZED'
+    NO_DISTRIBUTABLE_CASH='NO_DISTRIBUTABLE_CASH'
+    PROJECT_STATE_BLOCK='PROJECT_STATE_BLOCK'
+    CAPABILITY_OR_OBJECTIVE_BLOCK='CAPABILITY_OR_OBJECTIVE_BLOCK'
+    BLOCKED_REQUIRED_INPUT_UNKNOWN='BLOCKED_REQUIRED_INPUT_UNKNOWN'
+
+@dataclass(frozen=True)
+class SurplusDistributionRequest:
+    id: str
+    year: int
+    project_id: str
+    financing_return_claim_id: str
+    required_fact_keys: tuple[str,...]=()
+    currency_unit: str='MODEL_CURRENCY'
+    request_version: str='SURPLUS_DISTRIBUTION_REQUEST_V1'
+
+    def validate_protocol(self):
+        if not self.id or not self.project_id or not self.financing_return_claim_id:
+            raise ValueError('surplus distribution request identity incomplete')
+        if self.year<0:
+            raise ValueError('surplus distribution request year invalid')
+        if tuple(self.required_fact_keys)!=BUILD5_SURPLUS_REQUIRED_FACT_KEYS:
+            raise ValueError('surplus distribution request must declare exact Test 010A fact contract')
+        if not self.currency_unit:
+            raise ValueError('surplus distribution currency/unit missing')
+        return self
+
+@dataclass(frozen=True)
+class SurplusDistributionDecision:
+    id: str
+    request_id: str
+    actor_id: str
+    outcome: SurplusDistributionDecisionOutcome
+    reserve: D
+    financier_return: D
+    local_reinvestment: D
+    owner_distribution: D
+    reason: str
+    reason_code: SurplusDistributionReasonCode
+    unknown_input_keys: tuple[str,...]=()
+    input_snapshot_ref: str=''
+    policy_version: str=''
+    decision_version: str='SURPLUS_DISTRIBUTION_DECISION_V1'
+
+    def validate_protocol(self,request:SurplusDistributionRequest|None=None):
+        values=tuple(D(v) for v in (
+            self.reserve,self.financier_return,self.local_reinvestment,self.owner_distribution))
+        if not self.id or not self.request_id or not self.actor_id:
+            raise ValueError('surplus distribution decision identity incomplete')
+        if not self.input_snapshot_ref or not self.policy_version:
+            raise ValueError('surplus distribution decision requires snapshot and policy version')
+        if min(values)<0:
+            raise ValueError('negative surplus distribution amount')
+        total=sum(values,D('0'))
+        if self.outcome==SurplusDistributionDecisionOutcome.DISTRIBUTE:
+            if total<=0:
+                raise ValueError('DISTRIBUTE requires positive allocation')
+        elif total!=D('0'):
+            raise ValueError('non-DISTRIBUTE decision cannot allocate cash')
+        if self.unknown_input_keys and self.outcome!=SurplusDistributionDecisionOutcome.BLOCKED_UNKNOWN:
+            raise ValueError('required unknown distribution inputs must produce BLOCKED_UNKNOWN')
+        if self.outcome==SurplusDistributionDecisionOutcome.BLOCKED_UNKNOWN:
+            if not self.unknown_input_keys:
+                raise ValueError('BLOCKED_UNKNOWN requires unknown distribution inputs')
+            if self.reason_code!=SurplusDistributionReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN:
+                raise ValueError('BLOCKED_UNKNOWN requires blocked-unknown reason code')
+        if request is not None:
+            request.validate_protocol()
+            if request.id!=self.request_id:
+                raise ValueError('surplus distribution decision/request lineage mismatch')
         return self
 
 BUILD5_REQUIRED_UNDERWRITING_KEYS=(

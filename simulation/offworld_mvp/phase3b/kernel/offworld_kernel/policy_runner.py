@@ -14,6 +14,7 @@ from .publication_protocol import build_publication_decision
 from .sponsor_protocol import build_sponsor_project_decision, required_unknown_sponsor_inputs
 from .operating_protocol import build_operating_cycle_decision, required_unknown_operating_inputs
 from .market_protocol import build_sale_decision, required_unknown_sale_inputs
+from .distribution_protocol import build_surplus_distribution_decision, required_unknown_surplus_inputs
 from .mvp_state import (
     FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest,
     ExplorationDecisionOutcome, ExplorationReasonCode, ExplorationRequest,
@@ -21,6 +22,7 @@ from .mvp_state import (
     SponsorProjectDecisionOutcome, SponsorProjectReasonCode, SponsorProjectDecisionRequest,
     OperatingCycleDecisionOutcome, OperatingCycleReasonCode, OperatingCycleRequest,
     SaleDecisionOutcome, SaleReasonCode, SaleDecisionRequest,
+    SurplusDistributionDecisionOutcome, SurplusDistributionReasonCode, SurplusDistributionRequest,
 )
 from .policy import DecisionSnapshot
 from .policies.manifest import FinancierPolicyManifest, policy_source_bytes
@@ -53,6 +55,11 @@ from .policies.sponsor_sale_v1 import (
     POLICY_CONTRACT as SPONSOR_SALE_CONTRACT,
     POLICY_ID as SPONSOR_SALE_POLICY_ID,
     SEMANTIC_VERSION as SPONSOR_SALE_SEMANTIC_VERSION,
+)
+from .policies.sponsor_surplus_v1 import (
+    POLICY_CONTRACT as SPONSOR_SURPLUS_CONTRACT,
+    POLICY_ID as SPONSOR_SURPLUS_POLICY_ID,
+    SEMANTIC_VERSION as SPONSOR_SURPLUS_SEMANTIC_VERSION,
 )
 
 FORBIDDEN_IMPORT_ROOTS={
@@ -239,6 +246,28 @@ def sponsor_sale_policy_version(source:bytes|None=None)->str:
     h.update(source)
     h.update(sponsor_sale_contract_hash().encode())
     return f'{SPONSOR_SALE_POLICY_ID}:{SPONSOR_SALE_SEMANTIC_VERSION}:{h.hexdigest()}'
+
+def surplus_request_to_wire(q:SurplusDistributionRequest):
+    return {
+        'id':q.id,'year':q.year,'project_id':q.project_id,
+        'financing_return_claim_id':q.financing_return_claim_id,
+        'required_fact_keys':list(q.required_fact_keys),
+        'currency_unit':q.currency_unit,'request_version':q.request_version,
+    }
+
+def sponsor_surplus_source_bytes()->bytes:
+    return (Path(__file__).resolve().parent/'policies'/'sponsor_surplus_v1.py').read_bytes()
+
+def sponsor_surplus_contract_hash()->str:
+    raw=json.dumps(SPONSOR_SURPLUS_CONTRACT,sort_keys=True,separators=(',',':')).encode()
+    return sha256(raw).hexdigest()
+
+def sponsor_surplus_policy_version(source:bytes|None=None)->str:
+    source=source if source is not None else sponsor_surplus_source_bytes()
+    h=sha256()
+    h.update(source)
+    h.update(sponsor_surplus_contract_hash().encode())
+    return f'{SPONSOR_SURPLUS_POLICY_ID}:{SPONSOR_SURPLUS_SEMANTIC_VERSION}:{h.hexdigest()}'
 
 def public_publisher_source_bytes()->bytes:
     return (Path(__file__).resolve().parent/'policies'/'public_publisher_v1.py').read_bytes()
@@ -634,6 +663,62 @@ def run_sponsor_sale_policy(snapshot:DecisionSnapshot,
     decision=build_sale_decision(
         decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
         snapshot,version,offered_quantity=offered_quantity)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
+
+def run_sponsor_surplus_policy(snapshot:DecisionSnapshot,
+                               request:SurplusDistributionRequest,
+                               decision_key:str)->PolicyExecutionResult:
+    request.validate_protocol()
+    source=sponsor_surplus_source_bytes()
+    assert_policy_source_safe(source)
+    version=sponsor_surplus_policy_version(source)
+    contract_hash=sponsor_surplus_contract_hash()
+
+    unknowns=required_unknown_surplus_inputs(request,snapshot)
+    decision_id='DDEC-'+sha256(
+        ('|'.join((request.id,snapshot.fingerprint(),version,str(decision_key)))).encode()
+    ).hexdigest()[:20]
+
+    if unknowns:
+        decision=build_surplus_distribution_decision(
+            decision_id,request,snapshot.agent_id,
+            SurplusDistributionDecisionOutcome.BLOCKED_UNKNOWN,
+            SurplusDistributionReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required admitted surplus-allocation inputs are unknown',
+            snapshot,version)
+        return PolicyExecutionResult(
+            decision,version,'CONTRACT_SHA256:'+contract_hash,
+            sha256(('BLOCKED|'+'|'.join(unknowns)).encode()).hexdigest(),
+            tuple((f'unknown:{i}',k) for i,k in enumerate(unknowns)),
+            'PROTOCOL_UNKNOWN_GATE_NO_WORKER')
+
+    payload={
+        'mode':'EVALUATE',
+        'policy_id':SPONSOR_SURPLUS_POLICY_ID,
+        'snapshot':snapshot_to_wire(snapshot),
+        'request':surplus_request_to_wire(request),
+        'manifest':SPONSOR_SURPLUS_CONTRACT,
+        'decision_key':str(decision_key),
+    }
+    out,worker_fp=_run_worker(payload)
+    try:
+        outcome=SurplusDistributionDecisionOutcome(out['outcome'])
+        reason_code=SurplusDistributionReasonCode(out['reason_code'])
+        reserve=out.get('reserve','0')
+        financier_return=out.get('financier_return','0')
+        local_reinvestment=out.get('local_reinvestment','0')
+        owner_distribution=out.get('owner_distribution','0')
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as e:
+        raise RuntimeError('sponsor surplus worker returned invalid decision payload') from e
+
+    decision=build_surplus_distribution_decision(
+        decision_id,request,snapshot.agent_id,outcome,reason_code,reason,
+        snapshot,version,reserve=reserve,financier_return=financier_return,
+        local_reinvestment=local_reinvestment,owner_distribution=owner_distribution)
     return PolicyExecutionResult(
         decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
 
