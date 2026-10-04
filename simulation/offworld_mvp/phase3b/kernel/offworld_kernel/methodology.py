@@ -11,6 +11,7 @@ from .model import D
 from .mvp_state import AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState
 from .scheduler import DeterministicScheduler
 from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
+from .accounting import SurplusDecompositionRecord
 
 @dataclass(frozen=True)
 class ResolutionRecord:
@@ -41,7 +42,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'create_wip','add_wip_expenditure','commission_wip','depreciate','amortize_knowledge',
         'create_carry_reservation','spend_carry_reservation','lapse_carry_reservation','lapse_commitment',
         'boundary_purchase','consume_market_resource',
-        'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan'
+        'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan','record_surplus_decomposition'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
@@ -63,6 +64,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.entity_asset_refs: Dict[str,EntityAssetRef]={}
         self.resolution_records: list[ResolutionRecord]=[]
         self.resolution_exposure_records: list[ResolutionExposureRecord]=[]
+        self.surplus_decompositions: list[SurplusDecompositionRecord]=[]
         self._strict_scheduled_execution=False
         self._scheduled_execution_depth=0
         self._scheduled_current_event_id=None
@@ -232,6 +234,37 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                    allocation_ref=plan.allocation_ref,allocation_fraction=fraction)
         return exposure
 
+    def record_surplus_decomposition(self,year,project_id,surplus,reserve=D('0'),
+                                     local_reinvestments=(),owner_returns=(),
+                                     local_retentions=(),other_investments=()):
+        if project_id not in self.state.projects: raise InvariantError('A6 project missing')
+        surplus=D(surplus); reserve=D(reserve)
+        routes=[
+          ('local_reinvest',TxPurpose.LOCAL_REINVESTMENT,tuple(local_reinvestments)),
+          ('return_to_earth',TxPurpose.RETURN_TO_EARTH,tuple(owner_returns)),
+          ('local_retention',TxPurpose.LOCAL_RETENTION,tuple(local_retentions)),
+          ('other_investment',TxPurpose.OTHER_INVESTMENT,tuple(other_investments))]
+        totals={name:sum((D(amount) for _,amount in items),D('0')) for name,_,items in routes}
+        rec=SurplusDecompositionRecord(year,project_id,surplus,reserve,
+            totals['local_reinvest'],totals['return_to_earth'],totals['local_retention'],
+            totals['other_investment'],()).validate()
+        source=self.state.projects[project_id].cash_account_id
+        routed=surplus-reserve
+        if self.state.accounts[source].balance<routed: raise InvariantError('A6 surplus funds unavailable')
+        txids=[]
+        for _,purpose,items in routes:
+            for destination,amount in items:
+                tx=self.transfer(year,source,destination,D(amount),purpose,parent_ids=(project_id,'SURPLUS'))
+                txids.append(tx.id)
+        rec=SurplusDecompositionRecord(year,project_id,surplus,reserve,
+            totals['local_reinvest'],totals['return_to_earth'],totals['local_retention'],
+            totals['other_investment'],tuple(txids)).validate()
+        self.surplus_decompositions.append(rec)
+        self.audit('SURPLUS_DECOMPOSITION',year,project=project_id,surplus=surplus,reserve=reserve,
+                   local_reinvest=rec.local_reinvest,return_to_earth=rec.return_to_earth,
+                   local_retention=rec.local_retention,other_investment=rec.other_investment)
+        return rec
+
     def assert_methodology_invariants(self):
         self.assert_build4_invariants()
         for s in self.systems.values():
@@ -244,6 +277,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if r.transaction_count_before!=r.transaction_count_after: raise InvariantError('resolution incorrectly emitted economic transaction')
             if r.cash_total_before!=r.cash_total_after: raise InvariantError('resolution cash reconciliation')
         if 'EARTH_MARKET_v0' in self.agents: raise InvariantError('EARTH_MARKET_v0 cannot be agent')
+        for r in self.surplus_decompositions: r.validate()
 
     def methodology_fingerprint(self):
         payload={
@@ -262,5 +296,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
              for r in self.resolution_records],
           'resolution_exposure_records':[(r.plan_id,r.resolution_id,r.aggregate_id,r.agent_id,r.members_exposed,
              r.selection_basis,r.selection_ref,r.allocation_basis,r.allocation_ref,str(r.allocation_fraction))
-             for r in self.resolution_exposure_records]}
+             for r in self.resolution_exposure_records],
+          'surplus_decompositions':[(r.year,r.project_id,str(r.surplus),str(r.reserve),str(r.local_reinvest),
+             str(r.return_to_earth),str(r.local_retention),str(r.other_investment),r.transaction_ids)
+             for r in self.surplus_decompositions]}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
