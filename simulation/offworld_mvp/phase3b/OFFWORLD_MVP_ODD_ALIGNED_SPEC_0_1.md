@@ -57,6 +57,8 @@ Minimum ordered phase semantics for an annual macro tick are:
 
 Sub-period mission/transport/operational events may occur inside declared phases using deterministic time keys. Same-time ties require explicit stable ordering. Execution order may not be an undeclared source of randomness.
 
+Integrated simulation runs use a sealed `ScheduledSimulationRuntime`. Model initialization occurs before seal. After seal, state-changing kernel operations are legal only inside scheduler-dispatched event contexts; direct kernel mutation is rejected. The run pins both initial-state and scheduler-plan fingerprints and is single-use.
+
 ## 4. Design concepts
 
 ### Emergence
