@@ -19,6 +19,7 @@ FORBIDDEN_IMPORT_ROOTS={
 }
 FORBIDDEN_CALLS={
     'open','exec','eval','compile','input','breakpoint','__import__','globals','locals','vars',
+    'getattr','setattr','delattr','hasattr',
 }
 ALLOWED_IMPORT_ROOTS={'decimal'}
 
@@ -33,7 +34,20 @@ class PolicyExecutionResult:
 
 def assert_policy_source_safe(source:bytes):
     tree=ast.parse(source.decode())
+    for top in tree.body:
+        if isinstance(top,ast.Expr) and isinstance(top.value,ast.Constant) and isinstance(top.value.value,str):
+            continue
+        if not isinstance(top,(ast.Import,ast.ImportFrom,ast.Assign,ast.AnnAssign,ast.FunctionDef)):
+            raise ValueError(f'forbidden top-level policy statement: {type(top).__name__}')
+        if isinstance(top,(ast.Assign,ast.AnnAssign)):
+            value=top.value
+            if isinstance(value,ast.Call):
+                raise ValueError('forbidden top-level policy call')
     for node in ast.walk(tree):
+        if isinstance(node,ast.Name) and node.id.startswith('__'):
+            raise ValueError(f'forbidden policy dunder name: {node.id}')
+        if isinstance(node,ast.Attribute) and node.attr.startswith('__'):
+            raise ValueError(f'forbidden policy dunder attribute: {node.attr}')
         if isinstance(node,(ast.Import,ast.ImportFrom)):
             names=[]
             if isinstance(node,ast.Import):
