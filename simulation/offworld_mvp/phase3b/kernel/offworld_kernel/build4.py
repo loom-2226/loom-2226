@@ -51,9 +51,25 @@ class Build4Kernel(Build3Kernel):
         self.supply = {}
         self.carry_reservations = {}
         self.boundary_net = {}
+        self.boundary_opening_balance = {}
         self.asset_depreciation = {}
         self.knowledge_amortization = {}
         self.event_log = []
+
+    def add_account(self,account_id,owner_id,node_id,kind,balance=D('0')):
+        super().add_account(account_id,owner_id,node_id,kind,balance)
+        if kind==AccountKind.EARTH_BOUNDARY:
+            self.boundary_opening_balance[account_id]=D(balance)
+            self.boundary_net.setdefault(account_id,D('0'))
+
+    def transfer(self,year,source,destination,amount,purpose,supplier_location=None,asset_location=None,parent_ids=()):
+        tx=super().transfer(year,source,destination,amount,purpose,supplier_location,asset_location,parent_ids)
+        amount=D(amount)
+        if self.state.accounts[source].kind==AccountKind.EARTH_BOUNDARY:
+            self.boundary_net[source]=self.boundary_net.get(source,D('0'))-amount
+        if self.state.accounts[destination].kind==AccountKind.EARTH_BOUNDARY:
+            self.boundary_net[destination]=self.boundary_net.get(destination,D('0'))+amount
+        return tx
 
     def audit(self, kind, year, **data):
         cooked = {k: str(v) if isinstance(v,D) else v for k,v in data.items()}
@@ -155,6 +171,9 @@ class Build4Kernel(Build3Kernel):
     def boundary_purchase(self,year,boundary_account,seller_account,amount,resource_id,quantity):
         amount=D(amount); q=D(quantity); b=self.state.accounts[boundary_account]; s=self.state.accounts[seller_account]
         if b.kind!=AccountKind.EARTH_BOUNDARY or amount<0 or q<0: raise InvariantError('invalid boundary purchase')
+        if boundary_account not in self.boundary_opening_balance:
+            prior_ledger=sum((t.amount for t in self.state.transactions if t.destination_account==boundary_account),D('0'))-sum((t.amount for t in self.state.transactions if t.source_account==boundary_account),D('0'))
+            self.boundary_opening_balance[boundary_account]=b.balance-prior_ledger
         b.balance-=amount; s.balance+=amount
         self.boundary_net[boundary_account]=self.boundary_net.get(boundary_account,D('0'))-amount
         tx=Transaction(self._id('tx'),year,boundary_account,seller_account,amount,TxPurpose.REVENUE,b.node_id,s.node_id,parent_ids=(resource_id,))
@@ -168,8 +187,21 @@ class Build4Kernel(Build3Kernel):
         if q<0 or q>have: raise InvariantError('market resource unavailable')
         self.market_resource_inventory[key]=have-q; self.audit('RESOURCE_CONSUME',year,node=node_id,resource=resource_id,quantity=q)
 
+    def _assert_boundary_reconciliation(self):
+        boundary_ids=[aid for aid,a in self.state.accounts.items() if a.kind==AccountKind.EARTH_BOUNDARY]
+        for aid in boundary_ids:
+            baseline=self.boundary_opening_balance.get(aid,D('0'))
+            account_delta=self.state.accounts[aid].balance-baseline
+            ledger_delta=sum((t.amount for t in self.state.transactions if t.destination_account==aid),D('0'))-sum((t.amount for t in self.state.transactions if t.source_account==aid),D('0'))
+            mirror=self.boundary_net.get(aid,D('0'))
+            if account_delta!=ledger_delta:
+                raise InvariantError(f'boundary account/ledger reconciliation {aid}')
+            if mirror!=ledger_delta:
+                raise InvariantError(f'boundary mirror reconciliation {aid}')
+
     def assert_build4_invariants(self):
         self.assert_mvp_invariants()
+        self._assert_boundary_reconciliation()
         for c in self.state.commitments.values():
             if c.committed!=c.disbursed+c.lapsed+c.outstanding: raise InvariantError('A3 commitment identity')
         for w in self.wip.values():
@@ -189,6 +221,7 @@ class Build4Kernel(Build3Kernel):
           'supply':sorted((n,y,str(s.capacity),str(s.used)) for (n,y),s in self.supply.items()),
           'carry':sorted((r.id,r.node_id,r.project_id,str(r.amount),r.reserved_year,r.expiry_year,str(r.spent),str(r.lapsed)) for r in self.carry_reservations.values()),
           'boundary':sorted((k,str(v)) for k,v in self.boundary_net.items()),
+          'boundary_opening':sorted((k,str(v)) for k,v in self.boundary_opening_balance.items()),
           'depreciation':sorted((a,y,str(v)) for (a,y),v in self.asset_depreciation.items()),
           'knowledge_amortization':sorted((a,y,str(v)) for (a,y),v in self.knowledge_amortization.items())}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
