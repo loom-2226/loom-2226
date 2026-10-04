@@ -174,7 +174,7 @@ Every executable result intended for comparison must preserve:
 
 ## 9. Executable Schema Registry
 
-The ODD state/interface registry below is machine-checked against the executable dataclass schemas. A field added, removed, or renamed in a registered runtime type without an ODD update fails the regression suite.
+The ODD state/interface registry below is machine-checked against executable dataclass field names **and field types**, registered enum values, and declared unit semantics. A field addition/removal/rename, type change, enum-value change, or unit-contract change without an ODD update fails the regression suite.
 
 <!-- ODD_SCHEMA_REGISTRY_BEGIN -->
 ```json
