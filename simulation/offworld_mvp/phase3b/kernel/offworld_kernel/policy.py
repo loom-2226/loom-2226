@@ -40,6 +40,7 @@ class DecisionSnapshot:
     objectives: Tuple[str,...]
     information_refs: Tuple[str,...]
     beliefs: Tuple[Tuple[str,D],...]
+    priors: Tuple[Tuple[str,D],...]
     asset_refs: Tuple[str,...]
     resource_holdings: Tuple[Tuple[str,D],...]
     claim_holdings: Tuple[Tuple[str,D],...]
@@ -53,6 +54,7 @@ class DecisionSnapshot:
           'capabilities':self.capabilities,'objectives':self.objectives,
           'information_refs':self.information_refs,
           'beliefs':tuple((k,str(v)) for k,v in self.beliefs),
+          'priors':tuple((k,str(v)) for k,v in self.priors),
           'asset_refs':self.asset_refs,
           'resource_holdings':tuple((k,str(v)) for k,v in self.resource_holdings),
           'claim_holdings':tuple((k,str(v)) for k,v in self.claim_holdings),
@@ -95,6 +97,7 @@ def build_decision_snapshot(kernel,agent_id,period_key,effective_time,admitted_f
         objectives=tuple(a.objectives),
         information_refs=tuple(sorted(a.information)),
         beliefs=tuple(sorted((str(k),D(v)) for k,v in a.beliefs.items())),
+        priors=tuple(sorted((str(k),D(v)) for k,v in a.priors.items())),
         asset_refs=tuple(sorted(a.asset_refs)),
         resource_holdings=tuple(sorted((str(k),D(v)) for k,v in a.resource_holdings.items())),
         claim_holdings=tuple(sorted((str(k),D(v)) for k,v in a.claim_holdings.items())),
