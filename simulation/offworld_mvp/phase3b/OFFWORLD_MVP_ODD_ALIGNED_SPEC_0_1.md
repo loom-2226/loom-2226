@@ -163,7 +163,7 @@ The A1–A9 property fixture captures state before every scheduler-valid transit
 
 The multi-rate synchronization fixture combines day-scale mission observations, quarterly finance and annual Earth-system events under one deterministic scheduler.
 
-Transport, technology gating, dynamic economic reserve conversion, mature colony service/reliability operations, labour/skill matching, cohorts/households/individual persons, DIVERSIFYING_SETTLEMENT and HANDOFF_CANDIDATE mechanics, grade/quantity prospecting estimates, `CLOSED` and post-failure/zero-output lifecycle semantics, autonomous sponsor prospecting, repeated operating/sale/distribution cycles, empirical financing terms and debt/equity waterfalls, endogenous reinvestment-opportunity search, endogenous price formation, price-responsive demand, multi-buyer/multi-seller competition, country-policy market intervention, empirical sensor calibration, empirical construction calibration, empirical mining calibration, empirical habitat/migration calibration, and empirical market calibration remain incomplete unless separately implemented and validated.
+Dynamic economic reserve conversion, mature colony service/reliability operations, labour/skill matching, cohorts/households/individual persons, DIVERSIFYING_SETTLEMENT and HANDOFF_CANDIDATE mechanics, grade/quantity prospecting estimates, autonomous sponsor prospecting, empirical financing terms and debt/equity waterfalls, endogenous reinvestment-opportunity search, endogenous price formation, price-responsive demand, multi-buyer/multi-seller competition, country-policy market intervention, empirical sensor calibration, empirical construction calibration, empirical mining calibration, empirical habitat/migration calibration, and empirical market calibration remain incomplete unless separately implemented and validated. Test 012A separately earns exogenous technology-qualified passenger transport; Test 014A earns bounded repeated operating lifecycle review and `OPERATING -> CLOSED` after zero realized output. Neither result implies the unimplemented broader mechanisms above.
 
 ## 8. Reproducibility package
 
@@ -226,6 +226,35 @@ new financing. After reserve exhaustion, the unchanged operating policy may requ
 exact next-cycle finance shortfall and the unchanged financier machinery may recapitalize
 a still-open venture. Test 014A does not add maintenance, repair, bankruptcy, salvage,
 reopening, endogenous pricing, or a calibrated closure strategy.
+
+
+### 50.15 Build 5 integrated NULL/SPARSE/RICH qualification R1
+
+Build 5 integrated qualification composes the already-authorized bounded mechanisms over
+one persistent decision-epoch state per universe without adding runtime behavior. The
+qualification performs a fresh autonomous REMOTE exploration decision, a higher-quality
+SURFACE prospecting decision and Agent-side Bayesian update, publication of that newly
+realized SURFACE observation, sponsor/financier development decisions, staged construction,
+operation/extraction, market clearing, surplus allocation, settlement infrastructure,
+technology-qualified passenger transport and arrival, Earth shadow accounting, and later
+enterprise review/repeated operation where the realized history reaches those states.
+
+The inherited downstream fixture contains an older legitimate REMOTE observation created
+during initialization. Integrated qualification treats that artifact as fixture archaeology:
+tests require the publication artifact and sponsor development request to cite the newly
+generated autonomous SURFACE observation instead. It therefore does not become the causal
+basis for the integrated sponsor decision.
+
+The qualification deliberately does not force identical histories after distinguishing
+information appears. In the selected structural universes, RICH and SPARSE share REMOTE
+positive and SURFACE positive information and proceed into development; NULL shares the
+REMOTE positive result but receives SURFACE negative information and the sponsor abandons
+before development. RICH later remains `OPERATING` after repeated positive output and
+recapitalization; SPARSE forms a dependent settlement but later closes after zero output.
+These are conditional structural trajectories, not empirical forecasts or calibrated policy.
+
+No `offworld_kernel` runtime source, policy contract, executable schema, or guiding FRD is
+changed by integrated qualification R1.
 
 <!-- ODD_SCHEMA_REGISTRY_BEGIN -->
 ```json
