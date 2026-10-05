@@ -212,9 +212,15 @@ class BoundaryManifest:
     def fingerprint(self):return content_hash(self)
 
 
+def _live_image_time(kernel):
+    # Use the existing event axis and state deltas. Audit-only policy/attempt
+    # records cannot make unchanged information newly available or stale.
+    return next((e.realized_time for e in reversed(kernel.causal_envelopes) if e.pre_domain_hash!=e.post_domain_hash),'0')
+
+
 def _value(kernel, req, value, *, kind, mode, source, role=None, state=FactState.KNOWN, reason='ADMITTED', dependencies=(), available=None, source_time=None):
     """Only fixed live resolvers use this; authored/REAL sources retain full metadata."""
-    if available is None:available=kernel.causal_envelopes[-1].realized_time if kernel.causal_envelopes else '0'
+    if available is None:available=_live_image_time(kernel)
     return ContextValue('live:'+content_hash((source,value,req.consumer_id)),req.subject_id,req.concept,req.scope,
         req.world_context,req.context_id,req.perspective,req.perspective_actor_id,state,value,req.required_unit,reason,
         kind,role or req.required_role,mode,'ADMITTED','UNCHARACTERIZED','NOT_SUPPLIED','0','20','SIM_TIME',available,
@@ -271,7 +277,7 @@ def query_context(kernel,request):
         return _outcome(kernel,request,FactState.UNKNOWN,'NO_APPLICABLE_ASSERTION')
     if request.world_context=='SCENARIO':
         return _outcome(kernel,request,FactState.UNKNOWN,'NO_AUTHORED_ASSERTION')
-    current_time=_time(kernel.causal_envelopes[-1].realized_time) if kernel.causal_envelopes else D(0)
+    current_time=_time(_live_image_time(kernel))
     if _time(request.effective_time)<current_time or _time(request.knowledge_cutoff)<current_time:
         return _outcome(kernel,request,FactState.BLOCKED,'BLOCKED_TIME: current image is not a historical view')
     value=_resolve_live(kernel,request)

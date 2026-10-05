@@ -145,6 +145,10 @@ class ContextAdmissionTests(unittest.TestCase):
         from build6d_fixture import policy_epoch
         from offworld_kernel.exploration_protocol import build_exploration_request
         from offworld_kernel.policy_runner import run_public_explorer_policy,public_explorer_policy_version
-        k,h=make_kernel();policy_epoch(k,h,'C10','PUB','1',build_exploration_request('C10',1,'EXP','RES'),('exploration.REMOTE_COST',),run_public_explorer_policy,public_explorer_policy_version())
+        k,h=make_kernel();decision,ref=policy_epoch(k,h,'C10','PUB','1',build_exploration_request('C10',1,'EXP','RES'),('exploration.REMOTE_COST',),run_public_explorer_policy,public_explorer_policy_version())
+        source=policy_inputs(k,'PUB','2',())[0]
+        policy_epoch(k,h,'UNCHANGED','PUB','2',build_exploration_request('UNCHANGED',2,'EXP','RES'),('exploration.REMOTE_COST',),run_public_explorer_policy,public_explorer_policy_version())
+        self.assertEqual(verify_receipt(k,source).value_state,FactState.KNOWN)
+        system_epoch(k,h,'add_commitment','2',('C-TIME','PUB','EXP',decision.authorized_cost),decision_refs=(ref,))
         early=policy_inputs(k,'PUB','0',())[0];self.assertEqual(early.state,FactState.BLOCKED);self.assertIn('TIME',early.reason_code)
         late=policy_inputs(k,'PUB','21',())[0];self.assertEqual(late.state,FactState.BLOCKED);self.assertIn('TIME',late.reason_code)
