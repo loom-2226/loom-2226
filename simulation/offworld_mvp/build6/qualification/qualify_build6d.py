@@ -111,6 +111,8 @@ def main():
         if match:report['hostile_ids'].setdefault(match.group(1),[]).append({'test':test,'status':status})
     missing=sorted(REQUIRED-set(report['hostile_ids']))
     if missing:report['failures'].append({'missing_hostile_ids':missing})
+    if not result.wasSuccessful() or missing:
+        report['status']='FAIL';report['completed_utc']=datetime.now(timezone.utc).isoformat();save();return 1
     if not args.tests_only:
         for case in protocol['cases']:
             if args.baseline_only and case['id']!='BASELINE':continue
@@ -140,6 +142,7 @@ def main():
                     import traceback
                     report['failures'].append({'case':key,'error':str(exc),'traceback':traceback.format_exc()})
                     print(key,'ERROR',str(exc),flush=True)
+                    report['status']='FAIL';report['completed_utc']=datetime.now(timezone.utc).isoformat();save();return 1
                 save()
     after={str(p.relative_to(ROOT)):sha256(p.read_bytes()).hexdigest() for p in files}
     if hashes!=after:report['failures'].append({'input_or_harness_mutation':True})

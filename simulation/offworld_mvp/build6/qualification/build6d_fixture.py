@@ -57,7 +57,7 @@ OWNERS={
 'transition_project_status':('projects','events','agents'),
 'execute_development_stage':('projects','assets','accounts','transactions','wip','fcf','earth_impact','resource_constraints','events','development_stage_records','agents'),
 'resolve_development_plan':('projects','wip','assets','events','development_resolution_records','agents'),
-'spend_operating_cycle':('accounts','transactions','resource_constraints','events','operating_cost_records','agents'),
+'spend_operating_cycle':('earth_impact','accounts','transactions','resource_constraints','events','operating_cost_records','agents'),
 'resolve_operating_extraction':('resources','colonies','events','extraction_resolution_records','agents'),
 'clear_market_sale':('accounts','transactions','colonies','market_resource_inventory','market_clearing_records','boundary_net','events','agents','earth_impact'),
 'execute_surplus_distribution':('accounts','transactions','surplus_distribution_records','events','agents','earth_impact'),
