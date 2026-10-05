@@ -95,7 +95,7 @@ LIVE['technology.STATE_ID']=('TRANSPORT:STATE_ID','TECH-B6D','IDENTITY')
 def _source(assertion_id,subject,concept,scope,context,context_id,perspective,actor,value,unit,source_hash,role='POLICY_PARAMETER'):
     return ContextValue(assertion_id,subject,concept,scope,context,context_id,perspective,actor,
         FactState.UNKNOWN if value is None else FactState.KNOWN,value,unit,'ADMITTED',
-        'AUTHORED_SCENARIO_PARAMETER',role,'AUTHORED_SCENARIO','ADMITTED','STRUCTURAL_TEST_ONLY','NOT_CALIBRATED',
+        'AUTHORED_SCENARIO_PARAMETER',role,'AUTHORED_SCENARIO','ADMITTED','UNCHARACTERIZED','NOT_SUPPLIED',
         '0','20','SIM_TIME','0',('BUILD6D_CORE_SCENARIO_V1',),(source_hash,),(AUTHORIZATION,),(),(),'', '',AUTHORIZATION,
         'NOT_EARTH_REFERENCE',(('empirical_calibration','NOT_SUPPLIED'),),'CONTEXT_VALUE_V1','0')
 
@@ -166,7 +166,7 @@ def make_kernel(world='RICH',overrides=None):
     for concept in ('R_IN_SITU','R_ACCESSIBLE','R_RECOVERABLE','R_RESERVE'):
         for context,context_id in (('SCENARIO',scenario_id),('REALIZED',run_id)):
             contracts.append(('AUDIT','QUALIFICATION',concept,'SITE:OFF:T1',context,'WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE'))
-            if context=='SCENARIO':assertions.append(_source(context+concept,'RES',concept,'SITE:OFF:T1',context,context_id,'WORLD_SIM','',None if concept=='R_RESERVE' else doc['worlds'][world],'MODEL_RESOURCE_UNIT_BY_FAMILY',definitions[0][1],role='PHYSICAL_STATE'))
+            if context=='SCENARIO':assertions.append(replace(_source(context+concept,'RES',concept,'SITE:OFF:T1',context,context_id,'WORLD_SIM','',None if concept=='R_RESERVE' else doc['worlds'][world],'MODEL_RESOURCE_UNIT_BY_FAMILY',definitions[0][1],role='PHYSICAL_STATE'),proposition_kind='SCENARIO_STIPULATION',epistemic_mode='SCENARIO_STIPULATION'))
         contracts.append(('GENESIS','QUALIFICATION',concept,'SITE:OFF:T1','REAL','GOVERNANCE','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE'))
         bindings.append(('AUDIT',concept,'RESOURCE'))
     for concept,unit in [('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('population','PERSON')]:

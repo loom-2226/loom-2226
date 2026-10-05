@@ -134,3 +134,9 @@ class ContextAdmissionTests(unittest.TestCase):
         for concept in start:
             q=ConsumptionRequest(concept,'AUDIT','QUALIFICATION','RES',concept,'SITE:OFF:T1','SIM_TIME','14','14','SCENARIO',m.scenario_id,'WORLD_SIM','','ADMITTED','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE')
             self.assertEqual(query_context(k,q).value,start[concept]);self.assertEqual(query_context(k,replace(q,world_context='REALIZED',context_id=m.run_id)).value,expected[concept])
+
+    def test_C03_stipulated_truth_and_uncertainty_standing_separate(self):
+        for value in self.k.boundary_manifest.assertions:
+            if value.world_context=='SCENARIO' and value.concept in RESOURCE_CONCEPTS:
+                self.assertEqual(value.proposition_kind,'SCENARIO_STIPULATION');self.assertEqual(value.epistemic_mode,'SCENARIO_STIPULATION')
+            if value.world_context=='SCENARIO':self.assertEqual(value.uncertainty_state,'UNCHARACTERIZED')
