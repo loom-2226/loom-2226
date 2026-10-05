@@ -60,7 +60,7 @@ class IntegratedQualificationTests(unittest.TestCase):
         for label in ('REMOTE','SURFACE','PUBLICATION','SPONSOR','DEV_FINANCE','DEVELOP','FIRST_OPERATING','SALE'):
             self.assertEqual(sh['snapshots'][label],rh['snapshots'][label]);self.assertEqual(sh['policies'][label],rh['policies'][label])
         delayed=[e for e in r.causal_envelopes if e.action=='execute_development_stage']
-        self.assertTrue(all(D(e.decision_time)==D(5)<D(e.realized_time) for e in delayed));self.assertTrue(any(e.source_times for e in r.causal_envelopes))
+        self.assertTrue(all(D(e.decision_time)==D(e.authorization_time)==D(5)<D(e.realized_time) for e in delayed));self.assertTrue(any(e.source_times for e in r.causal_envelopes))
 
     def test_F06_forged_OPEX_record_not_admitted(self):
         from offworld_kernel.causal_trace import archive

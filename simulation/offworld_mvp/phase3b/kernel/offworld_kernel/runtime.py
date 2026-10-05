@@ -188,7 +188,11 @@ class ScheduledSimulationRuntime:
                 raise InvariantError('BLOCKED_LINEAGE: decision/snapshot/request/actor')
             qref=archive(self.kernel.causal_artifacts,'REQUEST',request)
             dref=archive(self.kernel.causal_artifacts,'DECISION',result)
-            self.kernel._boundary_decisions[dref]=(str(event.effective_time),d.id,str(event.effective_time) if getattr(d,'authorized',getattr(d,'approved',False)) else None)
+            # These existing typed outcomes sanction their associated action.
+            # A later scheduled realization keeps this authorization coordinate;
+            # it does not infer authorization from the consequence timestamp.
+            sanctions_action=d.outcome.value in ('AUTHORIZE','APPROVE','PUBLISH','REQUEST_FINANCE','DEVELOP','ABANDON','OPERATE','OFFER','DISTRIBUTE','CONTINUE','CLOSE')
+            self.kernel._boundary_decisions[dref]=(str(event.effective_time),d.id,str(event.effective_time) if sanctions_action else None)
             self._strict_emitted_decisions[event.event_id]=dref
             self.kernel._boundary_emit(event,'POLICY_EVALUATION',prior,prior,d.outcome.value,receipts=receipts,request_refs=(qref,),decision_refs=(dref,),artifacts=(('DECISION_STATE',snapshot),('INFORMATION_STATE',inputs)),decision_time=str(event.effective_time),rule_refs=('POLICY_RULE:'+version,),reason_code=d.reason_code.value)
             return result
