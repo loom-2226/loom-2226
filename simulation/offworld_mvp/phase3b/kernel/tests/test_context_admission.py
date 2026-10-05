@@ -140,3 +140,11 @@ class ContextAdmissionTests(unittest.TestCase):
             if value.world_context=='SCENARIO' and value.concept in RESOURCE_CONCEPTS:
                 self.assertEqual(value.proposition_kind,'SCENARIO_STIPULATION');self.assertEqual(value.epistemic_mode,'SCENARIO_STIPULATION')
             if value.world_context=='SCENARIO':self.assertEqual(value.uncertainty_state,'UNCHARACTERIZED')
+
+    def test_C10_live_current_image_is_not_historical_or_future(self):
+        from build6d_fixture import policy_epoch
+        from offworld_kernel.exploration_protocol import build_exploration_request
+        from offworld_kernel.policy_runner import run_public_explorer_policy,public_explorer_policy_version
+        k,h=make_kernel();policy_epoch(k,h,'C10','PUB','1',build_exploration_request('C10',1,'EXP','RES'),('exploration.REMOTE_COST',),run_public_explorer_policy,public_explorer_policy_version())
+        early=policy_inputs(k,'PUB','0',())[0];self.assertEqual(early.state,FactState.BLOCKED);self.assertIn('TIME',early.reason_code)
+        late=policy_inputs(k,'PUB','21',())[0];self.assertEqual(late.state,FactState.BLOCKED);self.assertIn('TIME',late.reason_code)

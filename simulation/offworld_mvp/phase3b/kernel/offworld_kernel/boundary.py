@@ -212,8 +212,9 @@ class BoundaryManifest:
     def fingerprint(self):return content_hash(self)
 
 
-def _value(kernel, req, value, *, kind, mode, source, role=None, state=FactState.KNOWN, reason='ADMITTED', dependencies=(), available='0', source_time=None):
+def _value(kernel, req, value, *, kind, mode, source, role=None, state=FactState.KNOWN, reason='ADMITTED', dependencies=(), available=None, source_time=None):
     """Only fixed live resolvers use this; authored/REAL sources retain full metadata."""
+    if available is None:available=kernel.causal_envelopes[-1].realized_time if kernel.causal_envelopes else '0'
     return ContextValue('live:'+content_hash((source,value,req.consumer_id)),req.subject_id,req.concept,req.scope,
         req.world_context,req.context_id,req.perspective,req.perspective_actor_id,state,value,req.required_unit,reason,
         kind,role or req.required_role,mode,'ADMITTED','UNCHARACTERIZED','NOT_SUPPLIED','0','20','SIM_TIME',available,
@@ -222,7 +223,8 @@ def _value(kernel, req, value, *, kind, mode, source, role=None, state=FactState
 
 
 def _outcome(kernel,req,state,reason,parents=()):
-    return _value(kernel,req,None,kind='USE_EVALUATION',mode='USE_EVALUATION',source='use:'+req.request_id,state=state,reason=reason,dependencies=tuple(a.assertion_id for a in parents))
+    value=_value(kernel,req,None,kind='USE_EVALUATION',mode='USE_EVALUATION',source='use:'+req.request_id,state=state,reason=reason,dependencies=tuple(a.assertion_id for a in parents),available=req.knowledge_cutoff,source_time=req.knowledge_cutoff)
+    return replace(value,time_basis=req.time_basis,valid_to=req.effective_time)
 
 
 def _validate_request(kernel,req):
@@ -269,7 +271,12 @@ def query_context(kernel,request):
         return _outcome(kernel,request,FactState.UNKNOWN,'NO_APPLICABLE_ASSERTION')
     if request.world_context=='SCENARIO':
         return _outcome(kernel,request,FactState.UNKNOWN,'NO_AUTHORED_ASSERTION')
-    return _resolve_live(kernel,request)
+    current_time=_time(kernel.causal_envelopes[-1].realized_time) if kernel.causal_envelopes else D(0)
+    if _time(request.effective_time)<current_time or _time(request.knowledge_cutoff)<current_time:
+        return _outcome(kernel,request,FactState.BLOCKED,'BLOCKED_TIME: current image is not a historical view')
+    value=_resolve_live(kernel,request)
+    reason=_check_source(request,value)
+    return _outcome(kernel,request,FactState.BLOCKED,reason,(value,)) if reason else value
 
 
 def _resolve_live(k,r):
