@@ -268,7 +268,7 @@ def system_epoch(k,h,method,time,args=(),kwargs=None,decision_refs=()):
         project='EXP' if method in ('explore_paid','surface_prospect_paid') else 'P'
         live('project.CASH_BALANCE',project,'PROJECT:'+project,'MODEL_CURRENCY','FINANCIAL_STATE')
     if method in ('surface_prospect_paid','publish_observation','update_agent_belief_from_observation'):
-        obs_id=args[7] if method=='surface_prospect_paid' else args[2]
+        obs_id=args[6] if method=='surface_prospect_paid' else args[2]
         live('observation.SIGNAL',obs_id,'SITE:OFF:T1','SIGNAL_CATEGORY','OBSERVATION')
     if method=='resolve_operating_extraction':live('cycle.PAID_OPEX',args[4].event_id,'PROJECT:P','TYPED_EXPENSE_RECORD','REALIZED_EXPENSE')
     if method=='admit_realized_output_observation':live('cycle.ACTUAL_OUTPUT',args[2],'SITE:OFF:T1','MODEL_RESOURCE_UNIT_BY_FAMILY','REALIZED_OUTPUT')

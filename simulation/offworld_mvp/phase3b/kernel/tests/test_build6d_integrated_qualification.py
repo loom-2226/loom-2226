@@ -16,8 +16,8 @@ from functools import lru_cache
 def baseline(world):return run_case(world)
 class IntegratedQualificationTests(unittest.TestCase):
     def test_F01_zero_allocation_blocks_before_finance(self):
-        k,h=make_kernel(overrides={'f':'0'})
-        with self.assertRaisesRegex(InvariantError,'RESOURCE'):system_epoch(k,h,'add_commitment','1',('ZERO','PUB','EXP',D(10)))
+        k,h=run_case('RICH',{'f':'0'})
+        self.assertIn('RESOURCE',h['blocked'])
         self.assertFalse(k.state.transactions);self.assertFalse(k.state.commitments)
     def test_F02_zero_public_cannot_observe(self):
         k,h=run_case('RICH',{'P':'0'});self.assertFalse(k.observations);self.assertFalse(k.state.transactions)
