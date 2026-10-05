@@ -1,0 +1,83 @@
+{
+  "classification": "EXPERIMENTAL_NON_CANON",
+  "github_authority_commit": "788f31c200ce59e844e44ef01ca62f37eb129bd8",
+  "pre_expansion_sqlite_sha256": "d24ee17de9ca47b44ef20fce97b9ae8eccd1892091ad3585e75221d94f671425",
+  "post_expansion_sqlite_sha256": "40312c33892a390b0121426f74b7be5d803915cf192fa77b6868d694601614ff",
+  "artifacts": [
+    {
+      "path": "SCHEMA.sql",
+      "bytes": 12444,
+      "sha256": "980b4d435b4c605f8239919398917453fbd734f845affbcec9418ea56e128f72"
+    },
+    {
+      "path": "SEMANTICS.md",
+      "bytes": 5634,
+      "sha256": "1a95bd0716913e4d50fa693c126ddb09f9fc3a66e4892a289c23b0987652c87c"
+    },
+    {
+      "path": "RESEARCH_WORKFLOW.md",
+      "bytes": 4538,
+      "sha256": "cf4069c577a03939f42abdb6fd7aaa10c7fedd580cc4d3a29413cc7479d9bc0a"
+    },
+    {
+      "path": "SOURCE_MANIFEST.json",
+      "bytes": 92823,
+      "sha256": "c9982addd5b7a88cc64a3f0bc1017395e5536037a574b8f53610d97d47dbe2fd"
+    },
+    {
+      "path": "COVERAGE_MATRIX.csv",
+      "bytes": 7446,
+      "sha256": "fd6848259745116bd3a3bfa514fdb79d5ab585ab02045a53095122c41a5f7c4c"
+    },
+    {
+      "path": "VALIDATION_REPORT.md",
+      "bytes": 1071,
+      "sha256": "5eb6fd356b6f81d4903f4dc013a55370bfdaa1d5d98f9510a8bfd6c7da3acaf5"
+    },
+    {
+      "path": "RESEARCH_DELTA_REPORT.md",
+      "bytes": 6961,
+      "sha256": "1d4e8616ebdc538bd8ee0288b4959382661f8c4651901d3112e8b4fedf706099"
+    },
+    {
+      "path": "WORLD_GENERATOR_READINESS.md",
+      "bytes": 18701,
+      "sha256": "572dcdf53b1f39ae0f23f3209d9f11a76ffdad1e4e8ff7dbfebbc016eed9bef2"
+    },
+    {
+      "path": "OUTER_SYSTEM_MAJOR_MOONS_EXPANSION_REPORT.md",
+      "bytes": 5144,
+      "sha256": "4fa08c0a47709b933ca13b41e86059f84036051ea9f17b6a7e058f9dc12d9eec"
+    },
+    {
+      "path": "build_lab.py",
+      "bytes": 24449,
+      "sha256": "06b1fa7e66d19ce0ab8d84b93945d88281e40d01adab33d075775d2816301ae1"
+    },
+    {
+      "path": "validate_lab.py",
+      "bytes": 17675,
+      "sha256": "67dbb862b11a5ed2b9004b17f36d2b59e4cc41fe38d400198f566a352ac80081"
+    },
+    {
+      "path": "outer_system_moons_expansion.py",
+      "bytes": 5489,
+      "sha256": "2897843dcdd3e2578b8f5cf87506566e223dbe5ce64d38643b35bb63001dc64a"
+    },
+    {
+      "path": "outer_system_moons_post.py",
+      "bytes": 14883,
+      "sha256": "8386d8df9cdb8df3e43b54539fb6eeef5e53ec2071ea56779d393310085775fd"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 6698,
+      "sha256": "7a8eb12480e19ff070a24b60f44e4c101cd21c5b96edc2e808193b36586e1840"
+    },
+    {
+      "path": "LOOM_SOLAR_WORLD_SCIENCE_LAB_v0_1.sqlite3",
+      "bytes": 1060864,
+      "sha256": "40312c33892a390b0121426f74b7be5d803915cf192fa77b6868d694601614ff"
+    }
+  ]
+}

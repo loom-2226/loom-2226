@@ -1118,3 +1118,18 @@ Test 008A does not close sale/revenue, demand/market clearing, sponsor response 
 
 The full autonomous-agent engine remains gated. Each additional Agent role or materially expanded policy requires its own governed scope.
 
+
+
+---
+
+## Build-Independent World Science Dependency
+
+Empirical celestial/world-science constraints intended for Offworld use are maintained under:
+
+`simulation/offworld_mvp/world_science/`
+
+That package is an independently versioned empirical dependency of this FRD. Numbered implementation builds may pin and consume a governed baseline, but do not own or silently redefine it.
+
+The package preserves the separation required by this FRD between REAL evidence, SCENARIO hidden WORLD truth, REALIZED simulation state, and Agent-visible information. Its SQLite/later relational representations are not substitutes for JPL/NAIF/SPICE navigation authority, do not constitute economic reserve authority, and do not grant Agent knowledge merely by containing a proposition.
+
+The governing discovery document is `world_science/README.md`; authority and epistemic boundaries are defined in `world_science/WORLD_SCIENCE_AUTHORITY_AND_BOUNDARY.md`.

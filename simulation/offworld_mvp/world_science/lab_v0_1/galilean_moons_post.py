@@ -1,0 +1,69 @@
+GS=GM_SOURCE_IDS
+def GR(b,k,n,t,notes=None): return db.execute('insert into region(body_id,region_key,region_name,region_type,notes) values(?,?,?,?,?)',(b,k,n,t,notes)).lastrowid
+def GP(b,r,k,t,title,src,scope='REGION',frame=None): return db.execute('insert into spatial_product(body_id,region_id,product_key,product_type,title,coordinate_frame,source_id,scope,status) values(?,?,?,?,?,?,?,?,?)',(b,r,k,t,title,frame,GS[src],scope,'CANDIDATE')).lastrowid
+def GO(b,r,k,method,scope,src,start=None,end=None,prod=None,notes=None):
+ return db.execute('insert into observation(body_id,region_id,spatial_product_id,observation_key,measurement_method,scope,observation_time_start,observation_time_end,source_id,notes) values(?,?,?,?,?,?,?,?,?,?)',(b,r,prod,k,method,scope,start,end,GS[src],notes)).lastrowid
+def GA(key,b,prop,ont,scope,src,kind='TEXT',num=None,text=None,unit=None,rep='UNKNOWN',region=None,obs=None,prod=None,start=None,end=None,notes=None):
+ db.execute('''insert into scientific_assertion(assertion_key,body_id,property_code,ontology,scope,region_id,observation_id,spatial_product_id,value_kind,value_numeric,value_text,unit,epistemic_class,representativeness,valid_time_start,valid_time_end,source_id,admission_status,preferred,origin,notes) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',(key,b,prop,ont,scope,region,obs,prod,kind,num,text,unit,'MEASURED' if ont=='REAL_EVIDENCE' else ('DERIVED' if ont=='DERIVED' else 'MODEL_INFERENCE'),rep,start,end,GS[src],'CANDIDATE',0,'NEW_CHATGPT_RESEARCH',notes))
+R={}
+for b,k,n,t in [
+('IO','IO_GLOBAL','Io global surface','REGION'),('IO','LOKI','Loki Patera','VOLCANIC_REGION'),('IO','PELE','Pele','VOLCANIC_REGION'),
+('EUROPA','EU_GLOBAL','Europa global mapped surface','REGION'),('EUROPA','TARA','Tara Regio','CHAOS_TERRAIN'),('EUROPA','EU_SOUTH','Europa south-polar plume-search region','REPORTED_REGION'),
+('GANYMEDE','GAN_GLOBAL','Ganymede global mapped surface','REGION'),('GANYMEDE','GAN_DARK','Ganymede dark terrain','TERRAIN_CLASS'),('GANYMEDE','GAN_GROOVED','Ganymede grooved terrain','TERRAIN_CLASS'),
+('CALLISTO','CAL_GLOBAL','Callisto global surface','REGION'),('CALLISTO','VALHALLA','Valhalla multi-ring structure','IMPACT_STRUCTURE'),('CALLISTO','ASGARD','Asgard multi-ring structure','IMPACT_STRUCTURE')]:
+ R[(b,k)]=GR(b,k,n,t)
+P={}
+for b,r,k,t,title,src in [
+('IO','IO_GLOBAL','IO_GALILEO_GLOBAL','GLOBAL_MAPPING','Galileo/Voyager Io imaging and volcanic mapping','IO_REVIEW'),
+('IO','IO_GLOBAL','IO_JUNO_VOLC','THERMAL_MAP','Juno JIRAM volcanic hotspot observations','IO_VOLC'),
+('EUROPA','EU_GLOBAL','EUROPA_USGS_GEO','GEOLOGIC_MAP','USGS Global Geologic Map of Europa SIM 3513','EU_GEO'),
+('EUROPA','TARA','EUROPA_TARA_SPEC','SPECTRAL_MAP','HST/STIS leading-hemisphere non-ice spectral mapping','EU_NACL'),
+('GANYMEDE','GAN_GLOBAL','GANYMEDE_USGS_GEO','GEOLOGIC_MAP','USGS Global Geologic Map of Ganymede SIM 3237','GAN_GEO'),
+('GANYMEDE','GAN_GLOBAL','GANYMEDE_JWST_CO2','SPECTRAL_MAP','JWST Ganymede CO2 and ice spectral mapping','GAN_CO2'),
+('CALLISTO','CAL_GLOBAL','CALLISTO_JWST_CO2','SPECTRAL_MAP','JWST Callisto CO2 surface/atmosphere mapping','CAL_CO2')]:
+ P[k]=GP(b,R[(b,r)],k,t,title,src,'REGION','IAU_'+b)
+# observations for transient/field evidence
+ioobs=GO('IO',R[('IO','IO_GLOBAL')],'IO_JUNO_HOTSPOTS','JUNO_JIRAM_THERMAL','REGION','IO_VOLC','2017-08-27','2023-12-30',prod=P['IO_JUNO_VOLC'],notes='Epoch-bounded Juno hotspot survey; individual eruptions are not permanent properties')
+eupl=GO('EUROPA',R[('EUROPA','EU_SOUTH')],'EUROPA_HST_2012_PLUME','HST_STIS_FUV','REGION','EU_PLUME','2012-12','2012-12',notes='Candidate transient off-limb emission; not persistent plume property')
+eund=GO('EUROPA',R[('EUROPA','EU_SOUTH')],'EUROPA_HST_NONDETECTION','HST_STIS_SEARCH','FOOTPRINT','EU_PLUME_ND','2014','2014',notes='Epoch/sensitivity-bounded nondetection; not proof of absence')
+eumag=GO('EUROPA',None,'EUROPA_GALILEO_MAG','GALILEO_MAG','FOOTPRINT','EU_MAG','1996','2000',notes='Measured magnetic perturbations; conductive layer is interpretation')
+ganmag=GO('GANYMEDE',None,'GANYMEDE_GALILEO_MAG','GALILEO_MAG','FOOTPRINT','GAN_MAG','1996','2000',notes='Intrinsic field observation distinct from induced response')
+calmag=GO('CALLISTO',None,'CALLISTO_GALILEO_MAG','GALILEO_MAG','FOOTPRINT','CAL_MAG','1996','2001',notes='Time-variable magnetic response observation; ocean is interpretation')
+# Io
+GA('R_IO_ACTIVE','IO','ACTIVE_VOLCANISM','REAL_EVIDENCE','REGION','IO_REVIEW','DETECTION',text='Voyager/Galileo/Juno directly observe active volcanic centers, thermal anomalies, lava flows and plumes',rep='REGION_REPRESENTATIVE',region=R[('IO','IO_GLOBAL')],prod=P['IO_GALILEO_GLOBAL'])
+GA('R_IO_JUNO_TIME','IO','VOLCANIC_HOTSPOT_DISTRIBUTION','REAL_EVIDENCE','REGION','IO_VOLC','DETECTION',text='Juno JIRAM resolves spatially heterogeneous volcanic thermal emission over surveyed epochs',rep='REGION_REPRESENTATIVE',region=R[('IO','IO_GLOBAL')],obs=ioobs,prod=P['IO_JUNO_VOLC'],start='2017-08-27',end='2023-12-30')
+GA('R_IO_COMP','IO','SURFACE_VOLCANIC_COMPOSITION','REAL_EVIDENCE','REGION','IO_REVIEW','DETECTION',text='SO2 frost, sulfur species and high-temperature silicate volcanism are spatially heterogeneous surface/plume evidence',rep='REGION_REPRESENTATIVE',region=R[('IO','IO_GLOBAL')])
+GA('R_IO_ATMOS','IO','SO2_ATMOSPHERE_PLUMES','REAL_EVIDENCE','REGION','IO_REVIEW','DETECTION',text='tenuous SO2-dominated atmosphere and volcanic plumes vary spatially and temporally and feed the Io plasma torus',rep='REGION_REPRESENTATIVE',region=R[('IO','IO_GLOBAL')])
+GA('R_IO_TIDE','IO','TIDAL_HEATING_CAUSAL_MODEL','MODEL_INFERENCE','MODEL_DOMAIN','IO_REVIEW','MODEL',text='Laplace-resonance-maintained eccentricity drives tidal dissipation that powers extreme heat flow; spatial dissipation pattern remains model-dependent',rep='MODEL_DOMAIN_ONLY')
+GA('R_IO_INTERIOR','IO','DIFFERENTIATED_INTERIOR_MODEL','MODEL_INFERENCE','MODEL_DOMAIN','IO_REVIEW','MODEL',text='gravity and geophysics support metallic core plus silicate mantle/lithosphere model families; melt distribution is not directly imaged',rep='MODEL_DOMAIN_ONLY')
+GA('R_IO_MAGMA','IO','GLOBAL_MAGMA_LAYER_HYPOTHESIS','MODEL_INFERENCE','MODEL_DOMAIN','IO_MAGMA','MODEL',text='Galileo magnetic induction was interpreted as compatible with a global electrically conductive magma layer; later tidal/gravity constraints permit competing partially molten mantle structures',rep='MODEL_DOMAIN_ONLY')
+GA('R_IO_LOVE','IO','TIDAL_RESPONSE_CONSTRAINT','DERIVED','BODY','IO_JUNO_GRAV','TEXT',text='Juno close-flyby gravity/tidal response constrains Io interior and disfavors some shallow global magma-ocean models without uniquely locating melt',rep='BODY_REPRESENTATIVE')
+# Europa
+GA('R_EU_GEO','EUROPA','SURFACE_GEOLOGY','DERIVED','BODY','EU_GEO','SPATIAL_PRODUCT',text='global geologic synthesis includes ridged plains, lineae/ridges, bands, chaos terrain and impacts; source coverage is nonuniform',rep='BODY_REPRESENTATIVE',prod=P['EUROPA_USGS_GEO'])
+GA('R_EU_MAG_OBS','EUROPA','TIME_VARIABLE_MAGNETIC_FIELD','REAL_EVIDENCE','FOOTPRINT','EU_MAG','DETECTION',text='Galileo measured time-varying magnetic perturbations during Europa encounters',rep='FOOTPRINT_ONLY',obs=eumag)
+GA('R_EU_CONDUCTOR','EUROPA','CONDUCTIVE_SUBSURFACE_LAYER','MODEL_INFERENCE','MODEL_DOMAIN','EU_MAG','MODEL',text='induction response is consistent with a global electrically conductive subsurface layer, plausibly a salty liquid-water ocean',rep='MODEL_DOMAIN_ONLY')
+GA('R_EU_OCEAN','EUROPA','SUBSURFACE_OCEAN_MODEL','MODEL_INFERENCE','MODEL_DOMAIN','EU_MAG','MODEL',text='salty subsurface ocean is the leading interpretation of induction plus geologic/geophysical constraints; ocean depth, salinity and boundaries remain model state',rep='MODEL_DOMAIN_ONLY')
+GA('R_EU_SHELL','EUROPA','ICE_SHELL_MODEL_FAMILY','MODEL_INFERENCE','MODEL_DOMAIN','EU_GEO','MODEL',text='ice-shell thickness and conductive/convective/brittle structure admit competing thin/thick and laterally heterogeneous models',rep='MODEL_DOMAIN_ONLY')
+GA('R_EU_NACL','EUROPA','SURFACE_NACL_INTERPRETATION','MODEL_INFERENCE','REGION','EU_NACL','MODEL',text='HST visible feature strongest in Tara Regio is interpreted using irradiated NaCl laboratory spectra; no global abundance or ocean composition follows',rep='REGION_REPRESENTATIVE',region=R[('EUROPA','TARA')],prod=P['EUROPA_TARA_SPEC'])
+GA('R_EU_CO2','EUROPA','SURFACE_CO2_DETECTION','REAL_EVIDENCE','REGION','EU_CO2','DETECTION',text='JWST spatially resolves CO2 concentrated in particular terrain, supporting endogenous surface carbon chemistry without establishing ocean composition',rep='REGION_REPRESENTATIVE',region=R[('EUROPA','TARA')])
+GA('R_EU_PLUME','EUROPA','PLUME_CANDIDATE_OBSERVATION','REAL_EVIDENCE','REGION','EU_PLUME','DETECTION',text='HST reported transient south-polar off-limb emission in a specific 2012 epoch',rep='REGION_REPRESENTATIVE',region=R[('EUROPA','EU_SOUTH')],obs=eupl,start='2012-12',end='2012-12')
+GA('R_EU_PLUME_ND','EUROPA','PLUME_NONDETECTION','REAL_EVIDENCE','FOOTPRINT','EU_PLUME_ND','BOUND',text='later HST search epochs yielded sensitivity-bounded nondetections; absence is not generalized globally or permanently',rep='FOOTPRINT_ONLY',obs=eund,start='2014',end='2014')
+GA('R_EU_RAD','EUROPA','RADIATION_PROCESSING_ENVIRONMENT','REAL_EVIDENCE','BODY','EU_NACL','TEXT',text='Jovian charged-particle irradiation materially processes surface ice/non-ice chemistry and differs by hemisphere',rep='BODY_REPRESENTATIVE')
+# Ganymede
+GA('R_GAN_GEO','GANYMEDE','SURFACE_GEOLOGY','DERIVED','BODY','GAN_GEO','SPATIAL_PRODUCT',text='global map distinguishes older dark cratered terrain and younger bright grooved terrain with tectonic/resurfacing relationships',rep='BODY_REPRESENTATIVE',prod=P['GANYMEDE_USGS_GEO'])
+GA('R_GAN_INTRINSIC','GANYMEDE','INTRINSIC_MAGNETIC_FIELD','REAL_EVIDENCE','FOOTPRINT','GAN_MAG','DETECTION',text='Galileo directly detected a permanent intrinsic magnetic field generated within Ganymede',rep='FOOTPRINT_ONLY',obs=ganmag)
+GA('R_GAN_INDUCED','GANYMEDE','INDUCED_MAGNETIC_RESPONSE','REAL_EVIDENCE','FOOTPRINT','GAN_OCEAN','DETECTION',text='Galileo field variations include an induced response distinct from Ganymede intrinsic field',rep='FOOTPRINT_ONLY',obs=ganmag)
+GA('R_GAN_OCEAN','GANYMEDE','SUBSURFACE_OCEAN_MODEL','MODEL_INFERENCE','MODEL_DOMAIN','GAN_OCEAN','MODEL',text='induced response is consistent with a conductive saline subsurface ocean; thickness/depth/salinity are model-dependent',rep='MODEL_DOMAIN_ONLY')
+GA('R_GAN_INTERIOR','GANYMEDE','DIFFERENTIATED_INTERIOR_MODEL','MODEL_INFERENCE','MODEL_DOMAIN','GAN_INTERIOR','MODEL',text='gravity/density/magnetic constraints support differentiated metallic core, silicate mantle and H2O-rich outer layers',rep='MODEL_DOMAIN_ONLY')
+GA('R_GAN_HPICE','GANYMEDE','HIGH_PRESSURE_ICE_LAYER_MODELS','MODEL_INFERENCE','MODEL_DOMAIN','GAN_INTERIOR','MODEL',text='deep-water-layer models admit high-pressure ice phases above/below saline liquid layers; arrangement is not directly observed',rep='MODEL_DOMAIN_ONLY')
+GA('R_GAN_CO2','GANYMEDE','SURFACE_CO2_HETEROGENEITY','REAL_EVIDENCE','REGION','GAN_CO2','DETECTION',text='JWST resolves spatially heterogeneous CO2 and water-ice spectral behavior across Ganymede',rep='REGION_REPRESENTATIVE',region=R[('GANYMEDE','GAN_GLOBAL')],prod=P['GANYMEDE_JWST_CO2'])
+GA('R_GAN_ENV','GANYMEDE','MAGNETOSPHERE_AURORA_ENVIRONMENT','REAL_EVIDENCE','BODY','GAN_MAG','TEXT',text='Ganymede intrinsic magnetosphere interacts with Jupiter plasma and supports auroral/plasma phenomena; this is distinct from ocean induction',rep='BODY_REPRESENTATIVE')
+# Callisto
+GA('R_CAL_GEO','CALLISTO','HEAVILY_CRATERED_GEOLOGY','REAL_EVIDENCE','REGION','CAL_GRAV','TEXT',text='ancient heavily cratered surface includes large Valhalla and Asgard multi-ring impact structures with limited global resurfacing',rep='REGION_REPRESENTATIVE',region=R[('CALLISTO','CAL_GLOBAL')])
+GA('R_CAL_GRAV','CALLISTO','DIFFERENTIATION_CONSTRAINT','DERIVED','BODY','CAL_GRAV','TEXT',text='Galileo gravity permits weak/partial differentiation and mixed rock-ice interiors; less differentiated does not uniquely mean homogeneous',rep='BODY_REPRESENTATIVE')
+GA('R_CAL_MAG','CALLISTO','INDUCED_MAGNETIC_RESPONSE','REAL_EVIDENCE','FOOTPRINT','CAL_MAG','DETECTION',text='Galileo measured magnetic response varying with Jovian field geometry and found no strong intrinsic dynamo field',rep='FOOTPRINT_ONLY',obs=calmag)
+GA('R_CAL_OCEAN','CALLISTO','SUBSURFACE_OCEAN_MODEL','MODEL_INFERENCE','MODEL_DOMAIN','CAL_MAG','MODEL',text='induction is consistent with a conductive subsurface layer commonly modeled as a salty ocean; depth/composition remain model-dependent',rep='MODEL_DOMAIN_ONLY')
+GA('R_CAL_INTERIOR','CALLISTO','PARTIAL_DIFFERENTIATION_MODEL_FAMILY','MODEL_INFERENCE','MODEL_DOMAIN','CAL_GRAV','MODEL',text='interior families range from incompletely differentiated rock-ice mixtures to more structured models compatible with gravity and thermal evolution',rep='MODEL_DOMAIN_ONLY')
+GA('R_CAL_CO2_SURF','CALLISTO','SURFACE_CO2_HETEROGENEITY','REAL_EVIDENCE','REGION','CAL_CO2','DETECTION',text='JWST and Galileo spectroscopy show spatially heterogeneous solid CO2 associated with dark/non-ice material and impact terrains',rep='REGION_REPRESENTATIVE',region=R[('CALLISTO','CAL_GLOBAL')],prod=P['CALLISTO_JWST_CO2'])
+GA('R_CAL_ATMOS','CALLISTO','CO2_EXOSPHERE_ATMOSPHERE','REAL_EVIDENCE','BODY','CAL_ATMOS','DETECTION',text='tenuous CO2 gas has been spectroscopically detected; source/sink balance is time-dependent',rep='BODY_REPRESENTATIVE')
+GA('R_CAL_ENV','CALLISTO','JOVIAN_RADIATION_ENVIRONMENT','DERIVED','BODY','CAL_CO2','TEXT',text='Callisto occupies a substantially less intense Jovian charged-particle environment than inner Galilean moons, materially changing surface processing and mission exposure',rep='BODY_REPRESENTATIVE')
