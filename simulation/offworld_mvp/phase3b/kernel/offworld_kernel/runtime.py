@@ -222,7 +222,7 @@ class ScheduledSimulationRuntime:
         for delta in self.kernel._boundary_event_deltas:
             for domain,path,before,after in delta:
                 root=path.split('.')[1] if path.startswith('state.') else path.split('.')[0]
-                root='fcf' if root=='fcf_events' else root
+                root={'fcf_events':'fcf','event_log':'events'}.get(root,root)
                 if root!='_seq' and root not in spec.write_set:
                     self.kernel._boundary_invalid=True
                     raise InvariantError('INVALID_RUN: transition changed undeclared owned state '+root)
