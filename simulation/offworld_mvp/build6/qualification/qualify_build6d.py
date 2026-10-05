@@ -24,7 +24,7 @@ def witness(k,h):
         draws={c:str(h[c+'_draw']) for c in ('REMOTE','SURFACE') if c+'_draw' in h},
         first_output=str(h['first_output'].actual_extracted) if h.get('first_output') else None,
         second_output=str(h['second_output'].actual_extracted) if h.get('second_output') else None,
-        sale_count=len(k.market_clearing_records),sale_value=str(k.market_clearing_records[0].sale_value) if k.market_clearing_records else None,
+        sale_count=len(k.market_clearing_records),sale_value=str(k.market_clearing_records[0].transaction_value) if k.market_clearing_records else None,
         remaining=str(k.resources['RES'].remaining),people=k.population.offworld['OFF:T1'],cohort_total=k.population.total(),
         account_balances={aid:str(a.balance) for aid,a in sorted(k.state.accounts.items())},
         earth_shadow={str(y):{key:str(value) for key,value in k.earth_shadow_at(y).items()} for y in range(1,15)},

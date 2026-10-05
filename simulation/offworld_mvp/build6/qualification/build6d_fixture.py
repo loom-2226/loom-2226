@@ -9,7 +9,7 @@ from pathlib import Path
 import json
 
 from offworld_kernel.boundary import (AUTHORIZATION,CONTRACT,BoundaryManifest,ContextValue,ConsumptionRequest,
-    admit_for_use,snapshot_facts,load_earth_assertions)
+    admit_for_use,snapshot_facts,load_earth_assertions,earth_supply_value)
 from offworld_kernel.causal_trace import canonical,content_hash,validate_trace
 from offworld_kernel.build3 import RunIdentity
 from offworld_kernel.methodology import MethodologyHardenedBuild4Kernel
@@ -27,7 +27,7 @@ from offworld_kernel.distribution import FinancingReturnClaim
 from offworld_kernel.settlement import SettlementInfrastructurePlan
 from offworld_kernel.transport import TechnologyCapabilityState,TransportRelationship
 from offworld_kernel.underwriting import UnderwritingTable,mvp_validation_underwriting_table,underwriting_snapshot_facts
-from offworld_kernel.policies.manifest import test_only_manifest,policy_source_bytes
+from offworld_kernel.policies.manifest import test_only_manifest,policy_source_bytes,ObservationKnowledgeRelation
 from offworld_kernel import policy_runner as workers
 from offworld_kernel.exploration_protocol import build_exploration_request
 from offworld_kernel.publication_protocol import build_publication_request
@@ -66,6 +66,8 @@ OWNERS={
 'execute_transport_settlement_departure':('accounts','transactions','colonies','population','passenger_transport_departures','events','agents','earth_impact'),
 'execute_passenger_transport_arrival':('colonies','population','passenger_transport_arrivals','settlement_stage_records','events','agents','earth_impact'),
 'execute_enterprise_review':('projects','events','enterprise_review_records','agents'),
+'admit_realized_output_observation':('agents','events'),
+'boundary_purchase':('accounts','transactions','market_resource_inventory','boundary_net','events','earth_impact'),
 }
 LIVE={
 'agent.STATE':('AGENT_STATE','SELF','TYPED_AGENT_STATE'),
@@ -104,6 +106,14 @@ def make_kernel(world='RICH',overrides=None):
     earth,earth_hash=load_earth_assertions(EARTH_PATH,parent_root=EARTH_PARENT)
     scenario_id='B6D:'+content_hash(tuple(sorted(params.items())))[:16]
     run_id=scenario_id+':'+world
+    old_policy=test_only_manifest()
+    policy_values={'hurdle_rate':params['financier_hurdle_rate'],'horizon_years':params['financier_horizon_years'],
+                   'agent_detection_rate':params['publication_detection'],'agent_false_positive_rate':params['publication_fp'],
+                   'normalized_throughput':params['financier_normalized_throughput'],'max_concentration_fraction':params['financier_max_concentration_fraction']}
+    policy_manifest=replace(old_policy,manifest_id='BUILD6D_FINANCIER_STRUCTURAL_PARAMS_V1',
+        parameters=tuple(replace(x,parameter_id='B6D:'+x.parameter_id,value=D(policy_values[x.semantic_name]),authorization_ref=AUTHORIZATION,valid_from_version='BUILD6D_V1',valid_to_version='BUILD6D_V1') for x in old_policy.parameters),
+        observation_knowledge_relation=ObservationKnowledgeRelation.INDEPENDENT_AGENT_LIKELIHOOD_MODEL,
+        world_observation_model_ref='INDEPENDENT_AGENT_MODEL_NOT_WORLD_PARAMETER_ACCESS',world_detection_rate=None,world_false_positive_rate=None).validate(require_authorized=False)
     table=UnderwritingTable('BUILD6D_VALIDATION_UNDERWRITING_V1','1','PRE_CONTRACT_AUTHORED_SCENARIO',tuple(replace(x,valid_to=20,source_or_rationale_ref=AUTHORIZATION+':STRUCTURAL_BRANCH_PARAMETER') for x in mvp_validation_underwriting_table().inputs)).validate()
     static={'exploration.REMOTE_COST':(params['remote_cost'],'MODEL_CURRENCY'),
             'exploration.SURFACE_COST':(params['surface_cost'],'MODEL_CURRENCY'),
@@ -129,6 +139,29 @@ def make_kernel(world='RICH',overrides=None):
         scope='PROCESS:'+sid
         assertions.append(_source(sid,sid,'transition.RULE',scope,'SCENARIO',scenario_id,'WORLD_SIM','',canonical((method,tuple(sorted(params.items())))), 'TYPED_RULE',definitions[0][1],role='TRANSITION_RULE'))
         contracts.append((sid,'SYSTEM_TRANSITION','transition.RULE',scope,'SCENARIO','WORLD_SIM','TYPED_RULE','TRANSITION_RULE'))
+        if method in ('update_agent_belief_from_observation','publish_observation'):
+            for actor in (('PUB',) if method=='update_agent_belief_from_observation' else ('FIN','SPN')):
+                contracts.append((sid,'SYSTEM_TRANSITION','actor.BELIEF','AGENT:'+actor,'REALIZED','WORLD_SIM','PROBABILITY','ACTOR_BELIEF'))
+            bindings.append((sid,'actor.BELIEF','ACTOR_BELIEF'))
+        if method in ('explore_paid','surface_prospect_paid','resolve_operating_extraction'):
+            contracts.append((sid,'SYSTEM_TRANSITION','R_RECOVERABLE','SITE:OFF:T1','REALIZED','WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE'))
+            bindings.append((sid,'R_RECOVERABLE','RESOURCE'))
+        if method in ('reserve_earth_supply','explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage'):
+            contracts.append((sid,'SYSTEM_TRANSITION','Earth_supply.AVAILABLE','ECONOMY:USA:SUPPLY','REALIZED','WORLD_SIM','MODEL_SUPPLY_CLAIM_CURRENCY','SUPPLIER_CAPACITY'))
+            bindings.append((sid,'Earth_supply.AVAILABLE','EARTH_SUPPLY'))
+        if method in ('explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage','clear_market_sale','execute_surplus_distribution'):
+            for scope in ('PROJECT:P','PROJECT:EXP'):
+                contracts.append((sid,'SYSTEM_TRANSITION','project.CASH_BALANCE',scope,'REALIZED','WORLD_SIM','MODEL_CURRENCY','FINANCIAL_STATE'))
+            bindings.append((sid,'project.CASH_BALANCE','PROJECT_CASH'))
+        if method in ('surface_prospect_paid','publish_observation','update_agent_belief_from_observation'):
+            contracts.append((sid,'SYSTEM_TRANSITION','observation.SIGNAL','SITE:OFF:T1','REALIZED','WORLD_SIM','SIGNAL_CATEGORY','OBSERVATION'))
+            bindings.append((sid,'observation.SIGNAL','OBSERVATION'))
+        if method=='resolve_operating_extraction':
+            contracts.append((sid,'SYSTEM_TRANSITION','cycle.PAID_OPEX','PROJECT:P','REALIZED','WORLD_SIM','TYPED_EXPENSE_RECORD','REALIZED_EXPENSE'))
+            bindings.append((sid,'cycle.PAID_OPEX','REALIZED_COST'))
+        if method=='admit_realized_output_observation':
+            contracts.append((sid,'SYSTEM_TRANSITION','cycle.ACTUAL_OUTPUT','SITE:OFF:T1','REALIZED','WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','REALIZED_OUTPUT'))
+            bindings.append((sid,'cycle.ACTUAL_OUTPUT','EXTRACTION_ACTUAL'))
     for concept in ('R_IN_SITU','R_ACCESSIBLE','R_RECOVERABLE','R_RESERVE'):
         for context,context_id in (('SCENARIO',scenario_id),('REALIZED',run_id)):
             contracts.append(('AUDIT','QUALIFICATION',concept,'SITE:OFF:T1',context,'WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE'))
@@ -140,7 +173,7 @@ def make_kernel(world='RICH',overrides=None):
     harness=tuple((str(p.relative_to(BASE.parent.parent.parent)),sha256(p.read_bytes()).hexdigest()) for p in (Path(__file__),BASE/'qualification/qualify_build6d.py') if p.exists())
     m=BoundaryManifest(CONTRACT,'BUILD6D_INPUT:'+content_hash((definitions,earth_hash,tuple(sorted(params.items())))),scenario_id,'V1',run_id,
         definitions,tuple((s.source_refs[0],s.source_hashes[0]) for s in earth[::2]),'0'*64,
-        (('PARAMETERS:'+scenario_id,content_hash(tuple(sorted(params.items())))),),tuple(contracts),tuple(bindings),
+        (('PARAMETERS:'+scenario_id,content_hash(tuple(sorted(params.items())))),('FINANCIER_POLICY_PARAMETERS',policy_manifest.parameter_manifest_hash())),tuple(contracts),tuple(bindings),
         ('COMPARISON_RANDOM_V1',content_hash(tuple(sorted(doc['comparison'].items())))),(EARTH_PATH.name,earth_hash),
         (PROTOCOL_PATH.name,definitions[1][1]),'SIM_YEAR_PLUS_2025_V1','ODD_SCHEMA_REGISTRY_0_20',AUTHORIZATION,
         tuple(assertions),tuple(sorted(params.items())),tuple(sorted(doc['comparison'].items())),tuple(allowed),(),harness)
@@ -167,9 +200,21 @@ def make_kernel(world='RICH',overrides=None):
     infra=SettlementInfrastructurePlan('INFRA',11,'OFF:T1','local_reinvest_funds','local_settlement_supplier',D(params['infrastructure_cost']),int(params['habitat_capacity']),AUTHORIZATION,'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE').validate();k.register_settlement_infrastructure_plan(infra)
     tech=TechnologyCapabilityState(params['technology_state_id'],D(12),D(20),(params['transport_capability'],) if params.get('technology_qualified','TRUE')=='TRUE' else (),AUTHORIZATION,'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE').validate();k.register_technology_capability_state(tech)
     rel=TransportRelationship(params['transport_relationship_id'],'EARTH:USA','OFF:T1',D(12),D(20),params['transport_capability'],D(params['transport_cost']),D(params['travel_time']),D(params['energy']),D(params['loss_risk']),int(params['transport_capacity']),'PASSENGER',AUTHORIZATION,'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE').validate();k.register_transport_relationship(rel) if params.get('relationship_registered','TRUE')=='TRUE' else None
-    opening=tuple((key,canonical(k._boundary_opening_value(key))) for key in ('accounts','agents','resources','constraints','population'))
+    genesis=[];derived=[]
+    for source in earth:
+        if source.concept!='investment':continue
+        year=int(source.valid_from)-2025
+        request=ConsumptionRequest('EARTH_SOURCE:'+str(year),'GENESIS','EARTH_REFERENCE','USA','investment','COUNTRY:USA','CALENDAR_YEAR',source.valid_from,source.available_from,'REAL','','GOVERNANCE','','ADMITTED',source.unit,'EARTH_REFERENCE')
+        value,receipt=admit_for_use(k,request)
+        transformed=earth_supply_value(value,params['S'],params.get('f.'+str(year),params['f']),year,scenario_id)
+        transformed=replace(transformed,dependency_refs=(*transformed.dependency_refs,receipt.receipt_id))
+        derived.append(transformed);genesis.append((receipt,transformed))
+        if k.resource_constraints[('EARTH:USA',year)].ceiling!=D(transformed.value):raise RuntimeError('Earth transform/constraint mismatch')
+    k._boundary_genesis_inputs=tuple(genesis)
+    m=replace(m,assertions=(*m.assertions,*derived));k.boundary_manifest=m
+    opening=tuple((key,canonical(k._boundary_opening_value(key))) for key in ('accounts','agents','resources','constraints','population','earth_admission_receipts'))
     k.boundary_manifest=replace(m,opening_bindings=opening,opening_state_hash=content_hash(k._boundary_projection()))
-    return k,{'params':params,'table':table,'manifest':test_only_manifest(),'model':SurfaceProspectingModel('B6D_SURFACE',D(params['surface_fp']),D(params['surface_fn']),D(params['surface_detection']),D(params['surface_fp']),D(params['remote_fp']),D(params['remote_fn']),'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE',AUTHORIZATION).validate(),'results':[],'audits':[],'policies':{},'snapshots':{},'requests':{},'counter':0,'last_time':D(0)}
+    return k,{'params':params,'table':table,'manifest':policy_manifest,'model':SurfaceProspectingModel('B6D_SURFACE',D(params['surface_fp']),D(params['surface_fn']),D(params['surface_detection']),D(params['surface_fp']),D(params['remote_fp']),D(params['remote_fn']),'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE',AUTHORIZATION).validate(),'results':[],'audits':[],'policies':{},'snapshots':{},'requests':{},'counter':0,'last_time':D(0)}
 
 
 def policy_inputs(k,actor,time,concepts,subjects=None):
@@ -196,7 +241,7 @@ def policy_epoch(k,h,label,actor,time,request,concepts,runner,version,subjects=N
     k.scheduler.register_coupling(CouplingSpec('DECISION','BUILD6D_V1',RuntimeObjectClass.SYSTEM,(),('agent_snapshot',),(),'EVENT',Phase.DECISION_WINDOW))
     ref=k.scheduler.open_decision_window(period,snap.fingerprint());eid=label+':decision'
     k.scheduler.schedule(ScheduledEvent(eid,D(time),Phase.DECISION_WINDOW,0,actor,'DECISION',snapshot_ref=ref))
-    rt=ScheduledSimulationRuntime(k,ReplayProvenance.from_kernel(k,table_manifest_ids=('UNDERWRITING:'+h['table'].fingerprint(),),policy_manifest_ids=(version,)))
+    rt=ScheduledSimulationRuntime(k,strict_provenance(k,('UNDERWRITING:'+h['table'].fingerprint(),),(version,)))
     def policy(ctx):
         result=runner(ctx.snapshot,request,ctx.decision_key);h['policies'][label]=result;return result
     rt.register_policy_handler(eid,actor,snap,'B6D:'+label,policy,request=request,admission_receipts=receipts,expected_policy_version=version)
@@ -209,13 +254,33 @@ def system_epoch(k,h,method,time,args=(),kwargs=None,decision_refs=()):
     h['counter']+=1;label='ACTION:'+str(h['counter'])+':'+method;sid='SYS:'+method
     k.begin_decision_epoch(label,'BUILD6D_CORE_CHAIN' if k.decision_epoch_chain_id is None else None)
     owned=OWNERS[method]
-    k.scheduler.register_coupling(CouplingSpec(sid,'BUILD6D_V1',RuntimeObjectClass.SYSTEM,owned,('admitted_transition_rule',),owned,'EVENT',Phase.OPERATIONS))
-    event=ScheduledEvent(label,D(time),Phase.OPERATIONS,0,sid,sid);k.scheduler.schedule(event)
+    event=ScheduledEvent(label,D(time),Phase.OPERATIONS,0,sid,sid)
     q=ConsumptionRequest(label,sid,'SYSTEM_TRANSITION',sid,'transition.RULE','PROCESS:'+sid,'SIM_TIME',str(time),str(time),'SCENARIO',k.boundary_manifest.scenario_id,'WORLD_SIM','','ADMITTED','TYPED_RULE','TRANSITION_RULE')
-    receipt=admit_for_use(k,q)[1];holder={}
+    receipt=admit_for_use(k,q)[1];receipts=[receipt];holder={}
+    def live(concept,subject,scope,unit,role):
+        request=ConsumptionRequest(label+':'+concept,sid,'SYSTEM_TRANSITION',subject,concept,scope,'SIM_TIME',str(time),str(time),'REALIZED',k.boundary_manifest.run_id,'WORLD_SIM','','ADMITTED',unit,role)
+        receipts.append(admit_for_use(k,request)[1])
+    if method in ('explore_paid','surface_prospect_paid','resolve_operating_extraction'):
+        live('R_RECOVERABLE','RES','SITE:OFF:T1','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE')
+    if method in ('reserve_earth_supply','explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage'):
+        live('Earth_supply.AVAILABLE','EARTH:USA:SIM'+str(time),'ECONOMY:USA:SUPPLY','MODEL_SUPPLY_CLAIM_CURRENCY','SUPPLIER_CAPACITY')
+    if method in ('explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage','clear_market_sale','execute_surplus_distribution'):
+        project='EXP' if method in ('explore_paid','surface_prospect_paid') else 'P'
+        live('project.CASH_BALANCE',project,'PROJECT:'+project,'MODEL_CURRENCY','FINANCIAL_STATE')
+    if method in ('surface_prospect_paid','publish_observation','update_agent_belief_from_observation'):
+        obs_id=args[7] if method=='surface_prospect_paid' else args[2]
+        live('observation.SIGNAL',obs_id,'SITE:OFF:T1','SIGNAL_CATEGORY','OBSERVATION')
+    if method=='resolve_operating_extraction':live('cycle.PAID_OPEX',args[4].event_id,'PROJECT:P','TYPED_EXPENSE_RECORD','REALIZED_EXPENSE')
+    if method=='admit_realized_output_observation':live('cycle.ACTUAL_OUTPUT',args[2],'SITE:OFF:T1','MODEL_RESOURCE_UNIT_BY_FAMILY','REALIZED_OUTPUT')
+    if method=='update_agent_belief_from_observation':live('actor.BELIEF',args[1],'AGENT:'+args[1],'PROBABILITY','ACTOR_BELIEF')
+    if method=='publish_observation':
+        for actor,_,_,_ in args[4]:live('actor.BELIEF',actor,'AGENT:'+actor,'PROBABILITY','ACTOR_BELIEF')
+    read_set=tuple(sorted(set(receipt.consumption_request.concept for receipt in receipts)))
+    k.scheduler.register_coupling(CouplingSpec(sid,'BUILD6D_V1',RuntimeObjectClass.SYSTEM,owned,read_set,owned,'EVENT',Phase.OPERATIONS))
+    k.scheduler.schedule(event)
     def apply(kernel,event):holder['value']=getattr(kernel,method)(*args,**(kwargs or {}));return 'REALIZED:'+method
-    rt=ScheduledSimulationRuntime(k,ReplayProvenance.from_kernel(k))
-    rt.register_handler(sid,apply,admission_receipts=(receipt,),decision_refs=decision_refs,transition_methods=(method,))
+    rt=ScheduledSimulationRuntime(k,strict_provenance(k))
+    rt.register_handler(sid,apply,admission_receipts=tuple(receipts),decision_refs=decision_refs,transition_methods=(method,))
     before=AccountingPeriodSnapshot.capture(k,int(D(time)));rt.seal();h['results'].append(rt.run());h['audits'].append(AccountingIdentityAuditor(k,before).check_all());h['last_time']=D(time)
     return holder['value']
 
@@ -240,7 +305,9 @@ def operate(k,h,label,time,obs):
         d,ref=policy_epoch(k,h,label+':funded','SPN',str(time),replace(request,id=label+':funded:request'),('project.STATUS','project.CASH_BALANCE','asset.CAPACITY','underwriting.OPERATING_COST'),workers.run_sponsor_operating_policy,workers.sponsor_operating_policy_version());request=h['requests'][label+':funded']
     if d.outcome.value!='OPERATE':return None
     cost=system_epoch(k,h,'spend_operating_cycle',str(time),(int(time),'SPN',request,d,'earth_supplier',D(h['params']['opex_per_unit'])),decision_refs=(ref,))
-    return system_epoch(k,h,'resolve_operating_extraction',str(time),(int(time),'SPN',request,d,cost),decision_refs=(ref,))
+    output=system_epoch(k,h,'resolve_operating_extraction',str(time),(int(time),'SPN',request,d,cost),decision_refs=(ref,))
+    system_epoch(k,h,'admit_realized_output_observation',str(time),(int(time),'SPN',output.extraction_event_id),decision_refs=(ref,))
+    return output
 
 
 def review(k,h,label,time,output):
@@ -290,7 +357,9 @@ def _run_case(k,h):
     if first is None:return k,h
     req=build_sale_decision_request('SALE:request',10,'P','RES','MKT',obs.id)
     d,ref=policy_epoch(k,h,'SALE','SPN','10',req,('project.STATUS','inventory.AVAILABLE','market.UNIT_PRICE','market.REMAINING_DEMAND'),workers.run_sponsor_sale_policy,workers.sponsor_sale_policy_version())
-    if d.outcome.value!='OFFER':return k,h
+    if d.outcome.value!='OFFER':
+        review(k,h,'ZERO_OUTPUT_REVIEW',10,first)
+        return k,h
     h['sale']=system_epoch(k,h,'clear_market_sale','10',(10,'SPN',req,d),decision_refs=(ref,))
     req=build_surplus_distribution_request('DISTRIBUTE:request',10,'P','FRC')
     d,ref=policy_epoch(k,h,'DISTRIBUTE','SPN','10',req,('project.STATUS','project.CASH_BALANCE','project.RESERVE_REQUIREMENT','financing.RETURN_CLAIM_REMAINING','project.REINVESTMENT_REQUIREMENT'),workers.run_sponsor_surplus_policy,workers.sponsor_surplus_policy_version())
@@ -320,3 +389,12 @@ def run_case(world='RICH',overrides=None):
         h['blocked']=str(exc)
         validate_trace(k.causal_envelopes,k.causal_artifacts)
         return k,h
+
+
+def strict_provenance(k,tables=(),policies=('NO_POLICY_THIS_EPOCH',)):
+    m=k.boundary_manifest
+    labels=[('BOUNDARY_SHA256',m.fingerprint()),('EARTH_SLICE_SHA256',m.earth_slice_ref[1]),
+            ('COMPARISON_CONFIG_SHA256',m.comparison_spec_ref[1]),('QUALIFICATION_PROTOCOL_SHA256',m.qualification_protocol_ref[1])]
+    for ref,digest in m.harness_refs:
+        labels.append(('QUALIFICATION_DRIVER_SHA256' if ref.endswith('qualify_build6d.py') else 'QUALIFICATION_FIXTURE_SHA256',digest))
+    return ReplayProvenance.from_kernel(k,table_manifest_ids=tuple(key+':'+value for key,value in labels)+tuple(tables),policy_manifest_ids=policies)

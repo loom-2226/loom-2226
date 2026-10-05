@@ -15,7 +15,7 @@ from offworld_kernel.runtime import ScheduledSimulationRuntime
 from offworld_kernel.provenance import ReplayProvenance
 from offworld_kernel.scheduler import CouplingSpec,ScheduledEvent,Phase
 from offworld_kernel.mvp_state import RuntimeObjectClass,Observation
-from build6d_fixture import OWNERS
+from build6d_fixture import OWNERS,strict_provenance
 class CausalTraceTests(unittest.TestCase):
     def test_L01_domain_neutral_type_preserving_projection(self):
         self.assertNotEqual(canonical(D('1')),canonical('1'));self.assertNotEqual(canonical(('1',)),canonical(['1']))
@@ -32,9 +32,9 @@ class CausalTraceTests(unittest.TestCase):
         with self.assertRaises(InvariantError):validate_trace((replace(e,post_domain_hash='0'*64),),k.causal_artifacts)
     def test_L04_raw_handler_write_invalidates(self):
         k,h=make_kernel();k.begin_decision_epoch('RAW','RAW');sid='SYS:add_commitment';owned=OWNERS['add_commitment']
-        k.scheduler.register_coupling(CouplingSpec(sid,'v1',RuntimeObjectClass.SYSTEM,owned,(),owned,'EVENT',Phase.OPERATIONS));k.scheduler.schedule(ScheduledEvent('RAW',D(1),Phase.OPERATIONS,0,sid,sid))
+        k.scheduler.register_coupling(CouplingSpec(sid,'v1',RuntimeObjectClass.SYSTEM,owned,('transition.RULE',),owned,'EVENT',Phase.OPERATIONS));k.scheduler.schedule(ScheduledEvent('RAW',D(1),Phase.OPERATIONS,0,sid,sid))
         q=ConsumptionRequest('RAW',sid,'SYSTEM_TRANSITION',sid,'transition.RULE','PROCESS:'+sid,'SIM_TIME','1','1','SCENARIO',k.boundary_manifest.scenario_id,'WORLD_SIM','','ADMITTED','TYPED_RULE','TRANSITION_RULE');receipt=admit_for_use(k,q)[1]
-        rt=ScheduledSimulationRuntime(k,ReplayProvenance.from_kernel(k))
+        rt=ScheduledSimulationRuntime(k,strict_provenance(k))
         def hostile(kernel,event):kernel.state.accounts['public_funds'].balance+=D(1);return 'pretend no change'
         rt.register_handler(sid,hostile,admission_receipts=(receipt,),transition_methods=('add_commitment',));rt.seal()
         with self.assertRaisesRegex(InvariantError,'INVALID_RUN'):rt.run()
@@ -86,3 +86,26 @@ class CausalTraceTests(unittest.TestCase):
         def broken(cid,financier_id,project_id,amount):k.state.accounts['public_funds'].balance-=D(1);raise RuntimeError('partial executor failure')
         with self.assertRaises(RuntimeError):k._boundary_mutation('add_commitment',broken,('BROKEN','PUB','EXP',D(10)),{})
         self.assertTrue(k._boundary_invalid);self.assertEqual(k.causal_envelopes[-1].reason_code,'INVALID_RUN')
+
+    def test_L06_unknown_rule_version_rejected(self):
+        k,h=make_kernel();k.begin_decision_epoch('BAD_RULE','BAD_RULE');e=k.causal_envelopes[0]
+        with self.assertRaisesRegex(InvariantError,'rule'):validate_trace((replace(e,rule_refs=('GENESIS_RULE:UNDECLARED',)).finalized(),),k.causal_artifacts)
+    def test_L08_direct_purchase_buyer_guard_before_any_write(self):
+        k,h=make_kernel(overrides={'B':'0'})
+        with self.assertRaisesRegex(InvariantError,'AFFORDABILITY'):system_epoch(k,h,'boundary_purchase','1',(1,'earth_market','project_cash',D(20),'RES',D(1)))
+        self.assertFalse(k.state.transactions);self.assertFalse(k.market_resource_inventory)
+        self.assertEqual(k.causal_envelopes[-1].prior_state,k.causal_envelopes[-1].new_state)
+    def test_C06_blocked_runtime_attempt_has_trace_and_no_worker(self):
+        from offworld_kernel.exploration_protocol import build_exploration_request
+        from offworld_kernel.policy_runner import public_explorer_policy_version
+        from build6d_fixture import strict_provenance
+        k,h=make_kernel();good=policy_inputs(k,'PUB','1',('exploration.REMOTE_COST',))
+        snap=build_decision_snapshot(k,'PUB','BLOCKED',1,snapshot_facts(k,good),admission_receipts=good)
+        m=k.boundary_manifest;k.boundary_manifest=replace(m,assertions=tuple(replace(a,admission_state='QUARANTINED') if a.assertion_id=='PUB:exploration.REMOTE_COST' else a for a in m.assertions))
+        # Counterfactual input is explicitly repinned before genesis.
+        k.boundary_manifest=replace(k.boundary_manifest,opening_state_hash=content_hash(k._boundary_projection()))
+        blocked=policy_inputs(k,'PUB','1',('exploration.REMOTE_COST',));k.begin_decision_epoch('BLOCKED','BLOCKED')
+        k.scheduler.register_coupling(CouplingSpec('DECISION','v1',RuntimeObjectClass.SYSTEM,(),('agent_snapshot',),(),'EVENT',Phase.DECISION_WINDOW));ref=k.scheduler.open_decision_window('BLOCKED',snap.fingerprint());k.scheduler.schedule(ScheduledEvent('BLOCKED',D(1),Phase.DECISION_WINDOW,0,'PUB','DECISION',snapshot_ref=ref))
+        rt=ScheduledSimulationRuntime(k,strict_provenance(k));calls=[]
+        rt.register_policy_handler('BLOCKED','PUB',snap,'BLOCKED',lambda ctx:calls.append(ctx),request=build_exploration_request('BLOCKED',1,'EXP','RES'),admission_receipts=blocked,expected_policy_version=public_explorer_policy_version())
+        rt.seal();rt.run();self.assertEqual(calls,[]);self.assertEqual(k.causal_envelopes[-1].reason_code,'BLOCKED_ADMISSION');self.assertFalse(k.state.transactions)

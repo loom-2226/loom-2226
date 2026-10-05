@@ -105,7 +105,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'register_project_study_state','register_project_study_plan',
         'authorize_project_study_activity','spend_exploration_wip','spend_project_study_activity',
         'complete_project_study_activity','execute_project_study_review',
-        'register_named_body_evidence','register_body_portfolio_binding'
+        'register_named_body_evidence','register_body_portfolio_binding','admit_realized_output_observation'
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
@@ -137,6 +137,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self._boundary_decisions={}
         self._boundary_random_keys=[]
         self._boundary_invalid=False
+        self._boundary_genesis_inputs=()
         self.scheduler=DeterministicScheduler()
         self.systems: Dict[str,SystemState]={}
         self.aggregates: Dict[str,AggregateState]={}
@@ -1736,7 +1737,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             validate_opening(self)
             self._boundary_opening_validated=True
             event=SimpleNamespace(event_id='GENESIS',effective_time=D(0),process_id='GENESIS',stable_key='GENESIS')
-            self._boundary_emit(event,'GENESIS',(),self._boundary_projection(),'DECLARED_OPENING_STATE',artifacts=(('SCENARIO_INPUT',self.boundary_manifest),))
+            self._boundary_emit(event,'GENESIS',(),self._boundary_projection(),'DECLARED_OPENING_STATE',artifacts=(('SCENARIO_INPUT',self.boundary_manifest),('ADMITTED_INFORMATION',self._boundary_genesis_inputs)))
         self.scheduler=DeterministicScheduler()
         self.active_decision_epoch_id=epoch_id
         self._decision_epoch_open_state_fingerprint=self.decision_epoch_state_fingerprint()
@@ -2433,6 +2434,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
 
     def _boundary_opening_value(self,selector):
         # Opening selectors are exact existing attributes, not a generic object API.
+        if selector=='earth_admission_receipts':return self._boundary_genesis_inputs
         if selector=='population':return self.population
         if selector=='accounts':return self.state.accounts
         if selector=='agents':return self.agents
@@ -2465,6 +2467,23 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         for r in receipts:
             if verify_receipt(self,r).value_state.value=='BLOCKED':raise InvariantError('BLOCKED_ADMISSION')
         b=inspect.signature(attr).bind(*args,**kwargs).arguments
+        qrequest=b.get('request')
+        project=b.get('project_id',getattr(qrequest,'project_id',None))
+        if project is None and name in ('execute_development_stage','resolve_development_plan'):
+            project=self.development_plans[b['plan_id']].project_id
+        observation=b.get('observation_id',b.get('prerequisite_observation_id'))
+        if observation is None and qrequest is not None:observation=getattr(qrequest,'observation_id',None)
+        resource=b.get('resource_id',getattr(qrequest,'resource_id',None))
+        expected={'project.CASH_BALANCE':project,'observation.SIGNAL':observation,'R_RECOVERABLE':resource,
+                  'cycle.PAID_OPEX':getattr(b.get('cost_record'),'event_id',None),'cycle.ACTUAL_OUTPUT':b.get('extraction_event_id')}
+        for receipt in receipts:
+            q=receipt.consumption_request
+            if q.concept in expected and q.subject_id!=expected[q.concept]:raise InvariantError('BLOCKED_SCOPE: receipt/transition subject')
+            if q.concept=='Earth_supply.AVAILABLE' and q.subject_id!='EARTH:USA:SIM'+str(b.get('year',event.effective_time)):
+                raise InvariantError('BLOCKED_TIME: supplier economic period')
+            if q.concept=='actor.BELIEF':
+                actors={b.get('agent_id')} if name=='update_agent_belief_from_observation' else {entry[0] for entry in b['recipient_models']}
+                if q.subject_id not in actors:raise InvariantError('BLOCKED_PERSPECTIVE: recipient belief scope')
         decision_refs=ec[2]
         original_decisions=tuple(json.loads(self.causal_artifacts[ref][1])['fields']['decision'] for ref in decision_refs)
         if 'decision' in b:
@@ -2506,8 +2525,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             q=min(D(decision.offered_quantity),D(colony.resource_inventory),self.market_remaining_demand(env.id))
             if q<=0:raise InvariantError('BLOCKED_RESOURCE: no sale inventory/demand')
             if self.state.accounts[env.buyer_account_id].balance<q*D(env.unit_price):raise InvariantError('BLOCKED_AFFORDABILITY: finite buyer')
-        if name=='boundary_purchase' and self.state.accounts[b['boundary_account']].balance<D(b['amount']):
-            raise InvariantError('BLOCKED_AFFORDABILITY: finite buyer')
+        if name=='boundary_purchase':
+            if self.state.accounts[b['boundary_account']].balance<D(b['amount']):raise InvariantError('BLOCKED_AFFORDABILITY: finite buyer')
+            raise InvariantError('BLOCKED_AUTHORIZATION: direct purchase requires the coupled clearing transition')
         if name=='add_commitment' and b['project_id']=='EXP':
             c=self.resource_constraints.get(('EARTH:USA',int(event.effective_time)))
             if c is None or c.available<D(b['amount']):raise InvariantError('BLOCKED_RESOURCE: mission supply before finance')
@@ -2523,16 +2543,20 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if c is None or c.available+c.reserved<amount:raise InvariantError('BLOCKED_RESOURCE: exploration supply')
             if self.state.accounts[project.cash_account_id].balance<amount:raise InvariantError('BLOCKED_AFFORDABILITY: exploration cash')
 
-    def _boundary_emit(self,event,action,prior,following,result,*,receipts=(),decision_refs=(),request_refs=(),information_refs=(),artifacts=(),source_values=(),decision_time=None,authorization_time=None,reason_code='REALIZED'):
+    def _boundary_emit(self,event,action,prior,following,result,*,receipts=(),decision_refs=(),request_refs=(),information_refs=(),artifacts=(),source_values=(),actor_id=None,rule_refs=(),decision_time=None,authorization_time=None,reason_code='REALIZED'):
         from .causal_trace import CausalEnvelope,archive,content_hash,state_delta,validate_trace
         from .boundary import verify_receipt
         m=self.boundary_manifest;delta=state_delta(prior,following)
         archived=tuple((kind,archive(self.causal_artifacts,kind,value)) for kind,value in artifacts)
         rrefs=tuple(archive(self.causal_artifacts,'ADMITTED_INFORMATION',r) for r in receipts)
         vrefs=tuple(archive(self.causal_artifacts,'INFORMATION_ARTIFACT',verify_receipt(self,r)) for r in receipts)
-        sources=(*m.scenario_definition_refs,*m.real_source_refs,*m.harness_refs)
+        from .provenance import source_tree_hash
+        sources=(*m.scenario_definition_refs,*m.real_source_refs,*m.harness_refs,('EXECUTABLE_OFFWORLD_KERNEL_SHA256',source_tree_hash()))
+        code_hash=source_tree_hash()
+        rule_refs=tuple(rule_refs) or (('GENESIS_RULE:'+m.contract_version,) if event.process_id=='GENESIS' else ('SYSTEM_RULE:'+event.process_id+':'+m.contract_version,))
+        rule_refs=tuple(ref+'#'+code_hash for ref in rule_refs)
         prev=validate_trace(self.causal_envelopes,self.causal_artifacts)
-        e=CausalEnvelope('causal:'+m.run_id+':'+str(len(self.causal_envelopes)+1),'CAUSAL_ENVELOPE_V1',m.run_id,event.event_id,self.active_decision_epoch_id or 'GENESIS',str(event.effective_time),'SIM_TIME',event.stable_key,event.process_id,action,'REALIZED',m.run_id,'WORLD_SIM',tuple(request_refs),tuple(decision_refs),(*information_refs,*vrefs),rrefs,tuple((d,p,a) for d,p,a,_ in delta),str(result),tuple((d,p,b) for d,p,_,b in delta),reason_code,str(result),('SYSTEM_RULE:'+event.process_id,),m.parameter_manifest_refs,(m.scenario_id,m.scenario_version,m.scenario_definition_refs[0][1]),tuple(self._boundary_random_keys),tuple(sources),tuple(ref for _,ref in archived),tuple(e.envelope_id for e in self.causal_envelopes[-1:]),content_hash(prior),content_hash(following),prev,'',decision_time,authorization_time,str(event.effective_time),tuple((v.assertion_id,v.time_basis,v.source_time) for v in (*source_values,*(verify_receipt(self,r) for r in receipts))),archived).finalized()
+        e=CausalEnvelope('causal:'+m.run_id+':'+str(len(self.causal_envelopes)+1),'CAUSAL_ENVELOPE_V1',m.run_id,event.event_id,self.active_decision_epoch_id or 'GENESIS',str(event.effective_time),'SIM_TIME',actor_id or event.stable_key,event.process_id,action,'REALIZED',m.run_id,'WORLD_SIM',tuple(request_refs),tuple(decision_refs),(*information_refs,*vrefs),rrefs,tuple((d,p,a) for d,p,a,_ in delta),str(result),tuple((d,p,b) for d,p,_,b in delta),reason_code,str(result),rule_refs,m.parameter_manifest_refs,(m.scenario_id,m.scenario_version,m.scenario_definition_refs[0][1]),tuple(self._boundary_random_keys),tuple(sources),tuple(ref for _,ref in archived),tuple(e.envelope_id for e in self.causal_envelopes[-1:]),content_hash(prior),content_hash(following),prev,'',decision_time,authorization_time,str(event.effective_time),tuple((v.assertion_id,v.time_basis,v.source_time) for v in (*source_values,*(verify_receipt(self,r) for r in receipts))),archived).finalized()
         self.causal_envelopes.append(e)
         return e
 
@@ -2554,6 +2578,29 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             raise
         finally:self._boundary_capture_depth-=1
         following=self._boundary_projection()
+        import inspect
+        bound=inspect.signature(attr).bind(*args,**kwargs).arguments
+        actor_id=bound.get('actor_id',bound.get('agent_id',bound.get('financier_id',event.process_id)))
         self._boundary_event_deltas.append(state_delta(prior,following))
-        self._boundary_emit(event,name,prior,following,result,receipts=(),decision_refs=decision_refs,artifacts=(('REALIZED_EVENT',result),('TRANSITION_INPUTS',(args,tuple(sorted(kwargs.items()))))),decision_time=self._boundary_decisions.get(decision_refs[0],(None,))[0] if decision_refs else None,authorization_time=self._boundary_decisions[decision_refs[0]][2] if decision_refs else None)
+        self._boundary_emit(event,name,prior,following,result,receipts=(),decision_refs=decision_refs,artifacts=(('REALIZED_EVENT',result),('TRANSITION_INPUTS',(args,tuple(sorted(kwargs.items()))))),actor_id=actor_id,decision_time=self._boundary_decisions.get(decision_refs[0],(None,))[0] if decision_refs else None,authorization_time=self._boundary_decisions[decision_refs[0]][2] if decision_refs else None)
         return result
+
+
+    def admit_realized_output_observation(self,year,actor_id,extraction_event_id):
+        """Scheduled owner-output admission over existing records/information set.
+
+        Only planned and actual own output become information. Hidden deposit
+        before/after state remains WORLD audit material in the original record.
+        No new observation engine, Agent, clock or physical transition.
+        """
+        if self.boundary_manifest is None:raise InvariantError('BLOCKED_CONTRACT: output admission is strict-only')
+        record=next((r for r in self.extraction_resolution_records if r.extraction_event_id==extraction_event_id),None)
+        if record is None or actor_id not in self.agents:raise InvariantError('BLOCKED_LINEAGE: realized output absent')
+        actor=self.agents[actor_id]
+        if record.actor_id!=actor_id or actor_id not in self.state.projects[record.project_id].owners or extraction_event_id not in actor.history:
+            raise InvariantError('BLOCKED_POSSESSION: output is not actor-owned')
+        if int(year)!=year or int(year)<record.year:raise InvariantError('BLOCKED_TIME: output admission precedes source')
+        if extraction_event_id in actor.information:raise InvariantError('BLOCKED_LINEAGE: output already admitted')
+        actor.information.add(extraction_event_id)
+        return self.event(int(year),actor_id,ActionKind.ADMIT_INFORMATION,'OWN_OUTPUT_OBSERVATION_ADMITTED',
+                          (record.project_id,extraction_event_id,str(record.planned_quantity),str(record.actual_extracted)),(extraction_event_id,))

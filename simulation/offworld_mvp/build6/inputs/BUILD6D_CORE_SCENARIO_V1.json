@@ -50,7 +50,14 @@
     "arrival": "13",
     "transport_relationship_id": "TR-USA-T1",
     "technology_state_id": "TECH-B6D",
-    "transport_capability": "PASSENGER_TRANSFER_B6D"
+    "transport_capability": "PASSENGER_TRANSFER_B6D",
+    "financier_hurdle_rate": "0.20",
+    "financier_horizon_years": "10",
+    "financier_normalized_throughput": "10",
+    "financier_max_concentration_fraction": "0.80",
+    "births": "0",
+    "deaths": "0",
+    "transit_mortality": "0"
   },
   "comparison": {
     "world_seed": "20261005",
@@ -79,5 +86,6 @@
     "new_economic_agents",
     "new_settlement",
     "technology_simulation"
-  ]
+  ],
+  "cost_boundary": "OPEX is the declared aggregate supplier-cost abstraction; transport energy is relationship metadata, no energy inventory or extra energy cost is scheduled. No depreciation/amortization event is scheduled in this witness; inherited nonzero-rate qualification remains under regression."
 }

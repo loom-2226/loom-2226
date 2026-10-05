@@ -6,7 +6,7 @@ from typing import Any, Callable, Dict, Tuple
 from .kernel import InvariantError
 from .methodology import MethodologyHardenedBuild4Kernel
 from .scheduler import ScheduledEvent, Phase
-from .policy import DecisionSnapshot, PolicyContext, build_decision_snapshot
+from .policy import DecisionSnapshot, PolicyContext, build_decision_snapshot, comparison_decision_key
 from .provenance import ReplayProvenance
 
 @dataclass(frozen=True)
@@ -79,6 +79,7 @@ class ScheduledSimulationRuntime:
                 raise InvariantError('BLOCKED_DECLARATION: SYSTEM consumption/transitions missing')
             for r in admission_receipts:
                 q=r.consumption_request
+                if q.concept not in spec.read_set:raise InvariantError('BLOCKED_AUTHORIZATION: input absent from coupling read set')
                 if q.consumer_id!=process_id or q.perspective!='WORLD_SIM' or q.use!='SYSTEM_TRANSITION':
                     raise InvariantError('BLOCKED_PERSPECTIVE: SYSTEM receipt')
                 if verify_receipt(self.kernel,r).value_state.value!='KNOWN':
@@ -98,8 +99,14 @@ class ScheduledSimulationRuntime:
             raise InvariantError('policy handler may bind only DECISION_WINDOW event')
         if agent_id not in self.kernel.agents or snapshot.agent_id!=agent_id:
             raise InvariantError('policy snapshot agent mismatch')
-        expected=build_decision_snapshot(
-            self.kernel,agent_id,snapshot.period_key,snapshot.effective_time,snapshot.admitted_facts,admission_receipts=admission_receipts)
+        blocked=bool(self.kernel.boundary_manifest is not None and any(r.state.value=='BLOCKED' for r in admission_receipts))
+        if blocked:
+            from .boundary import verify_receipt
+            for r in admission_receipts:verify_receipt(self.kernel,r)
+            expected=snapshot  # unconsumed claim; never reaches an Agent worker
+        else:
+            expected=build_decision_snapshot(
+                self.kernel,agent_id,snapshot.period_key,snapshot.effective_time,snapshot.admitted_facts,admission_receipts=admission_receipts)
         if expected.fingerprint()!=snapshot.fingerprint():
             raise InvariantError('policy snapshot does not match current admitted agent-visible state')
         expected_ref=f'decision-snapshot:{snapshot.period_key}:{snapshot.fingerprint()}'
@@ -129,6 +136,7 @@ class ScheduledSimulationRuntime:
             from .boundary import validate_opening
             validate_opening(self.kernel)
             self.kernel._boundary_opening_validated=True
+        if self.kernel.boundary_manifest is not None:self._validate_boundary_provenance()
         self._plan_fingerprint=self.kernel.scheduler.plan_fingerprint()
         self._initial_fingerprint=self.kernel.methodology_fingerprint()
         self._execution_token=self.kernel.seal_for_scheduled_execution(
@@ -149,10 +157,15 @@ class ScheduledSimulationRuntime:
             from .causal_trace import archive
             from .policy_runner import PolicyExecutionResult
             request,receipts,version=self._strict_policy_bindings[event.event_id]
-            validate_snapshot(self.kernel,agent_id,snapshot.period_key,snapshot.effective_time,snapshot.admitted_facts,receipts)
             prior=self.kernel._boundary_projection()
             inputs=tuple(verify_receipt(self.kernel,r) for r in receipts)
-            result=policy(PolicyContext(snapshot,event.snapshot_ref,decision_key,self.kernel.boundary_manifest.comparison_parameters))
+            if any(v.value_state.value=='BLOCKED' for v in inputs):
+                qref=archive(self.kernel.causal_artifacts,'REQUEST',request)
+                self.kernel._boundary_emit(event,'POLICY_ATTEMPT',prior,prior,'BLOCKED_ADMISSION',receipts=receipts,request_refs=(qref,),artifacts=(('UNCONSUMED_SNAPSHOT_CLAIM',snapshot),),decision_time=str(event.effective_time),reason_code='BLOCKED_ADMISSION')
+                return 'BLOCKED_ADMISSION'
+            validate_snapshot(self.kernel,agent_id,snapshot.period_key,snapshot.effective_time,snapshot.admitted_facts,receipts)
+            opaque_key=comparison_decision_key(self.kernel.boundary_manifest.comparison_parameters,agent_id,snapshot.period_key,decision_key)
+            result=policy(PolicyContext(snapshot,event.snapshot_ref,opaque_key))
             if self.kernel._boundary_projection()!=prior:
                 self.kernel._boundary_invalid=True
                 raise InvariantError('INVALID_RUN: policy changed domain state')
@@ -166,7 +179,7 @@ class ScheduledSimulationRuntime:
             dref=archive(self.kernel.causal_artifacts,'DECISION',result)
             self.kernel._boundary_decisions[dref]=(str(event.effective_time),d.id,str(event.effective_time) if getattr(d,'authorized',getattr(d,'approved',False)) else None)
             self._strict_emitted_decisions[event.event_id]=dref
-            self.kernel._boundary_emit(event,'POLICY_EVALUATION',prior,prior,d.outcome.value,receipts=receipts,request_refs=(qref,),decision_refs=(dref,),artifacts=(('DECISION_STATE',snapshot),('INFORMATION_STATE',inputs)),decision_time=str(event.effective_time),reason_code=d.reason_code.value)
+            self.kernel._boundary_emit(event,'POLICY_EVALUATION',prior,prior,d.outcome.value,receipts=receipts,request_refs=(qref,),decision_refs=(dref,),artifacts=(('DECISION_STATE',snapshot),('INFORMATION_STATE',inputs)),decision_time=str(event.effective_time),rule_refs=('POLICY_RULE:'+version,),reason_code=d.reason_code.value)
             return result
 
         handler=self._handlers.get(event.process_id)
@@ -257,3 +270,29 @@ class ScheduledSimulationRuntime:
         if self.kernel.active_decision_epoch_id is not None:
             self.kernel.complete_decision_epoch(self._execution_token,result)
         return result
+
+
+    def _validate_boundary_provenance(self):
+        from pathlib import Path
+        m=self.kernel.boundary_manifest;root=Path(__file__).resolve().parents[5]
+        required={'BOUNDARY_SHA256':m.fingerprint(),'EARTH_SLICE_SHA256':m.earth_slice_ref[1],
+                  'COMPARISON_CONFIG_SHA256':m.comparison_spec_ref[1],'QUALIFICATION_PROTOCOL_SHA256':m.qualification_protocol_ref[1]}
+        for ref,digest in m.harness_refs:
+            path=(root/ref).resolve()
+            if not path.is_relative_to(root) or sha256(path.read_bytes()).hexdigest()!=digest:
+                raise InvariantError('BLOCKED_PROVENANCE: qualification harness bytes')
+            if path.name=='qualify_build6d.py':required['QUALIFICATION_DRIVER_SHA256']=digest
+            elif path.name=='build6d_fixture.py':required['QUALIFICATION_FIXTURE_SHA256']=digest
+            else:raise InvariantError('BLOCKED_PROVENANCE: undeclared harness kind')
+        if len(required)!=6:raise InvariantError('BLOCKED_PROVENANCE: harness descriptors absent')
+        labels={}
+        for entry in self.provenance.table_manifest_ids:
+            key,_,value=entry.partition(':')
+            if key in labels:raise InvariantError('BLOCKED_PROVENANCE: duplicate identity label')
+            labels[key]=value
+        if any(labels.get(key)!=value for key,value in required.items()):raise InvariantError('BLOCKED_PROVENANCE: strict manifest labels')
+        inputs=root/'simulation/offworld_mvp/build6/inputs'
+        for ref,digest in (*m.scenario_definition_refs,m.earth_slice_ref,m.qualification_protocol_ref):
+            path=(inputs/ref).resolve()
+            if not path.is_relative_to(inputs) or sha256(path.read_bytes()).hexdigest()!=digest:
+                raise InvariantError('BLOCKED_PROVENANCE: input/protocol bytes')

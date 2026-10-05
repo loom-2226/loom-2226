@@ -145,6 +145,9 @@ def validate_trace(envelopes, artifacts):
             kind,payload=artifacts[r]
             if r!=f'{kind}:{sha256(payload.encode()).hexdigest()}':
                 raise InvariantError('TRACE_INCOMPLETE: artifact hash mismatch')
+        source_hashes={digest for _,digest in e.source_artifact_refs}
+        if any('#' not in rule or rule.rsplit('#',1)[1] not in source_hashes for rule in e.rule_refs):
+            raise InvariantError('TRACE_INCOMPLETE: unbound rule source/version')
         if not e.decision_refs and not any(r.startswith(('SYSTEM_RULE:','GENESIS_RULE:')) for r in e.rule_refs):
             raise InvariantError('TRACE_INCOMPLETE: no decision or explicit system/genesis origin')
         if e.pre_domain_hash==e.post_domain_hash and e.prior_state!=e.new_state:

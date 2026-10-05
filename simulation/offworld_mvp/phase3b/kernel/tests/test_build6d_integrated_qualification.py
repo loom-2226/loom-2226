@@ -80,3 +80,21 @@ class IntegratedQualificationTests(unittest.TestCase):
     def test_L08_buyer_block_has_no_financial_resource_delta(self):
         k,h=run_case('RICH',{'B':'0'});self.assertIn('AFFORDABILITY',h['blocked']);e=k.causal_envelopes[-1]
         self.assertEqual(e.prior_state,e.new_state);self.assertEqual(k.state.accounts['earth_market'].balance,D(0));self.assertEqual(k.colonies['OFF:T1'].resource_inventory,D(5))
+
+    def test_closed_epistemic_causal_loop_has_explicit_output_observation(self):
+        import json
+        k,h=baseline('RICH')
+        admissions=[e for e in k.causal_envelopes if e.action=='admit_realized_output_observation']
+        self.assertEqual(len(admissions),2);self.assertTrue(all(e.actor_id=='SPN' for e in admissions))
+        refs=[e for e in k.causal_envelopes if e.action=='POLICY_EVALUATION' and e.scheduled_event_id=='SECOND_REVIEW:decision'][0].information_refs
+        reports=[json.loads(k.causal_artifacts[ref][1])['fields'] for ref in refs]
+        report=next(x for x in reports if x['concept']['value']=='cycle.ACTUAL_OUTPUT')
+        self.assertEqual(report['proposition_kind']['value'],'OBSERVATION');self.assertEqual(report['epistemic_mode']['value'],'REALIZED_OUTPUT_OBSERVATION')
+        self.assertEqual(report['transformation_ref']['value'],'OWN_REALIZED_OUTPUT_REPORT_V1');self.assertEqual(report['value']['value'],'5')
+        self.assertFalse(any('resource_before' in f.key or 'resource_after' in f.key for f in h['snapshots']['SECOND_REVIEW'].admitted_facts))
+    def test_F04_no_deposit_same_positive_sponsor_information(self):
+        null,nh=run_case('NULL',{'surface_fp':'0.15'});rich,rh=run_case('RICH',{'surface_fp':'0.15'})
+        for label in ('SPONSOR','DEV_FINANCE','DEVELOP','FIRST_OPERATING','FIRST_OPERATING:finance','FIRST_OPERATING:funded'):
+            self.assertEqual(nh['snapshots'][label],rh['snapshots'][label]);self.assertEqual(nh['policies'][label],rh['policies'][label])
+        self.assertEqual(nh['first_output'].actual_extracted,D(0));self.assertFalse(null.market_clearing_records);self.assertEqual(null.state.projects['P'].status,'CLOSED')
+        self.assertEqual(null.population.offworld['OFF:T1'],0);self.assertTrue(null.operating_cost_records)

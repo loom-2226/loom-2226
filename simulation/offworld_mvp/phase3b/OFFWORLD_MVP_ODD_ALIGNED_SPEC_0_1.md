@@ -2958,10 +2958,6 @@ changed by integrated qualification R1.
       {
         "name": "decision_key",
         "type": "str"
-      },
-      {
-        "name": "draw_contract",
-        "type": "Tuple[Tuple[str, str], ...]"
       }
     ],
     "PolicyExecutionResult": [

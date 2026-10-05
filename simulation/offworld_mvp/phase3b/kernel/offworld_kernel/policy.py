@@ -66,12 +66,10 @@ class PolicyContext:
     snapshot: DecisionSnapshot
     snapshot_ref: str
     decision_key: str
-    draw_contract: Tuple[Tuple[str,str],...]=()
 
     def deterministic_draw(self,label:str)->D:
-        if self.draw_contract:
-            c=dict(self.draw_contract)
-            raw=json.dumps([c['key_schema'],'POLICY',c['policy_seed'],c['comparison_group'],self.snapshot.agent_id,self.snapshot.period_key,self.decision_key,str(label)],separators=(',',':'),ensure_ascii=True)
+        if self.decision_key.startswith('LOOM_COMPARISON_RANDOM_V1:'):
+            raw=json.dumps(['LOOM_COMPARISON_RANDOM_V1','POLICY',self.decision_key,str(label)],separators=(',',':'),ensure_ascii=True)
         else:
             raw='|'.join((self.decision_key,self.snapshot.fingerprint(),str(label)))
         n=int.from_bytes(sha256(raw.encode()).digest()[:8],'big')
@@ -111,3 +109,12 @@ def build_decision_snapshot(kernel,agent_id,period_key,effective_time,admitted_f
         resource_holdings=tuple(sorted((str(k),D(v)) for k,v in a.resource_holdings.items())),
         claim_holdings=tuple(sorted((str(k),D(v)) for k,v in a.claim_holdings.items())),
         admitted_facts=facts)
+
+
+def comparison_decision_key(comparison,actor_id,period_key,slot):
+    """World-side framed derivation. Only the opaque result enters PolicyContext."""
+    c=dict(comparison)
+    if c['key_schema']!='LOOM_COMPARISON_RANDOM_V1' or c['algorithm']!='SHA256_FIRST64_DECIMAL_V1':
+        raise InvariantError('BLOCKED_PARAMETER: comparison key contract')
+    raw=json.dumps([c['key_schema'],'POLICY',c['policy_seed'],c['comparison_group'],str(actor_id),str(period_key),str(slot)],separators=(',',':'),ensure_ascii=True)
+    return c['key_schema']+':'+sha256(raw.encode()).hexdigest()

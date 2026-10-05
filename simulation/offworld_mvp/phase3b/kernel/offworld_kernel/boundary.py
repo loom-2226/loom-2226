@@ -254,7 +254,8 @@ def query_context(kernel,request):
         if any(a.scope!=request.scope for a in recorded):return _outcome(kernel,request,FactState.BLOCKED,'BLOCKED_SCOPE',recorded)
         relevant=tuple(a for a in recorded if request.perspective!='AGENT' or a.perspective_actor_id==request.consumer_id)
         if not relevant:return _outcome(kernel,request,FactState.BLOCKED,'BLOCKED_POSSESSION',recorded)
-        if len({a.value for a in relevant if a.value_state==FactState.KNOWN})>1 or any(a.support_conflict_refs for a in relevant):
+        applicable=tuple(a for a in relevant if a.time_basis==request.time_basis and _time(a.valid_from)<=_time(request.effective_time)<=_time(a.valid_to))
+        if len({a.value for a in applicable if a.value_state==FactState.KNOWN})>1 or any(a.support_conflict_refs for a in applicable):
             return _outcome(kernel,request,FactState.BLOCKED,'CONFLICT_REVIEW_REQUIRED',relevant)
         reasons=tuple(_check_source(request,a) for a in relevant)
         admitted=tuple(a for a,r in zip(relevant,reasons) if not r)
@@ -297,6 +298,29 @@ def _resolve_live(k,r):
         if r.perspective=='AGENT' and (artifact.id not in k.agents[r.consumer_id].information or artifact.source_observation_id not in k.agents[r.consumer_id].information):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_POSSESSION')
         if D(artifact.year)>D(r.knowledge_cutoff):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_TIME')
         return _value(k,r,canonical(artifact),kind='INFORMATION_ARTIFACT',mode='INFORMATION_ARTIFACT',source='publication:'+artifact.id,available=str(artifact.year))
+    if selector=='ACTOR_BELIEF':
+        a=k.agents.get(r.subject_id)
+        if a is None:return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
+        key=k.boundary_manifest.parameter('belief_key.'+a.id)
+        value=a.beliefs.get(key,a.priors.get(key))
+        if value is None:return _outcome(k,r,FactState.UNKNOWN,'MISSING_PRIOR_BELIEF')
+        return _value(k,r,str(value),kind='BELIEF',mode='ACTOR_BELIEF',source='belief:'+a.id+':'+key)
+    if selector=='EARTH_SUPPLY':
+        try:node,period=r.subject_id.rsplit(':SIM',1);year=int(period)
+        except (ValueError,TypeError):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
+        c=k.resource_constraints.get((node,year))
+        if c is None:return _outcome(k,r,FactState.BLOCKED,'MISSING_RESOURCE_CONSTRAINT')
+        if D(year)!=D(r.effective_time):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_TIME')
+        return _value(k,r,str(c.available+c.reserved),kind='MODEL_DERIVED',mode='DERIVED_SUPPLY_CLAIM',source='Earth-supply:'+r.subject_id,dependencies=('USA:'+str(year+2025)+':investment','EARTH_INVESTMENT_SCALE_ALLOCATION_V1'),source_time=str(year))
+    if selector=='PROJECT_CASH':
+        project=k.state.projects.get(r.subject_id)
+        if project is None:return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
+        return _value(k,r,str(k.state.accounts[project.cash_account_id].balance),kind='FINANCIAL_STATE',mode='SIMULATION_RESULT',source='project-cash:'+project.id)
+    if selector=='REALIZED_COST':
+        rec=next((v for v in k.operating_cost_records if v.event_id==r.subject_id),None)
+        if rec is None:return _outcome(k,r,FactState.BLOCKED,'MISSING_REALIZED_COST')
+        if D(rec.year)>D(r.knowledge_cutoff):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_TIME')
+        return _value(k,r,canonical(rec),kind='REALIZED_EVENT',mode='REALIZED_EXPENSE_RECORD',source='paid-OPEX:'+rec.event_id,source_time=str(rec.year),available=str(rec.year))
     if selector=='RESOURCE':
         if r.perspective=='AGENT':return _outcome(k,r,FactState.BLOCKED,'BLOCKED_PERSPECTIVE')
         res=k.resources.get(r.subject_id)
@@ -340,9 +364,10 @@ def _resolve_live(k,r):
         rec=next((x for x in k.extraction_resolution_records if x.extraction_event_id==r.subject_id),None)
         if rec is None:return _outcome(k,r,FactState.UNKNOWN,'MISSING_REALIZED_EVENT')
         if D(rec.year)>D(r.knowledge_cutoff):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_TIME')
-        if r.perspective=='AGENT' and (r.consumer_id not in k.state.projects[rec.project_id].owners or rec.extraction_event_id not in k.agents[r.consumer_id].history):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_POSSESSION')
+        if r.perspective=='AGENT' and (r.consumer_id not in k.state.projects[rec.project_id].owners or rec.extraction_event_id not in k.agents[r.consumer_id].information):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_POSSESSION')
         value=rec.planned_quantity if selector=='EXTRACTION_PLANNED' else rec.actual_extracted
-        return _value(k,r,str(value),kind='REALIZED_EVENT',mode='ADMITTED_INFORMATION',source='extraction:'+rec.extraction_event_id,available=str(rec.year))
+        report=_value(k,r,str(value),kind='OBSERVATION',mode='REALIZED_OUTPUT_OBSERVATION',source='actor-output-report:'+rec.extraction_event_id,available=str(rec.year),source_time=str(rec.year),dependencies=(rec.extraction_event_id,))
+        return replace(report,transformation_ref='OWN_REALIZED_OUTPUT_REPORT_V1',transformation_version='V1',warrant_refs=('OWN_EXECUTED_OUTPUT_WITH_EXPLICIT_SCHEDULED_ADMISSION',))
     if selector.startswith('MARKET:'):
         env=k.market_envelopes.get(r.subject_id)
         if env is None or D(env.year)>D(r.effective_time):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_TIME')
@@ -406,7 +431,7 @@ def validate_snapshot(kernel,agent_id,period,effective_time,facts,receipts):
 
 def validate_opening(kernel):
     m=kernel.boundary_manifest
-    if kernel.run_identity.code_contract!=CONTRACT or kernel.run_identity.input_snapshot_id!=m.input_snapshot_id:
+    if kernel.run_identity.code_contract!=CONTRACT or kernel.run_identity.input_snapshot_id!=m.input_snapshot_id or kernel.run_identity.parameters!=m.parameters:
         raise InvariantError('BLOCKED_CONTRACT: run identity/manifest mismatch')
     if kernel.observations or kernel.state.transactions or kernel.events or kernel.public_information:
         raise InvariantError('BLOCKED_GENESIS: pre-epoch causal activity')
@@ -460,3 +485,23 @@ def load_earth_assertions(path, *, parent_root, verify_parents=True):
                 ('ADOPTED_EARTH_REFERENCE',),(),(),'','',AUTHORIZATION,'ADOPTED_REFERENCE',tuple(sorted(row['exception_flags'].items())),'CONTEXT_VALUE_V1',str(year)))
     if seen!=set(range(2026,2047)):raise InvariantError('BLOCKED_REFERENCE: missing coverage row')
     return tuple(values),sha256(raw).hexdigest()
+
+
+def earth_supply_value(source,scale,allocation_fraction,sim_year,scenario_id):
+    """The one registered Earth investment -> supplier-claim transformation.
+
+    Source projection standing is preserved; this is capacity, never bank cash.
+    """
+    scale=D(scale);fraction=D(allocation_fraction);year=D(sim_year)
+    if source.world_context!='REAL' or source.subject_id!='USA' or source.concept!='investment' or source.proposition_role!='EARTH_REFERENCE' or source.value_state!=FactState.KNOWN or source.admission_state!='ADMITTED':
+        raise InvariantError('BLOCKED_REFERENCE: allocation source role/standing')
+    if not scale.is_finite() or scale<=0 or not fraction.is_finite() or not D(0)<=fraction<=D(1):raise InvariantError('BLOCKED_PARAMETER: supply scale/fraction')
+    if year!=year.to_integral_value() or D(source.valid_from)!=year+D(2025):raise InvariantError('BLOCKED_TIME: declared reference mapping')
+    return replace(source,assertion_id='USA_SUPPLY_SIM'+str(sim_year),subject_id='EARTH:USA:SIM'+str(sim_year),concept='Earth_supply.CEILING',
+        scope='ECONOMY:USA:SUPPLY',world_context='SCENARIO',context_id=scenario_id,perspective='WORLD_SIM',
+        value=str(D(source.value)/scale*fraction),unit='MODEL_SUPPLY_CLAIM_CURRENCY',proposition_kind='MODEL_DERIVED',
+        proposition_role='SUPPLIER_CAPACITY',epistemic_mode='DERIVED_FROM_MODEL_PROJECTION',valid_from='0',valid_to='20',
+        time_basis='SIM_TIME',available_from='0',source_time=str(sim_year),dependency_refs=(source.assertion_id,),
+        transformation_ref='EARTH_INVESTMENT_SCALE_ALLOCATION_V1',transformation_version='V1',
+        source_refs=(*source.source_refs,'SOURCE_TIME:CALENDAR_YEAR:'+source.source_time,'SCALE:'+str(scale),'ALLOCATION_FRACTION:'+str(fraction)),
+        source_hashes=(*source.source_hashes,content_hash(('CALENDAR_YEAR',source.source_time)),content_hash(str(scale)),content_hash(str(fraction))))

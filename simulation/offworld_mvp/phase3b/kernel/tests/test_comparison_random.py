@@ -25,7 +25,9 @@ class ComparisonRandomTests(unittest.TestCase):
         self.assertEqual(draws[0],draws[1]);self.assertEqual(draws[1],draws[2]);self.assertLess(draws[0][0],D('.2'));self.assertGreater(draws[0][1],D('.05'))
     def test_R03_policy_seed_independent_of_world_and_snapshot(self):
         k,_=make_kernel();r=policy_inputs(k,'PUB','1',());snap=build_decision_snapshot(k,'PUB','SAME',1,(),admission_receipts=r)
-        a=PolicyContext(snap,'REF','KEY',k.boundary_manifest.comparison_parameters)
+        from offworld_kernel.policy import comparison_decision_key
+        a=PolicyContext(snap,'REF',comparison_decision_key(k.boundary_manifest.comparison_parameters,'PUB','SAME','KEY'))
+        self.assertFalse(hasattr(a,'draw_contract'))
         b=replace(a,snapshot=replace(snap,account_balance=D(99)),snapshot_ref='OTHER')
         self.assertEqual(a.deterministic_draw('choice'),b.deterministic_draw('choice'))
     def test_R04_unrelated_actor_does_not_advance_stream(self):
