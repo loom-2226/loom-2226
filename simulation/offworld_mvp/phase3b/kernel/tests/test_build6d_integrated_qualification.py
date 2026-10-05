@@ -57,8 +57,18 @@ class IntegratedQualificationTests(unittest.TestCase):
         for e in k.causal_envelopes:self.assertEqual(e.envelope_hash,e.digest())
     def test_R03_information_driven_decisions_and_distinct_times(self):
         s,sh=baseline('SPARSE');r,rh=baseline('RICH')
-        for label in ('REMOTE','SURFACE','PUBLICATION','SPONSOR','DEV_FINANCE','DEVELOP','FIRST_OPERATING','SALE'):
+        for label in ('REMOTE','SURFACE','PUBLICATION','SPONSOR','DEV_FINANCE','DEVELOP','FIRST_OPERATING','FIRST_OPERATING:finance','FIRST_OPERATING:funded'):
             self.assertEqual(sh['snapshots'][label],rh['snapshots'][label]);self.assertEqual(sh['policies'][label],rh['policies'][label])
+        # At 9 the actor explicitly receives its realized output report. Sale
+        # decisions at 10 may then differ: SPARSE possesses 3, RICH possesses 5.
+        self.assertNotEqual(sh['snapshots']['SALE'],rh['snapshots']['SALE'])
+        self.assertEqual(sh['policies']['SALE'].decision.offered_quantity,D(3))
+        self.assertEqual(rh['policies']['SALE'].decision.offered_quantity,D(5))
+        for kernel,history in ((s,sh),(r,rh)):
+            admitted=next(e for e in kernel.causal_envelopes if e.action=='admit_realized_output_observation')
+            sale=next(e for e in kernel.causal_envelopes if e.scheduled_event_id=='SALE:decision' and e.action=='POLICY_EVALUATION')
+            self.assertLess(D(admitted.realized_time),D(sale.decision_time))
+            self.assertIn(history['first_output'].extraction_event_id,kernel.agents['SPN'].information)
         delayed=[e for e in r.causal_envelopes if e.action=='execute_development_stage']
         self.assertTrue(all(D(e.decision_time)==D(e.authorization_time)==D(5)<D(e.realized_time) for e in delayed));self.assertTrue(any(e.source_times for e in r.causal_envelopes))
 
