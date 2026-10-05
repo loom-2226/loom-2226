@@ -122,8 +122,21 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
     methodology_version='BUILD4_MVP_METHODOLOGY_R1'
     accounting_boundary_version='PHASE3B_MVP_ACCOUNTING_BOUNDARY_0_1'
 
-    def __init__(self,*a,**kw):
+    def __init__(self,*a,boundary_manifest=None,**kw):
+        from .boundary import CONTRACT
+        if a and a[0].code_contract==CONTRACT and boundary_manifest is None:
+            raise InvariantError('BLOCKED_CONTRACT: strict boundary manifest required')
         super().__init__(*a,**kw)
+        self.boundary_manifest=boundary_manifest
+        self.causal_envelopes=[]
+        self.causal_artifacts={}
+        self._boundary_opening_validated=False
+        self._boundary_capture_depth=0
+        self._boundary_event_context=None
+        self._boundary_event_deltas=[]
+        self._boundary_decisions={}
+        self._boundary_random_keys=[]
+        self._boundary_invalid=False
         self.scheduler=DeterministicScheduler()
         self.systems: Dict[str,SystemState]={}
         self.aggregates: Dict[str,AggregateState]={}
@@ -189,6 +202,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 mode='scheduled-run' if strict else 'decision-epoch chain'
                 raise InvariantError(f'direct mutation blocked in {mode} mode: {name}')
             return blocked
+        if guarded and depth>0 and super().__getattribute__('boundary_manifest') is not None:
+            def traced(*args,**kwargs):
+                return self._boundary_mutation(name,attr,args,kwargs)
+            return traced
         return attr
 
     def surface_prospect_paid(self,year,actor_id,resource_id,project_id,supplier_account,
@@ -244,6 +261,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if not (D('0')<=det<=D('1') and D('0')<=fp<=D('1')) or det<=fp:
             raise InvariantError('invalid agent-side observation likelihoods')
         obs=self.observations[observation_id]
+        if self.boundary_manifest is not None and belief_key not in actor.beliefs and belief_key not in actor.priors:
+            raise InvariantError('BLOCKED_UNKNOWN: belief/prior missing')
         prior=D(actor.beliefs.get(belief_key,actor.priors.get(belief_key,D('0.5'))))
         if not D('0')<=prior<=D('1'):
             raise InvariantError('belief prior outside [0,1]')
@@ -1711,6 +1730,13 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if self._decision_epoch_expected_between_fingerprint is not None:
             if self.decision_epoch_state_fingerprint()!=self._decision_epoch_expected_between_fingerprint:
                 raise InvariantError('persistent state tampered between decision epochs')
+        if self.boundary_manifest is not None and not self._boundary_opening_validated:
+            from .boundary import validate_opening
+            from types import SimpleNamespace
+            validate_opening(self)
+            self._boundary_opening_validated=True
+            event=SimpleNamespace(event_id='GENESIS',effective_time=D(0),process_id='GENESIS',stable_key='GENESIS')
+            self._boundary_emit(event,'GENESIS',(),self._boundary_projection(),'DECLARED_OPENING_STATE',artifacts=(('SCENARIO_INPUT',self.boundary_manifest),))
         self.scheduler=DeterministicScheduler()
         self.active_decision_epoch_id=epoch_id
         self._decision_epoch_open_state_fingerprint=self.decision_epoch_state_fingerprint()
@@ -2354,6 +2380,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
              r.offworld_population_after,r.total_population_before,r.total_population_after,
              r.arrival_event_id,r.stage_event_id,r.record_version)
              for r in self.passenger_transport_arrivals]}
+        if self.boundary_manifest is not None:
+            from .causal_trace import validate_trace
+            payload['boundary_manifest']=self.boundary_manifest.fingerprint()
+            payload['causal_trace_root']=validate_trace(self.causal_envelopes,self.causal_artifacts)
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload
@@ -2365,3 +2395,165 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
     def methodology_fingerprint(self):
         payload=self._methodology_payload(include_scheduler=True)
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+
+
+    def _boundary_projection(self):
+        """Audit projection of existing stores; never executable parallel state.
+
+        The domain labels belong here, not in the reusable causal envelope.
+        Every runtime-owned non-control attribute is represented, including rows
+        created by older specialized modules and unknown/raw attribute writes.
+        """
+        from dataclasses import fields
+        from .causal_trace import canonical
+        rows=[]
+        skip={'scheduler','boundary_manifest','causal_envelopes','causal_artifacts','decision_epoch_records',
+              'decision_epoch_chain_id','active_decision_epoch_id'}
+        def domain(name):
+            if any(x in name for x in ('information','observation','belief','prior','evidence')):return 'INFORMATION_STATE'
+            if any(x in name for x in ('decision','request')):return 'DECISION_STATE'
+            if any(x in name for x in ('event','record','history')):return 'REALIZED_EVENT_STATE'
+            if any(x in name for x in ('account','commitment','transaction','claim','reservation','fcf','impact')):return 'FINANCIAL_STATE'
+            return 'PHYSICAL_STATE'
+        for name,value in sorted(vars(self).items()):
+            if name in skip or name.startswith(('_scheduled_','_decision_epoch_','_boundary_')) or name=='_strict_scheduled_execution':continue
+            if name=='state':
+                for f in fields(value):
+                    obj=getattr(value,f.name)
+                    if isinstance(obj,dict):
+                        rows.extend((domain(f.name),'state.'+f.name+'.'+canonical(k),canonical(v)) for k,v in obj.items())
+                    else:rows.append((domain(f.name),'state.'+f.name,canonical(obj)))
+            elif name=='agents':
+                for key,a in value.items():
+                    for f in fields(a):rows.append((domain(f.name),'agents.'+key+'.'+f.name,canonical(getattr(a,f.name))))
+            elif isinstance(value,dict):
+                rows.extend((domain(name),name+'.'+canonical(k),canonical(v)) for k,v in value.items())
+            else:rows.append((domain(name),name,canonical(value)))
+        return tuple(sorted(rows))
+
+    def _boundary_opening_value(self,selector):
+        # Opening selectors are exact existing attributes, not a generic object API.
+        if selector=='population':return self.population
+        if selector=='accounts':return self.state.accounts
+        if selector=='agents':return self.agents
+        if selector=='resources':return self.resources
+        if selector=='constraints':return self.resource_constraints
+        raise InvariantError('BLOCKED_GENESIS: unsupported opening selector')
+
+    def keyed_draw(self,*keys):
+        if self.boundary_manifest is None:return super().keyed_draw(*keys)
+        from decimal import getcontext
+        c=dict(self.boundary_manifest.comparison_parameters)
+        if c['key_schema']!='LOOM_COMPARISON_RANDOM_V1' or c['algorithm']!='SHA256_FIRST64_DECIMAL_V1':
+            raise InvariantError('BLOCKED_PARAMETER: random contract')
+        if getcontext().prec!=int(c['decimal_precision']) or str(getcontext().rounding)!=c['decimal_rounding']:
+            raise InvariantError('BLOCKED_PARAMETER: decimal replay environment')
+        raw=json.dumps([c['key_schema'],'WORLD',c['world_seed'],c['comparison_group'],*map(str,keys)],separators=(',',':'),ensure_ascii=True)
+        n=int.from_bytes(sha256(raw.encode()).digest()[:8],'big')
+        self._boundary_random_keys.append(raw)
+        return D(n)/D(2**64)
+
+    def _boundary_preflight(self,name,attr,args,kwargs):
+        import inspect
+        from .boundary import verify_receipt
+        from .causal_trace import typed,canonical
+        ec=self._boundary_event_context
+        if not ec:raise InvariantError('BLOCKED_AUTHORIZATION: runtime event binding missing')
+        event,receipts,_=ec
+        allowed=dict(self.boundary_manifest.allowed_transitions).get(event.process_id,())
+        if name not in allowed:raise InvariantError('BLOCKED_AUTHORIZATION: undeclared transition '+name)
+        for r in receipts:
+            if verify_receipt(self,r).value_state.value=='BLOCKED':raise InvariantError('BLOCKED_ADMISSION')
+        b=inspect.signature(attr).bind(*args,**kwargs).arguments
+        decision_refs=ec[2]
+        original_decisions=tuple(json.loads(self.causal_artifacts[ref][1])['fields']['decision'] for ref in decision_refs)
+        if 'decision' in b:
+            if not original_decisions or typed(b['decision']) not in original_decisions:
+                raise InvariantError('BLOCKED_LINEAGE: executor decision differs from governed policy result')
+        if name in ('add_commitment','disburse'):
+            if not original_decisions:raise InvariantError('BLOCKED_LINEAGE: financing authorization absent')
+            permitted=[]
+            for d in original_decisions:
+                f=d['fields'];amount=f.get('authorized_cost',f.get('amount'))
+                if amount is not None:permitted.append(D(amount['value']))
+            if D(b['amount']) not in permitted:raise InvariantError('BLOCKED_LINEAGE: financing amount not authorized')
+        if name=='resolve_operating_extraction':
+            cost=b['cost_record']
+            if cost not in self.operating_cost_records:
+                raise InvariantError('BLOCKED_LINEAGE: no realized operating cost record')
+            tx=next((t for t in self.state.transactions if t.id==cost.transaction_id),None)
+            if tx is None or tx.amount!=cost.total_opex or tx.purpose!=TxPurpose.OPEX:
+                raise InvariantError('BLOCKED_LINEAGE: operating expense payment absent')
+
+        if name in ('observe','decide_finance','extract','sell','request_finance'):
+            raise InvariantError('BLOCKED_LEGACY: unqualified implicit transition')
+        if name=='explore_paid':
+            if b.get('update_belief') is not False or not all(k in b for k in ('cost','false_positive','false_negative','public')):
+                raise InvariantError('BLOCKED_PARAMETER: explicit observation model required')
+        if name=='publish_observation':
+            obs=self.observations[b['observation_id']]
+            for aid,key,det,fp in b['recipient_models']:
+                a=self.agents[aid]
+                if key not in a.beliefs and key not in a.priors:raise InvariantError('BLOCKED_UNKNOWN: recipient prior')
+                prior=D(a.beliefs.get(key,a.priors.get(key)));det=D(det);fp=D(fp)
+                if not D(0)<=prior<=D(1) or not D(0)<=fp<det<=D(1):raise InvariantError('BLOCKED_PARAMETER: recipient likelihood')
+                den=det*prior+fp*(1-prior) if obs.signal=='POSITIVE' else (1-det)*prior+(1-fp)*(1-prior)
+                if den==0:raise InvariantError('BLOCKED_UNKNOWN: degenerate recipient update')
+        if name=='clear_market_sale':
+            req=b['request'];decision=b['decision'];env=self.market_envelopes[req.market_state_id]
+            colony=self.colonies.get(self.resources[req.resource_id].node_id)
+            if colony is None:raise InvariantError('BLOCKED_UNKNOWN: local inventory')
+            q=min(D(decision.offered_quantity),D(colony.resource_inventory),self.market_remaining_demand(env.id))
+            if q<=0:raise InvariantError('BLOCKED_RESOURCE: no sale inventory/demand')
+            if self.state.accounts[env.buyer_account_id].balance<q*D(env.unit_price):raise InvariantError('BLOCKED_AFFORDABILITY: finite buyer')
+        if name=='boundary_purchase' and self.state.accounts[b['boundary_account']].balance<D(b['amount']):
+            raise InvariantError('BLOCKED_AFFORDABILITY: finite buyer')
+        if name=='add_commitment' and b['project_id']=='EXP':
+            c=self.resource_constraints.get(('EARTH:USA',int(event.effective_time)))
+            if c is None or c.available<D(b['amount']):raise InvariantError('BLOCKED_RESOURCE: mission supply before finance')
+        if name in ('transfer','disburse','add_commitment') and D(self.boundary_manifest.parameter('f'))==0:
+            if name!='transfer' or (self.state.nodes[self.state.accounts[b['source']].node_id].kind==NodeKind.EARTH and self.state.nodes[self.state.accounts[b['dest']].node_id].kind==NodeKind.OFFWORLD):
+                raise InvariantError('BLOCKED_RESOURCE: no allocated Earth supply')
+        # Domain executors retain their original validations. Outer preflight must
+        # additionally establish the supply/cash prerequisites before any writes.
+        if name in ('explore_paid','surface_prospect_paid'):
+            amount=D(b['cost']);project=self.state.projects[b['project_id']]
+            supplier=self.state.accounts[b['supplier_account']].node_id
+            c=self.resource_constraints.get((supplier,int(b['year'])))
+            if c is None or c.available+c.reserved<amount:raise InvariantError('BLOCKED_RESOURCE: exploration supply')
+            if self.state.accounts[project.cash_account_id].balance<amount:raise InvariantError('BLOCKED_AFFORDABILITY: exploration cash')
+
+    def _boundary_emit(self,event,action,prior,following,result,*,receipts=(),decision_refs=(),request_refs=(),information_refs=(),artifacts=(),source_values=(),decision_time=None,authorization_time=None,reason_code='REALIZED'):
+        from .causal_trace import CausalEnvelope,archive,content_hash,state_delta,validate_trace
+        from .boundary import verify_receipt
+        m=self.boundary_manifest;delta=state_delta(prior,following)
+        archived=tuple((kind,archive(self.causal_artifacts,kind,value)) for kind,value in artifacts)
+        rrefs=tuple(archive(self.causal_artifacts,'ADMITTED_INFORMATION',r) for r in receipts)
+        vrefs=tuple(archive(self.causal_artifacts,'INFORMATION_ARTIFACT',verify_receipt(self,r)) for r in receipts)
+        sources=(*m.scenario_definition_refs,*m.real_source_refs,*m.harness_refs)
+        prev=validate_trace(self.causal_envelopes,self.causal_artifacts)
+        e=CausalEnvelope('causal:'+m.run_id+':'+str(len(self.causal_envelopes)+1),'CAUSAL_ENVELOPE_V1',m.run_id,event.event_id,self.active_decision_epoch_id or 'GENESIS',str(event.effective_time),'SIM_TIME',event.stable_key,event.process_id,action,'REALIZED',m.run_id,'WORLD_SIM',tuple(request_refs),tuple(decision_refs),(*information_refs,*vrefs),rrefs,tuple((d,p,a) for d,p,a,_ in delta),str(result),tuple((d,p,b) for d,p,_,b in delta),reason_code,str(result),('SYSTEM_RULE:'+event.process_id,),m.parameter_manifest_refs,(m.scenario_id,m.scenario_version,m.scenario_definition_refs[0][1]),tuple(self._boundary_random_keys),tuple(sources),tuple(ref for _,ref in archived),tuple(e.envelope_id for e in self.causal_envelopes[-1:]),content_hash(prior),content_hash(following),prev,'',decision_time,authorization_time,str(event.effective_time),tuple((v.assertion_id,v.time_basis,v.source_time) for v in (*source_values,*(verify_receipt(self,r) for r in receipts))),archived).finalized()
+        self.causal_envelopes.append(e)
+        return e
+
+    def _boundary_mutation(self,name,attr,args,kwargs):
+        if self._boundary_capture_depth:return attr(*args,**kwargs)
+        from .causal_trace import content_hash,state_delta
+        prior=self._boundary_projection();event,receipts,decision_refs=self._boundary_event_context
+        try:self._boundary_preflight(name,attr,args,kwargs)
+        except (InvariantError,ValueError,KeyError) as exc:
+            self._boundary_emit(event,name,prior,prior,str(exc),receipts=(),reason_code='BLOCKED_ADMISSION')
+            raise
+        self._boundary_capture_depth+=1
+        try:
+            result=attr(*args,**kwargs)
+        except Exception as exc:
+            following=self._boundary_projection()
+            self._boundary_invalid=following!=prior
+            self._boundary_emit(event,name,prior,following,str(exc),decision_refs=decision_refs,reason_code='INVALID_RUN' if self._boundary_invalid else 'BLOCKED')
+            raise
+        finally:self._boundary_capture_depth-=1
+        following=self._boundary_projection()
+        self._boundary_event_deltas.append(state_delta(prior,following))
+        self._boundary_emit(event,name,prior,following,result,receipts=(),decision_refs=decision_refs,artifacts=(('REALIZED_EVENT',result),('TRANSITION_INPUTS',(args,tuple(sorted(kwargs.items()))))),decision_time=self._boundary_decisions.get(decision_refs[0],(None,))[0] if decision_refs else None,authorization_time=self._boundary_decisions[decision_refs[0]][2] if decision_refs else None)
+        return result

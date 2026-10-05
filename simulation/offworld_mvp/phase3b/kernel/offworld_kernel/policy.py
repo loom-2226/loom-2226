@@ -66,13 +66,18 @@ class PolicyContext:
     snapshot: DecisionSnapshot
     snapshot_ref: str
     decision_key: str
+    draw_contract: Tuple[Tuple[str,str],...]=()
 
     def deterministic_draw(self,label:str)->D:
-        raw='|'.join((self.decision_key,self.snapshot.fingerprint(),str(label)))
+        if self.draw_contract:
+            c=dict(self.draw_contract)
+            raw=json.dumps([c['key_schema'],'POLICY',c['policy_seed'],c['comparison_group'],self.snapshot.agent_id,self.snapshot.period_key,self.decision_key,str(label)],separators=(',',':'),ensure_ascii=True)
+        else:
+            raw='|'.join((self.decision_key,self.snapshot.fingerprint(),str(label)))
         n=int.from_bytes(sha256(raw.encode()).digest()[:8],'big')
         return D(n)/D(2**64)
 
-def build_decision_snapshot(kernel,agent_id,period_key,effective_time,admitted_facts:Iterable[SnapshotFact]=()):
+def build_decision_snapshot(kernel,agent_id,period_key,effective_time,admitted_facts:Iterable[SnapshotFact]=(),*,admission_receipts=()):
     """World-side snapshot builder. Copies only explicitly admitted agent-visible state.
 
     The returned object contains no kernel reference, scenario-resource registry,
@@ -80,6 +85,10 @@ def build_decision_snapshot(kernel,agent_id,period_key,effective_time,admitted_f
     """
     if agent_id not in kernel.agents:
         raise InvariantError('decision snapshot agent missing')
+    admitted_facts=tuple(admitted_facts)
+    if getattr(kernel,'boundary_manifest',None) is not None:
+        from .boundary import validate_snapshot
+        validate_snapshot(kernel,agent_id,period_key,effective_time,admitted_facts,admission_receipts)
     a:AgentState=kernel.agents[agent_id]
     account=kernel.state.accounts[a.account_id]
     facts=tuple(sorted(tuple(admitted_facts),key=lambda f:(f.key,f.state.value,f.source_ref,f.value or '')))

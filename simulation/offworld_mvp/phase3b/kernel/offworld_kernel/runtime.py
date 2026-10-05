@@ -45,6 +45,11 @@ class ScheduledSimulationRuntime:
             raise InvariantError('kernel already sealed by another scheduled runtime')
         self.kernel=kernel
         self.provenance=(provenance or ReplayProvenance.from_kernel(kernel)).validate()
+        if kernel.boundary_manifest is not None:
+            from .provenance import source_tree_hash,verify_commit_code_linkage
+            actual=source_tree_hash()
+            if self.provenance.code_tree_sha256!=actual:raise InvariantError('BLOCKED_PROVENANCE: executable source mismatch')
+            verify_commit_code_linkage(self.provenance.git_commit,actual)
         self._handlers: Dict[str,Callable[[MethodologyHardenedBuild4Kernel,ScheduledEvent],Any]]={}
         self._policy_bindings: Dict[str,tuple[str,DecisionSnapshot,str,Callable[[PolicyContext],Any]]]={}
         self._sealed=False
@@ -52,17 +57,38 @@ class ScheduledSimulationRuntime:
         self._initial_fingerprint=None
         self._plan_fingerprint=None
         self._execution_token=None
+        self._strict_system_bindings={}
+        self._strict_policy_bindings={}
+        self._strict_emitted_decisions={}
 
-    def register_handler(self,process_id,handler):
+    def register_handler(self,process_id,handler,*,admission_receipts=(),decision_refs=(),transition_methods=()):
         if self._sealed: raise InvariantError('cannot register handler after runtime seal')
         if process_id in self._handlers: raise InvariantError('duplicate runtime handler')
         if process_id not in self.kernel.scheduler.process_ids:
             raise InvariantError('handler process not registered in scheduler')
         if self.kernel.scheduler.coupling(process_id).phase==Phase.DECISION_WINDOW:
             raise InvariantError('DECISION_WINDOW requires policy handler; kernel-bearing handler forbidden')
+        if self.kernel.boundary_manifest is not None:
+            from .boundary import verify_receipt
+            spec=self.kernel.scheduler.coupling(process_id)
+            owner=self.kernel.systems.get(process_id)
+            allowed=dict(self.kernel.boundary_manifest.allowed_transitions).get(process_id,())
+            if owner is None or not set(spec.write_set)<=set(owner.owned_state_refs)|set(spec.transition_interfaces):
+                raise InvariantError('BLOCKED_AUTHORIZATION: SYSTEM state ownership')
+            if not admission_receipts or tuple(transition_methods)!=tuple(allowed):
+                raise InvariantError('BLOCKED_DECLARATION: SYSTEM consumption/transitions missing')
+            for r in admission_receipts:
+                q=r.consumption_request
+                if q.consumer_id!=process_id or q.perspective!='WORLD_SIM' or q.use!='SYSTEM_TRANSITION':
+                    raise InvariantError('BLOCKED_PERSPECTIVE: SYSTEM receipt')
+                if verify_receipt(self.kernel,r).value_state.value!='KNOWN':
+                    raise InvariantError('BLOCKED_ADMISSION: SYSTEM requires KNOWN inputs')
+            event_ids={e.event_id for e in self.kernel.scheduler.ordered_events() if e.phase==Phase.DECISION_WINDOW}
+            if any(r not in self.kernel.causal_artifacts and r not in event_ids for r in decision_refs):raise InvariantError('BLOCKED_LINEAGE: decision missing')
+            self._strict_system_bindings[process_id]=(tuple(admission_receipts),tuple(decision_refs),spec)
         self._handlers[process_id]=handler
 
-    def register_policy_handler(self,event_id,agent_id,snapshot:DecisionSnapshot,decision_key,policy):
+    def register_policy_handler(self,event_id,agent_id,snapshot:DecisionSnapshot,decision_key,policy,*,request=None,admission_receipts=(),expected_policy_version=None):
         if self._sealed: raise InvariantError('cannot register policy after runtime seal')
         if event_id in self._policy_bindings: raise InvariantError('duplicate policy event binding')
         events={e.event_id:e for e in self.kernel.scheduler.ordered_events()}
@@ -73,7 +99,7 @@ class ScheduledSimulationRuntime:
         if agent_id not in self.kernel.agents or snapshot.agent_id!=agent_id:
             raise InvariantError('policy snapshot agent mismatch')
         expected=build_decision_snapshot(
-            self.kernel,agent_id,snapshot.period_key,snapshot.effective_time,snapshot.admitted_facts)
+            self.kernel,agent_id,snapshot.period_key,snapshot.effective_time,snapshot.admitted_facts,admission_receipts=admission_receipts)
         if expected.fingerprint()!=snapshot.fingerprint():
             raise InvariantError('policy snapshot does not match current admitted agent-visible state')
         expected_ref=f'decision-snapshot:{snapshot.period_key}:{snapshot.fingerprint()}'
@@ -83,6 +109,11 @@ class ScheduledSimulationRuntime:
             raise InvariantError('scheduler decision snapshot not pinned')
         if str(event.effective_time)!=snapshot.effective_time:
             raise InvariantError('policy snapshot effective time mismatch')
+        if self.kernel.boundary_manifest is not None:
+            from .causal_trace import canonical
+            if request is None or not expected_policy_version:raise InvariantError('BLOCKED_DECLARATION: policy request/version missing')
+            request.validate_protocol();canonical(request)
+            self._strict_policy_bindings[event_id]=(request,tuple(admission_receipts),expected_policy_version)
         self._policy_bindings[event_id]=(agent_id,snapshot,str(decision_key),policy)
 
     def seal(self):
@@ -94,6 +125,10 @@ class ScheduledSimulationRuntime:
             elif e.process_id not in self._handlers:
                 missing.append(f'handler:{e.process_id}')
         if missing: raise InvariantError(f'missing scheduled handlers: {sorted(set(missing))}')
+        if self.kernel.boundary_manifest is not None and not self.kernel._boundary_opening_validated:
+            from .boundary import validate_opening
+            validate_opening(self.kernel)
+            self.kernel._boundary_opening_validated=True
         self._plan_fingerprint=self.kernel.scheduler.plan_fingerprint()
         self._initial_fingerprint=self.kernel.methodology_fingerprint()
         self._execution_token=self.kernel.seal_for_scheduled_execution(
@@ -108,13 +143,65 @@ class ScheduledSimulationRuntime:
             agent_id,snapshot,decision_key,policy=binding
             if event.snapshot_ref!=f'decision-snapshot:{snapshot.period_key}:{snapshot.fingerprint()}':
                 raise InvariantError('decision event snapshot drift')
-            context=PolicyContext(snapshot,event.snapshot_ref,decision_key)
-            return policy(context)
+            if self.kernel.boundary_manifest is None:
+                return policy(PolicyContext(snapshot,event.snapshot_ref,decision_key))
+            from .boundary import validate_snapshot,verify_receipt
+            from .causal_trace import archive
+            from .policy_runner import PolicyExecutionResult
+            request,receipts,version=self._strict_policy_bindings[event.event_id]
+            validate_snapshot(self.kernel,agent_id,snapshot.period_key,snapshot.effective_time,snapshot.admitted_facts,receipts)
+            prior=self.kernel._boundary_projection()
+            inputs=tuple(verify_receipt(self.kernel,r) for r in receipts)
+            result=policy(PolicyContext(snapshot,event.snapshot_ref,decision_key,self.kernel.boundary_manifest.comparison_parameters))
+            if self.kernel._boundary_projection()!=prior:
+                self.kernel._boundary_invalid=True
+                raise InvariantError('INVALID_RUN: policy changed domain state')
+            if not isinstance(result,PolicyExecutionResult) or result.policy_version!=version:
+                raise InvariantError('BLOCKED_LINEAGE: typed policy result/version')
+            d=result.decision;d.validate_protocol(request)
+            actual_actor=getattr(d,'actor_id',getattr(d,'financier_id',None))
+            if actual_actor!=agent_id or d.request_id!=request.id or getattr(d,'snapshot_ref',getattr(d,'input_snapshot_ref',None))!=event.snapshot_ref or d.policy_version!=version:
+                raise InvariantError('BLOCKED_LINEAGE: decision/snapshot/request/actor')
+            qref=archive(self.kernel.causal_artifacts,'REQUEST',request)
+            dref=archive(self.kernel.causal_artifacts,'DECISION',result)
+            self.kernel._boundary_decisions[dref]=(str(event.effective_time),d.id,str(event.effective_time) if getattr(d,'authorized',getattr(d,'approved',False)) else None)
+            self._strict_emitted_decisions[event.event_id]=dref
+            self.kernel._boundary_emit(event,'POLICY_EVALUATION',prior,prior,d.outcome.value,receipts=receipts,request_refs=(qref,),decision_refs=(dref,),artifacts=(('DECISION_STATE',snapshot),('INFORMATION_STATE',inputs)),decision_time=str(event.effective_time),reason_code=d.reason_code.value)
+            return result
 
         handler=self._handlers.get(event.process_id)
         if handler is None: raise InvariantError(f'no handler for process {event.process_id}')
-        with self.kernel.scheduled_event_context(event.event_id,self._execution_token):
-            result=handler(self.kernel,event)
+        if self.kernel.boundary_manifest is None:
+            with self.kernel.scheduled_event_context(event.event_id,self._execution_token):
+                return handler(self.kernel,event)
+        from .boundary import verify_receipt
+        from .causal_trace import state_delta
+        receipts,decisions,spec=self._strict_system_bindings[event.process_id]
+        if spec!=self.kernel.scheduler.coupling(event.process_id):raise InvariantError('BLOCKED_AUTHORIZATION: coupling drift')
+        decisions=tuple(self._strict_emitted_decisions.get(ref,ref) for ref in decisions)
+        if any(ref not in self.kernel.causal_artifacts for ref in decisions):raise InvariantError('BLOCKED_LINEAGE: decision not realized')
+        values=tuple(verify_receipt(self.kernel,r) for r in receipts)
+        if any(v.value_state.value!='KNOWN' for v in values):raise InvariantError('BLOCKED_ADMISSION: SYSTEM input')
+        if any(r.consumption_request.effective_time!=str(event.effective_time) for r in receipts):raise InvariantError('BLOCKED_TIME: SYSTEM receipt')
+        prior=self.kernel._boundary_projection();self.kernel._boundary_event_deltas=[]
+        self.kernel._boundary_event_context=(event,receipts,decisions)
+        try:
+            with self.kernel.scheduled_event_context(event.event_id,self._execution_token):
+                result=handler(self.kernel,event)
+        finally:self.kernel._boundary_event_context=None
+        following=self.kernel._boundary_projection()
+        # Apply only recorded outer deltas to the audit projection. Any raw write
+        # or read-method side effect makes this exact reconciliation fail.
+        projected={(d,p):v for d,p,v in prior}
+        for delta in self.kernel._boundary_event_deltas:
+            for domain,path,before,after in delta:
+                if projected.get((domain,path))!=before:raise InvariantError('INVALID_RUN: uncovered prior state')
+                if after is None:projected.pop((domain,path),None)
+                else:projected[(domain,path)]=after
+        if tuple(sorted((d,p,v) for (d,p),v in projected.items()))!=following or self.kernel._boundary_invalid:
+            self.kernel._boundary_invalid=True
+            raise InvariantError('INVALID_RUN: untraced raw domain mutation')
+        self.kernel._boundary_emit(event,'SYSTEM_TRANSITION',following,following,result,decision_refs=decisions,artifacts=(('ADMITTED_INFORMATION',receipts),('INFORMATION_ARTIFACT',values)),source_values=values,authorization_time=self.kernel._boundary_decisions[decisions[0]][2] if decisions else None,decision_time=self.kernel._boundary_decisions[decisions[0]][0] if decisions else None)
         return result
 
     def run(self):

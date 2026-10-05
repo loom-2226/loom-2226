@@ -78,3 +78,12 @@ Validation record:
 R5 adds authored underwriting validation inputs, ensemble reporting guardrails, executable A1–A9 identity auditing with scheduler-valid seeded property testing, signed-boundary reconciliation, staged multi-year WIP/depreciation, and a day/quarter/year multi-rate synchronization fixture.
 
 The underwriting values are validation-only authored scenario inputs. Autonomous policy authority remains gated.
+
+
+## Build 6D strict boundary and trace profile
+
+The explicit `BUILD6D_CORE_FRD_CLOSURE_V1` run contract requires an immutable `BoundaryManifest`. Use `boundary.admit_for_use` to obtain content-bound receipts before building a decision snapshot or registering a SYSTEM transition. Strict runtime registration binds requests, policy versions, receipts, transition methods and coupling ownership. The original scheduler, workers and domain executors remain in use. `causal_trace.reconstruct` provides a governance/world audit; Agent consumers cannot retrieve hidden world deltas. Legacy envelopes report `LEGACY_TRACE_INCOMPLETE` and do not retrofit unrecorded history.
+
+The domain-neutral envelope archives original typed artifacts; the existing methodology seam supplies typed domain projections and rejects uncovered writes. Source, decision/authorization and realization times are explicit on the existing axes. Strict randomness uses common controlled WORLD streams and an independent POLICY stream; legacy contracts preserve their old keys and hashes.
+
+Run `python3 -B ../../build6/qualification/qualify_build6d.py --output /tmp/build6d-qualification.json` from this directory only after the executable source and harness are pinned to a candidate Git commit. See the governed Build 6D protocol for the finite panel and required hostile/regression procedure. No completion claim follows merely from code or design approval.
