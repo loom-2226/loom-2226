@@ -94,6 +94,13 @@ class CausalEnvelope:
     artifact_refs: tuple[tuple[str,str],...]
 
     def __post_init__(self):
+        def immutable(value):
+            if value is None or type(value) in (str,int,bool):return
+            if isinstance(value,tuple):
+                for child in value:immutable(child)
+                return
+            raise InvariantError('mutable/unsupported causal envelope payload')
+        for f in fields(self):immutable(getattr(self,f.name))
         for name in ('envelope_id','record_version','run_id','scheduled_event_id','time_basis','process_id','action','world_context','context_id','perspective','pre_domain_hash','post_domain_hash'):
             if not getattr(self,name):
                 raise InvariantError(f'causal envelope field missing: {name}')

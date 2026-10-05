@@ -4,7 +4,7 @@ import argparse
 from datetime import datetime,timezone
 from hashlib import sha256
 import json,platform,subprocess,sys,unittest
-from decimal import getcontext
+from decimal import getcontext, Decimal as D
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[4]
 KERNEL=ROOT/'simulation/offworld_mvp/phase3b/kernel'
@@ -34,6 +34,52 @@ def witness(k,h):
         policy_outcomes={label:result.decision.outcome.value for label,result in h['policies'].items()},
         decision_fingerprints={label:content_hash(result) for label,result in h['policies'].items()},
         snapshot_fingerprints={label:s.fingerprint() for label,s in h['snapshots'].items()})
+
+
+
+def validate_panel(case,world,k,h,observed):
+    """Prospective boundary assertions derived from the unchanged domain rules.
+
+    Negative controls must hit their intended boundary; arbitrary setup errors
+    never count as the intended economic/scientific witness.
+    """
+    cid=case['id'];positive=world!='NULL'
+    if cid=='N_348178046':
+        if not (observed['blocked']=='BLOCKED_GENESIS: source population bound' and not h['results'] and not k.state.transactions):
+            raise RuntimeError('finite cohort upper-bound control did not block genesis')
+        return
+    if not observed['all_A1_A9']:raise RuntimeError('accounting identity failure')
+    if observed['cohort_total']!=int(h['params']['N']):raise RuntimeError('cohort creation/loss')
+    if cid in ('f_0','f_0.000004'):
+        if not observed['blocked'] or 'RESOURCE' not in observed['blocked'] or observed['sale_count'] or observed['people']:
+            raise RuntimeError('allocated supply negative control did not hit resource boundary')
+        if cid=='f_0' and (k.state.transactions or k.state.commitments):raise RuntimeError('zero allocation funded offworld action')
+        return
+    if cid in ('STAGE2_SUPPLY_FAILURE','f_0.0000055025') and positive:
+        if observed['status']!='FAILED' or 'MINE-P' in k.state.assets or observed['sale_count'] or observed['people']:
+            raise RuntimeError('construction supply boundary did not produce failed development')
+        return
+    if cid in ('F_74.99','F_75','F_84.99') and positive:
+        label='DEV_FINANCE' if cid=='F_74.99' else 'FIRST_OPERATING:finance'
+        decision=h['policies'].get(label)
+        if observed['blocked'] or decision is None or decision.decision.outcome.value!='REJECT' or observed['first_output'] is not None or observed['sale_count'] or observed['people']:
+            raise RuntimeError('financier concentration/cash boundary witness missing')
+        return
+    if cid in ('B_59.99','B_60','B_99.99') and positive and D(h['params']['B'])<(D(60) if world=='SPARSE' else D(100)):
+        if not observed['blocked'] or 'AFFORDABILITY' not in observed['blocked'] or observed['sale_count'] or observed['people']:
+            raise RuntimeError('finite-buyer affordability boundary witness missing')
+        last=k.causal_envelopes[-1]
+        if last.prior_state!=last.new_state:raise RuntimeError('buyer rejection partially mutated state')
+        return
+    expected={'NULL':'ABANDONED','SPARSE':'CLOSED','RICH':'OPERATING'}[world]
+    people=0 if world=='NULL' or cid in ('P_64.99','N_9') else 10
+    if observed['blocked'] or observed['status']!=expected or observed['people']!=people or observed['sale_count']!=(0 if world=='NULL' else 1):
+        raise RuntimeError('finite panel structural witness mismatch')
+    if cid=='lambda_0' and any(D(row['terrestrial_fcf_delta'])!=0 for row in observed['earth_shadow'].values()):
+        raise RuntimeError('zero displacement control has nonzero shadow')
+    if positive:
+        if observed['first_output']!=('3' if world=='SPARSE' else '5') or observed['second_output']!=('0' if world=='SPARSE' else '5'):
+            raise RuntimeError('realized output boundary witness mismatch')
 
 
 def main():
@@ -73,13 +119,14 @@ def main():
                 try:
                     k,h=run_case(world,case['overrides']);observed=witness(k,h)
                     report['cases'][key]=observed
-                    if not observed['all_A1_A9']:raise RuntimeError('accounting identity failure')
+                    validate_panel(case,world,k,h,observed)
+                    observed['panel_assertions']='PASS'
                     if case['id'] in ('BASELINE','JOINT_LOW','JOINT_HIGH','EQUAL_RATIO'):
                         expected={'NULL':('ABANDONED',0),'SPARSE':('CLOSED',10),'RICH':('OPERATING',10)}[world]
                         if (observed['status'],observed['people'])!=expected:raise RuntimeError('structural success criterion mismatch')
                         if observed['sale_count']!=(0 if world=='NULL' else 1):raise RuntimeError('one-sale witness mismatch')
                     if case['id']=='BASELINE':
-                        replay,rh=run_case(world);report['cases'][key]['replay_exact']=witness(replay,rh)==observed
+                        replay,rh=run_case(world);report['cases'][key]['replay_exact']=witness(replay,rh)=={key:value for key,value in observed.items() if key!='panel_assertions'}
                         if not report['cases'][key]['replay_exact']:raise RuntimeError('deterministic replay mismatch')
                         packet=reconstruct(k.causal_envelopes,k.causal_artifacts,k.causal_envelopes[-1].envelope_id,perspective='GOVERNANCE',actor_id='AUDIT')
                         # Original typed payload archive and envelopes are supplied

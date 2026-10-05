@@ -60,6 +60,7 @@ class ConsumptionRequest:
     required_role: str
 
     def __post_init__(self):
+        _immutable(tuple(getattr(self,f.name) for f in fields(self)))
         for f in fields(self):
             if f.name not in ('context_id','perspective_actor_id') and not getattr(self,f.name):
                 raise InvariantError(f'BLOCKED_DECLARATION: {f.name}')
@@ -439,6 +440,11 @@ def validate_opening(kernel):
         actual=kernel._boundary_opening_value(selector)
         if canonical(actual)!=expected:raise InvariantError('BLOCKED_GENESIS: opening binding '+selector)
     if content_hash(kernel._boundary_projection())!=m.opening_state_hash:raise InvariantError('BLOCKED_GENESIS: opening state hash')
+    required=('S','f','lambda','P','F','B','N','prior','reference_population_bound','remote_cost','surface_cost','remote_fp','remote_fn','remote_detection','surface_fp','surface_fn','surface_detection','publication_detection','publication_fp','capex','stage_amount','capacity','opex_per_unit','unit_price','first_demand','reserve_requirement','return_claim','reinvestment','infrastructure_cost','habitat_capacity','requested_residents','support_cost','transport_cost','transport_capacity','travel_time','energy','loss_risk','departure','arrival','financier_hurdle_rate','financier_horizon_years','financier_normalized_throughput','financier_max_concentration_fraction','births','deaths','transit_mortality','lead_time')
+    for key in required:
+        try:value=D(m.parameter(key))
+        except Exception as exc:raise InvariantError('BLOCKED_PARAMETER: missing/invalid numeric '+key) from exc
+        if not value.is_finite() or value<0:raise InvariantError('BLOCKED_PARAMETER: non-finite/negative '+key)
     if D(m.parameter('S'))<=0 or not D('0')<=D(m.parameter('f'))<=D('1') or D(m.parameter('lambda'))<0:
         raise InvariantError('BLOCKED_PARAMETER: bridge domain')
     if kernel.lambda_displacement!=D(m.parameter('lambda')):raise InvariantError('BLOCKED_PARAMETER: displacement mismatch')
@@ -448,11 +454,15 @@ def validate_opening(kernel):
     for resource in kernel.resources.values():
         if not D('0')<=resource.remaining<=resource.recoverable<=resource.accessible<=resource.in_situ:raise InvariantError('BLOCKED_RESOURCE_HIERARCHY')
     if kernel.population is None:raise InvariantError('BLOCKED_GENESIS: finite cohort missing')
+    population_sources=[v for receipt,v in kernel._boundary_genesis_inputs if v.concept=='population']
+    if len(population_sources)!=1 or population_sources[0].world_context!='REAL' or D(population_sources[0].value)!=D(m.parameter('reference_population_bound')):
+        raise InvariantError('BLOCKED_GENESIS: admitted population bound absent/mismatched')
     if kernel.population.earth>D(m.parameter('reference_population_bound')):raise InvariantError('BLOCKED_GENESIS: source population bound')
 
 
 def load_earth_assertions(path, *, parent_root, verify_parents=True):
     """One selected, offline, byte-pinned source format; no Earth engine coupling."""
+    if not verify_parents:raise InvariantError('BLOCKED_REFERENCE: unverified extraction attestation is unsupported')
     raw=Path(path).read_bytes();doc=json.loads(raw,parse_float=D)
     if doc['schema']!='BUILD6D_EARTH_REFERENCE_SLICE_V1' or doc['iso3']!='USA':raise InvariantError('BLOCKED_REFERENCE: slice schema/economy')
     if doc['adoption_manifest_sha256']!='9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2':raise InvariantError('BLOCKED_REFERENCE: adopted parent')
@@ -477,6 +487,9 @@ def load_earth_assertions(path, *, parent_root, verify_parents=True):
             for concept in ('investment','population'):
                 match=re.search(r'"'+concept+r'"\s*:\s*([-+0-9.eE]+)',line.decode())
                 if match is None or match.group(1)!=row['scalar_lexemes'][concept] or D(row[concept])!=parent[concept]:raise InvariantError('BLOCKED_REFERENCE: scalar/source mismatch')
+        for flag,observed in row['exception_flags'].items():
+            expected='NOT_SUPPLIED' if flag not in parent else json.dumps(parent[flag],sort_keys=True)
+            if observed!=expected:raise InvariantError('BLOCKED_REFERENCE: inherited source flag mismatch')
         source=next(x for x in doc['sources'] if x['artifact']==artifact)
         for concept,unit in (('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('population','PERSON')):
             values.append(ContextValue(f'USA:{year}:{concept}','USA',concept,'COUNTRY:USA','REAL','','GOVERNANCE','',FactState.KNOWN,row[concept],unit,'ADMITTED',

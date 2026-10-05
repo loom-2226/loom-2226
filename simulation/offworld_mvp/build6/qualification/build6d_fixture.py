@@ -55,7 +55,7 @@ OWNERS={
 'publish_observation':('agents','public_information','events'),
 'submit_financing_request':('financing_requests','events','agents'),
 'transition_project_status':('projects','events','agents'),
-'execute_development_stage':('accounts','transactions','wip','fcf','earth_impact','resource_constraints','events','development_stage_records','agents'),
+'execute_development_stage':('projects','assets','accounts','transactions','wip','fcf','earth_impact','resource_constraints','events','development_stage_records','agents'),
 'resolve_development_plan':('projects','wip','assets','events','development_resolution_records','agents'),
 'spend_operating_cycle':('accounts','transactions','resource_constraints','events','operating_cost_records','agents'),
 'resolve_operating_extraction':('resources','colonies','events','extraction_resolution_records','agents'),
@@ -104,7 +104,7 @@ def make_kernel(world='RICH',overrides=None):
     doc=json.loads(SCENARIO_PATH.read_text());params={**doc['parameters'],**(overrides or {})}
     definitions=tuple((p.name,sha256(p.read_bytes()).hexdigest()) for p in (SCENARIO_PATH,PROTOCOL_PATH))
     earth,earth_hash=load_earth_assertions(EARTH_PATH,parent_root=EARTH_PARENT)
-    scenario_id='B6D:'+content_hash(tuple(sorted(params.items())))[:16]
+    scenario_id='B6D:'+content_hash((tuple(sorted(params.items())),world,doc['worlds'][world]))[:16]
     run_id=scenario_id+':'+world
     old_policy=test_only_manifest()
     policy_values={'hurdle_rate':params['financier_hurdle_rate'],'horizon_years':params['financier_horizon_years'],
@@ -114,7 +114,8 @@ def make_kernel(world='RICH',overrides=None):
         parameters=tuple(replace(x,parameter_id='B6D:'+x.parameter_id,value=D(policy_values[x.semantic_name]),authorization_ref=AUTHORIZATION,valid_from_version='BUILD6D_V1',valid_to_version='BUILD6D_V1') for x in old_policy.parameters),
         observation_knowledge_relation=ObservationKnowledgeRelation.INDEPENDENT_AGENT_LIKELIHOOD_MODEL,
         world_observation_model_ref='INDEPENDENT_AGENT_MODEL_NOT_WORLD_PARAMETER_ACCESS',world_detection_rate=None,world_false_positive_rate=None).validate(require_authorized=False)
-    table=UnderwritingTable('BUILD6D_VALIDATION_UNDERWRITING_V1','1','PRE_CONTRACT_AUTHORED_SCENARIO',tuple(replace(x,valid_to=20,source_or_rationale_ref=AUTHORIZATION+':STRUCTURAL_BRANCH_PARAMETER') for x in mvp_validation_underwriting_table().inputs)).validate()
+    table_values={'PRICE':params['unit_price'],'EXPLORATION_CAPEX':params['remote_cost'],'DEVELOPMENT_CAPEX':params['capex'],'OPERATING_COST':params['opex_per_unit'],'LEAD_TIME':params['lead_time']}
+    table=UnderwritingTable('BUILD6D_VALIDATION_UNDERWRITING_V1','1','PRE_CONTRACT_AUTHORED_SCENARIO',tuple(replace(x,value=D(table_values[x.kind.value]),valid_to=20,source_or_rationale_ref=AUTHORIZATION+':STRUCTURAL_BRANCH_PARAMETER') for x in mvp_validation_underwriting_table().inputs)).validate()
     static={'exploration.REMOTE_COST':(params['remote_cost'],'MODEL_CURRENCY'),
             'exploration.SURFACE_COST':(params['surface_cost'],'MODEL_CURRENCY'),
             'project.RESERVE_REQUIREMENT':(params['reserve_requirement'],'MODEL_CURRENCY'),
@@ -198,8 +199,8 @@ def make_kernel(world='RICH',overrides=None):
     market=CommodityMarketEnvelope('MKT',10,'RES','earth_market',D(params['unit_price']),D(params['first_demand']),'MODEL_CURRENCY','MODEL_RESOURCE_UNIT_BY_FAMILY',AUTHORIZATION,'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE').validate();k.register_market_envelope(market)
     claim=FinancingReturnClaim('FRC','FIN','P','fin_funds',D(params['return_claim']),('C-DEV','C-OP'),AUTHORIZATION,'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE').validate();k.register_financing_return_claim(claim)
     infra=SettlementInfrastructurePlan('INFRA',11,'OFF:T1','local_reinvest_funds','local_settlement_supplier',D(params['infrastructure_cost']),int(params['habitat_capacity']),AUTHORIZATION,'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE').validate();k.register_settlement_infrastructure_plan(infra)
-    tech=TechnologyCapabilityState(params['technology_state_id'],D(12),D(20),(params['transport_capability'],) if params.get('technology_qualified','TRUE')=='TRUE' else (),AUTHORIZATION,'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE').validate();k.register_technology_capability_state(tech)
-    rel=TransportRelationship(params['transport_relationship_id'],'EARTH:USA','OFF:T1',D(12),D(20),params['transport_capability'],D(params['transport_cost']),D(params['travel_time']),D(params['energy']),D(params['loss_risk']),int(params['transport_capacity']),'PASSENGER',AUTHORIZATION,'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE').validate();k.register_transport_relationship(rel) if params.get('relationship_registered','TRUE')=='TRUE' else None
+    tech=TechnologyCapabilityState(params['technology_state_id'],D(12),D(20),(params['transport_capability'],) if params['technology_qualified']=='TRUE' else (),AUTHORIZATION,'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE').validate();k.register_technology_capability_state(tech)
+    rel=TransportRelationship(params['transport_relationship_id'],'EARTH:USA','OFF:T1',D(12),D(20),params['transport_capability'],D(params['transport_cost']),D(params['travel_time']),D(params['energy']),D(params['loss_risk']),int(params['transport_capacity']),'PASSENGER',AUTHORIZATION,'TEST_ONLY_NOT_CALIBRATED_NOT_POLICY_BASELINE').validate();k.register_transport_relationship(rel) if params['relationship_registered']=='TRUE' else None
     genesis=[];derived=[]
     for source in earth:
         if source.concept!='investment':continue
@@ -210,6 +211,9 @@ def make_kernel(world='RICH',overrides=None):
         transformed=replace(transformed,dependency_refs=(*transformed.dependency_refs,receipt.receipt_id))
         derived.append(transformed);genesis.append((receipt,transformed))
         if k.resource_constraints[('EARTH:USA',year)].ceiling!=D(transformed.value):raise RuntimeError('Earth transform/constraint mismatch')
+    population=next(a for a in earth if a.concept=='population' and a.valid_from=='2026')
+    request=ConsumptionRequest('EARTH_POPULATION_BOUND','GENESIS','EARTH_REFERENCE','USA','population','COUNTRY:USA','CALENDAR_YEAR','2026','2026','REAL','','GOVERNANCE','','ADMITTED','PERSON','EARTH_REFERENCE')
+    bound,receipt=admit_for_use(k,request);genesis.append((receipt,bound))
     k._boundary_genesis_inputs=tuple(genesis)
     m=replace(m,assertions=(*m.assertions,*derived));k.boundary_manifest=m
     opening=tuple((key,canonical(k._boundary_opening_value(key))) for key in ('accounts','agents','resources','constraints','population','earth_admission_receipts'))
@@ -397,4 +401,5 @@ def strict_provenance(k,tables=(),policies=('NO_POLICY_THIS_EPOCH',)):
             ('COMPARISON_CONFIG_SHA256',m.comparison_spec_ref[1]),('QUALIFICATION_PROTOCOL_SHA256',m.qualification_protocol_ref[1])]
     for ref,digest in m.harness_refs:
         labels.append(('QUALIFICATION_DRIVER_SHA256' if ref.endswith('qualify_build6d.py') else 'QUALIFICATION_FIXTURE_SHA256',digest))
-    return ReplayProvenance.from_kernel(k,table_manifest_ids=tuple(key+':'+value for key,value in labels)+tuple(tables),policy_manifest_ids=policies)
+    if not hasattr(k,'_boundary_candidate_provenance'):k._boundary_candidate_provenance=ReplayProvenance.from_kernel(k)
+    return replace(k._boundary_candidate_provenance,table_manifest_ids=tuple(key+':'+value for key,value in labels)+tuple(tables),policy_manifest_ids=tuple(policies)).validate()

@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from functools import lru_cache
 from hashlib import sha256
 import json
 from typing import Any, Callable, Dict, Tuple
@@ -8,6 +9,13 @@ from .methodology import MethodologyHardenedBuild4Kernel
 from .scheduler import ScheduledEvent, Phase
 from .policy import DecisionSnapshot, PolicyContext, build_decision_snapshot, comparison_decision_key
 from .provenance import ReplayProvenance
+
+@lru_cache(maxsize=16)
+def _verified_git_object(commit, code_hash):
+    # Git objects are content addressed. Executable bytes are still rehashed on
+    # every runtime construction; only the immutable object comparison is cached.
+    from .provenance import verify_commit_code_linkage
+    return verify_commit_code_linkage(commit, code_hash)
 
 @dataclass(frozen=True)
 class ScheduledRunResult:
@@ -49,7 +57,7 @@ class ScheduledSimulationRuntime:
             from .provenance import source_tree_hash,verify_commit_code_linkage
             actual=source_tree_hash()
             if self.provenance.code_tree_sha256!=actual:raise InvariantError('BLOCKED_PROVENANCE: executable source mismatch')
-            verify_commit_code_linkage(self.provenance.git_commit,actual)
+            _verified_git_object(self.provenance.git_commit,actual)
         self._handlers: Dict[str,Callable[[MethodologyHardenedBuild4Kernel,ScheduledEvent],Any]]={}
         self._policy_bindings: Dict[str,tuple[str,DecisionSnapshot,str,Callable[[PolicyContext],Any]]]={}
         self._sealed=False
@@ -73,10 +81,12 @@ class ScheduledSimulationRuntime:
             spec=self.kernel.scheduler.coupling(process_id)
             owner=self.kernel.systems.get(process_id)
             allowed=dict(self.kernel.boundary_manifest.allowed_transitions).get(process_id,())
-            if owner is None or not set(spec.write_set)<=set(owner.owned_state_refs)|set(spec.transition_interfaces):
+            if owner is None or not set(spec.owned_state)<=set(owner.owned_state_refs) or not set(spec.write_set)<=set(owner.owned_state_refs):
                 raise InvariantError('BLOCKED_AUTHORIZATION: SYSTEM state ownership')
             if not admission_receipts or tuple(transition_methods)!=tuple(allowed):
                 raise InvariantError('BLOCKED_DECLARATION: SYSTEM consumption/transitions missing')
+            required={concept for consumer,concept,_ in self.kernel.boundary_manifest.source_resolver_bindings if consumer==process_id}
+            if not required<={r.consumption_request.concept for r in admission_receipts}:raise InvariantError('BLOCKED_DECLARATION: SYSTEM scoped inputs missing')
             for r in admission_receipts:
                 q=r.consumption_request
                 if q.concept not in spec.read_set:raise InvariantError('BLOCKED_AUTHORIZATION: input absent from coupling read set')
@@ -198,16 +208,24 @@ class ScheduledSimulationRuntime:
         if any(r.consumption_request.effective_time!=str(event.effective_time) for r in receipts):raise InvariantError('BLOCKED_TIME: SYSTEM receipt')
         prior=self.kernel._boundary_projection();self.kernel._boundary_event_deltas=[]
         self.kernel._boundary_event_context=(event,receipts,decisions)
+        self.kernel._boundary_consumed_values=values
         try:
             with self.kernel.scheduled_event_context(event.event_id,self._execution_token):
                 result=handler(self.kernel,event)
-        finally:self.kernel._boundary_event_context=None
+        finally:
+            self.kernel._boundary_event_context=None
+            self.kernel._boundary_consumed_values=()
         following=self.kernel._boundary_projection()
         # Apply only recorded outer deltas to the audit projection. Any raw write
         # or read-method side effect makes this exact reconciliation fail.
         projected={(d,p):v for d,p,v in prior}
         for delta in self.kernel._boundary_event_deltas:
             for domain,path,before,after in delta:
+                root=path.split('.')[1] if path.startswith('state.') else path.split('.')[0]
+                root='fcf' if root=='fcf_events' else root
+                if root!='_seq' and root not in spec.write_set:
+                    self.kernel._boundary_invalid=True
+                    raise InvariantError('INVALID_RUN: transition changed undeclared owned state '+root)
                 if projected.get((domain,path))!=before:raise InvariantError('INVALID_RUN: uncovered prior state')
                 if after is None:projected.pop((domain,path),None)
                 else:projected[(domain,path)]=after

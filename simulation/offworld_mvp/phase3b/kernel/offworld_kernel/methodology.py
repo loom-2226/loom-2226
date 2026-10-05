@@ -138,6 +138,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self._boundary_random_keys=[]
         self._boundary_invalid=False
         self._boundary_genesis_inputs=()
+        self._boundary_consumed_values=()
         self.scheduler=DeterministicScheduler()
         self.systems: Dict[str,SystemState]={}
         self.aggregates: Dict[str,AggregateState]={}
@@ -2411,6 +2412,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         skip={'scheduler','boundary_manifest','causal_envelopes','causal_artifacts','decision_epoch_records',
               'decision_epoch_chain_id','active_decision_epoch_id'}
         def domain(name):
+            if name=='_seq':return 'REALIZED_EVENT_STATE'
             if any(x in name for x in ('information','observation','belief','prior','evidence')):return 'INFORMATION_STATE'
             if any(x in name for x in ('decision','request')):return 'DECISION_STATE'
             if any(x in name for x in ('event','record','history')):return 'REALIZED_EVENT_STATE'
@@ -2445,6 +2447,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
     def keyed_draw(self,*keys):
         if self.boundary_manifest is None:return super().keyed_draw(*keys)
         from decimal import getcontext
+        if len(keys)!=5 or keys[0]!='OBS' or keys[4] not in ('REMOTE','SURFACE'):
+            raise InvariantError('BLOCKED_PARAMETER: undeclared WORLD key family')
+        if D(keys[1])!=D(keys[1]).to_integral_value() or D(keys[1])<0:raise InvariantError('BLOCKED_TIME: observation period')
         c=dict(self.boundary_manifest.comparison_parameters)
         if c['key_schema']!='LOOM_COMPARISON_RANDOM_V1' or c['algorithm']!='SHA256_FIRST64_DECIMAL_V1':
             raise InvariantError('BLOCKED_PARAMETER: random contract')
@@ -2489,6 +2494,28 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if 'decision' in b:
             if not original_decisions or typed(b['decision']) not in original_decisions:
                 raise InvariantError('BLOCKED_LINEAGE: executor decision differs from governed policy result')
+        if original_decisions:
+            for ref,d in zip(decision_refs,original_decisions):
+                origin=next((e for e in self.causal_envelopes if e.action=='POLICY_EVALUATION' and ref in e.decision_refs),None)
+                if origin is None or not origin.request_refs:raise InvariantError('BLOCKED_LINEAGE: decision request absent')
+                q=json.loads(self.causal_artifacts[origin.request_refs[0]][1])['fields'];f=d['fields']
+                actor=f.get('actor_id',f.get('financier_id',{})).get('value')
+                actual_actor=b.get('actor_id',b.get('agent_id',b.get('financier_id')))
+                if actual_actor is not None and actual_actor!=actor:raise InvariantError('BLOCKED_LINEAGE: action actor not authorized')
+                if project is not None and 'project_id' in q and project!=q['project_id']['value']:raise InvariantError('BLOCKED_LINEAGE: action project not authorized')
+                if name in ('explore_paid','surface_prospect_paid'):
+                    channel='SURFACE' if name=='surface_prospect_paid' else b.get('channel')
+                    if f['outcome']['value']!='AUTHORIZE' or D(b['cost'])!=D(f['authorized_cost']['value']) or resource!=q['resource_id']['value'] or channel!=q['channel']['value']:
+                        raise InvariantError('BLOCKED_LINEAGE: observation action not authorized')
+                if name=='publish_observation' and (f['outcome']['value']!='PUBLISH' or b['observation_id']!=q['observation_id']['value'] or b['audience']!=q['audience']['value']):raise InvariantError('BLOCKED_LINEAGE: publication not authorized')
+                if name=='transition_project_status':
+                    expected_status={'ABANDON':'ABANDONED','DEVELOP':'DEVELOPMENT'}.get(f['outcome']['value'])
+                    if b['new_status']!=expected_status or b['reason_ref']!=f['id']['value']:raise InvariantError('BLOCKED_LINEAGE: project transition not authorized')
+                if name=='add_commitment' and f['outcome']['value'] not in ('AUTHORIZE','APPROVE'):raise InvariantError('BLOCKED_LINEAGE: funding decision not approved')
+                if name=='disburse':
+                    commitment=self.state.commitments.get(b['commitment_id'])
+                    if commitment is None or commitment.financier_id!=actor or commitment.project_id!=q['project_id']['value'] or self.state.accounts[b['source_account']].owner_id!=actor:
+                        raise InvariantError('BLOCKED_LINEAGE: disbursement ownership/project')
         if name in ('add_commitment','disburse'):
             if not original_decisions:raise InvariantError('BLOCKED_LINEAGE: financing authorization absent')
             permitted=[]
@@ -2549,14 +2576,16 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         m=self.boundary_manifest;delta=state_delta(prior,following)
         archived=tuple((kind,archive(self.causal_artifacts,kind,value)) for kind,value in artifacts)
         rrefs=tuple(archive(self.causal_artifacts,'ADMITTED_INFORMATION',r) for r in receipts)
-        vrefs=tuple(archive(self.causal_artifacts,'INFORMATION_ARTIFACT',verify_receipt(self,r)) for r in receipts)
+        consumed=tuple(source_values) if receipts and source_values else tuple(verify_receipt(self,r) for r in receipts)
+        if receipts and (len(consumed)!=len(receipts) or any(v.fingerprint()!=r.resolved_value_hash for v,r in zip(consumed,receipts))):raise InvariantError('TRACE_INCOMPLETE: consumed value/receipt mismatch')
+        vrefs=tuple(archive(self.causal_artifacts,'INFORMATION_ARTIFACT',v) for v in consumed)
         from .provenance import source_tree_hash
         sources=(*m.scenario_definition_refs,*m.real_source_refs,*m.harness_refs,('EXECUTABLE_OFFWORLD_KERNEL_SHA256',source_tree_hash()))
         code_hash=source_tree_hash()
         rule_refs=tuple(rule_refs) or (('GENESIS_RULE:'+m.contract_version,) if event.process_id=='GENESIS' else ('SYSTEM_RULE:'+event.process_id+':'+m.contract_version,))
         rule_refs=tuple(ref+'#'+code_hash for ref in rule_refs)
         prev=validate_trace(self.causal_envelopes,self.causal_artifacts)
-        e=CausalEnvelope('causal:'+m.run_id+':'+str(len(self.causal_envelopes)+1),'CAUSAL_ENVELOPE_V1',m.run_id,event.event_id,self.active_decision_epoch_id or 'GENESIS',str(event.effective_time),'SIM_TIME',actor_id or event.stable_key,event.process_id,action,'REALIZED',m.run_id,'WORLD_SIM',tuple(request_refs),tuple(decision_refs),(*information_refs,*vrefs),rrefs,tuple((d,p,a) for d,p,a,_ in delta),str(result),tuple((d,p,b) for d,p,_,b in delta),reason_code,str(result),rule_refs,m.parameter_manifest_refs,(m.scenario_id,m.scenario_version,m.scenario_definition_refs[0][1]),tuple(self._boundary_random_keys),tuple(sources),tuple(ref for _,ref in archived),tuple(e.envelope_id for e in self.causal_envelopes[-1:]),content_hash(prior),content_hash(following),prev,'',decision_time,authorization_time,str(event.effective_time),tuple((v.assertion_id,v.time_basis,v.source_time) for v in (*source_values,*(verify_receipt(self,r) for r in receipts))),archived).finalized()
+        e=CausalEnvelope('causal:'+m.run_id+':'+str(len(self.causal_envelopes)+1),'CAUSAL_ENVELOPE_V1',m.run_id,event.event_id,self.active_decision_epoch_id or 'GENESIS',str(event.effective_time),'SIM_TIME',actor_id or event.stable_key,event.process_id,action,'REALIZED',m.run_id,'WORLD_SIM',tuple(request_refs),tuple(decision_refs),(*information_refs,*vrefs),rrefs,tuple((d,p,a) for d,p,a,_ in delta),str(result),tuple((d,p,b) for d,p,_,b in delta),reason_code,str(result),rule_refs,m.parameter_manifest_refs,(m.scenario_id,m.scenario_version,m.scenario_definition_refs[0][1]),tuple(self._boundary_random_keys),tuple(sources),tuple(ref for _,ref in archived),tuple(e.envelope_id for e in self.causal_envelopes[-1:]),content_hash(prior),content_hash(following),prev,'',decision_time,authorization_time,str(event.effective_time),tuple((v.assertion_id,v.time_basis,v.source_time) for v in (consumed if receipts else source_values)),archived).finalized()
         self.causal_envelopes.append(e)
         return e
 
@@ -2564,9 +2593,11 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if self._boundary_capture_depth:return attr(*args,**kwargs)
         from .causal_trace import content_hash,state_delta
         prior=self._boundary_projection();event,receipts,decision_refs=self._boundary_event_context
+        from .boundary import verify_receipt
+        consumed=self._boundary_consumed_values or tuple(verify_receipt(self,r) for r in receipts)
         try:self._boundary_preflight(name,attr,args,kwargs)
         except (InvariantError,ValueError,KeyError) as exc:
-            self._boundary_emit(event,name,prior,prior,str(exc),receipts=(),reason_code='BLOCKED_ADMISSION')
+            self._boundary_emit(event,name,prior,prior,str(exc),receipts=receipts,source_values=consumed,decision_refs=decision_refs,artifacts=(('BLOCKED_TRANSITION_INPUTS',(args,tuple(sorted(kwargs.items())))),),reason_code='BLOCKED_ADMISSION')
             raise
         self._boundary_capture_depth+=1
         try:
@@ -2574,7 +2605,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         except Exception as exc:
             following=self._boundary_projection()
             self._boundary_invalid=following!=prior
-            self._boundary_emit(event,name,prior,following,str(exc),decision_refs=decision_refs,reason_code='INVALID_RUN' if self._boundary_invalid else 'BLOCKED')
+            self._boundary_emit(event,name,prior,following,str(exc),receipts=receipts,source_values=consumed,decision_refs=decision_refs,reason_code='INVALID_RUN' if self._boundary_invalid else 'BLOCKED')
             raise
         finally:self._boundary_capture_depth-=1
         following=self._boundary_projection()
@@ -2582,7 +2613,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         bound=inspect.signature(attr).bind(*args,**kwargs).arguments
         actor_id=bound.get('actor_id',bound.get('agent_id',bound.get('financier_id',event.process_id)))
         self._boundary_event_deltas.append(state_delta(prior,following))
-        self._boundary_emit(event,name,prior,following,result,receipts=(),decision_refs=decision_refs,artifacts=(('REALIZED_EVENT',result),('TRANSITION_INPUTS',(args,tuple(sorted(kwargs.items()))))),actor_id=actor_id,decision_time=self._boundary_decisions.get(decision_refs[0],(None,))[0] if decision_refs else None,authorization_time=self._boundary_decisions[decision_refs[0]][2] if decision_refs else None)
+        self._boundary_emit(event,name,prior,following,result,receipts=receipts,source_values=consumed,decision_refs=decision_refs,artifacts=(('REALIZED_EVENT',result),('TRANSITION_INPUTS',(args,tuple(sorted(kwargs.items()))))),actor_id=actor_id,decision_time=self._boundary_decisions.get(decision_refs[0],(None,))[0] if decision_refs else None,authorization_time=self._boundary_decisions[decision_refs[0]][2] if decision_refs else None)
         return result
 
 
