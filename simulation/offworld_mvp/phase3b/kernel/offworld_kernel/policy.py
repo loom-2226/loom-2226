@@ -61,6 +61,15 @@ class DecisionSnapshot:
           'admitted_facts':tuple((f.key,f.state.value,f.value,f.source_ref) for f in self.admitted_facts)}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
 
+def _comparison_draw(coordinates):
+    """Shared strict conversion; coordinates are framed, not delimiter joined."""
+    from decimal import getcontext
+    ctx=getcontext()
+    if ctx.prec!=28 or str(ctx.rounding)!='ROUND_HALF_EVEN':
+        raise InvariantError('BLOCKED_PARAMETER: decimal replay environment')
+    raw=json.dumps(coordinates,separators=(',',':'),ensure_ascii=True)
+    return D(int.from_bytes(sha256(raw.encode()).digest()[:8],'big'))/D(2**64)
+
 @dataclass(frozen=True, slots=True)
 class PolicyContext:
     snapshot: DecisionSnapshot
@@ -69,7 +78,7 @@ class PolicyContext:
 
     def deterministic_draw(self,label:str)->D:
         if self.decision_key.startswith('LOOM_COMPARISON_RANDOM_V1:'):
-            raw=json.dumps(['LOOM_COMPARISON_RANDOM_V1','POLICY',self.decision_key,str(label)],separators=(',',':'),ensure_ascii=True)
+            return _comparison_draw(['LOOM_COMPARISON_RANDOM_V1','POLICY',self.decision_key,str(label)])
         else:
             raw='|'.join((self.decision_key,self.snapshot.fingerprint(),str(label)))
         n=int.from_bytes(sha256(raw.encode()).digest()[:8],'big')

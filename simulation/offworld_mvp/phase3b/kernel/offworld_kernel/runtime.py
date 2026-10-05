@@ -175,6 +175,7 @@ class ScheduledSimulationRuntime:
                 return 'BLOCKED_ADMISSION'
             validate_snapshot(self.kernel,agent_id,snapshot.period_key,snapshot.effective_time,snapshot.admitted_facts,receipts)
             opaque_key=comparison_decision_key(self.kernel.boundary_manifest.comparison_parameters,agent_id,snapshot.period_key,decision_key)
+            self.kernel._boundary_random_keys.append(json.dumps(['LOOM_COMPARISON_RANDOM_V1','POLICY',opaque_key],separators=(',',':')))
             result=policy(PolicyContext(snapshot,event.snapshot_ref,opaque_key))
             if self.kernel._boundary_projection()!=prior:
                 self.kernel._boundary_invalid=True

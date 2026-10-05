@@ -138,6 +138,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self._boundary_random_keys=[]
         self._boundary_invalid=False
         self._boundary_genesis_inputs=()
+        self._boundary_authored_inputs=()
         self._boundary_consumed_values=()
         self.scheduler=DeterministicScheduler()
         self.systems: Dict[str,SystemState]={}
@@ -1738,7 +1739,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             validate_opening(self)
             self._boundary_opening_validated=True
             event=SimpleNamespace(event_id='GENESIS',effective_time=D(0),process_id='GENESIS',stable_key='GENESIS')
-            self._boundary_emit(event,'GENESIS',(),self._boundary_projection(),'DECLARED_OPENING_STATE',artifacts=(('SCENARIO_INPUT',self.boundary_manifest),('ADMITTED_INFORMATION',self._boundary_genesis_inputs)))
+            self._boundary_emit(event,'GENESIS',(),self._boundary_projection(),'DECLARED_OPENING_STATE',artifacts=(('SCENARIO_INPUT',self.boundary_manifest),('ADMITTED_INFORMATION',self._boundary_genesis_inputs),('AUTHORED_INPUT_RECORDS',self._boundary_authored_inputs)))
         self.scheduler=DeterministicScheduler()
         self.active_decision_epoch_id=epoch_id
         self._decision_epoch_open_state_fingerprint=self.decision_epoch_state_fingerprint()
@@ -2456,9 +2457,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if getcontext().prec!=int(c['decimal_precision']) or str(getcontext().rounding)!=c['decimal_rounding']:
             raise InvariantError('BLOCKED_PARAMETER: decimal replay environment')
         raw=json.dumps([c['key_schema'],'WORLD',c['world_seed'],c['comparison_group'],*map(str,keys)],separators=(',',':'),ensure_ascii=True)
-        n=int.from_bytes(sha256(raw.encode()).digest()[:8],'big')
+        from .policy import _comparison_draw
         self._boundary_random_keys.append(raw)
-        return D(n)/D(2**64)
+        return _comparison_draw(json.loads(raw))
 
     def _boundary_preflight(self,name,attr,args,kwargs):
         import inspect

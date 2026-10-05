@@ -135,8 +135,19 @@ def archive(artifacts, kind, value):
 
 
 def validate_trace(envelopes, artifacts):
-    previous='';seen=set();post=None;realized=None
+    previous='';seen=set();post=None;realized=None;rows={};identity=None
     for e in envelopes:
+        current=(e.run_id,e.context_id,e.record_version,e.parameter_manifest_refs,e.scenario_ref,e.source_artifact_refs)
+        if identity is None:identity=current
+        elif identity!=current:raise InvariantError('TRACE_INCOMPLETE: input/context/version drift')
+        if content_hash(tuple(sorted((d,p,v) for (d,p),v in rows.items())))!=e.pre_domain_hash:
+            raise InvariantError('TRACE_INCOMPLETE: forged pre-state image')
+        for (domain,path,before),(_,_,after) in zip(e.prior_state,e.new_state):
+            if rows.get((domain,path))!=before:raise InvariantError('TRACE_INCOMPLETE: omitted/forged delta path')
+            if after is None:rows.pop((domain,path),None)
+            else:rows[(domain,path)]=after
+        if content_hash(tuple(sorted((d,p,v) for (d,p),v in rows.items())))!=e.post_domain_hash:
+            raise InvariantError('TRACE_INCOMPLETE: omitted/forged post-state image')
         if realized is not None and Decimal(e.realized_time)<realized:
             raise InvariantError('TRACE_INCOMPLETE: realization time moved backwards')
         if post is not None and e.pre_domain_hash!=post:
@@ -155,6 +166,13 @@ def validate_trace(envelopes, artifacts):
         source_hashes={digest for _,digest in e.source_artifact_refs}
         if any('#' not in rule or rule.rsplit('#',1)[1] not in source_hashes for rule in e.rule_refs):
             raise InvariantError('TRACE_INCOMPLETE: unbound rule source/version')
+        for rule in e.rule_refs:
+            origin=rule.rsplit('#',1)[0]
+            if origin.startswith('SYSTEM_RULE:') and not origin.startswith('SYSTEM_RULE:'+e.process_id+':'):
+                raise InvariantError('TRACE_INCOMPLETE: wrong mechanism rule')
+            if origin.startswith('POLICY_RULE:'):
+                versions={json.loads(artifacts[r][1])['fields']['policy_version']['value'] for r in e.decision_refs}
+                if origin.split(':',1)[1] not in versions:raise InvariantError('TRACE_INCOMPLETE: wrong policy version')
         if not e.decision_refs and not any(r.startswith(('SYSTEM_RULE:','GENESIS_RULE:')) for r in e.rule_refs):
             raise InvariantError('TRACE_INCOMPLETE: no decision or explicit system/genesis origin')
         if e.pre_domain_hash==e.post_domain_hash and e.prior_state!=e.new_state:

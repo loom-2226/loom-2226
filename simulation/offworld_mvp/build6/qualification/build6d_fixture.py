@@ -215,6 +215,7 @@ def make_kernel(world='RICH',overrides=None):
     request=ConsumptionRequest('EARTH_POPULATION_BOUND','GENESIS','EARTH_REFERENCE','USA','population','COUNTRY:USA','CALENDAR_YEAR','2026','2026','REAL','','GOVERNANCE','','ADMITTED','PERSON','EARTH_REFERENCE')
     bound,receipt=admit_for_use(k,request);genesis.append((receipt,bound))
     k._boundary_genesis_inputs=tuple(genesis)
+    k._boundary_authored_inputs=(table,policy_manifest)
     m=replace(m,assertions=(*m.assertions,*derived));k.boundary_manifest=m
     opening=tuple((key,canonical(k._boundary_opening_value(key))) for key in ('accounts','agents','resources','constraints','population','earth_admission_receipts'))
     k.boundary_manifest=replace(m,opening_bindings=opening,opening_state_hash=content_hash(k._boundary_projection()))
