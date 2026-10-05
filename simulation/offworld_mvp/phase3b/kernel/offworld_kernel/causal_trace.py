@@ -9,6 +9,7 @@ from decimal import Decimal
 from enum import Enum
 from hashlib import sha256
 import json
+from functools import lru_cache
 from .kernel import InvariantError
 
 
@@ -37,7 +38,17 @@ def canonical(value):
     return json.dumps(typed(value), sort_keys=True, separators=(',', ':'), ensure_ascii=True)
 
 
+@lru_cache(maxsize=256)
+def _immutable_tuple_hash(value):
+    return sha256(canonical(value).encode('utf-8')).hexdigest()
+
+
 def content_hash(value):
+    # Only deeply immutable scalar tuples are memoized. Mutable state/records
+    # are always serialized afresh. This caches pure calculations, not state.
+    def immutable(v):
+        return v is None or type(v) in (str,int,bool,Decimal) or isinstance(v,Enum) or isinstance(v,tuple) and all(immutable(x) for x in v)
+    if isinstance(value,tuple) and immutable(value):return _immutable_tuple_hash(value)
     return sha256(canonical(value).encode('utf-8')).hexdigest()
 
 
@@ -118,6 +129,7 @@ class CausalEnvelope:
         if not self.rule_refs or not self.source_artifact_refs:
             raise InvariantError('causal origin/rules incomplete')
 
+    @lru_cache(maxsize=512)
     def digest(self):
         return content_hash(tuple((f.name,getattr(self,f.name)) for f in fields(self) if f.name!='envelope_hash'))
 

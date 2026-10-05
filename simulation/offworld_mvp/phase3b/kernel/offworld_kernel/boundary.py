@@ -10,6 +10,7 @@ from hashlib import sha256
 import json
 from pathlib import Path
 import re
+from functools import lru_cache
 from .kernel import InvariantError
 from .policy import FactState, SnapshotFact
 from .causal_trace import canonical, content_hash
@@ -129,6 +130,7 @@ class ContextValue:
             raise InvariantError('invalid source validity')
         _time(self.available_from);_time(self.source_time)
 
+    @lru_cache(maxsize=128)
     def fingerprint(self):return content_hash(self)
 
 
@@ -206,6 +208,7 @@ class BoundaryManifest:
         if key not in params:raise InvariantError(f'BLOCKED_PARAMETER: {key}')
         return params[key]
 
+    @lru_cache(maxsize=128)
     def fingerprint(self):return content_hash(self)
 
 

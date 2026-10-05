@@ -2499,7 +2499,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             for ref,d in zip(decision_refs,original_decisions):
                 origin=next((e for e in self.causal_envelopes if e.action=='POLICY_EVALUATION' and ref in e.decision_refs),None)
                 if origin is None or not origin.request_refs:raise InvariantError('BLOCKED_LINEAGE: decision request absent')
-                q=json.loads(self.causal_artifacts[origin.request_refs[0]][1])['fields'];f=d['fields']
+                original_request=json.loads(self.causal_artifacts[origin.request_refs[0]][1])
+                if 'decision' in b and typed(qrequest)!=original_request:raise InvariantError('BLOCKED_LINEAGE: executor request differs from authorized request')
+                q=original_request['fields'];f=d['fields']
                 actor=f.get('actor_id',f.get('financier_id',{})).get('value')
                 actual_actor=b.get('actor_id',b.get('agent_id',b.get('financier_id')))
                 if actual_actor is not None and actual_actor!=actor:raise InvariantError('BLOCKED_LINEAGE: action actor not authorized')

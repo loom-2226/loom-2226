@@ -71,7 +71,7 @@ class IntegratedQualificationTests(unittest.TestCase):
         k._boundary_event_context=(event,(),(ref,))
         try:
             rec=replace(k.operating_cost_records[0],transaction_id='FORGED')
-            with self.assertRaisesRegex(InvariantError,'LINEAGE'):k._boundary_preflight('resolve_operating_extraction',k.resolve_operating_extraction,(9,'SPN',h['requests']['FIRST_OPERATING:funded'],d,rec),{})
+            with self.assertRaisesRegex(InvariantError,'LINEAGE'):k._boundary_preflight('resolve_operating_extraction',type(k).resolve_operating_extraction.__get__(k),(9,'SPN',h['requests']['FIRST_OPERATING:funded'],d,rec),{})
         finally:k._boundary_event_context=None
     def test_F08_unqualified_transport(self):
         k,h=run_case('RICH',{'technology_qualified':'FALSE'});self.assertFalse(k.passenger_transport_departures);self.assertEqual(k.population.offworld['OFF:T1'],0)
@@ -145,3 +145,16 @@ class IntegratedQualificationTests(unittest.TestCase):
         with self.assertRaises((ValueError,InvariantError)):h['policies']['SALE'].decision.validate_protocol(wrong)
         m,unused=make_kernel();q=policy_inputs(m,'SPN','10',('project.CASH_BALANCE',))[-1].consumption_request
         with self.assertRaisesRegex(InvariantError,'SCOPE'):admit_for_use(m,replace(q,scope='PROJECT:OTHER'))
+
+    def test_F14_same_request_id_wrong_resource_is_blocked(self):
+        from offworld_kernel.scheduler import ScheduledEvent,Phase
+        k,h=baseline('RICH');decision=h['policies']['SALE'].decision
+        ref=next(ref for ref,(_,did,_) in k._boundary_decisions.items() if did==decision.id)
+        wrong=replace(h['requests']['SALE'],resource_id='OTHER')
+        k._boundary_event_context=(ScheduledEvent('CROSS',D(10),Phase.OPERATIONS,0,'SPN','SYS:clear_market_sale'),(),(ref,))
+        before=k._boundary_projection()
+        try:
+            with self.assertRaisesRegex(InvariantError,'executor request'):
+                k._boundary_preflight('clear_market_sale',type(k).clear_market_sale.__get__(k),(10,'SPN',wrong,decision),{})
+        finally:k._boundary_event_context=None
+        self.assertEqual(k._boundary_projection(),before)
