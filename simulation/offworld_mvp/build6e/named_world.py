@@ -244,8 +244,10 @@ def compile_world_rows(doc: Mapping[str, Any], source_row: Mapping[str, Any], wo
             uncertainty_ref=provenance, derivation_ref=derivation, value_sha256=_sha(canonical(payload)),
             original_provenance_lexeme=provenance)))
 
-    policy_obj = {"algorithm": MODEL_FAMILY, "world": world_name, "vector": vector,
-                  "source_constraint": src["assertion_id"], "scope": "LOCAL_SITE", "support_id": src["support_id"],
+    # One stable policy identity describes the shared transformation rule;
+    # comparison-specific quantities belong to each immutable scenario/world.
+    policy_obj = {"algorithm": MODEL_FAMILY, "source_constraint": src["assertion_id"],
+                  "scope": "LOCAL_SITE", "support_id": src["support_id"],
                   "source_nominal_is_not_deposit_grade": True, "policy_seed_used": False}
     policy_bytes = canonical(policy_obj)
     rows = [
@@ -254,7 +256,7 @@ def compile_world_rows(doc: Mapping[str, Any], source_row: Mapping[str, Any], wo
             definition_locator="simulation/offworld_mvp/build6e/inputs/BUILD6E_NAMED_WORLD_V1.json", world_context="SCENARIO")),
         ("wa_world.generation_model", dict(model_id=model_id, semantic_key=gen["model_key"], version=gen["model_version"],
             name="Fixed scoped structural realization", status_lexeme="AUTHORIZED_STRUCTURAL_FIXTURE",
-            implementation_sha256=defh, implementation_locator="simulation/offworld_mvp/build6e/named_world.py",
+            implementation_sha256=_sha(Path(__file__).read_bytes()), implementation_locator="simulation/offworld_mvp/build6e/named_world.py",
             model_family_ref=MODEL_FAMILY, uncertainty_contract_ref="SOURCE_TEXT_PRESERVED_NO_DISTRIBUTION",
             parameter_schema_ref="BUILD6E_NAMED_WORLD_V1")),
         ("wa_world.generation_policy", dict(policy_id=policy_id, model_id=model_id, semantic_key=gen["policy_key"], version=gen["policy_version"],
