@@ -158,7 +158,7 @@ def admitted_constraint(reference_reader, doc: Mapping[str, Any]) -> Mapping[str
         "metadata_sha256": s["assertion_metadata_sha256"],
         "snapshot_id": s["source_snapshot_id"],
         "source_byte_sha256": None,
-        "custody_kind": "REMOTE_REFERENCE_ONLY",
+        "custody_kind": None,
         "source_artifact_id": None,
         "knowledge_time_id": None,
         "valid_time_id": None,
