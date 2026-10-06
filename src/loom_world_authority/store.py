@@ -231,14 +231,9 @@ def read_catalog_location(conn,body_key,location_key):
         WHERE b.semantic_key=%s AND l.semantic_key=%s''',(body_key,location_key))
 
 
-def record_fixture_admission(conn,manifest):
-    """One immutable use-scoped fixture decision. ETL never invokes this.
-
-    The caller supplies a pinned neutral manifest, not scientific interpretation.
-    Time metadata must already exist under the independent science-writer route.
-    """
+def _fixture_time_identity(manifest):
+    """Validate the existing V1 fixture recipe without creating a decision."""
     from .etl import canonical
-    from psycopg import sql
     required={'profile','assertion_id','assertion_metadata_sha256','support_id','source_snapshot_sha256','initial_standing','use_contract_ref','authorization_ref','decision_ordinal','standing','effective_availability_lexeme','time_support'}
     if set(manifest)!=required or manifest['profile']!='WA_FIXTURE_ADMISSION_MANIFEST_V1':raise IntegrityFailure('FIXTURE_MANIFEST_FIELDS')
     if manifest['standing'] not in ('ADMITTED','HOLD') or manifest['initial_standing']!='CANDIDATE':raise IntegrityFailure('FIXTURE_MANIFEST_STANDING')
@@ -247,9 +242,74 @@ def record_fixture_admission(conn,manifest):
     for k in ('assertion_id','support_id'):uuid.UUID(manifest[k])
     time=manifest['time_support'];columns=('kind','time_lexeme','start_lexeme','end_lexeme','calendar_ref','timescale_ref','instant_utc','interval_utc','parsing_warrant_ref')
     if set(time)!=set(columns) or time['kind']!='LEXICAL' or time['timescale_ref']!='SIM_TIME' or time['time_lexeme']!=manifest['effective_availability_lexeme'] or any(time[k] is not None for k in columns if k not in ('kind','time_lexeme','timescale_ref')):raise IntegrityFailure('FIXTURE_TIME_METADATA')
-    if conn.info.transaction_status.value!=0:raise IntegrityFailure('FIXTURE_ADMISSION_REQUIRES_IDLE_CONNECTION')
     mh=sha256_bytes(canonical(manifest));ordinal=str(manifest['decision_ordinal'])
     tid=stable_uuid('TIME_SUPPORT','LOOM_WORLD_AUTHORITY_V1','BUILD6E_FIXTURE_ADMISSION:'+ordinal,mh)
+    return mh,tid,time
+
+
+def install_fixture_time_support(conn,manifest):
+    """Science-writer-only lexical helper for a later independent governor decision."""
+    mh,tid,time=_fixture_time_identity(manifest)
+    if conn.info.transaction_status.value!=0:raise IntegrityFailure('FIXTURE_TIME_REQUIRES_IDLE_CONNECTION')
+    with conn.transaction():
+        serializable(conn);_require_session_group(conn,'wa_science_writer')
+        conn.execute('SET LOCAL ROLE wa_science_writer');assert_service_role(conn,SERVICE_ROUTES['science_writer'])
+        conn.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))',('WA_FIXTURE_ADMISSION:'+str(manifest['decision_ordinal']),))
+        status=_match_or_insert_columns(conn,'wa_geo.time_support',dict(time_id=tid,**time))
+        conn.execute('SET CONSTRAINTS ALL IMMEDIATE')
+    return status
+
+
+def install_authored_site_metadata(conn,manifest):
+    """One owner-authored parent/site/feature and model-unit fixture; no science admission."""
+    from .etl import canonical
+    from .etl import SOURCE_SHA
+    required={'profile','authorization_ref','identity_authority','body_key','parent_location_key','site_key','site_name','feature_key','feature_name','unit_key'}
+    if set(manifest)!=required or manifest['profile']!='WA_AUTHORED_SITE_METADATA_V1':raise IntegrityFailure('AUTHORED_SITE_MANIFEST_FIELDS')
+    if manifest['identity_authority']!='LOOM_BUILD6E_NAMED_WORLD_V1' or manifest['unit_key']!='MODEL_RESOURCE_UNIT_BY_FAMILY':raise IntegrityFailure('AUTHORED_SITE_PROFILE')
+    for k in required-{'profile'}:
+        if not isinstance(manifest[k],str) or not manifest[k] or len(manifest[k])>512:raise IntegrityFailure('AUTHORED_SITE_VALUE:'+k)
+    if manifest['site_key']==manifest['feature_key'] or manifest['parent_location_key'] in (manifest['site_key'],manifest['feature_key']):raise IntegrityFailure('AUTHORED_SITE_IDENTITY')
+    if conn.info.transaction_status.value!=0:raise IntegrityFailure('AUTHORED_SITE_REQUIRES_IDLE_CONNECTION')
+    digest=sha256_bytes(canonical(manifest))
+    site_id=stable_uuid('AUTHORED_LOCATION',manifest['identity_authority'],length_prefixed(manifest['body_key'],manifest['site_key']).decode(),'IDENTITY_V1')
+    feature_id=stable_uuid('AUTHORED_LOCATION',manifest['identity_authority'],length_prefixed(manifest['body_key'],manifest['feature_key']).decode(),'IDENTITY_V1')
+    source_ref='AUTHORED_SPATIAL_ANCHOR:'+manifest['authorization_ref']+':'+digest
+    warrant_ref='AUTHORED_CONTAINS:'+manifest['authorization_ref']+':'+digest
+    with conn.transaction():
+        serializable(conn);_require_session_group(conn,'wa_science_writer')
+        conn.execute('SET LOCAL ROLE wa_science_writer');assert_service_role(conn,SERVICE_ROUTES['science_writer'])
+        conn.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))',('WA_AUTHORED_SITE:'+manifest['body_key']+':'+manifest['site_key'],))
+        body=conn.execute('SELECT body_id FROM wa_geo.body WHERE semantic_key=%s',(manifest['body_key'],)).fetchone()
+        if body is None or body[0]!=stable_uuid('BODY','LOOM_BODY_V1',manifest['body_key'],'IDENTITY_V1'):raise IntegrityFailure('AUTHORED_SITE_BODY_ABSENT')
+        body_id=body[0]
+        parent=conn.execute('''SELECT location_id,location_kind,origin_kind,source_ref FROM wa_geo.location
+            WHERE body_id=%s AND semantic_key=%s''',(body_id,manifest['parent_location_key'])).fetchone()
+        parent_id=stable_uuid('LOCATION','LOOM_LOCATION_V1',length_prefixed(manifest['body_key'],manifest['parent_location_key']).decode(),'IDENTITY_V1')
+        if parent is None or parent[0]!=parent_id or parent[1] not in ('REGION','SITE') or parent[2]!='EMPIRICALLY_IDENTIFIED' or not parent[3].startswith('SOURCE_ROW:'+SOURCE_SHA+':'):raise IntegrityFailure('AUTHORED_SITE_PARENT_NOT_EMPIRICAL')
+        rows=(
+            ('wa_meta.unit',dict(unit_key=manifest['unit_key'],source_lexeme=manifest['unit_key'],dimension_ref='MODEL_RESOURCE_BY_FAMILY',canonical_unit_ref=None,conversion_profile_ref=None,interpretation_state='UNCHARACTERIZED')),
+            ('wa_geo.location',dict(location_id=site_id,body_id=body_id,system_id=None,semantic_key=manifest['site_key'],name=manifest['site_name'],location_kind='SITE',original_region_type=None,origin_kind='AUTHORED_SPATIAL_ANCHOR',geometry_id=None,source_ref=source_ref,notes=None)),
+            ('wa_geo.location',dict(location_id=feature_id,body_id=body_id,system_id=None,semantic_key=manifest['feature_key'],name=manifest['feature_name'],location_kind='LOCAL_FEATURE',original_region_type=None,origin_kind='AUTHORED_SPATIAL_ANCHOR',geometry_id=None,source_ref=source_ref,notes=None)),
+            ('wa_geo.location_relation',dict(from_location_id=parent[0],to_location_id=site_id,relation_kind='CONTAINS',warrant_ref=warrant_ref)),
+            ('wa_geo.location_relation',dict(from_location_id=site_id,to_location_id=feature_id,relation_kind='CONTAINS',warrant_ref=warrant_ref)),
+        )
+        existing=conn.execute('SELECT 1 FROM wa_geo.location WHERE location_id=%s',(site_id,)).fetchone() is not None
+        statuses=[_match_or_insert_columns(conn,t,v,read_only=existing) for t,v in rows]
+        conn.execute('SET CONSTRAINTS ALL IMMEDIATE')
+    return ('ALREADY_MATCHED' if all(s=='ALREADY_MATCHED' for s in statuses) else 'INSERTED',site_id,feature_id)
+
+
+def record_fixture_admission(conn,manifest):
+    """One immutable use-scoped fixture decision. ETL never invokes this.
+
+    The caller supplies a pinned neutral manifest, not scientific interpretation.
+    Time metadata must already exist under the independent science-writer route.
+    """
+    from psycopg import sql
+    mh,tid,time=_fixture_time_identity(manifest);ordinal=str(manifest['decision_ordinal'])
+    columns=('kind','time_lexeme','start_lexeme','end_lexeme','calendar_ref','timescale_ref','instant_utc','interval_utc','parsing_warrant_ref')
+    if conn.info.transaction_status.value!=0:raise IntegrityFailure('FIXTURE_ADMISSION_REQUIRES_IDLE_CONNECTION')
     aid=stable_uuid('SCIENCE_ADMISSION','LOOM_WORLD_AUTHORITY_V1',length_prefixed(manifest['assertion_id'],manifest['use_contract_ref'],ordinal).decode(),mh)
     with conn.transaction():
         serializable(conn);_require_session_group(conn,'wa_science_governor');conn.execute('SET LOCAL ROLE wa_science_governor');assert_service_role(conn,SERVICE_ROUTES['science_governor'])
