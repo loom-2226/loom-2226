@@ -19,6 +19,7 @@ except ImportError:
     psycopg = None
 
 EXECUTED=set()
+TRANSACTION_EVIDENCE={}
 AGENT_B="wa_q_agent_b"
 WORLD="wa_q_world"
 GOVERNOR="wa_q_governor"
@@ -115,18 +116,22 @@ class WorldAuthoritySecurity(unittest.TestCase):
             cls._populate_facts(c)
             c.execute("COMMIT")
         cls._populate_science()
+        cls._setup_epoch_services()
 
     @classmethod
     def tearDownClass(cls):
+        cls._services_dir.cleanup()
+        if cls._old_service_file is None:os.environ.pop('PGSERVICEFILE',None)
+        else:os.environ['PGSERVICEFILE']=cls._old_service_file
         with conn(ADMIN,ADMIN_PASSWORD,autocommit=True) as c:
             c.execute(f"DROP ROLE IF EXISTS {AGENT}")
             c.execute(f"DROP ROLE IF EXISTS {WRITER}")
             c.execute(f"DROP ROLE IF EXISTS {RUNTIME}")
-            for login in (AGENT_B,WORLD,GOVERNOR,AUDITOR,ADMISSION,REFERENCE,EXECUTOR):c.execute(sql.SQL('DROP ROLE {}').format(sql.Identifier(login)))
+            for login in (AGENT_B,WORLD,GOVERNOR,AUDITOR,ADMISSION,REFERENCE,EXECUTOR,'wa_q_mixed'):c.execute(sql.SQL('DROP ROLE {}').format(sql.Identifier(login)))
 
     def setUp(self):
         name=self._testMethodName
-        if name.startswith('test_S'):EXECUTED.add(name[5:8])
+        if name.startswith(('test_S','test_T')):EXECUTED.add(name[5:8])
 
     @staticmethod
     def _insert(c,table,values):
@@ -545,6 +550,344 @@ class WorldAuthoritySecurity(unittest.TestCase):
             with self.assertRaises(psycopg.errors.InsufficientPrivilege):c.execute('SELECT 1 FROM wa_geo.location LIMIT 1')
         with conn(WORLD,TEST_PASSWORD,autocommit=True) as c:
             with self.assertRaises(psycopg.errors.InsufficientPrivilege):c.execute("INSERT INTO wa_meta.unit(unit_key,source_lexeme,interpretation_state) VALUES ('FORGED','FORGED','UNCHARACTERIZED')")
+
+    @classmethod
+    def _setup_epoch_services(cls):
+        import tempfile
+        from pathlib import Path
+        cls._services_dir = tempfile.TemporaryDirectory(prefix='wa-run-services-')
+        cls._old_service_file = os.environ.get('PGSERVICEFILE')
+        path = Path(cls._services_dir.name)/'pg_service.conf'
+        users = (EXECUTOR, RUNTIME, ADMISSION, AGENT, AGENT_B, WORLD, GOVERNOR,
+                 AUDITOR, REFERENCE, WRITER, ADMIN, 'wa_q_mixed')
+        with conn(ADMIN, ADMIN_PASSWORD, autocommit=True) as c:
+            c.execute("CREATE ROLE wa_q_mixed LOGIN PASSWORD 'wa-qualification-only'")
+            c.execute('GRANT wa_runtime_writer,wa_admission_writer,wa_world_writer TO wa_q_mixed')
+        path.write_text('\n'.join(
+            '[%s]\nhost=%s\nport=%s\ndbname=%s\nuser=%s\npassword=%s\napplication_name=wa_epoch_%s\n'
+            % (u, HOST, PORT, DB, u, ADMIN_PASSWORD if u == ADMIN else TEST_PASSWORD, u)
+            for u in users))
+        path.chmod(0o600)
+        os.environ['PGSERVICEFILE'] = str(path)
+
+    def _epoch(self, run, user=EXECUTOR):
+        from loom_world_authority.store import run_epoch
+        return run_epoch(user, run)
+
+    def _batch(self, run, ordinal=0, previous=None, *, new=True, bind_agent=None, bound_world=False):
+        # Synthetic transactional projections only, no simulation outcome or science.
+        rows=[]
+        def art(kind, payload):
+            h=sha256_bytes(payload); ref=kind+':'+h
+            rows.append(('wa_run.artifact',dict(run_id=run,artifact_ref=ref,record_kind=kind,
+                serializer_ref='QUAL_TXN_V1',payload_bytes=payload,payload_sha256=h)))
+            return ref
+        if new:
+            ident=(run+'-identity').encode(); boundary=(run+'-boundary').encode()
+            rows.append(('wa_run.execution',dict(run_id=run,scenario_id=uuid.UUID(int=0xa201),
+                original_run_identity=ident,identity_sha256=sha256_bytes(ident),code_contract='QUAL',
+                code_tree_sha256='0'*64,input_snapshot_ref='QUAL',boundary_manifest_bytes=boundary,
+                boundary_manifest_sha256=sha256_bytes(boundary),policy_seed_lexeme='policy',
+                world_seed_manifest_ref='QUAL',world_seed_lexeme='world',comparison_group_ref='QUAL',
+                comparison_key_schema_ref='QUAL',random_algorithm_ref='QUAL',decimal_precision=28,
+                decimal_rounding_ref='ROUND_HALF_EVEN',clock_mapping_ref='QUAL',qualification_protocol_ref='T01-T13')))
+            aref=art('ACTOR',b'QUAL_TXN_ACTOR')
+            rows.append(('wa_run.actor_reference',dict(run_id=run,actor_id='AGENT-T',
+                original_runtime_class='AGENT',original_artifact_ref=aref)))
+            if bound_world:
+                rows.append(('wa_run.world_binding',dict(run_id=run,scenario_id=uuid.UUID(int=0xa201),
+                    world_id=self.worlds[99],body_id=self.body,binding_key='QUAL_BINDING')))
+        refs=[art('QUAL_TXN_EPOCH',(run+':'+str(ordinal)+':epoch').encode()),
+              art('QUAL_TXN_RESULT',(run+':'+str(ordinal)+':result').encode())]
+        payload=(run+':'+str(ordinal)+':envelope').encode(); material=payload+b':digest'
+        e=dict(run_id=run,envelope_id=run+':E'+str(ordinal),event_ordinal=ordinal,
+            record_version='QUAL',scheduled_event_id='QUAL',epoch_id='P'+str(ordinal),actor_ref='AGENT-T',
+            process_ref='QUAL',action_ref='QUAL',world_context='REALIZED',context_id=run,perspective='GOVERNANCE',
+            time_basis='SIM_TIME',effective_time=ordinal,realized_time=ordinal,
+            effective_time_lexeme=str(ordinal),realized_time_lexeme=str(ordinal),reason_code='QUAL',
+            original_envelope_bytes=payload,original_envelope_sha256=sha256_bytes(payload),
+            original_hash_material=material,envelope_hash=sha256_bytes(material),
+            previous_trace_hash=previous[1] if previous else '',pre_domain_hash=str(ordinal%10)*64,
+            post_domain_hash=str((ordinal+1)%10)*64)
+        rows.append(('wa_run.causal_envelope',e))
+        # A genuinely persisted admission-writer projection exercises rollback of
+        # info state in the same transaction as physical/causal/runtime originals.
+        safe=b'QUAL_SAFE_PUBLIC_SNAPSHOT:'+str(ordinal).encode()
+        sref=art('DECISION_STATE',safe); sh=sha256_bytes(safe); snapref='decision-snapshot:P'+str(ordinal)+':'+sh
+        rows.append(('wa_info.agent_snapshot',dict(run_id=run,snapshot_ref=snapref,actor_id='AGENT-T',
+            period_key='P'+str(ordinal),effective_time=ordinal,effective_time_lexeme=str(ordinal),
+            original_snapshot_bytes=safe,original_snapshot_sha256=sh,original_artifact_ref=sref,
+            worker_fingerprint=sh,producer_contract_ref='QUAL',sanitizer_attestation_sha256='0'*64)))
+        if bind_agent:
+            rows.append(('wa_info.principal_binding',dict(login_name=bind_agent,run_id=run,actor_id='AGENT-T',
+                authorized_snapshot_ref=snapref,effective_time=ordinal,authorization_ref='QUAL_TXN_ONLY')))
+        for i,ref in enumerate(refs):
+            rows.append(('wa_run.trace_artifact_edge',dict(run_id=run,envelope_id=e['envelope_id'],
+                edge_role='QUAL_TERMINAL',edge_ordinal=i,artifact_ref=ref)))
+        return rows,refs,(e['envelope_id'],e['envelope_hash'],ordinal)
+
+    def _run_counts(self, run):
+        with conn(ADMIN,ADMIN_PASSWORD,autocommit=True) as c:
+            return tuple(c.execute('SELECT count(*) FROM '+table+' WHERE run_id=%s',(run,)).fetchone()[0]
+                         for table in ('wa_run.execution','wa_run.artifact','wa_run.causal_envelope','wa_info.agent_snapshot'))
+
+    def _lock_available(self, run):
+        with conn(ADMIN,ADMIN_PASSWORD,autocommit=True) as c:
+            return c.execute('SELECT pg_try_advisory_xact_lock(hashtextextended(%s,0))',('wa_run:'+run,)).fetchone()[0]
+
+    def _wait_for_lock_waiter(self):
+        import time
+        deadline=time.monotonic()+10
+        with conn(ADMIN,ADMIN_PASSWORD,autocommit=True) as c:
+            while time.monotonic()<deadline:
+                waiters=c.execute("SELECT count(*) FROM pg_stat_activity WHERE usename=%s AND wait_event='advisory'",(EXECUTOR,)).fetchone()[0]
+                if waiters:return
+                time.sleep(.02)
+        self.fail('real PostgreSQL advisory lock waiter was not observed')
+
+    def test_T01_new_and_existing_pinned_head_atomic_opening(self):
+        run='QUAL-T01'; rows,refs,head=self._batch(run)
+        with self._epoch(run) as s:
+            self.assertIsNone(s.head)
+            self.assertIsNone(s.read_replay_prefix(input_snapshot_ref='QUAL',code_contract='QUAL',code_tree_sha256='0'*64))
+            self.assertEqual(self._run_counts(run),(0,0,0,0))
+            with self.assertRaisesRegex(IntegrityFailure,'NOT_COMMITTED'):s.status
+            s.stage_epoch('P0',None,rows,refs)
+            self.assertEqual(self._run_counts(run),(0,0,0,0))
+        self.assertEqual(s.status,'COMMITTED')
+        with self._epoch(run) as s:
+            self.assertEqual(s.head,head)
+            self.assertEqual(len(s.read_replay_prefix(input_snapshot_ref='QUAL',code_contract='QUAL',code_tree_sha256='0'*64)['envelopes']),1)
+            s.stage_epoch('P0',None,rows,refs)
+        self.assertEqual(s.status,'ALREADY_MATCHED')
+
+    def test_T02_same_run_waiter_pins_post_commit_head(self):
+        from concurrent.futures import ThreadPoolExecutor
+        run='QUAL-T02'; rows,refs,head=self._batch(run)
+        def writer():
+            with self._epoch(run) as second:
+                self.assertEqual(second.head,head)
+                batch,terminal,newhead=self._batch(run,1,second.head,new=False)
+                second.stage_epoch('P1',second.head[:2],batch,terminal)
+            return second.status,newhead
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            with self._epoch(run) as first:
+                future=pool.submit(writer)
+                self._wait_for_lock_waiter()
+                TRANSACTION_EVIDENCE['same_run_postgresql_advisory_wait_observed']=True
+                self.assertFalse(future.done())
+                first.stage_epoch('P0',None,rows,refs)
+            status,newhead=future.result(timeout=15)
+        self.assertEqual(status,'COMMITTED')
+        TRANSACTION_EVIDENCE['same_run_waiter_pinned_predecessor']=head
+        TRANSACTION_EVIDENCE['same_run_waiter_committed_head']=newhead
+        with conn(AUDITOR,TEST_PASSWORD) as c:
+            prefix=read_replay_prefix(c,run,input_snapshot_ref='QUAL',code_contract='QUAL',code_tree_sha256='0'*64)
+            self.assertEqual([r['event_ordinal'] for r in prefix['envelopes']],[0,1])
+            self.assertEqual(prefix['envelopes'][1]['previous_trace_hash'],head[1])
+
+    def test_T03_different_runs_can_execute_concurrently(self):
+        from concurrent.futures import ThreadPoolExecutor
+        # Both new-run snapshots are open at once; there is no global advisory
+        # lock. PostgreSQL SSI can still require a retry independently of locks.
+        run='QUAL-T03-A'; other='QUAL-T03-B'; rows,refs,_=self._batch(run)
+        def read_other():
+            with self._epoch(other) as s:
+                self.assertIsNone(s.head)
+                batch,terminal,_=self._batch(other)
+                s.stage_epoch('P0',None,batch,terminal)
+            return s.status
+        transient=None
+        try:
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                with self._epoch(run) as s:
+                    self.assertFalse(self._lock_available(run))
+                    self.assertTrue(self._lock_available(other))
+                    future=pool.submit(read_other)
+                    self.assertEqual(future.result(timeout=10),'COMMITTED')
+                    TRANSACTION_EVIDENCE['different_run_commit_while_first_locked']=True
+                    s.stage_epoch('P0',None,rows,refs)
+        except psycopg.errors.SerializationFailure:
+            transient='SerializationFailure'
+            self.assertEqual(self._run_counts(run),(0,0,0,0))
+            self.assertTrue(self._lock_available(run))
+            # Discard the failed working batch and reconstruct from a new pinned
+            # empty prefix. SSI is not swallowed or converted to COMMITTED.
+            rebuilt,terminal,_=self._batch(run)
+            with self._epoch(run) as s:
+                self.assertIsNone(s.head)
+                self.assertIsNone(s.read_replay_prefix(input_snapshot_ref='QUAL',code_contract='QUAL',code_tree_sha256='0'*64))
+                s.stage_epoch('P0',None,rebuilt,terminal)
+        self.assertEqual(s.status,'COMMITTED')
+        self.assertEqual(self._run_counts(run)[2],1)
+        self.assertEqual(self._run_counts(other)[2],1)
+        TRANSACTION_EVIDENCE['different_run_initial_commit_error']=transient
+        TRANSACTION_EVIDENCE['different_run_final_commit']='COMMITTED'
+
+    def test_T04_stale_expected_head_cannot_commit(self):
+        run='QUAL-T04';rows,refs,head=self._batch(run)
+        with self._epoch(run) as s:s.stage_epoch('P0',None,rows,refs)
+        nextrows,nextrefs,_=self._batch(run,1,head,new=False)
+        before=self._run_counts(run)
+        with self.assertRaisesRegex(CollisionFailure,'PREVIOUS_HEAD_MISMATCH'):
+            with self._epoch(run) as s:
+                self.assertEqual(s.head,head)
+                s.stage_epoch('P1',None,nextrows,nextrefs)
+        self.assertEqual(self._run_counts(run),before)
+        self.assertTrue(self._lock_available(run))
+
+    def test_T05_runtime_failure_before_and_after_staging(self):
+        for staged in (False,True):
+            run='QUAL-T05-'+str(staged);rows,refs,_=self._batch(run)
+            with self.assertRaisesRegex(RuntimeError,'runtime failure'):
+                with self._epoch(run) as s:
+                    if staged:s.stage_epoch('P0',None,rows,refs)
+                    raise RuntimeError('runtime failure')
+            self.assertEqual(self._run_counts(run),(0,0,0,0))
+            self.assertTrue(self._lock_available(run))
+            with self.assertRaises(IntegrityFailure):s.status
+
+    def test_T06_late_persistence_failure_rolls_back_information_and_acl(self):
+        run='QUAL-T06';rows,refs,_=self._batch(run,bind_agent=AGENT_B)
+        with conn(AGENT_B,TEST_PASSWORD,autocommit=True) as c:before=load_current_agent_snapshot(c)
+        with self.assertRaisesRegex(IntegrityFailure,'TERMINAL_TRACE_CLOSURE'):
+            with self._epoch(run) as s:s.stage_epoch('P0',None,rows[:-1],refs)
+        self.assertEqual(self._run_counts(run),(0,0,0,0))
+        with conn(AGENT_B,TEST_PASSWORD,autocommit=True) as c:self.assertEqual(load_current_agent_snapshot(c),before)
+        self.assertTrue(self._lock_available(run))
+
+    def test_T07_exact_older_repeat_and_collision_preserve_current_pointer(self):
+        run='QUAL-T07';rows,refs,head=self._batch(run,bind_agent=AGENT_B)
+        with self._epoch(run) as s:s.stage_epoch('P0',None,rows,refs)
+        newrows,newrefs,newhead=self._batch(run,1,head,new=False,bind_agent=AGENT_B)
+        with self._epoch(run) as s:s.stage_epoch('P1',head[:2],newrows,newrefs)
+        with conn(AGENT_B,TEST_PASSWORD,autocommit=True) as c:current=load_current_agent_snapshot(c)
+        with self._epoch(run) as s:
+            self.assertEqual(s.head,newhead)
+            s.stage_epoch('P0',None,rows,refs)
+        self.assertEqual(s.status,'ALREADY_MATCHED')
+        with conn(AGENT_B,TEST_PASSWORD,autocommit=True) as c:self.assertEqual(load_current_agent_snapshot(c),current)
+        forged=[(t, v|{'reason_code':'FORGED'} if t=='wa_run.causal_envelope' else v) for t,v in rows]
+        with self.assertRaises(CollisionFailure):
+            with self._epoch(run) as s:s.stage_epoch('P0',None,forged,refs)
+        self.assertEqual(self._run_counts(run)[2],2)
+
+    def test_T08_bounded_surface_rejects_sql_context_escape_and_reuse(self):
+        from loom_world_authority.store import run_epoch
+        for bad in ('host=localhost','executor\noptions=-c role=wa_owner','',object()):
+            with self.assertRaises(IntegrityFailure):run_epoch(bad,'QUAL-T08')
+        run='QUAL-T08';rows,refs,_=self._batch(run)
+        with self.assertRaisesRegex(IntegrityFailure,'BATCH_CONTEXT'):
+            with self._epoch(run) as s:
+                for attr in ('connection','conn','cursor','execute','commit','rollback','__dict__'):
+                    self.assertFalse(hasattr(s,attr),attr)
+                with self.assertRaises(AttributeError):s.run_id='OTHER'
+                with self.assertRaises(AttributeError):s.head=None
+                from concurrent.futures import ThreadPoolExecutor
+                with ThreadPoolExecutor(max_workers=1) as pool:
+                    with self.assertRaisesRegex(IntegrityFailure,'SESSION_THREAD'):
+                        pool.submit(s.__exit__,None,None,None).result(timeout=5)
+                    with self.assertRaisesRegex(IntegrityFailure,'NOT_ACTIVE'):
+                        pool.submit(s.stage_epoch,'P0',None,rows,refs).result(timeout=5)
+                s.stage_epoch('P0',None,rows+[('wa_science.admission',dict(run_id=run))],refs)
+        self.assertEqual(self._run_counts(run),(0,0,0,0))
+        with self._epoch(run) as s:
+            s.stage_epoch('P0',None,rows,refs)
+            with self.assertRaisesRegex(IntegrityFailure,'NOT_ACTIVE'):s.stage_epoch('P0',None,rows,refs)
+            with self.assertRaisesRegex(IntegrityFailure,'NOT_ACTIVE'):s.read_replay_prefix(input_snapshot_ref='QUAL',code_contract='QUAL',code_tree_sha256='0'*64)
+        with self.assertRaisesRegex(IntegrityFailure,'SINGLE_USE'):s.__enter__()
+        with self.assertRaises(IntegrityFailure):s.stage_epoch('P0',None,rows,refs)
+        mismatch='QUAL-T08-CROSS'
+        with self.assertRaisesRegex(IntegrityFailure,'BATCH_CONTEXT'):
+            with self._epoch(mismatch) as s:s.stage_epoch('P0',None,rows,refs)
+        self.assertEqual(self._run_counts(mismatch),(0,0,0,0))
+
+    def test_T09_only_exclusive_execution_principal_can_enter(self):
+        for user in (RUNTIME,ADMISSION,AGENT,AGENT_B,WORLD,GOVERNOR,AUDITOR,REFERENCE,WRITER,ADMIN,'wa_q_mixed'):
+            with self.subTest(user=user):
+                with self.assertRaises(RoleViolation):
+                    with self._epoch('QUAL-T09',user):self.fail('unauthorized entry')
+                self.assertTrue(self._lock_available('QUAL-T09'))
+
+    def test_T10_bound_reads_same_transaction_and_safe_visibility(self):
+        run='QUAL-T10';rows,refs,head=self._batch(run,bind_agent=AGENT_B,bound_world=True)
+        with conn(AGENT_B,TEST_PASSWORD,autocommit=True) as c:before=load_current_agent_snapshot(c)
+        with self._epoch(run) as s:
+            s.stage_epoch('P0',None,rows,refs)
+            with conn(AGENT_B,TEST_PASSWORD,autocommit=True) as c:self.assertEqual(load_current_agent_snapshot(c),before)
+        with conn(AGENT_B,TEST_PASSWORD,autocommit=True) as c:
+            safe=load_current_agent_snapshot(c)
+            self.assertEqual(safe['original_snapshot_bytes'],b'QUAL_SAFE_PUBLIC_SNAPSHOT:0')
+            self.assertEqual(safe['facts'],())
+            for table in ('wa_run.execution','wa_world.hidden_state','wa_info.agent_snapshot'):
+                with self.assertRaises(psycopg.errors.InsufficientPrivilege):c.execute('SELECT 1 FROM '+table+' LIMIT 1')
+        with self._epoch(run) as s:
+            self.assertEqual(s.head,head)
+            bound=s.load_bound_world('QUAL_BINDING',context='REALIZED',effective_time=0)
+            self.assertEqual(bound['realization']['world_id'],self.worlds[99])
+            self.assertEqual(len(s.read_replay_prefix(input_snapshot_ref='QUAL',code_contract='QUAL',code_tree_sha256='0'*64)['envelopes']),1)
+            s.stage_epoch('P0',None,rows,refs)
+        self.assertEqual(s.status,'ALREADY_MATCHED')
+
+    def test_T11_lock_and_transaction_lifetime_noop_aborts(self):
+        run='QUAL-T11'
+        with self.assertRaisesRegex(IntegrityFailure,'NOT_STAGED'):
+            with self._epoch(run):
+                self.assertFalse(self._lock_available(run))
+                with conn(ADMIN,ADMIN_PASSWORD,autocommit=True) as c:
+                    active=c.execute("SELECT count(*) FROM pg_stat_activity WHERE usename=%s AND state='idle in transaction' AND xact_start IS NOT NULL AND backend_xmin IS NOT NULL",(EXECUTOR,)).fetchone()[0]
+                self.assertEqual(active,1)
+        self.assertTrue(self._lock_available(run))
+        rows,refs,_=self._batch(run)
+        with self._epoch(run) as s:s.stage_epoch('P0',None,rows,refs)
+        self.assertTrue(self._lock_available(run))
+
+    def test_T12_legacy_persist_epoch_and_session_share_identical_lock(self):
+        from concurrent.futures import ThreadPoolExecutor
+        run='QUAL-T12';rows,refs,head=self._batch(run)
+        def reader():
+            with self._epoch(run) as s:
+                self.assertEqual(s.head,head)
+                s.stage_epoch('P0',None,rows,refs)
+            return s.status
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            with conn(EXECUTOR,TEST_PASSWORD) as c:
+                c.execute('BEGIN ISOLATION LEVEL SERIALIZABLE')
+                c.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))',('wa_run:'+run,))
+                future=pool.submit(reader)
+                self._wait_for_lock_waiter()
+                self.assertEqual(persist_epoch(c,run,'P0',None,rows,refs),'COMMITTED')
+            self.assertEqual(future.result(timeout=15),'ALREADY_MATCHED')
+        with self._epoch(run) as s:
+            nextrows,nextrefs,_=self._batch(run,1,head,new=False)
+            s.stage_epoch('P1',head[:2],nextrows,nextrefs)
+        with conn(EXECUTOR,TEST_PASSWORD) as c:
+            self.assertEqual(persist_epoch(c,run,'P0',None,rows,refs),'ALREADY_MATCHED')
+
+    def test_T13_failure_poison_disconnect_and_staging_copy(self):
+        run='QUAL-T13';rows,refs,_=self._batch(run)
+        with self.assertRaisesRegex(IntegrityFailure,'NOT_STAGED_OR_FAILED'):
+            with self._epoch(run) as s:
+                with self.assertRaisesRegex(IntegrityFailure,'BLOCKED_CONTEXT'):
+                    s.load_bound_world('ABSENT',context='REALIZED',effective_time=0)
+                with self.assertRaisesRegex(IntegrityFailure,'NOT_ACTIVE'):s.stage_epoch('P0',None,rows,refs)
+        self.assertEqual(self._run_counts(run),(0,0,0,0))
+        # Caller mutation cannot change the immutable staged payload.
+        with self._epoch(run) as s:
+            s.stage_epoch('P0',None,rows,refs)
+            for table,values in rows:
+                if table=='wa_run.causal_envelope':values['reason_code']='MUTATED_AFTER_STAGE'
+        with conn(AUDITOR,TEST_PASSWORD) as c:
+            self.assertEqual(c.execute('SELECT reason_code FROM wa_run.causal_envelope WHERE run_id=%s',(run,)).fetchone()[0],'QUAL')
+        lost='QUAL-T13-DISCONNECT';rows,refs,_=self._batch(lost)
+        with self.assertRaises(psycopg.Error):
+            with self._epoch(lost) as s:
+                s.stage_epoch('P0',None,rows,refs)
+                with conn(ADMIN,ADMIN_PASSWORD,autocommit=True) as c:
+                    pid=c.execute("SELECT pid FROM pg_stat_activity WHERE usename=%s AND state='idle in transaction'",(EXECUTOR,)).fetchone()[0]
+                    self.assertTrue(c.execute('SELECT pg_terminate_backend(%s)',(pid,)).fetchone()[0])
+        self.assertEqual(self._run_counts(lost),(0,0,0,0))
+        self.assertTrue(self._lock_available(lost))
 
 if __name__=="__main__":
     unittest.main()

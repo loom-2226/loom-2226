@@ -125,17 +125,29 @@ def main():
     suite=unittest.defaultTestLoader.loadTestsFromModule(test_world_authority_etl)
     results=unittest.TextTestRunner(verbosity=2).run(suite)
     observed=test_world_authority_etl.EXECUTED.copy()
-    security_result=None
-    # Always report partial/failure honestly; never run security on an uninstalled DB.
+    security_results=[]
+    security_runs=[]
+    # Repeat every inherited security/onboarding and new transaction behavior
+    # on each fresh cluster; catalog-only probes are not substitutes.
     if all(getattr(c,'ready',False) for c in clusters):
-        db=clusters[0].clone_empty('security')
-        with clusters[0].connect(db,role='wa_etl_login') as c:import_exact_snapshot(c,plan)
-        os.environ.update(LOOM_WA_PGHOST=clusters[0].kw['host'],LOOM_WA_PGPORT=str(clusters[0].kw['port']),LOOM_WA_PGDATABASE=db,LOOM_WA_PGADMIN=clusters[0].kw['user'],LOOM_WA_PGADMIN_PASSWORD=clusters[0].kw['password'])
-        import test_world_authority_security
-        security_result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromModule(test_world_authority_security))
-        observed |= test_world_authority_security.EXECUTED
-    required={f'E{i:02}' for i in range(1,29)}|{f'S{i:02}' for i in range(1,13)}
-    passed=results.wasSuccessful() and not results.skipped and security_result is not None and security_result.wasSuccessful() and not security_result.skipped and observed==required
+        import importlib
+        for cluster in clusters:
+            db=cluster.clone_empty('security')
+            with cluster.connect(db,role='wa_etl_login') as c:import_exact_snapshot(c,plan)
+            os.environ.update(LOOM_WA_PGHOST=cluster.kw['host'],LOOM_WA_PGPORT=str(cluster.kw['port']),LOOM_WA_PGDATABASE=db,LOOM_WA_PGADMIN=cluster.kw['user'],LOOM_WA_PGADMIN_PASSWORD=cluster.kw['password'])
+            if 'test_world_authority_security' in sys.modules:
+                security=importlib.reload(sys.modules['test_world_authority_security'])
+            else:
+                security=importlib.import_module('test_world_authority_security')
+            result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromModule(security))
+            security_results.append(result)
+            observed |= security.EXECUTED
+            security_runs.append(dict(container=cluster.name,tests_run=result.testsRun,
+                status='PASS' if result.wasSuccessful() and not result.skipped else 'FAIL',
+                observed_ids=sorted(security.EXECUTED),transaction_evidence=security.TRANSACTION_EVIDENCE,
+                errors=[(str(t),s) for t,s in result.errors+result.failures],skipped=result.skipped))
+    required={f'E{i:02}' for i in range(1,29)}|{f'S{i:02}' for i in range(1,13)}|{f'T{i:02}' for i in range(1,14)}
+    passed=results.wasSuccessful() and not results.skipped and len(security_results)==len(clusters) and all(r.wasSuccessful() and not r.skipped for r in security_results) and observed==required
     files=implementation_hashes()
     passed=passed and files==files_before
     import test_world_authority_store
@@ -143,7 +155,7 @@ def main():
     passed=passed and identity_result.wasSuccessful() and not identity_result.skipped
     source_after=hashlib.sha256(args.source.read_bytes()).hexdigest()
     passed=passed and source_after==SOURCE_SHA
-    report=dict(status='PASS' if passed else 'FAIL',standing='MIGRATION_QUALIFIED_SCIENCE_CANDIDATE_PRESERVED' if passed else 'NOT_QUALIFIED',required_ids=sorted(required),observed_ids=sorted(observed),source_sha256=source_after,source_bytes=args.source.stat().st_size,source_git_commit=manifest['source_git_commit'],source_path=manifest['source_path'],forensic_rows=2726,source_columns=256,plan_sha256=plan.plan_hash,implementation_files=files_before,implementation_unchanged_during_run=(files==files_before),store_regressions_passed=identity_result.wasSuccessful(),locked_environment=locked,image_id=image_id,image_repo_digests=image.get('RepoDigests',[]),python=sys.version,psycopg=psycopg.__version__,libpq=psycopg.pq.version(),clusters=[dict(container=c.name,port=c.kw['port'],inventory=c.inventory()) for c in clusters],errors=[(str(t),s) for t,s in results.errors+results.failures]+([] if security_result is None else [(str(t),s) for t,s in security_result.errors+security_result.failures]),skipped=results.skipped+([] if security_result is None else security_result.skipped))
+    report=dict(security_runs=security_runs,etl_tests_run=results.testsRun,store_tests_run=identity_result.testsRun,status='PASS' if passed else 'FAIL',standing='WORLD_AUTHORITY_V1_2_RUN_TRANSACTIONS_QUALIFIED' if passed else 'NOT_QUALIFIED',inherited_standing='MIGRATION_QUALIFIED_SCIENCE_CANDIDATE_PRESERVED' if passed else 'NOT_QUALIFIED',required_ids=sorted(required),observed_ids=sorted(observed),source_sha256=source_after,source_bytes=args.source.stat().st_size,source_git_commit=manifest['source_git_commit'],source_path=manifest['source_path'],forensic_rows=2726,source_columns=256,plan_sha256=plan.plan_hash,implementation_files=files_before,implementation_unchanged_during_run=(files==files_before),store_regressions_passed=identity_result.wasSuccessful(),locked_environment=locked,image_id=image_id,image_repo_digests=image.get('RepoDigests',[]),python=sys.version,psycopg=psycopg.__version__,libpq=psycopg.pq.version(),clusters=[dict(container=c.name,port=c.kw['port'],inventory=c.inventory()) for c in clusters],errors=[(str(t),s) for t,s in results.errors+results.failures]+[(str(t),s) for r in security_results for t,s in r.errors+r.failures],skipped=results.skipped+[skip for r in security_results for skip in r.skipped])
     (args.output/'SOURCE_TO_TARGET_CROSSWALK.json').write_bytes(canonical(plan.crosswalk)+b'\n')
     (args.output/'SOURCE_SCHEMA.json').write_bytes(canonical(plan.source_schema)+b'\n')
     (args.output/'COLUMN_DISPOSITIONS.csv').write_bytes((ROOT/'data/world_authority/SQLITE_TO_POSTGRES_DISPOSITION_MATRIX_V1.csv').read_bytes())
