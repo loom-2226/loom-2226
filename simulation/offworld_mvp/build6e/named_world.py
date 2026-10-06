@@ -459,12 +459,23 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
     all_unique=[]
     for ordinal, e in enumerate(envelopes[start_index:], start=start_index):
         artifact_refs = tuple(e.artifact_refs)
-        unique = tuple(dict.fromkeys(artifact_refs))
+        typed_refs = (*artifact_refs,
+            *(('REQUEST',ref) for ref in e.request_refs),
+            *(('DECISION',ref) for ref in e.decision_refs),
+            *(('INFORMATION_REFERENCE',ref) for ref in e.information_refs),
+            *(('ADMITTED_INFORMATION',ref) for ref in e.input_receipt_refs),
+            *e.source_artifact_refs)
+        unique = tuple(dict.fromkeys(typed_refs))
         all_unique.extend(ref for _, ref in unique)
         for kind, ref in unique:
             stored = kernel.causal_artifacts.get(ref)
-            if stored is None or stored[0] != kind:
+            required_archive=kind in ('REQUEST','DECISION','ADMITTED_INFORMATION') or (kind,ref) in artifact_refs
+            if stored is None:
+                if required_archive:raise NamedWorldBlocked('BLOCKED_TRACE_ARTIFACT_MISSING')
+                continue
+            if kind not in ('INFORMATION_REFERENCE','ADMITTED_INFORMATION') and stored[0] != kind:
                 raise NamedWorldBlocked('BLOCKED_TRACE_ARTIFACT_MISSING')
+            kind=stored[0]
             payload = stored[1].encode('utf8')
             if ref != kind+':'+digest(payload):
                 raise NamedWorldBlocked('BLOCKED_TRACE_ARTIFACT_HASH')
@@ -513,7 +524,15 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
     # original kernel records/artifacts above; they do not create runtime state.
     all_artifacts={}
     for env in envelopes:
-        for kind,ref in env.artifact_refs:all_artifacts.setdefault(ref,(kind,env))
+        refs=(*env.artifact_refs,
+            *(('REQUEST',r) for r in env.request_refs),
+            *(('DECISION',r) for r in env.decision_refs),
+            *(('INFORMATION_REFERENCE',r) for r in env.information_refs),
+            *(('ADMITTED_INFORMATION',r) for r in env.input_receipt_refs),
+            *env.source_artifact_refs)
+        for kind,ref in refs:
+            if ref in kernel.causal_artifacts:
+                all_artifacts.setdefault(ref,(kernel.causal_artifacts[ref][0],env))
     opening_ref=next((ref for ref,(kind,_) in all_artifacts.items()
                       if kind=='AUTHORED_INPUT_RECORDS'),None)
     if first:
@@ -529,7 +548,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
             actor_ids.add(system_id)
             rows.append(('wa_run.actor_reference',dict(run_id=manifest.run_id,
                 actor_id=system_id,original_runtime_class='SYSTEM',original_artifact_ref=opening_ref)))
-        organizations=set()
+        organizations=set();parties=[]
         for project_id,project in sorted(kernel.state.projects.items()):
             rows.append(('wa_run.project',dict(run_id=manifest.run_id,project_id=project_id,
                 name=project_id,original_project_artifact_ref=opening_ref)))
@@ -541,7 +560,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                 origin_artifact_ref=opening_ref)))
             for owner,share in sorted(project.owners.items()):
                 organizations.add(owner)
-                rows.append(('wa_run.project_party',dict(run_id=manifest.run_id,
+                parties.append(('wa_run.project_party',dict(run_id=manifest.run_id,
                     project_id=project_id,organization_id=owner,
                     relationship_ref='OWNER:'+str(share),effective_period=_sim_period(2),
                     original_artifact_ref=opening_ref)))
@@ -552,6 +571,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
             rows.append(('wa_run.organization_reference',dict(run_id=manifest.run_id,
                 organization_id=organization_id,original_ref=opening_ref,
                 name=organization_id)))
+        rows.extend(parties)
         population_refs=[ref for ref,(kind,_) in all_artifacts.items() if kind=='ADMITTED_INFORMATION'
                          and any(x.get('concept')=='population' for x in _walk_typed(_artifact_payload(kernel,ref)))]
         if not population_refs:raise NamedWorldBlocked('BLOCKED_POPULATION_SOURCE_ADMISSION_ARTIFACT')
@@ -651,7 +671,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
             decision_envelope=next((x for x in envelopes if x.action=='POLICY_EVALUATION'
                 and any(a_ref==ref for _,a_ref in x.artifact_refs)),None)
             if decision_envelope is None:continue
-            result_ref=next((a_ref for a_kind,a_ref in decision_envelope.artifact_refs if a_kind=='DECISION'),None)
+            result_ref=next((a_ref for a_ref in decision_envelope.decision_refs
+                if kernel.causal_artifacts.get(a_ref,(None,None))[0]=='DECISION'),None)
             if result_ref is None:raise NamedWorldBlocked('BLOCKED_DECISION_ORIGINAL')
             decision_result=_artifact_payload(kernel,result_ref)
             worker_fp=decision_result['worker_fingerprint']
@@ -765,6 +786,11 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
             raise NamedWorldBlocked('BLOCKED_CONTEXT_VALUE_RECEIPT_FINGERPRINT')
         value_row['fingerprint']=fingerprints[0]
         rows.append(('wa_info.context_value',value_row))
+    context_rows=[row for row in rows if row[0]=='wa_info.context_value']
+    if context_rows:
+        rows=[row for row in rows if row[0]!='wa_info.context_value']
+        receipt_index=next((i for i,row in enumerate(rows) if row[0]=='wa_info.receipt'),len(rows))
+        rows[receipt_index:receipt_index]=context_rows
     latest = envelopes[-1]
     terminals = tuple(dict.fromkeys(ref for _, ref in latest.artifact_refs))[:2]
     if len(terminals) != 2:

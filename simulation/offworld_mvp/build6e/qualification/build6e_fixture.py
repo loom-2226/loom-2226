@@ -134,8 +134,12 @@ def make_kernel(world='RICH',overrides=None,*,world_seed=None,policy_seed=None,s
     }
     definitions=tuple((p.name,sha256(p.read_bytes()).hexdigest()) for p in (SCENARIO_PATH,PROTOCOL_PATH))
     earth,earth_hash=load_earth_assertions(EARTH_PATH,parent_root=EARTH_PARENT)
-    scenario_id='B6E:'+content_hash((tuple(sorted(params.items())),world,doc['worlds'][world],doc['world_generation']['model_version'],doc['world_generation']['policy_version'],tuple(sorted(doc['comparison'].items()))))[:16]
-    run_id=scenario_id+':'+world
+    # The runtime SCENARIO context is the durable World Authority scenario
+    # semantic key. Keep parameterization on the run identity, not in a
+    # private scenario label that cannot pass the authority context guard.
+    scenario_id='BUILD6E_MOON_CABEU_'+world
+    run_id=scenario_id+':'+content_hash((tuple(sorted(params.items())),world,
+        doc['worlds'][world],tuple(sorted(doc['comparison'].items()))))[:16]
     old_policy=test_only_manifest()
     policy_values={'hurdle_rate':params['financier_hurdle_rate'],'horizon_years':params['financier_horizon_years'],
                    'agent_detection_rate':params['publication_detection'],'agent_false_positive_rate':params['publication_fp'],
@@ -264,7 +268,7 @@ def make_kernel(world='RICH',overrides=None,*,world_seed=None,policy_seed=None,s
         value,receipt=admit_for_use(k,request)
         transformed=earth_supply_value(value,params['S'],params.get('f.'+str(year),params['f']),year,scenario_id)
         transformed=replace(transformed,dependency_refs=(*transformed.dependency_refs,receipt.receipt_id))
-        derived.append(transformed);genesis.append((receipt,transformed))
+        derived.append(transformed);genesis.append((receipt,value))
         if k.resource_constraints[('EARTH:USA',year)].ceiling!=D(transformed.value):raise RuntimeError('Earth transform/constraint mismatch')
     population=next(a for a in earth if a.concept=='population' and a.valid_from=='2027')
     request=ConsumptionRequest('EARTH_POPULATION_BOUND','GENESIS','EARTH_REFERENCE','USA','population','COUNTRY:USA','CALENDAR_YEAR','2027','2027','REAL','','GOVERNANCE','','ADMITTED','PERSON','EARTH_REFERENCE')
@@ -283,6 +287,7 @@ def make_kernel(world='RICH',overrides=None,*,world_seed=None,policy_seed=None,s
         'cohort_id':'USA_COHORT_1000',
         'population_source_receipt':next(r.receipt_id for r,v in genesis
             if r.consumption_request.concept=='population'),
+        'earth_supply_transformations':tuple(derived),
     }
     k._boundary_authored_inputs=(table,policy_manifest,opening_records)
     m=replace(m,assertions=(*m.assertions,*derived));k.boundary_manifest=m

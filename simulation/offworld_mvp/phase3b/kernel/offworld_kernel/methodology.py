@@ -1745,7 +1745,15 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 # GENESIS epoch label and time exactly.
                 self.active_decision_epoch_id=epoch_id
             event=SimpleNamespace(event_id='GENESIS',effective_time=opening,process_id='GENESIS',stable_key='GENESIS')
-            self._boundary_emit(event,'GENESIS',(),self._boundary_projection(),'DECLARED_OPENING_STATE',artifacts=(('SCENARIO_INPUT',self.boundary_manifest),('ADMITTED_INFORMATION',self._boundary_genesis_inputs),('AUTHORED_INPUT_RECORDS',self._boundary_authored_inputs)))
+            genesis_receipts=(tuple(r for r,_ in self._boundary_genesis_inputs)
+                if self.boundary_manifest.contract_version==BUILD6E_CONTRACT else ())
+            genesis_values=(tuple(v for _,v in self._boundary_genesis_inputs)
+                if self.boundary_manifest.contract_version==BUILD6E_CONTRACT else ())
+            self._boundary_emit(event,'GENESIS',(),self._boundary_projection(),'DECLARED_OPENING_STATE',
+                receipts=genesis_receipts,source_values=genesis_values,
+                artifacts=(('SCENARIO_INPUT',self.boundary_manifest),
+                    ('ADMITTED_INFORMATION',self._boundary_genesis_inputs),
+                    ('AUTHORED_INPUT_RECORDS',self._boundary_authored_inputs)))
         self.scheduler=DeterministicScheduler()
         self.active_decision_epoch_id=epoch_id
         self._decision_epoch_open_state_fingerprint=self.decision_epoch_state_fingerprint()
