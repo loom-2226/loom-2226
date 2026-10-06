@@ -11,6 +11,7 @@ from decimal import Decimal
 from hashlib import sha256
 import json
 from pathlib import Path
+import uuid
 from typing import Any, Mapping
 
 from loom_world_authority import store
@@ -336,8 +337,8 @@ def prepare_named_world(*, science_writer, science_governor, reference_reader,
         raise NamedWorldBlocked('BLOCKED_CATALOG_LOCATION_IDENTITY')
     admission_status = record_scoped_admission(science_governor, doc)
     source_rows = store.read_admitted_constraints(
-        reference_reader, [doc['accepted_source']['assertion_id']], 1,
-        USE_CONTRACT, [doc['accepted_source']['support_id']], consumer=CONTRACT,
+        reference_reader, [uuid.UUID(doc['accepted_source']['assertion_id'])], 1,
+        USE_CONTRACT, [uuid.UUID(doc['accepted_source']['support_id'])], consumer=CONTRACT,
         context='REAL', perspective='GOVERNANCE')
     if len(source_rows) != 1:
         raise NamedWorldBlocked('BLOCKED_ASSERTION_CARDINALITY')
