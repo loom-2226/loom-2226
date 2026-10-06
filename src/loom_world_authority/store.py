@@ -698,3 +698,164 @@ def export_run(conn,run_id,*,input_snapshot_ref,code_contract,code_tree_sha256):
         q=sql.SQL('SELECT {} FROM {} WHERE run_id=%s ORDER BY {}').format(sql.SQL(',').join(map(sql.Identifier,columns)),sql.Identifier(*table.split('.')),sql.SQL(',').join(map(sql.Identifier,SQL_PRIMARY_KEYS[table])))
         tables[table]=[dict(zip(columns,v)) for v in conn.execute(q,(run_id,)).fetchall()]
     return canonical(dict(profile='WA_PRIVATE_RUN_EXPORT_V1',run_id=run_id,execution=prefix['execution'],tables=tables))
+
+
+class _RunEpoch:
+    """Bounded, single-use epoch surface; the service connection never escapes.
+
+    Entry pins the committed head after obtaining the *existing* run lock.
+    Staging is not a commit: clean context exit invokes the unchanged fixed-batch
+    persist_epoch. Exceptions, including after staging, roll back the whole scope.
+    """
+    __slots__ = ('__service', '__run', '__conn', '__head', '__state',
+                 '__batch', '__status', '__thread')
+
+    def __init__(self, service_name: str, run_id: str):
+        import re
+        if not isinstance(service_name, str) or not re.fullmatch(r'[A-Za-z0-9_-]+', service_name):
+            raise IntegrityFailure('EPOCH_SERVICE_NAME')
+        if not isinstance(run_id, str) or not run_id.strip() or '\x00' in run_id:
+            raise IntegrityFailure('EPOCH_RUN_ID')
+        self.__service, self.__run = service_name, run_id
+        self.__conn = None
+        self.__head = None
+        self.__state = 'NEW'
+        self.__batch = None
+        self.__status = None
+        self.__thread = None
+
+    @property
+    def run_id(self) -> str:
+        return self.__run
+
+    @property
+    def head(self) -> tuple[str, str, int] | None:
+        if self.__state in ('NEW', 'ENTERING', 'ENTER_FAILED'):
+            raise IntegrityFailure('EPOCH_NOT_ENTERED')
+        return self.__head
+
+    @property
+    def status(self) -> str:
+        if self.__status is None:
+            raise IntegrityFailure('EPOCH_NOT_COMMITTED')
+        return self.__status
+
+    def __enter__(self):
+        import psycopg
+        import threading
+        if self.__state != 'NEW':
+            raise IntegrityFailure('EPOCH_SESSION_SINGLE_USE')
+        self.__state = 'ENTERING'
+        try:
+            # Operator-owned libpq service configuration, never a caller
+            # connection, SQL fragment, callback or arbitrary connection option.
+            c = self.__conn = psycopg.connect(service=self.__service, autocommit=True)
+            _require_session_group(c, 'wa_runtime_writer')
+            _require_session_group(c, 'wa_admission_writer')
+            forbidden = ('wa_owner', 'wa_science_writer', 'wa_science_governor',
+                         'wa_world_writer', 'wa_reference_reader', 'wa_auditor', 'wa_agent_reader',
+                         'wa_agent_view_owner')
+            for group in forbidden:
+                if c.execute("SELECT pg_has_role(session_user,%s,'MEMBER')", (group,)).fetchone()[0]:
+                    raise RoleViolation('EPOCH_EXECUTION_PRINCIPAL_ONLY')
+            c.execute('SET search_path=pg_catalog')
+            key = 'wa_run:' + self.__run
+            # A SERIALIZABLE SELECT takes its snapshot *before* waiting inside
+            # pg_advisory_xact_lock. Acquire the SAME resource as a session lock
+            # in an autocommit statement first. BEGIN therefore follows the
+            # preceding holder's commit; the snapshot cannot predate that wait.
+            # No pool: close releases session ownership after commit/rollback.
+            c.execute('SELECT pg_advisory_lock(hashtextextended(%s,0))', (key,))
+            c.execute('BEGIN ISOLATION LEVEL SERIALIZABLE')
+            c.execute('SET LOCAL ROLE wa_runtime_writer')
+            c.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))', (key,))
+            self.__head = c.execute('''SELECT envelope_id,envelope_hash,event_ordinal
+                FROM wa_run.causal_envelope WHERE run_id=%s
+                ORDER BY event_ordinal DESC LIMIT 1''', (self.__run,)).fetchone()
+            self.__thread = threading.get_ident()
+            self.__state = 'ACTIVE'
+            return self
+        except BaseException:
+            if self.__conn is not None:
+                self.__conn.close()
+                self.__conn = None
+            self.__state = 'ENTER_FAILED'
+            raise
+
+    def __active(self):
+        import threading
+        if self.__state != 'ACTIVE' or self.__thread != threading.get_ident():
+            raise IntegrityFailure('EPOCH_SESSION_NOT_ACTIVE')
+
+    def load_bound_world(self, binding_key, *, context, effective_time):
+        self.__active()
+        try:
+            return load_bound_world(self.__conn, self.__run, binding_key,
+                                    context=context, effective_time=effective_time)
+        except BaseException:
+            self.__state = 'FAILED'
+            raise
+
+    def read_replay_prefix(self, *, input_snapshot_ref, code_contract, code_tree_sha256):
+        self.__active()
+        try:
+            exists = self.__conn.execute('SELECT 1 FROM wa_run.execution WHERE run_id=%s',
+                                         (self.__run,)).fetchone()
+            if exists is None:
+                return None  # Proven absent execution, never UNKNOWN/default state.
+            return read_replay_prefix(self.__conn, self.__run,
+                                      input_snapshot_ref=input_snapshot_ref,
+                                      code_contract=code_contract,
+                                      code_tree_sha256=code_tree_sha256)
+        except BaseException:
+            self.__state = 'FAILED'
+            raise
+
+    def stage_epoch(self, epoch_id, expected_previous_head, rows, terminal_artifact_refs) -> None:
+        self.__active()
+        try:
+            from copy import deepcopy
+            # Copy all mutable projections; caller changes after staging cannot
+            # change the submitted transaction. Existing persist_epoch enforces
+            # the closed table/column/context/head/hash/trace/exact-match rules.
+            self.__batch = (epoch_id, deepcopy(expected_previous_head),
+                            deepcopy(tuple(rows)), tuple(terminal_artifact_refs))
+            self.__state = 'STAGED'
+        except BaseException:
+            self.__state = 'FAILED'
+            raise
+
+    def __exit__(self, exc_type, exc, traceback):
+        import threading
+        if self.__thread != threading.get_ident():
+            raise IntegrityFailure('EPOCH_SESSION_THREAD')
+        try:
+            if exc_type is None:
+                if self.__state != 'STAGED':
+                    raise IntegrityFailure('EPOCH_NOT_STAGED_OR_FAILED')
+                epoch, previous, rows, refs = self.__batch
+                self.__status = persist_epoch(self.__conn, self.__run, epoch, previous, rows, refs)
+        finally:
+            if self.__conn is not None:
+                try:
+                    if self.__conn.info.transaction_status.value != 0:
+                        self.__conn.rollback()
+                finally:
+                    self.__conn.close()
+                    self.__conn = None
+            self.__batch = None
+            self.__state = 'CLOSED'
+        return False
+
+
+def run_epoch(service_name: str, run_id: str) -> _RunEpoch:
+    """Own one run's locked SERIALIZABLE execution/persistence transaction.
+
+    Only a separately provisioned execution service (runtime+admission, no other
+    WA service role) can enter. The returned surface exposes no DB connection,
+    SQL, commit, role switch, unbound reads or scientific admission operation.
+    Consumer executes its kernel inside the scope, calls stage_epoch once, and
+    exposes the completed result only after successful exit/status. No automatic
+    runtime retry is attempted; discard/replay after any failed/unknown commit.
+    """
+    return _RunEpoch(service_name, run_id)
