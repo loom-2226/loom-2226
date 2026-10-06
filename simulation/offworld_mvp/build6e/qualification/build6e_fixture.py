@@ -44,7 +44,7 @@ BASE=Path(__file__).resolve().parents[1]
 EARTH_PARENT=Path('/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24')
 SCENARIO_PATH=BASE/'inputs/BUILD6E_NAMED_WORLD_V1.json'
 EARTH_PATH=BASE/'inputs/BUILD6E_EARTH_REFERENCE_SLICE_V1.json'
-PROTOCOL_PATH=BASE/'inputs/BUILD6E_QUALIFICATION_V1.json'
+PROTOCOL_PATH=BASE/'inputs/BUILD6E_QUALIFICATION_V2.json'
 NODE_ID='OFF:MOON:CABEU:B6E_SITE_01'
 
 # Existing store names are explicit ownership declarations, not a second ledger.
@@ -244,7 +244,11 @@ def make_kernel(world='RICH',overrides=None,*,world_seed=None,policy_seed=None,s
     k.add_project('EXP','OFF:MOON:CABEU:B6E_SITE_01','explore_cash',{'PUB':D(1)});k.add_project('P','OFF:MOON:CABEU:B6E_SITE_01','project_cash',{'SPN':D(1)})
     for aid,kind,account,caps,objectives in [('PUB',AgentKind.PUBLIC,'public_funds',{'EXPLORE','SURFACE_PROSPECT','MIGRATE','SETTLEMENT_SUPPORT'},('PUBLIC_INFORMATION','PUBLIC_SETTLEMENT')),('FIN',AgentKind.PRIVATE_FINANCIER,'fin_funds',{'FINANCE'},('RETURN',)),('SPN',AgentKind.PRIVATE_SPONSOR,'sponsor_funds',{'REQUEST_FINANCE','DEVELOP','OPERATE','EXTRACT','SELL','DISTRIBUTE_SURPLUS','CLOSE_PROJECT'},('RETURN',))]:
         key=params['belief_key.'+aid];a=AgentState(aid,kind,'EARTH:USA',account,caps,objectives)
-        a.priors[key]=D(params['prior']);a.beliefs[key]=D(params['prior']);k.add_agent(a)
+        # PRIOR_MISSING is an explicit negative fixture. Absence stays absence;
+        # snapshot construction and the worker must produce UNKNOWN/BLOCKED.
+        if params.get('prior') is not None:
+            a.priors[key]=D(params['prior']);a.beliefs[key]=D(params['prior'])
+        k.add_agent(a)
     q=D(doc['worlds'][world]);k.add_resource(ScenarioResource('RES','OFF:MOON:CABEU:B6E_SITE_01',doc['world_generation']['resource_family'],q,q,q,q))
     k.population=PopulationLedger(int(params['N']),{'OFF:MOON:CABEU:B6E_SITE_01':0});k.colonies['OFF:MOON:CABEU:B6E_SITE_01']=ColonyState('OFF:MOON:CABEU:B6E_SITE_01')
     for value in earth:
@@ -382,6 +386,7 @@ def policy_epoch(k,h,label,actor,time,request,concepts,runner,version,subjects=N
     effective = D(time) + (0 if label=='TRANSPORT' else D(int(h['params'].get('time_offset',0))))
     result, status = execute_persisted_epoch(service_name=h['wa_service'], kernel=k,
         binding=h['named_binding'], epoch_id=label, effective_time=effective,
+        agent_logins=h['agent_logins'],
         execute=lambda: _policy_epoch_body(k,h,label,actor,time,request,concepts,runner,version,subjects))
     h.setdefault('epoch_commits', []).append((label,status))
     return result
@@ -394,11 +399,23 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
     h['counter']+=1;label='ACTION:'+str(h['counter'])+':'+method;sid='SYS:'+method
     k.begin_decision_epoch(label,'BUILD6E_CORE_CHAIN' if k.decision_epoch_chain_id is None else None)
     owned=OWNERS[method]
-    event=ScheduledEvent(label,D(time),Phase.OPERATIONS,0,sid,sid)
+    # Keep process identity as the existing system transition, while the
+    # causal actor identifies the Agent whose typed decision authorizes it.
+    # World Authority's frozen loop contract requires that exact principal
+    # continuity; it must not infer an Agent from a system process later.
+    authorized_actors=set()
+    for decision_ref in decision_refs:
+        decision=json.loads(k.causal_artifacts[decision_ref][1])['fields']['decision']
+        actor=decision['fields'].get('actor_id',decision['fields'].get('financier_id',{})).get('value')
+        if actor:authorized_actors.add(actor)
+    if len(authorized_actors)>1:
+        raise RuntimeError('BLOCKED_MULTIPLE_AUTHORIZING_AGENTS')
+    event_actor=next(iter(authorized_actors),sid)
+    event=ScheduledEvent(label,D(time),Phase.OPERATIONS,0,event_actor,sid)
     q=ConsumptionRequest(label,sid,'SYSTEM_TRANSITION',sid,'transition.RULE','PROCESS:'+sid,'SIM_TIME',str(time),str(time),'SCENARIO',k.boundary_manifest.scenario_id,'WORLD_SIM','','ADMITTED','TYPED_RULE','TRANSITION_RULE')
     receipt=admit_for_use(k,q)[1];receipts=[receipt];holder={}
     def live(concept,subject,scope,unit,role):
-        request=ConsumptionRequest(label+':'+concept,sid,'SYSTEM_TRANSITION',subject,concept,scope,'SIM_TIME',str(time),str(time),'REALIZED',k.boundary_manifest.run_id,'WORLD_SIM','','ADMITTED',unit,role)
+        request=ConsumptionRequest(label+':'+concept+':'+subject,sid,'SYSTEM_TRANSITION',subject,concept,scope,'SIM_TIME',str(time),str(time),'REALIZED',k.boundary_manifest.run_id,'WORLD_SIM','','ADMITTED',unit,role)
         receipts.append(admit_for_use(k,request)[1])
     if method in ('explore_paid','surface_prospect_paid','resolve_operating_extraction'):
         live('R_RECOVERABLE','RES','SITE:OFF:MOON:CABEU:B6E_SITE_01','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE')
@@ -435,6 +452,7 @@ def system_epoch(k,h,method,time,args=(),kwargs=None,decision_refs=()):
     effective=D(time)+delta
     result,status=execute_persisted_epoch(service_name=h['wa_service'],kernel=k,
         binding=h['named_binding'],epoch_id=epoch_id,effective_time=effective,
+        agent_logins=h['agent_logins'],
         execute=lambda:_system_epoch_body(k,h,method,time,args,kwargs,decision_refs))
     h.setdefault('epoch_commits',[]).append((epoch_id,status))
     return result
@@ -541,12 +559,14 @@ def _run_case(k,h):
     return k,h
 
 
-def run_case(world='RICH',overrides=None,*,wa_service=None,named_binding=None,source_row=None,world_seed=None,policy_seed=None):
+def run_case(world='RICH',overrides=None,*,wa_service=None,named_binding=None,
+             agent_logins=None,source_row=None,world_seed=None,policy_seed=None):
     from offworld_kernel.kernel import InvariantError
     k,h=make_kernel(world,overrides,world_seed=world_seed,policy_seed=policy_seed,source_row=source_row)
     if wa_service:
         if named_binding is None:raise ValueError('named World Authority binding required')
         h['wa_service']=wa_service;h['named_binding']=named_binding
+        h['agent_logins']=dict(agent_logins or {})
     try:return _run_case(k,h)
     except InvariantError as exc:
         if k._boundary_invalid or str(exc).startswith(('INVALID_RUN','TRACE_INCOMPLETE')):raise

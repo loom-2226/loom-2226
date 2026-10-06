@@ -393,13 +393,31 @@ def _walk_typed(value):
         for child in value:yield from _walk_typed(child)
 
 
+def _context_instance_ref(assertion_ref, fingerprint):
+    digest=sha256(json.dumps((assertion_ref,fingerprint),separators=(',',':'),
+        ensure_ascii=True).encode()).hexdigest()
+    return 'context-value:'+digest
+
+
+def _context_fingerprint(obj):
+    from dataclasses import fields
+    from offworld_kernel.boundary import ContextValue,FactState
+    names={field.name for field in fields(ContextValue)}
+    data={key:value for key,value in obj.items() if key in names}
+    data['value_state']=FactState(data['value_state'])
+    for key in ('source_refs','source_hashes','warrant_refs','support_conflict_refs','dependency_refs'):
+        data[key]=tuple(data[key])
+    data['exception_flags']=tuple(tuple(item) for item in data['exception_flags'])
+    return ContextValue(**data).fingerprint()
+
+
 def _sim_period(start):
     from psycopg.types.range import Range
     return Range(Decimal(start),None,'[)')
 
 
 def _population_projection(run_id, cohort_id, settlement_id, binding, event_id,
-                           original_state_ref, earth, transit, resident):
+                           original_state_ref, earth, transit, resident, expected_total):
     """Project the ledger's complete explicit positions without inference."""
     positions=(
         ('EARTH',None,None,int(earth)),
@@ -408,7 +426,7 @@ def _population_projection(run_id, cohort_id, settlement_id, binding, event_id,
     )
     if min(value for _,_,_,value in positions)<0:
         raise NamedWorldBlocked('BLOCKED_NEGATIVE_POPULATION_PROJECTION')
-    if sum(value for *_,value in positions) != int(earth)+int(transit)+int(resident):
+    if sum(value for *_,value in positions) != int(expected_total):
         raise NamedWorldBlocked('BLOCKED_POPULATION_PROJECTION_TOTAL')
     return tuple(('wa_run.population_state',dict(run_id=run_id,cohort_id=cohort_id,
         event_id=event_id,position_key=kind,location_id=location_id,
@@ -417,7 +435,8 @@ def _population_projection(run_id, cohort_id, settlement_id, binding, event_id,
         for kind,location_id,position_settlement,count in positions)
 
 
-def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, start_index: int, epoch_id: str):
+def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, start_index: int,
+                        epoch_id: str, agent_logins: Mapping[str,str]):
     """Encode one completed original kernel epoch in the fixed V1 row profile."""
     from dataclasses import fields
     from offworld_kernel.causal_trace import canonical as trace_canonical
@@ -456,6 +475,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
             body_id=binding.body_id, binding_key=manifest.parameter('site_binding_key'))))
     if start_index < 0 or start_index >= len(envelopes):
         raise NamedWorldBlocked('BLOCKED_EPOCH_ENVELOPE_RANGE')
+    current_envelope_ids={e.envelope_id for e in envelopes[start_index:]}
     all_unique=[]
     for ordinal, e in enumerate(envelopes[start_index:], start=start_index):
         artifact_refs = tuple(e.artifact_refs)
@@ -519,6 +539,34 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
             remaining_state='KNOWN', remaining_in_situ=resource.in_situ-depleted,
             cumulative_extracted=depleted, unit_key='MODEL_RESOURCE_UNIT_BY_FAMILY',
             original_physical_state_ref=physical_ref)))
+        access_key='ACCESS:'+e.envelope_id
+        recovery_key='RECOVERY:'+e.envelope_id
+        accessible_remaining=resource.accessible-depleted
+        if accessible_remaining<0:raise NamedWorldBlocked('BLOCKED_ACCESSIBLE_RESOURCE_CONSERVATION')
+        rows.append(('wa_run.accessibility_assessment',dict(run_id=e.run_id,
+            deposit_id=binding.deposit_id,world_id=binding.world_id,body_id=binding.body_id,
+            assessment_key=access_key,event_id=e.envelope_id,value_state='KNOWN',
+            accessible_quantity=accessible_remaining,unit_key='MODEL_RESOURCE_UNIT_BY_FAMILY',
+            capability_ref='SITE_ACCESSIBILITY_NOT_PROJECT_RECOVERY',
+            environment_ref='BUILD6E_AUTHORED_SCENARIO_ENVIRONMENT',
+            method_ref='BUILD6E_FINITE_ACCESSIBILITY_ROLLFORWARD_V1',
+            original_assessment_ref=physical_ref)))
+        productive=kernel.state.assets.get('MINE-P')
+        commissioned=productive is not None and getattr(productive.kind,'value',productive.kind)=='PRODUCTIVE'
+        rows.append(('wa_run.recoverability_assessment',dict(run_id=e.run_id,
+            deposit_id=binding.deposit_id,project_id='P',assessment_key=recovery_key,
+            accessibility_key=access_key,event_id=e.envelope_id,
+            value_state='KNOWN' if commissioned else 'UNKNOWN',
+            recoverable_quantity=resource.remaining if commissioned else None,
+            unit_key='MODEL_RESOURCE_UNIT_BY_FAMILY' if commissioned else None,
+            realized_capability_ref='MINE-P:PRODUCTIVE' if commissioned else 'NO_REALIZED_PROJECT_CAPABILITY',
+            method_ref='BUILD6E_PROJECT_RECOVERABILITY_V1',original_assessment_ref=physical_ref)))
+        rows.append(('wa_run.reserve_interpretation',dict(run_id=e.run_id,
+            deposit_id=binding.deposit_id,project_id='P',
+            interpretation_key='RESERVE:'+e.envelope_id,recovery_key=recovery_key,
+            event_id=e.envelope_id,value_state='UNKNOWN',
+            reason_code='NO_GOVERNED_RESERVE_CONVERSION',economic_contract_ref=None,
+            institutional_contract_ref=None,original_interpretation_ref=physical_ref)))
 
     # Durable named-runtime projections. These rows are indexes over the
     # original kernel records/artifacts above; they do not create runtime state.
@@ -533,6 +581,46 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
         for kind,ref in refs:
             if ref in kernel.causal_artifacts:
                 all_artifacts.setdefault(ref,(kernel.causal_artifacts[ref][0],env))
+    current_refs=set()
+    for env in envelopes[start_index:]:
+        current_refs.update(ref for _,ref in env.artifact_refs)
+        current_refs.update(env.request_refs);current_refs.update(env.decision_refs)
+        current_refs.update(env.information_refs);current_refs.update(env.input_receipt_refs)
+        current_refs.update(ref for _,ref in env.source_artifact_refs)
+    current_artifacts={ref:item for ref,item in all_artifacts.items() if ref in current_refs}
+    productive_asset_origins={}
+    for asset_ref,(kind,asset_env) in all_artifacts.items():
+        if kind!='REALIZED_ASSET_STATE':continue
+        for item in _artifact_payload(kernel,asset_ref):
+            if not isinstance(item,(tuple,list)) or len(item)!=2:continue
+            asset_id,asset=item
+            if asset.get('kind')=='PRODUCTIVE':
+                productive_asset_origins.setdefault(asset_id,(asset_ref,asset_env,asset))
+    canonical_context_refs={}
+    canonical_request_refs={};canonical_receipt_refs={}
+    for context_ref,(kind,_) in all_artifacts.items():
+        artifact_payload=_artifact_payload(kernel,context_ref)
+        if kind=='INFORMATION_ARTIFACT':
+            for context_obj in _walk_typed(artifact_payload):
+                if context_obj.get('__type__')=='ContextValue':
+                    context_key=(context_obj['assertion_id'],_context_fingerprint(context_obj))
+                    canonical_context_refs.setdefault(context_key,context_ref)
+        if kind=='ADMITTED_INFORMATION':
+            for receipt_obj in _walk_typed(artifact_payload):
+                if receipt_obj.get('__type__')!='AdmissionReceipt':continue
+                request_id=receipt_obj['consumption_request']['request_id']
+                receipt_id=receipt_obj['receipt_id']
+                canonical_request_refs.setdefault(request_id,context_ref)
+                canonical_receipt_refs.setdefault(receipt_id,context_ref)
+    # Historical requests remain available as observation/mission lookup keys,
+    # but only current-epoch source originals produce new projections.
+    request_refs={};planned_request_refs={}
+    for ref,(kind,_) in all_artifacts.items():
+        if kind=='REQUEST':
+            for obj in _walk_typed(_artifact_payload(kernel,ref)):
+                if not obj.get('id'):continue
+                planned_request_refs.setdefault(obj['id'],ref)
+                if obj.get('__type__')=='ExplorationRequest':request_refs.setdefault(obj['id'],(obj,ref))
     opening_ref=next((ref for ref,(kind,_) in all_artifacts.items()
                       if kind=='AUTHORED_INPUT_RECORDS'),None)
     if first:
@@ -589,20 +677,25 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
             stage_ref=initial_colony.stage,habitation_state='KNOWN',
             habitation_capacity=initial_colony.habitat_capacity,
             original_state_ref=opening_ref)))
+        rows.append(('wa_run.settlement_location',dict(run_id=manifest.run_id,
+            settlement_id=settlement_id,occupation_key='PRIMARY_SITE',
+            world_id=binding.world_id,body_id=binding.body_id,
+            location_id=binding.authored_site_id,
+            effective_period=_sim_period(2),event_id=genesis.envelope_id)))
         rows.extend(_population_projection(manifest.run_id,'USA_COHORT_1000',
             settlement_id,binding,genesis.envelope_id,opening_ref,
             kernel.population.earth,kernel.population.in_transit.get(binding.site_node_id,0),
-            kernel.population.offworld.get(binding.site_node_id,0)))
+            kernel.population.offworld.get(binding.site_node_id,0),kernel.population.total()))
 
     # Requests, source ContextValues, scoped receipts, safe snapshots, facts and
     # decisions retain their exact typed originals and source fingerprints.
-    request_refs={};receipt_values={};snapshot_refs={};pending_context={}
-    for ref,(kind,env) in all_artifacts.items():
+    receipt_values={};snapshot_refs={};pending_context={}
+    request_rows={};receipt_rows={};pending_fact_rows=[]
+    for ref,(kind,env) in current_artifacts.items():
         payload=_artifact_payload(kernel,ref)
         if kind=='REQUEST':
             for obj in _walk_typed(payload):
                 if obj.get('__type__')=='ExplorationRequest':
-                    request_refs[obj['id']]=(obj,ref)
                     rows.append(('wa_run.mission',dict(run_id=manifest.run_id,
                         mission_id=obj['id'],project_id=obj['project_id'],world_id=binding.world_id,
                         body_id=binding.body_id,target_location_id=binding.authored_site_id,
@@ -611,14 +704,15 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
         if kind=='INFORMATION_ARTIFACT':
             for obj in _walk_typed(payload):
                 if obj.get('__type__')=='ContextValue':
-                    value_ref=obj['assertion_id']
+                    assertion_ref=obj['assertion_id'];fingerprint=_context_fingerprint(obj)
+                    value_ref=_context_instance_ref(assertion_ref,fingerprint)
                     # Fingerprints are copied from the corresponding original
                     # receipt below; a source value without a receipt is blocked.
-                    receipt_values.setdefault(value_ref,[])
+                    receipt_values.setdefault((assertion_ref,fingerprint),[])
                     source_values=tuple(obj.get('source_refs',()))
                     source_hashes=tuple(obj.get('source_hashes',()))
                     pending_context[value_ref]=(dict(run_id=manifest.run_id,
-                        value_ref=value_ref,assertion_ref=obj['assertion_id'],
+                        value_ref=value_ref,assertion_ref=assertion_ref,fingerprint=fingerprint,
                         subject_ref=obj['subject_id'],concept=obj['concept'],scope_ref=obj['scope'],
                         world_context=obj['world_context'],context_id=obj['context_id'],
                         perspective=obj['perspective'],perspective_actor_id=obj['perspective_actor_id'],
@@ -627,8 +721,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                         proposition_role=obj['proposition_role'],epistemic_mode=obj['epistemic_mode'],
                         admission_state=obj['admission_state'],uncertainty_state=obj['uncertainty_state'],
                         uncertainty_ref=obj['uncertainty_ref'],time_basis=obj['time_basis'],
-                        valid_from=obj['valid_from'],valid_to=obj['valid_to'],
-                        available_from=obj['available_from'],source_time=obj['source_time'],
+                        valid_from=Decimal(obj['valid_from']),valid_to=Decimal(obj['valid_to']),
+                        available_from=Decimal(obj['available_from']),source_time=Decimal(obj['source_time']),
                         source_refs=list(source_values),source_hashes=list(source_hashes),
                         warrant_refs=list(obj['warrant_refs']),
                         support_conflict_refs=list(obj['support_conflict_refs']),
@@ -636,34 +730,59 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                         transformation_ref=obj['transformation_ref'],
                         transformation_version=obj['transformation_version'],
                         authorization_ref=obj['authorization_ref'],reference_role=obj['reference_role'],
-                        record_version=obj['record_version'],original_artifact_ref=ref),ref)
+                        record_version=obj['record_version'],
+                        original_artifact_ref=canonical_context_refs[(assertion_ref,fingerprint)]),ref)
         if kind=='ADMITTED_INFORMATION':
             for obj in _walk_typed(payload):
                 if obj.get('__type__')!='AdmissionReceipt':continue
                 request=obj['consumption_request'];rid=request['request_id']
-                value_ref=obj['source_assertion_refs'][0][0]
-                receipt_values.setdefault(value_ref,[]).append(obj['resolved_value_hash'])
+                assertion_ref,source_fingerprint=obj['source_assertion_refs'][0]
+                if source_fingerprint!=obj['resolved_value_hash']:
+                    raise NamedWorldBlocked('BLOCKED_RECEIPT_SOURCE_FINGERPRINT')
+                value_ref=_context_instance_ref(assertion_ref,obj['resolved_value_hash'])
+                receipt_values.setdefault((assertion_ref,obj['resolved_value_hash']),[]).append(obj['receipt_id'])
                 request_ref=next((r for r,(k,_) in all_artifacts.items()
                     if k=='REQUEST' and _decoded(json.loads(kernel.causal_artifacts[r][1])).get('id')==rid),None)
                 if request_ref is None:
                     # Genesis source requests are held inside the exact
                     # admission artifact itself.
                     request_ref=ref
-                rows.append(('wa_info.consumption_request',dict(run_id=manifest.run_id,
+                request_row=dict(run_id=manifest.run_id,
                     request_id=rid,consumer_id=request['consumer_id'],use_ref=request['use'],
                     subject_ref=request['subject_id'],concept=request['concept'],
                     scope_ref=request['scope'],time_basis=request['time_basis'],
-                    effective_time=request['effective_time'],knowledge_cutoff=request['knowledge_cutoff'],
+                    effective_time=Decimal(request['effective_time']),
+                    knowledge_cutoff=Decimal(request['knowledge_cutoff']),
                     world_context=request['world_context'],context_id=request['context_id'],
                     perspective=request['perspective'],perspective_actor_id=request['perspective_actor_id'],
                     assertion_set=request['assertion_set'],required_unit=request['required_unit'],
-                    required_role=request['required_role'],original_artifact_ref=request_ref)))
-                rows.append(('wa_info.receipt',dict(run_id=manifest.run_id,
+                    required_role=request['required_role'],
+                    original_artifact_ref=canonical_request_refs.get(rid,request_ref))
+                prior_request=request_rows.get(rid)
+                if prior_request is not None:
+                    comparable=lambda row:{k:v for k,v in row.items() if k!='original_artifact_ref'}
+                    if comparable(prior_request)!=comparable(request_row):
+                        changed=tuple(sorted(k for k in request_row
+                            if request_row[k]!=prior_request.get(k)))
+                        raise NamedWorldBlocked('BLOCKED_REQUEST_ID_REUSE_WITH_DIFFERENT_CONTENT:'+rid+':'+','.join(changed))
+                    request_row['original_artifact_ref']=min(prior_request['original_artifact_ref'],
+                        canonical_request_refs.get(rid,request_ref))
+                request_rows[rid]=request_row
+                receipt_row=dict(run_id=manifest.run_id,
                     receipt_id=obj['receipt_id'],request_id=rid,value_ref=value_ref,
                     resolved_value_hash=obj['resolved_value_hash'],state=obj['state'],
                     reason_code=obj['reason_code'],consumer_contract_ref=obj['consumer_contract_ref'],
                     consumer_contract_version=obj['consumer_contract_version'],
-                    receipt_version=obj['receipt_version'],original_artifact_ref=ref)))
+                    receipt_version=obj['receipt_version'],
+                    original_artifact_ref=canonical_receipt_refs.get(obj['receipt_id'],ref))
+                prior_receipt=receipt_rows.get(obj['receipt_id'])
+                if prior_receipt is not None:
+                    comparable=lambda row:{k:v for k,v in row.items() if k!='original_artifact_ref'}
+                    if comparable(prior_receipt)!=comparable(receipt_row):
+                        raise NamedWorldBlocked('BLOCKED_RECEIPT_ID_REUSE_WITH_DIFFERENT_CONTENT')
+                    receipt_row['original_artifact_ref']=min(prior_receipt['original_artifact_ref'],
+                        canonical_receipt_refs.get(obj['receipt_id'],ref))
+                receipt_rows[obj['receipt_id']]=receipt_row
         if kind=='DECISION_STATE':
             snapshot=payload
             actor_id=snapshot['agent_id'];period=snapshot['period_key']
@@ -694,14 +813,14 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                 original_artifact_ref=ref,worker_fingerprint=worker_fp,
                 producer_contract_ref='BUILD6E_NAMED_WORLD_V1',
                 sanitizer_attestation_sha256=sanitizer)))
+            login=agent_logins.get(actor_id)
+            if not login:raise NamedWorldBlocked('BLOCKED_AGENT_LOGIN_BINDING:'+actor_id)
+            rows.append(('wa_info.principal_binding',dict(login_name=login,
+                run_id=manifest.run_id,actor_id=actor_id,authorized_snapshot_ref=snapshot_ref,
+                effective_time=Decimal(snapshot['effective_time']),
+                authorization_ref='BUILD6E_NAMED_WORLD_V1')))
             for fact in snapshot['admitted_facts']:
-                rows.append(('wa_info.agent_fact',dict(run_id=manifest.run_id,
-                    actor_id=actor_id,snapshot_ref=snapshot_ref,fact_key=fact['key'],
-                    receipt_id=fact['source_ref'],effective_time=Decimal(snapshot['effective_time']),
-                    value_state=fact['state'],value_lexeme=fact['value'],
-                    worker_source_ref='admitted:'+fact['key'],
-                    producer_contract_ref='BUILD6E_NAMED_WORLD_V1',
-                    sanitizer_attestation_sha256=sanitizer)))
+                pending_fact_rows.append((actor_id,snapshot_ref,Decimal(snapshot['effective_time']),fact,sanitizer))
             result=decision_result;decision=result['decision'];decision_id=decision.get('id')
             if not decision_id:raise NamedWorldBlocked('BLOCKED_DECISION_ID')
             rows.append(('wa_info.decision',dict(run_id=manifest.run_id,
@@ -709,6 +828,18 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                 decision_time=Decimal(snapshot['effective_time']),
                 original_snapshot_ref=ref,worker_snapshot_ref=snapshot_ref,
                 original_decision_ref=result_ref,policy_version_ref=result['policy_version'])))
+            decision_auth_time=kernel._boundary_decisions.get(result_ref,(None,None,None))[2]
+            if decision_auth_time is not None:
+                planned_ref=planned_request_refs.get(decision.get('request_id'))
+                if planned_ref is None:raise NamedWorldBlocked('BLOCKED_AUTHORIZATION_REQUEST_ORIGINAL')
+                if decision.get('actor_id',decision.get('financier_id',actor_id))!=actor_id:
+                    raise NamedWorldBlocked('BLOCKED_AUTHORIZATION_ACTOR_MISMATCH')
+                authorization_id='authorization:'+decision_id
+                rows.append(('wa_info.action_authorization',dict(run_id=manifest.run_id,
+                    authorization_id=authorization_id,decision_id=decision_id,actor_id=actor_id,
+                    authorization_time=Decimal(decision_auth_time),
+                    rule_origin_kind='DECISION',rule_ref=result['policy_version'],
+                    planned_action_ref=planned_ref)))
         if kind=='REALIZED_EVENT':
             for obj in _walk_typed(payload):
                 if obj.get('__type__')=='Observation':
@@ -724,6 +855,42 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                         geometry_id=None,vertical_id=None,method_ref=obj['channel'],
                         measurement_schema_ref='SIGNAL_CATEGORY_V1',
                         original_observation_ref=ref,world_context='REALIZED')))
+                    rows.append(('wa_info.information_artifact',dict(run_id=manifest.run_id,
+                        information_id=obj['id'],source_observation_id=obj['id'],
+                        source_context_value_ref=None,created_time=Decimal(env.realized_time),
+                        source_time_lexeme=str(obj['year']),source_time_basis='SIM_TIME',
+                        payload_schema_ref='SIGNAL_CATEGORY_V1',original_artifact_ref=ref,
+                        publication_contract_ref='OBSERVATION_SELF_OUTPUT_V1')))
+                if obj.get('__type__')=='ObservationBeliefUpdateRecord':
+                    actor_id=obj['agent_id'];observation_id=obj['observation_id']
+                    if observation_id not in kernel.agents[actor_id].information:
+                        raise NamedWorldBlocked('BLOCKED_OBSERVATION_NOT_POSSESSED_AT_BELIEF_UPDATE')
+                    rows.append(('wa_info.possession',dict(run_id=manifest.run_id,
+                        actor_id=actor_id,information_id=observation_id,
+                        possession_key='POSSESSION:'+env.envelope_id+':'+observation_id,
+                        available_from=Decimal(env.realized_time),event_id=env.envelope_id,
+                        access_contract_ref=obj['record_version'])))
+                    rows.append(('wa_info.belief',dict(run_id=manifest.run_id,
+                        actor_id=actor_id,belief_key=obj['belief_key'],event_id=env.envelope_id,
+                        source_information_id=observation_id,value_state='KNOWN',
+                        original_belief_ref=ref,update_rule_ref=obj['model_id'])))
+                if obj.get('__type__')=='PublicInformationArtifact':
+                    rows.append(('wa_info.information_artifact',dict(run_id=manifest.run_id,
+                        information_id=obj['id'],source_observation_id=obj['source_observation_id'],
+                        source_context_value_ref=None,created_time=Decimal(obj['year']),
+                        source_time_lexeme=str(obj['year']),source_time_basis='SIM_TIME',
+                        payload_schema_ref=obj['artifact_version'],original_artifact_ref=ref,
+                        publication_contract_ref='PUBLICATION:'+obj['artifact_version'])))
+                    for actor_id in obj['recipient_ids']:
+                        agent=kernel.agents[actor_id]
+                        if obj['id'] not in agent.information or obj['source_observation_id'] not in agent.information:
+                            raise NamedWorldBlocked('BLOCKED_PUBLICATION_POSSESSION_MEMBERSHIP')
+                        for information_id in (obj['source_observation_id'],obj['id']):
+                            rows.append(('wa_info.possession',dict(run_id=manifest.run_id,
+                                actor_id=actor_id,information_id=information_id,
+                                possession_key='POSSESSION:'+env.envelope_id+':'+information_id,
+                                available_from=Decimal(env.realized_time),event_id=env.envelope_id,
+                                access_contract_ref='PUBLICATION:'+obj['artifact_version'])))
                 if obj.get('__type__')=='SettlementInfrastructureRecord':
                     if obj['outcome']=='INSTALLED':
                         settlement_id='SET:MOON:CABEU:SITE01';asset_id='HABITAT:INFRA'
@@ -736,11 +903,6 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                             body_id=binding.body_id,location_id=binding.authored_site_id,
                             effective_period=_sim_period(env.realized_time),placement_mode='STATIONARY',
                             trajectory_product_ref=None,event_id=env.envelope_id)))
-                        rows.append(('wa_run.settlement_location',dict(run_id=manifest.run_id,
-                            settlement_id=settlement_id,occupation_key='PRIMARY_SITE',
-                            world_id=binding.world_id,body_id=binding.body_id,
-                            location_id=binding.authored_site_id,
-                            effective_period=_sim_period(env.realized_time),event_id=env.envelope_id)))
                         rows.append(('wa_run.settlement_asset',dict(run_id=manifest.run_id,
                             settlement_id=settlement_id,asset_id=asset_id,
                             relationship_ref='INSTALLED_HABITAT',organization_id='SETTLEMENT',
@@ -765,32 +927,125 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                         earth=obj['total_population_after']-obj['offworld_population_after']
                         transit=obj['in_transit_after'];resident=obj['offworld_population_after']
                     rows.extend(_population_projection(manifest.run_id,'USA_COHORT_1000',
-                        'SET:MOON:CABEU:SITE01',binding,env.envelope_id,ref,earth,transit,resident))
-        if kind=='REALIZED_ASSET_STATE':
-            payload=_artifact_payload(kernel,ref)
-            for item in payload:
-                if not isinstance(item,(tuple,list)) or len(item)!=2:continue
-                asset_id,asset=item
-                rows.append(('wa_run.asset',dict(run_id=manifest.run_id,
-                    asset_id=asset_id,asset_class_ref=asset['kind'],runtime_class='ENTITY_ASSET',
-                    original_asset_ref=ref,
-                    installed_event_id=env.envelope_id if asset['kind']=='PRODUCTIVE' else None)))
-                rows.append(('wa_run.asset_location',dict(run_id=manifest.run_id,
-                    asset_id=asset_id,placement_key='PRIMARY_SITE',world_id=binding.world_id,
-                    body_id=binding.body_id,location_id=binding.authored_site_id,
-                    effective_period=_sim_period(env.realized_time),placement_mode='STATIONARY',
-                    trajectory_product_ref=None,event_id=env.envelope_id)))
+                        'SET:MOON:CABEU:SITE01',binding,env.envelope_id,ref,earth,transit,
+                        resident,kernel.population.total()))
+    for asset_id,(asset_ref,asset_env,asset) in sorted(productive_asset_origins.items()):
+        if asset_env.envelope_id not in current_envelope_ids:continue
+        rows.append(('wa_run.asset',dict(run_id=manifest.run_id,
+            asset_id=asset_id,asset_class_ref='PRODUCTIVE',runtime_class='ENTITY_ASSET',
+            original_asset_ref=asset_ref,installed_event_id=asset_env.envelope_id)))
+        rows.append(('wa_run.asset_location',dict(run_id=manifest.run_id,
+            asset_id=asset_id,placement_key='PRIMARY_SITE',world_id=binding.world_id,
+            body_id=binding.body_id,location_id=binding.authored_site_id,
+            effective_period=_sim_period(asset_env.realized_time),placement_mode='STATIONARY',
+            trajectory_product_ref=None,event_id=asset_env.envelope_id)))
+    rows.extend(('wa_info.consumption_request',request_rows[key]) for key in sorted(request_rows))
+    receipt_for_fact={}
+    for receipt_id,receipt in receipt_rows.items():
+        request=request_rows[receipt['request_id']]
+        receipt_for_fact.setdefault((request['consumer_id'],request['concept'],
+            request['effective_time']),[]).append(receipt_id)
+    for actor_id,snapshot_ref,effective_time,fact,sanitizer in pending_fact_rows:
+        matches=receipt_for_fact.get((actor_id,fact['key'],effective_time),())
+        if len(matches)!=1:
+            raise NamedWorldBlocked('BLOCKED_AGENT_FACT_RECEIPT_BINDING')
+        rows.append(('wa_info.agent_fact',dict(run_id=manifest.run_id,
+            actor_id=actor_id,snapshot_ref=snapshot_ref,fact_key=fact['key'],
+            receipt_id=matches[0],effective_time=effective_time,
+            value_state=fact['state'],value_lexeme=fact['value'],
+            worker_source_ref='admitted:'+fact['key'],
+            producer_contract_ref='BUILD6E_NAMED_WORLD_V1',
+            sanitizer_attestation_sha256=sanitizer)))
     for value_ref,(value_row,_) in sorted(pending_context.items()):
-        fingerprints=tuple(sorted(set(receipt_values.get(value_ref,()))))
-        if len(fingerprints)!=1:
+        key=(value_row['assertion_ref'],value_row['fingerprint'])
+        if not receipt_values.get(key):
             raise NamedWorldBlocked('BLOCKED_CONTEXT_VALUE_RECEIPT_FINGERPRINT')
-        value_row['fingerprint']=fingerprints[0]
         rows.append(('wa_info.context_value',value_row))
+    rows.extend(('wa_info.receipt',receipt_rows[key]) for key in sorted(receipt_rows))
+    envelope_ordinals={e.envelope_id:index for index,e in enumerate(envelopes)}
+    for decision_env in envelopes:
+        if decision_env.action!='POLICY_EVALUATION':continue
+        state_ref=next((ref for kind,ref in decision_env.artifact_refs if kind=='DECISION_STATE'),None)
+        decision_ref=next((ref for ref in decision_env.decision_refs
+            if kernel.causal_artifacts.get(ref,(None,None))[0]=='DECISION'),None)
+        if state_ref is None or decision_ref is None:continue
+        decision_auth_time=kernel._boundary_decisions.get(decision_ref,(None,None,None))[2]
+        if decision_auth_time is None:continue
+        snapshot=_artifact_payload(kernel,state_ref)
+        decision_result=_artifact_payload(kernel,decision_ref)
+        decision=decision_result['decision'];actor_id=snapshot['agent_id']
+        decision_id=decision.get('id')
+        if not decision_id:continue
+        receipt_candidates=[]
+        for receipt_ref in decision_env.input_receipt_refs:
+            for receipt_obj in _walk_typed(_artifact_payload(kernel,receipt_ref)):
+                if receipt_obj.get('__type__')!='AdmissionReceipt':continue
+                request=receipt_obj['consumption_request']
+                if (request['consumer_id']==actor_id and request['perspective']=='AGENT'
+                    and Decimal(request['effective_time'])==Decimal(snapshot['effective_time'])):
+                    receipt_candidates.append((request['concept'],receipt_obj['receipt_id']))
+        if not receipt_candidates:continue
+        receipt_id=next((rid for concept,rid in receipt_candidates
+            if concept=='opportunity.NAMED_LOCATION'),sorted(rid for _,rid in receipt_candidates)[0])
+        authorization_id='authorization:'+decision_id
+        for consequence in envelopes:
+            if consequence.envelope_id==decision_env.envelope_id or decision_ref not in consequence.decision_refs:
+                continue
+            if consequence.actor_id!=actor_id:continue
+            realized_refs=[ref for kind,ref in consequence.artifact_refs if kind=='REALIZED_EVENT']
+            observations=[]
+            for realized_ref in realized_refs:
+                observations.extend(obj for obj in _walk_typed(_artifact_payload(kernel,realized_ref))
+                    if obj.get('__type__')=='Observation')
+            for observation in observations:
+                later=None;belief=None
+                for next_env in envelopes:
+                    if envelope_ordinals[next_env.envelope_id]<=envelope_ordinals[consequence.envelope_id]:continue
+                    if Decimal(next_env.realized_time)<Decimal(consequence.realized_time):continue
+                    if next_env.envelope_id not in current_envelope_ids:continue
+                    for kind,ref in next_env.artifact_refs:
+                        if kind!='REALIZED_EVENT':continue
+                        for obj in _walk_typed(_artifact_payload(kernel,ref)):
+                            if obj.get('__type__')=='ObservationBeliefUpdateRecord' and obj['agent_id']==actor_id and obj['observation_id']==observation['id']:
+                                later=next_env;belief=obj
+                            elif obj.get('__type__')=='PublicInformationArtifact' and actor_id in obj['recipient_ids'] and obj['source_observation_id']==observation['id']:
+                                later=next_env
+                    if later is not None:break
+                if later is None:continue
+                possession_key='POSSESSION:'+later.envelope_id+':'+observation['id']
+                rows.append(('wa_info.epistemic_loop',dict(run_id=manifest.run_id,
+                    loop_key='LOOP:'+decision_id+':'+observation['id'],actor_id=actor_id,
+                    receipt_id=receipt_id,belief_event_id=None if belief is None else later.envelope_id,
+                    belief_key=None if belief is None else belief['belief_key'],
+                    decision_id=decision_id,authorization_id=authorization_id,
+                    consequence_envelope_id=consequence.envelope_id,
+                    subsequent_information_id=observation['id'],
+                    subsequent_possession_key=possession_key)))
     context_rows=[row for row in rows if row[0]=='wa_info.context_value']
     if context_rows:
         rows=[row for row in rows if row[0]!='wa_info.context_value']
         receipt_index=next((i for i,row in enumerate(rows) if row[0]=='wa_info.receipt'),len(rows))
         rows[receipt_index:receipt_index]=context_rows
+    info_rank={'wa_info.consumption_request':0,'wa_info.context_value':1,
+        'wa_info.receipt':2,'wa_info.information_artifact':3,'wa_info.possession':4,
+        'wa_info.belief':5,'wa_info.agent_snapshot':6,'wa_info.agent_fact':7,
+        'wa_info.decision':8,'wa_info.action_authorization':9,
+        'wa_info.epistemic_loop':10,'wa_info.principal_binding':11}
+    run_rows=[row for row in rows if row[0].startswith('wa_run.')]
+    info_rows=[row for row in rows if row[0].startswith('wa_info.')]
+    run_rank={'wa_run.execution':0,'wa_run.world_binding':1,'wa_run.artifact':2,
+        'wa_run.causal_envelope':3,'wa_run.trace_artifact_edge':4,'wa_run.trace_parent':5,
+        'wa_run.actor_reference':6,'wa_run.organization_reference':7,
+        'wa_run.project':8,'wa_run.project_location':9,'wa_run.project_party':10,
+        'wa_run.mission':11,'wa_run.observation':12,'wa_run.stock_state':13,
+        'wa_run.accessibility_assessment':14,'wa_run.recoverability_assessment':15,
+        'wa_run.reserve_interpretation':16,'wa_run.asset':17,'wa_run.asset_location':18,
+        'wa_run.settlement':19,'wa_run.settlement_location':20,'wa_run.settlement_asset':21,
+        'wa_run.settlement_state':22,'wa_run.population_origin':23,'wa_run.population_state':24}
+    rows=sorted(run_rows,key=lambda row:(run_rank[row[0]],
+        row[1].get('event_ordinal',0) if row[0]=='wa_run.causal_envelope' else
+        json.dumps(row[1],sort_keys=True,separators=(',',':'),default=str)))+sorted(info_rows,key=lambda row:(info_rank[row[0]],
+        json.dumps(row[1],sort_keys=True,separators=(',',':'),default=str)))
     latest = envelopes[-1]
     terminals = tuple(dict.fromkeys(ref for _, ref in latest.artifact_refs))[:2]
     if len(terminals) != 2:
@@ -799,7 +1054,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
 
 
 def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocationBinding,
-                            epoch_id: str, effective_time: Decimal | str | int, execute):
+                            epoch_id: str, effective_time: Decimal | str | int,
+                            agent_logins: Mapping[str,str], execute):
     """Run one original kernel epoch inside World Authority's V1.2 scope.
 
     Runtime results are returned only after successful COMMIT. Any raised error
@@ -838,7 +1094,7 @@ def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocation
         validate_trace(kernel.causal_envelopes, kernel.causal_artifacts)
         first = not bool(prefix)
         rows, terminals = _runtime_epoch_rows(kernel, binding, first=first,
-            start_index=start_index, epoch_id=epoch_id)
+            start_index=start_index, epoch_id=epoch_id,agent_logins=agent_logins)
         session.stage_epoch(epoch_id, expected, rows, terminals)
     if session.status not in ('COMMITTED', 'ALREADY_MATCHED'):
         raise NamedWorldBlocked('BLOCKED_EPOCH_NOT_COMMITTED')

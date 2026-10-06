@@ -1,5 +1,6 @@
 import copy
 from decimal import Decimal
+import json
 from pathlib import Path
 import sys
 import unittest
@@ -81,6 +82,22 @@ class NamedWorldContractTests(unittest.TestCase):
         changed['world_generation']['policy_seed'] = 'independent-policy-seed-control'
         self.assertEqual(self.compile(self.doc, 'SPARSE'), self.compile(changed, 'SPARSE'))
 
+    def test_exact_repeat_is_byte_and_identity_stable(self):
+        first = self.compile(self.doc, 'RICH', seed='repeat-control-seed')
+        second = self.compile(self.doc, 'RICH', seed='repeat-control-seed')
+        self.assertEqual(first, second)
+
+    def test_unregistered_variant_and_cross_support_are_blocked(self):
+        with self.assertRaisesRegex(NamedWorldBlocked, 'BLOCKED_WORLD_VARIANT'):
+            self.compile(self.doc, 'UNREGISTERED')
+        for key, value in (('support_id', '00000000-0000-0000-0000-000000000001'),
+                           ('location_id', '00000000-0000-0000-0000-000000000002')):
+            altered = dict(self.source)
+            altered[key] = value
+            with self.subTest(key=key), self.assertRaises(NamedWorldBlocked):
+                compile_world_rows(self.doc, altered, 'SPARSE', site_id=self.site,
+                    feature_id=self.feature, parent_id=self.parent)
+
     def test_source_scope_or_candidate_status_drift_blocks(self):
         for key, value in (('scope_kind', 'REGIONAL'), ('initial_standing', 'ADMITTED'),
                            ('standing', 'HOLD'), ('extrapolation_warrant_id', 'unapproved')):
@@ -89,6 +106,14 @@ class NamedWorldContractTests(unittest.TestCase):
             with self.subTest(key=key), self.assertRaises(NamedWorldBlocked):
                 compile_world_rows(self.doc, altered, 'SPARSE', site_id=self.site,
                     feature_id=self.feature, parent_id=self.parent)
+
+    def test_governed_habitat_low_case_is_valid_and_insufficient(self):
+        protocol=json.loads((ROOT/'simulation/offworld_mvp/build6e/inputs/BUILD6E_QUALIFICATION_V2.json').read_text())
+        case=protocol['case_parameters']['HABITAT_LOW']
+        self.assertGreater(int(case['habitat_capacity']),0)
+        self.assertLess(int(case['habitat_capacity']),int(case['requested_residents']))
+        self.assertEqual(protocol['governed_corrections'][0]['id'],'BUILD6E-QUAL-PROTOCOL-CORR-001')
+        self.assertFalse(protocol['governed_corrections'][0]['frozen_6d_kernel_modified'])
 
 
 if __name__ == '__main__':
