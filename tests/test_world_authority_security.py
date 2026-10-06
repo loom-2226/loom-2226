@@ -11,7 +11,7 @@ import uuid
 from psycopg import sql
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
-from loom_world_authority.store import RoleViolation, CollisionFailure, stable_uuid, length_prefixed, _complete_columns, read_catalog_location, read_admitted_constraints, install_exact_world, record_fixture_admission, persist_epoch, read_replay_prefix, export_run, IntegrityFailure, sha256_bytes, require_sha256, verify_original_bytes, load_current_agent_snapshot
+from loom_world_authority.store import RoleViolation, CollisionFailure, stable_uuid, length_prefixed, _complete_columns, read_catalog_location, read_admitted_constraints, install_exact_world, install_authored_site_metadata, install_fixture_time_support, record_fixture_admission, persist_epoch, read_replay_prefix, export_run, IntegrityFailure, sha256_bytes, require_sha256, verify_original_bytes, load_current_agent_snapshot
 
 try:
     import psycopg
@@ -453,6 +453,98 @@ class WorldAuthoritySecurity(unittest.TestCase):
         with conn(WRITER,TEST_PASSWORD,autocommit=True) as c:
             got=c.execute("SELECT encode(wa_crypto.digest('x'::bytea,'sha256'),'hex')").fetchone()[0]
         self.assertEqual(got,"2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881")
+
+    @staticmethod
+    def _authored_manifest(suffix='01'):
+        return dict(profile='WA_AUTHORED_SITE_METADATA_V1',authorization_ref='WA-OWNER-2026-10-06-01:BUILD6E_QUALIFICATION_FIXTURE',
+                    identity_authority='LOOM_BUILD6E_NAMED_WORLD_V1',body_key='MOON',parent_location_key='CABEU',
+                    site_key='B6E_MOON_CABEU_SITE_'+suffix,site_name='Moon — Cabeus authored site '+suffix,
+                    feature_key='B6E_MOON_CABEU_LOCAL_FEATURE'+suffix,feature_name='Authored local feature '+suffix,
+                    unit_key='MODEL_RESOURCE_UNIT_BY_FAMILY')
+
+    def test_onboarding_exact_authored_site_and_science_separation(self):
+        manifest=self._authored_manifest()
+        with conn(AUDITOR,TEST_PASSWORD) as c:
+            before=c.execute('SELECT count(*) FROM wa_science.admission').fetchone()[0]
+            candidate=c.execute("SELECT initial_standing FROM wa_science.assertion WHERE semantic_key='R_MOON_CAB_WATER'").fetchone()
+            parent=c.execute("SELECT location_kind,original_region_type FROM wa_geo.location WHERE semantic_key='CABEU' AND body_id=%s",(self.body,)).fetchone()
+        self.assertEqual(parent,('SITE','LOCAL_SITE'))
+        self.assertEqual(candidate,('CANDIDATE',))
+        with conn(WRITER,TEST_PASSWORD) as c:status,site_id,feature_id=install_authored_site_metadata(c,manifest)
+        self.assertEqual(status,'INSERTED')
+        with conn(WRITER,TEST_PASSWORD) as c:self.assertEqual(install_authored_site_metadata(c,manifest),('ALREADY_MATCHED',site_id,feature_id))
+        with conn(REFERENCE,TEST_PASSWORD) as c:
+            site=read_catalog_location(c,'MOON',manifest['site_key'])
+            self.assertEqual((site[5],site[8],site[9],site[10]),(site_id,'SITE','AUTHORED_SPATIAL_ANCHOR',None))
+            feature=read_catalog_location(c,'MOON',manifest['feature_key'])
+            self.assertEqual((feature[5],feature[8],feature[9],feature[10]),(feature_id,'LOCAL_FEATURE','AUTHORED_SPATIAL_ANCHOR',None))
+        with conn(AUDITOR,TEST_PASSWORD) as c:
+            relations=c.execute('SELECT relation_kind,warrant_ref FROM wa_geo.location_relation WHERE to_location_id IN (%s,%s) ORDER BY to_location_id',(site_id,feature_id)).fetchall()
+            self.assertEqual(len(relations),2)
+            self.assertTrue(all(k=='CONTAINS' and manifest['authorization_ref'] in w for k,w in relations))
+            self.assertEqual(c.execute('SELECT count(*) FROM wa_science.admission').fetchone()[0],before)
+            self.assertEqual(c.execute("SELECT initial_standing FROM wa_science.assertion WHERE semantic_key='R_MOON_CAB_WATER'").fetchone(),candidate)
+            self.assertEqual(c.execute("SELECT interpretation_state FROM wa_meta.unit WHERE unit_key='MODEL_RESOURCE_UNIT_BY_FAMILY'").fetchone(),('UNCHARACTERIZED',))
+
+    def test_onboarding_collisions_atomicity_and_scope(self):
+        manifest=self._authored_manifest('02')
+        with conn(WRITER,TEST_PASSWORD) as c:
+            with self.assertRaisesRegex(IntegrityFailure,'AUTHORED_SITE_PARENT_NOT_EMPIRICAL'):
+                install_authored_site_metadata(c,manifest|{'body_key':'MARS'})
+        with conn(WRITER,TEST_PASSWORD,autocommit=True) as c:
+            c.execute('BEGIN ISOLATION LEVEL SERIALIZABLE')
+            self._insert(c,'wa_geo.location',dict(location_id=uuid.UUID(int=0xb6e001),body_id=self.body,system_id=None,
+                semantic_key='QUAL_FORGED_EMPIRICAL_PARENT',name='forged parent',location_kind='SITE',
+                original_region_type='LOCAL_SITE',origin_kind='EMPIRICALLY_IDENTIFIED',geometry_id=None,
+                source_ref='FORGED_NOT_MIGRATED',notes=None))
+            c.execute('COMMIT')
+        with conn(WRITER,TEST_PASSWORD) as c:
+            with self.assertRaisesRegex(IntegrityFailure,'AUTHORED_SITE_PARENT_NOT_EMPIRICAL'):
+                install_authored_site_metadata(c,manifest|{'parent_location_key':'QUAL_FORGED_EMPIRICAL_PARENT'})
+        with conn(AUDITOR,TEST_PASSWORD) as c:
+            self.assertEqual(c.execute('SELECT count(*) FROM wa_geo.location WHERE semantic_key=%s',(manifest['site_key'],)).fetchone()[0],0)
+        with conn(WRITER,TEST_PASSWORD) as c:status,site_id,feature_id=install_authored_site_metadata(c,manifest)
+        self.assertEqual(status,'INSERTED')
+        with conn(WRITER,TEST_PASSWORD) as c:
+            with self.assertRaises(CollisionFailure):install_authored_site_metadata(c,manifest|{'site_name':'forged name'})
+        with conn(AUDITOR,TEST_PASSWORD) as c:
+            self.assertEqual(c.execute('SELECT name FROM wa_geo.location WHERE location_id=%s',(site_id,)).fetchone(),(manifest['site_name'],))
+            self.assertEqual(c.execute('SELECT count(*) FROM wa_geo.location_relation WHERE to_location_id=%s',(feature_id,)).fetchone()[0],1)
+        with conn(WRITER,TEST_PASSWORD) as c:
+            with self.assertRaisesRegex(IntegrityFailure,'AUTHORED_SITE_MANIFEST_FIELDS'):
+                install_authored_site_metadata(c,manifest|{'sql':'DROP TABLE wa_geo.body'})
+
+    def test_onboarding_fixture_time_is_not_admission(self):
+        from loom_world_authority.etl import SOURCE_SHA
+        a=self.science['CANDIDATE']
+        tm=dict(kind='LEXICAL',time_lexeme='2',start_lexeme=None,end_lexeme=None,calendar_ref=None,timescale_ref='SIM_TIME',instant_utc=None,interval_utc=None,parsing_warrant_ref=None)
+        manifest=dict(profile='WA_FIXTURE_ADMISSION_MANIFEST_V1',assertion_id=str(a['assertion_id']),assertion_metadata_sha256=a['metadata_sha256'],support_id=str(a['support_id']),source_snapshot_sha256=SOURCE_SHA,initial_standing='CANDIDATE',use_contract_ref='QUAL_SUCCESSOR_TIME',authorization_ref='WA-OWNER-2026-10-06-01:BUILD6E_QUALIFICATION_FIXTURE',decision_ordinal=2002,standing='ADMITTED',effective_availability_lexeme='2',time_support=tm)
+        with conn(AUDITOR,TEST_PASSWORD) as c:before=c.execute('SELECT count(*) FROM wa_science.admission').fetchone()[0]
+        with conn(WRITER,TEST_PASSWORD) as c:self.assertEqual(install_fixture_time_support(c,manifest),'INSERTED')
+        with conn(WRITER,TEST_PASSWORD) as c:self.assertEqual(install_fixture_time_support(c,manifest),'ALREADY_MATCHED')
+        with conn(AUDITOR,TEST_PASSWORD) as c:self.assertEqual(c.execute('SELECT count(*) FROM wa_science.admission').fetchone()[0],before)
+        with conn(GOVERNOR,TEST_PASSWORD) as c:self.assertEqual(record_fixture_admission(c,manifest),'INSERTED')
+        with conn(GOVERNOR,TEST_PASSWORD) as c:self.assertEqual(record_fixture_admission(c,manifest),'ALREADY_MATCHED')
+        with conn(WRITER,TEST_PASSWORD) as c:
+            with self.assertRaisesRegex(IntegrityFailure,'FIXTURE_TIME_METADATA'):
+                install_fixture_time_support(c,manifest|{'time_support':tm|{'instant_utc':'2026-10-06'}})
+
+    def test_onboarding_principal_boundaries(self):
+        manifest=self._authored_manifest('03')
+        for login in (AGENT,WORLD,RUNTIME,GOVERNOR,ADMISSION,EXECUTOR,REFERENCE):
+            with conn(login,TEST_PASSWORD) as c:
+                with self.assertRaises(RoleViolation):install_authored_site_metadata(c,manifest)
+        from loom_world_authority.etl import SOURCE_SHA
+        a=self.science['CANDIDATE']
+        tm=dict(kind='LEXICAL',time_lexeme='2',start_lexeme=None,end_lexeme=None,calendar_ref=None,timescale_ref='SIM_TIME',instant_utc=None,interval_utc=None,parsing_warrant_ref=None)
+        m=dict(profile='WA_FIXTURE_ADMISSION_MANIFEST_V1',assertion_id=str(a['assertion_id']),assertion_metadata_sha256=a['metadata_sha256'],support_id=str(a['support_id']),source_snapshot_sha256=SOURCE_SHA,initial_standing='CANDIDATE',use_contract_ref='QUAL_DENIED',authorization_ref='QUAL',decision_ordinal=2003,standing='ADMITTED',effective_availability_lexeme='2',time_support=tm)
+        for login in (AGENT,WORLD,RUNTIME,GOVERNOR,ADMISSION,EXECUTOR,REFERENCE):
+            with conn(login,TEST_PASSWORD) as c:
+                with self.assertRaises(RoleViolation):install_fixture_time_support(c,m)
+        with conn(AGENT,TEST_PASSWORD,autocommit=True) as c:
+            with self.assertRaises(psycopg.errors.InsufficientPrivilege):c.execute('SELECT 1 FROM wa_geo.location LIMIT 1')
+        with conn(WORLD,TEST_PASSWORD,autocommit=True) as c:
+            with self.assertRaises(psycopg.errors.InsufficientPrivilege):c.execute("INSERT INTO wa_meta.unit(unit_key,source_lexeme,interpretation_state) VALUES ('FORGED','FORGED','UNCHARACTERIZED')")
 
 if __name__=="__main__":
     unittest.main()
