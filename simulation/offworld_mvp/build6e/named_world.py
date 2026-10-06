@@ -23,6 +23,12 @@ USE_CONTRACT = "BUILD6E_SCOPED_AUTHORING_INPUT_V1"
 FIXTURE_AUTHORIZATION = "WA-OWNER-2026-10-06-01:BUILD6E_QUALIFICATION_FIXTURE"
 IDENTITY_AUTHORITY = "LOOM_BUILD6E_NAMED_WORLD_V1"
 MODEL_FAMILY = "AUTHOR_FIXED_SCOPED_REALIZATION_V1"
+ACCEPTED_SOURCE_LEXICAL_PROFILE = {
+    "representativeness": "SITE_ONLY",
+    "value_lexeme": "5.6",
+    "unit_lexeme": "wt%",
+    "uncertainty_lexeme": "±2.9",
+}
 INPUT = Path(__file__).resolve().parent / "inputs" / "BUILD6E_NAMED_WORLD_V1.json"
 
 
@@ -65,6 +71,7 @@ def load_manifest(path: Path = INPUT) -> dict[str, Any]:
         raise NamedWorldBlocked("BLOCKED_CABEUS_CATALOG_KIND")
     if doc["accepted_source"]["scope"] != "LOCAL_SITE" or doc["accepted_source"]["support_location_key"] != "CABEU":
         raise NamedWorldBlocked("BLOCKED_SCIENCE_SCOPE")
+    _validate_source_lexical_profile(doc["accepted_source"])
     if doc["accepted_source"]["initial_standing"] != "CANDIDATE":
         raise NamedWorldBlocked("BLOCKED_INITIAL_STANDING")
     if doc["fixture_admission"]["standing"] != "ADMITTED" or doc["fixture_admission"]["use_contract_ref"] != USE_CONTRACT:
@@ -81,6 +88,13 @@ def load_manifest(path: Path = INPUT) -> dict[str, Any]:
     if doc["runtime"]["opening_effective_time"] != "2" or int(doc["runtime"]["time_offset"]) != 1:
         raise NamedWorldBlocked("BLOCKED_OPENING_TIME_PROFILE")
     return doc
+
+
+def _validate_source_lexical_profile(source: Mapping[str, Any]) -> None:
+    """Pin every admitted source lexeme consumed by the fixed fixture."""
+    for key, expected in ACCEPTED_SOURCE_LEXICAL_PROFILE.items():
+        if source.get(key) != expected:
+            raise NamedWorldBlocked("BLOCKED_SOURCE_PROVENANCE_OR_SCOPE:" + key)
 
 
 def authored_metadata_manifest(doc: Mapping[str, Any]) -> dict[str, str]:
@@ -134,6 +148,7 @@ def record_scoped_admission(science_governor, doc: Mapping[str, Any]) -> str:
 def admitted_constraint(reference_reader, doc: Mapping[str, Any]) -> Mapping[str, Any]:
     """Read the admitted input only at its exact persisted LOCAL_SITE support."""
     s = doc["accepted_source"]
+    _validate_source_lexical_profile(s)
     rows = store.read_admitted_constraints(
         reference_reader,
         [uuid.UUID(s["assertion_id"])], 1, USE_CONTRACT, [uuid.UUID(s["support_id"])],

@@ -3,6 +3,7 @@ from decimal import Decimal
 import json
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[4]
@@ -97,6 +98,19 @@ class NamedWorldContractTests(unittest.TestCase):
             with self.subTest(key=key), self.assertRaises(NamedWorldBlocked):
                 compile_world_rows(self.doc, altered, 'SPARSE', site_id=self.site,
                     feature_id=self.feature, parent_id=self.parent)
+
+    def test_source_lexical_provenance_drift_is_blocked(self):
+        for key, value in (('value_lexeme', '99.0'), ('unit_lexeme', 'invented-unit'),
+                           ('uncertainty_lexeme', '±99'),
+                           ('representativeness', 'BODY_REPRESENTATIVE')):
+            altered = copy.deepcopy(self.doc)
+            altered['accepted_source'][key] = value
+            with tempfile.TemporaryDirectory() as directory:
+                path = Path(directory) / 'altered.json'
+                path.write_text(json.dumps(altered))
+                with self.subTest(key=key), self.assertRaisesRegex(
+                        NamedWorldBlocked, 'BLOCKED_SOURCE_PROVENANCE_OR_SCOPE'):
+                    load_manifest(path)
 
     def test_source_scope_or_candidate_status_drift_blocks(self):
         for key, value in (('scope_kind', 'REGIONAL'), ('initial_standing', 'ADMITTED'),
