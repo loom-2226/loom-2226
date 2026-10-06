@@ -136,7 +136,7 @@ def admitted_constraint(reference_reader, doc: Mapping[str, Any]) -> Mapping[str
     s = doc["accepted_source"]
     rows = store.read_admitted_constraints(
         reference_reader,
-        [s["assertion_id"]], 1, USE_CONTRACT, [s["support_id"]],
+        [uuid.UUID(s["assertion_id"])], 1, USE_CONTRACT, [uuid.UUID(s["support_id"])],
         consumer=CONTRACT, context="REAL", perspective="GOVERNANCE",
     )
     if len(rows) != 1:
