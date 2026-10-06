@@ -178,7 +178,7 @@ def make_kernel(world='RICH',overrides=None,*,world_seed=None,policy_seed=None,s
             'Moon — Cabeus region, authored site01','AUTHORED_SITE_IDENTITY',definitions[0][1]),
     ))
     contracts.extend((
-        ('PUB','POLICY','opportunity.NAMED_LOCATION','LOCATION:MOON:CABEU','REAL','AGENT','CATALOG_LOCATION_IDENTITY','ADMITTED_INFORMATION'),
+        ('PUB','POLICY','opportunity.NAMED_LOCATION','LOCATION:MOON:CABEU','REAL','AGENT','CATALOG_LOCATION_IDENTITY','ADMITTED_CATALOG_IDENTITY'),
         ('PUB','POLICY','opportunity.AUTHORED_SITE','SITE:OFF:MOON:CABEU:B6E_SITE_01','SCENARIO','AGENT','AUTHORED_SITE_IDENTITY','POLICY_PARAMETER'),
     ))
     allowed=[]
@@ -331,9 +331,14 @@ def _policy_epoch_body(k,h,label,actor,time,request,concepts,runner,version,subj
     delta=0 if label=='TRANSPORT' else int(h['params'].get('time_offset',0))
     time=str(D(time)+delta)
     request=_shift_temporal_record(request,delta)
+    from offworld_kernel.boundary import BUILD6E_CONTRACT
+    opening_epoch=(k.boundary_manifest.contract_version==BUILD6E_CONTRACT and not k._boundary_opening_validated)
+    if opening_epoch:
+        k.begin_decision_epoch(label,'BUILD6E_CORE_CHAIN' if k.decision_epoch_chain_id is None else None)
     receipts=policy_inputs(k,actor,time,concepts,subjects)
     snap=build_decision_snapshot(k,actor,period,D(time),snapshot_facts(k,receipts),admission_receipts=receipts)
-    k.begin_decision_epoch(label,'BUILD6E_CORE_CHAIN' if k.decision_epoch_chain_id is None else None)
+    if not opening_epoch:
+        k.begin_decision_epoch(label,'BUILD6E_CORE_CHAIN' if k.decision_epoch_chain_id is None else None)
     k.scheduler.register_coupling(CouplingSpec('DECISION','BUILD6E_V1',RuntimeObjectClass.SYSTEM,(),('agent_snapshot',),(),'EVENT',Phase.DECISION_WINDOW))
     ref=k.scheduler.open_decision_window(period,snap.fingerprint());eid=label+':decision'
     k.scheduler.schedule(ScheduledEvent(eid,D(time),Phase.DECISION_WINDOW,0,actor,'DECISION',snapshot_ref=ref))

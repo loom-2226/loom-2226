@@ -149,8 +149,15 @@ class ScheduledSimulationRuntime:
         if self.kernel.boundary_manifest is not None and self.kernel.boundary_manifest.contract_version=='BUILD6E_NAMED_WORLD_V1':
             from decimal import Decimal
             opening=Decimal(self.kernel.boundary_manifest.parameter('opening_effective_time'))
-            if any(Decimal(a.available_from)>opening for a in self.kernel.boundary_manifest.assertions):
-                raise InvariantError('BLOCKED_TIME: opening input unavailable at GENESIS')
+            for assertion in self.kernel.boundary_manifest.assertions:
+                if assertion.time_basis=='SIM_TIME':
+                    available=Decimal(assertion.available_from)
+                elif assertion.time_basis=='CALENDAR_YEAR' and self.kernel.boundary_manifest.clock_mapping_ref=='SIM_YEAR_PLUS_2025_V1':
+                    available=Decimal(assertion.available_from)-Decimal('2025')
+                else:
+                    raise InvariantError('BLOCKED_TIME: opening input clock basis is unmapped')
+                if available>opening:
+                    raise InvariantError('BLOCKED_TIME: opening input unavailable at GENESIS')
             if any(Decimal(str(e.effective_time))<opening for e in self.kernel.scheduler.ordered_events()):
                 raise InvariantError('BLOCKED_TIME: event precedes 6E opening')
         if self.kernel.boundary_manifest is not None:self._validate_boundary_provenance()
