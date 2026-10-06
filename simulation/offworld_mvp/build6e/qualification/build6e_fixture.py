@@ -323,13 +323,18 @@ def _shift_method_arguments(method,args,delta):
     if delta and idx is not None and idx<len(values):
         v=values[idx]
         if isinstance(v,(int,str,D)):values[idx]=int(D(v)+delta) if type(v) is int else str(D(v)+delta) if type(v) is str else D(v)+delta
-    return tuple(_shift_temporal_record(v,delta) for v in values)
+    # Only the explicit operation-time argument is mapped. Nested typed
+    # requests/records keep their decision, source and realized timestamps.
+    return tuple(values)
 
 
 def _policy_epoch_body(k,h,label,actor,time,request,concepts,runner,version,subjects=None):
     h['counter']+=1;period=label
     delta=0 if label=='TRANSPORT' else int(h['params'].get('time_offset',0))
     time=str(D(time)+delta)
+    # Map the request once into the same SIM decision clock as its window.
+    # Later consequence events map their explicit operation-time argument;
+    # nested requests/records must not be shifted a second time.
     request=_shift_temporal_record(request,delta)
     from offworld_kernel.boundary import BUILD6E_CONTRACT
     opening_epoch=(k.boundary_manifest.contract_version==BUILD6E_CONTRACT and not k._boundary_opening_validated)
@@ -429,6 +434,7 @@ def finance(k,h,label,time,request):
 def operate(k,h,label,time,obs):
     request=build_operating_cycle_request(label+':request',int(time),'P','RES','MINE-P',obs.id)
     d,ref=policy_epoch(k,h,label,'SPN',str(time),request,('project.STATUS','project.CASH_BALANCE','asset.CAPACITY','underwriting.OPERATING_COST'),workers.run_sponsor_operating_policy,workers.sponsor_operating_policy_version())
+    request=h['requests'][label]
     if d.outcome.value=='REQUEST_FINANCE':
         q=build_financing_request('OP-FIN',int(time),'SPN','P',d.requested_financing,'OPERATING',(obs.id,));system_epoch(k,h,'submit_financing_request',str(time),(q,),decision_refs=(ref,))
         fd,_=finance(k,h,label+':finance',time,q)
@@ -444,6 +450,7 @@ def operate(k,h,label,time,obs):
 def review(k,h,label,time,output):
     req=build_enterprise_review_request(label+':request',int(time),'P',output.extraction_event_id)
     d,ref=policy_epoch(k,h,label,'SPN',str(time),req,('project.STATUS','cycle.PLANNED_QUANTITY','cycle.ACTUAL_OUTPUT'),workers.run_sponsor_enterprise_review_policy,workers.sponsor_enterprise_review_policy_version(),{'cycle.PLANNED_QUANTITY':output.extraction_event_id,'cycle.ACTUAL_OUTPUT':output.extraction_event_id})
+    req=h['requests'][label]
     if d.outcome.value in ('CONTINUE','CLOSE'):system_epoch(k,h,'execute_enterprise_review',str(time),(int(time),'SPN',req,d),decision_refs=(ref,))
     return d
 
@@ -493,10 +500,12 @@ def _run_case(k,h):
     if d.outcome.value!='OFFER':
         review(k,h,'ZERO_OUTPUT_REVIEW',10,first)
         return k,h
+    req=h['requests']['SALE']
     h['sale']=system_epoch(k,h,'clear_market_sale','10',(10,'SPN',req,d),decision_refs=(ref,))
     req=build_surplus_distribution_request('DISTRIBUTE:request',10,'P','FRC')
     d,ref=policy_epoch(k,h,'DISTRIBUTE','SPN','10',req,('project.STATUS','project.CASH_BALANCE','project.RESERVE_REQUIREMENT','financing.RETURN_CLAIM_REMAINING','project.REINVESTMENT_REQUIREMENT'),workers.run_sponsor_surplus_policy,workers.sponsor_surplus_policy_version())
     if d.outcome.value=='DISTRIBUTE':
+        req=h['requests']['DISTRIBUTE']
         h['distribution']=system_epoch(k,h,'execute_surplus_distribution','10',(10,'SPN',req,d,'local_reinvest_funds'),decision_refs=(ref,))
         system_epoch(k,h,'execute_settlement_infrastructure','11',(11,'INFRA','SPN'),decision_refs=(ref,))
         system_epoch(k,h,'update_settlement_stage','11',(11,'OFF:MOON:CABEU:B6E_SITE_01'))

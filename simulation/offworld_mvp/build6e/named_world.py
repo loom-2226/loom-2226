@@ -316,9 +316,18 @@ def prepare_named_world(*, science_writer, science_governor, reference_reader,
     No SQL or Build 6E-owned persistence path is used here.
     """
     site_status, site_id, feature_id = onboard_metadata(science_writer, doc)
-    parent = store.read_catalog_location(reference_reader, doc['metadata']['body_key'],
-                                         doc['metadata']['parent_location_key'])
-    if parent is None or parent['location_kind'] != 'SITE' or parent['origin_kind'] != 'EMPIRICALLY_IDENTIFIED':
+    catalog = store.read_catalog_location(reference_reader, doc['metadata']['body_key'],
+                                            doc['metadata']['parent_location_key'])
+    if catalog is None:
+        raise NamedWorldBlocked('BLOCKED_CABEUS_NOT_EMPIRICAL_SITE')
+    # V1.2 deliberately returns a fixed tuple, not a caller-shaped SQL row.
+    columns=('body_id','body_key','body_name','body_class','body_original_ref',
+             'location_id','location_key','location_name','location_kind','origin_kind',
+             'geometry_id','source_ref')
+    if len(catalog)!=len(columns):
+        raise NamedWorldBlocked('BLOCKED_CATALOG_READER_PROFILE')
+    parent=dict(zip(columns,catalog,strict=True))
+    if parent['location_kind'] != 'SITE' or parent['origin_kind'] != 'EMPIRICALLY_IDENTIFIED':
         raise NamedWorldBlocked('BLOCKED_CABEUS_NOT_EMPIRICAL_SITE')
     expected_parent = store.stable_uuid('LOCATION', 'LOOM_LOCATION_V1',
         store.length_prefixed(doc['metadata']['body_key'], doc['metadata']['parent_location_key']).decode(),
