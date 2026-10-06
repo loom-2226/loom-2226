@@ -146,6 +146,13 @@ class ScheduledSimulationRuntime:
             from .boundary import validate_opening
             validate_opening(self.kernel)
             self.kernel._boundary_opening_validated=True
+        if self.kernel.boundary_manifest is not None and self.kernel.boundary_manifest.contract_version=='BUILD6E_NAMED_WORLD_V1':
+            from decimal import Decimal
+            opening=Decimal(self.kernel.boundary_manifest.parameter('opening_effective_time'))
+            if any(Decimal(a.available_from)>opening for a in self.kernel.boundary_manifest.assertions):
+                raise InvariantError('BLOCKED_TIME: opening input unavailable at GENESIS')
+            if any(Decimal(str(e.effective_time))<opening for e in self.kernel.scheduler.ordered_events()):
+                raise InvariantError('BLOCKED_TIME: event precedes 6E opening')
         if self.kernel.boundary_manifest is not None:self._validate_boundary_provenance()
         self._plan_fingerprint=self.kernel.scheduler.plan_fingerprint()
         self._initial_fingerprint=self.kernel.methodology_fingerprint()
@@ -297,24 +304,40 @@ class ScheduledSimulationRuntime:
 
     def _validate_boundary_provenance(self):
         from pathlib import Path
+        from .boundary import BUILD6E_AUTHORIZATION, BUILD6E_CONTRACT, AUTHORIZATION, CONTRACT
         m=self.kernel.boundary_manifest;root=Path(__file__).resolve().parents[5]
+        is6e=(m.contract_version,m.authorization_ref)==(BUILD6E_CONTRACT,BUILD6E_AUTHORIZATION)
+        if (m.contract_version,m.authorization_ref) not in ((CONTRACT,AUTHORIZATION),(BUILD6E_CONTRACT,BUILD6E_AUTHORIZATION)):
+            raise InvariantError('BLOCKED_PROVENANCE: unknown closed contract')
         required={'BOUNDARY_SHA256':m.fingerprint(),'EARTH_SLICE_SHA256':m.earth_slice_ref[1],
                   'COMPARISON_CONFIG_SHA256':m.comparison_spec_ref[1],'QUALIFICATION_PROTOCOL_SHA256':m.qualification_protocol_ref[1]}
+        seen_harness=set()
         for ref,digest in m.harness_refs:
             path=(root/ref).resolve()
             if not path.is_relative_to(root) or sha256(path.read_bytes()).hexdigest()!=digest:
                 raise InvariantError('BLOCKED_PROVENANCE: qualification harness bytes')
-            if path.name=='qualify_build6d.py':required['QUALIFICATION_DRIVER_SHA256']=digest
+            if is6e:
+                expected={
+                    'simulation/offworld_mvp/build6e/qualification/qualify_build6e.py':'QUALIFICATION_DRIVER_SHA256',
+                    'simulation/offworld_mvp/build6e/qualification/build6e_fixture.py':'QUALIFICATION_FIXTURE_SHA256',
+                    'simulation/offworld_mvp/build6e/named_world.py':'NAMED_WORLD_COMPILER_SHA256',
+                    'src/loom_world_authority/store.py':'WORLD_AUTHORITY_STORE_SHA256',
+                }
+                rel=path.relative_to(root).as_posix()
+                if rel not in expected or rel in seen_harness:raise InvariantError('BLOCKED_PROVENANCE: undeclared 6E harness/module')
+                seen_harness.add(rel);required[expected[rel]]=digest
+            elif path.name=='qualify_build6d.py':required['QUALIFICATION_DRIVER_SHA256']=digest
             elif path.name=='build6d_fixture.py':required['QUALIFICATION_FIXTURE_SHA256']=digest
             else:raise InvariantError('BLOCKED_PROVENANCE: undeclared harness kind')
-        if len(required)!=6:raise InvariantError('BLOCKED_PROVENANCE: harness descriptors absent')
+        if is6e and len(seen_harness)!=4:raise InvariantError('BLOCKED_PROVENANCE: incomplete 6E module inventory')
+        if not is6e and len(required)!=6:raise InvariantError('BLOCKED_PROVENANCE: harness descriptors absent')
         labels={}
         for entry in self.provenance.table_manifest_ids:
             key,_,value=entry.partition(':')
             if key in labels:raise InvariantError('BLOCKED_PROVENANCE: duplicate identity label')
             labels[key]=value
         if any(labels.get(key)!=value for key,value in required.items()):raise InvariantError('BLOCKED_PROVENANCE: strict manifest labels')
-        inputs=root/'simulation/offworld_mvp/build6/inputs'
+        inputs=root/('simulation/offworld_mvp/build6e/inputs' if is6e else 'simulation/offworld_mvp/build6/inputs')
         for ref,digest in (*m.scenario_definition_refs,m.earth_slice_ref,m.qualification_protocol_ref):
             path=(inputs/ref).resolve()
             if not path.is_relative_to(inputs) or sha256(path.read_bytes()).hexdigest()!=digest:

@@ -17,6 +17,8 @@ from .causal_trace import canonical, content_hash
 
 CONTRACT='BUILD6D_CORE_FRD_CLOSURE_V1'
 AUTHORIZATION='BUILD6D_IMPLEMENTATION_AUTHORIZATION_001_CORE_FRD_CLOSURE'
+BUILD6E_CONTRACT='BUILD6E_NAMED_WORLD_V1'
+BUILD6E_AUTHORIZATION='BUILD6E_IMPLEMENTATION_AUTHORIZATION_001_NAMED_WORLD'
 CONTEXTS=('REAL','SCENARIO','REALIZED')
 PERSPECTIVES=('GOVERNANCE','WORLD_SIM','AGENT')
 ADMISSION_STATES=('ADMITTED','CANDIDATE','HOLD','REJECTED','QUARANTINED')
@@ -186,7 +188,7 @@ class BoundaryManifest:
 
     def __post_init__(self):
         for f in fields(self):_immutable(getattr(self,f.name))
-        if self.contract_version!=CONTRACT or self.authorization_ref!=AUTHORIZATION:
+        if (self.contract_version,self.authorization_ref) not in ((CONTRACT,AUTHORIZATION),(BUILD6E_CONTRACT,BUILD6E_AUTHORIZATION)):
             raise InvariantError('BLOCKED_AUTHORIZATION: strict contract/authorization missing')
         if self.clock_mapping_ref!='SIM_YEAR_PLUS_2025_V1':
             raise InvariantError('BLOCKED_TIME: unregistered clock mapping')
@@ -448,7 +450,7 @@ def validate_snapshot(kernel,agent_id,period,effective_time,facts,receipts):
 
 def validate_opening(kernel):
     m=kernel.boundary_manifest
-    if kernel.run_identity.code_contract!=CONTRACT or kernel.run_identity.input_snapshot_id!=m.input_snapshot_id or kernel.run_identity.parameters!=m.parameters:
+    if kernel.run_identity.code_contract!=m.contract_version or kernel.run_identity.input_snapshot_id!=m.input_snapshot_id or kernel.run_identity.parameters!=m.parameters:
         raise InvariantError('BLOCKED_CONTRACT: run identity/manifest mismatch')
     if kernel.observations or kernel.state.transactions or kernel.events or kernel.public_information:
         raise InvariantError('BLOCKED_GENESIS: pre-epoch causal activity')
@@ -474,6 +476,10 @@ def validate_opening(kernel):
     if len(population_sources)!=1 or population_sources[0].world_context!='REAL' or D(population_sources[0].value)!=D(m.parameter('reference_population_bound')):
         raise InvariantError('BLOCKED_GENESIS: admitted population bound absent/mismatched')
     if kernel.population.earth>D(m.parameter('reference_population_bound')):raise InvariantError('BLOCKED_GENESIS: source population bound')
+    if m.contract_version==BUILD6E_CONTRACT:
+        if 'opening_effective_time' not in dict(m.parameters):raise InvariantError('BLOCKED_TIME: 6E opening time absent')
+        opening=_time(m.parameter('opening_effective_time'))
+        if opening!=D('2') or opening!=opening.to_integral_value():raise InvariantError('BLOCKED_TIME: 6E opening time profile')
 
 
 def load_earth_assertions(path, *, parent_root, verify_parents=True):

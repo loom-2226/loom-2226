@@ -1734,11 +1734,17 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if self.decision_epoch_state_fingerprint()!=self._decision_epoch_expected_between_fingerprint:
                 raise InvariantError('persistent state tampered between decision epochs')
         if self.boundary_manifest is not None and not self._boundary_opening_validated:
-            from .boundary import validate_opening
+            from .boundary import BUILD6E_CONTRACT, validate_opening
             from types import SimpleNamespace
             validate_opening(self)
             self._boundary_opening_validated=True
-            event=SimpleNamespace(event_id='GENESIS',effective_time=D(0),process_id='GENESIS',stable_key='GENESIS')
+            opening=D(self.boundary_manifest.parameter('opening_effective_time')) if self.boundary_manifest.contract_version=='BUILD6E_NAMED_WORLD_V1' else D(0)
+            if self.boundary_manifest.contract_version==BUILD6E_CONTRACT:
+                # The real GENESIS transition belongs to the first atomic 6E
+                # epoch batch. The frozen 6D path retains its historical
+                # GENESIS epoch label and time exactly.
+                self.active_decision_epoch_id=epoch_id
+            event=SimpleNamespace(event_id='GENESIS',effective_time=opening,process_id='GENESIS',stable_key='GENESIS')
             self._boundary_emit(event,'GENESIS',(),self._boundary_projection(),'DECLARED_OPENING_STATE',artifacts=(('SCENARIO_INPUT',self.boundary_manifest),('ADMITTED_INFORMATION',self._boundary_genesis_inputs),('AUTHORED_INPUT_RECORDS',self._boundary_authored_inputs)))
         self.scheduler=DeterministicScheduler()
         self.active_decision_epoch_id=epoch_id
