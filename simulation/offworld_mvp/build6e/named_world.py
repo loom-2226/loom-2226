@@ -190,7 +190,7 @@ def compile_world_rows(doc: Mapping[str, Any], source_row: Mapping[str, Any], wo
     src = doc["accepted_source"]
     if str(source_row["support_id"]) != src["support_id"] or source_row["location_id"] != parent_id:
         raise NamedWorldBlocked("BLOCKED_SCIENCE_SUPPORT_NOT_CATALOG_PARENT")
-    if source_row["scope_kind"] != "LOCAL_SITE" or source_row["extrapolation_warrant_id"] is not None:
+    if source_row["scope_kind"] != "LOCAL_SITE" or source_row.get("extrapolation_warrant_id") is not None:
         raise NamedWorldBlocked("BLOCKED_SCIENTIFIC_SCOPE_WIDENING")
     if source_row["initial_standing"] != "CANDIDATE" or source_row["standing"] != "ADMITTED":
         raise NamedWorldBlocked("BLOCKED_CANDIDATE_STATUS_MUTATION")
