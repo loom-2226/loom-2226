@@ -1,0 +1,14 @@
+{
+  "domain": "LOOM_WORLD_AUTHORITY",
+  "version": "LOOM_WORLD_AUTHORITY_V1",
+  "classification": "class:data",
+  "database_name": "loom_world_authority",
+  "ddl_sha256": "3791cf91332f5c7d979dc2a8a590be4bacf3ba8ec932493f07edf510fb9cffe1",
+  "source_sqlite_sha256": "72ddfab0eb35fb5a86ecfd50d4bc939a982ffc1fe3362108036082298a57b777",
+  "source_git_commit": "acd0eb9fada60a0d2509de6af8c23ec3df6c28d6",
+  "owner_decision": "WA-OWNER-2026-10-06-01",
+  "build6e_relationship": "FIRST_RUNTIME_CONSUMER_NOT_OWNER",
+  "ddl_correction": "PGCRYPTO_PUBLIC_EXECUTE_REVOKE_INSTALLER_CONTEXT",
+  "source_path": "simulation/offworld_mvp/world_science/lab_v0_1/LOOM_SOLAR_WORLD_SCIENCE_LAB_v0_1.sqlite3",
+  "source_bytes": 1056768
+}
