@@ -270,7 +270,21 @@ def make_kernel(world='RICH',overrides=None,*,world_seed=None,policy_seed=None,s
     request=ConsumptionRequest('EARTH_POPULATION_BOUND','GENESIS','EARTH_REFERENCE','USA','population','COUNTRY:USA','CALENDAR_YEAR','2027','2027','REAL','','GOVERNANCE','','ADMITTED','PERSON','EARTH_REFERENCE')
     bound,receipt=admit_for_use(k,request);genesis.append((receipt,bound))
     k._boundary_genesis_inputs=tuple(genesis)
-    k._boundary_authored_inputs=(table,policy_manifest)
+    opening_records={
+        'profile':'BUILD6E_OPENING_RUNTIME_RECORDS_V1',
+        'agents':tuple(sorted(k.agents.items())),
+        'systems':tuple(sorted(k.systems.items())),
+        'projects':tuple(sorted(k.state.projects.items())),
+        'accounts':tuple(sorted(k.state.accounts.items())),
+        'initial_population':k.population,
+        'settlement_id':'SET:MOON:CABEU:SITE01',
+        'settlement_node':'OFF:MOON:CABEU:B6E_SITE_01',
+        'initial_colony':k.colonies['OFF:MOON:CABEU:B6E_SITE_01'],
+        'cohort_id':'USA_COHORT_1000',
+        'population_source_receipt':next(r.receipt_id for r,v in genesis
+            if r.consumption_request.concept=='population'),
+    }
+    k._boundary_authored_inputs=(table,policy_manifest,opening_records)
     m=replace(m,assertions=(*m.assertions,*derived));k.boundary_manifest=m
     opening=tuple((key,canonical(k._boundary_opening_value(key))) for key in ('accounts','agents','resources','constraints','population','earth_admission_receipts'))
     k.boundary_manifest=replace(m,opening_bindings=opening,opening_state_hash=content_hash(k._boundary_projection()))

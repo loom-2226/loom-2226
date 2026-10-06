@@ -2608,6 +2608,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         except (InvariantError,ValueError,KeyError) as exc:
             self._boundary_emit(event,name,prior,prior,str(exc),receipts=receipts,source_values=consumed,decision_refs=decision_refs,artifacts=(('BLOCKED_TRANSITION_INPUTS',(args,tuple(sorted(kwargs.items())))),),reason_code='BLOCKED_ADMISSION')
             raise
+        asset_before=(dict(self.state.assets)
+                      if getattr(self,'boundary_manifest',None) is not None
+                      and self.boundary_manifest.contract_version=='BUILD6E_NAMED_WORLD_V1'
+                      else None)
         self._boundary_capture_depth+=1
         try:
             result=attr(*args,**kwargs)
@@ -2622,7 +2626,12 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         bound=inspect.signature(attr).bind(*args,**kwargs).arguments
         actor_id=bound.get('actor_id',bound.get('agent_id',bound.get('financier_id',event.process_id)))
         self._boundary_event_deltas.append(state_delta(prior,following))
-        self._boundary_emit(event,name,prior,following,result,receipts=receipts,source_values=consumed,decision_refs=decision_refs,artifacts=(('REALIZED_EVENT',result),('TRANSITION_INPUTS',(args,tuple(sorted(kwargs.items()))))),actor_id=actor_id,decision_time=self._boundary_decisions.get(decision_refs[0],(None,))[0] if decision_refs else None,authorization_time=self._boundary_decisions[decision_refs[0]][2] if decision_refs else None)
+        artifacts=[('REALIZED_EVENT',result),('TRANSITION_INPUTS',(args,tuple(sorted(kwargs.items()))))]
+        if asset_before is not None:
+            changed=tuple((key,value) for key,value in sorted(self.state.assets.items())
+                          if asset_before.get(key)!=value)
+            if changed:artifacts.append(('REALIZED_ASSET_STATE',changed))
+        self._boundary_emit(event,name,prior,following,result,receipts=receipts,source_values=consumed,decision_refs=decision_refs,artifacts=tuple(artifacts),actor_id=actor_id,decision_time=self._boundary_decisions.get(decision_refs[0],(None,))[0] if decision_refs else None,authorization_time=self._boundary_decisions[decision_refs[0]][2] if decision_refs else None)
         return result
 
 

@@ -363,6 +363,60 @@ def safe_named_location_fact(doc: Mapping[str, Any]) -> tuple[str, str]:
     return "Moon — Cabeus crater", "REAL_CATALOG_LOCATION_IDENTITY"
 
 
+def _decoded(value):
+    """Decode only the existing causal_trace typed wire shape."""
+    if isinstance(value, dict) and 'type' in value:
+        kind=value['type']
+        if 'fields' in value:
+            return {'__type__':kind,**{k:_decoded(v) for k,v in value['fields'].items()}}
+        if 'items' in value:
+            items=tuple(_decoded(v) for v in value['items'])
+            return items if kind in ('tuple','list','set','frozenset') else {'__type__':kind,'items':items}
+        if 'value' in value:
+            return Decimal(value['value']) if kind=='Decimal' else value['value']
+    if isinstance(value,dict):return {k:_decoded(v) for k,v in value.items()}
+    if isinstance(value,list):return [_decoded(v) for v in value]
+    return value
+
+
+def _artifact_payload(kernel, ref):
+    record=kernel.causal_artifacts.get(ref)
+    if record is None:raise NamedWorldBlocked('BLOCKED_TRACE_ARTIFACT_MISSING')
+    return _decoded(json.loads(record[1]))
+
+
+def _walk_typed(value):
+    if isinstance(value,dict):
+        if '__type__' in value:yield value
+        for child in value.values():yield from _walk_typed(child)
+    elif isinstance(value,(tuple,list)):
+        for child in value:yield from _walk_typed(child)
+
+
+def _sim_period(start):
+    from psycopg.types.range import Range
+    return Range(Decimal(start),None,'[)')
+
+
+def _population_projection(run_id, cohort_id, settlement_id, binding, event_id,
+                           original_state_ref, earth, transit, resident):
+    """Project the ledger's complete explicit positions without inference."""
+    positions=(
+        ('EARTH',None,None,int(earth)),
+        ('IN_TRANSIT',None,None,int(transit)),
+        ('RESIDENT',binding.authored_site_id,settlement_id,int(resident)),
+    )
+    if min(value for _,_,_,value in positions)<0:
+        raise NamedWorldBlocked('BLOCKED_NEGATIVE_POPULATION_PROJECTION')
+    if sum(value for *_,value in positions) != int(earth)+int(transit)+int(resident):
+        raise NamedWorldBlocked('BLOCKED_POPULATION_PROJECTION_TOTAL')
+    return tuple(('wa_run.population_state',dict(run_id=run_id,cohort_id=cohort_id,
+        event_id=event_id,position_key=kind,location_id=location_id,
+        settlement_id=position_settlement,position_class=kind,person_count=count,
+        original_state_ref=original_state_ref))
+        for kind,location_id,position_settlement,count in positions)
+
+
 def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, start_index: int, epoch_id: str):
     """Encode one completed original kernel epoch in the fixed V1 row profile."""
     from dataclasses import fields
@@ -454,6 +508,263 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
             remaining_state='KNOWN', remaining_in_situ=resource.in_situ-depleted,
             cumulative_extracted=depleted, unit_key='MODEL_RESOURCE_UNIT_BY_FAMILY',
             original_physical_state_ref=physical_ref)))
+
+    # Durable named-runtime projections. These rows are indexes over the
+    # original kernel records/artifacts above; they do not create runtime state.
+    all_artifacts={}
+    for env in envelopes:
+        for kind,ref in env.artifact_refs:all_artifacts.setdefault(ref,(kind,env))
+    opening_ref=next((ref for ref,(kind,_) in all_artifacts.items()
+                      if kind=='AUTHORED_INPUT_RECORDS'),None)
+    if first:
+        if opening_ref is None:raise NamedWorldBlocked('BLOCKED_OPENING_RUNTIME_RECORDS')
+        genesis=next((e for e in envelopes if e.action=='GENESIS'),None)
+        if genesis is None:raise NamedWorldBlocked('BLOCKED_GENESIS_ENVELOPE')
+        actor_ids=set()
+        for actor_id,actor in sorted(kernel.agents.items()):
+            actor_ids.add(actor_id)
+            rows.append(('wa_run.actor_reference',dict(run_id=manifest.run_id,
+                actor_id=actor_id,original_runtime_class='AGENT',original_artifact_ref=opening_ref)))
+        for system_id,system in sorted(kernel.systems.items()):
+            actor_ids.add(system_id)
+            rows.append(('wa_run.actor_reference',dict(run_id=manifest.run_id,
+                actor_id=system_id,original_runtime_class='SYSTEM',original_artifact_ref=opening_ref)))
+        organizations=set()
+        for project_id,project in sorted(kernel.state.projects.items()):
+            rows.append(('wa_run.project',dict(run_id=manifest.run_id,project_id=project_id,
+                name=project_id,original_project_artifact_ref=opening_ref)))
+            rows.append(('wa_run.project_location',dict(run_id=manifest.run_id,
+                project_id=project_id,binding_key='PRIMARY_SITE',world_id=binding.world_id,
+                body_id=binding.body_id,site_id=binding.world_site_id,
+                location_id=binding.authored_site_id,effective_period=_sim_period(2),
+                purpose_ref='PROSPECT' if project_id=='EXP' else 'DEVELOP',
+                origin_artifact_ref=opening_ref)))
+            for owner,share in sorted(project.owners.items()):
+                organizations.add(owner)
+                rows.append(('wa_run.project_party',dict(run_id=manifest.run_id,
+                    project_id=project_id,organization_id=owner,
+                    relationship_ref='OWNER:'+str(share),effective_period=_sim_period(2),
+                    original_artifact_ref=opening_ref)))
+        # Account owners and project owners are the only organization/counterparty
+        # identities consumed by this witness; assets and Agents stay distinct.
+        organizations.update(account.owner_id for account in kernel.state.accounts.values())
+        for organization_id in sorted(organizations):
+            rows.append(('wa_run.organization_reference',dict(run_id=manifest.run_id,
+                organization_id=organization_id,original_ref=opening_ref,
+                name=organization_id)))
+        population_refs=[ref for ref,(kind,_) in all_artifacts.items() if kind=='ADMITTED_INFORMATION'
+                         and any(x.get('concept')=='population' for x in _walk_typed(_artifact_payload(kernel,ref)))]
+        if not population_refs:raise NamedWorldBlocked('BLOCKED_POPULATION_SOURCE_ADMISSION_ARTIFACT')
+        rows.append(('wa_run.population_origin',dict(run_id=manifest.run_id,
+            cohort_id='USA_COHORT_1000',origin_location_id=None,
+            external_origin_ref='COUNTRY:USA',initial_person_count=kernel.population.total(),
+            source_admission_artifact_ref=population_refs[0],genesis_event_id=genesis.envelope_id)))
+        settlement_id='SET:MOON:CABEU:SITE01'
+        rows.append(('wa_run.settlement',dict(run_id=manifest.run_id,
+            settlement_id=settlement_id,name=settlement_id,runtime_class='AGGREGATE',
+            original_state_ref=opening_ref)))
+        initial_colony=kernel.colonies['OFF:MOON:CABEU:B6E_SITE_01']
+        rows.append(('wa_run.settlement_state',dict(run_id=manifest.run_id,
+            settlement_id=settlement_id,event_id=genesis.envelope_id,
+            stage_ref=initial_colony.stage,habitation_state='KNOWN',
+            habitation_capacity=initial_colony.habitat_capacity,
+            original_state_ref=opening_ref)))
+        rows.extend(_population_projection(manifest.run_id,'USA_COHORT_1000',
+            settlement_id,binding,genesis.envelope_id,opening_ref,
+            kernel.population.earth,kernel.population.in_transit.get(binding.site_node_id,0),
+            kernel.population.offworld.get(binding.site_node_id,0)))
+
+    # Requests, source ContextValues, scoped receipts, safe snapshots, facts and
+    # decisions retain their exact typed originals and source fingerprints.
+    request_refs={};receipt_values={};snapshot_refs={};pending_context={}
+    for ref,(kind,env) in all_artifacts.items():
+        payload=_artifact_payload(kernel,ref)
+        if kind=='REQUEST':
+            for obj in _walk_typed(payload):
+                if obj.get('__type__')=='ExplorationRequest':
+                    request_refs[obj['id']]=(obj,ref)
+                    rows.append(('wa_run.mission',dict(run_id=manifest.run_id,
+                        mission_id=obj['id'],project_id=obj['project_id'],world_id=binding.world_id,
+                        body_id=binding.body_id,target_location_id=binding.authored_site_id,
+                        planned_activity_artifact_ref=ref,
+                        interaction_contract_ref=obj['channel']+':'+obj['request_version'])))
+        if kind=='INFORMATION_ARTIFACT':
+            for obj in _walk_typed(payload):
+                if obj.get('__type__')=='ContextValue':
+                    value_ref=obj['assertion_id']
+                    # Fingerprints are copied from the corresponding original
+                    # receipt below; a source value without a receipt is blocked.
+                    receipt_values.setdefault(value_ref,[])
+                    source_values=tuple(obj.get('source_refs',()))
+                    source_hashes=tuple(obj.get('source_hashes',()))
+                    pending_context[value_ref]=(dict(run_id=manifest.run_id,
+                        value_ref=value_ref,assertion_ref=obj['assertion_id'],
+                        subject_ref=obj['subject_id'],concept=obj['concept'],scope_ref=obj['scope'],
+                        world_context=obj['world_context'],context_id=obj['context_id'],
+                        perspective=obj['perspective'],perspective_actor_id=obj['perspective_actor_id'],
+                        value_state=obj['value_state'],value_lexeme=obj['value'],unit_lexeme=obj['unit'],
+                        reason_code=obj['reason_code'],proposition_kind=obj['proposition_kind'],
+                        proposition_role=obj['proposition_role'],epistemic_mode=obj['epistemic_mode'],
+                        admission_state=obj['admission_state'],uncertainty_state=obj['uncertainty_state'],
+                        uncertainty_ref=obj['uncertainty_ref'],time_basis=obj['time_basis'],
+                        valid_from=obj['valid_from'],valid_to=obj['valid_to'],
+                        available_from=obj['available_from'],source_time=obj['source_time'],
+                        source_refs=list(source_values),source_hashes=list(source_hashes),
+                        warrant_refs=list(obj['warrant_refs']),
+                        support_conflict_refs=list(obj['support_conflict_refs']),
+                        dependency_refs=list(obj['dependency_refs']),
+                        transformation_ref=obj['transformation_ref'],
+                        transformation_version=obj['transformation_version'],
+                        authorization_ref=obj['authorization_ref'],reference_role=obj['reference_role'],
+                        record_version=obj['record_version'],original_artifact_ref=ref),ref)
+        if kind=='ADMITTED_INFORMATION':
+            for obj in _walk_typed(payload):
+                if obj.get('__type__')!='AdmissionReceipt':continue
+                request=obj['consumption_request'];rid=request['request_id']
+                value_ref=obj['source_assertion_refs'][0][0]
+                receipt_values.setdefault(value_ref,[]).append(obj['resolved_value_hash'])
+                request_ref=next((r for r,(k,_) in all_artifacts.items()
+                    if k=='REQUEST' and _decoded(json.loads(kernel.causal_artifacts[r][1])).get('id')==rid),None)
+                if request_ref is None:
+                    # Genesis source requests are held inside the exact
+                    # admission artifact itself.
+                    request_ref=ref
+                rows.append(('wa_info.consumption_request',dict(run_id=manifest.run_id,
+                    request_id=rid,consumer_id=request['consumer_id'],use_ref=request['use'],
+                    subject_ref=request['subject_id'],concept=request['concept'],
+                    scope_ref=request['scope'],time_basis=request['time_basis'],
+                    effective_time=request['effective_time'],knowledge_cutoff=request['knowledge_cutoff'],
+                    world_context=request['world_context'],context_id=request['context_id'],
+                    perspective=request['perspective'],perspective_actor_id=request['perspective_actor_id'],
+                    assertion_set=request['assertion_set'],required_unit=request['required_unit'],
+                    required_role=request['required_role'],original_artifact_ref=request_ref)))
+                rows.append(('wa_info.receipt',dict(run_id=manifest.run_id,
+                    receipt_id=obj['receipt_id'],request_id=rid,value_ref=value_ref,
+                    resolved_value_hash=obj['resolved_value_hash'],state=obj['state'],
+                    reason_code=obj['reason_code'],consumer_contract_ref=obj['consumer_contract_ref'],
+                    consumer_contract_version=obj['consumer_contract_version'],
+                    receipt_version=obj['receipt_version'],original_artifact_ref=ref)))
+        if kind=='DECISION_STATE':
+            snapshot=payload
+            actor_id=snapshot['agent_id'];period=snapshot['period_key']
+            # The trace's event snapshot identity is the original worker digest.
+            decision_envelope=next((x for x in envelopes if x.action=='POLICY_EVALUATION'
+                and any(a_ref==ref for _,a_ref in x.artifact_refs)),None)
+            if decision_envelope is None:continue
+            result_ref=next((a_ref for a_kind,a_ref in decision_envelope.artifact_refs if a_kind=='DECISION'),None)
+            if result_ref is None:raise NamedWorldBlocked('BLOCKED_DECISION_ORIGINAL')
+            decision_result=_artifact_payload(kernel,result_ref)
+            worker_fp=decision_result['worker_fingerprint']
+            snapshot_ref='decision-snapshot:'+period+':'+worker_fp
+            snapshot_refs[ref]=snapshot_ref
+            snapshot_bytes=kernel.causal_artifacts[ref][1].encode('utf8')
+            snapshot_sha=digest(snapshot_bytes)
+            sanitizer=sha256(canonical({'profile':'BUILD6E_AGENT_SNAPSHOT_SAFE_FIELDS_V1',
+                'snapshot_ref':snapshot_ref,'worker_fingerprint':worker_fp,
+                'allowed_fields':('agent_id','agent_kind','node_id','period_key','effective_time',
+                    'account_balance','capabilities','objectives','information_refs','beliefs','priors',
+                    'asset_refs','resource_holdings','claim_holdings','admitted_facts'),
+                'producer':'BUILD6E_NAMED_WORLD_V1'})).hexdigest()
+            rows.append(('wa_info.agent_snapshot',dict(run_id=manifest.run_id,
+                snapshot_ref=snapshot_ref,actor_id=actor_id,period_key=period,
+                effective_time=Decimal(snapshot['effective_time']),
+                effective_time_lexeme=snapshot['effective_time'],
+                original_snapshot_bytes=snapshot_bytes,original_snapshot_sha256=snapshot_sha,
+                original_artifact_ref=ref,worker_fingerprint=worker_fp,
+                producer_contract_ref='BUILD6E_NAMED_WORLD_V1',
+                sanitizer_attestation_sha256=sanitizer)))
+            for fact in snapshot['admitted_facts']:
+                rows.append(('wa_info.agent_fact',dict(run_id=manifest.run_id,
+                    actor_id=actor_id,snapshot_ref=snapshot_ref,fact_key=fact['key'],
+                    receipt_id=fact['source_ref'],effective_time=Decimal(snapshot['effective_time']),
+                    value_state=fact['state'],value_lexeme=fact['value'],
+                    worker_source_ref='admitted:'+fact['key'],
+                    producer_contract_ref='BUILD6E_NAMED_WORLD_V1',
+                    sanitizer_attestation_sha256=sanitizer)))
+            result=decision_result;decision=result['decision'];decision_id=decision.get('id')
+            if not decision_id:raise NamedWorldBlocked('BLOCKED_DECISION_ID')
+            rows.append(('wa_info.decision',dict(run_id=manifest.run_id,
+                decision_id=decision_id,actor_id=actor_id,
+                decision_time=Decimal(snapshot['effective_time']),
+                original_snapshot_ref=ref,worker_snapshot_ref=snapshot_ref,
+                original_decision_ref=result_ref,policy_version_ref=result['policy_version'])))
+        if kind=='REALIZED_EVENT':
+            for obj in _walk_typed(payload):
+                if obj.get('__type__')=='Observation':
+                    mission_id=next((mid for mid,(request,_) in request_refs.items()
+                        if request.get('channel')==obj.get('channel') and request.get('resource_id')==obj.get('resource_id')
+                        and request.get('year')==obj.get('year')),None)
+                    if mission_id is None:raise NamedWorldBlocked('BLOCKED_OBSERVATION_MISSION_BINDING')
+                    rows.append(('wa_run.observation',dict(run_id=manifest.run_id,
+                        observation_id=obj['id'],mission_id=mission_id,world_id=binding.world_id,
+                        body_id=binding.body_id,location_id=binding.authored_site_id,
+                        event_id=env.envelope_id,effective_time=Decimal(obj['year']),
+                        source_time_lexeme=str(obj['year']),source_time_basis='SIM_TIME',
+                        geometry_id=None,vertical_id=None,method_ref=obj['channel'],
+                        measurement_schema_ref='SIGNAL_CATEGORY_V1',
+                        original_observation_ref=ref,world_context='REALIZED')))
+                if obj.get('__type__')=='SettlementInfrastructureRecord':
+                    if obj['outcome']=='INSTALLED':
+                        settlement_id='SET:MOON:CABEU:SITE01';asset_id='HABITAT:INFRA'
+                        rows.append(('wa_run.asset',dict(run_id=manifest.run_id,
+                            asset_id=asset_id,asset_class_ref='SETTLEMENT_HABITAT',
+                            runtime_class='ENTITY_ASSET',original_asset_ref=ref,
+                            installed_event_id=env.envelope_id)))
+                        rows.append(('wa_run.asset_location',dict(run_id=manifest.run_id,
+                            asset_id=asset_id,placement_key='PRIMARY_SITE',world_id=binding.world_id,
+                            body_id=binding.body_id,location_id=binding.authored_site_id,
+                            effective_period=_sim_period(env.realized_time),placement_mode='STATIONARY',
+                            trajectory_product_ref=None,event_id=env.envelope_id)))
+                        rows.append(('wa_run.settlement_location',dict(run_id=manifest.run_id,
+                            settlement_id=settlement_id,occupation_key='PRIMARY_SITE',
+                            world_id=binding.world_id,body_id=binding.body_id,
+                            location_id=binding.authored_site_id,
+                            effective_period=_sim_period(env.realized_time),event_id=env.envelope_id)))
+                        rows.append(('wa_run.settlement_asset',dict(run_id=manifest.run_id,
+                            settlement_id=settlement_id,asset_id=asset_id,
+                            relationship_ref='INSTALLED_HABITAT',organization_id='SETTLEMENT',
+                            effective_period=_sim_period(env.realized_time),event_id=env.envelope_id)))
+                if obj.get('__type__') in ('SettlementInfrastructureRecord','SettlementStageRecord'):
+                    settlement_id='SET:MOON:CABEU:SITE01'
+                    if obj.get('__type__')=='SettlementInfrastructureRecord':
+                        stage=next((r.new_stage for r in kernel.settlement_stage_records
+                            if r.node_id==binding.site_node_id and Decimal(r.year)<=Decimal(obj['year'])),
+                            'PROSPECTING')
+                        capacity=obj['habitat_capacity_after']
+                    else:
+                        stage=obj['new_stage'];capacity=obj['habitat_capacity']
+                    rows.append(('wa_run.settlement_state',dict(run_id=manifest.run_id,
+                        settlement_id=settlement_id,event_id=env.envelope_id,stage_ref=stage,
+                        habitation_state='KNOWN',habitation_capacity=capacity,
+                        original_state_ref=ref)))
+                if obj.get('__type__') in ('PassengerTransportDepartureRecord','PassengerTransportArrivalRecord'):
+                    if obj['__type__']=='PassengerTransportDepartureRecord':
+                        earth=obj['earth_population_after'];transit=obj['in_transit_after'];resident=0
+                    else:
+                        earth=obj['total_population_after']-obj['offworld_population_after']
+                        transit=obj['in_transit_after'];resident=obj['offworld_population_after']
+                    rows.extend(_population_projection(manifest.run_id,'USA_COHORT_1000',
+                        'SET:MOON:CABEU:SITE01',binding,env.envelope_id,ref,earth,transit,resident))
+        if kind=='REALIZED_ASSET_STATE':
+            payload=_artifact_payload(kernel,ref)
+            for item in payload:
+                if not isinstance(item,(tuple,list)) or len(item)!=2:continue
+                asset_id,asset=item
+                rows.append(('wa_run.asset',dict(run_id=manifest.run_id,
+                    asset_id=asset_id,asset_class_ref=asset['kind'],runtime_class='ENTITY_ASSET',
+                    original_asset_ref=ref,
+                    installed_event_id=env.envelope_id if asset['kind']=='PRODUCTIVE' else None)))
+                rows.append(('wa_run.asset_location',dict(run_id=manifest.run_id,
+                    asset_id=asset_id,placement_key='PRIMARY_SITE',world_id=binding.world_id,
+                    body_id=binding.body_id,location_id=binding.authored_site_id,
+                    effective_period=_sim_period(env.realized_time),placement_mode='STATIONARY',
+                    trajectory_product_ref=None,event_id=env.envelope_id)))
+    for value_ref,(value_row,_) in sorted(pending_context.items()):
+        fingerprints=tuple(sorted(set(receipt_values.get(value_ref,()))))
+        if len(fingerprints)!=1:
+            raise NamedWorldBlocked('BLOCKED_CONTEXT_VALUE_RECEIPT_FINGERPRINT')
+        value_row['fingerprint']=fingerprints[0]
+        rows.append(('wa_info.context_value',value_row))
     latest = envelopes[-1]
     terminals = tuple(dict.fromkeys(ref for _, ref in latest.artifact_refs))[:2]
     if len(terminals) != 2:

@@ -251,6 +251,11 @@ def main() -> int:
                         source_row=prepared['source'], retries=3)
                     data=witness(k,h)
                     expected=protocol['expected_positive_witness'][world]
+                    results['cases'][case_name+':'+world]={'status':'EXECUTED_NOT_YET_ACCEPTED',
+                        'attempts':attempts,'witness':data,
+                        'committed_epochs':len(h.get('epoch_commits',[])),
+                        'commit_statuses':h.get('epoch_commits',[])}
+                    _json_write(args.output/'BUILD6E_QUALIFICATION.json',results)
                     if case_name=='BASELINE':
                         if data['status']!=expected['project_status'] or data['sale_count']!=expected['sale_count']:
                             raise RuntimeError('B_BASELINE_POSITIVE_WITNESS_MISMATCH:'+world)
@@ -261,7 +266,8 @@ def main() -> int:
                         'witness':data,'committed_epochs':len(h.get('epoch_commits',[])),
                         'commit_statuses':h.get('epoch_commits',[])}
                 except Exception as exc:
-                    results['cases'][case_name+':'+world]={'status':'FAIL','error':str(exc),
+                    prior=results['cases'].get(case_name+':'+world,{})
+                    results['cases'][case_name+':'+world]={**prior,'status':'FAIL','error':str(exc),
                         'traceback':traceback.format_exc()}
                     raise
                 _json_write(args.output/'BUILD6E_QUALIFICATION.json',results)
