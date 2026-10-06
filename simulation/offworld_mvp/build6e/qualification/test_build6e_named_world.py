@@ -99,6 +99,24 @@ class NamedWorldContractTests(unittest.TestCase):
                 compile_world_rows(self.doc, altered, 'SPARSE', site_id=self.site,
                     feature_id=self.feature, parent_id=self.parent)
 
+    def test_generation_policy_rejects_missing_and_extra_fields(self):
+        for mode in ('missing', 'extra', 'vector-extra', 'vector-missing'):
+            altered = copy.deepcopy(self.doc)
+            generation = altered['world_generation']
+            if mode == 'missing':
+                generation.pop('policy_version')
+            elif mode == 'extra':
+                generation['unreviewed_policy'] = 'MUST_NOT_BE_IGNORED'
+            elif mode == 'vector-extra':
+                generation['scenarios']['SPARSE']['hidden_grade'] = '0.5'
+            else:
+                generation['scenarios']['RICH'].pop('recoverable')
+            expected = ('BLOCKED_GENERATION_VECTOR_FIELDS' if mode.startswith('vector-')
+                        else 'BLOCKED_GENERATION_POLICY_FIELDS')
+            with self.subTest(mode=mode), self.assertRaisesRegex(NamedWorldBlocked, expected):
+                compile_world_rows(altered, self.source, 'SPARSE', site_id=self.site,
+                    feature_id=self.feature, parent_id=self.parent)
+
     def test_source_lexical_provenance_drift_is_blocked(self):
         for key, value in (('value_lexeme', '99.0'), ('unit_lexeme', 'invented-unit'),
                            ('uncertainty_lexeme', '±99'),

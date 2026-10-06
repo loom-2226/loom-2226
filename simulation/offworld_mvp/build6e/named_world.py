@@ -29,6 +29,14 @@ ACCEPTED_SOURCE_LEXICAL_PROFILE = {
     "unit_lexeme": "wt%",
     "uncertainty_lexeme": "±2.9",
 }
+WORLD_GENERATION_FIELDS = frozenset({
+    "algorithm", "comparison_group", "key_schema", "model_key", "model_unit_key",
+    "model_version", "policy_key", "policy_seed", "policy_version",
+    "random_algorithm", "resource_family", "resource_id", "scenarios",
+    "scientific_cutoff_ordinal", "seed_use_policy", "source_support_nominal",
+    "unsupported_feature_grade_state", "world_seed",
+})
+WORLD_VECTOR_FIELDS = frozenset({"in_situ", "accessible", "recoverable"})
 INPUT = Path(__file__).resolve().parent / "inputs" / "BUILD6E_NAMED_WORLD_V1.json"
 
 
@@ -76,11 +84,13 @@ def load_manifest(path: Path = INPUT) -> dict[str, Any]:
         raise NamedWorldBlocked("BLOCKED_INITIAL_STANDING")
     if doc["fixture_admission"]["standing"] != "ADMITTED" or doc["fixture_admission"]["use_contract_ref"] != USE_CONTRACT:
         raise NamedWorldBlocked("BLOCKED_SCOPED_ADMISSION_PROFILE")
-    if doc["world_generation"]["algorithm"] != MODEL_FAMILY or doc["world_generation"]["seed_use_policy"] != "NO_GENERATION_DRAWS":
+    generation = doc.get("world_generation")
+    if not isinstance(generation, Mapping):
+        raise NamedWorldBlocked("BLOCKED_GENERATION_POLICY_FIELDS")
+    _validate_world_generation_profile(generation)
+    if generation["algorithm"] != MODEL_FAMILY or generation["seed_use_policy"] != "NO_GENERATION_DRAWS":
         raise NamedWorldBlocked("BLOCKED_GENERATION_ALGORITHM")
-    vectors = doc["world_generation"]["scenarios"]
-    if set(vectors) != {"NULL", "SPARSE", "RICH"}:
-        raise NamedWorldBlocked("BLOCKED_COMPARISON_VECTOR_SET")
+    vectors = generation["scenarios"]
     for vector in vectors.values():
         values = tuple(Decimal(vector[k]) for k in ("in_situ", "accessible", "recoverable"))
         if any(not x.is_finite() or x < 0 for x in values) or not values[2] <= values[1] <= values[0]:
@@ -95,6 +105,18 @@ def _validate_source_lexical_profile(source: Mapping[str, Any]) -> None:
     for key, expected in ACCEPTED_SOURCE_LEXICAL_PROFILE.items():
         if source.get(key) != expected:
             raise NamedWorldBlocked("BLOCKED_SOURCE_PROVENANCE_OR_SCOPE:" + key)
+
+
+def _validate_world_generation_profile(generation: Mapping[str, Any]) -> None:
+    """Reject undeclared or missing policy/vector fields rather than ignoring them."""
+    if set(generation) != WORLD_GENERATION_FIELDS:
+        raise NamedWorldBlocked("BLOCKED_GENERATION_POLICY_FIELDS")
+    scenarios = generation.get("scenarios")
+    if not isinstance(scenarios, Mapping) or set(scenarios) != {"NULL", "SPARSE", "RICH"}:
+        raise NamedWorldBlocked("BLOCKED_COMPARISON_VECTOR_SET")
+    if any(not isinstance(vector, Mapping) or set(vector) != WORLD_VECTOR_FIELDS
+           for vector in scenarios.values()):
+        raise NamedWorldBlocked("BLOCKED_GENERATION_VECTOR_FIELDS")
 
 
 def authored_metadata_manifest(doc: Mapping[str, Any]) -> dict[str, str]:
@@ -203,6 +225,7 @@ def compile_world_rows(doc: Mapping[str, Any], source_row: Mapping[str, Any], wo
     if world_name not in ("NULL", "SPARSE", "RICH"):
         raise NamedWorldBlocked("BLOCKED_WORLD_VARIANT")
     src = doc["accepted_source"]
+    _validate_source_lexical_profile(src)
     if str(source_row["support_id"]) != src["support_id"] or source_row["location_id"] != parent_id:
         raise NamedWorldBlocked("BLOCKED_SCIENCE_SUPPORT_NOT_CATALOG_PARENT")
     if source_row["scope_kind"] != "LOCAL_SITE" or source_row.get("extrapolation_warrant_id") is not None:
@@ -211,6 +234,7 @@ def compile_world_rows(doc: Mapping[str, Any], source_row: Mapping[str, Any], wo
         raise NamedWorldBlocked("BLOCKED_CANDIDATE_STATUS_MUTATION")
 
     gen = doc["world_generation"]
+    _validate_world_generation_profile(gen)
     vector = gen["scenarios"][world_name]
     # The POLICY stream is excluded from every initial WORLD identity and byte.
     definition = {"fixture": "BUILD6E_NAMED_WORLD_V1", "body": doc["metadata"]["body_key"],
