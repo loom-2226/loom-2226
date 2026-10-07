@@ -244,7 +244,7 @@ def finance(k,h,label,time,request):
     version=h['manifest'].policy_version_hash(policy_source_bytes())
     d,ref=policy_epoch(k,h,label,'FIN',str(time),request,tuple('underwriting.'+x.kind.value for x in h['table'].inputs),lambda s,q,key:workers.run_financier_policy(s,q,h['manifest'],key,allow_test_fixture=True),version)
     if d.outcome.value=='APPROVE':
-        cid='C-DEV' if request.stage=='DEVELOPMENT' else 'C-OP'
+        cid='C-DEV' if request.stage=='DEVELOPMENT' else 'C-OP-'+str(int(D(time)))
         system_epoch(k,h,'add_commitment',str(time),(cid,'FIN','P',d.amount),decision_refs=(ref,))
         system_epoch(k,h,'disburse',str(time),(int(time),cid,'fin_funds',d.amount),decision_refs=(ref,))
     return d,ref
@@ -254,7 +254,7 @@ def operate(k,h,label,time,obs):
     d,ref=policy_epoch(k,h,label,'SPN',str(time),request,('project.STATUS','project.CASH_BALANCE','asset.CAPACITY','underwriting.OPERATING_COST'),workers.run_sponsor_operating_policy,workers.sponsor_operating_policy_version())
     request=h['requests'][label]
     if d.outcome.value=='REQUEST_FINANCE':
-        q=build_financing_request('OP-FIN',int(time),'SPN','P',d.requested_financing,'OPERATING',(obs.id,));system_epoch(k,h,'submit_financing_request',str(time),(q,),decision_refs=(ref,))
+        q=build_financing_request('OP-FIN-'+str(int(D(time))),int(time),'SPN','P',d.requested_financing,'OPERATING',(obs.id,));system_epoch(k,h,'submit_financing_request',str(time),(q,),decision_refs=(ref,))
         fd,_=finance(k,h,label+':finance',time,q)
         if fd.outcome.value!='APPROVE':return None
         d,ref=policy_epoch(k,h,label+':funded','SPN',str(time),replace(request,id=label+':funded:request'),('project.STATUS','project.CASH_BALANCE','asset.CAPACITY','underwriting.OPERATING_COST'),workers.run_sponsor_operating_policy,workers.sponsor_operating_policy_version());request=h['requests'][label+':funded']
