@@ -94,7 +94,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'boundary_purchase','consume_market_resource',
         'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan','record_surplus_decomposition',
         'register_development_plan','execute_development_stage','resolve_development_plan',
-        'spend_operating_cycle','resolve_operating_extraction','execute_enterprise_review','register_market_envelope','clear_market_sale',
+        'spend_operating_cycle','assess_resource_recoverability','resolve_operating_extraction','execute_enterprise_review','register_market_envelope','clear_market_sale',
         'register_financing_return_claim','execute_surplus_distribution',
         'register_settlement_infrastructure_plan','execute_settlement_infrastructure',
         'update_settlement_stage','execute_public_settlement_support',
