@@ -433,13 +433,13 @@ def run_full_chain(k,h,target):
         td,tref=flow.policy_epoch(k,h,'TRANSPORT','PUB',p['departure'],req,concepts,workers.run_public_settlement_transport_policy,workers.public_settlement_transport_policy_version())
         if td.outcome.value=='AUTHORIZE':
             dep=flow.system_epoch(k,h,'execute_transport_settlement_departure',p['departure'],('PUB',req,td),decision_refs=(tref,));flow.system_epoch(k,h,'execute_passenger_transport_arrival',str(dep.arrival_time),(dep.arrival_time,dep.departure_id),decision_refs=(tref,))
-    flow.review(k,h,'FIRST_REVIEW',13,first)
+    flow.review(k,h,'FIRST_REVIEW',14,first)
     if k.state.projects['P'].status!='OPERATING':return 'REVIEW_CLOSED'
-    second=flow.operate(k,h,'SECOND_OPERATING',14,obs);h['second_output']=second
-    if second is not None:flow.review(k,h,'SECOND_REVIEW',14,second)
+    second=flow.operate(k,h,'SECOND_OPERATING',15,obs);h['second_output']=second
+    if second is not None:flow.review(k,h,'SECOND_REVIEW',15,second)
     # Continue the existing operating/review machinery annually through sim-year 20 (2045)
     # while the enterprise remains open and recoverable stock exists. No new economic model.
-    for year in range(15,21):
+    for year in range(16,21):
         if k.state.projects['P'].status!='OPERATING' or k.resources['RES'].remaining is None or k.resources['RES'].remaining<=0:break
         output=flow.operate(k,h,f'OPERATING_{year}',year,obs);h[f'output_{year}']=output
         if output is None:break
