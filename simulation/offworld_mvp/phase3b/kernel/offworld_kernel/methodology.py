@@ -390,7 +390,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             raise InvariantError('Earth reference year mapping')
         concepts=('population','value_added','gross_output','investment','capital','legacy_employment')
         values=(population,value_added,gross_output,investment,capital,legacy_employment)
-        parsed=tuple(D(v) for v in values)
+        parsed=tuple(D(str(v)) for v in values)
         if any(not v.is_finite() or v<0 for v in parsed):raise InvariantError('Earth reference value')
         if self.boundary_manifest is None:raise InvariantError('Earth reference boundary missing')
         for concept,value in zip(concepts,parsed,strict=True):
