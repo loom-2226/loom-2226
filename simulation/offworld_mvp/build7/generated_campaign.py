@@ -242,7 +242,7 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
         for concept,(selector,subject,unit) in flow.LIVE.items():
             if concept.startswith('opportunity.'):continue
             subject=actor if subject=='SELF' else target['node'] if subject==flow.NODE_ID else subject
-            scope='AGENT:'+actor if concept.startswith('agent.') else 'PROJECT:P' if subject=='P' else target['site_ref'] if subject==target['node'] else 'REALIZED:'+subject
+            scope='AGENT:'+actor if concept.startswith('agent.') else 'PROJECT:P' if subject=='P' else target['site_ref']
             contracts.append((actor,'POLICY',concept,scope,'REALIZED','AGENT',unit,'ADMITTED_INFORMATION'))
             bindings.append((actor,concept,selector))
     assertions.extend((
