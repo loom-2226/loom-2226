@@ -1,0 +1,607 @@
+{
+  "authority_main_sha": "d6372ece50976fecfaf76b382d9b682560b70273",
+  "coverage": {
+    "demographic_rows": 20,
+    "economic_rows": 20,
+    "end_year": 2045,
+    "global_demographic_areas": 237,
+    "global_economic_economies": 80,
+    "iso3": "USA",
+    "legacy_labor_rows": 20,
+    "start_year": 2026
+  },
+  "demographic": [
+    {
+      "age_20_64": 201102145.9900901,
+      "age_65_plus": 65599569.46275537,
+      "age_under_20": 81476329.54715453,
+      "biological_population": 348178045,
+      "births": 3673260,
+      "deaths": 3136202,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 39.72218239174076,
+      "year": 2026
+    },
+    {
+      "age_20_64": 201627824.68199682,
+      "age_65_plus": 67428543.33096331,
+      "age_under_20": 80836574.98703986,
+      "biological_population": 349892943,
+      "births": 3677407,
+      "deaths": 3181275,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 39.925111079260425,
+      "year": 2027
+    },
+    {
+      "age_20_64": 202199350.2472126,
+      "age_65_plus": 69161065.0499585,
+      "age_under_20": 80203351.70282891,
+      "biological_population": 351563767,
+      "births": 3690023,
+      "deaths": 3230735,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 40.13599580398621,
+      "year": 2028
+    },
+    {
+      "age_20_64": 202768829.85152298,
+      "age_65_plus": 70802892.2799144,
+      "age_under_20": 79672681.86856262,
+      "biological_population": 353244404,
+      "births": 3705142,
+      "deaths": 3279256,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 40.35458345774858,
+      "year": 2029
+    },
+    {
+      "age_20_64": 203306207.63459635,
+      "age_65_plus": 72292013.92745927,
+      "age_under_20": 79257909.43794438,
+      "biological_population": 354856131,
+      "births": 3722355,
+      "deaths": 3329481,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 40.57934976247031,
+      "year": 2030
+    },
+    {
+      "age_20_64": 203907657.26669532,
+      "age_65_plus": 73585694.89753795,
+      "age_under_20": 78950278.83576672,
+      "biological_population": 356443631,
+      "births": 3738465,
+      "deaths": 3384177,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 40.794565056860144,
+      "year": 2031
+    },
+    {
+      "age_20_64": 204557114.05514055,
+      "age_65_plus": 74733623.08623086,
+      "age_under_20": 78711062.85862859,
+      "biological_population": 358001800,
+      "births": 3759208,
+      "deaths": 3437542,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 40.982221894364116,
+      "year": 2032
+    },
+    {
+      "age_20_64": 205236704.03727964,
+      "age_65_plus": 75779097.66298337,
+      "age_under_20": 78522346.299737,
+      "biological_population": 359538148,
+      "births": 3785081,
+      "deaths": 3492313,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 41.14543162266389,
+      "year": 2033
+    },
+    {
+      "age_20_64": 205883525.63512635,
+      "age_65_plus": 76810517.23623236,
+      "age_under_20": 78355826.12864129,
+      "biological_population": 361049869,
+      "births": 3804144,
+      "deaths": 3548061,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 41.286797837188345,
+      "year": 2034
+    },
+    {
+      "age_20_64": 206424663.1432457,
+      "age_65_plus": 77910464.20577383,
+      "age_under_20": 78218625.65098047,
+      "biological_population": 362553753,
+      "births": 3832236,
+      "deaths": 3604213,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 41.41374291404933,
+      "year": 2035
+    },
+    {
+      "age_20_64": 206932491.53417066,
+      "age_65_plus": 78949299.44750895,
+      "age_under_20": 78133888.01832035,
+      "biological_population": 364015678.99999994,
+      "births": 3861265,
+      "deaths": 3659977,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 41.52634054562559,
+      "year": 2036
+    },
+    {
+      "age_20_64": 207526751.3268,
+      "age_65_plus": 79769910.85920002,
+      "age_under_20": 78150977.81400001,
+      "biological_population": 365447640,
+      "births": 3881174,
+      "deaths": 3715058,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 41.62263848863273,
+      "year": 2037
+    },
+    {
+      "age_20_64": 208195568.1613632,
+      "age_65_plus": 80387335.49870998,
+      "age_under_20": 78274196.3399268,
+      "biological_population": 366857100,
+      "births": 3902092,
+      "deaths": 3769157,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 41.705729166666664,
+      "year": 2038
+    },
+    {
+      "age_20_64": 208827528.77505898,
+      "age_65_plus": 80933509.45931162,
+      "age_under_20": 78484772.76562938,
+      "biological_population": 368245811,
+      "births": 3921086,
+      "deaths": 3824490,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 41.780608052588335,
+      "year": 2039
+    },
+    {
+      "age_20_64": 209341694.47125,
+      "age_65_plus": 81441661.59525,
+      "age_under_20": 78784468.93349999,
+      "biological_population": 369567825,
+      "births": 3928654,
+      "deaths": 3874500,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 41.85410834842747,
+      "year": 2040
+    },
+    {
+      "age_20_64": 209791912.1088489,
+      "age_65_plus": 81927541.00702992,
+      "age_under_20": 79131353.88412115,
+      "biological_population": 370850807,
+      "births": 3931954,
+      "deaths": 3924519,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 41.92531562551238,
+      "year": 2041
+    },
+    {
+      "age_20_64": 210224464.6666667,
+      "age_65_plus": 82463000.21138212,
+      "age_under_20": 79400684.12195122,
+      "biological_population": 372088149,
+      "births": 3925344,
+      "deaths": 3969395,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 41.99145646867372,
+      "year": 2042
+    },
+    {
+      "age_20_64": 210602277.39294785,
+      "age_65_plus": 83054471.83508669,
+      "age_under_20": 79664645.77196544,
+      "biological_population": 373321395,
+      "births": 3918986,
+      "deaths": 4010720,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 42.06261065507806,
+      "year": 2043
+    },
+    {
+      "age_20_64": 210833382.07773766,
+      "age_65_plus": 83686270.87267382,
+      "age_under_20": 79960307.04958852,
+      "biological_population": 374479960,
+      "births": 3904969,
+      "deaths": 4048623,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 42.14563492063492,
+      "year": 2044
+    },
+    {
+      "age_20_64": 210977020.24884504,
+      "age_65_plus": 84379540.96895063,
+      "age_under_20": 80221969.78220436,
+      "biological_population": 375578531,
+      "births": 3896504,
+      "deaths": 4080395,
+      "derivation_id": "WPP_2024_MEDIUM_2026_2100",
+      "median_age": 42.24370010956331,
+      "year": 2045
+    }
+  ],
+  "demographic_pointer": {
+    "active_designation": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+    "active_manifest": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/PROMOTION_MANIFEST.json",
+    "active_manifest_sha256": "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2",
+    "economic_baseline_designation": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+    "empirical_authority_through_year": 2100,
+    "rollback_manifest": "manifests/earth_long_run_economic_baseline/earth_demographic_correction_v4_1_2026_09_24/CORRECTION_MANIFEST.json",
+    "rollback_manifest_sha256": "79a12da869a3d6d511722389e0f3e0140667467ae2f5b81bdbe94a9544d7810e",
+    "schema": "loom-earth-demographic-authority-pointer-v2",
+    "selected_country_demography": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/selected_country_demography_2226.csv",
+    "selected_country_demography_sha256": "d4d3392bbec782e58bf31fb434620065cf6556807148aaefdea6a783d61d8fbd",
+    "selected_endpoint": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/v0_1/results/selected_scenario.json",
+    "selected_endpoint_sha256": "b41765cfe35c06d85aab0fcf8c5d56f2c115071dc1a9ad6cd4af7c6575e2bfb3",
+    "selected_modeled_successor_start_year": 2101,
+    "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+    "selected_year": 2226,
+    "status": "ACTIVE",
+    "superseded_artifact_status": "RETAINED_ROLLBACK_PROVENANCE",
+    "supersedes_for_post_2100_use": "EARTH_2226_CANON_CONSTRAINED_COUNTRY_ALLOCATION"
+  },
+  "economic": [
+    {
+      "capital": 75831368798502.05,
+      "derivation_id": "V4_2026_2030",
+      "gross_output": 43191243339876.27,
+      "investment": 4958025335469.291,
+      "population": 348178045,
+      "value_added": 23762479644861.543,
+      "year": 2026
+    },
+    {
+      "capital": 77219637854534.81,
+      "derivation_id": "V4_2026_2030",
+      "gross_output": 44084386845936.82,
+      "investment": 5062143867514.146,
+      "population": 349892943,
+      "value_added": 24261491717403.633,
+      "year": 2027
+    },
+    {
+      "capital": 78645645305369,
+      "derivation_id": "V4_2026_2030",
+      "gross_output": 44996130937416.19,
+      "investment": 5168448888731.941,
+      "population": 351563767,
+      "value_added": 24770983043469.105,
+      "year": 2028
+    },
+    {
+      "capital": 80098440753582.47,
+      "derivation_id": "V4_2026_2030",
+      "gross_output": 45828470194130.02,
+      "investment": 5265667412328.99,
+      "population": 353244404,
+      "value_added": 25236925234516.758,
+      "year": 2029
+    },
+    {
+      "capital": 81571789765783.38,
+      "derivation_id": "V4_2026_2030",
+      "gross_output": 46617874755785.16,
+      "investment": 5357974562067.117,
+      "population": 354856131,
+      "value_added": 25679328533877.83,
+      "year": 2030
+    },
+    {
+      "capital": 83066402505009.95,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 47422111757580.6,
+      "investment": 5452007015631.394,
+      "population": 356443631,
+      "value_added": 26130000749647.39,
+      "year": 2031
+    },
+    {
+      "capital": 84487196301948.42,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 48261730026310.44,
+      "investment": 5550255904893.8125,
+      "population": 358001800,
+      "value_added": 26600881205728.703,
+      "year": 2032
+    },
+    {
+      "capital": 85941968528475.1,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 49087134543848.92,
+      "investment": 5646163206315.873,
+      "population": 359538148,
+      "value_added": 27060539062160.29,
+      "year": 2033
+    },
+    {
+      "capital": 87419661874158.05,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 49900811353109.164,
+      "investment": 5740542910854.667,
+      "population": 361049869,
+      "value_added": 27512875558294.566,
+      "year": 2034
+    },
+    {
+      "capital": 88917244813685.36,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 50692668683458.3,
+      "investment": 5832366009077.357,
+      "population": 362553753,
+      "value_added": 27952958929155.008,
+      "year": 2035
+    },
+    {
+      "capital": 90431037006457.81,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 51477920945258.28,
+      "investment": 5923413763755.6875,
+      "population": 364015679,
+      "value_added": 28389326287299.9,
+      "year": 2036
+    },
+    {
+      "capital": 91959377452015.52,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 52296805022744.9,
+      "investment": 6018324084693.075,
+      "population": 365447640,
+      "value_added": 28844205884874.297,
+      "year": 2037
+    },
+    {
+      "capital": 93505338550386.11,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 53141577477472.26,
+      "investment": 6116210762956.523,
+      "population": 366857100,
+      "value_added": 29313350361224.203,
+      "year": 2038
+    },
+    {
+      "capital": 95070953172929.77,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 53988142332557.51,
+      "investment": 6214302808584.32,
+      "population": 368245811,
+      "value_added": 29783479108021.484,
+      "year": 2039
+    },
+    {
+      "capital": 96655380026759.28,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 54834535488897.34,
+      "investment": 6312373897515.541,
+      "population": 369567825,
+      "value_added": 30253507415018.22,
+      "year": 2040
+    },
+    {
+      "capital": 98257593199368,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 55684973420978.99,
+      "investment": 6410908987637.763,
+      "population": 370850807,
+      "value_added": 30725759554712.51,
+      "year": 2041
+    },
+    {
+      "capital": 99877102741403.75,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 56527064747834.016,
+      "investment": 6508481304114.659,
+      "population": 372088149,
+      "value_added": 31193397379714.625,
+      "year": 2042
+    },
+    {
+      "capital": 101512015838525.16,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 57365193823344.08,
+      "investment": 6605594579977.082,
+      "population": 373321395,
+      "value_added": 31658835146726,
+      "year": 2043
+    },
+    {
+      "capital": 103161038617163.6,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 58194783897972.99,
+      "investment": 6701721138865.539,
+      "population": 374479960,
+      "value_added": 32119543845121.816,
+      "year": 2044
+    },
+    {
+      "capital": 104822414527992.33,
+      "derivation_id": "V4_2031_2059",
+      "gross_output": 59012617262070.69,
+      "investment": 6796489598574.438,
+      "population": 375578531,
+      "value_added": 32573743540048.234,
+      "year": 2045
+    }
+  ],
+  "economic_pointer": {
+    "active_designation": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+    "active_manifest": "manifests/earth_long_run_economic_baseline/earth_lean_biosynthetic_successor_v0_1_2026_09_24/PROMOTION_MANIFEST.json",
+    "active_manifest_sha256": "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2",
+    "empirical_demographic_authority_through_year": 2100,
+    "previous_formal_designation": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+    "rollback_demographic_manifest": "manifests/earth_long_run_economic_baseline/earth_demographic_correction_v4_1_2026_09_24/CORRECTION_MANIFEST.json",
+    "rollback_demographic_manifest_sha256": "79a12da869a3d6d511722389e0f3e0140667467ae2f5b81bdbe94a9544d7810e",
+    "rollback_manifest": "manifests/earth_long_run_economic_baseline/earth_long_run_economic_baseline_v4_2026_09_24/BASELINE_MANIFEST.json",
+    "rollback_manifest_sha256": "8fa64961e2f343d9143e9afcb196505a9ac8bbd86c4fd3ceff4210b3e93721b5",
+    "schema": "loom-earth-coupled-successor-pointer-v1",
+    "scope": "237-area biological demography plus 80-economy coupled labor/economic successor; synthetic persons and non-person machine tasks remain separate",
+    "selected_modeled_successor_end_year": 2226,
+    "selected_modeled_successor_start_year": 2101,
+    "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+    "v3_rollback_designation": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v3_REPAIRED_2026_09_23"
+  },
+  "legacy_labor": [
+    {
+      "derivation_id": "V4_2026_2030",
+      "labor_market_working_age_population": 211972699,
+      "legacy_employment": 152111327,
+      "legacy_labor_force": 159032929,
+      "year": 2026
+    },
+    {
+      "derivation_id": "V4_2026_2030",
+      "labor_market_working_age_population": 212171367.99185002,
+      "legacy_employment": 152253891.6044355,
+      "legacy_labor_force": 159181980.79687968,
+      "year": 2027
+    },
+    {
+      "derivation_id": "V4_2026_2030",
+      "labor_market_working_age_population": 212395088.94462726,
+      "legacy_employment": 152414433.46272758,
+      "legacy_labor_force": 159349827.87608695,
+      "year": 2028
+    },
+    {
+      "derivation_id": "V4_2026_2030",
+      "labor_market_working_age_population": 212684151.17893705,
+      "legacy_employment": 152621864.1377809,
+      "legacy_labor_force": 159566697.37863347,
+      "year": 2029
+    },
+    {
+      "derivation_id": "V4_2026_2030",
+      "labor_market_working_age_population": 213049355.82439777,
+      "legacy_employment": 152883934.5058503,
+      "legacy_labor_force": 159840692.87298733,
+      "year": 2030
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 213529648.5929328,
+      "legacy_employment": 153228591.95803648,
+      "legacy_labor_force": 160201033.45513767,
+      "year": 2031
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 214028901.88931,
+      "legacy_employment": 153586855.45979556,
+      "legacy_labor_force": 160575599.2101162,
+      "year": 2032
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 214497730.42972803,
+      "legacy_employment": 153923286.19712582,
+      "legacy_labor_force": 160927338.73286235,
+      "year": 2033
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 214879636.78267795,
+      "legacy_employment": 154197341.68828574,
+      "legacy_labor_force": 161213864.7156887,
+      "year": 2034
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 215084214.23090342,
+      "legacy_employment": 154344146.1931614,
+      "legacy_labor_force": 161367349.34343618,
+      "year": 2035
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 215230660.07036,
+      "legacy_employment": 154449235.53286627,
+      "legacy_labor_force": 161477220.618834,
+      "year": 2036
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 215613349.6707692,
+      "legacy_employment": 154723853.08136177,
+      "legacy_labor_force": 161764334.2345875,
+      "year": 2037
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 216159903.51119304,
+      "legacy_employment": 155116059.39064598,
+      "legacy_labor_force": 162174387.31457776,
+      "year": 2038
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 216688568.53637975,
+      "legacy_employment": 155495428.709898,
+      "legacy_labor_force": 162571019.27620268,
+      "year": 2039
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 217186359.77749553,
+      "legacy_employment": 155852643.04274514,
+      "legacy_labor_force": 162944488.12138253,
+      "year": 2040
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 217683834.5228508,
+      "legacy_employment": 156209630.25865534,
+      "legacy_labor_force": 163317719.51500356,
+      "year": 2041
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 218096368.48510826,
+      "legacy_employment": 156505664.08153722,
+      "legacy_labor_force": 163627223.92118078,
+      "year": 2042
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 218458435.20424828,
+      "legacy_employment": 156765482.67785048,
+      "legacy_labor_force": 163898865.1802198,
+      "year": 2043
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 218742555.70652804,
+      "legacy_employment": 156969367.17256874,
+      "legacy_labor_force": 164112027.13871568,
+      "year": 2044
+    },
+    {
+      "derivation_id": "V4_2031_2059",
+      "labor_market_working_age_population": 218932321.74799606,
+      "legacy_employment": 157105543.03164595,
+      "legacy_labor_force": 164254399.47978494,
+      "year": 2045
+    }
+  ],
+  "promotion_manifest_sha256": "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2",
+  "schema": "BUILD7_EARTH_USA_2026_2045_V1",
+  "selected_scenario": "MED_CENTRAL__SYNTH_CENTRAL",
+  "source_model": "EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24",
+  "source_snapshot_id": "earth-v0-1-9934d0ac-20260925",
+  "standing": "DERIVED_READ_ONLY_SLICE_OF_CURRENT_PROMOTED_EARTH_AUTHORITY",
+  "usage_contract": {
+    "economic_indicators_are_not_actor_budgets": true,
+    "technology_state": "FIXED_2026",
+    "timeline_unlocks": false
+  }
+}

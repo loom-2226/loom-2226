@@ -482,7 +482,9 @@ def validate_opening(kernel):
     if m.contract_version==BUILD6E_CONTRACT:
         if 'opening_effective_time' not in dict(m.parameters):raise InvariantError('BLOCKED_TIME: 6E opening time absent')
         opening=_time(m.parameter('opening_effective_time'))
-        if opening!=D('2') or opening!=opening.to_integral_value():raise InvariantError('BLOCKED_TIME: 6E opening time profile')
+        build7=dict(m.parameters).get('build7.profile')=='BUILD7_GENERATED_CAMPAIGN_V1'
+        expected_opening=D('1') if build7 else D('2')
+        if opening!=expected_opening or opening!=opening.to_integral_value():raise InvariantError('BLOCKED_TIME: 6E opening time profile')
 
 
 def load_earth_assertions(path, *, parent_root, verify_parents=True):

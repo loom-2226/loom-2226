@@ -326,13 +326,14 @@ class ScheduledSimulationRuntime:
                 raise InvariantError('BLOCKED_PROVENANCE: qualification harness bytes')
             if is6e:
                 expected={
-                    'simulation/offworld_mvp/build6e/qualification/build6e_fixture.py':'QUALIFICATION_FIXTURE_SHA256',
                     'simulation/offworld_mvp/build6e/named_world.py':'NAMED_WORLD_COMPILER_SHA256',
                     'src/loom_world_authority/store.py':'WORLD_AUTHORITY_STORE_SHA256',
                 }
                 if build7_profile:
                     expected['simulation/offworld_mvp/build7/generated_campaign.py']='BUILD7_CAMPAIGN_SHA256'
+                    expected['simulation/offworld_mvp/build7/runtime_flow.py']='BUILD7_RUNTIME_FLOW_SHA256'
                 else:
+                    expected['simulation/offworld_mvp/build6e/qualification/build6e_fixture.py']='QUALIFICATION_FIXTURE_SHA256'
                     expected['simulation/offworld_mvp/build6e/qualification/qualify_build6e.py']='QUALIFICATION_DRIVER_SHA256'
                 rel=path.relative_to(root).as_posix()
                 if rel not in expected or rel in seen_harness:raise InvariantError('BLOCKED_PROVENANCE: undeclared 6E harness/module')
@@ -350,8 +351,7 @@ class ScheduledSimulationRuntime:
         if any(labels.get(key)!=value for key,value in required.items()):raise InvariantError('BLOCKED_PROVENANCE: strict manifest labels')
         if build7_profile:
             build7_inputs=root/'simulation/offworld_mvp/build7/inputs'
-            build6e_inputs=root/'simulation/offworld_mvp/build6e/inputs'
-            refs=tuple((build7_inputs,ref,digest) for ref,digest in (*m.scenario_definition_refs,m.qualification_protocol_ref)) + ((build6e_inputs,m.earth_slice_ref[0],m.earth_slice_ref[1]),)
+            refs=tuple((build7_inputs,ref,digest) for ref,digest in (*m.scenario_definition_refs,m.qualification_protocol_ref,m.earth_slice_ref))
             for inputs,ref,digest in refs:
                 path=(inputs/ref).resolve()
                 if not path.is_relative_to(inputs) or sha256(path.read_bytes()).hexdigest()!=digest:

@@ -350,6 +350,39 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.operating_cost_records.append(rec)
         return rec
 
+    def assess_resource_recoverability(self,year,resource_id,assessed_resource):
+        """Realize accessibility/recoverability only after productive capability exists.
+
+        The caller may use hidden WORLD/environment state to construct the assessment,
+        but Agents receive no hidden quantities from this transition.  This is a
+        WORLD_SIM physical-state transition gated by a commissioned project asset.
+        """
+        year=int(year)
+        if resource_id not in self.resources:
+            raise InvariantError('recoverability assessment resource missing')
+        current=self.resources[resource_id]
+        if current.accessible is not None or current.recoverable is not None or current.remaining is not None:
+            raise InvariantError('recoverability already assessed')
+        project=self.state.projects.get('P')
+        productive=self.state.assets.get('MINE-P')
+        if project is None or project.status!='OPERATING' or productive is None or productive.kind!=AssetKind.PRODUCTIVE:
+            raise InvariantError('recoverability requires commissioned productive capability')
+        if assessed_resource.id!=current.id or assessed_resource.node_id!=current.node_id or assessed_resource.family!=current.family:
+            raise InvariantError('recoverability assessment identity mismatch')
+        if D(assessed_resource.in_situ)!=D(current.in_situ):
+            raise InvariantError('recoverability assessment in-situ mismatch')
+        if assessed_resource.accessible is None or assessed_resource.recoverable is None or assessed_resource.remaining is None:
+            raise InvariantError('recoverability assessment incomplete')
+        if not D('0')<=D(assessed_resource.remaining)<=D(assessed_resource.recoverable)<=D(assessed_resource.accessible)<=D(current.in_situ):
+            raise InvariantError('recoverability assessment hierarchy')
+        current.accessible=D(assessed_resource.accessible)
+        current.recoverable=D(assessed_resource.recoverable)
+        current.remaining=D(assessed_resource.remaining)
+        evt=self.event(year,'RECOVERY_ASSESSMENT_SYSTEM',ActionKind.ADMIT_INFORMATION,'RECOVERY_ASSESSED',
+            (resource_id,str(current.accessible),str(current.recoverable),productive.id),
+            (productive.id,project.id))
+        return current
+
     def resolve_operating_extraction(self,year,actor_id,request,decision,cost_record):
         year=int(year)
         request.validate_protocol(); decision.validate_protocol(request)
