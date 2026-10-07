@@ -83,9 +83,29 @@ class Build3Kernel(MVPKernel):
         self.state.assets[aid]=Asset(aid,project_id,asset_node,AssetKind.EXPLORATION_WIP,cost)
         return tx,aid
 
-    def explore_paid(self,year,actor_id,resource_id,project_id,supplier_account,cost,channel='REMOTE',public=True,false_positive=D('0'),false_negative=D('0'),update_belief=True,parent_ids=()):
-        a=self.agents[actor_id]; r=self.resources[resource_id]; cost=D(cost); fp=D(false_positive); fn=D(false_negative)
+    def explore_paid(self,year,actor_id,resource_id,project_id,supplier_account,cost,channel='REMOTE',public=True,false_positive=D('0'),false_negative=D('0'),update_belief=True,parent_ids=(),body_id='',question_ref='',body_truth=None):
+        a=self.agents[actor_id]; cost=D(cost); fp=D(false_positive); fn=D(false_negative)
         if 'EXPLORE' not in a.capabilities or not (D('0')<=fp<=D('1')) or not (D('0')<=fn<=D('1')): raise InvariantError('invalid exploration')
+        if body_id:
+            if (resource_id or project_id or channel!='REMOTE' or
+                    question_ref!='WATER_BEARING_MATERIAL_PRESENT' or type(body_truth) is not bool or
+                    update_belief or self.state.accounts[a.account_id].owner_id!=actor_id or
+                    self.state.nodes[self.state.accounts[supplier_account].node_id].kind!=NodeKind.EARTH):
+                raise InvariantError('invalid body remote observation subject')
+            tx=self.transfer(year,a.account_id,supplier_account,cost,TxPurpose.EXPLORATION,
+                supplier_location=self.state.accounts[supplier_account].node_id,
+                parent_ids=(body_id,question_ref,*tuple(parent_ids)))
+            draw=self.keyed_draw('OBS',year,actor_id,body_id,channel)
+            positive=(draw>=fn) if body_truth else (draw<fp)
+            signal='POSITIVE' if positive else 'NEGATIVE'
+            o=BodyRemoteObservation(self._id('obs'),year,actor_id,body_id,question_ref,channel,signal,public)
+            self.observations[o.id]=o
+            for recipient in (self.agents.values() if public else (a,)):
+                recipient.information.add(o.id)
+            self.event(year,actor_id,ActionKind.EXPLORE,signal,
+                (body_id,question_ref,o.id,tx.id),tuple(parent_ids))
+            return o,None,draw
+        r=self.resources[resource_id]
         tx,aid=self.spend_exploration_wip(
             year,project_id,supplier_account,cost,r.node_id,
             parent_ids=(resource_id,*tuple(parent_ids)))

@@ -665,9 +665,14 @@ class ExplorationRequest:
     prerequisite_observation_id: str=''
     currency_unit: str='MODEL_CURRENCY'
     request_version: str='EXPLORATION_REQUEST_V1'
+    body_id: str=''
+    question_ref: str=''
 
     def validate_protocol(self):
-        if not self.id or not self.project_id or not self.resource_id:
+        body_remote=(self.request_version=='EXPLORATION_REQUEST_BODY_V1')
+        if not self.id or (body_remote and (self.project_id or self.resource_id or not self.body_id
+                or self.question_ref!='WATER_BEARING_MATERIAL_PRESENT' or self.channel!='REMOTE')) or (
+                not body_remote and (not self.project_id or not self.resource_id or self.body_id or self.question_ref)):
             raise ValueError('exploration request identity incomplete')
         if self.year<0:
             raise ValueError('exploration request year invalid')
@@ -809,6 +814,12 @@ def remaining_in_situ(resource: ScenarioResource) -> D:
 @dataclass(frozen=True)
 class Observation:
     id: str; year: int; actor_id: str; resource_id: str; channel: str; signal: str; public: bool
+
+@dataclass(frozen=True)
+class BodyRemoteObservation:
+    id: str; year: int; actor_id: str; body_id: str; question_ref: str
+    channel: str; signal: str; public: bool
+    resource_id: str=''
 
 @dataclass
 class ColonyState:

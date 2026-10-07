@@ -2576,6 +2576,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                     channel='SURFACE' if name=='surface_prospect_paid' else b.get('channel')
                     if f['outcome']['value']!='AUTHORIZE' or D(b['cost'])!=D(f['authorized_cost']['value']) or resource!=q['resource_id']['value'] or channel!=q['channel']['value']:
                         raise InvariantError('BLOCKED_LINEAGE: observation action not authorized')
+                    if q.get('request_version',{}).get('value')=='EXPLORATION_REQUEST_BODY_V1' and (
+                            name!='explore_paid' or b.get('body_id')!=q['body_id']['value'] or
+                            b.get('question_ref')!=q['question_ref']['value'] or project or resource):
+                        raise InvariantError('BLOCKED_LINEAGE: body observation subject not authorized')
                 if name=='publish_observation' and (f['outcome']['value']!='PUBLISH' or b['observation_id']!=q['observation_id']['value'] or b['audience']!=q['audience']['value']):raise InvariantError('BLOCKED_LINEAGE: publication not authorized')
                 if name=='transition_project_status':
                     expected_status={'ABANDON':'ABANDONED','DEVELOP':'DEVELOPMENT'}.get(f['outcome']['value'])
@@ -2633,7 +2637,17 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         # Domain executors retain their original validations. Outer preflight must
         # additionally establish the supply/cash prerequisites before any writes.
         if name in ('explore_paid','surface_prospect_paid'):
-            amount=D(b['cost']);project=self.state.projects[b['project_id']]
+            amount=D(b['cost'])
+            if name=='explore_paid' and b.get('body_id'):
+                if (b.get('resource_id') or b.get('project_id') or
+                        b.get('question_ref')!='WATER_BEARING_MATERIAL_PRESENT' or
+                        type(b.get('body_truth')) is not bool or not original_decisions):
+                    raise InvariantError('BLOCKED_SCOPE: invalid body remote observation')
+                actor=self.agents[b['actor_id']]
+                if self.state.accounts[actor.account_id].balance<amount:
+                    raise InvariantError('BLOCKED_AFFORDABILITY: public exploration cash')
+                return
+            project=self.state.projects[b['project_id']]
             supplier=self.state.accounts[b['supplier_account']].node_id
             c=self.resource_constraints.get((supplier,int(b['year'])))
             if c is None or c.available+c.reserved<amount:raise InvariantError('BLOCKED_RESOURCE: exploration supply')

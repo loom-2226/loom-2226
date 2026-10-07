@@ -13,16 +13,19 @@ from .policy import DecisionSnapshot, FactState
 EXPLORATION_PROTOCOL_VERSION='BUILD5_PUBLIC_EXPLORATION_PROTOCOL_0_1'
 
 def build_exploration_request(request_id,year,project_id,resource_id,channel='REMOTE',
-                              currency_unit='MODEL_CURRENCY',prerequisite_observation_id=''):
+                              currency_unit='MODEL_CURRENCY',prerequisite_observation_id='',
+                              body_id='',question_ref=''):
     channel=str(channel)
     facts=BUILD5_PUBLIC_EXPLORATION_REQUIRED_FACT_KEYS_BY_CHANNEL[channel]
-    version='EXPLORATION_REQUEST_V1' if channel=='REMOTE' else 'EXPLORATION_REQUEST_V2'
+    version=('EXPLORATION_REQUEST_BODY_V1' if body_id else
+             'EXPLORATION_REQUEST_V1' if channel=='REMOTE' else 'EXPLORATION_REQUEST_V2')
     return ExplorationRequest(
         id=str(request_id),year=int(year),project_id=str(project_id),
         resource_id=str(resource_id),channel=channel,
         required_fact_keys=tuple(facts),
         prerequisite_observation_id=str(prerequisite_observation_id),
-        currency_unit=str(currency_unit),request_version=version).validate_protocol()
+        currency_unit=str(currency_unit),request_version=version,
+        body_id=str(body_id),question_ref=str(question_ref)).validate_protocol()
 
 def required_unknown_exploration_inputs(request:ExplorationRequest,snapshot:DecisionSnapshot):
     request.validate_protocol()

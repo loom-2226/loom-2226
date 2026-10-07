@@ -68,6 +68,16 @@ class NamedLocationBinding:
     resource_scale: Decimal = Decimal("1")
 
 
+@dataclass(frozen=True, slots=True)
+class BodyRemoteBinding:
+    """A selected mission body; no site, resource, or project is implied."""
+    scenario_id: Any
+    world_id: Any
+    body_id: Any
+    body_key: str
+    binding_key: str
+
+
 def load_manifest(path: Path = INPUT) -> dict[str, Any]:
     """Load and validate the one closed, authored 6E input profile."""
     raw = path.read_bytes()
@@ -482,7 +492,7 @@ def _population_projection(run_id, cohort_id, settlement_id, binding, event_id,
         for kind,location_id,position_settlement,count in positions)
 
 
-def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | None, *, first: bool, start_index: int,
+def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBinding | None, *, first: bool, start_index: int,
                         epoch_id: str, agent_logins: Mapping[str,str]):
     """Encode one completed original kernel epoch in the fixed V1 row profile."""
     from dataclasses import fields
@@ -498,7 +508,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | None, *, first: 
         return sha256(value).hexdigest()
     rows = []
     manifest = kernel.boundary_manifest
-    if binding is None:
+    if binding is None or isinstance(binding,BodyRemoteBinding):
         if (kernel.resources or kernel.state.projects or kernel.state.assets or kernel.colonies
                 or any(node.kind.value=='OFFWORLD' for node in kernel.state.nodes.values())
                 or any(kernel.population.offworld.values())
@@ -523,7 +533,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | None, *, first: 
             decimal_rounding_ref=dict(manifest.comparison_parameters)['decimal_rounding'],
             clock_mapping_ref=manifest.clock_mapping_ref,
             qualification_protocol_ref=manifest.qualification_protocol_ref[0])))
-        if binding is not None:
+        if isinstance(binding,NamedLocationBinding):
             rows.append(('wa_run.world_binding', dict(run_id=manifest.run_id,
                 scenario_id=binding.scenario_id, world_id=binding.world_id,
                 body_id=binding.body_id, binding_key=manifest.parameter('site_binding_key'))))
@@ -583,7 +593,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | None, *, first: 
         for parent in e.parent_envelope_refs:
             rows.append(('wa_run.trace_parent', dict(run_id=e.run_id,
                 child_envelope_id=e.envelope_id, parent_envelope_id=parent)))
-        if binding is None:
+        if not isinstance(binding,NamedLocationBinding):
             continue
         from offworld_kernel.mvp_state import remaining_in_situ
         resource = kernel.resources[binding.resource_id]
@@ -685,6 +695,13 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | None, *, first: 
                 if not obj.get('id'):continue
                 planned_request_refs.setdefault(obj['id'],ref)
                 if obj.get('__type__')=='ExplorationRequest':request_refs.setdefault(obj['id'],(obj,ref))
+    authorized_body_requests=set()
+    if isinstance(binding,BodyRemoteBinding):
+        for ref,(kind,_) in current_artifacts.items():
+            if kind!='DECISION':continue
+            for obj in _walk_typed(_artifact_payload(kernel,ref)):
+                if obj.get('__type__')=='ExplorationDecision' and obj.get('outcome')=='AUTHORIZE':
+                    authorized_body_requests.add(obj['request_id'])
     opening_ref=next((ref for ref,(kind,_) in all_artifacts.items()
                       if kind=='AUTHORED_INPUT_RECORDS'),None)
     if first:
@@ -770,6 +787,26 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | None, *, first: 
         if kind=='REQUEST':
             for obj in _walk_typed(payload):
                 if obj.get('__type__')=='ExplorationRequest':
+                    if obj.get('request_version')=='EXPLORATION_REQUEST_BODY_V1':
+                        if (not isinstance(binding,BodyRemoteBinding) or
+                                obj.get('body_id')!=binding.body_key or
+                                obj.get('question_ref')!='WATER_BEARING_MATERIAL_PRESENT' or
+                                obj.get('project_id') or obj.get('resource_id') or
+                                obj.get('channel')!='REMOTE'):
+                            raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_MISSION_SCOPE')
+                        # A declined request is retained as causal decision
+                        # material, but it has no executed spatial history.
+                        if obj['id'] not in authorized_body_requests:
+                            continue
+                        rows.append(('wa_run.world_binding',dict(run_id=manifest.run_id,
+                            scenario_id=binding.scenario_id,world_id=binding.world_id,
+                            body_id=binding.body_id,binding_key=binding.binding_key)))
+                        rows.append(('wa_run.mission',dict(run_id=manifest.run_id,
+                            mission_id=obj['id'],project_id=None,world_id=binding.world_id,
+                            body_id=binding.body_id,target_location_id=None,
+                            planned_activity_artifact_ref=ref,
+                            interaction_contract_ref='REMOTE:EXPLORATION_REQUEST_BODY_V1')))
+                        continue
                     if binding is None:
                         raise NamedWorldBlocked('BLOCKED_UNBOUND_MISSION')
                     rows.append(('wa_run.mission',dict(run_id=manifest.run_id,
@@ -918,26 +955,43 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | None, *, first: 
                     planned_action_ref=planned_ref)))
         if kind=='REALIZED_EVENT':
             for obj in _walk_typed(payload):
-                if obj.get('__type__')=='Observation':
-                    if binding is None:
-                        raise NamedWorldBlocked('BLOCKED_UNBOUND_OBSERVATION')
-                    mission_id=next((mid for mid,(request,_) in request_refs.items()
-                        if request.get('channel')==obj.get('channel') and request.get('resource_id')==obj.get('resource_id')
-                        and request.get('year')==obj.get('year')),None)
-                    if mission_id is None:raise NamedWorldBlocked('BLOCKED_OBSERVATION_MISSION_BINDING')
+                if obj.get('__type__') in ('Observation','BodyRemoteObservation'):
+                    body_remote=obj['__type__']=='BodyRemoteObservation'
+                    if body_remote:
+                        if (not isinstance(binding,BodyRemoteBinding) or
+                                obj.get('body_id')!=binding.body_key or
+                                obj.get('question_ref')!='WATER_BEARING_MATERIAL_PRESENT' or
+                                obj.get('channel')!='REMOTE'):
+                            raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_OBSERVATION_SCOPE')
+                        mission_id=next((mid for mid,(request,_) in request_refs.items()
+                            if request.get('request_version')=='EXPLORATION_REQUEST_BODY_V1'
+                            and request.get('body_id')==obj['body_id']
+                            and request.get('question_ref')==obj['question_ref']
+                            and request.get('year')==obj['year']),None)
+                        if mission_id is None:
+                            raise NamedWorldBlocked('BLOCKED_OBSERVATION_MISSION_BINDING')
+                        location_id=None;schema_ref='BODY_REMOTE_SIGNAL_V1'
+                    else:
+                        if binding is None or isinstance(binding,BodyRemoteBinding):
+                            raise NamedWorldBlocked('BLOCKED_UNBOUND_OBSERVATION')
+                        mission_id=next((mid for mid,(request,_) in request_refs.items()
+                            if request.get('channel')==obj.get('channel') and request.get('resource_id')==obj.get('resource_id')
+                            and request.get('year')==obj.get('year')),None)
+                        if mission_id is None:raise NamedWorldBlocked('BLOCKED_OBSERVATION_MISSION_BINDING')
+                        location_id=binding.authored_site_id;schema_ref='SIGNAL_CATEGORY_V1'
                     rows.append(('wa_run.observation',dict(run_id=manifest.run_id,
                         observation_id=obj['id'],mission_id=mission_id,world_id=binding.world_id,
-                        body_id=binding.body_id,location_id=binding.authored_site_id,
+                        body_id=binding.body_id,location_id=location_id,
                         event_id=env.envelope_id,effective_time=Decimal(obj['year']),
                         source_time_lexeme=str(obj['year']),source_time_basis='SIM_TIME',
                         geometry_id=None,vertical_id=None,method_ref=obj['channel'],
-                        measurement_schema_ref='SIGNAL_CATEGORY_V1',
+                        measurement_schema_ref=schema_ref,
                         original_observation_ref=ref,world_context='REALIZED')))
                     rows.append(('wa_info.information_artifact',dict(run_id=manifest.run_id,
                         information_id=obj['id'],source_observation_id=obj['id'],
                         source_context_value_ref=None,created_time=Decimal(env.realized_time),
                         source_time_lexeme=str(obj['year']),source_time_basis='SIM_TIME',
-                        payload_schema_ref='SIGNAL_CATEGORY_V1',original_artifact_ref=ref,
+                        payload_schema_ref=schema_ref,original_artifact_ref=ref,
                         publication_contract_ref='OBSERVATION_SELF_OUTPUT_V1')))
                 if obj.get('__type__')=='ObservationBeliefUpdateRecord':
                     actor_id=obj['agent_id'];observation_id=obj['observation_id']
@@ -1082,7 +1136,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | None, *, first: 
             observations=[]
             for realized_ref in realized_refs:
                 observations.extend(obj for obj in _walk_typed(_artifact_payload(kernel,realized_ref))
-                    if obj.get('__type__')=='Observation')
+                    if obj.get('__type__') in ('Observation','BodyRemoteObservation'))
             for observation in observations:
                 later=None;belief=None
                 for next_env in envelopes:
@@ -1139,7 +1193,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | None, *, first: 
     return tuple(rows), terminals
 
 
-def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocationBinding | None,
+def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocationBinding | BodyRemoteBinding | None,
                             epoch_id: str, effective_time: Decimal | str | int,
                             agent_logins: Mapping[str,str], execute):
     """Run one original kernel epoch inside World Authority's V1.2 scope.
@@ -1165,7 +1219,7 @@ def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocation
                 first_ordinal = min(r['event_ordinal'] for r in matching)
                 prior = [r for r in stored if r['event_ordinal'] < first_ordinal]
                 expected = None if not prior else (prior[-1]['envelope_id'], prior[-1]['envelope_hash'])
-            if binding is not None and head is not None and not matching:
+            if isinstance(binding,NamedLocationBinding) and head is not None and not matching:
                 physical = session.load_bound_world(m.parameter('site_binding_key'),
                     context='REALIZED', effective_time=Decimal(effective_time))
                 history = physical['stock_history']

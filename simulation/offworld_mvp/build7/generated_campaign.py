@@ -26,6 +26,7 @@ from offworld_kernel.methodology import MethodologyHardenedBuild4Kernel
 from offworld_kernel.model import AccountKind, NodeKind
 from offworld_kernel.mvp_state import (
     AgentKind, AgentState, ScenarioResource, SystemState, PopulationLedger, ColonyState,
+    BodyRemoteObservation,
 )
 from offworld_kernel.policy import FactState
 from offworld_kernel.project_lifecycle import ProjectDevelopmentPlan
@@ -46,11 +47,14 @@ from offworld_kernel.distribution_protocol import build_surplus_distribution_req
 from offworld_kernel.transport_protocol import build_transport_settlement_request
 
 from simulation.offworld_mvp.build6e.generated_world import generate_solar_system, bind_generated_target, _hash as generated_hash
-from simulation.offworld_mvp.build6e.named_world import NamedLocationBinding
+from simulation.offworld_mvp.build6e.named_world import NamedLocationBinding, BodyRemoteBinding
 from simulation.offworld_mvp.build7 import runtime_flow as flow
 from simulation.offworld_mvp.build7.opportunities import (
     SCREEN as SOLAR_ACCESSIBILITY_SCREEN, candidate_digest,
     derive_mission_candidates, load_visible_inputs,
+)
+from simulation.offworld_mvp.build7.exploration_choice import (
+    QUESTION as BODY_QUESTION, choose_remote_characterization,
 )
 
 ROOT = Path(__file__).resolve().parent
@@ -277,15 +281,17 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
             source_hashes=(source.fingerprint(),),dependency_refs=(source.assertion_id,),transformation_ref='SIM_YEAR_PLUS_2025_V1',
             transformation_version='1',source_time=sim_year))
     assertions=[*earth,*earth_sim];contracts=[];bindings=[]
-    for actor in (('PUB','SPN','FIN') if targeted else ()):
+    for actor in (('PUB','SPN','FIN') if targeted else ('PUB',)):
         for concept,(value,unit) in static.items():
+            if not targeted and concept!='exploration.REMOTE_COST':continue
             subject='P';scope='PROJECT:P'
             if concept.startswith('exploration.'):
-                subject='EXP';scope='PROJECT:EXP'
+                subject,scope=('EXP','PROJECT:EXP') if targeted else ('PUB','MISSION:REMOTE')
             assertions.append(_source(actor+':'+concept,subject,concept,scope,'SCENARIO',scenario_id,'AGENT',actor,value,unit,config_hash))
             contracts.append((actor,'POLICY',concept,scope,'SCENARIO','AGENT',unit,'POLICY_PARAMETER'))
         for concept,(selector,subject,unit) in flow.LIVE.items():
             if concept.startswith('opportunity.'):continue
+            if not targeted and concept not in ('agent.STATE','agent.BELIEF','agent.PRIOR'):continue
             subject=actor if subject=='SELF' else target['node'] if subject==flow.NODE_ID else subject
             scope='AGENT:'+actor if concept.startswith('agent.') else 'PROJECT:P' if subject=='P' else target['site_ref']
             contracts.append((actor,'POLICY',concept,scope,'REALIZED','AGENT',unit,'ADMITTED_INFORMATION'))
@@ -306,18 +312,18 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         'execute_surplus_distribution','execute_settlement_infrastructure','update_settlement_stage','execute_transport_settlement_departure',
         'execute_passenger_transport_arrival','execute_enterprise_review','record_earth_reference_year')
     if not targeted:
-        used_methods=('record_earth_reference_year',)
+        used_methods=('record_earth_reference_year','explore_paid','update_agent_belief_from_observation')
     allowed=[]
     for method in used_methods:
         sid='SYS:'+method;allowed.append((sid,(method,)));scope='PROCESS:'+sid
         assertions.append(_source(sid,sid,'transition.RULE',scope,'SCENARIO',scenario_id,'WORLD_SIM','',canonical((method,tuple(sorted(params.items())))),
             'TYPED_RULE',config_hash,role='TRANSITION_RULE'))
         contracts.append((sid,'SYSTEM_TRANSITION','transition.RULE',scope,'SCENARIO','WORLD_SIM','TYPED_RULE','TRANSITION_RULE'))
-        if method in ('update_agent_belief_from_observation','publish_observation'):
+        if method in ('update_agent_belief_from_observation','publish_observation') and targeted:
             for actor in (('PUB',) if method=='update_agent_belief_from_observation' else ('FIN','SPN')):
                 contracts.append((sid,'SYSTEM_TRANSITION','actor.BELIEF','AGENT:'+actor,'REALIZED','WORLD_SIM','PROBABILITY','ACTOR_BELIEF'))
             bindings.append((sid,'actor.BELIEF','ACTOR_BELIEF'))
-        if method in ('explore_paid','surface_prospect_paid','assess_resource_recoverability'):
+        if method in ('explore_paid','surface_prospect_paid','assess_resource_recoverability') and targeted:
             contracts.append((sid,'SYSTEM_TRANSITION','R_IN_SITU',target['site_ref'],'REALIZED','WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE'))
             bindings.append((sid,'R_IN_SITU','RESOURCE'))
         if method=='record_earth_reference_year':
@@ -326,20 +332,30 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         if method=='resolve_operating_extraction':
             contracts.append((sid,'SYSTEM_TRANSITION','R_RECOVERABLE',target['site_ref'],'REALIZED','WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE'))
             bindings.append((sid,'R_RECOVERABLE','RESOURCE'))
-        if method in ('reserve_earth_supply','explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage'):
+        if method in ('reserve_earth_supply','explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage') and targeted:
             contracts.append((sid,'SYSTEM_TRANSITION','Earth_supply.AVAILABLE','ECONOMY:USA:SUPPLY','REALIZED','WORLD_SIM','MODEL_SUPPLY_CLAIM_CURRENCY','SUPPLIER_CAPACITY'))
             bindings.append((sid,'Earth_supply.AVAILABLE','EARTH_SUPPLY'))
-        if method in ('explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage','clear_market_sale','execute_surplus_distribution'):
+        if method in ('explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage','clear_market_sale','execute_surplus_distribution') and targeted:
             for project in (('EXP',) if method in ('explore_paid','surface_prospect_paid') else ('P',)):
                 contracts.append((sid,'SYSTEM_TRANSITION','project.CASH_BALANCE','PROJECT:'+project,'REALIZED','WORLD_SIM','MODEL_CURRENCY','FINANCIAL_STATE'))
             bindings.append((sid,'project.CASH_BALANCE','PROJECT_CASH'))
-        if method in ('surface_prospect_paid','publish_observation','update_agent_belief_from_observation'):
+        if method in ('surface_prospect_paid','publish_observation','update_agent_belief_from_observation') and targeted:
             contracts.append((sid,'SYSTEM_TRANSITION','observation.SIGNAL',target['site_ref'],'REALIZED','WORLD_SIM','SIGNAL_CATEGORY','OBSERVATION'))
             bindings.append((sid,'observation.SIGNAL','OBSERVATION'))
         if method=='resolve_operating_extraction':
             contracts.append((sid,'SYSTEM_TRANSITION','cycle.PAID_OPEX','PROJECT:P','REALIZED','WORLD_SIM','TYPED_EXPENSE_RECORD','REALIZED_EXPENSE'));bindings.append((sid,'cycle.PAID_OPEX','REALIZED_COST'))
         if method=='admit_realized_output_observation':
             contracts.append((sid,'SYSTEM_TRANSITION','cycle.ACTUAL_OUTPUT',target['site_ref'],'REALIZED','WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','REALIZED_OUTPUT'));bindings.append((sid,'cycle.ACTUAL_OUTPUT','EXTRACTION_ACTUAL'))
+    if not targeted:
+        body_keys=tuple(body['semantic_key'] for body in visible_catalog['bodies'])
+        for body_key in body_keys:
+            scope='BODY:'+body_key
+            contracts.append(('SYS:update_agent_belief_from_observation','SYSTEM_TRANSITION',
+                'observation.SIGNAL',scope,'REALIZED','WORLD_SIM','SIGNAL_CATEGORY','OBSERVATION'))
+            contracts.append(('SYS:update_agent_belief_from_observation','SYSTEM_TRANSITION',
+                'body.BELIEF',scope,'REALIZED','WORLD_SIM','PROBABILITY','ACTOR_BELIEF'))
+        bindings.extend((('SYS:update_agent_belief_from_observation','observation.SIGNAL','OBSERVATION'),
+            ('SYS:update_agent_belief_from_observation','body.BELIEF','BODY_BELIEF')))
     for concept,unit in [('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('population','PERSON')]:
         contracts.append(('GENESIS','EARTH_REFERENCE',concept,'COUNTRY:USA','REAL','GOVERNANCE',unit,'EARTH_REFERENCE'))
 
@@ -371,7 +387,7 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         ('local_reinvest_funds','SPN',node,AccountKind.FUNDS,'0'),('local_settlement_supplier','SUP',node,AccountKind.SUPPLIER,'0'),
         ('settlement_support','SETTLEMENT',node,AccountKind.FUNDS,'0')])
     else:
-        accounts=[(aid,owner,where,kind,'0' if aid in ('public_funds','fin_funds') else value)
+        accounts=[(aid,owner,where,kind,'0' if aid=='fin_funds' else value)
                   for aid,owner,where,kind,value in accounts]
     for aid,owner,where,kind,value in accounts:k.add_account(aid,owner,where,kind,D(value))
     if targeted:
@@ -381,6 +397,9 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         ('FIN',AgentKind.PRIVATE_FINANCIER,'fin_funds',{'FINANCE'},('RETURN',)),
         ('SPN',AgentKind.PRIVATE_SPONSOR,'sponsor_funds',{'REQUEST_FINANCE','DEVELOP','OPERATE','EXTRACT','SELL','DISTRIBUTE_SURPLUS','CLOSE_PROJECT'},('RETURN',))):
         a=AgentState(aid,kind,'EARTH:USA',account,caps,objectives);key=params['belief_key.'+aid];a.priors[key]=D(params['prior']);a.beliefs[key]=D(params['prior']);k.add_agent(a)
+    if not targeted:
+        for body_key in body_keys:
+            k.agents['PUB'].priors['BODY:'+body_key+':WATER_BEARING_MATERIAL_PRESENT']=D(params['prior'])
     if targeted:k.add_resource(target['resource'])
     k.population=PopulationLedger(int(D(params['N'])),{node:0} if targeted else {})
     if targeted:k.colonies[node]=ColonyState(node)
@@ -548,6 +567,70 @@ def resume_world_run(*,reference_service,runtime_service,run_id,through_year=202
     return _world_summary(k,h,world)
 
 
+def run_world_remote_choice(*,reference_service,runtime_service,run_id,
+                            agent_login_service='agent_pub',calendar_year=2026):
+    """Replay opening state, choose once from visible state, and execute if authorized."""
+    import psycopg
+    if calendar_year!=2026:
+        raise Build7Blocked('BUILD7_INCREMENT3_SINGLE_DECISION_YEAR')
+    config=load_config();world,world_seed=_world_from_run(reference_service,runtime_service,run_id)
+    k,h=_build_kernel(None,config,world_seed=world_seed,world=world)
+    if k.boundary_manifest.run_id!=run_id:
+        raise Build7Blocked('BUILD7_RESUME_RUN_ID_MISMATCH')
+    _attach_persistence(h,None,runtime_service,{})
+    _record_empty_year(k,h,2026)
+    actor=k.agents['PUB']
+    characterized={obs.body_id for obs in k.observations.values()
+        if isinstance(obs,BodyRemoteObservation) and obs.id in actor.information}
+    key=sha256((config['runtime']['policy_seed']+'|PUB|2026|BODY_REMOTE_CHOICE_V1').encode()).hexdigest()
+    cost_assertion=next(a for a in k.boundary_manifest.assertions
+        if a.assertion_id=='PUB:exploration.REMOTE_COST')
+    choice=choose_remote_characterization(
+        candidates=derive_world_mission_candidates(k,h,calendar_year),
+        characterized_bodies=characterized,
+        public_balance=k.state.accounts[actor.account_id].balance,
+        remote_cost=cost_assertion.value,decision_key=key)
+    if choice.outcome=='WAIT':
+        return {**_world_summary(k,h,world),'choice':'WAIT','choice_reason':choice.reason,
+            'public_balance':str(k.state.accounts[actor.account_id].balance)}
+    with psycopg.connect(service=agent_login_service) as conn:
+        h['agent_logins']={'PUB':conn.execute('select session_user').fetchone()[0]}
+    with psycopg.connect(service=runtime_service) as conn:
+        scenario_id,world_id,body_id=store.read_run_body_world_identity(
+            conn,run_id,choice.body_id)
+    h['named_binding']=BodyRemoteBinding(scenario_id,world_id,body_id,choice.body_id,
+        'BODY_REMOTE:'+choice.body_id)
+    year=calendar_year-2025
+    request=build_exploration_request('BODY_REMOTE:'+str(calendar_year)+':'+choice.body_id,
+        year,'','','REMOTE',body_id=choice.body_id,question_ref=BODY_QUESTION)
+    decision,decision_ref=flow.policy_epoch(k,h,'BODY_REMOTE:'+str(calendar_year),'PUB',
+        str(year),request,('exploration.REMOTE_COST',),workers.run_public_explorer_policy,
+        workers.public_explorer_policy_version())
+    if decision.outcome.value!='AUTHORIZE':
+        h['named_binding']=None
+        return {**_world_summary(k,h,world),'choice':'WAIT',
+            'choice_reason':decision.outcome.value,
+            'public_balance':str(k.state.accounts[actor.account_id].balance)}
+    p=h['params']
+    obs,asset,draw=flow.system_epoch(k,h,'explore_paid',str(year),
+        (year,'PUB','','','earth_supplier',decision.authorized_cost),
+        dict(channel='REMOTE',public=False,false_positive=D(p['remote_fp']),
+            false_negative=D(p['remote_fn']),update_belief=False,
+            parent_ids=(decision.id,),body_id=choice.body_id,question_ref=BODY_QUESTION),
+        (decision_ref,))
+    if asset is not None:raise Build7Blocked('BUILD7_BODY_REMOTE_CREATED_ASSET')
+    belief_key='BODY:'+choice.body_id+':'+BODY_QUESTION
+    flow.system_epoch(k,h,'update_agent_belief_from_observation',str(year),
+        (year,'PUB',obs.id,belief_key,D(p['remote_detection']),D(p['remote_fp']),
+         'BUILD7_BODY_REMOTE_V1',AUTHORIZATION),decision_refs=(decision_ref,))
+    if k.state.projects or k.state.assets or k.colonies or k.population.offworld:
+        raise Build7Blocked('BUILD7_BODY_REMOTE_CREATED_DEVELOPMENT_STATE')
+    return {**_world_summary(k,h,world),'choice':'SELECT','selected_candidate_id':choice.candidate_id,
+        'selected_body_id':choice.body_id,'observation_id':obs.id,'observation_signal':obs.signal,
+        'posterior':str(actor.beliefs[belief_key]),
+        'public_balance':str(k.state.accounts[actor.account_id].balance)}
+
+
 def run_remote(k,h):
     p=h['params'];req=build_exploration_request('REMOTE:request',1,'EXP','RES','REMOTE')
     d,ref=flow.policy_epoch(k,h,'REMOTE','PUB','1',req,('exploration.REMOTE_COST','opportunity.NAMED_LOCATION','opportunity.AUTHORED_SITE'),workers.run_public_explorer_policy,workers.public_explorer_policy_version())
@@ -675,6 +758,11 @@ def main(argv=None):
         parser=sub.add_parser(name);parser.add_argument('--reference-service',default='reference_reader');parser.add_argument('--runtime-service',default='runtime');parser.add_argument('--run-id',required=True)
         if name=='resume':parser.add_argument('--through-year',type=int,default=2027)
         else:parser.add_argument('--opening-only',action='store_true')
+    remote_parser=sub.add_parser('remote-choice')
+    remote_parser.add_argument('--reference-service',default='reference_reader')
+    remote_parser.add_argument('--runtime-service',default='runtime')
+    remote_parser.add_argument('--agent-login-service',default='agent_pub')
+    remote_parser.add_argument('--run-id',required=True)
     args=ap.parse_args(argv)
     if args.command=='new':
         result=start_world_run(reference_service=args.reference_service,science_writer_service=args.science_writer_service,
@@ -683,6 +771,10 @@ def main(argv=None):
     elif args.command=='resume':
         result=resume_world_run(reference_service=args.reference_service,runtime_service=args.runtime_service,
             run_id=args.run_id,through_year=args.through_year)
+    elif args.command=='remote-choice':
+        result=run_world_remote_choice(reference_service=args.reference_service,
+            runtime_service=args.runtime_service,run_id=args.run_id,
+            agent_login_service=args.agent_login_service)
     elif args.command=='targeted-new':
         result=start_campaign(reference_service=args.reference_service,science_writer_service=args.science_writer_service,
             world_writer_service=args.world_writer_service,runtime_service=args.runtime_service,

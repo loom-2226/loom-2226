@@ -506,8 +506,8 @@ SQL_COLUMN_PROFILE = {
     'wa_run.asset_location': (('run_id', True), ('asset_id', True), ('placement_key', True), ('world_id', False), ('body_id', False), ('location_id', True), ('effective_period', True), ('placement_mode', True), ('trajectory_product_ref', False), ('event_id', True)),
     'wa_run.causal_envelope': (('run_id', True), ('envelope_id', True), ('event_ordinal', True), ('record_version', True), ('scheduled_event_id', True), ('epoch_id', True), ('actor_ref', True), ('process_ref', True), ('action_ref', True), ('world_context', True), ('context_id', True), ('perspective', True), ('time_basis', True), ('effective_time', True), ('decision_time', False), ('authorization_time', False), ('realized_time', True), ('effective_time_lexeme', True), ('decision_time_lexeme', False), ('authorization_time_lexeme', False), ('realized_time_lexeme', True), ('reason_code', True), ('original_envelope_bytes', True), ('original_envelope_sha256', True), ('original_hash_material', True), ('envelope_hash', True), ('previous_trace_hash', True), ('pre_domain_hash', True), ('post_domain_hash', True)),
     'wa_run.execution': (('run_id', True), ('scenario_id', True), ('original_run_identity', True), ('identity_sha256', True), ('code_contract', True), ('code_tree_sha256', True), ('input_snapshot_ref', True), ('boundary_manifest_bytes', True), ('boundary_manifest_sha256', True), ('policy_seed_lexeme', True), ('world_seed_manifest_ref', True), ('world_seed_lexeme', True), ('comparison_group_ref', True), ('comparison_key_schema_ref', True), ('random_algorithm_ref', True), ('decimal_precision', True), ('decimal_rounding_ref', True), ('clock_mapping_ref', True), ('qualification_protocol_ref', True)),
-    'wa_run.mission': (('run_id', True), ('mission_id', True), ('project_id', False), ('world_id', True), ('body_id', True), ('target_location_id', True), ('planned_activity_artifact_ref', True), ('interaction_contract_ref', True)),
-    'wa_run.observation': (('run_id', True), ('observation_id', True), ('mission_id', False), ('world_id', True), ('body_id', True), ('location_id', True), ('event_id', True), ('effective_time', True), ('source_time_lexeme', True), ('source_time_basis', True), ('geometry_id', False), ('vertical_id', False), ('method_ref', True), ('measurement_schema_ref', True), ('original_observation_ref', True), ('world_context', True)),
+    'wa_run.mission': (('run_id', True), ('mission_id', True), ('project_id', False), ('world_id', True), ('body_id', True), ('target_location_id', False), ('planned_activity_artifact_ref', True), ('interaction_contract_ref', True)),
+    'wa_run.observation': (('run_id', True), ('observation_id', True), ('mission_id', False), ('world_id', True), ('body_id', True), ('location_id', False), ('event_id', True), ('effective_time', True), ('source_time_lexeme', True), ('source_time_basis', True), ('geometry_id', False), ('vertical_id', False), ('method_ref', True), ('measurement_schema_ref', True), ('original_observation_ref', True), ('world_context', True)),
     'wa_run.organization_reference': (('run_id', True), ('organization_id', True), ('original_ref', True), ('name', True)),
     'wa_run.population_origin': (('run_id', True), ('cohort_id', True), ('origin_location_id', False), ('external_origin_ref', False), ('initial_person_count', True), ('source_admission_artifact_ref', True), ('genesis_event_id', True)),
     'wa_run.population_state': (('run_id', True), ('cohort_id', True), ('event_id', True), ('position_key', True), ('location_id', False), ('settlement_id', False), ('position_class', True), ('person_count', True), ('original_state_ref', True)),
@@ -825,6 +825,17 @@ def load_bound_world(conn,run_id,binding_key,*,context,effective_time):
         cur.execute('SELECT * FROM wa_world.deposit WHERE world_id=%s ORDER BY deposit_id',(world,));deposits=tuple(cur.fetchall())
         cur.execute('SELECT s.* FROM wa_run.stock_state s JOIN wa_run.causal_envelope e ON e.run_id=s.run_id AND e.envelope_id=s.event_id WHERE s.run_id=%s AND s.world_id=%s AND e.realized_time<=%s ORDER BY s.deposit_id,e.event_ordinal',(run_id,world,effective_time));stocks=tuple(cur.fetchall())
     return dict(realization=realization,scenario_semantic_key=scenario_semantic_key,hidden_states=states,sites=sites,deposits=deposits,stock_history=stocks)
+
+
+def read_run_body_world_identity(conn,run_id,body_key):
+    """Resolve a selected public body to its sealed WORLD identity, without truth."""
+    _require_session_group(conn,'wa_runtime_writer')
+    body_id=stable_uuid('BODY','LOOM_BODY_V1',body_key,'IDENTITY_V1')
+    row=conn.execute('''SELECT e.scenario_id,r.world_id,r.body_id
+        FROM wa_run.execution e JOIN wa_world.realization r ON r.scenario_id=e.scenario_id
+        WHERE e.run_id=%s AND r.body_id=%s''',(run_id,body_id)).fetchone()
+    if row is None:raise IntegrityFailure('BLOCKED_BODY_WORLD_IDENTITY')
+    return row
 
 
 def persist_epoch(conn,run_id,epoch_id,expected_previous_head,rows,terminal_artifact_refs):

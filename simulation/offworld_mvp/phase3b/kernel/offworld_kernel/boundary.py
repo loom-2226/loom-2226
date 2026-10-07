@@ -307,7 +307,11 @@ def _resolve_live(k,r):
     if selector=='OBSERVATION':
         obs=k.observations.get(r.subject_id)
         if obs is None:return _outcome(k,r,FactState.UNKNOWN,'MISSING_OBSERVATION')
-        if obs.resource_id!=k.boundary_manifest.parameter('resource_id'):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
+        if getattr(obs,'body_id',''):
+            if r.scope!='BODY:'+obs.body_id or obs.question_ref!='WATER_BEARING_MATERIAL_PRESENT':
+                return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
+        elif obs.resource_id!=k.boundary_manifest.parameter('resource_id'):
+            return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
         if D(obs.year)>D(r.knowledge_cutoff):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_TIME')
         if r.perspective=='AGENT' and obs.id not in k.agents[r.consumer_id].information:return _outcome(k,r,FactState.BLOCKED,'BLOCKED_POSSESSION')
         return _value(k,r,obs.signal,kind='OBSERVATION',mode='OBSERVATION',source='observation:'+obs.id,available=str(obs.year),source_time=str(obs.year))
@@ -323,6 +327,14 @@ def _resolve_live(k,r):
         key=k.boundary_manifest.parameter('belief_key.'+a.id)
         value=a.beliefs.get(key,a.priors.get(key))
         if value is None:return _outcome(k,r,FactState.UNKNOWN,'MISSING_PRIOR_BELIEF')
+        return _value(k,r,str(value),kind='BELIEF',mode='ACTOR_BELIEF',source='belief:'+a.id+':'+key)
+    if selector=='BODY_BELIEF':
+        a=k.agents.get(r.subject_id)
+        if a is None or not r.scope.startswith('BODY:'):
+            return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
+        key=r.scope+':WATER_BEARING_MATERIAL_PRESENT'
+        value=a.beliefs.get(key,a.priors.get(key))
+        if value is None:return _outcome(k,r,FactState.UNKNOWN,'MISSING_BODY_PRIOR')
         return _value(k,r,str(value),kind='BELIEF',mode='ACTOR_BELIEF',source='belief:'+a.id+':'+key)
     if selector=='EARTH_SUPPLY':
         try:node,period=r.subject_id.rsplit(':SIM',1);year=int(period)

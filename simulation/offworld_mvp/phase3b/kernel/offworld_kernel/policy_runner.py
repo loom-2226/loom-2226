@@ -193,12 +193,15 @@ def request_to_wire(q:FinancingRequest):
 
 
 def exploration_request_to_wire(q:ExplorationRequest):
-    return {
+    value={
         'id':q.id,'year':q.year,'project_id':q.project_id,'resource_id':q.resource_id,
         'channel':q.channel,'required_fact_keys':list(q.required_fact_keys),
         'prerequisite_observation_id':q.prerequisite_observation_id,
         'currency_unit':q.currency_unit,'request_version':q.request_version,
     }
+    if q.request_version=='EXPLORATION_REQUEST_BODY_V1':
+        value.update(body_id=q.body_id,question_ref=q.question_ref)
+    return value
 
 def publication_request_to_wire(q:PublicationRequest):
     return {

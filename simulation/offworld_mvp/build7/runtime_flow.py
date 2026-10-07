@@ -176,6 +176,8 @@ def policy_epoch(k,h,label,actor,time,request,concepts,runner,version,subjects=N
     return result
 
 def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
+    kwargs=dict(kwargs or {})
+    body_remote=method=='explore_paid' and bool(kwargs.get('body_id'))
     delta=0 if method in ('execute_transport_settlement_departure','execute_passenger_transport_arrival') else int(h['params'].get('time_offset',0))
     time=str(D(time)+delta)
     args=_shift_method_arguments(method,args,delta)
@@ -206,27 +208,52 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
         for concept,unit in (('population','PERSON'),('value_added','EARTH_REAL_PROXY_VALUE_ADDED_PER_YEAR'),('gross_output','EARTH_REAL_PROXY_GROSS_OUTPUT_PER_YEAR'),('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('capital','EARTH_REAL_PROXY_CAPITAL'),('legacy_employment','PERSON_FTE_PROXY')):
             request=ConsumptionRequest(label+':EARTH:'+concept,sid,'SYSTEM_TRANSITION','USA',concept,'COUNTRY:USA','SIM_TIME',str(time),str(time),'SCENARIO',k.boundary_manifest.scenario_id,'WORLD_SIM','','ADMITTED',unit,'EARTH_REFERENCE')
             receipts.append(admit_for_use(k,request)[1])
-    if method in ('explore_paid','surface_prospect_paid','assess_resource_recoverability','resolve_operating_extraction'):
+    if method in ('explore_paid','surface_prospect_paid','assess_resource_recoverability','resolve_operating_extraction') and not body_remote:
         build7=dict(k.boundary_manifest.parameters).get('build7.profile')=='BUILD7_GENERATED_CAMPAIGN_V1'
         physical_concept='R_IN_SITU' if build7 and method in ('explore_paid','surface_prospect_paid','assess_resource_recoverability') else 'R_RECOVERABLE'
         live(physical_concept,'RES',target['site_ref'],'MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE')
-    if method in ('reserve_earth_supply','explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage'):
+    if method in ('reserve_earth_supply','explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage') and not body_remote:
         live('Earth_supply.AVAILABLE','EARTH:USA:SIM'+str(time),'ECONOMY:USA:SUPPLY','MODEL_SUPPLY_CLAIM_CURRENCY','SUPPLIER_CAPACITY')
-    if method in ('explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage','clear_market_sale','execute_surplus_distribution'):
+    if method in ('explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage','clear_market_sale','execute_surplus_distribution') and not body_remote:
         project='EXP' if method in ('explore_paid','surface_prospect_paid') else 'P'
         live('project.CASH_BALANCE',project,'PROJECT:'+project,'MODEL_CURRENCY','FINANCIAL_STATE')
     if method in ('surface_prospect_paid','publish_observation','update_agent_belief_from_observation'):
         obs_id=args[6] if method=='surface_prospect_paid' else args[2]
-        live('observation.SIGNAL',obs_id,target['site_ref'],'SIGNAL_CATEGORY','OBSERVATION')
+        obs=k.observations.get(obs_id)
+        scope='BODY:'+obs.body_id if obs is not None and getattr(obs,'body_id','') else target['site_ref']
+        live('observation.SIGNAL',obs_id,scope,'SIGNAL_CATEGORY','OBSERVATION')
     if method=='resolve_operating_extraction':live('cycle.PAID_OPEX',args[4].event_id,'PROJECT:P','TYPED_EXPENSE_RECORD','REALIZED_EXPENSE')
     if method=='admit_realized_output_observation':live('cycle.ACTUAL_OUTPUT',args[2],target['site_ref'],'MODEL_RESOURCE_UNIT_BY_FAMILY','REALIZED_OUTPUT')
-    if method=='update_agent_belief_from_observation':live('actor.BELIEF',args[1],'AGENT:'+args[1],'PROBABILITY','ACTOR_BELIEF')
+    if method=='update_agent_belief_from_observation':
+        obs=k.observations[args[2]]
+        if getattr(obs,'body_id',''):
+            live('body.BELIEF',args[1],'BODY:'+obs.body_id,'PROBABILITY','ACTOR_BELIEF')
+        else:live('actor.BELIEF',args[1],'AGENT:'+args[1],'PROBABILITY','ACTOR_BELIEF')
     if method=='publish_observation':
         for actor,_,_,_ in args[4]:live('actor.BELIEF',actor,'AGENT:'+actor,'PROBABILITY','ACTOR_BELIEF')
     read_set=tuple(sorted(set(receipt.consumption_request.concept for receipt in receipts)))
     k.scheduler.register_coupling(CouplingSpec(sid,'BUILD6E_V1',RuntimeObjectClass.SYSTEM,owned,read_set,owned,'EVENT',Phase.OPERATIONS))
     k.scheduler.schedule(event)
-    def apply(kernel,event):holder['value']=getattr(kernel,method)(*args,**(kwargs or {}));return 'REALIZED:'+method
+    def apply(kernel,event):
+        if body_remote:
+            # The trusted World Authority physical read happens only in this
+            # authorized WORLD_SIM action, after the mission decision committed.
+            import psycopg
+            from loom_world_authority import store
+            from simulation.offworld_mvp.build6e.named_world import BodyRemoteBinding
+            binding=h['named_binding']
+            if not isinstance(binding,BodyRemoteBinding) or binding.body_key!=kwargs['body_id']:
+                raise RuntimeError('BLOCKED_BODY_REMOTE_BINDING')
+            with psycopg.connect(service=h['wa_service']) as reader:
+                physical=store.load_bound_world(reader,kernel.boundary_manifest.run_id,
+                    binding.binding_key,context='REALIZED',effective_time=D(time))
+            deposits=physical['deposits']
+            if (len(deposits)!=1 or deposits[0]['resource_class']!='WATER_BEARING_MATERIAL'
+                    or deposits[0]['initial_in_situ_state']!='KNOWN'):
+                raise RuntimeError('BLOCKED_BODY_REMOTE_WORLD_PROFILE')
+            kwargs['body_truth']=D(deposits[0]['initial_in_situ_quantity'])>0
+        holder['value']=getattr(kernel,method)(*args,**kwargs)
+        return 'REALIZED:'+method
     rt=ScheduledSimulationRuntime(k,strict_provenance(k))
     rt.register_handler(sid,apply,admission_receipts=tuple(receipts),decision_refs=decision_refs,transition_methods=(method,))
     before=AccountingPeriodSnapshot.capture(k,int(D(time)));rt.seal();h['results'].append(rt.run());h['audits'].append(AccountingIdentityAuditor(k,before).check_all());h['last_time']=D(time)
