@@ -290,7 +290,7 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
             bindings.append((sid,'R_IN_SITU','RESOURCE'))
         if method=='record_earth_reference_year':
             for concept,unit in (('population','PERSON'),('value_added','EARTH_REAL_PROXY_VALUE_ADDED_PER_YEAR'),('gross_output','EARTH_REAL_PROXY_GROSS_OUTPUT_PER_YEAR'),('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('capital','EARTH_REAL_PROXY_CAPITAL'),('legacy_employment','PERSON_FTE_PROXY')):
-                contracts.append((sid,'SYSTEM_TRANSITION',concept,'COUNTRY:USA','REAL','GOVERNANCE',unit,'EARTH_REFERENCE'))
+                contracts.append((sid,'SYSTEM_TRANSITION',concept,'COUNTRY:USA','REAL','WORLD_SIM',unit,'EARTH_REFERENCE'))
         if method=='resolve_operating_extraction':
             contracts.append((sid,'SYSTEM_TRANSITION','R_RECOVERABLE',target['site_ref'],'REALIZED','WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE'))
             bindings.append((sid,'R_RECOVERABLE','RESOURCE'))

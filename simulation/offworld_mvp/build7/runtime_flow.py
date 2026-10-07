@@ -202,7 +202,7 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
     if method=='record_earth_reference_year':
         calendar=str(int(D(time))+2025)
         for concept,unit in (('population','PERSON'),('value_added','EARTH_REAL_PROXY_VALUE_ADDED_PER_YEAR'),('gross_output','EARTH_REAL_PROXY_GROSS_OUTPUT_PER_YEAR'),('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('capital','EARTH_REAL_PROXY_CAPITAL'),('legacy_employment','PERSON_FTE_PROXY')):
-            request=ConsumptionRequest(label+':EARTH:'+concept,sid,'SYSTEM_TRANSITION','USA',concept,'COUNTRY:USA','CALENDAR_YEAR',calendar,calendar,'REAL','','GOVERNANCE','','ADMITTED',unit,'EARTH_REFERENCE')
+            request=ConsumptionRequest(label+':EARTH:'+concept,sid,'SYSTEM_TRANSITION','USA',concept,'COUNTRY:USA','CALENDAR_YEAR',calendar,calendar,'REAL','','WORLD_SIM','','ADMITTED',unit,'EARTH_REFERENCE')
             receipts.append(admit_for_use(k,request)[1])
     if method in ('explore_paid','surface_prospect_paid','assess_resource_recoverability','resolve_operating_extraction'):
         build7=dict(k.boundary_manifest.parameters).get('build7.profile')=='BUILD7_GENERATED_CAMPAIGN_V1'
