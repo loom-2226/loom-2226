@@ -54,6 +54,7 @@ REPO = ROOT.parents[2]
 INPUT = ROOT / 'inputs/BUILD7_GENERATED_CAMPAIGN_V1.json'
 EARTH_INPUT = ROOT / 'inputs/BUILD7_EARTH_USA_2026_2045_V1.json'
 TIMELINE_INPUT = ROOT / 'inputs/BUILD7_TIMELINE_SNAPSHOT_V1.json'
+SOLAR_CATALOG_INPUT = ROOT / 'inputs/BUILD7_SOLAR_BODY_CATALOG_V1.json'
 AUTHORIZATION = 'BUILD7_HIDDEN_WORLD_BASELINE_001'
 PROFILE = 'BUILD7_GENERATED_CAMPAIGN_V1'
 EARTH_SCHEMA = 'BUILD7_EARTH_USA_2026_2045_V1'
@@ -144,6 +145,21 @@ def _load_timeline():
     return doc,digest
 
 
+def _load_solar_catalog():
+    raw=SOLAR_CATALOG_INPUT.read_bytes();doc=json.loads(raw);digest=sha256(raw).hexdigest()
+    if doc.get('schema')!='BUILD7_SOLAR_BODY_CATALOG_V1' or doc.get('eligible_count')!=90 or len(doc.get('bodies',()))!=90:
+        raise Build7Blocked('BUILD7_SOLAR_CATALOG_PROFILE')
+    body_bytes=json.dumps(doc['bodies'],sort_keys=True,separators=(',',':'),ensure_ascii=True).encode()
+    support_bytes=json.dumps(doc.get('supporting_bodies',()),sort_keys=True,separators=(',',':'),ensure_ascii=True).encode()
+    if sha256(body_bytes).hexdigest()!=doc.get('body_rows_sha256') or sha256(support_bytes).hexdigest()!=doc.get('support_rows_sha256'):
+        raise Build7Blocked('BUILD7_SOLAR_CATALOG_DIGEST')
+    for ref in doc.get('source_refs',()):
+        path=(REPO/ref['path']).resolve()
+        if not path.is_relative_to(REPO) or not path.is_file() or _sha(path)!=ref['sha256']:
+            raise Build7Blocked('BUILD7_SOLAR_CATALOG_SOURCE:'+ref['path'])
+    return doc,digest
+
+
 def _target_from_generated(binding: Mapping, config: Mapping) -> dict:
     scale=D(config['runtime']['kg_per_model_resource_unit'])
     if scale<=0:raise Build7Blocked('BUILD7_RESOURCE_SCALE')
@@ -169,7 +185,7 @@ def _target_from_bound(reference_reader, runtime_service: str, run_id: str, bind
     realization=physical['realization']
     if realization is None or len(physical['sites'])!=1 or len(physical['deposits'])!=1:
         raise Build7Blocked('BUILD7_BOUND_WORLD_CARDINALITY')
-    catalog=store.read_generation_catalog(reference_reader,WA_SOURCE_SHA)
+    catalog_doc,_=_load_solar_catalog();catalog=store.read_generation_catalog(reference_reader,WA_SOURCE_SHA,catalog_doc['body_rows_sha256'])
     body=next((b for b in catalog if b['body_id']==realization['body_id']),None)
     if body is None:raise Build7Blocked('BUILD7_BOUND_BODY_NOT_IN_CATALOG')
     site=physical['sites'][0];deposit=physical['deposits'][0]
@@ -199,7 +215,7 @@ def _recovery_profile(target: Mapping,config: Mapping) -> dict:
 
 def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
     params=dict(config['structural_parameters'])
-    earth,earth_hash,earth_doc=_load_earth_authority();timeline,timeline_hash=_load_timeline()
+    earth,earth_hash,earth_doc=_load_earth_authority();timeline,timeline_hash=_load_timeline();solar_catalog,solar_catalog_hash=_load_solar_catalog()
     earth_2026=next(v for v in earth if v.concept=='population' and v.valid_from=='2026')
     params.update({'resource_id':'RES','N':earth_2026.value,'reference_population_bound':earth_2026.value,
         'opening_effective_time':config['runtime']['opening_effective_time'],'time_offset':str(config['runtime']['time_offset']),
@@ -295,8 +311,9 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
     here=Path(__file__).resolve();runtime_flow=ROOT/'runtime_flow.py';named=ROOT.parent/'build6e/named_world.py';store_path=REPO/'src/loom_world_authority/store.py'
     harness=tuple((str(p.relative_to(REPO)),_sha(p)) for p in (here,runtime_flow,named,store_path))
     authority_sources=(('EARTH_AUTHORITY:'+earth_doc['source_snapshot_id'],earth_doc['promotion_manifest_sha256']),
-        ('TIMELINE:'+timeline['source_projection_manifest']['snapshot_id'],timeline['source_projection_manifest']['projection_sha256']))
-    definitions=((INPUT.name,config_hash),(TIMELINE_INPUT.name,timeline_hash))
+        ('TIMELINE:'+timeline['source_projection_manifest']['snapshot_id'],timeline['source_projection_manifest']['projection_sha256']),
+        ('SOLAR_BODY_CATALOG',solar_catalog['body_rows_sha256']))
+    definitions=((INPUT.name,config_hash),(TIMELINE_INPUT.name,timeline_hash),(SOLAR_CATALOG_INPUT.name,solar_catalog_hash))
     m=BoundaryManifest(BUILD6E_CONTRACT,'BUILD7_INPUT:'+content_hash((definitions,earth_hash,tuple(sorted(params.items())),authority_sources)),scenario_id,'V1',run_id,
         definitions,authority_sources,'0'*64,(('PARAMETERS:'+scenario_id,content_hash(tuple(sorted(params.items())))),
         ('FINANCIER_POLICY_PARAMETERS',policy_manifest.parameter_manifest_hash()),('WORLD_REALIZATION:'+str(target['binding'].world_id),target['result_hash']),
@@ -349,7 +366,7 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
         'settlement_id':target['binding'].settlement_id,'settlement_node':node,'initial_colony':k.colonies[node],
         'cohort_id':config['runtime']['cohort_id'],'population_source_receipt':receipt.receipt_id,
         'earth_supply_transformations':tuple(derived),'earth_authority_snapshot':earth_doc['source_snapshot_id'],
-        'timeline_snapshot':timeline['source_projection_manifest']['snapshot_id'],'timeline_milestone_count':43,'technology_profile':'FIXED_2026'}
+        'timeline_snapshot':timeline['source_projection_manifest']['snapshot_id'],'timeline_milestone_count':43,'solar_eligible_body_count':90,'technology_profile':'FIXED_2026'}
     k._boundary_authored_inputs=(table,policy_manifest,opening_records)
     m=replace(m,assertions=(*m.assertions,*derived));k.boundary_manifest=m
     opening=tuple((key,canonical(k._boundary_opening_value(key))) for key in ('accounts','agents','resources','constraints','population','earth_admission_receipts'))
@@ -461,15 +478,17 @@ def _summary(k,h,target,*,generated_status=None):
 def start_campaign(*,reference_service,science_writer_service,world_writer_service,runtime_service,world_seed,body,science_cutoff,authorization_ref=AUTHORIZATION,full=False):
     import psycopg
     config=load_config();body=body.upper()
+    solar_catalog,_=_load_solar_catalog()
     with psycopg.connect(service=reference_service) as reader, psycopg.connect(service=science_writer_service) as science, psycopg.connect(service=world_writer_service) as writer:
-        generated=generate_solar_system(reader,science,writer,seed=world_seed,authorization_ref=authorization_ref,science_cutoff=science_cutoff,return_bindings=True)
+        catalog_status=store.install_generation_body_catalog(science,solar_catalog)
+        generated=generate_solar_system(reader,science,writer,seed=world_seed,authorization_ref=authorization_ref,science_cutoff=science_cutoff,return_bindings=True,supplemental_catalog_sha256=solar_catalog['body_rows_sha256'])
     if body not in generated['_bindings']:raise Build7Blocked('BUILD7_BODY_NOT_GENERATED:'+body)
     target=_target_from_generated(generated['_bindings'][body],config);target['world_seed']=world_seed
     k,h=_build_kernel(target,config,world_seed=world_seed);_attach_persistence(h,target,runtime_service,_agent_logins())
     remote=run_remote(k,h);h['terminal']='REMOTE' if not full else None
     if full:
         surface=run_surface(k,h);h['terminal']='NO_SURFACE' if surface is None else run_full_chain(k,h,target)
-    result=_summary(k,h,target,generated_status=generated['status']);result['remote_signal']=None if remote is None else remote.signal;result['terminal']=h['terminal'];return result
+    result=_summary(k,h,target,generated_status=generated['status']);result['catalog_status']=catalog_status;result['generated_body_count']=generated['body_count'];result['remote_signal']=None if remote is None else remote.signal;result['terminal']=h['terminal'];return result
 
 
 def resume_campaign(*,reference_service,runtime_service,run_id,full=True):

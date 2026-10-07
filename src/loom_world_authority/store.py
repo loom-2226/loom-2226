@@ -231,29 +231,67 @@ def read_catalog_location(conn,body_key,location_key):
         WHERE b.semantic_key=%s AND l.semantic_key=%s''',(body_key,location_key))
 
 
-def read_generation_catalog(conn, source_sha256):
-    """Closed trusted body projection from one accepted source snapshot."""
+def install_generation_body_catalog(conn, manifest):
+    """Install the pinned Build 7 Solar body-identity supplement, and nothing else.
+
+    Missing identity rows come from the already-promoted LOOM Solar projection.
+    Supporting barycenters exist only to preserve parent identity. No science,
+    physical properties, locations, or hidden WORLD truth are added.
+    """
+    from .etl import canonical
+    required={'schema','standing','eligible_count','supporting_body_count','body_rows_sha256','support_rows_sha256','source_refs','bodies','supporting_bodies'}
+    if set(manifest)!=required or manifest['schema']!='BUILD7_SOLAR_BODY_CATALOG_V1' or manifest['standing']!='PINNED_READ_ONLY_PROJECTION_OF_CURRENT_LOOM_SOLAR_AUTHORITY':
+        raise IntegrityFailure('GENERATION_BODY_CATALOG_PROFILE')
+    bodies=manifest['bodies'];support=manifest['supporting_bodies']
+    if not isinstance(bodies,list) or not isinstance(support,list) or manifest['eligible_count']!=len(bodies) or manifest['supporting_body_count']!=len(support) or not bodies:
+        raise IntegrityFailure('GENERATION_BODY_CATALOG_COUNT')
+    if sha256_bytes(canonical(bodies))!=require_sha256(manifest['body_rows_sha256']) or sha256_bytes(canonical(support))!=require_sha256(manifest['support_rows_sha256']):
+        raise IntegrityFailure('GENERATION_BODY_CATALOG_DIGEST')
+    if not manifest['source_refs'] or any(set(r)!={'path','sha256'} or not r['path'] or require_sha256(r['sha256'])!=r['sha256'] for r in manifest['source_refs']):
+        raise IntegrityFailure('GENERATION_BODY_CATALOG_PROVENANCE')
+    expected_fields={'semantic_key','canonical_name','body_class','parent_body_id','status_lexeme'}
+    rows=[*support,*bodies]
+    if any(set(r)!=expected_fields or not all(isinstance(r[k],str) and r[k] for k in ('semantic_key','canonical_name','body_class','status_lexeme')) or (r['parent_body_id'] is not None and (not isinstance(r['parent_body_id'],str) or not r['parent_body_id'])) for r in rows):
+        raise IntegrityFailure('GENERATION_BODY_CATALOG_FIELDS')
+    if len({r['semantic_key'] for r in rows})!=len(rows):raise IntegrityFailure('GENERATION_BODY_CATALOG_IDENTITY')
+    digest=manifest['body_rows_sha256'];support_keys={r['semantic_key'] for r in support}
+    if conn.info.transaction_status.value!=0:raise IntegrityFailure('GENERATION_BODY_CATALOG_REQUIRES_IDLE_CONNECTION')
+    inserted=0
+    with conn.transaction():
+        serializable(conn);_require_session_group(conn,'wa_science_writer');conn.execute('SET LOCAL ROLE wa_science_writer');assert_service_role(conn,SERVICE_ROUTES['science_writer'])
+        conn.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))',('BUILD7_SOLAR_BODY_CATALOG:'+digest,))
+        for row in [*sorted(support,key=lambda r:r['semantic_key']),*sorted(bodies,key=lambda r:r['semantic_key'])]:
+            body_id=stable_uuid('BODY','LOOM_BODY_V1',row['semantic_key'],'IDENTITY_V1')
+            parent_id=None if row['parent_body_id'] is None else stable_uuid('BODY','LOOM_BODY_V1',row['parent_body_id'],'IDENTITY_V1')
+            old=conn.execute('SELECT semantic_key,canonical_name,body_class,parent_body_id,status_lexeme FROM wa_geo.body WHERE body_id=%s',(body_id,)).fetchone()
+            if old is not None:
+                if old[:3]!=(row['semantic_key'],row['canonical_name'],row['body_class']):raise CollisionFailure('GENERATION_BODY_CATALOG_COLLISION:'+row['semantic_key'])
+                continue
+            if parent_id is not None and conn.execute('SELECT 1 FROM wa_geo.body WHERE body_id=%s',(parent_id,)).fetchone() is None:raise IntegrityFailure('GENERATION_BODY_PARENT_ABSENT:'+row['semantic_key'])
+            prefix='BUILD7_SOLAR_SUPPORT:' if row['semantic_key'] in support_keys else 'BUILD7_SOLAR_CATALOG:'
+            _match_or_insert_columns(conn,'wa_geo.body',dict(body_id=body_id,semantic_key=row['semantic_key'],canonical_name=row['canonical_name'],body_class=row['body_class'],parent_body_id=parent_id,status_lexeme=row['status_lexeme'],original_ref=prefix+digest+':'+row['semantic_key']))
+            inserted+=1
+        conn.execute('SET CONSTRAINTS ALL IMMEDIATE')
+    return 'INSERTED' if inserted else 'ALREADY_MATCHED'
+
+def read_generation_catalog(conn, source_sha256, supplemental_catalog_sha256=None):
+    """Closed trusted body projection from source plus optional pinned Solar supplement."""
     from psycopg.rows import dict_row
     from .etl import SOURCE_SHA
-    _require_session_group(conn, 'wa_reference_reader')
-    if source_sha256 != SOURCE_SHA:
-        raise IntegrityFailure('GENERATION_SOURCE_SNAPSHOT')
-    snapshot = conn.execute('SELECT snapshot_id FROM wa_meta.source_snapshot WHERE byte_sha256=%s',
-                            (source_sha256,)).fetchone()
-    if snapshot is None:
-        raise IntegrityFailure('GENERATION_SOURCE_NOT_INSTALLED')
+    _require_session_group(conn,'wa_reference_reader')
+    if source_sha256!=SOURCE_SHA:raise IntegrityFailure('GENERATION_SOURCE_SNAPSHOT')
+    snapshot=conn.execute('SELECT snapshot_id FROM wa_meta.source_snapshot WHERE byte_sha256=%s',(source_sha256,)).fetchone()
+    if snapshot is None:raise IntegrityFailure('GENERATION_SOURCE_NOT_INSTALLED')
+    patterns=['SOURCE_ROW:'+source_sha256+':%']
+    if supplemental_catalog_sha256 is not None:
+        require_sha256(supplemental_catalog_sha256);patterns.append('BUILD7_SOLAR_CATALOG:'+supplemental_catalog_sha256+':%')
     with conn.cursor(row_factory=dict_row) as cur:
-        cur.execute('''SELECT body_id,semantic_key,canonical_name,body_class,parent_body_id,original_ref
-            FROM wa_geo.body WHERE original_ref LIKE %s ORDER BY semantic_key COLLATE "C"''',
-            ('SOURCE_ROW:' + source_sha256 + ':%',))
-        rows = tuple(cur.fetchall())
-    if not rows or len({r['semantic_key'] for r in rows}) != len(rows):
-        raise IntegrityFailure('GENERATION_CATALOG_IDENTITY')
+        cur.execute('SELECT body_id,semantic_key,canonical_name,body_class,parent_body_id,original_ref FROM wa_geo.body WHERE original_ref LIKE ANY(%s) ORDER BY semantic_key COLLATE "C"',(patterns,))
+        rows=tuple(cur.fetchall())
+    if not rows or len({r['semantic_key'] for r in rows})!=len(rows):raise IntegrityFailure('GENERATION_CATALOG_IDENTITY')
     for row in rows:
-        if row['body_id'] != stable_uuid('BODY','LOOM_BODY_V1',row['semantic_key'],'IDENTITY_V1'):
-            raise IntegrityFailure('GENERATION_CATALOG_IDENTITY')
+        if row['body_id']!=stable_uuid('BODY','LOOM_BODY_V1',row['semantic_key'],'IDENTITY_V1'):raise IntegrityFailure('GENERATION_CATALOG_IDENTITY')
     return rows
-
 
 def install_generated_site_metadata(conn, manifest):
     """One owner-authorized body/site/feature anchor and closed physical units.
@@ -299,7 +337,7 @@ def install_generated_site_metadata(conn, manifest):
                      ('WA_GENERATED_SITE:'+body_key+':'+manifest['site_key'],))
         body = conn.execute('SELECT body_id,original_ref FROM wa_geo.body WHERE semantic_key=%s',
                             (body_key,)).fetchone()
-        if body is None or body[0] != stable_uuid('BODY','LOOM_BODY_V1',body_key,'IDENTITY_V1') or not body[1].startswith('SOURCE_ROW:'+SOURCE_SHA+':'):
+        if body is None or body[0] != stable_uuid('BODY','LOOM_BODY_V1',body_key,'IDENTITY_V1') or not (body[1].startswith('SOURCE_ROW:'+SOURCE_SHA+':') or body[1].startswith('BUILD7_SOLAR_CATALOG:')):
             raise IntegrityFailure('GENERATED_SITE_BODY_ABSENT')
         rows = [('wa_meta.unit',dict(unit_key=key,source_lexeme=lexeme,
             dimension_ref=dimension,canonical_unit_ref=lexeme,conversion_profile_ref='SI_EXACT_V1',

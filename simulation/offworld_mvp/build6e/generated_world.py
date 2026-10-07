@@ -326,7 +326,7 @@ def compile_body_world(body,row,policy,constraints,seed,scenario_id,scenario_key
         row['fallback_heliocentric_distance_max_au'],0)
     block=_block(row,policy,seed,key,domain,mass,radius,r_au)
     policy_input={'row':row,'shared_policy_sha256':POLICY_SHA,'table_sha256':TABLE_SHA,
-        'source_snapshot_sha256':SOURCE_SHA,'admitted_constraint_dispositions':provenance,
+        'source_snapshot_sha256':SOURCE_SHA,'body_catalog_ref':body['original_ref'],'admitted_constraint_dispositions':provenance,
         'cutoff':science_cutoff,'use_contract_ref':USE,'world_epoch':world_epoch}
     policy_bytes=canonical(policy_input);policy_hash=sha256(policy_bytes).hexdigest()
     policy_key='SOLAR_WATER_POLICY_'+key+'_'+str(model_id).split('-')[0]+'_'+policy_hash[:16]
@@ -466,12 +466,12 @@ def bind_generated_target(bound_world,activity_profile):
 
 
 def generate_solar_system(reference_reader,science_writer,world_writer,*,seed,authorization_ref,
-                          science_cutoff,world_epoch=2026,return_bindings=False):
+                          science_cutoff,world_epoch=2026,return_bindings=False,supplemental_catalog_sha256=None):
     """Compile all current eligible WA bodies, then seal one exact WORLD batch."""
     if not seed or not authorization_ref or type(science_cutoff) is not int or science_cutoff<0 or world_epoch!=2026:
         raise GenerationBlocked('GENERATION_DECLARATION')
     table,policy=load_inputs()
-    catalog=store.read_generation_catalog(reference_reader,SOURCE_SHA)
+    catalog=store.read_generation_catalog(reference_reader,SOURCE_SHA,supplemental_catalog_sha256)
     unknown=[b['semantic_key'] for b in catalog if b['semantic_key'] not in table]
     if unknown:raise GenerationBlocked('MISSING_PRIOR_ROWS:'+','.join(unknown))
     eligible=[]
