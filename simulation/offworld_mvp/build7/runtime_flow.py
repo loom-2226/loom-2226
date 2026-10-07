@@ -85,6 +85,8 @@ _SYSTEM_TIME_INDEX={'disburse':0,'reserve_earth_supply':1,'explore_paid':0,'surf
 def _target_runtime(kernel):
     """Resolve the current campaign target without changing the frozen 6E defaults."""
     params=dict(kernel.boundary_manifest.parameters)
+    if params.get('build7.profile')=='BUILD7_GENERATED_CAMPAIGN_V1' and 'build7.site_node_id' not in params:
+        return {'node':None,'site_ref':None,'catalog_subject':None,'catalog_scope':None}
     node=params.get('build7.site_node_id',NODE_ID)
     return {
         'node':node,

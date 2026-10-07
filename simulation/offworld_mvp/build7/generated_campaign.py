@@ -45,7 +45,7 @@ from offworld_kernel.market_protocol import build_sale_decision_request
 from offworld_kernel.distribution_protocol import build_surplus_distribution_request
 from offworld_kernel.transport_protocol import build_transport_settlement_request
 
-from simulation.offworld_mvp.build6e.generated_world import generate_solar_system, bind_generated_target
+from simulation.offworld_mvp.build6e.generated_world import generate_solar_system, bind_generated_target, _hash as generated_hash
 from simulation.offworld_mvp.build6e.named_world import NamedLocationBinding
 from simulation.offworld_mvp.build7 import runtime_flow as flow
 
@@ -213,20 +213,29 @@ def _recovery_profile(target: Mapping,config: Mapping) -> dict:
         'kg_per_model_unit':config['runtime']['kg_per_model_resource_unit']}
 
 
-def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
+def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, world: Mapping | None = None):
+    if target is None and world is None:
+        raise Build7Blocked('BUILD7_WORLD_REQUIRED')
+    targeted=target is not None
     params=dict(config['structural_parameters'])
     earth,earth_hash,earth_doc=_load_earth_authority();timeline,timeline_hash=_load_timeline();solar_catalog,solar_catalog_hash=_load_solar_catalog()
     earth_2026=next(v for v in earth if v.concept=='population' and v.valid_from=='2026')
-    params.update({'resource_id':'RES','N':earth_2026.value,'reference_population_bound':earth_2026.value,
+    params.update({'N':earth_2026.value,'reference_population_bound':earth_2026.value,
         'opening_effective_time':config['runtime']['opening_effective_time'],'time_offset':str(config['runtime']['time_offset']),
-        'site_binding_key':config['runtime']['site_binding_key'],'build7.site_node_id':target['node'],'build7.site_ref':target['site_ref'],
-        'build7.catalog_subject':target['catalog_subject'],'build7.catalog_scope':target['catalog_scope'],'build7.profile':PROFILE})
+        'build7.profile':PROFILE})
+    if targeted:
+        params.update({'resource_id':'RES','site_binding_key':config['runtime']['site_binding_key'],
+            'build7.site_node_id':target['node'],'build7.site_ref':target['site_ref'],
+            'build7.catalog_subject':target['catalog_subject'],'build7.catalog_scope':target['catalog_scope']})
+    else:
+        params['build7.world_scenario_id']=str(world['scenario_id'])
     config_hash=_sha(INPUT)
     comparison={'world_seed':str(world_seed),'policy_seed':config['runtime']['policy_seed'],
         'comparison_group':config['runtime']['comparison_group'],'algorithm':'SHA256_FIRST64_DECIMAL_V1',
         'key_schema':'LOOM_COMPARISON_RANDOM_V1','decimal_precision':28,'decimal_rounding':'ROUND_HALF_EVEN'}
-    scenario_id=target['scenario_key']
-    run_id=scenario_id+':'+content_hash((str(target['binding'].world_id),config_hash,earth_hash,timeline_hash,_sha(Path(__file__).resolve()),tuple(sorted(params.items())),tuple(sorted(comparison.items()))))[:16]
+    scenario_id=target['scenario_key'] if targeted else world['scenario_key']
+    world_identity=str(target['binding'].world_id) if targeted else str(world['scenario_id'])
+    run_id=scenario_id+':'+content_hash((world_identity,config_hash,earth_hash,timeline_hash,_sha(Path(__file__).resolve()),tuple(sorted(params.items())),tuple(sorted(comparison.items()))))[:16]
 
     old_policy=test_only_manifest()
     policy_values={'hurdle_rate':params['financier_hurdle_rate'],'horizon_years':params['financier_horizon_years'],
@@ -258,7 +267,7 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
             source_hashes=(source.fingerprint(),),dependency_refs=(source.assertion_id,),transformation_ref='SIM_YEAR_PLUS_2025_V1',
             transformation_version='1',source_time=sim_year))
     assertions=[*earth,*earth_sim];contracts=[];bindings=[]
-    for actor in ('PUB','SPN','FIN'):
+    for actor in (('PUB','SPN','FIN') if targeted else ()):
         for concept,(value,unit) in static.items():
             subject='P';scope='PROJECT:P'
             if concept.startswith('exploration.'):
@@ -271,20 +280,23 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
             scope='AGENT:'+actor if concept.startswith('agent.') else 'PROJECT:P' if subject=='P' else target['site_ref']
             contracts.append((actor,'POLICY',concept,scope,'REALIZED','AGENT',unit,'ADMITTED_INFORMATION'))
             bindings.append((actor,concept,selector))
-    assertions.extend((
-        replace(_source('WA_CATALOG:BODY:'+target['body_key'],target['catalog_subject'],'opportunity.NAMED_LOCATION',target['catalog_scope'],'REAL','','AGENT','PUB',
-            target['body_name'],'CATALOG_LOCATION_IDENTITY',WA_SOURCE_SHA,role='ADMITTED_CATALOG_IDENTITY',source_ref='WA_CATALOG:BODY:'+target['body_key'],epistemic_mode='CATALOG_IDENTITY'),
-            proposition_kind='REAL_CATALOG_IDENTITY',authorization_ref='WA_CATALOG_IMPORT_V1'),
-        _source('BUILD7_AUTHORED_SITE:'+target['body_key'],target['site_ref'],'opportunity.AUTHORED_SITE',target['site_ref'],'SCENARIO',scenario_id,'AGENT','PUB',
-            target['site_name'],'AUTHORED_SITE_IDENTITY',config_hash),))
-    contracts.extend((('PUB','POLICY','opportunity.NAMED_LOCATION',target['catalog_scope'],'REAL','AGENT','CATALOG_LOCATION_IDENTITY','ADMITTED_CATALOG_IDENTITY'),
-        ('PUB','POLICY','opportunity.AUTHORED_SITE',target['site_ref'],'SCENARIO','AGENT','AUTHORED_SITE_IDENTITY','POLICY_PARAMETER')))
+    if targeted:
+        assertions.extend((
+            replace(_source('WA_CATALOG:BODY:'+target['body_key'],target['catalog_subject'],'opportunity.NAMED_LOCATION',target['catalog_scope'],'REAL','','AGENT','PUB',
+                target['body_name'],'CATALOG_LOCATION_IDENTITY',WA_SOURCE_SHA,role='ADMITTED_CATALOG_IDENTITY',source_ref='WA_CATALOG:BODY:'+target['body_key'],epistemic_mode='CATALOG_IDENTITY'),
+                proposition_kind='REAL_CATALOG_IDENTITY',authorization_ref='WA_CATALOG_IMPORT_V1'),
+            _source('BUILD7_AUTHORED_SITE:'+target['body_key'],target['site_ref'],'opportunity.AUTHORED_SITE',target['site_ref'],'SCENARIO',scenario_id,'AGENT','PUB',
+                target['site_name'],'AUTHORED_SITE_IDENTITY',config_hash),))
+        contracts.extend((('PUB','POLICY','opportunity.NAMED_LOCATION',target['catalog_scope'],'REAL','AGENT','CATALOG_LOCATION_IDENTITY','ADMITTED_CATALOG_IDENTITY'),
+            ('PUB','POLICY','opportunity.AUTHORED_SITE',target['site_ref'],'SCENARIO','AGENT','AUTHORED_SITE_IDENTITY','POLICY_PARAMETER')))
 
     used_methods=('add_commitment','disburse','reserve_earth_supply','explore_paid','surface_prospect_paid','update_agent_belief_from_observation',
         'publish_observation','submit_financing_request','transition_project_status','execute_development_stage','resolve_development_plan',
         'assess_resource_recoverability','spend_operating_cycle','resolve_operating_extraction','admit_realized_output_observation','clear_market_sale',
         'execute_surplus_distribution','execute_settlement_infrastructure','update_settlement_stage','execute_transport_settlement_departure',
         'execute_passenger_transport_arrival','execute_enterprise_review','record_earth_reference_year')
+    if not targeted:
+        used_methods=('record_earth_reference_year',)
     allowed=[]
     for method in used_methods:
         sid='SYS:'+method;allowed.append((sid,(method,)));scope='PROCESS:'+sid
@@ -327,42 +339,56 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
         ('TIMELINE:'+timeline['source_projection_manifest']['snapshot_id'],timeline['source_projection_manifest']['projection_sha256']),
         ('SOLAR_BODY_CATALOG',solar_catalog['body_rows_sha256']))
     definitions=((INPUT.name,config_hash),(TIMELINE_INPUT.name,timeline_hash),(SOLAR_CATALOG_INPUT.name,solar_catalog_hash))
+    world_ref=('WORLD_REALIZATION:'+world_identity,target['result_hash']) if targeted else ('WORLD_REALIZATION_SET:'+world_identity,world['sealed_world_digest'])
     m=BoundaryManifest(BUILD6E_CONTRACT,'BUILD7_INPUT:'+content_hash((definitions,earth_hash,tuple(sorted(params.items())),authority_sources)),scenario_id,'V1',run_id,
         definitions,authority_sources,'0'*64,(('PARAMETERS:'+scenario_id,content_hash(tuple(sorted(params.items())))),
-        ('FINANCIER_POLICY_PARAMETERS',policy_manifest.parameter_manifest_hash()),('WORLD_REALIZATION:'+str(target['binding'].world_id),target['result_hash']),
+        ('FINANCIER_POLICY_PARAMETERS',policy_manifest.parameter_manifest_hash()),world_ref,
         ('TIMELINE_READ_ONLY',timeline_hash)),tuple(contracts),tuple(bindings),('BUILD7_COMPARISON',content_hash(tuple(sorted(comparison.items())))),
         (EARTH_INPUT.name,earth_hash),(INPUT.name,config_hash),'SIM_YEAR_PLUS_2025_V1','ODD_SCHEMA_REGISTRY_0_20',BUILD6E_AUTHORIZATION,
         tuple(assertions),tuple(sorted((str(k),str(v)) for k,v in params.items())),tuple(sorted(comparison.items())),tuple(allowed),(),harness)
-    rid=RunIdentity(str(target['binding'].world_id),'BUILD7_V1',m.input_snapshot_id,BUILD6E_CONTRACT,m.parameters)
+    rid=RunIdentity(world_identity,'BUILD7_V1',m.input_snapshot_id,BUILD6E_CONTRACT,m.parameters)
     k=MethodologyHardenedBuild4Kernel(rid,boundary_manifest=m,lambda_displacement=D(params['lambda']))
-    node=target['node'];k.add_node('EARTH:USA',NodeKind.EARTH);k.add_node(node,NodeKind.OFFWORLD)
+    k.add_node('EARTH:USA',NodeKind.EARTH)
+    node=target['node'] if targeted else None
+    if targeted:k.add_node(node,NodeKind.OFFWORLD)
     accounts=[('public_funds','PUB','EARTH:USA',AccountKind.FUNDS,params['P']),('fin_funds','FIN','EARTH:USA',AccountKind.FUNDS,params['F']),
         ('earth_market','EARTH_MARKET','EARTH:USA',AccountKind.EARTH_BOUNDARY,params['B']),('sponsor_funds','SPN','EARTH:USA',AccountKind.FUNDS,'0'),
-        ('earth_supplier','SUP','EARTH:USA',AccountKind.SUPPLIER,'0'),('transport_provider','TRANSPORT_PROVIDER','EARTH:USA',AccountKind.SUPPLIER,'0'),
-        ('explore_cash','EXP',node,AccountKind.PROJECT_CASH,'0'),('project_cash','SPN',node,AccountKind.PROJECT_CASH,'0'),
+        ('earth_supplier','SUP','EARTH:USA',AccountKind.SUPPLIER,'0'),('transport_provider','TRANSPORT_PROVIDER','EARTH:USA',AccountKind.SUPPLIER,'0')]
+    if targeted:
+        accounts.extend([('explore_cash','EXP',node,AccountKind.PROJECT_CASH,'0'),('project_cash','SPN',node,AccountKind.PROJECT_CASH,'0'),
         ('local_reinvest_funds','SPN',node,AccountKind.FUNDS,'0'),('local_settlement_supplier','SUP',node,AccountKind.SUPPLIER,'0'),
-        ('settlement_support','SETTLEMENT',node,AccountKind.FUNDS,'0')]
+        ('settlement_support','SETTLEMENT',node,AccountKind.FUNDS,'0')])
+    else:
+        accounts=[(aid,owner,where,kind,'0' if aid in ('public_funds','fin_funds') else value)
+                  for aid,owner,where,kind,value in accounts]
     for aid,owner,where,kind,value in accounts:k.add_account(aid,owner,where,kind,D(value))
-    k.add_project('EXP',node,'explore_cash',{'PUB':D(1)});k.add_project('P',node,'project_cash',{'SPN':D(1)})
+    if targeted:
+        k.add_project('EXP',node,'explore_cash',{'PUB':D(1)});k.add_project('P',node,'project_cash',{'SPN':D(1)})
     for aid,kind,account,caps,objectives in (
         ('PUB',AgentKind.PUBLIC,'public_funds',{'EXPLORE','SURFACE_PROSPECT','MIGRATE','SETTLEMENT_SUPPORT'},('PUBLIC_INFORMATION','PUBLIC_SETTLEMENT')),
         ('FIN',AgentKind.PRIVATE_FINANCIER,'fin_funds',{'FINANCE'},('RETURN',)),
         ('SPN',AgentKind.PRIVATE_SPONSOR,'sponsor_funds',{'REQUEST_FINANCE','DEVELOP','OPERATE','EXTRACT','SELL','DISTRIBUTE_SURPLUS','CLOSE_PROJECT'},('RETURN',))):
         a=AgentState(aid,kind,'EARTH:USA',account,caps,objectives);key=params['belief_key.'+aid];a.priors[key]=D(params['prior']);a.beliefs[key]=D(params['prior']);k.add_agent(a)
-    k.add_resource(target['resource']);k.population=PopulationLedger(int(D(params['N'])),{node:0});k.colonies[node]=ColonyState(node)
+    if targeted:k.add_resource(target['resource'])
+    k.population=PopulationLedger(int(D(params['N'])),{node:0} if targeted else {})
+    if targeted:k.colonies[node]=ColonyState(node)
+    else:
+        k.capital_coupling={'USA':{'F':D(0),'X':D(0),'R':D(0),'S':D(0)}}
     for value in earth:
         if value.concept=='investment':
             year=int(value.valid_from)-2025;k.set_resource_constraint('EARTH:USA',year,D(value.value)/D(params['S']),D(params.get('f.'+str(year),params['f'])))
     for method in used_methods:k.add_system(SystemState('SYS:'+method,'EXISTING_TRANSITION',set(flow.OWNERS[method])))
     k.add_system(SystemState('DECISION','DECISION_ORCHESTRATION',set()));k.add_system(SystemState('AUDIT','QUALIFICATION_AUDIT',set()))
-    plan=ProjectDevelopmentPlan('DEV','P','WIP-P','MINE-P','earth_supplier',node,D(params['capex']),((6,D(params['stage_amount'])),(7,D(params['stage_amount']))),8,D(params['capacity']),AUTHORIZATION)
-    k.register_development_plan(plan)
-    k.register_market_envelope(CommodityMarketEnvelope('MKT',10,'RES','earth_market',D(params['unit_price']),D(params['first_demand']),'MODEL_CURRENCY','MODEL_RESOURCE_UNIT_BY_FAMILY',AUTHORIZATION,'STRUCTURAL_NOT_CALIBRATED').validate())
-    k.register_financing_return_claim(FinancingReturnClaim('FRC','FIN','P','fin_funds',D(params['return_claim']),('C-DEV','C-OP-9'),AUTHORIZATION,'STRUCTURAL_NOT_CALIBRATED').validate())
-    k.register_settlement_infrastructure_plan(SettlementInfrastructurePlan('INFRA',11,node,'local_reinvest_funds','local_settlement_supplier',D(params['infrastructure_cost']),int(D(params['habitat_capacity'])),AUTHORIZATION,'STRUCTURAL_NOT_CALIBRATED').validate())
+    if targeted:
+        plan=ProjectDevelopmentPlan('DEV','P','WIP-P','MINE-P','earth_supplier',node,D(params['capex']),((6,D(params['stage_amount'])),(7,D(params['stage_amount']))),8,D(params['capacity']),AUTHORIZATION)
+        k.register_development_plan(plan)
+        k.register_market_envelope(CommodityMarketEnvelope('MKT',10,'RES','earth_market',D(params['unit_price']),D(params['first_demand']),'MODEL_CURRENCY','MODEL_RESOURCE_UNIT_BY_FAMILY',AUTHORIZATION,'STRUCTURAL_NOT_CALIBRATED').validate())
+        k.register_financing_return_claim(FinancingReturnClaim('FRC','FIN','P','fin_funds',D(params['return_claim']),('C-DEV','C-OP-9'),AUTHORIZATION,'STRUCTURAL_NOT_CALIBRATED').validate())
+        k.register_settlement_infrastructure_plan(SettlementInfrastructurePlan('INFRA',11,node,'local_reinvest_funds','local_settlement_supplier',D(params['infrastructure_cost']),int(D(params['habitat_capacity'])),AUTHORIZATION,'STRUCTURAL_NOT_CALIBRATED').validate())
     tech=TechnologyCapabilityState(params['technology_state_id'],D(1),D(20),(params['transport_capability'],) if params['technology_qualified']=='TRUE' else (),AUTHORIZATION,'FIXED_2026_CAPABILITY_THROUGH_2045').validate();k.register_technology_capability_state(tech)
-    rel=TransportRelationship(params['transport_relationship_id'],'EARTH:USA',node,D(1),D(20),params['transport_capability'],D(params['transport_cost']),D(params['travel_time']),D(params['energy']),D(params['loss_risk']),int(D(params['transport_capacity'])),'PASSENGER',AUTHORIZATION,'FIXED_2026_CAPABILITY_THROUGH_2045').validate()
-    if params['relationship_registered']=='TRUE':k.register_transport_relationship(rel)
+    if targeted:
+        rel=TransportRelationship(params['transport_relationship_id'],'EARTH:USA',node,D(1),D(20),params['transport_capability'],D(params['transport_cost']),D(params['travel_time']),D(params['energy']),D(params['loss_risk']),int(D(params['transport_capacity'])),'PASSENGER',AUTHORIZATION,'FIXED_2026_CAPABILITY_THROUGH_2045').validate()
+        if params['relationship_registered']=='TRUE':k.register_transport_relationship(rel)
 
     genesis=[];derived=[]
     for source in earth:
@@ -376,17 +402,23 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
     bound,receipt=admit_for_use(k,request);genesis.append((receipt,bound));k._boundary_genesis_inputs=tuple(genesis)
     opening_records={'profile':PROFILE,'agents':tuple(sorted(k.agents.items())),'systems':tuple(sorted(k.systems.items())),
         'projects':tuple(sorted(k.state.projects.items())),'accounts':tuple(sorted(k.state.accounts.items())),'initial_population':k.population,
-        'settlement_id':target['binding'].settlement_id,'settlement_node':node,'initial_colony':k.colonies[node],
         'cohort_id':config['runtime']['cohort_id'],'population_source_receipt':receipt.receipt_id,
         'earth_supply_transformations':tuple(derived),'earth_authority_snapshot':earth_doc['source_snapshot_id'],
-        'timeline_snapshot':timeline['source_projection_manifest']['snapshot_id'],'timeline_milestone_count':43,'solar_eligible_body_count':90,'technology_profile':'FIXED_2026'}
+        'timeline_snapshot':timeline['source_projection_manifest']['snapshot_id'],'timeline_milestone_count':43,
+        'solar_eligible_body_count':solar_catalog['eligible_count'],'technology_profile':'FIXED_2026'}
+    if targeted:
+        opening_records.update(settlement_id=target['binding'].settlement_id,settlement_node=node,initial_colony=k.colonies[node])
+    else:
+        opening_records.update(world_scenario_id=str(world['scenario_id']),world_digest=world['sealed_world_digest'],
+            capital_coupling=k.capital_coupling)
     k._boundary_authored_inputs=(table,policy_manifest,opening_records)
     m=replace(m,assertions=(*m.assertions,*derived));k.boundary_manifest=m
     opening=tuple((key,canonical(k._boundary_opening_value(key))) for key in ('accounts','agents','resources','constraints','population','earth_admission_receipts'))
     k.boundary_manifest=replace(m,opening_bindings=opening,opening_state_hash=content_hash(k._boundary_projection()))
     h={'params':params,'table':table,'manifest':policy_manifest,'timeline':timeline,'earth':earth_doc,
        'model':SurfaceProspectingModel('BUILD7_SURFACE',D(params['surface_fp']),D(params['surface_fn']),D(params['surface_detection']),D(params['surface_fp']),D(params['remote_fp']),D(params['remote_fn']),'STRUCTURAL_NOT_CALIBRATED',AUTHORIZATION).validate(),
-       'recovery_profile':_recovery_profile(target,config),'target_world_payload':target['world_payload'],
+       'recovery_profile':_recovery_profile(target,config) if targeted else None,
+       'target_world_payload':target['world_payload'] if targeted else None,
        'results':[],'audits':[],'policies':{},'snapshots':{},'requests':{},'counter':0,'last_time':D(0)}
     return k,h
 
@@ -400,7 +432,91 @@ def _agent_logins(service_names=('agent_pub','agent_spn','agent_fin')):
 
 
 def _attach_persistence(h,target,runtime_service,agent_logins):
-    h['wa_service']=runtime_service;h['named_binding']=target['binding'];h['agent_logins']=agent_logins
+    h['wa_service']=runtime_service;h['named_binding']=None if target is None else target['binding'];h['agent_logins']=agent_logins
+
+
+def _world_from_generated(generated: Mapping, expected_count: int) -> dict:
+    bindings=generated['_bindings']
+    scenario_keys={b['scenario_key'] for b in bindings.values()}
+    scenario_ids={str(b['scenario_id']) for b in bindings.values()}
+    if (len(bindings)!=expected_count or generated['body_count']!=expected_count
+            or len(scenario_keys)!=1 or scenario_ids!={str(generated['scenario_id'])}):
+        raise Build7Blocked('BUILD7_GENERATED_WORLD_INCOMPLETE')
+    return dict(scenario_id=str(generated['scenario_id']),scenario_key=scenario_keys.pop(),
+        sealed_world_digest=generated['sealed_world_digest'],body_count=expected_count)
+
+
+def _world_from_run(reference_service: str, runtime_service: str, run_id: str) -> tuple[dict,str]:
+    import psycopg
+    catalog_doc,_=_load_solar_catalog()
+    with psycopg.connect(service=runtime_service) as runtime:
+        execution=runtime.execute('SELECT scenario_id,world_seed_lexeme FROM wa_run.execution WHERE run_id=%s',(run_id,)).fetchone()
+        if execution is not None:
+            scenario_id,world_seed=execution
+            scenario=runtime.execute('SELECT semantic_key FROM wa_world.scenario WHERE scenario_id=%s',(scenario_id,)).fetchone()
+            rows=runtime.execute('SELECT body_id,generator_output_sha256,world_seed_lexeme FROM wa_world.realization WHERE scenario_id=%s',(scenario_id,)).fetchall()
+    if execution is None:
+        raise Build7Blocked('BUILD7_RUN_NOT_FOUND')
+    with psycopg.connect(service=reference_service) as reader:
+        catalog=store.read_generation_catalog(reader,WA_SOURCE_SHA,catalog_doc['body_rows_sha256'])
+    if scenario is None or len(rows)!=catalog_doc['eligible_count']:
+        raise Build7Blocked('BUILD7_REOPEN_WORLD_INCOMPLETE')
+    by_body={str(body_id):(digest,seed) for body_id,digest,seed in rows}
+    eligible=[b for b in catalog if str(b['body_id']) in by_body]
+    if len(by_body)!=len(eligible) or len(eligible)!=catalog_doc['eligible_count']:
+        raise Build7Blocked('BUILD7_REOPEN_WORLD_CATALOG_MISMATCH')
+    if any(seed!=world_seed for _,seed in by_body.values()):
+        raise Build7Blocked('BUILD7_REOPEN_WORLD_SEED_MISMATCH')
+    digest=generated_hash([by_body[str(b['body_id'])][0] for b in eligible])
+    return dict(scenario_id=str(scenario_id),scenario_key=scenario[0],
+        sealed_world_digest=digest,body_count=len(eligible)),world_seed
+
+
+def _record_empty_year(k,h,calendar_year: int):
+    if calendar_year<2026 or calendar_year>2045:
+        raise Build7Blocked('BUILD7_EARTH_YEAR_OUT_OF_RANGE')
+    year=calendar_year-2025
+    econ={int(r['year']):r for r in h['earth']['economic']}[calendar_year]
+    demo={int(r['year']):r for r in h['earth']['demographic']}[calendar_year]
+    labor={int(r['year']):r for r in h['earth']['legacy_labor']}[calendar_year]
+    flow.system_epoch(k,h,'record_earth_reference_year',str(year),
+        (year,calendar_year,'USA',str(demo['biological_population']),str(econ['value_added']),
+         str(econ['gross_output']),str(econ['investment']),str(econ['capital']),str(labor['legacy_employment'])))
+
+
+def _world_summary(k,h,world):
+    return dict(run_id=k.boundary_manifest.run_id,world_scenario_id=world['scenario_id'],
+        generated_body_count=world['body_count'],last_calendar_year=2025+int(h['last_time']),
+        projects=len(k.state.projects),settlements=len(k.colonies),
+        offworld_population=sum(k.population.offworld.values())+sum(k.population.in_transit.values()),
+        epoch_commits=tuple(h.get('epoch_commits',())))
+
+
+def start_world_run(*,reference_service,science_writer_service,world_writer_service,
+                    runtime_service,world_seed,science_cutoff=0,authorization_ref=AUTHORIZATION):
+    import psycopg
+    config=load_config();catalog,_=_load_solar_catalog()
+    with psycopg.connect(service=reference_service) as reader, psycopg.connect(service=science_writer_service) as science, psycopg.connect(service=world_writer_service) as writer:
+        catalog_status=store.install_generation_body_catalog(science,catalog)
+        generated=generate_solar_system(reader,science,writer,seed=world_seed,
+            authorization_ref=authorization_ref,science_cutoff=science_cutoff,return_bindings=True,
+            supplemental_catalog_sha256=catalog['body_rows_sha256'])
+    world=_world_from_generated(generated,catalog['eligible_count'])
+    k,h=_build_kernel(None,config,world_seed=world_seed,world=world)
+    _attach_persistence(h,None,runtime_service,{})
+    _record_empty_year(k,h,2026)
+    return {**_world_summary(k,h,world),'generated_status':generated['status'],'catalog_status':catalog_status}
+
+
+def resume_world_run(*,reference_service,runtime_service,run_id,through_year=2027):
+    config=load_config();world,world_seed=_world_from_run(reference_service,runtime_service,run_id)
+    k,h=_build_kernel(None,config,world_seed=world_seed,world=world)
+    if k.boundary_manifest.run_id!=run_id:
+        raise Build7Blocked('BUILD7_RESUME_RUN_ID_MISMATCH')
+    _attach_persistence(h,None,runtime_service,{})
+    for year in range(2026,through_year+1):
+        _record_empty_year(k,h,year)
+    return _world_summary(k,h,world)
 
 
 def run_remote(k,h):
@@ -523,10 +639,28 @@ def resume_campaign(*,reference_service,runtime_service,run_id,full=True):
 def main(argv=None):
     ap=argparse.ArgumentParser(description='LOOM Offworld Build 7 integrated generated-WORLD campaign')
     sub=ap.add_subparsers(dest='command',required=True)
-    new=sub.add_parser('new');new.add_argument('--reference-service',default='reference_reader');new.add_argument('--science-writer-service',default='science_writer');new.add_argument('--world-writer-service',default='world_writer');new.add_argument('--runtime-service',default='runtime');new.add_argument('--world-seed',required=True);new.add_argument('--body',required=True);new.add_argument('--science-cutoff',type=int,default=0);new.add_argument('--full',action='store_true')
-    resume=sub.add_parser('resume');resume.add_argument('--reference-service',default='reference_reader');resume.add_argument('--runtime-service',default='runtime');resume.add_argument('--run-id',required=True);resume.add_argument('--opening-only',action='store_true')
+    for name in ('new','targeted-new'):
+        parser=sub.add_parser(name);parser.add_argument('--reference-service',default='reference_reader');parser.add_argument('--science-writer-service',default='science_writer');parser.add_argument('--world-writer-service',default='world_writer');parser.add_argument('--runtime-service',default='runtime');parser.add_argument('--world-seed',required=True);parser.add_argument('--science-cutoff',type=int,default=0)
+        if name=='targeted-new':parser.add_argument('--body',required=True);parser.add_argument('--full',action='store_true')
+    for name in ('resume','targeted-resume'):
+        parser=sub.add_parser(name);parser.add_argument('--reference-service',default='reference_reader');parser.add_argument('--runtime-service',default='runtime');parser.add_argument('--run-id',required=True)
+        if name=='resume':parser.add_argument('--through-year',type=int,default=2027)
+        else:parser.add_argument('--opening-only',action='store_true')
     args=ap.parse_args(argv)
-    result=start_campaign(reference_service=args.reference_service,science_writer_service=args.science_writer_service,world_writer_service=args.world_writer_service,runtime_service=args.runtime_service,world_seed=args.world_seed,body=args.body,science_cutoff=args.science_cutoff,full=args.full) if args.command=='new' else resume_campaign(reference_service=args.reference_service,runtime_service=args.runtime_service,run_id=args.run_id,full=not args.opening_only)
+    if args.command=='new':
+        result=start_world_run(reference_service=args.reference_service,science_writer_service=args.science_writer_service,
+            world_writer_service=args.world_writer_service,runtime_service=args.runtime_service,
+            world_seed=args.world_seed,science_cutoff=args.science_cutoff)
+    elif args.command=='resume':
+        result=resume_world_run(reference_service=args.reference_service,runtime_service=args.runtime_service,
+            run_id=args.run_id,through_year=args.through_year)
+    elif args.command=='targeted-new':
+        result=start_campaign(reference_service=args.reference_service,science_writer_service=args.science_writer_service,
+            world_writer_service=args.world_writer_service,runtime_service=args.runtime_service,
+            world_seed=args.world_seed,body=args.body,science_cutoff=args.science_cutoff,full=args.full)
+    else:
+        result=resume_campaign(reference_service=args.reference_service,runtime_service=args.runtime_service,
+            run_id=args.run_id,full=not args.opening_only)
     print(json.dumps(result,sort_keys=True,default=str))
 
 

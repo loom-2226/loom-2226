@@ -461,11 +461,16 @@ def _sim_period(start):
 def _population_projection(run_id, cohort_id, settlement_id, binding, event_id,
                            original_state_ref, earth, transit, resident, expected_total):
     """Project the ledger's complete explicit positions without inference."""
-    positions=(
-        ('EARTH',None,None,int(earth)),
-        ('IN_TRANSIT',None,None,int(transit)),
-        ('RESIDENT',binding.authored_site_id,settlement_id,int(resident)),
-    )
+    if binding is None:
+        if transit or resident:
+            raise NamedWorldBlocked('BLOCKED_UNBOUND_OFFWORLD_POPULATION')
+        positions=(('EARTH',None,None,int(earth)),)
+    else:
+        positions=(
+            ('EARTH',None,None,int(earth)),
+            ('IN_TRANSIT',None,None,int(transit)),
+            ('RESIDENT',binding.authored_site_id,settlement_id,int(resident)),
+        )
     if min(value for _,_,_,value in positions)<0:
         raise NamedWorldBlocked('BLOCKED_NEGATIVE_POPULATION_PROJECTION')
     if sum(value for *_,value in positions) != int(expected_total):
@@ -477,7 +482,7 @@ def _population_projection(run_id, cohort_id, settlement_id, binding, event_id,
         for kind,location_id,position_settlement,count in positions)
 
 
-def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, start_index: int,
+def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | None, *, first: bool, start_index: int,
                         epoch_id: str, agent_logins: Mapping[str,str]):
     """Encode one completed original kernel epoch in the fixed V1 row profile."""
     from dataclasses import fields
@@ -493,11 +498,17 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
         return sha256(value).hexdigest()
     rows = []
     manifest = kernel.boundary_manifest
+    if binding is None:
+        if (kernel.resources or kernel.state.projects or kernel.state.assets or kernel.colonies
+                or any(node.kind.value=='OFFWORLD' for node in kernel.state.nodes.values())
+                or any(kernel.population.offworld.values())
+                or any(kernel.population.in_transit.values())):
+            raise NamedWorldBlocked('BLOCKED_UNBOUND_OFFWORLD_STATE')
     if first:
         identity = raw(kernel.run_identity)
         boundary = raw(manifest)
         rows.append(('wa_run.execution', dict(run_id=manifest.run_id,
-            scenario_id=binding.scenario_id, original_run_identity=identity,
+            scenario_id=manifest.parameter('build7.world_scenario_id') if binding is None else binding.scenario_id, original_run_identity=identity,
             identity_sha256=digest(identity), code_contract=manifest.contract_version,
             code_tree_sha256=__import__('offworld_kernel.provenance', fromlist=['source_tree_hash']).source_tree_hash(),
             input_snapshot_ref=manifest.input_snapshot_id,
@@ -512,9 +523,10 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
             decimal_rounding_ref=dict(manifest.comparison_parameters)['decimal_rounding'],
             clock_mapping_ref=manifest.clock_mapping_ref,
             qualification_protocol_ref=manifest.qualification_protocol_ref[0])))
-        rows.append(('wa_run.world_binding', dict(run_id=manifest.run_id,
-            scenario_id=binding.scenario_id, world_id=binding.world_id,
-            body_id=binding.body_id, binding_key=manifest.parameter('site_binding_key'))))
+        if binding is not None:
+            rows.append(('wa_run.world_binding', dict(run_id=manifest.run_id,
+                scenario_id=binding.scenario_id, world_id=binding.world_id,
+                body_id=binding.body_id, binding_key=manifest.parameter('site_binding_key'))))
     if start_index < 0 or start_index >= len(envelopes):
         raise NamedWorldBlocked('BLOCKED_EPOCH_ENVELOPE_RANGE')
     current_envelope_ids={e.envelope_id for e in envelopes[start_index:]}
@@ -571,6 +583,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
         for parent in e.parent_envelope_refs:
             rows.append(('wa_run.trace_parent', dict(run_id=e.run_id,
                 child_envelope_id=e.envelope_id, parent_envelope_id=parent)))
+        if binding is None:
+            continue
         from offworld_kernel.mvp_state import remaining_in_situ
         resource = kernel.resources[binding.resource_id]
         physical_remaining = remaining_in_situ(resource)
@@ -688,6 +702,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                 actor_id=system_id,original_runtime_class='SYSTEM',original_artifact_ref=opening_ref)))
         organizations=set();parties=[]
         for project_id,project in sorted(kernel.state.projects.items()):
+            if binding is None:
+                raise NamedWorldBlocked('BLOCKED_UNBOUND_PROJECT_LOCATION')
             rows.append(('wa_run.project',dict(run_id=manifest.run_id,project_id=project_id,
                 name=project_id,original_project_artifact_ref=opening_ref)))
             rows.append(('wa_run.project_location',dict(run_id=manifest.run_id,
@@ -717,25 +733,33 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
             cohort_id='USA_COHORT_1000',origin_location_id=None,
             external_origin_ref='COUNTRY:USA',initial_person_count=kernel.population.total(),
             source_admission_artifact_ref=population_refs[0],genesis_event_id=genesis.envelope_id)))
-        settlement_id=binding.settlement_id
-        rows.append(('wa_run.settlement',dict(run_id=manifest.run_id,
-            settlement_id=settlement_id,name=settlement_id,runtime_class='AGGREGATE',
-            original_state_ref=opening_ref)))
-        initial_colony=kernel.colonies[binding.site_node_id]
-        rows.append(('wa_run.settlement_state',dict(run_id=manifest.run_id,
-            settlement_id=settlement_id,event_id=genesis.envelope_id,
-            stage_ref=initial_colony.stage,habitation_state='KNOWN',
-            habitation_capacity=initial_colony.habitat_capacity,
-            original_state_ref=opening_ref)))
-        rows.append(('wa_run.settlement_location',dict(run_id=manifest.run_id,
-            settlement_id=settlement_id,occupation_key='PRIMARY_SITE',
-            world_id=binding.world_id,body_id=binding.body_id,
-            location_id=binding.authored_site_id,
-            effective_period=_sim_period(2),event_id=genesis.envelope_id)))
-        rows.extend(_population_projection(manifest.run_id,'USA_COHORT_1000',
-            settlement_id,binding,genesis.envelope_id,opening_ref,
-            kernel.population.earth,kernel.population.in_transit.get(binding.site_node_id,0),
-            kernel.population.offworld.get(binding.site_node_id,0),kernel.population.total()))
+        if binding is None:
+            if kernel.colonies:
+                raise NamedWorldBlocked('BLOCKED_UNBOUND_SETTLEMENT')
+            rows.extend(_population_projection(manifest.run_id,'USA_COHORT_1000',
+                None,None,genesis.envelope_id,opening_ref,
+                kernel.population.earth,sum(kernel.population.in_transit.values()),
+                sum(kernel.population.offworld.values()),kernel.population.total()))
+        else:
+            settlement_id=binding.settlement_id
+            rows.append(('wa_run.settlement',dict(run_id=manifest.run_id,
+                settlement_id=settlement_id,name=settlement_id,runtime_class='AGGREGATE',
+                original_state_ref=opening_ref)))
+            initial_colony=kernel.colonies[binding.site_node_id]
+            rows.append(('wa_run.settlement_state',dict(run_id=manifest.run_id,
+                settlement_id=settlement_id,event_id=genesis.envelope_id,
+                stage_ref=initial_colony.stage,habitation_state='KNOWN',
+                habitation_capacity=initial_colony.habitat_capacity,
+                original_state_ref=opening_ref)))
+            rows.append(('wa_run.settlement_location',dict(run_id=manifest.run_id,
+                settlement_id=settlement_id,occupation_key='PRIMARY_SITE',
+                world_id=binding.world_id,body_id=binding.body_id,
+                location_id=binding.authored_site_id,
+                effective_period=_sim_period(2),event_id=genesis.envelope_id)))
+            rows.extend(_population_projection(manifest.run_id,'USA_COHORT_1000',
+                settlement_id,binding,genesis.envelope_id,opening_ref,
+                kernel.population.earth,kernel.population.in_transit.get(binding.site_node_id,0),
+                kernel.population.offworld.get(binding.site_node_id,0),kernel.population.total()))
 
     # Requests, source ContextValues, scoped receipts, safe snapshots, facts and
     # decisions retain their exact typed originals and source fingerprints.
@@ -746,6 +770,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
         if kind=='REQUEST':
             for obj in _walk_typed(payload):
                 if obj.get('__type__')=='ExplorationRequest':
+                    if binding is None:
+                        raise NamedWorldBlocked('BLOCKED_UNBOUND_MISSION')
                     rows.append(('wa_run.mission',dict(run_id=manifest.run_id,
                         mission_id=obj['id'],project_id=obj['project_id'],world_id=binding.world_id,
                         body_id=binding.body_id,target_location_id=binding.authored_site_id,
@@ -893,6 +919,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
         if kind=='REALIZED_EVENT':
             for obj in _walk_typed(payload):
                 if obj.get('__type__')=='Observation':
+                    if binding is None:
+                        raise NamedWorldBlocked('BLOCKED_UNBOUND_OBSERVATION')
                     mission_id=next((mid for mid,(request,_) in request_refs.items()
                         if request.get('channel')==obj.get('channel') and request.get('resource_id')==obj.get('resource_id')
                         and request.get('year')==obj.get('year')),None)
@@ -942,6 +970,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                                 available_from=Decimal(env.realized_time),event_id=env.envelope_id,
                                 access_contract_ref='PUBLICATION:'+obj['artifact_version'])))
                 if obj.get('__type__')=='SettlementInfrastructureRecord':
+                    if binding is None:
+                        raise NamedWorldBlocked('BLOCKED_UNBOUND_SETTLEMENT')
                     if obj['outcome']=='INSTALLED':
                         settlement_id=binding.settlement_id;asset_id='HABITAT:INFRA'
                         rows.append(('wa_run.asset',dict(run_id=manifest.run_id,
@@ -958,6 +988,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                             relationship_ref='INSTALLED_HABITAT',organization_id='SETTLEMENT',
                             effective_period=_sim_period(env.realized_time),event_id=env.envelope_id)))
                 if obj.get('__type__') in ('SettlementInfrastructureRecord','SettlementStageRecord'):
+                    if binding is None:
+                        raise NamedWorldBlocked('BLOCKED_UNBOUND_SETTLEMENT')
                     settlement_id=binding.settlement_id
                     if obj.get('__type__')=='SettlementInfrastructureRecord':
                         stage=next((r.new_stage for r in kernel.settlement_stage_records
@@ -971,6 +1003,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                         habitation_state='KNOWN',habitation_capacity=capacity,
                         original_state_ref=ref)))
                 if obj.get('__type__') in ('PassengerTransportDepartureRecord','PassengerTransportArrivalRecord'):
+                    if binding is None:
+                        raise NamedWorldBlocked('BLOCKED_UNBOUND_TRANSPORT')
                     if obj['__type__']=='PassengerTransportDepartureRecord':
                         earth=obj['earth_population_after'];transit=obj['in_transit_after'];resident=0
                     else:
@@ -981,6 +1015,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                         resident,kernel.population.total()))
     for asset_id,(asset_ref,asset_env,asset) in sorted(productive_asset_origins.items()):
         if asset_env.envelope_id not in current_envelope_ids:continue
+        if binding is None:
+            raise NamedWorldBlocked('BLOCKED_UNBOUND_PRODUCTIVE_ASSET')
         rows.append(('wa_run.asset',dict(run_id=manifest.run_id,
             asset_id=asset_id,asset_class_ref='PRODUCTIVE',runtime_class='ENTITY_ASSET',
             original_asset_ref=asset_ref,installed_event_id=asset_env.envelope_id)))
@@ -1103,7 +1139,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
     return tuple(rows), terminals
 
 
-def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocationBinding,
+def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocationBinding | None,
                             epoch_id: str, effective_time: Decimal | str | int,
                             agent_logins: Mapping[str,str], execute):
     """Run one original kernel epoch inside World Authority's V1.2 scope.
@@ -1129,7 +1165,7 @@ def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocation
                 first_ordinal = min(r['event_ordinal'] for r in matching)
                 prior = [r for r in stored if r['event_ordinal'] < first_ordinal]
                 expected = None if not prior else (prior[-1]['envelope_id'], prior[-1]['envelope_hash'])
-            if head is not None and not matching:
+            if binding is not None and head is not None and not matching:
                 physical = session.load_bound_world(m.parameter('site_binding_key'),
                     context='REALIZED', effective_time=Decimal(effective_time))
                 history = physical['stock_history']
