@@ -4,7 +4,7 @@ from decimal import Decimal
 from typing import Dict, Tuple
 from .kernel import InvariantError
 from .model import AccountKind, AssetKind, D, TxPurpose
-from .mvp_state import ActionKind
+from .mvp_state import ActionKind, remaining_in_situ
 
 @dataclass(frozen=True)
 class SurplusDecompositionRecord:
@@ -52,7 +52,7 @@ class AccountingPeriodSnapshot:
             tuple(sorted((w.id,D(w.remaining_wip)) for w in kernel.wip.values())),
             sum((D(a.book_value) for a in kernel.state.assets.values() if a.kind==AssetKind.PRODUCTIVE),D('0')),
             sum((D(a.book_value) for a in kernel.state.assets.values() if a.kind==AssetKind.KNOWLEDGE),D('0')),
-            tuple(sorted((rid,D(r.remaining)) for rid,r in kernel.resources.items())))
+            tuple(sorted((rid,remaining_in_situ(r)) for rid,r in kernel.resources.items())))
 
 class AccountingIdentityAuditor:
     """Executable A1-A9 checks from the Offworld Financing Agent v2 identity set."""
@@ -170,7 +170,7 @@ class AccountingIdentityAuditor:
                 rid=e.inputs[0]; q=D(e.inputs[1]); extracted[rid]=extracted.get(rid,D('0'))+q
         for rid,r in self.k.resources.items():
             start=opening.get(rid,D(r.in_situ))
-            if D(r.remaining)!=start-extracted.get(rid,D('0')):
+            if remaining_in_situ(r)!=start-extracted.get(rid,D('0')):
                 raise InvariantError(f'A9 stock depletion {rid}')
         return True
 

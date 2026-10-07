@@ -243,6 +243,24 @@ class Build5SurfaceProspectingTests(unittest.TestCase):
         self.assertEqual(k.state.accounts['explore_cash'].balance,D('0'))
         self.assertEqual(len(k.decision_epoch_records),2)
 
+    def test_in_situ_observation_precedes_unknown_recovery(self):
+        k,model,remote_cost,surface_cost=surface_prospecting_kernel('RICH_PUBLIC_3','20')
+        resource=k.resources['RES']
+        resource.accessible=resource.recoverable=resource.remaining=None
+        h={'model':model,'remote_cost':remote_cost,'surface_cost':surface_cost}
+        self.remote_epoch(k,h)
+        self.assertEqual(h['remote_observation'].signal,'POSITIVE')
+        self.surface_epoch(k,h)
+        self.assertEqual(h['surface_observation'].signal,'POSITIVE')
+        self.assertIsNone(resource.recoverable)
+        self.assertIsNone(resource.remaining)
+        self.assertIn(h['surface_observation'].id,k.agents['PUB'].information)
+        self.assertFalse(any(v=='LEAK' for v in run_hostile_access_probe(h['surface_snapshot'])[0].values()))
+        ek,_,_,_=surface_prospecting_kernel('RICH_PUBLIC_3','20')
+        er=ek.resources['RES'];er.accessible=er.recoverable=er.remaining=None
+        with self.assertRaisesRegex(InvariantError,'BLOCKED_UNKNOWN_RECOVERY'):
+            ek.extract_bounded(1,'PUB','RES',D('1'))
+
     def test_null_remote_false_positive_is_corrected_by_surface_negative(self):
         k,h=self.full_case('NULL_SURFACE_1','0')
         self.assertLess(h['remote_draw'],D('0.20'))

@@ -797,7 +797,14 @@ class PublicInformationArtifact:
 
 @dataclass
 class ScenarioResource:
-    id: str; node_id: str; family: str; in_situ: D; accessible: D; recoverable: D; remaining: D
+    id: str; node_id: str; family: str; in_situ: D; accessible: D|None; recoverable: D|None; remaining: D|None
+
+
+def remaining_in_situ(resource: ScenarioResource) -> D:
+    """Physical stock remains observable when recovery has not been assessed."""
+    if resource.recoverable is None:
+        return D(resource.in_situ)
+    return D(resource.in_situ) - (D(resource.recoverable) - D(resource.remaining))
 
 @dataclass(frozen=True)
 class Observation:

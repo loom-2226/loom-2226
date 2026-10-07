@@ -89,7 +89,7 @@ class Build3Kernel(MVPKernel):
         tx,aid=self.spend_exploration_wip(
             year,project_id,supplier_account,cost,r.node_id,
             parent_ids=(resource_id,*tuple(parent_ids)))
-        truth=r.remaining>D('0'); draw=self.keyed_draw('OBS',year,actor_id,resource_id,channel)
+        truth=remaining_in_situ(r)>D('0'); draw=self.keyed_draw('OBS',year,actor_id,resource_id,channel)
         positive=(draw>=fn) if truth else (draw<fp)
         signal='POSITIVE' if positive else 'NEGATIVE'
         o=Observation(self._id('obs'),year,actor_id,resource_id,channel,signal,public); self.observations[o.id]=o
@@ -112,7 +112,9 @@ class Build3Kernel(MVPKernel):
         return self.exploration_resolution[asset_id]
 
     def extract_bounded(self,year,actor_id,resource_id,requested):
-        q=min(D(requested),self.resources[resource_id].remaining)
+        remaining=self.resources[resource_id].remaining
+        if remaining is None: raise InvariantError('BLOCKED_UNKNOWN_RECOVERY')
+        q=min(D(requested),remaining)
         self.extract(year,actor_id,resource_id,q); return q
 
     def sell_to_market(self,year,actor_id,resource_id,quantity,unit_price,market_account):

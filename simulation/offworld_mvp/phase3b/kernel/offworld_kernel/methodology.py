@@ -373,6 +373,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         planned=D(decision.planned_quantity)
         if planned>D(asset.capacity):
             raise InvariantError('extraction plan exceeds productive capacity')
+        if resource.remaining is None:
+            raise InvariantError('BLOCKED_UNKNOWN_RECOVERY')
         before_resource=D(resource.remaining)
         colony=self.colonies.setdefault(resource.node_id,ColonyState(resource.node_id))
         before_inventory=D(colony.resource_inventory)

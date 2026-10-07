@@ -345,8 +345,11 @@ def _resolve_live(k,r):
         res=k.resources.get(r.subject_id)
         if res is None:return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SOURCE_BINDING')
         if r.concept=='R_RESERVE':return _outcome(k,r,FactState.UNKNOWN,'NO_GOVERNED_RESERVE_CONVERSION')
-        depletion=res.recoverable-res.remaining
-        value={'R_IN_SITU':res.in_situ-depletion,'R_ACCESSIBLE':res.accessible-depletion,'R_RECOVERABLE':res.remaining}[r.concept]
+        depletion=D('0') if res.recoverable is None else res.recoverable-res.remaining
+        value={'R_IN_SITU':res.in_situ-depletion,
+               'R_ACCESSIBLE':None if res.accessible is None else res.accessible-depletion,
+               'R_RECOVERABLE':res.remaining}[r.concept]
+        if value is None:return _outcome(k,r,FactState.UNKNOWN,'CAPABILITY_OR_PROCESS_NOT_EVALUATED')
         return _value(k,r,str(value),kind='PHYSICAL_STATE',mode='SIMULATION_RESULT',source=f'resource:{res.id}:{r.concept}')
     # Fixed field adapters. Binding strings are never eval/getattr traversal paths.
     parts=selector.split(':');tag=parts[0]
@@ -470,7 +473,7 @@ def validate_opening(kernel):
         key=m.parameter('belief_key.'+a.id)
         if key not in a.beliefs or key not in a.priors:raise InvariantError('BLOCKED_PARAMETER: opening prior/belief missing')
     for resource in kernel.resources.values():
-        if not D('0')<=resource.remaining<=resource.recoverable<=resource.accessible<=resource.in_situ:raise InvariantError('BLOCKED_RESOURCE_HIERARCHY')
+        if not D('0')<=resource.in_situ or (resource.accessible is not None and not D('0')<=resource.accessible<=resource.in_situ) or (resource.recoverable is None)!=(resource.remaining is None) or (resource.recoverable is not None and (resource.accessible is None or not D('0')<=resource.remaining<=resource.recoverable<=resource.accessible)):raise InvariantError('BLOCKED_RESOURCE_HIERARCHY')
     if kernel.population is None:raise InvariantError('BLOCKED_GENESIS: finite cohort missing')
     population_sources=[v for receipt,v in kernel._boundary_genesis_inputs if v.concept=='population']
     if len(population_sources)!=1 or population_sources[0].world_context!='REAL' or D(population_sources[0].value)!=D(m.parameter('reference_population_bound')):
