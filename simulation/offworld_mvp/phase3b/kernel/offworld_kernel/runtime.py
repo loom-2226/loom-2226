@@ -318,6 +318,7 @@ class ScheduledSimulationRuntime:
             raise InvariantError('BLOCKED_PROVENANCE: unknown closed contract')
         required={'BOUNDARY_SHA256':m.fingerprint(),'EARTH_SLICE_SHA256':m.earth_slice_ref[1],
                   'COMPARISON_CONFIG_SHA256':m.comparison_spec_ref[1],'QUALIFICATION_PROTOCOL_SHA256':m.qualification_protocol_ref[1]}
+        build7_profile=is6e and dict(m.parameters).get('build7.profile')=='BUILD7_GENERATED_CAMPAIGN_V1'
         seen_harness=set()
         for ref,digest in m.harness_refs:
             path=(root/ref).resolve()
@@ -325,11 +326,14 @@ class ScheduledSimulationRuntime:
                 raise InvariantError('BLOCKED_PROVENANCE: qualification harness bytes')
             if is6e:
                 expected={
-                    'simulation/offworld_mvp/build6e/qualification/qualify_build6e.py':'QUALIFICATION_DRIVER_SHA256',
                     'simulation/offworld_mvp/build6e/qualification/build6e_fixture.py':'QUALIFICATION_FIXTURE_SHA256',
                     'simulation/offworld_mvp/build6e/named_world.py':'NAMED_WORLD_COMPILER_SHA256',
                     'src/loom_world_authority/store.py':'WORLD_AUTHORITY_STORE_SHA256',
                 }
+                if build7_profile:
+                    expected['simulation/offworld_mvp/build7/generated_campaign.py']='BUILD7_CAMPAIGN_SHA256'
+                else:
+                    expected['simulation/offworld_mvp/build6e/qualification/qualify_build6e.py']='QUALIFICATION_DRIVER_SHA256'
                 rel=path.relative_to(root).as_posix()
                 if rel not in expected or rel in seen_harness:raise InvariantError('BLOCKED_PROVENANCE: undeclared 6E harness/module')
                 seen_harness.add(rel);required[expected[rel]]=digest
@@ -344,8 +348,17 @@ class ScheduledSimulationRuntime:
             if key in labels:raise InvariantError('BLOCKED_PROVENANCE: duplicate identity label')
             labels[key]=value
         if any(labels.get(key)!=value for key,value in required.items()):raise InvariantError('BLOCKED_PROVENANCE: strict manifest labels')
-        inputs=root/('simulation/offworld_mvp/build6e/inputs' if is6e else 'simulation/offworld_mvp/build6/inputs')
-        for ref,digest in (*m.scenario_definition_refs,m.earth_slice_ref,m.qualification_protocol_ref):
-            path=(inputs/ref).resolve()
-            if not path.is_relative_to(inputs) or sha256(path.read_bytes()).hexdigest()!=digest:
-                raise InvariantError('BLOCKED_PROVENANCE: input/protocol bytes')
+        if build7_profile:
+            build7_inputs=root/'simulation/offworld_mvp/build7/inputs'
+            build6e_inputs=root/'simulation/offworld_mvp/build6e/inputs'
+            refs=tuple((build7_inputs,ref,digest) for ref,digest in (*m.scenario_definition_refs,m.qualification_protocol_ref)) + ((build6e_inputs,m.earth_slice_ref[0],m.earth_slice_ref[1]),)
+            for inputs,ref,digest in refs:
+                path=(inputs/ref).resolve()
+                if not path.is_relative_to(inputs) or sha256(path.read_bytes()).hexdigest()!=digest:
+                    raise InvariantError('BLOCKED_PROVENANCE: input/protocol bytes')
+        else:
+            inputs=root/('simulation/offworld_mvp/build6e/inputs' if is6e else 'simulation/offworld_mvp/build6/inputs')
+            for ref,digest in (*m.scenario_definition_refs,m.earth_slice_ref,m.qualification_protocol_ref):
+                path=(inputs/ref).resolve()
+                if not path.is_relative_to(inputs) or sha256(path.read_bytes()).hexdigest()!=digest:
+                    raise InvariantError('BLOCKED_PROVENANCE: input/protocol bytes')

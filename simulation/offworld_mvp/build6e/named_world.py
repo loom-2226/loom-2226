@@ -63,6 +63,9 @@ class NamedLocationBinding:
     admission_id: Any
     site_node_id: str
     resource_id: str
+    settlement_id: str = "SET:MOON:CABEU:SITE01"
+    resource_unit_key: str = "MODEL_RESOURCE_UNIT_BY_FAMILY"
+    resource_scale: Decimal = Decimal("1")
 
 
 def load_manifest(path: Path = INPUT) -> dict[str, Any]:
@@ -568,38 +571,46 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
         for parent in e.parent_envelope_refs:
             rows.append(('wa_run.trace_parent', dict(run_id=e.run_id,
                 child_envelope_id=e.envelope_id, parent_envelope_id=parent)))
+        from offworld_kernel.mvp_state import remaining_in_situ
         resource = kernel.resources[binding.resource_id]
-        depleted = resource.recoverable - resource.remaining
+        physical_remaining = remaining_in_situ(resource)
+        depleted = resource.in_situ - physical_remaining
         if depleted < 0 or depleted > resource.in_situ:
             raise NamedWorldBlocked('BLOCKED_RESOURCE_CONSERVATION')
         physical_ref = next((ref for kind, ref in artifact_refs if kind == 'REALIZED_EVENT'), unique[0][1])
         rows.append(('wa_run.stock_state', dict(run_id=e.run_id, world_id=binding.world_id,
             body_id=binding.body_id, deposit_id=binding.deposit_id, event_id=e.envelope_id,
-            remaining_state='KNOWN', remaining_in_situ=resource.in_situ-depleted,
-            cumulative_extracted=depleted, unit_key='MODEL_RESOURCE_UNIT_BY_FAMILY',
+            remaining_state='KNOWN', remaining_in_situ=physical_remaining*binding.resource_scale,
+            cumulative_extracted=depleted*binding.resource_scale, unit_key=binding.resource_unit_key,
             original_physical_state_ref=physical_ref)))
         access_key='ACCESS:'+e.envelope_id
         recovery_key='RECOVERY:'+e.envelope_id
-        accessible_remaining=resource.accessible-depleted
-        if accessible_remaining<0:raise NamedWorldBlocked('BLOCKED_ACCESSIBLE_RESOURCE_CONSERVATION')
+        accessibility_known=resource.accessible is not None
+        accessible_remaining=None if not accessibility_known else resource.accessible-depleted
+        if accessible_remaining is not None and accessible_remaining<0:
+            raise NamedWorldBlocked('BLOCKED_ACCESSIBLE_RESOURCE_CONSERVATION')
         rows.append(('wa_run.accessibility_assessment',dict(run_id=e.run_id,
             deposit_id=binding.deposit_id,world_id=binding.world_id,body_id=binding.body_id,
-            assessment_key=access_key,event_id=e.envelope_id,value_state='KNOWN',
-            accessible_quantity=accessible_remaining,unit_key='MODEL_RESOURCE_UNIT_BY_FAMILY',
-            capability_ref='SITE_ACCESSIBILITY_NOT_PROJECT_RECOVERY',
-            environment_ref='BUILD6E_AUTHORED_SCENARIO_ENVIRONMENT',
-            method_ref='BUILD6E_FINITE_ACCESSIBILITY_ROLLFORWARD_V1',
+            assessment_key=access_key,event_id=e.envelope_id,
+            value_state='KNOWN' if accessibility_known else 'UNKNOWN',
+            accessible_quantity=None if accessible_remaining is None else accessible_remaining*binding.resource_scale,
+            unit_key=binding.resource_unit_key if accessibility_known else None,
+            capability_ref='SITE_ACCESSIBILITY_NOT_PROJECT_RECOVERY' if accessibility_known else 'NO_CAPABILITY_ASSESSMENT',
+            environment_ref='BUILD6E_AUTHORED_SCENARIO_ENVIRONMENT' if accessibility_known else 'HIDDEN_WORLD_ENVIRONMENT_NOT_ACTOR_ASSESSED',
+            method_ref='BUILD6E_FINITE_ACCESSIBILITY_ROLLFORWARD_V1' if accessibility_known else 'NO_ACCESSIBILITY_ASSESSMENT',
             original_assessment_ref=physical_ref)))
         productive=kernel.state.assets.get('MINE-P')
         commissioned=productive is not None and getattr(productive.kind,'value',productive.kind)=='PRODUCTIVE'
+        recovery_known=resource.recoverable is not None and resource.remaining is not None
+        recoverability_realized=commissioned and recovery_known
         rows.append(('wa_run.recoverability_assessment',dict(run_id=e.run_id,
             deposit_id=binding.deposit_id,project_id='P',assessment_key=recovery_key,
             accessibility_key=access_key,event_id=e.envelope_id,
-            value_state='KNOWN' if commissioned else 'UNKNOWN',
-            recoverable_quantity=resource.remaining if commissioned else None,
-            unit_key='MODEL_RESOURCE_UNIT_BY_FAMILY' if commissioned else None,
-            realized_capability_ref='MINE-P:PRODUCTIVE' if commissioned else 'NO_REALIZED_PROJECT_CAPABILITY',
-            method_ref='BUILD6E_PROJECT_RECOVERABILITY_V1',original_assessment_ref=physical_ref)))
+            value_state='KNOWN' if recoverability_realized else 'UNKNOWN',
+            recoverable_quantity=resource.remaining*binding.resource_scale if recoverability_realized else None,
+            unit_key=binding.resource_unit_key if recoverability_realized else None,
+            realized_capability_ref='MINE-P:PRODUCTIVE' if recoverability_realized else ('RECOVERY_NOT_ASSESSED' if not recovery_known else 'NO_REALIZED_PROJECT_CAPABILITY'),
+            method_ref='BUILD6E_PROJECT_RECOVERABILITY_V1' if recoverability_realized else 'NO_RECOVERY_ASSESSMENT',original_assessment_ref=physical_ref)))
         rows.append(('wa_run.reserve_interpretation',dict(run_id=e.run_id,
             deposit_id=binding.deposit_id,project_id='P',
             interpretation_key='RESERVE:'+e.envelope_id,recovery_key=recovery_key,
@@ -706,11 +717,11 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
             cohort_id='USA_COHORT_1000',origin_location_id=None,
             external_origin_ref='COUNTRY:USA',initial_person_count=kernel.population.total(),
             source_admission_artifact_ref=population_refs[0],genesis_event_id=genesis.envelope_id)))
-        settlement_id='SET:MOON:CABEU:SITE01'
+        settlement_id=binding.settlement_id
         rows.append(('wa_run.settlement',dict(run_id=manifest.run_id,
             settlement_id=settlement_id,name=settlement_id,runtime_class='AGGREGATE',
             original_state_ref=opening_ref)))
-        initial_colony=kernel.colonies['OFF:MOON:CABEU:B6E_SITE_01']
+        initial_colony=kernel.colonies[binding.site_node_id]
         rows.append(('wa_run.settlement_state',dict(run_id=manifest.run_id,
             settlement_id=settlement_id,event_id=genesis.envelope_id,
             stage_ref=initial_colony.stage,habitation_state='KNOWN',
@@ -932,7 +943,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                                 access_contract_ref='PUBLICATION:'+obj['artifact_version'])))
                 if obj.get('__type__')=='SettlementInfrastructureRecord':
                     if obj['outcome']=='INSTALLED':
-                        settlement_id='SET:MOON:CABEU:SITE01';asset_id='HABITAT:INFRA'
+                        settlement_id=binding.settlement_id;asset_id='HABITAT:INFRA'
                         rows.append(('wa_run.asset',dict(run_id=manifest.run_id,
                             asset_id=asset_id,asset_class_ref='SETTLEMENT_HABITAT',
                             runtime_class='ENTITY_ASSET',original_asset_ref=ref,
@@ -947,7 +958,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                             relationship_ref='INSTALLED_HABITAT',organization_id='SETTLEMENT',
                             effective_period=_sim_period(env.realized_time),event_id=env.envelope_id)))
                 if obj.get('__type__') in ('SettlementInfrastructureRecord','SettlementStageRecord'):
-                    settlement_id='SET:MOON:CABEU:SITE01'
+                    settlement_id=binding.settlement_id
                     if obj.get('__type__')=='SettlementInfrastructureRecord':
                         stage=next((r.new_stage for r in kernel.settlement_stage_records
                             if r.node_id==binding.site_node_id and Decimal(r.year)<=Decimal(obj['year'])),
@@ -966,7 +977,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding, *, first: bool, s
                         earth=obj['total_population_after']-obj['offworld_population_after']
                         transit=obj['in_transit_after'];resident=obj['offworld_population_after']
                     rows.extend(_population_projection(manifest.run_id,'USA_COHORT_1000',
-                        'SET:MOON:CABEU:SITE01',binding,env.envelope_id,ref,earth,transit,
+                        binding.settlement_id,binding,env.envelope_id,ref,earth,transit,
                         resident,kernel.population.total()))
     for asset_id,(asset_ref,asset_env,asset) in sorted(productive_asset_origins.items()):
         if asset_env.envelope_id not in current_envelope_ids:continue
@@ -1124,8 +1135,9 @@ def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocation
                 history = physical['stock_history']
                 prior_stock = history[-1] if history else None
                 if prior_stock is not None:
+                    from offworld_kernel.mvp_state import remaining_in_situ
                     resource = kernel.resources[binding.resource_id]
-                    expected_in_situ = resource.in_situ-(resource.recoverable-resource.remaining)
+                    expected_in_situ = remaining_in_situ(resource)*binding.resource_scale
                     if Decimal(prior_stock['remaining_in_situ']) != expected_in_situ:
                         raise NamedWorldBlocked('BLOCKED_PINNED_PHYSICAL_HEAD_MISMATCH')
         start_index = len(kernel.causal_envelopes)

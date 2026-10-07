@@ -231,6 +231,108 @@ def read_catalog_location(conn,body_key,location_key):
         WHERE b.semantic_key=%s AND l.semantic_key=%s''',(body_key,location_key))
 
 
+def read_generation_catalog(conn, source_sha256):
+    """Closed trusted body projection from one accepted source snapshot."""
+    from psycopg.rows import dict_row
+    from .etl import SOURCE_SHA
+    _require_session_group(conn, 'wa_reference_reader')
+    if source_sha256 != SOURCE_SHA:
+        raise IntegrityFailure('GENERATION_SOURCE_SNAPSHOT')
+    snapshot = conn.execute('SELECT snapshot_id FROM wa_meta.source_snapshot WHERE byte_sha256=%s',
+                            (source_sha256,)).fetchone()
+    if snapshot is None:
+        raise IntegrityFailure('GENERATION_SOURCE_NOT_INSTALLED')
+    with conn.cursor(row_factory=dict_row) as cur:
+        cur.execute('''SELECT body_id,semantic_key,canonical_name,body_class,parent_body_id,original_ref
+            FROM wa_geo.body WHERE original_ref LIKE %s ORDER BY semantic_key COLLATE "C"''',
+            ('SOURCE_ROW:' + source_sha256 + ':%',))
+        rows = tuple(cur.fetchall())
+    if not rows or len({r['semantic_key'] for r in rows}) != len(rows):
+        raise IntegrityFailure('GENERATION_CATALOG_IDENTITY')
+    for row in rows:
+        if row['body_id'] != stable_uuid('BODY','LOOM_BODY_V1',row['semantic_key'],'IDENTITY_V1'):
+            raise IntegrityFailure('GENERATION_CATALOG_IDENTITY')
+    return rows
+
+
+def install_generated_site_metadata(conn, manifest):
+    """One owner-authorized body/site/feature anchor and closed physical units.
+
+    A parent relation is installed only for an identified empirical location.
+    Neither the relation nor these authored anchors confer scientific support.
+    """
+    from .etl import canonical, SOURCE_SHA
+    required = {'profile','authorization_ref','body_key','site_key','feature_key',
+                'site_name','feature_name','parent_location_key'}
+    if set(manifest) != required or manifest['profile'] != 'WA_GENERATED_SITE_METADATA_V1':
+        raise IntegrityFailure('GENERATED_SITE_MANIFEST_FIELDS')
+    for key in required - {'parent_location_key'}:
+        if not isinstance(manifest[key],str) or not manifest[key] or len(manifest[key]) > 512:
+            raise IntegrityFailure('GENERATED_SITE_VALUE:' + key)
+    parent_key = manifest['parent_location_key']
+    if parent_key is not None and (not isinstance(parent_key,str) or not parent_key or len(parent_key)>512):
+        raise IntegrityFailure('GENERATED_SITE_PARENT_VALUE')
+    if len({manifest['site_key'],manifest['feature_key'],parent_key}) != 3:
+        raise IntegrityFailure('GENERATED_SITE_IDENTITY')
+    if conn.info.transaction_status.value != 0:
+        raise IntegrityFailure('GENERATED_SITE_REQUIRES_IDLE_CONNECTION')
+    authority = 'LOOM_OFFWORLD_GENERATED_SITE_V1'
+    body_key = manifest['body_key']
+    site_id = stable_uuid('AUTHORED_LOCATION',authority,length_prefixed(body_key,manifest['site_key']).decode(),'IDENTITY_V1')
+    feature_id = stable_uuid('AUTHORED_LOCATION',authority,length_prefixed(body_key,manifest['feature_key']).decode(),'IDENTITY_V1')
+    digest = sha256_bytes(canonical(manifest))
+    source_ref = 'AUTHORED_SPATIAL_ANCHOR:' + manifest['authorization_ref'] + ':' + digest
+    warrant = 'AUTHORED_CONTAINS:' + manifest['authorization_ref'] + ':' + digest
+    units = (
+        ('GEN_KG_V1','kg','MASS'), ('GEN_M_V1','m','LENGTH'),
+        ('GEN_M3_V1','m3','VOLUME'), ('GEN_K_V1','K','TEMPERATURE'),
+        ('GEN_PA_V1','Pa','PRESSURE'), ('GEN_AU_V1','au','LENGTH'),
+        ('GEN_FRACTION_V1','1','DIMENSIONLESS'), ('GEN_RAD_V1','rad','ANGLE'),
+        ('GEN_M2_V1','m2','AREA'), ('GEN_KG_PER_M3_V1','kg/m3','DENSITY'),
+    )
+    with conn.transaction():
+        serializable(conn)
+        _require_session_group(conn,'wa_science_writer')
+        conn.execute('SET LOCAL ROLE wa_science_writer')
+        assert_service_role(conn,SERVICE_ROUTES['science_writer'])
+        conn.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))',
+                     ('WA_GENERATED_SITE:'+body_key+':'+manifest['site_key'],))
+        body = conn.execute('SELECT body_id,original_ref FROM wa_geo.body WHERE semantic_key=%s',
+                            (body_key,)).fetchone()
+        if body is None or body[0] != stable_uuid('BODY','LOOM_BODY_V1',body_key,'IDENTITY_V1') or not body[1].startswith('SOURCE_ROW:'+SOURCE_SHA+':'):
+            raise IntegrityFailure('GENERATED_SITE_BODY_ABSENT')
+        rows = [('wa_meta.unit',dict(unit_key=key,source_lexeme=lexeme,
+            dimension_ref=dimension,canonical_unit_ref=lexeme,conversion_profile_ref='SI_EXACT_V1',
+            interpretation_state='CHARACTERIZED')) for key,lexeme,dimension in units]
+        rows += [
+            ('wa_geo.location',dict(location_id=site_id,body_id=body[0],system_id=None,
+                semantic_key=manifest['site_key'],name=manifest['site_name'],location_kind='SITE',
+                original_region_type=None,origin_kind='AUTHORED_SPATIAL_ANCHOR',geometry_id=None,
+                source_ref=source_ref,notes=None)),
+            ('wa_geo.location',dict(location_id=feature_id,body_id=body[0],system_id=None,
+                semantic_key=manifest['feature_key'],name=manifest['feature_name'],location_kind='LOCAL_FEATURE',
+                original_region_type=None,origin_kind='AUTHORED_SPATIAL_ANCHOR',geometry_id=None,
+                source_ref=source_ref,notes=None)),
+            ('wa_geo.location_relation',dict(from_location_id=site_id,to_location_id=feature_id,
+                relation_kind='CONTAINS',warrant_ref=warrant)),
+        ]
+        if parent_key is not None:
+            parent = conn.execute('''SELECT location_id,location_kind,origin_kind,source_ref
+                FROM wa_geo.location WHERE body_id=%s AND semantic_key=%s''',
+                (body[0],parent_key)).fetchone()
+            expected = stable_uuid('LOCATION','LOOM_LOCATION_V1',
+                length_prefixed(body_key,parent_key).decode(),'IDENTITY_V1')
+            if parent is None or parent[0]!=expected or parent[1] not in ('REGION','SITE') or parent[2]!='EMPIRICALLY_IDENTIFIED' or not parent[3].startswith('SOURCE_ROW:'+SOURCE_SHA+':'):
+                raise IntegrityFailure('GENERATED_SITE_PARENT_NOT_EMPIRICAL')
+            rows.append(('wa_geo.location_relation',dict(from_location_id=parent[0],
+                to_location_id=site_id,relation_kind='CONTAINS',warrant_ref=warrant)))
+        existing = conn.execute('SELECT 1 FROM wa_geo.location WHERE location_id=%s',
+                                (site_id,)).fetchone() is not None
+        statuses = [_match_or_insert_columns(conn,t,v,read_only=existing) for t,v in rows]
+        conn.execute('SET CONSTRAINTS ALL IMMEDIATE')
+    return ('ALREADY_MATCHED' if all(s=='ALREADY_MATCHED' for s in statuses) else 'INSERTED',site_id,feature_id)
+
+
 def _fixture_time_identity(manifest):
     """Validate the existing V1 fixture recipe without creating a decision."""
     from .etl import canonical
@@ -585,6 +687,90 @@ def read_admitted_constraints(conn,assertion_ids,cutoff,use_contract_ref,target_
     return tuple(out)
 
 
+def read_generation_constraints(conn, body_id, cutoff, use_contract_ref):
+    """Fixed use-scoped science read for a trusted WORLD compiler.
+
+    Candidate rows are never returned as constraints. Material support can be
+    unresolved, but then it is opaque and cannot be placed on a site.
+    """
+    from psycopg.rows import dict_row
+    _require_session_group(conn,'wa_reference_reader')
+    if not isinstance(body_id,uuid.UUID) or type(cutoff) is not int or cutoff<0 or not isinstance(use_contract_ref,str) or not use_contract_ref:
+        raise IntegrityFailure('GENERATION_CONSTRAINT_DECLARATION')
+    assertions=[]
+    with conn.cursor(row_factory=dict_row) as cur:
+        cur.execute('''SELECT a.assertion_id,a.support_id,s.support_resolution
+            FROM wa_science.assertion a JOIN wa_science.support s ON s.support_id=a.support_id
+            JOIN LATERAL(SELECT standing,use_contract_ref FROM wa_science.admission
+                WHERE target_assertion_id=a.assertion_id AND decision_ordinal<=%s
+                ORDER BY decision_ordinal DESC LIMIT 1)d ON true
+            WHERE a.body_id=%s AND d.standing='ADMITTED' AND d.use_contract_ref=%s
+            ORDER BY a.assertion_id''',(cutoff,body_id,use_contract_ref))
+        chosen=tuple(cur.fetchall())
+        cur.execute('''SELECT m.*,s.scope_kind,s.support_resolution,s.location_id,
+            s.sample_id AS support_sample_id,s.vertical_id,s.valid_time_id,
+            s.representativeness_lexeme,s.scope_warrant_ref,
+            d.admission_id,d.standing,d.use_contract_ref,d.authorization_ref,d.decision_ordinal,
+            so.snapshot_id,so.title AS source_title,so.authority AS source_authority,
+            so.url AS source_url,ss.byte_sha256 AS source_snapshot_sha256
+            FROM wa_science.material_evidence m JOIN wa_science.support s ON s.support_id=m.support_id
+            JOIN wa_science.source so ON so.source_id=m.source_id
+            LEFT JOIN wa_meta.source_snapshot ss ON ss.snapshot_id=so.snapshot_id
+            JOIN LATERAL(SELECT * FROM wa_science.admission
+                WHERE target_material_id=m.evidence_id AND decision_ordinal<=%s
+                ORDER BY decision_ordinal DESC LIMIT 1)d ON true
+            WHERE m.body_id=%s AND d.standing='ADMITTED' AND d.use_contract_ref=%s
+            ORDER BY m.evidence_id''',(cutoff,body_id,use_contract_ref))
+        materials=tuple(cur.fetchall())
+    for item in chosen:
+        if item['support_resolution']!='IDENTIFIED':
+            # Preserve an admitted unresolved source as opaque provenance. The
+            # frozen identified-support reader must not project it onto a site.
+            with conn.cursor(row_factory=dict_row) as cur:
+                cur.execute('''SELECT a.*,s.scope_kind,s.support_resolution,s.location_id,
+                    s.sample_id AS support_sample_id,s.valid_time_id,s.representativeness_lexeme,
+                    d.admission_id,d.standing,d.use_contract_ref,d.authorization_ref,d.decision_ordinal,
+                    so.snapshot_id,so.title,so.authority,so.url,so.doi,
+                    sa.custody_kind,sa.byte_sha256 AS source_byte_sha256
+                    FROM wa_science.assertion a JOIN wa_science.support s ON s.support_id=a.support_id
+                    JOIN wa_science.source so ON so.source_id=a.source_id
+                    LEFT JOIN wa_science.source_artifact sa ON sa.artifact_id=a.source_artifact_id
+                    JOIN LATERAL(SELECT * FROM wa_science.admission
+                        WHERE target_assertion_id=a.assertion_id AND decision_ordinal<=%s
+                        ORDER BY decision_ordinal DESC LIMIT 1)d ON true
+                    WHERE a.assertion_id=%s''',(cutoff,item['assertion_id']))
+                opaque=cur.fetchone()
+            if opaque is None or opaque['standing']!='ADMITTED' or opaque['use_contract_ref']!=use_contract_ref:
+                raise IntegrityFailure('GENERATION_OPAQUE_ADMISSION')
+            _validate_original_projection('wa_science.assertion',opaque)
+            opaque['extrapolation_warrant_id']=None
+            opaque['typed_parent_refs']=()
+            opaque['opaque_unresolved_support']=True
+            assertions.append(opaque)
+            continue
+        found=read_admitted_constraints(conn,[item['assertion_id']],cutoff,
+            use_contract_ref,[item['support_id']],consumer='OFFWORLD_HIDDEN_WORLD_GENERATOR_V1',
+            context='REAL',perspective='WORLD_SIM')
+        for assertion in found:
+            assertion=dict(assertion)
+            scoped_time=conn.execute('SELECT valid_time_id FROM wa_science.support WHERE support_id=%s',
+                                     (assertion['support_id'],)).fetchone()
+            if scoped_time is None:raise IntegrityFailure('GENERATION_ASSERTION_SUPPORT')
+            assertion['valid_time_id']=scoped_time[0]
+            if assertion['unit_key'] is not None:
+                unit=conn.execute('SELECT source_lexeme FROM wa_meta.unit WHERE unit_key=%s',
+                                  (assertion['unit_key'],)).fetchone()
+                if unit is None:raise IntegrityFailure('GENERATION_ASSERTION_UNIT')
+                assertion['unit_lexeme']=unit[0]
+            assertions.append(assertion)
+    for material in materials:
+        if material['body_id']!=body_id or material['standing']!='ADMITTED':
+            raise IntegrityFailure('GENERATION_MATERIAL_CONTEXT')
+        if material['support_resolution']=='UNRESOLVED' and material['location_id'] is not None:
+            raise IntegrityFailure('GENERATION_MATERIAL_SCOPE')
+    return dict(assertions=tuple(assertions),materials=materials)
+
+
 def load_bound_world(conn,run_id,binding_key,*,context,effective_time):
     """Trusted runtime physical projection; no Worker or scientific re-generation."""
     _require_session_group(conn,'wa_runtime_writer')
@@ -595,11 +781,12 @@ def load_bound_world(conn,run_id,binding_key,*,context,effective_time):
     from psycopg.rows import dict_row
     with conn.cursor(row_factory=dict_row) as cur:
         cur.execute('SELECT * FROM wa_world.realization WHERE world_id=%s AND body_id=%s',(world,body));realization=cur.fetchone()
+        cur.execute('SELECT semantic_key FROM wa_world.scenario WHERE scenario_id=%s',(realization['scenario_id'],));scenario_semantic_key=cur.fetchone()['semantic_key']
         cur.execute('SELECT * FROM wa_world.hidden_state WHERE world_id=%s ORDER BY state_id',(world,));states=tuple(cur.fetchall())
         cur.execute('SELECT * FROM wa_world.site WHERE world_id=%s ORDER BY site_id',(world,));sites=tuple(cur.fetchall())
         cur.execute('SELECT * FROM wa_world.deposit WHERE world_id=%s ORDER BY deposit_id',(world,));deposits=tuple(cur.fetchall())
         cur.execute('SELECT s.* FROM wa_run.stock_state s JOIN wa_run.causal_envelope e ON e.run_id=s.run_id AND e.envelope_id=s.event_id WHERE s.run_id=%s AND s.world_id=%s AND e.realized_time<=%s ORDER BY s.deposit_id,e.event_ordinal',(run_id,world,effective_time));stocks=tuple(cur.fetchall())
-    return dict(realization=realization,hidden_states=states,sites=sites,deposits=deposits,stock_history=stocks)
+    return dict(realization=realization,scenario_semantic_key=scenario_semantic_key,hidden_states=states,sites=sites,deposits=deposits,stock_history=stocks)
 
 
 def persist_epoch(conn,run_id,epoch_id,expected_previous_head,rows,terminal_artifact_refs):

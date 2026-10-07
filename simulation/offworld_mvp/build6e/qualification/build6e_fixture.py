@@ -96,6 +96,18 @@ LIVE['opportunity.NAMED_LOCATION']=('CATALOG:MOON:CABEU','MOON:CABEU','CATALOG_L
 LIVE['opportunity.AUTHORED_SITE']=('SCENARIO_SITE','SITE:OFF:MOON:CABEU:B6E_SITE_01','AUTHORED_SITE_IDENTITY')
 
 
+def _target_runtime(kernel):
+    """Resolve the current campaign target without changing the frozen 6E defaults."""
+    params=dict(kernel.boundary_manifest.parameters)
+    node=params.get('build7.site_node_id',NODE_ID)
+    return {
+        'node':node,
+        'site_ref':params.get('build7.site_ref','SITE:'+node),
+        'catalog_subject':params.get('build7.catalog_subject','MOON:CABEU'),
+        'catalog_scope':params.get('build7.catalog_scope','LOCATION:MOON:CABEU'),
+    }
+
+
 def _source(assertion_id,subject,concept,scope,context,context_id,perspective,actor,value,unit,source_hash,role='POLICY_PARAMETER'):
     return ContextValue(assertion_id,subject,concept,scope,context,context_id,perspective,actor,
         FactState.UNKNOWN if value is None else FactState.KNOWN,value,unit,'ADMITTED',
@@ -301,16 +313,17 @@ def make_kernel(world='RICH',overrides=None,*,world_seed=None,policy_seed=None,s
 
 
 def policy_inputs(k,actor,time,concepts,subjects=None):
-    subjects=subjects or {};receipts=[]
+    subjects=subjects or {};receipts=[];target=_target_runtime(k)
     for concept in ('agent.STATE','agent.BELIEF','agent.PRIOR',*concepts):
         if concept in LIVE:
             _,subject,unit=LIVE[concept];subject=actor if subject=='SELF' else subject
+            if subject==NODE_ID:subject=target['node']
             subject=subjects.get(concept,subject)
-            scope='AGENT:'+actor if concept.startswith('agent.') else 'PROJECT:P' if subject=='P' else 'SITE:OFF:MOON:CABEU:B6E_SITE_01'
+            scope='AGENT:'+actor if concept.startswith('agent.') else 'PROJECT:P' if subject=='P' else target['site_ref']
             if concept=='opportunity.NAMED_LOCATION':
-                scope='LOCATION:MOON:CABEU';subject='MOON:CABEU';context='REAL';cid='';role='ADMITTED_CATALOG_IDENTITY'
+                scope=target['catalog_scope'];subject=target['catalog_subject'];context='REAL';cid='';role='ADMITTED_CATALOG_IDENTITY'
             elif concept=='opportunity.AUTHORED_SITE':
-                scope='SITE:OFF:MOON:CABEU:B6E_SITE_01';subject='SITE:OFF:MOON:CABEU:B6E_SITE_01';context='SCENARIO';cid=k.boundary_manifest.scenario_id;role='POLICY_PARAMETER'
+                scope=target['site_ref'];subject=target['site_ref'];context='SCENARIO';cid=k.boundary_manifest.scenario_id;role='POLICY_PARAMETER'
             else:
                 context='REALIZED';cid=k.boundary_manifest.run_id;role='ADMITTED_INFORMATION'
         else:
@@ -382,7 +395,7 @@ def _policy_epoch_body(k,h,label,actor,time,request,concepts,runner,version,subj
 def policy_epoch(k,h,label,actor,time,request,concepts,runner,version,subjects=None):
     if not h.get('wa_service'):
         return _policy_epoch_body(k,h,label,actor,time,request,concepts,runner,version,subjects)
-    from named_world import execute_persisted_epoch
+    from simulation.offworld_mvp.build6e.named_world import execute_persisted_epoch
     effective = D(time) + (0 if label=='TRANSPORT' else D(int(h['params'].get('time_offset',0))))
     result, status = execute_persisted_epoch(service_name=h['wa_service'], kernel=k,
         binding=h['named_binding'], epoch_id=label, effective_time=effective,
@@ -414,11 +427,14 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
     event=ScheduledEvent(label,D(time),Phase.OPERATIONS,0,event_actor,sid)
     q=ConsumptionRequest(label,sid,'SYSTEM_TRANSITION',sid,'transition.RULE','PROCESS:'+sid,'SIM_TIME',str(time),str(time),'SCENARIO',k.boundary_manifest.scenario_id,'WORLD_SIM','','ADMITTED','TYPED_RULE','TRANSITION_RULE')
     receipt=admit_for_use(k,q)[1];receipts=[receipt];holder={}
+    target=_target_runtime(k)
     def live(concept,subject,scope,unit,role):
         request=ConsumptionRequest(label+':'+concept+':'+subject,sid,'SYSTEM_TRANSITION',subject,concept,scope,'SIM_TIME',str(time),str(time),'REALIZED',k.boundary_manifest.run_id,'WORLD_SIM','','ADMITTED',unit,role)
         receipts.append(admit_for_use(k,request)[1])
     if method in ('explore_paid','surface_prospect_paid','resolve_operating_extraction'):
-        live('R_RECOVERABLE','RES','SITE:OFF:MOON:CABEU:B6E_SITE_01','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE')
+        build7=dict(k.boundary_manifest.parameters).get('build7.profile')=='BUILD7_GENERATED_CAMPAIGN_V1'
+        physical_concept='R_IN_SITU' if build7 and method in ('explore_paid','surface_prospect_paid') else 'R_RECOVERABLE'
+        live(physical_concept,'RES',target['site_ref'],'MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE')
     if method in ('reserve_earth_supply','explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage'):
         live('Earth_supply.AVAILABLE','EARTH:USA:SIM'+str(time),'ECONOMY:USA:SUPPLY','MODEL_SUPPLY_CLAIM_CURRENCY','SUPPLIER_CAPACITY')
     if method in ('explore_paid','surface_prospect_paid','spend_operating_cycle','execute_development_stage','clear_market_sale','execute_surplus_distribution'):
@@ -426,9 +442,9 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
         live('project.CASH_BALANCE',project,'PROJECT:'+project,'MODEL_CURRENCY','FINANCIAL_STATE')
     if method in ('surface_prospect_paid','publish_observation','update_agent_belief_from_observation'):
         obs_id=args[6] if method=='surface_prospect_paid' else args[2]
-        live('observation.SIGNAL',obs_id,'SITE:OFF:MOON:CABEU:B6E_SITE_01','SIGNAL_CATEGORY','OBSERVATION')
+        live('observation.SIGNAL',obs_id,target['site_ref'],'SIGNAL_CATEGORY','OBSERVATION')
     if method=='resolve_operating_extraction':live('cycle.PAID_OPEX',args[4].event_id,'PROJECT:P','TYPED_EXPENSE_RECORD','REALIZED_EXPENSE')
-    if method=='admit_realized_output_observation':live('cycle.ACTUAL_OUTPUT',args[2],'SITE:OFF:MOON:CABEU:B6E_SITE_01','MODEL_RESOURCE_UNIT_BY_FAMILY','REALIZED_OUTPUT')
+    if method=='admit_realized_output_observation':live('cycle.ACTUAL_OUTPUT',args[2],target['site_ref'],'MODEL_RESOURCE_UNIT_BY_FAMILY','REALIZED_OUTPUT')
     if method=='update_agent_belief_from_observation':live('actor.BELIEF',args[1],'AGENT:'+args[1],'PROBABILITY','ACTOR_BELIEF')
     if method=='publish_observation':
         for actor,_,_,_ in args[4]:live('actor.BELIEF',actor,'AGENT:'+actor,'PROBABILITY','ACTOR_BELIEF')
@@ -445,7 +461,7 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
 def system_epoch(k,h,method,time,args=(),kwargs=None,decision_refs=()):
     if not h.get('wa_service'):
         return _system_epoch_body(k,h,method,time,args,kwargs,decision_refs)
-    from named_world import execute_persisted_epoch
+    from simulation.offworld_mvp.build6e.named_world import execute_persisted_epoch
     preview_counter=h['counter']+1
     epoch_id='ACTION:'+str(preview_counter)+':'+method
     delta=0 if method in ('execute_transport_settlement_departure','execute_passenger_transport_arrival') else int(h['params'].get('time_offset',0))
@@ -545,8 +561,9 @@ def _run_case(k,h):
         req=h['requests']['DISTRIBUTE']
         h['distribution']=system_epoch(k,h,'execute_surplus_distribution','10',(10,'SPN',req,d,'local_reinvest_funds'),decision_refs=(ref,))
         system_epoch(k,h,'execute_settlement_infrastructure','11',(11,'INFRA','SPN'),decision_refs=(ref,))
-        system_epoch(k,h,'update_settlement_stage','11',(11,'OFF:MOON:CABEU:B6E_SITE_01'))
-        req=build_transport_settlement_request('TRANSPORT:request',D(p['departure']),'EARTH:USA','OFF:MOON:CABEU:B6E_SITE_01','settlement_support','transport_provider',int(p['requested_residents']),D(p['support_cost']),p['transport_relationship_id'],p['technology_state_id'])
+        target=_target_runtime(k)
+        system_epoch(k,h,'update_settlement_stage','11',(11,target['node']))
+        req=build_transport_settlement_request('TRANSPORT:request',D(p['departure']),'EARTH:USA',target['node'],'settlement_support','transport_provider',int(p['requested_residents']),D(p['support_cost']),p['transport_relationship_id'],p['technology_state_id'])
         concepts=('settlement.STAGE','settlement.HABITAT_HEADROOM','settlement.REQUESTED_RESIDENTS','population.EARTH_AVAILABLE','settlement.PUBLIC_SUPPORT_COST',*(key for key in LIVE if key.startswith(('transport.','technology.'))))
         d,ref=policy_epoch(k,h,'TRANSPORT','PUB',p['departure'],req,concepts,workers.run_public_settlement_transport_policy,workers.public_settlement_transport_policy_version())
         if d.outcome.value=='AUTHORIZE':
@@ -585,6 +602,7 @@ def strict_provenance(k,tables=(),policies=('NO_POLICY_THIS_EPOCH',)):
             'simulation/offworld_mvp/build6e/qualification/build6e_fixture.py':'QUALIFICATION_FIXTURE_SHA256',
             'simulation/offworld_mvp/build6e/named_world.py':'NAMED_WORLD_COMPILER_SHA256',
             'src/loom_world_authority/store.py':'WORLD_AUTHORITY_STORE_SHA256',
+            'simulation/offworld_mvp/build7/generated_campaign.py':'BUILD7_CAMPAIGN_SHA256',
         }.get(ref)
         if label is None:raise RuntimeError('undeclared Build 6E harness module: '+ref)
         labels.append((label,digest))
