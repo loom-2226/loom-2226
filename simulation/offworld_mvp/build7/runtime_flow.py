@@ -47,7 +47,7 @@ OWNERS={
 'execute_enterprise_review':('projects','events','enterprise_review_records','agents'),
 'admit_realized_output_observation':('agents','events'),
 'boundary_purchase':('accounts','transactions','market_resource_inventory','boundary_net','events','earth_impact'),
-'assess_resource_recoverability':('resources','events'),
+'assess_resource_recoverability':('resources','events'),'record_earth_reference_year':('events',),
 }
 
 LIVE={
@@ -80,7 +80,7 @@ _SYSTEM_TIME_INDEX={'disburse':0,'reserve_earth_supply':1,'explore_paid':0,'surf
     'execute_development_stage':0,'resolve_development_plan':0,'spend_operating_cycle':0,
     'resolve_operating_extraction':0,'admit_realized_output_observation':0,'clear_market_sale':0,
     'execute_surplus_distribution':0,'execute_settlement_infrastructure':0,'update_settlement_stage':0,
-    'execute_enterprise_review':0,'assess_resource_recoverability':0}
+    'execute_enterprise_review':0,'assess_resource_recoverability':0,'record_earth_reference_year':0}
 
 def _target_runtime(kernel):
     """Resolve the current campaign target without changing the frozen 6E defaults."""
@@ -199,6 +199,11 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
     def live(concept,subject,scope,unit,role):
         request=ConsumptionRequest(label+':'+concept+':'+subject,sid,'SYSTEM_TRANSITION',subject,concept,scope,'SIM_TIME',str(time),str(time),'REALIZED',k.boundary_manifest.run_id,'WORLD_SIM','','ADMITTED',unit,role)
         receipts.append(admit_for_use(k,request)[1])
+    if method=='record_earth_reference_year':
+        calendar=str(int(D(time))+2025)
+        for concept,unit in (('population','PERSON'),('value_added','EARTH_REAL_PROXY_VALUE_ADDED_PER_YEAR'),('gross_output','EARTH_REAL_PROXY_GROSS_OUTPUT_PER_YEAR'),('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('capital','EARTH_REAL_PROXY_CAPITAL'),('legacy_employment','PERSON_FTE_PROXY')):
+            request=ConsumptionRequest(label+':EARTH:'+concept,sid,'SYSTEM_TRANSITION','USA',concept,'COUNTRY:USA','CALENDAR_YEAR',calendar,calendar,'REAL','','GOVERNANCE','','ADMITTED',unit,'EARTH_REFERENCE')
+            receipts.append(admit_for_use(k,request)[1])
     if method in ('explore_paid','surface_prospect_paid','assess_resource_recoverability','resolve_operating_extraction'):
         build7=dict(k.boundary_manifest.parameters).get('build7.profile')=='BUILD7_GENERATED_CAMPAIGN_V1'
         physical_concept='R_IN_SITU' if build7 and method in ('explore_paid','surface_prospect_paid','assess_resource_recoverability') else 'R_RECOVERABLE'

@@ -274,7 +274,7 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
         'publish_observation','submit_financing_request','transition_project_status','execute_development_stage','resolve_development_plan',
         'assess_resource_recoverability','spend_operating_cycle','resolve_operating_extraction','admit_realized_output_observation','clear_market_sale',
         'execute_surplus_distribution','execute_settlement_infrastructure','update_settlement_stage','execute_transport_settlement_departure',
-        'execute_passenger_transport_arrival','execute_enterprise_review')
+        'execute_passenger_transport_arrival','execute_enterprise_review','record_earth_reference_year')
     allowed=[]
     for method in used_methods:
         sid='SYS:'+method;allowed.append((sid,(method,)));scope='PROCESS:'+sid
@@ -288,6 +288,9 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
         if method in ('explore_paid','surface_prospect_paid','assess_resource_recoverability'):
             contracts.append((sid,'SYSTEM_TRANSITION','R_IN_SITU',target['site_ref'],'REALIZED','WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE'))
             bindings.append((sid,'R_IN_SITU','RESOURCE'))
+        if method=='record_earth_reference_year':
+            for concept,unit in (('population','PERSON'),('value_added','EARTH_REAL_PROXY_VALUE_ADDED_PER_YEAR'),('gross_output','EARTH_REAL_PROXY_GROSS_OUTPUT_PER_YEAR'),('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('capital','EARTH_REAL_PROXY_CAPITAL'),('legacy_employment','PERSON_FTE_PROXY')):
+                contracts.append((sid,'SYSTEM_TRANSITION',concept,'COUNTRY:USA','REAL','GOVERNANCE',unit,'EARTH_REFERENCE'))
         if method=='resolve_operating_extraction':
             contracts.append((sid,'SYSTEM_TRANSITION','R_RECOVERABLE',target['site_ref'],'REALIZED','WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE'))
             bindings.append((sid,'R_RECOVERABLE','RESOURCE'))
@@ -345,7 +348,7 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
     plan=ProjectDevelopmentPlan('DEV','P','WIP-P','MINE-P','earth_supplier',node,D(params['capex']),((6,D(params['stage_amount'])),(7,D(params['stage_amount']))),8,D(params['capacity']),AUTHORIZATION)
     k.register_development_plan(plan)
     k.register_market_envelope(CommodityMarketEnvelope('MKT',10,'RES','earth_market',D(params['unit_price']),D(params['first_demand']),'MODEL_CURRENCY','MODEL_RESOURCE_UNIT_BY_FAMILY',AUTHORIZATION,'STRUCTURAL_NOT_CALIBRATED').validate())
-    k.register_financing_return_claim(FinancingReturnClaim('FRC','FIN','P','fin_funds',D(params['return_claim']),tuple(['C-DEV']+['C-OP-'+str(y) for y in range(9,21)]),AUTHORIZATION,'STRUCTURAL_NOT_CALIBRATED').validate())
+    k.register_financing_return_claim(FinancingReturnClaim('FRC','FIN','P','fin_funds',D(params['return_claim']),('C-DEV','C-OP-9'),AUTHORIZATION,'STRUCTURAL_NOT_CALIBRATED').validate())
     k.register_settlement_infrastructure_plan(SettlementInfrastructurePlan('INFRA',11,node,'local_reinvest_funds','local_settlement_supplier',D(params['infrastructure_cost']),int(D(params['habitat_capacity'])),AUTHORIZATION,'STRUCTURAL_NOT_CALIBRATED').validate())
     tech=TechnologyCapabilityState(params['technology_state_id'],D(1),D(20),(params['transport_capability'],) if params['technology_qualified']=='TRUE' else (),AUTHORIZATION,'FIXED_2026_CAPABILITY_THROUGH_2045').validate();k.register_technology_capability_state(tech)
     rel=TransportRelationship(params['transport_relationship_id'],'EARTH:USA',node,D(1),D(20),params['transport_capability'],D(params['transport_cost']),D(params['travel_time']),D(params['energy']),D(params['loss_risk']),int(D(params['transport_capacity'])),'PASSENGER',AUTHORIZATION,'FIXED_2026_CAPABILITY_THROUGH_2045').validate()
@@ -454,15 +457,18 @@ def run_full_chain(k,h,target):
     if k.state.projects['P'].status!='OPERATING':return 'REVIEW_CLOSED'
     second=flow.operate(k,h,'SECOND_OPERATING',15,obs);h['second_output']=second
     if second is not None:flow.review(k,h,'SECOND_REVIEW',15,second)
-    # Continue the existing operating/review machinery annually through sim-year 20 (2045)
-    # while the enterprise remains open and recoverable stock exists. No new economic model.
-    for year in range(16,21):
-        if k.state.projects['P'].status!='OPERATING' or k.resources['RES'].remaining is None or k.resources['RES'].remaining<=0:break
-        output=flow.operate(k,h,f'OPERATING_{year}',year,obs);h[f'output_{year}']=output
-        if output is None:break
-        flow.review(k,h,f'REVIEW_{year}',year,output)
     validate_trace(k.causal_envelopes,k.causal_artifacts)
     return 'OPERATING' if k.state.projects['P'].status=='OPERATING' else k.state.projects['P'].status
+
+
+def advance_earth_to_horizon(k,h):
+    """Advance admitted Earth context to 2045 after the active Offworld chain."""
+    econ={int(r['year']):r for r in h['earth']['economic']};demo={int(r['year']):r for r in h['earth']['demographic']};labor={int(r['year']):r for r in h['earth']['legacy_labor']}
+    start=max(1,int(D(h['last_time']))+1)
+    for sim_year in range(start,21):
+        cal=sim_year+2025;e=econ[cal];d=demo[cal];l=labor[cal]
+        flow.system_epoch(k,h,'record_earth_reference_year',str(sim_year),(sim_year,cal,'USA',d['biological_population'],e['value_added'],e['gross_output'],e['investment'],e['capital'],l['legacy_employment']))
+    return h['last_time']
 
 
 def _summary(k,h,target,*,generated_status=None):
@@ -488,6 +494,7 @@ def start_campaign(*,reference_service,science_writer_service,world_writer_servi
     remote=run_remote(k,h);h['terminal']='REMOTE' if not full else None
     if full:
         surface=run_surface(k,h);h['terminal']='NO_SURFACE' if surface is None else run_full_chain(k,h,target)
+        advance_earth_to_horizon(k,h)
     result=_summary(k,h,target,generated_status=generated['status']);result['catalog_status']=catalog_status;result['generated_body_count']=generated['body_count'];result['remote_signal']=None if remote is None else remote.signal;result['terminal']=h['terminal'];return result
 
 
@@ -498,6 +505,7 @@ def resume_campaign(*,reference_service,runtime_service,run_id,full=True):
     k,h=_build_kernel(target,config,world_seed=target['world_seed']);_attach_persistence(h,target,runtime_service,_agent_logins())
     remote=run_remote(k,h);surface=run_surface(k,h);terminal='SURFACE_COMPLETE'
     if full and surface is not None:terminal=run_full_chain(k,h,target)
+    if full:advance_earth_to_horizon(k,h)
     if k.boundary_manifest.run_id!=run_id:raise Build7Blocked('BUILD7_RESUME_RUN_ID_MISMATCH')
     result=_summary(k,h,target);result.update(remote_signal=None if remote is None else remote.signal,surface_signal=None if surface is None else surface.signal,terminal=terminal);return result
 

@@ -94,7 +94,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'boundary_purchase','consume_market_resource',
         'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan','record_surplus_decomposition',
         'register_development_plan','execute_development_stage','resolve_development_plan',
-        'spend_operating_cycle','assess_resource_recoverability','resolve_operating_extraction','execute_enterprise_review','register_market_envelope','clear_market_sale',
+        'spend_operating_cycle','assess_resource_recoverability','record_earth_reference_year','resolve_operating_extraction','execute_enterprise_review','register_market_envelope','clear_market_sale',
         'register_financing_return_claim','execute_surplus_distribution',
         'register_settlement_infrastructure_plan','execute_settlement_infrastructure',
         'update_settlement_stage','execute_public_settlement_support',
@@ -382,6 +382,23 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             (resource_id,str(current.accessible),str(current.recoverable),productive.id),
             (productive.id,project.id))
         return current
+
+    def record_earth_reference_year(self,sim_year,calendar_year,iso3,population,value_added,gross_output,investment,capital,legacy_employment):
+        """Persist one admitted annual Earth reference image without mutating Earth economics."""
+        sim_year=int(sim_year);calendar_year=int(calendar_year)
+        if iso3!='USA' or calendar_year!=sim_year+2025 or not 1<=sim_year<=20:
+            raise InvariantError('Earth reference year mapping')
+        concepts=('population','value_added','gross_output','investment','capital','legacy_employment')
+        values=(population,value_added,gross_output,investment,capital,legacy_employment)
+        parsed=tuple(D(v) for v in values)
+        if any(not v.is_finite() or v<0 for v in parsed):raise InvariantError('Earth reference value')
+        if self.boundary_manifest is None:raise InvariantError('Earth reference boundary missing')
+        for concept,value in zip(concepts,parsed,strict=True):
+            found=tuple(a for a in self.boundary_manifest.assertions if a.subject_id=='USA' and a.concept==concept and a.world_context=='REAL' and a.valid_from==str(calendar_year) and a.valid_to==str(calendar_year))
+            if len(found)!=1 or found[0].value_state.value!='KNOWN' or D(found[0].value)!=value:
+                raise InvariantError('Earth reference mismatch:'+concept)
+        return self.event(sim_year,'EARTH_REFERENCE_SYSTEM',ActionKind.ADMIT_INFORMATION,'EARTH_REFERENCE_YEAR',
+            (iso3,str(calendar_year),*(str(v) for v in parsed)))
 
     def resolve_operating_extraction(self,year,actor_id,request,decision,cost_record):
         year=int(year)
