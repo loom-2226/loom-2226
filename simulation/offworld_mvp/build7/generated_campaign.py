@@ -477,7 +477,7 @@ def advance_earth_to_horizon(k,h):
     start=max(1,int(D(h['last_time']))+1)
     for sim_year in range(start,21):
         cal=sim_year+2025;e=econ[cal];d=demo[cal];l=labor[cal]
-        flow.system_epoch(k,h,'record_earth_reference_year',str(sim_year),(sim_year,cal,'USA',d['biological_population'],e['value_added'],e['gross_output'],e['investment'],e['capital'],l['legacy_employment']))
+        flow.system_epoch(k,h,'record_earth_reference_year',str(sim_year),(sim_year,cal,'USA',str(d['biological_population']),str(e['value_added']),str(e['gross_output']),str(e['investment']),str(e['capital']),str(l['legacy_employment'])))
     return h['last_time']
 
 
