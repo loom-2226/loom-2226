@@ -48,6 +48,10 @@ from offworld_kernel.transport_protocol import build_transport_settlement_reques
 from simulation.offworld_mvp.build6e.generated_world import generate_solar_system, bind_generated_target, _hash as generated_hash
 from simulation.offworld_mvp.build6e.named_world import NamedLocationBinding
 from simulation.offworld_mvp.build7 import runtime_flow as flow
+from simulation.offworld_mvp.build7.opportunities import (
+    SCREEN as SOLAR_ACCESSIBILITY_SCREEN, candidate_digest,
+    derive_mission_candidates, load_visible_inputs,
+)
 
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parents[2]
@@ -219,6 +223,9 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
     targeted=target is not None
     params=dict(config['structural_parameters'])
     earth,earth_hash,earth_doc=_load_earth_authority();timeline,timeline_hash=_load_timeline();solar_catalog,solar_catalog_hash=_load_solar_catalog()
+    visible_catalog,accessibility=(None,None) if targeted else load_visible_inputs()
+    if not targeted and visible_catalog['body_rows_sha256']!=solar_catalog['body_rows_sha256']:
+        raise Build7Blocked('BUILD7_VISIBLE_CATALOG_DRIFT')
     earth_2026=next(v for v in earth if v.concept=='population' and v.valid_from=='2026')
     params.update({'N':earth_2026.value,'reference_population_bound':earth_2026.value,
         'opening_effective_time':config['runtime']['opening_effective_time'],'time_offset':str(config['runtime']['time_offset']),
@@ -235,7 +242,10 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         'key_schema':'LOOM_COMPARISON_RANDOM_V1','decimal_precision':28,'decimal_rounding':'ROUND_HALF_EVEN'}
     scenario_id=target['scenario_key'] if targeted else world['scenario_key']
     world_identity=str(target['binding'].world_id) if targeted else str(world['scenario_id'])
-    run_id=scenario_id+':'+content_hash((world_identity,config_hash,earth_hash,timeline_hash,_sha(Path(__file__).resolve()),tuple(sorted(params.items())),tuple(sorted(comparison.items()))))[:16]
+    run_identity_inputs=(world_identity,config_hash,earth_hash,timeline_hash,_sha(Path(__file__).resolve()),tuple(sorted(params.items())),tuple(sorted(comparison.items())))
+    if not targeted:
+        run_identity_inputs=(*run_identity_inputs,_sha(SOLAR_ACCESSIBILITY_SCREEN))
+    run_id=scenario_id+':'+content_hash(run_identity_inputs)[:16]
 
     old_policy=test_only_manifest()
     policy_values={'hurdle_rate':params['financier_hurdle_rate'],'horizon_years':params['financier_horizon_years'],
@@ -339,6 +349,8 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         ('TIMELINE:'+timeline['source_projection_manifest']['snapshot_id'],timeline['source_projection_manifest']['projection_sha256']),
         ('SOLAR_BODY_CATALOG',solar_catalog['body_rows_sha256']))
     definitions=((INPUT.name,config_hash),(TIMELINE_INPUT.name,timeline_hash),(SOLAR_CATALOG_INPUT.name,solar_catalog_hash))
+    if not targeted:
+        definitions=(*definitions,(SOLAR_ACCESSIBILITY_SCREEN.name,_sha(SOLAR_ACCESSIBILITY_SCREEN)))
     world_ref=('WORLD_REALIZATION:'+world_identity,target['result_hash']) if targeted else ('WORLD_REALIZATION_SET:'+world_identity,world['sealed_world_digest'])
     m=BoundaryManifest(BUILD6E_CONTRACT,'BUILD7_INPUT:'+content_hash((definitions,earth_hash,tuple(sorted(params.items())),authority_sources)),scenario_id,'V1',run_id,
         definitions,authority_sources,'0'*64,(('PARAMETERS:'+scenario_id,content_hash(tuple(sorted(params.items())))),
@@ -420,6 +432,9 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
        'recovery_profile':_recovery_profile(target,config) if targeted else None,
        'target_world_payload':target['world_payload'] if targeted else None,
        'results':[],'audits':[],'policies':{},'snapshots':{},'requests':{},'counter':0,'last_time':D(0)}
+    if not targeted:
+        h['visible_solar_bodies']=tuple(visible_catalog['bodies'])
+        h['visible_accessibility_rows']=tuple(accessibility['rows'])
     return k,h
 
 
@@ -484,11 +499,25 @@ def _record_empty_year(k,h,calendar_year: int):
          str(econ['gross_output']),str(econ['investment']),str(econ['capital']),str(labor['legacy_employment'])))
 
 
+def derive_world_mission_candidates(k,h,calendar_year: int,actor_id='PUB'):
+    """Reconstruct prospective missions from public inputs and actor capability."""
+    if 'visible_solar_bodies' not in h:
+        raise Build7Blocked('BUILD7_NO_TARGET_OPPORTUNITY_SURFACE_REQUIRED')
+    actor=k.agents[actor_id]
+    return derive_mission_candidates(actor_id=actor_id,capabilities=actor.capabilities,
+        calendar_year=calendar_year,public_bodies=h['visible_solar_bodies'],
+        accessibility_rows=h['visible_accessibility_rows'])
+
+
 def _world_summary(k,h,world):
+    year=2025+int(h['last_time'])
+    candidates=derive_world_mission_candidates(k,h,year) if 2026<=year<=2035 else None
     return dict(run_id=k.boundary_manifest.run_id,world_scenario_id=world['scenario_id'],
         generated_body_count=world['body_count'],last_calendar_year=2025+int(h['last_time']),
         projects=len(k.state.projects),settlements=len(k.colonies),
         offworld_population=sum(k.population.offworld.values())+sum(k.population.in_transit.values()),
+        candidate_mission_count=None if candidates is None else len(candidates),
+        candidate_mission_digest=None if candidates is None else candidate_digest(candidates),
         epoch_commits=tuple(h.get('epoch_commits',())))
 
 

@@ -99,16 +99,19 @@ class NoTargetPersistenceTests(unittest.TestCase):
             world_writer_service='world_writer',runtime_service='runtime',world_seed=seed)
         run_id=opened['run_id']
         self.assertEqual(opened['generated_body_count'],90)
+        self.assertEqual(opened['candidate_mission_count'],90)
         self.assertEqual(opened['epoch_commits'][0][1],'COMMITTED')
         first=resume_world_run(reference_service='reference_reader',runtime_service='runtime',
             run_id=run_id,through_year=2027)
         self.assertEqual(first['epoch_commits'][0][1],'ALREADY_MATCHED')
         self.assertEqual(first['epoch_commits'][1][1],'COMMITTED')
+        self.assertEqual(first['candidate_mission_count'],90)
         replay=resume_world_run(reference_service='reference_reader',runtime_service='runtime',
             run_id=run_id,through_year=2027)
         self.assertEqual(replay['epoch_commits'],(
             ('ACTION:1:record_earth_reference_year','ALREADY_MATCHED'),
             ('ACTION:2:record_earth_reference_year','ALREADY_MATCHED')))
+        self.assertEqual(replay['candidate_mission_digest'],first['candidate_mission_digest'])
         with psycopg.connect(service='runtime') as conn:
             scenario_id=conn.execute('SELECT scenario_id FROM wa_run.execution WHERE run_id=%s',(run_id,)).fetchone()[0]
             world_count=conn.execute('SELECT count(*) FROM wa_world.realization WHERE scenario_id=%s',(scenario_id,)).fetchone()[0]
