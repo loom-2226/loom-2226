@@ -247,7 +247,17 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
         'project.RESERVE_REQUIREMENT':(params['reserve_requirement'],'MODEL_CURRENCY'),'project.REINVESTMENT_REQUIREMENT':(params['reinvestment'],'MODEL_CURRENCY'),
         'settlement.REQUESTED_RESIDENTS':(params['requested_residents'],'PERSON'),'settlement.PUBLIC_SUPPORT_COST':(params['support_cost'],'MODEL_CURRENCY')}
     for x in table.inputs:static['underwriting.'+x.kind.value]=(str(x.value),x.unit)
-    assertions=list(earth);contracts=[];bindings=[]
+    earth_sim=[]
+    sim_concepts={'population','value_added','gross_output','investment','capital','legacy_employment'}
+    for source in earth:
+        if source.concept not in sim_concepts:continue
+        sim_year=str(int(source.valid_from)-2025)
+        earth_sim.append(replace(source,assertion_id='SIM:'+source.assertion_id,world_context='SCENARIO',context_id=scenario_id,
+            perspective='WORLD_SIM',perspective_actor_id='',proposition_kind='DERIVED_REFERENCE',epistemic_mode='CLOCK_TRANSFORMED_REFERENCE',
+            valid_from=sim_year,valid_to=sim_year,time_basis='SIM_TIME',available_from='1',source_refs=(source.assertion_id,),
+            source_hashes=(source.fingerprint(),),dependency_refs=(source.assertion_id,),transformation_ref='SIM_YEAR_PLUS_2025_V1',
+            transformation_version='1',source_time=sim_year))
+    assertions=[*earth,*earth_sim];contracts=[];bindings=[]
     for actor in ('PUB','SPN','FIN'):
         for concept,(value,unit) in static.items():
             subject='P';scope='PROJECT:P'
@@ -290,7 +300,7 @@ def _build_kernel(target: Mapping, config: Mapping, *, world_seed: str):
             bindings.append((sid,'R_IN_SITU','RESOURCE'))
         if method=='record_earth_reference_year':
             for concept,unit in (('population','PERSON'),('value_added','EARTH_REAL_PROXY_VALUE_ADDED_PER_YEAR'),('gross_output','EARTH_REAL_PROXY_GROSS_OUTPUT_PER_YEAR'),('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('capital','EARTH_REAL_PROXY_CAPITAL'),('legacy_employment','PERSON_FTE_PROXY')):
-                contracts.append((sid,'SYSTEM_TRANSITION',concept,'COUNTRY:USA','REAL','WORLD_SIM',unit,'EARTH_REFERENCE'))
+                contracts.append((sid,'SYSTEM_TRANSITION',concept,'COUNTRY:USA','SCENARIO','WORLD_SIM',unit,'EARTH_REFERENCE'))
         if method=='resolve_operating_extraction':
             contracts.append((sid,'SYSTEM_TRANSITION','R_RECOVERABLE',target['site_ref'],'REALIZED','WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE'))
             bindings.append((sid,'R_RECOVERABLE','RESOURCE'))
