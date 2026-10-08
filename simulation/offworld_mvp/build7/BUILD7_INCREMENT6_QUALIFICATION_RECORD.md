@@ -360,3 +360,29 @@ limit only. It does not add recurring Explorer decisions, Sponsor comparison,
 additional studies, or multi-project support. The broader Increment 6
 qualification remains **BLOCKED** on the previously recorded causal gaps;
 the 2026–2035 campaign has not been requalified by this repair.
+## As-built campaign observation and causal break — 2026–2035 (2026-10-09)
+
+**Disposition:** OBSERVED / BLOCKED. **Source revision:** `4b2a941fc76c25212d9aa6a7d0b783d71f95ceb7`. No simulation implementation changes. Executed the normal no-target `generated_campaign new --world-seed 2227` then `annual --through-year 2035` in the existing isolated interactive smoke database (not the authoritative baseline). Fresh run `SOLAR_MATERIAL_2977142cd46a6c47220617bb:ccc6daa019f1b3f0`, scenario `edea63f1-8fa0-5d72-a7be-941d6486cee6`.
+
+Genesis: 90 generated bodies, 90 candidate missions, no projects, settlements or Offworld population. The annual run completed (about 57 s): 2026 PUBLIC REMOTE selection COMET_HALLEY and SPN initiation of `PROSPECT:COMET_HALLEY:BUILD7_PROSPECTING_REGION_02`; 2027 `AUTHORIZE`; 2028 `STUDY_SUPPORTS_ADVANCE`; 2029 `ADVANCE`; 2030–2035 `NO_ACTION`. Final project `EXPLORING`, maturity `SURFACE_OR_SAMPLE_CHARACTERIZED`, cash 0, one paid study, four REGION observations, one review, zero settlements/population. The fresh run committed its annual epochs. This is evidence of the current behavior, **not** full Increment 6 acceptance.
+
+**Exact code-derived causal break** (`simulation/offworld_mvp/build7/generated_campaign.py`, source revision above):
+
+1. `run_world_annual` (around lines 865–951) invokes `run_world_prospecting_initiation` once, retains `opening['project_id']` as a single local project, and never invokes the Explorer opportunity/mission path in later years.
+2. `run_world_prospecting_initiation` (around line 782) rejects years other than 2026 with `BUILD7_INCREMENT4_SINGLE_DECISION_YEAR`; `_execute_world_remote_choice` (around line 681) rejects later years with `BUILD7_INCREMENT3_SINGLE_DECISION_YEAR`. These are explicit opening-scope guards, not World Authority failures.
+3. The annual loop follows the one fixed `BUILD7_REGION_STUDY` activity. It can propose/authorize/spend, observe/complete, and review it. After `reviewed=True`, no further branch derives an eligible opportunity or invokes PUB/SPN policy; the final `annual.append((calendar_year,'NO_ACTION'))` is a conductor fallback. Even when `project_id is None`, `NO_ACTION` is appended without an Agent choice.
+4. The opening Sponsor path derives opportunities only for the selected/characterized body and uses `choose_equivalent_region` to break ties among neutral regions. It is not an annual cross-target portfolio comparison. The existing Sponsor portfolio policy authorizes a *proposed activity*, not the selection of a target or a follow-on study. The 2029 `ADVANCE` changes recorded review/maturity state but does not generate a new governed scientific question, cost, or project financing authority.
+
+**Diagnosis:** This is an incomplete Build 7 annual causal loop, not a legitimate economic decision to wait. The newly repaired post-project spatial admission path is not exercised by the ordinary later-year conductor, so the campaign neither proves nor disproves recurring multi-body exploration. The current code cannot use later observations to alter subsequent exploration/portfolio choices because it does not reopen those windows.
+
+**Repair suggestions, ordered by observed necessity:**
+
+- First, preserve this campaign as a behavioral baseline. Exercise the already demonstrated later-year PUBLIC policy/REMOTE path from a governed, isolated campaign with the first project retained; distinguish manual/fixture orchestration from normal annual gameplay. Then connect only the verified later-year Explorer window to the annual conductor. The conductor must not choose a body, and `WAIT` must remain possible. Preserve 2026 opening semantics, temporal visibility, correct spatial binding, and replay.
+- Next, permit the Sponsor to compare genuinely visible new opportunities with its existing project and holding capital. This needs an explicit bounded portfolio choice, not repeated authorization of the same completed study. Reuse current prospecting/financing transitions; do not treat country financing capacity as project cash or force a second project.
+- Only introduce a next study when it has an actual governed question, observation mechanism, cost, and funding authorization. Four-family presence evidence and `SUPPORTS_ADVANCE` do not establish deposit, reserve, recoverability, or development economics. Do not auto-advance to development or invent a favorable result to pass §25 I.
+
+**Separate replay issue:** Attempting to reopen the *older* interactive smoke run `SOLAR_MATERIAL_ce54bc91cb1d6795a0357197:81faed42833ecd39` on this source revision failed with `IntegrityFailure: INCOMPLETE_SQL_ROW:wa_run.artifact` during `record_earth_reference_year`. This may be a cross-revision artifact mismatch; cause is unproven and must not be attributed to the spatial admission fix without further evidence. The fresh 2227 campaign ran successfully. Its independent replay is recorded separately if completed.
+
+**No change authorization:** This record diagnoses and proposes bounded next actions only. Build 7 Increment 6 remains BLOCKED; PR #370 remains unmerged.
+
+**Fresh-run replay verified:** Re-executing the ordinary `annual --through-year 2035` command for the new 2227 run completed with **43/43 epochs `ALREADY_MATCHED`**, no new committed epochs, and the identical 2027–2035 decision/status sequence, project ID, EXPLORING status, maturity, and zero cash. This confirms same-revision deterministic replay of the observed campaign; it does not resolve the separate older-run artifact mismatch.
