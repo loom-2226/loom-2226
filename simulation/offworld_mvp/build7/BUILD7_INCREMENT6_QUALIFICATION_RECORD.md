@@ -234,3 +234,66 @@ qualify a later REMOTE mission alongside a retained project or multiple projects
 No compiler or World Authority correction is justified by the two-body,
 pre-project result alone. Preserve the broader Increment 6 BLOCKED disposition
 pending separate evidence for project coexistence and the other causal gaps.
+
+## Post-project multi-body persistence experiment
+
+**Setup.** On branch `offworld-mvp-build7-hidden-world` at
+`6713bf5476e71580b3744bd02bceb737b2426285` (PR #370 OPEN), a fresh disposable
+database `loom_b7_i6_postproject_probe_20261009` was cloned from the local
+interactive-test database. No source/qualification database, schema, role, or
+repository code was changed. A new no-target run used seed
+`BUILD7-I6-POSTPROJECT-SPATIAL-PROBE-20261009`, run ID
+`SOLAR_MATERIAL_d7a721c7ea26857bffd168a5:6d3415124da62dd5`.
+
+**Phase A — admitted.** The normal `run_world_prospecting_initiation()` path
+selected COMET_HALLEY, ran the existing PUBLIC policy and body REMOTE
+observation, admitted the four observations/beliefs, derived the SPN-visible
+prospecting opportunity, and received an actual SPN `INITIATE_PROJECT`
+decision. It created the single project
+`PROSPECT:COMET_HALLEY:BUILD7_PROSPECTING_REGION_02`, bound to REGION 02,
+committed/disbursed 20 model-currency units, and retained project cash 20.
+Capital state was `F=29.58025335469291`, `X=20`, `R=0`, `S=0`.
+
+**Phase B — policy selected, persistence rejected.** With the admitted Body A
+observation and existing project state, the normal year-2027 candidate
+derivation and `choose_remote_characterization()` selected DEIMOS. The
+existing PUB Explorer policy evaluated actor-visible inputs and returned
+`AUTHORIZE` at cost 10. `flow.policy_epoch()` then called
+`execute_persisted_epoch()`, whose `_runtime_epoch_rows()` raised
+`NamedWorldBlocked: BLOCKED_UNBOUND_OFFWORLD_STATE` at
+`build6e/named_world.py:519–524`. This is the first rejection: the decision
+epoch could not commit. The policy result remained uncommitted; no Body B
+mission authorization, observation, possession, or belief was admitted.
+
+The rejected guard checks `kernel.state.projects`, assets, resources, colonies,
+Offworld nodes, and population whenever the epoch binding is absent or is a
+`BodyRemoteBinding`. Phase A has a legitimate `PROSPECTING_REGION` project
+location, but the Body B REMOTE epoch has a body binding and no spatial
+representation for the already existing project's independent REGION. The
+guard therefore conflates “body-level mission has no target location” with
+“run contains no Offworld realized state.” This is the compiler's strict
+projection/profile limitation, not a rejection by the PUBLIC Agent policy or
+the underlying `wa_run.mission`/`wa_run.observation` tables: Phase A's project
+and Body A's body-scoped mission already coexist in the same run.
+
+**Phase C — committed history replayed.** Reopening by reconstructing the run
+and replaying the normal Phase A path returned `ALREADY_MATCHED` for all 20
+committed epochs. World Authority retained one Body A mission, four Body A
+observations, one REGION 02 project/location, four PUB possessions, and four
+PUB belief rows. Repeating the failed Phase B attempt again reached the same
+policy authorization and the same compiler guard; persisted counts did not
+change. No second body observation was persisted, so successful replay of both
+body events was not established.
+
+**Classification: persistence compiler limitation.** Unlike the earlier
+successful two-body experiment (which had no project), this test proves that
+the compiler's unbound-Offworld-state gate prevents a body-scoped REMOTE epoch
+from coexisting with a valid REGION-scoped project, even though the project
+and a different body binding are individually represented by existing
+World Authority records. The smallest justified correction is a narrow
+compiler projection change that validates each persisted project against its
+own recorded REGION origin while validating the REMOTE mission and
+observations against the current body binding. The experiment does not
+authorize or implement that change, and does not demonstrate multiple-project
+support. Preserve the BLOCKED qualification disposition and earlier
+pre-project experiment; no simulation contracts or checks were relaxed.
