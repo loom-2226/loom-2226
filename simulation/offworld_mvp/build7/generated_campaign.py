@@ -52,6 +52,9 @@ from offworld_kernel.financing_protocol import build_financing_request
 from offworld_kernel.market_protocol import build_sale_decision_request
 from offworld_kernel.distribution_protocol import build_surplus_distribution_request
 from offworld_kernel.transport_protocol import build_transport_settlement_request
+from offworld_kernel.project_activity import ProjectActivityStatus, build_sponsor_portfolio_request
+from offworld_kernel.project_study import build_project_study_review_request
+from simulation.offworld_mvp.build7.increment5 import classify_regional_material_observation
 
 from simulation.offworld_mvp.build6e.generated_world import generate_solar_system, bind_generated_target, _hash as generated_hash
 from simulation.offworld_mvp.build6e.named_world import (
@@ -338,10 +341,13 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
             contracts.append((actor,'POLICY',concept,scope,'SCENARIO','AGENT',unit,'POLICY_PARAMETER'))
         for concept,(selector,subject,unit) in flow.LIVE.items():
             if concept.startswith('opportunity.'):continue
-            if not targeted and concept not in ('agent.STATE','agent.BELIEF','agent.PRIOR','capital.AVAILABLE_F'):continue
-            if not targeted and concept=='capital.AVAILABLE_F' and actor!='SPN':continue
+            if not targeted and concept not in ('agent.STATE','agent.BELIEF','agent.PRIOR','capital.AVAILABLE_F','project.STATUS') and concept not in flow.STUDY_FACTS:continue
+            if not targeted and actor!='SPN' and (concept=='capital.AVAILABLE_F' or
+                    concept=='project.STATUS' or concept in flow.STUDY_FACTS):continue
             subject=actor if subject=='SELF' else target['node'] if subject==flow.NODE_ID else subject
             if concept.startswith('agent.'):scope='AGENT:'+actor
+            elif concept in flow.STUDY_FACTS or (not targeted and concept=='project.STATUS'):
+                subject,scope='SPN','PROJECT:REGION_STUDY';selector='BUILD7_STUDY_FACT'
             elif subject=='P':scope='PROJECT:P'
             elif concept=='capital.AVAILABLE_F':scope='COUNTRY:USA'
             else:scope=target['site_ref']
@@ -366,7 +372,9 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
     if not targeted:
         used_methods=('record_earth_reference_year','explore_paid','update_agent_belief_from_observation','publish_observation',
             'mobilize_country_capital','create_prospecting_project','add_commitment',
-            'disburse_country_capital')
+            'disburse_country_capital','initialize_region_study','authorize_project_study_activity',
+            'start_project_activity','spend_project_study_activity','observe_region_study',
+            'complete_project_study_activity','admit_project_activity_result','execute_project_study_review')
     allowed=[]
     for method in used_methods:
         sid='SYS:'+method;allowed.append((sid,(method,)));scope='PROCESS:'+sid
@@ -418,6 +426,11 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
                 for system_id in ('SYS:update_agent_belief_from_observation','SYS:publish_observation'):
                     contracts.append((system_id,'SYSTEM_TRANSITION','body.BELIEF',scope+':'+question,
                         'REALIZED','WORLD_SIM','PROBABILITY','ACTOR_BELIEF'))
+                for ordinal in range(1,11):
+                    _,location_id=store.prospecting_region_identity(body_key,ordinal)
+                    contracts.append(('SYS:update_agent_belief_from_observation',
+                        'SYSTEM_TRANSITION','body.BELIEF',scope+':REGION:'+str(location_id)+':'+question,
+                        'REALIZED','WORLD_SIM','PROBABILITY','ACTOR_BELIEF'))
         bindings.extend((('SYS:update_agent_belief_from_observation','observation.SIGNAL','OBSERVATION'),
             ('SYS:update_agent_belief_from_observation','body.BELIEF','BODY_BELIEF'),
             ('SYS:publish_observation','observation.SIGNAL','OBSERVATION'),
@@ -465,6 +478,7 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         ('PUB',AgentKind.PUBLIC,'public_funds',{'EXPLORE','SURFACE_PROSPECT','MIGRATE','SETTLEMENT_SUPPORT'},('PUBLIC_INFORMATION','PUBLIC_SETTLEMENT')),
         ('FIN',AgentKind.PRIVATE_FINANCIER,'fin_funds',{'FINANCE'},('RETURN',)),
         ('SPN',AgentKind.PRIVATE_SPONSOR,'sponsor_funds',{'REQUEST_FINANCE','DEVELOP','OPERATE','EXTRACT','SELL','DISTRIBUTE_SURPLUS','CLOSE_PROJECT'},('RETURN',))):
+        if not targeted and aid=='SPN':caps=set(caps)|{'AUTHORIZE_ACTIVITY','REVIEW_STUDY'}
         a=AgentState(aid,kind,'EARTH:USA',account,caps,objectives);key=params['belief_key.'+aid];a.priors[key]=D(params['prior']);a.beliefs[key]=D(params['prior']);k.add_agent(a)
     if not targeted:
         for body_key in body_keys:
@@ -760,7 +774,8 @@ def derive_world_prospecting_opportunities(k,h,calendar_year,body_key):
 
 def run_world_prospecting_initiation(*,reference_service,runtime_service,run_id,
                                      public_login_service='agent_pub',
-                                     sponsor_login_service='agent_spn',calendar_year=2026):
+                                     sponsor_login_service='agent_spn',calendar_year=2026,
+                                     _return_runtime=False):
     """Replay I1-I3, then execute the bounded Increment 4 prospecting seam."""
     import psycopg
     if calendar_year!=2026:
@@ -775,14 +790,16 @@ def run_world_prospecting_initiation(*,reference_service,runtime_service,run_id,
         runtime_service=runtime_service,agent_login_service=public_login_service,
         calendar_year=calendar_year)
     if exploration['choice']!='SELECT':
-        return {**exploration,'prospecting_decision':'WAIT','prospecting_reason':'NO_CHARACTERIZED_BODY'}
+        result={**exploration,'prospecting_decision':'WAIT','prospecting_reason':'NO_CHARACTERIZED_BODY'}
+        return (k,h,world,result) if _return_runtime else result
     body_key=exploration['selected_body_id'];year=calendar_year-2025
     opportunities=derive_world_prospecting_opportunities(k,h,calendar_year,body_key)
     tie_key=sha256((config['runtime']['policy_seed']+'|SPN|'+str(calendar_year)+
         '|PROSPECTING_REGION_CHOICE_V1|'+body_key).encode()).hexdigest()
     opportunity=choose_equivalent_region(opportunities,tie_key)
     if opportunity is None:
-        return {**exploration,'prospecting_decision':'WAIT','prospecting_reason':'NO_VISIBLE_PROSPECTING_OPPORTUNITY'}
+        result={**exploration,'prospecting_decision':'WAIT','prospecting_reason':'NO_VISIBLE_PROSPECTING_OPPORTUNITY'}
+        return (k,h,world,result) if _return_runtime else result
     investment=D(str(next(row['investment'] for row in h['earth']['economic']
         if int(row['year'])==calendar_year)))
     scenario=h['prospecting_scenario']
@@ -804,12 +821,13 @@ def run_world_prospecting_initiation(*,reference_service,runtime_service,run_id,
                  'capital.AVAILABLE_F'),workers.run_sponsor_prospecting_policy,
         workers.sponsor_prospecting_policy_version())
     if decision.outcome!=SponsorProspectingOutcome.INITIATE_PROJECT:
-        return {**_world_summary(k,h,world),'choice':'SELECT','selected_body_id':body_key,
+        result={**_world_summary(k,h,world),'choice':'SELECT','selected_body_id':body_key,
             'prospecting_decision':decision.outcome.value,
             'prospecting_reason':decision.reason_code.value,
             'prospecting_opportunity_id':opportunity.opportunity_id,
             'capital_mobilized':str(mobilization.mobilized_cash),
             'capital_coupling':{key:str(value) for key,value in k.capital_coupling['USA'].items()}}
+        return (k,h,world,result) if _return_runtime else result
     prior_binding=h['named_binding']
     h['named_binding']=ProspectingRegionBinding(
         prior_binding.scenario_id,prior_binding.world_id,prior_binding.body_id,
@@ -827,7 +845,8 @@ def run_world_prospecting_initiation(*,reference_service,runtime_service,run_id,
     if (len(k.state.projects)!=1 or k.resources or k.state.assets or k.colonies
             or k.population.offworld or k.population.in_transit):
         raise Build7Blocked('BUILD7_PROSPECTING_CREATED_FORBIDDEN_STATE')
-    return {**_world_summary(k,h,world),'choice':'SELECT','selected_body_id':body_key,
+    h['prospecting_decision_ref']=decision_ref
+    result={**_world_summary(k,h,world),'choice':'SELECT','selected_body_id':body_key,
         'prospecting_decision':decision.outcome.value,
         'prospecting_reason':decision.reason_code.value,
         'prospecting_opportunity_id':opportunity.opportunity_id,
@@ -840,7 +859,96 @@ def run_world_prospecting_initiation(*,reference_service,runtime_service,run_id,
         'capital_coupling':{key:str(value) for key,value in k.capital_coupling['USA'].items()},
         'earth_shadow':{key:(str(value) if not isinstance(value,int) else value)
                         for key,value in k.earth_shadow_at(year).items()}}
+    return (k,h,world,result) if _return_runtime else result
 
+
+def run_world_annual(*,reference_service,runtime_service,run_id,through_year=2029,
+                     public_login_service='agent_pub',sponsor_login_service='agent_spn'):
+    """Replay annual decisions and consequences from the governed no-target run.
+
+    The conductor reads realized activity state; policies choose actions. An
+    observation generated in one year is reviewed in a later decision window.
+    """
+    if not 2026<=through_year<=2035:
+        raise Build7Blocked('BUILD7_ANNUAL_HORIZON')
+    k,h,world,opening=run_world_prospecting_initiation(
+        reference_service=reference_service,runtime_service=runtime_service,
+        run_id=run_id,public_login_service=public_login_service,
+        sponsor_login_service=sponsor_login_service,_return_runtime=True)
+    if through_year==2026:
+        return opening
+    project_id=opening.get('project_id')
+    annual=[]
+    for calendar_year in range(2027,through_year+1):
+        year=calendar_year-2025
+        _record_empty_year(k,h,calendar_year)
+        if project_id is None:
+            annual.append((calendar_year,'NO_ACTION'))
+            continue
+        activity=k.project_activities.get('BUILD7_REGION_STUDY')
+        if activity is None:
+            flow.system_epoch(k,h,'initialize_region_study',str(year),
+                (year,project_id,opening['prospecting_location_id']),
+                decision_refs=(h['prospecting_decision_ref'],))
+            activity=k.project_activities['BUILD7_REGION_STUDY']
+        if activity.status==ProjectActivityStatus.PROPOSED:
+            request=build_sponsor_portfolio_request(
+                'BUILD7:PORTFOLIO:'+str(calendar_year),year,(activity.id,))
+            decision,ref=flow.policy_epoch(k,h,'BUILD7_PORTFOLIO:'+str(calendar_year),
+                'SPN',str(year),request,request.required_fact_keys,
+                workers.run_sponsor_portfolio_policy,workers.sponsor_portfolio_policy_version())
+            if decision.outcome.value=='AUTHORIZE':
+                flow.system_epoch(k,h,'authorize_project_study_activity',str(year),
+                    (year,decision),decision_refs=(ref,))
+                flow.system_epoch(k,h,'start_project_activity',str(year),
+                    (year,activity.id),decision_refs=(ref,))
+                flow.system_epoch(k,h,'spend_project_study_activity',str(year),
+                    (year,activity.id,'PROJECT'),decision_refs=(ref,))
+            annual.append((calendar_year,decision.outcome.value))
+            continue
+        if activity.status==ProjectActivityStatus.ACTIVE and D(activity.planned_completion)<=D(year):
+            ref=next(ref for ref,(_,decision_id,_) in k._boundary_decisions.items()
+                if decision_id==activity.authorization_decision_id)
+            observations,_=flow.system_epoch(k,h,'observe_region_study',str(year),
+                (year,'SPN',opening['selected_body_id'],opening['prospecting_location_id'],
+                 project_id,activity.id),decision_refs=(ref,))
+            for observation in observations:
+                belief_key='BODY:'+observation.body_id+':'+observation.question_ref
+                flow.system_epoch(k,h,'update_agent_belief_from_observation',str(year),
+                    (year,'SPN',observation.id,belief_key,D('.80'),D('.20'),
+                     'BUILD7_REGION_MATERIAL_V1',AUTHORIZATION),decision_refs=(ref,))
+            standing=classify_regional_material_observation(observations)
+            result_ref='BUILD7:REGION_STUDY_RESULT:'+content_hash(tuple(o.id for o in observations))[:24]
+            flow.system_epoch(k,h,'complete_project_study_activity',str(year),
+                (year,activity.id,standing.value,result_ref),decision_refs=(ref,))
+            flow.system_epoch(k,h,'admit_project_activity_result',str(year),
+                (year,activity.id,'SPN'),decision_refs=(ref,))
+            annual.append((calendar_year,'STUDY_'+standing.value))
+            continue
+        result=next((r for r in k.project_study_result_records if r.activity_id==activity.id),None)
+        reviewed=any(r.activity_id==activity.id for r in k.project_study_review_records)
+        if activity.status==ProjectActivityStatus.COMPLETED and result is not None and not reviewed:
+            request=build_project_study_review_request(
+                'BUILD7:STUDY_REVIEW:'+str(calendar_year),project_id,activity.id,result.result_ref)
+            decision,ref=flow.policy_epoch(k,h,'BUILD7_STUDY_REVIEW:'+str(calendar_year),
+                'SPN',str(year),request,request.required_fact_keys,
+                workers.run_sponsor_study_review_policy,workers.sponsor_study_review_policy_version())
+            if decision.outcome.value in ('ADVANCE','DEFER','ABANDON'):
+                flow.system_epoch(k,h,'execute_project_study_review',str(year),
+                    (year,request,decision),decision_refs=(ref,))
+            annual.append((calendar_year,decision.outcome.value))
+            continue
+        annual.append((calendar_year,'NO_ACTION'))
+    result={**_world_summary(k,h,world),'project_id':project_id,'annual':tuple(annual)}
+    if project_id is not None:
+        study=k.project_study_states.get(project_id)
+        result.update(project_status=k.state.projects[project_id].status,
+            study_maturity=None if study is None else study.maturity.value,
+            project_cash=str(k.state.accounts[k.state.projects[project_id].cash_account_id].balance),
+            study_expenses=len(k.project_activity_expense_records),
+            regional_observations=sum(o.channel=='REGION' for o in k.observations.values()),
+            study_reviews=len(k.project_study_review_records))
+    return result
 
 def run_remote(k,h):
     p=h['params'];req=build_exploration_request('REMOTE:request',1,'EXP','RES','REMOTE')
@@ -965,9 +1073,9 @@ def main(argv=None):
     for name in ('new','targeted-new'):
         parser=sub.add_parser(name);parser.add_argument('--reference-service',default='reference_reader');parser.add_argument('--science-writer-service',default='science_writer');parser.add_argument('--world-writer-service',default='world_writer');parser.add_argument('--runtime-service',default='runtime');parser.add_argument('--world-seed',required=True);parser.add_argument('--science-cutoff',type=int,default=0)
         if name=='targeted-new':parser.add_argument('--body',required=True);parser.add_argument('--full',action='store_true')
-    for name in ('resume','targeted-resume'):
+    for name in ('resume','annual','targeted-resume'):
         parser=sub.add_parser(name);parser.add_argument('--reference-service',default='reference_reader');parser.add_argument('--runtime-service',default='runtime');parser.add_argument('--run-id',required=True)
-        if name=='resume':parser.add_argument('--through-year',type=int,default=2027)
+        if name in ('resume','annual'):parser.add_argument('--through-year',type=int,default=2027 if name=='resume' else 2029)
         else:parser.add_argument('--opening-only',action='store_true')
     remote_parser=sub.add_parser('remote-choice')
     remote_parser.add_argument('--reference-service',default='reference_reader')
@@ -987,6 +1095,9 @@ def main(argv=None):
             world_seed=args.world_seed,science_cutoff=args.science_cutoff)
     elif args.command=='resume':
         result=resume_world_run(reference_service=args.reference_service,runtime_service=args.runtime_service,
+            run_id=args.run_id,through_year=args.through_year)
+    elif args.command=='annual':
+        result=run_world_annual(reference_service=args.reference_service,runtime_service=args.runtime_service,
             run_id=args.run_id,through_year=args.through_year)
     elif args.command=='remote-choice':
         result=run_world_remote_choice(reference_service=args.reference_service,

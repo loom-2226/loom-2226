@@ -309,8 +309,10 @@ def _resolve_live(k,r):
         obs=k.observations.get(r.subject_id)
         if obs is None:return _outcome(k,r,FactState.UNKNOWN,'MISSING_OBSERVATION')
         if getattr(obs,'body_id',''):
-            if (r.scope!='BODY:'+obs.body_id or obs.question_ref not in
-                    ('WATER_BEARING_MATERIAL_PRESENT',*BODY_MATERIAL_QUESTIONS)):
+            region_question=(obs.channel=='REGION' and obs.question_ref.startswith('REGION:')
+                and any(obs.question_ref.endswith(':'+question) for question in BODY_MATERIAL_QUESTIONS))
+            if (r.scope!='BODY:'+obs.body_id or not (region_question or obs.question_ref in
+                    ('WATER_BEARING_MATERIAL_PRESENT',*BODY_MATERIAL_QUESTIONS))):
                 return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
         elif obs.resource_id!=k.boundary_manifest.parameter('resource_id'):
             return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
@@ -348,6 +350,37 @@ def _resolve_live(k,r):
         if value<0:return _outcome(k,r,FactState.BLOCKED,'NEGATIVE_AVAILABLE_FINANCING')
         return _value(k,r,str(value),kind='FINANCIAL_STATE',mode='SIMULATION_RESULT',
             source='capital-coupling:'+r.subject_id+':F')
+    if selector=='BUILD7_STUDY_FACT':
+        if r.consumer_id!='SPN' or r.subject_id!='SPN' or r.scope!='PROJECT:REGION_STUDY':
+            return _outcome(k,r,FactState.BLOCKED,'BLOCKED_STUDY_SCOPE')
+        activity=k.project_activities.get('BUILD7_REGION_STUDY')
+        if activity is None:return _outcome(k,r,FactState.UNKNOWN,'STUDY_NOT_INITIALIZED')
+        project=k.state.projects.get(activity.project_id)
+        if project is None or 'SPN' not in project.owners:
+            return _outcome(k,r,FactState.BLOCKED,'BLOCKED_STUDY_OWNERSHIP')
+        state=k.project_study_states.get(project.id)
+        plan=k.project_study_plans.get('BUILD7_REGION_STUDY_PLAN')
+        result=next((x for x in k.project_study_result_records if x.activity_id==activity.id),None)
+        if state is None or plan is None:return _outcome(k,r,FactState.UNKNOWN,'STUDY_PLAN_MISSING')
+        values={
+            'portfolio.AVAILABLE_CAPITAL':str(k.state.accounts[project.cash_account_id].balance),
+            'activity.BUILD7_REGION_STUDY.PROJECT_ID':project.id,
+            'activity.BUILD7_REGION_STUDY.PROJECT_STATUS':str(project.status),
+            'activity.BUILD7_REGION_STUDY.STATUS':activity.status.value,
+            'activity.BUILD7_REGION_STUDY.COMMITMENT':str(activity.capital_commitment),
+            'activity.BUILD7_REGION_STUDY.PRIORITY':str(activity.priority),
+            'activity.BUILD7_REGION_STUDY.WINDOW_VALID':'1',
+            'project.STATUS':str(project.status),
+            'study.CURRENT_MATURITY':state.maturity.value,
+            'study.ACTIVITY_ID':activity.id,
+            'study.NEXT_MATURITY':plan.next_maturity.value,
+        }
+        if result is not None and result.result_ref in k.agents['SPN'].information:
+            values.update({'study.RESULT_REF':result.result_ref,
+                           'study.RESULT_STANDING':result.standing.value})
+        if r.concept not in values:return _outcome(k,r,FactState.UNKNOWN,'STUDY_INFORMATION_NOT_ADMITTED')
+        return _value(k,r,values[r.concept],kind='AGENT_VISIBLE_STATE',
+            mode='ADMITTED_INFORMATION',source='study:'+project.id+':'+r.concept)
     if selector=='EARTH_SUPPLY':
         try:node,period=r.subject_id.rsplit(':SIM',1);year=int(period)
         except (ValueError,TypeError):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')

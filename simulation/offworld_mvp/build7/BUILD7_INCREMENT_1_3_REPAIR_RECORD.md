@@ -341,3 +341,27 @@ I4-D01 through I4-D05 remain the governing bounded decisions for this closure.
 ## Use of this record
 
 When a later change touches a repaired seam above, use the cited commit, governing Build 7 authority, and current tests as the implementation evidence. This record explains the historical reason for the seam; it does not override current Git authority or authorize broader architecture.
+
+## Increment 5 — REGION study and annual handoff
+
+### I5-D01 — REGION-scoped prospecting observation contract
+
+**Finding:** The inherited surface prospecting action required a resource, while the I4 project owns only one geology-neutral REGION.
+
+**Maintainer resolution:** An authorized paid study may observe that project's selected REGION through WORLD_SIM and return bounded material-family evidence. The observation itself establishes no site, deposit, resource, reserve, recoverability, or development value.
+
+**Implementation:** The existing Build 6B activity spends project cash through EXPLORATION_WIP. A narrow REGION observation transition reads the selected REGION's hidden state only after the sponsor's activity authorization, emits four noisy signals, and updates SPN's own regional family beliefs. The existing Build 6B result, information admission, and sponsor review transitions consume the completed study.
+
+### I5-D02 — provisional hidden REGION material-family realization
+
+**Finding:** Body-level material truth could not answer a REGION study without an unsupported spatial inference.
+
+**Maintainer resolution:** Add hidden, body-conditioned fictional family presence across the ten existing REGION identities. This is a **PROVISIONAL MODEL**, not geology or an empirical occurrence estimate. The shared regional presence fraction `0.35` is a **HIGH-SENSITIVITY FICTIONAL SCENARIO INPUT**. A body-absent family is absent in all ten REGIONs; a body-present family occurs in at least one and not all ten REGIONs. Keyed generation is independent of Agent choice and stable on replay.
+
+**Implementation:** Generated WORLD stores four coarse hidden family states per REGION. A narrow World Authority read resolves persisted project REGION to its body and existing run WORLD, fails closed on missing or ambiguous identity, and never creates a new world binding. The REGION truth enters only the authorized WORLD_SIM study transition.
+
+### I5-Q01 — bounded annual disposition
+
+**Verification:** The 2026–2029 governed fixture created one I4 prospecting project, paid one Build 6B study from its `20` model-currency project cash, persisted four REGION observations and SPN belief updates, resolved WIP to KNOWLEDGE, and admitted a structural study result. The 2029 sponsor review consumed that result and took an adjacent maturity decision. Reopen matched every prior epoch without duplicate project, expense, observation, or review. The existing 90-body/900-REGION catalog was unchanged. A no-project annual run also persisted no-action years. The accounting auditor recognizes only the actual WIP-to-KNOWLEDGE conversion, leaving cash conservation checks in force.
+
+**Disposition:** Increment 5 stops at information/study maturity. No site, resource quantity, grade, recoverability, reserve, development economics, production, settlement, or Increment 6 behavior is inferred or activated.

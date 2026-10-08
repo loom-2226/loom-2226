@@ -92,7 +92,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
     SCHEDULED_MUTATION_METHODS=frozenset({
         'add_node','add_account','add_project','add_commitment','transfer','disburse','spend_capex','capitalize',
         'add_agent','add_resource','event','observe','publish_observation','submit_financing_request','transition_project_status','request_finance','decide_finance','extract','sell','migrate',
-        'set_resource_constraint','reserve_earth_supply','spend_reserved_capex','explore_paid','surface_prospect_paid','update_agent_belief_from_observation','resolve_exploration',
+        'set_resource_constraint','reserve_earth_supply','spend_reserved_capex','explore_paid','observe_region_study','surface_prospect_paid','update_agent_belief_from_observation','resolve_exploration',
         'extract_bounded','sell_to_market','dispose_surplus',
         'audit','register_vehicle_ownership','distribute_vehicle_to_owners','set_supply_capacity','consume_supply',
         'create_wip','add_wip_expenditure','commission_wip','write_off_wip','depreciate','amortize_knowledge',
@@ -113,6 +113,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'complete_project_study_activity','execute_project_study_review',
         'register_named_body_evidence','register_body_portfolio_binding','admit_realized_output_observation',
         'mobilize_country_capital','create_prospecting_project','disburse_country_capital',
+        'initialize_region_study',
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
@@ -1371,7 +1372,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             itx=txids.get(r.investment_transaction_id); etx=txids.get(r.exploration_transaction_id)
             if itx is None or etx is None or D(itx.amount)!=D(r.amount) or D(etx.amount)!=D(r.amount):
                 raise InvariantError('project activity expense transaction drift')
-            if itx.purpose!=TxPurpose.OTHER_INVESTMENT or etx.purpose!=TxPurpose.EXPLORATION:
+            investment_purpose=(TxPurpose.DISBURSE if r.record_version=='BUILD7_REGION_PROJECT_FUNDED_STUDY_V1'
+                                else TxPurpose.OTHER_INVESTMENT)
+            if itx.purpose!=investment_purpose or etx.purpose!=TxPurpose.EXPLORATION:
                 raise InvariantError('project activity expense purpose drift')
             asset=self.state.assets[r.wip_asset_id]
             if asset.project_id!=r.project_id or D(asset.book_value)!=D(r.amount):
@@ -1599,6 +1602,33 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.project_study_states[state.project_id]=state
         return state
 
+    def initialize_region_study(self,year,project_id,region_id):
+        """Attach one Build 6B study to the sponsor's existing Build 7 project."""
+        if (project_id not in self.state.projects or
+                self.state.projects[project_id].status!='EXPLORING' or
+                project_id not in {r.project_id for r in self.prospecting_project_creation_records} or
+                any(s.project_id==project_id for s in self.project_study_states.values())):
+            raise InvariantError('regional study project already initialized or invalid')
+        creation=next(r for r in self.prospecting_project_creation_records if r.project_id==project_id)
+        if str(creation.location_id)!=str(region_id):
+            raise InvariantError('regional study differs from selected project REGION')
+        from .project_activity import ProjectActivity
+        aid='BUILD7_REGION_STUDY';pid='BUILD7_REGION_STUDY_PLAN'
+        self.register_project_study_state(ProjectStudyState(project_id,ProjectStudyMaturity.REMOTE_CHARACTERIZED))
+        self.register_project_activity(ProjectActivity(aid,project_id,'REGION_MATERIAL_CHARACTERIZATION',
+            'SPN',1,D(year),D(1),D(self.state.accounts[self.state.projects[project_id].cash_account_id].balance),
+            'REGION_MATERIAL_CHARACTERIZATION_RESULT'))
+        self.register_project_study_plan(ProjectStudyPlan(pid,aid,project_id,
+            ProjectStudyMaturity.REMOTE_CHARACTERIZED,
+            ProjectStudyMaturity.SURFACE_OR_SAMPLE_CHARACTERIZED,'earth_supplier',
+            'REGION_MATERIAL_CHARACTERIZATION_RESULT'))
+        for family in ('VOLATILES','METALS','SILICATES_ROCK','CARBONACEOUS_ORGANICS'):
+            key='BODY:'+creation.body_key+':REGION:'+str(region_id)+':'+family+'_PRESENT'
+            self.agents['SPN'].priors[key]=D('0.5')
+        self.event(year,'SPN',ActionKind.AUTHORIZE_ACTIVITY,'REGION_STUDY_AVAILABLE',
+            (project_id,str(region_id),aid,pid))
+        return self.project_study_plans[pid]
+
     def register_project_study_plan(self,plan:ProjectStudyPlan):
         try:
             plan.validate()
@@ -1637,7 +1667,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             raise InvariantError('project study authorization requires EXPLORING project')
         return self.authorize_project_activity(effective_time,decision)
 
-    def spend_project_study_activity(self,effective_time,activity_id):
+    def spend_project_study_activity(self,effective_time,activity_id,funding_mode='SPONSOR'):
         if activity_id not in self.project_activities:
             raise InvariantError('project study activity missing')
         a=self.project_activities[activity_id]
@@ -1654,8 +1684,11 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             raise InvariantError('project study spend requires EXPLORING project')
         actor=self.agents[a.actor_id]
         amount=D(a.capital_commitment)
-        if self.state.accounts[actor.account_id].balance<amount:
-            raise InvariantError('project study sponsor cash insufficient at spend')
+        if funding_mode not in ('SPONSOR','PROJECT'):
+            raise InvariantError('project study funding mode invalid')
+        source=actor.account_id if funding_mode=='SPONSOR' else project.cash_account_id
+        if self.state.accounts[source].balance<amount:
+            raise InvariantError('project study cash insufficient at spend')
         t=D(str(effective_time)); year=int(t)
         supplier_node=self.state.accounts[plan.supplier_account_id].node_id
         if self.state.nodes[supplier_node].kind==NodeKind.EARTH:
@@ -1665,14 +1698,22 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if amount>self.resource_constraints[key].available:
                 raise InvariantError('project study Earth supply unavailable')
             self.reserve_earth_supply(supplier_node,year,amount)
-        investment=self.transfer(
-            year,actor.account_id,project.cash_account_id,amount,TxPurpose.OTHER_INVESTMENT,
-            parent_ids=(a.id,plan.id))
+        if funding_mode=='PROJECT':
+            records=[r for r in self.country_capital_disbursement_records
+                if r.project_id==plan.project_id and D(r.amount)==amount]
+            if len(records)!=1 or activity_id!='BUILD7_REGION_STUDY':
+                raise InvariantError('regional study requires one matching prior disbursement')
+            investment=next(tx for tx in self.state.transactions if tx.id==records[0].transaction_id)
+        else:
+            investment=self.transfer(
+                year,actor.account_id,project.cash_account_id,amount,TxPurpose.OTHER_INVESTMENT,
+                parent_ids=(a.id,plan.id))
         exploration,wip=self.spend_exploration_wip(
             year,plan.project_id,plan.supplier_account_id,amount,project.node_id,
             parent_ids=(a.id,plan.id,investment.id))
         rec=ProjectActivityExpenseRecord(
-            a.id,a.project_id,a.actor_id,amount,t,investment.id,exploration.id,wip)
+            a.id,a.project_id,a.actor_id,amount,t,investment.id,exploration.id,wip,
+            'BUILD7_REGION_PROJECT_FUNDED_STUDY_V1' if funding_mode=='PROJECT' else 'BUILD6B_PROJECT_ACTIVITY_EXPENSE_V0_1')
         try:
             rec.validate()
         except ValueError as e:
@@ -2541,7 +2582,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
     def keyed_draw(self,*keys):
         if self.boundary_manifest is None:return super().keyed_draw(*keys)
         from decimal import getcontext
-        if len(keys)!=5 or keys[0]!='OBS' or keys[4] not in ('REMOTE','SURFACE'):
+        if len(keys)!=5 or keys[0]!='OBS' or keys[4] not in ('REMOTE','SURFACE','REGION'):
             raise InvariantError('BLOCKED_PARAMETER: undeclared WORLD key family')
         if D(keys[1])!=D(keys[1]).to_integral_value() or D(keys[1])<0:raise InvariantError('BLOCKED_TIME: observation period')
         c=dict(self.boundary_manifest.comparison_parameters)
@@ -2689,7 +2730,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 origin=next((e for e in self.causal_envelopes if e.action=='POLICY_EVALUATION' and ref in e.decision_refs),None)
                 if origin is None or not origin.request_refs:raise InvariantError('BLOCKED_LINEAGE: decision request absent')
                 original_request=json.loads(self.causal_artifacts[origin.request_refs[0]][1])
-                if 'decision' in b and typed(qrequest)!=original_request:raise InvariantError('BLOCKED_LINEAGE: executor request differs from authorized request')
+                if 'decision' in b and qrequest is not None and typed(qrequest)!=original_request:raise InvariantError('BLOCKED_LINEAGE: executor request differs from authorized request')
                 q=original_request['fields'];f=d['fields']
                 actor=f.get('actor_id',f.get('financier_id',{})).get('value')
                 actual_actor=b.get('actor_id',b.get('agent_id',b.get('financier_id')))
@@ -2703,6 +2744,11 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                             name!='explore_paid' or b.get('body_id')!=q['body_id']['value'] or
                             b.get('question_ref')!=q['question_ref']['value'] or project or resource):
                         raise InvariantError('BLOCKED_LINEAGE: body observation subject not authorized')
+                if name=='observe_region_study' and (
+                        f['outcome']['value']!='AUTHORIZE' or
+                        b['activity_id']!='BUILD7_REGION_STUDY' or
+                        b['activity_id'] not in tuple(item['value'] for item in q['candidate_activity_ids']['items'])):
+                    raise InvariantError('BLOCKED_LINEAGE: regional study not authorized')
                 if name=='publish_observation' and (f['outcome']['value']!='PUBLISH' or b['observation_id']!=q['observation_id']['value'] or b['audience']!=q['audience']['value']):raise InvariantError('BLOCKED_LINEAGE: publication not authorized')
                 if name=='transition_project_status':
                     expected_status={'ABANDON':'ABANDONED','DEVELOP':'DEVELOPMENT'}.get(f['outcome']['value'])

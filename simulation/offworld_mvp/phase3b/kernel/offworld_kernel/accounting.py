@@ -40,6 +40,7 @@ class AccountingPeriodSnapshot:
     productive_total:D
     knowledge_total:D
     resource_remaining:Tuple[Tuple[str,D],...]
+    asset_kinds:Tuple[Tuple[str,AssetKind],...]
 
     @staticmethod
     def capture(kernel,period):
@@ -52,7 +53,8 @@ class AccountingPeriodSnapshot:
             tuple(sorted((w.id,D(w.remaining_wip)) for w in kernel.wip.values())),
             sum((D(a.book_value) for a in kernel.state.assets.values() if a.kind==AssetKind.PRODUCTIVE),D('0')),
             sum((D(a.book_value) for a in kernel.state.assets.values() if a.kind==AssetKind.KNOWLEDGE),D('0')),
-            tuple(sorted((rid,remaining_in_situ(r)) for rid,r in kernel.resources.items())))
+            tuple(sorted((rid,remaining_in_situ(r)) for rid,r in kernel.resources.items())),
+            tuple(sorted((aid,a.kind) for aid,a in kernel.state.assets.items())))
 
 class AccountingIdentityAuditor:
     """Executable A1-A9 checks from the Offworld Financing Agent v2 identity set."""
@@ -138,7 +140,12 @@ class AccountingIdentityAuditor:
         if productive!=self.s.productive_total+capitalization-depreciation:
             raise InvariantError('A5 productive asset rollforward')
         knowledge=sum((D(a.book_value) for a in self.k.state.assets.values() if a.kind==AssetKind.KNOWLEDGE),D('0'))
-        if knowledge!=self.s.knowledge_total-amortization:
+        opening_kinds=dict(self.s.asset_kinds)
+        resolved=sum((D(a.book_value) for aid,a in self.k.state.assets.items()
+            if opening_kinds.get(aid)==AssetKind.EXPLORATION_WIP and
+            a.kind==AssetKind.KNOWLEDGE and
+            getattr(self.k,'exploration_resolution',{}).get(aid)=='KNOWLEDGE_ASSET'),D('0'))
+        if knowledge!=self.s.knowledge_total+resolved-amortization:
             raise InvariantError('A5 knowledge rollforward')
         return True
 

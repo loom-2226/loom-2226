@@ -886,6 +886,52 @@ def read_run_body_world_identity(conn,run_id,body_key):
     if row is None:raise IntegrityFailure('BLOCKED_BODY_WORLD_IDENTITY')
     return row
 
+def read_run_region_world_identity(conn,run_id,project_id,location_id):
+    """Resolve a persisted prospecting REGION to its run WORLD identity.
+
+    This is deliberately narrower than ``load_bound_world``: it follows the
+    governed project-location REGION and body catalog, then reuses the
+    existing body/run WORLD identity lookup without creating a binding.
+    """
+    _require_session_group(conn,'wa_runtime_writer')
+    rows=conn.execute('''SELECT b.semantic_key
+        FROM wa_run.project_location pl
+        JOIN wa_geo.location l ON l.location_id=pl.location_id
+        JOIN wa_geo.body b ON b.body_id=l.body_id
+        WHERE pl.run_id=%s AND pl.project_id=%s AND pl.location_id=%s
+          AND pl.binding_key='PROSPECTING_REGION'
+          AND l.location_kind='REGION'
+          AND l.origin_kind='AUTHORED_SPATIAL_ANCHOR' ''',
+        (run_id,project_id,location_id)).fetchall()
+    if len(rows)!=1:raise IntegrityFailure('BLOCKED_REGION_WORLD_IDENTITY')
+    body_key=rows[0][0]
+    identity=read_run_body_world_identity(conn,run_id,body_key)
+    worlds=conn.execute('''SELECT r.world_id FROM wa_run.execution e
+        JOIN wa_world.realization r ON r.scenario_id=e.scenario_id
+        JOIN wa_geo.body b ON b.body_id=r.body_id
+        WHERE e.run_id=%s AND b.semantic_key=%s''',(run_id,body_key)).fetchall()
+    if len(worlds)!=1 or worlds[0][0]!=identity[1]:
+        raise IntegrityFailure('BLOCKED_REGION_WORLD_CARDINALITY')
+    return identity
+
+def load_run_region_material_truth(conn,run_id,project_id,location_id):
+    """Read only the authorized hidden regional family states for WORLD_SIM."""
+    world_id,body_id=read_run_region_world_identity(conn,run_id,project_id,location_id)[1:]
+    from psycopg.rows import dict_row
+    with conn.cursor(row_factory=dict_row) as cur:
+        cur.execute('''SELECT property_code,value_state,numeric_value,unit_key
+            FROM wa_world.hidden_state
+            WHERE world_id=%s AND body_id=%s AND location_id=%s
+              AND property_code LIKE 'GEN_REGION_MATERIAL_FAMILY_%%_PRESENT'
+            ORDER BY property_code''',(world_id,body_id,location_id))
+        rows=tuple(cur.fetchall())
+    expected={'VOLATILES','METALS','SILICATES_ROCK','CARBONACEOUS_ORGANICS'}
+    names={r['property_code'][len('GEN_REGION_MATERIAL_FAMILY_'):-len('_PRESENT')] for r in rows}
+    if len(rows)!=4 or names!=expected or any(r['value_state']!='KNOWN' or r['unit_key']!='GEN_FRACTION_V1'
+                            or r['numeric_value'] not in (0,1) for r in rows):
+        raise IntegrityFailure('BLOCKED_REGION_MATERIAL_PROFILE')
+    return {r['property_code'][len('GEN_REGION_MATERIAL_FAMILY_'):-len('_PRESENT')]: bool(r['numeric_value']) for r in rows}
+
 
 def persist_epoch(conn,run_id,epoch_id,expected_previous_head,rows,terminal_artifact_refs):
     """Atomic fixed-column persistence only; consumer validates/executes the kernel.

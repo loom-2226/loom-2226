@@ -152,6 +152,35 @@ class Build3Kernel(MVPKernel):
             self.exploration_resolution[asset_id]='WRITE_OFF'; del self.state.assets[asset_id]
         return self.exploration_resolution[asset_id]
 
+    def observe_region_study(self,year,actor_id,body_id,region_id,project_id,
+                             activity_id,regional_truth,
+                             false_positive=D('0.20'),false_negative=D('0.20'),parent_ids=()):
+        """Observe a paid Build 6B study; no site or resource is materialized."""
+        a=self.agents[actor_id]
+        if (actor_id!='SPN' or project_id not in self.state.projects or
+                self.state.projects[project_id].status!='EXPLORING' or
+                activity_id not in self.project_activities or
+                self.project_activities[activity_id].project_id!=project_id or
+                not any(r.activity_id==activity_id for r in self.project_activity_expense_records)):
+            raise InvariantError('regional observation requires paid sponsor study')
+        if (not isinstance(regional_truth,dict) or set(regional_truth)!=set(BODY_MATERIAL_FAMILIES)
+                or any(type(v) is not bool for v in regional_truth.values())
+                or not D(0)<=D(false_positive)<=D(1) or not D(0)<=D(false_negative)<=D(1)):
+            raise InvariantError('regional material truth/likelihood contract invalid')
+        observations=[];draws=[]
+        for family in BODY_MATERIAL_FAMILIES:
+            draw=self.keyed_draw('OBS',year,actor_id,body_id+':'+region_id+':'+family,'REGION')
+            positive=(draw>=D(false_negative)) if regional_truth[family] else (draw<D(false_positive))
+            o=BodyRemoteObservation(self._id('obs'),int(year),actor_id,body_id,
+                'REGION:'+str(region_id)+':'+family+'_PRESENT','REGION',
+                'POSITIVE' if positive else 'NEGATIVE',False)
+            self.observations[o.id]=o
+            a.information.add(o.id)
+            observations.append(o);draws.append(draw)
+        self.event(year,actor_id,ActionKind.EXPLORE,'REGION_MATERIAL_PROSPECTED',
+            (body_id,region_id,activity_id,*(o.id for o in observations)),tuple(parent_ids))
+        return tuple(observations),tuple(draws)
+
     def extract_bounded(self,year,actor_id,resource_id,requested):
         remaining=self.resources[resource_id].remaining
         if remaining is None: raise InvariantError('BLOCKED_UNKNOWN_RECOVERY')

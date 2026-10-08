@@ -27,6 +27,8 @@ RESEARCH_COMMIT = '52b35dc8ec0df6ee20c8e6be6570c8a595c9b12a'
 MATERIAL_POLICY = ROOT.parent / 'build7/inputs/BUILD7_MATERIAL_FAMILY_PRIORS_V1.json'
 MATERIAL_POLICY_SHA = 'b02844416c7be87420417ddafac85e310f32427ee49777d80d78843673a4e357'
 MATERIAL_FAMILIES = ('VOLATILES','METALS','SILICATES_ROCK','CARBONACEOUS_ORGANICS')
+REGIONAL_MODEL = 'BUILD7_REGIONAL_MATERIAL_V1_PROVISIONAL_HIGH_SENSITIVITY'
+REGIONAL_PRESENCE_FRACTION = D('0.35')
 MODEL = 'SOLAR_WATER_BLOCK_COMPILER_V1'
 AUTHORITY = 'LOOM_OFFWORLD_GENERATED_WORLD_V1'
 USE = 'OFFWORLD_HIDDEN_WORLD_GENERATION_V1'
@@ -104,6 +106,25 @@ def _material_family_truth(row,block,material_policy,seed,body,domain):
     # material may be present when the existing water block has no target.
     states['VOLATILES']=states['VOLATILES'] or block['target_mass_kg']>0
     return states
+
+
+def regional_material_truth(seed,body_key,body_truth):
+    """Fictional coarse presence for the ten existing neutral REGION anchors."""
+    if set(body_truth)!=set(MATERIAL_FAMILIES) or any(type(v) is not bool for v in body_truth.values()):
+        raise GenerationBlocked('REGIONAL_BODY_MATERIAL_PROFILE')
+    regions=tuple(store.prospecting_region_identity(body_key,i) for i in range(1,11))
+    result={key:{family:False for family in MATERIAL_FAMILIES} for key,_ in regions}
+    for family in MATERIAL_FAMILIES:
+        if not body_truth[family]:continue
+        for key,_ in regions:
+            result[key][family]=_draw(seed,body_key,key,'REGIONAL:'+family)<REGIONAL_PRESENCE_FRACTION
+        if not any(result[key][family] for key,_ in regions):
+            witness=int(_draw(seed,body_key,'REGIONAL_WITNESS',family)*10)
+            result[regions[witness][0]][family]=True
+        if all(result[key][family] for key,_ in regions):
+            witness=int(_draw(seed,body_key,'REGIONAL_ABSENCE_WITNESS',family)*10)
+            result[regions[witness][0]][family]=False
+    return result
 
 
 def _draw(seed,body,domain,property_key,attempt=0):
@@ -321,6 +342,9 @@ def _property_rows():
     known.update({('GEN_MATERIAL_FAMILY_'+family+'_PRESENT'):
         ('FICTIONAL_MODELED_DOMAIN_MATERIAL_FAMILY_PRESENCE','BUILD7_AUTHORED_MATERIAL_FAMILY_PRIORS_V1')
         for family in MATERIAL_FAMILIES})
+    known.update({('GEN_REGION_MATERIAL_FAMILY_'+family+'_PRESENT'):
+        ('FICTIONAL_REGIONAL_MATERIAL_FAMILY_PRESENCE',REGIONAL_MODEL)
+        for family in MATERIAL_FAMILIES})
     return [('wa_world.physical_property',dict(property_code=k,value_domain='NUMBER',
         physical_semantics_ref=v[0],schema_ref=v[1])) for k,v in known.items()]
 
@@ -369,10 +393,12 @@ def compile_body_world(body,row,policy,constraints,seed,scenario_id,scenario_key
     block=_block(row,policy,seed,key,domain,mass,radius,r_au)
     material_policy=material_policy or load_material_policy()
     material_truth=_material_family_truth(row,block,material_policy,seed,key,domain)
+    regional_truth=regional_material_truth(seed,key,material_truth)
     policy_input={'row':row,'shared_policy_sha256':POLICY_SHA,'table_sha256':TABLE_SHA,
         'material_family_policy_sha256':MATERIAL_POLICY_SHA,
         'source_snapshot_sha256':SOURCE_SHA,'body_catalog_ref':body['original_ref'],'admitted_constraint_dispositions':provenance,
-        'cutoff':science_cutoff,'use_contract_ref':USE,'world_epoch':world_epoch}
+        'cutoff':science_cutoff,'use_contract_ref':USE,'world_epoch':world_epoch,
+        'regional_model':REGIONAL_MODEL,'regional_presence_fraction':str(REGIONAL_PRESENCE_FRACTION)}
     policy_bytes=canonical(policy_input);policy_hash=sha256(policy_bytes).hexdigest()
     policy_key='SOLAR_WATER_POLICY_'+key+'_'+str(model_id).split('-')[0]+'_'+policy_hash[:16]
     policy_id=_uuid('GENERATION_POLICY',policy_key,'1')
@@ -380,7 +406,7 @@ def compile_body_world(body,row,policy,constraints,seed,scenario_id,scenario_key
     world_site_id=_uuid('WORLD_SITE',str(world_id)+':'+domain,'1')
     deposit_id=_uuid('WORLD_DEPOSIT',str(world_id)+':'+domain+':WATER_BEARING_MATERIAL','1')
     result_hash=_hash({'body':key,'world':str(world_id),'policy':policy_hash,'block':block,
-                       'material_family_truth':material_truth,
+                       'material_family_truth':material_truth,'regional_material_truth':regional_truth,
                        'mass':mass,'radius':radius,'density':density})
     rows=[
         ('wa_world.generation_policy',dict(policy_id=policy_id,model_id=model_id,
@@ -445,6 +471,13 @@ def compile_body_world(body,row,policy,constraints,seed,scenario_id,scenario_key
         uncertainty_ref='BUILD7_AUTHORED_MATERIAL_FAMILY_PRIORS_V1_HIGH_SENSITIVITY',
         provenance_ref='BUILD7_MATERIAL_FAMILY_PRIORS_V1:'+MATERIAL_POLICY_SHA)
         for family in MATERIAL_FAMILIES)
+    for region_key,location_id in (store.prospecting_region_identity(key,i) for i in range(1,11)):
+        rows.extend(_state(world_id,body_id,location_id,'GEN_REGION_MATERIAL_FAMILY_'+family+'_PRESENT',
+            D(1) if regional_truth[region_key][family] else D(0),UNITS['fraction'],
+            'PROVISIONAL_COARSE_REGION_PRESENCE_NOT_RESOURCE_OR_GRADE',
+            uncertainty_ref=REGIONAL_MODEL,
+            provenance_ref=REGIONAL_MODEL+':'+str(REGIONAL_PRESENCE_FRACTION))
+            for family in MATERIAL_FAMILIES)
     return tuple(rows),dict(body_key=key,body_name=body['canonical_name'],body_id=body_id,
         scenario_id=scenario_id,scenario_key=scenario_key,model_id=model_id,policy_id=policy_id,world_id=world_id,
         world_site_id=world_site_id,deposit_id=deposit_id,site_id=site_id,feature_id=feature_id,

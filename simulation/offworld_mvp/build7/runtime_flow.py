@@ -51,6 +51,14 @@ OWNERS={
 'mobilize_country_capital':('accounts','transactions','capital_coupling','capital_mobilization_records','boundary_net','events'),
 'create_prospecting_project':('nodes','accounts','projects','prospecting_project_creation_records','events','agents'),
 'disburse_country_capital':('accounts','transactions','commitments','earth_impact','capital_coupling','country_capital_disbursement_records','events','agents'),
+'initialize_region_study':('project_study_states','project_activities','project_study_plans','agents','events'),
+'authorize_project_study_activity':('project_activities','project_activity_transition_records','events','agents'),
+'start_project_activity':('project_activities','project_activity_transition_records','events','agents'),
+'spend_project_study_activity':('accounts','transactions','assets','resource_constraints','earth_impact','project_activity_expense_records','events','agents'),
+'observe_region_study':('observations','agents','events'),
+'complete_project_study_activity':('project_activities','project_activity_transition_records','assets','exploration_resolution','project_study_result_records','events','agents'),
+'admit_project_activity_result':('agents','project_activity_information_records','events'),
+'execute_project_study_review':('project_study_states','projects','project_study_review_records','events','agents'),
 }
 
 LIVE={
@@ -77,6 +85,22 @@ LIVE['technology.STATE_ID']=('TRANSPORT:STATE_ID','TECH-BUILD7','IDENTITY')
 LIVE['opportunity.NAMED_LOCATION']=('CATALOG:BODY','BODY','CATALOG_LOCATION_IDENTITY')
 LIVE['opportunity.AUTHORED_SITE']=('SCENARIO_SITE',NODE_ID,'AUTHORED_SITE_IDENTITY')
 LIVE['capital.AVAILABLE_F']=('CAPITAL_AVAILABLE_F','USA','MODEL_CURRENCY')
+STUDY_FACTS={
+    'portfolio.AVAILABLE_CAPITAL':'MODEL_CURRENCY',
+    'activity.BUILD7_REGION_STUDY.PROJECT_ID':'IDENTITY',
+    'activity.BUILD7_REGION_STUDY.PROJECT_STATUS':'STATUS_CATEGORY',
+    'activity.BUILD7_REGION_STUDY.STATUS':'STATUS_CATEGORY',
+    'activity.BUILD7_REGION_STUDY.COMMITMENT':'MODEL_CURRENCY',
+    'activity.BUILD7_REGION_STUDY.PRIORITY':'COUNT',
+    'activity.BUILD7_REGION_STUDY.WINDOW_VALID':'BOOLEAN',
+    'study.CURRENT_MATURITY':'STATUS_CATEGORY',
+    'study.ACTIVITY_ID':'IDENTITY',
+    'study.RESULT_REF':'IDENTITY',
+    'study.RESULT_STANDING':'STATUS_CATEGORY',
+    'study.NEXT_MATURITY':'STATUS_CATEGORY',
+}
+for _concept,_unit in STUDY_FACTS.items():
+    LIVE[_concept]=('BUILD7_STUDY_FACT','SPN',_unit)
 
 _TEMPORAL_FIELDS=frozenset(('year','effective_time','departure_time','arrival_time','event_time','decision_time','authorization_time','realized_time'))
 _SYSTEM_TIME_INDEX={'disburse':0,'reserve_earth_supply':1,'explore_paid':0,'surface_prospect_paid':0,
@@ -87,6 +111,10 @@ _SYSTEM_TIME_INDEX={'disburse':0,'reserve_earth_supply':1,'explore_paid':0,'surf
     'execute_enterprise_review':0,'assess_resource_recoverability':0,'record_earth_reference_year':0}
 _SYSTEM_TIME_INDEX.update({'mobilize_country_capital':0,'create_prospecting_project':0,
                            'disburse_country_capital':0})
+_SYSTEM_TIME_INDEX.update({name:0 for name in ('initialize_region_study',
+    'authorize_project_study_activity','start_project_activity','spend_project_study_activity',
+    'observe_region_study','complete_project_study_activity','admit_project_activity_result',
+    'execute_project_study_review')})
 
 def _target_runtime(kernel):
     """Resolve the current campaign target without changing the frozen 6E defaults."""
@@ -115,6 +143,9 @@ def policy_inputs(k,actor,time,concepts,subjects=None):
                 scope=target['site_ref'];subject=target['site_ref'];context='SCENARIO';cid=k.boundary_manifest.scenario_id;role='POLICY_PARAMETER'
             elif concept=='capital.AVAILABLE_F':
                 scope='COUNTRY:'+subject;context='REALIZED';cid=k.boundary_manifest.run_id;role='FINANCIAL_STATE'
+            elif concept in STUDY_FACTS or (concept=='project.STATUS' and target['node'] is None):
+                subject='SPN'
+                scope='PROJECT:REGION_STUDY';context='REALIZED';cid=k.boundary_manifest.run_id;role='ADMITTED_INFORMATION'
             else:
                 context='REALIZED';cid=k.boundary_manifest.run_id;role='ADMITTED_INFORMATION'
         else:
@@ -186,6 +217,7 @@ def policy_epoch(k,h,label,actor,time,request,concepts,runner,version,subjects=N
 def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
     kwargs=dict(kwargs or {})
     body_remote=method=='explore_paid' and bool(kwargs.get('body_id'))
+    region_study=method=='observe_region_study'
     delta=0 if method in ('execute_transport_settlement_departure','execute_passenger_transport_arrival') else int(h['params'].get('time_offset',0))
     time=str(D(time)+delta)
     args=_shift_method_arguments(method,args,delta)
@@ -260,6 +292,18 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
     k.scheduler.register_coupling(CouplingSpec(sid,'BUILD6E_V1',RuntimeObjectClass.SYSTEM,owned,read_set,owned,'EVENT',Phase.OPERATIONS))
     k.scheduler.schedule(event)
     def apply(kernel,event):
+        if region_study:
+            import psycopg
+            from loom_world_authority import store
+            from simulation.offworld_mvp.build6e.named_world import ProspectingRegionBinding
+            binding=h['named_binding']
+            if (not isinstance(binding,ProspectingRegionBinding) or
+                    args[2]!=binding.body_key or str(args[3])!=str(binding.location_id) or
+                    args[4] not in kernel.state.projects or not decision_refs):
+                raise RuntimeError('BLOCKED_REGION_STUDY_SCOPE')
+            with psycopg.connect(service=h['wa_service']) as reader:
+                kwargs['regional_truth']=store.load_run_region_material_truth(reader,
+                    kernel.boundary_manifest.run_id,args[4],binding.location_id)
         if body_remote:
             # The trusted World Authority physical read happens only in this
             # authorized WORLD_SIM action, after the mission decision committed.
