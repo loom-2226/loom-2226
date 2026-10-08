@@ -671,7 +671,8 @@ class ExplorationRequest:
     def validate_protocol(self):
         body_remote=(self.request_version=='EXPLORATION_REQUEST_BODY_V1')
         if not self.id or (body_remote and (self.project_id or self.resource_id or not self.body_id
-                or self.question_ref!='WATER_BEARING_MATERIAL_PRESENT' or self.channel!='REMOTE')) or (
+                or self.question_ref not in ('WATER_BEARING_MATERIAL_PRESENT','BODY_MATERIAL_CHARACTERIZATION')
+                or self.channel!='REMOTE')) or (
                 not body_remote and (not self.project_id or not self.resource_id or self.body_id or self.question_ref)):
             raise ValueError('exploration request identity incomplete')
         if self.year<0:
@@ -820,6 +821,10 @@ class BodyRemoteObservation:
     id: str; year: int; actor_id: str; body_id: str; question_ref: str
     channel: str; signal: str; public: bool
     resource_id: str=''
+
+
+BODY_MATERIAL_FAMILIES = ('VOLATILES','METALS','SILICATES_ROCK','CARBONACEOUS_ORGANICS')
+BODY_MATERIAL_QUESTIONS = tuple(family+'_PRESENT' for family in BODY_MATERIAL_FAMILIES)
 
 @dataclass
 class ColonyState:

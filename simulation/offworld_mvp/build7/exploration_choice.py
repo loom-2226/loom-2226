@@ -8,7 +8,7 @@ from typing import Iterable
 
 from .opportunities import MissionCandidate
 
-QUESTION = 'WATER_BEARING_MATERIAL_PRESENT'
+QUESTION = 'BODY_MATERIAL_CHARACTERIZATION'
 
 
 @dataclass(frozen=True)

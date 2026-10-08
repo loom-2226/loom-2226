@@ -1,7 +1,8 @@
-"""Bounded water-bearing block compiler beside Build 6E's named-world adapter.
+"""Water block and bounded four-family truth compiler beside Build 6E.
 
-Research Lab v0.3 supplies authored model inputs, never REAL evidence. Only
-World Authority's fixed, admitted science projection can constrain WORLD draws.
+Research Lab v0.3 supplies the water input. Build 7 supplies separate authored
+coarse family priors. Neither is REAL evidence. Only World Authority's fixed,
+admitted science projection can constrain WORLD draws.
 """
 from __future__ import annotations
 
@@ -23,6 +24,9 @@ POLICY = ROOT / 'inputs/SHARED_GENERATION_POLICY_v0.3.json'
 TABLE_SHA = '6c04c8e77b63d5cb66b11fad0e4405cfa8597090d61c8b23ba92f558ecc55106'
 POLICY_SHA = 'edd4a3fefba7bb5af7cec724692d956bd5c692e8fe6d4b7018a1bb133b95cda6'
 RESEARCH_COMMIT = '52b35dc8ec0df6ee20c8e6be6570c8a595c9b12a'
+MATERIAL_POLICY = ROOT.parent / 'build7/inputs/BUILD7_MATERIAL_FAMILY_PRIORS_V1.json'
+MATERIAL_POLICY_SHA = 'b02844416c7be87420417ddafac85e310f32427ee49777d80d78843673a4e357'
+MATERIAL_FAMILIES = ('VOLATILES','METALS','SILICATES_ROCK','CARBONACEOUS_ORGANICS')
 MODEL = 'SOLAR_WATER_BLOCK_COMPILER_V1'
 AUTHORITY = 'LOOM_OFFWORLD_GENERATED_WORLD_V1'
 USE = 'OFFWORLD_HIDDEN_WORLD_GENERATION_V1'
@@ -67,6 +71,39 @@ def load_inputs():
     if policy['policy_id']!='SOLAR_HIDDEN_WORLD_SHARED_POLICY_v0.3' or policy['scope']['branch_scope']!='PROSPECTING_BLOCK':
         raise GenerationBlocked('SHARED_POLICY_PROFILE')
     return rows,policy
+
+
+def load_material_policy():
+    raw=MATERIAL_POLICY.read_bytes()
+    if sha256(raw).hexdigest()!=MATERIAL_POLICY_SHA:
+        raise GenerationBlocked('PINNED_MATERIAL_POLICY_BYTES_CHANGED')
+    policy=json.loads(raw)
+    if (policy['model_id']!='BUILD7_AUTHORED_MATERIAL_FAMILY_PRIORS_V1' or
+            tuple(policy['family_order'])!=MATERIAL_FAMILIES):
+        raise GenerationBlocked('MATERIAL_POLICY_PROFILE')
+    regimes=[regime for names in policy['regime_groups'].values() for regime in names]
+    if len(regimes)!=len(set(regimes)):
+        raise GenerationBlocked('MATERIAL_REGIME_DUPLICATE')
+    for group,values in policy['authored_presence_probabilities'].items():
+        if group not in policy['regime_groups'] or set(values)!=set(MATERIAL_FAMILIES) or any(
+                not D(value).is_finite() or not D(0)<D(value)<D(1) for value in values.values()):
+            raise GenerationBlocked('MATERIAL_PRIOR_PROFILE')
+    return policy
+
+
+def _material_family_truth(row,block,material_policy,seed,body,domain):
+    """Coarse fictional domain truth. Admitted local evidence stays provenance only."""
+    regime=row['prior_regime']
+    group=next((name for name,names in material_policy['regime_groups'].items()
+                if regime in names),None)
+    if group is None:raise GenerationBlocked('MATERIAL_REGIME_MISSING:'+body)
+    probabilities=material_policy['authored_presence_probabilities'][group]
+    states={family:_draw(seed,body,domain,'material_family:'+family)<D(probabilities[family])
+            for family in MATERIAL_FAMILIES}
+    # Water in this modeled domain is one form of volatiles. Other volatile
+    # material may be present when the existing water block has no target.
+    states['VOLATILES']=states['VOLATILES'] or block['target_mass_kg']>0
+    return states
 
 
 def _draw(seed,body,domain,property_key,attempt=0):
@@ -240,17 +277,19 @@ def _block(row,policy,seed,body,domain,body_mass,radius,r_au):
     raise GenerationBlocked('NO_FEASIBLE_PHYSICAL_PROPOSAL:'+body)
 
 
-def _state(world_id,body_id,location_id,property_code,value,unit,meaning):
+def _state(world_id,body_id,location_id,property_code,value,unit,meaning,
+           uncertainty_ref='AUTHORED_PRIOR_V0_3',provenance_ref=None):
     state_id=store.stable_uuid('HIDDEN_STATE',AUTHORITY,str(world_id)+':'+str(location_id)+':'+property_code,'1')
     payload=dict(world_id=str(world_id),body_id=str(body_id),location_id=str(location_id),
         property_code=property_code,value_state='UNKNOWN' if value is None else 'KNOWN',
         numeric_value=None if value is None else str(value),unit_key=unit,model_family_ref=MODEL,
-        uncertainty_ref='AUTHORED_PRIOR_V0_3',derivation_ref=meaning)
+        uncertainty_ref=uncertainty_ref,derivation_ref=meaning)
     return ('wa_world.hidden_state',dict(state_id=state_id,world_id=world_id,body_id=body_id,
         location_id=location_id,property_code=property_code,value_state=payload['value_state'],
         numeric_value=value,text_value=None,unit_key=unit,model_family_ref=MODEL,
-        uncertainty_ref='AUTHORED_PRIOR_V0_3',derivation_ref=meaning,
-        value_sha256=_hash(payload),original_provenance_lexeme='PR147:'+RESEARCH_COMMIT))
+        uncertainty_ref=uncertainty_ref,derivation_ref=meaning,
+        value_sha256=_hash(payload),original_provenance_lexeme=
+        provenance_ref or 'PR147:'+RESEARCH_COMMIT))
 
 
 def _uuid(kind,key,version):
@@ -279,12 +318,15 @@ def _property_rows():
            'GEN_RETENTION_LOSS_KG':('STATIC_RETENTION_CHECK_RESULT','SOLAR_WATER_BLOCK_COMPILER_V1'),
            'GEN_ATTEMPT_INDEX':('LOCAL_REJECTION_COUNTER','SOLAR_WATER_BLOCK_COMPILER_V1'),
            'GEN_HELIOCENTRIC_DISTANCE_AU':('SEALED_LATENT_OR_AUTHORIZED_DISTANCE','SOLAR_WATER_BLOCK_COMPILER_V1')}
+    known.update({('GEN_MATERIAL_FAMILY_'+family+'_PRESENT'):
+        ('FICTIONAL_MODELED_DOMAIN_MATERIAL_FAMILY_PRESENCE','BUILD7_AUTHORED_MATERIAL_FAMILY_PRIORS_V1')
+        for family in MATERIAL_FAMILIES})
     return [('wa_world.physical_property',dict(property_code=k,value_domain='NUMBER',
         physical_semantics_ref=v[0],schema_ref=v[1])) for k,v in known.items()]
 
 
 def compile_body_world(body,row,policy,constraints,seed,scenario_id,scenario_key,model_id,
-                       authorization_ref,science_cutoff,world_epoch,site_id,feature_id):
+                       authorization_ref,science_cutoff,world_epoch,site_id,feature_id,material_policy=None):
     """Pure body compiler; no database handle and no Agent-facing output."""
     key=body['semantic_key'];body_id=body['body_id'];domain='GEN_BODY_'+key+'_SITE_1'
     assertions=constraints['assertions'];materials=constraints['materials']
@@ -325,7 +367,10 @@ def compile_body_world(body,row,policy,constraints,seed,scenario_id,scenario_key
     r_au=_interval(seed,key,domain,'heliocentric_distance',row['fallback_heliocentric_distance_min_au'],
         row['fallback_heliocentric_distance_max_au'],0)
     block=_block(row,policy,seed,key,domain,mass,radius,r_au)
+    material_policy=material_policy or load_material_policy()
+    material_truth=_material_family_truth(row,block,material_policy,seed,key,domain)
     policy_input={'row':row,'shared_policy_sha256':POLICY_SHA,'table_sha256':TABLE_SHA,
+        'material_family_policy_sha256':MATERIAL_POLICY_SHA,
         'source_snapshot_sha256':SOURCE_SHA,'body_catalog_ref':body['original_ref'],'admitted_constraint_dispositions':provenance,
         'cutoff':science_cutoff,'use_contract_ref':USE,'world_epoch':world_epoch}
     policy_bytes=canonical(policy_input);policy_hash=sha256(policy_bytes).hexdigest()
@@ -335,6 +380,7 @@ def compile_body_world(body,row,policy,constraints,seed,scenario_id,scenario_key
     world_site_id=_uuid('WORLD_SITE',str(world_id)+':'+domain,'1')
     deposit_id=_uuid('WORLD_DEPOSIT',str(world_id)+':'+domain+':WATER_BEARING_MATERIAL','1')
     result_hash=_hash({'body':key,'world':str(world_id),'policy':policy_hash,'block':block,
+                       'material_family_truth':material_truth,
                        'mass':mass,'radius':radius,'density':density})
     rows=[
         ('wa_world.generation_policy',dict(policy_id=policy_id,model_id=model_id,
@@ -393,6 +439,12 @@ def compile_body_world(body,row,policy,constraints,seed,scenario_id,scenario_key
         _state(world_id,body_id,feature_id,'R_RECOVERABLE',None,None,'UNKNOWN_UNTIL_COMPATIBLE_PROCESS'),
         _state(world_id,body_id,feature_id,'R_RESERVE',None,None,'UNKNOWN_ECONOMIC_INTERPRETATION'),
     ]
+    rows.extend(_state(world_id,body_id,None,'GEN_MATERIAL_FAMILY_'+family+'_PRESENT',
+        D(1) if material_truth[family] else D(0),UNITS['fraction'],
+        'AUTHORED_COARSE_MODELED_DOMAIN_PRESENCE_NOT_EMPIRICAL_OR_RESERVE',
+        uncertainty_ref='BUILD7_AUTHORED_MATERIAL_FAMILY_PRIORS_V1_HIGH_SENSITIVITY',
+        provenance_ref='BUILD7_MATERIAL_FAMILY_PRIORS_V1:'+MATERIAL_POLICY_SHA)
+        for family in MATERIAL_FAMILIES)
     return tuple(rows),dict(body_key=key,body_name=body['canonical_name'],body_id=body_id,
         scenario_id=scenario_id,scenario_key=scenario_key,model_id=model_id,policy_id=policy_id,world_id=world_id,
         world_site_id=world_site_id,deposit_id=deposit_id,site_id=site_id,feature_id=feature_id,
@@ -471,6 +523,7 @@ def generate_solar_system(reference_reader,science_writer,world_writer,*,seed,au
     if not seed or not authorization_ref or type(science_cutoff) is not int or science_cutoff<0 or world_epoch!=2026:
         raise GenerationBlocked('GENERATION_DECLARATION')
     table,policy=load_inputs()
+    material_policy=load_material_policy()
     catalog=store.read_generation_catalog(reference_reader,SOURCE_SHA,supplemental_catalog_sha256)
     unknown=[b['semantic_key'] for b in catalog if b['semantic_key'] not in table]
     if unknown:raise GenerationBlocked('MISSING_PRIOR_ROWS:'+','.join(unknown))
@@ -484,20 +537,23 @@ def generate_solar_system(reference_reader,science_writer,world_writer,*,seed,au
     if not eligible:raise GenerationBlocked('NO_ELIGIBLE_BODIES')
     code_sha=sha256(Path(__file__).read_bytes()).hexdigest()
     model_version=code_sha[:16]
-    scenario_key='SOLAR_WATER_'+_hash({'seed':seed,'epoch':world_epoch,'cutoff':science_cutoff,
-        'source':SOURCE_SHA,'table':TABLE_SHA,'policy':POLICY_SHA,'code':code_sha})[:24]
+    scenario_key='SOLAR_MATERIAL_'+_hash({'seed':seed,'epoch':world_epoch,'cutoff':science_cutoff,
+        'source':SOURCE_SHA,'table':TABLE_SHA,'policy':POLICY_SHA,
+        'material_policy':MATERIAL_POLICY_SHA,'code':code_sha})[:24]
     scenario_id=_uuid('SCENARIO',scenario_key,'1')
     model_id=_uuid('GENERATION_MODEL',MODEL,model_version)
     rows=[('wa_world.scenario',dict(scenario_id=scenario_id,semantic_key=scenario_key,version='1',
         definition_sha256=_hash({'source':SOURCE_SHA,'table':TABLE_SHA,'policy':POLICY_SHA,
+            'material_policy':MATERIAL_POLICY_SHA,
             'seed':seed,'epoch':world_epoch,'cutoff':science_cutoff,'use':USE,'code':code_sha}),
         authorization_ref=authorization_ref,definition_locator='simulation/offworld_mvp/build6e/generated_world.py',
         world_context='SCENARIO')),
         ('wa_world.generation_model',dict(model_id=model_id,semantic_key=MODEL,version=model_version,
-            name='Finite water-bearing prospecting block compiler',status_lexeme='AUTHORED_SCENARIO_MODEL',
+            name='Finite water block with coarse four-family domain truth',status_lexeme='AUTHORED_SCENARIO_MODEL',
             implementation_sha256=code_sha,implementation_locator='simulation/offworld_mvp/build6e/generated_world.py',
-            model_family_ref=MODEL,uncertainty_contract_ref='PR147_V0_3_HIGH_SENSITIVITY',
-            parameter_schema_ref='SOLAR_HIDDEN_WORLD_SHARED_POLICY_v0.3')),
+            model_family_ref=MODEL,
+            uncertainty_contract_ref='PR147_V0_3_WATER_AND_BUILD7_I3_FAMILY_HIGH_SENSITIVITY',
+            parameter_schema_ref='SOLAR_HIDDEN_WORLD_SHARED_POLICY_v0.3+BUILD7_MATERIAL_FAMILY_PRIORS_V1')),
         *_property_rows()]
     prepared=[]
     for body,row in eligible:
@@ -513,7 +569,7 @@ def generate_solar_system(reference_reader,science_writer,world_writer,*,seed,au
         feature_id=store.stable_uuid('AUTHORED_LOCATION','LOOM_OFFWORLD_GENERATED_SITE_V1',
             store.length_prefixed(key,feature_key).decode(),'IDENTITY_V1')
         compiled,binding=compile_body_world(body,row,policy,constraints,seed,scenario_id,scenario_key,
-            model_id,authorization_ref,science_cutoff,world_epoch,site_id,feature_id)
+            model_id,authorization_ref,science_cutoff,world_epoch,site_id,feature_id,material_policy)
         rows.extend(compiled);prepared.append((manifest,binding))
     for manifest,_ in prepared:
         store.install_generated_site_metadata(science_writer,manifest)

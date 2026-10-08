@@ -16,6 +16,7 @@ from typing import Any, Mapping
 
 from loom_world_authority import store
 from loom_world_authority.etl import SOURCE_SHA, canonical
+from simulation.offworld_mvp.phase3b.kernel.offworld_kernel.mvp_state import BODY_MATERIAL_QUESTIONS
 
 CONTRACT = "BUILD6E_NAMED_WORLD_V1"
 AUTHORIZATION = "BUILD6E_IMPLEMENTATION_AUTHORIZATION_001_NAMED_WORLD"
@@ -790,7 +791,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
                     if obj.get('request_version')=='EXPLORATION_REQUEST_BODY_V1':
                         if (not isinstance(binding,BodyRemoteBinding) or
                                 obj.get('body_id')!=binding.body_key or
-                                obj.get('question_ref')!='WATER_BEARING_MATERIAL_PRESENT' or
+                                obj.get('question_ref') not in ('WATER_BEARING_MATERIAL_PRESENT','BODY_MATERIAL_CHARACTERIZATION') or
                                 obj.get('project_id') or obj.get('resource_id') or
                                 obj.get('channel')!='REMOTE'):
                             raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_MISSION_SCOPE')
@@ -960,13 +961,15 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
                     if body_remote:
                         if (not isinstance(binding,BodyRemoteBinding) or
                                 obj.get('body_id')!=binding.body_key or
-                                obj.get('question_ref')!='WATER_BEARING_MATERIAL_PRESENT' or
+                                obj.get('question_ref') not in ('WATER_BEARING_MATERIAL_PRESENT',*BODY_MATERIAL_QUESTIONS) or
                                 obj.get('channel')!='REMOTE'):
                             raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_OBSERVATION_SCOPE')
                         mission_id=next((mid for mid,(request,_) in request_refs.items()
                             if request.get('request_version')=='EXPLORATION_REQUEST_BODY_V1'
                             and request.get('body_id')==obj['body_id']
-                            and request.get('question_ref')==obj['question_ref']
+                            and (request.get('question_ref')==obj['question_ref'] or
+                                 request.get('question_ref')=='BODY_MATERIAL_CHARACTERIZATION'
+                                 and obj['question_ref'] in BODY_MATERIAL_QUESTIONS)
                             and request.get('year')==obj['year']),None)
                         if mission_id is None:
                             raise NamedWorldBlocked('BLOCKED_OBSERVATION_MISSION_BINDING')

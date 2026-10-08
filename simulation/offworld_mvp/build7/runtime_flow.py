@@ -227,7 +227,8 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
     if method=='update_agent_belief_from_observation':
         obs=k.observations[args[2]]
         if getattr(obs,'body_id',''):
-            live('body.BELIEF',args[1],'BODY:'+obs.body_id,'PROBABILITY','ACTOR_BELIEF')
+            live('body.BELIEF',args[1],'BODY:'+obs.body_id+':'+obs.question_ref,
+                'PROBABILITY','ACTOR_BELIEF')
         else:live('actor.BELIEF',args[1],'AGENT:'+args[1],'PROBABILITY','ACTOR_BELIEF')
     if method=='publish_observation':
         for actor,_,_,_ in args[4]:live('actor.BELIEF',actor,'AGENT:'+actor,'PROBABILITY','ACTOR_BELIEF')
@@ -247,11 +248,25 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
             with psycopg.connect(service=h['wa_service']) as reader:
                 physical=store.load_bound_world(reader,kernel.boundary_manifest.run_id,
                     binding.binding_key,context='REALIZED',effective_time=D(time))
-            deposits=physical['deposits']
-            if (len(deposits)!=1 or deposits[0]['resource_class']!='WATER_BEARING_MATERIAL'
-                    or deposits[0]['initial_in_situ_state']!='KNOWN'):
-                raise RuntimeError('BLOCKED_BODY_REMOTE_WORLD_PROFILE')
-            kwargs['body_truth']=D(deposits[0]['initial_in_situ_quantity'])>0
+            if kwargs['question_ref']=='BODY_MATERIAL_CHARACTERIZATION':
+                from simulation.offworld_mvp.phase3b.kernel.offworld_kernel.mvp_state import BODY_MATERIAL_FAMILIES
+                truth={}
+                for family in BODY_MATERIAL_FAMILIES:
+                    matching=[state for state in physical['hidden_states']
+                        if state['property_code']=='GEN_MATERIAL_FAMILY_'+family+'_PRESENT'
+                        and state['location_id'] is None]
+                    if (len(matching)!=1 or matching[0]['value_state']!='KNOWN' or
+                            matching[0]['unit_key']!='GEN_FRACTION_V1' or
+                            D(matching[0]['numeric_value']) not in (D(0),D(1))):
+                        raise RuntimeError('BLOCKED_BODY_MATERIAL_WORLD_PROFILE:'+family)
+                    truth[family]=D(matching[0]['numeric_value'])==1
+                kwargs['body_truth']=truth
+            else:
+                deposits=physical['deposits']
+                if (len(deposits)!=1 or deposits[0]['resource_class']!='WATER_BEARING_MATERIAL'
+                        or deposits[0]['initial_in_situ_state']!='KNOWN'):
+                    raise RuntimeError('BLOCKED_BODY_REMOTE_WORLD_PROFILE')
+                kwargs['body_truth']=D(deposits[0]['initial_in_situ_quantity'])>0
         holder['value']=getattr(kernel,method)(*args,**kwargs)
         return 'REALIZED:'+method
     rt=ScheduledSimulationRuntime(k,strict_provenance(k))

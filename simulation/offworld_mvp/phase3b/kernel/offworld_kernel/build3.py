@@ -88,13 +88,34 @@ class Build3Kernel(MVPKernel):
         if 'EXPLORE' not in a.capabilities or not (D('0')<=fp<=D('1')) or not (D('0')<=fn<=D('1')): raise InvariantError('invalid exploration')
         if body_id:
             if (resource_id or project_id or channel!='REMOTE' or
-                    question_ref!='WATER_BEARING_MATERIAL_PRESENT' or type(body_truth) is not bool or
+                    question_ref not in ('WATER_BEARING_MATERIAL_PRESENT','BODY_MATERIAL_CHARACTERIZATION') or
                     update_belief or self.state.accounts[a.account_id].owner_id!=actor_id or
                     self.state.nodes[self.state.accounts[supplier_account].node_id].kind!=NodeKind.EARTH):
                 raise InvariantError('invalid body remote observation subject')
+            material_question=question_ref=='BODY_MATERIAL_CHARACTERIZATION'
+            if material_question:
+                if (not isinstance(body_truth,dict) or set(body_truth)!=set(BODY_MATERIAL_FAMILIES)
+                        or any(type(value) is not bool for value in body_truth.values())):
+                    raise InvariantError('invalid body material truth')
+            elif type(body_truth) is not bool:
+                raise InvariantError('invalid body remote truth')
             tx=self.transfer(year,a.account_id,supplier_account,cost,TxPurpose.EXPLORATION,
                 supplier_location=self.state.accounts[supplier_account].node_id,
                 parent_ids=(body_id,question_ref,*tuple(parent_ids)))
+            if material_question:
+                observations=[];draws=[]
+                for family in BODY_MATERIAL_FAMILIES:
+                    draw=self.keyed_draw('OBS',year,actor_id,body_id+':'+family,channel)
+                    positive=(draw>=fn) if body_truth[family] else (draw<fp)
+                    o=BodyRemoteObservation(self._id('obs'),year,actor_id,body_id,
+                        family+'_PRESENT',channel,'POSITIVE' if positive else 'NEGATIVE',public)
+                    self.observations[o.id]=o
+                    for recipient in (self.agents.values() if public else (a,)):
+                        recipient.information.add(o.id)
+                    observations.append(o);draws.append(draw)
+                self.event(year,actor_id,ActionKind.EXPLORE,'MATERIAL_CHARACTERIZED',
+                    (body_id,question_ref,*(o.id for o in observations),tx.id),tuple(parent_ids))
+                return tuple(observations),None,tuple(draws)
             draw=self.keyed_draw('OBS',year,actor_id,body_id,channel)
             positive=(draw>=fn) if body_truth else (draw<fp)
             signal='POSITIVE' if positive else 'NEGATIVE'

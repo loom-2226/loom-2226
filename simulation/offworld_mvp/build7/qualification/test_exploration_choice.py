@@ -36,8 +36,19 @@ class ExplorationChoiceTests(unittest.TestCase):
         self.assertIn(a.body_id,{c.destination_body_id for c in self.candidates})
 
     def test_hidden_truth_twin_and_visible_information_twin(self):
+        from simulation.offworld_mvp.build6e.generated_world import (
+            _material_family_truth, load_inputs, load_material_policy)
         from simulation.offworld_mvp.build7.generated_campaign import (
             _build_kernel, derive_world_mission_candidates, load_config)
+        rows,_=load_inputs();body_key=next(key for key,row in rows.items()
+            if row['material_model_applicability']=='SOLID')
+        domain='GEN_BODY_'+body_key+'_SITE_1'
+        block={'target_mass_kg':D(0)}
+        truth_a=_material_family_truth(rows[body_key],block,load_material_policy(),
+            'HIDDEN-A',body_key,domain)
+        truth_b=_material_family_truth(rows[body_key],block,load_material_policy(),
+            'HIDDEN-B',body_key,domain)
+        self.assertNotEqual(truth_a,truth_b)
         world=dict(scenario_id='00000000-0000-0000-0000-000000000001',
                    scenario_key='SOLAR_WATER_HIDDEN_TWIN',body_count=90)
         a,ha=_build_kernel(None,load_config(),world_seed='SAME',world={**world,'sealed_world_digest':'0'*64})

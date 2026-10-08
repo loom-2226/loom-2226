@@ -14,6 +14,7 @@ from functools import lru_cache
 from .kernel import InvariantError
 from .policy import FactState, SnapshotFact
 from .causal_trace import canonical, content_hash
+from .mvp_state import BODY_MATERIAL_QUESTIONS
 
 CONTRACT='BUILD6D_CORE_FRD_CLOSURE_V1'
 AUTHORIZATION='BUILD6D_IMPLEMENTATION_AUTHORIZATION_001_CORE_FRD_CLOSURE'
@@ -308,7 +309,8 @@ def _resolve_live(k,r):
         obs=k.observations.get(r.subject_id)
         if obs is None:return _outcome(k,r,FactState.UNKNOWN,'MISSING_OBSERVATION')
         if getattr(obs,'body_id',''):
-            if r.scope!='BODY:'+obs.body_id or obs.question_ref!='WATER_BEARING_MATERIAL_PRESENT':
+            if (r.scope!='BODY:'+obs.body_id or obs.question_ref not in
+                    ('WATER_BEARING_MATERIAL_PRESENT',*BODY_MATERIAL_QUESTIONS)):
                 return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
         elif obs.resource_id!=k.boundary_manifest.parameter('resource_id'):
             return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
@@ -332,7 +334,10 @@ def _resolve_live(k,r):
         a=k.agents.get(r.subject_id)
         if a is None or not r.scope.startswith('BODY:'):
             return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
-        key=r.scope+':WATER_BEARING_MATERIAL_PRESENT'
+        if any(r.scope.endswith(':'+question) for question in BODY_MATERIAL_QUESTIONS):
+            key=r.scope
+        else:
+            key=r.scope+':WATER_BEARING_MATERIAL_PRESENT'
         value=a.beliefs.get(key,a.priors.get(key))
         if value is None:return _outcome(k,r,FactState.UNKNOWN,'MISSING_BODY_PRIOR')
         return _value(k,r,str(value),kind='BELIEF',mode='ACTOR_BELIEF',source='belief:'+a.id+':'+key)

@@ -27,6 +27,7 @@ from offworld_kernel.model import AccountKind, NodeKind
 from offworld_kernel.mvp_state import (
     AgentKind, AgentState, ScenarioResource, SystemState, PopulationLedger, ColonyState,
     BodyRemoteObservation,
+    BODY_MATERIAL_FAMILIES, BODY_MATERIAL_QUESTIONS,
 )
 from offworld_kernel.policy import FactState
 from offworld_kernel.project_lifecycle import ProjectDevelopmentPlan
@@ -352,8 +353,9 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
             scope='BODY:'+body_key
             contracts.append(('SYS:update_agent_belief_from_observation','SYSTEM_TRANSITION',
                 'observation.SIGNAL',scope,'REALIZED','WORLD_SIM','SIGNAL_CATEGORY','OBSERVATION'))
-            contracts.append(('SYS:update_agent_belief_from_observation','SYSTEM_TRANSITION',
-                'body.BELIEF',scope,'REALIZED','WORLD_SIM','PROBABILITY','ACTOR_BELIEF'))
+            for question in BODY_MATERIAL_QUESTIONS:
+                contracts.append(('SYS:update_agent_belief_from_observation','SYSTEM_TRANSITION',
+                    'body.BELIEF',scope+':'+question,'REALIZED','WORLD_SIM','PROBABILITY','ACTOR_BELIEF'))
         bindings.extend((('SYS:update_agent_belief_from_observation','observation.SIGNAL','OBSERVATION'),
             ('SYS:update_agent_belief_from_observation','body.BELIEF','BODY_BELIEF')))
     for concept,unit in [('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('population','PERSON')]:
@@ -399,7 +401,10 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         a=AgentState(aid,kind,'EARTH:USA',account,caps,objectives);key=params['belief_key.'+aid];a.priors[key]=D(params['prior']);a.beliefs[key]=D(params['prior']);k.add_agent(a)
     if not targeted:
         for body_key in body_keys:
-            k.agents['PUB'].priors['BODY:'+body_key+':WATER_BEARING_MATERIAL_PRESENT']=D(params['prior'])
+            for question in BODY_MATERIAL_QUESTIONS:
+                # Neutral fictional knowledge state. The water-only targeted
+                # resource prior is not generalized to Solar material families.
+                k.agents['PUB'].priors['BODY:'+body_key+':'+question]=D('0.5')
     if targeted:k.add_resource(target['resource'])
     k.population=PopulationLedger(int(D(params['N'])),{node:0} if targeted else {})
     if targeted:k.colonies[node]=ColonyState(node)
@@ -612,22 +617,27 @@ def run_world_remote_choice(*,reference_service,runtime_service,run_id,
             'choice_reason':decision.outcome.value,
             'public_balance':str(k.state.accounts[actor.account_id].balance)}
     p=h['params']
-    obs,asset,draw=flow.system_epoch(k,h,'explore_paid',str(year),
+    observations,asset,draws=flow.system_epoch(k,h,'explore_paid',str(year),
         (year,'PUB','','','earth_supplier',decision.authorized_cost),
         dict(channel='REMOTE',public=False,false_positive=D(p['remote_fp']),
             false_negative=D(p['remote_fn']),update_belief=False,
             parent_ids=(decision.id,),body_id=choice.body_id,question_ref=BODY_QUESTION),
         (decision_ref,))
     if asset is not None:raise Build7Blocked('BUILD7_BODY_REMOTE_CREATED_ASSET')
-    belief_key='BODY:'+choice.body_id+':'+BODY_QUESTION
-    flow.system_epoch(k,h,'update_agent_belief_from_observation',str(year),
-        (year,'PUB',obs.id,belief_key,D(p['remote_detection']),D(p['remote_fp']),
-         'BUILD7_BODY_REMOTE_V1',AUTHORIZATION),decision_refs=(decision_ref,))
+    if tuple(obs.question_ref for obs in observations)!=BODY_MATERIAL_QUESTIONS:
+        raise Build7Blocked('BUILD7_BODY_MATERIAL_OBSERVATION_PROFILE')
+    for obs in observations:
+        belief_key='BODY:'+choice.body_id+':'+obs.question_ref
+        flow.system_epoch(k,h,'update_agent_belief_from_observation',str(year),
+            (year,'PUB',obs.id,belief_key,D(p['remote_detection']),D(p['remote_fp']),
+             'BUILD7_BODY_MATERIAL_REMOTE_V1',AUTHORIZATION),decision_refs=(decision_ref,))
     if k.state.projects or k.state.assets or k.colonies or k.population.offworld:
         raise Build7Blocked('BUILD7_BODY_REMOTE_CREATED_DEVELOPMENT_STATE')
     return {**_world_summary(k,h,world),'choice':'SELECT','selected_candidate_id':choice.candidate_id,
-        'selected_body_id':choice.body_id,'observation_id':obs.id,'observation_signal':obs.signal,
-        'posterior':str(actor.beliefs[belief_key]),
+        'selected_body_id':choice.body_id,
+        'material_observations':tuple((family,obs.id,obs.signal,
+            str(actor.beliefs['BODY:'+choice.body_id+':'+obs.question_ref]))
+            for family,obs in zip(BODY_MATERIAL_FAMILIES,observations)),
         'public_balance':str(k.state.accounts[actor.account_id].balance)}
 
 

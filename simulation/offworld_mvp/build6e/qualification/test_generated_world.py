@@ -4,7 +4,7 @@ from decimal import Decimal as D
 
 from simulation.offworld_mvp.build6e.generated_world import (
     _block, _dimensions, _interval, _sublimation_pressure, bind_generated_target,
-    load_inputs,
+    _material_family_truth, MATERIAL_FAMILIES, load_inputs, load_material_policy,
 )
 
 
@@ -12,6 +12,7 @@ class GeneratedWorldTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.rows,cls.policy=load_inputs()
+        cls.material_policy=load_material_policy()
 
     def block(self,key,seed='WORLD-GEN-2026',assertions=()):
         row=self.rows[key];domain='GEN_BODY_'+key+'_SITE_1'
@@ -40,6 +41,28 @@ class GeneratedWorldTest(unittest.TestCase):
         self.assertNotEqual(self.block('BENNU')[1],self.block('PHOBOS')[1])
         self.assertNotEqual(self.block('PHOBOS','WORLD-GEN-2026'),
                             self.block('PHOBOS','OTHER-WORLD-SEED'))
+
+    def test_coarse_four_family_domain_truth_is_seeded_and_unknown_is_not_absence(self):
+        outcomes={family:set() for family in MATERIAL_FAMILIES}
+        unknown_outcomes={family:set() for family in MATERIAL_FAMILIES}
+        for key,row in self.rows.items():
+            if row['material_model_applicability'] not in ('SOLID','SOLID_WITH_ATMOSPHERE'):
+                continue
+            _,block=self.block(key)
+            domain='GEN_BODY_'+key+'_SITE_1'
+            truth=_material_family_truth(row,block,self.material_policy,'WORLD-GEN-2026',key,domain)
+            self.assertEqual(tuple(truth),MATERIAL_FAMILIES)
+            self.assertTrue(all(type(value) is bool for value in truth.values()))
+            if block['target_mass_kg']>0:self.assertTrue(truth['VOLATILES'])
+            for family,value in truth.items():outcomes[family].add(value)
+            if int(row['m4b_unknown_family_count'])==4:
+                # UNKNOWN_AFTER_SEARCH is no evidence of absence: these
+                # bodies can still realize material presence in the fiction.
+                for family,value in truth.items():unknown_outcomes[family].add(value)
+            self.assertEqual(truth,_material_family_truth(row,block,self.material_policy,
+                'WORLD-GEN-2026',key,domain))
+        self.assertEqual(outcomes,{family:{False,True} for family in MATERIAL_FAMILIES})
+        self.assertEqual(unknown_outcomes,{family:{False,True} for family in MATERIAL_FAMILIES})
 
     def test_sample_does_not_constrain_body_mass_or_grade(self):
         sample={'scope_kind':'SAMPLE','property_code':'BULK_DENSITY',

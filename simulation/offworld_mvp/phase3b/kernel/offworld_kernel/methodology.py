@@ -264,6 +264,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if not (D('0')<=det<=D('1') and D('0')<=fp<=D('1')) or det<=fp:
             raise InvariantError('invalid agent-side observation likelihoods')
         obs=self.observations[observation_id]
+        if getattr(obs,'body_id','') and belief_key!='BODY:'+obs.body_id+':'+obs.question_ref:
+            raise InvariantError('BLOCKED_SCOPE: body belief/question mismatch')
         if self.boundary_manifest is not None and belief_key not in actor.beliefs and belief_key not in actor.priors:
             raise InvariantError('BLOCKED_UNKNOWN: belief/prior missing')
         prior=D(actor.beliefs.get(belief_key,actor.priors.get(belief_key,D('0.5'))))
@@ -2640,9 +2642,16 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             amount=D(b['cost'])
             if name=='explore_paid' and b.get('body_id'):
                 if (b.get('resource_id') or b.get('project_id') or
-                        b.get('question_ref')!='WATER_BEARING_MATERIAL_PRESENT' or
-                        type(b.get('body_truth')) is not bool or not original_decisions):
+                        b.get('question_ref') not in ('WATER_BEARING_MATERIAL_PRESENT','BODY_MATERIAL_CHARACTERIZATION') or
+                        not original_decisions):
                     raise InvariantError('BLOCKED_SCOPE: invalid body remote observation')
+                truth=b.get('body_truth')
+                if b['question_ref']=='BODY_MATERIAL_CHARACTERIZATION':
+                    from .mvp_state import BODY_MATERIAL_FAMILIES
+                    valid=isinstance(truth,dict) and set(truth)==set(BODY_MATERIAL_FAMILIES) and all(
+                        type(value) is bool for value in truth.values())
+                else:valid=type(truth) is bool
+                if not valid:raise InvariantError('BLOCKED_SCOPE: invalid body remote truth')
                 actor=self.agents[b['actor_id']]
                 if self.state.accounts[actor.account_id].balance<amount:
                     raise InvariantError('BLOCKED_AFFORDABILITY: public exploration cash')
