@@ -459,6 +459,50 @@ def _context_instance_ref(assertion_ref, fingerprint):
     return 'context-value:'+digest
 
 
+def _check_retained_prospecting_projects_for_remote(kernel, envelopes, start_index):
+    """A body REMOTE epoch may coexist with previously realized REGION projects."""
+    projects=kernel.state.projects
+    records=kernel.prospecting_project_creation_records
+    if (not projects or len(records)!=len(projects) or
+            {r.project_id for r in records}!=set(projects)):
+        raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_PROJECT_ORIGIN')
+    prior={}
+    for envelope in envelopes[:start_index]:
+        for kind,ref in envelope.artifact_refs:
+            if kind!='REALIZED_EVENT':continue
+            for obj in _walk_typed(_artifact_payload(kernel,ref)):
+                if obj.get('__type__')=='ProspectingProjectCreationRecord':
+                    if obj['project_id'] in prior:
+                        raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_PROJECT_ORIGIN')
+                    prior[obj['project_id']]=obj
+    if set(prior)!=set(projects):
+        raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_PROJECT_ORIGIN')
+    for record in records:
+        origin=prior[record.project_id]
+        if (any(str(origin[field])!=str(getattr(record,field)) for field in
+                ('year','actor_id','decision_id','opportunity_id','project_id',
+                 'body_key','region_key','location_id','node_id','cash_account_id',
+                 'project_stage','event_id')) or
+                record.actor_id!='SPN' or record.project_stage!='PROSPECTING' or
+                not any((key==record.region_key and str(location)==str(record.location_id))
+                    for key,location in (store.prospecting_region_identity(record.body_key,n)
+                                         for n in range(1,11)))):
+            raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_PROJECT_ORIGIN')
+        project=projects[record.project_id]
+        account=kernel.state.accounts.get(record.cash_account_id)
+        if (project.node_id!=record.node_id or
+                project.cash_account_id!=record.cash_account_id or
+                project.status not in ('EXPLORING','ABANDONED') or
+                project.owners!={'SPN':Decimal(1)} or account is None or
+                account.owner_id!='SPN' or account.node_id!=record.node_id or
+                getattr(account.kind,'value',account.kind)!='PROJECT_CASH'):
+            raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_PROJECT_PROFILE')
+    offworld_nodes={node_id for node_id,node in kernel.state.nodes.items()
+                    if node.kind.value=='OFFWORLD'}
+    if offworld_nodes!={r.node_id for r in records}:
+        raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_PROJECT_NODES')
+
+
 def _context_fingerprint(obj):
     from dataclasses import fields
     from offworld_kernel.boundary import ContextValue,FactState
@@ -516,11 +560,20 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
         return sha256(value).hexdigest()
     rows = []
     manifest = kernel.boundary_manifest
-    if binding is None or type(binding) is BodyRemoteBinding:
+    if binding is None:
         if (kernel.resources or kernel.state.projects or kernel.state.assets or kernel.colonies
                 or any(node.kind.value=='OFFWORLD' for node in kernel.state.nodes.values())
                 or any(kernel.population.offworld.values())
                 or any(kernel.population.in_transit.values())):
+            raise NamedWorldBlocked('BLOCKED_UNBOUND_OFFWORLD_STATE')
+    if type(binding) is BodyRemoteBinding:
+        if (kernel.resources or kernel.state.assets or kernel.colonies
+                or any(kernel.population.offworld.values())
+                or any(kernel.population.in_transit.values())):
+            raise NamedWorldBlocked('BLOCKED_UNBOUND_OFFWORLD_STATE')
+        if kernel.state.projects:
+            _check_retained_prospecting_projects_for_remote(kernel,envelopes,start_index)
+        elif any(node.kind.value=='OFFWORLD' for node in kernel.state.nodes.values()):
             raise NamedWorldBlocked('BLOCKED_UNBOUND_OFFWORLD_STATE')
     if isinstance(binding,ProspectingRegionBinding):
         study_assets={r.wip_asset_id for r in kernel.project_activity_expense_records

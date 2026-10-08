@@ -297,3 +297,66 @@ observations against the current body binding. The experiment does not
 authorize or implement that change, and does not demonstrate multiple-project
 support. Preserve the BLOCKED qualification disposition and earlier
 pre-project experiment; no simulation contracts or checks were relaxed.
+
+## Post-project body REMOTE spatial admission repair
+
+**Scope and diagnosis.** The preceding post-project experiment reproduced at
+`c138ad55f167648e4fb741990fd1f5290d20a6f7` in an isolated database:
+the 2026 PUBLIC choice was COMET_HALLEY, SPN authorized a REGION 02 prospecting
+project with 20 committed and disbursed, and the 2027 PUBLIC choice was DEIMOS.
+The Explorer policy authorized the second REMOTE request at cost 10, but
+`build6e/named_world.py` rejected its policy epoch as
+`BLOCKED_UNBOUND_OFFWORLD_STATE`. The old `BodyRemoteBinding` guard treated the
+retained project and Offworld node as if they had to belong to the new REMOTE
+body. The project already has its own authorized `PROSPECTING_REGION` location;
+the second mission has its own body/world binding. No World Authority schema or
+admission-contract change is required for these two independent spatial scopes.
+
+**Narrow compiler repair.** `_runtime_epoch_rows()` retains the complete
+no-binding rejection and the existing body REMOTE rejection of resources,
+assets, colonies, and Offworld population. When a body REMOTE epoch retains a
+prospecting project, it now verifies that every project has exactly one prior
+realized `ProspectingProjectCreationRecord`, that the record still matches the
+project, SPN owner, project cash account and Offworld node, and that its REGION
+identity is one of the ten deterministic locations on its recorded body.
+Unowned Offworld nodes remain rejected. Each new REMOTE request and observation
+still must match the current epoch's body binding; the independent project
+continues to carry its own REGION location. Existing REGION-scoped and targeted
+projection checks remain in force.
+
+**Observed governed result.** In a fresh isolated no-target run, PUBLIC again
+selected COMET_HALLEY, SPN authorized its REGION 02 project, and the later
+visible candidate derivation selected DEIMOS. The paid PUBLIC policy/action
+path committed the second REMOTE mission and four DEIMOS observations and
+belief updates. The project stayed EXPLORING with 20 project cash; country
+`F` and `X`, project commitments, and project financing transactions did not
+change. The unrelated PUBLIC mission added only its own 10-unit payment.
+Persisted state had two independently authorized missions, eight body-scoped
+observations, two distinct body/world bindings, one project and one REGION
+project location. PUB had four beliefs for each observed body; SPN retained
+only its four COMET_HALLEY beliefs. No site, resource, settlement, or new
+project arose from the second mission. Reconstructing the run and replaying
+all committed epochs returned `ALREADY_MATCHED` throughout, with identical
+observations and no duplicate mission, observation, project, or belief rows.
+Negative probes rejected a forged project REGION origin and a Body B request
+presented under Body A's binding. The focused test also checks mission-to-
+observation body/world matching and the project's independent REGION parent.
+
+**Verification.** The focused post-project governed persistence test passed
+(`1/1`), including exact reopen/replay and both negative spatial probes.
+Inherited body REMOTE persistence passed (`1/1`); prospecting and annual-study
+persistence passed in a fresh history-free governed database (`3/3`, including
+the region fail-closed probe); no-target reopen passed (`1/1`). The no-target
+compiler tests passed (`3/3`), and the Build 6E named-world plus Build 7
+generated-campaign unit suite passed (`14/14`). World Authority store/ETL/
+security invocation reported `37` tests, `OK (skipped=34)`; the protected
+security qualification cluster/admin credential was unavailable here, so the
+new governed integration test supplies the exercised lifecycle/replay evidence
+for this change. `git diff --check` passed. No broad 2026–2035 campaign was
+run for this repair.
+
+**Disposition.** This repairs the demonstrated post-project spatial compiler
+limit only. It does not add recurring Explorer decisions, Sponsor comparison,
+additional studies, or multi-project support. The broader Increment 6
+qualification remains **BLOCKED** on the previously recorded causal gaps;
+the 2026–2035 campaign has not been requalified by this repair.
