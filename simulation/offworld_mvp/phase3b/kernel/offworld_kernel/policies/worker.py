@@ -27,6 +27,7 @@ POLICIES={
     'SPONSOR_PORTFOLIO_V1':_load_policy('sponsor_portfolio_v1.py','_loom_sponsor_portfolio_v1'),
     'SPONSOR_STUDY_REVIEW_V1':_load_policy('sponsor_study_review_v1.py','_loom_sponsor_study_review_v1'),
     'SPONSOR_PROSPECTING_V1':_load_policy('sponsor_prospecting_v1.py','_loom_sponsor_prospecting_v1'),
+    'SPONSOR_OPPORTUNITY_V1':_load_policy('sponsor_opportunity_v1.py','_loom_sponsor_opportunity_v1'),
 }
 
 def _deny(*args,**kwargs):

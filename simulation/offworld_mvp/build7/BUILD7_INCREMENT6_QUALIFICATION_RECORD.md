@@ -398,3 +398,37 @@ The original Comet Halley REGION 02 Sponsor project remained the sole project, r
 **Verification:** existing focused governed regression `test_recurring_explorer_persistence.py::RecurringExplorerPersistenceTests::test_later_visible_choices_preserve_region_project_and_replay` passed 1/1 against this implementation. The existing replay process completed; every epoch commit returned `ALREADY_MATCHED`, with the same decisions, observations, beliefs, and project state and no duplicate consequences. The replay output was truncated by the session tool, so an exact epoch count is unavailable. `git diff --check` passed. No additional campaign or test was run for this closeout.
 
 **Disposition:** Priority 1 recurring PUBLIC exploration is demonstrated for this campaign. Increment 6 remains **BLOCKED**; Sponsor continuation/portfolio choice remains unresolved. PR #370 remains open and unmerged.
+
+## Priority 2 recurring Sponsor opportunity closeout — 2026-10-09
+
+**Implementation:** A narrow, non-executing annual SPN policy window now follows the
+completed initial study review. Its request contains the retained project's admitted
+status, study maturity and cash, remaining country financing capacity `F`, and
+transient prospecting opportunities reconstructed from SPN's own admitted public
+observations and four-family beliefs. Outcomes are `CONSIDER_PROSPECTING`,
+`RETAIN_PROJECT`, `WAIT`, or `BLOCKED_UNKNOWN`. No outcome authorizes expenditure,
+project creation, study activity, or maturity advancement. Equivalent eligible
+alternatives use the existing stable keyed derivation and are selected by deterministic
+tie-break; the policy makes no expected-return or economic-superiority claim.
+
+**Observed campaign evidence (pre-correction policy version):** Fresh seed `2227` run
+`SOLAR_MATERIAL_2977142cd46a6c47220617bb:085d6bb6f99d95bd` preserved the 2026–2029
+Sponsor sequence `AUTHORIZE`, `STUDY_SUPPORTS_ADVANCE`, `ADVANCE`, then produced an
+actual SPN `CONSIDER_PROSPECTING` policy decision in every year 2030–2035 from the
+visible candidate set and unchanged financing capacity `F=29.58025335469291`.
+The sole Comet Halley REGION 02 project remained `EXPLORING`; no second project or
+spending resulted. Replay returned **175/175 `ALREADY_MATCHED`**. This replay evidence
+predates the terminology-only correction from `VISIBLE_ALTERNATIVE_FUNDED` to
+`VISIBLE_ALTERNATIVE_WITHIN_FINANCING_CAPACITY`; it is not represented as replay of
+the corrected policy version.
+
+**Corrected focused verification:**
+`test_recurring_explorer_persistence.RecurringExplorerPersistenceTests.test_later_visible_choices_preserve_region_project_and_replay`
+passed **1/1** in 536.665 s. It verifies the corrected reason code, recurring visible
+Sponsor candidates, preservation of the single project and capital state, and exact
+replay without duplicate persisted consequences. `git diff --check` passed.
+
+**Disposition:** Priority 2's bounded recurring Sponsor opportunity decision is
+verified. Increment 6 remains **BLOCKED** on subsequent investment execution, new
+scientific studies, multi-project behavior, and downstream development qualification.
+PR #370 remains open and unmerged.

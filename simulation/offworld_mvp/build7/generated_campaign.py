@@ -40,7 +40,7 @@ from offworld_kernel.transport import TechnologyCapabilityState, TransportRelati
 from offworld_kernel.prospecting import (
     ProspectingScenario, ProspectingRegion, SponsorProspectingRequest,
     SponsorProspectingOutcome, derive_prospecting_opportunities,
-    choose_equivalent_region,
+    choose_equivalent_region, SponsorOpportunityCandidate, SponsorOpportunityRequest,
 )
 from offworld_kernel.underwriting import UnderwritingTable, mvp_validation_underwriting_table
 from offworld_kernel.policies.manifest import test_only_manifest, ObservationKnowledgeRelation, policy_source_bytes
@@ -788,6 +788,28 @@ def derive_world_prospecting_opportunities(k,h,calendar_year,body_key):
         scenario=h['prospecting_scenario'])
 
 
+def _annual_sponsor_opportunity_request(k,h,calendar_year,project_id,project_body):
+    config=load_config();sponsor=k.agents['SPN'];candidates=[]
+    body_keys=sorted({obs.body_id for obs in k.observations.values()
+        if isinstance(obs,BodyRemoteObservation) and obs.id in sponsor.information
+        and obs.body_id!=project_body})
+    for body_key in body_keys:
+        opportunities=derive_world_prospecting_opportunities(k,h,calendar_year,body_key)
+        region_key=sha256((config['runtime']['policy_seed']+'|SPN|'+str(calendar_year)+
+            '|ANNUAL_REGION_EQUIVALENCE|'+body_key).encode()).hexdigest()
+        opportunity=choose_equivalent_region(opportunities,region_key)
+        if opportunity is None:continue
+        tie_key=sha256((config['runtime']['policy_seed']+'|SPN|'+str(calendar_year)+
+            '|ANNUAL_OPPORTUNITY|'+opportunity.opportunity_id).encode()).hexdigest()
+        candidates.append(SponsorOpportunityCandidate(
+            opportunity.opportunity_id,body_key,opportunity.observation_ids,
+            opportunity.belief_keys,opportunity.required_capital,
+            opportunity.commercial_opportunity,tie_key).validate_protocol())
+    return SponsorOpportunityRequest(
+        'BUILD7:SPONSOR_OPPORTUNITY:'+str(calendar_year),calendar_year-2025,'SPN',
+        project_id,tuple(sorted(candidates,key=lambda c:c.opportunity_id))).validate_protocol()
+
+
 def run_world_prospecting_initiation(*,reference_service,runtime_service,run_id,
                                      public_login_service='agent_pub',
                                      sponsor_login_service='agent_spn',calendar_year=2026,
@@ -899,7 +921,7 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
     if through_year==2026:
         return {**opening,'exploration_annual':tuple(exploration_annual)}
     project_binding=h['named_binding'] if project_id is not None else None
-    annual=[]
+    annual=[];sponsor_opportunity_annual=[]
     for calendar_year in range(2027,through_year+1):
         year=calendar_year-2025
         _record_empty_year(k,h,calendar_year)
@@ -966,9 +988,23 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
                     (year,request,decision),decision_refs=(ref,))
             annual.append((calendar_year,decision.outcome.value))
             continue
+        if reviewed:
+            request=_annual_sponsor_opportunity_request(k,h,calendar_year,project_id,
+                opening['selected_body_id'])
+            decision,_=flow.policy_epoch(k,h,'BUILD7_SPONSOR_OPPORTUNITY:'+str(calendar_year),
+                'SPN',str(year),request,request.required_fact_keys,
+                workers.run_sponsor_opportunity_policy,
+                workers.sponsor_opportunity_policy_version())
+            visible_bodies=tuple(candidate.body_key for candidate in request.candidates)
+            sponsor_opportunity_annual.append((calendar_year,decision.outcome.value,
+                decision.selected_body_key or None,decision.reason_code.value,visible_bodies,
+                str(k.capital_coupling['USA']['F'])))
+            annual.append((calendar_year,decision.outcome.value))
+            continue
         annual.append((calendar_year,'NO_ACTION'))
     result={**_world_summary(k,h,world),'project_id':project_id,'annual':tuple(annual),
         'exploration_annual':tuple(exploration_annual),
+        'sponsor_opportunity_annual':tuple(sponsor_opportunity_annual),
         'public_balance':str(k.state.accounts[k.agents['PUB'].account_id].balance),
         'capital_coupling':{key:str(value) for key,value in k.capital_coupling['USA'].items()}}
     if project_id is not None:
