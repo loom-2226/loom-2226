@@ -34,14 +34,14 @@ class BodyRemoteObservationPersistenceTests(unittest.TestCase):
                       if row['body_id']==first['selected_body_id'] and row['year']==2026)
         self.assertEqual(selected['accessibility_status'],'SCREENED')
         self.assertEqual([status for _,status in first['epoch_commits']],
-                         ['ALREADY_MATCHED']+['COMMITTED']*6)
+                         ['ALREADY_MATCHED']+['COMMITTED']*14)
         self.assertEqual(tuple(row[0] for row in first['material_observations']),MATERIAL_FAMILIES)
         self.assertTrue(all(row[2] in ('POSITIVE','NEGATIVE') and row[3] not in ('0','1')
                             for row in first['material_observations']))
 
         replay=run_world_remote_choice(reference_service='reference_reader',
             runtime_service='runtime',run_id=run_id)
-        self.assertEqual([status for _,status in replay['epoch_commits']],['ALREADY_MATCHED']*7)
+        self.assertEqual([status for _,status in replay['epoch_commits']],['ALREADY_MATCHED']*15)
         for key in ('choice','selected_candidate_id','selected_body_id',
                     'material_observations','public_balance','candidate_mission_digest'):
             self.assertEqual(replay[key],first[key],key)
@@ -49,7 +49,7 @@ class BodyRemoteObservationPersistenceTests(unittest.TestCase):
         with psycopg.connect(service='runtime') as conn:
             for table,expected in (
                 ('wa_run.world_binding',1),('wa_run.mission',1),('wa_run.observation',4),
-                ('wa_info.information_artifact',4),('wa_info.possession',4),('wa_info.belief',4),
+                ('wa_info.information_artifact',8),('wa_info.possession',12),('wa_info.belief',8),
                 ('wa_run.project',0),('wa_run.project_location',0),('wa_run.stock_state',0),
                 ('wa_run.asset',0),('wa_run.settlement',0)):
                 count=conn.execute('SELECT count(*) FROM '+table+' WHERE run_id=%s',(run_id,)).fetchone()[0]
@@ -69,7 +69,7 @@ class BodyRemoteObservationPersistenceTests(unittest.TestCase):
             self.assertEqual(mission[3],'REMOTE:EXPLORATION_REQUEST_BODY_V1')
             self.assertEqual(observation[2:4],('REMOTE','BODY_REMOTE_SIGNAL_V1'))
             self.assertEqual(conn.execute('SELECT count(*) FROM wa_run.causal_envelope WHERE run_id=%s',
-                (run_id,)).fetchone()[0],14)
+                (run_id,)).fetchone()[0],26)
             self.assertEqual(conn.execute("SELECT count(*) FROM wa_run.population_state "
                 "WHERE run_id=%s AND position_key<>'EARTH'",(run_id,)).fetchone()[0],0)
             self.assertEqual(conn.execute('SELECT count(distinct body_id) FROM wa_run.observation '

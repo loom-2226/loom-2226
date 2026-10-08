@@ -79,6 +79,13 @@ class BodyRemoteBinding:
     binding_key: str
 
 
+@dataclass(frozen=True, slots=True)
+class ProspectingRegionBinding(BodyRemoteBinding):
+    """Selected body plus one geology-neutral simulation prospecting region."""
+    region_key: str
+    location_id: Any
+
+
 def load_manifest(path: Path = INPUT) -> dict[str, Any]:
     """Load and validate the one closed, authored 6E input profile."""
     raw = path.read_bytes()
@@ -493,7 +500,7 @@ def _population_projection(run_id, cohort_id, settlement_id, binding, event_id,
         for kind,location_id,position_settlement,count in positions)
 
 
-def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBinding | None, *, first: bool, start_index: int,
+def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBinding | ProspectingRegionBinding | None, *, first: bool, start_index: int,
                         epoch_id: str, agent_logins: Mapping[str,str]):
     """Encode one completed original kernel epoch in the fixed V1 row profile."""
     from dataclasses import fields
@@ -509,12 +516,17 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
         return sha256(value).hexdigest()
     rows = []
     manifest = kernel.boundary_manifest
-    if binding is None or isinstance(binding,BodyRemoteBinding):
+    if binding is None or type(binding) is BodyRemoteBinding:
         if (kernel.resources or kernel.state.projects or kernel.state.assets or kernel.colonies
                 or any(node.kind.value=='OFFWORLD' for node in kernel.state.nodes.values())
                 or any(kernel.population.offworld.values())
                 or any(kernel.population.in_transit.values())):
             raise NamedWorldBlocked('BLOCKED_UNBOUND_OFFWORLD_STATE')
+    if isinstance(binding,ProspectingRegionBinding):
+        if (kernel.resources or kernel.state.assets or kernel.colonies
+                or any(kernel.population.offworld.values())
+                or any(kernel.population.in_transit.values())):
+            raise NamedWorldBlocked('BLOCKED_PROSPECTING_SCOPE_EXPANSION')
     if first:
         identity = raw(kernel.run_identity)
         boundary = raw(manifest)
@@ -779,6 +791,37 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
                 kernel.population.earth,kernel.population.in_transit.get(binding.site_node_id,0),
                 kernel.population.offworld.get(binding.site_node_id,0),kernel.population.total()))
 
+    if isinstance(binding,ProspectingRegionBinding):
+        creation_records=[]
+        for ref,(kind,_) in all_artifacts.items():
+            if kind!='REALIZED_EVENT':continue
+            for obj in _walk_typed(_artifact_payload(kernel,ref)):
+                if obj.get('__type__')=='ProspectingProjectCreationRecord':
+                    creation_records.append((obj,ref))
+        if {obj['project_id'] for obj,_ in creation_records}!=set(kernel.state.projects):
+            raise NamedWorldBlocked('BLOCKED_PROSPECTING_PROJECT_ORIGIN')
+        current_refs=set(current_artifacts)
+        for obj,ref in creation_records:
+            if ref not in current_refs:continue
+            if (obj['body_key']!=binding.body_key or obj['region_key']!=binding.region_key
+                    or str(obj['location_id'])!=str(binding.location_id)
+                    or obj['project_stage']!='PROSPECTING'):
+                raise NamedWorldBlocked('BLOCKED_PROSPECTING_REGION_BINDING')
+            project=kernel.state.projects[obj['project_id']]
+            if (project.node_id!=obj['node_id'] or project.cash_account_id!=obj['cash_account_id']
+                    or project.status!='EXPLORING' or project.owners!={'SPN':Decimal(1)}):
+                raise NamedWorldBlocked('BLOCKED_PROSPECTING_PROJECT_PROFILE')
+            rows.append(('wa_run.project',dict(run_id=manifest.run_id,
+                project_id=project.id,name=project.id,original_project_artifact_ref=ref)))
+            rows.append(('wa_run.project_location',dict(run_id=manifest.run_id,
+                project_id=project.id,binding_key='PROSPECTING_REGION',
+                world_id=None,body_id=None,site_id=None,location_id=binding.location_id,
+                effective_period=_sim_period(obj['year']),purpose_ref='PROSPECTING',
+                origin_artifact_ref=ref)))
+            rows.append(('wa_run.project_party',dict(run_id=manifest.run_id,
+                project_id=project.id,organization_id='SPN',relationship_ref='OWNER:1',
+                effective_period=_sim_period(obj['year']),original_artifact_ref=ref)))
+
     # Requests, source ContextValues, scoped receipts, safe snapshots, facts and
     # decisions retain their exact typed originals and source fingerprints.
     receipt_values={};snapshot_refs={};pending_context={}
@@ -1026,6 +1069,17 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
                                 possession_key='POSSESSION:'+env.envelope_id+':'+information_id,
                                 available_from=Decimal(env.realized_time),event_id=env.envelope_id,
                                 access_contract_ref='PUBLICATION:'+obj['artifact_version'])))
+                        source_observation=kernel.observations[obj['source_observation_id']]
+                        if (getattr(source_observation,'body_id','') and
+                                source_observation.question_ref in BODY_MATERIAL_QUESTIONS):
+                            belief_key='BODY:'+source_observation.body_id+':'+source_observation.question_ref
+                            if belief_key not in agent.beliefs:
+                                raise NamedWorldBlocked('BLOCKED_PUBLIC_BODY_BELIEF_MISSING')
+                            rows.append(('wa_info.belief',dict(run_id=manifest.run_id,
+                                actor_id=actor_id,belief_key=belief_key,event_id=env.envelope_id,
+                                source_information_id=obj['id'],value_state='KNOWN',
+                                original_belief_ref=ref,
+                                update_rule_ref='BUILD7_PUBLIC_BODY_MATERIAL_BELIEF_V1')))
                 if obj.get('__type__')=='SettlementInfrastructureRecord':
                     if binding is None:
                         raise NamedWorldBlocked('BLOCKED_UNBOUND_SETTLEMENT')
@@ -1196,7 +1250,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
     return tuple(rows), terminals
 
 
-def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocationBinding | BodyRemoteBinding | None,
+def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocationBinding | BodyRemoteBinding | ProspectingRegionBinding | None,
                             epoch_id: str, effective_time: Decimal | str | int,
                             agent_logins: Mapping[str,str], execute):
     """Run one original kernel epoch inside World Authority's V1.2 scope.

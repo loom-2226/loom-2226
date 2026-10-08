@@ -341,6 +341,13 @@ def _resolve_live(k,r):
         value=a.beliefs.get(key,a.priors.get(key))
         if value is None:return _outcome(k,r,FactState.UNKNOWN,'MISSING_BODY_PRIOR')
         return _value(k,r,str(value),kind='BELIEF',mode='ACTOR_BELIEF',source='belief:'+a.id+':'+key)
+    if selector=='CAPITAL_AVAILABLE_F':
+        if r.subject_id not in getattr(k,'capital_coupling',{}):
+            return _outcome(k,r,FactState.UNKNOWN,'MISSING_CAPITAL_COUPLING')
+        value=D(k.capital_coupling[r.subject_id]['F'])
+        if value<0:return _outcome(k,r,FactState.BLOCKED,'NEGATIVE_AVAILABLE_FINANCING')
+        return _value(k,r,str(value),kind='FINANCIAL_STATE',mode='SIMULATION_RESULT',
+            source='capital-coupling:'+r.subject_id+':F')
     if selector=='EARTH_SUPPLY':
         try:node,period=r.subject_id.rsplit(':SIM',1);year=int(period)
         except (ValueError,TypeError):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')

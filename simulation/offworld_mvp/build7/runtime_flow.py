@@ -48,6 +48,9 @@ OWNERS={
 'admit_realized_output_observation':('agents','events'),
 'boundary_purchase':('accounts','transactions','market_resource_inventory','boundary_net','events','earth_impact'),
 'assess_resource_recoverability':('resources','events'),'record_earth_reference_year':('events',),
+'mobilize_country_capital':('accounts','transactions','capital_coupling','capital_mobilization_records','boundary_net','events'),
+'create_prospecting_project':('nodes','accounts','projects','prospecting_project_creation_records','events','agents'),
+'disburse_country_capital':('accounts','transactions','commitments','earth_impact','capital_coupling','country_capital_disbursement_records','events','agents'),
 }
 
 LIVE={
@@ -73,6 +76,7 @@ for key,unit in [('AVAILABLE','BOOLEAN'),('RELATIONSHIP_ID','IDENTITY'),('CAPACI
 LIVE['technology.STATE_ID']=('TRANSPORT:STATE_ID','TECH-BUILD7','IDENTITY')
 LIVE['opportunity.NAMED_LOCATION']=('CATALOG:BODY','BODY','CATALOG_LOCATION_IDENTITY')
 LIVE['opportunity.AUTHORED_SITE']=('SCENARIO_SITE',NODE_ID,'AUTHORED_SITE_IDENTITY')
+LIVE['capital.AVAILABLE_F']=('CAPITAL_AVAILABLE_F','USA','MODEL_CURRENCY')
 
 _TEMPORAL_FIELDS=frozenset(('year','effective_time','departure_time','arrival_time','event_time','decision_time','authorization_time','realized_time'))
 _SYSTEM_TIME_INDEX={'disburse':0,'reserve_earth_supply':1,'explore_paid':0,'surface_prospect_paid':0,
@@ -81,6 +85,8 @@ _SYSTEM_TIME_INDEX={'disburse':0,'reserve_earth_supply':1,'explore_paid':0,'surf
     'resolve_operating_extraction':0,'admit_realized_output_observation':0,'clear_market_sale':0,
     'execute_surplus_distribution':0,'execute_settlement_infrastructure':0,'update_settlement_stage':0,
     'execute_enterprise_review':0,'assess_resource_recoverability':0,'record_earth_reference_year':0}
+_SYSTEM_TIME_INDEX.update({'mobilize_country_capital':0,'create_prospecting_project':0,
+                           'disburse_country_capital':0})
 
 def _target_runtime(kernel):
     """Resolve the current campaign target without changing the frozen 6E defaults."""
@@ -107,6 +113,8 @@ def policy_inputs(k,actor,time,concepts,subjects=None):
                 scope=target['catalog_scope'];subject=target['catalog_subject'];context='REAL';cid='';role='ADMITTED_CATALOG_IDENTITY'
             elif concept=='opportunity.AUTHORED_SITE':
                 scope=target['site_ref'];subject=target['site_ref'];context='SCENARIO';cid=k.boundary_manifest.scenario_id;role='POLICY_PARAMETER'
+            elif concept=='capital.AVAILABLE_F':
+                scope='COUNTRY:'+subject;context='REALIZED';cid=k.boundary_manifest.run_id;role='FINANCIAL_STATE'
             else:
                 context='REALIZED';cid=k.boundary_manifest.run_id;role='ADMITTED_INFORMATION'
         else:
@@ -208,6 +216,16 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
         for concept,unit in (('population','PERSON'),('value_added','EARTH_REAL_PROXY_VALUE_ADDED_PER_YEAR'),('gross_output','EARTH_REAL_PROXY_GROSS_OUTPUT_PER_YEAR'),('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('capital','EARTH_REAL_PROXY_CAPITAL'),('legacy_employment','PERSON_FTE_PROXY')):
             request=ConsumptionRequest(label+':EARTH:'+concept,sid,'SYSTEM_TRANSITION','USA',concept,'COUNTRY:USA','SIM_TIME',str(time),str(time),'SCENARIO',k.boundary_manifest.scenario_id,'WORLD_SIM','','ADMITTED',unit,'EARTH_REFERENCE')
             receipts.append(admit_for_use(k,request)[1])
+    if method=='mobilize_country_capital':
+        country=str(args[1]);calendar=str(int(D(time))+2025)
+        request=ConsumptionRequest(label+':EARTH:investment',sid,'SYSTEM_TRANSITION',country,
+            'investment','COUNTRY:'+country,'SIM_TIME',str(time),str(time),'SCENARIO',
+            k.boundary_manifest.scenario_id,'WORLD_SIM','','ADMITTED',
+            'EARTH_REAL_PROXY_INVESTMENT_PER_YEAR','EARTH_REFERENCE')
+        receipts.append(admit_for_use(k,request)[1])
+    if method=='disburse_country_capital':
+        country=str(args[1])
+        live('capital.AVAILABLE_F',country,'COUNTRY:'+country,'MODEL_CURRENCY','FINANCIAL_STATE')
     if method in ('explore_paid','surface_prospect_paid','assess_resource_recoverability','resolve_operating_extraction') and not body_remote:
         build7=dict(k.boundary_manifest.parameters).get('build7.profile')=='BUILD7_GENERATED_CAMPAIGN_V1'
         physical_concept='R_IN_SITU' if build7 and method in ('explore_paid','surface_prospect_paid','assess_resource_recoverability') else 'R_RECOVERABLE'
@@ -231,7 +249,13 @@ def _system_epoch_body(k,h,method,time,args=(),kwargs=None,decision_refs=()):
                 'PROBABILITY','ACTOR_BELIEF')
         else:live('actor.BELIEF',args[1],'AGENT:'+args[1],'PROBABILITY','ACTOR_BELIEF')
     if method=='publish_observation':
-        for actor,_,_,_ in args[4]:live('actor.BELIEF',actor,'AGENT:'+actor,'PROBABILITY','ACTOR_BELIEF')
+        obs=k.observations[args[2]]
+        for actor,key,_,_ in args[4]:
+            if getattr(obs,'body_id',''):
+                live('body.BELIEF',actor,key,
+                    'PROBABILITY','ACTOR_BELIEF')
+            else:
+                live('actor.BELIEF',actor,'AGENT:'+actor,'PROBABILITY','ACTOR_BELIEF')
     read_set=tuple(sorted(set(receipt.consumption_request.concept for receipt in receipts)))
     k.scheduler.register_coupling(CouplingSpec(sid,'BUILD6E_V1',RuntimeObjectClass.SYSTEM,owned,read_set,owned,'EVENT',Phase.OPERATIONS))
     k.scheduler.schedule(event)

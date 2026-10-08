@@ -274,6 +274,55 @@ def install_generation_body_catalog(conn, manifest):
         conn.execute('SET CONSTRAINTS ALL IMMEDIATE')
     return 'INSERTED' if inserted else 'ALREADY_MATCHED'
 
+def prospecting_region_identity(body_key,ordinal):
+    """Stable identity for one of Build 7's ten geology-neutral regions."""
+    ordinal=int(ordinal)
+    if not body_key or not 1<=ordinal<=10:raise IntegrityFailure('PROSPECTING_REGION_IDENTITY')
+    region_key='BUILD7_PROSPECTING_REGION_'+str(ordinal).zfill(2)
+    location_id=stable_uuid('LOCATION','BUILD7_PROSPECTING_REGION_V1',
+        length_prefixed(str(body_key),region_key).decode(),'IDENTITY_V1')
+    return region_key,location_id
+
+def install_prospecting_region_catalog(conn, manifest):
+    """Install exactly ten uniform simulation regions per eligible Build 7 body."""
+    from .etl import canonical
+    required={'schema','standing','eligible_count','supporting_body_count','body_rows_sha256',
+              'support_rows_sha256','source_refs','bodies','supporting_bodies'}
+    if (set(manifest)!=required or manifest['schema']!='BUILD7_SOLAR_BODY_CATALOG_V1'
+            or manifest['eligible_count']!=90 or len(manifest['bodies'])!=90):
+        raise IntegrityFailure('PROSPECTING_REGION_CATALOG_PROFILE')
+    if sha256_bytes(canonical(manifest['bodies']))!=require_sha256(manifest['body_rows_sha256']):
+        raise IntegrityFailure('PROSPECTING_REGION_CATALOG_DIGEST')
+    if conn.info.transaction_status.value!=0:
+        raise IntegrityFailure('PROSPECTING_REGION_CATALOG_REQUIRES_IDLE_CONNECTION')
+    source_ref='AUTHORED_SPATIAL_ANCHOR:BUILD7_PROSPECTING_REGIONS_V1:'+manifest['body_rows_sha256']
+    inserted=0
+    with conn.transaction():
+        serializable(conn);_require_session_group(conn,'wa_science_writer')
+        conn.execute('SET LOCAL ROLE wa_science_writer')
+        assert_service_role(conn,SERVICE_ROUTES['science_writer'])
+        conn.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))',
+                     ('BUILD7_PROSPECTING_REGIONS:'+manifest['body_rows_sha256'],))
+        for body in sorted(manifest['bodies'],key=lambda row:row['semantic_key']):
+            body_key=body['semantic_key']
+            body_id=stable_uuid('BODY','LOOM_BODY_V1',body_key,'IDENTITY_V1')
+            found=conn.execute('SELECT body_id FROM wa_geo.body WHERE body_id=%s AND semantic_key=%s',
+                               (body_id,body_key)).fetchone()
+            if found is None:raise IntegrityFailure('PROSPECTING_REGION_BODY_ABSENT:'+body_key)
+            for ordinal in range(1,11):
+                region_key,location_id=prospecting_region_identity(body_key,ordinal)
+                values=dict(location_id=location_id,body_id=body_id,system_id=None,
+                    semantic_key=region_key,name='Build 7 Prospecting Region '+str(ordinal).zfill(2),
+                    location_kind='REGION',original_region_type='SIMULATION_PROSPECTING_REGION',
+                    origin_kind='AUTHORED_SPATIAL_ANCHOR',geometry_id=None,source_ref=source_ref,
+                    notes='Uniform coarse simulation partition; conveys no geology, material presence, or economic value.')
+                status=_match_or_insert_columns(conn,'wa_geo.location',values)
+                if status!='ALREADY_MATCHED':inserted+=1
+        count=conn.execute("SELECT count(*) FROM wa_geo.location WHERE source_ref=%s",(source_ref,)).fetchone()[0]
+        if count!=900:raise IntegrityFailure('PROSPECTING_REGION_COUNT')
+        conn.execute('SET CONSTRAINTS ALL IMMEDIATE')
+    return 'INSERTED' if inserted else 'ALREADY_MATCHED'
+
 def read_generation_catalog(conn, source_sha256, supplemental_catalog_sha256=None):
     """Closed trusted body projection from source plus optional pinned Solar supplement."""
     from psycopg.rows import dict_row

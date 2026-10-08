@@ -7,7 +7,7 @@ import json
 from typing import Dict, Tuple
 from .build4 import Build4Kernel, OwnershipStake
 from .kernel import InvariantError
-from .model import D, TxPurpose, AssetKind, NodeKind, AccountKind
+from .model import D, TxPurpose, AssetKind, NodeKind, AccountKind, Transaction
 from .mvp_state import AgentKind, AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome, SaleDecisionOutcome, SurplusDistributionDecisionOutcome, SettlementSupportDecisionOutcome
 from .scheduler import DeterministicScheduler
 from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
@@ -50,6 +50,12 @@ from .project_study import (
     ProjectStudyReviewExecutionRecord,
 )
 from .named_portfolio import NamedBodyEvidenceRecord, BodyPortfolioBinding
+from .prospecting import (
+    CapitalMobilizationRecord, CountryCapitalDisbursementRecord,
+    ProspectingProjectCreationRecord, SponsorProspectingOutcome,
+    SponsorProspectingRequest, SponsorProspectingDecision, ProspectingScenario,
+    derive_mobilization,
+)
 
 @dataclass(frozen=True)
 class ResolutionRecord:
@@ -105,7 +111,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'register_project_study_state','register_project_study_plan',
         'authorize_project_study_activity','spend_exploration_wip','spend_project_study_activity',
         'complete_project_study_activity','execute_project_study_review',
-        'register_named_body_evidence','register_body_portfolio_binding','admit_realized_output_observation'
+        'register_named_body_evidence','register_body_portfolio_binding','admit_realized_output_observation',
+        'mobilize_country_capital','create_prospecting_project','disburse_country_capital',
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
@@ -2451,6 +2458,24 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
              r.offworld_population_after,r.total_population_before,r.total_population_after,
              r.arrival_event_id,r.stage_event_id,r.record_version)
              for r in self.passenger_transport_arrivals]}
+        if hasattr(self,'capital_coupling'):
+            payload['capital_coupling']=sorted((country,tuple(sorted((key,str(value))
+                for key,value in values.items()))) for country,values in self.capital_coupling.items())
+            payload['capital_mobilization_records']=[(
+                r.year,r.country_id,str(r.investment_proxy),str(r.normalized_investment),
+                str(r.commercial_opportunity),str(r.base_salience),str(r.race_pressure),
+                str(r.strategic_pressure),str(r.mobilization_fraction),str(r.mobilized_cash),
+                r.destination_account_id,r.transaction_id,r.source_ref,r.record_version)
+                for r in self.capital_mobilization_records]
+            payload['country_capital_disbursement_records']=[(
+                r.year,r.country_id,r.project_id,r.commitment_id,str(r.amount),
+                str(r.available_cash_before),str(r.available_cash_after),
+                str(r.exposure_before),str(r.exposure_after),r.transaction_id,r.record_version)
+                for r in self.country_capital_disbursement_records]
+            payload['prospecting_project_creation_records']=[(
+                r.year,r.actor_id,r.decision_id,r.opportunity_id,r.project_id,r.body_key,
+                r.region_key,r.location_id,r.node_id,r.cash_account_id,r.project_stage,
+                r.event_id,r.record_version) for r in self.prospecting_project_creation_records]
         if self.boundary_manifest is not None:
             from .causal_trace import validate_trace
             payload['boundary_manifest']=self.boundary_manifest.fingerprint()
@@ -2529,6 +2554,102 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self._boundary_random_keys.append(raw)
         return _comparison_draw(json.loads(raw))
 
+    def mobilize_country_capital(self,year,country_id,investment_proxy,
+                                 commercial_opportunity,scenario:ProspectingScenario,
+                                 source_account,destination_account):
+        """Bridge admitted Earth capacity into finite cash without a parallel ledger."""
+        year=int(year);scenario.validate();country_id=str(country_id)
+        if not hasattr(self,'capital_coupling') or not hasattr(self,'capital_mobilization_records'):
+            raise InvariantError('capital coupling not initialized')
+        if any(r.year==year and r.country_id==country_id for r in self.capital_mobilization_records):
+            raise InvariantError('country capital already mobilized for period')
+        source=self.state.accounts[source_account];destination=self.state.accounts[destination_account]
+        if (source.kind!=AccountKind.EARTH_BOUNDARY or source.node_id!='EARTH:'+country_id
+                or destination.node_id!=source.node_id or destination.kind!=AccountKind.FUNDS):
+            raise InvariantError('capital mobilization account scope')
+        expected=tuple(a for a in self.boundary_manifest.assertions
+            if a.subject_id==country_id and a.concept=='investment'
+            and a.world_context=='REAL' and a.valid_from==str(year+2025))
+        if len(expected)!=1 or expected[0].value_state.value!='KNOWN' or D(expected[0].value)!=D(investment_proxy):
+            raise InvariantError('capital mobilization Earth investment mismatch')
+        normalized,pressure,fraction,mobilized=derive_mobilization(
+            investment_proxy=investment_proxy,commercial_opportunity=commercial_opportunity,
+            scenario=scenario)
+        coupling=self.capital_coupling[country_id]
+        if any(D(coupling[key])<0 for key in ('F','X','R')):
+            raise InvariantError('capital coupling negative opening state')
+        source.balance-=mobilized;destination.balance+=mobilized
+        self.boundary_net[source_account]=self.boundary_net.get(source_account,D(0))-mobilized
+        tx=Transaction(self._id('tx'),year,source_account,destination_account,mobilized,
+            TxPurpose.OTHER_INVESTMENT,source.node_id,destination.node_id,
+            parent_ids=(scenario.scenario_id,))
+        self.state.transactions.append(tx)
+        coupling['F']=D(coupling['F'])+mobilized;coupling['S']=pressure
+        record=CapitalMobilizationRecord(year,country_id,D(investment_proxy),normalized,
+            D(commercial_opportunity),scenario.base_salience,scenario.race_pressure,
+            pressure,fraction,mobilized,destination_account,tx.id,
+            scenario.authorization_ref)
+        self.capital_mobilization_records.append(record)
+        self.event(year,'CAPITAL_COUPLING_SYSTEM',ActionKind.FINANCE,'CAPITAL_MOBILIZED',
+            (country_id,str(normalized),str(fraction),str(mobilized),tx.id))
+        return record
+
+    def create_prospecting_project(self,year,actor_id,request:SponsorProspectingRequest,
+                                   decision:SponsorProspectingDecision,node_id,cash_account_id):
+        """Realize one sponsor-authorized regional prospecting project."""
+        year=int(year);request.validate_protocol();decision.validate_protocol(request)
+        if decision.outcome!=SponsorProspectingOutcome.INITIATE_PROJECT:
+            raise InvariantError('prospecting project requires INITIATE_PROJECT')
+        if actor_id!=decision.actor_id or actor_id not in self.agents:
+            raise InvariantError('prospecting project sponsor mismatch')
+        actor=self.agents[actor_id]
+        if actor.kind!=AgentKind.PRIVATE_SPONSOR:
+            raise InvariantError('prospecting project requires private sponsor')
+        if request.project_id in self.state.projects or cash_account_id in self.state.accounts:
+            raise InvariantError('prospecting project already exists')
+        if node_id in self.state.nodes:
+            raise InvariantError('prospecting project node already exists')
+        self.add_node(node_id,NodeKind.OFFWORLD)
+        self.add_account(cash_account_id,actor_id,node_id,AccountKind.PROJECT_CASH,D(0))
+        self.add_project(request.project_id,node_id,cash_account_id,{actor_id:D(1)})
+        self.state.projects[request.project_id].status='EXPLORING'
+        event=self.event(year,actor_id,ActionKind.AUTHORIZE_ACTIVITY,
+            'PROSPECTING_PROJECT_CREATED',
+            (decision.id,request.opportunity_id,request.project_id,request.body_key,
+             request.region_key,request.location_id), (decision.id,request.opportunity_id))
+        record=ProspectingProjectCreationRecord(
+            year,actor_id,decision.id,request.opportunity_id,request.project_id,
+            request.body_key,request.region_key,request.location_id,node_id,
+            cash_account_id,'PROSPECTING',event.id)
+        self.prospecting_project_creation_records.append(record)
+        return record
+
+    def disburse_country_capital(self,year,country_id,commitment_id,source_account,
+                                 amount,request:SponsorProspectingRequest,
+                                 decision:SponsorProspectingDecision):
+        """Wrap the existing disbursement transaction with F/X exposure state."""
+        year=int(year);amount=D(amount);country_id=str(country_id)
+        decision.validate_protocol(request)
+        if decision.outcome!=SponsorProspectingOutcome.INITIATE_PROJECT:
+            raise InvariantError('country capital disbursement not authorized')
+        coupling=self.capital_coupling[country_id]
+        before_f=D(coupling['F']);before_x=D(coupling['X'])
+        commitment=self.state.commitments.get(commitment_id)
+        if (commitment is None or commitment.project_id!=decision.project_id
+                or commitment.financier_id!=decision.actor_id
+                or self.state.accounts[source_account].owner_id!=decision.actor_id
+                or amount!=decision.amount or amount>before_f):
+            raise InvariantError('country capital disbursement scope')
+        tx=self.disburse(year,commitment_id,source_account,amount)
+        coupling['F']=before_f-amount;coupling['X']=before_x+amount
+        record=CountryCapitalDisbursementRecord(
+            year,country_id,commitment.project_id,commitment_id,amount,
+            before_f,coupling['F'],before_x,coupling['X'],tx.id)
+        self.country_capital_disbursement_records.append(record)
+        self.event(year,decision.actor_id,ActionKind.FINANCE,'COUNTRY_CAPITAL_DISBURSED',
+            (country_id,commitment.project_id,str(amount),tx.id),(decision.id,commitment_id))
+        return record
+
     def _boundary_preflight(self,name,attr,args,kwargs):
         import inspect
         from .boundary import verify_receipt
@@ -2586,12 +2707,25 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 if name=='transition_project_status':
                     expected_status={'ABANDON':'ABANDONED','DEVELOP':'DEVELOPMENT'}.get(f['outcome']['value'])
                     if b['new_status']!=expected_status or b['reason_ref']!=f['id']['value']:raise InvariantError('BLOCKED_LINEAGE: project transition not authorized')
-                if name=='add_commitment' and f['outcome']['value'] not in ('AUTHORIZE','APPROVE'):raise InvariantError('BLOCKED_LINEAGE: funding decision not approved')
+                if name=='add_commitment' and f['outcome']['value'] not in ('AUTHORIZE','APPROVE','INITIATE_PROJECT'):raise InvariantError('BLOCKED_LINEAGE: funding decision not approved')
                 if name=='disburse':
                     commitment=self.state.commitments.get(b['commitment_id'])
                     if commitment is None or commitment.financier_id!=actor or commitment.project_id!=q['project_id']['value'] or self.state.accounts[b['source_account']].owner_id!=actor:
                         raise InvariantError('BLOCKED_LINEAGE: disbursement ownership/project')
-        if name in ('add_commitment','disburse'):
+                if name=='create_prospecting_project':
+                    if (f['outcome']['value']!='INITIATE_PROJECT'
+                            or b['request'].id!=q['id']['value']
+                            or b['request'].opportunity_id!=q['opportunity_id']['value']
+                            or b['request'].project_id!=q['project_id']['value']):
+                        raise InvariantError('BLOCKED_LINEAGE: prospecting project not authorized')
+                if name=='disburse_country_capital':
+                    commitment=self.state.commitments.get(b['commitment_id'])
+                    if (f['outcome']['value']!='INITIATE_PROJECT' or commitment is None
+                            or commitment.project_id!=q['project_id']['value']
+                            or b['request'].id!=q['id']['value']
+                            or b['decision'].id!=f['id']['value']):
+                        raise InvariantError('BLOCKED_LINEAGE: country capital disbursement not authorized')
+        if name in ('add_commitment','disburse','disburse_country_capital'):
             if not original_decisions:raise InvariantError('BLOCKED_LINEAGE: financing authorization absent')
             permitted=[]
             for d in original_decisions:

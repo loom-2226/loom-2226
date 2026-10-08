@@ -13,6 +13,7 @@ from hashlib import sha256
 import json
 from pathlib import Path
 from typing import Mapping
+import uuid
 
 from loom_world_authority import store
 from loom_world_authority.etl import SOURCE_SHA as WA_SOURCE_SHA
@@ -36,6 +37,11 @@ from offworld_kernel.market import CommodityMarketEnvelope
 from offworld_kernel.distribution import FinancingReturnClaim
 from offworld_kernel.settlement import SettlementInfrastructurePlan
 from offworld_kernel.transport import TechnologyCapabilityState, TransportRelationship
+from offworld_kernel.prospecting import (
+    ProspectingScenario, ProspectingRegion, SponsorProspectingRequest,
+    SponsorProspectingOutcome, derive_prospecting_opportunities,
+    choose_equivalent_region,
+)
 from offworld_kernel.underwriting import UnderwritingTable, mvp_validation_underwriting_table
 from offworld_kernel.policies.manifest import test_only_manifest, ObservationKnowledgeRelation, policy_source_bytes
 from offworld_kernel import policy_runner as workers
@@ -48,7 +54,9 @@ from offworld_kernel.distribution_protocol import build_surplus_distribution_req
 from offworld_kernel.transport_protocol import build_transport_settlement_request
 
 from simulation.offworld_mvp.build6e.generated_world import generate_solar_system, bind_generated_target, _hash as generated_hash
-from simulation.offworld_mvp.build6e.named_world import NamedLocationBinding, BodyRemoteBinding
+from simulation.offworld_mvp.build6e.named_world import (
+    NamedLocationBinding, BodyRemoteBinding, ProspectingRegionBinding,
+)
 from simulation.offworld_mvp.build7 import runtime_flow as flow
 from simulation.offworld_mvp.build7.opportunities import (
     SCREEN as SOLAR_ACCESSIBILITY_SCREEN, candidate_digest,
@@ -64,6 +72,7 @@ INPUT = ROOT / 'inputs/BUILD7_GENERATED_CAMPAIGN_V1.json'
 EARTH_INPUT = ROOT / 'inputs/BUILD7_EARTH_USA_2026_2045_V1.json'
 TIMELINE_INPUT = ROOT / 'inputs/BUILD7_TIMELINE_SNAPSHOT_V1.json'
 SOLAR_CATALOG_INPUT = ROOT / 'inputs/BUILD7_SOLAR_BODY_CATALOG_V1.json'
+PROSPECTING_INPUT = ROOT / 'inputs/BUILD7_PROSPECTING_ECONOMICS_V1.json'
 AUTHORIZATION = 'BUILD7_HIDDEN_WORLD_BASELINE_001'
 PROFILE = 'BUILD7_GENERATED_CAMPAIGN_V1'
 EARTH_SCHEMA = 'BUILD7_EARTH_USA_2026_2045_V1'
@@ -88,6 +97,28 @@ def load_config() -> dict:
     required={'profile_id','standing','max_depth_m','max_temperature_k','max_pressure_pa','compatible_forms','recovery_yield'}
     if set(cap)!=required:raise Build7Blocked('BUILD7_RECOVERY_CAPABILITY_PROFILE')
     return doc
+
+
+def load_prospecting_scenario() -> ProspectingScenario:
+    doc=json.loads(PROSPECTING_INPUT.read_text())
+    required={'schema','standing','authorization_ref','currency_unit','parameters',
+              'semantics','mobilization_function','mobilization_parameterization_note',
+              'exclusions'}
+    parameter_keys={'prospecting_required_capital','prospecting_information_value',
+        'investment_proxy_units_per_model_currency','mobilization_m_max',
+        'base_salience','race_pressure'}
+    if (set(doc)!=required or doc['schema']!='BUILD7_PROSPECTING_ECONOMICS_V1'
+            or doc['standing']!='AUTHORED_HIGH_SENSITIVITY_FICTIONAL_SCENARIO_PARAMETERS'
+            or doc['currency_unit']!='MODEL_CURRENCY'
+            or set(doc['parameters'])!=parameter_keys):
+        raise Build7Blocked('BUILD7_PROSPECTING_SCENARIO_PROFILE')
+    p=doc['parameters']
+    return ProspectingScenario(
+        doc['schema'],D(p['prospecting_required_capital']),
+        D(p['prospecting_information_value']),
+        D(p['investment_proxy_units_per_model_currency']),D(p['mobilization_m_max']),
+        D(p['base_salience']),D(p['race_pressure']),doc['authorization_ref'],
+        doc['standing']).validate()
 
 
 def _source(assertion_id,subject,concept,scope,context,context_id,perspective,actor,
@@ -229,6 +260,7 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
     params=dict(config['structural_parameters'])
     earth,earth_hash,earth_doc=_load_earth_authority();timeline,timeline_hash=_load_timeline();solar_catalog,solar_catalog_hash=_load_solar_catalog()
     visible_catalog,accessibility=(None,None) if targeted else load_visible_inputs()
+    prospecting=None if targeted else load_prospecting_scenario()
     if not targeted and visible_catalog['body_rows_sha256']!=solar_catalog['body_rows_sha256']:
         raise Build7Blocked('BUILD7_VISIBLE_CATALOG_DRIFT')
     earth_2026=next(v for v in earth if v.concept=='population' and v.valid_from=='2026')
@@ -241,6 +273,14 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
             'build7.catalog_subject':target['catalog_subject'],'build7.catalog_scope':target['catalog_scope']})
     else:
         params['build7.world_scenario_id']=str(world['scenario_id'])
+        params.update({
+            'prospecting_required_capital':str(prospecting.required_capital),
+            'prospecting_information_value':str(prospecting.information_value),
+            'investment_proxy_units_per_model_currency':str(prospecting.investment_proxy_units_per_model_currency),
+            'mobilization_m_max':str(prospecting.m_max),
+            'base_salience':str(prospecting.base_salience),
+            'race_pressure':str(prospecting.race_pressure),
+        })
     config_hash=_sha(INPUT)
     comparison={'world_seed':str(world_seed),'policy_seed':config['runtime']['policy_seed'],
         'comparison_group':config['runtime']['comparison_group'],'algorithm':'SHA256_FIRST64_DECIMAL_V1',
@@ -249,7 +289,7 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
     world_identity=str(target['binding'].world_id) if targeted else str(world['scenario_id'])
     run_identity_inputs=(world_identity,config_hash,earth_hash,timeline_hash,_sha(Path(__file__).resolve()),tuple(sorted(params.items())),tuple(sorted(comparison.items())))
     if not targeted:
-        run_identity_inputs=(*run_identity_inputs,_sha(SOLAR_ACCESSIBILITY_SCREEN))
+        run_identity_inputs=(*run_identity_inputs,_sha(SOLAR_ACCESSIBILITY_SCREEN),_sha(PROSPECTING_INPUT))
     run_id=scenario_id+':'+content_hash(run_identity_inputs)[:16]
 
     old_policy=test_only_manifest()
@@ -270,6 +310,9 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
     static={'exploration.REMOTE_COST':(params['remote_cost'],'MODEL_CURRENCY'),'exploration.SURFACE_COST':(params['surface_cost'],'MODEL_CURRENCY'),
         'project.RESERVE_REQUIREMENT':(params['reserve_requirement'],'MODEL_CURRENCY'),'project.REINVESTMENT_REQUIREMENT':(params['reinvestment'],'MODEL_CURRENCY'),
         'settlement.REQUESTED_RESIDENTS':(params['requested_residents'],'PERSON'),'settlement.PUBLIC_SUPPORT_COST':(params['support_cost'],'MODEL_CURRENCY')}
+    if not targeted:
+        static.update({'prospecting.REQUIRED_CAPITAL':(params['prospecting_required_capital'],'MODEL_CURRENCY'),
+            'prospecting.INFORMATION_VALUE':(params['prospecting_information_value'],'MODEL_CURRENCY')})
     for x in table.inputs:static['underwriting.'+x.kind.value]=(str(x.value),x.unit)
     earth_sim=[]
     sim_concepts={'population','value_added','gross_output','investment','capital','legacy_employment'}
@@ -282,20 +325,28 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
             source_hashes=(source.fingerprint(),),dependency_refs=(source.assertion_id,),transformation_ref='SIM_YEAR_PLUS_2025_V1',
             transformation_version='1',source_time=sim_year))
     assertions=[*earth,*earth_sim];contracts=[];bindings=[]
-    for actor in (('PUB','SPN','FIN') if targeted else ('PUB',)):
+    for actor in (('PUB','SPN','FIN') if targeted else ('PUB','SPN')):
         for concept,(value,unit) in static.items():
-            if not targeted and concept!='exploration.REMOTE_COST':continue
+            if not targeted and not ((actor=='PUB' and concept=='exploration.REMOTE_COST') or
+                    (actor=='SPN' and concept.startswith('prospecting.'))):continue
             subject='P';scope='PROJECT:P'
             if concept.startswith('exploration.'):
                 subject,scope=('EXP','PROJECT:EXP') if targeted else ('PUB','MISSION:REMOTE')
+            elif concept.startswith('prospecting.'):
+                subject,scope='SPN','OPPORTUNITY:PROSPECTING'
             assertions.append(_source(actor+':'+concept,subject,concept,scope,'SCENARIO',scenario_id,'AGENT',actor,value,unit,config_hash))
             contracts.append((actor,'POLICY',concept,scope,'SCENARIO','AGENT',unit,'POLICY_PARAMETER'))
         for concept,(selector,subject,unit) in flow.LIVE.items():
             if concept.startswith('opportunity.'):continue
-            if not targeted and concept not in ('agent.STATE','agent.BELIEF','agent.PRIOR'):continue
+            if not targeted and concept not in ('agent.STATE','agent.BELIEF','agent.PRIOR','capital.AVAILABLE_F'):continue
+            if not targeted and concept=='capital.AVAILABLE_F' and actor!='SPN':continue
             subject=actor if subject=='SELF' else target['node'] if subject==flow.NODE_ID else subject
-            scope='AGENT:'+actor if concept.startswith('agent.') else 'PROJECT:P' if subject=='P' else target['site_ref']
-            contracts.append((actor,'POLICY',concept,scope,'REALIZED','AGENT',unit,'ADMITTED_INFORMATION'))
+            if concept.startswith('agent.'):scope='AGENT:'+actor
+            elif subject=='P':scope='PROJECT:P'
+            elif concept=='capital.AVAILABLE_F':scope='COUNTRY:USA'
+            else:scope=target['site_ref']
+            role='FINANCIAL_STATE' if concept=='capital.AVAILABLE_F' else 'ADMITTED_INFORMATION'
+            contracts.append((actor,'POLICY',concept,scope,'REALIZED','AGENT',unit,role))
             bindings.append((actor,concept,selector))
     if targeted:
         assertions.extend((
@@ -313,7 +364,9 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         'execute_surplus_distribution','execute_settlement_infrastructure','update_settlement_stage','execute_transport_settlement_departure',
         'execute_passenger_transport_arrival','execute_enterprise_review','record_earth_reference_year')
     if not targeted:
-        used_methods=('record_earth_reference_year','explore_paid','update_agent_belief_from_observation')
+        used_methods=('record_earth_reference_year','explore_paid','update_agent_belief_from_observation','publish_observation',
+            'mobilize_country_capital','create_prospecting_project','add_commitment',
+            'disburse_country_capital')
     allowed=[]
     for method in used_methods:
         sid='SYS:'+method;allowed.append((sid,(method,)));scope='PROCESS:'+sid
@@ -330,6 +383,13 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         if method=='record_earth_reference_year':
             for concept,unit in (('population','PERSON'),('value_added','EARTH_REAL_PROXY_VALUE_ADDED_PER_YEAR'),('gross_output','EARTH_REAL_PROXY_GROSS_OUTPUT_PER_YEAR'),('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('capital','EARTH_REAL_PROXY_CAPITAL'),('legacy_employment','PERSON_FTE_PROXY')):
                 contracts.append((sid,'SYSTEM_TRANSITION',concept,'COUNTRY:USA','SCENARIO','WORLD_SIM',unit,'EARTH_REFERENCE'))
+        if method=='mobilize_country_capital':
+            contracts.append((sid,'SYSTEM_TRANSITION','investment','COUNTRY:USA','SCENARIO',
+                'WORLD_SIM','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR','EARTH_REFERENCE'))
+        if method=='disburse_country_capital':
+            contracts.append((sid,'SYSTEM_TRANSITION','capital.AVAILABLE_F','COUNTRY:USA',
+                'REALIZED','WORLD_SIM','MODEL_CURRENCY','FINANCIAL_STATE'))
+            bindings.append((sid,'capital.AVAILABLE_F','CAPITAL_AVAILABLE_F'))
         if method=='resolve_operating_extraction':
             contracts.append((sid,'SYSTEM_TRANSITION','R_RECOVERABLE',target['site_ref'],'REALIZED','WORLD_SIM','MODEL_RESOURCE_UNIT_BY_FAMILY','PHYSICAL_STATE'))
             bindings.append((sid,'R_RECOVERABLE','RESOURCE'))
@@ -351,13 +411,17 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         body_keys=tuple(body['semantic_key'] for body in visible_catalog['bodies'])
         for body_key in body_keys:
             scope='BODY:'+body_key
-            contracts.append(('SYS:update_agent_belief_from_observation','SYSTEM_TRANSITION',
-                'observation.SIGNAL',scope,'REALIZED','WORLD_SIM','SIGNAL_CATEGORY','OBSERVATION'))
+            for system_id in ('SYS:update_agent_belief_from_observation','SYS:publish_observation'):
+                contracts.append((system_id,'SYSTEM_TRANSITION','observation.SIGNAL',scope,
+                    'REALIZED','WORLD_SIM','SIGNAL_CATEGORY','OBSERVATION'))
             for question in BODY_MATERIAL_QUESTIONS:
-                contracts.append(('SYS:update_agent_belief_from_observation','SYSTEM_TRANSITION',
-                    'body.BELIEF',scope+':'+question,'REALIZED','WORLD_SIM','PROBABILITY','ACTOR_BELIEF'))
+                for system_id in ('SYS:update_agent_belief_from_observation','SYS:publish_observation'):
+                    contracts.append((system_id,'SYSTEM_TRANSITION','body.BELIEF',scope+':'+question,
+                        'REALIZED','WORLD_SIM','PROBABILITY','ACTOR_BELIEF'))
         bindings.extend((('SYS:update_agent_belief_from_observation','observation.SIGNAL','OBSERVATION'),
-            ('SYS:update_agent_belief_from_observation','body.BELIEF','BODY_BELIEF')))
+            ('SYS:update_agent_belief_from_observation','body.BELIEF','BODY_BELIEF'),
+            ('SYS:publish_observation','observation.SIGNAL','OBSERVATION'),
+            ('SYS:publish_observation','body.BELIEF','BODY_BELIEF')))
     for concept,unit in [('investment','EARTH_REAL_PROXY_INVESTMENT_PER_YEAR'),('population','PERSON')]:
         contracts.append(('GENESIS','EARTH_REFERENCE',concept,'COUNTRY:USA','REAL','GOVERNANCE',unit,'EARTH_REFERENCE'))
 
@@ -368,7 +432,8 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
         ('SOLAR_BODY_CATALOG',solar_catalog['body_rows_sha256']))
     definitions=((INPUT.name,config_hash),(TIMELINE_INPUT.name,timeline_hash),(SOLAR_CATALOG_INPUT.name,solar_catalog_hash))
     if not targeted:
-        definitions=(*definitions,(SOLAR_ACCESSIBILITY_SCREEN.name,_sha(SOLAR_ACCESSIBILITY_SCREEN)))
+        definitions=(*definitions,(SOLAR_ACCESSIBILITY_SCREEN.name,_sha(SOLAR_ACCESSIBILITY_SCREEN)),
+            (PROSPECTING_INPUT.name,_sha(PROSPECTING_INPUT)))
     world_ref=('WORLD_REALIZATION:'+world_identity,target['result_hash']) if targeted else ('WORLD_REALIZATION_SET:'+world_identity,world['sealed_world_digest'])
     m=BoundaryManifest(BUILD6E_CONTRACT,'BUILD7_INPUT:'+content_hash((definitions,earth_hash,tuple(sorted(params.items())),authority_sources)),scenario_id,'V1',run_id,
         definitions,authority_sources,'0'*64,(('PARAMETERS:'+scenario_id,content_hash(tuple(sorted(params.items())))),
@@ -384,6 +449,8 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
     accounts=[('public_funds','PUB','EARTH:USA',AccountKind.FUNDS,params['P']),('fin_funds','FIN','EARTH:USA',AccountKind.FUNDS,params['F']),
         ('earth_market','EARTH_MARKET','EARTH:USA',AccountKind.EARTH_BOUNDARY,params['B']),('sponsor_funds','SPN','EARTH:USA',AccountKind.FUNDS,'0'),
         ('earth_supplier','SUP','EARTH:USA',AccountKind.SUPPLIER,'0'),('transport_provider','TRANSPORT_PROVIDER','EARTH:USA',AccountKind.SUPPLIER,'0')]
+    if not targeted:
+        accounts.append(('earth_capital_source','COUNTRY:USA','EARTH:USA',AccountKind.EARTH_BOUNDARY,'0'))
     if targeted:
         accounts.extend([('explore_cash','EXP',node,AccountKind.PROJECT_CASH,'0'),('project_cash','SPN',node,AccountKind.PROJECT_CASH,'0'),
         ('local_reinvest_funds','SPN',node,AccountKind.FUNDS,'0'),('local_settlement_supplier','SUP',node,AccountKind.SUPPLIER,'0'),
@@ -404,12 +471,16 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
             for question in BODY_MATERIAL_QUESTIONS:
                 # Neutral fictional knowledge state. The water-only targeted
                 # resource prior is not generalized to Solar material families.
-                k.agents['PUB'].priors['BODY:'+body_key+':'+question]=D('0.5')
+                for actor_id in ('PUB','SPN'):
+                    k.agents[actor_id].priors['BODY:'+body_key+':'+question]=D('0.5')
     if targeted:k.add_resource(target['resource'])
     k.population=PopulationLedger(int(D(params['N'])),{node:0} if targeted else {})
     if targeted:k.colonies[node]=ColonyState(node)
     else:
         k.capital_coupling={'USA':{'F':D(0),'X':D(0),'R':D(0),'S':D(0)}}
+        k.capital_mobilization_records=[]
+        k.country_capital_disbursement_records=[]
+        k.prospecting_project_creation_records=[]
     for value in earth:
         if value.concept=='investment':
             year=int(value.valid_from)-2025;k.set_resource_constraint('EARTH:USA',year,D(value.value)/D(params['S']),D(params.get('f.'+str(year),params['f'])))
@@ -459,6 +530,7 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
     if not targeted:
         h['visible_solar_bodies']=tuple(visible_catalog['bodies'])
         h['visible_accessibility_rows']=tuple(accessibility['rows'])
+        h['prospecting_scenario']=prospecting
     return k,h
 
 
@@ -551,6 +623,7 @@ def start_world_run(*,reference_service,science_writer_service,world_writer_serv
     config=load_config();catalog,_=_load_solar_catalog()
     with psycopg.connect(service=reference_service) as reader, psycopg.connect(service=science_writer_service) as science, psycopg.connect(service=world_writer_service) as writer:
         catalog_status=store.install_generation_body_catalog(science,catalog)
+        region_status=store.install_prospecting_region_catalog(science,catalog)
         generated=generate_solar_system(reader,science,writer,seed=world_seed,
             authorization_ref=authorization_ref,science_cutoff=science_cutoff,return_bindings=True,
             supplemental_catalog_sha256=catalog['body_rows_sha256'])
@@ -558,7 +631,8 @@ def start_world_run(*,reference_service,science_writer_service,world_writer_serv
     k,h=_build_kernel(None,config,world_seed=world_seed,world=world)
     _attach_persistence(h,None,runtime_service,{})
     _record_empty_year(k,h,2026)
-    return {**_world_summary(k,h,world),'generated_status':generated['status'],'catalog_status':catalog_status}
+    return {**_world_summary(k,h,world),'generated_status':generated['status'],
+        'catalog_status':catalog_status,'prospecting_region_status':region_status}
 
 
 def resume_world_run(*,reference_service,runtime_service,run_id,through_year=2027):
@@ -575,15 +649,23 @@ def resume_world_run(*,reference_service,runtime_service,run_id,through_year=202
 def run_world_remote_choice(*,reference_service,runtime_service,run_id,
                             agent_login_service='agent_pub',calendar_year=2026):
     """Replay opening state, choose once from visible state, and execute if authorized."""
-    import psycopg
-    if calendar_year!=2026:
-        raise Build7Blocked('BUILD7_INCREMENT3_SINGLE_DECISION_YEAR')
     config=load_config();world,world_seed=_world_from_run(reference_service,runtime_service,run_id)
     k,h=_build_kernel(None,config,world_seed=world_seed,world=world)
     if k.boundary_manifest.run_id!=run_id:
         raise Build7Blocked('BUILD7_RESUME_RUN_ID_MISMATCH')
     _attach_persistence(h,None,runtime_service,{})
     _record_empty_year(k,h,2026)
+    return _execute_world_remote_choice(k,h,world,reference_service=reference_service,
+        runtime_service=runtime_service,agent_login_service=agent_login_service,
+        calendar_year=calendar_year)
+
+
+def _execute_world_remote_choice(k,h,world,*,reference_service,runtime_service,
+                                 agent_login_service='agent_pub',calendar_year=2026):
+    import psycopg
+    if calendar_year!=2026:
+        raise Build7Blocked('BUILD7_INCREMENT3_SINGLE_DECISION_YEAR')
+    config=load_config();run_id=k.boundary_manifest.run_id
     actor=k.agents['PUB']
     characterized={obs.body_id for obs in k.observations.values()
         if isinstance(obs,BodyRemoteObservation) and obs.id in actor.information}
@@ -631,6 +713,18 @@ def run_world_remote_choice(*,reference_service,runtime_service,run_id,
         flow.system_epoch(k,h,'update_agent_belief_from_observation',str(year),
             (year,'PUB',obs.id,belief_key,D(p['remote_detection']),D(p['remote_fp']),
              'BUILD7_BODY_MATERIAL_REMOTE_V1',AUTHORIZATION),decision_refs=(decision_ref,))
+        publication_request=build_publication_request(
+            'BODY_PUBLICATION:'+str(calendar_year)+':'+choice.body_id+':'+obs.question_ref,
+            year,obs.id,'PUBLIC_FINANCIERS')
+        publication_decision,publication_ref=flow.policy_epoch(
+            k,h,'BODY_PUBLICATION:'+obs.question_ref,'PUB',str(year),publication_request,(),
+            workers.run_public_publisher_policy,workers.public_publisher_policy_version())
+        if publication_decision.outcome.value!='PUBLISH':
+            raise Build7Blocked('BUILD7_BODY_MATERIAL_PUBLICATION_BLOCKED')
+        flow.system_epoch(k,h,'publish_observation',str(year),
+            (year,'PUB',obs.id,publication_request.audience,
+             (('SPN',belief_key,D(p['remote_detection']),D(p['remote_fp'])),)),
+            decision_refs=(publication_ref,))
     if k.state.projects or k.state.assets or k.colonies or k.population.offworld:
         raise Build7Blocked('BUILD7_BODY_REMOTE_CREATED_DEVELOPMENT_STATE')
     return {**_world_summary(k,h,world),'choice':'SELECT','selected_candidate_id':choice.candidate_id,
@@ -638,7 +732,114 @@ def run_world_remote_choice(*,reference_service,runtime_service,run_id,
         'material_observations':tuple((family,obs.id,obs.signal,
             str(actor.beliefs['BODY:'+choice.body_id+':'+obs.question_ref]))
             for family,obs in zip(BODY_MATERIAL_FAMILIES,observations)),
+        'sponsor_material_beliefs':tuple((family,
+            str(k.agents['SPN'].beliefs['BODY:'+choice.body_id+':'+obs.question_ref]))
+            for family,obs in zip(BODY_MATERIAL_FAMILIES,observations)),
         'public_balance':str(k.state.accounts[actor.account_id].balance)}
+
+
+def _prospecting_regions(body_key):
+    regions=[]
+    for ordinal in range(1,11):
+        region_key,location_id=store.prospecting_region_identity(body_key,ordinal)
+        regions.append(ProspectingRegion(body_key,region_key,str(location_id),ordinal))
+    return tuple(regions)
+
+
+def derive_world_prospecting_opportunities(k,h,calendar_year,body_key):
+    sponsor=k.agents['SPN']
+    observations=tuple(obs for obs in k.observations.values()
+        if isinstance(obs,BodyRemoteObservation) and obs.body_id==body_key
+        and obs.id in sponsor.information)
+    return derive_prospecting_opportunities(
+        actor_id='SPN',calendar_year=calendar_year,body_key=body_key,
+        regions=_prospecting_regions(body_key),observations=observations,
+        beliefs=sponsor.beliefs,priors=sponsor.priors,
+        scenario=h['prospecting_scenario'])
+
+
+def run_world_prospecting_initiation(*,reference_service,runtime_service,run_id,
+                                     public_login_service='agent_pub',
+                                     sponsor_login_service='agent_spn',calendar_year=2026):
+    """Replay I1-I3, then execute the bounded Increment 4 prospecting seam."""
+    import psycopg
+    if calendar_year!=2026:
+        raise Build7Blocked('BUILD7_INCREMENT4_SINGLE_DECISION_YEAR')
+    config=load_config();world,world_seed=_world_from_run(reference_service,runtime_service,run_id)
+    k,h=_build_kernel(None,config,world_seed=world_seed,world=world)
+    if k.boundary_manifest.run_id!=run_id:
+        raise Build7Blocked('BUILD7_RESUME_RUN_ID_MISMATCH')
+    _attach_persistence(h,None,runtime_service,{})
+    _record_empty_year(k,h,calendar_year)
+    exploration=_execute_world_remote_choice(k,h,world,reference_service=reference_service,
+        runtime_service=runtime_service,agent_login_service=public_login_service,
+        calendar_year=calendar_year)
+    if exploration['choice']!='SELECT':
+        return {**exploration,'prospecting_decision':'WAIT','prospecting_reason':'NO_CHARACTERIZED_BODY'}
+    body_key=exploration['selected_body_id'];year=calendar_year-2025
+    opportunities=derive_world_prospecting_opportunities(k,h,calendar_year,body_key)
+    tie_key=sha256((config['runtime']['policy_seed']+'|SPN|'+str(calendar_year)+
+        '|PROSPECTING_REGION_CHOICE_V1|'+body_key).encode()).hexdigest()
+    opportunity=choose_equivalent_region(opportunities,tie_key)
+    if opportunity is None:
+        return {**exploration,'prospecting_decision':'WAIT','prospecting_reason':'NO_VISIBLE_PROSPECTING_OPPORTUNITY'}
+    investment=D(str(next(row['investment'] for row in h['earth']['economic']
+        if int(row['year'])==calendar_year)))
+    scenario=h['prospecting_scenario']
+    mobilization=flow.system_epoch(k,h,'mobilize_country_capital',str(year),
+        (year,'USA',investment,opportunity.commercial_opportunity,scenario,
+         'earth_capital_source','sponsor_funds'))
+    with psycopg.connect(service=sponsor_login_service) as conn:
+        h['agent_logins']['SPN']=conn.execute('select session_user').fetchone()[0]
+    project_id='PROSPECT:'+body_key+':'+opportunity.region_key
+    cash_account_id='prospect_cash:'+body_key+':'+opportunity.region_key
+    request=SponsorProspectingRequest(
+        'SPONSOR_PROSPECTING:'+str(calendar_year)+':'+body_key+':'+opportunity.region_key,
+        year,'SPN',opportunity.opportunity_id,project_id,body_key,
+        opportunity.region_key,opportunity.location_id,opportunity.observation_ids,
+        opportunity.belief_keys,opportunity.required_capital,
+        opportunity.prospective_information_value).validate_protocol()
+    decision,decision_ref=flow.policy_epoch(k,h,'SPONSOR_PROSPECTING','SPN',str(year),
+        request,('prospecting.REQUIRED_CAPITAL','prospecting.INFORMATION_VALUE',
+                 'capital.AVAILABLE_F'),workers.run_sponsor_prospecting_policy,
+        workers.sponsor_prospecting_policy_version())
+    if decision.outcome!=SponsorProspectingOutcome.INITIATE_PROJECT:
+        return {**_world_summary(k,h,world),'choice':'SELECT','selected_body_id':body_key,
+            'prospecting_decision':decision.outcome.value,
+            'prospecting_reason':decision.reason_code.value,
+            'prospecting_opportunity_id':opportunity.opportunity_id,
+            'capital_mobilized':str(mobilization.mobilized_cash),
+            'capital_coupling':{key:str(value) for key,value in k.capital_coupling['USA'].items()}}
+    prior_binding=h['named_binding']
+    h['named_binding']=ProspectingRegionBinding(
+        prior_binding.scenario_id,prior_binding.world_id,prior_binding.body_id,
+        prior_binding.body_key,prior_binding.binding_key,
+        opportunity.region_key,uuid.UUID(str(opportunity.location_id)))
+    node_id='OFF:'+body_key+':'+opportunity.region_key
+    creation=flow.system_epoch(k,h,'create_prospecting_project',str(year),
+        (year,'SPN',request,decision,node_id,cash_account_id),decision_refs=(decision_ref,))
+    commitment_id='COMMIT:'+project_id
+    flow.system_epoch(k,h,'add_commitment',str(year),
+        (commitment_id,'SPN',project_id,decision.amount),decision_refs=(decision_ref,))
+    disbursement=flow.system_epoch(k,h,'disburse_country_capital',str(year),
+        (year,'USA',commitment_id,'sponsor_funds',decision.amount,request,decision),
+        decision_refs=(decision_ref,))
+    if (len(k.state.projects)!=1 or k.resources or k.state.assets or k.colonies
+            or k.population.offworld or k.population.in_transit):
+        raise Build7Blocked('BUILD7_PROSPECTING_CREATED_FORBIDDEN_STATE')
+    return {**_world_summary(k,h,world),'choice':'SELECT','selected_body_id':body_key,
+        'prospecting_decision':decision.outcome.value,
+        'prospecting_reason':decision.reason_code.value,
+        'prospecting_opportunity_id':opportunity.opportunity_id,
+        'prospecting_region_key':opportunity.region_key,
+        'prospecting_location_id':opportunity.location_id,
+        'project_id':creation.project_id,'project_stage':creation.project_stage,
+        'project_cash':str(k.state.accounts[cash_account_id].balance),
+        'capital_mobilized':str(mobilization.mobilized_cash),
+        'capital_disbursed':str(disbursement.amount),
+        'capital_coupling':{key:str(value) for key,value in k.capital_coupling['USA'].items()},
+        'earth_shadow':{key:(str(value) if not isinstance(value,int) else value)
+                        for key,value in k.earth_shadow_at(year).items()}}
 
 
 def run_remote(k,h):
@@ -773,6 +974,12 @@ def main(argv=None):
     remote_parser.add_argument('--runtime-service',default='runtime')
     remote_parser.add_argument('--agent-login-service',default='agent_pub')
     remote_parser.add_argument('--run-id',required=True)
+    prospecting_parser=sub.add_parser('prospecting-initiation')
+    prospecting_parser.add_argument('--reference-service',default='reference_reader')
+    prospecting_parser.add_argument('--runtime-service',default='runtime')
+    prospecting_parser.add_argument('--public-login-service',default='agent_pub')
+    prospecting_parser.add_argument('--sponsor-login-service',default='agent_spn')
+    prospecting_parser.add_argument('--run-id',required=True)
     args=ap.parse_args(argv)
     if args.command=='new':
         result=start_world_run(reference_service=args.reference_service,science_writer_service=args.science_writer_service,
@@ -785,6 +992,11 @@ def main(argv=None):
         result=run_world_remote_choice(reference_service=args.reference_service,
             runtime_service=args.runtime_service,run_id=args.run_id,
             agent_login_service=args.agent_login_service)
+    elif args.command=='prospecting-initiation':
+        result=run_world_prospecting_initiation(reference_service=args.reference_service,
+            runtime_service=args.runtime_service,run_id=args.run_id,
+            public_login_service=args.public_login_service,
+            sponsor_login_service=args.sponsor_login_service)
     elif args.command=='targeted-new':
         result=start_campaign(reference_service=args.reference_service,science_writer_service=args.science_writer_service,
             world_writer_service=args.world_writer_service,runtime_service=args.runtime_service,

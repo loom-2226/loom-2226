@@ -298,6 +298,35 @@ Richer information institutions such as proprietary surveys, publication delay, 
 
 ---
 
+## Increment 4 — Implementation disposition
+
+### I4-Q01 — Bounded prospecting initiation closure
+
+**Status:** CLOSED FOR INCREMENT 4.
+
+The implemented seam preserves I4-D01 through I4-D05:
+
+- actor-visible four-family PUBLIC observations update SPN's own beliefs;
+- qualifying evidence creates a transient prospecting opportunity, not a resource or development conclusion;
+- a versioned high-sensitivity scenario supplies prospecting cost `20`, information value `30`, Earth-investment normalization `1,000,000,000` proxy units per model-currency unit, and `m_max = 0.01`;
+- absent authority for weights or a response curve, either qualifying commercial opportunity or positive strategic pressure activates the same bounded `m_max`, while neither activates zero; both causal inputs remain separate in the mobilization record;
+- actual disbursement, rather than commitment, decreases `F`, increases `X`, and produces the existing Earth-shadow diversion;
+- all 90 eligible bodies receive exactly ten deterministic, geology-neutral `REGION` locations;
+- only an isolated SPN `INITIATE_PROJECT` decision creates one `EXPLORING` prospecting project at one region;
+- no site, deposit, resource, reserve, recoverability, development, settlement, or Offworld population is created.
+
+**Material qualification findings:**
+
+- the promoted Earth investment value must be converted through its decimal text, not directly from a binary float;
+- region UUIDs must remain typed UUIDs at the World Authority persistence boundary for exact immutable-row replay;
+- SPN body-belief persistence must identify the governed body/question contract rather than depend on Python import aliases;
+- the full project-creation run and exact replay persisted one project, one project-location row, four independent SPN body beliefs, `20` model-currency disbursed, `X = 20`, nonnegative retained `F`, and no forbidden physical/development rows;
+- the inherited targeted REMOTE campaign committed once and repeated with all six epochs `ALREADY_MATCHED`.
+
+The exact tested Git SHA is the commit containing this closure entry and is reported in the PR disposition and completion report. Increment 5 remains unimplemented.
+
+---
+
 ## Increment closure state
 
 | Increment | Final tested SHA | Repair disposition |
@@ -305,8 +334,9 @@ Richer information institutions such as proprietary surveys, publication delay, 
 | 1 | `3c7e9240355c46be31dd034523e933e18b651bfd` | CLOSED |
 | 2 | `7c48657bb9cf955702a9ee17b46470276daeb82d` | CLOSED |
 | 3 | `271462478490075f32b73aeea449bad192728323` | CLOSED |
+| 4 | Commit containing I4-Q01; exact SHA in completion report | CLOSED |
 
-Increment 4 implementation has not yet been recorded here. I4-D01 through I4-D05 are maintainer decisions with implementation pending.
+I4-D01 through I4-D05 remain the governing bounded decisions for this closure.
 
 ## Use of this record
 
