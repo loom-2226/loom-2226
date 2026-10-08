@@ -1,15 +1,15 @@
 # Build 7 Increment 1–3 Repair and Validation Record
 
 **Class:** ENGINEERING RECORD
-**Scope:** Build 7 Increments 1–3 only
+**Scope:** Build 7 Increments 1–3 repair provenance plus Increment 4 maintainer decisions recorded before implementation
 **Status:** HISTORICAL IMPLEMENTATION / REPAIR PROVENANCE
 **Branch:** `offworld-mvp-build7-hidden-world`
 **PR:** #370
-**Does not establish:** new FRD authority, new acceptance criteria, new runtime semantics, Increment 4 authorization, or authority for the preliminary semantic causal model map.
+**Does not establish:** new FRD authority, new acceptance criteria, implementation completion, qualification, or authority for the preliminary semantic causal model map. Increment 4 entries below record maintainer decisions within the already-authorized Increment 4 scope.
 
 ## Purpose
 
-This record preserves material implementation blockers, maintainer decisions, repairs, and closure evidence encountered while implementing Build 7 Increments 1–3. It is a provenance aid for understanding why the resulting implementation differs from the first attempted path.
+This record preserves material implementation blockers, maintainer decisions, repairs, and closure evidence encountered while implementing Build 7. It also records bounded maintainer decisions made before Increment 4 implementation. It is a provenance aid, not a substitute for governing authority.
 
 Git commits and repository authority outrank this summary. The Codex rollout history was used only to recover the sequence of stops, findings, and maintainer-directed repairs; it is not repository authority.
 
@@ -224,6 +224,80 @@ It is not a substantive destination-value model.
 
 ---
 
+## Increment 4 — Pre-implementation maintainer decisions
+
+These decisions resolve the bounded readiness questions identified before Increment 4 implementation. They authorize the smallest implementation within the existing Increment 4 objective. They do not mark Increment 4 implemented or qualified.
+
+### I4-D01 — REMOTE material-family evidence creates a prospecting opportunity, not a development conclusion
+
+**Status:** RESOLVED FOR INCREMENT 4 / PROVISIONAL MODEL / IMPLEMENTATION PENDING.
+
+Sufficiently relevant actor-visible REMOTE material-family evidence may create a **prospective commercial prospecting opportunity**. The proposition is that available evidence may justify spending private capital to characterize a body further.
+
+Family presence or belief does **not** establish abundance, concentration, grade, accessibility, recoverability, reserve, production rate, extraction cost, or development value. A sponsor-authorized project at this stage is therefore a prospecting project. Development/extraction requires later evidence and later authorized decisions.
+
+This is a deliberately coarse Increment 4 bridge. Preserve the future option to replace or augment it with richer prospective-resource models, including probabilistic quantity/concentration/accessibility/recovery and information-value treatment, if later simulation behavior earns that complexity. No such richer machinery is authorized here.
+
+### I4-D02 — Use a minimal prospecting-economic scenario input
+
+**Status:** RESOLVED FOR INCREMENT 4 / PROVISIONAL MODEL / IMPLEMENTATION PENDING.
+
+Increment 4 uses a small, versioned prospecting-economic scenario input containing only the model-currency cost/value assumptions required to decide whether further prospecting is worth financing. Do not reinterpret development/extraction validation fixtures as prospecting economics.
+
+Where an existing qualified parameter has genuinely matching prospecting semantics it may be reused; otherwise add only the minimum explicit authored Increment 4 parameter. Such values are high-sensitivity model abstractions, not empirical forecasts.
+
+Earth investment remains a real-economic capacity proxy rather than spendable actor cash. The existing capital-coupling abstraction must provide the explicit bounded mapping from Earth capacity into model-currency Offworld financing; do not silently reinterpret the Earth investment series as cash.
+
+### I4-D03 — Preserve the existing Earth–Offworld capital-coupling abstraction
+
+**Status:** RESOLVED BY EXISTING AUTHORITY / IMPLEMENTATION PARAMETERIZATION PENDING.
+
+Do not introduce a new mobilization model. Implement the already-authorized country-level coupling state and equations:
+
+- F(c,t): cash available for new Offworld financing;
+- X(c,t): outstanding country-origin Offworld capital exposure;
+- R(c,t): realized Offworld cash returned during the period;
+- S(c): strategic pressure;
+- M(c,t) = I(c,t) * m(c,t);
+- 0 <= m(c,t) <= m_max;
+- m = f(CommercialOpportunity, StrategicPressure).
+
+Commercial opportunity and strategic pressure remain distinct causal inputs under the governing abstraction. Increment 4 may author only the minimum bounded numerical parameterization required to exercise that abstraction. It does not authorize a new additive/nonlinear formula, banks, securities, portfolio optimization, or sponsor risk-tolerance subsystem.
+
+Existing transaction semantics remain authoritative: commitment alone is not disbursement; actual disbursement reduces available financing and increases exposure; actual return/loss reduces exposure according to the declared transaction; successful return is recorded as realized return. Any richer reinvestment behavior remains governed by the existing abstraction and later earned implementation, not this decision.
+
+### I4-D04 — Prospecting projects target one of ten coarse prospecting regions
+
+**Status:** RESOLVED FOR INCREMENT 4 / PROVISIONAL MODEL / IMPLEMENTATION PENDING.
+
+Each eligible body has **10 deterministic coarse prospecting regions** used by this simulation mechanism. They are stable spatial subdivisions and convey **no implied geology, resource presence, or economic value**.
+
+A prospecting project targets exactly one such region. Use the existing World Authority spatial ontology rather than inventing a second area subsystem: prospecting areas are body-anchored wa_geo.location spatial identities with REGION semantics, and project/location association uses the existing governed project-location relationship.
+
+The ten-region partition is the uniform simulation prospecting geography. Existing empirical/scientific locations may remain in World Authority but do not give a body extra prospecting opportunities or an authored attractiveness advantage.
+
+Region selection does not imply a site or deposit. Hidden WORLD properties may vary regionally. Prospecting may produce regional evidence. Site refinement and deposit/resource-development conclusions remain downstream and must be earned by evidence.
+
+The ten-region partition is provisional. Richer spatial subdivision may replace or augment it later if simulation behavior demonstrates that additional resolution matters.
+
+### I4-D05 — Sponsor consumes public observations, not PUB posterior beliefs
+
+**Status:** RESOLVED FOR INCREMENT 4 / PROVISIONAL MODEL / IMPLEMENTATION PENDING.
+
+A genuinely PUBLIC observation is legitimate actor-visible evidence for the sponsor. SPN ingests the public observation and updates/maintains its **own** material-family beliefs through the governed information/belief machinery.
+
+Do not copy PUB's private posterior or belief state into SPN. Hidden WORLD truth remains inaccessible except through authorized observation.
+
+The causal bridge is:
+
+WORLD truth -> PUBLIC observation -> SPN information -> SPN belief -> SPN decision.
+
+Existing body-level REMOTE evidence does not reveal which of the ten prospecting regions is preferable. Where regions remain information-equivalent, region choice uses the smallest deterministic/replay-safe tie-break. Regional differentiation must arise from legitimate subsequent prospecting evidence, not hidden truth or authored named-region preference.
+
+Richer information institutions such as proprietary surveys, publication delay, information markets, or secrecy remain future options and are not authorized by this decision.
+
+---
+
 ## Increment closure state
 
 | Increment | Final tested SHA | Repair disposition |
@@ -232,7 +306,7 @@ It is not a substantive destination-value model.
 | 2 | `7c48657bb9cf955702a9ee17b46470276daeb82d` | CLOSED |
 | 3 | `271462478490075f32b73aeea449bad192728323` | CLOSED |
 
-Increment 4 was not started by any repair recorded here.
+Increment 4 implementation has not yet been recorded here. I4-D01 through I4-D05 are maintainer decisions with implementation pending.
 
 ## Use of this record
 
