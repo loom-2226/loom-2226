@@ -501,6 +501,15 @@ def _check_retained_prospecting_projects_for_remote(kernel, envelopes, start_ind
                     if node.kind.value=='OFFWORLD'}
     if offworld_nodes!={r.node_id for r in records}:
         raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_PROJECT_NODES')
+    study_assets={r.wip_asset_id:r for r in kernel.project_activity_expense_records
+                  if r.activity_id=='BUILD7_REGION_STUDY'}
+    if (set(study_assets)!=set(kernel.state.assets) or
+            any(asset.project_id not in projects or
+                asset.project_id!=study_assets[asset_id].project_id or
+                asset.node_id!=projects[asset.project_id].node_id or
+                getattr(asset.kind,'value',asset.kind) not in ('EXPLORATION_WIP','KNOWLEDGE')
+                for asset_id,asset in kernel.state.assets.items())):
+        raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_PROJECT_ASSETS')
 
 
 def _context_fingerprint(obj):
@@ -567,13 +576,14 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
                 or any(kernel.population.in_transit.values())):
             raise NamedWorldBlocked('BLOCKED_UNBOUND_OFFWORLD_STATE')
     if type(binding) is BodyRemoteBinding:
-        if (kernel.resources or kernel.state.assets or kernel.colonies
+        if (kernel.resources or kernel.colonies
                 or any(kernel.population.offworld.values())
                 or any(kernel.population.in_transit.values())):
             raise NamedWorldBlocked('BLOCKED_UNBOUND_OFFWORLD_STATE')
         if kernel.state.projects:
             _check_retained_prospecting_projects_for_remote(kernel,envelopes,start_index)
-        elif any(node.kind.value=='OFFWORLD' for node in kernel.state.nodes.values()):
+        elif (kernel.state.assets or
+                any(node.kind.value=='OFFWORLD' for node in kernel.state.nodes.values())):
             raise NamedWorldBlocked('BLOCKED_UNBOUND_OFFWORLD_STATE')
     if isinstance(binding,ProspectingRegionBinding):
         study_assets={r.wip_asset_id for r in kernel.project_activity_expense_records

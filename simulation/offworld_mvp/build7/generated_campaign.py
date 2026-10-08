@@ -677,13 +677,21 @@ def run_world_remote_choice(*,reference_service,runtime_service,run_id,
 def _execute_world_remote_choice(k,h,world,*,reference_service,runtime_service,
                                  agent_login_service='agent_pub',calendar_year=2026):
     import psycopg
-    if calendar_year!=2026:
-        raise Build7Blocked('BUILD7_INCREMENT3_SINGLE_DECISION_YEAR')
+    if calendar_year not in range(2026,2036):
+        raise Build7Blocked('BUILD7_REMOTE_DECISION_YEAR')
     config=load_config();run_id=k.boundary_manifest.run_id
     actor=k.agents['PUB']
+    project_accounts={project.cash_account_id:k.state.accounts[project.cash_account_id]
+        for project in k.state.projects.values()}
+    retained_state=canonical((k.state.projects,k.state.assets,k.state.commitments,
+        project_accounts,k.resources,k.colonies,k.population,k.capital_coupling,
+        k.project_activities,k.project_study_states,k.project_study_plans,
+        k.project_activity_expense_records,k.project_study_result_records,
+        k.project_study_review_records))
     characterized={obs.body_id for obs in k.observations.values()
         if isinstance(obs,BodyRemoteObservation) and obs.id in actor.information}
-    key=sha256((config['runtime']['policy_seed']+'|PUB|2026|BODY_REMOTE_CHOICE_V1').encode()).hexdigest()
+    key=sha256((config['runtime']['policy_seed']+'|PUB|'+str(calendar_year)+
+        '|BODY_REMOTE_CHOICE_V1').encode()).hexdigest()
     cost_assertion=next(a for a in k.boundary_manifest.assertions
         if a.assertion_id=='PUB:exploration.REMOTE_COST')
     choice=choose_remote_characterization(
@@ -695,7 +703,7 @@ def _execute_world_remote_choice(k,h,world,*,reference_service,runtime_service,
         return {**_world_summary(k,h,world),'choice':'WAIT','choice_reason':choice.reason,
             'public_balance':str(k.state.accounts[actor.account_id].balance)}
     with psycopg.connect(service=agent_login_service) as conn:
-        h['agent_logins']={'PUB':conn.execute('select session_user').fetchone()[0]}
+        h.setdefault('agent_logins',{})['PUB']=conn.execute('select session_user').fetchone()[0]
     with psycopg.connect(service=runtime_service) as conn:
         scenario_id,world_id,body_id=store.read_run_body_world_identity(
             conn,run_id,choice.body_id)
@@ -730,8 +738,10 @@ def _execute_world_remote_choice(k,h,world,*,reference_service,runtime_service,
         publication_request=build_publication_request(
             'BODY_PUBLICATION:'+str(calendar_year)+':'+choice.body_id+':'+obs.question_ref,
             year,obs.id,'PUBLIC_FINANCIERS')
+        publication_label=('BODY_PUBLICATION:'+obs.question_ref if calendar_year==2026 else
+            'BODY_PUBLICATION:'+str(calendar_year)+':'+choice.body_id+':'+obs.question_ref)
         publication_decision,publication_ref=flow.policy_epoch(
-            k,h,'BODY_PUBLICATION:'+obs.question_ref,'PUB',str(year),publication_request,(),
+            k,h,publication_label,'PUB',str(year),publication_request,(),
             workers.run_public_publisher_policy,workers.public_publisher_policy_version())
         if publication_decision.outcome.value!='PUBLISH':
             raise Build7Blocked('BUILD7_BODY_MATERIAL_PUBLICATION_BLOCKED')
@@ -739,10 +749,16 @@ def _execute_world_remote_choice(k,h,world,*,reference_service,runtime_service,
             (year,'PUB',obs.id,publication_request.audience,
              (('SPN',belief_key,D(p['remote_detection']),D(p['remote_fp'])),)),
             decision_refs=(publication_ref,))
-    if k.state.projects or k.state.assets or k.colonies or k.population.offworld:
-        raise Build7Blocked('BUILD7_BODY_REMOTE_CREATED_DEVELOPMENT_STATE')
+    project_accounts={project.cash_account_id:k.state.accounts[project.cash_account_id]
+        for project in k.state.projects.values()}
+    if retained_state!=canonical((k.state.projects,k.state.assets,k.state.commitments,
+            project_accounts,k.resources,k.colonies,k.population,k.capital_coupling,
+            k.project_activities,k.project_study_states,k.project_study_plans,
+            k.project_activity_expense_records,k.project_study_result_records,
+            k.project_study_review_records)):
+        raise Build7Blocked('BUILD7_BODY_REMOTE_CHANGED_RETAINED_STATE')
     return {**_world_summary(k,h,world),'choice':'SELECT','selected_candidate_id':choice.candidate_id,
-        'selected_body_id':choice.body_id,
+        'selected_body_id':choice.body_id,'choice_reason':choice.reason,
         'material_observations':tuple((family,obs.id,obs.signal,
             str(actor.beliefs['BODY:'+choice.body_id+':'+obs.question_ref]))
             for family,obs in zip(BODY_MATERIAL_FAMILIES,observations)),
@@ -875,13 +891,25 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
         reference_service=reference_service,runtime_service=runtime_service,
         run_id=run_id,public_login_service=public_login_service,
         sponsor_login_service=sponsor_login_service,_return_runtime=True)
-    if through_year==2026:
-        return opening
     project_id=opening.get('project_id')
+    exploration_annual=[(2026,opening['choice'],opening.get('selected_body_id'),
+        opening.get('choice_reason','UNRESOLVED_BODY_CHARACTERIZATION'
+                    if opening['choice']=='SELECT' else None),
+        str(k.state.accounts[k.agents['PUB'].account_id].balance))]
+    if through_year==2026:
+        return {**opening,'exploration_annual':tuple(exploration_annual)}
+    project_binding=h['named_binding'] if project_id is not None else None
     annual=[]
     for calendar_year in range(2027,through_year+1):
         year=calendar_year-2025
         _record_empty_year(k,h,calendar_year)
+        exploration=_execute_world_remote_choice(k,h,world,
+            reference_service=reference_service,runtime_service=runtime_service,
+            agent_login_service=public_login_service,calendar_year=calendar_year)
+        exploration_annual.append((calendar_year,exploration['choice'],
+            exploration.get('selected_body_id'),exploration.get('choice_reason'),
+            exploration['public_balance']))
+        h['named_binding']=project_binding
         if project_id is None:
             annual.append((calendar_year,'NO_ACTION'))
             continue
@@ -939,7 +967,10 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
             annual.append((calendar_year,decision.outcome.value))
             continue
         annual.append((calendar_year,'NO_ACTION'))
-    result={**_world_summary(k,h,world),'project_id':project_id,'annual':tuple(annual)}
+    result={**_world_summary(k,h,world),'project_id':project_id,'annual':tuple(annual),
+        'exploration_annual':tuple(exploration_annual),
+        'public_balance':str(k.state.accounts[k.agents['PUB'].account_id].balance),
+        'capital_coupling':{key:str(value) for key,value in k.capital_coupling['USA'].items()}}
     if project_id is not None:
         study=k.project_study_states.get(project_id)
         result.update(project_status=k.state.projects[project_id].status,
