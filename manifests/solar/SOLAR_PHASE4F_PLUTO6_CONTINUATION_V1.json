@@ -1,0 +1,188 @@
+{
+  "manifest_version": "1.0",
+  "manifest_id": "SOLAR_PHASE4F_PLUTO6_CONTINUATION_V1",
+  "classification": "ENGINEERING/DATA AUTHORITY \u2014 VALIDATED PLU060-MODEL PROPAGATED ESTIMATE",
+  "horizon_contract": {
+    "full_2250_gate": "2251-01-01T00:00:00Z",
+    "post_plu060_is_not_direct_authority": true
+  },
+  "assets": [
+    {
+      "asset_id": "LSK",
+      "local_path": "kernels/lsk/naif0012.tls",
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+      "byte_count": 5257
+    },
+    {
+      "asset_id": "DE440",
+      "local_path": "kernels/spk/de440.bsp",
+      "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "byte_count": 119799808
+    },
+    {
+      "asset_id": "PROP902",
+      "local_path": "kernels/spk/phase4f_pluto6/propagated_plu060_exact_902_2199_2251.bsp",
+      "sha256": "6407d31c7bc467a66c47f5bf1af90c6008dc5a78ea1322339d0418a9791eab09",
+      "byte_count": 4185088
+    },
+    {
+      "asset_id": "PROP903",
+      "local_path": "kernels/spk/phase4f_pluto6/propagated_plu060_exact_903_2199_2251.bsp",
+      "sha256": "97b9760392c29545e0bc9507bcc07952af989765d8245ffdb712b2f247a846e8",
+      "byte_count": 4185088
+    },
+    {
+      "asset_id": "PROP904",
+      "local_path": "kernels/spk/phase4f_pluto6/propagated_plu060_exact_904_2199_2251.bsp",
+      "sha256": "32fc93254e6f4052ce242922991554738c6d3618b0adaf816a23d1331aa6fcd3",
+      "byte_count": 4185088
+    },
+    {
+      "asset_id": "PROP905",
+      "local_path": "kernels/spk/phase4f_pluto6/propagated_plu060_exact_905_2199_2251.bsp",
+      "sha256": "733b1c0783625d53ed7ac1c9378c74657bf192b767b9551eee6c3ade5890f326",
+      "byte_count": 4185088
+    }
+  ],
+  "registry": {
+    "bodies": [
+      {
+        "body_id": "NIX",
+        "canonical_name": "Nix",
+        "body_class": "NATURAL_SATELLITE"
+      },
+      {
+        "body_id": "HYDRA",
+        "canonical_name": "Hydra",
+        "body_class": "NATURAL_SATELLITE"
+      },
+      {
+        "body_id": "KERBEROS",
+        "canonical_name": "Kerberos",
+        "body_class": "NATURAL_SATELLITE"
+      },
+      {
+        "body_id": "STYX",
+        "canonical_name": "Styx",
+        "body_class": "NATURAL_SATELLITE"
+      }
+    ],
+    "identifiers": [
+      {
+        "body_id": "NIX",
+        "authority": "NAIF",
+        "identifier_type": "NAIF_ID",
+        "identifier_value": "902",
+        "status": "ACTIVE"
+      },
+      {
+        "body_id": "HYDRA",
+        "authority": "NAIF",
+        "identifier_type": "NAIF_ID",
+        "identifier_value": "903",
+        "status": "ACTIVE"
+      },
+      {
+        "body_id": "KERBEROS",
+        "authority": "NAIF",
+        "identifier_type": "NAIF_ID",
+        "identifier_value": "904",
+        "status": "ACTIVE"
+      },
+      {
+        "body_id": "STYX",
+        "authority": "NAIF",
+        "identifier_type": "NAIF_ID",
+        "identifier_value": "905",
+        "status": "ACTIVE"
+      }
+    ],
+    "sources": [
+      {
+        "ephemeris_source_id": "PROP_PLU060_EXACT_902_PHASE4F",
+        "provider": "LOOM/JPL-NASA-derived",
+        "product_name": "Phase-4F Nix PLU060-model continuation",
+        "product_version": "LOOM_PLU060_EXACT_MODEL_DOP853_V1",
+        "asset_filename": "propagated_plu060_exact_902_2199_2251.bsp",
+        "sha256": "6407d31c7bc467a66c47f5bf1af90c6008dc5a78ea1322339d0418a9791eab09",
+        "byte_count": 4185088,
+        "source_url": "PLU060 published six-body model + DE440 external forcing; independently reproduced",
+        "acquired_at": "2026-10-01T00:00:00Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": [
+          "LSK",
+          "DE440",
+          "PROP902"
+        ],
+        "state_capability": "EMPIRICAL_PROPAGATED_2250",
+        "navigation_grade": false,
+        "uncertainty_km": 1000.0,
+        "source_lineage": "PLU060 exact published GMs/model; DE440 forcing; scipy DOP853 rtol=1e-12 max_step=10800 s; withheld-truth validation preserved at 998f7b0/642c702"
+      },
+      {
+        "ephemeris_source_id": "PROP_PLU060_EXACT_903_PHASE4F",
+        "provider": "LOOM/JPL-NASA-derived",
+        "product_name": "Phase-4F Hydra PLU060-model continuation",
+        "product_version": "LOOM_PLU060_EXACT_MODEL_DOP853_V1",
+        "asset_filename": "propagated_plu060_exact_903_2199_2251.bsp",
+        "sha256": "97b9760392c29545e0bc9507bcc07952af989765d8245ffdb712b2f247a846e8",
+        "byte_count": 4185088,
+        "source_url": "PLU060 published six-body model + DE440 external forcing; independently reproduced",
+        "acquired_at": "2026-10-01T00:00:00Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": [
+          "LSK",
+          "DE440",
+          "PROP903"
+        ],
+        "state_capability": "EMPIRICAL_PROPAGATED_2250",
+        "navigation_grade": false,
+        "uncertainty_km": 1000.0,
+        "source_lineage": "PLU060 exact published GMs/model; DE440 forcing; scipy DOP853 rtol=1e-12 max_step=10800 s; withheld-truth validation preserved at 998f7b0/642c702"
+      },
+      {
+        "ephemeris_source_id": "PROP_PLU060_EXACT_904_PHASE4F",
+        "provider": "LOOM/JPL-NASA-derived",
+        "product_name": "Phase-4F Kerberos PLU060-model continuation",
+        "product_version": "LOOM_PLU060_EXACT_MODEL_DOP853_V1",
+        "asset_filename": "propagated_plu060_exact_904_2199_2251.bsp",
+        "sha256": "32fc93254e6f4052ce242922991554738c6d3618b0adaf816a23d1331aa6fcd3",
+        "byte_count": 4185088,
+        "source_url": "PLU060 published six-body model + DE440 external forcing; independently reproduced",
+        "acquired_at": "2026-10-01T00:00:00Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": [
+          "LSK",
+          "DE440",
+          "PROP904"
+        ],
+        "state_capability": "EMPIRICAL_PROPAGATED_2250",
+        "navigation_grade": false,
+        "uncertainty_km": 1000.0,
+        "source_lineage": "PLU060 exact published GMs/model; DE440 forcing; scipy DOP853 rtol=1e-12 max_step=10800 s; withheld-truth validation preserved at 998f7b0/642c702"
+      },
+      {
+        "ephemeris_source_id": "PROP_PLU060_EXACT_905_PHASE4F",
+        "provider": "LOOM/JPL-NASA-derived",
+        "product_name": "Phase-4F Styx PLU060-model continuation",
+        "product_version": "LOOM_PLU060_EXACT_MODEL_DOP853_V1",
+        "asset_filename": "propagated_plu060_exact_905_2199_2251.bsp",
+        "sha256": "733b1c0783625d53ed7ac1c9378c74657bf192b767b9551eee6c3ade5890f326",
+        "byte_count": 4185088,
+        "source_url": "PLU060 published six-body model + DE440 external forcing; independently reproduced",
+        "acquired_at": "2026-10-01T00:00:00Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": [
+          "LSK",
+          "DE440",
+          "PROP905"
+        ],
+        "state_capability": "EMPIRICAL_PROPAGATED_2250",
+        "navigation_grade": false,
+        "uncertainty_km": 1000.0,
+        "source_lineage": "PLU060 exact published GMs/model; DE440 forcing; scipy DOP853 rtol=1e-12 max_step=10800 s; withheld-truth validation preserved at 998f7b0/642c702"
+      }
+    ],
+    "coverage": []
+  }
+}

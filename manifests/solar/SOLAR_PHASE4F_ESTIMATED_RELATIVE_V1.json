@@ -1,0 +1,161 @@
+{
+  "manifest_version": "1.0",
+  "manifest_id": "SOLAR_PHASE4F_ESTIMATED_RELATIVE_V1",
+  "classification": "ENGINEERING/DATA AUTHORITY \u2014 EXPLICIT LOW-AUTHORITY NOMINAL RELATIVE STATES",
+  "horizon_contract": {
+    "full_2250_gate": "2251-01-01T00:00:00Z",
+    "estimated_relative_is_not_direct_or_propagated_truth": true
+  },
+  "assets": [
+    {
+      "asset_id": "LSK",
+      "local_path": "kernels/lsk/naif0012.tls",
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+      "byte_count": 5257
+    },
+    {
+      "asset_id": "DE440",
+      "local_path": "kernels/spk/de440.bsp",
+      "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "byte_count": 119799808
+    },
+    {
+      "asset_id": "IDA",
+      "local_path": "kernels/spk/phase4e/ida_2026_2251.bsp",
+      "sha256": "d90f1cfa0eb32899facec6644ffd8a66f4872975850120e5fbc09efce21c4977",
+      "byte_count": 4081664
+    },
+    {
+      "asset_id": "DINKINESH",
+      "local_path": "kernels/spk/phase4e/dinkinesh_2026_2251.bsp",
+      "sha256": "f2ffa923f7a0c390150587b32ec1914d98d9055581836df2d703afc6293c1127",
+      "byte_count": 4058112
+    },
+    {
+      "asset_id": "PROTEUS",
+      "local_path": "kernels/spk/phase4f_estimated_relative/estimated_proteus_808_2199_2251.bsp",
+      "sha256": "417a08649bafeb79c22139d57bfbfac9e1203e1c69893781d922cbee71f81bcc",
+      "byte_count": 25078784
+    },
+    {
+      "asset_id": "DACTYL",
+      "local_path": "kernels/spk/phase4f_estimated_relative/estimated_dactyl_920000243_2026_2251.bsp",
+      "sha256": "13da938aa1d7e6bf6b531e38eee759fd53306728a785d48840ba91dcb546b0fc",
+      "byte_count": 110613504
+    },
+    {
+      "asset_id": "SELAM",
+      "local_path": "kernels/spk/phase4f_estimated_relative/estimated_selam_920152830_2026_2251.bsp",
+      "sha256": "f0d779d38c9fe24d38960ef371da5dcf9f5863bf243f29ad4204f415b3e02c5d",
+      "byte_count": 110613504
+    }
+  ],
+  "registry": {
+    "bodies": [
+      {
+        "body_id": "PROTEUS",
+        "canonical_name": "Proteus",
+        "body_class": "NATURAL_SATELLITE"
+      },
+      {
+        "body_id": "DACTYL",
+        "canonical_name": "Dactyl",
+        "body_class": "NATURAL_SATELLITE"
+      },
+      {
+        "body_id": "SELAM",
+        "canonical_name": "Selam",
+        "body_class": "NATURAL_SATELLITE"
+      }
+    ],
+    "identifiers": [
+      {
+        "body_id": "PROTEUS",
+        "authority": "NAIF",
+        "identifier_type": "NAIF_ID",
+        "identifier_value": "808",
+        "status": "ACTIVE"
+      },
+      {
+        "body_id": "DACTYL",
+        "authority": "LOOM",
+        "identifier_type": "SPK_TARGET_ID",
+        "identifier_value": "920000243",
+        "status": "ACTIVE"
+      },
+      {
+        "body_id": "SELAM",
+        "authority": "LOOM",
+        "identifier_type": "SPK_TARGET_ID",
+        "identifier_value": "920152830",
+        "status": "ACTIVE"
+      }
+    ],
+    "sources": [
+      {
+        "ephemeris_source_id": "EST_PROTEUS_808_PHASE4F",
+        "provider": "LOOM/NASA-JPL-derived estimate",
+        "product_name": "Proteus nominal relative continuation",
+        "product_version": "LOOM_SOLAR_PHASE4F_ESTIMATED_RELATIVE_V1",
+        "asset_filename": "estimated_proteus_808_2199_2251.bsp",
+        "sha256": "417a08649bafeb79c22139d57bfbfac9e1203e1c69893781d922cbee71f81bcc",
+        "byte_count": 25078784,
+        "source_url": "JPL satellite mean period; nominal circular continuation only",
+        "acquired_at": "2026-10-01T00:00:00Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": [
+          "LSK",
+          "DE440",
+          "PROTEUS"
+        ],
+        "state_capability": "ESTIMATED_RELATIVE",
+        "navigation_grade": false,
+        "uncertainty_km": 235526.63521461692,
+        "source_lineage": "JPL satellite mean period; nominal circular continuation only"
+      },
+      {
+        "ephemeris_source_id": "EST_DACTYL_PHASE4F",
+        "provider": "LOOM/NASA-JPL-derived estimate",
+        "product_name": "Dactyl nominal parent-relative state",
+        "product_version": "LOOM_SOLAR_PHASE4F_ESTIMATED_RELATIVE_V1",
+        "asset_filename": "estimated_dactyl_920000243_2026_2251.bsp",
+        "sha256": "13da938aa1d7e6bf6b531e38eee759fd53306728a785d48840ba91dcb546b0fc",
+        "byte_count": 110613504,
+        "source_url": "Galileo-era approximate separation/period; phase not known at game epoch",
+        "acquired_at": "2026-10-01T00:00:00Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": [
+          "LSK",
+          "IDA",
+          "DACTYL"
+        ],
+        "state_capability": "ESTIMATED_RELATIVE",
+        "navigation_grade": false,
+        "uncertainty_km": 180.0,
+        "source_lineage": "Galileo-era approximate separation/period; phase not known at game epoch"
+      },
+      {
+        "ephemeris_source_id": "EST_SELAM_PHASE4F",
+        "provider": "LOOM/NASA-JPL-derived estimate",
+        "product_name": "Selam nominal parent-relative state",
+        "product_version": "LOOM_SOLAR_PHASE4F_ESTIMATED_RELATIVE_V1",
+        "asset_filename": "estimated_selam_920152830_2026_2251.bsp",
+        "sha256": "f0d779d38c9fe24d38960ef371da5dcf9f5863bf243f29ad4204f415b3e02c5d",
+        "byte_count": 110613504,
+        "source_url": "NASA Lucy approximate 3.1 km separation / 53 h synchronous orbit; phase not known at game epoch",
+        "acquired_at": "2026-10-01T00:00:00Z",
+        "status": "QUALIFIED",
+        "kernel_asset_ids": [
+          "LSK",
+          "DINKINESH",
+          "SELAM"
+        ],
+        "state_capability": "ESTIMATED_RELATIVE",
+        "navigation_grade": false,
+        "uncertainty_km": 6.2,
+        "source_lineage": "NASA Lucy approximate 3.1 km separation / 53 h synchronous orbit; phase not known at game epoch"
+      }
+    ],
+    "coverage": []
+  }
+}
