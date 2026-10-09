@@ -1,0 +1,18 @@
+flowchart TD
+EARTH["USA annual investment proxy"] --> MOB["Mobilize country capital"]
+ECON["Prospecting cost and information value"] --> MOB
+OPP["Visible commercial opportunity"] --> MOB
+MOB --> F["F available, X exposure, R returns, S pressure"]
+F --> SPN{"Sponsor prospecting decision"}
+ECON --> SPN
+SPN -->|initiate| DISB["Country capital disbursement"]
+DISB --> PROJECT["Create prospecting project"]
+PROJECT --> CASH["Project cash and commitments"]
+CASH --> PORT{"Sponsor portfolio authorization"}
+PORT --> STUDY["Paid region study"]
+STUDY --> REVIEW{"Sponsor study review"}
+REVIEW --> STATE["Project status and maturity"]
+STATE --> ANNUAL{"Annual opportunity review"}
+F --> ANNUAL
+ANNUAL --> SPN
+FIN["FIN policy registered in kernel"] -.-> F
