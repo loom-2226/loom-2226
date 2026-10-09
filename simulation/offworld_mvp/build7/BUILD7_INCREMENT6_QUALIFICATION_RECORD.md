@@ -432,3 +432,73 @@ replay without duplicate persisted consequences. `git diff --check` passed.
 verified. Increment 6 remains **BLOCKED** on subsequent investment execution, new
 scientific studies, multi-project behavior, and downstream development qualification.
 PR #370 remains open and unmerged.
+
+## Build 7 limited-freeze closeout — 2026-10-09
+
+**Verified identity.** The repair was tested from branch
+`offworld-mvp-build7-hidden-world` based on `dd93d518879e420ad1a662f964172f9979cdacd8`
+and committed as `ae662aac5bf538be79c87d8aec4de9f7c8971c79`. The committed
+Offworld-kernel source-tree hash is
+`12b2d06c232595953910a8588c07c9608ec11483b2781b7db5858fcb54caee86` and
+matches the Git object exactly.
+
+**Evidence lineage.** The independent audit run
+`SOLAR_MATERIAL_0ea8bd30fcfe214cb370569c:d07a914e5eb36a9e` remains historical
+pre-repair evidence: it replayed 175/175 epochs, retained one EXPLORING project,
+and demonstrated that annual Sponsor consideration did not execute investment.
+External/hostile review independently identified that same missing causal connection;
+it is supporting evidence, not repository authority. A later in-memory experiment
+showed that the existing policy and kernel could create and finance two distinct
+prospecting projects, but did not prove campaign persistence. None of those earlier
+results is relabeled as post-repair qualification.
+
+**Defect and bounded repair.** `run_world_annual()` formerly stopped after
+`CONSIDER_PROSPECTING`. It now reconstructs the selected transient opportunity from
+SPN-admitted observations and beliefs, builds the existing `SponsorProspectingRequest`,
+invokes the existing Sponsor prospecting policy, and executes the existing project
+creation, commitment, and country-capital disbursement transitions only after
+`INITIATE_PROJECT`. No Earth capital is remobilized. Stable body/REGION-derived
+identities reject duplicates. Existing project bodies are removed from later transient
+candidate sets. The resulting project and reduced F/increased X influence subsequent
+annual decisions. No new transition, account balance, authorization contract,
+spatial ontology, or persistence system was introduced.
+
+**New persistent campaign evidence.** Untuned seed
+`BUILD7-LIMITED-FREEZE-20261009-A`, run
+`SOLAR_MATERIAL_1f9226c3bec61ecd29faa5ce:ad46bcddea690ea8`, ran through 2035.
+PUBLIC retained the established ten annual REMOTE selections and exhausted its
+100-unit public budget by ten 10-unit missions. SPN authorized the original Comet
+Halley REGION 02 project and its study, then in 2030 considered DAVIDA from admitted
+evidence and independently returned `INITIATE_PROJECT` for DAVIDA REGION 07.
+The existing transitions created the second project, commitment and disbursement.
+F moved from `29.58025335469291` to `9.58025335469291`; X moved from `20` to
+`40`; Sponsor funds equaled F; there were two commitments and two country-capital
+disbursement records. The original project retained zero cash and
+`SURFACE_OR_SAMPLE_CHARACTERIZED` maturity; the new project retained 20 cash.
+From 2031–2035 SPN returned `RETAIN_PROJECT` because the remaining F was below the
+unchanged 20-unit requirement. Both projects persisted. No resource, development,
+operation, settlement, or Offworld population was created. Replay returned
+**179/179 `ALREADY_MATCHED`** with identical decisions, projects and accounting.
+
+**Focused verification.** The prospecting policy/firewall suite passed **6/6**. It
+includes a `DECLINE` from nonpositive admitted characterization while F remains 100,
+an information-missing `BLOCKED_UNKNOWN`, deterministic region choice, and a
+hidden-truth counterfactual with unchanged policy output. The governed recurring
+Explorer/Sponsor persistence test passed **1/1** in 582.298 s. It proves the annual
+second authorization, two persisted projects/locations, two commitments and
+disbursements, F/X conservation, later state consumption, and duplicate-free replay.
+`git diff --check` passed. The historical audit seed and the new closeout seed, and
+multiple generated bodies/regions, exercise object-independent production paths;
+no new production branch names a preferred body, region, investment year, seed, or
+required project count.
+
+**Limited-freeze disposition.** **READY FOR LIMITED FREEZE / MERGE REVIEW**, not full
+Build 7 A–I acceptance. Demonstrated frozen capability covers no-target generated
+WORLD creation, recurring public exploration, actor-visible beliefs, bounded Sponsor
+opportunity and authorization, multiple persisted prospecting investments, finite
+accounting, and deterministic replay. Still unproven are a governed follow-on study
+for newly created projects, comparison among funded projects beyond the bounded
+opportunity rule, development, operation, production, returns/losses, settlement,
+transport, and population. Increment 6 therefore remains **BLOCKED** relative to full
+original acceptance. Those limitations do not undermine the narrower frozen
+prospecting capability, but must remain explicit in PR and merge disposition.
