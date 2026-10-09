@@ -54,6 +54,7 @@ from offworld_kernel.distribution_protocol import build_surplus_distribution_req
 from offworld_kernel.transport_protocol import build_transport_settlement_request
 from offworld_kernel.project_activity import ProjectActivityStatus, build_sponsor_portfolio_request
 from offworld_kernel.project_study import build_project_study_review_request
+from offworld_kernel.project_study import region_study_activity_id
 from simulation.offworld_mvp.build7.increment5 import classify_regional_material_observation
 
 from simulation.offworld_mvp.build6e.generated_world import generate_solar_system, bind_generated_target, _hash as generated_hash
@@ -927,7 +928,7 @@ def run_world_prospecting_initiation(*,reference_service,runtime_service,run_id,
     prior_binding=h['named_binding']
     h['named_binding']=ProspectingRegionBinding(
         prior_binding.scenario_id,prior_binding.world_id,prior_binding.body_id,
-        prior_binding.body_key,prior_binding.binding_key,
+        prior_binding.body_key,'PROSPECTING_REGION:'+sha256(project_id.encode()).hexdigest()[:20],
         opportunity.region_key,uuid.UUID(str(opportunity.location_id)))
     node_id='OFF:'+body_key+':'+opportunity.region_key
     creation=flow.system_epoch(k,h,'create_prospecting_project',str(year),
@@ -967,6 +968,7 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
     """
     if not 2026<=through_year<=2035:
         raise Build7Blocked('BUILD7_ANNUAL_HORIZON')
+    import psycopg
     k,h,world,opening=run_world_prospecting_initiation(
         reference_service=reference_service,runtime_service=runtime_service,
         run_id=run_id,public_login_service=public_login_service,
@@ -979,7 +981,7 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
     if through_year==2026:
         return {**opening,'exploration_annual':tuple(exploration_annual)}
     project_binding=h['named_binding'] if project_id is not None else None
-    annual=[];sponsor_opportunity_annual=[];sponsor_investment_annual=[]
+    annual=[];project_annual=[];sponsor_opportunity_annual=[];sponsor_investment_annual=[]
     for calendar_year in range(2027,through_year+1):
         year=calendar_year-2025
         _record_empty_year(k,h,calendar_year)
@@ -989,69 +991,89 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
         exploration_annual.append((calendar_year,exploration['choice'],
             exploration.get('selected_body_id'),exploration.get('choice_reason'),
             exploration['public_balance']))
+        eligible_for_investment=bool(k.project_study_review_records)
+        yearly_outcomes=[]
+        for current_project_id in sorted(r.project_id for r in k.prospecting_project_creation_records):
+            creation=next(r for r in k.prospecting_project_creation_records
+                if r.project_id==current_project_id)
+            with psycopg.connect(service=runtime_service) as conn:
+                scenario_id,world_id,body_id=store.read_run_body_world_identity(
+                    conn,k.boundary_manifest.run_id,creation.body_key)
+            activity_id=region_study_activity_id(current_project_id)
+            h['named_binding']=ProspectingRegionBinding(
+                scenario_id,world_id,body_id,creation.body_key,
+                'PROSPECTING_REGION:'+sha256(current_project_id.encode()).hexdigest()[:20],
+                creation.region_key,uuid.UUID(str(creation.location_id)))
+            activity=k.project_activities.get(activity_id)
+            if activity is None:
+                flow.system_epoch(k,h,'initialize_region_study',str(year),
+                    (year,current_project_id,creation.location_id))
+                activity=k.project_activities[activity_id]
+            outcome=None
+            if activity.status==ProjectActivityStatus.PROPOSED:
+                suffix=sha256(current_project_id.encode()).hexdigest()[:12]
+                request=build_sponsor_portfolio_request(
+                    'BUILD7:PORTFOLIO:'+str(calendar_year)+':'+suffix,year,(activity.id,))
+                decision,ref=flow.policy_epoch(k,h,'BUILD7_PORTFOLIO:'+str(calendar_year)+':'+suffix,
+                    'SPN',str(year),request,request.required_fact_keys,
+                    workers.run_sponsor_portfolio_policy,workers.sponsor_portfolio_policy_version(),
+                    {'project_id':current_project_id})
+                if decision.outcome.value=='AUTHORIZE':
+                    flow.system_epoch(k,h,'authorize_project_study_activity',str(year),
+                        (year,decision),decision_refs=(ref,))
+                    flow.system_epoch(k,h,'start_project_activity',str(year),
+                        (year,activity.id),decision_refs=(ref,))
+                    flow.system_epoch(k,h,'spend_project_study_activity',str(year),
+                        (year,activity.id,'PROJECT'),decision_refs=(ref,))
+                outcome=decision.outcome.value
+            elif activity.status==ProjectActivityStatus.ACTIVE and D(activity.planned_completion)<=D(year):
+                ref=next(ref for ref,(_,decision_id,_) in k._boundary_decisions.items()
+                    if decision_id==activity.authorization_decision_id)
+                observations,_=flow.system_epoch(k,h,'observe_region_study',str(year),
+                    (year,'SPN',creation.body_key,creation.location_id,
+                     current_project_id,activity.id),decision_refs=(ref,))
+                for observation in observations:
+                    belief_key='BODY:'+observation.body_id+':'+observation.question_ref
+                    flow.system_epoch(k,h,'update_agent_belief_from_observation',str(year),
+                        (year,'SPN',observation.id,belief_key,D('.80'),D('.20'),
+                         'BUILD7_REGION_MATERIAL_V1',AUTHORIZATION),decision_refs=(ref,))
+                standing=classify_regional_material_observation(observations)
+                result_ref='BUILD7:REGION_STUDY_RESULT:'+content_hash(
+                    (current_project_id,tuple(o.id for o in observations)))[:24]
+                flow.system_epoch(k,h,'complete_project_study_activity',str(year),
+                    (year,activity.id,standing.value,result_ref),decision_refs=(ref,))
+                flow.system_epoch(k,h,'admit_project_activity_result',str(year),
+                    (year,activity.id,'SPN'),decision_refs=(ref,))
+                outcome='STUDY_'+standing.value
+            else:
+                result_record=next((r for r in k.project_study_result_records
+                    if r.activity_id==activity.id),None)
+                reviewed=any(r.activity_id==activity.id for r in k.project_study_review_records)
+                if activity.status==ProjectActivityStatus.COMPLETED and result_record is not None and not reviewed:
+                    suffix=sha256(current_project_id.encode()).hexdigest()[:12]
+                    request=build_project_study_review_request(
+                        'BUILD7:STUDY_REVIEW:'+str(calendar_year)+':'+suffix,
+                        current_project_id,activity.id,result_record.result_ref)
+                    decision,ref=flow.policy_epoch(k,h,'BUILD7_STUDY_REVIEW:'+str(calendar_year)+':'+suffix,
+                        'SPN',str(year),request,request.required_fact_keys,
+                        workers.run_sponsor_study_review_policy,workers.sponsor_study_review_policy_version(),
+                        {'project_id':current_project_id})
+                    if decision.outcome.value in ('ADVANCE','DEFER','ABANDON'):
+                        flow.system_epoch(k,h,'execute_project_study_review',str(year),
+                            (year,request,decision),decision_refs=(ref,))
+                    outcome=decision.outcome.value
+            if outcome is not None:
+                yearly_outcomes.append((current_project_id,outcome))
+                project_annual.append((calendar_year,current_project_id,outcome))
+
+        primary_outcome=next((v for pid,v in yearly_outcomes if pid==project_id),None)
+        annual.append((calendar_year,primary_outcome or 'NO_ACTION'))
         h['named_binding']=project_binding
-        if project_id is None:
-            annual.append((calendar_year,'NO_ACTION'))
-            continue
-        activity=k.project_activities.get('BUILD7_REGION_STUDY')
-        if activity is None:
-            flow.system_epoch(k,h,'initialize_region_study',str(year),
-                (year,project_id,opening['prospecting_location_id']),
-                decision_refs=(h['prospecting_decision_ref'],))
-            activity=k.project_activities['BUILD7_REGION_STUDY']
-        if activity.status==ProjectActivityStatus.PROPOSED:
-            request=build_sponsor_portfolio_request(
-                'BUILD7:PORTFOLIO:'+str(calendar_year),year,(activity.id,))
-            decision,ref=flow.policy_epoch(k,h,'BUILD7_PORTFOLIO:'+str(calendar_year),
-                'SPN',str(year),request,request.required_fact_keys,
-                workers.run_sponsor_portfolio_policy,workers.sponsor_portfolio_policy_version())
-            if decision.outcome.value=='AUTHORIZE':
-                flow.system_epoch(k,h,'authorize_project_study_activity',str(year),
-                    (year,decision),decision_refs=(ref,))
-                flow.system_epoch(k,h,'start_project_activity',str(year),
-                    (year,activity.id),decision_refs=(ref,))
-                flow.system_epoch(k,h,'spend_project_study_activity',str(year),
-                    (year,activity.id,'PROJECT'),decision_refs=(ref,))
-            annual.append((calendar_year,decision.outcome.value))
-            continue
-        if activity.status==ProjectActivityStatus.ACTIVE and D(activity.planned_completion)<=D(year):
-            ref=next(ref for ref,(_,decision_id,_) in k._boundary_decisions.items()
-                if decision_id==activity.authorization_decision_id)
-            observations,_=flow.system_epoch(k,h,'observe_region_study',str(year),
-                (year,'SPN',opening['selected_body_id'],opening['prospecting_location_id'],
-                 project_id,activity.id),decision_refs=(ref,))
-            for observation in observations:
-                belief_key='BODY:'+observation.body_id+':'+observation.question_ref
-                flow.system_epoch(k,h,'update_agent_belief_from_observation',str(year),
-                    (year,'SPN',observation.id,belief_key,D('.80'),D('.20'),
-                     'BUILD7_REGION_MATERIAL_V1',AUTHORIZATION),decision_refs=(ref,))
-            standing=classify_regional_material_observation(observations)
-            result_ref='BUILD7:REGION_STUDY_RESULT:'+content_hash(tuple(o.id for o in observations))[:24]
-            flow.system_epoch(k,h,'complete_project_study_activity',str(year),
-                (year,activity.id,standing.value,result_ref),decision_refs=(ref,))
-            flow.system_epoch(k,h,'admit_project_activity_result',str(year),
-                (year,activity.id,'SPN'),decision_refs=(ref,))
-            annual.append((calendar_year,'STUDY_'+standing.value))
-            continue
-        result=next((r for r in k.project_study_result_records if r.activity_id==activity.id),None)
-        reviewed=any(r.activity_id==activity.id for r in k.project_study_review_records)
-        if activity.status==ProjectActivityStatus.COMPLETED and result is not None and not reviewed:
-            request=build_project_study_review_request(
-                'BUILD7:STUDY_REVIEW:'+str(calendar_year),project_id,activity.id,result.result_ref)
-            decision,ref=flow.policy_epoch(k,h,'BUILD7_STUDY_REVIEW:'+str(calendar_year),
-                'SPN',str(year),request,request.required_fact_keys,
-                workers.run_sponsor_study_review_policy,workers.sponsor_study_review_policy_version())
-            if decision.outcome.value in ('ADVANCE','DEFER','ABANDON'):
-                flow.system_epoch(k,h,'execute_project_study_review',str(year),
-                    (year,request,decision),decision_refs=(ref,))
-            annual.append((calendar_year,decision.outcome.value))
-            continue
-        if reviewed:
+        if eligible_for_investment and project_id is not None:
             request=_annual_sponsor_opportunity_request(k,h,calendar_year,project_id)
             decision,_=flow.policy_epoch(k,h,'BUILD7_SPONSOR_OPPORTUNITY:'+str(calendar_year),
                 'SPN',str(year),request,request.required_fact_keys,
-                workers.run_sponsor_opportunity_policy,
-                workers.sponsor_opportunity_policy_version())
+                workers.run_sponsor_opportunity_policy,workers.sponsor_opportunity_policy_version())
             visible_bodies=tuple(candidate.body_key for candidate in request.candidates)
             sponsor_opportunity_annual.append((calendar_year,decision.outcome.value,
                 decision.selected_body_key or None,decision.reason_code.value,visible_bodies,
@@ -1063,19 +1085,17 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
                     raise Build7Blocked('BUILD7_ANNUAL_SELECTED_OPPORTUNITY_MISSING')
                 prospecting_decision,creation=_execute_annual_prospecting_investment(
                     k,h,calendar_year,candidate,runtime_service,project_binding)
+                annual[-1]=(calendar_year,prospecting_decision.outcome.value)
                 sponsor_investment_annual.append((calendar_year,
-                    prospecting_decision.outcome.value,
-                    prospecting_decision.reason_code.value,
+                    prospecting_decision.outcome.value,prospecting_decision.reason_code.value,
                     None if creation is None else creation.project_id,
-                    str(k.capital_coupling['USA']['F']),
-                    str(k.capital_coupling['USA']['X'])))
-                annual.append((calendar_year,prospecting_decision.outcome.value))
+                    str(k.capital_coupling['USA']['F']),str(k.capital_coupling['USA']['X'])))
             else:
-                annual.append((calendar_year,decision.outcome.value))
-            continue
-        annual.append((calendar_year,'NO_ACTION'))
+                annual[-1]=(calendar_year,decision.outcome.value)
+
     result={**_world_summary(k,h,world),'project_id':project_id,'annual':tuple(annual),
         'exploration_annual':tuple(exploration_annual),
+        'project_annual':tuple(project_annual),
         'sponsor_opportunity_annual':tuple(sponsor_opportunity_annual),
         'sponsor_investment_annual':tuple(sponsor_investment_annual),
         'public_balance':str(k.state.accounts[k.agents['PUB'].account_id].balance),

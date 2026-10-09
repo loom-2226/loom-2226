@@ -242,7 +242,24 @@ def _validate_request(kernel,req):
     if req.world_context=='SCENARIO' and req.context_id!=m.scenario_id:raise InvariantError('BLOCKED_CONTEXT: wrong scenario')
     if req.world_context=='REALIZED' and req.context_id!=m.run_id:raise InvariantError('BLOCKED_CONTEXT: wrong run')
     contract=(req.consumer_id,req.use,req.concept,req.scope,req.world_context,req.perspective,req.required_unit,req.required_role)
-    if contract not in m.allowed_use_contracts:raise InvariantError('BLOCKED_SCOPE: undeclared natural use contract')
+    if contract not in m.allowed_use_contracts:
+        # Build 7 creates study IDs from durable project identity after GENESIS.
+        # Admit only its existing sponsor-visible study fact family, under that
+        # exact project's realized scope; no physical/scenario facts are covered.
+        study_concepts={
+            'portfolio.AVAILABLE_CAPITAL','study.CURRENT_MATURITY','study.ACTIVITY_ID',
+            'study.RESULT_REF','study.RESULT_STANDING','study.NEXT_MATURITY','project.STATUS',
+        }
+        activity_prefix='activity.BUILD7_REGION_STUDY:'
+        activity_suffixes={'PROJECT_ID','PROJECT_STATUS','STATUS','COMMITMENT','PRIORITY','WINDOW_VALID'}
+        dynamic_activity=(req.concept.startswith(activity_prefix) and
+            req.concept.rsplit('.',1)[-1] in activity_suffixes and
+            len(req.concept[len(activity_prefix):].rsplit('.',1)[0])==20)
+        if not (req.consumer_id=='SPN' and req.use=='POLICY' and req.perspective=='AGENT'
+                and req.world_context=='REALIZED' and req.required_role=='ADMITTED_INFORMATION'
+                and req.scope.startswith('PROJECT:') and len(req.scope)>8
+                and (req.concept in study_concepts or dynamic_activity)):
+            raise InvariantError('BLOCKED_SCOPE: undeclared natural use contract')
     if req.perspective=='AGENT':
         if req.consumer_id not in kernel.agents:raise InvariantError('BLOCKED_PERSPECTIVE: Agent missing')
     elif req.consumer_id not in kernel.systems and req.consumer_id!='GENESIS':
@@ -291,6 +308,11 @@ def query_context(kernel,request):
 def _resolve_live(k,r):
     bindings={(consumer,concept):selector for consumer,concept,selector in k.boundary_manifest.source_resolver_bindings}
     selector=bindings.get((r.consumer_id,r.concept))
+    if (selector is None and r.consumer_id=='SPN' and
+            r.concept.startswith('activity.BUILD7_REGION_STUDY:') and
+            r.concept.rsplit('.',1)[-1] in
+                ('PROJECT_ID','PROJECT_STATUS','STATUS','COMMITMENT','PRIORITY','WINDOW_VALID')):
+        selector='BUILD7_STUDY_FACT'
     if selector is None:return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SOURCE_BINDING')
     if selector=='AGENT_STATE':
         if r.subject_id!=r.consumer_id or r.perspective!='AGENT':return _outcome(k,r,FactState.BLOCKED,'BLOCKED_PERSPECTIVE')
@@ -351,25 +373,30 @@ def _resolve_live(k,r):
         return _value(k,r,str(value),kind='FINANCIAL_STATE',mode='SIMULATION_RESULT',
             source='capital-coupling:'+r.subject_id+':F')
     if selector=='BUILD7_STUDY_FACT':
-        if r.consumer_id!='SPN' or r.subject_id!='SPN' or r.scope!='PROJECT:REGION_STUDY':
+        if r.consumer_id!='SPN' or not r.scope.startswith('PROJECT:'):
             return _outcome(k,r,FactState.BLOCKED,'BLOCKED_STUDY_SCOPE')
-        activity=k.project_activities.get('BUILD7_REGION_STUDY')
-        if activity is None:return _outcome(k,r,FactState.UNKNOWN,'STUDY_NOT_INITIALIZED')
-        project=k.state.projects.get(activity.project_id)
+        project_id=r.scope[len('PROJECT:'):]
+        project=k.state.projects.get(project_id)
         if project is None or 'SPN' not in project.owners:
             return _outcome(k,r,FactState.BLOCKED,'BLOCKED_STUDY_OWNERSHIP')
+        activity_id=r.concept[len('activity.'):].rsplit('.',1)[0] if r.concept.startswith('activity.') else ''
+        activity=(k.project_activities.get(activity_id) if activity_id else
+            next((a for a in k.project_activities.values() if a.project_id==project_id),None))
+        if activity is None:return _outcome(k,r,FactState.UNKNOWN,'STUDY_NOT_INITIALIZED')
+        if activity.project_id!=project_id:
+            return _outcome(k,r,FactState.BLOCKED,'BLOCKED_STUDY_OWNERSHIP')
         state=k.project_study_states.get(project.id)
-        plan=k.project_study_plans.get('BUILD7_REGION_STUDY_PLAN')
+        plan=next((p for p in k.project_study_plans.values() if p.project_id==project_id),None)
         result=next((x for x in k.project_study_result_records if x.activity_id==activity.id),None)
         if state is None or plan is None:return _outcome(k,r,FactState.UNKNOWN,'STUDY_PLAN_MISSING')
         values={
             'portfolio.AVAILABLE_CAPITAL':str(k.state.accounts[project.cash_account_id].balance),
-            'activity.BUILD7_REGION_STUDY.PROJECT_ID':project.id,
-            'activity.BUILD7_REGION_STUDY.PROJECT_STATUS':str(project.status),
-            'activity.BUILD7_REGION_STUDY.STATUS':activity.status.value,
-            'activity.BUILD7_REGION_STUDY.COMMITMENT':str(activity.capital_commitment),
-            'activity.BUILD7_REGION_STUDY.PRIORITY':str(activity.priority),
-            'activity.BUILD7_REGION_STUDY.WINDOW_VALID':'1',
+            f'activity.{activity.id}.PROJECT_ID':project.id,
+            f'activity.{activity.id}.PROJECT_STATUS':str(project.status),
+            f'activity.{activity.id}.STATUS':activity.status.value,
+            f'activity.{activity.id}.COMMITMENT':str(activity.capital_commitment),
+            f'activity.{activity.id}.PRIORITY':str(activity.priority),
+            f'activity.{activity.id}.WINDOW_VALID':'1',
             'project.STATUS':str(project.status),
             'study.CURRENT_MATURITY':state.maturity.value,
             'study.ACTIVITY_ID':activity.id,

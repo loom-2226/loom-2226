@@ -87,18 +87,21 @@ LIVE['opportunity.AUTHORED_SITE']=('SCENARIO_SITE',NODE_ID,'AUTHORED_SITE_IDENTI
 LIVE['capital.AVAILABLE_F']=('CAPITAL_AVAILABLE_F','USA','MODEL_CURRENCY')
 STUDY_FACTS={
     'portfolio.AVAILABLE_CAPITAL':'MODEL_CURRENCY',
-    'activity.BUILD7_REGION_STUDY.PROJECT_ID':'IDENTITY',
-    'activity.BUILD7_REGION_STUDY.PROJECT_STATUS':'STATUS_CATEGORY',
-    'activity.BUILD7_REGION_STUDY.STATUS':'STATUS_CATEGORY',
-    'activity.BUILD7_REGION_STUDY.COMMITMENT':'MODEL_CURRENCY',
-    'activity.BUILD7_REGION_STUDY.PRIORITY':'COUNT',
-    'activity.BUILD7_REGION_STUDY.WINDOW_VALID':'BOOLEAN',
     'study.CURRENT_MATURITY':'STATUS_CATEGORY',
     'study.ACTIVITY_ID':'IDENTITY',
     'study.RESULT_REF':'IDENTITY',
     'study.RESULT_STANDING':'STATUS_CATEGORY',
     'study.NEXT_MATURITY':'STATUS_CATEGORY',
 }
+
+def _is_study_fact(concept):
+    return concept in STUDY_FACTS or (concept.startswith('activity.BUILD7_REGION_STUDY:') and
+        concept.rsplit('.',1)[-1] in ('PROJECT_ID','PROJECT_STATUS','STATUS','COMMITMENT','PRIORITY','WINDOW_VALID'))
+
+def _study_fact_unit(concept):
+    if concept in STUDY_FACTS:return STUDY_FACTS[concept]
+    return {'PROJECT_ID':'IDENTITY','PROJECT_STATUS':'STATUS_CATEGORY','STATUS':'STATUS_CATEGORY',
+        'COMMITMENT':'MODEL_CURRENCY','PRIORITY':'COUNT','WINDOW_VALID':'BOOLEAN'}[concept.rsplit('.',1)[-1]]
 for _concept,_unit in STUDY_FACTS.items():
     LIVE[_concept]=('BUILD7_STUDY_FACT','SPN',_unit)
 
@@ -132,8 +135,12 @@ def _target_runtime(kernel):
 def policy_inputs(k,actor,time,concepts,subjects=None):
     subjects=subjects or {};receipts=[];target=_target_runtime(k)
     for concept in ('agent.STATE','agent.BELIEF','agent.PRIOR',*concepts):
-        if concept in LIVE:
-            _,subject,unit=LIVE[concept];subject=actor if subject=='SELF' else subject
+        if concept in LIVE or _is_study_fact(concept):
+            if concept in LIVE:
+                _,subject,unit=LIVE[concept]
+            else:
+                subject='SPN';unit=_study_fact_unit(concept)
+            subject=actor if subject=='SELF' else subject
             if subject==NODE_ID:subject=target['node']
             subject=subjects.get(concept,subject)
             scope='AGENT:'+actor if concept.startswith('agent.') else 'PROJECT:P' if subject=='P' else target['site_ref']
@@ -143,14 +150,16 @@ def policy_inputs(k,actor,time,concepts,subjects=None):
                 scope=target['site_ref'];subject=target['site_ref'];context='SCENARIO';cid=k.boundary_manifest.scenario_id;role='POLICY_PARAMETER'
             elif concept=='capital.AVAILABLE_F':
                 scope='COUNTRY:'+subject;context='REALIZED';cid=k.boundary_manifest.run_id;role='FINANCIAL_STATE'
-            elif concept in STUDY_FACTS or (concept=='project.STATUS' and target['node'] is None):
-                subject='SPN'
-                scope='PROJECT:REGION_STUDY';context='REALIZED';cid=k.boundary_manifest.run_id;role='ADMITTED_INFORMATION'
+            elif _is_study_fact(concept) or (concept=='project.STATUS' and target['node'] is None):
+                subject=subjects.get('project_id','SPN')
+                scope='PROJECT:'+subject if subject!='SPN' else 'PROJECT:REGION_STUDY'
+                context='REALIZED';cid=k.boundary_manifest.run_id;role='ADMITTED_INFORMATION'
             else:
                 context='REALIZED';cid=k.boundary_manifest.run_id;role='ADMITTED_INFORMATION'
         else:
             a=next(x for x in k.boundary_manifest.assertions if x.assertion_id==actor+':'+concept)
             subject=a.subject_id;scope=a.scope;unit=a.unit;context='SCENARIO';cid=k.boundary_manifest.scenario_id;role='POLICY_PARAMETER'
+        if _is_study_fact(concept):unit=_study_fact_unit(concept)
         req=ConsumptionRequest(actor+':'+str(time)+':'+concept,actor,'POLICY',subject,concept,scope,'SIM_TIME',str(time),str(time),context,cid,'AGENT',actor,'ADMITTED',unit,role)
         receipts.append(admit_for_use(k,req)[1])
     return tuple(receipts)
