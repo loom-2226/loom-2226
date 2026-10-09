@@ -132,7 +132,7 @@ def _target_runtime(kernel):
         'catalog_scope':params.get('build7.catalog_scope','LOCATION:MOON:CABEU'),
     }
 
-def policy_inputs(k,actor,time,concepts,subjects=None):
+def policy_inputs(k,actor,time,concepts,subjects=None,decision_scope=None):
     subjects=subjects or {};receipts=[];target=_target_runtime(k)
     for concept in ('agent.STATE','agent.BELIEF','agent.PRIOR',*concepts):
         if concept in LIVE or _is_study_fact(concept):
@@ -167,7 +167,7 @@ def policy_inputs(k,actor,time,concepts,subjects=None):
                 a=next(x for x in k.boundary_manifest.assertions if x.assertion_id==actor+':'+concept)
             subject=a.subject_id;scope=a.scope;unit=a.unit;context='SCENARIO';cid=k.boundary_manifest.scenario_id;role='POLICY_PARAMETER'
         if _is_study_fact(concept):unit=_study_fact_unit(concept)
-        req=ConsumptionRequest(actor+':'+str(time)+':'+concept,actor,'POLICY',subject,concept,scope,'SIM_TIME',str(time),str(time),context,cid,'AGENT',actor,'ADMITTED',unit,role)
+        req=ConsumptionRequest(actor+':'+str(time)+':'+(decision_scope+':' if decision_scope else '')+concept,actor,'POLICY',subject,concept,scope,'SIM_TIME',str(time),str(time),context,cid,'AGENT',actor,'ADMITTED',unit,role)
         receipts.append(admit_for_use(k,req)[1])
     return tuple(receipts)
 
@@ -203,7 +203,7 @@ def _policy_epoch_body(k,h,label,actor,time,request,concepts,runner,version,subj
     opening_epoch=(k.boundary_manifest.contract_version==BUILD6E_CONTRACT and not k._boundary_opening_validated)
     if opening_epoch:
         k.begin_decision_epoch(label,'BUILD6E_CORE_CHAIN' if k.decision_epoch_chain_id is None else None)
-    receipts=policy_inputs(k,actor,time,concepts,subjects)
+    receipts=policy_inputs(k,actor,time,concepts,subjects,decision_scope=label)
     snap=build_decision_snapshot(k,actor,period,D(time),snapshot_facts(k,receipts),admission_receipts=receipts)
     if not opening_epoch:
         k.begin_decision_epoch(label,'BUILD6E_CORE_CHAIN' if k.decision_epoch_chain_id is None else None)
