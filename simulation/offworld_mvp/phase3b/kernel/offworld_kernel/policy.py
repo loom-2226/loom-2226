@@ -61,6 +61,15 @@ class DecisionSnapshot:
           'admitted_facts':tuple((f.key,f.state.value,f.value,f.source_ref) for f in self.admitted_facts)}
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
 
+def _comparison_draw(coordinates):
+    """Shared strict conversion; coordinates are framed, not delimiter joined."""
+    from decimal import getcontext
+    ctx=getcontext()
+    if ctx.prec!=28 or str(ctx.rounding)!='ROUND_HALF_EVEN':
+        raise InvariantError('BLOCKED_PARAMETER: decimal replay environment')
+    raw=json.dumps(coordinates,separators=(',',':'),ensure_ascii=True)
+    return D(int.from_bytes(sha256(raw.encode()).digest()[:8],'big'))/D(2**64)
+
 @dataclass(frozen=True, slots=True)
 class PolicyContext:
     snapshot: DecisionSnapshot
@@ -68,11 +77,14 @@ class PolicyContext:
     decision_key: str
 
     def deterministic_draw(self,label:str)->D:
-        raw='|'.join((self.decision_key,self.snapshot.fingerprint(),str(label)))
+        if self.decision_key.startswith('LOOM_COMPARISON_RANDOM_V1:'):
+            return _comparison_draw(['LOOM_COMPARISON_RANDOM_V1','POLICY',self.decision_key,str(label)])
+        else:
+            raw='|'.join((self.decision_key,self.snapshot.fingerprint(),str(label)))
         n=int.from_bytes(sha256(raw.encode()).digest()[:8],'big')
         return D(n)/D(2**64)
 
-def build_decision_snapshot(kernel,agent_id,period_key,effective_time,admitted_facts:Iterable[SnapshotFact]=()):
+def build_decision_snapshot(kernel,agent_id,period_key,effective_time,admitted_facts:Iterable[SnapshotFact]=(),*,admission_receipts=()):
     """World-side snapshot builder. Copies only explicitly admitted agent-visible state.
 
     The returned object contains no kernel reference, scenario-resource registry,
@@ -80,6 +92,10 @@ def build_decision_snapshot(kernel,agent_id,period_key,effective_time,admitted_f
     """
     if agent_id not in kernel.agents:
         raise InvariantError('decision snapshot agent missing')
+    admitted_facts=tuple(admitted_facts)
+    if getattr(kernel,'boundary_manifest',None) is not None:
+        from .boundary import validate_snapshot
+        validate_snapshot(kernel,agent_id,period_key,effective_time,admitted_facts,admission_receipts)
     a:AgentState=kernel.agents[agent_id]
     account=kernel.state.accounts[a.account_id]
     facts=tuple(sorted(tuple(admitted_facts),key=lambda f:(f.key,f.state.value,f.source_ref,f.value or '')))
@@ -102,3 +118,12 @@ def build_decision_snapshot(kernel,agent_id,period_key,effective_time,admitted_f
         resource_holdings=tuple(sorted((str(k),D(v)) for k,v in a.resource_holdings.items())),
         claim_holdings=tuple(sorted((str(k),D(v)) for k,v in a.claim_holdings.items())),
         admitted_facts=facts)
+
+
+def comparison_decision_key(comparison,actor_id,period_key,slot):
+    """World-side framed derivation. Only the opaque result enters PolicyContext."""
+    c=dict(comparison)
+    if c['key_schema']!='LOOM_COMPARISON_RANDOM_V1' or c['algorithm']!='SHA256_FIRST64_DECIMAL_V1':
+        raise InvariantError('BLOCKED_PARAMETER: comparison key contract')
+    raw=json.dumps([c['key_schema'],'POLICY',c['policy_seed'],c['comparison_group'],str(actor_id),str(period_key),str(slot)],separators=(',',':'),ensure_ascii=True)
+    return c['key_schema']+':'+sha256(raw.encode()).hexdigest()

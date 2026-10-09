@@ -1,0 +1,56 @@
+{
+  "schema": "BUILD6E_QUALIFICATION_V1",
+  "designation": "BUILD6E_NAMED_WORLD_FULL_V1",
+  "preregistered": true,
+  "no_retuning_after_execution_starts": true,
+  "source_fixture_ref": "BUILD6E_NAMED_WORLD_V1.json",
+  "source_snapshot_sha256": "72ddfab0eb35fb5a86ecfd50d4bc939a982ffc1fe3362108036082298a57b777",
+  "authority_standing_required": "MIGRATION_QUALIFIED_SCIENCE_CANDIDATE_PRESERVED",
+  "world_authority_version_required": "WORLD_AUTHORITY_V1_2_RUN_TRANSACTIONS_QUALIFIED",
+  "world_authority_tag_required": "world-authority-v1-2-2026-10-06",
+  "world_authority_main_sha_required": "5daa0228ac474bd02de375373456c1d86fe56e2d",
+  "required_6d_execution_commit": "6e3fbf0f99d42b980ce8d2a2e0b27883b3f766b7",
+  "required_6d_completion_commit": "2fca1d9efd6b50455a68db3618c0ef408d758d4b",
+  "worlds": ["NULL", "SPARSE", "RICH"],
+  "baseline_cases": ["BASELINE", "BUYER_0", "BUYER_59", "BUYER_60", "BUYER_99", "BUYER_100", "PUBLIC_LOW", "FINANCIER_LOW", "HABITAT_LOW", "TRANSPORT_MISSING"],
+  "triplet_cases": ["BASELINE", "BUYER_0", "BUYER_59", "BUYER_60", "BUYER_99", "BUYER_100", "PUBLIC_LOW", "FINANCIER_LOW", "HABITAT_LOW", "TRANSPORT_MISSING", "POLICY_SEED_ONLY", "WORLD_SEED_ONLY"],
+  "single_cases": ["PRIOR_MISSING", "SCIENCE_CANDIDATE", "SOURCE_PROVENANCE_DRIFT", "SCOPE_CROSS", "SOURCE_HOLD_AFTER_CUTOFF", "CRASH_BEFORE_COMMIT", "CRASH_AFTER_COMMIT"],
+  "expected_positive_witness": {
+    "NULL": {"project_status": "ABANDONED", "sale_count": 0, "first_extraction": null, "settlement_population": 0},
+    "SPARSE": {"project_status": "CLOSED", "sale_count": 1, "first_extraction": "3", "second_extraction": "0", "settlement_population": 10},
+    "RICH": {"project_status": "OPERATING", "sale_count": 1, "first_extraction": "5", "second_extraction": "5", "settlement_population": 10}
+  },
+  "finite_buyer_boundary": {
+    "unit_price": "20",
+    "sparse_sale_cost": "60",
+    "rich_sale_cost": "100",
+    "required_outcomes": {"59": "BLOCK_ALL", "60": "SPARSE_ONLY", "99": "SPARSE_ONLY", "100": "SPARSE_AND_RICH"},
+    "maximum_sales_per_run": 1
+  },
+  "required_hostile_ids": [
+    "B01","B02","B03","B04","B05","B06","B07","B08","B09","B10","B11","B12","B13","B14","B15",
+    "B16","B17","B18","B19","B20","B21","B22","B23","B24","B25","B26","B27","B28","B29","B30",
+    "B31","B32","B33","B34","B35","B36","B37","B38","B39","B40","B41","B42","B43","B44","B45"
+  ],
+  "required_protocol_slots": 43,
+  "required_authority_checks": ["REAL_DB_SERVER", "WORLD_AUTHORITY_V1_2_PASS", "SOURCE_ROWS_2726", "SOURCE_COLUMNS_256", "SOURCE_ADMISSIONS_ZERO_BEFORE_BOOTSTRAP", "SCOPED_FIXTURE_ADMISSION_ONLY", "AGENT_NO_RAW_DATABASE_ACCESS", "NO_AGENT_WORLD_TRUTH", "SERIALIZABLE_EPOCHS", "EXACT_REPLAY", "SOURCE_IMMUTABLE"],
+  "historical_6d": {
+    "execution_commit": "6e3fbf0f99d42b980ce8d2a2e0b27883b3f766b7",
+    "procedure": "simulation/offworld_mvp/build6/qualification/qualify_build6d.py",
+    "required_tests": 96,
+    "required_hostile": 70,
+    "required_finite_cases": 87,
+    "must_use_original_read_only_checkout": true
+  },
+  "successor_6d": {
+    "same_domain_decisions_observations_finance_physical_population_and_random_draws": true,
+    "only_provenance_hash_differences_allowed": true
+  },
+  "case_tuples_are_exactly_once": true,
+  "partial_or_skipped_run_is_failure": true,
+  "seeds": {
+    "world": "world_seed20261005",
+    "policy": "B6D-POLICY-20261005",
+    "comparison_group": "B6D-CORE-R1"
+  }
+}

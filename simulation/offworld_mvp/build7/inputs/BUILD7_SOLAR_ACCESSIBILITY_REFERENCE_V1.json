@@ -1,0 +1,1290 @@
+{
+  "authority_rule": "Generated hidden WORLD state is forbidden. Accessibility may be derived only from actor-visible/public Solar authority and qualified ephemeris/navigation inputs.",
+  "classification": "ENGINEERING INPUT AUTHORITY MAP \u2014 NOT A ROUTE TABLE",
+  "counts": {
+    "derivable": 83,
+    "eligible_bodies": 90,
+    "unknown": 7
+  },
+  "external_method_basis": [
+    {
+      "authority": "JPL Horizons",
+      "role": "External scientific basis only: Cartesian state vectors can characterize relative motion; not runtime authority for this artifact."
+    }
+  ],
+  "horizon": {
+    "end_year": 2035,
+    "start_year": 2026
+  },
+  "method_rule": "For DERIVABLE bodies, use a narrow deterministic accessibility adapter or compiled surrogate derived from existing qualified ephemeris authority. Do not call the 2226 production Navigator as the Build 7 transport model. UNKNOWN remains UNKNOWN.",
+  "origin": "EARTH",
+  "purpose": "Pin the Build 7 eligible-body accessibility authority boundary before opportunity derivation. This artifact records whether legitimate qualified public ephemeris authority exists from which comparable accessibility may be derived. It does not itself claim route cost, delta-v, travel time, feasibility, or target preference.",
+  "records": [
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20003554"
+      ],
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "body_id": "AMUN",
+      "canonical_name": "3554 Amun",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_AMU"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20099942"
+      ],
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "body_id": "APOPHIS",
+      "canonical_name": "99942 Apophis",
+      "ephemeris_sources": [
+        "HORIZONS_4E_APOPHIS"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "701"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "ARIEL",
+      "canonical_name": "Ariel",
+      "ephemeris_sources": [
+        "JPL_URA184_PART_3"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20486958"
+      ],
+      "body_class": "TRANS_NEPTUNIAN_OBJECT",
+      "body_id": "ARROKOTH",
+      "canonical_name": "486958 Arrokoth",
+      "ephemeris_sources": [
+        "HORIZONS_4E_ARROKOTH"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20006178"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "ASTEROID_6178",
+      "canonical_name": "6178 (1986 DA)",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_6178"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "1004083"
+      ],
+      "body_class": "INTERSTELLAR_OBJECT",
+      "body_id": "ATLAS3I",
+      "canonical_name": "3I/ATLAS",
+      "ephemeris_sources": [
+        "HORIZONS_4E_ATLAS3I"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "2101955"
+      ],
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "body_id": "BENNU",
+      "canonical_name": "101955 Bennu",
+      "ephemeris_sources": [
+        "PROP_BENNU_2101955_PHASE4D"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "1003639"
+      ],
+      "body_class": "INTERSTELLAR_OBJECT",
+      "body_id": "BORISOV",
+      "canonical_name": "2I/Borisov",
+      "ephemeris_sources": [
+        "HORIZONS_4E_BORISOV"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "1000005"
+      ],
+      "body_class": "COMET",
+      "body_id": "BORRELLY",
+      "canonical_name": "19P/Borrelly",
+      "ephemeris_sources": [
+        "HORIZONS_4E_BORRELLY"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20009969"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "BRAILLE",
+      "canonical_name": "9969 Braille",
+      "ephemeris_sources": [
+        "HORIZONS_4E_BRAILLE"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "504"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "CALLISTO",
+      "canonical_name": "Callisto",
+      "ephemeris_sources": [
+        "PROP_CALLISTO_504_PHASE4B"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000001"
+      ],
+      "body_class": "DWARF_PLANET",
+      "body_id": "CERES",
+      "canonical_name": "Ceres",
+      "ephemeris_sources": [
+        "CERES_SPK_PHASE4B_2251"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "901"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "CHARON",
+      "canonical_name": "Charon",
+      "ephemeris_sources": [
+        "PROP_CHARON_901_PHASE4B"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20002060"
+      ],
+      "body_class": "CENTAUR",
+      "body_id": "CHIRON",
+      "canonical_name": "2060 Chiron",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_CHI"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "1000012"
+      ],
+      "body_class": "COMET",
+      "body_id": "COMET_67P",
+      "canonical_name": "67P/Churyumov-Gerasimenko",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_67P"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "1000036"
+      ],
+      "body_class": "COMET",
+      "body_id": "COMET_HALLEY",
+      "canonical_name": "1P/Halley",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_HALLEY"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "active_naif_ids": [],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "DACTYL",
+      "canonical_name": "Dactyl",
+      "ephemeris_sources": [],
+      "ephemeris_status": "UNKNOWN",
+      "unknown_reason": "NO_CURRENT_NAV1_QUALIFIED_EPHEMERIS_INPUT"
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000511"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "DAVIDA",
+      "canonical_name": "511 Davida",
+      "ephemeris_sources": [
+        "HORIZONS_4E_DAVIDA"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "402"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "DEIMOS",
+      "canonical_name": "Deimos",
+      "ephemeris_sources": [
+        "JPL_MAR099"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20065803"
+      ],
+      "body_class": "BINARY_ASTEROID_PRIMARY",
+      "body_id": "DIDYMOS",
+      "canonical_name": "65803 Didymos",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_DID"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20152830"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "DINKINESH",
+      "canonical_name": "152830 Dinkinesh",
+      "ephemeris_sources": [
+        "HORIZONS_4E_DINKINESH"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "604"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "DIONE",
+      "canonical_name": "Dione",
+      "ephemeris_sources": [
+        "JPL_SAT441XL_PART2"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20052246"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "DONALDJOHANSON",
+      "canonical_name": "52246 Donaldjohanson",
+      "ephemeris_sources": [
+        "HORIZONS_4E_DONALDJOHANSON"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "602"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "ENCELADUS",
+      "canonical_name": "Enceladus",
+      "ephemeris_sources": [
+        "JPL_SAT441XL_PART2"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20136199"
+      ],
+      "body_class": "DWARF_PLANET",
+      "body_id": "ERIS",
+      "canonical_name": "136199 Eris",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_ERIS"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000433"
+      ],
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "body_id": "EROS",
+      "canonical_name": "433 Eros",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_EROS"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "502"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "EUROPA",
+      "canonical_name": "Europa",
+      "ephemeris_sources": [
+        "PROP_EUROPA_502_PHASE4B"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20003548"
+      ],
+      "body_class": "TROJAN_ASTEROID",
+      "body_id": "EURYBATES",
+      "canonical_name": "3548 Eurybates",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_EUR"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "503"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "GANYMEDE",
+      "canonical_name": "Ganymede",
+      "ephemeris_sources": [
+        "PROP_GANYMEDE_503_PHASE4B"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000951"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "GASPRA",
+      "canonical_name": "951 Gaspra",
+      "ephemeris_sources": [
+        "HORIZONS_4E_GASPRA"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20225088"
+      ],
+      "body_class": "DWARF_PLANET",
+      "body_id": "GONGGONG",
+      "canonical_name": "225088 Gonggong",
+      "ephemeris_sources": [
+        "HORIZONS_4E_GONGGONG"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "1000041"
+      ],
+      "body_class": "COMET",
+      "body_id": "HARTLEY2",
+      "canonical_name": "103P/Hartley 2",
+      "ephemeris_sources": [
+        "HORIZONS_4E_HARTLEY2"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20136108"
+      ],
+      "body_class": "DWARF_PLANET",
+      "body_id": "HAUMEA",
+      "canonical_name": "136108 Haumea",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_HAU"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "active_naif_ids": [
+        "903"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "HYDRA",
+      "canonical_name": "Hydra",
+      "ephemeris_sources": [],
+      "ephemeris_status": "UNKNOWN",
+      "unknown_reason": "NO_CURRENT_NAV1_QUALIFIED_EPHEMERIS_INPUT"
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000010"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "HYGIEA",
+      "canonical_name": "10 Hygiea",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_HYG"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "607"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "HYPERION",
+      "canonical_name": "Hyperion",
+      "ephemeris_sources": [
+        "JPL_SAT441XL_PART2"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "608"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "IAPETUS",
+      "canonical_name": "Iapetus",
+      "ephemeris_sources": [
+        "JPL_SAT441XL_PART2"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000243"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "IDA",
+      "canonical_name": "243 Ida",
+      "ephemeris_sources": [
+        "HORIZONS_4E_IDA"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000704"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "INTERAMNIA",
+      "canonical_name": "704 Interamnia",
+      "ephemeris_sources": [
+        "HORIZONS_4E_INTERAMNIA"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "501"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "IO",
+      "canonical_name": "Io",
+      "ephemeris_sources": [
+        "PROP_IO_501_PHASE4B"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20025143"
+      ],
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "body_id": "ITOKAWA",
+      "canonical_name": "25143 Itokawa",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_ITO"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20028978"
+      ],
+      "body_class": "TRANS_NEPTUNIAN_OBJECT",
+      "body_id": "IXION",
+      "canonical_name": "28978 Ixion",
+      "ephemeris_sources": [
+        "HORIZONS_4E_IXION"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000003"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "JUNO",
+      "canonical_name": "3 Juno",
+      "ephemeris_sources": [
+        "HORIZONS_4E_JUNO"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "active_naif_ids": [
+        "904"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "KERBEROS",
+      "canonical_name": "Kerberos",
+      "ephemeris_sources": [],
+      "ephemeris_status": "UNKNOWN",
+      "unknown_reason": "NO_CURRENT_NAV1_QUALIFIED_EPHEMERIS_INPUT"
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000216"
+      ],
+      "body_class": "BINARY_ASTEROID_PRIMARY",
+      "body_id": "KLEOPATRA",
+      "canonical_name": "216 Kleopatra",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_KLE"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20011351"
+      ],
+      "body_class": "TROJAN_ASTEROID",
+      "body_id": "LEUCUS",
+      "canonical_name": "11351 Leucus",
+      "ephemeris_sources": [
+        "HORIZONS_4E_LEUCUS"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000021"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "LUTETIA",
+      "canonical_name": "21 Lutetia",
+      "ephemeris_sources": [
+        "HORIZONS_4E_LUTETIA"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20136472"
+      ],
+      "body_class": "DWARF_PLANET",
+      "body_id": "MAKEMAKE",
+      "canonical_name": "136472 Makemake",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_MAK"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "499"
+      ],
+      "body_class": "PLANET",
+      "body_id": "MARS",
+      "canonical_name": "Mars",
+      "ephemeris_sources": [
+        "JPL_MAR099",
+        "JPL_MAR099"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000253"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "MATHILDE",
+      "canonical_name": "253 Mathilde",
+      "ephemeris_sources": [
+        "HORIZONS_4E_MATHILDE"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "199"
+      ],
+      "body_class": "PLANET",
+      "body_id": "MERCURY",
+      "canonical_name": "Mercury",
+      "ephemeris_sources": [
+        "DE440"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "601"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "MIMAS",
+      "canonical_name": "Mimas",
+      "ephemeris_sources": [
+        "JPL_SAT441XL_PART2"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "705"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "MIRANDA",
+      "canonical_name": "Miranda",
+      "ephemeris_sources": [
+        "JPL_URA184_PART_3"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "301"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "MOON",
+      "canonical_name": "Moon",
+      "ephemeris_sources": [
+        "DE440"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20307261"
+      ],
+      "body_class": "TRANS_NEPTUNIAN_OBJECT",
+      "body_id": "MS4",
+      "canonical_name": "2002 MS4",
+      "ephemeris_sources": [
+        "HORIZONS_4E_MS4"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "802"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "NEREID",
+      "canonical_name": "Nereid",
+      "ephemeris_sources": [
+        "NAIF_NEP101XL_802"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "active_naif_ids": [
+        "902"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "NIX",
+      "canonical_name": "Nix",
+      "ephemeris_sources": [],
+      "ephemeris_status": "UNKNOWN",
+      "unknown_reason": "NO_CURRENT_NAV1_QUALIFIED_EPHEMERIS_INPUT"
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "704"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "OBERON",
+      "canonical_name": "Oberon",
+      "ephemeris_sources": [
+        "JPL_URA184_PART_3"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20090482"
+      ],
+      "body_class": "DWARF_PLANET",
+      "body_id": "ORCUS",
+      "canonical_name": "90482 Orcus",
+      "ephemeris_sources": [
+        "HORIZONS_4E_ORCUS"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20021900"
+      ],
+      "body_class": "TROJAN_ASTEROID",
+      "body_id": "ORUS",
+      "canonical_name": "21900 Orus",
+      "ephemeris_sources": [
+        "HORIZONS_4E_ORUS"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "50788063"
+      ],
+      "body_class": "INTERSTELLAR_OBJECT",
+      "body_id": "OUMUAMUA",
+      "canonical_name": "1I/\u02bbOumuamua",
+      "ephemeris_sources": [
+        "HORIZONS_4E_OUMUAMUA"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000002"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "PALLAS",
+      "canonical_name": "2 Pallas",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_PAL"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000617"
+      ],
+      "body_class": "BINARY_ASTEROID_PRIMARY",
+      "body_id": "PATROCLUS",
+      "canonical_name": "617 Patroclus",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_PAT"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "401"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "PHOBOS",
+      "canonical_name": "Phobos",
+      "ephemeris_sources": [
+        "JPL_MAR099"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "609"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "PHOEBE",
+      "canonical_name": "Phoebe",
+      "ephemeris_sources": [
+        "JPL_SAT441XL_PART2"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "999"
+      ],
+      "body_class": "DWARF_PLANET",
+      "body_id": "PLUTO",
+      "canonical_name": "Pluto",
+      "ephemeris_sources": [
+        "PROP_PLUTO_999_PHASE4B"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20015094"
+      ],
+      "body_class": "TROJAN_ASTEROID",
+      "body_id": "POLYMELE",
+      "canonical_name": "15094 Polymele",
+      "ephemeris_sources": [
+        "HORIZONS_4E_POLYMELE"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "active_naif_ids": [
+        "808"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "PROTEUS",
+      "canonical_name": "Proteus",
+      "ephemeris_sources": [],
+      "ephemeris_status": "UNKNOWN",
+      "unknown_reason": "NO_CURRENT_NAV1_QUALIFIED_EPHEMERIS_INPUT"
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000016"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "PSYCHE",
+      "canonical_name": "16 Psyche",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_PSY"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20050000"
+      ],
+      "body_class": "DWARF_PLANET",
+      "body_id": "QUAOAR",
+      "canonical_name": "50000 Quaoar",
+      "ephemeris_sources": [
+        "HORIZONS_4E_QUAOAR"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "605"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "RHEA",
+      "canonical_name": "Rhea",
+      "ephemeris_sources": [
+        "JPL_SAT441XL_PART2"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20162173"
+      ],
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "body_id": "RYUGU",
+      "canonical_name": "162173 Ryugu",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_RYU"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20120347"
+      ],
+      "body_class": "DWARF_PLANET",
+      "body_id": "SALACIA",
+      "canonical_name": "120347 Salacia",
+      "ephemeris_sources": [
+        "HORIZONS_4E_SALACIA"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20090377"
+      ],
+      "body_class": "DWARF_PLANET",
+      "body_id": "SEDNA",
+      "canonical_name": "90377 Sedna",
+      "ephemeris_sources": [
+        "HORIZONS_4E_SEDNA"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "active_naif_ids": [],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "SELAM",
+      "canonical_name": "Selam",
+      "ephemeris_sources": [],
+      "ephemeris_status": "UNKNOWN",
+      "unknown_reason": "NO_CURRENT_NAV1_QUALIFIED_EPHEMERIS_INPUT"
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20002867"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "STEINS",
+      "canonical_name": "2867 \u0160teins",
+      "ephemeris_sources": [
+        "HORIZONS_4E_STEINS"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "UNKNOWN",
+      "active_naif_ids": [
+        "905"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "STYX",
+      "canonical_name": "Styx",
+      "ephemeris_sources": [],
+      "ephemeris_status": "UNKNOWN",
+      "unknown_reason": "NO_CURRENT_NAV1_QUALIFIED_EPHEMERIS_INPUT"
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "1000140"
+      ],
+      "body_class": "COMET",
+      "body_id": "SWIFTTUTTLE",
+      "canonical_name": "109P/Swift\u2013Tuttle",
+      "ephemeris_sources": [
+        "HORIZONS_4E_SWIFTTUTTLE"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "1000093"
+      ],
+      "body_class": "COMET",
+      "body_id": "TEMPEL1",
+      "canonical_name": "9P/Tempel 1",
+      "ephemeris_sources": [
+        "HORIZONS_4E_TEMPEL1"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "603"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "TETHYS",
+      "canonical_name": "Tethys",
+      "ephemeris_sources": [
+        "JPL_SAT441XL_PART2"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000024"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "THEMIS",
+      "canonical_name": "24 Themis",
+      "ephemeris_sources": [
+        "HORIZONS_4E_THEMIS"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "606"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "TITAN",
+      "canonical_name": "Titan",
+      "ephemeris_sources": [
+        "JPL_SAT441XL_PART2"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "703"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "TITANIA",
+      "canonical_name": "Titania",
+      "ephemeris_sources": [
+        "JPL_URA184_PART_3"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20004179"
+      ],
+      "body_class": "NEAR_EARTH_ASTEROID",
+      "body_id": "TOUTATIS",
+      "canonical_name": "4179 Toutatis",
+      "ephemeris_sources": [
+        "HORIZONS_4E_TOUTATIS"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "801"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "TRITON",
+      "canonical_name": "Triton",
+      "ephemeris_sources": [
+        "JPL_NEP097"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "702"
+      ],
+      "body_class": "NATURAL_SATELLITE",
+      "body_id": "UMBRIEL",
+      "canonical_name": "Umbriel",
+      "ephemeris_sources": [
+        "JPL_URA184_PART_3"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20020000"
+      ],
+      "body_class": "DWARF_PLANET",
+      "body_id": "VARUNA",
+      "canonical_name": "20000 Varuna",
+      "ephemeris_sources": [
+        "HORIZONS_4E_VARUNA"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "299"
+      ],
+      "body_class": "PLANET",
+      "body_id": "VENUS",
+      "canonical_name": "Venus",
+      "ephemeris_sources": [
+        "DE440"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "20000004"
+      ],
+      "body_class": "ASTEROID",
+      "body_id": "VESTA",
+      "canonical_name": "4 Vesta",
+      "ephemeris_sources": [
+        "JPL_HORIZONS_VES"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    },
+    {
+      "accessibility_status": "DERIVABLE",
+      "active_naif_ids": [
+        "1000107"
+      ],
+      "body_class": "COMET",
+      "body_id": "WILD2",
+      "canonical_name": "81P/Wild 2",
+      "ephemeris_sources": [
+        "HORIZONS_4E_WILD2"
+      ],
+      "ephemeris_status": "QUALIFIED_NAV1_SOURCE_AVAILABLE",
+      "unknown_reason": null
+    }
+  ],
+  "schema": "LOOM_BUILD7_SOLAR_ACCESSIBILITY_REFERENCE_V1",
+  "source_artifacts": [
+    {
+      "path": "simulation/offworld_mvp/build7/inputs/BUILD7_SOLAR_BODY_CATALOG_V1.json",
+      "sha256": "8cb7d5f012aa650180e4f6bc630a966692a815943eab5d9aa0a3bafbac5089e2"
+    },
+    {
+      "path": "reports/solar_civprop/NAV_READINESS_V1.json",
+      "sha256": "2a18f91e91c11652197334a5f6a4abb2b57ecd68f3685ec2a60c6703a3b33427"
+    },
+    {
+      "path": "reports/solar_civprop/NAV_MINIMUM_INPUT_CONTRACT_V1.md",
+      "sha256": "ab50a6682930d82d7ef8a304319db7a4e6ef8526892c146b55b3cf00c74b00af"
+    },
+    {
+      "path": "docs/civprop/CIVPROP_TRANSPORT_ACCESSIBILITY_V1.md",
+      "sha256": "d54d0036a03cd7cfec2fbd90845f09b0e34df7fe1ebef23c24f885029a407a74"
+    }
+  ],
+  "status_semantics": {
+    "DERIVABLE": "Qualified NAV-1 ephemeris input exists; a comparable accessibility value may be computed by an authorized deterministic method.",
+    "UNKNOWN": "Current repository authority is insufficient for a comparable accessibility value. Do not impute one."
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "policy_id": "SOLAR_HIDDEN_WORLD_SHARED_POLICY_v0.3",
+  "status": "RESEARCH_NONCANON_NONRUNTIME_MODEL_INPUT",
+  "scope": {
+    "material_family": "WATER_BEARING_MATERIAL",
+    "branch_scope": "PROSPECTING_BLOCK",
+    "blocks_per_generated_domain": 1,
+    "world_truth_rule": "SEAL_ONCE_BEFORE_AGENT_CHOICE"
+  },
+  "sampling": {
+    "distribution_transform_precision": "DECIMAL_PINNED_BY_GENERATOR",
+    "regime_branch_weights": "NORMALIZE_ROW_DRY_BOUND_FREE_WEIGHTS",
+    "density_distribution": "LOG_UNIFORM",
+    "bounded_fraction_distribution": "LINEAR_UNIFORM",
+    "positive_scale_distribution": "LOG_UNIFORM",
+    "max_rejection_attempts_per_property": 64,
+    "failure_rule": "REPORT_CONFLICT_NEVER_CONVERT_TO_EMPTY"
+  },
+  "target_fraction": {
+    "DRY_MATRIX": {
+      "subbranches": {
+        "ZERO_TARGET": {
+          "weight": 1,
+          "target_mass_fraction": 0.0
+        },
+        "TRACE_H2O_EQ": {
+          "weight": 1,
+          "min": 1e-06,
+          "max_from_row": "dry_h2o_eq_max_wtfrac"
+        }
+      },
+      "status": "AUTHORING_HIGH_SENSITIVITY"
+    },
+    "MINERAL_BOUND_H2O_OH": {
+      "min_from_row": "bound_h2o_eq_min_wtfrac",
+      "max_from_row": "bound_h2o_eq_max_wtfrac",
+      "meaning": "POTENTIAL_H2O_EQUIVALENT_NOT_FREE_WATER",
+      "status": "AUTHORING_HIGH_SENSITIVITY"
+    },
+    "FREE_ICE": {
+      "min_from_row": "free_ice_h2o_min_wtfrac",
+      "max_from_row": "free_ice_h2o_max_wtfrac",
+      "meaning": "FREE_H2O_ICE_MASS_FRACTION",
+      "retention_check": "REQUIRED",
+      "status": "AUTHORING_HIGH_SENSITIVITY"
+    }
+  },
+  "body_mass_and_density": {
+    "body_mass_priority": [
+      "ADMITTED_BODY_MASS",
+      "ADMITTED_SIZE_PLUS_ADMITTED_BULK_DENSITY",
+      "ADMITTED_SIZE_PLUS_LATENT_BODY_BULK_DENSITY",
+      "LATENT_RADIUS_PLUS_LATENT_BODY_BULK_DENSITY"
+    ],
+    "latent_body_bulk_density_range_from_row": [
+      "latent_body_bulk_density_min_kg_m3",
+      "latent_body_bulk_density_max_kg_m3"
+    ],
+    "body_mass_formula_for_spherical_latent_body": "4/3*pi*radius_m^3*body_bulk_density_kg_m3",
+    "body_mass_is_never_written_back_to_solar_facts": true,
+    "radius_resolution": {
+      "priority": [
+        "AUTHORIZED_GENERATOR_COMPATIBLE_BODY_SIZE_OR_SHAPE",
+        "ROW_FALLBACK_RADIUS_RANGE"
+      ],
+      "row_fallback_distribution": "LOG_UNIFORM",
+      "row_fallback_fields": [
+        "fallback_radius_min_km",
+        "fallback_radius_max_km"
+      ],
+      "rule": "SOURCE_DATA_PRESENCE_ALONE_DOES_NOT_COUNT_AS_AUTHORIZED_SIZE",
+      "latent_radius_is_world_truth_not_solar_fact": true
+    }
+  },
+  "block_budget": {
+    "body_mass_fraction_distribution": "LOG_UNIFORM",
+    "body_mass_fraction_min_from_row": "block_body_mass_fraction_min",
+    "body_mass_fraction_max_from_row": "block_body_mass_fraction_max",
+    "absolute_cap_kg_from_row": "block_mass_cap_kg",
+    "absolute_floor_kg": null,
+    "host_mass_rule": "MIN(body_mass_kg * sampled_fraction, block_mass_cap_kg)",
+    "conservation_rule": "SUM_MODELED_BLOCK_HOST_MASS_LE_BODY_MASS",
+    "reason_no_floor": "A_UNIVERSAL_FLOOR_CONFLICTS_WITH_SMALL_BODY_MASS_BUDGETS"
+  },
+  "block_geometry": {
+    "shape": "SPHERE",
+    "block_density_rule": {
+      "FREE_ICE": {
+        "distribution": "LOG_UNIFORM",
+        "min_kg_m3": 700.0,
+        "max_kg_m3": 1200.0
+      },
+      "DRY_MATRIX": {
+        "range_from_row": [
+          "latent_body_bulk_density_min_kg_m3",
+          "latent_body_bulk_density_max_kg_m3"
+        ]
+      },
+      "MINERAL_BOUND_H2O_OH": {
+        "range_from_row": [
+          "latent_body_bulk_density_min_kg_m3",
+          "latent_body_bulk_density_max_kg_m3"
+        ]
+      }
+    },
+    "volume_formula": "host_mass_kg / block_density_kg_m3",
+    "radius_formula": "(3*volume_m3/(4*pi))^(1/3)",
+    "independent_volume_draw": false
+  },
+  "placement": {
+    "surface_anchor": "DETERMINISTIC_EQUAL_AREA_BODY_FIXED_SPHERE",
+    "longitude_formula": "2*pi*u1",
+    "sin_latitude_formula": "2*u2-1",
+    "unconstrained_top_depth_fraction_of_body_radius": {
+      "distribution": "LOG_UNIFORM",
+      "min": 1e-06,
+      "max": 0.01
+    },
+    "absolute_top_depth_cap_m": 10000.0,
+    "top_depth_rule": "MIN(sampled_fraction * body_radius_m, absolute_top_depth_cap_m)",
+    "centroid_depth_rule": "top_depth_m + block_radius_m",
+    "fit_check": "centroid_depth_m + block_radius_m <= body_radius_m",
+    "scoped_evidence_override": "ONLY_WHEN_AUTHORIZED_CONSTRAINT_SUPPORTS_LOCATION_OR_DEPTH"
+  },
+  "retention": {
+    "purpose": "STATIC_FREE_ICE_PLAUSIBILITY_SCREEN_THROUGH_2226",
+    "horizon_years": 200.0,
+    "maximum_unforced_target_mass_loss_fraction": 0.01,
+    "temperature_source_priority": [
+      "AUTHORIZED_SCOPED_ENVIRONMENT_CONSTRAINT",
+      "AIRLESS_EQUILIBRIUM_MODEL",
+      "ATMOSPHERIC_REGIME_LATENT_ENVELOPE"
+    ],
+    "airless_equilibrium_model": {
+      "solar_constant_w_m2": 1361.0,
+      "stefan_boltzmann_w_m2_k4": 5.670374419e-08,
+      "bond_albedo_if_unconstrained": {
+        "distribution": "LINEAR_UNIFORM",
+        "min": 0.02,
+        "max": 0.6
+      },
+      "emissivity_if_unconstrained": {
+        "distribution": "LINEAR_UNIFORM",
+        "min": 0.8,
+        "max": 1.0
+      },
+      "formula": "((1-A)*S0/(4*epsilon*sigma*r_au^2))^0.25",
+      "note": "CONSERVATIVE_GLOBAL_STATIC_PROXY_NOT_LOCAL_THERMOPHYSICS"
+    },
+    "atmospheric_regime_latent_envelopes": {
+      "HOT_ROCKY": {
+        "temperature_k": [
+          700.0,
+          750.0
+        ],
+        "pressure_pa": [
+          8000000.0,
+          10000000.0
+        ]
+      },
+      "COLD_ROCKY_PLANET": {
+        "temperature_k": [
+          130.0,
+          300.0
+        ],
+        "pressure_pa": [
+          300.0,
+          1200.0
+        ]
+      },
+      "OUTER_ICY_BODY": {
+        "temperature_k": [
+          80.0,
+          100.0
+        ],
+        "pressure_pa": [
+          120000.0,
+          170000.0
+        ]
+      }
+    },
+    "cover": {
+      "cover_depth_m": "BLOCK_TOP_DEPTH_M",
+      "intrinsic_permeability_m2_if_unconstrained": {
+        "distribution": "LOG_UNIFORM",
+        "min": 1e-18,
+        "max": 1e-08
+      },
+      "water_vapor_dynamic_viscosity_pa_s": 1e-05,
+      "status": "AUTHORING_HIGH_SENSITIVITY"
+    },
+    "sublimation_pressure": {
+      "authority": "IAPWS_R14_08_2011_EQ6",
+      "valid_temperature_k": [
+        50.0,
+        273.16
+      ],
+      "below_50k_rule": "EVALUATE_AT_50K_AS_CONSERVATIVE_UPPER_LOSS_PROXY",
+      "above_273_16k_rule": "REJECT_FREE_ICE_FOR_V0_3_SURFACE_RESOURCE_MODEL",
+      "source_url": "https://iapws.org/relguide/MeltSub2011.pdf",
+      "theta_definition": "T_K / 273.16",
+      "pressure_formula": "p_subl_Pa = 611.657 * exp((1/theta) * SUM(a_i * theta^b_i))",
+      "coefficients": [
+        {
+          "a": -21.2144006,
+          "b": 0.00333333333
+        },
+        {
+          "a": 27.3203819,
+          "b": 1.20666667
+        },
+        {
+          "a": -6.1059813,
+          "b": 1.70333333
+        }
+      ],
+      "verification_point": {
+        "temperature_k": 230.0,
+        "expected_pressure_pa": 8.94735
+      }
+    },
+    "loss_flux": {
+      "exposed_hertz_knudsen": "J_exposed = p_subl * sqrt(M_h2o/(2*pi*R*T))",
+      "buried_darcy_proxy": "J_buried = k * p_subl^2 / (mu * cover_depth * Rv * T)",
+      "selected_flux": "MIN(J_exposed, J_buried) when cover_depth>0 else J_exposed",
+      "molar_mass_h2o_kg_mol": 0.01801528,
+      "universal_gas_constant_j_mol_k": 8.314462618,
+      "water_vapor_specific_gas_constant_j_kg_k": 461.522,
+      "loss_area": "pi * block_radius_m^2",
+      "loss_mass": "selected_flux * loss_area * horizon_seconds",
+      "retained_if": "loss_mass <= maximum_unforced_target_mass_loss_fraction * target_mass",
+      "note": "MINIMAL_STATIC_POROUS_FLOW_PROXY_NOT_A_FULL_THERMAL_OR_DIFFUSION_MODEL"
+    },
+    "airless_reference": {
+      "source": "Sch\u00f6rghofer & Hsieh 2018, Ice loss from the interior of small airless bodies according to an idealized model",
+      "url": "https://arxiv.org/abs/1802.01293",
+      "use": "supports dependence of ice survival on thermal state, burial/cover and body/orbital context; does not calibrate the v0.3 authored permeability range"
+    },
+    "heliocentric_distance_resolution": {
+      "world_generation_epoch": "EXPLICIT_SCENARIO_WORLD_EPOCH_NEVER_WALL_CLOCK",
+      "priority": [
+        "AUTHORIZED_BODY_HELIOCENTRIC_STATE_AT_WORLD_GENERATION_EPOCH",
+        "AUTHORIZED_PARENT_SYSTEM_HELIOCENTRIC_STATE_AT_WORLD_GENERATION_EPOCH_FOR_SATELLITE",
+        "ROW_FALLBACK_HELIOCENTRIC_DISTANCE_RANGE"
+      ],
+      "state_to_distance": "r_au = norm(body_or_parent_heliocentric_position_km) / 149597870.7",
+      "satellite_rule": "USE_PARENT_SYSTEM_CENTER_DISTANCE_WHEN_BODY_HELIOCENTRIC_STATE_IS_UNAVAILABLE",
+      "row_fallback_distribution": "LINEAR_UNIFORM",
+      "row_fallback_fields": [
+        "fallback_heliocentric_distance_min_au",
+        "fallback_heliocentric_distance_max_au"
+      ],
+      "fallback_value_is_sealed_latent_world_truth_not_solar_fact": true,
+      "no_ephemeris_or_fallback": "GENERATION_INPUT_ERROR_NOT_ZERO_DISTANCE"
+    }
+  },
+  "evidence_binding": {
+    "table_evidence_refs_are": "PROVENANCE_POINTERS_ONLY",
+    "constraint_admission": "WORLD_AUTHORITY_FIXED_GENERATION_USE_READ_REQUIRED",
+    "unresolved_or_unadmitted_ref": "DO_NOT_CONSTRAIN_GENERATED_STATE",
+    "scope_rule": "BODY_REGION_LOCAL_SITE_SAMPLE_UNRESOLVED_SEMANTICS_FROM_GENERATOR_DESIGN",
+    "sample_rule": "NO_GLOBAL_EXTRAPOLATION_WITHOUT_AUTHORIZED_REPRESENTATIVENESS_RELATION"
+  },
+  "recovery_boundary": {
+    "generated_quantity": "R_IN_SITU_ONLY",
+    "accessible_quantity": "DERIVE_FROM_BLOCK_PLUS_DECLARED_CAPABILITY",
+    "recoverable_quantity": "UNKNOWN_UNTIL_COMPATIBLE_PROCESS_AND_YIELD_PROFILE_EXISTS",
+    "six_e_remaining_signal": "BIND_ONLY_TO_DECLARED_COMPATIBLE_RECOVERY_PROFILE",
+    "zero_target_behavior": "R_IN_SITU_EQUALS_ZERO_AND_REMAINING_EQUALS_ZERO_FOR_THAT_TARGET_PROFILE",
+    "positive_geology_without_process": "DO_NOT_COERCE_TO_POSITIVE_6E_SIGNAL"
+  },
+  "assumptions": [
+    "THE_FIRST_COMPILER_MODELS_ONE_BLOCK_PER_GENERATED_PROSPECTING_DOMAIN",
+    "REGIME_WEIGHTS_ARE_SCENARIO_AUTHORING_CHOICES_NOT_EMPIRICAL_DEPOSIT_PROBABILITIES",
+    "TAXONOMY_SELECTS_PRIOR_REGIME_ONLY",
+    "UNMODELED_BODY_MASS_IS_NOT_EMPTY",
+    "BLOCKS_ARE_SPHERICAL_FOR_VOLUME_BOOKKEEPING_ONLY",
+    "AIRLESS_THERMAL_MODEL_IS_A_GLOBAL_STATIC_PROXY",
+    "ATMOSPHERIC_TEMPERATURE_AND_PRESSURE_ENVELOPES_ARE_COARSE_AUTHORING_PRIORS",
+    "PERMEABILITY_RANGE_AND_ONE_PERCENT_RETENTION_THRESHOLD_ARE_HIGH_SENSITIVITY_MODEL_CHOICES",
+    "NO_REPLENISHMENT_OR_ACTIVE_RESURFACING_IS_MODELED",
+    "ALL_REJECTED_PHYSICAL_DRAWS_USE_LOCAL_ATTEMPT_COUNTERS_AND_NEVER_REROLL_AFTER_WORLD_SEAL",
+    "EVERY_APPLICABLE_BODY_HAS_A_FINITE_RADIUS_FALLBACK_USED_ONLY_WHEN_AUTHORIZED_SIZE_IS_UNAVAILABLE",
+    "HELIOCENTRIC_DISTANCE_IS_RESOLVED_AT_THE_EXPLICIT_WORLD_GENERATION_EPOCH_AND_NEVER_FROM_WALL_CLOCK_TIME",
+    "SATELLITES_USE_PARENT_SYSTEM_HELIOCENTRIC_DISTANCE_WHEN_DIRECT_BODY_DISTANCE_IS_UNAVAILABLE",
+    "ROW_HELIOCENTRIC_FALLBACKS_ARE_AUTHORED_HIGH_SENSITIVITY_WORLD_PRIORS_NOT_ORBITAL_FACTS"
+  ]
+}

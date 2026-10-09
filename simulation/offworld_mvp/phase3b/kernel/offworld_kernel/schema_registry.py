@@ -79,9 +79,13 @@ from .named_portfolio import (
 from .policies.manifest import (PolicyParameter, FinancierPolicyManifest, PolicyParameterStatus, ObservationKnowledgeRelation)
 from .policy_runner import PolicyExecutionResult
 
-ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_19'
+ODD_SCHEMA_REGISTRY_VERSION='ODD_SCHEMA_REGISTRY_0_20'
+
+from .boundary import ContextValue,ConsumptionRequest,AdmissionReceipt,BoundaryManifest
+from .causal_trace import CausalEnvelope
 
 ODD_SCHEMA_TYPES=(
+    ContextValue,ConsumptionRequest,AdmissionReceipt,BoundaryManifest,CausalEnvelope,
     Node,Account,Transaction,Commitment,Project,Asset,FixedCapitalFormationEvent,EarthImpactLedger,KernelState,
     SystemState,AggregateState,EntityAssetRef,AgentState,FinancingRequest,FinancingDecision,ExplorationRequest,ExplorationDecision,
     PublicationRequest,PublicationDecision,PublicInformationArtifact,SponsorProjectDecisionRequest,SponsorProjectDecision,OperatingCycleRequest,OperatingCycleDecision,SaleDecisionRequest,SaleDecision,SurplusDistributionRequest,SurplusDistributionDecision,SettlementSupportRequest,SettlementSupportDecision,ScenarioResource,Observation,
@@ -120,6 +124,22 @@ ODD_ENUM_TYPES=(
 # "FIELD:<Type>.<field>" means the unit is carried by another declared field.
 # "MODEL_*" units remain MVP logical units unless separately qualified.
 ODD_UNIT_CONTRACTS={
+    'ContextValue.value':'FIELD:ContextValue.unit',
+    'ContextValue.source_time':'FIELD:ContextValue.time_basis',
+    'ConsumptionRequest.effective_time':'FIELD:ConsumptionRequest.time_basis',
+    'ConsumptionRequest.knowledge_cutoff':'FIELD:ConsumptionRequest.time_basis',
+    'CausalEnvelope.effective_time':'FIELD:CausalEnvelope.time_basis',
+    'CausalEnvelope.decision_time':'FIELD:CausalEnvelope.time_basis',
+    'CausalEnvelope.authorization_time':'FIELD:CausalEnvelope.time_basis',
+    'CausalEnvelope.realized_time':'FIELD:CausalEnvelope.time_basis',
+    'ContextValue.value':'FIELD:ContextValue.unit',
+    'ContextValue.source_time':'FIELD:ContextValue.time_basis',
+    'ConsumptionRequest.effective_time':'FIELD:ConsumptionRequest.time_basis',
+    'ConsumptionRequest.knowledge_cutoff':'FIELD:ConsumptionRequest.time_basis',
+    'CausalEnvelope.effective_time':'FIELD:CausalEnvelope.time_basis',
+    'CausalEnvelope.decision_time':'FIELD:CausalEnvelope.time_basis',
+    'CausalEnvelope.authorization_time':'FIELD:CausalEnvelope.time_basis',
+    'CausalEnvelope.realized_time':'FIELD:CausalEnvelope.time_basis',
     'Account.balance':'MODEL_CURRENCY',
     'Transaction.amount':'MODEL_CURRENCY',
     'Transaction.year':'SIM_YEAR',

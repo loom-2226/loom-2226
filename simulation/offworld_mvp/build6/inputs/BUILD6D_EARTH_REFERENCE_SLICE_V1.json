@@ -1,0 +1,401 @@
+{
+  "schema": "BUILD6D_EARTH_REFERENCE_SLICE_V1",
+  "iso3": "USA",
+  "selection_reason": "Historical state actor that successfully executed crewed lunar landing and return; owner-selected foundational reference, not a prediction.",
+  "adoption_manifest_sha256": "9934d0ac9f6cbb43d1da91a777ef462a6ae63c9a262bf10592685a8830d20aa2",
+  "reference_snapshot_id": "earth-v0-1-9934d0ac-20260925",
+  "standing": "ADOPTED_REFERENCE_MODEL_PROJECTION_NOT_OBSERVATION",
+  "source_root_hint": "earth_long_run_economic_baseline_v4_2026_09_24",
+  "sources": [
+    {
+      "artifact": "stage_2026_2031/countries_2026_2031.ndjson",
+      "byte_size": 420879,
+      "sha256": "50a736dca69f00abfcdb11a0729df648fd68b1c9cce82e06e33a51a239899bf1"
+    },
+    {
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "byte_size": 2514774,
+      "sha256": "449072d0c18ac09fc9346622d5917ef70efcb7913b5facbbd3517aa800e3e112"
+    }
+  ],
+  "rows": [
+    {
+      "year": 2026,
+      "artifact": "stage_2026_2031/countries_2026_2031.ndjson",
+      "line_number": 463,
+      "row_sha256": "91474a26d0574ec93c7f66f287977cdd5b3948e31d7854e47d30ab73aee33556",
+      "scalar_lexemes": {
+        "investment": "4958025335469.291",
+        "population": "348178045.0"
+      },
+      "investment": "4958025335469.291",
+      "population": "348178045.0",
+      "exception_flags": {
+        "factor_share_fallback": "false",
+        "capital_bridge_method": "\"FOUR_ASSET_REBUILT_2026\"",
+        "macro_envelope_source": "\"QUALIFIED_COBB_DOUGLAS_BRIDGE_v0.2\"",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2027,
+      "artifact": "stage_2026_2031/countries_2026_2031.ndjson",
+      "line_number": 464,
+      "row_sha256": "371f89f5f9673d53c3f27e4217736f64b89e337b7a5dc8e7ac68863e383d06bb",
+      "scalar_lexemes": {
+        "investment": "5062143867514.146",
+        "population": "349892943.0"
+      },
+      "investment": "5062143867514.146",
+      "population": "349892943.0",
+      "exception_flags": {
+        "factor_share_fallback": "false",
+        "capital_bridge_method": "\"FOUR_ASSET_REPLACEMENT_EXPANSION\"",
+        "macro_envelope_source": "\"QUALIFIED_COBB_DOUGLAS_BRIDGE_v0.2\"",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2028,
+      "artifact": "stage_2026_2031/countries_2026_2031.ndjson",
+      "line_number": 465,
+      "row_sha256": "cdd267ec4db27334b0b59024a0afbdc9ddb16996b39fa1b7c5656c732730aab7",
+      "scalar_lexemes": {
+        "investment": "5168448888731.941",
+        "population": "351563767.0"
+      },
+      "investment": "5168448888731.941",
+      "population": "351563767.0",
+      "exception_flags": {
+        "factor_share_fallback": "false",
+        "capital_bridge_method": "\"FOUR_ASSET_REPLACEMENT_EXPANSION\"",
+        "macro_envelope_source": "\"QUALIFIED_COBB_DOUGLAS_BRIDGE_v0.2\"",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2029,
+      "artifact": "stage_2026_2031/countries_2026_2031.ndjson",
+      "line_number": 466,
+      "row_sha256": "48953e94e7b3f93b76b0f1d832c52226439dbae45e50d8b329544e37b16175c5",
+      "scalar_lexemes": {
+        "investment": "5265667412328.99",
+        "population": "353244404.0"
+      },
+      "investment": "5265667412328.99",
+      "population": "353244404.0",
+      "exception_flags": {
+        "factor_share_fallback": "false",
+        "capital_bridge_method": "\"FOUR_ASSET_REPLACEMENT_EXPANSION\"",
+        "macro_envelope_source": "\"QUALIFIED_COBB_DOUGLAS_BRIDGE_v0.2\"",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2030,
+      "artifact": "stage_2026_2031/countries_2026_2031.ndjson",
+      "line_number": 467,
+      "row_sha256": "eb569c6037dc18b8f9c7a0167fd75cd9584039b01bd6164414be98977c471a57",
+      "scalar_lexemes": {
+        "investment": "5357974562067.117",
+        "population": "354856131.0"
+      },
+      "investment": "5357974562067.117",
+      "population": "354856131.0",
+      "exception_flags": {
+        "factor_share_fallback": "false",
+        "capital_bridge_method": "\"FOUR_ASSET_REPLACEMENT_EXPANSION\"",
+        "macro_envelope_source": "\"QUALIFIED_COBB_DOUGLAS_BRIDGE_v0.2\"",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2031,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 78,
+      "row_sha256": "56a0efd2f12f42e5d20fa96b1801ae99b3415665320abf024c78a858152ab3dc",
+      "scalar_lexemes": {
+        "investment": "5452007015631.394",
+        "population": "356443631.0"
+      },
+      "investment": "5452007015631.394",
+      "population": "356443631.0",
+      "exception_flags": {
+        "factor_share_fallback": "false",
+        "capital_bridge_method": "\"FOUR_ASSET_REPLACEMENT_EXPANSION\"",
+        "macro_envelope_source": "\"QUALIFIED_COBB_DOUGLAS_BRIDGE_v0.2\"",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2032,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 158,
+      "row_sha256": "4168a0c44c67045a1ad3859a63fb4e4db113b58b28d17ee7495cd606a5e980a4",
+      "scalar_lexemes": {
+        "investment": "5550255904893.8125",
+        "population": "358001800.0"
+      },
+      "investment": "5550255904893.8125",
+      "population": "358001800.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2033,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 238,
+      "row_sha256": "dff51bb818bb56641d13322b70c828fab3ed7bbe0652c29ab618b25f34f0eff3",
+      "scalar_lexemes": {
+        "investment": "5646163206315.873",
+        "population": "359538148.0"
+      },
+      "investment": "5646163206315.873",
+      "population": "359538148.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2034,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 318,
+      "row_sha256": "b7339d4e02a691eab85dca9ff937588a22b4d6a8e754b8a413a0af1be5c640bf",
+      "scalar_lexemes": {
+        "investment": "5740542910854.667",
+        "population": "361049869.0"
+      },
+      "investment": "5740542910854.667",
+      "population": "361049869.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2035,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 398,
+      "row_sha256": "933455c99a3ab570672e090e5a3699056bb0f7752d3121af57f95b02d9129de6",
+      "scalar_lexemes": {
+        "investment": "5832366009077.357",
+        "population": "362553753.0"
+      },
+      "investment": "5832366009077.357",
+      "population": "362553753.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2036,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 478,
+      "row_sha256": "74519cee5ab208f9ef5951f11d74ae320a00cff7870848b848daefc8348619a5",
+      "scalar_lexemes": {
+        "investment": "5923413763755.6875",
+        "population": "364015679.0"
+      },
+      "investment": "5923413763755.6875",
+      "population": "364015679.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2037,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 558,
+      "row_sha256": "42ed3bad978157e7ee85a8512033110fa3d706215c8e06e55bb13352b20d537a",
+      "scalar_lexemes": {
+        "investment": "6018324084693.075",
+        "population": "365447640.0"
+      },
+      "investment": "6018324084693.075",
+      "population": "365447640.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2038,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 638,
+      "row_sha256": "568b23b32f6aff776f2f32ae54c0ff41e7107ad9d807234d719e0f458be3511d",
+      "scalar_lexemes": {
+        "investment": "6116210762956.523",
+        "population": "366857100.0"
+      },
+      "investment": "6116210762956.523",
+      "population": "366857100.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2039,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 718,
+      "row_sha256": "daa170b83c350d5c9e59d17d602e549226525066146947c10bbff78a3ed6e24f",
+      "scalar_lexemes": {
+        "investment": "6214302808584.32",
+        "population": "368245811.0"
+      },
+      "investment": "6214302808584.32",
+      "population": "368245811.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2040,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 798,
+      "row_sha256": "d74311133aa6cab20695842413b5969fce5cff779628c75cb7fa5113a9b582e6",
+      "scalar_lexemes": {
+        "investment": "6312373897515.541",
+        "population": "369567825.0"
+      },
+      "investment": "6312373897515.541",
+      "population": "369567825.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2041,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 878,
+      "row_sha256": "b857a66ba419ae3ac31bda50d3627cb37a4fbf9a4dbed83b8647456da7b73eca",
+      "scalar_lexemes": {
+        "investment": "6410908987637.763",
+        "population": "370850807.0"
+      },
+      "investment": "6410908987637.763",
+      "population": "370850807.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2042,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 958,
+      "row_sha256": "e511ecdf68837339d7e5a676c6d273804ec46a68021feb5c6f37bf63c385a9ae",
+      "scalar_lexemes": {
+        "investment": "6508481304114.659",
+        "population": "372088149.0"
+      },
+      "investment": "6508481304114.659",
+      "population": "372088149.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2043,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 1038,
+      "row_sha256": "b3003eef1b7147ae811a10973f45388a621850d8a72f30875b417b98e966f076",
+      "scalar_lexemes": {
+        "investment": "6605594579977.082",
+        "population": "373321395.0"
+      },
+      "investment": "6605594579977.082",
+      "population": "373321395.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2044,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 1118,
+      "row_sha256": "f2717cab8be7a28c4f1c4bc6ee5a13d3afd2b86125b4a84a2f0acc8c48c715d7",
+      "scalar_lexemes": {
+        "investment": "6701721138865.539",
+        "population": "374479960.0"
+      },
+      "investment": "6701721138865.539",
+      "population": "374479960.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2045,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 1198,
+      "row_sha256": "497a4d596cae32ea342c5dce83a05bbba71d6ee663cf1c82e539f1486b5b4b2a",
+      "scalar_lexemes": {
+        "investment": "6796489598574.438",
+        "population": "375578531.0"
+      },
+      "investment": "6796489598574.438",
+      "population": "375578531.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    },
+    {
+      "year": 2046,
+      "artifact": "stage_2031_2060/countries_2031_2060.ndjson",
+      "line_number": 1278,
+      "row_sha256": "9dc2bf9dfb7bdb6c90c5218746280b29b262fe51dea88c2915afed99c7275b79",
+      "scalar_lexemes": {
+        "investment": "6890929364960.611",
+        "population": "376634414.0"
+      },
+      "investment": "6890929364960.611",
+      "population": "376634414.0",
+      "exception_flags": {
+        "factor_share_fallback": "NOT_SUPPLIED",
+        "capital_bridge_method": "NOT_SUPPLIED",
+        "macro_envelope_source": "NOT_SUPPLIED",
+        "exception_flags": "NOT_SUPPLIED"
+      }
+    }
+  ]
+}

@@ -20,7 +20,9 @@ class MVPKernel(Kernel):
         self.agents[a.id]=a
 
     def add_resource(self,r:ScenarioResource):
-        if min(r.in_situ,r.accessible,r.recoverable,r.remaining)<0 or not (r.recoverable<=r.accessible<=r.in_situ) or r.remaining>r.recoverable:
+        if D(r.in_situ)<0 or (r.accessible is not None and not D('0')<=r.accessible<=r.in_situ) or (
+            (r.recoverable is None) != (r.remaining is None)) or (
+            r.recoverable is not None and (r.accessible is None or not D('0')<=r.remaining<=r.recoverable<=r.accessible)):
             raise InvariantError('resource hierarchy')
         self.resources[r.id]=r
 
@@ -33,7 +35,7 @@ class MVPKernel(Kernel):
         a=self.agents[actor_id]; r=self.resources[resource_id]
         if 'EXPLORE' not in a.capabilities: raise InvariantError('agent lacks exploration capability')
         # Deterministic validation observation. World truth is read only here; agent receives only the signal.
-        signal='POSITIVE' if r.remaining>D('0') else 'NEGATIVE'
+        signal='POSITIVE' if remaining_in_situ(r)>D('0') else 'NEGATIVE'
         o=Observation(self._id('obs'),year,actor_id,resource_id,channel,signal,public); self.observations[o.id]=o
         recipients=self.agents.values() if public else (a,)
         for x in recipients:
@@ -166,6 +168,7 @@ class MVPKernel(Kernel):
 
     def extract(self,year,actor_id,resource_id,quantity,inventory_account=None):
         a=self.agents[actor_id]; r=self.resources[resource_id]; q=D(quantity)
+        if r.remaining is None: raise InvariantError('BLOCKED_UNKNOWN_RECOVERY')
         if 'EXTRACT' not in a.capabilities or q<0 or q>r.remaining: raise InvariantError('invalid extraction')
         r.remaining-=q
         if r.node_id not in self.colonies: self.colonies[r.node_id]=ColonyState(r.node_id)
@@ -191,7 +194,10 @@ class MVPKernel(Kernel):
     def assert_mvp_invariants(self):
         self.assert_invariants()
         for r in self.resources.values():
-            if min(r.remaining,r.recoverable,r.accessible,r.in_situ)<0 or not (r.remaining<=r.recoverable<=r.accessible<=r.in_situ): raise InvariantError('resource conservation')
+            if D(r.in_situ)<0 or (r.accessible is not None and not D('0')<=r.accessible<=r.in_situ) or (
+                (r.recoverable is None)!=(r.remaining is None)) or (
+                r.recoverable is not None and (r.accessible is None or not D('0')<=r.remaining<=r.recoverable<=r.accessible)):
+                raise InvariantError('resource conservation')
         if self.population and self.population.total()<0: raise InvariantError('population')
         for d in self.financing_decisions.values():
             if d.request_id not in self.financing_requests or d.financier_id not in self.agents: raise InvariantError('decision lineage')
@@ -201,7 +207,9 @@ class MVPKernel(Kernel):
         'projects':sorted((p.id,p.node_id,p.cash_account_id,tuple(sorted((k,str(v)) for k,v in p.owners.items())),p.status) for p in self.state.projects.values()),
         'commitments':sorted((c.id,c.financier_id,c.project_id,str(c.amount),str(c.committed),str(c.disbursed),str(c.lapsed)) for c in self.state.commitments.values()),
         'resources':sorted((r.id,r.node_id,r.family,str(r.in_situ),str(r.accessible),str(r.recoverable),str(r.remaining)) for r in self.resources.values()),
-        'obs':sorted((o.id,o.actor_id,o.resource_id,o.signal,o.public) for o in self.observations.values()),
+        'obs':sorted((o.id,o.actor_id,o.resource_id,o.signal,o.public,
+            *((o.body_id,o.question_ref) if isinstance(o,BodyRemoteObservation) else ()))
+            for o in self.observations.values()),
         'public_information':sorted((a.id,a.publisher_id,a.source_observation_id,a.resource_id,a.channel,a.signal,a.audience,a.recipient_ids) for a in self.public_information.values()),
         'colonies':sorted((c.node_id,c.population,str(c.cash),str(c.productive_capital),str(c.infrastructure),c.habitat_capacity,str(c.resource_inventory),str(c.import_inventory),str(c.production_capacity),str(c.operating_need),str(c.external_subsidy),c.stage) for c in self.colonies.values()),
         'events':[(e.id,e.year,e.actor_id,e.action.value,e.result,e.inputs,e.parent_ids) for e in self.events],

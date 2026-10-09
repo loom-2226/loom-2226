@@ -1,0 +1,213 @@
+{
+  "schema": "BUILD6D_CORE_QUALIFICATION_V1",
+  "dld_sha256": "fdf7f6ea8e9e3114f9f535096aca168aa701ba2fa30d948b0f0510eecc55b389",
+  "authorization_sha256": "ac8ba68889ff908521da2beb824586db562067f7d144527c6f76fae7cef33138",
+  "preregistered": true,
+  "method": "FINITE_STRUCTURAL_PANEL_NO_MONTE_CARLO",
+  "cases": [
+    {
+      "id": "BASELINE",
+      "overrides": {}
+    },
+    {
+      "id": "JOINT_LOW",
+      "overrides": {
+        "S": "2000000",
+        "f": "0.0002",
+        "P": "75",
+        "F": "90",
+        "B": "100",
+        "N": "100",
+        "lambda": "0.25"
+      }
+    },
+    {
+      "id": "JOINT_HIGH",
+      "overrides": {
+        "S": "500000",
+        "f": "0.002",
+        "P": "125",
+        "F": "125",
+        "B": "150",
+        "N": "10000",
+        "lambda": "1"
+      }
+    },
+    {
+      "id": "P_64.99",
+      "overrides": {
+        "P": "64.99"
+      }
+    },
+    {
+      "id": "P_65",
+      "overrides": {
+        "P": "65"
+      }
+    },
+    {
+      "id": "P_65.01",
+      "overrides": {
+        "P": "65.01"
+      }
+    },
+    {
+      "id": "F_74.99",
+      "overrides": {
+        "F": "74.99"
+      }
+    },
+    {
+      "id": "F_75",
+      "overrides": {
+        "F": "75"
+      }
+    },
+    {
+      "id": "F_84.99",
+      "overrides": {
+        "F": "84.99"
+      }
+    },
+    {
+      "id": "F_85",
+      "overrides": {
+        "F": "85"
+      }
+    },
+    {
+      "id": "F_85.01",
+      "overrides": {
+        "F": "85.01"
+      }
+    },
+    {
+      "id": "B_59.99",
+      "overrides": {
+        "B": "59.99"
+      }
+    },
+    {
+      "id": "B_60",
+      "overrides": {
+        "B": "60"
+      }
+    },
+    {
+      "id": "B_99.99",
+      "overrides": {
+        "B": "99.99"
+      }
+    },
+    {
+      "id": "B_100",
+      "overrides": {
+        "B": "100"
+      }
+    },
+    {
+      "id": "B_100.01",
+      "overrides": {
+        "B": "100.01"
+      }
+    },
+    {
+      "id": "N_9",
+      "overrides": {
+        "N": "9"
+      }
+    },
+    {
+      "id": "N_10",
+      "overrides": {
+        "N": "10"
+      }
+    },
+    {
+      "id": "N_1000",
+      "overrides": {
+        "N": "1000"
+      }
+    },
+    {
+      "id": "N_348178046",
+      "overrides": {
+        "N": "348178046"
+      }
+    },
+    {
+      "id": "lambda_0",
+      "overrides": {
+        "lambda": "0"
+      }
+    },
+    {
+      "id": "lambda_0.25",
+      "overrides": {
+        "lambda": "0.25"
+      }
+    },
+    {
+      "id": "lambda_1",
+      "overrides": {
+        "lambda": "1"
+      }
+    },
+    {
+      "id": "f_0",
+      "overrides": {
+        "f": "0"
+      }
+    },
+    {
+      "id": "f_0.000004",
+      "overrides": {
+        "f": "0.000004"
+      }
+    },
+    {
+      "id": "f_0.0000055025",
+      "overrides": {
+        "f": "0.0000055025"
+      }
+    },
+    {
+      "id": "f_0.0000055026",
+      "overrides": {
+        "f": "0.0000055026"
+      }
+    },
+    {
+      "id": "STAGE2_SUPPLY_FAILURE",
+      "overrides": {
+        "f.7": "0.000004"
+      }
+    },
+    {
+      "id": "EQUAL_RATIO",
+      "overrides": {
+        "S": "2000000",
+        "f": "0.002"
+      }
+    }
+  ],
+  "worlds": [
+    "NULL",
+    "SPARSE",
+    "RICH"
+  ],
+  "replay": "EXACT_ALL_BASELINE_WORLDS",
+  "environment": {
+    "python": "3.12.3",
+    "decimal_precision": 28,
+    "decimal_rounding": "ROUND_HALF_EVEN",
+    "encoding": "UTF-8"
+  },
+  "success": {
+    "NULL": "Paid negative evidence; abandon; no production/sale/settlement",
+    "SPARSE": "One financed sale, dependent settlement, second output zero, close",
+    "RICH": "One financed sale, dependent settlement, positive second output, continue"
+  },
+  "promotion": "OWNER_SOL_ACCEPTANCE_REQUIRED_AFTER_OBSERVED_CONFORMANCE_PACKET",
+  "no_retuning": true
+}

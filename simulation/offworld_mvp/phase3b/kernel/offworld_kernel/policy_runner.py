@@ -31,6 +31,14 @@ from .project_study import (
     ProjectStudyReviewRequest, build_project_study_review_decision,
     required_unknown_study_review_inputs,
 )
+from .prospecting import (
+    SponsorProspectingOutcome, SponsorProspectingReasonCode,
+    SponsorProspectingRequest, build_prospecting_decision,
+    required_unknown_prospecting_inputs,
+    SponsorOpportunityOutcome, SponsorOpportunityReasonCode,
+    SponsorOpportunityRequest, build_sponsor_opportunity_decision,
+    required_unknown_sponsor_opportunity_inputs,
+)
 from .mvp_state import (
     FinancingDecisionOutcome, FinancingReasonCode, FinancingRequest,
     ExplorationDecisionOutcome, ExplorationReasonCode, ExplorationRequest,
@@ -105,6 +113,16 @@ from .policies.sponsor_study_review_v1 import (
     POLICY_CONTRACT as SPONSOR_STUDY_REVIEW_CONTRACT,
     POLICY_ID as SPONSOR_STUDY_REVIEW_POLICY_ID,
     SEMANTIC_VERSION as SPONSOR_STUDY_REVIEW_SEMANTIC_VERSION,
+)
+from .policies.sponsor_prospecting_v1 import (
+    POLICY_CONTRACT as SPONSOR_PROSPECTING_CONTRACT,
+    POLICY_ID as SPONSOR_PROSPECTING_POLICY_ID,
+    SEMANTIC_VERSION as SPONSOR_PROSPECTING_SEMANTIC_VERSION,
+)
+from .policies.sponsor_opportunity_v1 import (
+    POLICY_CONTRACT as SPONSOR_OPPORTUNITY_CONTRACT,
+    POLICY_ID as SPONSOR_OPPORTUNITY_POLICY_ID,
+    SEMANTIC_VERSION as SPONSOR_OPPORTUNITY_SEMANTIC_VERSION,
 )
 
 FORBIDDEN_IMPORT_ROOTS={
@@ -193,17 +211,32 @@ def request_to_wire(q:FinancingRequest):
 
 
 def exploration_request_to_wire(q:ExplorationRequest):
-    return {
+    value={
         'id':q.id,'year':q.year,'project_id':q.project_id,'resource_id':q.resource_id,
         'channel':q.channel,'required_fact_keys':list(q.required_fact_keys),
         'prerequisite_observation_id':q.prerequisite_observation_id,
         'currency_unit':q.currency_unit,'request_version':q.request_version,
     }
+    if q.request_version=='EXPLORATION_REQUEST_BODY_V1':
+        value.update(body_id=q.body_id,question_ref=q.question_ref)
+    return value
 
 def publication_request_to_wire(q:PublicationRequest):
     return {
         'id':q.id,'year':q.year,'observation_id':q.observation_id,
         'audience':q.audience,'request_version':q.request_version,
+    }
+
+def sponsor_prospecting_request_to_wire(q:SponsorProspectingRequest):
+    return {
+        'id':q.id,'year':q.year,'actor_id':q.actor_id,
+        'opportunity_id':q.opportunity_id,'project_id':q.project_id,
+        'body_key':q.body_key,'region_key':q.region_key,'location_id':str(q.location_id),
+        'observation_ids':list(q.observation_ids),'belief_keys':list(q.belief_keys),
+        'amount':str(q.amount),
+        'prospective_information_value':str(q.prospective_information_value),
+        'required_fact_keys':list(q.required_fact_keys),
+        'request_version':q.request_version,
     }
 
 def sponsor_request_to_wire(q:SponsorProjectDecisionRequest):
@@ -229,6 +262,21 @@ def sponsor_portfolio_request_to_wire(q:SponsorPortfolioDecisionRequest):
         'candidate_activity_ids':list(q.candidate_activity_ids),
         'required_fact_keys':list(q.required_fact_keys),
         'currency_unit':q.currency_unit,'request_version':q.request_version,
+    }
+
+def sponsor_opportunity_request_to_wire(q:SponsorOpportunityRequest):
+    return {
+        'id':q.id,'year':q.year,'actor_id':q.actor_id,
+        'existing_project_id':q.existing_project_id,
+        'candidates':[{
+            'opportunity_id':c.opportunity_id,'body_key':c.body_key,
+            'observation_ids':list(c.observation_ids),'belief_keys':list(c.belief_keys),
+            'required_capital':str(c.required_capital),
+            'commercial_opportunity':str(c.commercial_opportunity),
+            'tie_break_key':c.tie_break_key,
+        } for c in q.candidates],
+        'required_fact_keys':list(q.required_fact_keys),
+        'request_version':q.request_version,
     }
 
 def _policy_source_bytes(filename:str)->bytes:
@@ -266,6 +314,17 @@ def sponsor_portfolio_policy_version(source:bytes|None=None)->str:
     return _policy_version(
         SPONSOR_PORTFOLIO_POLICY_ID,SPONSOR_PORTFOLIO_SEMANTIC_VERSION,
         SPONSOR_PORTFOLIO_CONTRACT,'sponsor_portfolio_v1.py',source)
+
+def sponsor_opportunity_source_bytes()->bytes:
+    return _policy_source_bytes('sponsor_opportunity_v1.py')
+
+def sponsor_opportunity_contract_hash()->str:
+    return _contract_hash(SPONSOR_OPPORTUNITY_CONTRACT)
+
+def sponsor_opportunity_policy_version(source:bytes|None=None)->str:
+    return _policy_version(
+        SPONSOR_OPPORTUNITY_POLICY_ID,SPONSOR_OPPORTUNITY_SEMANTIC_VERSION,
+        SPONSOR_OPPORTUNITY_CONTRACT,'sponsor_opportunity_v1.py',source)
 
 def sponsor_operator_source_bytes()->bytes:
     return _policy_source_bytes('sponsor_operator_v1.py')
@@ -420,6 +479,17 @@ def public_explorer_contract_hash()->str:
 
 def public_explorer_policy_version(source:bytes|None=None)->str:
     return _policy_version(PUBLIC_EXPLORER_POLICY_ID,PUBLIC_EXPLORER_SEMANTIC_VERSION,PUBLIC_EXPLORER_CONTRACT,'public_explorer_v1.py',source)
+
+def sponsor_prospecting_source_bytes()->bytes:
+    return _policy_source_bytes('sponsor_prospecting_v1.py')
+
+def sponsor_prospecting_contract_hash()->str:
+    return _contract_hash(SPONSOR_PROSPECTING_CONTRACT)
+
+def sponsor_prospecting_policy_version(source:bytes|None=None)->str:
+    return _policy_version(
+        SPONSOR_PROSPECTING_POLICY_ID,SPONSOR_PROSPECTING_SEMANTIC_VERSION,
+        SPONSOR_PROSPECTING_CONTRACT,'sponsor_prospecting_v1.py',source)
 
 def _worker_path():
     return Path(__file__).resolve().parent/'policies'/'worker.py'
@@ -608,6 +678,71 @@ def run_public_publisher_policy(snapshot:DecisionSnapshot,request:PublicationReq
 
     decision=build_publication_decision(
         decision_id,request,snapshot.agent_id,outcome,reason_code,reason,snapshot,version)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
+
+def run_sponsor_prospecting_policy(snapshot:DecisionSnapshot,
+                                   request:SponsorProspectingRequest,
+                                   decision_key:str)->PolicyExecutionResult:
+    version,contract_hash=_policy_identity_context(
+        request,sponsor_prospecting_source_bytes,sponsor_prospecting_policy_version,
+        sponsor_prospecting_contract_hash)
+    unknowns=required_unknown_prospecting_inputs(request,snapshot)
+    decision_id=_decision_id('PRDEC-',request,snapshot,version,decision_key)
+    if unknowns:
+        decision=build_prospecting_decision(
+            decision_id,request,snapshot,SponsorProspectingOutcome.BLOCKED_UNKNOWN,
+            SponsorProspectingReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required prospecting inputs are unknown',version,unknowns)
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
+    out,worker_fp=_run_contract_worker(
+        SPONSOR_PROSPECTING_POLICY_ID,snapshot,
+        sponsor_prospecting_request_to_wire(request),SPONSOR_PROSPECTING_CONTRACT,
+        decision_key)
+    try:
+        outcome=SponsorProspectingOutcome(out['outcome'])
+        reason_code=SponsorProspectingReasonCode(out['reason_code'])
+        reason=out['reason']
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as exc:
+        raise RuntimeError('sponsor prospecting worker returned invalid decision payload') from exc
+    decision=build_prospecting_decision(
+        decision_id,request,snapshot,outcome,reason_code,reason,version)
+    return PolicyExecutionResult(
+        decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
+
+
+def run_sponsor_opportunity_policy(snapshot:DecisionSnapshot,
+                                   request:SponsorOpportunityRequest,
+                                   decision_key:str)->PolicyExecutionResult:
+    version,contract_hash=_policy_identity_context(
+        request,sponsor_opportunity_source_bytes,sponsor_opportunity_policy_version,
+        sponsor_opportunity_contract_hash)
+    unknowns=required_unknown_sponsor_opportunity_inputs(request,snapshot)
+    decision_id=_decision_id('SODEC-',request,snapshot,version,decision_key)
+    if unknowns:
+        decision=build_sponsor_opportunity_decision(
+            decision_id,request,snapshot,SponsorOpportunityOutcome.BLOCKED_UNKNOWN,
+            SponsorOpportunityReasonCode.BLOCKED_REQUIRED_INPUT_UNKNOWN,
+            'one or more required annual sponsor inputs are unknown',version)
+        return _blocked_contract_result(decision,version,contract_hash,unknowns)
+    out,worker_fp=_run_contract_worker(
+        SPONSOR_OPPORTUNITY_POLICY_ID,snapshot,
+        sponsor_opportunity_request_to_wire(request),SPONSOR_OPPORTUNITY_CONTRACT,
+        decision_key)
+    try:
+        outcome=SponsorOpportunityOutcome(out['outcome'])
+        reason_code=SponsorOpportunityReasonCode(out['reason_code'])
+        reason=out['reason']
+        selected_opportunity_id=out.get('selected_opportunity_id','')
+        selected_body_key=out.get('selected_body_key','')
+        metrics=tuple(sorted((str(k),str(v)) for k,v in out.get('metrics',{}).items()))
+    except Exception as exc:
+        raise RuntimeError('sponsor opportunity worker returned invalid decision payload') from exc
+    decision=build_sponsor_opportunity_decision(
+        decision_id,request,snapshot,outcome,reason_code,reason,version,
+        selected_opportunity_id,selected_body_key)
     return PolicyExecutionResult(
         decision,version,'CONTRACT_SHA256:'+contract_hash,worker_fp,metrics)
 

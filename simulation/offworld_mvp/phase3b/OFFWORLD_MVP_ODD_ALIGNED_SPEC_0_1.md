@@ -634,7 +634,7 @@ changed by integrated qualification R1.
       7
     ]
   },
-  "registry_version": "ODD_SCHEMA_REGISTRY_0_19",
+  "registry_version": "ODD_SCHEMA_REGISTRY_0_20",
   "types": {
     "Account": [
       {
@@ -656,6 +656,56 @@ changed by integrated qualification R1.
       {
         "name": "balance",
         "type": "D"
+      }
+    ],
+    "AdmissionReceipt": [
+      {
+        "name": "receipt_id",
+        "type": "str"
+      },
+      {
+        "name": "consumption_request",
+        "type": "ConsumptionRequest"
+      },
+      {
+        "name": "source_assertion_refs",
+        "type": "tuple[tuple[str, str], ...]"
+      },
+      {
+        "name": "transformation_refs",
+        "type": "tuple[tuple[str, str], ...]"
+      },
+      {
+        "name": "decision_snapshot_ref",
+        "type": "str"
+      },
+      {
+        "name": "resolved_value_hash",
+        "type": "str"
+      },
+      {
+        "name": "state",
+        "type": "FactState"
+      },
+      {
+        "name": "reason_code",
+        "type": "str"
+      },
+      {
+        "name": "dependency_receipt_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "consumer_contract_ref",
+        "type": "str"
+      },
+      {
+        "name": "consumer_contract_version",
+        "type": "str"
+      },
+      {
+        "name": "receipt_version",
+        "type": "str"
       }
     ],
     "AgentState": [
@@ -818,6 +868,100 @@ changed by integrated qualification R1.
         "type": "str"
       }
     ],
+    "BoundaryManifest": [
+      {
+        "name": "contract_version",
+        "type": "str"
+      },
+      {
+        "name": "input_snapshot_id",
+        "type": "str"
+      },
+      {
+        "name": "scenario_id",
+        "type": "str"
+      },
+      {
+        "name": "scenario_version",
+        "type": "str"
+      },
+      {
+        "name": "run_id",
+        "type": "str"
+      },
+      {
+        "name": "scenario_definition_refs",
+        "type": "tuple[tuple[str, str], ...]"
+      },
+      {
+        "name": "real_source_refs",
+        "type": "tuple[tuple[str, str], ...]"
+      },
+      {
+        "name": "opening_state_hash",
+        "type": "str"
+      },
+      {
+        "name": "parameter_manifest_refs",
+        "type": "tuple[tuple[str, str], ...]"
+      },
+      {
+        "name": "allowed_use_contracts",
+        "type": "tuple[tuple[str, ...], ...]"
+      },
+      {
+        "name": "source_resolver_bindings",
+        "type": "tuple[tuple[str, str, str], ...]"
+      },
+      {
+        "name": "comparison_spec_ref",
+        "type": "tuple[str, str]"
+      },
+      {
+        "name": "earth_slice_ref",
+        "type": "tuple[str, str]"
+      },
+      {
+        "name": "qualification_protocol_ref",
+        "type": "tuple[str, str]"
+      },
+      {
+        "name": "clock_mapping_ref",
+        "type": "str"
+      },
+      {
+        "name": "schema_version",
+        "type": "str"
+      },
+      {
+        "name": "authorization_ref",
+        "type": "str"
+      },
+      {
+        "name": "assertions",
+        "type": "tuple[ContextValue, ...]"
+      },
+      {
+        "name": "parameters",
+        "type": "tuple[tuple[str, str], ...]"
+      },
+      {
+        "name": "comparison_parameters",
+        "type": "tuple[tuple[str, str], ...]"
+      },
+      {
+        "name": "allowed_transitions",
+        "type": "tuple[tuple[str, tuple[str, ...]], ...]"
+      },
+      {
+        "name": "opening_bindings",
+        "type": "tuple[tuple[str, str], ...]"
+      },
+      {
+        "name": "harness_refs",
+        "type": "tuple[tuple[str, str], ...]"
+      }
+    ],
     "Build6CActivitySpec": [
       {
         "name": "activity_id",
@@ -936,6 +1080,160 @@ changed by integrated qualification R1.
       {
         "name": "scenario_sha256",
         "type": "str"
+      }
+    ],
+    "CausalEnvelope": [
+      {
+        "name": "envelope_id",
+        "type": "str"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      },
+      {
+        "name": "run_id",
+        "type": "str"
+      },
+      {
+        "name": "scheduled_event_id",
+        "type": "str"
+      },
+      {
+        "name": "epoch_id",
+        "type": "str"
+      },
+      {
+        "name": "effective_time",
+        "type": "str"
+      },
+      {
+        "name": "time_basis",
+        "type": "str"
+      },
+      {
+        "name": "actor_id",
+        "type": "str"
+      },
+      {
+        "name": "process_id",
+        "type": "str"
+      },
+      {
+        "name": "action",
+        "type": "str"
+      },
+      {
+        "name": "world_context",
+        "type": "str"
+      },
+      {
+        "name": "context_id",
+        "type": "str"
+      },
+      {
+        "name": "perspective",
+        "type": "str"
+      },
+      {
+        "name": "request_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "decision_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "information_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "input_receipt_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "prior_state",
+        "type": "tuple[tuple[str, str, str | None], ...]"
+      },
+      {
+        "name": "result",
+        "type": "str"
+      },
+      {
+        "name": "new_state",
+        "type": "tuple[tuple[str, str, str | None], ...]"
+      },
+      {
+        "name": "reason_code",
+        "type": "str"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      },
+      {
+        "name": "rule_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "parameter_manifest_refs",
+        "type": "tuple[tuple[str, str], ...]"
+      },
+      {
+        "name": "scenario_ref",
+        "type": "tuple[str, str, str]"
+      },
+      {
+        "name": "random_stream_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "source_artifact_refs",
+        "type": "tuple[tuple[str, str], ...]"
+      },
+      {
+        "name": "lineage_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "parent_envelope_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "pre_domain_hash",
+        "type": "str"
+      },
+      {
+        "name": "post_domain_hash",
+        "type": "str"
+      },
+      {
+        "name": "previous_trace_hash",
+        "type": "str"
+      },
+      {
+        "name": "envelope_hash",
+        "type": "str"
+      },
+      {
+        "name": "decision_time",
+        "type": "str | None"
+      },
+      {
+        "name": "authorization_time",
+        "type": "str | None"
+      },
+      {
+        "name": "realized_time",
+        "type": "str"
+      },
+      {
+        "name": "source_times",
+        "type": "tuple[tuple[str, str, str], ...]"
+      },
+      {
+        "name": "artifact_refs",
+        "type": "tuple[tuple[str, str], ...]"
       }
     ],
     "ColonyState": [
@@ -1061,6 +1359,210 @@ changed by integrated qualification R1.
       },
       {
         "name": "envelope_version",
+        "type": "str"
+      }
+    ],
+    "ConsumptionRequest": [
+      {
+        "name": "request_id",
+        "type": "str"
+      },
+      {
+        "name": "consumer_id",
+        "type": "str"
+      },
+      {
+        "name": "use",
+        "type": "str"
+      },
+      {
+        "name": "subject_id",
+        "type": "str"
+      },
+      {
+        "name": "concept",
+        "type": "str"
+      },
+      {
+        "name": "scope",
+        "type": "str"
+      },
+      {
+        "name": "time_basis",
+        "type": "str"
+      },
+      {
+        "name": "effective_time",
+        "type": "str"
+      },
+      {
+        "name": "knowledge_cutoff",
+        "type": "str"
+      },
+      {
+        "name": "world_context",
+        "type": "str"
+      },
+      {
+        "name": "context_id",
+        "type": "str"
+      },
+      {
+        "name": "perspective",
+        "type": "str"
+      },
+      {
+        "name": "perspective_actor_id",
+        "type": "str"
+      },
+      {
+        "name": "assertion_set",
+        "type": "str"
+      },
+      {
+        "name": "required_unit",
+        "type": "str"
+      },
+      {
+        "name": "required_role",
+        "type": "str"
+      }
+    ],
+    "ContextValue": [
+      {
+        "name": "assertion_id",
+        "type": "str"
+      },
+      {
+        "name": "subject_id",
+        "type": "str"
+      },
+      {
+        "name": "concept",
+        "type": "str"
+      },
+      {
+        "name": "scope",
+        "type": "str"
+      },
+      {
+        "name": "world_context",
+        "type": "str"
+      },
+      {
+        "name": "context_id",
+        "type": "str"
+      },
+      {
+        "name": "perspective",
+        "type": "str"
+      },
+      {
+        "name": "perspective_actor_id",
+        "type": "str"
+      },
+      {
+        "name": "value_state",
+        "type": "FactState"
+      },
+      {
+        "name": "value",
+        "type": "str | None"
+      },
+      {
+        "name": "unit",
+        "type": "str"
+      },
+      {
+        "name": "reason_code",
+        "type": "str"
+      },
+      {
+        "name": "proposition_kind",
+        "type": "str"
+      },
+      {
+        "name": "proposition_role",
+        "type": "str"
+      },
+      {
+        "name": "epistemic_mode",
+        "type": "str"
+      },
+      {
+        "name": "admission_state",
+        "type": "str"
+      },
+      {
+        "name": "uncertainty_state",
+        "type": "str"
+      },
+      {
+        "name": "uncertainty_ref",
+        "type": "str"
+      },
+      {
+        "name": "valid_from",
+        "type": "str"
+      },
+      {
+        "name": "valid_to",
+        "type": "str"
+      },
+      {
+        "name": "time_basis",
+        "type": "str"
+      },
+      {
+        "name": "available_from",
+        "type": "str"
+      },
+      {
+        "name": "source_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "source_hashes",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "warrant_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "support_conflict_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "dependency_refs",
+        "type": "tuple[str, ...]"
+      },
+      {
+        "name": "transformation_ref",
+        "type": "str"
+      },
+      {
+        "name": "transformation_version",
+        "type": "str"
+      },
+      {
+        "name": "authorization_ref",
+        "type": "str"
+      },
+      {
+        "name": "reference_role",
+        "type": "str"
+      },
+      {
+        "name": "exception_flags",
+        "type": "tuple[tuple[str, str], ...]"
+      },
+      {
+        "name": "record_version",
+        "type": "str"
+      },
+      {
+        "name": "source_time",
         "type": "str"
       }
     ],
@@ -4621,6 +5123,10 @@ changed by integrated qualification R1.
     "Build6CPortfolioScenario.horizon_end": "CALENDAR_YEAR_FRACTION",
     "Build6CPortfolioScenario.horizon_start": "CALENDAR_YEAR_FRACTION",
     "Build6CPortfolioScenario.opening_capital": "MODEL_CURRENCY",
+    "CausalEnvelope.authorization_time": "FIELD:CausalEnvelope.time_basis",
+    "CausalEnvelope.decision_time": "FIELD:CausalEnvelope.time_basis",
+    "CausalEnvelope.effective_time": "FIELD:CausalEnvelope.time_basis",
+    "CausalEnvelope.realized_time": "FIELD:CausalEnvelope.time_basis",
     "ColonyState.habitat_capacity": "PEOPLE_EQUIVALENT",
     "ColonyState.population": "PEOPLE_EQUIVALENT",
     "Commitment.amount": "MODEL_CURRENCY",
@@ -4630,6 +5136,10 @@ changed by integrated qualification R1.
     "CommodityMarketEnvelope.demand_quantity": "MODEL_RESOURCE_UNIT_BY_FAMILY",
     "CommodityMarketEnvelope.unit_price": "MODEL_CURRENCY_PER_RESOURCE_UNIT",
     "CommodityMarketEnvelope.year": "SIM_YEAR",
+    "ConsumptionRequest.effective_time": "FIELD:ConsumptionRequest.time_basis",
+    "ConsumptionRequest.knowledge_cutoff": "FIELD:ConsumptionRequest.time_basis",
+    "ContextValue.source_time": "FIELD:ContextValue.time_basis",
+    "ContextValue.value": "FIELD:ContextValue.unit",
     "DecisionSnapshot.effective_time": "SIM_TIME",
     "DevelopmentResolutionRecord.accumulated_cost": "MODEL_CURRENCY",
     "DevelopmentResolutionRecord.commissioned": "MODEL_CURRENCY",
@@ -4849,3 +5359,14 @@ This ODD-aligned specification is operational documentation, not epistemic autho
 ## 11. Current validation boundary
 
 The executable kernel is verified against selected invariants and deterministic fixtures. It is not yet empirically validated as a civilization/economic forecasting model. Behavioral calibration, historical/backcast validation and out-of-sample validation are future gates.
+
+
+## Build 6D strict core closure profile
+
+BUILD6D_CORE_FRD_CLOSURE_V1 is an explicit successor contract. A missing BoundaryManifest blocks strict initialization; frozen legacy contracts retain their existing projections, defaults and random keys. REAL and SCENARIO assertions are immutable input evidence; REALIZED queries project the single existing kernel. ConsumptionRequest and content-bound AdmissionReceipt declare use, subject/scope, context/id, perspective/access, units/role and effective/cutoff times. Missing numeric sources remain UNKNOWN; inadmissible sources are BLOCKED and cannot enter a worker snapshot.
+
+CausalEnvelope is domain-neutral composition of the original typed artifacts, state deltas and rules, not executable state. The existing methodology adapter supplies separate physical, financial, information, decision and event projections. Typed artifacts preserve WORLD/source truth, evidence, information, admission, belief, decision and realization distinctions; no evidence source becomes Agent knowledge merely by appearing in a world audit. Source/effective, decision/authorization and realized times remain distinct on existing axes. Original executors and the single deterministic scheduler remain authoritative for changes. Uncovered domain writes invalidate a strict run.
+
+Strict comparison draws use length-safe JSON framing, independently declared WORLD/POLICY seeds and the comparison group; hidden universe identifiers and snapshot digests do not seed comparisons. Legacy draw/fingerprint behavior remains exact. Physical in-situ/access/recoverability are independently queried; reserve conversion is UNKNOWN pending warranted economics. The narrowly pinned USA model-projection slice supplies only the declared resource-proxy ceiling and finite cohort bound, with no Earth engine or recurring population injection. Finite buyer cash is checked before any sale writes.
+
+Scope and exact integrated procedure are governed by build6/BUILD6D_IMPLEMENTATION_AUTHORIZATION_001_CORE_FRD_CLOSURE.md and build6/BUILD6D_CORE_QUALIFICATION_PROTOCOL_V1.md. Design approval is not qualification acceptance or CORE completion.

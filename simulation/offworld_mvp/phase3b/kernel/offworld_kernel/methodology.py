@@ -7,7 +7,7 @@ import json
 from typing import Dict, Tuple
 from .build4 import Build4Kernel, OwnershipStake
 from .kernel import InvariantError
-from .model import D, TxPurpose, AssetKind, NodeKind, AccountKind
+from .model import D, TxPurpose, AssetKind, NodeKind, AccountKind, Transaction
 from .mvp_state import AgentKind, AgentState, AggregateState, EntityAssetRef, RuntimeObjectClass, SystemState, ColonyState, OperatingCycleDecisionOutcome, SaleDecisionOutcome, SurplusDistributionDecisionOutcome, SettlementSupportDecisionOutcome
 from .scheduler import DeterministicScheduler
 from .resolution import ResolutionExposurePlan, ResolutionExposureRecord
@@ -50,6 +50,12 @@ from .project_study import (
     ProjectStudyReviewExecutionRecord,
 )
 from .named_portfolio import NamedBodyEvidenceRecord, BodyPortfolioBinding
+from .prospecting import (
+    CapitalMobilizationRecord, CountryCapitalDisbursementRecord,
+    ProspectingProjectCreationRecord, SponsorProspectingOutcome,
+    SponsorProspectingRequest, SponsorProspectingDecision, ProspectingScenario,
+    derive_mobilization,
+)
 
 @dataclass(frozen=True)
 class ResolutionRecord:
@@ -86,7 +92,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
     SCHEDULED_MUTATION_METHODS=frozenset({
         'add_node','add_account','add_project','add_commitment','transfer','disburse','spend_capex','capitalize',
         'add_agent','add_resource','event','observe','publish_observation','submit_financing_request','transition_project_status','request_finance','decide_finance','extract','sell','migrate',
-        'set_resource_constraint','reserve_earth_supply','spend_reserved_capex','explore_paid','surface_prospect_paid','update_agent_belief_from_observation','resolve_exploration',
+        'set_resource_constraint','reserve_earth_supply','spend_reserved_capex','explore_paid','observe_region_study','surface_prospect_paid','update_agent_belief_from_observation','resolve_exploration',
         'extract_bounded','sell_to_market','dispose_surplus',
         'audit','register_vehicle_ownership','distribute_vehicle_to_owners','set_supply_capacity','consume_supply',
         'create_wip','add_wip_expenditure','commission_wip','write_off_wip','depreciate','amortize_knowledge',
@@ -94,7 +100,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'boundary_purchase','consume_market_resource',
         'add_system','add_aggregate','add_entity_asset_ref','expose_agent_from_aggregate','expose_agent_by_plan','record_surplus_decomposition',
         'register_development_plan','execute_development_stage','resolve_development_plan',
-        'spend_operating_cycle','resolve_operating_extraction','execute_enterprise_review','register_market_envelope','clear_market_sale',
+        'spend_operating_cycle','assess_resource_recoverability','record_earth_reference_year','resolve_operating_extraction','execute_enterprise_review','register_market_envelope','clear_market_sale',
         'register_financing_return_claim','execute_surplus_distribution',
         'register_settlement_infrastructure_plan','execute_settlement_infrastructure',
         'update_settlement_stage','execute_public_settlement_support',
@@ -105,7 +111,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         'register_project_study_state','register_project_study_plan',
         'authorize_project_study_activity','spend_exploration_wip','spend_project_study_activity',
         'complete_project_study_activity','execute_project_study_review',
-        'register_named_body_evidence','register_body_portfolio_binding'
+        'register_named_body_evidence','register_body_portfolio_binding','admit_realized_output_observation',
+        'mobilize_country_capital','create_prospecting_project','disburse_country_capital',
+        'initialize_region_study',
     })
     SCHEDULED_READONLY_METHODS=frozenset({
         'realized_fcf','productive_capital','assert_invariants','fingerprint',
@@ -122,8 +130,24 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
     methodology_version='BUILD4_MVP_METHODOLOGY_R1'
     accounting_boundary_version='PHASE3B_MVP_ACCOUNTING_BOUNDARY_0_1'
 
-    def __init__(self,*a,**kw):
+    def __init__(self,*a,boundary_manifest=None,**kw):
+        from .boundary import CONTRACT
+        if a and a[0].code_contract==CONTRACT and boundary_manifest is None:
+            raise InvariantError('BLOCKED_CONTRACT: strict boundary manifest required')
         super().__init__(*a,**kw)
+        self.boundary_manifest=boundary_manifest
+        self.causal_envelopes=[]
+        self.causal_artifacts={}
+        self._boundary_opening_validated=False
+        self._boundary_capture_depth=0
+        self._boundary_event_context=None
+        self._boundary_event_deltas=[]
+        self._boundary_decisions={}
+        self._boundary_random_keys=[]
+        self._boundary_invalid=False
+        self._boundary_genesis_inputs=()
+        self._boundary_authored_inputs=()
+        self._boundary_consumed_values=()
         self.scheduler=DeterministicScheduler()
         self.systems: Dict[str,SystemState]={}
         self.aggregates: Dict[str,AggregateState]={}
@@ -189,6 +213,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 mode='scheduled-run' if strict else 'decision-epoch chain'
                 raise InvariantError(f'direct mutation blocked in {mode} mode: {name}')
             return blocked
+        if guarded and depth>0 and super().__getattribute__('boundary_manifest') is not None:
+            def traced(*args,**kwargs):
+                return self._boundary_mutation(name,attr,args,kwargs)
+            return traced
         return attr
 
     def surface_prospect_paid(self,year,actor_id,resource_id,project_id,supplier_account,
@@ -244,6 +272,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if not (D('0')<=det<=D('1') and D('0')<=fp<=D('1')) or det<=fp:
             raise InvariantError('invalid agent-side observation likelihoods')
         obs=self.observations[observation_id]
+        if getattr(obs,'body_id','') and belief_key!='BODY:'+obs.body_id+':'+obs.question_ref:
+            raise InvariantError('BLOCKED_SCOPE: body belief/question mismatch')
+        if self.boundary_manifest is not None and belief_key not in actor.beliefs and belief_key not in actor.priors:
+            raise InvariantError('BLOCKED_UNKNOWN: belief/prior missing')
         prior=D(actor.beliefs.get(belief_key,actor.priors.get(belief_key,D('0.5'))))
         if not D('0')<=prior<=D('1'):
             raise InvariantError('belief prior outside [0,1]')
@@ -328,6 +360,56 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.operating_cost_records.append(rec)
         return rec
 
+    def assess_resource_recoverability(self,year,resource_id,assessed_resource):
+        """Realize accessibility/recoverability only after productive capability exists.
+
+        The caller may use hidden WORLD/environment state to construct the assessment,
+        but Agents receive no hidden quantities from this transition.  This is a
+        WORLD_SIM physical-state transition gated by a commissioned project asset.
+        """
+        year=int(year)
+        if resource_id not in self.resources:
+            raise InvariantError('recoverability assessment resource missing')
+        current=self.resources[resource_id]
+        if current.accessible is not None or current.recoverable is not None or current.remaining is not None:
+            raise InvariantError('recoverability already assessed')
+        project=self.state.projects.get('P')
+        productive=self.state.assets.get('MINE-P')
+        if project is None or project.status!='OPERATING' or productive is None or productive.kind!=AssetKind.PRODUCTIVE:
+            raise InvariantError('recoverability requires commissioned productive capability')
+        if assessed_resource.id!=current.id or assessed_resource.node_id!=current.node_id or assessed_resource.family!=current.family:
+            raise InvariantError('recoverability assessment identity mismatch')
+        if D(assessed_resource.in_situ)!=D(current.in_situ):
+            raise InvariantError('recoverability assessment in-situ mismatch')
+        if assessed_resource.accessible is None or assessed_resource.recoverable is None or assessed_resource.remaining is None:
+            raise InvariantError('recoverability assessment incomplete')
+        if not D('0')<=D(assessed_resource.remaining)<=D(assessed_resource.recoverable)<=D(assessed_resource.accessible)<=D(current.in_situ):
+            raise InvariantError('recoverability assessment hierarchy')
+        current.accessible=D(assessed_resource.accessible)
+        current.recoverable=D(assessed_resource.recoverable)
+        current.remaining=D(assessed_resource.remaining)
+        evt=self.event(year,'RECOVERY_ASSESSMENT_SYSTEM',ActionKind.ADMIT_INFORMATION,'RECOVERY_ASSESSED',
+            (resource_id,str(current.accessible),str(current.recoverable),productive.id),
+            (productive.id,project.id))
+        return current
+
+    def record_earth_reference_year(self,sim_year,calendar_year,iso3,population,value_added,gross_output,investment,capital,legacy_employment):
+        """Persist one admitted annual Earth reference image without mutating Earth economics."""
+        sim_year=int(sim_year);calendar_year=int(calendar_year)
+        if iso3!='USA' or calendar_year!=sim_year+2025 or not 1<=sim_year<=20:
+            raise InvariantError('Earth reference year mapping')
+        concepts=('population','value_added','gross_output','investment','capital','legacy_employment')
+        values=(population,value_added,gross_output,investment,capital,legacy_employment)
+        parsed=tuple(D(str(v)) for v in values)
+        if any(not v.is_finite() or v<0 for v in parsed):raise InvariantError('Earth reference value')
+        if self.boundary_manifest is None:raise InvariantError('Earth reference boundary missing')
+        for concept,value in zip(concepts,parsed,strict=True):
+            found=tuple(a for a in self.boundary_manifest.assertions if a.subject_id=='USA' and a.concept==concept and a.world_context=='REAL' and a.valid_from==str(calendar_year) and a.valid_to==str(calendar_year))
+            if len(found)!=1 or found[0].value_state.value!='KNOWN' or D(found[0].value)!=value:
+                raise InvariantError('Earth reference mismatch:'+concept)
+        return self.event(sim_year,'EARTH_REFERENCE_SYSTEM',ActionKind.ADMIT_INFORMATION,'EARTH_REFERENCE_YEAR',
+            (iso3,str(calendar_year),*(str(v) for v in parsed)))
+
     def resolve_operating_extraction(self,year,actor_id,request,decision,cost_record):
         year=int(year)
         request.validate_protocol(); decision.validate_protocol(request)
@@ -351,6 +433,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         planned=D(decision.planned_quantity)
         if planned>D(asset.capacity):
             raise InvariantError('extraction plan exceeds productive capacity')
+        if resource.remaining is None:
+            raise InvariantError('BLOCKED_UNKNOWN_RECOVERY')
         before_resource=D(resource.remaining)
         colony=self.colonies.setdefault(resource.node_id,ColonyState(resource.node_id))
         before_inventory=D(colony.resource_inventory)
@@ -1288,7 +1372,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             itx=txids.get(r.investment_transaction_id); etx=txids.get(r.exploration_transaction_id)
             if itx is None or etx is None or D(itx.amount)!=D(r.amount) or D(etx.amount)!=D(r.amount):
                 raise InvariantError('project activity expense transaction drift')
-            if itx.purpose!=TxPurpose.OTHER_INVESTMENT or etx.purpose!=TxPurpose.EXPLORATION:
+            investment_purpose=(TxPurpose.DISBURSE if r.record_version=='BUILD7_REGION_PROJECT_FUNDED_STUDY_V1'
+                                else TxPurpose.OTHER_INVESTMENT)
+            if itx.purpose!=investment_purpose or etx.purpose!=TxPurpose.EXPLORATION:
                 raise InvariantError('project activity expense purpose drift')
             asset=self.state.assets[r.wip_asset_id]
             if asset.project_id!=r.project_id or D(asset.book_value)!=D(r.amount):
@@ -1516,6 +1602,33 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         self.project_study_states[state.project_id]=state
         return state
 
+    def initialize_region_study(self,year,project_id,region_id):
+        """Attach one Build 6B study to the sponsor's existing Build 7 project."""
+        if (project_id not in self.state.projects or
+                self.state.projects[project_id].status!='EXPLORING' or
+                project_id not in {r.project_id for r in self.prospecting_project_creation_records} or
+                any(s.project_id==project_id for s in self.project_study_states.values())):
+            raise InvariantError('regional study project already initialized or invalid')
+        creation=next(r for r in self.prospecting_project_creation_records if r.project_id==project_id)
+        if str(creation.location_id)!=str(region_id):
+            raise InvariantError('regional study differs from selected project REGION')
+        from .project_activity import ProjectActivity
+        aid='BUILD7_REGION_STUDY';pid='BUILD7_REGION_STUDY_PLAN'
+        self.register_project_study_state(ProjectStudyState(project_id,ProjectStudyMaturity.REMOTE_CHARACTERIZED))
+        self.register_project_activity(ProjectActivity(aid,project_id,'REGION_MATERIAL_CHARACTERIZATION',
+            'SPN',1,D(year),D(1),D(self.state.accounts[self.state.projects[project_id].cash_account_id].balance),
+            'REGION_MATERIAL_CHARACTERIZATION_RESULT'))
+        self.register_project_study_plan(ProjectStudyPlan(pid,aid,project_id,
+            ProjectStudyMaturity.REMOTE_CHARACTERIZED,
+            ProjectStudyMaturity.SURFACE_OR_SAMPLE_CHARACTERIZED,'earth_supplier',
+            'REGION_MATERIAL_CHARACTERIZATION_RESULT'))
+        for family in ('VOLATILES','METALS','SILICATES_ROCK','CARBONACEOUS_ORGANICS'):
+            key='BODY:'+creation.body_key+':REGION:'+str(region_id)+':'+family+'_PRESENT'
+            self.agents['SPN'].priors[key]=D('0.5')
+        self.event(year,'SPN',ActionKind.AUTHORIZE_ACTIVITY,'REGION_STUDY_AVAILABLE',
+            (project_id,str(region_id),aid,pid))
+        return self.project_study_plans[pid]
+
     def register_project_study_plan(self,plan:ProjectStudyPlan):
         try:
             plan.validate()
@@ -1554,7 +1667,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             raise InvariantError('project study authorization requires EXPLORING project')
         return self.authorize_project_activity(effective_time,decision)
 
-    def spend_project_study_activity(self,effective_time,activity_id):
+    def spend_project_study_activity(self,effective_time,activity_id,funding_mode='SPONSOR'):
         if activity_id not in self.project_activities:
             raise InvariantError('project study activity missing')
         a=self.project_activities[activity_id]
@@ -1571,8 +1684,11 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             raise InvariantError('project study spend requires EXPLORING project')
         actor=self.agents[a.actor_id]
         amount=D(a.capital_commitment)
-        if self.state.accounts[actor.account_id].balance<amount:
-            raise InvariantError('project study sponsor cash insufficient at spend')
+        if funding_mode not in ('SPONSOR','PROJECT'):
+            raise InvariantError('project study funding mode invalid')
+        source=actor.account_id if funding_mode=='SPONSOR' else project.cash_account_id
+        if self.state.accounts[source].balance<amount:
+            raise InvariantError('project study cash insufficient at spend')
         t=D(str(effective_time)); year=int(t)
         supplier_node=self.state.accounts[plan.supplier_account_id].node_id
         if self.state.nodes[supplier_node].kind==NodeKind.EARTH:
@@ -1582,14 +1698,22 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
             if amount>self.resource_constraints[key].available:
                 raise InvariantError('project study Earth supply unavailable')
             self.reserve_earth_supply(supplier_node,year,amount)
-        investment=self.transfer(
-            year,actor.account_id,project.cash_account_id,amount,TxPurpose.OTHER_INVESTMENT,
-            parent_ids=(a.id,plan.id))
+        if funding_mode=='PROJECT':
+            records=[r for r in self.country_capital_disbursement_records
+                if r.project_id==plan.project_id and D(r.amount)==amount]
+            if len(records)!=1 or activity_id!='BUILD7_REGION_STUDY':
+                raise InvariantError('regional study requires one matching prior disbursement')
+            investment=next(tx for tx in self.state.transactions if tx.id==records[0].transaction_id)
+        else:
+            investment=self.transfer(
+                year,actor.account_id,project.cash_account_id,amount,TxPurpose.OTHER_INVESTMENT,
+                parent_ids=(a.id,plan.id))
         exploration,wip=self.spend_exploration_wip(
             year,plan.project_id,plan.supplier_account_id,amount,project.node_id,
             parent_ids=(a.id,plan.id,investment.id))
         rec=ProjectActivityExpenseRecord(
-            a.id,a.project_id,a.actor_id,amount,t,investment.id,exploration.id,wip)
+            a.id,a.project_id,a.actor_id,amount,t,investment.id,exploration.id,wip,
+            'BUILD7_REGION_PROJECT_FUNDED_STUDY_V1' if funding_mode=='PROJECT' else 'BUILD6B_PROJECT_ACTIVITY_EXPENSE_V0_1')
         try:
             rec.validate()
         except ValueError as e:
@@ -1711,6 +1835,27 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if self._decision_epoch_expected_between_fingerprint is not None:
             if self.decision_epoch_state_fingerprint()!=self._decision_epoch_expected_between_fingerprint:
                 raise InvariantError('persistent state tampered between decision epochs')
+        if self.boundary_manifest is not None and not self._boundary_opening_validated:
+            from .boundary import BUILD6E_CONTRACT, validate_opening
+            from types import SimpleNamespace
+            validate_opening(self)
+            self._boundary_opening_validated=True
+            opening=D(self.boundary_manifest.parameter('opening_effective_time')) if self.boundary_manifest.contract_version=='BUILD6E_NAMED_WORLD_V1' else D(0)
+            if self.boundary_manifest.contract_version==BUILD6E_CONTRACT:
+                # The real GENESIS transition belongs to the first atomic 6E
+                # epoch batch. The frozen 6D path retains its historical
+                # GENESIS epoch label and time exactly.
+                self.active_decision_epoch_id=epoch_id
+            event=SimpleNamespace(event_id='GENESIS',effective_time=opening,process_id='GENESIS',stable_key='GENESIS')
+            genesis_receipts=(tuple(r for r,_ in self._boundary_genesis_inputs)
+                if self.boundary_manifest.contract_version==BUILD6E_CONTRACT else ())
+            genesis_values=(tuple(v for _,v in self._boundary_genesis_inputs)
+                if self.boundary_manifest.contract_version==BUILD6E_CONTRACT else ())
+            self._boundary_emit(event,'GENESIS',(),self._boundary_projection(),'DECLARED_OPENING_STATE',
+                receipts=genesis_receipts,source_values=genesis_values,
+                artifacts=(('SCENARIO_INPUT',self.boundary_manifest),
+                    ('ADMITTED_INFORMATION',self._boundary_genesis_inputs),
+                    ('AUTHORED_INPUT_RECORDS',self._boundary_authored_inputs)))
         self.scheduler=DeterministicScheduler()
         self.active_decision_epoch_id=epoch_id
         self._decision_epoch_open_state_fingerprint=self.decision_epoch_state_fingerprint()
@@ -2354,6 +2499,28 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
              r.offworld_population_after,r.total_population_before,r.total_population_after,
              r.arrival_event_id,r.stage_event_id,r.record_version)
              for r in self.passenger_transport_arrivals]}
+        if hasattr(self,'capital_coupling'):
+            payload['capital_coupling']=sorted((country,tuple(sorted((key,str(value))
+                for key,value in values.items()))) for country,values in self.capital_coupling.items())
+            payload['capital_mobilization_records']=[(
+                r.year,r.country_id,str(r.investment_proxy),str(r.normalized_investment),
+                str(r.commercial_opportunity),str(r.base_salience),str(r.race_pressure),
+                str(r.strategic_pressure),str(r.mobilization_fraction),str(r.mobilized_cash),
+                r.destination_account_id,r.transaction_id,r.source_ref,r.record_version)
+                for r in self.capital_mobilization_records]
+            payload['country_capital_disbursement_records']=[(
+                r.year,r.country_id,r.project_id,r.commitment_id,str(r.amount),
+                str(r.available_cash_before),str(r.available_cash_after),
+                str(r.exposure_before),str(r.exposure_after),r.transaction_id,r.record_version)
+                for r in self.country_capital_disbursement_records]
+            payload['prospecting_project_creation_records']=[(
+                r.year,r.actor_id,r.decision_id,r.opportunity_id,r.project_id,r.body_key,
+                r.region_key,r.location_id,r.node_id,r.cash_account_id,r.project_stage,
+                r.event_id,r.record_version) for r in self.prospecting_project_creation_records]
+        if self.boundary_manifest is not None:
+            from .causal_trace import validate_trace
+            payload['boundary_manifest']=self.boundary_manifest.fingerprint()
+            payload['causal_trace_root']=validate_trace(self.causal_envelopes,self.causal_artifacts)
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload
@@ -2365,3 +2532,387 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
     def methodology_fingerprint(self):
         payload=self._methodology_payload(include_scheduler=True)
         return sha256(json.dumps(payload,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+
+
+    def _boundary_projection(self):
+        """Audit projection of existing stores; never executable parallel state.
+
+        The domain labels belong here, not in the reusable causal envelope.
+        Every runtime-owned non-control attribute is represented, including rows
+        created by older specialized modules and unknown/raw attribute writes.
+        """
+        from dataclasses import fields
+        from .causal_trace import canonical
+        rows=[]
+        skip={'scheduler','boundary_manifest','causal_envelopes','causal_artifacts','decision_epoch_records',
+              'decision_epoch_chain_id','active_decision_epoch_id'}
+        def domain(name):
+            if name=='_seq':return 'REALIZED_EVENT_STATE'
+            if any(x in name for x in ('information','observation','belief','prior','evidence')):return 'INFORMATION_STATE'
+            if any(x in name for x in ('decision','request')):return 'DECISION_STATE'
+            if any(x in name for x in ('event','record','history')):return 'REALIZED_EVENT_STATE'
+            if any(x in name for x in ('account','commitment','transaction','claim','reservation','fcf','impact')):return 'FINANCIAL_STATE'
+            return 'PHYSICAL_STATE'
+        for name,value in sorted(vars(self).items()):
+            if name in skip or name.startswith(('_scheduled_','_decision_epoch_','_boundary_')) or name=='_strict_scheduled_execution':continue
+            if name=='state':
+                for f in fields(value):
+                    obj=getattr(value,f.name)
+                    if isinstance(obj,dict):
+                        rows.extend((domain(f.name),'state.'+f.name+'.'+canonical(k),canonical(v)) for k,v in obj.items())
+                    else:rows.append((domain(f.name),'state.'+f.name,canonical(obj)))
+            elif name=='agents':
+                for key,a in value.items():
+                    for f in fields(a):rows.append((domain(f.name),'agents.'+key+'.'+f.name,canonical(getattr(a,f.name))))
+            elif isinstance(value,dict):
+                rows.extend((domain(name),name+'.'+canonical(k),canonical(v)) for k,v in value.items())
+            else:rows.append((domain(name),name,canonical(value)))
+        return tuple(sorted(rows))
+
+    def _boundary_opening_value(self,selector):
+        # Opening selectors are exact existing attributes, not a generic object API.
+        if selector=='earth_admission_receipts':return self._boundary_genesis_inputs
+        if selector=='population':return self.population
+        if selector=='accounts':return self.state.accounts
+        if selector=='agents':return self.agents
+        if selector=='resources':return self.resources
+        if selector=='constraints':return self.resource_constraints
+        raise InvariantError('BLOCKED_GENESIS: unsupported opening selector')
+
+    def keyed_draw(self,*keys):
+        if self.boundary_manifest is None:return super().keyed_draw(*keys)
+        from decimal import getcontext
+        if len(keys)!=5 or keys[0]!='OBS' or keys[4] not in ('REMOTE','SURFACE','REGION'):
+            raise InvariantError('BLOCKED_PARAMETER: undeclared WORLD key family')
+        if D(keys[1])!=D(keys[1]).to_integral_value() or D(keys[1])<0:raise InvariantError('BLOCKED_TIME: observation period')
+        c=dict(self.boundary_manifest.comparison_parameters)
+        if c['key_schema']!='LOOM_COMPARISON_RANDOM_V1' or c['algorithm']!='SHA256_FIRST64_DECIMAL_V1':
+            raise InvariantError('BLOCKED_PARAMETER: random contract')
+        if getcontext().prec!=int(c['decimal_precision']) or str(getcontext().rounding)!=c['decimal_rounding']:
+            raise InvariantError('BLOCKED_PARAMETER: decimal replay environment')
+        raw=json.dumps([c['key_schema'],'WORLD',c['world_seed'],c['comparison_group'],*map(str,keys)],separators=(',',':'),ensure_ascii=True)
+        from .policy import _comparison_draw
+        self._boundary_random_keys.append(raw)
+        return _comparison_draw(json.loads(raw))
+
+    def mobilize_country_capital(self,year,country_id,investment_proxy,
+                                 commercial_opportunity,scenario:ProspectingScenario,
+                                 source_account,destination_account):
+        """Bridge admitted Earth capacity into finite cash without a parallel ledger."""
+        year=int(year);scenario.validate();country_id=str(country_id)
+        if not hasattr(self,'capital_coupling') or not hasattr(self,'capital_mobilization_records'):
+            raise InvariantError('capital coupling not initialized')
+        if any(r.year==year and r.country_id==country_id for r in self.capital_mobilization_records):
+            raise InvariantError('country capital already mobilized for period')
+        source=self.state.accounts[source_account];destination=self.state.accounts[destination_account]
+        if (source.kind!=AccountKind.EARTH_BOUNDARY or source.node_id!='EARTH:'+country_id
+                or destination.node_id!=source.node_id or destination.kind!=AccountKind.FUNDS):
+            raise InvariantError('capital mobilization account scope')
+        expected=tuple(a for a in self.boundary_manifest.assertions
+            if a.subject_id==country_id and a.concept=='investment'
+            and a.world_context=='REAL' and a.valid_from==str(year+2025))
+        if len(expected)!=1 or expected[0].value_state.value!='KNOWN' or D(expected[0].value)!=D(investment_proxy):
+            raise InvariantError('capital mobilization Earth investment mismatch')
+        normalized,pressure,fraction,mobilized=derive_mobilization(
+            investment_proxy=investment_proxy,commercial_opportunity=commercial_opportunity,
+            scenario=scenario)
+        coupling=self.capital_coupling[country_id]
+        if any(D(coupling[key])<0 for key in ('F','X','R')):
+            raise InvariantError('capital coupling negative opening state')
+        source.balance-=mobilized;destination.balance+=mobilized
+        self.boundary_net[source_account]=self.boundary_net.get(source_account,D(0))-mobilized
+        tx=Transaction(self._id('tx'),year,source_account,destination_account,mobilized,
+            TxPurpose.OTHER_INVESTMENT,source.node_id,destination.node_id,
+            parent_ids=(scenario.scenario_id,))
+        self.state.transactions.append(tx)
+        coupling['F']=D(coupling['F'])+mobilized;coupling['S']=pressure
+        record=CapitalMobilizationRecord(year,country_id,D(investment_proxy),normalized,
+            D(commercial_opportunity),scenario.base_salience,scenario.race_pressure,
+            pressure,fraction,mobilized,destination_account,tx.id,
+            scenario.authorization_ref)
+        self.capital_mobilization_records.append(record)
+        self.event(year,'CAPITAL_COUPLING_SYSTEM',ActionKind.FINANCE,'CAPITAL_MOBILIZED',
+            (country_id,str(normalized),str(fraction),str(mobilized),tx.id))
+        return record
+
+    def create_prospecting_project(self,year,actor_id,request:SponsorProspectingRequest,
+                                   decision:SponsorProspectingDecision,node_id,cash_account_id):
+        """Realize one sponsor-authorized regional prospecting project."""
+        year=int(year);request.validate_protocol();decision.validate_protocol(request)
+        if decision.outcome!=SponsorProspectingOutcome.INITIATE_PROJECT:
+            raise InvariantError('prospecting project requires INITIATE_PROJECT')
+        if actor_id!=decision.actor_id or actor_id not in self.agents:
+            raise InvariantError('prospecting project sponsor mismatch')
+        actor=self.agents[actor_id]
+        if actor.kind!=AgentKind.PRIVATE_SPONSOR:
+            raise InvariantError('prospecting project requires private sponsor')
+        if request.project_id in self.state.projects or cash_account_id in self.state.accounts:
+            raise InvariantError('prospecting project already exists')
+        if node_id in self.state.nodes:
+            raise InvariantError('prospecting project node already exists')
+        self.add_node(node_id,NodeKind.OFFWORLD)
+        self.add_account(cash_account_id,actor_id,node_id,AccountKind.PROJECT_CASH,D(0))
+        self.add_project(request.project_id,node_id,cash_account_id,{actor_id:D(1)})
+        self.state.projects[request.project_id].status='EXPLORING'
+        event=self.event(year,actor_id,ActionKind.AUTHORIZE_ACTIVITY,
+            'PROSPECTING_PROJECT_CREATED',
+            (decision.id,request.opportunity_id,request.project_id,request.body_key,
+             request.region_key,request.location_id), (decision.id,request.opportunity_id))
+        record=ProspectingProjectCreationRecord(
+            year,actor_id,decision.id,request.opportunity_id,request.project_id,
+            request.body_key,request.region_key,request.location_id,node_id,
+            cash_account_id,'PROSPECTING',event.id)
+        self.prospecting_project_creation_records.append(record)
+        return record
+
+    def disburse_country_capital(self,year,country_id,commitment_id,source_account,
+                                 amount,request:SponsorProspectingRequest,
+                                 decision:SponsorProspectingDecision):
+        """Wrap the existing disbursement transaction with F/X exposure state."""
+        year=int(year);amount=D(amount);country_id=str(country_id)
+        decision.validate_protocol(request)
+        if decision.outcome!=SponsorProspectingOutcome.INITIATE_PROJECT:
+            raise InvariantError('country capital disbursement not authorized')
+        coupling=self.capital_coupling[country_id]
+        before_f=D(coupling['F']);before_x=D(coupling['X'])
+        commitment=self.state.commitments.get(commitment_id)
+        if (commitment is None or commitment.project_id!=decision.project_id
+                or commitment.financier_id!=decision.actor_id
+                or self.state.accounts[source_account].owner_id!=decision.actor_id
+                or amount!=decision.amount or amount>before_f):
+            raise InvariantError('country capital disbursement scope')
+        tx=self.disburse(year,commitment_id,source_account,amount)
+        coupling['F']=before_f-amount;coupling['X']=before_x+amount
+        record=CountryCapitalDisbursementRecord(
+            year,country_id,commitment.project_id,commitment_id,amount,
+            before_f,coupling['F'],before_x,coupling['X'],tx.id)
+        self.country_capital_disbursement_records.append(record)
+        self.event(year,decision.actor_id,ActionKind.FINANCE,'COUNTRY_CAPITAL_DISBURSED',
+            (country_id,commitment.project_id,str(amount),tx.id),(decision.id,commitment_id))
+        return record
+
+    def _boundary_preflight(self,name,attr,args,kwargs):
+        import inspect
+        from .boundary import verify_receipt
+        from .causal_trace import typed,canonical
+        ec=self._boundary_event_context
+        if not ec:raise InvariantError('BLOCKED_AUTHORIZATION: runtime event binding missing')
+        event,receipts,_=ec
+        allowed=dict(self.boundary_manifest.allowed_transitions).get(event.process_id,())
+        if name not in allowed:raise InvariantError('BLOCKED_AUTHORIZATION: undeclared transition '+name)
+        for r in receipts:
+            if verify_receipt(self,r).value_state.value=='BLOCKED':raise InvariantError('BLOCKED_ADMISSION')
+        b=inspect.signature(attr).bind(*args,**kwargs).arguments
+        qrequest=b.get('request')
+        project=b.get('project_id',getattr(qrequest,'project_id',None))
+        if project is None and name in ('execute_development_stage','resolve_development_plan'):
+            project=self.development_plans[b['plan_id']].project_id
+        observation=b.get('observation_id',b.get('prerequisite_observation_id'))
+        if observation is None and qrequest is not None:observation=getattr(qrequest,'observation_id',None)
+        resource=b.get('resource_id',getattr(qrequest,'resource_id',None))
+        expected={'project.CASH_BALANCE':project,'observation.SIGNAL':observation,'R_RECOVERABLE':resource,
+                  'cycle.PAID_OPEX':getattr(b.get('cost_record'),'event_id',None),'cycle.ACTUAL_OUTPUT':b.get('extraction_event_id')}
+        for receipt in receipts:
+            q=receipt.consumption_request
+            if q.concept in expected and q.subject_id!=expected[q.concept]:raise InvariantError('BLOCKED_SCOPE: receipt/transition subject')
+            if q.concept=='Earth_supply.AVAILABLE' and q.subject_id!='EARTH:USA:SIM'+str(b.get('year',event.effective_time)):
+                raise InvariantError('BLOCKED_TIME: supplier economic period')
+            if q.concept=='actor.BELIEF':
+                actors={b.get('agent_id')} if name=='update_agent_belief_from_observation' else {entry[0] for entry in b['recipient_models']}
+                if q.subject_id not in actors:raise InvariantError('BLOCKED_PERSPECTIVE: recipient belief scope')
+        decision_refs=ec[2]
+        original_decisions=tuple(json.loads(self.causal_artifacts[ref][1])['fields']['decision'] for ref in decision_refs)
+        if 'decision' in b:
+            if not original_decisions or typed(b['decision']) not in original_decisions:
+                raise InvariantError('BLOCKED_LINEAGE: executor decision differs from governed policy result')
+        if original_decisions:
+            for ref,d in zip(decision_refs,original_decisions):
+                origin=next((e for e in self.causal_envelopes if e.action=='POLICY_EVALUATION' and ref in e.decision_refs),None)
+                if origin is None or not origin.request_refs:raise InvariantError('BLOCKED_LINEAGE: decision request absent')
+                original_request=json.loads(self.causal_artifacts[origin.request_refs[0]][1])
+                if 'decision' in b and qrequest is not None and typed(qrequest)!=original_request:raise InvariantError('BLOCKED_LINEAGE: executor request differs from authorized request')
+                q=original_request['fields'];f=d['fields']
+                actor=f.get('actor_id',f.get('financier_id',{})).get('value')
+                actual_actor=b.get('actor_id',b.get('agent_id',b.get('financier_id')))
+                if actual_actor is not None and actual_actor!=actor:raise InvariantError('BLOCKED_LINEAGE: action actor not authorized')
+                if project is not None and 'project_id' in q and project!=q['project_id']['value']:raise InvariantError('BLOCKED_LINEAGE: action project not authorized')
+                if name in ('explore_paid','surface_prospect_paid'):
+                    channel='SURFACE' if name=='surface_prospect_paid' else b.get('channel')
+                    if f['outcome']['value']!='AUTHORIZE' or D(b['cost'])!=D(f['authorized_cost']['value']) or resource!=q['resource_id']['value'] or channel!=q['channel']['value']:
+                        raise InvariantError('BLOCKED_LINEAGE: observation action not authorized')
+                    if q.get('request_version',{}).get('value')=='EXPLORATION_REQUEST_BODY_V1' and (
+                            name!='explore_paid' or b.get('body_id')!=q['body_id']['value'] or
+                            b.get('question_ref')!=q['question_ref']['value'] or project or resource):
+                        raise InvariantError('BLOCKED_LINEAGE: body observation subject not authorized')
+                if name=='observe_region_study' and (
+                        f['outcome']['value']!='AUTHORIZE' or
+                        b['activity_id']!='BUILD7_REGION_STUDY' or
+                        b['activity_id'] not in tuple(item['value'] for item in q['candidate_activity_ids']['items'])):
+                    raise InvariantError('BLOCKED_LINEAGE: regional study not authorized')
+                if name=='publish_observation' and (f['outcome']['value']!='PUBLISH' or b['observation_id']!=q['observation_id']['value'] or b['audience']!=q['audience']['value']):raise InvariantError('BLOCKED_LINEAGE: publication not authorized')
+                if name=='transition_project_status':
+                    expected_status={'ABANDON':'ABANDONED','DEVELOP':'DEVELOPMENT'}.get(f['outcome']['value'])
+                    if b['new_status']!=expected_status or b['reason_ref']!=f['id']['value']:raise InvariantError('BLOCKED_LINEAGE: project transition not authorized')
+                if name=='add_commitment' and f['outcome']['value'] not in ('AUTHORIZE','APPROVE','INITIATE_PROJECT'):raise InvariantError('BLOCKED_LINEAGE: funding decision not approved')
+                if name=='disburse':
+                    commitment=self.state.commitments.get(b['commitment_id'])
+                    if commitment is None or commitment.financier_id!=actor or commitment.project_id!=q['project_id']['value'] or self.state.accounts[b['source_account']].owner_id!=actor:
+                        raise InvariantError('BLOCKED_LINEAGE: disbursement ownership/project')
+                if name=='create_prospecting_project':
+                    if (f['outcome']['value']!='INITIATE_PROJECT'
+                            or b['request'].id!=q['id']['value']
+                            or b['request'].opportunity_id!=q['opportunity_id']['value']
+                            or b['request'].project_id!=q['project_id']['value']):
+                        raise InvariantError('BLOCKED_LINEAGE: prospecting project not authorized')
+                if name=='disburse_country_capital':
+                    commitment=self.state.commitments.get(b['commitment_id'])
+                    if (f['outcome']['value']!='INITIATE_PROJECT' or commitment is None
+                            or commitment.project_id!=q['project_id']['value']
+                            or b['request'].id!=q['id']['value']
+                            or b['decision'].id!=f['id']['value']):
+                        raise InvariantError('BLOCKED_LINEAGE: country capital disbursement not authorized')
+        if name in ('add_commitment','disburse','disburse_country_capital'):
+            if not original_decisions:raise InvariantError('BLOCKED_LINEAGE: financing authorization absent')
+            permitted=[]
+            for d in original_decisions:
+                f=d['fields'];amount=f.get('authorized_cost',f.get('amount'))
+                if amount is not None:permitted.append(D(amount['value']))
+            if D(b['amount']) not in permitted:raise InvariantError('BLOCKED_LINEAGE: financing amount not authorized')
+        if name=='resolve_operating_extraction':
+            cost=b['cost_record']
+            if cost not in self.operating_cost_records:
+                raise InvariantError('BLOCKED_LINEAGE: no realized operating cost record')
+            tx=next((t for t in self.state.transactions if t.id==cost.transaction_id),None)
+            if tx is None or tx.amount!=cost.total_opex or tx.purpose!=TxPurpose.OPEX:
+                raise InvariantError('BLOCKED_LINEAGE: operating expense payment absent')
+
+        if name in ('observe','decide_finance','extract','sell','request_finance'):
+            raise InvariantError('BLOCKED_LEGACY: unqualified implicit transition')
+        if name=='explore_paid':
+            if b.get('update_belief') is not False or not all(k in b for k in ('cost','false_positive','false_negative','public')):
+                raise InvariantError('BLOCKED_PARAMETER: explicit observation model required')
+        if name=='publish_observation':
+            obs=self.observations[b['observation_id']]
+            for aid,key,det,fp in b['recipient_models']:
+                a=self.agents[aid]
+                if key not in a.beliefs and key not in a.priors:raise InvariantError('BLOCKED_UNKNOWN: recipient prior')
+                prior=D(a.beliefs.get(key,a.priors.get(key)));det=D(det);fp=D(fp)
+                if not D(0)<=prior<=D(1) or not D(0)<=fp<det<=D(1):raise InvariantError('BLOCKED_PARAMETER: recipient likelihood')
+                den=det*prior+fp*(1-prior) if obs.signal=='POSITIVE' else (1-det)*prior+(1-fp)*(1-prior)
+                if den==0:raise InvariantError('BLOCKED_UNKNOWN: degenerate recipient update')
+        if name=='clear_market_sale':
+            req=b['request'];decision=b['decision'];env=self.market_envelopes[req.market_state_id]
+            colony=self.colonies.get(self.resources[req.resource_id].node_id)
+            if colony is None:raise InvariantError('BLOCKED_UNKNOWN: local inventory')
+            q=min(D(decision.offered_quantity),D(colony.resource_inventory),self.market_remaining_demand(env.id))
+            if q<=0:raise InvariantError('BLOCKED_RESOURCE: no sale inventory/demand')
+            if self.state.accounts[env.buyer_account_id].balance<q*D(env.unit_price):raise InvariantError('BLOCKED_AFFORDABILITY: finite buyer')
+        if name=='boundary_purchase':
+            if self.state.accounts[b['boundary_account']].balance<D(b['amount']):raise InvariantError('BLOCKED_AFFORDABILITY: finite buyer')
+            raise InvariantError('BLOCKED_AUTHORIZATION: direct purchase requires the coupled clearing transition')
+        if name=='add_commitment' and b['project_id']=='EXP':
+            c=self.resource_constraints.get(('EARTH:USA',int(event.effective_time)))
+            if c is None or c.available<D(b['amount']):raise InvariantError('BLOCKED_RESOURCE: mission supply before finance')
+        if name in ('transfer','disburse','add_commitment') and D(self.boundary_manifest.parameter('f'))==0:
+            if name!='transfer' or (self.state.nodes[self.state.accounts[b['source']].node_id].kind==NodeKind.EARTH and self.state.nodes[self.state.accounts[b['dest']].node_id].kind==NodeKind.OFFWORLD):
+                raise InvariantError('BLOCKED_RESOURCE: no allocated Earth supply')
+        # Domain executors retain their original validations. Outer preflight must
+        # additionally establish the supply/cash prerequisites before any writes.
+        if name in ('explore_paid','surface_prospect_paid'):
+            amount=D(b['cost'])
+            if name=='explore_paid' and b.get('body_id'):
+                if (b.get('resource_id') or b.get('project_id') or
+                        b.get('question_ref') not in ('WATER_BEARING_MATERIAL_PRESENT','BODY_MATERIAL_CHARACTERIZATION') or
+                        not original_decisions):
+                    raise InvariantError('BLOCKED_SCOPE: invalid body remote observation')
+                truth=b.get('body_truth')
+                if b['question_ref']=='BODY_MATERIAL_CHARACTERIZATION':
+                    from .mvp_state import BODY_MATERIAL_FAMILIES
+                    valid=isinstance(truth,dict) and set(truth)==set(BODY_MATERIAL_FAMILIES) and all(
+                        type(value) is bool for value in truth.values())
+                else:valid=type(truth) is bool
+                if not valid:raise InvariantError('BLOCKED_SCOPE: invalid body remote truth')
+                actor=self.agents[b['actor_id']]
+                if self.state.accounts[actor.account_id].balance<amount:
+                    raise InvariantError('BLOCKED_AFFORDABILITY: public exploration cash')
+                return
+            project=self.state.projects[b['project_id']]
+            supplier=self.state.accounts[b['supplier_account']].node_id
+            c=self.resource_constraints.get((supplier,int(b['year'])))
+            if c is None or c.available+c.reserved<amount:raise InvariantError('BLOCKED_RESOURCE: exploration supply')
+            if self.state.accounts[project.cash_account_id].balance<amount:raise InvariantError('BLOCKED_AFFORDABILITY: exploration cash')
+
+    def _boundary_emit(self,event,action,prior,following,result,*,receipts=(),decision_refs=(),request_refs=(),information_refs=(),artifacts=(),source_values=(),actor_id=None,rule_refs=(),decision_time=None,authorization_time=None,reason_code='REALIZED'):
+        from .causal_trace import CausalEnvelope,archive,content_hash,state_delta,validate_trace
+        from .boundary import verify_receipt
+        m=self.boundary_manifest;delta=state_delta(prior,following)
+        archived=tuple((kind,archive(self.causal_artifacts,kind,value)) for kind,value in artifacts)
+        rrefs=tuple(archive(self.causal_artifacts,'ADMITTED_INFORMATION',r) for r in receipts)
+        consumed=tuple(source_values) if receipts and source_values else tuple(verify_receipt(self,r) for r in receipts)
+        if receipts and (len(consumed)!=len(receipts) or any(v.fingerprint()!=r.resolved_value_hash for v,r in zip(consumed,receipts))):raise InvariantError('TRACE_INCOMPLETE: consumed value/receipt mismatch')
+        vrefs=tuple(archive(self.causal_artifacts,'INFORMATION_ARTIFACT',v) for v in consumed)
+        from .provenance import source_tree_hash
+        sources=(*m.scenario_definition_refs,*m.real_source_refs,*m.harness_refs,('EXECUTABLE_OFFWORLD_KERNEL_SHA256',source_tree_hash()))
+        code_hash=source_tree_hash()
+        rule_refs=tuple(rule_refs) or (('GENESIS_RULE:'+m.contract_version,) if event.process_id=='GENESIS' else ('SYSTEM_RULE:'+event.process_id+':'+m.contract_version,))
+        rule_refs=tuple(ref+'#'+code_hash for ref in rule_refs)
+        prev=validate_trace(self.causal_envelopes,self.causal_artifacts)
+        e=CausalEnvelope('causal:'+m.run_id+':'+str(len(self.causal_envelopes)+1),'CAUSAL_ENVELOPE_V1',m.run_id,event.event_id,self.active_decision_epoch_id or 'GENESIS',str(event.effective_time),'SIM_TIME',actor_id or event.stable_key,event.process_id,action,'REALIZED',m.run_id,'WORLD_SIM',tuple(request_refs),tuple(decision_refs),(*information_refs,*vrefs),rrefs,tuple((d,p,a) for d,p,a,_ in delta),str(result),tuple((d,p,b) for d,p,_,b in delta),reason_code,str(result),rule_refs,m.parameter_manifest_refs,(m.scenario_id,m.scenario_version,m.scenario_definition_refs[0][1]),tuple(self._boundary_random_keys),tuple(sources),tuple(ref for _,ref in archived),tuple(e.envelope_id for e in self.causal_envelopes[-1:]),content_hash(prior),content_hash(following),prev,'',decision_time,authorization_time,str(event.effective_time),tuple((v.assertion_id,v.time_basis,v.source_time) for v in (consumed if receipts else source_values)),archived).finalized()
+        self.causal_envelopes.append(e)
+        return e
+
+    def _boundary_mutation(self,name,attr,args,kwargs):
+        if self._boundary_capture_depth:return attr(*args,**kwargs)
+        from .causal_trace import content_hash,state_delta
+        prior=self._boundary_projection();event,receipts,decision_refs=self._boundary_event_context
+        from .boundary import verify_receipt
+        consumed=self._boundary_consumed_values or tuple(verify_receipt(self,r) for r in receipts)
+        try:self._boundary_preflight(name,attr,args,kwargs)
+        except (InvariantError,ValueError,KeyError) as exc:
+            self._boundary_emit(event,name,prior,prior,str(exc),receipts=receipts,source_values=consumed,decision_refs=decision_refs,artifacts=(('BLOCKED_TRANSITION_INPUTS',(args,tuple(sorted(kwargs.items())))),),reason_code='BLOCKED_ADMISSION')
+            raise
+        asset_before=(dict(self.state.assets)
+                      if getattr(self,'boundary_manifest',None) is not None
+                      and self.boundary_manifest.contract_version=='BUILD6E_NAMED_WORLD_V1'
+                      else None)
+        self._boundary_capture_depth+=1
+        try:
+            result=attr(*args,**kwargs)
+        except Exception as exc:
+            following=self._boundary_projection()
+            self._boundary_invalid=following!=prior
+            self._boundary_emit(event,name,prior,following,str(exc),receipts=receipts,source_values=consumed,decision_refs=decision_refs,reason_code='INVALID_RUN' if self._boundary_invalid else 'BLOCKED')
+            raise
+        finally:self._boundary_capture_depth-=1
+        following=self._boundary_projection()
+        import inspect
+        bound=inspect.signature(attr).bind(*args,**kwargs).arguments
+        actor_id=bound.get('actor_id',bound.get('agent_id',bound.get('financier_id',event.process_id)))
+        self._boundary_event_deltas.append(state_delta(prior,following))
+        artifacts=[('REALIZED_EVENT',result),('TRANSITION_INPUTS',(args,tuple(sorted(kwargs.items()))))]
+        if asset_before is not None:
+            changed=tuple((key,value) for key,value in sorted(self.state.assets.items())
+                          if asset_before.get(key)!=value)
+            if changed:artifacts.append(('REALIZED_ASSET_STATE',changed))
+        self._boundary_emit(event,name,prior,following,result,receipts=receipts,source_values=consumed,decision_refs=decision_refs,artifacts=tuple(artifacts),actor_id=actor_id,decision_time=self._boundary_decisions.get(decision_refs[0],(None,))[0] if decision_refs else None,authorization_time=self._boundary_decisions[decision_refs[0]][2] if decision_refs else None)
+        return result
+
+
+    def admit_realized_output_observation(self,year,actor_id,extraction_event_id):
+        """Scheduled owner-output admission over existing records/information set.
+
+        Only planned and actual own output become information. Hidden deposit
+        before/after state remains WORLD audit material in the original record.
+        No new observation engine, Agent, clock or physical transition.
+        """
+        if self.boundary_manifest is None:raise InvariantError('BLOCKED_CONTRACT: output admission is strict-only')
+        record=next((r for r in self.extraction_resolution_records if r.extraction_event_id==extraction_event_id),None)
+        if record is None or actor_id not in self.agents:raise InvariantError('BLOCKED_LINEAGE: realized output absent')
+        actor=self.agents[actor_id]
+        if record.actor_id!=actor_id or actor_id not in self.state.projects[record.project_id].owners or extraction_event_id not in actor.history:
+            raise InvariantError('BLOCKED_POSSESSION: output is not actor-owned')
+        if int(year)!=year or int(year)<record.year:raise InvariantError('BLOCKED_TIME: output admission precedes source')
+        if extraction_event_id in actor.information:raise InvariantError('BLOCKED_LINEAGE: output already admitted')
+        actor.information.add(extraction_event_id)
+        return self.event(int(year),actor_id,ActionKind.ADMIT_INFORMATION,'OWN_OUTPUT_OBSERVATION_ADMITTED',
+                          (record.project_id,extraction_event_id,str(record.planned_quantity),str(record.actual_extracted)),(extraction_event_id,))

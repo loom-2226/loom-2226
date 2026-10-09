@@ -1,0 +1,31 @@
+{
+  "schema": "BUILD7_PROSPECTING_ECONOMICS_V1",
+  "standing": "AUTHORED_HIGH_SENSITIVITY_FICTIONAL_SCENARIO_PARAMETERS",
+  "authorization_ref": "BUILD7_INCREMENT4_MAINTAINER_DECISIONS_I4_D01_D05",
+  "currency_unit": "MODEL_CURRENCY",
+  "parameters": {
+    "prospecting_required_capital": "20",
+    "prospecting_information_value": "30",
+    "investment_proxy_units_per_model_currency": "1000000000",
+    "mobilization_m_max": "0.01",
+    "base_salience": "0",
+    "race_pressure": "0"
+  },
+  "semantics": {
+    "prospecting_required_capital": "Private capital required for one coarse regional characterization project; not development capex.",
+    "prospecting_information_value": "Authored decision value of further characterization only; not resource, reserve, production, or development value.",
+    "investment_proxy_units_per_model_currency": "High-sensitivity bridge from the promoted Earth investment capacity proxy to bounded simulation model currency.",
+    "mobilization_m_max": "Maximum share of normalized Earth investment capacity mobilized into available Offworld financing cash.",
+    "base_salience": "Normal-baseline public strategic salience input.",
+    "race_pressure": "Normal-baseline actor-visible race-pressure input. Strategic pressure is their bounded sum."
+  },
+  "mobilization_function": "I_MODEL=I_PROXY/INVESTMENT_PROXY_UNITS_PER_MODEL_CURRENCY; O_IN_{0,1}; S=CLAMP(BASE_SALIENCE+RACE_PRESSURE,0,1); m=M_MAX WHEN (O=1 OR S>0), OTHERWISE 0; M=I_MODEL*m",
+  "mobilization_parameterization_note": "This is a bounded activation gate, not a response curve: Increment 4 supplies no authority for commercial/strategic weights, interaction terms, or additive/nonlinear scoring. Records retain O and S separately.",
+  "exclusions": [
+    "NO_RESOURCE_QUANTITY_OR_GRADE",
+    "NO_RECOVERABILITY_OR_RESERVE",
+    "NO_EXTRACTION_OR_DEVELOPMENT_VALUE",
+    "NO_COMMODITY_FORECAST",
+    "NO_NAMED_BODY_OR_REGION_PREFERENCE"
+  ]
+}
