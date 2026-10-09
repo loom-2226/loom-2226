@@ -2520,10 +2520,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if self.boundary_manifest is not None:
             from .causal_trace import validate_trace
             payload['boundary_manifest']=self.boundary_manifest.fingerprint()
-            # Full trace verification remains at epoch persistence and audit boundaries.
-            # Fingerprints only need the immutable, chained terminal hash here.
-            payload['causal_trace_root']=(self.causal_envelopes[-1].envelope_hash
-                                          if self.causal_envelopes else '')
+            payload['causal_trace_root']=validate_trace(self.causal_envelopes,self.causal_artifacts)
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload
