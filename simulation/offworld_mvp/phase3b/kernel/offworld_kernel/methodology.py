@@ -2852,8 +2852,8 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if receipts and (len(consumed)!=len(receipts) or any(v.fingerprint()!=r.resolved_value_hash for v,r in zip(consumed,receipts))):raise InvariantError('TRACE_INCOMPLETE: consumed value/receipt mismatch')
         vrefs=tuple(archive(self.causal_artifacts,'INFORMATION_ARTIFACT',v) for v in consumed)
         from .provenance import source_tree_hash
-        sources=(*m.scenario_definition_refs,*m.real_source_refs,*m.harness_refs,('EXECUTABLE_OFFWORLD_KERNEL_SHA256',source_tree_hash()))
         code_hash=source_tree_hash()
+        sources=(*m.scenario_definition_refs,*m.real_source_refs,*m.harness_refs,('EXECUTABLE_OFFWORLD_KERNEL_SHA256',code_hash))
         rule_refs=tuple(rule_refs) or (('GENESIS_RULE:'+m.contract_version,) if event.process_id=='GENESIS' else ('SYSTEM_RULE:'+event.process_id+':'+m.contract_version,))
         rule_refs=tuple(ref+'#'+code_hash for ref in rule_refs)
         # The persisted-epoch boundary validates the entire trace before commit.
