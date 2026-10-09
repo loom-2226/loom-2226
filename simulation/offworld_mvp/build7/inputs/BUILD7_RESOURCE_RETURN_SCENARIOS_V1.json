@@ -4,35 +4,35 @@
   "unit": "MODEL_CURRENCY",
   "horizon_operating_years": 10,
   "capital_assumptions": {
-    "prospecting_capital": 20,
-    "development_capital": 60,
+    "prospecting_capital": 2,
+    "development_capital": 6,
     "mission_transport": "ADD_ACTUAL_MISSION_COST_FROM_MISSION_COST_LOOKUP_ONCE",
     "funding": "EXISTING_PROJECT_FINANCE_NO_AUTOMATIC_CASH_CREATION"
   },
   "scenarios": {
     "NULL": {
-      "annual_gross_revenue": 0,
-      "annual_operating_cost": 2,
-      "annual_net_cash_flow": -2,
-      "ten_year_operating_cash_flow": -20,
+      "annual_gross_revenue": 0.0,
+      "annual_operating_cost": 0.2,
+      "annual_net_cash_flow": -0.2,
+      "ten_year_operating_cash_flow": -2.0,
       "development_decision": "DO_NOT_DEVELOP_IF_NULL_KNOWN",
       "meaning": "No resource revenue; operating cost applies only if mistakenly kept active, not automatically for ten years"
     },
     "SPARSE": {
-      "annual_gross_revenue": 8,
-      "annual_operating_cost": 4,
-      "annual_net_cash_flow": 4,
-      "ten_year_operating_cash_flow": 40,
+      "annual_gross_revenue": 0.8,
+      "annual_operating_cost": 0.4,
+      "annual_net_cash_flow": 0.4,
+      "ten_year_operating_cash_flow": 4.0,
       "development_decision": "EVALUATE_LOCATION_AND_COST_NOT_AUTOMATIC_DECLINE",
       "meaning": "Small deposit, operating margin but below development capital over ten years"
     },
     "RICH": {
-      "annual_gross_revenue": 18,
-      "annual_operating_cost": 6,
-      "annual_net_cash_flow": 12,
-      "ten_year_operating_cash_flow": 120,
+      "annual_gross_revenue": 1.8,
+      "annual_operating_cost": 0.6,
+      "annual_net_cash_flow": 1.2,
+      "ten_year_operating_cash_flow": 12.0,
       "development_decision": "EVALUATE_LOCATION_AND_COST_NOT_AUTOMATIC_ADVANCE",
-      "meaning": "Ten operating years repay 20 prospecting + 60 development, leaving 40 before mission transport and financing"
+      "meaning": "Ten operating years repay 2 prospecting + 6 development, leaving 4 before mission transport and financing"
     }
   },
   "physical_limits": "Annual revenues require actual recoverable stock, production, buyer demand, and sales. No extraction from an exhausted or absent deposit. Scenario labels are hidden truth, not agent-visible evidence.",
