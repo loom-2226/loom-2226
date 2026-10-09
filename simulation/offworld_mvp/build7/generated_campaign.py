@@ -1109,7 +1109,8 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
             request=_annual_sponsor_opportunity_request(k,h,calendar_year,project_id)
             decision,_=flow.policy_epoch(k,h,'BUILD7_SPONSOR_OPPORTUNITY:'+str(calendar_year),
                 'SPN',str(year),request,request.required_fact_keys,
-                workers.run_sponsor_opportunity_policy,workers.sponsor_opportunity_policy_version())
+                workers.run_sponsor_opportunity_policy,workers.sponsor_opportunity_policy_version(),
+                {'project_id':project_id})
             visible_bodies=tuple(candidate.body_key for candidate in request.candidates)
             sponsor_opportunity_annual.append((calendar_year,decision.outcome.value,
                 decision.selected_body_key or None,decision.reason_code.value,visible_bodies,

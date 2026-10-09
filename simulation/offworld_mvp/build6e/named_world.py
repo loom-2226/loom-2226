@@ -930,7 +930,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
                             interaction_contract_ref='REGION:BUILD7_REGION_STUDY_V1')))
                         rows.append(('wa_run.world_binding',dict(run_id=manifest.run_id,
                             scenario_id=binding.scenario_id,world_id=binding.world_id,
-                            body_id=binding.body_id,binding_key=binding.binding_key)))
+                            body_id=binding.body_id,binding_key='BODY_REMOTE:'+binding.body_key)))
                     continue
                 if obj.get('__type__')=='ExplorationRequest':
                     if obj.get('request_version')=='EXPLORATION_REQUEST_BODY_V1':

@@ -114,10 +114,14 @@ class RecurringExplorerPersistenceTests(unittest.TestCase):
         self.assertGreaterEqual(first['study_expenses'],len(project_ids))
         self.assertTrue(all(balance=='0' for _,balance in first['project_cash_by_id']))
         with psycopg.connect(service='runtime') as conn:
-            region_bindings=conn.execute('SELECT binding_key FROM wa_run.world_binding '
-                "WHERE run_id=%s AND binding_key LIKE 'PROSPECTING_REGION:%%' "
-                'ORDER BY binding_key COLLATE "C"',(run_id,)).fetchall()
-            self.assertEqual(len(region_bindings),len(authorized))
+            # World bindings are body-level; region identity belongs to the
+            # project location and its authorized mission, not a second world row.
+            duplicate_worlds=conn.execute('SELECT world_id,count(*) FROM wa_run.world_binding '
+                'WHERE run_id=%s GROUP BY world_id HAVING count(*)>1',(run_id,)).fetchall()
+            self.assertEqual(duplicate_worlds,[])
+            self.assertEqual(conn.execute('SELECT count(*) FROM wa_run.world_binding '
+                "WHERE run_id=%s AND binding_key LIKE 'PROSPECTING_REGION:%%'",
+                (run_id,)).fetchone()[0],0)
             projects=conn.execute('SELECT project_id FROM wa_run.project_location '
                 "WHERE run_id=%s AND binding_key='PROSPECTING_REGION' "
                 'ORDER BY project_id COLLATE "C"',(run_id,)).fetchall()

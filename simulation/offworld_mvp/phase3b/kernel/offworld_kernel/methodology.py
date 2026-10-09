@@ -1406,7 +1406,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 raise InvariantError('project study review lineage missing')
 
         for a in self.project_activities.values():
-            if a.actor_id!=actor_id or not a.reserves_capital:
+            if a.actor_id!=actor_id or not a.reserves_capital or a.activity_type=='REGION_MATERIAL_CHARACTERIZATION':
                 continue
             remaining=D(a.capital_commitment)-self.project_activity_spent_capital(a.id)
             if remaining<0:
@@ -1455,7 +1455,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         t=D(str(effective_time))
         if t<D('0'):
             raise InvariantError('project activity authorization time invalid')
-        if self.project_activity_available_capital(a.actor_id)<D(a.capital_commitment):
+        if a.activity_type=='REGION_MATERIAL_CHARACTERIZATION':
+            if D(self.state.accounts[project.cash_account_id].balance)<D(a.capital_commitment):
+                raise InvariantError('insufficient project-funded study capital')
+        elif self.project_activity_available_capital(a.actor_id)<D(a.capital_commitment):
             raise InvariantError('insufficient uncommitted sponsor capital')
         if a.opportunity_window_id and t>D(a.window_close):
             raise InvariantError('project activity opportunity window already closed')
