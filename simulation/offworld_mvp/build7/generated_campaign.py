@@ -69,6 +69,10 @@ from simulation.offworld_mvp.build7.opportunities import (
 from simulation.offworld_mvp.build7.exploration_choice import (
     QUESTION as BODY_QUESTION, choose_remote_characterization,
 )
+from simulation.offworld_mvp.build7.mission_costs import (
+    INPUT as MISSION_COSTS_INPUT, REMOTE_EXPLORATION_MISSION_TYPE,
+    MissionCostLookup, policy_cost_assertion, public_mission_cost,
+)
 
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parents[2]
@@ -331,6 +335,8 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
     assertions=[*earth,*earth_sim];contracts=[];bindings=[]
     for actor in (('PUB','SPN','FIN') if targeted else ('PUB','SPN')):
         for concept,(value,unit) in static.items():
+            if not targeted and actor=='PUB' and concept=='exploration.REMOTE_COST':
+                continue
             if not targeted and not ((actor=='PUB' and concept=='exploration.REMOTE_COST') or
                     (actor=='SPN' and concept.startswith('prospecting.'))):continue
             subject='P';scope='PROJECT:P'
@@ -355,6 +361,23 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
             role='FINANCIAL_STATE' if concept=='capital.AVAILABLE_F' else 'ADMITTED_INFORMATION'
             contracts.append((actor,'POLICY',concept,scope,'REALIZED','AGENT',unit,role))
             bindings.append((actor,concept,selector))
+    if not targeted:
+        mission_cost_lookup=MissionCostLookup()
+        if len(mission_cost_lookup.rows)!=5400:
+            raise Build7Blocked('BUILD7_MISSION_COST_INPUT_ROW_COUNT')
+        contracts.append(('PUB','POLICY','exploration.REMOTE_COST','MISSION:REMOTE',
+            'SCENARIO','AGENT','MODEL_CURRENCY','POLICY_PARAMETER'))
+        for year in range(2026,2036):
+            for body in visible_catalog['bodies']:
+                body_id=body['semantic_key']
+                key_ref=f'{MISSION_COSTS_INPUT.name}:{year}:{body_id}:{REMOTE_EXPLORATION_MISSION_TYPE}'
+                has_row=mission_cost_lookup.has_record(year,body_id,REMOTE_EXPLORATION_MISSION_TYPE)
+                cost=mission_cost_lookup.lookup(year,body_id,REMOTE_EXPLORATION_MISSION_TYPE)
+                if not has_row:
+                    continue
+                assertions.append(policy_cost_assertion(cost,scenario_id=scenario_id,
+                    year=year,body_id=body_id,source_sha256=mission_cost_lookup.source_sha256,
+                    source_ref=key_ref))
     if targeted:
         assertions.extend((
             replace(_source('WA_CATALOG:BODY:'+target['body_key'],target['catalog_subject'],'opportunity.NAMED_LOCATION',target['catalog_scope'],'REAL','','AGENT','PUB',
@@ -447,7 +470,8 @@ def _build_kernel(target: Mapping | None, config: Mapping, *, world_seed: str, w
     definitions=((INPUT.name,config_hash),(TIMELINE_INPUT.name,timeline_hash),(SOLAR_CATALOG_INPUT.name,solar_catalog_hash))
     if not targeted:
         definitions=(*definitions,(SOLAR_ACCESSIBILITY_SCREEN.name,_sha(SOLAR_ACCESSIBILITY_SCREEN)),
-            (PROSPECTING_INPUT.name,_sha(PROSPECTING_INPUT)))
+            (PROSPECTING_INPUT.name,_sha(PROSPECTING_INPUT)),
+            (MISSION_COSTS_INPUT.name,_sha(MISSION_COSTS_INPUT)))
     world_ref=('WORLD_REALIZATION:'+world_identity,target['result_hash']) if targeted else ('WORLD_REALIZATION_SET:'+world_identity,world['sealed_world_digest'])
     m=BoundaryManifest(BUILD6E_CONTRACT,'BUILD7_INPUT:'+content_hash((definitions,earth_hash,tuple(sorted(params.items())),authority_sources)),scenario_id,'V1',run_id,
         definitions,authority_sources,'0'*64,(('PARAMETERS:'+scenario_id,content_hash(tuple(sorted(params.items())))),
@@ -693,13 +717,15 @@ def _execute_world_remote_choice(k,h,world,*,reference_service,runtime_service,
         if isinstance(obs,BodyRemoteObservation) and obs.id in actor.information}
     key=sha256((config['runtime']['policy_seed']+'|PUB|'+str(calendar_year)+
         '|BODY_REMOTE_CHOICE_V1').encode()).hexdigest()
-    cost_assertion=next(a for a in k.boundary_manifest.assertions
-        if a.assertion_id=='PUB:exploration.REMOTE_COST')
     choice=choose_remote_characterization(
         candidates=derive_world_mission_candidates(k,h,calendar_year),
         characterized_bodies=characterized,
         public_balance=k.state.accounts[actor.account_id].balance,
-        remote_cost=cost_assertion.value,decision_key=key)
+        cost_for_candidate=lambda candidate: (
+            cost.model_currency if (cost:=public_mission_cost(
+                calendar_year,candidate.destination_body_id,
+                REMOTE_EXPLORATION_MISSION_TYPE)) is not None else None),
+        decision_key=key)
     if choice.outcome=='WAIT':
         return {**_world_summary(k,h,world),'choice':'WAIT','choice_reason':choice.reason,
             'public_balance':str(k.state.accounts[actor.account_id].balance)}
@@ -713,9 +739,15 @@ def _execute_world_remote_choice(k,h,world,*,reference_service,runtime_service,
     year=calendar_year-2025
     request=build_exploration_request('BODY_REMOTE:'+str(calendar_year)+':'+choice.body_id,
         year,'','','REMOTE',body_id=choice.body_id,question_ref=BODY_QUESTION)
+    mission_cost=public_mission_cost(calendar_year,choice.body_id,
+        REMOTE_EXPLORATION_MISSION_TYPE)
+    if mission_cost is None or mission_cost.model_currency!=choice.cost:
+        raise Build7Blocked('BUILD7_SELECTED_MISSION_COST_UNAVAILABLE_OR_DRIFTED')
     decision,decision_ref=flow.policy_epoch(k,h,'BODY_REMOTE:'+str(calendar_year),'PUB',
         str(year),request,('exploration.REMOTE_COST',),workers.run_public_explorer_policy,
-        workers.public_explorer_policy_version())
+        workers.public_explorer_policy_version(),{'exploration.REMOTE_COST':choice.body_id})
+    if decision.outcome.value=='AUTHORIZE' and decision.authorized_cost!=choice.cost:
+        raise Build7Blocked('BUILD7_POLICY_COST_DIFFERS_FROM_SELECTED_MISSION_COST')
     if decision.outcome.value!='AUTHORIZE':
         h['named_binding']=None
         return {**_world_summary(k,h,world),'choice':'WAIT',
@@ -760,6 +792,10 @@ def _execute_world_remote_choice(k,h,world,*,reference_service,runtime_service,
         raise Build7Blocked('BUILD7_BODY_REMOTE_CHANGED_RETAINED_STATE')
     return {**_world_summary(k,h,world),'choice':'SELECT','selected_candidate_id':choice.candidate_id,
         'selected_body_id':choice.body_id,'choice_reason':choice.reason,
+        'mission_type':REMOTE_EXPLORATION_MISSION_TYPE,
+        'mission_cost_usd_millions':str(mission_cost.usd_millions),
+        'mission_cost_model_currency':str(mission_cost.model_currency),
+        'authorized_cost':str(decision.authorized_cost),
         'material_observations':tuple((family,obs.id,obs.signal,
             str(actor.beliefs['BODY:'+choice.body_id+':'+obs.question_ref]))
             for family,obs in zip(BODY_MATERIAL_FAMILIES,observations)),
@@ -850,7 +886,7 @@ def _execute_annual_prospecting_investment(k,h,calendar_year,candidate,
             conn,k.boundary_manifest.run_id,opportunity.body_key)
     h['named_binding']=ProspectingRegionBinding(
         scenario_id,world_id,body_id,opportunity.body_key,
-        'BODY_REMOTE:'+opportunity.body_key,opportunity.region_key,
+        'PROSPECTING_REGION:'+sha256(project_id.encode()).hexdigest()[:20],opportunity.region_key,
         uuid.UUID(str(opportunity.location_id)))
     try:
         node_id='OFF:'+opportunity.body_key+':'+opportunity.region_key

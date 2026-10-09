@@ -17,15 +17,15 @@ class ExplorationChoice:
     candidate_id: str = ''
     body_id: str = ''
     reason: str = ''
+    cost: Decimal | None = None
 
 
 def choose_remote_characterization(*, candidates: Iterable[MissionCandidate],
                                    characterized_bodies: Iterable[str], public_balance,
-                                   remote_cost, decision_key: str) -> ExplorationChoice:
+                                   cost_for_candidate, decision_key: str) -> ExplorationChoice:
     """An unresolved body question supplies information need, without a body score."""
     balance=Decimal(public_balance)
-    cost=Decimal(remote_cost)
-    if not balance.is_finite() or not cost.is_finite() or cost<=0 or balance<cost:
+    if not balance.is_finite() or balance < 0:
         return ExplorationChoice('WAIT',reason='FINITE_PUBLIC_BUDGET')
     known=frozenset(characterized_bodies)
     seen=set();eligible=[]
@@ -36,10 +36,15 @@ def choose_remote_characterization(*, candidates: Iterable[MissionCandidate],
                 candidate.capability_status=='AVAILABLE' and
                 candidate.qualification_state=='PRELIMINARY_COMPARABLE' and
                 candidate.destination_body_id not in known):
-            eligible.append(candidate)
+            cost=cost_for_candidate(candidate)
+            if cost is None:
+                continue
+            cost=Decimal(cost)
+            if cost.is_finite() and cost >= 0 and balance >= cost:
+                eligible.append((candidate,cost))
     if not eligible:return ExplorationChoice('WAIT',reason='NO_UNRESOLVED_SCREENED_OPPORTUNITY')
-    # All currently eligible unknown questions have the same admitted
-    # information need. This stable tie-break encodes no body preference.
-    chosen=min(eligible,key=lambda c:(sha256((decision_key+'|'+c.candidate_id).encode()).hexdigest(),c.candidate_id))
+    # Equal unresolved information need: minimize actual mission cost first.
+    # The deterministic hash only breaks exact cost ties.
+    chosen,cost=min(eligible,key=lambda pair:(pair[1],sha256((decision_key+'|'+pair[0].candidate_id).encode()).hexdigest(),pair[0].candidate_id))
     return ExplorationChoice('SELECT',chosen.candidate_id,chosen.destination_body_id,
-                             'UNRESOLVED_BODY_CHARACTERIZATION')
+                             'UNRESOLVED_BODY_CHARACTERIZATION',cost)

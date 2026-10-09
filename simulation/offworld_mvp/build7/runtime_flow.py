@@ -157,7 +157,14 @@ def policy_inputs(k,actor,time,concepts,subjects=None):
             else:
                 context='REALIZED';cid=k.boundary_manifest.run_id;role='ADMITTED_INFORMATION'
         else:
-            a=next(x for x in k.boundary_manifest.assertions if x.assertion_id==actor+':'+concept)
+            if concept=='exploration.REMOTE_COST' and concept in subjects:
+                subject=subjects[concept]
+                source_time=str(D(time)-D(k.boundary_manifest.parameter('time_offset')))
+                a=next(x for x in k.boundary_manifest.assertions
+                    if x.concept==concept and x.subject_id==subject
+                    and x.valid_from==source_time and x.valid_to==source_time)
+            else:
+                a=next(x for x in k.boundary_manifest.assertions if x.assertion_id==actor+':'+concept)
             subject=a.subject_id;scope=a.scope;unit=a.unit;context='SCENARIO';cid=k.boundary_manifest.scenario_id;role='POLICY_PARAMETER'
         if _is_study_fact(concept):unit=_study_fact_unit(concept)
         req=ConsumptionRequest(actor+':'+str(time)+':'+concept,actor,'POLICY',subject,concept,scope,'SIM_TIME',str(time),str(time),context,cid,'AGENT',actor,'ADMITTED',unit,role)

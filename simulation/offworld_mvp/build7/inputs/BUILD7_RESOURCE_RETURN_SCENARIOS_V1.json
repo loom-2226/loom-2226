@@ -1,0 +1,56 @@
+{
+  "schema": "BUILD7_RESOURCE_RETURN_SCENARIOS_V1",
+  "standing": "AUTHORED_FICTIONAL_SCENARIO_NON_CANON_NOT_OBSERVATION",
+  "unit": "MODEL_CURRENCY",
+  "horizon_operating_years": 10,
+  "capital_assumptions": {
+    "prospecting_capital": 20,
+    "development_capital": 60,
+    "mission_transport": "ADD_ACTUAL_MISSION_COST_FROM_MISSION_COST_LOOKUP_ONCE",
+    "funding": "EXISTING_PROJECT_FINANCE_NO_AUTOMATIC_CASH_CREATION"
+  },
+  "scenarios": {
+    "NULL": {
+      "annual_gross_revenue": 0,
+      "annual_operating_cost": 2,
+      "annual_net_cash_flow": -2,
+      "ten_year_operating_cash_flow": -20,
+      "development_decision": "DO_NOT_DEVELOP_IF_NULL_KNOWN",
+      "meaning": "No resource revenue; operating cost applies only if mistakenly kept active, not automatically for ten years"
+    },
+    "SPARSE": {
+      "annual_gross_revenue": 8,
+      "annual_operating_cost": 4,
+      "annual_net_cash_flow": 4,
+      "ten_year_operating_cash_flow": 40,
+      "development_decision": "EVALUATE_LOCATION_AND_COST_NOT_AUTOMATIC_DECLINE",
+      "meaning": "Small deposit, operating margin but below development capital over ten years"
+    },
+    "RICH": {
+      "annual_gross_revenue": 18,
+      "annual_operating_cost": 6,
+      "annual_net_cash_flow": 12,
+      "ten_year_operating_cash_flow": 120,
+      "development_decision": "EVALUATE_LOCATION_AND_COST_NOT_AUTOMATIC_ADVANCE",
+      "meaning": "Ten operating years repay 20 prospecting + 60 development, leaving 40 before mission transport and financing"
+    }
+  },
+  "physical_limits": "Annual revenues require actual recoverable stock, production, buyer demand, and sales. No extraction from an exhausted or absent deposit. Scenario labels are hidden truth, not agent-visible evidence.",
+  "scope": "LOOKUP_ONLY_NOT_AUTOMATIC_AGENT_EVIDENCE_OR_CASHFLOW",
+  "semantics": {
+    "physical_scenario_not_economic_grade": "NULL/SPARSE/RICH describes hidden physical stock, not a guaranteed business outcome",
+    "annual_gross_revenue": "Illustrative ceiling, conditional on actual recovery, transport, buyer demand and paid sales",
+    "annual_operating_cost": "Illustrative full-year active operations cost, not charged while idle or abandoned",
+    "ten_year_operating_cash_flow": "Illustrative full ten producing years at stated rates, not guaranteed",
+    "net_investment_return": "sum(realized annual sales - incurred opex) - paid prospecting - paid development - paid mission costs - other realized expenses",
+    "investment_decision": "Agent must use observed evidence, expected risk-adjusted cash flow, funding and access; never inspect hidden scenario label"
+  },
+  "rules": {
+    "null": "No production revenue; cease operating after discovery of absence; any spent exploration, development and shutdown cost remains lost",
+    "sparse": "May be viable with low access/development cost or longer horizon; cannot assert universal failure",
+    "rich": "May be profitable if costs and reserves permit; does not guarantee profit",
+    "depletion": "Annual output cannot exceed recoverable physical stock and sale cannot exceed output or actual demand",
+    "horizon": "Ten operating years; development lead time and discounting can reduce realized 10-calendar-year return",
+    "currency": "MODEL_CURRENCY; mission cost uses explicitly authored USD-million/1000 normalization; not a market FX rate"
+  }
+}

@@ -15,7 +15,8 @@ class ExplorationChoiceTests(unittest.TestCase):
 
     def choose(self,candidates=None,known=(),balance=D(100),key='VISIBLE-CHOICE'):
         return choose_remote_characterization(candidates=self.candidates if candidates is None else candidates,
-            characterized_bodies=known,public_balance=balance,remote_cost=D(10),decision_key=key)
+            characterized_bodies=known,public_balance=balance,
+            cost_for_candidate=lambda _candidate:D(10),decision_key=key)
 
     def test_wait_without_unresolved_eligible_candidate_or_budget(self):
         self.assertEqual(self.choose(()).outcome,'WAIT')
@@ -34,6 +35,20 @@ class ExplorationChoiceTests(unittest.TestCase):
         self.assertEqual(a,self.choose(reversed(self.candidates)))
         self.assertEqual(a.outcome,'SELECT')
         self.assertIn(a.body_id,{c.destination_body_id for c in self.candidates})
+
+    def test_cheapest_eligible_mission_wins_independent_of_order(self):
+        screened=[c for c in self.candidates if c.accessibility_status=='SCREENED'][:3]
+        self.assertEqual(len(screened),3)
+        costs={screened[0].candidate_id:D('3.794264'),
+               screened[1].candidate_id:D('0.614'),
+               screened[2].candidate_id:D('1.334')}
+        def select(items):
+            return choose_remote_characterization(candidates=items,
+                characterized_bodies=(),public_balance=D(100),
+                cost_for_candidate=lambda c:costs[c.candidate_id],decision_key='CHEAPEST')
+        self.assertEqual(select(screened).candidate_id,screened[1].candidate_id)
+        self.assertEqual(select(reversed(screened)),select(screened))
+        self.assertEqual(select(screened).cost,D('0.614'))
 
     def test_hidden_truth_twin_and_visible_information_twin(self):
         from simulation.offworld_mvp.build6e.generated_world import (
