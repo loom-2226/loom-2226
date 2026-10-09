@@ -788,11 +788,12 @@ def derive_world_prospecting_opportunities(k,h,calendar_year,body_key):
         scenario=h['prospecting_scenario'])
 
 
-def _annual_sponsor_opportunity_request(k,h,calendar_year,project_id,project_body):
+def _annual_sponsor_opportunity_request(k,h,calendar_year,project_id):
     config=load_config();sponsor=k.agents['SPN'];candidates=[]
+    existing_bodies={record.body_key for record in k.prospecting_project_creation_records}
     body_keys=sorted({obs.body_id for obs in k.observations.values()
         if isinstance(obs,BodyRemoteObservation) and obs.id in sponsor.information
-        and obs.body_id!=project_body})
+        and obs.body_id not in existing_bodies})
     for body_key in body_keys:
         opportunities=derive_world_prospecting_opportunities(k,h,calendar_year,body_key)
         region_key=sha256((config['runtime']['policy_seed']+'|SPN|'+str(calendar_year)+
@@ -808,6 +809,64 @@ def _annual_sponsor_opportunity_request(k,h,calendar_year,project_id,project_bod
     return SponsorOpportunityRequest(
         'BUILD7:SPONSOR_OPPORTUNITY:'+str(calendar_year),calendar_year-2025,'SPN',
         project_id,tuple(sorted(candidates,key=lambda c:c.opportunity_id))).validate_protocol()
+
+
+def _execute_annual_prospecting_investment(k,h,calendar_year,candidate,
+                                            runtime_service,prior_binding):
+    """Authorize and realize one selected visible opportunity through I4 machinery."""
+    import psycopg
+    year=calendar_year-2025
+    opportunities={opportunity.opportunity_id:opportunity
+        for opportunity in derive_world_prospecting_opportunities(
+            k,h,calendar_year,candidate.body_key)}
+    opportunity=opportunities.get(candidate.opportunity_id)
+    if (opportunity is None or opportunity.body_key!=candidate.body_key
+            or opportunity.observation_ids!=candidate.observation_ids
+            or opportunity.belief_keys!=candidate.belief_keys
+            or opportunity.required_capital!=candidate.required_capital
+            or opportunity.commercial_opportunity!=candidate.commercial_opportunity):
+        raise Build7Blocked('BUILD7_ANNUAL_PROSPECTING_OPPORTUNITY_DRIFT')
+    project_id='PROSPECT:'+opportunity.body_key+':'+opportunity.region_key
+    cash_account_id='prospect_cash:'+opportunity.body_key+':'+opportunity.region_key
+    request=SponsorProspectingRequest(
+        'SPONSOR_PROSPECTING:'+str(calendar_year)+':'+opportunity.body_key+':'+
+        opportunity.region_key,year,'SPN',opportunity.opportunity_id,project_id,
+        opportunity.body_key,opportunity.region_key,opportunity.location_id,
+        opportunity.observation_ids,opportunity.belief_keys,
+        opportunity.required_capital,opportunity.prospective_information_value
+    ).validate_protocol()
+    decision,decision_ref=flow.policy_epoch(
+        k,h,'SPONSOR_PROSPECTING:'+str(calendar_year)+':'+opportunity.body_key,
+        'SPN',str(year),request,
+        ('prospecting.REQUIRED_CAPITAL','prospecting.INFORMATION_VALUE',
+         'capital.AVAILABLE_F'),workers.run_sponsor_prospecting_policy,
+        workers.sponsor_prospecting_policy_version())
+    if decision.outcome!=SponsorProspectingOutcome.INITIATE_PROJECT:
+        return decision,None
+    if project_id in k.state.projects:
+        raise Build7Blocked('BUILD7_ANNUAL_PROSPECTING_DUPLICATE_PROJECT')
+    with psycopg.connect(service=runtime_service) as conn:
+        scenario_id,world_id,body_id=store.read_run_body_world_identity(
+            conn,k.boundary_manifest.run_id,opportunity.body_key)
+    h['named_binding']=ProspectingRegionBinding(
+        scenario_id,world_id,body_id,opportunity.body_key,
+        'BODY_REMOTE:'+opportunity.body_key,opportunity.region_key,
+        uuid.UUID(str(opportunity.location_id)))
+    try:
+        node_id='OFF:'+opportunity.body_key+':'+opportunity.region_key
+        creation=flow.system_epoch(k,h,'create_prospecting_project',str(year),
+            (year,'SPN',request,decision,node_id,cash_account_id),
+            decision_refs=(decision_ref,))
+        commitment_id='COMMIT:'+project_id
+        flow.system_epoch(k,h,'add_commitment',str(year),
+            (commitment_id,'SPN',project_id,decision.amount),
+            decision_refs=(decision_ref,))
+        flow.system_epoch(k,h,'disburse_country_capital',str(year),
+            (year,'USA',commitment_id,'sponsor_funds',decision.amount,request,decision),
+            decision_refs=(decision_ref,))
+    finally:
+        h['named_binding']=prior_binding
+    return decision,creation
 
 
 def run_world_prospecting_initiation(*,reference_service,runtime_service,run_id,
@@ -921,7 +980,7 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
     if through_year==2026:
         return {**opening,'exploration_annual':tuple(exploration_annual)}
     project_binding=h['named_binding'] if project_id is not None else None
-    annual=[];sponsor_opportunity_annual=[]
+    annual=[];sponsor_opportunity_annual=[];sponsor_investment_annual=[]
     for calendar_year in range(2027,through_year+1):
         year=calendar_year-2025
         _record_empty_year(k,h,calendar_year)
@@ -989,8 +1048,7 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
             annual.append((calendar_year,decision.outcome.value))
             continue
         if reviewed:
-            request=_annual_sponsor_opportunity_request(k,h,calendar_year,project_id,
-                opening['selected_body_id'])
+            request=_annual_sponsor_opportunity_request(k,h,calendar_year,project_id)
             decision,_=flow.policy_epoch(k,h,'BUILD7_SPONSOR_OPPORTUNITY:'+str(calendar_year),
                 'SPN',str(year),request,request.required_fact_keys,
                 workers.run_sponsor_opportunity_policy,
@@ -999,13 +1057,32 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
             sponsor_opportunity_annual.append((calendar_year,decision.outcome.value,
                 decision.selected_body_key or None,decision.reason_code.value,visible_bodies,
                 str(k.capital_coupling['USA']['F'])))
-            annual.append((calendar_year,decision.outcome.value))
+            if decision.outcome.value=='CONSIDER_PROSPECTING':
+                candidate=next((candidate for candidate in request.candidates
+                    if candidate.opportunity_id==decision.selected_opportunity_id),None)
+                if candidate is None:
+                    raise Build7Blocked('BUILD7_ANNUAL_SELECTED_OPPORTUNITY_MISSING')
+                prospecting_decision,creation=_execute_annual_prospecting_investment(
+                    k,h,calendar_year,candidate,runtime_service,project_binding)
+                sponsor_investment_annual.append((calendar_year,
+                    prospecting_decision.outcome.value,
+                    prospecting_decision.reason_code.value,
+                    None if creation is None else creation.project_id,
+                    str(k.capital_coupling['USA']['F']),
+                    str(k.capital_coupling['USA']['X'])))
+                annual.append((calendar_year,prospecting_decision.outcome.value))
+            else:
+                annual.append((calendar_year,decision.outcome.value))
             continue
         annual.append((calendar_year,'NO_ACTION'))
     result={**_world_summary(k,h,world),'project_id':project_id,'annual':tuple(annual),
         'exploration_annual':tuple(exploration_annual),
         'sponsor_opportunity_annual':tuple(sponsor_opportunity_annual),
+        'sponsor_investment_annual':tuple(sponsor_investment_annual),
         'public_balance':str(k.state.accounts[k.agents['PUB'].account_id].balance),
+        'sponsor_funds':str(k.state.accounts['sponsor_funds'].balance),
+        'commitments':len(k.state.commitments),
+        'country_capital_disbursements':len(k.country_capital_disbursement_records),
         'capital_coupling':{key:str(value) for key,value in k.capital_coupling['USA'].items()}}
     if project_id is not None:
         study=k.project_study_states.get(project_id)
@@ -1014,7 +1091,10 @@ def run_world_annual(*,reference_service,runtime_service,run_id,through_year=202
             project_cash=str(k.state.accounts[k.state.projects[project_id].cash_account_id].balance),
             study_expenses=len(k.project_activity_expense_records),
             regional_observations=sum(o.channel=='REGION' for o in k.observations.values()),
-            study_reviews=len(k.project_study_review_records))
+            study_reviews=len(k.project_study_review_records),
+            project_ids=tuple(sorted(k.state.projects)),
+            project_cash_by_id=tuple((pid,str(k.state.accounts[project.cash_account_id].balance))
+                for pid,project in sorted(k.state.projects.items())))
     return result
 
 def run_remote(k,h):
