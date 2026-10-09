@@ -1,5 +1,18 @@
 flowchart TD
-A[Catalog] --> B[World generation]
-B --> C[Observation]
-C --> D[Belief update]
-D --> E[Regional study]
+CAT["Solar catalog"] --> GEN["World generation"]
+SEED["World seed"] --> GEN
+PRI["Material priors"] --> GEN
+GEN --> H["World realization"]
+ACC["Accessibility screen"] --> ELIG["Mission candidates"]
+ELIG --> PUB["Public explorer choice"]
+PUB --> OBS["Remote characterization"]
+H --> OBS
+OBS --> SIGNAL["Four material family signals"]
+SIGNAL --> BEL["Public belief update"]
+SIGNAL --> SHARE["Published observation"]
+SHARE --> SPN["Sponsor independent belief update"]
+SPN --> STUDY["Paid region study"]
+REG["Ten regions per body"] --> STUDY
+STUDY --> ROBS["Regional observation"]
+H --> ROBS
+ROBS --> REV["Regional evidence and review"]
