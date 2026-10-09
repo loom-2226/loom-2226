@@ -1,0 +1,39 @@
+flowchart LR
+subgraph Inputs
+C["Solar catalog"] 
+A["Annual accessibility screen"]
+E["USA Earth reference"]
+P["Authored priors and economics"]
+T["Timeline: read only"]
+end
+subgraph Environment
+W["Generated hidden WORLD"]
+O["WORLD_SIM observations"]
+K["Kernel transitions and accounts"]
+end
+subgraph Agents
+PUB["PUB public explorer"]
+SPN["SPN private sponsor"]
+FIN["FIN financier: registered, no annual FIN choice evidenced"]
+end
+subgraph Orchestration
+Y["Annual conductor"]
+F["Policy and system epochs"]
+DB["World Authority PostgreSQL and replay"]
+end
+C --> PUB
+A --> PUB
+P --> W
+W --> O
+PUB --> F
+F --> K
+K --> O
+O --> SPN
+E --> K
+SPN --> F
+Y --> PUB
+Y --> SPN
+F --> DB
+K --> DB
+T -.-> K
+FIN -.-> K
