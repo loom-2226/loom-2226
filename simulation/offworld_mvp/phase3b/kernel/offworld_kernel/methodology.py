@@ -2520,7 +2520,20 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if self.boundary_manifest is not None:
             from .causal_trace import validate_trace
             payload['boundary_manifest']=self.boundary_manifest.fingerprint()
-            payload['causal_trace_root']=validate_trace(self.causal_envelopes,self.causal_artifacts)
+            # Compare full original values, not just the terminal hash: an old
+            # envelope or artifact can be replaced without updating the chain.
+            from dataclasses import fields as dataclass_fields
+            envelope_values=tuple(tuple(getattr(e,f.name) for f in dataclass_fields(e))
+                                  for e in self.causal_envelopes)
+            artifact_values=tuple(sorted(self.causal_artifacts.items()))
+            snapshot=(envelope_values,artifact_values)
+            cached=getattr(self,'_verified_methodology_trace',None)
+            if cached is not None and cached[0]==snapshot:
+                trace_root=cached[1]
+            else:
+                trace_root=validate_trace(self.causal_envelopes,self.causal_artifacts)
+                self._verified_methodology_trace=(snapshot,trace_root)
+            payload['causal_trace_root']=trace_root
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload
