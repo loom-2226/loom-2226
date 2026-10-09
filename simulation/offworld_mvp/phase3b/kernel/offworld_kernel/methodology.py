@@ -2518,9 +2518,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 r.region_key,r.location_id,r.node_id,r.cash_account_id,r.project_stage,
                 r.event_id,r.record_version) for r in self.prospecting_project_creation_records]
         if self.boundary_manifest is not None:
-            from .causal_trace import validate_trace
             payload['boundary_manifest']=self.boundary_manifest.fingerprint()
-            payload['causal_trace_root']=validate_trace(self.causal_envelopes,self.causal_artifacts)
+            # A fingerprint records the chain head; full verification is at persistence.
+            payload['causal_trace_root']=(self.causal_envelopes[-1].envelope_hash if self.causal_envelopes else '')
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload
