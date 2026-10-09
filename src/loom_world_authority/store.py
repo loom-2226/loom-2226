@@ -1127,6 +1127,32 @@ class _RunEpoch:
             self.__state = 'FAILED'
             raise
 
+    def read_epoch_position(self, epoch_id, *, input_snapshot_ref, code_contract, code_tree_sha256):
+        """Pinned identity and exact epoch predecessor under the run's locked snapshot.
+
+        Historical originals remain append-only at the DB boundary; the unchanged
+        persistence path compares all submitted epoch originals and edges.
+        """
+        self.__active()
+        try:
+            row = self.__conn.execute('''SELECT input_snapshot_ref,code_contract,code_tree_sha256
+                FROM wa_run.execution WHERE run_id=%s''', (self.__run,)).fetchone()
+            if row is None:
+                if self.__head is not None:raise IntegrityFailure('RUN_HEAD_WITHOUT_EXECUTION')
+                return None
+            if row != (input_snapshot_ref,code_contract,code_tree_sha256):
+                raise IntegrityFailure('REPLAY_IDENTITY_MISMATCH')
+            first = self.__conn.execute('''SELECT min(event_ordinal) FROM wa_run.causal_envelope
+                WHERE run_id=%s AND epoch_id=%s''', (self.__run,epoch_id)).fetchone()[0]
+            if first is None:return (False, None)
+            prior = self.__conn.execute('''SELECT envelope_id,envelope_hash FROM wa_run.causal_envelope
+                WHERE run_id=%s AND event_ordinal<%s
+                ORDER BY event_ordinal DESC LIMIT 1''', (self.__run,first)).fetchone()
+            return (True,prior)
+        except BaseException:
+            self.__state='FAILED'
+            raise
+
     def read_replay_prefix(self, *, input_snapshot_ref, code_contract, code_tree_sha256):
         self.__active()
         try:

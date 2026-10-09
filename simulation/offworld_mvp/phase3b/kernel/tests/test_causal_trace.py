@@ -27,6 +27,23 @@ class CausalTraceTests(unittest.TestCase):
         k,h=make_kernel();k.begin_decision_epoch('L02','L02');e=k.causal_envelopes[0]
         for malformed in (replace(e,parent_envelope_refs=('MISSING',)).finalized(),replace(e,lineage_refs=('MISSING',)).finalized()):
             with self.assertRaises(InvariantError):validate_trace((malformed,),k.causal_artifacts)
+    def test_fingerprint_is_not_trace_verification(self):
+        k,h=make_kernel();k.begin_decision_epoch('TAMPER_TRACE','TAMPER_TRACE')
+        original=k.causal_envelopes[0]
+        k.causal_envelopes[0]=replace(original,post_domain_hash='0'*64)
+        # The fingerprint records the claimed head. It does not certify it.
+        k.methodology_fingerprint()
+        with self.assertRaisesRegex(InvariantError,'TRACE_INCOMPLETE'):
+            validate_trace(k.causal_envelopes,k.causal_artifacts)
+
+    def test_fingerprint_cannot_hide_missing_artifact(self):
+        k,h=make_kernel();k.begin_decision_epoch('TAMPER_ART','TAMPER_ART')
+        ref=k.causal_envelopes[0].artifact_refs[0][1]
+        k.causal_artifacts.pop(ref)
+        k.decision_epoch_state_fingerprint()
+        with self.assertRaisesRegex(InvariantError,'TRACE_INCOMPLETE'):
+            validate_trace(k.causal_envelopes,k.causal_artifacts)
+
     def test_L03_omitted_delta_hash_chain_detected(self):
         k,h=make_kernel();k.begin_decision_epoch('L03','L03');e=k.causal_envelopes[0]
         with self.assertRaises(InvariantError):validate_trace((replace(e,post_domain_hash='0'*64),),k.causal_artifacts)

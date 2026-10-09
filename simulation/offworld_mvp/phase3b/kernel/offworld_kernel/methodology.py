@@ -2518,9 +2518,9 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 r.region_key,r.location_id,r.node_id,r.cash_account_id,r.project_stage,
                 r.event_id,r.record_version) for r in self.prospecting_project_creation_records]
         if self.boundary_manifest is not None:
-            from .causal_trace import validate_trace
             payload['boundary_manifest']=self.boundary_manifest.fingerprint()
-            payload['causal_trace_root']=validate_trace(self.causal_envelopes,self.causal_artifacts)
+            # A fingerprint records the chain head; full verification is at persistence.
+            payload['causal_trace_root']=(self.causal_envelopes[-1].envelope_hash if self.causal_envelopes else '')
         if include_scheduler:
             payload['scheduler']=self.scheduler.fingerprint()
         return payload
@@ -2852,11 +2852,13 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if receipts and (len(consumed)!=len(receipts) or any(v.fingerprint()!=r.resolved_value_hash for v,r in zip(consumed,receipts))):raise InvariantError('TRACE_INCOMPLETE: consumed value/receipt mismatch')
         vrefs=tuple(archive(self.causal_artifacts,'INFORMATION_ARTIFACT',v) for v in consumed)
         from .provenance import source_tree_hash
-        sources=(*m.scenario_definition_refs,*m.real_source_refs,*m.harness_refs,('EXECUTABLE_OFFWORLD_KERNEL_SHA256',source_tree_hash()))
         code_hash=source_tree_hash()
+        sources=(*m.scenario_definition_refs,*m.real_source_refs,*m.harness_refs,('EXECUTABLE_OFFWORLD_KERNEL_SHA256',code_hash))
         rule_refs=tuple(rule_refs) or (('GENESIS_RULE:'+m.contract_version,) if event.process_id=='GENESIS' else ('SYSTEM_RULE:'+event.process_id+':'+m.contract_version,))
         rule_refs=tuple(ref+'#'+code_hash for ref in rule_refs)
-        prev=validate_trace(self.causal_envelopes,self.causal_artifacts)
+        # The persisted-epoch boundary validates the entire trace before commit.
+        # Emission only needs the immutable predecessor hash to extend the chain.
+        prev=self.causal_envelopes[-1].envelope_hash if self.causal_envelopes else ""
         e=CausalEnvelope('causal:'+m.run_id+':'+str(len(self.causal_envelopes)+1),'CAUSAL_ENVELOPE_V1',m.run_id,event.event_id,self.active_decision_epoch_id or 'GENESIS',str(event.effective_time),'SIM_TIME',actor_id or event.stable_key,event.process_id,action,'REALIZED',m.run_id,'WORLD_SIM',tuple(request_refs),tuple(decision_refs),(*information_refs,*vrefs),rrefs,tuple((d,p,a) for d,p,a,_ in delta),str(result),tuple((d,p,b) for d,p,_,b in delta),reason_code,str(result),rule_refs,m.parameter_manifest_refs,(m.scenario_id,m.scenario_version,m.scenario_definition_refs[0][1]),tuple(self._boundary_random_keys),tuple(sources),tuple(ref for _,ref in archived),tuple(e.envelope_id for e in self.causal_envelopes[-1:]),content_hash(prior),content_hash(following),prev,'',decision_time,authorization_time,str(event.effective_time),tuple((v.assertion_id,v.time_basis,v.source_time) for v in (consumed if receipts else source_values)),archived).finalized()
         self.causal_envelopes.append(e)
         return e

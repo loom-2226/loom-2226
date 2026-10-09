@@ -1369,18 +1369,14 @@ def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocation
     from offworld_kernel.causal_trace import validate_trace
     with store.run_epoch(service_name, m.run_id) as session:
         head = session.head
-        prefix = session.read_replay_prefix(input_snapshot_ref=m.input_snapshot_id,
+        position = session.read_epoch_position(epoch_id,
+            input_snapshot_ref=m.input_snapshot_id,
             code_contract=m.contract_version, code_tree_sha256=source_tree_hash())
-        if prefix is None and head is not None:
-            raise NamedWorldBlocked('BLOCKED_RUN_HEAD_WITHOUT_EXECUTION')
         expected = None if head is None else tuple(head[:2])
-        if prefix is not None:
-            stored = tuple(prefix['envelopes'])
-            matching = [r for r in stored if r['epoch_id'] == epoch_id]
-            if matching:
-                first_ordinal = min(r['event_ordinal'] for r in matching)
-                prior = [r for r in stored if r['event_ordinal'] < first_ordinal]
-                expected = None if not prior else (prior[-1]['envelope_id'], prior[-1]['envelope_hash'])
+        matching = position is not None and position[0]
+        if matching:
+            expected = position[1]
+        if position is not None:
             if isinstance(binding,NamedLocationBinding) and head is not None and not matching:
                 physical = session.load_bound_world(m.parameter('site_binding_key'),
                     context='REALIZED', effective_time=Decimal(effective_time))
@@ -1395,7 +1391,7 @@ def execute_persisted_epoch(*, service_name: str, kernel, binding: NamedLocation
         start_index = len(kernel.causal_envelopes)
         result = execute()
         validate_trace(kernel.causal_envelopes, kernel.causal_artifacts)
-        first = not bool(prefix)
+        first = position is None
         rows, terminals = _runtime_epoch_rows(kernel, binding, first=first,
             start_index=start_index, epoch_id=epoch_id,agent_logins=agent_logins)
         session.stage_epoch(epoch_id, expected, rows, terminals)
