@@ -502,3 +502,58 @@ opportunity rule, development, operation, production, returns/losses, settlement
 transport, and population. Increment 6 therefore remains **BLOCKED** relative to full
 original acceptance. Those limitations do not undermine the narrower frozen
 prospecting capability, but must remain explicit in PR and merge disposition.
+
+## Final gap corrections — 2026-10-09
+
+**Scope and implementation.** The annual Sponsor opportunity builder no longer
+removes every body that already has a prospecting project, and it no longer
+preselects one region per body in the conductor. It now supplies every
+actor-visible body/region prospecting opportunity to the existing Sponsor
+opportunity policy, excluding only the stable `PROSPECT:<body>:<region>` identity
+already represented by a project. The existing Sponsor policy still applies its
+visible evidence and financing-capacity rules, chooses among qualifying
+opportunities, and can retain, wait, decline, or consider prospecting. The
+existing prospecting authorization policy and kernel remain the only route to
+commitment, project creation, and disbursement. This permits separate eligible
+regions on an invested body without permitting duplicate investment in an
+already occupied region.
+
+**Qualification test correction.** The earlier fixed-seed campaign test remains
+as `test_historical_fixed_seed_campaign_regression`; its exact body sequence, years,
+project/cash totals, and replay history are historical regression assertions,
+not general Build 7 qualification requirements. New property tests cover three
+independently generated visible-body fixtures, all ten regions per body, exact
+identity exclusion, year-varying opportunity identity, iteration-order
+independence, policy outcomes under visible information and financing changes,
+and absence of candidates for unobserved bodies. Catalog bodies in those unit
+fixtures are selected by keyed ordering, not by name. The tests do not require a named
+body, investment year, project count, or investment outcome.
+
+**Verification after correction.** The focused derivation/policy/firewall and
+campaign unit run passed **12/12**. The historical persistence regression passed
+**1/1** in **589.379 s**, including its pinned 2031 replay. A new generated-world
+persistence exercise passed **1/1** in **167.761 s** over two fresh seeds. Each
+run used the actual opening Sponsor decision, then supplied all nine remaining
+regions on the already-invested body to the existing annual Sponsor policy. In
+these two observed seeds the policy considered a second region and the existing
+prospecting authorization path initiated it; F decreased from
+`29.58025335469291` to `9.58025335469291`, X increased from `20` to `40`, and the
+later policy decision returned `RETAIN_PROJECT` under the reduced financing
+capacity. Both runs replayed **29/29 `ALREADY_MATCHED` epochs** with unchanged
+project, project-location, observation, and belief row counts. The original
+project cash and capital state were unchanged by the second project's separate
+authorization/disbursement; no resources were created. The focused existing
+Sponsor/firewall test covers admitted-information `DECLINE`, insufficient-funds
+WAIT, blocked-unknown behavior, and hidden-world twins. A first attempt to run
+the two persistence tests concurrently in one disposable database received
+PostgreSQL serialization failures; both tests passed when run sequentially. No
+qualification database was reused or modified.
+
+**Disposition and limits.** The annual opportunity-to-authorization connection
+now reaches same-body alternative regions through Sponsor policy and prevents
+duplicates at project identity. These checks qualify the bounded correction;
+they do not establish full Build 7 acceptance. Follow-on study for newly created
+projects, development, operation, production, returns/losses, settlement,
+transport, and population remain unproven as stated above. Increment 6 remains
+**BLOCKED** relative to full acceptance. No new transition, financing system,
+policy threshold, or preferred target was added.

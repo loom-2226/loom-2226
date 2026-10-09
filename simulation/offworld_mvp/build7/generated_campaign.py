@@ -790,22 +790,21 @@ def derive_world_prospecting_opportunities(k,h,calendar_year,body_key):
 
 def _annual_sponsor_opportunity_request(k,h,calendar_year,project_id):
     config=load_config();sponsor=k.agents['SPN'];candidates=[]
-    existing_bodies={record.body_key for record in k.prospecting_project_creation_records}
     body_keys=sorted({obs.body_id for obs in k.observations.values()
-        if isinstance(obs,BodyRemoteObservation) and obs.id in sponsor.information
-        and obs.body_id not in existing_bodies})
+        if isinstance(obs,BodyRemoteObservation) and obs.id in sponsor.information})
     for body_key in body_keys:
         opportunities=derive_world_prospecting_opportunities(k,h,calendar_year,body_key)
-        region_key=sha256((config['runtime']['policy_seed']+'|SPN|'+str(calendar_year)+
-            '|ANNUAL_REGION_EQUIVALENCE|'+body_key).encode()).hexdigest()
-        opportunity=choose_equivalent_region(opportunities,region_key)
-        if opportunity is None:continue
-        tie_key=sha256((config['runtime']['policy_seed']+'|SPN|'+str(calendar_year)+
-            '|ANNUAL_OPPORTUNITY|'+opportunity.opportunity_id).encode()).hexdigest()
-        candidates.append(SponsorOpportunityCandidate(
-            opportunity.opportunity_id,body_key,opportunity.observation_ids,
-            opportunity.belief_keys,opportunity.required_capital,
-            opportunity.commercial_opportunity,tie_key).validate_protocol())
+        for opportunity in opportunities:
+            # Opportunity IDs include the decision year; project identities do not.
+            # A prior investment occupies only its REGION, not the whole body.
+            candidate_project_id='PROSPECT:'+body_key+':'+opportunity.region_key
+            if candidate_project_id in k.state.projects:continue
+            tie_key=sha256((config['runtime']['policy_seed']+'|SPN|'+str(calendar_year)+
+                '|ANNUAL_OPPORTUNITY|'+opportunity.opportunity_id).encode()).hexdigest()
+            candidates.append(SponsorOpportunityCandidate(
+                opportunity.opportunity_id,body_key,opportunity.observation_ids,
+                opportunity.belief_keys,opportunity.required_capital,
+                opportunity.commercial_opportunity,tie_key).validate_protocol())
     return SponsorOpportunityRequest(
         'BUILD7:SPONSOR_OPPORTUNITY:'+str(calendar_year),calendar_year-2025,'SPN',
         project_id,tuple(sorted(candidates,key=lambda c:c.opportunity_id))).validate_protocol()

@@ -1,4 +1,4 @@
-"""A normal annual campaign reopens the PUBLIC exploration window each year."""
+"""Historical pinned-campaign regression; its outcomes are not general criteria."""
 import os
 import unittest
 
@@ -7,7 +7,7 @@ from simulation.offworld_mvp.build7.generated_campaign import start_world_run, r
 
 @unittest.skipUnless(os.getenv('PGSERVICEFILE'), 'PGSERVICEFILE required for governed persistence proof')
 class RecurringExplorerPersistenceTests(unittest.TestCase):
-    def test_later_visible_choices_preserve_region_project_and_replay(self):
+    def test_historical_fixed_seed_campaign_regression(self):
         import psycopg
 
         opened=start_world_run(reference_service='reference_reader',
