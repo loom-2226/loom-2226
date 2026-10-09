@@ -1,0 +1,15 @@
+flowchart TD
+E["USA Earth input"] --> A["Schema and hash admission"]
+T["Timeline snapshot"] --> A
+C["Solar body catalog"] --> A
+R["Annual accessibility screen"] --> A
+P["Campaign parameters"] --> A
+A --> V["Public visible inputs"]
+A --> M["Run manifest and source hashes"]
+V --> PUB["PUB candidate generation"]
+S["World seed"] --> W["Generated sealed WORLD"]
+F["Material family priors"] --> W
+W --> SYS["Authorized WORLD_SIM observation"]
+SYS --> DB["World Authority PostgreSQL"]
+M --> DB
+PUB --> DB
