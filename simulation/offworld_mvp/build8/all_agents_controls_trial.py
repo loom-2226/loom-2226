@@ -25,9 +25,13 @@ def controls():
     pool='b8_funds:USA';budget=rec.mobilized_cash*D('.5')
     for name in ('FIRST','SECOND'):
         k.add_account('control:'+name,name,'EARTH:USA',AccountKind.FUNDS,D(0))
-    k.transfer(1,pool,'control:FIRST',budget,TxPurpose.OTHER_INVESTMENT)
-    first=k.state.accounts['control:FIRST'].balance
-    cost=budget*D('.75')
+    # Both claimants receive positive shares of the SAME finite national pool.
+    larger=budget*D('.6'); smaller=budget-larger
+    k.transfer(1,pool,'control:FIRST',larger,TxPurpose.OTHER_INVESTMENT)
+    k.transfer(1,pool,'control:SECOND',smaller,TxPurpose.OTHER_INVESTMENT)
+    assert larger>smaller>0
+    cost=budget*D('.5')
+    assert smaller<cost<larger
     k.add_node('OFF:COMPETITION',NodeKind.OFFWORLD)
     for name in ('FIRST','SECOND'):
         cash='control:cash:'+name
@@ -35,7 +39,7 @@ def controls():
         k.add_account(cash,name,'OFF:COMPETITION',AccountKind.PROJECT_CASH,D(0))
         k.add_project(project,'OFF:COMPETITION',cash,{name:D(1)})
         k.add_commitment('control:commit:'+name,name,project,cost)
-    assert first>=cost
+    assert larger>=cost
     k.disburse(1,'control:commit:FIRST','control:FIRST',cost)
     before=k.fingerprint()
     try:
@@ -47,8 +51,9 @@ def controls():
     assert k.fingerprint()==before
     assert k.state.accounts['control:cash:FIRST'].balance==cost
     assert k.state.accounts['control:cash:SECOND'].balance==0
+    assert k.state.accounts['control:SECOND'].balance==smaller
     k.assert_invariants()
-    print('PASS competition: both commitments exist; first disburses; second rejected without mutation')
+    print('PASS scarcity: both funded from same pool; larger share funds project; smaller share cannot; rejected without mutation')
     _,base_countries=run(inspect=True)
     without,without_countries=run(excluded_sponsors=('Interlune',),inspect=True)
     for country in base_countries:
