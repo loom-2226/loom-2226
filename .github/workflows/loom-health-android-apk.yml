@@ -1,5 +1,9 @@
 name: LOOM Health Android APK
 on:
+  pull_request:
+    paths:
+      - 'mobile/loom-health/**'
+      - '.github/workflows/loom-health-android-apk.yml'
   workflow_dispatch:
   push:
     branches: [main]
