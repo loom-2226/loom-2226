@@ -25,3 +25,13 @@ class CountryCapitalBoundaryTests(unittest.TestCase):
             self.assertEqual(provenance['standing'],'MODELED_INVESTMENT_CAPACITY_NOT_SPENDABLE_CASH')
 
 if __name__=='__main__':unittest.main()
+
+class CapitalPreviewTests(unittest.TestCase):
+    def test_existing_mobilization_rule_unchanged(self):
+        from offworld_kernel.prospecting import derive_mobilization
+        from simulation.offworld_mvp.build7.generated_campaign import load_prospecting_scenario
+        scenario=load_prospecting_scenario()
+        zero=derive_mobilization(investment_proxy=Decimal('1000000000000'),commercial_opportunity=Decimal(0),scenario=scenario)
+        active=derive_mobilization(investment_proxy=Decimal('1000000000000'),commercial_opportunity=Decimal(1),scenario=scenario)
+        self.assertEqual(zero[-1],Decimal(0))
+        self.assertEqual(active[-1],Decimal('1'))
