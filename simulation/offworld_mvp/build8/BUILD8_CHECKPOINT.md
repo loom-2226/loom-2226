@@ -42,3 +42,7 @@ Reporting rule: preserve and commit scripts before reporting them as retained; v
 Earth v4 root is configured once in `opening.py`: `LOOM_EARTH_V4_ROOT`, falling back to the existing quantifactus location. Supply an accessible Earth v4 baseline separately. This removes embedded paths from 13 Build 8 modules but does **not** bundle the data.
 
 `test_source_closure.py` imports tracked Build 8 modules from a fresh `git archive HEAD` checkout; untracked local files cannot satisfy imports. The test intentionally runs against committed HEAD, so newly staged work must be committed before checking its closure. The lunar continuation module additionally requires the optional `psycopg` Python package and a configured PostgreSQL `runtime` service for execution. If `psycopg` is absent, the test reports that optional dependency rather than treating it as a missing repository file.
+
+## October 11 guard follow-up
+
+The source closure test reports the number and identity of optional module skips, allowing only the `lunar_2027_continuation_trial` module when `psycopg` is absent. It verifies committed `HEAD`, **not** uncommitted working-tree edits. Missing Earth v4 directory raises an actionable error pointing to `LOOM_EARTH_V4_ROOT`. `test_sponsor_evidence_gate.py` exercises existing scripted policy outcomes (positive, economic decline, low-belief decline, funding wait) with synthetic observations; it is **not** observation-driven world evidence or autonomous multi-Agent behavior.

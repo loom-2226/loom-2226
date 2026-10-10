@@ -14,6 +14,8 @@ EARTH_V4_ROOT = Path(os.environ.get('LOOM_EARTH_V4_ROOT', '/home/ubuntu/loom_ear
 
 
 def build_country_opening(root: Path, *, world=None, world_seed='BUILD8-80-COUNTRY-10-YEAR'):
+    if not Path(root).is_dir():
+        raise FileNotFoundError(f'Earth v4 baseline not found at {root}. Set LOOM_EARTH_V4_ROOT to the Earth v4 baseline directory.')
     capacities, provenance = load_investment_capacity(root)
     kernel, history = _build_kernel(None, load_config(), world_seed=world_seed, world=WORLD if world is None else world)
     template = next(a for a in kernel.boundary_manifest.assertions

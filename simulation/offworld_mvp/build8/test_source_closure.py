@@ -27,19 +27,23 @@ class SourceClosureTests(unittest.TestCase):
                 ('src', 'simulation/offworld_mvp/phase3b/kernel', '.'))
             modules = ['.'.join(Path(name).with_suffix('').parts) for name in names]
             script = '''import importlib,sys
+skipped=[]
 for name in sys.argv[1:]:
     if name.endswith('.lunar_2027_continuation_trial'):
         try:
             import psycopg
         except ImportError:
-            print('OPTIONAL_DEPENDENCY_NOT_INSTALLED psycopg',flush=True)
+            skipped.append(name)
             continue
     importlib.import_module(name)
-print('CLEAN_TRACKED_IMPORT_PASS',len(sys.argv)-1,flush=True)
+expected=['simulation.offworld_mvp.build8.lunar_2027_continuation_trial']
+assert not skipped or skipped==expected, ('unexpected skipped modules',skipped)
+print('CLEAN_TRACKED_IMPORT_PASS',len(sys.argv)-1-len(skipped),'SKIPPED',len(skipped),'SKIPPED_MODULES',skipped,flush=True)
 '''
             result = subprocess.run([sys.executable, '-c', script, *modules],
                                     cwd=root, env=env, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            print(result.stdout.strip())
 
 
 if __name__ == '__main__':
