@@ -56,7 +56,7 @@ def run_network(root: Path, year=2026):
     origins={}
     for kind,c in sorted(by_country):
         # 10% of reference investment is the experimental mobilization envelope.
-        amt=capacities[c,year]*D('.1')
+        amt=capacities[c,year]*D('.1')/D('1000000000000')
         key=f'network:origin:{kind}:{c}'
         kernel.add_account(key,'COUNTRY:'+c,'EARTH:'+c,AccountKind.EARTH_BOUNDARY,amt)
         origins[kind,c]=(key,amt)
@@ -69,8 +69,9 @@ def run_network(root: Path, year=2026):
     for (kind,c),entries in sorted(by_country.items()):
         origin,amt=origins[kind,c]
         total=sum((w for _,w in entries),D(0))
-        for sponsor,w in entries:
-            kernel.transfer(year,origin,budgets[sponsor],amt*w/total,TxPurpose.OTHER_INVESTMENT)
+        for i,(sponsor,w) in enumerate(entries):
+            allocation = kernel.state.accounts[origin].balance if i == len(entries)-1 else amt*w/total
+            kernel.transfer(year,origin,budgets[sponsor],allocation,TxPurpose.OTHER_INVESTMENT)
     executor_accounts={}
     rows=[]
     for sponsor,(kind,countries) in sponsors.items():
