@@ -14,7 +14,9 @@ NAMES=('SpaceX','Blue Origin','Interlune','Axiom')
 KEYS=tuple('BODY:MOON:'+f+'_PRESENT' for f in BODY_MATERIAL_FAMILIES)
 KEY='BODY:MOON:VOLATILES_PRESENT'
 
-def trial(private_positive=False):
+def trial(private_positive=False, order=NAMES):
+    if len(order)!=len(NAMES) or set(order)!=set(NAMES):
+        raise ValueError("order must be a permutation of four USA Sponsors")
     k,h,capacities,_=build_country_opening(ROOT)
     assert all('USA' in PRIVATE[n] for n in NAMES)
     rec=k.mobilize_country_capital(1,'USA',capacities['USA',2026],D(1),h['prospecting_scenario'],'b8_source:USA','b8_funds:USA')
@@ -47,7 +49,7 @@ def trial(private_positive=False):
     k.publish_observation(2,'SpaceX',private.id,'SYNTHETIC_USA_PRIVATE',(('SpaceX',KEY,D('.8'),D('.2')),))
     results={}
     # Fixed priority is an experimental control, not a market allocation mechanism.
-    for name in NAMES:
+    for name in order:
         a=k.agents[name]
         ids=tuple(sorted(i for i in a.information if i in k.observations))
         req=SponsorProspectingRequest('usa:req:'+name,2,name,'usa:opp:'+name,'usa:trial:project:'+name,
