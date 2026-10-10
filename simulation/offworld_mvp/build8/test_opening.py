@@ -13,6 +13,7 @@ class CountryOpeningTests(unittest.TestCase):
         self.assertEqual(len(capacities),800)
         self.assertEqual(first.boundary_manifest.opening_state_hash,second.boundary_manifest.opening_state_hash)
         self.assertEqual(first.boundary_manifest.input_snapshot_id,second.boundary_manifest.input_snapshot_id)
-        self.assertEqual(len([a for a in first.boundary_manifest.assertions if a.assertion_id.startswith('B8:')]),800)
+        self.assertEqual(len([a for a in first.boundary_manifest.assertions if a.assertion_id.startswith('B8:') and a.world_context=='REAL']),800)
+        self.assertEqual(len([a for a in first.boundary_manifest.assertions if a.assertion_id.startswith('B8:') and a.world_context=='SCENARIO']),79)
         self.assertEqual(len([a for a in first.state.accounts if a.startswith('b8_funds:')]),80)
         validate_opening(first)
