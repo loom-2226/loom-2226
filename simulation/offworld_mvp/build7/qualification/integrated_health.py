@@ -32,6 +32,7 @@ def main():
             username = 'health_'+service
             c.execute(sql.SQL('CREATE ROLE {} LOGIN PASSWORD {}').format(sql.Identifier(username),sql.Literal(os.environ['LOOM_HEALTH_PGPASSWORD'])))
             c.execute(sql.SQL('GRANT {} TO {}').format(sql.Identifier(role),sql.Identifier(username)))
+            if service=='runtime': c.execute(sql.SQL('GRANT wa_admission_writer TO {}').format(sql.Identifier(username)))
     with tempfile.TemporaryDirectory() as tmp:
         service_file=Path(tmp)/'pg_service.conf'
         service_file.write_text(''.join(f'[{name}]\nhost=127.0.0.1\nport={admin["port"]}\ndbname={DB}\nuser=health_{name}\npassword={admin["password"]}\n' for name in ROLES))
