@@ -1,0 +1,10 @@
+# Build 8 admitted exploration result (2026)
+
+Class: experimental, non-qualified. Run: isolated World Authority PostgreSQL. Physical seed: existing generated 90-body solar system; Earth capital input: pinned v4. No changes to Build 7.
+
+1. Reconstructed the distinct Build 8 opening, replayed the existing 80 country-capital mobilization epochs in their original order, and invoked Build 7 `_execute_world_remote_choice` on that kernel.
+2. The public explorer selected `MOON`; World Authority completed the existing remote-characterization/publication path and generated four material observations. The Sponsor received the published information. A second reconstruction replayed the same chain.
+3. `derive_world_prospecting_opportunities(k,h,2026,'MOON')` produced **10** region opportunities. The first two had required capital **2**, prospective information value **3**, and commercial opportunity **1**. The Sponsor had **8** information artifacts after publication.
+4. Crucial observed gap: `k.state.accounts['sponsor_funds'].balance` was **0** after 80-country capital mobilization. The Build 8 mobilization deposits USA funds in `b8_funds:USA`, not the Sponsor's `sponsor_funds` account. No admitted allocation between those accounts has occurred. The Sponsor has information but no spendable Sponsor cash. Do **not** invent an available-capital snapshot or infer financing authorization from country pool balances.
+
+Next narrow experiment: use the existing kernel's accountable financing mechanism, or the smallest necessary explicit authorized allocation, to move an actual amount from a country pool to an eligible Sponsor account while preserving ledger and capital-coupling invariants. Then run the real Sponsor policy and persist/replay its decision and any authorized project consequences. Do not add a general financial-market subsystem or new government Agents. The earlier `finite_capital_trial.py` remains only a disposable sensitivity experiment, not an admitted project authorization.
