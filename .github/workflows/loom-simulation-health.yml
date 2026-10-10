@@ -19,9 +19,22 @@ permissions:
 
 jobs:
   simulation-health:
-    name: LOOM Simulation Health (partial coverage)
+    name: LOOM Simulation Health (integrated)
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:18.6
+        env:
+          POSTGRES_PASSWORD: loom-health-disposable
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -51,12 +64,19 @@ jobs:
             echo "- Commit: \`$GITHUB_SHA\`"
             echo "- Result: **$([ "$result" -eq 0 ] && echo PASS || echo FAIL)**"
             echo "- Duration: $((SECONDS-start)) seconds"
-            echo '- Coverage: **PARTIAL** (24 existing Build 7 tests; no live database)'
-            echo '- World Authority persistence, replay, and concurrent transactions: **NOT VERIFIED**'
-            echo '- This check does not certify integrated simulation health.'
+            echo '- Coverage: 24 isolated Build 7 tests; integrated PostgreSQL 18 check follows.'
             echo '### Test output'
             echo '```'
             tail -40 simulation-health.log
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
           exit "$result"
+      - name: Integrated World Authority persistence and replay
+        env:
+          PYTHONPATH: src:simulation/offworld_mvp/phase3b/kernel:.
+          LOOM_HEALTH_PGPASSWORD: loom-health-disposable
+        run: |
+          set -o pipefail
+          python -m simulation.offworld_mvp.build7.qualification.integrated_health 2>&1 | tee integrated-health.log
+          echo '### Integrated World Authority health' >> "$GITHUB_STEP_SUMMARY"
+          tail -6 integrated-health.log >> "$GITHUB_STEP_SUMMARY"
