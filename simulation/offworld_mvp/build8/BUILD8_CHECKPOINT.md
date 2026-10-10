@@ -73,3 +73,10 @@ Later, when explicitly reactivated, use the approved read-only World Authority c
 **Limits:** Scripted synthetic one-period test, authored evidence relevance, no World Authority admission, autonomous policy, realized returns or construction; database fixture deferred.
 
 Shared setup now lives in `sponsor_evidence_setup.py` (three-Sponsor tests) and `sponsor_trial_setup.py` (existing authored episode trials). No decision or economic behavior intentionally changed.
+
+### Second decision period: carry-forward control (noncanon)
+
+**Question:** Do three Sponsors retain their first-period capital, information and project consequences when making another decision?
+**Control:** Same fixed-seed synthetic observations and Sponsor policies, one kernel across periods 2 and 3, with separate second-period proposals and no capital reset.
+**Outcome:** A/C invest another 0.25 each (remaining 0.50); B again declines under negative private evidence (remaining 1.00), or invests another 0.25 under positive evidence (remaining 0.50). Total two-period investments: 1.00 versus 1.50; replay and accounting checks pass.
+**Limits:** No new observations or updated appetite; second proposals are authored, not a lifecycle continuation of the first projects. Each Sponsor uses its own funds, so no Sponsor constrains another. Scripted synthetic trial, no World Authority admission, autonomous policy, returns or construction. Shared-pool competition and the database fixture remain deferred.
