@@ -2,13 +2,14 @@
 
 Not a World Authority admitted policy run. No canon, no qualification.
 """
+from .opening import EARTH_V4_ROOT
 from decimal import Decimal as D
 from pathlib import Path
 from offworld_kernel.model import AccountKind, NodeKind, TxPurpose
 from offworld_kernel.mvp_state import AgentState, AgentKind
 from .opening import build_country_opening
 
-ROOT=Path('/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24')
+ROOT=EARTH_V4_ROOT
 
 def run(root=ROOT):
     k,h,capacity,_=build_country_opening(root)

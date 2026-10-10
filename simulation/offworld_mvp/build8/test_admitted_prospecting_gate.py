@@ -1,4 +1,5 @@
 """An unobserved prospecting proposal cannot acquire Sponsor authority."""
+from .opening import EARTH_V4_ROOT
 import unittest
 from pathlib import Path
 from offworld_kernel.prospecting import SponsorProspectingRequest, SponsorProspectingOutcome
@@ -6,7 +7,7 @@ from offworld_kernel import policy_runner as workers
 from simulation.offworld_mvp.build7 import runtime_flow
 from .opening import build_country_opening
 
-ROOT=Path('/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24')
+ROOT=EARTH_V4_ROOT
 
 @unittest.skipUnless(ROOT.exists(),'promoted Earth v4 local baseline absent')
 class AdmittedProspectingGateTests(unittest.TestCase):

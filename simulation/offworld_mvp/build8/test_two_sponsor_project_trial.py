@@ -1,9 +1,10 @@
+from .opening import EARTH_V4_ROOT
 import unittest
 from decimal import Decimal as D
 from pathlib import Path
 from .two_sponsor_project_trial import run_two_sponsor_projects
 
-ROOT=Path('/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24')
+ROOT=EARTH_V4_ROOT
 
 @unittest.skipUnless(ROOT.exists(),'promoted Earth v4 baseline absent')
 class TwoSponsorProjectTrialTests(unittest.TestCase):

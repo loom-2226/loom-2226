@@ -1,9 +1,10 @@
+from .opening import EARTH_V4_ROOT
 import unittest
 from decimal import Decimal as D
 from pathlib import Path
 from .public_private_comparison import run_public_private_comparison
 
-ROOT=Path('/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24')
+ROOT=EARTH_V4_ROOT
 
 @unittest.skipUnless(ROOT.exists(),'promoted Earth v4 baseline absent')
 class PublicPrivateComparisonTests(unittest.TestCase):

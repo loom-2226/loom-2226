@@ -2,12 +2,15 @@
 from dataclasses import replace
 from decimal import Decimal
 from pathlib import Path
+import os
 from offworld_kernel.model import AccountKind, NodeKind
 from offworld_kernel.causal_trace import canonical, content_hash
 from offworld_kernel.boundary import validate_opening
 from simulation.offworld_mvp.build7.generated_campaign import _build_kernel, load_config
 from .country_capital_input import load_investment_capacity
 from .two_country_trial import WORLD
+
+EARTH_V4_ROOT = Path(os.environ.get('LOOM_EARTH_V4_ROOT', '/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24'))
 
 
 def build_country_opening(root: Path, *, world=None, world_seed='BUILD8-80-COUNTRY-10-YEAR'):

@@ -1,9 +1,10 @@
+from .opening import EARTH_V4_ROOT
 import unittest
 from decimal import Decimal as D
 from pathlib import Path
 from .country_sponsor_allocation_trial import run_allocation
 
-ROOT=Path('/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24')
+ROOT=EARTH_V4_ROOT
 
 @unittest.skipUnless(ROOT.exists(),'Earth v4 absent')
 class AllocationTrialTests(unittest.TestCase):

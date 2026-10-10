@@ -2,6 +2,7 @@
 
 Isolated World Authority replay only. Never infer authorization from a pool.
 """
+from .opening import EARTH_V4_ROOT
 from decimal import Decimal as D
 from pathlib import Path
 from offworld_kernel.model import TxPurpose
@@ -12,7 +13,7 @@ from simulation.offworld_mvp.build7 import runtime_flow as flow
 from .opening import build_country_opening
 
 CONTROL='SOLAR_MATERIAL_1cd519072074d72fe42bb2f9:44f9a944ba26d099'
-ROOT=Path('/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24')
+ROOT=EARTH_V4_ROOT
 
 def replay_observed(country_id="USA"):
     country_id=str(country_id).upper()
