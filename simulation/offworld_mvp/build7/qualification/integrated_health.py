@@ -12,7 +12,7 @@ from simulation.offworld_mvp.build7.generated_campaign import start_world_run, r
 ROOT = Path(__file__).resolve().parents[4]
 FIXTURE = Path(__file__).resolve().parent / 'reference_snapshot' / 'LOOM_SOLAR_WORLD_SCIENCE_LAB_v0_1.sqlite3'
 DB = 'loom_b7_health_disposable'
-ROLES = {'science_writer':'wa_science_writer','world_writer':'wa_world_writer','runtime':'wa_runtime_writer','reference_reader':'wa_reference_reader'}
+ROLES = {'science_writer':'wa_science_writer','world_writer':'wa_world_writer','runtime':'wa_runtime_writer','reference_reader':'wa_reference_reader','agent_pub':'wa_agent_reader','agent_spn':'wa_agent_reader','agent_fin':'wa_agent_reader'}
 
 def main():
     admin = dict(host='127.0.0.1', port=int(os.getenv('LOOM_HEALTH_PGPORT','5432')), user='postgres', password=os.environ['LOOM_HEALTH_PGPASSWORD'])
