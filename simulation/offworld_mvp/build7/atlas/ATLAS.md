@@ -1,6 +1,6 @@
 # Build 7 | Rendered as-built atlas
 
-**Source authority:** pinned Build 7 commit `66c641d25e641e0aff77940a8cadbf1653247113`. Generated-world annual pathway, 2026–2035. Source register: [README](README.md). [Exact Agent policy gates](DECISIONS.md). Placeholder and abstraction register: [ABSTRACTIONS](ABSTRACTIONS.md). These diagrams render directly on GitHub in Markdown.
+**Source authority:** pinned Build 7 commit `66c641d25e641e0aff77940a8cadbf1653247113`. Generated-world annual pathway, 2026–2035. [README](README.md) | [Data sources and PostgreSQL semantics](DATA_SOURCES.md) | [Exact Agent policy gates](DECISIONS.md) | [Assumptions and abstractions](ABSTRACTIONS.md).
 
 **Notation:** solid links describe source-supported relationships; dashed links are contextual, conditional, or registered capabilities and must not be treated as exercised decisions. A diagram edge may abbreviate a documented call chain.
 
@@ -277,4 +277,59 @@ flowchart LR
  H --> SPN
  I --> SPN
  OBS --> SPN
+```
+
+## Source Semantics And Postgres
+
+```mermaid
+flowchart TD
+ subgraph Reference["PUBLIC / PROMOTED REFERENCE: not hidden truth"]
+ SOL["Pinned Solar catalog: wa_geo.body identity"]
+ REF["Accessibility authority map: 83 DERIVABLE, 7 UNKNOWN"]
+ SCR["Compiled 900-row preliminary screen: public JSON, not wa_run.accessibility_assessment"]
+ COST["Provisional 5400-row mission cost CSV: USD millions -> MODEL_CURRENCY x 0.001"]
+ EARTH["Promoted USA 2026–2045 projection: model reference, not cash"]
+ TL["43-milestone timeline: read-only, no auto unlock"]
+ end
+ subgraph Scenario["AUTHORED FICTIONAL SCENARIO"]
+ PRI["Four-family material priors: not empirical probabilities"]
+ GEN["Generation policy: 90 JSONB rows, high sensitivity"]
+ SEED["Seed / SHA256 lineage"]
+ ECON["Prospecting economics: capital 2, information value 3; mobilization cap"]
+ CONFIG["Structural campaign profile"]
+ end
+ subgraph PostgreSQL["POSTGRESQL: separate semantic layers"]
+ GEO["wa_geo.body / location: named identities, 900 authored region anchors"]
+ WM["wa_world.generation_model / generation_policy: provenance"]
+ W["wa_world.realization / hidden_state / deposit: sealed synthetic truth"]
+ PROP["wa_world.physical_property: stock / reserve meaning lookup"]
+ INFO["wa_info: Agent facts, beliefs and decisions"]
+ ART["wa_run.artifact: requests, snapshots, decisions"]
+ TRACE["wa_run.causal_envelope: ordered causal trace"]
+ end
+ SOL --> GEO
+ REF --> SCR
+ SCR --> PUB["PUB mission eligibility"]
+ COST --> PUB
+ GEO --> PUB
+ TL -.-> PUB
+ EARTH --> CAP["Country capital proxy"]
+ ECON --> CAP
+ PRI --> GEN
+ GEN --> WM
+ SEED --> W
+ WM --> W
+ GEO --> W
+ PROP -.-> W
+ W -->|"authorized WORLD_SIM read"| OBS["Noisy observation"]
+ OBS --> INFO
+ INFO --> PUB
+ INFO --> SPN["SPN prospecting / study decisions"]
+ CAP --> SPN
+ ECON --> SPN
+ CONFIG --> SPN
+ PUB --> ART
+ SPN --> ART
+ ART --> TRACE
+ OTHER["Potential uses JSON and illustrative return scenarios: reference / offline, not annual runtime"] -.-> ECON
 ```

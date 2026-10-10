@@ -1,12 +1,12 @@
 # Build 7 | Executable as-built atlas
 
-**View the rendered diagrams: [ATLAS.md](ATLAS.md).** **Read the [assumptions and abstractions register](ABSTRACTIONS.md)** and **[exact Agent policy gates](DECISIONS.md)**.
+**View the rendered diagrams: [ATLAS.md](ATLAS.md).** Audit the **[semantic data-source and PostgreSQL lineage register](DATA_SOURCES.md)**, **[assumptions and abstractions](ABSTRACTIONS.md)** and **[exact Agent policy gates](DECISIONS.md)**.
 
 **Pinned source authority:** [Build 7 at `66c641d25e641e0aff77940a8cadbf1653247113`](https://github.com/loom-2226/loom-2226/tree/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7). The diagrams are source-derived, not copied from [reference PR #372](https://github.com/loom-2226/loom-2226/pull/372). Scope is the **generated-world 2026–2035 annual campaign**, not the separate targeted qualification path.
 
 ## Navigation
 
-The rendered atlas has ten views: world overview, data provenance, world/knowledge, Agent decisions, observations/epistemics, Agent consequences, economics/projects, annual time/persistence, and abstraction boundaries. [ATLAS.md](ATLAS.md) is the mobile-friendly visual entry point; individual `.mmd` files are editable sources.
+The rendered atlas has eleven views: world overview, data provenance, world/knowledge, Agent decisions, observations/epistemics, Agent consequences, economics/projects, annual time/persistence, and abstraction boundaries. [ATLAS.md](ATLAS.md) is the mobile-friendly visual entry point; individual `.mmd` files are editable sources.
 
 ## Evidence and exact entry points
 
@@ -35,7 +35,7 @@ The rendered atlas has ten views: world overview, data provenance, world/knowled
 
 **NO_ACTION vs WAIT:** A conductor summary can say NO_ACTION without an Agent having issued WAIT.
 
-**Observation vs generalization:** One completed console campaign at this pinned commit had two lunar projects and 193 persisted epochs. That does not prove every eligible branch or independent replay validation.
+**Observation vs generalization:** One completed console campaign reported two lunar projects and 193 persisted epoch statuses. The inspected PostgreSQL causal envelope contains 325 events for that run; epochs and causal events are different units. That does not prove every eligible branch or independent replay validation.
 
 ## Review / replacement rule
 
