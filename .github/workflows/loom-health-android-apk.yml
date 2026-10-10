@@ -21,7 +21,6 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
       - name: Build APK
         working-directory: mobile/loom-health
         run: gradle --no-daemon :app:assembleDebug
