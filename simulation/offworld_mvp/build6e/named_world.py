@@ -502,7 +502,7 @@ def _check_retained_prospecting_projects_for_remote(kernel, envelopes, start_ind
     if offworld_nodes!={r.node_id for r in records}:
         raise NamedWorldBlocked('BLOCKED_BODY_REMOTE_PROJECT_NODES')
     study_assets={r.wip_asset_id:r for r in kernel.project_activity_expense_records
-                  if r.activity_id=='BUILD7_REGION_STUDY'}
+                  if r.activity_id.startswith('BUILD7_REGION_STUDY:')}
     if (set(study_assets)!=set(kernel.state.assets) or
             any(asset.project_id not in projects or
                 asset.project_id!=study_assets[asset_id].project_id or
@@ -587,7 +587,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
             raise NamedWorldBlocked('BLOCKED_UNBOUND_OFFWORLD_STATE')
     if isinstance(binding,ProspectingRegionBinding):
         study_assets={r.wip_asset_id for r in kernel.project_activity_expense_records
-                      if r.activity_id=='BUILD7_REGION_STUDY'}
+                      if r.activity_id.startswith('BUILD7_REGION_STUDY:')}
         if (kernel.resources or set(kernel.state.assets)!=study_assets or
                 any(getattr(asset.kind,'value',asset.kind) not in ('EXPLORATION_WIP','KNOWLEDGE')
                     or asset.project_id not in kernel.state.projects
@@ -778,6 +778,16 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
                 if obj.get('__type__')=='ExplorationRequest':request_refs.setdefault(obj['id'],(obj,ref))
     authorized_body_requests=set()
     authorized_region_requests=set()
+    bound_region_creation=None
+    bound_region_activity_id=None
+    if isinstance(binding,ProspectingRegionBinding):
+        bound_region_creation=next((r for r in kernel.prospecting_project_creation_records
+            if r.body_key==binding.body_key and r.region_key==binding.region_key
+            and str(r.location_id)==str(binding.location_id)),None)
+        if bound_region_creation is None:
+            raise NamedWorldBlocked('BLOCKED_PROSPECTING_REGION_PROJECT_BINDING')
+        bound_region_activity_id='BUILD7_REGION_STUDY:'+sha256(
+            bound_region_creation.project_id.encode()).hexdigest()[:20]
     if isinstance(binding,BodyRemoteBinding):
         for ref,(kind,_) in current_artifacts.items():
             if kind!='DECISION':continue
@@ -790,7 +800,7 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
                 if (isinstance(binding,ProspectingRegionBinding) and
                         obj.get('__type__')=='SponsorPortfolioDecision' and
                         obj.get('outcome')=='AUTHORIZE' and
-                        obj.get('selected_activity_id')=='BUILD7_REGION_STUDY'):
+                        obj.get('selected_activity_id')==bound_region_activity_id):
                     authorized_region_requests.add(obj['request_id'])
     opening_ref=next((ref for ref,(kind,_) in all_artifacts.items()
                       if kind=='AUTHORED_INPUT_RECORDS'),None)
@@ -909,16 +919,18 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
             for obj in _walk_typed(payload):
                 if obj.get('__type__')=='SponsorPortfolioDecisionRequest' and isinstance(binding,ProspectingRegionBinding):
                     if (obj.get('id') in authorized_region_requests and
-                            tuple(obj.get('candidate_activity_ids',()))==('BUILD7_REGION_STUDY',)):
-                        creation=next((r for r in kernel.prospecting_project_creation_records
-                            if r.body_key==binding.body_key and r.region_key==binding.region_key),None)
-                        if creation is None:raise NamedWorldBlocked('BLOCKED_REGION_STUDY_PROJECT')
+                            len(tuple(obj.get('candidate_activity_ids',())))==1 and
+                            str(tuple(obj.get('candidate_activity_ids',()))[0]).startswith('BUILD7_REGION_STUDY:')):
+                        creation=bound_region_creation
                         rows.append(('wa_run.mission',dict(run_id=manifest.run_id,
                             mission_id=obj['id'],project_id=creation.project_id,
                             world_id=binding.world_id,body_id=binding.body_id,
                             target_location_id=binding.location_id,
                             planned_activity_artifact_ref=ref,
                             interaction_contract_ref='REGION:BUILD7_REGION_STUDY_V1')))
+                        rows.append(('wa_run.world_binding',dict(run_id=manifest.run_id,
+                            scenario_id=binding.scenario_id,world_id=binding.world_id,
+                            body_id=binding.body_id,binding_key='BODY_REMOTE:'+binding.body_key)))
                     continue
                 if obj.get('__type__')=='ExplorationRequest':
                     if obj.get('request_version')=='EXPLORATION_REQUEST_BODY_V1':
@@ -1099,7 +1111,8 @@ def _runtime_epoch_rows(kernel, binding: NamedLocationBinding | BodyRemoteBindin
                                       for question in BODY_MATERIAL_QUESTIONS}
                             if (obj.get('body_id')!=binding.body_key or
                                     obj.get('question_ref') not in expected or
-                                    not any(r.activity_id=='BUILD7_REGION_STUDY'
+                                    not any(r.project_id==bound_region_creation.project_id and
+                                        r.activity_id==bound_region_activity_id
                                         for r in kernel.project_activity_expense_records)):
                                 raise NamedWorldBlocked('BLOCKED_REGION_OBSERVATION_SCOPE')
                             if len(authorized_region_requests)!=1:

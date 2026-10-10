@@ -48,6 +48,7 @@ from .project_study import (
     ProjectStudyState, ProjectStudyPlan, ProjectActivityExpenseRecord,
     ProjectStudyResultRecord, ProjectStudyReviewRequest, ProjectStudyReviewDecision,
     ProjectStudyReviewExecutionRecord,
+    region_study_activity_id, region_study_plan_id,
 )
 from .named_portfolio import NamedBodyEvidenceRecord, BodyPortfolioBinding
 from .prospecting import (
@@ -1405,7 +1406,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                 raise InvariantError('project study review lineage missing')
 
         for a in self.project_activities.values():
-            if a.actor_id!=actor_id or not a.reserves_capital:
+            if a.actor_id!=actor_id or not a.reserves_capital or a.activity_type=='REGION_MATERIAL_CHARACTERIZATION':
                 continue
             remaining=D(a.capital_commitment)-self.project_activity_spent_capital(a.id)
             if remaining<0:
@@ -1454,7 +1455,10 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         t=D(str(effective_time))
         if t<D('0'):
             raise InvariantError('project activity authorization time invalid')
-        if self.project_activity_available_capital(a.actor_id)<D(a.capital_commitment):
+        if a.activity_type=='REGION_MATERIAL_CHARACTERIZATION':
+            if D(self.state.accounts[project.cash_account_id].balance)<D(a.capital_commitment):
+                raise InvariantError('insufficient project-funded study capital')
+        elif self.project_activity_available_capital(a.actor_id)<D(a.capital_commitment):
             raise InvariantError('insufficient uncommitted sponsor capital')
         if a.opportunity_window_id and t>D(a.window_close):
             raise InvariantError('project activity opportunity window already closed')
@@ -1613,7 +1617,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if str(creation.location_id)!=str(region_id):
             raise InvariantError('regional study differs from selected project REGION')
         from .project_activity import ProjectActivity
-        aid='BUILD7_REGION_STUDY';pid='BUILD7_REGION_STUDY_PLAN'
+        aid=region_study_activity_id(project_id);pid=region_study_plan_id(project_id)
         self.register_project_study_state(ProjectStudyState(project_id,ProjectStudyMaturity.REMOTE_CHARACTERIZED))
         self.register_project_activity(ProjectActivity(aid,project_id,'REGION_MATERIAL_CHARACTERIZATION',
             'SPN',1,D(year),D(1),D(self.state.accounts[self.state.projects[project_id].cash_account_id].balance),
@@ -1701,7 +1705,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         if funding_mode=='PROJECT':
             records=[r for r in self.country_capital_disbursement_records
                 if r.project_id==plan.project_id and D(r.amount)==amount]
-            if len(records)!=1 or activity_id!='BUILD7_REGION_STUDY':
+            if len(records)!=1 or activity_id!=plan.activity_id:
                 raise InvariantError('regional study requires one matching prior disbursement')
             investment=next(tx for tx in self.state.transactions if tx.id==records[0].transaction_id)
         else:
@@ -2746,7 +2750,7 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
                         raise InvariantError('BLOCKED_LINEAGE: body observation subject not authorized')
                 if name=='observe_region_study' and (
                         f['outcome']['value']!='AUTHORIZE' or
-                        b['activity_id']!='BUILD7_REGION_STUDY' or
+                        not b['activity_id'].startswith('BUILD7_REGION_STUDY:') or
                         b['activity_id'] not in tuple(item['value'] for item in q['candidate_activity_ids']['items'])):
                     raise InvariantError('BLOCKED_LINEAGE: regional study not authorized')
                 if name=='publish_observation' and (f['outcome']['value']!='PUBLISH' or b['observation_id']!=q['observation_id']['value'] or b['audience']!=q['audience']['value']):raise InvariantError('BLOCKED_LINEAGE: publication not authorized')

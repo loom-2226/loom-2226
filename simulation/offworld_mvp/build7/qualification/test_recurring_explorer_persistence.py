@@ -88,5 +88,71 @@ class RecurringExplorerPersistenceTests(unittest.TestCase):
                  'wa_run.project','wa_run.project_location','wa_info.belief'))
         self.assertEqual(replay_counts,counts)
 
+    def test_two_project_studies_persist_and_replay_independently(self):
+        import psycopg
+
+        opened=start_world_run(reference_service='reference_reader',
+            science_writer_service='science_writer',world_writer_service='world_writer',
+            runtime_service='runtime',
+            world_seed='BUILD7-INDEPENDENT-AUDIT-dc6ae50c67134fbb83f857c56437320e')
+        run_id=opened['run_id']
+        first=run_world_annual(reference_service='reference_reader',runtime_service='runtime',
+            run_id=run_id,through_year=2035)
+        project_ids=first['project_ids']
+        self.assertGreaterEqual(len(project_ids),2)
+        region_studies=[row for row in first['project_annual'] if row[2]!='NO_ACTION']
+        studied={row[1] for row in region_studies}
+        self.assertGreaterEqual(len(studied),2)
+        self.assertTrue(studied.issubset(set(project_ids)))
+        authorized={pid for _,pid,outcome in first['project_annual'] if outcome=='AUTHORIZE'}
+        outcomes={pid:{outcome for _,project_id,outcome in first['project_annual']
+            if project_id==pid} for pid in project_ids}
+        for pid in project_ids:
+            self.assertIn('AUTHORIZE',outcomes[pid],pid)
+            self.assertTrue(any(outcome.startswith('STUDY_') for outcome in outcomes[pid]),pid)
+            self.assertTrue(outcomes[pid].intersection({'ADVANCE','DEFER','ABANDON'}),pid)
+        self.assertGreaterEqual(first['study_expenses'],len(project_ids))
+        self.assertTrue(all(balance=='0' for _,balance in first['project_cash_by_id']))
+        with psycopg.connect(service='runtime') as conn:
+            # World bindings are body-level; region identity belongs to the
+            # project location and its authorized mission, not a second world row.
+            duplicate_worlds=conn.execute('SELECT world_id,count(*) FROM wa_run.world_binding '
+                'WHERE run_id=%s GROUP BY world_id HAVING count(*)>1',(run_id,)).fetchall()
+            self.assertEqual(duplicate_worlds,[])
+            self.assertEqual(conn.execute('SELECT count(*) FROM wa_run.world_binding '
+                "WHERE run_id=%s AND binding_key LIKE 'PROSPECTING_REGION:%%'",
+                (run_id,)).fetchone()[0],0)
+            projects=conn.execute('SELECT project_id FROM wa_run.project_location '
+                "WHERE run_id=%s AND binding_key='PROSPECTING_REGION' "
+                'ORDER BY project_id COLLATE "C"',(run_id,)).fetchall()
+            self.assertEqual({row[0] for row in projects},set(project_ids))
+            study_missions=conn.execute('SELECT project_id FROM wa_run.mission '
+                "WHERE run_id=%s AND interaction_contract_ref='REGION:BUILD7_REGION_STUDY_V1' "
+                'ORDER BY project_id COLLATE "C"',(run_id,)).fetchall()
+            self.assertEqual({row[0] for row in study_missions},authorized)
+            observed_projects=conn.execute('SELECT m.project_id,count(o.observation_id) '
+                'FROM wa_run.mission m JOIN wa_run.observation o '
+                'USING (run_id,mission_id) WHERE m.run_id=%s '
+                "AND m.interaction_contract_ref='REGION:BUILD7_REGION_STUDY_V1' "
+                "AND o.method_ref='REGION' GROUP BY m.project_id "
+                'ORDER BY m.project_id COLLATE "C"',(run_id,)).fetchall()
+            self.assertEqual({pid for pid,count in observed_projects if count>0},authorized)
+            persisted_counts=tuple(conn.execute('SELECT count(*) FROM '+table+' WHERE run_id=%s',
+                (run_id,)).fetchone()[0] for table in
+                ('wa_run.mission','wa_run.observation','wa_run.world_binding',
+                 'wa_run.project','wa_run.project_location','wa_info.belief'))
+        replay=run_world_annual(reference_service='reference_reader',runtime_service='runtime',
+            run_id=run_id,through_year=2035)
+        for key in ('project_ids','project_annual','annual','project_cash_by_id',
+                    'capital_coupling','sponsor_investment_annual'):
+            self.assertEqual(replay[key],first[key],key)
+        self.assertTrue(all(status=='ALREADY_MATCHED' for _,status in replay['epoch_commits']))
+        with psycopg.connect(service='runtime') as conn:
+            replay_counts=tuple(conn.execute('SELECT count(*) FROM '+table+' WHERE run_id=%s',
+                (run_id,)).fetchone()[0] for table in
+                ('wa_run.mission','wa_run.observation','wa_run.world_binding',
+                 'wa_run.project','wa_run.project_location','wa_info.belief'))
+        self.assertEqual(replay_counts,persisted_counts)
+
 
 if __name__=='__main__':unittest.main()

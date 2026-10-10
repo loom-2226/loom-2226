@@ -4,10 +4,21 @@ from dataclasses import dataclass
 from decimal import Decimal
 from enum import Enum
 from typing import Tuple
+from hashlib import sha256
 
 from .policy import DecisionSnapshot, FactState
 
 D=Decimal
+
+
+def region_study_activity_id(project_id: str) -> str:
+    """Stable per-project identity for Build 7's existing REGION study."""
+    return 'BUILD7_REGION_STUDY:'+sha256(str(project_id).encode()).hexdigest()[:20]
+
+
+def region_study_plan_id(project_id: str) -> str:
+    """Stable per-project identity for its existing REGION study plan."""
+    return 'BUILD7_REGION_STUDY_PLAN:'+sha256(str(project_id).encode()).hexdigest()[:20]
 
 
 class ProjectStudyMaturity(str,Enum):
