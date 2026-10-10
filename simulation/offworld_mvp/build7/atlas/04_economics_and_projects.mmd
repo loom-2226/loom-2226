@@ -1,0 +1,22 @@
+flowchart TD
+ E["USA investment projection: capacity proxy"] --> NORM["Normalize by 1e9 proxy units per model currency"]
+ O["Visible commercial opportunity and strategic pressure"] --> GATE["Mobilization activation: m = 0.001 or 0"]
+ NORM --> MOB["Mobilize country capital"]
+ GATE --> MOB
+ MOB --> F["Available F, exposure X, returns R, pressure S"]
+ P["Authored region required capital 2, information value 3"] --> SPN{"SPN prospecting policy"}
+ F --> SPN
+ OBS["SPN visible evidence and beliefs"] --> SPN
+ SPN -->|"INITIATE_PROJECT"| CREATE["Create project and cash account"]
+ CREATE --> COMMIT["Add commitment"]
+ COMMIT --> DISB["Disburse country capital"]
+ DISB --> PROJECT["Project cash and financial exposure"]
+ PROJECT --> PORT{"SPN portfolio policy"}
+ PORT -->|"AUTHORIZE"| SPEND["Start and spend regional study"]
+ SPEND --> STUDY["Region result and maturity"]
+ STUDY --> REVIEW{"SPN study review"}
+ REVIEW --> STATUS["Project status"]
+ STATUS --> ANNUAL{"Annual opportunity evaluation"}
+ F --> ANNUAL
+ ANNUAL -->|"financing unavailable"| HOLD["No new project; retain existing state"]
+ FIN["FIN registered; no independent annual underwriting evidenced"] -.-> F

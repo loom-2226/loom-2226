@@ -1,0 +1,19 @@
+flowchart TD
+ CAT["BUILD7_SOLAR_BODY_CATALOG_V1"] --> LOAD["Visible-input hash and shape checks"]
+ REF["BUILD7_SOLAR_ACCESSIBILITY_REFERENCE_V1"] --> LOAD
+ SCR["BUILD7_SOLAR_ACCESSIBILITY_SCREEN_V1: 900 rows"] --> LOAD
+ LOAD --> CAND["derive_mission_candidates"]
+ COST["Provisional mission-cost CSV"] --> COSTL["MissionCostLookup: missing / NO_TRAJECTORY unavailable"]
+ COSTL --> PUB["PUB cost-minimizing eligible choice"]
+ CAND --> PUB
+ CONFIG["BUILD7_GENERATED_CAMPAIGN_V1: policy seed + structural parameters"] --> K["Kernel build and run identity"]
+ EARTH["BUILD7_EARTH_USA_2026_2045_V1"] --> K
+ TIMELINE["BUILD7_TIMELINE_SNAPSHOT_V1"] -.-> K
+ ECON["BUILD7_PROSPECTING_ECONOMICS_V1"] --> K
+ SEED["World seed"] --> GEN["generate_solar_system"]
+ CAT --> GEN
+ GEN --> HIDDEN["Sealed material truth"]
+ HIDDEN -->|"authorized WORLD_SIM"| OBS["Remote or regional observation"]
+ OBS --> PUBBEL["PUB or SPN belief update"]
+ PUBBEL --> WA["World Authority persisted epochs"]
+ K --> WA

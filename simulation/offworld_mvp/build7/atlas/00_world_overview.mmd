@@ -1,0 +1,32 @@
+flowchart TD
+ subgraph Inputs
+ CAT["90-body catalog"] --> CAND["Public mission candidates"]
+ SCREEN["Annual accessibility screen"] --> CAND
+ COST["Provisional mission cost"] --> CHOOSE["PUB least-cost eligible choice"]
+ CAND --> CHOOSE
+ ECON["USA investment proxy + authored economics"] --> MOB["Capital mobilization"]
+ end
+ subgraph World
+ SEED["World seed + priors"] --> GEN["Generated world"]
+ GEN --> TRUTH["Sealed body and region material truth"]
+ end
+ subgraph Agents
+ CHOOSE --> PUB{"PUB authorization"}
+ PUB --> REM["Paid remote observation"]
+ TRUTH -->|"WORLD_SIM only"| REM
+ REM --> BEL["PUB belief update"]
+ BEL --> PUBLISH{"PUB publication policy"}
+ PUBLISH --> SPNBEL["SPN independent beliefs"]
+ SPNBEL --> OPP["Region opportunities"]
+ MOB --> SPN{"SPN financing and study choices"}
+ OPP --> SPN
+ end
+ subgraph Consequences
+ SPN --> PROJECT["Project / study / review"]
+ TRUTH -->|"WORLD_SIM only"| PROJECT
+ PROJECT --> STATE["Persistent world and causal trace"]
+ STATE --> YEAR["Annual conductor"]
+ YEAR --> CHOOSE
+ YEAR --> SPN
+ end
+ FIN["FIN registered; no independent annual decision evidenced"] -.-> SPN

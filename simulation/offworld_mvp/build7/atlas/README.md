@@ -1,37 +1,42 @@
-# Build 7 executable atlas: as built
+# Build 7 | Executable as-built atlas
 
-**Authority:** [Build 7 source at 66c641d25e641e0aff77940a8cadbf1653247113](https://github.com/loom-2226/loom-2226/tree/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7). Scope: **generated-world opening and 2026–2035 annual campaign**. Not a qualification, proposed design, or account of the separate targeted path. [PR #372](https://github.com/loom-2226/loom-2226/pull/372) is reference only, not source authority.
+**View the rendered diagrams: [ATLAS.md](ATLAS.md).** **Read the [assumptions and abstractions register](ABSTRACTIONS.md)** and **[exact Agent policy gates](DECISIONS.md)**.
 
-## Maps
+**Pinned source authority:** [Build 7 at `66c641d25e641e0aff77940a8cadbf1653247113`](https://github.com/loom-2226/loom-2226/tree/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7). The diagrams are source-derived, not copied from [reference PR #372](https://github.com/loom-2226/loom-2226/pull/372). Scope is the **generated-world 2026–2035 annual campaign**, not the separate targeted qualification path.
 
-- [World and knowledge](01_world_and_knowledge.mmd)
-- [Agents and consequences](02_agents_and_consequences.mmd)
-- [Time and persistence](03_time_and_persistence.mmd)
+## Navigation
 
-Solid arrows represent source-supported dependencies or consequences; dashed arrows denote context, orchestration, or registered capability **not necessarily exercised**. Arrows abbreviate call chains, not literal function-to-function calls.
+The rendered atlas has ten views: world overview, data provenance, world/knowledge, Agent decisions, observations/epistemics, Agent consequences, economics/projects, annual time/persistence, and abstraction boundaries. [ATLAS.md](ATLAS.md) is the mobile-friendly visual entry point; individual `.mmd` files are editable sources.
 
-## Source register
+## Evidence and exact entry points
 
-| Executable fact | Code authority |
+| Topic | Source authority |
 |---|---|
-| Genesis installs catalogs, generates seeded hidden world, attaches persistence | [generated_campaign.py 659–675](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/generated_campaign.py#L659-L675) |
-| PUB visible mission choice, policy, paid remote observations, belief updates and publication to SPN | [generated_campaign.py 688–807](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/generated_campaign.py#L688-L807), [exploration_choice.py](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/exploration_choice.py), [opportunities.py](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/opportunities.py) |
-| Opening 2026 SPN opportunity, capital mobilization, policy, project creation, commitment and disbursement | [generated_campaign.py 908–997](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/generated_campaign.py#L908-L997) |
-| SPN-visible candidate generation and annual investment | [generated_campaign.py 816–907](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/generated_campaign.py#L816-L907) |
-| Annual PUB choice, all-project study lifecycle, conditional SPN opportunity and subsequent project creation | [generated_campaign.py 998–1154](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/generated_campaign.py#L998-L1154) |
-| Decision epochs build admitted snapshots and execute policies | [runtime_flow.py 194–232](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/runtime_flow.py#L194-L232) |
-| System epochs execute kernel methods and audit accounting; World Authority wrapper persists epochs | [runtime_flow.py 233–375](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/runtime_flow.py#L233-L375) |
-| Kernel method registry includes broader market, settlement, transport, financing and extraction operations | [runtime_flow.py 24–95](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/runtime_flow.py#L24-L95) |
+| Genesis: catalog installation, seeded hidden WORLD, kernel construction, persistence | [generated_campaign.py 659–675](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/generated_campaign.py#L659-L675) |
+| Visible candidate derivation, 90-body/900-row checks | [opportunities.py 47–120](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/opportunities.py#L47-L120) |
+| **PUB choice: eligible, unresolved, affordable, minimum modeled cost; SHA256 exact tie-break** | [exploration_choice.py 23–54](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/exploration_choice.py#L23-L54) |
+| PUB policy, paid remote observation, belief update and publication | [generated_campaign.py 702–807](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/generated_campaign.py#L702-L807) |
+| SPN-visible regional opportunities and annual candidates | [generated_campaign.py 808–849](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/generated_campaign.py#L808-L849) |
+| Opening SPN prospecting, mobilization, project creation, commitment and disbursement | [generated_campaign.py 908–997](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/generated_campaign.py#L908-L997) |
+| Annual conductor, all-project study loop, conditional annual investment | [generated_campaign.py 998–1154](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/generated_campaign.py#L998-L1154) |
+| Decision snapshots, policy worker and persisted policy epoch | [runtime_flow.py 194–232](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/runtime_flow.py#L194-L232) |
+| System transition, protected WORLD_SIM physical reads, accounting audit and persistence | [runtime_flow.py 233–375](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/runtime_flow.py#L233-L375) |
+| Structural assumptions and economic scenario inputs | [Build 7 config](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/inputs/BUILD7_GENERATED_CAMPAIGN_V1.json), [prospecting economics](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/inputs/BUILD7_PROSPECTING_ECONOMICS_V1.json), [mission cost normalization](https://github.com/loom-2226/loom-2226/blob/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7/mission_costs.py) |
 
-## Semantic boundaries
+## Reading rules
 
-1. **Agent ≠ system.** PUB and SPN choose; conductor, policy runner, kernel and World Authority orchestrate/execute. FIN is registered, but an independent recurring FIN underwriting choice is not evidenced in this annual path.
-2. **Hidden truth ≠ Agent information.** Sealed generated truth affects WORLD_SIM observations, not directly Agent choices. PUB publication and SPN belief update are distinct steps.
-3. **Decision ≠ consequence.** Authorization and actual spending, observation, project creation and review are separate epochs.
-4. **NO_ACTION ≠ Agent WAIT.** An annual summary can report no action without a policy decision in that branch.
-5. **Financing is coarse.** USA investment is a proxy mapped to model-currency F/X; it is not spendable national cash or a calibrated valuation. Accessibility is preliminary screening, not flight qualification; the technology timeline is read-only context.
-6. **Implemented ≠ exercised.** The underlying kernel exposes extraction, trade/markets, settlement and transport capabilities, but this atlas does not claim the generated-world annual campaign executes them.
+**Agent vs system:** PUB and SPN make policy decisions; conductor, scheduler, kernel and World Authority perform other roles. FIN registration is not evidence of recurring independent FIN decisions.
 
-**Observed example, not universal proof:** campaign seed `B7-TEXT-CONSOLE-20261010-165713-247930` at this commit completed through 2035 with two lunar projects and 193 persisted epochs. Independent replay validation was not run in that test.
+**Truth vs knowledge:** Hidden generated material truth enters only authorized WORLD_SIM observations; Agents receive observations, publications and their own beliefs, not sealed world facts.
 
-**Maintenance:** Pin each atlas revision to a Build 7 source commit. Verify affected arrows against code before updating; do not silently mix revisions.
+**Decision vs consequence:** Choosing an action is not executing it. Kernel transitions perform project creation, disbursement, study and review effects.
+
+**Configured vs exercised:** Underlying kernel methods include markets, extraction, transport, settlement and distribution; the generated-world annual conductor does not establish those pathways as active.
+
+**NO_ACTION vs WAIT:** A conductor summary can say NO_ACTION without an Agent having issued WAIT.
+
+**Observation vs generalization:** One completed console campaign at this pinned commit had two lunar projects and 193 persisted epochs. That does not prove every eligible branch or independent replay validation.
+
+## Review / replacement rule
+
+This is a **source-grounded documentation revision**, not a completed independent exhaustive verification of every Mermaid edge or a qualification artifact. Every causal edge should be checked against its linked code before promotion from draft. Keep PR #372 until the replacement is accepted. Changes to Build 7 require re-pinning and reviewing affected relationships, not silently mixing revisions.

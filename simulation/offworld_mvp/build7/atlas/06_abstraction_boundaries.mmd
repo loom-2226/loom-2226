@@ -1,0 +1,24 @@
+flowchart LR
+ subgraph Physical
+ A["Preliminary Lambert screen: not a qualified trajectory"]
+ B["Provisional mission costs: modeled affordability"]
+ C["Fixed 2026 recovery capability: uncalibrated"]
+ D["Generated material priors: fictional realization"]
+ E["Noisy four-family sensing: authored likelihoods"]
+ F["Ten neutral regions per body"]
+ end
+ subgraph Economic
+ G["USA investment: proxy, not spendable cash"]
+ H["1e9 normalization and 0.001 mobilization cap"]
+ I["Prospecting capital 2, information value 3"]
+ end
+ A --> PUB["PUB eligible mission selection"]
+ B --> PUB
+ C -.-> STUDY["Region study / maturity"]
+ D --> OBS["Observations and beliefs"]
+ E --> OBS
+ F --> STUDY
+ G --> SPN["SPN financing decisions"]
+ H --> SPN
+ I --> SPN
+ OBS --> SPN
