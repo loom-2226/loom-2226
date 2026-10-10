@@ -7,37 +7,11 @@ from offworld_kernel.mvp_state import AgentState, AgentKind, BODY_MATERIAL_FAMIL
 from offworld_kernel.prospecting import SponsorProspectingRequest
 from offworld_kernel.policy import DecisionSnapshot, SnapshotFact, FactState
 from offworld_kernel import policy_runner
-from .test_three_sponsor_observation import SEED, KEY, KEYS
+from .sponsor_evidence_setup import sponsor_setup,KEYS
 
 
 def episode(private_positive=False):
-    k=Build3Kernel(RunIdentity(SEED,'v1','AUTHORED_SYNTHETIC_TRUTH','NONCANON',()))
-    k.add_node('EARTH:X',NodeKind.EARTH)
-    k.add_account('publisher','PUB','EARTH:X',AccountKind.FUNDS,D(10))
-    k.add_account('supplier','SUP','EARTH:X',AccountKind.SUPPLIER,D(0))
-    k.add_agent(AgentState('PUB',AgentKind.PUBLIC,'EARTH:X','publisher',{'EXPLORE'}))
-    for name in ('A','B','C'):
-        k.add_account(name,name,'EARTH:X',AccountKind.FUNDS,D(1))
-        k.add_account('cash:'+name,name,'EARTH:X',AccountKind.PROJECT_CASH)
-        k.add_project('project:'+name,'EARTH:X','cash:'+name,{name:D(1)})
-        k.add_agent(AgentState(name,AgentKind.PRIVATE_SPONSOR,'EARTH:X',name,
-            {'REQUEST_FINANCE','DEVELOP','EXPLORE'} if name=='B' else {'REQUEST_FINANCE','DEVELOP'},
-            ('RETURN',),priors={key:D('.5') for key in KEYS}))
-    public,_,_=k.explore_paid(1,'PUB','','','supplier',D(1),public=False,
-        false_positive=D('.2'),false_negative=D('.2'),update_belief=False,
-        body_id='MOON',question_ref='BODY_MATERIAL_CHARACTERIZATION',
-        body_truth={family:True for family in BODY_MATERIAL_FAMILIES})
-    for obs in public:
-        key='BODY:MOON:'+obs.question_ref
-        k.publish_observation(1,'PUB',obs.id,'PUBLIC',tuple((name,key,
-            D('.8') if key==KEY else D('.5'),D('.2') if key==KEY else D('.5'))
-            for name in ('A','B','C')))
-    private,_,_=k.explore_paid(2,'B','','','supplier',D(0),public=False,
-        false_positive=D('.2'),false_negative=D('.2'),update_belief=False,
-        body_id='MOON',question_ref='WATER_BEARING_MATERIAL_PRESENT',
-        body_truth=private_positive)
-    assert private.signal==('POSITIVE' if private_positive else 'NEGATIVE')
-    k.publish_observation(2,'B',private.id,'B_ONLY',(('B',KEY,D('.8'),D('.2')),))
+    k,public,obs,private,_=sponsor_setup('POSITIVE' if private_positive else 'NEGATIVE',projects=True)
     outcomes={}
     for name in ('A','B','C'):
         a=k.agents[name]

@@ -58,3 +58,18 @@ Later, when explicitly reactivated, use the approved read-only World Authority c
 ### Bounded Sponsor consequences (noncanon synthetic campaign)
 
 `test_three_sponsor_consequences.py` advances the same fixed-seed in-memory lunar information-access trial to existing kernel transfers and Sponsor project status transitions. Each Sponsor begins with 1.00 synthetic capital units and an independent PROPOSED project. An `INITIATE_PROJECT` policy result causes a 0.25 transfer from the Sponsor to its project cash and a PROPOSED→DEVELOPMENT transition; `DECLINE` causes PROPOSED→ABANDONED without investment. Negative B-private evidence: A/C invest (0.50 total), B declines; positive B-private evidence: all three invest (0.75 total). A/C are invariant across the private-evidence change; deterministic replay and kernel invariants are asserted. This is a scripted decision-to-consequence adapter in a test, not an autonomous campaign, construction spending, real-world lunar admission, or canonical economics. The World Authority fixture remains parked.
+
+### Build 8 answered questions (noncanon trials)
+
+- **Country capital drawn once?** Yes, one bounded country mobilization source feeds allocations; no duplicate creation in the tested opening.
+- **Appetite changes allocations?** Yes, authored appetite/preferences change finite Sponsor shares; these are not autonomous preferences.
+- **Scarcity binds?** Yes, competing commitments cannot both spend the same finite pool.
+- **Observation access changes decisions?** Yes, A=C on public evidence; B declines on negative private evidence and initiates when its private evidence is positive.
+- **Decisions change capital balances?** Yes, policy-driven transfers change project cash and Sponsor balances (0.50 versus 0.75 invested).
+
+**Question:** Can observation-dependent Sponsor decisions produce different capital and project consequences?
+**Control:** Same seed, public observations, priors and capital; A=C, while only B's synthetic private evidence varies.
+**Outcome:** Negative B evidence: A/C develop and invest 0.25 each, B abandons; positive B evidence: all three develop and invest 0.25 each.
+**Limits:** Scripted synthetic one-period test, authored evidence relevance, no World Authority admission, autonomous policy, realized returns or construction; database fixture deferred.
+
+Shared setup now lives in `sponsor_evidence_setup.py` (three-Sponsor tests) and `sponsor_trial_setup.py` (existing authored episode trials). No decision or economic behavior intentionally changed.
