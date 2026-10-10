@@ -80,3 +80,10 @@ Shared setup now lives in `sponsor_evidence_setup.py` (three-Sponsor tests) and 
 **Control:** Same fixed-seed synthetic observations and Sponsor policies, one kernel across periods 2 and 3, with separate second-period proposals and no capital reset.
 **Outcome:** A/C invest another 0.25 each (remaining 0.50); B again declines under negative private evidence (remaining 1.00), or invests another 0.25 under positive evidence (remaining 0.50). Total two-period investments: 1.00 versus 1.50; replay and accounting checks pass.
 **Limits:** No new observations or updated appetite; second proposals are authored, not a lifecycle continuation of the first projects. Each Sponsor uses its own funds, so no Sponsor constrains another. Scripted synthetic trial, no World Authority admission, autonomous policy, returns or construction. Shared-pool competition and the database fixture remain deferred.
+
+### Shared finite capital pool: cross-Sponsor consequence (noncanon)
+
+**Question:** Can B's information-driven choice prevent another Sponsor from receiving otherwise available capital?
+**Control:** Same seeded public evidence and A/C beliefs, fixed B→A→C funding order, shared 0.50-unit pool, 0.25 per project; only B's authored private evidence changes across scenarios.
+**Outcome:** Negative B evidence: B declines, A/C funded. Positive B evidence: B/A funded, C still chooses INITIATE_PROJECT but remains PROPOSED and unfunded. Pool ends at zero in both cases; replay and kernel invariants pass.
+**Limits:** A fixed first-come queue, not bidding, prices, negotiated financing or autonomous allocation. Funding comes from a separate authored shared account rather than Sponsors' individual funds; this is a single-period causal control, not yet the two-period campaign combined with the pool. Private signal changes synthetic authored truth across scenarios; no World Authority admission. Database fixture deferred.
