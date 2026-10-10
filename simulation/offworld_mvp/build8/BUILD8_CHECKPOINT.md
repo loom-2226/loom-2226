@@ -1,5 +1,7 @@
 # Build 8 multi-organization / 80-economy checkpoint
 
+**Experimental, non-canon. Reviewed source hash df9c257. Economic tests need external Earth v4 data. Not a qualification baseline.**
+
 Status: active Build 8 development baseline, **not canon or qualification**. Do not regress to Build 7's three representative Agents (`PUB`, `FIN`, `SPN`) as the Build 8 population.
 
 ## Retained implementation

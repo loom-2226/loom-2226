@@ -1,5 +1,13 @@
 # Build 8: Experiment A, country-capital boundary
 
+**Experimental, non-canon. Reviewed source hash df9c257. Economic tests need external Earth v4 data. Not a qualification baseline.**
+
+**Current status (2026-10-11):** This directory preserves disposable Build 8 research and simulation experiments, **not** an activated Build 8 economic runtime or authoritative national-capital model. The 80-economy results are authored allocation and mobilization trials, not independent economic choices by 80 country Agents or all named Sponsors. The latest four-USA-Sponsor trial uses real Sponsor and financier policies, frozen financing requests, an authored 0.50-unit fund, and order-independent clearing; its underwriting and manifest are synthetic, TEST_ONLY, and uncalibrated. It does not establish an economic forecast, actual capital markets, or qualification. See [BUILD8_CHECKPOINT.md](BUILD8_CHECKPOINT.md) for the current detailed checkpoint, test results, limits, and session-card hash. Reproducing economic executions requires the separately supplied Earth v4 baseline (`LOOM_EARTH_V4_ROOT`); a clean-clone import check is **not** an economic execution check.
+
+**Reading guide:** The numbered increments below are historical experiment notes retained for provenance. Their original "Next" statements and "no financing decisions" statements describe the state **at that increment**, not the current branch. Do not use them as current authority or instructions to expand the model.
+
+## Historical experiment log (superseded status statements)
+
 Status: initial implementation, not an activated runtime campaign or qualification.
 
 The first increment exposes read-only 2026–2035 investment capacities for 80 Earth economies from the promoted Earth v4 local baseline. It does **not** mint capital, change Build 7, create government Agents, introduce strategic pressure, or make financing decisions.
