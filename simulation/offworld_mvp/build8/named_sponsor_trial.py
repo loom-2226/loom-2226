@@ -31,7 +31,7 @@ def run_named_sponsors(root: Path, year=2026):
     strategic = replace(scenario, base_salience=D('.2'), race_pressure=D(0))
     # Mobilize separate 10% proxy slices once per country and type.
     source = {}
-    for country in sorted({c for _, (_, weights, _) in ROUTES.items() for c in weights}):
+    for country in sorted({c for _, (_, weights, _) in ROUTES.items() for c in weights if (c,year) in capacities}):
         investment = capacities[country, year]
         for kind in ('PUBLIC', 'PRIVATE'):
             amount = derive_mobilization(
@@ -55,6 +55,8 @@ def run_named_sponsors(root: Path, year=2026):
         budget = 'trial_budget:'+sponsor
         kernel.add_account(budget, sponsor, 'EARTH:'+home, AccountKind.FUNDS, D(0))
         for country, weight in weights.items():
+            if (kind, country) not in source:
+                continue
             origin, amount = source[kind, country]
             kernel.transfer(year, origin, budget, amount*D(weight), TxPurpose.OTHER_INVESTMENT)
         before = kernel.state.accounts[budget].balance
