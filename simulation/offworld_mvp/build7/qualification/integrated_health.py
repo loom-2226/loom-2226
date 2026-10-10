@@ -30,7 +30,7 @@ def main():
     with psycopg.connect(**admin,dbname='postgres',autocommit=True) as c:
         for service,role in ROLES.items():
             username = 'health_'+service
-            c.execute(sql.SQL('CREATE ROLE {} LOGIN PASSWORD %s').format(sql.Identifier(username)),(os.environ['LOOM_HEALTH_PGPASSWORD'],))
+            c.execute(sql.SQL('CREATE ROLE {} LOGIN PASSWORD {}').format(sql.Identifier(username),sql.Literal(os.environ['LOOM_HEALTH_PGPASSWORD'])))
             c.execute(sql.SQL('GRANT {} TO {}').format(sql.Identifier(role),sql.Identifier(username)))
     with tempfile.TemporaryDirectory() as tmp:
         service_file=Path(tmp)/'pg_service.conf'
