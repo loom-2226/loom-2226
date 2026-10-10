@@ -1,6 +1,6 @@
 # Build 7 | Rendered as-built atlas
 
-**Source authority:** pinned Build 7 commit `66c641d25e641e0aff77940a8cadbf1653247113`. Generated-world annual pathway, 2026–2035. [README](README.md) | [Causal arrow audit](CAUSAL_AUDIT.md) | [Data sources and PostgreSQL semantics](DATA_SOURCES.md) | [Agent policy gates](DECISIONS.md) | [Assumptions](ABSTRACTIONS.md).
+**Source authority:** pinned Build 7 commit `66c641d25e641e0aff77940a8cadbf1653247113`. Generated-world annual pathway, 2026–2035. [README](README.md) | [Agent register](AGENTS.md) | [Causal arrow audit](CAUSAL_AUDIT.md) | [Data sources and PostgreSQL semantics](DATA_SOURCES.md) | [Agent policy gates](DECISIONS.md) | [Assumptions](ABSTRACTIONS.md).
 
 **Notation:** solid links describe source-supported relationships; dashed links are contextual, conditional, or registered capabilities and must not be treated as exercised decisions. A diagram edge may abbreviate a documented call chain.
 
@@ -333,4 +333,41 @@ flowchart TD
  EPOCH --> ART
  EPOCH --> TRACE
  OTHER["Potential uses JSON and illustrative return scenarios: reference / offline, not annual runtime"]
+```
+
+## Agent Register
+
+```mermaid
+flowchart TD
+ subgraph Agents["Instantiated AgentState: generated-world kernel"]
+ PUB["PUB / PUBLIC: public_funds; PUBLIC_INFORMATION, PUBLIC_SETTLEMENT"]
+ SPN["SPN / PRIVATE_SPONSOR: sponsor_funds; RETURN"]
+ FIN["FIN / PRIVATE_FINANCIER: fin_funds=0; RETURN"]
+ end
+ subgraph Policies["Executed Agent policy epochs"]
+ PE["PUB explorer authorization"]
+ PP["PUB publication per observation"]
+ PS["SPN prospecting: opening and annual"]
+ PO["SPN annual opportunity"]
+ PA["SPN portfolio authorization"]
+ PR["SPN study review"]
+ end
+ PUB --> PE
+ PUB --> PP
+ SPN --> PS
+ SPN --> PO
+ SPN --> PA
+ SPN --> PR
+ FIN -.-> NF["FINANCE capability declared; no independent annual FIN policy"]
+ PE --> REM["System: paid remote observation"]
+ REM --> PP
+ PP --> INFO["System: published evidence; SPN independent belief update"]
+ INFO --> PS
+ INFO --> PO
+ PS --> PROJECT["System: project creation, commitment, disbursement"]
+ PROJECT --> PA
+ PA --> STUDY["System: study authorization, spend and regional result"]
+ STUDY --> PR
+ PR --> PO
+ OTHER["SUP, EARTH_MARKET, COUNTRY:USA, TRANSPORT_PROVIDER: account owners, NOT Agents"]
 ```

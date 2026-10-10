@@ -1,12 +1,12 @@
 # Build 7 | Executable as-built atlas
 
-**View the rendered diagrams: [ATLAS.md](ATLAS.md).** Read the **[source-to-arrow causal audit](CAUSAL_AUDIT.md)**. Audit the **[semantic data-source and PostgreSQL lineage register](DATA_SOURCES.md)**, **[assumptions and abstractions](ABSTRACTIONS.md)** and **[exact Agent policy gates](DECISIONS.md)**.
+**View the rendered diagrams: [ATLAS.md](ATLAS.md).** Read the **[instantiated Agent register](AGENTS.md)** and **[source-to-arrow causal audit](CAUSAL_AUDIT.md)**. Audit the **[semantic data-source and PostgreSQL lineage register](DATA_SOURCES.md)**, **[assumptions and abstractions](ABSTRACTIONS.md)** and **[exact Agent policy gates](DECISIONS.md)**.
 
 **Pinned source authority:** [Build 7 at `66c641d25e641e0aff77940a8cadbf1653247113`](https://github.com/loom-2226/loom-2226/tree/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7). The diagrams are source-derived, not copied from [reference PR #372](https://github.com/loom-2226/loom-2226/pull/372). Scope is the **generated-world 2026–2035 annual campaign**, not the separate targeted qualification path.
 
 ## Navigation
 
-The rendered atlas has eleven views: world overview, data provenance, world/knowledge, Agent decisions, observations/epistemics, Agent consequences, economics/projects, annual time/persistence, and abstraction boundaries. [ATLAS.md](ATLAS.md) is the mobile-friendly visual entry point; individual `.mmd` files are editable sources.
+The rendered atlas has twelve views: world overview, data provenance, world/knowledge, Agent decisions, observations/epistemics, Agent consequences, economics/projects, annual time/persistence, and abstraction boundaries. [ATLAS.md](ATLAS.md) is the mobile-friendly visual entry point; individual `.mmd` files are editable sources.
 
 ## Evidence and exact entry points
 
