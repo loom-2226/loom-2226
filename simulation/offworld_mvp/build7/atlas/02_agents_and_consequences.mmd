@@ -1,0 +1,16 @@
+flowchart TD
+  PUB{"PUB remote authorization"} --> REM["System: paid observation, belief, publication"]
+  REM --> SPN{"SPN prospecting policy"}
+  EARTH["USA investment proxy and authored economics"] --> MOB["System: mobilize country capital"]
+  MOB --> SPN
+  SPN -->|"INITIATE_PROJECT"| CREATE["System: create project, commitment, disbursement"]
+  CREATE --> PROPOSED["Proposed study"]
+  PROPOSED --> PORT{"SPN portfolio authorization"}
+  PORT -->|"AUTHORIZE"| ACTIVE["System: authorize, start, spend"]
+  ACTIVE --> DUE["Due: region observation and SPN belief update"]
+  DUE --> RESULT["System: complete and admit study result"]
+  RESULT --> REVIEW{"SPN review: advance / defer / abandon"}
+  REVIEW --> STATE["Persist study and project state"]
+  STATE -->|"review existed at year opening"| ANNUAL{"SPN annual opportunity policy"}
+  ANNUAL -->|"consider prospecting"| SPN
+  FIN["FIN capability registered, recurring decision not evidenced"] -.-> STATE
