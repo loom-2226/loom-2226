@@ -1,0 +1,62 @@
+name: LOOM Simulation Health
+
+on:
+  pull_request:
+    paths:
+      - 'simulation/offworld_mvp/**'
+      - 'src/loom_world_authority/**'
+      - '.github/workflows/loom-simulation-health.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'simulation/offworld_mvp/**'
+      - 'src/loom_world_authority/**'
+      - '.github/workflows/loom-simulation-health.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  simulation-health:
+    name: LOOM Simulation Health (partial coverage)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install runtime test dependencies
+        run: python -m pip install 'numpy>=1.26,<3' 'lamberthub==1.0.0' 'psycopg[binary]>=3,<4'
+      - name: Existing Build 7 isolated tests
+        shell: bash
+        env:
+          PYTHONPATH: src:simulation/offworld_mvp/phase3b/kernel:.
+        run: |
+          set -o pipefail
+          unset PGSERVICEFILE
+          start=$SECONDS
+          python -m unittest -q \
+            simulation.offworld_mvp.build7.qualification.test_exploration_choice \
+            simulation.offworld_mvp.build7.qualification.test_project_study_isolation \
+            simulation.offworld_mvp.build7.qualification.test_resource_returns \
+            simulation.offworld_mvp.build7.qualification.test_increment5_adapter \
+            simulation.offworld_mvp.build7.qualification.test_mission_cost_bridge \
+            simulation.offworld_mvp.build7.qualification.test_generated_campaign \
+            2>&1 | tee simulation-health.log
+          result=${PIPESTATUS[0]}
+          {
+            echo '## LOOM Simulation Health'
+            echo "- Commit: \`$GITHUB_SHA\`"
+            echo "- Result: **$([ "$result" -eq 0 ] && echo PASS || echo FAIL)**"
+            echo "- Duration: $((SECONDS-start)) seconds"
+            echo '- Coverage: **PARTIAL** (24 existing Build 7 tests; no live database)'
+            echo '- World Authority persistence, replay, and concurrent transactions: **NOT VERIFIED**'
+            echo '- This check does not certify integrated simulation health.'
+            echo '### Test output'
+            echo '```'
+            tail -40 simulation-health.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$result"
