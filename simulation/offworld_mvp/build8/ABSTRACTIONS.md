@@ -28,3 +28,7 @@ Hidden deposit truth remains unavailable to Agent decision policies. Country cap
 4. Stop before adding new Sponsor personalities, government Agents, finance markets or strategic-pressure formulas. Competition is a subsequent increment, after this boundary works.
 
 **Escalation rule:** revise an abstraction only if a run demonstrates that it materially prevents the desired country-capital or Sponsor competition behavior. Do not promote a research suggestion into runtime merely because it exists.
+
+## Experiment A two-country observation (isolated trial)
+
+B8-A04 is now **demonstrated in an in-memory kernel trial for USA and AUS**, not in a governed Build 8 campaign: the existing transition enforces country-scoped Earth assertions and accounts, and produces matching debit/credit ledger movements. The trial constructs temporary manifest assertions and accounts; it is not a qualified genesis or persistent run. This is a proof that the existing kernel can express the country boundary without modifying its transaction rules.
