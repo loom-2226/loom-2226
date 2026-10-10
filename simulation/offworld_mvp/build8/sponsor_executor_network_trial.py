@@ -133,9 +133,9 @@ def run_network(root: Path, year=2026):
                 kernel.add_account(ek,executor,'EARTH:'+EXECUTORS[executor][0],
                                    AccountKind.FUNDS,D(0))
                 executor_accounts[executor]=ek
-            kernel.transfer(year,cash,executor_accounts[executor],cost,
-                            TxPurpose.OTHER_INVESTMENT)
-            outcome='CONTRACTED'
+            # Award is not delivery: retain project cash until an authorized
+            # physical development plan and supply permit staged expenditure.
+            outcome='AWARDED_PENDING_PLAN'
         rows.append(dict(sponsor=sponsor,kind=kind,executor=executor,
                          executor_home=EXECUTORS[executor][0],motive=motive,
                          capability=capability,cost=str(cost),opening=str(opening),
