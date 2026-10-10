@@ -14,7 +14,7 @@ NAMES=('SpaceX','Blue Origin','Interlune','Axiom')
 KEYS=tuple('BODY:MOON:'+f+'_PRESENT' for f in BODY_MATERIAL_FAMILIES)
 KEY='BODY:MOON:VOLATILES_PRESENT'
 
-def trial(private_positive=False, order=NAMES):
+def trial(private_positive=False, order=NAMES, financier_clearing=False, disclose_private=True):
     if len(order)!=len(NAMES) or set(order)!=set(NAMES):
         raise ValueError("order must be a permutation of four USA Sponsors")
     k,h,capacities,_=build_country_opening(ROOT)
@@ -47,6 +47,9 @@ def trial(private_positive=False, order=NAMES):
     expected='POSITIVE' if private_positive else 'NEGATIVE'
     assert private.signal==expected
     k.publish_observation(2,'SpaceX',private.id,'SYNTHETIC_USA_PRIVATE',(('SpaceX',KEY,D('.8'),D('.2')),))
+    if financier_clearing:
+        from .four_usa_financier import finance_requests
+        return finance_requests(k,h,NAMES,order,public,private,private_positive,disclose_private,cost,budget,rec)
     results={}
     # Fixed priority is an experimental control, not a market allocation mechanism.
     for name in order:
