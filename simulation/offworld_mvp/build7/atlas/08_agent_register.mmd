@@ -1,0 +1,32 @@
+flowchart TD
+ subgraph Agents["Instantiated AgentState: generated-world kernel"]
+ PUB["PUB / PUBLIC: public_funds; PUBLIC_INFORMATION, PUBLIC_SETTLEMENT"]
+ SPN["SPN / PRIVATE_SPONSOR: sponsor_funds; RETURN"]
+ FIN["FIN / PRIVATE_FINANCIER: fin_funds=0; RETURN"]
+ end
+ subgraph Policies["Executed Agent policy epochs"]
+ PE["PUB explorer authorization"]
+ PP["PUB publication per observation"]
+ PS["SPN prospecting: opening and annual"]
+ PO["SPN annual opportunity"]
+ PA["SPN portfolio authorization"]
+ PR["SPN study review"]
+ end
+ PUB --> PE
+ PUB --> PP
+ SPN --> PS
+ SPN --> PO
+ SPN --> PA
+ SPN --> PR
+ FIN -.-> NF["FINANCE capability declared; no independent annual FIN policy"]
+ PE --> REM["System: paid remote observation"]
+ REM --> PP
+ PP --> INFO["System: published evidence; SPN independent belief update"]
+ INFO --> PS
+ INFO --> PO
+ PS --> PROJECT["System: project creation, commitment, disbursement"]
+ PROJECT --> PA
+ PA --> STUDY["System: study authorization, spend and regional result"]
+ STUDY --> PR
+ PR --> PO
+ OTHER["SUP, EARTH_MARKET, COUNTRY:USA, TRANSPORT_PROVIDER: account owners, NOT Agents"]

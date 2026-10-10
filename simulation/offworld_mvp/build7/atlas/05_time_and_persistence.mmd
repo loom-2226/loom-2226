@@ -1,0 +1,29 @@
+flowchart TD
+ GEN["2026: world genesis, kernel, opening epoch"] --> OPEN["PUB remote and SPN opening prospecting"]
+ OPEN --> Y["Annual loop 2027–2035"]
+ Y --> EARTH["Record Earth reference year"]
+ EARTH --> PUB["PUB remote choice"]
+ PUB --> FLAG["Snapshot: has any study review already occurred?"]
+ FLAG --> EACH["For each created project, sorted"]
+ EACH --> INIT{"Activity initialized?"}
+ INIT -->|"no"| MAKE["Initialize regional study"]
+ INIT -->|"yes"| STATUS{"Study status"}
+ MAKE --> STATUS
+ STATUS -->|"PROPOSED"| PORT["SPN portfolio policy and authorized actions"]
+ STATUS -->|"ACTIVE and due"| COMPLETE["Observe region, update belief, complete and admit"]
+ STATUS -->|"COMPLETED, unreviewed"| REVIEW["SPN review and execute"]
+ STATUS -->|"other"| NONE["No activity action"]
+ PORT --> ALT{"Prior review existed AND opening project exists?"}
+ COMPLETE --> ALT
+ REVIEW --> ALT
+ NONE --> ALT
+ ALT -->|"yes"| OPP["SPN annual opportunity, optional investment"]
+ ALT -->|"no"| NEXT["Next year or finish"]
+ OPP --> NEXT
+ NEXT -->|"year remains"| Y
+ POLICY["policy_epoch: admitted facts, snapshot, worker and decision"] --> PERSIST["execute_persisted_epoch"]
+ SYSTEM["system_epoch: kernel transition and accounting audit"] --> PERSIST
+ PERSIST --> DB["World Authority epoch, artifacts and causal records"]
+ DB --> REPLAY["Run identity and replay provenance"]
+ Y -.-> POLICY
+ EACH -.-> SYSTEM
