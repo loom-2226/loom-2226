@@ -60,5 +60,5 @@ def run_two_sponsor_projects(root: Path, *, commercial=False, strategic=False,
     assert sum((k.state.accounts['b8_public_budget'].balance,
                 k.state.accounts['sponsor_funds'].balance,
                 *(k.state.accounts['b8_cash:'+a].balance
-                  for a in ('B8_PUBLIC','SPN'))),D(0))==public_funds+private_funds
+                  for a in ('B8_PUBLIC','SPN') if 'b8_cash:'+a in k.state.accounts)),D(0))==public_funds+private_funds
     return tuple(results),k.fingerprint()
