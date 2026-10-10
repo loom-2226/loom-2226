@@ -1,7 +1,7 @@
 flowchart LR
  subgraph Physical
  A["Preliminary Lambert screen: not a qualified trajectory"]
- B["Provisional mission costs: modeled affordability"]
+ B["Provisional mission costs: affordability and minimum-cost ranking"]
  C["Fixed 2026 recovery capability: uncalibrated"]
  D["Generated material priors: fictional realization"]
  E["Noisy four-family sensing: authored likelihoods"]
@@ -14,7 +14,7 @@ flowchart LR
  end
  A --> PUB["PUB eligible mission selection"]
  B --> PUB
- C -.-> STUDY["Region study / maturity"]
+ C -.-> CAP["Configured recovery capability, not demonstrated study effect"]
  D --> OBS["Observations and beliefs"]
  E --> OBS
  F --> STUDY

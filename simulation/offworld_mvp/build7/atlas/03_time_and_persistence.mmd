@@ -1,5 +1,5 @@
 flowchart TD
-  GEN["2026: generated world and opening epoch"] --> OPEN["Opening PUB choice and SPN prospecting"]
+  GEN["2026: generated world and opening epoch"] --> OPEN["Opening PUB choice; SPN prospecting only if a body is characterized"]
   OPEN --> YEAR["Annual loop: 2027–2035"]
   YEAR --> PUB["PUB remote choice each year"]
   PUB --> PROJECTS["Iterate all created projects"]
@@ -8,7 +8,7 @@ flowchart TD
   STATE -->|"ACTIVE and due"| COMPLETE["Observe, update belief, complete, admit"]
   STATE -->|"COMPLETED and unreviewed"| REVIEW["SPN study review and execution"]
   STATE -->|"otherwise"| NONE["No activity in this branch"]
-  PORT --> ELIG{"Study review existed at year's opening?"}
+  PORT --> ELIG{"Study review existed before this year's project loop?"}
   COMPLETE --> ELIG
   REVIEW --> ELIG
   NONE --> ELIG

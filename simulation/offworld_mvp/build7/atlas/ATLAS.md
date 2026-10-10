@@ -1,6 +1,6 @@
 # Build 7 | Rendered as-built atlas
 
-**Source authority:** pinned Build 7 commit `66c641d25e641e0aff77940a8cadbf1653247113`. Generated-world annual pathway, 2026–2035. [README](README.md) | [Data sources and PostgreSQL semantics](DATA_SOURCES.md) | [Exact Agent policy gates](DECISIONS.md) | [Assumptions and abstractions](ABSTRACTIONS.md).
+**Source authority:** pinned Build 7 commit `66c641d25e641e0aff77940a8cadbf1653247113`. Generated-world annual pathway, 2026–2035. [README](README.md) | [Causal arrow audit](CAUSAL_AUDIT.md) | [Data sources and PostgreSQL semantics](DATA_SOURCES.md) | [Agent policy gates](DECISIONS.md) | [Assumptions](ABSTRACTIONS.md).
 
 **Notation:** solid links describe source-supported relationships; dashed links are contextual, conditional, or registered capabilities and must not be treated as exercised decisions. A diagram edge may abbreviate a documented call chain.
 
@@ -25,14 +25,14 @@ flowchart TD
  TRUTH -->|"WORLD_SIM only"| REM
  REM --> BEL["PUB belief update"]
  BEL --> PUBLISH{"PUB publication policy"}
- PUBLISH --> SPNBEL["SPN independent beliefs"]
+ PUBLISH -->|"PUBLISH only"| SPNBEL["SPN independent beliefs"]
  SPNBEL --> OPP["Region opportunities"]
  MOB --> SPN{"SPN financing and study choices"}
  OPP --> SPN
  end
  subgraph Consequences
  SPN --> PROJECT["Project / study / review"]
- TRUTH -->|"WORLD_SIM only"| PROJECT
+ TRUTH -->|"WORLD_SIM regional observation after authorized study"| PROJECT
  PROJECT --> STATE["Persistent world and causal trace"]
  STATE --> YEAR["Annual conductor"]
  YEAR --> CHOOSE
@@ -69,17 +69,17 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-  I["Authored catalog, accessibility, Earth, economics, timeline"] --> G["Build 7 genesis and visible mission candidates"]
+  I["Pinned public catalog/accessibility, promoted Earth projection, authored economics, read-only timeline"] --> G["Build 7 genesis and visible mission candidates"]
   SEED["World seed and material priors"] --> W["Sealed generated world truth"]
   G --> PUB["PUB candidates, capability, affordability"]
-  PUB --> CH{"PUB remote choice and policy authorization"}
+  PUB --> CH{"Pre-policy PUB choice then PUB policy authorization"}
   CH --> OBS["Paid remote observation"]
   W -->|"WORLD_SIM only"| OBS
   OBS --> B["PUB belief update"]
   B --> P{"PUB publication policy"}
-  P --> INFO["Published information"]
+  P --> INFO["PUBLISH authorized: system publishes observation"]
   INFO --> SB["SPN information and independent beliefs"]
-  SB --> OPP["Region prospecting opportunities"]
+  SB --> OPP["Region opportunities derived from published evidence and authored priors"]
   I --> OPP
   T["Timeline: read-only context"] -.-> G
 ```
@@ -117,7 +117,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-  PUB{"PUB remote authorization"} --> REM["System: paid observation, belief, publication"]
+  PUB{"PUB remote authorization"} --> REM["System: paid observation, PUB belief update, then PUB publication policy and transition"]
   REM --> SPN{"SPN prospecting policy"}
   EARTH["USA investment proxy and authored economics"] --> MOB["System: mobilize country capital"]
   MOB --> SPN
@@ -129,7 +129,7 @@ flowchart TD
   DUE --> RESULT["System: complete and admit study result"]
   RESULT --> REVIEW{"SPN review: advance / defer / abandon"}
   REVIEW --> STATE["Persist study and project state"]
-  STATE -->|"review existed at year opening"| ANNUAL{"SPN annual opportunity policy"}
+  STATE -->|"review existed before annual project loop, opening project exists"| ANNUAL{"SPN annual opportunity policy"}
   ANNUAL -->|"consider prospecting"| SPN
   FIN["FIN capability registered, recurring decision not evidenced"] -.-> STATE
 ```
@@ -165,7 +165,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-  GEN["2026: generated world and opening epoch"] --> OPEN["Opening PUB choice and SPN prospecting"]
+  GEN["2026: generated world and opening epoch"] --> OPEN["Opening PUB choice; SPN prospecting only if a body is characterized"]
   OPEN --> YEAR["Annual loop: 2027–2035"]
   YEAR --> PUB["PUB remote choice each year"]
   PUB --> PROJECTS["Iterate all created projects"]
@@ -174,7 +174,7 @@ flowchart TD
   STATE -->|"ACTIVE and due"| COMPLETE["Observe, update belief, complete, admit"]
   STATE -->|"COMPLETED and unreviewed"| REVIEW["SPN study review and execution"]
   STATE -->|"otherwise"| NONE["No activity in this branch"]
-  PORT --> ELIG{"Study review existed at year's opening?"}
+  PORT --> ELIG{"Study review existed before this year's project loop?"}
   COMPLETE --> ELIG
   REVIEW --> ELIG
   NONE --> ELIG
@@ -256,7 +256,7 @@ flowchart TD
 flowchart LR
  subgraph Physical
  A["Preliminary Lambert screen: not a qualified trajectory"]
- B["Provisional mission costs: modeled affordability"]
+ B["Provisional mission costs: affordability and minimum-cost ranking"]
  C["Fixed 2026 recovery capability: uncalibrated"]
  D["Generated material priors: fictional realization"]
  E["Noisy four-family sensing: authored likelihoods"]
@@ -269,7 +269,7 @@ flowchart LR
  end
  A --> PUB["PUB eligible mission selection"]
  B --> PUB
- C -.-> STUDY["Region study / maturity"]
+ C -.-> CAP["Configured recovery capability, not demonstrated study effect"]
  D --> OBS["Observations and beliefs"]
  E --> OBS
  F --> STUDY
@@ -293,13 +293,13 @@ flowchart TD
  end
  subgraph Scenario["AUTHORED FICTIONAL SCENARIO"]
  PRI["Four-family material priors: not empirical probabilities"]
- GEN["Generation policy: 90 JSONB rows, high sensitivity"]
+ GEN["Authored generation policy; 90 rows observed across isolated DB"]
  SEED["Seed / SHA256 lineage"]
  ECON["Prospecting economics: capital 2, information value 3; mobilization cap"]
  CONFIG["Structural campaign profile"]
  end
  subgraph PostgreSQL["POSTGRESQL: separate semantic layers"]
- GEO["wa_geo.body / location: named identities, 900 authored region anchors"]
+ GEO["wa_geo.body / location: identities; 900 authored region anchors observed"]
  WM["wa_world.generation_model / generation_policy: provenance"]
  W["wa_world.realization / hidden_state / deposit: sealed synthetic truth"]
  PROP["wa_world.physical_property: stock / reserve meaning lookup"]
@@ -312,7 +312,7 @@ flowchart TD
  SCR --> PUB["PUB mission eligibility"]
  COST --> PUB
  GEO --> PUB
- TL -.-> PUB
+ TL -.-> CONFIG
  EARTH --> CAP["Country capital proxy"]
  ECON --> CAP
  PRI --> GEN
@@ -328,8 +328,9 @@ flowchart TD
  CAP --> SPN
  ECON --> SPN
  CONFIG --> SPN
- PUB --> ART
- SPN --> ART
- ART --> TRACE
- OTHER["Potential uses JSON and illustrative return scenarios: reference / offline, not annual runtime"] -.-> ECON
+ PUB --> EPOCH["Policy/system epochs via World Authority"]
+ SPN --> EPOCH
+ EPOCH --> ART
+ EPOCH --> TRACE
+ OTHER["Potential uses JSON and illustrative return scenarios: reference / offline, not annual runtime"]
 ```

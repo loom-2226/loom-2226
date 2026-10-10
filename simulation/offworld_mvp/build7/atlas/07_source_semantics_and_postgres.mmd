@@ -9,13 +9,13 @@ flowchart TD
  end
  subgraph Scenario["AUTHORED FICTIONAL SCENARIO"]
  PRI["Four-family material priors: not empirical probabilities"]
- GEN["Generation policy: 90 JSONB rows, high sensitivity"]
+ GEN["Authored generation policy; 90 rows observed across isolated DB"]
  SEED["Seed / SHA256 lineage"]
  ECON["Prospecting economics: capital 2, information value 3; mobilization cap"]
  CONFIG["Structural campaign profile"]
  end
  subgraph PostgreSQL["POSTGRESQL: separate semantic layers"]
- GEO["wa_geo.body / location: named identities, 900 authored region anchors"]
+ GEO["wa_geo.body / location: identities; 900 authored region anchors observed"]
  WM["wa_world.generation_model / generation_policy: provenance"]
  W["wa_world.realization / hidden_state / deposit: sealed synthetic truth"]
  PROP["wa_world.physical_property: stock / reserve meaning lookup"]
@@ -28,7 +28,7 @@ flowchart TD
  SCR --> PUB["PUB mission eligibility"]
  COST --> PUB
  GEO --> PUB
- TL -.-> PUB
+ TL -.-> CONFIG
  EARTH --> CAP["Country capital proxy"]
  ECON --> CAP
  PRI --> GEN
@@ -44,7 +44,8 @@ flowchart TD
  CAP --> SPN
  ECON --> SPN
  CONFIG --> SPN
- PUB --> ART
- SPN --> ART
- ART --> TRACE
- OTHER["Potential uses JSON and illustrative return scenarios: reference / offline, not annual runtime"] -.-> ECON
+ PUB --> EPOCH["Policy/system epochs via World Authority"]
+ SPN --> EPOCH
+ EPOCH --> ART
+ EPOCH --> TRACE
+ OTHER["Potential uses JSON and illustrative return scenarios: reference / offline, not annual runtime"]

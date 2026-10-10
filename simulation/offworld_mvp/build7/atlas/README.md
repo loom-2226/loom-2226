@@ -1,6 +1,6 @@
 # Build 7 | Executable as-built atlas
 
-**View the rendered diagrams: [ATLAS.md](ATLAS.md).** Audit the **[semantic data-source and PostgreSQL lineage register](DATA_SOURCES.md)**, **[assumptions and abstractions](ABSTRACTIONS.md)** and **[exact Agent policy gates](DECISIONS.md)**.
+**View the rendered diagrams: [ATLAS.md](ATLAS.md).** Read the **[source-to-arrow causal audit](CAUSAL_AUDIT.md)**. Audit the **[semantic data-source and PostgreSQL lineage register](DATA_SOURCES.md)**, **[assumptions and abstractions](ABSTRACTIONS.md)** and **[exact Agent policy gates](DECISIONS.md)**.
 
 **Pinned source authority:** [Build 7 at `66c641d25e641e0aff77940a8cadbf1653247113`](https://github.com/loom-2226/loom-2226/tree/66c641d25e641e0aff77940a8cadbf1653247113/simulation/offworld_mvp/build7). The diagrams are source-derived, not copied from [reference PR #372](https://github.com/loom-2226/loom-2226/pull/372). Scope is the **generated-world 2026–2035 annual campaign**, not the separate targeted qualification path.
 
@@ -39,4 +39,4 @@ The rendered atlas has eleven views: world overview, data provenance, world/know
 
 ## Review / replacement rule
 
-This is a **source-grounded documentation revision**, not a completed independent exhaustive verification of every Mermaid edge or a qualification artifact. Every causal edge should be checked against its linked code before promotion from draft. Keep PR #372 until the replacement is accepted. Changes to Build 7 require re-pinning and reviewing affected relationships, not silently mixing revisions.
+This is a **source-checked documentation revision**, with [18 explicit causal/metadata checks](CAUSAL_AUDIT.md), not a completed independent replay qualification. The audit records corrected overstatements and its own limits. Keep PR #372 until the replacement is accepted. Changes to Build 7 require re-pinning and reviewing affected relationships, not silently mixing revisions.

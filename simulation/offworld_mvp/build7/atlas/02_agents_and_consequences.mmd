@@ -1,5 +1,5 @@
 flowchart TD
-  PUB{"PUB remote authorization"} --> REM["System: paid observation, belief, publication"]
+  PUB{"PUB remote authorization"} --> REM["System: paid observation, PUB belief update, then PUB publication policy and transition"]
   REM --> SPN{"SPN prospecting policy"}
   EARTH["USA investment proxy and authored economics"] --> MOB["System: mobilize country capital"]
   MOB --> SPN
@@ -11,6 +11,6 @@ flowchart TD
   DUE --> RESULT["System: complete and admit study result"]
   RESULT --> REVIEW{"SPN review: advance / defer / abandon"}
   REVIEW --> STATE["Persist study and project state"]
-  STATE -->|"review existed at year opening"| ANNUAL{"SPN annual opportunity policy"}
+  STATE -->|"review existed before annual project loop, opening project exists"| ANNUAL{"SPN annual opportunity policy"}
   ANNUAL -->|"consider prospecting"| SPN
   FIN["FIN capability registered, recurring decision not evidenced"] -.-> STATE

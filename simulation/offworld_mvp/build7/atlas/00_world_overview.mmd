@@ -16,14 +16,14 @@ flowchart TD
  TRUTH -->|"WORLD_SIM only"| REM
  REM --> BEL["PUB belief update"]
  BEL --> PUBLISH{"PUB publication policy"}
- PUBLISH --> SPNBEL["SPN independent beliefs"]
+ PUBLISH -->|"PUBLISH only"| SPNBEL["SPN independent beliefs"]
  SPNBEL --> OPP["Region opportunities"]
  MOB --> SPN{"SPN financing and study choices"}
  OPP --> SPN
  end
  subgraph Consequences
  SPN --> PROJECT["Project / study / review"]
- TRUTH -->|"WORLD_SIM only"| PROJECT
+ TRUTH -->|"WORLD_SIM regional observation after authorized study"| PROJECT
  PROJECT --> STATE["Persistent world and causal trace"]
  STATE --> YEAR["Annual conductor"]
  YEAR --> CHOOSE
