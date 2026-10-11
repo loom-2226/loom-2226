@@ -30,7 +30,7 @@ PREFERRED = {'NASA':'Astrobotic','CNSA':'CASC','ISRO':'HAL / L&T',
              'Australian Space Agency':'Toyota','UAE Space Agency':'Thales Alenia Space',
              'ispace':'ispace','Interlune':'Northrop Grumman'}
 
-def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A'):
+def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_override=None):
     share=D(share)
     if scenario not in ('A','B'):
         raise ValueError('Scenario A or B only')
@@ -71,7 +71,7 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A'):
     for sponsor in sorted(CEILINGS):
         _,category,_=PROJECTS[sponsor]
         ceiling=D(CEILINGS[sponsor])
-        price=DEFAULT_PRICE[category]
+        price=(D(project_price_override[sponsor]) if project_price_override and sponsor in project_price_override else DEFAULT_PRICE[category])
         budget=budgets[sponsor]
         available=k.state.accounts[budget].balance
         executor=PREFERRED[sponsor]
