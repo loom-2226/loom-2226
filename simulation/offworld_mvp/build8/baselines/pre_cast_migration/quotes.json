@@ -1,0 +1,30 @@
+[
+  {
+    "authored_cost": "2.00",
+    "available_capacity": 1,
+    "basis": "Existing Build 8 EXECUTORS roster; authored BUILD scenario inputs",
+    "category": "BUILD",
+    "duration_years": 2,
+    "executor": "Northrop Grumman",
+    "markup_rate": "0.25",
+    "quoted_price": "2.5000",
+    "reason": null,
+    "request_id": "PI01-BUILD-001",
+    "requested_capacity": 1,
+    "status": "OFFER"
+  },
+  {
+    "authored_cost": "3.00",
+    "available_capacity": 1,
+    "basis": "Research candidate: completed Blue Ghost Mission 1 reference; launch-plus-LAND bundle, cost, markup, duration, and capacity are explicit PI01 assumptions",
+    "category": "LAND",
+    "duration_years": 2,
+    "executor": "Firefly Aerospace",
+    "markup_rate": "0.20",
+    "quoted_price": "3.6000",
+    "reason": null,
+    "request_id": "PI01-LAND-001",
+    "requested_capacity": 1,
+    "status": "OFFER"
+  }
+]
