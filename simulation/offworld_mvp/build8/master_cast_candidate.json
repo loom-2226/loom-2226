@@ -1,0 +1,2214 @@
+{
+  "schema": "build8_master_cast_candidate",
+  "version": "0.1",
+  "status": "RESEARCH_NONCANON_NOT_RUNTIME",
+  "sources": [
+    "executors_real_list_v2.json supplied by user (59 category rows)",
+    "Build 8 main sponsor_executor_network_trial.py, sponsor_trial_setup.py, named_sponsor_trial.py, deliverable_chain.py, screened_delivery.py, defense_draw_trial.py"
+  ],
+  "notes": [
+    "One record per normalized identity; no quoted price or job slots asserted",
+    "Capacity 0-4 intentionally null pending proxy research; do not invent scored evidence",
+    "Defense classifications from supplied JSON are analyst-unverified and attached per capability",
+    "Multinational funding participation is not home_country",
+    "Historical scenario costs, slots and sponsor routes remain in existing experiments",
+    "Existing named actor references checked in six Build 8 experiment source files; not an exhaustive unmerged-branch audit",
+    "Organization-level defense profile is an unverified analyst classification; NONE means no positive classification, not a verified absence of defense work",
+    "ESA FRA is administrative headquarters only; participating countries are funding/participation links"
+  ],
+  "actors": [
+    {
+      "id": "airbus_defence_and_space",
+      "name": "Airbus Defence and Space",
+      "home_country": "FRA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Spacecraft; Starlab partner",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "RUN",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "arianespace",
+      "name": "Arianespace",
+      "home_country": "FRA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Ariane 6, Vega C",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "astrobotic",
+      "name": "Astrobotic",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAND",
+          "description": "Peregrine; Griffin",
+          "status": "Peregrine failed 2024; Griffin planned Nov 2026",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "BUILD",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "astroscale",
+      "name": "Astroscale",
+      "home_country": "JPN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "TRANSPORT",
+          "description": "Capture / servicing",
+          "status": "Mission targeted 2030",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://www.satellitetoday.com/technology/2026/04/02/astroscale-and-exotrail-to-co-develop-servicing-mission/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "australian_space_agency",
+      "name": "Australian Space Agency",
+      "home_country": "AUS",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "axiom",
+      "name": "Axiom",
+      "home_country": "USA",
+      "roles": [
+        "executor",
+        "private_sponsor"
+      ],
+      "capabilities": [
+        {
+          "category": "RUN",
+          "description": "Commercial station; Astrolab FLEX team",
+          "status": "Targets self-sustaining segment 2028",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/02/15/the-new-space-station-gold-rush-which-companies-are-actually-ready-for-leo/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [
+        "Axiom Space"
+      ],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "bhp",
+      "name": "BHP",
+      "home_country": "AUS",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "EXTRACT",
+          "description": "Earth mining operator (analogue)",
+          "status": "Analogue, no off-world operations",
+          "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
+          "source_url": "",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "blue_origin",
+      "name": "Blue Origin",
+      "home_country": "USA",
+      "roles": [
+        "executor",
+        "private_sponsor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAND",
+          "description": "Blue Moon Mark 1",
+          "status": "Planned early 2027",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "BUILD",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "LAUNCH",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "boeing_defense_space_security",
+      "name": "Boeing Defense, Space & Security",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Spacecraft",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "cas_space",
+      "name": "CAS Space",
+      "home_country": "CHN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Kinetica-1",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "casc",
+      "name": "CASC",
+      "home_country": "CHN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Long March family",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "BUILD",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "LAND",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "STATE_DEFENSE_AND_CIVIL",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "cast",
+      "name": "CAST",
+      "home_country": "CHN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "claude_59_combined_entry"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "cast_china_academy_of_space_technology",
+      "name": "CAST (China Academy of Space Technology)",
+      "home_country": "CHN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Spacecraft; builds Chang'e 7",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://en.wikipedia.org/wiki/Chang%27e_7",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "STATE_DEFENSE_AND_CIVIL",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "caterpillar",
+      "name": "Caterpillar",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "EXTRACT",
+          "description": "Earth mining equipment (analogue)",
+          "status": "Analogue, no off-world operations",
+          "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
+          "source_url": "",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "china_manned_space_agency",
+      "name": "China Manned Space Agency",
+      "home_country": "CHN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "RUN",
+          "description": "Tiangong station operations",
+          "status": "Operating",
+          "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
+          "source_url": "",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "STATE_DEFENSE_AND_CIVIL",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "cnes",
+      "name": "CNES",
+      "home_country": "FRA",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "cnsa",
+      "name": "CNSA",
+      "home_country": "CHN",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_are",
+      "name": "COUNTRY:ARE",
+      "home_country": "ARE",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_aus",
+      "name": "COUNTRY:AUS",
+      "home_country": "AUS",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_aut",
+      "name": "COUNTRY:AUT",
+      "home_country": "AUT",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_bel",
+      "name": "COUNTRY:BEL",
+      "home_country": "BEL",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_can",
+      "name": "COUNTRY:CAN",
+      "home_country": "CAN",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_che",
+      "name": "COUNTRY:CHE",
+      "home_country": "CHE",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_chn",
+      "name": "COUNTRY:CHN",
+      "home_country": "CHN",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_deu",
+      "name": "COUNTRY:DEU",
+      "home_country": "DEU",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_esp",
+      "name": "COUNTRY:ESP",
+      "home_country": "ESP",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_fra",
+      "name": "COUNTRY:FRA",
+      "home_country": "FRA",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_gbr",
+      "name": "COUNTRY:GBR",
+      "home_country": "GBR",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_hun",
+      "name": "COUNTRY:HUN",
+      "home_country": "HUN",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_ind",
+      "name": "COUNTRY:IND",
+      "home_country": "IND",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_isr",
+      "name": "COUNTRY:ISR",
+      "home_country": "ISR",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_ita",
+      "name": "COUNTRY:ITA",
+      "home_country": "ITA",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_jpn",
+      "name": "COUNTRY:JPN",
+      "home_country": "JPN",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_kor",
+      "name": "COUNTRY:KOR",
+      "home_country": "KOR",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_nld",
+      "name": "COUNTRY:NLD",
+      "home_country": "NLD",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_nor",
+      "name": "COUNTRY:NOR",
+      "home_country": "NOR",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_pol",
+      "name": "COUNTRY:POL",
+      "home_country": "POL",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_qat",
+      "name": "COUNTRY:QAT",
+      "home_country": "QAT",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_rus",
+      "name": "COUNTRY:RUS",
+      "home_country": "RUS",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_sau",
+      "name": "COUNTRY:SAU",
+      "home_country": "SAU",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_swe",
+      "name": "COUNTRY:SWE",
+      "home_country": "SWE",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "country_usa",
+      "name": "COUNTRY:USA",
+      "home_country": "USA",
+      "roles": [
+        "country"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_participation_or_candidate"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "csa",
+      "name": "CSA",
+      "home_country": "CAN",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "d_orbit",
+      "name": "D-Orbit",
+      "home_country": "ITA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "TRANSPORT",
+          "description": "ION orbital transport",
+          "status": "Operating (raised EUR 100M)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://europeanspaceflight.com/?p=2268",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "dhruva_space",
+      "name": "Dhruva Space",
+      "home_country": "IND",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Small spacecraft",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://en.wikipedia.org/wiki/List_of_spacecraft_manufacturers",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "dlr",
+      "name": "DLR",
+      "home_country": "DEU",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "epiroc",
+      "name": "Epiroc",
+      "home_country": "SWE",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "EXTRACT",
+          "description": "Earth mining equipment (analogue)",
+          "status": "Analogue, no off-world operations",
+          "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
+          "source_url": "",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "esa",
+      "name": "ESA",
+      "home_country": "FRA",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence",
+      "administrative_home_basis": "ESA headquarters, Paris, France; administrative domicile only, not national ownership",
+      "participating_countries": [
+        "DEU",
+        "FRA",
+        "ITA",
+        "GBR",
+        "ESP",
+        "NLD",
+        "BEL",
+        "SWE",
+        "CHE",
+        "AUT",
+        "NOR",
+        "POL"
+      ]
+    },
+    {
+      "id": "exotrail",
+      "name": "Exotrail",
+      "home_country": "FRA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "TRANSPORT",
+          "description": "Spacevan",
+          "status": "In development",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://www.satellitetoday.com/technology/2026/04/02/astroscale-and-exotrail-to-co-develop-servicing-mission/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "firefly_aerospace",
+      "name": "Firefly Aerospace",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Alpha",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "LAND",
+          "description": "Blue Ghost",
+          "status": "Landed Mar 2025; next planned 2027",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_chain"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "galactic_energy",
+      "name": "Galactic Energy",
+      "home_country": "CHN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Ceres-1",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "gilmour_space_technologies",
+      "name": "Gilmour Space Technologies",
+      "home_country": "AUS",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Eris",
+          "status": "Test flight 2025; not shown operational",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://www.satnow.com/news/details/3712-gilmour-space-successfully-launches-australia-s-first-homegrown-orbital-rocket",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "hal_l_t",
+      "name": "HAL / L&T",
+      "home_country": "IND",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "LAUNCH",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "hanwha_aerospace",
+      "name": "Hanwha Aerospace",
+      "home_country": "KOR",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Spacecraft; Nuri launcher partner",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://en.wikipedia.org/wiki/List_of_spacecraft_manufacturers",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "LAUNCH",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "honeybee_robotics",
+      "name": "Honeybee Robotics",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "EXTRACT",
+          "description": "Drills, sampling, ISRU hardware",
+          "status": "Status not checked",
+          "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
+          "source_url": "",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "impulse_space",
+      "name": "Impulse Space",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "TRANSPORT",
+          "description": "Mira, Helios orbital transfer vehicles",
+          "status": "Mira flown; Helios first flight targeted 2027",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/06/02/impulse-space-raises-500-million-in-series-d-to-build-critical-in-space-mobility-infrastructure/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "interlune",
+      "name": "Interlune",
+      "home_country": "USA",
+      "roles": [
+        "executor",
+        "private_sponsor"
+      ],
+      "capabilities": [
+        {
+          "category": "EXTRACT",
+          "description": "Helium-3 and hydrogen from regolith",
+          "status": "NASA $6.9M SBIR; target lander 2028",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://www.geekwire.com/2026/interlune-nasa-contract-extract-helium-3-hydrogen-moon/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "intuitive_machines",
+      "name": "Intuitive Machines",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAND",
+          "description": "Nova-C / Nova-D",
+          "status": "IM-1 tipped; IM-2 rated failure; more planned",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "RUN",
+          "description": "Moon RACER rover",
+          "status": "NASA LTV award team (2024)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://www.govconwire.com/articles/nasa-awards-3-spots-on-4-6b-lunar-exploration-vehicle-development-contract",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "isar_aerospace",
+      "name": "Isar Aerospace",
+      "home_country": "DEU",
+      "roles": [
+        "executor",
+        "private_sponsor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Spectrum",
+          "status": "Status not checked",
+          "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
+          "source_url": "",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "ispace",
+      "name": "ispace",
+      "home_country": "JPN",
+      "roles": [
+        "executor",
+        "private_sponsor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAND",
+          "description": "APEX 1.0 lander",
+          "status": "No landing yet; CLPS order cancelled Jul 2026",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "RUN",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "israel_aerospace_industries",
+      "name": "Israel Aerospace Industries",
+      "home_country": "ISR",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Shavit (national missions)",
+          "status": "Operational, narrow",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "isro",
+      "name": "ISRO",
+      "home_country": "IND",
+      "roles": [
+        "executor",
+        "agency_sponsor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Government agency acting as spacecraft builder",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "LAUNCH",
+          "description": "PSLV, GSLV, LVM3",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "LAND",
+          "description": "Chandrayaan-3",
+          "status": "Landed Aug 2023",
+          "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
+          "source_url": "",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [
+        "ISRO (NSIL)"
+      ],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "jaxa",
+      "name": "JAXA",
+      "home_country": "JPN",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "kari",
+      "name": "KARI",
+      "home_country": "KOR",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "claude_59_combined_entry"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "kasa",
+      "name": "KASA",
+      "home_country": "KOR",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "komatsu",
+      "name": "Komatsu",
+      "home_country": "JPN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "EXTRACT",
+          "description": "Earth mining equipment (analogue)",
+          "status": "Analogue, no off-world operations",
+          "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
+          "source_url": "",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "landspace",
+      "name": "LandSpace",
+      "home_country": "CHN",
+      "roles": [
+        "executor",
+        "private_sponsor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Zhuque-2",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "lockheed_martin_space",
+      "name": "Lockheed Martin Space",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Spacecraft",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "lunar_outpost",
+      "name": "Lunar Outpost",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "RUN",
+          "description": "Lunar Dawn LTV rover",
+          "status": "NASA LTV award team (2024)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://www.govconwire.com/articles/nasa-awards-3-spots-on-4-6b-lunar-exploration-vehicle-development-contract",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "mda_space",
+      "name": "MDA Space",
+      "home_country": "CAN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Spacecraft; robotics; Starlab and Lunar Dawn partner",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://www.govconwire.com/articles/nasa-awards-3-spots-on-4-6b-lunar-exploration-vehicle-development-contract",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "RUN",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "mitsubishi_electric",
+      "name": "Mitsubishi Electric",
+      "home_country": "JPN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Spacecraft",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "mitsubishi_heavy_industries",
+      "name": "Mitsubishi Heavy Industries",
+      "home_country": "JPN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "H3",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "BUILD",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "nasa",
+      "name": "NASA",
+      "home_country": "USA",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "northrop_grumman",
+      "name": "Northrop Grumman",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Spacecraft; Cygnus cargo; LTV team member",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "TRANSPORT",
+          "description": "Cygnus cargo; selected for Starlab resupply",
+          "status": "Selected",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/02/15/the-new-space-station-gold-rush-which-companies-are-actually-ready-for-leo/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "RUN",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "ohb",
+      "name": "OHB",
+      "home_country": "DEU",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Spacecraft",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://en.wikipedia.org/wiki/List_of_spacecraft_manufacturers",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [
+        "OHB SE"
+      ],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "pla_aerospace_force",
+      "name": "PLA Aerospace Force",
+      "home_country": "CHN",
+      "roles": [
+        "defense_sponsor_candidate"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "proposed_not_active"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "rio_tinto",
+      "name": "Rio Tinto",
+      "home_country": "AUS",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "EXTRACT",
+          "description": "Earth mining operator (analogue)",
+          "status": "Analogue, no off-world operations",
+          "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
+          "source_url": "",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "rkk_energia",
+      "name": "RKK Energia",
+      "home_country": "RUS",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "LAUNCH",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "rocket_lab",
+      "name": "Rocket Lab",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Electron",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "roscosmos",
+      "name": "Roscosmos",
+      "home_country": "RUS",
+      "roles": [
+        "executor",
+        "agency_sponsor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Soyuz-2, Angara, Proton-M",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "LAND",
+          "description": "Luna-25",
+          "status": "Crashed 2023",
+          "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
+          "source_url": "",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "STATE_DEFENSE_AND_CIVIL",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "sierra_space",
+      "name": "Sierra Space",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "claude_59_combined_entry"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "skyroot_aerospace",
+      "name": "Skyroot Aerospace",
+      "home_country": "IND",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Vikram-1",
+          "status": "Reached orbit Jul 2026 (reported)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://satellitetoday.com/launch/2026/07/20/skyroot-aerospace-makes-history-for-india-with-first-launch-success/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "spacex",
+      "name": "SpaceX",
+      "home_country": "USA",
+      "roles": [
+        "executor",
+        "private_sponsor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Falcon 9 / Falcon Heavy",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "LAND",
+          "description": "Starship HLS",
+          "status": "Planned",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "BUILD",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "RUN",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "starlab",
+      "name": "Starlab",
+      "home_country": "USA",
+      "roles": [
+        "executor",
+        "private_sponsor"
+      ],
+      "capabilities": [
+        {
+          "category": "RUN",
+          "description": "Starlab station",
+          "status": "Target 2029",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/02/15/the-new-space-station-gold-rush-which-companies-are-actually-ready-for-leo/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [
+        "Voyager Space (Starlab)"
+      ],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "thales_alenia_space",
+      "name": "Thales Alenia Space",
+      "home_country": "FRA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "BUILD",
+          "description": "Spacecraft",
+          "status": "Operating",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "RUN",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "toyota",
+      "name": "Toyota",
+      "home_country": "JPN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "RUN",
+          "description": "Lunar Cruiser pressurised rover",
+          "status": "Prototype/planned",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://payloadspace.com/whos-who-lunar-landers-and-rovers",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        },
+        {
+          "category": "BUILD",
+          "description": "Build 8 network trial authored capability",
+          "status": "MODEL_ASSUMED",
+          "evidence_basis": "AUTHORED",
+          "source_url": null,
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [
+        "Toyota (with JAXA)"
+      ],
+      "sources": [
+        "claude_59",
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "uae_space_agency",
+      "name": "UAE Space Agency",
+      "home_country": "ARE",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "united_launch_alliance",
+      "name": "United Launch Alliance",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "LAUNCH",
+          "description": "Atlas V, Vulcan",
+          "status": "Operational (Mar 2026)",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "us_space_command",
+      "name": "US Space Command",
+      "home_country": "USA",
+      "roles": [
+        "defense_sponsor_candidate"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "proposed_not_active"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "vast",
+      "name": "Vast",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "RUN",
+          "description": "Haven-1 station",
+          "status": "Launch planned Q1 2027",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://newspaceeconomy.ca/2026/02/15/the-new-space-station-gold-rush-which-companies-are-actually-ready-for-leo/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "venturi_astrolab",
+      "name": "Venturi Astrolab",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [
+        {
+          "category": "EXTRACT",
+          "description": "FLIP / FLEX rovers; extraction hardware integration",
+          "status": "Agreed with Interlune",
+          "evidence_basis": "SOURCED",
+          "source_url": "https://www.geekwire.com/2026/interlune-nasa-contract-extract-helium-3-hydrogen-moon/",
+          "capacity_index": null,
+          "capacity_index_basis": "UNASSESSED"
+        }
+      ],
+      "aliases": [],
+      "sources": [
+        "claude_59"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    }
+  ],
+  "combined_activity_associations": [
+    {
+      "source_name": "KARI / Hanwha Aerospace",
+      "partners": [
+        "KARI",
+        "Hanwha Aerospace"
+      ],
+      "category": "LAUNCH",
+      "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+      "evidence_basis": "SOURCED_COMBINED_ASSOCIATION",
+      "note": "Joint or attributed activity; not independently verified for each partner"
+    },
+    {
+      "source_name": "CAST / CNSA",
+      "partners": [
+        "CAST",
+        "CNSA"
+      ],
+      "category": "LAND",
+      "source_url": "https://en.wikipedia.org/wiki/Chang%27e_7",
+      "evidence_basis": "SOURCED_COMBINED_ASSOCIATION",
+      "note": "Joint or attributed activity; not independently verified for each partner"
+    },
+    {
+      "source_name": "Blue Origin / Sierra Space",
+      "partners": [
+        "Blue Origin",
+        "Sierra Space"
+      ],
+      "category": "RUN",
+      "source_url": "https://newspaceeconomy.ca/2026/02/15/the-new-space-station-gold-rush-which-companies-are-actually-ready-for-leo/",
+      "evidence_basis": "SOURCED_COMBINED_ASSOCIATION",
+      "note": "Joint or attributed activity; not independently verified for each partner"
+    }
+  ],
+  "experiment_actor_reference_check": {
+    "files": [
+      "named_sponsor_trial.py",
+      "screened_delivery.py",
+      "sponsor_executor_network_trial.py",
+      "sponsor_trial_setup.py"
+    ],
+    "names_checked": 32,
+    "missing_actor_names": [],
+    "scope": "named rosters and experiment constants on current branch; not dynamic/generated account IDs or every unmerged branch"
+  }
+}
