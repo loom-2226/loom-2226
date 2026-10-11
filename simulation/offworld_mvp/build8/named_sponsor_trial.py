@@ -12,15 +12,16 @@ from offworld_kernel.prospecting import derive_mobilization
 from simulation.offworld_mvp.build7.generated_campaign import load_prospecting_scenario
 from .country_capital_input import load_investment_capacity
 from .opening import build_country_opening
+from .master_cast import name as cast_name
 
 # Explicit approximate source weights, not purported historical equity stakes.
 ROUTES = {
-    'NASA': ('PUBLIC', {'USA': '1'}, 'SCIENCE/STRATEGY'),
-    'CNSA': ('PUBLIC', {'CHN': '1'}, 'RESOURCES/STRATEGY'),
-    'ESA': ('PUBLIC', {'DEU': '1', 'FRA': '1', 'ITA': '1', 'GBR': '1'}, 'SCIENCE/ALLIANCE'),
-    'SpaceX': ('PRIVATE', {'USA': '.75'}, 'VISION/RETURN'),
-    'Axiom': ('PRIVATE', {'USA': '.25', 'JPN': '.25', 'KOR': '1', 'SAU': '1', 'QAT': '1'}, 'ACCESS/CONTRACT'),
-    'ispace': ('PRIVATE', {'JPN': '.75'}, 'RESOURCES/RETURN'),
+    cast_name('NASA', 'agency_sponsor'): ('PUBLIC', {'USA': '1'}, 'SCIENCE/STRATEGY'),
+    cast_name('CNSA', 'agency_sponsor'): ('PUBLIC', {'CHN': '1'}, 'RESOURCES/STRATEGY'),
+    cast_name('ESA', 'agency_sponsor'): ('PUBLIC', {'DEU': '1', 'FRA': '1', 'ITA': '1', 'GBR': '1'}, 'SCIENCE/ALLIANCE'),
+    cast_name('SpaceX', 'private_sponsor'): ('PRIVATE', {'USA': '.75'}, 'VISION/RETURN'),
+    cast_name('Axiom', 'private_sponsor'): ('PRIVATE', {'USA': '.25', 'JPN': '.25', 'KOR': '1', 'SAU': '1', 'QAT': '1'}, 'ACCESS/CONTRACT'),
+    cast_name('ispace', 'private_sponsor'): ('PRIVATE', {'JPN': '.75'}, 'RESOURCES/RETURN'),
 }
 COST = D('.05')
 

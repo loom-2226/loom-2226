@@ -21,6 +21,7 @@ from decimal import Decimal
 from typing import Iterable, Optional, Tuple
 
 from .sponsor_executor_network_trial import EXECUTORS as EXISTING_EXECUTORS
+from .master_cast import name as cast_name
 
 
 @dataclass(frozen=True)
@@ -67,7 +68,7 @@ REQUESTS = (
 # here remain authored assumptions. Decimal values are model currency units.
 EXECUTORS = (
     ExecutorInput(
-        name="Northrop Grumman",
+        name=cast_name("Northrop Grumman", "executor", "BUILD"),
         category="BUILD",
         authored_cost=Decimal("2.00"),
         markup_rate=Decimal("0.25"),
@@ -76,7 +77,7 @@ EXECUTORS = (
         basis="Existing Build 8 EXECUTORS roster; authored BUILD scenario inputs",
     ),
     ExecutorInput(
-        name="Firefly Aerospace",
+        name=cast_name("Firefly Aerospace", "executor", "LAND"),
         category="LAND",
         authored_cost=Decimal("3.00"),
         markup_rate=Decimal("0.20"),
