@@ -103,3 +103,37 @@ Resume the **same persistent kernel state** for 2027, 2028 and 2029. Admit each 
 **Gate 2 output:** annual table for all 11 Sponsors (WAIT, policy-rejected, committed, disbursed, scheduled, deferred, delivered), country-pool opening/inflows/closing, Sponsor/project cash and unpaid commitments, executor utilization by BUILD/LAND and year, queue age, actual delivery/payment years and event-derived timeline. Compare identical seeds under (a) no executor contention and (b) finite slots, holding funding inputs constant. **New information exists only if** carried-forward balances, policy choices or finite slots produce a different funded set, queue, delay, payment, or year-end state than static annual affordability alone predicts. If no such difference appears, report the null result and stop, rather than adding machinery to force emergence.
 
 **Gate 2 stop:** after 2029 close and deterministic replay of the 2026–2029 state/event history, or earlier at the first demonstrated missing invariant/actor-policy capability. No unbounded campaign, banking, market-clearing system, new scheduler framework or canon promotion. The old two-stage driver remains the default, and the frozen three yearly replays must stay unchanged. The earlier 510–920-line estimate is for the Gate 1 integration only; Gate 2's incremental code size is **not yet defensibly estimable** until Gate 1 reveals what persistence/slots machinery already suffices.
+
+## Pricing correction and two 2026 affordability maps (2026-10-11; supersedes earlier factor sensitivity)
+
+**Design report only. No runtime or pricing-code change.** The earlier NASA-anchored factor `200/3` in this report describes the **unchanged existing ESA experiment**, not the recommended next Route 1 pricing assumption. Earth investment-proxy units are normalized at `1e9` per `MODEL_CURRENCY`; thus one network unit has a **$1B constant-2015-USD-scale proxy display equivalence**. The separate `mobilization_m_max=.001` caps how much national investment is mobilized; it does **not** turn one currency unit into $1T. Mobilized cash `M=(I/1e9)*.001`, and the network trial offers `s*M` to **all 20** weighted Sponsor participants before selecting the 11 BUILD/LAND entries. Neither conversion implies observed financing or contemporary purchasing power.
+
+**Proposed, not implemented:** re-anchor one *screened-delivery executor unit* at **$50M** proxy-equivalent, hence `EXECUTOR_TO_NETWORK_FACTOR=20`, `BUILD=1.70/20=.085` network units ($85M), and `LAND=3.00/20=.150` ($150M). The $50M unit is an **authored scenario convention**, not empirical mission pricing. Existing explicit network-unit quotes, such as Airbus .024 and Thales .027, remain explicit and **do not convert** with this factor; comparing those legacy quotes to the new defaults requires an explicit repricing decision rather than silently mixing regimes.
+
+**Map A: original authored ceilings, unchanged.** Columns report the **names that pass cash-versus-ceiling**, not actual approvals. For these already network-denominated ceilings, the new factor is irrelevant. The original ceilings are NASA .045, CNSA .045, ISRO .015, JAXA .030, ESA .030, CNES .015, DLR .015, Australian Space Agency .015, UAE Space Agency .045, ispace .045, Interlune .090. Note the existing roster defines **UAE Space Agency as BUILD**, not LAND. With new default supplier prices, **none** of these ceilings buys a whole BUILD (.085) or LAND (.150) service: a cash-pass in this map is **not executable procurement**.
+
+| Share of mobilized national pool offered to all 20 Sponsors | Cash-affordable at authored ceiling (11-Sponsor names) | Count |
+|---|---|---:|
+| 1% | CNSA | 1/11 |
+| 2% (network-trial baseline) | CNSA, ISRO, ESA | 3/11 |
+| 4% | NASA, CNSA, ISRO, ESA, Australian Space Agency | 5/11 |
+| 10% | NASA, CNSA, ISRO, JAXA, ESA, CNES, DLR, Australian Space Agency | 8/11 |
+| 25% | NASA, CNSA, ISRO, JAXA, ESA, CNES, DLR, Australian Space Agency, ispace | 9/11 |
+| 50% | NASA, CNSA, ISRO, JAXA, ESA, CNES, DLR, Australian Space Agency, UAE Space Agency, ispace, Interlune | 11/11 |
+
+**Map B: raised mission-scale ceilings, authored illustration.** Set each BUILD ceiling to **.200 ($200M)** and each LAND ceiling to **.300 ($300M)**. These are *not* sourced mission estimates; they are test parameters deliberately above the default service prices. Cash-affordability now means Sponsor budget reaches its raised ceiling, a **conservative full-ceiling-financing test**. Actual funding need may be lower if the financier underwrites a priced service rather than the entire ceiling.
+
+| Share of mobilized national pool offered to all 20 Sponsors | Cash-affordable at raised ceiling (11-Sponsor names) | Count |
+|---|---|---:|
+| 1% | None | 0/11 |
+| 2% | None | 0/11 |
+| 4% | None | 0/11 |
+| 10% | CNSA, ESA | 2/11 |
+| 25% | NASA, CNSA, ISRO, ESA | 4/11 |
+| 50% | NASA, CNSA, ISRO, JAXA, ESA, Australian Space Agency | 6/11 |
+
+**Price-versus-ceiling cross-check:** At the proposed `f=20` and original **2%** Sponsor allocation, **0/11** can afford even the $85M BUILD / $150M LAND default; at 4%, CNSA and ESA can afford one default service, even though Map B's full raised ceilings are still unaffordable. At 10%, NASA, CNSA, ISRO and ESA clear their respective default *service prices*, while only CNSA and ESA clear the *raised programme ceilings*. This separation is essential: **budget >= supplier price** is a possible single-service financing gate; **budget >= project ceiling** is a stronger full-programme-financing gate. Neither implies an actual financier approval, readiness or executor slot.
+
+**Interpretation / stopping decision:** At 2% the proposed $50M executor-unit anchor creates a **0-funded-by-price** first epoch for these 11 Sponsors unless another independently authorized financing source or altered allocation fraction exists. Do not hide that by handing each financier the exact winning quote. Gate 1 should explicitly report this null result and stop if no new policy information is produced. Gate 2 (2027–2029) remains separately authorized, and would be meaningful only if carried-forward funding and executor competition change the queue/delivery path. Do not call the $200M/$300M ceiling values “realistic” as an empirical claim; they are illustrative mission-scale assumptions. Existing frozen replays and old two-stage default remain unchanged.
+
+**Reproduction:** Each Sponsor's 2%-share opening balance is tabulated above. For a map row with pool fraction `s`, compare `B_i(s)=B_i(.02)*(s/.02)` against the applicable authored or raised ceiling. Names and categories come from the existing `PROJECTS` roster. This is report arithmetic, not a new simulation.
