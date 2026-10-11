@@ -42,3 +42,16 @@ Missing or unknown evidence remains UNKNOWN/BLOCKED. This register cannot be use
 ## Change rule
 
 Replacing an abstraction does not authorize changing its public semantics. If replacement requires a semantic/interface change, Phase 3B/contract impact must be assessed explicitly.
+
+## Build 8 subcontracting review decisions (2026-10-11, PR #381, non-canon)
+
+These are **scenario modeling decisions**, not new Phase 3B runtime authority. This existing Offworld MVP abstraction register is used because Build 8 has no separate decision-register entry style; no new register is created.
+
+| ID | Category | Temporary role | Must preserve | Explicitly not | Revisit trigger |
+|---|---|---|---|---|---|
+| B8_SUB_SCHEDULE_001 | Build 8 scheduling decision | Failed subcontract recovery begins after its reserved service slot completes, then prime self-performance takes one additional year | failure cannot advance prime acceptance relative to the same reserved service outcome; shared capacity; causal delay | global optimal scheduler or instant substitute supplier | measured non-monotonic outcome persists or executor choice becomes endogenous |
+| B8_SUB_PAYMENT_002 | Build 8 settlement decision | Failed sub paid 90% of quoted package price; prime retains 10% acceptance holdback | real transfer; explicit withheld amount; no added Sponsor payment | insurance, restitution, recovery-cost pricing or empirical procurement contract | actual contract terms, dispute/rework costs or liquidity constraint affect choices |
+
+**B8_SUB_SCHEDULE_001 — options:** (a) keep previous `finish += 1` rule and accept accidental ordering advantage; (b) wait for subcontract reservation completion before self-performing; (c) add counterfactual baseline floors or replace the scheduler. **Selected (b).** The previous greedy, category-keyed reservation order can move direct LAND work between scenarios. With a single slot, the original comparison gave Axiom 2033 on subcontract success and 2032 after failure/recovery. The corrected recovery starts after the reserved sub slot, and the single-slot results are success 2033 versus recovered 2034 for Axiom. Reconsider if realistic re-sourcing can begin earlier, or if multi-bid scheduling warrants a common chronological event queue.
+
+**B8_SUB_PAYMENT_002 — options:** (a) pay full quote on failure; (b) pay nothing; (c) apply the existing 10% acceptance holdback convention. **Selected (c)** because the prime contract already demonstrates the holdback idea, and paying nothing for consumed supplier capacity would imply a stronger unmodeled penalty. Two failed packages quoted 0.40 total pay 0.36 and withhold 0.04; the retained amount remains in the prime's account. Reconsider when specific supplier contracts, refund clauses, or actual rework costs are modeled.
