@@ -68,3 +68,39 @@ A single keyed readiness draw `(seed, project_id, year)` after financing/eligibi
 ### Mapping decision / stop condition
 
 **BLOCKED for executable price competition:** no defensible common BUILD/LAND deliverable specification and no conversion from sponsor-side project cost to comparable executor bid exist in these artifacts. A category label plus `quantity=1` is not enough to equate network budgets and PI01/yearly supplier quotes. The 11 rows above are an exact inventory and *candidate mapping*, not priced procurements. Do **not** manufacture per-executor offers, scale the network budgets to fit the default prices, select a winner, or run Baseline 0 on this basis. First resolve one narrow ESA BUILD service specification and two comparable authored bids, with funding consistent with the network capital boundary; if that cannot be justified, stop there. Frozen baselines remain untouched.
+
+## Money-scale alternatives (decision requested; neither selected)
+
+### What one network unit represents
+
+`PROJECTS` in `sponsor_executor_network_trial.py` calls its `.015`–`.090` costs **fictional model units**. `opening.py` supplies Earth investment-proxy-derived mobilization; the network trial offers 2% of that mobilized amount to its country pool and allocates it by authored sponsor weights. **There is no documented USD-per-network-unit, purchasing-power, physical-deliverable, or network-to-executor exchange rate.** `executor_quotes.py` separately calls its prices model currency units. `competitive_delivery.py` multiplies some delivery work by `SCALE = 0.25`, which is not a documented conversion between these experiments. The network project `cost` is a sponsor-side project commitment threshold, not a supplier quote or necessarily the sponsor's available opening balance. Thus the following tables are *illustrative affordability of the authored project-cost envelope*, not evidence of cash actually available in a sponsor's ledger or a funded award.
+
+For transparent arithmetic, both alternatives below **assume an arbitrary factor of 100**, explicitly *not* a researched or calibrated conversion. Assume exactly one homogeneous BUILD or LAND trial service unit per project; ignore markup, taxes, launch, financing and other delivery costs; assume the price defaults of BUILD 1.70 and LAND 3.00 are final all-in prices for that one unit (although the original file does not establish that); and assume the project `cost` is an available spend ceiling rather than a separate project budget or merely a commitment threshold. Existing authored supplier quotes, when present, take precedence over defaults. Neither factor nor homogeneous-unit premise is justified by the source artifacts. The choices are mathematically reciprocal and intentionally give the **same affordability classification**; selecting between them does not solve the deliverable-identity problem.
+
+**Option A — scale executor defaults down into network project units:** divide the quoted fallback prices by 100: BUILD **0.017**, LAND **0.030** network model units. Keep each network project cost and its actual country/sponsor capital ledger unchanged. Do not divide existing cash or network costs. This is a proposed *quote conversion*, not a currency discovery.
+
+**Option B — scale sponsor-side project budgets up:** multiply each of the 11 authored `PROJECTS` costs by 100, leaving executor fallback prices BUILD **1.70**, LAND **3.00** unchanged. This changes the project's numeric spend ceiling but **does not generate extra mobilized cash**. To make the higher ceilings genuinely payable would also require an explicitly authorized 100× capital-source scaling or a defined accounting-unit redenomination of *all* relevant cash, commitments and transactions; either changes the trial's funding boundary and must not be smuggled in as a budget edit. The table below compares ceilings only, not actual affordability from existing cash.
+
+| Sponsor | Category | Existing project cost | A: fallback quote in network units | A: ceiling covers quote? | B: project ceiling ×100 | B: original fallback quote | B: ceiling covers quote? |
+|---|---|---:|---:|---|---:|---:|---|
+| NASA | LAND | .045 | .030 | YES | 4.50 | 3.00 | YES |
+| CNSA | LAND | .045 | .030 | YES | 4.50 | 3.00 | YES |
+| ISRO | BUILD | .015 | .017 | NO | 1.50 | 1.70 | NO |
+| JAXA | LAND | .030 | .030 | YES (exact) | 3.00 | 3.00 | YES (exact) |
+| ESA | BUILD | .030 | .017 | YES | 3.00 | 1.70 | YES |
+| CNES | BUILD | .015 | .017 | NO | 1.50 | 1.70 | NO |
+| DLR | BUILD | .015 | .017 | NO | 1.50 | 1.70 | NO |
+| Australian Space Agency | BUILD | .015 | .017 | NO | 1.50 | 1.70 | NO |
+| UAE Space Agency | BUILD | .045 | .017 | YES | 4.50 | 1.70 | YES |
+| ispace | LAND | .045 | .030 | YES | 4.50 | 3.00 | YES |
+| Interlune | BUILD | .090 | .017 | YES | 9.00 | 1.70 | YES |
+
+**Ceiling-only result in either option: 7 of 11 cover one assumed default-priced service unit; 4 do not (ISRO, CNES, DLR, Australian Space Agency).** This does **not** mean seven funded projects. The frozen network trial actually reports only CNSA, ISRO and ESA as funded at the original costs, with 17 `WAIT`. Under either proposed change, eligibility, real available balances, commitment policy, and service definition would need to be re-evaluated; in particular, ISRO's original funded status does not mean its hypothetical 0.017 BUILD quote is affordable from a .015 project ceiling. No baseline result is overwritten by these hypothetical classifications.
+
+### Evidence quality of candidate executors
+
+In the network's **14 BUILD-capable** selected executors, **6** BUILD capability entries have `evidence_basis: SOURCED` (Airbus Defence and Space, Hanwha Aerospace, MDA Space, Northrop Grumman, OHB, Thales Alenia Space) and **8** are `AUTHORED` (Astrobotic, CASC, RKK Energia, HAL / L&T, Mitsubishi Heavy Industries, Toyota, SpaceX, Blue Origin). In the **4 LAND-capable** entries, **3** are `SOURCED` (Astrobotic, Blue Origin, ispace) and **1** is `AUTHORED` (CASC). Sourced means there is a linked capability reference, **not** a verified comparable service offer, contract price, free slot or delivered outcome. Some sources concern planned or unsuccessful missions. Do not infer procurement feasibility from the evidence label.
+
+### Decision held
+
+Neither A nor B is recommended or activated. Factor 100 is a *visible sensitivity example*, not a defensible conversion. Before a price-clearing run, the user must select an accounting interpretation and explicitly authorize a common service unit and its quote meaning; option B additionally requires a capital accounting decision. The nine LAUNCH/RUN projects remain out of scope; proposed Baseline 0 coverage is **11 of 20 sponsors**. No code, data defaults, frozen baseline, or runtime behavior changes are authorized here.
