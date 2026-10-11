@@ -6,6 +6,10 @@ from .master_cast import actor
 from .competitive_delivery import Work
 from offworld_kernel.model import AccountKind, NodeKind, TxPurpose
 
+# NASA authored LAND project exactly buys one default lander:
+# 3.00 executor units / 0.045 network units = 200/3 (price-scale convention).
+EXECUTOR_TO_NETWORK_FACTOR = D(200) / D(3)
+
 
 def run_esa_build(chosen, root, seed, tiers, slots, prices, remove_quote=None):
     assert chosen['stages'] == {'ESA': ('BUILD',)}
@@ -22,7 +26,7 @@ def run_esa_build(chosen, root, seed, tiers, slots, prices, remove_quote=None):
             continue
         # The authored fallback is in executor units; convert via NASA LAND anchor.
         fallback, _ = authored_fallbacks(name, 'BUILD', authored_quote=authored, prices=prices)
-        offers[name] = fallback if authored is not None else fallback / (D(200)/D(3))
+        offers[name] = fallback if authored is not None else fallback / EXECUTOR_TO_NETWORK_FACTOR
         fallback_used[name] = authored is None
     ceiling = chosen['ceiling']
     feasible = sorted(((price, name) for name, price in offers.items()
