@@ -52,12 +52,16 @@ AUTHOR_CAPABILITIES = {
  'ispace':('LAND','RUN'), 'Northrop Grumman':('BUILD','RUN'),
  'Isar Aerospace':('LAUNCH',),
 }
-EXECUTORS = {
- cast_name(n, 'executor'): (cast_actor(n)['home_country'],
-                           tuple(category for category in AUTHOR_CAPABILITIES[n]
-                                 if any(c['category'] == category for c in cast_actor(n)['capabilities'])))
- for n in EXECUTOR_SELECTION
-}
+# The experiment chooses the historical subset; the cast supplies the actor
+# and its capability facts. Assert the authored selection remains eligible.
+def _selected_executor(n):
+    entry = cast_actor(n, 'executor')
+    offered = {c['category'] for c in entry['capabilities']}
+    if not set(AUTHOR_CAPABILITIES[n]) <= offered:
+        raise ValueError(f'Build 8 authored selection is not cast-eligible: {n}')
+    return entry['home_country'], AUTHOR_CAPABILITIES[n]
+
+EXECUTORS = {cast_name(n, 'executor'): _selected_executor(n) for n in EXECUTOR_SELECTION}
 # Motivation selects an authored objective and cost. All numbers fictional model units.
 PROJECTS = {
  'NASA':('STRATEGIC','LAND',D('.045')), 'CNSA':('STRATEGIC','LAND',D('.045')),
