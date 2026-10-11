@@ -10,14 +10,24 @@ BASELINES = Path(__file__).resolve().parent / 'baselines' / 'pre_cast_migration'
 SCENARIOS = ('screen_default', 'screen_sub', 'screen_sub_failure')
 
 
+def _semantic_event(event):
+    """Exclude generated transaction references, never substantive amounts/parties."""
+    return {k: v for k, v in event.items()
+            if k not in ('seq', 'transaction_id', 'transaction_ids', 'tx_id', 'tx_ids')}
+
+
 def event_multiset(events):
-    """Ignore only sequence and ordering; retain every substantive event field."""
-    return Counter(json.dumps({k: v for k, v in event.items() if k != 'seq'}, sort_keys=True)
-                   for event in events)
+    return Counter(json.dumps(_semantic_event(event), sort_keys=True) for event in events)
 
 
-def differences(actual, expected):
-    """Return precise semantic differences; IDs and fingerprint are separately reported."""
+def transaction_multiset(transactions):
+    """Compare economic transfers, independent of generated IDs and insertion order."""
+    return Counter((str(t.year), t.source_account, t.destination_account,
+                    str(t.amount), t.purpose.value, t.supplier_location, t.asset_location)
+                   for t in transactions)
+
+
+def differences(actual, expected, actual_transactions=None, expected_transactions=None):
     problems = {}
     for field, index in (('work_outcomes_and_dates', 0), ('screening_outcomes', 1),
                          ('occupied_capacity', 3)):
@@ -31,6 +41,11 @@ def differences(actual, expected):
     if old != new:
         problems['events_missing'] = dict(old - new)
         problems['events_extra'] = dict(new - old)
+    if actual_transactions is not None and expected_transactions is not None:
+        old_tx, new_tx = transaction_multiset(expected_transactions), transaction_multiset(actual_transactions)
+        if old_tx != new_tx:
+            problems['transactions_missing'] = dict(old_tx - new_tx)
+            problems['transactions_extra'] = dict(new_tx - old_tx)
     return problems
 
 
@@ -43,10 +58,22 @@ class YearlyMatchRuleTests(unittest.TestCase):
                 self.assertEqual(differences(actual, baseline), {})
                 self.assertEqual(actual[2]['fingerprint'], baseline[2]['fingerprint'])
 
+    def test_transaction_multiset_is_order_and_id_independent(self):
+        from .screened_delivery import run_screened
+        _, _, kernel, _ = run_screened()
+        from dataclasses import replace
+        transactions = kernel.state.transactions
+        changed = [replace(t, id='renumbered-' + str(i)) for i, t in enumerate(reversed(transactions))]
+        self.assertEqual(transaction_multiset(transactions), transaction_multiset(changed))
+        changed[0] = replace(changed[0], amount=changed[0].amount + 1)
+        self.assertNotEqual(transaction_multiset(transactions), transaction_multiset(changed))
+
     def test_order_only_is_permitted(self):
         baseline = json.loads((BASELINES / 'screen_default.json').read_text())
         changed = json.loads(json.dumps(baseline))
         changed[2]['events'].reverse()
+        self.assertEqual(differences(changed, baseline), {})
+        changed[2]['events'][0]['transaction_id'] = 'tx-renumbered'
         self.assertEqual(differences(changed, baseline), {})
         changed[2]['events'][0]['year'] += 1
         self.assertIn('events_missing', differences(changed, baseline))
