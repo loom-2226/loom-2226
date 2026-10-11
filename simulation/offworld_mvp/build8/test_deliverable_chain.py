@@ -47,3 +47,25 @@ class DeliverableChainTests(unittest.TestCase):
             records, goods, _, _ = run_chain((Step('one', category, 'SPONSOR_COMMISSION', 'RESULT'),))
             self.assertEqual(records[0].status, 'DELIVERED')
             self.assertIn('RESULT', goods)
+
+    def test_multiple_eligible_executors_with_single_selection_preserves_results(self):
+        baseline = run_chain(BUILD_LAND)
+        actual = run_chain(BUILD_LAND, eligible_executors={
+            'BUILD': ('Northrop Grumman', 'CASC'),
+            'LAND': ('Firefly Aerospace', 'Astrobotic'),
+        })
+        self.assertEqual(actual[0], baseline[0])
+        self.assertEqual(actual[1], baseline[1])
+        self.assertEqual(actual[3], baseline[3])
+        self.assertEqual(actual[2].fingerprint(), baseline[2].fingerprint())
+
+    def test_explicit_alternative_selection_and_invalid_choice(self):
+        records, _, kernel, _ = run_chain(BUILD_LAND, eligible_executors={
+            'BUILD': ('Northrop Grumman', 'CASC'),
+            'LAND': ('Firefly Aerospace', 'Astrobotic'),
+        }, selected_executors={'BUILD': 'CASC', 'LAND': 'Astrobotic'})
+        self.assertEqual([r.executor for r in records], ['CASC', 'Astrobotic'])
+        kernel.assert_invariants()
+        with self.assertRaises(ValueError):
+            run_chain(BUILD_LAND, eligible_executors={'BUILD': ('CASC',)},
+                      selected_executors={'BUILD': 'Northrop Grumman'})
