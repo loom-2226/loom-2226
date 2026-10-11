@@ -7,16 +7,30 @@ from .competitive_delivery import Work
 from offworld_kernel.model import AccountKind, NodeKind, TxPurpose
 
 
-def run_esa_build(chosen, root, seed, tiers, slots, prices):
+def run_esa_build(chosen, root, seed, tiers, slots, prices, remove_quote=None):
     assert chosen['stages'] == {'ESA': ('BUILD',)}
-    offers = chosen['quotes']['BUILD']
+    from .capacity_options import authored_fallbacks
+    offers = dict(chosen['quotes']['BUILD'])
+    if remove_quote is not None:
+        if remove_quote not in offers:
+            raise ValueError('can only remove an existing explicit BUILD quote')
+        del offers[remove_quote]
+    fallback_used = {}
+    for name in chosen['quotes']['BUILD']:
+        authored = offers.get(name)
+        if authored is None and not prices:
+            continue
+        # The authored fallback is in executor units; convert via NASA LAND anchor.
+        fallback, _ = authored_fallbacks(name, 'BUILD', authored_quote=authored, prices=prices)
+        offers[name] = fallback if authored is not None else fallback / (D(200)/D(3))
+        fallback_used[name] = authored is None
     ceiling = chosen['ceiling']
     feasible = sorted(((price, name) for name, price in offers.items()
                        if price <= ceiling and actor(name, 'executor', 'BUILD')))
     if not feasible:
         raise ValueError('no feasible ESA BUILD quote')
     quote, winner = feasible[0]
-    loser = next(name for name in offers if name != winner)
+    loser = next((name for name in offers if name != winner), None)
     k, history, capacities, _ = build_country_opening(root)
     mobilized = k.mobilize_country_capital(1, 'DEU', capacities['DEU', 2026], D(1),
         history['prospecting_scenario'], 'b8_source:DEU', 'b8_funds:DEU')
@@ -39,8 +53,10 @@ def run_esa_build(chosen, root, seed, tiers, slots, prices):
             project_ceiling=ceiling, pre_payment_cash=k.state.accounts['esa:cash'].balance,
             financing_source='DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL')
     k.audit('ESA_BUILD_QUOTES', 2026, winner=winner, winner_quote=quote,
-            loser=loser, loser_quote=offers[loser], fictional=True,
-            price_fallback_used=False, slots_fallback_used=False)
+            loser=loser, loser_quote=offers[loser] if loser else None, fictional=True,
+            removed_explicit_quote=remove_quote,
+            price_fallback_used=fallback_used[winner], slots_fallback_used=False,
+            offered_quotes={name:str(price) for name,price in sorted(offers.items())})
     if tiers:
         from .capacity_options import descriptive_tier
         tier = descriptive_tier(winner, 'BUILD', tiers=True)

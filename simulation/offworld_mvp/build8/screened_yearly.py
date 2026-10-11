@@ -43,13 +43,15 @@ def run_yearly(order=None, root=EARTH_V4_ROOT, failure=None,
                  private_signal='NEGATIVE', share_private=False, immediate_funding=False,
                  subcontract=False, sub_failure=False, resource_on_failure=False,
                  operator_selection=None, selection='legacy_usa',
-                 tiers=False, slots=False, prices=False, seed=0):
+                 tiers=False, slots=False, prices=False, seed=0, remove_quote=None):
     chosen = cast_selection(selection)
+    if remove_quote is not None and selection != 'esa_build_quote_trial':
+        raise ValueError('quote removal is ESA trial only')
     if selection == 'esa_build_quote_trial':
         if subcontract or failure or sub_failure or resource_on_failure or operator_selection:
             raise ValueError('ESA BUILD-only trial does not admit legacy stage overrides')
         from .esa_build_trial import run_esa_build
-        return run_esa_build(chosen, root, seed, tiers, slots, prices)
+        return run_esa_build(chosen, root, seed, tiers, slots, prices, remove_quote)
     sponsors = tuple(chosen['sponsors'])
     country = chosen['country']
     home = 'EARTH:'+country

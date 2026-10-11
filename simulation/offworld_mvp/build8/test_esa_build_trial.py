@@ -30,4 +30,26 @@ class ESABuildTrial(unittest.TestCase):
                 else: self.assertEqual(signature, baseline)
                 kernel.assert_invariants()
 
+    def test_quote_removal_makes_price_switch_observable(self):
+        for seed in (1,2,3,4,5):
+            results = []
+            for prices in (False, True):
+                work, _, kernel, _ = run_yearly(
+                    selection='esa_build_quote_trial', seed=seed, prices=prices,
+                    remove_quote='Airbus Defence and Space')
+                quote = next(e for e in kernel.event_log if e['kind']=='ESA_BUILD_QUOTES')
+                readiness = next(e for e in kernel.event_log if e['kind']=='ESA_BUILD_READINESS')
+                results.append((quote, readiness, work))
+            self.assertEqual(results[0][0]['winner'], 'Thales Alenia Space')
+            self.assertEqual(results[0][0]['winner_quote'], '0.0270')
+            self.assertEqual(results[0][0]['offered_quotes'], {'Thales Alenia Space':'0.0270'})
+            self.assertEqual(results[1][0]['winner'], 'Airbus Defence and Space')
+            self.assertEqual(D(results[1][0]['winner_quote']), D('.0255'))
+            self.assertTrue(results[1][0]['price_fallback_used'])
+            self.assertEqual(results[0][1]['draw'], results[1][1]['draw'])
+            self.assertEqual(results[0][2][0].start, results[1][2][0].start)
+            self.assertEqual(results[0][2][0].finish, results[1][2][0].finish)
+            self.assertEqual(results[0][2][0].revenue, D('.0270'))
+            self.assertEqual(results[1][2][0].revenue, D('.0255'))
+
 if __name__ == '__main__': unittest.main()
