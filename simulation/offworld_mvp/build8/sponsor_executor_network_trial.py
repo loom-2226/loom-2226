@@ -5,6 +5,7 @@ from offworld_kernel.model import AccountKind, NodeKind, TxPurpose
 from offworld_kernel.prospecting import derive_mobilization
 from simulation.offworld_mvp.build7.generated_campaign import load_prospecting_scenario
 from .opening import build_country_opening
+from .sponsor_development import authorize_funded_projects
 
 PUBLIC = {
  'NASA':('USA',), 'CNSA':('CHN',), 'Roscosmos':('RUS',),
@@ -140,6 +141,7 @@ def run_network(root: Path, year=2026):
                          executor_home=EXECUTORS[executor][0],motive=motive,
                          capability=capability,cost=str(cost),opening=str(opening),
                          outcome=outcome,remaining=str(kernel.state.accounts[budget].balance)))
+    authorize_funded_projects(kernel, rows, budgets, year)
     kernel.assert_invariants()
     return rows,{e:str(kernel.state.accounts[a].balance)
                  for e,a in executor_accounts.items()},kernel.fingerprint()
