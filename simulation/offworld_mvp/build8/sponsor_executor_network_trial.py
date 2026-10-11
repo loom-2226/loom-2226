@@ -6,20 +6,24 @@ from offworld_kernel.prospecting import derive_mobilization
 from simulation.offworld_mvp.build7.generated_campaign import load_prospecting_scenario
 from .opening import build_country_opening
 from .sponsor_development import authorize_funded_projects
+from .master_cast import name as cast_name, actor as cast_actor
 
-PUBLIC = {
+# Scenario participation is authored here. Sponsor identity comes from the cast.
+PUBLIC_PARTICIPATION = {
  'NASA':('USA',), 'CNSA':('CHN',), 'Roscosmos':('RUS',),
  'ISRO':('IND',), 'JAXA':('JPN',),
  'ESA':('DEU','FRA','ITA','GBR','ESP','NLD','BEL','SWE','CHE','AUT','NOR','POL'),
  'CNES':('FRA',), 'DLR':('DEU',), 'CSA':('CAN',),
  'KASA':('KOR',), 'Australian Space Agency':('AUS',), 'UAE Space Agency':('ARE',)
 }
-PRIVATE = {
+PRIVATE_PARTICIPATION = {
  'SpaceX':('USA',), 'Blue Origin':('USA',),
  'Axiom':('USA','SAU','QAT','KOR','HUN','JPN'), 'ispace':('JPN',),
  'Interlune':('USA',), 'Isar Aerospace':('DEU','GBR','USA'),
  'Starlab':('USA','DEU','FRA','JPN','CAN'), 'LandSpace':('CHN',)
 }
+PUBLIC = {cast_name(n, 'agency_sponsor'): countries for n,countries in PUBLIC_PARTICIPATION.items()}
+PRIVATE = {cast_name(n, 'private_sponsor'): countries for n,countries in PRIVATE_PARTICIPATION.items()}
 # Authored weights within ONE national envelope, not ownership shares.
 PREFERENCES = {
  'USA':{'NASA':5,'SpaceX':3,'Blue Origin':2,'Axiom':1,'Interlune':1,'Starlab':1,'Isar Aerospace':1},
@@ -28,19 +32,31 @@ PREFERENCES = {
  'FRA':{'ESA':3,'CNES':4,'Starlab':1}, 'CAN':{'CSA':5,'Starlab':2},
  'KOR':{'KASA':5,'Axiom':1}, 'GBR':{'ESA':3,'Isar Aerospace':2}
 }
-# Fixed economic domicile and coarse delivery capability.
+# Authored *selection* of the trial's existing executor pool. Identity,
+# administrative home and eligible capabilities are read from the master cast.
+# Do not silently widen the pool to every researched candidate.
+EXECUTOR_SELECTION = (
+ 'Astrobotic','CASC','RKK Energia','HAL / L&T','Mitsubishi Heavy Industries',
+ 'Thales Alenia Space','Airbus Defence and Space','OHB','MDA Space',
+ 'Hanwha Aerospace','Toyota','SpaceX','Blue Origin','ispace',
+ 'Northrop Grumman','Isar Aerospace',
+)
+AUTHOR_CAPABILITIES = {
+ 'Astrobotic':('LAND','BUILD'), 'CASC':('BUILD','LAUNCH','LAND'),
+ 'RKK Energia':('BUILD','LAUNCH'), 'HAL / L&T':('BUILD','LAUNCH'),
+ 'Mitsubishi Heavy Industries':('BUILD','LAUNCH'),
+ 'Thales Alenia Space':('BUILD','RUN'), 'Airbus Defence and Space':('BUILD','RUN'),
+ 'OHB':('BUILD',), 'MDA Space':('BUILD','RUN'),
+ 'Hanwha Aerospace':('BUILD','LAUNCH'), 'Toyota':('BUILD','RUN'),
+ 'SpaceX':('BUILD','LAUNCH','RUN'), 'Blue Origin':('BUILD','LAUNCH','LAND'),
+ 'ispace':('LAND','RUN'), 'Northrop Grumman':('BUILD','RUN'),
+ 'Isar Aerospace':('LAUNCH',),
+}
 EXECUTORS = {
- 'Astrobotic':('USA',('LAND','BUILD')), 'CASC':('CHN',('BUILD','LAUNCH','LAND')),
- 'RKK Energia':('RUS',('BUILD','LAUNCH')), 'HAL / L&T':('IND',('BUILD','LAUNCH')),
- 'Mitsubishi Heavy Industries':('JPN',('BUILD','LAUNCH')),
- 'Thales Alenia Space':('FRA',('BUILD','RUN')),
- 'Airbus Defence and Space':('FRA',('BUILD','RUN')),
- 'OHB':('DEU',('BUILD',)), 'MDA Space':('CAN',('BUILD','RUN')),
- 'Hanwha Aerospace':('KOR',('BUILD','LAUNCH')),
- 'Toyota':('JPN',('BUILD','RUN')), 'SpaceX':('USA',('BUILD','LAUNCH','RUN')),
- 'Blue Origin':('USA',('BUILD','LAUNCH','LAND')),
- 'ispace':('JPN',('LAND','RUN')), 'Northrop Grumman':('USA',('BUILD','RUN')),
- 'Isar Aerospace':('DEU',('LAUNCH',))
+ cast_name(n, 'executor'): (cast_actor(n)['home_country'],
+                           tuple(category for category in AUTHOR_CAPABILITIES[n]
+                                 if any(c['category'] == category for c in cast_actor(n)['capabilities'])))
+ for n in EXECUTOR_SELECTION
 }
 # Motivation selects an authored objective and cost. All numbers fictional model units.
 PROJECTS = {
