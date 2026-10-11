@@ -125,7 +125,7 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A'):
         if ceiling<price:
             status='WAIT_CEILING_BELOW_PRICE'
         elif available<price:
-            status='WAIT_CASH_BELOW_CEILING'
+            status='WAIT_CASH_BELOW_PRICE'
         elif decision.outcome.value!='APPROVE':
             status='WAIT_POLICY'
         else:
