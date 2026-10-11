@@ -9,6 +9,7 @@ from decimal import Decimal as D
 from offworld_kernel.model import AccountKind, NodeKind, TxPurpose
 from .opening import build_country_opening, EARTH_V4_ROOT
 from .executor_quotes import EXECUTORS as QUOTED
+from .master_cast import name as cast_name
 
 CATEGORIES = ('BUILD', 'LAUNCH', 'LAND', 'TRANSPORT', 'EXTRACT', 'RUN')
 # Additional operators are explicitly fictional placeholders, not researched offers.
@@ -45,12 +46,26 @@ class Record:
     profit: D
 
 
-def run_chain(steps, failure=None, root=EARTH_V4_ROOT):
+def run_chain(steps, failure=None, root=EARTH_V4_ROOT, eligible_executors=None, selected_executors=None):
     """One commissioned chain, one capacity slot per operator, integer-year clock.
 
     Failure is an authored step id. Payment is for work attempted, not a claim
     that a failed delivery arrived. No implicit salvage/refund is assumed.
     """
+    # Authored pool and selected actor are separate. No quote/bidding selection.
+    selected_executors = {} if selected_executors is None else dict(selected_executors)
+    eligible_executors = {} if eligible_executors is None else dict(eligible_executors)
+    operators = dict(OPERATORS)
+    for category, candidates in eligible_executors.items():
+        if category not in CATEGORIES or not candidates:
+            raise ValueError('invalid executor candidate pool')
+        candidates = tuple(cast_name(n, 'executor', category) for n in candidates)
+        chosen = selected_executors.get(category, OPERATORS[category][0])
+        if chosen not in candidates:
+            raise ValueError('selected executor not in eligible pool')
+        operators[category] = (cast_name(chosen, 'executor', category), *OPERATORS[category][1:])
+    if set(selected_executors) - set(eligible_executors):
+        raise ValueError('selection requires explicit eligible pool')
     steps = tuple(steps)
     if not steps or len({s.id for s in steps}) != len(steps):
         raise ValueError('chain needs distinct steps')
@@ -71,14 +86,14 @@ def run_chain(steps, failure=None, root=EARTH_V4_ROOT):
     k.add_account('chain:cash', 'CHAIN_PROJECT', 'B8:MOON', AccountKind.PROJECT_CASH)
     k.add_project('chain:project', 'B8:MOON', 'chain:cash', {'CHAIN_SPONSOR': D(1)})
     # Fund from the existing Earth-v4-backed pool, never mint new money.
-    total = sum((OPERATORS[s.category][1] * (1 + OPERATORS[s.category][2]) for s in steps), D(0))
+    total = sum((operators[s.category][1] * (1 + operators[s.category][2]) for s in steps), D(0))
     source = 'public_funds'  # Existing seeded USA funds; not the empty country mobilization account.
     if k.state.accounts[source].balance < total:
         raise ValueError('seeded Sponsor pool cannot fund chain')
     k.transfer(2026, source, 'chain:cash', total, TxPurpose.OTHER_INVESTMENT,
                parent_ids=('SPONSOR_COMMISSION',))
     for category in {s.category for s in steps}:
-        name, _, _, _, _ = OPERATORS[category]
+        name, _, _, _, _ = operators[category]
         if name == 'CHAIN_SPONSOR':
             raise ValueError('self-payment is not executor revenue')
         k.add_account('chain:executor:' + category, name, 'EARTH:USA', AccountKind.SUPPLIER)
@@ -87,7 +102,7 @@ def run_chain(steps, failure=None, root=EARTH_V4_ROOT):
     year = 2026
     capacity = {}  # (category, year) -> units reserved while a job is active
     for step in steps:
-        name, cost, markup, duration, slots = OPERATORS[step.category]
+        name, cost, markup, duration, slots = operators[step.category]
         if step.input_id not in delivered:
             records.append(Record(step.id, step.category, name, None, None, 'BLOCKED_UPSTREAM',
                                   step.input_id, None, D(0), D(0), D(0)))
