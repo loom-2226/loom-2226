@@ -16,7 +16,7 @@ from .four_usa_financier import UNDERWRITING, SEED
 from .opening import build_country_opening, EARTH_V4_ROOT
 from .deliverable_chain import OPERATORS
 from .competitive_delivery import SCALE, Work
-from .trial_knowledge import record, terms
+from .trial_knowledge import record, terms, outcome as record_outcome
 
 SPONSORS = ('Interlune', 'Axiom')
 # Differing authored information value expresses distinct investment motives.
@@ -57,10 +57,10 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         body_truth={family:True for family in BODY_MATERIAL_FAMILIES})
     observation_ids=tuple(o.id for o in public)
     for obs in public:
-        record(k,obs.id,'PUB','OBSERVED',obs.question_ref+':'+obs.signal)
+        record(k,2026,obs.id,'PUB','OBSERVED',obs.question_ref+':'+obs.signal)
         k.publish_observation(1,'PUB',obs.id,'SCREENED_FINANCIER_DISCLOSURE',
             (('SCREEN_FINANCIER','resource_exists:'+obs.question_ref,D('.8'),D('.2')),))
-        record(k,obs.id,'SCREEN_FINANCIER','PUBLISHED','PUB')
+        record(k,2026,obs.id,'SCREEN_FINANCIER','PUBLISHED','PUB')
     requests={}; sponsor_decisions={}; screenings={}
     for name in sorted(SPONSORS):
         motive,info=MOTIVES[name]
@@ -75,7 +75,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             key='BODY:MOON:'+obs.question_ref
             k.publish_observation(1,'PUB',obs.id,'SCREENED_SPONSOR_DISCLOSURE',
                 ((name,key,D('.8'),D('.2')),))
-            record(k,obs.id,name,'PUBLISHED','PUB')
+            record(k,2026,obs.id,name,'PUBLISHED','PUB')
         req=SponsorProspectingRequest('screen:opportunity:'+name,1,name,'screen:op:'+name,
             'screen:project:'+name,'MOON','REG','LOC',observation_ids,keys,amount,info).validate_protocol()
         snap=DecisionSnapshot(name,'PRIVATE_SPONSOR','EARTH:USA','screen:sponsor:snapshot:'+name,
@@ -98,11 +98,11 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         body_truth=(private_signal=='POSITIVE'))
     if private.signal!=private_signal:
         raise AssertionError('private signal mismatch')
-    record(k,private.id,'Axiom','OBSERVED',private.question_ref+':'+private.signal)
+    record(k,2026,private.id,'Axiom','OBSERVED',private.question_ref+':'+private.signal)
     if share_private:
         k.publish_observation(2,'Axiom',private.id,'SCREENED_SHARED',
             (('Interlune','BODY:MOON:VOLATILES_PRESENT',D('.8'),D('.2')),))
-        record(k,private.id,'Interlune','PUBLISHED','Axiom')
+        record(k,2026,private.id,'Interlune','PUBLISHED','Axiom')
     k.publish_observation(2,'Axiom',private.id,'SCREENED_PRIVATE',
         (('Axiom','BODY:MOON:VOLATILES_PRESENT',D('.8'),D('.2')),))
     # The private observation updates volatile belief by an explicitly authored
@@ -112,7 +112,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
     manifest=test_only_manifest()
     for name,req in sorted(requests.items()):
         motive,info=MOTIVES[name]
-        record(k,'belief:VOLATILES:'+name,'SCREEN_FINANCIER','DISCLOSED',name)
+        record(k,2026,'belief:VOLATILES:'+name,'SCREEN_FINANCIER','DISCLOSED',name)
         # Frozen underwriting snapshots before any allocation.
         snap=DecisionSnapshot('SCREEN_FINANCIER','PRIVATE_FINANCIER','EARTH:USA',
             'screen:finance:snapshot:'+name,'1',frozen,('FINANCE',),('RETURN',),observation_ids,
@@ -163,13 +163,15 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             k.transition_project_status(year-2025,name,'screen:project:'+name,'DEVELOPMENT',
                                         sponsor_decisions[name].id)
             approvals[name]=year
-            terms(k,name,(name,'SCREEN_FINANCIER'),'FINANCE:'+str(amount)+':'+str(year))
+            record_outcome(k,year,name,'FUNDED',(name,'SCREEN_FINANCIER'),str(amount))
+            terms(k,year,name,(name,'SCREEN_FINANCIER'),'FINANCE:'+str(amount)+':'+str(year))
             k.audit('BUILD8_FINANCE_CLEARING',year,sponsor=name,decision=decision.id,
                     outcome='FUNDED',amount=amount,economic_score=score,pressure=pressure,
                     pressure_contribution=D(0))
             ready[name]=year
             pending.remove(name)
         for name in sorted(pending):
+            record_outcome(k,year,name,'DEFERRED',(name,'SCREEN_FINANCIER'),'INSUFFICIENT_CASH')
             k.audit('BUILD8_FINANCE_CLEARING',year,sponsor=name,
                     decision=screenings[name][0].id,outcome='DEFERRED_INSUFFICIENT_CASH',
                     amount=amount,economic_score=screenings[name][1],
@@ -187,6 +189,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         index=stages[name]; category=('BUILD','LAND')[index]
         consumed=('COMMISSION:' if index==0 else 'BUILT:')+name
         if consumed not in delivered[name]:
+            record_outcome(k,ready[name],name,'BLOCKED_UPSTREAM',(name,),category)
             work.append(Work(name,category,ready[name],ready[name],'BLOCKED_UPSTREAM',consumed,None,D(0),D(0),D(0)))
             stages[name]=2
             continue
@@ -197,8 +200,10 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         finish=start+duration
         for y in range(start,finish): occupied[category,y]=occupied.get((category,y),0)+1
         cost=base*SCALE;price=cost*(1+markup)
-        terms(k,name,(name,OPERATORS[category][0]),category+':'+str(price)+':'+contract)
-        outcome='FAILED' if failure==(name,category) else 'DELIVERED'
+        terms(k,start,name,(name,OPERATORS[category][0]),category+':'+str(price)+':'+contract)
+        stage_outcome='FAILED' if failure==(name,category) else 'DELIVERED'
+        record_outcome(k,finish,name,stage_outcome,(name,OPERATORS[category][0]),category)
+        outcome=stage_outcome
         # Hold back 10% of price on failure; the executor still bears its full cost.
         paid=price if outcome=='DELIVERED' or contract=='FULL_ON_FAILURE' else price*D('.90')
         tx=k.transfer(finish-2025,'screen:cash:'+name,'screen:revenue:'+category,

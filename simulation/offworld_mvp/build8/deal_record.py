@@ -11,7 +11,7 @@ def deal_records(work, decisions, kernel):
         'decision': next((d for d in decisions if d[0]==name), None),
         'work': tuple(w for w in work if w.project==name),
         'evidence_routes': tuple(r for r in kernel.build8_knowledge
-                                 if r[1] in (name,'SCREEN_FINANCIER','PUB')),
+                                 if r[2] in (name,'SCREEN_FINANCIER','PUB')),
         'deal_terms': tuple(r for r in kernel.build8_knowledge
-                            if r[0].startswith('deal:'+name+':')),
+                            if r[1].startswith('deal:'+name+':')),
     } for name in ('Interlune','Axiom'))
