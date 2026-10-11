@@ -225,9 +225,10 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                     start=sub_start,finish=sub_finish,price=sub_cost,
                     outcome='FAILED' if sub_failure else 'DELIVERED',depth=1)
             if sub_failure and resource_on_failure:
-                # Re-source to the prime's own workforce: no fictitious
-                # subcontract-to-self and no second subcontract tier.
-                finish+=1
+                # Recovery begins only after the supplier's reserved package
+                # completes, even if the prime's base BUILD finishes earlier.
+                # A failed sub must never accelerate the prime.
+                finish=max(finish,sub_finish)+1
                 k.audit('BUILD8_SUB_RESOURCED',sub_finish,project=name,prime=prime,
                         route='PRIME_SELF_PERFORMS',new_finish=finish)
         for y in range(start,finish): occupied[category,y]=occupied.get((category,y),0)+1
@@ -246,12 +247,13 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             raise ValueError('contract requires executor working capital')
         if sub is not None:
             prime,supplier,sub_start,sub_finish,sub_cost=sub
-            # Shared supplier account is also used for its direct LAND jobs.
-            # Prime's cost splits into sub revenue plus retained expense.
+            # Acceptance holdback for failed sub, as in prime holdback contract.
+            sub_paid=sub_cost*D('.90') if sub_failure else sub_cost
             sub_tx=k.transfer(finish-2025,'screen:revenue:BUILD','screen:revenue:LAND',
-                sub_cost,TxPurpose.OTHER_INVESTMENT,parent_ids=(tx.id,))
+                sub_paid,TxPurpose.OTHER_INVESTMENT,parent_ids=(tx.id,))
             k.audit('BUILD8_SUB_PAYMENT',finish,project=name,prime=prime,sub=supplier,
-                    amount=sub_cost,transaction_id=sub_tx.id)
+                    amount=sub_paid,quoted=sub_cost,withheld=sub_cost-sub_paid,
+                    outcome='FAILED' if sub_failure else 'DELIVERED',transaction_id=sub_tx.id)
             cost_remainder=cost-sub_cost
         else:
             cost_remainder=cost

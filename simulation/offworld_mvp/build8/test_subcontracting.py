@@ -29,6 +29,23 @@ class SubcontractTests(unittest.TestCase):
                          kd.state.accounts['screen:expense:BUILD'].balance)
         k.assert_invariants()
 
+    def test_failure_never_accelerates_with_one_slot_and_holdback(self):
+        success,_,ks,_=run_screened(subcontract=True,capacity_slots=1)
+        recovered,_,kr,_=run_screened(subcontract=True,capacity_slots=1,
+                                      sub_failure=True,resource_on_failure=True)
+        for row in recovered:
+            reference=next(x for x in success if x.project==row.project and x.category==row.category)
+            self.assertGreaterEqual(row.finish,reference.finish)
+        self.assertEqual([r.finish for r in recovered if r.category=='LAND'],[2032,2034])
+        payments=[e for e in kr.event_log if e.get('kind')=='BUILD8_SUB_PAYMENT']
+        self.assertEqual(len(payments),2)
+        self.assertEqual(sum((D(e['amount']) for e in payments),D(0)),D('.36'))
+        self.assertEqual(sum((D(e['withheld']) for e in payments),D(0)),D('.04'))
+        self.assertEqual(sum((D(e['quoted']) for e in payments),D(0)),D('.40'))
+        self.assertEqual(kr.state.accounts['screen:expense:BUILD'].balance,D('.60'))
+        self.assertEqual(ks.state.accounts['screen:expense:BUILD'].balance,D('.60'))
+        kr.assert_invariants()
+
     def test_failure_propagates_and_prime_can_self_perform(self):
         failed,_,kf,_=run_screened(subcontract=True,sub_failure=True)
         self.assertTrue(all(r.outcome=='FAILED' for r in failed if r.category=='BUILD'))
