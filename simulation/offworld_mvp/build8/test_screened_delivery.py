@@ -16,8 +16,8 @@ class ScreenedDeliveryTests(unittest.TestCase):
              ('Axiom','INITIATE_PROJECT','APPROVE',2027)])
         self.assertGreater(D(decisions[0][3]),D(decisions[1][3]))
         self.assertEqual([(r.project,r.category,r.start,r.finish) for r in rows],
-            [('Interlune','BUILD',2026,2028),('Interlune','LAND',2028,2030),
-             ('Axiom','BUILD',2028,2030),('Axiom','LAND',2030,2032)])
+            [('Interlune','BUILD',2026,2028),('Axiom','BUILD',2027,2029),
+             ('Interlune','LAND',2028,2030),('Axiom','LAND',2029,2031)])
         self.assertTrue(all(r.outcome=='DELIVERED' for r in rows))
         self.assertEqual(sum((r.revenue for r in rows),D(0)),D('3.05'))
         self.assertEqual(sum((r.cost for r in rows),D(0)),D('2.50'))
@@ -61,10 +61,9 @@ class ScreenedDeliveryTests(unittest.TestCase):
             self.assertEqual(D(e['pressure']),D(0))
             self.assertEqual(D(e['pressure_contribution']),D(0))
             self.assertEqual(str(e['economic_score']),next(d[3] for d in decisions if d[0]==e['sponsor']))
-        # The unchanged zero-pressure baseline still funds Interlune in 2026,
-        # Axiom in 2027, and completes in 2030 / 2032.
+        # Zero-pressure case preserves the constrained ranking and funding order.
         self.assertEqual([d[4] for d in decisions],[2026,2027])
-        self.assertEqual([r.finish for r in rows if r.category=='LAND'],[2030,2032])
+        self.assertEqual([r.finish for r in rows if r.category=='LAND'],[2030,2031])
 
     def test_failure_contract_comparison(self):
         full,_,kf,_=run_screened(failure=('Interlune','LAND'),contract='FULL_ON_FAILURE')
@@ -79,3 +78,32 @@ class ScreenedDeliveryTests(unittest.TestCase):
         self.assertEqual(kh.state.accounts['screen:cash:Interlune'].balance,D('.09'))
         self.assertFalse(any(r.produced=='ON_MOON:Interlune' for r in held))
         kf.assert_invariants();kh.assert_invariants()
+
+    def test_private_evidence_flip_share_and_both_counterfactuals(self):
+        for signal in ('NEGATIVE','POSITIVE'):
+            constrained, decisions, k, _ = run_screened(private_signal=signal)
+            immediate, controls, kc, _ = run_screened(private_signal=signal, immediate_funding=True)
+            self.assertEqual({r.project for r in constrained},{'Interlune','Axiom'})
+            for name in ('Interlune','Axiom'):
+                funded=next(d[4] for d in decisions if d[0]==name)
+                baseline=next(d[4] for d in controls if d[0]==name)
+                self.assertEqual(baseline,2026)
+                actual=next(r for r in constrained if r.project==name and r.category=='LAND')
+                hypothetical=next(r for r in immediate if r.project==name and r.category=='LAND')
+                self.assertEqual(actual.finish-hypothetical.finish,funded-baseline)
+                self.assertEqual(sum(r.revenue for r in constrained if r.project==name),
+                                 sum(r.revenue for r in immediate if r.project==name))
+            k.assert_invariants();kc.assert_invariants()
+        negative=run_screened(private_signal='NEGATIVE')[1]
+        positive=run_screened(private_signal='POSITIVE')[1]
+        self.assertEqual([d[4] for d in negative],[2026,2027])
+        self.assertEqual([d[4] for d in positive],[2027,2026])
+        shared=run_screened(private_signal='NEGATIVE',share_private=True)[1]
+        self.assertEqual(D(shared[0][3]),D(shared[1][3]))
+
+    def test_reversed_input_replay_under_both_evidence_signals(self):
+        for signal in ('NEGATIVE','POSITIVE'):
+            a,da,ka,ca=run_screened(private_signal=signal)
+            b,db,kb,cb=run_screened(tuple(reversed(SPONSORS)),private_signal=signal)
+            self.assertEqual((a,da,ca),(b,db,cb))
+            self.assertEqual(ka.fingerprint(),kb.fingerprint())

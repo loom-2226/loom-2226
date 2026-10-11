@@ -16,18 +16,19 @@ from .four_usa_financier import UNDERWRITING, SEED
 from .opening import build_country_opening, EARTH_V4_ROOT
 from .deliverable_chain import OPERATORS
 from .competitive_delivery import SCALE, Work
+from .sponsor_evidence_setup import sponsor_setup, KEY
 
 SPONSORS = ('Interlune', 'Axiom')
 # Differing authored information value expresses distinct investment motives.
 MOTIVES = {'Interlune': ('RESOURCE_RETURN', D('2.00')),
            'Axiom': ('LUNAR_INFRASTRUCTURE', D('2.20'))}
 # Explicitly different, observable project underwriting, not sponsor-name belief.
-UNDERWRITING_COSTS = {'Interlune': D('.125'), 'Axiom': D('.175')}
 CONTRACTS = ('FULL_ON_FAILURE', 'ACCEPTANCE_HOLDBACK')
 
 
 def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
-                 contract='FULL_ON_FAILURE', capacity_slots=1):
+                 contract='FULL_ON_FAILURE', capacity_slots=2,
+                 private_signal='NEGATIVE', share_private=False, immediate_funding=False):
     if contract not in CONTRACTS or capacity_slots not in (1,2):
         raise ValueError('invalid contract/capacity')
     if set(order) != set(SPONSORS) or len(order) != 2:
@@ -36,10 +37,16 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
     mobilization=k.mobilize_country_capital(1,'USA',capacities['USA',2026],D(1),
         h['prospecting_scenario'],'b8_source:USA','b8_funds:USA')
     amount=sum((SCALE*OPERATORS[c][1]*(1+OPERATORS[c][2]) for c in ('BUILD','LAND')),D(0))
-    # A finite 2.00-unit fund can clear one 1.525-unit project under the
-    # existing 80% concentration limit. Remaining USA capital stays upstream.
-    fund=D('2.00')
-    if fund < amount or fund >= 2*amount or fund > mobilization.mobilized_cash:
+    # Constrained: 2.00 clears one project. Immediate counterfactual:
+    # 4.00 clears both. Both use mobilized country capital.
+    fund=D('4.00') if immediate_funding else D('2.00')
+    evidence,_,_,private,_=sponsor_setup(private_signal,share_private)
+    # Interlune sees public observations (A); Axiom owns private sensor (B).
+    # The private-signal flip changes the observation and posterior, not a
+    # named sponsor parameter. Sharing changes Interlune's posterior too.
+    posterior={'Interlune':evidence.agents['A'].beliefs[KEY],
+               'Axiom':evidence.agents['B'].beliefs[KEY]}
+    if fund < amount or (not immediate_funding and fund >= 2*amount) or fund > mobilization.mobilized_cash:
         raise ValueError('authored financing envelope inconsistent')
     k.add_account('screen:fund','USA_SCREENED_FINANCIER','EARTH:USA',AccountKind.FUNDS)
     k.transfer(1,'b8_funds:USA','screen:fund',fund,TxPurpose.OTHER_INVESTMENT,
@@ -76,7 +83,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             tuple((key,D('.5')) for key in keys),(),(),(),(
                 SnapshotFact('prospecting.REQUIRED_CAPITAL',FactState.KNOWN,str(amount),'AUTHORED'),
                 SnapshotFact('prospecting.INFORMATION_VALUE',FactState.KNOWN,str(info),'AUTHORED'),
-                SnapshotFact('capital.AVAILABLE_F',FactState.KNOWN,'2.00','AUTHORED')))
+                SnapshotFact('capital.AVAILABLE_F',FactState.KNOWN,str(fund),'ACTUAL_FINANCIER_ENVELOPE')))
         sd=run_sponsor_prospecting_policy(snap,req,'screen:sponsor:decision:'+name).decision
         sponsor_decisions[name]=sd
         if sd.outcome.value!='INITIATE_PROJECT':
@@ -92,10 +99,10 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         # Frozen underwriting snapshots before any allocation.
         snap=DecisionSnapshot('SCREEN_FINANCIER','PRIVATE_FINANCIER','EARTH:USA',
             'screen:finance:snapshot:'+name,'1',frozen,('FINANCE',),('RETURN',),observation_ids,
-            (('resource_exists',D('.8')),),(('resource_exists',D('.5')),),(),(),(),
+            (('resource_exists',posterior[name]),),(('resource_exists',D('.5')) ,),(),(),(),
             tuple(SnapshotFact(key,FactState.KNOWN,
-                 str(UNDERWRITING_COSTS[name]) if key=='underwriting.DEVELOPMENT_CAPEX' else value,
-                 'TEST_ONLY:AUTHORED_PROJECT_COST') for key,value in UNDERWRITING)+
+                 ('0' if key=='underwriting.EXPLORATION_CAPEX' else str(amount) if key=='underwriting.DEVELOPMENT_CAPEX' else value),
+                 'TEST_ONLY:PROJECT_EXECUTOR_BUDGET') for key,value in UNDERWRITING)+
             (SnapshotFact('capital.STRATEGIC_PRESSURE',FactState.KNOWN,
                           str(mobilization.strategic_pressure),'BUILD8_MOBILIZATION'),))
         execution=run_financier_policy(snap,req,manifest,'screen:finance:decision:'+name,
@@ -105,6 +112,9 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         # price pressure into return. No invented weighting is introduced.
         pressure=mobilization.strategic_pressure
         screenings[name]=(execution.decision,score,pressure)
+        k.audit('BUILD8_EVIDENCE_BASIS',2026,sponsor=name,posterior=posterior[name],
+                private_signal=private.signal,shared=share_private,
+                cost_basis=amount,forecast_error=D(0))
     ranked=sorted((n for n,(d,s,p) in screenings.items() if d.outcome.value=='APPROVE'),
                   key=lambda n:(-screenings[n][1],sha256(f'{SEED}|1|screen:finance:{n}'.encode()).hexdigest()))
     approvals={}; pending=set(ranked); work=[]; occupied={}; ready={}
@@ -115,7 +125,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                 pressure_contribution=D(0),outcome='APPROVED_AWAITING_CLEARING')
     for year in (2026,2027):
         # 2027 financing is additional mobilized country capital, not minted money.
-        if year==2027 and pending:
+        if year==2027 and pending and not immediate_funding:
             extra=k.mobilize_country_capital(2,'USA',capacities['USA',2027],D(1),
                 h['prospecting_scenario'],'b8_source:USA','b8_funds:USA')
             topup=min(amount,k.state.accounts['b8_funds:USA'].balance)
