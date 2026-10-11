@@ -12,7 +12,9 @@
     "Defense classifications from supplied JSON are analyst-unverified and attached per capability",
     "Multinational funding participation is not home_country",
     "Historical scenario costs, slots and sponsor routes remain in existing experiments",
-    "Branches not exhaustively audited; main and supplied research are reconciled"
+    "Existing named actor references checked in six Build 8 experiment source files; not an exhaustive unmerged-branch audit",
+    "Organization-level defense profile is an unverified analyst classification; NONE means no positive classification, not a verified absence of defense work",
+    "ESA FRA is administrative headquarters only; participating countries are funding/participation links"
   ],
   "actors": [
     {
@@ -30,9 +32,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DEFENSE_PRIME",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "RUN",
@@ -41,16 +41,16 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "arianespace",
@@ -67,15 +67,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "astrobotic",
@@ -92,9 +92,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "BUILD",
@@ -103,16 +101,16 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "astroscale",
@@ -129,15 +127,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://www.satellitetoday.com/technology/2026/04/02/astroscale-and-exotrail-to-co-develop-servicing-mission/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "australian_space_agency",
@@ -150,7 +148,9 @@
       "aliases": [],
       "sources": [
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "axiom",
@@ -168,9 +168,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/02/15/the-new-space-station-gold-rush-which-companies-are-actually-ready-for-leo/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [
@@ -179,7 +177,9 @@
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "bhp",
@@ -196,15 +196,15 @@
           "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
           "source_url": "",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "blue_origin",
@@ -222,9 +222,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "BUILD",
@@ -233,9 +231,7 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "LAUNCH",
@@ -244,16 +240,16 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "boeing_defense_space_security",
@@ -270,15 +266,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DEFENSE_PRIME",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "cas_space",
@@ -295,15 +291,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "casc",
@@ -320,9 +316,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "STATE_DEFENSE_AND_CIVIL",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "BUILD",
@@ -331,9 +325,7 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "LAND",
@@ -342,16 +334,31 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "STATE_DEFENSE_AND_CIVIL",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "cast",
+      "name": "CAST",
+      "home_country": "CHN",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "claude_59_combined_entry"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "cast_china_academy_of_space_technology",
@@ -368,15 +375,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://en.wikipedia.org/wiki/Chang%27e_7",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "STATE_DEFENSE_AND_CIVIL",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "STATE_DEFENSE_AND_CIVIL",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "caterpillar",
@@ -393,15 +400,15 @@
           "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
           "source_url": "",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "china_manned_space_agency",
@@ -418,15 +425,15 @@
           "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
           "source_url": "",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "STATE_DEFENSE_AND_CIVIL",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "STATE_DEFENSE_AND_CIVIL",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "cnes",
@@ -439,7 +446,9 @@
       "aliases": [],
       "sources": [
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "cnsa",
@@ -452,7 +461,9 @@
       "aliases": [],
       "sources": [
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_are",
@@ -465,7 +476,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_aus",
@@ -478,7 +491,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_aut",
@@ -491,7 +506,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_bel",
@@ -504,7 +521,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_can",
@@ -517,7 +536,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_che",
@@ -530,7 +551,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_chn",
@@ -543,7 +566,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_deu",
@@ -556,7 +581,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_esp",
@@ -569,7 +596,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_fra",
@@ -582,7 +611,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_gbr",
@@ -595,7 +626,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_hun",
@@ -608,7 +641,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_ind",
@@ -621,7 +656,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_isr",
@@ -634,7 +671,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_ita",
@@ -647,7 +686,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_jpn",
@@ -660,7 +701,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_kor",
@@ -673,7 +716,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_nld",
@@ -686,7 +731,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_nor",
@@ -699,7 +746,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_pol",
@@ -712,7 +761,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_qat",
@@ -725,7 +776,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_rus",
@@ -738,7 +791,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_sau",
@@ -751,7 +806,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_swe",
@@ -764,7 +821,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "country_usa",
@@ -777,7 +836,9 @@
       "aliases": [],
       "sources": [
         "build8_participation_or_candidate"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "csa",
@@ -790,7 +851,9 @@
       "aliases": [],
       "sources": [
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "d_orbit",
@@ -807,15 +870,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://europeanspaceflight.com/?p=2268",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "dhruva_space",
@@ -832,15 +895,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://en.wikipedia.org/wiki/List_of_spacecraft_manufacturers",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "dlr",
@@ -853,7 +916,9 @@
       "aliases": [],
       "sources": [
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "epiroc",
@@ -870,20 +935,20 @@
           "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
           "source_url": "",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "esa",
       "name": "ESA",
-      "home_country": null,
+      "home_country": "FRA",
       "roles": [
         "agency_sponsor"
       ],
@@ -891,6 +956,23 @@
       "aliases": [],
       "sources": [
         "build8_main_network"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence",
+      "administrative_home_basis": "ESA headquarters, Paris, France; administrative domicile only, not national ownership",
+      "participating_countries": [
+        "DEU",
+        "FRA",
+        "ITA",
+        "GBR",
+        "ESP",
+        "NLD",
+        "BEL",
+        "SWE",
+        "CHE",
+        "AUT",
+        "NOR",
+        "POL"
       ]
     },
     {
@@ -908,15 +990,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://www.satellitetoday.com/technology/2026/04/02/astroscale-and-exotrail-to-co-develop-servicing-mission/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "firefly_aerospace",
@@ -933,9 +1015,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "LAND",
@@ -944,16 +1024,16 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_chain"
-      ]
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "galactic_energy",
@@ -970,15 +1050,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "gilmour_space_technologies",
@@ -995,15 +1075,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://www.satnow.com/news/details/3712-gilmour-space-successfully-launches-australia-s-first-homegrown-orbital-rocket",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "hal_l_t",
@@ -1020,9 +1100,7 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "LAUNCH",
@@ -1031,15 +1109,15 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "hanwha_aerospace",
@@ -1056,9 +1134,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://en.wikipedia.org/wiki/List_of_spacecraft_manufacturers",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DEFENSE_PRIME",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "LAUNCH",
@@ -1067,16 +1143,16 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "honeybee_robotics",
@@ -1093,15 +1169,15 @@
           "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
           "source_url": "",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "impulse_space",
@@ -1118,15 +1194,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/06/02/impulse-space-raises-500-million-in-series-d-to-build-critical-in-space-mobility-infrastructure/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "interlune",
@@ -1144,16 +1220,16 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://www.geekwire.com/2026/interlune-nasa-contract-extract-helium-3-hydrogen-moon/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "intuitive_machines",
@@ -1170,9 +1246,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "RUN",
@@ -1181,15 +1255,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://www.govconwire.com/articles/nasa-awards-3-spots-on-4-6b-lunar-exploration-vehicle-development-contract",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "isar_aerospace",
@@ -1207,16 +1281,16 @@
           "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
           "source_url": "",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "ispace",
@@ -1234,9 +1308,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "RUN",
@@ -1245,16 +1317,16 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "israel_aerospace_industries",
@@ -1271,15 +1343,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DEFENSE_PRIME",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "isro",
@@ -1297,9 +1369,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "LAUNCH",
@@ -1308,9 +1378,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "LAND",
@@ -1319,9 +1387,7 @@
           "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
           "source_url": "",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [
@@ -1330,7 +1396,9 @@
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "jaxa",
@@ -1343,7 +1411,24 @@
       "aliases": [],
       "sources": [
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
+    },
+    {
+      "id": "kari",
+      "name": "KARI",
+      "home_country": "KOR",
+      "roles": [
+        "agency_sponsor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "claude_59_combined_entry"
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "kasa",
@@ -1356,7 +1441,9 @@
       "aliases": [],
       "sources": [
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "komatsu",
@@ -1373,15 +1460,15 @@
           "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
           "source_url": "",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "landspace",
@@ -1399,16 +1486,16 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "lockheed_martin_space",
@@ -1425,15 +1512,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DEFENSE_PRIME",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "lunar_outpost",
@@ -1450,15 +1537,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://www.govconwire.com/articles/nasa-awards-3-spots-on-4-6b-lunar-exploration-vehicle-development-contract",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "mda_space",
@@ -1475,9 +1562,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://www.govconwire.com/articles/nasa-awards-3-spots-on-4-6b-lunar-exploration-vehicle-development-contract",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "RUN",
@@ -1486,16 +1571,16 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "mitsubishi_electric",
@@ -1512,15 +1597,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DEFENSE_PRIME",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "mitsubishi_heavy_industries",
@@ -1537,9 +1622,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DEFENSE_PRIME",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "BUILD",
@@ -1548,16 +1631,16 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "nasa",
@@ -1570,7 +1653,9 @@
       "aliases": [],
       "sources": [
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "northrop_grumman",
@@ -1587,9 +1672,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DEFENSE_PRIME",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "TRANSPORT",
@@ -1598,9 +1681,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/02/15/the-new-space-station-gold-rush-which-companies-are-actually-ready-for-leo/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DEFENSE_PRIME",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "RUN",
@@ -1609,16 +1690,16 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "ohb",
@@ -1635,9 +1716,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://en.wikipedia.org/wiki/List_of_spacecraft_manufacturers",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [
@@ -1646,7 +1725,9 @@
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "pla_aerospace_force",
@@ -1659,7 +1740,9 @@
       "aliases": [],
       "sources": [
         "proposed_not_active"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "rio_tinto",
@@ -1676,15 +1759,15 @@
           "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
           "source_url": "",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "rkk_energia",
@@ -1701,9 +1784,7 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "LAUNCH",
@@ -1712,15 +1793,15 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "rocket_lab",
@@ -1737,15 +1818,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "roscosmos",
@@ -1763,9 +1844,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "STATE_DEFENSE_AND_CIVIL",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "LAND",
@@ -1774,16 +1853,31 @@
           "evidence_basis": "MODEL_KNOWLEDGE_VERIFY",
           "source_url": "",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "STATE_DEFENSE_AND_CIVIL",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "STATE_DEFENSE_AND_CIVIL",
+      "defense_profile_basis": "analyst classification, unverified"
+    },
+    {
+      "id": "sierra_space",
+      "name": "Sierra Space",
+      "home_country": "USA",
+      "roles": [
+        "executor"
+      ],
+      "capabilities": [],
+      "aliases": [],
+      "sources": [
+        "claude_59_combined_entry"
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "skyroot_aerospace",
@@ -1800,15 +1894,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://satellitetoday.com/launch/2026/07/20/skyroot-aerospace-makes-history-for-india-with-first-launch-success/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "spacex",
@@ -1826,9 +1920,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "LAND",
@@ -1837,9 +1929,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://en.wikipedia.org/wiki/Commercial_Lunar_Payload_Services",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "BUILD",
@@ -1848,9 +1938,7 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "RUN",
@@ -1859,16 +1947,16 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "starlab",
@@ -1886,9 +1974,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/02/15/the-new-space-station-gold-rush-which-companies-are-actually-ready-for-leo/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [
@@ -1897,7 +1983,9 @@
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "thales_alenia_space",
@@ -1914,9 +2002,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2025/07/10/who-are-the-global-satellite-manufacturing-leaders/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DUAL_USE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "RUN",
@@ -1925,16 +2011,16 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "DUAL_USE",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "toyota",
@@ -1951,9 +2037,7 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://payloadspace.com/whos-who-lunar-landers-and-rovers",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         },
         {
           "category": "BUILD",
@@ -1962,9 +2046,7 @@
           "evidence_basis": "AUTHORED",
           "source_url": null,
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": null,
-          "defense_profile_basis": null
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [
@@ -1973,7 +2055,9 @@
       "sources": [
         "claude_59",
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "uae_space_agency",
@@ -1986,7 +2070,9 @@
       "aliases": [],
       "sources": [
         "build8_main_network"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "united_launch_alliance",
@@ -2003,15 +2089,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "DEFENSE_PRIME",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "DEFENSE_PRIME",
+      "defense_profile_basis": "analyst classification, unverified"
     },
     {
       "id": "us_space_command",
@@ -2024,7 +2110,9 @@
       "aliases": [],
       "sources": [
         "proposed_not_active"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "vast",
@@ -2041,15 +2129,15 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://newspaceeconomy.ca/2026/02/15/the-new-space-station-gold-rush-which-companies-are-actually-ready-for-leo/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     },
     {
       "id": "venturi_astrolab",
@@ -2066,35 +2154,61 @@
           "evidence_basis": "SOURCED",
           "source_url": "https://www.geekwire.com/2026/interlune-nasa-contract-extract-helium-3-hydrogen-moon/",
           "capacity_index": null,
-          "capacity_index_basis": "UNASSESSED",
-          "defense_profile": "NONE",
-          "defense_profile_basis": "analyst classification, unverified"
+          "capacity_index_basis": "UNASSESSED"
         }
       ],
       "aliases": [],
       "sources": [
         "claude_59"
-      ]
+      ],
+      "defense_profile": "NONE",
+      "defense_profile_basis": "no positive defense classification in supplied candidate evidence"
     }
   ],
-  "unresolved_associations": [
+  "combined_activity_associations": [
     {
       "source_name": "KARI / Hanwha Aerospace",
+      "partners": [
+        "KARI",
+        "Hanwha Aerospace"
+      ],
       "category": "LAUNCH",
-      "reason": "Combined organizations; kept as candidate association, not merged into one company",
-      "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/"
+      "source_url": "https://newspaceeconomy.ca/2026/03/16/global-operational-orbital-launch-vehicles-market-analysis-2026/",
+      "evidence_basis": "SOURCED_COMBINED_ASSOCIATION",
+      "note": "Joint or attributed activity; not independently verified for each partner"
     },
     {
       "source_name": "CAST / CNSA",
+      "partners": [
+        "CAST",
+        "CNSA"
+      ],
       "category": "LAND",
-      "reason": "Combined organizations; kept as candidate association, not merged into one company",
-      "source_url": "https://en.wikipedia.org/wiki/Chang%27e_7"
+      "source_url": "https://en.wikipedia.org/wiki/Chang%27e_7",
+      "evidence_basis": "SOURCED_COMBINED_ASSOCIATION",
+      "note": "Joint or attributed activity; not independently verified for each partner"
     },
     {
       "source_name": "Blue Origin / Sierra Space",
+      "partners": [
+        "Blue Origin",
+        "Sierra Space"
+      ],
       "category": "RUN",
-      "reason": "Combined organizations; kept as candidate association, not merged into one company",
-      "source_url": "https://newspaceeconomy.ca/2026/02/15/the-new-space-station-gold-rush-which-companies-are-actually-ready-for-leo/"
+      "source_url": "https://newspaceeconomy.ca/2026/02/15/the-new-space-station-gold-rush-which-companies-are-actually-ready-for-leo/",
+      "evidence_basis": "SOURCED_COMBINED_ASSOCIATION",
+      "note": "Joint or attributed activity; not independently verified for each partner"
     }
-  ]
+  ],
+  "experiment_actor_reference_check": {
+    "files": [
+      "named_sponsor_trial.py",
+      "screened_delivery.py",
+      "sponsor_executor_network_trial.py",
+      "sponsor_trial_setup.py"
+    ],
+    "names_checked": 32,
+    "missing_actor_names": [],
+    "scope": "named rosters and experiment constants on current branch; not dynamic/generated account IDs or every unmerged branch"
+  }
 }
