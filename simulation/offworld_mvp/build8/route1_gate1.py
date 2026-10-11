@@ -8,7 +8,7 @@ from .four_usa_financier import UNDERWRITING
 from simulation.offworld_mvp.build7.generated_campaign import load_prospecting_scenario
 from offworld_kernel.prospecting import derive_mobilization
 from offworld_kernel.model import AccountKind, NodeKind, TxPurpose
-from offworld_kernel.mvp_state import AgentState, AgentKind
+from offworld_kernel.mvp_state import AgentState, AgentKind, Observation
 from offworld_kernel.policy import DecisionSnapshot, SnapshotFact, FactState
 from offworld_kernel.policy_runner import run_financier_policy
 from offworld_kernel.financing_protocol import build_financing_request
@@ -30,8 +30,10 @@ PREFERRED = {'NASA':'Astrobotic','CNSA':'CASC','ISRO':'HAL / L&T',
              'Australian Space Agency':'Toyota','UAE Space Agency':'Thales Alenia Space',
              'ispace':'ispace','Interlune':'Northrop Grumman'}
 
-def run_gate1(share=D('.10'), root=EARTH_V4_ROOT):
+def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A'):
     share=D(share)
+    if scenario not in ('A','B'):
+        raise ValueError('Scenario A or B only')
     if share not in (D('.10'),D('.25')):
         raise ValueError('only AUTHORED 10% and 25% shares are admitted')
     validate_authored_network_names()
@@ -43,7 +45,7 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT):
             if (country,2026) in capacities:
                 by_country.setdefault(country,[]).append(
                     (sponsor,D(PREFERENCES.get(country,{}).get(sponsor,1))))
-    scenario=load_prospecting_scenario()
+    prospecting=load_prospecting_scenario()
     budgets={}
     for sponsor,countries in sorted(all_sponsors.items()):
         key='route1:budget:'+sponsor
@@ -52,7 +54,7 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT):
     origins={}
     for country,entries in sorted(by_country.items()):
         _,_,_,mobilized=derive_mobilization(investment_proxy=capacities[country,2026],
-            commercial_opportunity=D(1),scenario=scenario)
+            commercial_opportunity=D(1),scenario=prospecting)
         amount=mobilized*share
         origin='route1:origin:'+country
         k.add_account(origin,'COUNTRY:'+country,'EARTH:'+country,
@@ -84,24 +86,36 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT):
         k.add_agent(AgentState(sponsor,AgentKind.PRIVATE_SPONSOR,
             'EARTH:'+all_sponsors[sponsor][0],budget,{'REQUEST_FINANCE'},
             ('RETURN',),priors={'resource_exists':D('.5')}))
+        disclosed=()
+        if scenario=='B':
+            # AUTHORED / TEST_ONLY / NON-CANON. Same single neutral
+            # observation content for all; sponsor-held protocol identity differs.
+            oid='route1:authored:observation:'+sponsor
+            k.observations[oid]=Observation(oid,2026,sponsor,
+                'ROUTE1_AUTHORED_NEUTRAL','AUTHORED_TEST_ONLY','NEUTRAL',False)
+            k.agents[sponsor].information.add(oid)
+            disclosed=(oid,)
+            k.audit('ROUTE1_DISCLOSED_OBSERVATION',2026,sponsor=sponsor,
+                observation=oid,signal='NEUTRAL',classification='AUTHORED TEST_ONLY NON-CANON')
         request=build_financing_request('route1:request:'+sponsor,1,sponsor,
-                                         project,price,'DEVELOPMENT')
+                                         project,price,'DEVELOPMENT',
+                                         disclosed_observation_ids=disclosed)
         k.submit_financing_request(request)
         facts=tuple(SnapshotFact(key,FactState.KNOWN,value,EVIDENCE_TAG)
                     for key,value in EVIDENCE)
         snapshot=DecisionSnapshot('ROUTE1_FINANCIER','PRIVATE_FINANCIER',
             'EARTH:'+all_sponsors[sponsor][0],
             'route1:financier:snapshot:'+sponsor,'1',available,
-            ('FINANCE',),('RETURN',),(),
+            ('FINANCE',),('RETURN',),disclosed,
             (('resource_exists',D('.5')),),(('resource_exists',D('.5')),),
             (),(),(),facts)
         execution=run_financier_policy(snapshot,request,manifest,
                      'route1:financier:decision:'+sponsor,allow_test_fixture=True)
         decision=execution.decision
-        k.audit('ROUTE1_AUTHORED_EVIDENCE',2026,sponsor=sponsor,
+        k.audit('ROUTE1_AUTHORED_EVIDENCE',2026,sponsor=sponsor,scenario=scenario,
                 label=EVIDENCE_TAG,inputs=EVIDENCE,belief=D('.5'),
                 prior=D('.5'),manifest='TEST_ONLY')
-        k.audit('ROUTE1_FINANCIER_DECISION',2026,sponsor=sponsor,
+        k.audit('ROUTE1_FINANCIER_DECISION',2026,sponsor=sponsor,scenario=scenario,
                 request=request.id,decision=decision.id,
                 outcome=decision.outcome.value,reason=decision.reason_code.value,
                 requested=price,ceiling=ceiling,available=available)
@@ -125,11 +139,13 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT):
                     commitment=commitment,transaction=tx.id,amount=price)
             status='FUNDED_PENDING_EXECUTOR'
         results.append(dict(sponsor=sponsor,category=category,executor=executor,
+            scenario=scenario,reason=decision.reason_code.value,
             authored_ceiling=str(ceiling),authored_price=str(price),
-            opening=str(available),policy=decision.outcome.value,
+            opening=str(available),closing=str(k.state.accounts[budget].balance),
+            policy=decision.outcome.value,
             decision=decision.id,status=status,commitment=commitment,
             disbursement=disbursement))
-    k.audit('ROUTE1_GATE1_SETTLEMENT',2026,share=share,
+    k.audit('ROUTE1_GATE1_SETTLEMENT',2026,share=share,scenario=scenario,
         evidence=EVIDENCE_TAG,decisions=len(results),
         commitments=sum(bool(r['commitment']) for r in results),
         disbursements=sum(bool(r['disbursement']) for r in results),
