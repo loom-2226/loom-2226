@@ -12,6 +12,8 @@
 
 **Run:** `PYTHONPATH=src:simulation/offworld_mvp/phase3b/kernel:. python3 -m unittest discover -s simulation/offworld_mvp/build8 -t . -p 'test_*.py' -q`, with Earth v4 configured through `LOOM_EARTH_V4_ROOT`. A fresh clone without those external inputs cannot reproduce economic tests.
 
+**Job 2 follow-up:** The screened economic trial now generates synthetic evidence in its own kernel and records observation/publication/disclosed-posterior and deal-party term receipts as events occur. `deal_record.py` reads these receipts; it no longer reconstructs a second fixture. Earlier historical notes about the separated evidence fixture remain applicable to the older experiments, not this screened trial. See the checkpoint for scope and limitations.
+
 **Reading guide:** The numbered increments below are historical experiment notes retained for provenance. Their original "Next" statements and "no financing decisions" statements describe the state **at that increment**, not the current branch. Do not use them as current authority or instructions to expand the model.
 
 ## Historical experiment log (superseded status statements)

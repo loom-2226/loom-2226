@@ -16,7 +16,7 @@ from .four_usa_financier import UNDERWRITING, SEED
 from .opening import build_country_opening, EARTH_V4_ROOT
 from .deliverable_chain import OPERATORS
 from .competitive_delivery import SCALE, Work
-from .sponsor_evidence_setup import sponsor_setup, KEY
+from .trial_knowledge import record, terms
 
 SPONSORS = ('Interlune', 'Axiom')
 # Differing authored information value expresses distinct investment motives.
@@ -40,12 +40,9 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
     # Constrained: 2.00 clears one project. Immediate counterfactual:
     # 4.00 clears both. Both use mobilized country capital.
     fund=D('4.00') if immediate_funding else D('2.00')
-    evidence,_,_,private,_=sponsor_setup(private_signal,share_private)
-    # Interlune sees public observations (A); Axiom owns private sensor (B).
-    # The private-signal flip changes the observation and posterior, not a
-    # named sponsor parameter. Sharing changes Interlune's posterior too.
-    posterior={'Interlune':evidence.agents['A'].beliefs[KEY],
-               'Axiom':evidence.agents['B'].beliefs[KEY]}
+    # One kernel generates the evidence and makes the economic decisions.
+    # Public observations are synthetic; private truth is scenario-authored.
+    posterior={}
     if fund < amount or (not immediate_funding and fund >= 2*amount) or fund > mobilization.mobilized_cash:
         raise ValueError('authored financing envelope inconsistent')
     k.add_account('screen:fund','USA_SCREENED_FINANCIER','EARTH:USA',AccountKind.FUNDS)
@@ -60,8 +57,10 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         body_truth={family:True for family in BODY_MATERIAL_FAMILIES})
     observation_ids=tuple(o.id for o in public)
     for obs in public:
+        record(k,obs.id,'PUB','OBSERVED',obs.question_ref+':'+obs.signal)
         k.publish_observation(1,'PUB',obs.id,'SCREENED_FINANCIER_DISCLOSURE',
             (('SCREEN_FINANCIER','resource_exists:'+obs.question_ref,D('.8'),D('.2')),))
+        record(k,obs.id,'SCREEN_FINANCIER','PUBLISHED','PUB')
     requests={}; sponsor_decisions={}; screenings={}
     for name in sorted(SPONSORS):
         motive,info=MOTIVES[name]
@@ -70,12 +69,13 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         k.add_account('screen:cash:'+name,name,'screen:moon:'+name,AccountKind.PROJECT_CASH)
         k.add_project('screen:project:'+name,'screen:moon:'+name,'screen:cash:'+name,{name:D(1)})
         k.add_agent(AgentState(name,AgentKind.PRIVATE_SPONSOR,'EARTH:USA',
-            'screen:sponsor:'+name,{'REQUEST_FINANCE','DEVELOP'},("RETURN",motive),
-            beliefs={key:D('.8') for key in keys},priors={key:D('.5') for key in keys}))
+            'screen:sponsor:'+name,({'REQUEST_FINANCE','DEVELOP','EXPLORE'} if name=='Axiom' else {'REQUEST_FINANCE','DEVELOP'}),("RETURN",motive),
+            priors={key:D('.5') for key in keys}))
         for obs in public:
             key='BODY:MOON:'+obs.question_ref
             k.publish_observation(1,'PUB',obs.id,'SCREENED_SPONSOR_DISCLOSURE',
                 ((name,key,D('.8'),D('.2')),))
+            record(k,obs.id,name,'PUBLISHED','PUB')
         req=SponsorProspectingRequest('screen:opportunity:'+name,1,name,'screen:op:'+name,
             'screen:project:'+name,'MOON','REG','LOC',observation_ids,keys,amount,info).validate_protocol()
         snap=DecisionSnapshot(name,'PRIVATE_SPONSOR','EARTH:USA','screen:sponsor:snapshot:'+name,
@@ -92,10 +92,27 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             'screen:project:'+name,amount,'DEVELOPMENT',observation_ids)
         requests[name]=financing
         k.submit_financing_request(financing)
+    private,_,_=k.explore_paid(2,'Axiom','','','earth_supplier',D(0),channel='REMOTE',
+        public=False,false_positive=D(0),false_negative=D(0),update_belief=False,
+        body_id='MOON',question_ref='WATER_BEARING_MATERIAL_PRESENT',
+        body_truth=(private_signal=='POSITIVE'))
+    if private.signal!=private_signal:
+        raise AssertionError('private signal mismatch')
+    record(k,private.id,'Axiom','OBSERVED',private.question_ref+':'+private.signal)
+    if share_private:
+        k.publish_observation(2,'Axiom',private.id,'SCREENED_SHARED',
+            (('Interlune','BODY:MOON:VOLATILES_PRESENT',D('.8'),D('.2')),))
+        record(k,private.id,'Interlune','PUBLISHED','Axiom')
+    k.publish_observation(2,'Axiom',private.id,'SCREENED_PRIVATE',
+        (('Axiom','BODY:MOON:VOLATILES_PRESENT',D('.8'),D('.2')),))
+    # The private observation updates volatile belief by an explicitly authored
+    # relevance assumption; no other agent receives its raw contents.
+    posterior={name:k.agents[name].beliefs['BODY:MOON:VOLATILES_PRESENT'] for name in SPONSORS}
     frozen=k.state.accounts['screen:fund'].balance
     manifest=test_only_manifest()
     for name,req in sorted(requests.items()):
         motive,info=MOTIVES[name]
+        record(k,'belief:VOLATILES:'+name,'SCREEN_FINANCIER','DISCLOSED',name)
         # Frozen underwriting snapshots before any allocation.
         snap=DecisionSnapshot('SCREEN_FINANCIER','PRIVATE_FINANCIER','EARTH:USA',
             'screen:finance:snapshot:'+name,'1',frozen,('FINANCE',),('RETURN',),observation_ids,
@@ -146,6 +163,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             k.transition_project_status(year-2025,name,'screen:project:'+name,'DEVELOPMENT',
                                         sponsor_decisions[name].id)
             approvals[name]=year
+            terms(k,name,(name,'SCREEN_FINANCIER'),'FINANCE:'+str(amount)+':'+str(year))
             k.audit('BUILD8_FINANCE_CLEARING',year,sponsor=name,decision=decision.id,
                     outcome='FUNDED',amount=amount,economic_score=score,pressure=pressure,
                     pressure_contribution=D(0))
@@ -179,6 +197,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         finish=start+duration
         for y in range(start,finish): occupied[category,y]=occupied.get((category,y),0)+1
         cost=base*SCALE;price=cost*(1+markup)
+        terms(k,name,(name,OPERATORS[category][0]),category+':'+str(price)+':'+contract)
         outcome='FAILED' if failure==(name,category) else 'DELIVERED'
         # Hold back 10% of price on failure; the executor still bears its full cost.
         paid=price if outcome=='DELIVERED' or contract=='FULL_ON_FAILURE' else price*D('.90')

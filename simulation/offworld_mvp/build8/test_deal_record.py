@@ -1,23 +1,41 @@
 import unittest
-from .deal_record import evidence_routes, deal_records
+from decimal import Decimal as D
+from .deal_record import deal_records
+from .trial_knowledge import who_knows
 from .screened_delivery import run_screened
 
 class DealRecordTests(unittest.TestCase):
-    def test_private_flip_and_share_custody(self):
-        base=evidence_routes()
-        flipped=evidence_routes('POSITIVE')
-        shared=evidence_routes(share_private=True)
-        self.assertNotEqual(base,flipped)  # same access, different observed signal
-        self.assertEqual(tuple(r[:3] for r in base),tuple(r[:3] for r in flipped))
-        self.assertFalse(any(r[1]=='Interlune' and r[2]=='SHARED' for r in base))
-        self.assertTrue(any(r[1]=='Interlune' and r[2]=='SHARED' for r in shared))
-        self.assertTrue(any(r[1]=='Axiom' and r[2]=='OBSERVED' for r in base))
-        self.assertTrue(any(r[1]=='SCREEN_FINANCIER' and r[2].startswith('DISCLOSED_BELIEF') for r in base))
+    def test_single_world_observation_and_decision_beliefs(self):
+        for signal in ('NEGATIVE','POSITIVE'):
+            for share in (False,True):
+                work,decisions,k,_=run_screened(private_signal=signal,share_private=share)
+                private=next(o for o in k.observations.values()
+                             if o.question_ref=='WATER_BEARING_MATERIAL_PRESENT')
+                self.assertEqual(private.signal,signal)
+                holders={actor for actor,_,_ in who_knows(k,private.id)}
+                self.assertEqual(holders,{'Axiom','Interlune'} if share else {'Axiom'})
+                for name in ('Interlune','Axiom'):
+                    self.assertEqual(D(next(e['posterior'] for e in k.event_log
+                                      if e.get('kind')=='BUILD8_EVIDENCE_BASIS' and e['sponsor']==name)),
+                                     k.agents[name].beliefs['BODY:MOON:VOLATILES_PRESENT'])
+                    self.assertEqual(who_knows(k,'belief:VOLATILES:'+name),
+                                     (('SCREEN_FINANCIER','DISCLOSED',name),))
+                self.assertTrue(all(o.id in k.observations for o in k.observations.values()))
+                self.assertEqual(len(deal_records(work,decisions,k)),2)
 
-    def test_deals_reconcile_to_trial(self):
-        work,decisions,_,_=run_screened()
-        deals=deal_records(work,decisions)
-        self.assertEqual(len(deals),2)
-        self.assertEqual({d['sponsor'] for d in deals},{'Interlune','Axiom'})
-        self.assertTrue(all(len(d['work'])==2 for d in deals))
-        self.assertTrue(all(len(d['executors'])==2 for d in deals))
+    def test_deal_terms_only_parties_and_replay(self):
+        a,da,k,_=run_screened()
+        b,db,kb,_=run_screened()
+        self.assertEqual(k.build8_knowledge,kb.build8_knowledge)
+        deals=deal_records(a,da,k)
+        for deal in deals:
+            name=deal['sponsor']
+            finance=next(r for r in deal['deal_terms'] if ':FINANCE:' in r[0])
+            self.assertEqual({x[1] for x in deal['deal_terms'] if x[0]==finance[0]},
+                             {name,'SCREEN_FINANCIER'})
+            for category,executor in deal['executors']:
+                term=next(r[0] for r in deal['deal_terms'] if ':'+category+':' in r[0])
+                self.assertEqual({x[1] for x in deal['deal_terms'] if x[0]==term},
+                                 {name,executor})
+            other=({'Interlune','Axiom'}-{name}).pop()
+            self.assertFalse(any(x[1]==other for x in deal['deal_terms']))
