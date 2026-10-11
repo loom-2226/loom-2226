@@ -1,0 +1,14 @@
+{
+  "status": "AUTHORED_NONCANON_OFF_BY_DEFAULT",
+  "flat_slots": 1,
+  "price_units_if_no_authored_quote": {
+    "BUILD": "1.70",
+    "LAND": "3.00"
+  },
+  "notes": [
+    "These are experiment defaults, not vendor prices or measured capacity.",
+    "LAUNCH is deliberately unpriced: no compatible common payload or service definition.",
+    "TRANSPORT, RUN and EXTRACT are unpriced: no supported comparable deliverable.",
+    "Explicit authored quotes and slots always take precedence."
+  ]
+}

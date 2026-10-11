@@ -1,0 +1,2100 @@
+{
+  "runs": [
+    {
+      "config": "A1",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.1904650321910572409754663774",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 1,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 1,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "A1",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.2480714506980632976434113759",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 2,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 2,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "A1",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.8446173960306752877119666029",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 3,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 4,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 3,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "A1",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.4005767104947389042714478026",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 4,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 4,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "A1",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.6301070690764453807816995259",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 5,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 4,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 5,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "A2",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.1904650321910572409754663774",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 1,
+          "seq": 4,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 5,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 6,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 1,
+      "slots": false,
+      "tiers": true
+    },
+    {
+      "config": "A2",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.2480714506980632976434113759",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 2,
+          "seq": 4,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 5,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 6,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 2,
+      "slots": false,
+      "tiers": true
+    },
+    {
+      "config": "A2",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.8446173960306752877119666029",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 3,
+          "seq": 4,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 5,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 6,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 3,
+      "slots": false,
+      "tiers": true
+    },
+    {
+      "config": "A2",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.4005767104947389042714478026",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 4,
+          "seq": 4,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 5,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 6,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 4,
+      "slots": false,
+      "tiers": true
+    },
+    {
+      "config": "A2",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.6301070690764453807816995259",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 5,
+          "seq": 4,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 5,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 6,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 5,
+      "slots": false,
+      "tiers": true
+    },
+    {
+      "config": "A3",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.1904650321910572409754663774",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 1,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 1,
+      "slots": true,
+      "tiers": false
+    },
+    {
+      "config": "A3",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.2480714506980632976434113759",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 2,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 2,
+      "slots": true,
+      "tiers": false
+    },
+    {
+      "config": "A3",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.8446173960306752877119666029",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 3,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 4,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 3,
+      "slots": true,
+      "tiers": false
+    },
+    {
+      "config": "A3",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.4005767104947389042714478026",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 4,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 4,
+      "slots": true,
+      "tiers": false
+    },
+    {
+      "config": "A3",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.6301070690764453807816995259",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 5,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 4,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": false,
+      "removed": null,
+      "seed": 5,
+      "slots": true,
+      "tiers": false
+    },
+    {
+      "config": "A4",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.1904650321910572409754663774",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 1,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": true,
+      "removed": null,
+      "seed": 1,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "A4",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.2480714506980632976434113759",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 2,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": true,
+      "removed": null,
+      "seed": 2,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "A4",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.8446173960306752877119666029",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 3,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 4,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": true,
+      "removed": null,
+      "seed": 3,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "A4",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.4005767104947389042714478026",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 4,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": true,
+      "removed": null,
+      "seed": 4,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "A4",
+      "events": [
+        {
+          "committed": "0.0240",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0240",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.0240",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": null,
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.0240",
+          "year": 2026
+        },
+        {
+          "draw": "0.6301070690764453807816995259",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 5,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 4,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0240",
+          "pre_payment_cash": "0.0240",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": true,
+      "removed": null,
+      "seed": 5,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "B1",
+      "events": [
+        {
+          "committed": "0.0270",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0270",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": null,
+          "loser_quote": null,
+          "offered_quotes": {
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": "Airbus Defence and Space",
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Thales Alenia Space",
+          "winner_quote": "0.0270",
+          "year": 2026
+        },
+        {
+          "draw": "0.1904650321910572409754663774",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 1,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Thales Alenia Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Thales Alenia Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0270",
+          "pre_payment_cash": "0.0270",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": "Airbus Defence and Space",
+      "seed": 1,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "B1",
+      "events": [
+        {
+          "committed": "0.0270",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0270",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": null,
+          "loser_quote": null,
+          "offered_quotes": {
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": "Airbus Defence and Space",
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Thales Alenia Space",
+          "winner_quote": "0.0270",
+          "year": 2026
+        },
+        {
+          "draw": "0.2480714506980632976434113759",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 2,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Thales Alenia Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Thales Alenia Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0270",
+          "pre_payment_cash": "0.0270",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": "Airbus Defence and Space",
+      "seed": 2,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "B1",
+      "events": [
+        {
+          "committed": "0.0270",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0270",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": null,
+          "loser_quote": null,
+          "offered_quotes": {
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": "Airbus Defence and Space",
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Thales Alenia Space",
+          "winner_quote": "0.0270",
+          "year": 2026
+        },
+        {
+          "draw": "0.8446173960306752877119666029",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 3,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Thales Alenia Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 4,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Thales Alenia Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0270",
+          "pre_payment_cash": "0.0270",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": false,
+      "removed": "Airbus Defence and Space",
+      "seed": 3,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "B1",
+      "events": [
+        {
+          "committed": "0.0270",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0270",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": null,
+          "loser_quote": null,
+          "offered_quotes": {
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": "Airbus Defence and Space",
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Thales Alenia Space",
+          "winner_quote": "0.0270",
+          "year": 2026
+        },
+        {
+          "draw": "0.4005767104947389042714478026",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 4,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Thales Alenia Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Thales Alenia Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0270",
+          "pre_payment_cash": "0.0270",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": false,
+      "removed": "Airbus Defence and Space",
+      "seed": 4,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "B1",
+      "events": [
+        {
+          "committed": "0.0270",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.0270",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": null,
+          "loser_quote": null,
+          "offered_quotes": {
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": false,
+          "removed_explicit_quote": "Airbus Defence and Space",
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Thales Alenia Space",
+          "winner_quote": "0.0270",
+          "year": 2026
+        },
+        {
+          "draw": "0.6301070690764453807816995259",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 5,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Thales Alenia Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 4,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Thales Alenia Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.0270",
+          "pre_payment_cash": "0.0270",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": false,
+      "removed": "Airbus Defence and Space",
+      "seed": 5,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "C1",
+      "events": [
+        {
+          "committed": "0.02550000000000000000000000000",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.02550000000000000000000000000",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.02550000000000000000000000000",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": true,
+          "removed_explicit_quote": "Airbus Defence and Space",
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.02550000000000000000000000000",
+          "year": 2026
+        },
+        {
+          "draw": "0.1904650321910572409754663774",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 1,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.02550000000000000000000000000",
+          "pre_payment_cash": "0.02550000000000000000000000000",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": true,
+      "removed": "Airbus Defence and Space",
+      "seed": 1,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "C1",
+      "events": [
+        {
+          "committed": "0.02550000000000000000000000000",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.02550000000000000000000000000",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.02550000000000000000000000000",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": true,
+          "removed_explicit_quote": "Airbus Defence and Space",
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.02550000000000000000000000000",
+          "year": 2026
+        },
+        {
+          "draw": "0.2480714506980632976434113759",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 2,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.02550000000000000000000000000",
+          "pre_payment_cash": "0.02550000000000000000000000000",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": true,
+      "removed": "Airbus Defence and Space",
+      "seed": 2,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "C1",
+      "events": [
+        {
+          "committed": "0.02550000000000000000000000000",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.02550000000000000000000000000",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.02550000000000000000000000000",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": true,
+          "removed_explicit_quote": "Airbus Defence and Space",
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.02550000000000000000000000000",
+          "year": 2026
+        },
+        {
+          "draw": "0.8446173960306752877119666029",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 3,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 4,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.02550000000000000000000000000",
+          "pre_payment_cash": "0.02550000000000000000000000000",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": true,
+      "removed": "Airbus Defence and Space",
+      "seed": 3,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "C1",
+      "events": [
+        {
+          "committed": "0.02550000000000000000000000000",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.02550000000000000000000000000",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.02550000000000000000000000000",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": true,
+          "removed_explicit_quote": "Airbus Defence and Space",
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.02550000000000000000000000000",
+          "year": 2026
+        },
+        {
+          "draw": "0.4005767104947389042714478026",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": true,
+          "seed": 4,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2028,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": false,
+          "seq": 4,
+          "start": 2026,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.02550000000000000000000000000",
+          "pre_payment_cash": "0.02550000000000000000000000000",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2028
+        }
+      ],
+      "prices": true,
+      "removed": "Airbus Defence and Space",
+      "seed": 4,
+      "slots": false,
+      "tiers": false
+    },
+    {
+      "config": "C1",
+      "events": [
+        {
+          "committed": "0.02550000000000000000000000000",
+          "financing_source": "DEU_YEARLY_MOBILIZATION_NOT_NETWORK_TRIAL",
+          "kind": "ESA_BUILD_FINANCING",
+          "opening_cash": "0",
+          "pre_payment_cash": "0.02550000000000000000000000000",
+          "project_ceiling": "0.030",
+          "seq": 1,
+          "year": 2026
+        },
+        {
+          "fictional": true,
+          "kind": "ESA_BUILD_QUOTES",
+          "loser": "Thales Alenia Space",
+          "loser_quote": "0.0270",
+          "offered_quotes": {
+            "Airbus Defence and Space": "0.02550000000000000000000000000",
+            "Thales Alenia Space": "0.0270"
+          },
+          "price_fallback_used": true,
+          "removed_explicit_quote": "Airbus Defence and Space",
+          "seq": 2,
+          "slots_fallback_used": false,
+          "winner": "Airbus Defence and Space",
+          "winner_quote": "0.02550000000000000000000000000",
+          "year": 2026
+        },
+        {
+          "draw": "0.6301070690764453807816995259",
+          "kind": "ESA_BUILD_READINESS",
+          "method": "SHA256_UNIFORM_AUTHORED",
+          "probability": "0.5",
+          "ready": false,
+          "seed": 5,
+          "seq": 3,
+          "year": 2026
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "finish": 2029,
+          "kind": "ESA_BUILD_SCHEDULE",
+          "project": "ESA",
+          "readiness_deferred": true,
+          "seq": 4,
+          "start": 2027,
+          "year": 2027
+        },
+        {
+          "category": "BUILD",
+          "executor": "Airbus Defence and Space",
+          "kind": "ESA_BUILD_DELIVERY",
+          "outcome": "DELIVERED",
+          "paid": "0.02550000000000000000000000000",
+          "pre_payment_cash": "0.02550000000000000000000000000",
+          "project": "ESA",
+          "seq": 5,
+          "transaction_id": "tx-000006",
+          "year": 2029
+        }
+      ],
+      "prices": true,
+      "removed": "Airbus Defence and Space",
+      "seed": 5,
+      "slots": false,
+      "tiers": false
+    }
+  ],
+  "source": "kernel.event_log"
+}
