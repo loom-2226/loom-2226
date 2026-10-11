@@ -30,13 +30,14 @@ CONTRACTS = ('FULL_ON_FAILURE', 'ACCEPTANCE_HOLDBACK')
 # offered service is checked against the cast; price/timing stay authored here.
 SUBCONTRACT_SELECTION = ('BUILD', 'LAND')
 
-def eligible_subcontract_parties(prime_category='BUILD', sub_category='LAND'):
+def eligible_subcontract_parties(prime_category='BUILD', sub_category='LAND', operators=None):
+    operators = OPERATORS if operators is None else operators
     if prime_category == sub_category:
         raise ValueError('subcontract requires distinct service categories')
-    if prime_category not in OPERATORS or sub_category not in OPERATORS:
+    if prime_category not in operators or sub_category not in operators:
         raise ValueError('unknown subcontract category')
-    prime = cast_name(OPERATORS[prime_category][0], 'executor', prime_category)
-    sub = cast_name(OPERATORS[sub_category][0], 'executor', sub_category)
+    prime = cast_name(operators[prime_category][0], 'executor', prime_category)
+    sub = cast_name(operators[sub_category][0], 'executor', sub_category)
     if prime == sub:
         raise ValueError('prime and sub must be distinct legal actors')
     return prime, sub
@@ -46,7 +47,14 @@ def eligible_subcontract_parties(prime_category='BUILD', sub_category='LAND'):
 def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                  contract='FULL_ON_FAILURE', capacity_slots=2,
                  private_signal='NEGATIVE', share_private=False, immediate_funding=False,
-                 subcontract=False, sub_failure=False, resource_on_failure=False):
+                 subcontract=False, sub_failure=False, resource_on_failure=False,
+                 operator_selection=None):
+    selected = dict(OPERATORS)
+    if operator_selection is not None:
+        for category, operator in operator_selection.items():
+            if category not in ('BUILD', 'LAND'):
+                raise ValueError('screened delivery only supports BUILD/LAND overrides')
+            selected[category] = (cast_name(operator, 'executor', category), *OPERATORS[category][1:])
     if (sub_failure or resource_on_failure) and not subcontract:
         raise ValueError('subcontract failure/re-source requires subcontract')
     if contract not in CONTRACTS or capacity_slots not in (1,2):
@@ -56,7 +64,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
     k,h,capacities,_ = build_country_opening(root)
     mobilization=k.mobilize_country_capital(1,'USA',capacities['USA',2026],D(1),
         h['prospecting_scenario'],'b8_source:USA','b8_funds:USA')
-    amount=sum((SCALE*OPERATORS[c][1]*(1+OPERATORS[c][2]) for c in ('BUILD','LAND')),D(0))
+    amount=sum((SCALE*selected[c][1]*(1+selected[c][2]) for c in ('BUILD','LAND')),D(0))
     # Constrained: 2.00 clears one project. Immediate counterfactual:
     # 4.00 clears both. Both use mobilized country capital.
     fund=D('4.00') if immediate_funding else D('2.00')
@@ -197,7 +205,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                     amount=amount,economic_score=screenings[name][1],
                     pressure=screenings[name][2],pressure_contribution=D(0))
     for category in ('BUILD','LAND'):
-        operator=cast_name(OPERATORS[category][0], 'executor', category)
+        operator=cast_name(selected[category][0], 'executor', category)
         k.add_account('screen:revenue:'+category,operator,'EARTH:USA',AccountKind.SUPPLIER)
         k.add_account('screen:expense:'+category,operator+' COST','EARTH:USA',AccountKind.SUPPLIER)
     # Deterministic earliest-ready scheduler, with policy ranking on contention.
@@ -213,8 +221,8 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             work.append(Work(name,category,ready[name],ready[name],'BLOCKED_UPSTREAM',consumed,None,D(0),D(0),D(0)))
             stages[name]=2
             continue
-        _,base,markup,duration,slots=OPERATORS[category]
-        cast_actor(OPERATORS[category][0], 'executor', category)
+        _,base,markup,duration,slots=selected[category]
+        cast_actor(selected[category][0], 'executor', category)
         start=ready[name]
         while any(occupied.get((category,y),0)>=capacity_slots for y in range(start,start+duration)):
             start+=1
@@ -224,7 +232,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         # The package is part of BUILD's existing cost, not extra Sponsor CAPEX.
         sub=None
         if subcontract and category=='BUILD':
-            prime,supplier=eligible_subcontract_parties(*SUBCONTRACT_SELECTION)
+            prime,supplier=eligible_subcontract_parties(*SUBCONTRACT_SELECTION, operators=selected)
             if prime==supplier or prime==name or supplier==name:
                 raise ValueError('same legal entity cannot be its own sub/sponsor executor')
             sub_start=start
@@ -251,9 +259,9 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                         route='PRIME_SELF_PERFORMS',new_finish=finish)
         for y in range(start,finish): occupied[category,y]=occupied.get((category,y),0)+1
         cost=base*SCALE;price=cost*(1+markup)
-        terms(k,start,name,(name,OPERATORS[category][0]),category+':'+str(price)+':'+contract)
+        terms(k,start,name,(name,selected[category][0]),category+':'+str(price)+':'+contract)
         stage_outcome='FAILED' if failure==(name,category) or (sub is not None and sub_failure and not resource_on_failure) else 'DELIVERED'
-        record_outcome(k,finish,name,stage_outcome,(name,OPERATORS[category][0]),category)
+        record_outcome(k,finish,name,stage_outcome,(name,selected[category][0]),category)
         outcome=stage_outcome
         # Hold back 10% of price on failure; the executor still bears its full cost.
         paid=price if outcome=='DELIVERED' or contract=='FULL_ON_FAILURE' else price*D('.90')
