@@ -28,7 +28,10 @@ CONTRACTS = ('FULL_ON_FAILURE', 'ACCEPTANCE_HOLDBACK')
 
 def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                  contract='FULL_ON_FAILURE', capacity_slots=2,
-                 private_signal='NEGATIVE', share_private=False, immediate_funding=False):
+                 private_signal='NEGATIVE', share_private=False, immediate_funding=False,
+                 subcontract=False, sub_failure=False, resource_on_failure=False):
+    if (sub_failure or resource_on_failure) and not subcontract:
+        raise ValueError('subcontract failure/re-source requires subcontract')
     if contract not in CONTRACTS or capacity_slots not in (1,2):
         raise ValueError('invalid contract/capacity')
     if set(order) != set(SPONSORS) or len(order) != 2:
@@ -198,10 +201,39 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         while any(occupied.get((category,y),0)>=capacity_slots for y in range(start,start+duration)):
             start+=1
         finish=start+duration
+        # Optional one-level subcontract: BUILD prime buys a landing-services
+        # package from the existing LAND executor, occupying its real slots.
+        # The package is part of BUILD's existing cost, not extra Sponsor CAPEX.
+        sub=None
+        if subcontract and category=='BUILD':
+            prime=OPERATORS['BUILD'][0]; supplier=OPERATORS['LAND'][0]
+            if prime==supplier or prime==name or supplier==name:
+                raise ValueError('same legal entity cannot be its own sub/sponsor executor')
+            sub_start=start
+            while occupied.get(('LAND',sub_start),0)>=capacity_slots:
+                sub_start+=1
+            sub_finish=sub_start+1
+            occupied['LAND',sub_start]=occupied.get(('LAND',sub_start),0)+1
+            sub_cost=base*SCALE*D('.40')
+            # Late subcontract completion delays prime acceptance.
+            finish=max(finish,sub_finish)
+            sub=(prime,supplier,sub_start,sub_finish,sub_cost)
+            fact='subcontract:'+name+':BUILD:'+prime+':'+supplier
+            record(k,sub_start,fact,prime,'DIRECT_CONTRACT',supplier)
+            record(k,sub_start,fact,supplier,'DIRECT_CONTRACT',prime)
+            k.audit('BUILD8_SUBCONTRACT',sub_start,project=name,prime=prime,sub=supplier,
+                    start=sub_start,finish=sub_finish,price=sub_cost,
+                    outcome='FAILED' if sub_failure else 'DELIVERED',depth=1)
+            if sub_failure and resource_on_failure:
+                # Re-source to the prime's own workforce: no fictitious
+                # subcontract-to-self and no second subcontract tier.
+                finish+=1
+                k.audit('BUILD8_SUB_RESOURCED',sub_finish,project=name,prime=prime,
+                        route='PRIME_SELF_PERFORMS',new_finish=finish)
         for y in range(start,finish): occupied[category,y]=occupied.get((category,y),0)+1
         cost=base*SCALE;price=cost*(1+markup)
         terms(k,start,name,(name,OPERATORS[category][0]),category+':'+str(price)+':'+contract)
-        stage_outcome='FAILED' if failure==(name,category) else 'DELIVERED'
+        stage_outcome='FAILED' if failure==(name,category) or (sub is not None and sub_failure and not resource_on_failure) else 'DELIVERED'
         record_outcome(k,finish,name,stage_outcome,(name,OPERATORS[category][0]),category)
         outcome=stage_outcome
         # Hold back 10% of price on failure; the executor still bears its full cost.
@@ -212,8 +244,19 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         # exceeds the markup, the executor would need its own working capital.
         if paid < cost:
             raise ValueError('contract requires executor working capital')
+        if sub is not None:
+            prime,supplier,sub_start,sub_finish,sub_cost=sub
+            # Shared supplier account is also used for its direct LAND jobs.
+            # Prime's cost splits into sub revenue plus retained expense.
+            sub_tx=k.transfer(finish-2025,'screen:revenue:BUILD','screen:revenue:LAND',
+                sub_cost,TxPurpose.OTHER_INVESTMENT,parent_ids=(tx.id,))
+            k.audit('BUILD8_SUB_PAYMENT',finish,project=name,prime=prime,sub=supplier,
+                    amount=sub_cost,transaction_id=sub_tx.id)
+            cost_remainder=cost-sub_cost
+        else:
+            cost_remainder=cost
         k.transfer(finish-2025,'screen:revenue:'+category,'screen:expense:'+category,
-            cost,TxPurpose.OTHER_INVESTMENT,parent_ids=(tx.id,))
+            cost_remainder,TxPurpose.OTHER_INVESTMENT,parent_ids=(tx.id,))
         produced=(('BUILT:' if index==0 else 'ON_MOON:')+name) if outcome=='DELIVERED' else None
         if produced: delivered[name].add(produced)
         k.audit('BUILD8_SCREENED_DELIVERY',finish,project=name,category=category,
