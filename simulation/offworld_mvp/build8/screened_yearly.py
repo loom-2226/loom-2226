@@ -40,7 +40,7 @@ def eligible_subcontract_parties(prime_category='BUILD', sub_category='LAND', op
 
 
 
-def run_yearly_checkpoint(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
+def run_yearly(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                  contract='FULL_ON_FAILURE', capacity_slots=2,
                  private_signal='NEGATIVE', share_private=False, immediate_funding=False,
                  subcontract=False, sub_failure=False, resource_on_failure=False,
@@ -158,8 +158,7 @@ def run_yearly_checkpoint(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                 cost_basis=amount,forecast_error=D(0))
     ranked=sorted((n for n,(d,s,p) in screenings.items() if d.outcome.value=='APPROVE'),
                   key=lambda n:(-screenings[n][1],sha256(f'{SEED}|1|screen:finance:{n}'.encode()).hexdigest()))
-    # CHECKPOINT ONLY: financing and capacity reservations, no settlement or
-    # future-dated knowledge. Do not mistake planned completions for outcomes.
+    # Calendar execution: reserve on start, settle and publish only on completion.
     approvals={}; pending=set(ranked); occupied={}; ready={}; stages={}
     active=[]; planned=[]
     for name in ranked:
@@ -207,12 +206,43 @@ def run_yearly_checkpoint(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                         decision=screenings[name][0].id,outcome='DEFERRED_INSUFFICIENT_CASH',
                         amount=amount,economic_score=screenings[name][1],
                         pressure=screenings[name][2],pressure_contribution=D(0))
-        # Completed prerequisites are recognized for scheduling only. Settlement,
-        # physical deliverables, and knowledge consequences are deliberately absent.
         for job in sorted((j for j in active if j['finish']==year),key=lambda j:(rank[j['project']],j['category'])):
-            ready[job['project']]=year
-            stages[job['project']]+=1
+            name=job['project']; category=job['category']; index=stages[name]
+            _,base,markup,duration,slots=selected[category]
+            consumed=('COMMISSION:' if index==0 else 'BUILT:')+name
+            cost=base*SCALE; price=cost*(1+markup)
+            stage_outcome='FAILED' if failure==(name,category) or (job['sub'] is not None and sub_failure and not resource_on_failure) else 'DELIVERED'
+            record_outcome(k,year,name,stage_outcome,(name,selected[category][0]),category)
+            paid=price if stage_outcome=='DELIVERED' or contract=='FULL_ON_FAILURE' else price*D('.90')
+            tx=k.transfer(year-2025,'screen:cash:'+name,'screen:revenue:'+category,
+                          paid,TxPurpose.CAPEX,parent_ids=(screenings[name][0].id,consumed))
+            if paid<cost: raise ValueError('contract requires executor working capital')
+            if job['sub'] is not None:
+                prime,supplier,sub_start,sub_finish=job['sub']
+                sub_cost=base*SCALE*D('.40')
+                sub_paid=sub_cost*D('.90') if sub_failure else sub_cost
+                sub_tx=k.transfer(year-2025,'screen:revenue:BUILD','screen:revenue:LAND',
+                                  sub_paid,TxPurpose.OTHER_INVESTMENT,parent_ids=(tx.id,))
+                k.audit('BUILD8_SUB_PAYMENT',year,project=name,prime=prime,sub=supplier,
+                        amount=sub_paid,quoted=sub_cost,withheld=sub_cost-sub_paid,
+                        outcome='FAILED' if sub_failure else 'DELIVERED',transaction_id=sub_tx.id)
+                cost_remainder=cost-sub_cost
+            else: cost_remainder=cost
+            k.transfer(year-2025,'screen:revenue:'+category,'screen:expense:'+category,
+                       cost_remainder,TxPurpose.OTHER_INVESTMENT,parent_ids=(tx.id,))
+            produced=(('BUILT:' if index==0 else 'ON_MOON:')+name) if stage_outcome=='DELIVERED' else None
+            k.audit('BUILD8_SCREENED_DELIVERY',year,project=name,category=category,
+                    outcome=stage_outcome,consumed=consumed,produced=produced or '',
+                    revenue=paid,cost=cost,profit=paid-cost,contract=contract,withheld=price-paid)
+            job['work']=Work(name,category,job['start'],year,stage_outcome,consumed,produced,paid,cost,paid-cost)
+            ready[name]=year
+            stages[name]+=1
         active=[j for j in active if j['finish']>year]
+        for job in sorted((j for j in planned if j['sub'] is not None and j['sub'][3]==year),
+                          key=lambda j:(rank[j['project']],j['category'])):
+            if sub_failure and resource_on_failure:
+                k.audit('BUILD8_SUB_RESOURCED',year,project=job['project'],prime=job['sub'][0],
+                        route='PRIME_SELF_PERFORMS',new_finish=job['finish'])
         for name in sorted(stages,key=lambda n:(ready[n],rank[n])):
             if ready[name]>year or stages[name]>=2 or any(j['project']==name for j in active):
                 continue
@@ -238,7 +268,31 @@ def run_yearly_checkpoint(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                 sub=(prime,supplier,sub_start,sub_finish)
             for y in range(start,finish):
                 occupied[category,y]=occupied.get((category,y),0)+1
+            consumed=('COMMISSION:' if index==0 else 'BUILT:')+name
+            if index==1 and not any(j.get('work') and j['project']==name and j['work'].produced==consumed for j in planned):
+                record_outcome(k,year,name,'BLOCKED_UPSTREAM',(name,),category)
+                planned.append({'project':name,'category':category,'start':year,'finish':year,'sub':None,
+                                'work':Work(name,category,year,year,'BLOCKED_UPSTREAM',consumed,None,D(0),D(0),D(0))})
+                stages[name]=2
+                continue
+            cast_actor(selected[category][0],'executor',category)
+            cost=base*SCALE;price=cost*(1+markup)
+            terms(k,start,name,(name,selected[category][0]),category+':'+str(price)+':'+contract)
+            if sub is not None:
+                prime,supplier,sub_start,sub_finish=sub
+                fact='subcontract:'+name+':BUILD:'+prime+':'+supplier
+                # Contract knowledge is learned at the subcontract start, not at completion.
+                record(k,sub_start,fact,prime,'DIRECT_CONTRACT',supplier)
+                record(k,sub_start,fact,supplier,'DIRECT_CONTRACT',prime)
+                k.audit('BUILD8_SUBCONTRACT',sub_start,project=name,prime=prime,sub=supplier,
+                        start=sub_start,finish=sub_finish,price=base*SCALE*D('.40'),
+                        outcome='FAILED' if sub_failure else 'DELIVERED',depth=1)
             job={'project':name,'category':category,'start':start,'finish':finish,'sub':sub}
             active.append(job);planned.append(job)
-    return {'kernel':k,'approvals':approvals,'planned':planned,'occupied':occupied,
-            'active':active,'stages':stages,'pending':sorted(pending)}
+    k.assert_invariants()
+    work=tuple(sorted((j['work'] for j in planned if 'work' in j),
+                      key=lambda w:(w.start,rank[w.project],w.category)))
+    decisions=tuple((n,sponsor_decisions[n].outcome.value,
+                     screenings[n][0].outcome.value if n in screenings else 'NOT_REQUESTED',
+                     str(screenings[n][1]) if n in screenings else '',approvals.get(n)) for n in SPONSORS)
+    return work,decisions,k,occupied
