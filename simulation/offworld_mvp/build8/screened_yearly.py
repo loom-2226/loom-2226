@@ -14,11 +14,8 @@ from .deliverable_chain import OPERATORS
 from .competitive_delivery import SCALE, Work
 from .trial_knowledge import record, terms, outcome as record_outcome
 from .master_cast import name as cast_name, actor as cast_actor
+from .yearly_selections import select as cast_selection
 
-SPONSORS = (cast_name('Interlune', 'private_sponsor'), cast_name('Axiom', 'private_sponsor'))
-# Differing authored information value expresses distinct investment motives.
-MOTIVES = {'Interlune': ('RESOURCE_RETURN', D('2.00')),
-           'Axiom': ('LUNAR_INFRASTRUCTURE', D('2.20'))}
 # Explicitly different, observable project underwriting, not sponsor-name belief.
 CONTRACTS = ('FULL_ON_FAILURE', 'ACCEPTANCE_HOLDBACK')
 
@@ -40,39 +37,55 @@ def eligible_subcontract_parties(prime_category='BUILD', sub_category='LAND', op
 
 
 
-def run_yearly(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
+def run_yearly(order=None, root=EARTH_V4_ROOT, failure=None,
                  contract='FULL_ON_FAILURE', capacity_slots=2,
                  private_signal='NEGATIVE', share_private=False, immediate_funding=False,
                  subcontract=False, sub_failure=False, resource_on_failure=False,
-                 operator_selection=None):
-    selected = dict(OPERATORS)
+                 operator_selection=None, selection='legacy_usa'):
+    chosen = cast_selection(selection)
+    sponsors = tuple(chosen['sponsors'])
+    country = chosen['country']
+    home = 'EARTH:'+country
+    motives = chosen['motives']
+    private_owner = chosen['private_observer']
+    private_recipient = chosen['private_recipient']
+    selected = {category: (chosen['executors'][category], *OPERATORS[category][1:])
+                for category in ('BUILD', 'LAND')}
+    for category, cost in chosen.get('authored_costs', {}).items():
+        operator, _, markup, duration, slots = selected[category]
+        selected[category] = (operator, cost, markup, duration, slots)
     if operator_selection is not None:
         for category, operator in operator_selection.items():
             if category not in ('BUILD', 'LAND'):
                 raise ValueError('screened delivery only supports BUILD/LAND overrides')
-            selected[category] = (cast_name(operator, 'executor', category), *OPERATORS[category][1:])
+            selected[category] = (cast_name(operator, 'executor', category), *selected[category][1:])
     if (sub_failure or resource_on_failure) and not subcontract:
         raise ValueError('subcontract failure/re-source requires subcontract')
     if contract not in CONTRACTS or capacity_slots not in (1,2):
         raise ValueError('invalid contract/capacity')
-    if set(order) != set(SPONSORS) or len(order) != 2:
-        raise ValueError('expected Interlune and Axiom')
+    if order is None:
+        order = sponsors
+    if set(order) != set(sponsors) or len(order) != len(sponsors):
+        raise ValueError('order must contain each selected sponsor once')
     k,h,capacities,_ = build_country_opening(root)
-    mobilization=k.mobilize_country_capital(1,'USA',capacities['USA',2026],D(1),
-        h['prospecting_scenario'],'b8_source:USA','b8_funds:USA')
+    mobilization=k.mobilize_country_capital(1,country,capacities[country,2026],D(1),
+        h['prospecting_scenario'],'b8_source:'+country,'b8_funds:'+country)
     amount=sum((SCALE*selected[c][1]*(1+selected[c][2]) for c in ('BUILD','LAND')),D(0))
     # Constrained: 2.00 clears one project. Immediate counterfactual:
     # 4.00 clears both. Both use mobilized country capital.
-    fund=D('4.00') if immediate_funding else D('2.00')
+    # The 2/4 model-unit ceilings are AUTHORED, never national budget facts.
+    # For other countries the available envelope cannot exceed actual mobilization.
+    ceiling = D('4.00') if immediate_funding else D('2.00')
+    fund = ceiling if selection == 'legacy_usa' else min(ceiling, mobilization.mobilized_cash)
     # One kernel generates the evidence and makes the economic decisions.
     # Public observations are synthetic; private truth is scenario-authored.
     posterior={}
-    if fund < amount or (not immediate_funding and fund >= 2*amount) or fund > mobilization.mobilized_cash:
+    if (selection == 'legacy_usa' and (fund < amount or (not immediate_funding and fund >= 2*amount))) or fund <= 0 or fund > mobilization.mobilized_cash:
         raise ValueError('authored financing envelope inconsistent')
-    k.add_account('screen:fund','USA_SCREENED_FINANCIER','EARTH:USA',AccountKind.FUNDS)
-    k.transfer(1,'b8_funds:USA','screen:fund',fund,TxPurpose.OTHER_INVESTMENT,
+    k.add_account('screen:fund',country+'_SCREENED_FINANCIER',home,AccountKind.FUNDS)
+    k.transfer(1,'b8_funds:'+country,'screen:fund',fund,TxPurpose.OTHER_INVESTMENT,
                parent_ids=(mobilization.transaction_id,))
-    k.add_agent(AgentState('SCREEN_FINANCIER',AgentKind.PRIVATE_FINANCIER,'EARTH:USA',
+    k.add_agent(AgentState('SCREEN_FINANCIER',AgentKind.PRIVATE_FINANCIER,home,
                            'screen:fund',{'FINANCE'},('RETURN',),priors={'resource_exists:'+f+'_PRESENT':D('.5') for f in BODY_MATERIAL_FAMILIES}))
     keys=tuple('BODY:MOON:'+f+'_PRESENT' for f in BODY_MATERIAL_FAMILIES)
     public,_,_=k.explore_paid(1,'PUB','','','earth_supplier',D(0),channel='REMOTE',
@@ -86,14 +99,14 @@ def run_yearly(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             (('SCREEN_FINANCIER','resource_exists:'+obs.question_ref,D('.8'),D('.2')),))
         record(k,2026,obs.id,'SCREEN_FINANCIER','PUBLISHED','PUB')
     requests={}; sponsor_decisions={}; screenings={}
-    for name in sorted(SPONSORS):
-        motive,info=MOTIVES[name]
-        k.add_account('screen:sponsor:'+name,name,'EARTH:USA',AccountKind.FUNDS)
+    for name in sorted(sponsors):
+        motive,info=motives[name]
+        k.add_account('screen:sponsor:'+name,name,home,AccountKind.FUNDS)
         k.add_node('screen:moon:'+name,NodeKind.OFFWORLD)
         k.add_account('screen:cash:'+name,name,'screen:moon:'+name,AccountKind.PROJECT_CASH)
         k.add_project('screen:project:'+name,'screen:moon:'+name,'screen:cash:'+name,{name:D(1)})
-        k.add_agent(AgentState(name,AgentKind.PRIVATE_SPONSOR,'EARTH:USA',
-            'screen:sponsor:'+name,({'REQUEST_FINANCE','DEVELOP','EXPLORE'} if name=='Axiom' else {'REQUEST_FINANCE','DEVELOP'}),("RETURN",motive),
+        k.add_agent(AgentState(name,AgentKind.PRIVATE_SPONSOR,home,
+            'screen:sponsor:'+name,({'REQUEST_FINANCE','DEVELOP','EXPLORE'} if name==private_owner else {'REQUEST_FINANCE','DEVELOP'}),("RETURN",motive),
             priors={key:D('.5') for key in keys}))
         for obs in public:
             key='BODY:MOON:'+obs.question_ref
@@ -102,7 +115,7 @@ def run_yearly(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             record(k,2026,obs.id,name,'PUBLISHED','PUB')
         req=SponsorProspectingRequest('screen:opportunity:'+name,1,name,'screen:op:'+name,
             'screen:project:'+name,'MOON','REG','LOC',observation_ids,keys,amount,info).validate_protocol()
-        snap=DecisionSnapshot(name,'PRIVATE_SPONSOR','EARTH:USA','screen:sponsor:snapshot:'+name,
+        snap=DecisionSnapshot(name,'PRIVATE_SPONSOR',home,'screen:sponsor:snapshot:'+name,
             '1',D(0),('REQUEST_FINANCE',),("RETURN",motive),observation_ids,tuple((key,D('.8')) for key in keys),
             tuple((key,D('.5')) for key in keys),(),(),(),(
                 SnapshotFact('prospecting.REQUIRED_CAPITAL',FactState.KNOWN,str(amount),'AUTHORED'),
@@ -116,29 +129,29 @@ def run_yearly(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             'screen:project:'+name,amount,'DEVELOPMENT',observation_ids)
         requests[name]=financing
         k.submit_financing_request(financing)
-    private,_,_=k.explore_paid(2,'Axiom','','','earth_supplier',D(0),channel='REMOTE',
+    private,_,_=k.explore_paid(2,private_owner,'','','earth_supplier',D(0),channel='REMOTE',
         public=False,false_positive=D(0),false_negative=D(0),update_belief=False,
         body_id='MOON',question_ref='WATER_BEARING_MATERIAL_PRESENT',
         body_truth=(private_signal=='POSITIVE'))
     if private.signal!=private_signal:
         raise AssertionError('private signal mismatch')
-    record(k,2026,private.id,'Axiom','OBSERVED',private.question_ref+':'+private.signal)
+    record(k,2026,private.id,private_owner,'OBSERVED',private.question_ref+':'+private.signal)
     if share_private:
-        k.publish_observation(2,'Axiom',private.id,'SCREENED_SHARED',
-            (('Interlune','BODY:MOON:VOLATILES_PRESENT',D('.8'),D('.2')),))
-        record(k,2026,private.id,'Interlune','PUBLISHED','Axiom')
-    k.publish_observation(2,'Axiom',private.id,'SCREENED_PRIVATE',
-        (('Axiom','BODY:MOON:VOLATILES_PRESENT',D('.8'),D('.2')),))
+        k.publish_observation(2,private_owner,private.id,'SCREENED_SHARED',
+            ((private_recipient,'BODY:MOON:VOLATILES_PRESENT',D('.8'),D('.2')),))
+        record(k,2026,private.id,private_recipient,'PUBLISHED',private_owner)
+    k.publish_observation(2,private_owner,private.id,'SCREENED_PRIVATE',
+        ((private_owner,'BODY:MOON:VOLATILES_PRESENT',D('.8'),D('.2')),))
     # The private observation updates volatile belief by an explicitly authored
     # relevance assumption; no other agent receives its raw contents.
-    posterior={name:k.agents[name].beliefs['BODY:MOON:VOLATILES_PRESENT'] for name in SPONSORS}
+    posterior={name:k.agents[name].beliefs['BODY:MOON:VOLATILES_PRESENT'] for name in sponsors}
     frozen=k.state.accounts['screen:fund'].balance
     manifest=test_only_manifest()
     for name,req in sorted(requests.items()):
-        motive,info=MOTIVES[name]
+        motive,info=motives[name]
         record(k,2026,'belief:VOLATILES:'+name,'SCREEN_FINANCIER','DISCLOSED',name)
         # Frozen underwriting snapshots before any allocation.
-        snap=DecisionSnapshot('SCREEN_FINANCIER','PRIVATE_FINANCIER','EARTH:USA',
+        snap=DecisionSnapshot('SCREEN_FINANCIER','PRIVATE_FINANCIER',home,
             'screen:finance:snapshot:'+name,'1',frozen,('FINANCE',),('RETURN',),observation_ids,
             (('resource_exists',posterior[name]),),(('resource_exists',D('.5')) ,),(),(),(),
             tuple(SnapshotFact(key,FactState.KNOWN,
@@ -167,15 +180,15 @@ def run_yearly(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                 pressure_contribution=D(0),outcome='APPROVED_AWAITING_CLEARING')
     for category in ('BUILD','LAND'):
         operator=cast_name(selected[category][0], 'executor', category)
-        k.add_account('screen:revenue:'+category,operator,'EARTH:USA',AccountKind.SUPPLIER)
-        k.add_account('screen:expense:'+category,operator+' COST','EARTH:USA',AccountKind.SUPPLIER)
+        k.add_account('screen:revenue:'+category,operator,home,AccountKind.SUPPLIER)
+        k.add_account('screen:expense:'+category,operator+' COST',home,AccountKind.SUPPLIER)
     rank={name:i for i,name in enumerate(ranked)}
     for year in range(2026,2035):
         if year==2027 and pending and not immediate_funding:
-            extra=k.mobilize_country_capital(2,'USA',capacities['USA',2027],D(1),
-                h['prospecting_scenario'],'b8_source:USA','b8_funds:USA')
-            topup=min(amount,k.state.accounts['b8_funds:USA'].balance)
-            k.transfer(2,'b8_funds:USA','screen:fund',topup,TxPurpose.OTHER_INVESTMENT,
+            extra=k.mobilize_country_capital(2,country,capacities[country,2027],D(1),
+                h['prospecting_scenario'],'b8_source:'+country,'b8_funds:'+country)
+            topup=min(amount,k.state.accounts['b8_funds:'+country].balance)
+            k.transfer(2,'b8_funds:'+country,'screen:fund',topup,TxPurpose.OTHER_INVESTMENT,
                        parent_ids=(extra.transaction_id,))
         if year in (2026,2027):
             for name in ranked:
@@ -216,6 +229,13 @@ def run_yearly(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             paid=price if stage_outcome=='DELIVERED' or contract=='FULL_ON_FAILURE' else price*D('.90')
             tx=k.transfer(year-2025,'screen:cash:'+name,'screen:revenue:'+category,
                           paid,TxPurpose.CAPEX,parent_ids=(screenings[name][0].id,consumed))
+            # Audit only genuine same-owner sponsor-to-executor delivery.
+            # No transaction/account mutation; legacy scenarios emit no extra events.
+            if (k.state.accounts['screen:cash:'+name].owner_id ==
+                    k.state.accounts['screen:revenue:'+category].owner_id):
+                k.audit('BUILD8_INTERNAL_DELIVERY',year,project=name,category=category,
+                        sponsor=name,executor=selected[category][0],
+                        transaction_id=tx.id,amount=paid)
             if paid<cost: raise ValueError('contract requires executor working capital')
             if job['sub'] is not None:
                 prime,supplier,sub_start,sub_finish=job['sub']
@@ -294,5 +314,5 @@ def run_yearly(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                       key=lambda w:(w.start,rank[w.project],w.category)))
     decisions=tuple((n,sponsor_decisions[n].outcome.value,
                      screenings[n][0].outcome.value if n in screenings else 'NOT_REQUESTED',
-                     str(screenings[n][1]) if n in screenings else '',approvals.get(n)) for n in SPONSORS)
+                     str(screenings[n][1]) if n in screenings else '',approvals.get(n)) for n in sponsors)
     return work,decisions,k,occupied
