@@ -1,0 +1,1121 @@
+[
+  [
+    {
+      "category": "BUILD",
+      "consumed": "COMMISSION:Interlune",
+      "cost": "0.5000",
+      "finish": 2028,
+      "outcome": "DELIVERED",
+      "produced": "BUILT:Interlune",
+      "profit": "0.125000",
+      "project": "Interlune",
+      "revenue": "0.625000",
+      "start": 2026
+    },
+    {
+      "category": "BUILD",
+      "consumed": "COMMISSION:Axiom",
+      "cost": "0.5000",
+      "finish": 2029,
+      "outcome": "DELIVERED",
+      "produced": "BUILT:Axiom",
+      "profit": "0.125000",
+      "project": "Axiom",
+      "revenue": "0.625000",
+      "start": 2027
+    },
+    {
+      "category": "LAND",
+      "consumed": "BUILT:Interlune",
+      "cost": "0.7500",
+      "finish": 2030,
+      "outcome": "DELIVERED",
+      "produced": "ON_MOON:Interlune",
+      "profit": "0.150000",
+      "project": "Interlune",
+      "revenue": "0.900000",
+      "start": 2028
+    },
+    {
+      "category": "LAND",
+      "consumed": "BUILT:Axiom",
+      "cost": "0.7500",
+      "finish": 2031,
+      "outcome": "DELIVERED",
+      "produced": "ON_MOON:Axiom",
+      "profit": "0.150000",
+      "project": "Axiom",
+      "revenue": "0.900000",
+      "start": 2029
+    }
+  ],
+  [
+    [
+      "Interlune",
+      "INITIATE_PROJECT",
+      "APPROVE",
+      "2.360655737704918032786885245",
+      2026
+    ],
+    [
+      "Axiom",
+      "INITIATE_PROJECT",
+      "APPROVE",
+      "1.475409836065573770491803279",
+      2027
+    ]
+  ],
+  {
+    "balances": {
+      "b8_funds:AGO": "0",
+      "b8_funds:ARE": "0",
+      "b8_funds:ARG": "0",
+      "b8_funds:AUS": "0",
+      "b8_funds:AUT": "0",
+      "b8_funds:BEL": "0",
+      "b8_funds:BGD": "0",
+      "b8_funds:BGR": "0",
+      "b8_funds:BLR": "0",
+      "b8_funds:BRA": "0",
+      "b8_funds:BRN": "0",
+      "b8_funds:CAN": "0",
+      "b8_funds:CHE": "0",
+      "b8_funds:CHL": "0",
+      "b8_funds:CHN": "0",
+      "b8_funds:CIV": "0",
+      "b8_funds:CMR": "0",
+      "b8_funds:COD": "0",
+      "b8_funds:COL": "0",
+      "b8_funds:CRI": "0",
+      "b8_funds:CYP": "0",
+      "b8_funds:CZE": "0",
+      "b8_funds:DEU": "0",
+      "b8_funds:DNK": "0",
+      "b8_funds:EGY": "0",
+      "b8_funds:ESP": "0",
+      "b8_funds:EST": "0",
+      "b8_funds:FIN": "0",
+      "b8_funds:FRA": "0",
+      "b8_funds:GBR": "0",
+      "b8_funds:GRC": "0",
+      "b8_funds:HKG": "0",
+      "b8_funds:HRV": "0",
+      "b8_funds:HUN": "0",
+      "b8_funds:IDN": "0",
+      "b8_funds:IND": "0",
+      "b8_funds:IRL": "0",
+      "b8_funds:ISL": "0",
+      "b8_funds:ISR": "0",
+      "b8_funds:ITA": "0",
+      "b8_funds:JOR": "0",
+      "b8_funds:JPN": "0",
+      "b8_funds:KAZ": "0",
+      "b8_funds:KHM": "0",
+      "b8_funds:KOR": "0",
+      "b8_funds:LAO": "0",
+      "b8_funds:LTU": "0",
+      "b8_funds:LUX": "0",
+      "b8_funds:LVA": "0",
+      "b8_funds:MAR": "0",
+      "b8_funds:MEX": "0",
+      "b8_funds:MLT": "0",
+      "b8_funds:MMR": "0",
+      "b8_funds:MYS": "0",
+      "b8_funds:NGA": "0",
+      "b8_funds:NLD": "0",
+      "b8_funds:NOR": "0",
+      "b8_funds:NZL": "0",
+      "b8_funds:PAK": "0",
+      "b8_funds:PER": "0",
+      "b8_funds:PHL": "0",
+      "b8_funds:POL": "0",
+      "b8_funds:PRT": "0",
+      "b8_funds:ROU": "0",
+      "b8_funds:RUS": "0",
+      "b8_funds:SAU": "0",
+      "b8_funds:SEN": "0",
+      "b8_funds:SGP": "0",
+      "b8_funds:STP": "0",
+      "b8_funds:SVK": "0",
+      "b8_funds:SVN": "0",
+      "b8_funds:SWE": "0",
+      "b8_funds:THA": "0",
+      "b8_funds:TUN": "0",
+      "b8_funds:TUR": "0",
+      "b8_funds:TWN": "0",
+      "b8_funds:UKR": "0",
+      "b8_funds:USA": "6.495169202983437",
+      "b8_funds:VNM": "0",
+      "b8_funds:ZAF": "0",
+      "b8_source:AGO": "0",
+      "b8_source:ARE": "0",
+      "b8_source:ARG": "0",
+      "b8_source:AUS": "0",
+      "b8_source:AUT": "0",
+      "b8_source:BEL": "0",
+      "b8_source:BGD": "0",
+      "b8_source:BGR": "0",
+      "b8_source:BLR": "0",
+      "b8_source:BRA": "0",
+      "b8_source:BRN": "0",
+      "b8_source:CAN": "0",
+      "b8_source:CHE": "0",
+      "b8_source:CHL": "0",
+      "b8_source:CHN": "0",
+      "b8_source:CIV": "0",
+      "b8_source:CMR": "0",
+      "b8_source:COD": "0",
+      "b8_source:COL": "0",
+      "b8_source:CRI": "0",
+      "b8_source:CYP": "0",
+      "b8_source:CZE": "0",
+      "b8_source:DEU": "0",
+      "b8_source:DNK": "0",
+      "b8_source:EGY": "0",
+      "b8_source:ESP": "0",
+      "b8_source:EST": "0",
+      "b8_source:FIN": "0",
+      "b8_source:FRA": "0",
+      "b8_source:GBR": "0",
+      "b8_source:GRC": "0",
+      "b8_source:HKG": "0",
+      "b8_source:HRV": "0",
+      "b8_source:HUN": "0",
+      "b8_source:IDN": "0",
+      "b8_source:IND": "0",
+      "b8_source:IRL": "0",
+      "b8_source:ISL": "0",
+      "b8_source:ISR": "0",
+      "b8_source:ITA": "0",
+      "b8_source:JOR": "0",
+      "b8_source:JPN": "0",
+      "b8_source:KAZ": "0",
+      "b8_source:KHM": "0",
+      "b8_source:KOR": "0",
+      "b8_source:LAO": "0",
+      "b8_source:LTU": "0",
+      "b8_source:LUX": "0",
+      "b8_source:LVA": "0",
+      "b8_source:MAR": "0",
+      "b8_source:MEX": "0",
+      "b8_source:MLT": "0",
+      "b8_source:MMR": "0",
+      "b8_source:MYS": "0",
+      "b8_source:NGA": "0",
+      "b8_source:NLD": "0",
+      "b8_source:NOR": "0",
+      "b8_source:NZL": "0",
+      "b8_source:PAK": "0",
+      "b8_source:PER": "0",
+      "b8_source:PHL": "0",
+      "b8_source:POL": "0",
+      "b8_source:PRT": "0",
+      "b8_source:ROU": "0",
+      "b8_source:RUS": "0",
+      "b8_source:SAU": "0",
+      "b8_source:SEN": "0",
+      "b8_source:SGP": "0",
+      "b8_source:STP": "0",
+      "b8_source:SVK": "0",
+      "b8_source:SVN": "0",
+      "b8_source:SWE": "0",
+      "b8_source:THA": "0",
+      "b8_source:TUN": "0",
+      "b8_source:TUR": "0",
+      "b8_source:TWN": "0",
+      "b8_source:UKR": "0",
+      "b8_source:USA": "-10.020169202983437",
+      "b8_source:VNM": "0",
+      "b8_source:ZAF": "0",
+      "earth_capital_source": "0",
+      "earth_market": "100",
+      "earth_supplier": "0",
+      "fin_funds": "0",
+      "public_funds": "100",
+      "screen:cash:Axiom": "0.000000",
+      "screen:cash:Interlune": "0.000000",
+      "screen:expense:BUILD": "1.0000",
+      "screen:expense:LAND": "1.5000",
+      "screen:fund": "0.475000",
+      "screen:revenue:BUILD": "0.250000",
+      "screen:revenue:LAND": "0.300000",
+      "screen:sponsor:Axiom": "0.000000",
+      "screen:sponsor:Interlune": "0.000000",
+      "sponsor_funds": "0",
+      "transport_provider": "0"
+    },
+    "events": [
+      {
+        "actor": "PUB",
+        "fact": "obs-000005",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "OBSERVED",
+        "seq": 1,
+        "source": "VOLATILES_PRESENT:POSITIVE",
+        "year": 2026
+      },
+      {
+        "actor": "SCREEN_FINANCIER",
+        "fact": "obs-000005",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 2,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "PUB",
+        "fact": "obs-000006",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "OBSERVED",
+        "seq": 3,
+        "source": "METALS_PRESENT:POSITIVE",
+        "year": 2026
+      },
+      {
+        "actor": "SCREEN_FINANCIER",
+        "fact": "obs-000006",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 4,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "PUB",
+        "fact": "obs-000007",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "OBSERVED",
+        "seq": 5,
+        "source": "SILICATES_ROCK_PRESENT:POSITIVE",
+        "year": 2026
+      },
+      {
+        "actor": "SCREEN_FINANCIER",
+        "fact": "obs-000007",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 6,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "PUB",
+        "fact": "obs-000008",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "OBSERVED",
+        "seq": 7,
+        "source": "CARBONACEOUS_ORGANICS_PRESENT:POSITIVE",
+        "year": 2026
+      },
+      {
+        "actor": "SCREEN_FINANCIER",
+        "fact": "obs-000008",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 8,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "Axiom",
+        "fact": "obs-000005",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 9,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "Axiom",
+        "fact": "obs-000006",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 10,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "Axiom",
+        "fact": "obs-000007",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 11,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "Axiom",
+        "fact": "obs-000008",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 12,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "Interlune",
+        "fact": "obs-000005",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 13,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "Interlune",
+        "fact": "obs-000006",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 14,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "Interlune",
+        "fact": "obs-000007",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 15,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "Interlune",
+        "fact": "obs-000008",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "PUBLISHED",
+        "seq": 16,
+        "source": "PUB",
+        "year": 2026
+      },
+      {
+        "actor": "Axiom",
+        "fact": "obs-000037",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "OBSERVED",
+        "seq": 17,
+        "source": "WATER_BEARING_MATERIAL_PRESENT:NEGATIVE",
+        "year": 2026
+      },
+      {
+        "actor": "SCREEN_FINANCIER",
+        "fact": "belief:VOLATILES:Axiom",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DISCLOSED",
+        "seq": 18,
+        "source": "Axiom",
+        "year": 2026
+      },
+      {
+        "cost_basis": "1.525000",
+        "forecast_error": "0",
+        "kind": "BUILD8_EVIDENCE_BASIS",
+        "posterior": "0.5",
+        "private_signal": "NEGATIVE",
+        "seq": 19,
+        "shared": false,
+        "sponsor": "Axiom",
+        "year": 2026
+      },
+      {
+        "actor": "SCREEN_FINANCIER",
+        "fact": "belief:VOLATILES:Interlune",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DISCLOSED",
+        "seq": 20,
+        "source": "Interlune",
+        "year": 2026
+      },
+      {
+        "cost_basis": "1.525000",
+        "forecast_error": "0",
+        "kind": "BUILD8_EVIDENCE_BASIS",
+        "posterior": "0.8",
+        "private_signal": "NEGATIVE",
+        "seq": 21,
+        "shared": false,
+        "sponsor": "Interlune",
+        "year": 2026
+      },
+      {
+        "decision": "DEC-ccc23d7df6887ebc91aa",
+        "economic_score": "2.360655737704918032786885245",
+        "kind": "BUILD8_FINANCE_SCREEN",
+        "outcome": "APPROVED_AWAITING_CLEARING",
+        "pressure": "0",
+        "pressure_contribution": "0",
+        "seq": 22,
+        "sponsor": "Interlune",
+        "year": 2026
+      },
+      {
+        "decision": "DEC-a8ae4fd125759609427e",
+        "economic_score": "1.475409836065573770491803279",
+        "kind": "BUILD8_FINANCE_SCREEN",
+        "outcome": "APPROVED_AWAITING_CLEARING",
+        "pressure": "0",
+        "pressure_contribution": "0",
+        "seq": 23,
+        "sponsor": "Axiom",
+        "year": 2026
+      },
+      {
+        "actor": "Interlune",
+        "fact": "outcome:Interlune:FUNDED:1.525000",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 24,
+        "source": "Interlune",
+        "year": 2026
+      },
+      {
+        "actor": "SCREEN_FINANCIER",
+        "fact": "outcome:Interlune:FUNDED:1.525000",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 25,
+        "source": "Interlune",
+        "year": 2026
+      },
+      {
+        "actor": "Interlune",
+        "fact": "deal:Interlune:FINANCE:1.525000:2026",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 26,
+        "source": "Interlune",
+        "year": 2026
+      },
+      {
+        "actor": "SCREEN_FINANCIER",
+        "fact": "deal:Interlune:FINANCE:1.525000:2026",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 27,
+        "source": "Interlune",
+        "year": 2026
+      },
+      {
+        "amount": "1.525000",
+        "decision": "DEC-ccc23d7df6887ebc91aa",
+        "economic_score": "2.360655737704918032786885245",
+        "kind": "BUILD8_FINANCE_CLEARING",
+        "outcome": "FUNDED",
+        "pressure": "0",
+        "pressure_contribution": "0",
+        "seq": 28,
+        "sponsor": "Interlune",
+        "year": 2026
+      },
+      {
+        "actor": "Axiom",
+        "fact": "outcome:Axiom:DEFERRED:INSUFFICIENT_CASH",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 29,
+        "source": "Axiom",
+        "year": 2026
+      },
+      {
+        "actor": "SCREEN_FINANCIER",
+        "fact": "outcome:Axiom:DEFERRED:INSUFFICIENT_CASH",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 30,
+        "source": "Axiom",
+        "year": 2026
+      },
+      {
+        "amount": "1.525000",
+        "decision": "DEC-a8ae4fd125759609427e",
+        "economic_score": "1.475409836065573770491803279",
+        "kind": "BUILD8_FINANCE_CLEARING",
+        "outcome": "DEFERRED_INSUFFICIENT_CASH",
+        "pressure": "0",
+        "pressure_contribution": "0",
+        "seq": 31,
+        "sponsor": "Axiom",
+        "year": 2026
+      },
+      {
+        "actor": "Axiom",
+        "fact": "outcome:Axiom:FUNDED:1.525000",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 32,
+        "source": "Axiom",
+        "year": 2027
+      },
+      {
+        "actor": "SCREEN_FINANCIER",
+        "fact": "outcome:Axiom:FUNDED:1.525000",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 33,
+        "source": "Axiom",
+        "year": 2027
+      },
+      {
+        "actor": "Axiom",
+        "fact": "deal:Axiom:FINANCE:1.525000:2027",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 34,
+        "source": "Axiom",
+        "year": 2027
+      },
+      {
+        "actor": "SCREEN_FINANCIER",
+        "fact": "deal:Axiom:FINANCE:1.525000:2027",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 35,
+        "source": "Axiom",
+        "year": 2027
+      },
+      {
+        "amount": "1.525000",
+        "decision": "DEC-a8ae4fd125759609427e",
+        "economic_score": "1.475409836065573770491803279",
+        "kind": "BUILD8_FINANCE_CLEARING",
+        "outcome": "FUNDED",
+        "pressure": "0",
+        "pressure_contribution": "0",
+        "seq": 36,
+        "sponsor": "Axiom",
+        "year": 2027
+      },
+      {
+        "actor": "Interlune",
+        "fact": "deal:Interlune:BUILD:0.625000:FULL_ON_FAILURE",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 37,
+        "source": "Interlune",
+        "year": 2026
+      },
+      {
+        "actor": "Northrop Grumman",
+        "fact": "deal:Interlune:BUILD:0.625000:FULL_ON_FAILURE",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 38,
+        "source": "Interlune",
+        "year": 2026
+      },
+      {
+        "actor": "Interlune",
+        "fact": "outcome:Interlune:DELIVERED:BUILD",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 39,
+        "source": "Interlune",
+        "year": 2028
+      },
+      {
+        "actor": "Northrop Grumman",
+        "fact": "outcome:Interlune:DELIVERED:BUILD",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 40,
+        "source": "Interlune",
+        "year": 2028
+      },
+      {
+        "category": "BUILD",
+        "consumed": "COMMISSION:Interlune",
+        "contract": "FULL_ON_FAILURE",
+        "cost": "0.5000",
+        "kind": "BUILD8_SCREENED_DELIVERY",
+        "outcome": "DELIVERED",
+        "produced": "BUILT:Interlune",
+        "profit": "0.125000",
+        "project": "Interlune",
+        "revenue": "0.625000",
+        "seq": 41,
+        "withheld": "0.000000",
+        "year": 2028
+      },
+      {
+        "actor": "Axiom",
+        "fact": "deal:Axiom:BUILD:0.625000:FULL_ON_FAILURE",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 42,
+        "source": "Axiom",
+        "year": 2027
+      },
+      {
+        "actor": "Northrop Grumman",
+        "fact": "deal:Axiom:BUILD:0.625000:FULL_ON_FAILURE",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 43,
+        "source": "Axiom",
+        "year": 2027
+      },
+      {
+        "actor": "Axiom",
+        "fact": "outcome:Axiom:DELIVERED:BUILD",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 44,
+        "source": "Axiom",
+        "year": 2029
+      },
+      {
+        "actor": "Northrop Grumman",
+        "fact": "outcome:Axiom:DELIVERED:BUILD",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 45,
+        "source": "Axiom",
+        "year": 2029
+      },
+      {
+        "category": "BUILD",
+        "consumed": "COMMISSION:Axiom",
+        "contract": "FULL_ON_FAILURE",
+        "cost": "0.5000",
+        "kind": "BUILD8_SCREENED_DELIVERY",
+        "outcome": "DELIVERED",
+        "produced": "BUILT:Axiom",
+        "profit": "0.125000",
+        "project": "Axiom",
+        "revenue": "0.625000",
+        "seq": 46,
+        "withheld": "0.000000",
+        "year": 2029
+      },
+      {
+        "actor": "Interlune",
+        "fact": "deal:Interlune:LAND:0.900000:FULL_ON_FAILURE",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 47,
+        "source": "Interlune",
+        "year": 2028
+      },
+      {
+        "actor": "Firefly Aerospace",
+        "fact": "deal:Interlune:LAND:0.900000:FULL_ON_FAILURE",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 48,
+        "source": "Interlune",
+        "year": 2028
+      },
+      {
+        "actor": "Interlune",
+        "fact": "outcome:Interlune:DELIVERED:LAND",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 49,
+        "source": "Interlune",
+        "year": 2030
+      },
+      {
+        "actor": "Firefly Aerospace",
+        "fact": "outcome:Interlune:DELIVERED:LAND",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 50,
+        "source": "Interlune",
+        "year": 2030
+      },
+      {
+        "category": "LAND",
+        "consumed": "BUILT:Interlune",
+        "contract": "FULL_ON_FAILURE",
+        "cost": "0.7500",
+        "kind": "BUILD8_SCREENED_DELIVERY",
+        "outcome": "DELIVERED",
+        "produced": "ON_MOON:Interlune",
+        "profit": "0.150000",
+        "project": "Interlune",
+        "revenue": "0.900000",
+        "seq": 51,
+        "withheld": "0.000000",
+        "year": 2030
+      },
+      {
+        "actor": "Axiom",
+        "fact": "deal:Axiom:LAND:0.900000:FULL_ON_FAILURE",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 52,
+        "source": "Axiom",
+        "year": 2029
+      },
+      {
+        "actor": "Firefly Aerospace",
+        "fact": "deal:Axiom:LAND:0.900000:FULL_ON_FAILURE",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 53,
+        "source": "Axiom",
+        "year": 2029
+      },
+      {
+        "actor": "Axiom",
+        "fact": "outcome:Axiom:DELIVERED:LAND",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 54,
+        "source": "Axiom",
+        "year": 2031
+      },
+      {
+        "actor": "Firefly Aerospace",
+        "fact": "outcome:Axiom:DELIVERED:LAND",
+        "kind": "BUILD8_KNOWLEDGE",
+        "route": "DEAL_PARTY",
+        "seq": 55,
+        "source": "Axiom",
+        "year": 2031
+      },
+      {
+        "category": "LAND",
+        "consumed": "BUILT:Axiom",
+        "contract": "FULL_ON_FAILURE",
+        "cost": "0.7500",
+        "kind": "BUILD8_SCREENED_DELIVERY",
+        "outcome": "DELIVERED",
+        "produced": "ON_MOON:Axiom",
+        "profit": "0.150000",
+        "project": "Axiom",
+        "revenue": "0.900000",
+        "seq": 56,
+        "withheld": "0.000000",
+        "year": 2031
+      }
+    ],
+    "fingerprint": "7d42fe980ffba611d970465cd0571cbf6666c44e8a2138680ab15f9fee5ad051",
+    "knowledge": [
+      [
+        2026,
+        "obs-000005",
+        "PUB",
+        "OBSERVED",
+        "VOLATILES_PRESENT:POSITIVE"
+      ],
+      [
+        2026,
+        "obs-000005",
+        "SCREEN_FINANCIER",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000006",
+        "PUB",
+        "OBSERVED",
+        "METALS_PRESENT:POSITIVE"
+      ],
+      [
+        2026,
+        "obs-000006",
+        "SCREEN_FINANCIER",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000007",
+        "PUB",
+        "OBSERVED",
+        "SILICATES_ROCK_PRESENT:POSITIVE"
+      ],
+      [
+        2026,
+        "obs-000007",
+        "SCREEN_FINANCIER",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000008",
+        "PUB",
+        "OBSERVED",
+        "CARBONACEOUS_ORGANICS_PRESENT:POSITIVE"
+      ],
+      [
+        2026,
+        "obs-000008",
+        "SCREEN_FINANCIER",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000005",
+        "Axiom",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000006",
+        "Axiom",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000007",
+        "Axiom",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000008",
+        "Axiom",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000005",
+        "Interlune",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000006",
+        "Interlune",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000007",
+        "Interlune",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000008",
+        "Interlune",
+        "PUBLISHED",
+        "PUB"
+      ],
+      [
+        2026,
+        "obs-000037",
+        "Axiom",
+        "OBSERVED",
+        "WATER_BEARING_MATERIAL_PRESENT:NEGATIVE"
+      ],
+      [
+        2026,
+        "belief:VOLATILES:Axiom",
+        "SCREEN_FINANCIER",
+        "DISCLOSED",
+        "Axiom"
+      ],
+      [
+        2026,
+        "belief:VOLATILES:Interlune",
+        "SCREEN_FINANCIER",
+        "DISCLOSED",
+        "Interlune"
+      ],
+      [
+        2026,
+        "outcome:Interlune:FUNDED:1.525000",
+        "Interlune",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2026,
+        "outcome:Interlune:FUNDED:1.525000",
+        "SCREEN_FINANCIER",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2026,
+        "deal:Interlune:FINANCE:1.525000:2026",
+        "Interlune",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2026,
+        "deal:Interlune:FINANCE:1.525000:2026",
+        "SCREEN_FINANCIER",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2026,
+        "outcome:Axiom:DEFERRED:INSUFFICIENT_CASH",
+        "Axiom",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2026,
+        "outcome:Axiom:DEFERRED:INSUFFICIENT_CASH",
+        "SCREEN_FINANCIER",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2027,
+        "outcome:Axiom:FUNDED:1.525000",
+        "Axiom",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2027,
+        "outcome:Axiom:FUNDED:1.525000",
+        "SCREEN_FINANCIER",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2027,
+        "deal:Axiom:FINANCE:1.525000:2027",
+        "Axiom",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2027,
+        "deal:Axiom:FINANCE:1.525000:2027",
+        "SCREEN_FINANCIER",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2026,
+        "deal:Interlune:BUILD:0.625000:FULL_ON_FAILURE",
+        "Interlune",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2026,
+        "deal:Interlune:BUILD:0.625000:FULL_ON_FAILURE",
+        "Northrop Grumman",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2028,
+        "outcome:Interlune:DELIVERED:BUILD",
+        "Interlune",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2028,
+        "outcome:Interlune:DELIVERED:BUILD",
+        "Northrop Grumman",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2027,
+        "deal:Axiom:BUILD:0.625000:FULL_ON_FAILURE",
+        "Axiom",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2027,
+        "deal:Axiom:BUILD:0.625000:FULL_ON_FAILURE",
+        "Northrop Grumman",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2029,
+        "outcome:Axiom:DELIVERED:BUILD",
+        "Axiom",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2029,
+        "outcome:Axiom:DELIVERED:BUILD",
+        "Northrop Grumman",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2028,
+        "deal:Interlune:LAND:0.900000:FULL_ON_FAILURE",
+        "Interlune",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2028,
+        "deal:Interlune:LAND:0.900000:FULL_ON_FAILURE",
+        "Firefly Aerospace",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2030,
+        "outcome:Interlune:DELIVERED:LAND",
+        "Interlune",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2030,
+        "outcome:Interlune:DELIVERED:LAND",
+        "Firefly Aerospace",
+        "DEAL_PARTY",
+        "Interlune"
+      ],
+      [
+        2029,
+        "deal:Axiom:LAND:0.900000:FULL_ON_FAILURE",
+        "Axiom",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2029,
+        "deal:Axiom:LAND:0.900000:FULL_ON_FAILURE",
+        "Firefly Aerospace",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2031,
+        "outcome:Axiom:DELIVERED:LAND",
+        "Axiom",
+        "DEAL_PARTY",
+        "Axiom"
+      ],
+      [
+        2031,
+        "outcome:Axiom:DELIVERED:LAND",
+        "Firefly Aerospace",
+        "DEAL_PARTY",
+        "Axiom"
+      ]
+    ]
+  },
+  {
+    "('BUILD', 2026)": 1,
+    "('BUILD', 2027)": 2,
+    "('BUILD', 2028)": 1,
+    "('LAND', 2028)": 1,
+    "('LAND', 2029)": 2,
+    "('LAND', 2030)": 1
+  }
+]
