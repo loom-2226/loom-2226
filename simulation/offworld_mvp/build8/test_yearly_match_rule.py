@@ -1,7 +1,7 @@
 """Frozen screened snapshots: semantic comparison independent of audit order."""
 import json
 import unittest
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 
 from .baselines.pre_cast_migration.capture import capture
@@ -38,9 +38,11 @@ def differences(actual, expected, actual_transactions=None, expected_transaction
         if actual[index] != expected[index]:
             problems[field] = (expected[index], actual[index])
     a, b = actual[2], expected[2]
-    for field in ('balances', 'knowledge'):
+    for field in ('balances',):
         if a[field] != b[field]:
             problems[field] = (b[field], a[field])
+    if Counter(json.dumps(x, sort_keys=True) for x in a['knowledge']) != Counter(json.dumps(x, sort_keys=True) for x in b['knowledge']):
+        problems['knowledge'] = (b['knowledge'], a['knowledge'])
     old, new = event_multiset(b['events']), event_multiset(a['events'])
     if old != new:
         problems['events_missing'] = dict(old - new)
