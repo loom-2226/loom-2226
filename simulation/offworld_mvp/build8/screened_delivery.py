@@ -26,6 +26,22 @@ MOTIVES = {'Interlune': ('RESOURCE_RETURN', D('2.00')),
 # Explicitly different, observable project underwriting, not sponsor-name belief.
 CONTRACTS = ('FULL_ON_FAILURE', 'ACCEPTANCE_HOLDBACK')
 
+# Scenario selection, not a global contractor pairing. Each legal identity and
+# offered service is checked against the cast; price/timing stay authored here.
+SUBCONTRACT_SELECTION = ('BUILD', 'LAND')
+
+def eligible_subcontract_parties(prime_category='BUILD', sub_category='LAND'):
+    if prime_category == sub_category:
+        raise ValueError('subcontract requires distinct service categories')
+    if prime_category not in OPERATORS or sub_category not in OPERATORS:
+        raise ValueError('unknown subcontract category')
+    prime = cast_name(OPERATORS[prime_category][0], 'executor', prime_category)
+    sub = cast_name(OPERATORS[sub_category][0], 'executor', sub_category)
+    if prime == sub:
+        raise ValueError('prime and sub must be distinct legal actors')
+    return prime, sub
+
+
 
 def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                  contract='FULL_ON_FAILURE', capacity_slots=2,
@@ -208,7 +224,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
         # The package is part of BUILD's existing cost, not extra Sponsor CAPEX.
         sub=None
         if subcontract and category=='BUILD':
-            prime=OPERATORS['BUILD'][0]; supplier=OPERATORS['LAND'][0]
+            prime,supplier=eligible_subcontract_parties(*SUBCONTRACT_SELECTION)
             if prime==supplier or prime==name or supplier==name:
                 raise ValueError('same legal entity cannot be its own sub/sponsor executor')
             sub_start=start
