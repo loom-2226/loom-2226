@@ -85,7 +85,22 @@ PROJECTS = {
  'LandSpace':('COMMERCIAL','LAUNCH',D('.045'))
 }
 
+def validate_authored_network_names():
+    # Preferences, motives and preferred contractor mappings are scenario
+    # assumptions; their keys and values must still resolve to cast actors.
+    for country, weights in PREFERENCES.items():
+        for sponsor in weights:
+            if sponsor not in PUBLIC and sponsor not in PRIVATE:
+                raise ValueError(f'unknown authored network preference sponsor: {sponsor}')
+            cast_actor(sponsor)
+    if set(PROJECTS) != set(PUBLIC) | set(PRIVATE):
+        raise ValueError('authored project motives do not cover sponsor roster')
+    for sponsor in PROJECTS:
+        cast_actor(sponsor)
+
+
 def run_network(root: Path, year=2026):
+    validate_authored_network_names()
     kernel, _, capacities, _ = build_country_opening(root)
     sponsors={**{s:('PUBLIC',c) for s,c in PUBLIC.items()},
               **{s:('PRIVATE',c) for s,c in PRIVATE.items()}}
@@ -138,6 +153,7 @@ def run_network(root: Path, year=2026):
           'ispace':'ispace','Interlune':'Northrop Grumman',
           'Isar Aerospace':'Isar Aerospace','Starlab':'MDA Space','LandSpace':'CASC'
         }[sponsor]
+        cast_actor(preferred, 'executor')
         executor=preferred if preferred in eligible else eligible[0]
         outcome='WAIT'
         if opening>=cost:
