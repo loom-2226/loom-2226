@@ -104,3 +104,39 @@ In the network's **14 BUILD-capable** selected executors, **6** BUILD capability
 ### Decision held
 
 Neither A nor B is recommended or activated. Factor 100 is a *visible sensitivity example*, not a defensible conversion. Before a price-clearing run, the user must select an accounting interpretation and explicitly authorize a common service unit and its quote meaning; option B additionally requires a capital accounting decision. The nine LAUNCH/RUN projects remain out of scope; proposed Baseline 0 coverage is **11 of 20 sponsors**. No code, data defaults, frozen baseline, or runtime behavior changes are authorized here.
+
+## Selected direction: Option A with NASA LAND anchor (proposal only)
+
+**Decision:** use Option A conceptually. Keep the network sponsor budgets, mobilization, country source accounts, transfers, and capital ledger **unchanged**. Do not use the earlier illustrative factor 100 for the selected proposal. No code/default JSON changes yet.
+
+Define the **single named conversion parameter** `EXECUTOR_TO_NETWORK_FACTOR = LAND_EXECUTOR_DEFAULT / NASA_LAND_AUTHORED_PROJECT_COST = 3.00 / 0.045 = 200/3` (exact rational; about 66.6667). The *anchor statement* is **“NASA's authored LAND project exactly buys one default lander.”** Convert any eligible executor quote expressed in the executor-default scale to network units by **dividing** by this factor. The current fallback prices would become LAND `3.00 / (200/3) = 0.045` and BUILD `1.70 / (200/3) = 0.0255` network units. The factor is a scenario-authored *price scale*, not a physical, currency, or national-investment conversion. Preserve explicit quote priority, and do not convert network-side project costs or actual balances.
+
+**Anchor caveat:** NASA's `.045` is a fictional sponsor project-cost threshold, **not evidence of its actual cash balance, a procurement quote, or a technically specified lander**. `LAND` category eligibility does not prove all four selected executors can provide the same complete lander/launch/service package. The earlier PI01 LAND scenario explicitly bundled launch and landing, whereas this network trial only labels the category LAND. Calling it “one default lander” is an authored homogeneous-unit assumption. Using NASA to calibrate LAND and applying the *same factor* to BUILD is an additional cross-category price-scale assumption, not a demonstrated equivalence. If `.045` does not represent spendable project ceiling, the anchor does not establish affordability. No real-world NASA price is implied.
+
+### Sensitivity: minimum factor for each authored project-cost ceiling
+
+For one assumed service unit, ceiling covers default price when `factor >= category_executor_default / authored_project_cost`. This is a **ceiling-only** comparison; it does not demonstrate sponsor opening balance, funded award, slot availability, or an executable bid. The factor is global and positive. At the selected NASA anchor (`200/3`), the results are:
+
+| Sponsor | Category | Authored ceiling | Minimum factor (exact) | Minimum factor (approx.) | At NASA anchor? |
+|---|---|---:|---:|---:|---|
+| NASA | LAND | .045 | 200/3 | 66.6667 | YES (exact) |
+| CNSA | LAND | .045 | 200/3 | 66.6667 | YES (exact) |
+| ISRO | BUILD | .015 | 340/3 | 113.3333 | NO |
+| JAXA | LAND | .030 | 100 | 100.0000 | NO |
+| ESA | BUILD | .030 | 170/3 | 56.6667 | YES |
+| CNES | BUILD | .015 | 340/3 | 113.3333 | NO |
+| DLR | BUILD | .015 | 340/3 | 113.3333 | NO |
+| Australian Space Agency | BUILD | .015 | 340/3 | 113.3333 | NO |
+| UAE Space Agency | BUILD | .045 | 340/9 | 37.7778 | YES |
+| ispace | LAND | .045 | 200/3 | 66.6667 | YES (exact) |
+| Interlune | BUILD | .090 | 170/9 | 18.8889 | YES |
+
+At this anchor **6/11** project ceilings cover the category default (NASA, CNSA, ESA, UAE Space Agency, ispace, Interlune); **5/11** do not (ISRO, JAXA, CNES, DLR, Australian Space Agency). This revises the *hypothetical ceiling comparison* from the prior 100-factor sensitivity, not the frozen network trial's 3 awards / 17 waits. In particular, NASA being exactly at its ceiling does not mean NASA has enough money in its actual account.
+
+### First honest price competition: ESA BUILD
+
+With the flat fallback BUILD price `0.0255` for all missing quotes, **Thales Alenia Space and Airbus Defence and Space tie on price**. Assuming both eligible, funded and free, the *existing authored preferred-relationship tiebreak* selects **Thales**, and **Airbus loses**. This is a preference-driven result, **not** evidence of price competition.
+
+Smallest meaningful next test: author **exactly two independent, explicitly fictional, final all-in BUILD service-unit quotes** for ESA's one identically specified BUILD trial unit, one from Thales and one from Airbus. Keep the NASA-derived factor fixed, all other suppliers' fallback pricing unchanged, and ESA's `.030` network ceiling and actual ledger untouched. A minimal illustrative pair **in network units** is Thales `0.0270`, Airbus `0.0240`; both are under ESA's `.030` authored ceiling. These are *proposed scenario test inputs*, **not offers, sourced prices, or implemented defaults**. If both have an available slot and ESA has spendable cash, Airbus wins by lower price and Thales loses despite the preference. A reversed-price counterfactual would show the rule is responsive to price rather than preference; neither should be treated as historical evidence. Before executing, define the shared BUILD unit explicitly and check real available cash. Do not alter frozen baseline quotes or the original network trial.
+
+**Boundary:** the six LAUNCH and three RUN/station projects remain excluded; first-slice coverage is 11/20 sponsors. Capability eligibility remains 6 sourced / 8 authored BUILD and 3 sourced / 1 authored LAND entries, with no sourced comparable bids. This is documentation and proposed sensitivity only; no runtime activation, tests, merge or baseline changes.
