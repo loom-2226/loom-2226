@@ -174,3 +174,50 @@ These maps use **unchanged 2026 per-Sponsor country-weighted opening balances** 
 **Service-price check at `f=20`:** one default BUILD service costs **$85M**; one LAND costs **$150M**. At 10%, **NASA, CNSA, ISRO, ESA** have enough cash for one appropriate default service (4/11); at 25%, **NASA, CNSA, ISRO, JAXA, ESA, Australian Space Agency, Interlune** (7/11). Original authored ceilings are *below* both service defaults, so Map A cash-pass alone cannot authorize a whole default service. Map B requires the *full* higher project ceiling, so it is more restrictive than a one-service purchase.
 
 **Decision:** prefer **`s=.10` for the first 2026 trial and `s=.25` as a stress/control**. The empirical comparators establish scale and warn against treating full space-agency budgets as a single project, but **do not identify a statistically calibrated universal Sponsor share**. Raising `mobilization_m_max` instead would change the entire country's offworld cash-generation rule, including unrelated financing, and obscure whether the network allocation alone causes changed outcomes. Keep `m_max=.001` as an explicit coarse authored ceiling until an observed experiment or separate Earth-finance study justifies revisiting it. Preserve all default/frozen replays, keep 2027–2029 Gate 2 separate, and stop if Gate 1 merely recapitulates the arithmetic.
+
+## Selected Route 1 preparation: individual benchmark-anchored ceilings (2026-10-11)
+
+**LATEST SCENARIO SELECTION; supersedes the uniform $200M BUILD / $300M LAND Map B assumptions above.** The old uniform map remains above only as a historical comparison. The **Map A control** continues to use original authored `PROJECTS` ceilings. **Map B now uses the 11 individual authored ceilings below.** This is research/design only: **no changes to `PROJECTS`, quote conversion, default runtime, kernel, replay or financing authorization.** Sponsor share `s=.10` first, `s=.25` comparison, `mobilization_m_max=.001` unchanged. All amounts below are in **$M model-currency proxy equivalents** (one model unit = $1B proxy-scale). Real benchmark values are not inflation- or FX-normalized to 2015 dollars. Reliability grades describe the *anchor*, not the accuracy of the authored ceiling.
+
+| Sponsor | Category | Public benchmark anchor | Anchor reliability for this project | **Authored ceiling $M** | Model units | Default one-service price $M | Interpretation |
+|---|---|---|---|---:|---:|---:|---|
+| NASA | LAND | FY2026 NASA exploration request $8.313B, whole directorate | **High** request / **Low** individual mission match | **350** | .350 | 150 | One substantial LAND procurement, small relative to NASA exploration portfolio |
+| CNSA | LAND | China total government space-spending estimates ~$14–20B/year; no CNSA lunar line | **Low** project attribution | **300** | .300 | 150 | Authored lunar delivery scale; not a Chinese appropriation |
+| ISRO | BUILD | India FY2026–27 Department of Space ₹13,705.63 crore, agency-wide | **High** department total / **Low** mission attribution | **120** | .120 | 85 | Modest BUILD work package, not all ISRO lunar work |
+| JAXA | LAND | JAXA FY2026 budget ~¥154.8B, excluding strategy fund | **Medium** budget / **Low** LAND attribution | **180** | .180 | 150 | One LAND service with headroom |
+| ESA | BUILD | ESA CM25 €22.3B multi-year commitments; Germany €885M exploration multi-year | **High** published commitments / **Low** one BUILD attribution | **200** | .200 | 85 | ESA BUILD package, not entire multinational programme |
+| CNES | BUILD | CNES 2024 €2.370B budget, including ESA contribution | **High** budget / **Low** one BUILD attribution | **100** | .100 | 85 | National BUILD package; ESA contribution not added twice |
+| DLR | BUILD | German 2025 €1.954B space investment (ESA overlap); €324M DLR research/operations | **High** totals / **Low** DLR BUILD attribution | **100** | .100 | 85 | National BUILD package; no double counting ESA |
+| Australian Space Agency | BUILD | A$50M multi-year Trailblazer rover; A$150M Moon to Mars initiative | **High** named rover / **Medium** analogous BUILD scope | **50** | .050 | 85 | Near named rover scale; **below** one default BUILD price |
+| UAE Space Agency | BUILD | AED63M multi-year asteroid-belt mission allocation (not lunar) | **High** reported allocation / **Low** lunar analogy | **25** | .025 | 85 | Small exploration activity; **below** one default BUILD price |
+| ispace | LAND | FY2026 ¥5.890B project revenue; ~¥18B financing raised during fiscal year | **High** corporate disclosures / **Low** LAND capex inference | **100** | .100 | 150 | Small commercial LAND package; **below** one default LAND price |
+| Interlune | BUILD | $18M 2024 seed financing; $1.25M 2025 R&D award and $6.9M 2026 NASA award | **High** disclosed financing/awards / **Low** full mission capex inference | **25** | .025 | 85 | Early-stage prospecting/development package; **below** default BUILD price |
+
+**These ceilings are authored judgments, not observed or converted lunar mission budgets.** In particular, Interlune's financing/awards and ispace's revenue are not programme appropriations, and UAE's benchmark is for asteroid exploration. Small ceilings deliberately preserve those organizations' scale rather than inflate them merely to buy a $85M/$150M default service. For Australia, UAE, ispace and Interlune, the **existing generic service-price default is incompatible with the authored ceiling**; an appropriate smaller service quote, different project scope, or WAIT outcome is required. Do not grant a discounted quote automatically.
+
+### Two affordability maps at the selected Sponsor shares
+
+Use the exact 2026 country-weighted Sponsor balances already tabulated in the **Pre-code 2026 affordability prediction** section, scaling from `s=.02`: `B_i(.10)=5 B_i(.02)`, `B_i(.25)=12.5 B_i(.02)`. All 20 Sponsor allocations remain in the denominator, and the excluded nine retain their shares. **PASS = sufficient allocated cash to cover the full specified ceiling**. This is a predicted cash threshold, **not actual financing approval or delivery**.
+
+| Sponsor | Cash at 10% ($M) | **Map A** original ceiling ($M) | A 10% | A 25% | **Map B** individual ceiling ($M) | B 10% | B 25% |
+|---|---:|---:|---|---|---:|---|---|
+| NASA | 177.07 | 45 | PASS | PASS | 350 | WAIT | PASS |
+| CNSA | 549.50 | 45 | PASS | PASS | 300 | PASS | PASS |
+| ISRO | 117.02 | 15 | PASS | PASS | 120 | WAIT | PASS |
+| JAXA | 73.62 | 30 | PASS | PASS | 180 | WAIT | PASS |
+| ESA | 261.45 | 30 | PASS | PASS | 200 | PASS | PASS |
+| CNES | 30.20 | 15 | PASS | PASS | 100 | WAIT | WAIT |
+| DLR | 24.96 | 15 | PASS | PASS | 100 | WAIT | WAIT |
+| Australian Space Agency | 41.23 | 15 | PASS | PASS | 50 | WAIT | PASS |
+| UAE Space Agency | 13.22 | 45 | WAIT | WAIT | 25 | WAIT | PASS |
+| ispace | 29.45 | 45 | WAIT | PASS | 100 | WAIT | WAIT |
+| Interlune | 35.41 | 90 | WAIT | WAIT | 25 | PASS | PASS |
+| **Count** | | | **8/11** | **9/11** | | **3/11** | **8/11** |
+
+**Map A 10%:** NASA, CNSA, ISRO, JAXA, ESA, CNES, DLR, Australian Space Agency. **Map A 25%:** those eight plus ispace.
+
+**Map B 10%:** CNSA, ESA, Interlune. **Map B 25%:** NASA, CNSA, ISRO, JAXA, ESA, Australian Space Agency, UAE Space Agency, Interlune. At 25%, **CNES, DLR and ispace still wait** on full-ceiling funding.
+
+**Do not call all Map B cash-PASS Sponsors executable or “funded.”** At the proposed `f=20` ($85M BUILD/$150M LAND) the individual ceilings for **Australia ($50M), UAE ($25M), ispace ($100M), Interlune ($25M)** are below one corresponding default service quote. Interlune and UAE can pass Map B at 25% without being able to buy the default BUILD service; Australia likewise. This is a genuine *scope/price mismatch*, not a reason to top up. At 10%, the cash-PASS and service-price-feasible set is **CNSA and ESA**; Interlune is ceiling-affordable but not service-price-feasible. At 25%, the cash-PASS and service-price-feasible set is **NASA, CNSA, ISRO, JAXA, ESA** (5/11). Australia, UAE and Interlune are cash-affordable against their individual ceilings but not executable at generic default prices. Financier decisions, readiness, slot capacity and physical completion remain untested.
+
+**Decision for Route 1:** keep `s=.10` first / `s=.25` comparison and `m_max=.001`. The first epoch should report **both** full-ceiling affordability and feasible-service-price affordability, preserving WAIT reasons, rather than forcing funding by a ceiling or inventing a supplier quote. This is the last report-only sizing selection; Gate 1 code remains unauthorized pending user decision.
