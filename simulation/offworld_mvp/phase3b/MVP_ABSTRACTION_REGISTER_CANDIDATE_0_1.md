@@ -55,3 +55,11 @@ These are **scenario modeling decisions**, not new Phase 3B runtime authority. T
 **B8_SUB_SCHEDULE_001 — options:** (a) keep previous `finish += 1` rule and accept accidental ordering advantage; (b) wait for subcontract reservation completion before self-performing; (c) add counterfactual baseline floors or replace the scheduler. **Selected (b).** The previous greedy, category-keyed reservation order can move direct LAND work between scenarios. With a single slot, the original comparison gave Axiom 2033 on subcontract success and 2032 after failure/recovery. The corrected recovery starts after the reserved sub slot, and the single-slot results are success 2033 versus recovered 2034 for Axiom. Reconsider if realistic re-sourcing can begin earlier, or if multi-bid scheduling warrants a common chronological event queue.
 
 **B8_SUB_PAYMENT_002 — options:** (a) pay full quote on failure; (b) pay nothing; (c) apply the existing 10% acceptance holdback convention. **Selected (c)** because the prime contract already demonstrates the holdback idea, and paying nothing for consumed supplier capacity would imply a stronger unmodeled penalty. Two failed packages quoted 0.40 total pay 0.36 and withhold 0.04; the retained amount remains in the prime's account. Reconsider when specific supplier contracts, refund clauses, or actual rework costs are modeled.
+
+## Build 8 master-cast identity migration (2026-10-11, research-to-trial boundary)
+
+| ID | Kind | Choice | Invariant | Deferred |
+|---|---|---|---|---|
+| B8_CAST_IDENTITY_001 | Build 8 trial selection | Resolve existing named sponsors and executors from the merged research cast by identity, preserving displayed names | No changes to scenario weights, motivations, prices, durations, slots, delivery, knowledge or kernel fingerprints | Wider actor selection and researched capability assessment |
+| B8_CAST_CAPACITY_002 | Evidence boundary | Keep all research capacity indices null and experiment slot assumptions local | No false researched industrial capacity | Empirical scoring and competitive bidding |
+| B8_CAST_PHASES_003 | Review boundary | Migrate one experiment at a time after exact output capture, then separate subcontract and multi-executor work | No behavior drift; Build 7/kernel unchanged | Dynamic supplier selection |
