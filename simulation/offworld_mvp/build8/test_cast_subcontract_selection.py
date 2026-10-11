@@ -46,8 +46,13 @@ class AlternateSubcontractFullRunTests(unittest.TestCase):
         self.assertEqual(str(k.state.accounts['b8_source:USA'].balance), '-10.020169202983437')  # Existing mobilization source, unchanged from baseline
         knowledge = k.build8_knowledge
         subfacts = [x for x in knowledge if 'subcontract:' in str(x)]
-        self.assertTrue(subfacts)
-        self.assertTrue(all('CASC' in str(x) or 'Astrobotic' in str(x) for x in subfacts))
+        self.assertEqual(len(subfacts), 4)
+        self.assertEqual({x[2] for x in subfacts}, {'CASC', 'Astrobotic'})
+        self.assertTrue(all(x[3] == 'DIRECT_CONTRACT' for x in subfacts))
+        self.assertFalse(any(x[2] in {'Interlune','Axiom'} for x in subfacts))
+        payments = [e for e in k.event_log if e['kind'] == 'BUILD8_SUB_PAYMENT']
+        self.assertEqual(len(payments), 2)
+        self.assertTrue(all(D(e['amount']) == D('.20') and D(e['withheld']) == 0 for e in payments))
 
     def test_alternate_failure_propagates_and_holds_back(self):
         work, decisions, k, slots = self.run_alternate(failed=True)
@@ -55,6 +60,10 @@ class AlternateSubcontractFullRunTests(unittest.TestCase):
         self.assertEqual([w.outcome for w in work],
                          ['FAILED', 'BLOCKED_UPSTREAM', 'FAILED', 'BLOCKED_UPSTREAM'])
         self.assertTrue(all(v <= 1 for v in slots.values()))
+        payments = [e for e in k.event_log if e['kind'] == 'BUILD8_SUB_PAYMENT']
+        self.assertEqual(len(payments), 2)
+        self.assertTrue(all(D(e['quoted']) == D('.20') and D(e['amount']) == D('.18')
+                            and D(e['withheld']) == D('.02') for e in payments))
         self.assertEqual(str(k.state.accounts['b8_source:USA'].balance), '-10.020169202983437')  # Existing mobilization source, unchanged from baseline
 
     def test_alternate_recovery_does_not_accelerate_prime(self):
