@@ -11,9 +11,11 @@ from offworld_kernel.policy_runner import run_financier_policy
 from offworld_kernel.financing_protocol import build_financing_request
 from offworld_kernel.policies.manifest import test_only_manifest
 
-def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None):
+def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029):
     """Returns rows for 2026-2029, including original Gate 1 2026 B results."""
     share=D(share)
+    if not isinstance(end_year,int) or not 2029 <= end_year <= 2035:
+        raise ValueError('end_year must be 2029..2035, bounded by Earth investment data')
     if carry_cap not in (None,0,1,2):
         raise ValueError('carry cap must be unlimited, 0, 1, or 2')
     rows,k=run_gate1(share,root=root,scenario='B')
@@ -55,7 +57,12 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None):
     prospecting=load_prospecting_scenario()
     manifest=test_only_manifest()
     purchased={r['sponsor'] for r in rows if r['disbursement']}
-    for year in (2027,2028,2029):
+    required={country for country,entries in countries.items() if entries}
+    for country in required:
+        for year in range(2026,end_year+1):
+            if (country,year) not in capacities:
+                raise ValueError(f'missing Earth investment: {country} {year}')
+    for year in range(2027,end_year+1):
         before={s:k.state.accounts['route1:budget:'+s].balance for s in all_sponsors}
         allocated={s:D(0) for s in all_sponsors}
         for country,entries in sorted(countries.items()):
