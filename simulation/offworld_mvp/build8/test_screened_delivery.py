@@ -40,3 +40,42 @@ class ScreenedDeliveryTests(unittest.TestCase):
         self.assertEqual(next(r.outcome for r in rows if r.project=='Interlune' and r.category=='LAND'),'FAILED')
         self.assertFalse(any(r.produced=='ON_MOON:Interlune' for r in rows))
         k.assert_invariants()
+
+    def test_funding_delay_is_real_when_capacity_available(self):
+        rows,decisions,k,occupied=run_screened(capacity_slots=2)
+        axiom=next(r for r in rows if r.project=='Axiom' and r.category=='BUILD')
+        self.assertEqual(axiom.start,2027)
+        self.assertEqual(axiom.finish,2029)
+        # In 2026 Northrop had a second unused slot: this is financing delay,
+        # not an executor bottleneck hidden behind the finance queue.
+        self.assertEqual(occupied[('BUILD',2026)],1)
+        self.assertEqual(next(d[4] for d in decisions if d[0]=='Axiom'),2027)
+        k.assert_invariants()
+
+    def test_cost_difference_not_named_belief_and_pressure_audit(self):
+        rows,decisions,k,_=run_screened()
+        self.assertGreater(D(decisions[0][3]),D(decisions[1][3]))
+        records=[e for e in k.event_log if e.get('kind')=='BUILD8_FINANCE_SCREEN']
+        self.assertEqual(len(records),2)
+        for e in records:
+            self.assertEqual(D(e['pressure']),D(0))
+            self.assertEqual(D(e['pressure_contribution']),D(0))
+            self.assertEqual(str(e['economic_score']),next(d[3] for d in decisions if d[0]==e['sponsor']))
+        # The unchanged zero-pressure baseline still funds Interlune in 2026,
+        # Axiom in 2027, and completes in 2030 / 2032.
+        self.assertEqual([d[4] for d in decisions],[2026,2027])
+        self.assertEqual([r.finish for r in rows if r.category=='LAND'],[2030,2032])
+
+    def test_failure_contract_comparison(self):
+        full,_,kf,_=run_screened(failure=('Interlune','LAND'),contract='FULL_ON_FAILURE')
+        held,_,kh,_=run_screened(failure=('Interlune','LAND'),contract='ACCEPTANCE_HOLDBACK')
+        a=next(r for r in full if r.project=='Interlune' and r.category=='LAND')
+        b=next(r for r in held if r.project=='Interlune' and r.category=='LAND')
+        self.assertEqual((a.outcome,b.outcome),('FAILED','FAILED'))
+        self.assertEqual((a.revenue,b.revenue),(D('.9'),D('.81')))
+        self.assertEqual((a.cost,b.cost),(D('.75'),D('.75')))
+        self.assertEqual((a.profit,b.profit),(D('.15'),D('.06')))
+        self.assertEqual(kf.state.accounts['screen:cash:Interlune'].balance,D(0))
+        self.assertEqual(kh.state.accounts['screen:cash:Interlune'].balance,D('.09'))
+        self.assertFalse(any(r.produced=='ON_MOON:Interlune' for r in held))
+        kf.assert_invariants();kh.assert_invariants()

@@ -21,9 +21,15 @@ SPONSORS = ('Interlune', 'Axiom')
 # Differing authored information value expresses distinct investment motives.
 MOTIVES = {'Interlune': ('RESOURCE_RETURN', D('2.00')),
            'Axiom': ('LUNAR_INFRASTRUCTURE', D('2.20'))}
+# Explicitly different, observable project underwriting, not sponsor-name belief.
+UNDERWRITING_COSTS = {'Interlune': D('.125'), 'Axiom': D('.175')}
+CONTRACTS = ('FULL_ON_FAILURE', 'ACCEPTANCE_HOLDBACK')
 
 
-def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None):
+def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
+                 contract='FULL_ON_FAILURE', capacity_slots=1):
+    if contract not in CONTRACTS or capacity_slots not in (1,2):
+        raise ValueError('invalid contract/capacity')
     if set(order) != set(SPONSORS) or len(order) != 2:
         raise ValueError('expected Interlune and Axiom')
     k,h,capacities,_ = build_country_opening(root)
@@ -86,21 +92,27 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None):
         # Frozen underwriting snapshots before any allocation.
         snap=DecisionSnapshot('SCREEN_FINANCIER','PRIVATE_FINANCIER','EARTH:USA',
             'screen:finance:snapshot:'+name,'1',frozen,('FINANCE',),('RETURN',),observation_ids,
-            (('resource_exists',D('.85') if name=='Interlune' else D('.75')),),(('resource_exists',D('.5')),),(),(),(),
-            tuple(SnapshotFact(key,FactState.KNOWN,value,'TEST_ONLY:AUTHORED_UNDERWRITING')
-                  for key,value in UNDERWRITING)+
-            (SnapshotFact('capital.STRATEGIC_PRESSURE',FactState.KNOWN,'0','BUILD8_MOBILIZATION'),))
+            (('resource_exists',D('.8')),),(('resource_exists',D('.5')),),(),(),(),
+            tuple(SnapshotFact(key,FactState.KNOWN,
+                 str(UNDERWRITING_COSTS[name]) if key=='underwriting.DEVELOPMENT_CAPEX' else value,
+                 'TEST_ONLY:AUTHORED_PROJECT_COST') for key,value in UNDERWRITING)+
+            (SnapshotFact('capital.STRATEGIC_PRESSURE',FactState.KNOWN,
+                          str(mobilization.strategic_pressure),'BUILD8_MOBILIZATION'),))
         execution=run_financier_policy(snap,req,manifest,'screen:finance:decision:'+name,
                                        allow_test_fixture=True)
         score=D(dict(execution.metrics)['annual_return_proxy']) if execution.decision.outcome.value=='APPROVE' else None
-        screenings[name]=(execution.decision,score)
-    ranked=sorted((n for n,(d,s) in screenings.items() if d.outcome.value=='APPROVE'),
+        # Pressure is reported separately; the existing financier policy does not
+        # price pressure into return. No invented weighting is introduced.
+        pressure=mobilization.strategic_pressure
+        screenings[name]=(execution.decision,score,pressure)
+    ranked=sorted((n for n,(d,s,p) in screenings.items() if d.outcome.value=='APPROVE'),
                   key=lambda n:(-screenings[n][1],sha256(f'{SEED}|1|screen:finance:{n}'.encode()).hexdigest()))
     approvals={}; pending=set(ranked); work=[]; occupied={}; ready={}
     # Approved but not financed is a visible, persistent queue state.
     for name in ranked:
         k.audit('BUILD8_FINANCE_SCREEN',2026,sponsor=name,decision=screenings[name][0].id,
-                score=screenings[name][1],outcome='APPROVED_AWAITING_CLEARING')
+                economic_score=screenings[name][1],pressure=screenings[name][2],
+                pressure_contribution=D(0),outcome='APPROVED_AWAITING_CLEARING')
     for year in (2026,2027):
         # 2027 financing is additional mobilized country capital, not minted money.
         if year==2027 and pending:
@@ -112,7 +124,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None):
         for name in ranked:
             if name not in pending or k.state.accounts['screen:fund'].balance<amount:
                 continue
-            decision,score=screenings[name]
+            decision,score,pressure=screenings[name]
             # Decision is the existing screened policy decision, not a fabricated approval.
             k.financing_decisions[decision.id]=decision
             k.event(year-2025,'SCREEN_FINANCIER',ActionKind.FINANCE,'APPROVED',
@@ -125,13 +137,15 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None):
                                         sponsor_decisions[name].id)
             approvals[name]=year
             k.audit('BUILD8_FINANCE_CLEARING',year,sponsor=name,decision=decision.id,
-                    outcome='FUNDED',amount=amount)
+                    outcome='FUNDED',amount=amount,economic_score=score,pressure=pressure,
+                    pressure_contribution=D(0))
             ready[name]=year
             pending.remove(name)
         for name in sorted(pending):
             k.audit('BUILD8_FINANCE_CLEARING',year,sponsor=name,
                     decision=screenings[name][0].id,outcome='DEFERRED_INSUFFICIENT_CASH',
-                    amount=amount)
+                    amount=amount,economic_score=screenings[name][1],
+                    pressure=screenings[name][2],pressure_contribution=D(0))
     for category in ('BUILD','LAND'):
         operator=OPERATORS[category][0]
         k.add_account('screen:revenue:'+category,operator,'EARTH:USA',AccountKind.SUPPLIER)
@@ -150,21 +164,28 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None):
             continue
         _,base,markup,duration,slots=OPERATORS[category]
         start=ready[name]
-        while any(occupied.get((category,y),0)>=slots for y in range(start,start+duration)):
+        while any(occupied.get((category,y),0)>=capacity_slots for y in range(start,start+duration)):
             start+=1
         finish=start+duration
         for y in range(start,finish): occupied[category,y]=occupied.get((category,y),0)+1
         cost=base*SCALE;price=cost*(1+markup)
+        outcome='FAILED' if failure==(name,category) else 'DELIVERED'
+        # Hold back 10% of price on failure; the executor still bears its full cost.
+        paid=price if outcome=='DELIVERED' or contract=='FULL_ON_FAILURE' else price*D('.90')
         tx=k.transfer(finish-2025,'screen:cash:'+name,'screen:revenue:'+category,
-            price,TxPurpose.CAPEX,parent_ids=(screenings[name][0].id,consumed))
+            paid,TxPurpose.CAPEX,parent_ids=(screenings[name][0].id,consumed))
+        # Cost settlement is a real outgoing cash transfer. If the holdback
+        # exceeds the markup, the executor would need its own working capital.
+        if paid < cost:
+            raise ValueError('contract requires executor working capital')
         k.transfer(finish-2025,'screen:revenue:'+category,'screen:expense:'+category,
             cost,TxPurpose.OTHER_INVESTMENT,parent_ids=(tx.id,))
-        outcome='FAILED' if failure==(name,category) else 'DELIVERED'
         produced=(('BUILT:' if index==0 else 'ON_MOON:')+name) if outcome=='DELIVERED' else None
         if produced: delivered[name].add(produced)
         k.audit('BUILD8_SCREENED_DELIVERY',finish,project=name,category=category,
-            outcome=outcome,consumed=consumed,produced=produced or '',revenue=price,cost=cost,profit=price-cost)
-        work.append(Work(name,category,start,finish,outcome,consumed,produced,price,cost,price-cost))
+            outcome=outcome,consumed=consumed,produced=produced or '',revenue=paid,cost=cost,profit=paid-cost,
+            contract=contract,withheld=price-paid)
+        work.append(Work(name,category,start,finish,outcome,consumed,produced,paid,cost,paid-cost))
         ready[name]=finish;stages[name]+=1
     k.assert_invariants()
     return (tuple(sorted(work,key=lambda w:(w.start,rank[w.project],w.category))),
